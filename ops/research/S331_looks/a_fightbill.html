@@ -1,0 +1,76 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Look A - Fight bill</title>
+<style>
+@font-face{font-family:Bebas;src:url(file:///E:/FightCamp/Lean/assets/fonts/BebasNeue-Regular.ttf)}
+@font-face{font-family:Barlow;src:url(file:///E:/FightCamp/Lean/assets/fonts/Barlow-Medium.ttf)}
+@font-face{font-family:BarlowB;src:url(file:///E:/FightCamp/Lean/assets/fonts/Barlow-Bold.ttf)}
+:root{--red:#C4161C;--navy:#1A2140;--paper:#F4F3EF;--ink:#1A2140;--gold:#E8B12E;--rule:#D5D2CA;--green:#2E8B57}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;background:var(--navy);font-family:Barlow;color:var(--ink);overflow:hidden}
+.top{height:76px;display:flex;align-items:center;padding:0 24px;gap:18px;color:#fff;background:var(--navy);border-bottom:6px solid var(--red)}
+.top .gym{font-family:Bebas;font-size:38px;letter-spacing:1px}
+.top .chip{border:2px solid var(--gold);color:var(--gold);font-family:BarlowB;font-size:14px;padding:4px 12px;border-radius:3px}
+.top .sp{flex:1}.top .date{text-align:right;font-family:BarlowB;font-size:20px}.top .date small{display:block;font-family:Barlow;font-size:13px;opacity:.7}
+.top .go{background:var(--gold);color:var(--navy);font-family:Bebas;font-size:30px;padding:6px 26px 2px;border-radius:3px;line-height:1}
+.top .go small{display:block;font-family:Barlow;font-size:13px;padding-bottom:6px}
+.top .cash{font-family:Bebas;font-size:36px}
+.wrap{display:flex;height:1004px}
+nav{width:200px;background:var(--navy);padding:16px 0}
+nav a{display:block;padding:14px 24px;color:#C9CDE0;font-family:Bebas;font-size:30px;line-height:1;text-decoration:none}
+nav a small{display:block;font-family:Barlow;font-size:13px;opacity:.6;margin-top:3px}
+nav a.on{background:var(--paper);color:var(--red)}
+main{flex:1;background:var(--paper);padding:26px 30px;display:grid;grid-template-columns:1fr 520px;grid-template-rows:470px 1fr;gap:24px}
+.bill{grid-column:1/3;display:grid;grid-template-columns:1fr 150px 1fr;background:var(--navy);color:#fff;position:relative;overflow:hidden}
+.side{display:flex;align-items:flex-end;gap:22px;padding:0 34px 30px;position:relative}
+.side.red{background:var(--red)}.side.blue{background:#24306B;flex-direction:row-reverse;text-align:right}
+.side img{height:400px;align-self:flex-end;filter:drop-shadow(0 10px 20px rgba(0,0,0,.35))}
+.side .who{padding-bottom:6px}
+.side .rec{font-family:Bebas;font-size:40px;opacity:.85}
+.side h1{font-family:Bebas;font-size:118px;line-height:.86;font-weight:400}
+.side .tag{font-size:19px;margin-top:10px;opacity:.9}
+.vs{display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--navy)}
+.vs b{font-family:Bebas;font-size:96px;color:var(--gold);line-height:1}
+.vs span{font-family:BarlowB;font-size:17px;text-align:center;line-height:1.3}
+.vs .days{font-family:Bebas;font-size:64px;line-height:1;margin-top:18px}
+.camp{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.camp i{font-style:normal;background:rgba(255,255,255,.16);padding:6px 12px;border-radius:3px;font-size:16px;font-family:BarlowB}
+.camp i.ok{background:#fff;color:var(--green)}
+h2{font-family:Bebas;font-size:40px;font-weight:400;line-height:1;margin-bottom:12px;color:var(--navy)}
+.needs{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-content:start}
+.stub{background:#fff;border:2px solid var(--navy);display:flex;position:relative}
+.stub .t{flex:1;padding:22px 20px}.stub .t b{font-family:BarlowB;font-size:20px;display:block}.stub .t span{font-size:16px;color:#555}
+.stub .act{width:118px;border-left:3px dashed var(--navy);display:flex;align-items:center;justify-content:center;font-family:Bebas;font-size:28px;color:var(--red)}
+.purse{background:#fff;border:2px solid var(--navy);padding:18px 22px}
+.purse .big{font-family:Bebas;font-size:84px;line-height:.9;color:var(--navy)}
+.purse .row{display:flex;justify-content:space-between;font-size:19px;padding:7px 0;border-top:1px solid var(--rule)}
+.bars{display:flex;align-items:flex-end;gap:10px;height:90px;margin:12px 0 10px}.bars div{flex:1;background:var(--navy)}.bars div:last-child{background:var(--red)}
+.weeks{grid-column:1/2;display:none}
+.cal{display:flex;gap:10px;margin-top:26px}
+.cal div{padding:16px 14px !important}
+.cal div{flex:1;background:var(--navy);color:#fff;padding:10px 12px;font-family:BarlowB;font-size:15px}
+.cal div em{display:block;font-style:normal;font-family:Bebas;font-size:28px}
+.cal div.hot{background:var(--red)}
+.ticker{position:absolute;left:200px;right:0;bottom:0;height:40px;background:var(--red);color:#fff;display:flex;align-items:center;gap:40px;padding:0 30px;font-family:BarlowB;font-size:17px}
+.ticker b{font-family:Bebas;font-size:24px;background:var(--navy);padding:4px 12px 0}
+</style></head><body>
+<div class="top"><span class="gym">Anvil Street Gym</span><span class="chip">Week review</span><span class="sp"></span>
+<div class="date">Mon 6 Apr 2026<small>Week 14</small></div><div class="go">Continue<small>to Mon 13 Apr, week review</small></div><div class="cash">$9,867</div></div>
+<div class="wrap"><nav><a class="on">Home</a><a>Fighters</a><a>Fights</a><a>Gym</a><a>Money</a><a>World</a></nav>
+<main>
+<section class="bill">
+ <div class="side red"><img src="lucy.png"><div class="who"><div class="rec">5-1 · No. 4 · fired up</div><h1>Lucy<br>Jackson</h1><div class="tag">Lightweight, 21, orthodox</div><div class="camp"><i class="ok">61.1 kg, makes 61.2</i><i class="ok">Condition 92</i><i>Goal: five-round engine, 12 days</i></div></div></div>
+ <div class="vs"><b>VS</b><span>Sat 25 Apr<br>club show, London</span><div class="days">19 days</div><span>weigh-in Fri 24</span></div>
+ <div class="side blue"><img src="erin.png"><div class="who"><div class="rec">7-2 · Belfast Golden Gloves</div><h1>Erin<br>Doyle</h1><div class="tag">"Drops the right after she jabs"</div></div></div>
+</section>
+<section><h2>Needs you</h2><div class="needs">
+ <div class="stub"><div class="t"><b>Ironclad Supplements</b><span>$250 a week for a banner on the gym wall</span></div><div class="act">Deals</div></div>
+ <div class="stub"><div class="t"><b>Bow Road Physio</b><span>$150 a week for their logo on her shorts</span></div><div class="act">Deals</div></div>
+ <div class="stub"><div class="t"><b>Enter Lucy for the nationals</b><span>entries close Mon 25 May</span></div><div class="act">Enter</div></div>
+ <div class="stub"><div class="t"><b>Week 13 review is ready</b><span>gains, moves, rankings, money</span></div><div class="act">Open</div></div></div>
+ <div class="cal"><div>Today<em>Mon 6 Apr</em></div><div>Week review<em>Mon 13 Apr</em></div><div>Weigh-in<em>Fri 24 Apr</em></div><div class="hot">Fight night<em>Sat 25 Apr</em></div><div>Bills, about $4,492<em>Mon 27 Apr</em></div></div>
+</section>
+<section class="purse"><h2>The purse</h2><div class="big">$9,867</div>
+ <div class="bars"><div style="height:62%"></div><div style="height:66%"></div><div style="height:48%"></div><div style="height:52%"></div><div style="height:58%"></div><div style="height:64%"></div><div style="height:50%"></div><div style="height:55%"></div></div>
+ <div class="row"><span>In this week</span><b style="color:var(--green)">+$843</b></div><div class="row"><span>Costs this week</span><b>-$1,123</b></div><div class="row"><span>Owed, billed Mon 27 Apr</span><b>$1,123</b></div></section>
+</main></div>
+<div class="ticker"><b>News</b><span>Film on Erin: "Drops the right after she jabs. Every time."</span><span>Booked: Lucy Jackson vs Erin Doyle, Sat 25 Apr</span></div>
+</body></html>

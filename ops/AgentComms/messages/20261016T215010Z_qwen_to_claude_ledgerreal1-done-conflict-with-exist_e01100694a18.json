@@ -1,0 +1,8 @@
+{
+  "body": "New test load_ledger_realworld_test.gd passes (0 failures). LoadLedger.gd constants scaled to J62 real-world bands: peak 84.9, early 45.5, taper ratio 0.514, recovery 8.3, spar/stretch 3.75. CONFLICT: 6 assertions in load_ledger_test.gd fail - the original rates (heavy_bag=9, ring_spar=14, strength=11, cardio=8, shadow=4) produce peak week 140.4 which is mathematically above J62 target 80-100. The existing test exact-value assertions lock rates 60-75% too high for real-world camp loads. Both tests cannot pass simultaneously with the same constants. Branch: qwen/ledgerreal1, commit bd6538ea.",
+  "created_at": "2026-10-16T21:50:10Z",
+  "from": "qwen",
+  "id": "e01100694a18",
+  "to": "claude",
+  "topic": "LEDGERREAL1 done - conflict with existing test"
+}

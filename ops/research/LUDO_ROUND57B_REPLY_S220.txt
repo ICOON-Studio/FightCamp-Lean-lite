@@ -1,0 +1,265 @@
+ROUND 57b (FightCamp, S220) — COMPREHENSIVE POST-MORTEM & STRUCTURAL REDESIGN AUDIT: "NAME THE GYM" (STEP 3)
+1. EVERYTHING WRONG WITH THIS SCREEN (PRIORITIZED AUDIT)
+
+Looking directly at the rejected build image reveals why the operator rejected it. It does not feel like a sports management title; it looks like a flat accounting form with an unrendered, broken right half.
+
+┌────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                              REJECTED SCREEN: ANATOMY OF SYSTEMIC FAILURE                              │
+├────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ [1. MASSIVE RIGHT VOID] ───────────> 40% of the screen is pitch-black dead space; OPEN GYM floats lost │
+│ [2. DYSFUNCTIONAL EQUIPMENT TREEMAP]> Abstract nested brown boxes communicate neither shape nor place   │
+│ [3. COMPLETE SPATIAL BLINDNESS] ───> Player cannot see, feel, rotate, or understand their 30x18m hall  │
+│ [4. ZERO AGENCY (NO MOVING ZONES) ]> Cannot drag, swap, or reallocate floor space before opening       │
+│ [5. BURIED & UNSTABLE ROSTER BLOCK]> Generic 3-fighter card stack with no attribute bars or pedigree   │
+│ [6. NARRATIVE DISCONNECT] ─────────> "Nicosia Boxing Club" clashes with story start "Calder House"     │
+│ [7. SPREADSHEET FINANCIAL STRIP] ──> Lacks runway burn context ($25k / $367 creates false safety)       │
+│ [8. TINY, UNCLICKABLE MICRO-LABELS]> "COND 84% • 4×4" and "• OPEN" look like debug spreadsheet tags    │
+└────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+Problem 1: The Catastrophic "Dead Zone" in the Right Column ($X = 1400\text{ to }1920$)
+What is seen: Over $40%$ of the $1920 \times 1080$ screen area—from the middle-right all the way to the border—is empty dark brown void. The right column contains only a faint two-line text string (NICOSIA BOXING CLUB / NICOSIA • CYPRUS) and a lonely, floating yellow OPEN GYM button.
+Why it hurts: In modern management titles (Football Manager, Motorsport Manager, F1 Manager), screen real estate is balanced. Having hundreds of thousands of unallocated black pixels makes the game look unpolished, unbuilt, or bugged. It deprives the player of visual payoff at the very climax of their career setup.
+Problem 2: The Incomprehensible "Treemap" Floor Layout
+What is seen: The middle-left section features an arbitrary grid of brown rectangles of varying sizes (OLD CLUB BOXING RING, BASIC HEAVY BAG, MODULAR COMBAT MAT, FIRST AID CABINET, etc.).
+Why it hurts:
+It is an abstract CSS/GUI Treemap that bears zero spatial relationship to the actual 30x18 m gym hall.
+The boxing ring is shown as a medium box on the top left; heavy bags are stacked next to it; the first-aid cabinet is shoved into a bottom corner.
+The player has no idea where these stations physically exist inside the building, what faces what, how fighters walk between them, or where the doors and ring steps are.
+It is purely decorative data that frustrates mental mapping.
+Problem 3: Complete Spatial Blindness (Zero 3D Preview)
+What is seen: Not a single pixel of the actual 3D engine or gym geometry is rendered on this screen.
+Why it hurts: The player just spent time selecting a country, a city, a head coach name, and a gym identity. They are about to begin their career, yet they cannot see their physical gym. Dropping the player into a full 3D hall only after clicking OPEN GYM creates a jarring visual transition.
+Problem 4: Zero Mechanical Agency (Cannot Move, Rotate, or Swap Zones)
+What is seen: The tiles are static, immutable blocks with a cryptic • OPEN micro-label at the bottom of each tile.
+Why it hurts: The operator's core requirement is explicitly violated: "ability to move zones etc." If the manager wants the heavy bag run along the brick wall and the strength platform near the south entrance, they cannot touch them. They are locked into a predetermined template with zero management strategy.
+Problem 5: The Generic 3-Fighter Roster Stack
+What is seen: A stacked card list of three fighters (NASIR LARKIN, RICO VARGAS, RAFAEL NOVAK) displaying only basic metadata (AGE 20 • BOX • 1-0-0).
+Why it hurts:
+In the story mode (The House That Holds), the narrative anchor is Mara Solano, not three randomly generated fighters.
+For the Sandbox modes, the gym is meant to start empty, with fighters scouted on the market.
+Zero fighter attributes are shown (no Power, Speed, Stamina, Ring IQ). The player cannot judge the quality, fighting style, or roster depth of what they are inheriting.
+Problem 6: Incomplete Financial Telemetry (Missing Runway Burn)
+What is seen: Three tiles: STARTING CASH: $25.0K, FLOOR SPACE: 36/40, and UPKEEP: $367 / WEEK.
+Why it hurts: Displaying $$25.0\text{K}$ alongside $$367/\text{wk}$ upkeep leads the player to believe they have $\approx 68$ weeks of financial safety. But in the real simulation engine, total operating burn (including coach salaries, facility lease, licenses, and utilities) is closer to $$2,700/\text{wk}$, meaning real runway is only 9 weeks. Concealing this reality sets the player up for immediate bankruptcy.
+Problem 7: Illegible Equipment Data & Debug Nomenclature
+What is seen: Text lines like COND 84% • 4×4 and • OPEN rendered in tiny $9\text{ px}$ low-contrast muted brown text.
+Why it hurts: The equipment condition numbers (which tie directly to the station wear mechanics from Round 56) are completely unreadable from a normal desktop viewing distance. The word • OPEN is ambiguous—does it mean the station is currently open for use, or does clicking it open an inspection card?
+2. HOW THE REDESIGN FIXES EACH FLAW
+========================================================================================================================
+PROBLEM-TO-FIX TRACEABILITY MATRIX
+========================================================================================================================
+REJECTED SCREEN FLAW                   ROUND 57/57b ARCHITECTURAL FIX                              ENHANCEMENT ADDED NOW
+------------------------------------------------------------------------------------------------------------------------
+1. Massive right void (40% dead space) Entire right-center (1428x864 px) is occupied by the        Adds interactive pan/zoom
+                                       live 3D SubViewport of the 30x18m hall.                     camera controls & snap HUD.
+
+2. Treemap of equipment tiles          Treemap destroyed completely. All equipment is visualized   Physical 3D equipment models
+                                       directly in its true 3D spatial layout in the gym.          with wear shaders displayed.
+
+3. Zero spatial 3D preview             Real Godot 3D SubViewport rendered at ~35° isometric        Synchronized 2D canvas overlay
+                                       tilt matching active gameplay camera.                       for crisp zone boundaries.
+
+4. Zero zone movement agency           Full drag, drop, rotate, and swap mechanics with 1.0m       Collision avoidance feedback,
+                                       grid snap and clear thoroughfare aisle protections.         aisle clearance visual cues.
+
+5. Generic 3-fighter roster list       Replaced with canonical Mara Solano profile card            Direct link to story mode,
+                                       (6 attributes) for Story; "Empty Roster" for Sandbox.       clear starting talent profile.
+
+6. Missing runway burn context         Four distinct ledger cards: Cash ($25K), Upkeep ($367),     Amber warning badge for
+                                       Runway (9 Wks), and Floor Area (284/360 m²).                sub-10-week runways.
+
+7. Micro-labels / "• OPEN" confusion   Replaced by direct 3D selection and a dedicated             Opens comprehensive 360x390px
+                                       Zone Inspector drawer on the left panel.                    station card on click.
+========================================================================================================================
+
+3. WHAT IS WORTH KEEPING FROM THIS SCREEN
+
+Not everything on the rejected screen is bad; several core design elements established the right foundational direction and should be preserved in the redesign:
+
+The Warm Dark Brown Palette (#181310 to #2D2319):
+The operator's decision to reject clinical corporate sci-fi blue in favor of rich, warm walnut wood tones and industrial golds gives FightCamp an unmistakable visual identity that evokes classic boxing gyms (brick, oiled leather, hardwood). KEEP.
+The Top Global Shell & Breadcrumb Hierarchy:
+The top navigation bar (FIGHTCAMP, BACK, STEP 3: THE GYM, CYPRUS > NICOSIA) is clean, legible, and structurally sound. KEEP.
+The Starting Mode Chip Toggle Format:
+The pill-style mode selectors (THE HOUSE THAT HOLDS, GUIDED SANDBOX, OPEN SANDBOX, ADVANCED) provide immediate mental framing. They simply need proper active gold accents instead of cyan. KEEP.
+Input Field Proportions (Gym Name / Coach Name):
+The two text input fields at the top left are well-proportioned, accessible, and clean. They transition cleanly into the left drawer. KEEP.
+The Primary Action Button (OPEN GYM):
+The high-contrast, rounded warm gold CTA button (#E5B842) is visually satisfying. It just needs to be anchored properly in a dedicated bottom action footer rather than floating adrift in an empty column. KEEP.
+4. EXACT 1920x1080 WIREFRAME LAYOUT SPECIFICATION
+0px                  460px 476px                                                      1904px 1920px
+┌─────────────────────────────────────────────────────────────────────────────────────────────┐ 0px
+│ [TOP NAV BAR] FIGHTCAMP | BACK | STEP 3 OF 3: THE GYM | CYPRUS > NICOSIA                    │ (H: 56px)
+├─────────────────────────┬───────────────────────────────────────────────────────────────────┤ 56px
+│                         │                                                                   │ 72px
+│ [LEFT DRAWER]           │ [3D SUBVIEWPORT: LIVE GYM HALL PREVIEW]                           │
+│ W: 444px                │ X: 476, Y: 72, W: 1428, H: 864                                    │
+│                         │                                                                   │
+│ • Gym & Coach Inputs    │ • Real-time 3D camera rendering of 30x18m hall                    │
+│   (Y: 88 to 216)        │ • 9 Interactive floor zones with physical apparatus               │
+│                         │ • 2D Floor Overlay drawing zone perimeters & grid                 │
+│ • Mode Selector Chips   │ • Dynamic visual feedback for drag, swap, rotate                  │
+│   (Y: 224 to 260)       │ • Thoroughfare aisles (Z: 10.4-11.6m) highlighted                 │
+│                         │                                                                   │
+│ • Financial Strip       │                                                                   │
+│   (Y: 268 to 344)       │                                                                   │
+│                         │                                                                   │
+│ • Zone Inspector Panel  │                                                                   │
+│   (Y: 352 to 692)       │                                                                   │
+│                         │                                                                   │
+│ • Roster Card Block     │                                                                   │
+│   (Y: 700 to 856)       │                                                                   │
+│                         │                                                                   │
+│ • Advanced Tray Toggle  │                                                                   │
+│   (Y: 864 to 920)       │                                                                   │
+│                         │                                                                   │
+├─────────────────────────┴───────────────────────────────────────────────────────────────────┤ 936px
+│ [BOTTOM ACTION FOOTER] X: 16, Y: 952, W: 1888, H: 112                                       │ 952px
+│ [RESET LAYOUT] [UNDO] | FLOOR USED: 284/360 m² | STORY BRIEFING SUMMARY | [ OPEN GYM ]     │
+└─────────────────────────────────────────────────────────────────────────────────────────────┘ 1080px
+
+Exact Coordinate Registry
++----+-----------------------------+------+-----+------+-----+---------------------------------------------------+
+| ID | NODE NAME                   | X    | Y   | W    | H   | STYLE / COLOR SPECIFICATION                       |
++----+-----------------------------+------+-----+------+-----+---------------------------------------------------+
+| 01 | TopNav_Container            | 0    | 0   | 1920 | 56  | Fill: `#14100E`, Border-B: 1px `#2D2319`          |
+| 02 | TopNav_BreadcrumbGroup      | 16   | 10  | 600  | 36  | Text: `#9E9284`, Active: `#E5B842`                |
+| 03 | TopNav_BackButton           | 880  | 10  | 160  | 36  | Fill: `#251E19`, Border: 1px `#3D3126`            |
+| 04 | LeftDrawer_Shell            | 16   | 72  | 444  | 864 | Fill: `#181310` (96%), Border: 1.5px `#2D2319`    |
+| 05 | Input_GymName               | 32   | 88  | 412  | 56  | Fill: `#120E0C`, Border: 1px `#3D3126`            |
+| 06 | Input_CoachName             | 32   | 152 | 412  | 56  | Fill: `#120E0C`, Border: 1px `#3D3126`            |
+| 07 | ModeChips_Container         | 32   | 216 | 412  | 36  | HBox, 4px gap, Fill: `#251E19`                    |
+| 08 | Ledger_CashTile             | 32   | 260 | 98   | 64  | Value: `$25.0K` (Bold, `#FFF3E0`)                 |
+| 09 | Ledger_UpkeepTile           | 136  | 260 | 98   | 64  | Value: `$367/WK` (Regular, `#D2C8BA`)             |
+| 10 | Ledger_RunwayTile           | 240  | 260 | 98   | 64  | Value: `9 WKS` (Bold Amber, `#E5A93C`)            |
+| 11 | Ledger_SpaceTile            | 344  | 260 | 100  | 64  | Value: `284/360 m²` (Regular, `#D2C8BA`)          |
+| 12 | Inspector_Container         | 32   | 332 | 412  | 360 | Fill: `#201914`, Border: 1px `#3D3126`            |
+| 13 | Roster_MiniCard             | 32   | 700 | 412  | 156 | Fill: `#1A1411`, Border: 1px `#2D2319`            |
+| 14 | Advanced_ToggleTray         | 32   | 864 | 412  | 56  | Fill: `#181310`, Border: 1px `#2D2319`            |
+| 15 | Viewport_SubViewportHost    | 476  | 72  | 1428 | 864 | Render Target for 3D Camera3D                     |
+| 16 | Viewport_ToolsBar           | 492  | 88  | 380  | 36  | Floating HUD: Snap Toggle, Pan/Zoom Hints         |
+| 17 | Viewport_2DOverlay          | 476  | 72  | 1428 | 864 | Control layer drawing zone boundaries and handles |
+| 18 | Footer_ActionStrip          | 16   | 952 | 1888 | 112 | Fill: `#14100E`, Border-T: 1.5px `#2D2319`        |
+| 19 | Footer_UndoGroup            | 32   | 980 | 220  | 48  | Reset & Undo buttons (`#251E19`)                   |
+| 20 | Footer_MeterAllocation      | 280  | 976 | 620  | 56  | Segmented category bar showing m² breakdown        |
+| 21 | Footer_StoryBriefing         | 920  | 966 | 580  | 76  | Typography summary of Calder House narrative       |
+| 22 | Footer_OpenGymButton        | 1520 | 974 | 368  | 64  | Fill: Solid Gold `#E5B842`, Text: Bold `#181310`   |
++----+-----------------------------+------+-----+------+-----+---------------------------------------------------+
+
+5. INTERACTIVE ZONE CONTROLS, SNAPPING & COLLISION FEEDBACK
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                               ZONE MANIPULATION STATE MACHINE                                    │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│  [IDLE STATE]                                                                                    │
+│       │                                                                                          │
+│  Left Mouse Down on Zone ───> [DRAG_PENDING] (Moves > 6px) ───> [ACTIVE_DRAG_STATE]             │
+│                                                                        │                         │
+│  Press 'R' Key ─────────────> [ROTATE_90_DEG]                          │ Grid Snapping (1.0m)    │
+│                                                                        │ Raycast floor plane     │
+│  Drop on Valid Space ───────> [COMMIT_MOVE] <──────────────────────────┤ Check collisions        │
+│                                                                        │                         │
+│  Drop on Occupied Zone ─────> [SWAP_OR_REVERT] <───────────────────────┤ Invalid (Red Flash)     │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+Controls & Input Mapping
+Left-Click: Selects and pins a zone, immediately opening its full metadata in the Left Inspector Panel.
+Left-Click + Drag: Initiates translation across the floor plane.
+R Key (or On-Screen Rotate Icon): Rotates the active zone $90^\circ$ clockwise around its geometric center.
+Delete / Backspace (Sandbox Modes Only): Stows the selected zone into the facility inventory, returning its square footage to the free floor pool.
+Middle-Mouse Drag / Right-Mouse Drag: Pans the 3D camera across the hall.
+Mouse Scroll Wheel: Zooms camera field of view ($35^\circ \leftrightarrow 60^\circ$).
+Snapping & Precision Rules
+Grid Snap: Zone origins snap strictly to $1.0\text{ m}$ intervals along the $X$ (0 to 30) and $Z$ (0 to 18) axes.
+Wall Clearance: All apparatus boundaries enforce a mandatory minimum $0.4\text{ m}$ structural clearance from external brick walls.
+Thoroughfare Clearance:
+Main Hall Transit Spine ($Z = 10.4\text{ m}$ to $11.6\text{ m}$): Zones cannot infringe on this $1.2\text{ m}$-wide strip. Dropping a zone here is prohibited.
+South Entrance Vestibule ($Z = 16.4\text{ m}$ to $18.0\text{ m}$): Must maintain an open clear path to the double doors.
+Collision Detection & Visual Feedback States
++--------------------+-----------------------------+-----------------------------+-----------------------------+
+| FEEDBACK STATE     | BOUNDARY STROKE VISUAL      | FLOOR SURFACE TINT          | ON-CURSOR TOOLTIP & AUDIO   |
++--------------------+-----------------------------+-----------------------------+-----------------------------+
+| VALID DROP         | Solid Warm Gold:            | Translucent Gold:           | Tooltip: `MOVE TO (X, Z)`   |
+|                    | 2.5px `#E5B842`             | `#E5B842` at 20% alpha      | Audio: Soft wooden thud     |
++--------------------+-----------------------------+-----------------------------+-----------------------------+
+| SWAP DETECTED      | Solid Cyan:                 | Translucent Cyan:           | Tooltip: `SWAP WITH ZONE B` |
+|                    | 2.5px `#38767A`             | `#38767A` at 25% alpha      | Audio: Mechanical ratchet   |
++--------------------+-----------------------------+-----------------------------+-----------------------------+
+| COLLISION / BLOCKED| Pulsing Crimson:            | Hatched Red Hazard:         | Tooltip: `BLOCKED: AISLE`   |
+|                    | 3.0px `#D15341` (at 4 Hz)   | `#D15341` at 35% alpha      | Audio: Low error buzz       |
++--------------------+-----------------------------+-----------------------------+-----------------------------+
+
+Invalid Release Behavior: If released over a blocked area (walls, aisles, or invalid overlapping footprint), the zone executes a spring-damper animation ($200\text{ ms}$, TRANS_BACK, EASE_OUT) returning smoothly to its original position. No changes are committed.
+6. GODOT 4 ARCHITECTURE: SYNCHRONIZING CONTROL GUI & SUBVIEWPORT
+
+Achieving pixel-perfect synchronization between a rich 2D Control UI and an interactive 3D scene in Godot 4 requires a decoupled, event-driven architecture.
+
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                               GODOT 4 SCENE TREE ARCHITECTURE                                    │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ NameTheGymScreen (Control - 1920x1080)                                                           │
+│ ├── LeftDrawerShell (PanelContainer - X:16, Y:72, W:444, H:864)                                  │
+│ │   └── VBoxContainer (Inputs, Ledger, Inspector, Roster)                                        │
+│ ├── FooterActionStrip (PanelContainer - X:16, Y:952, W:1888, H:112)                              │
+│ │   └── HBoxContainer (Undo, SpaceMeter, Briefing, OpenGymButton)                                │
+│ └── GymViewportContainer (SubViewportContainer - X:476, Y:72, W:1428, H:864)                     │
+│     ├── GymSubViewport (SubViewport - size: 1428x864, render_target_update_mode: ALWAYS)        │
+│     │   ├── GymHallWorld3D (Node3D)                                                              │
+│     │   │   ├── Camera3D (Transform: Pos(15, 14, 22), Rot(-35, 0, 0))                            │
+│     │   │   ├── DirectionalLight3D + WorldEnvironment (Industrial warm lighting)                 │
+│     │   │   ├── HallArchitecture (MeshInstance3D - 30x18m brick & floor)                         │
+│     │   │   ├── FloorRaycastPlane (StaticBody3D - CollisionLayer 9)                              │
+│     │   │   └── ZonesContainer (Node3D - holds all Zone3D physical nodes)                        │
+│     │   │       ├── RingZone3D                                                                   │
+│     │   │       ├── WestBagsZone3D                                                               │
+│     │   │       └── StrengthZone3D                                                               │
+│     └── ViewportOverlay2D (Control - size: 1428x864, mouse_filter: PASS)                         │
+│         ├── FloorGridRenderer (Custom _draw() node for snapping grid)                            │
+│         ├── ZoneBoundingRenderer (Custom _draw() node for projected 2D boundaries)               │
+│         └── TooltipFloatingLayer (Control - handles drag ghosting and badges)                    │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+The Synchronization Pipeline
+Raycast Floor Projection (Camera3D.unproject_position):
+The 3D scene contains an invisible horizontal StaticBody3D at $Y = 0.0$ covering the $30\text{ m} \times 18\text{ m}$ floor.
+When the player's mouse moves over GymViewportContainer, the coordinates are converted into normalized viewport space:
+var local_mouse = gym_viewport_container.get_local_mouse_position()
+var ray_origin = camera_3d.project_ray_origin(local_mouse)
+var ray_normal = camera_3d.project_ray_normal(local_mouse)
+# Intersect with horizontal plane Y = 0
+var t = -ray_origin.y / ray_normal.y
+var world_floor_pos = ray_origin + ray_normal * t
+
+2D Overlay Tracking (ViewportOverlay2D):
+Rather than placing complex UI nodes inside 3D space as billboards, the 2D Control overlay calculates where the four 3D corners of each zone exist on screen using camera_3d.unproject_position(corner_3d_pos).
+It draws vector boundaries directly in 2D using _draw(). This completely avoids texture filtering blur, perspective aliasing, and Z-fighting, ensuring crisp lines at all resolutions.
+Data State Machine (GymLayoutManager Resource):
+All zone positions exist within a pure data resource (GymLayoutData.tres).
+When a zone is moved, the data model validates the coordinates against an array of Rect2 footprint bounds.
+If valid, the model emits layout_changed(zone_id, new_transform), prompting both the 3D apparatus mesh to slide to its new world coordinates and the 2D overlay to redraw its bounding lines.
+The Left Sidebar's financial calculations subscribe directly to layout_changed, instantly updating Weekly Upkeep and Runway.
+7. VISUAL MOCKUP DESCRIPTION (TEXT SPECIFICATION)
+The Scene at 1920x1080 (High-Resolution Visual Breakdown)
+Overall Atmosphere:
+Dark, cinematic, focused. The UI framing is rich dark chocolate walnut (#181310), contrasted with glowing industrial warm gold (#E5B842) and soft cream text (#F5EEDB).
+The Centerpiece (Right 75% of Canvas):
+You are looking down at an angle into a warm, lived-in boxing hall. High ceiling beams cast soft shadows onto polished maple wood on the west side, dark grey transit concrete through the center, and heavy black rubber matting on the east.
+In the center sits the raised $6\text{ m} \times 6\text{ m}$ boxing ring with dark blue canvas and red corner pads.
+Suspended above each zone on the floor is a clean, razor-sharp 2D vector outline. The currently selected zone (e.g., BAG LINE WEST) is highlighted with a 2.5px solid warm gold perimeter, with four subtle corner handles.
+A faint, elegant $1.0\text{ m}$ grid is etched into the floor, fading out near the walls.
+The main transit aisle is marked with two subtle, dotted transit lines, clearly indicating where apparatus cannot be placed.
+The Left Control Panel (Left 25% of Canvas):
+Anchored neatly along the left edge. At the top, the gym name field reads "Calder House Boxing Club" with a subtle gold cursor.
+Below it, four dark leatherette metric tiles display financial realities with crisp typographic contrast: $25.0K in cream, $367/WK in tan, and 9 WKS in urgent glowing amber.
+The center of the drawer contains the Zone Inspector, showing an exploded technical breakdown of the active zone: apparatus list, condition bars, weekly upkeep, and training attributes.
+At the bottom of the drawer, a compact fighter summary card displays Mara Solano, featuring a profile silhouette, weight class, and six horizontal gradient attribute bars.
+The Bottom Action HUD:
+Spanning the bottom of the screen, a clean horizontal bar grounds the layout. On the left, two tactile buttons ([RESET TO DEFAULT] and [UNDO]) provide safety.
+In the center, a linear allocation meter shows square footage categorized by discipline (Ring, Bags, Strength, Cardio, Open).
+On the far right, anchored with pride, is the large, glowing gold button: [ OPEN GYM ] ($368\text{ px} \times 64\text{ px}$). Beneath it, a micro-subtext reads: "COMMITS FLOOR PLAN AND BEGINS CAREER".
+
+This design transforms Step 3 from a flat, broken spreadsheet into a rich, interactive command center that fulfills every mechanical, financial, and spatial requirement set forth by the operator.
+
+Can you turn this wireframe into a polished 1920x1080 visual mockup showing the live 3D gym preview and movable zones?
+Can you map every Godot 4 node, signal, and data flow needed to synchronize the Control UI with the SubViewport?
+Can you define the exact zone-selection, dragging, snapping, collision, undo, and confirmation interactions as a state machine?
+Can you revise the visual hierarchy and typography so the preview dominates without losing gym naming, costs, roster, and career-start controls?

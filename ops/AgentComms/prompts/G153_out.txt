@@ -1,0 +1,9 @@
+﻿=== grok_task 2026-10-01T19:07:04 rc=0 ws=D:\FightCamp\wt\G153
+The booking rules are scattered across offer grading, `book_fight`, medicals, and the scale. I'll put them in one checklist and call it from each of those paths.FightGate is on disk. Next I’ll wire it into the booking, fight-week, weigh-in, and fight-night paths, then lock the behavior with tests.The checklist is in place. I’m wiring it into the four entry points so each one asks the same questions and the screens keep the refusal text they already show.The fight-gate code is already written. I'll check whether the Godot import finished, then run the tests and ship the branch.The import is still reimporting assets and is past three quarters. I'll review the gate, the call sites, and the test while it finishes so the suite can start as soon as Godot releases the project.The project import finished cleanly. Next I’ll run the watchdog, then the fight-gate test on its own.The fight-gate test passed on its own. I’ll run the watchdog, then the booking, offer, weigh-in, medical, career, and fight-week suite.The fight-gate test passed on its own after the project import. The broader suite is running now: booking, offers, weigh-ins, medicals, career, and fight week, two tests at a time. I’ll take any failure as soon as it shows up, then commit and push once the run is clean.
+
+--- stderr ---
+Auto-compacting conversation (81% full)...
+Conversation compacted.
+Auto-compacting conversation (82% full)...
+Conversation compacted.
+

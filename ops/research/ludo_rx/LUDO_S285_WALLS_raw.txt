@@ -1,0 +1,42 @@
+Here is the production-ready specification for the room wall and door system, aligned directly with Mad Games Tycoon 2 clarity and Two Point low-angle readability:
+
+1. Wall Height & Thickness
+Partition Wall Height: 2.60 m (Do not build to the 3.20 m shell ceiling). A 2.60 m top line immediately establishes that these are internal tenant partitions, keeps high-mounted ceiling fixtures/track lights visible over rooms, and prevents interior room geometry from clipping the camera at low pitches.
+Partition Wall Thickness: 0.15 m (Snaps cleanly to a standard 0.50 m or 0.25 m sub-grid without leaving floating sub-centimeter seams).
+2. Wall Cap & Wall Finish
+Wall Cap Dimensions:
+Height: 0.06 m
+Horizontal Overhang: 0.015 m per side (Total cap width = 0.18 m over a 0.15 m wall core).
+Wall Cap Material & Colour: Matte dark industrial trim finish in Charcoal: #2A2D32.
+Wall Finish (Inside & Outside):
+Identical finish inside and outside to support shared walls cleanly: Warm Off-White Industrial Plaster #ECE7DC.
+Room Differentiation Rule (Walls vs. Floors):
+Wall colour remains uniform across all room types. Never change full wall colours per room type; shared walls between rooms (e.g., Office adjacent to Locker Room) create ugly or impossible z-fighting boundary conflicts.
+Room types differ strictly by Floor Material/Colour and a subtle Skirting/Baseboard tint (see item 5).
+3. Door Dimensions & Visual Treatment
+Clear Opening Width: 1.00 m (Single universal leaf for all drafted rooms; double doors add pathfinding footprint width and mesh states without gameplay benefit).
+Frame Height: 2.20 m total outer height (Clear opening 2.10 m, top lintel 0.10 m).
+Frame Depth: 0.17 m (Creates a clean 0.01 m casing reveal/architrave proud of the 0.15 m wall face on both sides).
+Frame Colour: Powder-coated Dark Slate: #22252A (Matches the wall cap language).
+Leaf Colour: Natural Birch Ply / Clear Varnished Oak: #C49A6C with brushed satin aluminium handle plate (#B0B5BA).
+Leaf State at Rest: Closed (0 degrees).
+When a character navigates through, the door swings smoothly inward into the room to 85 degrees and automatically springs closed behind them. Resting at open creates aisle obstruction, visual noise, and camera occlusions.
+4. Cut-Wall (Camera-Facing) Behaviour
+Door on a Cut Wall: Hide fully and leave only a flat threshold strip.
+Retaining a 0.45 m jamb "stub" floating at waist height creates messy visual silhouettes, looks like broken concrete pillars, and snags eye movement. When a wall segment drops to 0.45 m, its door entity fully culled: frame disappears, leaf disappears, leaving only the floor threshold plate.
+Wall Decor & Windows on a Cut Wall: Hide fully.
+Any object mounted to a cut wall (posters, whiteboards, clocks, high windows) must toggle its renderer off completely rather than hovering in mid-air above the stub.
+5. Essential Polish for Clean "MGT2 / Two Point" Read (Low-Cost)
+
+All four items can be built with basic unit-cube geometry and the standard flat/vertex-lit shader:
+
+Integrated Skirting Board (Baseboard):
+Dimensions: 0.10 m tall, 0.01 m proud of the wall face.
+Colour: Tinted rubber/vinyl cove base in Dark Charcoal #1E2024. This grounds the wall and hides any microscopic edge anti-aliasing seams between the wall mesh and floor tile.
+Floor Edge Trim (Room Floor Step):
+Elevate the room interior floor mesh +0.005 m above the building shell slab.
+Rim the perimeter of the room floor with a 0.02 m wide flat border in #33373D. This visually frames the drawn room as a distinct operational zone.
+Flush Doorway Threshold Strip:
+A flat box (1.00 m long × 0.17 m deep × 0.008 m tall) spanning the door opening on the floor in Brushed Dark Bronze #3A352F. It remains visible even when the wall is cut, cleanly indicating the entrance portal.
+Entrance Door Mat / Floor Stencil:
+Automatically generate an interior 1.00 m × 0.60 m welcome mat/floor decal directly inside the door in Dark Textured Rubber #18191B. This unambiguously shows the player and pathfinding system which way the room breathes.

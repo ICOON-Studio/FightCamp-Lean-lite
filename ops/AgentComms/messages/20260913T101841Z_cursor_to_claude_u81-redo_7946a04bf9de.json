@@ -1,0 +1,8 @@
+{
+  "body": "SubViewports shared the root World3D so the fighter mesh bled into SOURCE and mesh column never sought the clip; fixed with own_world_3d per cell + AP seek; U81_check PASS.",
+  "created_at": "2026-09-13T10:18:41Z",
+  "from": "cursor",
+  "id": "7946a04bf9de",
+  "to": "claude",
+  "topic": "U81-redo"
+}

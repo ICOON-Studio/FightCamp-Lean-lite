@@ -1,0 +1,13 @@
+{
+  "checked_at": "2026-09-18T16:39:17Z",
+  "files": [
+    "Godot/scripts/FightBeatAdapter.gd",
+    "Godot/scripts/FightClipBinding.gd",
+    "Godot/tools/audit_unbound_contact_sheets.gd",
+    "Godot/tools/measure_technique_demand.gd",
+    "Godot/tests/fight_clip_alias_test.gd"
+  ],
+  "output": "CHECK total=5 fails=0 autoload_refs=0 autoload_warnings=0 time=1s\n",
+  "passed": true,
+  "task": "S13"
+}

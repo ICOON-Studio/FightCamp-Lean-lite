@@ -1,0 +1,321 @@
+FIGHTCAMP — GYM4 FACILITY ARCHITECTURE & INTERACTION SPECIFICATION (ROUND 105.3)
+1. STRATEGIC VERDICT: DO WE AGREE WITH THE STUDIO HEAD?
+The Verdict: YES, AGREE FULLY — WITH TWO STRICT UX SAFEGUARDS.
+
+The studio head's design direction is sharp, production-conscious, and commercially proven. Opening all 6 fully rendered rooms (Reception, Gym Floor/Ring, Manager Office, Physio, Lockers, Equipment Store) in a single unified orthographic overview immediately communicates scope, scale, and high production value.
+
+Rather than hiding unfinished mechanics behind locked doors or artificial "under construction" popups, rendering the props in-engine establishes Anvil Street as a living, breathing club. Restricting interactions to mechanics currently implemented in Godot (starting strictly with the Desk PC in the Office) keeps scope under control while letting the facility speak for itself.
+
+┌──────────────────────────────────────────────┬─────────────────────────────────────────────┐
+│ THE ADVANTAGES                               │ THE RISKS & MITIGATIONS                     │
+├──────────────────────────────────────────────┼─────────────────────────────────────────────┤
+│ 1. Instant Management Sim Credibility:       │ RISK: Small interactive target at max zoom. │
+│ Seeing lockers, massage tables, and front    │ A 0.48m monitor at 36m ortho size is ~26px. │
+│ desk makes it feel like an authentic gym.    │ MITIGATION: High-visibility floating world  │
+│                                              │ billboard badge + room click priority.      │
+│ 2. Zero Mechanical Friction:                 │ RISK: "Dead Prop" Player Confusion.         │
+│ No waiting for a coach/manager avatar to     │ Players clicking physio beds and getting no │
+│ walk corridors to trigger UI screens.        │ feedback will assume the game is broken.    │
+│                                              │ MITIGATION: Standard cursor discipline:     │
+│ 3. Scalable Feature Drops:                   │ Arrow = world prop, Pointer = live mechanic.│
+│ When Physio or Store mechanics ship, we just │                                             │
+│ toggle an interactive flag on that mesh.     │ RISK: Visual Clutter / Noise.               │
+│                                              │ MITIGATION: Subtle lighting bias (lit active│
+│ 4. Clear PM Scope (Paul's Cut):              │ rooms vs slightly moodier inactive rooms).  │
+│ 2-Tab PC (Bouts + Finances) is lean and fast.│                                             │
+└──────────────────────────────────────────────┴─────────────────────────────────────────────┘
+
+Precedent: How the Genre Handles "Not Yet Live" Objects
+Two Point Hospital / Two Point Campus: Every prop, bench, and fire extinguisher is visible from day one. Inactive or unstaffed rooms display an unambiguous world-space floating warning icon (e.g., "Doctor Needed" or "Machine Broken"). Hovering an inactive prop does not display an outline; it returns standard informational tooltip text or remains non-interactive.
+Mad Games Tycoon 2: Rooms render fully furnished. Inactive server racks, dev stations, or marketing boards simply do not highlight on hover. Only interactive tools project high-contrast outlines and change the OS cursor to an active pointer.
+Punch Club: Non-interactive background props use baked, grounded lighting. Only interactive equipment (bench press, heavy bag, fridge) reacts to cursor mouse-overs with white stencils.
+2. EXACT ORTHOGRAPHIC ZOOM STEPS & GEOMETRY MATHEMATICS
+
+Given the overall facility dimensions ($30,\text{m} \times 22,\text{m}$), the active floor ($18,\text{m} \times 14,\text{m}$), and the office ($5,\text{m} \times 4,\text{m}$), the camera requires three mathematically tuned orthogonal projection steps.
+
+====================================================================================================
+GYM4 CLUB ROOM FOOTPRINT & ORTHOGRAPHIC SIZING (Camera Pitch: -35.264°, Yaw: 45.0°)
+====================================================================================================
+
+      ◄────────────────────────────── 30.0 METERS ──────────────────────────────►
+   ▲  ┌──────────────────────┬──────────────────────┬──────────────────────────┐
+   │  │  RECEPTION           │  EQUIPMENT STORE     │  LOCKER ROOM             │
+   │  │  (6m x 8m)           │  (7m x 8m)           │  (9m x 8m)               │
+   │  ├──────────────────────┴──────────────────────┴──────────────────────────┤
+22 │  │                                             │  PHYSIO & RECOVERY       │
+ M │  │                                             │  (8m x 6m)               │
+ E │  │  TRAINING FLOOR & RING                      ├──────────────────────────┤
+ T │  │  (18m x 14m)                                │  MANAGER'S OFFICE        │
+ R │  │                                             │  (5m x 4m)               │
+ S │  │  [Pads]  [Heavy Bag]  [Speed Bag]  [Ring]   │  [Desk PC] [Book] [Safe] │
+   ▼  └─────────────────────────────────────────────┴──────────────────────────┘
+
+┌────────────────────┬────────────┬─────────────────────────────┬───────────────────────────────────────┐
+│ ZOOM STEP          │ ORTHO SIZE │ HORIZONTAL SPAN (16:9 VIEW) │ WHAT IS VISIBLE & FRAMED              │
+├────────────────────┼────────────┼─────────────────────────────┼───────────────────────────────────────┤
+│ STEP 1: WHOLE CLUB │ 36.0 m     │ 64.0 meters wide            │ ENTIRE CLUB: All 6 rooms visible      │
+│ (Unzoomed Overview)│            │                             │ simultaneously with zero clipping.    │
+├────────────────────┼────────────┼─────────────────────────────┼───────────────────────────────────────┤
+│ STEP 2: FLOOR      │ 16.0 m     │ 28.4 meters wide            │ DEFAULT VIEW: Focuses on the 18x14m   │
+│ (Active Workout)   │ [DEFAULT]  │                             │ training floor, ring apron, and coach.│
+├────────────────────┼────────────┼─────────────────────────────┼───────────────────────────────────────┤
+│ STEP 3: FOCUS ROOM │ 7.0 m      │ 12.4 meters wide            │ DETAIL VIEW: Fully frames the Office  │
+│ (Station/Desk)     │            │                             │ (5x4m) or a single workout station.   │
+└────────────────────┴────────────┴─────────────────────────────┴───────────────────────────────────────┘
+
+Why Step 2 (16.0 m) MUST Be the Default:
+At 36.0 m (Step 1), MetaHuman fighters look small on a 1080p display (the boxer is only ~90 pixels high), making it difficult to read punch snap, hip drive, and footwork.
+Step 2 (16.0 m) keeps the fighter centered, readable, and athletic (~210 pixels high), while the office sits clearly visible just off-screen or right at the screen edge.
+Toggling between Step 2 and Step 1 is handled instantly via one mouse-wheel tick or by hitting [SPACE] to toggle macro/floor view.
+3. HOW THE CLICKABLE DESK PC READS AT THE ZOOMED-OUT OVERVIEW (36.0 m)
+
+At the zoomed-out 36.0 m overview, a $0.48,\text{m}$ monitor renders at approximately $26 \times 23$ physical pixels on a 1920×1080 display. Relying on clicking those 26 raw screen pixels would be terrible UX. We solve this using a two-layer interaction target.
+
++---------------------------------------------------------------------------------------------------+
+| 1920x1080 PIXEL HUD AFFORDANCES AT MACRO ZOOM (Step 1: 36.0m)                                     |
+|                                                                                                   |
+|                                   [!] NEW OFFERS (3)                                              |
+|                               ┌─────────────────────────┐  <--- High-Contrast Billboard Pill:    |
+|                               │     OFFICE TERMINAL     │       Width: 160px, Height: 34px        |
+|                               └───────────┬─────────────┘       Background: #0F172A, Border: Gold |
+|                                           │                                                       |
+|                                           ▼                                                       |
+|                                      ┌─────────┐                                                  |
+|                                      │ CRT PC  │ <--- Screen-Space Stencil Outline: 2px #F59E0B   |
+|                                      └─────────┘      Screen: Active Cyan Glow (#38BDF8)          |
+|                                                                                                   |
++---------------------------------------------------------------------------------------------------+
+
+Exact Sizing, Colors & Hover States
+Interactive Click Boundary (Collision Shape):
+Do not bind the raycast solely to the PC mesh. Bind it to an invisible BoxShape3D covering the entire desk surface plus a 0.5m buffer: dimensions $2.2,\text{m} \times 1.2,\text{m} \times 1.4,\text{m}$. Clicking anywhere on the manager's desk activates the PC.
+Permanent World-Space Pill (Billboard UI):
+Floats at $Y = 2.1,\text{m}$ directly above the desk.
+Size: 160px × 34px on-screen.
+Background: Dark slate #0F172A with an 85% alpha fill; Border: 1px solid Gold #F59E0B.
+Text: OFFICE PC (12px bold ChakraPetch-Bold in #F8FAFC).
+Dynamic Alert Badge: If unread fight contracts exist, append an amber pill on top: [!] 2 NEW BOUTS (#F59E0B background, black text).
+Hover Visuals:
+Cursor changes instantly from Default Arrow (res://ui/cursor_arrow.png) to Action Pointer (res://ui/cursor_pointer.png).
+PC Monitor + Tower mesh displays a 2px unshaded gold outline (ShaderMaterial drawing along inverted hull).
+Hover tooltip anchored to mouse: OPEN MANAGEMENT TERMINAL [LMB] (Dark grey #1E293B, white text, 11px font).
+Click Behavior: Direct UI Open vs Camera Push
+The Approved Action: Direct Modal Open with Background Blur.
+Clicking the PC from the zoomed-out view must NOT force a slow camera push-in. A camera dive from 36m to desk-level causes unnecessary disorientation if the player just wants to check a purse split or accept a fight contract.
+Result of Click: Instantly opens the 2-Tab PC screen (1280×720 centered panel or full-frame overlay) in 0.15s, while applying a gentle radial blur and darkening (Color(0,0,0,0.65)) over the 3D gym background.
+Hitting [ESC] or [X CLOSE] dismisses the UI instantly, returning the player to the zoomed-out club overview without moving the camera.
+4. NON-INTERACTIVE PROPS & FUTURE-OBJECT DISCOVERY
+
+To prevent the gym from feeling broken or confusing, interactive and non-interactive props must follow strict visual rules.
+
+┌───────────────────────────────────────┬───────────────────────────────────────┐
+│ LIVE INTERACTIVE OBJECT (Office PC)   │ INACTIVE PROPS (Physio, Lockers, Safe)│
+├───────────────────────────────────────┼───────────────────────────────────────┤
+│ • Emissive dynamic screen glow.       │ • Standard baked/diffuse lighting.    │
+│ • Floating world-space UI pill badge. │ • Zero floating UI markers.           │
+│ • Inverted-hull outline on hover.     │ • Zero highlight or outline on hover. │
+│ • Cursor: Action Hand Pointer.        │ • Cursor: Remains default Arrow.      │
+│ • Clear tooltip: "OPEN TERMINAL".     │ • Dead click: Zero response (silent). │
+└───────────────────────────────────────┴───────────────────────────────────────┘
+
+Visual Treatment of Inactive Rooms
+Lighting Hierarchy: Do not make inactive rooms fully dark (which makes them look unrendered or broken). Instead, use a subtle 15% exposure reduction:
+Active Training Floor & Office: Key light intensity 1.2, clean white balance (5500K).
+Inactive Rooms (Physio, Lockers, Store): Ambient key light intensity 0.85, cooler fluorescent tone (4200K). They are clearly visible, fully modeled, and detailed, but naturally recede into the visual background.
++---------------------------------------------------------------------------------------------------+
+| NOTIFICATION: WHEN A NEW OBJECT SHIPS IN A FUTURE SLICE                                           |
+|                                                                                                   |
+| [FEATURE UNLOCKED BANNER: TOP CENTER SCREEN]                                                      |
+| "NEW FACILITY READY: PHYSIO RECOVERY TABLE IS NOW ONLINE"                                         |
+|                                                                                                   |
+| 3D World Effect:                                                                                  |
+| 1. Targeted room lights up to full 1.2 exposure.                                                  |
+| 2. Floating Cyan Beacon flares over the prop: [!] PHYSIO UNLOCKED                                 |
+| 3. Mesh displays a gentle 2-second pulsing outline to draw player attention.                      |
++---------------------------------------------------------------------------------------------------+
+
+5. THE GOAL OUTCOME CONVERSATION (NO WALKING INTO ROOMS)
+
+Because we have ruled out manual avatar walking between rooms, goal settlements must be handled with clear mechanical feedback.
+
+====================================================================================================
+GOAL DEADLINE REACHED: SEQUENCE OF EVENTS (End of Day 14, 18:00)
+====================================================================================================
+
+[STEP 1: DEADLINE BELL RINGS ON FLOOR]
+    • Daily training clock hits 18:00.
+    • Training stops; GoalCard top-center updates to flashing state: "DEADLINE REACHED".
+               │
+               ▼
+[STEP 2: FLOATING NOTIFICATION OVER OFFICE]
+    • Camera smoothly pans 1.5m toward the Office.
+    • A large Gold/White Notification Banner floats over the Office roof:
+      ┌────────────────────────────────────────────────────────┐
+      │  [!] GOAL REVIEW PENDING: DANNY WAITS IN OFFICE       │
+      │  Click Office to Settle Camp Goal                      │
+      └────────────────────────────────────────────────────────┘
+               │
+               ▼
+[STEP 3: AUTONOMOUS STAGE PLACEMENT]
+    • The 3D world automatically updates:
+      - Danny Reyes is already standing in the Office across from the desk.
+      - Coach Ray is seated at his secondary side-desk.
+               │
+               ▼
+[STEP 4: PLAYER CLICKS THE OFFICE]
+    • Camera smoothly pans and zooms to Step 3 (Focus: 7.0m) over the Office desk.
+    • The face-to-face dialogue interface pops up at the bottom of the screen:
+      Danny: "Felt the speed on the mitts today. Ready for Vance."
+    • Next Goal Cards (Card A / Card B) are selected directly on the desk blotter.
+               │
+               ▼
+[STEP 5: RESOLUTION & RETURN]
+    • Player picks Card A ("Power Phase").
+    • UI closes; camera zooms back out to Step 2 (Floor View: 16.0m).
+    • Danny walks out of the office and returns to the training floor.
+
+6. ASSET SPECIFICATION: THE BEIGE CRT DESK PC
+====================================================================================================
+3D ASSET GENERATION SPECIFICATION — OFFICE CRT COMPUTER RIG
+====================================================================================================
+
+ASSET NAME: prop_office_pc_crt_90s
+STYLE: Gritty, authentic, utilitarian boxing gym office prop. Fits 1998-2004 aesthetic.
+COMPONENTS: (1) CRT Monitor, (2) Beige Mini-Tower, (3) Mechanical Keyboard & Ball Mouse.
+
+Exact Prompt for AI 3D Generator / 3D Artist
+
+
+
+"A late 1990s retro desktop computer workstation for a game environment. Includes a bulky 17-inch CRT computer monitor with curved dark-tinted glass screen, off-white yellowed beige industrial plastic housing, power button, and small green indicator LED. Accompanied by a matching beige vertical desktop mini-tower case with 3.5-inch floppy drive and CD-ROM drive slots, a classic mechanical beige keyboard with grey keycaps, and a vintage wired mouse on a thin black pad. Heavy commercial office aesthetic, realistic proportions, subtle plastic surface grime and edge scuffs matching an old athletic club office. Fully optimized low-to-mid poly game asset, clean bevels, flat base for surface mounting."
+
+
+
+Mesh & Technical Specifications
+Physical Bounding Box Dimensions:
+Monitor: Width: 0.48 m, Height: 0.42 m, Depth: 0.44 m.
+Tower: Width: 0.18 m, Height: 0.38 m, Depth: 0.40 m.
+Keyboard: Width: 0.46 m, Height: 0.04 m, Depth: 0.16 m.
+Mouse & Pad: Width: 0.20 m, Depth: 0.24 m.
+Polycount Target:
+Total combined budget: 3,200 to 4,800 Triangles (Mid-poly topology; clean beveled edges for proper normal baking; curved CRT glass tube uses 16 segments).
+Texture & Material Setup:
+Single PBR Material Set: One $2048 \times 2048$ texture sheet (Albedo, Roughness/Metallic packed, Normal Map, Emission Map).
+Monitor Screen Surface: Assigned a dedicated secondary material ID (mat_screen_glass). This allows Godot to apply a dynamic viewport texture (rendering ANVIL_OS UI) directly onto the monitor's glass surface with an emissive screen shader.
+7. GDSCRIPT: TWO-TAB OFFICE PC & FACILITY INTERACTION CONTROLLER
+
+This clean controller manages the two-tab UI, object hover handling, and room camera framing within the 300-line budget.
+
+# FacilityInteractionController.gd
+class_name FacilityInteractionController
+extends Node3D
+
+signal terminal_opened(initial_tab_index: int)
+signal terminal_closed
+signal bout_contract_selected(contract_id: String)
+signal goal_card_picked(goal_id: String)
+
+enum ZoomStep { MACRO_CLUB = 0, FLOOR_DEFAULT = 1, FOCUS_ROOM = 2 }
+
+@export var camera: Camera3D
+@export var terminal_ui_root: Control
+@export var office_marker: Marker3D
+@export var floor_marker: Marker3D
+@export var pc_mesh_outline: GeometryInstance3D
+@export var office_billboard_pill: Node3D
+
+# Camera Step Configurations
+const ORTHO_SIZES: Array[float] = [36.0, 16.0, 7.0]
+var current_step: ZoomStep = ZoomStep.FLOOR_DEFAULT
+var target_cam_size: float = 16.0
+var target_cam_pos: Vector3
+
+# Live Interactive Objects Registry
+var live_objects: Dictionary = {
+    "OFFICE_PC": { "active": true, "name": "Management Terminal" },
+    "PHYSIO_TABLE": { "active": false, "name": "Treatment Table" },
+    "EQUIP_LOCKER": { "active": false, "name": "Gear Storage" },
+    "FRONT_DESK": { "active": false, "name": "Club Reception" }
+}
+
+func _ready() -> void:
+    assert(camera != null, "Iso Camera reference required.")
+    camera.projection = Camera3D.PROJECTION_ORTHOGONAL
+    target_cam_size = ORTHO_SIZES[current_step]
+    target_cam_pos = floor_marker.global_position if floor_marker else Vector3.ZERO
+    _update_pill_state(true)
+
+func _process(delta: float) -> void:
+    # Smooth camera interpolation
+    camera.size = lerpf(camera.size, target_cam_size, 1.0 - exp(-delta * 10.0))
+    camera.global_position = camera.global_position.lerp(target_cam_pos, 1.0 - exp(-delta * 10.0))
+
+func set_zoom_level(step: ZoomStep) -> void:
+    current_step = step
+    target_cam_size = ORTHO_SIZES[current_step]
+
+func toggle_macro_overview() -> void:
+    if current_step == ZoomStep.MACRO_CLUB:
+        set_zoom_level(ZoomStep.FLOOR_DEFAULT)
+        if floor_marker: target_cam_pos = floor_marker.global_position
+    else:
+        set_zoom_level(ZoomStep.MACRO_CLUB)
+
+# --- OBJECT HOVER & CLICK LOGIC ---
+
+func on_prop_mouse_entered(prop_key: String) -> void:
+    if not live_objects.has(prop_key) or not live_objects[prop_key]["active"]:
+        return # Inactive prop: do nothing, leave cursor as default arrow
+    
+    Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
+    if prop_key == "OFFICE_PC" and pc_mesh_outline:
+        pc_mesh_outline.set_instance_shader_parameter("outline_enabled", true)
+
+func on_prop_mouse_exited(prop_key: String) -> void:
+    Input.set_default_cursor_shape(Input.CURSOR_ARROW)
+    if prop_key == "OFFICE_PC" and pc_mesh_outline:
+        pc_mesh_outline.set_instance_shader_parameter("outline_enabled", false)
+
+func on_prop_clicked(prop_key: String) -> void:
+    if not live_objects.has(prop_key) or not live_objects[prop_key]["active"]:
+        return # Inactive objects ignore click completely
+    
+    if prop_key == "OFFICE_PC":
+        open_pc_terminal(0) # Open to Tab 0 (Bout Contracts)
+
+# --- PC TERMINAL (2-TAB ARCHITECTURE) ---
+
+func open_pc_terminal(default_tab: int = 0) -> void:
+    terminal_ui_root.visible = true
+    _switch_pc_tab(default_tab)
+    terminal_opened.emit(default_tab)
+
+func close_pc_terminal() -> void:
+    terminal_ui_root.visible = false
+    terminal_closed.emit()
+
+func _switch_pc_tab(tab_index: int) -> void:
+    # Tab 0: BOUT CONTRACTS (Round 105 Matchmaker List)
+    # Tab 1: FINANCES (Ledger & Operational Balance)
+    var tab_bouts: Control = terminal_ui_root.find_child("TabBouts", true, false)
+    var tab_finances: Control = terminal_ui_root.find_child("TabFinances", true, false)
+    
+    if tab_bouts and tab_finances:
+        tab_bouts.visible = (tab_index == 0)
+        tab_finances.visible = (tab_index == 1)
+
+func _update_pill_state(has_unread_offers: bool) -> void:
+    if office_billboard_pill:
+        office_billboard_pill.visible = true
+        var badge: Control = office_billboard_pill.find_child("AlertBadge", true, false)
+        if badge: badge.visible = has_unread_offers
+
+8. SUMMARY FOR THE STUDIO HEAD & PAUL
+Approved & Agreed: Opening the full facility while activating objects one at a time matches proven genre designs (Two Point Hospital, Mad Games Tycoon 2).
+Zoom Hierarchy Locked:
+Step 1 (36m): Macro Club (Whole $30\times 22\text{m}$ facility).
+Step 2 (16m): Default View (Active $18\times 14\text{m}$ training floor + boxer punch snap).
+Step 3 (7m): Focus View (Office desk dialogue & individual workout stations).
+No Pixel Hunting at 36m: The desk PC uses an expanded desk collision box ($2.2\times 1.2\text{m}$) combined with a high-contrast floating billboard pill (160×34px). Clicking opens the UI overlay immediately without requiring a disorienting camera push.
+Clean Cursor Discipline: Inactive props (physio tables, lockers, storage) display zero hover outlines and do not alter the cursor arrow. When their mechanic is implemented in a future slice, they receive an active glow, outline, and pointer cursor.
+Streamlined 2-Tab PC: The terminal opens directly to Bout Contracts (Tab 0) and Finances (Tab 1), cutting non-essential demo clutter.

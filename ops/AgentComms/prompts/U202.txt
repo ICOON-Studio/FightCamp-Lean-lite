@@ -1,0 +1,5 @@
+You are working in the git worktree D:/FightCamp/wt/U201 (branch cursor/u202-finance-floor) of the FightCamp Godot 4.7.2 game.
+Your task is fully specified in research/TASK_U202_GF1_FINANCE_FLOOR.md - read it first, then do it start to finish.
+Edit ONLY the owned files. Parse gate before any test. Run your test and the listed run_tests.py subset (--jobs 2, wait on its exit).
+git add by explicit path (never `git add .`, never Godot/.godot, never the whole career-walk still set), commit, git push -u origin cursor/u202-finance-floor.
+Do not stop at "written": run the tests yourself and finish with the push.

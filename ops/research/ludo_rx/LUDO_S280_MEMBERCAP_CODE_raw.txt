@@ -1,0 +1,587 @@
+Every number and text must match your spec above.
+
+Here is the complete implementation for the member-capacity UI system matching every threshold, text string, and color hex from the specification.
+
+FILE 1: Godot/scripts/rules/MemberCapRead.gd
+# res://scripts/rules/MemberCapRead.gd
+class_name MemberCapRead
+extends RefCounted
+
+const COLOR_ZERO: Color = Color("#666666")
+const COLOR_NORMAL: Color = Color("#E0E0E0")
+const COLOR_NEAR: Color = Color("#F5A623")
+const COLOR_FULL: Color = Color("#E74C3C")
+
+const LOCKER_TIER_1_PLACES: int = 12
+const LOCKER_TIER_2_PLACES: int = 8
+const LOCKER_MAX_COUNTED_BANKS: int = 6
+const SHOWER_STALL_PLACES: int = 15
+
+static func read(members: int, cap: int, banks: int, showers: int, has_locker_room: bool) -> Dictionary:
+	# Hide when system is disabled (-1) or no locker room has been built yet
+	if cap < 0 or not has_locker_room:
+		return {
+			"show": false,
+			"text": "-- / --",
+			"band": "zero",
+			"color": COLOR_ZERO,
+			"alert": "",
+			"tooltip_lines": [
+				"MEMBERSHIP CAPACITY",
+				"-- Active Members / -- Maximum Places",
+				"Gym closed to public. Complete gym setup to accept members."
+			],
+			"next_build": "Draw a Locker Room and place a Locker Bank to unlock recurring community membership income."
+		}
+
+	var counted_banks: int = clampi(banks, 0, LOCKER_MAX_COUNTED_BANKS)
+	var bank_places: int = 0
+	for i in range(1, counted_banks + 1):
+		if i <= 3:
+			bank_places += LOCKER_TIER_1_PLACES
+		else:
+			bank_places += LOCKER_TIER_2_PLACES
+	var shower_places: int = showers * SHOWER_STALL_PLACES
+
+	var band: String = "normal"
+	var color: Color = COLOR_NORMAL
+	var alert: String = ""
+	var next_build: String = ""
+
+	if cap == 0:
+		band = "zero"
+		color = COLOR_ZERO
+		alert = "Nowhere to change - walk-ins turn round"
+		next_build = "Next Step: Place 1 Locker Bank ($620) -> Unlocks 12 places."
+	elif members >= cap:
+		band = "full"
+		color = COLOR_FULL
+		alert = "The lockers are full"
+		if counted_banks < 3:
+			next_build = "Next: Place Locker Bank ($620) for +12, or Shower ($1,600) for +15."
+		elif counted_banks < LOCKER_MAX_COUNTED_BANKS:
+			next_build = "Locker bank scaling dropping to +8 next. Shower Stall ($1,600) gives +15."
+		else:
+			next_build = "Locker bank limit reached (6/6). Build Showers to expand capacity further."
+	elif float(members) / float(cap) >= 0.80:
+		band = "near"
+		color = COLOR_NEAR
+		alert = ""
+		if counted_banks < 3:
+			next_build = "Next: Place Locker Bank ($620) for +12, or Shower ($1,600) for +15."
+		elif counted_banks < LOCKER_MAX_COUNTED_BANKS:
+			next_build = "Locker bank scaling dropping to +8 next. Shower Stall ($1,600) gives +15."
+		else:
+			next_build = "Locker bank limit reached (6/6). Build Showers to expand capacity further."
+	else:
+		band = "normal"
+		color = COLOR_NORMAL
+		alert = ""
+		if counted_banks < 3:
+			next_build = "Next: Place Locker Bank ($620) for +12, or Shower ($1,600) for +15."
+		elif counted_banks < LOCKER_MAX_COUNTED_BANKS:
+			next_build = "Locker bank scaling dropping to +8 next. Shower Stall ($1,600) gives +15."
+		else:
+			next_build = "Locker bank limit reached (6/6). Build Showers to expand capacity further."
+
+	var text_display: String = "%d / %d" % [members, cap]
+	var tooltip_lines: Array[String] = []
+
+	tooltip_lines.append("MEMBERSHIP CAPACITY")
+	tooltip_lines.append("%d Active Members / %d Maximum Places" % [members, cap])
+
+	if cap == 0:
+		tooltip_lines.append("No functional locker room detected.")
+		tooltip_lines.append("Draw a Locker Room and place a Locker Bank to unlock recurring community membership income.")
+		tooltip_lines.append("Status: ALL WALK-INS TURNING AWAY")
+	elif band == "full":
+		tooltip_lines.append("Locker Banks (%d): +%d places" % [banks, bank_places])
+		tooltip_lines.append("Shower Stalls (%d): +%d places" % [showers, shower_places])
+		tooltip_lines.append("Status: AT FULL CAPACITY")
+		tooltip_lines.append("Walk-ins are currently turning away at reception.")
+		tooltip_lines.append(next_build)
+	else:
+		tooltip_lines.append("Locker Banks (%d): +%d places" % [banks, bank_places])
+		tooltip_lines.append("Shower Stalls (%d): +%d places" % [showers, shower_places])
+		tooltip_lines.append("Status: ACCEPTING WALK-INS")
+		tooltip_lines.append(next_build)
+
+	return {
+		"show": true,
+		"text": text_display,
+		"band": band,
+		"color": color,
+		"alert": alert,
+		"tooltip_lines": tooltip_lines,
+		"next_build": next_build
+	}
+
+FILE 2: Godot/tests/member_cap_read_test.gd
+# res://tests/member_cap_read_test.gd
+extends SceneTree
+
+const MemberCapRead = preload("res://scripts/rules/MemberCapRead.gd")
+
+var _failures: int = 0
+
+func _init() -> void:
+	test_cap_disabled_or_no_locker_room()
+	test_zero_cap_with_room()
+	test_normal_band()
+	test_near_band_thresholds()
+	test_full_band_edge()
+	test_capacity_math_breakdown()
+	test_bank_scaling_recommendations()
+
+	print("MEMBER_CAP_READ failures=%d" % _failures)
+	if _failures > 0:
+		quit(1)
+	else:
+		quit(0)
+
+func _check(condition: bool, test_name: String) -> void:
+	if condition:
+		print("PASS: %s" % test_name)
+	else:
+		printerr("FAIL: %s" % test_name)
+		_failures += 1
+
+func test_cap_disabled_or_no_locker_room() -> void:
+	var r1: Dictionary = MemberCapRead.read(5, -1, 1, 0, true)
+	_check(r1.show == false, "cap -1 hides widget")
+	_check(r1.text == "-- / --", "cap -1 shows placeholder text")
+
+	var r2: Dictionary = MemberCapRead.read(0, 0, 0, 0, false)
+	_check(r2.show == false, "no locker room hides widget")
+	_check(r2.band == "zero", "hidden defaults to band zero")
+
+func test_zero_cap_with_room() -> void:
+	var r: Dictionary = MemberCapRead.read(0, 0, 0, 0, true)
+	_check(r.show == true, "room with cap 0 is shown")
+	_check(r.band == "zero", "cap 0 sets band zero")
+	_check(r.color == Color("#666666"), "cap 0 uses #666666")
+	_check(r.alert == "Nowhere to change - walk-ins turn round", "cap 0 alert message matches")
+
+func test_normal_band() -> void:
+	# 9 / 12 = 75% -> normal (<80%)
+	var r: Dictionary = MemberCapRead.read(9, 12, 1, 0, true)
+	_check(r.show == true, "normal band shown")
+	_check(r.text == "9 / 12", "text is '9 / 12'")
+	_check(r.band == "normal", "band is normal")
+	_check(r.color == Color("#E0E0E0"), "normal color is #E0E0E0")
+	_check(r.alert == "", "normal alert is empty")
+
+func test_near_band_thresholds() -> void:
+	# Exactly 80%: 8 / 10 = 0.80 -> near
+	var r_exact: Dictionary = MemberCapRead.read(8, 10, 1, 0, true)
+	_check(r_exact.band == "near", "80% exact triggers near")
+	_check(r_exact.color == Color("#F5A623"), "near color is #F5A623")
+
+	# 79%: 79 / 100 -> normal
+	var r_under: Dictionary = MemberCapRead.read(79, 100, 6, 2, true)
+	_check(r_under.band == "normal", "79% remains normal")
+
+func test_full_band_edge() -> void:
+	# Exactly 100%: 12 / 12 -> full
+	var r: Dictionary = MemberCapRead.read(12, 12, 1, 0, true)
+	_check(r.band == "full", "100% capacity triggers full")
+	_check(r.color == Color("#E74C3C"), "full color is #E74C3C")
+	_check(r.alert == "The lockers are full", "full alert matches")
+
+	# Overflow: 14 / 12 -> full
+	var r_over: Dictionary = MemberCapRead.read(14, 12, 1, 0, true)
+	_check(r_over.band == "full", "overflow triggers full")
+
+func test_capacity_math_breakdown() -> void:
+	# 2 banks (24) + 1 shower (15) = 39 places
+	var r: Dictionary = MemberCapRead.read(10, 39, 2, 1, true)
+	var found_bank: bool = false
+	var found_shower: bool = false
+	for line in r.tooltip_lines:
+		if "Locker Banks (2): +24 places" in line:
+			found_bank = true
+		if "Shower Stalls (1): +15 places" in line:
+			found_shower = true
+	_check(found_bank, "tooltip reports +24 from 2 banks")
+	_check(found_shower, "tooltip reports +15 from 1 shower")
+
+func test_bank_scaling_recommendations() -> void:
+	# 4 banks installed (scaling down to +8 next)
+	var r_bank4: Dictionary = MemberCapRead.read(44, 44, 4, 0, true)
+	_check(r_bank4.next_build == "Locker bank scaling dropping to +8 next. Shower Stall ($1,600) gives +15.", "bank 4 advises shower preference")
+
+	# 6 banks installed (limit reached)
+	var r_bank6: Dictionary = MemberCapRead.read(60, 60, 6, 0, true)
+	_check(r_bank6.next_build == "Locker bank limit reached (6/6). Build Showers to expand capacity further.", "bank 6 advises locker cap reached")
+
+FILE 3: Godot/scripts/ui/MemberCapChip.gd & ShellChrome.gd Wiring
+# res://scripts/ui/MemberCapChip.gd
+class_name MemberCapChip
+extends Control
+
+const MemberCapRead = preload("res://scripts/rules/MemberCapRead.gd")
+
+var _icon_rect: TextureRect
+var _label: Label
+var _tooltip_panel: PanelContainer
+var _tooltip_vbox: VBoxContainer
+var _tween: Tween
+
+var _last_band: String = ""
+
+func _init() -> void:
+	custom_minimum_size = Vector2(110.0, 28.0)
+	mouse_filter = Control.MOUSE_FILTER_STOP
+
+func _ready() -> void:
+	_build_ui()
+	_build_tooltip()
+	mouse_entered.connect(_on_mouse_entered)
+	mouse_exited.connect(_on_mouse_exited)
+	gui_input.connect(_on_gui_input)
+
+func _build_ui() -> void:
+	var hbox: HBoxContainer = HBoxContainer.new()
+	hbox.set_anchors_preset(PRESET_FULL_RECT)
+	hbox.alignment = BoxContainer.ALIGNMENT_CENTER
+	hbox.add_theme_constant_override("separation", 6)
+	add_child(hbox)
+
+	_icon_rect = TextureRect.new()
+	_icon_rect.custom_minimum_size = Vector2(18.0, 18.0)
+	_icon_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	_icon_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	# Placeholder programmatic texture if member icon resource is not on disk
+	if ResourceLoader.exists("res://assets/icons/members.svg"):
+		_icon_rect.texture = load("res://assets/icons/members.svg")
+	hbox.add_child(_icon_rect)
+
+	_label = UIKit.label("-- / --", 13, MemberCapRead.COLOR_ZERO)
+	_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	hbox.add_child(_label)
+
+func _build_tooltip() -> void:
+	_tooltip_panel = PanelContainer.new()
+	_tooltip_panel.visible = false
+	_tooltip_panel.top_level = true
+	_tooltip_panel.z_index = 1000
+
+	var style: StyleBoxFlat = StyleBoxFlat.new()
+	style.bg_color = Color("#18191C")
+	style.border_color = Color("#33353B")
+	style.set_border_width_all(1)
+	style.set_corner_radius_all(4)
+	style.content_margin_left = 12.0
+	style.content_margin_top = 10.0
+	style.content_margin_right = 12.0
+	style.content_margin_bottom = 10.0
+	_tooltip_panel.add_theme_stylebox_override("panel", style)
+
+	_tooltip_vbox = VBoxContainer.new()
+	_tooltip_vbox.add_theme_constant_override("separation", 4)
+	_tooltip_panel.add_child(_tooltip_vbox)
+	add_child(_tooltip_panel)
+
+func update_view() -> void:
+	if not GameSwitches.on("room_work"):
+		visible = false
+		return
+
+	var cap: int = GameState.member_cap_live()
+	var front_door: Dictionary = GameState.get_front_door()
+	var members: int = int(front_door.get("members", 0))
+
+	# Scan built rooms for locker room, locker banks, and showers
+	var has_locker_room: bool = false
+	var banks: int = 0
+	var showers: int = 0
+	var gym: Dictionary = GameState.get_gym()
+	var rooms: Dictionary = gym.get("career", {}).get("club_rooms_built", {})
+
+	for r_id in rooms:
+		var r_data: Dictionary = rooms[r_id]
+		var r_type: String = str(r_data.get("type", ""))
+		if r_type == "locker_room":
+			has_locker_room = true
+		var items: Array = r_data.get("items", [])
+		for item in items:
+			var item_id: String = str(item.get("id", ""))
+			if item_id == "locker_bank":
+				banks += 1
+			elif item_id == "shower_stall":
+				showers += 1
+
+	var read_data: Dictionary = MemberCapRead.read(members, cap, banks, showers, has_locker_room)
+
+	visible = read_data.show
+	if not visible:
+		return
+
+	_label.text = read_data.text
+	_label.modulate = read_data.color
+	_icon_rect.modulate = read_data.color
+
+	# Manage the full pulse animation
+	var current_band: String = read_data.band
+	if current_band != _last_band:
+		_last_band = current_band
+		if _tween and _tween.is_valid():
+			_tween.kill()
+
+		if current_band == "full":
+			_tween = create_tween().set_loops()
+			_tween.tween_property(_icon_rect, "scale", Vector2(1.08, 1.08), 0.5)
+			_tween.tween_property(_icon_rect, "scale", Vector2(1.0, 1.0), 0.5)
+		else:
+			_icon_rect.scale = Vector2.ONE
+
+	_refresh_tooltip_content(read_data.tooltip_lines)
+
+func _refresh_tooltip_content(lines: Array[String]) -> void:
+	for child in _tooltip_vbox.get_children():
+		child.queue_free()
+
+	for i in range(lines.size()):
+		var text: String = lines[i]
+		var lbl: Label
+		if i == 0:
+			lbl = UIKit.caps(text, 10, Color("#8F96A3"))
+		elif i == 1:
+			lbl = UIKit.label(text, 13, Color("#FFFFFF"))
+		elif "AT FULL CAPACITY" in text or "ALL WALK-INS" in text:
+			lbl = UIKit.label(text, 11, MemberCapRead.COLOR_FULL)
+		elif "ACCEPTING WALK-INS" in text:
+			lbl = UIKit.label(text, 11, Color("#2ECC71"))
+		elif "Next" in text or "Locker bank limit" in text or "Locker bank scaling" in text:
+			lbl = UIKit.label(text, 10, Color("#F5A623"))
+		else:
+			lbl = UIKit.label(text, 11, Color("#CCCCCC"))
+		_tooltip_vbox.add_child(lbl)
+
+func _on_mouse_entered() -> void:
+	update_view()
+	if visible:
+		_tooltip_panel.global_position = global_position + Vector2(0.0, size.y + 6.0)
+		_tooltip_panel.visible = true
+
+func _on_mouse_exited() -> void:
+	_tooltip_panel.visible = false
+
+func _on_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		var gym: Dictionary = GameState.get_gym()
+		var rooms: Dictionary = gym.get("career", {}).get("club_rooms_built", {})
+		var locker_room_id: String = ""
+		for r_id in rooms:
+			if str(rooms[r_id].get("type", "")) == "locker_room":
+				locker_room_id = str(r_id)
+				break
+
+		if locker_room_id != "":
+			if Engine.has_singleton("GymFloorCamera"):
+				Engine.get_singleton("GymFloorCamera").focus_room(locker_room_id)
+		else:
+			if Engine.has_singleton("BuildWindowManager"):
+				Engine.get_singleton("BuildWindowManager").open_tab("room_drawing")
+
+Insertion into ShellChrome.gd (Top Bar)
+# Inside Godot/scripts/ui/ShellChrome.gd:
+# ----------------------------------------------------------------------
+# 1. Member variable declaration:
+var _member_cap_chip: MemberCapChip
+
+# 2. Inside _setup_bar() / build layout, insert directly left of money container:
+_member_cap_chip = MemberCapChip.new()
+# Add _member_cap_chip to the top bar's main right-aligned HBoxContainer before the cash label:
+_right_box.add_child(_member_cap_chip)
+
+# 3. Inside the periodic or state-driven update loop (e.g. _refresh_chrome()):
+if _member_cap_chip:
+	_member_cap_chip.update_view()
+# ----------------------------------------------------------------------
+
+FILE 4: Godot/scripts/ui/LockerRoomPanelRow.gd & Godot/scripts/ui/MemberCapAlertNotice.gd
+A. Locker Room Panel Inspector Row
+# res://scripts/ui/LockerRoomPanelRow.gd
+class_name LockerRoomPanelRow
+extends VBoxContainer
+
+const MemberCapRead = preload("res://scripts/rules/MemberCapRead.gd")
+
+var _header_lbl: Label
+var _progress_bar: ProgressBar
+var _count_lbl: Label
+var _breakdown_lbl: Label
+var _next_step_lbl: Label
+
+func _init() -> void:
+	add_theme_constant_override("separation", 4)
+	custom_minimum_size = Vector2(280.0, 78.0)
+
+func _ready() -> void:
+	_build_ui()
+
+func _build_ui() -> void:
+	_header_lbl = UIKit.caps("MEMBER LOCKER CAPACITY", 10, Color("#8F96A3"))
+	add_child(_header_lbl)
+
+	var bar_hbox: HBoxContainer = HBoxContainer.new()
+	bar_hbox.add_theme_constant_override("separation", 8)
+	add_child(bar_hbox)
+
+	_progress_bar = ProgressBar.new()
+	_progress_bar.custom_minimum_size = Vector2(170.0, 14.0)
+	_progress_bar.show_percentage = false
+	_progress_bar.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+
+	var bg_style: StyleBoxFlat = StyleBoxFlat.new()
+	bg_style.bg_color = Color("#222428")
+	bg_style.set_corner_radius_all(2)
+	_progress_bar.add_theme_stylebox_override("background", bg_style)
+
+	var fill_style: StyleBoxFlat = StyleBoxFlat.new()
+	fill_style.bg_color = MemberCapRead.COLOR_NORMAL
+	fill_style.set_corner_radius_all(2)
+	_progress_bar.add_theme_stylebox_override("fill", fill_style)
+	bar_hbox.add_child(_progress_bar)
+
+	_count_lbl = UIKit.label("0 / 0", 12, MemberCapRead.COLOR_NORMAL)
+	bar_hbox.add_child(_count_lbl)
+
+	_breakdown_lbl = UIKit.label("Banks: 0 | Showers: 0", 11, Color("#CCCCCC"))
+	add_child(_breakdown_lbl)
+
+	_next_step_lbl = UIKit.label("", 10, Color("#F5A623"))
+	add_child(_next_step_lbl)
+
+func refresh_room(room_id: String) -> void:
+	var gym: Dictionary = GameState.get_gym()
+	var room: Dictionary = gym.get("career", {}).get("club_rooms_built", {}).get(room_id, {})
+	var items: Array = room.get("items", [])
+
+	var banks: int = 0
+	var showers: int = 0
+	for item in items:
+		var i_id: String = str(item.get("id", ""))
+		if i_id == "locker_bank":
+			banks += 1
+		elif i_id == "shower_stall":
+			showers += 1
+
+	var cap: int = RoomWorkRules.member_cap(banks, showers)
+	var front_door: Dictionary = GameState.get_front_door()
+	var members: int = int(front_door.get("members", 0))
+
+	var read_data: Dictionary = MemberCapRead.read(members, cap, banks, showers, true)
+
+	_progress_bar.max_value = maxf(1.0, float(cap))
+	_progress_bar.value = float(members)
+
+	var fill_style: StyleBoxFlat = _progress_bar.get_theme_stylebox("fill").duplicate() as StyleBoxFlat
+	fill_style.bg_color = read_data.color
+	_progress_bar.add_theme_stylebox_override("fill", fill_style)
+
+	_count_lbl.text = "%d / %d" % [members, cap]
+	_count_lbl.modulate = read_data.color
+
+	_breakdown_lbl.text = "Locker Banks: %d/6 | Shower Stalls: %d" % [clampi(banks, 0, 6), showers]
+	_next_step_lbl.text = read_data.next_build
+
+B. Member Cap Alert Notice (Top-Bar Pill & In-World Toast)
+# res://scripts/ui/MemberCapAlertNotice.gd
+class_name MemberCapAlertNotice
+extends PanelContainer
+
+const MemberCapRead = preload("res://scripts/rules/MemberCapRead.gd")
+
+var _label: Label
+var _dismiss_timer: Timer
+
+func _init() -> void:
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	custom_minimum_size = Vector2(240.0, 32.0)
+
+func _ready() -> void:
+	var style: StyleBoxFlat = StyleBoxFlat.new()
+	style.bg_color = Color("#18191C")
+	style.border_color = MemberCapRead.COLOR_FULL
+	style.set_border_width_all(1)
+	style.set_corner_radius_all(4)
+	style.content_margin_left = 10.0
+	style.content_margin_top = 6.0
+	style.content_margin_right = 10.0
+	style.content_margin_bottom = 6.0
+	add_theme_stylebox_override("panel", style)
+
+	_label = UIKit.label("", 11, MemberCapRead.COLOR_FULL)
+	_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	add_child(_label)
+
+	_dismiss_timer = Timer.new()
+	_dismiss_timer.wait_time = 10.0
+	_dismiss_timer.one_shot = true
+	_dismiss_timer.timeout.connect(hide)
+	add_child(_dismiss_timer)
+
+	visible = false
+
+func check_and_display() -> void:
+	if not GameSwitches.on("room_work"):
+		visible = false
+		return
+
+	var cap: int = GameState.member_cap_live()
+	var front_door: Dictionary = GameState.get_front_door()
+	var members: int = int(front_door.get("members", 0))
+
+	var has_locker_room: bool = false
+	var banks: int = 0
+	var showers: int = 0
+	var gym: Dictionary = GameState.get_gym()
+	var rooms: Dictionary = gym.get("career", {}).get("club_rooms_built", {})
+
+	for r_id in rooms:
+		var r_data: Dictionary = rooms[r_id]
+		if str(r_data.get("type", "")) == "locker_room":
+			has_locker_room = true
+		for item in r_data.get("items", []):
+			var item_id: String = str(item.get("id", ""))
+			if item_id == "locker_bank":
+				banks += 1
+			elif item_id == "shower_stall":
+				showers += 1
+
+	var read_data: Dictionary = MemberCapRead.read(members, cap, banks, showers, has_locker_room)
+
+	if read_data.alert != "":
+		_label.text = read_data.alert
+		var style: StyleBoxFlat = get_theme_stylebox("panel") as StyleBoxFlat
+		style.border_color = read_data.color
+		visible = true
+		_dismiss_timer.start(10.0)
+	else:
+		visible = false
+
+Can you fix the truncated and malformed code and provide the complete MemberCapRead.gd file?
+Can you write the full Godot 4.7 locker-room panel row script using the same capacity read and exact wording?
+Can you write the full alert script, including full and zero-capacity triggers, dismiss timing, and styling?
+Can you create a polished FightCamp UI mockup showing the member-cap chip, locker-room panel, and full-cap alert?
+Your Chat History
+ Gym Management Screen
+ Boxing Shout System
+ Training Wear Readiness
+ Office PC World Label Design
+ Coach Padwork Paired Clip
+ Gym Floor Playtest Ratings
+ Story UI Audit and Specification
+ Gym Roster UI Specification
+ Thermal Horizon Rules
+ Thermal Horizon Facts
+ Thermal Horizon Facts
+ Thermal Combat Rulings
+ Thermal Horizon Evaluation
+ Ludo-Assisted Game Evaluation
+ Ludo.ai Game Search
+ Multi-Hub Space Strategy
+ Mothership Design Refinement
+Copyright ©2026 Ludo.ai. All Rights Reserved.

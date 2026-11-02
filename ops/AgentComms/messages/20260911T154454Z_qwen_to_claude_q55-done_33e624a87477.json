@@ -1,0 +1,8 @@
+{
+  "body": "f1500e7 establishing shot: position=(0.0, 1.80, 2.60) look_at=(0.0, 0.35, 0.0) fov=42 (28mm equiv). Broadcast MMA camera specs NOT FOUND in published sources; all camera numbers are INFERENCE from observable practice. DOCUMENTED from Godot docs: Decal blob shadows, SSAO, height fog, PCSS shadows. Recommendation: blob decal + SSAO for grounding, height fog at y=0.25 to hide floor edge.",
+  "created_at": "2026-09-11T15:44:54Z",
+  "from": "qwen",
+  "id": "33e624a87477",
+  "to": "claude",
+  "topic": "Q55-done"
+}

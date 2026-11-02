@@ -1,0 +1,102 @@
+{
+  "meta": {
+    "task": "Q114",
+    "date": "2026-09-21",
+    "instrument": "Godot/tools/measure_ground_census.gd",
+    "ruleset": "mma",
+    "bouts": 40,
+    "rounds": 3,
+    "seed_base": 770000,
+    "population": {
+      "fighter_a": "wrestle-grappler (mma)",
+      "fighter_b": "striker (mma)",
+      "fighter_a_grapple": 78,
+      "fighter_b_grapple": 35,
+      "fighters_identical": false
+    },
+    "fight_time_s": 29993,
+    "floor_time_s": 1973,
+    "clinch_time_s": 718,
+    "bouts_with_ground": 38,
+    "total_grapple_events": 2477,
+    "denominator_note": "All percentages use N=2477 grapple events as denominator unless stated otherwise."
+  },
+  "demand": {
+    "source": "FightBeatAdapter.gd GRAPPLE_VIA_TECHNIQUES (:312) + GRAPPLE_KIND_TECHNIQUES (:329)",
+    "resolution": "_grapple_technique (:991): via wins over kind",
+    "total_ids": 18,
+    "ids": [
+      {"id": "grapple_control", "count": 1871, "share_pct": 75.54, "source": "kind"},
+      {"id": "grapple_seat", "count": 294, "share_pct": 11.87, "source": "kind"},
+      {"id": "grapple_clinch_engage", "count": 95, "share_pct": 3.84, "source": "via"},
+      {"id": "grapple_clinch_break", "count": 79, "share_pct": 3.19, "source": "via"},
+      {"id": "grapple_pass", "count": 72, "share_pct": 2.91, "source": "via"},
+      {"id": "grapple_position_change", "count": 70, "share_pct": 2.83, "source": "kind"},
+      {"id": "grapple_mount", "count": 68, "share_pct": 2.75, "source": "via"},
+      {"id": "grapple_takedown", "count": 52, "share_pct": 2.10, "source": "via"},
+      {"id": "grapple_escape", "count": 42, "share_pct": 1.70, "source": "via"},
+      {"id": "grapple_stall", "count": 33, "share_pct": 1.33, "source": "29 kind + 4 via"},
+      {"id": "grapple_submission_attempt", "count": 31, "share_pct": 1.25, "source": "kind"},
+      {"id": "grapple_throw", "count": 29, "share_pct": 1.17, "source": "via"},
+      {"id": "grapple_takedown_attempt", "count": 24, "share_pct": 0.97, "source": "kind"},
+      {"id": "grapple_submission_finish", "count": 14, "share_pct": 0.57, "source": "kind"},
+      {"id": "grapple_stand_up", "count": 18, "share_pct": 0.73, "source": "via"},
+      {"id": "grapple_sweep", "count": 11, "share_pct": 0.44, "source": "via"},
+      {"id": "grapple_throw_attempt", "count": 9, "share_pct": 0.36, "source": "kind"},
+      {"id": "grapple_back", "count": 4, "share_pct": 0.16, "source": "via"}
+    ]
+  },
+  "supply": {
+    "source": "FightClipBinding.gd PAIRED_BINDINGS (:882)",
+    "total_ids": 9,
+    "all_files_exist": true,
+    "ids": [
+      {"id": "grapple_sweep", "pair_key": "Paired_FullMount_Reversal", "att_exists": true, "vic_exists": true},
+      {"id": "grapple_takedown", "pair_key": "Paired_FullMount_Takedown_DoubleLeg_Start", "att_exists": true, "vic_exists": true},
+      {"id": "grapple_throw", "pair_key": "Paired_FullMount_Takedown_BodyLock_Start", "att_exists": true, "vic_exists": true},
+      {"id": "grapple_submission_attempt", "pair_key": "Paired_FullMount_H2H_ArmBar", "att_exists": true, "vic_exists": true},
+      {"id": "grapple_submission_finish", "pair_key": "Paired_FullMount_H2H_Strangle", "att_exists": true, "vic_exists": true},
+      {"id": "grapple_escape", "pair_key": "Paired_FullMount_PushOff", "att_exists": true, "vic_exists": true},
+      {"id": "grapple_clinch_break", "pair_key": "Paired_FullMount_PushOff", "att_exists": true, "vic_exists": true},
+      {"id": "grapple_control", "pair_key": "Paired_FullMount_Takedown_BodyLock_Loop", "att_exists": true, "vic_exists": true},
+      {"id": "grapple_stand_up", "pair_key": "Paired_FullMount_Takedown_BodyLock_End", "att_exists": true, "vic_exists": true}
+    ],
+    "covered_events": 1991,
+    "covered_share_pct": 80.38
+  },
+  "gap": {
+    "total_ids": 9,
+    "total_events": 486,
+    "total_share_pct": 19.62,
+    "ids_ranked_by_count": [
+      {"id": "grapple_seat", "count": 294, "share_pct": 11.87, "visually_actionable": false, "note": "internal seat transition, not a distinct visual move"},
+      {"id": "grapple_clinch_engage", "count": 95, "share_pct": 3.84, "visually_actionable": true},
+      {"id": "grapple_pass", "count": 72, "share_pct": 2.91, "visually_actionable": true},
+      {"id": "grapple_position_change", "count": 70, "share_pct": 2.83, "visually_actionable": true},
+      {"id": "grapple_mount", "count": 68, "share_pct": 2.75, "visually_actionable": true},
+      {"id": "grapple_stall", "count": 33, "share_pct": 1.33, "visually_actionable": true},
+      {"id": "grapple_takedown_attempt", "count": 24, "share_pct": 0.97, "visually_actionable": true},
+      {"id": "grapple_throw_attempt", "count": 9, "share_pct": 0.36, "visually_actionable": true},
+      {"id": "grapple_back", "count": 4, "share_pct": 0.16, "visually_actionable": true}
+    ],
+    "visually_actionable_ranking": [
+      {"rank": 1, "id": "grapple_clinch_engage", "count": 95, "share_pct": 3.84},
+      {"rank": 2, "id": "grapple_pass", "count": 72, "share_pct": 2.91},
+      {"rank": 3, "id": "grapple_position_change", "count": 70, "share_pct": 2.83},
+      {"rank": 4, "id": "grapple_mount", "count": 68, "share_pct": 2.75},
+      {"rank": 5, "id": "grapple_stall", "count": 33, "share_pct": 1.33},
+      {"rank": 6, "id": "grapple_takedown_attempt", "count": 24, "share_pct": 0.97},
+      {"rank": 7, "id": "grapple_throw_attempt", "count": 9, "share_pct": 0.36},
+      {"rank": 8, "id": "grapple_back", "count": 4, "share_pct": 0.16}
+    ]
+  },
+  "pinned_numbers": {
+    "grapple_clinch_engage_count": 95,
+    "grapple_clinch_engage_per_bout": 2.38,
+    "grapple_clinch_engage_share_pct": 3.84,
+    "denominator": "grapple events (N=2477)",
+    "demand_count": 18,
+    "supply_count": 9,
+    "gap_count": 9
+  }
+}

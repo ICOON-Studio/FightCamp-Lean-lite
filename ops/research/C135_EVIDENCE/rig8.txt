@@ -1,0 +1,4 @@
+Observed OS process exit: -1073741819
+2026-09-20 22:16:10,449 GLB/GLTF: Import: Success
+2026-09-20 22:16:12,748 C135_RIG_GENERATED f05_m_mma_light_rigged
+2026-09-20 22:16:12,750 C135_AUTOPOSING_API ['activate', 'add', 'deactivate', 'update']

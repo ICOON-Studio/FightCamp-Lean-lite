@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>FightCamp Ops Board</title>
+<style>
+  :root {
+    --bg: #0e1116;
+    --bg2: #161b22;
+    --bg3: #1c2330;
+    --line: #2a3341;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --dim: #6e7681;
+    --good: #3fb950;
+    --amber: #d29922;
+    --bad: #f85149;
+    --link: #58a6ff;
+    --pad: 14px;
+    --radius: 10px;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --sans: "Segoe UI", system-ui, -apple-system, sans-serif;
+  }
+
+  /* ROADMAP TREE (S69, operator: "a roadmap with nice tree-like presentation and
+     highlight the tasks that are currently being worked"). */
+  .tree-wrap { background: var(--bg2); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--pad); }
+  .tree-legend { display: flex; flex-wrap: wrap; gap: 12px; font-size: 0.8rem; color: var(--muted); margin: 4px 0 10px; }
+  .tree-legend span { display: inline-flex; align-items: center; gap: 5px; }
+  .tree, .tree ul { list-style: none; margin: 0; padding: 0; }
+  .tree ul { margin-left: 9px; padding-left: 14px; border-left: 1px solid var(--line); }
+  .tree li { position: relative; margin: 2px 0; }
+  .tree ul > li::before { content: ""; position: absolute; left: -14px; top: 0.95em; width: 11px; border-top: 1px solid var(--line); }
+  .tree details > summary { list-style: none; cursor: pointer; }
+  .tree details > summary::-webkit-details-marker { display: none; }
+  .tree .tw::before { content: "\25B8"; display: inline-block; width: 12px; color: var(--dim); transition: transform .15s; }
+  .tree details[open] > summary .tw::before { transform: rotate(90deg); }
+  .tn { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 7px; padding: 3px 8px; border-radius: 7px; max-width: calc(100% - 14px); border: 1px solid transparent; }
+  .tn .tid { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); white-space: nowrap; }
+  .tn .tt { overflow-wrap: anywhere; }
+  .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; flex: 0 0 9px; }
+  .dot.done { background: var(--good); }
+  .dot.partial { background: var(--amber); }
+  .dot.planned { border: 1.5px solid var(--dim); }
+  .dot.deferred { background: var(--line); }
+  .dot.idle { border: 1.5px dashed var(--dim); }
+  .dot.active { background: var(--link); animation: treePulse 1.6s infinite; }
+  @keyframes treePulse { 0% { box-shadow: 0 0 0 0 rgba(88,166,255,.7); } 70% { box-shadow: 0 0 0 7px rgba(88,166,255,0); } 100% { box-shadow: 0 0 0 0 rgba(88,166,255,0); } }
+  @media (prefers-reduced-motion: reduce) { .dot.active { animation: none; } }
+  .tn.done .tt { color: var(--muted); }
+  .tn.deferred .tt { color: var(--dim); text-decoration: line-through; }
+  .tn.active { background: rgba(88,166,255,.14); border-color: rgba(88,166,255,.55); }
+  .tn.active .tt { font-weight: 600; }
+  .tn.next { border: 1px dashed var(--amber); }
+  .tn.stage .tt { font-weight: 700; }
+  .tn.root .tt { font-weight: 700; font-size: 1.05rem; }
+  .tbadge { font-size: 0.72rem; padding: 1px 7px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap; }
+  .tbadge.live { color: var(--link); border-color: rgba(88,166,255,.6); }
+  .tbadge.nx { color: var(--amber); border-color: rgba(210,153,34,.6); }
+  .tmini { display: inline-block; width: 60px; height: 6px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
+  .tmini i { display: block; height: 100%; background: var(--good); }
+  .tsub { font-size: 0.8rem; color: var(--muted); margin: 0 0 3px 22px; overflow-wrap: anywhere; }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg); color: var(--text);
+    font: 15px/1.45 var(--sans);
+    -webkit-text-size-adjust: 100%;
+    overflow-x: hidden;
+  }
+  body { padding: 12px 12px 48px; max-width: 1200px; margin: 0 auto; }
+  h1 {
+    font-size: 1.35rem; font-weight: 700; margin: 0 0 4px;
+    letter-spacing: 0.02em;
+  }
+  .sub { color: var(--muted); font-size: 0.9rem; margin-bottom: 14px; }
+  .sub code { font-family: var(--mono); font-size: 0.85em; color: var(--text); }
+  .note {
+    background: var(--bg2); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 10px 12px;
+    color: var(--muted); font-size: 0.88rem; margin-bottom: 16px;
+  }
+  .note strong { color: var(--text); font-weight: 600; }
+  .grid {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 820px) {
+    .grid.two { grid-template-columns: 1.4fr 1fr; }
+    .grid.agents { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1100px) {
+    .grid.agents { grid-template-columns: repeat(3, 1fr); }
+  }
+  section {
+    background: var(--bg2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: var(--pad);
+    min-width: 0;
+  }
+  section h2 {
+    margin: 0 0 10px;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    font-weight: 700;
+  }
+  .agent-card {
+    background: var(--bg3);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 12px;
+    min-width: 0;
+  }
+  .agent-card.idle-fail {
+    border-color: var(--bad);
+    box-shadow: inset 0 0 0 1px rgba(248,81,73,0.25);
+  }
+  .agent-head {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 8px; margin-bottom: 8px;
+  }
+  .agent-name {
+    font-weight: 700; font-size: 1.05rem; text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .pill {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    padding: 2px 7px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .pill.ok { color: var(--good); border-color: rgba(63,185,80,0.45); }
+  .pill.warn { color: var(--amber); border-color: rgba(210,153,34,0.45); }
+  .pill.bad { color: var(--bad); border-color: rgba(248,81,73,0.45); }
+  .pill.off { color: var(--dim); }
+  .task-id {
+    font-family: var(--mono); color: var(--link); font-weight: 600;
+  }
+  .title {
+    margin: 4px 0 8px; color: var(--text);
+    overflow-wrap: anywhere; word-break: break-word;
+  }
+  .meta {
+    display: grid; gap: 4px;
+    font-size: 0.86rem; color: var(--muted);
+  }
+  .meta b { color: var(--text); font-weight: 600; }
+  .dash { color: var(--dim); }
+  .switch-row {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 10px; margin-top: 10px; padding-top: 10px;
+    border-top: 1px solid var(--line);
+  }
+  .switch-label { font-size: 0.8rem; color: var(--muted); line-height: 1.3; }
+  .toggle {
+    appearance: none; width: 46px; height: 26px; border-radius: 999px;
+    background: #3a4250; border: 1px solid var(--line); position: relative;
+    cursor: pointer; flex-shrink: 0;
+  }
+  .toggle::after {
+    content: ""; position: absolute; top: 2px; left: 2px;
+    width: 20px; height: 20px; border-radius: 50%;
+    background: #c9d1d9; transition: transform 0.15s ease;
+  }
+  .toggle.on { background: #238636; border-color: #2ea043; }
+  .toggle.on::after { transform: translateX(20px); background: #fff; }
+  table {
+    width: 100%; border-collapse: collapse; font-size: 0.86rem;
+  }
+  th, td {
+    text-align: left; padding: 6px 4px; border-bottom: 1px solid var(--line);
+    vertical-align: top; overflow-wrap: anywhere;
+  }
+  th { color: var(--muted); font-weight: 600; font-size: 0.75rem;
+       text-transform: uppercase; letter-spacing: 0.05em; }
+  /* Operator ask 2026-09-15: a button that starts the Claude app on the PC.
+     It sits directly under "Start here" because the case it exists for is the
+     app being DOWN and the operator holding a phone. */
+  .launch { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; margin-bottom: 12px; }
+  .launch h2 { margin: 0 0 8px; }
+  .launch-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+  .launch-row code { word-break: break-all; }
+  /* PHONE FIRST: at 390pt the button and a 220px text column do not fit side by
+     side, and the board's standing rule is no horizontal scrolling there. Stack
+     them and let the button span the width - it is easier to hit as well. */
+  @media (max-width: 460px) {
+    .launch-row { flex-direction: column; align-items: stretch; }
+    .launch-btn { width: 100%; }
+    .launch-why { flex: 1 1 auto; }
+  }
+  .launch-row:last-child { margin-bottom: 0; }
+  .launch-btn {
+    appearance: none; border-radius: 8px; border: 1px solid #2ea043; background: #238636;
+    color: #fff; font: inherit; font-weight: 600; padding: 9px 14px; cursor: pointer;
+    min-height: 40px; flex-shrink: 0;
+  }
+  .launch-btn[disabled] { background: #3a4250; border-color: var(--line); cursor: not-allowed; }
+  .launch-why { font-size: 12px; opacity: .78; flex: 1 1 220px; min-width: 0; }
+  .launch-state { font-size: 12px; opacity: .78; word-break: break-all; }
+  .launch-state.bad { color: #f0883e; }
+  .suite-box {
+    font-family: var(--mono); font-size: 1.15rem; font-weight: 700;
+  }
+  .suite-box.bad {
+    color: var(--bad);
+    background: rgba(248,81,73,0.12);
+    border: 1px solid rgba(248,81,73,0.45);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .suite-box.ok { color: var(--good); }
+  ul.attn { margin: 0; padding-left: 18px; color: var(--muted); }
+  ul.attn li { margin: 4px 0; overflow-wrap: anywhere; }
+  ul.attn .hot { color: var(--bad); }
+  .footer {
+    margin-top: 16px; color: var(--dim); font-size: 0.8rem;
+    display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap;
+  }
+  .err {
+    background: rgba(248,81,73,0.12); border: 1px solid rgba(248,81,73,0.4);
+    color: var(--bad); padding: 10px 12px; border-radius: 8px; margin-bottom: 12px;
+    font-family: var(--mono); font-size: 0.82rem; white-space: pre-wrap;
+  }
+  .stack { display: grid; gap: 12px; margin-bottom: 12px; min-width: 0; }
+  .road-pair {
+    display: grid; gap: 12px; margin-bottom: 12px;
+    grid-template-columns: 1fr; min-width: 0;
+  }
+  @media (min-width: 820px) {
+    .road-pair { grid-template-columns: 1fr 1fr; }
+  }
+  .start {
+    background: linear-gradient(180deg, #12281c 0%, var(--bg2) 100%);
+    border: 1px solid #2ea04326; border-left: 3px solid var(--good);
+    border-radius: var(--radius); padding: var(--pad); margin-bottom: 12px;
+  }
+  .start h2 { color: var(--good); margin: 0 0 6px; }
+  .start .cmd {
+    font-family: var(--mono); font-size: 13px; background: #0b1a10;
+    border: 1px solid #2ea04340; border-radius: 6px; padding: 10px 12px;
+    margin: 8px 0; color: #7ee787; overflow-x: auto; white-space: pre;
+  }
+  .start .why { color: var(--muted); font-size: 12px; line-height: 1.45; }
+  .start .who { margin-top: 10px; }
+  .start .who-row {
+    display: flex; gap: 8px; align-items: baseline;
+    padding: 3px 0; border-top: 1px solid var(--line); font-size: 12px;
+  }
+  .start .who-row:first-child { border-top: 0; }
+  .start .who-name {
+    font-family: var(--mono); min-width: 62px; color: var(--text);
+  }
+  .start .who-out { color: var(--dim); }
+  .start .who-in { color: var(--good); }
+  .start .who-note { color: var(--muted); flex: 1; }
+  .start .setline { color: var(--amber); font-size: 12px; margin-top: 8px; }
+  .road-card {
+    background: var(--bg2); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: var(--pad); min-width: 0;
+  }
+  .road-card.loud {
+    border-color: rgba(88,166,255,0.55);
+    box-shadow: inset 0 0 0 1px rgba(88,166,255,0.18);
+    background: #152033;
+  }
+  .road-card.quiet {
+    opacity: 0.92; border-style: dashed;
+  }
+  .road-kicker {
+    margin: 0 0 8px; font-size: 0.72rem; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--muted); font-weight: 700;
+  }
+  .road-title {
+    margin: 4px 0 8px; font-size: 1.05rem; font-weight: 700;
+    overflow-wrap: anywhere; word-break: break-word;
+  }
+  .road-summary {
+    margin: 0 0 8px; color: var(--text); font-size: 0.92rem;
+    overflow-wrap: anywhere; word-break: break-word;
+  }
+  .road-gate {
+    margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--line);
+    font-size: 0.86rem; color: var(--amber); overflow-wrap: anywhere;
+  }
+  .waiting {
+    display: none; margin-bottom: 12px; min-width: 0;
+    background: rgba(248,81,73,0.1);
+    border: 1px solid rgba(248,81,73,0.55);
+    border-radius: var(--radius); padding: var(--pad);
+  }
+  .waiting.show { display: block; }
+  .waiting h2 { color: var(--bad); }
+  .waiting-item {
+    padding: 8px 0; border-bottom: 1px solid rgba(248,81,73,0.25);
+    overflow-wrap: anywhere; word-break: break-word;
+  }
+  .waiting-item:last-child { border-bottom: 0; padding-bottom: 0; }
+  .sale {
+    display: none; margin-bottom: 12px; min-width: 0;
+    background: rgba(88,166,255,0.07);
+    border: 1px solid rgba(88,166,255,0.45);
+    border-radius: var(--radius); padding: var(--pad);
+  }
+  .sale.show { display: block; }
+  .sale h2 { color: var(--link); }
+  .sale-note { font-size: 0.84rem; color: var(--muted); margin: 0 0 6px; overflow-wrap: anywhere; }
+  .sale-group {
+    margin: 12px 0 2px; font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.03em; color: var(--amber); overflow-wrap: anywhere;
+  }
+  .sale-item { padding: 8px 0; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
+  .sale-item:last-child { border-bottom: 0; }
+  .sale-item a { color: var(--link); font-weight: 700; }
+  .sale-why { font-size: 0.86rem; color: var(--text); margin-top: 3px; }
+  .waiting-item .qid {
+    font-family: var(--mono); color: var(--bad); font-weight: 700;
+  }
+  .bar-row { margin: 8px 0; min-width: 0; }
+  .bar-head {
+    display: flex; justify-content: space-between; gap: 8px;
+    font-size: 0.86rem; margin-bottom: 4px; flex-wrap: wrap;
+  }
+  .bar-track {
+    height: 8px; border-radius: 999px; background: #2a3341;
+    overflow: hidden; min-width: 0;
+  }
+  .bar-fill {
+    height: 100%; border-radius: 999px; background: #58a6ff;
+    max-width: 100%;
+  }
+  .bar-note { color: var(--muted); font-size: 0.8rem; margin-top: 3px;
+              overflow-wrap: anywhere; }
+  .judge-src {
+    color: var(--amber); font-size: 0.8rem; margin: 0 0 10px;
+    overflow-wrap: anywhere; word-break: break-word;
+  }
+  .stage-card {
+    background: var(--bg3); border: 1px solid var(--line);
+    border-radius: 8px; padding: 10px; margin-bottom: 10px; min-width: 0;
+  }
+  .stage-card:last-child { margin-bottom: 0; }
+  .stage-sessions {
+    font-family: var(--mono); font-size: 0.78rem; color: var(--muted);
+    margin: 6px 0; overflow-wrap: anywhere;
+  }
+  details.done-when {
+    margin-top: 6px; font-size: 0.86rem; color: var(--muted);
+  }
+  details.done-when summary {
+    cursor: pointer; color: var(--link); list-style: none;
+  }
+  details.done-when summary::-webkit-details-marker { display: none; }
+  details.done-when ul { margin: 6px 0 0; padding-left: 18px; }
+  details.done-when li { margin: 3px 0; overflow-wrap: anywhere; }
+  @media (min-width: 820px) {
+    details.done-when[open] { /* desktop can stay open if user opens */ }
+  }
+  .sess-list { display: grid; gap: 8px; min-width: 0; }
+  .sess-row {
+    background: var(--bg3); border: 1px solid var(--line);
+    border-radius: 8px; padding: 10px; min-width: 0;
+  }
+  .sess-row.planned { opacity: 0.62; }
+  .sess-row.in_progress {
+    border-color: rgba(63,185,80,0.55);
+    box-shadow: inset 0 0 0 1px rgba(63,185,80,0.2);
+    opacity: 1;
+  }
+  .sess-top {
+    display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
+    margin-bottom: 4px;
+  }
+  .one-line {
+    font-style: italic; margin: 0 0 10px; overflow-wrap: anywhere;
+  }
+  .road-miss {
+    color: var(--amber); font-size: 0.9rem; overflow-wrap: anywhere;
+  }
+
+/* Operator ask 2026-09-12: Attention and History collapse, so the phone view is
+   not one long scroll. Native <details>; no JS, no state to desync. */
+details.collapsible { border-top: 1px solid rgba(255,255,255,.12); margin: 1rem 0 0; }
+details.collapsible > summary {
+  cursor: pointer; list-style: none; padding: .55rem 0;
+  display: flex; align-items: center; gap: .5rem;
+}
+details.collapsible > summary::-webkit-details-marker { display: none; }
+details.collapsible > summary::before {
+  content: "\25B8"; font-size: .85em; opacity: .65; transition: transform .15s ease;
+}
+details.collapsible[open] > summary::before { transform: rotate(90deg); }
+details.collapsible > summary h2 { margin: 0; }
+details.more > summary { cursor: pointer; list-style: none; }
+details.more > summary::-webkit-details-marker { display: none; }
+details.more > summary .more-link { color: var(--amber); font-size: .85em; white-space: nowrap; }
+details.more[open] > summary .cut { display: none; }
+details.more .more-link::after { content: "more"; }
+details.more[open] .more-link::after { content: "less"; }
+details.more .more-body { white-space: pre-wrap; overflow-wrap: anywhere; }
+/* A comfortable tap target on a phone without moving anything on desktop. */
+@media (max-width: 640px) { details.collapsible > summary { padding: .8rem 0; } }
+/* PC METERS (operator 2026-10-02): temperature never above 80 C, CPU low enough to use the PC. */
+.pc { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin: 0 0 12px; }
+.pc .m { background: var(--bg2); border: 1px solid var(--line); border-radius: var(--radius); padding: 8px 10px; }
+.pc .k { font-size: 0.75rem; color: var(--muted); }
+.pc .v { font-family: var(--mono); font-size: 1.25rem; font-weight: 700; }
+.pc .bar { height: 5px; background: var(--bg3); border-radius: 3px; margin-top: 5px; overflow: hidden; }
+.pc .bar i { display: block; height: 100%; background: var(--good); }
+.pc .m.amber .v { color: var(--amber); } .pc .m.amber .bar i { background: var(--amber); }
+.pc .m.red .v { color: var(--bad); } .pc .m.red .bar i { background: var(--bad); }
+.pc-note { grid-column: 1 / -1; font-size: 0.78rem; color: var(--muted); }
+.pc-note.red { color: var(--bad); }
+.gh-live { color: var(--good, #3fb950); animation: ghpulse 2s ease-in-out infinite; }
+@keyframes ghpulse { 50% { opacity: 0.25; } }
+@media (max-width: 640px) { .pc { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>
+<style>
+.fcnav{position:sticky;top:0;z-index:50;display:flex;gap:4px;align-items:center;background:#0e0c0b;border-bottom:1px solid #3a332d;padding:8px 16px}
+.fcnav b{color:#e0703a;margin-right:14px;font-size:14px;letter-spacing:.04em}
+.fcnav a{color:#a39a8e;text-decoration:none;font-size:14px;padding:5px 12px;border-radius:6px}
+.fcnav a:hover{background:#2b2520;color:#efe9e1}
+.fcnav a.cur{background:#e0703a;color:#14110f;font-weight:700}
+</style>
+<style>
+  .operator-panels { display: grid; gap: 12px; margin: 12px 0; }
+  .operator-panel { background: var(--bg2); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--pad); }
+  .operator-panel h2 { margin: 0 0 8px; }
+  .question-row { border-top: 1px solid var(--line); padding: 10px 0; overflow-wrap: anywhere; }
+  .question-row:first-of-type { border-top: 0; }
+  .question-options, .agent-availability { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .question-options button, .question-send, .question-free { min-height: 44px; font: inherit; }
+  .question-options button, .question-send { border: 1px solid var(--line); border-radius: 8px; background: var(--bg3); color: var(--text); padding: 8px 12px; cursor: pointer; }
+  .question-options button:hover, .question-send:hover { border-color: var(--link); }
+  .question-free { width: 100%; padding: 8px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--text); }
+  .question-note, .question-state { color: var(--muted); font-size: .85rem; margin-top: 6px; }
+  .question-answered { color: var(--muted); }
+  .agent-availability label { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 5px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg3); }
+  .agent-availability input { width: 22px; height: 22px; accent-color: var(--good); }
+</style>
+</head>
+<body>
+<nav class="fcnav"><b>FIGHTCAMP</b><a href="/" data-p="/">Roadmap</a><a href="/agents" data-p="/agents">Agents live</a><a href="/animations" data-p="/animations">Boxer animations</a><a href="/old" data-p="/old">Old detailed board</a><a href="http://127.0.0.1:4101/" title="Model router live: every Claude session (desktop via the model-router mod)">Model router</a></nav>
+<script>document.querySelectorAll('.fcnav a').forEach(a=>{if(a.dataset.p===location.pathname.replace(/\.html$/,'')||(a.dataset.p==='/'&&location.pathname==='/index.html'))a.classList.add('cur')})</script>
+
+  <h1>Ops Board</h1>
+  <div class="sub">Who is working · how long · what shipped · rotation intent · <a href="/agents" style="color:var(--good);font-weight:700">AGENTS LIVE &rarr;</a> · <a href="/animations" style="color:var(--link)">Boxer animations &rarr;</a></div>
+  <div class="operator-panels">
+    <section class="operator-panel" id="questionsPanel"><h2>Questions for you</h2><div id="questionsContent">Loading questions…</div></section>
+    <!-- S231 operator: "how can i see the new bot" - Paul (xAI, Tools/pm_bot.py) reviews the board; his newest review is AgentComms/pm/latest.md -->
+    <section class="operator-panel" id="pmPanel"><h2>Paul - project manager bot</h2>
+      <div><a href="/attach?path=AgentComms/pm/latest.md" target="_blank">Paul's latest review</a> (status, stale items, next 5, who does what, notes for Claude and Dola)
+      &nbsp;·&nbsp; <a href="/attach?path=AgentComms/pm/PM_SNAPSHOT.md" target="_blank">what Paul was shown</a></div></section>
+    <section class="operator-panel" id="availabilityPanel"><h2>Agents available</h2><div id="availabilityContent">Loading roster…</div></section>
+  </div>
+  <div id="errors"></div>
+
+  <!-- PC METERS: read from the PC Watchdog every 10 s (/api/pc). Red = no new agent, test or render starts. -->
+  <section class="pc" id="pcMeters"><div class="pc-note">Reading the PC…</div></section>
+  <!-- GITHUB ACTIONS METERS (S212; S260 real-time, operator: "add the actions github meter on opsboard real-time sync"):
+       the enterprise's 50,000 included minutes = GitHub's billed hours + the live jobs not billed yet (/api/github, every 15 s
+       while this tab is visible). The org budget is a hard stop: at the cap CI and every cloud agent stop until the 1st. -->
+  <section class="pc" id="ghMeters"><div class="pc-note">Reading GitHub Actions…</div></section>
+
+  <!-- OPERATOR, 2026-09-15: "I want a button at the top the current opsboard
+       when I trigger it the Claude app opens on my pc". FIRST thing under the
+       title, above Start here: the case it exists for is the desktop app being
+       DOWN with the operator holding a phone, and anything below the fold is
+       not a button you can find in that state. It is never display:none any
+       more either - when it cannot work it says why, because an invisible
+       button and an absent feature looked identical twice. -->
+  <section class="launch" id="launchSection">
+    <h2>Run on this PC</h2>
+    <div id="launchList">Checking this board…</div>
+  </section>
+
+  <section class="start" id="startHere" style="display:none">
+    <h2>Start here</h2>
+    <div id="startCmd"></div>
+    <div class="why" id="startWhy"></div>
+    <div class="who" id="startWho"></div>
+    <div class="setline" id="startSettings"></div>
+  </section>
+
+  <section style="margin-bottom:12px" id="suiteSection">
+    <h2>Suite status</h2>
+    <div id="suite">—</div>
+  </section>
+
+  <div id="roadmapMiss" class="road-miss" style="display:none;margin-bottom:12px"></div>
+
+  <div class="road-pair" id="roadNowNext"></div>
+
+  <!-- S122 (operator: "add the release map to the opsboard"): the radial map of stages A-E -> Early Access. -->
+  <section style="margin-bottom:12px" id="releaseMapSection">
+    <h2>Release map</h2>
+    <p class="dash" style="margin:4px 0 0"><a href="https://claude.ai/artifact/5AVEcg49dC7d1dyBDbERfb" target="_blank" rel="noopener noreferrer" style="color:var(--link);font-weight:700">Open the FightCamp release map</a> &middot; five stages around Early Access, evidence marks on the active stage (updated S122)</p>
+  </section>
+
+  <section style="margin-bottom:12px" id="treeSection">
+    <details class="collapsible" data-fold="treeSection" open>
+      <summary><h2 style="display:inline">Roadmap tree</h2> <span class="dash" id="treeCount"></span></summary>
+      <div class="tree-wrap">
+        <div class="tree-legend">
+          <span><i class="dot active"></i>being worked now</span>
+          <span><i class="dot done"></i>done</span>
+          <span><i class="dot partial"></i>partial</span>
+          <span><i class="dot planned"></i>planned</span>
+          <span><i class="dot deferred"></i>deferred</span>
+        </div>
+        <div id="roadTree">&mdash;</div>
+      </div>
+    </details>
+  </section>
+
+  <section class="waiting" id="waitingOnYou">
+    <h2>Waiting on you</h2>
+    <div id="waitingList"></div>
+  </section>
+
+  <section class="sale" id="saleSection">
+    <details class="collapsible" data-fold="saleSection">
+      <summary><h2 style="display:inline">Sale shortlist</h2></summary>
+      <div id="saleList"></div>
+    </details>
+  </section>
+
+  <section style="margin-bottom:12px" id="stagesSection">
+    <details class="collapsible" data-fold="stagesSection">
+      <summary><h2 style="display:inline">Roadmap</h2></summary>
+      <div id="stages">—</div>
+    </details>
+  </section>
+
+  <section style="margin-bottom:12px" id="sessionsSection">
+    <details class="collapsible" data-fold="sessionsSection">
+      <summary><h2 style="display:inline">Sessions</h2></summary>
+      <div id="sessions" class="sess-list">—</div>
+    </details>
+  </section>
+
+  <section style="margin-bottom:12px" id="whereSection">
+    <details class="collapsible" data-fold="whereSection">
+      <summary><h2 style="display:inline">Where the game is</h2></summary>
+      <div id="whereGame">—</div>
+    </details>
+  </section>
+
+  <section style="margin-bottom:12px">
+    <h2>Now</h2>
+    <div class="grid agents" id="now"></div>
+  </section>
+
+  <div class="grid two" style="margin-bottom:12px">
+    <section>
+      <details class="collapsible" data-fold="attention">
+        <summary><h2 style="display:inline">Attention</h2></summary>
+        <div id="attention">—</div>
+      </details>
+    </section>
+    <section>
+      <details class="collapsible" data-fold="usage">
+        <summary><h2 style="display:inline">Usage proxies (honest)</h2></summary>
+        <div id="usageSummary" class="meta">—</div>
+      </details>
+    </section>
+  </div>
+
+  <section>
+    <details class="collapsible" data-fold="history">
+      <summary><h2 style="display:inline">History</h2></summary>
+      <div id="history">—</div>
+    </details>
+  </section>
+
+  <div class="footer">
+    <span id="stamp">—</span>
+    <!-- THE PAGE SAYS WHICH PAGE IT IS (2026-09-15). The exe serves the
+         CHECKOUT's index.html (R138) while its own server.py stays frozen, so
+         "is the board running my change?" has TWO answers and no way to see
+         either from a phone. It cost two round trips of "I still don't see the
+         button". Bump PAGE_BUILD with any change worth asking about. -->
+    <span id="build">page —</span>
+    <span id="refreshNote">refreshes only when you press Refresh now</span> <button type="button" id="refreshNow" class="launch-btn" style="padding:2px 10px">Refresh now</button>
+  </div>
+
+<script>
+(function () {
+  // Bump this with any change the operator might ask about. It is rendered in
+  // the footer so "which page am I looking at" is answerable at a glance.
+  const PAGE_BUILD = "2026-10-09 question-comments";
+  const mon = (n) => (n == null || n === "" ? "—" : String(n));
+  // 2026-09-24: long roadmap prose made the page ~200k px tall. Anything past
+  // CLIP characters shows its opening and a "more" toggle; the toggle is a
+  // <details data-fold> so it survives the refresh like every other fold.
+  const CLIP = 240;
+  function more(key, text) {
+    const t = String(text == null ? "" : text);
+    if (t.length <= CLIP) return `<span>${esc(t)}</span>`;
+    const cut = t.slice(0, CLIP).replace(/\s+\S*$/, "");
+    return `<details class="more" data-fold="more-${esc(key)}"><summary><span class="cut">${esc(cut)}… </span><span class="more-link"></span></summary><div class="more-body">${esc(t)}</div></details>`;
+  }
+  function fmtDur(sec) {
+    if (sec == null || sec === "" || Number.isNaN(sec)) return "—";
+    sec = Math.max(0, Math.floor(sec));
+    const h = Math.floor(sec / 3600);
+    const m = Math.floor((sec % 3600) / 60);
+    const s = sec % 60;
+    if (h > 48) return Math.floor(h / 24) + "d " + (h % 24) + "h";
+    if (h > 0) return h + "h " + m + "m";
+    if (m > 0) return m + "m " + s + "s";
+    return s + "s";
+  }
+  function fmtWhen(iso) {
+    if (!iso) return "—";
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return iso;
+    return d.toLocaleString(undefined, {
+      month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"
+    });
+  }
+  function esc(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  async function postRoster(agent, inRotation) {
+    const res = await fetch("/api/roster", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ agent: agent, in_rotation: inRotation })
+    });
+    if (!res.ok) throw new Error("roster write failed");
+    return res.json();
+  }
+
+  async function renderOperatorPanels() {
+    const [qRes, rRes] = await Promise.all([
+      fetch("/api/questions", { cache: "no-store" }),
+      fetch("/api/availability", { cache: "no-store" })
+    ]);
+    if (!qRes.ok || !rRes.ok) throw new Error("Questions or roster could not be loaded");
+    const qData = await qRes.json();
+    const roster = await rRes.json();
+    const questions = Array.isArray(qData.questions) ? qData.questions : [];
+    const open = questions.filter(q => !q.answer);
+    const answered = questions.filter(q => q.answer);
+    const questionHtml = (q) => {
+      const opts = Array.isArray(q.options) ? q.options : [];
+      // S188 operator: "i want to be able to not pick and answer, just comment on the opsboard". Every question has the
+      // comment box: Send alone answers with the comment; a picked option carries the comment as its note.
+      const free = `<input class="question-free" maxlength="8000" aria-label="Comment" placeholder="${opts.length ? "Or just comment (sent with a pick, or alone)" : "Type your answer"}" data-free="${esc(q.id)}"><button class="question-send" type="button" data-send="${esc(q.id)}">${opts.length ? "Send comment" : "Send"}</button>`;
+      const controls = (opts.length
+        ? `<div class="question-options">${opts.map(a => `<button type="button" data-question="${esc(q.id)}" data-answer="${esc(a)}">${esc(a)}</button>`).join("")}</div>`
+        : "") + free;
+      return `<div class="question-row"><div>${esc(q.text || "")}</div>${controls}<div class="question-state" id="qstate-${esc(q.id)}" aria-live="polite"></div></div>`;
+    };
+    document.getElementById("questionsContent").innerHTML =
+      (open.length ? open.map(questionHtml).join("") : `<div class="question-row">No open questions.</div>`) +
+      (answered.length ? `<details><summary>Answered (${answered.length})</summary>${answered.map(q => `<div class="question-row question-answered"><div>${esc(q.text || "")}</div><div><b>${esc(q.answer)}</b>${q.note ? ` · ${esc(q.note)}` : ""}</div><div>${esc(fmtWhen(q.answered_at))}</div></div>`).join("")}</details>` : "");
+    const freeText = (id) => { const input = document.querySelector(`[data-free="${CSS.escape(id)}"]`); return input ? input.value.trim() : ""; };
+    document.querySelectorAll("[data-question]").forEach(button => button.addEventListener("click", () =>
+      sendBoardAnswer(button.dataset.question, button.dataset.answer, freeText(button.dataset.question) || null)));
+    document.querySelectorAll("[data-send]").forEach(button => button.addEventListener("click", () => {
+      const id = button.dataset.send;
+      const text = freeText(id);
+      const state = document.getElementById("qstate-" + id);
+      if (!text) { if (state) state.textContent = "Type a comment first"; return; }
+      sendBoardAnswer(id, text, null);
+    }));
+    const agents = Object.entries(roster).filter(([, row]) => row && typeof row === "object" && "in_rotation" in row);
+    document.getElementById("availabilityContent").innerHTML = `<div class="agent-availability">${agents.map(([name, row]) =>
+      `<label><input type="checkbox" data-agent="${esc(name)}" ${row.in_rotation ? "checked" : ""}><span>${esc(name)}</span><span id="availability-state-${esc(name)}" title="Availability saved" aria-label="Availability saved"></span></label>`
+    ).join("")}</div>`;
+    document.querySelectorAll("[data-agent]").forEach(box => box.addEventListener("change", async () => {
+      box.disabled = true;
+      const state = document.getElementById("availability-state-" + box.dataset.agent);
+      if (state) state.textContent = "";
+      try {
+        const res = await fetch("/api/availability", { method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ agent: box.dataset.agent, available: box.checked }) });
+        if (!res.ok) throw new Error("save failed");
+        if (state) state.textContent = "✓";
+      } catch (_) {
+        box.checked = !box.checked;
+        if (state) { state.textContent = "!"; state.title = "Save failed"; state.setAttribute("aria-label", "Save failed"); }
+      } finally { box.disabled = false; }
+    }));
+  }
+
+  async function sendBoardAnswer(id, answer, note) {
+    const state = document.getElementById("qstate-" + id);
+    if (state) state.textContent = "Sending…";
+    try {
+      const res = await fetch("/api/answer", { method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(note ? { id, answer, note } : { id, answer }) });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "answer save failed");
+      await renderOperatorPanels();
+    } catch (err) { if (state) state.textContent = err.message; }
+  }
+
+  // OPERATOR ASK 2026-09-15: "add on opsboard a trigger to run the Claude app
+  // in the pc". The board is a scheduled task that heals itself every five
+  // minutes, so it is up when the desktop app is not - which is the only
+  // reason a phone can still reach this PC once the app has crashed.
+  //
+  // The button posts a target NAME and nothing else; every path that gets
+  // executed lives in AgentComms/launch_targets.json. See the note on
+  // launch_target() in server.py for why that matters on an unauthenticated
+  // board bound to the LAN.
+  let SERVER_BUILD = "";
+
+  async function renderLaunch() {
+    const section = document.getElementById("launchSection");
+    const root = document.getElementById("launchList");
+    // A MISSING ENDPOINT MUST EXPLAIN ITSELF, NOT VANISH (2026-09-15, found by
+    // the operator: "I don't see the button on the opsboard").
+    //
+    // R138 makes the CHECKOUT's index.html win over the copy baked into the
+    // exe, so a `git pull` alone updates this page while `server.py` stays
+    // frozen inside the running FightCampOpsBoard.exe. /api/launch then 404s,
+    // its text/plain body explodes res.json(), and the old code caught that and
+    // hid the section - so the page looked exactly like a board that had never
+    // heard of the feature. The one state the operator most needs named was the
+    // one state that said nothing.
+    let info = null;
+    let stale = "";
+    try {
+      const res = await fetch("/api/launch", { cache: "no-store" });
+      if (!res.ok) {
+        stale = res.status === 404
+          ? "this board is running an OLDER BUILD of server.py - the page has the button, the server has no /api/launch"
+          : ("the board answered " + res.status + " for /api/launch");
+      } else {
+        info = await res.json();
+        SERVER_BUILD = String((info && info.build) || "has /api/launch");
+      }
+    } catch (err) {
+      stale = "could not reach /api/launch on this board (" + String(err) + ")";
+    }
+    if (stale) {
+      section.style.display = "";
+      root.innerHTML = `<div class="launch-row">
+          <button type="button" class="launch-btn" disabled>Claude desktop app</button>
+          <div class="launch-why">This board cannot start anything yet — its server is the frozen
+            <code>FightCampOpsBoard.exe</code>, and a page cannot add an endpoint to it.
+            <b>Next time you are at the PC, double-click <code>SetUpOpsBoardButton.cmd</code> in the
+            repo root, once.</b> It merges, starts a board from the checkout on 8788 and checks it came
+            up; after that this button works from the phone and nobody has to be here again.
+            <div class="launch-state bad">${esc(stale)}</div>
+          </div>
+        </div>`;
+      return;
+    }
+    const targets = (info && info.targets) || [];
+    if (!targets.length) {
+      root.innerHTML = `<div class="launch-row"><button type="button" class="launch-btn" disabled>No targets</button>
+        <div class="launch-why">AgentComms/launch_targets.json has no rows on this PC.</div></div>`;
+      return;
+    }
+    root.innerHTML = targets.map((t) => {
+      const ok = t.ready && info.windows;
+      const state = !info.windows
+        ? "this board is not running on Windows"
+        : (t.ready ? ("found " + esc(t.found)) : ("not found - looked in " + esc((t.tried || []).join(" · "))));
+      return `<div class="launch-row">
+          <button type="button" class="launch-btn" data-target="${esc(t.id)}"${ok ? "" : " disabled"}>${esc(t.label)}</button>
+          <div class="launch-why">${esc(t.why || "")}
+            <div class="launch-state${ok ? "" : " bad"}">${state}</div></div>
+        </div>`;
+    }).join("");
+    root.querySelectorAll(".launch-btn").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const id = btn.getAttribute("data-target");
+        const label = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = "starting…";
+        let out;
+        try {
+          const res = await fetch("/api/launch", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ target: id })
+          });
+          out = await res.json();
+        } catch (err) {
+          out = { ok: false, error: String(err) };
+        }
+        // SAY WHAT HAPPENED, on the phone, without a refresh: a button that
+        // goes quiet is indistinguishable from one that did nothing.
+        const line = btn.parentElement.querySelector(".launch-state");
+        if (out && out.ok) {
+          line.className = "launch-state";
+          line.textContent = "started " + ((out.ran || []).join(" ")) + " at " + fmtWhen(out.at);
+          btn.textContent = "started";
+          setTimeout(() => { btn.textContent = label; btn.disabled = false; }, 4000);
+        } else {
+          line.className = "launch-state bad";
+          line.textContent = (out && out.error ? out.error : "failed")
+            + (out && out.tried ? (" - looked in " + out.tried.join(" · ")) : "");
+          btn.textContent = label;
+          btn.disabled = false;
+        }
+      });
+    });
+  }
+
+  function renderNow(rows) {
+    const root = document.getElementById("now");
+    root.innerHTML = rows.map((row) => {
+      const proc = row.process || {};
+      const cost = row.cost || {};
+      const stats = row.stats || {};
+      const openExtra = (row.open_tasks || []).length > 1
+        ? ` <span class="pill">+${row.open_tasks.length - 1} open</span>` : "";
+      const idleClass = row.idle_failure ? " idle-fail" : "";
+      let procPill = `<span class="pill off">${esc(proc.label || "—")}</span>`;
+      if (proc.detectable === false) procPill = `<span class="pill warn">${esc(proc.label)}</span>`;
+      else if (proc.kind === "cli") procPill = proc.running ? `<span class="pill ok">CLI · running</span>` : `<span class="pill">CLI · idle</span>`;
+      else if (proc.running) procPill = `<span class="pill ok">process up</span>`;
+      else procPill = `<span class="pill">no process</span>`;
+
+      let costHtml;
+      if (cost.status === "measured" && cost.value != null) {
+        costHtml = `<b>${esc(cost.value.toLocaleString())}</b> ${esc(cost.unit || "tokens")}`;
+      } else {
+        costHtml = `<span class="pill warn">UNKNOWN</span>`;
+      }
+
+      const taskBlock = row.task_id
+        ? `<div><span class="task-id">${esc(row.task_id)}</span>${openExtra}</div>
+           <div class="title">${esc(row.title || "")}</div>`
+        : `<div class="title dash">${row.idle_failure ? "IDLE — no open task (standing failure)" : "No open task"}</div>`;
+
+      return `<article class="agent-card${idleClass}">
+        <div class="agent-head">
+          <div class="agent-name">${esc(row.agent)}</div>
+          ${procPill}
+        </div>
+        ${taskBlock}
+        <div class="meta">
+          <div>Elapsed <b>${esc(fmtDur(row.elapsed_s))}</b> <span class="dash">·</span> assigned ${esc(fmtWhen(row.assigned_at))}</div>
+          <div>Median <b>${esc(fmtDur(stats.median_duration_s))}</b> <span class="dash">·</span> longest <b>${esc(fmtDur(stats.longest_duration_s))}</b></div>
+          <div>Idle since land <b>${esc(fmtDur(stats.idle_s))}</b> <span class="dash">·</span> finished ${esc(mon(stats.task_count))}</div>
+          <div>Cost ${costHtml}</div>
+        </div>
+        <div class="switch-row">
+          <div class="switch-label">In rotation for the next session${row.roster_note ? " — " + more("rn-" + row.agent, row.roster_note) : ""}</div>
+          <button type="button" class="toggle${row.in_rotation ? " on" : ""}" data-agent="${esc(row.agent)}" aria-pressed="${row.in_rotation ? "true" : "false"}" title="Writes AgentComms/roster.json"></button>
+        </div>
+      </article>`;
+    }).join("");
+
+    root.querySelectorAll(".toggle").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const agent = btn.getAttribute("data-agent");
+        const next = !btn.classList.contains("on");
+        btn.disabled = true;
+        try {
+          await postRoster(agent, next);
+          // S120: show the new state now; the snapshot refresh can take a while
+          // and awaiting it left the button dead-looking ("nothing happens").
+          btn.classList.toggle("on", next);
+          btn.setAttribute("aria-pressed", next ? "true" : "false");
+          refresh().catch(() => {});
+        } catch (e) {
+          alert(String(e));
+        } finally {
+          btn.disabled = false;
+        }
+      });
+    });
+  }
+
+  function renderHistory(history) {
+    const root = document.getElementById("history");
+    const agents = Object.keys(history || {});
+    if (!agents.length) { root.textContent = "—"; return; }
+    root.innerHTML = agents.map((agent) => {
+      const rows = history[agent] || [];
+      if (!rows.length) {
+        return `<div style="margin-bottom:14px"><div class="agent-name" style="font-size:0.9rem;margin-bottom:6px">${esc(agent)}</div><div class="dash">No COMPLETE blocks parsed yet</div></div>`;
+      }
+      const body = rows.map((r) => {
+        const usage = r.usage || {};
+        const suite = r.suite;
+        const suiteTxt = suite ? `SUITE ${suite.total}/${suite.fails}` : "—";
+        const cost = (agent === "codex") ? "see NOW" : "UNKNOWN";
+        return `<tr>
+          <td><span class="task-id">${esc(r.id)}</span></td>
+          <td>${esc(r.title)}</td>
+          <td><code>${esc(r.commit || "—")}</code></td>
+          <td>${esc(fmtWhen(r.landed_at))}</td>
+          <td>${esc(fmtDur(r.duration_s))}</td>
+          <td>${esc(fmtDur(r.turnaround_s))}</td>
+          <td>${esc(mon(usage.files))}f / +${esc(mon(usage.added))} −${esc(mon(usage.deleted))}</td>
+          <td>${esc(mon(usage.tests_added))}</td>
+          <td>${esc(suiteTxt)}</td>
+          <td>${esc(cost)}</td>
+        </tr>`;
+      }).join("");
+      return `<div style="margin-bottom:16px;overflow-x:auto">
+        <div class="agent-name" style="font-size:0.9rem;margin-bottom:6px">${esc(agent)}</div>
+        <table>
+          <thead><tr>
+            <th>Id</th><th>Title</th><th>Commit</th><th>Landed</th>
+            <th>Duration</th><th>Turnaround</th><th>Diff</th><th>Tests+</th><th>Suite</th><th>Cost</th>
+          </tr></thead>
+          <tbody>${body}</tbody>
+        </table>
+      </div>`;
+    }).join("");
+  }
+
+  function renderAttention(att) {
+    const root = document.getElementById("attention");
+    const items = [];
+    const unread = att.unread || {};
+    Object.keys(unread).sort().forEach((k) => {
+      items.push(`Unread <b>${esc(k)}</b>: ${esc(unread[k])}`);
+    });
+    (att.idle_in_rotation || []).forEach((a) => {
+      // Not red since the operator's 2026-09-28 ruling: an agent holds a task only if it
+      // advances the active milestone, so idle is allowed (retires the 09-22 quota).
+      items.push(`Idle (allowed, 2026-09-28 ruling): ${esc(a)}`);
+    });
+    (att.unmerged_branches || []).forEach((b) => {
+      items.push(`Unmerged: ${esc(b.line || b)}`);
+    });
+    (att.orphan_digests || []).forEach((id) => {
+      items.push(`Digest without HANDOFF block: <b>${esc(id)}</b>`);
+    });
+    (att.ungateable || []).forEach((id) => {
+      items.push(`Gate cannot run: <b>${esc(id)}</b>`);
+    });
+    (att.blockers || []).forEach((b, i) => items.push(more("blk-" + i, b)));
+    (att.warnings || []).forEach((w, i) => items.push(more("warn-" + i, w)));
+    if (!items.length) {
+      root.innerHTML = `<div class="dash">Nothing flagged</div>`;
+      return;
+    }
+    root.innerHTML = `<ul class="attn">${items.map((i) => `<li>${i}</li>`).join("")}</ul>
+      <div class="meta" style="margin-top:8px">Triage findings: <b>${esc(att.findings || 0)}</b></div>`;
+  }
+
+  function renderSuite(suite) {
+    const root = document.getElementById("suite");
+    if (!suite || !suite.ok) {
+      root.innerHTML = `<div class="dash">No SUITE total=N fails=M found in digests or recent mail</div>`;
+      return;
+    }
+    const bad = Number(suite.fails) > 0;
+    root.innerHTML = `<div class="suite-box ${bad ? "bad" : "ok"}">SUITE total=${esc(suite.total)} fails=${esc(suite.fails)}</div>
+      <div class="meta" style="margin-top:8px">as of ${esc(fmtWhen(suite.when))} · ${esc(suite.source || "")}</div>`;
+  }
+
+  function renderUsage(snap) {
+    const root = document.getElementById("usageSummary");
+    const lines = (snap.now || []).map((row) => {
+      const s = row.stats || {};
+      return `<div><b>${esc(row.agent)}</b> — ${esc(mon(s.task_count))} finished · median ${esc(fmtDur(s.median_duration_s))} · idle ${esc(fmtDur(s.idle_s))}</div>`;
+    });
+    const ct = snap.codex_tokens || {};
+    if (ct.available) {
+      lines.push(`<div style="margin-top:6px">Codex measured tokens (latest session): <b>${esc(Number(ct.tokens).toLocaleString())}</b> · ${esc(ct.kind)}</div>`);
+    } else {
+      lines.push(`<div style="margin-top:6px">Codex tokens: <span class="pill warn">UNKNOWN</span> — ${esc(ct.note || "no log")}</div>`);
+    }
+    root.innerHTML = lines.join("");
+  }
+
+  function pct(n) {
+    const v = Number(n);
+    if (Number.isNaN(v)) return 0;
+    return Math.max(0, Math.min(100, v));
+  }
+
+  function progressBar(label, percent, note) {
+    const p = pct(percent);
+    return `<div class="bar-row">
+      <div class="bar-head"><span>${esc(label)}</span><b>${esc(p)}%</b></div>
+      <div class="bar-track"><div class="bar-fill" style="width:${p}%"></div></div>
+      ${note ? `<div class="bar-note">${esc(note)}</div>` : ""}
+    </div>`;
+  }
+
+  // The `handover` half of roadmap.json - what a SESSION needs, as opposed to
+  // the now/next/stages the operator reads. Never rendered before U63+S1, and
+  // its absence is why a session could read this board and still ask what to
+  // do. Derived entirely from the JSON; the board holds no copy.
+  function renderStartHere(hand, nowRows) {
+    const root = document.getElementById("startHere");
+    if (!hand || typeof hand !== "object") { root.style.display = "none"; return; }
+    root.style.display = "block";
+
+    const seq = Array.isArray(hand.start_sequence) ? hand.start_sequence : [];
+    const cmd = seq.find(s => String(s).includes("agent_comms.py start"))
+      || "python Tools/agent_comms.py start";
+    document.getElementById("startCmd").innerHTML =
+      `<div class="cmd">${esc(String(cmd).split("<-")[0].trim())}</div>`;
+
+    document.getElementById("startWhy").innerHTML =
+      more("start-why", hand.how_to_use || "");
+
+    const agents = (hand.agents && typeof hand.agents === "object") ? hand.agents : {};
+    const rows = Object.keys(agents).sort().map(name => {
+      const hit = (nowRows || []).find(r => String(r.agent) === name);
+      const inRota = !hit || hit.in_rotation !== false;
+      const cls = inRota ? "who-in" : "who-out";
+      const tag = inRota ? "IN" : "OUT";
+      return `<div class="who-row">`
+        + `<span class="who-name ${cls}">${esc(name)}</span>`
+        + `<span class="${cls}">${tag}</span>`
+        + `<span class="who-note">${more("who-" + name, String(agents[name]))}</span>`
+        + `</div>`;
+    });
+    document.getElementById("startWho").innerHTML = rows.join("");
+
+    const st = (hand.settings && typeof hand.settings === "object") ? hand.settings : {};
+    document.getElementById("startSettings").textContent =
+      st.this_session ? ("This session: " + st.this_session) : "";
+  }
+
+  // The Unity sale shortlist (roadmap.json `sale_list`). Links open the store
+  // page in a new tab; only Unity Asset Store and Steam store URLs are ever made clickable.
+  function renderSale(rm) {
+    const section = document.getElementById("saleSection");
+    const list = document.getElementById("saleList");
+    const sale = (rm && rm.ok && rm.data) ? rm.data.sale_list : null;
+    const groups = (sale && Array.isArray(sale.groups)) ? sale.groups : [];
+    if (!groups.length) {
+      section.classList.remove("show");
+      list.innerHTML = "";
+      return;
+    }
+    section.classList.add("show");
+    const safeUrl = (u) => /^https:\/\/(assetstore\.unity\.com|store\.steampowered\.com)\//.test(String(u || "")) ? String(u) : "";
+    const head = `<p class="sale-note">Opens <b>${esc(sale.opens || "?")}</b>. List prices in EUR, read 2026-09-13. Tap a name to open the store page.</p>`;
+    list.innerHTML = head + groups.map((g) => {
+      const items = Array.isArray(g.items) ? g.items : [];
+      return `<div class="sale-group">${esc(g.title || "")}</div>` + items.map((it) => {
+        const url = safeUrl(it.url);
+        const name = url
+          ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(it.name || it.id)}</a>`
+          : esc(it.name || it.id);
+        const eur = (typeof it.eur === "number") ? `EUR ${it.eur.toFixed(2)}` : "";
+        return `<div class="sale-item">
+          <div>${name} <span class="pill">${esc(it.verdict || "")}</span></div>
+          <div class="dash">${esc(it.publisher || "")} &middot; ${esc(eur)} &middot; #${esc(it.id)}</div>
+          <div class="sale-why">${esc(it.why || "")}</div>
+        </div>`;
+      }).join("");
+    }).join("");
+  }
+
+
+  // ROADMAP TREE (S69). Stage -> session -> sub-session, from roadmap.json
+  // alone; the `now` session and every agent whose handover line says RUNNING
+  // glow blue. Unfiled rows are shown, never dropped.
+  function treeStatus(raw) {
+    const t = String(raw || "").trim().toLowerCase();
+    if (!t) return "planned";
+    if (t.startsWith("in_progress") || t.startsWith("in progress")) return "active";
+    if (t.startsWith("deferred")) return "deferred";
+    if (t.startsWith("partial") || t.startsWith("parts")) return "partial";
+    if (t.startsWith("planned")) return "planned";
+    return "done";
+  }
+  function treeNode(cls, dotCls, id, title, extra) {
+    return `<span class="tn ${cls}"><i class="dot ${dotCls}"></i>` +
+      (id ? `<span class="tid">${esc(id)}</span>` : "") +
+      `<span class="tt">${esc(title || "")}</span>${extra || ""}</span>`;
+  }
+  function treeClip(text, n) {
+    const t = String(text || "");
+    return esc(t.slice(0, n)) + (t.length > n ? "&hellip;" : "");
+  }
+  function renderTree(data) {
+    const root = document.getElementById("roadTree");
+    const count = document.getElementById("treeCount");
+    if (!root) return;
+    if (!data) { root.innerHTML = `<div class="dash">&mdash;</div>`; return; }
+    const now = data.now || {};
+    const nowId = String(now.session || now.id || "");
+    const next = data.next || {};
+    const nextText = typeof next === "string" ? next : String(next.session || next.title || "");
+    const nextId = (nextText.match(/^S\d+\w*/) || [""])[0];
+    const sessions = (Array.isArray(data.sessions) ? data.sessions : [])
+      .map((s) => Object.assign({}, s, { id: String(s.id || s.session || "") }));
+    const agents = ((data.handover || {}).agents) || {};
+    const agentRows = Object.keys(agents).filter((k) => !k.startsWith("_")).map((k) => {
+      const text = String(agents[k] || "");
+      const running = /\bRUNNING\b|IN PROGRESS/.test(text) && !/^OUT\b/.test(text);
+      const task = (text.match(/\b([A-Z]{1,2}\d+[A-Za-z0-9_]*)\b/) || ["", ""])[1];
+      return { agent: k, text, running, task };
+    });
+    const liveAgents = agentRows.filter((a) => a.running);
+    const kids = (parent) => sessions.filter((c) => c !== parent && c.stage === parent.id);
+    const seen = new Set();
+    function sessionLi(s) {
+      if (seen.has(s)) return "";
+      seen.add(s);
+      const active = s.id === nowId;
+      let st = treeStatus(s.status);
+      if (active) st = "active"; else if (st === "active") st = "partial";
+      const badge = active ? `<span class="tbadge live">NOW &middot; ${esc(s.owner || now.owner || "claude")}</span>` : "";
+      const label = treeNode(st, st, s.id, s.title, badge);
+      const agentsLi = active ? liveAgents.map((a) =>
+        `<li>${treeNode("active", "active", a.task, a.agent.toUpperCase(), `<span class="tbadge live">running</span>`)}
+          <div class="tsub">${treeClip(a.text, 220)}</div></li>`).join("") : "";
+      const inner = agentsLi + kids(s).map(sessionLi).join("");
+      if (!inner) return `<li>${label}</li>`;
+      return `<li><details ${active ? "open" : ""}><summary><span class="tw"></span>${label}</summary><ul>${inner}</ul></details></li>`;
+    }
+    const stages = Array.isArray(data.stages) ? data.stages : [];
+    let doneN = 0, allN = 0;
+    const stageHtml = stages.map((st) => {
+      const members = sessions.filter((s) => s.stage === st.id);
+      const hasNow = members.some((s) => s.id === nowId);
+      const d = members.filter((s) => treeStatus(s.status) === "done").length;
+      doneN += d; allN += members.length;
+      const p = pct(st.percent);
+      const extra = `<span class="tmini"><i style="width:${p}%"></i></span><span class="tbadge">${esc(p)}% &middot; ${d}/${members.length} sessions</span>` +
+        (hasNow ? `<span class="tbadge live">active</span>` : "");
+      const label = treeNode("stage" + (hasNow ? " active" : ""), hasNow ? "active" : (p >= 100 ? "done" : "partial"), st.id, st.title, extra);
+      const inner = members.map(sessionLi).join("");
+      return `<li><details ${hasNow ? "open" : ""}><summary><span class="tw"></span>${label}</summary>
+        <div class="tsub">${esc(st.goal || "")}</div><ul>${inner}</ul></details></li>`;
+    }).join("");
+    const orphans = sessions.filter((s) => !seen.has(s));
+    const orphanHtml = orphans.length ? `<li><details><summary><span class="tw"></span>${treeNode("", "planned", "", "Unfiled sessions", `<span class="tbadge">${orphans.length}</span>`)}</summary><ul>${orphans.map(sessionLi).join("")}</ul></details></li>` : "";
+    const nextHtml = nextId ? `<li>${treeNode("next", "planned", nextId, nextText.replace(/^S\d+\w*\s*/, "").slice(0, 140) + (nextText.length > 140 ? "…" : ""), `<span class="tbadge nx">up next</span>`)}</li>` : "";
+    const deferred = Array.isArray(data.deferred) ? data.deferred : [];
+    const defHtml = deferred.length ? `<li><details><summary><span class="tw"></span>${treeNode("", "deferred", "", "Deferred", `<span class="tbadge">${deferred.length}</span>`)}</summary><ul>${deferred.map((d) =>
+      `<li>${treeNode("deferred", "deferred", d.id, d.title)}</li>`).join("")}</ul></details></li>` : "";
+    const idle = agentRows.filter((a) => !a.running);
+    const idleHtml = idle.length ? `<li><details><summary><span class="tw"></span>${treeNode("", "idle", "", "Agents holding a task, not running", `<span class="tbadge">${idle.length}</span>`)}</summary><ul>${idle.map((a) =>
+      `<li>${treeNode("", "idle", a.task, a.agent.toUpperCase())}<div class="tsub">${treeClip(a.text, 160)}</div></li>`).join("")}</ul></details></li>` : "";
+    const live = liveAgents.length + (nowId ? 1 : 0);
+    root.innerHTML = `<ul class="tree"><li>${treeNode("root", live ? "active" : "done", "", "FightCamp", `<span class="tbadge live">${live} being worked</span>`)}
+      <ul>${stageHtml}${orphanHtml}${nextHtml}${defHtml}${idleHtml}</ul></li></ul>`;
+    if (count) count.textContent = `· ${doneN}/${allN} sessions done · now ${nowId || "—"}`;
+  }
+
+  function renderRoadmap(rm) {
+    const miss = document.getElementById("roadmapMiss");
+    const pair = document.getElementById("roadNowNext");
+    const waiting = document.getElementById("waitingOnYou");
+    const waitingList = document.getElementById("waitingList");
+    const stagesRoot = document.getElementById("stages");
+    const sessionsRoot = document.getElementById("sessions");
+    const whereRoot = document.getElementById("whereGame");
+
+    if (!rm || !rm.ok || !rm.data) {
+      const msg = (rm && rm.error)
+        ? rm.error
+        : "Roadmap could not be read (AgentComms/roadmap.json)";
+      miss.style.display = "block";
+      miss.textContent = msg;
+      pair.innerHTML = "";
+      waiting.classList.remove("show");
+      waitingList.innerHTML = "";
+      stagesRoot.innerHTML = `<div class="dash">—</div>`;
+      sessionsRoot.innerHTML = `<div class="dash">—</div>`;
+      whereRoot.innerHTML = `<div class="dash">—</div>`;
+      return;
+    }
+    miss.style.display = "none";
+    miss.textContent = "";
+    const data = rm.data;
+
+    const now = data.now || {};
+    // `next` is written as one string ("S70 (engine lane...") - split it, never render "—".
+    const next = typeof data.next === "string"
+      ? { session: (data.next.match(/^S\d+\w*/) || [""])[0], title: data.next.replace(/^S\d+\w*\s*/, "").slice(0, 160), summary: data.next }
+      : (data.next || {});
+    const nowStatus = now.status ? `<span class="pill ok">${esc(now.status)}</span>` : "";
+    pair.innerHTML = `
+      <article class="road-card loud">
+        <div class="road-kicker">Now</div>
+        <div class="sess-top">
+          <span class="task-id">${esc(now.session || "—")}</span>
+          ${nowStatus}
+          <span class="pill">${esc(now.owner || "—")}</span>
+        </div>
+        <div class="road-title">${esc(now.title || "—")}</div>
+        <div class="road-summary">${more("now-summary", now.summary || "")}</div>
+        ${now.gate ? `<div class="road-gate"><b>Gate:</b> ${more("now-gate", now.gate)}</div>` : ""}
+      </article>
+      <article class="road-card quiet">
+        <div class="road-kicker">Next</div>
+        <div class="sess-top">
+          <span class="task-id">${esc(next.session || "—")}</span>
+          <span class="pill">${esc(next.owner || "—")}</span>
+        </div>
+        <div class="road-title">${esc(next.title || "—")}</div>
+        <div class="road-summary">${more("next-summary", next.summary || "")}</div>
+      </article>`;
+
+    const blocked = Array.isArray(data.blocked_on_operator) ? data.blocked_on_operator : [];
+    if (!blocked.length) {
+      waiting.classList.remove("show");
+      waitingList.innerHTML = "";
+    } else {
+      waiting.classList.add("show");
+      waitingList.innerHTML = blocked.map((b) => {
+        return `<div class="waiting-item">
+          <div><span class="qid">${esc(b.id || "—")}</span>
+            <span class="dash">·</span> blocks <b>${esc(b.blocks || "—")}</b></div>
+          <div style="margin-top:4px">${more("wait-" + (b.id || ""), b.question || b.title || "")}</div>
+        </div>`;
+      }).join("");
+    }
+
+    const stages = Array.isArray(data.stages) ? data.stages : [];
+    if (!stages.length) {
+      stagesRoot.innerHTML = `<div class="dash">No stages in roadmap</div>`;
+    } else {
+      stagesRoot.innerHTML = stages.map((st) => {
+        const sess = Array.isArray(st.sessions) ? st.sessions.join(" · ") : "";
+        const done = Array.isArray(st.done_when) ? st.done_when : [];
+        const doneHtml = done.length
+          ? `<details class="done-when" data-fold="done-${esc(st.id || "")}"><summary>Done when (${done.length})</summary>
+               <ul>${done.map((d) => `<li>${esc(d)}</li>`).join("")}</ul></details>`
+          : "";
+        return `<article class="stage-card">
+          <div class="sess-top">
+            <span class="task-id">${esc(st.id || "")}</span>
+            <b>${esc(st.title || "")}</b>
+          </div>
+          <div class="road-summary" style="margin-bottom:6px">${esc(st.goal || "")}</div>
+          ${progressBar("Progress (judgement)", st.percent, "")}
+          <div class="stage-sessions">${esc(sess)}</div>
+          ${doneHtml}
+        </article>`;
+      }).join("");
+    }
+
+    const sessions = Array.isArray(data.sessions) ? data.sessions : [];
+    if (!sessions.length) {
+      sessionsRoot.innerHTML = `<div class="dash">No sessions in roadmap</div>`;
+    } else {
+      sessionsRoot.innerHTML = sessions.map((s) => {
+        const status = String(s.status || "planned");
+        const cls = status === "in_progress" ? "in_progress"
+          : (status === "planned" ? "planned" : "");
+        const pillCls = status === "in_progress" ? "ok"
+          : (status === "planned" ? "off" : "warn");
+        return `<article class="sess-row ${cls}">
+          <div class="sess-top">
+            <span class="task-id">${esc(s.id || "")}</span>
+            <span class="pill">${esc(s.stage || "")}</span>
+            <span class="pill ${pillCls}">${esc(status)}</span>
+            <span class="pill">${esc(s.owner || "")}</span>
+          </div>
+          <div class="road-title" style="font-size:0.95rem;margin:2px 0 4px">${esc(s.title || "")}</div>
+          <div class="road-summary" style="margin:0">${esc(s.summary || "")}</div>
+        </article>`;
+      }).join("");
+    }
+
+    const assessment = data.assessment || {};
+    const bars = Array.isArray(assessment.bars) ? assessment.bars : [];
+    const src = assessment.source
+      ? `<div class="judge-src">Assessment (judgement, not measurement) · ${esc(assessment.source)}</div>`
+      : `<div class="judge-src">Assessment (judgement, not measurement) · source not given</div>`;
+    const quote = assessment.one_line
+      ? `<p class="one-line">\u201c${esc(assessment.one_line)}\u201d</p>` : "";
+    const barsHtml = bars.length
+      ? bars.map((b) => progressBar(b.label || "—", b.percent, b.note || "")).join("")
+      : `<div class="dash">No assessment bars</div>`;
+    whereRoot.innerHTML = quote + src + barsHtml;
+  }
+
+  async function refresh() {
+    try { await renderOperatorPanels(); } catch (e) {
+      document.getElementById("questionsContent").textContent = e.message;
+      document.getElementById("availabilityContent").textContent = e.message;
+    }
+    const res = await fetch("/api/snapshot", { cache: "no-store" });
+    const snap = await res.json();
+    if (snap.error) {
+      document.getElementById("errors").innerHTML = `<div class="err">${esc(snap.error)}</div>`;
+      return;
+    }
+    const errs = snap.errors || [];
+    document.getElementById("errors").innerHTML = errs.length
+      ? `<div class="err">${esc(errs.join("\n"))}</div>` : "";
+    // The "Measured vs UNKNOWN" banner was removed on the operator's ask
+    // (2026-09-12). `cost_policy` is still served and the UNKNOWN cells still
+    // read UNKNOWN - only the standing explainer above the fold is gone.
+    renderSuite(snap.suite);
+    renderRoadmap(snap.roadmap);
+    try { renderTree(snap.roadmap && snap.roadmap.ok ? snap.roadmap.data : null); } catch (e) { const t = document.getElementById("roadTree"); if (t) t.textContent = "tree failed: " + e; }
+    renderSale(snap.roadmap);
+    renderStartHere((snap.roadmap && snap.roadmap.ok && snap.roadmap.data) ? snap.roadmap.data.handover : null, snap.now || []);
+    renderNow(snap.now || []);
+    renderAttention(snap.attention || {});
+    renderUsage(snap);
+    renderHistory(snap.history || {});
+    document.getElementById("stamp").textContent = "updated " + fmtWhen(snap.generated_at);
+    document.getElementById("build").textContent = "page " + PAGE_BUILD + " · server " + (SERVER_BUILD || "older build");
+  }
+
+  // Resolved once at load, not on the 5 s tick: it walks the filesystem looking
+  // for the app, and doing that twelve times a minute for a row that almost
+  // never changes is a poll nobody asked for.
+  // OPERATOR, 2026-09-24: "not autoreload every 5 seconds because i cannot read
+  // the dropdowns". Every render rewrites innerHTML, which closed any open
+  // dropdown five times a minute. So: (1) every <details data-fold> keeps its
+  // open/closed state across renders and reloads; (2) the tick is 60 s, and it
+  // SKIPS while the tab is hidden, while the pointer or a finger touched the page
+  // in the last 60 s, or while a dropdown INSIDE a card is open; (3) a button
+  // refreshes on demand.
+  const FOLD_KEY = "opsboard.folds";
+  let folds = {};
+  try { folds = JSON.parse(localStorage.getItem(FOLD_KEY) || "{}") || {}; } catch (e) { folds = {}; }
+  function applyFolds() {
+    document.querySelectorAll("details[data-fold]").forEach((d) => {
+      const k = d.getAttribute("data-fold");
+      if (Object.prototype.hasOwnProperty.call(folds, k)) d.open = !!folds[k];
+    });
+  }
+  document.addEventListener("toggle", (ev) => {
+    const d = ev.target;
+    if (!(d instanceof HTMLDetailsElement) || !d.hasAttribute("data-fold")) return;
+    folds[d.getAttribute("data-fold")] = d.open;
+    try { localStorage.setItem(FOLD_KEY, JSON.stringify(folds)); } catch (e) {}
+  }, true);
+  let lastTouch = 0;
+  ["pointerdown", "keydown", "wheel", "touchstart", "scroll"].forEach((t) =>
+    window.addEventListener(t, () => { lastTouch = Date.now(); }, { passive: true, capture: true }));
+  async function refreshKeepingFolds() {
+    await refresh();
+    applyFolds();
+  }
+  function quiet() {
+    if (document.hidden) return false;
+    if (Date.now() - lastTouch < 60000) return false;
+    if (document.querySelector("details.done-when[open]")) return false;
+    return true;
+  }
+  document.getElementById("refreshNow").addEventListener("click", () => { refreshKeepingFolds(); });
+  applyFolds();
+  renderLaunch();
+  refreshKeepingFolds();
+  // S192 operator: "not reload" - refresh only on the Refresh now button.
+})();
+</script>
+</details>
+<script>
+(() => {
+  // Bands match Tools/pc_watchdog.ps1 (one source of truth for the gate; the board only shows it).
+  const meters = [
+    { k: "CPU temperature", f: "temp_c", unit: " °C", max: 100, amber: 74, red: 84 },
+    { k: "CPU load", f: "cpu_pct", unit: "%", max: 100, amber: 60, red: 80 },
+    { k: "Memory", f: "ram_pct", unit: "%", max: 100, amber: 85, red: 93 },
+    { k: "C: free", f: "c_free_gb", unit: " GB", max: 120, amber: 15, red: 6, low: true },
+    { k: "E: free", f: "e_free_gb", unit: " GB", max: 450, amber: 30, red: 10, low: true },
+  ];
+  const esc = (t) => String(t).replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+  async function pc() {
+    const box = document.getElementById("pcMeters");
+    let d;
+    try { d = await (await fetch("/api/pc", { cache: "no-store" })).json(); }
+    catch (e) { box.innerHTML = '<div class="pc-note red">PC meters: board unreachable</div>'; return; }
+    if (!d.ok) { box.innerHTML = '<div class="pc-note red">PC meters: ' + esc(d.why) + "</div>"; return; }
+    let h = "";
+    for (const m of meters) {
+      const v = d[m.f];
+      const band = v == null ? "" : m.low ? (v < m.red ? "red" : v < m.amber ? "amber" : "") : (v >= m.red ? "red" : v >= m.amber ? "amber" : "");
+      const pct = v == null ? 0 : Math.max(2, Math.min(100, 100 * v / m.max));
+      const title = m.low ? "red below " + m.red + m.unit : "amber from " + m.amber + m.unit + ", red from " + m.red + m.unit;
+      h += '<div class="m ' + band + '" title="' + esc(title) + '"><div class="k">' + esc(m.k) +
+        (m.f === "temp_c" && d.temp_src ? " · " + esc(d.temp_src) : "") + '</div><div class="v">' +
+        (v == null ? "n/a" : esc(v + m.unit)) + '</div><div class="bar"><i style="width:' + pct + '%"></i></div></div>';
+    }
+    const stale = d.age_s > 180;
+    h += '<div class="pc-note' + (d.state === "RED" || stale ? " red" : "") + '">' + esc(d.state) + " · " + esc(d.stamp) +
+      (stale ? " · STALE (" + Math.round(d.age_s / 60) + " min old - watchdog task stopped?)" : "") +
+      (d.problems.length ? " · " + esc(d.problems.join(" | ")) : "") + " · biggest: " + esc(d.top) + "</div>";
+    box.innerHTML = h;
+    live();
+  }
+  // OPERATOR S205 "heat meter in real time": temperature and CPU load straight from the sensor every 2 s
+  // (/api/pc/live); the 10 s watchdog line below still owns the GREEN/AMBER/RED verdict.
+  let lastLive = null;
+  function paintLive(d) {
+    const box = document.getElementById("pcMeters");
+    const cells = box ? box.querySelectorAll(".m") : [];
+    meters.forEach((m, i) => {
+      if (!cells[i] || (m.f !== "temp_c" && m.f !== "cpu_pct")) return;
+      const v = d[m.f];
+      if (v == null) return;
+      const band = v >= m.red ? "red" : v >= m.amber ? "amber" : "";
+      cells[i].className = "m " + band;
+      cells[i].querySelector(".v").textContent = v + m.unit + " · live " + d.at;
+      cells[i].querySelector(".bar i").style.width = Math.max(2, Math.min(100, 100 * v / m.max)) + "%";
+    });
+  }
+  async function live() {
+    try { const d = await (await fetch("/api/pc/live", { cache: "no-store" })).json(); if (d.ok) { lastLive = d; paintLive(d); } }
+    catch (e) {}
+  }
+  async function gh() {
+    const box = document.getElementById("ghMeters");
+    let d;
+    try { d = await (await fetch("/api/github", { cache: "no-store" })).json(); }
+    catch (e) { box.innerHTML = '<div class="pc-note red">GitHub meters: board unreachable</div>'; return; }
+    if (!d.ok) { box.innerHTML = '<div class="pc-note' + (/reading/i.test(d.why || "") ? "" : " red") + '">GitHub meters: ' + esc(d.why) + "</div>"; return; }
+    const tile = (k, v, frac, band, title) => '<div class="m ' + band + '" title="' + esc(title) + '"><div class="k">' + esc(k) +
+      '</div><div class="v">' + esc(v) + '</div><div class="bar"><i style="width:' + Math.max(2, Math.min(100, 100 * frac)) + '%"></i></div></div>';
+    const poolFrac = d.used_min / d.free_min;
+    const budFrac = d.budget_usd ? d.paid_usd / d.budget_usd : 0;
+    let h = tile("Actions minutes · " + d.month + " live", d.used_min.toLocaleString() + " / " + d.free_min.toLocaleString(), poolFrac,
+      poolFrac >= 0.9 ? "red" : poolFrac >= 0.7 ? "amber" : "",
+      "billed " + d.billed_min.toLocaleString() + " (GitHub, through " + (d.billed_through || "?") + ") + " + d.unbilled_min + " live not yet billed; amber 70%, red 90% of the included pool");
+    h += tile("Running now", d.running_jobs + " jobs · " + d.running_min.toFixed(1) + " min", Math.min(1, d.running_jobs / 20),
+      d.running_jobs >= 20 ? "amber" : "", d.queued_jobs + " runs queued; minutes so far on the jobs still running");
+    h += tile("Minutes today", d.today_min.toLocaleString(), d.today_min / 3000, d.today_min >= 3000 ? "amber" : "",
+      "today's job minutes from the runs themselves (live); amber from 3,000 a day");
+    h += tile("Actions paid · org budget", "$" + d.paid_usd.toFixed(2) + (d.budget_usd ? " / $" + d.budget_usd.toFixed(0) : ""), budFrac,
+      budFrac >= 0.85 ? "red" : budFrac >= 0.6 ? "amber" : "", "only minutes past the included pool cost money; amber 60%, red 85% of the budget");
+    const runs = (d.runs_now || []).map(r => '<a href="' + esc(r.url) + '" target="_blank" rel="noopener">' + esc(r.name) + "</a> " + esc(r.status === "in_progress" ? "running" : r.status)).join(" · ");
+    const today = Object.entries(d.today_by_repo || {}).map(([r, m]) => r + " " + m.toLocaleString()).join(" · ");
+    h += '<div class="pc-note' + (budFrac >= 0.85 ? " red" : "") + '"><span class="gh-live">●</span> GitHub Actions · ' + esc(d.scope) +
+      (today ? " · today " + esc(today) : "") + (runs ? " · now: " + runs : "") +
+      (d.hard_stop ? " · HARD STOP at the org budget: CI + cloud agents halt until the 1st" : "") +
+      " · live " + esc(d.at) + " (" + (d.age_s || 0) + " s ago) · billed read " + esc(d.billed_at) + "</div>";
+    box.innerHTML = h;
+  }
+  pc();
+  gh();
+  setInterval(pc, 10000);
+  setInterval(live, 2000);
+  setInterval(() => { if (document.visibilityState === "visible") gh(); }, 15000);
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") gh(); });
+})();
+</script>
+</body>
+</html>

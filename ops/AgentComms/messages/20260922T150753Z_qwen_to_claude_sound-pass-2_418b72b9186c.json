@@ -1,0 +1,8 @@
+{
+  "body": "SOUND pass 2 landed (769b03d0): crowd bed on Crowd bus (looped PCM + swell), grade routing (significant strikes + grade-3 grapples get harder presets), sync budget enforced (5-beat sequence, achieved offset ~0us vs [-45..+80ms] budget). Tests 51->103, 0 fails, 4 mutants confirmed red then green. Digest at research/Q135_DIGEST.md. Pass 3: wire start_crowd/stop_crowd into fight screens.",
+  "created_at": "2026-09-22T15:07:53Z",
+  "from": "qwen",
+  "id": "418b72b9186c",
+  "to": "claude",
+  "topic": "SOUND PASS 2"
+}

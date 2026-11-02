@@ -1,0 +1,182 @@
+[
+  {
+    "file": "C136_H2H_ArmBar_Att.glb",
+    "sha256": "7b7f40c8d58f0e0aeca41ef23e83348ae38854f8941545fa1b8bf07c82376217",
+    "identical": true,
+    "roundtrip_max_joint_error_m": 7.615080208243202e-06
+  },
+  {
+    "file": "C136_H2H_ArmBar_f05_Att.glb",
+    "sha256": "0141f2bddea3e9a31ba5052c639b58ef770b7da7ac2a41d22d1d64e04b1809c2",
+    "identical": true,
+    "roundtrip_max_joint_error_m": 9.565802720608732e-07
+  },
+  {
+    "file": "C136_H2H_ArmBar_f06_Att.glb",
+    "sha256": "07142333dbc65b3c1b9e066a59b7d836902917e476153f3f3071a12ae81fda82",
+    "identical": true,
+    "roundtrip_max_joint_error_m": 4.444858340588579e-07
+  },
+  {
+    "file": "C136_H2H_ArmBar_Vic.glb",
+    "sha256": "614895022f7d4288ac8a7a9cfff7b9388055c9d3dca4effd73ff1922e7f12023",
+    "identical": true,
+    "roundtrip_max_joint_error_m": 8.06009580434072e-06
+  },
+  {
+    "file": "C136_H2H_ArmBar_f05_Vic.glb",
+    "sha256": "34d06e7229148f34963aefb819f5730d0018709bd742d316f04b9df5e1d7806f",
+    "identical": true,
+    "roundtrip_max_joint_error_m": 9.453726962543667e-07
+  },
+  {
+    "file": "C136_H2H_ArmBar_f06_Vic.glb",
+    "sha256": "6c66731bb4b651822c54582df07b5d1e2d2748ff0d4ed58a8a1c69025a54d215",
+    "identical": true,
+    "roundtrip_max_joint_error_m": 4.038462112208501e-07
+  },
+  {
+    "file": "C136_H2H_Strangle_Att.glb",
+    "sha256": "dba36916f279dc128cde0bd7cf8f368c86fe8ff849dd494bb3c0d1101710e14c",
+    "identical": true,
+    "roundtrip_max_joint_error_m": 6.981620406920284e-06
+  },
+  {
+    "file": "C136_H2H_Strangle_f05_Att.glb",
+    "sha256": "cc81fcb97cb8020a8bd45a3ba3006a9a0f68b7f9f8df15890c845bb894c06590",
+    "identical": true,
+    "roundtrip_max_joint_error_m": 6.201461567486767e-07
+  },
+  {
+    "file": "C136_H2H_Strangle_f06_Att.glb",
+    "sha256": "ecc0ff0ad194ee97728dae4333cb1b2975ae0ccd0172a2ef7dcf0fa9c30a2c78",
+    "identical": true,
+    "roundtrip_max_joint_error_m": 4.078129584611657e-07
+  },
+  {
+    "file": "C136_H2H_Strangle_Vic.glb",
+    "sha256": "24e7c076e50a2b7d5bc67c5314acfc16055e9eba6c6fab84a554c991810d698b",
+    "identical": true,
+    "roundtrip_max_joint_error_m": 3.1382094002834995e-06
+  },
+  {
+    "file": "C136_H2H_Strangle_f05_Vic.glb",
+    "sha256": "4a460dc1ae4150348957937e6cee6b905dd049d0f7e0dfb755ec156e3d45ab10",
+    "identical": true,
+    "roundtrip_max_joint_error_m": 7.434171249429239e-07
+  },
+  {
+    "file": "C136_H2H_Strangle_f06_Vic.glb",
+    "sha256": "c47f6e1ccb220819412b044d220c318701dffb09b85c7cf26d15ccbf0ff23ca9",
+    "identical": true,
+    "roundtrip_max_joint_error_m": 4.85203866814522e-07
+  },
+  {
+    "file": "C136_PushOff_Att.glb",
+    "sha256": "f20b05654460a875a597091d3415c0151e3c19372d9821955034e3d305e3918d",
+    "identical": true,
+    "roundtrip_max_joint_error_m": 7.208220137624636e-06
+  },
+  {
+    "file": "C136_PushOff_f05_Att.glb",
+    "sha256": "8ee0dbac8d291205e9813bbdab4eff374df4da07001d558c2a5ee0a90a262ae3",
+    "identical": true,
+    "roundtrip_max_joint_error_m": 1.244581521619624e-06
+  },
+  {
+    "file": "C136_PushOff_f06_Att.glb",
+    "sha256": "0eab5a9c0e97ea5e9f0ef2bd9d2d7e8ce6f2fbbc2218ef8aad06bc1b8e820492",
+    "identical": true,
+    "roundtrip_max_joint_error_m": 6.796383519161469e-07
+  },
+  {
+    "file": "C136_PushOff_Vic.glb",
+    "sha256": "9691430ea34222e5a264a60d786f7486cd09e5b83c9fb91394893d2adfe380fa",
+    "identical": true,
+    "roundtrip_max_joint_error_m": 7.666415731433918e-06
+  },
+  {
+    "file": "C136_PushOff_f05_Vic.glb",
+    "sha256": "5996edd81671002f9992fed68388e0baad87af262502c116911fb5608ffb92aa",
+    "identical": true,
+    "roundtrip_max_joint_error_m": 8.560065398421926e-07
+  },
+  {
+    "file": "C136_PushOff_f06_Vic.glb",
+    "sha256": "29b8104b3e359b9f9304c50bafcfa068a251db930197f24eeb8bfba44fc2bd25",
+    "identical": true,
+    "roundtrip_max_joint_error_m": 4.6648384995997734e-07
+  },
+  {
+    "file": "C136_Reversal_Att.glb",
+    "sha256": "00479a91e01588f82475e772dec8d3eb328649ce5378859d2188a3b67cb01b3b",
+    "identical": true,
+    "roundtrip_max_joint_error_m": 6.043279778750474e-06
+  },
+  {
+    "file": "C136_Reversal_f05_Att.glb",
+    "sha256": "ee1d4f240fcaaf9dc1982a79f7aff652b302ff16d6952108d5881c574a4ffceb",
+    "identical": true,
+    "roundtrip_max_joint_error_m": 6.58354819845394e-07
+  },
+  {
+    "file": "C136_Reversal_f06_Att.glb",
+    "sha256": "c9797e284d9069cb0b4e90bb79a6691700364ef7a9d8a913e78c23aca0c823a9",
+    "identical": true,
+    "roundtrip_max_joint_error_m": 4.0755765515044766e-07
+  },
+  {
+    "file": "C136_Reversal_Vic.glb",
+    "sha256": "a2f66215441a3d46a6cc932d74bfbb0e1a7e1fe3b4eb0f02c36ef153c0e91702",
+    "identical": true,
+    "roundtrip_max_joint_error_m": 7.227723715769873e-06
+  },
+  {
+    "file": "C136_Reversal_f05_Vic.glb",
+    "sha256": "a8e422ecb5501a7a60c5c9dc2a3a1f6ffcdc3df775b4f1baaa2a36f960e9b33a",
+    "identical": true,
+    "roundtrip_max_joint_error_m": 7.348554137908192e-07
+  },
+  {
+    "file": "C136_Reversal_f06_Vic.glb",
+    "sha256": "6e861e9f73fe53a942eeefb5aba3f4299f53383b714544daabd7c8eb1c4418a7",
+    "identical": true,
+    "roundtrip_max_joint_error_m": 4.65765583756202e-07
+  },
+  {
+    "file": "C136_Takedown_BodyLock_End_Att.glb",
+    "sha256": "db85aad01ce9aeb18efc7b8471fb2b5b0580889e5da0e6bfc981e43870ce78db",
+    "identical": true,
+    "roundtrip_max_joint_error_m": 8.155511330386116e-06
+  },
+  {
+    "file": "C136_Takedown_BodyLock_End_f05_Att.glb",
+    "sha256": "ffd1de38b865efea16aad2a7785c2175fc09146717d92bf2d8a188a1eaaecf52",
+    "identical": true,
+    "roundtrip_max_joint_error_m": 1.1231364122755094e-06
+  },
+  {
+    "file": "C136_Takedown_BodyLock_End_f06_Att.glb",
+    "sha256": "7368ac5c68968411e475574d8adb754490d325c42f9ffda38d784c4894394af0",
+    "identical": true,
+    "roundtrip_max_joint_error_m": 5.103001860403172e-07
+  },
+  {
+    "file": "C136_Takedown_BodyLock_End_Vic.glb",
+    "sha256": "31adbc752e4045df08b9caac3aa1529163e7d7d5941c550e5cd4ccd47aa9b2f3",
+    "identical": true,
+    "roundtrip_max_joint_error_m": 4.290111333943552e-06
+  },
+  {
+    "file": "C136_Takedown_BodyLock_End_f05_Vic.glb",
+    "sha256": "d463b58393723cfc487e4a0e6e9d4916ec0c8824f407d464ceb17c066867a23f",
+    "identical": true,
+    "roundtrip_max_joint_error_m": 8.892136065861995e-07
+  },
+  {
+    "file": "C136_Takedown_BodyLock_End_f06_Vic.glb",
+    "sha256": "e842f4be66c6f5df8dcddbd0fba3f87ac6b9e10c0264637278b36ce8818b09db",
+    "identical": true,
+    "roundtrip_max_joint_error_m": 4.5934506183261726e-07
+  }
+]

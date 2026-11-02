@@ -1,0 +1,4460 @@
+{
+  "_note": "S74 REAL-NAMES FILE. NEVER SHIPPED (operator ruling 2026-09-25: fictional names by default + a swap file). Copy to <game folder>/names_real.json or user://names_real.json to play with real names. GameState._apply_names_file overlays these fields by id.",
+  "athletes": {
+    "real_islam_makhachev": {
+      "name": "Islam Makhachev",
+      "birth_date": "1991-10-27",
+      "achievements": [
+        "Two-division major MMA champion",
+        "17-fight major-promotion win streak at snapshot"
+      ],
+      "fight_history": [
+        {
+          "result": "win",
+          "opponent_name": "Ian Machado Garry",
+          "discipline": "mma",
+          "method": "Unanimous decision",
+          "event": "UFC 330",
+          "week": "2026-08-15"
+        },
+        {
+          "result": "win",
+          "opponent_name": "Jack Della Maddalena",
+          "discipline": "mma",
+          "method": "Unanimous decision",
+          "event": "UFC 322",
+          "week": "2025-11-15"
+        },
+        {
+          "result": "win",
+          "opponent_name": "Renato Moicano",
+          "discipline": "mma",
+          "method": "D'Arce choke",
+          "event": "UFC 311",
+          "week": "2025-01-18"
+        }
+      ],
+      "sources": [
+        {
+          "label": "UFC athlete profile",
+          "url": "https://www.ufc.com/athlete/islam-makhachev",
+          "facts": "record, age, height, weight, reach, style, results"
+        }
+      ],
+      "photo": {
+        "source_page": "https://commons.wikimedia.org/wiki/File:Islam_Makhachev_and_Sergey_Melikov_2025_(cropped).jpg",
+        "author": "Unknown author as listed by Wikimedia Commons",
+        "license": "CC BY 3.0",
+        "license_url": "https://creativecommons.org/licenses/by/3.0"
+      },
+      "portrait_path": "res://research/names_real/photos/islam_makhachev.jpg",
+      "record_display": "29–1–0",
+      "record_scope": "Professional MMA"
+    },
+    "real_zhang_weili": {
+      "name": "Zhang Weili",
+      "birth_date": "1989-08-13",
+      "achievements": [
+        "First Chinese major MMA champion",
+        "11 knockout wins and 8 submission wins at snapshot"
+      ],
+      "fight_history": [
+        {
+          "result": "loss",
+          "opponent_name": "Valentina Shevchenko",
+          "discipline": "mma",
+          "method": "Unanimous decision",
+          "event": "UFC 322",
+          "week": "2025-11-15"
+        },
+        {
+          "result": "win",
+          "opponent_name": "Tatiana Suarez",
+          "discipline": "mma",
+          "method": "Unanimous decision",
+          "event": "UFC 312",
+          "week": "2025-02-08"
+        },
+        {
+          "result": "win",
+          "opponent_name": "Yan Xiaonan",
+          "discipline": "mma",
+          "method": "Unanimous decision",
+          "event": "UFC 300",
+          "week": "2024-04-13"
+        }
+      ],
+      "sources": [
+        {
+          "label": "UFC athlete profile",
+          "url": "https://www.ufc.com/athlete/zhang-weili",
+          "facts": "record, age, height, weight, reach, striking and grappling results"
+        }
+      ],
+      "photo": {
+        "source_page": "https://commons.wikimedia.org/wiki/File:%E5%BC%A0%E4%BC%9F%E4%B8%BD.png",
+        "author": "China News Service",
+        "license": "CC BY 3.0",
+        "license_url": "https://creativecommons.org/licenses/by/3.0"
+      },
+      "portrait_path": "res://research/names_real/photos/zhang_weili.png",
+      "record_display": "26–4–0",
+      "record_scope": "Professional MMA"
+    },
+    "real_oleksandr_usyk": {
+      "name": "Oleksandr Usyk",
+      "birth_date": "1987-01-17",
+      "achievements": [
+        "Undisputed cruiserweight champion",
+        "Undisputed heavyweight champion"
+      ],
+      "fight_history": [
+        {
+          "result": "win",
+          "opponent_name": "Daniel Dubois",
+          "discipline": "boxing",
+          "method": "Knockout",
+          "event": "Undisputed Heavyweight Championship",
+          "week": "2025-07-19"
+        },
+        {
+          "result": "win",
+          "opponent_name": "Tyson Fury",
+          "discipline": "boxing",
+          "method": "Unanimous decision",
+          "event": "Heavyweight Championship Rematch",
+          "week": "2024-12-21"
+        },
+        {
+          "result": "win",
+          "opponent_name": "Tyson Fury",
+          "discipline": "boxing",
+          "method": "Split decision",
+          "event": "Undisputed Heavyweight Championship",
+          "week": "2024-05-18"
+        }
+      ],
+      "sources": [
+        {
+          "label": "The Ring official rankings",
+          "url": "https://www.ringmagazine.com/fighters/rankings",
+          "facts": "record, knockouts, height, reach, age and ranking"
+        }
+      ],
+      "photo": {
+        "source_page": "https://commons.wikimedia.org/wiki/File:2022_-_Centre_Stage_EN1_4500_(52471602047)_(cropped).jpg",
+        "author": "Web Summit",
+        "license": "CC BY 2.0",
+        "license_url": "https://creativecommons.org/licenses/by/2.0"
+      },
+      "portrait_path": "res://research/names_real/photos/oleksandr_usyk.jpg",
+      "record_display": "25–0–0 (16 KO)",
+      "record_scope": "Professional boxing"
+    },
+    "real_naoya_inoue": {
+      "name": "Naoya Inoue",
+      "birth_date": "1993-04-10",
+      "achievements": [
+        "Undisputed champion in two divisions",
+        "Four-division world champion"
+      ],
+      "fight_history": [
+        {
+          "result": "win",
+          "opponent_name": "Junto Nakatani",
+          "discipline": "boxing",
+          "method": "Unanimous decision",
+          "event": "Undisputed Junior Featherweight Championship",
+          "week": "2026-05-02"
+        }
+      ],
+      "sources": [
+        {
+          "label": "The Ring, Inoue vs Nakatani",
+          "url": "https://www.ringmagazine.com/news/2sCixRMTzqD0AvLpIBXlSG",
+          "facts": "33-0 record, 27 knockouts and May 2026 result"
+        }
+      ],
+      "photo": {
+        "source_page": "https://commons.wikimedia.org/wiki/File:Naoya_Inoue_20230302suports_03.jpg",
+        "author": "Cabinet Public Affairs Office, Japan",
+        "license": "CC BY 4.0",
+        "license_url": "https://creativecommons.org/licenses/by/4.0"
+      },
+      "portrait_path": "res://research/names_real/photos/naoya_inoue.jpg",
+      "record_display": "33–0–0 (27 KO)",
+      "record_scope": "Professional boxing"
+    },
+    "real_claressa_shields": {
+      "name": "Claressa Shields",
+      "birth_date": "1995-03-17",
+      "achievements": [
+        "Two-time Olympic boxing champion",
+        "Undisputed professional champion in three divisions"
+      ],
+      "sources": [
+        {
+          "label": "IBO February 2026 rankings",
+          "url": "https://www.iboboxing.com/_files/ugd/cbdd19_7f878a5f90a4409cb11f8364033770bb.pdf",
+          "facts": "17-0 record, 3 knockouts and active status"
+        }
+      ],
+      "photo": {
+        "source_page": "https://commons.wikimedia.org/wiki/File:Claressa_GWOAT_Shields.jpg",
+        "author": "Collision Conf",
+        "license": "CC BY 2.0",
+        "license_url": "https://creativecommons.org/licenses/by/2.0"
+      },
+      "portrait_path": "res://research/names_real/photos/claressa_shields.jpg",
+      "record_display": "17–0–0 (3 KO)",
+      "record_scope": "Professional boxing"
+    },
+    "real_canelo_alvarez": {
+      "name": "Canelo Álvarez",
+      "birth_date": "1990-07-18",
+      "achievements": [
+        "World champion in four divisions",
+        "Undisputed super-middleweight champion"
+      ],
+      "fight_history": [
+        {
+          "result": "loss",
+          "opponent_name": "Terence Crawford",
+          "discipline": "boxing",
+          "method": "Unanimous decision",
+          "event": "Super Middleweight Championship",
+          "week": "2025-09-13"
+        },
+        {
+          "result": "win",
+          "opponent_name": "William Scull",
+          "discipline": "boxing",
+          "method": "Unanimous decision",
+          "event": "Undisputed Super Middleweight Championship",
+          "week": "2025-05-03"
+        },
+        {
+          "result": "win",
+          "opponent_name": "Edgar Berlanga",
+          "discipline": "boxing",
+          "method": "Unanimous decision",
+          "event": "Super Middleweight Championship",
+          "week": "2024-09-14"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Associated Press, Alvarez vs Crawford",
+          "url": "https://apnews.com/article/a358ae4621c1e1c4a78902a1b7cb9b42",
+          "facts": "63-3-2 record after September 2025 bout"
+        }
+      ],
+      "photo": {
+        "source_page": "https://commons.wikimedia.org/wiki/File:Sa%C3%BAl_%C3%81lvarez.png",
+        "author": "Box Azteca",
+        "license": "CC BY 3.0",
+        "license_url": "https://creativecommons.org/licenses/by/3.0"
+      },
+      "portrait_path": "res://research/names_real/photos/canelo_alvarez.png",
+      "record_display": "63–3–2 (39 KO)",
+      "record_scope": "Professional boxing"
+    },
+    "real_teddy_riner": {
+      "name": "Teddy Riner",
+      "birth_date": "1989-04-07",
+      "achievements": [
+        "Three-time individual Olympic champion",
+        "Twelve-time world judo champion"
+      ],
+      "sources": [
+        {
+          "label": "International Judo Federation athlete profile",
+          "url": "https://www--gcp.ijf.org/judoka/385",
+          "facts": "age, +100 kg class, 123 contests, 49 ippons, latest results and ranking"
+        }
+      ],
+      "photo": {
+        "source_page": "https://commons.wikimedia.org/wiki/File:Teddy_Riner_Cannes_2016.jpg",
+        "author": "Georges Biard",
+        "license": "CC BY-SA 3.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
+      },
+      "portrait_path": "res://research/names_real/photos/teddy_riner.jpg",
+      "record_display": "123 IJF CONTESTS",
+      "record_scope": "IJF database contests; aggregate W-L not published on profile"
+    },
+    "real_clarisse_agbegnenou": {
+      "name": "Clarisse Agbegnenou",
+      "birth_date": "1992-10-25",
+      "achievements": [
+        "Olympic -63 kg champion",
+        "Six-time senior world champion at snapshot"
+      ],
+      "sources": [
+        {
+          "label": "International Judo Federation athlete profile",
+          "url": "https://www.ijf.org/judoka/2317AGBEGNENOU",
+          "facts": "age, -63 kg class, 188 contests, 64 ippons, results and ranking"
+        }
+      ],
+      "photo": {
+        "source_page": "https://commons.wikimedia.org/wiki/File:Clarisse_Agbegnenou.jpeg",
+        "author": "Presidential Press and Information Office",
+        "license": "CC BY 4.0",
+        "license_url": "https://creativecommons.org/licenses/by/4.0",
+        "fallback_reason": "Wikimedia image host rate-limited the local test-asset download on 2026-08-30."
+      },
+      "portrait_path": "",
+      "record_display": "188 IJF CONTESTS",
+      "record_scope": "IJF database contests; aggregate W-L not published on profile"
+    },
+    "real_kyle_snyder": {
+      "name": "Kyle Snyder",
+      "birth_date": "1995-11-20",
+      "achievements": [
+        "Olympic freestyle wrestling champion",
+        "Three-time senior world champion through 2025"
+      ],
+      "fight_history": [
+        {
+          "result": "win",
+          "opponent_name": "Magomedkhan Magomedov",
+          "discipline": "wrestling",
+          "method": "Victory by injury",
+          "event": "2026 Muhamet Malo",
+          "week": "2026-02"
+        },
+        {
+          "result": "win",
+          "opponent_name": "Richard Vegh",
+          "discipline": "wrestling",
+          "method": "Technical superiority",
+          "event": "2026 Muhamet Malo",
+          "week": "2026-02"
+        },
+        {
+          "result": "loss",
+          "opponent_name": "Mukhamed Takhir Khaniev",
+          "discipline": "wrestling",
+          "method": "Points",
+          "event": "2026 Muhamet Malo",
+          "week": "2026-02"
+        }
+      ],
+      "sources": [
+        {
+          "label": "United World Wrestling athlete profile",
+          "url": "https://uww.org/athletes/snyder-kyle-frederick",
+          "facts": "age, 97 kg class, number-one 2026 ranking and 4-1 season record"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No suitable reusable single-athlete portrait was found in the Wikimedia lookup."
+      },
+      "portrait_path": "",
+      "record_display": "4–1 (2026 SEASON)",
+      "record_scope": "UWW 2026 senior season"
+    },
+    "real_yui_susaki": {
+      "name": "Yui Susaki",
+      "birth_date": "1999-06-30",
+      "achievements": [
+        "Olympic freestyle wrestling champion",
+        "Four-time senior world champion"
+      ],
+      "fight_history": [
+        {
+          "result": "win",
+          "opponent_name": "Kim Son Hyang",
+          "discipline": "wrestling",
+          "method": "Points",
+          "event": "2026 Asian Championships",
+          "week": "2026-04"
+        },
+        {
+          "result": "win",
+          "opponent_name": "Maral Tangirbergenova",
+          "discipline": "wrestling",
+          "method": "Fall",
+          "event": "2026 Asian Championships",
+          "week": "2026-04"
+        },
+        {
+          "result": "win",
+          "opponent_name": "Neelam Neelam",
+          "discipline": "wrestling",
+          "method": "Technical superiority",
+          "event": "2026 Asian Championships",
+          "week": "2026-04"
+        }
+      ],
+      "sources": [
+        {
+          "label": "United World Wrestling athlete profile",
+          "url": "https://uww.org/athletes/susaki-yui",
+          "facts": "age, 50 kg class, 2026 ranking and 4-0 season record"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "Available Wikimedia lead image is a group photograph unsuitable for a profile crop."
+      },
+      "portrait_path": "",
+      "record_display": "4–0 (2026 SEASON)",
+      "record_scope": "UWW 2026 senior season"
+    },
+    "real_rico_verhoeven": {
+      "name": "Rico Verhoeven",
+      "birth_date": "1989-04-10",
+      "achievements": [
+        "Long-reigning heavyweight kickboxing champion",
+        "27-fight promotion unbeaten streak at snapshot source"
+      ],
+      "fight_history": [
+        {
+          "result": "win",
+          "opponent_name": "Artem Vakhitov",
+          "discipline": "kickboxing",
+          "method": "Decision",
+          "event": "GLORY 100",
+          "week": "2025-06-14"
+        }
+      ],
+      "sources": [
+        {
+          "label": "GLORY 100 official results",
+          "url": "https://glorykickboxing.com/news/glory-100-results",
+          "facts": "66-10 record, 21 knockouts, streak and title defenses"
+        }
+      ],
+      "photo": {
+        "source_page": "https://commons.wikimedia.org/wiki/File:Rico-training.png",
+        "author": "Ah.kakar",
+        "license": "CC BY-SA 4.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+      },
+      "portrait_path": "res://research/names_real/photos/rico_verhoeven.png",
+      "record_display": "66–10–0 (21 KO)",
+      "record_scope": "Professional kickboxing"
+    },
+    "real_rodtang_jitmuangnon": {
+      "name": "Rodtang Jitmuangnon",
+      "birth_date": "1997-07-23",
+      "achievements": [
+        "Former flyweight Muay Thai world champion",
+        "Over 250 Muay Thai wins reported by official athlete profile"
+      ],
+      "sources": [
+        {
+          "label": "ONE Championship athlete profile",
+          "url": "https://www.onefc.com/athletes/rodtang/",
+          "facts": "biography, tracked record, methods and championships"
+        }
+      ],
+      "photo": {
+        "source_page": "https://commons.wikimedia.org/wiki/File:%E3%83%AD%E3%83%83%E3%82%BF%E3%83%B3%E3%83%BB%E3%82%B8%E3%83%83%E3%83%88%E3%83%A0%E3%82%A2%E3%83%B3%E3%83%8E%E3%83%B3.png",
+        "author": "TJ Channel Thailand",
+        "license": "CC BY 3.0",
+        "license_url": "https://creativecommons.org/licenses/by/3.0"
+      },
+      "portrait_path": "res://research/names_real/photos/rodtang_jitmuangnon.png",
+      "record_display": "17–3 (ONE TRACKED)",
+      "record_scope": "ONE Championship tracked bouts; athlete page also reports 250+ wins by age 21"
+    },
+    "real_micael_galvao": {
+      "name": "Micael Galvão",
+      "birth_date": "2003-10-08",
+      "achievements": [
+        "2024 IBJJF World champion",
+        "2026 New Jersey Open double gold"
+      ],
+      "sources": [
+        {
+          "label": "IBJJF athlete results",
+          "url": "https://ibjjf.com/athletes/micael-galvao",
+          "facts": "belt, 2026 points, ranking and competition results"
+        }
+      ],
+      "photo": {
+        "source_page": "https://commons.wikimedia.org/wiki/File:Vlog-6_FINALIZOU_EM_1_MINUTO!!!_Veja_s%C3%B3!_-_YouTube_-_13-49_(cropped).jpg",
+        "author": "Micael Galvão",
+        "license": "CC BY 3.0",
+        "license_url": "https://creativecommons.org/licenses/by/3.0"
+      },
+      "portrait_path": "res://research/names_real/photos/micael_galvao.jpg",
+      "record_display": "130.5 IBJJF PTS",
+      "record_scope": "IBJJF 2026 athlete ranking profile; no aggregate W-L published"
+    },
+    "real_anzhelika_terliuga": {
+      "name": "Anzhelika Terliuga",
+      "birth_date": "1992-03-23",
+      "achievements": [
+        "Olympic kumite silver medalist",
+        "Multiple Karate1 Premier League victories"
+      ],
+      "sources": [
+        {
+          "label": "WKF ranking profile",
+          "url": "https://setopen2.sportdata.org/wkfranking/ranking_main_competitor.php?ranking_competitor=UKR240&ranking_competitor_name=TERLIUGA+ANZHELIKA&ranking_country=UKR",
+          "facts": "category, ranking history and results"
+        },
+        {
+          "label": "2026 EKF result book",
+          "url": "https://frkarate.ro/wp-content/uploads/2026/05/Result-Book-EKF-Senior-Championships-2026.pdf",
+          "facts": "2026 European placement"
+        }
+      ],
+      "photo": {
+        "source_page": "https://commons.wikimedia.org/wiki/File:Anzhelika_Terliuga_at_Tokyo_2020.jpg",
+        "author": "Ministry of Youth and Sports of Ukraine",
+        "license": "CC BY 4.0",
+        "license_url": "https://creativecommons.org/licenses/by/4.0"
+      },
+      "portrait_path": "res://research/names_real/photos/anzhelika_terliuga.jpg",
+      "record_display": "2026 EUROPE: 5TH",
+      "record_scope": "WKF tournament placement; no aggregate W-L published"
+    },
+    "real_panipak_wongpattanakit": {
+      "name": "Panipak Wongpattanakit",
+      "birth_date": "1997-08-08",
+      "achievements": [
+        "Two-time Olympic taekwondo champion",
+        "Two-time world champion"
+      ],
+      "fight_history": [
+        {
+          "result": "win",
+          "opponent_name": "Guo Qing",
+          "discipline": "taekwondo",
+          "method": "Points 2-1",
+          "event": "Paris 2024 Olympic Final",
+          "week": "2024-08-07"
+        },
+        {
+          "result": "win",
+          "opponent_name": "Lena Stojkovic",
+          "discipline": "taekwondo",
+          "method": "Points",
+          "event": "Paris 2024 Olympic Semifinal",
+          "week": "2024-08-07"
+        },
+        {
+          "result": "win",
+          "opponent_name": "Dunya Abutaleb",
+          "discipline": "taekwondo",
+          "method": "Points",
+          "event": "Paris 2024 Olympic Quarterfinal",
+          "week": "2024-08-07"
+        }
+      ],
+      "sources": [
+        {
+          "label": "World Taekwondo athlete profile",
+          "url": "https://results.worldtaekwondo.org/profile/58e25a6c-9911-40db-aca8-98f2a72a5527",
+          "facts": "99-12 career record, medals and event history"
+        },
+        {
+          "label": "World Taekwondo 2023-2024 report",
+          "url": "https://www.worldtaekwondo.org/att_file/documents/Annual%20Report%202023-2024.pdf",
+          "facts": "Paris 2024 gold medal"
+        }
+      ],
+      "photo": {
+        "source_page": "https://commons.wikimedia.org/wiki/File:Panipak_Wongpattanakit_2018b.jpg",
+        "author": "Hamed Malekpour / Tasnim News Agency",
+        "license": "CC BY 4.0",
+        "license_url": "https://creativecommons.org/licenses/by/4.0"
+      },
+      "portrait_path": "res://research/names_real/photos/panipak_wongpattanakit.jpg",
+      "record_display": "99–12 (WT CAREER)",
+      "record_scope": "World Taekwondo tracked career record"
+    },
+    "real_alex_pereira": {
+      "name": "Alex Pereira",
+      "birth_date": "1987-07-07",
+      "achievements": [
+        "Two-time UFC Light Heavyweight Champion",
+        "Former UFC Middleweight Champion",
+        "Former two-division GLORY Kickboxing champion"
+      ],
+      "fight_history": [
+        {
+          "week": "2025-10-04",
+          "result": "win",
+          "opponent_name": "Magomed Ankalaev",
+          "method": "KO (strikes) R1",
+          "event": "UFC 320",
+          "discipline": "mma"
+        },
+        {
+          "week": "2025-03-08",
+          "result": "loss",
+          "opponent_name": "Magomed Ankalaev",
+          "method": "Unanimous decision",
+          "event": "UFC 313",
+          "discipline": "mma"
+        },
+        {
+          "week": "2024-10-05",
+          "result": "win",
+          "opponent_name": "Khalil Rountree Jr.",
+          "method": "TKO R4",
+          "event": "UFC 307",
+          "discipline": "mma"
+        }
+      ],
+      "sources": [
+        {
+          "label": "UFC athlete profile",
+          "url": "https://www.ufc.com/athlete/alex-pereira",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Alex_Pereira",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "13-4-0",
+      "record_scope": "Professional MMA, as of 2026-09"
+    },
+    "real_ilia_topuria": {
+      "name": "Ilia Topuria",
+      "birth_date": "1997-01-21",
+      "achievements": [
+        "First undefeated two-division UFC champion (featherweight and lightweight)",
+        "Former UFC Featherweight and Lightweight Champion"
+      ],
+      "fight_history": [
+        {
+          "week": "2026-06-14",
+          "result": "loss",
+          "opponent_name": "Justin Gaethje",
+          "method": "TKO (corner stoppage) R4",
+          "event": "UFC Freedom 250",
+          "discipline": "mma"
+        },
+        {
+          "week": "2025-06-28",
+          "result": "win",
+          "opponent_name": "Charles Oliveira",
+          "method": "KO R1",
+          "event": "UFC 317",
+          "discipline": "mma"
+        },
+        {
+          "week": "2024-10-26",
+          "result": "win",
+          "opponent_name": "Max Holloway",
+          "method": "KO R3",
+          "event": "UFC 308",
+          "discipline": "mma"
+        }
+      ],
+      "sources": [
+        {
+          "label": "UFC athlete profile",
+          "url": "https://www.ufc.com/athlete/ilia-topuria",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Ilia_Topuria",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "17-1-0",
+      "record_scope": "Professional MMA, as of 2026-09"
+    },
+    "real_jon_jones": {
+      "name": "Jon Jones",
+      "birth_date": "1987-07-19",
+      "achievements": [
+        "Former UFC Heavyweight Champion",
+        "Longest-reigning UFC Light Heavyweight Champion",
+        "16 UFC championship-fight wins, most all time",
+        "Retired 2026"
+      ],
+      "fight_history": [
+        {
+          "week": "2024-11-16",
+          "result": "win",
+          "opponent_name": "Stipe Miocic",
+          "method": "TKO R3",
+          "event": "UFC 309",
+          "discipline": "mma"
+        },
+        {
+          "week": "2023-03-04",
+          "result": "win",
+          "opponent_name": "Ciryl Gane",
+          "method": "Submission (guillotine) R1",
+          "event": "UFC 285",
+          "discipline": "mma"
+        },
+        {
+          "week": "2020-02-08",
+          "result": "win",
+          "opponent_name": "Dominick Reyes",
+          "method": "Unanimous decision",
+          "event": "UFC 247",
+          "discipline": "mma"
+        }
+      ],
+      "sources": [
+        {
+          "label": "ESPN retirement report",
+          "url": "https://www.espn.com/mma/story/_/id/45558671/jon-jones-retires-competition-ufc-ceo-dana-white-says",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Jon_Jones",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "28-1-0 (1 NC)",
+      "record_scope": "Professional MMA at retirement, 2026-04"
+    },
+    "real_tom_aspinall": {
+      "name": "Tom Aspinall",
+      "birth_date": "1993-04-11",
+      "achievements": [
+        "Reigning UFC Heavyweight Champion",
+        "Fastest average finish time among UFC heavyweight champions"
+      ],
+      "fight_history": [
+        {
+          "week": "2025-10-25",
+          "result": "draw",
+          "opponent_name": "Ciryl Gane",
+          "method": "No contest (eye pokes) R1",
+          "event": "UFC 321",
+          "discipline": "mma"
+        },
+        {
+          "week": "2024-07-27",
+          "result": "win",
+          "opponent_name": "Curtis Blaydes",
+          "method": "KO R1",
+          "event": "UFC 304",
+          "discipline": "mma"
+        },
+        {
+          "week": "2023-11-11",
+          "result": "win",
+          "opponent_name": "Sergei Pavlovich",
+          "method": "KO R1",
+          "event": "UFC 295",
+          "discipline": "mma"
+        }
+      ],
+      "sources": [
+        {
+          "label": "UFC athlete profile",
+          "url": "https://www.ufc.com/athlete/tom-aspinall",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Tom_Aspinall",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "15-3-0 (1 NC)",
+      "record_scope": "Professional MMA, as of 2026-09"
+    },
+    "real_merab_dvalishvili": {
+      "name": "Merab Dvalishvili",
+      "birth_date": "1991-01-10",
+      "achievements": [
+        "Former UFC Bantamweight Champion",
+        "Record-setting takedown volume in UFC title fights"
+      ],
+      "fight_history": [
+        {
+          "week": "2025-12-06",
+          "result": "loss",
+          "opponent_name": "Petr Yan",
+          "method": "Unanimous decision",
+          "event": "UFC 323",
+          "discipline": "mma"
+        },
+        {
+          "week": "2025-06-07",
+          "result": "win",
+          "opponent_name": "Sean O'Malley",
+          "method": "Submission R3",
+          "event": "UFC 316",
+          "discipline": "mma"
+        },
+        {
+          "week": "2025-01-18",
+          "result": "win",
+          "opponent_name": "Umar Nurmagomedov",
+          "method": "Unanimous decision",
+          "event": "UFC 311",
+          "discipline": "mma"
+        }
+      ],
+      "sources": [
+        {
+          "label": "UFC athlete profile",
+          "url": "https://www.ufc.com/athlete/merab-dvalishvili",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Merab_Dvalishvili",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "21-5-0",
+      "record_scope": "Professional MMA, as of 2026-09"
+    },
+    "real_sean_omalley": {
+      "name": "Sean O'Malley",
+      "birth_date": "1994-10-24",
+      "achievements": [
+        "Former UFC Bantamweight Champion"
+      ],
+      "fight_history": [
+        {
+          "week": "2026-06-14",
+          "result": "win",
+          "opponent_name": "Aiemann Zahabi",
+          "method": "KO R2",
+          "event": "UFC Freedom 250",
+          "discipline": "mma"
+        },
+        {
+          "week": "2026-01-24",
+          "result": "win",
+          "opponent_name": "Song Yadong",
+          "method": "Unanimous decision",
+          "event": "UFC 324",
+          "discipline": "mma"
+        },
+        {
+          "week": "2025-06-07",
+          "result": "loss",
+          "opponent_name": "Merab Dvalishvili",
+          "method": "Submission R3",
+          "event": "UFC 316",
+          "discipline": "mma"
+        }
+      ],
+      "sources": [
+        {
+          "label": "UFC athlete profile",
+          "url": "https://www.ufc.com/athlete/sean-omalley",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Sean_O'Malley_(fighter)",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "20-3-0 (1 NC)",
+      "record_scope": "Professional MMA, as of 2026-09"
+    },
+    "real_dricus_du_plessis": {
+      "name": "Dricus du Plessis",
+      "birth_date": "1994-01-14",
+      "achievements": [
+        "Former UFC Middleweight Champion",
+        "First South African UFC champion"
+      ],
+      "fight_history": [
+        {
+          "week": "2026-07-18",
+          "result": "win",
+          "opponent_name": "Kamaru Usman",
+          "method": "Unanimous decision",
+          "event": "UFC Fight Night Oklahoma City",
+          "discipline": "mma"
+        },
+        {
+          "week": "2025-08-16",
+          "result": "loss",
+          "opponent_name": "Khamzat Chimaev",
+          "method": "Unanimous decision",
+          "event": "UFC 319",
+          "discipline": "mma"
+        },
+        {
+          "week": "2025-02-09",
+          "result": "win",
+          "opponent_name": "Sean Strickland",
+          "method": "Unanimous decision",
+          "event": "UFC 312",
+          "discipline": "mma"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Dricus_du_Plessis",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "Fight record aggregate",
+          "url": "https://combat-edge.com/fighter/dricus-du-plessis-1714/",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "23-3-0",
+      "record_scope": "Professional MMA, as of 2026-09"
+    },
+    "real_khamzat_chimaev": {
+      "name": "Khamzat Chimaev",
+      "birth_date": "1994-05-01",
+      "achievements": [
+        "Former UFC Middleweight Champion",
+        "Undefeated until his 2026 title loss"
+      ],
+      "fight_history": [
+        {
+          "week": "2026-05-09",
+          "result": "loss",
+          "opponent_name": "Sean Strickland",
+          "method": "Split decision",
+          "event": "UFC 328",
+          "discipline": "mma"
+        },
+        {
+          "week": "2025-08-16",
+          "result": "win",
+          "opponent_name": "Dricus du Plessis",
+          "method": "Unanimous decision",
+          "event": "UFC 319",
+          "discipline": "mma"
+        },
+        {
+          "week": "2024-10-26",
+          "result": "win",
+          "opponent_name": "Robert Whittaker",
+          "method": "Submission (face crank) R1",
+          "event": "UFC 308",
+          "discipline": "mma"
+        }
+      ],
+      "sources": [
+        {
+          "label": "UFC athlete profile",
+          "url": "https://www.ufc.com/athlete/khamzat-chimaev",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Khamzat_Chimaev",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "15-1-0",
+      "record_scope": "Professional MMA, as of 2026-09"
+    },
+    "real_alexandre_pantoja": {
+      "name": "Alexandre Pantoja",
+      "birth_date": "1989-12-16",
+      "achievements": [
+        "Former UFC Flyweight Champion, four title defenses",
+        "Most wins, submissions and finishes in UFC flyweight history"
+      ],
+      "fight_history": [
+        {
+          "week": "2025-12-06",
+          "result": "loss",
+          "opponent_name": "Joshua Van",
+          "method": "TKO (arm injury) R1",
+          "event": "UFC 323",
+          "discipline": "mma"
+        },
+        {
+          "week": "2025-06-28",
+          "result": "win",
+          "opponent_name": "Kai Kara-France",
+          "method": "Submission (rear-naked choke)",
+          "event": "UFC 317",
+          "discipline": "mma"
+        },
+        {
+          "week": "2024-12-07",
+          "result": "win",
+          "opponent_name": "Kai Asakura",
+          "method": "Submission (rear-naked choke) R2",
+          "event": "UFC 310",
+          "discipline": "mma"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Alexandre_Pantoja",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "Sherdog profile",
+          "url": "https://www.sherdog.com/fighter/Alexandre-Pantoja-25023",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "30-6-0",
+      "record_scope": "Professional MMA, as of 2026-09"
+    },
+    "real_charles_oliveira": {
+      "name": "Charles Oliveira",
+      "birth_date": "1989-10-17",
+      "achievements": [
+        "Former UFC Lightweight Champion",
+        "Reigning UFC BMF titleholder",
+        "Most submission wins in UFC history"
+      ],
+      "fight_history": [
+        {
+          "week": "2026-03-07",
+          "result": "win",
+          "opponent_name": "Max Holloway",
+          "method": "Unanimous decision",
+          "event": "UFC 326",
+          "discipline": "mma"
+        },
+        {
+          "week": "2025-06-28",
+          "result": "loss",
+          "opponent_name": "Ilia Topuria",
+          "method": "KO R1",
+          "event": "UFC 317",
+          "discipline": "mma"
+        },
+        {
+          "week": "2024-11-16",
+          "result": "win",
+          "opponent_name": "Michael Chandler",
+          "method": "Unanimous decision",
+          "event": "UFC 309",
+          "discipline": "mma"
+        }
+      ],
+      "sources": [
+        {
+          "label": "UFC athlete profile",
+          "url": "https://www.ufc.com/athlete/charles-oliveira",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "UFC Stats",
+          "url": "http://ufcstats.com/fighter-details/07225ba28ae309b6",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "37-11-0 (1 NC)",
+      "record_scope": "Professional MMA, as of 2026-09"
+    },
+    "real_max_holloway": {
+      "name": "Max Holloway",
+      "birth_date": "1991-12-04",
+      "achievements": [
+        "Former UFC Featherweight Champion",
+        "Former UFC BMF titleholder",
+        "Most significant strikes landed in UFC history"
+      ],
+      "fight_history": [
+        {
+          "week": "2026-07-11",
+          "result": "win",
+          "opponent_name": "Conor McGregor",
+          "method": "TKO (injury) R1",
+          "event": "UFC 329",
+          "discipline": "mma"
+        },
+        {
+          "week": "2026-03-07",
+          "result": "loss",
+          "opponent_name": "Charles Oliveira",
+          "method": "Unanimous decision",
+          "event": "UFC 326",
+          "discipline": "mma"
+        },
+        {
+          "week": "2024-10-26",
+          "result": "loss",
+          "opponent_name": "Ilia Topuria",
+          "method": "KO R3",
+          "event": "UFC 308",
+          "discipline": "mma"
+        }
+      ],
+      "sources": [
+        {
+          "label": "UFC athlete profile",
+          "url": "https://www.ufc.com/athlete/max-holloway",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Max_Holloway",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "27-9-0",
+      "record_scope": "Professional MMA, as of 2026-09"
+    },
+    "real_justin_gaethje": {
+      "name": "Justin Gaethje",
+      "birth_date": "1988-11-14",
+      "achievements": [
+        "Reigning UFC Lightweight Champion",
+        "Two-time BMF titleholder"
+      ],
+      "fight_history": [
+        {
+          "week": "2026-06-14",
+          "result": "win",
+          "opponent_name": "Ilia Topuria",
+          "method": "TKO (corner stoppage) R4",
+          "event": "UFC Freedom 250",
+          "discipline": "mma"
+        },
+        {
+          "week": "2026-01-24",
+          "result": "win",
+          "opponent_name": "Paddy Pimblett",
+          "method": "Unanimous decision",
+          "event": "UFC 324",
+          "discipline": "mma"
+        },
+        {
+          "week": "2025-03-08",
+          "result": "win",
+          "opponent_name": "Rafael Fiziev",
+          "method": "Unanimous decision",
+          "event": "UFC 313",
+          "discipline": "mma"
+        }
+      ],
+      "sources": [
+        {
+          "label": "UFC athlete profile",
+          "url": "https://www.ufc.com/athlete/justin-gaethje",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "Al Jazeera title report",
+          "url": "https://www.aljazeera.com/sports/2026/1/25/gaethje-batters-pimblett-to-win-interim-lightweight-title-at-ufc-324",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "28-5-0",
+      "record_scope": "Professional MMA, as of 2026-09"
+    },
+    "real_leon_edwards": {
+      "name": "Leon Edwards",
+      "birth_date": "1991-08-25",
+      "achievements": [
+        "Former UFC Welterweight Champion",
+        "Head-kick KO of Kamaru Usman at UFC 278"
+      ],
+      "fight_history": [
+        {
+          "week": "2025-11-15",
+          "result": "loss",
+          "opponent_name": "Carlos Prates",
+          "method": "KO",
+          "event": "UFC 322",
+          "discipline": "mma"
+        },
+        {
+          "week": "2025-03-22",
+          "result": "loss",
+          "opponent_name": "Sean Brady",
+          "method": "Submission R4",
+          "event": "UFC Fight Night London",
+          "discipline": "mma"
+        },
+        {
+          "week": "2024-07-27",
+          "result": "loss",
+          "opponent_name": "Belal Muhammad",
+          "method": "Unanimous decision",
+          "event": "UFC 304",
+          "discipline": "mma"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Leon_Edwards",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "UFC Stats",
+          "url": "http://ufcstats.com/fighter-details/f1fac969a1d70b08",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "22-6-0 (1 NC)",
+      "record_scope": "Professional MMA, as of 2026-09"
+    },
+    "real_arman_tsarukyan": {
+      "name": "Arman Tsarukyan",
+      "birth_date": "1996-10-11",
+      "achievements": [
+        "UFC lightweight #2 contender at snapshot"
+      ],
+      "fight_history": [
+        {
+          "week": "2024-04-13",
+          "result": "win",
+          "opponent_name": "Charles Oliveira",
+          "method": "Unanimous decision",
+          "event": "UFC 300",
+          "discipline": "mma"
+        },
+        {
+          "week": "2023-12-02",
+          "result": "win",
+          "opponent_name": "Beneil Dariush",
+          "method": "KO R1",
+          "event": "UFC Fight Night Austin",
+          "discipline": "mma"
+        },
+        {
+          "week": "2019-04-20",
+          "result": "loss",
+          "opponent_name": "Islam Makhachev",
+          "method": "Unanimous decision",
+          "event": "UFC Fight Night St. Petersburg",
+          "discipline": "mma"
+        }
+      ],
+      "sources": [
+        {
+          "label": "UFC athlete profile",
+          "url": "https://www.ufc.com/athlete/arman-tsarukyan",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "Sherdog profile",
+          "url": "https://www.sherdog.com/fighter/Arman-Tsarukyan-213913",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "23-3-0",
+      "record_scope": "Professional MMA, as of 2026-09"
+    },
+    "real_valentina_shevchenko": {
+      "name": "Valentina Shevchenko",
+      "birth_date": "1988-03-07",
+      "achievements": [
+        "Reigning UFC Women's Flyweight Champion",
+        "Record 11 women's flyweight title-fight wins",
+        "Multiple-time Muay Thai world champion"
+      ],
+      "fight_history": [
+        {
+          "week": "2025-11-15",
+          "result": "win",
+          "opponent_name": "Zhang Weili",
+          "method": "Unanimous decision",
+          "event": "UFC 322",
+          "discipline": "mma"
+        },
+        {
+          "week": "2025-05-10",
+          "result": "win",
+          "opponent_name": "Manon Fiorot",
+          "method": "Unanimous decision",
+          "event": "UFC 315",
+          "discipline": "mma"
+        },
+        {
+          "week": "2024-09-14",
+          "result": "win",
+          "opponent_name": "Alexa Grasso",
+          "method": "Unanimous decision",
+          "event": "UFC 306",
+          "discipline": "mma"
+        }
+      ],
+      "sources": [
+        {
+          "label": "UFC athlete profile",
+          "url": "https://www.ufc.com/athlete/valentina-shevchenko",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "ESPN profile",
+          "url": "https://www.espn.com/mma/fighter/_/id/2554705/valentina-shevchenko",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "26-4-1",
+      "record_scope": "Professional MMA, as of 2026-09"
+    },
+    "real_amanda_nunes": {
+      "name": "Amanda Nunes",
+      "birth_date": "1988-05-30",
+      "achievements": [
+        "First two-division women's UFC champion (bantamweight and featherweight)",
+        "Returned from retirement in 2026"
+      ],
+      "fight_history": [
+        {
+          "week": "2026-01-24",
+          "result": "loss",
+          "opponent_name": "Kayla Harrison",
+          "method": "Unanimous decision",
+          "event": "UFC 324",
+          "discipline": "mma"
+        },
+        {
+          "week": "2023-06-10",
+          "result": "win",
+          "opponent_name": "Irene Aldana",
+          "method": "Unanimous decision",
+          "event": "UFC 289",
+          "discipline": "mma"
+        },
+        {
+          "week": "2022-07-30",
+          "result": "win",
+          "opponent_name": "Julianna Pena",
+          "method": "Unanimous decision",
+          "event": "UFC 277",
+          "discipline": "mma"
+        }
+      ],
+      "sources": [
+        {
+          "label": "ESPN profile",
+          "url": "https://www.espn.com/mma/fighter/_/id/2516131/amanda-nunes",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "Tapology profile",
+          "url": "https://www.tapology.com/fightcenter/fighters/amanda-nunes-lioness-of-the-ring",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "23-6-0",
+      "record_scope": "Professional MMA, as of 2026-09"
+    },
+    "real_alexa_grasso": {
+      "name": "Alexa Grasso",
+      "birth_date": "1993-08-09",
+      "achievements": [
+        "Former UFC Women's Flyweight Champion",
+        "First Mexican women's UFC champion"
+      ],
+      "fight_history": [
+        {
+          "week": "2026-03-28",
+          "result": "win",
+          "opponent_name": "Maycee Barber",
+          "method": "KO R1",
+          "event": "UFC Fight Night Adesanya vs Pyfer",
+          "discipline": "mma"
+        },
+        {
+          "week": "2024-09-14",
+          "result": "loss",
+          "opponent_name": "Valentina Shevchenko",
+          "method": "Unanimous decision",
+          "event": "UFC 306",
+          "discipline": "mma"
+        },
+        {
+          "week": "2023-09-16",
+          "result": "draw",
+          "opponent_name": "Valentina Shevchenko",
+          "method": "Split draw",
+          "event": "Noche UFC",
+          "discipline": "mma"
+        }
+      ],
+      "sources": [
+        {
+          "label": "UFC athlete profile",
+          "url": "https://www.ufc.com/athlete/alexa-grasso",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Alexa_Grasso",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "17-5-1",
+      "record_scope": "Professional MMA, as of 2026-09"
+    },
+    "real_kayla_harrison": {
+      "name": "Kayla Harrison",
+      "birth_date": "1990-07-02",
+      "achievements": [
+        "Reigning UFC Women's Bantamweight Champion",
+        "Two-time Olympic judo gold medalist (2012, 2016)",
+        "Two-time PFL season champion"
+      ],
+      "fight_history": [
+        {
+          "week": "2026-01-24",
+          "result": "win",
+          "opponent_name": "Amanda Nunes",
+          "method": "Unanimous decision",
+          "event": "UFC 324",
+          "discipline": "mma"
+        },
+        {
+          "week": "2025-06-07",
+          "result": "win",
+          "opponent_name": "Julianna Pena",
+          "method": "Submission (kimura) R2",
+          "event": "UFC 316",
+          "discipline": "mma"
+        },
+        {
+          "week": "2024-04-13",
+          "result": "win",
+          "opponent_name": "Holly Holm",
+          "method": "Unanimous decision",
+          "event": "UFC 300",
+          "discipline": "mma"
+        }
+      ],
+      "sources": [
+        {
+          "label": "UFC athlete profile",
+          "url": "https://www.ufc.com/athlete/kayla-harrison",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Kayla_Harrison",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "19-1-0",
+      "record_scope": "Professional MMA, as of 2026-09"
+    },
+    "real_terence_crawford": {
+      "name": "Terence Crawford",
+      "birth_date": "1987-09-28",
+      "achievements": [
+        "Undisputed champion in three divisions (junior welterweight, welterweight, super middleweight)",
+        "Five-division world champion",
+        "Retired undefeated 2025"
+      ],
+      "fight_history": [
+        {
+          "week": "2025-09-13",
+          "result": "win",
+          "opponent_name": "Canelo Alvarez",
+          "method": "Unanimous decision",
+          "event": "Undisputed Super Middleweight Championship",
+          "discipline": "boxing"
+        },
+        {
+          "week": "2024-08-03",
+          "result": "win",
+          "opponent_name": "Israil Madrimov",
+          "method": "Unanimous decision",
+          "event": "WBA Junior Middleweight Championship",
+          "discipline": "boxing"
+        },
+        {
+          "week": "2023-07-29",
+          "result": "win",
+          "opponent_name": "Errol Spence Jr.",
+          "method": "TKO R9",
+          "event": "Undisputed Welterweight Championship",
+          "discipline": "boxing"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Terence_Crawford",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "The Ring rankings",
+          "url": "https://www.ringmagazine.com/fighters/rankings",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "42-0-0 (31 KO)",
+      "record_scope": "Professional boxing at retirement, 2025-12"
+    },
+    "real_tyson_fury": {
+      "name": "Tyson Fury",
+      "birth_date": "1988-08-12",
+      "achievements": [
+        "Two-time lineal heavyweight champion",
+        "Former WBC and unified heavyweight champion",
+        "Returned from retirement in 2026; Joshua showdown in the making"
+      ],
+      "fight_history": [
+        {
+          "week": "2026-04-11",
+          "result": "win",
+          "opponent_name": "Arslanbek Makhmudov",
+          "method": "Unanimous decision",
+          "event": "Heavyweight Comeback, Tottenham Hotspur Stadium",
+          "discipline": "boxing"
+        },
+        {
+          "week": "2024-12-21",
+          "result": "loss",
+          "opponent_name": "Oleksandr Usyk",
+          "method": "Unanimous decision",
+          "event": "Heavyweight Championship Rematch",
+          "discipline": "boxing"
+        },
+        {
+          "week": "2024-05-18",
+          "result": "loss",
+          "opponent_name": "Oleksandr Usyk",
+          "method": "Split decision",
+          "event": "Undisputed Heavyweight Championship",
+          "discipline": "boxing"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Wikipedia, Fury vs Makhmudov",
+          "url": "https://en.wikipedia.org/wiki/Tyson_Fury_vs._Arslanbek_Makhmudov",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "Sky Sports 2026 schedule and results",
+          "url": "https://www.skysports.com/boxing/news/12183/13491463/boxing-2026-fight-schedule-and-latest-results-tyson-fury-oleksandr-usyk-katie-taylor-and-more",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "36-2-1 (25 KO)",
+      "record_scope": "Professional boxing, as of 2026-09"
+    },
+    "real_anthony_joshua": {
+      "name": "Anthony Joshua",
+      "birth_date": "1989-10-15",
+      "achievements": [
+        "Two-time unified world heavyweight champion",
+        "2012 Olympic super-heavyweight gold medalist"
+      ],
+      "fight_history": [
+        {
+          "week": "2026-07-26",
+          "result": "win",
+          "opponent_name": "Kristian Prenga",
+          "method": "KO R2",
+          "event": "Heavyweight bout, Riyadh",
+          "discipline": "boxing"
+        },
+        {
+          "week": "2025-12-19",
+          "result": "win",
+          "opponent_name": "Jake Paul",
+          "method": "KO R6",
+          "event": "Heavyweight bout, Kaseya Center Miami",
+          "discipline": "boxing"
+        },
+        {
+          "week": "2024-09-21",
+          "result": "loss",
+          "opponent_name": "Daniel Dubois",
+          "method": "KO R5",
+          "event": "IBF Heavyweight Championship, Wembley",
+          "discipline": "boxing"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Al Jazeera, Joshua vs Prenga",
+          "url": "https://www.aljazeera.com/sports/2026/7/26/joshua-comes-back-twice-to-knock-out-prenga-and-set-up-fury-showdown",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "CNN, Joshua vs Paul",
+          "url": "https://www.cnn.com/2025/12/20/sport/boxing-jake-paul-anthony-joshua",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "30-4-0 (27 KO)",
+      "record_scope": "Professional boxing, as of 2026-09"
+    },
+    "real_gervonta_davis": {
+      "name": "Gervonta Davis",
+      "birth_date": "1994-11-07",
+      "achievements": [
+        "WBA lightweight champion",
+        "World titles in three weight divisions",
+        "One of boxing's highest knockout ratios at championship level"
+      ],
+      "fight_history": [
+        {
+          "week": "2025-03-01",
+          "result": "draw",
+          "opponent_name": "Lamont Roach Jr.",
+          "method": "Majority draw",
+          "event": "WBA Lightweight Championship",
+          "discipline": "boxing"
+        },
+        {
+          "week": "2024-06-15",
+          "result": "win",
+          "opponent_name": "Frank Martin",
+          "method": "KO R8",
+          "event": "WBA Lightweight Championship",
+          "discipline": "boxing"
+        },
+        {
+          "week": "2023-04-22",
+          "result": "win",
+          "opponent_name": "Ryan Garcia",
+          "method": "KO (body shot) R7",
+          "event": "Catchweight Showdown",
+          "discipline": "boxing"
+        }
+      ],
+      "sources": [
+        {
+          "label": "ESPN profile",
+          "url": "https://www.espn.com/boxing/story/_/id/38782247/gervonta-davis-biography-boxing-record-fights-more",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "MartialBot record page",
+          "url": "https://www.martialbot.com/boxing/boxers/gervonta-davis-c299354e674849ac4d30970127caf092",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "30-0-1 (28 KO)",
+      "record_scope": "Professional boxing, as of 2026-09"
+    },
+    "real_shakur_stevenson": {
+      "name": "Shakur Stevenson",
+      "birth_date": "1997-06-28",
+      "achievements": [
+        "Four-division world champion",
+        "2016 Olympic bantamweight silver medalist",
+        "Elite defensive southpaw"
+      ],
+      "fight_history": [
+        {
+          "week": "2026-01-31",
+          "result": "win",
+          "opponent_name": "Teofimo Lopez",
+          "method": "Unanimous decision",
+          "event": "WBO Junior Welterweight Championship, Madison Square Garden",
+          "discipline": "boxing"
+        },
+        {
+          "week": "2025-07-12",
+          "result": "win",
+          "opponent_name": "William Zepeda",
+          "method": "Unanimous decision",
+          "event": "WBC Lightweight Championship",
+          "discipline": "boxing"
+        },
+        {
+          "week": "2025-02-22",
+          "result": "win",
+          "opponent_name": "Josh Padley",
+          "method": "TKO R9",
+          "event": "WBC Lightweight Championship, Riyadh",
+          "discipline": "boxing"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Wikipedia, Lopez vs Stevenson",
+          "url": "https://en.wikipedia.org/wiki/Teofimo_Lopez_vs._Shakur_Stevenson",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "MartialBot record page",
+          "url": "https://www.martialbot.com/boxing/boxers/shakur-stevenson-5246dbb7c7df50a9cb5e549641730442",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "25-0-0 (11 KO)",
+      "record_scope": "Professional boxing, as of 2026-09"
+    },
+    "real_david_benavidez": {
+      "name": "David Benavidez",
+      "birth_date": "1996-12-17",
+      "achievements": [
+        "WBC light heavyweight champion",
+        "Three-division world champion",
+        "Youngest super-middleweight world champion in WBC history"
+      ],
+      "fight_history": [
+        {
+          "week": "2026-05-02",
+          "result": "win",
+          "opponent_name": "Gilberto Ramirez",
+          "method": "KO R6",
+          "event": "WBC Light Heavyweight Championship, Las Vegas",
+          "discipline": "boxing"
+        },
+        {
+          "week": "2025-02-01",
+          "result": "win",
+          "opponent_name": "David Morrell",
+          "method": "Unanimous decision",
+          "event": "WBC Interim Light Heavyweight Championship",
+          "discipline": "boxing"
+        },
+        {
+          "week": "2024-06-15",
+          "result": "win",
+          "opponent_name": "Oleksandr Gvozdyk",
+          "method": "Unanimous decision",
+          "event": "WBC Interim Light Heavyweight Championship",
+          "discipline": "boxing"
+        }
+      ],
+      "sources": [
+        {
+          "label": "ESPN profile",
+          "url": "https://www.espn.com/boxing/story/_/id/45805461/david-benavidez-next-fight-boxing-record-more",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "MartialBot record page",
+          "url": "https://www.martialbot.com/boxing/boxers/david-benavidez-8a527ae2dd94e032c70062e4e776707f",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "32-0-0 (26 KO)",
+      "record_scope": "Professional boxing, as of 2026-09"
+    },
+    "real_dmitry_bivol": {
+      "name": "Dmitry Bivol",
+      "birth_date": "1990-12-18",
+      "achievements": [
+        "Undisputed light heavyweight champion (2025)",
+        "Beat Canelo Alvarez in 2022",
+        "WBA light heavyweight champion 2017-2024"
+      ],
+      "fight_history": [
+        {
+          "week": "2026-05-30",
+          "result": "win",
+          "opponent_name": "Michael Eifert",
+          "method": "Unanimous decision",
+          "event": "Unified Light Heavyweight Championship, Yekaterinburg",
+          "discipline": "boxing"
+        },
+        {
+          "week": "2025-02-22",
+          "result": "win",
+          "opponent_name": "Artur Beterbiev",
+          "method": "Majority decision",
+          "event": "Undisputed Light Heavyweight Championship, Riyadh",
+          "discipline": "boxing"
+        },
+        {
+          "week": "2024-10-12",
+          "result": "loss",
+          "opponent_name": "Artur Beterbiev",
+          "method": "Majority decision",
+          "event": "Undisputed Light Heavyweight Championship, Riyadh",
+          "discipline": "boxing"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Yahoo Sports, Bivol vs Eifert",
+          "url": "https://sports.yahoo.com/boxing/live/dmitry-bivol-vs-michael-eifert-live-results-round-by-round-updates-ring-walks-start-time-for-unified-title-fight-050000460.html",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Dmitry_Bivol",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "25-1-0 (12 KO)",
+      "record_scope": "Professional boxing, as of 2026-09"
+    },
+    "real_artur_beterbiev": {
+      "name": "Artur Beterbiev",
+      "birth_date": "1985-01-21",
+      "achievements": [
+        "First undisputed light heavyweight champion of the four-belt era",
+        "Held a 100% knockout ratio through his first 20 wins"
+      ],
+      "fight_history": [
+        {
+          "week": "2025-02-22",
+          "result": "loss",
+          "opponent_name": "Dmitry Bivol",
+          "method": "Majority decision",
+          "event": "Undisputed Light Heavyweight Championship, Riyadh",
+          "discipline": "boxing"
+        },
+        {
+          "week": "2024-10-12",
+          "result": "win",
+          "opponent_name": "Dmitry Bivol",
+          "method": "Majority decision",
+          "event": "Undisputed Light Heavyweight Championship, Riyadh",
+          "discipline": "boxing"
+        },
+        {
+          "week": "2024-01-13",
+          "result": "win",
+          "opponent_name": "Callum Smith",
+          "method": "TKO R7",
+          "event": "Unified Light Heavyweight Championship",
+          "discipline": "boxing"
+        }
+      ],
+      "sources": [
+        {
+          "label": "ESPN profile",
+          "url": "https://www.espn.com/boxing/story/_/id/39146414/artur-beterbiev-biography-boxing-record-fights-more",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "Wikipedia, Beterbiev vs Bivol II",
+          "url": "https://en.wikipedia.org/wiki/Artur_Beterbiev_vs._Dmitry_Bivol_II",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "21-1-0 (20 KO)",
+      "record_scope": "Professional boxing, as of 2026-09"
+    },
+    "real_junto_nakatani": {
+      "name": "Junto Nakatani",
+      "birth_date": "1998-01-02",
+      "achievements": [
+        "Three-division world champion (flyweight, super flyweight, bantamweight)",
+        "Challenged for the undisputed super bantamweight title in 2026"
+      ],
+      "fight_history": [
+        {
+          "week": "2026-05-02",
+          "result": "loss",
+          "opponent_name": "Naoya Inoue",
+          "method": "Unanimous decision",
+          "event": "Undisputed Junior Featherweight Championship, Tokyo Dome",
+          "discipline": "boxing"
+        },
+        {
+          "week": "2025-12-27",
+          "result": "win",
+          "opponent_name": "Sebastian Hernandez",
+          "method": "Unanimous decision",
+          "event": "Super Bantamweight debut",
+          "discipline": "boxing"
+        },
+        {
+          "week": "2025-02-24",
+          "result": "win",
+          "opponent_name": "David Cuellar Contreras",
+          "method": "KO R3",
+          "event": "WBC Bantamweight Championship",
+          "discipline": "boxing"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Al Jazeera, Inoue vs Nakatani",
+          "url": "https://www.aljazeera.com/sports/2026/5/3/japans-inoue-beats-nakatani-to-retain-undisputed-super-bantamweight-title",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "MartialBot record page",
+          "url": "https://www.martialbot.com/boxing/boxers/junto-nakatani-30e251afa025e036c9860b1cec8ad917",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "32-1-0 (24 KO)",
+      "record_scope": "Professional boxing, as of 2026-09"
+    },
+    "real_katie_taylor": {
+      "name": "Katie Taylor",
+      "birth_date": "1986-07-02",
+      "achievements": [
+        "Undisputed champion at lightweight and super lightweight",
+        "2012 Olympic lightweight gold medalist",
+        "Won all three fights of the Serrano trilogy"
+      ],
+      "fight_history": [
+        {
+          "week": "2025-07-11",
+          "result": "win",
+          "opponent_name": "Amanda Serrano",
+          "method": "Majority decision",
+          "event": "Undisputed Super Lightweight Championship, Madison Square Garden",
+          "discipline": "boxing"
+        },
+        {
+          "week": "2024-11-15",
+          "result": "win",
+          "opponent_name": "Amanda Serrano",
+          "method": "Unanimous decision",
+          "event": "Undisputed Super Lightweight Championship, Arlington",
+          "discipline": "boxing"
+        },
+        {
+          "week": "2023-11-25",
+          "result": "win",
+          "opponent_name": "Chantelle Cameron",
+          "method": "Majority decision",
+          "event": "Undisputed Super Lightweight Championship, Dublin",
+          "discipline": "boxing"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Big Fight Weekend career review",
+          "url": "https://bigfightweekend.com/2026/06/03/katie-taylor-fight-record-career/",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "Wikipedia, Taylor vs Serrano",
+          "url": "https://en.wikipedia.org/wiki/Katie_Taylor_vs._Amanda_Serrano",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "25-1-0 (6 KO)",
+      "record_scope": "Professional boxing, as of 2026-09"
+    },
+    "real_amanda_serrano": {
+      "name": "Amanda Serrano",
+      "birth_date": "1988-10-09",
+      "achievements": [
+        "First Puerto Rican boxer to win world titles in seven divisions",
+        "Unified featherweight champion (WBO, WBA, IBO)"
+      ],
+      "fight_history": [
+        {
+          "week": "2026-08-21",
+          "result": "win",
+          "opponent_name": "Lucrecia Manzur",
+          "method": "Majority decision",
+          "event": "Unified Featherweight Championship",
+          "discipline": "boxing"
+        },
+        {
+          "week": "2026-05-30",
+          "result": "win",
+          "opponent_name": "Cheyenne Hanson",
+          "method": "TKO R2",
+          "event": "Unified Featherweight Championship",
+          "discipline": "boxing"
+        },
+        {
+          "week": "2025-07-11",
+          "result": "loss",
+          "opponent_name": "Katie Taylor",
+          "method": "Majority decision",
+          "event": "Undisputed Super Lightweight Championship, Madison Square Garden",
+          "discipline": "boxing"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Amanda_Serrano",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "Champinon record table",
+          "url": "https://champinon.info/boxing/amanda-serrano/",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "50-4-1 (32 KO)",
+      "record_scope": "Professional boxing, as of 2026-09"
+    },
+    "real_jordan_burroughs": {
+      "name": "Jordan Burroughs",
+      "birth_date": "1988-07-08",
+      "achievements": [
+        "Olympic freestyle champion (2012)",
+        "Six-time senior world champion",
+        "Most world-level golds in US men's freestyle history",
+        "Announced in mid-2025 he is continuing, not retiring"
+      ],
+      "fight_history": [],
+      "sources": [
+        {
+          "label": "NBC Sports on his competitive future",
+          "url": "https://www.nbcsports.com/olympics/news/jordan-burroughs-wrestling-2025",
+          "facts": "titles, results, career stage, profile"
+        },
+        {
+          "label": "Corn Nation, June 2025: Burroughs not retiring",
+          "url": "https://www.cornnation.com/2025/6/13/24448369/husker-wrestling-burroughs-not-retiring-hardy-and-cronin-to-wrestle-for-true-third-at-final-x",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "7 WORLD-LEVEL GOLDS",
+      "record_scope": "Career Olympic/world golds; no 2025-26 UWW season bouts at snapshot after a year away"
+    },
+    "real_david_taylor": {
+      "name": "David Taylor",
+      "birth_date": "1990-12-05",
+      "achievements": [
+        "Olympic 86 kg freestyle champion (Tokyo 2020)",
+        "Two-time senior world champion",
+        "2025 NCAA Division I Coach of the Year in his first season"
+      ],
+      "fight_history": [],
+      "sources": [
+        {
+          "label": "Oklahoma State head-coach page",
+          "url": "https://okstate.com/sports/wrestling/roster/coaches/david-taylor/3681",
+          "facts": "titles, results, career stage, profile"
+        },
+        {
+          "label": "USA Wrestling coaching announcement",
+          "url": "https://www.themat.com/news/2024/may/07/olympic-champion-david-taylor-named-head-coach-at-oklahoma-state",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "COACH - RETIRED 2024",
+      "record_scope": "Competitive record closed 2024; head coach at Oklahoma State since May 2024"
+    },
+    "real_gable_steveson": {
+      "name": "Gable Steveson",
+      "birth_date": "2000-05-31",
+      "achievements": [
+        "Olympic super-heavyweight freestyle champion (Tokyo 2020)",
+        "Two-time NCAA heavyweight champion",
+        "Signed multi-match Real American Freestyle deal and a UFC heavyweight contract in 2026"
+      ],
+      "fight_history": [
+        {
+          "week": "2025-03-22",
+          "result": "loss",
+          "opponent_name": "Wyatt Hendrickson",
+          "method": "Points",
+          "event": "2025 NCAA Championship final, 285 lb",
+          "discipline": "wrestling"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Bloody Elbow on the RAF/UFC deal",
+          "url": "https://bloodyelbow.com/2026/03/25/gable-steveson-returns-to-wrestling-with-multi-fight-deal-expected-to-face-big-name-in-may-debut/",
+          "facts": "titles, results, career stage, profile"
+        },
+        {
+          "label": "NCAA 2025 285 lb final",
+          "url": "https://www.ncaa.com/video/wrestling-men/2025-03-24/gable-steveson-vs-wyatt-hendrickson-2025-ncaa-wrestling-championship-285-pounds",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "RAF DEBUT 2026",
+      "record_scope": "Real American Freestyle heavyweight from May 2026; 2025 NCAA finalist before that"
+    },
+    "real_abdulrashid_sadulaev": {
+      "name": "Abdulrashid Sadulaev",
+      "birth_date": "1996-05-09",
+      "achievements": [
+        "Two-time Olympic freestyle champion",
+        "Six-time senior world champion",
+        "Six-time European champion (2026)"
+      ],
+      "fight_history": [
+        {
+          "week": "2026-04",
+          "result": "win",
+          "opponent_name": "Batyrbek Tsakulov",
+          "method": "Technical superiority 14-3",
+          "event": "2026 European Championships final, 97 kg",
+          "discipline": "wrestling"
+        }
+      ],
+      "sources": [
+        {
+          "label": "United World Wrestling, 2026 European gold",
+          "url": "https://uww.org/article/six-time-world-champ-sadulaev-now-six-time-european-champ",
+          "facts": "titles, results, career stage, profile"
+        },
+        {
+          "label": "UWW athlete profile",
+          "url": "https://uww.org/athletes/sadulaev-abdulrashid",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "6x WORLD / 2x OLYMPIC",
+      "record_scope": "Career senior titles; 2026 European champion at 97 kg, visa bans still blocking Schengen-hosted events"
+    },
+    "real_hassan_yazdani": {
+      "name": "Hassan Yazdani",
+      "birth_date": "1994-12-27",
+      "achievements": [
+        "Olympic 74 kg freestyle champion (2016)",
+        "Three-time senior world champion",
+        "Two-time Olympic silver medalist at 86 kg",
+        "Moved up to 97 kg for his 2026 comeback"
+      ],
+      "fight_history": [
+        {
+          "week": "2026-02-05",
+          "result": "loss",
+          "opponent_name": "Stephen Buchanan",
+          "method": "Technical superiority 13-3",
+          "event": "2026 Zagreb Open final, 97 kg",
+          "discipline": "wrestling"
+        },
+        {
+          "week": "2026-02-05",
+          "result": "win",
+          "opponent_name": "Andro Margishvili",
+          "method": "Points 14-4",
+          "event": "2026 Zagreb Open, 97 kg",
+          "discipline": "wrestling"
+        }
+      ],
+      "sources": [
+        {
+          "label": "USA Wrestling, Zagreb Open final report",
+          "url": "https://www.themat.com/news/2026/february/05/buchanan-notches-finals-win-over-olympic-champion-u-s-adds-six-men-s-freestyle-medals-to-zagreb-open-haul",
+          "facts": "titles, results, career stage, profile"
+        },
+        {
+          "label": "UWW, Buchanan spoils Yazdani's return",
+          "url": "https://uww.org/article/buchanan-spoils-yazdanis-return-zagreb-open",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "3-1 (2026 SEASON)",
+      "record_scope": "UWW 2026 senior season; returned at 97 kg in February after Paris shoulder surgery"
+    },
+    "real_mijain_lopez": {
+      "name": "Mijain Lopez",
+      "birth_date": "1982-08-20",
+      "achievements": [
+        "Only athlete with five consecutive individual Olympic golds in the same event (2008-2024)",
+        "Five-time Greco-Roman world champion",
+        "Retired on the mat at Paris 2024"
+      ],
+      "fight_history": [],
+      "sources": [
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Mija%C3%ADn_L%C3%B3pez",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "5 STRAIGHT OLYMPIC GOLDS",
+      "record_scope": "Career Greco-Roman 130 kg; left his shoes on the mat after Paris 2024"
+    },
+    "real_helen_maroulis": {
+      "name": "Helen Maroulis",
+      "birth_date": "1991-09-19",
+      "achievements": [
+        "First American woman to win Olympic wrestling gold (Rio 2016)",
+        "Four-time senior world champion (2025)",
+        "2025 USA Wrestling Women's Wrestler of the Year",
+        "Returned in May 2025 after nearly retiring post-Paris"
+      ],
+      "fight_history": [],
+      "sources": [
+        {
+          "label": "USA Wrestling, 2025 Wrestler of the Year",
+          "url": "https://www.themat.com/news/2026/june/24/helen-maroulis-named-2025-usa-wrestling-women-s-wrestler-of-the-year",
+          "facts": "titles, results, career stage, profile"
+        },
+        {
+          "label": "UWW athlete profile",
+          "url": "https://uww.org/athletes/maroulis-helen-louise",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "WORLD CHAMPION 2025",
+      "record_scope": "UWW senior 57 kg; fourth world title won September 2025, 2026 Final X bid accepted"
+    },
+    "real_tamyra_mensah_stock": {
+      "name": "Tamyra Mensah-Stock",
+      "birth_date": "1992-10-11",
+      "achievements": [
+        "First Black woman to win Olympic freestyle wrestling gold (Tokyo 2020)",
+        "Two-time senior world champion",
+        "Signed with WWE and won the inaugural season of LFG"
+      ],
+      "fight_history": [],
+      "sources": [
+        {
+          "label": "WWE signing announcement",
+          "url": "https://www.wwe.com/article/olympic-gold-medalist-tamyra-mensah-stock-signs-with-wwe",
+          "facts": "titles, results, career stage, profile"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Tamyra_Mensah-Stock",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "OLYMPIC GOLD 2020",
+      "record_scope": "Olympic freestyle career closed; performing in WWE as Tyra Mae Steele since 2024"
+    },
+    "real_hifumi_abe": {
+      "name": "Hifumi Abe",
+      "birth_date": "1997-08-09",
+      "achievements": [
+        "Two-time Olympic -66 kg champion (Tokyo 2020, Paris 2024)",
+        "Four-time senior world champion",
+        "2025 world bronze medalist"
+      ],
+      "fight_history": [
+        {
+          "week": "2025-06-14",
+          "result": "loss",
+          "opponent_name": "Behruz Dzhebov",
+          "method": "Ippon (uchi-mata-sukashi)",
+          "event": "2025 World Championships, -66 kg",
+          "discipline": "judo"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Inside the Games, Budapest day 2",
+          "url": "https://www.insidethegames.biz/articles/1153814/judo-world-championships-uta-hifumi-abe",
+          "facts": "titles, results, career stage, profile"
+        },
+        {
+          "label": "JudoInside profile",
+          "url": "https://judoinside.com/judoka/85604/Hifumi_Abe",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "2x OLYMPIC CHAMPION",
+      "record_scope": "IJF senior career; 2025 world bronze at -66 kg after a shock semifinal-run defeat"
+    },
+    "real_uta_abe": {
+      "name": "Uta Abe",
+      "birth_date": "2000-07-14",
+      "achievements": [
+        "Olympic -52 kg champion (Tokyo 2020)",
+        "Five-time senior world champion (2025)",
+        "Returned to the top after the Paris 2024 upset"
+      ],
+      "fight_history": [
+        {
+          "week": "2025-06-14",
+          "result": "win",
+          "opponent_name": "Distria Krasniqi",
+          "method": "Ippon (seoi-otoshi)",
+          "event": "2025 World Championships final, -52 kg",
+          "discipline": "judo"
+        },
+        {
+          "week": "2024-07-28",
+          "result": "loss",
+          "opponent_name": "Diyora Keldiyorova",
+          "method": "Ippon",
+          "event": "Paris 2024 Olympics, second round",
+          "discipline": "judo"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Olympics.com, Abe Uta returns to glory",
+          "url": "https://www.olympics.com/en/news/2025-world-judo-championships-winner-abe-uta-takeoka-takeshi-japan",
+          "facts": "titles, results, career stage, profile"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Uta_Abe",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "5x WORLD CHAMPION",
+      "record_scope": "IJF senior career; fifth world title won June 2025 in Budapest"
+    },
+    "real_lukas_krpalek": {
+      "name": "Lukas Krpalek",
+      "birth_date": "1990-11-15",
+      "achievements": [
+        "Olympic champion in two weight classes (-100 kg Rio 2016, +100 kg Tokyo 2020)",
+        "Two-time senior world champion",
+        "2026 European Championships silver medalist"
+      ],
+      "fight_history": [],
+      "sources": [
+        {
+          "label": "JudoInside profile",
+          "url": "https://judoinside.com/judoka/41555/Lukas_Krpalek",
+          "facts": "titles, results, career stage, profile"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Luk%C3%A1%C5%A1_Krp%C3%A1lek",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "2x OLYMPIC CHAMPION",
+      "record_scope": "IJF senior career; 2026 European silver medalist at snapshot, chairs the EJU Athletes' Commission"
+    },
+    "real_lasha_bekauri": {
+      "name": "Lasha Bekauri",
+      "birth_date": "2000-06-10",
+      "achievements": [
+        "Two-time Olympic -90 kg champion (Tokyo 2020, Paris 2024)",
+        "2025 world mixed-team champion with Georgia"
+      ],
+      "fight_history": [],
+      "sources": [
+        {
+          "label": "Olympics.com, Georgia's historic mixed-team title",
+          "url": "https://www.olympics.com/en/news/2025-world-judo-championships-georgia-make-history-mixed-team-title",
+          "facts": "titles, results, career stage, profile"
+        },
+        {
+          "label": "IJF report",
+          "url": "https://www.ijf.org/news/show/georgia-it-s-georgia-world-mixed-team-champions",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "2x OLYMPIC CHAMPION",
+      "record_scope": "IJF senior career; part of Georgia's first mixed-team world title, June 2025"
+    },
+    "real_tato_grigalashvili": {
+      "name": "Tato Grigalashvili",
+      "birth_date": "1999-11-16",
+      "achievements": [
+        "Three-time senior world champion at -81 kg",
+        "2025 world silver medalist",
+        "2025 world mixed-team champion with Georgia"
+      ],
+      "fight_history": [],
+      "sources": [
+        {
+          "label": "Wikipedia, 2025 Worlds -81 kg",
+          "url": "https://en.wikipedia.org/wiki/2025_World_Judo_Championships_%E2%80%93_Men%27s_81_kg",
+          "facts": "titles, results, career stage, profile"
+        },
+        {
+          "label": "JudoInside profile",
+          "url": "https://www.judoinside.com/judoka/103978/Tato_Grigalashvili/judo-news",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "3x WORLD CHAMPION",
+      "record_scope": "IJF senior career; 2025 world silver at -81 kg and mixed-team world gold with Georgia"
+    },
+    "real_christa_deguchi": {
+      "name": "Christa Deguchi",
+      "birth_date": "1995-10-29",
+      "achievements": [
+        "Olympic -57 kg champion (Paris 2024), first Canadian to win Olympic judo gold",
+        "World champion in 2019 and 2023"
+      ],
+      "fight_history": [],
+      "sources": [
+        {
+          "label": "Judo Canada profile",
+          "url": "https://judo.ca/en/christa-deguchi/",
+          "facts": "titles, results, career stage, profile"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Christa_Deguchi",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "OLYMPIC CHAMPION 2024",
+      "record_scope": "IJF senior career; sat out the 2025 World Championships"
+    },
+    "real_distria_krasniqi": {
+      "name": "Distria Krasniqi",
+      "birth_date": "1995-12-10",
+      "achievements": [
+        "Olympic -48 kg champion (Tokyo 2020)",
+        "Olympic -52 kg silver medalist (Paris 2024)",
+        "2025 world silver medalist"
+      ],
+      "fight_history": [
+        {
+          "week": "2025-06-14",
+          "result": "loss",
+          "opponent_name": "Uta Abe",
+          "method": "Ippon (seoi-otoshi)",
+          "event": "2025 World Championships final, -52 kg",
+          "discipline": "judo"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Wikipedia, 2025 Worlds -52 kg",
+          "url": "https://en.wikipedia.org/wiki/2025_World_Judo_Championships_%E2%80%93_Women%27s_52_kg",
+          "facts": "titles, results, career stage, profile"
+        },
+        {
+          "label": "Olympics.com, catching up with Olympic champions",
+          "url": "https://www.olympics.com/en/news/catching-up-judo-olympic-champions-2025-world-championships",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "OLYMPIC CHAMPION 2020",
+      "record_scope": "IJF senior career; 2025 world silver at -52 kg, Paris 2024 silver before that"
+    },
+    "real_barbara_matic": {
+      "name": "Barbara Matic",
+      "birth_date": "1994-11-03",
+      "achievements": [
+        "Olympic -70 kg champion (Paris 2024), Croatia's first judo Olympic gold",
+        "Two-time senior world champion (2021, 2022)",
+        "2024 European champion"
+      ],
+      "fight_history": [],
+      "sources": [
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Barbara_Mati%C4%87",
+          "facts": "titles, results, career stage, profile"
+        },
+        {
+          "label": "Olympics.com, catching up with Olympic champions",
+          "url": "https://www.olympics.com/en/news/catching-up-judo-olympic-champions-2025-world-championships",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "OLYMPIC CHAMPION 2024",
+      "record_scope": "IJF senior career; active competitor at snapshot"
+    },
+    "real_gordon_ryan": {
+      "name": "Gordon Ryan",
+      "birth_date": "1995-07-08",
+      "achievements": [
+        "Widely regarded the greatest no-gi grappler of all time",
+        "ADCC champion 2017 and double champion 2019 (weight and absolute)",
+        "Submitted Andre Galvao in the 2022 ADCC superfight",
+        "Long-running stomach illness shaped his late career"
+      ],
+      "fight_history": [
+        {
+          "week": "2022-09",
+          "result": "win",
+          "opponent_name": "Andre Galvao",
+          "method": "Submission (rear naked choke)",
+          "event": "ADCC 2022 superfight",
+          "discipline": "brazilian_jiu_jitsu"
+        }
+      ],
+      "sources": [
+        {
+          "label": "MMA Mania on the vacated WNO title",
+          "url": "https://www.mmamania.com/2025/5/21/24434344/retired-gordon-ryan-no-longer-champ-pena-vs-griffith-vacant-title-wno-28-bjj-news",
+          "facts": "titles, results, career stage, profile"
+        },
+        {
+          "label": "BJJ Heroes profile",
+          "url": "https://www.bjjheroes.com/bjj-fighters/gordon-ryan",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "ADCC SUPERFIGHT CHAMP",
+      "record_scope": "No-gi grappling career; stepped away from active competition in 2025 (WNO title vacated, removed from rankings)"
+    },
+    "real_mikey_musumeci": {
+      "name": "Mikey Musumeci",
+      "birth_date": "1996-07-07",
+      "achievements": [
+        "Inaugural UFC BJJ bantamweight champion",
+        "Four-time IBJJF world champion in the gi",
+        "First American man to win multiple IBJJF black-belt world titles"
+      ],
+      "fight_history": [
+        {
+          "week": "2025-10",
+          "result": "win",
+          "opponent_name": "Keven Carrasco",
+          "method": "Submission (Mikey Lock)",
+          "event": "UFC BJJ, bantamweight title defense",
+          "discipline": "brazilian_jiu_jitsu"
+        },
+        {
+          "week": "2025-06",
+          "result": "win",
+          "opponent_name": "Rerisson Gabriel",
+          "method": "Submission (heel hook)",
+          "event": "UFC BJJ 1, inaugural bantamweight title",
+          "discipline": "brazilian_jiu_jitsu"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Mikey_Musumeci",
+          "facts": "titles, results, career stage, profile"
+        },
+        {
+          "label": "UFC BJJ 5 fight card",
+          "url": "https://www.ufc.com/news/ufc-bjj-5-musumeci-vs-montague-fight-card",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "UFC BJJ CHAMPION",
+      "record_scope": "UFC BJJ bantamweight title reign; four-time IBJJF gi world champion before that"
+    },
+    "real_kade_ruotolo": {
+      "name": "Kade Ruotolo",
+      "birth_date": "2003-01-22",
+      "achievements": [
+        "ONE lightweight submission grappling world champion",
+        "Youngest-ever ADCC world champion (77 kg, 2022, aged 19)",
+        "Unbeaten 4-0 start in MMA with his first knockout in 2026"
+      ],
+      "fight_history": [
+        {
+          "week": "2026-05-15",
+          "result": "win",
+          "opponent_name": "Hiroyuki Tetsuka",
+          "method": "TKO (strikes) R2",
+          "event": "ONE: The Inner Circle",
+          "discipline": "mma"
+        },
+        {
+          "week": "2024-07",
+          "result": "win",
+          "opponent_name": "Blake Cooper",
+          "method": "Submission R1",
+          "event": "ONE 167 (MMA debut)",
+          "discipline": "mma"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Kade_Ruotolo",
+          "facts": "titles, results, career stage, profile"
+        },
+        {
+          "label": "BJJ Problems on the 4-0 MMA run",
+          "url": "https://bjjproblems.com/blogs/bjj-problems/kade-ruotolo-first-career-ko-4-0-mma-one-championship",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "4-0 MMA / GRAPPLING CHAMP",
+      "record_scope": "ONE MMA record; ONE lightweight submission-grappling title reign tracked separately"
+    },
+    "real_tye_ruotolo": {
+      "name": "Tye Ruotolo",
+      "birth_date": "2003-01-22",
+      "achievements": [
+        "Inaugural ONE welterweight submission grappling world champion (2023)",
+        "Submitted both undefeated opponents in his first two MMA bouts (2025)",
+        "Hunting ONE MMA gold alongside twin brother Kade in 2026"
+      ],
+      "fight_history": [],
+      "sources": [
+        {
+          "label": "ONE Championship 2025 year in review",
+          "url": "https://www.onefc.com/features/2025-year-in-review-from-grappling-dominance-to-mma-stardom-tye-ruotolo-conquers-it-all/",
+          "facts": "titles, results, career stage, profile"
+        },
+        {
+          "label": "ONE athlete page",
+          "url": "https://www.onefc.com/athletes/tye-ruotolo/",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "2-0 MMA / GRAPPLING CHAMP",
+      "record_scope": "ONE MMA record; ONE welterweight submission-grappling title reign tracked separately"
+    },
+    "real_nicholas_meregali": {
+      "name": "Nicholas Meregali",
+      "birth_date": "1994-05-27",
+      "achievements": [
+        "Three-time IBJJF black-belt world champion in the gi",
+        "Two-time ADCC world medallist",
+        "New Wave Jiu-Jitsu's gi standard-bearer"
+      ],
+      "fight_history": [
+        {
+          "week": "2024-08",
+          "result": "loss",
+          "opponent_name": "Michael Pixley",
+          "method": "Submission (D'arce choke, injury)",
+          "event": "ADCC 2024 World Championship",
+          "discipline": "brazilian_jiu_jitsu"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Nicholas_Meregali",
+          "facts": "titles, results, career stage, profile"
+        },
+        {
+          "label": "BJJ Heroes profile",
+          "url": "https://www.bjjheroes.com/bjj-fighters/nicholas-meregali",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "3x IBJJF WORLD CHAMP",
+      "record_scope": "Gi and no-gi career; upset by injury-marred D'arce at ADCC 2024"
+    },
+    "real_felipe_pena": {
+      "name": "Felipe Pena",
+      "birth_date": "1991-10-19",
+      "achievements": [
+        "Two-time ADCC world champion (+99 kg, 2024)",
+        "IBJJF black-belt world champion in the gi",
+        "One of the few men with wins over Gordon Ryan"
+      ],
+      "fight_history": [
+        {
+          "week": "2024-08",
+          "result": "win",
+          "opponent_name": "Luke Griffith",
+          "method": "Submission",
+          "event": "ADCC 2024 World Championship final, +99 kg",
+          "discipline": "brazilian_jiu_jitsu"
+        }
+      ],
+      "sources": [
+        {
+          "label": "FloGrappling, ADCC 2024 finals results",
+          "url": "https://www.flograppling.com/articles/12785567-2024-adcc-world-championship-finals-results",
+          "facts": "titles, results, career stage, profile"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Felipe_Pena",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "2x ADCC CHAMPION",
+      "record_scope": "No-gi and gi career; reigning ADCC +99 kg champion at snapshot"
+    },
+    "real_ffion_davies": {
+      "name": "Ffion Davies",
+      "birth_date": "1995-01-18",
+      "achievements": [
+        "ADCC world champion (-60 kg, 2022), first European woman to win ADCC gold",
+        "IBJJF black-belt world champion",
+        "Headline draw of the women's CJI era"
+      ],
+      "fight_history": [],
+      "sources": [
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Ffion_Davies",
+          "facts": "titles, results, career stage, profile"
+        },
+        {
+          "label": "BJJ Heroes profile",
+          "url": "https://www.bjjheroes.com/bjj-fighters/ffion-davies",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "ADCC + IBJJF CHAMPION",
+      "record_scope": "No-gi and gi career; first European woman to win ADCC gold"
+    },
+    "real_beatriz_mesquita": {
+      "name": "Beatriz Mesquita",
+      "birth_date": "1991-10-13",
+      "achievements": [
+        "Ten-time IBJJF black-belt world champion",
+        "ADCC world champion (2022)",
+        "Returned from retirement to win the 2025 IBJJF Worlds"
+      ],
+      "fight_history": [],
+      "sources": [
+        {
+          "label": "Jitsmagazine, 2025 IBJJF Worlds results",
+          "url": "https://jitsmagazine.com/ibjjf-world-championship-2025-full-results-and-highlights/",
+          "facts": "titles, results, career stage, profile"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Beatriz_Mesquita",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "10x IBJJF WORLD CHAMP",
+      "record_scope": "Gi and no-gi career; came out of brief retirement and won 2025 world gold"
+    },
+    "real_gabrieli_pessanha": {
+      "name": "Gabrieli Pessanha",
+      "birth_date": "2000-08-08",
+      "achievements": [
+        "Ten-time IBJJF black-belt world champion by age 25",
+        "Five consecutive super-heavyweight and absolute world doubles (2021-2025)",
+        "2025 IBJJF Grand Slam winner"
+      ],
+      "fight_history": [],
+      "sources": [
+        {
+          "label": "MMA Mania, 2025 IBJJF Worlds",
+          "url": "https://www.mmamania.com/2025/6/2/24441413/mia-funegra-youngest-bjj-world-champ-2025-ibjjf-worlds-diego-pato-tainan-dalpra",
+          "facts": "titles, results, career stage, profile"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Gabi_Pessanha",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "10x IBJJF WORLD CHAMP",
+      "record_scope": "Gi career; fifth straight super-heavy + absolute double and the 2025 Grand Slam (Euros, Pans, Brasileiros, Worlds)"
+    },
+    "real_chingiz_allazov": {
+      "name": "Chingiz Allazov",
+      "birth_date": "1993-06-10",
+      "achievements": [
+        "Former ONE featherweight kickboxing world champion (2023-25)",
+        "Knocked out Superbon to take the belt",
+        "Stripped in January 2025 after 17 months of contract-standoff inactivity"
+      ],
+      "fight_history": [
+        {
+          "week": "2023-01-14",
+          "result": "win",
+          "opponent_name": "Superbon",
+          "method": "KO (three knockdowns) R2",
+          "event": "ONE Fight Night 6, featherweight kickboxing title",
+          "discipline": "kickboxing"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Combat Press on the stripped title",
+          "url": "https://combatpress.com/2025/01/chingiz-allazov-stripped-superbon-undisputed-one-featherweight-kickboxing-champion/",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Chingiz_Allazov",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "61-5-0 (37 KO)",
+      "record_scope": "Professional kickboxing per fight-record aggregators; counts vary by tracker"
+    },
+    "real_superbon": {
+      "name": "Superbon Banchamek",
+      "birth_date": "1990-08-16",
+      "achievements": [
+        "Reigning ONE featherweight kickboxing world champion",
+        "Iconic head-kick knockout of Giorgio Petrosyan (2021)",
+        "Alternates between elite kickboxing and muay thai"
+      ],
+      "fight_history": [
+        {
+          "week": "2024-04",
+          "result": "win",
+          "opponent_name": "Marat Grigorian",
+          "method": "Unanimous decision",
+          "event": "ONE, interim featherweight kickboxing title",
+          "discipline": "kickboxing"
+        },
+        {
+          "week": "2023-01-14",
+          "result": "loss",
+          "opponent_name": "Chingiz Allazov",
+          "method": "KO R2",
+          "event": "ONE Fight Night 6, featherweight kickboxing title",
+          "discipline": "kickboxing"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Bangkok Post on the title elevation",
+          "url": "https://www.bangkokpost.com/sports/2934030/one-championship-chingiz-allazov-stripped-of-title-superbon-elevated-to-featherweight-kickboxing-champion",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Superbon_Singha_Mawynn",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "ONE FW KICKBOXING CHAMP",
+      "record_scope": "ONE title history; elevated to undisputed champion January 2025 after interim reign"
+    },
+    "real_antonio_plazibat": {
+      "name": "Antonio Plazibat",
+      "birth_date": "1993-12-12",
+      "achievements": [
+        "Glory heavyweight title challenger and Grand Prix finalist",
+        "Feared one-punch knockout power",
+        "Ranked Glory heavyweight top ten at snapshot"
+      ],
+      "fight_history": [
+        {
+          "week": "2026-06",
+          "result": "win",
+          "opponent_name": "Anis Bouzid",
+          "method": "KO R4",
+          "event": "Glory, heavyweight comeback bout",
+          "discipline": "kickboxing"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Combat Press kickboxing rankings, July 2026",
+          "url": "https://combatpress.com/2026/07/combat-press-kickboxing-rankings-july-2026/",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Antonio_Plazibat",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "GLORY HW CONTENDER",
+      "record_scope": "Glory heavyweight ladder; returned from a long layoff with a June 2026 knockout"
+    },
+    "real_levi_rigters": {
+      "name": "Levi Rigters",
+      "birth_date": "1995-07-12",
+      "achievements": [
+        "Glory Heavyweight Grand Prix 2024 finalist",
+        "Leading Dutch heavyweight of the post-Verhoeven generation",
+        "Last Heavyweight Standing tournament contender"
+      ],
+      "fight_history": [
+        {
+          "week": "2024-03",
+          "result": "loss",
+          "opponent_name": "Rico Verhoeven",
+          "method": "TKO R2",
+          "event": "Glory Heavyweight Grand Prix final",
+          "discipline": "kickboxing"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Glory, Grand Prix result",
+          "url": "https://glorykickboxing.com/news/rico-verhoeven-wins-the-glory-heavyweight-grand-prix",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Levi_Rigters",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "GLORY GP FINALIST",
+      "record_scope": "Glory heavyweight ladder; lost the 2024 Grand Prix final to Rico Verhoeven"
+    },
+    "real_bahram_rajabzadeh": {
+      "name": "Bahram Rajabzadeh",
+      "birth_date": "1991-08-03",
+      "achievements": [
+        "One of Glory's most prolific knockout artists",
+        "Glory light heavyweight title challenger (vs Donovan Wisse, booked at snapshot)",
+        "2025 Fight of the Year war with Tarik Khbabez"
+      ],
+      "fight_history": [
+        {
+          "week": "2024-06-08",
+          "result": "loss",
+          "opponent_name": "Donegi Abena",
+          "method": "TKO (three knockdowns) R1",
+          "event": "Glory Light Heavyweight Grand Prix final",
+          "discipline": "kickboxing"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Glory, Rajabzadeh vs Wisse title booking",
+          "url": "https://glorykickboxing.com/news/bahram-rajabzadeh-vs-donovan-wisse-for-the-glory-light-heavyweight-title",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "TrillerTV fighter record",
+          "url": "https://www.trillertv.com/fighter/bahram-rajabzadeh/33218/",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "72-6-0",
+      "record_scope": "Professional kickboxing per TrillerTV fighter record"
+    },
+    "real_donegi_abena": {
+      "name": "Donegi Abena",
+      "birth_date": "1998-02-23",
+      "achievements": [
+        "Former Glory light heavyweight champion",
+        "2024 Glory Light Heavyweight Grand Prix winner with three straight stoppages"
+      ],
+      "fight_history": [
+        {
+          "week": "2024-06-08",
+          "result": "win",
+          "opponent_name": "Bahram Rajabzadeh",
+          "method": "TKO (three knockdowns) R1",
+          "event": "Glory Light Heavyweight Grand Prix final",
+          "discipline": "kickboxing"
+        },
+        {
+          "week": "2024-03-09",
+          "result": "loss",
+          "opponent_name": "Tarik Khbabez",
+          "method": "Split decision",
+          "event": "Glory, light heavyweight title",
+          "discipline": "kickboxing"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Glory, Light Heavyweight Grand Prix results",
+          "url": "https://glorykickboxing.com/news/light-heavyweight-grand-prix-results",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Donegi_Abena",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "2024 GLORY GP WINNER",
+      "record_scope": "Glory light heavyweight ladder; former champion, Grand Prix winner June 2024"
+    },
+    "real_tiffany_van_soest": {
+      "name": "Tiffany van Soest",
+      "birth_date": "1989-03-20",
+      "achievements": [
+        "Two-time Glory super bantamweight champion with five title defenses",
+        "Long-running women's pound-for-pound entrant",
+        "Lost only to Anissa Meksen and Denise Kielholtz in Glory"
+      ],
+      "fight_history": [],
+      "sources": [
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Tiffany_van_Soest",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "Glory fighter page",
+          "url": "https://glorykickboxing.com/fighters/tiffany-van-soest",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "2x GLORY CHAMPION",
+      "record_scope": "Glory career closed; retired from professional competition in September 2023"
+    },
+    "real_superlek": {
+      "name": "Superlek Kiatmoo9",
+      "birth_date": "1995-11-06",
+      "achievements": [
+        "ONE flyweight kickboxing and bantamweight muay thai world champion",
+        "'The Kicking Machine'",
+        "Beat Rodtang and Takeru in consecutive superfights"
+      ],
+      "fight_history": [
+        {
+          "week": "2024-09-06",
+          "result": "win",
+          "opponent_name": "Jonathan Haggerty",
+          "method": "KO R1",
+          "event": "ONE 168 Denver, bantamweight muay thai title",
+          "discipline": "muay_thai"
+        },
+        {
+          "week": "2024-01",
+          "result": "win",
+          "opponent_name": "Takeru Segawa",
+          "method": "Unanimous decision",
+          "event": "ONE 165 Tokyo, flyweight kickboxing title defense",
+          "discipline": "kickboxing"
+        }
+      ],
+      "sources": [
+        {
+          "label": "ONE athlete profile",
+          "url": "https://www.onefc.com/athletes/superlek/",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Superlek_Kiatmuu9",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "2-DIVISION ONE CHAMP",
+      "record_scope": "ONE title history; flyweight kickboxing and bantamweight muay thai belts held simultaneously"
+    },
+    "real_tawanchai": {
+      "name": "Tawanchai PK Saenchai",
+      "birth_date": "1999-04-07",
+      "achievements": [
+        "ONE featherweight muay thai world champion 2022-2025",
+        "Beat Superbon in both title meetings",
+        "Vacated injured in 2025 to keep the division moving; hunting the belt back"
+      ],
+      "fight_history": [
+        {
+          "week": "2025-01",
+          "result": "win",
+          "opponent_name": "Superbon",
+          "method": "Unanimous decision",
+          "event": "ONE 170 Bangkok, featherweight muay thai title defense",
+          "discipline": "muay_thai"
+        }
+      ],
+      "sources": [
+        {
+          "label": "ONE athlete profile",
+          "url": "https://www.onefc.com/athletes/tawanchai/",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Tawanchai_P.K._Saenchaimuaythaigym",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "ONE FW MT CHAMP 2022-25",
+      "record_scope": "ONE title history; relinquished the belt after a December 2025 broken leg, comeback planned"
+    },
+    "real_jonathan_haggerty": {
+      "name": "Jonathan Haggerty",
+      "birth_date": "1997-02-18",
+      "achievements": [
+        "Reigning ONE bantamweight kickboxing world champion",
+        "Former ONE bantamweight muay thai world champion",
+        "First-round upset of the great Nong-O in 2023"
+      ],
+      "fight_history": [
+        {
+          "week": "2026-04-29",
+          "result": "win",
+          "opponent_name": "Yuki Yoza",
+          "method": "Decision",
+          "event": "ONE Samurai 1 Tokyo, bantamweight kickboxing title",
+          "discipline": "kickboxing"
+        },
+        {
+          "week": "2024-09-06",
+          "result": "loss",
+          "opponent_name": "Superlek Kiatmoo9",
+          "method": "KO R1",
+          "event": "ONE 168 Denver, bantamweight muay thai title",
+          "discipline": "muay_thai"
+        },
+        {
+          "week": "2023-04-22",
+          "result": "win",
+          "opponent_name": "Nong-O Hama",
+          "method": "TKO R1",
+          "event": "ONE Fight Night 9, bantamweight muay thai title",
+          "discipline": "muay_thai"
+        }
+      ],
+      "sources": [
+        {
+          "label": "ONE athlete profile",
+          "url": "https://www.onefc.com/athletes/jonathan-haggerty/",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Jonathan_Haggerty",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "ONE BW KICKBOXING CHAMP",
+      "record_scope": "ONE title history; reigning bantamweight kickboxing champion, former two-sport bantamweight king"
+    },
+    "real_nong_o": {
+      "name": "Nong-O Hama",
+      "birth_date": "1986-11-10",
+      "achievements": [
+        "Longtime ONE bantamweight muay thai world champion",
+        "Multiple-time Lumpinee Stadium champion and Fighter of the Year",
+        "Still fighting world-level muay thai at flyweight past age 39"
+      ],
+      "fight_history": [
+        {
+          "week": "2023-04-22",
+          "result": "loss",
+          "opponent_name": "Jonathan Haggerty",
+          "method": "TKO R1",
+          "event": "ONE Fight Night 9, bantamweight muay thai title",
+          "discipline": "muay_thai"
+        }
+      ],
+      "sources": [
+        {
+          "label": "TrillerTV fighter record",
+          "url": "https://www.trillertv.com/fighter/nong-o-hama/37104/",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Nong-O_Hama",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "11-3 (ONE TRACKED)",
+      "record_scope": "ONE tracked bouts; 260+ stadium fights across a legendary Lumpinee career before that"
+    },
+    "real_seksan": {
+      "name": "Seksan Or Kwanmuang",
+      "birth_date": "1989-01-20",
+      "achievements": [
+        "'The Man Who Yields To No One' - all-action fan favourite",
+        "300+ professional fights across Thailand's stadium circuit",
+        "ONE Friday Fights headline staple"
+      ],
+      "fight_history": [
+        {
+          "week": "2026-03",
+          "result": "loss",
+          "opponent_name": "Pakorn PK Saenchai",
+          "method": "TKO R1",
+          "event": "ONE Friday Fights 147",
+          "discipline": "muay_thai"
+        },
+        {
+          "week": "2025-01",
+          "result": "win",
+          "opponent_name": "Soe Lin Oo",
+          "method": "Decision",
+          "event": "ONE 170 Bangkok",
+          "discipline": "muay_thai"
+        }
+      ],
+      "sources": [
+        {
+          "label": "ONE athlete profile",
+          "url": "https://www.onefc.com/athletes/seksan-or-kwanmuang/",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "Muay Thai Records fighter page",
+          "url": "https://muaythairecords.com/fighters/seksan-or-kwanmuang",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "10-5 (ONE TRACKED)",
+      "record_scope": "ONE tracked bouts; a 300+ fight all-action stadium career before that, on a late-career skid at snapshot"
+    },
+    "real_phetjeeja": {
+      "name": "Phetjeeja Lukjaoporongtom",
+      "birth_date": "2001-12-31",
+      "achievements": [
+        "Reigning ONE women's atomweight kickboxing world champion",
+        "'The Queen' - 130+ fights against male boxers coming up",
+        "Fell one split decision short of two-sport glory in June 2026"
+      ],
+      "fight_history": [
+        {
+          "week": "2026-06-19",
+          "result": "loss",
+          "opponent_name": "Allycia Hellen Rodrigues",
+          "method": "Split decision",
+          "event": "ONE Fight Night 41, atomweight muay thai title",
+          "discipline": "muay_thai"
+        },
+        {
+          "week": "2025-12-05",
+          "result": "win",
+          "opponent_name": "Martyna Dominczak",
+          "method": "TKO R1",
+          "event": "ONE Fight Night 38",
+          "discipline": "muay_thai"
+        }
+      ],
+      "sources": [
+        {
+          "label": "ONE, Rodrigues vs Phetjeeja title fight",
+          "url": "https://www.onefc.com/news/ill-make-the-belt-mine-phetjeeja-aims-to-dethrone-allycia-hellen-rodrigues-for-historic-two-sport-glory-at-one-fight-night-41/",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "Siam Fight Mag interview",
+          "url": "https://www.siamfightmag.com/en/interview-with-the-phenomenal-phetjeeja-or-meekhun-one-championship-world-champion-130-fights-against-male-boxers/",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "8-1 (ONE TRACKED)",
+      "record_scope": "ONE tracked bouts; roughly 200 fights growing up, 130+ of them against boys"
+    },
+    "real_allycia_rodrigues": {
+      "name": "Allycia Hellen Rodrigues",
+      "birth_date": "1998-05-18",
+      "achievements": [
+        "Reigning ONE women's atomweight muay thai world champion",
+        "Longest-reigning female striking world champion in ONE",
+        "Perfect knockout-powered 2025 capped by beating Phetjeeja in 2026"
+      ],
+      "fight_history": [
+        {
+          "week": "2026-06-19",
+          "result": "win",
+          "opponent_name": "Phetjeeja Lukjaoporongtom",
+          "method": "Split decision",
+          "event": "ONE Fight Night 41, atomweight muay thai title defense",
+          "discipline": "muay_thai"
+        }
+      ],
+      "sources": [
+        {
+          "label": "ONE year in review 2025",
+          "url": "https://www.onefc.com/features/year-in-review-allycia-hellen-rodrigues-perfect-2025-sets-stage-for-blockbuster-2026/",
+          "facts": "record, results, titles, profile"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Allycia_Rodrigues",
+          "facts": "record, results, titles, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "35-7-0",
+      "record_scope": "Professional muay thai career; based in Thailand, ONE atomweight champion with four title defenses"
+    },
+    "real_steven_da_costa": {
+      "name": "Steven Da Costa",
+      "birth_date": "1997-01-23",
+      "achievements": [
+        "Olympic -67 kg kumite champion (Tokyo 2020)",
+        "Three-time world champion (2018, 2021, 2023)",
+        "France's flagship kumite fighter"
+      ],
+      "fight_history": [],
+      "sources": [
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Steven_Da_Costa",
+          "facts": "titles, results, career stage, profile"
+        },
+        {
+          "label": "Equipe France profile",
+          "url": "https://www.equipe-france.fr/karate/steven-da-costa",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "3x WORLD CHAMPION",
+      "record_scope": "WKF kumite career; entered for the 2026 European Championships at snapshot"
+    },
+    "real_ryo_kiyuna": {
+      "name": "Ryo Kiyuna",
+      "birth_date": "1990-07-12",
+      "achievements": [
+        "Olympic kata champion (Tokyo 2020) on home-nation soil",
+        "Most male kata world titles in WKF history (four straight)",
+        "Okinawan standard-bearer of traditional kata"
+      ],
+      "fight_history": [],
+      "sources": [
+        {
+          "label": "WKF on his record kata haul",
+          "url": "https://www.wkf.net/news-center-new/ryo-kiyuna-makes-history/1758",
+          "facts": "titles, results, career stage, profile"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Ryo_Kiyuna",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "4x WORLD KATA CHAMP",
+      "record_scope": "WKF kata career closed; retired from competition in February 2023"
+    },
+    "real_rafael_aghayev": {
+      "name": "Rafael Aghayev",
+      "birth_date": "1985-03-04",
+      "achievements": [
+        "Five-time world kumite champion",
+        "Eleven-time European champion",
+        "Olympic -75 kg silver medalist (Tokyo 2020) at age 36"
+      ],
+      "fight_history": [],
+      "sources": [
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Rafael_Aghayev",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "5x WORLD CHAMPION",
+      "record_scope": "WKF kumite career; sparse recent competition at snapshot, no retirement announced"
+    },
+    "real_sandra_sanchez": {
+      "name": "Sandra Sanchez",
+      "birth_date": "1981-09-16",
+      "achievements": [
+        "Olympic kata champion (Tokyo 2020)",
+        "World kata champion (2018)",
+        "Guinness record for most WKF Premier League medals"
+      ],
+      "fight_history": [],
+      "sources": [
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Sandra_S%C3%A1nchez",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "OLYMPIC KATA CHAMPION",
+      "record_scope": "WKF kata career closed; retired in 2022 after a farewell tour"
+    },
+    "real_ivet_goranova": {
+      "name": "Ivet Goranova",
+      "birth_date": "2000-03-06",
+      "achievements": [
+        "Olympic -55 kg kumite champion (Tokyo 2020)",
+        "Bulgaria's first Olympic karate gold medalist"
+      ],
+      "fight_history": [
+        {
+          "week": "2025-11",
+          "result": "loss",
+          "opponent_name": "Hana Furumoto-Deshaies",
+          "method": "Points",
+          "event": "2025 World Championships, -55 kg round of 16",
+          "discipline": "karate"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Inside the Games, Cairo 2025",
+          "url": "https://www.insidethegames.biz/articles/1155949/cairo-2025-olympic-champion-falls-as",
+          "facts": "titles, results, career stage, profile"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Ivet_Goranova",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "OLYMPIC CHAMPION 2020",
+      "record_scope": "WKF kumite career; round-of-16 exit at the 2025 World Championships in Cairo"
+    },
+    "real_vito_dellaquila": {
+      "name": "Vito Dell'Aquila",
+      "birth_date": "2000-11-03",
+      "achievements": [
+        "Olympic -58 kg champion (Tokyo 2020)",
+        "World champion (2023)",
+        "Italy's youngest taekwondo Olympic gold medalist"
+      ],
+      "fight_history": [],
+      "sources": [
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Vito_Dell%27Aquila",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "OLYMPIC CHAMPION 2020",
+      "record_scope": "World Taekwondo career; active on the 2025-26 circuit"
+    },
+    "real_ulugbek_rashitov": {
+      "name": "Ulugbek Rashitov",
+      "birth_date": "2002-03-23",
+      "achievements": [
+        "Two-time Olympic -68 kg champion (Tokyo 2020, Paris 2024)",
+        "Uzbekistan's first taekwondo Olympic gold medalist"
+      ],
+      "fight_history": [],
+      "sources": [
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Ulugbek_Rashitov",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "2x OLYMPIC CHAMPION",
+      "record_scope": "World Taekwondo career; back-to-back Olympic titles at snapshot"
+    },
+    "real_simone_alessio": {
+      "name": "Simone Alessio",
+      "birth_date": "2000-04-14",
+      "achievements": [
+        "Two-time world champion (2019, 2023)",
+        "Olympic -80 kg bronze medalist (Paris 2024)",
+        "2025 world +80 kg silver medalist in Wuxi"
+      ],
+      "fight_history": [],
+      "sources": [
+        {
+          "label": "Olympics.com, Wuxi 2025 results",
+          "url": "https://www.olympics.com/en/news/2025-wuxi-world-taekwondo-championships-schedule-results-list",
+          "facts": "titles, results, career stage, profile"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Simone_Alessio",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "2x WORLD CHAMPION",
+      "record_scope": "World Taekwondo career; 2025 world silver after moving up to +80 kg"
+    },
+    "real_jade_jones": {
+      "name": "Jade Jones",
+      "birth_date": "1993-03-21",
+      "achievements": [
+        "Two-time Olympic -57 kg champion (London 2012, Rio 2016)",
+        "Three-time European champion",
+        "Retired in 2025 to begin a professional boxing career"
+      ],
+      "fight_history": [],
+      "sources": [
+        {
+          "label": "Nation Cymru on her retirement",
+          "url": "https://nation.cymru/sport/double-olympic-champion-jade-jones-retires-from-taekwondo-to-take-up-boxing/",
+          "facts": "titles, results, career stage, profile"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Jade_Jones_(taekwondo)",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "2x OLYMPIC CHAMPION",
+      "record_scope": "World Taekwondo career closed; retired March 2025 and switched to professional boxing"
+    },
+    "real_anastasija_zolotic": {
+      "name": "Anastasija Zolotic",
+      "birth_date": "2002-11-23",
+      "achievements": [
+        "First American woman to win Olympic taekwondo gold (Tokyo 2020)",
+        "Working back up the world rankings after setbacks"
+      ],
+      "fight_history": [],
+      "sources": [
+        {
+          "label": "Team USA profile",
+          "url": "https://www.teamusa.com/profiles/anastasija-zolotic-1113778",
+          "facts": "titles, results, career stage, profile"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Anastasija_Zolotic",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "OLYMPIC CHAMPION 2020",
+      "record_scope": "World Taekwondo career; rebuilding on the ranking ladder at snapshot (144th, August 2026)"
+    },
+    "real_artem_osipenko": {
+      "name": "Artem Osipenko",
+      "birth_date": "1988-05-27",
+      "achievements": [
+        "Ten-time world sambo champion in the heavyweight class",
+        "Bryansk's martial arts palace bears his name",
+        "Still on the world podium at 38"
+      ],
+      "fight_history": [],
+      "sources": [
+        {
+          "label": "FIAS profile interview",
+          "url": "https://sambo.sport/en/news/pravila-zhizni-artem-osipenko/",
+          "facts": "titles, results, career stage, profile"
+        },
+        {
+          "label": "FIAS 2025 Worlds day one results",
+          "url": "https://sambo.sport/en/news/rezultaty-1-go-dnya-chempionata-mira-po-sambo-2025/",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "10x WORLD CHAMPION",
+      "record_scope": "FIAS sport sambo career; +98 kg bronze at the 2025 Worlds in Bishkek"
+    },
+    "real_vladyslav_rudniev": {
+      "name": "Vladyslav Rudniev",
+      "birth_date": "1996-06-25",
+      "achievements": [
+        "Six-time world combat sambo champion",
+        "Two-time World Games gold medalist",
+        "Announced his move to professional MMA after Chengdu 2025"
+      ],
+      "fight_history": [],
+      "sources": [
+        {
+          "label": "Ukraine Top News on the sixth world title",
+          "url": "https://glavnoe.in.ua/en/news-en/vladyslav-rudniev-becomes-six-time-world-champion-in-combat-sambo",
+          "facts": "titles, results, career stage, profile"
+        },
+        {
+          "label": "FIAS interview after Chengdu",
+          "url": "https://sambo.sport/en/news/vladislav-rudnev-pobedoy-v-chendu-ya-zavershayu-svoyu-lyubitelskuyu-kareru/",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "6x WORLD CHAMPION",
+      "record_scope": "FIAS combat sambo career; sixth world title won November 2025 in Bishkek, turning professional after his Chengdu World Games gold"
+    },
+    "real_fedor_emelianenko": {
+      "name": "Fedor Emelianenko",
+      "birth_date": "1976-09-28",
+      "achievements": [
+        "Four-time world combat sambo champion",
+        "'The Last Emperor' - defining heavyweight of MMA's PRIDE era",
+        "Retired after his 2023 Bellator farewell"
+      ],
+      "fight_history": [],
+      "sources": [
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Fedor_Emelianenko",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "40-7 (1 NC) MMA",
+      "record_scope": "Professional MMA at retirement 2023; four world combat sambo titles tracked separately"
+    },
+    "real_marina_mokhnatkina": {
+      "name": "Marina Mokhnatkina",
+      "birth_date": "1988-05-12",
+      "achievements": [
+        "Six-time world sambo champion",
+        "FIAS Hall of Fame inductee",
+        "Crossed over to Bellator and PFL MMA"
+      ],
+      "fight_history": [],
+      "sources": [
+        {
+          "label": "FIAS Hall of Fame page",
+          "url": "https://sambo.sport/en/fias/halloffame/marina-yurevna-spivak-mokhnatkina-baranova-kormiltseva/",
+          "facts": "titles, results, career stage, profile"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Marina_Mokhnatkina",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "11-4 (MMA)",
+      "record_scope": "Professional MMA record; six world sambo titles before the crossover"
+    },
+    "real_anissa_meksen": {
+      "name": "Anissa Meksen",
+      "birth_date": "1988-04-29",
+      "achievements": [
+        "Multiple-time savate world and European champion",
+        "104-win striking record across savate, kickboxing, muay thai and boxing",
+        "Challenged for ONE's inaugural strawweight kickboxing crown"
+      ],
+      "fight_history": [
+        {
+          "week": "2024-12-20",
+          "result": "win",
+          "opponent_name": "Kana Morimoto",
+          "method": "Unanimous decision",
+          "event": "ONE Friday Fights 92",
+          "discipline": "kickboxing"
+        },
+        {
+          "week": "2024-11-09",
+          "result": "loss",
+          "opponent_name": "Jackie Buntan",
+          "method": "Unanimous decision",
+          "event": "ONE 169, inaugural strawweight kickboxing title",
+          "discipline": "kickboxing"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Anissa_Meksen",
+          "facts": "titles, results, career stage, profile"
+        },
+        {
+          "label": "Fight Record profile",
+          "url": "https://fightrecord.co.uk/fighters/anissa-meksen/",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "104-7-0",
+      "record_scope": "Professional kickboxing and muay thai; savate world titles tracked separately"
+    },
+    "real_muslim_salikhov": {
+      "name": "Muslim Salikhov",
+      "birth_date": "1984-05-05",
+      "achievements": [
+        "Multiple-time world sanda champion - 'The King of Kung Fu'",
+        "First sanda-first stylist to carve out a long UFC run",
+        "Famed spinning-wheel-kick knockouts"
+      ],
+      "fight_history": [],
+      "sources": [
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Muslim_Salikhov",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "SANDA KING / UFC VET",
+      "record_scope": "Wushu sanda pedigree with a long UFC welterweight run; veteran stage at snapshot"
+    },
+    "real_hanifan_yudani_kusumah": {
+      "name": "Hanifan Yudani Kusumah",
+      "birth_date": "1997-10-25",
+      "achievements": [
+        "Pencak silat world champion (Denpasar 2016)",
+        "2018 Asian Games tanding gold medalist",
+        "His flag-draped unity hug became a national icon in Indonesia"
+      ],
+      "fight_history": [],
+      "sources": [
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Hanifan_Yudani_Kusumah",
+          "facts": "titles, results, career stage, profile"
+        }
+      ],
+      "photo": {
+        "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+      },
+      "portrait_path": "",
+      "record_display": "WORLD CHAMPION 2016",
+      "record_scope": "IPSF tanding career; recent international status unverified at snapshot"
+    }
+  },
+  "organizations": {
+    "ufc": {
+      "name": "Ultimate Fighting Championship",
+      "short_name": "UFC",
+      "official_url": "https://www.ufc.com/",
+      "source": {
+        "url": "https://www.ufc.com/about",
+        "verified_date": "2026-09-01",
+        "facts": "Official UFC history identifies the organization as a professional MMA organization founded in 1993."
+      },
+      "authority": "ABC Unified Rules of MMA / state athletic commissions"
+    },
+    "pfl": {
+      "name": "Professional Fighters League",
+      "short_name": "PFL",
+      "official_url": "https://pflmma.com/",
+      "source": {
+        "url": "https://pflmma.com/about",
+        "verified_date": "2026-09-01",
+        "facts": "Official PFL page describes PFL as a global mixed martial arts organization."
+      },
+      "authority": "ABC Unified Rules of MMA / state athletic commissions"
+    },
+    "one_championship": {
+      "name": "ONE Championship",
+      "short_name": "ONE",
+      "official_url": "https://www.onefc.com/",
+      "source": {
+        "url": "https://www.onefc.com/about-us/",
+        "verified_date": "2026-09-01",
+        "facts": "Official ONE page states that the organization is headquartered in Singapore and stages martial arts events in major Asian cities."
+      },
+      "authority": "ONE Championship Global Ruleset",
+      "note": "J1 s0: the ONE Global Ruleset matches none of the 30 researched rulesets; mma_one_global and its siblings are unauthored (J1 P1+)."
+    },
+    "rizin": {
+      "name": "RIZIN Fighting Federation",
+      "short_name": "RIZIN",
+      "official_url": "https://rizinff.com/",
+      "source": {
+        "url": "https://jp.rizinff.com/about",
+        "verified_date": "2026-09-01",
+        "facts": "Official RIZIN page says it organizes and operates MMA and kickboxing contests and uses a ring."
+      },
+      "authority": "RIZIN Fighting Federation",
+      "note": "J1 s0: RIZIN publishes its own MMA and kickboxing rules; mma_rizin and kickboxing_rizin are unauthored (J1 P1+)."
+    },
+    "glory": {
+      "name": "GLORY Kickboxing",
+      "short_name": "GLORY",
+      "official_url": "https://glorykickboxing.com/",
+      "source": {
+        "url": "https://glorykickboxing.com/about",
+        "verified_date": "2026-09-01",
+        "facts": "Official GLORY page says it was founded in 2012 and organizes international kickboxing events."
+      },
+      "authority": "GLORY Sports International",
+      "note": "J1 s0: kickboxing_wako_k1 is an amateur analogue, not GLORY; kickboxing_glory is unauthored (J1 P3)."
+    },
+    "karate_combat": {
+      "name": "Karate Combat",
+      "short_name": "Karate Combat",
+      "official_url": "https://karate.com/",
+      "source": {
+        "url": "https://karate.com/about-us",
+        "verified_date": "2026-09-01",
+        "facts": "Official Karate Combat page describes it as a full-contact striking league with eight weight divisions."
+      },
+      "authority": "Karate Combat League",
+      "note": "J1 s0: karate_wkf_kumite is the wrong family (controlled points vs full-contact pit); karate_combat_pit is unauthored (J1 P4)."
+    },
+    "cyprus_mmaf": {
+      "name": "Cyprus Mixed Martial Arts Federation",
+      "short_name": "CMMAF",
+      "official_url": "https://cyprusmixedmartialartsfederation.com/",
+      "source": {
+        "url": "https://cyprusmixedmartialartsfederation.com/",
+        "verified_date": "2026-09-01",
+        "facts": "Official CMMAF page says it was founded in Limassol in 2014 to promote and develop MMA in Cyprus."
+      },
+      "authority": "IMMAF (Cyprus MMA Federation is an IMMAF member)",
+      "note": "Amateur cards inherit IMMAF; the rules for professional cards in Cyprus are UNKNOWN (J1 1.7)."
+    },
+    "jungle_fight": {
+      "name": "Jungle Fight",
+      "short_name": "Jungle Fight",
+      "official_url": "https://junglefc.com.br/",
+      "source": {
+        "url": "https://junglefc.com.br/",
+        "verified_date": "2026-09-01",
+        "facts": "Official Jungle Fight site identifies Wallid Ismail as founder and presents the organization as a major Brazilian/Latin American MMA event."
+      },
+      "authority": "CABMMA (Unified Rules of MMA)"
+    },
+    "ibjjf": {
+      "name": "International Brazilian Jiu-Jitsu Federation",
+      "short_name": "IBJJF",
+      "official_url": "https://ibjjf.com/",
+      "source": {
+        "url": "https://ibjjf.com/",
+        "verified_date": "2026-09-01",
+        "facts": "Official IBJJF site publishes its championship calendar, athlete registration and rankings."
+      },
+      "authority": "IBJJF",
+      "note": "Gi is the recorded binding; bjj_ibjjf_nogi covers the no-gi circuit (J1 P5)."
+    },
+    "rajadamnern_world_series": {
+      "name": "Rajadamnern World Series",
+      "short_name": "RWS",
+      "official_url": "https://rajadamnern.com/",
+      "source": {
+        "url": "https://rajadamnern.com/",
+        "verified_date": "2026-09-01",
+        "facts": "Official Rajadamnern Stadium page lists Rajadamnern World Series as its Saturday Muay Thai event series."
+      },
+      "authority": "Rajadamnern Stadium",
+      "note": "J1 s0: RWS runs 3x3 open scoring; muay_thai_wmc_professional is the traditional 5x3 stadium analogue, not RWS. muay_thai_rws is unauthored (J1 P4)."
+    },
+    "lux_fight_league": {
+      "name": "LUX Fight League",
+      "short_name": "LUX",
+      "official_url": "https://luxfightleague.com/",
+      "source": {
+        "url": "https://luxfightleague.com/nosotros/",
+        "verified_date": "2026-09-01",
+        "facts": "Official LUX page identifies it as a Mexican MMA promoter founded in 2017."
+      },
+      "authority": "Unified Rules of MMA (Reglas Unificadas)",
+      "note": "No LUX rules PDF; the Unified-Rules frame is stated on secondary sources only."
+    },
+    "road_fc": {
+      "name": "ROAD Fighting Championship",
+      "short_name": "ROAD FC",
+      "official_url": "https://www.roadfc.com/",
+      "source": {
+        "url": "https://www.roadfc.com/main/about/about.php",
+        "verified_date": "2026-09-01",
+        "facts": "Official ROAD FC page describes its professional MMA events and development leagues in South Korea."
+      },
+      "authority": "Unified Rules of MMA, with a documented ROAD FC points overlay",
+      "note": "J1 1.12: sources conflict on whether the Unlimited Points overlay is still in force."
+    },
+    "kunlun_fight": {
+      "name": "Kunlun Fight",
+      "short_name": "Kunlun Fight",
+      "official_url": "https://kunlunjue.com/",
+      "source": {
+        "url": "https://english.beijing.gov.cn/whatson/events/sports/202511/t20251120_4289214.html",
+        "verified_date": "2026-09-01",
+        "facts": "Beijing municipal event listing confirms Kunlun Fight World Championships and their kickboxing rules."
+      },
+      "authority": "K-1-style kickboxing rules (no governing body identified)",
+      "note": "No 2026 primary rules document; the K-1 analogue comes from secondary sources."
+    },
+    "united_world_wrestling": {
+      "name": "United World Wrestling",
+      "short_name": "UWW",
+      "official_url": "https://uww.org/",
+      "source": {
+        "url": "https://uww.org/about-uww/united-world-wrestling",
+        "verified_date": "2026-09-01",
+        "facts": "Official UWW page states its mission is to lead worldwide growth of competitive and recreational wrestling."
+      },
+      "authority": "United World Wrestling",
+      "note": "Freestyle is the recorded binding; wrestling_uww_greco_roman covers Greco-Roman (J1 P5)."
+    },
+    "ijf": {
+      "name": "International Judo Federation",
+      "short_name": "IJF",
+      "official_url": "https://www.ijf.org/",
+      "source": {
+        "url": "https://www.ijf.org/",
+        "verified_date": "2026-09-01",
+        "facts": "Official IJF site publishes the international judo calendar, rankings, results, rules and federation governance."
+      },
+      "authority": "International Judo Federation",
+      "note": "The playable judo profile lags the 2026 yuko reinstatement (J1 P5)."
+    },
+    "world_taekwondo": {
+      "name": "World Taekwondo",
+      "short_name": "WT",
+      "official_url": "https://www.worldtaekwondo.org/",
+      "source": {
+        "url": "https://www.worldtaekwondo.org/about-wt/council_2021_more05.html",
+        "verified_date": "2026-09-01",
+        "facts": "Official World Taekwondo page identifies WT as the international federation governing taekwondo."
+      },
+      "authority": "World Taekwondo",
+      "note": "The playable taekwondo profile lags the turning-kick doubles (J1 P5)."
+    },
+    "ares_fighting_championship": {
+      "name": "ARES Fighting Championship",
+      "short_name": "ARES FC",
+      "official_url": "https://www.aresfighting.com/",
+      "source": {
+        "url": "https://www.aresfighting.com/fr/events/",
+        "verified_date": "2026-09-01",
+        "facts": "Official ARES site publishes its recurring ARES Fighting Championship events and fight cards."
+      },
+      "authority": "FMMAF / FFBoxe (Unified Rules frame)",
+      "note": "No ARES rules PDF; the binding is inherited from the French federation frame."
+    },
+    "urcc": {
+      "name": "Universal Reality Combat Championship",
+      "short_name": "URCC",
+      "official_url": "https://urccmma.com/",
+      "source": {
+        "url": "https://issuances-library.senate.gov.ph/sites/default/files/2025-09/resno29.pdf",
+        "verified_date": "2026-09-01",
+        "facts": "Philippine Senate resolution recognizes URCC and its role in Philippine professional mixed martial arts."
+      },
+      "authority": "Unified Rules of MMA (Games and Amusements Board sanctioned)",
+      "note": "J1 s0: sources conflict on round length (3x3 min vs the ABC 5 min). No URCC PDF retrieved."
+    },
+    "bbbofc": {
+      "name": "British Boxing Board of Control",
+      "short_name": "BBBofC",
+      "official_url": "https://bbbofc.com/",
+      "source": {
+        "url": "https://bbbofc.com/",
+        "verified_date": "2026-10-16",
+        "facts": "pro regulator since 1929 (~2,500 licence holders, ~1,100 active)"
+      },
+      "authority": "British Boxing Board of Control (pro regulator since 1929 (~2,500 licence holders, ~1,100 active))"
+    },
+    "england_boxing": {
+      "name": "England Boxing",
+      "short_name": "England Boxing",
+      "official_url": "https://www.englandboxing.org/",
+      "source": {
+        "url": "https://www.englandboxing.org/",
+        "verified_date": "2026-10-16",
+        "facts": "amateur, World Boxing from 1 Aug 2025"
+      },
+      "authority": "England Boxing (amateur, World Boxing from 1 Aug 2025)"
+    },
+    "usa_boxing": {
+      "name": "USA Boxing",
+      "short_name": "USA Boxing",
+      "official_url": "https://www.usaboxing.org/",
+      "source": {
+        "url": "https://www.usaboxing.org/",
+        "verified_date": "2026-10-16",
+        "facts": "amateur NGB, World Boxing"
+      },
+      "authority": "USA Boxing (amateur NGB, World Boxing)"
+    },
+    "abc": {
+      "name": "Association of Boxing Commissions",
+      "short_name": "ABC",
+      "official_url": "https://www.abcboxing.com/",
+      "source": {
+        "url": "https://www.abcboxing.com/",
+        "verified_date": "2026-10-16",
+        "facts": "pro: coordinates state/provincial/tribal commissions (no single national board)"
+      },
+      "authority": "Association of Boxing Commissions (pro: coordinates state/provincial/tribal commissions (no single national board))"
+    },
+    "fmb_mexico": {
+      "name": "Federacion Mexicana de Boxeo",
+      "short_name": "FMB",
+      "official_url": "https://femebox.com/",
+      "source": {
+        "url": "https://femebox.com/",
+        "verified_date": "2026-10-16",
+        "facts": "amateur, World Boxing (May 2025)"
+      },
+      "authority": "Federacion Mexicana de Boxeo (amateur, World Boxing (May 2025))"
+    },
+    "jbc": {
+      "name": "Japan Boxing Commission",
+      "short_name": "JBC",
+      "official_url": "https://jbc.or.jp/",
+      "source": {
+        "url": "https://jbc.or.jp/",
+        "verified_date": "2026-10-16",
+        "facts": "pro commission since 21 Apr 1952"
+      },
+      "authority": "Japan Boxing Commission (pro commission since 21 Apr 1952)"
+    },
+    "jbf": {
+      "name": "Japan Boxing Federation",
+      "short_name": "JBF",
+      "official_url": "https://jabf-revival.com/",
+      "source": {
+        "url": "https://jabf-revival.com/",
+        "verified_date": "2026-10-16",
+        "facts": "amateur (1926), World Boxing"
+      },
+      "authority": "Japan Boxing Federation (amateur (1926), World Boxing)"
+    },
+    "gab_ph": {
+      "name": "Games and Amusements Board",
+      "short_name": "GAB",
+      "official_url": "https://gab.gov.ph/",
+      "source": {
+        "url": "https://gab.gov.ph/",
+        "verified_date": "2026-10-16",
+        "facts": "government pro regulator (1951)"
+      },
+      "authority": "Games and Amusements Board (government pro regulator (1951))"
+    },
+    "bsa": {
+      "name": "Boxing South Africa",
+      "short_name": "BSA",
+      "official_url": "https://boxingsa.co.za/",
+      "source": {
+        "url": "https://boxingsa.co.za/",
+        "verified_date": "2026-10-16",
+        "facts": "statutory pro authority (Boxing Act 11 of 2001)"
+      },
+      "authority": "Boxing South Africa (statutory pro authority (Boxing Act 11 of 2001))"
+    },
+    "boxing_australia": {
+      "name": "Boxing Australia Limited",
+      "short_name": "Boxing Australia",
+      "official_url": "https://www.boxing.org.au/",
+      "source": {
+        "url": "https://www.boxing.org.au/",
+        "verified_date": "2026-10-16",
+        "facts": "amateur NSO, World Boxing (pro: state level + ANBF)"
+      },
+      "authority": "Boxing Australia Limited (amateur NSO, World Boxing (pro: state level + ANBF))"
+    },
+    "fab_argentina": {
+      "name": "Federacion Argentina de Boxeo",
+      "short_name": "FAB",
+      "official_url": "https://fabox.com.ar/",
+      "source": {
+        "url": "https://fabox.com.ar/",
+        "verified_date": "2026-10-16",
+        "facts": "amateur + pro fiscalisation (1920)"
+      },
+      "authority": "Federacion Argentina de Boxeo (amateur + pro fiscalisation (1920))"
+    },
+    "thailand_boxing_assoc": {
+      "name": "Thailand Boxing Association",
+      "short_name": "TBA",
+      "official_url": "https://thailandboxing.or.th/",
+      "source": {
+        "url": "https://thailandboxing.or.th/",
+        "verified_date": "2026-10-16",
+        "facts": "amateur (pro: multi-actor, PAT)"
+      },
+      "authority": "Thailand Boxing Association (amateur (pro: multi-actor, PAT))"
+    },
+    "rbf": {
+      "name": "Boxing Federation of Russia",
+      "short_name": "RBF",
+      "official_url": "https://rusboxing.ru/",
+      "source": {
+        "url": "https://rusboxing.ru/",
+        "verified_date": "2026-10-16",
+        "facts": "amateur + pro since 1992"
+      },
+      "authority": "Boxing Federation of Russia (amateur + pro since 1992)"
+    },
+    "kfb_kz": {
+      "name": "Kazakhstan Boxing Federation",
+      "short_name": "KBF",
+      "official_url": "https://kfb.kz/",
+      "source": {
+        "url": "https://kfb.kz/",
+        "verified_date": "2026-10-16",
+        "facts": "amateur, World Boxing"
+      },
+      "authority": "Kazakhstan Boxing Federation (amateur, World Boxing)"
+    },
+    "kfpb": {
+      "name": "Kazakhstan Professional Boxing Federation",
+      "short_name": "KPBF",
+      "official_url": "https://profiboxing.kz/",
+      "source": {
+        "url": "https://profiboxing.kz/",
+        "verified_date": "2026-10-16",
+        "facts": "pro"
+      },
+      "authority": "Kazakhstan Professional Boxing Federation (pro)"
+    },
+    "upbf": {
+      "name": "Uzbekistan Professional Boxing Federation",
+      "short_name": "UPBF",
+      "official_url": "https://profboks.uz/",
+      "source": {
+        "url": "https://profboks.uz/",
+        "verified_date": "2026-10-16",
+        "facts": "pro"
+      },
+      "authority": "Uzbekistan Professional Boxing Federation (pro)"
+    },
+    "dbv": {
+      "name": "Deutscher Boxsport-Verband",
+      "short_name": "DBV",
+      "official_url": "https://www.boxverband.de/",
+      "source": {
+        "url": "https://www.boxverband.de/",
+        "verified_date": "2026-10-16",
+        "facts": "amateur, ~80,000 members / 900 clubs"
+      },
+      "authority": "Deutscher Boxsport-Verband (amateur, ~80,000 members / 900 clubs)"
+    },
+    "bdb": {
+      "name": "Bund Deutscher Berufsboxer",
+      "short_name": "BDB",
+      "official_url": "https://www.bund-deutscher-berufsboxer.de/",
+      "source": {
+        "url": "https://www.bund-deutscher-berufsboxer.de/",
+        "verified_date": "2026-10-16",
+        "facts": "pro umbrella since 1949"
+      },
+      "authority": "Bund Deutscher Berufsboxer (pro umbrella since 1949)"
+    },
+    "ffboxe": {
+      "name": "Federation Francaise de Boxe",
+      "short_name": "FFBoxe",
+      "official_url": "https://www.ffboxe.com/",
+      "source": {
+        "url": "https://www.ffboxe.com/",
+        "verified_date": "2026-10-16",
+        "facts": "amateur + pro (LNBP), 1903"
+      },
+      "authority": "Federation Francaise de Boxe (amateur + pro (LNBP), 1903)"
+    },
+    "fpi": {
+      "name": "Federazione Pugilistica Italiana",
+      "short_name": "FPI",
+      "official_url": "https://www.fpi.it/",
+      "source": {
+        "url": "https://www.fpi.it/",
+        "verified_date": "2026-10-16",
+        "facts": "amateur + pro, 1916, CONI"
+      },
+      "authority": "Federazione Pugilistica Italiana (amateur + pro, 1916, CONI)"
+    },
+    "rfebox": {
+      "name": "Real Federacion Espanola de Boxeo",
+      "short_name": "FEB",
+      "official_url": "https://feboxeo.es/",
+      "source": {
+        "url": "https://feboxeo.es/",
+        "verified_date": "2026-10-16",
+        "facts": "amateur + pro (Comite de Boxeo Profesional)"
+      },
+      "authority": "Real Federacion Espanola de Boxeo (amateur + pro (Comite de Boxeo Profesional))"
+    },
+    "pzb": {
+      "name": "Polski Zwiazek Bokserski",
+      "short_name": "PZB",
+      "official_url": "https://pzb.com.pl/",
+      "source": {
+        "url": "https://pzb.com.pl/",
+        "verified_date": "2026-10-16",
+        "facts": "amateur + pro department, 1923"
+      },
+      "authority": "Polski Zwiazek Bokserski (amateur + pro department, 1923)"
+    },
+    "boxing_canada": {
+      "name": "Boxing Canada",
+      "short_name": "Boxing Canada",
+      "official_url": "https://boxingcanada.org/",
+      "source": {
+        "url": "https://boxingcanada.org/",
+        "verified_date": "2026-10-16",
+        "facts": "amateur NGB (pro: provincial commissions)"
+      },
+      "authority": "Boxing Canada (amateur NGB (pro: provincial commissions))"
+    },
+    "cbboxe": {
+      "name": "Confederacao Brasileira de Boxe",
+      "short_name": "CBBoxe",
+      "official_url": "https://cbboxe.org.br/",
+      "source": {
+        "url": "https://cbboxe.org.br/",
+        "verified_date": "2026-10-16",
+        "facts": "amateur (1933), World Boxing"
+      },
+      "authority": "Confederacao Brasileira de Boxe (amateur (1933), World Boxing)"
+    },
+    "cbbp": {
+      "name": "Confederacao Brasileira de Boxe Profissional",
+      "short_name": "CBBP",
+      "official_url": "https://cbbproboxe.com.br/",
+      "source": {
+        "url": "https://cbbproboxe.com.br/",
+        "verified_date": "2026-10-16",
+        "facts": "pro (1994)"
+      },
+      "authority": "Confederacao Brasileira de Boxe Profissional (pro (1994))"
+    },
+    "nbb": {
+      "name": "Nederlandse Boksbond",
+      "short_name": "NBB",
+      "official_url": "https://www.boksen.nl/",
+      "source": {
+        "url": "https://www.boksen.nl/",
+        "verified_date": "2026-10-16",
+        "facts": "amateur, NOC*NSF, World Boxing"
+      },
+      "authority": "Nederlandse Boksbond (amateur, NOC*NSF, World Boxing)"
+    },
+    "cyabf": {
+      "name": "Cyprus Amateur Boxing Federation",
+      "short_name": "CYABF",
+      "official_url": "https://www.cyabf.com/",
+      "source": {
+        "url": "https://www.cyabf.com/",
+        "verified_date": "2026-10-16",
+        "facts": "amateur (registered 1995); pro rules UNKNOWN"
+      },
+      "authority": "Cyprus Amateur Boxing Federation (amateur (registered 1995); pro rules UNKNOWN)"
+    }
+  }
+}

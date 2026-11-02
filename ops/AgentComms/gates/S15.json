@@ -1,0 +1,12 @@
+{
+  "checked_at": "2026-09-18T20:50:13Z",
+  "files": [
+    "Godot/scripts/FightBeatAdapter.gd",
+    "Godot/scripts/FightStagePlayer.gd",
+    "Godot/scripts/FightWorldLiveScreen.gd",
+    "Godot/tools/measure_presentation_split.gd"
+  ],
+  "output": "CHECK total=4 fails=0 autoload_refs=0 autoload_warnings=0 time=1s\n",
+  "passed": true,
+  "task": "S15"
+}

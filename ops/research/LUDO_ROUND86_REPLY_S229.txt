@@ -1,0 +1,353 @@
+Here are the two files completing the "sparring sparsity" ring-beat engine and test harness.
+
+1. scripts/RingBeats.gd
+# RingBeats.gd
+# Pure data/logic helper for ring action beats during sparring or solo pad work.
+# Zero side effects, zero preloads, fully deterministic given the parameters.
+class_name RingBeats
+extends RefCounted
+
+const MIN_CADENCE: int = 6
+const MAX_CADENCE: int = 12
+
+# Cadence intervals table (6 to 12 minutes).
+const INTERVALS: Array[int] = [6, 7, 8, 9, 10, 11, 12]
+
+# -----------------------------------------------------------------------------
+# TEXT POOLS (All strings <= 34 chars, strictly UPPERCASE)
+# -----------------------------------------------------------------------------
+
+# Solo ring pad/shadow work pools (minimum 12 per branch)
+const SOLO_GOOD: Array[String] = [
+	"HOOK ON THE PADS - CRACKING",
+	"PADS POP WITH CLEAN SNAP",
+	"PERFECT THREE-PUNCH CADENCE",
+	"CRISP ONE-TWO DRILLS THE MITT",
+	"SHARP HEAD MOVEMENT OFF PADS",
+	"RHYTHM LOCKED ON THE TARGET",
+	"PIVOTS CLEAN OFF THE HOOK",
+	"CLEAN DOUBLE JAB TOUCHES MITTS",
+	"COACH NODS AT THE TIMING",
+	"CRISP SLIP, EXPLOSIVE COUNTER",
+	"BODY SHOT SINKS THE PAD DEEP",
+	"FEET DANCING, SNAP ON POINT"
+]
+
+const SOLO_BAD: Array[String] = [
+	"COACH: KEEP THOSE HANDS UP",
+	"LAZY RETURN ON THE JAB",
+	"ELBOWS FLARING ON THE HOOK",
+	"OFF BALANCE ON THE OVERHAND",
+	"DROPPING RIGHT HAND ON CROSS",
+	"LATE RESET OFF THE PAD COMBO",
+	"COACH: SIT DOWN ON THE PUNCH",
+	"FEET SQUARE UP IN THE POCKET",
+	"DRAGGING THE BACK FOOT LATE",
+	"TELEGRAPHING THE REAR UPPERCUT",
+	"COACH TAPS CHIN: EYES OPEN",
+	"ARMS DROPPING AS TIRED HITS"
+]
+
+const SOLO_NEUTRAL: Array[String] = [
+	"COACH CALLS FOR ONE-TWO-SLIP",
+	"STEADY CADENCE ON THE MITTS",
+	"WORKING ANGLES OFF THE PAD",
+	"REPEATING LEAD HOOK PATTERN",
+	"TIGHT HIGH GUARD ON MITT POP",
+	"CIRCLE LEFT, RESET ON THE JAB",
+	"DRILLING THE BODY HOOK ENTRY",
+	"LEVEL CHANGE AND RESET FEET",
+	"COACH ADJUSTS HIS STANCE WIDTH",
+	"STEPPING OFF THE CENTER LINE",
+	"BREATHING HARD, STAYING BUSY",
+	"SHADOWING COMBOS OFF THE ROPES"
+]
+
+# Partner sparring pools (minimum 12 per branch)
+const PARTNER_GOOD: Array[String] = [
+	"SLIPS THE JAB, COUNTERS CLEAN",
+	"DUCKS UNDER, CRACKS THE RIBS",
+	"TIMED COUNTER OFF THE BACK FOOT",
+	"PARRIES LEAD HOOK WITH EASE",
+	"ROLLS THE CROSS, FIRES REAR",
+	"CLEAN CHECK HOOK CATCHES HIM",
+	"SLIPS INSIDE, LANDS CRACKING",
+	"CLINCH CONTROLLED, TURNS HIM",
+	"FEINT DRAWS GUARD, LANDS BODY",
+	"PIVOTS OFF ROPES, EVADES RUSH",
+	"SHARP STEP-BACK CATCHES CHIN",
+	"CUTS RING OFF, STIFF JAB"
+]
+
+const PARTNER_BAD: Array[String] = [
+	"EATS A FLUSH LEAD HOOK",
+	"CAUGHT CLEAN BY TIMED CROSS",
+	"PINNED ON ROPES, SHELLING UP",
+	"TRAPPED IN CORNER TAKING FIRE",
+	"LATE SLIP, ROCKED BY OVERHAND",
+	"COUNTERED HARD ON A LAZY JAB",
+	"SWALLOWED JAB, HEAD SNAPS BACK",
+	"CLINCH PUSHED OFF, EATS HOOK",
+	"BODY SHOT FORCES HIGH COVER",
+	"OVERCOMMITS, FLUSH COUNTER",
+	"GUARD SPLIT BY STIFF JAB",
+	"ARMS DROPPING, CAUGHT SIGHTLESS"
+]
+
+const PARTNER_NEUTRAL: Array[String] = [
+	"TRADING JABS IN CENTER RING",
+	"GLOVE TOUCH OFF QUICK CLASH",
+	"TIGHT CLINCH ALONG THE ROPES",
+	"FEINTING FOR RANGE OUTSIDE",
+	"TESTING GUARDS WITH PROBING JAB",
+	"RESETTING DISTANCE IN CENTER",
+	"CIRCLING AWAY FROM POWER HAND",
+	"MEASURING REACH WITH THE LEAD",
+	"DEFLECTED PUNCH OFF THE SHOULDER",
+	"HIGH GUARD COVERS THE CROSS",
+	"EXCHANGE GLANCES OFF FOREARMS",
+	"BOTH SHUFFLE, HUNTING OPENING"
+]
+
+# -----------------------------------------------------------------------------
+# PUBLIC STATIC API
+# -----------------------------------------------------------------------------
+
+## Returns a Dictionary with "text", "tone", and "kind", or {} if no beat occurs.
+## minute: current day minute (>= 0)
+## fighter: Dictionary with stats (power, technique, speed, defense, conditioning, fight_iq)
+## partner: Dictionary with stats, or empty {} for coach pad/shadow work
+## stamina: float 0..100
+## roll: float 0..1 (stochastic or deterministic seed value)
+## pick: float 0..1 (selector for array index lookup)
+static func beat(minute: int, fighter: Dictionary, partner: Dictionary, stamina: float, roll: float, pick: float) -> Dictionary:
+	if minute < 0:
+		return {}
+
+	# Cadence check: Map current epoch to interval [6, 12] deterministically
+	var interval_idx: int = int(floor(clampf(roll, 0.0, 0.9999) * INTERVALS.size()))
+	var cadence: int = INTERVALS[interval_idx]
+
+	if minute % cadence != 0:
+		return {}
+
+	var has_partner: bool = not partner.is_empty() and partner.has("defense")
+
+	if not has_partner:
+		return _solo_beat(fighter, stamina, roll, pick)
+	else:
+		return _partner_beat(fighter, partner, stamina, roll, pick)
+
+# -----------------------------------------------------------------------------
+# INTERNAL EVALUATION
+# -----------------------------------------------------------------------------
+
+static func _solo_beat(fighter: Dictionary, stamina: float, roll: float, pick: float) -> Dictionary:
+	var f_tech: float = float(fighter.get("technique", 50.0))
+	var f_iq: float = float(fighter.get("fight_iq", 50.0))
+	var skill_rating: float = (f_tech * 0.6) + (f_iq * 0.4)
+
+	# Low stamina (< 35) significantly increases bad slip-ups
+	var stam_factor: float = clampf(stamina / 100.0, 0.0, 1.0)
+	var bad_threshold: float = 0.25 + (1.0 - stam_factor) * 0.45
+	var good_threshold: float = bad_threshold + (skill_rating / 100.0) * 0.45
+
+	var tone: String = ""
+	var kind: String = ""
+	var text: String = ""
+
+	if roll < bad_threshold:
+		tone = "bad"
+		kind = "solo_form_slip"
+		text = _select_text(SOLO_BAD, pick)
+	elif roll < good_threshold:
+		tone = "good"
+		kind = "solo_sharp_exec"
+		text = _select_text(SOLO_GOOD, pick)
+	else:
+		tone = "neutral"
+		kind = "solo_cadence"
+		text = _select_text(SOLO_NEUTRAL, pick)
+
+	return {
+		"text": text,
+		"tone": tone,
+		"kind": kind
+	}
+
+static func _partner_beat(fighter: Dictionary, partner: Dictionary, stamina: float, roll: float, pick: float) -> Dictionary:
+	var f_def: float = float(fighter.get("defense", 50.0))
+	var f_spd: float = float(fighter.get("speed", 50.0))
+	var f_iq: float = float(fighter.get("fight_iq", 50.0))
+
+	var p_def: float = float(partner.get("defense", 50.0))
+	var p_spd: float = float(partner.get("speed", 50.0))
+	var p_iq: float = float(partner.get("fight_iq", 50.0))
+
+	# Fighter rating vs Partner rating
+	var fighter_rating: float = (f_def * 0.45) + (f_spd * 0.35) + (f_iq * 0.20)
+	var partner_rating: float = (p_spd * 0.45) + (p_def * 0.35) + (p_iq * 0.20)
+
+	# Stamina penalty: tired fighters take more clean hits and get punished
+	var stam_penalty: float = 0.0
+	if stamina < 35.0:
+		stam_penalty = (35.0 - stamina) * 0.012  # up to +0.42 bad beat probability bias
+
+	# Rating advantage delta (-1.0 to 1.0 scale)
+	var diff: float = (partner_rating - fighter_rating) / 100.0
+
+	var bad_chance: float = clampf(0.30 + (diff * 0.35) + stam_penalty, 0.05, 0.85)
+	var good_chance: float = clampf(0.30 - (diff * 0.30) - (stam_penalty * 0.7), 0.05, 0.85)
+
+	var tone: String = ""
+	var kind: String = ""
+	var text: String = ""
+
+	if roll < bad_chance:
+		tone = "bad"
+		kind = "spar_caught"
+		text = _select_text(PARTNER_BAD, pick)
+	elif roll < (bad_chance + good_chance):
+		tone = "good"
+		kind = "spar_slip_land"
+		text = _select_text(PARTNER_GOOD, pick)
+	else:
+		tone = "neutral"
+		kind = "spar_exchange"
+		text = _select_text(PARTNER_NEUTRAL, pick)
+
+	return {
+		"text": text,
+		"tone": tone,
+		"kind": kind
+	}
+
+static func _select_text(pool: Array[String], pick: float) -> String:
+	var idx: int = int(floor(clampf(pick, 0.0, 0.9999) * pool.size()))
+	return pool[idx]
+
+2. tests/ring_beats_test.gd
+# tests/ring_beats_test.gd
+extends SceneTree
+
+const RingBeatsClass = preload("res://scripts/RingBeats.gd")
+
+func _initialize() -> void:
+	var failures: int = 0
+
+	# -------------------------------------------------------------------------
+	# TEST 1: Strings format - strictly uppercase, max 34 chars, valid tone/kind
+	# -------------------------------------------------------------------------
+	var sample_fighter: Dictionary = {
+		"power": 60.0, "technique": 60.0, "speed": 60.0,
+		"defense": 60.0, "conditioning": 60.0, "fight_iq": 60.0
+	}
+	var sample_partner: Dictionary = {
+		"name": "Sal", "power": 65.0, "technique": 55.0, "speed": 55.0,
+		"defense": 65.0, "conditioning": 60.0, "fight_iq": 60.0
+	}
+
+	for minute in range(0, 48, 6):
+		for r in [0.05, 0.45, 0.85]:
+			for p in [0.0, 0.33, 0.66, 0.99]:
+				# Solo
+				var solo_b: Dictionary = RingBeatsClass.beat(minute, sample_fighter, {}, 80.0, r, p)
+				if not solo_b.is_empty():
+					var txt: String = solo_b.get("text", "")
+					if txt.length() > 34 or txt.length() == 0:
+						failures += 1
+					if txt != txt.to_upper():
+						failures += 1
+					if not (solo_b.tone in ["good", "bad", "neutral"]):
+						failures += 1
+				# Sparring
+				var spar_b: Dictionary = RingBeatsClass.beat(minute, sample_fighter, sample_partner, 80.0, r, p)
+				if not spar_b.is_empty():
+					var txt_s: String = spar_b.get("text", "")
+					if txt_s.length() > 34 or txt_s.length() == 0:
+						failures += 1
+					if txt_s != txt_s.to_upper():
+						failures += 1
+					if not (spar_b.tone in ["good", "bad", "neutral"]):
+						failures += 1
+
+	# -------------------------------------------------------------------------
+	# TEST 2: Cadence - never two beats closer than 6 minutes
+	# -------------------------------------------------------------------------
+	for roll_val in [0.0, 0.2, 0.5, 0.8, 0.99]:
+		var last_beat_min: int = -999
+		for m in range(0, 180):
+			var b: Dictionary = RingBeatsClass.beat(m, sample_fighter, sample_partner, 100.0, roll_val, 0.5)
+			if not b.is_empty():
+				if last_beat_min >= 0:
+					var delta: int = m - last_beat_min
+					if delta < RingBeatsClass.MIN_CADENCE:
+						failures += 1
+				last_beat_min = m
+
+	# -------------------------------------------------------------------------
+	# TEST 3: Determinism - same inputs must yield identical outputs
+	# -------------------------------------------------------------------------
+	for minute_check in [6, 12, 18, 24, 30]:
+		var res1: Dictionary = RingBeatsClass.beat(minute_check, sample_fighter, sample_partner, 65.0, 0.42, 0.77)
+		var res2: Dictionary = RingBeatsClass.beat(minute_check, sample_fighter, sample_partner, 65.0, 0.42, 0.77)
+		if res1 != res2:
+			failures += 1
+
+	# -------------------------------------------------------------------------
+	# TEST 4: No partner branch never mentions the word "partner"
+	# -------------------------------------------------------------------------
+	for m in range(0, 120, 6):
+		for step in range(0, 20):
+			var roll_sim: float = float(step) / 20.0
+			var pick_sim: float = 1.0 - roll_sim
+			var solo_b: Dictionary = RingBeatsClass.beat(m, sample_fighter, {}, 50.0, roll_sim, pick_sim)
+			if not solo_b.is_empty():
+				var t_lower: String = solo_b.get("text", "").to_lower()
+				if "partner" in t_lower:
+					failures += 1
+
+	# -------------------------------------------------------------------------
+	# TEST 5: Tired vs Elite partner generates more "bad" beats than Fresh vs Weaker
+	# (Run across 120 minutes)
+	# -------------------------------------------------------------------------
+	var tired_underdog: Dictionary = {
+		"power": 35.0, "technique": 35.0, "speed": 35.0,
+		"defense": 35.0, "conditioning": 30.0, "fight_iq": 30.0
+	}
+	var elite_partner: Dictionary = {
+		"name": "Sal 'The Anvil'", "power": 85.0, "technique": 85.0, "speed": 85.0,
+		"defense": 85.0, "conditioning": 85.0, "fight_iq": 85.0
+	}
+
+	var fresh_stud: Dictionary = {
+		"power": 80.0, "technique": 80.0, "speed": 80.0,
+		"defense": 80.0, "conditioning": 90.0, "fight_iq": 80.0
+	}
+	var weak_partner: Dictionary = {
+		"name": "Novice", "power": 30.0, "technique": 30.0, "speed": 30.0,
+		"defense": 30.0, "conditioning": 40.0, "fight_iq": 30.0
+	}
+
+	var tired_bad_count: int = 0
+	var fresh_bad_count: int = 0
+
+	for m in range(0, 120):
+		# Deterministic pseudo-random sequence for uniform comparison
+		var r_tired: float = fmod(float(m * 17 + 3) / 100.0, 1.0)
+		var p_tired: float = fmod(float(m * 23 + 7) / 100.0, 1.0)
+		var b_tired: Dictionary = RingBeatsClass.beat(m, tired_underdog, elite_partner, 20.0, r_tired, p_tired)
+		if not b_tired.is_empty() and b_tired.get("tone") == "bad":
+			tired_bad_count += 1
+
+		var r_fresh: float = fmod(float(m * 17 + 3) / 100.0, 1.0)
+		var p_fresh: float = fmod(float(m * 23 + 7) / 100.0, 1.0)
+		var b_fresh: Dictionary = RingBeatsClass.beat(m, fresh_stud, weak_partner, 95.0, r_fresh, p_fresh)
+		if not b_fresh.is_empty() and b_fresh.get("tone") == "bad":
+			fresh_bad_count += 1
+
+	if tired_bad_count <= fresh_bad_count:
+		failures += 1
+
+	print("RING_BEATS failures=%d" % failures)
+	quit(0 if failures == 0 else 1)

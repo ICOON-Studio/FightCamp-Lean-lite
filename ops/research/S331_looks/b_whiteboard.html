@@ -1,0 +1,75 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Look B - Gym whiteboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Kalam:wght@400;700&display=block" rel="stylesheet">
+<style>
+@font-face{font-family:Barlow;src:url(file:///E:/FightCamp/Lean/assets/fonts/Barlow-Medium.ttf)}
+@font-face{font-family:BarlowB;src:url(file:///E:/FightCamp/Lean/assets/fonts/Barlow-Bold.ttf)}
+:root{--wall:#CFE0EA;--board:#FDFEFE;--frame:#AEB8C0;--blue:#2F6FDB;--red:#E2483D;--yellow:#FFD54A;--green:#2FA36B;--marker:#22262E}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;background:var(--wall);font-family:Barlow;color:var(--marker);overflow:hidden}
+.top{height:76px;display:flex;align-items:center;padding:0 24px;gap:16px;background:#fff;box-shadow:0 3px 0 #B8CAD6}
+.gym{font-family:'Permanent Marker';font-size:32px;color:var(--blue)}
+.chip{background:var(--yellow);font-family:BarlowB;font-size:15px;padding:6px 14px;border-radius:18px}
+.sp{flex:1}.date{text-align:right;font-family:BarlowB;font-size:20px}.date small{display:block;font-family:Barlow;font-size:13px;color:#667}
+.go{background:var(--blue);color:#fff;font-family:BarlowB;font-size:22px;padding:8px 26px;border-radius:30px;line-height:1.1}.go small{display:block;font-family:Barlow;font-size:13px;opacity:.85}
+.cash{font-family:BarlowB;font-size:28px;color:var(--green)}
+.wrap{display:flex;height:1004px}
+nav{width:200px;padding:20px 14px;display:flex;flex-direction:column;gap:10px}
+nav a{display:block;padding:12px 16px;border-radius:12px;background:#fff;font-family:BarlowB;font-size:20px;border-left:8px solid var(--frame)}
+nav a small{display:block;font-family:Barlow;font-size:13px;color:#778}
+nav a.on{border-left-color:var(--red);box-shadow:0 4px 0 #B8CAD6}
+main{flex:1;padding:22px 26px;display:grid;grid-template-columns:1fr 470px;gap:26px}
+.board{background:var(--board);border:14px solid var(--frame);border-radius:6px;box-shadow:0 10px 0 #9FB1BE;position:relative;padding:26px 34px}
+.board h1{font-family:'Permanent Marker';font-size:46px;font-weight:400;color:var(--blue)}
+.polaroid{position:absolute;left:34px;top:110px;width:380px;background:#fff;padding:12px 12px 16px;box-shadow:0 8px 18px rgba(30,50,70,.25);transform:rotate(-3deg)}
+.polaroid img{width:100%;background:#E9EEF2;display:block}
+.polaroid p{font-family:'Permanent Marker';font-size:30px;text-align:center;margin-top:6px}
+.tape{position:absolute;width:110px;height:30px;background:rgba(255,213,74,.75);top:-14px;left:95px;transform:rotate(4deg)}
+.notes{position:absolute;left:470px;top:120px;right:30px;font-family:Kalam;font-size:34px;line-height:1.55}
+.notes .ok{color:var(--green)}.notes .warn{color:var(--red)}
+.notes b{font-weight:700}
+.weekgrid{position:absolute;left:34px;right:30px;bottom:30px;height:300px;border-top:3px solid var(--marker)}
+.weekgrid h3{font-family:'Permanent Marker';font-weight:400;font-size:30px;margin:10px 0}
+.cols{display:grid;grid-template-columns:repeat(4,1fr);height:220px}
+.cols div{font-size:26px !important}
+.cols div{border-left:3px solid #C9D1D8;padding:6px 14px;font-family:Kalam;font-size:22px;position:relative}
+.cols div em{font-style:normal;color:#8893A0;font-size:19px;display:block}
+.mag{display:inline-block;padding:4px 12px;border-radius:20px;color:#fff;font-family:BarlowB;font-size:17px;margin-top:8px;box-shadow:0 3px 0 rgba(0,0,0,.2)}
+.right{display:flex;flex-direction:column;gap:18px}
+.sticky{background:var(--yellow);padding:18px 130px 18px 22px;box-shadow:0 6px 0 #D9B235;position:relative;font-family:Kalam;font-size:24px;line-height:1.25}
+.sticky:nth-child(2){transform:rotate(1.5deg);background:#FFE07A}.sticky:nth-child(3){transform:rotate(-1deg);background:#9FE0C0;box-shadow:0 6px 0 #6FBF97}.sticky:nth-child(4){transform:rotate(1deg);background:#BFD8FF;box-shadow:0 6px 0 #8FB0E0}
+.sticky small{display:block;font-family:Barlow;font-size:16px;opacity:.75}
+.sticky button{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:var(--marker);color:#fff;border:0;border-radius:20px;font-family:BarlowB;font-size:17px;padding:8px 18px}
+.tin{flex:1;background:#fff;border-radius:16px;padding:22px 26px;box-shadow:0 6px 0 #B8CAD6}
+.tin h2{font-family:'Permanent Marker';font-weight:400;font-size:28px;color:var(--blue)}
+.tin .big{font-family:BarlowB;font-size:84px;color:var(--green);line-height:1.1}
+.tin .row{display:flex;justify-content:space-between;font-size:22px;padding:12px 0;border-top:2px dotted #D3DCE3}
+</style></head><body>
+<div class="top"><span class="gym">Anvil Street Gym</span><span class="chip">Week review</span><span class="sp"></span>
+<div class="date">Mon 6 Apr 2026<small>Week 14</small></div><div class="go">Continue<small>to Mon 13 Apr, week review</small></div><div class="cash">$9,867</div></div>
+<div class="wrap"><nav><a class="on">Home</a><a>Fighters</a><a>Fights</a><a>Gym</a><a>Money</a><a>World</a></nav>
+<main>
+<section class="board"><h1>Lucy - 19 days to Erin Doyle</h1>
+ <div class="polaroid"><div class="tape"></div><img src="lucy.png"><p>Lucy 5-1</p></div>
+ <div class="notes">
+  <div>No. 4 lightweight - <b>fired up</b></div>
+  <div class="ok">Weight 61.1 kg / limit 61.2 &#10003;</div>
+  <div class="ok">Condition 92 - fresh</div>
+  <div>Goal: five-round engine - <span class="warn">12 days left</span></div>
+  <div>Erin: "drops the right after she jabs" - <b>counter it!</b></div>
+  <div>Nationals: ready, entries close 25 May</div>
+ </div>
+ <div class="weekgrid"><h3>Next 4 weeks</h3><div class="cols">
+  <div><em>today, Mon 6 Apr</em>sparring week</div>
+  <div><em>Mon 13 Apr</em>week review</div>
+  <div><em>Mon 20 Apr</em><span class="mag" style="background:var(--blue)">weigh-in Fri</span><br><span class="mag" style="background:var(--red)">FIGHT Sat 25</span></div>
+  <div><em>Mon 27 Apr</em><span class="mag" style="background:#8A5CF0">bills ~$4,492</span></div></div></div>
+</section>
+<section class="right">
+ <div class="sticky">Ironclad Supplements wants the wall<small>$250 a week for a banner</small><button>Deals</button></div>
+ <div class="sticky">Bow Road Physio on her shorts<small>$150 a week for their logo</small><button>Deals</button></div>
+ <div class="sticky">Enter Lucy for the nationals<small>entries close Mon 25 May</small><button>Enter</button></div>
+ <div class="sticky">Week 13 review is ready<small>gains, moves, rankings, money</small><button>Open</button></div>
+ <div class="tin"><h2>Cash tin</h2><div class="big">$9,867</div>
+  <div class="row"><span>In this week</span><b style="color:var(--green)">+$843</b></div><div class="row"><span>Costs this week</span><b>-$1,123</b></div><div class="row"><span>Owed, billed Mon 27 Apr</span><b>$1,123</b></div></div>
+</section>
+</main></div></body></html>

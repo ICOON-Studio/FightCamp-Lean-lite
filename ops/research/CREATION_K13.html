@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>FightCamp · K13 CAREER CREATION · Kalli</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@500;600;700&display=swap">
+<style>
+@font-face{font-family:"Bebas Neue";src:url("fonts/BebasNeue-Regular.ttf") format("truetype");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Mono";src:url("fonts/IBMPlexMono-Medium.ttf") format("truetype");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Mono";src:url("fonts/IBMPlexMono-Medium.ttf") format("truetype");font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Mono";src:url("fonts/IBMPlexMono-Medium.ttf") format("truetype");font-weight:700;font-style:normal;font-display:swap}
+:root{
+  --ground:#1c2230;--ground-2:#242c3d;--panel:#2a3347;--panel-hi:#34405a;--panel-lo:#222a3b;
+  --track:#111621;--edge:#121722;--line:#4a5a78;--line-soft:#2b3340;
+  --text:#f3f5fa;--text-2:#c9d1e0;--muted:#94a1b8;--dim:#6d7688;--ink:#1b1207;--link:#7fb6ee;
+  --gold:#f0c233;--gold-hi:#f7d65a;--gold-lo:#c99a1a;--gold-edge:#7a5c0c;
+  --gym:#2f6fb0;--gym-hi:#3f86cc;--gym-lo:#24558a;--gym-deep:#1a3d63;--gym-tint:rgba(47,111,176,.22);
+  --go:#22c55e;--go-hi:#4ade80;--go-lo:#15803d;--go-edge:#0b4a23;
+  --slate:#3f4a62;--control:#303a52;--chip:#333d52;--avatar:#3b4557;
+  --good:#4fc46a;--amber:#f0a020;--bad:#e5433a;--bad-edge:#5a120e;
+  --display:"Bebas Neue","Haettenschweiler","Arial Narrow",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --edge-hi:rgba(255,255,255,.14);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#0f131b;color:var(--text);font-family:var(--mono);font-size:13px;font-weight:500;line-height:1.35;-webkit-font-smoothing:antialiased}
+.doc{padding:28px 24px 80px;max-width:1960px;margin:0 auto}
+.eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.mast h1{font-family:var(--display);font-size:52px;letter-spacing:.02em;line-height:.94;margin:6px 0 10px}
+.mast p{max-width:96ch;color:var(--text-2);margin:0 0 8px}
+.rules{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 28px}
+.rules span{font-size:12px;letter-spacing:.08em;font-weight:700;padding:6px 10px;border:1px solid var(--edge);border-radius:3px;background:var(--panel-lo);color:var(--muted)}
+.sec{margin:36px 0 18px}
+.sec h2{font-family:var(--display);font-size:32px;letter-spacing:.06em;margin:0 0 6px}
+.sec p{margin:0;color:var(--text-2);max-width:92ch}
+.note{margin-top:8px;font-size:12px;letter-spacing:.04em;color:var(--muted)}
+.pickbox{margin:14px 0;padding:14px 16px;border:1px solid var(--gold-edge);border-radius:3px;background:linear-gradient(90deg,rgba(240,194,51,.12),rgba(240,194,51,.03))}
+.pickbox b{color:var(--gold);font-family:var(--display);font-size:18px;letter-spacing:.06em;font-weight:400}
+.rej{margin:8px 0;padding:10px 12px;border-left:3px solid var(--line);background:rgba(0,0,0,.2);font-size:13px;color:var(--text-2)}
+.rej b{color:var(--muted);font-size:12px;letter-spacing:.1em}
+.board{width:1920px;height:1080px;position:relative;overflow:hidden;background:var(--ground);margin:16px 0 40px;box-shadow:0 24px 60px rgba(0,0,0,.55)}
+.board.shot{box-shadow:none}
+
+/* —— CreationChrome (pre-career — NOT ShellChrome) —— */
+.cc{width:100%;height:100%;position:relative;background:var(--ground);display:flex;flex-direction:column}
+.cc::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(55% 40% at 70% 0%,rgba(63,134,204,.14),transparent 70%),radial-gradient(40% 35% at 15% 90%,rgba(240,194,51,.05),transparent 70%);z-index:0}
+.cc > *{position:relative;z-index:1}
+.cc-top{height:72px;flex:none;display:grid;grid-template-columns:220px 1fr auto;align-items:stretch;border-bottom:1px solid var(--edge);background:linear-gradient(180deg,rgba(42,51,71,.98),rgba(28,34,48,.98));box-shadow:0 1px 0 var(--edge-hi) inset}
+.cc-brand{display:flex;align-items:center;gap:12px;padding:0 16px;border-right:1px solid var(--edge);background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo))}
+.cc-brand .mark{width:40px;height:40px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#fff,#cfd8e6 70%);color:var(--gym-deep);font-family:var(--display);font-size:16px;display:grid;place-items:center;border:2px solid rgba(0,0,0,.35);flex:none}
+.cc-brand .nm{font-family:var(--display);font-size:20px;letter-spacing:.05em;color:#fff;line-height:1}
+.cc-brand .sub{font-size:12px;letter-spacing:.14em;font-weight:700;color:rgba(255,255,255,.88);margin-top:2px}
+.cc-steps{display:flex;align-items:center;gap:0;padding:0 18px}
+.step{display:flex;align-items:center;gap:10px;height:44px;padding:0 14px;border-radius:3px;border:1px solid transparent;opacity:.55}
+.step .num{width:28px;height:28px;border-radius:50%;border:1px solid var(--edge);background:var(--panel-lo);display:grid;place-items:center;font-family:var(--display);font-size:16px;color:var(--muted)}
+.step .lab{font-family:var(--display);font-size:18px;letter-spacing:.08em;color:var(--muted)}
+.step .chk{font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--good)}
+.step.on{opacity:1;background:linear-gradient(90deg,var(--gym-tint),transparent);border-color:rgba(63,134,204,.35)}
+.step.on .num{background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff;border-color:var(--gym-deep)}
+.step.on .lab{color:#fff}
+.step.done{opacity:1}
+.step.done .num{background:rgba(79,196,106,.18);color:var(--good);border-color:#2a6a40}
+.step.done .lab{color:var(--text-2)}
+.step-sep{width:28px;height:2px;background:var(--line-soft);margin:0 4px;flex:none}
+.cc-actions{display:flex;align-items:stretch}
+.cc-back{display:flex;flex-direction:column;justify-content:center;padding:0 18px;min-width:120px;border-left:1px solid var(--edge);background:linear-gradient(180deg,#3a4560,#2b3449);color:var(--text-2)}
+.cc-back .t{font-family:var(--display);font-size:18px;letter-spacing:.08em;line-height:1}
+.cc-back .s{font-size:12px;letter-spacing:.1em;font-weight:700;margin-top:2px;color:var(--muted)}
+.cc-trail{height:40px;flex:none;display:flex;align-items:center;gap:10px;padding:0 22px;border-bottom:1px solid var(--line-soft);background:rgba(18,23,34,.55)}
+.cc-trail .tl{font-size:12px;letter-spacing:.14em;font-weight:700;color:var(--dim)}
+.cc-trail .pill{height:26px;padding:0 12px;border-radius:3px;border:1px solid var(--edge);background:var(--chip);font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--text-2);display:inline-flex;align-items:center;gap:8px}
+.cc-trail .pill b{color:var(--text);font-family:var(--display);font-size:14px;letter-spacing:.06em;font-weight:400}
+.cc-trail .arrow{color:var(--dim);font-size:12px}
+.cc-body{flex:1;min-height:0;padding:16px 22px 18px;display:flex;flex-direction:column;gap:12px}
+.cc-foot{height:48px;flex:none;display:flex;align-items:center;gap:14px;padding:0 22px;border-top:1px solid var(--edge);background:rgba(18,23,34,.7)}
+.cc-foot .phase{font-family:var(--display);font-size:18px;letter-spacing:.12em;color:var(--text-2)}
+.cc-foot .hint{margin-left:auto;font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--dim)}
+
+.hubhead{height:44px;display:flex;align-items:center;gap:14px;flex:none}
+.hubhead h2{font-family:var(--display);font-size:32px;letter-spacing:.04em;margin:0;line-height:1}
+.hubhead .meta{font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--muted)}
+.pair{display:grid;grid-template-columns:1fr auto;height:34px;border:1px solid var(--edge);border-radius:3px;overflow:hidden}
+.pair .lab{display:flex;align-items:center;padding:0 10px;background:linear-gradient(180deg,#4a5670,#333d52);font-family:var(--display);font-size:15px;letter-spacing:.08em}
+.pair .val{display:flex;align-items:center;justify-content:center;min-width:64px;padding:0 10px;font-family:var(--display);font-size:20px;background:linear-gradient(180deg,var(--panel-hi),var(--panel-lo))}
+.btn{height:40px;border-radius:3px;border:1px solid var(--edge);background:linear-gradient(180deg,#445273,#303a52);font-family:var(--display);font-size:17px;letter-spacing:.08em;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 0 var(--edge-hi) inset;padding:0 18px}
+.btn.gold{background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:var(--ink);border-color:var(--gold-edge);box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 0 16px rgba(240,194,51,.35)}
+.btn.dim{opacity:.4}
+.btn.go{background:linear-gradient(180deg,var(--go-hi),var(--go-lo));color:#062a10;border-color:var(--go-edge);box-shadow:0 1px 0 rgba(255,255,255,.35) inset}
+.chip{height:26px;padding:0 10px;border-radius:3px;border:1px solid var(--edge);background:var(--chip);font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--text-2);display:inline-flex;align-items:center}
+.chip.on{background:linear-gradient(180deg,#4a5670,#333d52);color:#fff;border-color:var(--line)}
+.alert{height:28px;display:flex;align-items:center;padding:0 10px;background:linear-gradient(90deg,rgba(229,67,58,.35),rgba(229,67,58,.08));border:1px solid var(--bad-edge);border-radius:2px;font-size:12px;letter-spacing:.1em;font-weight:700;color:#ffb0aa}
+.alert.amber{background:linear-gradient(90deg,rgba(240,160,32,.3),rgba(240,160,32,.06));border-color:#7a4c08;color:#ffd08a}
+.sil{width:48px;height:86px;background:linear-gradient(180deg,#3b4557 0%,#2a3347 55%,#1c2230 100%);border-radius:24px 24px 6px 6px;position:relative;flex:none;box-shadow:0 8px 18px rgba(0,0,0,.4)}
+.sil::before{content:"";position:absolute;top:-22px;left:50%;transform:translateX(-50%);width:28px;height:28px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#4a556c,#2b3447 70%);border:2px solid var(--edge)}
+.sil.lg{width:72px;height:128px;border-radius:36px 36px 8px 8px}
+.sil.lg::before{width:40px;height:40px;top:-28px}
+.sil.sm{width:36px;height:64px;border-radius:18px 18px 4px 4px}
+.sil.sm::before{width:20px;height:20px;top:-14px}
+.meter{height:10px;border-radius:2px;background:var(--track);border:1px solid var(--edge);overflow:hidden}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--gym-lo),var(--gym-hi))}
+.meter.gold i{background:linear-gradient(90deg,var(--gold-lo),var(--gold-hi))}
+.meter.amber i{background:linear-gradient(90deg,#c77c12,#f0a020)}
+.flag{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:2px;font-size:12px;letter-spacing:.08em;font-weight:700;border:1px solid var(--edge);white-space:nowrap}
+.flag.ok{background:rgba(79,196,106,.16);color:var(--good);border-color:#2a6a40}
+.flag.s{background:rgba(240,194,51,.14);color:var(--gold);border-color:var(--gold-edge)}
+.flag.a{background:rgba(47,111,176,.22);color:var(--link);border-color:var(--gym-deep)}
+.flag.c{background:rgba(148,161,184,.12);color:var(--muted)}
+.flag.bad{background:rgba(229,67,58,.18);color:#ff8f87;border-color:var(--bad-edge)}
+.flag.f{background:rgba(240,160,32,.16);color:var(--amber);border-color:#7a4c08}
+.panel{background:var(--panel);border:1px solid var(--edge);border-radius:3px;box-shadow:0 1px 0 var(--edge-hi) inset;min-height:0;display:flex;flex-direction:column;overflow:hidden}
+.ph{font-size:12px;letter-spacing:.14em;font-weight:700;color:var(--muted);padding:10px 12px 6px;border-bottom:1px solid var(--line-soft)}
+
+/* Country market cards */
+.market-grid{flex:1;display:grid;grid-template-columns:1.05fr 1fr;gap:12px;min-height:0}
+.market-list{display:flex;flex-direction:column;gap:8px;min-height:0;overflow:hidden}
+.mrow{display:grid;grid-template-columns:56px 1.4fr 90px 90px 90px 70px;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--edge);border-radius:3px;background:var(--panel);cursor:default}
+.mrow.sel{background:linear-gradient(90deg,var(--gym-tint),rgba(47,111,176,.05));box-shadow:inset 4px 0 0 var(--gym-hi);border-color:rgba(63,134,204,.45)}
+.mrow .flagico{width:44px;height:30px;border-radius:2px;border:1px solid var(--edge);background:linear-gradient(135deg,#3a4560,#2a3347);display:grid;place-items:center;font-family:var(--display);font-size:14px;color:var(--text-2)}
+.mrow .nm{font-family:var(--display);font-size:20px;letter-spacing:.03em;color:#fff;line-height:1.05}
+.mrow .sub{font-size:12px;letter-spacing:.05em;font-weight:700;color:var(--muted);margin-top:2px}
+.mrow .stat{display:flex;flex-direction:column;gap:4px}
+.mrow .stat .sl{font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--dim)}
+.mrow .stat .sv{font-family:var(--display);font-size:18px;line-height:1}
+.detail{display:flex;flex-direction:column;gap:10px;min-height:0}
+.detail-hero{padding:16px;background:var(--panel);border:1px solid var(--edge);border-radius:3px;box-shadow:0 1px 0 var(--edge-hi) inset;display:grid;grid-template-columns:1fr auto;gap:14px;align-items:start}
+.detail-hero h3{font-family:var(--display);font-size:36px;letter-spacing:.03em;margin:0;line-height:1}
+.detail-hero .eye{font-size:12px;letter-spacing:.14em;font-weight:700;color:var(--muted);margin-bottom:6px}
+.detail-hero .blurb{font-size:13px;color:var(--text-2);max-width:48ch;margin-top:8px;line-height:1.45}
+.profile3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.pcard{padding:14px;background:var(--panel);border:1px solid var(--edge);border-radius:3px}
+.pcard .pl{font-size:12px;letter-spacing:.14em;font-weight:700;color:var(--dim)}
+.pcard .pv{font-family:var(--display);font-size:32px;letter-spacing:.02em;line-height:1;margin-top:6px}
+.pcard .ps{font-size:12px;letter-spacing:.05em;font-weight:700;color:var(--muted);margin-top:6px;line-height:1.35}
+.leaveout{padding:10px 12px;border:1px dashed var(--line);border-radius:3px;background:rgba(0,0,0,.15);font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--dim)}
+.leaveout b{color:var(--muted)}
+.cta-row{display:flex;align-items:center;gap:12px;margin-top:auto}
+
+/* City */
+.city-wrap{flex:1;display:grid;grid-template-columns:320px 1fr 420px;gap:12px;min-height:0}
+.city-list{display:flex;flex-direction:column;gap:6px}
+.crow{padding:12px;border:1px solid var(--edge);border-radius:3px;background:var(--panel);display:flex;flex-direction:column;gap:4px}
+.crow.sel{box-shadow:inset 4px 0 0 var(--gym-hi);background:linear-gradient(90deg,var(--gym-tint),rgba(47,111,176,.05))}
+.crow .cn{font-family:var(--display);font-size:22px;letter-spacing:.03em}
+.crow .cs{font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--muted)}
+.intel{display:flex;flex-direction:column;gap:10px;min-height:0}
+.intel-grid{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:10px;min-height:0}
+.ilist{flex:1;display:flex;flex-direction:column;min-height:0}
+.irow{display:flex;align-items:center;gap:10px;padding:8px 10px;border-bottom:1px solid var(--line-soft);font-size:12px;color:var(--text-2)}
+.irow .in{font-family:var(--display);font-size:16px;color:#fff;letter-spacing:.03em;flex:1}
+.irow .ix{font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--muted)}
+.rival{display:flex;align-items:center;gap:10px;padding:10px;border-bottom:1px solid var(--line-soft)}
+.rival .rn{font-family:var(--display);font-size:18px;color:#fff}
+.rival .rs{font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--muted)}
+
+/* Gym */
+.gym-wrap{flex:1;display:grid;grid-template-columns:1.05fr .95fr;gap:12px;min-height:0}
+.namebox{padding:18px;background:var(--panel);border:1px solid var(--edge);border-radius:3px;display:flex;flex-direction:column;gap:12px}
+.namebox .nl{font-size:12px;letter-spacing:.14em;font-weight:700;color:var(--muted)}
+.namefield{height:56px;border:1px solid var(--line);border-radius:3px;background:var(--track);display:flex;align-items:center;padding:0 16px;font-family:var(--display);font-size:32px;letter-spacing:.04em;color:#fff;box-shadow:0 1px 0 var(--edge-hi) inset}
+.namefield.empty{color:var(--dim)}
+.namefield.bad{border-color:var(--bad);box-shadow:0 0 0 1px rgba(229,67,58,.35)}
+.floor-prev{flex:1;padding:14px;background:var(--panel);border:1px solid var(--edge);border-radius:3px;display:flex;flex-direction:column;gap:10px;min-height:0}
+.floor-grid{flex:1;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(3,1fr);gap:6px;min-height:0}
+.ftile{border:1px solid var(--edge);border-radius:2px;background:linear-gradient(180deg,#2f3a52,#222a3b);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--muted)}
+.ftile.on{border-color:var(--gym-hi);background:linear-gradient(180deg,rgba(47,111,176,.25),#222a3b);color:var(--text-2)}
+.ftile .ft{font-family:var(--display);font-size:14px;color:var(--text)}
+.roster-take{padding:14px;background:var(--panel);border:1px solid var(--edge);border-radius:3px;display:flex;flex-direction:column;gap:10px;flex:1;min-height:0}
+.rtrow{display:grid;grid-template-columns:44px 1fr auto auto;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line-soft)}
+.rtrow .rn{font-family:var(--display);font-size:18px;color:#fff}
+.rtrow .rs{font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--muted)}
+
+/* Handoff storyboard */
+.handoff-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr);gap:14px;padding:56px 28px 28px;height:100%;background:radial-gradient(80% 60% at 50% 0%,#2a3346 0%,var(--ground) 70%)}
+.hf{position:relative;border:1px solid var(--edge);border-radius:4px;overflow:hidden;background:#151a24;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.hf .tag{position:absolute;top:8px;left:8px;z-index:5;display:flex;gap:6px;align-items:center}
+.hf .ms{font-family:var(--display);font-size:22px;letter-spacing:.04em;padding:4px 10px;background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:var(--ink);border:1px solid var(--gold-edge);border-radius:3px;box-shadow:0 1px 0 rgba(255,255,255,.35) inset,0 0 14px rgba(240,194,51,.35)}
+.hf .step{font-size:12px;letter-spacing:.12em;font-weight:700;color:var(--text);padding:4px 8px;background:rgba(18,23,34,.85);border:1px solid var(--line-soft);border-radius:3px;opacity:1;height:auto}
+.hf .cap{position:absolute;bottom:0;left:0;right:0;padding:8px 10px;background:linear-gradient(0deg,rgba(12,14,20,.95),rgba(12,14,20,.55));font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--text-2);z-index:4}
+.hf .mini{transform-origin:top left;transform:scale(0.32);width:1920px;height:1080px;pointer-events:none}
+.board-label{position:absolute;top:12px;left:28px;right:28px;display:flex;align-items:baseline;gap:14px;z-index:10}
+.board-label .bn{font-family:var(--display);font-size:28px;letter-spacing:.08em}
+.board-label .bl{font-size:12px;letter-spacing:.14em;font-weight:700;color:var(--muted)}
+
+/* Mini shell for handoff end state */
+.shell{display:grid;grid-template-columns:196px 1fr;grid-template-rows:64px 1fr;width:100%;height:100%;position:relative}
+.shell .top{grid-column:1/3;display:grid;grid-template-columns:196px 1fr auto;height:64px;background:linear-gradient(180deg,rgba(52,64,90,.96),rgba(38,46,66,.96));border-bottom:1px solid var(--edge)}
+.shell .crest{display:flex;align-items:center;gap:10px;padding:0 14px;background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));border-right:1px solid var(--edge)}
+.shell .crest .mark{width:36px;height:36px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#fff,#cfd8e6 70%);color:var(--gym-deep);font-family:var(--display);font-size:16px;display:grid;place-items:center;border:2px solid rgba(0,0,0,.35)}
+.shell .crest .nm{font-family:var(--display);font-size:18px;letter-spacing:.05em;color:#fff;line-height:1}
+.shell .crest .sub{font-size:12px;letter-spacing:.12em;font-weight:700;color:rgba(255,255,255,.85);margin-top:2px}
+.shell .hl{display:flex;align-items:center;padding:0 18px;gap:12px;border-right:1px solid var(--edge)}
+.shell .hl h2{font-family:var(--display);font-size:34px;margin:0;letter-spacing:.04em;color:#fff}
+.shell .datecont{display:flex;align-items:stretch}
+.shell .date{padding:0 16px;display:flex;flex-direction:column;justify-content:center;text-align:right;background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff}
+.shell .date .w{font-size:12px;letter-spacing:.16em;font-weight:700;opacity:.9}
+.shell .date .d{font-family:var(--display);font-size:22px;line-height:1;margin-top:2px}
+.shell .continue{display:flex;flex-direction:column;justify-content:center;padding:0 22px;background:linear-gradient(180deg,var(--go-hi),var(--go-lo));color:#062a10;border-left:1px solid var(--go-edge);box-shadow:0 1px 0 rgba(255,255,255,.35) inset}
+.shell .continue .t{font-family:var(--display);font-size:26px;letter-spacing:.06em;line-height:1}
+.shell .continue .s{font-size:12px;letter-spacing:.12em;font-weight:700;margin-top:2px}
+.shell .rail{background:linear-gradient(180deg,#1e2533,#171c27);border-right:1px solid var(--edge);display:flex;flex-direction:column}
+.shell .rail a{display:flex;align-items:center;gap:10px;height:44px;padding:0 12px 0 10px;color:var(--text-2);text-decoration:none;font-size:13px;font-weight:700;letter-spacing:.06em;border-bottom:1px solid rgba(0,0,0,.35);border-left:4px solid transparent}
+.shell .rail a .ic{width:22px;text-align:center;font-family:var(--display);font-size:18px;color:var(--muted)}
+.shell .rail a.on{background:linear-gradient(90deg,var(--gym-tint),transparent);color:#fff;border-left-color:var(--gym-hi)}
+.shell .rail a.on .ic{color:var(--gold)}
+.shell .body{background:var(--ground);padding:18px 22px;position:relative;overflow:hidden}
+.shell .body .card{background:var(--panel);border:1px solid var(--edge);border-radius:3px;padding:14px 16px;max-width:640px}
+.shell .body .card .k{font-size:12px;letter-spacing:.14em;font-weight:700;color:var(--muted)}
+.shell .body .card h3{font-family:var(--display);font-size:28px;margin:4px 0 6px;letter-spacing:.04em}
+.shell .body .card p{margin:0;color:var(--text-2);font-size:13px}
+
+/* States contact */
+.states{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:12px;padding:52px 18px 18px;height:100%;background:radial-gradient(90% 70% at 50% 0%,#2a3346,var(--ground) 75%)}
+.scell{border:1px solid var(--edge);border-radius:3px;overflow:hidden;background:#151a24;position:relative;display:flex;flex-direction:column}
+.scell .stag{position:absolute;top:8px;left:8px;z-index:3;font-size:12px;letter-spacing:.12em;font-weight:700;padding:4px 8px;background:rgba(18,23,34,.92);border:1px solid var(--line-soft);border-radius:2px;color:var(--text-2)}
+.scell .sbody{flex:1;padding:44px 14px 14px;display:flex;flex-direction:column;gap:10px;min-height:0}
+.scell .scap{font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--muted);line-height:1.4}
+
+.annot{font-size:12px;color:var(--muted);padding:8px 12px;border-left:3px solid var(--gym-hi);background:rgba(0,0,0,.2);margin:8px 0}
+table.gaps{width:100%;border-collapse:collapse;margin:12px 0;max-width:1100px}
+table.gaps th,table.gaps td{text-align:left;padding:8px 10px;border:1px solid var(--edge);font-size:13px}
+table.gaps th{background:var(--panel-lo);font-size:12px;letter-spacing:.1em;color:var(--muted)}
+table.gaps td code{font-family:var(--mono);color:var(--gold);font-size:12px}
+</style>
+</head>
+<body>
+
+<div class="doc" id="doc">
+  <div class="mast">
+    <div class="eyebrow">Kalli · FightCamp K13 · Study only — no .gd / .tscn</div>
+    <h1>CAREER CREATION</h1>
+    <p>Country → city → gym is the last stretch of the pre-kit game. No rail, no top career bar, no Continue — <b style="color:var(--text)">ShellChrome is career-only</b>. This study picks the shape, designs CreationChrome, shows what each decision needs from the listed data APIs, and draws the seam into THE DAY.</p>
+  </div>
+  <div class="rules">
+    <span>BEBAS · IBM PLEX MONO</span>
+    <span>SIZE_MIN 12</span>
+    <span>1920×1080</span>
+    <span>GOLD ×1 / BOARD</span>
+    <span>GO = CONTINUE ONLY (HANDOFF SHELL)</span>
+    <span>NO SHELLCHROME</span>
+    <span>GYM ≠ CAMP</span>
+    <span>♀ ≠ ♂</span>
+    <span>SILHOUETTES</span>
+  </div>
+
+  <div class="sec">
+    <h2>A · THE SHAPE</h2>
+    <div class="pickbox"><b>PICK: ONE FLOW WITH STEPS</b> — a single CreationFlow under CreationChrome. Steps COUNTRY → CITY → GYM; committed choices stay on the trail strip so the third decision is never blind.</div>
+    <div class="rej"><b>REJECTED · THREE SCENES</b> — separate CountryMap / CityScreen / GymHub loads kill the memory of market + city unless every scene rebuilds a summary. That is how the 2026-08 look stayed half-blind.</div>
+    <div class="rej"><b>REJECTED · ONE BOARD SWAP MIDDLE</b> — swapping only the middle without step chrome leaves "where am I / how far" unanswered once ShellChrome is gone. Middle-swap is the implementation detail inside the flow, not the product shape.</div>
+  </div>
+
+  <div class="sec">
+    <h2>B · THE CHROME</h2>
+    <p><b style="color:var(--text)">Own CreationChrome</b> — do not reuse K7 set-piece frame (way-out / stakes / clock / names is fight gear). Do not extend ShellChrome (rail + Continue are career furniture). CreationChrome = brand strip + horizontal step strip (1/2/3) + BACK + committed trail + body. Step 2 of 3 reads as CITY lit, COUNTRY checked, GYM dim — no rail required.</p>
+    <p class="note">Gold ×1 is the forward action (CHOOSE MARKET / ENTER CITY / OPEN GYM). Green appears only when ShellChrome arrives on the handoff settle frame.</p>
+  </div>
+
+  <div class="sec">
+    <h2>C · WHAT EACH DECISION NEEDS</h2>
+    <p><b style="color:var(--text)">COUNTRY</b> — on screen from <code>get_country_combat_profile()</code> + <code>get_country_data()</code>: economy, talent depth, combat popularity (and specialty / gym count as supporting). Leave out rivals, orgs, events, coaches, prospects — those are city / later.</p>
+    <p style="margin-top:8px"><b style="color:var(--text)">CITY</b> — on screen from <code>get_rival_gyms()</code>, <code>get_world_organizations()</code>, <code>get_world_events()</code>: rival gyms, orgs headquartered / assigned here, upcoming cards. Leave out full coach / prospect lists (<code>get_world_coaches</code> / <code>get_world_prospects</code> belong to SCOUTING after the save exists) and floor editing.</p>
+    <p style="margin-top:8px"><b style="color:var(--text)">GYM</b> — name field + starter floor take (<code>generate_starter_boxing_floor</code>) + starter roster take. Leave out store, repair, assignment — those are GYM hub after day one.</p>
+  </div>
+
+  <div class="sec">
+    <h2>D · HANDOFF → THE DAY</h2>
+    <p>After <code>begin_new_career</code> → <code>generate_starter_boxing_floor</code> → <code>finalize_new_career</code>, CreationChrome folds and ShellChrome locks onto THE DAY. <b style="color:var(--text)">K7 shutter language, inverted</b>: K7 removes the shell for a set-piece; creation installs the shell for the career. Same "changing gear, not a load" seam feel — not the K7 frame itself.</p>
+  </div>
+
+  <div class="sec">
+    <h2>E · BOOT MENU (one line)</h2>
+    <p><b style="color:var(--text)">MainMenu is its own rebuild stage</b> — slots / load / settings is boot plumbing, not the country→city→gym decision chain.</p>
+  </div>
+
+  <div class="sec">
+    <h2>F · KIT GAPS</h2>
+    <p>Tried gym / training / schedule / scouting families first. Reuse <code>pair</code> (slate), <code>badge</code>, <code>alert_strip</code>, <code>filter_strip</code>, <code>squad_row</code> rhythm, <code>capacity_meter</code>, <code>floor_grid</code> cousin for starter preview, <code>illegal_refusal</code> for empty name.</p>
+    <table class="gaps">
+      <tr><th>Instrument</th><th>Need</th></tr>
+      <tr><td><code>creation_chrome</code></td><td>Pre-career frame: brand + step strip + BACK + trail — no rail / Continue</td></tr>
+      <tr><td><code>step_strip</code></td><td>1/2/3 progress with done / current / ahead states</td></tr>
+      <tr><td><code>committed_trail</code></td><td>Country → city chips so step 3 remembers 1+2</td></tr>
+      <tr><td><code>market_card</code></td><td>Economy / talent / combat popularity read for a country</td></tr>
+      <tr><td><code>city_intel</code></td><td>Rivals + orgs + events columns for one city</td></tr>
+      <tr><td><code>starter_take</code></td><td>Starter floor tiles + roster silhouettes before OPEN GYM</td></tr>
+      <tr><td><code>creation_seam</code></td><td>CreationChrome fold → shutter → ShellChrome THE DAY (K7 inverted)</td></tr>
+    </table>
+    <p class="note">No drag primitive. Name field, list select, and OPEN GYM stay click / type.</p>
+  </div>
+</div>
+
+<!-- ===================== 01 THE COUNTRY ===================== -->
+<div class="board shot" id="board-country">
+  <div class="cc">
+    <div class="cc-top">
+      <div class="cc-brand"><div class="mark">FC</div><div><div class="nm">FIGHTCAMP</div><div class="sub">NEW CAREER</div></div></div>
+      <div class="cc-steps">
+        <div class="step on"><div class="num">1</div><div class="lab">COUNTRY</div></div>
+        <div class="step-sep"></div>
+        <div class="step"><div class="num">2</div><div class="lab">CITY</div></div>
+        <div class="step-sep"></div>
+        <div class="step"><div class="num">3</div><div class="lab">GYM</div></div>
+      </div>
+      <div class="cc-actions"><div class="cc-back"><div class="t">BACK</div><div class="s">MAIN MENU</div></div></div>
+    </div>
+    <div class="cc-trail"><span class="tl">COMMITTED</span><span class="pill">NONE YET — PICK A MARKET</span></div>
+    <div class="cc-body">
+      <div class="hubhead">
+        <h2>THE COUNTRY</h2>
+        <span class="meta">STEP 1 OF 3 · get_country_combat_profile + get_country_data</span>
+        <span class="chip on" style="margin-left:auto">LAUNCH MARKETS</span>
+        <span class="chip">ALL</span>
+      </div>
+      <div class="market-grid">
+        <div class="market-list panel" style="padding:10px;gap:8px;display:flex;flex-direction:column">
+          <div class="ph" style="border:0;padding:0 4px 8px">MARKETS</div>
+          <div class="mrow sel">
+            <div class="flagico">US</div>
+            <div><div class="nm">UNITED STATES</div><div class="sub">WRESTLING · 87 GYMS · TIER S</div></div>
+            <div class="stat"><span class="sl">ECONOMY</span><span class="sv">65K</span></div>
+            <div class="stat"><span class="sl">TALENT</span><span class="sv">S</span></div>
+            <div class="stat"><span class="sl">COMBAT</span><span class="sv">HIGH</span></div>
+            <span class="flag s">S</span>
+          </div>
+          <div class="mrow">
+            <div class="flagico">JP</div>
+            <div><div class="nm">JAPAN</div><div class="sub">JUDO · 38 GYMS · TIER A</div></div>
+            <div class="stat"><span class="sl">ECONOMY</span><span class="sv">40K</span></div>
+            <div class="stat"><span class="sl">TALENT</span><span class="sv">A</span></div>
+            <div class="stat"><span class="sl">COMBAT</span><span class="sv">HIGH</span></div>
+            <span class="flag a">A</span>
+          </div>
+          <div class="mrow">
+            <div class="flagico">BR</div>
+            <div><div class="nm">BRAZIL</div><div class="sub">BJJ · 48 GYMS · TIER S</div></div>
+            <div class="stat"><span class="sl">ECONOMY</span><span class="sv">8.7K</span></div>
+            <div class="stat"><span class="sl">TALENT</span><span class="sv">S</span></div>
+            <div class="stat"><span class="sl">COMBAT</span><span class="sv">HIGH</span></div>
+            <span class="flag s">S</span>
+          </div>
+          <div class="mrow">
+            <div class="flagico">TH</div>
+            <div><div class="nm">THAILAND</div><div class="sub">MUAY THAI · 26 GYMS · TIER S</div></div>
+            <div class="stat"><span class="sl">ECONOMY</span><span class="sv">7.8K</span></div>
+            <div class="stat"><span class="sl">TALENT</span><span class="sv">S</span></div>
+            <div class="stat"><span class="sl">COMBAT</span><span class="sv">HIGH</span></div>
+            <span class="flag s">S</span>
+          </div>
+          <div class="mrow">
+            <div class="flagico">MX</div>
+            <div><div class="nm">MEXICO</div><div class="sub">BOXING · 27 GYMS · TIER A</div></div>
+            <div class="stat"><span class="sl">ECONOMY</span><span class="sv">9.9K</span></div>
+            <div class="stat"><span class="sl">TALENT</span><span class="sv">A</span></div>
+            <div class="stat"><span class="sl">COMBAT</span><span class="sv">MED</span></div>
+            <span class="flag a">A</span>
+          </div>
+          <div class="mrow">
+            <div class="flagico">CY</div>
+            <div><div class="nm">CYPRUS</div><div class="sub">WRESTLING · 1 GYM · TIER C</div></div>
+            <div class="stat"><span class="sl">ECONOMY</span><span class="sv">21K</span></div>
+            <div class="stat"><span class="sl">TALENT</span><span class="sv">C</span></div>
+            <div class="stat"><span class="sl">COMBAT</span><span class="sv">LOW</span></div>
+            <span class="flag c">C</span>
+          </div>
+        </div>
+        <div class="detail">
+          <div class="detail-hero">
+            <div>
+              <div class="eye">SELECTED MARKET</div>
+              <h3>UNITED STATES</h3>
+              <div class="blurb">Deep talent pool, strong purses, crowded rival gyms. Economy supports early payroll; combat popularity keeps cards full. Specialty lean: wrestling.</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+              <span class="flag s">TIER S</span>
+              <div class="sil lg" title="market silhouette"></div>
+            </div>
+          </div>
+          <div class="profile3">
+            <div class="pcard"><div class="pl">ECONOMY</div><div class="pv">$65K</div><div class="ps">GDP / CAPITA · PAYROLL ROOM</div><div class="meter" style="margin-top:10px"><i style="width:92%"></i></div></div>
+            <div class="pcard"><div class="pl">TALENT DEPTH</div><div class="pv">S</div><div class="ps">PROSPECT PIPELINE · 87 GYMS</div><div class="meter" style="margin-top:10px"><i style="width:96%"></i></div></div>
+            <div class="pcard"><div class="pl">COMBAT POP.</div><div class="pv">HIGH</div><div class="ps">HOME CROWDS · CARD DEMAND</div><div class="meter" style="margin-top:10px"><i style="width:88%"></i></div></div>
+          </div>
+          <div class="leaveout"><b>LEFT OUT:</b> RIVALS · ORGS · EVENTS · COACHES · PROSPECTS — CITY / SCOUTING JUDGE THOSE</div>
+          <div class="cta-row">
+            <div class="btn dim">NEED A MARKET</div>
+            <div class="btn gold" style="margin-left:auto;min-width:220px">CHOOSE MARKET</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cc-foot"><div class="phase">PRE-CAREER · CREATION</div><div class="hint">NO RAIL · NO CONTINUE · GOLD ×1 = CHOOSE MARKET</div></div>
+  </div>
+</div>
+
+<!-- ===================== 02 THE CITY ===================== -->
+<div class="board shot" id="board-city">
+  <div class="cc">
+    <div class="cc-top">
+      <div class="cc-brand"><div class="mark">FC</div><div><div class="nm">FIGHTCAMP</div><div class="sub">NEW CAREER</div></div></div>
+      <div class="cc-steps">
+        <div class="step done"><div class="num">✓</div><div><div class="lab">COUNTRY</div><div class="chk">DONE</div></div></div>
+        <div class="step-sep"></div>
+        <div class="step on"><div class="num">2</div><div class="lab">CITY</div></div>
+        <div class="step-sep"></div>
+        <div class="step"><div class="num">3</div><div class="lab">GYM</div></div>
+      </div>
+      <div class="cc-actions"><div class="cc-back"><div class="t">BACK</div><div class="s">COUNTRY</div></div></div>
+    </div>
+    <div class="cc-trail">
+      <span class="tl">COMMITTED</span>
+      <span class="pill"><b>UNITED STATES</b> · TIER S</span>
+      <span class="arrow">→</span>
+      <span class="pill">PICK A CITY</span>
+    </div>
+    <div class="cc-body">
+      <div class="hubhead">
+        <h2>THE CITY</h2>
+        <span class="meta">STEP 2 OF 3 · rivals · orgs · events · step strip reads progress without a rail</span>
+      </div>
+      <div class="city-wrap">
+        <div class="city-list panel" style="padding:8px">
+          <div class="ph">CITIES IN MARKET</div>
+          <div class="crow sel"><div class="cn">LOS ANGELES</div><div class="cs">24 GYMS · WEST COAST</div></div>
+          <div class="crow"><div class="cn">CHICAGO</div><div class="cs">15 GYMS · MIDWEST</div></div>
+          <div class="crow"><div class="cn">WASHINGTON, D.C.</div><div class="cs">48 GYMS · CAPITAL</div></div>
+        </div>
+        <div class="intel">
+          <div class="panel" style="flex:1">
+            <div class="ph">RIVAL GYMS · get_rival_gyms()</div>
+            <div class="rival"><div class="sil sm"></div><div><div class="rn">GOLDEN GLORY LA</div><div class="rs">ROSTER 14 · MEN LW–WW</div></div><span class="flag a">RIVAL</span></div>
+            <div class="rival"><div class="sil sm"></div><div><div class="rn">SOUTHPAW ATHLETIC</div><div class="rs">ROSTER 9 · MEN · WOMEN SEPARATE</div></div><span class="flag a">RIVAL</span></div>
+            <div class="rival"><div class="sil sm"></div><div><div class="rn">HARBOR CITY BOXING</div><div class="rs">ROSTER 11 · BOXING LEAN</div></div><span class="flag c">LOCAL</span></div>
+            <div class="rival"><div class="sil sm"></div><div><div class="rn">VALLEY GRAPPLE</div><div class="rs">ROSTER 7 · BJJ / MMA</div></div><span class="flag c">LOCAL</span></div>
+          </div>
+          <div class="leaveout"><b>LEFT OUT:</b> FULL COACH / PROSPECT LISTS — SCOUTING AFTER SAVE · ♀ NEVER MATCHED TO ♂</div>
+        </div>
+        <div class="intel">
+          <div class="intel-grid" style="flex:none;height:280px">
+            <div class="panel ilist">
+              <div class="ph">ORGS · get_world_organizations()</div>
+              <div class="irow"><span class="in">UFC</span><span class="ix">PROMO · HQ US</span></div>
+              <div class="irow"><span class="in">PFL</span><span class="ix">PROMO · HQ US</span></div>
+              <div class="irow"><span class="in">KARATE COMBAT</span><span class="ix">PROMO · HQ US</span></div>
+            </div>
+            <div class="panel ilist">
+              <div class="ph">EVENTS · get_world_events()</div>
+              <div class="irow"><span class="in">UFC FIGHT NIGHT</span><span class="ix">SAT · LA</span></div>
+              <div class="irow"><span class="in">REGIONAL BOXING</span><span class="ix">FRI · INGLEWOOD</span></div>
+              <div class="irow"><span class="in">AMATEUR CARD</span><span class="ix">SUN · LONG BEACH</span></div>
+            </div>
+          </div>
+          <div class="panel" style="padding:14px;gap:10px;flex:1;display:flex;flex-direction:column">
+            <div class="eye" style="font-size:12px;letter-spacing:.14em;font-weight:700;color:var(--muted)">SELECTED CITY</div>
+            <div style="font-family:var(--display);font-size:28px;letter-spacing:.03em">LOS ANGELES</div>
+            <div style="font-size:13px;color:var(--text-2);line-height:1.45">Crowded rival floor, three promotions in market, weekly cards in reach. Harder day-one — richer long game.</div>
+            <div class="cta-row" style="margin-top:auto">
+              <div class="btn gold" style="width:100%">ENTER CITY</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cc-foot"><div class="phase">PRE-CAREER · CREATION</div><div class="hint">STEP 2 OF 3 LIT · COUNTRY CHECKED ON TRAIL · GOLD ×1 = ENTER CITY</div></div>
+  </div>
+</div>
+
+<!-- ===================== 03 THE GYM ===================== -->
+<div class="board shot" id="board-gym">
+  <div class="cc">
+    <div class="cc-top">
+      <div class="cc-brand"><div class="mark">FC</div><div><div class="nm">FIGHTCAMP</div><div class="sub">NEW CAREER</div></div></div>
+      <div class="cc-steps">
+        <div class="step done"><div class="num">✓</div><div><div class="lab">COUNTRY</div><div class="chk">DONE</div></div></div>
+        <div class="step-sep"></div>
+        <div class="step done"><div class="num">✓</div><div><div class="lab">CITY</div><div class="chk">DONE</div></div></div>
+        <div class="step-sep"></div>
+        <div class="step on"><div class="num">3</div><div class="lab">GYM</div></div>
+      </div>
+      <div class="cc-actions"><div class="cc-back"><div class="t">BACK</div><div class="s">CITY</div></div></div>
+    </div>
+    <div class="cc-trail">
+      <span class="tl">COMMITTED</span>
+      <span class="pill"><b>UNITED STATES</b></span>
+      <span class="arrow">→</span>
+      <span class="pill"><b>LOS ANGELES</b></span>
+      <span class="arrow">→</span>
+      <span class="pill">NAME YOUR GYM</span>
+    </div>
+    <div class="cc-body">
+      <div class="hubhead">
+        <h2>THE GYM</h2>
+        <span class="meta">STEP 3 OF 3 · name · starter floor · roster take · facility is a GYM</span>
+      </div>
+      <div class="gym-wrap">
+        <div style="display:flex;flex-direction:column;gap:12px;min-height:0">
+          <div class="namebox">
+            <div class="nl">GYM NAME</div>
+            <div class="namefield">NORTHSIDE</div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <span class="chip on">BOXING FLOOR</span>
+              <span class="chip">MEN / WOMEN SEPARATE</span>
+              <span class="chip">STARTER TAKE</span>
+            </div>
+          </div>
+          <div class="floor-prev">
+            <div class="ph" style="padding:0;border:0">STARTER FLOOR · generate_starter_boxing_floor</div>
+            <div class="floor-grid">
+              <div class="ftile on"><span class="ft">RING</span><span>18×18</span></div>
+              <div class="ftile on"><span class="ft">BAGS</span><span>×4</span></div>
+              <div class="ftile on"><span class="ft">PADS</span><span>CORNER</span></div>
+              <div class="ftile"><span class="ft">EMPTY</span></div>
+              <div class="ftile on"><span class="ft">LOCKER</span></div>
+              <div class="ftile on"><span class="ft">OFFICE</span></div>
+              <div class="ftile"><span class="ft">EMPTY</span></div>
+              <div class="ftile"><span class="ft">EMPTY</span></div>
+              <div class="ftile on"><span class="ft">WEIGHTS</span></div>
+              <div class="ftile"><span class="ft">EMPTY</span></div>
+              <div class="ftile"><span class="ft">EMPTY</span></div>
+              <div class="ftile"><span class="ft">EMPTY</span></div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:center">
+              <div class="pair" style="flex:1"><div class="lab">CAPACITY</div><div class="val">6 / 12</div></div>
+              <div class="pair" style="flex:1"><div class="lab">UPKEEP</div><div class="val">$420</div></div>
+            </div>
+            <div class="leaveout"><b>LEFT OUT:</b> STORE · REPAIR · MOVE · STAFF ASSIGN — GYM HUB AFTER DAY ONE</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;min-height:0">
+          <div class="roster-take">
+            <div class="ph" style="padding:0;border:0;margin-bottom:4px">STARTER ROSTER TAKE</div>
+            <div class="rtrow"><div class="sil sm"></div><div><div class="rn">JORDAN COLE</div><div class="rs">M · LW · BOXING · 22</div></div><span class="flag ok">MEN LW</span><span class="chip">TAKE</span></div>
+            <div class="rtrow"><div class="sil sm"></div><div><div class="rn">MIA TORRES</div><div class="rs">F · FW · BOXING · 24</div></div><span class="flag f">WOMEN FW</span><span class="chip">TAKE</span></div>
+            <div class="rtrow"><div class="sil sm"></div><div><div class="rn">DEV REED</div><div class="rs">M · WW · BOXING · 19</div></div><span class="flag ok">MEN WW</span><span class="chip">TAKE</span></div>
+            <div class="rtrow"><div class="sil sm"></div><div><div class="rn">COACH ELLIS</div><div class="rs">HEAD COACH · CORNER</div></div><span class="flag a">STAFF</span><span class="chip">TAKE</span></div>
+            <div style="font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--dim);margin-top:6px">♀ / ♂ DIVISIONS NEVER CROSS · WEIGHT CLASSES MUST MATCH</div>
+          </div>
+          <div class="panel" style="padding:14px;display:flex;flex-direction:column;gap:10px">
+            <div style="font-size:12px;letter-spacing:.14em;font-weight:700;color:var(--muted)">SAVE WILL WRITE</div>
+            <div style="font-family:var(--display);font-size:22px">NORTHSIDE · LOS ANGELES · USA</div>
+            <div style="font-size:13px;color:var(--text-2)">begin_new_career → generate_starter_boxing_floor → finalize_new_career</div>
+            <div class="btn gold" style="margin-top:8px">OPEN GYM</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cc-foot"><div class="phase">PRE-CAREER · CREATION</div><div class="hint">GOLD ×1 = OPEN GYM · WRITES SAVE · NO GREEN UNTIL SHELL ARRIVES</div></div>
+  </div>
+</div>
+
+<!-- ===================== 04 THE HANDOFF ===================== -->
+<div class="board shot" id="board-handoff">
+  <div class="board-label"><span class="bn">04 · THE HANDOFF</span><span class="bl">CREATION → THE DAY · K7 SHUTTER LANGUAGE INVERTED · GREEN ONLY WHEN SHELL LOCKS</span></div>
+  <div class="handoff-grid">
+    <div class="hf">
+      <div class="tag"><span class="ms">0 ms</span><span class="step">01 OPEN GYM</span></div>
+      <div class="mini">
+        <div class="cc">
+          <div class="cc-top">
+            <div class="cc-brand"><div class="mark">FC</div><div><div class="nm">FIGHTCAMP</div><div class="sub">NEW CAREER</div></div></div>
+            <div class="cc-steps">
+              <div class="step done"><div class="num">✓</div><div class="lab">COUNTRY</div></div>
+              <div class="step-sep"></div>
+              <div class="step done"><div class="num">✓</div><div class="lab">CITY</div></div>
+              <div class="step-sep"></div>
+              <div class="step on"><div class="num">3</div><div class="lab">GYM</div></div>
+            </div>
+            <div class="cc-actions"><div class="cc-back"><div class="t">BACK</div><div class="s">CITY</div></div></div>
+          </div>
+          <div class="cc-trail"><span class="tl">COMMITTED</span><span class="pill"><b>USA</b></span><span class="arrow">→</span><span class="pill"><b>LA</b></span><span class="arrow">→</span><span class="pill"><b>NORTHSIDE</b></span></div>
+          <div class="cc-body" style="display:grid;place-items:center">
+            <div style="text-align:center">
+              <div style="font-family:var(--display);font-size:64px">NORTHSIDE</div>
+              <div class="btn gold" style="margin:18px auto 0;width:280px">OPEN GYM</div>
+            </div>
+          </div>
+          <div class="cc-foot"><div class="phase">PRE-CAREER</div><div class="hint">SAVE PENDING</div></div>
+        </div>
+      </div>
+      <div class="cap">CreationChrome still up. Gold OPEN GYM fires begin_new_career chain.</div>
+    </div>
+    <div class="hf">
+      <div class="tag"><span class="ms">180 ms</span><span class="step">02 CHROME FOLD</span></div>
+      <div class="mini">
+        <div class="cc" style="opacity:.55">
+          <div class="cc-top" style="height:36px;opacity:.7">
+            <div class="cc-brand" style="padding:0 8px"><div class="mark" style="width:28px;height:28px;font-size:12px">FC</div><div><div class="nm" style="font-size:14px">FIGHTCAMP</div></div></div>
+            <div class="cc-steps" style="transform:scale(.85);transform-origin:left center">
+              <div class="step done"><div class="num">✓</div><div class="lab">COUNTRY</div></div>
+              <div class="step-sep"></div>
+              <div class="step done"><div class="num">✓</div><div class="lab">CITY</div></div>
+              <div class="step-sep"></div>
+              <div class="step on"><div class="num">3</div><div class="lab">GYM</div></div>
+            </div>
+            <div class="cc-actions"></div>
+          </div>
+          <div class="cc-body" style="filter:brightness(.6);display:grid;place-items:center">
+            <div style="font-family:var(--display);font-size:48px;color:var(--dim)">WRITING SAVE…</div>
+          </div>
+        </div>
+      </div>
+      <div class="cap">CreationChrome compresses. Steps / trail leave. No fade-to-black.</div>
+    </div>
+    <div class="hf">
+      <div class="tag"><span class="ms">220 ms</span><span class="step">03 SEAM</span></div>
+      <div class="mini" style="background:#0c1018">
+        <div style="width:1920px;height:1080px;display:grid;place-items:center;background:repeating-linear-gradient(90deg,#0c1018 0 12px,#121722 12px 14px)">
+          <div style="text-align:center">
+            <div style="font-family:var(--display);font-size:72px;letter-spacing:.2em;color:var(--text-2)">THE DAY</div>
+            <div style="font-size:18px;letter-spacing:.24em;font-weight:700;color:var(--muted);margin-top:8px">CHANGING GEAR · NOT A LOAD</div>
+            <div style="margin:24px auto 0;width:280px;height:4px;background:linear-gradient(90deg,transparent,var(--gold),transparent);border-radius:2px"></div>
+          </div>
+        </div>
+      </div>
+      <div class="cap">K7 shutter cue, inverted purpose: shell is about to arrive, not leave. Gold ×1 on the seam line.</div>
+    </div>
+    <div class="hf">
+      <div class="tag"><span class="ms">240 ms</span><span class="step">04 SHELL LOCK</span></div>
+      <div class="mini">
+        <div class="shell">
+          <div class="top">
+            <div class="crest"><div class="mark">FC</div><div><div class="nm">NORTHSIDE</div><div class="sub">GYM</div></div></div>
+            <div class="hl"><h2>DAY</h2></div>
+            <div class="datecont"><div class="date"><div class="w">MON</div><div class="d">01 JAN</div></div><div class="continue" style="opacity:.35"><div class="t">CONTINUE</div><div class="s">END DAY</div></div></div>
+          </div>
+          <div class="rail">
+            <a class="on" href="#"><span class="ic">D</span>Day</a>
+            <a href="#"><span class="ic">G</span>Gym</a>
+            <a href="#"><span class="ic">T</span>Training</a>
+            <a href="#"><span class="ic">S</span>Schedule</a>
+          </div>
+          <div class="body" style="opacity:.4"><div class="card"><div class="k">BRIEFING</div><h3>Day one</h3><p>Body settles next.</p></div></div>
+        </div>
+      </div>
+      <div class="cap">ShellChrome locks: rail + top + green Continue slot. Career furniture exists for the first time.</div>
+    </div>
+    <div class="hf">
+      <div class="tag"><span class="ms">140 ms</span><span class="step">05 SETTLE</span></div>
+      <div class="mini">
+        <div class="shell">
+          <div class="top">
+            <div class="crest"><div class="mark">FC</div><div><div class="nm">NORTHSIDE</div><div class="sub">GYM</div></div></div>
+            <div class="hl"><h2>DAY</h2></div>
+            <div class="datecont"><div class="date"><div class="w">MON</div><div class="d">01 JAN</div></div><div class="continue"><div class="t">CONTINUE</div><div class="s">END DAY</div></div></div>
+          </div>
+          <div class="rail">
+            <a class="on" href="#"><span class="ic">D</span>Day</a>
+            <a href="#"><span class="ic">G</span>Gym</a>
+            <a href="#"><span class="ic">T</span>Training</a>
+            <a href="#"><span class="ic">S</span>Schedule</a>
+            <a href="#"><span class="ic">C</span>Scouting</a>
+            <a href="#"><span class="ic">O</span>Office</a>
+          </div>
+          <div class="body"><div class="card"><div class="k">BRIEFING</div><h3>Northside opens</h3><p>Three athletes on the floor. First week is yours. Welcome to THE DAY.</p></div></div>
+        </div>
+      </div>
+      <div class="cap">THE DAY briefing live. Green CONTINUE is ShellChrome only — first legal GO in the career.</div>
+    </div>
+    <div class="hf">
+      <div class="tag"><span class="ms">Σ 780</span><span class="step">06 CONTRACT</span></div>
+      <div style="padding:48px 16px 40px;height:100%;display:flex;flex-direction:column;gap:10px;font-size:13px;color:var(--text-2)">
+        <div style="font-family:var(--display);font-size:28px;color:#fff;letter-spacing:.06em">ROUTER TIMINGS</div>
+        <div>180 chrome fold + 220 seam + 240 shell lock + 140 settle = <b style="color:var(--text)">780 ms</b></div>
+        <div style="margin-top:8px;font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--muted)">NOT K7 FRAME — K7 LANGUAGE ONLY</div>
+        <div>Way-out / stakes / clock stay fight-only. Creation installs the shell; K7 removes it.</div>
+        <div style="margin-top:auto;padding:10px;border:1px solid var(--gold-edge);border-radius:3px;background:rgba(240,194,51,.1);color:var(--gold);font-family:var(--display);font-size:18px;letter-spacing:.08em">GOLD ×1 ON SEAM LINE THIS BOARD</div>
+      </div>
+      <div class="cap">Contract note for Claude: invert K7 enter; do not mount set-piece chrome.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== 05 STATES ===================== -->
+<div class="board shot" id="board-states">
+  <div class="board-label"><span class="bn">05 · STATES</span><span class="bl">NOTHING CHOSEN · NO DETAIL · INVALID NAME · BACK-OUT</span></div>
+  <div class="states">
+    <div class="scell">
+      <div class="stag">01 · NOTHING CHOSEN</div>
+      <div class="sbody">
+        <div class="hubhead" style="height:auto"><h2 style="font-size:22px">THE COUNTRY</h2><span class="meta">NO SELECTION</span></div>
+        <div class="mrow" style="opacity:.55"><div class="flagico">—</div><div><div class="nm">SELECT A MARKET</div><div class="sub">ECONOMY · TALENT · COMBAT POPULARITY</div></div></div>
+        <div class="detail-hero" style="opacity:.5;padding:12px">
+          <div><div class="eye">NO MARKET</div><h3 style="font-size:24px">—</h3><div class="blurb">Detail panel waits. Gold CHOOSE MARKET stays dim until a row is armed.</div></div>
+        </div>
+        <div class="btn dim">CHOOSE MARKET</div>
+        <div class="scap">Empty selection is a state, not a silent disable — primary stays visible and dim.</div>
+      </div>
+    </div>
+    <div class="scell">
+      <div class="stag">02 · MARKET · NO DETAIL</div>
+      <div class="sbody">
+        <div class="hubhead" style="height:auto"><h2 style="font-size:22px">THE COUNTRY</h2><span class="meta">PROFILE MISSING</span></div>
+        <div class="mrow sel"><div class="flagico">??</div><div><div class="nm">UNLISTED MARKET</div><div class="sub">DATA NOT GENERATED</div></div><span class="flag bad">NO DATA</span></div>
+        <div class="alert amber">COMBAT PROFILE UNAVAILABLE — CANNOT JUDGE THIS MARKET YET</div>
+        <div class="profile3">
+          <div class="pcard"><div class="pl">ECONOMY</div><div class="pv" style="color:var(--dim)">—</div></div>
+          <div class="pcard"><div class="pl">TALENT</div><div class="pv" style="color:var(--dim)">—</div></div>
+          <div class="pcard"><div class="pl">COMBAT</div><div class="pv" style="color:var(--dim)">—</div></div>
+        </div>
+        <div class="btn dim">CHOOSE MARKET</div>
+        <div class="scap">Honest empty profile from get_country_combat_profile miss — never invent bars.</div>
+      </div>
+    </div>
+    <div class="scell">
+      <div class="stag">03 · INVALID / EMPTY NAME</div>
+      <div class="sbody">
+        <div class="hubhead" style="height:auto"><h2 style="font-size:22px">THE GYM</h2><span class="meta">NAME REQUIRED</span></div>
+        <div class="namebox" style="padding:12px">
+          <div class="nl">GYM NAME</div>
+          <div class="namefield empty bad">ENTER A NAME</div>
+          <div class="alert">NAME CANNOT BE EMPTY</div>
+        </div>
+        <div class="btn dim">OPEN GYM</div>
+        <div class="scap">illegal_refusal cousin: reason in words; gold stays dim until a legal name exists.</div>
+      </div>
+    </div>
+    <div class="scell">
+      <div class="stag">04 · BACK-OUT PATH</div>
+      <div class="sbody">
+        <div class="hubhead" style="height:auto"><h2 style="font-size:22px">LEAVE CREATION?</h2><span class="meta">BACK FROM STEP 1</span></div>
+        <div class="panel" style="padding:14px;gap:10px;display:flex;flex-direction:column">
+          <div style="font-size:13px;color:var(--text-2);line-height:1.45">No save written. Committed trail clears. Returns to MainMenu — not into a half career.</div>
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <div class="btn" style="flex:1">STAY</div>
+            <div class="btn" style="flex:1;border-color:var(--bad-edge);background:linear-gradient(180deg,#5a2a28,#3a1816)">LEAVE</div>
+          </div>
+          <div style="font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--muted);margin-top:6px">FROM STEP 2/3: BACK RETURNS ONE STEP · TRAIL POPS · NO CONFIRM UNLESS LEAVING FLOW</div>
+        </div>
+        <div class="scap">Step-back pops trail; leaving the flow from step 1 confirms. Never orphans a save.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,2828 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PLAYABLE press 'NEW CAREER' -> 'New career'
+PLAYABLE before route=boot scene=BootRoot path=/root/BootRoot/BootChrome/BodySlot/TitleBoardPanel/TitleBody/NewCareer
+PLAYABLE after route=country_map scene=CreationRoot
+PLAYABLE card country='Italy' click /root/CreationRoot/CreationChrome/BodySlot/CreationFlowPanel/FlowBody/Cards/Column/Line25/MarketCard/Hit
+PLAYABLE press 'CHOOSE MARKET' -> 'CHOOSE MARKET'
+PLAYABLE before route=country_map scene=CreationRoot path=/root/CreationRoot/CreationChrome/BodySlot/CreationFlowPanel/FlowBody/GoldAction
+PLAYABLE after route=city scene=CreationRoot
+PLAYABLE card city='Rome' click /root/CreationRoot/CreationChrome/BodySlot/CreationFlowPanel/FlowBody/Cards/Column/Line0/CityIntel/Hit
+PLAYABLE press 'ENTER CITY' -> 'ENTER CITY'
+PLAYABLE before route=city scene=CreationRoot path=/root/CreationRoot/CreationChrome/BodySlot/CreationFlowPanel/FlowBody/GoldAction
+PLAYABLE after route=gym_pick scene=CreationRoot
+PLAYABLE press 'OPEN SANDBOX' -> 'OPEN SANDBOX'
+PLAYABLE before route=gym_pick scene=CreationRoot path=/root/CreationRoot/CreationChrome/BodySlot/CreationFlowPanel/FlowBody/TakeHost/Take/Sidebar/Scroll/Body/FilterStrip/Filter_open_sandbox
+PLAYABLE after route=gym_pick scene=CreationRoot
+PLAYABLE press 'OPEN GYM' -> 'OPEN GYM'
+PLAYABLE before route=gym_pick scene=CreationRoot path=/root/CreationRoot/CreationChrome/BodySlot/CreationFlowPanel/FlowBody/TakeHost/Take/BottomStrip/OpenGym
+PLAYABLE after route=gym_pick scene=CreationRoot
+VENUES2 ring fit: rope span=5.490000 x 5.490000 m / spec contest 5.490000; canvas+apron=6.410000 x 6.410000 m / spec 6.410000; deck=0.950000 / spec surface_y 0.950000; source rope=6.1460 floor=7.0000 deck=1.0092; rope heights above deck [0.53, 0.928, 1.332] (spec [0.46, 0.76, 1.07, 1.37])
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _person_body (res://scripts/GymClub3D.gd:665)
+       [5] _build_manager (res://scripts/GymClub3D.gd:656)
+       [6] build (res://scripts/GymClub3D.gd:275)
+       [7] rebuild (res://scripts/GymHallPanel.gd:121)
+       [8] _ready (res://scripts/GymHallPanel.gd:77)
+       [9] _mount (res://scripts/CareerRoot.gd:448)
+       [10] show_route (res://scripts/CareerRoot.gd:309)
+       [11] _ready (res://scripts/CareerRoot.gd:112)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _person_body (res://scripts/GymClub3D.gd:665)
+       [5] _build_manager (res://scripts/GymClub3D.gd:656)
+       [6] build (res://scripts/GymClub3D.gd:275)
+       [7] rebuild (res://scripts/GymHallPanel.gd:121)
+       [8] _ready (res://scripts/GymHallPanel.gd:77)
+       [9] _mount (res://scripts/CareerRoot.gd:448)
+       [10] show_route (res://scripts/CareerRoot.gd:309)
+       [11] _ready (res://scripts/CareerRoot.gd:112)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] retarget_clip (res://scripts/FightClipRetarget.gd:441)
+       [3] _generator_clip (res://scripts/TrainingFloor3D.gd:2130)
+       [4] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [5] _person_body (res://scripts/GymClub3D.gd:665)
+       [6] _build_manager (res://scripts/GymClub3D.gd:656)
+       [7] build (res://scripts/GymClub3D.gd:275)
+       [8] rebuild (res://scripts/GymHallPanel.gd:121)
+       [9] _ready (res://scripts/GymHallPanel.gd:77)
+       [10] _mount (res://scripts/CareerRoot.gd:448)
+       [11] show_route (res://scripts/CareerRoot.gd:309)
+       [12] _ready (res://scripts/CareerRoot.gd:112)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] retarget_clip (res://scripts/FightClipRetarget.gd:441)
+       [3] _generator_clip (res://scripts/TrainingFloor3D.gd:2130)
+       [4] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [5] _person_body (res://scripts/GymClub3D.gd:665)
+       [6] _build_manager (res://scripts/GymClub3D.gd:656)
+       [7] build (res://scripts/GymClub3D.gd:275)
+       [8] rebuild (res://scripts/GymHallPanel.gd:121)
+       [9] _ready (res://scripts/GymHallPanel.gd:77)
+       [10] _mount (res://scripts/CareerRoot.gd:448)
+       [11] show_route (res://scripts/CareerRoot.gd:309)
+       [12] _ready (res://scripts/CareerRoot.gd:112)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] source_rest_hips_height (res://scripts/FightClipRetarget.gd:557)
+       [2] hip_carry (res://scripts/FightClipRetarget.gd:581)
+       [3] retarget_clip (res://scripts/FightClipRetarget.gd:451)
+       [4] _generator_clip (res://scripts/TrainingFloor3D.gd:2130)
+       [5] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [6] _person_body (res://scripts/GymClub3D.gd:665)
+       [7] _build_manager (res://scripts/GymClub3D.gd:656)
+       [8] build (res://scripts/GymClub3D.gd:275)
+       [9] rebuild (res://scripts/GymHallPanel.gd:121)
+       [10] _ready (res://scripts/GymHallPanel.gd:77)
+       [11] _mount (res://scripts/CareerRoot.gd:448)
+       [12] show_route (res://scripts/CareerRoot.gd:309)
+       [13] _ready (res://scripts/CareerRoot.gd:112)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] source_rest_hips_height (res://scripts/FightClipRetarget.gd:557)
+       [2] hip_carry (res://scripts/FightClipRetarget.gd:581)
+       [3] retarget_clip (res://scripts/FightClipRetarget.gd:451)
+       [4] _generator_clip (res://scripts/TrainingFloor3D.gd:2130)
+       [5] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [6] _person_body (res://scripts/GymClub3D.gd:665)
+       [7] _build_manager (res://scripts/GymClub3D.gd:656)
+       [8] build (res://scripts/GymClub3D.gd:275)
+       [9] rebuild (res://scripts/GymHallPanel.gd:121)
+       [10] _ready (res://scripts/GymHallPanel.gd:77)
+       [11] _mount (res://scripts/CareerRoot.gd:448)
+       [12] show_route (res://scripts/CareerRoot.gd:309)
+       [13] _ready (res://scripts/CareerRoot.gd:112)
+PLAYABLE STEP T1 PASS: new career reaches the gym
+PLAYABLE SCREEN route=day_feed scene=CareerRoot buttons=DoorTip_office | DoorTip_reception | DoorTip_physio | DoorTip_equipment_store | DoorTip_locker_room | Regional: knows the local scene - the fighter's first combination comes known. | Film coach: a booked opponent starts 2 layers deep in the film room. | Pad man: +15% from heavy bag and pads when he holds them. | Conditioner: 25% faster recovery at the bike, treadmill, weights and rest area; a new move needs 85% of the time. | NOT NOW | HIRE - PICK ONE | Pause | Play | Fast | RailTab | Home | Fighters | Training | Scouting | Staff | Fights | Rankings | Finance | Handbook | FIND A FIGHT  › | Continue | OpenOffice | Options | OpenDayFeed
+PLAYABLE T1 no-coach check staff=0 hire_shown=true
+PLAYABLE press 'Nav_scouting' -> 'Scouting'
+PLAYABLE before route=day_feed scene=CareerRoot path=/root/CareerRoot/TopBar/NavIcons/Nav_scouting
+PLAYABLE after route=scouting scene=CareerRoot
+PLAYABLE SCREEN route=scouting scene=CareerRoot buttons=FIGHTERS | STAFF | ALL  13 | SHORTLIST | CAN SIGN  13 | DIVISION GAPS  13 | AT THE TABLE | Sort_prospect | Sort_record | Sort_age | Sort_division | Sort_potential | Sort_ask | Sort_fee | Sort_flag | Hit | Pin | Hit | Pin | Hit | Pin | Hit | Pin | Hit | Pin | Hit | Pin | Hit | Pin | Hit | Pin | Hit | Pin | Hit | Pin | Hit | Pin | Hit | Pin | Home | Fighters | Training | Scouting | Staff | Fights | Rankings | Finance | Back | Handbook | FIND A FIGHT  › | Continue | OpenOffice | Options | GUIDE  ·  Sign your first boxer
+PLAYABLE press 'Hit' -> 'Hit'
+PLAYABLE before route=scouting scene=CareerRoot path=/root/CareerRoot/ContentStack/ScoutingHubPanel/Hub/List/Row_ath_italy_milan_01_03/Hit
+PLAYABLE after route=scouting scene=CareerRoot
+PLAYABLE SCREEN route=scouting scene=CareerRoot buttons=FIGHTERS | STAFF | ALL  13 | SHORTLIST | CAN SIGN  13 | DIVISION GAPS  13 | AT THE TABLE | Sort_prospect | Sort_record | Sort_age | Sort_division | Sort_potential | Sort_ask | Sort_fee | Sort_flag | Hit | Pin | Hit | Pin | Hit | Pin | Hit | Pin | Hit | Pin | Hit | Pin | Hit | Pin | Hit | Pin | Hit | Pin | Hit | Pin | Hit | Pin | Hit | Pin | OPEN THE OFFER | SHORTLIST | Home | Fighters | Training | Scouting | Staff | Fights | Rankings | Finance | Back | Handbook | FIND A FIGHT  › | Continue | OpenOffice | Options | GUIDE  ·  Sign your first boxer
+PLAYABLE press 'OPEN THE OFFER' -> 'OPEN THE OFFER'
+PLAYABLE before route=scouting scene=CareerRoot path=/root/CareerRoot/ContentStack/ScoutingHubPanel/Hub/Candidate/Body/Actions/MakeOffer
+PLAYABLE after route=scouting scene=CareerRoot
+PLAYABLE press 'SEND OFFER' -> 'SEND OFFER'
+PLAYABLE before route=scouting scene=CareerRoot path=/root/CareerRoot/ContentStack/ScoutingHubPanel/Hub/OfferDrawer/Body/OfferActions/SendOffer
+PLAYABLE after route=scouting scene=CareerRoot
+PLAYABLE press 'SIGN CONTRACT' -> 'SIGN CONTRACT'
+PLAYABLE before route=scouting scene=CareerRoot path=/root/CareerRoot/ContentStack/ScoutingHubPanel/Hub/OfferDrawer/Body/OfferActions/SendOffer
+PLAYABLE after route=scouting scene=CareerRoot
+PLAYABLE STEP T2 PASS: the first boxer signs through the Scouting card
+PLAYABLE SCREEN route=scouting scene=CareerRoot buttons=FIGHTERS | STAFF | ALL  12 | SHORTLIST | CAN SIGN  12 | DIVISION GAPS  10 | AT THE TABLE | Sort_prospect | Sort_record | Sort_age | Sort_division | Sort_potential | Sort_ask | Sort_fee | Sort_flag | Hit | Pin | Hit | Pin | Hit | Pin | Hit | Pin | Hit | Pin | Hit | Pin | Hit | Pin | Hit | Pin | Hit | Pin | Hit | Pin | Hit | Pin | Hit | Pin | Home | Fighters | Training | Scouting | Staff | Fights | Rankings | Finance | Back | Handbook | FIND A FIGHT  › | Continue | OpenOffice | Options | GUIDE  ·  Hire a coach
+PLAYABLE press 'Nav_day_feed' -> 'Home'
+PLAYABLE before route=scouting scene=CareerRoot path=/root/CareerRoot/TopBar/NavIcons/Nav_day_feed
+VENUES2 ring fit: rope span=5.490000 x 5.490000 m / spec contest 5.490000; canvas+apron=6.410000 x 6.410000 m / spec 6.410000; deck=0.950000 / spec surface_y 0.950000; source rope=6.1460 floor=7.0000 deck=1.0092; rope heights above deck [0.53, 0.928, 1.332] (spec [0.46, 0.76, 1.07, 1.37])
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _person_body (res://scripts/GymClub3D.gd:665)
+       [5] _build_manager (res://scripts/GymClub3D.gd:656)
+       [6] build (res://scripts/GymClub3D.gd:275)
+       [7] rebuild (res://scripts/GymHallPanel.gd:121)
+       [8] _ready (res://scripts/GymHallPanel.gd:77)
+       [9] _mount (res://scripts/CareerRoot.gd:448)
+       [10] show_route (res://scripts/CareerRoot.gd:309)
+       [11] _enter (res://scripts/SceneRouter.gd:391)
+       [12] go (res://scripts/SceneRouter.gd:265)
+       [13] _route (res://scripts/ManagementChrome.gd:814)
+       [14] navigate_to (res://scripts/ManagementChrome.gd:81)
+       [15] _navigate (res://scripts/ShellChrome.gd:478)
+       [16] _press (res://tests/playable_loop_test.gd:403)
+       [17] _walk (res://tests/playable_loop_test.gd:95)
+       [18] _press (res://tests/playable_loop_test.gd:406)
+       [19] _settle (res://tests/playable_loop_test.gd:560)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _person_body (res://scripts/GymClub3D.gd:665)
+       [5] _build_manager (res://scripts/GymClub3D.gd:656)
+       [6] build (res://scripts/GymClub3D.gd:275)
+       [7] rebuild (res://scripts/GymHallPanel.gd:121)
+       [8] _ready (res://scripts/GymHallPanel.gd:77)
+       [9] _mount (res://scripts/CareerRoot.gd:448)
+       [10] show_route (res://scripts/CareerRoot.gd:309)
+       [11] _enter (res://scripts/SceneRouter.gd:391)
+       [12] go (res://scripts/SceneRouter.gd:265)
+       [13] _route (res://scripts/ManagementChrome.gd:814)
+       [14] navigate_to (res://scripts/ManagementChrome.gd:81)
+       [15] _navigate (res://scripts/ShellChrome.gd:478)
+       [16] _press (res://tests/playable_loop_test.gd:403)
+       [17] _walk (res://tests/playable_loop_test.gd:95)
+       [18] _press (res://tests/playable_loop_test.gd:406)
+       [19] _settle (res://tests/playable_loop_test.gd:560)
+PLAYABLE after route=day_feed scene=CareerRoot
+PLAYABLE press 'Nav_staff' -> 'Staff'
+PLAYABLE before route=day_feed scene=CareerRoot path=/root/CareerRoot/TopBar/NavIcons/Nav_staff
+PLAYABLE after route=staff scene=CareerRoot
+PLAYABLE press 'HIRE A COACH' -> 'HIRE A COACH'
+PLAYABLE before route=staff scene=CareerRoot path=/root/CareerRoot/ContentStack/StaffHubPanel/Hub/HireCoach
+PLAYABLE after route=scouting scene=CareerRoot
+PLAYABLE press 'Hit' -> 'Hit'
+PLAYABLE before route=scouting scene=CareerRoot path=/root/CareerRoot/ContentStack/ScoutingHubPanel/Hub/List/Row_coach_italy_naples_02_01/Hit
+PLAYABLE after route=scouting scene=CareerRoot
+PLAYABLE press 'OPEN THE OFFER' -> 'OPEN THE OFFER'
+PLAYABLE before route=scouting scene=CareerRoot path=/root/CareerRoot/ContentStack/ScoutingHubPanel/Hub/Candidate/Body/Actions/MakeOffer
+PLAYABLE after route=scouting scene=CareerRoot
+PLAYABLE press 'SEND OFFER' -> 'SEND OFFER'
+PLAYABLE before route=scouting scene=CareerRoot path=/root/CareerRoot/ContentStack/ScoutingHubPanel/Hub/OfferDrawer/Body/OfferActions/SendOffer
+PLAYABLE after route=scouting scene=CareerRoot
+PLAYABLE press 'SIGN CONTRACT' -> 'SIGN CONTRACT'
+PLAYABLE before route=scouting scene=CareerRoot path=/root/CareerRoot/ContentStack/ScoutingHubPanel/Hub/OfferDrawer/Body/OfferActions/SendOffer
+PLAYABLE after route=scouting scene=CareerRoot
+PLAYABLE STEP T3 PASS: the first coach signs through Scouting STAFF
+PLAYABLE SCREEN route=scouting scene=CareerRoot buttons=FIGHTERS | STAFF | ALL  5 | SHORTLIST | CAN SIGN  5 | TOP TEACHERS  1 | AT THE TABLE | Sort_prospect | Sort_role | Sort_teach | Sort_tactics | Sort_rating | Sort_ask | Sort_fee | Sort_flag | Hit | Pin | Hit | Pin | Hit | Pin | Hit | Pin | Hit | Pin | Home | Fighters | Training | Scouting | Staff | 3 | Rankings | Finance | Back | Handbook | FIND A FIGHT  › | Continue | OpenOffice | Options | GUIDE  ·  Set his training
+PLAYABLE press 'Nav_training' -> 'Training'
+PLAYABLE before route=scouting scene=CareerRoot path=/root/CareerRoot/TopBar/NavIcons/Nav_training
+PLAYABLE after route=training scene=CareerRoot
+PLAYABLE press 'Hit' -> 'Hit'
+PLAYABLE before route=training scene=CareerRoot path=/root/CareerRoot/ContentStack/TrainingHubPanel/Hub/Rows/Column/WeekBand/Hit
+PLAYABLE after route=training scene=CareerRoot
+PLAYABLE press 'BALANCED' -> 'BALANCED'
+PLAYABLE before route=training scene=CareerRoot path=/root/CareerRoot/ContentStack/TrainingHubPanel/Hub/Presets/Preset_balanced
+PLAYABLE after route=training scene=CareerRoot
+PLAYABLE T4 planned caption=CALDER HOUSE BOXING CLUB  ·  WEEK 1  ·  MON  ·  PLANNED 1/1
+PLAYABLE press 'OpenFloor' -> 'WATCH THE FLOOR'
+PLAYABLE before route=training scene=CareerRoot path=/root/CareerRoot/ContentStack/TrainingHubPanel/Hub/OpenFloor
+VENUES2 ring fit: rope span=5.490000 x 5.490000 m / spec contest 5.490000; canvas+apron=6.410000 x 6.410000 m / spec 6.410000; deck=0.950000 / spec surface_y 0.950000; source rope=6.1460 floor=7.0000 deck=1.0092; rope heights above deck [0.53, 0.928, 1.332] (spec [0.46, 0.76, 1.07, 1.37])
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _build_coach (res://scripts/GymHall3D.gd:388)
+       [5] build (res://scripts/TrainingFloor3D.gd:163)
+       [6] build (res://scripts/GymHall3D.gd:323)
+       [7] build (res://scripts/GymClub3D.gd:269)
+       [8] rebuild (res://scripts/GymHallPanel.gd:121)
+       [9] _ready (res://scripts/GymHallPanel.gd:77)
+       [10] _mount (res://scripts/CareerRoot.gd:448)
+       [11] show_route (res://scripts/CareerRoot.gd:309)
+       [12] _enter (res://scripts/SceneRouter.gd:391)
+       [13] push (res://scripts/SceneRouter.gd:274)
+       [14] _on_open_floor (res://scripts/TrainingHubPanel.gd:1015)
+       [15] _press (res://tests/playable_loop_test.gd:403)
+       [16] _walk (res://tests/playable_loop_test.gd:119)
+       [17] _settle (res://tests/playable_loop_test.gd:560)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _build_coach (res://scripts/GymHall3D.gd:388)
+       [5] build (res://scripts/TrainingFloor3D.gd:163)
+       [6] build (res://scripts/GymHall3D.gd:323)
+       [7] build (res://scripts/GymClub3D.gd:269)
+       [8] rebuild (res://scripts/GymHallPanel.gd:121)
+       [9] _ready (res://scripts/GymHallPanel.gd:77)
+       [10] _mount (res://scripts/CareerRoot.gd:448)
+       [11] show_route (res://scripts/CareerRoot.gd:309)
+       [12] _enter (res://scripts/SceneRouter.gd:391)
+       [13] push (res://scripts/SceneRouter.gd:274)
+       [14] _on_open_floor (res://scripts/TrainingHubPanel.gd:1015)
+       [15] _press (res://tests/playable_loop_test.gd:403)
+       [16] _walk (res://tests/playable_loop_test.gd:119)
+       [17] _settle (res://tests/playable_loop_test.gd:560)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _person_body (res://scripts/GymClub3D.gd:665)
+       [5] _build_manager (res://scripts/GymClub3D.gd:656)
+       [6] build (res://scripts/GymClub3D.gd:275)
+       [7] rebuild (res://scripts/GymHallPanel.gd:121)
+       [8] _ready (res://scripts/GymHallPanel.gd:77)
+       [9] _mount (res://scripts/CareerRoot.gd:448)
+       [10] show_route (res://scripts/CareerRoot.gd:309)
+       [11] _enter (res://scripts/SceneRouter.gd:391)
+       [12] push (res://scripts/SceneRouter.gd:274)
+       [13] _on_open_floor (res://scripts/TrainingHubPanel.gd:1015)
+       [14] _press (res://tests/playable_loop_test.gd:403)
+       [15] _walk (res://tests/playable_loop_test.gd:119)
+       [16] _settle (res://tests/playable_loop_test.gd:560)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _person_body (res://scripts/GymClub3D.gd:665)
+       [5] _build_manager (res://scripts/GymClub3D.gd:656)
+       [6] build (res://scripts/GymClub3D.gd:275)
+       [7] rebuild (res://scripts/GymHallPanel.gd:121)
+       [8] _ready (res://scripts/GymHallPanel.gd:77)
+       [9] _mount (res://scripts/CareerRoot.gd:448)
+       [10] show_route (res://scripts/CareerRoot.gd:309)
+       [11] _enter (res://scripts/SceneRouter.gd:391)
+       [12] push (res://scripts/SceneRouter.gd:274)
+       [13] _on_open_floor (res://scripts/TrainingHubPanel.gd:1015)
+       [14] _press (res://tests/playable_loop_test.gd:403)
+       [15] _walk (res://tests/playable_loop_test.gd:119)
+       [16] _settle (res://tests/playable_loop_test.gd:560)
+PLAYABLE after route=training_floor scene=CareerRoot
+PLAYABLE T4 coach check staff=1 hire_shown=false
+PLAYABLE press 'STEP IN' -> 'STEP IN'
+PLAYABLE before route=training_floor scene=CareerRoot path=/root/CareerRoot/ContentStack/GymHallPanel/HallView/Viewport/GymHall3D/Hud/Morning/@VBoxContainer@1376/@HBoxContainer@1377/StepIn
+PLAYABLE after route=training_floor scene=CareerRoot
+PLAYABLE press 'Continue' -> 'Continue'
+PLAYABLE before route=training_floor scene=CareerRoot path=/root/CareerRoot/TopBar/ContinueUnit/Continue
+PLAYABLE after route=training_floor scene=CareerRoot
+PLAYABLE press 'HAND HIM OVER' -> 'HAND HIM OVER'
+PLAYABLE before route=training_floor scene=CareerRoot path=/root/CareerRoot/ContentStack/GymHallPanel/HallView/Viewport/GymHall3D/Hud/CoachDayDrawer/Column/@HBoxContainer@1212/HandHimOver
+VENUES2 ring fit: rope span=5.490000 x 5.490000 m / spec contest 5.490000; canvas+apron=6.410000 x 6.410000 m / spec 6.410000; deck=0.950000 / spec surface_y 0.950000; source rope=6.1460 floor=7.0000 deck=1.0092; rope heights above deck [0.53, 0.928, 1.332] (spec [0.46, 0.76, 1.07, 1.37])
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _build_coach (res://scripts/GymHall3D.gd:388)
+       [5] build (res://scripts/TrainingFloor3D.gd:163)
+       [6] build (res://scripts/GymHall3D.gd:323)
+       [7] build (res://scripts/GymClub3D.gd:269)
+       [8] rebuild (res://scripts/GymHallPanel.gd:121)
+       [9] _on_visit_ended (res://scripts/GymHallPanel.gd:846)
+       [10] _end_visit (res://scripts/GymHall3D.gd:945)
+       [11] coach_runs_rest (res://scripts/GymHall3D.gd:999)
+       [12] <anonymous lambda> (res://scripts/GymHall3D.gd:4605)
+       [13] _press (res://tests/playable_loop_test.gd:403)
+       [14] _walk (res://tests/playable_loop_test.gd:132)
+       [15] _press (res://tests/playable_loop_test.gd:406)
+       [16] _settle (res://tests/playable_loop_test.gd:560)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _build_coach (res://scripts/GymHall3D.gd:388)
+       [5] build (res://scripts/TrainingFloor3D.gd:163)
+       [6] build (res://scripts/GymHall3D.gd:323)
+       [7] build (res://scripts/GymClub3D.gd:269)
+       [8] rebuild (res://scripts/GymHallPanel.gd:121)
+       [9] _on_visit_ended (res://scripts/GymHallPanel.gd:846)
+       [10] _end_visit (res://scripts/GymHall3D.gd:945)
+       [11] coach_runs_rest (res://scripts/GymHall3D.gd:999)
+       [12] <anonymous lambda> (res://scripts/GymHall3D.gd:4605)
+       [13] _press (res://tests/playable_loop_test.gd:403)
+       [14] _walk (res://tests/playable_loop_test.gd:132)
+       [15] _press (res://tests/playable_loop_test.gd:406)
+       [16] _settle (res://tests/playable_loop_test.gd:560)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _person_body (res://scripts/GymClub3D.gd:665)
+       [5] _build_manager (res://scripts/GymClub3D.gd:656)
+       [6] build (res://scripts/GymClub3D.gd:275)
+       [7] rebuild (res://scripts/GymHallPanel.gd:121)
+       [8] _on_visit_ended (res://scripts/GymHallPanel.gd:846)
+       [9] _end_visit (res://scripts/GymHall3D.gd:945)
+       [10] coach_runs_rest (res://scripts/GymHall3D.gd:999)
+       [11] <anonymous lambda> (res://scripts/GymHall3D.gd:4605)
+       [12] _press (res://tests/playable_loop_test.gd:403)
+       [13] _walk (res://tests/playable_loop_test.gd:132)
+       [14] _press (res://tests/playable_loop_test.gd:406)
+       [15] _settle (res://tests/playable_loop_test.gd:560)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _person_body (res://scripts/GymClub3D.gd:665)
+       [5] _build_manager (res://scripts/GymClub3D.gd:656)
+       [6] build (res://scripts/GymClub3D.gd:275)
+       [7] rebuild (res://scripts/GymHallPanel.gd:121)
+       [8] _on_visit_ended (res://scripts/GymHallPanel.gd:846)
+       [9] _end_visit (res://scripts/GymHall3D.gd:945)
+       [10] coach_runs_rest (res://scripts/GymHall3D.gd:999)
+       [11] <anonymous lambda> (res://scripts/GymHall3D.gd:4605)
+       [12] _press (res://tests/playable_loop_test.gd:403)
+       [13] _walk (res://tests/playable_loop_test.gd:132)
+       [14] _press (res://tests/playable_loop_test.gd:406)
+       [15] _settle (res://tests/playable_loop_test.gd:560)
+PLAYABLE after route=training_floor scene=CareerRoot
+PLAYABLE press 'Continue' -> 'Continue'
+PLAYABLE before route=training_floor scene=CareerRoot path=/root/CareerRoot/TopBar/ContinueUnit/Continue
+VENUES2 ring fit: rope span=5.490000 x 5.490000 m / spec contest 5.490000; canvas+apron=6.410000 x 6.410000 m / spec 6.410000; deck=0.950000 / spec surface_y 0.950000; source rope=6.1460 floor=7.0000 deck=1.0092; rope heights above deck [0.53, 0.928, 1.332] (spec [0.46, 0.76, 1.07, 1.37])
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _build_coach (res://scripts/GymHall3D.gd:388)
+       [5] build (res://scripts/TrainingFloor3D.gd:163)
+       [6] build (res://scripts/GymHall3D.gd:323)
+       [7] build (res://scripts/GymClub3D.gd:269)
+       [8] rebuild (res://scripts/GymHallPanel.gd:121)
+       [9] on_continue (res://scripts/CareerRoot.gd:552)
+       [10] _press (res://tests/playable_loop_test.gd:403)
+       [11] _walk (res://tests/playable_loop_test.gd:140)
+       [12] _press (res://tests/playable_loop_test.gd:406)
+       [13] _settle (res://tests/playable_loop_test.gd:560)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _build_coach (res://scripts/GymHall3D.gd:388)
+       [5] build (res://scripts/TrainingFloor3D.gd:163)
+       [6] build (res://scripts/GymHall3D.gd:323)
+       [7] build (res://scripts/GymClub3D.gd:269)
+       [8] rebuild (res://scripts/GymHallPanel.gd:121)
+       [9] on_continue (res://scripts/CareerRoot.gd:552)
+       [10] _press (res://tests/playable_loop_test.gd:403)
+       [11] _walk (res://tests/playable_loop_test.gd:140)
+       [12] _press (res://tests/playable_loop_test.gd:406)
+       [13] _settle (res://tests/playable_loop_test.gd:560)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _person_body (res://scripts/GymClub3D.gd:665)
+       [5] _build_manager (res://scripts/GymClub3D.gd:656)
+       [6] build (res://scripts/GymClub3D.gd:275)
+       [7] rebuild (res://scripts/GymHallPanel.gd:121)
+       [8] on_continue (res://scripts/CareerRoot.gd:552)
+       [9] _press (res://tests/playable_loop_test.gd:403)
+       [10] _walk (res://tests/playable_loop_test.gd:140)
+       [11] _press (res://tests/playable_loop_test.gd:406)
+       [12] _settle (res://tests/playable_loop_test.gd:560)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _person_body (res://scripts/GymClub3D.gd:665)
+       [5] _build_manager (res://scripts/GymClub3D.gd:656)
+       [6] build (res://scripts/GymClub3D.gd:275)
+       [7] rebuild (res://scripts/GymHallPanel.gd:121)
+       [8] on_continue (res://scripts/CareerRoot.gd:552)
+       [9] _press (res://tests/playable_loop_test.gd:403)
+       [10] _walk (res://tests/playable_loop_test.gd:140)
+       [11] _press (res://tests/playable_loop_test.gd:406)
+       [12] _settle (res://tests/playable_loop_test.gd:560)
+PLAYABLE after route=training_floor scene=CareerRoot
+PLAYABLE press 'Continue' -> 'Continue'
+PLAYABLE before route=training_floor scene=CareerRoot path=/root/CareerRoot/TopBar/ContinueUnit/Continue
+VENUES2 ring fit: rope span=5.490000 x 5.490000 m / spec contest 5.490000; canvas+apron=6.410000 x 6.410000 m / spec 6.410000; deck=0.950000 / spec surface_y 0.950000; source rope=6.1460 floor=7.0000 deck=1.0092; rope heights above deck [0.53, 0.928, 1.332] (spec [0.46, 0.76, 1.07, 1.37])
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _build_coach (res://scripts/GymHall3D.gd:388)
+       [5] build (res://scripts/TrainingFloor3D.gd:163)
+       [6] build (res://scripts/GymHall3D.gd:323)
+       [7] build (res://scripts/GymClub3D.gd:269)
+       [8] rebuild (res://scripts/GymHallPanel.gd:121)
+       [9] on_continue (res://scripts/CareerRoot.gd:552)
+       [10] _press (res://tests/playable_loop_test.gd:403)
+       [11] _walk (res://tests/playable_loop_test.gd:140)
+       [12] _press (res://tests/playable_loop_test.gd:406)
+       [13] _settle (res://tests/playable_loop_test.gd:560)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _build_coach (res://scripts/GymHall3D.gd:388)
+       [5] build (res://scripts/TrainingFloor3D.gd:163)
+       [6] build (res://scripts/GymHall3D.gd:323)
+       [7] build (res://scripts/GymClub3D.gd:269)
+       [8] rebuild (res://scripts/GymHallPanel.gd:121)
+       [9] on_continue (res://scripts/CareerRoot.gd:552)
+       [10] _press (res://tests/playable_loop_test.gd:403)
+       [11] _walk (res://tests/playable_loop_test.gd:140)
+       [12] _press (res://tests/playable_loop_test.gd:406)
+       [13] _settle (res://tests/playable_loop_test.gd:560)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _person_body (res://scripts/GymClub3D.gd:665)
+       [5] _build_manager (res://scripts/GymClub3D.gd:656)
+       [6] build (res://scripts/GymClub3D.gd:275)
+       [7] rebuild (res://scripts/GymHallPanel.gd:121)
+       [8] on_continue (res://scripts/CareerRoot.gd:552)
+       [9] _press (res://tests/playable_loop_test.gd:403)
+       [10] _walk (res://tests/playable_loop_test.gd:140)
+       [11] _press (res://tests/playable_loop_test.gd:406)
+       [12] _settle (res://tests/playable_loop_test.gd:560)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _person_body (res://scripts/GymClub3D.gd:665)
+       [5] _build_manager (res://scripts/GymClub3D.gd:656)
+       [6] build (res://scripts/GymClub3D.gd:275)
+       [7] rebuild (res://scripts/GymHallPanel.gd:121)
+       [8] on_continue (res://scripts/CareerRoot.gd:552)
+       [9] _press (res://tests/playable_loop_test.gd:403)
+       [10] _walk (res://tests/playable_loop_test.gd:140)
+       [11] _press (res://tests/playable_loop_test.gd:406)
+       [12] _settle (res://tests/playable_loop_test.gd:560)
+PLAYABLE after route=training_floor scene=CareerRoot
+PLAYABLE press 'Continue' -> 'Continue'
+PLAYABLE before route=training_floor scene=CareerRoot path=/root/CareerRoot/TopBar/ContinueUnit/Continue
+VENUES2 ring fit: rope span=5.490000 x 5.490000 m / spec contest 5.490000; canvas+apron=6.410000 x 6.410000 m / spec 6.410000; deck=0.950000 / spec surface_y 0.950000; source rope=6.1460 floor=7.0000 deck=1.0092; rope heights above deck [0.53, 0.928, 1.332] (spec [0.46, 0.76, 1.07, 1.37])
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _build_coach (res://scripts/GymHall3D.gd:388)
+       [5] build (res://scripts/TrainingFloor3D.gd:163)
+       [6] build (res://scripts/GymHall3D.gd:323)
+       [7] build (res://scripts/GymClub3D.gd:269)
+       [8] rebuild (res://scripts/GymHallPanel.gd:121)
+       [9] on_continue (res://scripts/CareerRoot.gd:552)
+       [10] _press (res://tests/playable_loop_test.gd:403)
+       [11] _walk (res://tests/playable_loop_test.gd:140)
+       [12] _press (res://tests/playable_loop_test.gd:406)
+       [13] _settle (res://tests/playable_loop_test.gd:560)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _build_coach (res://scripts/GymHall3D.gd:388)
+       [5] build (res://scripts/TrainingFloor3D.gd:163)
+       [6] build (res://scripts/GymHall3D.gd:323)
+       [7] build (res://scripts/GymClub3D.gd:269)
+       [8] rebuild (res://scripts/GymHallPanel.gd:121)
+       [9] on_continue (res://scripts/CareerRoot.gd:552)
+       [10] _press (res://tests/playable_loop_test.gd:403)
+       [11] _walk (res://tests/playable_loop_test.gd:140)
+       [12] _press (res://tests/playable_loop_test.gd:406)
+       [13] _settle (res://tests/playable_loop_test.gd:560)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _person_body (res://scripts/GymClub3D.gd:665)
+       [5] _build_manager (res://scripts/GymClub3D.gd:656)
+       [6] build (res://scripts/GymClub3D.gd:275)
+       [7] rebuild (res://scripts/GymHallPanel.gd:121)
+       [8] on_continue (res://scripts/CareerRoot.gd:552)
+       [9] _press (res://tests/playable_loop_test.gd:403)
+       [10] _walk (res://tests/playable_loop_test.gd:140)
+       [11] _press (res://tests/playable_loop_test.gd:406)
+       [12] _settle (res://tests/playable_loop_test.gd:560)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _person_body (res://scripts/GymClub3D.gd:665)
+       [5] _build_manager (res://scripts/GymClub3D.gd:656)
+       [6] build (res://scripts/GymClub3D.gd:275)
+       [7] rebuild (res://scripts/GymHallPanel.gd:121)
+       [8] on_continue (res://scripts/CareerRoot.gd:552)
+       [9] _press (res://tests/playable_loop_test.gd:403)
+       [10] _walk (res://tests/playable_loop_test.gd:140)
+       [11] _press (res://tests/playable_loop_test.gd:406)
+       [12] _settle (res://tests/playable_loop_test.gd:560)
+PLAYABLE after route=training_floor scene=CareerRoot
+PLAYABLE press 'Continue' -> 'Continue'
+PLAYABLE before route=training_floor scene=CareerRoot path=/root/CareerRoot/TopBar/ContinueUnit/Continue
+VENUES2 ring fit: rope span=5.490000 x 5.490000 m / spec contest 5.490000; canvas+apron=6.410000 x 6.410000 m / spec 6.410000; deck=0.950000 / spec surface_y 0.950000; source rope=6.1460 floor=7.0000 deck=1.0092; rope heights above deck [0.53, 0.928, 1.332] (spec [0.46, 0.76, 1.07, 1.37])
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _build_coach (res://scripts/GymHall3D.gd:388)
+       [5] build (res://scripts/TrainingFloor3D.gd:163)
+       [6] build (res://scripts/GymHall3D.gd:323)
+       [7] build (res://scripts/GymClub3D.gd:269)
+       [8] rebuild (res://scripts/GymHallPanel.gd:121)
+       [9] on_continue (res://scripts/CareerRoot.gd:552)
+       [10] _press (res://tests/playable_loop_test.gd:403)
+       [11] _walk (res://tests/playable_loop_test.gd:140)
+       [12] _press (res://tests/playable_loop_test.gd:406)
+       [13] _settle (res://tests/playable_loop_test.gd:560)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _build_coach (res://scripts/GymHall3D.gd:388)
+       [5] build (res://scripts/TrainingFloor3D.gd:163)
+       [6] build (res://scripts/GymHall3D.gd:323)
+       [7] build (res://scripts/GymClub3D.gd:269)
+       [8] rebuild (res://scripts/GymHallPanel.gd:121)
+       [9] on_continue (res://scripts/CareerRoot.gd:552)
+       [10] _press (res://tests/playable_loop_test.gd:403)
+       [11] _walk (res://tests/playable_loop_test.gd:140)
+       [12] _press (res://tests/playable_loop_test.gd:406)
+       [13] _settle (res://tests/playable_loop_test.gd:560)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _person_body (res://scripts/GymClub3D.gd:665)
+       [5] _build_manager (res://scripts/GymClub3D.gd:656)
+       [6] build (res://scripts/GymClub3D.gd:275)
+       [7] rebuild (res://scripts/GymHallPanel.gd:121)
+       [8] on_continue (res://scripts/CareerRoot.gd:552)
+       [9] _press (res://tests/playable_loop_test.gd:403)
+       [10] _walk (res://tests/playable_loop_test.gd:140)
+       [11] _press (res://tests/playable_loop_test.gd:406)
+       [12] _settle (res://tests/playable_loop_test.gd:560)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _person_body (res://scripts/GymClub3D.gd:665)
+       [5] _build_manager (res://scripts/GymClub3D.gd:656)
+       [6] build (res://scripts/GymClub3D.gd:275)
+       [7] rebuild (res://scripts/GymHallPanel.gd:121)
+       [8] on_continue (res://scripts/CareerRoot.gd:552)
+       [9] _press (res://tests/playable_loop_test.gd:403)
+       [10] _walk (res://tests/playable_loop_test.gd:140)
+       [11] _press (res://tests/playable_loop_test.gd:406)
+       [12] _settle (res://tests/playable_loop_test.gd:560)
+PLAYABLE after route=training_floor scene=CareerRoot
+PLAYABLE press 'Continue' -> 'Continue'
+PLAYABLE before route=training_floor scene=CareerRoot path=/root/CareerRoot/TopBar/ContinueUnit/Continue
+VENUES2 ring fit: rope span=5.490000 x 5.490000 m / spec contest 5.490000; canvas+apron=6.410000 x 6.410000 m / spec 6.410000; deck=0.950000 / spec surface_y 0.950000; source rope=6.1460 floor=7.0000 deck=1.0092; rope heights above deck [0.53, 0.928, 1.332] (spec [0.46, 0.76, 1.07, 1.37])
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _build_coach (res://scripts/GymHall3D.gd:388)
+       [5] build (res://scripts/TrainingFloor3D.gd:163)
+       [6] build (res://scripts/GymHall3D.gd:323)
+       [7] build (res://scripts/GymClub3D.gd:269)
+       [8] rebuild (res://scripts/GymHallPanel.gd:121)
+       [9] on_continue (res://scripts/CareerRoot.gd:552)
+       [10] _press (res://tests/playable_loop_test.gd:403)
+       [11] _walk (res://tests/playable_loop_test.gd:140)
+       [12] _press (res://tests/playable_loop_test.gd:406)
+       [13] _settle (res://tests/playable_loop_test.gd:560)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _build_coach (res://scripts/GymHall3D.gd:388)
+       [5] build (res://scripts/TrainingFloor3D.gd:163)
+       [6] build (res://scripts/GymHall3D.gd:323)
+       [7] build (res://scripts/GymClub3D.gd:269)
+       [8] rebuild (res://scripts/GymHallPanel.gd:121)
+       [9] on_continue (res://scripts/CareerRoot.gd:552)
+       [10] _press (res://tests/playable_loop_test.gd:403)
+       [11] _walk (res://tests/playable_loop_test.gd:140)
+       [12] _press (res://tests/playable_loop_test.gd:406)
+       [13] _settle (res://tests/playable_loop_test.gd:560)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _person_body (res://scripts/GymClub3D.gd:665)
+       [5] _build_manager (res://scripts/GymClub3D.gd:656)
+       [6] build (res://scripts/GymClub3D.gd:275)
+       [7] rebuild (res://scripts/GymHallPanel.gd:121)
+       [8] on_continue (res://scripts/CareerRoot.gd:552)
+       [9] _press (res://tests/playable_loop_test.gd:403)
+       [10] _walk (res://tests/playable_loop_test.gd:140)
+       [11] _press (res://tests/playable_loop_test.gd:406)
+       [12] _settle (res://tests/playable_loop_test.gd:560)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _person_body (res://scripts/GymClub3D.gd:665)
+       [5] _build_manager (res://scripts/GymClub3D.gd:656)
+       [6] build (res://scripts/GymClub3D.gd:275)
+       [7] rebuild (res://scripts/GymHallPanel.gd:121)
+       [8] on_continue (res://scripts/CareerRoot.gd:552)
+       [9] _press (res://tests/playable_loop_test.gd:403)
+       [10] _walk (res://tests/playable_loop_test.gd:140)
+       [11] _press (res://tests/playable_loop_test.gd:406)
+       [12] _settle (res://tests/playable_loop_test.gd:560)
+PLAYABLE after route=training_floor scene=CareerRoot
+PLAYABLE press 'Continue' -> 'Continue'
+PLAYABLE before route=training_floor scene=CareerRoot path=/root/CareerRoot/TopBar/ContinueUnit/Continue
+VENUES2 ring fit: rope span=5.490000 x 5.490000 m / spec contest 5.490000; canvas+apron=6.410000 x 6.410000 m / spec 6.410000; deck=0.950000 / spec surface_y 0.950000; source rope=6.1460 floor=7.0000 deck=1.0092; rope heights above deck [0.53, 0.928, 1.332] (spec [0.46, 0.76, 1.07, 1.37])
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _build_coach (res://scripts/GymHall3D.gd:388)
+       [5] build (res://scripts/TrainingFloor3D.gd:163)
+       [6] build (res://scripts/GymHall3D.gd:323)
+       [7] build (res://scripts/GymClub3D.gd:269)
+       [8] rebuild (res://scripts/GymHallPanel.gd:121)
+       [9] on_continue (res://scripts/CareerRoot.gd:552)
+       [10] _press (res://tests/playable_loop_test.gd:403)
+       [11] _walk (res://tests/playable_loop_test.gd:140)
+       [12] _press (res://tests/playable_loop_test.gd:406)
+       [13] _settle (res://tests/playable_loop_test.gd:560)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _build_coach (res://scripts/GymHall3D.gd:388)
+       [5] build (res://scripts/TrainingFloor3D.gd:163)
+       [6] build (res://scripts/GymHall3D.gd:323)
+       [7] build (res://scripts/GymClub3D.gd:269)
+       [8] rebuild (res://scripts/GymHallPanel.gd:121)
+       [9] on_continue (res://scripts/CareerRoot.gd:552)
+       [10] _press (res://tests/playable_loop_test.gd:403)
+       [11] _walk (res://tests/playable_loop_test.gd:140)
+       [12] _press (res://tests/playable_loop_test.gd:406)
+       [13] _settle (res://tests/playable_loop_test.gd:560)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _person_body (res://scripts/GymClub3D.gd:665)
+       [5] _build_manager (res://scripts/GymClub3D.gd:656)
+       [6] build (res://scripts/GymClub3D.gd:275)
+       [7] rebuild (res://scripts/GymHallPanel.gd:121)
+       [8] on_continue (res://scripts/CareerRoot.gd:552)
+       [9] _press (res://tests/playable_loop_test.gd:403)
+       [10] _walk (res://tests/playable_loop_test.gd:140)
+       [11] _press (res://tests/playable_loop_test.gd:406)
+       [12] _settle (res://tests/playable_loop_test.gd:560)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _person_body (res://scripts/GymClub3D.gd:665)
+       [5] _build_manager (res://scripts/GymClub3D.gd:656)
+       [6] build (res://scripts/GymClub3D.gd:275)
+       [7] rebuild (res://scripts/GymHallPanel.gd:121)
+       [8] on_continue (res://scripts/CareerRoot.gd:552)
+       [9] _press (res://tests/playable_loop_test.gd:403)
+       [10] _walk (res://tests/playable_loop_test.gd:140)
+       [11] _press (res://tests/playable_loop_test.gd:406)
+       [12] _settle (res://tests/playable_loop_test.gd:560)
+PLAYABLE after route=week_review scene=SetpieceRoot
+PLAYABLE SCREEN route=week_review scene=SetpieceRoot buttons=Next week | Hit
+PLAYABLE STEP T4 PASS: BALANCED programme and coached floor days show a gain
+PLAYABLE press 'NEXT WEEK' -> 'Next week'
+PLAYABLE before route=week_review scene=SetpieceRoot path=/root/SetpieceRoot/SetpieceChrome/BodySlot/WeekReviewPanel/WeekReviewBody/Card/NextWeek
+PLAYABLE after route=training_floor scene=<none>
+VENUES2 ring fit: rope span=5.490000 x 5.490000 m / spec contest 5.490000; canvas+apron=6.410000 x 6.410000 m / spec 6.410000; deck=0.950000 / spec surface_y 0.950000; source rope=6.1460 floor=7.0000 deck=1.0092; rope heights above deck [0.53, 0.928, 1.332] (spec [0.46, 0.76, 1.07, 1.37])
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _build_coach (res://scripts/GymHall3D.gd:388)
+       [5] build (res://scripts/TrainingFloor3D.gd:163)
+       [6] build (res://scripts/GymHall3D.gd:323)
+       [7] build (res://scripts/GymClub3D.gd:269)
+       [8] rebuild (res://scripts/GymHallPanel.gd:121)
+       [9] _ready (res://scripts/GymHallPanel.gd:77)
+       [10] _mount (res://scripts/CareerRoot.gd:448)
+       [11] show_route (res://scripts/CareerRoot.gd:309)
+       [12] _ready (res://scripts/CareerRoot.gd:112)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _build_coach (res://scripts/GymHall3D.gd:388)
+       [5] build (res://scripts/TrainingFloor3D.gd:163)
+       [6] build (res://scripts/GymHall3D.gd:323)
+       [7] build (res://scripts/GymClub3D.gd:269)
+       [8] rebuild (res://scripts/GymHallPanel.gd:121)
+       [9] _ready (res://scripts/GymHallPanel.gd:77)
+       [10] _mount (res://scripts/CareerRoot.gd:448)
+       [11] show_route (res://scripts/CareerRoot.gd:309)
+       [12] _ready (res://scripts/CareerRoot.gd:112)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _person_body (res://scripts/GymClub3D.gd:665)
+       [5] _build_manager (res://scripts/GymClub3D.gd:656)
+       [6] build (res://scripts/GymClub3D.gd:275)
+       [7] rebuild (res://scripts/GymHallPanel.gd:121)
+       [8] _ready (res://scripts/GymHallPanel.gd:77)
+       [9] _mount (res://scripts/CareerRoot.gd:448)
+       [10] show_route (res://scripts/CareerRoot.gd:309)
+       [11] _ready (res://scripts/CareerRoot.gd:112)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _person_body (res://scripts/GymClub3D.gd:665)
+       [5] _build_manager (res://scripts/GymClub3D.gd:656)
+       [6] build (res://scripts/GymClub3D.gd:275)
+       [7] rebuild (res://scripts/GymHallPanel.gd:121)
+       [8] _ready (res://scripts/GymHallPanel.gd:77)
+       [9] _mount (res://scripts/CareerRoot.gd:448)
+       [10] show_route (res://scripts/CareerRoot.gd:309)
+       [11] _ready (res://scripts/CareerRoot.gd:112)
+PLAYABLE press 'Nav_calendar' -> '3'
+PLAYABLE before route=training_floor scene=CareerRoot path=/root/CareerRoot/TopBar/NavIcons/Nav_calendar
+PLAYABLE after route=calendar scene=CareerRoot
+PLAYABLE SCREEN route=calendar scene=CareerRoot buttons=MY GYM | LADDER | MY MONTH | THE CARDS | OFFERS | THE CORNER | FIND ANGELICA A BOUT | SKIP TO NEXT DECISION | REVIEW | Home | Fighters | Training | Scouting | Staff | 3 | Rankings | Finance | Back | Handbook | FIND A FIGHT  › | Continue | OpenOffice | Options | GOT IT | –
+PLAYABLE T5 text=SCHEDULE 1 DATED IN 6 WEEKS  ·  WORLD EVENTS: THE CARDS NEXT UP Angelica Martini has no bout booked Why: A bout is the only way up the ladder - and the only purse. WEEK 4 SUN 1 FEB Monthly bill - wages and upkeep, about $11,044 YOUR FIGHTERS Angelica Martini 0-0-0 AM NO BOUT BOOKED REGIONAL LEVEL  ·  0/5 WINS TO NATIONAL CH Calder House Boxing Club 3 NO BOUT BOOKED Mon 12 Jan 2026 Wk 2 to Tue $20,052 -$1,417/wk runway 14 wk NEW The gym can only hold so many fighters at once. The gym can only hold so many fighters at once.
+PLAYABLE press 'FIND*A BOUT' -> 'FIND ANGELICA A BOUT'
+PLAYABLE before route=calendar scene=CareerRoot path=/root/CareerRoot/ContentStack/ScheduleHubPanel/Hub/NextUp/NextUpGo
+PLAYABLE after route=calendar scene=CareerRoot
+PLAYABLE SCREEN route=calendar scene=CareerRoot buttons=MY GYM | LADDER | MY MONTH | THE CARDS | OFFERS | THE CORNER | ACCEPT | ACCEPT | ACCEPT | Hit | ENTER | Hit | ENTER | Hit | ENTER | CANNOT OPEN | Home | Fighters | Training | Scouting | Staff | 3 | Rankings | Finance | Back | Handbook | FIND A FIGHT  › | Continue | OpenOffice | Options | GOT IT | –
+PLAYABLE T5 text=SCHEDULE 3 OFFERS ON THE DESK  ·  3 EVEN MATCHES  ·  WEEK 2  ·  3 TO ANSWER AMATEUR CIRCUIT THE WORLD THIS WEEK  ·  228 EVENTS SCHEDULED IN 175 COUNTRIES BRACKET · 1 ROUNDS SPONSORSHIP SPONSOR CORNER CUP COFFEE SPONSOR TERMS $180 16W SPONSOR STEADY HANDS PHYSIO SPONSOR TERMS $220 8W SPONSOR BRICK & BEAM BUILDERS SPONSOR TERMS $250 12W EVEN LI QIAN 0-0-0  ·  FEATHERWEIGHT  ·  ASSOCIATION OF BOXING COMMISSIONS  •  FEATURED BOUT FOR ANGELICA MARTINI ANGELICA MARTINI 0-0-0 AM VS LI QIAN 0-0-0  ·  FAST HANDS NO FIGHTS BETWEEN THEM — AN EVEN FIRST BOUT PURSE NO PURSE ENTRY FEE UNKNOWN 2 WEEKS OUT 46% -3 0 2W CLOSED EVEN DULCE MARQUEZ 0-0-0  ·  FEATHERWEIGHT  ·  ASSOCIATION OF BOXING COMMISSIONS  •  FEATURED BOUT FOR ANGELICA MARTINI ANGELICA MARTINI 0-0-0 AM VS DULCE MARQUEZ 0-0-0  ·  FAST HANDS NO FIGHTS BETWEEN THEM — AN EVEN FIRST BOUT PURSE NO PURSE ENTRY FEE UNKNOWN 4 WEEKS OUT 45% -1 0 4W CLOSED EVEN LAMAI SAPSAMUT 0-0-0  ·  FEATHERWEIGHT  ·  ASSOCIATION OF BOXING COMMISSIONS  •  FEATURED BOUT FOR ANGELICA MARTINI ANGELICA MARTINI 0-0-0 AM VS LAMAI SAPSAMUT 0-0-0  ·  FAST HANDS NO FIGHTS BETWEEN THEM — AN EVEN FIRST BOUT PURSE NO PURSE ENTRY FEE UNKNOWN 2 WEEKS OUT 46% -2 0 2W OPEN SELECT AN OFFER CH Calder House Boxing Club 3 NO BOUT BOOKED Mon 12 Jan 2026 Wk 2 to Tue $20,052 -$1,417/wk runway 14 wk NEW The gym can only hold so many fighters at once. The gym can only hold so many fighters at once.
+PLAYABLE card legal='true' click /root/CareerRoot/ContentStack/ScheduleHubPanel/Hub/OfferRows/Column/FightRead/AmateurOfferRow0/Hit
+PLAYABLE press 'ENTER THE CARD' -> 'ENTER THE CARD'
+PLAYABLE before route=calendar scene=CareerRoot path=/root/CareerRoot/ContentStack/ScheduleHubPanel/Hub/OfferBar/EnterCard
+PLAYABLE after route=calendar scene=CareerRoot
+PLAYABLE SCREEN route=calendar scene=CareerRoot buttons=MY GYM | LADDER | MY MONTH | THE CARDS | OFFERS | THE CORNER | CancelBooking | ACCEPT | ACCEPT | ACCEPT | Hit | ENTER | Hit | ENTER | Hit | ENTER | CANNOT OPEN | Home | Fighters | Training | Scouting | Staff | 3 | Rankings | Finance | Back | Handbook | FIND A FIGHT  › | Continue | OpenOffice | Options | GOT IT | –
+PLAYABLE T5 booked text=SCHEDULE 3 OFFERS ON THE DESK  ·  3 EVEN MATCHES  ·  WEEK 2  ·  3 TO ANSWER AMATEUR CIRCUIT THE WORLD THIS WEEK  ·  228 EVENTS SCHEDULED IN 175 COUNTRIES BRACKET · 1 ROUNDS BOOKED BOOKED ANGELICA MARTINI ON A CARD SPONSORSHIP SPONSOR CORNER CUP COFFEE SPONSOR TERMS $180 16W SPONSOR STEADY HANDS PHYSIO SPONSOR TERMS $220 8W SPONSOR BRICK & BEAM BUILDERS SPONSOR TERMS $250 12W EVEN LI QIAN 0-0-0  ·  FEATHERWEIGHT  ·  ASSOCIATION OF BOXING COMMISSIONS  •  FEATURED BOUT FOR ANGELICA MARTINI ANGELICA MARTINI 0-0-0 AM VS LI QIAN 0-0-0  ·  FAST HANDS NO FIGHTS BETWEEN THEM — AN EVEN FIRST BOUT PURSE NO PURSE ENTRY FEE UNKNOWN 2 WEEKS OUT 46% -3 0 2W CLOSED EVEN DULCE MARQUEZ 0-0-0  ·  FEATHERWEIGHT  ·  ASSOCIATION OF BOXING COMMISSIONS  •  FEATURED BOUT FOR ANGELICA MARTINI ANGELICA MARTINI 0-0-0 AM VS DULCE MARQUEZ 0-0-0  ·  FAST HANDS NO FIGHTS BETWEEN THEM — AN EVEN FIRST BOUT PURSE NO PURSE ENTRY FEE UNKNOWN 4 WEEKS OUT 45% -1 0 4W CLOSED EVEN LAMAI SAPSAMUT 0-0-0  ·  FEATHERWEIGHT  ·  AS
+PLAYABLE T5 status= selected=
+PLAYABLE STEP T5 PASS: Angelica Martini booked through the visible amateur card
+PLAYABLE press 'MY GYM' -> 'MY GYM'
+PLAYABLE before route=calendar scene=CareerRoot path=/root/CareerRoot/ContentStack/ScheduleHubPanel/Hub/Tabs/Option0
+PLAYABLE after route=calendar scene=CareerRoot
+PLAYABLE press 'SKIP TO NEXT DECISION' -> 'SKIP TO NEXT DECISION'
+PLAYABLE before route=calendar scene=CareerRoot path=/root/CareerRoot/ContentStack/ScheduleHubPanel/Hub/NextUp/SkipToDecision
+PLAYABLE after route=calendar scene=CareerRoot
+PLAYABLE SCREEN route=calendar scene=CareerRoot buttons=MY GYM | LADDER | MY MONTH | THE CARDS | OFFERS | THE CORNER | SET CAMP | SKIP TO NEXT DECISION | SET CAMP | WEIGHT | SEE THE BOUT | REVIEW | Home | Fighters | Training | Scouting | Staff | 3 | Rankings | Finance | Back | Handbook | FIND A FIGHT  › | Continue | OpenOffice | Options | GOT IT | –
+PLAYABLE T6 route=calendar text=SCHEDULE 4 DATED IN 6 WEEKS  ·  WORLD EVENTS: THE CARDS NEXT UP  ·  MON 12 JAN Set the fight camp - bout in 2 weeks (Angelica Martini) Why: A fighter who goes in without a camp fights below his best. THIS WEEK MON 12 JAN Set the fight camp - bout in 2 weeks (Angelica Martini) NEXT WEEK SUN 25 JAN Weigh-in - limit 57.2 kg (Angelica Martini) WEEK 4 MON 26 JAN Bout - Association of Boxing Commissions, Featured Bout vs Li Qian (Angelica Martini) SUN 1 FEB Monthly bill - wages and upkeep, about $11,044 YOUR FIGHTERS Angelica Martini 0-0-0 AM BOUT  ·  MON 26 JAN REGIONAL LEVEL  ·  0/5 WINS TO NATIONAL NOTHING TO SKIP  ·  SET THE FIGHT CAMP - BOUT IN 2 WEEKS (ANGELICA MARTINI) CH Calder House Boxing Club 3 NO BOUT BOOKED Mon 12 Jan 2026 Wk 2 to Tue $20,052 -$1,417/wk runway 14 wk NEW The gym can only hold so many fighters at once. The gym can only hold so many fighters at once.
+PLAYABLE press 'SET CAMP' -> 'SET CAMP'
+PLAYABLE before route=calendar scene=CareerRoot path=/root/CareerRoot/ContentStack/ScheduleHubPanel/Hub/NextUp/NextUpGo
+PLAYABLE after route=fighter_card scene=CareerRoot
+PLAYABLE SCREEN route=fighter_card scene=CareerRoot buttons=←  BACK | FIGHT PLAN | SET PROGRAM | OVERVIEW | SKILLS & MOVES | DEVELOPMENT | FIGHT RECORD | BODY LAB | CAMP | CONTRACT | START A CAMP | EDIT THE WEEK | Home | 1 | Training | Scouting | Staff | Fights | Rankings | Finance | Back | Handbook | Continue | OpenOffice | Options | GOT IT | –
+PLAYABLE press 'CAMP' -> 'CAMP'
+PLAYABLE before route=fighter_card scene=CareerRoot path=/root/CareerRoot/ContentStack/AthleteProfileShellScreen/ProfileRevampPanel/Tabs/Tab5
+PLAYABLE after route=fighter_card scene=CareerRoot
+PLAYABLE press 'START A CAMP' -> 'START A CAMP'
+PLAYABLE before route=fighter_card scene=CareerRoot path=/root/CareerRoot/ContentStack/AthleteProfileShellScreen/ProfileRevampPanel/TabBody/Frame/Body/Start
+PLAYABLE after route=fighter_card scene=CareerRoot
+PLAYABLE SCREEN route=fighter_card scene=CareerRoot buttons=←  BACK | FIGHT PLAN | SET PROGRAM | OVERVIEW | SKILLS & MOVES | DEVELOPMENT | FIGHT RECORD | BODY LAB | CAMP | CONTRACT | START A CAMP | EDIT THE WEEK | THE STRIKING SHARK | THE MARATHON MAN | THE HUMAN SHIELD | HARD SPARRING | TECHNICAL FLOW | SCIENTIFIC RECOVERY | THE MIRROR | THE CLONE | THE IRON CHIN | NO PARTNER | ESTEFANIA AGUILAR | ROCIO LARA | LILIANA JUAREZ | NO VISITING COACH | NICOLA PIRAS | THE COUNTER-PUNCHER | THE BLITZ | NO CUT | MODERATE CUT | AGGRESSIVE CUT | WatchFilm | FIGHT PLAN SETUP | START CAMP | Hit | Home | 1 | Training | Scouting | Staff | Fights | Rankings | Finance | Back | Handbook | Continue | OpenOffice | Options | GOT IT | –
+PLAYABLE press 'THE STRIKING SHARK' -> 'THE STRIKING SHARK'
+PLAYABLE before route=fighter_card scene=CareerRoot path=/root/CareerRoot/ContentStack/AthleteProfileShellScreen/CampSetpiece/CampChrome/BodySlot/FightCampPanel/CampSetup/FocusCard_striking_shark
+PLAYABLE after route=fighter_card scene=CareerRoot
+PLAYABLE press 'TECHNICAL FLOW' -> 'TECHNICAL FLOW'
+PLAYABLE before route=fighter_card scene=CareerRoot path=/root/CareerRoot/ContentStack/AthleteProfileShellScreen/CampSetpiece/CampChrome/BodySlot/FightCampPanel/CampSetup/ProtocolCard_technical_flow
+PLAYABLE after route=fighter_card scene=CareerRoot
+PLAYABLE press 'START CAMP' -> 'START CAMP'
+PLAYABLE before route=fighter_card scene=CareerRoot path=/root/CareerRoot/ContentStack/AthleteProfileShellScreen/CampSetpiece/CampChrome/BodySlot/FightCampPanel/CampSetup/Projection/StartCamp
+PLAYABLE after route=fighter_card scene=CareerRoot
+PLAYABLE press 'BACK' -> '←  BACK'
+PLAYABLE before route=fighter_card scene=CareerRoot path=/root/CareerRoot/ContentStack/AthleteProfileShellScreen/Back
+PLAYABLE after route=calendar scene=CareerRoot
+PLAYABLE press 'Nav_calendar' -> 'Fights'
+PLAYABLE before route=calendar scene=CareerRoot path=/root/CareerRoot/TopBar/NavIcons/Nav_calendar
+PLAYABLE after route=calendar scene=CareerRoot
+PLAYABLE press 'MY GYM' -> 'MY GYM'
+PLAYABLE before route=calendar scene=CareerRoot path=/root/CareerRoot/ContentStack/ScheduleHubPanel/Hub/Tabs/Option0
+PLAYABLE after route=calendar scene=CareerRoot
+PLAYABLE press 'SKIP TO NEXT DECISION' -> 'SKIP TO NEXT DECISION'
+PLAYABLE before route=calendar scene=CareerRoot path=/root/CareerRoot/ContentStack/ScheduleHubPanel/Hub/NextUp/SkipToDecision
+PLAYABLE after route=calendar scene=CareerRoot
+PLAYABLE press 'SKIP TO NEXT DECISION' -> 'SKIP TO NEXT DECISION'
+PLAYABLE before route=calendar scene=CareerRoot path=/root/CareerRoot/ContentStack/ScheduleHubPanel/Hub/NextUp/SkipToDecision
+PLAYABLE after route=calendar scene=CareerRoot
+PLAYABLE press 'WEIGHT' -> 'WEIGHT'
+PLAYABLE before route=calendar scene=CareerRoot path=/root/CareerRoot/ContentStack/ScheduleHubPanel/Hub/NextUp/NextUpGo
+PLAYABLE after route=fighter_card scene=CareerRoot
+PLAYABLE press 'BACK' -> '←  BACK'
+PLAYABLE before route=fighter_card scene=CareerRoot path=/root/CareerRoot/ContentStack/AthleteProfileShellScreen/Back
+PLAYABLE after route=calendar scene=CareerRoot
+PLAYABLE press 'Continue' -> 'Continue'
+PLAYABLE before route=calendar scene=CareerRoot path=/root/CareerRoot/TopBar/ContinueUnit/Continue
+PLAYABLE after route=week_review scene=SetpieceRoot
+PLAYABLE press 'NEXT WEEK' -> 'Next week'
+PLAYABLE before route=week_review scene=SetpieceRoot path=/root/SetpieceRoot/SetpieceChrome/BodySlot/WeekReviewPanel/WeekReviewBody/Card/NextWeek
+PLAYABLE after route=week_review scene=SetpieceRoot
+PLAYABLE press 'MY GYM' -> 'MY GYM'
+PLAYABLE before route=calendar scene=CareerRoot path=/root/CareerRoot/ContentStack/ScheduleHubPanel/Hub/Tabs/Option0
+PLAYABLE after route=calendar scene=CareerRoot
+PLAYABLE press 'FIGHT WEEK' -> 'FIGHT WEEK'
+PLAYABLE before route=calendar scene=CareerRoot path=/root/CareerRoot/ContentStack/ScheduleHubPanel/Hub/NextUp/NextUpGo
+PLAYABLE after route=fight_week scene=CareerRoot
+PLAYABLE STEP T6 PASS: camp, the weigh-in date, and fight week are reached
+PLAYABLE press 'To the weigh-in' -> 'To the weigh-in  →'
+PLAYABLE before route=fight_week scene=SetpieceRoot path=/root/SetpieceRoot/SetpieceChrome/BodySlot/FightWeekPanel/FightWeekBody/PhaseStep
+PLAYABLE after route=weigh_in scene=SetpieceRoot
+PLAYABLE STEP T6 PASS: the official weigh-in board opens
+PLAYABLE press 'To fight night' -> 'To fight night  →'
+PLAYABLE before route=weigh_in scene=SetpieceRoot path=/root/SetpieceRoot/SetpieceChrome/BodySlot/WeighInPanel/WeighInBody/PhaseStep
+PLAYABLE after route=fight_night scene=SetpieceRoot
+PLAYABLE press 'BEGIN FIGHT' -> 'BEGIN FIGHT  →'
+PLAYABLE before route=fight_night scene=SetpieceRoot path=/root/SetpieceRoot/SetpieceChrome/BodySlot/FightNight/RingStagePanel/TapeHost/BroadcastTaleOfTheTape/BeginFightButton
+WARNING: Target and up vectors are colinear. This is not advised as it may cause unwanted rotation around local Z axis.
+   at: looking_at (core/math/basis.cpp:1045)
+   GDScript backtrace (most recent call first):
+       [0] _add_north_dock_lights (res://scripts/VenueRig.gd:282)
+       [1] _build_north_dock (res://scripts/VenueRig.gd:170)
+       [2] build (res://scripts/VenueRig.gd:108)
+       [3] setup (res://scripts/FightWorldLiveScreen.gd:1217)
+       [4] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [5] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [6] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [7] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [8] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [9] _press (res://tests/playable_loop_test.gd:403)
+       [10] _walk (res://tests/playable_loop_test.gd:242)
+       [11] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _graft_retargeted (res://scripts/FightStagePlayer.gd:2315)
+       [3] bind (res://scripts/FightStagePlayer.gd:1510)
+       [4] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [5] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [6] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [7] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [8] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [9] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [10] _press (res://tests/playable_loop_test.gd:403)
+       [11] _walk (res://tests/playable_loop_test.gd:242)
+       [12] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _graft_retargeted (res://scripts/FightStagePlayer.gd:2315)
+       [3] bind (res://scripts/FightStagePlayer.gd:1510)
+       [4] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [5] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [6] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [7] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [8] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [9] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [10] _press (res://tests/playable_loop_test.gd:403)
+       [11] _walk (res://tests/playable_loop_test.gd:242)
+       [12] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [6] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [7] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [8] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [9] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [10] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [11] _press (res://tests/playable_loop_test.gd:403)
+       [12] _walk (res://tests/playable_loop_test.gd:242)
+       [13] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _graft_retargeted (res://scripts/FightStagePlayer.gd:2315)
+       [3] bind (res://scripts/FightStagePlayer.gd:1510)
+       [4] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [5] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [6] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [7] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [8] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [9] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [10] _press (res://tests/playable_loop_test.gd:403)
+       [11] _walk (res://tests/playable_loop_test.gd:242)
+       [12] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _graft_retargeted (res://scripts/FightStagePlayer.gd:2315)
+       [3] bind (res://scripts/FightStagePlayer.gd:1510)
+       [4] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [5] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [6] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [7] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [8] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [9] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [10] _press (res://tests/playable_loop_test.gd:403)
+       [11] _walk (res://tests/playable_loop_test.gd:242)
+       [12] _wait_for_route (res://tests/playable_loop_test.gd:509)
+[FightWorldLive] BOXING - seed 1292851415, 3 rounds | waiting for the first beat
+PLAYABLE after route=fight_night scene=SetpieceRoot
+PLAYABLE press 'SIM TO RESULT' -> 'SIM TO RESULT'
+PLAYABLE before route=fight_night scene=SetpieceRoot path=/root/SetpieceRoot/SetpieceChrome/BodySlot/FightNight/ArenaHost/ArenaSpeed/SimToResult
+PLAYABLE after route=fight_night scene=SetpieceRoot
+PLAYABLE press exact 'SKIP' -> 'SKIP'
+[FightWorldLive] FIGHT OVER - DECISION | beats 138 | named clip played 0 | honest degrade 0 | walk carried 0 | stance 0
+PLAYABLE STEP T7 PASS: the visible fight-night controls resolve the bout
+PLAYABLE T8 result=qian def. martini ud · r 3 3:00 the moment that decided it 1. qian edged martini 29-28 — round 2 decided it. punch table martini qian thrown / landed thrown / landed jabs 38 / 21 41 / 24 power 23 / 14 36 / 19 of which body — / 10 — / 21 total 61 / 35 77 / 43 after 3 rounds every judge scores it for li qian. li qian takes a unanimous decision over angelica martini. unanimous decision 3-0 cards the cards ten-point must  ·  3 judges rnd martini qian marks judge 1 judge 2 judge 3 read r1 10 9 10-9 10-9 10-9 r2 9 10 9-10 9-10 9-10 ▲ swing  ·  decided the cards r3 9 10 9-10 9-10 9-10 totals 28 29 28-29 28-29 28-29 settlement nothing paid for this bout no purse, no bonus, no costs. the read closed martini qian output / min 7.1 9.0 connect 57% 56% jab share 39% 42% defense / min 2.6 1.5 head · body · legs 25 · 10 · 0 22 · 21 · 0 knockdowns 0 0 where fought  ·  long 43%  ·  mid 31%  ·  pocket 25% the plans qian  ·  good plan body + legs plan  ·  21 of 43 landed went downstairs (49%) patient pace  ·  threw 77 (he threw 61)  ·  r1 22, r3 33 only one corner came with a plan. what the night changed 0-1-0 am +1 -1 camp strike lands more often ◂ way out esc  ·  pop official result result method decision round 3 angelica martini post-fight read the cards  ·  then continue contract={ "athlete_id": "ath_italy_milan_01_03", "has_card": false, "winner": "Li Qian", "method": "DECISION", "record_line": "", "paid": 0, "has_result_block": true, "has_causation_box": true, "moments_lines": ["1. QIAN edged MARTINI 29-28 — round 2 decided it.", "", ""], "has_punch_table": true, "punch_table": { "measured": true, "a": [[38, 21], [23, 14], [<null>, 10], [61, 35]], "b": [[41, 24], [36, 19], [<null>, 21], [77, 43]] }, "result_method_token": "UD", "stoppage": false, "has_continue": true, "continue_label": "BACK HOME ▸", "next_event_id": "", "event_id": "", "scorecards": 3, "description": "After 3 rounds every judge scores it for Li Qian. Li Qian takes a unanimous decision over Angelica Martini.", "judge_count": 3, "decision_type": "unanimous", "stamp_word": "UNANIMOUS DECISION", "card_rows": 3, "panelled": true, "disagreement_rounds": 0, "swing_round": 2, "cards_note": "", "has_range": false, "range_band": "", "range_owner": "", "range_note": "", "has_broadcast": true, "broadcast_stance": "CLOSED", "broadcast_connect_a": "57%", "broadcast_connect_b": "56%", "broadcast_bands": "LONG 43%  ·  MID 31%  ·  POCKET 25%", "belt_block": "", "belt_tone": "", "aftermath_rows": 1 } payload={ "winner_side": "b", "winner_name": "Li Qian", "loser_name": "Angelica Martini", "method": "DECISION", "rounds": 3, "rounds_completed": 3, "decision_type": "unanimous", "result_type": "", "duration_seconds": 0, "round": 3, "t_s": 660.0, "round_seconds": 180.0, "rest_seconds": 60.0, "player_bout": true, "eyebrow": "YOUR BOUT  ·  OFFICIAL RESULT", "athlete_a_name": "Angelica Martini", "athlete_b_name": "Li Qian", "scoring_style": "", "athlete_name": "Angelica Martini", "purse": 0, "win_bonus": 0, "performance_bonus": 0, "gate_share": 0, "gate": 0, "attendance_fill": 0.708, "rival_gym": "Beijing Kickboxing", "gym_heat_bonus": 0, "expenses": 0, "weight_fine": 0, "paid": 0, "to_fighter": 0, "to_gym": 0, "manager_filed": false, "manager_share_percent": 0.0, "fighter_name": "Angelica Martini", "fame_delta": 1, "player_result": "loss", "record_after": { "wins": 0, "losses": 1, "draws": 0 }, "record_kind": "amateur_record", "rank_before": 0, "rank_after": 0, "ranking_points_delta": 0, "weight_class": "Featherweight", "reputation_delta": -1, "injured": false, "body_damage": { "result": "damaged", "profile": "decision_loss", "before": { "head_neck": 100, "torso_core": 100, "left_arm": 100, "right_arm": 100, "left_leg": 97, "right_leg": 97 }, "after": { "head_neck": 52, "torso_core": 82, "left_arm": 85, "right_arm": 65, "left_leg": 80, "right_leg": 56 }, "hotspots": ["right_leg", "right_arm", "head_neck"], "injury": { "type_id": "contusion", "region": "head_neck", "severity": 1, "onset_week": 5, "train_week": 6, "compete_week": 7, "hold_until_week": 0, "sets_hold": false, "treatment_path": "conservative", "clearance_flags": [], "re_injury": false, "grades": { "train": "AUTHORED", "compete": "AUTHORED", "hold": "AUTHORED" } }, "medical_hold_until_week": 6, "recovery_only_recommende
+PLAYABLE STEP T8 PASS: the result screen reports the fight outcome and career changes
+PLAYABLE press 'BACK HOME' -> 'BACK HOME ▸'
+PLAYABLE before route=fight_result scene=SetpieceRoot path=/root/SetpieceRoot/SetpieceChrome/BodySlot/FightResultPanel/FightResultBody/Continue
+VENUES2 ring fit: rope span=5.490000 x 5.490000 m / spec contest 5.490000; canvas+apron=6.410000 x 6.410000 m / spec 6.410000; deck=0.950000 / spec surface_y 0.950000; source rope=6.1460 floor=7.0000 deck=1.0092; rope heights above deck [0.53, 0.928, 1.332] (spec [0.46, 0.76, 1.07, 1.37])
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _build_coach (res://scripts/GymHall3D.gd:388)
+       [5] build (res://scripts/TrainingFloor3D.gd:163)
+       [6] build (res://scripts/GymHall3D.gd:323)
+       [7] build (res://scripts/GymClub3D.gd:269)
+       [8] rebuild (res://scripts/GymHallPanel.gd:121)
+       [9] _ready (res://scripts/GymHallPanel.gd:77)
+       [10] _mount (res://scripts/CareerRoot.gd:448)
+       [11] show_route (res://scripts/CareerRoot.gd:309)
+       [12] _ready (res://scripts/CareerRoot.gd:112)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _build_coach (res://scripts/GymHall3D.gd:388)
+       [5] build (res://scripts/TrainingFloor3D.gd:163)
+       [6] build (res://scripts/GymHall3D.gd:323)
+       [7] build (res://scripts/GymClub3D.gd:269)
+       [8] rebuild (res://scripts/GymHallPanel.gd:121)
+       [9] _ready (res://scripts/GymHallPanel.gd:77)
+       [10] _mount (res://scripts/CareerRoot.gd:448)
+       [11] show_route (res://scripts/CareerRoot.gd:309)
+       [12] _ready (res://scripts/CareerRoot.gd:112)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _person_body (res://scripts/GymClub3D.gd:665)
+       [5] _build_manager (res://scripts/GymClub3D.gd:656)
+       [6] build (res://scripts/GymClub3D.gd:275)
+       [7] rebuild (res://scripts/GymHallPanel.gd:121)
+       [8] _ready (res://scripts/GymHallPanel.gd:77)
+       [9] _mount (res://scripts/CareerRoot.gd:448)
+       [10] show_route (res://scripts/CareerRoot.gd:309)
+       [11] _ready (res://scripts/CareerRoot.gd:112)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _generator_clip (res://scripts/TrainingFloor3D.gd:2129)
+       [3] _add_body (res://scripts/TrainingFloor3D.gd:1934)
+       [4] _person_body (res://scripts/GymClub3D.gd:665)
+       [5] _build_manager (res://scripts/GymClub3D.gd:656)
+       [6] build (res://scripts/GymClub3D.gd:275)
+       [7] rebuild (res://scripts/GymHallPanel.gd:121)
+       [8] _ready (res://scripts/GymHallPanel.gd:77)
+       [9] _mount (res://scripts/CareerRoot.gd:448)
+       [10] show_route (res://scripts/CareerRoot.gd:309)
+       [11] _ready (res://scripts/CareerRoot.gd:112)
+PLAYABLE after route=day_feed scene=CareerRoot
+PLAYABLE press 'Nav_training' -> 'Training'
+PLAYABLE before route=day_feed scene=CareerRoot path=/root/CareerRoot/TopBar/NavIcons/Nav_training
+PLAYABLE after route=training scene=CareerRoot
+PLAYABLE SCREEN route=training scene=CareerRoot buttons=WATCH THE FLOOR | THE WEEK | FIGHT CAMP | ALL | NEEDS YOU  1 | UNPLANNED | IN CAMP | BLOCKED  1 | BALANCED | POWER | CONDITIONING | TECHNIQUE | RECOVERY | Sort_fighter | Sort_week | Sort_load | Sort_ready | Sort_flag | Hit | Hit | Hit | Hit | Hit | Hit | Hit | Hit | Home | Fighters | Training | Scouting | Staff | 5 | Rankings | Finance | Back | Handbook | FIND A FIGHT  › | Continue | OpenOffice | Options | GUIDE  ·  Set his training
+PLAYABLE press 'Hit' -> 'Hit'
+PLAYABLE before route=training scene=CareerRoot path=/root/CareerRoot/ContentStack/TrainingHubPanel/Hub/Rows/Column/WeekBand/Hit
+PLAYABLE after route=training scene=CareerRoot
+PLAYABLE press 'RECOVERY' -> 'RECOVERY'
+PLAYABLE before route=training scene=CareerRoot path=/root/CareerRoot/ContentStack/TrainingHubPanel/Hub/Presets/Preset_recovery
+PLAYABLE after route=training scene=CareerRoot
+PLAYABLE press 'Nav_calendar' -> '5'
+PLAYABLE before route=training scene=CareerRoot path=/root/CareerRoot/TopBar/NavIcons/Nav_calendar
+PLAYABLE after route=calendar scene=CareerRoot
+PLAYABLE press 'MY GYM' -> 'MY GYM'
+PLAYABLE before route=calendar scene=CareerRoot path=/root/CareerRoot/ContentStack/ScheduleHubPanel/Hub/Tabs/Option0
+PLAYABLE after route=calendar scene=CareerRoot
+PLAYABLE press 'SKIP TO NEXT DECISION' -> 'SKIP TO NEXT DECISION'
+PLAYABLE before route=calendar scene=CareerRoot path=/root/CareerRoot/ContentStack/ScheduleHubPanel/Hub/NextUp/SkipToDecision
+PLAYABLE after route=calendar scene=CareerRoot
+PLAYABLE press 'MY GYM' -> 'MY GYM'
+PLAYABLE before route=calendar scene=CareerRoot path=/root/CareerRoot/ContentStack/ScheduleHubPanel/Hub/Tabs/Option0
+PLAYABLE after route=calendar scene=CareerRoot
+PLAYABLE press 'SKIP TO NEXT DECISION' -> 'SKIP TO NEXT DECISION'
+PLAYABLE before route=calendar scene=CareerRoot path=/root/CareerRoot/ContentStack/ScheduleHubPanel/Hub/NextUp/SkipToDecision
+PLAYABLE after route=calendar scene=CareerRoot
+PLAYABLE press 'Continue' -> 'Continue'
+PLAYABLE before route=calendar scene=CareerRoot path=/root/CareerRoot/TopBar/ContinueUnit/Continue
+PLAYABLE after route=calendar scene=CareerRoot
+PLAYABLE press 'MY GYM' -> 'MY GYM'
+PLAYABLE before route=calendar scene=CareerRoot path=/root/CareerRoot/ContentStack/ScheduleHubPanel/Hub/Tabs/Option0
+PLAYABLE after route=calendar scene=CareerRoot
+PLAYABLE press 'SKIP TO NEXT DECISION' -> 'SKIP TO NEXT DECISION'
+PLAYABLE before route=calendar scene=CareerRoot path=/root/CareerRoot/ContentStack/ScheduleHubPanel/Hub/NextUp/SkipToDecision
+PLAYABLE after route=calendar scene=CareerRoot
+PLAYABLE press 'MY GYM' -> 'MY GYM'
+PLAYABLE before route=calendar scene=CareerRoot path=/root/CareerRoot/ContentStack/ScheduleHubPanel/Hub/Tabs/Option0
+PLAYABLE after route=calendar scene=CareerRoot
+PLAYABLE press 'SKIP TO NEXT DECISION' -> 'SKIP TO NEXT DECISION'
+PLAYABLE before route=calendar scene=CareerRoot path=/root/CareerRoot/ContentStack/ScheduleHubPanel/Hub/NextUp/SkipToDecision
+PLAYABLE after route=calendar scene=CareerRoot
+PLAYABLE press 'MY GYM' -> 'MY GYM'
+PLAYABLE before route=calendar scene=CareerRoot path=/root/CareerRoot/ContentStack/ScheduleHubPanel/Hub/Tabs/Option0
+PLAYABLE after route=calendar scene=CareerRoot
+PLAYABLE press 'FIND*A BOUT' -> 'FIND ANGELICA A BOUT'
+PLAYABLE before route=calendar scene=CareerRoot path=/root/CareerRoot/ContentStack/ScheduleHubPanel/Hub/NextUp/NextUpGo
+PLAYABLE after route=calendar scene=CareerRoot
+PLAYABLE card legal='true' click /root/CareerRoot/ContentStack/ScheduleHubPanel/Hub/OfferRows/Column/FightRead/AmateurOfferRow0/Hit
+PLAYABLE press 'ENTER THE CARD' -> 'ENTER THE CARD'
+PLAYABLE before route=calendar scene=CareerRoot path=/root/CareerRoot/ContentStack/ScheduleHubPanel/Hub/OfferBar/EnterCard
+PLAYABLE after route=calendar scene=CareerRoot
+PLAYABLE STEP T9 PASS: the injury clearance and next-week UI lead to a second booked bout
+PLAYABLE SCREEN route=calendar scene=CareerRoot buttons=MY GYM | LADDER | MY MONTH | THE CARDS | OFFERS | THE CORNER | CancelBooking | ACCEPT | ACCEPT | ACCEPT | Hit | ENTER | Hit | ENTER | Hit | ENTER | Hit | ENTER | Hit | ENTER | CANNOT OPEN | Home | Fighters | Training | Scouting | Staff | 5 | Rankings | Finance | Back | Handbook | FIND A FIGHT  › | Continue | OpenOffice | Options | GUIDE  ·  Set his training
+PLAYABLE press 'MY GYM' -> 'MY GYM'
+PLAYABLE before route=calendar scene=CareerRoot path=/root/CareerRoot/ContentStack/ScheduleHubPanel/Hub/Tabs/Option0
+PLAYABLE after route=calendar scene=CareerRoot
+PLAYABLE press 'SKIP TO NEXT DECISION' -> 'SKIP TO NEXT DECISION'
+PLAYABLE before route=calendar scene=CareerRoot path=/root/CareerRoot/ContentStack/ScheduleHubPanel/Hub/NextUp/SkipToDecision
+PLAYABLE after route=calendar scene=CareerRoot
+PLAYABLE press 'SET CAMP' -> 'SET CAMP'
+PLAYABLE before route=calendar scene=CareerRoot path=/root/CareerRoot/ContentStack/ScheduleHubPanel/Hub/NextUp/NextUpGo
+PLAYABLE after route=fighter_card scene=CareerRoot
+PLAYABLE press 'CAMP' -> 'CAMP'
+PLAYABLE before route=fighter_card scene=CareerRoot path=/root/CareerRoot/ContentStack/AthleteProfileShellScreen/ProfileRevampPanel/Tabs/Tab5
+PLAYABLE after route=fighter_card scene=CareerRoot
+PLAYABLE press 'START A CAMP' -> 'START A CAMP'
+PLAYABLE before route=fighter_card scene=CareerRoot path=/root/CareerRoot/ContentStack/AthleteProfileShellScreen/ProfileRevampPanel/TabBody/Frame/Body/Start
+PLAYABLE after route=fighter_card scene=CareerRoot
+PLAYABLE press 'THE STRIKING SHARK' -> 'THE STRIKING SHARK'
+PLAYABLE before route=fighter_card scene=CareerRoot path=/root/CareerRoot/ContentStack/AthleteProfileShellScreen/CampSetpiece/CampChrome/BodySlot/FightCampPanel/CampSetup/FocusCard_striking_shark
+PLAYABLE after route=fighter_card scene=CareerRoot
+PLAYABLE press 'TECHNICAL FLOW' -> 'TECHNICAL FLOW'
+PLAYABLE before route=fighter_card scene=CareerRoot path=/root/CareerRoot/ContentStack/AthleteProfileShellScreen/CampSetpiece/CampChrome/BodySlot/FightCampPanel/CampSetup/ProtocolCard_technical_flow
+PLAYABLE after route=fighter_card scene=CareerRoot
+PLAYABLE press 'START CAMP' -> 'START CAMP'
+PLAYABLE before route=fighter_card scene=CareerRoot path=/root/CareerRoot/ContentStack/AthleteProfileShellScreen/CampSetpiece/CampChrome/BodySlot/FightCampPanel/CampSetup/Projection/StartCamp
+PLAYABLE after route=fighter_card scene=CareerRoot
+PLAYABLE press 'BACK' -> '←  BACK'
+PLAYABLE before route=fighter_card scene=CareerRoot path=/root/CareerRoot/ContentStack/AthleteProfileShellScreen/Back
+PLAYABLE after route=calendar scene=CareerRoot
+PLAYABLE press 'Nav_calendar' -> 'Fights'
+PLAYABLE before route=calendar scene=CareerRoot path=/root/CareerRoot/TopBar/NavIcons/Nav_calendar
+PLAYABLE after route=calendar scene=CareerRoot
+PLAYABLE press 'MY GYM' -> 'MY GYM'
+PLAYABLE before route=calendar scene=CareerRoot path=/root/CareerRoot/ContentStack/ScheduleHubPanel/Hub/Tabs/Option0
+PLAYABLE after route=calendar scene=CareerRoot
+PLAYABLE press 'SKIP TO NEXT DECISION' -> 'SKIP TO NEXT DECISION'
+PLAYABLE before route=calendar scene=CareerRoot path=/root/CareerRoot/ContentStack/ScheduleHubPanel/Hub/NextUp/SkipToDecision
+PLAYABLE after route=calendar scene=CareerRoot
+PLAYABLE press 'SKIP TO NEXT DECISION' -> 'SKIP TO NEXT DECISION'
+PLAYABLE before route=calendar scene=CareerRoot path=/root/CareerRoot/ContentStack/ScheduleHubPanel/Hub/NextUp/SkipToDecision
+PLAYABLE after route=calendar scene=CareerRoot
+PLAYABLE press 'WEIGHT' -> 'WEIGHT'
+PLAYABLE before route=calendar scene=CareerRoot path=/root/CareerRoot/ContentStack/ScheduleHubPanel/Hub/NextUp/NextUpGo
+PLAYABLE after route=fighter_card scene=CareerRoot
+PLAYABLE press 'BACK' -> '←  BACK'
+PLAYABLE before route=fighter_card scene=CareerRoot path=/root/CareerRoot/ContentStack/AthleteProfileShellScreen/Back
+PLAYABLE after route=calendar scene=CareerRoot
+PLAYABLE press 'Continue' -> 'Continue'
+PLAYABLE before route=calendar scene=CareerRoot path=/root/CareerRoot/TopBar/ContinueUnit/Continue
+PLAYABLE after route=week_review scene=SetpieceRoot
+PLAYABLE press 'NEXT WEEK' -> 'Next week'
+PLAYABLE before route=week_review scene=SetpieceRoot path=/root/SetpieceRoot/SetpieceChrome/BodySlot/WeekReviewPanel/WeekReviewBody/Card/NextWeek
+PLAYABLE after route=week_review scene=SetpieceRoot
+PLAYABLE press 'MY GYM' -> 'MY GYM'
+PLAYABLE before route=calendar scene=CareerRoot path=/root/CareerRoot/ContentStack/ScheduleHubPanel/Hub/Tabs/Option0
+PLAYABLE after route=calendar scene=CareerRoot
+PLAYABLE press 'FIGHT WEEK' -> 'FIGHT WEEK'
+PLAYABLE before route=calendar scene=CareerRoot path=/root/CareerRoot/ContentStack/ScheduleHubPanel/Hub/NextUp/NextUpGo
+PLAYABLE after route=fight_week scene=CareerRoot
+PLAYABLE press 'To the weigh-in' -> 'To the weigh-in  →'
+PLAYABLE before route=fight_week scene=SetpieceRoot path=/root/SetpieceRoot/SetpieceChrome/BodySlot/FightWeekPanel/FightWeekBody/PhaseStep
+PLAYABLE after route=weigh_in scene=SetpieceRoot
+PLAYABLE press 'To fight night' -> 'To fight night  →'
+PLAYABLE before route=weigh_in scene=SetpieceRoot path=/root/SetpieceRoot/SetpieceChrome/BodySlot/WeighInPanel/WeighInBody/PhaseStep
+PLAYABLE after route=fight_night scene=SetpieceRoot
+PLAYABLE press 'BEGIN FIGHT' -> 'BEGIN FIGHT  →'
+PLAYABLE before route=fight_night scene=SetpieceRoot path=/root/SetpieceRoot/SetpieceChrome/BodySlot/FightNight/RingStagePanel/TapeHost/BroadcastTaleOfTheTape/BeginFightButton
+WARNING: Target and up vectors are colinear. This is not advised as it may cause unwanted rotation around local Z axis.
+   at: looking_at (core/math/basis.cpp:1045)
+   GDScript backtrace (most recent call first):
+       [0] _add_north_dock_lights (res://scripts/VenueRig.gd:282)
+       [1] _build_north_dock (res://scripts/VenueRig.gd:170)
+       [2] build (res://scripts/VenueRig.gd:108)
+       [3] setup (res://scripts/FightWorldLiveScreen.gd:1217)
+       [4] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [5] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [6] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [7] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [8] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [9] _press (res://tests/playable_loop_test.gd:403)
+       [10] _play_second_bout (res://tests/playable_loop_test.gd:370)
+       [11] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _graft_retargeted (res://scripts/FightStagePlayer.gd:2315)
+       [3] bind (res://scripts/FightStagePlayer.gd:1510)
+       [4] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [5] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [6] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [7] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [8] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [9] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [10] _press (res://tests/playable_loop_test.gd:403)
+       [11] _play_second_bout (res://tests/playable_loop_test.gd:370)
+       [12] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _graft_retargeted (res://scripts/FightStagePlayer.gd:2315)
+       [3] bind (res://scripts/FightStagePlayer.gd:1510)
+       [4] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [5] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [6] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [7] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [8] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [9] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [10] _press (res://tests/playable_loop_test.gd:403)
+       [11] _play_second_bout (res://tests/playable_loop_test.gd:370)
+       [12] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _graft_retargeted (res://scripts/FightStagePlayer.gd:2315)
+       [3] bind (res://scripts/FightStagePlayer.gd:1510)
+       [4] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [5] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [6] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [7] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [8] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [9] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [10] _press (res://tests/playable_loop_test.gd:403)
+       [11] _play_second_bout (res://tests/playable_loop_test.gd:370)
+       [12] _wait_for_route (res://tests/playable_loop_test.gd:509)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _graft_retargeted (res://scripts/FightStagePlayer.gd:2315)
+       [3] bind (res://scripts/FightStagePlayer.gd:1510)
+       [4] setup (res://scripts/FightWorldLiveScreen.gd:1369)
+       [5] _ready (res://scripts/FightWorldLiveScreen.gd:516)
+       [6] _start_arena (res://scripts/FightNightScreen.gd:1000)
+       [7] _on_begin (res://scripts/FightNightScreen.gd:796)
+       [8] _on_tape_begin (res://scripts/RingStagePanel.gd:622)
+       [9] <anonymous lambda> (res://scripts/TaleOfTheTape.gd:327)
+       [10] _press (res://tests/playable_loop_test.gd:403)
+       [11] _play_second_bout (res://tests/playable_loop_test.gd:370)
+       [12] _wait_for_route (res://tests/playable_loop_test.gd:509)
+[FightWorldLive] BOXING - seed 3457048087, 3 rounds | waiting for the first beat
+PLAYABLE after route=fight_night scene=SetpieceRoot
+PLAYABLE press 'SIM TO RESULT' -> 'SIM TO RESULT'
+PLAYABLE before route=fight_night scene=SetpieceRoot path=/root/SetpieceRoot/SetpieceChrome/BodySlot/FightNight/ArenaHost/ArenaSpeed/SimToResult
+PLAYABLE after route=fight_night scene=SetpieceRoot
+PLAYABLE press exact 'SKIP' -> 'SKIP'
+[FightWorldLive] FIGHT OVER - DECISION | beats 140 | named clip played 0 | honest degrade 0 | walk carried 0 | stance 0
+PLAYABLE SECOND BOUT PASS: the cleared boxer completed his second booked fight through the visible ring
+PLAYABLE LOOP total=9 fails=0
+WARNING: 6048 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)

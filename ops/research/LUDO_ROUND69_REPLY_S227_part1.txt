@@ -1,0 +1,360 @@
+
+FIGHTCAMP (S227) — ROUND 69: UICARDS2 (THE TRAINING PLANNER REDESIGN)
+
+Document Reference: FC-SPEC-S227-UICARDS2-TRAINING-PLANNER
+
+Architect: Lead UI/UX Systems Designer & Principal Game Systems Engineer
+
+Scope: Complete structural specification for the weekly training planner (TrainingHubPanel.gd, TrainingWeekRow.gd, TrainingDayCell.gd, TrainingSessionDrawer.gd, FightCampTimeline.gd).
+
+Target Engine: Godot 4.7.2 Forward+, pure GDScript controls built entirely in code, native $1920 \times 1080$, dynamic graceful scaling down to $1280 \times 720$.
+
+Master Aesthetic: Gleason Gym 1970s Industrial Dossier (Championship Gold #f0c233, Antique Brass #d4af37, Oxblood #7a1e22 / #c62f2a, Aged Cream Paper #f3e6c8, Oiled Charcoal #1a1814, Dark Steel Plate #22201e, Recessed Track #100f0e).
+
+PART A: THE SCREENSHOT FORENSIC AUDIT (16 FATAL FLAWS)
+
+The operator's exasperation ("this is so bad did ludo approved it ?") is entirely justified. The screenshot displays an empty, unweighted wireframe floating in an abyss. It abandons every principle of management ergonomics:
+
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                   SCREENSHOT ANATOMY OF DEFECTS                                  │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                                  │
+│  [1. DESERT OF 650 PX VOID]        [2. SPREADSHEET TAPE ROW]       [3. THE RECOVERY INFECTION]   │
+│  One single 60px strip of fighter   Fighter row is a microscopic    6 Rest days + 1 Rec day.     │
+│  data; 70% of the screen is empty   flat grey ribbon with no weight, Looks broken, like an error  │
+│  brown gradient dust.               no headshot, no active coach.   state with zero guidance.    │
+│            │                                    │                               │                │
+│            ▼                                    ▼                               ▼                │
+│       ───[ TODAY'S TRAINING HUB: A STERILE WIREFRAME SPREADSHEET IN EMPTY SPACE ]───             │
+│            ▲                                    ▲                               ▲                │
+│            │                                    │                               │                │
+│  [4. DRAG SHELF IS AN AIRPORT BELT] [5. MICRO-METERS FLOATING NAKED] [6. INVISIBLE DRAWER/FEEDBACK]│
+│  6 grey buttons stretched across   READY 100% and COND 100% are     Clicking a day does nothing   │
+│  a 1400px bar with zero tactical    tiny 3px lines with raw text;   obvious; no refusal tooltips, │
+│  icons or energy cost stamps.       no fatigue carry-over warnings.  no station capacity clues.   │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+The 650-Pixel Black Abyss (Single-Fighter Disaster): In Week 1, a gym has 1 or 2 fighters. Today's UI renders a single $62\text{ px}$ tall row at $Y = 380$, leaving $650\text{ px}$ of vacant canvas below it. It looks like a broken database query rather than a professional game.
+Missing Fighter Identity & Tactical Anchor: Danny Reyes is reduced to raw $11\text{ pt}$ text in an unbordered grey cell. There is no fighter portrait, no weight class, no current stamina gauge, no record, and no indication of who is coaching him.
+The "Recovery Infection" (Uninformative Monoculture): The 7 day cells display REST REST REST REST REST REC REST. There is no visual distinction between active recovery (pool/physio), complete bedrest, or injured suspension. It looks like an inactive spreadsheet.
+The Naked Drag Shelf ("Airport Luggage Belt"): The drag bar (REST, RECOVERY, BAGS, RING, STRENGTH, CARDIO) stretches $1400\text{ px}$ across the screen as flat, low-contrast grey pill boxes. They lack stamina burn indicators, primary attribute targets, coach requirements, and tactical icons.
+Microscopic Telemetry Lines: READY 100% and COND 100% are squeezed into a single $180\text{ px}$ cell using $3\text{ px}$ thin flat bars. The text overlaps the bar boundary. There is no indicator for next week's fatigue carry-over.
+The Unanchored Presets Bar: BALANCED, POWER, CONDITIONING, TECHNIQUE, RECOVERY sit directly above the drag shelf in identical grey buttons. There is no explanation of what applying a preset will overwrite, no confirmation preview, and no undo.
+Displaced "WATCH THE FLOOR" Button: The primary bridge to the 3D world—WATCH THE FLOOR—is an oversized yellow pill slapped onto the top right. It breaks the visual hierarchy of the tab bar (THE WEEK / FIGHT CAMP).
+Incoherent Tab Bar Framing: THE WEEK and FIGHT CAMP are jammed against the top right without an active baseline or container framing. They look like utility pills rather than the core screen mode selector.
+Invisible Filter Chips: ALL, NEEDS YOU, UNPLANNED, IN CAMP, BLOCKED have no numerical counters (e.g., NEEDS YOU (1)). They provide no immediate signal of why a filter is useful.
+The Obscure "FLAG >" Column: On the right edge of the fighter row sits an isolated FLAG > element. No player knows whether this flags a fighter for attention, marks a country flag, or sets a tactical priority.
+Cryptic Load Breakdown String: WORK 0  REC 1  REST 6 is rendered as raw monospaced text. It gives no tactical warning that this schedule results in rapid conditioning decay and zero technical progression.
+Hidden Session Drawer Affordance: Nothing indicates that clicking a day cell opens the deep tactical session drawer. There are no chevron indicators, no hover lift, and no click cues.
+Missing Facility / Station Capacity Telemetry: The manager has no idea if the Ring or Heavy Bags are currently full. You can assign Danny Reyes to the Ring without knowing if Coach McGee is already running another fighter there.
+Barren "HINT LINE" at Screen Bottom: A tiny string of grey text ("DRAG A TILE ONTO A DAY... CLICK A DAY FOR THE SESSION...") is shoved into the bottom-left corner at $8\text{ pt}$. At $1080\text{ p}$, it is invisible.
+Clashing Yellow "GUIDE - Set his training" Sticker: A bright yellow button is stuck to the bottom right corner like a sticky note, completely detached from the screen's design language.
+Lack of Materiality & Physical Depth: The entire screen is constructed from raw, flat CSS-style grey rectangles (#2b2823). There are no chamfers, no brass trims, no stamped metal plates, and no shadows.
+PART B: THE TARGET DESIGN ARCHITECTURE
+
+The new screen replaces the empty spreadsheet with a tactical command board. It solves the 1-fighter problem by pairing the fighter roster with an active gym capacity overview & tactical inspector when roster counts are low.
+
+┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ MASTER TRAINING PLANNER LAYOUT GRID (1920 × 1080 px Base Canvas)                                                       │
+├────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ LEFT RAIL  │ TOP HUD BAR (GLOBAL CASH, DATE, CLOCK, NOTIFICATIONS)                                 [Height: 64 px]     │
+│ (W: 64 px) ├──────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│            │ SECTION 01: COMMAND HEADER & MODE SWITCHER                                            [Height: 60 px]     │
+│            │ Title + Gym Subtitle • Mode Tabs [THE WEEK / FIGHT CAMP] • Floor Bridge CTA                               │
+│            ├──────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│            │ SECTION 02: CONTROL RIBBON: FILTERS, PRESETS & FOCUS SHELF                            [Height: 110 px]    │
+│            │ Filter Chips (with counts) • Preset Cartouches • Tactile Focus Drag Tiles (6)                            │
+│            ├──────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│            │ SECTION 03: THE TACTICAL TRAINING MATRIX (DYNAMIC 1-8 FIGHTERS)                       [Height: 520 px]    │
+│            │ Column Headers (Fighter, Mon-Sun Days, Weekly Load, Readiness & Conditioning, Status)                     │
+│            │ Fighter Rows (120 px cards with portraits, coach tags, tactile day tiles, and gauges)                     │
+│            │ [WHEN 1-3 FIGHTERS: Bottom half hosts GYM CAPACITY & ROSTER DRILL SUMMARY]                               │
+│            ├──────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│            │ SECTION 04: THE SESSION INSPECTOR DRAWER (SLIDE-UP DOCKET)                            [Height: 280 px]    │
+│            │ Station Assignment • Coach In-Charge • Primary/Secondary Stat Yield • Energy Tax • Refusal Engine       │
+└────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+1. PRECISE LAYOUT GRID & DIMENSIONS (1920 × 1080)
+Left Navigation Rail: $X = 0$ to $64\text{ px}$ (Unchanged persistent global system).
+Top Global HUD Bar: $Y = 0$ to $64\text{ px}$ (Unchanged persistent global system).
+Active Canvas: $X = 84\text{ px}$ to $1896\text{ px}$ ($W = 1812\text{ px}$), $Y = 76\text{ px}$ to $1056\text{ px}$ ($H = 980\text{ px}$).
+Block Coordinates:
+Section 01 (Command Header): $X: 84, Y: 76, W: 1812, H: 60$.
+Section 02 (Control Ribbon): $X: 84, Y: 144, W: 1812, H: 110$.
+Filters Row ($H: 32\text{ px}$, $Y: 144$)
+Presets & Drag Shelf ($H: 64\text{ px}$, $Y: 184$)
+Section 03 (The Roster Board): $X: 84, Y: 264, W: 1812, H: 510$ (expandable to $780\text{ px}$ when drawer is closed).
+Section 04 (The Session Inspector Drawer): $X: 84, Y: 784, W: 1812, H: 264$ (collapsible dock).
+2. BLOCK-BY-BLOCK DETAILED SPECIFICATION
+SECTION 01: COMMAND HEADER & MODE SWITCHER
+Screen Title ($X: 84, Y: 80$):
+"WEEKLY TRAINING PLANNER", League Gothic Bold, $34\text{ pt}$, Cream (#f3e6c8).
+Subtitle: "GLEASON'S GYM • WEEK 1, JAN 1976 • 1 REGISTERED FIGHTER", Oswald Medium, $12\text{ pt}$, Antique Brass (#b8933b).
+Mode Tabs (Center-Right, $X: 1240, Y: 84, W: 340, H: 44$):
+Segmented brass plate container (#1a1814 fill, $1\text{ px}$ #36332e border).
+Tab 1: "THE WEEK". Active state: Championship Gold fill (#f0c233), text in Deep Charcoal (#1a1814), Bold $13\text{ pt}$.
+Tab 2: "FIGHT CAMP". Inactive state: Dark Charcoal (#22201e), text in Muted Cream (#a8a296), $12\text{ pt}$. If a bout is booked, shows a pulsing Gold Dot indicator.
+Floor Bridge CTA ($X: 1600, Y: 84, W: 296, H: 44$):
+Heavy Chamfered Plate: Background #2b2823, $2\text{ px}$ border in Antique Brass (#d4af37).
+Icon: Lucide eye / Gym Ring icon ($18\text{ px}$, Gold).
+Label: "WATCH THE FLOOR (3D)", League Gothic Bold, $18\text{ pt}$, Cream (#f3e6c8).
+Hover: Shifts to Championship Gold background with dark charcoal text.
+SECTION 02: THE CONTROL RIBBON (FILTERS, PRESETS & DRAG SHELF)
+┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ FILTERS: [ALL (1)]  [NEEDS ATTENTION (1)]  [UNPLANNED (0)]  [IN CAMP (0)]  [INJURED / RESTRICTED (0)]                  │
+├────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ PRESETS: [ ★ BALANCED ]  [ ⚡ HIGH POWER ]  [ 🫀 CONDITIONING ]  [ 🥊 TECHNICAL ]  [ 🛌 DELOAD / REST ]                │
+│ ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── │
+│ FOCUS SHELF: [ REST ]   [ RECOVERY ]   [ HEAVY BAGS ]   [ SPARRING RING ]   [ STRENGTH ]   [ ROADWORK / CARDIO ]       │
+│ (DRAG TILE)  Fatigue -25  Fatigue -15    Power / Form     Ring IQ / Timing    Power / Chin   Stamina / Conditioning    │
+└────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+A. Filter Chips Bar ($H: 32\text{ px}$)
+5 Toggle Chips: ALL (1), NEEDS ATTENTION (1), UNPLANNED (0), IN CAMP (0), INJURED (0).
+Visual Style: Pill boxes with $1\text{ px}$ steel border.
+Alert Highlight: If NEEDS ATTENTION $> 0$, the badge pulses in Oxblood Red (#7a1e22) with bright white text to alert the player.
+B. One-Click Preset Cartouches
+5 Stamped Brass Cartouches ($W: 160\text{ px}, H: 30\text{ px}$ each):
+BALANCED: 3 Work, 2 Rec, 2 Rest.
+HIGH POWER: 4 Work (Bags/Strength focus), 1 Rec, 2 Rest.
+CONDITIONING: 4 Work (Cardio focus), 1 Rec, 2 Rest.
+TECHNICAL: 4 Work (Ring/Bags focus), 2 Rec, 1 Rest.
+DELOAD / REST: 0 Work, 3 Rec, 4 Rest.
+Hover State: Displays a ghost preview overlay across the selected fighter's week row before clicking.
+C. The Tactile Focus Drag Shelf ($H: 64\text{ px}$)
+
+Each of the 6 training focuses is represented by a tactile draggable cartridge ($W: 280\text{ px}, H: 54\text{ px}$):
+
+REST: Deep Slate Charcoal (#1a1814), Icon: bed, Subtext: "Fatigue -35 • Readiness +40".
+RECOVERY: Muted Teal/Steel (#1f2d33), Icon: bath, Subtext: "Physio/Hydro • Fatigue -20".
+HEAVY BAGS: Dark Oxblood (#2e1617), Icon: flame, Subtext: "Power / Mechanics • Tax: High".
+SPARRING RING: Dark Amber (#332414), Icon: swords, Subtext: "Ring IQ / Timing • Tax: Extreme".
+STRENGTH: Dark Iron (#262624), Icon: dumbbell, Subtext: "Chin / Body Power • Tax: High".
+CARDIO / ROAD: Dark Olive (#1c261a), Icon: activity, Subtext: "Stamina / Lung Cap • Tax: Med".
+SECTION 03: THE TACTICAL TRAINING MATRIX (FIGHTER ROWS)
+┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ ROSTER COLUMN HEADERS                                                                                                  │
+│ FIGHTER DOSSIER (340px) │ MON   TUE   WED   THU   FRI   SAT   SUN (840px) │ WEEK LOAD (200px) │ READINESS & COND (380px)│
+├─────────────────────────┴───────────────────────────────────────────────┴───────────────────┴────────────────────────┤
+│ ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐ │
+│ │ [PORTRAIT] DANNY REYES                 │ [BAGS] [RING] [BAGS] [REST] [STR]  [REC]  [REST] │ WORK: 4  │ READY: 88%  │ │
+│ │ 8-0-0 • HWT • COACH: TERRY McGEE       │ Heavy  Spar   Heavy  Full   Iron   Hydro  Full   │ REC:  1  │ [████████░] │ │
+│ │ STATUS: READY TO COMMIT                │ Bags   Ring   Bags   Bed    Gym    Pool   Bed    │ REST: 2  │ COND:  92%  │ │
+│ └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘ │
+└────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+Fighter Row Structure ($H: 104\text{ px}$, Gap: $8\text{ px}$)
+
+Background: Dark Steel Plate (#22201e), $1\text{ px}$ border in #36332e, left edge has a $4\text{ px}$ vertical status stripe:
+
+Green (#2f855a): Valid, fully coached, balanced plan.
+Amber (#d4af37): Warning (overworking, excessive fatigue carry-over).
+Oxblood (#c62f2a): Blocked / Error (station collision, unassigned coach, injured fighter assigned to work).
+
+Column 1: Fighter Dossier ($W: 340\text{ px}$):
+
+Boxer Headshot ($64\text{ px} \times 64\text{ px}$): Framed in $1.5\text{ px}$ brass with division badge.
+Name: League Gothic Bold $24\text{ pt}$ Cream (#f3e6c8).
+Sub-Label: Oswald Medium $11\text{ pt}$ Gold ("8-0-0 (6 KO) • HEAVYWEIGHT").
+Supervising Coach Tag: Chip showing assigned coach: "COACH: TERRY McGEE" (or Oxblood "NO COACH ASSIGNED").
+
+Column 2: The 7 Day Cells ($W: 840\text{ px}$, each day $114\text{ px} \times 84\text{ px}$):
+
+Day Label: Mon, Tue, Wed, Thu, Fri, Sat, Sun ($10\text{ pt}$ Oswald Bold, #8c877d).
+Cell Body: Chamfered physical tile representing the focus.
+Focus Icon ($20\text{ px}$) + Primary Focus Title ($12\text{ pt}$ Bold).
+Intensity Sub-Badge: LIGHT, MEDIUM, HEAVY, MAX.
+Today Indicator: If the day is current (e.g. Mon 5 Jan), the cell border glows in Championship Gold (#f0c233) with a top brass flag reading "TODAY".
+
+Column 3: Weekly Work/Rest Distribution ($W: 200\text{ px}$):
+
+Stacked tactical ledger:
+WORK DAYS: League Gothic Bold $18\text{ pt}$ Gold (4 DAYS).
+ACTIVE REC: Oswald Bold $12\text{ pt}$ Teal (1 DAY).
+FULL REST: Oswald Bold $12\text{ pt}$ Slate (2 DAYS).
+Evaluation Pill: If overtrained ($> 5$ work days): Badge reading [OVERTRAINING RISK] in Oxblood.
+
+Column 4: Readiness & Conditioning Dual Telemetry ($W: 380\text{ px}$):
+
+READINESS GAUGE (Next Session Freshness):
+Label: "READINESS" + Numeric "88 / 100".
+Bar Height: $12\text{ px}$, Fill: Bright Gold (#f0c233) fading to #c8931b.
+CONDITIONING GAUGE (Physical Fitness Peak):
+Label: "CONDITIONING" + Numeric "92 / 100".
+Bar Height: $12\text{ px}$, Fill: Vibrant Emerald/Gold (#48bb78).
+FATIGUE CARRY-OVER CALLOUT:
+Label: "PROJECTED NEXT-WEEK FATIGUE: +14% (MANAGEABLE)", Oswald Regular $10\text{ pt}$, Muted Cream.
+THE "SINGLE FIGHTER" ELEGANT SOLUTION: GYM CAPACITY & ROSTER DASHBOARD
+
+When the gym has only 1 to 3 fighters, the remaining vertical space ($Y: 480$ to $780$) does not sit empty. The system automatically unrolls the Gym Training Infrastructure Matrix:
+
+Station Utilization Board ($W: 860\text{ px}$):
+Shows the 4 gym training zones: Heavy Bags (1/4 Active), Sparring Ring (1/2 Active), Weight Room (0/4 Active), Speed Bags (0/2 Active).
+Displays which coaches are currently stationed where.
+Weekly Training Philosophy Docket ($W: 900\text{ px}$):
+Head coach tactical advice: "Danny is cutting down to 218 lbs for the Shevchenko bout. Increase cardio volume on Thursday, but enforce complete rest on Sunday to ensure full tissue repair."
+SECTION 04: THE SESSION INSPECTOR DRAWER (SLIDE-UP TACTICAL DOCKET)
+
+Clicking any day cell (e.g., clicking Wednesday) slides up the Session Drawer from the bottom ($H: 264\text{ px}$):
+
+┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ WEDNESDAY SESSION DOSSIER: DANNY REYES — HEAVY BAGS (POWER WORKOUT)                                          [CLOSE X] │
+├────────────────────────────────────┬───────────────────────────────────┬───────────────────────────────────────────────┤
+│ STATION ASSIGNMENT                 │ TARGET ATTRIBUTE GAINS            │ ENERGY TAX & BIO-IMPACT                       │
+│ Station: Gleason Floor Bags #2     │ • Primary: POWER (+0.42%)         │ • Stamina Burn: 450 kcal / -28% Tank          │
+│ Coach: Terry "The Anvil" McGee     │ • Secondary: STAMINA (+0.18%)     │ • Acute Muscle Fatigue: +18%                  │
+│ Focus Drill: 1-2 Hook Combinations │ • Technique: Left Hook Mastery    │ • Metacarpal Joint Stress: Low (Safe)         │
+├────────────────────────────────────┴───────────────────────────────────┴───────────────────────────────────────────────┤
+│ REFUSAL & CONFLICT ENGINE: [ STATUS: OPERATIONAL — ALL REQUIREMENTS SATISFIED ]                                        │
+│ [ CHANGE COACH ]      [ SWITCH DRILL FOCUS ]      [ TOGGLE INTENSITY: HEAVY ]      [ CONVERT TO REST DAY ]             │
+└────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+The Refusal Engine (Clear, Actionable Diagnostic Reasons):
+
+If a session cannot run, the status bar snaps to Oxblood Red and displays the exact physical failure reason:
+
+❌ "STATION OVERCROWDED: Sparring Ring is at maximum capacity (2/2 fighters). Reassign Danny or move spar session."
+❌ "COACH UNAVAILABLE: Coach McGee is already running Pad Work with Bruno Moreau at this hour."
+❌ "MEDICAL SUSPENSION: Danny's right metacarpal micro-fracture forbids Heavy Bag impact. Switch to Cardio or Rest."
+❌ "EXHAUSTION LOCKOUT: Readiness is below 20%. Fighter will refuse high-intensity drills or risk acute injury."
+PART C: WHAT SHIPPED MANAGEMENT GAMES DO
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                   BENCHMARK HARVESTING MATRIX                                    │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                                  │
+│   FOOTBALL MANAGER (Sports Interactive)   MOTORSPORT MANAGER (Playsport)  TWO POINT CAMPUS / HOSP│
+│   ─────────────────────────────────────   ──────────────────────────────  ───────────────────────│
+│   • 3-Tier Session Intensity Blocks       • Driver Energy vs. Setup Track • Station Capacity Pins│
+│   • Clear Medical Risk Callouts           • One-Click Preset Archetypes   • Immediate Bottleneck │
+│   • Coach Assignment per Unit             • Immediate Delta Previews      │ Diagnostics          │
+│   • Overtraining Warning Badges           • Persistent Telemetry Ribbon   • Drag-and-Drop Floor  │
+│                                                                           │ Ergonomics           │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+Football Manager: FM abandoned the monolithic training slider decades ago. Each day is broken into explicit sessions where the player sees exact attribute gains vs. injury risk. FightCamp adopts this inside the Session Drawer: you never wonder what "Bags" trains; you see Power +0.4%, Stamina +0.2%.
+Motorsport Manager: When setting up a race car or training mechanics, Motorsport Manager provides immediate ghosted preview deltas. Hovering over a preset shows how readiness and fatigue will shift before you click.
+Two Point Series: When a room or doctor is busy, Two Point shows an unmistakable visual lockout with an actionable tooltip. We implement this in our Refusal Engine so the player is never left asking "Why didn't my fighter train today?"
+PART D: AGENT STEP-BY-STEP BUILD ORDER & ACCEPTANCE GATES
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                   SEQUENTIAL BUILD PIPELINE                                      │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                                  │
+│   [STEP 1: TrainingLayoutHost] ───► [STEP 2: TrainingDayCell] ───► [STEP 3: TrainingWeekRow]     │
+│   Header, Tabs, Drag Shelf          Tile States, Drop Targets      Fighter Dossier & Gauges      │
+│             │                                                                                    │
+│             ▼                                                                                    │
+│   [STEP 4: SessionDrawer] ────────► [STEP 5: GymCapacityPanel] ──► [STEP 6: FightCampTab]       │
+│   Inspect, Edit, Refusal Engine     Dynamic 1-Fighter Floor Matrix Fight Camp Hardening Timeline │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+STEP 1: TrainingLayoutHost.gd (Base Shell, Header, Presets & Drag Shelf)
+Deliverable: The structural master panel replacing TrainingHubPanel.gd.
+Acceptance Gate 1.1: Header, Filter Chips, Preset Buttons, and the 6 Draggable Focus Tiles render cleanly across $X: 84$ to $1896$ with zero overlap.
+Acceptance Gate 1.2: Dragging any focus tile creates a 2D drag preview icon matching Maria's brass/charcoal theme.
+STEP 2: TrainingDayCell.gd (Tactile Day Slot & Drop Target)
+Deliverable: The interactive 7-day slot component ($114 \times 84\text{ px}$).
+Acceptance Gate 2.1: Implements _can_drop_data() and _drop_data(). Dropping a focus tile updates the day and plays an audible mechanical latch.
+Acceptance Gate 2.2: Right-clicking any cell instantly cycles it to REST. Left-clicking opens the Session Drawer.
+STEP 3: TrainingWeekRow.gd (The Roster Row Card)
+Deliverable: The complete fighter weekly card ($1812 \times 104\text{ px}$).
+Acceptance Gate 3.1: Renders fighter portrait, name, division, assigned coach, the 7 day cells, weekly load counts, and dual Readiness/Conditioning bars.
+Acceptance Gate 3.2: If a gym has 1 fighter, the row anchors firmly at $Y: 264$ without stretching or drifting.
+STEP 4: TrainingSessionDrawer.gd (Bottom Inspection & Refusal Docket)
+Deliverable: The slide-up tactical inspector ($H: 264\text{ px}$).
+Acceptance Gate 4.1: Smoothly tweens from $Y: 1080$ to $Y: 784$ in $160\text{ ms}$ upon clicking any day cell.
+Acceptance Gate 4.2: Displays station, coach, attribute yield, and the Refusal Engine state. If a conflict exists, the commit button is locked and displays the diagnostic reason.
+STEP 5: GymCapacityPanel.gd (Graceful Roster Fallback)
+Deliverable: The facility utilization matrix that occupies space when fewer than 4 fighters exist.
+Acceptance Gate 5.1: Automatically mounts below the fighter rows when roster count $\le 3$.
+Acceptance Gate 5.2: Displays real-time station capacity (Bags, Ring, Weights) and Coach allocation. Zero empty brown canvas remains.
+STEP 6: FightCampTimeline.gd (The Fight Camp Hardening Tab)
+Deliverable: The dedicated camp planning mode when a bout is booked.
+Acceptance Gate 6.1: Switching to FIGHT CAMP mode renders the 8-week camp trajectory, sparring partner slots, and weight cut taper curve.
+PART E: PRODUCTION GDSCRIPT IMPLEMENTATION
+
+Below is the complete, runnable GDScript code for the core planner components authored in pure Godot 4.7 syntax.
+
+1. TrainingConstants.gd (Data Enums, Focus Specs & Colors)
+# res://scripts/ui/training/TrainingConstants.gd
+class_name TrainingConstants
+extends RefCounted
+
+enum Focus { REST, RECOVERY, BAGS, RING, STRENGTH, CARDIO }
+enum Intensity { LIGHT, MEDIUM, HEAVY, MAX }
+enum Station { NONE, HEAVY_BAGS, SPEED_BAGS, SPARRING_RING, WEIGHT_ROOM, ROADWORK }
+
+const FOCUS_DATA := {
+	Focus.REST: {
+		"title": "REST",
+		"icon": "bed",
+		"subtext": "Fatigue -35 • Readiness +40",
+		"bg_color": Color("#181716"),
+		"border_color": Color("#33302b"),
+		"text_color": Color("#f3e6c8"),
+		"station": Station.NONE,
+		"fatigue_delta": -35,
+		"readiness_delta": 40
+	},
+	Focus.RECOVERY: {
+		"title": "RECOVERY",
+		"icon": "bath",
+		"subtext": "Physio/Hydro • Fatigue -20",
+		"bg_color": Color("#1a2428"),
+		"border_color": Color("#2d424a"),
+		"text_color": Color("#88c0d0"),
+		"station": Station.NONE,
+		"fatigue_delta": -20,
+		"readiness_delta": 25
+	},
+	Focus.BAGS: {
+		"title": "HEAVY BAGS",
+		"icon": "flame",
+		"subtext": "Power / Mechanics • Tax: High",
+		"bg_color": Color("#2b1819"),
+		"border_color": Color("#542629"),
+		"text_color": Color("#f0c233"),
+		"station": Station.HEAVY_BAGS,
+		"fatigue_delta": 22,
+		"readiness_delta": -18
+	},
+	Focus.RING: {
+		"title": "SPARRING RING",
+		"icon": "swords",
+		"subtext": "Ring IQ / Timing • Tax: Extreme",
+		"bg_color": Color("#302014"),
+		"border_color": Color("#613d20"),
+		"text_color": Color("#f0c233"),
+		"station": Station.SPARRING_RING,
+		"fatigue_delta": 30,
+		"readiness_delta": -26
+	},
+	Focus.STRENGTH: {
+		"title": "STRENGTH",
+		"icon": "dumbbell",
+		"subtext": "Chin / Body Power • Tax: High",
+		"bg_color": Color("#21201e"),
+		"border_color": Color("#423f39"),
+		"text_color": Color("#f3e6c8"),
+		"station": Station.WEIGHT_ROOM,
+		"fatigue_delta": 25,
+		"readiness_delta": -20
+	},
+	Focus.CARDIO: {
+		"title": "CARDIO / ROAD",
+		"icon": "activity",
+		"subtext": "Stamina / Capacity • Tax: Med",
+		"bg_color": Color("#182218"),
+		"border_color": Color("#2c452b"),
+		"text_color": Color("#a3be8c"),
+		"station": Station.ROADWORK,
+		"fatigue_delta": 18,
+		"readiness_delta": -14
+	}
+}
+
+Can you continue Part E from the truncated switch_to_tab function and provide every remaining GDScript file in full?
+Can you turn this training-planner specification into a complete, copy-paste-ready Godot implementation for the UI owner?
+Can you create a 1920×1080 visual mockup showing the redesigned Training screen, weekly plan, session drawer, and Fight Camp tab?
+Can you provide the build sequence and measurable acceptance checks for one agent implementing this planner?

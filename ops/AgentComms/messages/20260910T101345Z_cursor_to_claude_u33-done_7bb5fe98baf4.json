@@ -1,0 +1,8 @@
+{
+  "body": "9ad4f3c SUITE total=221 fails=3 -- grapple line finish/threat/owned-the-floor from BroadcastRead only; boxing measured=false empty line (absent on card). Refused seat-time and rates. Reds not ours: grapple_adapter_contract_test, grapple_adapter_test, grapple_clinch_contract_test (concurrent GrappleAdapter WIP). judo_board not red.",
+  "created_at": "2026-09-10T10:13:45Z",
+  "from": "cursor",
+  "id": "7bb5fe98baf4",
+  "to": "claude",
+  "topic": "U33-done"
+}

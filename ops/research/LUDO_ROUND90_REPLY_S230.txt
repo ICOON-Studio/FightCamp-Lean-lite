@@ -1,0 +1,280 @@
+Engine Hooks
+Hook 1 (StationClaim in GymFloorController.gd / send_to): When send_to(station_id) finds the station busy with an NPC member, replace the flat reject toast with a fast 2-button modal prompt populated by StationClaim.ask(ctx). If yield is clicked, cancel the order and show the line as gym ambient feedback. If wave_off is clicked, clear the NPC's reservation immediately, bump gym.waves_today += 1, pass choice.effect into apply_floor_effect(), and dispatch your fighter to the work point. Reset gym.waves_today = 0 at 08:00 daily gym open.
+Hook 2 (CueStrain in FighterTrainerLoop.gd / tick update): Inside the stamina drain loop on active stations, whenever fighter.current_cue is set to "power_through" and stamina falls below 45, query CueStrain.strain(ctx). If the return dictionary is non-empty, render res.toast as an amber HUD floater over the fighter's head, push res.advice into the training ticker log, and update fighter.last_band_warned = res.new_band. Clear last_band_warned = "" whenever the coach changes the cue or fighter stamina rises back to 45+.
+1. scripts/rules/StationClaim.gd
+extends RefCounted
+
+# StationClaim.gd
+# Pure rules logic for resolving station contention between paying club members and roster fighters.
+# Coach can either yield to respect dues-paying members or wave them off to maintain training tempo.
+# One wave-off per day is accepted as head coach privilege without penalty. Repeated wave-offs erode reputation.
+
+const FREE_WAVES_PER_DAY: int = 1
+const HABITUAL_WAVE_REP_PENALTY: int = -2
+const SEVERE_HABIT_THRESHOLD: int = 3
+const SEVERE_WAVE_REP_PENALTY: int = -5
+
+static func ask(ctx: Dictionary) -> Dictionary:
+	var station_id: String = ctx.get("station_id", "station")
+	var minutes_left: int = ctx.get("minutes_left", 10)
+	var waves_today: int = ctx.get("waves_today", 0)
+	var reputation: int = ctx.get("reputation", 50)
+	
+	var station_name: String = station_id.replace("_", " ").capitalize()
+	
+	# Choice 1: Yield
+	var yield_choice: Dictionary = {
+		"id": "yield",
+		"label": "Let Member Finish",
+		"line": "Let them work for %d more minutes; dues keep the ring canvas clean." % minutes_left,
+		"effect": {}
+	}
+	
+	# Choice 2: Wave Off
+	var wave_penalty: int = 0
+	var wave_line: String = ""
+	
+	if waves_today < FREE_WAVES_PER_DAY:
+		wave_penalty = 0
+		wave_line = "Head coach priority: the member steps aside without hard feelings."
+	elif waves_today < SEVERE_HABIT_THRESHOLD:
+		wave_penalty = HABITUAL_WAVE_REP_PENALTY
+		wave_line = "Member grabs their towel with an eye-roll; gym talk spreads on Anvil Street."
+	else:
+		wave_penalty = SEVERE_WAVE_REP_PENALTY
+		wave_line = "Kicking members off bags repeatedly is souring your standing across the neighborhood."
+	
+	var wave_effect: Dictionary = {}
+	if wave_penalty != 0:
+		wave_effect = {
+			"type": "reputation",
+			"delta": wave_penalty
+		}
+	
+	var wave_choice: Dictionary = {
+		"id": "wave_off",
+		"label": "Coach Needs Station",
+		"line": wave_line,
+		"effect": wave_effect
+	}
+	
+	return {
+		"choices": [yield_choice, wave_choice],
+		"default": "yield"
+	}
+
+2. scripts/rules/CueStrain.gd
+extends RefCounted
+
+# CueStrain.gd
+# Pure rules logic for coach warnings when a fighter strains under "power_through" while gassed.
+# Words and UI alerts only - does not inject numerical stamina or injury penalties.
+# Emits once per band threshold crossing below 45 stamina.
+
+const BAND_WINDED: String = "winded"       # Stamina < 45
+const BAND_HEAVY_LEGS: String = "heavy"    # Stamina < 35
+const BAND_EXHAUSTED: String = "exhausted" # Stamina < 25
+
+static func strain(ctx: Dictionary) -> Dictionary:
+	var cue: String = ctx.get("cue", "")
+	var stamina: float = float(ctx.get("stamina", 100.0))
+	var last_band: String = ctx.get("last_band_warned", "")
+	
+	# Only power_through produces strain warnings
+	if cue != "power_through":
+		return {}
+	
+	# Determine current active strain band
+	var current_band: String = ""
+	var toast_text: String = ""
+	var advice_text: String = ""
+	
+	if stamina < 25.0:
+		current_band = BAND_EXHAUSTED
+		toast_text = "Flailing punches, zero hip snap"
+		advice_text = "Fighter is running on fumes; dial it to PACE YOURSELF."
+	elif stamina < 35.0:
+		current_band = BAND_HEAVY_LEGS
+		toast_text = "Feet dragging, elbows dropping"
+		advice_text = "Fighter's legs are gone; dial it to PACE YOURSELF."
+	elif stamina < 45.0:
+		current_band = BAND_WINDED
+		toast_text = "Gasping on the break, form ragged"
+		advice_text = "Breathing is ragged under load; dial it to PACE YOURSELF."
+	else:
+		return {}
+	
+	# Fire alert only on fresh band entry
+	if current_band == last_band:
+		return {}
+	
+	return {
+		"new_band": current_band,
+		"toast": toast_text,
+		"advice": advice_text
+	}
+
+3. tests/station_claim_test.gd
+extends SceneTree
+
+# tests/station_claim_test.gd
+
+const StationClaimScript = preload("res://scripts/rules/StationClaim.gd")
+
+func _initialize() -> void:
+	var failures: int = 0
+	
+	# CONTROL: Default query structure check
+	var ctrl_ctx: Dictionary = {
+		"station_id": "heavy_bag_3",
+		"minutes_left": 12,
+		"members": 18,
+		"reputation": 50,
+		"waves_today": 0
+	}
+	var ctrl_res: Dictionary = StationClaimScript.ask(ctrl_ctx)
+	if not ctrl_res.has("choices") or ctrl_res["choices"].size() != 2:
+		print("FAIL: Control output must return exactly 2 choices.")
+		failures += 1
+	if ctrl_res.get("default", "") != "yield":
+		print("FAIL: Default choice must be 'yield'.")
+		failures += 1
+	
+	var yield_opt: Dictionary = ctrl_res["choices"][0]
+	var wave_opt: Dictionary = ctrl_res["choices"][1]
+	
+	if yield_opt["label"].length() > 24 or wave_opt["label"].length() > 24:
+		print("FAIL: Labels must not exceed 24 characters.")
+		failures += 1
+	
+	# TEST 1: First wave off of the day has zero rep penalty
+	if not wave_opt["effect"].is_empty():
+		print("FAIL: First wave-off of the day must have empty effect.")
+		failures += 1
+	
+	# TEST 2: Habitual wave off (waves_today = 1) incurs habitual penalty
+	var hab_ctx: Dictionary = {
+		"station_id": "pads",
+		"minutes_left": 8,
+		"members": 20,
+		"reputation": 55,
+		"waves_today": 1
+	}
+	var hab_res: Dictionary = StationClaimScript.ask(hab_ctx)
+	var hab_wave: Dictionary = hab_res["choices"][1]
+	if hab_wave["effect"].get("type") != "reputation" or hab_wave["effect"].get("delta") != -2:
+		print("FAIL: Repeated wave-off must deduct -2 reputation.")
+		failures += 1
+	
+	# TEST 3: Severe habitual wave off (waves_today = 3) incurs severe penalty
+	var sev_ctx: Dictionary = {
+		"station_id": "speed_bag_1",
+		"minutes_left": 15,
+		"members": 25,
+		"reputation": 40,
+		"waves_today": 3
+	}
+	var sev_res: Dictionary = StationClaimScript.ask(sev_ctx)
+	var sev_wave: Dictionary = sev_res["choices"][1]
+	if sev_wave["effect"].get("type") != "reputation" or sev_wave["effect"].get("delta") != -5:
+		print("FAIL: Severe wave-off habit must deduct -5 reputation.")
+		failures += 1
+	
+	# TEST 4: Yield never incurs penalties
+	if not hab_res["choices"][0]["effect"].is_empty():
+		print("FAIL: Yielding must never inflict penalties.")
+		failures += 1
+	
+	print("StationClaim tests complete. failures=%d" % failures)
+	quit(0 if failures == 0 else 1)
+
+4. tests/cue_strain_test.gd
+extends SceneTree
+
+# tests/cue_strain_test.gd
+
+const CueStrainScript = preload("res://scripts/rules/CueStrain.gd")
+
+func _initialize() -> void:
+	var failures: int = 0
+	
+	# CONTROL: Healthy stamina (>= 45) under power_through returns empty
+	var ctrl_ctx: Dictionary = {
+		"cue": "power_through",
+		"stamina": 50.0,
+		"last_band_warned": ""
+	}
+	var ctrl_res: Dictionary = CueStrainScript.strain(ctrl_ctx)
+	if not ctrl_res.is_empty():
+		print("FAIL: Stamina >= 45 should yield empty strain response.")
+		failures += 1
+	
+	# TEST 1: Irrelevant cue (e.g. pace_yourself, crisp_form) never triggers strain
+	var non_target_ctx: Dictionary = {
+		"cue": "crisp_form",
+		"stamina": 20.0,
+		"last_band_warned": ""
+	}
+	var non_target_res: Dictionary = CueStrainScript.strain(non_target_ctx)
+	if not non_target_res.is_empty():
+		print("FAIL: Non-power_through cues must return empty.")
+		failures += 1
+	
+	# TEST 2: Crossing into WINDED (< 45)
+	var winded_ctx: Dictionary = {
+		"cue": "power_through",
+		"stamina": 42.0,
+		"last_band_warned": ""
+	}
+	var winded_res: Dictionary = CueStrainScript.strain(winded_ctx)
+	if winded_res.get("new_band") != "winded":
+		print("FAIL: Stamina 42.0 should trigger winded band.")
+		failures += 1
+	if winded_res.get("toast", "").length() > 40:
+		print("FAIL: Warning toast must not exceed 40 characters.")
+		failures += 1
+	if not "PACE YOURSELF" in winded_res.get("advice", ""):
+		print("FAIL: Advice must suggest dialing to PACE YOURSELF.")
+		failures += 1
+	
+	# TEST 3: Duplicate notification suppression inside same band
+	var dup_ctx: Dictionary = {
+		"cue": "power_through",
+		"stamina": 38.0,
+		"last_band_warned": "winded"
+	}
+	var dup_res: Dictionary = CueStrainScript.strain(dup_ctx)
+	if not dup_res.is_empty():
+		print("FAIL: Should not re-warn if last_band_warned matches current band.")
+		failures += 1
+	
+	# TEST 4: Crossing into HEAVY LEGS (< 35)
+	var heavy_ctx: Dictionary = {
+		"cue": "power_through",
+		"stamina": 32.0,
+		"last_band_warned": "winded"
+	}
+	var heavy_res: Dictionary = CueStrainScript.strain(heavy_ctx)
+	if heavy_res.get("new_band") != "heavy":
+		print("FAIL: Stamina 32.0 should step down to heavy band.")
+		failures += 1
+	if heavy_res.get("toast", "").length() > 40:
+		print("FAIL: Heavy toast must not exceed 40 characters.")
+		failures += 1
+	
+	# TEST 5: Crossing into EXHAUSTED (< 25)
+	var exh_ctx: Dictionary = {
+		"cue": "power_through",
+		"stamina": 18.0,
+		"last_band_warned": "heavy"
+	}
+	var exh_res: Dictionary = CueStrainScript.strain(exh_ctx)
+	if exh_res.get("new_band") != "exhausted":
+		print("FAIL: Stamina 18.0 should step down to exhausted band.")
+		failures += 1
+	if exh_res.get("toast", "").length() > 40:
+		print("FAIL: Exhausted toast must not exceed 40 characters.")
+		failures += 1
+	
+	print("CueStrain tests complete. failures=%d" % failures)
+	quit(0 if failures == 0 else 1)

@@ -1,0 +1,15 @@
+**U202 GF1 (finance + floor tooltips)** is done on `cursor/u202-finance-floor` (`23c4e3af`, pushed).
+
+### Finance (`OfficeHubPanel.gd`)
+- Every `_money_line` has a `MoneyTip_*` hover: ledger `why`, provenance (`source`), and weekly vs bout cadence.
+- Cash, week net, runway (weeks-at-this-net wording), THIS MONTH accruals, and purse wallet figures are tipped.
+- Glossary: `weekly_net`, `runway`, `member_floor_load`.
+
+### Floor (`TrainingFloorPanel.gd`)
+- `StationRail`: space used, member load, expand readout, and per-station tiles (training focus + this week’s users).
+
+### Evidence
+- `gf1_finance_floor_tips_test.gd`: 0 failures.
+- `run_tests.py --jobs 2 --only office_hub,gym_ledger,ledger_words,training_floor,menu_clarity,gf1_finance`: **7/7 pass**.
+- Stills: `previews/u202/finance_desk.png`, `floor.png`.
+- Digest: `research/U202_DIGEST.md`.

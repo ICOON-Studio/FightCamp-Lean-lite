@@ -1,0 +1,357 @@
+<!-- Ludo round 42 (S207), reply part 4 verbatim: C3 remainder (icon grid + interaction) and C4 pixel spec up to column 1, 21,347 chars -->
+
+
+SECTION C — FIGHTER PROFILE: REDESIGNED TECHNIQUES DOSSIER (1920×1080)
+C3 (REMAINDER) — THE RIGHT COLUMN ICON GRID SYSTEM & INTERACTION ENGINE
+1. Panel Canvas & Structural Architecture
+Canvas Rect: rect(1220, 124, 684, 940)
+Surface Styling:
+Background: #0B0F17 (Deepest Void Charcoal)
+Border: 1px solid #1E293B (Muted Slate Rim)
+Corner Radius: 4px
+Internal Vertical Budget (940px total height):
+y = 124 to y = 168 (44px): Repertoire Summary & Global Progress Strip
+y = 168 to y = 212 (44px): Horizontal Branch Navigation Tab Bar
+y = 212 to y = 708 (496px): Move Icon Grid Canvas (Scrollable Viewport / Container)
+y = 708 to y = 718 (10px): Horizontal Divider Line (#1E293B)
+y = 718 to y = 1056 (338px): Technique Inspector & Training Assignment Card
+y = 1056 to y = 1064 (8px): Bottom Padding
+2. Branch Navigation Tabs (rect(1236, 172, 652, 36))
+
+The tab bar organizes the 54 techniques into their 7 canonical branches from the data facts. Clicking a tab filters the grid below instantly with zero frame drops.
+
+Layout: Horizontal HBoxContainer, 7 equal-width buttons with a 4px gap.
+Button Width: 89px each ((652 - (6 * 4)) / 7 = 89.7px $\rightarrow$ five buttons at 89px, two at 90px).
+Button Height: 32px (y = 174 to y = 206).
+Typography: Chakra Petch 11px Bold, uppercase, centered.
++-------------------------------------------------------------------------------------------------------+
+| [FUND (3)] | [STRAIGHT (7)] | [HOOKS (7)] | [DEF (11)] | [FOOT (11)] | [COMBOS (6)] | [INSIDE (5)]    |
+|   89px     |     89px       |    89px     |    89px    |    89px     |    90px      |    90px       |
++-------------------------------------------------------------------------------------------------------+
+
+Tab Visual States & Palette
+Active Tab (Selected):
+Background: #D69E2E (Vivid Gold)
+Text Color: #0B0F17 (Void Dark)
+Bottom Indicator: 3px solid #F59E0B
+Inactive Tab:
+Background: #0F172A (Dark Slate)
+Border: 1px solid #1E293B
+Text Color: #94A3B8 (Muted Slate)
+Hover Background: #1E293B, Text Color: #F8FAFC
+Tab Badges (Learned Ratio):
+Appends a subtle mini fraction next to the short name (e.g., COMBOS 2/6).
+3. Move Icon Grid Layout Specifications
+
+The grid renders all nodes belonging to the selected branch tab. When "ALL" is toggled via filter shortcut, or when browsing large branches (Defense: 11 nodes, Footwork: 11 nodes), the grid scrolls vertically inside a masked ScrollContainer.
+
+Grid Container Rect: rect(1236, 220, 652, 480)
+Layout Geometry:
+Columns: Exactly 4 Columns
+Tile Width: 151px
+Tile Height: 144px
+Horizontal Gap: 16px $\rightarrow$ (4 * 151px) + (3 * 16px) = 604px + 48px = 652px (Pixel-perfect fit)
+Vertical Gap: 16px
+Scrollbar Styling (Godot Theme Override):
+Track: width = 4px, color #0B0F17
+Grabber: width = 4px, color #334155, active color #D69E2E, radius 2px
+4. Move Tile Anatomy & Visual States (151×144 px)
+
+Every individual move tile in the grid is a structured interactive card:
+
++-------------------------------------------------------------------+  y = 0
+| [TIER PILL] (T1/T2/T3/T4)          | [DEMO BADGE] | [STATUS ICON] |  h = 24px
++-------------------------------------------------------------------+  y = 24
+|                                                                   |
+|                      256x256 MASTER PICTOGRAM                     |
+|                   SCALED TO FIT (72x72 px BOX)                    |  h = 76px
+|                                                                   |
++-------------------------------------------------------------------+  y = 100
+| TECHNIQUE NAME (Two lines max, Inter 11px Bold)                  |  h = 26px
++-------------------------------------------------------------------+  y = 126
+| STATUS / REQ SUBTEXT (JetBrains Mono 9px)                        |  h = 18px
++-------------------------------------------------------------------+  y = 144
+  w = 151px
+
+Detailed Breakdown of Tile Sub-Elements
+Header Row (h: 24px):
+Tier Indicator (Left): rect(6, 4, 28, 16). Background #1E293B, Radius 2px. Text: JetBrains Mono 9px Bold:
+Tier 1 (Foundation): #94A3B8 (Grey)
+Tier 2 (Core): #38BDF8 (Cyan)
+Tier 3 (Advanced): #A855F7 (Purple)
+Tier 4 (Signature): #F59E0B (Amber Gold)
+Certified Demo Marker (Center): If the technique is one of the 25 Certified Demo Moves:
+Badge rect(38, 4, 42, 16). Background #0369A1, Text JetBrains Mono 8px Bold #E0F2FE: "DEMO".
+Learned Status Icon (Right): rect(129, 4, 16, 16).
+If Learned: Lucide check-circle-2, color #22C55E.
+If Locked: Lucide lock, color #64748B.
+If Learnable: Lucide arrow-up-right, color #38BDF8.
+Pictogram Viewport (rect(39, 26, 72, 72)):
+Displays the branch-specific vector graphic defined in the 54-icon specification.
+Technique Title Label (rect(8, 100, 135, 26)):
+Font: Inter 11px Bold, line-height 12px, centered, autowrap enabled. Text color determined by state.
+Footer Requirement / Status Strip (rect(6, 126, 139, 14)):
+Renders primary gating stat requirement or learned timestamp.
+5. The 4 Visual Tile States & Color Tokens
++-----------------------------------------------------------------------------------------------------------------------+
+| STATE             | BACKGROUND | BORDER            | PICTOGRAM COLOR    | TITLE COLOR | FOOTER STATUS TEXT            |
++-----------------------------------------------------------------------------------------------------------------------+
+| 1. LEARNED        | #0F172A    | 1.5px solid       | Crisp White        | #F8FAFC     | #22C55E                       |
+|                   |            | #22C55E (Green)   | #F8FAFC + Gold Vec |             | "MASTERED (100% XP)"          |
++-----------------------------------------------------------------------------------------------------------------------+
+| 2. LEARNABLE      | #0F172A    | 1.5px dashed      | Electric Cyan      | #38BDF8     | #38BDF8                       |
+|    (Eligible)     |            | #38BDF8 (Cyan)    | #38BDF8 + Gold Vec |             | "READY TO TRAIN"              |
++-----------------------------------------------------------------------------------------------------------------------+
+| 3. LOCKED         | #070A0F    | 1px solid         | Muted Silhouette   | #64748B     | #EF4444                       |
+|    (Gated)        | (50% alpha)| #1E293B (Slate)   | #334155 (Dark)     |             | "NEEDS: TECH 36"              |
++-----------------------------------------------------------------------------------------------------------------------+
+| 4. NOT IN DEMO    | #05070A    | 1px solid         | Obscured Outline   | #475569     | #475569                       |
+|    (Full Game)    |            | #0F172A (Dim)     | #1E293B (Ghost)    |             | "FULL RELEASE ONLY"           |
++-----------------------------------------------------------------------------------------------------------------------+
+
+Selected State (Active on 3D Stage):
+Any tile selected gains an outer pulsating highlight: 2px solid #D69E2E (Gold glow with box-shadow: 0 0 8px rgba(214, 158, 46, 0.4)).
+6. Mouse Hover Tooltip Engine
+
+Hovering over any tile for $\ge 0.15\text{ seconds}$ spawns a high-density tactical floating card anchored directly to the tile’s right or left boundary (auto-flipping if near screen edge x = 1920):
+
+Container Size: width = 320px, height = Auto (approx. 180px)
+Styling: Background #0B0F17 (98% opacity), Border 1px solid #D69E2E, Radius 4px, Shadow #000000 (80% opacity, 12px blur).
+Tooltip Data Topology:
+Header: Technique Full Name, Tier, and Branch Name (Chakra Petch 12px Bold, #F8FAFC).
+Prerequisite Tree Check:
+Displays every required technique from data facts:
+e.g. for boxing_one_two_hook:
+[x] One-Two (boxing_one_two) in #22C55E (Learned)
+[x] Lead Hook (boxing_lead_hook) in #22C55E (Learned)
+Attribute Requirements Audit:
+Lists required attributes vs current fighter rating:
+Speed: 30 (Fighter: 72 $\rightarrow$ Passed in #22C55E)
+Technique: 30 (Fighter: 68 $\rightarrow$ Passed in #22C55E)
+If failed: displays deficit in red (e.g., Technique: 44 (Fighter: 38 -> -6) in #EF4444).
+Simulation Impact Hook:
+Single-line tactical explanation:
+"Expands high-low punch branching during offensive combinations; +18% guard penetration against high-guard turtles."
+Demo Status Notice:
+If NOT certified: "Animation preview available on stage. Live training enabled in Full Commercial Release."
+7. Click Interaction & 3D Stage Choreography
+
+When the user clicks a move tile (gui_input event with MOUSE_BUTTON_LEFT):
+
+func _on_technique_tile_clicked(technique_id: String) -> void:
+    # 1. Update UI Selection State
+    active_selected_technique = technique_id
+    update_selection_highlight(technique_id)
+    inspector_panel.populate_technique(technique_id)
+    
+    # 2. Command the Center 3D Stage
+    var is_certified: bool = TechniqueDatabase.is_certified_in_demo(technique_id)
+    if is_certified:
+        stage_3d_controller.play_technique_animation(
+            technique_id, 
+            playback_mode,      # LOOP or ONCE
+            playback_speed      # 1.0x or 0.25x
+        )
+    else:
+        stage_3d_controller.play_proxy_or_fallback(technique_id)
+        
+    # 3. Audio Confirmation
+    AudioManager.play_ui_sfx("sfx_dossier_card_select.wav", -8.0)
+
+8. Selected Technique Inspector Card (rect(1236, 718, 652, 338))
+
+Located directly below the icon grid, this inspector serves as the deep management control panel for the selected move.
+
++-------------------------------------------------------------------------------------------------------+
+| [ICON 64x64] | ONE-TWO-HOOK                                                      | [TIER 2 CORE COMBO] |
+| rect(1248,   | combinations | Speed 30, Technique 30                            | [CERTIFIED IN DEMO] |
+| 730, 64, 64) | Prerequisites: boxing_one_two [x] | boxing_lead_hook [x]          |                     |
++-------------------------------------------------------------------------------------------------------+
+| BIOMECHANICS & COMBAT SIMULATION PROFILE                                                              |
+| Impact Frame: 18 | Base Stamina Cost: 14.2 | Kinetic Damage Factor: 1.42x                             |
+| Kinetic Flow: Disrupts opposing shell with straight probes; lead hook impacts blindside temple.       |
++-------------------------------------------------------------------------------------------------------+
+| TACTICAL BEHAVIOR WEIGHT IN FIGHT SIMULATOR ENGINE                                                    |
+| [SUPPRESSED (0x)]       | [SITUATIONAL (1.0x)] (DEFAULT)       | [FAVORED WEAPON (2.5x)]              |
++-------------------------------------------------------------------------------------------------------+
+| TRAINING PLAN ASSIGNMENT (STATION SCHEDULING)                                                         |
+| [ASSIGN TO MITT WORK / PADS]             | [ASSIGN TO HEAVY BAG DRILLS]                               |
+| Strain: +14% / session | XP Gain: +180   | Strain: +22% / session | XP Gain: +110                 |
++-------------------------------------------------------------------------------------------------------+
+
+Exact Pixel Budget for Inspector Sub-Elements
+Card Header Box (rect(1236, 718, 652, 84)):
+Large Icon Box: rect(1248, 728, 64, 64), Background #0F172A, Border 1px solid #334155
+Move Title: rect(1324, 728, 360, 24), Chakra Petch 16px Bold, #F8FAFC
+Branch & Tier Subtitle: rect(1324, 752, 360, 18), Inter 11px Medium, #94A3B8
+Prerequisite Checklist: rect(1324, 770, 360, 18), JetBrains Mono 10px Medium, #22C55E
+Certified Stamp: rect(1710, 728, 166, 22), Background #0369A1, Text JetBrains Mono 9px Bold #E0F2FE, "CERTIFIED DEMO MOVE"
+Biomechanics Data Block (rect(1248, 808, 628, 54)):
+Background #0F172A, Border 1px solid #1E293B, Radius 3px
+Telemetry Text: JetBrains Mono 10px Regular, #CBD5E1
+Tactical Weight Segmented Control (rect(1248, 868, 628, 32)):
+Label: Inter 10px Bold, #94A3B8, uppercase: "SIMULATION TACTICAL WEIGHT"
+3 Mutually Exclusive Toggle Buttons (width = 205px each, height = 26px):
+[SUPPRESSED]: Muted Dark #0F172A, Border #334155, Text #64748B
+[SITUATIONAL]: Slate #1E293B, Border #38BDF8, Text #F8FAFC
+[FAVORED WEAPON]: Gold Accent #D69E2E, Text #0B0F17 (Bold)
+Training Station Assignment Buttons (rect(1248, 912, 628, 48)):
+Button 1 (Pads / Mitts): rect(1248, 912, 308, 44)
+Background #1E293B, Border 1px solid #38BDF8, Hover #334155
+Label: Chakra Petch 12px Bold #F8FAFC: "[ASSIGN TO PADS]"
+Subtext: Inter 9px Regular #94A3B8: "Focus: Technique & Reaction Speed"
+Button 2 (Heavy Bag): rect(1568, 912, 308, 44)
+Background #1E293B, Border 1px solid #E2E8F0, Hover #334155
+Label: Chakra Petch 12px Bold #F8FAFC: "[ASSIGN TO BAG]"
+Subtext: Inter 9px Regular #94A3B8: "Focus: Power & Kinetic Conditioning"
+C4 — COMPLETE PIXEL SPECIFICATION OF THE TECHNIQUES TAB (1920×1080)
+
+Every layout container, panel coordinate, typography rule, and hex token for the entire screen at native 1080p:
+
+========================================================================================================================
+FULL SCREEN RESOLUTION: 1920 x 1080 px | ENGINE: Godot 4.7.2 GDScript | DISPLAY MODE: 1:1 Pixel-Mapped UI Layout
+========================================================================================================================
+
+0. GLOBAL ROOT BACKGROUND
+   - Viewport Canvas: rect(0, 0, 1920, 1080)
+   - Base Color: #020617 (Obsidian Slate / Deep Space)
+   - Global Ambient Backdrop Vignette: Center #0B0F17 to Outer #020617
+
+------------------------------------------------------------------------------------------------------------------------
+1. TOP HEADER STRIP (FIGHTER DOSSIER IDENTITY BANNER)
+------------------------------------------------------------------------------------------------------------------------
+   - Outer Container: rect(16, 16, 1888, 96)
+   - Background: #0B0F17
+   - Border: 1px solid #1E293B
+   - Corner Radius: 4px
+   - Elevation Drop Shadow: 0px 4px 16px rgba(0, 0, 0, 0.6)
+
+   SUB-ELEMENTS:
+   1.1 Back to Gym Floor Button:
+       - Rect: rect(32, 32, 104, 32)
+       - Styling: Background #1E293B, Border 1px solid #334155, Radius 3px
+       - Typography: Chakra Petch 11px Bold, #94A3B8
+       - Text: "<- FLOOR"
+       - Hover: Background #334155, Text #F8FAFC
+
+   1.2 Fighter Primary Identity Cluster:
+       - Name Label: rect(152, 28, 420, 32)
+         * Typography: Chakra Petch 24px Bold, #F8FAFC, uppercase, tracking +1px
+         * Text: "LEO 'THE LION' VANCE"
+       - Meta Subtitle: rect(152, 62, 480, 20)
+         * Typography: Inter 11px Medium, #94A3B8
+         * Text: "AGE 24 (BORN 12 MAY 2002) | ORTHODOX | CLUB CONTRACT (EXP. 14 MOS)"
+
+   1.3 Division & Record Metric Cards:
+       - Division Badge Card: rect(652, 28, 180, 48)
+         * Styling: Background #0F172A, Border 1px solid #1E293B, Radius 3px
+         * Header Label: Inter 9px Bold, #64748B, uppercase: "WEIGHT DIVISION"
+         * Value Label: Chakra Petch 13px Bold, #F8FAFC: "WELTERWEIGHT"
+         * Mass Limit: JetBrains Mono 10px Regular, #94A3B8: "-66.7 kg (-147 lbs)"
+       - Record & Stoppage Card: rect(844, 28, 170, 48)
+         * Styling: Background #0F172A, Border 1px solid #1E293B, Radius 3px
+         * Header Label: Inter 9px Bold, #64748B, uppercase: "PRO RECORD"
+         * Value Label: Chakra Petch 14px Bold, #22C55E: "9 - 2 - 0"
+         * Sub-Ratio: JetBrains Mono 10px Regular, #94A3B8: "6 KOs (66.7% KO Rate)"
+
+   1.4 Status & Vitals Telemetry Group:
+       - Morale Status Pill: rect(1026, 32, 128, 40)
+         * Styling: Background #052E16, Border 1px solid #22C55E, Radius 3px
+         * Label: Inter 9px Bold, #22C55E, uppercase: "CAMP MORALE"
+         * Value: Chakra Petch 12px Bold, #22C55E: "HIGH (84%)"
+       - Stress Readout Gauge: rect(1166, 32, 190, 40)
+         * Styling: Background #0F172A, Border 1px solid #1E293B, Radius 3px
+         * Label Strip: Inter 9px Bold, #94A3B8: "STRESS: 42 / 100"
+         * Progress Bar Track: rect(1178, 54, 166, 6), Background #1E293B
+         * Progress Fill: rect(1178, 54, 70, 6), Fill #38BDF8 (Blue, Relaxed)
+       - Physical Wear Pill: rect(1368, 32, 160, 40)
+         * Styling: Background #0F172A, Border 1px solid #1E293B, Radius 3px
+         * Label: Inter 9px Bold, #94A3B8, uppercase: "STRUCTURAL WEAR"
+         * Value: Chakra Petch 12px Bold, #38BDF8: "8% (PRISTINE)"
+
+   1.5 Fast Matchmaking CTA Button:
+       - Rect: rect(1644, 28, 244, 48)
+       - Styling: Background #D69E2E, Border 1px solid #F59E0B, Radius 3px
+       - Typography: Chakra Petch 13px Bold, #0B0F17, uppercase, tracking +0.5px
+       - Text: "[PROPOSE BOUT / MATCHMAKER]"
+       - Hover: Background #B7791F
+
+------------------------------------------------------------------------------------------------------------------------
+2. LEFT COLUMN — ATHLETIC & SIMULATION DOSSIER
+------------------------------------------------------------------------------------------------------------------------
+   - Outer Container: rect(16, 124, 380, 940)
+   - Background: #0B0F17
+   - Border: 1px solid #1E293B
+   - Corner Radius: 4px
+
+   SUB-ELEMENTS:
+   2.1 Panel Header:
+       - Rect: rect(32, 140, 348, 24)
+       - Typography: Chakra Petch 14px Bold, #F8FAFC, uppercase: "ATHLETIC ATTRIBUTES"
+       - Sub-rule: rect(32, 166, 348, 1), Color #1E293B
+
+   2.2 Cluster 1: Striking & Defense (rect(32, 178, 348, 156))
+       - Section Tag: Inter 10px Bold, #D69E2E, uppercase: "STRIKING & DEFENSE"
+       - Row 1: POWER
+         * Label: rect(32, 198, 90, 20), Inter 11px SemiBold, #94A3B8, "POWER"
+         * Value: rect(122, 198, 28, 20), JetBrains Mono 11px Bold, #F8FAFC, "76"
+         * Bar Track: rect(156, 204, 224, 8), Background #1E293B, Fill #F8FAFC (w: 170px)
+       - Row 2: TECHNIQUE
+         * Label: rect(32, 226, 90, 20), Inter 11px SemiBold, #94A3B8, "TECHNIQUE"
+         * Value: rect(122, 226, 28, 20), JetBrains Mono 11px Bold, #F8FAFC, "68"
+         * Bar Track: rect(156, 232, 224, 8), Background #1E293B, Fill #F8FAFC (w: 152px)
+       - Row 3: SPEED
+         * Label: rect(32, 254, 90, 20), Inter 11px SemiBold, #94A3B8, "SPEED"
+         * Value: rect(122, 254, 28, 20), JetBrains Mono 11px Bold, #F8FAFC, "72"
+         * Bar Track: rect(156, 260, 224, 8), Background #1E293B, Fill #F8FAFC (w: 161px)
+       - Row 4: DEFENCE
+         * Label: rect(32, 282, 90, 20), Inter 11px SemiBold, #94A3B8, "DEFENCE"
+         * Value: rect(122, 282, 28, 20), JetBrains Mono 11px Bold, #F8FAFC, "64"
+         * Bar Track: rect(156, 288, 224, 8), Background #1E293B, Fill #F8FAFC (w: 143px)
+
+   2.3 Cluster 2: Physical Foundation (rect(32, 344, 348, 124))
+       - Section Tag: Inter 10px Bold, #D69E2E, uppercase: "PHYSICAL FOUNDATION"
+       - Row 5: STAMINA (conditioning)
+         * Label: rect(32, 364, 90, 20), Inter 11px SemiBold, #94A3B8, "STAMINA"
+         * Value: rect(122, 364, 28, 20), JetBrains Mono 11px Bold, #F8FAFC, "80"
+         * Bar Track: rect(156, 370, 224, 8), Background #1E293B, Fill #38BDF8 (w: 179px)
+       - Row 6: CHIN
+         * Label: rect(32, 392, 90, 20), Inter 11px SemiBold, #94A3B8, "CHIN"
+         * Value: rect(122, 392, 28, 20), JetBrains Mono 11px Bold, #F8FAFC, "70"
+         * Bar Track: rect(156, 398, 224, 8), Background #1E293B, Fill #38BDF8 (w: 156px)
+       - Row 7: FOOTWORK
+         * Label: rect(32, 420, 90, 20), Inter 11px SemiBold, #94A3B8, "FOOTWORK"
+         * Value: rect(122, 420, 28, 20), JetBrains Mono 11px Bold, #F8FAFC, "65"
+         * Bar Track: rect(156, 426, 224, 8), Background #1E293B, Fill #38BDF8 (w: 145px)
+
+   2.4 Cluster 3: Fight Cognition (rect(32, 478, 348, 96))
+       - Section Tag: Inter 10px Bold, #D69E2E, uppercase: "FIGHT COGNITION"
+       - Row 8: RING IQ (fight_iq)
+         * Label: rect(32, 498, 90, 20), Inter 11px SemiBold, #94A3B8, "RING IQ"
+         * Value: rect(122, 498, 28, 20), JetBrains Mono 11px Bold, #F8FAFC, "74"
+         * Bar Track: rect(156, 504, 224, 8), Background #1E293B, Fill #A855F7 (w: 165px)
+       - Row 9: COMPOSURE
+         * Label: rect(32, 526, 90, 20), Inter 11px SemiBold, #94A3B8, "COMPOSURE"
+         * Value: rect(122, 526, 28, 20), JetBrains Mono 11px Bold, #F8FAFC, "78"
+         * Bar Track: rect(156, 532, 224, 8), Background #1E293B, Fill #A855F7 (w: 174px)
+
+   2.5 Grappling Foundation Card (Sim Engine Groundwork):
+       - Rect: rect(32, 590, 348, 96)
+       - Styling: Background #0F172A, Border 1px solid #1E293B, Radius 4px
+       - Title: Inter 10px Bold, #64748B, uppercase: "GRAPPLING ENGINE BASELINE (MMA READY)"
+       - Row 1: JetBrains Mono 11px Medium, #94A3B8: "G-OFFENSE: 22  |  G-DEFENSE: 28"
+       - Row 2: JetBrains Mono 11px Medium, #94A3B8: "TOP CONTROL: 18  |  SUB RESIST: 34"
+       - Subtext: Inter 9px Regular, #475569: "Latent calculations running for future cross-rule bouts."
+
+   2.6 Repertoire Summary Analytics Box:
+       - Rect: rect(32, 702, 348, 242)
+       - Styling: Background #0F172A, Border 1px solid #1E293B, Radius 4px
+       - Title: Chakra Petch 12px Bold, #F8FAFC, uppercase: "REPERTOIRE MASTERY"
+       - Data Lines:
+         * "Learned Moves:        14 / 54 (25.9%)"
+         * "Certified Demo Moves: 11 / 22 strikes, 3 / 3 def"
+         * "Branch Focus:         Straight / Combinations"
+         * "Punches Thrown / Rd:  52 avg (Orthodox)"
+         * "Counter Tendency:     High (Pull-Counter 2.5x)"
+       - Footer Pill: rect(44, 898, 324, 32)
+         * Background #1E293B, Border 1px solid #3

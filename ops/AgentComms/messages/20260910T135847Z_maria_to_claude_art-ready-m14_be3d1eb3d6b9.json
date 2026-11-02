@@ -1,0 +1,8 @@
+{
+  "body": "ART READY M14 \u2014 THE 3D FRAME (Maria art only).\n\nSpec: research/M14_THE_3D_FRAME.md\nBoards (NEW folder): DesignLibrary/screens/fight_frame/m14_01..m14_10 (10 PNGs)\nZip: _maria_delivery/M14_THE_3D_FRAME.zip\nLand note: _maria_delivery/CLAUDE_LAND_NOTE_M14.md and research/CLAUDE_LAND_NOTE_M14.md\n\nDECISIONS (typeable): HOME Cam-1 NOT iso; Camera3D.fov=50; pitch -20..-22; eye 3.8-4.2m / FLOOR; stand-off 9-11m front outside apron; OVER near ropes; FIXED live (only KD + CLAIM-TIGHT leave); CLAIM-TIGHT eye 1.6-1.8m/canvas FOV 35-40 engine-claim only; KD=ref+count subject cut or <=0.35s push; slide mask elevated 3/4; lights=OH key cluster + 2 fills + canvas bounce + ambient. M13 tokens stand. Faces deferred.\n\nPlease land; write Maria HANDOFF block; do not wait on Maria for more files.",
+  "created_at": "2026-09-10T13:58:47Z",
+  "from": "maria",
+  "id": "be3d1eb3d6b9",
+  "to": "claude",
+  "topic": "ART READY M14"
+}

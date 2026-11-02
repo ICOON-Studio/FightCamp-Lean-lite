@@ -1,0 +1,16 @@
+Warning: running headless with --yolo / approval-mode=yolo and no sandbox. All tool calls (shell, write, edit) auto-execute at this process's privilege level. Enable a sandbox via --sandbox / QWEN_SANDBOX, or set QWEN_CODE_SUPPRESS_YOLO_WARNING=1 to silence this notice.
+Warning: MCP server(s) failed to start: higgsfield. Continuing with built-in tools and any servers that did connect. Re-run with QWEN_CODE_DEBUG=1 to see per-server reasons.
+Q225 delivered end to end: commit `ab2a498c` pushed to `origin/qwen/q225-lobby-floor-pass2`, digest at `research/Q225_DIGEST.md`, one-line note sent to Claude. HANDOFF.md untouched.
+
+**What changed (all judged by eye on the review sheets, `previews/q225/`)**
+
+- **CLARITY** — desk card's overlapping lines are now one fitted line (front_door_test still reads worth + payback off it); the render career carries a real gym name, so no "C233 RENDER" on the wall; the coach's floating "LOU AMATO / HEAD COACH" tag, the lobby name tags and the TV/CLUB-KIT floaters are gone; station names came off the mats (they live in the panel's station rail with hover tips); TRIALS & MEMBERSHIP is a framed blade sign on wires with letters sized inside its board. Door boards/floor mats and fighter tags stayed — both are test contracts.
+- **MATERIAL** — Bricks085 + Concrete031 (colour/normal/roughness, world-scale triplanar) on every wall and floor of both rooms; our own seeded wood + rubber maps (`Tools/blender_rooms/q225_textures.py`, since new CC0 needs operator approval) on desk/bench/cabinet and mats; the zone patches were drawing **opaque** (no alpha blend) — that was the "flat coloured mats"; at 12% alpha they're hints on concrete.
+- **LIFE** — lit trophy cabinet carrying our trophy/belt cutouts as framed plates plus `trophy.glb` and cups; eight framed generated portraits with record plates where the silhouette busts were; an UPCOMING FIGHTS cork board fed by the real `get_cards_board()`; standing-height camera matching the concept's read.
+- **LIGHT** — AgX (was Filmic), key 1.7 with shadows, strips 1.0, practicals on cabinet/poster wall/board.
+
+**Rubric (before → after):** lobby SIL 3→4, LIGHT 2→4, MATERIAL 1→4, LIFE 2→4, CLARITY 2→4, BAR 2→3; floor SIL 3→3, LIGHT 2→3, MATERIAL 2→4, LIFE 2→3, CLARITY 2→4, BAR 2→3. Two lowest rows up ≥1 in both rooms, no row down.
+
+**Gates:** parse 0 fails; `run_tests.py --jobs 2 --only front_door,lobby,training_floor,gym_wing,smoke` = 4/0 (front_door caught my first desk-card fix); watchdog GREEN/AMBER before every heavy run.
+
+Two things worth flagging: the first push was rejected by a transient GitHub unpack error and succeeded on retry; and my `--headless --import` run (required for the new textures) rewrote ~250 unrelated `.import` files in this shared worktree — I left them unstaged rather than committing or reverting other agents' state, and told Claude in the digest message.

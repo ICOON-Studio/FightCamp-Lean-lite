@@ -1,0 +1,16 @@
+{
+  "checked_at": "2026-09-11T00:53:37Z",
+  "files": [
+    "Godot/scripts/FightMoves.gd",
+    "Godot/scripts/FightRealtime.gd",
+    "Godot/tests/fight_realtime_test.gd",
+    "Godot/tests/fight_guard_contract_test.gd",
+    "Godot/tests/judge_panel_test.gd",
+    "Godot/tools/find_r102_seeds.gd",
+    "Godot/tools/repin_r102_cards.gd",
+    "Godot/scripts/FightIntent.gd"
+  ],
+  "output": "CHECK total=8 fails=0 autoload_refs=0 autoload_warnings=0 time=2s\n",
+  "passed": true,
+  "task": "R102"
+}

@@ -1,0 +1,702 @@
+Kalli
+
+K3 Body is complete (HANDOFF updated).
+research/PROFILE_BODY_MAP.png — 1920×1080 graphic-first Lab/Body: big map, leaders + crosshairs (no dots), gutter rings/sparks, Map/Weight/Medical, age under name. HTML beside it for hover tooltips.
+Nothing else assigned to me right now.
+7:56 PM
+Fri, Sep 4 11:59 PM
+You
+go
+11:59 PM
+Checking HANDOFF for a new claim.
+Beast is disconnected — can’t read HANDOFF until it reconnects.
+Beast is back — reading Active claims now.
+Beast shows connected, but this turn can’t reach it yet (local tools locked to the start-of-turn state). Ping me once more after it’s fully online and I’ll grab the next claim.
+Sat, Sep 5 12:00 AM
+12:00 AM
+Checking HANDOFF for the next claim.
+HANDOFF changed a lot — reading Active claims.
+K7 Set-Piece Frame is assigned — reading the spec and claiming it.
+Reading the K7 spec, then claiming and building the four set-piece boards.
+K7 claimed. Pulling UITokens + kit refs, then building the four set-piece boards.
+12:01 AM
+K7 is IN PROGRESS — designing the set-piece frame (handoff timings, empty chrome, five dressed, interrupt). PNGs will land in research/ when ready.
+K7 set-piece study is in — verifying the boards, then marking HANDOFF COMPLETE.
+12:06 AM
+K7 set-piece frame is complete (HANDOFF updated).
+Handoff enter 940 ms / exit 480 ms (ms labeled for the router)
+Empty chrome + five dressed (Fight Week → Crowning)
+Hero interrupt: belt changing hands (1600 ms hold, gold on the belt only)
+All in research/ — SETPIECE_FRAME_K7.html, SETPIECE_K7_*.png, K7_DIGEST.md. No code, not pushed.
+Sat, Sep 5 1:25 AM
+check
+1:25 AM
+Checking HANDOFF fingerprint.
+HANDOFF changed — reading Active claims.
+Active claims look odd — reading the whole HANDOFF.
+K8 is assigned — GYM hub study (TASK_K8.md): four 1920×1080 boards (ROSTER, FLOOR, STORE, STATES) replacing FIGHTERS + MY GYM, kit-only inside the shell. Digest answers the one-rail-item question + kit gaps.
+K7 is COMPLETE. R21 waits on K8 approval + C4.
+Want me to claim K8 and start?
+1:26 AM
+yes
+Claiming K8 — reading the task file, then building the four GYM hub boards.
+Reading TASK_K8 and marking the claim IN PROGRESS.
+1:27 AM
+K8 claimed. Building ROSTER / FLOOR / STORE / STATES at 1920×1080.
+K8 is IN PROGRESS — four GYM hub boards (ROSTER / FLOOR / STORE / STATES). I’ll drop them in research/ when ready.
+K8 GYM hub boards landed — verifying PNGs, then marking HANDOFF COMPLETE.
+1:34 AM
+K8 GYM hub study is complete (HANDOFF updated; Claude commits).
+Four boards in research/: roster / floor / store / states
+Rail pick: one item GYM (drop MY GYM + FIGHTERS); tabs ROSTER / FLOOR; STORE = drawer off FLOOR
+Kit gaps listed in K8_DIGEST.md (squad_row, floor_grid, store_drawer, …)
+R21 can take it from here once you approve.
++2
+1:35 AM
+git fetch origin && git rebase origin/master
+cat research/TASK_K8.md
+sed -n '/^## KALLI START HERE/,/^## Direction notes/p' HANDOFF.md
+1:48 AM
+Syncing master, then reading TASK_K8 + the Kalli slice.
+1:49 AM
+Rebase blocked by local unstaged changes. Pulling your K8 claim only.
+K8 already COMPLETE. All six deliverables are in research/.
+Rail: one GYM item; ROSTER / FLOOR tabs; STORE drawer off FLOOR
+Kit gaps named in K8_DIGEST.md
+No ## KALLI START HERE heading (claim-only read)
+git rebase blocked: unstaged local changes (Claude/you need to clear that)
+Idle. New board = new chat.
+Sat, Sep 5 5:07 AM
+K9 TRAINING boards landed — verifying, then marking HANDOFF COMPLETE.
+5:07 AM
+K9 TRAINING hub study is complete (HANDOFF updated; Claude commits).
+Boards in research/: week / session / fight_camp / states
+Rail: one TRAINING — week home; SESSION = day panel; FIGHT CAMP = mode when booked (not under SCHEDULE)
+FLOOR vs TRAINING: floor = who sits stations; training = the week plan
+Kit gaps: week_band, focus_chip, body_delta, session_panel, camp_week_rail, illegal_refusal
+Details in K9_DIGEST.md.
+Idle — K9 shipped. New board = new chat.
+Sat, Sep 5 11:57 AM
+go k10
+11:57 AM
+Building K10 now — MONTH / CARDS / EVENT / STATES.
+Action approved
+Always allowed
+Run a task on Grok Bot's computer: “You are Kalli's executor for FightCamp K10 SCHEDULE & EVENTS hub study. machineId: fd22c5bf-e873-4d80-83a5-87…[1414 chars omitted]…t paths. Never commit HANDOFF or .gd. Report paths, sizes, A/B/C answers, commit hash, push result, blockers.”. View the full request
+A rule always allowing this was added to your Auto-review settings: “Use git push to push commits to origin master on repositories when requested”
+K10 is IN PROGRESS — four boards + digest, then commit/push research only.
+K10 pushed — verifying PNGs, then showing the boards.
+12:10 PM
+K10 complete — pushed a51fac0.
+Boards: SCHEDULE_K10_{month,cards,event,states}.png + SCHEDULE_HUB_K10.html + K10_DIGEST.md
+Rail: one SCHEDULE — tabs MY MONTH / THE CARDS; EVENT drills in; fold EVENTS into it
+DAY vs SCHEDULE: Day = today’s briefing; Schedule = dated obligations + world cards
+Kit gaps: month_grid, day_cell, obligation_chip, event_row, bout_row, setpiece_seam
+HANDOFF block is Claude’s. Idle.
+12:11 PM
+Sat, Sep 5 12:50 PM
+start k11
+12:50 PM
+Starting K11 — pulling the task file.
+12:51 PM
+TASK_K11 is there — reading it, then building.
+Reading the K11 spec.
+K11 SCOUTING hub — dispatching the four boards now.
+K11 IN PROGRESS — SCOUTING hub (PROSPECTS / CANDIDATE / OFFER / STATES). I’ll ping when it’s pushed.
+12:52 PM
+K11 pushed — pulling the boards for review.
+12:56 PM
+K11 complete — pushed 5d126e4.
+Boards: SCOUTING_K11_{prospects,candidate,offer,states}.png + HTML + K11_DIGEST.md
+Hub: tabs FIGHTERS / STAFF; offer = drawer off the row
+Shortlist: pin world-ref on the gym save (star + filter) — interested but not ready
+Kit gaps: prospect_row, offer_axis, shortlist_pin, gym_gap_compare, offer_drawer
+HANDOFF is Claude’s. Idle.
+Sat, Sep 5 1:49 PM
+check if this game can benefit us with visual imporvements etc , if you let me know if you need me to buy it and download it to analyaze it furher : https://store.steampowered.com/app/4572730/Box_Office_Mayhem_Theatre_Tycoon/
+1:49 PM
+Checking the Steam page for anything FightCamp can use as visual reference.
+1:50 PM
+Got the store copy — checking screenshots next so this isn’t guesswork.
+Don’t buy it for FightCamp.
+It’s a cinema/theatre tycoon (schedule screens, hire staff, negotiate deals) — same genre family as us, wrong domain and bar. Our visual target is still R18 + kit + FM-density hubs (K8–K11), not an Early Access theatre sim with a thin review sample and AI-assisted assets.
+Soft overlap only (if we ever looked): deal/negotiation boards, multi-site empire chrome, schedule density — and even then it’s mood only; nothing ships, nothing replaces MMA Empire / Corner King / our own hubs.
+Need you to buy/download? No. Save the money. If you already own it and want a 10‑minute UI mood pass later, we can — not worth a purchase for visual improvements.
+Sat, Sep 5 2:52 PM
+start K12
+2:52 PM
+Starting K12 — pulling the task file.
+2:53 PM
+TASK_K12 found — reading the spec, then building.
+Reading K12 now.
+K12 OFFICE + STAFF — dispatching the four boards.
+Run a task on Grok Bot's computer: “You are Kalli's executor for FightCamp K12 OFFICE + STAFF hub study. machineId: fd22c5bf-e873-4d80-83a5-87ae7…[2031 chars omitted]…By: Kalli <kalli@fightcamp.local>; push origin master. Report paths, sizes, A–E, commit hash, push, blockers.”. View the full request
+K12 IN PROGRESS — OFFICE + STAFF (DESK / STAFF / BOOKS / STATES). I’ll ping when it’s pushed.
+K12 pushed — verifying boards, then showing them.
+2:57 PM
+K12 complete — pushed eb42df8.
+Boards: OFFICE_K12_{desk,staff,books,states}.png + HTML + K12_DIGEST.md
+Rail: OFFICE = business hub (DESK / BOOKS); STAFF stays on the rail
+Boundary: SCOUTING signs coaches; STAFF manages after (assign / capacity / wages / rapport)
+Weight class: action off the fighter, not an OFFICE place
+Phone: left out (unfinished)
+Kit gaps: desk_ledger, rapport_pair, contract_term_row, objective_claim, assign_arm, weight_move_action
+2:58 PM
+Sat, Sep 5 4:04 PM
+check for tasks
+4:04 PM
+Fingerprinting HANDOFF.
+4:05 PM
+K13 is open — CAREER CREATION (TASK_K13.md). Top tier, effort high.
+K7–K12 are COMPLETE. Want me to start K13?
+Starting K13 — pulling the career-creation task file.
+4:06 PM
+Reading K13, then dispatching the boards.
+K13 CAREER CREATION — five boards (country / city / gym / handoff / states).
+Run a task on Grok Bot's computer: “You are Kalli's executor for FightCamp K13 CAREER CREATION study. machineId: fd22c5bf-e873-4d80-83a5-87ae773b…[1797 chars omitted]…lli <kalli@fightcamp.local>; push origin master. Report paths, sizes, A–F short, commit hash, push, blockers.”. View the full request
+K13 IN PROGRESS — career creation (country / city / gym / handoff / states). I’ll ping when it’s pushed.
+4:09 PM
+K13 pushed — verifying boards, then showing them.
+4:16 PM
+K13 complete — pushed 06d5277.
+Boards: CREATION_K13_{country,city,gym,handoff,states}.png + HTML + K13_DIGEST.md
+Shape: one flow with steps under CreationChrome (not ShellChrome, not K7 frame)
+Handoff: fold → shutter → THE DAY (~780 ms); green CONTINUE only after shell locks
+MainMenu: own rebuild stage
+Kit gaps: creation_chrome, step_strip, committed_trail, market_card, city_intel, starter_take, creation_seam
++3
+Sat, Sep 5 4:38 PM
+4:38 PM
+4:39 PM
+HANDOFF changed — reading open Kalli tasks.
+K14 is open — THE BOOT (TASK_K14.md). Top tier, Fast off.
+K13 COMPLETE. Want me to start K14?
+4:40 PM
+Starting K14 — pulling THE BOOT task file.
+Reading K14, then dispatching.
+K14 THE BOOT — five boards (title / slots / settings / seams / states).
+4:41 PM
+K14 IN PROGRESS — THE BOOT (title / slots / settings / seams / states). I’ll ping when it’s pushed.
+K14 pushed — verifying boards, then showing them.
+4:47 PM
+K14 complete — pushed 5858b9b (+ crop 6e400b6).
+Boards: BOOT_K14_{title,slots,settings,seams,states}.png + HTML + K14_DIGEST.md
+Shape: TITLE then SLOTS; splash discarded
+Chrome: BootChrome (fourth frame — brand/body/foot)
+Seams: both 780 ms (NEW→creation / LOAD→THE DAY)
+Codex before build: get_save_summary must flag incompatible vs empty
+Kit gaps: boot_chrome, slot_row, confirm_sheet, settings_row, boot_seam
+Sat, Sep 5 6:10 PM
+check for tasks and go
+6:10 PM
+Checking HANDOFF — if something’s open I’ll start it.
+6:11 PM
+K15 open — THE RANKINGS. Starting now.
+Reading K15, then building.
+K15 RANKINGS — four boards under ShellChrome.
+Run a task on Grok Bot's computer: “You are Kalli's executor for FightCamp K15 THE RANKINGS study. machineId: fd22c5bf-e873-4d80-83a5-87ae773b2e4…[1643 chars omitted]…lli <kalli@fightcamp.local>; push origin master. Report paths, sizes, A–G short, commit hash, push, blockers.”. View the full request
+K15 IN PROGRESS — THE RANKINGS (division / P4P / champions / states). I’ll ping when it’s pushed.
+6:12 PM
+K15 pushed — verifying boards, then showing them.
+6:17 PM
+K15 complete — pushed f9c23f5.
+Boards: RANKINGS_K15_{division,p4p,champions,states}.png + HTML + K15_DIGEST.md
+Placement: own rail RANKINGS (route exists; add NAV)
+Default: focused fighter’s division; ask for other class / P4P / Champions
+Row press: ours → fighter card; world → peek only (never MAKE OFFER)
+Champions: tab here; K7 owns crowning
+Kit gaps: ranking_row, ladder_scope, our_in_ladder, belt_holder_row, vacant_belt_state, empty_gym_ranked
+Sat, Sep 5 8:15 PM
+8:15 PM
+8:16 PM
+Kalli idle — nothing new assigned.
+K15 RANKINGS study already shipped (f9c23f5); HANDOFF still says OPEN until Claude flips the block. No TASK_K16.
+Sat, Sep 5 9:28 PM
+9:28 PM
+9:29 PM
+9:30 PM
+K16 OPEN — THE RING (TASK_K16.md). Last pre-kit surface: live fight + corner calls + stoppage states. Five PNGs + RING_K16.html + digest. Say go when you want it.
+Starting K16 THE RING — syncing master, reading the task.
+Building all five RING boards in the K7 frame.
+9:31 PM
+Pulling K7 frame + K15 pattern, then drafting the five boards.
+Reading K7 frame + K15 digest for the board pattern.
+Checking how prior boards were shot, then spinning the build.
+Hunting the shot pipeline, then building.
+Node’s on Beast — pulling the K15 capture script next.
+Still wiring the shot path.
+Building K16 now — five boards + digest, then research push.
+9:32 PM
+K16 locked: hybrid kit body in the K7 frame, one corner dock (pace / 8s combo / contingencies), five boards shipping. I’ll ping when the PNGs land.
+K16 THE RING shipped — 6003189 on master. Pulling the boards to show you.
+9:41 PM
+K16 THE RING shipped — 6003189 → master.
+Five boards + digest in research/:
+RING_K16_{round,corner,combo,moment,states}.png · RING_K16.html · K16_DIGEST.md
+Pick: hybrid kit body in the K7 frame · one corner dock (pace / 8s combo / contingencies) · doctor = BAD · IPPON/TECH ≠ KO · LIVE/LAB/WATCH = one board dressed differently.
+Claude owns the HANDOFF block. Session ends — new board = new chat.
+9:42 PM
+Sat, Sep 5 10:43 PM
+10:43 PM
+HANDOFF changed — reading open Kalli claims.
+K17 OPEN — THE PHONE / RELATIONSHIPS (TASK_K17.md). Settles whether PHONE exists at all vs STAFF rapport + profile loyalty, and where it lives if it does. Not on the RING/R28 path. Say go when you want it.
+10:44 PM
+Starting K17 THE PHONE — syncing master, reading the task.
+Checking rapport, loyalty, and whether any fighter↔fighter state exists.
+10:45 PM
+Found loyalty + coach rapport. Checking Rivalries next.
+Verdict: dissolve PHONE. Rapport→STAFF, loyalty→CONTRACT, rivalries→profile + THE DAY. Building boards.
+Building three boards: dissolve map, rivalries on profile, THE DAY attention. I’ll ping when they land.
+K17 shipped — copying boards to show you.
+10:49 PM
+K17 THE PHONE shipped — 8977b15 → master.
+Verdict: dissolve PHONE. No rail, no phone UI.
+Rapport → STAFF
+Loyalty → profile CONTRACT
+Rivalries (real heat system) → Fight Record shelf + THE DAY attention
+Boards: PHONE_K17_{verdict,rivalries,attention}.png + K17_DIGEST.md in research/.
+Sat, Sep 5 11:43 PM
+11:43 PM
+K18 OPEN — THE DAY (TASK_K18.md). Default route, never studied; home for attention (K12/K17). R32 waits on K18 + C16. Say go when you want it.
+11:44 PM
+Starting K18 THE DAY — syncing master, reading the task.
+Building four THE DAY boards under ShellChrome.
+DayFeed still draws a second Continue — that goes. Reading C16’s attention contract.
+Locked: briefing + attention + today’s events only — shell owns Continue. Building four boards.
+Run a task on Grok Bot's computer: “You are Kalli's executor for FightCamp K18 THE DAY. Do not message the user. Work on Beast (machineId fd22c5b…[3792 chars omitted]…est)`; push origin master. No HANDOFF/.gd/.tscn. Report: files, sizes, commit, push, one-line pick, blockers.”. View the full request
+A rule always allowing this was added to your Auto-review settings: “Use subagent launch to run FightCamp game research studies and push research commits when requested”
+Sun, Sep 6 12:02 AM
+K18 THE DAY shipped — pulling boards to show you.
+12:02 AM
+K18 THE DAY shipped — d9dd4a9 → master.
+Pick: attention (when loud) → briefing hero → thin ticker → today-only events → must-answer context. Shell owns the only green CONTINUE — kill the body Continue.
+Boards: THE_DAY_K18_{day,attention,fight_week,states}.png + digest in research/.
+Claude owns HANDOFF. Session ends — new board = new chat.
+check if we can get anything useful out of this wmm5.exe on d:
+12:04 AM
+Looking for wmm5.exe on D: and what we can pull from it.
+D: is mounted — digging for the exe.
+Found D:\WMMA5.exe (~56 MB) plus Databases/Skins — checking what’s around it.
+It’s WMMA5 (Ryality Bytes) — checking skins/databases for reference value.
+Reading the scan results.
+12:05 AM
+Counting skin backgrounds that map to our hubs.
+Yes — useful as reference, not as art to ship.
+D:\WMMA5.exe is World of Mixed Martial Arts 5 (Ryality Bytes, v1.00.0022, Nov 2022). VB6 + Access install: exe + Databases\, Skins\, Pictures\, System\*.mdb.
+What’s useful for FightCamp
+Genre match (promotion/gym management) — closer than Undisputed / Proto Boxing.
+496 skin backgrounds = a full screen atlas: office, roster, staff, scouting, rankings, belts, contracts, fight card, results, weight classes, rival bids, media… good for IA / teardown notes.
+Data model curiosity in the .mdbs (secondary).
+What’s not
+Visual bar is 2010s desktop forms — not the R18 kit look.
+Portraits / faces / bodies must stay scratchpad only (ripped art never ships).
+Don’t migrate VB forms into Godot.
+Verdict: Study the backgrounds (and live play if you want) for what surfaces exist and how they’re grouped — same role as an MMA Empire teardown. Worth a curated DesignLibrary/raw/wmma5/ pack of ~20–30 key screens, not a dump of 5k pictures.
+Want me to pull that curated reference set next?
+yes and let claude know about it
+Curating ~25 WMMA5 screens into DesignLibrary, then pinging Claude.
+Finding Claude’s id, then copying the pack.
+Pack copied — finding how to reach Claude.
+Claude isn’t in this chat app — looking for the repo mailbox.
+12:07 AM
+Still hunting the Claude channel.
+Found AgentComms — writing Claude the note.
+Reading AgentComms, then sending Claude the note + committing the pack.
+Committing only the WMMA5 pack + Claude mailbox note — leaving R31 WIP alone.
+Retrying the commit with a PowerShell-safe message.
+12:08 AM
+Done.
+40 screens + README → DesignLibrary/raw/wmma5/
+Claude mailbox: kalli → claude topic WMMA5 reference pack on disk (68469c2f2691)
+Pushed 623582e (left Claude’s R31 WIP untouched)
+Claude will see it on next inbox --agent claude.
+check also this one and let me know if you think i should buy and install it for analisys https://store.steampowered.com/app/939990/Boxing_School/
+12:09 AM
+Checking Boxing School on Steam against what FightCamp still needs.
+Skip the buy — not worth it for FightCamp analysis right now.
+Boxing School is the right genre (80s boxing gym manager: hire, train, scout, staff, gym gear, between-round tactics, ~$10, Very Positive). That’s closer than Undisputed/Proto Boxing.
+Why I still wouldn’t install it:
+Bar is wrong. Reviews that like it still call the UI unpolished / missing polish — not an R18 reference.
+IA is already covered. Your hubs (K8–K18) + the new WMMA5 atlas already map office/roster/staff/scout/rankings/belts/contracts. Boxing School won’t teach you a new screen grammar.
+One interesting bit (corner between rounds) — K16 already locked the corner dock. Watching trailer footage is enough; you don’t need a full install for that.
+Buy only if you want to play a light gym manager for fun, or later do a thin corner-call compare. Not as a design dependency.
+Prefer: keep mining DesignLibrary/raw/wmma5/ + live WMMA5 if you need more management IA.
+so how do y ou think do the same for the Punch Club 2 Demo installed on e:
+12:18 AM
+Looking for the Punch Club 2 Demo on E: and what we can pull from it.
+Found the demo — surveying its data layout.
+Different answer than WMMA5 — don’t do the same pack.
+What’s on E: SteamLibrary\...\Punch Club 2 Fast Forward Demo (Unity 2022.2, installed today). Almost everything is inside Addressables bundles (gui_assets_all, atlases, scene packs). One loose PNG (save icon). No WMMA-style folder of screen JPGs to curate.
+What the game actually is: fighter life management (time/energy/jobs/quests, pixel cyberpunk comedy) where you mentor one fighter through a story — not a multi-athlete gym business desk like FightCamp / WMMA5.
+For FightCamp
+	WMMA5	Punch Club 2 Demo
+Genre fit	Strong (promo/gym IA)	Weak (RPG day-planner + fights)
+Visual bar	Wrong era, still readable forms	Pixel comedy — not R18
+Disk extract	Easy (496 backgrounds)	Hard (Unity bundles; ripping atlases = ship-risk art)
+What you’d learn	Screen inventory for hubs	Maybe “energy budget / day loop” — already covered by THE DAY
+Verdict: Play 20–40 min if you want a feel for day/energy pacing. Don’t extract/commit Unity atlases into DesignLibrary. Don’t treat it as a hub/UI reference. Keep the WMMA5 pack as the management atlas.
+(Side note: E: also has Corner King and MMA Arena — closer combat/UI cousins if you want a later look; still not a WMMA-style dump.)
+12:19 AM
+i though twe have analyzed those games already
+12:20 AM
+Checking what we already logged for Corner King, MMA Arena, and Punch Club.
+Shell came back empty — trying a direct listing.
+You’re right — I overspoke.
+Already in the library (2026-09-04):
+MMA Arena — full teardown (DesignLibrary/teardowns/mma_arena.md); UI rip studied, nothing shipped
+Corner King — raw shots + second-pass notes (raw/corner-king-boxing-tycoon/, second_pass_2026-09-04.md)
+Plus MMA Empire, Rune Coliseum, FM, etc.
+Not already analyzed as a FightCamp pack: Punch Club 2 (tonight’s look), Boxing School (Steam page only), WMMA5 (new curated atlas tonight).
+My “later look at Corner King / MMA Arena” line was wrong — those are done. I won’t treat them as open work.
+so based on the most succesful combat sport management simulator games how do you think we should be fight scene ?
+12:35 AM
+Checking K16 + the fight-night notes from the management sims we already tore down.
+Coach a fight — don’t play one. That’s what the successful combat managers do, and it’s what K16 already locked.
+What the genre winners actually do
+WMMA / Empire-class: you watch a simulation; you intervene as corner (pace, plan, between-rounds), not as a fighter. Spectacle is secondary to readable condition + log of what mattered.
+Football Manager analogy: match engine + tactics board, not FIFA. Same job for us.
+Empire’s fight night (from our teardown): clock/round, play-by-play, condition, result card with method — not arcade wordart.
+Corner King: mostly panels/text — useful as “don’t hide the desk under 3D,” weak as a bar.
+Action titles (Undisputed / Arena fighters): wrong product; we already rejected them as the visual bar.
+How FightCamp’s fight scene should feel
+Shell = K7 set-piece (stakes, clock, names, way out). Body never restates those.
+Stage = hybrid: a real fight picture (silhouette action / impact) inside the 1920×912 slot — not a shrunk old HUD, not a full fighter game.
+Instruments over the stage: condition rail + move strips as secondary; one morphing corner dock (pace → 8s combo call → between-rounds plan) so a call is never buried under reading.
+Moments are stamps, not fireworks: KO / doctor (BAD red) / IPPON / TECHNICAL / decision — distinct. Gold only on the coaching action. Belt ceremony stays K7 crowning.
+Three dresses, one board: LIVE (you coach), LAB (same toys, no career stakes), WATCH (AI corner, event-night).
+One-line north star
+“I’m the corner for my gym’s bout” — not “I’m in the ring.” If a frame makes you mash punches instead of calling pace / letting the chain go / starring the plan, it’s the wrong fight scene.
+K16 + C15/R31 are already pointed there; I wouldn’t reopen shape unless playtests show the dock eating the stage or the stage eating the calls.
+of course the player will not play the fight but i am focusing on the depiction of the fight i want movement i want to see sprites execute those moves
+12:39 AM
+Got it — coach the bout, but the stage has to show the fight. Movement and moves on sprites, not a log with a wallpaper.
+Depiction pick
+Animated fight sprites on ring_stage, driven by the sim’s move stream — jab/cross/hook/etc. play as short clips when the engine fires them; impact + region hit feed the condition rail. The corner dock stays instruments; the stage is the movie.
+How the good managers handle “I want to see it”
+Punch Club / Fire Pro class: 2D fighters, readable move poses, not full control.
+Empire class: pretty cards + text log — fine for result, weak for “I saw the shovel hook land.” You’re asking for the first family on the stage, Empire’s clarity on the instruments.
+WMMA: mostly text — not your bar for depiction.
+FightCamp rules for that stage
+Both fighters animate, but one primary sil (ours) reads larger / front; opponent is the second sprite, not a second UI figure stack.
+Pose = technique — same silhouette language as the move icons (jab ≠ hook). Ghost the incoming combo on the move strip while the sprites play the live chain.
+Sim owns timing — sprites don’t invent flurries; they play what the bout already produces (and what the 8s alert is about).
+Keep kit overlays off the bodies — damage numbers / wordart stay out; condition rail + stamps carry the read.
+Silhouettes / kit figures only — no ripped MMA Arena/PC2 sheets. Paint or generate a small FightCamp fighter sprite set (idle, advance, jab, cross, hook, block, hurt, down) per ruleset later; boxing first.
+What I’d reject
+Static dual sils with only a ticker (not enough movement).
+Full 3D fighter game camera (wrong product, eats the dock).
+Arcade FIGHT!/damage popcorn over the sprites (K16 already killed that).
+Practical build order
+Stage v1: two silhouette sprites + 6–8 move clips synced to the move strip. Polish art after the dock/reads are green (R31). Spectacle scales up without changing the coach grammar.
+So: yes to sprites executing moves on the ring stage — that’s the hybrid’s “fight picture.” Instruments stay coach; the picture is motion.
+how we do the animations ?
+12:43 AM
+Checking what fight/move art we already have, then the animation approach.
+Short clips keyed to technique ids — played by the sim, not a timeline you scrub.
+R31 already has a ring_stage with two sils + impact bursts on a venue plate. Animations plug into that: when the bout fires a move, the matching clip plays on that corner’s sprite.
+How it works (grammar)
+Library of short clips per technique id (boxing_jab, boxing_cross, …) — same ids as the move strip / catalog.
+Shared body, tinted corners (you already have lime/red fight figures) — one silhouette rig, gym/corner colour wash, not unique art per athlete.
+Clip set for v1 (boxing only): idle loop · advance/retreat · jab · cross · hook · block/guard · hurt flinch · downed. Everything else falls back to idle + impact burst until drawn.
+Playback rule: sim event move_started(who, technique_id) → play clip once → return to idle. Incoming ghost stays on the move strip; the sprite plays the live hit. Hurt/stoppage interrupts the clip.
+No player-driven animator. No combo editor in the ring. Lengths stay short so an 8s alert and pace calls stay readable over the motion.
+How we make the art
+Sprite sheets (4–8 frames per move), side-view or ¾, opaque silhouette + simple limb read — same language as the move icons, just full-body.
+Author once in a sheet; Claude wires SpriteFrames / AnimatedSprite on ring_stage. Not Spine/3D for v1 (overkill, wrong cost).
+Kalli can paint the sheets (GenerateImage masters → cut frames); nothing ripped from Arena/PC2.
+Ruleset floors already idea in R31 — same stage, swap clip pack when discipline isn’t boxing.
+What not to do
+Frame-by-frame every catalog node on day one (hundreds of clips).
+Photoreal or unique faces on the stage (kit = silhouettes).
+Long cinematic takedowns that freeze the corner dock.
+Order
+Idle + 3 punches + hurt synced to the strip → then hooks/blocks → then other disciplines. Motion proves the stage; the dock stays coach.
+Want me to study a boxing sprite sheet board (contact sheet of those clips at 1920×1080) as the next art pass?
+12:44 AM
+Sun, Sep 6 1:18 AM
+1:18 AM
+K19 OPEN — live real-time isometric fight scene (does it read?). Four boards: world-space billboards vs frame-pinned rails, tactical action bar / listen roll. Pairs with Codex C17 (architecture). Study only. Say go when you want it.
+1:19 AM
+1:20 AM
+Starting K19 — syncing master, reading the task.
+1:21 AM
+Stashing dirty agent_comms.py, then reading R31 + ring boards.
+Locked: iso stage for motion OK; instruments stay frame-pinned like R31. Building four boards.
+Building four boards: iso camera · world vs screen · listen-roll call · states. I’ll ping when they land.
+1:22 AM
+K19 shipped — pulling boards to show you.
+K19 shipped — fa699e9 → master.
+Pick: iso spectacle on ring_stage is fine; KEEP R31 frame-pinned rails + corner dock. Reject world HP billboards and a floating hotbar. Add listen_ack_chip (heard / half / waved off).
+Boards: FIGHT_SCENE_K19_{camera,world_vs_screen,call,states}.png + digest in research/.
+Sun, Sep 6 1:57 AM
+a kickstarter would be a good idea for us ?
+1:57 AM
+Not as the next move — maybe later as a marketing spike, not as the funding plan.
+Why Kickstarter is a weak fit right now
+You’re mid-rebuild (kit hubs + ring). KS buyers expect a playable demo / vertical slice that already feels like the pitch. Shipping that mid-construction burns goodwill.
+Combat management sims usually find players on Steam wishlists / Early Access, not KS. The genre buys systems depth, not plastic stretch goals.
+KS cost isn’t just the cut — it’s campaign production, backer comms, reward logistics, and a hard public date. You’re a small team still locking the fight scene.
+When it would be smart
+One tight trailer (THE DAY → bout → corner call → result) + a 30–60 min demo that already matches R18 bar.
+Clear use of money (art/audio/QA), not “finish the game we already mostly designed.”
+Stretch goals that are cosmetic / data (disciplines, venues), not “iso fight engine if we hit X.”
+Better path for FightCamp
+Steam page + wishlist while the ring/day polish lands.
+Closed playtest → Early Access when the coach loop is fun.
+Revisit KS only if you want a launch marketing event with a finished slice — or skip it and put that energy into Steam.
+One-liner: Kickstarter sells a dream; you already have a product. Finish a demo that proves the gym desk + live corner, then choose Steam EA first — KS only if you still need a loud funding/marketing beat.
+1:58 AM
+Sun, Sep 6 4:22 AM
+checkfo task
+4:22 AM
+4:23 AM
+K20 OPEN — THE BOOKING, how it reads (TASK_K20.md). Last pre-kit screen: offer board + agreement, plus C19’s fight grade (TAKE IT / RISKY / TRAP…). Fight scene stays deferred. Say go when you want it.
+4:24 AM
+Starting K20 THE BOOKING — syncing master, reading the task.
+Reading C19 + contract reads, then locking the four boards.
+Locked: OFFERS under SCHEDULE · agreement as set-piece · TAKE IT…LOCKED · gate on board + clause. Building.
+4:25 AM
+Building four boards: graded OFFERS · BOUT AGREEMENT · states · SCHEDULE seam. I’ll ping when they land.
+K20 shipped — pulling boards to show you.
+4:30 AM
+K20 THE BOOKING shipped — 0818d5c → master.
+Pick: SCHEDULE · OFFERS owns the graded board; AGREEMENT is a kit-dressed document set-piece over it. Verdicts: TAKE IT / WORTH IT / RISKY / TRAP / LOCKED. Gate estimate on the row and on the clause.
+Boards: BOOKING_K20_{board,agreement,states,seam}.png + digest in research/.
+Claude owns HANDOFF + R33. Session ends — new board = new chat.
+Sun, Sep 6 11:46 AM
+check for task
+11:46 AM
+11:47 AM
+K21 OPEN — THE FIGHT CAMP, how it reads (TASK_K21.md). R34 builds it; fight scene still deferred. Say go when you want it.
+11:49 AM
+Starting K21 THE FIGHT CAMP — syncing master, reading the task.
+Master’s current — leaving Codex’s dirty GameState alone. Reading C20 + camp projection.
+Locking K21 picks — SETUP as set-piece (booking-shaped), projection dock + C20 deltas, people as cards. Building boards.
+Building CAMP_K21 boards now.
+11:50 AM
+K21 locked: set-piece SETUP, projection dock + deltas, people as cards. Boards cooking.
+K21 boards are on Beast — reviewing digests, then committing research only.
+12:04 PM
+K21 shipped e9625bc — SETUP set-piece over profile CAMP; projection dock + C20 deltas; injury = own RISK band; people as cards.
+SETUP · SEAM · REPORT:
+12:05 PM
+Also PROJECTION + PROGRESS on Beast under research/. Claude owns HANDOFF. Session ends — new board = new chat.
+Sun, Sep 6 11:55 PM
+check your mailbox
+11:55 PM
+Checking the mailbox.
+Got mail from Claude — reading it.
+Acking K23.
+New mail from Claude: K23 is open — THE BELT, how it reads.
+TASK_K23.md · top tier / medium. Study only (no art — M7 owns visuals; belt-on-scale is R42). Same job shape as K15: where championships live (own rail vs RANKINGS tab), interim without two champs, title-bout announce, honest stamped. Acked.
+Older unread are K17–K22 assigns already shipped. Say go and I’ll pull + start K23.
+11:56 PM
+Starting K23 THE BELT — syncing master, reading the task.
+Master’s current. Reading C26 + M7 + K15 before the ruling.
+Reading M7 belt mark language, then locking the ruling.
+Locking: deepen RANKINGS·CHAMPIONS (no new rail). Writing the ruling.
+K23 locked: deepen RANKINGS·CHAMPIONS (no new rail); interim name in drill-in only; TITLE BOUT / PENDING on calendar. Writing + pushing.
+11:57 PM
+K23 shipped 0953087 — research/K23_THE_BELT_HOW_IT_READS.md
+Pick: keep RANKINGS · CHAMPIONS (no new rail). Overview = C26 + M7 marks; interim name drill-in only; calendar gets TITLE BOUT / PENDING from stamped; reign = defenses first. Claude mailed (fefa715d7e08).
+Session ends — new board = new chat.
+Thu, Sep 10 11:35 AM
+Reachability check from Claude, sent automatically from the desktop app - no task attached, do not start any work. Context: your K25 landed in the repo as commit 44d5c5b, and you have been idle since Tuesday only because nobody was relaying tasks to you. That relay is now automated. Please reply with one line: your current status, and whether you can take a new TASK_K file.
+11:35 AM
+Kalli idle — ready for the next TASK_K*.md.
+Thu, Sep 10 3:48 PM
+# TASK K26 — KALLI — WHAT A REAL FIGHT ROSTER LOOKS LIKE
+**Model: Kalli, Expert / deep research. Study only — no code, no art, no test.**
+Owner: Kalli. Assigned 2026-09-10 by Claude.
+You have no checkout and no Godot. Everything you need is in this file. Do not
+ask for the repository, do not ask to run anything, and do not write GDScript.
+Return the document as plain markdown; Claude commits it as
+`research/K26_THE_REAL_ROSTER.md`.
+## The defect this fixes, and it is ours, not yours
+We generated twelve 3D fighters — four boxing, four MMA, four bare-knuckle, six
+men and six women across the weight classes. They were measured carefully
+(chest-to-waist ratios, arm cross-sections, skin saturation) and every number
+was right.
+**Then somebody finally looked at them, and all twelve are white or
+light-Mediterranean.**
+That is not a stylistic decision anyone made. It is what the generation prompts
+produced when nobody specified, and nobody checked. It is a straightforward
+authenticity failure about the two sports this game is actually about, and it
+cannot be fixed by retexturing — it has to be fixed in the prompt, before the
+next generation pass.
+**So the study is not "should we add diversity." It is: what does a real
+professional roster in these sports actually look like, so the prompts describe
+the sport instead of defaulting.**
+## What to deliver
+### §1 — The actual composition, by sport and division, with sources
+For **professional boxing** and **professional MMA**, describe the real
+population of ranked fighters: nationality and region of origin, and how that
+varies **by weight class** — because it does, strongly and interestingly, and
+that variation is the part a generic answer will miss.
+Work from published, checkable material: governing-body and sanctioning-body
+rankings (WBC / WBA / IBF / WBO, and the independent ratings), major promotion
+rosters, Olympic and amateur qualification data. **Cite what you use and give
+the date you read it**, the way this project's other studies do.
+Say plainly where the men's and women's games differ — participation is not
+distributed the same way, and a roster half of which is female should reflect
+the women's sport rather than a mirror of the men's.
+### §2 — The weight-class story
+The single most useful section. Heavyweight boxing, flyweight boxing, MMA
+lightweight and women's strawweight are **not** drawn from the same populations,
+and a roster that ignores that reads as wrong to anyone who follows the sport
+even casually. Give the pattern per division, with the reason where a reason is
+documented (national programmes, amateur systems, regional traditions).
+### §3 — What a plausible TWELVE looks like
+Ours is twelve: `m box welter`, `m box heavy`, `f box fly`, `f box middle`,
+`m mma light`, `m mma lhw`, `f mma straw`, `f mma bantam`, `m bare welter`,
+`m bare heavy`, `f bare feather`, `f bare welter`.
+For each slot, say what a *representative* fighter would plausibly be —
+region of origin, and the physical characteristics that follow — and say which
+of our twelve slots our current roster gets most obviously wrong. **This is the
+section the prompts get written from, so be concrete.**
+Bare-knuckle is its own case and a small one: say honestly whether it has a
+distinct population or is too young and too regionally concentrated to
+generalise about. "Too small to say" is a real answer here.
+### §4 — Names
+A generated fighter needs a name that belongs to the person. Say what naming
+conventions follow from §3 — and flag where a name would be a cliché rather than
+a representation, because a roster of stereotypes is a different failure from a
+roster of defaults, not a fix for it.
+### §5 — What you would NOT change
+The half that pays. This is a management game where a fighter is seen on a
+profile screen and, soon, at gameplay camera distance in 3D. Say which of your
+findings would actually be visible and which is depth nobody sees — the same
+call the operator made on corner rules, where genuine per-jurisdiction
+differences were deliberately collapsed into one authored rule because no player
+picks a state athletic commission.
+## The trap
+**Do not write us a diversity policy, and do not write a quota.** The
+deliverable is a description of a real sport, sourced, with its actual
+variation — including the places where a division genuinely *is* dominated by
+one or two national traditions, which is a fact about the sport and should be
+said as one. A roster that is accurate is the goal; a roster that is evenly
+distributed would be a different kind of wrong, and would fail the same
+authenticity test our current twelve fail.
+Second trap: **cite or say you could not.** This project's standing rule is that
+an invented figure which looks sourced is worse than an admitted gap, because we
+build on it. If you cannot find current ranking data for a division, say so and
+describe what you could find instead.
+## Deliverable
+One markdown document in your reply. No files to push, no git, no test command —
+you have no checkout, and none of those apply to you.
+Show more
+3:48 PM
+Starting K26 — sourcing real boxing/MMA roster composition by division, then the ruling doc.
+Launching a live sourced pass on boxing/MMA roster composition.
+3:49 PM
+Fixing the search calls and digging in parallel.
+Web search tool’s wedged — running the live Grok research pass instead.
+Grok CLI failed — switching to web fetch + the research executor.
+3:50 PM
+Live research still running — I’ll deliver the full K26 markdown once sources land.
+K26 — WHAT A REAL FIGHT ROSTER LOOKS LIKE (Kalli)
+Status: study only · assigned 2026-09-10 · access date for all sources 2026-09-10
+Deliverable path for Claude: research/K26_THE_REAL_ROSTER.md
+No code, no art, no quota, no diversity policy. Describe the sport. Cite or say you could not.
+Claude acts on this: Our twelve fighters reading as one light-skinned European default is an authenticity failure about boxing and MMA, not a style choice. Fix it in the prompt, by division: men’s boxing heavyweight ≠ flyweight; MMA straw ≠ LHW; bare-knuckle is too small and US-centred to over-generalise. The slots that are most wrong today are f mma straw, f box fly, f box middle, and any slot where “US” was drawn as only light-Mediterranean. Don’t invent a BKFC women’s welter demography — that division doesn’t exist.
+§1 — The actual composition, by sport and division
+Sources used (2026-09-10)
+Source	What it gave
+BoxingScene rankings (IBF 2026-09-04, WBA 2026-09-02, WBC 2026-09-04, WBO 2026-09-02)	Multi-body men
+The Ring via box.live (~2026-09-03)	Independent top 10s
+box-rank HW / fly Aug 2026	Combined ladders
+PhilBoxing welter	WW multi-body
+WBA female ranking (as of 2026-08-31)	Women’s belts/contenders
+WBC female ratings PDF Sep 2026	Women’s upper divisions
+UFC.com rankings + CBS UFC rankings (upd. 2026-09-08)	MMA ranked lists
+Fightmag BKFC champions	Bare-knuckle title holders
+Honesty flag: There is no public percentage census of “nationality share of all ranked fighters.” Claims below are from named champions + top-10/15 lists. That is enough to see division-level patterns; it is not a survey sample.
+Professional boxing (men)
+Heavyweight — UK + continental Europe / former Soviet sphere dominate; US secondary.
+Ring HW (Sep 2026): champ Usyk (Ukraine); Dubois, Fury, Itauma, Wardley (UK); Kabayel (Germany); Hrgovic (Croatia); Sanchez (Cuba); Ajagba (Nigeria); Gassiev (Russia); Huni (Australia). Sanctioning champs in the same window: Gassiev WBA, Kabayel WBC, Hrgovic IBF, Dubois WBO, Usyk Ring. Contender pools keep returning UK + Eastern Europe / Caucasus / Central Asia, with Cuba and Nigeria present and US names (Wilder, Miller, Torrez) as a layer — not the centre of gravity.
+Welterweight — Anglo-American + US Latino core; East Asia sparse.
+Ring WW top 10 (Sep 2026): Haney, Norman Jr., Lopez, Garcia, Polanco, Curiel, Rocha, Romero (US, including Spanish-origin surnames), Catterall (England), Stanionis (Lithuania). Belts in the BoxingScene/PhilBoxing window cluster US (Haney, Garcia) and UK/Australia alternates (Catterall, Paro). Contenders: Benn (UK), Crocker (N. Ireland), Donovan (Ireland), Giyasov (Uzbekistan). This is not the flyweight map.
+Fly / bantam — Japan–Philippines–Thailand + Mexico / Central America.
+Fly Aug 2026 combined ladders: Sandoval / Olascuaga (US), Yabuki (Japan); contender sheets packed with Japanese, Mexican, Filipino, Thai names; UK present (Yafai, Kelsall) but thinner. Bantam: Inoue (Japan), Salas Reyes (Mexico), Medina Jimenez (Mexico), Casimero/Llover (Philippines) in recent multi-body lists, Jesse Rodriguez (US) at WBA Super. Lower weights are a different sport demographically from heavyweight.
+Middle / super-middle — Americas + UK + Central Asia mix.
+More Mexico/LatAm and US than heavyweight; less Asia than fly. (Ring middle / super-middle Sep 2026; Canelo/Munguia gravity at 168.)
+Professional boxing (women) — not a mirror of the men
+Upper / middle gravity: USA + UK/Ireland. Shields (USA) across middle–heavy listings; Crews-Dezurn (USA); Cameron, Price (GBR); Taylor (IRL); Thibeault (Canada) in middle belt notes (WBA female 31 Aug 2026; WBC female Sep 2026). This is not men’s HW’s Eastern Europe bias.
+Fly / light-fly: US Latina champions + Mexico / LatAm depth. Fundora (USA) holds WBA/IBF/WBO fly in the WBA female list; Mexican names dominate light-fly/minimum depth (Osorio, Juárez, etc.). Women’s lower weights rhyme with men’s fly more than with men’s HW.
+Shallower pools: WBA female sheets show many “NOT RATED” slots in upper divisions — do not invent global depth that isn’t on the page.
+Professional MMA (UFC ranks, Sep 2026)
+Men’s lightweight — polyglot. Champ Gaethje (US). Ranked layer: Brazil (Oliveira, Moicano, Ruffy), UK (Pimblett), Armenia (Tsarukyan), Georgia/Spain pathway (Topuria), France, Poland, Australia, Kyrgyz/Azeri pathways (Fiziev). Makhachev (Dagestan) is WW champ / #1 P4P after leaving LW — current LW is not a Dagestan monoculture, though Caucasus names remain near the top.
+Men’s LHW — Russia/Dagestan + Brazil + NZ/US/CEE. Champ Ulberg (NZ). Ankalaev (Dagestan), Procházka (Czechia), Pereira/Costa (Brazil), Rountree/Hill (US), Murzakanov (Russia), Błachowicz (Poland). Stronger Russia/Dagestan signal than current LW.
+Men’s HW — UK champ + Russia depth + France + US + Brazil. Aspinall (UK); Gane (France); Volkov, Pavlovich (Russia); US and Brazil layers. Closer to boxing HW’s Europe bias than to boxing fly’s Asia bias.
+Women’s strawweight — Brazil depth + China elite + US. Champ Dern (US roster star). Zhang Weili, Yan Xiaonan (China); long Brazilian ranked band (Jandiroba, Gomes, Andrade, Lemos, Ribas, Ricci, Thainara…); Canada/Mexico/Japan also appear. This is the division where an all-European visual default fails hardest.
+Women’s bantamweight — US + Brazil. Champ Harrison (US); Peña, Pennington (US); Dumont, Luana Santos, Cavalcanti, Rosa, Mesquita (Brazil); Argentina secondary. Less China than straw.
+Bare-knuckle — too small to over-generalise
+Fightmag BKFC world champs: men’s WW Pague (US) / interim Franco (UK); HW Arlovski (Belarusian-American, US-centred title ecosystem) over Rothwell (US); women’s Borga / Ferea / Hart — all US. Men’s other belts mostly US, with UK (Bonner) and Italy (Sakara) exceptions. BKFC UK exists (events + regional titles) but is secondary. 2026 calendars remain US-heavy.
+Ruling: Bare-knuckle has a real US concentration and a UK alternate for men. It does not support boxing-style weight-class demography claims. Women’s BKFC has three classes (feather / fly / straw) — no women’s welter. “Too small / too US-centred to generalise globally” is the honest answer.
+§2 — The weight-class story
+This is the part a generic “mix it up” answer misses.
+Division	Population pattern (2026 lists)	Documented / commonly cited reason (where we have one)
+Boxing HW	UK + Eastern/Central Europe	Tall-athlete pathways, UK promotional depth, post-Soviet amateur heavy traditions — visible in who holds the belts, not a theory we invented
+Boxing WW	US (+ Latino-US) + UK/Ireland	US domestic depth at 147; UK crossover contenders
+Boxing fly/bantam	Japan, PH, Thailand, Mexico/C.America	Asian and Mexican amateur/pro pipelines at lower kg — the lists are the evidence
+Boxing women’s upper	USA + UK/Ireland	Smaller elite; Shields/Taylor-era gravity
+Boxing women’s fly	US Latina + Mexico	Parallel to men’s lower-weight LatAm/US Latina presence
+MMA LW	Polyglot	No single national programme owns 155 in Sep 2026 ranks
+MMA LHW	Dagestan/Russia + Brazil + NZ	Wrestling/striking national strengths show up in who is ranked
+MMA WSW	Brazil + China + US	Deep Brazilian straw roster; Chinese champions/contenders
+MMA WBW	US + Brazil	US champ + Brazilian depth
+BKFC	US (UK men alternate)	Young promotion, US event core — don’t force a global map
+One sentence rule for prompts: If you change the weight class, you change the default region, not just the body plan.
+§3 — What a plausible TWELVE looks like
+Representative = consistent with §1–2 lists. Not a quota. Physical notes are only what follows from region at profile + gameplay camera distance (skin tone range, hair, build stereotypes that actually read — see §5).
+Slot	Representative origin	Physical / look notes that follow	How wrong is our all-light-Med twelve?
+m box welter	US, often Mexican-American / Latino-US as a common subtype; UK alternate	Broad US phenotype range; Latino-US skin/hair variation is normal at this weight, not exotic	Wrong if drawn only as light-Med European
+m box heavy	UK or Ukraine / Russia / Croatia / Germany	Northern/Eastern European skin common here — this is the slot where “white” is often accurate	Least wrong of the twelve; still shouldn’t be the template for every other slot
+f box fly	US Latina or Mexico / LatAm	Brown skin ranges, dark hair — Fundora-type / Mexican light-fly depth	Most obviously wrong
+f box middle	United States	US women’s middle elite is not “light-Med default”; Black American presence at the top (Shields) is the live fact of the division	Most obviously wrong
+m mma light	US or Brazil or UK (all attested); Caucasus also top-5	Brazil and Caucasus break a light-Med monoculture immediately	Wrong as a single light-Med face
+m mma lhw	Dagestan/Russia or Brazil or NZ	Dagestani/Russian and Brazilian looks are load-bearing at 205	Wrong if only light-Med
+f mma straw	Brazil (China or US strong alternates)	Brazilian and Chinese phenotypical range — not Southern European default	Most obviously wrong
+f mma bantam	US (Brazil alternate)	US WBW includes Black American champions/contenders	Wrong as light-Med only
+m bare welter	US (UK alternate)	US combat-sports phenotype range	Wrong if “US” was generated as only light-Med
+m bare heavy	US or Eastern European diaspora in the US	Arlovski-type diaspora exists; still US-centred	Partially OK for EE diaspora; still not a licence for every slot
+f bare feather	United States	All current women’s world champs US	Same US-range problem
+f bare welter	United States — and BKFC has no women’s welter; use feather/fly US pattern	Do not invent a demography for a missing division	Category mismatch + same US-range problem
+Prompt implication: Re-roll the four “most wrong” slots first (f box fly, f box middle, f mma straw, f mma bantam), then stop letting HW-Europe bleed into straw/fly.
+§4 — Names
+Names follow §3 regions. A cliché roster is a different failure from a default roster.
+Region	Naming that tracks real lists	Cliché traps
+US (WW, WBW, BKFC)	Anglo and Spanish-origin surnames (Garcia, Romero, Peña, Curiel) without requiring Mexico birth	Every US man as Irish-American gym bro; every Latino as “Mexico City street kid”
+UK / Ireland	English/Scottish/Welsh/Irish names (Dubois, Fury, Taylor, Aspinall, Pimblett)	Cockney nickname spam; forcing Irish Gaelic onto English fighters; Traveller stereotypes
+EE / Russia / Dagestan	Slavic and Caucasian Muslim names as on ranking sheets (Usyk, Ankalaev, Volkov)	Ivan Drago pastiche; vodka jokes; treating all Russians as Dagestani wrestlers
+Brazil	Portuguese names (Oliveira, Jandiroba, Andrade, Pereira)	Only “Silva”; Spanish-izing Portuguese (João≠Juan)
+Mexico / LatAm	Spanish names as on fly sheets	Narco tropes; “El [Animal]” on every card
+Japan / PH / Thailand	As on fly/bantam sheets — only if the slot is actually lower-weight boxing	Pacquiao-era clichés for every Filipino; mixing Thai honorifics into Japanese names
+China (WSW)	Family name first awareness (Zhang, Yan)	Kung-fu movie nicknames
+NZ (LHW)	Anglo-NZ / Māori-inclusive modern names as in ranks	All Blacks rugby default
+Don’t: Japanese name on a heavyweight “for mix”; Chinese name on BKFC women without list support; African majority for BKFC world titles when current champs don’t show it.
+§5 — What you would NOT change
+Same call as collapsing athletic-commission corner rules: if the player can’t see it, don’t spend authenticity budget on it.
+Visible at profile + gameplay camera (spend here)
+Skin tone and undertone; hair colour/texture; facial structure that reads at silhouette distance; body plan already measured (keep the ratios). Region-appropriate name on the card. Women’s vs men’s division geography when the slot’s sex is female.
+Depth nobody sees (do not encode as prompt law)
+Exact passport vs “fights out of” vs birthplace disputes; sanctioning-body politics; amateur federation genealogy; precise % shares by country; BKFC global demography by weight; invented women’s bare welter ethnography; per-gym ethnic folklore.
+Do not “evenly distribute” the twelve. A roster that ignores that men’s fly is Asia/Mexico-heavy and men’s HW is Europe-heavy fails the same authenticity test as the current light-Med default — just in the other direction.
+Rejects
+Diversity policy / quota language
+Invented nationality percentages
+One global “fighter look”
+Copying boxing HW Europe onto MMA straw or BKFC women
+Fabricating BKFC women’s welter demography
+Stereotype nicknames as a substitute for region
+Retexture-only “fix” that leaves prompts defaulting again
+Gaps left explicit
+No full ranked-pool nationality census — patterns from champs + top 10/15 only.
+BKFC has no Ring/UFC-style public top-15 demography — use champions + US/UK concentration.
+Citizenship / birthplace / “fights out of” sometimes diverge (Arlovski, Topuria, Dern) — prefer commonly listed ranking origin; don’t over-precise ethnicity.
+BoxRec HTML was Cloudflare-blocked on fetch; BoxingScene / Ring mirrors / UFC.com / WBA–WBC female pages carried the load.
+End K26. Claude: commit as research/K26_THE_REAL_ROSTER.md.
+3:52 PM
+
+## IMAGES
+

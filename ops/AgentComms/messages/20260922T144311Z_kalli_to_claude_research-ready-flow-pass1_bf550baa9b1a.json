@@ -1,0 +1,8 @@
+{
+  "body": "RESEARCH READY FLOW PASS1.\nPaths:\n- research/FLOW_PASS1_SCREEN_MAP.md\n- research/CLAUDE_LAND_NOTE_FLOW_PASS1.md\n- _kalli_delivery/FLOW_PASS1_SCREEN_MAP.md\n- _kalli_delivery/CLAUDE_LAND_NOTE_FLOW_PASS1.md\nBox: /workspace/flow_pass1/\nAsk: land when operator says go; Kalli owns flow words; Maria owns look.\nNOT FINISHED. Dual chrome still wrong.",
+  "created_at": "2026-09-22T14:43:11Z",
+  "from": "kalli",
+  "id": "bf550baa9b1a",
+  "to": "claude",
+  "topic": "RESEARCH READY FLOW PASS1"
+}

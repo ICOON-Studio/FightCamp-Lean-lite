@@ -1,0 +1,296 @@
+FIGHTCAMP — PRODUCTION SPECIFICATION & ENGINE INTEGRATION AUDIT
+
+Engine: Godot 4.7.2 Forward+ | Target Resolution: 1920×1080 (1:1 UI Pixel Scale) | Platform: PC (Steam, Mouse + Keyboard) | Class: Deep Simulation (Football Manager / Motorsport Manager Category) | Doc Status: Authoritative Engineering Spec
+
+ITEM 1: THE HANGING EQUIPMENT STRUCTURAL SUSPENSION SYSTEM (ROOF-OFF CAMERA FIX)
+1.1 Structural Comparison of the 5 Candidate Systems
+
+The cutaway camera creates a unique spatial challenge: because the ceiling geometry is culled (visible = false) to let the player view the 30m × 18m interior, hanging chains terminating in empty air look like a visual bug. Conversely, full floor-standing goalpost frames clutter the floor plane, occluding athlete footwork, breaking character pathfinding, and failing visual review.
+
++---------------------------------------------------------------------------------------------------------------------------------------+
+| SYSTEM COMPARISON MATRIX — ROOF-OFF 3/4 MANAGEMENT PERSPECTIVE                                                                        |
++---------------------------------------------------------------------------------------------------------------------------------------+
+| System Profile           Floor Footprint  Visual Clutter  Physical Believability  Camera Occlusion      Physics Pendulum Rigging      |
+| 1. Cutaway Ceiling Strip None             High            Low (Looks like a slab  Blocks bags in        Hangs from floating ceiling;  |
+|    over bag line only    (Floating block) (Floating box)  floating in space)      high camera pitch     awkward visual disconnect    |
+|                                                                                                                                       |
+| 2. Wall Cantilever Rail  NONE             ZERO ON FLOOR   MAXIMUM (Standard pro   ZERO OCCLUSION        Pivot anchors cleanly to      |
+|    with Diagonal Struts  (100% floor open)(Anchored back) boxing gym fit-out)     (Sits against wall)   swivel collar under I-beam    |
+|                                                                                                                                       |
+| 3. Floor-Standing Base   Consumes 1.1m²   HIGH            POOR (Looks like cheap  Obstructs footwork    Pivot must be at base spring; |
+|    (Water/Sand Base)     per station      (Bulky plastic) home gym equipment)     mats and pathfinding  cannot simulate hanging chain |
+|                                                                                                                                       |
+| 4. Overhead Trolley      NONE             Medium-High     HIGH (Industrial rail   Slight occlusion      Good physics, but requires    |
+|    Suspension Track                       (Complex track) look fits warehouse)    on North wall         anchor points at wall top     |
+|                                                                                                                                       |
+| 5. Cutaway Ceiling Slab  None             MAXIMUM         MEDIUM                  Cuts off top 40%      Good physics, but defeats     |
+|    with Camera Fade                       (Screen occlude)(Arbitrary alpha hole)  of view when panning  the cutaway camera design     |
++---------------------------------------------------------------------------------------------------------------------------------------+
+
+1.2 The Authoritative Recommendation: The Wall-Mounted Cantilevered I-Beam Track (System 2 & 4 Hybrid)
+
+We select the Industrial Wall-Mounted Cantilever Box-Track & I-Beam Spine.
+
+In commercial boxing gyms, heavy bags are almost never hung from the roof joists (which would fatigue roof engineering stamps). Instead, they hang from a heavy structural steel W-section (I-beam) cantilevered off the perimeter load-bearing wall, stabilized with high-tensile 45° diagonal square-hollow-section (SHS) kicker struts.
+
+This anchors the visual weight to the solid brick wall (which is drawn at 3.6m height), keeping the floor open for footwork decals, shadow projections, and pathfinding navmeshes.
+
++---------------------------------------------------------------------------------------------------+
+| STRUCTURAL PROFILE: CANTILEVERED I-BEAM BAG RACK (SIDE ELEVATION LOOKING WEST)                   |
++---------------------------------------------------------------------------------------------------+
+|                                                                                                   |
+|  [NORTH BRICK WALL] (Height: 3.60m)                                                               |
+|  │                                                                                                |
+|  ├────────── Upper Anchor Plate (y = 3.40m, 4x M24 Heavy Hex Bolts #52525B)                      |
+|  │         \                                                                                      |
+|  │          \  Diagonal Kicker Strut (60x60mm SHS Steel Tube, 45° Angle, Length: 1.70m)           |
+|  │           \                                                                                    |
+|  │            \                                                                                   |
+|  ├─────────────┴─────────────────────────┐◄── Main Cantilever Arm (W150x18 Steel I-Beam, 1.80m)  |
+|  │ Lower Wall Flange Plate (y = 2.20m)   │                                                        |
+|  │                                       │◄── Static Swivel Collar / Clamp Ring (x=Pos, z=16.50m) |
+|  │                                       │                                                        |
+|  │                                      (O)◄── Heavy-Duty Steel Shackle (y = 2.15m)               |
+|  │                                       │                                                        |
+|  │                                      / \ ◄── Damped 4-Way Steel Link Chains (Length: 0.45m)    |
+|  │                                     /   \                                                      |
+|  │                                    ┌─────┐◄── Heavy Leather Bag Hanger Ring (y = 1.70m)        |
+|  │                                    │     │                                                     |
+|  │                                    │ BAG │ Top of Bag Body (y = 1.65m)                         |
+|  │                                    │     │ Height: 1.35m, Diameter: 0.45m                      |
+|  │                                    │     │                                                     |
+|  │                                    │     │ Center of Mass / Impact Target (y = 0.95m)          |
+|  │                                    │     │                                                     |
+|  │                                    └─────┘ Base of Heavy Bag (y = 0.30m Above Gym Floor)       |
+|  │                                                                                                |
+| [GYM FLOOR SLAB: y = 0.00m] ───────────────────────────────────────────────────────────────────── |
+|                                       ◄───── Clear Floor Distance to Wall: 1.50m ──────────────► |
++---------------------------------------------------------------------------------------------------+
+
+Exact Technical Specifications
+Dimensions:
+Main Longitudinal Rail: Continuous W150×18 structural steel I-Beam running parallel to North wall at z = 16.50m (1.50m out from wall interior surface), spanning from x = 1.50m to x = 11.50m (Total length: 10.00m). Web height: 150mm, Flange width: 100mm.
+Cantilever Outriggers (4 units): Spaced at x = 1.50m, 4.83m, 8.16m, 11.50m. Extends 1.50m horizontally from wall at height y = 2.20m.
+Diagonal Kicker Struts (4 units): 60mm × 60mm square hollow section steel tube rising at 45° from beam tip (y = 2.20m, z = 16.50m) to upper wall anchor plate at y = 3.40m, z = 17.95m.
+Wall Anchor Backing Plates: 12mm thick structural steel plates (300mm × 300mm), bolted with four M24 galvanized hex bolts into the masonry.
+Materiality & Palette:
+Structural Steel Frame (Beams, Struts, Plates): Albedo #1E232A (Gunmetal Charcoal), Roughness 0.45, Metallic 0.85.
+Galvanized Anchor Bolts, Chains, Swivels: Albedo #64748B (Zinc Coated), Roughness 0.28, Metallic 0.92.
+Triangle Budgets (LOD0 / LOD1):
+Complete 10m Cantilever Rail System: 2,800 tris (LOD0) / 750 tris (LOD1).
+Single Station Bag Hanging Hardware (Swivel + 4 Chains + Cleat): 950 tris (LOD0) / 180 tris (LOD1).
+Chain, Strap & Swivel Attachment:
+A heavy-duty machined steel trolley clamp locks to the bottom flange of the I-beam at each bag position.
+Trolley clamp houses a sealed 360° ball-bearing swivel with a load-rated drop-forged steel bow shackle (y = 2.15m).
+Four case-hardened galvanized steel welded-link chains (5/16" link diameter, 450mm length) extend down at a 35° pyramid angle.
+Chains attach via heavy spring-loaded snap hooks into four reinforced, box-stitched nylon/leather triangle tabs riveted to the bag rim.
+1.3 The Physics Pendulum Rigging & Mathematical Model
+
+The bag acts as a physical pendulum rotating around an exact, stable pivot point. Because the overhead rail is rendered, the attachment point is visible, grounding the movement.
+
+# HeavyBagPhysicsRig.gd — Physics Pendulum Simulation (Godot 4.7.2 Forward+)
+class_name HeavyBagPhysicsRig extends Node3D
+
+@export var bag_mass_kg: float = 45.0          # 100 lb heavy bag
+@export var bag_length_m: float = 1.35          # Cylinder height
+@export var chain_length_m: float = 0.45        # Shackle to bag rim
+@export var natural_frequency_rad: float = 2.55 # w = sqrt(g / L_eff)
+@export var damping_coefficient: float = 0.88   # Air and chain friction decay
+@export var max_angular_displacement: float = 0.42 # Max swing radians (~24°)
+
+# PIVOT POINT DEFINITION:
+# World-space position of the shackle eyelet beneath the cantilever I-beam.
+# Local space relative to bag station root: Vector3(0.0, 2.15, 0.0)
+@onready var pivot_point: Marker3D = $ShacklePivot
+@onready var bag_mesh_node: Node3D = $ShacklePivot/BagCylinder
+@onready var chain_mesh_node: Node3D = $ShacklePivot/ChainAssembly
+
+var angular_velocity: Vector2 = Vector2.ZERO # X = pitch swing, Y = roll swing
+var angular_displacement: Vector2 = Vector2.ZERO
+
+func _physics_process(delta: float) -> void:
+    if angular_displacement.length_squared() > 0.00001 or angular_velocity.length_squared() > 0.00001:
+        # Pendulum restoring torque: T = - (g / L) * sin(theta)
+        var restoring_accel_x: float = -pow(natural_frequency_rad, 2.0) * sin(angular_displacement.x)
+        var restoring_accel_y: float = -pow(natural_frequency_rad, 2.0) * sin(angular_displacement.y)
+        
+        # Integration with drag
+        angular_velocity.x += restoring_accel_x * delta
+        angular_velocity.y += restoring_accel_y * delta
+        angular_velocity *= exp(-damping_coefficient * delta)
+        
+        angular_displacement.x += angular_velocity.x * delta
+        angular_displacement.y += angular_velocity.y * delta
+        
+        # Apply transformation to the pivot marker
+        pivot_point.rotation.x = angular_displacement.x
+        pivot_point.rotation.z = angular_displacement.y
+    else:
+        # Subtle idle air-draft micro-sway
+        var t: float = Time.get_ticks_msec() * 0.001
+        pivot_point.rotation.x = sin(t * 0.75) * 0.006
+        pivot_point.rotation.z = cos(t * 0.55) * 0.004
+
+func apply_punch_impact(impulse_joules: float, hit_direction: Vector3, contact_height_m: float) -> void:
+    # contact_height_m: local height above floor (default impact sweet-spot is 0.95m)
+    var effective_lever_arm: float = (2.15 - contact_height_m) # Distance from pivot to glove contact
+    var angular_impulse: float = (impulse_joules / (bag_mass_kg * effective_lever_arm)) * 0.08
+    
+    # Project impact direction into local pendulum pitch and roll
+    angular_velocity.x += hit_direction.z * angular_impulse
+    angular_velocity.y += -hit_direction.x * angular_impulse
+    
+    # Clamp to prevent unnatural clipping
+    angular_velocity.x = clampf(angular_velocity.x, -max_angular_displacement, max_angular_displacement)
+    angular_velocity.y = clampf(angular_velocity.y, -max_angular_displacement, max_angular_displacement)
+
+1.4 Speed Bag & Double-End Bag Suspension Architectures
+Speed Bag Station (z = 16.50m):
+Eliminates all floating ceiling dependencies.
+Structure: Heavy gauge twin-post steel wall bracket mounting directly into the brickwork between y = 1.60m and y = 2.40m. Two structural telescoping steel tubes allow height adjustment.
+Rebound Drum: 600mm diameter, 50mm thick circular laminated Baltic birch hardwood drum (#854D0E, Roughness 0.32).
+Swivel & Ball: Ball-bearing triple-chrome swivel (#E2E8F0, Metallic 0.95) bolted through drum center. Teardrop leather speed bag (0.25m height, #18181B) hanging beneath.
+Double-End Reflex Bag Station (z = 16.50m):
+Top Anchor: Extends via a horizontal tubular steel projection arm (40mm diameter tube) from the wall bracket at y = 2.40m. Terminating eyelet with a heavy tensioned bungee cord (8mm marine grade, length 0.70m).
+Reflex Ball: 200mm diameter round leather striking ball (#B45309, Tan).
+Bottom Anchor: High-tensile steel D-ring floor-plate bolted into the vulcanized rubber subfloor at y = 0.00m, z = 16.50m. Bottom elastic bungee cord (length 0.65m) tensions the ball from below.
+This provides a complete visual support system grounded to the wall and floor, with zero missing ceiling elements.
+1.5 Multi-Stop Camera Behavior & Alpha Transitions
++---------------------------------------------------------------------------------------------------+
+| CAMERA STOP VISIBILITY & OCCLUSION TABLE                                                          |
++---------------------------------------------------------------------------------------------------+
+| Camera Stop     Pitch / FOV    Cantilever Rail Status     Wall Status       Visual Justification  |
+| 1. OVERVIEW     -36.5° / 38°   100% OPAQUE                Full Height (3.6m)Rail reads clearly    |
+| (Macro Hall)                   Draws clean structural lineNorth Wall visibleagainst brick wall.   |
+|                                                                                                   |
+| 2. TACTICAL     -32.0° / 42°   100% OPAQUE                Full Height       Provides rich industrial|
+| (Zone Bag Line)                Draws high-detail bolts,   Occlusion culled  framing along upper third|
+|                                chains, and bag swivels    only if camera pansof viewport.         |
+|                                                                                                   |
+| 3. ATHLETE      -22.0° / 54°   SMOOTH FADE TO 0% ALPHA    Fade South/East   Prevents foreground   |
+| (Inspect Close) (Macro Close)  (Distance fade shader      cutaways if in    geometry from punching|
+|                                d < 2.5m from camera near) frustum           holes in athlete silhouette|
++---------------------------------------------------------------------------------------------------+
+
+// CantileverOcclusionFade.gdshader (Godot 4.7.2 Forward+)
+shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back;
+
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap;
+uniform sampler2D texture_roughness : hint_roughness_gray;
+uniform sampler2D texture_metallic : hint_default_white;
+uniform sampler2D texture_normal : hint_normal;
+
+uniform float fade_distance_min = 2.2; // Start fading out
+uniform float fade_distance_max = 3.8; // Fully opaque
+
+void fragment() {
+    vec4 albedo_tex = texture(texture_albedo, UV);
+    ALBEDO = albedo_tex.rgb;
+    METALLIC = texture(texture_metallic, UV).r;
+    ROUGHNESS = texture(texture_roughness, UV).r;
+    NORMAL_MAP = texture(texture_normal, UV).rgb;
+    
+    // Compute distance from camera lens to current fragment
+    float dist = length(VERTEX);
+    float alpha_factor = clamp((dist - fade_distance_min) / (fade_distance_max - fade_distance_min), 0.0, 1.0);
+    ALPHA = albedo_tex.a * alpha_factor;
+}
+
+ITEM 2: AUDITED GYM ASSET INVENTORY & PRODUCTION-READY LUDO 3D GENERATION PROMPTS
+
+Every asset currently represented by placeholder boxes or untextured cylinders has been cataloged below.
+
+To maintain visual consistency for a commercial PC release, all generation prompts follow strict production criteria:
+
+Clean factory finish: Brand-new condition, zero scuffs, zero rust, zero wear.
+Separated PBR channels: Clean materials ready for modern rendering.
+Exact coordinate origins: Pinned to either the floor contact plane (Origin at base Y=0) or the suspension attachment point (Origin at top shackle).
+Strict metric scale: Standardized real-world dimensions.
+Asset 01: Professional Heavy Leather Boxing Bag (Zone A)
+Priority: 1 (Critical) | Target Tris: 2,400 | Texture Target: 2048×2048
+Origin: Top hanging eyelet (Y=0.0m, Mesh hangs down to Y=-1.80m).
+Dimensions: Cylinder Height: 1.35m, Diameter: 0.45m. Four hanging straps: 0.45m length.
+Prompt:
+
+Commercial heavy boxing bag, factory-new condition, professional gym equipment. Cylindrical body measuring 1.35 meters in height and 0.45 meters in diameter. Premium deep oxblood red split-grain leather with pristine surface gloss, clean tight dual-needle white structural seams, zero scuffs, zero scratches, brand new. Four reinforced triangular leather anchor tabs box-stitched to the upper collar with heavy polished steel rivets. Four high-tensile chrome-plated link chains converging upward to a central drop-forged heavy-duty swivel shackle. glTF 2.0 asset, clean low-poly topology under 2400 triangles, clean PBR textures, centered origin at top swivel shackle, pointing Y-up.
+
+Asset 02: Cantilever Wall-Mount Bag Rack & I-Beam Track (Zone A)
+Priority: 2 (Critical) | Target Tris: 2,800 | Texture Target: 2048×2048
+Origin: Bottom edge of lower wall anchor plate (Y=0.0m relative to mounting base).
+Dimensions: Length: 10.0m, Reach from wall: 1.50m, Vertical wall height: 1.20m.
+Prompt:
+
+Industrial wall-mounted heavy bag cantilever rack system, professional boxing gym hardware, factory-fresh condition. Heavy structural steel W-section I-beam track spanning 10 meters in length, with dark charcoal powder-coat finish. Supported by four 1.5-meter horizontal cantilever arms and four 45-degree diagonal square tube support struts anchoring into thick rectangular steel wall mounting plates with heavy industrial hex head bolts. Clean architectural steel construction, precise mechanical joints, zero rust, uniform industrial coating. glTF 2.0 asset, optimized low-poly geometry under 2800 triangles, metallic and roughness PBR materials, centered origin at lower wall mounting point, Y-up.
+
+Asset 03: Professional Championship Boxing Ring (Zone D)
+Priority: 3 (Critical) | Target Tris: 8,500 | Texture Target: 4096×4096
+Origin: Floor level center of the ring footprint (Y=0.0m at canvas surface, skirt extends down to base).
+Dimensions: Elevated Platform: 6.5m × 6.5m, Height: 0.90m. Fighting Area: 5.5m × 5.5m inside 4 ropes.
+Prompt:
+
+Competition boxing ring, official championship specifications, pristine showroom condition. Raised square steel platform measuring 6.5 by 6.5 meters, elevated 0.9 meters above floor. Crisp smooth light-grey heavy cotton-duck canvas mat surface, tightly stretched with zero wrinkles, zero stains, uniform matte roughness. Black vertical vinyl apron skirts dropping neatly to the floor. Four heavy steel corner posts with smooth glossy enamel: two neutral white posts, one vibrant blue post, one vibrant red post. Four horizontal tensioned vinyl-wrapped ring ropes in clean red, white, and blue. Thick vinyl-clad wedge corner pads, zinc turnbuckle covers. glTF 2.0 format, 8500 triangle budget, PBR materials, centered floor origin, Y-up.
+
+Asset 04: Commercial Curved Slat-Belt Manual Treadmill (Zone B)
+Priority: 4 (High) | Target Tris: 3,200 | Texture Target: 2048×2048
+Origin: Floor contact center between rear stabilizer feet (Y=0.0m).
+Dimensions: Length: 1.95m, Width: 0.90m, Console Height: 1.60m.
+Prompt:
+
+Commercial curved manual treadmill, non-motorized athletic training machine, factory-new condition. Curved running deck profile with vulcanized black molded rubber track slats, clean segmented design. Sturdy matte-black steel structural chassis with integrated side safety rails and forward curved tubular grips. Minimalist upright performance digital console with clean unlit LCD display panel. High-end athletic conditioning equipment, flawless factory finish, zero wear, zero scuffs. glTF 2.0 format, game-ready low poly topology under 3200 triangles, clean PBR normal and roughness maps, origin at base floor center, Y-up.
+
+Asset 05: Adjustable Speed Bag Platform & Birch Drum (Zone A)
+Priority: 5 (High) | Target Tris: 2,200 | Texture Target: 1024×1024
+Origin: Lower wall mounting frame base (Y=0.0m).
+Dimensions: Drum Diameter: 0.60m, Frame Height: 0.90m, Wall Reach: 0.75m.
+Prompt:
+
+Professional wall-mounted speed bag platform, boxing gym equipment, brand new factory build. Circular rebound drum crafted from thick laminated blonde birch hardwood with smooth satin lacquer finish, measuring 600mm in diameter. Dual vertical chrome telescoping track rails with dual turn-knob height locking pins mounted to a black steel wall plate. Polished chrome ball-bearing swivel fixture centered under the drum, hanging a teardrop black leather speed striking bag with white welted seams. glTF 2.0 asset, low-poly game model under 2200 triangles, clean PBR textures, origin at base wall mount, Y-up.
+
+Asset 06: Double-End Striking Reflex Bag Assembly (Zone A)
+Priority: 6 (High) | Target Tris: 1,600 | Texture Target: 1024×1024
+Origin: Lower floor anchor D-ring (Y=0.0m).
+Dimensions: Ball Diameter: 0.22m, Suspended Height: 1.50m from floor, Max Span: 2.40m.
+Prompt:
+
+Double-end boxing reflex bag station, factory-new condition. Spherical inflatable striking ball measuring 220mm in diameter, made of premium tan leather with clean panel stitching. Top and bottom reinforced leather attachment eyes connected to black tensioned rubber bungee shock cords. Chrome snap carabiners and tension adjusters at both extremes. Clean studio lighting, zero scuffs, professional athletic product. glTF 2.0 format, optimized 1600 triangles, PBR metallic and roughness maps, origin at floor anchor ring, Y-up.
+
+Asset 07: Commercial Olympic Power Rack & Pull-Up Station (Zone C)
+Priority: 7 (High) | Target Tris: 3,800 | Texture Target: 2048×2048
+Origin: Floor contact footprint center (Y=0.0m).
+Dimensions: Width: 1.25m, Depth: 1.45m, Height: 2.35m.
+Prompt:
+
+Heavy-duty commercial 4-post Olympic power cage, strength training gym equipment, pristine condition. Welded 75mm by 75mm 11-gauge steel tube uprights with precision laser-cut hole numbering along posts, finished in high-durability matte textured gunmetal-grey powder coat. Top multi-grip chin-up crossmember with knurled steel handles. Two adjustable J-cup barbell rests and full-length steel safety catch pins with yellow zinc coating. Rear vertical Olympic weight horn storage pegs. glTF 2.0 asset, 3800 triangle budget, clean PBR roughness and metallic maps, origin at base floor center, Y-up.
+
+Asset 08: Heavy Steel Sled / Prowler (Zone E)
+Priority: 8 (High) | Target Tris: 2,600 | Texture Target: 1024×1024
+Origin: Base of ski runners on floor (Y=0.0m).
+Dimensions: Length: 1.10m, Width: 0.85m, Push Handle Height: 1.00m.
+Prompt:
+
+Heavy steel athletic training sled prowler, turf conditioning equipment, factory-new condition. Heavy-duty flat ski runners in smooth low-friction black coated steel. Central vertical steel weight peg loaded with two pristine 20kg black rubber Olympic bumper plates. Dual vertical push upright posts with knurled grip sleeves, and low horizontal push handle crossbar. Flawless industrial finish, zero scratches, zero dirt. glTF 2.0 format, 2600 triangle budget, PBR materials, origin at runner base center, Y-up.
+
+Asset 09: Concept2-Style Air Rower (Zone B)
+Priority: 9 (Medium) | Target Tris: 2,800 | Texture Target: 2048×2048
+Origin: Front stabilizer floor contact center (Y=0.0m).
+Dimensions: Length: 2.45m, Width: 0.62m, Height: 0.90m.
+Prompt:
+
+Commercial indoor air-resistance rowing ergometer, professional gym conditioning gear, brand-new condition. Central extruded aluminum monorail track with smooth black anodized finish. Ergonomic black molded sliding seat carriage. Forward flywheel housing with spiral damper control and clean perforated ventilation mesh. Black steel front and rear stabilizer legs with rubber foot pads. Digital performance monitor mounted on adjustable arm. Low-poly game-ready topology under 2800 triangles, clean PBR textures, origin at front floor base, glTF 2.0, Y-up.
+
+Asset 10: Competition Flat Olympic Bench Press (Zone C)
+Priority: 10 (Medium) | Target Tris: 2,100 | Texture Target: 1024×1024
+Origin: Floor contact footprint center (Y=0.0m).
+Dimensions: Length: 1.45m, Width: 1.25m (Uprights), Height: 1.20m.
+Prompt:
+
+Competition Olympic flat weight bench press, powerlifting gym equipment, pristine factory condition. Heavy structural steel frame in matte black finish with broad stable base footprint. Padded horizontal bench pad upholstered in high-density textured black non-slip commercial vinyl with clean French seams. Fixed upright barbell catch horns with high-density polymer protective inserts. Flawless commercial equipment, zero cracks, zero wear. glTF 2.0 format, 2100 triangles, PBR normal and roughness channels, origin at floor center, Y-up.
+
+Asset 11: 3-Tier Commercial Dumbbell Saddle Rack (Zone C)
+Priority: 11 (Medium) | Target Tris: 2,400 | Texture Target: 1024×1024
+Origin: Floor contact base center (Y=0.0m).
+Dimensions: Width: 2.20m, Depth: 0.75m, Height: 0.85m.
+Prompt:
+
+Commercial three-tier dumbbell storage saddle rack, gym strength area asset, brand-new condition. Heavy-gauge

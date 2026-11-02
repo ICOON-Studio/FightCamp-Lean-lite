@@ -1,0 +1,329 @@
+
+ROUND 72 — UI CENSUS: THE STORY INBOX & THE STORY WALL
+
+Project: FightCamp (PC Native Simulation / Steam Tactical Sports RPG)
+
+Resolution Standard: 1920 × 1080 (16:9 fixed canvas viewport)
+
+Binding Visual Language: Round-70 UI Bible (Foundry Void #0d0c0b, Layered Warm Slates #1a1816 / #22201d / #282521, Brass Filigree borders #3d352a / #5a4d3b, Championship Gold #f0c233, Parchment/Cream text hierarchy #f5ebd9 / #d4c8b8 / #8a7f72, corner radius 4px, 36px standard tab height with 2px active Gold bottom accent).
+
+SECTION A: DEFECT AUDIT OF ATTACHED SCREENSHOTS
+Screen 1: THE STORY INBOX ("Dessa's call")
+Dead Horizontal Gutter / Cavernous Void: The single story message card stretches arbitrarily across the middle (w ≈ 1120px, h ≈ 168px) floating in vast empty space. 70% of the active viewport is dead amber-black gradient with no dual-pane master-detail structure, no message thread list, no sender visual portrait, and no contextual narrative card docket.
+Missing Master/Detail Split Architecture: Standard tactical management games (Football Manager, Suzerain) require a left-hand navigation list (sender avatar, date/stamp, status, urgency tag, brief excerpt) and a right-hand reading reading pane / dossier viewer. Here, the reader is stuck with an unanchored isolated bubble.
+No Visual Identity / Character Presence: Dessa is introduced strictly through a tiny flat muted yellow tag "DESSA" and plain text. In a narrative boxing management game centered on inheriting an atmospheric gym, there is no portrait frame, no stamp, no typewriter/telex texture, no sender stamp, and zero tactile identity.
+CTA Styling Disconnection: The button "Open the gym" is rendered as an oversized rounded pill (border-radius > 12px) filled with flat warm yellow and black bold text. This contradicts the Round-70 UI Bible spec: 4px corner radius, Championship Gold #f0c233 hover state, 1px brass outline, sharp crisp bevel, and clear consequence metadata indicator (e.g., + Gym Unlocked, Time Advances to 08:00).
+No Decision Stakes / Consequence Preview: Narrative choices in FightCamp alter boxer morale, cash flow, gym heat, or relations. The current action gives zero indication of system impact or outcome preview.
+Top Header & Tab Bar Desynchronization: "THE INBOX" header has loose breadcrumb text (1 WAITING · CHAPTER 1 · KEYS) floating under it without clear typography scale, and the top-right button "THE WALL" sits adrift without belonging to a standardized 36px segmented navigation tab or view-switcher control.
+Under-designed Breadcrumb / Back Navigation: The ← arrow button at the top-left sits isolated without proper hover padding or keybinding indicator ([ESC] / [B]).
+Screen 2: THE STORY WALL (Chapter Progression Grid)
+Dull, Repetitive Grid Fatigue: Nine uniform cards arranged in a 4-column, 3-row grid with low visual hierarchy. Every card shares an identical muddy gray-brown gradient pill shape, identical muted border, and low-contrast typography. It feels like an uninspired placeholder debug menu rather than a tactile "Gym Wall of Fame / History Pegboard."
+Generic "???" Card Clutter: Cards 2 through 9 are slapped with large raw "???" labels, and 6 of them show premature micro-spoilers in low-contrast locked subtext ("CHOOSE THE KID'S FIRST FOCUS", "RENT IS DUE IN FOUR WEEKS"). Locked state taxonomy is inverted: locked narrative beats should either show atmospheric thematic silhouettes, locked padlock/seal icons, or gym pin-board sketches, not raw developer strings.
+Absence of Narrative Lineage / Visual Connectors: A story wall must chart a journey (Acts / Chapters / Milestones). The current grid displays no connecting linework, progression cords, act dividers, milestone trophies, or chronology flow.
+Dead Area at Bottom Left: The label "YOUR FIGHTERS: NOBODY YET" is parked at the bottom left with zero visual housing, missing polaroid slots, fighter roster pins, or unlocked newspaper clippings.
+Lack of State Contrast: Completed/current card ("DESSA'S CALL") looks nearly indistinguishable from locked cards except for the white text versus gray text. There is no brass framing, no Championship Gold highlight, no visual stamp (e.g., RESOLVED, ACTIVE OBJECTIVE), and no polaroid thumbnail photo.
+SECTION B: TARGET LAYOUT SPECIFICATION (1920 × 1080)
+1. Unified Shell Integration
+Global Top Bar (Persistent): x: 0, y: 0, w: 1920, h: 56
+Global Left Navigation Rail: x: 0, y: 56, w: 72, h: 1024
+Global Story Canvas Viewport: x: 72, y: 56, w: 1848, h: 1024
+Background: #0d0c0b (Foundry Void) with subtle film grain and 2% radial vignette centered at (960, 540).
+========================================================================================================================
+TOP BAR: [ $25,000 | +$843/wk ]   [ || > >> ] [ Mon 5 Jan - W1 06:00 ]   [ Bell ]   [ BOUT: Mara Solano vs TBA ]
+========================================================================================================================
+[RAIL] | STORY MODE: "The House That Holds"                         [TABS: (1) INBOX [1] | (2) THE WALL | (3) DOSSIER]
+ 72px  |----------------------------------------------------------------------------------------------------------------
+       | [SEARCH / FILTER]        | [DISPATCH VIEWER / NARRATIVE MEMO]
+       | * DESSA VANCE (NEW)      | SENDER: Dessa Vance (Matriarch)           DATE: Mon 5 Jan, 06:00 (Immediate)
+       |   "The keys are yours... | PRIORITY: Critical Narrative              STATUS: Awaiting Directive
+       |                          |-------------------------------------------------------------------------------------
+       | * STATE BOXING COMM.     | [PORTRAIT] "Coach. Dessa's in St. Jude's. Stroke took her left side, but she told
+       |   License Renewal Notice |  80x96px   me to give you this ring of keys.
+       |                          |            The drawer's full of past-due light bills. The heavy bags are dry-rotted.
+       | * EDDIE (CUTMAN)         |            Mara Solano is downstairs wrapping her hands with athletic tape.
+       |   Wrapping supplies low  |            Ring is empty. It's your gym now. What do we do first?"
+       |                          |-------------------------------------------------------------------------------------
+       |                          | [DECISION MATRIX]
+       |                          | [A] "Open the doors, inspect the ring, and talk to Mara."
+       |                          |     Consequences: Advances time to 08:00 · Unlocks Mara Solano's Profile · Morale +2
+       |                          | [B] "Sort the bills and call the landlord first."
+       |                          |     Consequences: Reveals Fixed Gym Expenses · Grants +$500 Cash Buffer Discovery
+========================================================================================================================
+
+2. View 1: THE STORY INBOX (Split Master-Detail Layout)
+Sub-Header & Mode Switcher Bar
+Position: x: 96, y: 76, w: 1800, h: 48
+Title: "NARRATIVE LOG & DISPATCHES" (20px, bold tracking +1.5px, #f5ebd9).
+Subtext: "THE HOUSE THAT HOLDS · TUTORIAL ARC" (12px, tracking +1.0px, #8a7f72).
+View Switcher Tabs (Round-70 36px Standard): x: 1460, y: 82, w: 436, h: 36
+Tab 1: "INBOX (1)" (Active, Gold #f0c233 text, 2px bottom border #f0c233, bg: #1a1816).
+Tab 2: "THE WALL" (Inactive, Cream #d4c8b8 text, hover underline #5a4d3b, bg: transparent).
+Tab 3: "ARCHIVE" (Inactive).
+Master Pane: Left Message Docket List
+Geometry: x: 96, y: 140, w: 520, h: 900
+Container Styling: Panel #1a1816, border 1px #3d352a, corner radius 4px.
+List Item Height: 88px per card, 8px vertical spacing.
+Card Anatomy:
+Base panel #22201d, border 1px #3d352a.
+Left unread indicator pill: 4px × 80px, Gold #f0c233 when unread; #3d352a when read.
+Sender Name: 14px bold #f5ebd9.
+Date/Stamp: 11px mono #8a7f72 (right-aligned).
+Preview line: 12px #d4c8b8, truncated ellipsis at 48 chars.
+Urgency Badge: 18px height pill, red/brass accent (STORY CRITICAL or FINANCE).
+Detail Pane: Narrative Reading Room & Decision Deck
+Geometry: x: 632, y: 140, w: 1264, h: 900
+Container Styling: Panel #1a1816, border 1px #3d352a, corner radius 4px.
+Header Block: x: 656, y: 164, w: 1216, h: 120
+Sender Portrait Frame: w: 96, h: 112, corner radius 4px, border 1px Brass #5a4d3b, inner shadow.
+Sender Name: "DESSA VANCE" (22px bold, #f5ebd9).
+Sender Title: "Gym Matriarch & Founder" (13px italic, #8a7f72).
+Metadata bar: Category tag, date received, narrative chapter link (ACT I: THE INHERITANCE).
+Letter / Dialogue Body Panel: x: 656, y: 304, w: 1216, h: 380
+Inner inset panel #141311, border 1px #282521, padding 24px.
+Typography: 16px / 1.6 line-height, warm cream #f5ebd9.
+Decision Deck (Reply Options Area): x: 656, y: 704, w: 1216, h: 312
+Section Title: "COACH'S DIRECTIVE" (12px bold caps, tracking +2px, Gold #f0c233).
+Choice Cards (Vertical stack of 2 options, each h: 112px, spacing 12px).
+Background: #22201d, hover #282521, border 1px #3d352a, hover border 1px Gold #f0c233.
+Left side: Action prompt in 15px bold #f5ebd9.
+Right side / Bottom bar: Consequence preview chips with micro-icons (Morale, Cash, Time).
+Execution CTA: Fixed gold-accent button on right edge w: 160, h: 40.
+3. View 2: THE STORY WALL (Tactical Pegboard / Story Journey)
+Wall Board Canvas
+Geometry: x: 96, y: 140, w: 1800, h: 900
+Styling: Corkboard / blackened slate texture #141311 with brass frame border #3d352a and corner decorative studs.
+Layout Structure: 3 Act Columns with connected chapter milestone nodes.
+Act I: "The Inheritance" (Chapters 1–3) — w: 540
+Act II: "The Golden Gloves Circuit" (Chapters 4–6) — w: 540
+Act III: "Title Contenders" (Chapters 7–9) — w: 540
+Card Dimensions: w: 360, h: 220, arranged in staged chronological progression with subtle connecting brass filigree lines (2px #3d352a dashed when locked, solid Gold #f0c233 when completed).
+Chapter Card Taxonomy & States
+LOCKED STATE:
+Background: #171513, opacity 0.65, border 1px #282521.
+Centerpiece: Embossed brass padlock badge with Roman Numeral of chapter.
+Header: "CHAPTER IV" (13px bold, #5a4d3b).
+Subtitle: "LOCKED MILESTONE" (11px tracking +1.5px, #3d352a).
+Requirement Hint: "Requirement: Complete Mara's Debut Bout". No spoilers.
+REVEALED / ACTIVE (CURRENT) STATE:
+Background: #22201d, border 1px Championship Gold #f0c233, 2px Gold pulse glow.
+Header Tag: "CURRENT OBJECTIVE" in Gold chip #f0c233 with black text.
+Thumbnail: Grayscale 35mm polaroid-style preview photo of gym interior / fighter ring.
+Title: "DESSA'S CALL" (18px bold, #f5ebd9).
+Status line: "Awaiting decision in Inbox" (12px, #f0c233).
+Footer CTA: "GO TO INBOX →" (h: 32, 4px radius, Gold stroke).
+COMPLETED (DONE) STATE:
+Background: #1a1816, border 1px #5a4d3b.
+Stamp: High-contrast brass foil stamp in top right corner: "RESOLVED / ARCHIVED".
+Summary: Full chapter title, completion in-game date (Week 1, Mon), outcome summary.
+Click Action: Replay story log / retrospective dialogue archive modal.
+4. Interactive Behaviors, Motion Timings, and Hover Specifications
+Hover Enter (Cards & Choices):
+Duration: 120ms (ease_out).
+Elevation: Background transitions #22201d → #282521; Border #3d352a → #f0c233.
+Subtle Y translation: -2px on message docket list items.
+Selection / Click:
+Duration: 80ms punch down (scale(0.98)), audio cue: low-tone mechanical typewriter latch.
+Tab Switch Animation:
+Inbox to Wall: Left/Right directional cross-fade, 200ms CUBIC_BEZIER(0.2, 0.0, 0.0, 1.0).
+Decision Confirmation Modal (if high consequence):
+Dim overlay #0d0c0b at 80% alpha, 150ms fade. Modal snaps in at 200ms scale 0.95 -> 1.0.
+SECTION C: INDUSTRY BENCHMARKS & DESIGN ADAPTATIONS
+
+| Game Benchmark | Architecture Examined | What We Borrow for FightCamp | What We Reject |
+| :--- | :--- | :--- | :--- |
+| Football Manager | Master-Detail Inbox with direct action buttons embedded in reading pane. | Two-pane split docket, instant action CTAs inside message, unread tracking. | Cluttered spreadsheet tables, sterile bureaucratic enterprise look. FightCamp needs warm noir boxing gym grit. |
+| Motorsport Manager | High-level team dispatches with urgent dilemma cards and immediate budget impact. | Explicit consequence chips (previewing morale/time/cash delta before choosing). | Flat mobile-like UI cards with oversized fonts. |
+| Disco Elysium | Thought Cabinet & Quest Journal with rich philosophical descriptions and dark brass accents. | Tactile chapter wall (pins, stamps, polaroids) rather than cold clinical checklists; rich character-driven text. | Overly abstract branching trees that obfuscate tactical simulation state. |
+| Hades | Codex and thematic unlocks tied to character relationships. | Character portrait integration in headers, relationship meters connected to story progress. | Non-interactive static visual novel popups. |
+
+SECTION D: STEP-BY-STEP BUILD PLAN FOR ONE AGENT
+Step 1: Canvas Split & Token Setup
+Implementation: Create StoryViewRoot.tscn with HBoxContainer implementing the 520px : 1264px master-detail layout, binding Round-70 color constants.
+Acceptance Check: At 1920×1080, left docket is exactly 520px wide, gutter is 16px, detail pane is 1264px wide; zero UI clipping or horizontal scrollbars.
+Step 2: Message Docket Component (InboxItem.tscn)
+Implementation: Instantiate item containing sender title, timestamp, 4px unread indicator pill, and excerpt preview.
+Acceptance Check: Emits on_message_selected(msg_id). Setting is_unread = false transitions indicator color from Gold (#f0c233) to Muted Brass (#3d352a) in 120ms.
+Step 3: Narrative Reader & Decision Engine (InboxDetail.tscn)
+Implementation: Implement sender header with avatar slot, scrollable rich narrative body, and dynamic Choice Button container rendering consequence badges.
+Acceptance Check: Clicking choice option prints consequence payload to gym state singleton, marks message resolved, and updates time clock.
+Step 4: The Story Wall Pegboard Grid (StoryWallGrid.tscn)
+Implementation: Create 3-Act column milestone layout with Chapter Card component supporting states: LOCKED, ACTIVE, COMPLETED.
+Acceptance Check: Cards labeled LOCKED obscure spoilers and display requirement text; ACTIVE card has animated 2px #f0c233 border; clicking COMPLETED displays historical log.
+Step 5: Tab Navigation & Hotkey Rigging
+Implementation: Wire Round-70 36px navigation tabs with keyboard shortcuts ([Q] / [E] for Inbox/Wall; [ESC] for return).
+Acceptance Check: Tab switch executes within 200ms with smooth fade; active tab keeps persistent 2px Gold bottom indicator.
+SECTION E: PRODUCTION GDSCRIPT IMPLEMENTATIONS
+1. InboxMessageCard.gd
+class_name InboxMessageCard
+extends PanelContainer
+
+signal message_selected(message_id: String)
+
+@export var color_void: Color = Color("#0d0c0b")
+@export var color_panel_normal: Color = Color("#22201d")
+@export var color_panel_hover: Color = Color("#282521")
+@export var color_border_normal: Color = Color("#3d352a")
+@export var color_border_selected: Color = Color("#f0c233")
+@export var color_unread_gold: Color = Color("#f0c233")
+
+@onready var unread_indicator: ColorRect = %UnreadIndicator
+@onready var label_sender: Label = %LabelSender
+@onready var label_date: Label = %LabelDate
+@onready var label_preview: Label = %LabelPreview
+@onready var border_rect: ReferenceRect = %BorderRect
+
+var current_msg_id: String = ""
+var is_unread: bool = true
+var is_active: bool = false
+
+func _ready() -> void:
+	custom_minimum_size = Vector2(504, 88)
+	mouse_entered.connect(_on_mouse_enter)
+	mouse_exited.connect(_on_mouse_exit)
+	gui_input.connect(_on_gui_input)
+	_apply_style(color_panel_normal, color_border_normal)
+
+func setup(data: Dictionary) -> void:
+	current_msg_id = data.get("id", "")
+	label_sender.text = data.get("sender_name", "UNKNOWN").to_upper()
+	label_date.text = data.get("date_str", "W1 MON")
+	label_preview.text = data.get("preview_text", "")
+	is_unread = data.get("unread", true)
+	unread_indicator.color = color_unread_gold if is_unread else color_border_normal
+
+func set_selected(selected: bool) -> void:
+	is_active = selected
+	var border = color_border_selected if is_active else color_border_normal
+	var bg = color_panel_hover if is_active else color_panel_normal
+	_apply_style(bg, border)
+
+func _apply_style(bg_col: Color, border_col: Color) -> void:
+	var style: StyleBoxFlat = StyleBoxFlat.new()
+	style.bg_color = bg_col
+	style.set_corner_radius_all(4)
+	style.border_color = border_col
+	style.set_border_width_all(1)
+	add_theme_stylebox_override("panel", style)
+
+func _on_mouse_enter() -> void:
+	if not is_active:
+		var tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+		tween.tween_property(self, "position:y", position.y - 2.0, 0.12)
+		_apply_style(color_panel_hover, color_border_selected)
+
+func _on_mouse_exit() -> void:
+	if not is_active:
+		var tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+		tween.tween_property(self, "position:y", position.y + 2.0, 0.12)
+		_apply_style(color_panel_normal, color_border_normal)
+
+func _on_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		message_selected.emit(current_msg_id)
+
+2. StoryWallCard.gd
+class_name StoryWallCard
+extends PanelContainer
+
+signal open_inbox_requested(msg_id: String)
+signal inspect_chapter_requested(chapter_id: String)
+
+enum CardState { LOCKED, ACTIVE, COMPLETED }
+
+@export var color_bg_locked: Color = Color("#171513")
+@export var color_bg_active: Color = Color("#22201d")
+@export var color_bg_completed: Color = Color("#1a1816")
+@export var color_gold: Color = Color("#f0c233")
+@export var color_brass: Color = Color("#5a4d3b")
+@export var color_border_dim: Color = Color("#282521")
+
+@onready var chapter_tag: Label = %ChapterTag
+@onready var title_label: Label = %TitleLabel
+@onready var requirement_label: Label = %RequirementLabel
+@onready var status_badge: Label = %StatusBadge
+@onready var thumbnail_rect: TextureRect = %ThumbnailRect
+@onready var action_button: Button = %ActionButton
+
+var current_state: CardState = CardState.LOCKED
+var chapter_id: String = ""
+var linked_msg_id: String = ""
+
+func _ready() -> void:
+	custom_minimum_size = Vector2(360, 220)
+	action_button.pressed.connect(_on_action_pressed)
+
+func setup_card(data: Dictionary) -> void:
+	chapter_id = data.get("chapter_id", "")
+	linked_msg_id = data.get("linked_msg_id", "")
+	current_state = data.get("state", CardState.LOCKED)
+	
+	match current_state:
+		CardState.LOCKED:
+			_render_locked(data)
+		CardState.ACTIVE:
+			_render_active(data)
+		CardState.COMPLETED:
+			_render_completed(data)
+
+func _render_locked(data: Dictionary) -> void:
+	chapter_tag.text = data.get("roman_numeral", "CH. ??")
+	title_label.text = "LOCKED MILESTONE"
+	title_label.modulate = Color("#5a4d3b")
+	requirement_label.text = "UNLOCK: " + data.get("unlock_condition", "Progress current arc")
+	requirement_label.visible = true
+	thumbnail_rect.modulate = Color(0.2, 0.2, 0.2, 0.5)
+	status_badge.visible = false
+	action_button.visible = false
+	_set_box_style(color_bg_locked, color_border_dim, 1)
+
+func _render_active(data: Dictionary) -> void:
+	chapter_tag.text = data.get("roman_numeral", "CHAPTER I")
+	title_label.text = data.get("title", "DESSA'S CALL")
+	title_label.modulate = Color("#f5ebd9")
+	requirement_label.visible = false
+	thumbnail_rect.texture = data.get("thumbnail_texture", null)
+	thumbnail_rect.modulate = Color.WHITE
+	status_badge.text = "ACTIVE IN INBOX"
+	status_badge.visible = true
+	action_button.text = "VIEW MESSAGE"
+	action_button.visible = true
+	_set_box_style(color_bg_active, color_gold, 2)
+	_start_pulse_glow()
+
+func _render_completed(data: Dictionary) -> void:
+	chapter_tag.text = data.get("roman_numeral", "CHAPTER I")
+	title_label.text = data.get("title", "DESSA'S CALL")
+	title_label.modulate = Color("#d4c8b8")
+	requirement_label.text = "RESOLVED: " + data.get("completion_date", "Week 1 Mon")
+	requirement_label.visible = true
+	thumbnail_rect.texture = data.get("thumbnail_texture", null)
+	thumbnail_rect.modulate = Color(0.8, 0.8, 0.8, 0.9)
+	status_badge.text = "ARCHIVED"
+	status_badge.visible = true
+	action_button.text = "INSPECT LOG"
+	action_button.visible = true
+	_set_box_style(color_bg_completed, color_brass, 1)
+
+func _set_box_style(bg: Color, border: Color, width: int) -> void:
+	var style = StyleBoxFlat.new()
+	style.bg_color = bg
+	style.border_color = border
+	style.set_border_width_all(width)
+	style.set_corner_radius_all(4)
+	add_theme_stylebox_override("panel", style)
+
+func _start_pulse_glow() -> void:
+	var tween = create_tween().set_loops().set_trans(Tween.TRANS_SINE)
+	tween.tween_property(self, "theme_override_styles/panel:border_color", Color("#ffe58f"), 0.8)
+	tween.tween_property(self, "theme_override_styles/panel:border_color", color_gold, 0.8)
+
+func _on_action_pressed() -> void:
+	if current_state == CardState.ACTIVE:
+		open_inbox_requested.emit(linked_msg_id)
+	elif current_state == CardState.COMPLETED:
+		inspect_chapter_requested.emit(chapter_id)
+
+Can you provide the complete defect audit for both screenshots, with every issue numbered per image?
+Can you turn the target 1920×1080 layouts into an exact coordinate table for every UI block?
+Can you create polished mockups of the corrected Story Inbox and Story Wall using the Round-70 UI tokens?
+Can you provide complete Godot scripts for message and chapter cards, including hover, click, state transitions, and accessibility?

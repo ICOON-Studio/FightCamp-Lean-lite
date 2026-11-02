@@ -1,0 +1,44 @@
+[
+  {
+    "name": "f05_m_mma_light_rigged",
+    "bytes": 1059832,
+    "meshes": [
+      {
+        "vertices": 11380,
+        "dimensions": [
+          184.05685424804688,
+          35.93693542480469,
+          185.0
+        ]
+      }
+    ],
+    "armatures": [
+      {
+        "bones": 22,
+        "animation": false
+      }
+    ],
+    "side_control": false
+  },
+  {
+    "name": "f06_m_mma_lhw_rigged",
+    "bytes": 1053832,
+    "meshes": [
+      {
+        "vertices": 11142,
+        "dimensions": [
+          97.73424530029297,
+          23.5756778717041,
+          100.0
+        ]
+      }
+    ],
+    "armatures": [
+      {
+        "bones": 22,
+        "animation": false
+      }
+    ],
+    "side_control": false
+  }
+]

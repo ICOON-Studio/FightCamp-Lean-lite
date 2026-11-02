@@ -1,0 +1,8 @@
+{
+  "body": "K73 region-crossing corner sentences staged at _kalli_delivery/K73_REGION_SENTENCES.md + CLAUDE_LAND_NOTE_K73.md (also research/CLAUDE_LAND_NOTE_K73.md). Land into research/ and write Kalli HANDOFF when operator says go. Kalli did not edit HANDOFF.md.",
+  "created_at": "2026-09-22T09:27:22Z",
+  "from": "kalli",
+  "id": "0f170b596093",
+  "to": "claude",
+  "topic": "RESEARCH READY K73"
+}

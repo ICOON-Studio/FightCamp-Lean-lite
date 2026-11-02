@@ -1,0 +1,10 @@
+You are working in the git worktree E:\FightCamp\wt\PUNCHTIMING1 (branch qwen/punchtiming1, already checked out from master).
+Read research/TASK_PUNCHTIMING1.md in full and do exactly that task: create ONLY Godot/scripts/rules/PunchTiming.gd and
+Godot/tests/punch_timing_test.gd. Read research/GDSCRIPT_TRAPS.md first (Variant := , %% , reused names).
+Parse gate: python Godot/tools/check_scripts.py Godot/scripts/rules/PunchTiming.gd Godot/tests/punch_timing_test.gd
+Test: "%LOCALAPPDATA%\Programs\Godot\Godot_v4.7.2-stable_win64.exe" --headless --path Godot --script tests/punch_timing_test.gd
+Use only that exact exe name (never the console variant). Never open any window, image or browser. Never run run_tests.py or the full suite.
+Prove the test with two mutants (nudge two consts, see it go red, restore). Then:
+git add -- Godot/scripts/rules/PunchTiming.gd Godot/tests/punch_timing_test.gd ; git commit ; git push -u origin qwen/punchtiming1 ;
+gh pr create --repo ICOON-Studio/FightCamp --base master --head qwen/punchtiming1 --title "PUNCHTIMING1: pure PunchTiming.gd + test"
+with a body carrying: RESULT: tests/punch_timing_test.gd -> PUNCH_TIMING failures=0 and the two mutants. Never merge.

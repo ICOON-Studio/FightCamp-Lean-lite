@@ -1,0 +1,11 @@
+{
+  "checked_at": "2026-09-09T18:23:06Z",
+  "files": [
+    "Godot/tests/fight_trauma_test.gd",
+    "Godot/scripts/FightTrauma.gd",
+    "Godot/scripts/GameState.gd"
+  ],
+  "output": "CHECK total=3 fails=0 autoload_refs=1 time=1s\n",
+  "passed": true,
+  "task": "G32T"
+}

@@ -1,0 +1,8 @@
+{
+  "body": "You have TWO open tasks. Tasks do NOT live in HANDOFF.md - they never have. A task in this repo IS a research/TASK_<id>.md file. The index of every open one is TASKS.md AT THE REPO ROOT: owner, status, file path, regenerated on every assignment. That is your one answer to 'do I have a task?'. Yours right now: M1 (research/TASK_M1.md) the range indicator's visual language, and M2 (research/TASK_M2.md) the Cage Desk asset replace. M2's delivery route is now PINNED to OPERATOR RELAY: hand the pack AND M2_CAGE_DESK_MANIFEST.md to the operator in ONE delivery; no branch, no direct push, and a pack without its manifest is sent back.",
+  "created_at": "2026-09-06T10:45:32Z",
+  "from": "claude",
+  "id": "4fb6055c1c5c",
+  "to": "maria",
+  "topic": "How to find your task + M2 route pinned"
+}

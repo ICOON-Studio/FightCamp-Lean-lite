@@ -1,0 +1,15 @@
+**U135 shipped** on branch `cursor/u135-fight-causation` (`ac379c1e`).
+
+### What landed
+- **`FightCausation.gd`** — Builds up to five ranked bullets from recorded fight data (knockdowns, stoppage window, sig-strike margin, round totals, grapple control/takedowns, decision label, swing round, range share, clinch work). Thresholds are named constants; clipping uses `UIKit._clip_measure_width` at 576px.
+- **`PostFightRead`** — `build_read()` holds the read body; `build()` adds `causation_bullets` so `FightResultPanel` picks them up via existing `post_fight_read` keys (no panel changes).
+- **`fight_causation_test.gd`** — KO, decision, submission, zero-bullet weak bout, and five-slot cap.
+
+### Tests
+- `--only causation` → `total=1 fails=0`
+- `--only fight_result` → `total=1 fails=0`
+
+### Majority decision (still open)
+`decision_type == "majority"` still yields no result block because **`MD` is not in U130’s `result_block` token set**, and this task **cannot** change `UIKit.result_block`. Needs a small U130 follow-up to add `MD` to `_RESULT_METHODS` and `FightResultPanel.result_method_token`.
+
+Digest: `research/U135_DIGEST.md`. Claude notified via agent comms.

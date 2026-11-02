@@ -1,0 +1,74 @@
+{
+ "id": "BOX_JAB_HEAD_LAND",
+ "spec": "Tools/blender_moves/specs/BOX_JAB_HEAD_LAND.json",
+ "frames": {
+  "strike_start": 30,
+  "contact": 44,
+  "strike_end": 80,
+  "react_start": 44,
+  "react_end": 78,
+  "end": 110
+ },
+ "torso_T_m": {
+  "thrower": 0.5109340784085175,
+  "receiver": 0.5166050414164752
+ },
+ "distance_mode": "mesh_contact",
+ "solved_gap_m": 1.5397144770622253,
+ "contact_before_ik_m": {
+  "glove_short_of_face": -6.914138794833491e-08,
+  "glove_side_of_face": -0.31826528161764145,
+  "glove_below_face": 0.2527673542499542
+ },
+ "ik": {
+  "window": [
+   [
+    36,
+    0.0
+   ],
+   [
+    44,
+    1.0
+   ],
+   [
+    46,
+    1.0
+   ],
+   [
+    56,
+    0.0
+   ]
+  ],
+  "chain": 3
+ },
+ "contact_after_ik_m": {
+  "along_short": 0.0803728699684143,
+  "side": 0.048334136605262756,
+  "height": 0.028792381286621094
+ },
+ "footage_numbers": {
+  "gap_T_before": 2.956911497432833,
+  "gap_T_contact": 2.4696288102379724,
+  "gap_T_after": 2.956161464619409,
+  "thrower_hips_out_T": 0.48703000792685813,
+  "thrower_lead_ankle_out_T": 0.7079970706768511,
+  "receiver_head_back_T_at_contact_plus_0.2s": 0.6633677689873944
+ },
+ "pair": {
+  "id": "BOX_JAB_HEAD_LAND",
+  "length_s": 1.8333333333333333,
+  "contact_s": 0.7333333333333333,
+  "entry_s": 0.5,
+  "start_gap_m": 1.5397,
+  "min_gap_m": 1.4197,
+  "max_gap_m": 1.6597,
+  "end_travel_m": {
+   "thrower": -0.0,
+   "receiver": -0.0
+  }
+ },
+ "toe_z_min_max_world": [
+  -0.8599405288696289,
+  -0.8485641479492188
+ ]
+}

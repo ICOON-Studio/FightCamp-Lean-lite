@@ -1,0 +1,7 @@
+# TRAIN1 slice 1 - Cline, worktree E:/FightCamp/wt/CLINE, branch cline/seat
+
+FIRST: `git fetch origin && git reset --hard origin/master` inside E:/FightCamp/wt/CLINE (your LADDER1 work is merged as bcfe2ca7; the worktree must start from it).
+Then read the brief whole: C:/Users/user/OneDrive/Documents/ChatGPT/Game/research/TASK_TRAIN1_FLOOR_MOVE_PICKER.md
+and do SLICE 1 exactly as it says (station pins on the floor -> StationMovePicker pop-up -> fighter -> moves for that station with the animated preview -> TRAIN THIS), test first, gates as listed.
+Commit (never *.import) and `git push origin cline/seat`. Print the test's output lines at the end.
+Never open any window, image or browser. Work ONLY inside E:/FightCamp/wt/CLINE.

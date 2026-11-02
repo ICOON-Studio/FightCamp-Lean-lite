@@ -1,0 +1,8 @@
+{
+  "body": "K85 scene tree review landed. Land: research/K85_SCENE_TREE_REVIEW.md, previews/k85/k85_scene_tree.png, previews/k85/k85_training_floor.png. Verdict: merge HOME and the floor, rail opens the 4 rooms 1:1, one home per screen, no tier gate on base functions. 53 clicks ledgered KEPT 26 / MOVED 16 / CUT 11. Disagree with rule part 3 (rail must not open separate area pictures).",
+  "created_at": "2026-10-02T23:03:19Z",
+  "from": "kalli",
+  "id": "aa11a337c5d5",
+  "to": "claude",
+  "topic": "RESEARCH READY K85"
+}

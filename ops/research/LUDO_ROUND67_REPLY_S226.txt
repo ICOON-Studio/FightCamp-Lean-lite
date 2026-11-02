@@ -1,0 +1,333 @@
+<!-- Ludo round 67 (market card, operator 'too blunt' screenshot uploaded) verbatim, S226, 31663 chars -->
+FIGHTCAMP (S226) — ROUND 67: THE WORLD MARKET TACTICAL CARD SPEC
+
+Document Reference: FC-UI-S226-MARKET-CARD-REDESIGN
+
+Target: 480 × 1080 px Docked Right-Hand Panel (Godot 4.7 Forward+ / CanvasItem UI)
+
+Palette: Maria’s Gleason Gym Master Spec (Gold #f0c233, Antique Brass #d4af37 / #b8933b, Oxblood #c62f2a / #8b1e1b, Cream Paper #f6f0e0, Steel #2b2f36, Charcoal #1d1c1a / #242220)
+
+PART A: WHY TODAY’S CARD READS "BLUNT"
+
+The CEO’s term—"blunt"—is precise. In typography and industrial UI design, "blunt" means lack of nuance, absence of rhythm, crude proportions, and missing tactile craft. The current build commits five clear errors:
+
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                   ANATOMY OF THE "BLUNT" CARD                                    │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                                  │
+│   [1. DESERT OF DEAD SPACE]         [2. RAW SPREADSHEET BARS]     [3. UNROOTED TYPOGRAPHY]       │
+│   ~550 px of empty cardboard        3 unadorned horizontal lines  Tiny sans-serif raw text       │
+│   between the stats and CTA;        stretching edge-to-edge;      lacks weight, tracking, brass  │
+│   reads like an unfinished form.    looks like debug telemetry.   plates, or editorial tone.     │
+│             │                                   │                            │                   │
+│             ▼                                   ▼                            ▼                   │
+│       ───[ 480 x 1080 px DOCKED CARD: ZERO TACTILE CRAFT, ZERO BOXING SOUL ]───                  │
+│             ▲                                   ▲                            ▲                   │
+│             │                                   │                            │                   │
+│   [4. UNUSED WORLD DATA]            [5. FLAT CARTON TEXTURE]      [6. STERILE TRANSITIONS]       │
+│   We have combat sport culture,     Solid matte #1d1c1a with      Instant cut; no physical stamp,│
+│   cities, federations, rival gyms,  no inner bevel, leather grain, no count-up, no mechanical   │
+│   and events—none are shown!        screws, or stamped brass.     weight when a country changes. │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+Dead Space Reads as "Abandoned": A 1080p card with only 250 px of active content signals to the player: "We ran out of time or ideas here." Shipped PC games (Motorsport Manager, Crusader Kings III, Victoria 3) treat cards like physical docket folios filled with dense, useful intelligence.
+Three Naked Horizontal Bars Look Like a Mobile Benchmark: Stretching three identical 100% width colored lines across a black box is the universal shorthand of wireframe prototypes. It has no framing, no gauge feel, and no material depth.
+Missing Boxing Culture: FightCamp is a combat management sim. Showing only generic numbers (ECONOMY, TALENT) while burying the rich data we already have (Boxing vs. MMA culture, London/Manchester rivalry, the British Boxing Board of Control, local venues) strips out all the thematic texture of setting up a fight gym.
+No Visual Craft or Physical Skeuomorphism: In Maria’s aesthetic, paper is cream newsprint or aged parchment; brass is screwed-in or stamped; leather is dark and stitched. Today’s card is a flat, extruded CSS box.
+PART B: THE COMPLETE NEW CARD SPEC (TOP TO BOTTOM)
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ FIGHTCAMP MARKET DOSSIER (Total Dimensions: 480 px wide × 1080 px tall)      │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│ ┌──────────────────────────────────────────────────────────────────────────┐ │
+│ │ BLOCK 01: HERITAGE HEADER BLOCK                        [Height: 116 px]  │ │
+│ │ Flag (48x32) + Nation Title + Brass Seal + Tier Ribbon                   │ │
+│ └──────────────────────────────────────────────────────────────────────────┘ │
+│ ╞═══════════════════ ENGRAVED BRASS ACCENT STRIP (4 px) ═══════════════════╡ │
+│ ┌──────────────────────────────────────────────────────────────────────────┐ │
+│ │ BLOCK 02: THE BIG THREE PILLARS (CORE GAUGES)          [Height: 168 px]  │ │
+│ │ Combat Popularity (Gold) • Talent Depth (Oxblood) • Economy (Steel/Brass)│ │
+│ └──────────────────────────────────────────────────────────────────────────┘ │
+│ ├─────────────────── INSET HAIRLINE GROOVE (2 px) ────────────────────────┤ │
+│ ┌──────────────────────────────────────────────────────────────────────────┐ │
+│ │ BLOCK 03: COMBAT SPORT CULTURE MATRIX                  [Height: 144 px]  │ │
+│ │ Boxing • MMA • Muay Thai • Wrestling • Kickboxing (Ranked Badge Chips)   │ │
+│ └──────────────────────────────────────────────────────────────────────────┘ │
+│ ├─────────────────── INSET HAIRLINE GROOVE (2 px) ────────────────────────┤ │
+│ ┌──────────────────────────────────────────────────────────────────────────┐ │
+│ │ BLOCK 04: SANCTIONING BODIES & FEDERATIONS             [Height: 88 px]   │ │
+│ │ Real national boards, governance badges & regulatory status              │ │
+│ └──────────────────────────────────────────────────────────────────────────┘ │
+│ ├─────────────────── INSET HAIRLINE GROOVE (2 px) ────────────────────────┤ │
+│ ┌──────────────────────────────────────────────────────────────────────────┐ │
+│ │ BLOCK 05: METROPOLITAN HUBS & RIVAL GYMS (TABBED/LIST) [Height: 336 px]  │ │
+│ │ Cities selector, gym counts, local arenas, and rival outfits             │ │
+│ └──────────────────────────────────────────────────────────────────────────┘ │
+│ ├─────────────────── INSET HAIRLINE GROOVE (2 px) ────────────────────────┤ │
+│ ┌──────────────────────────────────────────────────────────────────────────┐ │
+│ │ BLOCK 06: PRIMARY CTA "ESTABLISH HEADQUARTERS"         [Height: 92 px]   │ │
+│ │ Heavy chamfered championship gold button with brass screw heads          │ │
+│ └──────────────────────────────────────────────────────────────────────────┘ │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+Card Foundation Shell
+Position: Docked flush right: $X = 1440\text{ px}$ to $1920\text{ px}$, $Y = 0\text{ px}$ to $1080\text{ px}$.
+Background Material: Deep Oiled Charcoal (#1a1918) with a $2.5%$ procedural fine leatherette grain overlay.
+Border Structure:
+Left Edge Border: $3\text{ px}$ Solid Brushed Brass (#d4af37), Roughness 0.30, Metallic 0.85.
+Top/Bottom/Right: Flush to screen edges.
+Inner Inset: $6\text{ px}$ margin around all internal contents with a $1.0\text{ px}$ subtle chamfered groove (#100f0e shadow, #2f2d2a highlight).
+BLOCK 01: HERITAGE HEADER BLOCK (Height: 116 px)
+Container: $468\text{ px} \times 116\text{ px}$, Background: Dark Burnished Steel Plate (#22201e), soft vertical gradient from #292724 at top to #1c1b19 at bottom.
+Layout:
+Flag Frame ($X: 18, Y: 18$): $54\text{ px} \times 36\text{ px}$ SVG flag frame. Encased in a $2\text{ px}$ cast brass bezel (#d4af37) with a $2\text{ px}$ rounded corner. Underneath: $4\text{ px}$ contact drop shadow (#000000 at $65%$).
+Nation Title ($X: 84, Y: 14$):
+Font: League Gothic / DIN 1451 Condensed Bold, $34\text{ pt}$ ($40\text{ px}$ line height), uppercase.
+Color: Aged Cream Paper (#f6f0e0).
+Drop Shadow: $1\text{ px}$ down (#000000 at $90%$).
+Tier Ribbon Badge ($X: 84, Y: 56$):
+Style: Stamped Brass Ribbon / Cartouche.
+Background: Recessed Dark Brass Plate (#2e2718).
+Border: $1\text{ px}$ Chamfered Gold (#b8933b).
+Height: $20\text{ px}$, Width: auto-fit with $10\text{ px}$ padding.
+Text: "TIER 1 COMBAT REGION" in Oswald Bold, $11\text{ pt}$, Ochre Gold (#d4af37), letter spacing $+1.5\text{ px}$.
+National Heritage Seal ($X: 412, Y: 18$):
+Size: $38\text{ px} \times 38\text{ px}$.
+Icon: Die-cast brass circular emblem with an etched boxing laurel wreath (Lucide award / custom SVG) in Antique Brass (#b8933b at $75%$ opacity).
+Bottom Divider: $4\text{ px}$ Engraved Brushed Brass Accent Strip (#d4af37 base, top bevel #fae29c, bottom groove #100f0e).
+BLOCK 02: THE BIG THREE PILLARS — CORE METRIC GAUGES (Height: 168 px)
+
+Rather than thin, generic lines, each of the three foundational variables gets a dedicated tactical gauge row ($46\text{ px}$ tall each).
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ [ICON] COMBAT POPULARITY                         92 / 100 [GRADE: S]         │
+│ ┌──────────────────────────────────────────────────────────────────────────┐ │
+│ │██████████████████████████████████████████████████████████░░░░░░░░░░░░░░│ │ │
+│ └──────────────────────────────────────────────────────────────────────────┘ │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+
+Row 1: COMBAT POPULARITY (Y: 126 to 172)
+
+Icon: Lucide flame ($16\text{ px} \times 16\text{ px}$, Championship Gold #f0c233).
+Label: "COMBAT POPULARITY", Oswald Medium, $12\text{ pt}$, Cream (#f6f0e0), uppercase.
+Numeric Value: "92" in League Gothic Bold, $20\text{ pt}$, Pure Gold (#f0c233); "/ 100" in Oswald Regular, $11\text{ pt}$, Muted Steel (#8e8a82).
+Grade Badge: Rectangular brass stamp on right edge: "GRADE S", Font $10\text{ pt}$, Background #2d2412, Border #f0c233.
+Gauge Track: Height $12\text{ px}$, Background #131211 (Deep recessed groove with $1\text{ px}$ inner shadow).
+Gauge Fill: Layered segmented bar:
+Color: Championship Gold (#f0c233) with subtle $45^\circ$ tactile diagonal micro-stripes.
+Right Leading Edge: $2\text{ px}$ Pure White-Gold spark cap (#fff5db) with active bloom.
+
+Row 2: TALENT DEPTH (Y: 180 to 226)
+
+Icon: Lucide users ($16\text{ px} \times 16\text{ px}$, Oxblood Red #c62f2a).
+Label: "TALENT DEPTH", Oswald Medium, $12\text{ pt}$, Cream (#f6f0e0).
+Numeric Value: "90 / 100" (#c62f2a), Grade: "GRADE A+".
+Gauge Track: Height $12\text{ px}$, Background #131211.
+Gauge Fill: Rich Leather Oxblood (#c62f2a), with an upper specular glint line (#e05a55).
+
+Row 3: ECONOMIC MARKET (Y: 234 to 280)
+
+Icon: Lucide coins ($16\text{ px} \times 16\text{ px}$, Muted Antique Brass #b8933b).
+Label: "MEDIA ECONOMY & PURSES", Oswald Medium, $12\text{ pt}$, Cream (#f6f0e0).
+Numeric Value: "74 / 100" (#d4af37), Grade: "GRADE B+".
+Gauge Track: Height $12\text{ px}$, Background #131211.
+Gauge Fill: Burnished Commercial Brass (#b8933b) fading to #917228.
+Bottom Divider: $2\text{ px}$ Inset Hairline Groove (#100f0e / #2b2f36).
+BLOCK 03: COMBAT SPORT CULTURE MATRIX (Height: 144 px)
+
+Displays the real per-sport culture score (0-100) dynamically populated for each country. Shows which sports dominate the territory.
+
+Header ($Y: 292, Height: 24\text{ px}$):
+
+Icon: Lucide swords ($14\text{ px}$, Brass #b8933b).
+Label: "REGIONAL COMBAT CULTURE & DISCIPLINES", Oswald Bold, $11\text{ pt}$, Ochre Brass (#d4af37), letter spacing $+1.2\text{ px}$.
+
+Content Container ($Y: 320 to 424, Height: 104\text{ px}$):
+
+Layout: Dynamic Grid (2 columns $\times$ 3 rows of compact discipline chips, or horizontal ranked pill bars).
+Sport Chip Specification ($218\text{ px}$ wide $\times 28\text{ px}$ tall):
+Background: Chamfered Oiled Steel Plate (#22201e), $1\text{ px}$ border in #36332e.
+Left Icon: Discipline silhouette (Boxing Glove, MMA Cage, Muay Thai Shin, Wrestling Mat).
+Sport Name: "BOXING" (e.g. UK: $98$), Oswald Bold, $12\text{ pt}$, Cream Paper (#f6f0e0).
+Mini Culture Gauge: Micro-bar ($60\text{ px}$ wide, $4\text{ px}$ tall) embedded flush right with numeric score ("98").
+Dynamic Sport Ranking Hierarchy:
+Tier 1 Sport ($85 - 100$ score, e.g., Boxing in UK, Muay Thai in Thailand): Border snaps to Gold (#f0c233), fill is Gold, text has high-priority badge "HERITAGE".
+Tier 2 Sport ($60 - 84$, e.g., MMA in UK): Border is Oxblood (#c62f2a).
+Tier 3 Sport ($30 - 59$, e.g., Kickboxing / BJJ in UK): Border is muted steel (#36332e), fill is muted slate.
+
+Bottom Divider: $2\text{ px}$ Inset Hairline Groove.
+
+BLOCK 04: SANCTIONING BODIES & REGULATORY BOARDS (Height: 88 px)
+
+Grounds the country in authentic professional boxing lore using the real organizations stored in our database.
+
+Header ($Y: 436, Height: 20\text{ px}$):
+
+Icon: Lucide shield-check ($14\text{ px}$, Antique Brass #b8933b).
+Label: "GOVERNING BODIES & SANCTIONING", Oswald Bold, $11\text{ pt}$, Ochre Brass (#d4af37).
+
+Governance Card ($Y: 460 to 516, Height: 56\text{ px}$):
+
+Background: Dark Recessed Leatherette (#181716), $1\text{ px}$ Brass border (#8c6f2d at $50%$).
+Content:
+Primary Federation Name: e.g., "BRITISH BOXING BOARD OF CONTROL (BBBofC)", League Gothic Bold, $15\text{ pt}$, Cream Paper (#f6f0e0).
+Regulatory Flavor Tag: e.g., "STRICT MEDICAL PROTOCOLS • 12-ROUND CHAMPIONSHIP RULES", Oswald Regular, $10\text{ pt}$, Muted Ochre (#b8933b).
+Jurisdiction Stamp: Mini brass seal icon pinned right ("OFFICIAL").
+
+Bottom Divider: $2\text{ px}$ Inset Hairline Groove.
+
+BLOCK 05: METROPOLITAN HUBS, RIVAL GYMS & ARENAS (Height: 336 px)
+
+The tactical heart of the card. Replaces the dead 500 px void with interactive, authentic regional infrastructure.
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ [ICON] LICENSED HUBS & GYM DENSITY              3 METROS • 27 GYMS TOTAL     │
+│ ┌───────────────┬─────────────────────────────┬────────────────────────────┐ │
+│ │ LONDON (14)   │  MANCHESTER (8)             │  GLASGOW (5)               │ │
+│ └───────────────┴─────────────────────────────┴────────────────────────────┘ │
+│ ┌──────────────────────────────────────────────────────────────────────────┐ │
+│ │ ACTIVE HUB DOSSIER: LONDON                                               │ │
+│ │                                                                          │ │
+│ │ • MAJOR SANCTIONED ARENAS:                                               │ │
+│ │   [ARENA] Wembley Arena (12,500 cap) • York Hall, Bethnal Green (1,200) │ │
+│ │                                                                          │ │
+│ │ • NOTABLE LOCAL RIVAL GYMS:                                              │ │
+│ │   - Peacock Boxing Gym (Canning Town)  • Tier 1 Elite Rival              │ │
+│ │   - Fitzroy Lodge ABC (Lambeth)        • Amateur Talent Factory          │ │
+│ │   - Repton Boxing Club (Bethnal Green) • High Pressure Brawler Base      │ │
+│ │                                                                          │ │
+│ │ • REGIONAL FIGHT EVENTS:                                                 │ │
+│ │   "London Championship Fight Night" • Bi-Monthly Broadcast Card         │ │
+│ └──────────────────────────────────────────────────────────────────────────┘ │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+
+Header ($Y: 528, Height: 24\text{ px}$):
+
+Icon: Lucide map-pin ($14\text{ px}$, Gold #f0c233).
+Label: "METROPOLITAN HUBS & INFRASTRUCTURE", Oswald Bold, $11\text{ pt}$, Ochre Brass (#d4af37).
+Summary Pill (Pinned Right): "3 HUBS • 27 LICENSED GYMS", Background #242220, Border #8c6f2d, $10\text{ pt}$, Cream.
+
+City Selector Segmented Tabs ($Y: 556, Height: 32\text{ px}$):
+
+Horizontal tab bar displaying the country's cities:
+E.g. [ LONDON (14) ] [ MANCHESTER (8) ] [ GLASGOW (5) ].
+Active Tab (London): Heavy Chamfered Plate in Championship Gold (#f0c233), text in Deep Charcoal (#1a1918), Bold $12\text{ pt}$.
+Inactive Tabs: Dark Steel (#242220), text in Muted Cream (#8e8a82), $11\text{ pt}$, border $1\text{ px}$ #36332e.
+
+City Detail Tactical Box ($Y: 594 to 856, Height: 262\text{ px}$):
+
+Background: Aged Newsprint Parchment Card (#201e1c), interior shadow, $1\text{ px}$ Dark Iron border (#33302b).
+Section 1: Registered Sanctioned Arenas ($64\text{ px}$):
+Subheader: Lucide landmark + "CHAMPIONSHIP VENUES", Oswald Bold, $10\text{ pt}$, Ochre (#d4af37).
+Venue Chips: e.g., "York Hall (1,200 cap)", "Wembley Arena (12,500 cap)" rendered in clean dark badges with brass border pins.
+Section 2: Rival Boxing Stables ($118\text{ px}$):
+Subheader: Lucide swords + "LOCAL OPPOSITION & PROMOTERS", Oswald Bold, $10\text{ pt}$, Ochre (#d4af37).
+List of 3 real local gyms from data:
+Line 1: "Peacock Boxing Club" — Elite Heavyweight Stable (Badge: TIER 1)
+Line 2: "Fitzroy Lodge ABC" — Pure Amateur Technical Factory (Badge: SCOUT)
+Line 3: "Repton Boxing Club" — High-Stamina Slugger Roster (Badge: GRIT)
+Section 3: Scheduled Regional Broadcast Events ($56\text{ px}$):
+Subheader: Lucide calendar + "SCHEDULED BROADCAST CALENDAR", Oswald Bold, $10\text{ pt}$, Ochre (#d4af37).
+Event Card: e.g., "London Boxing Trophy Series" • Monthly Tier-2 Circuit.
+
+Bottom Divider: $2\text{ px}$ Inset Hairline Groove.
+
+BLOCK 06: PRIMARY CTA — "ESTABLISH HEADQUARTERS" (Height: 92 px)
+
+Replaces the thin, flat yellow strip with a heavy, satisfying mechanical champion button.
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│  [BRASS BOLT]   ★  ESTABLISH GYM IN UNITED KINGDOM  ★   [BRASS BOLT]         │
+│                 CONFIRM STARTING MARKET & SCOUTING BASE                      │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+Container Area ($Y: 864 to 980, Pinned at bottom):
+Margin: Left $16\text{ px}$, Right $16\text{ px}$, Top $14\text{ px}$, Bottom $14\text{ px}$.
+Button Dimensions: $448\text{ px}$ wide $\times 64\text{ px}$ tall.
+Button Style:
+Shape: $6\text{ px}$ Chamfered Heavy Die-Cast Industrial Plate.
+Normal State Background: Vertical metallic gradient from Brilliant Championship Gold (#f0c233 at top) to Burnished Amber Brass (#c8931b at bottom).
+Top Bevel Lip: $1.5\text{ px}$ highlight in Pure White-Gold (#fff0be).
+Bottom Shadow Lip: $2.5\text{ px}$ deep cast iron rim (#362204).
+Drop Shadow: Screen offset $(0, 4\text{ px})$, blur $8\text{ px}$, #000000 at $85%$.
+Hardware Accents: Stamped brass hex bolts simulated in corners ($6\text{ px}$ round rivets with dark cross-slots).
+Button Typography:
+Primary Line: "ESTABLISH GYM IN UNITED KINGDOM", League Gothic Bold, $22\text{ pt}$, Deep Charcoal (#1a1918), uppercase, drop shadow ($1\text{ px}$ top reflection #fffae6).
+Sub-Label: "CONFIRM INITIAL TRAINING BASE & DOMESTIC CONTRACTS", Oswald Regular, $10\text{ pt}$, Dark Roast Umber (#4a330a).
+Hover State ($80\text{ ms}$ lerp):
+Background shifts to Intense Champagne Gold (#fae29c $\rightarrow$ #deb228).
+Subtle $1.2\times$ emission bloom on outer brass edge.
+Cursor snaps to bespoke brass boxing glove pointer.
+Press / Active State:
+Button translates down $+2\text{ px}$, bottom shadow collapses, audio plays heavy mechanical iron latch sound (sfx_ui_heavy_press.wav).
+PART C: MOTION & STATE TRANSITIONS (NEW COUNTRY PICKED)
+
+When the player clicks a country or selects one from the search menu, the card must not abruptly snap; it executes an orchestral $480\text{ ms}$ mechanical cascade:
+
+========================================================================================================================
+MOTION TIMELINE (TOTAL DURATION: 480 ms)
+========================================================================================================================
+TIMESTAMP    UI ELEMENT                      ANIMATION / EASING                DETAILS
+------------------------------------------------------------------------------------------------------------------------
+t = 0 ms     Card Body Shell                 Flash Tint                        10% luminance flash over 60ms on card border.
+t = 40 ms    Header Block (Flag & Name)      Slide-In + Fade (Ease-Out Cubic)  Slides from X: +30px to 0px; flag fades 0 -> 100%.
+t = 80 ms    Top Metric Gauges (Bars)        Bar Rollout (Ease-Out Back)       Gauges wipe from 0% to target (e.g. 92%) over 320ms.
+t = 120 ms   Numeric Values (92, 90, 74)     Odometer Number Rollup (Linear)   Numbers count rapidly from 00 to target value.
+t = 180 ms   Combat Culture Matrix           Staggered Cascade (Ease-Out)      Each sport chip drops in with a 25ms stagger.
+t = 240 ms   Metropolitan Hubs & Rival Gyms  Wipe Down (Ease-Out Quad)         City tab bar snaps, gym roster reveals from top.
+t = 300 ms   Primary CTA Button              Bounce Settle (Spring Curve)      Scale dips to 0.98, springs back to 1.00 at t = 420ms.
+t = 480 ms   ALL SYSTEMS SETTLED             Idle Breathing Begins             UK selection glow on globe pulses at 2.4s.
+========================================================================================================================
+
+PART D: HOVER & TOOLTIP SPECIFICATION (ONE-LINE PLAIN WORDS)
+
+Every interactive block has a dedicated dark-leather tooltip with brass framing:
+
+Combat Popularity Gauge:
+"Determines domestic ticket sales, TV viewership rights, and the frequency of local broadcast fight offers."
+Talent Depth Gauge:
+"Governs the volume, starting amateur quality, and generational growth ceiling of young prospects in local gyms."
+Media Economy Gauge:
+"Dictates average corporate sponsor payouts, arena rental overhead, and standard fighter purse demands."
+Combat Culture Matrix (e.g., Boxing: 98):
+"National historical dominance in traditional boxing; unlocks top-tier striking sparring partners and veteran coaches."
+Governing Bodies (e.g., BBBofC):
+"The official sanctioning commission; dictates weigh-in tolerance rules, medical suspensions, and mandatory title defences."
+Metropolitan Hub Tabs (e.g., London):
+"Click to inspect regional sub-market facilities, registered opponent gyms, and available amateur training halls."
+Rival Gyms (e.g., Peacock Boxing Club):
+"An established local rival stable; their coaches will actively compete for your scouted amateur recruits."
+Establish Headquarters CTA:
+"Lock in this territory as your primary gym address to begin regional licensing, staff hiring, and facility outfitting."
+PART E: REJECTION RULES (WHAT STILL LOOKS "BLUNT")
+
+The lead artist must reject the next implementation screenshot if any of the following occur:
+
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                 AUTOMATIC REJECTION CHECKLIST                                    │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                                  │
+│   [ ] REJECT if more than 40 px of continuous vertical blank space exists anywhere on the card.  │
+│   [ ] REJECT if the three stat bars are plain flat rectangles without tracks, icons, or grades.  │
+│   [ ] REJECT if the combat sport culture scores (Boxing, MMA, etc.) are omitted or unranked.     │
+│   [ ] REJECT if local cities and rival gym names are missing (it must name actual gyms).         │
+│   [ ] REJECT if the CTA button is a flat unchamfered yellow bar without border bevels or screws. │
+│   [ ] REJECT if the card background is flat grey without the fine leather grain overlay.         │
+│   [ ] REJECT if the number scores appear statically on country switch without rolling up.        │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+PART F: ARCHITECTURAL EVALUATION & CRITICAL PRODUCTION RISK
+Art Director Confidence Score: 9.7 / 10
+Why 9.7: This design completely eliminates the "blunt" accusation by filling every vertical millimeter of the $480 \times 1080$ card with meaningful, authentic, actionable boxing management lore that we already have in the database. It transforms a dead telemetry window into an engrossing tactile dossier that players will spend minutes reading before picking their gym’s home country.
+The One Critical Production Risk: Data Asymmetry Across Small Countries
+The Risk: Large boxing nations (UK, USA, Mexico, Japan) have extensive rosters of cities, federations, rival gyms, and combat sports. However, if a player picks an emerging or smaller market (e.g., Iceland, Ghana, or Uruguay), the database might only contain 1 city, 2 gyms, and no distinct secondary combat disciplines.
+If the UI blindly expects 3 cities and 5 rival gyms, the card will display blank rows, broken tab alignments, or glitchy empty lists—reintroducing the exact "blunt" void we just fixed.
+The Mandatory Mitigation: Author the Godot Control script with a strict graceful fallback container flow:
+If a country has only 1 city, hide the tab bar completely and expand the single city’s arena/gym card to full height.
+If a country lacks listed rival gyms, replace the rival block with a styled Regional Scouting Lore Quote (e.g., "Emerging Frontier Market: Low institutional rivalry provides unchecked local amateur scouting monopoly.").
+This guarantees that whether the player selects the United States or New Zealand, the card remains 100% full, balanced, and visually bulletproof.

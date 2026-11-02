@@ -1,0 +1,6 @@
+﻿=== grok_task 2026-10-02T15:02:28 rc=-1 ws=E:\FightCamp\wt\Q231
+The capture failed because `BroadcastScorebug` is missing from GodotΓÇÖs class cache. IΓÇÖll confirm the previous capture is gone, fix that cache, then finish the four venue renders.
+--- stderr ---
+Auto-compacting conversation (80% full)...
+Conversation compacted.
+

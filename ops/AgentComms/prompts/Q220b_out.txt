@@ -1,0 +1,18 @@
+Warning: running headless with --yolo / approval-mode=yolo and no sandbox. All tool calls (shell, write, edit) auto-execute at this process's privilege level. Enable a sandbox via --sandbox / QWEN_SANDBOX, or set QWEN_CODE_SUPPRESS_YOLO_WARNING=1 to silence this notice.
+Warning: MCP server(s) failed to start: higgsfield. Continuing with built-in tools and any servers that did connect. Re-run with QWEN_CODE_DEBUG=1 to see per-server reasons.
+**Q220 send-back 1 complete.** Summary:
+
+1. **G73 KEEP collapse confirmed**: split_inlet drops UpperChest skin-hold from 47% → 5% on both rigs (f01: 47.94% → 4.79%, f02: 46.65% → 4.67%)
+
+2. **Full geometry sweep** (tool: `q220_g73_measure.gd`):
+   - **10 split radii** (0.02–0.119m): neck reachable only at r ≤ 0.06m, but KEEP stays < 10%
+   - **8 single-thorax fractions** (0.50x–0.95x): neck reachable only at 0.50x on f01 (KEEP=3.9%); f02 neck blocked at ALL radii ≥ 0.60x
+   - **Truncated thorax** (Chest→UpperChest): KEEP=5%, same collapse as split
+
+3. **Root cause**: The thorax cylinder itself (not just its cap) blocks neck approaches. The cylindrical surface that covers UpperChest skin is the SAME extent that blocks the neck. Shortening or shrinking the capsule removes both.
+
+4. **Reverted** FighterCapsules.gd to master. Neck reachability test fails (0/128) as on master.
+
+5. **Blocker reported** to Claude with full numbers in Q220_DIGEST.md. Needs operator decision: new capsule shape, new bone landmark, or constraint relaxation.
+
+Branch `qwen/q220-km3-neck`, commits `ff337ce6` + `e42c25b1`, pushed.

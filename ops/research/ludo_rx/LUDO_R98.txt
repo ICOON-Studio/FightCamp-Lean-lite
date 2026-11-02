@@ -1,0 +1,418 @@
+Round 98 (S234). Your Form Breakdown code is IN the game now (scripts/rules/FormBreakdown.gd, wired on the floor: F = correct form, X = call the rep, auto-ignore after the window; the day engine applies gain/wear through the order; tests green; your one fix: respond("ignore") now returns state IGNORED to match bubble_color). Two parts, longest complete answer; I will say continue if you stop.
+
+PART A - EVALUATE THE OTHER SEATS' IDEAS the same way as r97 (FUN 1-10, COST 1-10 where 10 = cheap, KEEP / MERGE INTO  / CUT, one line why), then give the FINAL merged build order of everything (your r97 order plus any keepers below).
+DOLA: D1 Rhythm & Interval Steering - a tempo bar during a block, nudge Burst/Hold/Recover mid-block (6-12 inputs per block). D2 Cross-Station Synergy Chains - link 2-3 stations into a circuit, time the transitions, complementary pairs give +10-28%. D3 Attention Allocation - the coach has 3-4 focus slots you drag between your boxer's body parts and members (her pick). D4 Wear Threshold & Adaptive Loading - per-part responsiveness meter with soft/hard walls: push through, dial back, redirect; dialing back builds a resilience stat. D5 Ambient Gym Momentum - a Gym Pulse bar from members/walk-ins; match energy, anchor calm, or lead by example.
+KALLI (rated the floor fun 4 / clarity 6 / decisions 3 / juice 6 / one-more-day 3, "a well-lit watch screen with one real choice per block"): K1 Sparring rounds with a read - pick partner + one aim, a 30-second round with one tell to spot and click, the tell feeds the next fight's corner card (her first pick). K2 Strain that bites - at strain 70 a region glows, training on adds a visible 5-20% injury roll. K3 Coach reads on the floor - once a day the coach names a flaw at a station: drill it now (costs the next block) or log it. K4 Member moments - members ask for help (hold the bag, a tip). K5 Station wear you feel - a worn station trains 20% worse, flickers, cracks; serviced from the office. K6 Day-end form check - a 5-second pad test at the bell scores the day and sets tomorrow's form word. K7 Rhythm Window - the coach's 3-beat count at pads/bag, click on the beat, +10% for the block, no penalty for a miss. K8 Corner Rehearsal - at every block end a 10-second card (what the block did) with 3 calls: push the same station / swap to the counter-station (x1.2 paired stat) / ice the region (-10 wear, 20 min) - the fight-night corner card's grammar (her second pick). K9 Load Ledger - a weekly load budget of 100 on his portrait; over 100 doubles injury rolls, under 70 at week end = +1 form on fight day. K10 Mirror Partner - pull a member over to throw the booked opponent's style (+5 readiness, member dues -$5, member mood up). K11 Tape Review on the floor - 30 s of the opponent on the gym's film screen, click the tell on a 5-frame strip. Kalli's cuts: PACE YOURSELF as a card (fold into REST), upgrade on the station ring, week hours on the coach ring, walk-ins' "come back later", heavy bags 3-4 in a one-fighter gym (greyed growth spaces), gain bubbles for 0 ticks.
+
+PART B - FULL CODE for C8 NIGGLE -> PHYSIO (your r97 Phase 1 #2), extending what exists:
+
+The floor now records niggles from ignored dirty reps: GymHall3D.form_niggles = [{"part": , "minute": int}]. Body parts: head_neck, torso_core, left_arm, right_arm, left_leg, right_leg. Soreness per part 0-100 lives in the day engine result (PitStop.wear); the pit stop already has rest services (PitStop.rest(state, services, staff_skill) -> {ok, minutes_used, ...}; services like refuel / ice / massage exist in its table). The club has a PHYSIO room (a place the boxer can walk to) and staff with a physio rating 0-100.
+Write ONE pure GDScript 4 file scripts/rules/Niggle.gd in the FormBreakdown style (extends RefCounted, static funcs, ZERO preloads, NO class_name, deterministic via a pick: float argument, typed, never %%):
+static func from_soreness(soreness: Dictionary, existing: Array, minute: int, pick: float) -&gt; Dictionary - a NEW niggle when a part is past its line and has none yet ({} or {"part", "severity": 1..3, "toast", "quote"}).
+static func train_effect(niggles: Array, station_id: String) -&gt; Dictionary - {"gain_mult", "injury_chance_per_block", "blocked": bool, "reason"} for training a station that loads a niggled part (use the same worked-parts table as FormBreakdown.worked_parts - copy it, no preload).
+static func physio_session(niggle: Dictionary, physio_rating: float, minutes: int) -&gt; Dictionary - {"cleared": bool, "severity_after", "minutes_used", "toast"} - better physio = faster.
+static func push_through(niggle: Dictionary, pick: float) -&gt; Dictionary - the player trains on anyway: {"injured": bool, "days_out": int, "severity_after", "toast"}.
+static func day_end(niggles: Array, rested: bool) -&gt; Array - what carries to tomorrow (a rested niggle heals one severity step). You choose and justify every number. Then tests/niggle_test.gd (extends SceneTree, _initialize(), load the module by path, a failure counter, prints NIGGLE failures=N, quit(0 if failures == 0 else 1)) covering each function and its edges. Then a short INTEGRATION note: the two choices the player sees on the floor when a niggle appears (send to physio / push through), what the physio room shows while he is there.
+PART A: EVALUATION OF DOLA & KALLI'S CONCEPTS & FINAL MASTER BUILD ORDER
+Evaluation Matrix
+
+| ID | Concept | Fun (1–10) | Cost (1–10) | Decision | Reason |
+| :--- | :--- | :---: | :---: | :---: | :--- |
+| D1 | Rhythm & Interval Steering | 3 | 4 | CUT | 6–12 timing clicks per block turns a PC management sim into a tedious rhythm minigame; completely violates the hands-off manager fantasy. |
+| D2 | Cross-Station Synergy Chains | 8 | 7 | MERGE INTO C7 | Planning 2–3 station circuits (e.g., Heavy Bag into Slip Rope) belongs squarely inside the Morning Day Plan interface. |
+| D3 | Attention Allocation | 7 | 6 | MERGE INTO L3 | Allocating coach focus slots across stations and athletes is the core expression of Coach Bandwidth. |
+| D4 | Wear Threshold & Adaptive Loading| 7 | 7 | MERGE INTO C8 | Part-specific wear thresholds leading to adaptation or breakdown are already the foundation of the Niggle/Physio pipeline. |
+| D5 | Ambient Gym Momentum | 4 | 5 | CUT | Adds an abstract global meter ("Gym Pulse") that feels gamified rather than grounding the sim in athletic reality. |
+| K1 | Sparring Rounds with a Read | 9 | 6 | KEEP (MERGE L2) | Kalli's spot-the-tell mechanic delivers the exact tactile bridge between sparring and fight-night corner cards that L2 needed. |
+| K2 | Strain that Bites | 7 | 8 | MERGE INTO C8 | Red glowing regions and visible injury percentages represent the natural UI visualization for Niggle and Form Breakdown states. |
+| K3 | Coach Reads on the Floor | 6 | 8 | MERGE INTO C9 | Flaw callouts ("Drill it now or log it") fit cleanly as daily training cards in the Floor Event Deck. |
+| K4 | Member Moments | 6 | 7 | MERGE INTO C9 | Direct interaction prompts from gym members belong inside the Floor Event Deck alongside member challenges. |
+| K5 | Station Wear You Feel | 5 | 8 | CUT | Equipment maintenance degradation is classic tycoon clutter that distracts from the core athlete development loop. |
+| K6 | Day-End Form Check | 4 | 6 | CUT | A 5-second minigame at the bell interrupts day wrap rhythm; form should be evaluated via the simulation, not a reflex test. |
+| K7 | Rhythm Window (3-Beat Count) | 2 | 7 | CUT | Active QTE clicking during training destroys the PC sim identity (Motorsport Manager / Football Manager benchmark). |
+| K8 | Corner Rehearsal (Block End) | 8 | 8 | KEEP | 10-second end-of-block decision card establishes muscle memory for fight-night corner decisions; excellent tactical bridge. |
+| K9 | Load Ledger (Weekly Budget) | 9 | 8 | KEEP | Critical macro-management layer. Forces trade-offs between peaking for fight night and overtraining into catastrophic injury. |
+| K10 | Mirror Partner | 8 | 8 | MERGE INTO L4 | Paying or leveraging members to replicate the booked opponent's style directly builds Gameplan Readiness. |
+| K11 | Tape Review on Gym Film Screen | 7 | 6 | MERGE INTO L4 | Studying opponent tells on the gym TV is the thematic prep action to unlock Gameplan Readiness. |
+| K-Cuts| Kalli's Floor Cuts | 8 | 10 | KEEP ALL CUTS | Fold Pace Yourself into Rest; kill floor upgrades; remove coach week hours from floor ring; cull inactive heavy bags 3–4. |
+
+Final Master Build Order (All Seats Consolidated)
+Step 1: Tactical Foundation (In Progress)
+L1: Form Breakdown & Audibles (SHIPPED in r97)
+C8: Niggle -> Physio Room (Building NOW in r98 - Part B)
+Kalli's Cuts + Operator Cuts: Strip BEST/GOOD tags, move station upgrades & walk-in policies off floor, fold Pace Yourself, clean up vacant heavy bags.
+Step 2: Micro-Intervention & Flow
+K8: Corner Rehearsal (Block End Card): Gives every station transition a punchy 10-second tactical prompt (Push / Counter-Pair / Ice).
+K9: Load Ledger (Weekly Load Budget): Displays the 100-point weekly strain budget on portrait; anchors risk/reward across the week.
+Step 3: Macro Day Planning & Milestones
+C7: Morning Day Plan (incorporating D2 Circuit Synergies & L3 Coach Bandwidth): Shift clicking to the morning coffee phase.
+C2: Breakthrough Beat ("It Clicked"): Dopamine spike when unlocking technique nodes.
+Step 4: Opposition Prep & Gym Life
+L4: Gameplan Readiness (incorporating K10 Mirror Partner & K11 Tape Review): Scouting reports dictate camp focus.
+L2/K1: Sparring Rounds with a Read: Interactive sparring rounds producing tactical corner cards.
+C9: Floor Event Deck (incorporating K3 Coach Reads, K4 Member Moments, C3 Member Challenges): Dynamic gym flavor.
+PART B: FULL IMPLEMENTATION OF C8 (NIGGLE -> PHYSIO)
+Design Thresholds & Multipliers Justification
+Soreness Trigger Line: Set at >= 70.0 (matching Kalli's K2 Strain that bites). When a body region reaches 70.0 wear, it rolls for a niggle. Base roll is 0.20, scaling up to 0.80 as soreness approaches 100.0.
+Severity Levels (1 to 3):
+Severity 1 (Twitch / Grade 1 Strain): 0.75x gains, 1.30x wear, 4% base injury roll per block.
+Severity 2 (Inflammation / Sprain): 0.45x gains, 1.80x wear, 12% base injury roll per block.
+Severity 3 (Structural Threat): BLOCKED (boxer refuses or is medically forbidden from training stations loading that part). If forced via push-through override, 30% catastrophic injury roll.
+Physio Healing Dynamics:
+Requires meaningful time investment: 30-minute standard block or 60-minute intensive treatment.
+Staff rating scales effectiveness: A novice physio (rating 30) clears Severity 1 in 60 min; an elite physio (rating 80+) clears Severity 1 in 30 min and downgrades Severity 2/3 efficiently.
+Push-Through Stakes:
+Ignoring or forcing a workout through a niggle rolls against injury_chance_per_block.
+Failure causes an acute tear/fracture (days_out: 7 to 28), destroying camp momentum. Success leaves the niggle escalated (severity + 1).
+Day-End Healing:
+Resting overnight without aggravating the part drops severity by 1. Severity 1 clears completely to 0.
+scripts/rules/Niggle.gd
+# scripts/rules/Niggle.gd
+# Deterministic rule engine for Body Part Niggles, Physio Treatment, and Injury Risk.
+# Pure GDScript 4: RefCounted, static funcs only, zero preloads, no class_name.
+extends RefCounted
+
+const SORENESS_NIGGLE_LINE: float = 70.0
+
+# Table of body parts loaded by each station (mirrored from FormBreakdown, zero preload)
+static func worked_parts(station_id: String) -> Array:
+	match station_id:
+		"heavy_bag":
+			return ["left_arm", "right_arm", "torso_core"]
+		"speed_bag":
+			return ["left_arm", "right_arm"]
+		"ring_sparring":
+			return ["head_neck", "torso_core", "left_arm", "right_arm", "left_leg", "right_leg"]
+		"pads":
+			return ["left_arm", "right_arm", "torso_core"]
+		"defence_drill":
+			return ["head_neck", "torso_core", "left_leg", "right_leg"]
+		"move_cards":
+			return ["torso_core", "left_arm", "right_arm"]
+		"treadmill":
+			return ["left_leg", "right_leg", "torso_core"]
+		"bike":
+			return ["left_leg", "right_leg"]
+		"recovery":
+			return []
+		"agility_ladder":
+			return ["left_leg", "right_leg"]
+		"power_rack":
+			return ["left_leg", "right_leg", "torso_core"]
+		"olympic_platform":
+			return ["left_leg", "right_leg", "torso_core", "right_arm", "left_arm"]
+		"weights":
+			return ["left_arm", "right_arm", "torso_core"]
+		_:
+			return ["torso_core"]
+
+
+static func from_soreness(soreness: Dictionary, existing: Array, minute: int, pick: float) -> Dictionary:
+	var existing_parts: Array = []
+	for n in existing:
+		if n is Dictionary:
+			existing_parts.append(String(n.get("part", "")))
+
+	var candidates: Array = []
+	for part_key in soreness.keys():
+		var p: String = String(part_key)
+		if existing_parts.has(p):
+			continue
+		var val: float = float(soreness.get(p, 0.0))
+		if val >= SORENESS_NIGGLE_LINE:
+			candidates.append({"part": p, "val": val})
+
+	if candidates.is_empty():
+		return {}
+
+	# Sort candidates descending by soreness value
+	candidates.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
+		return float(a.get("val", 0.0)) > float(b.get("val", 0.0))
+	)
+
+	var target: Dictionary = Dictionary(candidates[0])
+	var target_part: String = String(target.get("part", ""))
+	var target_val: float = float(target.get("val", 70.0))
+
+	# Risk scales from 0.20 at 70 soreness to 0.80 at 100 soreness
+	var threshold_span: float = clamp((target_val - SORENESS_NIGGLE_LINE) / 30.0, 0.0, 1.0)
+	var chance: float = 0.20 + (threshold_span * 0.60)
+
+	if pick < chance:
+		var sev: int = 1
+		if target_val >= 90.0 and pick < (chance * 0.5):
+			sev = 2
+
+		var part_display: String = target_part.replace("_", " ").capitalize()
+		return {
+			"part": target_part,
+			"severity": sev,
+			"minute": minute,
+			"toast": "Niggle Warning: %s inflamed!" % part_display,
+			"quote": "His %s is visibly locked up. Pushing through risks a major tear." % target_part.replace("_", " ")
+		}
+
+	return {}
+
+
+static func train_effect(niggles: Array, station_id: String) -> Dictionary:
+	var parts: Array = worked_parts(station_id)
+	if parts.is_empty():
+		return {
+			"gain_mult": 1.0,
+			"wear_mult": 1.0,
+			"injury_chance_per_block": 0.0,
+			"blocked": false,
+			"reason": ""
+		}
+
+	var max_sev: int = 0
+	var afflicted_part: String = ""
+
+	for n in niggles:
+		if not (n is Dictionary):
+			continue
+		var p: String = String(n.get("part", ""))
+		if parts.has(p):
+			var s: int = int(n.get("severity", 1))
+			if s > max_sev:
+				max_sev = s
+				afflicted_part = p
+
+	if max_sev == 0:
+		return {
+			"gain_mult": 1.0,
+			"wear_mult": 1.0,
+			"injury_chance_per_block": 0.0,
+			"blocked": false,
+			"reason": ""
+		}
+
+	var part_display: String = afflicted_part.replace("_", " ")
+
+	if max_sev >= 3:
+		return {
+			"gain_mult": 0.10,
+			"wear_mult": 2.50,
+			"injury_chance_per_block": 0.30,
+			"blocked": true,
+			"reason": "Station blocked: Severe injury threat to %s!" % part_display
+		}
+	elif max_sev == 2:
+		return {
+			"gain_mult": 0.45,
+			"wear_mult": 1.80,
+			"injury_chance_per_block": 0.12,
+			"blocked": false,
+			"reason": "High risk: Acute %s strain degrades technique." % part_display
+		}
+	else:
+		return {
+			"gain_mult": 0.75,
+			"wear_mult": 1.30,
+			"injury_chance_per_block": 0.04,
+			"blocked": false,
+			"reason": "Compromised: Minor %s tweak active." % part_display
+		}
+
+
+static func physio_session(niggle: Dictionary, physio_rating: float, minutes: int) -> Dictionary:
+	var sev: int = int(niggle.get("severity", 1))
+	var part: String = String(niggle.get("part", "body"))
+	var part_display: String = part.replace("_", " ")
+
+	# Effective recovery points: (physio_rating 0-100 / 100) * minutes
+	# 30 min @ rating 50 = 15.0 pts.
+	# 60 min @ rating 80 = 48.0 pts.
+	var work_done: float = (clamp(physio_rating, 10.0, 100.0) / 100.0) * float(minutes)
+
+	var sev_drop: int = 0
+	if work_done >= 40.0:
+		sev_drop = 2
+	elif work_done >= 18.0:
+		sev_drop = 1
+	elif work_done >= 8.0 and sev == 1:
+		sev_drop = 1
+
+	var new_sev: int = max(0, sev - sev_drop)
+	var cleared: bool = (new_sev == 0)
+
+	var toast_msg: String = ""
+	if cleared:
+		toast_msg = "Physio Cleared: %s restored!" % part_display.capitalize()
+	else:
+		toast_msg = "Physio Managed: %s reduced to Tier %d" % [part_display.capitalize(), new_sev]
+
+	return {
+		"cleared": cleared,
+		"severity_after": new_sev,
+		"minutes_used": minutes,
+		"toast": toast_msg
+	}
+
+
+static func push_through(niggle: Dictionary, pick: float) -> Dictionary:
+	var sev: int = int(niggle.get("severity", 1))
+	var part: String = String(niggle.get("part", "body"))
+	var part_display: String = part.replace("_", " ")
+
+	var base_injury_risk: float = 0.08
+	if sev == 2:
+		base_injury_risk = 0.22
+	elif sev >= 3:
+		base_injury_risk = 0.50
+
+	if pick < base_injury_risk:
+		# Catastrophic structural injury
+		var days: int = 7 + int(pick * 21.0) # 7 to 28 days
+		return {
+			"injured": true,
+			"days_out": days,
+			"severity_after": 3,
+			"toast": "TEAR CONFIRMED: %s ruptured! Out %d days." % [part_display.capitalize(), days]
+		}
+	else:
+		# Escaped immediate rupture, but inflammation worsens
+		var next_sev: int = min(3, sev + 1)
+		return {
+			"injured": false,
+			"days_out": 0,
+			"severity_after": next_sev,
+			"toast": "Pushed Through: %s aggravated to Severity %d." % [part_display.capitalize(), next_sev]
+		}
+
+
+static func day_end(niggles: Array, rested: bool) -> Array:
+	var survivors: Array = []
+	for n in niggles:
+		if not (n is Dictionary):
+			continue
+		var item: Dictionary = n.duplicate()
+		var sev: int = int(item.get("severity", 1))
+
+		if rested:
+			sev -= 1
+		
+		if sev > 0:
+			item["severity"] = sev
+			survivors.append(item)
+
+	return survivors
+
+tests/niggle_test.gd
+# tests/niggle_test.gd
+# Headless test runner for Niggle & Physio rule engine.
+extends SceneTree
+
+func _initialize() -> void:
+	var Niggle = load("res://scripts/rules/Niggle.gd")
+	var failures: int = 0
+	print("--- BEGIN NIGGLE & PHYSIO TESTS ---")
+
+	# Test 1: Soreness under 70 never triggers niggle
+	var low_soreness: Dictionary = {"left_arm": 68.0, "torso_core": 50.0}
+	var res1: Dictionary = Niggle.from_soreness(low_soreness, [], 100, 0.01)
+	if not res1.is_empty():
+		print("FAIL: Niggle spawned from soreness below 70.0 threshold.")
+		failures += 1
+
+	# Test 2: Soreness >= 70 spawns niggle on highest afflicted part
+	var high_soreness: Dictionary = {"left_arm": 85.0, "right_arm": 40.0}
+	var res2: Dictionary = Niggle.from_soreness(high_soreness, [], 100, 0.10)
+	if res2.is_empty() or res2.get("part") != "left_arm":
+		print("FAIL: High soreness failed to trigger niggle on worst part.")
+		failures += 1
+
+	# Test 3: Existing niggle on part prevents duplicate creation
+	var existing_niggles: Array = [{"part": "left_arm", "severity": 1, "minute": 50}]
+	var res3: Dictionary = Niggle.from_soreness(high_soreness, existing_niggles, 100, 0.01)
+	if not res3.is_empty():
+		print("FAIL: Created duplicate niggle for already afflicted part.")
+		failures += 1
+
+	# Test 4: train_effect recognizes worked parts and applies severity 1 penalty
+	var niggles_t1: Array = [{"part": "left_arm", "severity": 1}]
+	var eff_hb: Dictionary = Niggle.train_effect(niggles_t1, "heavy_bag")
+	if float(eff_hb.get("gain_mult", 1.0)) != 0.75 or bool(eff_hb.get("blocked", false)):
+		print("FAIL: Severity 1 heavy bag training effect incorrect.")
+		failures += 1
+
+	# Test 5: Unrelated station is unaffected by niggle
+	var eff_bike: Dictionary = Niggle.train_effect(niggles_t1, "bike")
+	if float(eff_bike.get("gain_mult", 0.0)) != 1.0 or float(eff_bike.get("injury_chance_per_block", 1.0)) != 0.0:
+		print("FAIL: Bike was penalized for left arm niggle.")
+		failures += 1
+
+	# Test 6: Severity 3 blocks station access
+	var niggles_t3: Array = [{"part": "left_arm", "severity": 3}]
+	var eff_t3: Dictionary = Niggle.train_effect(niggles_t3, "heavy_bag")
+	if not bool(eff_t3.get("blocked", false)) or float(eff_t3.get("injury_chance_per_block", 0.0)) != 0.30:
+		print("FAIL: Severity 3 did not block station or specify 30% danger.")
+		failures += 1
+
+	# Test 7: Physio session clears severity 1 with skilled physio in 30 min
+	var n_sev1: Dictionary = {"part": "left_arm", "severity": 1}
+	var phys_res: Dictionary = Niggle.physio_session(n_sev1, 75.0, 30)
+	if not bool(phys_res.get("cleared", false)) or int(phys_res.get("severity_after", -1)) != 0:
+		print("FAIL: Skilled 30m physio did not clear severity 1 niggle.")
+		failures += 1
+
+	# Test 8: Low-rated physio in short time fails to clear severity 2
+	var n_sev2: Dictionary = {"part": "left_arm", "severity": 2}
+	var phys_weak: Dictionary = Niggle.physio_session(n_sev2, 20.0, 30)
+	if bool(phys_weak.get("cleared", true)) or int(phys_weak.get("severity_after", 0)) != 2:
+		print("FAIL: Weak physio prematurely cleared severity 2 niggle.")
+		failures += 1
+
+	# Test 9: Push through causes catastrophic injury when roll fails
+	var push_inj: Dictionary = Niggle.push_through(n_sev2, 0.05) # below 0.22 risk
+	if not bool(push_inj.get("injured", false)) or int(push_inj.get("days_out", 0)) < 7:
+		print("FAIL: Push-through failed to trigger injury on low roll.")
+		failures += 1
+
+	# Test 10: Push through escalates severity when injury avoided
+	var push_esc: Dictionary = Niggle.push_through(n_sev1, 0.90) # above 0.08 risk
+	if bool(push_esc.get("injured", true)) or int(push_esc.get("severity_after", 0)) != 2:
+		print("FAIL: Push-through without injury failed to escalate severity.")
+		failures += 1
+
+	# Test 11: day_end healing drops severity by 1 when rested
+	var night_niggles: Array = [
+		{"part": "left_arm", "severity": 2},
+		{"part": "left_leg", "severity": 1}
+	]
+	var tomorrow: Array = Niggle.day_end(night_niggles, true)
+	if tomorrow.size() != 1 or int(tomorrow[0].get("severity", 0)) != 1 or tomorrow[0].get("part") != "left_arm":
+		print("FAIL: Day-end rest resolution incorrect.")
+		failures += 1
+
+	print("NIGGLE failures=%d" % failures)
+	quit(0 if failures == 0 else 1)
+
+INTEGRATION NOTE: FLOOR INTERACTION & PHYSIO CLINIC UX
+1. Two Floor Choices When a Niggle Fires
+
+When Niggle.from_soreness() triggers (or an ignored Form Breakdown escalates):
+
+Visual Cue: The afflicted body region on the boxer’s floor paper doll begins pulsing amber/red (K2 Strain that bites). A sharp medical tape/ice audio stinger plays.
+The Interaction Ring Pop-Up:
+[P] - "WALK TO PHYSIO" (Recommended):
+Cancels remainder of active station block without penalty.
+Queues an automatic walk to the Physio Clinic room on the perimeter.
+Opens treatment duration selector: 30 min Quick Flush vs. 60 min Deep Remedial.
+Tooltip reads: "Physio Staff Skill: 72 -> 92% chance to fully clear strain before afternoon session."
+[T] - "PUSH THROUGH" (The Gambler's Choice):
+Boxer grimaces and continues workout.
+Station tooltip switches immediately: shows active penalties (e.g. 0.45x Gain, +80% Wear) and a vivid red skull badge: "12% Tear Risk per Block".
+If the block completes safely, severity escalates by +1. If it fails, boxer collapses, triggering an immediate multi-week medical camp shutdown.
+2. What the Physio Room Shows While He Is There
+In-Game Camera & Floor Life: The boxer lies face down on the physio treatment table or sits with ice packs strapped to the afflicted limb. The staff physio actively plays a rhythmic treatment animation (adjusting joint, running ultrasound wand, or strapping tape).
+Treatment Progress Bar: A focused circular progress HUD appears over the room roof:
+Shows active reduction points: e.g. Treatment Progress: 28 / 40 pts.
+Real-time text log above the table: "Releasing knot in left shoulder capsule... tension dropping."
+On Completion: The boxer stands up, shakes out the arm/leg with a clean fluid idle animation, a green floating text pops: "LEFT ARM CLEARED", and he automatically walks to the queued station or recovery lounge.
+Can you implement the complete niggle module and `tests/niggle_test.gd` with the chosen severity, treatment, and push-through numbers?
+Can you show the exact final merged build order, including dependencies between Form Breakdown, coach bandwidth, sparring, niggles, and gameplan readiness?
+Can you write the floor integration code connecting niggle prompts, physio routing, push-through choices, and the existing FormBreakdown signals?
+Can you generate a visual mockup of the floor niggle prompt and physio-room treatment HUD?
+Copyright ©2026 Ludo.ai. All Rights Reserved.

@@ -1,0 +1,14 @@
+Warning: running headless with --yolo / approval-mode=yolo and no sandbox. All tool calls (shell, write, edit) auto-execute at this process's privilege level. Enable a sandbox via --sandbox / QWEN_SANDBOX, or set QWEN_CODE_SUPPRESS_YOLO_WARNING=1 to silence this notice.
+Warning: MCP server(s) failed to start: higgsfield. Continuing with built-in tools and any servers that did connect. Re-run with QWEN_CODE_DEBUG=1 to see per-server reasons.
+TASK Q228 is done and pushed: commit `7abc36ea` on `qwen/q228-film-room` (new branch on origin), 15 files.
+
+**What shipped**
+- `Godot/scripts/FilmRoom3D.gd` — K47's room at its metres: 7×5×3, cut-away front/right, window + three downlights, screen the brightest object with a lit frame, sofa/coffee table/rug, rolling whiteboard, binder shelf, built-in desk, coach with laser dot on the paused footage, two note-takers. Board, screen and laptop lid are SubViewport render textures, so every word on them is the game's read.
+- `Godot/scripts/FilmRoomPanel.gd` — one read per rebuild (next booked opponent: name, record, style, stance, coach line, recommended focus — the same read FightCampPanel's scouting line uses); empty state = dark screen + "NO OPPONENT ON FILM"; hover = 12-edge brass outline + ≤14-char label; five clickables routing to the camp tab / scouting hub.
+- `SceneRouter.gd` one route line; `FightCampPanel.gd` one WATCH FILM icon button beside the scouting read (words in the tooltip).
+- `Tools/blender_rooms/film_whiteboard.py` → `assets/models/rooms/film/whiteboard_stand.glb` (the one custom prop).
+- `tests/film_room_test.gd`, `tools/q228_render.gd`, `docs/previews/q228/*` (stills + before/after sheets), `research/Q228_DIGEST.md`.
+
+**Gates**: parse gate on all six scripts; film_room_test 0 failures (two booked fighters with chosen plans/stances, control arm, click rays, hover, routes, camp button); mutation check done — hard-coding the board's STYLE line failed exactly one assertion, then reverted; slice `--only film_room,fight_camp,scene_router,smoke` = 5/0. Review sheet vs `room_film_k47_a.png`: SILHOUETTE 3→4, LIGHT 3→4, MATERIAL 3→4, LIFE 3→4, CLARITY 4→4, BAR 2→3 — no row down, both lowest rows up.
+
+**Two things to know**: `tests/scene_router_test.gd` holds the route registry as an explicit contract (43 ids) — my route makes 44, so I added one line there (the only file outside my owned list; flagged in the digest and to Claude). And board offers carry no due week, so only `event|`/`amateur|`/`gp|` bookings produce a camp read — the test and render use fight_camp_test's world-event fixture; the room degrades honestly otherwise. Claude has the digest and will write the HANDOFF block.

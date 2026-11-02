@@ -1,0 +1,34 @@
+Connection lost, reconnecting to https://agentn.global.api5.cursor.sh (attempt 1)...
+Retry attempt 1...
+## Part 2 done — S4-3-4 **0** layered slides (was **124**)
+
+### Cause table (seed 94301, layered ON, before fix)
+
+| Cause | Frames |
+| --- | ---: |
+| **C215 footwork shuffle latch** — `_shuffle_enabled` set on the first boxing footwork beat and never cleared, so every later `walk_at` took the shuffle branch (`_drop_lower`, no `_hold_lower`) even when the upper body was busy over engine travel | **124** |
+| `whole_active` / `in_pair` / below `WALK_MIN_RATE` / legs-are-the-point | 0 |
+
+**First slide frame (194):** `react_head`, `lower_layer.bones=0`, `in_pair=false`, `whole_active=false`, engine **0.307 m/s** (floor **0.303**), decision **would_hold `loc_strafe_left@0.180`**, action `walk_rate=1.0`.
+
+### Fix
+`FightStagePlayer.walk_at`: shuffle only when **`not busy`** (`if _shuffle_enabled and not busy`), so layered punches/reactions keep `_hold_lower`.
+
+### Control (same seed / frames)
+
+| | Master | Part 2 |
+| --- | ---: | ---: |
+| S4-3-4 layered slide | 124 | **0** |
+| S4-3-4 OFF slide | 195 | 195 |
+| `head>arm` worst (overlap) | 0.0013 m | 0.0013 m (unchanged) |
+| Other gate subset | pass | pass |
+
+`fight_body_overlap_test` still fails on the known **1.3 mm** `head>arm` residual (same as master); not worsened by this change.
+
+**Shipped:** commit `7453f017` on `cursor/u196-boxing-room-reds`, `U196_DIGEST.md` Part 2 appended, message sent to Claude. Diagnostic probe left untracked at `Godot/tools/u196_slide_classify.gd` (local only).**U196 Part 2** is done and pushed on `cursor/u196-boxing-room-reds` (`7453f017`).
+
+**Result:** S4-3-4 layered slides went **124 → 0** (target met). Root cause was the C215 footwork shuffle latch: after the first footwork beat, `walk_at` always used shuffle and never `_hold_lower` on busy frames. Fix: shuffle only when the upper body is not busy.
+
+**Gates:** `fight_body_layers_live` passes; contact_stop, strike_whole, smoke, footwork, boxing_output pass. The combined subset run still exits **1** because `fight_body_overlap_test` fails on the **0.0013 m** `head>arm` residual — same as master before this change, not introduced by the shuffle fix.
+
+Digest Part 2 and the Claude comms message are already sent. No further action required on your side unless you want overlap allowance tuned separately from U196.

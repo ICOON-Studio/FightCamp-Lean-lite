@@ -1,0 +1,20 @@
+Warning: running headless with --yolo / approval-mode=yolo and no sandbox. All tool calls (shell, write, edit) auto-execute at this process's privilege level. Enable a sandbox via --sandbox / QWEN_SANDBOX, or set QWEN_CODE_SUPPRESS_YOLO_WARNING=1 to silence this notice.
+**Q218 complete.** Branch `qwen/q218-staff-room` pushed.
+
+**What was built** (edited only `Godot/scripts/StaffRoom3D.gd`, all props box-built or Kenney CC0):
+
+| Element | Source |
+|---|---|
+| Rota board (photos + red strings + COACHES/FIGHTERS sections) | Box-built |
+| 4 coach lockers with name plates + sports bags | Box-built |
+| Kitchenette (counter, sink, coffee machine, microwave, fridge, mugs, kettle, trash) | Kenney CC0 + box-built microwave |
+| Rectangular meeting table + rug + clipboard + desk chairs | Box-built top/legs + Kenney chairs |
+| Leather sofa + resting coach + coffee table + magazines + gym bag | Box-built |
+| Candidate at door with CV + COACH WANTED notice board | Box-built + Kenney chair |
+| Motivational posters (BETTER COACHES / DISCIPLINE RESPECT) | Box-built |
+| Window to gym | Box-built |
+| Warm pendant lighting | `_practicals()` override |
+
+**Gates:** parse clean, `staff_room_test` + `staff_hub_panel_test` 0/0 failures.
+
+**Still unlike concept:** photos are colored rectangles (project rule: no web images/real people), coach at table sits slightly above chair seat (Kenney chair scale vs rig `lift_m` mismatch), locker name plates small but readable, only 1 coach in test data (concept shows 2 at table).

@@ -1,0 +1,41 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+VENUES2 ring fit: rope span=6.705600 x 6.705600 m / spec contest 6.705600; canvas+apron=7.620000 x 7.620000 m / spec 7.620000; deck=1.270000 / spec surface_y 1.270000; source rope=6.1460 floor=7.0000 deck=1.0092; rope heights above deck [0.53, 0.928, 1.332] (spec [0.4572, 0.762, 1.0668, 1.3716])
+INERTIAL_JOINS unknown_pairs=0
+INERTIAL_JOINS unknown_pairs=0
+[FightWorldLive] BOXING - seed 95501, 3 rounds | waiting for the first beat
+BODY_SPACING torso_radius_a_m=0.18415360266089 torso_radius_b_m=0.16506879805298 sum_m=0.34922240071387
+INERTIAL_JOINS unknown_pairs=1 from=GUARD_IDLE to=UNKNOWN
+INERTIAL_JOINS unknown_pairs=2 from=UNKNOWN to=JAB
+INERTIAL_JOINS unknown_pairs=3 from=BODY_SHOT to=SLIP
+INERTIAL_JOINS unknown_pairs=1 from=GUARD_IDLE to=UNKNOWN
+INERTIAL_JOINS unknown_pairs=2 from=UNKNOWN to=JAB
+INERTIAL_JOINS unknown_pairs=3 from=JAB to=JAB
+JAB_SPEED_TAKE side=b clip=boxing_lead_hook t=1.28 hand=r ext_s=0.067 ret_s=0.050 reach=0.019 peak=1.52 rel_peak=0.65 mean=0.28 speed=1.00 frames=39
+JAB_SPEED_TAKE side=a clip=boxing_jab t=3.10 hand=l ext_s=0.250 ret_s=0.033 reach=0.126 peak=11.53 rel_peak=11.53 mean=0.50 speed=1.00 frames=39
+JAB_SPEED_TAKE side=a clip=boxing_cross t=5.03 hand=r ext_s=0.283 ret_s=0.067 reach=0.123 peak=9.60 rel_peak=8.51 mean=0.43 speed=1.00 frames=39
+JAB_SPEED_TAKE side=a clip=boxing_jab t=5.70 hand=l ext_s=0.250 ret_s=0.050 reach=0.331 peak=6.27 rel_peak=6.38 mean=1.32 speed=1.00 frames=39
+JAB_SPEED_TAKE side=a clip=boxing_jab t=11.08 hand=l ext_s=0.250 ret_s=0.067 reach=0.358 peak=5.41 rel_peak=6.17 mean=1.43 speed=1.00 frames=39
+JAB_SPEED_TAKE side=b clip=boxing_jab t=19.08 hand=l ext_s=0.250 ret_s=0.067 reach=0.272 peak=7.79 rel_peak=5.33 mean=1.09 speed=1.00 frames=39
+JAB_SPEED_TAKE side=a clip=boxing_jab_body t=17.68 hand=l ext_s=0.617 ret_s=0.133 reach=0.395 peak=7.73 rel_peak=6.20 mean=0.64 speed=0.74 frames=148
+JAB_SPEED_TAKE side=b clip=boxing_rear_hook t=19.98 hand=r ext_s=0.317 ret_s=0.100 reach=0.182 peak=9.98 rel_peak=9.22 mean=0.58 speed=1.00 frames=103
+JAB_SPEED_TAKE side=b clip=boxing_lead_hook t=22.48 hand=l ext_s=0.267 ret_s=0.050 reach=0.051 peak=5.44 rel_peak=5.25 mean=0.19 speed=1.00 frames=39
+JAB_SPEED_TAKE side=b clip=boxing_jab t=24.70 hand=l ext_s=0.250 ret_s=0.033 reach=0.250 peak=7.21 rel_peak=6.75 mean=1.00 speed=1.00 frames=18
+JAB_SPEED_TAKE side=b clip=boxing_cross t=25.00 hand=r ext_s=0.250 ret_s=0.050 reach=0.296 peak=8.86 rel_peak=8.71 mean=1.18 speed=1.00 frames=19
+JAB_SPEED_TAKE side=b clip=boxing_lead_hook t=25.32 hand=l ext_s=0.283 ret_s=0.233 reach=0.204 peak=4.97 rel_peak=4.99 mean=0.72 speed=1.00 frames=39
+JAB_SPEED_TAKE side=a clip=boxing_jab_body t=27.60 hand=l ext_s=0.583 ret_s=-1.000 reach=0.209 peak=14.10 rel_peak=10.52 mean=0.36 speed=0.74 frames=36
+JAB_SPEED_TAKE side=a clip=boxing_cross t=28.83 hand=r ext_s=0.250 ret_s=0.050 reach=0.293 peak=8.66 rel_peak=6.59 mean=1.17 speed=1.00 frames=39
+JAB_SPEED_TAKE side=b clip=boxing_jab t=29.40 hand=l ext_s=0.267 ret_s=0.083 reach=0.420 peak=6.12 rel_peak=6.09 mean=1.57 speed=1.00 frames=39
+JAB_SPEED_TAKE side=b clip=boxing_jab t=30.10 hand=l ext_s=0.250 ret_s=-1.000 reach=0.445 peak=7.71 rel_peak=7.78 mean=1.78 speed=1.00 frames=18
+JAB_SPEED_TAKE side=b clip=boxing_jab t=30.40 hand=l ext_s=0.250 ret_s=0.033 reach=0.275 peak=7.71 rel_peak=6.32 mean=1.10 speed=1.00 frames=39
+JAB_SPEED_TAKE side=b clip=boxing_lead_hook t=31.50 hand=r ext_s=0.017 ret_s=0.017 reach=0.000 peak=0.62 rel_peak=0.47 mean=0.01 speed=1.00 frames=39
+JAB_SPEED_TAKE side=a clip=boxing_jab t=32.60 hand=l ext_s=0.250 ret_s=0.033 reach=0.292 peak=7.71 rel_peak=7.82 mean=1.17 speed=1.00 frames=39
+JAB_SPEED_TAKE side=a clip=boxing_jab t=34.90 hand=l ext_s=0.283 ret_s=0.033 reach=0.163 peak=6.77 rel_peak=6.10 mean=0.58 speed=1.00 frames=39
+JAB_SPEED_TAKE side=b clip=boxing_cross t=35.70 hand=r ext_s=0.250 ret_s=0.050 reach=0.275 peak=7.29 rel_peak=6.55 mean=1.10 speed=1.00 frames=39
+JAB_SPEED_TAKE side=b clip=boxing_jab t=39.70 hand=l ext_s=0.250 ret_s=0.033 reach=0.265 peak=7.45 rel_peak=7.52 mean=1.06 speed=1.00 frames=18
+JAB_SPEED_CLIP clip=boxing_lead_hook n=4 ext_s=0.158 ret_s=0.087 reach=0.069 peak=3.14 max_peak=5.44 rel_peak=2.84 mean=0.30 speed=1.00
+JAB_SPEED_CLIP clip=boxing_jab n=11 ext_s=0.255 ret_s=0.047 reach=0.291 peak=7.42 max_peak=11.53 rel_peak=7.07 mean=1.15 speed=1.00
+JAB_SPEED_CLIP clip=boxing_cross n=4 ext_s=0.258 ret_s=0.054 reach=0.246 peak=8.60 max_peak=9.60 rel_peak=7.59 mean=0.97 speed=1.00
+JAB_SPEED_CLIP clip=boxing_jab_body n=2 ext_s=0.600 ret_s=0.133 reach=0.302 peak=10.92 max_peak=14.10 rel_peak=8.36 mean=0.50 speed=0.74
+JAB_SPEED_CLIP clip=boxing_rear_hook n=1 ext_s=0.317 ret_s=0.100 reach=0.182 peak=9.98 max_peak=9.98 rel_peak=9.22 mean=0.58 speed=1.00
+JAB_SPEED_DONE takes=68 seed=95501 off=single_root_solver pair=demo boxing a/b

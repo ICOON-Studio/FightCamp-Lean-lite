@@ -1,0 +1,373 @@
+ROUND 31 - TEXT ONLY. FightCamp is a PC deep management simulation (Football Manager / Motorsport Manager depth), NOT a mobile game: no energy timers, gacha, daily rewards. Four parts in one answer, numbered, as build-ready specs (exact numbers, hex colours, pixel rects at 1920x1080). Use as much length as you need; stop only at a part boundary and write CONTINUE FROM PART n.
+PART 1 - THE WHOLE INTERFACE. Design the complete UI for the PC game: the screen list (gym floor = home, fighter profile, roster, scouting/hire, staff, calendar + offers, camp planner, fight week + weigh-in, fight night live HUD, corner between rounds, result + money, finances, inbox/news, rankings, settings) and for EACH screen: purpose, layout grid with pixel rects, information hierarchy (what the eye sees first/second/third), components, navigation in/out, keyboard shortcuts, tooltips, empty states. Then the shared design system: type scale (families, sizes, weights), colour tokens (hex) incl. gym-identity colour, semantic colours (good/warn/bad), spacing scale, panel style (opacity, border, radius, shadow), icon style, motion (durations, easing), sound cues, accessibility (contrast, colour-blind, UI scale 80-150%). Rule: the 3D gym is the home and the UI never covers more than X% of it - give X and how panels slide over the right third with time paused. References: Football Manager 2024, Motorsport Manager, Two Point Hospital, Frostpunk, Fight Night Champion menus.
+PART 2 - THE MORNING CARD AND THE CALENDAR TAB on the gym floor (the operator wants them out of the gym view). Today a dark rounded panel floats top-right over the floor: "MONDAY, WEEK 1" / gold headline "A quiet week" / one line "Nothing booked. Danny is. Step in to train him, or let the day pass." / buttons STEP IN and SKIP THE DAY (fight weeks: "Debut in 5 days"). A thin calendar edge tab (icon only) sits on the right edge mid-height. Top-centre: play/pause/fast time control + date; top-left: two day-goal lines; bottom-left: fighter portrait + stamina bars; bottom: an icon dock. Say where each goes (anchor + pixel rect), how it is presented, whether the morning card stays a card or merges into the time bar / a ticker / the coach speaking (with the reason), and how the calendar opens and what it shows.
+PART 3 - MAKE THE GYM STILLS BEAUTIFUL. Our stills of the 30 x 18 m starting gym read flat and dull: dark grey concrete floor, brick walls, warm downlights, greybox equipment, hard long shadows. Engine Godot 4.7 Forward+, stylized 3D. Art-direction spec I can implement directly: lighting (key/fill/rim, light count and types, Kelvin + hex, energy), WorldEnvironment (tonemap, exposure, SSAO, SSIL, glow, fog, ambient), floor and wall materials (albedo hex, roughness), each zone floor colour (bag line, cardio, strength, turf lane, stretch mat, sparring), equipment palette, the three camera shots that sell a boxing gym (position, angle, FOV), post-processing, and what makes a gym still look alive (people, props, signage, light shafts). References: Gleason's, Wild Card, Kronk; Two Point Hospital, Punch Club 2.
+PART 4 - CONTINUE round 30 where it stopped: the rest of Section B (remaining equipment rows of the 95 ids + the 12 cross-equipment mechanics), the rest of Section C after C.6, then Sections D, E, F, G, H as specified in round 30.
+
+FIGHTCAMP TECHNICAL SPECIFICATION & ENGINE ARCHITECTURE
+
+Document Version: 4.0.0-PROD
+
+Target Release Engine: Godot Engine 4.7 Forward+ (Clustered Vulkan Desktop)
+
+Target Platform: PC (Windows / Linux / macOS)
+
+Simulation Cadence: 20 Hz Fixed Discrete Tick
+
+Base Display Resolution: 1920 × 1080 (16:9 Anchor Base, Dynamic Scale 80%–150%)
+
+PART 1 - THE COMPLETE INTERFACE ARCHITECTURE
+
+FightCamp uses a "Contextual Viewport Model" inspired by Motorsport Manager and Frostpunk. The full 3D gym floor operates permanently as the base root layer of the scene tree. Full-screen screens do not unload the 3D world; they drop rendering to an idle cadence (15 Hz) and blur background post-processing via a directional compositor pass.
+
+For operational screens, the UI strictly obeys the 38.2% Maximum Coverage Rule ($X = 38.2%$, Golden Ratio). Side draw panels anchor to the right edge from $x=1186$ to $x=1920$ ($734\text{ px}$ width), leaving $61.8%$ of the physical gym visible on the left. Opening any modal or slide-over drawer automatically triggers a simulation state shift: SimState.PAUSED_CONTEXTUAL.
+
+0,0                                    1186,0                          1920,0
++--------------------------------------+------------------------------------+
+|                                      | [SLIDE-OVER DRAWER: 734 px WIDTH]  |
+|                                      | Title / Hierarchy Root             |
+|                                      |------------------------------------|
+|         UNCOVERED 3D WORLD           | Sub-Panel Tabs / Filter Strip      |
+|             (61.8%)                  |------------------------------------|
+|                                      | Dynamic Component Stack:           |
+|  Camera focus tracks to selected     | - Stat Arrays                      |
+|  fighter, station, or ring anchor    | - Interactive Data Grids           |
+|                                      | - Action Decision Buttons          |
+|                                      |------------------------------------|
+|                                      | Contextual Footer: [CONFIRM / RUN] |
++--------------------------------------+------------------------------------+
+0,1080                                 1186,1080                    1920,1080
+
+1.1 Design System Tokens & Foundations
+Typography Scale
+
+Primary typeface: Chakra Petch (Tactical, mechanical, highly legible numbers).
+
+Secondary body typeface: Inter (Neutral, dense data display).
+
+Data/Financial monospace: JetBrains Mono.
+
+| Level | Font Family | Size (px) | Line Height | Weight | Letter Spacing | Case |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Display 01 | Chakra Petch | 32 px | 36 px | 700 Bold | $+0.04\text{ em}$ | UPPER |
+| Headline 01| Chakra Petch | 22 px | 26 px | 600 SemiBold| $+0.02\text{ em}$ | UPPER |
+| Headline 02| Chakra Petch | 18 px | 22 px | 600 SemiBold| $0.00\text{ em}$ | UPPER |
+| Body Large | Inter | 14 px | 18 px | 500 Medium | $-0.01\text{ em}$ | Mixed |
+| Body Regular| Inter | 12 px | 16 px | 400 Regular | $0.00\text{ em}$ | Mixed |
+| Caption Mono| JetBrains Mono| 10 px | 12 px | 500 Medium | $+0.02\text{ em}$ | Mixed |
+| Data Dense | JetBrains Mono| 11 px | 13 px | 700 Bold | $0.00\text{ em}$ | Upper |
+
+Color Tokens
+# Structural / Dark Surfaces
+const COLOR_BG_CRUST: Color      = Color("#0C0E12") # Primary root viewport clear
+const COLOR_BG_BASE: Color       = Color("#12161F") # Layer 0 panel backing
+const COLOR_BG_SURFACE: Color    = Color("#1A202C") # Interactive cards / inputs
+const COLOR_BG_OVERLAY: Color    = Color("#232B3B") # Modals / Popups / Tooltips
+const COLOR_BORDER_SUBTLE: Color = Color("#2D3748") # 1px hairline separators
+const COLOR_BORDER_FOCUS: Color  = Color("#4A5568") # Focused frame / selected ring
+
+# Text & Icon Hierarchy
+const COLOR_TEXT_PRIMARY: Color   = Color("#F7FAFC") # High-contrast data
+const COLOR_TEXT_SECONDARY: Color = Color("#A0AEC0") # Labels / subheaders
+const COLOR_TEXT_MUTED: Color     = Color("#4A5568") # Inactive / disabled states
+
+# Gym Identity (Customizable Primary Brand)
+const COLOR_BRAND_GOLD: Color    = Color("#D69E2E") # Default Gym Identity
+const COLOR_BRAND_GOLD_HOV: Color= Color("#ECC94B") # Gold Hover / Active State
+const COLOR_BRAND_GOLD_DIM: Color= Color("#744210") # Glow backing / disabled gold
+
+# Semantic Evaluation (Strict Contrast >= 5.5:1 against #12161F)
+const COLOR_SEMANTIC_GOOD: Color = Color("#38A169") # Positive growth, surplus, pass
+const COLOR_SEMANTIC_WARN: Color = Color("#DD6B20") # Elevated fatigue, cut danger
+const COLOR_SEMANTIC_CRIT: Color = Color("#E53E3E") # Concussion, bankrupt, miss weight
+const COLOR_SEMANTIC_INFO: Color = Color("#3182CE") # Match notice, contract terms
+
+Panel Style Specifications
+Drawer Panels: Color("#12161F") at $96%$ alpha. Left border: $1\text{ px solid } \text{Color}(\text{"#D69E2E"})$ (Gym Identity). Radius: $0\text{ px}$ left edges, flat to screen perimeter. Elevation shadow: Color(0, 0, 0, 0.65), offset $( -8\text{ px}, 0\text{ px})$, blur radius $24\text{ px}$.
+Floor Floater Cards: Color("#1A202C") at $90%$ alpha. Border: $1\text{ px solid } \text{Color}(\text{"#2D3748"})$. Corner radius: $4\text{ px}$. Shadow: offset $(0\text{ px}, 4\text{ px})$, blur $12\text{ px}$.
+Data Table Rows: Alternating fills: Color("#1A202C") and Color("#141A24"). Hover state: Color("#232B3B") with zero transition delay for crisp PC clickability.
+1.2 Screen-by-Screen Layout Specifications
+SCREEN 01: Gym Floor Home View (HUD Layer)
+Purpose: Live operations window. 3D simulation runs here; tracks station occupancy, coach presence, fighter conditions, real-time day ticker.
+Layout Grid (1920 × 1080):
+Top Control Bar: [Rect2(480, 12, 960, 48)]
+Floor Alert Ticker: [Rect2(480, 64, 960, 24)]
+Active Camp Focus Anchor (Bottom-Left): [Rect2(24, 888, 380, 168)]
+Utility Command Dock (Bottom-Center): [Rect2(640, 1020, 640, 48)]
+Quick-Drawer Toggle Tab (Right-Edge): [Rect2(1888, 480, 32, 120)]
+Information Hierarchy:
+Eye 1: Top Time/Speed Bar (running date, simulation phase, pause status).
+Eye 2: In-world 3D status overhead tags on fighters (fatigue bubbles, station lock).
+Eye 3: Bottom-Left Active Fighter Vitals (Condition, Stamina, Stress).
+Navigation: Base level. All other screens open as right-drawers or full modals over this scene.
+Shortcuts: Space = Pause/Play; 1, 2, 3 = Sim Speed (1x, 4x, 16x); Tab = Cycle Roster Focus; C = Calendar; R = Roster.
+SCREEN 02: Fighter Profile & Deep Medical
+Purpose: Deep mechanical breakdown of an athlete: contracted weight, anatomical attributes, brain health, chronic injuries, contract terms.
+Layout: Right Slide Drawer [Rect2(1186, 0, 734, 1080)]
+Header (Name, Nickname, Record, Morale): [Rect2(1202, 16, 702, 96)]
+Tab Switcher (Attributes | Medical | Contract | Fight History): [Rect2(1202, 118, 702, 32)]
+Medical Skeletal Overlay: [Rect2(1202, 160, 340, 480)]
+Attribute Radar & Metric Progress Bars: [Rect2(1552, 160, 352, 480)]
+Training History & Trait Matrix: [Rect2(1202, 650, 702, 330)]
+Action Footer (Offer Bout, Release, Adjust Diet): [Rect2(1202, 990, 702, 70)]
+Information Hierarchy:
+Eye 1: Overall Condition % & Brain Trauma Index (Critical Medical Guardrail).
+Eye 2: Weight delta relative to signed division limit.
+Eye 3: Striking/Grappling skill ratings.
+SCREEN 03: Stable Roster Management
+Purpose: High-density spreadsheet sorting all signed professionals, prospects, and amateur walk-ins.
+Layout: Centered Full Modal [Rect2(120, 60, 1680, 960)] with a blurred background viewport.
+Sorting Header Strip: [Rect2(144, 84, 1632, 40)]
+Dynamic Scroll Grid: [Rect2(144, 128, 1632, 792)] (Supports 24 columns of data with fixed frozen name column).
+Footer Action Bar: [Rect2(144, 928, 1632, 68)]
+Keyboard Navigation: Up/Down arrows navigate rows; Enter opens selected profile; F triggers textual filter input.
+SCREEN 04: Talent Scouting & Regional Circuit
+Purpose: Reviewing amateur feeder tournaments, unsigned local talent, and poaching fighters from struggling regional gyms.
+Layout: Right Drawer [Rect2(1186, 0, 734, 1080)]
+Feeder Region Filter (Tri-State, Midwest, National, International): [Rect2(1202, 16, 702, 40)]
+Scout Assignment Matrix: [Rect2(1202, 64, 702, 120)]
+Discovered Prospect Cards (Virtual Scroll): [Rect2(1202, 192, 702, 790)]
+Dispatch Scout Button: [Rect2(1202, 992, 702, 64)]
+SCREEN 05: Coaching Staff & Corner Roster
+Purpose: Hire/fire head coaches, pad men, strength specialists, cutmen, and sports nutritionists. Set wage pools and assignment pairings.
+Layout: Right Drawer [Rect2(1186, 0, 734, 1080)]
+Active Staff Capacity vs Payroll: [Rect2(1202, 16, 702, 64)]
+Coach Slots (Striking, Wrestling, S&C, Cutman, Physio): [Rect2(1202, 88, 702, 540)]
+Market Pool Scroll: [Rect2(1202, 636, 702, 350)]
+Action Controls: [Rect2(1202, 994, 702, 60)]
+SCREEN 06: Calendar & Fight Offers
+Purpose: Macro-level schedule management. Displays sanctioning body schedules, purse bids, promoter television dates, and training camp phases.
+Layout: Large Central Data Plane [Rect2(240, 60, 1440, 960)]
+Month/Year Breadcrumb & Filter Bar: [Rect2(264, 80, 1392, 48)]
+7x5 Month Grid Matrix: [Rect2(264, 136, 960, 840)]
+Selected Day Detail Inspector: [Rect2(1236, 136, 420, 840)]
+Information Hierarchy:
+Eye 1: Gold highlighted days containing committed bouts.
+Eye 2: Red deadline badges (Weigh-in dates, contract expiration).
+Eye 3: Day Inspector sidebar listing scheduled morning/afternoon sessions.
+SCREEN 07: Camp Planner & Block Engine
+Purpose: Micro-scheduling the 3-block daily routine for an active fight camp across 8–12 weeks.
+Layout: Full Screen Operations Board [Rect2(40, 40, 1840, 1000)]
+Fighter Quick Selector Strip: [Rect2(64, 56, 1792, 48)]
+7-Day Timeline Matrix: [Rect2(64, 112, 1340, 760)] (Rows: Morning, Afternoon, Evening; Columns: Mon–Sun).
+Workload & Fatigue Accumulation Inspector: [Rect2(1420, 112, 436, 760)]
+Bulk Copy/Paste Presets Bar: [Rect2(64, 888, 1792, 120)]
+SCREEN 08: Fight Week & Weigh-In Console
+Purpose: High-tension operational screen for the final 5 days before a fight. Acute water cut management, sauna allocations, and official scale checks.
+Layout: Fixed Central Console [Rect2(320, 90, 1280, 900)]
+Scale Readout Display: [Rect2(360, 120, 1200, 180)]
+Weight Confidence Cone & Monte Carlo Graph: [Rect2(360, 310, 720, 420)]
+Acute Interventions (Sauna, Ice Bath, Water Flush, Towel Cut): [Rect2(1096, 310, 464, 420)]
+Step-On-Scale Button & Commission Inspector: [Rect2(360, 746, 1200, 110)]
+SCREEN 09: Live Fight Night Tactical HUD
+Purpose: Real-time round execution. Visualizes the ring canvas, fighter positioning, stamina bars, damage silhouettes, and corner instructions.
+Layout: Complete Screen Overlay during matches.
+Round Clock & Scorecard Consensus: [Rect2(760, 16, 400, 64)]
+Red Corner Vitals (Head, Body, Stamina): [Rect2(32, 16, 480, 112)]
+Blue Corner Vitals: [Rect2(1408, 16, 480, 112)]
+Live Tactical Command Strip (Pacing, Target, Defense): [Rect2(480, 984, 960, 80)]
+Biomechanical Event Feed: [Rect2(32, 840, 360, 220)]
+SCREEN 10: Corner Between Rounds (60-Second Interlude)
+Purpose: Tactical intervention. Allocate cornerman seconds to physical treatment (Enswell, adrenaline chloride, grease) vs. strategic re-instruction.
+Layout: Centered Fight Intervention Console [Rect2(240, 120, 1440, 840)]
+Cut/Swelling Face Map: [Rect2(280, 160, 420, 520)]
+Cornerman Action Allocation (30 Seconds Max Budget): [Rect2(720, 160, 500, 520)]
+Fighter Mental State & Coach Advice Engine: [Rect2(1240, 160, 400, 520)]
+Ring Bell Countdown Timer Bar: [Rect2(280, 700, 1360, 60)]
+SCREEN 11: Result, Purse Payout & Financial Settlement
+Purpose: Post-bout accounting. Reconciles gate revenue, pay-per-view points, promoter purse, sanctioning fees, medical bills, cornerman percentages, and gym cut.
+Layout: Financial Ledger Panel [Rect2(480, 80, 960, 920)]
+Decision / Knockout Title Banner: [Rect2(512, 104, 896, 80)]
+Itemized Statement of Earnings & Deductions: [Rect2(512, 196, 896, 560)]
+Gym Net Revenue & Fighter Payout Net: [Rect2(512, 768, 896, 120)]
+Dismiss to Gym Button: [Rect2(512, 900, 896, 72)]
+SCREEN 12: Gym Financial Balance Sheet
+Purpose: Month-end profit/loss statement. Tracks lease costs, utility spikes, civilian membership dues, equipment depreciation, staff payroll, and debt servicing.
+Layout: Right Drawer [Rect2(1186, 0, 734, 1080)]
+Cash-on-Hand & Burn Runway Hero: [Rect2(1202, 16, 702, 80)]
+Operating Expense Category Breakdown: [Rect2(1202, 104, 702, 420)]
+Revenue Stream Allocation (Memberships, Fighter Cuts, Rentals): [Rect2(1202, 532, 702, 360)]
+Bank Credit Facility / Debt Management: [Rect2(1202, 900, 702, 150)]
+SCREEN 13: Communications Inbox & News Wire
+Purpose: Central communications terminal. Handles fight offers, medical suspension notices, promoter letters, equipment maintenance warnings, and scouting bulletins.
+Layout: Split Communications Hub [Rect2(200, 80, 1520, 920)]
+Message Category Tabs: [Rect2(224, 104, 400, 40)]
+Message List (Virtual Scroll with Priority Badges): [Rect2(224, 150, 400, 820)]
+Message Body Preview Inspector: [Rect2(632, 104, 1064, 780)]
+Response Button Strip (Accept, Reject, Counter): [Rect2(632, 890, 1064, 80)]
+SCREEN 14: Sanctioning Body Rankings & Division Ladders
+Purpose: Global rankings tracker. Shows 17 weight divisions across 4 boxing sanctioning bodies (WBA, WBC, IBF, WBO) or unified combat rankings.
+Layout: Full Data Table [Rect2(160, 60, 1600, 960)]
+Weight Class Selector Ribbon: [Rect2(184, 80, 1552, 48)]
+Sanctioning Body Tab Switcher: [Rect2(184, 134, 1552, 36)]
+15-Rank Contender Table: [Rect2(184, 176, 1552, 780)] (Shows Record, Recent Form, Next Bout, Mandatory Status).
+SCREEN 15: Game Settings, Audio & Accessibility
+Purpose: Display tuning, audio mix channels, keybind re-mapping, simulation tick speed tuning, and accessibility adjustments.
+Layout: Centered Modal [Rect2(480, 140, 960, 800)]
+Settings Category Sidebar: [Rect2(504, 164, 200, 740)]
+Options Setting Canvas: [Rect2(712, 164, 696, 740)]
+PART 2 - THE MORNING CARD & THE CALENDAR TAB
+2.1 The Morning Card: Architectural Evolution
+
+The legacy floating card at the top-right of the gym view is removed. In high-density PC management simulations (Football Manager, Motorsport Manager), floating narrative cards obscure scene geometry, break world immersion, and waste vertical screen space.
+
+The morning card is split into two systems:
+
+The Day-Start Action Ticker: Embedded into the Top Time Navigation Bar.
+The Coach Voice Contextual Drawer: Slides out from the right only when active user intervention is mandatory (e.g., fight scheduled, fighter sick, contract expiring). On standard training days, the sim runs without halting player momentum.
++--------------------------------------------------------------------------------------------------+
+| [TOP TIME & TICKER BAR: Rect2(360, 12, 1200, 52)]                                               |
+| Mon, W1 10:00 | [>][>>][>>>] | "A quiet week. 4 fighters on schedule." | [MANAGE CAMP] [CONTINUE]|
++--------------------------------------------------------------------------------------------------+
+
+2.2 Anchors & Pixel Rectangles (1920 × 1080 Layout)
+0,0                                                                                      1920,0
++---------------------------------------------------------------------------------------------+
+| [DAY-GOAL TICKER]          [TOP TIME & DISPATCH BAR]                                        |
+| Rect2(24, 16, 320, 48)     Rect2(360, 12, 1200, 52)                                         |
+|                                                                                             |
+|                                                                                [CALENDAR    |
+|                                                                                 MINI-TAB]   |
+|                                                                                Rect2(1884,  |
+|                                                                                      380,   |
+|                                                                                      36,    |
+|                                                                                      180)   |
+|                                                                                             |
+|                                                                                             |
+|                                                                                             |
+|                                                                                             |
+|                                                                                             |
+| [ROSTER QUICK-FOCUS]                       [BOTTOM COMMAND DOCK]                            |
+| Rect2(24, 888, 360, 168)                   Rect2(560, 1016, 800, 52)                        |
++---------------------------------------------------------------------------------------------+
+0,1080                                                                                    1920,1080
+
+
+Top Time & Dispatch Bar: Rect2(360, 12, 1200, 52). Anchored top-center.
+
+Background: Color("#12161F") at $95%$ alpha, $1\text{ px}$ hairline border Color("#2D3748").
+Date Segment: Rect2(372, 20, 180, 36). Shows MON, WEEK 1 in Chakra Petch Bold 14px.
+Sim Controls: Rect2(560, 20, 140, 36). Four icon buttons: Pause (Space), Play 1x (1), Fast 4x (2), Ultra 16x (3).
+Dynamic Morning Line: Rect2(710, 20, 560, 36). Single-line status ticker in Inter Medium 12px.
+Normal Day: "All stations running. Danny S. scheduled for Pad Work at 14:00."
+Fight Week: "[!] DEBUT IN 5 DAYS: Vance is 1.2 kg over target limit. Step in to adjust cut."
+Primary Action Button: Rect2(1390, 18, 150, 40). Dynamic label: STEP IN or CONTINUE (Gold fill Color("#D69E2E"), text Color("#0C0E12")).
+
+Day-Goal Counter: Rect2(24, 16, 320, 48). Anchored top-left.
+
+Text rows: "PRIMARY: Maintain Vance caloric deficit (-750 kcal)" and "FACILITY: Clean heavy bag rail 2".
+
+Roster Quick-Focus Card: Rect2(24, 888, 360, 168). Anchored bottom-left.
+
+Displays portrait, active heart rate, condition bar, and fatigue bar of the currently selected fighter. Clicking cycles to next athlete.
+
+Bottom Command Dock: Rect2(560, 1016, 800, 52). Anchored bottom-center.
+
+8 tactical screen buttons: [ROSTER (F1)] [CALENDAR (F2)] [CAMP (F3)] [STAFF (F4)] [SCOUT (F5)] [FINANCE (F6)] [INBOX (F7)] [SETTINGS (ESC)].
+
+Calendar Quick-Tab: Rect2(1884, 380, 36, 180). Anchored right edge, vertically centered.
+
+Sleek vertical tab displaying calendar icon and upcoming event countdown ("5d"). Clicking slides the Calendar View out without changing the camera.
+PART 3 - ART-DIRECTION & RENDERING SPECIFICATION
+3.1 Lighting Setup (Forward+ Desktop Profile)
+
+To move away from flat downlights and greybox models, the lighting pipeline models an authentic, gritty, high-performance combat hall. It uses a high-contrast three-point system combined with physical gymnasium fixtures.
+
+                     [KEY: High Industrial Skylight]
+                     5600K Cool Daylight, Directional
+                                    \
+                                     \
+                                      ▼
+[FILL: Fluorescent Strips] ──────► [GYM FLOOR] ◄────── [RIM: High-Contrast Sodium]
+4000K Neutral White Tube arrays                        2200K Warm Edge Kickers
+Energy: 1.2, Soft shadows                              Energy: 2.8, Sharp specularity
+
+Light Sources
+Key Light (Directional Sunlight / Skylight):
+Type: DirectionalLight3D
+Color / Temperature: Color("#F4F7FB") ($5600\text{ K}$, Clean Northern Daylight).
+Energy: $2.4\text{ lux}$.
+Angles: Pitch $-52.0^\circ$, Yaw $38.0^\circ$.
+Shadow Configuration: shadow_enabled = true, shadow_bias = 0.03, directional_shadow_mode = 2 (PSSM 4-Splits), shadow_blur = 1.2.
+Fill Lights (Industrial Bay High-Pressure Strips):
+Type: 6x OmniLight3D distributed across the structural roof trusses at $Y = 5.2\text{ m}$.
+Position Grid: $X \in [6.0, 15.0, 24.0]$, $Z \in [4.5, 13.5]$.
+Color / Temperature: Color("#FFF1E0") ($4000\text{ K}$, Industrial Halide).
+Energy: $1.1$, Attenuation: $1.85$, Omni Range: $8.5\text{ m}$.
+Rim / Specular Kickers (Brick Wall Grazers):
+Type: 4x SpotLight3D angled downward against the rear brick wall ($Z = 0.2\text{ m}$).
+Color / Temperature: Color("#E28743") ($2400\text{ K}$, Warm Sodium Glow).
+Energy: $3.5$, Spot Angle: $42^\circ$, Attenuation: $1.2$.
+Creates a sharp edge along the blue horizontal stripe, giving the back wall physical depth.
+3.2 WorldEnvironment Configuration (Godot 4.7 Engine Values)
+# Resource: GymWorldEnvironment.tres
+background_mode = 2 # Sky
+sky = SubResource("Sky_Industrial_Warehouse")
+ambient_light_source = 2 # Color
+ambient_light_color = Color("#1A202C")
+ambient_light_energy = 0.35
+
+# Tonemapping & Physical Exposure
+tonemap_mode = 3 # ACES Filmic
+tonemap_exposure = 1.05
+tonemap_white = 6.0
+
+# Screen Space Ambient Occlusion (SSAO) - Grounds equipment into the mat
+ssao_enabled = true
+ssao_radius = 1.8
+ssao_intensity = 2.4
+ssao_power = 1.5
+ssao_detail = 0.8
+ssao_horizon = 0.12
+
+# Screen Space Indirect Lighting (SSIL) - Bounces ring canvas colour onto ropes
+ssil_enabled = true
+ssil_radius = 4.0
+ssil_intensity = 1.2
+ssil_sharpness = 0.7
+
+# Glow & Bloom
+glow_enabled = true
+glow_levels/1 = 0.0
+glow_levels/2 = 0.4
+glow_levels/3 = 0.8
+glow_levels/4 = 0.2
+glow_levels/5 = 0.1
+glow_intensity = 0.6
+glow_bloom = 0.08
+glow_blend_mode = 1 # Softlight
+
+# Volumetric Fog (Atmospheric Sweat & Dust Haze)
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.012
+volumetric_fog_albedo = Color("#DCE3EB")
+volumetric_fog_emission = Color("#0C0E12")
+volumetric_fog_emission_energy = 0.0
+volumetric_fog_anisotropy = 0.25 # Forward scattering for sunlight shafts
+volumetric_fog_length = 35.0
+
+3.3 Floor & Wall Material Setup
++--------------------------------------------------------------------------------------------------+
+| SURFACE                | ALBEDO COLOR HEX  | ROUGHNESS | METALLIC | NORMAL / MICRO-TEXTURE       |
++--------------------------------------------------------------------------------------------------+
+| Brick Rear Wall        | #7A3D31           | 0.82      | 0.00     | Worn clay brick mortar depth |
+| Wall Accent Stripe     | #1D4ED8 (Blue)    | 0.45      | 0.04     | Chipped semi-gloss enamel    |
+| Base Gym Rubber Floor  | #2A2E35           | 0.68      | 0.00     | Vulcanized crumb speckle     |
+| Heavy Bag Rail Zone    | #20242B           | 0.72      | 0.00     | Matte impact rubber tile     |
+| Cardio Deck Floor      | #333842           | 0.60      | 0.00     | Diamond plate rubber runner  |
+| Agility Sprint Turf    | #15803D (Green)   | 0.95      | 0.00     | Synthetic turf grass weave   |
+| Stretch Mobility Mat   | #1E3A8A (Navy)    | 0.40      | 0.00     | Smooth closed-cell PVC vinyl |
+| Training Ring Canvas   | #D1D5DB (Off-White| 0.88      | 0.00     | Heavy woven duck canvas      |
+| Ring Ropes (Wrapped)   | Red/White/Blue    | 0.25      | 0.05     | Glossy vinyl tape wrapping   |
++--------------------------------------------------------------------------------------------------+
+
+3.4 Equipment Color Palette
++--------------------------------------------------------------------------------------------------+
+| EQUIPMENT CATEGORY     | PRIMARY HOUSING     | SECONDARY ACCENT    | HARDWARE FINISH             |
++
+
+Can you continue from Part 1 with the remaining interface panels, exact 1920×1080 pixel rectangles, and implementation-ready interaction states?
+Can you provide Part 2 as a complete PC management-simulation HUD specification with navigation, typography, colours, and data-density rules?
+Can you provide Part 3 with exact lighting, materials, camera, post-processing, and living-gym atmosphere specifications?
+Can you generate a text-only top-down FightCamp gym layout image showing all zones, equipment, circulation routes, and colour-coded floor materials?
+Copyright ©2026 Ludo.ai. All Rights Reserved.

@@ -1,0 +1,110 @@
+{
+ "mode": "dry-run",
+ "clean_dry_nights": 5,
+ "nights": [
+  {
+   "date": "2026-10-19",
+   "prev": "2026-10-17",
+   "newly_red": [
+    "boxing_idle_binding_test.gd",
+    "composure_live_test.gd",
+    "corner_call_effect_test.gd",
+    "doctor_live_test.gd",
+    "fight_body_layers_live_test.gd",
+    "fight_grapple_seam_test.gd",
+    "fight_human_speed_test.gd",
+    "fight_locomotion_test.gd",
+    "fight_room_no_teleport_test.gd",
+    "fight_room_positions_test.gd",
+    "fight_room_ring_bounds_test.gd",
+    "fight_room_walkout_test.gd",
+    "fight_stage_scurve_switch_test.gd",
+    "fight_stance_offset_test.gd",
+    "fight_strike_whole_test.gd",
+    "fight_ufc_units_test.gd",
+    "fighter_gloves_both_corners_test.gd",
+    "first_corner_test.gd",
+    "human2_test.gd",
+    "mitt_pop_wire_test.gd",
+    "mixamo_s215_test.gd",
+    "pad_chain_fight_test.gd",
+    "rig_convention_contract_test.gd",
+    "switch_gate_hold_pair_geometry_test.gd"
+   ],
+   "auto_merged": [],
+   "would_revert": [],
+   "reverted": [],
+   "mode": "dry-run",
+   "at": "2026-10-19T07:04:18"
+  },
+  {
+   "date": "2026-10-20",
+   "prev": "2026-10-19",
+   "newly_red": [
+    "af_motion_test.gd",
+    "asset_manifest_test.gd",
+    "fight_room_walkout_test.gd",
+    "iso_ceiling_fixtures_test.gd",
+    "profile_overview_test.gd",
+    "punch_retime_test.gd",
+    "see_through_occluders_test.gd",
+    "stat_vocabulary_test.gd",
+    "switch_gate_contact_push_carry_test.gd"
+   ],
+   "auto_merged": [],
+   "would_revert": [],
+   "reverted": [],
+   "mode": "dry-run",
+   "at": "2026-10-20T12:10:22"
+  },
+  {
+   "date": "2026-10-21",
+   "prev": "2026-10-20",
+   "newly_red": [
+    "equipment_training_rows_test.gd",
+    "fight_identity_test.gd",
+    "fight_root_single_writer_test.gd",
+    "fighter_gloves_both_corners_test.gd",
+    "mastery_select_wire_test.gd",
+    "q226_strands_test.gd"
+   ],
+   "auto_merged": [],
+   "would_revert": [],
+   "reverted": [],
+   "mode": "dry-run",
+   "at": "2026-10-21T12:10:24"
+  },
+  {
+   "date": "2026-10-22",
+   "prev": "2026-10-21",
+   "newly_red": [],
+   "auto_merged": [],
+   "would_revert": [],
+   "reverted": [],
+   "mode": "dry-run",
+   "at": "2026-10-22T12:10:28"
+  },
+  {
+   "date": "2026-10-23",
+   "prev": "2026-10-22",
+   "newly_red": [
+    "bag_mount_test.gd",
+    "build_holds_clock_test.gd",
+    "gym_club_clearance_test.gd",
+    "no_garage_test.gd",
+    "profile_drawer_test.gd",
+    "reception_keeps_gym_test.gd",
+    "reception_street_door_test.gd",
+    "room_camera_flow_test.gd",
+    "room_draft_flow_test.gd",
+    "room_walls_mgt2_test.gd",
+    "skip_day_drawer_test.gd"
+   ],
+   "auto_merged": [],
+   "would_revert": [],
+   "reverted": [],
+   "mode": "dry-run",
+   "at": "2026-10-23T12:10:26"
+  }
+ ]
+}

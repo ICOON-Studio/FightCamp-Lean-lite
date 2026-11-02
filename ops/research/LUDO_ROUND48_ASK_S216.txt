@@ -1,0 +1,208 @@
+FightCamp is a PC deep-simulation boxing management game (Football Manager depth, not a mobile loop). GAME FACTS - use THESE names, never invent stats or moves:
+
+FIGHTCAMP - GAME FACTS (generated from the game's data files by Tools/ludo_facts.py; use THESE names, never invent)
+
+1. SIMULATION ATTRIBUTES (the fight sim's stat keys, 0-100): power, technique, speed, defense, conditioning, fight_iq, grapple_offense, grapple_defence, top_control
+2. PLAYER-FACING READOUT (the 9 bars on the profile): POWER=power, TECHNIQUE=technique, SPEED=speed, STAMINA=stamina, CHIN=chin, DEFENCE=defense, FOOTWORK=footwork, RING IQ=ring_iq, COMPOSURE=composure
+3. TECHNIQUE REQUIREMENTS use these attribute names: power, technique, speed, defense, conditioning, fight_iq, grapple; tiers: 1=Foundation, 2=Core, 3=Advanced, 4=Signature
+4. THE REAL BOXING TECHNIQUE TREE (54 nodes; id | name | tier | branch | needs attributes | needs techniques):
+   boxing_one_two | One-Two | T1 | combinations | speed 26, technique 26 | boxing_jab, boxing_cross
+   boxing_one_two_hook | One-Two-Hook | T2 | combinations | speed 30, technique 30 | boxing_one_two, boxing_lead_hook
+   boxing_jab_body_head | Jab Body, Jab Head | T3 | combinations | technique 36, speed 34 | boxing_jab, boxing_jab_body
+   boxing_counter_combination | Counter Combination | T4 | combinations | fight_iq 46, speed 44 | boxing_pull_counter, boxing_one_two_hook
+   boxing_liver_combo | Jab-Cross-Lead Hook to the Body | T4 | combinations | power 44, technique 44 | boxing_one_two_hook, boxing_body_hook, boxing_jab, boxing_cross
+   boxing_six_punch_combo | Six-Punch Combination | T4 | combinations | conditioning 46, speed 44 | boxing_one_two_hook, boxing_rear_uppercut
+   boxing_catch | Catch the Jab | T1 | defense_counters | defense 24 | boxing_stance_guard
+   boxing_parry | Parry | T1 | defense_counters | defense 24, fight_iq 22 | boxing_stance_guard
+   boxing_slip | Slip | T1 | defense_counters | speed 26, defense 24 | boxing_stance_guard
+   boxing_block_elbow | Elbow and Forearm Block | T2 | defense_counters | defense 30 | boxing_catch
+   boxing_bob_weave | Bob and Weave | T2 | defense_counters | speed 32, conditioning 30 | boxing_roll
+   boxing_catch_counter | Catch and Return | T2 | defense_counters | fight_iq 30 | boxing_catch, boxing_cross
+   boxing_pull | Pull | T2 | defense_counters | speed 30, fight_iq 28 | boxing_slip
+   boxing_roll | Roll Under | T2 | defense_counters | speed 30, defense 30 | boxing_slip
+   boxing_slip_counter | Slip-Cross Counter | T2 | defense_counters | speed 30, fight_iq 30 | boxing_slip, boxing_cross
+   boxing_check_hook | Check Hook | T3 | defense_counters | speed 36, fight_iq 36 | boxing_lead_hook, boxing_pivot_footwork
+   boxing_check_hook_pivot | Check Hook and Pivot | T3 | defense_counters | speed 38, fight_iq 36 | boxing_check_hook
+   boxing_counter_over_jab | Counter Over the Jab | T3 | defense_counters | fight_iq 38, technique 34 | boxing_slip_counter
+   boxing_long_guard | Long Guard | T3 | defense_counters | defense 36 | boxing_block_elbow
+   boxing_pull_counter | Pull-Cross Counter | T3 | defense_counters | speed 36, fight_iq 36 | boxing_pull, boxing_cross
+   boxing_shoulder_roll | Shoulder Roll | T3 | defense_counters | defense 38, fight_iq 34 | boxing_roll
+   boxing_step_in_out | Step In, Step Out | T1 | footwork_ring | speed 24 | boxing_stance_guard
+   boxing_circle_lead | Circle to the Lead Side | T2 | footwork_ring | speed 28, conditioning 28 | boxing_step_in_out
+   boxing_circle_rear | Circle to the Rear Side | T2 | footwork_ring | speed 28, fight_iq 28 | boxing_step_in_out
+   boxing_feint | Feint | T2 | footwork_ring | fight_iq 30, technique 28 | boxing_distance_read, boxing_jab
+   boxing_pivot_footwork | Ring Pivot | T2 | footwork_ring | speed 30 | boxing_step_in_out
+   boxing_angle_step | L-Step Angle | T3 | footwork_ring | speed 36, technique 34 | boxing_pivot_footwork
+   boxing_cutoff_ring | Cut Off the Ring | T3 | footwork_ring | fight_iq 36 | boxing_circle_lead, boxing_circle_rear
+   boxing_rhythm_change | Breaking the Rhythm | T3 | footwork_ring | fight_iq 38 | boxing_feint, boxing_breathing_rhythm
+   boxing_rope_work | Working Off the Ropes | T3 | footwork_ring | defense 38, fight_iq 36 | boxing_shoulder_roll
+   boxing_drawing | Drawing the Lead | T4 | footwork_ring | fight_iq 46 | boxing_rhythm_change, boxing_pull_counter
+   boxing_switch_stance | Switching Stance | T4 | footwork_ring | technique 44, fight_iq 44 | boxing_angle_step, boxing_rhythm_change
+   boxing_breathing_rhythm | Breathing and Rhythm | T1 | fundamentals | conditioning 24 | boxing_stance_guard
+   boxing_distance_read | Finding the Range | T1 | fundamentals | fight_iq 24 | boxing_stance_guard
+   boxing_stance_guard | Stance and High Guard | T1 | fundamentals | defense 22 | -
+   boxing_lead_hook | Lead Hook | T2 | hooks_bodywork | power 30, technique 30 | boxing_one_two
+   boxing_lead_uppercut | Lead Uppercut | T2 | hooks_bodywork | power 30, technique 32 | boxing_lead_hook
+   boxing_rear_hook | Rear Hook | T2 | hooks_bodywork | power 32, technique 30 | boxing_lead_hook
+   boxing_rear_uppercut | Rear Uppercut | T2 | hooks_bodywork | power 32, technique 32 | boxing_lead_uppercut
+   boxing_body_hook | Lead Hook to the Body | T3 | hooks_bodywork | power 34, conditioning 32 | boxing_lead_hook
+   boxing_rear_hook_body | Rear Hook to the Body | T3 | hooks_bodywork | power 36, conditioning 32 | boxing_body_hook
+   boxing_shovel_hook | Shovel Hook | T3 | hooks_bodywork | power 34, technique 36 | boxing_rear_uppercut
+   boxing_clinch_tieup | Tie Up | T2 | infighting | technique 30, conditioning 30 | boxing_block_elbow
+   boxing_forearm_frame | Forearm Frame | T3 | infighting | defense 36, power 32 | boxing_clinch_tieup
+   boxing_inside_uppercut | Uppercut on the Inside | T3 | infighting | power 36, technique 34 | boxing_clinch_tieup, boxing_rear_uppercut
+   boxing_pivot_out | Pivot Out of the Clinch | T3 | infighting | speed 36, technique 34 | boxing_clinch_tieup, boxing_pivot_footwork
+   boxing_shoulder_bump | Shoulder Bump | T3 | infighting | power 34, conditioning 34 | boxing_clinch_tieup
+   boxing_cross | Rear Cross | T1 | straight_punching | power 26, technique 24 | boxing_jab
+   boxing_jab | Jab | T1 | straight_punching | speed 24 | boxing_stance_guard
+   boxing_cross_body | Cross to the Body | T2 | straight_punching | power 30, technique 28 | boxing_cross
+   boxing_double_jab | Double Jab | T2 | straight_punching | speed 30 | boxing_jab
+   boxing_jab_body | Jab to the Body | T2 | straight_punching | speed 28, technique 28 | boxing_jab
+   boxing_overhand | Overhand Right | T3 | straight_punching | power 36, technique 32 | boxing_cross
+   boxing_up_jab | Up Jab | T3 | straight_punching | speed 34, technique 34 | boxing_jab_body
+5. CERTIFIED BOXING MOVES (the only ones the demo animates and lets a player train): strikes boxing_jab, boxing_cross, boxing_rear_uppercut, boxing_jab_body, boxing_body_hook, boxing_up_jab, boxing_overhand, boxing_cross_body, boxing_double_jab, boxing_one_two, boxing_slip_counter, boxing_pull_counter, boxing_counter_over_jab, boxing_catch_counter, boxing_lead_uppercut, boxing_check_hook, boxing_lead_hook, boxing_rear_hook, boxing_rear_hook_body, boxing_one_two_hook, boxing_liver_combo, boxing_six_punch_combo; defence boxing_slip, boxing_pull, boxing_catch
+6. BODY REGIONS (wear 0-100%): head_neck, torso_core, left_arm, right_arm, left_leg, right_leg
+7. GYM TIERS: T1 30.0x18.0 m; T2 40.0x25.0 m; T3 60.0x31.0 m (club -> commercial -> elite; no garage)
+8. SCREEN: 1920x1080, Godot 4.7.2 GDScript; boxing first (demo), MMA later; PC deep management sim (FM / Motorsport Manager class).
+
+
+=== ROUND 48 - THE 115 MIXAMO CLIPS YOU APPROVED IN ROUND 47: HOW EACH ONE IS USED IN THE FIGHT ===
+Context: round 47 approved batch A (hit reactions, knockdowns, get-ups, idles, walks, corner/win/loss). We downloaded 115 clips. They are being baked
+onto our MetaHuman boxers right now (one bone map, feet planted, automatic floor/height checks). The fight player already has these roles:
+idle, block, slip, react_head, react_body, react_leg, knockdown, getup (knockdown's last frame blends into getup's first in 0.10 s), and the punches
+(native MetaHuman clips authored in Cascadeur - do NOT replace punches with Mixamo). A pure selector picks a reaction from event tags:
+target head|body, side the blow comes FROM (attacker's left / right / front / back), power light|medium|big, knockdown fall back|stomach|side,
+blocked yes/no. The power band thresholds are NOT set yet - you set them.
+
+THE 115 FILES (exact names):
+  1. Big_Hit_To_Head__Receiving_A_Big_Hit_From_A_Left_Punch
+  2. Big_Hit_To_Head__Receiving_A_Big_Hit_From_A_Right_Punch
+  3. Big_Hit_To_Head__Receiving_A_Big_Hit_From_A_Straight_Punch
+  4. Big_Kidney_Hit__Receiving_A_Big_Hit_In_The_Kidneys
+  5. Big_Rib_Hit__Receiving_A_Big_Hit_In_The_Ribs
+  6. Big_Side_Hit__Receiving_A_Big_Hit_In_The_Side
+  7. Block__Blocking_The_Chest_Area_With_Both_Arms
+  8. Blocking__Blocking_Inward
+  9. Blocking__Blocking_Outward
+ 10. Body_Block__Blocking_Body_With_Arms
+ 11. Bouncing_Boxing_Idle
+ 12. Bouncing_Fight_Idle_With_Guard_Up
+ 13. Boxing_Back_Hand_Uppercut
+ 14. Boxing_Body_Jab_Cross_Medium
+ 15. Boxing_Dodge_Advance (1)
+ 16. Boxing_Dodge_Advance (2)
+ 17. Boxing_Dodge_Advance
+ 18. Boxing_Dodge_Retreat
+ 19. Boxing_Idle
+ 20. Boxing_Lead_Hand_Uppercut
+ 21. Boxing_Left_Side_Step_Walk
+ 22. Boxing_Side_Step_Walk
+ 23. Center Block
+ 24. Defeat_From_A_Boxing_Loss
+ 25. Defeat_Idle__Aj_Defeat_Idle
+ 26. Defeat_Idle__Big_Vegas_Defeat_Idle
+ 27. Defeat_Idle__Sporty_Granny_Defeat_Idle
+ 28. Defeated__Showing_Frustration_After_A_Loss
+ 29. Falling_Down__Knocked_Over_And_Falling_To_The_Ground
+ 30. Falling_Flat_Impact__Falling_Flat_On_Face
+ 31. Fight_Idle__Male_Fight_Idle_Empty_Stance
+ 32. Fight_Idle__Male_Fight_Idle_Thai_Chi_To_Open_Stance
+ 33. Getting_Hit_Backwards__Getting_Hit_And_Flipping_Backwards
+ 34. Getting_Hit__Getting_Hit_From_Back
+ 35. Getting_Rocked_By_A_Big_Uppercut
+ 36. Getting_Up__Getting_Up_From_Back
+ 37. Getting_Up__Getting_Up_From_Being_Knocked_Down_On_The_Ground
+ 38. Getting_Up__Getting_Up_From_Stomach
+ 39. Getting_Up__Standing_From_A_Lying_Prone
+ 40. Head_Hit__Receiving_A_Big_Hit_To_The_Head_From_A_Left_Punch
+ 41. Head_Hit__Receiving_A_Big_Hit_To_The_Head_From_A_Right_Punch
+ 42. Head_Hit__Receiving_A_Light_Hit_To_The_Head_From_A_Left_Punch
+ 43. Head_Hit__Receiving_A_Light_Hit_To_The_Head_From_A_Right_Punch
+ 44. Head_Hit__Receiving_A_Medium_Hit_To_The_Head_From_A_Left_Punch
+ 45. Head_Hit__Receiving_A_Medium_Hit_To_The_Head_From_A_Right_Punch
+ 46. Hit_Reaction__Hit_Reaction
+ 47. Hit_Reaction__Receive_Punch_To_The_Body
+ 48. Hit_Reaction_s215_0
+ 49. Hit_Reaction_s215_1
+ 50. Hit_Reaction_s215_2
+ 51. Hit_Reaction_s215_3
+ 52. Hit_Reaction_s215_4
+ 53. Hit_To_Body__Receiving_A_Body_Hit_By_A_Right_Uppercut
+ 54. Hit_To_Body__Receiving_A_Hit_By_An_Uppercut_To_The_Body
+ 55. Hit_To_Body__Receiving_A_Hit_To_The_Body_By_A_Straight
+ 56. Injured_Stumble_Idle__Injured_Stumbling_Idle
+ 57. Inward_Block__Inward_Block
+ 58. Kidney_Hit__Receiving_A_Hit_In_The_Kidneys
+ 59. Knocked_Down__Knocked_Down_To_Stomach
+ 60. Knocked_Out__Knocked_Out_Falling_To_Back
+ 61. Knocked_Out__Knocked_Out_Falling_To_Stomach
+ 62. Left Block
+ 63. Light_Hit_To_Head__Receiving_A_Light_Hit_From_A_Left_Punch
+ 64. Light_Hit_To_Head__Receiving_A_Light_Hit_From_A_Right_Punch
+ 65. Light_Hit_To_Head__Receiving_A_Light_Hit_From_A_Straight_Punch
+ 66. Long_Body_Jab
+ 67. Long_Hook_Punch_To_The_Body
+ 68. Male_Boxing_Idle
+ 69. Medium_Hit_To_Head__Receiving_A_Medium_Hit_From_A_Left_Punch
+ 70. Medium_Hit_To_Head__Receiving_A_Medium_Hit_From_A_Right_Punch
+ 71. Medium_Hit_To_Head__Receiving_A_Medium_Hit_From_A_Straight_Punch
+ 72. Mid_Body_Jab
+ 73. Mid_Hook_Punch_To_The_Body
+ 74. Offensive Idle
+ 75. Outward_Block__Blocking_With_Arm
+ 76. Reaction__Male_Reaction_Hit_On_The_Left_Side
+ 77. Reaction__Male_Reaction_Hit_On_The_Right_Side
+ 78. Receive_Punch_To_The_Face__Receive_Stomach_Uppercut
+ 79. Receive_Stomach_Uppercut__Receive_Stomach_Uppercut
+ 80. Receive_Uppercut_To_The_Face__Receive_An_Uppercut_Punch_To_The_Face
+ 81. Receiving An Uppercut
+ 82. Receiving_A_Big_Hit_In_The_Stomach
+ 83. Receiving_A_Big_Hit_To_The_Head_From_A_Straight_Punch
+ 84. Receiving_A_Body_Hit_By_A_Straight_Punch
+ 85. Receiving_A_Hit_In_The_Stomach
+ 86. Receiving_A_Hit_To_The_Body_By_A_Uppercut
+ 87. Receiving_A_Hit_To_The_Liver
+ 88. Receiving_An_Uppercut__Getting_Hit_By_An_Uppercut
+ 89. Right_Hook__Right_Hook_Punch_From_Idle
+ 90. Short_Body_Jab
+ 91. Short_Hook_Punch_To_The_Body
+ 92. Shoulder_Hit_And_Fall__Hit_In_The_Shoulder_And_Falls_To_The_Ground
+ 93. Side_Hit__Receiving_A_Hit_In_The_Side
+ 94. Stand_Up__Standing_Up_From_Back
+ 95. Standing_Block_Idle__Blocking_With_Both_Arms_Out
+ 96. Standing_Block_React_Large__Block_Reaction
+ 97. Standing_React_Large_From_Back__Large_Hit_Reaction_From_The_Back
+ 98. Standing_React_Large_From_Front__Large_Hit_Reaction_From_The_Front
+ 99. Standing_React_Large_From_Left__Large_Hit_Reaction_From_The_Left
+100. Standing_React_Large_From_Right__Large_Hit_Reaction_From_The_Right
+101. Standing_React_Small_From_Back__Small_Hit_Reaction_From_The_Back
+102. Standing_React_Small_From_Front__Small_Hit_Reaction_From_The_Front
+103. Standing_React_Small_From_Left__Small_Hit_Reaction_From_The_Left
+104. Standing_React_Small_From_Right__Small_Hit_Reaction_From_The_Right
+105. Standing_Up__Standing_Up_And_Looking_Around
+106. Standing_Up__Standing_Up_From_Lying_On_Stomach
+107. Stunned__Male_Knocked_Down_From_A_Punch
+108. Taking_Punch__Getting_Hit_In_The_Face_From_Various_Angles
+109. Turn_To_Knocked_Unconscious__Turn_To_Getting_Knocked_Unconscious
+110. Victory_From_A_Boxing_Win
+111. Victory_Idle__Aj_Victory_Idle
+112. Victory_Idle__Big_Vegas_Victory_Idle
+113. Victory_Idle__Sporty_Granny_Vicotry_Idle
+114. Victory__Celebrating_After_A_Win
+115. Victory__Celebrating_After_A_Win_While_Seated
+
+ANSWER IN FULL - give the longest, most complete answer you can, do not summarise or cut; if you run out of room, stop at a row boundary and I will say "continue".
+1. A TABLE, one row per file above (all 115, numbered as above): keep or drop for the BOXING demo (drop anything that reads as MMA, martial arts,
+   comedy or a non-boxer: e.g. tai chi, flipping backwards, "sporty granny"), role (react_head, react_body, block_react, block, knockdown, getup,
+   idle, walk, hurt_idle, win, loss, corner, other), target, side, power, fall, and one line on WHEN in a fight it plays.
+2. POWER BANDS: the numbers (0..1 of a punch's landed power) where light becomes medium and medium becomes big, and how often (percent of landed
+   head punches) a viewer should see light / medium / big reactions over a 12-round fight so it stays readable but not a highlight reel.
+3. PUNCH -> REACTION RULES: for jab, cross, lead hook, rear hook, lead uppercut, rear uppercut, overhand, body jab, body cross, lead body hook,
+   rear body hook, shovel hook: which reaction family and side it should trigger; what a liver shot does differently (delayed fold?).
+4. KNOCKDOWNS: which of the clips is a flash knockdown vs a heavy one vs a knockout; fall direction per punch type; which get-up follows each fall;
+   how the 10-count should look with these clips (stay down, rise at 6-9, stumble = hurt_idle, referee wave-off) and which clips are the KO (no get-up).
+5. BLOCKS: when a block_react plays vs the guard just absorbing it; how the block clips combine with our guard.
+6. LAYERING: should reactions play whole-body every time, or as an upper-body layer over footwork for light hits? Blend in/out times in seconds for
+   light, medium, big, knockdown, getup. What breaks the look most often in shipped boxing games and how to avoid it with these clips.
+7. BETWEEN ROUNDS AND RESULT: which idle / walk / win / loss clips to use for the corner, the walk back, the decision reading, a KO win, a KO loss.
+8. Anything in the 115 that is missing for a watchable boxing fight (name it; we will look for it on Mixamo next).

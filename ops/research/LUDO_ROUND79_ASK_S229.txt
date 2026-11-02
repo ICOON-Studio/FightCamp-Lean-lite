@@ -1,0 +1,34 @@
+LUDO ROUND 79 (FightCamp, S229) - CODE ASK: make the GYM FLOOR playable. TEXT AND CODE ONLY - do NOT generate any image. Longest complete answer you can, full code with no placeholders; if you run out, end with CONTINUE.
+
+THE OPERATOR (verbatim): "we need to have the gymfloor playable soon".
+
+WHAT EXISTS (Godot 4.7 GDScript): the 3D boxing club (GymClub3D extends GymHall3D). Clicking a thing opens a radial ring of up to 6 actions (data: thing_actions.json). The ring's choice arrives in:
+  func _on_ring_action(kind: String, action_id: String) -> void   # id of the clicked thing = str(_ring_thing.get("id",""))
+Working calls you can use:
+  send_to(place_id: String) -> Dictionary        # walk the active fighter to a station and train there; {"ok":bool,"reason":String,...}
+  coach_to(place_id: String) -> Dictionary       # send the coach to a station
+  begin_station_pick() -> bool                   # let the player click a station on the floor
+  take_break(services: Array) -> Dictionary      # rest
+  action_requested.emit(kind, id, action_id)     # hand a row to the host screen (routes: office, profile, calendar)
+  _fighter_row: Dictionary                       # the active fighter (keys incl. id, name, discipline; stats live in GameState)
+  _plans: Dictionary                             # walk-in visitors by id: {"kind": "fighter_candidate"|"coach_candidate"|"sponsor"|"press"|"local", ...}
+  _place: String                                 # the fighter's current station id
+Stations (place ids): speed_bag_1, speed_bag_2, heavy_bag_1..4, mirror_strip, pads, defence_drill, ring, treadmill, bike, recovery, agility_ladder, power_rack, olympic_platform, weights.
+A row that is not carried out today is shown greyed with "Later". WIRED today: station: train_here, coach_here; fighter: call_coach, train_at, rest; coach: coach_fighter; office rows route to screens.
+
+THE 13 DEAD ROWS (greyed, do nothing) - make every one DO something meaningful, readable, one choice, a consequence on a system the player already manages (our design rule):
+  fighter: talk
+  coach: drill_focus, send_to_station, week_hours, talk_contract
+  station: queue_next, what_it_trains, upgrade
+  office_window: upgrades
+  walk_in: greet, trial_session, come_back_later, send_away
+
+DELIVER:
+1. FloorActions.gd - a PURE module (extends RefCounted, static funcs only, ZERO preloads, no scene access): 
+   static func resolve(kind: String, action_id: String, ctx: Dictionary) -> Dictionary
+   ctx gives you plain data: {"fighter": {id,name,morale 0-100,fatigue 0-100,trust_coach 0-100,attributes:{...}}, "coach": {id,name,specialty,hours_per_week,contract_weeks_left,wage}, "station": {id,kind,wear 0-100,level 1-3,trains:[attribute names]}, "visitor": {kind,name,potential 0-100,asking_wage}, "money": int, "day": int, "rng": float 0-1}.
+   It returns {"ok": bool, "reason": String, "toast": String (one plain line the player reads), "effects": [ {"type": "morale"|"fatigue"|"trust"|"money"|"coach_hours"|"coach_focus"|"queue"|"station_level"|"visitor_state"|"open_panel"|"send_fighter"|"send_coach", ...fields} ]}.
+   Pick real numbers from boxing-gym reality (say why in one line each). Every action must be callable twice in a row safely.
+2. The exact GDScript to add to _on_ring_action (one match branch per dead row) that builds ctx, calls FloorActions.resolve, and applies each effect type with the calls above (send_fighter -> send_to, send_coach -> coach_to, open_panel -> action_requested.emit, others -> a single apply_floor_effect(effect: Dictionary) hook I will wire to GameState), and shows the toast with a show_floor_toast(text: String) hook.
+3. tests/floor_actions_test.gd (extends SceneTree, prints "FLOOR_ACTIONS failures=N", quit(0/1)): every one of the 13 rows returns ok or a reason, effects are well-formed, money never goes negative, a trial session needs a visitor of kind fighter_candidate, upgrade refuses without money.
+4. A one-paragraph playtest script: the 10-minute floor session a new player should have after this lands.

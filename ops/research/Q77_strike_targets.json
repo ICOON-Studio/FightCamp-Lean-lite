@@ -1,0 +1,3042 @@
+{
+  "catalogue_commit": "d1c12c0",
+  "rows": [
+    {
+      "id": "boxing_angle_step",
+      "discipline": "boxing",
+      "kind": "move",
+      "role": "setup",
+      "effects": {
+        "angle_attack": 9,
+        "mobility": 7
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "L-step footwork pattern that creates an angle without delivering a blow"
+    },
+    {
+      "id": "boxing_body_hook",
+      "discipline": "boxing",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "body_damage": 11,
+        "damage": 5
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "body",
+      "confidence": "high",
+      "reason": "lead hook explicitly aimed at the torso"
+    },
+    {
+      "id": "boxing_catch_counter",
+      "discipline": "boxing",
+      "kind": "move",
+      "role": "counter",
+      "effects": {
+        "counter_open": 7,
+        "damage": 6
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "medium",
+      "reason": "catch the incoming punch and return a straight counter to the head"
+    },
+    {
+      "id": "boxing_check_hook",
+      "discipline": "boxing",
+      "kind": "move",
+      "role": "counter",
+      "effects": {
+        "counter_open": 9,
+        "angle_exit": 7
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "medium",
+      "reason": "hook thrown while pivoting away from an advancing opponent lands on the head"
+    },
+    {
+      "id": "boxing_check_hook_pivot",
+      "discipline": "boxing",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "counter_open": 8,
+        "angle_exit": 8,
+        "mobility": 6
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "medium",
+      "reason": "check hook with a continued pivot the hook lands on the head"
+    },
+    {
+      "id": "boxing_circle_lead",
+      "discipline": "boxing",
+      "kind": "move",
+      "role": "setup",
+      "effects": {
+        "mobility": 7,
+        "angle_entry": 6
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "circular footwork to the lead side without a blow"
+    },
+    {
+      "id": "boxing_circle_rear",
+      "discipline": "boxing",
+      "kind": "move",
+      "role": "setup",
+      "effects": {
+        "mobility": 7,
+        "angle_entry": 6,
+        "risk": 4
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "circular footwork to the rear side without a blow"
+    },
+    {
+      "id": "boxing_counter_combination",
+      "discipline": "boxing",
+      "kind": "sequence",
+      "role": "damage",
+      "effects": {
+        "counter_open": 10,
+        "damage": 11,
+        "timing": 8
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "medium",
+      "reason": "counter combination of straight punches finishing at the head"
+    },
+    {
+      "id": "boxing_counter_over_jab",
+      "discipline": "boxing",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "counter_open": 8,
+        "damage": 9,
+        "timing": 7
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "overhand punch thrown over the incoming jab lands on the head"
+    },
+    {
+      "id": "boxing_cross",
+      "discipline": "boxing",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "damage": 9,
+        "accuracy": 6
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "spread",
+      "confidence": "high",
+      "reason": "rear straight punch that goes to both head and body in the sport"
+    },
+    {
+      "id": "boxing_cross_body",
+      "discipline": "boxing",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "body_damage": 9,
+        "damage": 5
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "body",
+      "confidence": "high",
+      "reason": "cross explicitly aimed at the torso"
+    },
+    {
+      "id": "boxing_distance_read",
+      "discipline": "boxing",
+      "kind": "skill",
+      "role": "setup",
+      "effects": {
+        "distance_read": 7,
+        "range_control": 5
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "range-finding skill that reads distance without striking"
+    },
+    {
+      "id": "boxing_double_jab",
+      "discipline": "boxing",
+      "kind": "move",
+      "role": "setup",
+      "effects": {
+        "range_control": 8,
+        "combo_open": 7,
+        "entry_open": 6
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "spread",
+      "confidence": "medium",
+      "reason": "two consecutive lead-hand punches that go to head and body"
+    },
+    {
+      "id": "boxing_drawing",
+      "discipline": "boxing",
+      "kind": "move",
+      "role": "setup",
+      "effects": {
+        "counter_open": 10,
+        "distance_read": 9,
+        "timing": 8
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "provocation move that draws a reaction without delivering a blow"
+    },
+    {
+      "id": "boxing_feint",
+      "discipline": "boxing",
+      "kind": "move",
+      "role": "setup",
+      "effects": {
+        "entry_open": 8,
+        "distance_read": 6
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "feint that provokes a reaction without landing a blow"
+    },
+    {
+      "id": "boxing_inside_uppercut",
+      "discipline": "boxing",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "damage": 9,
+        "clinch_damage": 7
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "medium",
+      "reason": "uppercut on the inside lands primarily on the chin though the node carries clinch_damage"
+    },
+    {
+      "id": "boxing_jab",
+      "discipline": "boxing",
+      "kind": "move",
+      "role": "setup",
+      "effects": {
+        "accuracy": 8,
+        "range_control": 7,
+        "combo_open": 6
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "spread",
+      "confidence": "high",
+      "reason": "lead-hand straight punch that goes to both head and body in the sport"
+    },
+    {
+      "id": "boxing_jab_body",
+      "discipline": "boxing",
+      "kind": "move",
+      "role": "setup",
+      "effects": {
+        "body_damage": 6,
+        "combo_open": 6,
+        "entry_open": 5
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "body",
+      "confidence": "high",
+      "reason": "jab explicitly aimed at the torso"
+    },
+    {
+      "id": "boxing_jab_body_head",
+      "discipline": "boxing",
+      "kind": "sequence",
+      "role": "damage",
+      "effects": {
+        "body_damage": 8,
+        "head_damage": 7,
+        "combo_open": 6
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "spread",
+      "confidence": "high",
+      "reason": "sequence that explicitly alternates body and head targets"
+    },
+    {
+      "id": "boxing_lead_hook",
+      "discipline": "boxing",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "damage": 9,
+        "angle_attack": 7
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "lead-hand hook aimed at the side of the head"
+    },
+    {
+      "id": "boxing_lead_uppercut",
+      "discipline": "boxing",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "damage": 8,
+        "combo_open": 6
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "lead-hand rising punch aimed at the chin"
+    },
+    {
+      "id": "boxing_liver_combo",
+      "discipline": "boxing",
+      "kind": "sequence",
+      "role": "damage",
+      "effects": {
+        "body_damage": 13,
+        "damage": 8,
+        "combo_open": 7
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "body",
+      "confidence": "high",
+      "reason": "jab-cross-hook combination built entirely to attack the liver"
+    },
+    {
+      "id": "boxing_one_two",
+      "discipline": "boxing",
+      "kind": "sequence",
+      "role": "damage",
+      "effects": {
+        "damage": 8,
+        "combo_open": 8,
+        "accuracy": 6
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "spread",
+      "confidence": "high",
+      "reason": "jab-cross combination that goes to head and body"
+    },
+    {
+      "id": "boxing_one_two_hook",
+      "discipline": "boxing",
+      "kind": "sequence",
+      "role": "damage",
+      "effects": {
+        "damage": 10,
+        "combo_open": 7
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "jab-cross-hook sequence finishing with the hook at the head"
+    },
+    {
+      "id": "boxing_overhand",
+      "discipline": "boxing",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "damage": 11,
+        "angle_attack": 7
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "looping overhand punch aimed at the head"
+    },
+    {
+      "id": "boxing_pivot_footwork",
+      "discipline": "boxing",
+      "kind": "move",
+      "role": "adaptation",
+      "effects": {
+        "mobility": 8,
+        "angle_attack": 7
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "ring pivot footwork that repositions without striking"
+    },
+    {
+      "id": "boxing_pull_counter",
+      "discipline": "boxing",
+      "kind": "move",
+      "role": "counter",
+      "effects": {
+        "evasion": 8,
+        "counter_open": 9,
+        "damage": 8
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "pull back off the centre line then cross counter to the head"
+    },
+    {
+      "id": "boxing_rear_hook",
+      "discipline": "boxing",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "damage": 10,
+        "angle_attack": 6
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "rear-hand hook aimed at the side of the head"
+    },
+    {
+      "id": "boxing_rear_hook_body",
+      "discipline": "boxing",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "body_damage": 12,
+        "damage": 5
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "body",
+      "confidence": "high",
+      "reason": "rear hook explicitly aimed at the torso"
+    },
+    {
+      "id": "boxing_rear_uppercut",
+      "discipline": "boxing",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "damage": 10,
+        "chain_open": 6
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "rear-hand rising punch aimed at the chin"
+    },
+    {
+      "id": "boxing_rhythm_change",
+      "discipline": "boxing",
+      "kind": "move",
+      "role": "setup",
+      "effects": {
+        "rhythm": 9,
+        "timing": 7,
+        "entry_open": 6
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "rhythm break that disrupts timing without a blow"
+    },
+    {
+      "id": "boxing_shovel_hook",
+      "discipline": "boxing",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "body_damage": 10,
+        "angle_attack": 6
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "spread",
+      "confidence": "medium",
+      "reason": "short uppercut-hook hybrid primarily to the body but can reach the head"
+    },
+    {
+      "id": "boxing_six_punch_combo",
+      "discipline": "boxing",
+      "kind": "sequence",
+      "role": "damage",
+      "effects": {
+        "damage": 12,
+        "body_damage": 8,
+        "combo_open": 8
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "spread",
+      "confidence": "medium",
+      "reason": "long punch combination that attacks both body and head"
+    },
+    {
+      "id": "boxing_slip_counter",
+      "discipline": "boxing",
+      "kind": "move",
+      "role": "counter",
+      "effects": {
+        "evasion": 7,
+        "counter_open": 8,
+        "damage": 6
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "slip off the centre line then cross counter to the head"
+    },
+    {
+      "id": "boxing_step_in_out",
+      "discipline": "boxing",
+      "kind": "move",
+      "role": "setup",
+      "effects": {
+        "mobility": 7,
+        "range_control": 6,
+        "first_step": 6
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "step in and out footwork pattern without a blow"
+    },
+    {
+      "id": "boxing_switch_stance",
+      "discipline": "boxing",
+      "kind": "move",
+      "role": "setup",
+      "effects": {
+        "angle_attack": 8,
+        "mobility": 8,
+        "rhythm": 7
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "stance switch that changes orientation without striking"
+    },
+    {
+      "id": "boxing_up_jab",
+      "discipline": "boxing",
+      "kind": "move",
+      "role": "setup",
+      "effects": {
+        "accuracy": 7,
+        "guard": 5,
+        "combo_open": 6
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "spread",
+      "confidence": "medium",
+      "reason": "rising lead-hand punch that can reach both head and body"
+    },
+    {
+      "id": "capoeira_flow_chain",
+      "discipline": "capoeira",
+      "kind": "sequence",
+      "role": "adaptation",
+      "effects": {
+        "rhythm_control": 18,
+        "counter_chain": 15
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "ginga-esquiva-rasteira-meia-lua flow that ends with a sweep not a blow"
+    },
+    {
+      "id": "capoeira_ginga_flow_chain",
+      "discipline": "capoeira",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "surprise": 10,
+        "damage": 8
+      },
+      "is_strike": true,
+      "strike_kind": "kick",
+      "target": "body",
+      "confidence": "low",
+      "reason": "ginga deception chain that delivers strikes through deceptive movement predominantly kicks to the body"
+    },
+    {
+      "id": "capoeira_negativa_sweep",
+      "discipline": "capoeira",
+      "kind": "move",
+      "role": "takedown",
+      "effects": {
+        "counter_takedown": 8,
+        "balance_break": 5
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "negativa to rasteira is a sweep takedown not a strike"
+    },
+    {
+      "id": "karate_ageempiuchi",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "rising elbow strike to the head"
+    },
+    {
+      "id": "karate_ageuke_gyakuzuki_combo",
+      "discipline": "karate",
+      "kind": "sequence",
+      "role": "damage",
+      "effects": {
+        "counter_open": 3,
+        "straight_damage": 9
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "block then reverse punch finishing at the head"
+    },
+    {
+      "id": "karate_agezuki",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "straight_damage": 11,
+        "accuracy": 6
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "rising punch to the chin"
+    },
+    {
+      "id": "karate_ashibarai_gyaku_combo",
+      "discipline": "karate",
+      "kind": "sequence",
+      "role": "damage",
+      "effects": {
+        "balance_break": 8,
+        "straight_damage": 11
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "medium",
+      "reason": "leg sweep then reverse punch the finishing blow is a punch to the head"
+    },
+    {
+      "id": "karate_awasezuki",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "straight_damage": 11,
+        "accuracy": 6
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "simultaneous double punch to the head"
+    },
+    {
+      "id": "karate_byobudaoshi",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "takedown",
+      "effects": {
+        "balance_break": 12,
+        "takedown": 11
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "folding-screen throw a takedown not a strike"
+    },
+    {
+      "id": "karate_chokuzuki",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "setup",
+      "effects": {
+        "straight_damage": 7,
+        "accuracy": 4
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "spread",
+      "confidence": "medium",
+      "reason": "straight punch that goes to head and body in karate"
+    },
+    {
+      "id": "karate_counter_gyaku",
+      "discipline": "karate",
+      "kind": "sequence",
+      "role": "counter",
+      "effects": {
+        "evasion": 11,
+        "counter_accuracy": 13
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "body shift then reverse punch counter finishing at the head"
+    },
+    {
+      "id": "karate_deai_counter",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "counter",
+      "effects": {
+        "stop_hit": 9,
+        "counter_damage": 6
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "stop-hit intercepting straight punch to the head"
+    },
+    {
+      "id": "karate_empiuchi",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "impact": 9,
+        "head_damage": 4
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "elbow strike to the head"
+    },
+    {
+      "id": "karate_gyakuagezuki",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "straight_damage": 11,
+        "accuracy": 6
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "reverse rising punch to the chin"
+    },
+    {
+      "id": "karate_gyakuzuki",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "straight_damage": 9,
+        "accuracy": 5
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "reverse straight punch to the head"
+    },
+    {
+      "id": "karate_haishuuchi",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "impact": 9,
+        "head_damage": 4
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "back-hand strike to the head"
+    },
+    {
+      "id": "karate_haitouchi",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "back-sword-hand strike to the head"
+    },
+    {
+      "id": "karate_hasamizuki",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "straight_damage": 11,
+        "accuracy": 6
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "scissor punch to the head"
+    },
+    {
+      "id": "karate_heikozuki",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "straight_damage": 11,
+        "accuracy": 6
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "parallel double punch to the head"
+    },
+    {
+      "id": "karate_hiraken",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "straight_damage": 11,
+        "accuracy": 6
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "flat-fist punch to the head"
+    },
+    {
+      "id": "karate_ipponken",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "straight_damage": 11,
+        "accuracy": 6
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "single-knuckle punch to the head"
+    },
+    {
+      "id": "karate_ipponnukite",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "straight_damage": 13,
+        "accuracy": 7
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "single-finger spear hand to the head"
+    },
+    {
+      "id": "karate_junzuki",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "setup",
+      "effects": {
+        "straight_damage": 7,
+        "accuracy": 4
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "spread",
+      "confidence": "medium",
+      "reason": "lunge punch that goes to head and body"
+    },
+    {
+      "id": "karate_kagizuki",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "straight_damage": 9,
+        "accuracy": 5
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "hook punch to the head"
+    },
+    {
+      "id": "karate_katawaguruma",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "takedown",
+      "effects": {
+        "balance_break": 12,
+        "takedown": 11
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "one-arm wheel throw a takedown not a strike"
+    },
+    {
+      "id": "karate_keitouchi",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "impact": 13,
+        "head_damage": 6
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "chicken-head wrist strike to the head"
+    },
+    {
+      "id": "karate_kizami_gyaku",
+      "discipline": "karate",
+      "kind": "sequence",
+      "role": "damage",
+      "effects": {
+        "straight_damage": 13,
+        "accuracy": 7
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "lead punch then reverse punch finishing at the head"
+    },
+    {
+      "id": "karate_kizami_maegeri",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "setup",
+      "effects": {
+        "combo_open": 7,
+        "distance_read": 5
+      },
+      "is_strike": true,
+      "strike_kind": "kick",
+      "target": "head",
+      "confidence": "high",
+      "reason": "lead front snap kick to the head Q70 census missed this as a kick"
+    },
+    {
+      "id": "karate_kizamizuki",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "straight_damage": 13,
+        "accuracy": 7
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "lead straight punch to the head"
+    },
+    {
+      "id": "karate_kokutouchi",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "impact": 13,
+        "head_damage": 6
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "bull-tongue wrist strike to the head"
+    },
+    {
+      "id": "karate_kubiwa",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "takedown",
+      "effects": {
+        "balance_break": 12,
+        "takedown": 11
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "neck ring throw a takedown not a strike"
+    },
+    {
+      "id": "karate_kumadeuchi",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "bear-hand strike to the head"
+    },
+    {
+      "id": "karate_maemawashiempiuchi",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "front rotating elbow strike to the head"
+    },
+    {
+      "id": "karate_mawashiempiuchi",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "rotating elbow strike to the head"
+    },
+    {
+      "id": "karate_morotezuki",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "straight_damage": 11,
+        "accuracy": 6
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "augmented double-hand punch to the head"
+    },
+    {
+      "id": "karate_nakadakaken",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "straight_damage": 13,
+        "accuracy": 7
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "middle-knuckle punch to the head"
+    },
+    {
+      "id": "karate_nihonnukite",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "straight_damage": 13,
+        "accuracy": 7
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "two-finger spear hand to the head"
+    },
+    {
+      "id": "karate_nukite",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "straight_damage": 9,
+        "accuracy": 5
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "spear-hand thrust to the head"
+    },
+    {
+      "id": "karate_otoshiempiuchi",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "dropping elbow strike to the head"
+    },
+    {
+      "id": "karate_otoshiurakenuchi",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "dropping back-fist strike to the head"
+    },
+    {
+      "id": "karate_renzuki",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "straight_damage": 9,
+        "accuracy": 5
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "consecutive straight punches to the head"
+    },
+    {
+      "id": "karate_sakazuchi",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "takedown",
+      "effects": {
+        "balance_break": 12,
+        "takedown": 11
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "sake cup throw a takedown not a strike"
+    },
+    {
+      "id": "karate_sanbon_chain",
+      "discipline": "karate",
+      "kind": "sequence",
+      "role": "damage",
+      "effects": {
+        "straight_damage": 11,
+        "accuracy": 6
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "three-punch consecutive chain finishing at the head"
+    },
+    {
+      "id": "karate_seiryutouchi",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "impact": 13,
+        "head_damage": 6
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "blue-dragon wrist strike to the head"
+    },
+    {
+      "id": "karate_shihonnukite",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "straight_damage": 11,
+        "accuracy": 6
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "four-finger spear hand to the head"
+    },
+    {
+      "id": "karate_shutohizouchi",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "knife-hand strike to the flank of the head"
+    },
+    {
+      "id": "karate_shutojodanuchi",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "knife-hand strike to the upper level head"
+    },
+    {
+      "id": "karate_shutosakotsuuchi",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "knife-hand strike to the collarbone area of the head"
+    },
+    {
+      "id": "karate_shutosakotsuuchikomi",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "impact": 13,
+        "head_damage": 6
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "driving knife-hand strike to the collarbone of the head"
+    },
+    {
+      "id": "karate_shutouchi",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "impact": 9,
+        "head_damage": 4
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "knife-hand strike to the head"
+    },
+    {
+      "id": "karate_shutouke_nukite_combo",
+      "discipline": "karate",
+      "kind": "sequence",
+      "role": "damage",
+      "effects": {
+        "counter_open": 3,
+        "straight_damage": 9
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "knife-hand block then spear-hand counter to the head"
+    },
+    {
+      "id": "karate_shutoyokoganmenuchi",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "knife-hand strike to the side of the face"
+    },
+    {
+      "id": "karate_sotouke_empi_uraken_gyaku_combo",
+      "discipline": "karate",
+      "kind": "sequence",
+      "role": "damage",
+      "effects": {
+        "impact": 11,
+        "straight_damage": 11
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "block elbow and back-fist chain finishing with a reverse punch to the head"
+    },
+    {
+      "id": "karate_sweep_finish",
+      "discipline": "karate",
+      "kind": "sequence",
+      "role": "adaptation",
+      "effects": {
+        "timing": 16,
+        "score_or_damage": 15
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "low",
+      "reason": "leg sweep then strike to a grounded opponent the finishing blow is a punch likely to the head"
+    },
+    {
+      "id": "karate_taniotoshi",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "takedown",
+      "effects": {
+        "balance_break": 12,
+        "takedown": 11
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "valley drop throw a takedown not a strike"
+    },
+    {
+      "id": "karate_tateteishouchi",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "vertical palm-heel strike to the head"
+    },
+    {
+      "id": "karate_tatezuki",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "straight_damage": 9,
+        "accuracy": 5
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "vertical fist punch to the head"
+    },
+    {
+      "id": "karate_teishofuriuchi",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "swinging palm-heel strike to the head"
+    },
+    {
+      "id": "karate_teishouchi",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "impact": 9,
+        "head_damage": 4
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "palm-heel strike to the head"
+    },
+    {
+      "id": "karate_tettsuihasamiuchi",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "impact": 13,
+        "head_damage": 6
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "scissor hammer-fist strike to the head"
+    },
+    {
+      "id": "karate_tettsuiuchi",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "impact": 9,
+        "head_damage": 4
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "hammer-fist strike to the head"
+    },
+    {
+      "id": "karate_tsubamegaeshi",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "takedown",
+      "effects": {
+        "balance_break": 12,
+        "takedown": 11
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "swallow return throw a takedown not a strike"
+    },
+    {
+      "id": "karate_tsukiage",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "punch-and-rise strike to the head"
+    },
+    {
+      "id": "karate_uke_counter",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "counter",
+      "effects": {
+        "intercept": 7,
+        "counter_open": 6
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "block then reverse punch counter to the head"
+    },
+    {
+      "id": "karate_urakenmawashiuchi",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "rotating back-fist strike to the head"
+    },
+    {
+      "id": "karate_urakenuchi",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "back-fist strike to the head"
+    },
+    {
+      "id": "karate_urazuki",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "straight_damage": 9,
+        "accuracy": 5
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "reverse-hook punch to the head"
+    },
+    {
+      "id": "karate_ushiroempiuchi",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "rear elbow strike to the head"
+    },
+    {
+      "id": "karate_washideuchi",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "impact": 13,
+        "head_damage": 6
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "eagle-beak strike to the head"
+    },
+    {
+      "id": "karate_yamazuki",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "straight_damage": 13,
+        "accuracy": 7
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "mountain punch to the head"
+    },
+    {
+      "id": "karate_yaridama",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "takedown",
+      "effects": {
+        "balance_break": 12,
+        "takedown": 11
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "spear ball throw a takedown not a strike"
+    },
+    {
+      "id": "karate_yokoempiuchi",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "side elbow strike to the head"
+    },
+    {
+      "id": "karate_yokourakenuchi",
+      "discipline": "karate",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "side back-fist strike to the head"
+    },
+    {
+      "id": "kickboxing_catch_kick_return",
+      "discipline": "kickboxing",
+      "kind": "move",
+      "role": "counter",
+      "effects": {
+        "counter_open": 9,
+        "counter_takedown": 6
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "catch the incoming kick and return it as a takedown not a strike"
+    },
+    {
+      "id": "kickboxing_clinch_knee",
+      "discipline": "kickboxing",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "clinch_damage": 10,
+        "body_damage": 7
+      },
+      "is_strike": true,
+      "strike_kind": "knee",
+      "target": "body",
+      "confidence": "high",
+      "reason": "knee strike in the clinch aimed at the torso"
+    },
+    {
+      "id": "kickboxing_switch_step_read",
+      "discipline": "kickboxing",
+      "kind": "skill",
+      "role": "setup",
+      "effects": {
+        "rhythm": 7,
+        "distance_read": 7
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "switch-step read that judges distance without striking"
+    },
+    {
+      "id": "mma_clinch_knee_trip",
+      "discipline": "mma",
+      "kind": "sequence",
+      "role": "takedown",
+      "effects": {
+        "clinch_damage": 11,
+        "takedown": 13
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "cage clinch knee setup to an outside trip the technique finishes as a takedown"
+    },
+    {
+      "id": "mma_complete_chain",
+      "discipline": "mma",
+      "kind": "sequence",
+      "role": "adaptation",
+      "effects": {
+        "phase_transition": 20,
+        "decision_quality": 17,
+        "finish_chance": 12
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "strike-wrestle-pass-finish chain that spans all phases not a single strike"
+    },
+    {
+      "id": "mma_dirty_boxing",
+      "discipline": "mma",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "clinch_damage": 8,
+        "knee_setup": 5
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "medium",
+      "reason": "short punches in the cage clinch aimed at the head though the node carries clinch_damage"
+    },
+    {
+      "id": "mma_finish_iq",
+      "discipline": "mma",
+      "kind": "skill",
+      "role": "adaptation",
+      "effects": {
+        "decision_quality": 10,
+        "finish_chance": 7
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "finishing instinct skill that reads when to pursue a finish not a strike"
+    },
+    {
+      "id": "mma_jab_levelchange",
+      "discipline": "mma",
+      "kind": "sequence",
+      "role": "setup",
+      "effects": {
+        "feint": 9,
+        "entry_open": 7
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "medium",
+      "reason": "jab that feints a level change the jab itself is a punch to the head"
+    },
+    {
+      "id": "mma_kick_catch_slam",
+      "discipline": "mma",
+      "kind": "move",
+      "role": "takedown",
+      "effects": {
+        "counter_takedown": 8,
+        "impact": 6
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "catch an incoming kick and slam the opponent a takedown not a strike"
+    },
+    {
+      "id": "mma_sprawl_fronthead",
+      "discipline": "mma",
+      "kind": "sequence",
+      "role": "counter",
+      "effects": {
+        "takedown_defense": 10,
+        "control": 6
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "sprawl to front headlock a defensive-to-control sequence not a strike"
+    },
+    {
+      "id": "mma_stance_switch",
+      "discipline": "mma",
+      "kind": "skill",
+      "role": "adaptation",
+      "effects": {
+        "style_switch": 7,
+        "takedown_ready": 5
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "stance switching skill that adapts orientation not a strike"
+    },
+    {
+      "id": "mma_switch_hit",
+      "discipline": "mma",
+      "kind": "skill",
+      "role": "adaptation",
+      "effects": {
+        "style_switch": 9,
+        "rhythm_control": 6
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "southpaw-orthodox switching skill that changes stance not a strike"
+    },
+    {
+      "id": "muay_thai_catch_strike",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "counter_strike": 8,
+        "sweep": 6
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "medium",
+      "reason": "catch the incoming attack and return a counter strike a punch to the head"
+    },
+    {
+      "id": "muay_thai_catch_sweep",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "takedown",
+      "effects": {
+        "sweep": 8,
+        "balance_break": 6
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "catch and sweep in the clinch a sweep takedown not a strike"
+    },
+    {
+      "id": "muay_thai_chapko_head_sweep",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "takedown",
+      "effects": {
+        "sweep": 8,
+        "balance_break": 7
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "chap ko head sweep a sweep takedown not a strike"
+    },
+    {
+      "id": "muay_thai_chapko_sweep_throw",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "takedown",
+      "effects": {
+        "takedown": 12,
+        "balance_break": 10,
+        "knockdown_power": 8
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "chap ko sweep throw a takedown not a strike"
+    },
+    {
+      "id": "muay_thai_clinch_dump",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "takedown",
+      "effects": {
+        "balance_break": 14,
+        "control_score": 9
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "clinch turn and dump a takedown not a strike"
+    },
+    {
+      "id": "muay_thai_clinch_knees",
+      "discipline": "muay_thai",
+      "kind": "sequence",
+      "role": "damage",
+      "effects": {
+        "body_damage": 13,
+        "stamina_drain": -10
+      },
+      "is_strike": true,
+      "strike_kind": "knee",
+      "target": "body",
+      "confidence": "high",
+      "reason": "clinch knee series a chain of knees to the torso"
+    },
+    {
+      "id": "muay_thai_counter_sok_klap",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "counter_strike": 10,
+        "head_damage": 12,
+        "cut_threat": 8
+      },
+      "is_strike": true,
+      "strike_kind": "elbow",
+      "target": "head",
+      "confidence": "high",
+      "reason": "counter spinning elbow aimed at the head"
+    },
+    {
+      "id": "muay_thai_diagonal_elbow",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "head_damage": 10,
+        "cut_threat": 7
+      },
+      "is_strike": true,
+      "strike_kind": "elbow",
+      "target": "head",
+      "confidence": "high",
+      "reason": "diagonal slashing elbow aimed at the head"
+    },
+    {
+      "id": "muay_thai_dumps_offbalance",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "takedown",
+      "effects": {
+        "balance_break": 8,
+        "score_or_damage": 6
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "off-balance dump a takedown not a strike"
+    },
+    {
+      "id": "muay_thai_eight_limb_chain",
+      "discipline": "muay_thai",
+      "kind": "sequence",
+      "role": "setup",
+      "effects": {
+        "phase_transition": 15,
+        "damage": 13,
+        "finish_chance": 8
+      },
+      "is_strike": true,
+      "strike_kind": "mixed",
+      "target": "spread",
+      "confidence": "medium",
+      "reason": "teep-round kick-clinch knee-elbow chain that attacks multiple targets with multiple limbs"
+    },
+    {
+      "id": "muay_thai_fake_jab_knee",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "setup",
+      "effects": {
+        "combo_continuity": 7,
+        "body_damage": 8
+      },
+      "is_strike": true,
+      "strike_kind": "knee",
+      "target": "body",
+      "confidence": "medium",
+      "reason": "fake jab then knee the knee is the blow aimed at the body"
+    },
+    {
+      "id": "muay_thai_full_spectacle",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "phase_transition": 14,
+        "damage": 12,
+        "combo_continuity": 10
+      },
+      "is_strike": true,
+      "strike_kind": "mixed",
+      "target": "spread",
+      "confidence": "low",
+      "reason": "multi-phase spectacular chain of strikes across multiple targets"
+    },
+    {
+      "id": "muay_thai_horizontal_elbow",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "cut_threat": 10,
+        "damage": 9
+      },
+      "is_strike": true,
+      "strike_kind": "elbow",
+      "target": "head",
+      "confidence": "high",
+      "reason": "horizontal elbow slash across the head"
+    },
+    {
+      "id": "muay_thai_jab_cross_hook",
+      "discipline": "muay_thai",
+      "kind": "sequence",
+      "role": "damage",
+      "effects": {
+        "combo_continuity": 8,
+        "damage": 9
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "jab-cross-hook punch combination finishing at the head"
+    },
+    {
+      "id": "muay_thai_jab_cross_sok_klap",
+      "discipline": "muay_thai",
+      "kind": "sequence",
+      "role": "damage",
+      "effects": {
+        "combo_continuity": 9,
+        "cut_threat": 10
+      },
+      "is_strike": true,
+      "strike_kind": "mixed",
+      "target": "head",
+      "confidence": "high",
+      "reason": "jab-cross-spinning elbow chain finishing with the elbow at the head"
+    },
+    {
+      "id": "muay_thai_khao_chiang",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "body_damage": 8,
+        "damage": 5
+      },
+      "is_strike": true,
+      "strike_kind": "knee",
+      "target": "body",
+      "confidence": "high",
+      "reason": "diagonal knee aimed at the torso"
+    },
+    {
+      "id": "muay_thai_khao_clinch_entry",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "clinch_offense": 10,
+        "body_damage": 11
+      },
+      "is_strike": true,
+      "strike_kind": "knee",
+      "target": "body",
+      "confidence": "high",
+      "reason": "knee used to enter the clinch aimed at the body"
+    },
+    {
+      "id": "muay_thai_khao_counter",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "counter_strike": 8,
+        "body_damage": 7
+      },
+      "is_strike": true,
+      "strike_kind": "knee",
+      "target": "body",
+      "confidence": "high",
+      "reason": "counter knee aimed at the torso"
+    },
+    {
+      "id": "muay_thai_khao_dot",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "knockdown_power": 11,
+        "damage": 9
+      },
+      "is_strike": true,
+      "strike_kind": "knee",
+      "target": "head",
+      "confidence": "high",
+      "reason": "jumping knee aimed at the head"
+    },
+    {
+      "id": "muay_thai_khao_khong",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "body_damage": 8,
+        "damage": 5
+      },
+      "is_strike": true,
+      "strike_kind": "knee",
+      "target": "body",
+      "confidence": "high",
+      "reason": "curving knee aimed at the torso"
+    },
+    {
+      "id": "muay_thai_khao_loi",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "knockdown_power": 12,
+        "damage": 10,
+        "surprise": 8
+      },
+      "is_strike": true,
+      "strike_kind": "knee",
+      "target": "head",
+      "confidence": "high",
+      "reason": "flying knee aimed at the head"
+    },
+    {
+      "id": "muay_thai_khao_tat",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "body_damage": 7,
+        "damage": 5
+      },
+      "is_strike": true,
+      "strike_kind": "knee",
+      "target": "body",
+      "confidence": "high",
+      "reason": "horizontal knee aimed at the torso"
+    },
+    {
+      "id": "muay_thai_khao_thon",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "body_damage": 10,
+        "damage": 6
+      },
+      "is_strike": true,
+      "strike_kind": "knee",
+      "target": "body",
+      "confidence": "high",
+      "reason": "thrusting knee aimed at the torso"
+    },
+    {
+      "id": "muay_thai_khao_ti",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "setup",
+      "effects": {
+        "damage": 5,
+        "balance_break": 6
+      },
+      "is_strike": true,
+      "strike_kind": "knee",
+      "target": "body",
+      "confidence": "medium",
+      "reason": "knee slap a lighter knee aimed at the body"
+    },
+    {
+      "id": "muay_thai_khao_yao",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "body_damage": 11,
+        "knockdown_power": 7
+      },
+      "is_strike": true,
+      "strike_kind": "knee",
+      "target": "body",
+      "confidence": "high",
+      "reason": "knee bomb aimed at the torso"
+    },
+    {
+      "id": "muay_thai_khao_yiap",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "body_damage": 9,
+        "damage": 6
+      },
+      "is_strike": true,
+      "strike_kind": "knee",
+      "target": "body",
+      "confidence": "high",
+      "reason": "step-up knee aimed at the torso"
+    },
+    {
+      "id": "muay_thai_kick_knee_combo",
+      "discipline": "muay_thai",
+      "kind": "sequence",
+      "role": "damage",
+      "effects": {
+        "combo_continuity": 8,
+        "body_damage": 9
+      },
+      "is_strike": true,
+      "strike_kind": "mixed",
+      "target": "body",
+      "confidence": "medium",
+      "reason": "kick then knee both aimed at the body"
+    },
+    {
+      "id": "muay_thai_kradot_chok",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "damage": 10,
+        "knockdown_power": 8
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "Superman punch a jumping cross aimed at the head"
+    },
+    {
+      "id": "muay_thai_kradot_sok",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "head_damage": 14,
+        "knockdown_power": 9,
+        "surprise": 7
+      },
+      "is_strike": true,
+      "strike_kind": "elbow",
+      "target": "head",
+      "confidence": "high",
+      "reason": "jumping elbow aimed at the head"
+    },
+    {
+      "id": "muay_thai_mat_soei",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "head_damage": 7,
+        "damage": 6
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "Mat Soei uppercut punch to the head"
+    },
+    {
+      "id": "muay_thai_mat_trong",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "damage": 7,
+        "head_damage": 5
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "Mat Trong cross punch to the head"
+    },
+    {
+      "id": "muay_thai_mat_wiang_klap",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "head_damage": 10,
+        "surprise": 7
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "Mat Wiang Klap spinning backfist to the head"
+    },
+    {
+      "id": "muay_thai_mat_wiang_san",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "head_damage": 8,
+        "damage": 6
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "Mat Wiang San hook punch to the head"
+    },
+    {
+      "id": "muay_thai_mat_wiang_yao",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "damage": 8,
+        "knockdown_power": 6
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "Mat Wiang Yao overhand punch to the head"
+    },
+    {
+      "id": "muay_thai_mat_yaep",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "setup",
+      "effects": {
+        "damage": 5,
+        "accuracy": 7
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "spread",
+      "confidence": "medium",
+      "reason": "Mat Yaep jab that goes to both head and body"
+    },
+    {
+      "id": "muay_thai_slip_counter_punch",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "counter_strike": 8,
+        "damage": 7
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "high",
+      "reason": "slip off the centre line then counter punch to the head"
+    },
+    {
+      "id": "muay_thai_slip_sok_klap",
+      "discipline": "muay_thai",
+      "kind": "sequence",
+      "role": "damage",
+      "effects": {
+        "damage": 13,
+        "cut_threat": 9,
+        "surprise": 7
+      },
+      "is_strike": true,
+      "strike_kind": "elbow",
+      "target": "head",
+      "confidence": "high",
+      "reason": "slip then spinning elbow finishing at the head"
+    },
+    {
+      "id": "muay_thai_sok_clinch_combo",
+      "discipline": "muay_thai",
+      "kind": "sequence",
+      "role": "damage",
+      "effects": {
+        "clinch_offense": 10,
+        "cut_threat": 9
+      },
+      "is_strike": true,
+      "strike_kind": "elbow",
+      "target": "head",
+      "confidence": "medium",
+      "reason": "clinch elbow combination aimed at the head"
+    },
+    {
+      "id": "muay_thai_sok_klap_khu",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "head_damage": 13,
+        "cut_threat": 10,
+        "knockdown_power": 8
+      },
+      "is_strike": true,
+      "strike_kind": "elbow",
+      "target": "head",
+      "confidence": "high",
+      "reason": "double spinning elbow chop aimed at the head"
+    },
+    {
+      "id": "muay_thai_sok_long_guard_counter",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "counter_strike": 8,
+        "cut_threat": 7
+      },
+      "is_strike": true,
+      "strike_kind": "elbow",
+      "target": "head",
+      "confidence": "medium",
+      "reason": "long guard elbow counter aimed at the head"
+    },
+    {
+      "id": "muay_thai_sok_phung",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "damage": 8,
+        "cut_threat": 7
+      },
+      "is_strike": true,
+      "strike_kind": "elbow",
+      "target": "head",
+      "confidence": "medium",
+      "reason": "forward thrust elbow aimed at the head"
+    },
+    {
+      "id": "muay_thai_sok_wiang_klap",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "cut_threat": 9,
+        "damage": 7
+      },
+      "is_strike": true,
+      "strike_kind": "elbow",
+      "target": "head",
+      "confidence": "high",
+      "reason": "reverse horizontal elbow aimed at the head"
+    },
+    {
+      "id": "muay_thai_spinning_elbow",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "head_damage": 12,
+        "surprise": 8
+      },
+      "is_strike": true,
+      "strike_kind": "elbow",
+      "target": "head",
+      "confidence": "high",
+      "reason": "spinning back elbow aimed at the head"
+    },
+    {
+      "id": "muay_thai_straight_knee",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "body_damage": 10,
+        "damage": 7
+      },
+      "is_strike": true,
+      "strike_kind": "knee",
+      "target": "body",
+      "confidence": "high",
+      "reason": "straight knee aimed at the torso"
+    },
+    {
+      "id": "muay_thai_superman_knee",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "knockdown_power": 12,
+        "damage": 10,
+        "surprise": 8
+      },
+      "is_strike": true,
+      "strike_kind": "knee",
+      "target": "head",
+      "confidence": "high",
+      "reason": "Superman knee aimed at the head"
+    },
+    {
+      "id": "muay_thai_superman_knee_punch",
+      "discipline": "muay_thai",
+      "kind": "sequence",
+      "role": "damage",
+      "effects": {
+        "combo_continuity": 9,
+        "knockdown_power": 11
+      },
+      "is_strike": true,
+      "strike_kind": "mixed",
+      "target": "head",
+      "confidence": "medium",
+      "reason": "Superman knee then punch both aimed at the head"
+    },
+    {
+      "id": "muay_thai_switch_cross",
+      "discipline": "muay_thai",
+      "kind": "sequence",
+      "role": "damage",
+      "effects": {
+        "damage": 9,
+        "body_damage": 6
+      },
+      "is_strike": true,
+      "strike_kind": "mixed",
+      "target": "spread",
+      "confidence": "medium",
+      "reason": "switch kick then cross the kick goes to the body the cross to the head"
+    },
+    {
+      "id": "muay_thai_teep_knee_chain",
+      "discipline": "muay_thai",
+      "kind": "sequence",
+      "role": "setup",
+      "effects": {
+        "combo_continuity": 10,
+        "phase_transition": 9
+      },
+      "is_strike": true,
+      "strike_kind": "mixed",
+      "target": "body",
+      "confidence": "medium",
+      "reason": "teep then knee both can target the body"
+    },
+    {
+      "id": "muay_thai_thip_clinch_knee",
+      "discipline": "muay_thai",
+      "kind": "sequence",
+      "role": "damage",
+      "effects": {
+        "damage": 11,
+        "clinch_control": 8
+      },
+      "is_strike": true,
+      "strike_kind": "mixed",
+      "target": "spread",
+      "confidence": "medium",
+      "reason": "push kick then clinch knee entry that attacks multiple targets"
+    },
+    {
+      "id": "muay_thai_up_elbow",
+      "discipline": "muay_thai",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "cut_threat": 13,
+        "damage": 11
+      },
+      "is_strike": true,
+      "strike_kind": "elbow",
+      "target": "head",
+      "confidence": "high",
+      "reason": "upward elbow through the chin"
+    },
+    {
+      "id": "pencak_silat_catch_kick_takedown",
+      "discipline": "pencak_silat",
+      "kind": "move",
+      "role": "takedown",
+      "effects": {
+        "counter_takedown": 9,
+        "score_or_damage": 5
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "catch kick to takedown a takedown not a strike"
+    },
+    {
+      "id": "pencak_silat_elbow_destruction",
+      "discipline": "pencak_silat",
+      "kind": "move",
+      "role": "counter",
+      "effects": {
+        "counter_damage": 9,
+        "cut_chance": 6
+      },
+      "is_strike": true,
+      "strike_kind": "elbow",
+      "target": "head",
+      "confidence": "high",
+      "reason": "Sikut elbow counter in close range aimed at the head"
+    },
+    {
+      "id": "pencak_silat_guntingan_scissor",
+      "discipline": "pencak_silat",
+      "kind": "move",
+      "role": "takedown",
+      "effects": {
+        "counter_takedown": 9,
+        "balance_break": 6
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "Guntingan scissor takedown not a strike"
+    },
+    {
+      "id": "pencak_silat_langkah_angle",
+      "discipline": "pencak_silat",
+      "kind": "skill",
+      "role": "adaptation",
+      "effects": {
+        "angle_entry": 8,
+        "first_step": 5
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "Langkah angle stepping pattern that creates an angle not a strike"
+    },
+    {
+      "id": "pencak_silat_total_response_chain",
+      "discipline": "pencak_silat",
+      "kind": "move",
+      "role": "counter",
+      "effects": {
+        "counter_damage": 10,
+        "submission_chain": 7
+      },
+      "is_strike": true,
+      "strike_kind": "mixed",
+      "target": "head",
+      "confidence": "medium",
+      "reason": "total response chain of counters in the clinch finishing with elbow strikes to the head"
+    },
+    {
+      "id": "silat_catch_dump",
+      "discipline": "pencak_silat",
+      "kind": "sequence",
+      "role": "takedown",
+      "effects": {
+        "counter_takedown": 12,
+        "control_score": 8
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "kick catch and jatuhan dump a takedown not a strike"
+    },
+    {
+      "id": "silat_complete_response",
+      "discipline": "pencak_silat",
+      "kind": "sequence",
+      "role": "adaptation",
+      "effects": {
+        "counter_chain": 18,
+        "phase_transition": 16
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "pasang-parry-strike-guntingan response that ends with a scissor takedown not a strike"
+    },
+    {
+      "id": "silat_elbow_counter",
+      "discipline": "pencak_silat",
+      "kind": "sequence",
+      "role": "counter",
+      "effects": {
+        "counter_damage": 13,
+        "cut_chance": 9
+      },
+      "is_strike": true,
+      "strike_kind": "elbow",
+      "target": "head",
+      "confidence": "high",
+      "reason": "parry then elbow counter aimed at the head"
+    },
+    {
+      "id": "silat_guntingan",
+      "discipline": "pencak_silat",
+      "kind": "move",
+      "role": "takedown",
+      "effects": {
+        "takedown": 15,
+        "surprise": 9
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "Guntingan scissor takedown not a strike"
+    },
+    {
+      "id": "silat_langkah",
+      "discipline": "pencak_silat",
+      "kind": "skill",
+      "role": "setup",
+      "effects": {
+        "angle_entry": 8,
+        "evasion": 5
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "Langkah stepping pattern that creates angles not a strike"
+    },
+    {
+      "id": "sanda_catch_dump",
+      "discipline": "sanda",
+      "kind": "sequence",
+      "role": "takedown",
+      "effects": {
+        "counter_takedown": 15,
+        "momentum_shift": 9
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "round-kick catch and dump a takedown not a strike"
+    },
+    {
+      "id": "sanda_catch_side_throw",
+      "discipline": "sanda",
+      "kind": "move",
+      "role": "takedown",
+      "effects": {
+        "throw_damage": 9,
+        "score_or_damage": 6
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "catch to side throw a takedown not a strike"
+    },
+    {
+      "id": "sanda_full_chain",
+      "discipline": "sanda",
+      "kind": "sequence",
+      "role": "adaptation",
+      "effects": {
+        "phase_transition": 16,
+        "takedown": 15,
+        "control": 12
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "punch entry kick catch sweep platform control ends with a sweep not a strike"
+    },
+    {
+      "id": "sanda_full_sanda_chain",
+      "discipline": "sanda",
+      "kind": "move",
+      "role": "takedown",
+      "effects": {
+        "strike_to_throw": 11,
+        "chain_open": 8
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "strike-catch-throw chain that ends with a throw not a strike"
+    },
+    {
+      "id": "sanda_inside_sweep",
+      "discipline": "sanda",
+      "kind": "sequence",
+      "role": "takedown",
+      "effects": {
+        "takedown": 12,
+        "counter_score": 9
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "kick-catch inside sweep a sweep takedown not a strike"
+    },
+    {
+      "id": "sanda_kick_catch",
+      "discipline": "sanda",
+      "kind": "skill",
+      "role": "counter",
+      "effects": {
+        "kick_counter": 11,
+        "throw_open": 8
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "kick catch skill that reads and catches a kick not a strike"
+    },
+    {
+      "id": "sanda_leg_catch_read",
+      "discipline": "sanda",
+      "kind": "skill",
+      "role": "adaptation",
+      "effects": {
+        "kick_counter": 9,
+        "distance_read": 6
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "kick-read timing skill that reads the kick not a strike"
+    },
+    {
+      "id": "sanda_liftup_slam",
+      "discipline": "sanda",
+      "kind": "move",
+      "role": "takedown",
+      "effects": {
+        "throw_damage": 12,
+        "impact": 8
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "lift-up slam a takedown not a strike"
+    },
+    {
+      "id": "sanda_side_throw",
+      "discipline": "sanda",
+      "kind": "move",
+      "role": "takedown",
+      "effects": {
+        "takedown": 14,
+        "boundary_score": 8
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "body-lock side throw a takedown not a strike"
+    },
+    {
+      "id": "sanda_straight_blast",
+      "discipline": "sanda",
+      "kind": "move",
+      "role": "damage",
+      "effects": {
+        "damage": 8,
+        "combo_speed": 5
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "body",
+      "confidence": "medium",
+      "reason": "straight blast of punches at close range aimed at the body"
+    },
+    {
+      "id": "sanda_straights",
+      "discipline": "sanda",
+      "kind": "sequence",
+      "role": "setup",
+      "effects": {
+        "accuracy": 7,
+        "combo_open": 5
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "spread",
+      "confidence": "medium",
+      "reason": "lead-rear straight punch combination that goes to head and body"
+    },
+    {
+      "id": "sanda_sweep_counter",
+      "discipline": "sanda",
+      "kind": "move",
+      "role": "takedown",
+      "effects": {
+        "counter_takedown": 8,
+        "balance_break": 6
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "low sweep counter a takedown not a strike"
+    },
+    {
+      "id": "savate_assaut_footwork",
+      "discipline": "savate",
+      "kind": "skill",
+      "role": "adaptation",
+      "effects": {
+        "mobility": 8,
+        "first_step": 6
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "assaut footwork pattern that repositions not a strike"
+    },
+    {
+      "id": "savate_chasse_lateral_counter",
+      "discipline": "savate",
+      "kind": "move",
+      "role": "counter",
+      "effects": {
+        "stop_hit": 8,
+        "opponent_mobility": -5
+      },
+      "is_strike": true,
+      "strike_kind": "kick",
+      "target": "body",
+      "confidence": "medium",
+      "reason": "lateral chasse side kick used as a counter stop aimed at the body"
+    },
+    {
+      "id": "savate_revers_counter",
+      "discipline": "savate",
+      "kind": "move",
+      "role": "counter",
+      "effects": {
+        "counter_damage": 9,
+        "return_angle": 6
+      },
+      "is_strike": true,
+      "strike_kind": "punch",
+      "target": "head",
+      "confidence": "medium",
+      "reason": "revers counter punch that reverses direction to the head"
+    },
+    {
+      "id": "taekwondo_back_kick_counter",
+      "discipline": "taekwondo",
+      "kind": "move",
+      "role": "counter",
+      "effects": {
+        "counter_damage": 9,
+        "stop_hit": 6
+      },
+      "is_strike": true,
+      "strike_kind": "kick",
+      "target": "leg",
+      "confidence": "high",
+      "reason": "back kick intercept aimed at the kicking leg Q70 census missed this as a kick"
+    },
+    {
+      "id": "taekwondo_cut_counter",
+      "discipline": "taekwondo",
+      "kind": "move",
+      "role": "counter",
+      "effects": {
+        "stop_hit": 8,
+        "counter_open": 6
+      },
+      "is_strike": true,
+      "strike_kind": "kick",
+      "target": "leg",
+      "confidence": "high",
+      "reason": "cut kick counter aimed at the opponents kicking leg"
+    },
+    {
+      "id": "taekwondo_footwork_switch",
+      "discipline": "taekwondo",
+      "kind": "skill",
+      "role": "adaptation",
+      "effects": {
+        "first_step": 8,
+        "distance_read": 6
+      },
+      "is_strike": false,
+      "strike_kind": "none",
+      "target": null,
+      "confidence": "high",
+      "reason": "switch footwork read that judges distance not a strike"
+    }
+  ],
+  "summary": {
+    "strikes": 148,
+    "not_strikes": 52,
+    "head": 107,
+    "body": 23,
+    "leg": 2,
+    "spread": 16
+  }
+}

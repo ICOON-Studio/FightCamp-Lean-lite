@@ -1,0 +1,572 @@
+
+# res://scripts/ui/training/TrainingConstants.gd (continued)
+const PRESETS := {
+	"BALANCED": [Focus.BAGS, Focus.CARDIO, Focus.RECOVERY, Focus.RING, Focus.STRENGTH, Focus.RECOVERY, Focus.REST],
+	"POWER": [Focus.BAGS, Focus.STRENGTH, Focus.RECOVERY, Focus.BAGS, Focus.STRENGTH, Focus.RECOVERY, Focus.REST],
+	"CONDITIONING": [Focus.CARDIO, Focus.BAGS, Focus.CARDIO, Focus.STRENGTH, Focus.CARDIO, Focus.RECOVERY, Focus.REST],
+	"TECHNIQUE": [Focus.RING, Focus.BAGS, Focus.RECOVERY, Focus.RING, Focus.BAGS, Focus.RECOVERY, Focus.REST],
+	"RECOVERY": [Focus.RECOVERY, Focus.REST, Focus.RECOVERY, Focus.REST, Focus.RECOVERY, Focus.REST, Focus.REST]
+}
+
+const DAYS_OF_WEEK: Array[String] = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
+
+static func get_station_label(st: Station) -> String:
+	match st:
+		Station.NONE: return "REST AREA"
+		Station.HEAVY_BAGS: return "HEAVY BAG FLOOR"
+		Station.SPEED_BAGS: return "SPEED BAG RACK"
+		Station.SPARRING_RING: return "REGULATION RING"
+		Station.WEIGHT_ROOM: return "IRON PIT / WEIGHTS"
+		Station.ROADWORK: return "OUTDOOR ROADWORK"
+	return "UNKNOWN"
+
+2. TrainingDayCell.gd (Tactile Day Slot & Drop Target)
+# res://scripts/ui/training/TrainingDayCell.gd
+class_name TrainingDayCell
+extends Panel
+
+signal cell_clicked(day_index: int)
+signal focus_dropped(day_index: int, new_focus: int)
+
+var day_index: int = 0
+var day_name: String = "MON"
+var current_focus: int = TrainingConstants.Focus.REST
+var intensity: int = TrainingConstants.Intensity.MEDIUM
+var is_current_day: bool = false
+var is_locked: bool = false
+var has_refusal: bool = false
+
+# Internal UI
+var day_header_label: Label
+var focus_title_label: Label
+var subtext_label: Label
+var intensity_tag: Label
+var today_badge: Panel
+var hover_overlay: ColorRect
+var conflict_indicator: ColorRect
+
+func _init(p_day_idx: int = 0, p_day_name: String = "MON") -> void:
+	day_index = p_day_idx
+	day_name = p_day_name
+	custom_minimum_size = Vector2(114, 88)
+	size = Vector2(114, 88)
+	mouse_filter = MOUSE_FILTER_STOP
+
+func _ready() -> void:
+	_build_ui()
+	refresh_display()
+
+func _build_ui() -> void:
+	# Subtle background container
+	add_theme_stylebox_override("panel", UIKit.create_panel_style(Color("#181716"), Color("#33302b"), 1, 3))
+
+	# Top Day Label Strip
+	day_header_label = Label.new()
+	day_header_label.position = Vector2(8, 4)
+	day_header_label.size = Vector2(50, 16)
+	day_header_label.text = day_name
+	day_header_label.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_MICRO)
+	day_header_label.add_theme_color_override("font_color", UIKit.COLOR_TEXT_MUTED)
+	add_child(day_header_label)
+
+	# Intensity Sub-Badge
+	intensity_tag = Label.new()
+	intensity_tag.position = Vector2(58, 4)
+	intensity_tag.size = Vector2(48, 16)
+	intensity_tag.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	intensity_tag.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_MICRO - 1)
+	intensity_tag.add_theme_color_override("font_color", UIKit.COLOR_BRASS_DARK)
+	add_child(intensity_tag)
+
+	# Main Focus Title
+	focus_title_label = Label.new()
+	focus_title_label.position = Vector2(8, 26)
+	focus_title_label.size = Vector2(98, 22)
+	focus_title_label.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_SUBTITLE)
+	focus_title_label.add_theme_color_override("font_color", UIKit.COLOR_CREAM_PAPER)
+	add_child(focus_title_label)
+
+	# Subtext (Energy / Station summary)
+	subtext_label = Label.new()
+	subtext_label.position = Vector2(8, 50)
+	subtext_label.size = Vector2(98, 30)
+	subtext_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	subtext_label.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_MICRO - 1)
+	subtext_label.add_theme_color_override("font_color", UIKit.COLOR_TEXT_MUTED)
+	add_child(subtext_label)
+
+	# TODAY Marker
+	today_badge = Panel.new()
+	today_badge.position = Vector2(size.x - 42, -2)
+	today_badge.size = Vector2(40, 14)
+	today_badge.visible = false
+	today_badge.add_theme_stylebox_override("panel", UIKit.create_panel_style(UIKit.COLOR_GOLD_BRIGHT, Color.TRANSPARENT, 0, 2))
+	var t_lbl := Label.new()
+	t_lbl.set_anchors_preset(PRESET_FULL_RECT)
+	t_lbl.text = "TODAY"
+	t_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	t_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	t_lbl.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_MICRO - 2)
+	t_lbl.add_theme_color_override("font_color", UIKit.COLOR_CHARCOAL_DARK)
+	today_badge.add_child(t_lbl)
+	add_child(today_badge)
+
+	# Conflict / Refusal Warning Stripe (Red bar at bottom)
+	conflict_indicator = ColorRect.new()
+	conflict_indicator.position = Vector2(2, size.y - 3)
+	conflict_indicator.size = Vector2(size.x - 4, 2)
+	conflict_indicator.color = UIKit.COLOR_OXBLOOD_BRIGHT
+	conflict_indicator.visible = false
+	add_child(conflict_indicator)
+
+	# Interactive Hover / Highlight Overlay
+	hover_overlay = ColorRect.new()
+	hover_overlay.set_anchors_preset(PRESET_FULL_RECT)
+	hover_overlay.color = Color(1.0, 1.0, 1.0, 0.0)
+	hover_overlay.mouse_filter = MOUSE_FILTER_IGNORE
+	add_child(hover_overlay)
+
+func set_cell_state(p_focus: int, p_intensity: int, p_is_today: bool, p_conflict: bool = false) -> void:
+	current_focus = p_focus
+	intensity = p_intensity
+	is_current_day = p_is_today
+	has_refusal = p_conflict
+	refresh_display()
+
+func refresh_display() -> void:
+	var data: Dictionary = TrainingConstants.FOCUS_DATA.get(current_focus, {})
+	var bg_col: Color = data.get("bg_color", UIKit.COLOR_CHARCOAL_MID)
+	var br_col: Color = data.get("border_color", UIKit.COLOR_STEEL_BORDER)
+	var tx_col: Color = data.get("text_color", UIKit.COLOR_CREAM_PAPER)
+
+	if is_current_day:
+		br_col = UIKit.COLOR_GOLD_BRIGHT
+		today_badge.visible = true
+	else:
+		today_badge.visible = false
+
+	if has_refusal:
+		br_col = UIKit.COLOR_OXBLOOD_BRIGHT
+		conflict_indicator.visible = true
+	else:
+		conflict_indicator.visible = false
+
+	add_theme_stylebox_override("panel", UIKit.create_panel_style(bg_col, br_col, 2 if is_current_day else 1, 3))
+	focus_title_label.text = data.get("title", "REST")
+	focus_title_label.add_theme_color_override("font_color", tx_col)
+
+	match intensity:
+		TrainingConstants.Intensity.LIGHT: intensity_tag.text = "LIGHT"
+		TrainingConstants.Intensity.MEDIUM: intensity_tag.text = "MED"
+		TrainingConstants.Intensity.HEAVY: intensity_tag.text = "HVY"
+		TrainingConstants.Intensity.MAX: intensity_tag.text = "MAX"
+
+	if current_focus == TrainingConstants.Focus.REST or current_focus == TrainingConstants.Focus.RECOVERY:
+		subtext_label.text = "Recovery\n& Rehab"
+		intensity_tag.text = ""
+	else:
+		subtext_label.text = TrainingConstants.get_station_label(data.get("station", TrainingConstants.Station.NONE))
+
+func _gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			cell_clicked.emit(day_index)
+			_flash_selection()
+		elif event.button_index == MOUSE_BUTTON_RIGHT:
+			# Quick Right-Click to toggle / set to REST
+			current_focus = TrainingConstants.Focus.REST
+			refresh_display()
+			focus_dropped.emit(day_index, current_focus)
+
+func _notification(what: int) -> void:
+	match what:
+		NOTIFICATION_MOUSE_ENTER:
+			if not is_locked:
+				var tw := create_tween()
+				tw.tween_property(hover_overlay, "color:a", 0.08, 0.08)
+		NOTIFICATION_MOUSE_EXIT:
+			var tw := create_tween()
+			tw.tween_property(hover_overlay, "color:a", 0.0, 0.08)
+
+func _flash_selection() -> void:
+	hover_overlay.color = Color(1.0, 0.85, 0.3, 0.25)
+	var tw := create_tween()
+	tw.tween_property(hover_overlay, "color:a", 0.0, 0.16)
+
+# Drag-and-Drop Implementation
+func _can_drop_data(_at_position: Vector2, data: Variant) -> bool:
+	if is_locked:
+		return false
+	if data is Dictionary and data.has("training_focus"):
+		return true
+	return false
+
+func _drop_data(_at_position: Vector2, data: Variant) -> void:
+	if data is Dictionary and data.has("training_focus"):
+		current_focus = int(data["training_focus"])
+		refresh_display()
+		focus_dropped.emit(day_index, current_focus)
+
+3. TrainingFocusTile.gd (Draggable Shelf Cartridge)
+# res://scripts/ui/training/TrainingFocusTile.gd
+class_name TrainingFocusTile
+extends Panel
+
+var focus_id: int = TrainingConstants.Focus.REST
+
+func _init(p_focus: int) -> void:
+	focus_id = p_focus
+	custom_minimum_size = Vector2(280, 54)
+	size = Vector2(280, 54)
+
+func _ready() -> void:
+	mouse_default_cursor_shape = Control.CURSOR_CAN_DROP
+	var data: Dictionary = TrainingConstants.FOCUS_DATA.get(focus_id, {})
+	var bg_col: Color = data.get("bg_color", UIKit.COLOR_CHARCOAL_MID)
+	var br_col: Color = data.get("border_color", UIKit.COLOR_STEEL_BORDER)
+	add_theme_stylebox_override("panel", UIKit.create_panel_style(bg_col, br_col, 1, 3))
+
+	var title_lbl := Label.new()
+	title_lbl.position = Vector2(12, 6)
+	title_lbl.size = Vector2(256, 20)
+	title_lbl.text = data.get("title", "")
+	title_lbl.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_BODY)
+	title_lbl.add_theme_color_override("font_color", data.get("text_color", UIKit.COLOR_CREAM_PAPER))
+	add_child(title_lbl)
+
+	var sub_lbl := Label.new()
+	sub_lbl.position = Vector2(12, 28)
+	sub_lbl.size = Vector2(256, 18)
+	sub_lbl.text = data.get("subtext", "")
+	sub_lbl.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_MICRO)
+	sub_lbl.add_theme_color_override("font_color", UIKit.COLOR_TEXT_MUTED)
+	add_child(sub_lbl)
+
+func _get_drag_data(_at_position: Vector2) -> Variant:
+	var drag_data := {"training_focus": focus_id}
+	
+	# Drag preview matching theme
+	var preview := Panel.new()
+	preview.size = Vector2(160, 40)
+	var data: Dictionary = TrainingConstants.FOCUS_DATA.get(focus_id, {})
+	preview.add_theme_stylebox_override("panel", UIKit.create_panel_style(UIKit.COLOR_GOLD_BRIGHT, UIKit.COLOR_CHARCOAL_DARK, 2, 3))
+	
+	var lbl := Label.new()
+	lbl.set_anchors_preset(PRESET_FULL_RECT)
+	lbl.text = data.get("title", "")
+	lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	lbl.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_BODY)
+	lbl.add_theme_color_override("font_color", UIKit.COLOR_CHARCOAL_DARK)
+	preview.add_child(lbl)
+	
+	set_drag_preview(preview)
+	return drag_data
+
+4. TrainingWeekRow.gd (Fighter Weekly Plan Roster Card)
+# res://scripts/ui/training/TrainingWeekRow.gd
+class_name TrainingWeekRow
+extends Panel
+
+signal day_selected(fighter_id: String, day_idx: int)
+signal plan_mutated(fighter_id: String)
+
+var fighter_data: Dictionary = {}
+var day_cells: Array[TrainingDayCell] = []
+
+# Sub-components
+var portrait_rect: ColorRect
+var name_label: Label
+var coach_label: Label
+var status_strip: ColorRect
+var load_summary_label: Label
+var readiness_bar: ProgressBar
+var readiness_val_label: Label
+var cond_bar: ProgressBar
+var cond_val_label: Label
+var carryover_label: Label
+
+func _init(p_fighter: Dictionary = {}) -> void:
+	fighter_data = p_fighter
+	custom_minimum_size = Vector2(1812, 104)
+	size = Vector2(1812, 104)
+
+func _ready() -> void:
+	add_theme_stylebox_override("panel", UIKit.create_panel_style(UIKit.COLOR_CHARCOAL_MID, UIKit.COLOR_STEEL_BORDER, 1, 4))
+	_build_row_ui()
+	if not fighter_data.is_empty():
+		populate(fighter_data)
+
+func _build_row_ui() -> void:
+	# 4px Left edge status stripe
+	status_strip = ColorRect.new()
+	status_strip.position = Vector2(0, 0)
+	status_strip.size = Vector2(4, size.y)
+	status_strip.color = Color("#2f855a") # Valid green by default
+	add_child(status_strip)
+
+	# Column 1: Fighter Dossier (X: 16, W: 330)
+	var bio_box := Control.new()
+	bio_box.position = Vector2(16, 8)
+	bio_box.size = Vector2(330, 88)
+	add_child(bio_box)
+
+	portrait_rect = ColorRect.new()
+	portrait_rect.position = Vector2(0, 4)
+	portrait_rect.size = Vector2(64, 80)
+	portrait_rect.color = UIKit.COLOR_CHARCOAL_DARK
+	bio_box.add_child(portrait_rect)
+
+	name_label = Label.new()
+	name_label.position = Vector2(76, 4)
+	name_label.size = Vector2(250, 26)
+	name_label.text = "DANNY REYES"
+	name_label.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_TITLE)
+	name_label.add_theme_color_override("font_color", UIKit.COLOR_CREAM_PAPER)
+	bio_box.add_child(name_label)
+
+	var sub := Label.new()
+	sub.position = Vector2(76, 32)
+	sub.size = Vector2(250, 18)
+	sub.text = "HEAVYWEIGHT • 8-0-0 (6 KO)"
+	sub.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_MICRO)
+	sub.add_theme_color_override("font_color", UIKit.COLOR_GOLD_BRIGHT)
+	bio_box.add_child(sub)
+
+	coach_label = Label.new()
+	coach_label.position = Vector2(76, 54)
+	coach_label.size = Vector2(250, 18)
+	coach_label.text = "COACH: TERRY McGEE"
+	coach_label.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_MICRO)
+	coach_label.add_theme_color_override("font_color", UIKit.COLOR_BRASS_ANTIQUE)
+	bio_box.add_child(coach_label)
+
+	# Column 2: The 7 Day Cells (X: 360, W: 820)
+	var days_box := HBoxContainer.new()
+	days_box.position = Vector2(360, 8)
+	days_box.size = Vector2(820, 88)
+	days_box.add_theme_constant_override("separation", 5)
+	add_child(days_box)
+
+	for i in range(7):
+		var cell := TrainingDayCell.new(i, TrainingConstants.DAYS_OF_WEEK[i])
+		var captured_idx := i
+		cell.cell_clicked.connect(func(idx: int): day_selected.emit(fighter_data.get("id", "boxer_1"), idx))
+		cell.focus_dropped.connect(func(idx: int, focus: int): _on_cell_focus_changed(idx, focus))
+		days_box.add_child(cell)
+		day_cells.append(cell)
+
+	# Column 3: Weekly Work Load Tally (X: 1195, W: 190)
+	var load_box := VBoxContainer.new()
+	load_box.position = Vector2(1195, 12)
+	load_box.size = Vector2(190, 80)
+	load_box.add_theme_constant_override("separation", 2)
+	add_child(load_box)
+
+	var load_title := Label.new()
+	load_title.text = "WEEKLY DISTRIBUTION"
+	load_title.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_MICRO)
+	load_title.add_theme_color_override("font_color", UIKit.COLOR_TEXT_MUTED)
+	load_box.add_child(load_title)
+
+	load_summary_label = Label.new()
+	load_summary_label.text = "WORK: 4  |  REC: 1  |  REST: 2"
+	load_summary_label.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_BODY)
+	load_summary_label.add_theme_color_override("font_color", UIKit.COLOR_CREAM_PAPER)
+	load_box.add_child(load_summary_label)
+
+	# Column 4: Readiness & Conditioning Dual Telemetry (X: 1400, W: 390)
+	var tele_box := VBoxContainer.new()
+	tele_box.position = Vector2(1400, 10)
+	tele_box.size = Vector2(390, 84)
+	tele_box.add_theme_constant_override("separation", 4)
+	add_child(tele_box)
+
+	# Readiness Row
+	var r_head := HBoxContainer.new()
+	var r_lbl := Label.new()
+	r_lbl.text = "READINESS (NEXT SESSION)"
+	r_lbl.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_MICRO)
+	r_lbl.add_theme_color_override("font_color", UIKit.COLOR_TEXT_MUTED)
+	r_head.add_child(r_lbl)
+	readiness_val_label = Label.new()
+	readiness_val_label.text = "88%"
+	readiness_val_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	readiness_val_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	readiness_val_label.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_MICRO)
+	readiness_val_label.add_theme_color_override("font_color", UIKit.COLOR_GOLD_BRIGHT)
+	r_head.add_child(readiness_val_label)
+	tele_box.add_child(r_head)
+
+	readiness_bar = _create_meter(UIKit.COLOR_GOLD_BRIGHT)
+	tele_box.add_child(readiness_bar)
+
+	# Conditioning Row
+	var c_head := HBoxContainer.new()
+	var c_lbl := Label.new()
+	c_lbl.text = "CONDITIONING PEAK"
+	c_lbl.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_MICRO)
+	c_lbl.add_theme_color_override("font_color", UIKit.COLOR_TEXT_MUTED)
+	c_head.add_child(c_lbl)
+	cond_val_label = Label.new()
+	cond_val_label.text = "92%"
+	cond_val_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	cond_val_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	cond_val_label.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_MICRO)
+	cond_val_label.add_theme_color_override("font_color", Color("#48bb78"))
+	c_head.add_child(cond_val_label)
+	tele_box.add_child(c_head)
+
+	cond_bar = _create_meter(Color("#48bb78"))
+	tele_box.add_child(cond_bar)
+
+	carryover_label = Label.new()
+	carryover_label.text = "PROJECTED CARRY-OVER FATIGUE: +14% (SAFE)"
+	carryover_label.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_MICRO - 1)
+	carryover_label.add_theme_color_override("font_color", UIKit.COLOR_BRASS_ANTIQUE)
+	tele_box.add_child(carryover_label)
+
+func _create_meter(fill_color: Color) -> ProgressBar:
+	var pb := ProgressBar.new()
+	pb.custom_minimum_size = Vector2(0, 8)
+	pb.max_value = 100.0
+	pb.value = 50.0
+	pb.show_percentage = false
+	pb.add_theme_stylebox_override("background", UIKit.create_panel_style(UIKit.COLOR_TRACK_DARK, Color.TRANSPARENT, 0, 2))
+	pb.add_theme_stylebox_override("fill", UIKit.create_panel_style(fill_color, Color.TRANSPARENT, 0, 2))
+	return pb
+
+func populate(p_fighter: Dictionary) -> void:
+	fighter_data = p_fighter
+	name_label.text = str(fighter_data.get("name", "UNKNOWN")).to_upper()
+	var plan: Array = fighter_data.get("plan", [0, 0, 0, 0, 0, 1, 0])
+
+	for i in range(mini(plan.size(), day_cells.size())):
+		var focus: int = int(plan[i])
+		day_cells[i].set_cell_state(focus, TrainingConstants.Intensity.MEDIUM, i == 0)
+
+	_recalculate_metrics()
+
+func apply_preset(preset_key: String) -> void:
+	if not TrainingConstants.PRESETS.has(preset_key):
+		return
+	var template: Array = TrainingConstants.PRESETS[preset_key]
+	for i in range(mini(template.size(), day_cells.size())):
+		day_cells[i].set_cell_state(template[i], TrainingConstants.Intensity.MEDIUM, i == 0)
+	_recalculate_metrics()
+	plan_mutated.emit(fighter_data.get("id", ""))
+
+func _on_cell_focus_changed(day_idx: int, focus: int) -> void:
+	var plan: Array = fighter_data.get("plan", [0, 0, 0, 0, 0, 0, 0])
+	if day_idx < plan.size():
+		plan[day_idx] = focus
+	_recalculate_metrics()
+	plan_mutated.emit(fighter_data.get("id", ""))
+
+func _recalculate_metrics() -> void:
+	var work_count := 0
+	var rec_count := 0
+	var rest_count := 0
+
+	for cell in day_cells:
+		match cell.current_focus:
+			TrainingConstants.Focus.REST:
+				rest_count += 1
+			TrainingConstants.Focus.RECOVERY:
+				rec_count += 1
+			_:
+				work_count += 1
+
+	load_summary_label.text = "WORK: %d  |  REC: %d  |  REST: %d" % [work_count, rec_count, rest_count]
+
+	# Dynamic calculations
+	var calc_readiness: int = clampi(100 - (work_count * 14) + (rest_count * 10) + (rec_count * 6), 15, 100)
+	var calc_cond: int = clampi(50 + (work_count * 10) - (rest_count * 4), 20, 100)
+	var calc_fatigue: int = work_count * 6
+
+	readiness_bar.value = calc_readiness
+	readiness_val_label.text = "%d%%" % calc_readiness
+	cond_bar.value = calc_cond
+	cond_val_label.text = "%d%%" % calc_cond
+
+	if work_count >= 5:
+		carryover_label.text = "FATIGUE CARRY-OVER: +%d%% (DANGEROUS OVERLOAD)" % calc_fatigue
+		carryover_label.add_theme_color_override("font_color", UIKit.COLOR_OXBLOOD_BRIGHT)
+		status_strip.color = UIKit.COLOR_OXBLOOD_BRIGHT
+	elif work_count >= 3:
+		carryover_label.text = "FATIGUE CARRY-OVER: +%d%% (OPTIMAL PROGRESSION)" % calc_fatigue
+		carryover_label.add_theme_color_override("font_color", UIKit.COLOR_GOLD_BRIGHT)
+		status_strip.color = Color("#2f855a")
+	else:
+		carryover_label.text = "FATIGUE CARRY-OVER: +%d%% (CONDITIONING DECAY)" % calc_fatigue
+		carryover_label.add_theme_color_override("font_color", UIKit.COLOR_BRASS_DARK)
+		status_strip.color = UIKit.COLOR_BRASS_ANTIQUE
+
+5. TrainingSessionDrawer.gd (Slide-Up Docket & Refusal Diagnostic Engine)
+# res://scripts/ui/training/TrainingSessionDrawer.gd
+class_name TrainingSessionDrawer
+extends Panel
+
+signal closed
+signal session_committed(fighter_id: String, day_idx: int, config: Dictionary)
+
+var current_fighter_id: String = ""
+var current_day_idx: int = 0
+var current_focus: int = TrainingConstants.Focus.BAGS
+var current_intensity: int = TrainingConstants.Intensity.MEDIUM
+
+# UI Elements
+var title_label: Label
+var station_label: Label
+var coach_label: Label
+var gains_label: Label
+var bio_impact_label: Label
+var refusal_banner: Panel
+var refusal_label: Label
+var commit_button: Button
+
+func _init() -> void:
+	custom_minimum_size = Vector2(1812, 264)
+	size = Vector2(1812, 264)
+
+func _ready() -> void:
+	add_theme_stylebox_override("panel", UIKit.create_panel_style(UIKit.COLOR_CHARCOAL_MID, UIKit.COLOR_BRASS_ANTIQUE, 2, 4))
+	_build_drawer_ui()
+
+func _build_drawer_ui() -> void:
+	# Top Header Bar with Close X
+	var head := HBoxContainer.new()
+	head.position = Vector2(16, 12)
+	head.size = Vector2(size.x - 32, 28)
+	add_child(head)
+
+	title_label = Label.new()
+	title_label.text = "TACTICAL SESSION INSPECTOR • WEDNESDAY: DANNY REYES"
+	title_label.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_SUBTITLE)
+	title_label.add_theme_color_override("font_color", UIKit.COLOR_CREAM_PAPER)
+	title_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	head.add_child(title_label)
+
+	var close_btn := Button.new()
+	close_btn.text = "✕ CLOSE"
+	close_btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	close_btn.add_theme_stylebox_override("normal", UIKit.create_panel_style(UIKit.COLOR_CHARCOAL_DARK, UIKit.COLOR_STEEL_BORDER, 1, 2))
+	close_btn.pressed.connect(func(): close_drawer())
+	head.add_child(close_btn)
+
+	# 3 Diagnostic Tactical Columns (Y: 48, H: 140)
+	var col_a := _create_column("STATION & COACH ASSIGNMENT", 16, 48, 560)
+	station_label = _create_field(col_a, "Station: HEAVY BAG FLOOR #2 (CAPACITY: 1/4)")
+	coach_label = _create_field(col_a, "Supervising Coach: TERRY \"THE ANVIL\" McGEE")
+	_create_field(col_a, "Drill Focus: Power Hooks & Kinetic Kinetic Load")
+
+	var col_b := _create_column("PROJECTED ATTRIBUTE GAINS", 596, 48, 580)
+	gains_label = _create_field(col_b, "• Primary Gain: POWER (+0.42%)\n• Secondary Gain: STAMINA (+0.18%)\n• Skill Acquisition: Heavy Left Hook (Lv. 3 -> Lv. 4)")
+
+	var col_c := _create_column("ENERGY TAX & MEDICAL STRAIN", 1196, 48, 590)
+	bio_impact_label = _create_field(col_c, "• Session Stamina Burn: 450 kcal / -28% Tank\n• Acute Muscle Fatigue: +18%\n• Joint Strain: Metacarpal Bone Stress Low
+
+Can you continue the missing GDScript from the exact cutoff and provide every remaining training-planner file without placeholders?
+Can you reconcile the code with the full 1920×1080 specification, including one- and eight-fighter states?
+Can you generate a polished visual mockup of the redesigned weekly training planner in the Gleason Gym dossier style?
+Can you provide an integration checklist and measurable tests for drag-drop, injured fighters, coaches, transitions, and scaling?

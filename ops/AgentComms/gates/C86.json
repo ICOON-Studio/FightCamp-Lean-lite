@@ -1,0 +1,11 @@
+{
+  "checked_at": "2026-09-10T23:01:22Z",
+  "files": [
+    "Godot/tests/fight_guard_contract_test.gd",
+    "Godot/scripts/FightMoves.gd",
+    "Godot/scripts/FightRealtime.gd"
+  ],
+  "output": "CHECK total=3 fails=0 autoload_refs=0 autoload_warnings=0 time=0s\n",
+  "passed": true,
+  "task": "C86"
+}

@@ -1,0 +1,2714 @@
+{
+  "hz": 20,
+  "population": {
+    "boxing": {
+      "fighters": "out-boxer (boxing) vs pressure puncher (boxing)",
+      "reach": "186/172"
+    },
+    "catalogue": "res://assets/data/technique_catalog.json",
+    "kickboxing": {
+      "fighters": "outside kicker (kickboxing) vs dutch pressure (kickboxing)",
+      "reach": "188/174"
+    },
+    "muay_thai": {
+      "fighters": "muay khao (knees) (muay_thai) vs muay femur (technician) (muay_thai)",
+      "reach": "176/186"
+    },
+    "witness": {
+      "fighters": "out-boxer (A) vs pressure puncher (B)",
+      "ruleset": "boxing"
+    }
+  },
+  "rulesets": {
+    "boxing": {
+      "bouts": [
+        {
+          "bell_held": true,
+          "count_lengths_s": [
+            12.0198305136093
+          ],
+          "count_ticks": 240,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 75,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996000,
+          "tick": 13275
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996001,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996002,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996003,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996004,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996005,
+          "tick": 13200
+        },
+        {
+          "bell_held": true,
+          "count_lengths_s": [
+            18.4618770937387,
+            22.1257349731135
+          ],
+          "count_ticks": 811,
+          "counts_paired": true,
+          "counts_started": 2,
+          "held_ticks": 261,
+          "knockdowns": 2,
+          "method": "DECISION",
+          "seed": 996006,
+          "tick": 13461
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996007,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996008,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            22.8486536165617
+          ],
+          "count_ticks": 456,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996009,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996010,
+          "tick": 13200
+        },
+        {
+          "bell_held": true,
+          "count_lengths_s": [
+            10.4376243948936,
+            23.4527447924136,
+            11.4984284639359
+          ],
+          "count_ticks": 906,
+          "counts_paired": true,
+          "counts_started": 3,
+          "held_ticks": 174,
+          "knockdowns": 3,
+          "method": "DECISION",
+          "seed": 996011,
+          "tick": 13374
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996012,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996013,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996014,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996015,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            19.71772477708,
+            24.9334726341175,
+            13.9857073917063
+          ],
+          "count_ticks": 1171,
+          "counts_paired": true,
+          "counts_started": 3,
+          "held_ticks": 0,
+          "knockdowns": 3,
+          "method": "DECISION",
+          "seed": 996016,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "KO",
+          "seed": 996017,
+          "tick": 2257
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            17.6288799180696
+          ],
+          "count_ticks": 352,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996018,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996019,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996020,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            10.5332834124565
+          ],
+          "count_ticks": 210,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996021,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996022,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996023,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996024,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996025,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            17.9157491152778
+          ],
+          "count_ticks": 358,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996026,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996027,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996028,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996029,
+          "tick": 13200
+        },
+        {
+          "bell_held": true,
+          "count_lengths_s": [
+            21.9289685557931
+          ],
+          "count_ticks": 438,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 296,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996030,
+          "tick": 13496
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            21.2338078615393,
+            11.7521308660507
+          ],
+          "count_ticks": 659,
+          "counts_paired": true,
+          "counts_started": 2,
+          "held_ticks": 0,
+          "knockdowns": 2,
+          "method": "DECISION",
+          "seed": 996031,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            18.6137475479381
+          ],
+          "count_ticks": 372,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996032,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            16.7285992187645
+          ],
+          "count_ticks": 334,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996033,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            19.1846213350169,
+            24.2255350640773
+          ],
+          "count_ticks": 867,
+          "counts_paired": true,
+          "counts_started": 2,
+          "held_ticks": 0,
+          "knockdowns": 2,
+          "method": "DECISION",
+          "seed": 996034,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996035,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996036,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996037,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            12.4065815210004,
+            14.7064005554616
+          ],
+          "count_ticks": 542,
+          "counts_paired": true,
+          "counts_started": 2,
+          "held_ticks": 0,
+          "knockdowns": 2,
+          "method": "DECISION",
+          "seed": 996038,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            10.9991276860237
+          ],
+          "count_ticks": 219,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996039,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            13.210111256693
+          ],
+          "count_ticks": 264,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996040,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            20.551197848552,
+            11.7573889493942
+          ],
+          "count_ticks": 646,
+          "counts_paired": true,
+          "counts_started": 2,
+          "held_ticks": 0,
+          "knockdowns": 2,
+          "method": "DECISION",
+          "seed": 996041,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996042,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            19.1980065031475
+          ],
+          "count_ticks": 383,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996043,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "KO",
+          "seed": 996044,
+          "tick": 9601
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "KO",
+          "seed": 996045,
+          "tick": 3321
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            24.2227119710631
+          ],
+          "count_ticks": 484,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996046,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996047,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            22.9983482692379
+          ],
+          "count_ticks": 459,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996048,
+          "tick": 13200
+        },
+        {
+          "bell_held": true,
+          "count_lengths_s": [
+            24.5306828365576
+          ],
+          "count_ticks": 490,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 149,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996049,
+          "tick": 13349
+        },
+        {
+          "bell_held": true,
+          "count_lengths_s": [
+            23.1059640649254,
+            18.0813102648091
+          ],
+          "count_ticks": 823,
+          "counts_paired": true,
+          "counts_started": 2,
+          "held_ticks": 11,
+          "knockdowns": 2,
+          "method": "DECISION",
+          "seed": 996050,
+          "tick": 13211
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996051,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996052,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            20.1448046720823
+          ],
+          "count_ticks": 402,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996053,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996054,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            21.8311634518825
+          ],
+          "count_ticks": 436,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996055,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996056,
+          "tick": 13200
+        },
+        {
+          "bell_held": true,
+          "count_lengths_s": [
+            22.4858543331718,
+            16.6567309696989,
+            22.1578199309297
+          ],
+          "count_ticks": 1225,
+          "counts_paired": true,
+          "counts_started": 3,
+          "held_ticks": 225,
+          "knockdowns": 3,
+          "method": "DECISION",
+          "seed": 996057,
+          "tick": 13425
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            24.8200965343601,
+            23.5682590361308
+          ],
+          "count_ticks": 967,
+          "counts_paired": true,
+          "counts_started": 2,
+          "held_ticks": 0,
+          "knockdowns": 2,
+          "method": "DECISION",
+          "seed": 996058,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            12.5506382220514,
+            24.802003117086
+          ],
+          "count_ticks": 747,
+          "counts_paired": true,
+          "counts_started": 2,
+          "held_ticks": 0,
+          "knockdowns": 2,
+          "method": "DECISION",
+          "seed": 996059,
+          "tick": 13200
+        }
+      ],
+      "bouts_with_a_count": 27,
+      "bouts_with_bell_held": 7,
+      "count_share_of_round_time": 0.0198819926027158,
+      "counts_total": 41,
+      "knockdowns_total": 44,
+      "methods": {
+        "DECISION": 57,
+        "KO": 3
+      }
+    },
+    "kickboxing": {
+      "bouts": [
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            22.2885982752456
+          ],
+          "count_ticks": 445,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996000,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996001,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            15.0260260073197
+          ],
+          "count_ticks": 300,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996002,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996003,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            16.5161285590442
+          ],
+          "count_ticks": 330,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996004,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996005,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            18.4245638066664,
+            22.0673607194358,
+            20.8168024754622
+          ],
+          "count_ticks": 1225,
+          "counts_paired": true,
+          "counts_started": 3,
+          "held_ticks": 0,
+          "knockdowns": 3,
+          "method": "DECISION",
+          "seed": 996006,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996007,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            11.2424663305283
+          ],
+          "count_ticks": 224,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996008,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996009,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            16.6017258736898,
+            20.2906655025578
+          ],
+          "count_ticks": 737,
+          "counts_paired": true,
+          "counts_started": 2,
+          "held_ticks": 0,
+          "knockdowns": 2,
+          "method": "DECISION",
+          "seed": 996010,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            10.4376243948936,
+            23.5063768082186
+          ],
+          "count_ticks": 678,
+          "counts_paired": true,
+          "counts_started": 2,
+          "held_ticks": 0,
+          "knockdowns": 2,
+          "method": "DECISION",
+          "seed": 996011,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            16.8949167094294,
+            11.2634509801865
+          ],
+          "count_ticks": 562,
+          "counts_paired": true,
+          "counts_started": 2,
+          "held_ticks": 0,
+          "knockdowns": 2,
+          "method": "DECISION",
+          "seed": 996012,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996013,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            11.2906303405762
+          ],
+          "count_ticks": 225,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996014,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996015,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            24.7946835803098,
+            23.44334344213
+          ],
+          "count_ticks": 963,
+          "counts_paired": true,
+          "counts_started": 2,
+          "held_ticks": 0,
+          "knockdowns": 2,
+          "method": "DECISION",
+          "seed": 996016,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "KO",
+          "seed": 996017,
+          "tick": 2191
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            22.4157716388187
+          ],
+          "count_ticks": 448,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996018,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996019,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996020,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996021,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996022,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "KO",
+          "seed": 996023,
+          "tick": 1368
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            23.7696878441283
+          ],
+          "count_ticks": 475,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996024,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "KO",
+          "seed": 996025,
+          "tick": 6957
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            13.2956269784656
+          ],
+          "count_ticks": 265,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996026,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996027,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996028,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996029,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "KO",
+          "seed": 996030,
+          "tick": 5293
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996031,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "KO",
+          "seed": 996032,
+          "tick": 2828
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            16.6975871993695
+          ],
+          "count_ticks": 333,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996033,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            19.1488010545632,
+            24.1503683986843
+          ],
+          "count_ticks": 865,
+          "counts_paired": true,
+          "counts_started": 2,
+          "held_ticks": 0,
+          "knockdowns": 2,
+          "method": "DECISION",
+          "seed": 996034,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996035,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996036,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996037,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            14.7173152049523
+          ],
+          "count_ticks": 294,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996038,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996039,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            13.2092037250814,
+            17.9206741205128
+          ],
+          "count_ticks": 622,
+          "counts_paired": true,
+          "counts_started": 2,
+          "held_ticks": 0,
+          "knockdowns": 2,
+          "method": "DECISION",
+          "seed": 996040,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            20.4764624959478
+          ],
+          "count_ticks": 409,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996041,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            21.1842973447016
+          ],
+          "count_ticks": 423,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996042,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996043,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996044,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996045,
+          "tick": 13200
+        },
+        {
+          "bell_held": true,
+          "count_lengths_s": [
+            11.6517686843872
+          ],
+          "count_ticks": 233,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 216,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996046,
+          "tick": 13416
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "KO",
+          "seed": 996047,
+          "tick": 6115
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996048,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            16.4493095860231,
+            20.6720185688684
+          ],
+          "count_ticks": 741,
+          "counts_paired": true,
+          "counts_started": 2,
+          "held_ticks": 0,
+          "knockdowns": 2,
+          "method": "DECISION",
+          "seed": 996049,
+          "tick": 13200
+        },
+        {
+          "bell_held": true,
+          "count_lengths_s": [
+            23.1131958184126,
+            23.0356571442495
+          ],
+          "count_ticks": 922,
+          "counts_paired": true,
+          "counts_started": 2,
+          "held_ticks": 470,
+          "knockdowns": 2,
+          "method": "DECISION",
+          "seed": 996050,
+          "tick": 13670
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996051,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996052,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            20.1860478094097
+          ],
+          "count_ticks": 403,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996053,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996054,
+          "tick": 13200
+        },
+        {
+          "bell_held": true,
+          "count_lengths_s": [
+            17.2639330206823,
+            12.5020097513553
+          ],
+          "count_ticks": 595,
+          "counts_paired": true,
+          "counts_started": 2,
+          "held_ticks": 281,
+          "knockdowns": 2,
+          "method": "DECISION",
+          "seed": 996055,
+          "tick": 13481
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            22.0216628865618,
+            23.5076253093313,
+            14.7483798725045
+          ],
+          "count_ticks": 1204,
+          "counts_paired": true,
+          "counts_started": 3,
+          "held_ticks": 0,
+          "knockdowns": 3,
+          "method": "DECISION",
+          "seed": 996056,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "KO",
+          "seed": 996057,
+          "tick": 7611
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            23.6369797019333
+          ],
+          "count_ticks": 472,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996058,
+          "tick": 13200
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996059,
+          "tick": 13200
+        }
+      ],
+      "bouts_with_a_count": 26,
+      "bouts_with_bell_held": 3,
+      "count_share_of_round_time": 0.0196635622292384,
+      "counts_total": 39,
+      "knockdowns_total": 46,
+      "methods": {
+        "DECISION": 53,
+        "KO": 7
+      }
+    },
+    "muay_thai": {
+      "bouts": [
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996000,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            13.2318220490107
+          ],
+          "count_ticks": 264,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996001,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996002,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            18.2780841848479
+          ],
+          "count_ticks": 365,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996003,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996004,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996005,
+          "tick": 15600
+        },
+        {
+          "bell_held": true,
+          "count_lengths_s": [
+            21.9971326338854,
+            21.8910357870149
+          ],
+          "count_ticks": 876,
+          "counts_paired": true,
+          "counts_started": 2,
+          "held_ticks": 60,
+          "knockdowns": 2,
+          "method": "DECISION",
+          "seed": 996006,
+          "tick": 15660
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            15.4138819851664,
+            17.1186487481329
+          ],
+          "count_ticks": 650,
+          "counts_paired": true,
+          "counts_started": 2,
+          "held_ticks": 0,
+          "knockdowns": 2,
+          "method": "DECISION",
+          "seed": 996007,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996008,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            16.6982639116484
+          ],
+          "count_ticks": 333,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996009,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            16.4987354548867
+          ],
+          "count_ticks": 329,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996010,
+          "tick": 15600
+        },
+        {
+          "bell_held": true,
+          "count_lengths_s": [
+            10.4376243948936,
+            23.3513467375483
+          ],
+          "count_ticks": 675,
+          "counts_paired": true,
+          "counts_started": 2,
+          "held_ticks": 38,
+          "knockdowns": 2,
+          "method": "DECISION",
+          "seed": 996011,
+          "tick": 15638
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            15.8199788729386
+          ],
+          "count_ticks": 316,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996012,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            12.9051540437833
+          ],
+          "count_ticks": 258,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996013,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            11.2906303405762
+          ],
+          "count_ticks": 225,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996014,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            18.637608892911
+          ],
+          "count_ticks": 372,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996015,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            24.6404226505849
+          ],
+          "count_ticks": 492,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996016,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996017,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            12.1024845102857
+          ],
+          "count_ticks": 242,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996018,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996019,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996020,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            10.5332834124565
+          ],
+          "count_ticks": 210,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996021,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            23.9275142184066
+          ],
+          "count_ticks": 478,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996022,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "KO",
+          "seed": 996023,
+          "tick": 1478
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996024,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996025,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            17.8612479209832
+          ],
+          "count_ticks": 357,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996026,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            11.2448188066483
+          ],
+          "count_ticks": 224,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996027,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            14.9835692987365
+          ],
+          "count_ticks": 299,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996028,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996029,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            16.6951992580623,
+            11.3144106864929
+          ],
+          "count_ticks": 559,
+          "counts_paired": true,
+          "counts_started": 2,
+          "held_ticks": 0,
+          "knockdowns": 2,
+          "method": "DECISION",
+          "seed": 996030,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996031,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            16.4963110147561
+          ],
+          "count_ticks": 329,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 2,
+          "method": "KO",
+          "seed": 996032,
+          "tick": 1649
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            16.6648342936719,
+            15.2962842985033
+          ],
+          "count_ticks": 638,
+          "counts_paired": true,
+          "counts_started": 2,
+          "held_ticks": 0,
+          "knockdowns": 2,
+          "method": "DECISION",
+          "seed": 996033,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            19.1041968293121
+          ],
+          "count_ticks": 382,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996034,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            13.2635805490616
+          ],
+          "count_ticks": 265,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996035,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996036,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996037,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "KO",
+          "seed": 996038,
+          "tick": 25
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            10.9991276860237
+          ],
+          "count_ticks": 219,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996039,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            13.1902104075799
+          ],
+          "count_ticks": 263,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996040,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            18.9953144115271,
+            22.9605224686323
+          ],
+          "count_ticks": 838,
+          "counts_paired": true,
+          "counts_started": 2,
+          "held_ticks": 0,
+          "knockdowns": 2,
+          "method": "DECISION",
+          "seed": 996041,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            15.6765483887712
+          ],
+          "count_ticks": 313,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996042,
+          "tick": 15600
+        },
+        {
+          "bell_held": true,
+          "count_lengths_s": [
+            19.0007969217737,
+            24.1328696082265
+          ],
+          "count_ticks": 862,
+          "counts_paired": true,
+          "counts_started": 2,
+          "held_ticks": 275,
+          "knockdowns": 2,
+          "method": "DECISION",
+          "seed": 996043,
+          "tick": 15875
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996044,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            23.0085332258988,
+            16.477125678846
+          ],
+          "count_ticks": 789,
+          "counts_paired": true,
+          "counts_started": 2,
+          "held_ticks": 0,
+          "knockdowns": 2,
+          "method": "DECISION",
+          "seed": 996045,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            13.0856335095622
+          ],
+          "count_ticks": 261,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996046,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996047,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996048,
+          "tick": 15600
+        },
+        {
+          "bell_held": true,
+          "count_lengths_s": [
+            24.4015630732568,
+            24.6604245894633,
+            13.6664837557507
+          ],
+          "count_ticks": 1254,
+          "counts_paired": true,
+          "counts_started": 3,
+          "held_ticks": 201,
+          "knockdowns": 3,
+          "method": "DECISION",
+          "seed": 996049,
+          "tick": 15801
+        },
+        {
+          "bell_held": true,
+          "count_lengths_s": [
+            24.1677392898747
+          ],
+          "count_ticks": 483,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 162,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996050,
+          "tick": 15762
+        },
+        {
+          "bell_held": true,
+          "count_lengths_s": [
+            18.5691366255269
+          ],
+          "count_ticks": 371,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 356,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996051,
+          "tick": 15956
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "SUBMISSION",
+          "seed": 996052,
+          "tick": 1961
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            17.2153434125236
+          ],
+          "count_ticks": 344,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996053,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996054,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            17.1990622171591
+          ],
+          "count_ticks": 343,
+          "counts_paired": true,
+          "counts_started": 1,
+          "held_ticks": 0,
+          "knockdowns": 1,
+          "method": "DECISION",
+          "seed": 996055,
+          "tick": 15600
+        },
+        {
+          "bell_held": true,
+          "count_lengths_s": [
+            21.882794750405,
+            17.226108300758,
+            24.6198451014612
+          ],
+          "count_ticks": 1273,
+          "counts_paired": true,
+          "counts_started": 3,
+          "held_ticks": 93,
+          "knockdowns": 3,
+          "method": "DECISION",
+          "seed": 996056,
+          "tick": 15693
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            18.6913373204018,
+            24.7802412829441
+          ],
+          "count_ticks": 868,
+          "counts_paired": true,
+          "counts_started": 2,
+          "held_ticks": 0,
+          "knockdowns": 2,
+          "method": "DECISION",
+          "seed": 996057,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [
+            24.5521906431982,
+            23.4109462420739
+          ],
+          "count_ticks": 959,
+          "counts_paired": true,
+          "counts_started": 2,
+          "held_ticks": 0,
+          "knockdowns": 2,
+          "method": "DECISION",
+          "seed": 996058,
+          "tick": 15600
+        },
+        {
+          "bell_held": false,
+          "count_lengths_s": [],
+          "count_ticks": 0,
+          "counts_paired": true,
+          "counts_started": 0,
+          "held_ticks": 0,
+          "knockdowns": 0,
+          "method": "DECISION",
+          "seed": 996059,
+          "tick": 15600
+        }
+      ],
+      "bouts_with_a_count": 38,
+      "bouts_with_bell_held": 7,
+      "count_share_of_round_time": 0.0211422842270457,
+      "counts_total": 52,
+      "knockdowns_total": 55,
+      "methods": {
+        "DECISION": 56,
+        "KO": 3,
+        "SUBMISSION": 1
+      }
+    }
+  },
+  "witness": {
+    "bouts": [
+      {
+        "bell_held": false,
+        "count_lengths_s": [],
+        "count_ticks": 0,
+        "counts_paired": true,
+        "counts_started": 0,
+        "held_ticks": 0,
+        "knockdowns": 0,
+        "method": "DECISION",
+        "seed": 810000,
+        "tick": 13200
+      },
+      {
+        "bell_held": true,
+        "count_lengths_s": [
+          20.5810489107351
+        ],
+        "count_ticks": 411,
+        "counts_paired": true,
+        "counts_started": 1,
+        "held_ticks": 214,
+        "knockdowns": 1,
+        "method": "DECISION",
+        "seed": 810001,
+        "tick": 13414
+      },
+      {
+        "bell_held": false,
+        "count_lengths_s": [],
+        "count_ticks": 0,
+        "counts_paired": true,
+        "counts_started": 0,
+        "held_ticks": 0,
+        "knockdowns": 0,
+        "method": "DECISION",
+        "seed": 810002,
+        "tick": 13200
+      },
+      {
+        "bell_held": false,
+        "count_lengths_s": [],
+        "count_ticks": 0,
+        "counts_paired": true,
+        "counts_started": 0,
+        "held_ticks": 0,
+        "knockdowns": 0,
+        "method": "DECISION",
+        "seed": 810003,
+        "tick": 13200
+      },
+      {
+        "bell_held": false,
+        "count_lengths_s": [
+          14.4212874072013
+        ],
+        "count_ticks": 288,
+        "counts_paired": true,
+        "counts_started": 1,
+        "held_ticks": 0,
+        "knockdowns": 1,
+        "method": "DECISION",
+        "seed": 810004,
+        "tick": 13200
+      },
+      {
+        "bell_held": false,
+        "count_lengths_s": [
+          18.4424119823695
+        ],
+        "count_ticks": 368,
+        "counts_paired": true,
+        "counts_started": 1,
+        "held_ticks": 0,
+        "knockdowns": 1,
+        "method": "DECISION",
+        "seed": 810005,
+        "tick": 13200
+      },
+      {
+        "bell_held": false,
+        "count_lengths_s": [
+          23.3405846350139
+        ],
+        "count_ticks": 466,
+        "counts_paired": true,
+        "counts_started": 1,
+        "held_ticks": 0,
+        "knockdowns": 1,
+        "method": "DECISION",
+        "seed": 810006,
+        "tick": 13200
+      },
+      {
+        "bell_held": true,
+        "count_lengths_s": [
+          20.6101785799167
+        ],
+        "count_ticks": 412,
+        "counts_paired": true,
+        "counts_started": 1,
+        "held_ticks": 174,
+        "knockdowns": 1,
+        "method": "DECISION",
+        "seed": 810007,
+        "tick": 13374
+      },
+      {
+        "bell_held": false,
+        "count_lengths_s": [],
+        "count_ticks": 0,
+        "counts_paired": true,
+        "counts_started": 0,
+        "held_ticks": 0,
+        "knockdowns": 0,
+        "method": "DECISION",
+        "seed": 810008,
+        "tick": 13200
+      },
+      {
+        "bell_held": false,
+        "count_lengths_s": [
+          16.1853208416398
+        ],
+        "count_ticks": 323,
+        "counts_paired": true,
+        "counts_started": 1,
+        "held_ticks": 0,
+        "knockdowns": 1,
+        "method": "DECISION",
+        "seed": 810009,
+        "tick": 13200
+      },
+      {
+        "bell_held": false,
+        "count_lengths_s": [],
+        "count_ticks": 0,
+        "counts_paired": true,
+        "counts_started": 0,
+        "held_ticks": 0,
+        "knockdowns": 0,
+        "method": "DECISION",
+        "seed": 810010,
+        "tick": 13200
+      },
+      {
+        "bell_held": false,
+        "count_lengths_s": [],
+        "count_ticks": 0,
+        "counts_paired": true,
+        "counts_started": 0,
+        "held_ticks": 0,
+        "knockdowns": 0,
+        "method": "DECISION",
+        "seed": 810011,
+        "tick": 13200
+      },
+      {
+        "bell_held": false,
+        "count_lengths_s": [],
+        "count_ticks": 0,
+        "counts_paired": true,
+        "counts_started": 0,
+        "held_ticks": 0,
+        "knockdowns": 0,
+        "method": "DECISION",
+        "seed": 810012,
+        "tick": 13200
+      },
+      {
+        "bell_held": false,
+        "count_lengths_s": [],
+        "count_ticks": 0,
+        "counts_paired": true,
+        "counts_started": 0,
+        "held_ticks": 0,
+        "knockdowns": 0,
+        "method": "DECISION",
+        "seed": 810013,
+        "tick": 13200
+      },
+      {
+        "bell_held": false,
+        "count_lengths_s": [
+          14.8553267664228,
+          14.2173906914992
+        ],
+        "count_ticks": 581,
+        "counts_paired": true,
+        "counts_started": 2,
+        "held_ticks": 0,
+        "knockdowns": 2,
+        "method": "DECISION",
+        "seed": 810014,
+        "tick": 13200
+      },
+      {
+        "bell_held": false,
+        "count_lengths_s": [
+          11.1342753171921
+        ],
+        "count_ticks": 222,
+        "counts_paired": true,
+        "counts_started": 1,
+        "held_ticks": 0,
+        "knockdowns": 1,
+        "method": "DECISION",
+        "seed": 810015,
+        "tick": 13200
+      },
+      {
+        "bell_held": false,
+        "count_lengths_s": [],
+        "count_ticks": 0,
+        "counts_paired": true,
+        "counts_started": 0,
+        "held_ticks": 0,
+        "knockdowns": 0,
+        "method": "DECISION",
+        "seed": 810016,
+        "tick": 13200
+      },
+      {
+        "bell_held": false,
+        "count_lengths_s": [],
+        "count_ticks": 0,
+        "counts_paired": true,
+        "counts_started": 0,
+        "held_ticks": 0,
+        "knockdowns": 0,
+        "method": "DECISION",
+        "seed": 810017,
+        "tick": 13200
+      },
+      {
+        "bell_held": false,
+        "count_lengths_s": [
+          17.9204698636772
+        ],
+        "count_ticks": 358,
+        "counts_paired": true,
+        "counts_started": 1,
+        "held_ticks": 0,
+        "knockdowns": 1,
+        "method": "DECISION",
+        "seed": 810018,
+        "tick": 13200
+      },
+      {
+        "bell_held": false,
+        "count_lengths_s": [
+          22.2137590023611,
+          19.8584094672284
+        ],
+        "count_ticks": 841,
+        "counts_paired": true,
+        "counts_started": 2,
+        "held_ticks": 0,
+        "knockdowns": 2,
+        "method": "DECISION",
+        "seed": 810019,
+        "tick": 13200
+      }
+    ],
+    "counts_total": 12
+  }
+}

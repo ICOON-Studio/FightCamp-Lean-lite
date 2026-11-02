@@ -1,0 +1,317 @@
+"...His"
+
+PART B (CONTINUED): THE TWO SCREENS
+B2. Corner Report Between Rounds (Continued)
+Slot 1: Opponent Vulnerability Selection Logic (Priority Order, Continued)
+Opponent Low Chin / Rocked State (Continued):
+Data Check: Opponent Chin shock state was triggered $\ge 1$ time in the round, OR opponent effective chin is rated $\le 45$ and took $\ge 3$ clean head connects.
+Dialogue Template: "His legs went soft on the clean right. His chin rating ({OPP_CHIN}) won't survive another flush exchange—sit down on the right hand."
+Action Button: [LOAD UP REAR POWER] (Sets punch selection bias: Cross and Rear Hook weight $+35%$; commit to plant-and-turn leverage).
+Opponent Guard Breakdown / Low Accuracy:
+Data Check: Opponent overall round accuracy $\le 22.0%$ across $\ge 15$ attempts.
+Dialogue Template: "He is lunging blind ({OPP_ACC}% this round). Let him initiate, hold your pocket, and rip immediately after the second beat."
+Action Button: [FIGHT OFF BACK FOOT] (Sets stance preference: backward step-drag, distance $+0.5\text{ m}$, counter trigger window $+0.15\text{ s}$).
+Opponent Torso / Core Softening:
+Data Check: Opponent Torso wear $\le 75.0%$ OR took $\ge 8$ body shots in the round.
+Dialogue Template: "He dropped his elbows after the third body shot. Keep digging the rib cage; his feet are cementing."
+Action Button: [TARGET THE RIBS] (Forces target split: $65%$ Body / $35%$ Head; increases Lead Hook to Body priority).
+Fallback (Neutral / Even Round):
+Dialogue Template: "He's resetting to his left every time he finishes. Circle right to take away his power side."
+Action Button: [CIRCLE TO POWER SIDE] (Forces lateral movement vector toward the opponent's lead hand side).
+Slot 2: Player Risk / Structural Danger Selection Logic (Priority Order)
+
+Slot 2 diagnoses what went wrong on our fighter's side of the ledger during the round just fought:
+
+Imminent Chin Shock / Heavy Head Wear:
+Data Check: Player received $\ge 4$ clean power punches, OR fighter Chin check triggered, OR head condition dropped $\ge 8%$ this round alone.
+Dialogue Template: "Your head snapped back twice off his {OPP_MOST_LANDED_PUNCH}. Tuck that chin behind the shoulder and pick it off with the gloves."
+Action Button: [HIGH SHELL GUARD] (Shifts defensive preset to High Guard; blocks $+30%$, reduces incoming head shock by $0.25$, lowers punch output by $20%$).
+Specific Punch Leaking Through (Targeted Vulnerability):
+Data Check: Player slipped/blocked $< 20%$ against a single opponent punch type that was thrown $\ge 6$ times (e.g., lead hook consistently landing).
+Dialogue Template: "His {LEAKED_PUNCH} is finding your jaw every exchange ({LEAKED_LANDED}/{LEAKED_THROWN} landed). Keep that opposite glove pinned to your ear."
+Action Button: [ADAPT GUARD: {LEAKED_PUNCH}] (Configures dynamic defensive tracking against that specific attack angle; $+25%$ block rate against that punch ID).
+Leg Degradation / Footwork Slowdown:
+Data Check: Player combined Leg Condition $\le 80%$ OR player evasion dropped $\ge 10$ points from baseline due to fatigue.
+Dialogue Template: "Your feet are flat—evasion fell to {CURRENT_EVA}. Stop bouncing in place; plant yourself and make him come through the guard."
+Action Button: [PLANT & HOLD CENTER] (Reduces lateral footwork stamina draw by $40%$; switches evasion style to slip-in-place rather than ring-circling).
+Cuts / Swelling Escalation:
+Data Check: Any facial cut level $\ge 2$ or eye swelling reducing regional vision.
+Dialogue Template: "That cut over your eye is weeping. Don't let him rub his head in the clinch; work behind the jab and stay outside."
+Action Button: [LONG RANGE DISTANCE] (Pushes default engagement distance fit out to long range $+0.4\text{ m}$; prioritizes jab recovery).
+Fallback (Defensively Sound Round):
+Dialogue Template: "Defensively clean that round—only {CLEAN_TAKEN} clean shots slipped through. Keep the hands active and don't get complacent."
+Action Button: [MAINTAIN CURRENT GUARD] (Locks the current defensive balance without shifting risk profiles).
+Slot 3: Energy, Punch Economy & Attrition Selection Logic (Priority Order)
+
+Slot 3 enforces combat economy, managing the live stamina pool and punishing mechanical inefficiency:
+
+Severe Whiff Fatigue Drain (The Live Punitive Lever):
+Data Check: Player burned $\ge 6.0$ stamina points on missed punches alone this round ($1.5\times$ penalty threshold).
+Dialogue Template: "You're bleeding wind throwing at shadows—{WHIFF_COUNT} misses burned {WHIFF_STAMINA} stamina units. Stop loading up from the bleachers."
+Action Button: [PUNCH ON CONFIRMATION] (Suppresses speculative strikes; requires a minimum $50%$ hit-probability evaluation before initiating punch execution).
+Critical Low Stamina Tank:
+Data Check: Current stamina $\le 30.0%$ at round end.
+Dialogue Template: "You're running on fumes ({CURRENT_STAMINA}% tank). Give away the first minute of this next round: tie him up, breathe, and survive."
+Action Button: [CLINCH & REST ROUND] (Increases clinch attempt probability by $+45%$ when opponent closes distance; suppresses power punches to $0%$).
+Over-Jab Inefficiency (High Volume / Low Connect):
+Data Check: Player threw $\ge 18$ jabs but connected with $\le 4$ ($< 22%$ connect).
+Dialogue Template: "You threw {JAB_THROWN} jabs and only connected with {JAB_LANDED}. He's timing your arm extension—double the jab or change levels."
+Action Button: [DOUBLE-JAB & SHIFT] (Alters jab behavior tree to execute multi-punch feint sequences instead of single lead prods).
+Opponent Torso Ready for Knockout/Stamina Drain:
+Data Check: Opponent stamina has fallen below $40%$ and our fighter has $\ge 60%$ stamina remaining.
+Dialogue Template: "He's breathing through an open mouth. Pour on the pace this round—he cannot maintain this workrate."
+Action Button: [RAISE WORKRATE (+25%)] (Increases targeted actions-per-minute by $+25%$; increases combination length from 2 to 4 punches).
+Fallback (Balanced Pace):
+Dialogue Template: "Pacing looks solid ({STAMINA_PCT}% remaining). Maintain this rhythm and don't get sucked into an ugly brawl."
+Action Button: [PRESERVE TEMPO] (Keeps current stamina expenditure baseline stable).
+Complete Selection Algorithm & Ranking Pipeline (GDScript / C# Architecture)
+
+Every time the bell signals the end of a round, the following algorithm executes inside CornerManager.cs:
+
+public struct CoachRecommendation
+{
+    public string Channel;         // "OPPONENT", "RISK", "ECONOMY"
+    public string DialogueText;
+    public string ButtonLabel;
+    public TacticalOrder OrderData;
+    public float PriorityScore;
+}
+
+public List<CoachRecommendation> EvaluateRound(RoundAuditData round, Fighter player, Fighter opponent)
+{
+    List<CoachRecommendation> recs = new List<CoachRecommendation>();
+
+    // SLOT 1: OPPONENT VULNERABILITIES (Score: 0 to 100)
+    var slot1Candidates = new List<CoachRecommendation>();
+    
+    // Check 1.1: Opponent Whiffs
+    float oppWhiffRate = (float)opponent.PunchesWhiffedRound / Mathf.Max(1, opponent.PunchesThrownRound);
+    if (oppWhiffRate >= 0.40f && opponent.PunchesThrownRound >= 10)
+    {
+        slot1Candidates.Add(new CoachRecommendation {
+            PriorityScore = 80f + (oppWhiffRate * 20f),
+            DialogueText = $"His {opponent.MostWhiffedPunchType} is finding pure air — slipped {opponent.PunchesWhiffedRound} of {opponent.PunchesThrownRound}. Make him pay on the miss.",
+            ButtonLabel = "EXPLOIT WHIFF COUNTERS",
+            OrderData = TacticalOrder.ExploitCounters
+        });
+    }
+    // Check 1.2: Opponent Chin
+    if (opponent.ChinShockOccurredThisRound || opponent.EffectiveChin <= 45)
+    {
+        slot1Candidates.Add(new CoachRecommendation {
+            PriorityScore = 75f + (100 - opponent.EffectiveChin) * 0.25f,
+            DialogueText = $"His legs went soft on the clean right. His chin rating ({opponent.EffectiveChin:F0}) won't survive another flush exchange—sit down on the right hand.",
+            ButtonLabel = "LOAD UP REAR POWER",
+            OrderData = TacticalOrder.LoadUpRearPower
+        });
+    }
+    // Check 1.3: Low Accuracy
+    float oppAcc = (float)opponent.PunchesLandedRound / Mathf.Max(1, opponent.PunchesThrownRound);
+    if (oppAcc <= 0.22f && opponent.PunchesThrownRound >= 12)
+    {
+        slot1Candidates.Add(new CoachRecommendation {
+            PriorityScore = 65f + (0.22f - oppAcc) * 100f,
+            DialogueText = $"He is lunging blind ({(oppAcc * 100f):F0}% this round). Let him initiate, hold your pocket, and rip immediately after the second beat.",
+            ButtonLabel = "FIGHT OFF BACK FOOT",
+            OrderData = TacticalOrder.BackFootCounters
+        });
+    }
+    // Default Slot 1 Fallback
+    slot1Candidates.Add(new CoachRecommendation {
+        PriorityScore = 1.0f,
+        DialogueText = "He's resetting to his left every time he finishes. Circle right to take away his power side.",
+        ButtonLabel = "CIRCLE TO POWER SIDE",
+        OrderData = TacticalOrder.CirclePowerSide
+    });
+    slot1Candidates.Sort((a, b) => b.PriorityScore.CompareTo(a.PriorityScore));
+    recs.Add(slot1Candidates[0]);
+
+    // SLOT 2: PLAYER STRUCTURAL RISK (Score: 0 to 100)
+    var slot2Candidates = new List<CoachRecommendation>();
+    
+    // Check 2.1: Chin Danger / Head Damage
+    if (player.HeadDamageTakenThisRound >= 8.0f || player.ChinShockOccurredThisRound)
+    {
+        slot2Candidates.Add(new CoachRecommendation {
+            PriorityScore = 90f + player.HeadDamageTakenThisRound,
+            DialogueText = $"Your head snapped back twice off his {opponent.MostLandedPunchType}. Tuck that chin behind the shoulder and pick it off with the gloves.",
+            ButtonLabel = "HIGH SHELL GUARD",
+            OrderData = TacticalOrder.HighShellGuard
+        });
+    }
+    // Check 2.2: Specific Punch Leaking
+    var worstLeaked = player.GetMostLeakedPunchAgainst();
+    if (worstLeaked.LandedAgainst >= 6 && worstLeaked.BlockRate < 0.20f)
+    {
+        slot2Candidates.Add(new CoachRecommendation {
+            PriorityScore = 70f + worstLeaked.LandedAgainst * 2f,
+            DialogueText = $"His {worstLeaked.PunchName} is finding your jaw every exchange ({worstLeaked.LandedAgainst}/{worstLeaked.ThrownAgainst} landed). Keep that opposite glove pinned to your ear.",
+            ButtonLabel = $"ADAPT GUARD: {worstLeaked.PunchName.ToUpper()}",
+            OrderData = TacticalOrder.AdaptGuard(worstLeaked.PunchType)
+        });
+    }
+    // Check 2.3: Footwork / Leg Wear
+    if (player.LegsCondition <= 80f)
+    {
+        slot2Candidates.Add(new CoachRecommendation {
+            PriorityScore = 60f + (80f - player.LegsCondition),
+            DialogueText = $"Your feet are flat—evasion fell to {player.EffectiveEvasion:F0}. Stop bouncing in place; plant yourself and make him come through the guard.",
+            ButtonLabel = "PLANT & HOLD CENTER",
+            OrderData = TacticalOrder.PlantAndHold
+        });
+    }
+    // Default Slot 2 Fallback
+    slot2Candidates.Add(new CoachRecommendation {
+        PriorityScore = 1.0f,
+        DialogueText = $"Defensively clean that round—only {player.CleanPunchesAbsorbedRound} clean shots slipped through. Keep the hands active and don't get complacent.",
+        ButtonLabel = "MAINTAIN CURRENT GUARD",
+        OrderData = TacticalOrder.MaintainGuard
+    });
+    slot2Candidates.Sort((a, b) => b.PriorityScore.CompareTo(a.PriorityScore));
+    recs.Add(slot2Candidates[0]);
+
+    // SLOT 3: ENERGY & ATTRITION (Score: 0 to 100)
+    var slot3Candidates = new List<CoachRecommendation>();
+    
+    // Check 3.1: Whiff Burn
+    if (player.StaminaLostToWhiffsRound >= 6.0f)
+    {
+        slot3Candidates.Add(new CoachRecommendation {
+            PriorityScore = 85f + (player.StaminaLostToWhiffsRound * 2f),
+            DialogueText = $"You're bleeding wind throwing at shadows—{player.PunchesWhiffedRound} misses burned {player.StaminaLostToWhiffsRound:F1} stamina units. Stop loading up from the bleachers.",
+            ButtonLabel = "PUNCH ON CONFIRMATION",
+            OrderData = TacticalOrder.PunchOnConfirmation
+        });
+    }
+    // Check 3.2: Gassed
+    if (player.CurrentStamina <= 30.0f)
+    {
+        slot3Candidates.Add(new CoachRecommendation {
+            PriorityScore = 88f + (30f - player.CurrentStamina),
+            DialogueText = $"You're running on fumes ({player.CurrentStamina:F0}% tank). Give away the first minute of this next round: tie him up, breathe, and survive.",
+            ButtonLabel = "CLINCH & REST ROUND",
+            OrderData = TacticalOrder.ClinchAndRest
+        });
+    }
+    // Default Slot 3 Fallback
+    slot3Candidates.Add(new CoachRecommendation {
+        PriorityScore = 1.0f,
+        DialogueText = $"Pacing looks solid ({player.CurrentStamina:F0}% remaining). Maintain this rhythm and don't get sucked into an ugly brawl.",
+        ButtonLabel = "PRESERVE TEMPO",
+        OrderData = TacticalOrder.PreserveTempo
+    });
+    slot3Candidates.Sort((a, b) => b.PriorityScore.CompareTo(a.PriorityScore));
+    recs.Add(slot3Candidates[0]);
+
+    return recs; // Exactly 3 targeted directives
+}
+
+Click-to-Plan-Change Mapping Reference Table
+
+When the player clicks any of the operational buttons on the corner screen, the corresponding tactical state overrides are applied instantly to the fight engine for the duration of the subsequent round:
+
+| Button Action Identifier | Internal Engine Tactical Modifiers Applied | Combat Engine Consequence |
+| :--- | :--- | :--- |
+| [EXPLOIT WHIFF COUNTERS] | CounterCommitment = 0.85 (was 0.50), CounterWindowBonus = +0.10s, InitiativeBias = -0.30 | Boxer waits for opponent swing before triggering strikes; exploits the live $0.45\text{ s}$ counter window. |
+| [LOAD UP REAR POWER] | PunchWeight[CROSS] *= 1.40, PunchWeight[REAR_HOOK] *= 1.35, PowerCommitment = 1.0 | Maximizes clean head power hits to trigger opponent chin shock multiplier (1.6 - 1.2*chin/100). |
+| [FIGHT OFF BACK FOOT] | PreferredDistance = Long (+0.5m), RetreatVectorWeight = 1.5, LeadStepRate = 0.5 | Drops opponent distance fit parameter; increases attacker whiff probability via (1 + 0.6*(1 - distance_fit)). |
+| [TARGET THE RIBS] | TargetSplit_Head = 0.35, TargetSplit_Body = 0.65, PunchWeight[LEAD_BODY_HOOK] *= 1.8 | Bypasses high guard to degrade opponent torso_core condition and accelerate opponent baseline fatigue. |
+| [HIGH SHELL GUARD] | GuardPreset = HighShell, BlockRateMod = +0.30, SlipAttemptMod = -0.25, ShockDampening = 0.75 | Locks defense against incoming chin checks; eliminates clean shock at the cost of lowered offensive output. |
+| [ADAPT GUARD: PUNCH] | DynamicTrackTarget = PUNCH_ID, SpecificAngleDefense[PUNCH_ID] = +0.35 | Modulates defender evasion/block calculation specifically when the identified punch ID is detected. |
+| [PLANT & HOLD CENTER] | FootworkState = StationaryPivots, LegStaminaDrainMult = 0.60, SlipInPlaceCommit = 0.80 | Preserves degraded leg condition ($<80%$); stops stamina bleed from retreating movement. |
+| [PUNCH ON CONFIRM] | MinHitProbabilityThreshold = 0.48 (was 0.28), FeintRate = +0.30 | Suppresses low-percentage strikes; cuts live whiff stamina penalties ($1.5\times$ base cost) by $\ge 60%$. |
+| [CLINCH & REST ROUND] | ClinchTendency = 0.90, OffensiveOutputMult = 0.15, StaminaRecoveryMult = 1.35 | Fighter initiates clinch inside pocket; drains round clock safely to restore depleted stamina tank. |
+| [DOUBLE-JAB & SHIFT] | ComboPattern[JAB_JAB_CROSS] *= 2.0, SingleJabBias = -0.50, TelegraphReduction = 0.15 | Offsets opponent's slip read; reduces telegraph penalty in whiff formula (+0.20 * telegraph). |
+
+B2 Layout Specifications (1920 × 1080)
+
+Dark broadcast visual architecture. All containers have square corners (border_radius = 0), borders are 1px solid #30363D, and text hierarchy is strictly legible at native resolution.
+
++----------------------------------------------------------------------------------------------------+
+| PANEL B2-1: ROUND STATUS BAR (X: 20, Y: 20, W: 1880, H: 80)                                         |
+| ROUND 6 COMPLETED   |   REST TIME: [ 00:44 ]   |   REYES (Ahead 49-46) vs PEREZ                    |
++----------------------------------------------------------------------------------------------------+
+| PANEL B2-2: CHIEF SECOND INSTRUCTIONS (X: 20, Y: 120, W: 1880, H: 540)                            |
+|                                                                                                    |
+|  [SLOT 1: OPPONENT] (H: 150)                                                                       |
+|  +----------------------------------------------------------------------+-----------------------+  |
+|  | "His cross is finding pure air -- slipped 7 of 11. Make him pay."    | [EXPLOIT WHIFFS]      |  |
+|  | Evasion Check: 78 vs 52 Acc | Opponent Whiff Rate: 63.6%             | Order: Counter Attack |  |
+|  +----------------------------------------------------------------------+-----------------------+  |
+|                                                                                                    |
+|  [SLOT 2: RISK] (H: 150)                                                                           |
+|  +----------------------------------------------------------------------+-----------------------+  |
+|  | "Your right eye is taking clean lead hooks. Keep the glove pinned."  | [HIGH LEFT GUARD]     |  |
+|  | Head Shock Taken: 2 hits | Incoming Connect Rate: 62%                | Order: Adapt Defense  |  |
+|  +----------------------------------------------------------------------+-----------------------+  |
+|                                                                                                    |
+|  [SLOT 3: ECONOMY] (H: 150)                                                                        |
+|  +----------------------------------------------------------------------+-----------------------+  |
+|  | "You bled 7.4 stamina throwing at shadows. Stop loading up."         | [PUNCH ON CONFIRM]    |  |
+|  | Whiff Burn: 7.4 stm | Net Tank Remaining: 54%                        | Order: Punch Select   |  |
+|  +----------------------------------------------------------------------+-----------------------+  |
++----------------------------------------------------------------------------------------------------+
+| PANEL B2-3: CORNER TACTICAL OVERRIDES & CUTMAN WORK (X: 20, Y: 680, W: 1880, H: 380)               |
+|                                                                                                    |
+|  [COL 1: IMMEDIATE INTERVENTIONS]      [COL 2: CUTMAN STATION]          [COL 3: RING INTENT]       |
+|  - Stance: Orthodox                    - Left Eye Swelling: 12%         [ AGGRESSIVE PRESSURE ]    |
+|  - Guard Style: High Shell             - Right Brow Cut: Grade 1        [ BOX & MOVE          ]    |
+|  - Engagement Range: Step-In Pocket    - Ice Pack & Adrenaline Applied  [ CLINCH & SURVIVE    ]    |
+|  - Workrate Target: 42 punches/rd      - Condition Recovery: +2.4% Head [ DEFAULT GAMEPLAN    ]    |
++----------------------------------------------------------------------------------------------------+
+
+Exact Pixel Bounds & Node Structure
+
+Top Status Bar (PanelContainer):
+
+Rect: X = 20, Y = 20, W = 1880, H = 80
+StyleBoxFlat: Background #161B22, Border Width 1px #30363D, Corner Radius 0.
+Label (Left): "BETWEEN ROUNDS 6 & 7" (24pt Segoe UI, Bold, #E6EDF3).
+Timer Label (Center): "[ REST INTERVAL: 00:44 ]" (28pt Consolas, Bold, #D29922).
+Score Indicator (Right): "CORNER ESTIMATE: 58-56 FAVORABLE" (20pt Consolas, #3FB950).
+
+Coach Directives Container (VBoxContainer):
+
+Rect: X = 20, Y = 115, W = 1880, H = 550
+Contains three horizontal cards (HBoxContainer, Height: 165px, Separation: 15px).
+Sub-Card Internal Geometry (Each of the 3 rows):
+Directive Narrative Box (PanelContainer):
+W = 1480, H = 165
+Background #0D1117, Border 1px #30363D.
+Contains VBoxContainer with 12px margin padding:
+Channel Header: 14pt bold, uppercase (#8B949E), e.g., "CHIEF SECOND — TACTICAL VULNERABILITY DETECTED"
+Dialogue Text: 18pt regular Segoe UI (#FFFFFF), dynamic text wrapping up to 1400px.
+Underlying Stat Feed: 13pt Consolas (#D29922), showing exact formulas triggered (e.g., "Opponent Whiff Rate: 63.6% | Calculated Whiff Target: Cross | Counter Window: 0.45s").
+Direct Action Button (Button):
+W = 385, H = 165
+Base Color #21262D, Border 2px #3FB950 (or #D29922), Hover Color #30363D.
+Text: Centered, 18pt bold uppercase (#FFFFFF).
+Subtext: 13pt Consolas (#3FB950), e.g., "CLICK TO ENGAGE ORDER".
+
+Lower Tactical & Cutman Utility Deck (HBoxContainer):
+
+Rect: X = 20, Y = 680, W = 1880, H = 380
+Separation: 20px. Three columns of $W = 613\text{ px}$ each.
+Column 1: Stance & Guard Sliders (VBoxContainer):
+Manual micro-adjustments if the player declines pre-packaged coach buttons.
+Punch Bias Slider (Jab vs Power), Range Slider (Inside/Pocket/Outside), Guard Slider (Low/Neutral/High).
+Column 2: Cutman Workstation (PanelContainer):
+Visual representation of 6 body regions and facial damage meters.
+Displays real-time cutman treatment: Swelling reduction %, cut closure progress, and stamina restoration tick ($+1.5\text{ to }+3.0\text{ stamina}$ recovered during rest).
+Column 3: Master Macro Directives (VBoxContainer):
+Four large stacked square-corner toggle buttons (H = 75px each):
+[ RESUME GAMEPLAN ]
+[ HUNT THE KNOCKOUT ]
+[ BOX ON THE RETREAT ]
+[ INITIATE CLINCH INTERRUPTS ]
+Technical Integration Note (Godot 4 Signal Flow)
+
+When Direct Action Button is clicked:
+
+CornerUI.cs emits signal TacticalOrderSubmitted(TacticalOrder order).
+FightEngine.cs parses the active order struct and injects modifiers directly into the combat loop for the upcoming round:
+Sets defender_evasion_modifier
+Sets attacker_target_bias
+Injects minimum hit threshold into AttemptPunchExecution()
+Updates AI decision matrix weights for round duration.
+The button state latches to Color(0.25, 0.72, 0.31) (#3FB950), locking the choice for the remaining duration of the 60-second window.

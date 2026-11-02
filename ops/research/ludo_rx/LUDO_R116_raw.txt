@@ -1,0 +1,298 @@
+FightCamp — Engineering Specification (v0.8.4 EA)
+
+Systems: Fight Week Wear Carryover (Step 1b), Post-Fight Audit Panel & Between-Rounds Corner Report (Step 4)
+
+Engine: Godot 4 (C# / GDScript), Native PC / Steam Early Access
+
+Constraints: Strictly text/data specification, 1920×1080 resolution, square corners, dark broadcast styling (#0C0E12, #161B22, #E6EDF3, #F85149, #3FB950, #D29922).
+
+PART A: TRAINING WEAR & READINESS ENTER THE BOUT (STEP 1b)
+
+The design goal of carrying training wear into fight night is not to create a punishing death spiral, but to make the Fight Week Taper an active tactical trade-off. If a manager over-drills right up to Friday night, their boxer walks in flat, vulnerable, and sluggish. If they taper cleanly, they preserve full operational stats.
+
+A1. Regional Body Condition Carryover
+1. Daily Wear Accumulation & Decay
+
+The gym already logs wear on each of the six body regions:
+$$\text{Regions} = {\text{head_neck}, \text{torso_core}, \text{left_arm}, \text{right_arm}, \text{left_leg}, \text{right_leg}}$$
+
+During camp, each daily training activity contributes raw wear points ($\Delta W_{\text{raw}}$) to targeted regions:
+
+Heavy Sparring: $+18$ to $+24$ to head_neck, $+10$ to torso_core, $+6$ to arms.
+Heavy Bag Work: $+14$ to $+18$ to active arms, $+6$ to torso_core.
+Mitt / Pad Work: $+8$ to arms, $+6$ to torso_core.
+Roadwork / Hill Sprints: $+16$ to $+22$ to left_leg and right_leg.
+Conditioning / Calisthenics: $+10$ across all regions evenly.
+2. Natural Daily Overnight Recovery (Baseline Taper)
+
+Every midnight tick in the gym, before fight night:
+$$W_{\text{day_end}} = \max\left(0.0,; W_{\text{day_start}} \times (1.0 - \text{DecayRate}) - R_{\text{flat}}\right)$$
+
+Active Training Day: $\text{DecayRate} = 0.25$, $R_{\text{flat}} = 4.0$
+Light Recovery Day (Walks, Foam Roll, Massage): $\text{DecayRate} = 0.45$, $R_{\text{flat}} = 10.0$
+Full Rest Day (Bed rest, Hydration): $\text{DecayRate} = 0.65$, $R_{\text{flat}} = 18.0$
+3. Fight Night Entry Formula (Converting $W_{\text{net}}$ to Ring Condition %)
+
+On fight night at 00:00 (weigh-in / pre-fight lock), raw wear $W_{r}$ for each region $r$ is converted into starting ring structural health:
+$$\text{StartingCondition}_r (%) = \text{clamp}\left(100.0 - (W_r \times 0.75),; \text{Floor}_r,; 100.0\right)$$
+
+Absolute Hard Floor ($\text{Floor}_r$): 70.0%. Even an catastrophically mismanaged camp cannot send a licensed professional into an officially sanctioned ring below 70% structural integrity; commission doctors will intervene or natural biological resilience bottoms out here.
+Soft Floor Tapering: A fighter entering with $W_r = 0$ enters at $100.0%$. A fighter with $W_r = 40$ (e.g., hard sparring on Thursday before a Saturday bout) enters at: $$100.0 - (40 \times 0.75) = 70.0%$$
+4. Taper Recovery Math (Worked 3-Day Taper Example)
+
+Suppose a fighter ends heavy training Wednesday evening with $W_{\text{head}} = 38.0$ and $W_{\text{legs}} = 34.0$:
+
+Thursday (Light Recovery): $$W_{\text{head}} = \max(0, 38.0 \times (1 - 0.45) - 10.0) = \max(0, 20.9 - 10.0) = 10.9$$ $$W_{\text{legs}} = \max(0, 34.0 \times (1 - 0.45) - 10.0) = \max(0, 18.7 - 10.0) = 8.7$$
+Friday (Full Rest / Weigh-In Day): $$W_{\text{head}} = \max(0, 10.9 \times (1 - 0.65) - 18.0) = \max(0, 3.815 - 18.0) = 0.0$$ $$W_{\text{legs}} = \max(0, 8.7 \times (1 - 0.65) - 18.0) = \max(0, 3.045 - 18.0) = 0.0$$
+Saturday Night Ring Entry: Both regions enter at exactly $100.0%$. A standard 48-to-72 hour taper completely clears intense training wear.
+A2. Starting Stamina & Max Stamina from Readiness
+
+Readiness ($R$) is an aggregate 0–100 gym metric calculated from overall Central Nervous System (CNS) strain, sleep quality, and calorie deficit.
+
+1. Max Stamina Cap ($S_{\max}$)
+
+Standard base max stamina is $100.0$.
+$$S_{\max} = \text{clamp}\left(80.0 + (0.20 \times R),; 80.0,; 100.0\right)$$
+
+At $R = 100$: $S_{\max} = 100.0$.
+At $R = 75$: $S_{\max} = 95.0$.
+At $R = 50$: $S_{\max} = 90.0$.
+At $R = 0$ (extreme overtraining exhaustion): $S_{\max} = 80.0$.
+2. Starting Stamina Tank ($S_{\text{start}}$)
+
+$$S_{\text{start}} = S_{\max} \times \text{clamp}\left(0.85 + (0.15 \times \frac{R}{100.0}),; 0.85,; 1.00\right)$$
+
+At $R = 100$: $S_{\text{start}} = 100.0 \times 1.00 = 100.0$.
+At $R = 80$: $S_{\max} = 96.0$, $S_{\text{start}} = 96.0 \times (0.85 + 0.12) = 96.0 \times 0.97 = 93.12$.
+At $R = 50$: $S_{\max} = 90.0$, $S_{\text{start}} = 90.0 \times (0.85 + 0.075) = 90.0 \times 0.925 = 83.25$.
+At $R \le 20$: $S_{\max} = 84.0$, $S_{\text{start}} = 84.0 \times 0.88 = 73.92$.
+A3. In-Fight Consequences of Overtraining (Using Live Levers Only)
+
+No new ad-hoc modifiers or artificial scripting are added. Wear and reduced readiness depress the exact combat levers deployed in step 1:
+
+1. Evasion Penalty via Leg Condition ($e_{\text{eff}}$)
+
+Evasion requires spring and lateral footwork. The live evasion stat $e$ is modulated by the average health of both legs:
+$$\text{LegIntegrity} = \frac{\text{Condition}{\text{left_leg}} + \text{Condition}{\text{right_leg}}}{200.0} \quad \in [0.70,; 1.00]$$
+$$e_{\text{effective}} = e \times (0.60 + 0.40 \times \text{LegIntegrity})$$
+
+At 100% Legs: $e_{\text{eff}} = e \times 1.00$.
+At 70% Legs (Worst-case heavy roadwork Friday night): $$e_{\text{eff}} = e \times (0.60 + 0.28) = e \times 0.88 \quad (-12% \text{ evasion})$$
+Direct Engine Consequence: A fighter with base evasion 70 drops to $61.6$. In the live whiff formula: $$\text{whiff} = 0.22 \times \left(\frac{2e}{e+a}\right)^{1.5}$$ Against an attacker with accuracy 60, their baseline whiff rate drops from $27.9%$ to $23.1%$, immediately increasing their opponent's connect rate and reducing counter-strike opportunities.
+2. Chin Vulnerability via Head/Neck Condition ($\text{chin}_{\text{eff}}$)
+
+Neck and spinal fatigue reduce the boxer's ability to absorb rotational head acceleration:
+$$\text{HeadIntegrity} = \frac{\text{Condition}{\text{head_neck}}}{100.0} \quad \in [0.70,; 1.00]$$
+$$\text{chin}{\text{effective}} = \text{chin} \times (0.70 + 0.30 \times \text{HeadIntegrity})$$
+
+At 100% Head: $\text{chin}_{\text{eff}} = \text{chin} \times 1.00$.
+At 70% Head (Heavy sparring Thursday/Friday): $$\text{chin}_{\text{eff}} = \text{chin} \times (0.70 + 0.21) = \text{chin} \times 0.91 \quad (-9% \text{ chin})$$
+Direct Engine Consequence: The live knockdown and shock multiplier is: $$\text{Mult}{\text{KD}} = \text{clamp}(1.6 - 1.2 \times \frac{\text{chin}}{100.0},; 0.5,; 1.4)$$ If base chin is 50, standard $\text{Mult}{\text{KD}} = 1.6 - 0.60 = 1.00$. Under 70% head wear, $\text{chin}{\text{eff}} = 45.5$, yielding $\text{Mult}{\text{KD}} = 1.6 - 0.546 = 1.054$ ($+5.4%$ shock received and wider knockdown check windows).
+3. Guard / Accuracy Penalty via Arm Condition ($a_{\text{eff}}$)
+
+Tired shoulders and forearms drop punch speed and snap:
+$$\text{ArmIntegrity}{\text{arm}} = \frac{\text{Condition}{\text{arm}}}{100.0} \quad \in [0.70,; 1.00]$$
+$$a_{\text{effective}} = a \times (0.75 + 0.25 \times \text{ArmIntegrity})$$
+
+At 70% Arm Condition: $a_{\text{eff}} = a \times 0.925$ ($-7.5%$ accuracy).
+Direct Engine Consequence: Lowers clean punch conversion: $$\text{clean_rate} = 0.85 + 0.30 \times \frac{a_{\text{eff}}}{100}$$ and directly feeds into the defender's whiff formula, causing the worn fighter to miss more often.
+4. Accelerated Whiff Fatigue via Starting Stamina
+
+Because an overtrained fighter enters with reduced $S_{\max}$ (down to 80.0) and lower current stamina, the existing live whiff penalty:
+$$\text{Whiff Stamina Cost} = 1.5\times \text{Base Stamina Cost}$$
+burns through their available pool roughly $25\text{–}35%$ faster in real round time, hitting the exhausted fatigue threshold (under $25%$ stamina) by round 4 instead of round 8.
+
+A4. Pre-Fight Presentation (Tale of the Tape / Lock Screen)
+
+On the pre-fight matchup screen, wear and readiness are displayed in one concise, data-dense status row directly beneath the fighter's name and record.
+
+Priority Display Hierarchy
+
+If all regions are $\ge 95%$ and readiness $\ge 90%$, display:
+
+STATUS: PEAK CONDITION [Readiness 98% | Body Integrity 99%]
+
+
+If any region drops below $95%$ or readiness is below $90%$, display the single most compromised region alongside the overall readiness:
+
+STATUS: IMPAIRED [Legs 82% - Heavy from Thursday Roadwork | Readiness 84%]
+
+Specific Formatting Rules
+Format String: STATUS: {RATING} [{Primary_Bottleneck_Region} {Val}% — {Causal_String} | Readiness {R}%]
+Causal Text Map:
+head_neck: "Fatigued from late sparring"
+torso_core: "Sore from heavy body drills"
+left_arm / right_arm: "Shoulder tightness from bag work"
+left_leg / right_leg: "Heavy from late roadwork"
+Color Coding (Dark Broadcast Palette):
+$\ge 95%$: #3FB950 (Green)
+$85% - 94%$: #D29922 (Amber warning)
+$< 85%$: #F85149 (Muted red alert)
+A5. Pitfall Mitigation & Balance Targets
+The Trap: "The Taper Trap" (Over-Punishing Honest Training)
+
+In many sports sims, players hate readiness systems because any training at all feels like self-sabotage. If training Wednesday ruins Saturday's bout, the player stops using gym systems and defaults to mindless rest spam.
+
+Mitigation Rules:
+Fast Natural Clearance: A 2-day taper (Thursday light + Friday rest) must reliably clear up to $45$ points of wear back to $100.0%$.
+No Wear Accumulation Below Thresholds: Base gym maintenance (mitts, tactical review, video study) generates $0.0$ wear.
+Positive Camp Buffs Trump Small Wear: A fighter with high sharpness/tactical familiarity gains $+10%$ execution speed, which mathematically outweighs a $2\text{–}3%$ wear dip.
+Target Distribution for Sanctioned Bouts
+
+Across 1,000 simulated AI and player-managed fight camps:
+
+Optimal Entry ($\ge 95%$ all regions, Readiness $\ge 92%$): $82.0%$ of all bouts. Sensible standard preparation will comfortably hit peak readiness.
+Slightly Dinged ($90% - 94%$ in one region): $13.5%$ of bouts. Occurs when a manager pushes conditioning into late Wednesday.
+Severely Compromised ($< 90%$ in any region or Readiness $< 80%$): $4.5%$ of bouts. Exclusively happens when the manager schedules full-contact sparring on Thursday or Friday, takes a short-notice replacement fight on 3 days' notice, or severely blows weight cut protocols.
+PART B: THE TWO SCREENS (STEP 4)
+B1. Post-Fight "Why" Panel (Post-Fight Audit)
+
+Screen Dimensions: 1920 × 1080. Dark broadcast presentation, zero rounded corners (corner_radius = 0), high contrast, data-first hierarchy.
+
++--------------------------------------------------------------------------------------------------+
+| [B1-1] BANNER (1920 x 110)                                                                       |
+| RESULT: REYES UD 10 (97-93, 98-92, 96-94) -- DIVISION TITLE BOUT                                |
++------------------------------------------------------+-------------------------------------------+
+| [B1-2] THREE DECISIVE FACTORS (1100 x 360)           | [B1-3] REGIONAL DAMAGE FINAL (800 x 360)   |
+| 1. SLIP & COUNTER DOMINANCE (+3.4 pts/rd)            | REYES              PEREZ                  |
+| 2. ACCURACY CHASM (54.2% vs 31.8%)                   | Head:   94%        Head:   61%            |
+| 3. WHIFF STAMINA DRAIN (Perez -31.4% extra burn)     | Torso:  88%        Torso:  79%            |
+|                                                      | Arms:   91%/90%    Arms:   78%/76%        |
+|                                                      | Legs:   96%/95%    Legs:   84%/82%        |
++------------------------------------------------------+-------------------------------------------+
+| [B1-4] COMPUBOX PUNCH AUDIT LEDGER (1900 x 570)                                                  |
+| PUNCH TYPE    THROWN     LANDED (CLEAN / GLANCE)   ABSORBED/BLOCKED   SLIPPED/WHIFFED   ACCURACY |
+| Jab (L)       184 vs 220 72 (54/18) vs 41 (22/19)  24 vs 52           124 vs 71         39% / 19%|
+| Cross (R)     112 vs 98  58 (46/12) vs 28 (14/14)  18 vs 31           36 vs 39          52% / 29%|
+| Lead Hook     44  vs 51  26 (22/4)  vs 12 (7/5)    8  vs 16           10 vs 23          59% / 24%|
+| Rear Uppercut 18  vs 14  11 (9/2)   vs 3  (1/2)    3  vs 5            4  vs 6           61% / 21%|
+| TOTALS        358 vs 383 167 (131/36) vs 84 (44/40)63 vs 104         174 vs 139        46.6/21.9|
++--------------------------------------------------------------------------------------------------+
+
+B1 Rules: Selecting the Three Decisive Factors
+
+The engine evaluates 7 Candidate Factors upon fight completion, scores each factor's raw metric, converts it to an Impact Score (0 to 100), and displays the top 3 sorted in descending order.
+
+1. Candidate Factor Metric Table
+
+| Factor ID | Name | Trigger Condition & Underlying Metric | Impact Formula (Clamped 0–100) |
+| :--- | :--- | :--- | :--- |
+| F_EVASION | Slip & Counter Dominance | Defender slips $\ge 35%$ of incoming punches AND lands $\ge 12$ counter punches. | $\text{Impact} = (\text{WhiffRate}{\text{opp}} - 0.22) \times 200 + (\text{CountersLanded} \times 2.0)$ |
+| F_ACCURACY | Accuracy Chasm | Absolute connect rate differential $\ge 12.0%$. | $\text{Impact} = (\text{Acc}{\text{winner}} - \text{Acc}{\text{loser}}) \times 2.5$ |
+| F_CHIN_KO | Chin Collapse Under Fire | Loser suffered $\ge 2$ knockdowns OR KO; Loser $\text{Chin} \le 55$. | $\text{Impact} = 60.0 + (100 - \text{Chin}{\text{loser}}) \times 0.40$ |
+| F_STAMINA_WHIFF | Whiff Exhaustion Trap | Loser spent $\ge 18.0$ stamina purely on whiff penalties ($1.5\times$ base). | $\text{Impact} = \text{StaminaLostToWhiffs} \times 2.8$ |
+| F_BODY_BREAK | Torso Attrition | Torso condition of loser dropped below $65%$ from clean body hits. | $\text{Impact} = (100.0 - \text{Torso}{\text{loser}}) \times 1.6$ |
+| F_CLEAN_POWER | Clean Connect Disparity | Winner landed $\ge 65%$ of connects as Clean vs Loser $\le 45%$. | $\text{Impact} = (\text{CleanShare}{\text{win}} - \text{CleanShare}{\text{loss}}) \times 120$ |
+| F_VOLUME | Workrate Overwhelm | Winner threw $\ge 40%$ more punches while maintaining $\ge 30%$ connect. | $\text{Impact} = \left(\frac{\text{Thrown}{\text{win}}}{\text{Thrown}_{\text{loss}}} - 1.0\right) \times 80$ |
+
+2. Wording Templates (Exact Tokens)
+F_EVASION: "{WINNER} neutralized the offense with elusiveness: slipped {WHIFF_PCT}% of {LOSER}'s attacks ({SLIPPED_COUNT}/{THROWN_COUNT}), converting {COUNTER_COUNT} immediate counter-strikes."
+F_ACCURACY: "Surgical accuracy differential: {WINNER} landed at {WIN_ACC}% ({WIN_LANDED}/{WIN_THROWN}) versus {LOSER}'s {LOSE_ACC}% ({LOSE_LANDED}/{LOSE_THROWN}), creating an unbridgeable scoring gap."
+F_CHIN_KO: "Fragile chin breached: {LOSER}'s chin rating ({CHIN_RATING}) yielded a {SHOCK_MOD}x shock multiplier, resulting in {KD_COUNT} knockdowns from {CLEAN_POWER_COUNT} clean power punches."
+F_STAMINA_WHIFF: "Stamina bleed from missed swings: {LOSER} burned {WHIFF_STAMINA} stamina units strictly on {WHIFF_COUNT} missed punches, entering round {GAS_ROUND} in critical fatigue."
+F_BODY_BREAK: "Systemic core deterioration: {WINNER} landed {BODY_LANDED} clean body hooks, reducing {LOSER}'s Torso to {FINAL_TORSO}% and stripping {SPEED_LOSS}% hand speed."
+F_CLEAN_POWER: "Punch quality supremacy: {WIN_CLEAN_PCT}% of {WINNER}'s connections were scored clean flush hits ({WIN_CLEAN_COUNT}/{WIN_LANDED}), preventing {LOSER} from rolling with impact."
+F_VOLUME: "Relentless volume dominance: {WINNER} established offensive tempo with {WIN_THROWN} total punches thrown to {LOSE_THROWN}, controlling judge bias on active volume."
+B1: Three Worked Examples
+Example 1: Points Win Built on Evasion (Reyes def. Perez via UD 10)
+Context: Reyes (Evasion 78, Acc 62, Chin 65) vs. Perez (Evasion 42, Acc 50, Chin 70).
+Result: Reyes wins Unanimous Decision (98–92, 98–92, 97–93).
+Selected Factors & Ranked Outputs:
+Slip & Counter Dominance (Impact: 88.4)
+"Reyes neutralized the offense with elusiveness: slipped 45.4% of Perez's attacks (174/383), converting 38 immediate counter-strikes."
+Accuracy Chasm (Impact: 61.8)
+"Surgical accuracy differential: Reyes landed at 46.6% (167/358) versus Perez's 21.9% (84/383), creating an unbridgeable scoring gap."
+Whiff Exhaustion Trap (Impact: 58.2)
+"Stamina bleed from missed swings: Perez burned 31.4 stamina units strictly on 174 missed punches, entering round 6 in critical fatigue."
+Example 2: Knockout on a Glass Chin (Benoit def. O'Reilly via KO Rd 3)
+Context: Benoit (Evasion 45, Acc 74, Chin 60) vs. O'Reilly (Evasion 52, Acc 58, Chin 32).
+Result: Benoit wins KO 3 (2:14 of Round 3). O'Reilly down 3 times.
+Selected Factors & Ranked Outputs:
+Chin Collapse Under Fire (Impact: 87.2)
+"Fragile chin breached: O'Reilly's chin rating (32) yielded a 1.22x shock multiplier, resulting in 3 knockdowns from 14 clean power punches."
+Punch Quality Supremacy (Impact: 74.0)
+"Punch quality supremacy: 79.2% of Benoit's connections were scored clean flush hits (38/48), preventing O'Reilly from rolling with impact."
+Accuracy Chasm (Impact: 48.5)
+"Surgical accuracy differential: Benoit landed at 48.0% (48/100) versus O'Reilly's 28.6% (26/91), creating an unbridgeable scoring gap."
+Example 3: Loss to an Accurate Counter-Puncher (Player boxer Hayes loses to Alvarez via UD 8)
+Context: Alvarez (Evasion 74, Acc 84, Chin 68) def. Hayes (Evasion 50, Acc 48, Chin 58).
+Result: Alvarez wins UD 8 (80–72, 79–73, 79–73).
+Selected Factors & Ranked Outputs:
+Accuracy Chasm (Impact: 86.5)
+"Surgical accuracy differential: Alvarez landed at 54.8% (148/270) versus Hayes's 20.2% (52/257), creating an unbridgeable scoring gap."
+Slip & Counter Dominance (Impact: 76.2)
+"Alvarez neutralized the offense with elusiveness: slipped 44.0% of Hayes's attacks (113/257), converting 41 immediate counter-strikes."
+Whiff Exhaustion Trap (Impact: 52.6)
+"Stamina bleed from missed swings: Hayes burned 24.8 stamina units strictly on 113 missed punches, entering round 5 in critical fatigue."
+B1 Layout Specifications (1920 × 1080)
+
+Global Style Tokens:
+
+Window Base Background: #0C0E12
+Container / Panel Background: #161B22
+Border Stroke: 1px solid #30363D (Square corners, border_radius = 0)
+Header / Label Typography: FontFile: Segoe UI / Inter, Semibold, uppercase, tracking +0.5px
+Data / Number Typography: FontFile: Consolas / Roboto Mono, Bold
+Palette: White #FFFFFF, Dim Gray #8B949E, Win Green #3FB950, Loss Red #F85149, Stat Gold #D29922
+
+Coordinate Bounds:
+
+Top Broadcast Banner (PanelContainer):
+X: 10, Y: 10, Width: 1900, Height: 100
+Contains Bout Headline, Winner Announcement, Final Official Judges Scorecards (97-93, 98-92, 96-94).
+Left Middle — Three Decisive Factors (VBoxContainer):
+X: 10, Y: 120, Width: 1180, Height: 370
+Contains 3 rows (HBoxContainer, height: 110px each, 10px spacing).
+Left box: Rank index (#01, #02, #03) in #D29922 (32pt bold).
+Right box: Factor Title (16pt bold uppercase) + Formatted Two-Line Template String (14pt regular, #E6EDF3).
+Right Middle — Final Regional Condition Damage (GridContainer):
+X: 1200, Y: 120, Width: 710, Height: 370
+Displays both fighters side by side. 6 horizontal bars representing final condition % per region.
+Values color-graded: $>80%$ green, $60\text{–}79%$ amber, $<60%$ red.
+Bottom — CompuBox Punch Audit Ledger (Tree / Table):
+X: 10, Y: 500, Width: 1900, Height: 570
+Columns:
+Col 0: PUNCH CATEGORY (Width: 260px)
+Col 1: THROWN (F1 vs F2) (Width: 260px)
+Col 2: LANDED [CLEAN / GLANCE] (Width: 380px)
+Col 3: ABSORBED / BLOCKED (Width: 300px)
+Col 4: SLIPPED / WHIFFED (Width: 300px)
+Col 5: ACCURACY % (Width: 200px)
+Col 6: WHIFF STAMINA DRAIN (Width: 200px)
+Rows: Jab, Cross, Lead Hook, Rear Hook, Lead Uppercut, Rear Uppercut, Overall Totals.
+B2. Corner Report Between Rounds (60 s Rest Interval)
+
+Between rounds, the manager has 60 seconds of real-time or paused decision time. The coach speaks exactly three operational lines derived strictly from data generated in the round immediately concluded.
+
++--------------------------------------------------------------------------------------------------+
+| BETWEEN ROUNDS -- REST DURATION: 00:48 remaining                  ROUND 4 COMPLETED              |
++--------------------------------------------------------------------------------------------------+
+| CORNER ASSESSMENT (CHIEF SECOND)                                                                 |
+|                                                                                                  |
+| [LINE 1: OPPONENT EXPLOIT]                                                 [DIRECT ORDER BUTTON] |
+| "His jab is finding air -- 9 of 14 slipped. Step inside or counter over it."  -> [COUNTER THE JAB] |
+|                                                                                                  |
+| [LINE 2: PLAYER VULNERABILITY]                                             [DIRECT ORDER BUTTON] |
+| "Your right eye is taking clean lead hooks. Keep that right glove glued."     -> [HIGH RIGHT GUARD]|
+|                                                                                                  |
+| [LINE 3: ENERGY & ATTRITION]                                               [DIRECT ORDER BUTTON] |
+| "You burned 8.2 stamina missing power hooks. Reel it in, work the straight."  -> [WORK THE BODY]   |
++--------------------------------------------------------------------------------------------------+
+| TACTICAL QUICK-TOGGLES:  [ TEMPO: NORMAL ]   [ DISTANCE: INSIDE ]   [ PUNCH BIAS: JAB-CROSS ]    |
++--------------------------------------------------------------------------------------------------+
+
+B2 Selection Rules: The Three Coach Lines
+
+The coach evaluates the round metrics in 3 distinct functional channels:
+
+Slot 1 (Opponent Vulnerability): What did the opponent fail at or leave open in Round $N$?
+Slot 2 (Player Risk / Structural Danger): Where did our fighter take critical damage or display technical breakdowns in Round $N$?
+Slot 3 (Stamina / Tactical Efficiency): How is the stamina balance and punch economy trending?
+Slot 1: Opponent Vulnerability Selection Logic (Priority Order)
+Opponent Whiff Rate $\ge 40%$ (Min 10 thrown):
+Data Check: $\text{OppWhiffed}{\text{round}} / \text{OppThrown}{\text{round}} \ge 0.40$.
+Dialogue: "His {MOST_WHIFFED_PUNCH} is finding pure air — slipped {SLIPPED_N} of {THROWN_N}. Make him pay on the miss."
+Action Button: [EXPLOIT WHIFF COUNTERS] (Adjusts tactical instruction: Counter_Frequency = Aggressive, $+25%$ counter check commitment).
+Opponent Low Chin / Rocked State:
+Data Check: Opponent Chin shock state was triggered $\ge 1$ time or Chin stat $\le 45$.
+Dialogue: `"His

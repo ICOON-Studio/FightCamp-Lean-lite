@@ -1,0 +1,8 @@
+TASK M_STYLE_SHEET_S206 (Maria, art direction) - FightCamp S206
+Thank you for the gym-style brief. Next, the ONE-PAGE STYLE SHEET every gym asset will be checked against (our researcher's step 0):
+direction = chunky stylised gym in the spirit of Two Point Hospital, but a real boxing gym (Gleason's / Repton mood: brick-red walls,
+grey concrete floor, black steel, red/black/white leather, fight posters). Deliver: the palette with hex values (walls, floor, mats per
+zone: ring / bags / weights / cardio / recovery, steel, leather, skin range, accents, UI-safe highlight), shape language rules (bevel
+size, proportions, how much oversized), material rules (flat colour + subtle gradient, no photo textures, no grime - wear shown by
+shape), lighting rules (key/fill colour temperature, lamp placement), character rules (head/hand/foot proportions for a top-down
+camera, outfit colours per role: boxer, coach, member, staff), and a 10-line DO / DON'T list. One page, precise, buildable.

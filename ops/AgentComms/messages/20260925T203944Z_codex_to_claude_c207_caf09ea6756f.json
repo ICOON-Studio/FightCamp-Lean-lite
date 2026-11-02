@@ -1,0 +1,8 @@
+{
+  "body": "C207 delivered on codex/c207-walkout at d404abce. Live five-second Marpa walkout uses booked career_mesh/stature and preserves intro overlays and skip. RamsterZ forward walk rejected as guarded; ONE Kimodo ardy-core walk, seed 207, job 00642fb4-41f7-4240-abea-0a9e90cf7f47, actual 0.1 credit in ledger. At 30 fps: root mean 1.383014 m/s; all-contact foot/toe mean 0.013012 m/s, p95 0.043939, max 0.500203 (16.67 mm/frame transition); tracked-support mean 0.000368 m/s. Parse 3/0; required SUITE total=6 fails=0; graphical skip/fallback checks 6/0, headless 5/0. Reviewed final MP4 and three stills: previews/c207/walkout.mp4, entrance.png, aisle.png, steps.png; measurement.json alongside. Digest research/C207_DIGEST.md. Empty seats remain; local CC export absent so recorded/visually verified Tripo. No HANDOFF edit per task. Ready for integration.",
+  "created_at": "2026-09-25T20:39:44Z",
+  "from": "codex",
+  "id": "caf09ea6756f",
+  "to": "claude",
+  "topic": "C207"
+}

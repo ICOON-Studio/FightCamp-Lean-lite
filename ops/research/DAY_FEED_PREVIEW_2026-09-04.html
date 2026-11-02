@@ -1,0 +1,808 @@
+<title>FightCamp Instrument Kit</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@500;600;700&display=swap">
+<style>
+  /* ------------------------------------------------------------------
+     FightCamp instrument kit, revision 3 (2026-09-04).
+     Built against the user's point list: one header bar, no dead space,
+     no bars beside cells, a lit ground with scrim and elevation, Fire Pro
+     cell treatment, readable type everywhere, the speaker on top, stars
+     and locks for discrete ratings, Football Manager's round cells and
+     date+continue unit, a real fighter in the body diagram, and the form
+     dot ahead of the stamina bar.
+     Two accents, the Football Manager way: the GYM COLOUR tints the
+     shell (headers, rail, selection), and championship GOLD is spent on
+     the one primary action. Semantic green / amber / red stay separate.
+     ------------------------------------------------------------------ */
+  :root {
+    /* ground — lifted, blue-grey, visibly lit from above */
+    --ground:      #1c2230;
+    --ground-2:    #242c3d;
+    --panel:       #2a3347;
+    --panel-hi:    #34405a;
+    --panel-lo:    #222a3b;
+    --edge:        #121722;
+    --edge-hi:     rgba(255,255,255,0.14);
+    --line:        #4a5a78;
+
+    /* the gym colour and its ladder (steel blue for Nicosia Ironworks) */
+    --gym:         #2f6fb0;
+    --gym-hi:      #3f86cc;
+    --gym-lo:      #24558a;
+    --gym-deep:    #1a3d63;
+    --gym-tint:    rgba(47,111,176,0.22);
+
+    --gold:        #f0c233;
+    --gold-hi:     #f7d65a;
+    --gold-lo:     #c99a1a;
+
+    --good:        #4fc46a;
+    --amber:       #f0a020;
+    --bad:         #e5433a;
+
+    --text:        #f3f5fa;
+    --text-2:      #c9d1e0;
+    --muted:       #94a1b8;
+
+    /* value ramp, low to high */
+    --v1: #7a2a22; --v2: #b34a1e; --v3: #d07a1a; --v4: #e6a41c; --v5: #f0c233;
+
+    --display: "Bebas Neue", "Haettenschweiler", "Arial Narrow", sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: radial-gradient(130% 90% at 50% 0%, #2a3346 0%, #171c27 55%, #0f131b 100%);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1560px; margin: 0 auto; padding: 36px 24px 90px; display: flex; flex-direction: column; gap: 44px; }
+  .eyebrow { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+  .masthead { display: flex; flex-direction: column; gap: 10px; }
+  .masthead h1 { font-family: var(--display); font-size: clamp(40px, 6vw, 66px); letter-spacing: 0.02em; line-height: 0.94; margin: 0; }
+  .masthead p { margin: 0; max-width: 72ch; color: var(--text-2); }
+
+  /* ================= shared surfaces ================= */
+  /* raised block: top-lit gradient, hard dark edge, thin top highlight */
+  .blk {
+    background: linear-gradient(180deg, var(--panel-hi) 0%, var(--panel) 45%, var(--panel-lo) 100%);
+    border: 1px solid var(--edge);
+    box-shadow: 0 1px 0 var(--edge-hi) inset, 0 2px 4px rgba(0,0,0,0.35);
+    border-radius: 3px;
+  }
+  /* bordered frame with a full-width coloured header bar */
+  .frame { border: 1px solid var(--edge); border-radius: 4px; background: rgba(34,42,59,0.94); box-shadow: 0 1px 0 var(--edge-hi) inset, 0 6px 16px rgba(0,0,0,0.35); overflow: hidden; display: flex; flex-direction: column; }
+  .frame > .hbar {
+    display: flex; align-items: center; gap: 10px;
+    padding: 0 12px; height: 34px;
+    background: linear-gradient(180deg, var(--gym-hi), var(--gym-lo));
+    border-bottom: 1px solid var(--edge);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.18) inset;
+    font-family: var(--display); font-size: 19px; letter-spacing: 0.08em; color: #fff;
+    text-shadow: 0 1px 0 rgba(0,0,0,0.4);
+  }
+  .frame > .hbar .chev { margin-left: auto; font-size: 15px; opacity: 0.9; }
+  .frame > .hbar .cnt { margin-left: auto; font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: 0.1em; opacity: 0.95; }
+  .frame > .hbar.gold { background: linear-gradient(180deg, var(--gold-hi), var(--gold-lo)); color: #1a1508; text-shadow: none; }
+  .frame > .hbar.bad { background: linear-gradient(180deg, #ef5a50, #b62e26); }
+
+  /* label/value paired unit — two colour families, hard divider */
+  .pair { display: grid; grid-template-columns: 1fr auto; height: 46px; border: 1px solid var(--edge); border-radius: 3px; overflow: hidden; box-shadow: 0 1px 0 var(--edge-hi) inset, 0 2px 4px rgba(0,0,0,.35); }
+  .pair .lab {
+    display: flex; align-items: center; padding: 0 12px;
+    background: linear-gradient(180deg, var(--gym-hi), var(--gym-lo));
+    font-family: var(--display); font-size: 17px; letter-spacing: 0.08em; color: #fff; text-shadow: 0 1px 0 rgba(0,0,0,.4);
+    border-right: 1px solid var(--edge);
+  }
+  .pair .lab.q { background: linear-gradient(180deg, #4a5670, #333d52); }
+  .pair .val {
+    display: grid; place-items: center; min-width: 74px; padding: 0 12px;
+    font-family: var(--display); font-size: 26px; line-height: 1; color: var(--text);
+    background: linear-gradient(180deg, var(--panel-hi), var(--panel-lo));
+    font-variant-numeric: tabular-nums;
+  }
+  .pair .val.g1 { background: linear-gradient(180deg, #8f352b, var(--v1)); }
+  .pair .val.g2 { background: linear-gradient(180deg, #c95a26, var(--v2)); }
+  .pair .val.g3 { background: linear-gradient(180deg, #e08c22, var(--v3)); color: #1b1207; }
+  .pair .val.g4 { background: linear-gradient(180deg, #f0b52a, var(--v4)); color: #1b1207; }
+  .pair .val.g5 { background: linear-gradient(180deg, var(--gold-hi), var(--v5)); color: #1b1207; }
+  .pair .val .trend { font-family: var(--mono); font-size: 11px; font-weight: 700; margin-left: 6px; }
+  .pair .val .trend.up { color: #0f5a22; } .pair .val .trend.dn { color: #6b1410; }
+  .pair .val.g1 .trend.dn, .pair .val.g2 .trend.dn { color: #ffd0cb; }
+  .pair .val.g1 .trend.up, .pair .val.g2 .trend.up { color: #b8ffc4; }
+
+  /* stand-alone value cell (tables) */
+  .vc {
+    display: inline-grid; place-items: center;
+    min-width: 50px; height: 38px; padding: 0 6px;
+    border: 1px solid var(--edge); border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(255,255,255,.16) inset, 0 2px 3px rgba(0,0,0,.35);
+    font-family: var(--display); font-size: 23px; line-height: 1; color: var(--text);
+    font-variant-numeric: tabular-nums; position: relative;
+  }
+  .vc.g1 { background: linear-gradient(180deg, #8f352b, var(--v1)); }
+  .vc.g2 { background: linear-gradient(180deg, #c95a26, var(--v2)); }
+  .vc.g3 { background: linear-gradient(180deg, #e08c22, var(--v3)); color: #1b1207; }
+  .vc.g4 { background: linear-gradient(180deg, #f0b52a, var(--v4)); color: #1b1207; }
+  .vc.g5 { background: linear-gradient(180deg, var(--gold-hi), var(--v5)); color: #1b1207; }
+  .vc.lg { min-width: 70px; height: 54px; font-size: 32px; }
+  .vc.empty { background: linear-gradient(180deg, #2b3447, #222a3a); color: var(--muted); }
+  .vc .t { position: absolute; top: 3px; right: 4px; font-family: var(--mono); font-size: 10px; font-weight: 700; }
+  .vc.g1 .t, .vc.g2 .t { color: #ffd6d1; } .vc.g3 .t, .vc.g4 .t, .vc.g5 .t { color: #3a2a06; }
+
+  /* gradient bar with dual readout */
+  .gb { display: flex; align-items: center; gap: 9px; }
+  .gb .track { position: relative; flex: 1; height: 14px; min-width: 90px; background: #111621; border: 1px solid var(--edge); border-radius: 2px; overflow: hidden; box-shadow: 0 1px 2px rgba(0,0,0,.5) inset; }
+  .gb .fill { display: block; height: 100%; background: linear-gradient(90deg, #c8281f 0%, #e8781c 50%, #f4c62e 100%); box-shadow: 0 1px 0 rgba(255,255,255,.25) inset; }
+  .gb .read { font-family: var(--display); font-size: 19px; line-height: 1; min-width: 62px; text-align: right; font-variant-numeric: tabular-nums; }
+  .gb .read i { font-style: normal; color: var(--muted); }
+
+  /* form / status dot */
+  .dot { width: 14px; height: 14px; border-radius: 50%; display: inline-block; border: 1px solid rgba(0,0,0,.5); }
+  .dot.g { background: var(--good); box-shadow: 0 0 10px rgba(79,196,106,.9); }
+  .dot.a { background: var(--amber); box-shadow: 0 0 10px rgba(240,160,32,.9); }
+  .dot.r { background: var(--bad); box-shadow: 0 0 10px rgba(229,67,58,.9); animation: pulse 1.8s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1 } 50% { opacity: .35 } }
+
+  /* stars + lock */
+  .stars { display: inline-flex; gap: 3px; align-items: center; }
+  .stars .s { width: 18px; height: 18px; }
+  .stars .s path { fill: #3c475e; }
+  .stars .s.on path { fill: var(--gold); }
+  .stars .lock { width: 16px; height: 18px; margin-left: 4px; }
+  .stars .lock path { fill: #5a6883; }
+
+  /* badges, buttons */
+  .badge { min-width: 21px; height: 21px; padding: 0 6px; border-radius: 11px; background: linear-gradient(180deg, #ff6259, #c72c24); color: #fff; font-size: 12px; font-weight: 700; display: grid; place-items: center; border: 1px solid #5a120e; box-shadow: 0 0 0 2px var(--ground), 0 0 10px rgba(229,67,58,.6); font-variant-numeric: tabular-nums; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    height: 38px; padding: 0 16px; border-radius: 3px; cursor: pointer;
+    font-family: var(--display); font-size: 18px; letter-spacing: 0.08em; color: var(--text);
+    background: linear-gradient(180deg, #445273, #303a52); border: 1px solid var(--edge);
+    box-shadow: 0 1px 0 rgba(255,255,255,.16) inset, 0 2px 4px rgba(0,0,0,.35);
+  }
+  .btn:hover { background: linear-gradient(180deg, #4e5e83, #37425e); }
+  .btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  .btn.gold { background: linear-gradient(180deg, var(--gold-hi), var(--gold-lo)); color: #1a1508; border-color: #7a5c0c; box-shadow: 0 1px 0 rgba(255,255,255,.4) inset, 0 0 18px rgba(240,194,51,.45); }
+  .btn.gym { background: linear-gradient(180deg, var(--gym-hi), var(--gym-lo)); color: #fff; }
+  .btn.sm { height: 32px; padding: 0 12px; font-size: 16px; }
+  .btn.wide { width: 100%; }
+
+  /* segmented */
+  .seg { display: inline-flex; border: 1px solid var(--edge); border-radius: 3px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,.35); }
+  .seg button { height: 36px; padding: 0 18px; background: linear-gradient(180deg, #3a4560, #2b3449); color: var(--text-2); border: none; cursor: pointer; font-family: var(--display); font-size: 17px; letter-spacing: 0.1em; }
+  .seg button + button { border-left: 1px solid var(--edge); }
+  .seg button.on { background: linear-gradient(180deg, var(--gym-hi), var(--gym-lo)); color: #fff; box-shadow: 0 1px 0 rgba(255,255,255,.2) inset; }
+  .seg button:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; }
+
+  /* portrait chip */
+  .pc { display: flex; align-items: center; gap: 10px; }
+  .pc .av { position: relative; width: 42px; height: 42px; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #58657f, #2b3447 70%); border: 2px solid var(--line); display: grid; place-items: center; font-family: var(--display); font-size: 16px; color: var(--text-2); }
+  .pc .av.gym { border-color: var(--gym-hi); }
+  .pc .nm { font-family: var(--display); font-size: 21px; letter-spacing: 0.04em; line-height: 1; color: var(--text); }
+  .pc .sub { font-size: 12px; letter-spacing: 0.1em; color: var(--muted); font-weight: 600; margin-top: 3px; }
+
+  /* round crest cell + lozenge (Football Manager) */
+  .roundcell { display: grid; grid-template-columns: 1fr 52px; align-items: center; height: 56px; }
+  .roundcell.r { grid-template-columns: 52px 1fr; }
+  .roundcell .loz { height: 44px; display: flex; align-items: center; gap: 12px; padding: 0 16px; background: linear-gradient(180deg, #34405a, #283148); border: 1px solid var(--edge); border-radius: 22px; box-shadow: 0 1px 0 var(--edge-hi) inset, 0 2px 4px rgba(0,0,0,.35); }
+  .roundcell .loz .big { font-family: var(--display); font-size: 26px; line-height: 1; color: var(--gold); min-width: 48px; }
+  .roundcell .loz .lab { font-size: 11px; letter-spacing: 0.1em; color: var(--muted); font-weight: 600; line-height: 1.2; }
+  .roundcell .loz .who { font-family: var(--display); font-size: 17px; letter-spacing: 0.04em; color: var(--text); line-height: 1.1; }
+  .roundcell .crest { width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; background: radial-gradient(circle at 40% 35%, var(--gym-hi), var(--gym-deep) 75%); border: 2px solid var(--edge); box-shadow: 0 2px 6px rgba(0,0,0,.5), 0 1px 0 rgba(255,255,255,.25) inset; font-family: var(--display); font-size: 18px; color: #fff; z-index: 1; }
+  .roundcell:not(.r) .loz { margin-right: -20px; padding-right: 32px; }
+  .roundcell.r .loz { margin-left: -20px; padding-left: 32px; }
+
+  /* round counter */
+  .counter { position: relative; width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center; background: radial-gradient(circle at 40% 35%, #3c4864, #1f2636 75%); border: 2px solid var(--gym-hi); box-shadow: 0 0 14px rgba(63,134,204,.5), 0 1px 0 rgba(255,255,255,.2) inset; font-family: var(--display); font-size: 30px; line-height: 1; }
+  .counter .lab { position: absolute; bottom: -18px; left: 50%; transform: translateX(-50%); font-size: 10px; letter-spacing: .14em; color: var(--muted); white-space: nowrap; font-weight: 700; }
+
+  /* ================= monitor ================= */
+  .rig { display: flex; flex-direction: column; align-items: center; }
+  .monitor { width: 100%; background: linear-gradient(#3a3f4a 0%, #262a33 4%, #1b1e25 100%); border-radius: 14px; padding: 9px 9px 0; box-shadow: 0 1px 0 rgba(255,255,255,.12) inset, 0 40px 90px -30px rgba(0,0,0,.95), 0 0 0 1px #0c0e13; }
+  .screen { position: relative; background: var(--ground); border-radius: 5px; overflow: hidden; box-shadow: 0 0 0 1px #05060a; }
+  .screen::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(108deg, rgba(255,255,255,.05) 0%, rgba(255,255,255,0) 30%); }
+  .chin { height: 30px; display: flex; align-items: center; justify-content: center; position: relative; }
+  .chin .wordmark { font-family: var(--display); font-size: 13px; letter-spacing: .3em; color: #565c69; }
+  .chin .pwr { position: absolute; right: 14px; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 8px 1px rgba(240,194,51,.75); }
+  .stand-neck { width: 118px; height: 44px; background: linear-gradient(#262a33, #1a1d24); box-shadow: 0 0 0 1px #0c0e13; }
+  .stand-foot { width: 320px; height: 12px; border-radius: 0 0 8px 8px; background: linear-gradient(#2a2e38, #171a21); box-shadow: 0 18px 30px -14px rgba(0,0,0,.9), 0 0 0 1px #0c0e13; }
+
+  .backdrop { position: absolute; inset: 0; overflow: hidden; z-index: 0; }
+  .backdrop .pool { position: absolute; inset: -12%; background: radial-gradient(48% 60% at 62% 22%, rgba(63,134,204,.28), rgba(0,0,0,0) 70%), radial-gradient(40% 50% at 16% 80%, rgba(240,194,51,.14), rgba(0,0,0,0) 72%); }
+  .backdrop .shaft { position: absolute; top: -22%; height: 145%; width: 190px; background: linear-gradient(180deg, rgba(240,194,51,.09), rgba(240,194,51,0) 78%); filter: blur(20px); transform: skewX(-9deg); animation: drift 58s linear infinite; }
+  .backdrop .shaft.b { width: 130px; animation-duration: 84s; animation-delay: -30s; opacity: .7; }
+  .backdrop .bag { position: absolute; width: 30px; border-radius: 15px; background: linear-gradient(#3a4356, #1c2130); transform-origin: 50% -70px; animation: swing 6.5s ease-in-out infinite; opacity: .6; }
+  .backdrop .bag.b { width: 22px; height: 92px; animation-duration: 8.4s; animation-delay: -2.6s; opacity: .45; }
+  .backdrop .mote { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: rgba(240,194,51,.45); animation: rise 26s linear infinite; }
+  @keyframes drift { from { transform: translateX(-14%) skewX(-9deg) } to { transform: translateX(118%) skewX(-9deg) } }
+  @keyframes swing { 0%,100% { transform: rotate(-3.4deg) } 50% { transform: rotate(3.4deg) } }
+  @keyframes rise { 0% { transform: translateY(0); opacity: 0 } 12% { opacity: .9 } 88% { opacity: .5 } 100% { transform: translateY(-340px); opacity: 0 } }
+
+  /* ================= shell ================= */
+  .shell { position: relative; z-index: 1; display: flex; flex-direction: column; }
+
+  /* ONE header bar: crest, title, date, chips, roster, bell, date+continue */
+  .header {
+    display: grid; grid-template-columns: auto auto 1fr auto; align-items: center; gap: 0;
+    height: 64px;
+    background: linear-gradient(180deg, rgba(52,64,90,.96), rgba(38,46,66,.96));
+    border-bottom: 1px solid var(--edge);
+    box-shadow: 0 1px 0 rgba(255,255,255,.14) inset, 0 4px 12px rgba(0,0,0,.35);
+    backdrop-filter: blur(4px);
+  }
+  .header .crest { display: flex; align-items: center; gap: 11px; padding: 0 16px; height: 100%; border-right: 1px solid var(--edge); background: linear-gradient(180deg, var(--gym-hi), var(--gym-lo)); }
+  .header .crest .mark { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; background: radial-gradient(circle at 40% 35%, #fff, #cfd8e6 70%); color: var(--gym-deep); font-family: var(--display); font-size: 18px; border: 2px solid rgba(0,0,0,.35); }
+  .header .crest .name { font-family: var(--display); font-size: 22px; letter-spacing: .06em; line-height: 1; color: #fff; text-shadow: 0 1px 0 rgba(0,0,0,.4); }
+  .header .crest .sub { font-size: 11px; letter-spacing: .14em; color: rgba(255,255,255,.8); font-weight: 600; margin-top: 3px; }
+  .header .title { display: flex; align-items: baseline; gap: 14px; padding: 0 18px; border-right: 1px solid var(--edge); height: 100%; }
+  .header .title h2 { font-family: var(--display); font-size: 34px; letter-spacing: .05em; margin: 0; line-height: 1; align-self: center; }
+  .header .title .lede { font-size: 13px; color: var(--text-2); font-weight: 600; align-self: center; }
+  .header .chips { display: flex; align-items: stretch; height: 100%; }
+  .chip { display: flex; flex-direction: column; justify-content: center; gap: 2px; padding: 0 16px; border-right: 1px solid var(--edge); }
+  .chip .k { font-size: 11px; letter-spacing: .14em; color: var(--muted); font-weight: 700; }
+  .chip .v { font-family: var(--display); font-size: 22px; line-height: 1; font-variant-numeric: tabular-nums; }
+  .chip.warn .v { color: #ff8a82; } .chip.accent .v { color: var(--gold); }
+  .header .right { display: flex; align-items: stretch; height: 100%; }
+  .bell { position: relative; width: 60px; display: grid; place-items: center; border-left: 1px solid var(--edge); border-right: 1px solid var(--edge); background: rgba(0,0,0,.15); }
+  .bell svg { width: 22px; height: 22px; fill: var(--gold); }
+  .bell .badge { position: absolute; top: 9px; right: 8px; }
+  .datecont { display: flex; align-items: stretch; }
+  .datecont .date { padding: 0 16px; display: flex; flex-direction: column; justify-content: center; text-align: right; background: linear-gradient(180deg, var(--gym-hi), var(--gym-lo)); color: #fff; }
+  .datecont .date .w { font-size: 11px; letter-spacing: .16em; font-weight: 700; opacity: .9; }
+  .datecont .date .d { font-family: var(--display); font-size: 22px; line-height: 1; margin-top: 2px; }
+  .datecont .continue { display: flex; flex-direction: column; justify-content: center; padding: 0 22px; background: linear-gradient(180deg, var(--gold-hi), var(--gold-lo)); color: #1a1508; border: none; cursor: pointer; font-family: var(--mono); text-align: left; box-shadow: 0 1px 0 rgba(255,255,255,.45) inset; }
+  .datecont .continue .t { font-family: var(--display); font-size: 26px; letter-spacing: .06em; line-height: 1; }
+  .datecont .continue .s { font-size: 11px; letter-spacing: .12em; font-weight: 700; margin-top: 2px; }
+  .datecont .continue:focus-visible { outline: 2px solid #fff; outline-offset: -3px; }
+
+  /* body grid: rail, feed, detail — all edge to edge */
+  .body { display: grid; grid-template-columns: 200px 1fr 1.05fr; }
+  .rail { background: rgba(28,34,48,.92); border-right: 1px solid var(--edge); display: flex; flex-direction: column; }
+  .rail .hbar { height: 34px; display: flex; align-items: center; padding: 0 12px; background: linear-gradient(180deg, #3d4a66, #2c3549); border-bottom: 1px solid var(--edge); font-family: var(--display); font-size: 17px; letter-spacing: .1em; color: var(--text-2); }
+  .rail a { display: flex; align-items: center; gap: 10px; height: 40px; padding: 0 12px 0 10px; color: var(--text-2); text-decoration: none; font-size: 13px; font-weight: 600; letter-spacing: .04em; border-bottom: 1px solid rgba(0,0,0,.35); border-left: 4px solid transparent; }
+  .rail a .tick { width: 4px; height: 20px; border-radius: 2px; }
+  .rail a .n { margin-left: auto; min-width: 24px; height: 22px; padding: 0 7px; border-radius: 11px; display: grid; place-items: center; font-size: 12px; font-weight: 700; background: rgba(0,0,0,.35); color: var(--text-2); }
+  .rail a.on { background: linear-gradient(90deg, var(--gym-tint), rgba(0,0,0,0)); color: #fff; border-left-color: var(--gym-hi); }
+  .rail a.on .n { background: var(--gym-hi); color: #fff; }
+  .rail .counterwrap { margin-top: auto; padding: 22px 0 34px; display: grid; place-items: center; }
+
+  .feed { border-right: 1px solid var(--edge); background: rgba(28,34,48,.72); display: flex; flex-direction: column; }
+  .feed .hbar { height: 34px; display: flex; align-items: center; gap: 10px; padding: 0 12px; background: linear-gradient(180deg, var(--gym-hi), var(--gym-lo)); border-bottom: 1px solid var(--edge); font-family: var(--display); font-size: 19px; letter-spacing: .08em; color: #fff; text-shadow: 0 1px 0 rgba(0,0,0,.4); }
+  .feed .hbar .cnt { margin-left: auto; font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: .1em; }
+  .feed .list { display: flex; flex-direction: column; gap: 3px; padding: 6px; }
+
+  .card {
+    display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center;
+    min-height: 84px; padding: 10px 12px;
+    background: linear-gradient(180deg, rgba(52,64,90,.96), rgba(38,46,66,.96));
+    border: 1px solid var(--edge); border-left: 5px solid var(--line); border-radius: 3px;
+    box-shadow: 0 1px 0 var(--edge-hi) inset, 0 2px 4px rgba(0,0,0,.35);
+  }
+  .card.t-poach { border-left-color: var(--bad) } .card.t-callout { border-left-color: var(--amber) }
+  .card.t-press { border-left-color: var(--gym-hi) } .card.t-slot { border-left-color: var(--gold) }
+  .card.t-medical { border-left-color: var(--amber) } .card.t-move { border-left-color: var(--good) }
+  .card.sel { background: linear-gradient(180deg, #3b5a86, #2c4568); border-color: var(--gym-hi); box-shadow: 0 0 0 1px var(--gym-hi), 0 0 18px rgba(63,134,204,.45); }
+  .card .kind { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 11px; letter-spacing: .14em; font-weight: 700; }
+  .card h4 { font-family: var(--display); font-size: 22px; letter-spacing: .03em; line-height: 1.05; margin: 4px 0 3px; color: #fff; }
+  .card p { margin: 0; font-size: 13px; color: var(--text-2); }
+  .card .right { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .card .right .cap { font-size: 11px; letter-spacing: .12em; color: var(--text-2); font-weight: 700; }
+  .k-poach { color: #ff8a82 } .k-callout { color: var(--amber) } .k-press { color: #7fb6ee } .k-slot { color: var(--gold) } .k-medical { color: var(--amber) } .k-move { color: var(--good) }
+  .must { padding: 2px 7px 1px; background: linear-gradient(180deg, #ff6259, #c72c24); color: #fff; border-radius: 2px; font-size: 11px; letter-spacing: .12em; border: 1px solid #5a120e; }
+  .due { padding: 2px 7px 1px; border: 1px solid var(--amber); color: var(--amber); border-radius: 2px; font-size: 11px; letter-spacing: .12em; }
+  .weigh { position: relative; width: 150px; height: 26px; background: #111621; border: 1px solid var(--edge); border-radius: 2px; }
+  .weigh .now { position: absolute; left: 0; top: 0; bottom: 0; background: linear-gradient(90deg, var(--gym-lo), var(--gym-hi)); }
+  .weigh .over { position: absolute; top: 0; bottom: 0; background: repeating-linear-gradient(45deg, rgba(229,67,58,.7) 0 4px, rgba(229,67,58,.25) 4px 8px); }
+  .weigh .limit { position: absolute; top: -4px; bottom: -4px; width: 3px; background: var(--gold); box-shadow: 0 0 8px rgba(240,194,51,.9); }
+
+  .detail { background: rgba(34,42,59,.92); display: flex; flex-direction: column; }
+  .speaker { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px; padding: 10px 12px; background: linear-gradient(180deg, #3b5a86, #2c4568); border-bottom: 1px solid var(--edge); box-shadow: 0 1px 0 rgba(255,255,255,.16) inset; }
+  .speaker .nm { font-family: var(--display); font-size: 24px; letter-spacing: .04em; color: #fff; line-height: 1; }
+  .speaker .role { font-size: 12px; letter-spacing: .12em; font-weight: 700; color: #cfe1f7; margin-top: 3px; }
+  .speaker .nav { display: flex; gap: 5px; }
+  .speaker .nav button { width: 32px; height: 32px; background: linear-gradient(180deg, #445273, #303a52); color: var(--text); border: 1px solid var(--edge); border-radius: 3px; cursor: pointer; font-family: var(--mono); font-weight: 700; }
+  .speaker .nav button:focus-visible { outline: 2px solid var(--gold); }
+  .quote { margin: 0; padding: 12px 14px; font-size: 14px; line-height: 1.6; color: var(--text); background: rgba(0,0,0,.18); border-bottom: 1px solid var(--edge); }
+  .quote b { color: var(--gold); font-weight: 700; }
+  .subject { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-bottom: 1px solid var(--edge); background: rgba(0,0,0,.1); }
+  .subject .ttl { font-family: var(--display); font-size: 20px; letter-spacing: .04em; line-height: 1; }
+  .subject .meta { font-size: 12px; letter-spacing: .1em; color: var(--muted); font-weight: 700; margin-top: 3px; }
+  .readout { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 8px; }
+  .choices { display: flex; flex-direction: column; gap: 4px; padding: 0 8px 8px; margin-top: auto; }
+  .choice { display: grid; grid-template-columns: 150px 1fr auto; align-items: center; gap: 14px; height: 52px; padding: 0 12px; background: linear-gradient(180deg, #3d4a68, #2c3549); border: 1px solid var(--edge); border-radius: 3px; box-shadow: 0 1px 0 var(--edge-hi) inset, 0 2px 4px rgba(0,0,0,.35); cursor: pointer; text-align: left; color: var(--text); font-family: var(--mono); }
+  .choice:hover { background: linear-gradient(180deg, #4a5a80, #35405c); }
+  .choice:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  .choice .verb { font-family: var(--display); font-size: 21px; letter-spacing: .06em; }
+  .choice .txt { font-size: 13px; color: var(--text-2); }
+  .choice .cost { font-size: 12px; letter-spacing: .06em; font-weight: 700; white-space: nowrap; }
+  .choice.primary { background: linear-gradient(180deg, var(--gold-hi), var(--gold-lo)); border-color: #7a5c0c; color: #1a1508; box-shadow: 0 1px 0 rgba(255,255,255,.4) inset, 0 0 18px rgba(240,194,51,.45); }
+  .choice.primary .txt { color: #2a2006; } .choice.primary .cost { color: #2a2006; }
+  .up { color: #8ff0a2 } .dn { color: #ff9b94 }
+  .choice.primary .up { color: #0f5a22 } .choice.primary .dn { color: #7a1610 }
+  .footer { display: flex; align-items: center; gap: 10px; height: 34px; padding: 0 12px; background: linear-gradient(180deg, #3d4a66, #2c3549); border-top: 1px solid var(--edge); font-size: 12px; letter-spacing: .08em; font-weight: 700; color: var(--text-2); }
+
+  .nav { display: flex; align-items: stretch; height: 56px; background: linear-gradient(180deg, rgba(52,64,90,.96), rgba(38,46,66,.96)); border-top: 1px solid var(--edge); box-shadow: 0 1px 0 rgba(255,255,255,.14) inset; }
+  .nav .tab { position: relative; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: var(--text-2); font-size: 11px; letter-spacing: .12em; font-weight: 700; border-right: 1px solid var(--edge); }
+  .nav .tab .ic { font-family: var(--display); font-size: 20px; line-height: 1; color: var(--muted); }
+  .nav .tab.on { background: linear-gradient(180deg, var(--gym-hi), var(--gym-lo)); color: #fff; } .nav .tab.on .ic { color: #fff; }
+  .nav .tab .badge { position: absolute; top: 6px; right: 14px; }
+
+  /* ================= screen 2 ================= */
+  .board { display: grid; grid-template-columns: 1fr 480px; }
+  .tablewrap { overflow-x: auto; background: rgba(28,34,48,.72); border-right: 1px solid var(--edge); }
+  table.heat { border-collapse: separate; border-spacing: 0; width: 100%; min-width: 760px; }
+  table.heat thead th { height: 34px; background: linear-gradient(180deg, var(--gym-hi), var(--gym-lo)); color: #fff; font-family: var(--display); font-size: 16px; letter-spacing: .1em; font-weight: 400; text-align: center; border-bottom: 1px solid var(--edge); border-right: 1px solid rgba(0,0,0,.25); text-shadow: 0 1px 0 rgba(0,0,0,.4); }
+  table.heat thead th.l { text-align: left; padding-left: 12px; }
+  table.heat td { height: 56px; padding: 0 5px; text-align: center; vertical-align: middle; border-bottom: 1px solid var(--edge); background: rgba(44,53,74,.9); }
+  table.heat tr:nth-child(even) td { background: rgba(52,63,88,.9); }
+  table.heat td.l { text-align: left; padding: 0 10px; border-left: 5px solid var(--line); }
+  table.heat tr.hurt td.l { border-left-color: var(--amber) } table.heat tr.out td.l { border-left-color: var(--bad) }
+  table.heat tr.out td { opacity: .7 }
+  table.heat tr.sel td { background: linear-gradient(180deg, #3b5a86, #2c4568); box-shadow: 0 1px 0 var(--gym-hi) inset; }
+  table.heat tr.sel td.l { border-left-color: var(--gold); }
+  table.heat td .vc { margin: 0 auto; }
+  table.heat td .formrow { display: flex; align-items: center; gap: 10px; min-width: 210px; }
+  table.heat tr.divider td { height: 34px; background: linear-gradient(180deg, #3d4a66, #2c3549); text-align: left; padding-left: 12px; font-family: var(--display); font-size: 17px; letter-spacing: .14em; color: var(--text-2); }
+  table.heat tr.divider.bad td { background: linear-gradient(180deg, #7a2a24, #5a1d19); color: #ffd0cb; }
+  table.heat tr.divider.gold td { background: linear-gradient(180deg, #8a6a12, #5e4709); color: #ffe9a3; }
+  table.heat tr.emptyrow td { background: repeating-linear-gradient(45deg, rgba(0,0,0,.14) 0 6px, rgba(0,0,0,0) 6px 12px), rgba(38,46,66,.7); }
+  table.heat tr.emptyrow td.l { font-family: var(--display); font-size: 18px; letter-spacing: .14em; color: var(--muted); border-left-color: #3c475e; }
+
+  .side { display: flex; flex-direction: column; gap: 8px; padding: 8px; background: rgba(34,42,59,.92); }
+  .overview { display: flex; flex-direction: column; gap: 6px; padding: 8px 10px; }
+  .figurewrap { position: relative; height: 420px; margin: 0 6px; }
+  .figurewrap svg.fig { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .node { position: absolute; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .node .lab { font-size: 12px; letter-spacing: .12em; color: var(--text); font-weight: 700; white-space: nowrap; background: rgba(0,0,0,.35); padding: 2px 6px; border-radius: 2px; }
+  .legend { display: flex; gap: 14px; padding: 8px 12px; font-size: 12px; font-weight: 700; letter-spacing: .06em; color: var(--text-2); border-top: 1px solid var(--edge); }
+  .legend i { display: inline-block; width: 12px; height: 12px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; border: 1px solid rgba(0,0,0,.5); }
+
+  /* ================= sections ================= */
+  .section { display: flex; flex-direction: column; gap: 18px; }
+  .section > header { display: flex; flex-direction: column; gap: 6px; }
+  .section h2 { font-family: var(--display); font-size: 34px; letter-spacing: .04em; margin: 0; }
+  .section header p { margin: 0; color: var(--text-2); max-width: 74ch; }
+  .kit { display: grid; grid-template-columns: repeat(auto-fill, minmax(258px, 1fr)); gap: 14px; }
+  .part { display: flex; flex-direction: column; }
+  .part .stage { min-height: 108px; display: grid; place-items: center; padding: 14px; }
+  .part .txt { padding: 10px 14px 14px; display: flex; flex-direction: column; gap: 6px; }
+  .part h4 { font-family: var(--display); font-size: 18px; letter-spacing: .07em; margin: 0; }
+  .part p { margin: 0; font-size: 12.5px; color: var(--text-2); line-height: 1.5; }
+  .part p b { color: var(--text); }
+  .part code { font-size: 11.5px; color: var(--gold); background: rgba(0,0,0,.3); padding: 1px 6px; border-radius: 2px; }
+
+  .checklist { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 6px; }
+  .check { display: grid; grid-template-columns: 34px 1fr; align-items: center; min-height: 48px; }
+  .check .box { height: 100%; display: grid; place-items: center; background: linear-gradient(180deg, #5fd27a, #2f9a48); color: #062a10; font-weight: 700; font-size: 16px; border-right: 1px solid var(--edge); }
+  .check .txt { padding: 8px 12px; font-size: 13px; color: var(--text); }
+  .check .txt span { color: var(--muted); }
+
+  footer { color: var(--muted); font-size: 12px; border-top: 1px solid var(--line); padding-top: 16px; }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important } }
+  @media (max-width: 1180px) {
+    .body, .board { grid-template-columns: 1fr }
+    .rail { border-right: none } .rail .counterwrap { display: none }
+    .header { grid-template-columns: 1fr; height: auto; }
+    .header .chips { display: none }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">FightCamp · instrument kit · revision 3 · 4 September 2026</div>
+    <h1>Lit, Dense, Raised</h1>
+    <p>
+      Built against your list. One header bar. Nothing under a readable size. Every figure in a
+      raised block, never a bar beside a cell. The ground lifted and coloured by the gym's own colour,
+      the way Football Manager takes the club's. Fire Pro's paired label-and-value blocks. The
+      speaker on top. A fighter you can recognise. Form before stamina.
+    </p>
+  </header>
+
+  <!-- ================= SCREEN 1: THE DAY ================= -->
+  <div class="rig">
+    <div class="monitor">
+      <div class="screen">
+        <div class="backdrop" aria-hidden="true">
+          <div class="pool"></div><div class="shaft" style="left:8%"></div><div class="shaft b" style="left:54%"></div>
+          <div class="bag" style="left:16%;top:16%;height:120px"></div><div class="bag b" style="left:23%;top:14%"></div>
+          <div class="bag" style="left:79%;top:22%;height:104px;animation-duration:7.8s;animation-delay:-1.4s;opacity:.45"></div>
+          <div class="mote" style="left:20%;top:70%"></div><div class="mote" style="left:38%;top:82%;animation-delay:-7s"></div>
+          <div class="mote" style="left:61%;top:76%;animation-delay:-13s"></div><div class="mote" style="left:83%;top:88%;animation-delay:-19s"></div>
+        </div>
+
+        <div class="shell">
+          <div class="header">
+            <div class="crest">
+              <div class="mark">NI</div>
+              <div><div class="name">Nicosia Ironworks</div><div class="sub">CYPRUS · TIER 2 GYM</div></div>
+            </div>
+            <div class="title"><h2>The Day</h2><div class="lede">Wednesday 18 March 2026 · Week 11</div></div>
+            <div class="chips">
+              <div class="chip"><span class="k">BALANCE</span><span class="v">$184,320</span></div>
+              <div class="chip warn"><span class="k">BILLED IN</span><span class="v">2 WEEKS</span></div>
+              <div class="chip"><span class="k">REPUTATION</span><span class="v">61</span></div>
+              <div class="chip accent"><span class="k">NEXT FIGHT</span><span class="v">SAT · 3 DAYS</span></div>
+              <div class="chip"><span class="k">ROSTER</span><span class="v">7 / 9</span></div>
+            </div>
+            <div class="right">
+              <div class="bell">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22a2.2 2.2 0 0 0 2.2-2.2H9.8A2.2 2.2 0 0 0 12 22zm7-5.4v-5.2c0-3.3-1.8-6-4.8-6.7v-.7a2.2 2.2 0 1 0-4.4 0v.7C6.8 5.4 5 8.1 5 11.4v5.2l-1.8 1.8v.9h17.6v-.9L19 16.6z"/></svg>
+                <span class="badge">6</span>
+              </div>
+              <div class="datecont">
+                <div class="date"><div class="w">WEEK 11 · WED</div><div class="d">18 MAR 2026</div></div>
+                <button type="button" class="continue"><span class="t">CONTINUE →</span><span class="s">2 MUST ANSWER FIRST</span></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="body">
+            <nav class="rail">
+              <div class="hbar">CATEGORIES</div>
+              <a href="#" class="on"><span class="tick" style="background:#f0c233"></span>THE DAY<span class="n">6</span></a>
+              <a href="#"><span class="tick" style="background:#e5433a"></span>MUST ANSWER<span class="n">2</span></a>
+              <a href="#"><span class="tick" style="background:#f0c233"></span>FIGHT DESK<span class="n">1</span></a>
+              <a href="#"><span class="tick" style="background:#3f86cc"></span>MEDIA<span class="n">1</span></a>
+              <a href="#"><span class="tick" style="background:#f0a020"></span>RIVALRIES<span class="n">1</span></a>
+              <a href="#"><span class="tick" style="background:#e5433a"></span>CONTRACTS<span class="n">1</span></a>
+              <a href="#"><span class="tick" style="background:#f0a020"></span>MEDICAL<span class="n">1</span></a>
+              <a href="#"><span class="tick" style="background:#4fc46a"></span>DIVISION<span class="n">1</span></a>
+              <a href="#"><span class="tick" style="background:#4a5a78"></span>THE WORLD</a>
+              <a href="#"><span class="tick" style="background:#4a5a78"></span>ARCHIVE</a>
+              <div class="counterwrap"><div class="counter">3<span class="lab">DAYS TO FIGHT</span></div></div>
+            </nav>
+
+            <section class="feed">
+              <div class="hbar">ARRIVED TODAY <span class="cnt">6 ITEMS · 2 NEED AN ANSWER</span></div>
+              <div class="list">
+                <article class="card t-poach sel">
+                  <div>
+                    <div class="kind k-poach">APPROACH <span class="must">MUST ANSWER</span> <span class="due">3 DAYS LEFT</span></div>
+                    <h4>Limassol Barbell want Eli Baptiste</h4>
+                    <p>Offering $1,450 a week. He is on $900 and he knows it.</p>
+                  </div>
+                  <div class="right"><span class="vc lg g1">34<span class="t">▼6</span></span><span class="cap">LOYALTY</span></div>
+                </article>
+                <article class="card t-callout">
+                  <div>
+                    <div class="kind k-callout">CALLOUT <span class="must">MUST ANSWER</span></div>
+                    <h4>Dmitri Vasa calls out Kian Sterling</h4>
+                    <p>Ranked #4 bantamweight. He named the date and the venue.</p>
+                  </div>
+                  <div class="right"><span class="vc lg g2">42<span class="t">▲8</span></span><span class="cap">HEAT · HEATED</span></div>
+                </article>
+                <article class="card t-press">
+                  <div>
+                    <div class="kind k-press">PRESS · FIGHT WEEK</div>
+                    <h4>Three questions waiting for Ana Ferreira</h4>
+                    <p>The room wants the weight, the rematch and the callout.</p>
+                  </div>
+                  <div class="right"><span class="vc lg g3">3</span><span class="cap">QUESTIONS</span></div>
+                </article>
+                <article class="card t-slot">
+                  <div>
+                    <div class="kind k-slot">OPEN SLOT · SHORT NOTICE</div>
+                    <h4>Welterweight seat free at Nicosia Fight Night</h4>
+                    <p>Ruiz is out, injured in camp. Purse carries a 35% premium.</p>
+                  </div>
+                  <div class="right"><span class="vc lg g5">$8.1K</span><span class="cap">3 CAN TAKE IT</span></div>
+                </article>
+                <article class="card t-medical">
+                  <div>
+                    <div class="kind k-medical">WEIGH-IN TOMORROW</div>
+                    <h4>Carlos Tanaka is 2.4 kg over the limit</h4>
+                    <div class="weigh" style="margin-top:6px"><span class="now" style="width:70%"></span><span class="over" style="left:70%;width:14%"></span><span class="limit" style="left:70%"></span></div>
+                  </div>
+                  <div class="right"><span class="vc lg g2">2.4</span><span class="cap">KG OVER</span></div>
+                </article>
+                <article class="card t-move">
+                  <div>
+                    <div class="kind k-move">DIVISION MOVE · WEEK 6 OF 9</div>
+                    <h4>Kian Sterling is reducing to bantamweight</h4>
+                    <p>2.6 kg of 3.9 kg gone. Three weeks of work left.</p>
+                  </div>
+                  <div class="right"><span class="vc lg g4">67%<span class="t">▲</span></span><span class="cap">DONE</span></div>
+                </article>
+              </div>
+            </section>
+
+            <section class="detail">
+              <div class="speaker">
+                <div class="pc"><div class="av gym">MR</div></div>
+                <div><div class="nm">Marco Reyes</div><div class="role">HEAD COACH · SPEAKING</div></div>
+                <div class="nav"><button type="button" aria-label="Previous">▲</button><button type="button" aria-label="Next">▼</button></div>
+              </div>
+              <p class="quote">
+                They came to <b>Eli</b> after sparring, not to me. He did not say no, and he did not tell me
+                himself. I heard it from the mat. He has carried this gym for two years on nine hundred a
+                week and he has started counting.
+              </p>
+              <div class="subject">
+                <div class="pc"><div class="av">EB</div></div>
+                <div><div class="ttl">Limassol Barbell want Eli Baptiste</div><div class="meta">APPROACH · RIVAL GYM · ANSWER BY SATURDAY 21 MARCH</div></div>
+              </div>
+              <div class="readout">
+                <div class="pair"><span class="lab">LOYALTY</span><span class="val g1">34<span class="trend dn">▼6</span></span></div>
+                <div class="pair"><span class="lab">MORALE</span><span class="val g2">48<span class="trend dn">▼2</span></span></div>
+                <div class="pair"><span class="lab">RAPPORT</span><span class="val g4">72</span></div>
+                <div class="pair"><span class="lab">PAY VS MARKET</span><span class="val g2">62%</span></div>
+                <div class="pair"><span class="lab">TENURE</span><span class="val">2Y 4M</span></div>
+                <div class="pair"><span class="lab">GRUDGE</span><span class="val g2">11</span></div>
+              </div>
+              <div class="choices">
+                <button type="button" class="choice primary"><span class="verb">MATCH IT</span><span class="txt">Take him to $1,450 a week from Monday.</span><span class="cost"><span class="dn">−$550/WK</span> · <span class="up">LOYALTY +18</span></span></button>
+                <button type="button" class="choice"><span class="verb">TALK TO HIM</span><span class="txt">Promise a title eliminator inside eight weeks.</span><span class="cost"><span class="up">LOYALTY +9</span> · <span class="dn">PROMISE ON THE BOOKS</span></span></button>
+                <button type="button" class="choice"><span class="verb">LET IT LAPSE</span><span class="txt">Say nothing and hope the number is not enough.</span><span class="cost"><span class="dn">LOYALTY −6</span> · <span class="dn">HE MAY WALK</span></span></button>
+              </div>
+              <div class="footer"><span style="color:var(--gold)">◆</span> ANSWERED ITEMS STAY HERE WITH WHAT YOU CHOSE AND WHAT IT COST</div>
+            </section>
+          </div>
+
+          <nav class="nav">
+            <div class="tab"><span class="ic">◆</span>OFFICE</div>
+            <div class="tab on"><span class="ic">■</span>THE DAY<span class="badge">6</span></div>
+            <div class="tab"><span class="ic">▲</span>FIGHTERS</div>
+            <div class="tab"><span class="ic">▤</span>GYM</div>
+            <div class="tab"><span class="ic">✦</span>TRAINING</div>
+            <div class="tab"><span class="ic">▦</span>SCHEDULE</div>
+            <div class="tab"><span class="ic">◈</span>EVENTS<span class="badge">1</span></div>
+            <div class="tab"><span class="ic">☰</span>RANKINGS</div>
+            <div class="tab"><span class="ic">$</span>FINANCES</div>
+          </nav>
+        </div>
+      </div>
+      <div class="chin"><span class="wordmark">FIGHTCAMP</span><span class="pwr"></span></div>
+    </div>
+    <div class="stand-neck"></div><div class="stand-foot"></div>
+  </div>
+
+  <!-- ================= SCREEN 2: FIGHTERS ================= -->
+  <section class="section">
+    <header>
+      <div class="eyebrow">Same kit, second screen</div>
+      <h2>The Roster Board</h2>
+      <p>The roster as a heatmap of raised cells, alternating rows edge to edge, form before stamina. Beside it, the gym overview in round cells, and a fighter you can actually recognise with each region wired to its own block.</p>
+    </header>
+    <div class="rig">
+      <div class="monitor">
+        <div class="screen">
+          <div class="backdrop" aria-hidden="true"><div class="pool"></div><div class="shaft" style="left:34%"></div><div class="mote" style="left:28%;top:84%;animation-delay:-4s"></div></div>
+          <div class="shell">
+            <div class="header">
+              <div class="crest"><div class="mark">NI</div><div><div class="name">Nicosia Ironworks</div><div class="sub">CYPRUS · TIER 2 GYM</div></div></div>
+              <div class="title"><h2>Fighters</h2><div class="lede">Seven under contract · two unavailable</div></div>
+              <div class="chips" style="align-items:center;padding-left:14px;gap:12px">
+                <div class="seg"><button type="button" class="on">ATTRIBUTES</button><button type="button">CONDITION</button><button type="button">CONTRACT</button></div>
+                <button type="button" class="btn gym">AUTO-ASSIGN TRAINING</button>
+              </div>
+              <div class="right">
+                <div class="bell"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22a2.2 2.2 0 0 0 2.2-2.2H9.8A2.2 2.2 0 0 0 12 22zm7-5.4v-5.2c0-3.3-1.8-6-4.8-6.7v-.7a2.2 2.2 0 1 0-4.4 0v.7C6.8 5.4 5 8.1 5 11.4v5.2l-1.8 1.8v.9h17.6v-.9L19 16.6z"/></svg><span class="badge">6</span></div>
+                <div class="datecont"><div class="date"><div class="w">WEEK 11 · WED</div><div class="d">18 MAR 2026</div></div><button type="button" class="continue"><span class="t">CONTINUE →</span><span class="s">2 MUST ANSWER FIRST</span></button></div>
+              </div>
+            </div>
+
+            <div class="board">
+              <div class="tablewrap">
+                <table class="heat">
+                  <thead><tr><th class="l">FIGHTER</th><th>POW</th><th>TEC</th><th>SPD</th><th>DEF</th><th>CON</th><th>IQ</th><th>FORM · STAMINA</th><th></th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="l"><div class="pc"><div class="av">KS</div><div><div class="nm">Kian Sterling</div><div class="sub">BANTAM · 14-2-0</div></div></div></td>
+                      <td><span class="vc g4">78</span></td><td><span class="vc g5">86<span class="t">▲2</span></span></td><td><span class="vc g4">74</span></td><td><span class="vc g3">61</span></td><td><span class="vc g3">66<span class="t">▼3</span></span></td><td><span class="vc g4">72</span></td>
+                      <td><div class="formrow"><span class="dot g"></span><span class="gb" style="flex:1"><span class="track"><i class="fill" style="width:88%"></i></span><span class="read">88<i>/100</i></span></span></div></td>
+                      <td><button type="button" class="btn sm">OPEN</button></td>
+                    </tr>
+                    <tr>
+                      <td class="l"><div class="pc"><div class="av">EB</div><div><div class="nm">Eli Baptiste</div><div class="sub">WELTER · 21-4-1</div></div></div></td>
+                      <td><span class="vc g5">88</span></td><td><span class="vc g4">79</span></td><td><span class="vc g3">64<span class="t">▼1</span></span></td><td><span class="vc g4">75</span></td><td><span class="vc g4">71</span></td><td><span class="vc g5">84</span></td>
+                      <td><div class="formrow"><span class="dot a"></span><span class="gb" style="flex:1"><span class="track"><i class="fill" style="width:81%"></i></span><span class="read">81<i>/100</i></span></span></div></td>
+                      <td><button type="button" class="btn sm">OPEN</button></td>
+                    </tr>
+                    <tr>
+                      <td class="l"><div class="pc"><div class="av">AF</div><div><div class="nm">Ana Ferreira</div><div class="sub">FLY · 9-1-0</div></div></div></td>
+                      <td><span class="vc g3">63</span></td><td><span class="vc g4">77<span class="t">▲4</span></span></td><td><span class="vc g5">89</span></td><td><span class="vc g3">68</span></td><td><span class="vc g5">85</span></td><td><span class="vc g3">59<span class="t">▲3</span></span></td>
+                      <td><div class="formrow"><span class="dot g"></span><span class="gb" style="flex:1"><span class="track"><i class="fill" style="width:94%"></i></span><span class="read">94<i>/100</i></span></span></div></td>
+                      <td><button type="button" class="btn sm">OPEN</button></td>
+                    </tr>
+                    <tr class="hurt sel">
+                      <td class="l"><div class="pc"><div class="av gym">CT</div><div><div class="nm">Carlos Tanaka</div><div class="sub">LIGHT · 11-6-0</div></div></div></td>
+                      <td><span class="vc g3">67</span></td><td><span class="vc g3">62</span></td><td><span class="vc g2">51<span class="t">▼4</span></span></td><td><span class="vc g3">60</span></td><td><span class="vc g2">48<span class="t">▼7</span></span></td><td><span class="vc g3">64</span></td>
+                      <td><div class="formrow"><span class="dot a"></span><span class="gb" style="flex:1"><span class="track"><i class="fill" style="width:46%"></i></span><span class="read">46<i>/100</i></span></span></div></td>
+                      <td><button type="button" class="btn sm gold">OPEN</button></td>
+                    </tr>
+                    <tr>
+                      <td class="l"><div class="pc"><div class="av">MO</div><div><div class="nm">Marek Oduya</div><div class="sub">MIDDLE · 6-0-0</div></div></div></td>
+                      <td><span class="vc g4">73<span class="t">▲5</span></span></td><td><span class="vc g2">54<span class="t">▲6</span></span></td><td><span class="vc g3">66</span></td><td><span class="vc g2">49</span></td><td><span class="vc g4">76</span></td><td><span class="vc g2">44<span class="t">▲2</span></span></td>
+                      <td><div class="formrow"><span class="dot g"></span><span class="gb" style="flex:1"><span class="track"><i class="fill" style="width:97%"></i></span><span class="read">97<i>/100</i></span></span></div></td>
+                      <td><button type="button" class="btn sm">OPEN</button></td>
+                    </tr>
+                    <tr class="divider bad"><td colspan="9">UNAVAILABLE · 2</td></tr>
+                    <tr class="out">
+                      <td class="l"><div class="pc"><div class="av">RN</div><div><div class="nm">Rui Neves</div><div class="sub">FEATHER · INJURED 4 WKS</div></div></div></td>
+                      <td><span class="vc g3">61</span></td><td><span class="vc g3">65</span></td><td><span class="vc g3">63</span></td><td><span class="vc g2">52</span></td><td><span class="vc g1">28<span class="t">▼18</span></span></td><td><span class="vc g3">60</span></td>
+                      <td><div class="formrow"><span class="dot r"></span><span class="gb" style="flex:1"><span class="track"><i class="fill" style="width:22%"></i></span><span class="read">22<i>/100</i></span></span></div></td>
+                      <td><button type="button" class="btn sm">OPEN</button></td>
+                    </tr>
+                    <tr class="out">
+                      <td class="l"><div class="pc"><div class="av">JD</div><div><div class="nm">Joy Dagher</div><div class="sub">STRAW · ON STRIKE</div></div></div></td>
+                      <td><span class="vc g4">70</span></td><td><span class="vc g4">74</span></td><td><span class="vc g4">78</span></td><td><span class="vc g3">64</span></td><td><span class="vc g4">72</span></td><td><span class="vc g3">66</span></td>
+                      <td><div class="formrow"><span class="dot r"></span><span class="gb" style="flex:1"><span class="track"><i class="fill" style="width:70%"></i></span><span class="read">70<i>/100</i></span></span></div></td>
+                      <td><button type="button" class="btn sm">OPEN</button></td>
+                    </tr>
+                    <tr class="divider gold"><td colspan="9">ROSTER SPACE · TIER 2 GYM ALLOWS 9</td></tr>
+                    <tr class="emptyrow"><td class="l">EMPTY</td><td><span class="vc empty">–</span></td><td><span class="vc empty">–</span></td><td><span class="vc empty">–</span></td><td><span class="vc empty">–</span></td><td><span class="vc empty">–</span></td><td><span class="vc empty">–</span></td><td></td><td><button type="button" class="btn sm gold">SIGN</button></td></tr>
+                    <tr class="emptyrow"><td class="l">EMPTY</td><td><span class="vc empty">–</span></td><td><span class="vc empty">–</span></td><td><span class="vc empty">–</span></td><td><span class="vc empty">–</span></td><td><span class="vc empty">–</span></td><td><span class="vc empty">–</span></td><td></td><td><button type="button" class="btn sm gold">SIGN</button></td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <aside class="side">
+                <div class="frame">
+                  <div class="hbar">GYM OVERVIEW <span class="chev">›</span></div>
+                  <div class="overview">
+                    <div class="roundcell"><div class="loz"><span class="big">14-2</span><span><span class="lab">BEST RECORD</span><br><span class="who">Kian Sterling</span></span></div><div class="crest">KS</div></div>
+                    <div class="roundcell r"><div class="crest">EB</div><div class="loz"><span><span class="lab">HIGHEST FAME</span><br><span class="who">Eli Baptiste</span></span><span class="big" style="margin-left:auto">184</span></div></div>
+                    <div class="roundcell"><div class="loz"><span class="big">88%</span><span><span class="lab">FINISH RATE</span><br><span class="who">Marek Oduya</span></span></div><div class="crest">MO</div></div>
+                    <div class="roundcell r"><div class="crest">NI</div><div class="loz"><span><span class="lab">GYM REPUTATION</span><br><span class="who">Nicosia Ironworks</span></span><span class="stars" style="margin-left:auto">
+                      <svg class="s on" viewBox="0 0 24 24"><path d="M12 2l3 6.6 7.2.8-5.3 4.9 1.4 7.1L12 17.9 5.7 21.4l1.4-7.1L1.8 9.4 9 8.6z"/></svg>
+                      <svg class="s on" viewBox="0 0 24 24"><path d="M12 2l3 6.6 7.2.8-5.3 4.9 1.4 7.1L12 17.9 5.7 21.4l1.4-7.1L1.8 9.4 9 8.6z"/></svg>
+                      <svg class="s on" viewBox="0 0 24 24"><path d="M12 2l3 6.6 7.2.8-5.3 4.9 1.4 7.1L12 17.9 5.7 21.4l1.4-7.1L1.8 9.4 9 8.6z"/></svg>
+                      <svg class="s" viewBox="0 0 24 24"><path d="M12 2l3 6.6 7.2.8-5.3 4.9 1.4 7.1L12 17.9 5.7 21.4l1.4-7.1L1.8 9.4 9 8.6z"/></svg>
+                      <svg class="lock" viewBox="0 0 20 24"><path d="M4 10V7a6 6 0 0 1 12 0v3h1a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V11a1 1 0 0 1 1-1zm2 0h8V7a4 4 0 0 0-8 0z"/></svg>
+                    </span></div></div>
+                  </div>
+                </div>
+
+                <div class="frame" style="flex:1">
+                  <div class="hbar bad">CARLOS TANAKA · BODY <span class="cnt">WORKED · LEFT LEG CHOPPED</span></div>
+                  <div class="figurewrap">
+                    <svg class="fig" viewBox="0 0 480 420" aria-label="Six-region body condition, front view">
+                      <defs>
+                        <linearGradient id="gG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5fd27a"/><stop offset="1" stop-color="#2f9a48"/></linearGradient>
+                        <linearGradient id="gA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6b22e"/><stop offset="1" stop-color="#c77c12"/></linearGradient>
+                        <linearGradient id="gR" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ef5a50"/><stop offset="1" stop-color="#b62e26"/></linearGradient>
+                        <filter id="sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#000" flood-opacity=".55"/></filter>
+                      </defs>
+                      <!-- leaders: from region centre to its block -->
+                      <g stroke="#9fb3d1" stroke-width="1.6" fill="none" stroke-linecap="round">
+                        <path d="M240 46 L165 46"/>
+                        <path d="M240 150 L322 120"/>
+                        <path d="M150 156 L112 172"/>
+                        <path d="M330 156 L368 172"/>
+                        <path d="M214 330 L128 330"/>
+                        <path d="M266 330 L352 330"/>
+                      </g>
+                      <g fill="#dbe6f7">
+                        <circle cx="240" cy="46" r="3.5"/><circle cx="240" cy="150" r="3.5"/><circle cx="150" cy="156" r="3.5"/>
+                        <circle cx="330" cy="156" r="3.5"/><circle cx="214" cy="330" r="3.5"/><circle cx="266" cy="330" r="3.5"/>
+                      </g>
+                      <!-- the fighter: front-on, hands up, six regions each its own fill -->
+                      <g filter="url(#sh)" stroke="#0e1320" stroke-width="2" stroke-linejoin="round">
+                        <!-- legs -->
+                        <path d="M205 262 L236 266 L232 402 L196 402 Z" fill="url(#gR)"/>
+                        <path d="M244 266 L275 262 L284 402 L248 402 Z" fill="url(#gA)"/>
+                        <!-- torso + shorts -->
+                        <path d="M190 84 Q240 70 290 84 L296 126 L282 130 L286 206 Q286 230 274 244 L268 264 L212 264 L206 244 Q194 230 194 206 L198 130 L184 126 Z" fill="url(#gR)"/>
+                        <!-- arms: upper arm out, forearm up, glove -->
+                        <path d="M190 88 L158 104 L128 172 L150 182 L172 140 L184 128 Z" fill="url(#gG)"/>
+                        <path d="M128 172 L150 182 L166 156 L190 150 L186 132 L160 140 Z" fill="url(#gG)"/>
+                        <circle cx="186" cy="150" r="22" fill="url(#gG)"/>
+                        <path d="M290 88 L322 104 L352 172 L330 182 L308 140 L296 128 Z" fill="url(#gA)"/>
+                        <path d="M352 172 L330 182 L314 156 L290 150 L294 132 L320 140 Z" fill="url(#gA)"/>
+                        <circle cx="294" cy="150" r="22" fill="url(#gA)"/>
+                        <!-- neck + head -->
+                        <path d="M226 62 L254 62 L256 84 L224 84 Z" fill="url(#gA)"/>
+                        <path d="M240 14 C258 14 268 28 268 46 C268 62 258 72 240 72 C222 72 212 62 212 46 C212 28 222 14 240 14 Z" fill="url(#gA)"/>
+                        <!-- shorts line -->
+                        <path d="M206 214 Q240 224 274 214" fill="none" stroke="#0e1320" stroke-width="2"/>
+                      </g>
+                    </svg>
+                    <div class="node" style="left:6px;top:24px"><span class="vc g3">64</span><span class="lab">HEAD &amp; NECK</span></div>
+                    <div class="node" style="right:8px;top:96px"><span class="vc g2">47</span><span class="lab">TORSO</span></div>
+                    <div class="node" style="left:8px;top:150px"><span class="vc g4">81</span><span class="lab">LEFT ARM</span></div>
+                    <div class="node" style="right:6px;top:150px"><span class="vc g3">69</span><span class="lab">RIGHT ARM</span></div>
+                    <div class="node" style="left:16px;top:306px"><span class="vc g2">52</span><span class="lab">LEFT LEG</span></div>
+                    <div class="node" style="right:14px;top:306px"><span class="vc g4">77</span><span class="lab">RIGHT LEG</span></div>
+                  </div>
+                  <div class="legend"><span><i style="background:#4fc46a"></i>READY 80+</span><span><i style="background:#f0a020"></i>WORKED 60–79</span><span><i style="background:#e5433a"></i>COMPROMISED</span></div>
+                  <div style="padding:8px"><button type="button" class="btn gold wide">SEND TO RECOVERY</button></div>
+                </div>
+              </aside>
+            </div>
+          </div>
+        </div>
+        <div class="chin"><span class="wordmark">FIGHTCAMP</span><span class="pwr"></span></div>
+      </div>
+      <div class="stand-neck"></div><div class="stand-foot"></div>
+    </div>
+  </section>
+
+  <!-- ================= KIT ================= -->
+  <section class="section">
+    <header>
+      <div class="eyebrow">Built once, used everywhere</div>
+      <h2>The Instrument Kit</h2>
+      <p>Each of these becomes one shared Godot factory or shader. The two screens above are assembled from nothing else.</p>
+    </header>
+    <div class="kit">
+      <div class="part frame"><div class="hbar">PAIRED BLOCK</div><div class="stage"><div style="display:flex;flex-direction:column;gap:6px;width:100%"><div class="pair"><span class="lab">LOYALTY</span><span class="val g1">34<span class="trend dn">▼6</span></span></div><div class="pair"><span class="lab">RAPPORT</span><span class="val g4">72</span></div></div></div><div class="txt"><p><b>Label and value as one unit</b>, two colour families, hard divider. The Fire Pro row. Readable at any size because the label is a block, not a caption. <code>UIKit.pair()</code></p></div></div>
+      <div class="part frame"><div class="hbar">VALUE CELL</div><div class="stage"><div style="display:flex;gap:5px"><span class="vc g1">12</span><span class="vc g2">38</span><span class="vc g3">61</span><span class="vc g4">79</span><span class="vc g5">94<span class="t">▲2</span></span></div></div><div class="txt"><p><b>Raised, top-lit, fill carries the number</b> on a five-stop ramp. The trend tick adds direction. For tables. <code>UIKit.value_cell()</code></p></div></div>
+      <div class="part frame"><div class="hbar">FORM · STAMINA · ACTION</div><div class="stage"><div class="formrow" style="display:flex;align-items:center;gap:10px;width:100%"><span class="dot g"></span><span class="gb" style="flex:1"><span class="track"><i class="fill" style="width:88%"></i></span><span class="read">88<i>/100</i></span></span><button type="button" class="btn sm">OPEN</button></div></div><div class="txt"><p><b>The row you liked, in your order:</b> form dot first, then the bar with its readout, then the action. <code>UIKit.form_row()</code></p></div></div>
+      <div class="part frame"><div class="hbar">ROUND CELL</div><div class="stage"><div class="roundcell" style="width:100%"><div class="loz"><span class="big">14-2</span><span><span class="lab">BEST RECORD</span><br><span class="who">Kian Sterling</span></span></div><div class="crest">KS</div></div></div><div class="txt"><p><b>Football Manager's overview cell:</b> a lozenge with the figure and the who, capped by a round crest or portrait. <code>UIKit.round_cell()</code></p></div></div>
+      <div class="part frame"><div class="hbar">STARS &amp; LOCK</div><div class="stage"><span class="stars" style="transform:scale(1.4)"><svg class="s on" viewBox="0 0 24 24"><path d="M12 2l3 6.6 7.2.8-5.3 4.9 1.4 7.1L12 17.9 5.7 21.4l1.4-7.1L1.8 9.4 9 8.6z"/></svg><svg class="s on" viewBox="0 0 24 24"><path d="M12 2l3 6.6 7.2.8-5.3 4.9 1.4 7.1L12 17.9 5.7 21.4l1.4-7.1L1.8 9.4 9 8.6z"/></svg><svg class="s" viewBox="0 0 24 24"><path d="M12 2l3 6.6 7.2.8-5.3 4.9 1.4 7.1L12 17.9 5.7 21.4l1.4-7.1L1.8 9.4 9 8.6z"/></svg><svg class="s" viewBox="0 0 24 24"><path d="M12 2l3 6.6 7.2.8-5.3 4.9 1.4 7.1L12 17.9 5.7 21.4l1.4-7.1L1.8 9.4 9 8.6z"/></svg><svg class="lock" viewBox="0 0 20 24"><path d="M4 10V7a6 6 0 0 1 12 0v3h1a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V11a1 1 0 0 1 1-1zm2 0h8V7a4 4 0 0 0-8 0z"/></svg></span></div><div class="txt"><p><b>Discrete ratings and locked tiers</b> in one glance: gym tier, coach grade, sponsor appeal, facility level. <code>UIKit.stars()</code></p></div></div>
+      <div class="part frame"><div class="hbar">ROUND COUNTER</div><div class="stage" style="padding-bottom:30px"><div class="counter">3<span class="lab">DAYS TO FIGHT</span></div></div><div class="txt"><p><b>One number that is always true</b>, in a ring, in the corner. Days to the next fight, or weeks to the bill. <code>UIKit.counter()</code></p></div></div>
+      <div class="part frame"><div class="hbar">DATE + CONTINUE</div><div class="stage"><div class="datecont" style="height:52px"><div class="date"><div class="w">WEEK 11 · WED</div><div class="d">18 MAR 2026</div></div><button type="button" class="continue"><span class="t">CONTINUE →</span><span class="s">2 MUST ANSWER FIRST</span></button></div></div><div class="txt"><p><b>Joined as one unit</b>, top right, always. The only gold in the shell, so it is always the primary action. <code>UIKit.continue_unit()</code></p></div></div>
+      <div class="part frame"><div class="hbar">SEGMENTED</div><div class="stage"><div class="seg"><button type="button" class="on">ATTRIBUTES</button><button type="button">CONDITION</button><button type="button">CONTRACT</button></div></div><div class="txt"><p><b>Re-reads one table four ways</b> without leaving it. Selected state in the gym colour. <code>UIKit.segmented()</code></p></div></div>
+      <div class="part frame"><div class="hbar">HEADER BAR + FRAME</div><div class="stage"><div class="frame" style="width:100%"><div class="hbar">GYM OVERVIEW <span class="chev">›</span></div><div style="height:38px"></div></div></div><div class="txt"><p><b>Every group sits in a bordered frame</b> with a full-width coloured bar naming it. The chevron says there is more. <code>UIKit.frame()</code></p></div></div>
+      <div class="part frame"><div class="hbar">PORTRAIT CHIP</div><div class="stage"><div class="pc"><div class="av gym">KS</div><div><div class="nm">Kian Sterling</div><div class="sub">BANTAM · 14-2-0</div></div></div></div><div class="txt"><p><b>Name at 21px, always.</b> Portrait ring in the gym colour when the fighter is yours. Identical on rows, cards and the tape. <code>UIKit.portrait_chip()</code></p></div></div>
+      <div class="part frame"><div class="hbar">GYM COLOUR LADDER</div><div class="stage"><div style="display:flex;gap:4px;width:100%"><span style="flex:1;height:40px;background:#1a3d63;border:1px solid var(--edge)"></span><span style="flex:1;height:40px;background:#24558a;border:1px solid var(--edge)"></span><span style="flex:1;height:40px;background:#2f6fb0;border:1px solid var(--edge)"></span><span style="flex:1;height:40px;background:#3f86cc;border:1px solid var(--edge)"></span><span style="flex:1;height:40px;background:rgba(47,111,176,.22);border:1px solid var(--edge)"></span></div></div><div class="txt"><p><b>The shell takes the gym's own colour</b>, derived into a five-step ladder the way Football Manager derives its skin from the club. Gold stays for the primary action and the belt. <code>UITokens.gym_ladder()</code></p></div></div>
+      <div class="part frame"><div class="hbar">LIVING BACKDROP</div><div class="stage" style="padding:0"><div style="position:relative;width:100%;height:108px;overflow:hidden;background:var(--ground)"><div class="backdrop" aria-hidden="true"><div class="pool"></div><div class="shaft" style="left:6%;width:90px"></div><div class="bag" style="left:26%;top:-6%;height:64px"></div><div class="bag b" style="left:34%;top:-8%;height:52px"></div><div class="mote" style="left:64%;top:80%"></div></div><div style="position:absolute;inset:16px;z-index:1;background:linear-gradient(180deg,rgba(52,64,90,.94),rgba(38,46,66,.94));border:1px solid var(--edge);border-radius:3px;display:grid;place-items:center;font-size:12px;letter-spacing:.14em;font-weight:700;color:var(--text-2)">SCRIM AT 94%</div></div></div><div class="txt"><p><b>The gym floor still working behind the glass.</b> Heavier scrim than before so the words never fight the room. <code>SubViewport + PHOTO_DIM</code></p></div></div>
+    </div>
+  </section>
+
+  <!-- ================= CONSTRUCTION ================= -->
+  <section class="section">
+    <header>
+      <div class="eyebrow">From the Motorsport Manager teardown · how it is actually built</div>
+      <h2>White Primitives, Tinted And Stacked</h2>
+      <p>
+        Their entire interface is drawn from a few dozen white or grey sprites: a rounded box, a
+        two-pixel outline, a soft vertical gradient, a box with a shadow, a feathered circle, a
+        parallelogram, a chevron-pointed header, a hazard stripe, a half-ring dial. Colour is applied
+        at runtime by tinting, and depth comes from stacking three or four of them. That is why every
+        screen looks the same and every screen looks expensive. The kit is built the same way.
+      </p>
+    </header>
+    <div class="kit">
+      <div class="part frame"><div class="hbar">THE STACK</div><div class="stage"><div style="display:flex;gap:8px;align-items:center;width:100%">
+        <span style="flex:1;height:54px;background:#fff;border-radius:3px;opacity:.9"></span><span style="font-family:var(--display);font-size:22px;color:var(--muted)">+</span>
+        <span style="flex:1;height:54px;background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,0));border-radius:3px"></span><span style="font-family:var(--display);font-size:22px;color:var(--muted)">+</span>
+        <span style="flex:1;height:54px;border:2px solid #fff;border-radius:3px"></span><span style="font-family:var(--display);font-size:22px;color:var(--muted)">=</span>
+        <span class="btn gym" style="flex:1.2;height:54px">PANEL</span>
+      </div></div><div class="txt"><p><b>Box + gradient + outline + shadow</b>, each a white texture, each tinted from the ladder. One set of primitives, every surface in the game. <code>UIKit primitives: box, gradient, outline, shadow, feather</code></p></div></div>
+      <div class="part frame"><div class="hbar">TILT · THEIR IDENTITY SHAPE</div><div class="stage"><div style="display:flex;gap:6px"><span class="btn gym" style="transform:skewX(-14deg)"><span style="transform:skewX(14deg)">SEND OUT</span></span><span class="btn" style="transform:skewX(-14deg)"><span style="transform:skewX(14deg)">CANCEL</span></span></div></div><div class="txt"><p><b>The parallelogram is what makes it read as motorsport.</b> Ours is not a copy: our identity shape is the <b>corner-cut block</b>, the shape of a ring apron and a fight poster. Used on the primary action and on fight-night chrome only. <code>UIKit.cut_corner()</code></p></div></div>
+      <div class="part frame"><div class="hbar">CHEVRON-TITLED HEADER</div><div class="stage"><div style="display:flex;width:100%;align-items:center"><span style="background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff;font-family:var(--display);font-size:18px;letter-spacing:.1em;padding:0 16px;height:36px;display:flex;align-items:center;clip-path:polygon(0 0,calc(100% - 14px) 0,100% 50%,calc(100% - 14px) 100%,0 100%)">FIGHT WEEK</span><span style="flex:1;height:36px;background:rgba(0,0,0,.25);border:1px solid var(--edge);border-left:none"></span></div></div><div class="txt"><p><b>A title that points into its content.</b> Their `ChevronTitled` header, adopted as our section header where a frame needs a direction. <code>UIKit.chevron_header()</code></p></div></div>
+      <div class="part frame"><div class="hbar">ENTITY LINK</div><div class="stage"><p style="margin:0;font-size:14px;line-height:1.7;color:var(--text)">Dmitri Vasa called out <span style="color:#7fb6ee;font-weight:700;border-bottom:2px solid rgba(127,182,238,.5)">Kian Sterling</span> ahead of <span style="color:#7fb6ee;font-weight:700;border-bottom:2px solid rgba(127,182,238,.5)">Nicosia Fight Night</span>, and <span style="color:#7fb6ee;font-weight:700;border-bottom:2px solid rgba(127,182,238,.5)">Limassol Barbell</span> are circling.</p></div><div class="txt"><p><b>Every fighter, coach, gym, organization and event name is a link to its own screen, everywhere it appears</b>, with back and forward in the shell. The Football Manager rule, and the thing that makes a game feel like a world. One treatment, never a web underline. <code>UIKit.entity_link()</code></p></div></div>
+      <div class="part frame"><div class="hbar">SCREEN INTRO</div><div class="stage"><div style="position:relative;width:100%;height:80px;overflow:hidden;background:rgba(0,0,0,.2);border-radius:3px"><span style="position:absolute;left:8%;top:14px;width:36%;height:52px;background:linear-gradient(180deg,var(--panel-hi),var(--panel-lo));border:1px solid var(--edge);border-radius:3px;animation:slidein 1.4s cubic-bezier(.16,1,.3,1) infinite alternate"></span><span style="position:absolute;left:52%;top:14px;width:40%;height:52px;background:linear-gradient(180deg,var(--panel-hi),var(--panel-lo));border:1px solid var(--edge);border-radius:3px;animation:slidein 1.4s cubic-bezier(.16,1,.3,1) .08s infinite alternate"></span></div><style>@keyframes slidein{from{transform:translateX(-60px);opacity:0}to{transform:translateX(0);opacity:1}}</style></div><div class="txt"><p><b>Panels enter from the left and settle in the middle</b>, staggered. Their exact numbers live in compiled code I could not read, so this is designed from what you saw, not extracted: 0.38 s, ease-out quart, 60 px offset, 80 ms per panel, fade with the slide. <code>UIKit.intro(panel, delay)</code></p></div></div>
+      <div class="part frame"><div class="hbar">THE BODY · REFERENCE</div><div class="stage"><p style="margin:0;font-size:13px;line-height:1.6;color:var(--text-2)"><b style="color:var(--text)">Anatomical muscular figure, front view</b>, the stock "muscular system" illustration style, with the six regions tinted over the musculature. Licensed from a stock library or commissioned in that style; nothing ripped ships.</p></div><div class="txt"><p>Replaces the silhouette above. The regions stay the six the engine already simulates. <code>assets/body/muscular_front.png + region masks</code></p></div></div>
+    </div>
+    <div class="frame" style="margin-top:4px">
+      <div class="hbar">MOTORSPORT MANAGER · WHAT ELSE WAS IN THE FILES</div>
+      <div style="padding:12px 14px;font-size:13px;line-height:1.7;color:var(--text-2)">
+        Type is <b style="color:var(--text)">Mission Gothic</b> (a condensed grotesque, three weights) for display and <b style="color:var(--text)">Cooper Hewitt</b> (three weights) for text, plus two custom tabular numeral faces for timing. Round stat cells are one sprite, <b style="color:var(--text)">GraphCircleStats</b>, tinted. Stars ship with a half state. Progress bars use a <b style="color:var(--text)">hazard stripe</b> texture. The notification badge is <b style="color:var(--text)">CircleNotice</b> over a feathered glow. Nothing in the atlas is coloured; the palette lives entirely in code.
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= THE LIST ================= -->
+  <section class="section">
+    <header>
+      <div class="eyebrow">Your points, in order</div>
+      <h2>What Changed And Why</h2>
+    </header>
+    <div class="checklist">
+      <div class="check frame"><span class="box">✓</span><span class="txt">Two mostly-empty bars → <span>one header: crest, title, date, chips, roster, bell, date + Continue.</span></span></div>
+      <div class="check frame"><span class="box">✓</span><span class="txt">Gradient bars under the news → <span>gone. The value cell on the right carries the figure.</span></span></div>
+      <div class="check frame"><span class="box">✓</span><span class="txt">Too dark → <span>ground lifted to blue-grey, every panel top-lit, scrim at 92–96%, the gym colour on headers and selection.</span></span></div>
+      <div class="check frame"><span class="box">✓</span><span class="txt">Dead gap in the middle → <span>the detail panel is a stack of full-width frames; the choices sit against the readout.</span></span></div>
+      <div class="check frame"><span class="box">✓</span><span class="txt">Bar beside a value cell → <span>replaced by the paired label-and-value block. One instrument per figure.</span></span></div>
+      <div class="check frame"><span class="box">✓</span><span class="txt">Name not visible enough → <span>names at 21–24px in the display face on every chip, card and speaker strip.</span></span></div>
+      <div class="check frame"><span class="box">✓</span><span class="txt">Marco Reyes buried → <span>the speaker leads the detail panel in a highlighted strip with portrait and role.</span></span></div>
+      <div class="check frame"><span class="box">✓</span><span class="txt">Labels too small → <span>labels are 16–17px display blocks or 11–12px bold caps. Nothing thinner than that anywhere.</span></span></div>
+      <div class="check frame"><span class="box">✓</span><span class="txt">Fire Pro cells → <span>raised, top-lit, hard-edged; label and value in two colour families; uniform rows edge to edge; unmissable selection; framed groups with full-width header bars.</span></span></div>
+      <div class="check frame"><span class="box">✓</span><span class="txt">Stars and lock → <span>in the kit and on the gym overview for reputation tier.</span></span></div>
+      <div class="check frame"><span class="box">✓</span><span class="txt">Football Manager → <span>colour on the ground, round cells with lozenges, the round counter, date joined to Continue, chevron headers, alternating rows.</span></span></div>
+      <div class="check frame"><span class="box">✓</span><span class="txt">The body → <span>a front-on fighter with hands up, six separately filled regions, leaders that touch, blocks beside their region, a legend.</span></span></div>
+      <div class="check frame"><span class="box">✓</span><span class="txt">Form first → <span>form dot, then the stamina bar with its readout, then Open.</span></span></div>
+    </div>
+  </section>
+
+  <footer>FightCamp · instrument kit revision 3 · the gym's own colour over a lit ground · Bebas Neue and IBM Plex Mono · every figure fed by state that already exists in the save.</footer>
+</div>

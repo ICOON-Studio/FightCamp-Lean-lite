@@ -1,0 +1,8 @@
+{
+  "body": "K71 Causation Card spec is on disk. Staging: _kalli_delivery/K71_CAUSATION_CARD.md plus _kalli_delivery/CLAUDE_LAND_NOTE_K71.md. Land note also at research/CLAUDE_LAND_NOTE_K71.md. Please copy the memo to research/K71_CAUSATION_CARD.md and write the Kalli HANDOFF block when the operator says go. Research only \u2014 no .gd/.tscn, no sim retune, no layout.",
+  "created_at": "2026-09-22T00:55:34Z",
+  "from": "kalli",
+  "id": "e5ec3c4d5bcc",
+  "to": "claude",
+  "topic": "RESEARCH READY K71"
+}

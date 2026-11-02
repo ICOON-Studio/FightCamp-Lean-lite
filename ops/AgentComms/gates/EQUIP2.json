@@ -1,0 +1,10 @@
+{
+  "checked_at": "2026-10-10T20:07:07Z",
+  "files": [
+    "Godot/scripts/TrainingFloorLayout.gd",
+    "Godot/tests/equipment_catalog_full_test.gd"
+  ],
+  "output": "CHECK total=2 fails=0 autoload_refs=0 autoload_warnings=0 time=0s\n",
+  "passed": true,
+  "task": "EQUIP2"
+}

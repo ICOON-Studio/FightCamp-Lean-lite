@@ -1,0 +1,320 @@
+
+
+1. START BUDGET & THE DAY 1 MINIMUM OPEN GYM
+The Ring Dilemma: Does the 18,000 Ring Belong on Day 1?
+
+No. An $18,000 ring out of a $25,000 starting wallet leaves exactly $7,000 for walls, reception, locker rooms, bags, weights, and initial operating payroll. That forces either a sterile void or an instant Day 14 bankruptcy before the first bout check clears.
+
+In real-world club boxing (from Gleason's basement annexes to British small-hall gyms), an unbacked independent starter gym opens with a Taped Canvas / Floor Ring (Chalk & Tape Square).
+
+The Taped Floor Ring costs $1,200 (canvas mat + perimeter tape + corner posts without elevated steel roping).
+It delivers full technical footwork, technical ring craft, and light technical sparring at an innate penalty: Tactical Ring IQ gain rate is $0.75\times$, and heavy hard sparring carries a 15% higher slip/tumble risk.
+Where are early bouts fought? Out-of-house! Early career four-rounders take place in civic halls, leisure centres, and regional licensed venues. The gym does not need an arena-certified elevated competition ring until the boxer headlines home shows or reaches regional title contention (typically Month 4–6).
+The full Elevated Competition Ring ($18,000) becomes the mid-game milestone trophy that unlocks home fight hosting and elite sparring partners.
+Minimum Viable Gym (MVG) on Day 1
+
+The minimum open gym must consume 64% to 70% of starting capital, leaving a safe operational runway of ~$7,500–$8,000 for initial weekly burn before cash flows stabilize.
+
++-------------------------------------------------------------------------------+
+| DAY 1 MINIMUM VIABLE GYM (MVG) BREAKDOWN                                      |
++------------------------------------------------------+----------+-------------+
+| Item / Zone Construction                             | Cost ($) | % of Start  |
++------------------------------------------------------+----------+-------------+
+| Starting Cash                                        |  $25,000 |      100.0% |
+| Reception Zone (3 x 2.5m shell + Reception Desk)     |   $1,450 |        5.8% |
+| Locker / Rest Area (4 x 3m shell + Lockers + Bench)  |   $1,720 |        6.9% |
+| Open Boxing Floor (Main Hall Partition + Flooring)   |   $2,100 |        8.4% |
+| Chalk/Taped Floor Ring (4 x 4m canvas + floor posts) |   $1,200 |        4.8% |
+| Heavy Bag Station (Wall Bracket + 100lb Heavy Bag)   |     $850 |        3.4% |
+| Double-End Timing Bag Station                        |     $420 |        1.7% |
+| Conditioning Kit (1 Second-hand Airdyne Bike + Rope) |     $780 |        3.1% |
+| Owner Desk / Office Corner (PC Terminal + Chair)     |   $1,100 |        4.4% |
+| Basic Wall Partitions & Doors (Shell division)       |   $1,850 |        7.4% |
+| Initial Municipal Inspection & Permit Fee            |   $1,000 |        4.0% |
++------------------------------------------------------+----------+-------------+
+| TOTAL DAY 1 BUILD OUTLAY                             |  $12,470 |       49.9% |
+| Buffer Consumables & Emergency Float                 |   $4,800 |       19.2% |
++------------------------------------------------------+----------+-------------+
+| COMMITTED CAPITAL AT MINUTE 0                        |  $17,270 |       69.1% |
+| REMAINING UNALLOCATED CASH RUNWAY                    |   $7,730 |       30.9% |
++------------------------------------------------------+----------+-------------+
+
+
+With a net baseline weekly burn of ~$720 (utility upkeep + owner stipend + minimal supplies), $7,730 guarantees an absolute minimum of 10.7 weeks of pure operational runway without any revenue, eliminating sudden early game-over states while punishing careless expansions.
+
+2. ROOM PRICING: HYBRID SYSTEM (FLAT PERMIT + TILE RATE + KEY ITEM)
+
+Neither Two Point's pure flat fee (which ignores the physical constraints of an industrial warehouse) nor Mad Games Tycoon 2's pure per-tile rate (which makes larger aesthetic rooms feel like an active financial penalty) fits a spatial management sim.
+
+We use a Hybrid Model:
+$$\text{Total Room Cost} = \text{Room Permit Fee} + (\text{Tile Count} \times \text{Floor Surface Cost}) + \text{Key Activation Item}$$
+
+Room Permit Fee (Flat): Covers drywall framing, foundational electrical drops, and zone licensing.
+Tile Surface Cost ($25–$80/tile): Standard industrial screed vs slip-resistant rubber sports matting vs acoustic panelling.
+Key Activation Item: The room is strictly non-functional (DORMANT) until this primary object is placed inside the bounds.
+Selling / Remodelling Refund: 100% refund on walls and items within the first 5 in-game days of construction; 70% baseline depreciated refund thereafter.
++--------------------+---------+---------+------------+-----------------------+-----------+-----------------------------------+
+| ROOM TYPE          | MIN     | FLAT    | TILE COST  | KEY ACTIVATION ITEM   | KEY COST  | UNLOCK REQUIREMENT                |
+|                    | SIZE    | PERMIT  | ($/m²)     | (Required to operate) | ($)       |                                   |
++--------------------+---------+---------+------------+-----------------------+-----------+-----------------------------------+
+| Reception Area     | 3 x 2.5 | $400    | $35 / m²   | Front Desk Counter    | $800      | Minute 0 (Default open)           |
+| Training Floor     | 6 x 6   | $600    | $25 / m²   | Floor Anchor / Bag    | $450      | Minute 0 (Default open)           |
+| Locker Room        | 4 x 3   | $500    | $30 / m²   | 4-Tier Metal Locker   | $620      | Minute 0 (Default open)           |
+| Office             | 3 x 2.5 | $350    | $20 / m²   | Management PC Desk    | $750      | Minute 0 (Default open)           |
+| Taped Sparring Pit | 4 x 4   | $300    | $40 / m²   | Corner Stools & Tape  | $900      | Minute 0 (Default open)           |
+| Physio / Treatment | 3 x 3   | $750    | $45 / m²   | Treatment Table       | $1,400    | Goal 6 (Roster reaches 2 Boxers)  |
+| Strength Room      | 4 x 4   | $600    | $50 / m²   | Olympic Half Rack     | $2,200    | Goal 8 (First Pro Win)            |
+| Cardio Suite       | 4 x 3   | $500    | $35 / m²   | Pro Treadmill / Rower | $1,800    | 15 Active Gym Members             |
+| Elevated Ring Pit  | 7 x 7   | $2,500  | $60 / m²   | Pro Ring Platform     | $15,500   | Reputation Tier 2 + $40k Career   |
+| Film / Tape Room   | 3 x 3   | $800    | $30 / m²   | Video Analysis Rig    | $3,200    | First 8-Round Bout Booked         |
+| Fighter Lounge     | 4 x 3   | $450    | $30 / m²   | Leather Sofa & Fridge | $1,100    | Roster reaches 3 Boxers           |
+| Washrooms / Shower | 3 x 2   | $900    | $80 / m²   | Commercial Shower Bay | $1,600    | Member capacity > 20              |
+| Equipment Storage  | 2 x 2   | $200    | $15 / m²   | Heavy Duty Shelving   | $380      | Any equipment breakdown occurs    |
++--------------------+---------+---------+------------+-----------------------+-----------+-----------------------------------+
+
+3. THE FIRST HOUR: 16-GOAL "GOLDEN SCRIPT" ONBOARDING
+
+Every goal teaches a physical, observable action on the floor, awards targeted capital to reimburse the build step, and immediately opens the next practical necessity. Total goal payouts sum to $21,500, matching the initial infrastructure costs and providing cash injections right as milestones are reached.
+
++----+-----------------------------+------------------------------------+------------+------------------------------------+
+| #  | GOAL NAME (Single-verb tag) | DIRECT ACTION REQUIRED             | PAYOUT ($) | UNLOCKS / NEXT STEP                |
++----+-----------------------------+------------------------------------+------------+------------------------------------+
+| 01 | CLAIM THE SHELL             | Designate and place the Front Desk |     $1,000 | Turnstile & Member Sign-up policy  |
+| 02 | HANG LEATHER                | Zone Training Floor & place 1 Bag  |     $1,200 | Speed bag & Double-end bag in shop |
+| 03 | MARK THE LINES              | Place Taped Canvas Sparring Square |     $1,500 | Sparring mechanics & Safety gear   |
+| 04 | SECURE THE VALUABLES        | Build Locker Room (1 Locker Bay)   |     $1,200 | Member walk-in traffic enabled     |
+| 05 | OPEN THE SHUTTERS           | Switch Gym Status to "OPEN"        |     $1,000 | Ambient community members arrive   |
+| 06 | SIGN THE PROSPECT           | Finalize contract with Starter     |     $1,500 | Fight Matchmaking Board            |
+| 07 | RUN A FULL DAY              | Complete 1 full Day Plan cycle     |        $800 | Station Focus Cards (1-2-3 toggles)|
+| 08 | THE MORNING DROP-IN         | Host first Paid Open Pad Session   |        $600 | Community Pad Sessions toggle      |
+| 09 | FEEL THE STIFFNESS          | First fighter crosses 60 Acute Fat.|     $1,000 | Physio Room & Ice Baths in shop    |
+| 10 | HIRE THE CORNER             | Hire your first Assistant Trainer  |     $2,000 | Coached Station Efficiency (1.0x)  |
+| 11 | SIGN THE BOUT               | Accept an away bout in Matchmaking |     $1,500 | Opponent Scout Dossier             |
+| 12 | THE TAPER WEEK              | Program a sub-40 fatigue taper day |        $900 | Camp Conditioning Multipliers      |
+| 13 | STEP INTO THE SMOKE         | Complete the first live fight      |     $3,000 | Fight Purse splits & Club Cut      |
+| 14 | FIRST LOCAL SILVER          | Win first bout (Dec or KO)         |     $2,500 | Strength & Power Training Kit      |
+| 15 | SCALE THE ROSTER            | Sign first Walk-In Boxer from desk |     $1,800 | Multi-fighter Day Plan Board       |
+| 16 | THE MONTHLY AUDIT           | Close Month 1 with positive cash   |        $0  | Free-form Career Play (Tutorial off)
++----+-----------------------------+------------------------------------+------------+------------------------------------+
+|    | TOTAL ONBOARDING PAYOUT     |                                    |    $21,500 | Full Gym Autonomy Achieved         |
++----+-----------------------------+------------------------------------+------------+------------------------------------+
+
+4. FIRST INCOME: PRE-MEMBER & PRE-PURSE CASH FLOW (WEEKS 1–4)
+
+In Weeks 1 to 4, members are wary and fight purses are weeks away. Rather than relying on idle timers or arbitrary grants, early money is generated through authentic boxing gym revenue channels:
+
++------------------------------------+------------------+---------------------+-------------------+-----------------------------------+
+| REVENUE CHANNEL                    | FREQUENCY        | CASH YIELD ($)      | COOLDOWN / LIMIT  | PLAYER COST / OPERATIONAL STRAIN  |
++------------------------------------+------------------+---------------------+-------------------+-----------------------------------+
+| Morning Commercial Pad Sessions    | Tue / Thu / Sat  | $120 – $220 / day   | Max 3 per week    | Consumes 90m of Coach/Owner time  |
+| "White Collar" Evening Bag Circuit | Mon / Wed / Fri  | $300 – $450 / week  | Max 1 group block | Locks out heavy bags for 2 hours  |
+| Traveling Sparring Partner Hire    | Ad-hoc contract  | $350 – $600 / bout  | 1 offer / week    | Your fighter takes 25 Acute Fat.  |
+| Local Business Banner Sponsorship  | Fixed 4-week deal| $800 upfront ($200) | Once per month    | Requires wall space in Main Hall  |
+| Short-Notice Undercard Save        | Spontaneous call | $1,500 – $2,800     | Max 1 in month 1  | Fought with 3 days prep (high risk)
++------------------------------------+------------------+---------------------+-------------------+-----------------------------------+
+
+Example Week 2 Cash Ledger
+15 Regular Monthly Gym Members @ $45/mo ($11.25/wk): +$168.75
+2 Morning Pad Sessions: +$310.00
+1 Traveling Sparring Hire (Danny Reyes spars a regional prospect for 6 rounds): +$450.00
+Local Car Repair Banner Sponsorship: +$200.00
+Gross Revenue Week 2: +$1,128.75
+Operating Costs Week 2 (Rent/Rates $280 + Owner draw $250 + Utilities $110 + Equipment wear $65): -$705.00
+Net Operational Margin Week 2: +$423.75 (The gym is stable and self-sustaining before its first official purse).
+5. THE TIGHTENING: FIRST-YEAR ESCALATION FORMULAS
+
+The early game feels open and forgiving; by Month 3, the financial and operational screws begin to turn. This tightening does not stem from arbitrary penalties, but from four interconnected, scaling systems:
+
++----------------------------------------------------------------------------------------------------+
+| THE TIGHTENING ESCALATION TIMELINE                                                                |
+|                                                                                                    |
+|  Month 1: The Honeymoon    Month 3: The Crunch       Month 6: The Regional Leap   Month 12: Elite  |
+|  * Low Rent ($1.2k/mo)     * Base Rent Jump ($2.0k)  * Commercial Lease ($3.2k)   * City Tax       |
+|  * High tolerance (20%)    * Standard Wear (60%)     * High Expectations (65%)    * Pro Standards  |
+|  * Novice Opponents        * Hungry Gatekeepers      * Cut-Throat Contenders      * World Ranked   |
+|  * Soft Wear on kit        * Kit starts breaking     * Breakdown downtime         * Major upkeep   |
++----------------------------------------------------------------------------------------------------+
+
+Formula 1: Commercial Lease & Municipal Rates ($C_{\text{rent}}$)
+
+The starter lot owner provides a 60-day discounted grace period ($1,200/month). At Month 3, full municipal commercial rates kick in based on built square footage:
+$$C_{\text{rent}}(m) = $1,200 + \left(\max(0, m - 2) \times $350\right) + \left(\text{Built Floorspace } m^2 \times $4.50\right)$$
+
+Month 1: $1,200/mo
+Month 3: $2,150/mo
+Month 6: $3,450/mo
+Month 12: $5,200/mo
+Formula 2: Member Churn & Floor Standards ($E_{\text{member}}$)
+
+In Month 1, community members tolerate raw concrete and basic facilities (Minimum Gym Score: 20/100). Every month, baseline member expectations increase by +4 points.
+$$\text{Churn Rate} = \max\left(0.02, \frac{\text{Required Standard}(m) - \text{Actual Gym Score}}{100}\right)$$
+If Actual Gym Score is below the required standard, members leave at up to 18% weekly turnover, devastating steady subscription revenue unless showers, lockers, and fresh gear are installed.
+
++-------+--------------------+------------------------+---------------------------------------+
+| MONTH | REQUIRED GYM SCORE | COMMON CHURN REASON    | MITIGATION REQUIRED                   |
++-------+--------------------+------------------------+---------------------------------------+
+| M 01  | 20 / 100           | None (Honeymoon)       | Keep floor clear of trash bags        |
+| M 03  | 32 / 100           | "No showers / smells"  | Build Washroom / Shower bay           |
+| M 06  | 48 / 100           | "Heavy bags worn down" | Service gear / Upgrade to leather bags|
+| M 09  | 62 / 100           | "Overcrowded cardio"   | Add 2nd cardio unit or expand room    |
+| M 12  | 75 / 100           | "Outdated facilities"  | Install recovery suite / sauna        |
++-------+--------------------+------------------------+---------------------------------------+
+
+Formula 3: Progressive Equipment Degradation ($D_{\text{wear}}$)
+
+Wear does not require manual maintenance clicks. Equipment condition degrades strictly based on Station Usage Minutes:
+$$\Delta \text{Condition} = -(\text{Hours Used Today} \times \text{Wear Coefficient}) \times (1.0 - \text{Gym Cleaner Mod})$$
+
+When condition drops below 40%, training yield drops to $0.70\times$ and injury chance triples.
+When condition reaches 0%, the item breaks with an audible snap, blocking the station until serviced.
+Wear Coefficient: Heavy bags = $0.4%/\text{hr}$; Cardio bikes = $0.7%/\text{hr}$; Canvas ring = $0.2%/\text{hr}$.
+Formula 4: Matchmaking Difficulty & Opponent Step-Up
+
+Early opponents are unranked tomato-cans ($ELO \approx 1000–1150$, record 2-8-1). By Bout 4, opponents actively counter your boxer's profile:
+$$\text{Opponent Stat Target} = \text{Boxer Stat Average} + (N_{\text{wins}} \times 2.8) \pm 4$$
+If you neglect defensive footwork, matchmaking scouts exploit it: opponents in Month 6 arrive with tailored game plans, turning routine wins into grueling, damage-heavy wars.
+
+6. MONEY SYSTEMS AS POLICY, NEVER CHORES
+
+To prevent the micromanagement traps that hurt games like Gym Empire (e.g., manually cancelling individual memberships, unclogging toilets one by one, micromanaging client injuries), FightCamp runs strictly on High-Level Macro Policies:
+
++----------------------------------------------------------------------------------------------------+
+| MACRO MANAGEMENT POLICY DASHBOARD (NO CHORES, NO CLICK-HUNTING)                                   |
++----------------------------------------------------------------------------------------------------+
+| 1. MEMBERSHIP POLICY SLIDER                                                                        |
+|    Monthly Dues: [$55 / mo] <---[o]------------------------->  Capacity Cap: [ 35 Members ]        |
+|    Projected Demand: 42 Applicants/mo | Member Churn: 4.1%/mo | Weekly Income: +$481/wk            |
+|                                                                                                    |
+| 2. PAYROLL & STAFF RETENTION DIAL                                                                 |
+|    Gym-Wide Wage Standard: [ COMPETITIVE (+10% above market) ]                                     |
+|    * Staff Morale: 94% (Zero walkout risk)                                                        |
+|    * Coaching Station Bonus: +8% efficiency across all stations                                    |
+|                                                                                                    |
+| 3. AUTO-MAINTENANCE CONTRACTS                                                                      |
+|    Maintenance Tier: [ TIER 2 - LOCAL TRADES CONTRACT ($85/wk) ]                                  |
+|    * Rule: Any equipment falling below 65% condition is auto-serviced overnight at 03:00.          |
+|    * Player action: ZERO manual repair clicks. Fixes show on morning ledger receipt.               |
+|                                                                                                    |
+| 4. MEDICAL & REHABILITATION POLICY                                                                |
+|    Health Cover: [ PRIVATE SPORTS CLINIC RETAINER ($120/wk) ]                                      |
+|    * Acute injury duration reduced by 40%. Severe cuts healed automatically between fights.        |
++----------------------------------------------------------------------------------------------------+
+
+The Four Core Policy Rules
+The Global Membership Slider: You adjust one gym-wide fee slider ($25 to $120/month). Lower fees boost volume and capacity pressures; higher fees increase income per head but raise minimum Gym Score expectations. Individual members never need to be managed manually.
+One Staff Wage Tier Policy: Instead of negotiating individual salaries, staff compensation uses a global policy: Underpaid (-15%), Market (0%), Competitive (+10%), or Elite (+25%). This directly impacts staff morale, skill progression, and coaching performance.
+Automated Maintenance Contracts: Equipment maintenance is handled via flat-rate service contracts (Basic DIY $20/wk, Local Trades $85/wk, Pro Service $210/wk). Technicians handle repairs overnight automatically.
+Purse Splits by Contract: Professional fighters work on straightforward tier-based splits (e.g., Prospect: 70% Fighter / 30% Gym; Headliner: 85% Fighter / 15% Gym). Purses are split automatically upon bout completion.
+7. DEBT, LOANS & SOFT BANKRUPTCY
+
+Hard game-over screens on zero cash ruin long-term management sims. FightCamp implements a Lender & Promoter Bailout System that keeps the story moving while imposing meaningful gameplay consequences.
+
++--------------------+--------------+----------------+---------------+-----------------------------------+
+| LOAN PRODUCT       | PRINCIPAL ($)| WEEKLY COST ($)| TERM LENGTH   | UNDERWRITING REQUIREMENT          |
++--------------------+--------------+----------------+---------------+-----------------------------------+
+| Micro Credit Line  | $5,000       | $275 / wk      | 20 Weeks      | Open Gym + 5 Members              |
+| Municipal Dev Loan | $15,000      | $420 / wk      | 40 Weeks      | 1 Registered Pro Boxer on Roster  |
+| Promoter Advance   | $30,000      | $0 / wk flat   | Next 3 Fights | 100% purse garnish until repaid   |
++--------------------+--------------+----------------+---------------+-----------------------------------+
+
+The Soft Bankruptcy Process (Triggered at -$5,000 Overdraft)
+
+When the gym’s balance drops past -$5,000, normal operations freeze, and the game introduces an authentic narrative pivot rather than an abrupt game over:
+
+                  [ CASH DROPS BELOW -$5,000 ]
+                               |
+                               v
+            +--------------------------------------+
+            |   SYNDICATE PROMOTER INTERVENTION    |
+            |   "Frankie Vane steps in with cash"  |
+            +--------------------------------------+
+                               |
+            +------------------+-------------------+
+            |                                      |
+            v                                      v
+  [ COST CONCESSION ]                    [ CLEAR TARGET GOAL ]
+  Promoter claims 50% of the gym's       "Deliver 2 knockout wins in
+  cut on the next 3 bouts + takes        60 days, or forfeit the title
+  title to 1 high-value station.         deed to the gym."
+
+The Bailout Injection: A regional promoter steps in with an immediate $8,000 capital infusion, resetting the bank account to a stable baseline.
+The Concession: The promoter takes a 50% cut of the gym's purse share for the next three fights, and claims the title to one high-value asset (e.g., your Olympic Half Rack or Pro Ring).
+The Target Mandate: A clear, high-stakes recovery contract is issued:
+"Win 2 bouts within 60 days to buy back the gym deed and restore normal purse splits."
+The Consequence of Failure: Failing the recovery contract forces a move to a smaller, low-rent basement venue in a rougher neighborhood, resetting gym square footage while preserving your fighter's career, record, and stats.
+8. WHAT MAKES THIS START FEEL WAY BETTER THAN GYM EMPIRE IN THE FIRST 10 MINUTES?
++-------------------------------------------------------------------------------------------------------+
+| FIVE CONCRETE MOMENTS: FIGHTCAMP VS GYM EMPIRE                                                        |
++---+------------------------------------+----------------------------------+---------------------------+
+| # | THE MOMENT                         | GYM EMPIRE (Pain Points)         | FIGHTCAMP (The Experience)|
++---+------------------------------------+----------------------------------+---------------------------+
+| 1 | First 30 Seconds: Placing an Item  | Floats like a flat clip-art PNG; | Thuds onto concrete with  |
+|   |                                    | snap grid is loose; feels like   | weight and audio impact;  |
+|   |                                    | Windows Paint on a mobile port.  | chalk line snaps cleanly. |
++---+------------------------------------+----------------------------------+---------------------------+
+| 2 | The Fighter Touches the Gear       | Generic stick-man walks up and   | Boxer wraps his hands,    |
+|   |                                    | plays an unsynced loop; numbers  | steps in, cracks the bag; |
+|   |                                    | drift up with no impact.         | leather thumps in rhythm. |
++---+------------------------------------+----------------------------------+---------------------------+
+| 3 | Room Creation                      | Confusing nested menus with      | Clean drag-and-drop tool; |
+|   |                                    | rigid, pre-baked room sizes.     | dynamic drywall framing;  |
+|   |                                    |                                  | snaps smoothly to walls.  |
++---+------------------------------------+----------------------------------+---------------------------+
+| 4 | First Financial Dilemma            | Endless repetitive micro-clicks  | Meaningful Day 1 decision:|
+|   |                                    | to collect single dollar coins.  | Buy a proper bag line or  |
+|   |                                    |                                  | protect 8 weeks of runway.|
++---+------------------------------------+----------------------------------+---------------------------+
+| 5 | The Fight Hook (Minute 8)          | No combat context; generic bars  | Corner stool view; tape on|
+|   |                                    | fill up without stakes.          | the gloves; every session |
+|   |                                    |                                  | visibly shifts the odds.  |
++---+------------------------------------+----------------------------------+---------------------------+
+
+MASTER BALANCE SPECIFICATION
+
+Every value from the sections above, formatted for direct reference and implementation:
+
++-----------------------------------+----------+-----------+-----------------------+------------------------------------------+
+| NUMERICAL PARAMETER NAME          | VALUE    | UNIT      | READING ENGINE SYSTEM | OPERATIONAL PURPOSE                      |
++-----------------------------------+----------+-----------+-----------------------+------------------------------------------+
+| economy_start_cash                | 25000    | USD ($)   | WalletManager.gd      | Total player starting balance at M0      |
+| mvg_target_expenditure_max        | 17500    | USD ($)   | BuildBudgetChecker.gd | 70% capital safety ceiling for MVG       |
+| mvg_reserve_runway_min            | 7500     | USD ($)   | WalletManager.gd      | Safe baseline runway float               |
+| ring_elevated_pro_price           | 18000    | USD ($)   | ItemCatalog.gd        | Late-stage professional ring cost        |
+| ring_floor_canvas_taped_price     | 1200     | USD ($)   | ItemCatalog.gd        | Day 1 entry-level sparring canvas cost   |
+| ring_floor_iq_gain_mult           | 0.75     | Float     | TrainingEngine.gd     | Tactical learning penalty on floor ring  |
+| ring_floor_injury_risk_mod        | 1.15     | Float     | TrainingEngine.gd     | Added slip risk during hard floor spars  |
+| room_permit_reception             | 400      | USD ($)   | RoomBuilder.gd        | Base zone fee for Reception              |
+| room_permit_training_floor        | 600      | USD ($)   | RoomBuilder.gd        | Base zone fee for Main Training Floor    |
+| room_permit_locker_room           | 500      | USD ($)   | RoomBuilder.gd        | Base zone fee for Locker Area            |
+| room_permit_office                | 350      | USD ($)   | RoomBuilder.gd        | Base zone fee for Management Office      |
+| room_permit_physio                | 750      | USD ($)   | RoomBuilder.gd        | Base zone fee for Treatment Clinic       |
+| room_tile_cost_standard           | 25       | USD/m²    | RoomBuilder.gd        | Basic screed flooring cost per square m  |
+| room_tile_cost_matting            | 45       | USD/m²    | RoomBuilder.gd        | Heavy sports impact matting cost per m²  |
+| item_desk_reception_price         | 800      | USD ($)   | ItemCatalog.gd        | Key activation item for Reception        |
+| item_management_pc_price          | 750      | USD ($)   | ItemCatalog.gd        | Key activation item for Office           |
+| item_heavy_bag_entry_price        | 450      | USD ($)   | ItemCatalog.gd        | Standard 100lb commercial heavy bag      |
+| item_physio_table_price           | 1400     | USD ($)   | ItemCatalog.gd        | Key activation item for Physio Room      |
+| goal_chain_total_payout           | 21500    | USD ($)   | OnboardingDirector.gd | Total sum injected via 16 goals          |
+| revenue_pad_session_base          | 160      | USD/day   | IncomeController.gd   | Base yield per morning commercial pad run|
+| revenue_white_collar_weekly       | 350      | USD/wk    | IncomeController.gd   | Secondary income from evening bag pass   |
+| revenue_sparring_hire_base        | 450      | USD/bout  | IncomeController.gd   | Flat rate earned sending boxer to spar   |
+| lease_base_month_1_2              | 1200     | USD/mo    | LedgerSystem.gd       | Discounted base starter lease rate       |
+| lease_sqm_multiplier              | 4.50     | USD/m²    | LedgerSystem.gd       | Space charge applied to expanded floors  |
+| gym_score_threshold_m1            | 20       | Int (0-100)| MemberSystem.gd       | Starting baseline member score demand    |
+| gym_score_threshold_m6            | 48       | Int (0-100)| MemberSystem.gd       | Mid-year baseline member score demand    |
+| churn_rate_base_floor             | 0.02     | Float     | MemberSystem.gd       | Structural floor member churn rate (2%)  |
+| wear_coeff_heavy_bag              | 0.004    | Float/hr  | MaintenanceEngine.gd  | Hourly condition drop on active bag      |
+| wear_coeff_cardio_bike            | 0.007    | Float/hr  | MaintenanceEngine.gd  | Hourly condition drop on airdyne bike    |
+| condition_impairment_threshold    | 40       | Percent   | TrainingEngine.gd     | Item condition where yields drop 30%     |
+| maintenance_contract_tier2        | 85       | USD/wk    | LedgerSystem.gd       | Auto-repair contract weekly retainer     |
+| bailout_insolvency_trigger        | -5000    | USD ($)   | BankruptcyDirector.gd | Negative float triggering promoter offer |
+| bailout_capital_infusion          | 8000     | USD ($)   | BankruptcyDirector.gd | Cash injected by syndicate underwriter    |
+| bailout_purse_garnish_share       | 0.50     | Float     | FightRevenue.gd       | Promoter share on purses during recovery  |
+| bailout_recovery_window_days      | 60       | Days      | BankruptcyDirector.gd | Target window to score 2 recovery wins   |
++-----------------------------------+----------+-----------+-----------------------+------------------------------------------+
+
+Can you turn the new-start economy into a balanced month-by-month cash-flow model for the first year?
+Can you map the first ten minutes into a playable tutorial-free sequence with exact UI prompts and decisions?
+Can you sketch a top-down visual layout for the blank gym and its affordable opening equipment?
+Can you define starter equipment prices, wear rates, repair costs, and the upgrade path?
+Copyright ©2026 Ludo.ai. All Rights Reserved.

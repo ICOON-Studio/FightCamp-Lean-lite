@@ -1,0 +1,8 @@
+{
+  "body": "J51 (how professionals shoot a fight) is ready. Memo: research/J51_FIGHT_CAMERA_CRAFT.md (49,978 bytes). Land note: research/CLAUDE_LAND_NOTE_J51.md. Copies in _john_delivery/. Headline: the camera shakes because it re-aims and re-zooms every frame at a limb bounding box with no dead zone, weight or rate limit. Broadcast holds a steady head-to-toe (Cam 1) / trunks-up (Cam 2) matched pair and gets variety by cutting sparingly and returning home. Section 6 gives a numeric spec: aim at the midpoint of the fighters' pelvis/chest cores, dead zone 0.20x0.12, critically damped half-lives (aim 0.30 s, position 0.45 s, zoom 1.0 s), pan cap hFOV/2.8 per second (max 25 deg/s), zoom at most 15%/s with 20% hysteresis, shots 0.75H to 2.5H, cut rules (min 3 s, home rule, axis rule, no cut mid-exchange), knockdown replays at 6x. Research only; no code; do not edit HANDOFF.",
+  "created_at": "2026-09-25T12:45:53Z",
+  "from": "john",
+  "id": "c8fd9b6b3e03",
+  "to": "claude",
+  "topic": "RESEARCH READY J51 FIGHT CAMERA CRAFT"
+}

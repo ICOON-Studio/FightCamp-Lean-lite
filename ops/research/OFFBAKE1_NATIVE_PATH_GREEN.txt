@@ -1,0 +1,146 @@
+R75-RC=0
+2026-10-15 21:25:08 AMBER C_free=24.3GB E_free=68.6GB RAM=84% COMMIT_free=17GB CPU=37% TEMP=78C(LHM)[peak 80] top: brave=5802MB firefox=4837MB ChatGPT=3399MB claude=3103MB
+  AMBER Temperature 78 C.
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+NATIVE_PATH native feature ships ON OK
+NATIVE_PATH body=08 enabled=false bind OK
+NATIVE_PATH MH08 has idle OK
+NATIVE_PATH MH08 enabled=false idle resolved=res://assets/anim/c223/c237/active_guard.glb OK
+NATIVE_PATH MH08 has boxing_jab OK
+NATIVE_PATH MH08 enabled=false boxing_jab resolved=res://assets/anim/audition/ramsterz_h2h/H2H_JabInPlace.FBX OK
+NATIVE_PATH MH08 has boxing_cross OK
+NATIVE_PATH MH08 enabled=false boxing_cross resolved=res://assets/anim/audition/ramsterz_h2h/H2H_StraightPunchInPlace.FBX OK
+NATIVE_PATH MH08 has boxing_lead_hook OK
+NATIVE_PATH MH08 enabled=false boxing_lead_hook resolved=res://assets/anim/audition/ramsterz_h2h/H2H_HookPunch_InPlace.FBX OK
+NATIVE_PATH MH08 has boxing_inside_uppercut OK
+NATIVE_PATH MH08 enabled=false boxing_inside_uppercut resolved=res://assets/anim/c223/cascadeur_c229/Cascy_C231_InsideUppercut.glb OK
+NATIVE_PATH other role retains source OK
+NATIVE_PATH body=02 enabled=true bind OK
+NATIVE_PATH MH02 has idle OK
+NATIVE_PATH MH02 enabled=true idle resolved=res://assets/anim/metahuman/baked/mh_guard_pose.glb OK
+NATIVE_PATH MH02 native preserves body bone lengths max_error_m=0.000000 OK
+NATIVE_PATH MH02 native hip offset within authored 1mm max_error_m=0.000070 OK
+NATIVE_PATH MH02 idle Left wrist=0.840250 limit=10 OK
+NATIVE_PATH MH02 idle Right wrist=1.468272 limit=10 OK
+NATIVE_PATH MH02 has boxing_jab OK
+NATIVE_PATH MH02 enabled=true boxing_jab resolved=res://assets/anim/metahuman/baked/mh_jab.glb OK
+NATIVE_PATH MH02 boxing_jab contact remains frame 8 time=0.266667 OK
+NATIVE_PATH MH02 boxing_jab Left wrist=0.840517 limit=10 OK
+NATIVE_PATH MH02 boxing_jab Right wrist=1.468272 limit=10 OK
+NATIVE_PATH MH02 has boxing_cross OK
+NATIVE_PATH MH02 enabled=true boxing_cross resolved=res://assets/anim/metahuman/baked/mh_cross.glb OK
+NATIVE_PATH MH02 boxing_cross contact remains frame 8 time=0.266667 OK
+NATIVE_PATH MH02 boxing_cross Left wrist=0.840306 limit=10 OK
+NATIVE_PATH MH02 boxing_cross Right wrist=1.468099 limit=10 OK
+NATIVE_PATH MH02 has boxing_lead_hook OK
+NATIVE_PATH MH02 enabled=true boxing_lead_hook resolved=res://assets/anim/metahuman/baked/mh_lead_hook.glb OK
+NATIVE_PATH MH02 boxing_lead_hook contact remains frame 8 time=0.266667 OK
+NATIVE_PATH MH02 boxing_lead_hook Left wrist=0.840409 limit=10 OK
+NATIVE_PATH MH02 boxing_lead_hook Right wrist=1.468226 limit=10 OK
+NATIVE_PATH MH02 has boxing_inside_uppercut OK
+NATIVE_PATH MH02 enabled=true boxing_inside_uppercut resolved=res://assets/anim/metahuman/baked/mh_inside_uppercut.glb OK
+NATIVE_PATH MH02 boxing_inside_uppercut contact remains frame 8 time=0.266667 OK
+NATIVE_PATH MH02 boxing_inside_uppercut Left wrist=0.840239 limit=10 OK
+NATIVE_PATH MH02 boxing_inside_uppercut Right wrist=1.468287 limit=10 OK
+NATIVE_PATH other role retains source OK
+NATIVE_PATH body=05 enabled=true bind OK
+NATIVE_PATH MH05 has idle OK
+NATIVE_PATH MH05 enabled=true idle resolved=res://assets/anim/metahuman/baked/mh_guard_pose.glb OK
+NATIVE_PATH MH05 native preserves body bone lengths max_error_m=0.000000 OK
+NATIVE_PATH MH05 native hip offset within authored 1mm max_error_m=0.000487 OK
+NATIVE_PATH MH05 idle Left wrist=4.837229 limit=10 OK
+NATIVE_PATH MH05 idle Right wrist=3.217380 limit=10 OK
+NATIVE_PATH MH05 has boxing_jab OK
+NATIVE_PATH MH05 enabled=true boxing_jab resolved=res://assets/anim/metahuman/baked/mh_jab.glb OK
+NATIVE_PATH MH05 boxing_jab contact remains frame 8 time=0.266667 OK
+NATIVE_PATH MH05 boxing_jab Left wrist=6.384502 limit=10 OK
+NATIVE_PATH MH05 boxing_jab Right wrist=2.045192 limit=10 OK
+NATIVE_PATH MH05 has boxing_cross OK
+NATIVE_PATH MH05 enabled=true boxing_cross resolved=res://assets/anim/metahuman/baked/mh_cross.glb OK
+NATIVE_PATH MH05 boxing_cross contact remains frame 8 time=0.266667 OK
+NATIVE_PATH MH05 boxing_cross Left wrist=2.781851 limit=10 OK
+NATIVE_PATH MH05 boxing_cross Right wrist=6.750511 limit=10 OK
+NATIVE_PATH MH05 has boxing_lead_hook OK
+NATIVE_PATH MH05 enabled=true boxing_lead_hook resolved=res://assets/anim/metahuman/baked/mh_lead_hook.glb OK
+NATIVE_PATH MH05 boxing_lead_hook contact remains frame 8 time=0.266667 OK
+NATIVE_PATH MH05 boxing_lead_hook Left wrist=1.495258 limit=10 OK
+NATIVE_PATH MH05 boxing_lead_hook Right wrist=1.423998 limit=10 OK
+NATIVE_PATH MH05 has boxing_inside_uppercut OK
+NATIVE_PATH MH05 enabled=true boxing_inside_uppercut resolved=res://assets/anim/metahuman/baked/mh_inside_uppercut.glb OK
+NATIVE_PATH MH05 boxing_inside_uppercut contact remains frame 8 time=0.266667 OK
+NATIVE_PATH MH05 boxing_inside_uppercut Left wrist=4.322003 limit=10 OK
+NATIVE_PATH MH05 boxing_inside_uppercut Right wrist=4.572232 limit=10 OK
+NATIVE_PATH other role retains source OK
+NATIVE_PATH body=08 enabled=true bind OK
+NATIVE_PATH MH08 has idle OK
+NATIVE_PATH MH08 enabled=true idle resolved=res://assets/anim/metahuman/baked/mh_guard_pose.glb OK
+NATIVE_PATH MH08 native preserves body bone lengths max_error_m=0.000000 OK
+NATIVE_PATH MH08 native hip offset within authored 1mm max_error_m=0.000191 OK
+NATIVE_PATH MH08 idle Left wrist=0.185818 limit=10 OK
+NATIVE_PATH MH08 idle Right wrist=0.321846 limit=10 OK
+NATIVE_PATH MH08 has boxing_jab OK
+NATIVE_PATH MH08 enabled=true boxing_jab resolved=res://assets/anim/metahuman/baked/mh_jab.glb OK
+NATIVE_PATH MH08 boxing_jab contact remains frame 8 time=0.266667 OK
+NATIVE_PATH MH08 boxing_jab Left wrist=0.185493 limit=10 OK
+NATIVE_PATH MH08 boxing_jab Right wrist=0.321925 limit=10 OK
+NATIVE_PATH MH08 has boxing_cross OK
+NATIVE_PATH MH08 enabled=true boxing_cross resolved=res://assets/anim/metahuman/baked/mh_cross.glb OK
+NATIVE_PATH MH08 boxing_cross contact remains frame 8 time=0.266667 OK
+NATIVE_PATH MH08 boxing_cross Left wrist=0.185919 limit=10 OK
+NATIVE_PATH MH08 boxing_cross Right wrist=0.321973 limit=10 OK
+NATIVE_PATH MH08 has boxing_lead_hook OK
+NATIVE_PATH MH08 enabled=true boxing_lead_hook resolved=res://assets/anim/metahuman/baked/mh_lead_hook.glb OK
+NATIVE_PATH MH08 boxing_lead_hook contact remains frame 8 time=0.266667 OK
+NATIVE_PATH MH08 boxing_lead_hook Left wrist=0.185897 limit=10 OK
+NATIVE_PATH MH08 boxing_lead_hook Right wrist=0.321914 limit=10 OK
+NATIVE_PATH MH08 has boxing_inside_uppercut OK
+NATIVE_PATH MH08 enabled=true boxing_inside_uppercut resolved=res://assets/anim/metahuman/baked/mh_inside_uppercut.glb OK
+NATIVE_PATH MH08 boxing_inside_uppercut contact remains frame 8 time=0.266667 OK
+NATIVE_PATH MH08 boxing_inside_uppercut Left wrist=0.185874 limit=10 OK
+NATIVE_PATH MH08 boxing_inside_uppercut Right wrist=0.321804 limit=10 OK
+NATIVE_PATH other role retains source OK
+NATIVE_PATH body=09 enabled=true bind OK
+NATIVE_PATH MH09 has idle OK
+NATIVE_PATH MH09 enabled=true idle resolved=res://assets/anim/metahuman/baked/mh_guard_pose.glb OK
+NATIVE_PATH MH09 native preserves body bone lengths max_error_m=0.000000 OK
+NATIVE_PATH MH09 native hip offset within authored 1mm max_error_m=0.000041 OK
+NATIVE_PATH MH09 idle Left wrist=0.523750 limit=10 OK
+NATIVE_PATH MH09 idle Right wrist=1.047614 limit=10 OK
+NATIVE_PATH MH09 has boxing_jab OK
+NATIVE_PATH MH09 enabled=true boxing_jab resolved=res://assets/anim/metahuman/baked/mh_jab.glb OK
+NATIVE_PATH MH09 boxing_jab contact remains frame 8 time=0.266667 OK
+NATIVE_PATH MH09 boxing_jab Left wrist=0.524018 limit=10 OK
+NATIVE_PATH MH09 boxing_jab Right wrist=1.047579 limit=10 OK
+NATIVE_PATH MH09 has boxing_cross OK
+NATIVE_PATH MH09 enabled=true boxing_cross resolved=res://assets/anim/metahuman/baked/mh_cross.glb OK
+NATIVE_PATH MH09 boxing_cross contact remains frame 8 time=0.266667 OK
+NATIVE_PATH MH09 boxing_cross Left wrist=0.523625 limit=10 OK
+NATIVE_PATH MH09 boxing_cross Right wrist=1.047928 limit=10 OK
+NATIVE_PATH MH09 has boxing_lead_hook OK
+NATIVE_PATH MH09 enabled=true boxing_lead_hook resolved=res://assets/anim/metahuman/baked/mh_lead_hook.glb OK
+NATIVE_PATH MH09 boxing_lead_hook contact remains frame 8 time=0.266667 OK
+NATIVE_PATH MH09 boxing_lead_hook Left wrist=0.523577 limit=10 OK
+NATIVE_PATH MH09 boxing_lead_hook Right wrist=1.047581 limit=10 OK
+NATIVE_PATH MH09 has boxing_inside_uppercut OK
+NATIVE_PATH MH09 enabled=true boxing_inside_uppercut resolved=res://assets/anim/metahuman/baked/mh_inside_uppercut.glb OK
+NATIVE_PATH MH09 boxing_inside_uppercut contact remains frame 8 time=0.266667 OK
+NATIVE_PATH MH09 boxing_inside_uppercut Left wrist=0.523670 limit=10 OK
+NATIVE_PATH MH09 boxing_inside_uppercut Right wrist=1.047719 limit=10 OK
+NATIVE_PATH other role retains source OK
+NATIVE_PATH body=generator enabled=true bind OK
+NATIVE_PATH MHgenerator has idle OK
+NATIVE_PATH MHgenerator enabled=true idle resolved=res://assets/anim/c223/c237/active_guard.glb OK
+NATIVE_PATH MHgenerator has boxing_jab OK
+NATIVE_PATH MHgenerator enabled=true boxing_jab resolved=res://assets/anim/audition/ramsterz_h2h/H2H_JabInPlace.FBX OK
+NATIVE_PATH MHgenerator has boxing_cross OK
+NATIVE_PATH MHgenerator enabled=true boxing_cross resolved=res://assets/anim/audition/ramsterz_h2h/H2H_StraightPunchInPlace.FBX OK
+NATIVE_PATH MHgenerator has boxing_lead_hook OK
+NATIVE_PATH MHgenerator enabled=true boxing_lead_hook resolved=res://assets/anim/audition/ramsterz_h2h/H2H_HookPunch_InPlace.FBX OK
+NATIVE_PATH MHgenerator has boxing_inside_uppercut OK
+NATIVE_PATH MHgenerator enabled=true boxing_inside_uppercut resolved=res://assets/anim/c223/cascadeur_c229/Cascy_C231_InsideUppercut.glb OK
+NATIVE_PATH other role retains source OK
+NATIVE_MH_CLIPS failures=0
+WARNING: 9072 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+

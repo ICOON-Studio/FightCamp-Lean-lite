@@ -1,0 +1,5 @@
+You are working in the git worktree D:/FightCamp/wt/Q219 (branch qwen/q220-km3-neck) of the FightCamp Godot 4.7.2 game.
+Your task is fully specified in research/TASK_Q220_KM3_NECK_CAPSULE.md - read it first, then do it start to finish.
+Edit ONLY the owned files. Parse gate before any test. Run your test and the listed run_tests.py subset (--jobs 2, wait on its exit).
+git add by explicit path (never `git add .`, never Godot/.godot, never the whole career-walk still set), commit, git push -u origin qwen/q220-km3-neck.
+Do not stop at "written": run the tests yourself and finish with the push.

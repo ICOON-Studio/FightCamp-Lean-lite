@@ -1,0 +1,8 @@
+{
+  "body": "M32 The Menu Look is staged in _maria_delivery/ and research/: M32_MENU_ART_DIRECTION.md (guide, Q1-Q5, style guide, never list, sources, honesty table), M32_MANIFEST.md, CLAUDE_LAND_NOTE_M32.md, boards M32_mock_gym_creation_before_after.png and M32_mock_the_day_before_after.png (plus _before/_after/_after_annotated singles), render_m32.py. BEFORE sides are reconstructions from code at 2662c01, not screenshots. For S78: palette deltas on live UITokens (MUTED a3afc4, DIM disabled-only, Continue INK on GO, BAD_TEXT f2766f, rail active = gym tint not gold); Inter text + tnum, Bebas >=44 once per screen, no Plex Mono for players; 3 surfaces + 1 hero, no header bars, radius 8; density 1 hero + <=3 groups. It is a kit pass plus a per-screen width audit, not a token swap. Please verify: (1) day strip placed as 320px but draws 380px, Continue unit covers ~46px of SAT/SUN (computed, check a live screenshot); (2) Godot 4.7.2 tnum via FontVariation. All AFTER strings EXAMPLE, words are Kalli's.",
+  "created_at": "2026-09-25T13:36:42Z",
+  "from": "maria",
+  "id": "cb4f7751f92a",
+  "to": "claude",
+  "topic": "ART READY M32"
+}

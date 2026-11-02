@@ -1,0 +1,742 @@
+Ludo - round 99, FULL CODE ask (FightCamp gym floor, your build order). Give the LONGEST complete answer you can - no caps, no "..." , no TODO; if you run out of room, stop at a file boundary and I will say "continue".
+Your round 97 build order is being built: Form Breakdown (your r97 code) and Niggle -> Physio (your r98 code) are IN THE GAME and tested; Breakthrough is in; the 3 cuts (BEST/GOOD -> deltas + prerequisites, station upgrade off the floor, walk-in policy) and PACE YOURSELF folded into REST are being built now; C7 Morning Day Plan is being written.
+NEXT in your order: K8 CORNER REHEARSAL and K9 LOAD LEDGER (Kalli's ideas you kept). Write both as code, in exactly the style of your FormBreakdown.gd / Niggle.gd:- Godot 4 GDScript, extends RefCounted, STATIC functions only, ZERO preloads, NO class_name, NO autoload, NO randomness inside (rolls come in as pick: float 0..1), deterministic.- Typed reads: var x: float = float(ctx.get("k", 0.0)) - never var x := ctx.get(...); never write %%.- The engine owns the numbers: return multipliers, deltas, words; never touch the game.- Each test: extends SceneTree, func _initialize() -&gt; void:, load("res://scripts/rules/&lt;Name&gt;.gd"), count failures, print &lt;NAME&gt; failures=N, quit(0 if failures == 0 else 1).- Engine facts: soreness parts are legs / shoulders / hands / core (0..100 each); stamina 0..100; strain 0..100; cues are "normal", "power_through", "crisp_form"; station kinds heavy_bag, speed_bag, double_end_bag, pads, ring_spar, shadow, slip_rope, footwork_ladder, strength, cardio, stretch, rest, physio; a block is 30/60/90 game minutes.
+FILE 1 scripts/rules/CornerRehearsal.gd (K8 - block end as a mini-corner, same card grammar as the fight-night corner)When a block ends, a 10-second card shows what the block did ("+3 power, strain 52, shoulders sore") and offers 3 calls for the NEXT block: PUSH (same station: +15% gains, +8 strain), SWAP (to the counter-station - bag -> slip rope etc.: 1.2x gain on the paired stat), ICE (clear 10 wear on the sorest part, costs 20 game minutes). Functions: summary(block: Dictionary) -&gt; Dictionary (the card's lines), counter_station(kind: String) -&gt; String (a full pairing table with a boxing reason per pair), calls(block, state) -&gt; Array (which calls are offered/greyed and why - e.g. PUSH greyed under 25 stamina), apply(call: String, block, state) -&gt; Dictionary (the next block's mods), auto_call(block, state) -&gt; String (what the coach does if the player lets the 10 seconds run out). Make 4-5 cards a day feel like a rhythm, not nagging at 2x speed: a should_show(state) -&gt; bool that skips the card when nothing changed.
+FILE 2 scripts/rules/LoadLedger.gd (K9 - weekly strain budget)Weekly budget 100. Every block spends load (station x minutes x cue). Over 100 doubles the injury roll per block and makes a niggle certain within 2 days; ending the week under 70 adds +1 to the form word on fight day. Functions: block_cost(kind, minutes, cue) -&gt; float (a full table, justified), spend(ledger: Dictionary, cost: float, day: int) -&gt; Dictionary, status(ledger) -&gt; Dictionary ({"spent", "left", "band": "FRESH"|"LOADED"|"OVER", "line"}), injury_mult(ledger) -&gt; float, niggle_forced(ledger, day) -&gt; bool, week_end(ledger) -&gt; Dictionary (form bonus, reset), forecast(ledger, plan: Array) -&gt; Dictionary (what a day plan of blocks would leave). Use real-world session-RPE x minutes logic if you know it (Foster); say where you are guessing.
+FILES 3-4: tests/corner_rehearsal_test.gd and tests/load_ledger_test.gd covering every rule above, both sides of each call, the bands' edges, determinism.
+Then PART B: where each card/strip appears on the floor HUD (positions at 1920x1080, sizes, the 10-second timer look) - short.
+
+FILE 1: scripts/rules/CornerRehearsal.gd
+# scripts/rules/CornerRehearsal.gd
+# K8: Corner Rehearsal mini-corner at block conclusion.
+# Pure GDScript 4: RefCounted, static funcs only, zero preloads, no class_name, deterministic.
+extends RefCounted
+
+const TIMER_SECONDS: int = 10
+const ICE_MINUTES: int = 20
+const ICE_WEAR_CLEARED: float = 10.0
+const PUSH_GAIN_MULT: float = 1.15
+const PUSH_STRAIN_ADD: float = 8.0
+const SWAP_PAIRED_GAIN_MULT: float = 1.20
+
+# Counter-station pairing table with functional boxing rationale.
+# Each entry: { "counter": String, "paired_stat": String, "reason": String }
+static func counter_station_info(kind: String) -> Dictionary:
+	match kind:
+		"heavy_bag":
+			return {
+				"counter": "slip_rope",
+				"paired_stat": "defense",
+				"reason": "Balance heavy punching with head movement off the centerline."
+			}
+		"speed_bag":
+			return {
+				"counter": "double_end_bag",
+				"paired_stat": "fight_iq",
+				"reason": "Transition fixed-rhythm hand speed into moving-target precision."
+			}
+		"double_end_bag":
+			return {
+				"counter": "speed_bag",
+				"paired_stat": "speed",
+				"reason": "Consolidate timing reads back into continuous hand turnover."
+			}
+		"pads":
+			return {
+				"counter": "shadow",
+				"paired_stat": "technique",
+				"reason": "Take coached combinations and internalize them without target resistance."
+			}
+		"ring_spar":
+			return {
+				"counter": "stretch",
+				"paired_stat": "conditioning",
+				"reason": "Decompress spine and joints immediately after high-impact trauma."
+			}
+		"shadow":
+			return {
+				"counter": "pads",
+				"paired_stat": "power",
+				"reason": "Load clean form mechanics with target resistance and coach feedback."
+			}
+		"slip_rope":
+			return {
+				"counter": "heavy_bag",
+				"paired_stat": "power",
+				"reason": "Explode out of defensive evasions with loaded power shots."
+			}
+		"footwork_ladder":
+			return {
+				"counter": "heavy_bag",
+				"paired_stat": "power",
+				"reason": "Anchor swift footwork positioning into solid punching stance."
+			}
+		"strength":
+			return {
+				"counter": "stretch",
+				"paired_stat": "conditioning",
+				"reason": "Lengthen loaded muscle fibers to prevent chronic tightness."
+			}
+		"cardio":
+			return {
+				"counter": "rest",
+				"paired_stat": "conditioning",
+				"reason": "Flush systemic lactate and settle elevated heart rate."
+			}
+		"stretch":
+			return {
+				"counter": "shadow",
+				"paired_stat": "technique",
+				"reason": "Express newly opened range of motion through relaxed movement."
+			}
+		"rest":
+			return {
+				"counter": "shadow",
+				"paired_stat": "technique",
+				"reason": "Gently wake neuromuscular pathways before loading heavier work."
+			}
+		"physio":
+			return {
+				"counter": "stretch",
+				"paired_stat": "conditioning",
+				"reason": "Follow localized clinical therapy with gentle mobility work."
+			}
+		_:
+			return {
+				"counter": "rest",
+				"paired_stat": "conditioning",
+				"reason": "Reset to baseline active recovery."
+			}
+
+
+static func counter_station(kind: String) -> String:
+	var info: Dictionary = counter_station_info(kind)
+	return String(info.get("counter", "rest"))
+
+
+static func summary(block: Dictionary) -> Dictionary:
+	var kind: String = String(block.get("kind", "heavy_bag"))
+	var minutes: int = int(block.get("minutes", 60))
+	var strain_end: float = float(block.get("strain_end", 0.0))
+	var gains: Dictionary = Dictionary(block.get("gains", {}))
+	var soreness: Dictionary = Dictionary(block.get("soreness", {}))
+
+	# Format highest stat gain
+	var top_stat: String = "conditioning"
+	var top_val: float = -1.0
+	for k in gains.keys():
+		var val: float = float(gains.get(k, 0.0))
+		if val > top_val:
+			top_val = val
+			top_stat = String(k)
+
+	var gain_line: String = "No measurable gains"
+	if top_val > 0.0:
+		gain_line = "+%d %s" % [int(round(top_val)), top_stat.replace("_", " ")]
+
+	# Identify sorest part
+	var sorest_part: String = "none"
+	var sorest_val: float = 0.0
+	for p in soreness.keys():
+		var val: float = float(soreness.get(p, 0.0))
+		if val > sorest_val:
+			sorest_val = val
+			sorest_part = String(p)
+
+	var soreness_line: String = "Body fresh"
+	if sorest_val >= 25.0:
+		soreness_line = "%s sore (%d)" % [sorest_part.capitalize(), int(round(sorest_val))]
+
+	var headline: String = "%s (%d min complete)" % [kind.replace("_", " ").capitalize(), minutes]
+	var strain_line: String = "Strain %d/100" % int(round(strain_end))
+
+	return {
+		"headline": headline,
+		"gain_line": gain_line,
+		"strain_line": strain_line,
+		"soreness_line": soreness_line,
+		"top_stat": top_stat,
+		"top_val": top_val,
+		"sorest_part": sorest_part,
+		"sorest_val": sorest_val
+	}
+
+
+static func calls(block: Dictionary, state: Dictionary) -> Array:
+	var kind: String = String(block.get("kind", "heavy_bag"))
+	var stamina: float = float(state.get("stamina", 100.0))
+	var strain: float = float(state.get("strain", 0.0))
+	var soreness: Dictionary = Dictionary(state.get("soreness", {}))
+	var current_minute: int = int(state.get("minute", 480))
+	var day_end_minute: int = int(state.get("day_end_minute", 1080))
+
+	var list: Array = []
+
+	# Call 1: PUSH (Repeat same station with increased intensity)
+	var push_enabled: bool = true
+	var push_reason: String = "+15% gains, +8 strain"
+	if kind == "rest" or kind == "physio":
+		push_enabled = false
+		push_reason = "Cannot push recovery or medical blocks"
+	elif stamina < 25.0:
+		push_enabled = false
+		push_reason = "Stamina under 25 (exhaustion risk)"
+	elif strain >= 85.0:
+		push_enabled = false
+		push_reason = "Strain over 85 (injury boundary)"
+
+	list.append({
+		"id": "push",
+		"label": "PUSH",
+		"station": kind,
+		"enabled": push_enabled,
+		"reason": push_reason
+	})
+
+	# Call 2: SWAP (Pivot to counter-station)
+	var pair_info: Dictionary = counter_station_info(kind)
+	var target_station: String = String(pair_info.get("counter", "rest"))
+	var paired_stat: String = String(pair_info.get("paired_stat", "technique"))
+	var swap_enabled: bool = true
+	var swap_reason: String = "Swap to %s (1.2x %s): %s" % [
+		target_station.replace("_", " "),
+		paired_stat,
+		String(pair_info.get("reason", ""))
+	]
+	if target_station == kind:
+		swap_enabled = false
+		swap_reason = "No distinct counter-station"
+
+	list.append({
+		"id": "swap",
+		"label": "SWAP",
+		"station": target_station,
+		"enabled": swap_enabled,
+		"reason": swap_reason
+	})
+
+	# Call 3: ICE (Quick-flush sorest region)
+	var sorest_part: String = "core"
+	var sorest_val: float = 0.0
+	for p in ["legs", "shoulders", "hands", "core"]:
+		var val: float = float(soreness.get(p, 0.0))
+		if val > sorest_val:
+			sorest_val = val
+			sorest_part = p
+
+	var ice_enabled: bool = true
+	var ice_reason: String = "Flush -10 %s wear (costs 20 min)" % sorest_part
+	if sorest_val < 5.0:
+		ice_enabled = false
+		ice_reason = "No soreness to treat"
+	elif (current_minute + ICE_MINUTES) > day_end_minute:
+		ice_enabled = false
+		ice_reason = "Insufficient time before gym close"
+
+	list.append({
+		"id": "ice",
+		"label": "ICE",
+		"station": "recovery",
+		"enabled": ice_enabled,
+		"reason": ice_reason,
+		"part": sorest_part
+	})
+
+	return list
+
+
+static func apply(call: String, block: Dictionary, state: Dictionary) -> Dictionary:
+	var kind: String = String(block.get("kind", "heavy_bag"))
+	var info: Dictionary = counter_station_info(kind)
+	var counter_st: String = String(info.get("counter", "rest"))
+	var paired_stat: String = String(info.get("paired_stat", "technique"))
+
+	match call:
+		"push":
+			return {
+				"next_station": kind,
+				"gain_mult": PUSH_GAIN_MULT,
+				"wear_mult": 1.15,
+				"strain_delta": PUSH_STRAIN_ADD,
+				"minutes_cost": 0,
+				"wear_cleared_part": "",
+				"wear_cleared_amount": 0.0,
+				"toast": "Pushed: Doubling down on %s" % kind.replace("_", " ")
+			}
+
+		"swap":
+			return {
+				"next_station": counter_st,
+				"gain_mult": 1.0,
+				"paired_stat": paired_stat,
+				"paired_stat_mult": SWAP_PAIRED_GAIN_MULT,
+				"wear_mult": 0.90,
+				"strain_delta": 0.0,
+				"minutes_cost": 0,
+				"wear_cleared_part": "",
+				"wear_cleared_amount": 0.0,
+				"toast": "Counter-Station: Swapping to %s" % counter_st.replace("_", " ")
+			}
+
+		"ice":
+			var sorest_part: String = "core"
+			var sorest_val: float = -1.0
+			var soreness: Dictionary = Dictionary(state.get("soreness", {}))
+			for p in ["legs", "shoulders", "hands", "core"]:
+				var val: float = float(soreness.get(p, 0.0))
+				if val > sorest_val:
+					sorest_val = val
+					sorest_part = p
+
+			return {
+				"next_station": kind,
+				"gain_mult": 1.0,
+				"wear_mult": 1.0,
+				"strain_delta": -4.0,
+				"minutes_cost": ICE_MINUTES,
+				"wear_cleared_part": sorest_part,
+				"wear_cleared_amount": ICE_WEAR_CLEARED,
+				"toast": "Cold Compression: -10 %s wear applied" % sorest_part
+			}
+
+		_:
+			return {
+				"next_station": kind,
+				"gain_mult": 1.0,
+				"wear_mult": 1.0,
+				"strain_delta": 0.0,
+				"minutes_cost": 0,
+				"wear_cleared_part": "",
+				"wear_cleared_amount": 0.0,
+				"toast": "Continuing planned program"
+			}
+
+
+static func auto_call(block: Dictionary, state: Dictionary) -> String:
+	var call_options: Array = calls(block, state)
+	var stamina: float = float(state.get("stamina", 100.0))
+	var strain: float = float(state.get("strain", 0.0))
+	var soreness: Dictionary = Dictionary(state.get("soreness", {}))
+
+	var max_soreness: float = 0.0
+	for p in soreness.keys():
+		var val: float = float(soreness.get(p, 0.0))
+		if val > max_soreness:
+			max_soreness = val
+
+	# Priority 1: High localized wear -> Ice
+	if max_soreness >= 55.0:
+		for c in call_options:
+			if String(c.get("id", "")) == "ice" and bool(c.get("enabled", false)):
+				return "ice"
+
+	# Priority 2: High strain or depleted stamina -> Swap to counter recovery/low-intensity
+	if stamina < 35.0 or strain >= 70.0:
+		for c in call_options:
+			if String(c.get("id", "")) == "swap" and bool(c.get("enabled", false)):
+				return "swap"
+
+	# Priority 3: Fresh boxer -> Push
+	if stamina >= 60.0 and strain < 50.0:
+		for c in call_options:
+			if String(c.get("id", "")) == "push" and bool(c.get("enabled", false)):
+				return "push"
+
+	# Default fallback
+	for c in call_options:
+		if bool(c.get("enabled", false)):
+			return String(c.get("id", "swap"))
+
+	return "swap"
+
+
+static func should_show(state: Dictionary) -> bool:
+	var last_block_had_gains: bool = bool(state.get("last_block_had_gains", true))
+	var last_block_kind: String = String(state.get("last_block_kind", ""))
+
+	# Skip pure rest or physio sessions to prevent modal fatigue
+	if last_block_kind == "rest" or last_block_kind == "physio":
+		return false
+
+	# Skip empty blocks that yielded no work or changes
+	if not last_block_had_gains:
+		return false
+
+	return true
+
+FILE 2: scripts/rules/LoadLedger.gd
+# scripts/rules/LoadLedger.gd
+# K9: Weekly strain budget and load management ledger.
+# Pure GDScript 4: RefCounted, static funcs only, zero preloads, no class_name, deterministic.
+extends RefCounted
+
+# Real-world session-RPE (Foster sRPE method) baseline.
+# Foster session-RPE = RPE (1-10) x Duration (minutes).
+# Here, mapped to a 100-point weekly budget for a single fighter.
+# A standard 60-minute Core boxing session costs ~8.0-10.0 load points.
+# 10 to 12 hard blocks per week cleanly reaches 85-100 load.
+const WEEKLY_BUDGET: float = 100.0
+const FRESH_THRESHOLD: float = 70.0
+const OVERLOAD_THRESHOLD: float = 100.0
+
+# Base station load points per 60 minutes (Session-RPE equivalent rating)
+# Justifications:
+# ring_spar: 14.0 (Full contact, maximal cognitive and muscular fatigue)
+# strength: 11.0 (High CNS and structural tissue load)
+# olympic_platform / power_rack equivalents: strength
+# heavy_bag: 9.0 (High joint impact and sustained power output)
+# pads: 9.0 (High technical output with reactive impact)
+# cardio: 8.0 (Continuous sustained cardiovascular demand)
+# footwork_ladder: 7.0 (Neuromuscular coordination and calf strain)
+# double_end_bag: 6.0 (Timing, vision, moderate shoulder endurance)
+# speed_bag: 5.0 (Upper shoulder endurance, minimal systemic fatigue)
+# slip_rope: 5.0 (Core and thigh flexion, low systemic load)
+# shadow: 4.0 (Zero impact, clean movement mastery)
+# stretch: 1.0 (Low intensity restorative active movement)
+# rest: 0.0 (Zero load accumulation)
+# physio: 0.0 (Clinical recovery and passive unloading)
+static func station_hourly_rate(kind: String) -> float:
+	match kind:
+		"ring_spar":
+			return 14.0
+		"strength":
+			return 11.0
+		"heavy_bag":
+			return 9.0
+		"pads":
+			return 9.0
+		"cardio":
+			return 8.0
+		"footwork_ladder":
+			return 7.0
+		"double_end_bag":
+			return 6.0
+		"speed_bag":
+			return 5.0
+		"slip_rope":
+			return 5.0
+		"shadow":
+			return 4.0
+		"stretch":
+			return 1.0
+		"rest", "physio":
+			return 0.0
+		_:
+			return 6.0
+
+
+static func cue_multiplier(cue: String) -> float:
+	match cue:
+		"power_through":
+			return 1.35
+		"crisp_form":
+			return 1.00
+		"normal", "":
+			return 1.00
+		_:
+			return 1.00
+
+
+static func block_cost(kind: String, minutes: int, cue: String) -> float:
+	var base_hourly: float = station_hourly_rate(kind)
+	var cue_mult: float = cue_multiplier(cue)
+	var duration_factor: float = float(minutes) / 60.0
+	var cost: float = base_hourly * duration_factor * cue_mult
+	return max(0.0, cost)
+
+
+static func create_new_week() -> Dictionary:
+	return {
+		"budget": WEEKLY_BUDGET,
+		"spent": 0.0,
+		"over_days_count": 0,
+		"daily_spend": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+	}
+
+
+static func spend(ledger: Dictionary, cost: float, day: int) -> Dictionary:
+	var result: Dictionary = ledger.duplicate(true)
+	var current_spent: float = float(result.get("spent", 0.0))
+	var new_spent: float = current_spent + cost
+	result["spent"] = new_spent
+
+	var daily: Array = Array(result.get("daily_spend", [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))
+	var d_idx: int = clamp(day, 0, daily.size() - 1)
+	var day_val: float = float(daily[d_idx]) + cost
+	daily[d_idx] = day_val
+	result["daily_spend"] = daily
+
+	var over_count: int = int(result.get("over_days_count", 0))
+	if new_spent > OVERLOAD_THRESHOLD:
+		over_count += 1
+	result["over_days_count"] = over_count
+
+	return result
+
+
+static func status(ledger: Dictionary) -> Dictionary:
+	var spent: float = float(ledger.get("spent", 0.0))
+	var left: float = WEEKLY_BUDGET - spent
+
+	var band: String = "FRESH"
+	var line: String = "Load optimal. Clean training capacity remaining."
+
+	if spent > OVERLOAD_THRESHOLD:
+		band = "OVER"
+		line = "Overload warning: Weekly capacity exceeded! Injury risk doubled."
+	elif spent >= FRESH_THRESHOLD:
+		band = "LOADED"
+		line = "Heavy training volume. Approach peak carefully."
+	else:
+		band = "FRESH"
+		line = "Under volume limit. Preserving sharpness for fight day."
+
+	return {
+		"spent": spent,
+		"left": left,
+		"band": band,
+		"line": line
+	}
+
+
+static func injury_mult(ledger: Dictionary) -> float:
+	var spent: float = float(ledger.get("spent", 0.0))
+	if spent > OVERLOAD_THRESHOLD:
+		# Double injury roll when over 100 budget
+		return 2.0
+	elif spent >= FRESH_THRESHOLD:
+		return 1.25
+	return 1.0
+
+
+static func niggle_forced(ledger: Dictionary, day: int) -> bool:
+	var spent: float = float(ledger.get("spent", 0.0))
+	var over_count: int = int(ledger.get("over_days_count", 0))
+
+	# Guarantees a niggle if spending persists over 100 for 2 or more logged periods
+	if spent > OVERLOAD_THRESHOLD and over_count >= 2:
+		return true
+
+	# Also enforce if the current day has exceeded 35 raw load points alone
+	var daily: Array = Array(ledger.get("daily_spend", []))
+	var d_idx: int = clamp(day, 0, daily.size() - 1)
+	if d_idx < daily.size():
+		var today_val: float = float(daily[d_idx])
+		if today_val >= 35.0:
+			return true
+
+	return false
+
+
+static func week_end(ledger: Dictionary) -> Dictionary:
+	var spent: float = float(ledger.get("spent", 0.0))
+	var form_bonus: int = 0
+	var summary_msg: String = ""
+
+	if spent < FRESH_THRESHOLD:
+		form_bonus = 1
+		summary_msg = "Disciplined camp taper: Boxer finishes under 70 load (+1 Fight Form)."
+	elif spent <= OVERLOAD_THRESHOLD:
+		form_bonus = 0
+		summary_msg = "Hard camp completed within budget: Baseline fight preparation established."
+	else:
+		form_bonus = -1
+		summary_msg = "Overtrained camp: Load exceeded 100 (-1 Fight Form from chronic fatigue)."
+
+	var fresh_ledger: Dictionary = create_new_week()
+
+	return {
+		"form_bonus": form_bonus,
+		"spent_final": spent,
+		"summary": summary_msg,
+		"new_ledger": fresh_ledger
+	}
+
+
+static func forecast(ledger: Dictionary, plan: Array) -> Dictionary:
+	var current_spent: float = float(ledger.get("spent", 0.0))
+	var additional_cost: float = 0.0
+
+	for item in plan:
+		if item is Dictionary:
+			var kind: String = String(item.get("kind", "heavy_bag"))
+			var minutes: int = int(item.get("minutes", 60))
+			var cue: String = String(item.get("cue", "normal"))
+			additional_cost += block_cost(kind, minutes, cue)
+
+	var projected_spent: float = current_spent + additional_cost
+	var projected_left: float = WEEKLY_BUDGET - projected_spent
+
+	var will_exceed: bool = (projected_spent > OVERLOAD_THRESHOLD)
+
+	return {
+		"current_spent": current_spent,
+		"additional_cost": additional_cost,
+		"projected_spent": projected_spent,
+		"projected_left": projected_left,
+		"will_exceed": will_exceed
+	}
+
+FILE 3: tests/corner_rehearsal_test.gd
+# tests/corner_rehearsal_test.gd
+# Headless unit tests for scripts/rules/CornerRehearsal.gd
+extends SceneTree
+
+func _initialize() -> void:
+	var CR = load("res://scripts/rules/CornerRehearsal.gd")
+	var failures: int = 0
+	print("--- BEGIN CORNER REHEARSAL TESTS ---")
+
+	# Test 1: Summary formatting
+	var block_summary: Dictionary = {
+		"kind": "heavy_bag",
+		"minutes": 60,
+		"strain_end": 52.0,
+		"gains": {"power": 3.2, "technique": 1.1},
+		"soreness": {"shoulders": 48.0, "hands": 12.0}
+	}
+	var s: Dictionary = CR.summary(block_summary)
+	if s.get("gain_line") != "+3 power" or s.get("strain_line") != "Strain 52/100":
+		print("FAIL: Summary line formatting failed.")
+		failures += 1
+
+	# Test 2: Counter-station pairings exist for all defined stations
+	var all_stations: Array = [
+		"heavy_bag", "speed_bag", "double_end_bag", "pads", "ring_spar",
+		"shadow", "slip_rope", "footwork_ladder", "strength", "cardio",
+		"stretch", "rest", "physio"
+	]
+	for kind in all_stations:
+		var counter_target: String = CR.counter_station(kind)
+		if counter_target.is_empty():
+			print("FAIL: Missing counter station for %s" % kind)
+			failures += 1
+
+	# Specific pairing validation: heavy_bag -> slip_rope
+	if CR.counter_station("heavy_bag") != "slip_rope":
+		print("FAIL: Expected slip_rope as counter to heavy_bag.")
+		failures += 1
+
+	# Test 3: Calls offer - PUSH greyed under 25 stamina
+	var state_exhausted: Dictionary = {
+		"stamina": 22.0,
+		"strain": 40.0,
+		"soreness": {"shoulders": 10.0},
+		"minute": 500,
+		"day_end_minute": 1080
+	}
+	var calls_ex: Array = CR.calls(block_summary, state_exhausted)
+	var push_ex_enabled: bool = true
+	for c in calls_ex:
+		if c.get("id") == "push":
+			push_ex_enabled = bool(c.get("enabled", true))
+	if push_ex_enabled:
+		print("FAIL: PUSH call was not disabled when stamina < 25.")
+		failures += 1
+
+	# Test 4: Calls offer - ICE greyed when no soreness exists
+	var state_no_sore: Dictionary = {
+		"stamina": 80.0,
+		"strain": 20.0,
+		"soreness": {"legs": 0.0, "shoulders": 2.0, "hands": 0.0, "core": 1.0},
+		"minute": 500,
+		"day_end_minute": 1080
+	}
+	var calls_clean: Array = CR.calls(block_summary, state_no_sore)
+	var ice_clean_enabled: bool = true
+	for c in calls_clean:
+		if c.get("id") == "ice":
+			ice_clean_enabled = bool(c.get("enabled", true))
+	if ice_clean_enabled:
+		print("FAIL: ICE call was not disabled when body has no soreness.")
+		failures += 1
+
+	# Test 5: Apply PUSH modifiers
+	var apply_push: Dictionary = CR.apply("push", block_summary, state_exhausted)
+	if float(apply_push.get("gain_mult", 0.0)) != 1.15 or float(apply_push.get("strain_delta", 0.0)) != 8.0:
+		print("FAIL: Apply PUSH modifiers incorrect.")
+		failures += 1
+
+	# Test 6: Apply SWAP modifiers (heavy bag counter is slip_rope)
+	var apply_swap: Dictionary = CR.apply("swap", block_summary, state_exhausted)
+	if apply_swap.get("next_station") != "slip_rope" or float(apply_swap.get("paired_stat_mult", 0.0)) != 1.20:
+		print("FAIL: Apply SWAP counter station or paired stat mult incorrect.")
+		failures += 1
+
+	# Test 7: Apply ICE clears 10 wear and costs 20 minutes
+	var state_sore: Dictionary = {
+		"stamina": 60.0,
+		"strain": 30.0,
+		"soreness": {"shoulders": 45.0, "legs": 10.0},
+		"minute": 500,
+		"day_end_minute": 1080
+	}
+	var apply_ice: Dictionary = CR.apply("ice", block_summary, state_sore)
+	if int(apply_ice.get("minutes_cost", 0)) != 20 or float(apply_ice.get("wear_cleared_amount", 0.0)) != 10.0 or apply_ice.get("wear_cleared_part") != "shoulders":
+		print("FAIL: Apply ICE did not clear 10 wear on sorest part or set 20 min cost.")
+		failures += 1
+
+	# Test 8: Auto-call prioritizes ICE when soreness >= 55
+	var state_critical_sore: Dictionary = {
+		"stamina": 80.0,
+		"strain": 20.0,
+		"soreness": {"shoulders": 62.0},
+		"minute": 500,
+		"day_end_minute": 1080
+	}
+	var auto_decision: String = CR.auto_call(block_summary, state_critical_sore)
+	if auto_decision != "ice":
+		print("FAIL: Auto-call did not select ice for critical soreness.")
+		failures += 1
+
+	# Test 9: Should show check skips pure rest/physio
+	var state_rest: Dictionary = {"last_block_kind": "rest", "last_block_had_gains": false}
+	if CR.should_show(state_rest):
+		print("FAIL: should_show did not skip rest block.")
+		failures += 1
+
+	print("CORNER_REHEARSAL failures=%d" % failures)
+	quit(0 if failures == 0 else 1)
+
+FILE 4: tests/load_ledger_test.gd
+# tests/load_ledger_test.gd
+# Headless unit tests for scripts/rules/LoadLedger.gd
+extends SceneTree
+
+func _initialize() -> void:
+	var LL = load("res://scripts/rules/LoadLedger.gd")
+	var failures: int = 0
+	print("--- BEGIN LOAD LEDGER TESTS ---")
+
+	# Test 1: Block cost calculation
+	# 60 min heavy bag = 9.0; with power_through (1.35x) = 12.15
+	var cost_hb_pw: float = LL.block_cost("heavy_bag", 60, "power_through")
+	if abs(cost_hb_pw - 12.15) > 0.001:
+		print("FAIL: Heavy bag power through cost mismatch: %f" % cost_hb_pw)
+		failures += 1
+
+	# 90 min ring spar normal = 14.0 * 1.5 = 21.0
+	var cost_spar: float = LL.block_cost("ring_spar", 90, "normal")
+	if abs(cost_spar - 21.0) > 0.001:
+		print("FAIL: Ring spar 90 min cost mismatch: %f" % cost_spar)
+		failures += 1
+
+	# Rest and physio must cost exactly 0.0
+	if LL.block_cost("rest", 60, "normal") != 0.0 or LL.block_cost("physio", 60, "normal") != 0.0:
+		print("FAIL: Rest or physio produced non-zero load cost.")
+		failures += 1
+
+	# Test 2: Spending increments and daily array tracking
+	var ledger: Dictionary = LL.create_new_week()
+	ledger = LL.spend(ledger, 15.0, 0) # Day 0
+	ledger = LL.spend(ledger, 20.0, 1) # Day 1
+	if float(ledger.get("spent", 0.0)) != 35.0:
+		print("FAIL: Total spend tracking failed.")
+		failures += 1
+
+	var daily: Array = Array(ledger.get("daily_spend",
+
+Can you provide the complete `CornerRehearsal.gd` file without omissions, including every function and constant?
+Can you provide the complete load-ledger implementation and explain its Foster session-RPE cost assumptions?
+Can you provide both test files in full, covering all boundary cases, determinism, and failure reporting?
+Can you generate a 1920x1080 FightCamp floor HUD mockup showing ledger cards, forecast strips, and the ten-second timer?

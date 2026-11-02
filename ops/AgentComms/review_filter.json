@@ -1,0 +1,17 @@
+{
+ "_rule": "S207 operator: 'remove all stills and videos with mpfb bodies from opsboard, only upload metahuman videos and stills same with the gym remove the old pictures' / 'i do not want to see mbfb model anywhere again'. The review board lists ONLY these preview folders, and never a file whose name contains a deny word. Posted batches (E:/FightCamp/review) from before S207 were moved to E:/FightCamp/review_archive_S207.",
+ "allow_folders": [],
+ "deny_name_contains": [
+  "mpfb",
+  "generator",
+  "tripo"
+ ],
+ "deny_path_contains": [
+  "on_b/",
+  "steps_sheet",
+  "portrait_before",
+  "perf_frame",
+  "jab.mp4"
+ ],
+ "_s226": "S226 operator: 'stills and videos on board are a mesh can you remove and start over from now' - every post moved to review/_removed (Removed tab restores); preview-folder list emptied; new posts from S226 on only."
+}

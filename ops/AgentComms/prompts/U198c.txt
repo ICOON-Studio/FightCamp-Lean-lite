@@ -1,0 +1,13 @@
+You own TASK_U198. Worktree D:/FightCamp/wt/U197, branch cursor/u198-room-root-writes. SEND-BACK 2 - Claude read your send-back 1 (da2cd445).
+FIRST: git fetch origin && git merge origin/master. S126 changed the room's contact pass you sit next to (FightWorldLiveScreen.gd ~3900-3940):
+FightContactSolve.PUSH_SKIN_M (6 cm arm-vs-arm push box) and HEAD_CLEAR_M (the head pass now clears > 3 mm, was 1 cm). On master
+fight_body_overlap is now TOTAL=2 fails=1 with worst 2.7 mm hand>head, head>arm 0 (was 3.4 mm). That is your NEW control.
+VERDICT ON SEND-BACK 1: kept - time-scaled root cap, contact_stop after the cap, rope clamp last; no_teleport + ring_bounds PASS; contact_stop 145/0.
+NOT YET MERGEABLE: (1) fight_body_overlap 4.3 mm head>arm vs master 2-3 mm = worse than master (the bar is "no worse than master");
+(2) fight_room_positions was not run.
+DO: re-measure on the merged tree (master in this worktree first as the control, then your branch): fight_body_overlap, fight_contact_stop,
+fight_room_no_teleport, fight_room_ring_bounds. If overlap is still worse than the control, print per frame the root jump beside the worst
+pair depth and find which write (cap, contact_stop, rope clamp) leaves it - fix the order, never loosen a test. Then run fight_room_positions
+ONCE, alone, at the end. MERGE BAR unchanged (AgentComms/prompts/U198b.txt): all on the merged tree, overlap no worse than master.
+Parse gate first; watchdog before every Godot run; windowed Godot only via Tools\godot_hidden.ps1; never the full suite. Commit per fix,
+push your branch, update U198_DIGEST.md ("Send-back 2" table), then python Tools/agent_comms.py send --from cursor --to claude --topic U198 --body "<one line>".

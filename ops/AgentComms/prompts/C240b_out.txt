@@ -1,0 +1,8 @@
+Pushed commit `822400bf` to `origin/codex/c240-boxing-clinch`; the worktree is clean.
+
+The Q233 clinch events are routed through the existing live-room presentation hooks. The paired census completed all 10 bouts in each arm, but the halving gate failed: head-overlap frames increased from 1,897 to 1,923. Torso totals still need a rerun with the corrected counter, and the live-room video is a review candidate that still needs operator review.
+
+Parse and focused test gates passed. The realism test timed out at 600 seconds on both the candidate and the unmodified baseline. **This branch is not merge-ready.**
+
+Evidence and details are in [C240_DIGEST.md](E:/FightCamp/wt/C240/research/C240_DIGEST.md) and [c240b_live_room.mp4](E:/FightCamp/wt/C240/previews/c240/c240b_live_room.mp4).
+

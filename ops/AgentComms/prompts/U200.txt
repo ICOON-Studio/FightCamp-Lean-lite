@@ -1,0 +1,18 @@
+You are working in the git worktree D:/FightCamp/wt/U200 (branch cursor/u200-locker) of the FightCamp Godot 4.7.2 game.
+Your task is fully specified in research/TASK_U200_LOCKER_TO_CONCEPT.md - read it first, then do it start to finish.
+
+Key points (the task file wins if anything differs):
+- Target image: previews/locker_target/locker_target_concept.jpg. OPEN it and LOOK at it. After every render
+  pass, open your render (previews/u200/pass<N>.png) and compare it with the concept before the next pass.
+- Edit ONLY the owned files listed in the task. LockerRoom3D.gd extends Office3D.gd, which ANOTHER agent is editing right
+  now - never edit Office3D.gd or TrainingFloor3D.gd; override in LockerRoom3D.gd instead.
+- No downloads, no purchases, no images from the web. Blender 5.2.1 headless is available for props.
+- The .godot import cache is already in the worktree. Parse gate before every render:
+  python Godot/tools/check_scripts.py Godot/scripts/LockerRoom3D.gd
+- Render (windowed Godot moved off-screen - never --headless):
+  powershell -NoProfile -ExecutionPolicy Bypass -File Tools\godot_hidden.ps1 --path Godot --script tools/s106_render_lockers.gd
+- At the end: python Godot/tools/run_tests.py --only locker_room (0 failures); copy the last render to
+  previews/u200/final.png; write research/U200_DIGEST.md; git add the changed/new files explicitly by
+  path (never `git add .`, never Godot/.godot), commit, and git push -u origin cursor/u200-locker.
+- Work in passes (big shapes -> lockers, benches and people -> small lived-in details -> lighting). Stop when the
+  acceptance list in the task file is met or after 6 passes, and report what is still unlike the concept.

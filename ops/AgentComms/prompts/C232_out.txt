@@ -1,0 +1,9 @@
+Pushed `75b3004d` to `origin/codex/c232-walkout-e`. Worktree clean.
+
+- Booked-venue walkouts implemented.
+- Parse passed; affected suite **8/8**; C232 **31 checks passed**.
+- Silent 720p videos rendered and frames reviewed.
+
+[Video](E:/FightCamp/wt/C232/previews/c232/northlight.mp4) · [Digest](E:/FightCamp/wt/C232/research/C232_DIGEST.md)
+
+The live bout exposes folded-leg poses, also reproduced without the walkout. Documented separately; visual acceptance remains limited by that defect.

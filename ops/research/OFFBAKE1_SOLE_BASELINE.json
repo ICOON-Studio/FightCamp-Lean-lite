@@ -1,0 +1,205 @@
+{
+  "source_commit": "2f6ecc8127d7ce196bd69ad3fac5bae818e63730",
+  "runs": {
+    "94301_09_08": {
+      "feet": {
+        "mh_boxer_08.glb/Left": {
+          "above": 1771,
+          "below": 0,
+          "frames": 1802,
+          "longest": 0,
+          "max_pitch": 50.3045242371569,
+          "outside": 1772,
+          "role": "lead",
+          "roll": 1710,
+          "run": 0
+        },
+        "mh_boxer_08.glb/Right": {
+          "above": 95,
+          "below": 11,
+          "frames": 1802,
+          "longest": 7,
+          "max_pitch": 79.9650885758954,
+          "outside": 1766,
+          "role": "rear",
+          "roll": 1755,
+          "run": 0
+        },
+        "mh_boxer_09.glb/Left": {
+          "above": 1752,
+          "below": 0,
+          "frames": 1802,
+          "longest": 2,
+          "max_pitch": 59.4164849484796,
+          "outside": 1762,
+          "role": "lead",
+          "roll": 1643,
+          "run": 0
+        },
+        "mh_boxer_09.glb/Right": {
+          "above": 100,
+          "below": 29,
+          "frames": 1802,
+          "longest": 3,
+          "max_pitch": 58.3709537412799,
+          "outside": 1780,
+          "role": "rear",
+          "roll": 1748,
+          "run": 0
+        }
+      },
+      "seconds": 60.0333333333325,
+      "seed": "94301"
+    },
+    "94301_05_02": {
+      "feet": {
+        "mh_boxer_02.glb/Left": {
+          "above": 1788,
+          "below": 0,
+          "frames": 1802,
+          "longest": 4,
+          "max_pitch": 63.8004965087656,
+          "outside": 1788,
+          "role": "lead",
+          "roll": 1784,
+          "run": 0
+        },
+        "mh_boxer_02.glb/Right": {
+          "above": 67,
+          "below": 10,
+          "frames": 1802,
+          "longest": 5,
+          "max_pitch": 64.0346149029462,
+          "outside": 1800,
+          "role": "rear",
+          "roll": 1790,
+          "run": 0
+        },
+        "mh_boxer_05.glb/Left": {
+          "above": 1777,
+          "below": 0,
+          "frames": 1802,
+          "longest": 4,
+          "max_pitch": 56.8902541065857,
+          "outside": 1779,
+          "role": "lead",
+          "roll": 1767,
+          "run": 0
+        },
+        "mh_boxer_05.glb/Right": {
+          "above": 83,
+          "below": 17,
+          "frames": 1802,
+          "longest": 7,
+          "max_pitch": 79.337223436442,
+          "outside": 1795,
+          "role": "rear",
+          "roll": 1777,
+          "run": 0
+        }
+      },
+      "seconds": 60.0333333333325,
+      "seed": "94301"
+    },
+    "930093_09_08": {
+      "feet": {
+        "mh_boxer_08.glb/Left": {
+          "above": 1800,
+          "below": 0,
+          "frames": 1802,
+          "longest": 0,
+          "max_pitch": 52.1110717065849,
+          "outside": 1800,
+          "role": "lead",
+          "roll": 1732,
+          "run": 0
+        },
+        "mh_boxer_08.glb/Right": {
+          "above": 38,
+          "below": 19,
+          "frames": 1802,
+          "longest": 5,
+          "max_pitch": 60.1379919814539,
+          "outside": 1783,
+          "role": "rear",
+          "roll": 1764,
+          "run": 0
+        },
+        "mh_boxer_09.glb/Left": {
+          "above": 1789,
+          "below": 0,
+          "frames": 1802,
+          "longest": 0,
+          "max_pitch": 53.3045789621529,
+          "outside": 1793,
+          "role": "lead",
+          "roll": 1674,
+          "run": 0
+        },
+        "mh_boxer_09.glb/Right": {
+          "above": 80,
+          "below": 18,
+          "frames": 1802,
+          "longest": 6,
+          "max_pitch": 87.9779386610742,
+          "outside": 1784,
+          "role": "rear",
+          "roll": 1765,
+          "run": 0
+        }
+      },
+      "seconds": 60.0333333333325,
+      "seed": "930093"
+    },
+    "930093_05_02": {
+      "feet": {
+        "mh_boxer_02.glb/Left": {
+          "above": 1799,
+          "below": 0,
+          "frames": 1802,
+          "longest": 6,
+          "max_pitch": 63.7015134073138,
+          "outside": 1801,
+          "role": "lead",
+          "roll": 1789,
+          "run": 0
+        },
+        "mh_boxer_02.glb/Right": {
+          "above": 38,
+          "below": 38,
+          "frames": 1802,
+          "longest": 5,
+          "max_pitch": 60.8702702227493,
+          "outside": 1785,
+          "role": "rear",
+          "roll": 1747,
+          "run": 0
+        },
+        "mh_boxer_05.glb/Left": {
+          "above": 1802,
+          "below": 0,
+          "frames": 1802,
+          "longest": 0,
+          "max_pitch": 48.0202255258541,
+          "outside": 1802,
+          "role": "lead",
+          "roll": 1800,
+          "run": 0
+        },
+        "mh_boxer_05.glb/Right": {
+          "above": 77,
+          "below": 32,
+          "frames": 1802,
+          "longest": 7,
+          "max_pitch": 72.809577495715,
+          "outside": 1792,
+          "role": "rear",
+          "roll": 1758,
+          "run": 0
+        }
+      },
+      "seconds": 60.0333333333325,
+      "seed": "930093"
+    }
+  }
+}

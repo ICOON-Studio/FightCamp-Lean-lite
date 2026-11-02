@@ -1,0 +1,147 @@
+TASK M_GYM_STYLE (Maria, art direction) - FightCamp S206
+FightCamp: PC boxing-gym management sim, Godot 4.7.2, top-down 3D club the player watches (bright and alive gym - our product rule).
+The CEO looked at our gym floor today and said (verbatim): "what is that ? i can't understand wtf am i wtaching right now , how are
+these assets made in the game ? why we cannot have beautiful graphics and assets like 2point hospital ?" - our props are a mix of
+realistic models and plain coloured boxes (a striped rubber ladder mat read as nonsense; a stack of small crates read as nothing a gym
+has; half the hall was empty floor).
+Deliver an ART DIRECTION BRIEF for the gym view: (1) the target look in words a modeller can follow (stylised vs realistic, shape
+language, proportions, palette with hex values for floor / walls / equipment / accents, lighting mood, outline or not), using Two Point
+Hospital as the bar but for a boxing gym; (2) a readability checklist - every prop must be recognisable from the top-down camera at
+1920x1080 in under one second (silhouette, colour coding per station type: bags, ring, conditioning, weights, recovery); (3) what to
+cut: props that confuse; (4) the 10 hero props of a real boxing gym in priority order with one line each on how they must look;
+(5) the characters: should fighters in the gym view be stylised too? Longest complete answer you can.
+[send-message t42s368] I'm on M_GYM_STYLE. I'll write the full art direction brief, building on the M43 real-gym palette and the Two Point Hospital bar, and send it here in one piece.
+[send-message t42s369] # M_GYM_STYLE: art direction brief for the gym view (S206)
+
+Art direction only, no code. The bar is Two Point Hospital: a toy-like, readable, funny-but-real building. Ours is a boxing gym. Every hex below is a PROPOSED value for the stylised gym. Values marked "(M43)" come from the real-gym photo samples; the rest are pushed brighter for the stylised look.
+
+**The diagnosis in one line.** The CEO can't read the floor because it mixes two languages, realistic scanned models next to untextured boxes, and neither reads from above. On top of that, half the hall is empty, and some props (the striped ladder mat, the crate stack) aren't things anyone recognises as a boxing gym. The fix is ONE stylised language, a full floor, and only props a boxing fan would name in a second.
+
+## 1. The target look
+
+### Stylised, not realistic
+- Every prop is built in one hand-made, slightly chunky style: clean shapes, bevelled edges, flat or softly graded colour, no photo textures, no scanned models.
+- The test: put any prop next to any other, and they look like they came from the same toy box.
+- Realism lives in WHAT is there (the right kit in the right place, from M43), not in HOW it is rendered.
+
+### Shape language
+- **Chunky and rounded.** Every edge has a visible bevel, about 3–5% of the object's width. There are no razor-thin parts: ropes, chains and cables are drawn 2–3× real thickness so they survive the top-down camera.
+- **Big primary forms.** Each prop is 2–4 big readable shapes plus at most 2 small details. A heavy bag is a fat cylinder, a chain and a top cap, and that's it.
+- **Soft things are rounded, hard things are boxy.** Bags, gloves, mats and pads are pillowy. Racks, rings, benches and machines are boxy with bevels. Soft kit and hard kit tell apart at a glance.
+- **Exaggerate the one feature that names the object** by about 20–30%: the speed bag's round board, the ring's 4 ropes and corner pads, the dumbbell's heavy ends, the treadmill's belt and console.
+
+### Proportions
+- Equipment is about 1.15–1.25× real against the characters, so kit reads first and the hall feels busy and cosy. The ratios between props stay real, so the ring is still by far the biggest thing.
+- Characters are stylised the same way (section 5).
+- Rooms are dollhouse height, with walls around 2.4 m equivalent, and walls on the camera side cut away or faded so we see into every zone.
+- Zones are tight. A real gym is crammed: M43 showed 6 bags in a row, 5 treadmills shoulder to shoulder and a dumbbell rack wedged into a corner. Aim for no more than about 15% of visible floor being empty, and that empty floor is the deliberate skipping strip and the walkways.
+
+### Palette (hex)
+The building is warm and bright, and the kit is saturated so it pops off it. The world stays lighter than our dark walnut HUD so the two never merge.
+
+| Role | Hex | Use |
+|---|---|---|
+| Floor, painted concrete | `#c9c2ad` | Main hall floor, brightened from M43 `#aaa490` |
+| Floor lines | `#f2d04b` / `#f4f1e8` | Old yellow and white court lines (Moss Side) |
+| Floor, rubber tiles | `#4a4f55` | Under weights and stretch only |
+| Walls, main | `#c8392b` | Gym red, lifted from M43 `#ae1106` |
+| Walls, dado | `#d98039` | Orange glazed-brick band (M43, Repton) |
+| Walls, upper | `#efe4cf` | Cream plaster above the posters |
+| Steel, columns, rigs | `#2b2f36` | Bag rail, columns, racks; dark, not pure black |
+| Wood | `#c48a4a` | Speed-bag boards, benches, plyo boxes (M43 `#bc8243` lifted) |
+| Ring canvas | `#3f78c9` | The single biggest colour block in the room |
+| Ring ropes | `#e23b3b` | 4 ropes, red, thick |
+| Accent, gold | `#f0c233` | Belts, trophies, poster headlines; small amounts only |
+| Accent, paper | `#f6f0e0` | Posters, notices, routine sheets |
+
+#### Station colour code
+Each station type owns one hue, on its footprint mat and its main object, and always has a shape cue as well.
+
+| Station | Hue | Hex | Shape cue that works without colour |
+|---|---|---|---|
+| Bags (heavy, speed, double-end) | Red | `#d8402f` | Hanging cylinders in a row, round boards on walls |
+| Ring / sparring | Blue | `#3f78c9` | Big square with 4 ropes and 4 posts |
+| Conditioning (skipping, cardio, plyo) | Sunflower | `#f2b632` | Long strip, or machines in a row facing a wall |
+| Weights | Steel + orange plates | `#2b2f36` + `#e8742c` | Low, dense racks of fat round ends |
+| Recovery (stretch, physio) | Mint | `#5fbf8a` | Flat mats and soft rollers, nothing tall |
+
+No station uses teal. Teal (`#1f6f66` / `#7fd0cf`) stays reserved for the HUD's lit state and the selection outline, so a selected object is never confused with a station.
+
+### Lighting mood
+- A bright daytime gym: a strong, warm key light from above, like sun through high windows, plus a cool, bright fill. Nothing reads gloomy.
+- Soft contact shadows (a blob or ambient occlusion) under every prop, so it sits ON the floor instead of floating. This matters more than any texture.
+- Ceiling strip lights are a few emissive bars, but the light itself stays even. No dark corners and no spotlight; that look belongs to fight night.
+- A small time-of-day shift is fine (warmer mornings, amber evenings), but the floor is never less than clearly lit.
+- No depth-of-field blur on the floor, no film grain, light bloom at most.
+
+### Outlines
+- **No ink outline on props.** Two Point reads through clean shapes, bevels, shadows and colour, not cartoon lines.
+- Props separate from the floor through a value step (kit darker or more saturated than the light floor) plus a contact shadow.
+- **Hover and selection get a teal outline** (`#7fd0cf`, 2–3 px screen space). It's the only outline in the world, so it always means "you're pointing at this."
+- Characters may get a faint 1 px dark rim at about 30% opacity, but only if testing shows them getting lost in busy zones. Start without it.
+
+### Materials
+- One shared flat-colour material set with a gentle gradient or baked occlusion. No PBR photo textures.
+- Leather (bags, gloves) is slightly glossy, rubber matte, steel semi-matte. Wood gets a simple painted grain stroke at most.
+- Wear is shown through SHAPE, not texture: duct tape on a bag, a dented corner pad, a sagging rope.
+[send-message t42s370] ## 2. Readability checklist (every prop, before it ships)
+Test at 1920×1080 with the real game camera, at default zoom and fully zoomed out. A prop ships only with a YES on every line.
+
+1. **One-second name test:** a person who boxes names it from a screenshot in under a second, with no tooltip. Test with 3 people; if 1 fails, the prop fails.
+2. **Silhouette from above:** filled solid black, its shape still says what it is. A bag is a circle with a chain line. The ring is a square with posts. A treadmill is a long rectangle with a console end. A dumbbell rack is a row of paired dots.
+3. **Minimum size:** its smallest naming feature is at least 24 px across at default zoom, and ropes, chains and handles are at least 3 px wide on screen.
+4. **Station colour:** it carries its station hue on its main mass or its footprint mat.
+5. **Not colour only:** it still reads in a greyscale screenshot and through deuteranopia and protanopia filters. Red bags and mint recovery are told apart by shape and position.
+6. **Value step:** it is clearly lighter or darker than the floor under it, plus a contact shadow.
+7. **Same style:** bevel, flat colour, chunky proportion. Stand it next to the heavy bag and the ring; if it looks like it's from another game, it fails.
+8. **In a zone:** it sits with its family (bags with bags), never alone in the open hall.
+9. **No look-alikes:** nobody could call it a side table, cabinet, sofa, bath, fridge or crate. If anyone uses a household word, it fails.
+10. **Has a use or a story:** a fighter trains on it, or it's one of the lived-in props.
+11. **Moves when used:** a bag swings, a speed bag rattles, a treadmill belt runs. Being used is the strongest reading cue there is.
+12. **Nothing tall blocks the camera:** walls on the camera side are cut or faded.
+
+## 3. What to cut
+- **Plain coloured boxes** standing in for props. No placeholder primitive appears in any build shown to anyone.
+- **Realistic or scanned models** next to stylised ones. One language only: replace them, don't mix.
+- **The striped rubber ladder mat.** From above it reads as a barcode. Show agility work as a fighter skipping on the strip instead.
+- **The stack of small crates.** Gyms don't stack crates. Kit lives in a glove locker, a pad bin or on wall hooks.
+- **Household furniture:** bathtub, fridge, TV cabinet, side tables, sofas, rugs. An ice tub, if we keep one at all, lives in the physio room, never on the floor.
+- **Grey carpet.** The floor is painted concrete with lines, with rubber only under weights and stretch.
+- **Bags on thin ropes.** Bags hang on fat chains from one rail.
+- **The ring on a tall black box with 3 ropes.** Replace it with an open frame, a skirt, 4 ropes and corner pads.
+- **The free-standing speed bag that reads as a table.** It goes on the wall.
+- **Big empty floor.** Fill it with stations or shrink the hall.
+- **Anything that only reads through its tooltip.** The tooltip names a prop, but the prop has to read without it.
+- **Clutter under 24 px:** single bottles, pens and phones on the floor. Group small things into one readable object, like a bottle crate at the ring corner or a pile of gloves on a bench.
+
+## 4. The 10 hero props, in priority order
+1. **The ring:** a raised open steel frame with a blue canvas skirt about knee-to-waist height on a fighter (roughly 0.9 m, from M43), 4 thick red ropes, 4 padded corner posts (one red, one blue, two white) and short steps. It is the biggest, bluest thing in the room and its centre of gravity.
+2. **The heavy bag line:** 5–6 fat bags (red, black, and one taped-up old one) on chunky chains from one steel rail, evenly spaced, swinging when hit.
+3. **The speed bag wall:** 2 oversized round wooden boards on black brackets at head height, each with a small red pear bag, on a wall plastered with photos.
+4. **The mirror wall + skipping strip:** a long pale mirror panel with a cool highlight, and a clear lined strip of floor in front with a fighter skipping. The empty strip is deliberate.
+5. **The round timer:** a big wall clock with a red/green segment face, oversized so the camera reads it. Every boxing gym has one, and it can double as the world-space game clock.
+6. **The glove locker:** an open steel locker or wall rack spilling red, blue and black gloves and pads. Nothing says "boxing" faster.
+7. **The weights corner:** a low 2-tier rack of fat-ended dumbbells, a bench and one plate tree on black rubber, small and crammed, with orange plate accents.
+8. **The cardio row:** 3–5 treadmills or bikes shoulder to shoulder facing a window. Each is a long rectangle with a raised console, and its dark belt scrolls when used.
+9. **The coach's corner:** a bench by the ring with a towel, a bottle crate, a stool and a bucket, plus the office window onto the floor with a desk and posters inside. This is where the human story lives.
+10. **The walls:** fight posters, framed photos, a handwritten routine board and a championship banner, covering every wall from the dado up. Posters are bold colour blocks with one big headline shape, so they read as "fight poster" without the words.
+
+**Lived-in extras** (cheap, high value): tape patches on the old bag, a dented corner pad, a sagging rope, folded blue mats under a bench, bottles grouped at the ring corners, a big drum fan, and hand wraps drying on a line.
+
+## 5. Characters: stylised too?
+**Yes, fully stylised, matching the props.** A realistic fighter in a toy-like gym breaks the world in the same way the realistic props did.
+
+- **Proportion:** heroic and slightly chunky, with the head about 1/6 of body height (real is about 1/7.5) and hands and gloves about 1.3×, so gloves, headgear and trunks read from above. Not chibi: these are athletes.
+- **Weight class shows in the body:** a long, lean flyweight next to a broad heavyweight, readable by silhouette alone.
+- **Colour identity:** each fighter has one strong signature colour on trunks and gloves (ours is green and red today). Coaches wear dark tracksuits with a lighter top so they read as "not a fighter". Members wear muted grey-blue kit so the roster pops.
+- **Clear key poses:** every training animation has one big readable key pose (the jab extension, the skipping hop, the bag hug), held a beat longer than real, the way Two Point characters overact.
+- **Faces:** simple stylised brows and expressions that show when zoomed in. At default zoom we read the body.
+- **Same materials as the props:** flat colour, soft shading, no photo skin and no realistic sweat shader. Effort gets a small stylised effect at most (M28: dust and sweat before fireworks).
+- **Fight night:** if the fight camera goes close, use the same models with a higher-detail pass, never a different style.
+
+## Gaps
+- I haven't seen a still of today's S206 floor. The faults listed come from the CEO's words and the M43 rejected stills. The next useful step is to score a current still against this checklist side by side.
+- The proportions and hexes are proposals for the modeller to test. They aren't measured from Two Point Hospital, and none of its assets or textures may be copied.
+
+The brief is saved on my computer as `/workspace/fightcamp-gymstyle/M_GYM_STYLE.md`. I'll copy it to Beast and tell Claude as soon as Beast is reachable.
+[send-message t42s372] Beast is still offline (I checked at 22:10), so the gym-style brief and the M44 files haven't landed yet. Everything is packed into one bundle with the right paths. Say "go" once Beast is connected and I'll copy it over and message Claude.

@@ -1,0 +1,15 @@
+You are working in the git worktree D:/FightCamp/wt/G148 (branch grok/g148-office) of the FightCamp Godot 4.7.2 game.
+Your task is fully specified in research/TASK_G148_OFFICE_TO_CONCEPT.md - read it first, then do it start to finish.
+
+Key points (the task file wins if anything differs):
+- Target image: previews/office_target/office_target_concept.jpg. Open and look at it. After every render
+  pass, look at your render (previews/g148/pass<N>.png) and compare with the concept before the next pass.
+- Edit only the owned files in the task. Keep the five clickable office objects and their routes working.
+- No downloads, no purchases, no images from the web. Blender 5.2.1 headless is available for props.
+- Parse gate before every render: python Godot/tools/check_scripts.py Godot/scripts/Office3D.gd
+- Render (windowed Godot moved off-screen, never --headless):
+  powershell -NoProfile -ExecutionPolicy Bypass -File Tools\godot_hidden.ps1 --path Godot --script tools/s105_render_office.gd
+- At the end: python Godot/tools/run_tests.py --only office_room ; write research/G148_DIGEST.md ;
+  git add your files explicitly (never `git add .`), commit, git push -u origin grok/g148-office.
+- Work in passes (big shapes -> desk clutter and frames -> lighting), at most 6 passes, then report what still
+  differs from the concept.

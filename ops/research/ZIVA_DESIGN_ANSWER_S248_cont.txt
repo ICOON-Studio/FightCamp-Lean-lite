@@ -1,0 +1,31 @@
+
+
+2:01 AM
+Thought
+for a few seconds
+
+...and stamina) from BodyReadiness and area_wear instead of _fresh_body_condition()'s flat 100s, so a fighter who arrives over-trained or nursing a body region starts the bout literally more vulnerable there, takes faster wear, and is likelier to be stopped or cut. This is the change that makes the gym day's whole stamina economy and injury risk mean something in the ring — today the day loop can wreck him and the fight never notices.
+
+Give the fight plan teeth and connect it to training. A pre-fight plan should be a real tactic (pressure / box / counter / body-attack) whose effectiveness scales with related mastered skills — a counter-plan is only as good as the drilled counter-punch skill, a body-attack plan only as good as the body-work skill — and the corner should be able to adjust it between rounds the way FightBeatAdapter/corner calls already allow. That closes the "plan ← training → result" loop instead of the plan being a static authored weight.
+
+Build the presentation layer that names cause and effect. Post-fight (and at the corner) surface the engine's existing data in boxing words: attempted/landed and accuracy, the head/body/leg target mix, which contact words dominated, and a plain-language verdict — "he lost the head-shot exchange, his reads were too slow to block clean power, and his conditioning collapsed in round 3" — plus a "what to drill next" pointer back to the gym. Most of this is already tallied (dm_tally, guard kinds, defence timing, per-region condition, significant-strike counts); it is a surfacing job, not a simulation job. This is the deliverable that literally answers your brief: the player understands where the fighter lacks and how strong he is.
+
+Which of these I could build and playtest myself in this project: The two halves that are pure, testable logic and visible in a running scene are the ones I can take end-to-end here — item 1 (per-technique mastery in the engine) and item 3 (readiness/wear seeded into the bout) are self-contained changes to FightMoves/FightRealtime/ImpactModel with existing contract tests I can extend and run (run_tests), and I can prove the in-ring difference with run_scene on a fight scene plus speed profiling if anything regresses. Item 5 (presentation) I can build as a post-fight panel and verify visually with run_scene/get_screenshot against a real bout. Item 2 (skill-drill stations) and item 4 (plan effectiveness) are largely content-and-design decisions — which drills exist, what each skill is worth, how a plan scales — so I can implement the wiring and the first data pass, but you should set the vocabulary and the relative weights, because those are game-design calls, not code calls. In short: I can build and playtest 1, 3 and 5 now; 2 and 4 I can build the plumbing for, but the tuning belongs to you.
+
+Undo
+Retry
+Fork from here
+Copy
+Thumbs up
+Thumbs down
+•
+$0.0023
+2:02 AM
+
+
+
+
+How can I help you?
+Ziva Smart
+Default
+29.1%

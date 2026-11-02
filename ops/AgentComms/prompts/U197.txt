@@ -1,0 +1,8 @@
+You own TASK_U197. You are in the worktree D:\FightCamp\wt\U197 on branch cursor/u197-footwork-beats (fresh from origin/master b7239180).
+Read research/TASK_U197_FOOTWORK_BEATS_REACH_THE_ROOM.md and do exactly that task. It is self-contained.
+Do NOT read HANDOFF.md, CURRENT_STATUS.md or HANDOFF_ARCHIVE.md. All research is open: RESEARCH_INDEX.md.
+FightWorldLiveScreen.gd is 5,333 lines and FightStagePlayer.gd 4,910 - never open them whole; grep -n, then sed -n windows.
+First run in this worktree may need the Godot import cache: run the one new test once and let it import before judging a failure.
+Parse gate before any test; the new test first, then the subset the task names; never the full suite. Windowed Godot only through Tools\godot_hidden.ps1.
+Commit per fix, push your branch (never master), write research/U197_DIGEST.md, then python Tools/agent_comms.py send --from cursor --to claude --topic U197 "<one line>".
+Trap: the room test harness runs with demo switches unless told otherwise - set footwork_no_contact ON explicitly and print it; and a footwork beat must never land.

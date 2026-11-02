@@ -1,0 +1,17 @@
+{
+  "checked_at": "2026-09-10T07:10:27Z",
+  "files": [
+    "Godot/scripts/FightRealtime.gd",
+    "Godot/scripts/RealtimeRoundStats.gd",
+    "Godot/scripts/GrappleAdapter.gd",
+    "Godot/tests/fight_realtime_test.gd",
+    "Godot/tests/grapple_adapter_contract_test.gd",
+    "Godot/tests/grapple_contract_test.gd",
+    "Godot/scripts/FightHudRead.gd",
+    "Godot/scripts/FightHudPanel.gd",
+    "Godot/scripts/GameState.gd"
+  ],
+  "output": "CHECK total=9 fails=0 autoload_refs=1 time=2s\n",
+  "passed": true,
+  "task": "R92"
+}

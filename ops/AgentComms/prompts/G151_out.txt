@@ -1,0 +1,13 @@
+﻿=== grok_task 2026-09-30T14:38:05 rc=0 ws=D:\FightCamp\wt\G148
+I'll read the prompt file and follow it from start to finish.The task is a sourced weight-cut spec with no code changes. I'll pull the existing research and see what the engine already models.Prior research names the J-series on the scale and the handbook. I'll read those and locate the engine variables the spec has to name.The engine already prices a water cut as stamina and chin. Next IΓÇÖll pull the measured cut depths and performance effects so the three choices sit on those numbers.The measured cuts and the live stamina and chin path are enough to write the spec. The camp diet stays as it is; this is only the fight-week water cut.The draft is over the 1,200-word limit. I'll tighten it without dropping the sourced numbers or the engine mapping.Still about 200 words over. I'll compress the table and the mapping so the limit holds.The weight-cut spec is in `research/G151_WEIGHT_CUT_SPEC.md`, committed as `12187591` and pushed to `origin/grok/g151-weight-cut-spec`. No code was changed.
+
+Fight week offers three water-cut ceilings on the day-before weigh-in the game already uses. The camp diet is left alone.
+
+- **Light** stops at 3% (the free band). Stamina and chin cost nothing.
+- **Standard** stops at 5%. A full cut of that depth is stamina 8 and hurt 2, on the formula already in `weight_classes.json`.
+- **Hard** stops at 8%, the mean week-long cut Matthews and Nicholas weighed in mixed martial arts. That hits both caps: stamina 20 and hurt 5. Anything deeper stays on the existing emergency cut or a missed weight.
+
+Those costs land on the starting tank and the hurt threshold in `FightSimulation.gd`. Conditioning, chin, and punching power are not rewritten. There is no measured striking bonus per kilogram regained, so the size edge is only the line on the card: about 4.4% back on after a normal day-before weigh-in, or about 11.7% after a cut as deep as that Matthews sample. A small miss is still a fifth of the purse and a catchweight. A large miss cancels the bout.
+
+--- stderr ---
+

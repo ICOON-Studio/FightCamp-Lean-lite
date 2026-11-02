@@ -1,0 +1,22 @@
+Warning: running headless with --yolo / approval-mode=yolo and no sandbox. All tool calls (shell, write, edit) auto-execute at this process's privilege level. Enable a sandbox via --sandbox / QWEN_SANDBOX, or set QWEN_CODE_SUPPRESS_YOLO_WARNING=1 to silence this notice.
+Warning: MCP OAuth tokens are stored unencrypted at C:\Users\user\.qwen\mcp-oauth-tokens.json. Set QWEN_CODE_FORCE_ENCRYPTED_FILE_STORAGE=true to require encrypted file storage.
+Warning: MCP server(s) failed to start: higgsfield. Continuing with built-in tools and any servers that did connect. Re-run with QWEN_CODE_DEBUG=1 to see per-server reasons.
+**Q222 shipped.** Branch `qwen/q222-fight-vfx` pushed.
+
+**What landed (9 files, +229 lines):**
+
+| File | What |
+|------|------|
+| `FightVfx.gd` | Static builders — `sweat_burst`, `canvas_dust`, `bell_pulse`. CPUParticles3D billboard rendering, self-freeing via `tree_entered` + timer/tween. |
+| `FightWorldLiveScreen.gd` | 4 edits: `_fight_vfx` switch (line ~763), option parse (~938), bell hook after `begin_round` (~1383), hit/knockdown hook after `_feed_hit_cam` (~2165). All inert under `--script`. |
+| `fight_vfx_test.gd` | 22 checks, 0 failures. Builders, groups, one_shot, direction, warm light, null-ring safety. |
+| `docs/previews/q222/` | 3 stills: bell frame, mid-fight significant hit (seed 92012), glancing hook (seed 77321). |
+| `Q222_DIGEST.md` | Full digest. |
+
+**Gates:**
+- Parse: FightVfx + test clean. FightWorldLiveScreen pre-existing errors (FightClipBinding/Quantise — same on master).
+- `fight_vfx_test`: 22/0
+- `fight_strike_whole`: 932/0 (unchanged — hooks inert in test mode)
+- `run_tests.py` wrapper flags pre-existing font cache errors (environment issue, not code)
+
+**Not done:** Hit-stop (presentation-only clock freeze) — out of scope, would need a separate mechanism.

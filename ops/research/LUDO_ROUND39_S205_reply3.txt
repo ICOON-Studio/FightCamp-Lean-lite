@@ -1,0 +1,352 @@
+3.3 Godot 4.7.2 Complete Scene Tree & Reusable Animation Components (Continued)
+Complete Scene Tree Layout (Without Truncation)
+FightStagePresenter (Node3D, script="res://scripts/presentation/FightStagePresenter.gd")
+├── RingEnvironment (Node3D)
+│   ├── CanvasFloor (StaticBody3D, collision_layer=1, collision_mask=0)
+│   │   ├── MeshInstance3D (BoxMesh, size=Vector3(6.1, 0.2, 6.1))
+│   │   └── CollisionShape3D (BoxShape3D, size=Vector3(6.1, 0.2, 6.1))
+│   ├── RingRopesRig (Node3D)
+│   │   ├── Post_RedCorner (MeshInstance3D, CylinderMesh, h=1.4, r=0.06, pos=Vector3(-3.05, 0.7, -3.05))
+│   │   ├── Post_BlueCorner (MeshInstance3D, CylinderMesh, h=1.4, r=0.06, pos=Vector3(3.05, 0.7, 3.05))
+│   │   ├── Post_Neutral1 (MeshInstance3D, CylinderMesh, h=1.4, r=0.06, pos=Vector3(3.05, 0.7, -3.05))
+│   │   ├── Post_Neutral2 (MeshInstance3D, CylinderMesh, h=1.4, r=0.06, pos=Vector3(-3.05, 0.7, 3.05))
+│   │   ├── RopeStrand_1 (MeshInstance3D, TubeMesh, y=0.42)
+│   │   ├── RopeStrand_2 (MeshInstance3D, TubeMesh, y=0.72)
+│   │   ├── RopeStrand_3 (MeshInstance3D, TubeMesh, y=1.02)
+│   │   └── RopeStrand_4 (MeshInstance3D, TubeMesh, y=1.32)
+│   └── CornerPads (Node3D)
+│       ├── Pad_RedCorner (MeshInstance3D, pos=Vector3(-3.0, 0.85, -3.0))
+│       └── Pad_BlueCorner (MeshInstance3D, pos=Vector3(3.0, 0.85, 3.0))
+│
+├── SimulationExchangeBridge (Node, script="res://scripts/presentation/SimulationExchangeBridge.gd")
+├── CameraRig3D (Node3D, script="res://scripts/presentation/BroadcastCameraRig.gd")
+│   └── BroadcastCamera (Camera3D, fov=28.0, near=0.1, far=100.0)
+│
+├── FighterSlot_Red (Node3D, position=Vector3(-0.95, 0.1, 0.0), script="res://scripts/presentation/FighterPresentationSlot.gd")
+│   └── CharacterRoot (Node3D)
+│       └── RedSkeleton (Skeleton3D, script="res://scripts/animation/FighterSkeletonController.gd")
+│           ├── CharacterMeshInstance (MeshInstance3D, skin_bind=true)
+│           ├── AnimationPlayer (AnimationPlayer, script="res://scripts/animation/CertifiedAnimationPlayer.gd")
+│           ├── AnimationTree (AnimationTree, tree_root="res://resources/fight_stage_blendtree.tres")
+│           ├── PunchTimeWarpController (Node, script="res://scripts/animation/PunchTimeWarpController.gd")
+│           ├── BalanceCoMModifier (SkeletonModifier3D, script="res://scripts/animation/BalanceCoMController.gd")
+│           ├── FatiguePostureModifier (SkeletonModifier3D, script="res://scripts/animation/FatiguePostureModifier.gd")
+│           ├── GloveSpringModifier (SkeletonModifier3D, script="res://scripts/animation/GloveSpringModifier.gd")
+│           ├── InsideUppercutIKController (SkeletonModifier3D, script="res://scripts/animation/InsideUppercutIKController.gd")
+│           ├── HeadImpactModifier (SkeletonModifier3D, script="res://scripts/animation/HeadImpactModifier.gd")
+│           └── FootLockPlantModifier (SkeletonModifier3D, script="res://scripts/animation/FootLockPlantModifier.gd")
+│
+└── FighterSlot_Blue (Node3D, position=Vector3(0.95, 0.1, 0.0), script="res://scripts/presentation/FighterPresentationSlot.gd")
+    └── CharacterRoot (Node3D)
+        └── BlueSkeleton (Skeleton3D, script="res://scripts/animation/FighterSkeletonController.gd")
+            ├── CharacterMeshInstance (MeshInstance3D, skin_bind=true)
+            ├── AnimationPlayer (AnimationPlayer, script="res://scripts/animation/CertifiedAnimationPlayer.gd")
+            ├── AnimationTree (AnimationTree, tree_root="res://resources/fight_stage_blendtree.tres")
+            ├── PunchTimeWarpController (Node, script="res://scripts/animation/PunchTimeWarpController.gd")
+            ├── BalanceCoMModifier (SkeletonModifier3D, script="res://scripts/animation/BalanceCoMController.gd")
+            ├── FatiguePostureModifier (SkeletonModifier3D, script="res://scripts/animation/FatiguePostureModifier.gd")
+            ├── GloveSpringModifier (SkeletonModifier3D, script="res://scripts/animation/GloveSpringModifier.gd")
+            ├── InsideUppercutIKController (SkeletonModifier3D, script="res://scripts/animation/InsideUppercutIKController.gd")
+            ├── HeadImpactModifier (SkeletonModifier3D, script="res://scripts/animation/HeadImpactModifier.gd")
+            └── FootLockPlantModifier (SkeletonModifier3D, script="res://scripts/animation/FootLockPlantModifier.gd")
+
+Reusable Animation Component Implementations
+1. FootLockPlantModifier.gd
+
+Enforces C223 Gate Invariant 2: Maximum foot sliding distance $d_{\text{slide}} \le 1.5\text{ cm}$ for support feet while planted during strike execution and defensive transitions.
+
+class_name FootLockPlantModifier
+extends SkeletonModifier3D
+
+@export var enable_foot_lock: bool = false # Rule A: Off by default
+@export var max_allowable_slide_m: float = 0.015 # 1.5 cm gate ceiling
+
+# Telemetry
+@export var measured_left_slide_cm: float = 0.0
+@export var measured_right_slide_cm: float = 0.0
+
+var _skeleton: Skeleton3D = null
+var _l_foot_idx: int = -1
+var _r_foot_idx: int = -1
+
+var _l_planted: bool = false
+var _r_planted: bool = false
+
+var _l_anchor_pos: Vector3 = Vector3.ZERO
+var _r_anchor_pos: Vector3 = Vector3.ZERO
+var _is_initialized: bool = false
+
+func _init() -> void:
+	active = true
+
+func set_foot_planted(is_left: bool, planted: bool) -> void:
+	if not enable_foot_lock:
+		return
+	if is_left:
+		if planted and not _l_planted and _skeleton != null and _l_foot_idx >= 0:
+			_l_anchor_pos = _skeleton.get_bone_global_pose(_l_foot_idx).origin
+		_l_planted = planted
+	else:
+		if planted and not _r_planted and _skeleton != null and _r_foot_idx >= 0:
+			_r_anchor_pos = _skeleton.get_bone_global_pose(_r_foot_idx).origin
+		_r_planted = planted
+
+func _validate_setup() -> void:
+	_skeleton = get_skeleton()
+	if _skeleton == null:
+		return
+	_l_foot_idx = _skeleton.find_bone("mixamorig_LeftFoot")
+	_r_foot_idx = _skeleton.find_bone("mixamorig_RightFoot")
+	_is_initialized = (_l_foot_idx >= 0 and _r_foot_idx >= 0)
+
+func _process_modification() -> void:
+	if not enable_foot_lock:
+		measured_left_slide_cm = 0.0
+		measured_right_slide_cm = 0.0
+		return
+
+	if not _is_initialized:
+		_validate_setup()
+		if not _is_initialized:
+			return
+
+	# Left foot constraint
+	if _l_planted:
+		var current_pose: Transform3D = _skeleton.get_bone_global_pose(_l_foot_idx)
+		var drift: Vector3 = current_pose.origin - _l_anchor_pos
+		drift.y = 0.0 # Preserve vertical ankle compliance
+		measured_left_slide_cm = drift.length() * 100.0
+		if drift.length() > 0.0001:
+			var clamped_origin: Vector3 = _l_anchor_pos + drift.normalized() * minf(drift.length(), max_allowable_slide_m)
+			clamped_origin.y = current_pose.origin.y
+			current_pose.origin = clamped_origin
+			_skeleton.set_bone_global_pose(_l_foot_idx, current_pose)
+
+	# Right foot constraint
+	if _r_planted:
+		var current_pose: Transform3D = _skeleton.get_bone_global_pose(_r_foot_idx)
+		var drift: Vector3 = current_pose.origin - _r_anchor_pos
+		drift.y = 0.0
+		measured_right_slide_cm = drift.length() * 100.0
+		if drift.length() > 0.0001:
+			var clamped_origin: Vector3 = _r_anchor_pos + drift.normalized() * minf(drift.length(), max_allowable_slide_m)
+			clamped_origin.y = current_pose.origin.y
+			current_pose.origin = clamped_origin
+			_skeleton.set_bone_global_pose(_r_foot_idx, current_pose)
+
+2. PunchTimeWarpController.gd
+
+Applies normalized Hermite S-Curve time-warping to punch trajectories so velocity snaps cleanly to impact without altering raw clip keyframe timing.
+
+class_name PunchTimeWarpController
+extends Node
+
+@export var enable_time_warp: bool = false # Rule A
+@export var current_warped_time: float = 0.0
+
+# Mathematical Hermite constants
+# Warping formula: S(tau) = 3*tau^2 - 2*tau^3 with boundary locking: S(0)=0, S(tau_c)=tau_c, S(1)=1
+var _clip_length: float = 0.30
+var _contact_time: float = 0.125
+var _is_warping: bool = false
+
+func start_strike(clip_length_sec: float, certified_contact_sec: float) -> void:
+	_clip_length = maxf(clip_length_sec, 0.05)
+	_contact_time = clampf(certified_contact_sec, 0.0, _clip_length)
+	_is_warping = enable_time_warp
+
+func sample_time(raw_elapsed_sec: float) -> float:
+	if not enable_time_warp or not _is_warping:
+		current_warped_time = raw_elapsed_sec
+		return raw_elapsed_sec
+
+	var tau: float = clampf(raw_elapsed_sec / _clip_length, 0.0, 1.0)
+	var tau_c: float = _contact_time / _clip_length
+
+	var warped_tau: float = 0.0
+	if tau <= tau_c and tau_c > 0.0:
+		# Acceleration phase: smooth start into locked contact frame
+		var local_ratio: float = tau / tau_c
+		var hermite: float = (3.0 * pow(local_ratio, 2.0)) - (2.0 * pow(local_ratio, 3.0))
+		warped_tau = hermite * tau_c
+	else:
+		# Retraction phase: snap return from contact to neutral stance
+		var local_ratio: float = (tau - tau_c) / (1.0 - tau_c)
+		var hermite: float = (3.0 * pow(local_ratio, 2.0)) - (2.0 * pow(local_ratio, 3.0))
+		warped_tau = tau_c + (hermite * (1.0 - tau_c))
+
+	current_warped_time = warped_tau * _clip_length
+	return current_warped_time
+
+3. HeadImpactModifier.gd
+
+Applies angular head deflection upon clean impact or partial guard penetration, scaling dynamically with strike kinetic energy.
+
+class_name HeadImpactModifier
+extends SkeletonModifier3D
+
+@export var enable_head_impact: bool = false # Rule A
+@export var measured_deflection_deg: float = 0.0
+
+const RESTORATION_STIFFNESS: float = 380.0 # Rad/s^2 equivalent
+const IMPACT_DAMPING: float = 24.5
+
+var _skeleton: Skeleton3D = null
+var _head_idx: int = -1
+var _neck_idx: int = -1
+var _current_rot_offset: Quaternion = Quaternion.IDENTITY
+var _rot_velocity: Vector3 = Vector3.ZERO
+var _is_initialized: bool = false
+
+func _init() -> void:
+	active = true
+
+func apply_impact(direction_vector: Vector3, damage_amount: float) -> void:
+	if not enable_head_impact:
+		return
+	var impulse_magnitude: float = clampf(damage_amount * 0.045, 0.2, 1.8)
+	var torque_axis: Vector3 = direction_vector.cross(Vector3.UP).normalized()
+	_rot_velocity += torque_axis * impulse_magnitude * 22.0
+
+func _validate_setup() -> void:
+	_skeleton = get_skeleton()
+	if _skeleton == null:
+		return
+	_head_idx = _skeleton.find_bone("mixamorig_Head")
+	_neck_idx = _skeleton.find_bone("mixamorig_Neck")
+	_is_initialized = (_head_idx >= 0 and _neck_idx >= 0)
+
+func _process_modification() -> void:
+	if not enable_head_impact:
+		measured_deflection_deg = 0.0
+		return
+
+	if not _is_initialized:
+		_validate_setup()
+		if not _is_initialized:
+			return
+
+	var dt: float = clampf(get_physics_process_delta_time(), 0.001, 0.033)
+
+	# Spring-damper integration on rotation
+	var euler: Vector3 = _current_rot_offset.get_euler()
+	var spring_acc: Vector3 = (-RESTORATION_STIFFNESS * euler) - (IMPACT_DAMPING * _rot_velocity)
+	_rot_velocity += spring_acc * dt
+	euler += _rot_velocity * dt
+	_current_rot_offset = Quaternion.from_euler(euler)
+
+	measured_deflection_deg = rad_to_deg(_current_rot_offset.get_angle())
+
+	var base_head_rot: Quaternion = _skeleton.get_bone_pose_rotation(_head_idx)
+	_skeleton.set_bone_pose_rotation(_head_idx, base_head_rot * _current_rot_offset)
+
+3.4 Labeled Top-Down Gym Floor Plan
+Spatial Layout & Grid Overview
+Coordinate System: Origin (0,0) at Top-Left. $+X$ extends East (Width: 64 meters), $+Y$ extends South (Height: 32 meters).
+Grid Resolution: $1\text{ character} = 1.0\text{ meter} \times 1.0\text{ meter}$. Total Canvas: $64 \times 32$.
+Structural Boundaries: Exterior solid perimeter [#] represents structural load-bearing walls ($0.4\text{ m}$ thick).
+Walkways: Clear designated paths (.) maintain a minimum width of $2.0\text{ meters}$ across all primary corridors, satisfying pedestrian flow constraints for athlete pathfinding.
+Stations: Every station includes dedicated equipment boundaries and marked buffer zones to prevent athlete overlap during training sessions.
+      0000000000111111111122222222223333333333444444444455555555556666
+      0123456789012345678901234567890123456789012345678901234567890123
+00  ################################################################
+01  # [ZONE 1: ADMINISTRATIVE & MEDICAL]     # [ZONE 2: STRENGTH & S&C]  #
+02  # +------------+  +------------+  +----+ # +----------+ +----------+ #
+03  # | MGR OFFICE |  | HEAD COACH |  | RE | # | SQUAT    | | DEADLIFT | #
+04  # | [DESK_01]  |  | [DESK_02]  |  | CE | # | RACK #1  | | PLATFORM | #
+05  # |   3x3m     |  |   3x3m     |  | PT | # |  3x3m    | |  3x3m    | #
+06  # +----[D1]----+  +----[D2]----+  +-| -+ # +----------+ +----------+ #
+07  # ........ WALKWAY NORTH (W_N) .............                         #
+08  # +------------+  +------------+    [D0] # +----------+ +----------+ #
+09  # | PHYSICIAN  |  | CUTMAN /   |    MAIN # | BENCH    | | DUMBBELL | #
+10  # | CLINIC     |  | MASSAGE    |   ENTRY # | PRESS    | | RACK     | #
+11  # | [EXAM_TBL] |  | [MASS_TBL] |    DOOR # |  3x3m    | |  3x3m    | #
+12  # +----[D3]----+  +----[D4]----+    ==== # +----------+ +----------+ #
+13  #                                        #                           #
+14  #======================[D5]==============#===[D6]====================#
+15  #                                                                    #
+16  # ........ MAIN ARTERY WALKWAY CENTRAL (2m CLEAR PATH) ............. #
+17  #                                                                    #
+18  #======================[D7]==============#===[D8]====================#
+19  # [ZONE 3: TECHNICAL BAGS & MITTS]       # [ZONE 4: COMBAT ENCLOSURE]#
+20  # +----+ +----+ +----+  +----+ +----+    # +-----------------------+ #
+21  # |HB1 | |HB2 | |HB3 |  |UB1 | |UB2 |    # |   SPARRING RING A     | #
+22  # |2x2m| |2x2m| |2x2m|  |2x2m| |2x2m|    # |   (COMPETITION SPEC)  | #
+23  # +----+ +----+ +----+  +----+ +----+    # |        6.1 x 6.1m     | #
+24  #                                        # |   CANVAS + APRON      | #
+25  # +----+ +----+ +----+  +--------------+ # |   [RING_A_PLATFORM]   | #
+26  # |SB1 | |SB2 | |TE1 |  | COACH MITTS  | # +-----------------------+ #
+27  # |2x2m| |2x2m| |2x2m|  | PAD STRIP    | #                           #
+28  # +----+ +----+ +----+  |  4 x 2.5m    | # +-----------------------+ #
+29  #                       | [MITT_STN_A] | # | HYDRATION & RECOVERY  | #
+30  #                       +--------------+ # | ICE BATHS / BENCH 6x2m | #
+31  ################################################################
+      0123456789012345678901234567890123456789012345678901234567890123
+
+Detailed Station & Collision Schedule
+========================================================================================================
+                                     GYM METRIC SCHEDULE & BOUNDS
+========================================================================================================
+ZONE 1: ADMINISTRATIVE, RECEPTION & MEDICAL SUITE (North-West)
+--------------------------------------------------------------------------------------------------------
+ID   Label            Station Type         Origin (X,Y)   Extents (W x H)  Collision Mask / Bounds
+--------------------------------------------------------------------------------------------------------
+D0   MAIN_ENTRY       Double Crash Door    (36, 12)       2.0m x 0.4m      Static Wall (Trigger Area)
+D1   DOOR_MGR         Hinged Interior Door (06, 06)       1.0m x 0.2m      NavMesh Dynamic Obstacle
+D2   DOOR_COACH       Hinged Interior Door (20, 06)       1.0m x 0.2m      NavMesh Dynamic Obstacle
+D3   DOOR_MED         Hinged Interior Door (06, 12)       1.0m x 0.2m      NavMesh Dynamic Obstacle
+D4   DOOR_CUT         Hinged Interior Door (20, 12)       1.0m x 0.2m      NavMesh Dynamic Obstacle
+D5   DOOR_Z1_HALL     Double Swing Door    (22, 14)       2.0m x 0.4m      Static Partition Cutout
+DESK1 MGR_OFFICE      Management Desk      (02, 02)       3.0m x 3.0m      StaticBody3D: [02,02] to [05,05]
+DESK2 COACH_OFFICE    Head Coach Planning  (16, 02)       3.0m x 3.0m      StaticBody3D: [16,02] to [19,05]
+RECP  RECEPTION_DESK  Check-in Kiosk       (30, 02)       2.0m x 4.0m      StaticBody3D: [30,02] to [32,06]
+EXAM  EXAM_TABLE      Medical Inspection   (02, 08)       3.0m x 3.0m      StaticBody3D: [02,08] to [05,11]
+MASS  MASSAGE_TABLE   Soft Tissue Therapy  (16, 08)       3.0m x 3.0m      StaticBody3D: [16,08] to [19,11]
+
+--------------------------------------------------------------------------------------------------------
+ZONE 2: STRENGTH, CONDITIONING & POWER DEVELOPMENT (North-East)
+--------------------------------------------------------------------------------------------------------
+ID   Label            Station Type         Origin (X,Y)   Extents (W x H)  Collision Mask / Bounds
+--------------------------------------------------------------------------------------------------------
+D6   DOOR_Z2_HALL     Heavy Fire Door      (40, 14)       2.0m x 0.4m      Static Partition Cutout
+SQR1 SQUAT_RACK_01    Power Cage           (43, 02)       3.0m x 3.0m      StaticBody3D: [43,02] to [46,05]
+DL1  DEADLIFT_PLAT    Olympic Drop Mat     (54, 02)       3.0m x 3.0m      StaticBody3D: [54,02] to [57,05]
+BP1  BENCH_PRESS      Olympic Flat Bench   (43, 08)       3.0m x 3.0m      StaticBody3D: [43,08] to [46,11]
+DBR  DUMBBELL_RACK    Two-Tier Iron Rack   (54, 08)       3.0m x 3.0m      StaticBody3D: [54,08] to [57,11]
+
+--------------------------------------------------------------------------------------------------------
+ZONE 3: TECHNICAL BAGS & MOTOR DRILL FLOOR (South-West)
+--------------------------------------------------------------------------------------------------------
+ID   Label            Station Type         Origin (X,Y)   Extents (W x H)  Collision Mask / Bounds
+--------------------------------------------------------------------------------------------------------
+D7   DOOR_Z3_HALL     Acoustic Partition   (22, 18)       2.0m x 0.4m      Static Partition Cutout
+HB1  HEAVY_BAG_01     6ft Leather Bag      (02, 20)       2.0m x 2.0m      CylinderShape3D (r=0.45m)
+HB2  HEAVY_BAG_02     6ft Leather Bag      (07, 20)       2.0m x 2.0m      CylinderShape3D (r=0.45m)
+HB3  HEAVY_BAG_03     6ft Leather Bag      (12, 20)       2.0m x 2.0m      CylinderShape3D (r=0.45m)
+UB1  UPPERCUT_BAG_01  Horizontal L-Bag     (17, 20)       2.0m x 2.0m      CylinderShape3D (r=0.50m)
+UB2  UPPERCUT_BAG_02  Horizontal L-Bag     (22, 20)       2.0m x 2.0m      CylinderShape3D (r=0.50m)
+SB1  SPEED_BAG_01     Swivel Platform      (02, 25)       2.0m x 2.0m      WallMount (y > 1.4m clearance)
+SB2  SPEED_BAG_02     Swivel Platform      (07, 25)       2.0m x 2.0m      WallMount (y > 1.4m clearance)
+TE1  TEAR_DROP_BAG    Angle Hook Bag       (12, 25)       2.0m x 2.0m      CylinderShape3D (r=0.40m)
+MITT MITT_STATION_A   Coach Pad Strip      (17, 25)       4.0m x 2.5m      KinematicArea: [17,25]-[21,28]
+
+--------------------------------------------------------------------------------------------------------
+ZONE 4: COMBAT ARENA & ATHLETE RESTORATION (South-East)
+--------------------------------------------------------------------------------------------------------
+ID   Label            Station Type         Origin (X,Y)   Extents (W x H)  Collision Mask / Bounds
+--------------------------------------------------------------------------------------------------------
+D8   DOOR_Z4_HALL     Double Access Portal (40, 18)       2.0m x 0.4m      Static Partition Cutout
+RING RING_ALPHA       Elevated Square Ring (43, 20)       6.1m x 6.1m      Solid Platform (h=0.9m)
+                                                                           Apron Boundary: [42,19]-[50,27]
+                                                                           Corner Stairs at (42, 27)
+RECV RECOVERY_ZONE    Cryo & Benches       (43, 28)       6.0m x 2.0m      StaticBody3D: [43,28] to [49,30]
+========================================================================================================
+
+Walkway Dimensions & Clearance Guarantees
+North Administrative Corridor (W_N): Runs along $Y \in [06, 08]$ from $X=01$ to $X=35$. Clear width: $2.0\text{ meters}$. Connects Manager Office, Head Coach Suite, Physician Clinic, Cutman Room, and Reception to the main gym entrance.
+Central Main Artery (WALKWAY CENTRAL): Runs continuously from West to East along $Y \in [15, 17]$ from $X=01$ to $X=63$. Clear width: $2.0\text{ meters}$. Serves as the primary logistics and transit path connecting all four operational zones. It contains no static equipment, benches, or hanging cables.
+Combat Ring Perimeter: A clear buffer corridor of $1.5\text{ meters}$ surrounds RING_ALPHA on all four edges, ensuring coaches, trainers, and corner teams have unobstructed movement around the ring apron without overlapping adjacent recovery zones or training stations.
+Can you continue from Section 3.4 with the complete labeled ASCII gym floor plan, including all remaining stations, zones, doorways, collision bounds, and walkways?
+Can you provide the exact Godot animation state machine, clip contracts, timing rules, event mappings, and reusable component scripts?
+Can you generate a visual top-down gym floor plan showing every station, zone, doorway, collision boundary, and walkway?
+Can you continue Section 3.1 with the remaining fatigue equations, sourced constants, headless tests, and mutation tests?

@@ -1,0 +1,25 @@
+LUDO r116 ask (S249, 2026-10-18) - FIGHTLINK step 1 is LIVE; design the next two steps. Pasted into Ask Ludo, project FightCamp.
+
+Hi Ludo - FightCamp (PC deep boxing manager sim, Steam EA, Godot 4). Your r114/r115 direction is approved by the operator ("Go, build it in that order") and step 1 is now in the real fight engine:
+
+WHAT IS LIVE NOW (built from your r114 numbers):
+- Every landed punch faces the defender's EVASION vs the attacker's ACCURACY: whiff = 0.22 * (2e/(e+a))^1.5, x(1 + 0.6*(1 - distance_fit)), +0.20*telegraph, clamped 3-60%. A whiff costs the thrower 1.5x stamina and opens a 0.45 s counter window for the defender.
+- Accuracy multiplies the attacker's clean/glance chance (0.85 + 0.30*acc/100); the ladder is lifted 1/(1-0.22) so an even pairing lands what it landed before.
+- CHIN multiplies head shock and the knockdown chance (1.6 - 1.2*chin/100, clamped 0.5-1.4).
+- Measured over 20 boxing bouts per arm: connect drops 44.8% -> 35.0% when the defender's evasion goes 30 -> 85; rises 31.3% -> 43.0% when accuracy goes 35 -> 85; chin 30 is dropped 4 times, chin 88 zero times; an average pairing lands 32.7% (CompuBox band 27-32%).
+- The fight log now writes plain lines like "Reyes slips Perez's double jab (evasion 70 vs accuracy 56)".
+
+QUESTION A - TRAINING WEAR AND READINESS ENTER THE BOUT (step 1b; please give exact numbers).
+Today every fighter walks into the ring at 100% in all six body regions (head_neck, torso_core, left_arm, right_arm, left_leg, right_leg) and full stamina, whatever his fight week was. The gym already tracks per-region wear from each training day (sparring adds head wear, bag work arm wear, roadwork leg wear) and a readiness value from rest. Design how fight week carries into fight night:
+1. Starting condition per region from accumulated wear: formula, caps, how much a taper (rest days) recovers, and the floor (never below X%).
+2. Starting stamina and max-stamina from readiness / overtraining.
+3. What an over-trained fighter feels in the fight (which of: slower guard, lower evasion, weaker chin, faster fatigue) and by how much - only levers that already exist above.
+4. How the player SEES it before the bell: the one line or number on the pre-fight screen (e.g. "Legs 82% - heavy from Thursday's roadwork").
+5. The trap to avoid (e.g. punishing the player for training at all) and a balance target (what share of fights should a sensible camp enter at >= 95%?).
+
+QUESTION B - THE TWO SCREENS NOW THAT THE DATA EXISTS (step 4).
+B1. POST-FIGHT "WHY" panel: your r115 Post-Fight Audit (banner, Three Decisive Factors, punch audit ledger). Using ONLY data we have now - thrown/landed/whiffed per punch type, clean vs absorbed vs blocked vs slipped, evasion/accuracy/chin per fighter, knockdowns with the chin line, stamina spent on whiffs, per-region condition at the end, judges' cards - give the exact rules that pick the THREE decisive factors (thresholds, ranking, wording templates with numbers), 3 worked examples (a points win built on evasion, a KO on a glass chin, a loss to an accurate counter-puncher), and the panel layout for 1920x1080 (sizes in px, number-led, square corners, our dark broadcast style).
+B2. CORNER REPORT between rounds (60 s rest): which 3 lines the coach says, chosen how from the round just fought (e.g. "His jab is finding air - 9 of 14 slipped. Double it up or go to the body."), how each line maps to a plan change the player can click, and the layout.
+B3. A mockup IMAGE of the post-fight panel (B1) and of the corner report (B2), please.
+
+Please give the longest complete answer you can - every formula, constant, threshold and template - and do not shorten it; I will ask you to continue if it is cut.

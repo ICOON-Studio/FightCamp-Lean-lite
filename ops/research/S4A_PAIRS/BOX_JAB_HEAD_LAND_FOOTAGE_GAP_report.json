@@ -1,0 +1,74 @@
+{
+ "id": "BOX_JAB_HEAD_LAND_FOOTAGE_GAP",
+ "spec": "Tools/blender_moves/specs/BOX_JAB_HEAD_LAND_FOOTAGE_GAP.json",
+ "frames": {
+  "strike_start": 30,
+  "contact": 44,
+  "strike_end": 80,
+  "react_start": 44,
+  "react_end": 78,
+  "end": 110
+ },
+ "torso_T_m": {
+  "thrower": 0.5109340784085175,
+  "receiver": 0.5166050414164752
+ },
+ "distance_mode": "hip_gap_T_at_contact",
+ "solved_gap_m": 1.2984333909603227,
+ "contact_before_ik_m": {
+  "glove_short_of_face": -0.2412811017036438,
+  "glove_side_of_face": -0.31826528161764145,
+  "glove_below_face": 0.252767413854599
+ },
+ "ik": {
+  "window": [
+   [
+    36,
+    0.0
+   ],
+   [
+    44,
+    1.0
+   ],
+   [
+    46,
+    1.0
+   ],
+   [
+    56,
+    0.0
+   ]
+  ],
+  "chain": 3
+ },
+ "contact_after_ik_m": {
+  "along_short": -0.002749919891357422,
+  "side": -0.007546775043010712,
+  "height": -0.004732310771942139
+ },
+ "footage_numbers": {
+  "gap_T_before": 2.487282598820486,
+  "gap_T_contact": 1.9999999696328035,
+  "gap_T_after": 2.486532566007062,
+  "thrower_hips_out_T": 0.48702994991967996,
+  "thrower_lead_ankle_out_T": 0.7079970851786457,
+  "receiver_head_back_T_at_contact_plus_0.2s": 0.6633677689873944
+ },
+ "pair": {
+  "id": "BOX_JAB_HEAD_LAND_FOOTAGE_GAP",
+  "length_s": 1.8333333333333333,
+  "contact_s": 0.7333333333333333,
+  "entry_s": 0.5,
+  "start_gap_m": 1.2984,
+  "min_gap_m": 1.1784,
+  "max_gap_m": 1.4184,
+  "end_travel_m": {
+   "thrower": -0.0,
+   "receiver": -0.0
+  }
+ },
+ "toe_z_min_max_world": [
+  -0.8599405288696289,
+  -0.8485641479492188
+ ]
+}

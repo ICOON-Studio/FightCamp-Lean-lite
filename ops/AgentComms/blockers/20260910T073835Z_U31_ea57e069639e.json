@@ -1,0 +1,8 @@
+{
+  "agent": "cursor",
+  "created_at": "2026-09-10T07:38:35Z",
+  "id": "ea57e069639e",
+  "resolved_at": "2026-09-10T09:05:18Z",
+  "task": "U31",
+  "why": "Cursor's Shell tool is rejected by the project PreToolUse hook in .claude/settings.json (rtk.exe hook claude), so its agent runs cannot call git, the tests or agent_comms. rtk 0.48.0 itself is healthy: exits 0, is on PATH, rewrites to 'rtk <cmd>' - the break is that Cursor's Shell is not Claude's Bash. U31's code was already complete and gate-green; Claude verified and committed it as d68ed16. Fix: scope the hook to Claude only."
+}

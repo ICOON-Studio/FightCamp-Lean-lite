@@ -1,0 +1,14 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+POPULATION: counter specialist technique72 defense68 fight_iq78; 200 bouts/arm, seeds stage1 213000..213199, stage4 215000..215199; one regulation boxing round; distinct counter/pressure boxers; certified catalogue
+PROGRESS bouts/arm=25 low={ "lands": 51, "throws": 160, "spent": 11.7544770951014 } high={ "lands": 42, "throws": 171, "spent": 12.1111394427209 }
+PROGRESS bouts/arm=50 low={ "lands": 103, "throws": 326, "spent": 23.4555239519891 } high={ "lands": 79, "throws": 312, "spent": 22.2599859225732 }
+PROGRESS bouts/arm=75 low={ "lands": 148, "throws": 476, "spent": 34.308425067407 } high={ "lands": 114, "throws": 455, "spent": 32.3324138105146 }
+PROGRESS bouts/arm=100 low={ "lands": 191, "throws": 629, "spent": 45.4648411500004 } high={ "lands": 163, "throws": 607, "spent": 42.8945796685122 }
+PROGRESS bouts/arm=125 low={ "lands": 231, "throws": 766, "spent": 55.0334956151232 } high={ "lands": 203, "throws": 746, "spent": 52.8029968556932 }
+PROGRESS bouts/arm=150 low={ "lands": 276, "throws": 921, "spent": 65.8547471163665 } high={ "lands": 242, "throws": 884, "spent": 62.2175924490144 }
+PROGRESS bouts/arm=175 low={ "lands": 318, "throws": 1062, "spent": 76.095394857843 } high={ "lands": 275, "throws": 1029, "spent": 72.5286776585584 }
+PROGRESS bouts/arm=200 low={ "lands": 360, "throws": 1210, "spent": 86.6310084415612 } high={ "lands": 315, "throws": 1151, "spent": 81.0081570036821 }
+MEASURE stage1={ "lands": 360, "throws": 1210, "spent": 86.6310084415612 } stage4={ "lands": 315, "throws": 1151, "spent": 81.0081570036821 } land_rise=-0.1250
+FAIL: signature land rise outside +30..70 percent
+TECHNIQUE_STAGE_FIGHT_TEST failures=1

@@ -1,0 +1,549 @@
+FIGHTCAMP - ROUND 84: GYM FLOOR PLAYABLE (AUDIT 2)
+Godot 4.7 GDScript Implementation · Simulation Core & UI Hooks
+PART A: THE 6 DEAD MOMENTS ON THE GYM FLOOR
+
+Running the 10-minute floor loop with Rounds 79–83 active (station queues, floating stat gains, gold dots, coach boost, wrap drawers) reveals clear dead zones. The simulation has math, but lacks instant tactical feedback, organic friction, and tactile player input.
+
+1. The Empty Reps Deadlock (No Instant Tactical Grip)
+The Moment: Fighter is on Heavy Bag 2 for 45 game-minutes. The floating +1.4 POWER pop-up appears at 15-minute intervals, but the player is purely passive. There is zero tactical leverage over how the fighter hits the station during that block.
+Smallest Fix (Fix #1): "Corner Urge / Form Cue" (Quick Pointers). Every 15 minutes or upon click, give 3 tactile tactical cues on his active card: Power Through (+25% stat gain, -20% stamina burn), Crisp Form (+40% technique/card mastery rate, standard stamina), or Pace Yourself (-30% stamina burn, small chin/guard recovery). Clicking one fires an immediate visual reaction, modifies the tick rate for the remaining station slice, and creates direct agency without entering deep submenus.
+2. Sparring Sparsity & Partner Idle Ghosting
+The Moment: When sending the fighter to the ring, Sal "The Anvil" Barone merely acts as a stat coefficient multiplier. There is no tangible visual or textual simulation of a sparring clash, slipping a hook, or getting caught clean in the ring until the end-of-day summary.
+Smallest Fix (Fix #2): "Sparring Spar-Event Pulse & Stash". While in the ring, every 10–20 in-game minutes triggers an autonomous micro-event pulse: Clash / Slip / Caught Clean / Counter. Displays a floating combat beat (e.g., "SLIPPED LEAD JAB -> +0.8 FIGHT IQ" or "CAUGHT CLEAN: CHIN 79"), logs a tell progress tick (+3% against Perez/Meat-Axe style), and tests composure drift live on the floor.
+3. Move Card Mastery Ghosting (The 120-min & 600-min Dead Stretch)
+The Moment: The player assigned 3 move cards (e.g., Slip Outside -> Right Cross). The fighter drills on Slip Rope or Pads, but the progression toward 120 drilled minutes (usable) and 600 minutes (mastered pad chain) feels like an invisible black box until the final unlock occurs.
+Smallest Fix (Fix #3): "Pad Chain Mastery Milestone Breakouts". Fire a distinctive floating UI fanfare and floor banner the exact minute a move card crosses 25%, 50%, 75%, usable (120m), or mastered (600m). Provides immediate operational feedback: "TECH DRILL UNLOCKED: SLIP OUTSIDE (USABLE IN FIGHT)" with temporary stat momentum.
+4. Co-Trainee / Member Background Deadness
+The Moment: 3 paying gym members and sparring partners train in the background zones to generate dues, but feel like sterile background props. They do not interact with the atmosphere or create organic gym friction.
+Smallest Fix (Fix #4): "Floor Vibe & Member Spark". Ambient micro-praise or disruptions: paying members react when the head coach coaches a station ("Look at the snap on that cross"), boosting gym prestige points (+1 Prestige) or occasionally crowding a station, forcing station switching or quick coaching decisions.
+5. Shift Fatigue & Sudden "Exhausted" Brick Wall
+The Moment: Stamina drops smoothly, but at 24 stamina the fighter abruptly drops to EXHAUSTED state with an amber warning. The transition lacks physical ramp-up; the player is caught off-guard if distracted by office menus.
+Smallest Fix (Fix #5): "Breathing & Form Degradation Warning Bands". Three distinct threshold shifts: Winded (stamina 45–35, posture drops, pace slows -10%), Heavy Legs (34–25, missed reps, chance of slight tweak), Gasping/Exhausted (<25). Audible gasp / sweat tick and subtle visual floor indicator warn the player 2 game-hours before burnout occurs.
+6. Office-to-Floor Disconnect (Visiting Coach & Staff Idle)
+The Moment: Hiring an assistant or having a visiting coach feels locked to passive percentage boosts. You don't feel their physical presence on the floor zones.
+Smallest Fix (Fix #6): "Assistant Shadow Assignment". Assistant coach physically pins to an aisle or secondary station zone with a visible clip marker: "ASST: RUNNING BAGS (80%)". Clicking the assistant gives an instant 1-second audit toast of who is slacking or off-weight.
+PART B: COMPLETE GDSCRIPT IMPLEMENTATION (TOP 3 FIXES)
+
+Below are the complete, standalone Godot 4.7 implementations for Fix #1, Fix #2, and Fix #3.
+
+Rules logic extends RefCounted, uses static functions, plain Dictionary and Array payloads, zero external preloads.
+UI scripts extend Control, instantiate pure code UI using the Round-70 tokens:
+Void: #0d0c0b
+Panels: #1a1816, #22201d, #282521
+Gold: #f0c233
+Cream: #f6f0e0
+IMPLEMENTATION 1: CORNER URGE & FORM CUES (TACTILE STATION PACING)
+Logic Class: GymUrgeRules (res://scripts/floor/gym_urge_rules.gd)
+UI Class: GymUrgeOverlay (res://scripts/floor/gym_urge_overlay.gd)
+Engine Hook: run_floor_action(kind, id, action_id) and advance_minutes(n)
+# res://scripts/floor/gym_urge_rules.gd
+class_name GymUrgeRules
+extends RefCounted
+
+const CUE_POWER_THROUGH: String = "power_through"
+const CUE_CRISP_FORM: String = "crisp_form"
+const CUE_PACE_YOURSELF: String = "pace_yourself"
+
+static func get_cue_definition(cue_id: String) -> Dictionary:
+	match cue_id:
+		CUE_POWER_THROUGH:
+			return {
+				"id": CUE_POWER_THROUGH,
+				"label": "POWER THROUGH",
+				"stat_multiplier": 1.30,
+				"stamina_cost_multiplier": 1.25,
+				"technique_gain_bonus": 0.0,
+				"composure_delta": 2,
+				"description": "+30% Raw Stat Gains, +25% Stamina Burn."
+			}
+		CUE_CRISP_FORM:
+			return {
+				"id": CUE_CRISP_FORM,
+				"label": "CRISP FORM",
+				"stat_multiplier": 1.0,
+				"stamina_cost_multiplier": 1.0,
+				"technique_gain_bonus": 0.35, # Extra mastery minutes per minute
+				"composure_delta": 4,
+				"description": "Standard Burn, +35% Pad Chain Mastery & IQ."
+			}
+		CUE_PACE_YOURSELF:
+			return {
+				"id": CUE_PACE_YOURSELF,
+				"label": "PACE YOURSELF",
+				"stat_multiplier": 0.75,
+				"stamina_cost_multiplier": 0.60,
+				"technique_gain_bonus": 0.0,
+				"composure_delta": 1,
+				"description": "-40% Stamina Drain, Conserves Tank."
+			}
+		_:
+			return {
+				"id": "none",
+				"label": "NORMAL",
+				"stat_multiplier": 1.0,
+				"stamina_cost_multiplier": 1.0,
+				"technique_gain_bonus": 0.0,
+				"composure_delta": 0,
+				"description": "Standard work rate."
+			}
+
+static func apply_cue_to_tick(fighter_state: Dictionary, cue_id: String, base_stat_gain: float, base_stamina_cost: float, minutes: int) -> Dictionary:
+	var def: Dictionary = get_cue_definition(cue_id)
+	var final_stat_gain: float = (base_stat_gain * float(def["stat_multiplier"]))
+	var final_stamina_drain: float = (base_stamina_cost * float(def["stamina_cost_multiplier"]))
+	var bonus_mastery_minutes: float = (float(minutes) * float(def["technique_gain_bonus"]))
+	
+	var current_stamina: float = float(fighter_state.get("stamina", 100.0))
+	var current_composure: int = int(fighter_state.get("composure", 50))
+	
+	current_stamina = clampf(current_stamina - final_stamina_drain, 0.0, 100.0)
+	current_composure = clampi(current_composure + int(def["composure_delta"]), 0, 100)
+	
+	return {
+		"stat_gain": final_stat_gain,
+		"stamina_cost": final_stamina_drain,
+		"remaining_stamina": current_stamina,
+		"composure": current_composure,
+		"bonus_mastery_minutes": bonus_mastery_minutes,
+		"cue_used": cue_id
+	}
+
+# res://scripts/floor/gym_urge_overlay.gd
+class_name GymUrgeOverlay
+extends Control
+
+signal cue_selected(cue_id: String)
+
+var _game_state: Node = null
+var _current_cue: String = "none"
+
+var _panel: PanelContainer
+var _btn_power: Button
+var _btn_form: Button
+var _btn_pace: Button
+var _lbl_active: Label
+
+func setup(game_state: Node) -> void:
+	_game_state = game_state
+	_build_ui()
+
+func _build_ui() -> void:
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	custom_minimum_size = Vector2(340, 70)
+	set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
+	position = Vector2(-360, -90) # Relative to corner anchor
+	
+	_panel = PanelContainer.new()
+	_panel.mouse_filter = Control.MOUSE_FILTER_STOP
+	var sbox: StyleBoxFlat = StyleBoxFlat.new()
+	sbox.bg_color = Color("#1a1816")
+	sbox.border_color = Color("#282521")
+	sbox.border_width_left = 2
+	sbox.border_width_top = 2
+	sbox.border_width_right = 2
+	sbox.border_width_bottom = 2
+	sbox.corner_radius_top_left = 4
+	sbox.corner_radius_top_right = 4
+	sbox.corner_radius_bottom_right = 4
+	sbox.corner_radius_bottom_left = 4
+	sbox.content_margin_left = 8
+	sbox.content_margin_right = 8
+	sbox.content_margin_top = 6
+	sbox.content_margin_bottom = 6
+	_panel.add_theme_stylebox_override("panel", sbox)
+	add_child(_panel)
+
+	var vbox: VBoxContainer = VBoxContainer.new()
+	vbox.add_theme_constant_override("separation", 4)
+	_panel.add_child(vbox)
+
+	var top_row: HBoxContainer = HBoxContainer.new()
+	vbox.add_child(top_row)
+
+	var title: Label = Label.new()
+	title.text = "CORNER FORM CUE"
+	title.add_theme_color_override("font_color", Color("#f0c233"))
+	title.add_theme_font_size_override("font_size", 11)
+	top_row.add_child(title)
+
+	top_row.add_spacer(false)
+
+	_lbl_active = Label.new()
+	_lbl_active.text = "CURRENT: NORMAL"
+	_lbl_active.add_theme_color_override("font_color", Color("#f6f0e0"))
+	_lbl_active.add_theme_font_size_override("font_size", 10)
+	top_row.add_child(_lbl_active)
+
+	var btn_row: HBoxContainer = HBoxContainer.new()
+	btn_row.add_theme_constant_override("separation", 6)
+	vbox.add_child(btn_row)
+
+	_btn_power = _create_cue_button("POWER", GymUrgeRules.CUE_POWER_THROUGH)
+	_btn_form = _create_cue_button("CRISP FORM", GymUrgeRules.CUE_CRISP_FORM)
+	_btn_pace = _create_cue_button("PACE", GymUrgeRules.CUE_PACE_YOURSELF)
+
+	btn_row.add_child(_btn_power)
+	btn_row.add_child(_btn_form)
+	btn_row.add_child(_btn_pace)
+
+func _create_cue_button(text_label: String, cue_id: String) -> Button:
+	var btn: Button = Button.new()
+	btn.text = text_label
+	btn.focus_mode = Control.FOCUS_NONE
+	btn.custom_minimum_size = Vector2(98, 26)
+	btn.add_theme_font_size_override("font_size", 10)
+	
+	var norm_style: StyleBoxFlat = StyleBoxFlat.new()
+	norm_style.bg_color = Color("#22201d")
+	norm_style.border_color = Color("#282521")
+	norm_style.border_width_bottom = 2
+	norm_style.corner_radius_top_left = 2
+	norm_style.corner_radius_top_right = 2
+	norm_style.corner_radius_bottom_left = 2
+	norm_style.corner_radius_bottom_right = 2
+	btn.add_theme_stylebox_override("normal", norm_style)
+
+	var hover_style: StyleBoxFlat = norm_style.duplicate()
+	hover_style.bg_color = Color("#282521")
+	hover_style.border_color = Color("#f0c233")
+	btn.add_theme_stylebox_override("hover", hover_style)
+
+	btn.pressed.connect(func(): _on_cue_pressed(cue_id))
+	return btn
+
+func _on_cue_pressed(cue_id: String) -> void:
+	_current_cue = cue_id
+	var def: Dictionary = GymUrgeRules.get_cue_definition(cue_id)
+	_lbl_active.text = "CUE: " + str(def.get("label", "NORMAL"))
+	cue_selected.emit(cue_id)
+	
+	if _game_state and _game_state.has_method("run_floor_action"):
+		_game_state.call("run_floor_action", "fighter", "leo_vance", "cue_" + cue_id)
+	if _game_state and _game_state.has_method("show_floor_toast"):
+		_game_state.call("show_floor_toast", "COACH CUE: " + str(def["label"]))
+
+func set_current_cue_direct(cue_id: String) -> void:
+	_current_cue = cue_id
+	var def: Dictionary = GymUrgeRules.get_cue_definition(cue_id)
+	_lbl_active.text = "CUE: " + str(def.get("label", "NORMAL"))
+
+IMPLEMENTATION 2: SPARRING MICRO-EVENT ENGINE & TELL ACCRUAL
+Logic Class: GymSparringPulseRules (res://scripts/floor/gym_sparring_pulse_rules.gd)
+UI Class: GymSparringEventBanner (res://scripts/floor/gym_sparring_event_banner.gd)
+Engine Hook: apply_floor_effect(effect) and _float_text(text, color)
+# res://scripts/floor/gym_sparring_pulse_rules.gd
+class_name GymSparringPulseRules
+extends RefCounted
+
+const BEAT_SLIP_COUNTER: String = "slip_counter"
+const BEAT_CAUGHT_CLEAN: String = "caught_clean"
+const BEAT_CLINCH_BREAK: String = "clinch_break"
+const BEAT_TELL_SPOTTED: String = "tell_spotted"
+
+static func roll_sparring_beat(fighter_stats: Dictionary, partner_stats: Dictionary, rand_val: float) -> Dictionary:
+	var f_defense: float = float(fighter_stats.get("defense", 45.0))
+	var f_iq: float = float(fighter_stats.get("fight_iq", 50.0))
+	var p_power: float = float(partner_stats.get("power", 50.0))
+	
+	# IQ and defense weight the outcome
+	var slip_threshold: float = 0.35 + (f_iq * 0.003) + (f_defense * 0.002) # ~0.60
+	var clean_threshold: float = slip_threshold + (0.28 - (f_defense * 0.0015)) # ~0.82
+	
+	if rand_val <= slip_threshold:
+		return {
+			"beat": BEAT_SLIP_COUNTER,
+			"banner_text": "SLIPPED JAB -> CRISP COUNTER",
+			"iq_gain": 0.45,
+			"composure_delta": 3,
+			"chin_wear": 0.0,
+			"tell_progress": 0.04,
+			"accent_color": "#f0c233" # Gold
+		}
+	elif rand_val <= clean_threshold:
+		var chin_loss: float = 0.15 + (p_power * 0.002)
+		return {
+			"beat": BEAT_CAUGHT_CLEAN,
+			"banner_text": "CAUGHT WITH RIGHT HOOK",
+			"iq_gain": 0.1,
+			"composure_delta": -4,
+			"chin_wear": chin_loss,
+			"tell_progress": 0.01,
+			"accent_color": "#d94336" # Red
+		}
+	else:
+		return {
+			"beat": BEAT_TELL_SPOTTED,
+			"banner_text": "TELL READ: OPPONENT DROPS GUARD",
+			"iq_gain": 0.60,
+			"composure_delta": 5,
+			"chin_wear": 0.0,
+			"tell_progress": 0.10,
+			"accent_color": "#5bc266" # Green
+		}
+
+static func apply_sparring_tick(fighter_state: Dictionary, beat_result: Dictionary) -> Dictionary:
+	var updated: Dictionary = fighter_state.duplicate()
+	var iq: float = float(updated.get("fight_iq", 50.0)) + float(beat_result.get("iq_gain", 0.0))
+	var comp: int = clampi(int(updated.get("composure", 50)) + int(beat_result.get("composure_delta", 0)), 10, 100)
+	var chin: float = clampf(float(updated.get("chin", 80.0)) - float(beat_result.get("chin_wear", 0.0)), 10.0, 100.0)
+	var tell_acc: float = clampf(float(updated.get("tell_progress", 0.0)) + float(beat_result.get("tell_progress", 0.0)), 0.0, 1.0)
+	
+	updated["fight_iq"] = iq
+	updated["composure"] = comp
+	updated["chin"] = chin
+	updated["tell_progress"] = tell_acc
+	return updated
+
+# res://scripts/floor/gym_sparring_event_banner.gd
+class_name GymSparringEventBanner
+extends Control
+
+var _game_state: Node = null
+var _box: PanelContainer
+var _label: Label
+var _lifetime: float = 0.0
+
+func setup(game_state: Node) -> void:
+	_game_state = game_state
+	_build_ui()
+
+func _build_ui() -> void:
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	custom_minimum_size = Vector2(300, 32)
+	modulate.a = 0.0
+
+	_box = PanelContainer.new()
+	var sb: StyleBoxFlat = StyleBoxFlat.new()
+	sb.bg_color = Color("#1a1816")
+	sb.border_color = Color("#f0c233")
+	sb.border_width_left = 3
+	sb.border_width_top = 1
+	sb.border_width_right = 1
+	sb.border_width_bottom = 1
+	sb.content_margin_left = 10
+	sb.content_margin_right = 10
+	sb.content_margin_top = 4
+	sb.content_margin_bottom = 4
+	_box.add_theme_stylebox_override("panel", sb)
+	add_child(_box)
+
+	_label = Label.new()
+	_label.text = "SPARRING INCIDENT"
+	_label.add_theme_color_override("font_color", Color("#f6f0e0"))
+	_label.add_theme_font_size_override("font_size", 11)
+	_box.add_child(_label)
+
+func trigger_beat(beat_result: Dictionary, screen_pos: Vector2) -> void:
+	position = screen_pos - Vector2(150, 40)
+	_label.text = str(beat_result.get("banner_text", "SPARRING EXCHANGE"))
+	var c: Color = Color(str(beat_result.get("accent_color", "#f0c233")))
+	
+	var sb: StyleBoxFlat = _box.get_theme_stylebox("panel") as StyleBoxFlat
+	if sb:
+		sb.border_color = c
+	_label.add_theme_color_override("font_color", c)
+
+	modulate.a = 1.0
+	_lifetime = 2.4
+	set_process(true)
+	
+	if _game_state and _game_state.has_method("_float_text"):
+		_game_state.call("_float_text", _label.text, c)
+	if _game_state and _game_state.has_method("apply_floor_effect"):
+		_game_state.call("apply_floor_effect", beat_result)
+
+func _process(delta: float) -> void:
+	if _lifetime > 0.0:
+		_lifetime -= delta
+		position.y -= delta * 12.0 # Gentle upward float
+		if _lifetime < 0.8:
+			modulate.a = _lifetime / 0.8
+		if _lifetime <= 0.0:
+			modulate.a = 0.0
+			set_process(false)
+
+IMPLEMENTATION 3: MOVE CARD MASTERY MILESTONE BREAKOUTS
+Logic Class: GymMasteryRules (res://scripts/floor/gym_mastery_rules.gd)
+UI Class: GymMasteryMilestoneToast (res://scripts/floor/gym_mastery_milestone_toast.gd)
+Engine Hook: advance_minutes(n) and show_floor_toast(text)
+# res://scripts/floor/gym_mastery_rules.gd
+class_name GymMasteryRules
+extends RefCounted
+
+const USABLE_MINUTES: int = 120
+const MASTERED_MINUTES: int = 600
+
+# Tracks and returns unlocked tier if crossed this exact tick
+static func tick_card_drilling(current_drilled_minutes: int, additional_minutes: int) -> Dictionary:
+	var start_mins: int = current_drilled_minutes
+	var end_mins: int = current_drilled_minutes + additional_minutes
+	
+	var crossed_25: bool = (start_mins < 30 and end_mins >= 30)
+	var crossed_usable: bool = (start_mins < USABLE_MINUTES and end_mins >= USABLE_MINUTES)
+	var crossed_half: bool = (start_mins < 300 and end_mins >= 300)
+	var crossed_mastered: bool = (start_mins < MASTERED_MINUTES and end_mins >= MASTERED_MINUTES)
+	
+	var milestone_tier: String = ""
+	var toast_message: String = ""
+	
+	if crossed_mastered:
+		milestone_tier = "MASTERED"
+		toast_message = "MOVE CARD FULLY MASTERED (PAD CHAIN ACTIVE)"
+	elif crossed_usable:
+		milestone_tier = "USABLE"
+		toast_message = "MOVE CARD DRILL COMPLETE: USABLE IN BOUTS"
+	elif crossed_half:
+		milestone_tier = "HALFWAY"
+		toast_message = "MOVE CARD AT 50% MASTERY"
+	elif crossed_25:
+		milestone_tier = "STARTED"
+		toast_message = "TECHNIQUE GROOVED: 25% MASTERY"
+		
+	return {
+		"new_drilled_minutes": end_mins,
+		"milestone_crossed": milestone_tier != "",
+		"milestone_tier": milestone_tier,
+		"toast_message": toast_message,
+		"is_usable": end_mins >= USABLE_MINUTES,
+		"is_mastered": end_mins >= MASTERED_MINUTES
+	}
+
+static func calculate_chain_fire_chance(card_mastery_mins: int, fight_iq: float) -> float:
+	var pct: float = clampf(float(card_mastery_mins) / float(MASTERED_MINUTES), 0.0, 1.0)
+	if pct < 0.25:
+		return 0.0
+	# GDD Formula: chance = mastery * ring IQ / 70
+	var chance: float = (pct * fight_iq) / 70.0
+	return clampf(chance, 0.0, 1.0)
+
+# res://scripts/floor/gym_mastery_milestone_toast.gd
+class_name GymMasteryMilestoneToast
+extends Control
+
+var _game_state: Node = null
+var _banner_panel: PanelContainer
+var _lbl_title: Label
+var _lbl_body: Label
+var _timer: float = 0.0
+
+func setup(game_state: Node) -> void:
+	_game_state = game_state
+	_build_ui()
+
+func _build_ui() -> void:
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	custom_minimum_size = Vector2(380, 50)
+	set_anchors_preset(Control.PRESET_TOP_WIDE)
+	position = Vector2(0, 20)
+	modulate.a = 0.0
+
+	_banner_panel = PanelContainer.new()
+	_banner_panel.custom_minimum_size = Vector2(380, 50)
+	var sb: StyleBoxFlat = StyleBoxFlat.new()
+	sb.bg_color = Color("#1a1816")
+	sb.border_color = Color("#f0c233")
+	sb.border_width_left = 4
+	sb.border_width_right = 4
+	sb.border_width_top = 2
+	sb.border_width_bottom = 2
+	sb.corner_radius_bottom_left = 6
+	sb.corner_radius_bottom_right = 6
+	sb.content_margin_left = 12
+	sb.content_margin_right = 12
+	sb.content_margin_top = 6
+	sb.content_margin_bottom = 6
+	_banner_panel.add_theme_stylebox_override("panel", sb)
+	add_child(_banner_panel)
+
+	var vb: VBoxContainer = VBoxContainer.new()
+	vb.add_theme_constant_override("separation", 2)
+	_banner_panel.add_child(vb)
+
+	_lbl_title = Label.new()
+	_lbl_title.text = "MILESTONE REACHED"
+	_lbl_title.add_theme_color_override("font_color", Color("#f0c233"))
+	_lbl_title.add_theme_font_size_override("font_size", 11)
+	vb.add_child(_lbl_title)
+
+	_lbl_body = Label.new()
+	_lbl_body.text = "TECHNIQUE READY"
+	_lbl_body.add_theme_color_override("font_color", Color("#f6f0e0"))
+	_lbl_body.add_theme_font_size_override("font_size", 12)
+	vb.add_child(_lbl_body)
+
+func display_milestone(card_name: String, milestone_data: Dictionary) -> void:
+	var tier: String = str(milestone_data.get("milestone_tier", "UPDATED"))
+	var msg: String = str(milestone_data.get("toast_message", ""))
+	
+	_lbl_title.text = "TECH DRILL PROGRESS: " + card_name.to_upper() + " [" + tier + "]"
+	_lbl_body.text = msg
+	
+	modulate.a = 1.0
+	_timer = 3.5
+	set_process(true)
+
+	if _game_state and _game_state.has_method("show_floor_toast"):
+		_game_state.call("show_floor_toast", msg)
+
+func _process(delta: float) -> void:
+	if _timer > 0.0:
+		_timer -= delta
+		if _timer < 0.6:
+			modulate.a = _timer / 0.6
+		if _timer <= 0.0:
+			modulate.a = 0.0
+			set_process(false)
+
+PART C: SCENETREE TEST SUITE (GODOT 4.7)
+Control Arm Preserved Unchanged: The standard GDD station dimensions, Godot top-down fixed 44-degree camera, zone rectangles [x0, z0, x1, z1], and core attribute formulas (chin, IQ, power, stamina) remain fully unaltered.
+
+Save as res://tests/test_round_84.gd and execute via CLI:
+
+godot --headless -s res://tests/test_round_84.gd
+
+# res://tests/test_round_84.gd
+extends SceneTree
+
+# Mock Host Game State to verify engine hooks without loading the entire 3D world
+class MockFloorHost extends Node:
+	var last_action_kind: String = ""
+	var last_action_id: String = ""
+	var last_action_val: String = ""
+	var last_toast: String = ""
+	var last_float_text: String = ""
+	var last_effect: Dictionary = {}
+
+	func run_floor_action(kind: String, id: String, action_id: String) -> void:
+		last_action_kind = kind
+		last_action_id = id
+		last_action_val = action_id
+
+	func show_floor_toast(msg: String) -> void:
+		last_toast = msg
+
+	func _float_text(msg: String, _color: Color) -> void:
+		last_float_text = msg
+
+	func apply_floor_effect(effect: Dictionary) -> void:
+		last_effect = effect
+
+func _init() -> void:
+	var failures: int = 0
+	print("--- BEGIN ROUND 84 GYM FLOOR TEST SUITE ---")
+	var host: MockFloorHost = MockFloorHost.new()
+	root.add_child(host)
+
+	# -------------------------------------------------------------------------
+	# TEST 1: Corner Urge Pacing & Form Cues
+	# -------------------------------------------------------------------------
+	var fighter_state_1: Dictionary = {
+		"stamina": 80.0,
+		"composure": 50
+	}
+	var tick_power: Dictionary = GymUrgeRules.apply_cue_to_tick(
+		fighter_state_1, GymUrgeRules.CUE_POWER_THROUGH, 1.0, 4.0, 15
+	)
+	if tick_power["stat_gain"] != 1.3:
+		print("FAIL 1A: Expected 1.3 stat gain on POWER, got ", tick_power["stat_gain"])
+		failures += 1
+	if tick_power["stamina_cost"] != 5.0: #

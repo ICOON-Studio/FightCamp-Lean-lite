@@ -1,0 +1,8 @@
+{
+  "agent": "qwen",
+  "created_at": "2026-09-10T08:12:29Z",
+  "id": "1f5dcb537c6b",
+  "resolved_at": "2026-09-10T09:05:18Z",
+  "task": "Q23",
+  "why": "Qwen's run was halted by its own CLI loop detection (turn_tool_call_cap, the per-turn tool-call limit) after the code, tests and digest were written but before commit/push/mail. Work was green and Claude verified and committed it as f989bcd. For the next Qwen launch either unset model.maxToolCallsPerTurn to restore the adaptive default, or raise it; a long task that legitimately makes many DIFFERENT calls hits a hard cap that was meant to catch repetition."
+}

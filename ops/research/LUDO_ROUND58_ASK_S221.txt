@@ -1,0 +1,112 @@
+FIGHTCAMP - GAME FACTS (generated from the game's data files by Tools/ludo_facts.py; use THESE names, never invent)
+
+1. SIMULATION ATTRIBUTES (the fight sim's stat keys, 0-100): power, technique, speed, defense, conditioning, fight_iq, grapple_offense, grapple_defence, top_control
+2. PLAYER-FACING READOUT (the 9 bars on the profile): POWER=power, TECHNIQUE=technique, SPEED=speed, STAMINA=stamina, CHIN=chin, DEFENCE=defense, FOOTWORK=footwork, RING IQ=ring_iq, COMPOSURE=composure
+3. TECHNIQUE REQUIREMENTS use these attribute names: power, technique, speed, defense, conditioning, fight_iq, grapple; tiers: 1=Foundation, 2=Core, 3=Advanced, 4=Signature
+4. THE REAL BOXING TECHNIQUE TREE (54 nodes; id | name | tier | branch | needs attributes | needs techniques):
+   boxing_one_two | One-Two | T1 | combinations | speed 26, technique 26 | boxing_jab, boxing_cross
+   boxing_one_two_hook | One-Two-Hook | T2 | combinations | speed 30, technique 30 | boxing_one_two, boxing_lead_hook
+   boxing_jab_body_head | Jab Body, Jab Head | T3 | combinations | technique 36, speed 34 | boxing_jab, boxing_jab_body
+   boxing_counter_combination | Counter Combination | T4 | combinations | fight_iq 46, speed 44 | boxing_pull_counter, boxing_one_two_hook
+   boxing_liver_combo | Jab-Cross-Lead Hook to the Body | T4 | combinations | power 44, technique 44 | boxing_one_two_hook, boxing_body_hook, boxing_jab, boxing_cross
+   boxing_six_punch_combo | Six-Punch Combination | T4 | combinations | conditioning 46, speed 44 | boxing_one_two_hook, boxing_rear_uppercut
+   boxing_catch | Catch the Jab | T1 | defense_counters | defense 24 | boxing_stance_guard
+   boxing_parry | Parry | T1 | defense_counters | defense 24, fight_iq 22 | boxing_stance_guard
+   boxing_slip | Slip | T1 | defense_counters | speed 26, defense 24 | boxing_stance_guard
+   boxing_block_elbow | Elbow and Forearm Block | T2 | defense_counters | defense 30 | boxing_catch
+   boxing_bob_weave | Bob and Weave | T2 | defense_counters | speed 32, conditioning 30 | boxing_roll
+   boxing_catch_counter | Catch and Return | T2 | defense_counters | fight_iq 30 | boxing_catch, boxing_cross
+   boxing_pull | Pull | T2 | defense_counters | speed 30, fight_iq 28 | boxing_slip
+   boxing_roll | Roll Under | T2 | defense_counters | speed 30, defense 30 | boxing_slip
+   boxing_slip_counter | Slip-Cross Counter | T2 | defense_counters | speed 30, fight_iq 30 | boxing_slip, boxing_cross
+   boxing_check_hook | Check Hook | T3 | defense_counters | speed 36, fight_iq 36 | boxing_lead_hook, boxing_pivot_footwork
+   boxing_check_hook_pivot | Check Hook and Pivot | T3 | defense_counters | speed 38, fight_iq 36 | boxing_check_hook
+   boxing_counter_over_jab | Counter Over the Jab | T3 | defense_counters | fight_iq 38, technique 34 | boxing_slip_counter
+   boxing_long_guard | Long Guard | T3 | defense_counters | defense 36 | boxing_block_elbow
+   boxing_pull_counter | Pull-Cross Counter | T3 | defense_counters | speed 36, fight_iq 36 | boxing_pull, boxing_cross
+   boxing_shoulder_roll | Shoulder Roll | T3 | defense_counters | defense 38, fight_iq 34 | boxing_roll
+   boxing_step_in_out | Step In, Step Out | T1 | footwork_ring | speed 24 | boxing_stance_guard
+   boxing_circle_lead | Circle to the Lead Side | T2 | footwork_ring | speed 28, conditioning 28 | boxing_step_in_out
+   boxing_circle_rear | Circle to the Rear Side | T2 | footwork_ring | speed 28, fight_iq 28 | boxing_step_in_out
+   boxing_feint | Feint | T2 | footwork_ring | fight_iq 30, technique 28 | boxing_distance_read, boxing_jab
+   boxing_pivot_footwork | Ring Pivot | T2 | footwork_ring | speed 30 | boxing_step_in_out
+   boxing_angle_step | L-Step Angle | T3 | footwork_ring | speed 36, technique 34 | boxing_pivot_footwork
+   boxing_cutoff_ring | Cut Off the Ring | T3 | footwork_ring | fight_iq 36 | boxing_circle_lead, boxing_circle_rear
+   boxing_rhythm_change | Breaking the Rhythm | T3 | footwork_ring | fight_iq 38 | boxing_feint, boxing_breathing_rhythm
+   boxing_rope_work | Working Off the Ropes | T3 | footwork_ring | defense 38, fight_iq 36 | boxing_shoulder_roll
+   boxing_drawing | Drawing the Lead | T4 | footwork_ring | fight_iq 46 | boxing_rhythm_change, boxing_pull_counter
+   boxing_switch_stance | Switching Stance | T4 | footwork_ring | technique 44, fight_iq 44 | boxing_angle_step, boxing_rhythm_change
+   boxing_breathing_rhythm | Breathing and Rhythm | T1 | fundamentals | conditioning 24 | boxing_stance_guard
+   boxing_distance_read | Finding the Range | T1 | fundamentals | fight_iq 24 | boxing_stance_guard
+   boxing_stance_guard | Stance and High Guard | T1 | fundamentals | defense 22 | -
+   boxing_lead_hook | Lead Hook | T2 | hooks_bodywork | power 30, technique 30 | boxing_one_two
+   boxing_lead_uppercut | Lead Uppercut | T2 | hooks_bodywork | power 30, technique 32 | boxing_lead_hook
+   boxing_rear_hook | Rear Hook | T2 | hooks_bodywork | power 32, technique 30 | boxing_lead_hook
+   boxing_rear_uppercut | Rear Uppercut | T2 | hooks_bodywork | power 32, technique 32 | boxing_lead_uppercut
+   boxing_body_hook | Lead Hook to the Body | T3 | hooks_bodywork | power 34, conditioning 32 | boxing_lead_hook
+   boxing_rear_hook_body | Rear Hook to the Body | T3 | hooks_bodywork | power 36, conditioning 32 | boxing_body_hook
+   boxing_shovel_hook | Shovel Hook | T3 | hooks_bodywork | power 34, technique 36 | boxing_rear_uppercut
+   boxing_clinch_tieup | Tie Up | T2 | infighting | technique 30, conditioning 30 | boxing_block_elbow
+   boxing_forearm_frame | Forearm Frame | T3 | infighting | defense 36, power 32 | boxing_clinch_tieup
+   boxing_inside_uppercut | Uppercut on the Inside | T3 | infighting | power 36, technique 34 | boxing_clinch_tieup, boxing_rear_uppercut
+   boxing_pivot_out | Pivot Out of the Clinch | T3 | infighting | speed 36, technique 34 | boxing_clinch_tieup, boxing_pivot_footwork
+   boxing_shoulder_bump | Shoulder Bump | T3 | infighting | power 34, conditioning 34 | boxing_clinch_tieup
+   boxing_cross | Rear Cross | T1 | straight_punching | power 26, technique 24 | boxing_jab
+   boxing_jab | Jab | T1 | straight_punching | speed 24 | boxing_stance_guard
+   boxing_cross_body | Cross to the Body | T2 | straight_punching | power 30, technique 28 | boxing_cross
+   boxing_double_jab | Double Jab | T2 | straight_punching | speed 30 | boxing_jab
+   boxing_jab_body | Jab to the Body | T2 | straight_punching | speed 28, technique 28 | boxing_jab
+   boxing_overhand | Overhand Right | T3 | straight_punching | power 36, technique 32 | boxing_cross
+   boxing_up_jab | Up Jab | T3 | straight_punching | speed 34, technique 34 | boxing_jab_body
+5. CERTIFIED BOXING MOVES (the only ones the demo animates and lets a player train): strikes boxing_jab, boxing_cross, boxing_rear_uppercut, boxing_jab_body, boxing_body_hook, boxing_up_jab, boxing_overhand, boxing_cross_body, boxing_double_jab, boxing_one_two, boxing_slip_counter, boxing_pull_counter, boxing_counter_over_jab, boxing_catch_counter, boxing_lead_uppercut, boxing_check_hook, boxing_lead_hook, boxing_rear_hook, boxing_rear_hook_body, boxing_one_two_hook, boxing_liver_combo, boxing_six_punch_combo; defence boxing_slip, boxing_pull, boxing_catch
+6. BODY REGIONS (wear 0-100%): head_neck, torso_core, left_arm, right_arm, left_leg, right_leg
+7. GYM TIERS: T1 30.0x18.0 m; T2 40.0x25.0 m; T3 60.0x31.0 m (club -> commercial -> elite; no garage)
+8. SCREEN: 1920x1080, Godot 4.7.2 GDScript; boxing first (demo), MMA later; PC deep management sim (FM / Motorsport Manager class).
+
+==== USE THE NAMES ABOVE, NEVER INVENT STATS OR TECHNIQUES ====
+
+LUDO ROUND 58 - THE LOCKER ROOM (a real room the player opens in the club; props we will actually BUILD and SHIP)
+
+The operator (CEO, verbatim): "ludos design needs to be in accordance with the game i do not want random generated pictures i want pictures we can use in the game , start the locker rooms"
+
+So this is NOT concept art. Every prop you specify becomes: (1) one isolated reference picture in OUR game's look -> (2) a 3D model (image-to-3D) -> (3) placed in our Blender room -> (4) shipped in Godot. A picture that does not match the game is wasted money.
+
+ATTACHED PICTURES (uploaded, look at them):
+- 01_mid: our club on the game's own camera (the hall, the corridor, the rooms behind the north wall).
+- 02_locker_room: the locker room TODAY when the player opens it - placeholder furniture-kit blocks (bookcases pretending to be lockers, kit bench, kit showers). This is what we replace.
+
+OUR ROOM (game units = metres, our axes, do not mirror):
+- Locker room interior: 5.4 m wide (x 0..5.4) x 4.5 m deep (z 0..4.5), wall height 3.6 m. z=0 is the wall onto the gym hall's front aisle; the main door is at x=3.6 on that wall, 1.0 m wide. A second door on the east wall (x=5.4) at z=0.7 leads to a side corridor. No windows (an interior room).
+- The camera when the room is open: the club's room view (see 02) - looks into the room from above the door side, ~45 degrees down.
+- Floor colour in the game today: #d9d4c7.
+
+OUR LOOK (Maria's style sheet, already in the game - your props MUST follow it):
+- Chunky stylised real boxing gym (Two Point Hospital spirit, Gleason's / Repton mood). Brick #b8402e with mortar #8e2f22, glazed dado band #d98039 (0-1.1 m), upper plaster #efe4cf. Steel #2b2f36 (edge #4a515c). Leather red #c62f2a / black #22201f / white #ecebe6 / old brown #8a5232. Wood #c48a4a. Accents gold #f0c233, paper #f6f0e0, poster blue #2a5f9e. NO teal on any asset (teal is UI selection only).
+- Shape: every hard edge a 2-segment chamfer (4% of the smallest dimension, 2-8 cm); equipment 1.2x real against characters; the one feature that names a prop is 25% bigger; thin parts at least 3x real thickness.
+- Materials in the game are CC0 PBR sets (wood, rubber, plaster, fabric, brick) + flat colours from the palette.
+- Fighters are MetaHuman bodies (realistic people) - props must read next to them.
+
+WHAT THE ROOM DOES IN THE GAME (our earlier design, keep it):
+What a real fight gym's locker room is for (S106 "what would a human do"):
+every fighter has his own locker with his name on it; fight week is on the
+board by the door (who fights, whom, in how many days); the scale is where a
+cut is checked every morning of fight week; the bench is where hands are
+wrapped; sinks and a shower for after. A fighter with a booked bout has his
+kit bag packed at the foot of his locker.
+##
+Every locker is a click to that fighter's card, the scale opens the weight
+classes, the board opens the schedule; the door goes back to the floor.
+Reuses Office3D's Kenney kit loader (CC0), tags and object_at. Node names
+are the contract the test reads: Shell, Lockers/<id>, Objects/scale,
+Objects/board, Bench, Doors/floor.
+- Dola's review (S111) asked for: the booked fighter's own gear laid out at his locker (gloves, wraps, mouthguard, towel), and a mirror over sinks.
+- Scale: shows the booked fighter's name + walking weight vs the division limit (the game already computes it - e.g. "Walking 55.6 kg | Limit 50.8 kg").
+
+WHAT I NEED FROM YOU - the longest, most complete answer you can give (do not shorten; if you run out, I will say "continue"):
+A. PROP LIST - 8 to 12 props maximum (fewer multipurpose props beat clutter). For EACH prop:
+   name; what it does in the game (click -> what); real dimensions in metres (w x d x h) BEFORE the 1.2x; which wall/floor face it attaches to; its front; hero or reused (how many copies); materials as palette hex + which CC0 set; polygon budget (hero <= 8k tris, reused <= 3k); the ONE named feature that gets +25%.
+B. LAYOUT in OUR coordinates (x 0..5.4, z 0..4.5, main door at x 3.6 on z=0, side door at z 0.7 on x=5.4): every prop's centre x,z, yaw, and the walking path from the door (keep >= 0.9 m clear). Lockers for 8 fighters at least.
+C. ONE REFERENCE-PICTURE PROMPT PER PROP for an image-to-3D model: the whole object alone, centred, three-quarter view from slightly above, plain light-grey background, no room, no people, no text or logos, soft even light, our palette and chamfered chunky style. Write each prompt so the picture could be used directly as the model's source and look like it belongs in attached picture 01.
+D. REJECTION RULES per prop: what makes its picture or its model wrong (e.g. fused with a neighbour, cropped, unreadable front, wrong colour, photo-real grime).
+E. The room's own shell: wall finish per wall (brick / dado / plaster), floor (tile? rubber?), ceiling lights, and 2-3 wall details (posters, mirror, notice board) - flat textures, not models.
+F. Your score out of 10 for the plan and the one risk you see.

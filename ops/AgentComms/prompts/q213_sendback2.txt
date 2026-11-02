@@ -1,0 +1,10 @@
+You own TASK_Q213 (clipping gate). You are in the worktree on branch qwen/q213-clipping-gate.
+Step 1: git fetch origin && git merge origin/master (master now has C223 run 10 and the updated task file).
+Step 2: cat research/TASK_Q213_CLIPPING_GATE.md and do "SEND-BACK 2 (S120, Claude)" exactly - nothing else.
+Do NOT read HANDOFF.md, CURRENT_STATUS.md or HANDOFF_ARCHIVE.md. Research is open: RESEARCH_INDEX.md.
+Owned files only: Godot/tools/q213_clip_gate.gd, Godot/tests/q213_clip_gate_contract_test.gd, research/Q213_DIGEST.md.
+Parse gate first: python Godot/tools/check_scripts.py <your .gd files>. Then python Godot/tools/run_tests.py --only q213_clip_gate.
+Every windowed Godot run goes through: powershell -NoProfile -ExecutionPolicy Bypass -File Tools\godot_hidden.ps1 --path Godot --script tools/q213_clip_gate.gd -- as_game mode=clips  (and mode=live seconds=180 seed=94301).
+Do not change any engine constant, clip, binding or G147 threshold. Deliver numbers.
+Commit, push your branch (never master), then: python Tools/agent_comms.py send --from qwen --to claude --topic Q213 "<one line: clips N/10 pass, worst per class, live events>".
+Trap: a move with no certificate row must push_error loudly - never fall back to a constant spacing.

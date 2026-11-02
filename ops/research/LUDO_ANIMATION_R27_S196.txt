@@ -1,0 +1,349 @@
+FIGHTCAMP: HARDCORE PC COMBAT ANIMATION ARCHITECTURE (CONTINUATION)
+3. JUDO & BJJ SPECIFICATIONS (TWO-FIGHTER COUPLED SYSTEMS)
+3.1 Kinematic Interaction Architecture & Pipeline
+
+Grappling cannot be rendered as two desynchronized, independent skeletal clips playing next to each other. It must be executed as a unified, dual-skeleton interaction system bounded by three physical invariants:
+
+[20 Hz Discrete Sim Engine]
+       │
+       ▼
+[FightBeatAdapter: Emits (GripState, KuzushiVector, TransitionPhase)]
+       │
+       ▼
+[DualSkeletonConstraintNode: Locks Tori Grip Bones <-> Uke Socket Points]
+       │
+       ▼
+[FightPoseSolver: Solves Coupled COM -> Pulls Uke into Tori Base of Support]
+       │
+       ▼
+[Flight & Mat Impact Release: Uncouples Uke at Apex -> Solves Ukemi Breakfall]
+
+Grip Sockets (Transform Anchors): Rigid spatial transforms between Tori's hands and Uke's gi/anatomical anchor points.
+Coupled Center of Mass: Tori cannot elevate or pivot Uke without first pulling Uke's projected horizontal center of mass ($COM_{xy}$) inside or across Tori's Base of Support ($BOS$).
+Paired Kinetic Timelines: Uke does not play an autonomous "reaction" clip. Uke's root and pelvic trajectory are procedurally derived from Tori's hips until the instant of physical separation (the throw apex), where Uke transitions to a breakfall state (Ukemi).
+3.2 Two-Fighter Specifications by Move Group
+GROUP 1: Ashi-Waza (Foot Sweeps & Reaps: Osoto-Gari, Ouchi-Gari, Deashi-Harai)
+Contact Anchors:
+Tori Lead Hand $\to$ Uke Tricep Lapel/Sleeve (Grip Socket Grip_Sleeve_L, offset: $0\text{ cm}$).
+Tori Rear Hand $\to$ Uke High Collar Lapel (Grip Socket Grip_Collar_R, offset: $0\text{ cm}$).
+Tori Reaping Calf/Achilles $\to$ Uke Target Posterior Knee/Achilles tendon.
+Hip Spatial Relationship:
+Tori steps laterally outside Uke's lead foot: horizontal offset $\Delta X = 28\text{ cm}$, depth offset $\Delta Z = -12\text{ cm}$ (chest-to-chest contact).
+Pelvic elevation differential: Tori's pelvis lowers by $8\text{ cm}$ below Uke's pelvis during reap entry.
+Master Timeline:
+T+0 to 180 ms (Kuzushi / Off-balancing): Tori pulls sleeve downward and drives collar hand upward/backward. Uke's weight shifts $90%$ onto the target leg. Uke's spine extends backward by $-14^\circ$.
+T+180 to 280 ms (Tsukuri / Entry): Tori’s chest drives into Uke’s chest. Tori's reaping leg swings past Uke’s leg.
+T+280 to 420 ms (Kake / Execution): Tori sweeps the planted leg. Uke's planted foot breaks contact with the canvas. Uke's pelvis rotates along the pitch axis at $420^\circ/\text{s}$.
+T+420 to 650 ms (Ukemi / Breakfall Impact): Tori retains sleeve control, braking Uke's descent. Uke slaps the mat with the free arm at a $45^\circ$ angle from the torso $40\text{ ms}$ before full back impact.
+Camera Composition (Fixed Framing): High 3/4 perspective, oriented $35^\circ$ off the reaping plane so Tori's torso does not obscure Uke's swept leg and the resulting foot sweep.
+20 Hz Sim Interface:
+sim_event: GRAPPLE_ENTRY (Type: SWEEP_OUTSIDE, Grip: COLLAR_SLEEVE).
+kuzushi_ratio: 0.0 to 1.0 (Must register $\ge 0.72$ for successful throw execution).
+uke_posture_break: float (Degrees of spinal tilt off-axis).
+GROUP 2: Koshi-Waza (Hip Throws: O-Goshi, Harai-Goshi, Ippon-Seoi-Nage)
+Contact Anchors:
+Tori Underhook Hand $\to$ Uke Mid-Spine Latissimus (Grip_Lat_R) or Tori Lapel Hand $\to$ Uke Bicep clamp (Ippon).
+Tori Sleeve Hand $\to$ Uke Wrist/Lower Forearm, pulled tight to Tori's chest.
+Tori Sacrum/Glute $\to$ Uke Anterior Femur / Pelvis shelf.
+Hip Spatial Relationship:
+Tori executes a $180^\circ$ back-step pivot (Tai-Sabaki).
+Tori’s hips position directly inside Uke’s stance: $\Delta X = 0\text{ cm} \pm 4\text{ cm}$.
+Tori's hip height must sit strictly lower than Uke's hip: $\Delta Y = -14\text{ cm}$ to $-18\text{ cm}$ (creating a mechanical fulcrum).
+Master Timeline:
+T+0 to 220 ms (Kuzushi & Entry): Tori pulls Uke upward onto their toes (tiptoe deformation). Uke’s $COM$ shifts forward by $+24\text{ cm}$, moving beyond their toe-line.
+T+220 to 380 ms (Fulcrum Loading): Tori deepens knee flexion ($110^\circ$) and wedges the hip shelf into Uke's lower abdomen. Uke's feet leave the ground; Uke's mass transfers fully onto Tori's back.
+T+380 to 520 ms (Hip Extension & Roll): Tori straightens knees and flexes the thoracic spine forward. Uke pivots over Tori’s hip fulcrum.
+T+520 to 740 ms (Mat Impact): Uke rotates $180^\circ$ onto their back. Tori posts on one foot, keeping tension on the sleeve to limit Uke's head whip.
+Camera Composition: Profile perspective perpendicular to the throw plane; shows the clear visual gap beneath Uke's feet as they are elevated over the hip line.
+20 Hz Sim Interface:
+fulcrum_height_delta: float (Must be $< -0.10\text{ m}$).
+coupled_mass_kg: float (Combined weight of both fighters, modifying turn speed).
+throw_phase: ENUM(ENTRY, LOADED, ROTATING, RELEASED).
+GROUP 3: Ma-Sutemi-Waza (Sacrifice Throws: Tomoe-Nage, Sumi-Gaeshi)
+Contact Anchors:
+Tori Dual Hands $\to$ Uke Symmetrical Chest Lapels.
+Tori Instep/Foot $\to$ Uke Lower Abdomen / Groin fold (Spine_Root anchor).
+Hip Spatial Relationship:
+Tori sits straight down underneath Uke’s center of mass: $\Delta Z = -15\text{ cm}$, vertical drop $\Delta Y = -65\text{ cm}$.
+Uke's hips track forward directly over Tori’s head and upward-facing chest.
+Master Timeline:
+T+0 to 160 ms: Tori breaks Uke’s posture downward with dual collar pulls.
+T+160 to 320 ms: Tori drops their hips directly beneath Uke's base, planting the foot into Uke's pelvic crease.
+T+320 to 500 ms: Tori straightens the placed leg upward like a piston. Uke flips over Tori's head in a ballistic arc.
+T+500 to 780 ms: Uke completes the back-fall rotation. Tori uses the momentum to roll backward into a mount or disengages cleanly.
+Camera Composition: Ground-level low-angle view tracking the high vertical arc of the thrown fighter.
+20 Hz Sim Interface:
+sacrifice_commitment: bool (Tori gives up standing position).
+elevation_force: float (Piston leg extension impulse).
+GROUP 4: Osaekomi-Waza (Pins & Ground Control: Kesa-Gatame, Side Control, Full Mount)
+Contact Anchors:
+Chest-to-chest plane constraint: Normal vectors of Tori's sternum and Uke's sternum oppose at $180^\circ \pm 25^\circ$.
+Head/Arm Crossface: Tori’s arm threads under Uke’s cervical spine, cranking Uke's jaw $-30^\circ$ away from the control side.
+Hip Spatial Relationship:
+Side Control: Tori's knees sit wide outside Uke's ribs ($BOS$ width $> 90\text{ cm}$), hips dropped within $5\text{ cm}$ of the mat.
+Mount: Tori's hips clamp over Uke's pelvic crest; Tori's ankles hook underneath Uke's thighs (grapevine).
+Master Timeline:
+Looping structural pose ($1.2\text{ s}$ dynamic cycle): Tori applies continuous micro-adjustments to maintain heavy hip pressure.
+Uke Escape Attempt (0 to 400 ms): Uke bridges hips upward by $+15\text{ cm}$, attempting to create space (shrimping).
+Tori Flattening Counter (400 to 700 ms): Tori sprawls their hips down, absorbing the bridge and forcing Uke back to the mat.
+Camera Composition: Top-down $60^\circ$ isometric tilt; displays the chest-to-chest contact plane and hip-pinning mechanics without clipping into the mat.
+20 Hz Sim Interface:
+control_pressure_psi: float (Determines Uke stamina drain rate).
+frame_space_cm: float (Separation distance between hips; $> 12\text{ cm}$ enables escape transitions).
+GROUP 5: Kansetsu / Shime-Waza (Joint Locks & Chokes: Armbar, Kimura, RNC, Guillotine)
+Contact Anchors:
+Armbar: Tori’s adductor muscles clamp Uke's upper arm; Tori’s wrists grip Uke’s distal wrist with two hands; Tori's inner thighs pinch Uke's tricep.
+Rear-Naked Choke: Tori’s bicep wedges directly under Uke’s thyroid cartilage; Tori's opposite hand locks behind Uke’s occiput.
+Hip Spatial Relationship:
+Armbar: Tori’s hips wedge against Uke’s shoulder capsule: separation distance $< 4\text{ cm}$.
+RNC: Tori’s chest glues to Uke’s thoracic spine, hooks anchored inside Uke’s inner thighs.
+Master Timeline (Breaking / Choke Mechanism):
+T+0 to 300 ms (Isolation): Limb isolated and stripped away from defensive frames.
+T+300 to 550 ms (Tightening): Slack removed from the joint capsule. Uke’s neck or elbow reaches maximum anatomical flexion/extension.
+T+550 to 800 ms (Hyperextension / Strangle Pressure): Tori extends hips upward by $+8\text{ cm}$ (armbar) or expands the chest while pinching the elbows (choke). Uke taps using their free hand or feet (3 distinct taps spaced $120\text{ ms}$ apart).
+Camera Composition: Tight framing focused on the trapped limb or the choke lockup.
+20 Hz Sim Interface:
+joint_angle_current: float vs joint_angle_rupture: float.
+strangle_occlusion_norm: float ($0.0 \to 1.0$; $1.0$ triggers blackout unconsciousness in $6.0\text{ s}$).
+3.3 Renraku (Combinations) & Chain Sequences as State Transitions
+
+Rather than authoring hundreds of standalone clips, combinations are generated by chaining existing techniques together through dynamic pivot branches based on the defender's simulated reactions.
+
+                         OSOTO-TO-OUCHI TRANSITION TREE
+                              [Tori: Osoto-Gari Attempt]
+                                          │
+                                          ▼
+                      [Uke Posts Weight Forward to Resist]
+                                (Spine tilts +18°)
+                                          │
+                   ┌──────────────────────┴──────────────────────┐
+                   ▼                                             ▼
+        [Failure / Standoff]                         [Tori Branch: Ouchi-Gari]
+       (Kuzushi drops < 0.40)                       (Tori hooks trailing inner leg)
+                   │                                             │
+                   ▼                                             ▼
+          [Reset to Clinch]                         [Uke Falls Backward-Left]
+
+The 10 Judo Renraku/Renzoku Chains
+Osoto-Gari $\to$ Ouchi-Gari: Tori attacks the outer leg with Osoto. Uke shifts weight forward to resist $\to$ Tori capitalizes on the forward momentum by hooking Uke's trailing inner leg with Ouchi.
+Seoi-Nage $\to$ Kouchi-Gari: Tori steps in for the shoulder throw. Uke drops their hips to block the entry $\to$ Tori immediately steps in with a minor inner foot reap (Kouchi).
+Ouchi-Gari $\to$ Osoto-Gari: Tori attacks inside. Uke steps back to clear the leg $\to$ Tori drives forward into the newly created space with Osoto.
+Deashi-Harai $\to$ Osoto-Gari: Uke dodges the initial advancing foot sweep $\to$ Tori plants the sweeping foot and immediately follows through with an outside leg reap.
+Harai-Goshi $\to$ Osoto-Gari: Uke hops over the sweeping hip throw $\to$ Tori transitions the sweeping leg into an outer leg block.
+Sasae-Tsurikomi-Ashi $\to$ Tai-Otoshi: Tori pulls Uke in a circular path and blocks the ankle. Uke steps around the block $\to$ Tori drops low into a body drop throw (Tai-Otoshi).
+Kouchi-Gari $\to$ Seoi-Nage: Tori snaps Uke's lead foot with an inside reap to force their weight forward $\to$ Tori immediately pivots into the resulting forward momentum with a shoulder throw.
+Uchimata $\to$ Ouchi-Gari: Uke leans their hips back to clear the inner thigh throw $\to$ Tori changes direction and drives backward with an inner leg reap.
+Tomoe-Nage $\to$ Juji-Gatame (Armbar): Uke posts their hands on the mat to avoid being flipped by the sacrifice throw $\to$ Tori swings their legs around Uke's neck and transitions directly into an armbar.
+Renzoku Osoto-Gari (Double-Pump Osoto): The first reap attempt stalls against Uke's frame $\to$ Tori hops their plant foot forward by $+12\text{ cm}$ and executes a second, explosive reap.
+The 6 BJJ Submission & Position Chains
+Guard Pull $\to$ Arm Drag $\to$ Back Take $\to$ Rear-Naked Choke: Tori pulls closed guard, drags Uke's tricep across the centerline, scoots out to take the back, and secures the choke.
+Kimura Attempt (Guard) $\to$ Hip Bump Sweep $\to$ Mount: Uke hides their arm to defend against the Kimura shoulder lock $\to$ Tori uses Uke's defensive posture to drive their hips upward into a bump sweep straight into mount.
+Guillotine $\to$ Butterfly Sweep $\to$ Mounted Guillotine: Uke posts a foot to stop the standing front choke $\to$ Tori pulls butterfly guard, uses the hook to sweep Uke over, and locks in the choke from mount.
+D'Arce Choke $\to$ Anaconda Choke Roll: Uke turns their shoulder to defend against the front headlock angle $\to$ Tori rolls underneath Uke, reversing the grip into an Anaconda choke.
+Kimura (Side Control) $\to$ Armbar $\to$ Triangle Transition: Uke straightens their arm to relieve the shoulder lock $\to$ Tori steps over Uke's head into an armbar; when Uke attempts to stack, Tori locks their legs into a triangle choke.
+Leg Drag Pass $\to$ Gift Wrap $\to$ Back Take: Tori clears Uke's legs with a drag pass, threads Uke's wrist behind their own neck into a gift wrap, and takes the back.
+4. MISSING ANIMATION COST PLAN
+4.1 Production Pipeline & Asset Assumptions
+QuickMagic Text-to-Motion ($14.90 / 200\text{ credits}$):
+Single performer: 12 credits per generation ($0.89\text{ USD}$). Retake rate: $3.5\times$ (requires 3 to 4 attempts to generate usable joint acceleration without foot slide artifacts). Real generation cost: $3.12\text{ USD}$.
+Cleanup requirement: 1.5 hours in Blender per clip to fix root-motion displacement and lock the 22-bone rig.
+Suited Performer Video Tracking (Markerless Dual Video $\to$ Tracking $\to$ Blender Cleanup):
+Essential for grappling and throws. AI tracking algorithms break down when bodies tangle; a skilled animator must manually untangle and clean up the rig.
+Base studio labor cost: $35.00\text{ USD / hour}$.
+Single-performer strikes: 3.0 hours cleanup ($105.00\text{ USD}$).
+Two-performer grappling/throws: 8.5 hours cleanup ($297.50\text{ USD}$).
+Hand-Authored Keyframe Poses (Blender + Contact Solver):
+Hand-authoring key contact frames and relying on the FightPoseSolver.gd engine solver for transitions.
+Cost: 5.0 hours per discrete grappling transition ($175.00\text{ USD}$).
+Mixamo / CMU Open Data:
+Free asset source ($0.00\text{ USD}$), but requires 1.0 hour of retargeting and skeleton correction to map properly onto our 22-bone rig.
+4.2 Detailed Production Breakdown by Discipline
++---------------------------------------------------------------------------------------------------------------------------------+
+|                                                 ANIMATION PRODUCTION COST MATRIX                                                |
++--------------------+----------------+---------------------------+----------------+--------------+---------------+---------------+
+| Discipline         | New Clips Req. | Primary Pipeline Source   | Retake Factor  | Labor Hours  | Cost / Clip   | Total Cost    |
++--------------------+----------------+---------------------------+----------------+--------------+---------------+---------------+
+| Kickboxing         | 4              | QuickMagic Single         | 3.5x           | 2.0 hrs      | $73.12        | $292.48       |
+| Karate             | 6              | QuickMagic Single / CMU   | 3.0x           | 1.8 hrs      | $65.80        | $394.80       |
+| Judo (Throws)      | 14 (Base pairs)| Suited Tracking + Cleanup | 1.8x           | 8.5 hrs      | $312.00       | $4,368.00     |
+| BJJ (Ground Mat)   | 11 (Base pairs)| Hand-Authored + Solver    | 1.2x           | 6.0 hrs      | $210.00       | $2,310.00     |
+| Shared Transitions | 8              | Procedural IK Warping     | 1.0x           | 1.0 hrs      | $35.00        | $280.00       |
++--------------------+----------------+---------------------------+----------------+--------------+---------------+---------------+
+
+Detailed Breakdown by Category
+
+Kickboxing (4 New Clips):
+
+Clips: kb_question_mark, kb_hook_kick, kb_catch_kick_return, kb_spinning_backfist.
+Teep and variations are handled via procedural offsets on kb_front_kick.
+Total: 8.0 hours labor | $292.48 USD.
+
+Karate (6 New Clips):
+
+Clips: karate_nidan_geri, karate_yama_zuki, karate_uramawashi, karate_hasami_zuki, karate_kizami_maegeri, karate_mawashi_kubi_geri.
+The remaining 71 Zuki and kick variations are derived procedurally via FightPoseSolver.gd.
+Total: 10.8 hours labor | $394.80 USD.
+
+Judo (14 Base Paired Clips):
+
+Clips: 4 Ashi-Waza (Osoto, Ouchi, Kouchi, Deashi), 4 Koshi-Waza (Seoi-Nage, O-Goshi, Harai-Goshi, Tai-Otoshi), 2 Sutemi-Waza (Tomoe, Sumi-Gaeshi), 4 Breakfalls (Mae, Ushiro, Yoko-L, Yoko-R).
+Renraku combinations are assembled by branching these base throws through dynamic transition windows.
+Total: 119.0 hours labor | $4,368.00 USD.
+
+BJJ (11 Base Ground Interaction Pairs):
+
+Clips: 3 Guard passes (Torreando, Knee Slice, Over-Under), 3 Positions (Mount, Back Control, Side Control loops), 5 Submissions (Juji-Gatame, RNC, Kimura, Guillotine, Triangle).
+Chained submissions are resolved via state-tree linkages in FightBeatAdapter.gd.
+Total: 66.0 hours labor | $2,310.00 USD.
+4.3 Total Investment Summary
+
+| Milestone | Total New Clips | Total Labor Hours | Total Financial Cost |
+| :--- | :--- | :--- | :--- |
+| Demo-Minimum (Boxing Polish + Kickboxing Base) | 4 | 8.0 hrs | $292.48 |
+| Full Striking Expansion (Kickboxing + Karate) | 10 | 18.8 hrs | $687.28 |
+| Full Grappling Expansion (Judo + BJJ Paired Sets) | 25 | 185.0 hrs | $6,678.00 |
+| COMPLETE COMBAT SUITE TOTAL | 35 Clips | 203.8 hrs | $7,365.28 |
+
+5. PYTHON QUALITY-GATE HARNESS
+5.1 CSV Frame Schema Specification
+
+The simulation writes out a per-frame CSV file at $60\text{ Hz}$ containing tracking data for both fighters.
+
+frame_idx,timestamp_ms,fighter_id,root_px,root_py,root_pz,pelvis_px,pelvis_py,pelvis_pz,pelvis_qx,pelvis_qy,pelvis_qz,pelvis_qw,spine1_qx,spine1_qy,spine1_qz,spine1_qw,neck_qx,neck_qy,neck_qz,neck_qw,head_qx,head_qy,head_qz,head_qw,l_shoulder_qx,l_shoulder_qy,l_shoulder_qz,l_shoulder_qw,l_elbow_qx,l_elbow_qy,l_elbow_qz,l_elbow_qw,l_wrist_px,l_wrist_py,l_wrist_pz,r_shoulder_qx,r_shoulder_qy,r_shoulder_qz,r_shoulder_qw,r_elbow_qx,r_elbow_qy,r_elbow_qz,r_elbow_qw,r_wrist_px,r_wrist_py,r_wrist_pz,l_hip_qx,l_hip_qy,l_hip_qz,l_hip_qw,l_knee_qx,l_knee_qy,l_knee_qz,l_knee_qw,l_ankle_px,l_ankle_py,l_ankle_pz,r_hip_qx,r_hip_qy,r_hip_qz,r_hip_qw,r_knee_qx,r_knee_qy,r_knee_qz,r_knee_qw,r_ankle_px,r_ankle_py,r_ankle_pz,l_foot_planted,r_foot_planted,active_contact_flag
+
+5.2 Corrected GDScript 4.7 Implementations (from Section 1 Code Review)
+Correction 1: Failure Mode 2 — Persistent Velocity Vector State for Inertial Hit Impulses
+
+get_bone_pose_position returns a local spatial offset, not a velocity. Physics-based impulses require maintaining a persistent velocity state that updates each frame.
+
+# File: FightStagePlayer.gd
+# Corrected: Maintains explicit linear velocity states and processes in deferred bone updates
+var bone_velocity_state: Dictionary = {} # StringName -> Vector3
+
+func apply_inertial_hit_impulse(skeleton: Skeleton3D, bone_name: StringName, impulse_newtons: Vector3, mass_kg: float) -> void:
+	var delta_v: Vector3 = impulse_newtons / maxf(mass_kg, 1.0)
+	if not bone_velocity_state.has(bone_name):
+		bone_velocity_state[bone_name] = Vector3.ZERO
+	bone_velocity_state[bone_name] += delta_v
+
+func process_inertial_velocity_integration(skeleton: Skeleton3D, delta: float) -> void:
+	for bone_name in bone_velocity_state.keys():
+		var b_idx: int = skeleton.find_bone(bone_name)
+		if b_idx == -1:
+			continue
+		var current_vel: Vector3 = bone_velocity_state[bone_name]
+		var cur_pose_pos: Vector3 = skeleton.get_bone_pose_position(b_idx)
+		# Integrate velocity into position offset
+		cur_pose_pos += current_vel * delta
+		# Apply drag damping
+		bone_velocity_state[bone_name] = current_vel.move_toward(Vector3.ZERO, 9.8 * 2.0 * delta)
+		skeleton.set_bone_pose_position(b_idx, cur_pose_pos)
+
+Correction 2: Failure Mode 3 — Base of Support (BOS) Dynamic Constraint in Deferred Pass
+
+Enforces the Center of Mass ground projection within the foot support polygon without clobbering root-motion positions.
+
+# File: FightAliveStance.gd
+# Corrected: Executed during deferred skeleton updates, preserving root translations
+func enforce_com_support_polygon_deferred(skeleton: Skeleton3D, max_lean_ratio: float = 0.85) -> void:
+	var l_foot_idx: int = skeleton.find_bone("LeftFoot")
+	var r_foot_idx: int = skeleton.find_bone("RightFoot")
+	var pelvis_idx: int = skeleton.find_bone("Hips")
+	
+	var p_trans: Transform3D = skeleton.get_bone_global_pose(pelvis_idx)
+	var lf_pos: Vector3 = skeleton.get_bone_global_pose(l_foot_idx).origin
+	var rf_pos: Vector3 = skeleton.get_bone_global_pose(r_foot_idx).origin
+	
+	var mid_support: Vector3 = (lf_pos + rf_pos) * 0.5
+	var support_axis: Vector3 = (lf_pos - rf_pos)
+	var max_span: float = support_axis.length() * 0.5 * max_lean_ratio
+	
+	var pelvis_proj: Vector3 = Vector3(p_trans.origin.x, 0.0, p_trans.origin.z)
+	var support_center: Vector3 = Vector3(mid_support.x, 0.0, mid_support.z)
+	var diff: Vector3 = pelvis_proj - support_center
+	
+	if diff.length() > max_span:
+		var clamped: Vector3 = support_center + diff.normalized() * max_span
+		p_trans.origin.x = clamped.x
+		p_trans.origin.z = clamped.z
+		skeleton.set_bone_global_pose_override(pelvis_idx, p_trans, 0.85, true)
+
+Correction 3: Failure Mode 4 — Cervical Kinematic Chain with Chin-Tuck Clamp
+
+Distributes rotation across the cervical vertebrae and locks the chin down toward the clavicle notch.
+
+# File: FightAliveStance.gd
+# Corrected: Applied across the spine/neck/head hierarchy within deferred bone updates
+func solve_cervical_chain_deferred(skeleton: Skeleton3D, target_aim_point: Vector3, chin_tuck_factor: float) -> void:
+	var head_idx: int = skeleton.find_bone("Head")
+	var neck_idx: int = skeleton.find_bone("Neck")
+	var spine2_idx: int = skeleton.find_bone("Spine2")
+	if head_idx == -1 or neck_idx == -1 or spine2_idx == -1:
+		return
+		
+	var head_global: Transform3D = skeleton.get_bone_global_pose(head_idx)
+	var to_aim: Vector3 = (target_aim_point - head_global.origin).normalized()
+	var forward_vec: Vector3 = -head_global.basis.z # -Z forward convention
+	
+	var full_rotation: Quaternion = Quaternion(forward_vec, to_aim)
+	var limited_rot: Quaternion = Quaternion.IDENTITY.slerp(full_rotation, 0.45)
+	
+	# Distribute rotation down the spine
+	skeleton.set_bone_pose_rotation(spine2_idx, skeleton.get_bone_pose_rotation(spine2_idx) * limited_rot.slerp(Quaternion.IDENTITY, 0.7))
+	skeleton.set_bone_pose_rotation(neck_idx, skeleton.get_bone_pose_rotation(neck_idx) * limited_rot.slerp(Quaternion.IDENTITY, 0.4))
+	
+	# Clamp chin downward to protect the neck
+	var tuck_quat: Quaternion = Quaternion(Vector3.RIGHT, deg_to_rad(14.0 * clampf(chin_tuck_factor, 0.0, 1.0)))
+	skeleton.set_bone_pose_rotation(head_idx, (skeleton.get_bone_pose_rotation(head_idx) * limited_rot * tuck_quat).normalized())
+
+5.3 Automated Biomechanical Quality-Gate Verification Suite
+#!/usr/bin/env python3
+"""
+fight_quality_gate.py - Automated Biomechanical Quality Assurance Suite
+Reads 60 Hz skeleton tracking CSV data and asserts kinematic validity against real-world references.
+"""
+
+import sys
+import numpy as np
+import pandas as pd
+
+class BiomechanicalValidator:
+    def __init__(self, csv_filepath: str):
+        self.df = pd.read_csv(csv_filepath)
+        self.dt = 1.0 / 60.0 # 60 Hz frame step
+        self.failures = []
+
+    def verify_foot_sliding(self, max_slide_speed_mps: float = 0.025) -> bool:
+        """Asserts that planted feet do not slide across the floor canvas."""
+        for foot in ['l', 'r']:
+            planted = self.df[f'{foot}_foot_planted'] == 1
+            px = self.df.loc[planted, f'{foot}_ankle_px'].to_numpy()
+            pz = self.df.loc[planted, f'{foot}_ankle_pz'].to_numpy()
+            if len(px) < 2:
+                continue
+            vx = np.diff(px) / self.dt
+            vz = np.diff(pz) / self.dt
+            horizontal_speed = np.sqrt(vx**2 + vz**2)
+            max_speed = np.max(horizontal_speed) if len(horizontal_speed) > 0 else 0.0
+            if max_speed > max_slide_speed_mps:
+                self.failures.append(f"FAIL: {foot.upper()} foot planted slide speed: {max_speed*100:.2f} cm/s (Max: {max_slide_speed_mps*100:.2f} cm/s)")
+                return False
+        return True
+
+    def verify_joint_jerk_limits(self, max_jerk_mps3: float = 450.0) -> bool:
+        """Verifies that wrist and head jerk (d3x/dt3) remain within biological limits to catch animation pops."""
+        for joint in ['l_wrist', 'r_wrist', 'head']:
+            px = self.df[f'{joint}_px' if f'{joint}_px' in self.df else 'pelvis_px'].to_numpy()
+            py = self.df[f'{joint}_py' if f'{joint}_py' in self.df else 'pelvis_py'].to_numpy()
+            pz = self.df[f'{joint}_pz' if f'{joint}_pz' in self.df else 'pelvis_pz'].to_numpy()
+            pos = np.stack([px, py, pz], axis=1)
+            vel = np.diff(pos, axis=0) / self.dt
+            acc = np.diff(vel, axis=0) / self.dt
+            jerk = np.diff(acc, axis=0) / self.dt
+            jerk_mag = np.linalg.norm(jerk, axis=1)
+            peak
+
+Can you finish the remaining judo and BJJ two-fighter authoring specs, including grips, transitions, throws, submissions, and release logic?
+Can you provide the complete per-discipline animation cost table with clip counts, sources, dollar ranges, hours, assumptions, and three totals?
+Can you reissue corrected failure modes 2, 3, and 4 with deferred Skeleton3D writes and explicit velocity state?
+Can you turn the eight realism cues per discipline into a CSV schema, Python metrics, thresholds, and RED-first automated tests?

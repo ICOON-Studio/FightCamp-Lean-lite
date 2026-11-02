@@ -1,0 +1,15 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "5.8",
+	"Category": "",
+	"Description": "FightCamp MetaHuman pilot (MH1)",
+	"Plugins": [
+		{ "Name": "PythonScriptPlugin", "Enabled": true },
+		{ "Name": "EditorScriptingUtilities", "Enabled": true },
+		{ "Name": "MetaHumanCharacter", "Enabled": true },
+		{ "Name": "MetaHumanSDK", "Enabled": true },
+		{ "Name": "GLTFExporter", "Enabled": true },
+		{ "Name": "HairStrands", "Enabled": true },
+		{ "Name": "RigLogic", "Enabled": true }
+	]
+}

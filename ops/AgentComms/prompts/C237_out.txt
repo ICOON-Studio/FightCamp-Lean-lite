@@ -1,0 +1,7 @@
+Pushed `a55adbe6` to `codex/c237-receiver-reactions`.
+
+[30-second video](E:/FightCamp/wt/C237/previews/c237/live.mp4) · [Digest](E:/FightCamp/wt/C237/research/C237_DIGEST.md)
+
+Parse, 11 tests, and 33 motion checks pass. Frames reviewed. **C223 still flags entry joins/overlap; clips remain uncertified.** HANDOFF untouched.
+
+Automatic review blocked sidecar restoration over concerns about unrelated work. All 359 sidecars are byte-identical to HEAD and remain unstaged.

@@ -1,0 +1,10 @@
+{
+  "checked_at": "2026-09-11T09:49:58Z",
+  "files": [
+    "Godot/tests/bone_rest_fixer_test.gd",
+    "Godot/scripts/BoneRestFixer.gd"
+  ],
+  "output": "CHECK total=2 fails=0 autoload_refs=0 autoload_warnings=0 time=0s\n",
+  "passed": true,
+  "task": "U50"
+}

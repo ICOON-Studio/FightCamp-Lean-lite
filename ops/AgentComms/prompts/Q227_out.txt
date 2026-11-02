@@ -1,0 +1,14 @@
+Warning: running headless with --yolo / approval-mode=yolo and no sandbox. All tool calls (shell, write, edit) auto-execute at this process's privilege level. Enable a sandbox via --sandbox / QWEN_SANDBOX, or set QWEN_CODE_SUPPRESS_YOLO_WARNING=1 to silence this notice.
+Warning: MCP server(s) failed to start: higgsfield. Continuing with built-in tools and any servers that did connect. Re-run with QWEN_CODE_DEBUG=1 to see per-server reasons.
+TASK Q227 complete, shipped at `9fd6f905` + mailbox commit `600ae206`, pushed to `origin/qwen/q227-office-locker-pass2`.
+
+**What changed**
+- **Office** (`Office3D.gd` 1103 lines, `OfficeRoomPanel.gd` 220): evening look per the operator's pick — desk lamp as a shadowed warm key, dusk hall beyond the window (lit ring, silhouettes, dusk sky), AgX/SSAO/glow from `VenueRig._add_environment`; procedural PBR (plank wood with grain + sobel normal at a true 2 m tile, plaster walls, woven Persian rug replacing the flat target mat); trophy wall framing our own art (`trophy_*_cutout`, `belt_*_cutout`, `bot_art/belt_world_title`) loaded raw through `RawAsset` so no import step; honours cabinet whose plaques are `GameState.get_gym_medal_entries()` (panel read extended); tags de-piled; desk return + paper stack.
+- **Locker room** (`LockerRoom3D.gd` 554 lines): reframed from the right-front high corner so the room fills the frame like the concept; grey wet-room palette with 0.5 m tile floor + tiled dado (grout, per-tile tone), brushed-steel bank with legible name plates and door towels, LED weigh-in scale with the column at the front, angled fight-week board, bench wrap-pair + open kit bag, glass shower, mirror/weight poster/bottles on the right wall, rubber mats, bins, visible fluorescent fittings, steel door leaf.
+- **Both rooms drop U204's `RoomFx.light_shaft`** — a daylight shaft that rendered as a floating translucent slab in rooms with no sunlit window (proved with a `hide=` probe render). Dust motes kept.
+
+**Review loop** — before/after sheets built and opened for both rooms (`previews/q227/`), four render passes each: office MATERIAL 1→3, BAR 1→2, LIGHT 2→4; locker SILHOUETTE/MATERIAL/CLARITY 1→3, LIFE 2→4. No row went down; the two lowest rows rose.
+
+**Gates** — parse gate clean every pass; `run_tests.py --jobs 2 --only office,locker,smoke` → `SUITE total=7 fails=0`; watchdog GREEN before renders, AMBER (RAM 85%) before the suite which still completed. No new `.png`/`.glb` on disk, so the import trap never armed. Digest at `research/Q227_DIGEST.md`; one-line report sent to Claude through the mailbox (cross-session `send_message` is disabled here, so `Tools/agent_comms.py` was used).
+
+Known leftovers, recorded in the digest: office right half still sparser than the concept, locker board list small at 1080p, house door floor-decal clips at the office frame edge (house style, all rooms).

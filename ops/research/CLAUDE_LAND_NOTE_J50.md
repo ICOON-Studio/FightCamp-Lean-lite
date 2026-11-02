@@ -1,0 +1,10 @@
+TASK: J50 (JOHN) How a Defender Defends: block, evade, everything in between, plus the operator addendum on anticipate and counter. Research only.
+TARGET: land /workspace/j50/J50_HOW_A_DEFENDER_DEFENDS.md at research/J50_HOW_A_DEFENDER_DEFENDS.md (this note goes to research/CLAUDE_LAND_NOTE_J50.md).
+HEADLINE: block-or-dodge is too narrow. Real defence has 8 families (block, reduce, redirect, evade, deny range, clinch, strike first, anticipate+counter), and reading beats reaction.
+FINDING 1 (time): jab ~405 ms tell-to-contact, hooks 586-657 ms (Stanley 2018, ACADEMIC). Neural floor ~200 ms, realistic defence 300-400 ms (Mori 2002). Reacting only on sight barely works vs a jab.
+FINDING 2 (anticipation): karate experts called the target at 96% vs novices 80% from ~233 ms of motion. Simple RT is the same (Mori 2002). Experts spot a repeated attack after 5 repetitions (Milazzo 2016). Fatigue raised RT 145->223 ms (Sant'Ana 2017).
+FINDING 3 (menu): IBA 2023 finals winners mostly shifted back (23.3%) or pivoted and countered; parrying was linked to losing (JFMK 2025). UFC strikes land head 36.5% / body 69.2% / legs 80.4% (COUNT, UFCStats mirror to 2026-09-19).
+FINDING 4 (defence numbers): elite boxers hold opponents to 13-17% (Mayweather 16%, Stevenson 13.3-16.7%, Bivol 13-14%) vs a division average of ~28% (CompuBox, PRESS). UFC Str.Def median 55.3%, GSP 73.1% (COUNT, n=1281).
+FINDING 5 (games/counter): EA UFC 3 counter window after an evade: jab 0, straight 20 frames, hook/uppercut 36 frames. Block bleed-through: jab 0%, head kick "considerable" (DEV). The §10 loop perceive->choose(incl. anticipate/counter)->execute->consequence has every constant tagged SOURCED/PROXY/NOT FOUND.
+BIGGEST NOT FOUNDs: real force through a forearm/glove block, how often a counter eats the follow-up, feint % effect, rounds needed to read a man, real parry/slip windows in ms.
+NOTE: research only. No code written, no repo touched. Do NOT edit HANDOFF. Memo is ~73 KB (over the ~55 KB target because of the addendum). Grok leads that were not verified sit in Appendix A and are not counted.

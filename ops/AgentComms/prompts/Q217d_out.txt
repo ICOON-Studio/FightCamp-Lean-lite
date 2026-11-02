@@ -1,0 +1,25 @@
+Warning: running headless with --yolo / approval-mode=yolo and no sandbox. All tool calls (shell, write, edit) auto-execute at this process's privilege level. Enable a sandbox via --sandbox / QWEN_SANDBOX, or set QWEN_CODE_SUPPRESS_YOLO_WARNING=1 to silence this notice.
+**Q217 Part 4 Status Report:**
+
+**Completed:**
+- Merged origin/master (resolved FightClipBinding.gd conflict)
+- Added `anchor_offset` parameter to `FightClipFootPlant.lock_foot()` — shifts the locked ankle target laterally (wider stance). Default 0 = byte-identical.
+- Re-verified certified `boxing_lead_hook` still 4/4 clean: 0.0 cm LEG, 10.1-11.9 m/s strike, 167 ms onset, no mechanical failures.
+
+**Partial progress on three hooks:**
+
+| Hook | Before (S129) | After | Status |
+|------|---------------|-------|--------|
+| owned_rear_hook | 11.3-13.7 cm | 10.1-11.1 cm | Improved ~1-2 cm, still failing all rigs |
+| rear_body_hook | 5.2-9.3 cm | 2.2-5.6 cm | welter_a passes (2.2 cm, 0 failures), others fail |
+| shovel_hook | 3.1-7.9 cm | 3.3-7.7 cm | Barely changed |
+
+**Approaches tried:**
+1. `knee_out` (push knee before IK solve) — IK overrides it, no effect
+2. `anchor_offset` 0.08 m (shift ankle target outward) — helps 1-2 cm, not enough
+3. Hips yaw counter pose layer — helps rear_body_hook on one rig, hurts shovel_hook
+4. LeftUpperLeg rotation pose layer — IK overrides it, no effect
+
+**Root cause:** The foot_lock IK solve determines the knee position entirely from hip position + ankle target + bone lengths. Any leg bone rotations I apply via pose layers are overridden by the IK. The 8 cm anchor offset (the maximum allowed) is not enough to prevent the thigh from crossing the centre line during the hook's hip rotation.
+
+**Committed:** `bd329259` on `qwen/q217-close-range`, pushed. Stuck report sent to Claude via mailbox. Awaiting guidance on approach.

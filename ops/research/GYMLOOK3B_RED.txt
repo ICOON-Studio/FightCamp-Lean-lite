@@ -1,0 +1,49 @@
+FAIL: ladder rung width 0.45 m (actual 1.050)
+FAIL: ladder rung spacing 0.40 m (actual 0.320)
+FAIL: roof beam Truss_0 cast_shadow OFF
+FAIL: roof beam Truss_1 cast_shadow OFF
+FAIL: roof beam Truss_2 cast_shadow OFF
+FAIL: roof beam Truss_3 cast_shadow OFF
+FAIL: SSAO enabled radius 1.2 intensity 2.0 (actual 1.85 / 2.40)
+FAIL: rubber Patch_cardio roughness 0.88-0.90 (actual 0.78)
+FAIL: rubber Patch_stretch roughness 0.88-0.90 (actual 0.78)
+FAIL: rubber Patch_strength roughness 0.88-0.90 (actual 0.80)
+FAIL: canvas roughness 0.94
+FAIL: continuous strip fixtures replace bag spots
+FAIL: two heavy bags sway
+FAIL: bag sway amplitude 0.75 degrees
+FAIL: bag sway amplitude 0.75 degrees
+FAIL: bag sway amplitude 0.75 degrees
+FAIL: bag sway amplitude 0.75 degrees
+FAIL: material boundary trims exist
+FAIL: 2.5 m bag drill markings exist
+FAIL: round timer exists
+FAIL: floor labels hidden in room view
+GYMLOOK3B: 24 checks, 21 failures
+FAIL: pack's original front/back stair geometry removed (depth 7.907)
+FAIL: ring has exactly two compact stair treads (actual 0)
+FAIL: stair top reaches 0.90 m apron
+FAIL: ladder rung 0 is 0.45 m wide
+FAIL: ladder rung 1 is 0.45 m wide
+FAIL: ladder rung spacing is 0.40 m
+FAIL: ladder rung 2 is 0.45 m wide
+FAIL: ladder rung spacing is 0.40 m
+FAIL: ladder rung 3 is 0.45 m wide
+FAIL: ladder rung spacing is 0.40 m
+FAIL: ladder rung 4 is 0.45 m wide
+FAIL: ladder rung spacing is 0.40 m
+FAIL: ladder rung 5 is 0.45 m wide
+FAIL: ladder rung spacing is 0.40 m
+FAIL: ladder rung 6 is 0.45 m wide
+FAIL: ladder rung spacing is 0.40 m
+FAIL: ladder rung 7 is 0.45 m wide
+FAIL: ladder rung spacing is 0.40 m
+FAIL: ladder rung 8 is 0.45 m wide
+FAIL: ladder rung spacing is 0.40 m
+FAIL: ladder rung 9 is 0.45 m wide
+FAIL: ladder rung spacing is 0.40 m
+FAIL: speed_bag_1 has steel posts
+FAIL: speed_bag_1 has 0.60 m rebound drum
+FAIL: speed_bag_2 has steel posts
+FAIL: speed_bag_2 has 0.60 m rebound drum
+GYMLOOK3B_GEOMETRY: 32 checks, 26 failures

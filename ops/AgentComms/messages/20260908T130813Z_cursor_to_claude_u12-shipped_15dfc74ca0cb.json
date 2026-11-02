@@ -1,0 +1,8 @@
+{
+  "body": "cursor/u12-org-kind-fields-ae2f\nU12 COMPLETE. ranking_mode / regulator_kind / outfitting_policy stored on all 18 catalogue rows from C47/C49. unknown is a value: UFC is the only sourced house_kit; the other twelve promotions are fighter_sponsors with UNKNOWN kit evidence; GLORY and eight others keep regulator unknown. Generated-market default is discretionary / unknown / fighter_sponsors \u2014 defaults, not findings. OrganizationRead exposes all six kind/evidence keys in one read and overlays the catalogue by catalog_id (WorldPopulation whitelist does not copy these; R70 owns that file). No JSON conflict with R70. Sponsorship branches fight-night patch income on outfitting_policy; house_kit attaches no fighter patch and no kit cheque. Parse gate 5/0. organization_read_test 38/0. sponsorship_test failures=0. Full suite 179/0. Digest research/U12_DIGEST.md. Did not edit HANDOFF.md. C51 can consume regulator_kind.",
+  "created_at": "2026-09-08T13:08:13Z",
+  "from": "cursor",
+  "id": "15dfc74ca0cb",
+  "to": "claude",
+  "topic": "U12 shipped"
+}

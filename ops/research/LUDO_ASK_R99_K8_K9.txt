@@ -1,0 +1,20 @@
+Ludo - round 99, FULL CODE ask (FightCamp gym floor, your build order). Give the LONGEST complete answer you can - no caps, no "..." , no TODO; if you run out of room, stop at a file boundary and I will say "continue".
+
+Your round 97 build order is being built: Form Breakdown (your r97 code) and Niggle -> Physio (your r98 code) are IN THE GAME and tested; Breakthrough is in; the 3 cuts (BEST/GOOD -> deltas + prerequisites, station upgrade off the floor, walk-in policy) and PACE YOURSELF folded into REST are being built now; C7 Morning Day Plan is being written.
+
+NEXT in your order: K8 CORNER REHEARSAL and K9 LOAD LEDGER (Kalli's ideas you kept). Write both as code, in exactly the style of your FormBreakdown.gd / Niggle.gd:
+- Godot 4 GDScript, `extends RefCounted`, STATIC functions only, ZERO preloads, NO class_name, NO autoload, NO randomness inside (rolls come in as `pick: float` 0..1), deterministic.
+- Typed reads: `var x: float = float(ctx.get("k", 0.0))` - never `var x := ctx.get(...)`; never write `%%`.
+- The engine owns the numbers: return multipliers, deltas, words; never touch the game.
+- Each test: `extends SceneTree`, `func _initialize() -> void:`, `load("res://scripts/rules/<Name>.gd")`, count failures, print `<NAME> failures=N`, `quit(0 if failures == 0 else 1)`.
+- Engine facts: soreness parts are legs / shoulders / hands / core (0..100 each); stamina 0..100; strain 0..100; cues are "normal", "power_through", "crisp_form"; station kinds heavy_bag, speed_bag, double_end_bag, pads, ring_spar, shadow, slip_rope, footwork_ladder, strength, cardio, stretch, rest, physio; a block is 30/60/90 game minutes.
+
+FILE 1 scripts/rules/CornerRehearsal.gd (K8 - block end as a mini-corner, same card grammar as the fight-night corner)
+When a block ends, a 10-second card shows what the block did ("+3 power, strain 52, shoulders sore") and offers 3 calls for the NEXT block: PUSH (same station: +15% gains, +8 strain), SWAP (to the counter-station - bag -> slip rope etc.: 1.2x gain on the paired stat), ICE (clear 10 wear on the sorest part, costs 20 game minutes). Functions: `summary(block: Dictionary) -> Dictionary` (the card's lines), `counter_station(kind: String) -> String` (a full pairing table with a boxing reason per pair), `calls(block, state) -> Array` (which calls are offered/greyed and why - e.g. PUSH greyed under 25 stamina), `apply(call: String, block, state) -> Dictionary` (the next block's mods), `auto_call(block, state) -> String` (what the coach does if the player lets the 10 seconds run out). Make 4-5 cards a day feel like a rhythm, not nagging at 2x speed: a `should_show(state) -> bool` that skips the card when nothing changed.
+
+FILE 2 scripts/rules/LoadLedger.gd (K9 - weekly strain budget)
+Weekly budget 100. Every block spends load (station x minutes x cue). Over 100 doubles the injury roll per block and makes a niggle certain within 2 days; ending the week under 70 adds +1 to the form word on fight day. Functions: `block_cost(kind, minutes, cue) -> float` (a full table, justified), `spend(ledger: Dictionary, cost: float, day: int) -> Dictionary`, `status(ledger) -> Dictionary` ({"spent", "left", "band": "FRESH"|"LOADED"|"OVER", "line"}), `injury_mult(ledger) -> float`, `niggle_forced(ledger, day) -> bool`, `week_end(ledger) -> Dictionary` (form bonus, reset), `forecast(ledger, plan: Array) -> Dictionary` (what a day plan of blocks would leave). Use real-world session-RPE x minutes logic if you know it (Foster); say where you are guessing.
+
+FILES 3-4: tests/corner_rehearsal_test.gd and tests/load_ledger_test.gd covering every rule above, both sides of each call, the bands' edges, determinism.
+
+Then PART B: where each card/strip appears on the floor HUD (positions at 1920x1080, sizes, the 10-second timer look) - short.

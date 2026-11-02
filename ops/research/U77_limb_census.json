@@ -1,0 +1,1965 @@
+{
+  "rows": [
+    {
+      "id": "boxing_jab",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "boxing_cross",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "boxing_lead_hook",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "boxing_rear_uppercut",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "boxing_slip_counter",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "boxing_body_hook",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "boxing_check_hook",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "boxing_pull_counter",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "boxing_liver_combo",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "boxing_overhand",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "boxing_lead_uppercut",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "boxing_double_jab",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "boxing_pivot_footwork",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "boxing_check_hook_pivot",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "boxing_six_punch_combo",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "boxing_distance_read",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "boxing_one_two",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "boxing_jab_body",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "boxing_cross_body",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "boxing_up_jab",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "boxing_rear_hook",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "boxing_rear_hook_body",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "boxing_shovel_hook",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "boxing_catch_counter",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "boxing_counter_over_jab",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "boxing_step_in_out",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "boxing_circle_lead",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "boxing_circle_rear",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "boxing_feint",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "boxing_angle_step",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "boxing_rhythm_change",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "boxing_switch_stance",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "boxing_drawing",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "boxing_inside_uppercut",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "boxing_one_two_hook",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "boxing_jab_body_head",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "boxing_counter_combination",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "kickboxing_front_kick",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "kickboxing_roundhouse",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "kickboxing_low_kick",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "kickboxing_jab_lowkick",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "kickboxing_switch_kick",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "kickboxing_high_kick",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "kickboxing_spinning_back",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "kickboxing_four_strike",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "kickboxing_body_kick",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "kickboxing_question_mark",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "kickboxing_jab_cross_lowkick",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "kickboxing_catch_kick_return",
+      "adjudicated": "none",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "kickboxing_switch_step_read",
+      "adjudicated": "none",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "kickboxing_blitz_four_kick",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "kickboxing_teep",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "kickboxing_side_kick",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "kickboxing_hook_kick",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "kickboxing_axe_kick",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "kickboxing_spinning_hook",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "kickboxing_clinch_knee",
+      "adjudicated": "knee",
+      "sim_is_kick": true,
+      "range_is_kick": false
+    },
+    {
+      "id": "kickboxing_dutch_combination",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "muay_thai_teep",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "muay_thai_round_kick",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "muay_thai_straight_knee",
+      "adjudicated": "knee",
+      "sim_is_kick": true,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_horizontal_elbow",
+      "adjudicated": "elbow",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_clinch_knees",
+      "adjudicated": "knee",
+      "sim_is_kick": true,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_up_elbow",
+      "adjudicated": "elbow",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_clinch_dump",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_eight_limb_chain",
+      "adjudicated": "mixed",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_switch_kick_body",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "muay_thai_catch_sweep",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_diagonal_elbow",
+      "adjudicated": "elbow",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_spinning_elbow",
+      "adjudicated": "elbow",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_dumps_offbalance",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_low_kick",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "muay_thai_mat_yaep",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_mat_trong",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_mat_wiang_san",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_mat_wiang_yao",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_mat_soei",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_sok_phung",
+      "adjudicated": "elbow",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_te_chiang",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "muay_thai_te_kot",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "muay_thai_te_khao",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "muay_thai_body_kick",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "muay_thai_khao_chiang",
+      "adjudicated": "knee",
+      "sim_is_kick": true,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_khao_khong",
+      "adjudicated": "knee",
+      "sim_is_kick": true,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_khao_tat",
+      "adjudicated": "knee",
+      "sim_is_kick": true,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_khao_ti",
+      "adjudicated": "knee",
+      "sim_is_kick": true,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_thip_khang",
+      "adjudicated": "kick",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_thip_top",
+      "adjudicated": "kick",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_switch_kick",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "muay_thai_mat_wiang_klap",
+      "adjudicated": "punch",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "muay_thai_kradot_chok",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_jab_cross_hook",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_jab_cross_body_kick",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "muay_thai_slip_counter_punch",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_sok_wiang_klap",
+      "adjudicated": "elbow",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_te_klap_lang",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "muay_thai_te_khrueng_khaeng",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_kradot_te",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "muay_thai_khayoep_te",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "muay_thai_fake_teep_kick",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "muay_thai_khao_yao",
+      "adjudicated": "knee",
+      "sim_is_kick": true,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_khao_yiap",
+      "adjudicated": "knee",
+      "sim_is_kick": true,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_khao_thon",
+      "adjudicated": "knee",
+      "sim_is_kick": true,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_fake_jab_knee",
+      "adjudicated": "knee",
+      "sim_is_kick": true,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_thip_klap_lang",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "muay_thai_kradot_thip",
+      "adjudicated": "kick",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_counter_teep",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "muay_thai_chapko_head_sweep",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_catch_strike",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_double_kick",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "muay_thai_check_counter_kick",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "muay_thai_kick_knee_combo",
+      "adjudicated": "mixed",
+      "sim_is_kick": true,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_khao_counter",
+      "adjudicated": "knee",
+      "sim_is_kick": true,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_pull_counter",
+      "adjudicated": "kick",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_sok_long_guard_counter",
+      "adjudicated": "elbow",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_sok_klap_khu",
+      "adjudicated": "elbow",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_kradot_sok",
+      "adjudicated": "elbow",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_counter_sok_klap",
+      "adjudicated": "elbow",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_sok_clinch_combo",
+      "adjudicated": "elbow",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_jorakhe_faad_hang",
+      "adjudicated": "kick",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_spinning_back_kick",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "muay_thai_khao_loi",
+      "adjudicated": "knee",
+      "sim_is_kick": true,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_khao_dot",
+      "adjudicated": "knee",
+      "sim_is_kick": true,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_superman_knee",
+      "adjudicated": "knee",
+      "sim_is_kick": true,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_khao_clinch_entry",
+      "adjudicated": "knee",
+      "sim_is_kick": true,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_teep_knee_chain",
+      "adjudicated": "mixed",
+      "sim_is_kick": true,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_superman_knee_punch",
+      "adjudicated": "mixed",
+      "sim_is_kick": true,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_jab_cross_sok_klap",
+      "adjudicated": "mixed",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_chapko_sweep_throw",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_full_spectacle",
+      "adjudicated": "mixed",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_thip_mat_te_combo",
+      "adjudicated": "kick",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_low_cross_hook",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "muay_thai_switch_cross",
+      "adjudicated": "mixed",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "muay_thai_thip_clinch_knee",
+      "adjudicated": "mixed",
+      "sim_is_kick": true,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_cross_body_low",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "muay_thai_jab_teep_switch",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "muay_thai_slip_sok_klap",
+      "adjudicated": "elbow",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "muay_thai_check_kick_counter",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_kizamizuki",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_gyakuzuki",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_maegeri",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_mawashigeri",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_ashibarai",
+      "adjudicated": "kick",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_counter_gyaku",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_yokogeri",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_uramawashi",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_sweep_finish",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_nidan_geri",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_kizami_gyaku",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_deai_counter",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_uke_counter",
+      "adjudicated": "punch",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_kizami_maegeri",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_ushiro_geri",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_sanbon_chain",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_chokuzuki",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_junzuki",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_tatezuki",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_urazuki",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_kagizuki",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_agezuki",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_gyakuagezuki",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_heikozuki",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_awasezuki",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_yamazuki",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_hasamizuki",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_morotezuki",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_renzuki",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_nukite",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_ipponnukite",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_nihonnukite",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_shihonnukite",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_ipponken",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_nakadakaken",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_hiraken",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_urakenuchi",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_tettsuiuchi",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_shutouchi",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_haitouchi",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_haishuuchi",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_teishouchi",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_seiryutouchi",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_keitouchi",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_kokutouchi",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_washideuchi",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_kumadeuchi",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_empiuchi",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_ageempiuchi",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_yokoempiuchi",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_ushiroempiuchi",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_otoshiempiuchi",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_mawashiempiuchi",
+      "adjudicated": "punch",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_maemawashiempiuchi",
+      "adjudicated": "punch",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_shutosakotsuuchi",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_shutosakotsuuchikomi",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_shutohizouchi",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_shutojodanuchi",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_shutoyokoganmenuchi",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_yokourakenuchi",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_otoshiurakenuchi",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_urakenmawashiuchi",
+      "adjudicated": "punch",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_teishofuriuchi",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_tateteishouchi",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_tsukiage",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_tettsuihasamiuchi",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_maegerikeage",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_maegerikekomi",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_maeashigeri",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_oimaegeri",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_rengeri",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_maeashimawashigeri",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_ushiromawashigeri",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_yokogerikeage",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_yokogerikekomi",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_fumikomigeri",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_hizageri",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_maehizageri",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_mawashihizageri",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_kingeri",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_mikazukigeri",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_gyakumikazukigeri",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_kakatogeri",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_otoshikakatogeri",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_urakakatogeri",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_tobimaegeri",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_tobiyokogeri",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_tobimawashigeri",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_tobiushirogeri",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_byobudaoshi",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_katawaguruma",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_kubiwa",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_sakazuchi",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_taniotoshi",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_tsubamegaeshi",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_yaridama",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_blitz_combo",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_ageuke_gyakuzuki_combo",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_sotouke_empi_uraken_gyaku_combo",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_shutouke_nukite_combo",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "karate_maegeri_junzuki_combo",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_mawashi_gyaku_combo",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_yokogeri_gyaku_combo",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "karate_ashibarai_gyaku_combo",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "tkd_apchagi",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "tkd_dollyochagi",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "tkd_yeopchagi",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "tkd_cut_kick",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "tkd_dwichagi",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "tkd_double_round",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "tkd_naeryochagi",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "tkd_spinning_hook",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "tkd_tornado_chain",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "taekwondo_dwit_hurigi",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "taekwondo_narae_chagi",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "taekwondo_bandae_dollyo",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "taekwondo_footwork_switch",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "taekwondo_cut_counter",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "taekwondo_back_kick_counter",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "taekwondo_spin_combo_chain",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "sanda_straights",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "sanda_side_kick",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "sanda_round_kick",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "sanda_kick_catch",
+      "adjudicated": "none",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "sanda_inside_sweep",
+      "adjudicated": "none",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "sanda_side_throw",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "sanda_catch_dump",
+      "adjudicated": "none",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "sanda_spinning_back",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "sanda_full_chain",
+      "adjudicated": "none",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "sanda_jab_side_kick",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "sanda_sweep_counter",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "sanda_catch_side_throw",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "sanda_liftup_slam",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "sanda_straight_blast",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "sanda_leg_catch_read",
+      "adjudicated": "none",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "sanda_full_sanda_chain",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "savate_direct",
+      "adjudicated": "kick",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "savate_fouette",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "savate_chasse_frontal",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "savate_chasse_lateral",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "savate_coup_bas",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "savate_revers_fouette",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "savate_direct_fouette",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "savate_revers_balance",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "savate_elite_chain",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "savate_chasse_bas",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "savate_fouette_high",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "savate_revers_counter",
+      "adjudicated": "punch",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "savate_direct_double",
+      "adjudicated": "kick",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "savate_assaut_footwork",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "savate_chasse_lateral_counter",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "savate_elite_precision_chain",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "capoeira_bencao",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "capoeira_martelo",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "capoeira_queixada",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "capoeira_rasteira",
+      "adjudicated": "kick",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "capoeira_armada",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "capoeira_meialua",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "capoeira_flow_chain",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "capoeira_meia_lua_compasso",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "capoeira_chapa_side",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "capoeira_armada_double",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "capoeira_negativa_sweep",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "capoeira_martelo_rotado",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "capoeira_ginga_flow_chain",
+      "adjudicated": "kick",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "silat_langkah",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "silat_front_kick",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "silat_side_kick",
+      "adjudicated": "kick",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "silat_sapuan",
+      "adjudicated": "kick",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "silat_catch_dump",
+      "adjudicated": "none",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "silat_guntingan",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "silat_elbow_counter",
+      "adjudicated": "elbow",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "silat_complete_response",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "pencak_silat_sapuan_low",
+      "adjudicated": "kick",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "pencak_silat_elbow_destruction",
+      "adjudicated": "elbow",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "pencak_silat_langkah_angle",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "pencak_silat_guntingan_scissor",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "pencak_silat_catch_kick_takedown",
+      "adjudicated": "none",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "pencak_silat_total_response_chain",
+      "adjudicated": "mixed",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "mma_stance_switch",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "mma_jab_levelchange",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "mma_sprawl_fronthead",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "mma_clinch_knee_trip",
+      "adjudicated": "none",
+      "sim_is_kick": true,
+      "range_is_kick": false
+    },
+    {
+      "id": "mma_complete_chain",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "mma_dirty_boxing",
+      "adjudicated": "punch",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "mma_kick_catch_slam",
+      "adjudicated": "none",
+      "sim_is_kick": true,
+      "range_is_kick": true
+    },
+    {
+      "id": "mma_switch_hit",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    },
+    {
+      "id": "mma_finish_iq",
+      "adjudicated": "none",
+      "sim_is_kick": false,
+      "range_is_kick": false
+    }
+  ],
+  "summary": {
+    "sim_wrong": 40,
+    "range_wrong": 21
+  },
+  "recommend": "a"
+}

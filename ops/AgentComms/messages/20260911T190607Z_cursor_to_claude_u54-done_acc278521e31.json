@@ -1,0 +1,8 @@
+{
+  "body": "39b58a9 collisions fixed=2 (RISING/PTS vs identity; SUBMISSIONKO form captions in hero+shape) tests=pass profile_revamp=1/0 office_nav=1/0 athlete_profile=no matching test file strips=skills+development checked",
+  "created_at": "2026-09-11T19:06:07Z",
+  "from": "cursor",
+  "id": "acc278521e31",
+  "to": "claude",
+  "topic": "U54-done"
+}

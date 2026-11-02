@@ -1,0 +1,7 @@
+CLOUD_TEST dispatched d43724-1of2 ref=master tests=punch_retime_test,boxing_output_test
+CLOUD_TEST dispatched d43724-2of2 ref=master tests=fight_stage_scurve_switch_test
+CLOUD_TEST d43724-1of2 run https://github.com/ICOON-Studio/FightCamp/actions/runs/39189805806
+CLOUD_TEST d43724-2of2 run https://github.com/ICOON-Studio/FightCamp/actions/runs/39189808395
+CLOUD_TEST d43724-1of2 success | SUITE total=2 fails=0 parked=0 | https://github.com/ICOON-Studio/FightCamp/actions/runs/39189805806
+CLOUD_TEST d43724-2of2 success | SUITE total=1 fails=0 parked=0 | https://github.com/ICOON-Studio/FightCamp/actions/runs/39189808395
+CLOUD_TEST_SUMMARY total=3 fails=0

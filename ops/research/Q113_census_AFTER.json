@@ -1,0 +1,436 @@
+{
+  "disciplines": {
+    "boxing": {
+      "plans": [
+        {
+          "attempts": {
+            "by_role": {
+              "counter": 365,
+              "damage": 93,
+              "setup": 288
+            },
+            "total": 746
+          },
+          "id": "boxing_out_boxer",
+          "landed": {
+            "by_role": {
+              "counter": 198,
+              "damage": 52,
+              "setup": 152
+            },
+            "total": 402
+          },
+          "role_weights": {
+            "counter": 3.0,
+            "damage": 1.0,
+            "setup": 3.0
+          }
+        },
+        {
+          "attempts": {
+            "by_role": {
+              "counter": 143,
+              "damage": 681,
+              "setup": 214
+            },
+            "total": 1038
+          },
+          "id": "boxing_pressure",
+          "landed": {
+            "by_role": {
+              "counter": 66,
+              "damage": 285,
+              "setup": 92
+            },
+            "total": 443
+          },
+          "role_weights": {
+            "counter": 0.5,
+            "damage": 3.0,
+            "setup": 1.0
+          }
+        },
+        {
+          "attempts": {
+            "by_role": {
+              "counter": 130,
+              "damage": 406,
+              "setup": 421
+            },
+            "total": 957
+          },
+          "id": "boxing_boxer_puncher",
+          "landed": {
+            "by_role": {
+              "counter": 62,
+              "damage": 175,
+              "setup": 190
+            },
+            "total": 427
+          },
+          "role_weights": {
+            "counter": 1.0,
+            "damage": 3.0,
+            "setup": 3.0
+          }
+        },
+        {
+          "attempts": {
+            "by_role": {
+              "counter": 485,
+              "damage": 77,
+              "setup": 168
+            },
+            "total": 730
+          },
+          "id": "boxing_counter_puncher",
+          "landed": {
+            "by_role": {
+              "counter": 254,
+              "damage": 38,
+              "setup": 79
+            },
+            "total": 371
+          },
+          "role_weights": {
+            "counter": 3.0,
+            "damage": 0.5,
+            "setup": 1.0
+          }
+        }
+      ],
+      "total_bouts": 30
+    },
+    "kickboxing": {
+      "plans": [
+        {
+          "attempts": {
+            "by_role": {
+              "counter": 142,
+              "damage": 649,
+              "setup": 180
+            },
+            "total": 971
+          },
+          "id": "kickboxing_dutch_pressure",
+          "landed": {
+            "by_role": {
+              "counter": 65,
+              "damage": 311,
+              "setup": 87
+            },
+            "total": 463
+          },
+          "role_weights": {
+            "control": 0.1,
+            "counter": 0.5,
+            "damage": 3.0,
+            "setup": 1.0
+          }
+        },
+        {
+          "attempts": {
+            "by_role": {
+              "counter": 159,
+              "damage": 390,
+              "setup": 250
+            },
+            "total": 799
+          },
+          "id": "kickboxing_thai_kicker",
+          "landed": {
+            "by_role": {
+              "counter": 86,
+              "damage": 205,
+              "setup": 121
+            },
+            "total": 412
+          },
+          "role_weights": {
+            "control": 1.0,
+            "damage": 3.0,
+            "setup": 3.0
+          }
+        },
+        {
+          "attempts": {
+            "by_role": {
+              "counter": 451,
+              "damage": 169,
+              "setup": 143
+            },
+            "total": 763
+          },
+          "id": "kickboxing_counter_striker",
+          "landed": {
+            "by_role": {
+              "counter": 228,
+              "damage": 82,
+              "setup": 68
+            },
+            "total": 378
+          },
+          "role_weights": {
+            "counter": 3.0,
+            "damage": 1.0,
+            "setup": 1.0
+          }
+        },
+        {
+          "attempts": {
+            "by_role": {
+              "counter": 121,
+              "damage": 726,
+              "setup": 215
+            },
+            "total": 1062
+          },
+          "id": "kickboxing_dutch_pressure",
+          "landed": {
+            "by_role": {
+              "counter": 70,
+              "damage": 331,
+              "setup": 97
+            },
+            "total": 498
+          },
+          "role_weights": {
+            "control": 0.1,
+            "counter": 0.5,
+            "damage": 3.0,
+            "setup": 1.0
+          }
+        }
+      ],
+      "total_bouts": 30
+    },
+    "mma": {
+      "plans": [
+        {
+          "attempts": {
+            "by_role": {
+              "counter": 369,
+              "damage": 656,
+              "setup": 306
+            },
+            "total": 1331
+          },
+          "id": "mma_wrestle_gnp",
+          "landed": {
+            "by_role": {
+              "counter": 188,
+              "damage": 320,
+              "setup": 143
+            },
+            "total": 651
+          },
+          "role_weights": {
+            "control": 3.0,
+            "damage": 1.0,
+            "escape": 1.0,
+            "submission": 0.5,
+            "takedown": 3.0
+          }
+        },
+        {
+          "attempts": {
+            "by_role": {
+              "counter": 513,
+              "damage": 753,
+              "setup": 105
+            },
+            "total": 1371
+          },
+          "id": "mma_sprawl_and_brawl",
+          "landed": {
+            "by_role": {
+              "counter": 250,
+              "damage": 342,
+              "setup": 48
+            },
+            "total": 640
+          },
+          "role_weights": {
+            "control": 0.5,
+            "counter": 3.0,
+            "damage": 3.0,
+            "escape": 1.0,
+            "takedown": 0.1
+          }
+        },
+        {
+          "attempts": {
+            "by_role": {
+              "counter": 535,
+              "damage": 410,
+              "setup": 458
+            },
+            "total": 1403
+          },
+          "id": "mma_submission_grappler",
+          "landed": {
+            "by_role": {
+              "counter": 255,
+              "damage": 210,
+              "setup": 213
+            },
+            "total": 678
+          },
+          "role_weights": {
+            "control": 1.0,
+            "damage": 0.1,
+            "submission": 3.0,
+            "takedown": 3.0,
+            "transition": 3.0
+          }
+        },
+        {
+          "attempts": {
+            "by_role": {
+              "counter": 238,
+              "damage": 1127,
+              "setup": 196
+            },
+            "total": 1561
+          },
+          "id": "mma_clinch_boxer",
+          "landed": {
+            "by_role": {
+              "counter": 137,
+              "damage": 562,
+              "setup": 89
+            },
+            "total": 788
+          },
+          "role_weights": {
+            "control": 3.0,
+            "counter": 1.0,
+            "damage": 3.0,
+            "takedown": 1.0
+          }
+        }
+      ],
+      "total_bouts": 30
+    },
+    "muay_thai": {
+      "plans": [
+        {
+          "attempts": {
+            "by_role": {
+              "counter": 200,
+              "damage": 319,
+              "empty": 158,
+              "setup": 268
+            },
+            "total": 945
+          },
+          "id": "muay_thai_khao",
+          "landed": {
+            "by_role": {
+              "counter": 100,
+              "damage": 158,
+              "empty": 74,
+              "setup": 113
+            },
+            "total": 445
+          },
+          "role_weights": {
+            "control": 3.0,
+            "counter": 0.5,
+            "damage": 1.0,
+            "takedown": 3.0
+          }
+        },
+        {
+          "attempts": {
+            "by_role": {
+              "counter": 146,
+              "damage": 386,
+              "empty": 134,
+              "setup": 329
+            },
+            "total": 995
+          },
+          "id": "muay_thai_tae",
+          "landed": {
+            "by_role": {
+              "counter": 81,
+              "damage": 204,
+              "empty": 67,
+              "setup": 167
+            },
+            "total": 519
+          },
+          "role_weights": {
+            "control": 0.5,
+            "damage": 3.0,
+            "setup": 3.0,
+            "takedown": 0.1
+          }
+        },
+        {
+          "attempts": {
+            "by_role": {
+              "counter": 311,
+              "damage": 129,
+              "empty": 171,
+              "setup": 287
+            },
+            "total": 898
+          },
+          "id": "muay_thai_femur",
+          "landed": {
+            "by_role": {
+              "counter": 162,
+              "damage": 66,
+              "empty": 85,
+              "setup": 144
+            },
+            "total": 457
+          },
+          "role_weights": {
+            "counter": 3.0,
+            "damage": 1.0,
+            "setup": 3.0,
+            "takedown": 1.0
+          }
+        },
+        {
+          "attempts": {
+            "by_role": {
+              "counter": 196,
+              "damage": 582,
+              "empty": 218,
+              "setup": 148
+            },
+            "total": 1144
+          },
+          "id": "muay_thai_mat",
+          "landed": {
+            "by_role": {
+              "counter": 97,
+              "damage": 255,
+              "empty": 99,
+              "setup": 63
+            },
+            "total": 514
+          },
+          "role_weights": {
+            "control": 0.1,
+            "counter": 1.0,
+            "damage": 3.0,
+            "takedown": 0.1
+          }
+        }
+      ],
+      "total_bouts": 30
+    }
+  },
+  "population": "Q112 population reused: 4 disciplines, 2 pairings each, distinct fighters by style and attributes",
+  "setup_ceiling": {
+    "boxing": 9,
+    "kickboxing": 13,
+    "mma": 22,
+    "muay_thai": 18
+  }
+}

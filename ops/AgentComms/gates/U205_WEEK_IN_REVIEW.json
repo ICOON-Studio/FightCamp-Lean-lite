@@ -1,0 +1,12 @@
+{
+  "checked_at": "2026-10-01T17:10:59Z",
+  "files": [
+    "Godot/scripts/WeekReviewPanel.gd",
+    "Godot/scripts/CareerRoot.gd",
+    "Godot/scripts/GameState.gd",
+    "Godot/tests/week_review_test.gd"
+  ],
+  "output": "CHECK total=4 fails=0 autoload_refs=1 autoload_warnings=0 time=2s\n",
+  "passed": true,
+  "task": "U205_WEEK_IN_REVIEW"
+}

@@ -1,0 +1,8 @@
+{
+  "agent": "john",
+  "created_at": "2026-09-06T23:49:39Z",
+  "id": "8f6759f77734",
+  "resolved_at": "2026-09-07T08:53:37Z",
+  "task": "J9",
+  "why": "SUPERSEDED 2026-09-07: reassigned to Codex as C31 (TASK_C31.md). John's Grok Build balance ran out mid-pass (402) and nothing landed. Do not resume J9 on a top-up."
+}

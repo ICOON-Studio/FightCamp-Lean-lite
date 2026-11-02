@@ -1,0 +1,11 @@
+TASK K_PROFILE_TABS (Kalli, game design review) - FightCamp S206
+FightCamp: PC boxing-gym management sim (Football Manager depth). The full-screen FIGHTER PROFILE gets 7 tabs: OVERVIEW, TECHNIQUES,
+MEDICAL, TRAINING PLAN, FIGHT RECORD, CONTRACT, CAMP. Stats the game really has (use only these): power, technique, speed, stamina,
+chin, defence, footwork, ring IQ, composure (0-100); a 54-node boxing technique tree with tiers T1-T4 and prerequisites; 6 body regions
+with wear 0-100% (head/neck, torso/core, each arm, each leg), injuries with weeks to clear, cut scars 0-3, weight vs division limit with
+a cut plan; a 7-day training week of stations; fight history rows (opponent, result, method, round, purse, scorecards); contract
+(weekly salary, market salary, weeks left, purse share, the fighter's open requests with deadlines); a booked bout's camp (opponent,
+scouting level 0-3, weeks to fight, weight path).
+As our game designer: for EACH tab give (a) the one question the manager opens it to answer, (b) the 3 decisions it must let him make
+in under 3 clicks, (c) what must be visible without scrolling, (d) what to leave out of the demo, (e) the empty state for a new signing.
+Then rank the 7 tabs for the boxing demo (must / should / later). Design only - no research.

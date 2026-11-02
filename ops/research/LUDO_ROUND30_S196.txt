@@ -1,0 +1,1631 @@
+LUDO ROUND 30 (S196, 2026-10-10) - attrition per training area, equipment<->body, members, whole design (operator: 'ask ludo about the attrition per training area ... deliver it in full for implementation'). Prompt: research/LUDO_ROUND30_PROMPT_S196.txt. Reply part 1 verbatim (Section A; cut at the code), saved via Tools/arena_rx.py.
+
+
+
+SECTION A — ATTRITION PER TRAINING AREA
+1. The Attrition Model
+
+Every training hour in FightCamp processes mechanical, metabolic, and neuro-structural work. Work generates adaptation, but it invariably extracts local tissue tolls. Where a fighter is routed determines precisely which biological structures degrade.
+
+1.1 Core Biological & Neurological Tracking Meters
++----------------------------------------------------------------------------------------------------+
+| CORE TRACKING METERS (State Arrays per Fighter)                                                    |
++-------------------+---------+----------------------------------------------------------------------+
+| Meter Identifier  | Range   | Definition & Functional Consequence                                  |
++-------------------+---------+----------------------------------------------------------------------+
+| Region Integrity  | 0 - 100 | Integrity for 6 discrete segments: head_neck, torso_core,            |
+| (6 distinct pools)|         | left_arm, right_arm, left_leg, right_leg. 100 = uncompromised;       |
+|                   |         | < 40 = Tissue Degradation; < 15 = Structural Failure risk.           |
++-------------------+---------+----------------------------------------------------------------------+
+| Daily Stamina     | 0 - 100 | Acute energetic pool. Depletes per station hour. Controls output,    |
+| (Acute Energy)    |         | mechanical form decay, and baseline blunder/injury probability.     |
++-------------------+---------+----------------------------------------------------------------------+
+| Composure & CNS   | 0 - 100 | Central Nervous System reserve. Degrades under high acceleration,     |
+| (Burnout Pool)    |         | heavy concussive impacts, and heavy loads. < 30 triggers CNS Fatigue.|
++-------------------+---------+----------------------------------------------------------------------+
+| Chronic Joint     | 0 - 100 | Cumulative micro-trauma across connective tissues (ligaments,        |
+| Load (Overuse)    |         | tendons, labrums). Accumulates silently; slow to dissipate.          |
++-------------------+---------+----------------------------------------------------------------------+
+| Acute Mechanical  | Dynamic | Real-time modifier from degraded, uncalibrated, or broken            |
+| Defect Vector     | Mult    | hardware (e.g., seized bearings, hard-packed heavy bags).            |
++-------------------+---------+----------------------------------------------------------------------+
+
+1.2 Station Family & Floor Zone Attrition Profiles
+
+Rates are expressed in base damage points per nominal training hour ($1.0\text{ h}$) at $100%$ nominal hardware integrity and $1.0\times$ athlete physiological scale.
+
++------------------------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+
+| Zone / Family          | Head/Neck | Torso/Core| L_Arm     | R_Arm     | L_Leg     | R_Leg     | CNS/Burn  | Joint Load|
++------------------------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+
+| Ring: Hard Sparring    | -4.50     | -2.20     | -1.80     | -1.80     | -1.20     | -1.20     | -5.00     | +3.80     |
+| Ring: Technical Spar   | -0.80     | -0.60     | -0.90     | -0.90     | -0.80     | -0.80     | -1.50     | +1.20     |
+| Striking: Heavy Bags   | -0.10     | -0.80     | -3.20     | -3.20     | -2.10     | -2.10     | -2.00     | +3.20     |
+| Striking: Speed/End    | -0.05     | -0.20     | -1.80     | -1.80     | -0.20     | -0.20     | -0.80     | +1.10     |
+| Striking: Focus Pads   | -0.20     | -0.50     | -1.40     | -1.40     | -0.90     | -0.90     | -1.20     | +1.40     |
+| Mats: Live Grappling   | -2.10     | -3.40     | -2.80     | -2.80     | -2.60     | -2.60     | -4.20     | +4.50     |
+| Mats: Drill/Technique  | -0.40     | -1.10     | -1.00     | -1.00     | -0.90     | -0.90     | -1.10     | +1.50     |
+| Strength: Heavy Free   | -0.20     | -3.80     | -2.50     | -2.50     | -3.60     | -3.60     | -4.50     | +3.90     |
+| Strength: Machines     | -0.00     | -1.20     | -1.50     | -1.50     | -1.80     | -1.80     | -1.40     | +0.80     |
+| Cardio: High Impact    | -0.10     | -0.40     | -0.20     | -0.20     | -3.50     | -3.50     | -2.50     | +3.10     |
+| Cardio: Low Impact     | -0.00     | -0.20     | -0.10     | -0.10     | -1.20     | -1.20     | -1.00     | +0.60     |
+| Active Recovery Unit   | +0.80     | +1.20     | +1.20     | +1.20     | +1.20     | +1.20     | +3.50     | -1.80     |
++------------------------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+
+
+1.3 The Attrition Hourly Processing Formula
+
+For any fighter $f$, training station $s$, and body region $r$, during continuous time duration $\Delta t$ (hours):
+
+$$\Delta \text{Integrity}(f, r, s) = -\left[ \text{BaseRate}(s, r) \times \Phi_{\text{Form}}(f) \times \Psi_{\text{Hardware}}(s) \times \Omega_{\text{Vuln}}(f, r) \times \Delta t \right]$$
+
+Where:
+
+Form Decay Factor ($\Phi_{\text{Form}}$):
+$$\Phi_{\text{Form}}(f) = 1.0 + \left( \frac{\max(0, 40.0 - \text{Stamina}_t)}{40.0} \right)^2 \times 1.8$$
+(When stamina drops below 40.0, mechanical form breaks down non-linearly, up to a $2.8\times$ damage multiplier at $0$ stamina).
+
+Hardware Defect Factor ($\Psi_{\text{Hardware}}$):
+$$\Psi_{\text{Hardware}}(s) = 1.0 + \left( \frac{\max(0, 70.0 - \text{Integrity}_{\text{Equip}}(s))}{70.0} \right) \times 1.4$$
+(Worn equipment forces compensatory joint torque and delivers erratic mechanical resistance).
+
+Athlete Specific Vulnerability ($\Omega_{\text{Vuln}}$):
+$$\Omega_{\text{Vuln}}(f, r) = \text{TraitMod}(f, r) \times \text{AgeMod}(f) \times \text{HistoryMod}(f, r) \times \text{WeightCutMod}(f)$$
+
+Chronic Joint Load Increment ($\Delta \text{Joint}$):
+$$\Delta \text{Joint}(f, s) = \left[ \text{BaseJointRate}(s) \times \left(1.0 + \frac{100.0 - \text{Conditioning}(f)}{200.0}\right) \times \left(1.0 + \frac{\text{Weight}(f) - 60.0}{140.0}\right) \right] \times \Delta t$$
+
+2. Accumulation and Recovery Mechanics
+
+Athletic training balance relies on Bannister’s Fitness-Fatigue model, implemented via the Acute:Chronic Workload Ratio (ACWR).
+
+                  ACWR (Acute-to-Chronic Workload Ratio)
+      0.0         0.8                1.3         1.5                 2.0+
+       [-----------[==================]-----------[-------------------]
+        Detraining     "Sweet Spot"     Overreach     CRITICAL HAZARD
+        High Floor     Lowest Injury   Functional     Injury Probability
+        Decay Rate     Probability     Gains          Spikes Exponentially
+
+2.1 Acute Load vs. Chronic Load Definitions
+Acute Workload (Rolling 7-day average): Reflects immediate athletic fatigue: $$\text{AcuteLoad}{d} = 0.25 \times \text{DailyStrain}{d} + 0.75 \times \text{AcuteLoad}_{d-1}$$
+Chronic Workload (Rolling 28-day average): Represents physical fitness foundation: $$\text{ChronicLoad}{d} = 0.07 \times \text{DailyStrain}{d} + 0.93 \times \text{ChronicLoad}_{d-1}$$
+Coupled Ratio: $$\text{ACWR}_d = \frac{\text{AcuteLoad}_d}{\max(1.0, \text{ChronicLoad}_d)}$$
+Ratio Thresholds and Systematic Rules:
+$\text{ACWR} < 0.8$: Under-training zone. Injury hazard baseline ($0.02%/\text{h}$); physical attribute retention degrades by $-0.15%/\text{day}$.
+$0.8 \le \text{ACWR} \le 1.3$: Optimal conditioning. Injury hazard baseline ($0.01%/\text{h}$); skill/stat adaptation efficiency at $1.0\times$ to $1.15\times$.
+$1.3 < \text{ACWR} \le 1.5$: Overreach. Adaptive gains continue, but cumulative joint degradation increases by $+40%$.
+$\text{ACWR} > 1.5$: Critical hazard. Structural tissue integrity loss scales: $$\text{TissueDamageMult} = 1.0 + (\text{ACWR} - 1.5) \times 3.0$$
+$\text{ACWR} \ge 2.0$: Structural failure zone. Soft-tissue rupture hazard per hour spent on high-load stations increases to $4.8%$.
+2.2 Systemic Interventions & Recovery Modalities
+
+Recovery interventions operate on specific recovery systems over discrete durations:
+
++-------------------------+----------+-------------+-------------+-------------+-------------+
+| Recovery Protocol       | Duration | Region Gain | CNS / Burn  | Joint Load  | Stamina Res |
++-------------------------+----------+-------------+-------------+-------------+-------------+
+| Passive Rest (No Train) | 24 Hours | +4.0 all    | +25.0       | -12.0       | Resets 100  |
+| Full Sleep Cycle (8.5h) | Nightly  | +8.0 all    | +45.0       | -8.0        | Resets 100  |
+| Physio Manual Therapy   | 1.0 Hour | +14.0 target| +4.0        | -15.0 target| -5.0        |
+| Cold-Water Immersion    | 0.5 Hour | +3.0 all    | +12.0       | -4.0        | -10.0       |
+| Active Flushes (Pool)   | 1.0 Hour | +5.0 all    | +8.0        | -10.0       | -15.0       |
+| Sauna & Thermal Mod     | 0.75 Hour| +2.0 core   | +14.0       | -6.0        | -20.0       |
++-------------------------+----------+-------------+-------------+-------------+-------------+
+
+Acute Weight Cut Impairment
+
+During active water cuts (Week -1), standard recovery mechanisms are constrained:
+
+Hydration deficit limits all passive soft-tissue healing: $$\text{TissueRegenEff} = \max(0.10, 1.0 - (\text{DehydrationPct} \times 0.08))$$
+At $8%$ dehydration, passive regional recovery drops by $64%$, while joint lubrication depletion increases baseline joint attrition by $+120%$.
+3. Fighter Vulnerability: Genetic, Age, Trait & Discipline Modifiers
+3.1 Age-Related Attrition Progression
+$\text{Age} \le 23$: Resilient Tissue. Regional repair $+20%$; Joint wear resistance $+15%$; Bone mineral density peak.
+$24 \le \text{Age} \le 29$: Prime Homeostasis. $1.0\times$ modifier across all physiological vectors.
+$30 \le \text{Age} \le 34$: Degradation Phase. Natural recovery rates drop by $-18%$; Chronic joint accumulation rate $+25%$; CNS recovery slows by $-15%$.
+$\text{Age} \ge 35$: High Wear. Natural tissue recovery $-38%$; Joint load retention $+55%$; Form decay trigger increases from $40$ stamina to $55$ stamina.
+3.2 Trait Vulnerability & Resilience Matrix
++--------------------+------------------------------------+---------------------------------------+
+| Trait Identifier   | Primary Vulnerability Vector       | Protective / Resilient Vector         |
++--------------------+------------------------------------+---------------------------------------+
+| Dense Skeletal     | Joint wear accumulation +20%       | Bone trauma / Fracture risk -60%      |
+| Frame              | (heavier structural load)          | Head punch concussion damping +15%    |
++--------------------+------------------------------------+---------------------------------------+
+| Hypermobile        | Joint load accumulation +35%       | Muscle strain probability -30%        |
+| Ligaments          | Joint dislocation hazard x2.2      | Grapple submission escape window +25% |
++--------------------+------------------------------------+---------------------------------------+
+| Glass Jaw          | Head/neck impact damage +45%       | None                                  |
+|                    | Concussion knockout threshold -30% |                                       |
++--------------------+------------------------------------+---------------------------------------+
+| Iron Chin          | None                               | Head/neck impact integrity loss -35%  |
+|                    |                                    | Stun/Flash KO resistance +40%         |
++--------------------+------------------------------------+---------------------------------------+
+| Anterior Pelvic    | Torso/core integrity loss +25%     | Hip hinge power output +5%            |
+| Tilt               | Hamstring strain risk x2.0         |                                       |
++--------------------+------------------------------------+---------------------------------------+
+| Rotator Cuff Scars | Shoulder/Arm integrity drain +50%  | Hand speed +0%                        |
+|                    | Punch volume durability -30%       |                                       |
++--------------------+------------------------------------+---------------------------------------+
+| High Stroke Volume | None                               | CNS burn accumulation rate -25%       |
+| (Elite Heart)      |                                    | Stamina regeneration speed +30%       |
++--------------------+------------------------------------+---------------------------------------+
+| Short Muscle       | Tendon strain probability +40%     | Raw peak mechanical power +15%        |
+| Bellies            | Flexibility plateau capped at 65   | Explosive output sprint +20%          |
++--------------------+------------------------------------+---------------------------------------+
+
+3.3 Historical Trauma Multiplier ($\text{HistoryMod}$)
+
+Each documented historical injury leaves lasting structural vulnerability on that region:
+$$\text{HistoryMod}(f, r) = 1.0 + \sum_{i \in \text{Injuries}(r)} \text{SeverityWeight}(i)$$
+
+Minor sprain/strain: $+0.08$
+Grade II muscle tear: $+0.22$
+Ligament rupture / Surgical reconstruction: $+0.55$
+Bone fracture (clean heal): $+0.05$ (calcification benefit balances soft-tissue scarring)
+4. The Player's Decision Loop: Scouting, Routing & Safety Stops
+                   [SCOUT & DIAGNOSE]
+             Assess Regional Weaknesses & Wear
+                            |
+                            v
+               [SCHEDULE INTENTIONAL ROUTE]
+             Avoid High-Stress Overlapping Zones
+                            |
+                            v
+               [EXECUTE 3D GYM FLOOR LAP]
+                            |
+            +---------------+---------------+
+            |                               |
+     (Safe Run Loop)              (Auto-Pause Breached)
+            |                               |
+            v                               v
+    [NORMAL DAY CLOSE]             [EMERGENCY DECISION]
+                                     - Reroute Station
+                                     - Force Physio Flush
+                                     - Halt Camp / Concede
+
+4.1 Information Visibility & Scouted Weak Points
+
+The manager cannot view exact internal numbers for all metrics without diagnostic investment.
+
+Basic Status: Stamina and general fatigue indicators are always visible.
+Tissue Diagnostics: Regional integrity values require a qualified physio check. Without a Physio, values appear as qualitative ranges: Nominal, Tight, Inflamed, Compromised.
+Medical Diagnostic Upgrades:
+Hiring an Assistant Coach (Level 2+): Reveals structural form breakdowns during live runs.
+Sports Medicine Specialist: Unlocks numeric tracking for region integrity, joint load, and ACWR.
+4.2 Hard Safety Auto-Pause Conditions
+
+The simulation loop halts execution under three explicit conditions:
+
+Critical Regional Compromise: Any body region drops below $20.0$ integrity during an active drill.
+Exhaustion Threshold: Daily stamina drops below $15.0$ while assigned to any non-recovery station.
+Hardware Breakdown Risk: Station integrity drops below $20.0%$ while occupied by a contracted fighter.
+
+When paused, the manager must choose one of three actions:
+
+Option A: Pivot. Re-route athlete to an unassigned low-impact or recovery station (e.g., convert Heavy Bag run to Slip Rope or Technical Shadowboxing).
+Option B: Terminate Session. Send athlete directly to passive rest/baths (forfeits remaining progression gains; stabilizes tissue wear).
+Option C: Override (Force Through). Require athlete to complete the assigned protocol. Applies a permanent $-15$ Composure penalty, spikes catastrophic injury risk by $6.0\times$, and triggers an immediate compliance/morale check.
+5. Worked Example: Single Training Day Comparison
+Day 18 of Camp (Wednesday: Technical & Power Phase)
+Fighter A (Leo Vance): Age 19, Welterweight ($151\text{ lbs}$). Fresh, explosive prospect. Traits: Iron Chin, Short Muscle Bellies. No major structural trauma history.
+Fighter B (Sal 'The Anvil' Barone): Age 34, Super Middleweight ($172\text{ lbs}$). Veteran gatekeeper. Traits: Rotator Cuff Scars (Right Arm), Dense Skeletal Frame. Prior ACL surgical reconstruction (Right Leg).
+Prescribed 6-Hour Camp Schedule:
+Hour 1 (09:00): Curved Slat Treadmill (HIIT Sprints)
+Hour 2 (10:00): Heavy Bag (Power Combinations)
+Hour 3 (11:00): Focus Mitts (Pad work with Head Coach)
+Hour 4 (13:00): Olympic Platform (Clean & Jerk)
+Hour 5 (14:00): Ring (Hard Sparring)
+Hour 6 (15:00): Recovery Tub (Cold Water Immersion)
+======================================================================================================
+WORKED TRACE RESULTS (Delta Values After 6 Hours):
+======================================================================================================
+METRIC CHECK                   FIGHTER A (Leo Vance, 19)              FIGHTER B (Sal Barone, 34)
+------------------------------------------------------------------------------------------------------
+Head/Neck Integrity:           94.0 -> 88.6 (-5.4)                    88.0 -> 79.2 (-8.8)
+Torso/Core Integrity:          98.0 -> 90.1 (-7.9)                    91.0 -> 78.4 (-12.6)
+Left Arm Integrity:            96.0 -> 87.2 (-8.8)                    89.0 -> 75.8 (-13.2)
+Right Arm Integrity:           95.0 -> 86.4 (-8.6)                    74.0 -> 48.2 (-25.8) [CRITICAL]
+Left Leg Integrity:            97.0 -> 87.8 (-9.2)                    86.0 -> 71.4 (-14.6)
+Right Leg Integrity:           96.0 -> 86.9 (-9.1)                    71.0 -> 49.8 (-21.2) [WARNING]
+CNS / Burnout Level:           92.0 -> 76.5 (-15.5)                   80.0 -> 52.0 (-28.0)
+Chronic Joint Load:            12.0 -> 24.8 (+12.8)                   44.0 -> 68.2 (+24.2)
+Final Stamina (End of Day):    42.0                                   16.0 [NEAR COLLAPSE]
+------------------------------------------------------------------------------------------------------
+System State / Action:         COMPLETED CLEANLY.                     HALTED AT HR 5 (AUTO-PAUSE).
+                               Leo absorbed the session               Right Arm fell below 50.0;
+                               within acceptable tolerance.           Stamina dropped below 20.0.
+                               No structural warnings tripped.        Forced intervention required.
+======================================================================================================
+
+
+Sal's Rotator Cuff Scars and prior orthopedic history accelerated right-side degradation. At Hour 5 sparring, his right arm integrity dropped into the high-risk failure zone, triggering an automatic safety stop.
+
+6. Real-World Sports Science Benchmarks Used
+
+All attrition formulas derive from empirical athletic and orthopedic research:
+
++-----------------------------+-------------------------------+---------------------------------------+
+| Athletic Phenomenon         | Real-World Reference Baseline | Implementation In-Game                |
++-----------------------------+-------------------------------+---------------------------------------+
+| ACWR "Sweet Spot"           | Gabbett TJ (2016) Br J Sports | ACWR safe corridor set to [0.8 - 1.3].|
+|                             | Med. Hazard spikes at > 1.5.  | Exponential soft-tissue damage curve. |
++-----------------------------+-------------------------------+---------------------------------------+
+| Combat Head Acceleration    | Tierney et al. (concussion    | Hard sparring applies -4.50 head toll |
+| & Sub-Concussive Loads      | kinematic thresholds).        | per hour; -0.80 on light sparring.    |
++-----------------------------+-------------------------------+---------------------------------------+
+| Orthopedic Aging Curve      | Baker et al., Masters Athlete | 2% - 3.5% joint recovery drop per     |
+|                             | Tendinopathy Studies (30+).   | year of age past 29.                  |
++-----------------------------+-------------------------------+---------------------------------------+
+| Dehydration Impact on Soft  | Sawka MN et al., ACSM fluid   | Tissue recovery reduced by 8% per 1%  |
+| Tissue Viscoelasticity      | replacement guidelines.       | water weight lost; joint wear +120%.  |
++-----------------------------+-------------------------------+---------------------------------------+
+
+7. Data Schemas & Pure-Module GDScript API
+7.1 Schema 1: Station Attrition Profiles (attrition_profiles.json)
+{
+  "$schema": "https://json-schema.fightcamp.internal/v1/attrition_profiles.json",
+  "profiles": {
+    "ring_hard_sparring": {
+      "base_rates": {
+        "head_neck": -4.50,
+        "torso_core": -2.20,
+        "left_arm": -1.80,
+        "right_arm": -1.80,
+        "left_leg": -1.20,
+        "right_leg": -1.20,
+        "cns_burn": -5.00,
+        "joint_load": 3.80
+      },
+      "stamina_drain_per_hour": 28.0,
+      "cns_drain_base": 5.0
+    },
+    "striking_heavy_bag": {
+      "base_rates": {
+        "head_neck": -0.10,
+        "torso_core": -0.80,
+        "left_arm": -3.20,
+        "right_arm": -3.20,
+        "left_leg": -2.10,
+        "right_leg": -2.10,
+        "cns_burn": -2.00,
+        "joint_load": 3.20
+      },
+      "stamina_drain_per_hour": 22.0,
+      "cns_drain_base": 2.0
+    },
+    "strength_olympic_platform": {
+      "base_rates": {
+        "head_neck": -0.20,
+        "torso_core": -3.80,
+        "left_arm": -2.50,
+        "right_arm": -2.50,
+        "left_leg": -3.60,
+        "right_leg": -3.60,
+        "cns_burn": -4.50,
+        "joint_load": 3.90
+      },
+      "stamina_drain_per_hour": 24.0,
+      "cns_drain_base": 4.5
+    },
+    "active_recovery_pool": {
+      "base_rates": {
+        "head_neck": 0.80,
+        "torso_core": 1.20,
+        "left_arm": 1.20,
+        "right_arm": 1.20,
+        "left_leg": 1.20,
+        "right_leg": 1.20,
+        "cns_burn": 3.50,
+        "joint_load": -1.80
+      },
+      "stamina_drain_per_hour": 8.0,
+      "cns_drain_base": -3.5
+    }
+  }
+}
+
+7.2 Schema 2: Day Lap Stations Extension (day_lap_stations.json)
+{
+  "stations": {
+    "heavy_bag_01": {
+      "catalogue_id": "heavy_bag",
+      "zone_bounds": [3.0, 0.2, 4.8, 2.2],
+      "attrition_profile_id": "striking_heavy_bag",
+      "hardware_integrity": 82.5,
+      "maintenance_hours_remaining": 145.0,
+      "max_simultaneous_athletes": 1
+    },
+    "olympic_platform_01": {
+      "catalogue_id": "olympic_barbell_and_plates",
+      "zone_bounds": [0.4, 12.2, 4.6, 15.6],
+      "attrition_profile_id": "strength_olympic_platform",
+      "hardware_integrity": 94.0,
+      "maintenance_hours_remaining": 520.0,
+      "max_simultaneous_athletes": 1
+    }
+  }
+}
+
+7.3 Pure Engine Module: AttritionProfile.gd
+# Resides at: res://scripts/sim/AttritionProfile.gd
+# Pure static computation module. Godot 4.7.
+# Independent of scene trees or global state. Deterministic calculations.
+class_name AttritionProfile
+extends RefCounted
+
+const REGIONS: Array[String] = [
+	"head_neck", "torso_core", "left_arm", 
+	"right_arm", "left_leg", "right_leg"
+]
+
+static func calculate_form_decay(current_stamina: float) -> float:
+	if current_stamina >= 40.0:
+		return 1.0
+	var deficit: float = (40.0 - current_stamina) / 40.0
+	return 1.0 + (deficit * deficit * 1.8)
+
+static func calculate_hardware_defect(hardware_integrity: float) -> float:
+	if hardware_integrity >= 70.0:
+		return 1.0
+	var deficit: float = (70.0 - hardware_integrity) / 70.0
+	return 1.0 + (deficit * 1.4)
+
+static func calculate_age_modifier(age: int) -> float:
+	if age <= 23:
+		return 0.85
+	elif age <= 29:
+		return 1.0
+	elif age <= 34:
+		return 1.25
+	else:
+		return 1.55
+
+static func calculate_acwr_multiplier(acute_load: float, chronic_load: float) -> float:
+	var baseline_chronic: float = maxf(1.0, chronic_load)
+	var acwr: float = acute_load / baseline_chronic
+	if acwr <= 1.3:
+		return 1.0
+	elif acwr <= 1.5:
+		return 1.0 + ((acwr - 1.3) * 0.5)
+	else:
+		return 1.1 + ((acwr - 1.5) * 3.0)
+
+static func process_training_step(
+	fighter: Dictionary,
+	station_profile: Dictionary,
+	hardware_integrity: float,
+	duration_hours: float,
+	rng_stream: RandomNumberGenerator
+) -> Dictionary:
+	var result: Dictionary = {
+		"region_deltas": {},
+		"cns_delta": 0.0,
+		"joint_delta": 0.0,
+		"stamina_cost": 0.0,
+		"critical_safety_stop": false,
+		"stop_reason": ""
+	}
+	
+	var form_factor: float = calculate_form_decay(float(fighter.get("stamina", 100.0)))
+	var hard_factor: float = calculate_hardware_defect(hardware_integrity)
+	var age_factor: float = calculate_age_modifier(int(fighter.get("age", 25)))
+	var acwr_factor: float = calculate_acwr_multiplier(
+		float(fighter.get("acute_load", 10.0)),
+		float(fighter.get("chronic_load", 10.0))
+	)
+	
+	var base_rates: Dictionary = station_profile.get("base_rates", {})
+	var fighter_regions: Dictionary = fighter.get("regions", {})
+	var trait_mods: Dictionary = fighter.get("trait_mods", {})
+	var history_mods: Dictionary = fighter.get("history_mods", {})
+	
+	# Process regional integrity
+	for region in REGIONS:
+		var base_rate: float = float(base_rates.get(region, 0.0))
+		if base_rate < 0.0:
+			var t_mod: float = float(trait_mods.get(region, 1.0))
+			var h_mod: float = float(history_mods.get(region, 1.0))
+			var delta: float = base_rate * form_factor * hard_factor * age_factor * t_mod * h_mod * acwr_factor * duration_hours
+			result["region_deltas"][region] = delta
+			
+			var projected: float = float(fighter_regions.get(region, 100.0)) + delta
+			if projected < 20.0:
+				result["critical_safety_stop"] = true
+				result["stop_reason"] = "REGIONAL_INTEGRITY_BREACH_" + region.to_upper()
+		else:
+			# Positive recovery rates bypass fatigue penalties
+			result["region_deltas"][region] = base_rate * duration_hours
+			
+	# CNS Burnout Delta
+	var cns_base: float = float(base_rates.get("cns_burn", 0.0))
+	result["cns_delta"] = cns_base * duration_hours * (1.0 if cns_base > 0.0 else form_factor)
+	
+	# Chronic Joint Load Delta
+	var joint_base: float = float(base_rates.get("joint_load", 0.0))
+	var conditioning: float = float(fighter.get("conditioning", 50.0))
+	var weight: float = float(fighter.get("weight_kg", 70.0))
+	var cond_mod: float = 1.0 + ((100.0 - conditioning) / 200.0)
+	var weight_mod: float = 1.0 + ((weight - 60.0) / 140.0)
+	result["joint_delta"] = joint_base * cond_mod * weight_mod * hard_factor * duration_hours
+	
+	# Stamina Expenditure
+	var base_stamina_drain: float = float(station_profile.get("stamina_drain_per_hour", 15.0))
+	result["stamina_cost"] = base_stamina_drain * duration_hours
+	
+	if (float(fighter.get("stamina", 100.0)) - result["stamina_cost"]) < 15.0:
+		result["critical_safety_stop"] = true
+		result["stop_reason"] = "STAMINA_EXHAUSTION_CRITICAL
+
+Can you continue with SECTION B and define station-by-station adaptation, fatigue, injury, and recovery formulas?
+Can you complete the typed Godot 4.7 AttritionProfile, BodyAdaptation, and MemberModel modules with JSON fixtures and tests?
+Can you create a top-down visual layout of the modern 30x18 metre gym showing zones, circulation, hazards, and capacity?
+
+===== PART 2 (verbatim): rest of Section A + start of Section B =====
+
+
+SECTION A (Continuation) — ARCHITECTURAL DATA, LOGIC & VERIFICATION
+7.1 Complete Data Schemas
+7.1.1 Full Attrition Profiles Catalog (attrition_profiles.json)
+
+Covers every station family, ring discipline, and floor zone across the facility.
+
+{
+  "$schema": "https://json-schema.fightcamp.internal/v1/attrition_profiles.json",
+  "version": "2.4.0",
+  "profiles": {
+    "ring_hard_sparring": {
+      "family_id": "ring",
+      "display_name": "Competition Ring (Full Contact Sparring)",
+      "base_rates": {
+        "head_neck": -4.50,
+        "torso_core": -2.20,
+        "left_arm": -1.80,
+        "right_arm": -1.80,
+        "left_leg": -1.20,
+        "right_leg": -1.20,
+        "cns_burn": -5.00,
+        "joint_load": 3.80
+      },
+      "stamina_drain_per_hour": 32.0,
+      "base_injury_risk_per_hour": 0.045,
+      "cns_shock_threshold": 45.0
+    },
+    "ring_technical_sparring": {
+      "family_id": "ring",
+      "display_name": "Competition Ring (Technical Flow Sparring)",
+      "base_rates": {
+        "head_neck": -0.80,
+        "torso_core": -0.60,
+        "left_arm": -0.90,
+        "right_arm": -0.90,
+        "left_leg": -0.80,
+        "right_leg": -0.80,
+        "cns_burn": -1.50,
+        "joint_load": 1.20
+      },
+      "stamina_drain_per_hour": 18.0,
+      "base_injury_risk_per_hour": 0.008,
+      "cns_shock_threshold": 20.0
+    },
+    "mats_live_grappling": {
+      "family_id": "mats",
+      "display_name": "Combat Tatami (Live Submission/Wrestling Rounds)",
+      "base_rates": {
+        "head_neck": -2.10,
+        "torso_core": -3.40,
+        "left_arm": -2.80,
+        "right_arm": -2.80,
+        "left_leg": -2.60,
+        "right_leg": -2.60,
+        "cns_burn": -4.20,
+        "joint_load": 4.50
+      },
+      "stamina_drain_per_hour": 30.0,
+      "base_injury_risk_per_hour": 0.038,
+      "cns_shock_threshold": 40.0
+    },
+    "mats_drilling_positional": {
+      "family_id": "mats",
+      "display_name": "Combat Tatami (Positional Isometric Drills)",
+      "base_rates": {
+        "head_neck": -0.40,
+        "torso_core": -1.10,
+        "left_arm": -1.00,
+        "right_arm": -1.00,
+        "left_leg": -0.90,
+        "right_leg": -0.90,
+        "cns_burn": -1.10,
+        "joint_load": 1.50
+      },
+      "stamina_drain_per_hour": 15.0,
+      "base_injury_risk_per_hour": 0.005,
+      "cns_shock_threshold": 15.0
+    },
+    "striking_heavy_bag": {
+      "family_id": "bags",
+      "display_name": "Heavy Leather Punching Bag",
+      "base_rates": {
+        "head_neck": -0.10,
+        "torso_core": -0.80,
+        "left_arm": -3.20,
+        "right_arm": -3.20,
+        "left_leg": -2.10,
+        "right_leg": -2.10,
+        "cns_burn": -2.00,
+        "joint_load": 3.20
+      },
+      "stamina_drain_per_hour": 22.0,
+      "base_injury_risk_per_hour": 0.012,
+      "cns_shock_threshold": 25.0
+    },
+    "striking_speed_bag": {
+      "family_id": "bags",
+      "display_name": "Platform Speed Bag & Swivel",
+      "base_rates": {
+        "head_neck": -0.05,
+        "torso_core": -0.20,
+        "left_arm": -1.80,
+        "right_arm": -1.80,
+        "left_leg": -0.20,
+        "right_leg": -0.20,
+        "cns_burn": -0.80,
+        "joint_load": 1.10
+      },
+      "stamina_drain_per_hour": 12.0,
+      "base_injury_risk_per_hour": 0.002,
+      "cns_shock_threshold": 10.0
+    },
+    "striking_focus_pads": {
+      "family_id": "analysis",
+      "display_name": "Coach-Held Precision Focus Mitts",
+      "base_rates": {
+        "head_neck": -0.20,
+        "torso_core": -0.50,
+        "left_arm": -1.40,
+        "right_arm": -1.40,
+        "left_leg": -0.90,
+        "right_leg": -0.90,
+        "cns_burn": -1.20,
+        "joint_load": 1.40
+      },
+      "stamina_drain_per_hour": 20.0,
+      "base_injury_risk_per_hour": 0.006,
+      "cns_shock_threshold": 18.0
+    },
+    "strength_heavy_free_weight": {
+      "family_id": "strength",
+      "display_name": "Olympic Platform & Free Compound Barbell",
+      "base_rates": {
+        "head_neck": -0.20,
+        "torso_core": -3.80,
+        "left_arm": -2.50,
+        "right_arm": -2.50,
+        "left_leg": -3.60,
+        "right_leg": -3.60,
+        "cns_burn": -4.50,
+        "joint_load": 3.90
+      },
+      "stamina_drain_per_hour": 24.0,
+      "base_injury_risk_per_hour": 0.020,
+      "cns_shock_threshold": 35.0
+    },
+    "strength_plate_machine": {
+      "family_id": "strength",
+      "display_name": "Guided Compound Plate Machine",
+      "base_rates": {
+        "head_neck": -0.00,
+        "torso_core": -1.20,
+        "left_arm": -1.50,
+        "right_arm": -1.50,
+        "left_leg": -1.80,
+        "right_leg": -1.80,
+        "cns_burn": -1.40,
+        "joint_load": 0.80
+      },
+      "stamina_drain_per_hour": 16.0,
+      "base_injury_risk_per_hour": 0.004,
+      "cns_shock_threshold": 12.0
+    },
+    "cardio_high_impact": {
+      "family_id": "cardio",
+      "display_name": "Curved Non-Motorized Slat Treadmill",
+      "base_rates": {
+        "head_neck": -0.10,
+        "torso_core": -0.40,
+        "left_arm": -0.20,
+        "right_arm": -0.20,
+        "left_leg": -3.50,
+        "right_leg": -3.50,
+        "cns_burn": -2.50,
+        "joint_load": 3.10
+      },
+      "stamina_drain_per_hour": 25.0,
+      "base_injury_risk_per_hour": 0.015,
+      "cns_shock_threshold": 22.0
+    },
+    "cardio_low_impact": {
+      "family_id": "cardio",
+      "display_name": "Air-Resistance Fan Ergometer / Stationary Bike",
+      "base_rates": {
+        "head_neck": -0.00,
+        "torso_core": -0.20,
+        "left_arm": -0.10,
+        "right_arm": -0.10,
+        "left_leg": -1.20,
+        "right_leg": -1.20,
+        "cns_burn": -1.00,
+        "joint_load": 0.60
+      },
+      "stamina_drain_per_hour": 18.0,
+      "base_injury_risk_per_hour": 0.001,
+      "cns_shock_threshold": 14.0
+    },
+    "recovery_physio_clinical": {
+      "family_id": "recovery",
+      "display_name": "Sports Physiotherapy & Manual Soft-Tissue Table",
+      "base_rates": {
+        "head_neck": 6.00,
+        "torso_core": 8.00,
+        "left_arm": 8.00,
+        "right_arm": 8.00,
+        "left_leg": 8.00,
+        "right_leg": 8.00,
+        "cns_burn": 4.00,
+        "joint_load": -6.00
+      },
+      "stamina_drain_per_hour": -5.0,
+      "base_injury_risk_per_hour": 0.000,
+      "cns_shock_threshold": 0.0
+    },
+    "recovery_cryo_cold_tub": {
+      "family_id": "recovery",
+      "display_name": "Temperature-Controlled Immersion Tub (4-6°C)",
+      "base_rates": {
+        "head_neck": 1.50,
+        "torso_core": 3.00,
+        "left_arm": 3.00,
+        "right_arm": 3.00,
+        "left_leg": 3.00,
+        "right_leg": 3.00,
+        "cns_burn": 12.00,
+        "joint_load": -4.00
+      },
+      "stamina_drain_per_hour": 2.0,
+      "base_injury_risk_per_hour": 0.000,
+      "cns_shock_threshold": 0.0
+    },
+    "recovery_hydro_pool": {
+      "family_id": "recovery",
+      "display_name": "Hydrotherapy Active Decompression Pool",
+      "base_rates": {
+        "head_neck": 2.00,
+        "torso_core": 3.50,
+        "left_arm": 3.50,
+        "right_arm": 3.50,
+        "left_leg": 3.50,
+        "right_leg": 3.50,
+        "cns_burn": 8.00,
+        "joint_load": -8.00
+      },
+      "stamina_drain_per_hour": 6.0,
+      "base_injury_risk_per_hour": 0.000,
+      "cns_shock_threshold": 0.0
+    }
+  }
+}
+
+7.1.2 Floor Layout Station Nodes Extension (day_lap_stations.json)
+
+Explicit spatial zones mapping to the engine coordinates for Godot 4.7.
+
+{
+  "$schema": "https://json-schema.fightcamp.internal/v1/day_lap_stations.json",
+  "version": "2.4.0",
+  "hall_dimensions": {
+    "width_x": 30.0,
+    "depth_z": 18.0,
+    "clear_height_y": 3.8
+  },
+  "stations": {
+    "ring_main": {
+      "catalogue_id": "club_ring",
+      "zone_bounds": [10.6, 0.1, 18.4, 7.9],
+      "attrition_profile_id": "ring_hard_sparring",
+      "hardware_integrity": 100.0,
+      "maintenance_hours_remaining": 500.0,
+      "station_capacity": 2,
+      "current_occupants": []
+    },
+    "tatami_mat_alpha": {
+      "catalogue_id": "judo_tatami_area",
+      "zone_bounds": [18.6, 0.1, 26.6, 8.1],
+      "attrition_profile_id": "mats_live_grappling",
+      "hardware_integrity": 95.0,
+      "maintenance_hours_remaining": 320.0,
+      "station_capacity": 4,
+      "current_occupants": []
+    },
+    "heavy_bag_rail_1": {
+      "catalogue_id": "heavy_bag",
+      "zone_bounds": [3.0, 0.2, 4.8, 2.2],
+      "attrition_profile_id": "striking_heavy_bag",
+      "hardware_integrity": 84.0,
+      "maintenance_hours_remaining": 160.0,
+      "station_capacity": 1,
+      "current_occupants": []
+    },
+    "speed_bag_bracket_1": {
+      "catalogue_id": "speed_bag",
+      "zone_bounds": [0.3, 0.1, 1.5, 1.5],
+      "attrition_profile_id": "striking_speed_bag",
+      "hardware_integrity": 92.0,
+      "maintenance_hours_remaining": 210.0,
+      "station_capacity": 1,
+      "current_occupants": []
+    },
+    "focus_mitt_square": {
+      "catalogue_id": "focus_mitts_locker",
+      "zone_bounds": [3.6, 3.2, 6.6, 6.6],
+      "attrition_profile_id": "striking_focus_pads",
+      "hardware_integrity": 88.0,
+      "maintenance_hours_remaining": 190.0,
+      "station_capacity": 2,
+      "current_occupants": []
+    },
+    "olympic_cage_zone": {
+      "catalogue_id": "deluxe_power_rack",
+      "zone_bounds": [0.4, 12.2, 4.6, 15.6],
+      "attrition_profile_id": "strength_heavy_free_weight",
+      "hardware_integrity": 98.0,
+      "maintenance_hours_remaining": 1800.0,
+      "station_capacity": 1,
+      "current_occupants": []
+    },
+    "leg_press_bank": {
+      "catalogue_id": "leg_press_45",
+      "zone_bounds": [4.8, 12.2, 7.8, 15.6],
+      "attrition_profile_id": "strength_plate_machine",
+      "hardware_integrity": 91.0,
+      "maintenance_hours_remaining": 850.0,
+      "station_capacity": 1,
+      "current_occupants": []
+    },
+    "curved_treadmill_strip": {
+      "catalogue_id": "treadmill_curved_manual",
+      "zone_bounds": [4.1, 8.6, 6.1, 10.2],
+      "attrition_profile_id": "cardio_high_impact",
+      "hardware_integrity": 78.0,
+      "maintenance_hours_remaining": 95.0,
+      "station_capacity": 1,
+      "current_occupants": []
+    },
+    "air_bike_strip": {
+      "catalogue_id": "air_bike",
+      "zone_bounds": [6.3, 8.6, 8.1, 10.2],
+      "attrition_profile_id": "cardio_low_impact",
+      "hardware_integrity": 82.0,
+      "maintenance_hours_remaining": 120.0,
+      "station_capacity": 1,
+      "current_occupants": []
+    },
+    "physio_bay": {
+      "catalogue_id": "physio_table",
+      "zone_bounds": [21.0, 12.0, 25.0, 15.0],
+      "attrition_profile_id": "recovery_physio_clinical",
+      "hardware_integrity": 100.0,
+      "maintenance_hours_remaining": 999.0,
+      "station_capacity": 1,
+      "current_occupants": []
+    },
+    "cryo_chambers": {
+      "catalogue_id": "cold_water_tub",
+      "zone_bounds": [25.2, 12.0, 29.2, 15.0],
+      "attrition_profile_id": "recovery_cryo_cold_tub",
+      "hardware_integrity": 95.0,
+      "maintenance_hours_remaining": 400.0,
+      "station_capacity": 2,
+      "current_occupants": []
+    }
+  }
+}
+
+7.2 Complete Static API Implementation (AttritionProfile.gd)
+# res://scripts/sim/AttritionProfile.gd
+class_name AttritionProfile
+extends RefCounted
+
+const REGIONS: Array[String] = [
+	"head_neck", "torso_core", "left_arm", 
+	"right_arm", "left_leg", "right_leg"
+]
+
+const MIN_STAMINA_EMERGENCY_HALT: float = 15.0
+const MIN_REGION_INTEGRITY_HALT: float = 20.0
+const HARDWARE_SAFETY_HALT: float = 20.0
+
+static func calculate_form_decay(current_stamina: float) -> float:
+	if current_stamina >= 40.0:
+		return 1.0
+	var deficit: float = (40.0 - maxf(0.0, current_stamina)) / 40.0
+	return 1.0 + (deficit * deficit * 1.8)
+
+static func calculate_hardware_defect(hardware_integrity: float) -> float:
+	if hardware_integrity >= 70.0:
+		return 1.0
+	var deficit: float = (70.0 - maxf(0.0, hardware_integrity)) / 70.0
+	return 1.0 + (deficit * 1.4)
+
+static func calculate_age_modifier(age: int) -> float:
+	if age <= 23:
+		return 0.85
+	elif age <= 29:
+		return 1.00
+	elif age <= 34:
+		return 1.25
+	else:
+		return 1.55
+
+static func calculate_acwr_multiplier(acute_load: float, chronic_load: float) -> float:
+	var baseline_chronic: float = maxf(1.0, chronic_load)
+	var acwr: float = acute_load / baseline_chronic
+	if acwr <= 1.3:
+		return 1.0
+	elif acwr <= 1.5:
+		return 1.0 + ((acwr - 1.3) * 0.5)
+	else:
+		return 1.1 + ((acwr - 1.5) * 3.0)
+
+static func evaluate_step(
+	fighter: Dictionary,
+	station_profile: Dictionary,
+	hardware_integrity: float,
+	duration_hours: float,
+	rng: RandomNumberGenerator
+) -> Dictionary:
+	var output: Dictionary = {
+		"region_deltas": {},
+		"cns_delta": 0.0,
+		"joint_delta": 0.0,
+		"stamina_cost": 0.0,
+		"injury_triggered": false,
+		"injury_region": "",
+		"critical_safety_stop": false,
+		"stop_reason": "NONE"
+	}
+	
+	if hardware_integrity < HARDWARE_SAFETY_HALT:
+		output["critical_safety_stop"] = true
+		output["stop_reason"] = "HARDWARE_FAILURE_RISK"
+		return output
+
+	var cur_stamina: float = float(fighter.get("stamina", 100.0))
+	var base_drain: float = float(station_profile.get("stamina_drain_per_hour", 15.0))
+	var total_stamina_cost: float = base_drain * duration_hours
+	output["stamina_cost"] = total_stamina_cost
+	
+	if (cur_stamina - total_stamina_cost) < MIN_STAMINA_EMERGENCY_HALT:
+		output["critical_safety_stop"] = true
+		output["stop_reason"] = "STAMINA_EXHAUSTION_CRITICAL"
+		return output
+
+	var form_mult: float = calculate_form_decay(cur_stamina)
+	var hard_mult: float = calculate_hardware_defect(hardware_integrity)
+	var age_mult: float = calculate_age_modifier(int(fighter.get("age", 25)))
+	var acwr_mult: float = calculate_acwr_multiplier(
+		float(fighter.get("acute_load", 10.0)),
+		float(fighter.get("chronic_load", 10.0))
+	)
+
+	var base_rates: Dictionary = station_profile.get("base_rates", {})
+	var f_regions: Dictionary = fighter.get("regions", {})
+	var t_mods: Dictionary = fighter.get("trait_mods", {})
+	var h_mods: Dictionary = fighter.get("history_mods", {})
+
+	for r in REGIONS:
+		var base_rate: float = float(base_rates.get(r, 0.0))
+		if base_rate < 0.0:
+			var tm: float = float(t_mods.get(r, 1.0))
+			var hm: float = float(h_mods.get(r, 1.0))
+			var delta: float = base_rate * form_mult * hard_mult * age_mult * tm * hm * acwr_mult * duration_hours
+			output["region_deltas"][r] = delta
+			
+			var projected: float = float(f_regions.get(r, 100.0)) + delta
+			if projected < MIN_REGION_INTEGRITY_HALT:
+				output["critical_safety_stop"] = true
+				output["stop_reason"] = "REGIONAL_INTEGRITY_COMPROMISED_" + r.to_upper()
+		else:
+			output["region_deltas"][r] = base_rate * duration_hours
+
+	var cns_base: float = float(base_rates.get("cns_burn", 0.0))
+	if cns_base < 0.0:
+		output["cns_delta"] = cns_base * form_mult * age_mult * duration_hours
+	else:
+		output["cns_delta"] = cns_base * duration_hours
+
+	var j_base: float = float(base_rates.get("joint_load", 0.0))
+	if j_base > 0.0:
+		var cond: float = float(fighter.get("conditioning", 50.0))
+		var w_kg: float = float(fighter.get("weight_kg", 70.0))
+		var cond_fact: float = 1.0 + ((100.0 - cond) / 200.0)
+		var w_fact: float = 1.0 + ((w_kg - 60.0) / 140.0)
+		output["joint_delta"] = j_base * cond_fact * w_fact * hard_mult * duration_hours
+	else:
+		output["joint_delta"] = j_base * duration_hours
+
+	var base_inj_rate: float = float(station_profile.get("base_injury_risk_per_hour", 0.005))
+	var step_inj_prob: float = base_inj_rate * form_mult * hard_mult * acwr_mult * duration_hours
+	if rng.randf() < step_inj_prob:
+		output["injury_triggered"] = true
+		var target_idx: int = rng.randi_range(0, REGIONS.size() - 1)
+		output["injury_region"] = REGIONS[target_idx]
+
+	return output
+
+1.8 Unit Test Assertions & Control Verification (test_attrition.gd)
+# res://tests/test_attrition.gd
+extends SceneTree
+
+func _init() -> void:
+	run_tests()
+	quit()
+
+func run_tests() -> void:
+	print("[TEST-SUITE] Executing AttritionProfile Verification...")
+	
+	# Control RNG stream
+	var rng: RandomNumberGenerator = RandomNumberGenerator.new()
+	rng.seed = 987654321
+	
+	# Control Fighter Blueprint
+	var control_fighter: Dictionary = {
+		"age": 25,
+		"stamina": 100.0,
+		"conditioning": 70.0,
+		"weight_kg": 70.0,
+		"acute_load": 10.0,
+		"chronic_load": 10.0,
+		"regions": {
+			"head_neck": 100.0, "torso_core": 100.0, "left_arm": 100.0,
+			"right_arm": 100.0, "left_leg": 100.0, "right_leg": 100.0
+		},
+		"trait_mods": {},
+		"history_mods": {}
+	}
+	
+	var heavy_bag_profile: Dictionary = {
+		"base_rates": {
+			"head_neck": -0.10, "torso_core": -0.80, "left_arm": -3.20,
+			"right_arm": -3.20, "left_leg": -2.10, "right_leg": -2.10,
+			"cns_burn": -2.00, "joint_load": 3.20
+		},
+		"stamina_drain_per_hour": 20.0,
+		"base_injury_risk_per_hour": 0.0
+	}
+	
+	# 1. Baseline Invariant
+	var res_nominal: Dictionary = AttritionProfile.evaluate_step(
+		control_fighter, heavy_bag_profile, 100.0, 1.0, rng
+	)
+	assert(abs(res_nominal["region_deltas"]["left_arm"] - (-3.20)) < 0.0001, "Test 1 Failed: Arm base rate violated")
+	assert(res_nominal["critical_safety_stop"] == false, "Test 1 Failed: Premature safety halt")
+	
+	# 2. Form Breakdown Non-Linearity (Stamina Exhaustion < 40)
+	var tired_fighter: Dictionary = control_fighter.duplicate(true)
+	tired_fighter["stamina"] = 20.0
+	var res_tired: Dictionary = AttritionProfile.evaluate_step(
+		tired_fighter, heavy_bag_profile, 100.0, 1.0, rng
+	)
+	# At 20 stamina, deficit = 20/40 = 0.5. form_mult = 1.0 + (0.25 * 1.8) = 1.45
+	var expected_arm: float = -3.20 * 1.45
+	assert(abs(res_tired["region_deltas"]["left_arm"] - expected_arm) < 0.001, "Test 2 Failed: Form breakdown math error")
+	
+	# 3. Hardware Wear Penalty (Integrity = 35%)
+	var res_worn_gear: Dictionary = AttritionProfile.evaluate_step(
+		control_fighter, heavy_bag_profile, 35.0, 1.0, rng
+	)
+	# At 35 integrity, deficit = 35/70 = 0.5. hard_mult = 1.0 + (0.5 * 1.4) = 1.70
+	var expected_worn_arm: float = -3.20 * 1.70
+	assert(abs(res_worn_gear["region_deltas"]["left_arm"] - expected_worn_arm) < 0.001, "Test 3 Failed: Hardware wear error")
+	
+	# 4. Critical Safety Stop Triggers (Integrity threshold breach)
+	var broken_fighter: Dictionary = control_fighter.duplicate(true)
+	broken_fighter["regions"]["left_arm"] = 21.0
+	var res_halt: Dictionary = AttritionProfile.evaluate_step(
+		broken_fighter, heavy_bag_profile, 100.0, 1.0, rng
+	)
+	assert(res_halt["critical_safety_stop"] == true, "Test 4 Failed: Safety threshold not triggered")
+	assert(res_halt["stop_reason"] == "REGIONAL_INTEGRITY_COMPROMISED_LEFT_ARM", "Test 4 Failed: Incorrect reason code")
+	
+	# 5. CONTROL ARM: Isolation Verification
+	# Ensure modifying left_arm damage traits does NOT affect torso_core calculation
+	var isolated_fighter: Dictionary = control_fighter.duplicate(true)
+	isolated_fighter["trait_mods"]["left_arm"] = 2.50
+	var res_isolated: Dictionary = AttritionProfile.evaluate_step(
+		isolated_fighter, heavy_bag_profile, 100.0, 1.0, rng
+	)
+	assert(abs(res_isolated["region_deltas"]["left_arm"] - (-3.20 * 2.50)) < 0.001, "Test 5 Failed: Trait scaling failure")
+	assert(abs(res_isolated["region_deltas"]["torso_core"] - (-0.80)) < 0.0001, "Test 5 Failed: Cross-contamination in control arm")
+	
+	print("[TEST-SUITE] All 5 Core Attrition Invariants Verified Successfully.")
+
+SECTION B — EQUIPMENT $\leftrightarrow$ BODY BENEFITS AND DEFECTS
+1. Complete Catalog of 95 Equipment IDs: Analytical Profile Table
+Column Key:
+Primary Adaptation: Main body regions stimulated; primary tactical stats increased.
+Adaptation Mechanics: Shape of adaptation curve ($\text{Logarithmic}$, $\text{Sigmoidal}$, $\text{Hyperbolic}$) and plateau ceiling ($\text{Cap}$).
+Chronic Overuse Defect: Negative pathology triggered if cumulative joint or regional wear exceeds threshold.
+Quality Tier Impact: Structural divergence across Quality Tiers (Tier 1: Economy; Tier 2: Commercial; Tier 3: Elite High-Performance).
+Discipline Fit: Top discipline fit ratings ($0.3\times \text{ to } 1.3\times$).
+Member Friction: Commercial member draw, wear degradation per user-hour, and station contention risk.
++--------------------------------------------------------------------------------------------------------------------------------------------------+
+| RING (6 Items)                                                                                                                                   |
++------------------------------------+-----------------------------+---------------+-----------------------+---------------+-----------------------+
+| ID & Name                          | Primary Adaptation          | Adapt. Curve  | Chronic Defect        | Tier Effect   | Fit & Member Inter.   |
++------------------------------------+-----------------------------+---------------+-----------------------+---------------+-----------------------+
+| club_ring                          | Torso, Legs / Footwork,     | Sigmoidal     | Chronic Knee/Ankle    | T1: Hard deck | Box: 1.3, K-Box
+
+Can you complete the full 95-item catalogue table with exact formulas, values, and discipline interactions?
+Can you provide complete Godot 4.7 typed GDScript modules, JSON files, and SceneTree tests for the schema?
+Can you generate a clean 3D top-down visualization of the gym floor zones, stations, circulation lanes, and adjacency relationships?
+
+===== PART 3 (verbatim): Section B catalogue table, first ids =====
+
+
+SECTION B — EQUIPMENT $\leftrightarrow$ BODY BENEFITS AND DEFECTS
+Column Definitions & Format Specifications
+
+Every row strictly adheres to the following formatting specifications:
+
+id: Target string identifier from the 95-item equipment catalogue.
+category: Station functional family (RING, BAGS, ANALYSIS, STRENGTH, CARDIO, RECOVERY).
+benefit_regions: Comma-separated region weights summing to $1.00$ (region:weight).
+benefit_stats: Comma-separated nominal attribute points gained per fresh ($100%$ stamina, $1.0\times$ baseline) hour (stat:gain).
+adaptation: Curve shape (Logarithmic, Sigmoidal, or Hyperbolic) plus plateau ceiling threshold in drilled lifetime hours (curve_type;plateau_hours).
+chronic_defect: Medical name, primary target anatomical region, and chronic joint/connective load added per hour (name;region;load_per_hour).
+defect_threshold: Cumulative regional load threshold at which the acute defect condition manifests and penalizes performance.
+tier_effect: Multipliers for Cheap (T1) vs Commercial (T2) vs Elite (T3) as T1_inj/T2_inj/T3_inj;T1_comf/T2_comf/T3_comf.
+discipline_fit: Combat discipline efficiency multipliers deviating from baseline $1.0$ (discipline:mult).
+member_use: Mechanical wear subtracted from equipment integrity per customer hour, and floor crowding friction weight on a $1\text{--}5$ scale (wear_per_hr;crowd_weight).
+Equipment Benefits & Defects Matrix (Part 1: IDs 01 to 32)
+
+| id | category | benefit_regions | benefit_stats | adaptation | chronic_defect | defect_threshold | tier_effect | discipline_fit | member_use |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| club_ring | RING | torso_core:0.20,left_leg:0.40,right_leg:0.40 | defense:0.18,fight_iq:0.22,speed:0.12 | Sigmoidal;480h | Patellar_Tendinopathy;left_leg;2.80 | 120.0 | 1.35/1.00/0.75;0.70/1.00/1.30 | boxing:1.30,kickboxing:1.20,muay_thai:1.20,wrestling:0.40,judo:0.30,bjj:0.40,mma:1.15 | 0.45;5.0 |
+| modular_combat_mat | RING | torso_core:0.30,left_leg:0.35,right_leg:0.35 | grapple_defence:0.20,top_control:0.15,conditioning:0.12 | Sigmoidal;520h | Turf_Toe_Capsulitis;right_leg;2.10 | 110.0 | 1.40/1.00/0.70;0.75/1.00/1.25 | wrestling:1.30,bjj:1.30,judo:1.20,sambo:1.30,mma:1.25,boxing:0.40 | 0.35;4.0 |
+| judo_tatami_area | RING | torso_core:0.40,left_arm:0.15,right_arm:0.15,left_leg:0.15,right_leg:0.15 | grapple_offense:0.22,grapple_defence:0.20,technique:0.14 | Sigmoidal;500h | Acromioclavicular_Sprain;torso_core;2.60 | 115.0 | 1.30/1.00/0.70;0.80/1.00/1.20 | judo:1.35,sambo:1.30,bjj:1.20,wrestling:1.10,boxing:0.20,kickboxing:0.20 | 0.30;4.0 |
+| grappling_dummy | RING | torso_core:0.30,left_arm:0.35,right_arm:0.35 | grapple_offense:0.18,top_control:0.20,power:0.08 | Logarithmic;300h | Bicipital_Tendinitis;right_arm;1.80 | 95.0 | 1.25/1.00/0.80;0.85/1.00/1.15 | wrestling:1.25,bjj:1.30,sambo:1.25,mma:1.15,boxing:0.10,karate:0.10 | 0.40;2.0 |
+| capoeira_roda_kit | RING | torso_core:0.30,left_leg:0.35,right_leg:0.35 | speed:0.20,conditioning:0.16,technique:0.12 | Hyperbolic;240h | Hamstring_Origin_Tendonitis;left_leg;2.40 | 100.0 | 1.30/1.00/0.75;0.75/1.00/1.20 | karate:1.15,taekwondo:1.20,kickboxing:1.10,boxing:0.50,wrestling:0.30 | 0.25;3.0 |
+| arnis_safety_kit | RING | left_arm:0.40,right_arm:0.40,torso_core:0.20 | speed:0.24,technique:0.18,fight_iq:0.10 | Logarithmic;260h | Extensor_Carpi_Ulnaris_Strain;right_arm;1.90 | 90.0 | 1.35/1.00/0.80;0.80/1.00/1.20 | karate:1.10,taekwondo:1.05,boxing:0.60,wrestling:0.20,bjj:0.20 | 0.20;2.0 |
+| heavy_bag | BAGS | left_arm:0.35,right_arm:0.35,torso_core:0.15,left_leg:0.08,right_leg:0.07 | power:0.25,technique:0.14,conditioning:0.16 | Logarithmic;600h | Metacarpal_Stress_Syndrome;right_arm;3.20 | 130.0 | 1.45/1.00/0.65;0.65/1.00/1.35 | boxing:1.30,kickboxing:1.30,muay_thai:1.30,karate:1.20,wrestling:0.20,bjj:0.10 | 0.60;4.0 |
+| speed_bag | BAGS | left_arm:0.45,right_arm:0.45,head_neck:0.10 | speed:0.26,technique:0.16,fight_iq:0.08 | Logarithmic;400h | Shoulder_Subacromial_Friction;right_arm;1.10 | 85.0 | 1.20/1.00/0.80;0.80/1.00/1.20 | boxing:1.35,kickboxing:1.10,karate:1.05,wrestling:0.20,judo:0.10,bjj:0.10 | 0.35;3.0 |
+| double_end_bag | BAGS | left_arm:0.40,right_arm:0.40,head_neck:0.20 | speed:0.22,defense:0.20,technique:0.15 | Sigmoidal;450h | Glenoid_Labrum_Strain;left_arm;1.40 | 95.0 | 1.25/1.00/0.75;0.80/1.00/1.25 | boxing:1.35,kickboxing:1.20,karate:1.10,wrestling:0.20,judo:0.10,bjj:0.10 | 0.40;3.0 |
+| striking_safety_locker | BAGS | left_arm:0.50,right_arm:0.50 | defense:0.12,technique:0.10 | Hyperbolic;150h | Distal_Interphalangeal_Sprain;right_arm;0.40 | 70.0 | 1.50/1.00/0.70;0.60/1.00/1.40 | boxing:1.20,kickboxing:1.20,muay_thai:1.20,mma:1.10 | 0.15;1.0 |
+| focus_mitts_locker | ANALYSIS | left_arm:0.35,right_arm:0.35,torso_core:0.30 | technique:0.28,fight_iq:0.25,speed:0.18 | Sigmoidal;550h | Scapholunate_Ligament_Strain;right_arm;1.40 | 100.0 | 1.30/1.00/0.70;0.75/1.00/1.30 | boxing:1.35,kickboxing:1.25,muay_thai:1.25,karate:1.15,mma:1.20,wrestling:0.20 | 0.35;2.0 |
+| compact_weights | STRENGTH | torso_core:0.40,left_arm:0.15,right_arm:0.15,left_leg:0.15,right_leg:0.15 | power:0.14,conditioning:0.12 | Logarithmic;200h | Lumbar_Erector_Spasm;torso_core;2.10 | 90.0 | 1.35/1.00/0.80;0.75/1.00/1.20 | boxing:1.00,wrestling:1.05,bjj:1.05,mma:1.05 | 0.50;3.0 |
+| lat_pulldown_dual_pulley | STRENGTH | left_arm:0.40,right_arm:0.40,torso_core:0.20 | power:0.16,grapple_offense:0.14 | Logarithmic;320h | Latissimus_Insertional_Tendinopathy;left_arm;1.50 | 95.0 | 1.25/1.00/0.80;0.80/1.00/1.20 | wrestling:1.20,judo:1.25,bjj:1.25,sambo:1.20,boxing:0.80 | 0.40;3.0 |
+| vertical_chest_press | STRENGTH | left_arm:0.45,right_arm:0.45,torso_core:0.10 | power:0.18,speed:0.08 | Logarithmic;300h | Anterior_Capsule_Laxity;right_arm;1.30 | 90.0 | 1.25/1.00/0.80;0.80/1.00/1.20 | boxing:1.15,kickboxing:1.10,wrestling:0.90,bjj:0.85 | 0.45;3.0 |
+| assisted_chin_dip | STRENGTH | left_arm:0.40,right_arm:0.40,torso_core:0.20 | power:0.15,conditioning:0.10 | Logarithmic;340h | Pectoralis_Minor_Contracture;right_arm;1.40 | 85.0 | 1.20/1.00/0.80;0.85/1.00/1.20 | wrestling:1.15,bjj:1.15,judo:1.10,boxing:0.95 | 0.35;3.0 |
+| seated_leg_curl | STRENGTH | left_leg:0.50,right_leg:0.50 | power:0.12,defense:0.08 | Logarithmic;280h | Distal_Hamstring_Tendonitis;right_leg;1.20 | 80.0 | 1.20/1.00/0.80;0.85/1.00/1.15 | kickboxing:1.15,muay_thai:1.15,wrestling:1.10,boxing:0.85 | 0.40;3.0 |
+| leg_extension | STRENGTH | left_leg:0.50,right_leg:0.50 | power:0.14,speed:0.06 | Logarithmic;260h | Retropatellar_Chondromalacia;left_leg;2.60 | 85.0 | 1.35/1.00/0.75;0.75/1.00/1.20 | taekwondo:1.20,karate:1.15,kickboxing:1.15,boxing:0.80 | 0.45;3.0 |
+| multi_functional_trainer_v | STRENGTH | torso_core:0.40,left_arm:0.30,right_arm:0.30 | technique:0.18,speed:0.14,power:0.12 | Sigmoidal;420h | Oblique_Internal_Microtear;torso_core;1.30 | 95.0 | 1.20/1.00/0.75;0.85/1.00/1.25 | boxing:1.20,kickboxing:1.15,bjj:1.15,mma:1.20 | 0.50;4.0 |
+| standing_lateral_fly_machine | STRENGTH | left_arm:0.50,right_arm:0.50 | speed:0.12,power:0.10 | Logarithmic;250h | Supraspinatus_Impingement;right_arm;1.70 | 80.0 | 1.25/1.00/0.80;0.80/1.00/1.20 | boxing:1.20,kickboxing:1.10,karate:1.10,wrestling:0.85 | 0.35;2.0 |
+| leg_press_45 | STRENGTH | left_leg:0.50,right_leg:0.50 | power:0.24,conditioning:0.10 | Logarithmic;360h | Sacroiliac_Joint_Dysfunction;torso_core;2.40 | 110.0 | 1.30/1.00/0.75;0.80/1.00/1.25 | wrestling:1.20,judo:1.15,kickboxing:1.10,boxing:0.90 | 0.55;4.0 |
+| isolated_bicep_curl | STRENGTH | left_arm:0.50,right_arm:0.50 | power:0.10,grapple_offense:0.08 | Logarithmic;200h | Distal_Biceps_Tendinopathy;left_arm;1.20 | 75.0 | 1.20/1.00/0.85;0.85/1.00/1.15 | judo:1.20,bjj:1.20,sambo:1.20,boxing:0.75 | 0.30;2.0 |
+| standing_leg_curl | STRENGTH | left_leg:0.50,right_leg:0.50 | power:0.12,grapple_defence:0.10 | Logarithmic;260h | Proximal_Biceps_Femoris_Strain;left_leg;1.30 | 80.0 | 1.20/1.00/0.80;0.85/1.00/1.15 | wrestling:1.15,bjj:1.15,muay_thai:1.10,boxing:0.85 | 0.35;2.0 |
+| calf_press | STRENGTH | left_leg:0.50,right_leg:0.50 | speed:0.16,conditioning:0.08 | Logarithmic;240h | Achilles_Paratenonitis;right_leg;1.80 | 85.0 | 1.25/1.00/0.80;0.80/1.00/1.20 | boxing:1.25,taekwondo:1.20,karate:1.15,wrestling:0.90 | 0.35;2.0 |
+| row_plate_loaded | STRENGTH | torso_core:0.30,left_arm:0.35,right_arm:0.35 | power:0.20,top_control:0.16 | Logarithmic;350h | Rhomboid_Spasm;torso_core;1.50 | 95.0 | 1.25/1.00/0.80;0.80/1.00/1.20 | wrestling:1.25,bjj:1.25,sambo:1.25,judo:1.25,boxing:0.85 | 0.45;3.0 |
+| seated_preacher_curl | STRENGTH | left_arm:0.50,right_arm:0.50 | grapple_offense:0.14,power:0.08 | Logarithmic;220h | Brachialis_Tendinitis;right_arm;1.40 | 80.0 | 1.25/1.00/0.80;0.80/1.00/1.15 | bjj:1.25,judo:1.20,sambo:1.20,boxing:0.70 | 0.30;2.0 |
+| wide_chest_press | STRENGTH | left_arm:0.45,right_arm:0.45,torso_core:0.10 | power:0.18,speed:0.08 | Logarithmic;320h | Sternocostal_Subluxation;torso_core;1.60 | 90.0 | 1.30/1.00/0.75;0.80/1.00/1.20 | boxing:1.20,kickboxing:1.10,wrestling:0.90 | 0.45;3.0 |
+| abdominal_crunch_machine | STRENGTH | torso_core:1.00 | conditioning:0.14,defense:0.12 | Logarithmic;260h | Rectus_Abdominis_Strain;torso_core;1.10 | 85.0 | 1.20/1.00/0.85;0.85/1.00/1.15 | boxing:1.15,muay_thai:1.20,karate:1.10,mma:1.10 | 0.35;3.0 |
+| pulldown_trainer_plate | STRENGTH | left_arm:0.40,right_arm:0.40,torso_core:0.20 | power:0.18,grapple_offense:0.15 | Logarithmic;340h | Teres_Major_Fibers_Strain;left_arm;1.50 | 95.0 | 1.25/1.00/0.80;0.80/1.00/1.20 | wrestling:1.25,judo:1.25,bjj:1.20,boxing:0.85 | 0.45;3.0 |
+| butterfly_pec_deck | STRENGTH | left_arm:0.45,right_arm:0.45,torso_core:0.10 | power:0.14,defense:0.08 | Logarithmic;240h | Coracobrachialis_Strain;right_arm;1.60 | 80.0 | 1.30/1.00/0.75;0.80/1.00/1.20 | boxing:1.15,kickboxing:1.10,wrestling:0.90,bjj:0.85 | 0.40;3.0 |
+| hack_squat | STRENGTH | left_leg:0.50,right_leg:0.50 | power:0.26,conditioning:0.12 | Logarithmic;380h | Quadriceps_Tendinopathy;right_leg;2.80 | 115.0 | 1.35/1.00/0.70;0.75/1.00/1.25 | wrestling:1.25,judo:1.20,muay_thai:1.15,boxing:0.90 | 0.55;4.0 |
+| split_row_trainer | STRENGTH | torso_core:0.30,left_arm:0.35,right_arm:0.35 | technique:0.16,grapple_offense:0.15 | Sigmoidal;320h | Posterior_Deltoid_Strain;left_arm;1.20 | 85.0 | 1.20/1.00/0.80;0.85/1.00/1.20 | bjj:1.20,wrestling:1.20,judo:1.20,boxing:0.90 | 0.40;3.0 |
+| seated_row | STRENGTH | torso_core:0.30,left_arm:0.35,right_arm:0.35 | power:0.18,top_control:0.14 | Logarithmic;330h | Thoracolumbar_Fascia_Tear;torso_core;1.40 | 90.0 | 1.25/1.00/0.80;0.80/1.00/1.20 | wrestling:1.25,judo:1.25,bjj:1.20,boxing:0.85 | 0.45;3.0 |
+
+Equipment Benefits & Defects Matrix (Part 2: IDs 33 to 64)
+
+| id | category | benefit_regions | benefit_stats | adaptation | chronic_defect | defect_threshold | tier_effect | discipline_fit | member_use |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| incline_chest_press_plate | STRENGTH | left_arm:0.45,right_arm:0.45,torso_core:0.10 | power:0.20,speed:0.09 | Logarithmic;320h | Clavicular_Head_Tear;right_arm;1.60 | 95.0 | 1.25/1.00/0.75;0.80/1.00/1.20 | boxing:1.20,kickboxing:1.15,karate:1.10,wrestling:0.85 | 0.45;3.0 |
+| shoulder_press_machine | STRENGTH | left_arm:0.45,right_arm:0.45,torso_core:0.10 | power:0.18,defense:0.10 | Logarithmic;300h | Subacromial_Impingement;left_arm;2.10 | 90.0 | 1.30/1.00/0.75;0.80/1.00/1.20 | boxing:1.20,kickboxing:1.15,muay_thai:1.15,wrestling:0.90 | 0.40;3.0 |
+| hip_abductor | STRENGTH | torso_core:0.20,left_leg:0.40,right_leg:0.40 | defense:0.12,grapple_defence:0.14 | Logarithmic;250h | Piriformis_Irritation;torso_core;1.30 | 80.0 | 1.20/1.00/0.80;0.85/1.00/1.15 | bjj:1.25,wrestling:1.20,muay_thai:1.15,boxing:0.80 | 0.35;3.0 |
+| glute_kickback | STRENGTH | left_leg:0.50,right_leg:0.50 | power:0.14,speed:0.08 | Logarithmic;220h | Gluteal_Insertional_Tendonitis;left_leg;1.10 | 75.0 | 1.20/1.00/0.80;0.85/1.00/1.15 | taekwondo:1.20,kickboxing:1.15,karate:1.15,boxing:0.80 | 0.35;2.0 |
+| back_extension | STRENGTH | torso_core:0.80,left_leg:0.10,right_leg:0.10 | defense:0.15,conditioning:0.12 | Logarithmic;280h | Lumbar_Facet_Irritation;torso_core;1.50 | 90.0 | 1.25/1.00/0.80;0.80/1.00/1.20 | wrestling:1.25,bjj:1.20,judo:1.20,boxing:0.90 | 0.40;3.0 |
+| deluxe_power_rack | STRENGTH | torso_core:0.30,left_leg:0.35,right_leg:0.35 | power:0.28,conditioning:0.15 | Sigmoidal;600h | Lumbar_Pars_Microfracture;torso_core;3.90 | 135.0 | 1.45/1.00/0.65;0.70/1.00/1.30 | wrestling:1.30,judo:1.25,sambo:1.25,boxing:0.95 | 0.65;5.0 |
+| olympic_fid_bench | STRENGTH | left_arm:0.45,right_arm:0.45,torso_core:0.10 | power:0.22,speed:0.10 | Logarithmic;450h | Glenohumeral_Subluxation;right_arm;2.30 | 110.0 | 1.35/1.00/0.75;0.75/1.00/1.25 | boxing:1.25,kickboxing:1.15,karate:1.10,wrestling:0.90 | 0.50;4.0 |
+| super_bench | STRENGTH | left_arm:0.40,right_arm:0.40,torso_core:0.20 | power:0.16,technique:0.10 | Logarithmic;350h | Sternoclavicular_Strain;torso_core;1.40 | 85.0 | 1.25/1.00/0.80;0.80/1.00/1.20 | boxing:1.10,kickboxing:1.05,wrestling:0.95 | 0.35;3.0 |
+| flat_bench | STRENGTH | left_arm:0.45,right_arm:0.45,torso_core:0.10 | power:0.20,speed:0.08 | Logarithmic;400h | Pectoral_Insertional_Strain;left_arm;2.10 | 100.0 | 1.30/1.00/0.75;0.80/1.00/1.20 | boxing:1.20,kickboxing:1.10,wrestling:0.90 | 0.45;4.0 |
+| adjustable_bench | STRENGTH | left_arm:0.40,right_arm:0.40,torso_core:0.20 | power:0.18,technique:0.08 | Logarithmic;380h | Deltoid_Fascicle_Tear;right_arm;1.50 | 90.0 | 1.25/1.00/0.80;0.80/1.00/1.20 | boxing:1.15,kickboxing:1.10,mma:1.05 | 0.40;3.0 |
+| olympic_incline_bench | STRENGTH | left_arm:0.45,right_arm:0.45,torso_core:0.10 | power:0.21,speed:0.09 | Logarithmic;400h | Acromioclavicular_Pinch;right_arm;2.20 | 105.0 | 1.30/1.00/0.75;0.80/1.00/1.25 | boxing:1.20,kickboxing:1.15,karate:1.10 | 0.45;3.0 |
+| olympic_decline_bench | STRENGTH | left_arm:0.45,right_arm:0.45,torso_core:0.10 | power:0.19,speed:0.07 | Logarithmic;320h | Costochondritis_Flaring;torso_core;1.70 | 90.0 | 1.25/1.00/0.80;0.80/1.00/1.20 | boxing:1.15,kickboxing:1.05,wrestling:0.95 | 0.35;2.0 |
+| multi_purpose_bench | STRENGTH | left_arm:0.35,right_arm:0.35,torso_core:0.30 | power:0.15,conditioning:0.10 | Logarithmic;300h | Cervical_Spine_Compaction;torso_core;1.20 | 85.0 | 1.20/1.00/0.85;0.85/1.00/1.15 | boxing:1.05,kickboxing:1.05,bjj:1.05 | 0.35;3.0 |
+| preacher_curl_bench | STRENGTH | left_arm:0.50,right_arm:0.50 | grapple_offense:0.12,power:0.06 | Logarithmic;220h | Distal_Biceps_Microavulsion;right_arm;1.60 | 80.0 | 1.25/1.00/0.80;0.80/1.00/1.20 | judo:1.20,bjj:1.20,sambo:1.20,boxing:0.70 | 0.30;2.0 |
+| smith_machine | STRENGTH | torso_core:0.20,left_leg:0.40,right_leg:0.40 | power:0.22,technique:0.06 | Logarithmic;360h | Patellar_Shear_Syndrome;left_leg;2.50 | 100.0 | 1.40/1.00/0.75;0.75/1.00/1.20 | wrestling:1.10,judo:1.
+
+
+
+===== PART 4 (verbatim): Section C - paying customers =====
+
+
+SECTION C — PAYING CUSTOMERS (MEMBERS)
+C.1 Member Archetypes Data Block (member_archetypes.json)
+
+Industry Benchmarks (IHRSA / ClubIntel / UKActive combat gym datasets):
+
+Median boutique boxing/combat gym member lifespan: $5.2\text{--}9.4\text{ months}$ (monthly baseline churn $6.5%\text{--}14.5%$).
+Retention elasticity to crowding ($>85%$ floor capacity): churn scales by $1.8\times\text{--}2.6\times$.
+Member check-in compliance: $38%$ of paying members attend $\ge 2\times/\text{week}$; $24%$ are "sleepers" (pay recurring dues, visit $\le 1\times/\text{month}$).
+{
+  "$schema": "https://json-schema.fightcamp.internal/v1/member_archetypes.json",
+  "version": "1.0.0",
+  "archetypes": {
+    "kids_cadets": {
+      "id": "kids_cadets",
+      "display_name": "Kids / Junior Cadets (Ages 7-12)",
+      "fee_tier": "youth_monthly",
+      "monthly_base_fee": 45.0,
+      "visit_frequency_per_week": 2.0,
+      "preferred_station_families": ["analysis", "bags", "mats"],
+      "preferred_zones": ["tatami_mat_alpha", "focus_mitt_square", "heavy_bag_rail_1"],
+      "peak_arrival_windows": [[15, 17]],
+      "session_duration_minutes": 60,
+      "queue_patience_minutes": 5,
+      "noise_tolerance": 0.90,
+      "crowding_tolerance": 0.40,
+      "equipment_wear_multiplier": 0.65,
+      "monthly_churn_base": 0.085,
+      "referral_rate_monthly": 0.045,
+      "expectations": {
+        "coach_quality_min": 55,
+        "cleanliness_min": 75,
+        "facility_safety_min": 85,
+        "required_class_type": "kids_boxing"
+      }
+    },
+    "teens_development": {
+      "id": "teens_development",
+      "display_name": "Teens / Youth Development (Ages 13-17)",
+      "fee_tier": "student_monthly",
+      "monthly_base_fee": 55.0,
+      "visit_frequency_per_week": 3.0,
+      "preferred_station_families": ["bags", "ring", "strength"],
+      "preferred_zones": ["heavy_bag_rail_1", "speed_bag_bracket_1", "olympic_cage_zone"],
+      "peak_arrival_windows": [[16, 18]],
+      "session_duration_minutes": 75,
+      "queue_patience_minutes": 8,
+      "noise_tolerance": 0.85,
+      "crowding_tolerance": 0.55,
+      "equipment_wear_multiplier": 1.20,
+      "monthly_churn_base": 0.095,
+      "referral_rate_monthly": 0.060,
+      "expectations": {
+        "coach_quality_min": 50,
+        "cleanliness_min": 50,
+        "facility_safety_min": 70,
+        "required_class_type": "fundamentals_boxing"
+      }
+    },
+    "fitness_regulars": {
+      "id": "fitness_regulars",
+      "display_name": "Conditioning & Fitness Regulars",
+      "fee_tier": "standard_monthly",
+      "monthly_base_fee": 75.0,
+      "visit_frequency_per_week": 3.5,
+      "preferred_station_families": ["cardio", "strength", "bags"],
+      "preferred_zones": ["curved_treadmill_strip", "air_bike_strip", "heavy_bag_rail_1"],
+      "peak_arrival_windows": [[7, 9], [17, 20]],
+      "session_duration_minutes": 65,
+      "queue_patience_minutes": 10,
+      "noise_tolerance": 0.60,
+      "crowding_tolerance": 0.50,
+      "equipment_wear_multiplier": 0.90,
+      "monthly_churn_base": 0.075,
+      "referral_rate_monthly": 0.030,
+      "expectations": {
+        "coach_quality_min": 45,
+        "cleanliness_min": 70,
+        "facility_safety_min": 70,
+        "required_class_type": "fitness_boxing"
+      }
+    },
+    "hobby_boxers": {
+      "id": "hobby_boxers",
+      "display_name": "Adult Hobbyist Pugilists",
+      "fee_tier": "standard_monthly",
+      "monthly_base_fee": 85.0,
+      "visit_frequency_per_week": 3.0,
+      "preferred_station_families": ["bags", "analysis", "ring"],
+      "preferred_zones": ["heavy_bag_rail_1", "speed_bag_bracket_1", "focus_mitt_square", "ring_main"],
+      "peak_arrival_windows": [[18, 21]],
+      "session_duration_minutes": 80,
+      "queue_patience_minutes": 12,
+      "noise_tolerance": 0.80,
+      "crowding_tolerance": 0.60,
+      "equipment_wear_multiplier": 1.15,
+      "monthly_churn_base": 0.065,
+      "referral_rate_monthly": 0.035,
+      "expectations": {
+        "coach_quality_min": 60,
+        "cleanliness_min": 60,
+        "facility_safety_min": 75,
+        "required_class_type": "technical_boxing"
+      }
+    },
+    "amateur_competitors": {
+      "id": "amateur_competitors",
+      "display_name": "Active Amateur Competitors",
+      "fee_tier": "competitor_unlimited",
+      "monthly_base_fee": 60.0,
+      "visit_frequency_per_week": 5.5,
+      "preferred_station_families": ["ring", "bags", "analysis", "cardio"],
+      "preferred_zones": ["ring_main", "focus_mitt_square", "heavy_bag_rail_1", "curved_treadmill_strip"],
+      "peak_arrival_windows": [[16, 19]],
+      "session_duration_minutes": 110,
+      "queue_patience_minutes": 6,
+      "noise_tolerance": 0.95,
+      "crowding_tolerance": 0.35,
+      "equipment_wear_multiplier": 1.85,
+      "monthly_churn_base": 0.040,
+      "referral_rate_monthly": 0.070,
+      "expectations": {
+        "coach_quality_min": 75,
+        "cleanliness_min": 45,
+        "facility_safety_min": 70,
+        "required_class_type": "comp_sparring"
+      }
+    },
+    "ex_fighters": {
+      "id": "ex_fighters",
+      "display_name": "Old School Masters / Ex-Fighters",
+      "fee_tier": "standard_monthly",
+      "monthly_base_fee": 70.0,
+      "visit_frequency_per_week": 3.0,
+      "preferred_station_families": ["bags", "ring", "recovery"],
+      "preferred_zones": ["heavy_bag_rail_1", "speed_bag_bracket_1", "physio_bay"],
+      "peak_arrival_windows": [[10, 13]],
+      "session_duration_minutes": 90,
+      "queue_patience_minutes": 15,
+      "noise_tolerance": 0.70,
+      "crowding_tolerance": 0.30,
+      "equipment_wear_multiplier": 1.10,
+      "monthly_churn_base": 0.035,
+      "referral_rate_monthly": 0.020,
+      "expectations": {
+        "coach_quality_min": 65,
+        "cleanliness_min": 50,
+        "facility_safety_min": 60,
+        "required_class_type": null
+      }
+    },
+    "weekend_warriors": {
+      "id": "weekend_warriors",
+      "display_name": "Weekend Warriors",
+      "fee_tier": "pack_10_sessions",
+      "monthly_base_fee": 50.0,
+      "visit_frequency_per_week": 1.5,
+      "preferred_station_families": ["bags", "strength", "recovery"],
+      "preferred_zones": ["heavy_bag_rail_1", "olympic_cage_zone", "cryo_chambers"],
+      "peak_arrival_windows": [[8, 12]],
+      "session_duration_minutes": 60,
+      "queue_patience_minutes": 7,
+      "noise_tolerance": 0.50,
+      "crowding_tolerance": 0.40,
+      "equipment_wear_multiplier": 0.85,
+      "monthly_churn_base": 0.120,
+      "referral_rate_monthly": 0.015,
+      "expectations": {
+        "coach_quality_min": 40,
+        "cleanliness_min": 80,
+        "facility_safety_min": 75,
+        "required_class_type": "bootcamp_circuit"
+      }
+    },
+    "corporate_lunch": {
+      "id": "corporate_lunch",
+      "display_name": "Corporate / White-Collar Lunch Crowd",
+      "fee_tier": "corporate_retainer",
+      "monthly_base_fee": 110.0,
+      "visit_frequency_per_week": 2.5,
+      "preferred_station_families": ["cardio", "bags", "strength"],
+      "preferred_zones": ["curved_treadmill_strip", "heavy_bag_rail_1", "leg_press_bank"],
+      "peak_arrival_windows": [[12, 14]],
+      "session_duration_minutes": 45,
+      "queue_patience_minutes": 4,
+      "noise_tolerance": 0.45,
+      "crowding_tolerance": 0.35,
+      "equipment_wear_multiplier": 0.70,
+      "monthly_churn_base": 0.105,
+      "referral_rate_monthly": 0.050,
+      "expectations": {
+        "coach_quality_min": 50,
+        "cleanliness_min": 90,
+        "facility_safety_min": 85,
+        "required_class_type": "lunch_express_mitts"
+      }
+    },
+    "active_seniors": {
+      "id": "active_seniors",
+      "display_name": "Active Masters & Seniors (Ages 55+)",
+      "fee_tier": "concession_monthly",
+      "monthly_base_fee": 40.0,
+      "visit_frequency_per_week": 3.0,
+      "preferred_station_families": ["cardio", "recovery", "strength"],
+      "preferred_zones": ["air_bike_strip", "physio_bay", "leg_press_bank"],
+      "peak_arrival_windows": [[9, 12]],
+      "session_duration_minutes": 50,
+      "queue_patience_minutes": 15,
+      "noise_tolerance": 0.30,
+      "crowding_tolerance": 0.45,
+      "equipment_wear_multiplier": 0.50,
+      "monthly_churn_base": 0.045,
+      "referral_rate_monthly": 0.025,
+      "expectations": {
+        "coach_quality_min": 55,
+        "cleanliness_min": 85,
+        "facility_safety_min": 90,
+        "required_class_type": "mobility_restoration"
+      }
+    },
+    "women_exclusive": {
+      "id": "women_exclusive",
+      "display_name": "Women's Combat & Fitness Group",
+      "fee_tier": "standard_monthly",
+      "monthly_base_fee": 80.0,
+      "visit_frequency_per_week": 3.0,
+      "preferred_station_families": ["bags", "analysis", "cardio"],
+      "preferred_zones": ["focus_mitt_square", "heavy_bag_rail_1", "curved_treadmill_strip"],
+      "peak_arrival_windows": [[10, 12], [18, 20]],
+      "session_duration_minutes": 60,
+      "queue_patience_minutes": 8,
+      "noise_tolerance": 0.65,
+      "crowding_tolerance": 0.50,
+      "equipment_wear_multiplier": 0.80,
+      "monthly_churn_base": 0.060,
+      "referral_rate_monthly": 0.055,
+      "expectations": {
+        "coach_quality_min": 60,
+        "cleanliness_min": 85,
+        "facility_safety_min": 85,
+        "required_class_type": "womens_kickbox"
+      }
+    },
+    "serious_grapplers": {
+      "id": "serious_grapplers",
+      "display_name": "Submission Grapplers / BJJ Practitioners",
+      "fee_tier": "mat_pass_unlimited",
+      "monthly_base_fee": 95.0,
+      "visit_frequency_per_week": 4.5,
+      "preferred_station_families": ["mats", "strength", "recovery"],
+      "preferred_zones": ["tatami_mat_alpha", "olympic_cage_zone", "cryo_chambers"],
+      "peak_arrival_windows": [[18, 21]],
+      "session_duration_minutes": 90,
+      "queue_patience_minutes": 10,
+      "noise_tolerance": 0.80,
+      "crowding_tolerance": 0.50,
+      "equipment_wear_multiplier": 1.45,
+      "monthly_churn_base": 0.050,
+      "referral_rate_monthly": 0.065,
+      "expectations": {
+        "coach_quality_min": 70,
+        "cleanliness_min": 80,
+        "facility_safety_min": 75,
+        "required_class_type": "submission_grappling"
+      }
+    },
+    "celebrity_vip": {
+      "id": "celebrity_vip",
+      "display_name": "VIP / Private Retainer Clients",
+      "fee_tier": "vip_black",
+      "monthly_base_fee": 350.0,
+      "visit_frequency_per_week": 2.0,
+      "preferred_station_families": ["analysis", "recovery", "strength"],
+      "preferred_zones": ["focus_mitt_square", "physio_bay", "olympic_cage_zone"],
+      "peak_arrival_windows": [[11, 14]],
+      "session_duration_minutes": 60,
+      "queue_patience_minutes": 0,
+      "noise_tolerance": 0.25,
+      "crowding_tolerance": 0.15,
+      "equipment_wear_multiplier": 0.60,
+      "monthly_churn_base": 0.140,
+      "referral_rate_monthly": 0.020,
+      "expectations": {
+        "coach_quality_min": 80,
+        "cleanliness_min": 95,
+        "facility_safety_min": 90,
+        "required_class_type": null
+      }
+    }
+  }
+}
+
+C.2 Monthly Member Lifecycle Model
+       [Unaware Local Market Pool]
+                   │
+                   ▼ (Marketing, Reputation, Density, Pricing)
+            [Inbound Inquiries]
+                   │
+                   ▼ Trial Class / Conversion Rate ($E_{\text{conv}}$)
+            [Active Members] ◄──────┐
+               │           │        │
+ (Check-in = 0)│           ▼        │ Reactivation
+               │    [Retention /    │ ($H_{\text{react}}$)
+               ▼       Hazard]      │
+           [Sleepers]      │        │
+               │           ▼        │
+               └────► [Churn / Exits]
+
+1. Acquisition Rate ($\Delta M_{\text{in}}$)
+
+$$\Delta M_{\text{in}} = \text{floor}\left( \text{MarketPool} \times P_{\text{capture}} \times E_{\text{conv}} \right)$$
+
+Local Target Pool ($\text{MarketPool}$): Base urban district density $= 3,500$ prospective sports/fitness enthusiasts per km² within a 3 km catchment $= 10,500$ addressable leads.
+Capture Probability ($P_{\text{capture}}$):
+
+$$P_{\text{capture}} = \left( \frac{\text{Reputation}}{100} \times 0.025 \right) + \left( \frac{\text{MarketingSpend}}{1000} \times 0.015 \right) - \left( N_{\text{rivals}} \times 0.003 \right)$$
+
+Conversion Elasticity ($E_{\text{conv}}$):
+
+$$E_{\text{conv}} = \text{clamp}\left( 0.15 + (Q_{\text{coach}} \times 0.003) + (C_{\text{clean}} \times 0.002) + (V_{\text{equip}} \times 0.002) - (\text{PriceIndex} \times 0.25),, 0.05,, 0.85 \right)$$
+
+Where:
+
+$Q_{\text{coach}}$: Mean coaching staff quality rating ($0\text{--}100$).
+$C_{\text{clean}}$: Gym hygiene and cleanliness rating ($0\text{--}100$).
+$V_{\text{equip}}$: Equipment variety score (ratio of distinct functional families installed, $0\text{--}1.0$).
+$\text{PriceIndex}$: $\frac{\text{GymBasePrice}}{\text{DistrictBenchmarkPrice}}$ (baseline $= 1.00$).
+2. Retention & Churn Hazard Function
+
+For each active member, monthly churn hazard $H_i$ is computed:
+
+$$H_i = H_{0,i} \times \left(1.0 + \sum \text{Hazards}\right)$$
+
+$$H_i = H_{0,i} \times \left(1.0 + \Phi_{\text{crowd}} + \Phi_{\text{hygiene}} + \Phi_{\text{coach}} + \Phi_{\text{broken}} + \Phi_{\text{dispute}} - \Psi_{\text{fighter_star}}\right)$$
+
+$H_{0,i}$: Base archetype monthly churn (from monthly_churn_base, e.g., $0.04\text{--}0.14$).
+$\Phi_{\text{crowd}}$: Crowding penalty $= \max\left(0.0,, \frac{\text{PeakDensity} - 0.75}{0.25}\right) \times 1.50$.
+$\Phi_{\text{hygiene}}$: Cleanliness deficit $= \max\left(0.0,, \frac{E_{\text{clean_min}} - C_{\text{clean}}}{100}\right) \times 2.00$.
+$\Phi_{\text{coach}}$: Coach quality deficit $= \max\left(0.0,, \frac{E_{\text{coach_min}} - Q_{\text{coach}}}{100}\right) \times 1.75$.
+$\Phi_{\text{broken}}$: Broken equipment encounter multiplier $= \left(\frac{N_{\text{broken_encounters}}}{N_{\text{visits}}}\right) \times 1.25$.
+$\Phi_{\text{dispute}}$: Unresolved member incident/dispute mark $= 0.50$ per open complaint.
+$\Psi_{\text{fighter_star}}$: Active champion prestige discount $= \left(\frac{\text{Prestige}}{100}\right) \times 0.25$.
+
+If a member records $0$ check-ins for 30 consecutive days, they transition to sleeper status:
+
+Sleeper base churn $= 0.22/\text{month}$.
+Sleepers generate $0$ floor wear and $0$ crowding load, but maintain automatic direct-debit billing until cancellation.
+3. Reactivation Pipeline ($H_{\text{react}}$)
+
+Win-back campaigns targeting churned members within 90 days:
+
+Cost: $$15$ per contact.
+Success Rate $= \text{clamp}\left(0.08 + (C_{\text{clean_current}} - C_{\text{clean_exit}})\times 0.005 + (\text{Reputation} \times 0.001),, 0.02,, 0.35\right)$.
+C.3 Daily Usage Simulation & Fighter Priority Conflicts
+
+Operating schedule: 10 operational hours daily ($07:00\text{--}17:00$ or $11:00\text{--}21:00$), evaluated across 10 discrete 60-minute time blocks ($h = 0 \dots 9$).
+
+1. Hourly Arrival Distribution
+
+Given active roster size $M_{\text{active}}$, check-in arrivals for archetype $k$ at hour $h$ follow Poisson parameter $\lambda_{k,h}$:
+
+$$\lambda_{k,h} = M_k \times \left(\frac{\text{Freq}k}{7}\right) \times W{k}(h)$$
+
+Where $W_{k}(h)$ is the hourly probability mass normalized from peak_arrival_windows.
+
+2. Station Selection & Queue Dynamics
+A member enters and attempts to claim a station within preferred_zones.
+Occupancy Evaluation: If a station has available capacity ($N_{\text{current}} < \text{station_capacity}$), member claims slot.
+Queue Invariant: If all preferred stations are full:
+Member enters the zone queue.
+Member queue tolerance clock decrements: $\text{WaitRemaining} = \text{queue_patience_minutes} - \Delta t_{\text{wait}}$.
+If $\text{WaitRemaining} \le 0$: Member exits unsatisfied (Event: Walkout), adding $+0.05$ to individual churn hazard and $-0.10$ gym satisfaction.
+3. Floor Access Policies & Pro-Fighter Preemption
+
+When a contracted professional fighter (controlled by player/stable) is routed to a station during their structured camp lap, the gym's Access Policy governs conflict resolution:
+
+| Policy ID | Policy Name | Monthly Revenue Effect | Member Retention Effect | Fighter Training Effect | Implementation Logic |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| OPEN_COMMUNE | Unrestricted Open Floor | Base ($1.0\times$) | Base ($1.0\times$) | Compromised: Fighter must queue behind members. Training lapses drop camp compliance by up to $35%$. | Pro fighters obey standard station capacity rules. |
+| PRO_PRIORITY | Pro Cardholder Preemption | $-5%$ churn bonus (Members respect real pros) | $-0.04$ member churn for fighters with prestige $>60$; $-0.15$ churn for fighters with prestige $<20$ | Optimal: Fighter immediately displaces lowest-tier member on workstation. | Displaced member queues or walks out if queue patience expires. |
+| SPLIT_HOURS | Dedicated Fight Team Windows (13:00-16:00) | $-18%$ membership fees (Restricted member access) | $-0.12$ churn for corporate/lunch crowd; $+0.08$ retention for amateur competitors | Protected: Commercial members barred from main hall during designated pro hours. Zero queue risk. | Floor occupancy capped at $0$ for general public during window. |
+| COMMERCIAL_MAX| Commercial Priority (Pro secondary) | $+15%$ member intake | $+0.05$ member retention | Severe Hazard: Pros barred from reserving stations; camp drills must run in off-peak hours ($06:00\text{ or }21:00$). | Pro fighters denied entry to occupied stations. |
+
+C.4 Equipment Wear & Incident Mechanics
+
+Members degrade equipment at identical physical touchpoints to fighters, scaling directly by archetype weight and volume.
+
+1. Hourly Wear Increment
+
+For station $j$ across hour $h$, mechanical integrity reduction $\Delta I_j$ is:
+
+$$\Delta I_j = \sum_{m \in \text{Occupants}_j} \left( \text{wear_per_hr}j \times \mu{\text{wear},m} \right)$$
+
+Where:
+
+$\text{wear_per_hr}_j$ is the base machine hardware decay rate defined in Section B.
+$\mu_{\text{wear},m}$ is the archetype multiplier (e.g., $1.85$ for active competitors, $0.50$ for seniors).
+2. Member Injury, Liability & Incident Trigger
+
+When a commercial member operates equipment where $\text{Integrity}j < 70%$, member accident probability $P{\text{accident}}$ fires every user-hour:
+
+$$P_{\text{accident}} = 0.0005 \times \left(\frac{70.0 - \text{Integrity}j}{70.0}\right)^{2.2} \times (1.0 + \Phi{\text{crowd}})$$
+
+                        [Equipment Integrity < 70%]
+                                     │
+                        Member Training Hour Occurs
+                                     │
+                                     ▼
+                      Roll: P(accident) > Threshold?
+                                     │
+                         ┌───────────┴───────────┐
+                         ▼ YES                   ▼ NO
+                [Incident Triggered]       [Safe Session]
+                         │
+        ┌────────────────┼────────────────┐
+        ▼ Minor          ▼ Moderate       ▼ Severe (Catastrophic)
+  ($500 Medical)   ($4,500 Out-of-Court)  ($25,000 Lawsuit)
+        │                │                │
+        └────────────────┼────────────────┘
+                         ▼
+             Insurance Policy Mitigation
+         (Premium Hikes, Deductibles, Payouts)
+
+Incident Severities:
+Minor Soft-Tissue Sprain ($65%$ probability): First-aid kit expended. Gym pays medical goodwill settlement: $$500$.
+Structural Tear / Cable Snap ($30%$ probability): Member sustains torn ligament/fracture. Out-of-court settlement: $$4,500$. Gym cleanliness/safety rating drops $-15$ points.
+Catastrophic Structural Failure ($5%$ probability): Heavy bag drops from mount or rack weld fractures. Hospitalization. Public liability lawsuit: $$25,000\text{--}$60,000$. Local council inspection triggered.
+Insurance Policies:
+Basic Statutory Cover: $$120/\text{month}$. $$5,000$ deductible; does not cover equipment with integrity $<40%$.
+Comprehensive Sports Facility Cover: $$450/\text{month}$. $$1,000$ deductible; legal defense costs fully covered.
+Self-Insured (No Policy): $$0/\text{month}$. $100%$ of all settlement and legal costs drawn immediately from operational cash reserves. Cash bankruptcy triggers immediate game over.
+C.5 Revenue & Facility Economics ($540\text{ m}^2$ Model)
+
+Base spatial baseline: $30\text{ m} \times 18\text{ m} = 540\text{ m}^2$ industrial hall.
+
+1. Spatial Capacity Constraints
+Functional safety guidelines mandate $4.5\text{ m}^2$ per free-roaming member, and $9.0\text{ m}^2$ per combat ring/sparring zone.
+Maximum concurrent capacity ($C_{\text{max}}$) for $540\text{ m}^2$ facility: $65$ concurrent persons.
+Member-to-capacity sustainability ratio: A well-managed gym carries an active roster of approximately $4.0\times\text{--}6.0\times$ its concurrent physical capacity.
+Maximum stable active roster ($M_{\text{roster_max}}$): $320\text{ paying members}$.
+2. Tiered Financial Structure
+
+| Revenue Stream | Unit Price / Pricing Rule | Expected Uptake (% of Roster) | Monthly Gross (300 Members) |
+| :--- | :--- | :--- | :--- |
+| Recurring Membership Dues | Blended average: $$74.50/\text{member/month}$ | $100%$ | $$22,350$ |
+| Class Packs (Drop-in) | $$15/\text{session}$ or $$120/\text{10-pack}$ | $15%$ non-member auxiliary volume | $$1,800$ |
+| Personal Training (PT) Rake | $$60/\text{hour}$ (Gym takes $30%$ commission split) | $8%$ members take $4\text{ sessions/month}$ | $$1,728$ |
+| Locker Rentals | $$20/\text{locker/month}$ ($40$ lockers installed) | $85%$ occupancy | $$680$ |
+| Beverages / Supplements / Wraps| Average margin $$2.40$ per checkout | $1.8\text{ transactions/member/month}$ | $$1,296$ |
+| Pro Fighter Fight-Night Ticket Split| $10%$ commission on ticket allotments sold via gym | Pro fighter fight months only ($1\times/\text{quarter}$) | $$1,250\text{ (amortized)}$ |
+| Merchandise (Branded Apparel)| $$35/\text{shirt}$, $$65/\text{hoodie}$ ($55%$ margin) | $4%$ members/month | $$520$ |
+| Gross Monthly Revenue Target | — | — | $$29,624$ |
+
+3. Tiered Financial Benchmarks ($540\text{ m}^2$ Facility)
+
+| Financial Metric | Economy / Club Tier (Raw Gym) | Commercial Tier (Modern Boxing Club) | Elite High-Performance Hub |
+| :--- | :--- | :--- | :--- |
+| Active Member Roster | $180\text{ members}$ | $310\text{ members}$ | $150\text{ selective members}$ |
+| Average Revenue Per User (ARPU) | $$52.00$ | $$88.50$ | $$245.00$ |
+| Monthly Gross Revenue | $$9,360$ | $$27,435$ | $$36,750$ |
+| Rent & Rates Expense | $$4,200\text{ ($7.77/m}^2)$ | $$6,500\text{ ($12.03/m}^2)$ | $$11,000\text{ ($20.37/m}^2)$ |
+| Staff Payroll | $$2,800$ (Owner + 1 PT coach) | $$11,200$ (3 Coaches, 1 Desk, 1 Cleaner) | $$18,500$ (Elite coaches, physio, S&C) |
+| Utilities, Insurance, Maintenance| $$1,150$ | $$2,900$ | $$4,800$ |
+| Net Operating Income (NOI) | $$1,210/\text{month}$ | $$6,835/\text{month}$ | $$2,450/\text{month}$ |
+| Revenue per $\text{m}^2$ | $$17.33/\text{m}^2/\text{month}$ | $$50.80/\text{m}^2/\text{month}$ | $$68.05/\text{m}^2/\text{month}$ |
+
+C.6 Staffing Roster, Payroll & Scheduled Classes
+                          [Head Coach / Manager]
+                                     │
+         ┌───────────────────────────┼───────────────────────────┐
+         ▼                           ▼                           ▼
+  [Front Desk / Admin]      [Floor Coaches / S&C]       [Facility Custodians]
+   - Member check-ins        - Group Classes             - Deep Sanitation
+   - Retail & Inquiries      - Fighter Corner Staff      - Ring Maintenance
+   - Conflict resolution     - PT Generation             - Biohazard Cleanup
+
+1. Staff Roles & Operational Specifications
+
+| Staff Role | Base Monthly Wage | Primary Benefit | Secondary Metric Boost | Burnout Rate per Shift |
+| :--- | :--- | :--- | :--- | :--- |
+| Front Desk Receptionist | $$1,800$ | Churn mitigation (welcoming check-in, dispute log) | Retail conversion $+35%$ | $+1.5%\text{ fatigue/hr}$ |
+
+Can you continue with SECTION D covering the remaining member systems, events, decisions, schemas, APIs, and unit tests?
+Can you generate a top-down 3D visual of the 540 m² commercial gym showing stations, member zones, queues, and fighter-access areas?
+Can you provide the complete member archetypes JSON with concrete values for every requested field and no omitted categories?

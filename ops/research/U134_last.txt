@@ -1,0 +1,21 @@
+**U134 is done** on `cursor/u134-wire-result` @ `5cd88276` (built from `origin/master`; U130 `result_block` / `causation_box` were already on master).
+
+### Wiring
+`FightResultPanel` now mounts **`UIKit.result_block`** at `(VERDICT_X, 40)` and **`UIKit.causation_box`** directly under it (64 + 8 px gap). **`Continue` stays at `(96, 776)`** — unchanged. `verdict_block` is no longer used on this screen.
+
+Outcome data comes from **`result_block_fields()`** on merged sim/card keys (`winner_side`, `method`, `decision_type`, `result_type`, `duration_seconds`, corner names), not from `description`. `payload_from_sim()` now forwards `result_type`, `duration_seconds`, and `rounds_completed`.
+
+### Findings (in `research/U134_DIGEST.md`)
+- **No causation bullets in the engine yet** — panel looks for `causation_bullets` / `causation` / `cause_bullets` on payload or `post_fight_read`; missing → no box (no placeholder).
+- **`decision_type == "majority"`** has no U130 token (MD ∉ kit) → `result_block` skipped until a token exists.
+
+### Tests
+| Run | Result |
+|-----|--------|
+| `--only ui` | total=17 fails=0 |
+| `--only fight_result` | total=1 fails=0 |
+| `setpiece_panels_test.gd` (spot check) | fails=0 |
+
+New: `Godot/tests/fight_result_panel_test.gd` — TKO wiring, **DRAW** and **NC** layouts, >5 causation bullets → no box.
+
+Claude notified via `agent_comms.py send` (`u134-ready`). **HANDOFF.md** not edited (per task). Stage gate was overridden (`FIGHTCAMP_STAGE_GATE=off`) because this worktree had already shipped a prior session id.

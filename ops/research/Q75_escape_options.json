@@ -1,0 +1,96 @@
+{
+  "fixtures": [
+    {"matchup": "bjj", "ground_exchanges": 1420, "escapes_landed": 94, "stand_ups": 56, "submission_lands": 512, "submission_finishes": 5},
+    {"matchup": "mma_grappler_striker", "ground_exchanges": 803, "escapes_landed": 120, "stand_ups": 81, "submission_lands": 74, "submission_finishes": 0},
+    {"matchup": "mma_thai_jiujitsu", "ground_exchanges": 983, "escapes_landed": 138, "stand_ups": 80, "submission_lands": 173, "submission_finishes": 0},
+    {"matchup": "judo", "ground_exchanges": 258, "escapes_landed": 82, "stand_ups": 50, "submission_lands": 0, "submission_finishes": 0},
+    {"matchup": "sambo", "ground_exchanges": 555, "escapes_landed": 0, "stand_ups": 0, "submission_lands": 278, "submission_finishes": 21}
+  ],
+  "mechanism": {
+    "stand_up_formula": "clampf(0.3 + execution_quality * 0.35, 0.1, 0.85)",
+    "land_roll_terms": [
+      "execution_quality (actor's combined_mastery blended with technique_stat, scaled by 0.6 + 0.4 * combined_mastery)",
+      "defense_factor = _defender_defense_factor(target, ruleset_id, seat_phases, 'escape') * _mobility_factor(target)",
+      "defense_factor includes the top man's base defense stat: clampf(defense/100 * 0.35 + bonus, 0.0, 0.6)",
+      "no DEFENSE_ANSWERS key answers the 'escape' class, so the technique bonus is always 0 against escapes",
+      "success_chance = clampf(0.35 + 0.5 * execution_quality - defense_factor, 0.1, 0.95)",
+      "camp attack/defense bonuses and duel_edge success also apply"
+    ],
+    "stand_up_roll_terms": [
+      "escape_chance = clampf(0.3 + execution_quality * 0.35, 0.1, 0.85)",
+      "execution_quality is the BOTTOM man's (the escaper's) execution quality from the landed escape",
+      "a single rng.randf() < escape_chance decides the stand-up",
+      "on success: phase -> STANDING, top_side cleared, range_band -> CLINCH",
+      "the top man's stats, defense, grapple and BJJ proficiency do NOT appear in this roll"
+    ],
+    "top_man_terms": [
+      "the top man IS present in the LAND roll: his defense stat sets the base defense_factor (defense/100 * 0.35) that the escape must beat",
+      "his mobility (_mobility_factor) scales the defense_factor multiplicatively",
+      "his camp sub_defense does NOT apply to escapes (it applies to submission finishes only)",
+      "the top man is ABSENT from the STAND-UP roll: escape_chance reads only the escaper's execution_quality",
+      "a high-grapple top man with strong defense makes it harder for the escape to LAND, but once it lands, his stats do not resist the stand-up"
+    ]
+  },
+  "anchors": [
+    {
+      "metric": "lightweight ground-control share",
+      "population": "UFC lightweight division, 2018 roster (ESPN + FightMetric)",
+      "file": "research/J20_THE_VALIDATION_CORPUS.md",
+      "line": 126,
+      "quote": "**17%** of fight time on the mat **in control** (Khabib 41%)"
+    },
+    {
+      "metric": "control-time win rate in decisions",
+      "population": "3,850 UFC decisions with control logged, through early 2026",
+      "file": "research/J20_THE_VALIDATION_CORPUS.md",
+      "line": 127,
+      "quote": "Fighter with more control wins **68.2%** of decisions"
+    },
+    {
+      "metric": "control duration vs weighted integral",
+      "population": "broadcast practice across UFC, ONE, IBJJF, IJF (G38 analysis)",
+      "file": "research/G38_THE_GROUND_FIGHT_READ.md",
+      "line": 124,
+      "quote": "A man in closed guard for 2:14 has a broadcast control-time of 2:14 if the statkeeper credits top control"
+    }
+  ],
+  "options": [
+    {
+      "id": "a",
+      "rule": "The top man's control skill resists the stand-up roll: subtract a factor derived from the top man's grapple and BJJ proficiency from the escape_chance, so a dominant grappler on top makes it harder for the bottom man to stand up even after the escape lands.",
+      "touches": ["_resolve_escape_attempt"],
+      "predict": {
+        "bjj": "up",
+        "mma_grappler_striker": "up",
+        "mma_thai_jiujitsu": "up",
+        "judo": "same",
+        "sambo": "same"
+      }
+    },
+    {
+      "id": "b",
+      "rule": "A landed dominant position (side control, mount, back) sets a hold bonus that decays per exchange: the next escape must beat an additional threshold proportional to how many consecutive exchanges the top man has held the seat, making repeated ground work progressively harder to escape from.",
+      "touches": ["_resolve_action", "_resolve_escape_attempt"],
+      "predict": {
+        "bjj": "up",
+        "mma_grappler_striker": "up",
+        "mma_thai_jiujitsu": "up",
+        "judo": "same",
+        "sambo": "same"
+      }
+    },
+    {
+      "id": "c",
+      "rule": "A landed escape that fails to stand the top man up carries SUBMISSION_SWITCH_CARRY of the top man's pressure instead of zeroing it: the bottom man's failed stand-up attempt does not reset the submission threat, so repeated escape attempts accumulate pressure toward a finish rather than clearing it.",
+      "touches": ["_resolve_escape_attempt"],
+      "predict": {
+        "bjj": "up",
+        "mma_grappler_striker": "up",
+        "mma_thai_jiujitsu": "up",
+        "judo": "same",
+        "sambo": "same"
+      }
+    }
+  ],
+  "recommend": "a"
+}

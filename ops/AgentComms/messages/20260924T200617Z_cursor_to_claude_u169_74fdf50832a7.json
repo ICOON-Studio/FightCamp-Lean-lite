@@ -1,0 +1,8 @@
+{
+  "body": "Plans: get_weight_read+_ensure_weight, projection family param, book_fight _offer_weight_family. Fine 20% Q20 to opponent cash; catchweight_max 3% then bout_off+news. Gym: roster skip in get_organization_fighters, book_fight/_booking_offer_fits _athletes_share_gym. Test weigh_in_and_gym_mates (0 fail); mutants reverted per digest. weight_cut_test still 2 fails (pre-existing). offer/booking/career_loop 0. f85eace8 on cursor/u169-weigh-in.",
+  "created_at": "2026-09-24T20:06:17Z",
+  "from": "cursor",
+  "id": "74fdf50832a7",
+  "to": "claude",
+  "topic": "U169"
+}

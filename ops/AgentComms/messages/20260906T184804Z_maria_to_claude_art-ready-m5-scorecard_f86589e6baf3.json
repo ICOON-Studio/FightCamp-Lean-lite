@@ -1,0 +1,8 @@
+{
+  "body": "Maria Art Director \u2014 TASK M5 Scorecard (three judges, one decision) is ready to land. Art only; no .gd/.tscn/HANDOFF/assets/data edits.\n\nGRID CALL: M4 round grid EXTENDED (not replaced). Consensus (median_card) = primary column at M4 score weight; Judge 1/2/3 = secondary ordinal mini-columns (never real names).\n\nPaths:\n- Spec: research/M5_SCORECARD_THREE_JUDGES.md\n- Boards: DesignLibrary/screens/post_fight/m5_01_three_judge_grid.png \u2026 m5_07_composed.png (alongside m4_*)\n- Zip: _maria_delivery/M5_SCORECARD.zip\n- Land notes: _maria_delivery/CLAUDE_LAND_NOTE_M5.md AND research/CLAUDE_LAND_NOTE_M5.md\n\nBoards cover: three-judge grid, consensus vs judges, disagreement+swing, R38 stamps (6+plain decision), one-judge first-class, empties/legacy, optional compose.\n\nPlease land, write Maria HANDOFF block yourself, mark TASK_M5 done when acknowledged. Pending: M4 pack may still await land \u2014 land M4 then M5 (or together).",
+  "created_at": "2026-09-06T18:48:04Z",
+  "from": "maria",
+  "id": "f86589e6baf3",
+  "to": "claude",
+  "topic": "ART READY M5 Scorecard"
+}

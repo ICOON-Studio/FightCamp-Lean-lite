@@ -1,0 +1,10 @@
+You own TASK_KM2. You are in the worktree D:\FightCamp\wt\KM1 on branch kimi/km2-reachability (fresh from origin/master; the Godot import cache is already built here).
+Read research/TASK_KM2_REACHABILITY_RED.md and do exactly that task. It is self-contained.
+Do NOT read HANDOFF.md, CURRENT_STATUS.md or HANDOFF_ARCHIVE.md. All research is open: RESEARCH_INDEX.md.
+Never open a file over 1,500 lines whole (GameState.gd, FightWorldLiveScreen.gd, FightStagePlayer.gd, FightClipBinding.gd): grep -n, then read windows.
+Parse gate before any test: python Godot/tools/check_scripts.py <touched .gd>. Run the ONE test first:
+  %LOCALAPPDATA%\Programs\Godot\Godot_v4.7.2-stable_win64_console.exe --headless --path Godot --script tests/fighter_reachability_contract_test.gd
+then only the subset the task names. Never the full suite. Windowed Godot only through Tools\godot_hidden.ps1.
+Commit per fix on your branch, push the branch (never master), write research/KM2_DIGEST.md (the breaking commit, the evidence, which side was wrong and why, before/after), then
+python Tools/agent_comms.py send --from kimi --to claude --topic KM2 "<one line>".
+Trap: the test names f01_m_box_welter (the old Tripo control arm); the MEN in the game are MPFB generator bodies since S117. Find what the contract is FOR before deciding which side is wrong.

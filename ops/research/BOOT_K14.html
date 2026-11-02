@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>FightCamp · K14 THE BOOT · Kalli</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@500;600;700&display=swap">
+<style>
+@font-face{font-family:"Bebas Neue";src:url("fonts/BebasNeue-Regular.ttf") format("truetype");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Mono";src:url("fonts/IBMPlexMono-Medium.ttf") format("truetype");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Mono";src:url("fonts/IBMPlexMono-Medium.ttf") format("truetype");font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Mono";src:url("fonts/IBMPlexMono-Medium.ttf") format("truetype");font-weight:700;font-style:normal;font-display:swap}
+:root{
+  --ground:#1c2230;--ground-2:#242c3d;--panel:#2a3347;--panel-hi:#34405a;--panel-lo:#222a3b;
+  --track:#111621;--edge:#121722;--line:#4a5a78;--line-soft:#2b3340;
+  --text:#f3f5fa;--text-2:#c9d1e0;--muted:#94a1b8;--dim:#6d7688;--ink:#1b1207;--link:#7fb6ee;
+  --gold:#f0c233;--gold-hi:#f7d65a;--gold-lo:#c99a1a;--gold-edge:#7a5c0c;
+  --gym:#2f6fb0;--gym-hi:#3f86cc;--gym-lo:#24558a;--gym-deep:#1a3d63;--gym-tint:rgba(47,111,176,.22);
+  --go:#22c55e;--go-hi:#4ade80;--go-lo:#15803d;--go-edge:#0b4a23;
+  --slate:#3f4a62;--control:#303a52;--chip:#333d52;--avatar:#3b4557;
+  --good:#4fc46a;--amber:#f0a020;--bad:#e5433a;--bad-edge:#5a120e;
+  --display:"Bebas Neue","Haettenschweiler","Arial Narrow",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --edge-hi:rgba(255,255,255,.14);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#0f131b;color:var(--text);font-family:var(--mono);font-size:13px;font-weight:500;line-height:1.35;-webkit-font-smoothing:antialiased}
+.doc{padding:28px 24px 80px;max-width:1960px;margin:0 auto}
+.eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.mast h1{font-family:var(--display);font-size:52px;letter-spacing:.02em;line-height:.94;margin:6px 0 10px}
+.mast p{max-width:96ch;color:var(--text-2);margin:0 0 8px}
+.rules{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 28px}
+.rules span{font-size:12px;letter-spacing:.08em;font-weight:700;padding:6px 10px;border:1px solid var(--edge);border-radius:3px;background:var(--panel-lo);color:var(--muted)}
+.sec{margin:36px 0 18px}
+.sec h2{font-family:var(--display);font-size:32px;letter-spacing:.06em;margin:0 0 6px}
+.sec p{margin:0;color:var(--text-2);max-width:96ch}
+.note{margin-top:8px;font-size:12px;letter-spacing:.04em;color:var(--muted)}
+.pickbox{margin:14px 0;padding:14px 16px;border:1px solid var(--gold-edge);border-radius:3px;background:linear-gradient(90deg,rgba(240,194,51,.12),rgba(240,194,51,.03))}
+.pickbox b{color:var(--gold);font-family:var(--display);font-size:18px;letter-spacing:.06em;font-weight:400}
+.rej{margin:8px 0;padding:10px 12px;border-left:3px solid var(--line);background:rgba(0,0,0,.2);font-size:13px;color:var(--text-2)}
+.rej b{color:var(--muted);font-size:12px;letter-spacing:.1em}
+.board{width:1920px;height:1080px;position:relative;overflow:hidden;background:var(--ground);margin:16px 0 40px;box-shadow:0 24px 60px rgba(0,0,0,.55)}
+.board.shot{box-shadow:none}
+.annot{font-size:12px;color:var(--muted);padding:8px 12px;border-left:3px solid var(--gym-hi);background:rgba(0,0,0,.2);margin:8px 0}
+table.gaps{width:100%;border-collapse:collapse;margin:12px 0;max-width:1100px}
+table.gaps th,table.gaps td{text-align:left;padding:8px 10px;border:1px solid var(--edge);font-size:13px}
+table.gaps th{background:var(--panel-lo);color:var(--muted);font-size:12px;letter-spacing:.1em}
+table.gaps td code{color:var(--gold);font-size:12px}
+table.gaps tr:nth-child(even) td{background:rgba(0,0,0,.15)}
+
+/* —— BootChrome (pre-career gate — NOT ShellChrome / NOT CreationChrome steps) —— */
+.bc{width:100%;height:100%;position:relative;background:var(--ground);display:flex;flex-direction:column}
+.bc::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(55% 45% at 50% 0%,rgba(63,134,204,.16),transparent 70%),radial-gradient(40% 35% at 80% 90%,rgba(240,194,51,.06),transparent 70%);z-index:0}
+.bc > *{position:relative;z-index:1}
+.bc-top{height:64px;flex:none;display:grid;grid-template-columns:240px 1fr auto;align-items:stretch;border-bottom:1px solid var(--edge);background:linear-gradient(180deg,rgba(42,51,71,.98),rgba(28,34,48,.98));box-shadow:0 1px 0 var(--edge-hi) inset}
+.bc-brand{display:flex;align-items:center;gap:12px;padding:0 16px;border-right:1px solid var(--edge);background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo))}
+.bc-brand .mark{width:40px;height:40px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#fff,#cfd8e6 70%);color:var(--gym-deep);font-family:var(--display);font-size:16px;display:grid;place-items:center;border:2px solid rgba(0,0,0,.35);flex:none}
+.bc-brand .nm{font-family:var(--display);font-size:22px;letter-spacing:.05em;color:#fff;line-height:1}
+.bc-brand .sub{font-size:12px;letter-spacing:.14em;font-weight:700;color:rgba(255,255,255,.88);margin-top:2px}
+.bc-mid{display:flex;align-items:center;padding:0 22px;gap:14px}
+.bc-mid .phase{font-family:var(--display);font-size:22px;letter-spacing:.1em;color:var(--text-2)}
+.bc-mid .hint{font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--dim)}
+.bc-actions{display:flex;align-items:stretch}
+.bc-back{display:flex;flex-direction:column;justify-content:center;padding:0 18px;min-width:120px;border-left:1px solid var(--edge);background:linear-gradient(180deg,#3a4560,#2b3449);color:var(--text-2)}
+.bc-back .t{font-family:var(--display);font-size:18px;letter-spacing:.08em;line-height:1}
+.bc-back .s{font-size:12px;letter-spacing:.1em;font-weight:700;margin-top:2px;color:var(--muted)}
+.bc-body{flex:1;min-height:0;padding:18px 28px 16px;display:flex;flex-direction:column;gap:14px}
+.bc-foot{height:48px;flex:none;display:flex;align-items:center;gap:14px;padding:0 22px;border-top:1px solid var(--edge);background:rgba(18,23,34,.7)}
+.bc-foot .phase{font-family:var(--display);font-size:18px;letter-spacing:.12em;color:var(--text-2)}
+.bc-foot .hint{margin-left:auto;font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--dim)}
+
+.pair{display:grid;grid-template-columns:1fr auto;height:34px;border:1px solid var(--edge);border-radius:3px;overflow:hidden}
+.pair .lab{display:flex;align-items:center;padding:0 10px;background:linear-gradient(180deg,#4a5670,#333d52);font-family:var(--display);font-size:15px;letter-spacing:.08em}
+.pair .val{display:flex;align-items:center;justify-content:center;min-width:64px;padding:0 10px;font-family:var(--display);font-size:20px;background:linear-gradient(180deg,var(--panel-hi),var(--panel-lo))}
+.btn{height:40px;border-radius:3px;border:1px solid var(--edge);background:linear-gradient(180deg,#445273,#303a52);font-family:var(--display);font-size:17px;letter-spacing:.08em;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 0 var(--edge-hi) inset;padding:0 18px}
+.btn.gold{background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:var(--ink);border-color:var(--gold-edge);box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 0 16px rgba(240,194,51,.35)}
+.btn.dim{opacity:.4}
+.btn.go{background:linear-gradient(180deg,var(--go-hi),var(--go-lo));color:#062a10;border-color:var(--go-edge);box-shadow:0 1px 0 rgba(255,255,255,.35) inset}
+.btn.lg{height:52px;font-size:22px;padding:0 28px}
+.btn.xl{height:64px;font-size:28px;padding:0 36px;min-width:280px}
+.chip{height:26px;padding:0 10px;border-radius:3px;border:1px solid var(--edge);background:var(--chip);font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--text-2);display:inline-flex;align-items:center}
+.chip.on{background:linear-gradient(180deg,#4a5670,#333d52);color:#fff;border-color:var(--line)}
+.chip.newest{background:linear-gradient(180deg,rgba(240,194,51,.22),rgba(240,194,51,.08));color:var(--gold);border-color:var(--gold-edge)}
+.chip.bad{background:rgba(229,67,58,.18);color:#ff8f87;border-color:var(--bad-edge)}
+.alert{height:28px;display:flex;align-items:center;padding:0 10px;background:linear-gradient(90deg,rgba(229,67,58,.35),rgba(229,67,58,.08));border:1px solid var(--bad-edge);border-radius:2px;font-size:12px;letter-spacing:.1em;font-weight:700;color:#ffb0aa}
+.alert.amber{background:linear-gradient(90deg,rgba(240,160,32,.3),rgba(240,160,32,.06));border-color:#7a4c08;color:#ffd08a}
+.sil{width:48px;height:86px;background:linear-gradient(180deg,#3b4557 0%,#2a3347 55%,#1c2230 100%);border-radius:24px 24px 6px 6px;position:relative;flex:none;box-shadow:0 8px 18px rgba(0,0,0,.4)}
+.sil::before{content:"";position:absolute;top:-22px;left:50%;transform:translateX(-50%);width:28px;height:28px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#4a556c,#2b3447 70%);border:2px solid var(--edge)}
+.sil.lg{width:72px;height:128px;border-radius:36px 36px 8px 8px}
+.sil.lg::before{width:40px;height:40px;top:-28px}
+.sil.hero{width:110px;height:200px;border-radius:55px 55px 12px 12px;opacity:.85}
+.sil.hero::before{width:56px;height:56px;top:-40px}
+.sil.sm{width:36px;height:64px;border-radius:18px 18px 4px 4px}
+.sil.sm::before{width:20px;height:20px;top:-14px}
+.panel{background:var(--panel);border:1px solid var(--edge);border-radius:3px;box-shadow:0 1px 0 var(--edge-hi) inset;min-height:0;display:flex;flex-direction:column;overflow:hidden}
+.ph{font-size:12px;letter-spacing:.14em;font-weight:700;color:var(--muted);padding:10px 12px 6px;border-bottom:1px solid var(--line-soft)}
+
+/* Title board */
+.title-stage{flex:1;display:grid;grid-template-columns:1.15fr .85fr;gap:28px;min-height:0;align-items:center;padding:10px 12px}
+.title-hero{display:flex;flex-direction:column;gap:18px;justify-content:center}
+.title-hero .word{font-family:var(--display);font-size:96px;letter-spacing:.04em;line-height:.9;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.35)}
+.title-hero .tag{font-size:14px;letter-spacing:.22em;font-weight:700;color:var(--gold);margin-top:-6px}
+.title-hero .blurb{font-size:14px;color:var(--text-2);max-width:42ch;line-height:1.5}
+.title-hero .latest{padding:14px 16px;border:1px solid var(--edge);border-radius:3px;background:linear-gradient(180deg,rgba(42,51,71,.9),rgba(28,34,48,.9));display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;max-width:560px}
+.title-hero .latest .ln{font-family:var(--display);font-size:24px;letter-spacing:.03em;color:#fff;line-height:1}
+.title-hero .latest .ls{font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--muted);margin-top:4px}
+.title-actions{display:flex;flex-direction:column;gap:12px;align-items:stretch;padding:24px;background:var(--panel);border:1px solid var(--edge);border-radius:3px;box-shadow:0 1px 0 var(--edge-hi) inset}
+.title-actions .eye{font-size:12px;letter-spacing:.16em;font-weight:700;color:var(--muted);margin-bottom:4px}
+.title-actions .subact{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+.title-sil{display:flex;align-items:flex-end;justify-content:center;gap:28px;opacity:.9;padding-bottom:20px}
+
+/* Slot rows */
+.slot-list{display:flex;flex-direction:column;gap:12px;flex:1;min-height:0}
+.slot{display:grid;grid-template-columns:64px 1.4fr 110px 100px 110px 90px 120px auto;gap:12px;align-items:center;padding:16px 18px;border:1px solid var(--edge);border-radius:3px;background:var(--panel);min-height:96px}
+.slot.newest{background:linear-gradient(90deg,rgba(240,194,51,.1),rgba(47,111,176,.06));box-shadow:inset 4px 0 0 var(--gold);border-color:rgba(240,194,51,.45)}
+.slot.sel{background:linear-gradient(90deg,var(--gym-tint),rgba(47,111,176,.05));box-shadow:inset 4px 0 0 var(--gym-hi);border-color:rgba(63,134,204,.45)}
+.slot.empty{opacity:.85;background:rgba(34,42,59,.7);border-style:dashed}
+.slot.bad{border-color:var(--bad-edge);background:linear-gradient(90deg,rgba(229,67,58,.12),rgba(42,51,71,.5))}
+.slot .sn{font-family:var(--display);font-size:28px;letter-spacing:.04em;color:#fff;line-height:1}
+.slot .ss{font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--muted);margin-top:4px}
+.slot .stat .sl{font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--dim)}
+.slot .stat .sv{font-family:var(--display);font-size:22px;line-height:1;margin-top:2px}
+.slot .slotnum{width:48px;height:48px;border-radius:3px;border:1px solid var(--edge);background:var(--panel-lo);display:grid;place-items:center;font-family:var(--display);font-size:24px;color:var(--muted)}
+.slot.newest .slotnum{background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:var(--ink);border-color:var(--gold-edge)}
+.slot-cta{display:flex;gap:10px;align-items:center;margin-top:4px}
+
+/* Settings */
+.settings-wrap{flex:1;display:grid;grid-template-columns:1.1fr .9fr;gap:16px;min-height:0}
+.set-col{display:flex;flex-direction:column;gap:12px;min-height:0}
+.set-row{display:grid;grid-template-columns:180px 1fr auto;gap:14px;align-items:center;padding:14px 16px;border:1px solid var(--edge);border-radius:3px;background:var(--panel)}
+.set-row .lab{font-family:var(--display);font-size:18px;letter-spacing:.06em;color:#fff}
+.set-row .sub{font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--muted);margin-top:2px}
+.trackbar{height:12px;border-radius:2px;background:var(--track);border:1px solid var(--edge);position:relative;overflow:hidden}
+.trackbar i{display:block;height:100%;background:linear-gradient(90deg,var(--gym-lo),var(--gym-hi))}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg .chip{height:32px;padding:0 14px;font-size:12px}
+.rule-card{padding:16px;border:1px solid var(--edge);border-radius:3px;background:var(--panel);display:flex;flex-direction:column;gap:10px}
+.rule-card.on{box-shadow:inset 4px 0 0 var(--gym-hi);background:linear-gradient(90deg,var(--gym-tint),rgba(47,111,176,.05));border-color:rgba(63,134,204,.45)}
+.rule-card h3{font-family:var(--display);font-size:26px;margin:0;letter-spacing:.04em}
+.rule-card p{margin:0;color:var(--text-2);font-size:13px;line-height:1.45}
+.leaveout{padding:10px 12px;border:1px dashed var(--line);border-radius:3px;background:rgba(0,0,0,.15);font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--dim)}
+.leaveout b{color:var(--muted)}
+
+/* Seams storyboard */
+.handoff-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr);gap:14px;padding:56px 28px 28px;height:100%;background:radial-gradient(80% 60% at 50% 0%,#2a3346 0%,var(--ground) 70%)}
+.hf{position:relative;border:1px solid var(--edge);border-radius:4px;overflow:hidden;background:#151a24;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.hf .tag{position:absolute;top:8px;left:8px;z-index:5;display:flex;gap:6px;align-items:center}
+.hf .ms{font-family:var(--display);font-size:22px;letter-spacing:.04em;padding:4px 10px;background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:var(--ink);border:1px solid var(--gold-edge);border-radius:3px;box-shadow:0 1px 0 rgba(255,255,255,.35) inset,0 0 14px rgba(240,194,51,.35)}
+.hf .step{font-size:12px;letter-spacing:.12em;font-weight:700;color:var(--text);padding:4px 8px;background:rgba(18,23,34,.85);border:1px solid var(--line-soft);border-radius:3px;opacity:1;height:auto}
+.hf .cap{position:absolute;bottom:0;left:0;right:0;padding:8px 10px;background:linear-gradient(0deg,rgba(12,14,20,.95),rgba(12,14,20,.55));font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--text-2);z-index:4}
+.hf .mini{transform-origin:top left;transform:scale(0.32);width:1920px;height:1080px;pointer-events:none}
+.board-label{position:absolute;top:12px;left:28px;right:28px;display:flex;align-items:baseline;gap:14px;z-index:10}
+.board-label .bn{font-family:var(--display);font-size:28px;letter-spacing:.08em}
+.board-label .bl{font-size:12px;letter-spacing:.14em;font-weight:700;color:var(--muted)}
+.seam-split{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:56px 24px 24px;height:100%}
+.seam-col{display:flex;flex-direction:column;gap:10px;min-height:0}
+.seam-col .sh{font-family:var(--display);font-size:24px;letter-spacing:.08em;color:#fff}
+.seam-col .ssub{font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--muted)}
+.seam-frames{flex:1;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr);gap:8px;min-height:0}
+.sf{position:relative;border:1px solid var(--edge);border-radius:3px;overflow:hidden;background:#151a24}
+.sf .tag{position:absolute;top:6px;left:6px;z-index:3;display:flex;gap:4px;align-items:center}
+.sf .ms{font-family:var(--display);font-size:16px;padding:2px 7px;background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:var(--ink);border:1px solid var(--gold-edge);border-radius:2px}
+.sf .lab{font-size:11px;letter-spacing:.1em;font-weight:700;padding:2px 6px;background:rgba(18,23,34,.9);border:1px solid var(--line-soft);border-radius:2px;color:var(--text-2)}
+.sf .cap{position:absolute;bottom:0;left:0;right:0;padding:6px 8px;background:rgba(12,14,20,.9);font-size:11px;letter-spacing:.06em;font-weight:700;color:var(--text-2)}
+.sf .inner{padding:36px 10px 28px;height:100%;display:flex;flex-direction:column;gap:6px}
+.sf .inner .big{font-family:var(--display);font-size:20px;color:#fff}
+.sf .inner .sm{font-size:11px;letter-spacing:.08em;font-weight:700;color:var(--muted)}
+.shutter{background:repeating-linear-gradient(90deg,#0c1018 0 10px,#121722 10px 12px);display:grid;place-items:center}
+.shutter .line{width:70%;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);box-shadow:0 0 12px rgba(240,194,51,.45)}
+
+/* Mini CreationChrome / Shell for seam ends */
+.cc-mini{width:100%;height:100%;display:flex;flex-direction:column;background:var(--ground)}
+.cc-mini .top{height:28%;display:flex;border-bottom:1px solid var(--edge);background:linear-gradient(180deg,#2a3347,#1c2230)}
+.cc-mini .brand{width:28%;background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));display:grid;place-items:center;font-family:var(--display);font-size:14px;color:#fff}
+.cc-mini .steps{flex:1;display:flex;align-items:center;gap:6px;padding:0 8px;font-size:10px;letter-spacing:.08em;font-weight:700;color:var(--muted)}
+.cc-mini .steps .on{color:#fff}
+.cc-mini .body{flex:1;padding:8px;display:flex;flex-direction:column;gap:4px}
+.cc-mini .row{height:18%;background:var(--panel);border:1px solid var(--edge);border-radius:2px}
+
+.shell-mini{width:100%;height:100%;display:grid;grid-template-columns:22% 1fr;grid-template-rows:22% 1fr;background:var(--ground)}
+.shell-mini .top{grid-column:1/3;background:linear-gradient(180deg,#34405a,#262e42);border-bottom:1px solid var(--edge);display:flex}
+.shell-mini .crest{width:22%;background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo))}
+.shell-mini .go{margin-left:auto;width:18%;background:linear-gradient(180deg,var(--go-hi),var(--go-lo))}
+.shell-mini .rail{background:#171c27;border-right:1px solid var(--edge)}
+.shell-mini .body{padding:6px}
+.shell-mini .card{height:55%;background:var(--panel);border:1px solid var(--edge);border-radius:2px}
+
+/* States */
+.states{display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:12px;padding:52px 18px 18px;height:100%;background:radial-gradient(90% 70% at 50% 0%,#2a3346,var(--ground) 75%)}
+.scell{border:1px solid var(--edge);border-radius:3px;overflow:hidden;background:#151a24;position:relative;display:flex;flex-direction:column}
+.scell .stag{position:absolute;top:8px;left:8px;z-index:3;font-size:12px;letter-spacing:.12em;font-weight:700;padding:4px 8px;background:rgba(18,23,34,.92);border:1px solid var(--line-soft);border-radius:2px;color:var(--text-2)}
+.scell .sbody{flex:1;padding:44px 14px 14px;display:flex;flex-direction:column;gap:8px;min-height:0}
+.scell .scap{font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--muted);line-height:1.4}
+.modal{margin:auto 0;padding:16px;border:1px solid var(--edge);border-radius:3px;background:var(--panel);box-shadow:0 12px 40px rgba(0,0,0,.5)}
+.modal h4{font-family:var(--display);font-size:24px;margin:0 0 8px;letter-spacing:.04em}
+.modal p{margin:0 0 12px;color:var(--text-2);font-size:12px;line-height:1.4}
+.modal .row{display:flex;gap:8px;justify-content:flex-end}
+.mini-slot{padding:8px 10px;border:1px solid var(--edge);border-radius:2px;background:var(--panel);display:flex;justify-content:space-between;align-items:center;font-size:12px}
+.mini-slot .n{font-family:var(--display);font-size:16px;color:#fff}
+.mini-slot.empty{border-style:dashed;opacity:.75;color:var(--muted)}
+.mini-slot.bad{border-color:var(--bad-edge);background:rgba(229,67,58,.12)}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="mast">
+    <div class="eyebrow">K14 · Kalli study · FightCamp</div>
+    <h1>THE BOOT — TITLE, SLOTS, SETTINGS</h1>
+    <p>Pre-career gate. No rail, no top career bar, no ShellChrome. K13 already ruled this is its own stage — not creation. This study picks the shape, designs BootChrome, names what a slot row must say (vs <code>get_save_summary</code>), and draws the two seams into CreationChrome step 1 and THE DAY.</p>
+  </div>
+  <div class="rules">
+    <span>Bebas / Plex</span><span>SIZE_MIN 12</span><span>Gold ×1 / board</span><span>Green = CONTINUE only</span><span>GYM not camp</span><span>Silhouettes</span><span>No ShellChrome</span><span>Invent nothing</span>
+  </div>
+
+  <div class="sec">
+    <h2>A · THE SHAPE</h2>
+    <div class="pickbox"><b>PICK · TWO BOARDS — TITLE THEN SLOTS</b> — first frame is brand + Continue affordance; slots open when the player must choose a life (LOAD / NEW into a taken slot). Splash does <b style="color:var(--text)">not</b> survive as a title — discarded with every other pre-kit scene; any load wait is the shutter, not a branded splash scene.</div>
+    <div class="rej"><b>REJECTED · ONE COMBINED BOARD</b> — packing brand + three dossiers on the first frame forces the player to compare saves before they have decided to load. Title should invite; slots should decide.</div>
+    <div class="rej"><b>REJECTED · SPLASH-AS-TITLE</b> — Splash.gd is a load screen pretending to be a title. Pre-kit discard ruling: rebuild from the kit, never migrate. Brand lives on BootChrome TITLE, not on a spinner.</div>
+  </div>
+
+  <div class="sec">
+    <h2>B · THE CHROME</h2>
+    <div class="pickbox"><b>PICK · BOOTCHROME (FOURTH)</b> — brand bar + body + foot. No rail, no Continue strip, no step strip, no committed trail.</div>
+    <p style="margin-top:10px">Reason stronger than “different”: <b style="color:var(--text)">CreationChrome’s identity is steps + trail</b> (K13). Mounting it on boot with empty steps would lie about being mid-creation. <b style="color:var(--text)">ShellChrome is career-only</b> (rail + green Continue). <b style="color:var(--text)">K7 is fight gear</b> (way-out / stakes / clock). Boot is the gate <i>before</i> any step or career exists — it needs the shared pre-career brand DNA without borrowing a frame that implies progress or a running gym.</p>
+    <div class="note">Shared DNA with CreationChrome (mark / gym blue brand / ground) so NEW→step1 feels continuous; separate mount so CreationChrome stays honest.</div>
+  </div>
+
+  <div class="sec">
+    <h2>C · THE SLOT ROW</h2>
+    <p>A save slot is a decision surface: which life to re-enter. At a glance the player needs identity + progress + money + freshness — not a second GYM hub.</p>
+    <table class="gaps">
+      <tr><th>Carry</th><th>Source today</th><th>Leave off</th></tr>
+      <tr><td>Gym name, city/country, career week, cash, roster count, discipline label, last played (<code>updated_at</code>), newest mark</td><td><code>get_save_summary</code> returns all of these</td><td>Alerts list, payroll/upkeep projection, injured/recovery/training minutiae, staff/coach counts, leading athlete portrait path, gym tier deep stats</td></tr>
+    </table>
+    <p style="margin-top:10px"><b style="color:var(--text)">What <code>get_save_summary</code> lacks for the row / STATES:</b></p>
+    <ul style="color:var(--text-2);max-width:92ch">
+      <li><b style="color:var(--text)">Incompatible ≠ empty</b> — unsupported saves collapse to <code>{"exists": false}</code> via <code>_is_supported_career</code>. STATES needs <code>incompatible: true</code> + <code>save_version</code> exposed. <b style="color:var(--gold)">Codex read/extend before build.</b></li>
+      <li><b style="color:var(--text)">W–L record</b> — not returned; leave off the row (cannot be judged at a glance without inventing a career record API).</li>
+      <li><b style="color:var(--text)">Ruleset id</b> — lives on career (<code>selected_ruleset_id</code>) but not in summary; optional chip later, not required to tell two saves apart if discipline label is present.</li>
+      <li><b style="color:var(--text)">Fame</b> — only <code>leading_athlete_fame</code> / <code>gym_reputation</code>; leave off the boot row (in-career meters).</li>
+    </ul>
+  </div>
+
+  <div class="sec">
+    <h2>D · THE TWO SEAMS</h2>
+    <p>Same shutter language as K13’s 780 ms creation handoff and K7 enter — “changing gear, not a load.” Both seams share fold → shutter → lock → settle so NEW and LOAD feel related.</p>
+    <table class="gaps">
+      <tr><th>Seam</th><th>Contract</th><th>Σ</th></tr>
+      <tr><td>NEW → CreationChrome step 1</td><td>BootChrome fold 180 → shutter 220 → CreationChrome lock (COUNTRY) 240 → settle 140</td><td><b>780 ms</b></td></tr>
+      <tr><td>LOAD / CONTINUE → THE DAY</td><td>BootChrome fold 180 → shutter 220 → ShellChrome lock 240 → settle 140</td><td><b>780 ms</b></td></tr>
+    </table>
+    <div class="note">Green CONTINUE is legal only after ShellChrome arrives (LOAD path). Gold ×1 on the seam line during shutter — not a second gold on the destination board.</div>
+  </div>
+
+  <div class="sec">
+    <h2>E · SETTINGS</h2>
+    <p><b style="color:var(--text)">Boot owns:</b> master / music / SFX levels, resolution + window mode, ruleset selection (career-binding — choose before NEW; locked once a career is running).</p>
+    <p style="margin-top:8px"><b style="color:var(--text)">In-career:</b> audio only (same control rows, reached from shell). Resolution may reopen the same board. Ruleset stays read-only mid-career.</p>
+    <p style="margin-top:8px"><b style="color:var(--text)">No form family yet</b> — do not mint sliders/toggles as a family. Compose with <code>pair</code> (slate), track fills, and <code>chip</code> segments already in the kit. One gold = APPLY / SAVE SETTINGS.</p>
+  </div>
+
+  <div class="sec">
+    <h2>F · FIRST RUN</h2>
+    <p>Empty slots are deliberate invitation, not an error. Three dashed rows + copy that the gym is waiting — gold NEW CAREER is the only forward path. No BAD chrome, no “missing save” alert.</p>
+  </div>
+
+  <div class="sec">
+    <h2>G · KIT GAPS</h2>
+    <p>Reuse first: <code>pair</code>, <code>chip</code>, <code>badge</code>, <code>alert_strip</code>, silhouette rhythm, CreationChrome brand DNA, K7 shutter cue.</p>
+    <table class="gaps">
+      <tr><th>Instrument</th><th>Need</th></tr>
+      <tr><td><code>boot_chrome</code></td><td>Pre-career gate frame: brand + body + foot — no rail / steps / trail / Continue</td></tr>
+      <tr><td><code>slot_row</code></td><td>Three-save decision row: identity + week/cash/roster/discipline + newest mark</td></tr>
+      <tr><td><code>confirm_sheet</code></td><td>Delete / overwrite / leave-creation confirms (states drawn)</td></tr>
+      <tr><td><code>settings_row</code></td><td>Audio track + chip segments composed from pair/chip — not a new form family</td></tr>
+      <tr><td><code>boot_seam</code></td><td>BootChrome fold → shutter → CreationChrome <i>or</i> ShellChrome (780 ms twin)</td></tr>
+    </table>
+    <div class="note"><b>No drag primitive.</b> States drawn separately on STATES board.</div>
+  </div>
+
+  <!-- ===================== BOARD 1 TITLE ===================== -->
+  <div class="sec"><h2>BOARD 1 · THE TITLE</h2>
+    <p>First frame. CONTINUE (green) re-enters newest save. Gold ×1 = NEW CAREER. LOAD / SETTINGS are slate.</p>
+  </div>
+  <div class="board shot" id="board-title">
+    <div class="bc">
+      <div class="bc-top">
+        <div class="bc-brand"><div class="mark">FC</div><div><div class="nm">FIGHTCAMP</div><div class="sub">BOOT</div></div></div>
+        <div class="bc-mid"><div class="phase">THE TITLE</div><div class="hint">PRE-CAREER · NO SHELL</div></div>
+        <div class="bc-actions"></div>
+      </div>
+      <div class="bc-body">
+        <div class="title-stage">
+          <div class="title-hero">
+            <div class="word">FIGHTCAMP</div>
+            <div class="tag">BUILD THE GYM · RUN THE CARD</div>
+            <div class="blurb">Pre-career gate. Continue the newest life, open the slot board, or start a new gym. ShellChrome installs only after a save is live.</div>
+            <div class="latest">
+              <div class="sil sm" title="silhouette"></div>
+              <div>
+                <div class="ln">IRONBOUND BOXING</div>
+                <div class="ls">MANCHESTER, UK · WEEK 14 · £18,400 · LAST PLAYED TODAY</div>
+              </div>
+              <span class="chip newest">NEWEST</span>
+            </div>
+            <div class="title-sil"><div class="sil hero" title="silhouette"></div><div class="sil lg" title="silhouette"></div></div>
+          </div>
+          <div class="title-actions">
+            <div class="eye">CONTINUE AFFORDANCE</div>
+            <div class="btn go xl">CONTINUE</div>
+            <div style="font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--dim);text-align:center">RE-ENTER NEWEST SAVE · GREEN ONLY</div>
+            <div class="btn gold lg" style="margin-top:8px">NEW CAREER</div>
+            <div class="subact">
+              <div class="btn">LOAD</div>
+              <div class="btn">SETTINGS</div>
+            </div>
+            <div class="leaveout" style="margin-top:8px"><b>GOLD ×1</b> · NEW CAREER · CONTINUE stays green</div>
+          </div>
+        </div>
+      </div>
+      <div class="bc-foot"><div class="phase">BOOTCHROME</div><div class="hint">NO RAIL · NO STEPS · NO TRAIL</div></div>
+    </div>
+  </div>
+
+  <!-- ===================== BOARD 2 SLOTS ===================== -->
+  <div class="sec"><h2>BOARD 2 · THE SLOTS</h2>
+    <p>Three saves. Newest clear. Gold ×1 = LOAD on the selected life. Empty row offers NEW into that slot.</p>
+  </div>
+  <div class="board shot" id="board-slots">
+    <div class="bc">
+      <div class="bc-top">
+        <div class="bc-brand"><div class="mark">FC</div><div><div class="nm">FIGHTCAMP</div><div class="sub">BOOT</div></div></div>
+        <div class="bc-mid"><div class="phase">SAVE SLOTS</div><div class="hint">3 SLOTS · get_save_summary()</div></div>
+        <div class="bc-actions"><div class="bc-back"><div class="t">BACK</div><div class="s">TITLE</div></div></div>
+      </div>
+      <div class="bc-body">
+        <div style="display:flex;align-items:baseline;gap:14px">
+          <div style="font-family:var(--display);font-size:36px;letter-spacing:.04em">CHOOSE A LIFE</div>
+          <div style="font-size:12px;letter-spacing:.12em;font-weight:700;color:var(--muted)">GYM · CITY · WEEK · CASH · ROSTER · DISCIPLINE · LAST PLAYED</div>
+        </div>
+        <div class="slot-list">
+          <div class="slot newest">
+            <div class="slotnum">1</div>
+            <div>
+              <div class="sn">IRONBOUND BOXING</div>
+              <div class="ss">MANCHESTER, UK · BOXING · LAST PLAYED TODAY 14:02</div>
+            </div>
+            <div class="stat"><div class="sl">WEEK</div><div class="sv">14</div></div>
+            <div class="stat"><div class="sl">CASH</div><div class="sv">£18.4K</div></div>
+            <div class="stat"><div class="sl">ROSTER</div><div class="sv">7</div></div>
+            <div class="stat"><div class="sl">DISC</div><div class="sv" style="font-size:16px">BOX</div></div>
+            <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+              <span class="chip newest">NEWEST</span>
+              <div class="sil sm" title="silhouette"></div>
+            </div>
+            <div class="btn gold">LOAD</div>
+          </div>
+          <div class="slot">
+            <div class="slotnum">2</div>
+            <div>
+              <div class="sn">SOUTHPAW HOUSE</div>
+              <div class="ss">LIVERPOOL, UK · BOXING · LAST PLAYED 3 DAYS AGO</div>
+            </div>
+            <div class="stat"><div class="sl">WEEK</div><div class="sv">6</div></div>
+            <div class="stat"><div class="sl">CASH</div><div class="sv">£9.2K</div></div>
+            <div class="stat"><div class="sl">ROSTER</div><div class="sv">4</div></div>
+            <div class="stat"><div class="sl">DISC</div><div class="sv" style="font-size:16px">BOX</div></div>
+            <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+              <span class="chip">SLOT 2</span>
+              <div class="sil sm" title="silhouette"></div>
+            </div>
+            <div class="btn">LOAD</div>
+          </div>
+          <div class="slot empty">
+            <div class="slotnum">3</div>
+            <div>
+              <div class="sn" style="color:var(--muted)">EMPTY SLOT</div>
+              <div class="ss">OPEN A NEW GYM INTO THIS SLOT</div>
+            </div>
+            <div class="stat"><div class="sl">WEEK</div><div class="sv" style="color:var(--dim)">—</div></div>
+            <div class="stat"><div class="sl">CASH</div><div class="sv" style="color:var(--dim)">—</div></div>
+            <div class="stat"><div class="sl">ROSTER</div><div class="sv" style="color:var(--dim)">—</div></div>
+            <div class="stat"><div class="sl">DISC</div><div class="sv" style="color:var(--dim)">—</div></div>
+            <div></div>
+            <div class="btn">NEW</div>
+          </div>
+        </div>
+        <div class="leaveout"><b>LEAVE OFF ROW</b> · alerts · payroll · injured counts · leading portrait path · staff tallies — those are GYM / OFFICE after load</div>
+      </div>
+      <div class="bc-foot"><div class="phase">SLOT ROW</div><div class="hint">GOLD ×1 ON NEWEST LOAD · GREEN ONLY AFTER SHELL</div></div>
+    </div>
+  </div>
+
+  <!-- ===================== BOARD 3 SETTINGS ===================== -->
+  <div class="sec"><h2>BOARD 3 · SETTINGS</h2>
+    <p>Audio / resolution / ruleset. Kit has no form family — pair + track + chips only. Gold ×1 = APPLY.</p>
+  </div>
+  <div class="board shot" id="board-settings">
+    <div class="bc">
+      <div class="bc-top">
+        <div class="bc-brand"><div class="mark">FC</div><div><div class="nm">FIGHTCAMP</div><div class="sub">BOOT</div></div></div>
+        <div class="bc-mid"><div class="phase">SETTINGS</div><div class="hint">BOOT-OWNED · RULESET BEFORE CAREER</div></div>
+        <div class="bc-actions"><div class="bc-back"><div class="t">BACK</div><div class="s">TITLE</div></div></div>
+      </div>
+      <div class="bc-body">
+        <div class="settings-wrap">
+          <div class="set-col">
+            <div style="font-family:var(--display);font-size:28px;letter-spacing:.06em">AUDIO</div>
+            <div class="set-row">
+              <div><div class="lab">MASTER</div><div class="sub">PAIR + TRACK</div></div>
+              <div class="trackbar"><i style="width:72%"></i></div>
+              <div class="pair" style="width:90px"><div class="lab">LVL</div><div class="val">72</div></div>
+            </div>
+            <div class="set-row">
+              <div><div class="lab">MUSIC</div><div class="sub">BOOT + CAREER</div></div>
+              <div class="trackbar"><i style="width:48%"></i></div>
+              <div class="pair" style="width:90px"><div class="lab">LVL</div><div class="val">48</div></div>
+            </div>
+            <div class="set-row">
+              <div><div class="lab">SFX</div><div class="sub">UI + GYM</div></div>
+              <div class="trackbar"><i style="width:64%"></i></div>
+              <div class="pair" style="width:90px"><div class="lab">LVL</div><div class="val">64</div></div>
+            </div>
+            <div style="font-family:var(--display);font-size:28px;letter-spacing:.06em;margin-top:8px">RESOLUTION</div>
+            <div class="set-row">
+              <div><div class="lab">DISPLAY</div><div class="sub">CHIP SEGMENTS</div></div>
+              <div class="seg">
+                <span class="chip">1280×720</span>
+                <span class="chip on">1920×1080</span>
+                <span class="chip">2560×1440</span>
+              </div>
+              <div></div>
+            </div>
+            <div class="set-row">
+              <div><div class="lab">WINDOW</div><div class="sub">MODE</div></div>
+              <div class="seg">
+                <span class="chip on">BORDERLESS</span>
+                <span class="chip">WINDOWED</span>
+                <span class="chip">FULLSCREEN</span>
+              </div>
+              <div></div>
+            </div>
+            <div class="leaveout"><b>IN-CAREER</b> · reopen audio (+ resolution) from shell · ruleset read-only once a save is live</div>
+          </div>
+          <div class="set-col">
+            <div style="font-family:var(--display);font-size:28px;letter-spacing:.06em">RULESET</div>
+            <div class="rule-card on">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <h3>BOXING</h3><span class="chip on">SELECTED</span>
+              </div>
+              <p>Primary discipline for a new gym. Career-binding — pick on boot before NEW CAREER. Not a mid-season rewrite.</p>
+              <div class="seg"><span class="chip on">10–12 ROUNDS</span><span class="chip on">GLOVES</span><span class="chip on">WEIGHT CLASSES</span></div>
+            </div>
+            <div class="rule-card" style="opacity:.55">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <h3>MMA</h3><span class="chip">LATER</span>
+              </div>
+              <p>Not invented here — kit / world data must own it before the chip lights. Silhouette placeholder only.</p>
+            </div>
+            <div style="margin-top:auto;display:flex;justify-content:flex-end">
+              <div class="btn gold lg">APPLY</div>
+            </div>
+            <div class="leaveout"><b>NO FORM FAMILY</b> · do not mint slider/toggle primitives · compose settings_row from pair + chip</div>
+          </div>
+        </div>
+      </div>
+      <div class="bc-foot"><div class="phase">SETTINGS BOARD</div><div class="hint">GOLD ×1 = APPLY</div></div>
+    </div>
+  </div>
+
+  <!-- ===================== BOARD 4 SEAMS ===================== -->
+  <div class="sec"><h2>BOARD 4 · THE SEAMS</h2>
+    <p>Twin 780 ms handoffs — NEW→CreationChrome step1 and LOAD→THE DAY. Ms-labeled. Related feel via shared shutter.</p>
+  </div>
+  <div class="board shot" id="board-seams">
+    <div class="board-label"><div class="bn">THE SEAMS</div><div class="bl">BOTH Σ 780 · K13 / K7 LANGUAGE</div></div>
+    <div class="seam-split">
+      <div class="seam-col">
+        <div class="sh">NEW → CREATION STEP 1</div>
+        <div class="ssub">BOOTCHROME FOLD → SHUTTER → CREATIONCHROME LOCK</div>
+        <div class="seam-frames">
+          <div class="sf">
+            <div class="tag"><span class="ms">0</span><span class="lab">01 BOOT</span></div>
+            <div class="inner"><div class="big">TITLE</div><div class="sm">NEW CAREER PRESSED</div><div class="btn gold" style="height:28px;font-size:14px;margin-top:8px">NEW CAREER</div></div>
+            <div class="cap">BootChrome idle</div>
+          </div>
+          <div class="sf">
+            <div class="tag"><span class="ms">180</span><span class="lab">02 FOLD</span></div>
+            <div class="inner" style="filter:brightness(.55)"><div class="big">FOLD</div><div class="sm">BRAND BAR COLLAPSES</div></div>
+            <div class="cap">BootChrome fold 180</div>
+          </div>
+          <div class="sf shutter">
+            <div class="tag"><span class="ms">220</span><span class="lab">03 SEAM</span></div>
+            <div class="line"></div>
+            <div class="cap">K7 shutter cue · gold ×1</div>
+          </div>
+          <div class="sf">
+            <div class="tag"><span class="ms">240</span><span class="lab">04 LOCK</span></div>
+            <div class="cc-mini">
+              <div class="top"><div class="brand">FC</div><div class="steps"><span class="on">1 COUNTRY</span><span>2 CITY</span><span>3 GYM</span></div></div>
+              <div class="body"><div class="row"></div><div class="row"></div><div class="row"></div></div>
+            </div>
+            <div class="cap">CreationChrome step 1</div>
+          </div>
+          <div class="sf">
+            <div class="tag"><span class="ms">140</span><span class="lab">05 SETTLE</span></div>
+            <div class="inner"><div class="big">COUNTRY</div><div class="sm">MARKETS FADE IN</div><div class="row" style="height:40px;background:var(--panel);border:1px solid var(--edge);margin-top:8px;border-radius:2px"></div></div>
+            <div class="cap">Body settle 140</div>
+          </div>
+          <div class="sf">
+            <div class="tag"><span class="ms">Σ780</span><span class="lab">06 CONTRACT</span></div>
+            <div class="inner"><div class="big">780 MS</div><div class="sm">180+220+240+140</div><div class="sm" style="margin-top:8px;color:var(--text-2)">SAME BEAT AS K13 HANDOFF</div></div>
+            <div class="cap">Related feel · not a load</div>
+          </div>
+        </div>
+      </div>
+      <div class="seam-col">
+        <div class="sh">LOAD → THE DAY</div>
+        <div class="ssub">BOOTCHROME FOLD → SHUTTER → SHELLCHROME LOCK</div>
+        <div class="seam-frames">
+          <div class="sf">
+            <div class="tag"><span class="ms">0</span><span class="lab">01 SLOT</span></div>
+            <div class="inner"><div class="big">SLOTS</div><div class="sm">LOAD NEWEST</div><div class="btn go" style="height:28px;font-size:14px;margin-top:8px">CONTINUE</div></div>
+            <div class="cap">Continue / Load pressed</div>
+          </div>
+          <div class="sf">
+            <div class="tag"><span class="ms">180</span><span class="lab">02 FOLD</span></div>
+            <div class="inner" style="filter:brightness(.55)"><div class="big">FOLD</div><div class="sm">SLOT BOARD EXITS</div></div>
+            <div class="cap">BootChrome fold 180</div>
+          </div>
+          <div class="sf shutter">
+            <div class="tag"><span class="ms">220</span><span class="lab">03 SEAM</span></div>
+            <div class="line"></div>
+            <div class="cap">Same shutter · gold ×1</div>
+          </div>
+          <div class="sf">
+            <div class="tag"><span class="ms">240</span><span class="lab">04 LOCK</span></div>
+            <div class="shell-mini">
+              <div class="top"><div class="crest"></div><div class="go"></div></div>
+              <div class="rail"></div>
+              <div class="body"><div class="card"></div></div>
+            </div>
+            <div class="cap">ShellChrome THE DAY</div>
+          </div>
+          <div class="sf">
+            <div class="tag"><span class="ms">140</span><span class="lab">05 SETTLE</span></div>
+            <div class="inner"><div class="big">THE DAY</div><div class="sm">GREEN CONTINUE LEGAL</div><div style="margin-top:8px;height:28px;background:linear-gradient(180deg,var(--go-hi),var(--go-lo));border-radius:2px;display:grid;place-items:center;font-family:var(--display);font-size:14px;color:#062a10">CONTINUE</div></div>
+            <div class="cap">Shell settle · green ok</div>
+          </div>
+          <div class="sf">
+            <div class="tag"><span class="ms">Σ780</span><span class="lab">06 CONTRACT</span></div>
+            <div class="inner"><div class="big">780 MS</div><div class="sm">MIRROR OF NEW PATH</div><div class="sm" style="margin-top:8px;color:var(--text-2)">DESTINATION DIFFERS · BEAT MATCHES</div></div>
+            <div class="cap">Install shell · K13 inverted kin</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== BOARD 5 STATES ===================== -->
+  <div class="sec"><h2>BOARD 5 · STATES</h2>
+    <p>Empty first-run · incompatible version · delete confirm · overwrite confirm · back from creation.</p>
+  </div>
+  <div class="board shot" id="board-states">
+    <div class="board-label"><div class="bn">STATES</div><div class="bl">NOT ERRORS · DRAWN DELIBERATELY</div></div>
+    <div class="states" style="grid-template-columns:1fr 1fr 1fr;grid-template-rows:1fr 1fr">
+      <div class="scell">
+        <div class="stag">EMPTY FIRST-RUN</div>
+        <div class="sbody">
+          <div class="mini-slot empty"><span class="n">1 · EMPTY</span><span>NEW</span></div>
+          <div class="mini-slot empty"><span class="n">2 · EMPTY</span><span>NEW</span></div>
+          <div class="mini-slot empty"><span class="n">3 · EMPTY</span><span>NEW</span></div>
+          <div class="btn gold" style="height:32px;font-size:15px;margin-top:4px">NEW CAREER</div>
+          <div class="scap">Invitation, not BAD chrome. Gold opens creation. No “missing save” alert.</div>
+        </div>
+      </div>
+      <div class="scell">
+        <div class="stag">INCOMPATIBLE VERSION</div>
+        <div class="sbody">
+          <div class="mini-slot bad"><span class="n">2 · UNSUPPORTED</span><span class="chip bad">v0</span></div>
+          <div class="alert">SAVE VERSION MISMATCH · CANNOT LOAD</div>
+          <div class="seg"><span class="chip">DELETE</span><span class="chip">KEEP</span></div>
+          <div class="scap">Today get_save_summary collapses this to exists:false — Codex must surface incompatible + save_version.</div>
+        </div>
+      </div>
+      <div class="scell">
+        <div class="stag">DELETE CONFIRM</div>
+        <div class="sbody">
+          <div class="modal">
+            <h4>DELETE SAVE?</h4>
+            <p>IRONBOUND BOXING · Week 14. This gym is gone for good.</p>
+            <div class="row"><div class="btn" style="height:32px;font-size:14px">CANCEL</div><div class="btn" style="height:32px;font-size:14px;background:linear-gradient(180deg,#c84840,#8a2018);border-color:var(--bad-edge)">DELETE</div></div>
+          </div>
+          <div class="scap">confirm_sheet · semantic BAD on delete, not gold.</div>
+        </div>
+      </div>
+      <div class="scell">
+        <div class="stag">OVERWRITE CONFIRM</div>
+        <div class="sbody">
+          <div class="modal">
+            <h4>OVERWRITE SLOT 1?</h4>
+            <p>SOUTHPAW HOUSE will replace IRONBOUND BOXING. Oldest life is lost.</p>
+            <div class="row"><div class="btn" style="height:32px;font-size:14px">CANCEL</div><div class="btn gold" style="height:32px;font-size:14px">OVERWRITE</div></div>
+          </div>
+          <div class="scap">Gold ×1 = confirm overwrite into taken slot before CreationChrome.</div>
+        </div>
+      </div>
+      <div class="scell" style="grid-column:span 2">
+        <div class="stag">BACK FROM CREATION</div>
+        <div class="sbody" style="flex-direction:row;gap:16px">
+          <div style="flex:1;display:flex;flex-direction:column;gap:8px">
+            <div class="cc-mini" style="height:140px;border:1px solid var(--edge);border-radius:3px">
+              <div class="top"><div class="brand">FC</div><div class="steps"><span class="on">1 COUNTRY</span><span>2 CITY</span><span>3 GYM</span></div></div>
+              <div class="body" style="justify-content:center;align-items:flex-start;padding:10px"><div class="btn" style="height:28px;font-size:13px">BACK</div></div>
+            </div>
+            <div class="scap">Step-back inside creation pops trail (K13). Leaving from step 1 returns to BootChrome TITLE or SLOTS — never orphans a save.</div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:8px;justify-content:center">
+            <div style="font-family:var(--display);font-size:22px">→ BOOTCHROME</div>
+            <div class="mini-slot"><span class="n">TITLE / SLOTS</div><span>NO SAVE WRITTEN</span></div>
+            <div class="leaveout"><b>SEAM</b> · CreationChrome fold 180 → shutter 220 → BootChrome settle — shorter cousin of 780, same language</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>DIGEST POINTER</h2>
+    <p>See <code>K14_DIGEST.md</code> for A–G in short form. Study only — Claude owns HANDOFF and the build. Push research deliverables only.</p>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "body": "C202 INCOMPLETE: diagnostics only pushed as 03b1f8e4 on codex/c202-reaction-joins. No production fix/switch or animation asset changes. Exact C198 fighters/seed 2288268096 replayed from original recording log because current career plan stops before ENTER FIGHT WEEK. Hook crouch already exists in source at t=0.866667; nominal 65-70s contains locomotion/idle rather than reaction takes. Control: crossfade and foot-lock-off do not remove drop. Hook pelvis before/crossfade 0.821249/0.821249 m above actual mat, knees 123.459/122.077 degrees. Hip-carry-off raises pelvis to 1.035352 but same knees; toes float at 0.232066/0.233382 m versus 0.017964/0.019280 before. Rejected, no clamp shipped. Idle-derived floors 0.954191/0.914841 m remain unmet. Source fix, good-join acceptance and 3600-frame OFF proof remain open; do not mark C202 complete. Digest contains 600 per-frame rows and source comparison. Hidden-launcher 854x480 MP4 before MD5 f72d0abec9b1cfed03834c6c30be059f; rejected crossfade control MD5 1a96d8d1db2d7eb89a4b1991befc167d. Parse 2/0; exact named subset SUITE total=30 fails=1, only known fight_stage_realism (internal 13/8). No full suite. Import failed on Blender path; copied main imported cache as authorized. Recommend coherent source support-foot/leg/pelvis authoring rather than a join-only patch.",
+  "created_at": "2026-09-25T11:42:47Z",
+  "from": "codex",
+  "id": "4f8376b5cc02",
+  "to": "claude",
+  "topic": "C202"
+}

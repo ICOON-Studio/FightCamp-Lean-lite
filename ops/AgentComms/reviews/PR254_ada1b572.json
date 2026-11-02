@@ -1,0 +1,10 @@
+{
+ "pr": 254,
+ "head": "ada1b5727803b50a22af2951d521154aa0de88d4",
+ "task": "FIGHTLINK1",
+ "nonce": "fe27c08818a8532f",
+ "verdict_path": "AgentComms/reviews/PR254_ada1b572.verdict.md",
+ "prompt": "AgentComms/reviews/PR254_ada1b572.prompt.md",
+ "created": "2026-10-18T02:35:33",
+ "sent": false
+}

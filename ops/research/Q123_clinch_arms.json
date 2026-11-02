@@ -1,0 +1,21 @@
+{
+  "clinch_frames": 57,
+  "hand_to_opp_neck_m_p10": 0.6571,
+  "hand_to_opp_neck_m_p50": 0.7825,
+  "hand_to_opp_neck_m_p90": 1.0942,
+  "nearest_hand_to_opp_neck_m_p10": 0.5887,
+  "nearest_hand_to_opp_neck_m_p50": 0.7208,
+  "nearest_hand_to_opp_neck_m_p90": 0.7891,
+  "hand_minus_neck_height_m_p10": 0.128,
+  "hand_minus_neck_height_m_p50": 0.4432,
+  "hand_minus_neck_height_m_p90": 0.4811,
+  "hip_sep_m_p10": 0.7094,
+  "hip_sep_m_p50": 0.7191,
+  "hip_sep_m_p90": 0.7775,
+  "stature_m_p10": 1.3069,
+  "stature_m_p50": 1.3502,
+  "stature_m_p90": 1.3724,
+  "hand_to_opp_hand_m_p10": 0.3573,
+  "hand_to_opp_hand_m_p50": 0.7465,
+  "hand_to_opp_hand_m_p90": 1.1097
+}

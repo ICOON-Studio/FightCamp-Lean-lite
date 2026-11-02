@@ -1,0 +1,286 @@
+FightCamp is a PC deep management simulation (Football Manager / Motorsport Manager class), NOT a mobile or casual game: no energy timers, gacha, daily-login rewards, tap-to-collect, ads or monetisation loops; mechanics and loops must reward long-term planning, readable systems and consequences. No garage / tiny-start-space ladder (tiers are club -> commercial -> elite).
+
+=== GAME FACTS (use THESE names, never invent stats, techniques or screens) ===
+FIGHTCAMP - GAME FACTS (generated from the game's data files by Tools/ludo_facts.py; use THESE names, never invent)
+
+1. SIMULATION ATTRIBUTES (the fight sim's stat keys, 0-100): power, technique, speed, defense, conditioning, fight_iq, grapple_offense, grapple_defence, top_control
+2. PLAYER-FACING READOUT (the 9 bars on the profile): POWER=power, TECHNIQUE=technique, SPEED=speed, STAMINA=stamina, CHIN=chin, DEFENCE=defense, FOOTWORK=footwork, RING IQ=ring_iq, COMPOSURE=composure
+3. TECHNIQUE REQUIREMENTS use these attribute names: power, technique, speed, defense, conditioning, fight_iq, grapple; tiers: 1=Foundation, 2=Core, 3=Advanced, 4=Signature
+4. THE REAL BOXING TECHNIQUE TREE (54 nodes; id | name | tier | branch | needs attributes | needs techniques):
+   boxing_one_two | One-Two | T1 | combinations | speed 26, technique 26 | boxing_jab, boxing_cross
+   boxing_one_two_hook | One-Two-Hook | T2 | combinations | speed 30, technique 30 | boxing_one_two, boxing_lead_hook
+   boxing_jab_body_head | Jab Body, Jab Head | T3 | combinations | technique 36, speed 34 | boxing_jab, boxing_jab_body
+   boxing_counter_combination | Counter Combination | T4 | combinations | fight_iq 46, speed 44 | boxing_pull_counter, boxing_one_two_hook
+   boxing_liver_combo | Jab-Cross-Lead Hook to the Body | T4 | combinations | power 44, technique 44 | boxing_one_two_hook, boxing_body_hook, boxing_jab, boxing_cross
+   boxing_six_punch_combo | Six-Punch Combination | T4 | combinations | conditioning 46, speed 44 | boxing_one_two_hook, boxing_rear_uppercut
+   boxing_catch | Catch the Jab | T1 | defense_counters | defense 24 | boxing_stance_guard
+   boxing_parry | Parry | T1 | defense_counters | defense 24, fight_iq 22 | boxing_stance_guard
+   boxing_slip | Slip | T1 | defense_counters | speed 26, defense 24 | boxing_stance_guard
+   boxing_block_elbow | Elbow and Forearm Block | T2 | defense_counters | defense 30 | boxing_catch
+   boxing_bob_weave | Bob and Weave | T2 | defense_counters | speed 32, conditioning 30 | boxing_roll
+   boxing_catch_counter | Catch and Return | T2 | defense_counters | fight_iq 30 | boxing_catch, boxing_cross
+   boxing_pull | Pull | T2 | defense_counters | speed 30, fight_iq 28 | boxing_slip
+   boxing_roll | Roll Under | T2 | defense_counters | speed 30, defense 30 | boxing_slip
+   boxing_slip_counter | Slip-Cross Counter | T2 | defense_counters | speed 30, fight_iq 30 | boxing_slip, boxing_cross
+   boxing_check_hook | Check Hook | T3 | defense_counters | speed 36, fight_iq 36 | boxing_lead_hook, boxing_pivot_footwork
+   boxing_check_hook_pivot | Check Hook and Pivot | T3 | defense_counters | speed 38, fight_iq 36 | boxing_check_hook
+   boxing_counter_over_jab | Counter Over the Jab | T3 | defense_counters | fight_iq 38, technique 34 | boxing_slip_counter
+   boxing_long_guard | Long Guard | T3 | defense_counters | defense 36 | boxing_block_elbow
+   boxing_pull_counter | Pull-Cross Counter | T3 | defense_counters | speed 36, fight_iq 36 | boxing_pull, boxing_cross
+   boxing_shoulder_roll | Shoulder Roll | T3 | defense_counters | defense 38, fight_iq 34 | boxing_roll
+   boxing_step_in_out | Step In, Step Out | T1 | footwork_ring | speed 24 | boxing_stance_guard
+   boxing_circle_lead | Circle to the Lead Side | T2 | footwork_ring | speed 28, conditioning 28 | boxing_step_in_out
+   boxing_circle_rear | Circle to the Rear Side | T2 | footwork_ring | speed 28, fight_iq 28 | boxing_step_in_out
+   boxing_feint | Feint | T2 | footwork_ring | fight_iq 30, technique 28 | boxing_distance_read, boxing_jab
+   boxing_pivot_footwork | Ring Pivot | T2 | footwork_ring | speed 30 | boxing_step_in_out
+   boxing_angle_step | L-Step Angle | T3 | footwork_ring | speed 36, technique 34 | boxing_pivot_footwork
+   boxing_cutoff_ring | Cut Off the Ring | T3 | footwork_ring | fight_iq 36 | boxing_circle_lead, boxing_circle_rear
+   boxing_rhythm_change | Breaking the Rhythm | T3 | footwork_ring | fight_iq 38 | boxing_feint, boxing_breathing_rhythm
+   boxing_rope_work | Working Off the Ropes | T3 | footwork_ring | defense 38, fight_iq 36 | boxing_shoulder_roll
+   boxing_drawing | Drawing the Lead | T4 | footwork_ring | fight_iq 46 | boxing_rhythm_change, boxing_pull_counter
+   boxing_switch_stance | Switching Stance | T4 | footwork_ring | technique 44, fight_iq 44 | boxing_angle_step, boxing_rhythm_change
+   boxing_breathing_rhythm | Breathing and Rhythm | T1 | fundamentals | conditioning 24 | boxing_stance_guard
+   boxing_distance_read | Finding the Range | T1 | fundamentals | fight_iq 24 | boxing_stance_guard
+   boxing_stance_guard | Stance and High Guard | T1 | fundamentals | defense 22 | -
+   boxing_lead_hook | Lead Hook | T2 | hooks_bodywork | power 30, technique 30 | boxing_one_two
+   boxing_lead_uppercut | Lead Uppercut | T2 | hooks_bodywork | power 30, technique 32 | boxing_lead_hook
+   boxing_rear_hook | Rear Hook | T2 | hooks_bodywork | power 32, technique 30 | boxing_lead_hook
+   boxing_rear_uppercut | Rear Uppercut | T2 | hooks_bodywork | power 32, technique 32 | boxing_lead_uppercut
+   boxing_body_hook | Lead Hook to the Body | T3 | hooks_bodywork | power 34, conditioning 32 | boxing_lead_hook
+   boxing_rear_hook_body | Rear Hook to the Body | T3 | hooks_bodywork | power 36, conditioning 32 | boxing_body_hook
+   boxing_shovel_hook | Shovel Hook | T3 | hooks_bodywork | power 34, technique 36 | boxing_rear_uppercut
+   boxing_clinch_tieup | Tie Up | T2 | infighting | technique 30, conditioning 30 | boxing_block_elbow
+   boxing_forearm_frame | Forearm Frame | T3 | infighting | defense 36, power 32 | boxing_clinch_tieup
+   boxing_inside_uppercut | Uppercut on the Inside | T3 | infighting | power 36, technique 34 | boxing_clinch_tieup, boxing_rear_uppercut
+   boxing_pivot_out | Pivot Out of the Clinch | T3 | infighting | speed 36, technique 34 | boxing_clinch_tieup, boxing_pivot_footwork
+   boxing_shoulder_bump | Shoulder Bump | T3 | infighting | power 34, conditioning 34 | boxing_clinch_tieup
+   boxing_cross | Rear Cross | T1 | straight_punching | power 26, technique 24 | boxing_jab
+   boxing_jab | Jab | T1 | straight_punching | speed 24 | boxing_stance_guard
+   boxing_cross_body | Cross to the Body | T2 | straight_punching | power 30, technique 28 | boxing_cross
+   boxing_double_jab | Double Jab | T2 | straight_punching | speed 30 | boxing_jab
+   boxing_jab_body | Jab to the Body | T2 | straight_punching | speed 28, technique 28 | boxing_jab
+   boxing_overhand | Overhand Right | T3 | straight_punching | power 36, technique 32 | boxing_cross
+   boxing_up_jab | Up Jab | T3 | straight_punching | speed 34, technique 34 | boxing_jab_body
+5. CERTIFIED BOXING MOVES (the only ones the demo animates and lets a player train): strikes boxing_jab, boxing_cross, boxing_rear_uppercut, boxing_jab_body, boxing_body_hook, boxing_up_jab, boxing_overhand, boxing_cross_body, boxing_double_jab, boxing_one_two, boxing_slip_counter, boxing_pull_counter, boxing_counter_over_jab, boxing_catch_counter, boxing_lead_uppercut, boxing_check_hook, boxing_lead_hook, boxing_rear_hook, boxing_rear_hook_body, boxing_one_two_hook, boxing_liver_combo, boxing_six_punch_combo; defence boxing_slip, boxing_pull, boxing_catch
+6. BODY REGIONS (wear 0-100%): head_neck, torso_core, left_arm, right_arm, left_leg, right_leg
+7. GYM TIERS: T1 30.0x18.0 m; T2 40.0x25.0 m; T3 60.0x31.0 m (club -> commercial -> elite; no garage)
+8. SCREEN: 1920x1080, Godot 4.7.2 GDScript; boxing first (demo), MMA later; PC deep management sim (FM / Motorsport Manager class).
+
+
+=== ROUND 42 - THREE DESIGN QUESTIONS. Give the LONGEST, most complete build-ready answer you can (no length cap; if you run out, stop mid-section and I will say "continue"). Plain text, numbered sections A, B, C. Every number concrete; every stat/technique name from the facts sheet. ===
+
+A. FIRST CUSTOMER CHECK-IN AT RECEPTION (the operator's own idea, verbatim):
+"when a customer comes to check in for the first time (scene zooms to the reception desk or it comes up as model with option you want to register new customer if yes then zoom to the reception desk if not nothing happens and stays at this angle) the player standing behind the reception desk and customer in front, on the right side is the checking application"
+Reception desk look he showed: dark slatted front, wood top, a "RECEPTION" band. Our club camera is a top-down-ish 3/4 management view of the whole gym floor.
+Give: A1 the exact trigger (when a first-time customer arrives; how often after that; never a nag), the prompt wording and its two buttons; A2 the camera move (from/to, duration in seconds, easing, framing: player behind desk, customer in front, desk centred-left), A3 the check-in application on the right: every field, its source in our data, every button and what it changes in the sim (membership type, fee, goals, the customer joining the member pool that trains on the floor); A4 what a member is worth to the gym over weeks (money, sparring partner pool, reputation) with numbers; A5 how this stays a deep-management decision (choices with trade-offs), not a mobile tap; A6 the return to the floor camera; A7 a headless acceptance test list a coder can run.
+
+B. STRESS AND AFFLICTIONS FOR BOXERS (the operator approved taking this idea from Darkest Dungeon: stress + afflictions/virtues, boxing-true). Our researcher (John) and our game designer (Kalli) already wrote these - judge them, fix them, and turn them into ONE build spec:
+--- John, section 4 (boxing-true states, sourced) ---
+## 4. Boxing-true states for FightCamp
+
+Assumptions for all states (JUDGEMENT):
+- One **Stress** meter per fighter, 0-100. **Resolve check at 80** (not 100) so the danger zone is visible before it fires. Weekly passive recovery is faster at low stress (e.g. -10/wk under 40, -4/wk over 70).
+- Inputs (JUDGEMENT values): hard sparring round +0.5-1.0 each, weighted by partner level gap; weight cut in fight week +5 per 1% of body mass cut beyond 3%; loss +10 (KO loss +20); injury +5-15; money below 4 weeks' living costs +3/wk; big win -10 now, but sets a "goal vacuum" flag (see Lost the hunger).
+- Monitoring staff (strength coach, physio, sports psychologist) reveal hidden stress or give early warnings, mirroring Hooper/POMS/HRV practice [16][17][21][22].
+- "Fight camp" below always means the pre-bout preparation period. The building is the "gym".
+
+| # | State (type) | Cause / game trigger | Effect: training | Effect: fight | Cure (what coach/player does) | Duration | Real-world anchor |
+|---|---|---|---|---|---|---|---|
+| 1 | **Overcooked** (neg; NFOR) | Stress >= 80 with high training load for >= 2 consecutive weeks, OR training load > 130% of 4-week average for 2 weeks | Training gains -40 to -60%; sparring injury risk +20%; mood text: flat, irritable | Late-round output -10 to -15%; slower recovery between rounds | Deload: cut load by >= 50% for 1-3 weeks; no hard sparring. Ignoring it for 4+ weeks escalates to Burnt out | 2-6 game weeks | NFOR "weeks to months", recovers fully with rest [1][2]; mood returns to baseline when load drops [15] |
+| 2 | **Burnt out** (neg; rare; OTS/burnout) | Overcooked left untreated 4+ weeks, OR stress >= 90 for 6+ weeks with an extra stressor (cut, money, loss) | Training gains -70%; 30% chance per week of skipping sessions; ABQ-style flavour text (exhausted / "what's the point") | All fight attributes -10%; pull-out risk if a fight is booked (20%/week of fight camp) | Extended rest 8-24 weeks; reduce non-training stressors; sports psychologist halves duration. Cannot be bought off | 2-6 game months | OTS >2 months, months or longer [2][3]; burnout = exhaustion + reduced accomplishment + devaluation [7]; prevalence low (1-9% elevated burnout in adolescents [6]) |
+| 3 | **Lost the hunger** (neg; motivation) | Wins a title or career-best payday (goal vacuum), OR 12+ months with no meaningful fight offers | Attendance 70-85%; gains -25%; arrives above walking-weight target (+3-6% body mass) | Fitness and tank -10%; may accept easier fights only | Set a new goal (mandatory, rival, bigger weight class); short break; new fight camp setting | Until a new goal is set (4-16 weeks) | Fury: "When I win, I'm not going to have a goal anymore" [45]; Douglas 246 lb after Tyson win [54] |
+| 4 | **Drained by the cut** (neg; fight week) | Fight-week cut > 5% of body mass, OR third hard cut within 12 months | Fight-week sessions -30% quality; stress +; irritability can trigger gym arguments | Rounds 1-3 near normal; later-round output -5 to -15%; small chance (2-5% per extra 1% cut beyond 8%) of a medical event that cancels the bout (fighter hospitalised) | Move up a weight class; longer, gradual cut planned by a nutritionist; hydration rules; never IV rehydration if the commission bans it | Fight week + 1-2 weeks after | Mood: anger, fatigue, tension up, vigour down, worse performance [27][28]; extreme cuts: kidney injury [30]; Khabib hospitalised [56]; deaths [38][35]; ONE hydration rules [37] |
+| 5 | **Gun-shy** (neg) | KO or heavy-knockdown loss, OR being badly hurt in sparring, with low resilience trait | Avoids hard sparring (refuses 30-50% of hard sparring sessions); technical drills unaffected | Punch output -15 to -25%; lower willingness to exchange; more clinching/retreating | Gradual return: light/technical sparring with trusted partners, then build; confidence wins vs safe opponents; sports psychologist | 4-12 weeks; resolves faster with each confidence win | Fear prominent on return from injury; confidence + low fear predict return [34]. Boxing-specific peer-reviewed data on post-KO "gun-shyness": NOT FOUND, so this is a JUDGEMENT state |
+| 6 | **Gym bully** (neg; social) | High-aggression trait + stress >= 70 + rival in the gym or recent ego hit (lost a sparring session, public criticism) | Over-hits in sparring: partner injury/concussion risk x2; sparring partners' stress +; gym atmosphere -; partners may refuse to work with him | Short term: +5% aggression; but fight-plan discipline -10% | Coach pairs him only with bigger/senior partners, sets sparring rules, separates rivals; talk with head coach; fine/suspend under gym rules | Until stress < 50 or rival leaves (2-8 weeks) | Green-Toney "gym war" and its aftermath [52]; Sparring Club "Taylor didn't" back off, concussed opponent [53]; Malignaggi walked out of a fight camp [51] |
+| 7 | **Playing hurt** (neg; hidden) | Has an injury or illness AND (big fight booked, OR a previous postponement, OR money stress) | Reports "fine": hides the injury from the player unless the physio or doctor checks | Hidden injury can worsen in the bout; chance of fight-night collapse or a stoppage loss | Medical check-ups in fight camp; a culture where postponing is not punished (a gym policy toggle); good relationship with the head coach lowers concealment chance | Until detected or the fight happens | Teofimo Lopez concealed symptoms because of pressure and fear of "another postponement" [49]; athletes deny health consequences in pursuit of goals [14] |
+| 8 | **Money on my mind** (neg; financial) | Savings < 4 weeks' costs, OR purse withheld, OR debt event | Takes side work: 10-20% fewer training hours; stress +3/week | More likely to accept short-notice or bad-matchup fights; may push for a cut to a lower class for a title shot | Gym advances money (with a relationship cost), lines up sponsorship, better manager deal, sensible fight scheduling | Until savings recover | No union, no safety net [57][58]; purses shrink after deductions; pensions unclaimed [59]. Short-notice fight + extreme cut preceded Souza's death [38] |
+| 9 | **Off the rails** (neg; severe; handle with care) | Major loss or career shock + stress >= 90 + low support; OR repeated Burnt out | Misses 40-60% of sessions; weight drifts up; may be out of contact for days; other fighters' stress rises slightly | If a fight is booked: high pull-out chance; if he fights, large penalties | **Not fixable by spending.** Player can: give time away, connect him with professional help (unlocks a "support" path), protect his contract. Recovery is slow and non-linear; relapse possible. No punishment options shown | 3-12 game months | Fury 2016: no training, drinking, cocaine, psychiatric care [43][44]; Hatton after the 2009 loss [46][47]; IOC: needs professional treatment [10][11]. See section 5 for wording |
+| 10 | **Ring rust** (neg; mild; time-based) | > 12 months since last bout | None in training | Timing/accuracy -3 to -5% for rounds 1-4, fading by round 6 | Tune-up fight; extra hard sparring in fight camp (costs stress) | First fight back | Peer-reviewed evidence: NOT FOUND. A non-peer-reviewed UFC data blog reports the longer-layoff fighter winning 41.0% after 365+ days vs 48.1% overall [60]; treat as weak |
+| 11 | **Point to prove** (pos; virtue-like) | Loss (esp. close or controversial) + high resilience trait, OR resolve check passes at 80 (base chance 20-30%, staff and traits can raise it) | Training gains +15 to +25%; perfect attendance; accepts hard sparring without stress gain for 4 weeks | Conditioning +5%; composure +5% | None needed. Ends when the target fight is done or after 12 weeks | 6-12 weeks | Klitschko after Brewster: "I trained myself in a certain way after that"; still motivated by "payback" a decade later [55] |
+| 12 | **Locked in** (pos) | Fight camp with stress <= 30 for the final 2 weeks, good sleep/recovery, a proper taper | Sharper sessions (+10% technique gains); low injury risk | Fewer mistakes: -20% chance of tactical errors; +5% accuracy | None. Lost if stress rises above 50 | Final 2 weeks of fight camp + fight night | Well-being during the taper explained 72% of performance improvement [17]; mood falls back to baseline when load is reduced [15]; recovery-stress balance is key [23] |
+| 13 | **Gym leader** (pos; social; optional) | Senior pro with high professionalism and stress <= 40, mentoring >= 2 juniors | Mentored juniors: stress gain -15%, gains +5% | None for the leader | Keep him happy; if he turns Gym bully or Off the rails, the bonus reverses for 2 weeks | While conditions hold | Game analogue: FM mentoring and leader influence [66][67]; MM "Mentor" trait [68]. Real boxing study: NOT FOUND, so this is JUDGEMENT |
+
+Notes on the table:
+- State 13 is optional, which makes the list 12 core states plus one optional. All numeric ranges are **JUDGEMENT**.
+- **Head trauma is deliberately not a stress state.** Concussion or "foggy after sparring" should be an injury with a medical hold, because the evidence is about brain health and individual susceptibility, not mood [31][32]. **JUDGEMENT**
+- **Order of checks (JUDGEMENT):** at the resolve check, roll positive vs negative first, then choose the negative state from the *dominant stress source* in the last 4 weeks (sparring-heavy leads to Overcooked or Gym bully; cut-heavy to Drained; loss-heavy to Gun-shy or Lost the hunger; money-heavy to Money on my mind). This makes states feel *caused*, not random, answering the DD2 complaint [76].
+- **"Chasing the knockout"** (reckless KO-hunting under stress) was considered. A verifiable real-world anchor was NOT FOUND (impulsiveness in retired successful fighters [33] is not the same thing), so it is left out of the core list. **JUDGEMENT**
+
+---
+
+## 5. Design cautions (JUDGEMENT, grounded in section 3)
+
+1. **RNG frustration.** The most-repeated complaint across DD1/DD2 is randomness that wipes out invested characters [73][74][76][78]. Fixes: show the odds at the resolve check; let staff, traits and gym upgrades move them; tie the chosen affliction to the dominant stress source; never let one roll end a career.
+2. **Death spirals.** DD2's banter "snowballing" [63], RimWorld players' "death spirals" [79b], and DD's "stress reduction cost > gold" [73] all describe loops where stress causes more stress. Fixes: (a) a relief buff after an affliction fires (like RimWorld Catharsis, +40 for 3 days [64]); (b) a cap on weekly stress gain; (c) a cheap baseline recovery option (rest week) that always works for Overcooked; (d) gym-wide contagion capped (one stressed fighter cannot push the whole gym over the threshold in one week).
+3. **Opaque stress.** FM24's interaction/promise system drew "completely broken" reviews [81a][81b]; RimWorld players complain about needing the wiki [79c]. Fixes: every stress delta has a cause line; a weekly "stress report" from staff (Hooper-style 1-7 sleep/fatigue/stress/soreness, which mirrors real practice [16][22]); hidden stress only for **Playing hurt**, and the game says when information is hidden.
+4. **Grind and decay.** Punch Club's decay drew the most criticism, and the developers' mocking label for the no-decay mode made it worse [80a][80b]. Fixes: no stat decay from stress alone; offer difficulty sliders with neutral names and no achievement lock (JUDGEMENT).
+5. **Player stress leaking.** "I find this game stresses me out" [75]. Offer a "Stress intensity" setting (Off / Light / Standard / Harsh).
+6. **Mental health sensitivity.** About one in three current elite athletes reports anxiety/depression symptoms [12], and the IOC recommends screening and professional treatment [10][11]. So:
+   - **Do not** name states with clinical labels ("Depressed", "Bipolar", "Suicidal"). Use behaviour/performance language ("Off the rails", "Lost the hunger", "Burnt out").
+   - **Do not** let gold buy instant cures for the severe state (unlike DD's Tavern/Abbey [61]). The severe state needs time, support and a professional-help path. Never offer "fine him" or "release him" as the main buttons.
+   - **No suicide, self-harm or drug-use depiction** in event text. Real cases (Fury, Hatton) should not be used as named in-game events. If the game ever features real people, legal review is needed (JUDGEMENT).
+   - Add an optional **content note** and a **support-resources link** in the menu when the stress layer is on (JUDGEMENT; common industry practice, not verified here).
+   - Do not imply weight-cut deaths are "bad luck" rolls. Make the risk rise with the size of the cut and show it in the cut planner, with a warning, as ONE Championship's real hydration and walking-weight rules do [37].
+7. **Head injuries are not "stress".** Keep concussion and brain health as medical systems (holds, clearance, cumulative exposure) so the game does not suggest grit can overcome brain injury [31][32][53].
+8. **Wording.** Use "gym" for the building and "fight camp" only for pre-bout preparation in all UI strings (team rule). Avoid "insane", "crazy", "lunatic" (DD-style flavour). Prefer "rattled", "flat", "wired", "drained".
+--- Kalli, K_STRESS design ---
+PART 1 of 2
+
+Stress is a hidden 0-100 meter on every fighter that fills from the hard parts of the job. At 100 the game rolls once, and the fighter either breaks into an affliction or, more rarely, steels into a virtue. Composure is the stat that tilts that roll. The manager reads it, manages it and cures it, and the game never takes the fighter's choices out of his hands. Every number below is a starting tune, NOT COMPUTED against the week loop.
+
+**1. What moves stress**
+
+Raises (per event):
+- Hard training day: +3 (+5 if strain is already over 60%)
+- Back-to-back hard days: +4 on top
+- Weight cut week: +4 a week, +8 in the final 3 days, +15 for a failed weigh-in
+- Loss by decision: +12. Loss by KO or stoppage: +20. Getting knocked down in a fight: +6 each
+- An injury: +8. An injury that pulls him from a booked bout: +15
+- Bout cancelled late (opponent drops or a promoter pulls it): +10
+- A broken promise (pay rise, title shot, rest week): +18
+- A contract request ignored past its deadline: +10
+- A rival or gym-mate signed into his division: +6
+- A teammate's bad KO watched from the corner: +5
+- Weeks without a fight when he asked for one: +3 a week
+- Public humiliation (a fall in the rankings, a media story): +5
+
+Lowers:
+- Rest day: -6. A full rest week: -20
+- A win: -10. A KO win: -15. A title win: -30 (it can reset to 0)
+- A promise kept: -10
+- A talk in the office (one a week): -8, or +4 if the coach's people skill is low (NOT COMPUTED until coach skills exist)
+- A physio session: -4
+- A friend in the gym (two fighters with high mood together on the floor): -2 a day
+- A good camp (scouting 3 and weight on the path all camp): -8 at the weigh-in
+
+Composure sets the multiplier on every rise: 0.6x at composure 90 and 1.4x at composure 20. That way the stat already in the game does the work, and stress never feels like a second composure.
+
+**2. Threshold and the roll**
+
+- From 0 to 49 nothing shows.
+- From 50 to 79 he is STRAINED. A yellow tick shows on his portrait, and his tooltip starts to read "Snapping at sparring partners".
+- From 80 to 99 he is ON EDGE. The tick turns orange and gives a 10% chance a day of a small floor incident (missing a session, an argument).
+- At 100 the roll happens once, then stress drops to 70 so he doesn't roll every day.
+- The roll gives a virtue at 15% + composure/5 (so 15% to 35%). A virtue lasts 4 weeks. Otherwise it gives an affliction from the list below, weighted by what caused the stress: weight cut stress leans to Starving, losses lean to Gun-shy, broken promises lean to Mutinous.
+- Afflictions don't stack. A second break while afflicted worsens the current one into its hard form (each state below has one).
+
+Virtues (rare, short, earned):
+- STEELED: stress rises at half speed and he never goes rattled in round 1.
+- HUNGRY: technique practice runs 25% faster and he asks for a fight within 3 weeks.
+- LEADER: every fighter on the floor loses 1 stress a day while he trains.
+
+**3. The afflictions (8)**
+
+*GUN-SHY* (after KO losses)
+- Gym: he flinches at the bag and stands back from the ring ropes, with a little hesitation before each pad combo.
+- Training: sparring gives half XP, and he refuses hard sparring (the station shows a cross).
+- Fight: he starts every round pressured, power is -10 until he lands a clean shot, and his chance to throw first falls.
+- Cure: 3 weeks with no sparring plus 2 office talks, or a soft-matched win (he picks up a confidence fight).
+- Hard form, BROKEN: refuses to be booked at all until cured.
+
+*STARVING* (weight cut)
+- Gym: he looks thin and slow, sits on the bench between stations, and stares at the scale in the locker room.
+- Training: stamina regenerates at 70%, and any hard day adds +5 strain.
+- Fight: stamina -15 at the bell, and chin -5 in rounds 6 and up.
+- Cure: move him up a division, or plan a slower cut path (the camp tab). It clears the week after weigh-in if he makes it.
+- Hard form, PURGING: a 20% chance to miss weight by up to 2 lb, whatever the plan says.
+
+*MUTINOUS* (broken promises, ignored requests)
+- Gym: arms crossed at the office door, he trains alone in a corner, and the coach's lines get answered with a shrug.
+- Training: he skips 1 station a day at random, and coach bonuses don't apply.
+- Fight: he ignores one corner instruction per fight.
+- Cure: keep a promise, grant a request, or give a pay rise. Talks only slow it.
+- Hard form, WALKING: he lists himself for transfer and asks to leave at the end of his contract.
+
+*RECKLESS* (losses by decision, long waits)
+- Gym: heavy bag at full power, sparring partners limping off, too much shouting.
+- Training: technique XP +10%, strain +50%, and a 5% chance a day of hurting a sparring partner.
+- Fight: power +5, defence -10, and he swaps the game plan for a brawl in round 3+.
+- Cure: book him a fight within 4 weeks, or a talk with a high-composure coach.
+- Hard form, BERSERK: a 20% chance a fight of a deduction (a low blow or a hit after the bell).
+
+*HAUNTED* (watched a bad KO, a career-ending injury in the gym)
+- Gym: he stops at the ring where it happened and looks at the corner.
+- Training: composure training gives nothing, and the morning slot is often missed.
+- Fight: rattled at the first knockdown he suffers, wherever the score is.
+- Cure: 2 weeks in the film room (studying it), or a full rest week.
+- Hard form, NUMB: morale locked at its floor until cured.
+
+*PARANOID* (rival signed, rankings fall)
+- Gym: he watches the other fighters train, stops when they look, and pads up only with the coach.
+- Training: he won't share stations with fighters in his division.
+- Fight: ring IQ +5 (he reads too much), speed -5 (he's slow to commit).
+- Cure: move the rival out of his schedule, or give him the gym's best slot (the 08:00 coach).
+- Hard form, SHUT-IN: refuses gym-mates as sparring partners entirely.
+
+*FRAGILE* (injuries, high wear)
+- Gym: he favours the hurt side and sits a lot.
+- Training: strain on that region counts double, and he refuses stations that hit it.
+- Fight: the worn region takes +25% damage, and he guards it (a gap opens elsewhere).
+- Cure: a physio block (2 sessions) plus that region under 30% wear.
+- Hard form, BRITTLE: any hard day risks a new injury at 10%.
+
+*GLORY-SICK* (after a run of wins, or a title, when composure is low)
+- Gym: he poses for phones in the lobby, turns up late, and talks to walk-ins instead of training.
+- Training: XP -20%, and he demands better slots.
+- Fight: he underestimates; ring IQ -10 against lower-ranked opponents only.
+- Cure: a loss, a step-up opponent, or a hard talk (+5 stress for a -40% chance to clear it per talk).
+- Hard form, DIVA: his next contract request comes with a 2-week deadline.
+PART 2 of 2
+
+**4. The decisions it creates**
+
+- **Rest him or push him.** A hard week buys stats and adds stress, so the 7-day plan becomes a real trade every week.
+- **Book now or wait.** A long wait builds stress. A fight too soon after a KO loss risks GUN-SHY.
+- **Which division.** A brutal cut is +stress every camp, and moving up is the cure with a real cost (bigger men).
+- **Keep the promise or break it.** Promises are a currency now: a cheap cure today, a +18 bomb if broken.
+- **Who trains with whom.** A LEADER or friends on the floor lowers stress, and a PARANOID fighter splits the schedule.
+- **Which coach takes him.** Talks work better with the right coach (later, when coach skills exist).
+- **Pull him or let him fight afflicted.** A RECKLESS fighter is dangerous but can win. That bet belongs to the manager.
+
+What it must NOT take away:
+- **Booking stays the manager's.** Except BROKEN (hard GUN-SHY), no state refuses a fight on its own. That hard state is the only one, with a warning a week ahead.
+- **No random walkouts.** WALKING only comes after MUTINOUS, which only comes after a broken promise or an ignored request the manager could see.
+- **The fight result is never scripted.** Afflictions move stats and phase odds. They never decide a round.
+- **Every rise is shown.** Each stress event writes one line in the fighter's log ("+12, lost on points") so a break never feels unfair.
+- **The weekly plan is never overridden.** States change outcomes (skipped stations, XP, strain). They never rewrite the plan.
+
+**5. Where it shows (no new screen)**
+
+- **HUD:** the fighter portrait strip gets a ring around it that fills with stress. Yellow at 50, orange at 80, and a cracked icon for an affliction (Lucide `brain`, tooltip "See what's weighing on him"). A virtue shows a gold ring with `sparkles` "See what's driving him". The mail button gets one notice the day he breaks.
+- **Profile OVERVIEW:** a stress bar under morale, the state chip next to it (icon plus one word, tooltip with the effect and the cure), and the last 3 log lines that moved it.
+- **Profile MEDICAL:** FRAGILE and STARVING appear here too, beside wear and weight.
+- **Profile CONTRACT:** promises show stress at stake ("Break this: +18").
+- **Profile CAMP:** the weight path shows the stress it will add week by week.
+- **Training plan:** each day's station shows its stress cost as small pips next to its strain.
+- **The floor:** the 3D animations above (flinch, sit, arms crossed, posing) are the real tell. A player who watches the floor reads stress before the ring fills.
+- **Fight night:** the state chip sits on the corner card. Between rounds the corner has one line per state ("He's gun-shy, keep him busy behind the jab").
+
+**6. Demo or later**
+
+In the boxing demo:
+- The stress meter, the threshold and the roll, with the full event list for training, weight cuts, losses, wins, rest and talks.
+- 4 afflictions: GUN-SHY, STARVING, RECKLESS, FRAGILE. They hang off systems the demo already runs (losses, cuts, wear, booking).
+- 1 virtue: STEELED.
+- The HUD ring, the OVERVIEW chip and log, and the training stress pips.
+- 2 floor animations: the flinch at the bag and sitting on the bench. The other two states show by icon only until they get animations.
+
+Later:
+- MUTINOUS and GLORY-SICK, once the promises and requests loop is deep enough to matter.
+- PARANOID, once there's a multi-fighter roster with divisions that overlap.
+- HAUNTED, once there's a gym-mate KO in the corner view.
+- HUNGRY and LEADER, plus all the hard forms.
+- Coach people skill on talks.
+- Stress from media and rankings.
+- The MMA and grappling version, where the same states map across (GUN-SHY can turn into fear of the takedown).
+
+Arguing against my own strongest ruling (put the roll at 100): a Darkest Dungeon break works because a raid is short and the player can see it coming. Our seasons run for months, so a single roll at 100 can feel like a coin flip after 6 quiet weeks of slow build. The other option is a growing daily chance from 80. That feels more lifelike but hides the moment. I keep the single roll, because it gives a clear moment the player can plan around, while ON EDGE incidents at 80 make the warning felt first.
+
+Two things aren't computed yet. One is whether 4 afflictions fit the demo's first 5 hours without every fighter breaking once. That needs a run of the week loop with these numbers. The other is how often the virtue roll lands at low composure.
+
+Give: B1 your verdict on each of John's states and Kalli's rules (keep / change / cut, why); B2 the final stress meter (0-100): every source and its exact gain/loss per day/session/event, which stats from the facts sheet it reads; B3 the threshold event (single roll vs growing chance - pick one and defend it), the affliction list (max 4 for the demo) and virtue list, each with cause, exact effect on named stats/fight behaviour, duration, cure; B4 where the player SEES it (which screen, which tab of the 7-tab fighter profile, the fight-week grid, the corner between rounds) and the words on screen; B5 what the coach/player can do about it (decisions with costs); B6 how it must NOT feel (no random punishment, no mental-illness depiction - John's sensitivity note), B7 a pure-module API (function names, inputs, outputs) + a headless test list.
+
+C. FIGHTER PROFILE - THE OPERATOR MARKED YOUR v2 MOCKUP (3D dossier, 3 columns):
+mark 1 WRONG - the left column: "mixed up text"; mark 2 WRONG - the right column: "mixed up text maybe i would like to see icons of the moves there"; mark 3 KEEP - the centre 3D fighter: "nice"; mark 4 WRONG - the top header strip: "needs improvement".
+Our built version today: header = name | AGE | DIVISION | RECORD | STANCE | MORALE; left = 9 profile attribute bars + raw sim attributes box; centre = 3D boxer on a plinth (front 3/4, plays the clicked move, LOOP/SLOW-MO); right = technique list per branch tab (FUNDAMENTALS/STRAIGHT/HOOKS & BODY/DEFENCE/FOOTWORK/COMBOS/INSIDE) with tier, name, "needs X", IN THE DEMO / LOCKED, LEARNED x/54, ASSIGN TO TRAINING PLAN.
+Give: C1 the redesigned header (every element, order, sizes in px at 1920x1080, colours as hex); C2 the left column with no mixed-up text (what to drop, group, order); C3 the right column as MOVE ICONS: icon grid layout, icon size, what each icon depicts per technique family (describe the pictogram so an artist/AI can draw all 54 consistently), states (learned / learnable / locked / in demo), hover/click behaviour; C4 a pixel spec of the whole Techniques tab.

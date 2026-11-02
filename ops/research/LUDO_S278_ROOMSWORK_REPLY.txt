@@ -1,0 +1,404 @@
+ROOMS THAT WORK — COMPLETE FUNCTIONAL SPECIFICATION
+1. WHAT EACH KEY ITEM SWITCHES ON
+
+To respect the design philosophy of deep management titles (Mad Games Tycoon 2, Two Point Hospital, Football Manager), an empty room is merely designated dry-wall. A room only transitions from PLANNED to FUNCTIONAL when its single Key Item is placed inside its perimeter with valid pathfinding clearance to its interaction node.
+
+Below are the operational rules, unlock conditions, and the zero-minute onboarding fail-safes for each of the four inactive key items.
+
+┌───────────────────────┐         PLUNK KEY ITEM         ┌────────────────────────┐
+│      EMPTY ROOM       │  ────────────────────────────> │     FUNCTIONAL ROOM    │
+│  • Upkeep: $0/wk      │    (Path cleared to door)      │  • Upkeep active       │
+│  • Sim Effect: NULL   │                                │  • System unlocked     │
+└───────────────────────┘                                └────────────────────────┘
+
+A. The Office: Management PC Desk ($750)
+Without It (What the Player Loses):
+External Digital Comms are severed. The player cannot receive professional fight purse offers, cannot review sanctioning body rankings, cannot post job listings for secondary staff (assistant coaches, cutmen, conditioning scouts), and cannot view the detailed multi-tab financial balance sheet (only raw cash in the top bar is visible).
+With It (What It Switches On):
+Unlocks the Inbox / Communications Drawer, the Bout Contract Negotiation Screen, and the Staff Marketplace.
+Enables passive generation of Gym Prestige Points based on the office occupant's Fight IQ / Business stat.
+Rule (Learnable in One Click):
+
+"No Desk = No Contracts. Placing the Management PC Desk connects your gym to promoters, sanctioning bodies, and hiring agencies."
+
+Benchmark: Mad Games Tycoon 2 (Dev Studio cannot code without a Dev Desk; Office cannot take publisher contracts without a Management Desk).
+B. The Locker Room: 4-Tier Metal Locker ($620)
+Without It (What the Player Loses):
+The Paying Member Hard-Cap is clamped to ZERO. Even if the front desk is open, civilian members will turn around at the threshold and leave with the status banner: "No secure storage / Nowhere to change."
+Amateur and pro fighters suffer an automatic $-15$ Composure penalty starting any training lap because they must change on the training floor or floor mats.
+With It (What It Switches On):
+Unlocks the Member Capacity Pool (the first bank creates space for $12$ active paying members).
+Restores fighter baseline Composure to normal ($100%$ efficiency) upon entering the training floor.
+Rule (Learnable in One Click):
+
+"No Lockers = No Members. Each 4-Tier Locker bank allows 12 civilian members to subscribe and pay weekly dues."
+
+Benchmark: Two Point Hospital (Staff room without seating/lockers cannot restore energy; guests leave immediately if basic amenities are absent).
+C. The Physio Room: Treatment Table ($1,400)
+
+(Room design unlocks when 2 active fighters are under contract.)
+
+Without It (What the Player Loses):
+In-house medical treatment is impossible. Any soft-tissue injury (sprained wrists, torn cartilage, cut brow reopening) must be referred to the city hospital, which costs $$450$ flat per visit and benches the fighter for $100%$ of the natural medical duration (e.g., $14$ days).
+Weight-cut rehydration recovery on Saturday morning is capped at $80%$.
+With It (What It Switches On):
+Unlocks In-House Physio Diagnostics and Direct Treatment.
+Cuts injury bench time by $-35%$ (reduced to $-50%$ if an assistant coach with the Medic trait is assigned).
+Allows your fighter to treat a Cut-Prone Scar between camps to prevent it from progressing to the next severity tier.
+Rule (Learnable in One Click):
+
+"No Table = Hospital Bills. The Treatment Table cuts fighter injury recovery time by 35% and eliminates external clinic referral fees."
+
+Benchmark: Two Point Hospital (Diagnosis rooms are dead floor space until the core console/table is placed; patients queue indefinitely or die).
+D. Equipment Storage: Heavy Duty Shelving ($380)
+
+(Room design unlocks at the first mechanical breakdown of a training station.)
+
+Without It (What the Player Loses):
+No spare parts inventory can be stored. When a treadmill belt tears, a cable snaps, or a heavy bag bracket bends, the station enters the BROKEN state. Without stored parts, an external technician must be dispatched ($3\text{ days}$ downtime, $$220$ emergency call-out fee).
+Conditioning coaches lose $20%$ drill efficiency because mitts, jump ropes, and medicine balls are scattered across the training floor.
+With It (What It Switches On):
+Unlocks the Auto-Maintenance System. Spare cables, chains, leather laces, and chalk are stocked automatically at wholesale cost.
+Broken machines are repaired by gym staff within $2$ in-game hours at zero call-out fee.
+Rule (Learnable in One Click):
+
+"No Shelving = 3-Day Equipment Breakdowns. Shelving keeps replacement parts in stock, enabling instant station repairs."
+
+Benchmark: Mad Games Tycoon 2 (Server Room / Production requires rack space to hold media inventory and network blades; without it, games cannot be pressed or patched).
+E. Minute-Zero Gate Fail-Safe: Preventing the New Player Soft-Lock
+
+Question: Should any key item gate something the player uses at minute 0 (scouting, basic fight booking, initial training)? If yes, how do we stop them from being stuck?
+
+The Problem: If the Management PC Desk is required to book bouts, and a player spends all $$25,000$ on heavy bags and a ring without building an office, they cannot book Leo Vance’s first bout to earn purse money. They are dead in the water.
+
+The Solution (The "Kitchen Table / Corkboard" Fallback):
+
+Minute-0 Mobile Phone / Clipboard (Emergency Fallback):
+If no office desk is built, the player-coach operates from a free Clipboard & Cell Phone on the edge of the ring.
+The Penalty: Without a PC Desk, the player only receives Low-Ball / Late-Notice Bouts (promoters take a $40%$ cut of the purse, and bout notices arrive with only 7 days of camp instead of 21 days). Scouting reports have a $\pm 25%$ error margin on opponent attributes.
+The UI displays a persistent amber notification badge over the Mail icon:
+[!] RUNNING FROM CLIPBOARD: Promoters offering low-tier purses only. Build an Office with a PC Desk to access direct sanctioned contracts.
+The Onboarding Script (First-Run Prompt):
+The demo tutorial forces the construction of:
+Training Zone (Bag + Mats)
+Front Desk ($800)
+Locker Bank ($620)
+Office PC Desk ($750)
+These core items consume exactly $$2,170$, leaving over $$22,800$ for the rest of the gym. A player cannot accidentally soft-lock unless they intentionally demolish the starter layout.
+2. ROOM ITEMS: CATALOGUE, STAT EFFECTS & FOOTPRINTS
+
+Every item placed in a room must modify exactly one mechanical variable to keep systems transparent. Items cannot be stacked infinitely; they must obey placement grids and clearance corridors.
+
+ITEM FOOTPRINT CLEARANCE PRINCIPLE (Top-Down Godot Grid):
+┌─────────────────────────┐
+│     [ w x d Prop ]      │  <- Physical collision footprint
+│.........................│
+│     [ Interaction ]     │  <- 0.6m clear aisle required for worker/member node
+└─────────────────────────┘
+
+A. Reception (Member Inflow & Public Perception)
+
+Key Item: Front Desk Counter ($800, 2.0m x 0.8m)
+
+Electronic Turnstile Gate ($450 | 1.2m x 0.8m)
+Effect: Member Dues Leakage reduced to 0% (Without it, $8%$ of workout visits dodge payment due to an unattended desk).
+Placement: Reception entrance threshold.
+Benchmark: Real Commercial Gyms (RFID turnstiles).
+Display Trophy Cabinet ($600 | 1.8m x 0.5m)
+Effect: +8 Gym Prestige Score (Increases the average quality and potential ceiling of amateur walk-in prospects).
+Placement: Reception or Training Floor wall.
+Benchmark: Mad Games Tycoon 2 (Trophy cases raise company reputation).
+Member Vending Machine ($850 | 1.0m x 0.8m)
+Effect: +$65/week Passive Cash Flow (Fixed retail revenue stream based on current active members; requires electricity).
+Placement: Reception or Locker Room.
+Benchmark: Two Point Hospital (Vending machines generate snack revenue and satisfy hunger).
+Framed Historic Fight Posters ($120 | 1.0m x 0.1m, Wall-Mounted)
+Effect: +3% Member Sign-up Conversion Rate (Reduces the number of walk-ins who leave without buying a pass).
+Placement: Reception, Office, or Training Floor walls.
+Benchmark: Two Point Hospital (Posters increase room attractiveness).
+Branded Merch Wall Rack ($320 | 1.4m x 0.4m)
+Effect: +$30/week Passive Cash Flow once gym prestige is above 40.
+Placement: Reception walls only.
+Benchmark: Real boxing clubs (selling branded handwraps, t-shirts, and mouthguards).
+B. The Office (Administration, Scouting & Scouting Depth)
+
+Key Item: Management PC Desk ($750, 1.6m x 1.0m)
+
+Filing & Archive Cabinet ($280 | 0.8m x 0.5m)
+Effect: +15% Film Study Tell Discovery Speed during Thursday fight-week film analysis.
+Placement: Office only.
+Benchmark: Mad Games Tycoon 2 (Filing cabinets boost research and game history retention).
+Wall-Mounted Scouting Pinboard ($150 | 1.5m x 0.1m, Wall-Mounted)
+Effect: Reveals 1 Hidden Attribute Pip on all amateur prospects scouted within the regional circuit.
+Placement: Office walls only.
+Benchmark: Real boxing gym matchmaker war-boards.
+Executive Leather Office Chair ($340 | 0.8m x 0.8m)
+Effect: +10% Coach Energy Recovery while in the office reviewing fight logs.
+Placement: Placed at the Management PC Desk (replaces default wooden stool).
+Benchmark: Two Point Hospital (Upgraded chairs reduce staff fatigue accumulation).
+Coffee Machine & Credenza ($420 | 1.2m x 0.6m)
+Effect: -15% Assistant Coach Burnout Rate (Extends the hours coaches can supervise stations without taking a break).
+Placement: Office or Staff Locker Room.
+Benchmark: Two Point Museum (Staff room coffee bars boost employee speed and stamina).
+C. Locker Room (Member Capacity & Fighter Composure)
+
+Key Item: 4-Tier Metal Locker ($620, 1.8m x 0.6m)
+
+Communal Hardwood Bench ($180 | 1.8m x 0.5m)
+Effect: Locker Room Comfort Rating +10 (Prevents the "Cramped Changing Facility" member morale penalty).
+Placement: Locker Room or Training Floor perimeter.
+Benchmark: Real gym architecture (locker rows require parallel bench seating).
+Commercial Shower Stall Unit ($1,100 | 1.2m x 1.2m, Plumbing Wall Required)
+Effect: +15 Max Member Capacity (High-paying corporate/commuter members require showers to remain signed).
+Placement: Locker Room interior against plumbing utility nodes.
+Benchmark: Two Point Hospital (Toilets and sinks require specific utility connections).
+Wall Vanity Mirror & Grooming Shelf ($220 | 1.6m x 0.2m, Wall-Mounted)
+Effect: +5% Member Retention Rate during end-of-month membership renewal checks.
+Placement: Locker Room walls only.
+Benchmark: Real commercial sports facilities.
+Industrial Dirty Towel Hamper ($90 | 0.6m x 0.6m)
+Effect: -20% Room Janitorial Decay (Stops cleanliness from dropping rapidly when member traffic is high).
+Placement: Locker Room or Physio.
+Benchmark: Two Point Hospital (Bins reduce litter and keep hygiene high).
+D. Physio Room (Injury Rehab, Recovery & Wear Reduction)
+
+Key Item: Treatment Table ($1,400, 2.2m x 1.0m)
+
+Commercial Ice Barrel Tub ($1,800 | 1.2m x 1.2m)
+Effect: +25% Saturday Morning Weight-Cut Chin Recovery (Offsets the chin penalty caused by Friday sauna drains).
+Placement: Physio Room only (explicitly banned from the training floor per hard rules).
+Benchmark: Real modern boxing recovery protocols.
+Infrared Heat Therapy Lamp ($650 | 0.8m x 0.8m)
+Effect: -50% Recurring Muscle Spasm / Stiff Neck Trait Flare-Up Risk during heavy training weeks.
+Placement: Physio Room, must face a Treatment Table within 1.5m.
+Benchmark: Two Point Hospital (Auxiliary diagnostic/treatment boosters must be adjacent to the primary machine).
+Medical Ultrasound & Joint Mobilizer Cart ($1,250 | 0.8m x 0.6m)
+Effect: Cuts Hand/Wrist Injury Durations by an Additional 20%.
+Placement: Physio Room only.
+Benchmark: Sports medicine physical therapy standards.
+Lockable Pharmaceutical Cabinet ($480 | 1.0m x 0.4m, Wall-Mounted)
+Effect: Unlocks Cutman Deep Coagulant Compound for bout corners (improves ringside cut healing efficiency by 25%).
+Placement: Physio Room walls only.
+Benchmark: Real corner-care and cutman licensing gear.
+E. Equipment Storage (Maintenance, Logistics & Drill Efficiency)
+
+Key Item: Heavy Duty Shelving ($380, 1.8m x 0.6m)
+
+Technician Tool Workbench ($520 | 1.6m x 0.8m)
+Effect: -25% Routine Maintenance Costs on all mechanical gear (treadmills, bikes, pulley cable machines).
+Placement: Storage Room only.
+Benchmark: Mad Games Tycoon 2 (Server racks and workshops speed up engineer repairs).
+Spare Bag & Leather Hanging Rack ($260 | 1.5m x 0.5m)
+Effect: Eliminates Heavy Bag Canvas Tears (Instant swap-outs preserve 100% station uptime).
+Placement: Storage Room or Training Floor wall perimeter.
+Benchmark: Real commercial combat gyms.
+Industrial Mop & Floor Sanitizer Cart ($180 | 0.8m x 0.8m)
+Effect: Gym Floor Hygiene Degradation slowed by 40% (Clean floors prevent staph and ringworm infections that sideline fighters).
+Placement: Storage Room only.
+Benchmark: Two Point Hospital (Janitor buff items).
+F. Training Floor Decor & Universal Amenities
+
+(May stand on the open training floor or in corridors)
+
+Refrigerated Water Cooler ($350 | 0.6m x 0.6m)
+Effect: Reduces In-Lap Training Fatigue Accumulation by 5% across all stations within a 6-metre radius.
+Placement: Training floor aisles, reception, or locker room.
+Benchmark: Two Point Hospital (Water dispensers keep patient happiness and hydration stable).
+Industrial High-Velocity Floor Fan ($220 | 0.8m x 0.4m)
+Effect: BPM Spike Rate lowered by -4% on cardio stations (Treadmill, Bike, Jump Rope) placed in front of its air cone.
+Placement: Training floor open zones.
+Benchmark: Real boxing gyms (essential for ventilation and heat exhaustion mitigation).
+Wall-Mounted Digital Round Interval Clock / Buzzer ($180 | 0.8m x 0.2m, Wall-Mounted)
+Effect: +5% Sparring & Mitt Drill IQ Acquisition Rate (Simulates authentic competition round timing).
+Placement: Any wall facing the Ring or Pad stations.
+Benchmark: Universal boxing gym equipment.
+3. MORE OF THE SAME ITEM: CAPACITY & DIMINISHING RETURNS
+
+To stop players from spamming identical items to exploit linear buffs, every key duplicate operates under a strict Capacity Cap and Diminishing Returns Curve.
+
+CAPACITY & EFFICIENCY DECAY CURVE:
+100% Efficiency ──────┐
+                       │
+ 75% Efficiency ───────┼──────────────┐
+                       │              │
+ 40% Efficiency ───────┼──────────────┼──────────────┐
+                       │              │              │
+  0% (HARD CAP) ───────┴──────────────┴──────────────┴───────────────
+                     Unit 1         Unit 2         Unit 3         Unit 4+
+
+A. Lockers (Linear Pool with Space Saturation)
+Item: 4-Tier Metal Locker ($620).
+Capacity Formula:
+Bank 1: $+12$ Member Capacity ($100%$ efficiency).
+Bank 2: $+12$ Member Capacity ($100%$ efficiency).
+Bank 3: $+12$ Member Capacity ($100%$ efficiency).
+Bank 4+: $+8$ Member Capacity ($-33%$ efficiency; crowded locker rooms create diminishing utility).
+Hard Cap: Maximum of $6$ locker banks ($64$ total member cap) per $30\text{ m}^2$ of Locker Room floor space. Beyond this density, members refuse to join due to overcrowding.
+B. Treatment Tables (Physio Staff Gating)
+Item: Treatment Table ($1,400).
+Mechanic: A table has zero autonomous healing power; it requires a physical medical worker.
+Table 1: Supported by your base player-coach or assigned cutman. Provides $100%$ of base injury recovery buffs.
+Table 2: Requires hiring a dedicated Staff Physio ($350/wk wage). Without an unassigned staff member, Table 2 provides $0%$ benefit and incurs a $$15/wk$ cleaning upkeep cost.
+Table 3+: Unlocks multi-fighter simultaneous post-sparring treatment. However, injury recovery speed gains drop by $50%$ on the third table due to shared medical focus.
+C. Management PC Desks (Staff Expansion)
+Item: Management PC Desk ($750).
+Mechanic:
+Desk 1: Occupied by the Head Coach. Unlocks core contracts, emails, and staff marketplace ($100%$).
+Desk 2: Occupied by an Assistant Coach / General Manager. Automatically handles routine admin, boosting member renewal retention by $+10%$ and unlocking automatic fight-offer counter-negotiations ($+15%$ purse bids).
+Desk 3+: Diminishing returns drop to zero practical benefit until the gym reaches $5+$ contracted professional fighters.
+D. Storage Shelving (Inventory Capacity)
+Item: Heavy Duty Shelving ($380).
+Mechanic:
+Shelf 1: Holds up to $4$ spare part kits (handles $1$ breakdown event every $2$ weeks).
+Shelf 2: Expands capacity to $10$ kits; unlocks bulk parts purchasing ($15%$ wholesale discount on monthly maintenance fees).
+Shelf 3+: Pure storage volume; does not reduce maintenance times further.
+4. ROOM SIZE RULES
+
+Unlike sandbox games where room size is cosmetic, FightCamp uses a Dual-Threshold Room Sizing System modeled on Mad Games Tycoon 2 (employee spatial volume) and Two Point Hospital (minimum footprint thresholds + prestige volume).
+
+ROOM SIZE SCALING FORMULA:
+┌────────────────────────────────────────────────────────────────────────┐
+│  Effective Stat = Base Key Stat * Clamp(Room Area / Ideal Area, 0.5, 1.3) │
+└────────────────────────────────────────────────────────────────────────┘
+
+
+| Room Type | Minimum Size (Permit Threshold) | Ideal Size (Max Efficiency) | What a Bigger Room Actually Does |
+| :--- | :--- | :--- | :--- |
+| Reception | $6.0\text{ m}^2$ ($3.0\text{m} \times 2.0\text{m}$) | $18.0\text{ m}^2$ | Walk-in Flow Rate: Prevents queuing bottlenecks. If reception is under $10\text{ m}^2$, peak evening member check-ins back up onto the street, causing $15%$ of potential walk-ins to turn around. |
+| Office | $7.5\text{ m}^2$ ($3.0\text{m} \times 2.5\text{m}$) | $16.0\text{ m}^2$ | Staff Capacity: $1$ desk per $6\text{ m}^2$. A cramped office ($<8\text{ m}^2$) inflicts an Office Clutter Debuff, penalizing assistant coach administrative output by $-20%$. |
+| Locker Room | $10.0\text{ m}^2$ ($4.0\text{m} \times 2.5\text{m}$) | $32.0\text{ m}^2$ | Locker Density & Comfort: Governs the total number of locker banks and shower stalls that can be placed without triggering the "Cramped" status. |
+| Physio | $8.0\text{ m}^2$ ($4.0\text{m} \times 2.0\text{m}$) | $20.0\text{ m}^2$ | Sterile Space & Recovery Speed: Large rooms allow placement of secondary treatment aids (Ice Tub, Ultrasound Cart). A room over $15\text{ m}^2$ adds a $+10%$ recovery speed bonus due to sterile medical comfort. |
+| Storage | $4.0\text{ m}^2$ ($2.0\text{m} \times 2.0\text{m}$) | $12.0\text{ m}^2$ | Logistical Buffer: Determines the maximum number of shelving units that can be installed without violating workplace safety pathing. |
+
+5. THE HEAVY BAG MOUNT: REAL GYM HARDWARE INTEGRATION
+
+In response to the current issue where a newly bought heavy bag floats mid-floor suspended from nothing:
+
+THE 3 MOUNTING CONFIGURATIONS:
+(A) Free-Standing Octagonal Pod      (B) Wall Bracket             (C) Structural I-Beam Track
+    ┌──────────┐                         ║                            ═══════════════════════
+    │  [FRAME] │                         ║──[BRACKET]                           │ [SLIDER]
+    │    │     │                         ║     │                                │
+    │   (BAG)  │                         ║    (BAG)                            (BAG)
+    └──────────┘                         ║
+
+The Solution: We Sell Three Distinct Bag Configurations
+
+To support realistic gym progression and layout problem-solving, the store offers three clear mounting options:
+
+Option A: The Free-Standing Heavy Bag Station ($950)
+Mounting: Built-in four-leg triangular steel chassis with bottom ballast weight plates.
+Footprint: $2.2\text{m} \times 2.2\text{m}$ (Large spatial footprint; cannot be placed within $0.8\text{m}$ of any other station).
+Flexibility: Can stand anywhere on the open floor. Does not require walls or beams.
+Downside: Expensive; takes up massive floor area; swings less naturally (slight technique penalty of $-5%$).
+Option B: Wall-Mounted Heavy Bag Arm ($550)
+Mounting: Industrial triangulation bracket anchored directly into structural brick/concrete walls.
+Footprint: $1.4\text{m} \text{ wide} \times 1.6\text{m} \text{ projection from wall}$.
+Placement Restriction: Must snap directly to a structural boundary wall. Cannot be placed in the room interior.
+Downside: Locks bag work to the perimeter; fighters cannot circle $360^\circ$ around the bag (cannot practice inside angle-stepping drills).
+Option C: Overhead Beam-Clamp Assembly ($350 + Bag = $750 Total)
+Mounting: Clamps directly to the gym’s steel ceiling I-beams (present in the industrial club hall architecture).
+Footprint: $1.8\text{m} \times 1.8\text{m}$ work envelope around the dangling bag.
+Placement Restriction: Can only be placed along structural ceiling beam lines (visualized on the floor as subtle dashed yellow grid lines in the Godot build mode).
+Upside: Best price-to-performance ratio; allows full $360^\circ$ movement and natural swing physics.
+Speed Bag and Double-End Bag Rules:
+Speed Bag ($450): Strictly Wall-Mounted or Beam-Pod Mounted. Must snap to a wall or a structural beam strut. Footprint: $1.2\text{m} \times 1.2\text{m}$ (including the fighter's standing work zone).
+Double-End Bag ($380): Requires both a floor anchor and a ceiling anchor. Can be placed anywhere on the open floor, but requires a $1.6\text{m} \times 1.6\text{m}$ clear safety circle so snapping elastic bands do not strike passing members.
+6. THE FIRST 10 MINUTES: OPTIMAL BUILD ORDER ($25,000 START)
+STARTING CASH: $25,000
+├── Core Training Floor (Bag, Mats, Mitt Zone, Jump Rope) : -$4,550
+├── Reception & Member Inflow Setup                       : -$1,600
+├── Locker Room (Unlocks Member Subscriptions)            : -$2,320
+├── Administrative Office (Unlocks Full Contracts)        : -$1,580
+├── Working Capital Cushion (Preserved for Wages & Rent)  : $14,950
+
+Step-by-Step Build Order (The "Pro-Coach Blueprint")
+Minute 0:00 – 3:00: Establish Member Cash Inflow
+Design Reception Room ($4\text{m} \times 3\text{m} = 12\text{ m}^2$):
+Permit + Drywall Floor: $$480$
+Front Desk Counter: $$800$
+Framed Fight Poster: $$120$
+Subtotal: $$1,400$
+Design Locker Room ($5\text{m} \times 4\text{m} = 20\text{ m}^2$):
+Permit + Tile Floor: $$700$
+Key Item: 4-Tier Metal Locker (Bank 1): $$620$
+Communal Bench: $$180$
+Subtotal: $$1,500$
+System Status: Member cap unlocked to $12$ members. Walk-ins immediately begin subscribing at $$35/\text{week}$ ($+$420/\text{week}$ baseline revenue).
+Minute 3:00 – 6:00: Build the Contract Office
+Design Office Room ($3.5\text{m} \times 3\text{m} = 10.5\text{ m}^2$):
+Permit + Wood Floor: $$420$
+Key Item: Management PC Desk: $$750$
+Filing Cabinet: $$280$
+Subtotal: $$1,450$
+System Status: Professional contract communications open. Marcus Vance's initial offer for Leo Vance arrives with standard purse terms (no $-40%$ middleman deduction).
+Minute 6:00 – 10:00: Outfit the Training Floor for Camp 1
+Training Floor Stations (Essential Starter Set):
+Wall-Mounted Heavy Bag (Station 1): $$550$
+Wall-Mounted Speed Bag (Station 1): $$450$
+Pads / Mitt Drill Zone ($3.0\text{m} \times 3.0\text{m}$ mat): $$600$
+Mirror & Skipping Zone: $$400$
+Air Bike (Conditioning): $$1,200$
+Subtotal: $$3,200$
+Financial Balance at Minute 10:
+Total Spent: $$7,550$
+Remaining Bank Reserve: $$17,450$
+Weekly Balance Sheet:
+Member Dues ($12$ members @ $$35$): $+$420/\text{wk}$
+Facility Upkeep & Basic Rent: $-$380/\text{wk}$
+Net Weekly Run-Rate: $+$40/\text{wk}$ (Cash-flow positive before fighter purses)
+The Most Common Mistake a New Player Will Make
+
+
+
+The "Broke Promoter Trap" (Buying the $18,000 Ring on Day 1):
+
+
+
+
+The new player sees the 16-foot Boxing Ring in the catalog for $$18,000$ and immediately drops it in the center of the hall.
+
+
+
+
+The Result: They are left with $$7,000$. They build an empty training room and buy a bag. They have no money left to build a Reception, Lockers, or an Office.
+
+
+
+
+The Consequence:
+
+
+
+With no Reception or Lockers, civilian member income is $0/week.
+With no Office PC, fight contract offers are delayed or hit with the $40%$ middleman cut.
+Facility rent and member dues hit at the end of Week 1 ($-$450$).
+Within 4 in-game weeks, the player’s cash reserves hit $$0$, triggering gym bankruptcy before Leo Vance even finishes his first training camp.
+
+
+
+Design Warning System: When a player attempts to place the 16ft Ring while having under $$22,000$ in cash, the UI should pop a confirm dialog:
+
+⚠️ WARNING: Purchasing the Boxing Ring now leaves insufficient funds for essential revenue rooms (Reception/Lockers). Sparring can be conducted off-site for early camps. Proceed?
+
+
+
+7. COMPLETE ITEM REFERENCE SPECIFICATION TABLE
+
+| Item Name | Room Category | Price ($) | Footprint (w x d in m) | Single Mechanical Effect | Design Source / Benchmark |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Front Desk Counter | Reception | $800 | 2.0 x 0.8 | Key Item: Enables member sign-ups | Real Gyms / Two Point Hospital |
+| Electronic Turnstile | Reception | $450 | 1.2 x 0.8 | Reduces member fee evasion to 0% | Real Commercial Gyms |
+| Trophy Cabinet | Reception / Floor | $600 | 1.8 x 0.5 | +8 Gym Prestige Score | Mad Games Tycoon 2 |
+| Member Vending Machine | Reception / Locker | $850 | 1.0 x 0.8 | +$65/week passive retail revenue | Two Point Hospital |
+| Fight Poster (Framed) | Universal Walls | $120 | 1.0 x 0.1 | +3% Member sign-up conversion rate | Two Point Hospital |
+| Merchandise Rack | Reception | $320 | 1.4 x 0.4 | +$30/week retail profit (Prestige > 40) | Real Gyms |
+| Management PC Desk | Office | $750 | 1.6 x 1.0 | Key Item: Unlocks fight offers & mail | Mad Games Tycoon 2 |
+| Filing Archive Cabinet | Office | $280 | 0.8 x 0.5 | +15% Thursday
+
+Can you rebalance the first-hour build so a new player can afford the essentials and still have a clear expansion goal?
+Can you create a top-down 3D floor-plan image showing the recommended starter gym layout with clear aisles and equipment zones?
+Can you define exact footprints, placement rules, and costs for every bag type and its mounting hardware?
+
+---
+Saved verbatim S278 by Claude (Ask Ludo, project FightCamp). Reply length: 27439 chars.

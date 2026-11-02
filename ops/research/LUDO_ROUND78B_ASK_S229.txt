@@ -1,0 +1,14 @@
+TEXT ANSWER ONLY - do NOT generate any image in this reply (you already made the London header art, thank you; images come in a later message).
+
+LUDO ROUND 78 (FightCamp, S229) - MARKET CARD redesign (New Career, "Choose the market" step, the card beside the globe). One picture attached: the card for the United Kingdom as it ships now (1920x1080 crop, 480 px wide panel on the right of the screen).
+
+THE OPERATOR'S WORDS (verbatim, he approves the final verdict): "thicker bars ? laso use some more art in there ?" and "maybe display each countries top 5 fighters currently or something".
+
+Context: your round-70 UI BIBLE is binding (void #0d0c0b, panels #1a1816/#22201d/#282521, Championship Gold #f0c233 for the primary CTA, brass borders, cream text, 4 px panel radius, motion timings). The card's job: help the player pick the country his boxing gym starts in. It shows now: flag + name + tier tag, three pillar bars (combat popularity, talent depth, media economy & purses, each 0-100 with a letter grade), the governing bodies (real federations, e.g. British Boxing Board of Control +1 more), the metropolitan hubs (city tabs London/Manchester/Birmingham with gym counts) and a hub dossier (a list of gym names), then the CHOOSE MARKET button. Data we HAVE per country: the 3 pillars, sport culture shares (only for curated markets), federations, cities with gyms (names, tier), and every generated athlete (name, age, weight class, record, ranking points, primary discipline, city, gym). Art we can make: Ludo image generation, our 3D MetaHuman boxers rendered as portraits, line icons.
+
+GIVE THE LONGEST COMPLETE ANSWER YOU CAN (if you run out, end with CONTINUE):
+A. Every defect you see on the current card.
+B. The target card at 1920x1080 and at 1280x720 (every block x, y, w, h): the pillar bars (thickness, segments/notches, fill animation, grade badge), a TOP 5 FIGHTERS block (row anatomy: rank, portrait or silhouette, name, record, weight class, which data decides the five - ranking points within the country, boxing only for the boxing demo), where art goes (country header art: skyline / landmark / flag treatment / city illustration; hub art; federation crest treatment without real logos - text-only brand policy), what gets cut or folded so it fits, hover, click, transitions (ms) - in the round-70 tokens.
+C. What shipped games do for a start-location / nation pick (Football Manager nation select, Civilization civ select, Motorsport Manager, Crusader Kings start screen, EA UFC career, Punch Club 2) and what we take.
+D. The art list to generate (each image: subject, size, style words matching our stylized-3D dark-gold look), and the build steps for one agent with one measurable acceptance check each.
+E. GDScript (Godot 4.7) for the thick pillar bar and the top-5 fighter row using the round-70 token names.

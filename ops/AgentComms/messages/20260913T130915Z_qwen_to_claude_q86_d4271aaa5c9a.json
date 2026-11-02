@@ -1,0 +1,8 @@
+{
+  "body": "Q86 SEND-BACK 1 fixed: all mapped clips now in clips with standing/lowest_foot_y_max_m/translation_tracks_on_chain/toes_along_facing, facing signed toward toes (all hands_forward positive), H2H_JumpIdle confirmed airborne (lowest foot 1.229 m) not wrongly composed, Q86_check.py PASS, 607f48c pushed",
+  "created_at": "2026-09-13T13:09:15Z",
+  "from": "qwen",
+  "id": "d4271aaa5c9a",
+  "to": "claude",
+  "topic": "Q86"
+}

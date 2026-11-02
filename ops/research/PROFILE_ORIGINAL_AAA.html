@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>AAA PC Fighter Profile · Max Density</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800&family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#03050a; --text:#eef3ff; --dim:#7f8bab; --line:rgba(120,170,255,.16);
+  --gold:#ffc857; --gold2:#ffe6a3; --cyan:#4de2ff; --mag:#ff4d9a; --red:#ff3b4a; --green:#3dff9a; --orange:#ff8a3d;
+  --d:"Orbitron",sans-serif; --u:"Rajdhani",sans-serif; --b:"Inter",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:var(--b);min-height:100%}
+body{background:
+  radial-gradient(1200px 700px at 8% -20%,rgba(77,226,255,.12),transparent 55%),
+  radial-gradient(900px 600px at 100% 0%,rgba(255,200,87,.09),transparent 50%),
+  #03050a}
+.wrap{width:min(1600px,100%);margin:0 auto;padding:8px 10px 12px}
+
+.stage{position:relative;border:1px solid var(--line);border-radius:10px;overflow:hidden;
+  background:linear-gradient(155deg,#0c1220,#06080f 60%,#0a0e18);
+  box-shadow:0 24px 60px rgba(0,0,0,.65),0 0 60px rgba(77,226,255,.04);
+  min-height:calc(100vh - 40px);display:flex;flex-direction:column}
+.stage .gridfx{position:absolute;inset:0;pointer-events:none;opacity:.18;
+  background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+  background-size:36px 36px;mask-image:linear-gradient(#000,transparent 85%)}
+.scan{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.1) 3px);opacity:.2;mix-blend-mode:overlay}
+.bloom{position:absolute;width:320px;height:320px;border-radius:50%;filter:blur(50px);opacity:.28;pointer-events:none}
+.bloom.a{left:-60px;top:-80px;background:rgba(77,226,255,.3)}
+.bloom.b{right:-40px;top:20px;background:rgba(255,200,87,.22)}
+.bloom.c{left:40%;bottom:-100px;background:rgba(255,77,154,.15)}
+
+/* HEADER — tight one-row */
+.top{position:relative;z-index:2;display:grid;grid-template-columns:130px 1fr 280px;gap:10px;padding:8px 10px;border-bottom:1px solid var(--line);align-items:center}
+.por{border-radius:8px;border:1px solid rgba(77,226,255,.4);background:#0b0f18;
+  box-shadow:0 0 24px rgba(77,226,255,.18);display:block;position:relative;width:130px;height:130px;overflow:hidden}
+.por::before{content:"";position:absolute;inset:-40%;background:conic-gradient(from 90deg,transparent,rgba(255,200,87,.35),transparent 35%);animation:spin 7s linear infinite;opacity:.5;z-index:0}
+.por::after{content:"";position:absolute;inset:0;border-radius:8px;box-shadow:inset 0 0 20px rgba(77,226,255,.22);pointer-events:none;z-index:2}
+@keyframes spin{to{transform:rotate(1turn)}}
+.por img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;z-index:1}
+.por .live{position:absolute;z-index:3;left:6px;bottom:6px;font-family:var(--u);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);font-weight:700;background:rgba(0,0,0,.55);padding:2px 6px;border-radius:999px;border:1px solid rgba(61,255,154,.35)}
+
+.id .role{font-family:var(--u);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);font-weight:700}
+.id h2{font-family:var(--d);font-size:28px;margin:0 0 4px;letter-spacing:.04em;text-transform:uppercase;
+  background:linear-gradient(90deg,#fff,#ffd98a);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 12px rgba(255,200,87,.25))}
+.chips{display:flex;flex-wrap:wrap;gap:4px}
+.chip{font-family:var(--u);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 7px;border-radius:4px;border:1px solid var(--line);background:rgba(0,0,0,.35)}
+.chip.g{color:var(--gold);border-color:rgba(255,200,87,.4);box-shadow:0 0 10px rgba(255,200,87,.12)}
+.chip.c{color:var(--cyan);border-color:rgba(77,226,255,.35)}
+.chip.h{color:#ff8a93;border-color:rgba(255,59,74,.45);background:rgba(255,59,74,.1)}
+
+.score{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.dial{position:relative;height:72px;border-radius:8px;background:rgba(0,0,0,.35);border:1px solid var(--line);display:grid;place-items:center;overflow:hidden}
+.dial svg{position:absolute;inset:2px;width:calc(100% - 4px);height:calc(100% - 4px)}
+.dial .v{position:relative;font-family:var(--d);font-size:20px;letter-spacing:.04em}
+.dial .l{position:absolute;bottom:4px;font-family:var(--u);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);font-weight:700}
+
+.tabs{position:relative;z-index:2;display:flex;gap:3px;padding:4px 8px;background:rgba(0,0,0,.4);border-bottom:1px solid var(--line);flex:none}
+.tabs button{appearance:none;cursor:pointer;border:0;background:transparent;font-family:var(--u);font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);padding:6px 12px;border-radius:5px}
+.tabs button.on{color:#0b0e14;background:linear-gradient(180deg,var(--gold2),var(--gold));box-shadow:0 0 18px rgba(255,200,87,.35)}
+
+.main{position:relative;z-index:2;padding:8px;flex:1;display:flex;flex-direction:column;min-height:0}
+.view{display:none;flex:1;min-height:0}.view.on{display:flex;flex-direction:column;animation:in .2s ease}
+@keyframes in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+.mosaic{display:grid;gap:7px;flex:1;min-height:0}
+.m-pulse{grid-template-columns:1fr 1fr 1fr;grid-template-rows:auto 1fr auto}
+.m-pulse .a{grid-column:1;grid-row:1/3}
+.m-pulse .b{grid-column:2;grid-row:1}
+.m-pulse .c{grid-column:3;grid-row:1}
+.m-pulse .d{grid-column:2/4;grid-row:2}
+.m-pulse .e{grid-column:1/4;grid-row:3}
+
+/* BODY: figure dominates 60%, instruments stack right */
+.m-body{grid-template-columns:minmax(0,1.55fr) minmax(240px,.95fr);gap:7px;align-items:stretch}
+.m-body .body-left{min-height:0}
+.m-body .body-right{display:flex;flex-direction:column;gap:7px;min-height:0}
+.m-body .body-right > .panel{flex:0 0 auto}
+.m-body .body-right > .panel.grow{flex:1}
+
+.m-craft{grid-template-columns:1fr 1fr 1fr;grid-template-rows:minmax(280px,1fr) auto}
+.m-craft .wide{grid-column:1/4}
+.m-camp{grid-template-columns:1.6fr .85fr}
+.m-legacy{grid-template-columns:1.25fr .9fr 1.1fr}
+.m-bond{grid-template-columns:1.1fr 1fr 1fr}
+
+.panel{position:relative;border-radius:8px;padding:8px 10px;background:linear-gradient(160deg,rgba(24,32,52,.92),rgba(8,10,18,.94));border:1px solid var(--line);box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 6px 18px rgba(0,0,0,.3);overflow:hidden;min-width:0}
+.panel.glow{border-color:rgba(255,200,87,.4);box-shadow:0 0 20px rgba(255,200,87,.1), inset 0 1px 0 rgba(255,255,255,.04)}
+.panel.alert{border-color:rgba(255,59,74,.5);box-shadow:0 0 20px rgba(255,59,74,.1)}
+.panel.pad0{padding:0}
+.panel h3{margin:0 0 6px;font-family:var(--u);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);font-weight:700;display:flex;justify-content:space-between;gap:6px}
+.panel h3 span{color:var(--gold)}
+
+.quote{font-family:var(--u);font-size:16px;font-weight:600;line-height:1.2;margin:0 0 6px}
+.quote small{display:block;margin-top:3px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--mag);font-weight:700}
+.btns{display:flex;gap:5px}
+.btns button{flex:1;height:30px;border-radius:5px;border:0;cursor:pointer;font-family:var(--u);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.go{background:linear-gradient(180deg,var(--gold2),var(--gold));color:#120e08;box-shadow:0 0 12px rgba(255,200,87,.3)}
+.no{background:rgba(255,255,255,.05);color:var(--text);border:1px solid var(--line)!important}
+.bad{background:linear-gradient(180deg,#ff6b76,var(--red));color:#fff}
+
+.kv{display:grid;grid-template-columns:1fr auto;gap:2px 8px;font-family:var(--u)}
+.kv .k{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);font-weight:700}
+.kv .v{font-size:13px;font-weight:700}
+.muted{color:var(--dim);font-size:11px;line-height:1.35}
+
+.chart{width:100%;height:100px;display:block}
+.chart.sm{height:72px}
+.chart.tall{height:120px}
+.spark{width:100%;height:44px;display:block}
+.heat{height:8px;border-radius:99px;background:#0a0d16;border:1px solid #1c2438;overflow:hidden;position:relative}
+.heat i{display:block;height:100%;background:linear-gradient(90deg,#1d4ed8,#4de2ff 40%,#ffc857 75%,#ff3b4a);width:0;animation:fill 1.2s ease forwards}
+@keyframes fill{to{width:var(--w)}}
+
+/* radar — compact shared with specialty */
+.radar-row{display:grid;grid-template-columns:1.15fr .85fr;gap:8px;align-items:center;min-height:0}
+.radar-solo{display:grid;place-items:center}
+.radar-solo svg{width:min(300px,100%);height:auto;filter:drop-shadow(0 0 16px rgba(255,200,87,.18))}
+
+/* BODY MAP — tall, dominates */
+.bodymap{
+  position:relative;width:100%;height:100%;min-height:520px;
+  border-radius:8px;overflow:hidden;
+  background:#0a0c10;border:1px solid rgba(77,226,255,.25);
+  box-shadow:0 0 40px rgba(61,255,154,.1),0 16px 40px rgba(0,0,0,.45);
+}
+.bodymap img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center top;filter:saturate(1.05) contrast(1.08)}
+.bodymap .veil{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 35%,transparent 38%,rgba(3,5,10,.5) 100%);pointer-events:none}
+.bodymap .hot{
+  position:absolute;border-radius:50%;cursor:pointer;border:1px solid transparent;
+  transition:box-shadow .2s,background .2s,border-color .2s;
+}
+.bodymap .hot:hover,.bodymap .hot.on{
+  border-color:rgba(255,255,255,.55);
+  box-shadow:0 0 0 2px rgba(255,200,87,.35),0 0 22px rgba(61,255,154,.4);
+}
+.bodymap .hot.ok{background:rgba(61,255,154,.16)}
+.bodymap .hot.warn{background:rgba(255,138,61,.2)}
+.bodymap .hot.bad{background:rgba(255,59,74,.26)}
+.hot.hn{left:41%;top:3%;width:18%;height:13%}
+.hot.tc{left:34%;top:16%;width:32%;height:27%}
+.hot.la{left:14%;top:17%;width:20%;height:30%}
+.hot.ra{left:66%;top:17%;width:20%;height:30%}
+.hot.ll{left:30%;top:46%;width:18%;height:42%}
+.hot.rl{left:52%;top:46%;width:18%;height:42%}
+
+.callouts{position:absolute;inset:0;pointer-events:none}
+.callout{
+  position:absolute;display:flex;align-items:center;gap:5px;
+  font-family:var(--u);font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--dim);
+}
+.callout b{font-family:var(--d);font-size:15px;color:var(--green);text-shadow:0 0 10px rgba(61,255,154,.4)}
+.callout.warn b{color:var(--orange)}
+.callout.bad b{color:var(--red)}
+.callout .pipe{width:20px;height:1px;background:linear-gradient(90deg,rgba(127,182,238,.7),transparent)}
+.callout.left .pipe{order:-1;background:linear-gradient(270deg,rgba(127,182,238,.7),transparent)}
+.c-hn{left:3%;top:5%}
+.c-tc{right:2%;top:26%}
+.c-la{left:1%;top:30%}
+.c-ra{right:1%;top:30%}
+.c-ll{left:1%;top:66%}
+.c-rl{right:1%;top:66%}
+
+.region-focus{
+  padding:6px 8px;border-radius:6px;
+  background:rgba(0,0,0,.4);border:1px solid var(--line);
+}
+.region-focus .rf-title{font-family:var(--u);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:700;margin:0 0 2px}
+.region-focus .rf-val{font-family:var(--d);font-size:28px;margin:0;letter-spacing:.04em;color:var(--green);line-height:1.1}
+.region-focus .rf-meta{color:var(--dim);font-size:11px;line-height:1.35;margin-top:2px}
+
+/* art surfaces — fill panels */
+.art-hero,.art-plate{
+  position:relative;border-radius:8px;overflow:hidden;min-height:0;height:100%;
+  border:1px solid var(--line);background:#06080f;
+}
+.art-hero img,.art-plate img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
+.art-hero .veil,.art-plate .veil{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(3,5,10,.12),rgba(3,5,10,.68) 70%,rgba(3,5,10,.9))}
+.lock-glass{
+  position:absolute;inset:0;display:grid;place-items:center;z-index:3;
+  background:rgba(6,10,18,.4);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+}
+.lock-glass .lock-card{
+  text-align:center;padding:14px 18px;border-radius:10px;
+  border:1px solid rgba(255,200,87,.45);background:rgba(8,10,18,.75);
+  box-shadow:0 0 28px rgba(255,200,87,.15),inset 0 1px 0 rgba(255,255,255,.06);
+  max-width:360px;
+}
+.lock-glass .lock-card .stamp{
+  font-family:var(--d);font-size:28px;letter-spacing:.16em;color:var(--gold);
+  text-shadow:0 0 18px rgba(255,200,87,.45);margin:0 0 4px;
+}
+.ghost-chart{position:absolute;left:10px;right:10px;bottom:10px;height:56px;opacity:.3;z-index:2;pointer-events:none}
+
+.constellation{position:relative;min-height:300px;height:100%}
+.constellation img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(1.1) contrast(1.05)}
+.constellation .veil{position:absolute;inset:0;background:
+  radial-gradient(ellipse at 50% 45%,rgba(3,5,10,.12),rgba(3,5,10,.7)),
+  linear-gradient(180deg,rgba(3,5,10,.15),rgba(3,5,10,.82));pointer-events:none}
+.node-hot{
+  position:absolute;z-index:2;min-width:72px;padding:6px 10px;border-radius:999px;cursor:pointer;
+  border:1px solid rgba(255,200,87,.55);background:rgba(8,12,22,.72);
+  box-shadow:0 0 20px rgba(255,200,87,.3),inset 0 0 12px rgba(77,226,255,.1);
+  text-align:center;transition:transform .15s,box-shadow .15s,border-color .15s;
+  font-family:var(--u);letter-spacing:.12em;text-transform:uppercase;font-weight:700;font-size:11px;color:var(--dim);
+}
+.node-hot b{display:block;font-family:var(--d);font-size:18px;color:var(--gold);letter-spacing:.04em;text-shadow:0 0 12px rgba(255,200,87,.5)}
+.node-hot:hover,.node-hot.on{transform:scale(1.05);border-color:rgba(77,226,255,.7);box-shadow:0 0 28px rgba(77,226,255,.4);color:var(--cyan)}
+.node-hot.mma{left:18%;top:28%}
+.node-hot.box{left:58%;top:22%}
+.node-hot.bjj{left:42%;top:58%}
+.craft-focus{padding:6px 10px;border-radius:6px;background:rgba(0,0,0,.45);border:1px solid var(--line);
+  font-family:var(--u);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.craft-focus strong{color:var(--gold);font-family:var(--d);letter-spacing:.05em}
+
+.tight-dial{display:grid;place-items:center;padding:4px 0}
+.tight-dial svg{width:110px;height:110px;filter:drop-shadow(0 0 12px rgba(255,200,87,.2))}
+.empty-chip{display:inline-flex;align-items:center;gap:4px;padding:4px 8px;border-radius:4px;border:1px dashed rgba(127,139,171,.4);
+  font-family:var(--u);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);font-weight:700;margin:2px 2px 0 0}
+
+.duel-rings{display:flex;justify-content:center;gap:18px;padding:4px 0}
+.duel-rings .ring{text-align:center}
+.duel-rings .ring svg{display:block;margin:0 auto;filter:drop-shadow(0 0 8px rgba(77,226,255,.2))}
+.duel-rings .ring .lbl{font-family:var(--u);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);font-weight:700;margin-top:2px}
+
+.meter{margin:6px 0}
+.meter .mh{display:flex;justify-content:space-between;font-family:var(--u);font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--dim);margin-bottom:3px}
+.meter .mh b{color:var(--text);font-family:var(--d);font-size:12px;letter-spacing:.04em}
+.meter .bar{height:8px;border-radius:99px;background:#070a12;border:1px solid #1c2438;overflow:hidden}
+.meter .bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#1e3a5f,var(--cyan));box-shadow:0 0 8px rgba(77,226,255,.3)}
+.meter .bar i.ghost{width:8%;opacity:.35;background:linear-gradient(90deg,#333,var(--dim))}
+
+.fight-cards{display:flex;flex-direction:column;gap:5px}
+.fight-card{
+  position:relative;display:grid;grid-template-columns:48px 1fr auto;gap:8px;align-items:center;
+  padding:8px 10px;border-radius:7px;border:1px solid var(--line);
+  background:linear-gradient(120deg,rgba(18,24,40,.95),rgba(8,10,18,.9));
+  overflow:hidden;
+}
+.fight-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px}
+.fight-card.win::before{background:var(--green);box-shadow:0 0 10px rgba(61,255,154,.5)}
+.fight-card.loss::before{background:var(--red);box-shadow:0 0 10px rgba(255,59,74,.5)}
+.fight-card .stamp{
+  font-family:var(--d);font-size:20px;letter-spacing:.06em;text-align:center;
+  border:2px solid currentColor;border-radius:6px;padding:4px 0;transform:rotate(-8deg);
+  opacity:.9;text-shadow:0 0 10px currentColor;
+}
+.fight-card.win .stamp{color:var(--green)}
+.fight-card.loss .stamp{color:var(--red)}
+.fight-card .opp{font-family:var(--d);font-size:13px;letter-spacing:.05em;text-transform:uppercase}
+.fight-card .meta{font-family:var(--u);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);font-weight:700;margin-top:1px}
+.fight-card .method{font-family:var(--u);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--cyan);text-align:right}
+
+.ms .s{display:grid;grid-template-columns:22px 1fr auto;gap:6px;align-items:center;padding:5px 6px;margin:3px 0;border-radius:5px;background:rgba(0,0,0,.3);border:1px solid var(--line)}
+.ms .box{width:20px;height:20px;border-radius:4px;display:grid;place-items:center;font-size:10px;font-weight:800;background:#1a2030}
+.ms .done .box{background:linear-gradient(180deg,#4ade80,#166534);color:#04140a}
+.ms .now .box{background:linear-gradient(180deg,var(--gold2),var(--gold));color:#14100a}
+.ms .t{font-family:var(--u);font-size:12px;font-weight:700}
+.ms .w{font-family:var(--u);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.arc-label{font-family:var(--d);font-size:15px;letter-spacing:.06em;color:var(--gold);margin:0 0 4px;text-shadow:0 0 12px rgba(255,200,87,.3)}
+
+.shelf{
+  position:relative;min-height:260px;height:100%;border-radius:8px;overflow:hidden;
+  border:1px solid rgba(255,200,87,.3);
+}
+.shelf img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
+.shelf .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,5,10,.15),rgba(3,5,10,.75) 65%,rgba(3,5,10,.9));pointer-events:none}
+.shelf .leader{
+  position:absolute;z-index:2;display:flex;align-items:center;gap:5px;
+  font-family:var(--u);font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:#c9d4ef;
+  padding:4px 7px;border-radius:4px;background:rgba(0,0,0,.5);border:1px solid rgba(255,200,87,.25);
+  backdrop-filter:blur(4px);max-width:48%;
+}
+.shelf .leader b{font-family:var(--d);font-size:11px;color:var(--gold);letter-spacing:.04em}
+.shelf .leader .pipe{width:16px;height:1px;background:linear-gradient(90deg,rgba(255,200,87,.8),transparent);flex:none}
+.shelf .l1{left:5%;top:10%}
+.shelf .l2{right:5%;top:26%;flex-direction:row-reverse;text-align:right}
+.shelf .l2 .pipe{background:linear-gradient(270deg,rgba(255,200,87,.8),transparent)}
+.shelf .l3{left:6%;bottom:26%}
+.shelf .l4{right:6%;bottom:12%;flex-direction:row-reverse;text-align:right}
+.shelf .l4 .pipe{background:linear-gradient(270deg,rgba(255,200,87,.8),transparent)}
+
+.bond-rings{display:grid;place-items:center;padding:2px 0 6px}
+.bond-rings svg{width:min(220px,100%);height:auto;filter:drop-shadow(0 0 14px rgba(255,200,87,.18))}
+.contract-plate{
+  padding:8px 10px;border-radius:7px;
+  background:linear-gradient(145deg,rgba(30,40,62,.9),rgba(10,12,20,.95));
+  border:1px solid rgba(255,200,87,.35);
+}
+.contract-plate .plate-title{font-family:var(--d);font-size:12px;letter-spacing:.14em;color:var(--gold);margin:0 0 6px}
+.media-timeline{position:relative;padding:6px 0 2px 14px}
+.media-timeline::before{content:"";position:absolute;left:3px;top:6px;bottom:6px;width:2px;background:linear-gradient(180deg,rgba(255,77,154,.45),rgba(127,139,171,.12));opacity:.6}
+.media-timeline .ev{position:relative;padding:5px 0 5px 10px;opacity:.5}
+.media-timeline .ev::before{content:"";position:absolute;left:-14px;top:10px;width:6px;height:6px;border-radius:50%;background:#2a3348;border:1px solid rgba(255,77,154,.4)}
+.media-timeline .ev .t{font-family:var(--u);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.media-timeline .ev .d{font-size:10px;color:var(--dim);margin-top:1px}
+
+.particles{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:1}
+.particles span{position:absolute;width:2px;height:2px;background:rgba(255,200,87,.65);border-radius:50%;animation:rise linear infinite;opacity:.55}
+@keyframes rise{0%{transform:translateY(0);opacity:0}15%{opacity:.65}100%{transform:translateY(-480px);opacity:0}}
+
+@media (max-width:1100px){
+  .top{grid-template-columns:1fr}
+  .m-pulse,.m-body,.m-craft,.m-camp,.m-legacy,.m-bond{grid-template-columns:1fr}
+  .m-pulse .a,.m-pulse .d,.m-pulse .e,.m-craft .wide{grid-column:auto}
+  .radar-row{grid-template-columns:1fr}
+  .bodymap{min-height:420px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="stage">
+    <div class="gridfx"></div><div class="scan"></div>
+    <div class="bloom a"></div><div class="bloom b"></div><div class="bloom c"></div>
+    <div class="particles" id="parts"></div>
+
+    <header class="top">
+      <div class="por">
+        <img src="fighter-hero-plate.png" alt="Ilia Topuria"/>
+        <div class="live">● Live</div>
+      </div>
+      <div class="id">
+        <div class="role">MMA · Lightweight · Spain · Alicante</div>
+        <h2>Ilia Topuria</h2>
+        <div class="chips">
+          <span class="chip g">Potential 98</span>
+          <span class="chip c">Fame 930</span>
+          <span class="chip">17–1–0</span>
+          <span class="chip">170.2cm · R175.3 · 70.3kg</span>
+          <span class="chip h">Ask · Step up</span>
+          <span class="chip">Confident</span>
+          <span class="chip">Camp locked</span>
+          <span class="chip g">Redemption arc</span>
+        </div>
+      </div>
+      <div class="score">
+        <div class="dial">
+          <svg viewBox="0 0 100 56"><path d="M8 50 A42 42 0 0 1 92 50" fill="none" stroke="#152036" stroke-width="8" stroke-linecap="round"/><path d="M8 50 A42 42 0 0 1 92 50" fill="none" stroke="url(#g1)" stroke-width="8" stroke-linecap="round" stroke-dasharray="110 140" filter="url(#glow)"/><defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#ff3b4a"/><stop offset=".55" stop-color="#ff8a3d"/><stop offset="1" stop-color="#ffc857"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="1.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs></svg>
+          <div class="v">S</div><div class="l">Overall</div>
+        </div>
+        <div class="dial">
+          <svg viewBox="0 0 100 56"><path d="M8 50 A42 42 0 0 1 92 50" fill="none" stroke="#152036" stroke-width="8"/><path d="M8 50 A42 42 0 0 1 92 50" fill="none" stroke="#4de2ff" stroke-width="8" stroke-linecap="round" stroke-dasharray="95 140" filter="url(#glow)"/></svg>
+          <div class="v">78</div><div class="l">Morale</div>
+        </div>
+        <div class="dial">
+          <svg viewBox="0 0 100 56"><path d="M8 50 A42 42 0 0 1 92 50" fill="none" stroke="#152036" stroke-width="8"/><path d="M8 50 A42 42 0 0 1 92 50" fill="none" stroke="#3dff9a" stroke-width="8" stroke-linecap="round" stroke-dasharray="18 140" filter="url(#glow)"/></svg>
+          <div class="v">12</div><div class="l">Fatigue</div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="tabs" id="tabs">
+      <button class="on" data-v="pulse">Pulse</button>
+      <button data-v="body">Body</button>
+      <button data-v="craft">Craft</button>
+      <button data-v="camp">Camp</button>
+      <button data-v="legacy">Legacy</button>
+      <button data-v="bond">Bond</button>
+    </nav>
+
+    <div class="main">
+      <!-- PULSE -->
+      <div class="view on" id="pulse">
+        <div class="mosaic m-pulse">
+          <div class="panel alert a">
+            <h3>Decision stack <span>request · bout</span></h3>
+            <p class="quote">“Give me a real step-up — not another tune-up.”<small>step up · deadline open</small></p>
+            <div class="btns"><button class="go">Promise</button><button class="no">Defer</button><button class="bad">Decline</button></div>
+            <div class="kv" style="margin-top:8px">
+              <span class="k">Next bout</span><span class="v">None · camp locked</span>
+              <span class="k">Bout hype</span><span class="v">—</span>
+              <span class="k">Media Qs</span><span class="v">0 open</span>
+              <span class="k">Grudge / promises</span><span class="v">0 / tracked</span>
+              <span class="k">If broken</span><span class="v">morale −10 · grudge +10</span>
+            </div>
+          </div>
+
+          <div class="panel b">
+            <h3>Form <span>last results</span></h3>
+            <svg class="spark" viewBox="0 0 280 44" preserveAspectRatio="none">
+              <defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#4de2ff" stop-opacity=".35"/><stop offset="1" stop-color="#4de2ff" stop-opacity="0"/></linearGradient></defs>
+              <path d="M0 32 L40 14 L80 18 L120 8 L160 11 L200 6 L240 22 L280 28" fill="none" stroke="#4de2ff" stroke-width="2.2" filter="url(#glow)"/>
+              <path d="M0 32 L40 14 L80 18 L120 8 L160 11 L200 6 L240 22 L280 28 L280 44 L0 44 Z" fill="url(#sg)"/>
+              <circle cx="200" cy="6" r="3" fill="#ffc857"/><circle cx="280" cy="28" r="3" fill="#ff3b4a"/>
+            </svg>
+            <div class="kv"><span class="k">Last</span><span class="v" style="color:var(--red)">L vs Gaethje</span><span class="k">Prior</span><span class="v" style="color:var(--green)">KO Oliveira · KO Holloway</span></div>
+          </div>
+
+          <div class="panel c">
+            <h3>Readiness</h3>
+            <svg class="chart sm" viewBox="0 0 220 90">
+              <circle cx="55" cy="42" r="30" fill="none" stroke="#152036" stroke-width="10"/>
+              <circle cx="55" cy="42" r="30" fill="none" stroke="#3dff9a" stroke-width="10" stroke-dasharray="180 190" stroke-linecap="round" transform="rotate(-90 55 42)" filter="url(#glow)"/>
+              <text x="55" y="46" text-anchor="middle" fill="#fff" font-family="Orbitron" font-size="14">96</text>
+              <text x="55" y="84" text-anchor="middle" fill="#7f8bab" font-family="Rajdhani" font-size="10" letter-spacing="2">READY</text>
+              <rect x="110" y="18" width="90" height="7" rx="3" fill="#152036"/><rect x="110" y="18" width="70" height="7" rx="3" fill="#4de2ff"/>
+              <text x="110" y="14" fill="#7f8bab" font-family="Rajdhani" font-size="9">MORALE 78</text>
+              <rect x="110" y="42" width="90" height="7" rx="3" fill="#152036"/><rect x="110" y="42" width="11" height="7" rx="3" fill="#3dff9a"/>
+              <text x="110" y="38" fill="#7f8bab" font-family="Rajdhani" font-size="9">FATIGUE 12</text>
+              <rect x="110" y="66" width="90" height="7" rx="3" fill="#152036"/><rect x="110" y="66" width="90" height="7" rx="3" fill="#ffc857"/>
+              <text x="110" y="62" fill="#7f8bab" font-family="Rajdhani" font-size="9">CLEARANCE</text>
+            </svg>
+          </div>
+
+          <div class="panel glow d">
+            <h3>Attributes + specialty <span>STAT_ORDER</span></h3>
+            <div class="radar-row">
+              <div class="radar-solo">
+                <svg viewBox="0 0 360 360" role="img" aria-label="Attribute radar Power 94 Technique 95 Speed 90 Defense 91 Conditioning 90 Fight IQ 94">
+                  <defs>
+                    <polygon id="hexR" points="180,40 300,110 300,250 180,320 60,250 60,110"/>
+                    <filter id="rg"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                  </defs>
+                  <g fill="none" stroke="#1c2a44" stroke-width="1.2">
+                    <use href="#hexR" transform="translate(180 180) scale(.35) translate(-180 -180)"/>
+                    <use href="#hexR" transform="translate(180 180) scale(.55) translate(-180 -180)"/>
+                    <use href="#hexR" transform="translate(180 180) scale(.75) translate(-180 -180)"/>
+                    <use href="#hexR"/>
+                  </g>
+                  <g stroke="#243352" stroke-width="1" opacity=".7">
+                    <line x1="180" y1="180" x2="180" y2="40"/><line x1="180" y1="180" x2="300" y2="110"/>
+                    <line x1="180" y1="180" x2="300" y2="250"/><line x1="180" y1="180" x2="180" y2="320"/>
+                    <line x1="180" y1="180" x2="60" y2="250"/><line x1="180" y1="180" x2="60" y2="110"/>
+                  </g>
+                  <polygon points="180,56.8 292.2,116.5 288,241.6 180,292.8 70.8,241.6 71.2,116.5"
+                    fill="rgba(255,200,87,.22)" stroke="#ffc857" stroke-width="2.5" filter="url(#rg)"/>
+                  <g fill="#ffc857">
+                    <circle cx="180" cy="56.8" r="4"/><circle cx="292.2" cy="116.5" r="4"/>
+                    <circle cx="288" cy="241.6" r="4"/><circle cx="180" cy="292.8" r="4"/>
+                    <circle cx="70.8" cy="241.6" r="4"/><circle cx="71.2" cy="116.5" r="4"/>
+                  </g>
+                  <g font-family="Orbitron,sans-serif" text-anchor="middle">
+                    <text x="180" y="28" fill="#ffe6a3" font-size="13" letter-spacing="1">POW 94</text>
+                    <text x="318" y="108" fill="#ffe6a3" font-size="13" letter-spacing="1">TECH 95</text>
+                    <text x="318" y="258" fill="#ffe6a3" font-size="13" letter-spacing="1">SPD 90</text>
+                    <text x="180" y="348" fill="#ffe6a3" font-size="13" letter-spacing="1">IQ 94</text>
+                    <text x="42" y="258" fill="#ffe6a3" font-size="13" letter-spacing="1">COND 90</text>
+                    <text x="42" y="108" fill="#ffe6a3" font-size="13" letter-spacing="1">DEF 91</text>
+                  </g>
+                  <text x="180" y="186" text-anchor="middle" fill="#7f8bab" font-family="Rajdhani" font-size="12" letter-spacing="3">CEILING 98</text>
+                </svg>
+              </div>
+              <div>
+                <svg class="chart" viewBox="0 0 280 100" style="height:90px">
+                  <rect x="0" y="12" width="220" height="14" rx="3" fill="#152036"/><rect x="0" y="12" width="211" height="14" rx="3" fill="url(#g1)" filter="url(#glow)"/>
+                  <text x="0" y="8" fill="#7f8bab" font-family="Rajdhani" font-size="10">MMA 96</text>
+                  <rect x="0" y="42" width="220" height="14" rx="3" fill="#152036"/><rect x="0" y="42" width="205" height="14" rx="3" fill="#4de2ff"/>
+                  <text x="0" y="38" fill="#7f8bab" font-family="Rajdhani" font-size="10">BOXING 93</text>
+                  <rect x="0" y="72" width="220" height="14" rx="3" fill="#152036"/><rect x="0" y="72" width="198" height="14" rx="3" fill="#3dff9a"/>
+                  <text x="0" y="68" fill="#7f8bab" font-family="Rajdhani" font-size="10">BJJ 90</text>
+                </svg>
+                <div class="heat" style="--w:93%;margin:4px 0 6px"><i></i></div>
+                <div class="kv"><span class="k">Fame</span><span class="v">930</span><span class="k">Potential</span><span class="v">98</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel e" style="padding:6px 10px">
+            <div class="kv" style="grid-template-columns:auto 1fr auto 1fr auto 1fr;gap:4px 14px;align-items:center">
+              <span class="k">Streak</span><span class="v" style="color:var(--red)">L1</span>
+              <span class="k">KO/SUB/DEC</span><span class="v">12 / 2 / 3</span>
+              <span class="k">Corner</span><span class="v">Rapport 50</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BODY -->
+      <div class="view" id="body">
+        <div class="mosaic m-body">
+          <div class="panel glow pad0 body-left" style="display:flex;flex-direction:column">
+            <h3 style="margin:8px 10px 4px">Anatomical readiness <span>BodyReadiness</span></h3>
+            <div class="bodymap" id="bodymap" style="flex:1;border:0;border-radius:0 0 8px 8px;box-shadow:none">
+              <img src="fighter-muscle-map-front.png" alt="Body map"/>
+              <div class="veil"></div>
+              <button type="button" class="hot ok hn on" data-region="head_neck" data-label="Head / neck" data-val="100" data-note="No flags. Sparring load normal." aria-label="Head neck 100"></button>
+              <button type="button" class="hot ok tc" data-region="torso_core" data-label="Torso / core" data-val="100" data-note="Core clear. Conditioning 90 feeds recovery." aria-label="Torso 100"></button>
+              <button type="button" class="hot ok la" data-region="left_arm" data-label="Left arm" data-val="100" data-note="Strike volume green. No soft-tissue hold." aria-label="Left arm 100"></button>
+              <button type="button" class="hot ok ra" data-region="right_arm" data-label="Right arm" data-val="100" data-note="Power side clear. Clinch load fine." aria-label="Right arm 100"></button>
+              <button type="button" class="hot ok ll" data-region="left_leg" data-label="Left leg" data-val="100" data-note="Kick / base clear." aria-label="Left leg 100"></button>
+              <button type="button" class="hot ok rl" data-region="right_leg" data-label="Right leg" data-val="100" data-note="Kick / base clear." aria-label="Right leg 100"></button>
+              <div class="callouts">
+                <div class="callout c-hn"><b>100</b> Head/neck<span class="pipe"></span></div>
+                <div class="callout c-tc" style="right:2%;left:auto;justify-content:flex-end"><span class="pipe"></span><b>100</b> Torso</div>
+                <div class="callout left c-la"><b>100</b> L arm<span class="pipe"></span></div>
+                <div class="callout c-ra" style="right:1%;left:auto;justify-content:flex-end"><span class="pipe"></span><b>100</b> R arm</div>
+                <div class="callout left c-ll"><b>100</b> L leg<span class="pipe"></span></div>
+                <div class="callout c-rl" style="right:1%;left:auto;justify-content:flex-end"><span class="pipe"></span><b>100</b> R leg</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="body-right">
+            <div class="panel" style="padding:6px 8px">
+              <h3 style="margin:0 0 4px">Region focus</h3>
+              <div class="region-focus" id="regionFocus" style="border:0;padding:0;background:transparent">
+                <div class="rf-title">Head / neck</div>
+                <p class="rf-val">100</p>
+                <div class="rf-meta">No flags. Sparring load normal. · <code>head_neck</code></div>
+              </div>
+            </div>
+
+            <div class="panel grow">
+              <h3>Weight <span>70.3 kg</span></h3>
+              <svg class="chart tall" viewBox="0 0 240 110" style="height:100px">
+                <line x1="16" y1="28" x2="220" y2="28" stroke="#ff3b4a" stroke-dasharray="3 2"/>
+                <text x="222" y="31" fill="#ff3b4a" font-size="9" font-family="Rajdhani">LIMIT</text>
+                <rect x="36" y="34" width="32" height="52" fill="#4de2ff" opacity=".85"/>
+                <rect x="90" y="40" width="32" height="46" fill="#ffc857" opacity=".8"/>
+                <rect x="144" y="52" width="32" height="34" fill="#3dff9a" opacity=".75"/>
+                <text x="36" y="100" fill="#7f8bab" font-size="9" font-family="Rajdhani">WALK</text>
+                <text x="90" y="100" fill="#7f8bab" font-size="9" font-family="Rajdhani">NOW</text>
+                <text x="144" y="100" fill="#7f8bab" font-size="9" font-family="Rajdhani">TARGET</text>
+              </svg>
+              <div class="kv"><span class="k">Compete</span><span class="v">70.3 kg</span><span class="k">Class move</span><span class="v">None</span><span class="k">Night penalty</span><span class="v">—</span><span class="k">Cut plan</span><span class="v">—</span></div>
+            </div>
+
+            <div class="panel">
+              <h3>Medical</h3>
+              <div class="kv">
+                <span class="k">Training</span><span class="v" style="color:var(--green)">Clear</span>
+                <span class="k">Competition</span><span class="v" style="color:var(--green)">Clear</span>
+                <span class="k">Hold</span><span class="v">None</span>
+                <span class="k">Injuries</span><span class="v">None</span>
+              </div>
+              <svg viewBox="0 0 200 56" style="width:100%;height:52px;margin-top:4px">
+                <circle cx="50" cy="26" r="20" fill="none" stroke="#152036" stroke-width="7"/>
+                <circle cx="50" cy="26" r="20" fill="none" stroke="#3dff9a" stroke-width="7" stroke-dasharray="120 130" transform="rotate(-90 50 26)"/>
+                <circle cx="140" cy="26" r="20" fill="none" stroke="#152036" stroke-width="7"/>
+                <circle cx="140" cy="26" r="20" fill="none" stroke="#4de2ff" stroke-width="7" stroke-dasharray="120 130" transform="rotate(-90 140 26)"/>
+                <text x="50" y="30" text-anchor="middle" fill="#fff" font-size="10" font-family="Orbitron">OK</text>
+                <text x="140" y="30" text-anchor="middle" fill="#fff" font-size="10" font-family="Orbitron">OK</text>
+                <text x="50" y="54" text-anchor="middle" fill="#7f8bab" font-size="9" font-family="Rajdhani">TRAIN</text>
+                <text x="140" y="54" text-anchor="middle" fill="#7f8bab" font-size="9" font-family="Rajdhani">FIGHT</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CRAFT -->
+      <div class="view" id="craft">
+        <div class="mosaic m-craft">
+          <div class="panel wide pad0 glow">
+            <div class="constellation art-hero" style="min-height:300px;border:0;border-radius:8px">
+              <img src="craft-skill-constellation.png" alt="Craft constellation"/>
+              <div class="veil"></div>
+              <button type="button" class="node-hot mma on" data-skill="MMA" data-val="96" aria-label="MMA 96">
+                <b>96</b> MMA
+              </button>
+              <button type="button" class="node-hot box" data-skill="Boxing" data-val="93" aria-label="Boxing 93">
+                <b>93</b> Boxing
+              </button>
+              <button type="button" class="node-hot bjj" data-skill="BJJ" data-val="90" aria-label="BJJ 90">
+                <b>90</b> BJJ
+              </button>
+              <div style="position:absolute;left:10px;top:8px;z-index:3;pointer-events:none">
+                <h3 style="margin:0;color:#c9d4ef">Skills <span style="color:var(--gold)">specialty</span></h3>
+              </div>
+              <div class="craft-focus" id="craftFocus" style="position:absolute;left:10px;right:10px;bottom:8px;z-index:3;margin:0;pointer-events:none">
+                Focus · <strong>MMA 96</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>Plan <span>pace</span></h3>
+            <div class="kv">
+              <span class="k">Natural</span><span class="v">Best-fit</span>
+              <span class="k">Booked</span><span class="v">—</span>
+              <span class="k">Phase</span><span class="v">—</span>
+            </div>
+            <svg class="spark" viewBox="0 0 280 44" style="margin-top:6px" preserveAspectRatio="none">
+              <defs><linearGradient id="pg" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffc857" stop-opacity=".4"/><stop offset="1" stop-color="#ffc857" stop-opacity="0"/></linearGradient></defs>
+              <path d="M0,34 L40,30 L80,22 L120,26 L160,14 L200,18 L240,10 L280,12" fill="none" stroke="#ffc857" stroke-width="2.2" filter="url(#glow)"/>
+              <path d="M0,34 L40,30 L80,22 L120,26 L160,14 L200,18 L240,10 L280,12 L280,44 L0,44 Z" fill="url(#pg)"/>
+            </svg>
+          </div>
+
+          <div class="panel">
+            <h3>Combos <span>tightness</span></h3>
+            <div class="tight-dial">
+              <svg viewBox="0 0 120 120" aria-label="Combo tightness 50">
+                <circle cx="60" cy="60" r="46" fill="none" stroke="#152036" stroke-width="10"/>
+                <circle cx="60" cy="60" r="46" fill="none" stroke="url(#g1)" stroke-width="10" stroke-linecap="round"
+                  stroke-dasharray="144.5 289" transform="rotate(-90 60 60)" filter="url(#glow)"/>
+                <text x="60" y="58" text-anchor="middle" fill="#fff" font-family="Orbitron" font-size="24">50</text>
+                <text x="60" y="74" text-anchor="middle" fill="#7f8bab" font-family="Rajdhani" font-size="10" letter-spacing="2">TIGHT</text>
+              </svg>
+            </div>
+            <div>
+              <span class="empty-chip">Signature —</span>
+              <span class="empty-chip">Game-plan 0</span>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>Duel <span>career</span></h3>
+            <div class="duel-rings">
+              <div class="ring">
+                <svg width="60" height="60" viewBox="0 0 72 72">
+                  <circle cx="36" cy="36" r="28" fill="none" stroke="#152036" stroke-width="8"/>
+                  <circle cx="36" cy="36" r="28" fill="none" stroke="#4de2ff" stroke-width="8" stroke-dasharray="1 176" transform="rotate(-90 36 36)"/>
+                  <text x="36" y="40" text-anchor="middle" fill="#fff" font-family="Orbitron" font-size="16">0</text>
+                </svg>
+                <div class="lbl">Wins</div>
+              </div>
+              <div class="ring">
+                <svg width="60" height="60" viewBox="0 0 72 72">
+                  <circle cx="36" cy="36" r="28" fill="none" stroke="#152036" stroke-width="8"/>
+                  <circle cx="36" cy="36" r="28" fill="none" stroke="#ff3b4a" stroke-width="8" stroke-dasharray="1 176" transform="rotate(-90 36 36)"/>
+                  <text x="36" y="40" text-anchor="middle" fill="#fff" font-family="Orbitron" font-size="16">0</text>
+                </svg>
+                <div class="lbl">Losses</div>
+              </div>
+            </div>
+            <div class="kv" style="margin-top:4px;justify-items:center;text-align:center;grid-template-columns:1fr"><span class="k">Signature battles 0–0</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAMP -->
+      <div class="view" id="camp">
+        <div class="mosaic m-camp">
+          <div class="art-hero" style="min-height:380px">
+            <img src="camp-locked-cage.png" alt="Locked fight camp"/>
+            <div class="veil"></div>
+            <svg class="ghost-chart" viewBox="0 0 400 56" preserveAspectRatio="none">
+              <polyline fill="none" stroke="#4de2ff" stroke-width="2" stroke-dasharray="4 4" points="0,46 80,40 160,34 240,24 320,18 400,12"/>
+            </svg>
+            <div class="lock-glass">
+              <div class="lock-card">
+                <p class="stamp">LOCKED</p>
+                <p class="muted" style="margin:0;color:#c9d4ef;font-size:12px">Requires booked fight · Setup → Progress → Report</p>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <h3>Camp meters <span>pre-book</span></h3>
+            <div class="meter">
+              <div class="mh"><span>Film depth</span><b>0 / 3</b></div>
+              <div class="bar"><i style="width:6%;opacity:.4"></i></div>
+            </div>
+            <div class="meter">
+              <div class="mh"><span>Injury risk</span><b>—</b></div>
+              <div class="bar"><i class="ghost"></i></div>
+            </div>
+            <div class="meter">
+              <div class="mh"><span>Cash spend</span><b>—</b></div>
+              <div class="bar"><i class="ghost"></i></div>
+            </div>
+            <div class="meter">
+              <div class="mh"><span>Edges built</span><b>—</b></div>
+              <div class="bar"><i class="ghost"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LEGACY -->
+      <div class="view" id="legacy">
+        <div class="mosaic m-legacy">
+          <div class="panel">
+            <h3>Fight log</h3>
+            <div class="fight-cards">
+              <div class="fight-card loss">
+                <div class="stamp">L</div>
+                <div>
+                  <div class="opp">Justin Gaethje</div>
+                  <div class="meta">Freedom 250 · recent</div>
+                </div>
+                <div class="method">TKO · Rd 4</div>
+              </div>
+              <div class="fight-card win">
+                <div class="stamp">W</div>
+                <div>
+                  <div class="opp">Charles Oliveira</div>
+                  <div class="meta">UFC 317</div>
+                </div>
+                <div class="method">KO · Rd 1</div>
+              </div>
+              <div class="fight-card win">
+                <div class="stamp">W</div>
+                <div>
+                  <div class="opp">Max Holloway</div>
+                  <div class="meta">UFC 308</div>
+                </div>
+                <div class="method">KO · Rd 3</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel glow">
+            <h3>Ambition</h3>
+            <p class="arc-label">Redemption arc</p>
+            <div class="ms">
+              <div class="s done"><div class="box">✓</div><div class="t">World name secured</div><div class="w">Done</div></div>
+              <div class="s done"><div class="box">✓</div><div class="t">Major gold claimed</div><div class="w">Done</div></div>
+              <div class="s now"><div class="box">›</div><div class="t">Answer the setback</div><div class="w">Live</div></div>
+              <div class="s"><div class="box">·</div><div class="t">Fulfil the arc</div><div class="w">Next</div></div>
+            </div>
+          </div>
+
+          <div class="shelf art-plate">
+            <img src="legacy-hardware-shelf.png" alt="Hardware shelf"/>
+            <div class="veil"></div>
+            <div style="position:absolute;left:8px;top:6px;z-index:3;font-family:var(--u);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);font-weight:700">Hardware</div>
+            <div class="leader l1"><span class="pipe"></span><span><b>2-div champ</b><br/>achievements</span></div>
+            <div class="leader l2"><span class="pipe"></span><span><b>Night awards</b><br/>API list</span></div>
+            <div class="leader l3"><span class="pipe"></span><span><b>Titles</b><br/>active shelf</span></div>
+            <div class="leader l4"><span class="pipe"></span><span><b>Rivalries</b><br/>none yet</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOND -->
+      <div class="view" id="bond">
+        <div class="mosaic m-bond">
+          <div class="panel glow">
+            <h3>Loyalty / rapport</h3>
+            <div class="bond-rings">
+              <svg viewBox="0 0 260 240" aria-label="Loyalty 72 Rapport 50">
+                <circle cx="130" cy="115" r="95" fill="none" stroke="#152036" stroke-width="12"/>
+                <circle cx="130" cy="115" r="95" fill="none" stroke="#3dff9a" stroke-width="12" stroke-linecap="round"
+                  stroke-dasharray="430 597" transform="rotate(-90 130 115)" filter="url(#glow)"/>
+                <circle cx="130" cy="115" r="68" fill="none" stroke="#152036" stroke-width="10"/>
+                <circle cx="130" cy="115" r="68" fill="none" stroke="#ffc857" stroke-width="10" stroke-linecap="round"
+                  stroke-dasharray="213 427" transform="rotate(-90 130 115)" filter="url(#glow)"/>
+                <text x="130" y="108" text-anchor="middle" fill="#3dff9a" font-family="Orbitron" font-size="26">72</text>
+                <text x="130" y="126" text-anchor="middle" fill="#7f8bab" font-family="Rajdhani" font-size="10" letter-spacing="2">LOYALTY</text>
+                <text x="130" y="148" text-anchor="middle" fill="#ffc857" font-family="Orbitron" font-size="16">50</text>
+                <text x="130" y="162" text-anchor="middle" fill="#7f8bab" font-family="Rajdhani" font-size="9" letter-spacing="2">RAPPORT</text>
+              </svg>
+            </div>
+            <div class="kv"><span class="k">Parts</span><span class="v">Rapport · morale · pay · tenure</span><span class="k">Listen %</span><span class="v">Rapport + IQ</span></div>
+          </div>
+
+          <div class="panel">
+            <h3>Contract</h3>
+            <div class="contract-plate">
+              <p class="plate-title">TERM PLATE</p>
+              <div class="kv">
+                <span class="k">Salary exp</span><span class="v">$17k / wk</span>
+                <span class="k">Term</span><span class="v">52 wks</span>
+                <span class="k">Clauses</span><span class="v">Gate · title · rematch · cut</span>
+                <span class="k">Promotion</span><span class="v">Unsigned</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>Media <span>idle</span></h3>
+            <div class="media-timeline">
+              <div class="ev"><div class="t">Presser slot</div><div class="d">Waiting on booked fight</div></div>
+              <div class="ev"><div class="t">Hype beat</div><div class="d">0 open · 0 risk</div></div>
+              <div class="ev"><div class="t">Fallout log</div><div class="d">Empty</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  const parts=document.getElementById('parts');
+  for(let i=0;i<28;i++){
+    const s=document.createElement('span');
+    s.style.left=(Math.random()*100)+'%';
+    s.style.bottom=(-Math.random()*40)+'px';
+    s.style.animationDuration=(6+Math.random()*10)+'s';
+    s.style.animationDelay=(-Math.random()*10)+'s';
+    parts.appendChild(s);
+  }
+  document.getElementById('tabs').addEventListener('click',e=>{
+    const b=e.target.closest('button[data-v]'); if(!b) return;
+    document.querySelectorAll('#tabs button').forEach(x=>x.classList.remove('on')); b.classList.add('on');
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+    document.getElementById(b.dataset.v).classList.add('on');
+  });
+})();
+
+(function(){
+  const focus = document.getElementById('regionFocus');
+  const map = document.getElementById('bodymap');
+  if(!focus || !map) return;
+  map.querySelectorAll('.hot').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      map.querySelectorAll('.hot').forEach(b=>b.classList.remove('on'));
+      btn.classList.add('on');
+      focus.innerHTML = '<div class="rf-title">'+btn.dataset.label+'</div>'
+        + '<p class="rf-val">'+btn.dataset.val+'</p>'
+        + '<div class="rf-meta">'+btn.dataset.note+' · <code>'+btn.dataset.region+'</code></div>';
+    });
+  });
+})();
+
+(function(){
+  const focus = document.getElementById('craftFocus');
+  const root = document.querySelector('.constellation');
+  if(!focus || !root) return;
+  root.querySelectorAll('.node-hot').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      root.querySelectorAll('.node-hot').forEach(b=>b.classList.remove('on'));
+      btn.classList.add('on');
+      focus.innerHTML = 'Focus · <strong>'+btn.dataset.skill+' '+btn.dataset.val+'</strong>';
+    });
+  });
+})();
+</script>
+</body>
+</html>

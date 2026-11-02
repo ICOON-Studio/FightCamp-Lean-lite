@@ -1,0 +1,16 @@
+{
+  "checked_at": "2026-09-08T13:08:05Z",
+  "files": [
+    "Godot/scripts/Sponsorship.gd",
+    "Godot/scripts/OrganizationRead.gd",
+    "Godot/scripts/EntityPathway.gd",
+    "Godot/tests/sponsorship_test.gd",
+    "Godot/tests/organization_read_test.gd",
+    "Godot/scripts/Sponsorship.gd",
+    "Godot/scripts/EntityPathway.gd",
+    "Godot/scripts/OrganizationRead.gd"
+  ],
+  "output": "CHECK total=8 fails=0 autoload_refs=0 time=1s\n",
+  "passed": true,
+  "task": "U12"
+}

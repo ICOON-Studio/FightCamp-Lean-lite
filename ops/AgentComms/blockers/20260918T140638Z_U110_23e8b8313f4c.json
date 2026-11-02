@@ -1,0 +1,8 @@
+{
+  "agent": "cursor",
+  "created_at": "2026-09-18T14:06:38Z",
+  "id": "23e8b8313f4c",
+  "resolved_at": "2026-09-20T12:39:14Z",
+  "task": "U110",
+  "why": "Same wall as U109 - its Inputs section is rooted at F=C:/Users/user/AppData/Local/Temp/FightCamp-footage (TASK_U110.md:36), the operator's PC temp dir, which is empty in a cloud container. Needs a PC session. Pair it with U109: same worktree, same 17 tracks, one launch."
+}

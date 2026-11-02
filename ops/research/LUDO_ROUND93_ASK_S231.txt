@@ -1,0 +1,35 @@
+TEXT ANSWER ONLY (no image). LUDO ROUND 93 - fix the jab, the lead hook and the guard in CODE. Longest complete answer you can give.
+
+The attached sheet shows what our CEO rejected (his words): jab "I have never seen worse animation of a jab", "it doesn't even look like a human", "human parts stitched together"; the lead hook "this is broken" (the arm wraps around his own head); the guard "needs to be dynamic, not a still guard stance - fighter moves hands closer to head etc". The CEO ruled that YOU write these fixes as code; Claude wires and tests them.
+
+HOW OUR ANIMATION RUNS (Godot 4.7, MetaHuman skeleton retargeted to our bone names):
+- One player class plays every punch, in the fight and the profile viewer: FightStagePlayer.advance(delta) applies, in order: a PunchSCurve time warp, a lower-body splice, alive idle pulses, breath/sway, inertial joins, foot lock, hit additive/flinch, fatigue wrist drop + glove spring, an inside-uppercut IK. NOTHING moves the hands between punches, and no layer shapes the jab - the jab is a raw baked MetaHuman clip (mh_jab.glb) with no silhouette correction; the hook is mh_lead_hook.glb.
+- Bones you can drive (Skeleton3D names): Hips, Spine, Spine1, Spine2, Neck, Head, LeftShoulder, LeftUpperArm, LeftLowerArm, LeftHand, RightShoulder, RightUpperArm, RightLowerArm, RightHand (+ finger bones). Orthodox: LEFT is the lead hand. Southpaw is not mirrored yet.
+- Per frame we know: the clip role ("boxing_jab", "boxing_cross", "boxing_hook_lead", "idle"), its normalised phase 0..1, the contact phase (jab 0.233, hook 0.333), the opponent's head position (Vector3, or none in the profile viewer), stamina 0..100, and a feint event (bool + side) from the opponent.
+
+THE BAR (our art director Maria, measured; orthodox):
+JAB - chamber / mid / contact: lead elbow ~85 deg -> 110-120 -> 168-175 (never < 155, never locked), elbow always BELOW the fist and <= 15 deg off the punch line (wider than the shoulder = the rejected splay); fist path within ~10 cm of the straight line chin->target; palm in -> 45 deg -> palm down 85-95 deg, wrist kink <= 5 deg; rear glove knuckles <= 2 cm from the cheekbone the whole time; lead shoulder rises 20-25 deg by contact and hides >= half the jaw; chin pitched ~15 deg down, head 8-12 cm offline outside the lead shoulder at contact; hips +15-25 deg total (not 40), weight ~60% lead, spine pitch <= 10 deg; the return travels the same line, faster than the extension.
+HOOK - the fist must never cross the plane of his own face/rear ear; elbow ~90 deg at contact, upper arm near horizontal, rear glove on the cheek.
+GUARD (a cycle, not a stance) - lead glove orbits 4-8 cm vertical, 3-6 cm depth, 2-4 cm lateral around the cheek; rear glove 2-4 cm and within 2 cm of the cheek plane; breath 3-4 s (shoulders +1-2 cm, gloves +2 cm); ready pulse 1.5-2 Hz capped 1-3 cm; elbows breathe +/-8-15 deg around ~85 deg, never past the lat line; weight 55/45 <-> 45/55 over 1.5-3 s; head bob 2-4 cm. On a FEINT: 0-100 ms chin +5 deg down; 100-250 ms both gloves 3-6 cm in toward the skull, elbows pinch 10-15 deg (jab-side feint also lifts the lead shoulder 10-15 deg); by ~400 ms the gloves start back out - never hold the shell longer than ~0.3 s; the rear hand never drops.
+
+DELIVER:
+PART 1 - your diagnosis of each rejected still (what is wrong in the pose, which bones) in a few lines each.
+PART 2 - complete GDScript files (Godot 4.7, typed, extends RefCounted, static functions only, NO autoloads, NO
+   global randf - any noise from a seed you are given; no `:=` on Variant returns):
+   (a) res://scripts/animation/JabShape.gd -
+       static func apply(skel: Skeleton3D, role: String, phase: float, contact_phase: float, target: Variant, lead_left: bool) -> Dictionary
+       a post-pass run AFTER the clip pose each frame for jab/cross/hook roles: two-bone IK on the lead arm toward a
+       fist position on the chin->target line (elbow pole kept below the fist), forearm pronation by phase, rear hand
+       pinned to the cheek, lead shoulder lift + chin tuck + head offline by phase, hip turn clamp; for the hook, a
+       hard constraint keeping the fist outside his own face plane. Returns a dict of the measured numbers (elbow angle,
+       fist-line distance, rear-glove-to-cheek cm, hip turn) so our test can check them.
+   (b) res://scripts/animation/LiveGuard.gd -
+       static func apply(skel: Skeleton3D, t: float, seed: int, feint_age: float, feint_side: String, stamina: float, lead_left: bool) -> Dictionary
+       the living guard for role "idle": orbit, breath, ready pulse, elbow breathe, weight shift, head bob, and the feint
+       response timeline above; returns the hand offsets it applied.
+   Both must be safe to call every frame (no allocations that grow), and must leave every bone they do not own alone.
+PART 3 - the exact lines to add at the end of FightStagePlayer.advance (after the glove-spring layer) to call them
+   behind two switches named "anim_jab_shape" and "anim_live_guard".
+PART 4 - tests/jab_shape_test.gd and tests/live_guard_test.gd (extends SceneTree, "OK:"/"FAIL:" lines, quit(1) on a
+   FAIL) that build a minimal skeleton with our bone names and check every number in THE BAR, plus a control check
+   that the old splayed pose (elbow outside the shoulder, rear hand 15 cm off the cheek) FAILS the same checks.

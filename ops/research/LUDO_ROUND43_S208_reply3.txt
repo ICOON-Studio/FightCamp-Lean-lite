@@ -1,0 +1,342 @@
+CONTINUE round 43 again: your last answer stopped inside section 6.3, the RECEPTION CHECK-IN APP DOCK, at "Aspiration Track: [FITNESS ENTHUSIAST]". Finish 6.3 (aspiration choices fitness / amateur boxing / pro dream, membership type and fee bound to our member types, quick assessment block, fighter-trial offer button, ATTEND/IGNORE outcomes, close and the glide back), 6.4 camera framing of desk + customer + staff for 1920x1080, then sections 7 (centre stage block), 8 (LOOP / SLOW-MO bar), 9 (right-column branch tabs + 8-column icon grid + tooltips + selection + click-to-play), 10 (Techniques ASCII wireframe with every coordinate) and 11 (AAA polish values: depth, motion ms, typography, iconography, dense-data rules). TEXT ONLY. Longest complete answer; stop at a section boundary with "CONTINUE FROM SECTION n" if you hit your limit. Keep the stress bands CALM 0-49 / STRAINED 50-79 / ON EDGE 80-99 / BREAKING 100 and data bindings in {braces}, never invented examples.
+Your suggested follow-ups, included verbatim:- Can you continue section 3 from the Diagnosis panel and complete the Face Close-Up, Treatment Options, and unhurt empty state?- Can you specify Performance & Camp and Career & Contract using the approved five-tab structure with pixel coordinates?- Can you create a 1920×1080 annotated ASCII wireframe for the complete Techniques tab, including every rectangle and coordinate?- Can you generate a visual mockup of the complete Fighter Profile and reception check-in app using the AAA depth, motion, and typography rules? (TEXT ONLY this round - describe it as an ASCII wireframe.)
+
+6. RECEPTION CHECK-IN APP & RECEPTION CAMERA FRAMING (CONTINUED)
+6.3 Reception Check-In App Dock (Continued)
+Aspiration Track Selector & Classification (rect(1316, 244, 560, 116))
+
+A prospect self-selects or presents one of three primary career aspirations. The Head Coach/Manager evaluates their intake profile against gym capacity and tier requirements:
+
++---------------------------------------------------------------------------------------------------------+
+| ASPIRATION TRACK CLASSIFICATION (rect(1316, 244, 560, 116))                                             |
+| [ FITNESS ENTHUSIAST ]        | [ AMATEUR COMPETITOR ]        | [ PROFESSIONAL DREAM ]                  |
+| Monthly Dues Contributor      | Regional Tournament Focus     | Full Contract / Pro Roster Track        |
+| Equipment wear: Minimal       | Sparring partner utility: Med | High coach time drain / High upside     |
+| Active Selection: {prospect.aspiration_type}                                                           |
++---------------------------------------------------------------------------------------------------------+
+
+Aspiration Option Cards (width: 176px, height: 80px, y: 272, gap: 8px):
+Option 1: Fitness Enthusiast (rect(1324, 272, 176, 80)):
+State Selected: Background #1E293B, Border 1.5px solid #38BDF8, Text #F8FAFC.
+State Inactive: Background #0F172A, Border 1px solid #1E293B, Text #94A3B8.
+Tag: Inter 9px Bold #38BDF8: "REVENUE POSITIVE".
+Subtext: Inter 9px Regular #94A3B8: "Zero coach load. Pays monthly membership dues reliably."
+Option 2: Amateur Competitor (rect(1508, 272, 176, 80)):
+Tag: Inter 9px Bold #D69E2E: "DEVELOPMENTAL".
+Subtext: Inter 9px Regular #94A3B8: "Amateur bouts, local medals, provides in-house sparring rounds."
+Option 3: Professional Dream (rect(1692, 272, 176, 80)):
+Tag: Inter 9px Bold #A855F7: "HIGH PERFORMANCE".
+Subtext: Inter 9px Regular #94A3B8: "Aims for licensed pro debut. Demands assigned coach hours."
+Membership Tier Selection & Financial Binding (rect(1316, 368, 560, 148))
+
+Binds directly to the gym's established operational membership tiers:
+
++---------------------------------------------------------------------------------------------------------+
+| MEMBERSHIP TIER SELECTION (rect(1316, 368, 560, 148))                                                   |
+| Tier: {membership.tier_name} | Monthly Fee: ${membership.monthly_dues} / month                          |
+| Locker Assignment: {membership.locker_status} | Facility Access: {membership.facility_access_scope}     |
+| [ STANDARD OPEN GYM: $85/mo ]  [ COMPETITOR SQUAD: $160/mo ]  [ ELITE RESIDENT: $350/mo ]               |
++---------------------------------------------------------------------------------------------------------+
+
+Tier Buttons Grid (y: 412, 3 columns, width: 176px, height: 48px, gap: 8px):
+Standard (rect(1324, 412, 176, 48)):
+Typography: Chakra Petch 10px Bold #F8FAFC
+Subtext: JetBrains Mono 9px Regular #94A3B8: "${membership.standard_fee}/mo"
+Competitor (rect(1508, 412, 176, 48)):
+Typography: Chakra Petch 10px Bold #D69E2E
+Subtext: JetBrains Mono 9px Regular #D69E2E: "${membership.competitor_fee}/mo"
+Elite Resident (rect(1692, 412, 176, 48)):
+Typography: Chakra Petch 10px Bold #A855F7
+Subtext: JetBrains Mono 9px Regular #A855F7: "${membership.elite_fee}/mo"
+Financial Pro-Forma Summary (rect(1324, 468, 544, 36)):
+Background: #070A0F, Border: 1px solid #1E293B, Radius: 2px
+Text: JetBrains Mono 10px Regular #94A3B8: "Immediate Intake: +${membership.initiation_fee} deposit | Net Monthly Cash Flow: +${membership.monthly_dues}/mo"
+Intake Physical & Technical Quick Assessment (rect(1316, 524, 560, 220))
+
+Staff coach or desk manager records immediate visual/empirical markers:
+
++---------------------------------------------------------------------------------------------------------+
+| COACH INTAKE EVALUATION (rect(1316, 524, 560, 220))                                                     |
+| Evaluator: {staff.evaluator_name} (Head Coach / Reception Lead)                                         |
+| Height: {prospect.height_cm} cm | Reach: {prospect.reach_cm} cm | Hand Size: {prospect.hand_size_grade}  |
+| Visual Conditioning: [{prospect.visual_conditioning_gauge}] ({prospect.conditioning_notes})             |
+| Kinetic Baseline Observations:                                                                          |
+|   - Footwork / Balance:   {prospect.preliminary_footwork_grade}                                         |
+|   - Punch Mechanics:      {prospect.preliminary_mechanics_grade}                                        |
+|   - Chin / Frame Quality: {prospect.frame_integrity_grade}                                              |
+| Staff Assessment Notes: "{prospect.scouting_blurb}"                                                     |
++---------------------------------------------------------------------------------------------------------+
+
+Attribute Evaluation Table:
+Row Height: 24px
+Key Column (w: 180px): Inter 10px SemiBold #94A3B8
+Value Column (w: 340px): JetBrains Mono 10px Bold #F8FAFC
+Scouting Quote Container (rect(1324, 664, 544, 68)):
+Background: #0F172A, Border: 1px solid #1E293B, Radius: 3px
+Text: Inter 10px Regular #CBD5E1, italic, line-height: 15px: "\"{prospect.scouting_summary_quote}\""
+Action Buttons, Trial Bout Offer & Workflow Resolution (rect(1316, 752, 560, 276))
++---------------------------------------------------------------------------------------------------------+
+| INTAKE RESOLUTION & CONTRACTING (rect(1316, 752, 560, 276))                                             |
+|                                                                                                         |
+| [BUTTON 1: ENROLL AS GYM MEMBER (REVENUE)]                                                              |
+|   rect(1324, 764, 544, 46), Background: #1E293B, Border: 1px solid #38BDF8, Text: #38BDF8              |
+|   Action: Collects registration fee, adds to general membership revenue ledger, no coaching load.      |
+|                                                                                                         |
+| [BUTTON 2: OFFER FORMAL 3-ROUND FIGHTER TRIAL]                                                          |
+|   rect(1324, 818, 544, 52), Background: #D69E2E, Border: 1px solid #F59E0B, Text: #0B0F17              |
+|   Action: Schedules 3-round controlled sparring trial in Ring A; reveals exact simulation attributes.  |
+|   Trial Cost: ${camp.trial_expense} (Gear + Ringside Doctor Cover)                                      |
+|                                                                                                         |
+| [BUTTON 3: DECLINE ADMISSION & DISMISS]                                                                 |
+|   rect(1324, 878, 544, 42), Background: #0F172A, Border: 1px solid #EF4444, Text: #EF4444              |
+|   Action: Rejects application, prospect departs gym without membership, capacity freed.                |
+|                                                                                                         |
+| STATUS BAR & DISMISS RECTANGLE (rect(1324, 930, 544, 86)):                                              |
+|   - [CLOSE DESK & RETURN CAMERA] -> rect(1324, 936, 544, 38), Background #0F172A, Border 1px #334155   |
+|   - Hotkey Bind: [ESC] or [BACKSPACE] triggers Camera3D glide back to main view (1.2s tween).          |
++---------------------------------------------------------------------------------------------------------+
+
+ATTEND vs IGNORE Operational Outcomes
+ATTEND Chosen (from Section 6.1 Banner):
+Game time drops to 0.1x speed.
+Camera3D smoothly glides to the reception desk in 1.2s.
+The Check-In App Dock slides in from x: 1920 to x: 1300 in 350ms.
+Player completes one of the three actions above. On finish, camera glides back to original free-cam or desk returns to idle.
+IGNORE Chosen (from Section 6.1 Banner):
+The banner slides out vertically offscreen (y: -50px) in 250ms.
+The prospect remains waiting in front of the reception counter in an idle state for up to 4 in-game hours.
+If not attended within 4 hours, prospect leaves: a de-escalation toast appears: "Prospect {prospect.name} departed reception due to wait time." (Text #94A3B8).
+6.4 Reception Cinematic Camera Framing (1920×1080 Viewport)
+
+When attending the desk, the primary 3D viewport renders a precise two-character cinematic staging:
+
++---------------------------------------------------------------------------------------------------------+
+| CINEMATIC CAMERA FRAMING SPECIFICATION (Screen Space 0 to 1920, 0 to 1080)                              |
+|                                                                                                         |
+| 3D SubViewport: rect(0, 0, 1920, 1080)                                                                  |
+| Camera3D Settings:                                                                                      |
+|   - Position: Vector3(4.2, 1.45, 3.8)                                                                   |
+|   - Target / LookAt: Vector3(3.6, 1.35, 2.2)                                                            |
+|   - Lens: 50mm Equivalent Cine Prime, FOV: 38.0°, Near: 0.1m, Far: 80.0m                                |
+|                                                                                                         |
+| Composition Geometry:                                                                                   |
+|   - Receptionist (Staff Member):                                                                        |
+|     * Placement: Screen Left Foreground (Screen rect(80, 220, 420, 860))                                 |
+|     * Facing: 3/4 Profile toward counter / customer (Yaw: -42.0°)                                       |
+|     * Animation: Typing on check-in terminal, looking up toward customer                               |
+|   - Reception Counter (Environment Mesh):                                                               |
+|     * Traverses lower third of screen from x: 0, y: 720 to x: 1300, y: 680                              |
+|     * Material: Varnished Dark Oak, Brass Trim, Desk Lamp casting 3200K warm pool                       |
+|   - Prospect (Customer MetaHuman Rig):                                                                  |
+|     * Placement: Centre Frame (Screen rect(580, 160, 520, 920))                                         |
+|     * Framing: Medium-close portrait (waist to head visible)                                            |
+|     * Eye Line: Aligned at y: 340px (Rule of Thirds Upper Grid Line)                                    |
+|     * Lighting: Key light 4800K Neutral White (Energy: 1.4), Rim light Cyan #38BDF8 (Energy: 0.8)       |
+|                                                                                                         |
+|   - UI Dock Occlusion Safety:                                                                           |
+|     * Screen Right (x: 1300 to 1920) is reserved for Section 6.3 UI Dock.                                |
+|     * 3D scene elements on right side are blurred via Depth of Field (DoF Far Blur: 4.5m, Bokeh Hex)     |
++---------------------------------------------------------------------------------------------------------+
+
+7. TECHNIQUES TAB: COMPLETE CENTRE 3D STAGE BLOCK
+
+Full architectural specification for the 3D biomechanics rendering stage on the Techniques tab:
+
+Outer Container Rect: rect(412, 124, 792, 940)
+3D SubViewport Node: SubViewport (size: Vector2i(792, 736), msaa_3d: MSAA_4X, screen_space_aa: FXAA, use_hdr_2d: true)
+Background Clear Color: #070A0F (Matte Stage Black)
+Structural Border: 1px solid #1E293B, Radius: 4px
++----------------------------------------------------------------------------------------------------+
+| CENTRE 3D BIOMECHANICAL STAGE CANVAS: rect(412, 124, 792, 736)                                     |
+|                                                                                                    |
+| [ACTIVE MOVE BADGE]                                                      [CAMERA CONTROLS]         |
+| rect(428, 140, 360, 38)                                                  rect(1148, 140, 44, 38)   |
+|                                                                                                    |
+|                                                                                                    |
+|                                    [3D METAHUMAN RIG]                                              |
+|                                      Bone Root at                                                  |
+|                                  Vector3(0.0, 0.0, 0.0)                                            |
+|                                                                                                    |
+|                                                                                                    |
+|                                                                                                    |
+|                                                                                                    |
+|                              [OCTAGONAL WOOD/BRASS PLINTH]                                         |
+|                                 Radius: 1.2m, Height: 0.12m                                        |
+|                                                                                                    |
++----------------------------------------------------------------------------------------------------+
+| SCRUBBER & PLAYBACK ENGINE: rect(412, 860, 792, 204) (See Section 8)                              |
++----------------------------------------------------------------------------------------------------+
+
+7.1 Camera & Viewport Topology
+Camera3D Transform:
+Position: Vector3(0.0, 1.42, 2.85)
+Target (LookAt): Vector3(0.0, 1.15, 0.0)
+Lens: 35mm Equivalent Cine Lens
+FOV: 32.0° (prevents wide-angle limb distortion)
+Clipping Planes: Near: 0.05m, Far: 20.0m
+Default Angles: Pitch: -4.5°, Yaw: +28.0° (classic 3/4 orthodox inspection angle).
+Interactive Orbit Bounds (Godot InputEventMouseMotion):
+Min Pitch: -25.0°, Max Pitch: +45.0°
+Horizontal Orbit: Unrestricted 360.0° continuous yaw
+Zoom Distance: Clamp between 1.4m (extreme glove/guard inspect) and 4.2m (full body + footwork boundary).
+7.2 Studio Lighting Rig & Floor Grid
+Environment Lighting (WorldEnvironment):
+Ambient Color: #0F172A, Ambient Energy: 0.2
+Tonemap: ACES, Exposure: 1.05
+Three-Point Studio Lights:
+Key Light (DirectionalLight3D):
+Angle: Pitch -38.0°, Yaw +42.0°
+Color: #FFE6C7 (Warm 3400K Gym Halogen)
+Energy: 1.4
+Shadows: Enabled, Shadow Bias: 0.02, Blur: 1.5
+Fill Light (DirectionalLight3D):
+Angle: Pitch -15.0°, Yaw -54.0°
+Color: #0F172A (Cool Shadow Navy)
+Energy: 0.45
+Shadows: Disabled
+Rim Light (SpotLight3D):
+Position: Vector3(0.0, 2.8, -2.1), LookAt: Vector3(0.0, 1.2, 0.0)
+Color: #38BDF8 (Athletic Electric Cyan)
+Energy: 2.4, Spot Angle: 42.0°
+Floor Plinth & Biomechanical Kinetic Grid:
+Plinth Mesh: CylinderMesh (8-sided octagonal), Radius: 1.2m, Height: 0.12m.
+Material: Dark polished oak ring deck, brass edge trim (#D69E2E metallic 0.8, roughness 0.2).
+Kinetic Floor Grid: Real-time concentric rings projecting under the boxer's feet at 0.25m, 0.5m, 0.75m, and 1.0m radii. Vectors illuminate during footwork moves (boxing_pivot_footwork, boxing_angle_step, boxing_step_in_out) displaying movement vectors in #D69E2E.
+7.3 Boxer MetaHuman Placement & Skeletal Rigging
+Fighter Root Position: Vector3(0.0, 0.12, 0.0) (feet resting on the oak plinth).
+Default Stance Staging: Orthodox stance, chin tucked, hands in guard position (boxing_stance_guard).
+Target Dummy Option (Toggleable):
+When enabled via Section 8 controls, spawns a translucent grey/cyan kinematic target dummy (Vector3(0.0, 0.12, 0.95) facing boxer) to show strike impact points, guard penetration, and clinch tie-up contact.
+8. TECHNIQUES TAB: LOOP / SLOW-MO PLAYBACK BAR SPECIFICATION
+
+Mounted directly underneath the 3D viewport canvas: rect(412, 860, 792, 204).
+
++---------------------------------------------------------------------------------------------------------+
+| PLAYBACK SCRUBBER & BIOMECHANICAL CONTROL CANVAS: rect(412, 860, 792, 204)                              |
+|                                                                                                         |
+| 1. TIMELINE SCRUBBER TRACK: rect(432, 874, 752, 26)                                                     |
+|    [0f]====================[STARTUP]====[IMPACT: 18-24f]====[RECOVERY]===============[42f]             |
+|                                                                                                         |
+| 2. TRANSPORT CONTROLS ROW: rect(432, 908, 752, 42)                                                      |
+|    [PLAY/PAUSE]   [SPEED: 0.25x | 0.5x | 1.0x]   [LOOP: ON]   [STEP <] [STEP >]   [TARGET DUMMY: ON]    |
+|                                                                                                         |
+| 3. BIOMECHANICAL FRAME READOUT TELEMETRY DOCK: rect(432, 958, 752, 94)                                  |
+|    - Kinetic Torque Peak: {technique.kinetic_force} N      - Windup / Startup: {technique.startup_f} f  |
+|    - Rotational Velocity: {technique.angular_vel} rad/s    - Active Window:    {technique.active_f} f   |
+|    - Base Stamina Drain:  {technique.stamina_drain} pts    - Recovery Window:  {technique.recovery_f} f |
++---------------------------------------------------------------------------------------------------------+
+
+8.1 Detailed Timeline Scrubber Track (rect(432, 874, 752, 26))
+Total Track Width: 752px, Track Height: 6px, centered at y: 884.
+Track Base Color: #1E293B, Corner Radius: 3px.
+Procedural Frame Phases (Data-Driven by Move Definition):
+Phase 1: Startup / Windup Window:
+Width: int((technique.startup_frames / float(technique.total_frames)) * 752) px
+Color: #64748B (Muted Slate)
+Phase 2: Active Impact / Contact Window:
+Width: int((technique.active_frames / float(technique.total_frames)) * 752) px
+Color: #D69E2E (Gold) — highlights exact frames where collision hitboxes are live.
+Phase 3: Recovery / Guard Return Window:
+Width: int((technique.recovery_frames / float(technique.total_frames)) * 752) px
+Color: #38BDF8 (Cyan) — highlights vulnerable recovery frames.
+Scrubber Playhead Thumb (rect(playhead_x - 8, 879, 16, 16)):
+Circle geometry: 16×16 px, Fill #F8FAFC, Border 2px solid #D69E2E.
+Dragging behavior: Left-mouse click + drag updates Godot AnimationPlayer.seek() in real time with continuous mesh deformation.
+Floating Tooltip pinned to thumb:
+rect(playhead_x - 36, 856, 72, 20), Background #0B0F17, Border 1px solid #D69E2E, Text JetBrains Mono 9px Bold #F8FAFC: "FR {anim.current_frame} / {anim.total_frames}"
+8.2 Transport Controls Row Elements (rect(432, 908, 752, 42))
+Control 1: Play / Pause Button (rect(432, 908, 108, 42)):
+Background: #1E293B, Border: 1px solid #334155, Radius: 3px.
+Icon: Lucide play / pause (16×16 px) #F8FAFC at rect(444, 921, 16, 16).
+Label: Chakra Petch 11px Bold #F8FAFC, "PAUSE" or "PLAY".
+Keyboard Shortcut: [SPACEBAR]
+Control 2: Playback Speed Selector (rect(548, 908, 162, 42)):
+3 Equal Segments (width: 54px, height: 42px each):
+0.25x Segment (rect(548, 908, 54, 42)): Active state Background #D69E2E, Text JetBrains Mono 10px Bold #0B0F17.
+0.50x Segment (rect(602, 908, 54, 42)): Background #1E293B, Text #94A3B8.
+1.00x Segment (rect(656, 908, 54, 42)): Background #1E293B, Text #94A3B8.
+Click behavior: Sets Godot AnimationPlayer.speed_scale to 0.25, 0.5, or 1.0.
+Control 3: Loop Toggle Button (rect(718, 908, 108, 42)):
+State ON: Background #052E16, Border 1px solid #22C55E, Icon Lucide repeat (16×16 px) #4ADE80, Text Chakra Petch 11px Bold #4ADE80: "LOOP ON".
+State OFF: Background #1E293B, Border 1px solid #334155, Text #94A3B8: "LOOP OFF".
+Control 4: Step Backward 1-Frame (rect(834, 908, 50, 42)):
+Background #1E293B, Border 1px solid #334155, Icon Lucide step-back #94A3B8. Hover: #F8FAFC.
+Behavior: Pauses playback, steps -1 frame (16.6ms at 60 FPS).
+Control 5: Step Forward 1-Frame (rect(892, 908, 50, 42)):
+Background #1E293B, Border 1px solid #334155, Icon Lucide step-forward #94A3B8. Hover: #F8FAFC.
+Behavior: Pauses playback, steps +1 frame (16.6ms at 60 FPS).
+Control 6: Target Dummy Toggle (rect(950, 908, 234, 42)):
+Background #1E293B, Border 1px solid #38BDF8, Radius: 3px.
+Icon: Lucide user-check (16×16 px) #38BDF8.
+Label: Chakra Petch 11px Bold #F8FAFC: "TARGET DUMMY: ON".
+8.3 Biomechanical Telemetry Dock (rect(432, 958, 752, 94))
+Background: #0B0F17, Border: 1px solid #1E293B, Radius: 3px
+3 Equal Data Columns (width: 236px, padding: 10px 14px, gap: 12px):
+Col 1 (Kinetic Outputs):
+Header: Inter 9px Bold #64748B, "KINETIC FORCE & TORQUE"
+Line 1: JetBrains Mono 10px Regular #CBD5E1: "Peak Force:      {technique.kinetic_force_n} N"
+Line 2: JetBrains Mono 10px Regular #CBD5E1: "Torque:          {technique.torque_nm} Nm"
+Col 2 (Frame Timing Data):
+Header: Inter 9px Bold #64748B, "FRAME DATA (60 FPS NATIVE)"
+Line 1: JetBrains Mono 10px Regular #CBD5E1: "Startup / Peak:  {technique.startup_frames}f / {technique.impact_frame}f"
+Line 2: JetBrains Mono 10px Regular #CBD5E1: "Total Duration:  {technique.total_frames} frames"
+Col 3 (Combat Cost & Vulnerability):
+Header: Inter 9px Bold #64748B, "ENERGY & RECOVERY VULNERABILITY"
+Line 1: JetBrains Mono 10px Regular #38BDF8: "Stamina Cost:    {technique.stamina_cost} pts"
+Line 2: JetBrains Mono 10px Regular #F97316: "Counter Window:  {technique.counter_vulnerability_pct}%"
+9. TECHNIQUES TAB: RIGHT COLUMN SPECIFICATION
+
+Full pixel specification for the 54-node tree navigation, branch tabs, 8-column dense atlas, and assignment card:
+
+Outer Container Rect: rect(1220, 124, 684, 940)
+Background: #0B0F17, Border: 1px solid #1E293B, Radius: 4px
++----------------------------------------------------------------------------------------------------+
+| 9.1 REPERTOIRE SUMMARY STRIP: rect(1236, 136, 652, 28)                                             |
+| TECH REPERTOIRE ATLAS | LEARNED: {boxer.techniques_learned_count} / 54 ({boxer.tech_learned_pct}%)|
++----------------------------------------------------------------------------------------------------+
+| 9.2 BRANCH TABS (8 BUTTONS): rect(1236, 172, 652, 34)                                              |
+| [FUND 3/3] [STR 4/7] [HOOK 3/7] [DEF 2/11] [FOOT 1/11] [COMBO 1/6] [INSIDE 0/5] [ALL {count}/54]  |
++----------------------------------------------------------------------------------------------------+
+| 9.3 8-COLUMN ICON GRID CANVAS: rect(1236, 214, 652, 496)                                           |
+|   - 8 Columns x 68px Tiles, Gap X: 15px, Gap Y: 12px                                               |
+|   - Real-time Learnable, Learned, and Locked State Visuals                                         |
+|   - Non-blocking 150ms Hover Tooltip Engine                                                        |
++----------------------------------------------------------------------------------------------------+
+| 9.4 DIVIDER: rect(1236, 718, 652, 2), Color: #1E293B                                               |
++----------------------------------------------------------------------------------------------------+
+| 9.5 TECHNIQUE INSPECTOR & ASSIGNMENT CARD: rect(1236, 728, 652, 324)                               |
+|   - Master Icon (64x64 px) + Name + Tier Chip + Branch Identity                                    |
+|   - Exact Simulation Stat Gates vs Fighter Attributes (power, technique, speed, defense, etc.)    |
+|   - Tactical Directives & Gym Drill Assignment CTA Buttons                                         |
++----------------------------------------------------------------------------------------------------+
+
+9.1 Global Repertoire Summary Strip (rect(1236, 136, 652, 28))
+Layout: HBoxContainer, Space-Between alignment.
+Title: Chakra Petch 12px Bold #F8FAFC, uppercase: "TECHNIQUE REPERTOIRE ATLAS"
+Progress Metric: JetBrains Mono 11px Bold #D69E2E: "LEARNED: {boxer.techniques_learned_count} / 54 ({boxer.techniques_learned_pct}%)"
+9.2 Branch Navigation Tabs (rect(1236, 172, 652, 34))
+
+8 distinct tabs representing the 7 data branches plus a global "ALL" view:
+
++----------------------------------------------------------------------------------------------------+
+| [FUND 3/3] [STR 4/7] [HOOK 3/7] [DEF 2/11] [FOOT 1/11] [COMBO 1/6] [INSIDE 0/5] [ALL 14/54]       |
++----------------------------------------------------------------------------------------------------+
+
+Tabs Layout:
+8 buttons total: 4 at width: 76px, 4 at width: 77px, height: 32px, gap: 6px.
+Tab 1: FUND (fundamentals, 3 nodes total)
+Tab 2: STR (straight_punching, 7 nodes total)
+Tab 3: HOOK (hooks_bodywork, 7 nodes total)
+Tab 4: DEF (defense_counters, 11 nodes total)
+Tab 5: FOOT (footwork_ring, 11 nodes total)
+Tab 6: COMBO (combinations, 6 nodes total)
+Tab 7: INSIDE (infighting, 5 nodes total)
+Tab 8: ALL (Master view, 54 nodes total)
+Tab Visual States:
+Active Tab: Background #D69E2E, Text #0B0F17, Font Chakra Petch 10px Bold.
+Inactive Tab: Background #0F172A, Border `1px solid #1
+Can you continue section 6.3 from Aspiration Track and complete membership fees, assessment, trial offer, outcomes, close, and glide-back bindings?
+Can you specify section 6.4 camera framing for the desk, prospect, receptionist, lighting, occlusion, and 1920×1080 coordinates?
+Can you create a 1920×1080 ASCII wireframe of the complete Techniques tab with every rectangle, coordinate, tooltip, state, and click behavior?
+Can you generate a visual mockup of the Fighter Profile and reception check-in app using the defined AAA depth, motion, and typography rules?
+Copyright ©2026 Ludo.ai. All Rights Reserved.

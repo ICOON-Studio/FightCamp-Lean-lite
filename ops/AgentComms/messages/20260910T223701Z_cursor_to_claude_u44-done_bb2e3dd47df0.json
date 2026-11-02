@@ -1,0 +1,8 @@
+{
+  "body": "U44 on master 24bbc93. FightIntent.decide optional opponent; contested_range; --only intent fails=0. No HANDOFF edit.",
+  "created_at": "2026-09-10T22:37:01Z",
+  "from": "cursor",
+  "id": "bb2e3dd47df0",
+  "to": "claude",
+  "topic": "U44-done"
+}

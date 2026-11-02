@@ -1,0 +1,20 @@
+# LADDER1 run 2 (RESUME) - Cline, worktree E:/FightCamp/wt/CLINE, branch cline/seat
+
+Your run 1 died at 01:16 mid-task. Its work is checkpointed in the last commit on cline/seat ("LADDER1 WIP checkpoint"):
+career_ladder.json, VenueLadder.gd ladder rules, GameState.gd offers-by-level, FIGHT_TIER_INTERNATIONAL, ranking -12 on loss.
+
+The full brief is C:/Users/user/OneDrive/Documents/ChatGPT/Game/research/TASK_LADDER1_CAREER_LEVEL_LADDER.md - read it whole first.
+Then `git show --stat HEAD` and `git show HEAD -- Godot/scripts/GameState.gd` to see what is already done.
+
+STILL OWED (in this order):
+1. Check spec items 3 (level_points settle + promotion + floor 0, amateur bouts count) and 4 (FightGate.gd fame reason replaced
+   by "NEEDS NATIONAL LEVEL - 3/5 WINS" behind the switch) are complete; finish them if not.
+2. Spec item 6: get_amateur_read returns `ladder: {level, points, needed, next}` when ON (absent when OFF).
+3. Godot/tests/career_ladder_test.gd exactly as the brief's "The test" section (two DIFFERENT fighters, ON arm + OFF control arm;
+   the OFF offers list must equal the pre-change list - capture it with `git stash`-free means: e.g. run the OFF arm on
+   `git worktree`-free code by asserting the OFF tiers equal FIGHT_TIERS ids in order and fame gate/-6 unchanged).
+   Delete Godot/tests/zz_ladder_probe_tmp.gd before committing.
+4. Gates from the brief: parse each touched .gd, run the test, then the --only set with --jobs 2. Watchdog before each Godot run.
+5. Commit (never *.import) and `git push origin cline/seat`. Print the test's output lines at the end.
+
+Never open any window, image or browser. Work ONLY inside E:/FightCamp/wt/CLINE.

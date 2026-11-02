@@ -1,0 +1,292 @@
+CONTINUE round 43 from where your answer stopped (it cut inside section 3, the MEDICAL tab, at the Active Affliction / Virtue Card "Current Status:"). Finish section 3 (the rest of the DIAGNOSIS panel, the FACE CLOSE-UP block, the full-height TREATMENT OPTIONS column, the unhurt empty state), then deliver sections 4 to 11 of my round-43 ask exactly as numbered there: 4 PERFORMANCE & CAMP and CAREER & CONTRACT full pixel specs (your 5-tab structure), 5 header STRESS mini-bar + WEAR pill, 6 RECEPTION CHECK-IN APP (banner, app panel, camera framing), 7 centre stage block, 8 LOOP / SLOW-MO bar, 9 right-column icon grid, 10 Techniques ASCII wireframe, 11 AAA polish values. TEXT ONLY. Longest complete answer; if you reach your limit, stop at a section boundary and write "CONTINUE FROM SECTION n".
+Two corrections for everything you write: (a) use ONLY the stress bands we approved: CALM 0-49, STRAINED 50-79, ON EDGE 80-99, BREAKING 100 (your section 3 drew four equal 25-point zones - redraw it with these); (b) example text must be clearly a data binding, e.g. "{injury.region} strain, {injury.weeks_out} weeks" - never an invented injury, day or name.
+Your suggested follow-ups, included verbatim:- Can you continue the complete ASCII wireframe from the last section, preserving every Round-42 token and using real fighter data in every field?- Can you specify the right-column branch tabs, 8-column icon grid, hover tooltips, selection states, and click-to-play behavior pixel by pixel?- Can you create a 1920×1080 annotated ASCII wireframe of the complete Techniques tab with coordinates for every rectangle?- Can you define AAA depth, motion, typography, iconography, and dense-data polish values for the entire Fighter Profile and reception check-in app?
+
+3. MEDICAL TAB (CONTINUED)
+3.2 Box 2: Centre Top — Diagnosis Panel (Continued)
+Active Affliction / Virtue Card (rect(548, 304, 744, 88))
+Background: #0F172A, Border: 1px solid #1E293B, Radius: 3px
+Layout: Split two-column data block (w: 360px left, w: 360px right, padding: 8px 12px)
++---------------------------------------------------------------------------------------------------------+
+| [VIRTUE / AFFLICTION BADGE]                               | DURATION & MITIGATION                      |
+| Status: {boxer.mental_state.type} ("STEELED" | "NONE"     | Active: {boxer.mental_state.duration_days} |
+|         | "OVERCOOKED" | "GUN-SHY" | "STARVING"           | Cure: {boxer.mental_state.cure_condition}  |
+|         | "FRAGILE")                                      | Target Stat: {boxer.mental_state.stat_mod} |
+| Trigger: {boxer.mental_state.cause}                       | Cooldown: {boxer.mental_state.cooldown}    |
++---------------------------------------------------------------------------------------------------------+
+
+Typography & Colours:
+Header: Chakra Petch 11px Bold #F8FAFC
+Values: JetBrains Mono 10px Regular #CBD5E1
+Virtue (STEELED): Border #22C55E, Badge Background #052E16, Text #4ADE80
+Afflictions (OVERCOOKED, GUN-SHY, STARVING, FRAGILE): Border #EF4444, Badge Background #450A0A, Text #FCA5A5
+Neutral State (NONE): Border #1E293B, Badge Background #1E293B, Text #94A3B8
+Corrected Stress Meter Layout (rect(548, 256, 744, 44))
+
+Calibrated precisely to approved simulation thresholds:
+
+Track: rect(548, 282, 744, 10), Background #1E293B, Radius 3px
+Proportional Threshold Allocation (744px total width):
+Zone 1: CALM (0–49, 50 points total) $\rightarrow$ Width: 372px (rect(548, 282, 372, 10)), Fill: #22C55E (Green)
+Zone 2: STRAINED (50–79, 30 points total) $\rightarrow$ Width: 223px (rect(920, 282, 223, 10)), Fill: #EAB308 (Yellow/Amber)
+Zone 3: ON EDGE (80–99, 20 points total) $\rightarrow$ Width: 141px (rect(1143, 282, 141, 10)), Fill: #F97316 (Orange)
+Zone 4: BREAKING (100, 1 point limit) $\rightarrow$ Width: 8px pin (rect(1284, 282, 8, 10)), Fill: #EF4444 (Flashing Red)
+Indicator Needle: rect(548 + int((boxer.stress / 100.0) * 744) - 2, 278, 4, 18), Solid #F8FAFC, Border: 1px solid #020617
+Weight Management Status & Fight Clearance Strip (rect(548, 396, 744, 52))
+Background: #0B0F17, Border: 1px solid #1E293B, Radius: 3px
+Metrics:
+Metric 1: Walking Mass: {boxer.weight_kg} kg (JetBrains Mono 10px Medium #F8FAFC)
+Metric 2: Limit: {division.limit_kg} kg (JetBrains Mono 10px Medium #94A3B8)
+Metric 3: Cut Delta: {boxer.cut_pct_camp}% (JetBrains Mono 10px Bold #38BDF8)
+Metric 4: Clearance: {boxer.medical_clearance_status} (JetBrains Mono 10px Bold: #22C55E if CLEARED, #EF4444 if HOLD)
+Return-to-Fight Date: Target Return: {boxer.medical_return_date} (JetBrains Mono 10px Regular #CBD5E1)
+3.3 Box 3: Centre Bottom — Face Close-Up Camera & Cut Man View (rect(532, 560, 776, 504))
+
+Provides ringside procedural trauma visualization on the boxer's MetaHuman head rig.
+
++---------------------------------------------------------------------------------------------------------+
+| [3D METAHUMAN HEAD VIEWPORT] (rect(532, 560, 776, 504))                                                 |
+| Camera: 85mm Portrait Cine-Lens, FOV 18.0, Target Bone: "head" (Orbit Offset: x: 0.0, y: 1.68, z: 0.62) |
+| Lighting: Rim Cyan #38BDF8 (0.8), Key Soft White #FFF1E6 (1.6), Fill Dark Navy #0F172A (0.4)             |
+| Shaders: Subsurface Scattering (Skin), Procedural Bruise Masks, Procedural Laceration / Stitches       |
++---------------------------------------------------------------------------------------------------------+
+| PROCEDURAL CUT/SCAR ANNOTATION OVERLAYS (Screen Space Projected onto 3D Rig):                           |
+|   Pin A: {cut.location} | Stitches: {cut.stitches} | Scar Reopen Risk: {cut.reopen_risk_pct}%           |
+|   Corner Cut-Pips Readout: [{cut_pip_1}] [{cut_pip_2}] [{cut_pip_3}] [{cut_pip_4}]                     |
++---------------------------------------------------------------------------------------------------------+
+
+Visual Camera & Viewport Layout
+Viewport Canvas: rect(532, 560, 776, 504)
+Lighting Rig:
+Key Light: DirectionalLight3D, Transform basis(-0.4, -0.6, 0.7), Color #FFF1E6, Energy 1.6, Soft Shadows enabled
+Fill Light: DirectionalLight3D, Transform basis(0.6, 0.2, 0.7), Color #0F172A, Energy 0.45
+Rim Light: DirectionalLight3D, Transform basis(0.0, 0.9, -0.4), Color #38BDF8, Energy 0.9
+Dynamic Laceration Anchors (2D Projection):
+Renders UI crosshair pinned to head mesh socket bones (e.g., socket_brow_left, socket_cheek_right, socket_lip_upper):
+Pin Box: rect(x, y, 180, 46), Background #0B0F17 (90% alpha), Border 1px solid #EF4444, Radius 2px
+Text Line 1: Chakra Petch 9px Bold #EF4444: "{cut.location}"
+Text Line 2: JetBrains Mono 9px Regular #CBD5E1: "Stitches: {cut.stitches} | Risk: {cut.reopen_risk_pct}%"
+3.4 Box 4: Right Column — Full-Height Treatment Options Deck (rect(1324, 128, 580, 936))
+Background: #0B0F17, Border: 1px solid #1E293B, Radius: 4px
+Header: rect(1340, 144, 548, 28). Chakra Petch 14px Bold #F8FAFC, uppercase: "CLINICAL INTERVENTIONS & REHABILITATION"
++---------------------------------------------------------------------------------------------------------+
+| TREATMENT CARDS STACK (VBoxContainer, rect(1340, 180, 548, 868), gap: 10px)                            |
+| Each Card: rect(1340, y, 548, 114), Background: #0F172A, Border: 1px solid #1E293B                     |
++---------------------------------------------------------------------------------------------------------+
+| CARD 1: PHYSIO THERAPY SESSION                                                                          |
+|   Operator: Staff Physio ({staff.physio.name}) | Room: Gym Tier Physio Suite                            |
+|   Cost: ${treatment.physio.cost} | Time: {treatment.physio.days} Days | Wear Delta: -{treatment.wear}%  |
+|   CTA: [ASSIGN PHYSIO] -> Triggers Modal Confirmation                                                   |
++---------------------------------------------------------------------------------------------------------+
+| CARD 2: SCHEDULE DELOAD WEEK                                                                            |
+|   Parameters: Sparring Disabled, Technical Drills Capped at 50% Intensity                              |
+|   Stress Impact: -{treatment.deload.stress_relief} pts | Chronic Fatigue Drain: -{treatment.fatigue}%   |
+|   CTA: [SCHEDULE DELOAD]                                                                                |
++---------------------------------------------------------------------------------------------------------+
+| CARD 3: SPECIALIST CUT MAN TISSUE REPAIR                                                                |
+|   Operator: Lead Cutman ({staff.cutman.name}) | Target: {cut.location}                                  |
+|   Cost: ${treatment.cutman.cost} | Reopen Probability Reduction: -{treatment.cutman.reduction_pct}%     |
+|   CTA: [TREAT SCAR TISSUE]                                                                              |
++---------------------------------------------------------------------------------------------------------+
+| CARD 4: SANCTIONING BOARD MEDICAL HOLD                                                                  |
+|   Parameters: Total Activity Cessation (Mandatory Bed Rest)                                             |
+|   Duration: {treatment.hold.weeks} Weeks | Clearance Reset: Mandatory Pre-Bout Physical                 |
+|   CTA: [ISSUE MEDICAL HOLD] (Warning: Cancels Scheduled Bouts)                                         |
++---------------------------------------------------------------------------------------------------------+
+| CARD 5: HEAD COACH OFFICE CONSULTATION                                                                  |
+|   Parameters: Private Consultation (Stress & Composure Alignment)                                      |
+|   Effect: Resolves Acute Panic / Drops Stress by {treatment.talk.stress_reduction} pts                 |
+|   Restriction: 14-Day Cooldown (Active: {coach.talk_cooldown_days} days remaining)                     |
+|   CTA: [REQUEST OFFICE TALK]                                                                            |
++---------------------------------------------------------------------------------------------------------+
+| CARD 6: WEIGHT-CUT PROFILE RECALIBRATION                                                                |
+|   Adjusts caloric intake baseline and water depletion curve                                            |
+|   CTA: [RECONFIGURE CUT]                                                                                |
++---------------------------------------------------------------------------------------------------------+
+
+Treatment Card Pixel Detail (Example: Card 1 Physio)
+Container: rect(1340, 180, 548, 114)
+Background: #0F172A, Border: 1px solid #1E293B, Radius: 4px
+Hover State: Border #38BDF8, Background #162032
+Title: rect(1356, 192, 340, 20), Chakra Petch 12px Bold #F8FAFC, uppercase: "{treatment.name}"
+Staff Line: rect(1356, 214, 340, 16), Inter 10px Medium #94A3B8: "Practitioner: {staff.name} ({staff.role})"
+Cost & Metric Badge: rect(1356, 234, 340, 16), JetBrains Mono 10px Medium #38BDF8: "Cost: ${treatment.cost} | Time: {treatment.duration_days}d | Wear: -{treatment.wear_recovery}%"
+Action CTA Button: rect(400, 202, 132, 36), Background #1E293B, Border 1px solid #38BDF8, Text Chakra Petch 11px Bold #38BDF8: "[EXECUTE]"
+Disabled State (Cooldown / Insufficient Funds / Clear): Background #0F172A, Border #334155, Text #64748B
+Unhurt Boxer Empty State (System Response)
+
+When boxer.injuries.size() == 0 and all 6 body regions have wear < 20%:
+
+Box 1 Trauma List (rect(32, 718, 468, 230)): Background #064E3B (20% alpha), Border 1px solid #22C55E. Renders green shield icon (24×24 px) #22C55E with text:
+Header: Chakra Petch 12px Bold #22C55E: "PEAK STRUCTURAL INTEGRITY"
+Body: Inter 10px Regular #E2E8F0: "Zero acute injuries, ligamentous micro-trauma, or open cut tissue reported across all 6 anatomical regions. Combatant cleared for unrestricted camp intensity."
+Box 3 Face Viewport: Procedural bruise and laceration alpha passes set to 0.0. MetaHuman renders clean, unblemished skin shaders.
+Box 4 Treatment Deck: Cards for Medical Hold, Cut Man Scar Repair, and Physio Therapy display in disabled/idle state (opacity: 0.5, CTA buttons disabled with label: "[NOT INDICATED]"). Preventative recovery options (Deload Week, Office Talk) remain interactive.
+4. CONSOLIDATED TABS: PERFORMANCE & CAMP / CAREER & CONTRACT
+4.1 Tab 3: Performance & Camp Screen (1920×1080)
+
+Merges the daily gym training schedule with fight camp periodization curves, sparring fatigue, and weight depletion.
+
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+| TOP COMMAND STRIP: rect(16, 16, 1888, 72)                                                                                                          |
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+| TAB BAR: rect(16, 88, 1888, 36) — [OVERVIEW] [TECHNIQUES] [PERFORMANCE & CAMP*] [MEDICAL & BIO] [CAREER & CONTRACT]                                |
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+| COL 1: PERIODIZATION CALENDAR       | COL 2: DAILY STATION LOADOUTS & SPARRING     | COL 3: FATIGUE TELEMETRY & CUT TRAJECTORY      |
+| rect(16, 128, 480, 936)             | rect(504, 128, 800, 936)                     | rect(1312, 128, 592, 936)                      |
+|                                     |                                              |                                                |
+| 1. Camp Timeline (W8 to Fight Day)  | 1. Daily 3-Slot Training Schedule            | 1. Acute vs Chronic Workload Ratio (ACWR)      |
+|    - Microcycle: Week {camp.week}   |    - Slot 1 (Morning): Conditioning / Road   |    - Gauge: {boxer.acwr_ratio} (Optimal: 1.15) |
+|    - Focus: {camp.phase_name}       |    - Slot 2 (Midday): Technical Stations     | 2. Weight Cut Trajectory Canvas                |
+| 2. Sparring Schedule Ledger         |    - Slot 3 (Evening): Sparring / Recovery   |    - Target vs Actual Dehydration Curve        |
+|    - Rounds Banked: {camp.rounds}   | 2. Station Capacity Matrix (Gym Tier Rules)  | 3. Station Strain Simulation Readout           |
+|    - Partner: {sparring.partner}    | 3. Coach Assignment Badges                   |    - Heavy Bag: Power +0.4 / Wear +1.2%        |
+| 3. Camp Intensity Governor          | 4. Intensity Sliders (Low / Standard / High) | 4. Auto-Deload Rule Automation Toggles         |
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+
+Detailed Pixel Coordinates (Performance & Camp)
+Camp Timeline Ribbon (rect(32, 144, 448, 140)):
+Background: #0F172A, Border: 1px solid #1E293B, Radius: 4px
+Weeks Grid: 8 interactive blocks (rect(44 + (i * 52), 180, 48, 84)):
+Passed Weeks: Background #1E293B, Text #64748B
+Active Week: Background #D69E2E, Border 1px solid #F59E0B, Text #0B0F17 Chakra Petch 12px Bold
+Future Weeks: Background #0B0F17, Border 1px solid #1E293B, Text #94A3B8
+Daily 3-Slot Schedule Canvas (rect(520, 144, 768, 480)):
+Morning Slot Card: rect(520, 150, 768, 140), Background #0F172A, Border 1px solid #334155
+Station Selector Dropdown: rect(536, 186, 260, 36), Background #1E293B, Text #F8FAFC
+Target Attribute Readout: JetBrains Mono 10px Medium #38BDF8: "Focus: conditioning (+0.08 / session)"
+Midday Slot Card: rect(520, 302, 768, 140)
+Station Selector: "Technical Sparring / Mitts Work"
+Target Attribute: "Focus: technique, speed, defense"
+Evening Slot Card: rect(520, 454, 768, 140)
+Station Selector: "Tactical Film / Recovery / Active Rest"
+Weight Cut Trajectory Canvas (rect(1328, 420, 560, 310)):
+Background: #070A0F, Border: 1px solid #1E293B, Radius: 4px
+Graph plotting 8 weeks: X-axis (Weeks 1–8), Y-axis (Mass in kg, scaled 65.0 to 72.0)
+Ideal Target Line: Dashed #38BDF8 vector
+Actual Boxer Line: Solid #D69E2E vector with verified points {camp.weight_history}
+4.2 Tab 5: Career & Contract Screen (1920×1080)
+
+Merges the official regulatory bout history ledger with contract terms, sanctioning fees, and camp financial ledgers.
+
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+| TOP COMMAND STRIP: rect(16, 16, 1888, 72)                                                                                                          |
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+| TAB BAR: rect(16, 88, 1888, 36) — [OVERVIEW] [TECHNIQUES] [PERFORMANCE & CAMP] [MEDICAL & BIO] [CAREER & CONTRACT*]                                |
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+| COL 1: CONTRACTUAL LEDGER           | COL 2: OFFICIAL BOUT RECORD & HISTORICAL RESULTS | COL 3: FINANCIAL REVENUE / EXPENSE DECK     |
+| rect(16, 128, 480, 936)             | rect(504, 128, 880, 936)                         | rect(1392, 128, 512, 936)                      |
+|                                     |                                                  |                                                |
+| 1. Active Contract Terms Card       | 1. Sanctioned Fight Ledger (Scrollable Table)    | 1. Career Financial Ledger                     |
+|    - Promoter: {contract.promoter}  |    - Cols: Date | Opponent | Event | Result |    |    - Total Career Purses: ${career.purse}      |
+|    - Expiration: {contract.expiry}  |            Method | Round | Scorecard            |    - Total Gym Net Take: ${career.net_take}    |
+|    - Base Purse: ${contract.purse}  | 2. Method Breakdown Analytics                    | 2. Per-Bout P&L Breakdown                      |
+|    - Win Bonus: ${contract.win_bon} |    - KO/TKO: {record.ko_pct}%                    |    - Training Camp Costs: ${camp.expense}      |
+|    - Gym Split: {contract.gym_cut}% |    - Decision: {record.dec_pct}%                 |    - Corner Staff Payouts: ${camp.staff_fee}   |
+| 2. Mandatory Defense Clock          | 3. Ranking Trajectory Plot                       | 3. Contract Extension Negotiation Tool         |
+| 3. Promoter Leverage Meter          |    - Domestic / Continental / World Ladder       |    - Offer New Multi-Fight Terms               |
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+
+Detailed Pixel Coordinates (Career & Contract)
+Bout Record Table (rect(520, 144, 848, 580)):
+Background: #0B0F17, Border: 1px solid #1E293B, Radius: 4px
+Table Header Row: rect(520, 144, 848, 32), Background #0F172A
+Col 1 (Date): rect(528, 152, 90, 16), Chakra Petch 10px Bold #64748B
+Col 2 (Opponent): rect(626, 152, 220, 16), Chakra Petch 10px Bold #64748B
+Col 3 (Result): rect(854, 152, 90, 16), Chakra Petch 10px Bold #64748B
+Col 4 (Method): rect(952, 152, 110, 16), Chakra Petch 10px Bold #64748B
+Col 5 (Round): rect(1070, 152, 70, 16), Chakra Petch 10px Bold #64748B
+Col 6 (Purse): rect(1148, 152, 110, 16), Chakra Petch 10px Bold #64748B
+Table Rows: Height 36px each, alternating background #070A0F and #0B0F17.
+Data format: {bout.date} | {bout.opponent_name} | {bout.result} | {bout.method} | {bout.round} | ${bout.purse}
+Active Contract Terms Card (rect(32, 144, 448, 380)):
+Background: #0F172A, Border: 1px solid #D69E2E, Radius: 4px
+Header: Chakra Petch 13px Bold #D69E2E, uppercase: "ACTIVE PROMOTIONAL AGREEMENT"
+Key-Value Lines: JetBrains Mono 11px Regular:
+"Promoter:             {contract.promoter_name}"
+"Bouts Remaining:      {contract.bouts_remaining}"
+"Guaranteed Base:      ${contract.base_purse}"
+"Win Incentive:        ${contract.win_bonus}"
+"Gym Commission Cut:   {contract.gym_percentage}%"
+5. HEADER TELEMETRY: STRESS MINI-BAR & WEAR PILL
+
+Located inside the primary 72px command strip (rect(16, 16, 1888, 72)).
+
++---------------------------------------------------------------------------------------------------------+
+| HEADER TELEMETRY CLUSTER                                                                                |
+|                                                                                                         |
+| 1. STRESS MINI-GAUGE CONTAINER: rect(1166, 32, 190, 40)                                                 |
+|    - Title Row: rect(1178, 36, 166, 14)                                                                 |
+|      * Text Left: Inter 9px Bold #94A3B8, "STRESS"                                                      |
+|      * Text Right: JetBrains Mono 9px Bold (Dynamic Color based on Tier), "{boxer.stress} / 100"       |
+|    - Mini Bar Track: rect(1178, 54, 166, 8)                                                             |
+|      * Background: #1E293B, Radius: 2px                                                                 |
+|      * Fill Width: int((boxer.stress / 100.0) * 166) px                                                 |
+|                                                                                                         |
+| 2. PHYSICAL WEAR PILL CONTAINER: rect(1368, 32, 160, 40)                                                |
+|    - Styling: Background #0F172A, Border: 1px solid #1E293B, Radius: 3px                                |
+|    - Title: rect(1380, 36, 136, 14) -> Inter 9px Bold #94A3B8, "CAREER WEAR"                           |
+|    - Value: rect(1380, 52, 136, 16) -> Chakra Petch 12px Bold, "{boxer.career_wear_pct}%"             |
++---------------------------------------------------------------------------------------------------------+
+
+Approved Simulation Thresholds & Color Tokens
+Stress Mini-Bar Thresholds
+Tier 1 (CALM, 0–49):
+Fill Color: #22C55E (Green)
+Badge Text: "{boxer.stress} CALM" (#22C55E)
+Tooltip: "Psychological stress within normal limits. Mental faculties clear; no performance degradation."
+Tier 2 (STRAINED, 50–79):
+Fill Color: #EAB308 (Yellow)
+Badge Text: "{boxer.stress} STRAINED" (#EAB308)
+Tooltip: "Fighter under accumulated camp strain. Composure stat suffers minor -5% penalty in high-pressure rounds."
+Tier 3 (ON EDGE, 80–99):
+Fill Color: #F97316 (Orange)
+Badge Text: "{boxer.stress} ON EDGE" (#F97316)
+Tooltip: "Elevated burnout risk. +30% chance to contract Afflictions (OVERCOOKED, GUN-SHY, FRAGILE). Recommend deload week."
+Tier 4 (BREAKING, 100):
+Fill Color: #EF4444 (Flashing Red, 2.0 Hz pulse between #EF4444 and #7F1D1D)
+Badge Text: "100 BREAKING" (#EF4444)
+Tooltip: "CRITICAL: Mental collapse. Ring IQ reduced by 40%, severe chance of unprompted bout withdrawal."
+Career Wear Pill Thresholds
+Tier 1 (0–19%): Background #052E16, Border #22C55E, Text #4ADE80: "{boxer.career_wear_pct}% (PRISTINE)"
+Tier 2 (20–39%): Background #1E293B, Border #38BDF8, Text #38BDF8: "{boxer.career_wear_pct}% (LIGHT)"
+Tier 3 (40–59%): Background #422006, Border #EAB308, Text #FDE047: "{boxer.career_wear_pct}% (MODERATE)"
+Tier 4 (60–79%): Background #431407, Border #F97316, Text #FB923C: "{boxer.career_wear_pct}% (HEAVY)"
+Tier 5 (80–100%): Background #450A0A, Border #EF4444, Text #FCA5A5: "{boxer.career_wear_pct}% (CRITICAL)"
+6. RECEPTION CHECK-IN APP & RECEPTION CAMERA FRAMING
+
+Implements the operator-approved reception interaction workflow: Banner notification triggers camera glide to the front desk, launching the check-in management console.
+
+6.1 Unattended Visitor Notification Banner (rect(720, 24, 480, 48))
+Appears floating at the top of the gym 3D simulation view when an unassigned prospect arrives at the front desk:
+Background: #0B0F17 (95% alpha), Border: 1.5px solid #D69E2E, Radius: 4px
+Elevation Shadow: 0px 8px 24px rgba(0, 0, 0, 0.8)
+Icon: Lucide bell-ring (18×18 px) #D69E2E at rect(732, 38, 20, 20)
+Label: Chakra Petch 12px Bold #F8FAFC: "NEW PROSPECT AT RECEPTION DESK"
+Action Buttons:
+Button [ATTEND]: rect(1008, 30, 92, 36), Background #D69E2E, Text Chakra Petch 11px Bold #0B0F17. On click: Initiates 1.2s camera glide to reception and opens check-in app.
+Button [IGNORE]: rect(1106, 30, 82, 36), Background #1E293B, Text Chakra Petch 11px Medium #94A3B8. On click: Dismisses banner, visitor waits up to 4 in-game hours before departing.
+6.2 Camera Glide Interpolation (Godot Camera3D Tween, 1.2s Duration)
+Start Transform: General Gym Floor View (pos: Vector3(12.4, 6.2, 14.8), target: Vector3(0, 1.0, 0))
+End Transform: Reception Desk Frame (pos: Vector3(4.2, 1.45, 3.8), target: Vector3(3.6, 1.35, 2.2))
+Tween Curve: Tween.TRANS_CUBIC, Tween.EASE_IN_OUT, Duration: 1.2 seconds
+Shot Composition (1920×1080 Split):
+Left Frame (Screen x: 0 to x: 1280): Cinematic over-the-shoulder view across the varnished oak reception counter. MetaHuman receptionist staff on the right, prospect standing opposite with real-time breathing and postural idle.
+Right Frame (Screen x: 1280 to x: 1920): Slide-in digital check-in interface dock.
+6.3 Reception Check-In App Dock (rect(1300, 40, 592, 1000))
+Background: #0B0F17 (98% alpha), Border: 1px solid #1E293B, Radius: 6px
+Elevation Drop Shadow: -12px 0px 32px rgba(0, 0, 0, 0.75)
++---------------------------------------------------------------------------------------------------------+
+| RECEPTION CHECK-IN PORTAL | FIGHTCAMP OS v4.2                                     [CLOSE / DISMISS X]   |
+| rect(1316, 56, 560, 32)                                                                                 |
++---------------------------------------------------------------------------------------------------------+
+| PROSPECT DOSSIER & IDENTITY CARD (rect(1316, 96, 560, 140))                                             |
+|   Name: {prospect.name} | Age: {prospect.age} | Origin: {prospect.hometown}                             |
+|   Stance: {prospect.stance} | Walking Mass: {prospect.weight_kg} kg ({division.name})                   |
+|   Aspiration Track: [FITNESS ENTHUSIAST]
+
+Can you continue section 3 from the Diagnosis panel and complete the Face Close-Up, Treatment Options, and unhurt empty state?
+Can you specify Performance & Camp and Career & Contract using the approved five-tab structure with pixel coordinates?
+Can you create a 1920×1080 annotated ASCII wireframe for the complete Techniques tab, including every rectangle and coordinate?
+Can you generate a visual mockup of the complete Fighter Profile and reception check-in app using the AAA depth, motion, and typography rules?
+Copyright ©2026 Ludo.ai. All Rights Reserved.

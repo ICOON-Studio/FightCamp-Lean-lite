@@ -1,0 +1,7 @@
+Connection lost, reconnecting to https://agentn.global.api5.cursor.sh (attempt 1)...
+Retry attempt 1...
+**U198 (already on `cursor/u198-room-root-writes`):** Teleport and ring-bounds fixes are in; digest and mail to Claude are done.
+
+**Late data:** `fight_readable_onset_test` finished standalone with **PASS** (130 checks, ~**101 min**). The earlier batch “hang” was the **600 s** `run_tests.py` cap, not a room deadlock from the root-cap change.
+
+**Still open on that branch:** overlap, `contact_stop`, `pair_live`, and `fight_room_positions` (see `research/U198_DIGEST.md`).

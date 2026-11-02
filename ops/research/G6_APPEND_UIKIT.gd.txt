@@ -1,0 +1,51 @@
+
+# =====================================================================
+# Shell instruments (G6) — bodies in UIKitShell.gd
+# =====================================================================
+
+static func command_list(items: Array, gym: Color = T.GYM_DEFAULT) -> VBoxContainer:
+	return load("res://scripts/UIKitShell.gd").command_list(items, gym)
+
+
+static func ledger_row(icon: String, value: String, caption: String, pips: int, lit: int, gym: Color = T.GYM_DEFAULT) -> Control:
+	return load("res://scripts/UIKitShell.gd").ledger_row(icon, value, caption, pips, lit, gym)
+
+
+static func stat_tile(icon: String, value: String, caption: String, grade: int = -1, width: float = 220.0) -> Panel:
+	return load("res://scripts/UIKitShell.gd").stat_tile(icon, value, caption, grade, width)
+
+
+static func briefing_hero(eyebrow: String, headline: String, icon: String, width: float, gym: Color = T.GYM_DEFAULT) -> Panel:
+	return load("res://scripts/UIKitShell.gd").briefing_hero(eyebrow, headline, icon, width, gym)
+
+
+static func ticker_row(category: String, headline: String, detail: String, width: float, gym: Color = T.GYM_DEFAULT) -> Panel:
+	return load("res://scripts/UIKitShell.gd").ticker_row(category, headline, detail, width, gym)
+
+
+static func action_card(eyebrow: String, title: String, sub: String, inner: Control = null, width: float = 420.0, gym: Color = T.GYM_DEFAULT) -> Panel:
+	return load("res://scripts/UIKitShell.gd").action_card(eyebrow, title, sub, inner, width, gym)
+
+
+static func alerts_column(sections: Array, width: float, gym: Color = T.GYM_DEFAULT) -> VBoxContainer:
+	return load("res://scripts/UIKitShell.gd").alerts_column(sections, width, gym)
+
+
+static func result_card(winner: String, line: String, stars_value: float, on_next: Callable, gym: Color = T.GYM_DEFAULT) -> Panel:
+	return load("res://scripts/UIKitShell.gd").result_card(winner, line, stars_value, on_next, gym)
+
+
+static func moment_row(text: String, big: bool, width: float) -> Panel:
+	return load("res://scripts/UIKitShell.gd").moment_row(text, big, width)
+
+
+static func champion_mark() -> Label:
+	return load("res://scripts/UIKitShell.gd").champion_mark()
+
+
+static func record_cell(record: String, org_record: String, width: float = 120.0) -> Control:
+	return load("res://scripts/UIKitShell.gd").record_cell(record, org_record, width)
+
+
+static func division_switcher(options: Array, selected: int, on_change: Callable, gym: Color = T.GYM_DEFAULT) -> Control:
+	return load("res://scripts/UIKitShell.gd").division_switcher(options, selected, on_change, gym)

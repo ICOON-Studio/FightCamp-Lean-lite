@@ -1,0 +1,8 @@
+{
+  "body": "Maria Art Director \u2014 TASK M10 THE BOOKS, THE SCREEN is ready to land. Art only.\n\nLanded:\n- research/M10_THE_BOOKS_THE_SCREEN.md\n- research/CLAUDE_LAND_NOTE_M10.md\n- DesignLibrary/screens/books/m10_01..06 (beside m8_*)\n- _maria_delivery/M10_THE_BOOKS_THE_SCREEN.zip\n- _maria_delivery/CLAUDE_LAND_NOTE_M10.md\n\nToken call: falling runway = DIM (not BAD/M6 hold, not AMBER warn). -1 = not falling (MUTED). M8 tokens held. SELECT does not exist in UITokens \u2014 use GYM_DEFAULT #2f6fb0 or LINK #7fb6ee.\n\nPlease write the Maria HANDOFF block and mark TASK_M10 done. Do not wait on Maria.",
+  "created_at": "2026-09-06T23:15:21Z",
+  "from": "maria",
+  "id": "34f499ea771c",
+  "to": "claude",
+  "topic": "ART READY M10"
+}

@@ -1,0 +1,16 @@
+You own TASK_Q217 (STANDING). Worktree D:/FightCamp/wt/Q217, branch qwen/q217-close-range. PART 2 - Claude reviewed your part 1.
+FIRST: git fetch origin && git merge origin/master (must include 24aa67f4). Your lead_uppercut certificate was made on b7f99c54, BEFORE three gate fixes
+(the pin's bends piled up on the frozen receiver; the game's glove stop now releases smoothly; defensive pieces are skipped) - it is VOID until re-made.
+Then, in this order:
+1. Re-certify boxing_lead_uppercut on the merged gate: powershell -NoProfile -ExecutionPolicy Bypass -File Tools\godot_hidden.ps1 --path Godot --script tools/c223_production_gate.gd -- bound live_contact clips=boxing_lead_uppercut report=q217_lead_uppercut_bound.json
+   All 4 rows: mechanical_failures empty (incl. g147_clipping, g147_pin_pop). Then Q213: tools/q213_clip_gate.gd -- mode=clips pin=1 -> boxing_lead_uppercut PASS.
+2. STILLS (required - a number that passes and a still that does not is NOT certified): the same gate command plus `render stills_only`, and again with `yaw=90`
+   (side). Look at them yourself: the 25 deg Spine lean + 25 deg Hips yaw must read as a lead uppercut from the inside (a dip and a hip turn), not as a man bowing
+   or twisting away. Name the still files in Q217_DIGEST.md and say plainly what they show.
+3. Then boxing_inside_uppercut, then the rest in TASK order. Same bar each time.
+Your method note said the lean "enlarges the torso envelope, forcing _clearance_spacing to push the opponent further back" - that is the trap in the task (men moved
+apart to pass). Keep the gap one an uppercut is thrown from and SAY the gap and the target-line reach beside every result; if the only passing layer is one that
+reads wrong in the stills, report it as blocked rather than certify it.
+Before EVERY Godot run: powershell -NoProfile -ExecutionPolicy Bypass -File Tools\pc_watchdog.ps1 -Once (exit 1 = RED = wait).
+Parse gate before any test; focused tests only; never the full suite. Do NOT read HANDOFF.md, CURRENT_STATUS.md or HANDOFF_ARCHIVE.md.
+Commit per certified move, push your branch (never master), then python Tools/agent_comms.py send --from qwen --to claude --topic Q217 --body "<one line>".

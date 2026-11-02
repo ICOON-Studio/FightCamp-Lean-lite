@@ -1,0 +1,127 @@
+{
+  "status": "RECORDED - visual defects remain listed in C138_BJJ_LONG_SCRIPT.md",
+  "fps": 30,
+  "frame_count": 528,
+  "duration_s": 17.5666666666667,
+  "beats": [
+    {
+      "beat_index": 1,
+      "end_s": 2.333,
+      "film_key": "Paired_FullMount_Takedown_BodyLock_Start",
+      "frame_count": 70,
+      "join_to_next_m": {
+        "attacker_hands": 1.75043475627899,
+        "attacker_hips": 1.56236243247986,
+        "victim_hips": 1.57311367988586
+      },
+      "live_graft_attacker_hip_travel_m": 2.03201246261597,
+      "pair_clock_drift_s": 0.0,
+      "role": "grapple_throw",
+      "source_film_attacker_hip_travel_m": 2.02133274078369,
+      "start_s": 0.0
+    },
+    {
+      "beat_index": 2,
+      "end_s": 4.00033333333333,
+      "film_key": "Paired_FullMount_Takedown_BodyLock_Loop",
+      "frame_count": 50,
+      "join_to_next_m": {
+        "attacker_hands": 0.576062142848969,
+        "attacker_hips": 0.319471925497055,
+        "victim_hips": 0.288094222545624
+      },
+      "live_graft_attacker_hip_travel_m": 1.57311367988586,
+      "pair_clock_drift_s": 0.0,
+      "role": "grapple_control",
+      "source_film_attacker_hip_travel_m": 0.0,
+      "start_s": 2.33333333333333
+    },
+    {
+      "beat_index": 3,
+      "end_s": 5.20033333333333,
+      "film_key": "Paired_FullMount_H2H_Punches",
+      "frame_count": 35,
+      "join_to_next_m": {
+        "attacker_hands": 0.516848921775818,
+        "attacker_hips": 0.322427988052368,
+        "victim_hips": 0.327124685049057
+      },
+      "live_graft_attacker_hip_travel_m": 0.319471955299377,
+      "pair_clock_drift_s": 0.0,
+      "role": "mma_guard_gnp",
+      "source_film_attacker_hip_travel_m": 0.0,
+      "start_s": 4.03333333333333
+    },
+    {
+      "beat_index": 4,
+      "end_s": 7.06633333333332,
+      "film_key": "Paired_FullMount_Reversal",
+      "frame_count": 55,
+      "join_to_next_m": {
+        "attacker_hands": 0.172970816493034,
+        "attacker_hips": 0.15130814909935,
+        "victim_hips": 0.151007518172264
+      },
+      "live_graft_attacker_hip_travel_m": 0.381654471158981,
+      "pair_clock_drift_s": 0.0,
+      "role": "grapple_sweep",
+      "source_film_attacker_hip_travel_m": 0.509595394134521,
+      "start_s": 5.23333333333332
+    },
+    {
+      "beat_index": 5,
+      "end_s": 11.5336666666667,
+      "film_key": "Paired_FullMount_H2H_ArmBar",
+      "frame_count": 134,
+      "join_to_next_m": {
+        "attacker_hands": 0.657849729061127,
+        "attacker_hips": 0.945765435695648,
+        "victim_hips": 0.322884052991867
+      },
+      "live_graft_attacker_hip_travel_m": 0.828567981719971,
+      "pair_clock_drift_s": 0.0,
+      "role": "grapple_submission_attempt",
+      "source_film_attacker_hip_travel_m": 0.667715609073639,
+      "start_s": 7.06666666666665
+    },
+    {
+      "beat_index": 6,
+      "end_s": 17.5666666666666,
+      "film_key": "Paired_FullMount_H2H_Strangle",
+      "frame_count": 180,
+      "live_graft_attacker_hip_travel_m": 0.322883456945419,
+      "pair_clock_drift_s": 0.0,
+      "role": "grapple_submission_finish",
+      "source_film_attacker_hip_travel_m": 0.0384515896439552,
+      "start_s": 11.5666666666666
+    }
+  ],
+  "cuts": [
+    {
+      "camera": "hard_cam",
+      "end_s": 2.333333,
+      "start_s": 0.0
+    },
+    {
+      "camera": "high_three_quarter",
+      "end_s": 4.033333,
+      "start_s": 2.333333
+    },
+    {
+      "camera": "low_three_quarter",
+      "end_s": 7.066667,
+      "start_s": 4.033333
+    },
+    {
+      "camera": "top_down",
+      "end_s": 11.566667,
+      "start_s": 7.066667
+    },
+    {
+      "camera": "hard_cam",
+      "end_s": 17.566667,
+      "start_s": 11.566667
+    }
+  ],
+  "recording_sha256": "978783958409590239df1f7d1ed8144f5ba5942a764be3d31456e0d38bbf00c2"
+}

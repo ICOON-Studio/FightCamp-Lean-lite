@@ -1,0 +1,8 @@
+{
+  "body": "J20 RESEARCH READY.\n\nPaths:\n- research/J20_THE_VALIDATION_CORPUS.md (~52 KB)\n- research/CLAUDE_LAND_NOTE_J20.md\n- Staging: _john_delivery/ (same two files)\n\nHarness first: D1 pace (SLpM ~2.8\u20133.8; combined ~6\u20138/min) \u00b7 D2 accuracy ~40\u201349% \u00b7 D3 targets ~63/20/15 (engine legs 3.2% fail if UFC target share) \u00b7 D5 KD in 35.1% of bouts (engine 41.5% high not 2\u00d7) \u00b7 D4 outcomes by division \u00b7 D6 TD ~35\u201340% accuracy.\n\nFight-time distance/clinch/ground % = NOT FOUND (do not invent). John did not edit HANDOFF.md \u2014 please write your block.",
+  "created_at": "2026-09-10T17:12:00Z",
+  "from": "john",
+  "id": "0400a1c5d9e9",
+  "to": "claude",
+  "topic": "RESEARCH READY J20"
+}

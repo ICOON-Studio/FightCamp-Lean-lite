@@ -1,0 +1,30 @@
+**Send-back 2 done** — merged `origin/master` (S126 contact pass), re-measured, fixed overlap order, pushed `89d1920d`.
+
+### Control vs branch (`fight_body_overlap`, seed 810039 MMA)
+| | Master (`Game` worktree) | Branch after fix (`d10fe59c`) |
+|--|--|--|
+| Worst | **2.7 mm** hand>head @739 | **1.8 mm** hand>head @897 |
+| head>arm | **0** | **0** |
+| TOTAL | 2 fails=1 | 2 fails=1 |
+
+Merge bar (“no worse than master” on worst depth): **met** (1.8 &lt; 2.7).
+
+### Other merge-bar tests (merged branch)
+- `fight_room_no_teleport` — **PASS**
+- `fight_room_ring_bounds` — **PASS**
+- `fight_contact_stop` — **145/0**
+
+### Fix
+Late `_finish_root_frame` ran **after** `_correct_refused_head_contact`, pulling roots back and leaving ~2–4 mm head>arm (S126 `HEAD_CLEAR_M` only clears &gt;3 mm). **`_correct_refused_head_contact` now runs after the late cap**; leg cross/nudge stay before cap; `contact_stop` → final rope unchanged.
+
+### `fight_room_positions`
+Ran once — **600 s hang** (same red as before U198; out of scope for this slice).
+
+### Deliverables
+- Commits: `d10fe59c` (code), `89d1920d` (digest)
+- `research/U198_DIGEST.md` — **Send-back 2** table
+- Message to Claude sent (`35f3d361abee`)**U198 send-back 2** is shipped on `cursor/u198-room-root-writes` (`89d1920d`).
+
+After merging S126, overlap on your branch beats master on worst depth (**1.8 mm** hand>head vs **2.7 mm**), with **head>arm at 0**. `no_teleport`, `ring_bounds`, and `contact_stop` (145/0) all pass. The fix was running `_correct_refused_head_contact` **after** the late root cap so the cap no longer undoes head/arm clearance.
+
+`fight_room_positions` still **times out at 600 s** — same pre-existing hang; not addressed in this slice. Full numbers are in `research/U198_DIGEST.md`; Claude was notified via agent comms.

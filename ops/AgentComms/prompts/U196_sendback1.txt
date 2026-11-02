@@ -1,0 +1,29 @@
+You own TASK_U196 - SEND-BACK 1 (Claude, S123). Same worktree, same branch cursor/u196-boxing-room-reds. Run: git fetch origin && git merge origin/master first.
+Do NOT read HANDOFF.md, CURRENT_STATUS.md or HANDOFF_ARCHIVE.md. FightWorldLiveScreen.gd is ~5,280 lines - never open it whole; grep -n, then sed -n windows.
+
+WHAT CLAUDE MEASURED ON YOUR f35ce99d (control arm = master 9b143308):
+- fight_body_overlap_test: master FAIL (leg=leg 7.02 cm f138) -> yours PASS. Good.
+- fight_contact_stop_test: master PASS -> yours FAIL, 2 rows: "landed kickboxing_low_kick surface error <=3cm: -0.0644" and
+  "biggest owner leg/leg overlap decreases". A REGRESSION - it cannot merge.
+- fight_body_layers_live: 124 slide frames both arms (unchanged, as your digest says). smoke, strike_whole, footwork_not_a_blow, boxing_output PASS.
+
+CAUSE: your three new corrections run EVERY frame regardless of the contact_stop switch, and _correct_refused_leg_cross pushes a LANDED
+low kick's leg away from the leg it is meant to touch. So (a) the OFF arm of fight_contact_stop is no longer "off", and (b) the landed kick
+stops 6.4 cm short.
+
+FIX, in this order:
+1. Run _correct_refused_leg_cross / _correct_refused_head_contact / _nudge_refused_pair_gaps ONLY when _contact_stop is ON (move them
+   into the `if _contact_stop and ...` block beside _stop_posed_contact). The game runs contact_stop ON (demo_switches_on); OFF must mean off.
+2. The leg correction must SKIP a limb that is the landing striker of a landed kick (read how _stop_posed_contact / _whole_roots knows a
+   landed kick and its region; a landed shin is supposed to touch). Same for the head correction and a landed punch's glove.
+3. Make fight_body_overlap_test measure the GAME config: contact_stop ON (as the game ships). That is measuring the product, not bending the
+   test - say so in the test comment. It must still fail on master's code with contact_stop ON if the 7 cm leg=leg remains there
+   (report that number: master + contact_stop ON).
+4. Remove the duplicated _correct_refused_leg_cross() call line.
+5. _nudge_refused_pair_gaps moves both ROOTS up to 1.5 cm a frame - that is foot slide. Keep it only if fight_body_layers_live slide count
+   does not rise AND fight_stage_realism R3 does not worsen; print both numbers with and without it.
+GATE: parse gate on touched files; then --only fight_body_overlap,fight_contact_stop,fight_body_layers_live,fight_strike_whole,smoke,footwork_not_a_blow,boxing_output.
+fight_contact_stop and fight_body_overlap must both PASS; the rest no worse than listed above. Never the full suite.
+Commit, push your branch (never master), append a "Send-back 1" section to U196_DIGEST.md with before/after numbers, then
+python Tools/agent_comms.py send --from cursor --to claude --topic U196 "<one line>".
+Trap: a test log dir is shared (%TEMP%\fightcamp_test_logs) - read a test's log right after its own run.

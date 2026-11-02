@@ -1,0 +1,5346 @@
+{
+  "c198_before": {
+    "overlap_frames": 381,
+    "share": 0.105833333333333,
+    "longest_s": 0.483333333333333,
+    "owner_frames": {
+      "legacy_strike": 26,
+      "unowned_locomotion_guard": 30,
+      "unowned_reaction": 40,
+      "whole_strike": 285
+    },
+    "pair_frames": {
+      "Chest-UpperChest / Chest-UpperChest": 3,
+      "Chest-UpperChest / Hips-Spine": 15,
+      "Chest-UpperChest / LeftHand": 3,
+      "Chest-UpperChest / LeftLowerArm-LeftHand": 13,
+      "Chest-UpperChest / LeftShoulder-LeftUpperArm": 5,
+      "Chest-UpperChest / LeftUpperArm-LeftLowerArm": 10,
+      "Chest-UpperChest / LeftUpperLeg-LeftLowerLeg": 6,
+      "Chest-UpperChest / RightFoot-RightToes": 3,
+      "Chest-UpperChest / RightLowerLeg-RightFoot": 27,
+      "Chest-UpperChest / RightUpperLeg-RightLowerLeg": 69,
+      "Chest-UpperChest / Spine-Chest": 1,
+      "Head / Chest-UpperChest": 17,
+      "Head / Hips-Spine": 19,
+      "Head / LeftHand": 8,
+      "Head / LeftLowerArm-LeftHand": 2,
+      "Head / LeftShoulder-LeftUpperArm": 38,
+      "Head / LeftUpperArm-LeftLowerArm": 27,
+      "Head / LeftUpperLeg-LeftLowerLeg": 10,
+      "Head / RightLowerLeg-RightFoot": 1,
+      "Head / RightShoulder-RightUpperArm": 23,
+      "Head / RightUpperArm-RightLowerArm": 12,
+      "Head / RightUpperLeg-RightLowerLeg": 17,
+      "Head / Spine-Chest": 17,
+      "Head / UpperChest-Neck": 11,
+      "Hips-Spine / LeftLowerArm-LeftHand": 1,
+      "Hips-Spine / LeftUpperArm-LeftLowerArm": 2,
+      "Hips-Spine / RightFoot-RightToes": 6,
+      "Hips-Spine / RightLowerLeg-RightFoot": 24,
+      "Hips-Spine / RightUpperLeg-RightLowerLeg": 35,
+      "LeftFoot-LeftToes / LeftFoot-LeftToes": 46,
+      "LeftFoot-LeftToes / LeftLowerLeg-LeftFoot": 17,
+      "LeftFoot-LeftToes / RightFoot-RightToes": 29,
+      "LeftFoot-LeftToes / RightLowerLeg-RightFoot": 6,
+      "LeftHand / Chest-UpperChest": 8,
+      "LeftHand / LeftHand": 11,
+      "LeftHand / LeftLowerArm-LeftHand": 11,
+      "LeftHand / LeftShoulder-LeftUpperArm": 6,
+      "LeftHand / LeftUpperArm-LeftLowerArm": 4,
+      "LeftHand / RightHand": 12,
+      "LeftHand / Spine-Chest": 1,
+      "LeftHand / UpperChest-Neck": 3,
+      "LeftLowerArm-LeftHand / Chest-UpperChest": 4,
+      "LeftLowerArm-LeftHand / Head": 5,
+      "LeftLowerArm-LeftHand / Hips-Spine": 6,
+      "LeftLowerArm-LeftHand / LeftHand": 2,
+      "LeftLowerArm-LeftHand / LeftLowerArm-LeftHand": 4,
+      "LeftLowerArm-LeftHand / LeftShoulder-LeftUpperArm": 8,
+      "LeftLowerArm-LeftHand / LeftUpperArm-LeftLowerArm": 3,
+      "LeftLowerArm-LeftHand / Neck-Head": 1,
+      "LeftLowerArm-LeftHand / RightHand": 10,
+      "LeftLowerArm-LeftHand / RightLowerArm-RightHand": 1,
+      "LeftLowerArm-LeftHand / RightShoulder-RightUpperArm": 1,
+      "LeftLowerArm-LeftHand / RightUpperArm-RightLowerArm": 1,
+      "LeftLowerArm-LeftHand / RightUpperLeg-RightLowerLeg": 6,
+      "LeftLowerArm-LeftHand / Spine-Chest": 1,
+      "LeftLowerArm-LeftHand / UpperChest-Neck": 8,
+      "LeftLowerLeg-LeftFoot / LeftFoot-LeftToes": 6,
+      "LeftLowerLeg-LeftFoot / LeftLowerLeg-LeftFoot": 17,
+      "LeftLowerLeg-LeftFoot / LeftUpperLeg-LeftLowerLeg": 15,
+      "LeftLowerLeg-LeftFoot / RightFoot-RightToes": 25,
+      "LeftLowerLeg-LeftFoot / RightLowerLeg-RightFoot": 4,
+      "LeftShoulder-LeftUpperArm / Chest-UpperChest": 11,
+      "LeftShoulder-LeftUpperArm / Hips-Spine": 43,
+      "LeftShoulder-LeftUpperArm / LeftHand": 5,
+      "LeftShoulder-LeftUpperArm / LeftLowerArm-LeftHand": 10,
+      "LeftShoulder-LeftUpperArm / LeftShoulder-LeftUpperArm": 5,
+      "LeftShoulder-LeftUpperArm / LeftUpperArm-LeftLowerArm": 6,
+      "LeftShoulder-LeftUpperArm / RightHand": 1,
+      "LeftShoulder-LeftUpperArm / RightLowerLeg-RightFoot": 7,
+      "LeftShoulder-LeftUpperArm / RightShoulder-RightUpperArm": 2,
+      "LeftShoulder-LeftUpperArm / RightUpperArm-RightLowerArm": 3,
+      "LeftShoulder-LeftUpperArm / RightUpperLeg-RightLowerLeg": 67,
+      "LeftShoulder-LeftUpperArm / Spine-Chest": 33,
+      "LeftShoulder-LeftUpperArm / UpperChest-Neck": 1,
+      "LeftUpperArm-LeftLowerArm / Chest-UpperChest": 12,
+      "LeftUpperArm-LeftLowerArm / Head": 1,
+      "LeftUpperArm-LeftLowerArm / Hips-Spine": 47,
+      "LeftUpperArm-LeftLowerArm / LeftHand": 5,
+      "LeftUpperArm-LeftLowerArm / LeftLowerArm-LeftHand": 1,
+      "LeftUpperArm-LeftLowerArm / LeftShoulder-LeftUpperArm": 3,
+      "LeftUpperArm-LeftLowerArm / LeftUpperArm-LeftLowerArm": 2,
+      "LeftUpperArm-LeftLowerArm / LeftUpperLeg-LeftLowerLeg": 2,
+      "LeftUpperArm-LeftLowerArm / RightHand": 7,
+      "LeftUpperArm-LeftLowerArm / RightLowerLeg-RightFoot": 2,
+      "LeftUpperArm-LeftLowerArm / RightShoulder-RightUpperArm": 1,
+      "LeftUpperArm-LeftLowerArm / RightUpperArm-RightLowerArm": 1,
+      "LeftUpperArm-LeftLowerArm / RightUpperLeg-RightLowerLeg": 62,
+      "LeftUpperArm-LeftLowerArm / Spine-Chest": 13,
+      "LeftUpperArm-LeftLowerArm / UpperChest-Neck": 2,
+      "LeftUpperLeg-LeftLowerLeg / LeftLowerLeg-LeftFoot": 19,
+      "LeftUpperLeg-LeftLowerLeg / LeftUpperLeg-LeftLowerLeg": 20,
+      "LeftUpperLeg-LeftLowerLeg / RightFoot-RightToes": 6,
+      "LeftUpperLeg-LeftLowerLeg / RightLowerLeg-RightFoot": 13,
+      "LeftUpperLeg-LeftLowerLeg / RightUpperLeg-RightLowerLeg": 14,
+      "Neck-Head / LeftLowerArm-LeftHand": 2,
+      "Neck-Head / LeftUpperLeg-LeftLowerLeg": 3,
+      "Neck-Head / RightLowerLeg-RightFoot": 3,
+      "Neck-Head / RightShoulder-RightUpperArm": 3,
+      "Neck-Head / RightUpperLeg-RightLowerLeg": 14,
+      "RightFoot-RightToes / LeftFoot-LeftToes": 26,
+      "RightHand / LeftHand": 4,
+      "RightHand / LeftLowerArm-LeftHand": 3,
+      "RightHand / LeftUpperArm-LeftLowerArm": 4,
+      "RightLowerArm-RightHand / LeftHand": 1,
+      "RightLowerArm-RightHand / LeftLowerArm-LeftHand": 2,
+      "RightLowerArm-RightHand / LeftLowerLeg-LeftFoot": 1,
+      "RightLowerArm-RightHand / LeftUpperArm-LeftLowerArm": 2,
+      "RightLowerArm-RightHand / RightLowerArm-RightHand": 1,
+      "RightLowerArm-RightHand / RightLowerLeg-RightFoot": 1,
+      "RightLowerArm-RightHand / RightUpperArm-RightLowerArm": 1,
+      "RightLowerArm-RightHand / RightUpperLeg-RightLowerLeg": 1,
+      "RightLowerLeg-RightFoot / RightFoot-RightToes": 4,
+      "RightLowerLeg-RightFoot / RightLowerLeg-RightFoot": 1,
+      "RightShoulder-RightUpperArm / Chest-UpperChest": 4,
+      "RightShoulder-RightUpperArm / Head": 8,
+      "RightShoulder-RightUpperArm / LeftHand": 1,
+      "RightShoulder-RightUpperArm / LeftLowerArm-LeftHand": 2,
+      "RightShoulder-RightUpperArm / LeftLowerLeg-LeftFoot": 3,
+      "RightShoulder-RightUpperArm / LeftUpperArm-LeftLowerArm": 1,
+      "RightShoulder-RightUpperArm / LeftUpperLeg-LeftLowerLeg": 13,
+      "RightShoulder-RightUpperArm / RightLowerLeg-RightFoot": 13,
+      "RightShoulder-RightUpperArm / RightShoulder-RightUpperArm": 4,
+      "RightShoulder-RightUpperArm / RightUpperArm-RightLowerArm": 7,
+      "RightShoulder-RightUpperArm / RightUpperLeg-RightLowerLeg": 22,
+      "RightShoulder-RightUpperArm / Spine-Chest": 4,
+      "RightShoulder-RightUpperArm / UpperChest-Neck": 4,
+      "RightUpperArm-RightLowerArm / Chest-UpperChest": 4,
+      "RightUpperArm-RightLowerArm / Head": 9,
+      "RightUpperArm-RightLowerArm / LeftHand": 3,
+      "RightUpperArm-RightLowerArm / LeftLowerLeg-LeftFoot": 3,
+      "RightUpperArm-RightLowerArm / LeftUpperLeg-LeftLowerLeg": 7,
+      "RightUpperArm-RightLowerArm / RightLowerArm-RightHand": 1,
+      "RightUpperArm-RightLowerArm / RightLowerLeg-RightFoot": 7,
+      "RightUpperArm-RightLowerArm / RightShoulder-RightUpperArm": 1,
+      "RightUpperArm-RightLowerArm / RightUpperArm-RightLowerArm": 2,
+      "RightUpperArm-RightLowerArm / RightUpperLeg-RightLowerLeg": 12,
+      "RightUpperArm-RightLowerArm / Spine-Chest": 4,
+      "RightUpperArm-RightLowerArm / UpperChest-Neck": 4,
+      "RightUpperLeg-RightLowerLeg / Hips-Spine": 5,
+      "RightUpperLeg-RightLowerLeg / RightFoot-RightToes": 6,
+      "RightUpperLeg-RightLowerLeg / RightLowerLeg-RightFoot": 10,
+      "RightUpperLeg-RightLowerLeg / RightUpperLeg-RightLowerLeg": 5,
+      "Spine-Chest / LeftLowerArm-LeftHand": 4,
+      "Spine-Chest / LeftUpperArm-LeftLowerArm": 5,
+      "Spine-Chest / RightFoot-RightToes": 4,
+      "Spine-Chest / RightLowerLeg-RightFoot": 24,
+      "Spine-Chest / RightUpperLeg-RightLowerLeg": 41,
+      "UpperChest-Neck / Chest-UpperChest": 9,
+      "UpperChest-Neck / Hips-Spine": 24,
+      "UpperChest-Neck / LeftHand": 9,
+      "UpperChest-Neck / LeftLowerArm-LeftHand": 22,
+      "UpperChest-Neck / LeftLowerLeg-LeftFoot": 5,
+      "UpperChest-Neck / LeftShoulder-LeftUpperArm": 19,
+      "UpperChest-Neck / LeftUpperArm-LeftLowerArm": 34,
+      "UpperChest-Neck / LeftUpperLeg-LeftLowerLeg": 13,
+      "UpperChest-Neck / RightFoot-RightToes": 1,
+      "UpperChest-Neck / RightLowerArm-RightHand": 1,
+      "UpperChest-Neck / RightLowerLeg-RightFoot": 28,
+      "UpperChest-Neck / RightShoulder-RightUpperArm": 4,
+      "UpperChest-Neck / RightUpperArm-RightLowerArm": 8,
+      "UpperChest-Neck / RightUpperLeg-RightLowerLeg": 71,
+      "UpperChest-Neck / Spine-Chest": 17,
+      "UpperChest-Neck / UpperChest-Neck": 1
+    },
+    "worst": [
+      {
+        "a": "idle",
+        "a_clock": 1.05,
+        "b": "kickboxing_body_kick",
+        "b_clock": 0.216666666666667,
+        "depth": 0.288962687669891,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0362302030665187
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.114270700366854
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.083062254995101
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.264056263697748
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.230982446264266
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.288962687669891
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.255888870236408
+          },
+          {
+            "a_class": "head",
+            "a_name": "Neck-Head",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0673597724805982
+          },
+          {
+            "a_class": "head",
+            "a_name": "Neck-Head",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.034285955047116
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.150808996187712
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.109677405640979
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightShoulder-RightUpperArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.115008578691913
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightShoulder-RightUpperArm",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0819347612584311
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftUpperArm-LeftLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0567244990733249
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftLowerArm-LeftHand",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.029208702025161
+          }
+        ],
+        "seconds": 16.1,
+        "tick": 966
+      },
+      {
+        "a": "slip#1",
+        "a_clock": 0.35,
+        "b": "kickboxing_axe_kick",
+        "b_clock": 0.428659822543462,
+        "depth": 0.285963387970164,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.135278692375303
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0660820327394544
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.204655490644762
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0758787582483313
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.285963387970164
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.107017364598997
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.248717264180508
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0962665652570928
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "torso",
+            "b_name": "Hips-Spine",
+            "depth": 0.0497810970896082
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0636681916351068
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightShoulder-RightUpperArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0379104862317078
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftUpperArm-LeftLowerArm",
+            "b_class": "leg",
+            "b_name": "LeftUpperLeg-LeftLowerLeg",
+            "depth": 0.0228626894922084
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightUpperArm-RightLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0229215162754067
+          }
+        ],
+        "seconds": 52.6833333333333,
+        "tick": 3161
+      },
+      {
+        "a": "react_head#3",
+        "a_clock": 0.116666666666667,
+        "b": "kickboxing_axe_kick",
+        "b_clock": 0.261377940575282,
+        "depth": 0.281026965118039,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "torso",
+            "b_name": "Hips-Spine",
+            "depth": 0.0513609871805727
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.15035273627624
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "torso",
+            "b_name": "Hips-Spine",
+            "depth": 0.101721578169703
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "torso",
+            "b_name": "Spine-Chest",
+            "depth": 0.0615091811924691
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.281026965118039
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0540266181675627
+          },
+          {
+            "a_class": "head",
+            "a_name": "Neck-Head",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.156115302523614
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "torso",
+            "b_name": "Hips-Spine",
+            "depth": 0.0873285932199386
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "torso",
+            "b_name": "Spine-Chest",
+            "depth": 0.041598281351462
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.202626057161263
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightShoulder-RightUpperArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.193351379591714
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightShoulder-RightUpperArm",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0970820080605206
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftUpperArm-LeftLowerArm",
+            "b_class": "torso",
+            "b_name": "Hips-Spine",
+            "depth": 0.0479658254225447
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftUpperArm-LeftLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.108152365417966
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightUpperArm-RightLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.116097554787024
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightUpperArm-RightLowerArm",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0708321124834209
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftUpperLeg-LeftLowerLeg",
+            "b_class": "leg",
+            "b_name": "LeftUpperLeg-LeftLowerLeg",
+            "depth": 0.0850755819010173
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftUpperLeg-LeftLowerLeg",
+            "b_class": "leg",
+            "b_name": "LeftLowerLeg-LeftFoot",
+            "depth": 0.0891185253246936
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftLowerLeg-LeftFoot",
+            "b_class": "leg",
+            "b_name": "LeftUpperLeg-LeftLowerLeg",
+            "depth": 0.0479491134734698
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftLowerLeg-LeftFoot",
+            "b_class": "leg",
+            "b_name": "LeftLowerLeg-LeftFoot",
+            "depth": 0.0519920419959849
+          },
+          {
+            "a_class": "head",
+            "a_name": "Head",
+            "b_class": "torso",
+            "b_name": "Hips-Spine",
+            "depth": 0.0625628995374182
+          },
+          {
+            "a_class": "head",
+            "a_name": "Head",
+            "b_class": "torso",
+            "b_name": "Spine-Chest",
+            "depth": 0.0598149275279504
+          },
+          {
+            "a_class": "head",
+            "a_name": "Head",
+            "b_class": "torso",
+            "b_name": "Chest-UpperChest",
+            "depth": 0.0728934053180342
+          },
+          {
+            "a_class": "head",
+            "a_name": "Head",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0763237169934143
+          }
+        ],
+        "seconds": 57.6166666666667,
+        "tick": 3457
+      },
+      {
+        "a": "idle",
+        "a_clock": 1.03333333333333,
+        "b": "kickboxing_body_kick",
+        "b_clock": 0.2,
+        "depth": 0.27228835162391,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0769771601301936
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0452116348472089
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.151690541060328
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.11869866511225
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.267118038815861
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.234044165503024
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.27228835162391
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.239214534190428
+          },
+          {
+            "a_class": "head",
+            "a_name": "Neck-Head",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0226886393200071
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.10359609745648
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0702901795362426
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightShoulder-RightUpperArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0752306739429966
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightShoulder-RightUpperArm",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0421568565095145
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftUpperArm-LeftLowerArm",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0248200353633687
+          }
+        ],
+        "seconds": 16.0833333333333,
+        "tick": 965
+      },
+      {
+        "a": "loc_strafe_left",
+        "a_clock": 0.00687688688437144,
+        "b": "kickboxing_body_kick",
+        "b_clock": 0.266666666666667,
+        "depth": 0.270565021155971,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0402598346812038
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.118083579690813
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0769577707946234
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.255830997807388
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.191111886095046
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.270565021155971
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.200809518125784
+          },
+          {
+            "a_class": "head",
+            "a_name": "Neck-Head",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.057160970724693
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.148927188145186
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0634022220825149
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightShoulder-RightUpperArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.110503585133983
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightShoulder-RightUpperArm",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0755792967999655
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftUpperArm-LeftLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0676126434472186
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftUpperArm-LeftLowerArm",
+            "b_class": "hand",
+            "b_name": "RightHand",
+            "depth": 0.0406779542380815
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightUpperArm-RightLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0296294140811474
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftLowerArm-LeftHand",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0445630969378807
+          }
+        ],
+        "seconds": 16.15,
+        "tick": 969
+      },
+      {
+        "a": "loc_strafe_left",
+        "a_clock": 0.00343844344218572,
+        "b": "kickboxing_body_kick",
+        "b_clock": 0.25,
+        "depth": 0.26522123040062,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0930424256792571
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0572506811475007
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.235412216621916
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.192941570477401
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.26522123040062
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.218275277536563
+          },
+          {
+            "a_class": "head",
+            "a_name": "Neck-Head",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0773659602374545
+          },
+          {
+            "a_class": "head",
+            "a_name": "Neck-Head",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0371312035277539
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.170935267378689
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.099200856614347
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightShoulder-RightUpperArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.128909539962729
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightShoulder-RightUpperArm",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0958357225292469
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftUpperArm-LeftLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0839705091795506
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightUpperArm-RightLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.024374188681894
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftLowerArm-LeftHand",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0402043262425
+          }
+        ],
+        "seconds": 16.1333333333333,
+        "tick": 968
+      },
+      {
+        "a": "idle",
+        "a_clock": 1.06666666666667,
+        "b": "kickboxing_body_kick",
+        "b_clock": 0.233333333333333,
+        "depth": 0.261990464596646,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.070003016145586
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0365726139247351
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.215035161209707
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.181334302913188
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.261990464596646
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.228235831734669
+          },
+          {
+            "a_class": "head",
+            "a_name": "Neck-Head",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0955817969213636
+          },
+          {
+            "a_class": "head",
+            "a_name": "Neck-Head",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0623064189309928
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.19086002059486
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.134366357312102
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightShoulder-RightUpperArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.134660438690616
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightShoulder-RightUpperArm",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.102452676745721
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftUpperArm-LeftLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0997507526543719
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftLowerArm-LeftHand",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0273127527806618
+          }
+        ],
+        "seconds": 16.1166666666667,
+        "tick": 967
+      },
+      {
+        "a": "react_head#1",
+        "a_clock": 0.0832142857142857,
+        "b": "kickboxing_body_kick",
+        "b_clock": 0.316666666666667,
+        "depth": 0.244166332126992,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.219659711399219
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.140759908932651
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.021603350178428
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.244166332126992
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.110065320277338
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0472099460432217
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.222337458764874
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.106406542196895
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0396102061116466
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.10027372269115
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightUpperArm-RightLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0336487520721443
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftUpperLeg-LeftLowerLeg",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0491797292552679
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftUpperLeg-LeftLowerLeg",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.0453020095645306
+          }
+        ],
+        "seconds": 16.2,
+        "tick": 972
+      },
+      {
+        "a": "slip#1",
+        "a_clock": 0.333333333333333,
+        "b": "kickboxing_axe_kick",
+        "b_clock": 0.418204704920451,
+        "depth": 0.242637164701059,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.145051931868673
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0507801793211042
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.210485003717729
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0638679156866095
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.242637164701059
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0909481758849697
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.195974760597077
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0766668444214071
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightShoulder-RightUpperArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.028794969092273
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftUpperArm-LeftLowerArm",
+            "b_class": "leg",
+            "b_name": "LeftUpperLeg-LeftLowerLeg",
+            "depth": 0.0225120949716396
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightUpperArm-RightLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.039187027788163
+          }
+        ],
+        "seconds": 52.6666666666667,
+        "tick": 3160
+      },
+      {
+        "a": "react_head#3",
+        "a_clock": 0.316666666666667,
+        "b": "kickboxing_axe_kick",
+        "b_clock": 0.386839352051417,
+        "depth": 0.241944620448485,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "torso",
+            "b_name": "Hips-Spine",
+            "depth": 0.0614177877191959
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.109834235763724
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "torso",
+            "b_name": "Hips-Spine",
+            "depth": 0.119743317846972
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "torso",
+            "b_name": "Spine-Chest",
+            "depth": 0.0900239013499329
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "torso",
+            "b_name": "Chest-UpperChest",
+            "depth": 0.0417727312413427
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.143224267057844
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "torso",
+            "b_name": "Hips-Spine",
+            "depth": 0.105269118987408
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "torso",
+            "b_name": "Spine-Chest",
+            "depth": 0.0506274954924967
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.241944620448485
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightShoulder-RightUpperArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0209510396099128
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftUpperArm-LeftLowerArm",
+            "b_class": "torso",
+            "b_name": "Hips-Spine",
+            "depth": 0.106308136406064
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftUpperArm-LeftLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.206548058917392
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftLowerArm-LeftHand",
+            "b_class": "torso",
+            "b_name": "Hips-Spine",
+            "depth": 0.05392806807475
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftLowerArm-LeftHand",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0492934169381024
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftUpperLeg-LeftLowerLeg",
+            "b_class": "leg",
+            "b_name": "LeftUpperLeg-LeftLowerLeg",
+            "depth": 0.161848619355268
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftUpperLeg-LeftLowerLeg",
+            "b_class": "leg",
+            "b_name": "LeftLowerLeg-LeftFoot",
+            "depth": 0.127401751656526
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftLowerLeg-LeftFoot",
+            "b_class": "leg",
+            "b_name": "LeftUpperLeg-LeftLowerLeg",
+            "depth": 0.124722149368145
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftLowerLeg-LeftFoot",
+            "b_class": "leg",
+            "b_name": "LeftLowerLeg-LeftFoot",
+            "depth": 0.0902752816694042
+          },
+          {
+            "a_class": "foot",
+            "a_name": "LeftFoot-LeftToes",
+            "b_class": "foot",
+            "b_name": "LeftFoot-LeftToes",
+            "depth": 0.0344684297665831
+          },
+          {
+            "a_class": "head",
+            "a_name": "Head",
+            "b_class": "torso",
+            "b_name": "Hips-Spine",
+            "depth": 0.104515872438099
+          },
+          {
+            "a_class": "head",
+            "a_name": "Head",
+            "b_class": "torso",
+            "b_name": "Spine-Chest",
+            "depth": 0.119093912682393
+          },
+          {
+            "a_class": "head",
+            "a_name": "Head",
+            "b_class": "torso",
+            "b_name": "Chest-UpperChest",
+            "depth": 0.141486942421977
+          },
+          {
+            "a_class": "head",
+            "a_name": "Head",
+            "b_class": "torso",
+            "b_name": "UpperChest-Neck",
+            "depth": 0.099026976902407
+          }
+        ],
+        "seconds": 57.8166666666667,
+        "tick": 3469
+      }
+    ],
+    "contacts": [
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "a",
+        "surface_depth": 3.8678525215996e-08,
+        "take": "hook_lead",
+        "tick": 103
+      },
+      {
+        "effector": "RightHand",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.357607223095247,
+        "take": "hook_rear",
+        "tick": 236
+      },
+      {
+        "effector": "LeftHand",
+        "region": "torso_core",
+        "side": "a",
+        "surface_depth": -0.496951239046885,
+        "take": "hook_lead",
+        "tick": 535
+      },
+      {
+        "effector": "RightLowerLeg-RightFoot",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.232517249966159,
+        "take": "muay_thai_straight_knee",
+        "tick": 760
+      },
+      {
+        "effector": "RightFoot-RightToes",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.391351355150175,
+        "take": "kickboxing_body_kick",
+        "tick": 969
+      },
+      {
+        "effector": "LeftHand",
+        "region": "torso_core",
+        "side": "a",
+        "surface_depth": 1.88225672381748e-07,
+        "take": "boxing_one_two",
+        "tick": 1441
+      },
+      {
+        "effector": "LeftHand",
+        "region": "torso_core",
+        "side": "a",
+        "surface_depth": -7.99952291075101e-08,
+        "take": "boxing_one_two",
+        "tick": 1442
+      },
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.00090250188604829,
+        "take": "hook_lead",
+        "tick": 1568
+      },
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "a",
+        "surface_depth": -1.51728569153242e-08,
+        "take": "hook_lead",
+        "tick": 2168
+      },
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -4.15389695140878e-07,
+        "take": "boxing_one_two",
+        "tick": 2179
+      },
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -5.94203629467049e-07,
+        "take": "boxing_one_two",
+        "tick": 2180
+      },
+      {
+        "effector": "LeftHand",
+        "region": "torso_core",
+        "side": "b",
+        "surface_depth": -1.98383913296851e-07,
+        "take": "hook_lead",
+        "tick": 3302
+      },
+      {
+        "effector": "RightFoot-RightToes",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.403236471208749,
+        "take": "kickboxing_axe_kick",
+        "tick": 3464
+      },
+      {
+        "effector": "RightFoot-RightToes",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.424454776331415,
+        "take": "kickboxing_axe_kick",
+        "tick": 3465
+      }
+    ],
+    "event_hash": "c69594a7fdf028beee661c28308f542d1706d4149826885edf8c2b2fea7de279",
+    "clip_clock_sha256": "d8b619b9d50a98446aa50bc15a479300f4c431b22b1342292f01575fc9bcb61c",
+    "frames": 3600
+  },
+  "c198_trial": {
+    "overlap_frames": 333,
+    "share": 0.0925,
+    "longest_s": 0.433333333333333,
+    "owner_frames": {
+      "legacy_strike": 30,
+      "unowned_locomotion_guard": 29,
+      "unowned_reaction": 30,
+      "whole_strike": 244
+    },
+    "pair_frames": {
+      "Chest-UpperChest / LeftHand": 3,
+      "Chest-UpperChest / LeftLowerArm-LeftHand": 13,
+      "Chest-UpperChest / LeftShoulder-LeftUpperArm": 5,
+      "Chest-UpperChest / LeftUpperArm-LeftLowerArm": 10,
+      "Chest-UpperChest / RightFoot-RightToes": 2,
+      "Chest-UpperChest / RightLowerLeg-RightFoot": 3,
+      "Head / Hips-Spine": 1,
+      "Head / LeftHand": 8,
+      "Head / LeftLowerArm-LeftHand": 9,
+      "Head / LeftShoulder-LeftUpperArm": 47,
+      "Head / LeftUpperArm-LeftLowerArm": 41,
+      "Head / RightShoulder-RightUpperArm": 1,
+      "Hips-Spine / LeftLowerArm-LeftHand": 1,
+      "Hips-Spine / LeftUpperArm-LeftLowerArm": 2,
+      "Hips-Spine / RightFoot-RightToes": 5,
+      "Hips-Spine / RightLowerLeg-RightFoot": 4,
+      "LeftFoot-LeftToes / LeftFoot-LeftToes": 54,
+      "LeftFoot-LeftToes / LeftLowerLeg-LeftFoot": 20,
+      "LeftFoot-LeftToes / RightFoot-RightToes": 31,
+      "LeftFoot-LeftToes / RightLowerLeg-RightFoot": 5,
+      "LeftHand / Chest-UpperChest": 8,
+      "LeftHand / LeftHand": 11,
+      "LeftHand / LeftLowerArm-LeftHand": 11,
+      "LeftHand / LeftShoulder-LeftUpperArm": 6,
+      "LeftHand / LeftUpperArm-LeftLowerArm": 4,
+      "LeftHand / RightHand": 12,
+      "LeftHand / RightUpperLeg-RightLowerLeg": 1,
+      "LeftHand / Spine-Chest": 1,
+      "LeftHand / UpperChest-Neck": 3,
+      "LeftLowerArm-LeftHand / Chest-UpperChest": 3,
+      "LeftLowerArm-LeftHand / Head": 5,
+      "LeftLowerArm-LeftHand / LeftHand": 4,
+      "LeftLowerArm-LeftHand / LeftLowerArm-LeftHand": 4,
+      "LeftLowerArm-LeftHand / LeftShoulder-LeftUpperArm": 9,
+      "LeftLowerArm-LeftHand / LeftUpperArm-LeftLowerArm": 3,
+      "LeftLowerArm-LeftHand / Neck-Head": 1,
+      "LeftLowerArm-LeftHand / RightHand": 10,
+      "LeftLowerArm-LeftHand / RightLowerArm-RightHand": 2,
+      "LeftLowerArm-LeftHand / RightLowerLeg-RightFoot": 1,
+      "LeftLowerArm-LeftHand / RightShoulder-RightUpperArm": 1,
+      "LeftLowerArm-LeftHand / RightUpperArm-RightLowerArm": 1,
+      "LeftLowerArm-LeftHand / RightUpperLeg-RightLowerLeg": 1,
+      "LeftLowerArm-LeftHand / Spine-Chest": 1,
+      "LeftLowerArm-LeftHand / UpperChest-Neck": 8,
+      "LeftLowerLeg-LeftFoot / LeftFoot-LeftToes": 2,
+      "LeftLowerLeg-LeftFoot / RightFoot-RightToes": 30,
+      "LeftLowerLeg-LeftFoot / RightLowerLeg-RightFoot": 4,
+      "LeftShoulder-LeftUpperArm / Chest-UpperChest": 29,
+      "LeftShoulder-LeftUpperArm / Hips-Spine": 11,
+      "LeftShoulder-LeftUpperArm / LeftHand": 5,
+      "LeftShoulder-LeftUpperArm / LeftLowerArm-LeftHand": 11,
+      "LeftShoulder-LeftUpperArm / LeftShoulder-LeftUpperArm": 14,
+      "LeftShoulder-LeftUpperArm / LeftUpperArm-LeftLowerArm": 9,
+      "LeftShoulder-LeftUpperArm / RightHand": 1,
+      "LeftShoulder-LeftUpperArm / RightLowerLeg-RightFoot": 6,
+      "LeftShoulder-LeftUpperArm / RightUpperLeg-RightLowerLeg": 12,
+      "LeftShoulder-LeftUpperArm / Spine-Chest": 11,
+      "LeftShoulder-LeftUpperArm / UpperChest-Neck": 14,
+      "LeftUpperArm-LeftLowerArm / Chest-UpperChest": 27,
+      "LeftUpperArm-LeftLowerArm / Head": 1,
+      "LeftUpperArm-LeftLowerArm / Hips-Spine": 14,
+      "LeftUpperArm-LeftLowerArm / LeftHand": 5,
+      "LeftUpperArm-LeftLowerArm / LeftLowerArm-LeftHand": 1,
+      "LeftUpperArm-LeftLowerArm / LeftShoulder-LeftUpperArm": 9,
+      "LeftUpperArm-LeftLowerArm / LeftUpperArm-LeftLowerArm": 3,
+      "LeftUpperArm-LeftLowerArm / RightHand": 6,
+      "LeftUpperArm-LeftLowerArm / RightLowerArm-RightHand": 1,
+      "LeftUpperArm-LeftLowerArm / RightLowerLeg-RightFoot": 7,
+      "LeftUpperArm-LeftLowerArm / RightUpperArm-RightLowerArm": 1,
+      "LeftUpperArm-LeftLowerArm / RightUpperLeg-RightLowerLeg": 11,
+      "LeftUpperArm-LeftLowerArm / Spine-Chest": 10,
+      "LeftUpperArm-LeftLowerArm / UpperChest-Neck": 7,
+      "LeftUpperLeg-LeftLowerLeg / LeftLowerLeg-LeftFoot": 1,
+      "LeftUpperLeg-LeftLowerLeg / LeftUpperLeg-LeftLowerLeg": 1,
+      "LeftUpperLeg-LeftLowerLeg / RightFoot-RightToes": 9,
+      "LeftUpperLeg-LeftLowerLeg / RightLowerLeg-RightFoot": 10,
+      "LeftUpperLeg-LeftLowerLeg / RightUpperLeg-RightLowerLeg": 4,
+      "Neck-Head / LeftLowerArm-LeftHand": 3,
+      "Neck-Head / LeftUpperArm-LeftLowerArm": 1,
+      "RightFoot-RightToes / LeftFoot-LeftToes": 27,
+      "RightFoot-RightToes / RightFoot-RightToes": 10,
+      "RightHand / LeftHand": 4,
+      "RightHand / LeftLowerArm-LeftHand": 3,
+      "RightHand / LeftUpperArm-LeftLowerArm": 4,
+      "RightHand / RightUpperLeg-RightLowerLeg": 2,
+      "RightLowerArm-RightHand / LeftHand": 2,
+      "RightLowerArm-RightHand / LeftLowerArm-LeftHand": 4,
+      "RightLowerArm-RightHand / LeftUpperArm-LeftLowerArm": 2,
+      "RightLowerArm-RightHand / RightUpperLeg-RightLowerLeg": 2,
+      "RightLowerLeg-RightFoot / RightFoot-RightToes": 8,
+      "RightLowerLeg-RightFoot / RightLowerLeg-RightFoot": 1,
+      "RightShoulder-RightUpperArm / Head": 8,
+      "RightShoulder-RightUpperArm / LeftHand": 1,
+      "RightShoulder-RightUpperArm / LeftLowerArm-LeftHand": 3,
+      "RightShoulder-RightUpperArm / LeftUpperArm-LeftLowerArm": 1,
+      "RightShoulder-RightUpperArm / RightLowerLeg-RightFoot": 1,
+      "RightShoulder-RightUpperArm / RightUpperLeg-RightLowerLeg": 3,
+      "RightUpperArm-RightLowerArm / Head": 9,
+      "RightUpperArm-RightLowerArm / LeftHand": 4,
+      "RightUpperArm-RightLowerArm / RightLowerLeg-RightFoot": 1,
+      "RightUpperArm-RightLowerArm / RightUpperLeg-RightLowerLeg": 5,
+      "RightUpperLeg-RightLowerLeg / RightFoot-RightToes": 4,
+      "RightUpperLeg-RightLowerLeg / RightLowerLeg-RightFoot": 4,
+      "Spine-Chest / LeftLowerArm-LeftHand": 4,
+      "Spine-Chest / LeftUpperArm-LeftLowerArm": 5,
+      "Spine-Chest / RightFoot-RightToes": 2,
+      "Spine-Chest / RightLowerLeg-RightFoot": 4,
+      "UpperChest-Neck / LeftHand": 9,
+      "UpperChest-Neck / LeftLowerArm-LeftHand": 28,
+      "UpperChest-Neck / LeftShoulder-LeftUpperArm": 25,
+      "UpperChest-Neck / LeftUpperArm-LeftLowerArm": 41,
+      "UpperChest-Neck / RightLowerLeg-RightFoot": 3,
+      "UpperChest-Neck / RightUpperArm-RightLowerArm": 2
+    },
+    "worst": [
+      {
+        "a": "loc_retreat",
+        "a_clock": 0.0199759696920713,
+        "b": "kickboxing_low_kick",
+        "b_clock": 0.201948627829552,
+        "depth": 0.200821712409798,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "arm",
+            "b_name": "LeftLowerArm-LeftHand",
+            "depth": 0.0698602261922807
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "hand",
+            "b_name": "LeftHand",
+            "depth": 0.0267880874704081
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "arm",
+            "b_name": "LeftLowerArm-LeftHand",
+            "depth": 0.188377159346392
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "hand",
+            "b_name": "LeftHand",
+            "depth": 0.0978466960431351
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "arm",
+            "b_name": "LeftUpperArm-LeftLowerArm",
+            "depth": 0.0679862427156386
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "arm",
+            "b_name": "LeftLowerArm-LeftHand",
+            "depth": 0.200821712409798
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "hand",
+            "b_name": "LeftHand",
+            "depth": 0.104370231727972
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "arm",
+            "b_name": "LeftLowerArm-LeftHand",
+            "depth": 0.046817689293336
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightShoulder-RightUpperArm",
+            "b_class": "arm",
+            "b_name": "LeftLowerArm-LeftHand",
+            "depth": 0.0740972994970079
+          }
+        ],
+        "seconds": 44.1833333333333,
+        "tick": 2651
+      },
+      {
+        "a": "react_leg",
+        "a_clock": 0.4,
+        "b": "kickboxing_low_kick",
+        "b_clock": 0.491701006889343,
+        "depth": 0.199221083385098,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.189812309357211
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.199221083385098
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.130954847842448
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.112157616177853
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0990931104531277
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.0371859477368013
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.042251052585375
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftUpperArm-LeftLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0225173487332446
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftUpperLeg-LeftLowerLeg",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.187723728757566
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftUpperLeg-LeftLowerLeg",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.178062317064533
+          },
+          {
+            "a_class": "leg",
+            "a_name": "RightUpperLeg-RightLowerLeg",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0572499286851833
+          },
+          {
+            "a_class": "leg",
+            "a_name": "RightUpperLeg-RightLowerLeg",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.197853300754545
+          }
+        ],
+        "seconds": 44.7333333333333,
+        "tick": 2684
+      },
+      {
+        "a": "react_head#2",
+        "a_clock": 0.16551282051282,
+        "b": "hook_lead",
+        "b_clock": 0.466666666666667,
+        "depth": 0.194859056878119,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "arm",
+            "b_name": "LeftUpperArm-LeftLowerArm",
+            "depth": 0.0631815020538122
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "arm",
+            "b_name": "LeftLowerArm-LeftHand",
+            "depth": 0.040150676648713
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "arm",
+            "b_name": "LeftUpperArm-LeftLowerArm",
+            "depth": 0.131685934192919
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "arm",
+            "b_name": "LeftLowerArm-LeftHand",
+            "depth": 0.10865510878782
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "arm",
+            "b_name": "LeftShoulder-LeftUpperArm",
+            "depth": 0.0404852188215406
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "arm",
+            "b_name": "LeftUpperArm-LeftLowerArm",
+            "depth": 0.194859056878119
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "arm",
+            "b_name": "LeftLowerArm-LeftHand",
+            "depth": 0.171828007955601
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "arm",
+            "b_name": "LeftShoulder-LeftUpperArm",
+            "depth": 0.0486992465403358
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "arm",
+            "b_name": "LeftUpperArm-LeftLowerArm",
+            "depth": 0.183722369615358
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "arm",
+            "b_name": "LeftLowerArm-LeftHand",
+            "depth": 0.160691544210259
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "arm",
+            "b_name": "LeftUpperArm-LeftLowerArm",
+            "depth": 0.0301910113319649
+          }
+        ],
+        "seconds": 26.2666666666667,
+        "tick": 1576
+      },
+      {
+        "a": "react_head#2",
+        "a_clock": 0.132179487179487,
+        "b": "hook_lead",
+        "b_clock": 0.433333333333333,
+        "depth": 0.185987744277063,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "arm",
+            "b_name": "LeftShoulder-LeftUpperArm",
+            "depth": 0.0645824677333982
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "arm",
+            "b_name": "LeftUpperArm-LeftLowerArm",
+            "depth": 0.0287499047398854
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "arm",
+            "b_name": "LeftLowerArm-LeftHand",
+            "depth": 0.100343524177125
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "hand",
+            "b_name": "LeftHand",
+            "depth": 0.0573735776187195
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "arm",
+            "b_name": "LeftShoulder-LeftUpperArm",
+            "depth": 0.0776905881312171
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "arm",
+            "b_name": "LeftUpperArm-LeftLowerArm",
+            "depth": 0.042878456656259
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "arm",
+            "b_name": "LeftLowerArm-LeftHand",
+            "depth": 0.185987744277063
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "hand",
+            "b_name": "LeftHand",
+            "depth": 0.103792170981779
+          },
+          {
+            "a_class": "head",
+            "a_name": "Neck-Head",
+            "b_class": "arm",
+            "b_name": "LeftLowerArm-LeftHand",
+            "depth": 0.0526255382435691
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "arm",
+            "b_name": "LeftShoulder-LeftUpperArm",
+            "depth": 0.0522175590724107
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "arm",
+            "b_name": "LeftLowerArm-LeftHand",
+            "depth": 0.172117635232668
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "hand",
+            "b_name": "LeftHand",
+            "depth": 0.155490255265019
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightShoulder-RightUpperArm",
+            "b_class": "arm",
+            "b_name": "LeftLowerArm-LeftHand",
+            "depth": 0.0580206751035448
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftUpperArm-LeftLowerArm",
+            "b_class": "hand",
+            "b_name": "LeftHand",
+            "depth": 0.112409672477062
+          },
+          {
+            "a_class": "hand",
+            "a_name": "RightHand",
+            "b_class": "arm",
+            "b_name": "LeftUpperArm-LeftLowerArm",
+            "depth": 0.152393225692186
+          },
+          {
+            "a_class": "hand",
+            "a_name": "RightHand",
+            "b_class": "arm",
+            "b_name": "LeftLowerArm-LeftHand",
+            "depth": 0.129362400287087
+          }
+        ],
+        "seconds": 26.2333333333333,
+        "tick": 1574
+      },
+      {
+        "a": "hook_lead",
+        "a_clock": 0.6,
+        "b": "react_head#3_lead",
+        "b_clock": 0.282941176470588,
+        "depth": 0.18244064001346,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "leg",
+            "a_name": "LeftLowerLeg-LeftFoot",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.0507032889517161
+          },
+          {
+            "a_class": "foot",
+            "a_name": "LeftFoot-LeftToes",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0269542247654095
+          },
+          {
+            "a_class": "foot",
+            "a_name": "LeftFoot-LeftToes",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.18244064001346
+          }
+        ],
+        "seconds": 1.98333333333333,
+        "tick": 119
+      },
+      {
+        "a": "hook_lead",
+        "a_clock": 0.416666666666667,
+        "b": "boxing_one_two",
+        "b_clock": 0.160624644160271,
+        "depth": 0.179583686841842,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "arm",
+            "a_name": "LeftLowerArm-LeftHand",
+            "b_class": "arm",
+            "b_name": "LeftShoulder-LeftUpperArm",
+            "depth": 0.179583686841842
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftLowerArm-LeftHand",
+            "b_class": "arm",
+            "b_name": "LeftUpperArm-LeftLowerArm",
+            "depth": 0.128730736601124
+          },
+          {
+            "a_class": "foot",
+            "a_name": "LeftFoot-LeftToes",
+            "b_class": "foot",
+            "b_name": "LeftFoot-LeftToes",
+            "depth": 0.0604701326508547
+          },
+          {
+            "a_class": "hand",
+            "a_name": "LeftHand",
+            "b_class": "arm",
+            "b_name": "LeftShoulder-LeftUpperArm",
+            "depth": 0.103698284200943
+          },
+          {
+            "a_class": "hand",
+            "a_name": "LeftHand",
+            "b_class": "arm",
+            "b_name": "LeftUpperArm-LeftLowerArm",
+            "depth": 0.0525884696062112
+          },
+          {
+            "a_class": "hand",
+            "a_name": "LeftHand",
+            "b_class": "arm",
+            "b_name": "LeftLowerArm-LeftHand",
+            "depth": 0.026149987054658
+          },
+          {
+            "a_class": "hand",
+            "a_name": "LeftHand",
+            "b_class": "hand",
+            "b_name": "LeftHand",
+            "depth": 0.0973471943315494
+          }
+        ],
+        "seconds": 36.2166666666667,
+        "tick": 2173
+      },
+      {
+        "a": "hook_lead",
+        "a_clock": 0.583333333333333,
+        "b": "react_head#3_lead",
+        "b_clock": 0.266274509803922,
+        "depth": 0.177017518044245,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "leg",
+            "a_name": "LeftLowerLeg-LeftFoot",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.048884989658198
+          },
+          {
+            "a_class": "foot",
+            "a_name": "LeftFoot-LeftToes",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0310785830618039
+          },
+          {
+            "a_class": "foot",
+            "a_name": "LeftFoot-LeftToes",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.177017518044245
+          }
+        ],
+        "seconds": 1.96666666666667,
+        "tick": 118
+      },
+      {
+        "a": "hook_lead",
+        "a_clock": 0.55,
+        "b": "react_head#3_lead",
+        "b_clock": 0.232941176470588,
+        "depth": 0.176546641859085,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "leg",
+            "a_name": "LeftLowerLeg-LeftFoot",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.0468921340144086
+          },
+          {
+            "a_class": "foot",
+            "a_name": "LeftFoot-LeftToes",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0367944106129391
+          },
+          {
+            "a_class": "foot",
+            "a_name": "LeftFoot-LeftToes",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.176546641859085
+          }
+        ],
+        "seconds": 1.93333333333333,
+        "tick": 116
+      },
+      {
+        "a": "hook_lead",
+        "a_clock": 0.616666666666667,
+        "b": "react_head#3_lead",
+        "b_clock": 0.299607843137255,
+        "depth": 0.176305278860759,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "leg",
+            "a_name": "LeftLowerLeg-LeftFoot",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.0539365131052348
+          },
+          {
+            "a_class": "foot",
+            "a_name": "LeftFoot-LeftToes",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0231506735683575
+          },
+          {
+            "a_class": "foot",
+            "a_name": "LeftFoot-LeftToes",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.176305278860759
+          }
+        ],
+        "seconds": 2.0,
+        "tick": 120
+      },
+      {
+        "a": "hook_lead",
+        "a_clock": 0.566666666666667,
+        "b": "react_head#3_lead",
+        "b_clock": 0.249607843137255,
+        "depth": 0.17629624507469,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "leg",
+            "a_name": "LeftLowerLeg-LeftFoot",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.0459346450007367
+          },
+          {
+            "a_class": "foot",
+            "a_name": "LeftFoot-LeftToes",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0375014111069424
+          },
+          {
+            "a_class": "foot",
+            "a_name": "LeftFoot-LeftToes",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.17629624507469
+          }
+        ],
+        "seconds": 1.95,
+        "tick": 117
+      }
+    ],
+    "contacts": [
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "a",
+        "surface_depth": 3.8678525215996e-08,
+        "take": "hook_lead",
+        "tick": 103
+      },
+      {
+        "effector": "RightHand",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.357607223095247,
+        "take": "hook_rear",
+        "tick": 236
+      },
+      {
+        "effector": "LeftHand",
+        "region": "torso_core",
+        "side": "a",
+        "surface_depth": -0.495839374003245,
+        "take": "hook_lead",
+        "tick": 535
+      },
+      {
+        "effector": "RightLowerLeg-RightFoot",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.279858715916171,
+        "take": "muay_thai_straight_knee",
+        "tick": 760
+      },
+      {
+        "effector": "RightFoot-RightToes",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.399869991376829,
+        "take": "kickboxing_body_kick",
+        "tick": 969
+      },
+      {
+        "effector": "LeftHand",
+        "region": "torso_core",
+        "side": "a",
+        "surface_depth": 1.88225672381748e-07,
+        "take": "boxing_one_two",
+        "tick": 1441
+      },
+      {
+        "effector": "LeftHand",
+        "region": "torso_core",
+        "side": "a",
+        "surface_depth": -7.99952291075101e-08,
+        "take": "boxing_one_two",
+        "tick": 1442
+      },
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.00090250188604829,
+        "take": "hook_lead",
+        "tick": 1568
+      },
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "a",
+        "surface_depth": -1.51728569153242e-08,
+        "take": "hook_lead",
+        "tick": 2168
+      },
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -4.15389695140878e-07,
+        "take": "boxing_one_two",
+        "tick": 2179
+      },
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -5.94203629467049e-07,
+        "take": "boxing_one_two",
+        "tick": 2180
+      },
+      {
+        "effector": "LeftHand",
+        "region": "torso_core",
+        "side": "b",
+        "surface_depth": -1.98383913296851e-07,
+        "take": "hook_lead",
+        "tick": 3302
+      },
+      {
+        "effector": "RightFoot-RightToes",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.496454380544839,
+        "take": "kickboxing_axe_kick",
+        "tick": 3464
+      },
+      {
+        "effector": "RightFoot-RightToes",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.493261961027612,
+        "take": "kickboxing_axe_kick",
+        "tick": 3465
+      }
+    ],
+    "event_hash": "c69594a7fdf028beee661c28308f542d1706d4149826885edf8c2b2fea7de279",
+    "clip_clock_sha256": "d8b619b9d50a98446aa50bc15a479300f4c431b22b1342292f01575fc9bcb61c",
+    "frames": 3600
+  },
+  "c198_trial2": {
+    "overlap_frames": 372,
+    "share": 0.103333333333333,
+    "longest_s": 0.433333333333333,
+    "owner_frames": {
+      "legacy_strike": 37,
+      "unowned_locomotion_guard": 29,
+      "unowned_reaction": 41,
+      "whole_strike": 265
+    },
+    "pair_frames": {
+      "Chest-UpperChest / Hips-Spine": 7,
+      "Chest-UpperChest / LeftHand": 3,
+      "Chest-UpperChest / LeftLowerArm-LeftHand": 13,
+      "Chest-UpperChest / LeftShoulder-LeftUpperArm": 5,
+      "Chest-UpperChest / LeftUpperArm-LeftLowerArm": 10,
+      "Chest-UpperChest / RightFoot-RightToes": 3,
+      "Chest-UpperChest / RightLowerLeg-RightFoot": 19,
+      "Chest-UpperChest / RightUpperLeg-RightLowerLeg": 32,
+      "Head / Chest-UpperChest": 14,
+      "Head / Hips-Spine": 18,
+      "Head / LeftFoot-LeftToes": 4,
+      "Head / LeftHand": 8,
+      "Head / LeftLowerArm-LeftHand": 10,
+      "Head / LeftLowerLeg-LeftFoot": 5,
+      "Head / LeftShoulder-LeftUpperArm": 47,
+      "Head / LeftUpperArm-LeftLowerArm": 41,
+      "Head / LeftUpperLeg-LeftLowerLeg": 7,
+      "Head / RightLowerLeg-RightFoot": 6,
+      "Head / RightShoulder-RightUpperArm": 1,
+      "Head / RightUpperLeg-RightLowerLeg": 13,
+      "Head / Spine-Chest": 14,
+      "Head / UpperChest-Neck": 9,
+      "Hips-Spine / LeftLowerArm-LeftHand": 1,
+      "Hips-Spine / LeftUpperArm-LeftLowerArm": 2,
+      "Hips-Spine / RightFoot-RightToes": 8,
+      "Hips-Spine / RightLowerLeg-RightFoot": 17,
+      "Hips-Spine / RightUpperLeg-RightLowerLeg": 10,
+      "LeftFoot-LeftToes / LeftFoot-LeftToes": 59,
+      "LeftFoot-LeftToes / LeftLowerLeg-LeftFoot": 22,
+      "LeftFoot-LeftToes / RightFoot-RightToes": 29,
+      "LeftFoot-LeftToes / RightLowerLeg-RightFoot": 5,
+      "LeftHand / Chest-UpperChest": 8,
+      "LeftHand / LeftHand": 11,
+      "LeftHand / LeftLowerArm-LeftHand": 11,
+      "LeftHand / LeftShoulder-LeftUpperArm": 6,
+      "LeftHand / LeftUpperArm-LeftLowerArm": 4,
+      "LeftHand / RightHand": 12,
+      "LeftHand / Spine-Chest": 1,
+      "LeftHand / UpperChest-Neck": 3,
+      "LeftLowerArm-LeftHand / Chest-UpperChest": 3,
+      "LeftLowerArm-LeftHand / Head": 5,
+      "LeftLowerArm-LeftHand / Hips-Spine": 3,
+      "LeftLowerArm-LeftHand / LeftHand": 4,
+      "LeftLowerArm-LeftHand / LeftLowerArm-LeftHand": 4,
+      "LeftLowerArm-LeftHand / LeftShoulder-LeftUpperArm": 9,
+      "LeftLowerArm-LeftHand / LeftUpperArm-LeftLowerArm": 3,
+      "LeftLowerArm-LeftHand / Neck-Head": 1,
+      "LeftLowerArm-LeftHand / RightHand": 10,
+      "LeftLowerArm-LeftHand / RightLowerArm-RightHand": 2,
+      "LeftLowerArm-LeftHand / RightShoulder-RightUpperArm": 1,
+      "LeftLowerArm-LeftHand / RightUpperArm-RightLowerArm": 1,
+      "LeftLowerArm-LeftHand / RightUpperLeg-RightLowerLeg": 3,
+      "LeftLowerArm-LeftHand / Spine-Chest": 1,
+      "LeftLowerArm-LeftHand / UpperChest-Neck": 8,
+      "LeftLowerLeg-LeftFoot / LeftFoot-LeftToes": 4,
+      "LeftLowerLeg-LeftFoot / LeftLowerLeg-LeftFoot": 7,
+      "LeftLowerLeg-LeftFoot / LeftUpperLeg-LeftLowerLeg": 8,
+      "LeftLowerLeg-LeftFoot / RightFoot-RightToes": 24,
+      "LeftShoulder-LeftUpperArm / Chest-UpperChest": 29,
+      "LeftShoulder-LeftUpperArm / Hips-Spine": 25,
+      "LeftShoulder-LeftUpperArm / LeftHand": 5,
+      "LeftShoulder-LeftUpperArm / LeftLowerArm-LeftHand": 11,
+      "LeftShoulder-LeftUpperArm / LeftShoulder-LeftUpperArm": 14,
+      "LeftShoulder-LeftUpperArm / LeftUpperArm-LeftLowerArm": 9,
+      "LeftShoulder-LeftUpperArm / RightHand": 1,
+      "LeftShoulder-LeftUpperArm / RightLowerLeg-RightFoot": 7,
+      "LeftShoulder-LeftUpperArm / RightUpperLeg-RightLowerLeg": 33,
+      "LeftShoulder-LeftUpperArm / Spine-Chest": 17,
+      "LeftShoulder-LeftUpperArm / UpperChest-Neck": 14,
+      "LeftUpperArm-LeftLowerArm / Chest-UpperChest": 27,
+      "LeftUpperArm-LeftLowerArm / Head": 1,
+      "LeftUpperArm-LeftLowerArm / Hips-Spine": 24,
+      "LeftUpperArm-LeftLowerArm / LeftHand": 5,
+      "LeftUpperArm-LeftLowerArm / LeftLowerArm-LeftHand": 1,
+      "LeftUpperArm-LeftLowerArm / LeftShoulder-LeftUpperArm": 9,
+      "LeftUpperArm-LeftLowerArm / LeftUpperArm-LeftLowerArm": 3,
+      "LeftUpperArm-LeftLowerArm / LeftUpperLeg-LeftLowerLeg": 2,
+      "LeftUpperArm-LeftLowerArm / RightHand": 6,
+      "LeftUpperArm-LeftLowerArm / RightLowerArm-RightHand": 1,
+      "LeftUpperArm-LeftLowerArm / RightLowerLeg-RightFoot": 5,
+      "LeftUpperArm-LeftLowerArm / RightUpperArm-RightLowerArm": 1,
+      "LeftUpperArm-LeftLowerArm / RightUpperLeg-RightLowerLeg": 35,
+      "LeftUpperArm-LeftLowerArm / Spine-Chest": 12,
+      "LeftUpperArm-LeftLowerArm / UpperChest-Neck": 7,
+      "LeftUpperLeg-LeftLowerLeg / LeftLowerLeg-LeftFoot": 12,
+      "LeftUpperLeg-LeftLowerLeg / LeftUpperLeg-LeftLowerLeg": 13,
+      "LeftUpperLeg-LeftLowerLeg / RightFoot-RightToes": 7,
+      "LeftUpperLeg-LeftLowerLeg / RightLowerLeg-RightFoot": 11,
+      "LeftUpperLeg-LeftLowerLeg / RightUpperLeg-RightLowerLeg": 10,
+      "Neck-Head / LeftLowerArm-LeftHand": 3,
+      "Neck-Head / LeftUpperArm-LeftLowerArm": 1,
+      "Neck-Head / RightLowerLeg-RightFoot": 1,
+      "Neck-Head / RightUpperLeg-RightLowerLeg": 14,
+      "RightFoot-RightToes / LeftFoot-LeftToes": 25,
+      "RightFoot-RightToes / RightFoot-RightToes": 10,
+      "RightHand / LeftHand": 4,
+      "RightHand / LeftLowerArm-LeftHand": 3,
+      "RightHand / LeftUpperArm-LeftLowerArm": 4,
+      "RightLowerArm-RightHand / LeftHand": 2,
+      "RightLowerArm-RightHand / LeftLowerArm-LeftHand": 4,
+      "RightLowerArm-RightHand / LeftUpperArm-LeftLowerArm": 2,
+      "RightLowerArm-RightHand / LeftUpperLeg-LeftLowerLeg": 1,
+      "RightLowerArm-RightHand / RightUpperLeg-RightLowerLeg": 1,
+      "RightLowerLeg-RightFoot / RightFoot-RightToes": 10,
+      "RightShoulder-RightUpperArm / Head": 8,
+      "RightShoulder-RightUpperArm / LeftHand": 1,
+      "RightShoulder-RightUpperArm / LeftLowerArm-LeftHand": 3,
+      "RightShoulder-RightUpperArm / LeftLowerLeg-LeftFoot": 8,
+      "RightShoulder-RightUpperArm / LeftUpperArm-LeftLowerArm": 1,
+      "RightShoulder-RightUpperArm / LeftUpperLeg-LeftLowerLeg": 11,
+      "RightShoulder-RightUpperArm / RightLowerLeg-RightFoot": 6,
+      "RightShoulder-RightUpperArm / RightUpperLeg-RightLowerLeg": 13,
+      "RightUpperArm-RightLowerArm / Head": 9,
+      "RightUpperArm-RightLowerArm / LeftHand": 4,
+      "RightUpperArm-RightLowerArm / LeftLowerLeg-LeftFoot": 8,
+      "RightUpperArm-RightLowerArm / LeftUpperLeg-LeftLowerLeg": 10,
+      "RightUpperArm-RightLowerArm / RightLowerLeg-RightFoot": 3,
+      "RightUpperArm-RightLowerArm / RightUpperLeg-RightLowerLeg": 10,
+      "RightUpperLeg-RightLowerLeg / RightFoot-RightToes": 8,
+      "RightUpperLeg-RightLowerLeg / RightLowerLeg-RightFoot": 8,
+      "Spine-Chest / LeftLowerArm-LeftHand": 4,
+      "Spine-Chest / LeftUpperArm-LeftLowerArm": 5,
+      "Spine-Chest / RightFoot-RightToes": 6,
+      "Spine-Chest / RightLowerLeg-RightFoot": 16,
+      "Spine-Chest / RightUpperLeg-RightLowerLeg": 15,
+      "UpperChest-Neck / Chest-UpperChest": 4,
+      "UpperChest-Neck / Hips-Spine": 14,
+      "UpperChest-Neck / LeftHand": 9,
+      "UpperChest-Neck / LeftLowerArm-LeftHand": 28,
+      "UpperChest-Neck / LeftShoulder-LeftUpperArm": 25,
+      "UpperChest-Neck / LeftUpperArm-LeftLowerArm": 41,
+      "UpperChest-Neck / LeftUpperLeg-LeftLowerLeg": 2,
+      "UpperChest-Neck / RightFoot-RightToes": 1,
+      "UpperChest-Neck / RightLowerLeg-RightFoot": 17,
+      "UpperChest-Neck / RightUpperArm-RightLowerArm": 2,
+      "UpperChest-Neck / RightUpperLeg-RightLowerLeg": 34,
+      "UpperChest-Neck / Spine-Chest": 9
+    },
+    "worst": [
+      {
+        "a": "react_leg",
+        "a_clock": 0.45,
+        "b": "kickboxing_low_kick",
+        "b_clock": 0.518042132258415,
+        "depth": 0.261201135187047,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.128179287744169
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0933681588282574
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.261201135187047
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.177212709811461
+          },
+          {
+            "a_class": "head",
+            "a_name": "Neck-Head",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.143811800486913
+          },
+          {
+            "a_class": "head",
+            "a_name": "Neck-Head",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.045828401958451
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.160680181013609
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0536120697711898
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightShoulder-RightUpperArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.215899481494261
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightShoulder-RightUpperArm",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.201031973587938
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftUpperArm-LeftLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.076096559968291
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightUpperArm-RightLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.116008867620996
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightUpperArm-RightLowerArm",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.169363703636334
+          },
+          {
+            "a_class": "head",
+            "a_name": "Head",
+            "b_class": "torso",
+            "b_name": "Hips-Spine",
+            "depth": 0.0365727977708804
+          },
+          {
+            "a_class": "head",
+            "a_name": "Head",
+            "b_class": "leg",
+            "b_name": "LeftUpperLeg-LeftLowerLeg",
+            "depth": 0.115737210600539
+          },
+          {
+            "a_class": "head",
+            "a_name": "Head",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.105674190743292
+          }
+        ],
+        "seconds": 44.7833333333333,
+        "tick": 2687
+      },
+      {
+        "a": "react_head#3",
+        "a_clock": 0.133333333333333,
+        "b": "kickboxing_axe_kick",
+        "b_clock": 0.271833058198293,
+        "depth": 0.252611497185894,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "torso",
+            "b_name": "Hips-Spine",
+            "depth": 0.0433582956079899
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.114836615181143
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "torso",
+            "b_name": "Hips-Spine",
+            "depth": 0.105786979679782
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "torso",
+            "b_name": "Spine-Chest",
+            "depth": 0.0563878678149292
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.252611497185894
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0382257319693594
+          },
+          {
+            "a_class": "head",
+            "a_name": "Neck-Head",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.171966075797271
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "torso",
+            "b_name": "Hips-Spine",
+            "depth": 0.0880739240277671
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "torso",
+            "b_name": "Spine-Chest",
+            "depth": 0.0315588073382761
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.1922313841687
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightShoulder-RightUpperArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.147919997093681
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightShoulder-RightUpperArm",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0360738941488852
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftUpperArm-LeftLowerArm",
+            "b_class": "torso",
+            "b_name": "Hips-Spine",
+            "depth": 0.0477697740222211
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftUpperArm-LeftLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.11561713509785
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightUpperArm-RightLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0573378014794403
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftUpperLeg-LeftLowerLeg",
+            "b_class": "leg",
+            "b_name": "LeftUpperLeg-LeftLowerLeg",
+            "depth": 0.0648981777563754
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftUpperLeg-LeftLowerLeg",
+            "b_class": "leg",
+            "b_name": "LeftLowerLeg-LeftFoot",
+            "depth": 0.0671408522915782
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftLowerLeg-LeftFoot",
+            "b_class": "leg",
+            "b_name": "LeftUpperLeg-LeftLowerLeg",
+            "depth": 0.0277717077692532
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftLowerLeg-LeftFoot",
+            "b_class": "leg",
+            "b_name": "LeftLowerLeg-LeftFoot",
+            "depth": 0.0300144121067783
+          },
+          {
+            "a_class": "head",
+            "a_name": "Head",
+            "b_class": "torso",
+            "b_name": "Hips-Spine",
+            "depth": 0.0684299985958597
+          },
+          {
+            "a_class": "head",
+            "a_name": "Head",
+            "b_class": "torso",
+            "b_name": "Spine-Chest",
+            "depth": 0.0617747931097531
+          },
+          {
+            "a_class": "head",
+            "a_name": "Head",
+            "b_class": "torso",
+            "b_name": "Chest-UpperChest",
+            "depth": 0.0684104260321307
+          },
+          {
+            "a_class": "head",
+            "a_name": "Head",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.120306570775405
+          }
+        ],
+        "seconds": 57.6333333333333,
+        "tick": 3458
+      },
+      {
+        "a": "react_head#1",
+        "a_clock": 0.0665476190476191,
+        "b": "kickboxing_body_kick",
+        "b_clock": 0.3,
+        "depth": 0.249858752375208,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.130060925313375
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.0656171379270203
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0415502978722527
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.203453559025587
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.0654957981349275
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0937958635160611
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.249858752375208
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.0870126511007802
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.099452598913885
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.184956492764564
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.0451730378791431
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightShoulder-RightUpperArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0334929875564047
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightUpperArm-RightLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0613989759471901
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightUpperArm-RightLowerArm",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0283251585137079
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightLowerArm-RightHand",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0201991607827826
+          }
+        ],
+        "seconds": 16.1833333333333,
+        "tick": 971
+      },
+      {
+        "a": "react_head#1",
+        "a_clock": 0.0832142857142857,
+        "b": "kickboxing_body_kick",
+        "b_clock": 0.316666666666667,
+        "depth": 0.243709101870121,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.213926605113886
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.133644783276523
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0262838049094155
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.243709101870121
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.103734636449938
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0526803113290951
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.227992631977164
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.103254603877689
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0459749688946971
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.105995723886104
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightUpperArm-RightLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0397223014619835
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftUpperLeg-LeftLowerLeg",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0442100131831854
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftUpperLeg-LeftLowerLeg",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.0401126354752896
+          }
+        ],
+        "seconds": 16.2,
+        "tick": 972
+      },
+      {
+        "a": "react_head#1",
+        "a_clock": 0.0498809523809524,
+        "b": "kickboxing_body_kick",
+        "b_clock": 0.283333333333333,
+        "depth": 0.239407479135888,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0549575354201106
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0428584881749601
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.124631254227518
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.107529782861465
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.232960595024233
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.186061837862967
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.239407479135888
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.191370660689604
+          },
+          {
+            "a_class": "head",
+            "a_name": "Neck-Head",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0262052090536267
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0928973617425214
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightShoulder-RightUpperArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.112740294132663
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightShoulder-RightUpperArm",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0797174386704642
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftUpperArm-LeftLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.031814019289313
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightUpperArm-RightLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0897871154542477
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightUpperArm-RightLowerArm",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0567131862620566
+          }
+        ],
+        "seconds": 16.1666666666667,
+        "tick": 970
+      },
+      {
+        "a": "react_head#1",
+        "a_clock": 0.116547619047619,
+        "b": "kickboxing_body_kick",
+        "b_clock": 0.35,
+        "depth": 0.233830656173512,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.233830656173512
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.206219093364823
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.13328393658995
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.0888095678484997
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.051482410322665
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightUpperArm-RightLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0307069021459133
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftUpperLeg-LeftLowerLeg",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.159332095574802
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftUpperLeg-LeftLowerLeg",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.15347448094798
+          },
+          {
+            "a_class": "leg",
+            "a_name": "RightUpperLeg-RightLowerLeg",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0995113876185367
+          },
+          {
+            "a_class": "leg",
+            "a_name": "RightUpperLeg-RightLowerLeg",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.0818214910445787
+          }
+        ],
+        "seconds": 16.2333333333333,
+        "tick": 974
+      },
+      {
+        "a": "loc_strafe_left",
+        "a_clock": 0.00687688688437144,
+        "b": "kickboxing_body_kick",
+        "b_clock": 0.266666666666667,
+        "depth": 0.232309251396554,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0292750264746455
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.103023125083803
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0691085245311194
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.220386473668222
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.182564654540061
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.232309251396554
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.193542571988833
+          },
+          {
+            "a_class": "head",
+            "a_name": "Neck-Head",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0428586722980649
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.150868965910936
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0858151778434707
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightShoulder-RightUpperArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0863682935575977
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightShoulder-RightUpperArm",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0532944761241156
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftUpperArm-LeftLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0859894855883701
+          }
+        ],
+        "seconds": 16.15,
+        "tick": 969
+      },
+      {
+        "a": "react_leg",
+        "a_clock": 0.4,
+        "b": "kickboxing_low_kick",
+        "b_clock": 0.491701006889343,
+        "depth": 0.230281248005912,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0226419533831386
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.230281248005912
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.190336616200554
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0438533557966938
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.153014348059886
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.0599946262038311
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0733954219347284
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.1154976199975
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0686464079903537
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.047654124227297
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftUpperArm-LeftLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0481064124968631
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftLowerArm-LeftHand",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0320734651658394
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftUpperLeg-LeftLowerLeg",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.18588373709864
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftUpperLeg-LeftLowerLeg",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.130555668017396
+          },
+          {
+            "a_class": "leg",
+            "a_name": "RightUpperLeg-RightLowerLeg",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.124274450214858
+          },
+          {
+            "a_class": "leg",
+            "a_name": "RightUpperLeg-RightLowerLeg",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.15239225051981
+          },
+          {
+            "a_class": "head",
+            "a_name": "Head",
+            "b_class": "torso",
+            "b_name": "Hips-Spine",
+            "depth": 0.0241233246282565
+          },
+          {
+            "a_class": "head",
+            "a_name": "Head",
+            "b_class": "leg",
+            "b_name": "LeftUpperLeg-LeftLowerLeg",
+            "depth": 0.0873331088711463
+          }
+        ],
+        "seconds": 44.7333333333333,
+        "tick": 2684
+      },
+      {
+        "a": "react_head#1",
+        "a_clock": 0.0998809523809524,
+        "b": "kickboxing_body_kick",
+        "b_clock": 0.333333333333333,
+        "depth": 0.228272523048207,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.228272523048207
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.164308214050877
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.193826181054109
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.115954528907593
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.134352700006007
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.0633619682398455
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightUpperArm-RightLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0224411535258801
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftUpperLeg-LeftLowerLeg",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.120255782198376
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftUpperLeg-LeftLowerLeg",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.154492222806939
+          },
+          {
+            "a_class": "leg",
+            "a_name": "RightUpperLeg-RightLowerLeg",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0262247723064372
+          }
+        ],
+        "seconds": 16.2166666666667,
+        "tick": 973
+      },
+      {
+        "a": "react_head#3",
+        "a_clock": 0.316666666666667,
+        "b": "kickboxing_axe_kick",
+        "b_clock": 0.386839352051417,
+        "depth": 0.22015452856882,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "torso",
+            "b_name": "Hips-Spine",
+            "depth": 0.0587237769846378
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0842781035663435
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "torso",
+            "b_name": "Hips-Spine",
+            "depth": 0.113213703517634
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "torso",
+            "b_name": "Spine-Chest",
+            "depth": 0.0885511301821778
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "torso",
+            "b_name": "Chest-UpperChest",
+            "depth": 0.0451693913308355
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.111098645023771
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "torso",
+            "b_name": "Hips-Spine",
+            "depth": 0.11892105623373
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "torso",
+            "b_name": "Spine-Chest",
+            "depth": 0.0622075603852655
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.22015452856882
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftUpperArm-LeftLowerArm",
+            "b_class": "torso",
+            "b_name": "Hips-Spine",
+            "depth": 0.0973902086640592
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftUpperArm-LeftLowerArm",
+            "b_class": "torso",
+            "b_name": "Spine-Chest",
+            "depth": 0.0205688027785538
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftUpperArm-LeftLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.188023501565326
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftUpperLeg-LeftLowerLeg",
+            "b_class": "leg",
+            "b_name": "LeftUpperLeg-LeftLowerLeg",
+            "depth": 0.142285309506959
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftUpperLeg-LeftLowerLeg",
+            "b_class": "leg",
+            "b_name": "LeftLowerLeg-LeftFoot",
+            "depth": 0.110901762921804
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftLowerLeg-LeftFoot",
+            "b_class": "leg",
+            "b_name": "LeftUpperLeg-LeftLowerLeg",
+            "depth": 0.105158839519837
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftLowerLeg-LeftFoot",
+            "b_class": "leg",
+            "b_name": "LeftLowerLeg-LeftFoot",
+            "depth": 0.0737752482311985
+          },
+          {
+            "a_class": "head",
+            "a_name": "Head",
+            "b_class": "torso",
+            "b_name": "Hips-Spine",
+            "depth": 0.0938709895206949
+          },
+          {
+            "a_class": "head",
+            "a_name": "Head",
+            "b_class": "torso",
+            "b_name": "Spine-Chest",
+            "depth": 0.113561454257824
+          },
+          {
+            "a_class": "head",
+            "a_name": "Head",
+            "b_class": "torso",
+            "b_name": "Chest-UpperChest",
+            "depth": 0.140020265829151
+          },
+          {
+            "a_class": "head",
+            "a_name": "Head",
+            "b_class": "torso",
+            "b_name": "UpperChest-Neck",
+            "depth": 0.104757635672015
+          }
+        ],
+        "seconds": 57.8166666666667,
+        "tick": 3469
+      }
+    ],
+    "contacts": [
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "a",
+        "surface_depth": 3.8678525215996e-08,
+        "take": "hook_lead",
+        "tick": 103
+      },
+      {
+        "effector": "RightHand",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.357607223095247,
+        "take": "hook_rear",
+        "tick": 236
+      },
+      {
+        "effector": "LeftHand",
+        "region": "torso_core",
+        "side": "a",
+        "surface_depth": -0.495839374003245,
+        "take": "hook_lead",
+        "tick": 535
+      },
+      {
+        "effector": "RightLowerLeg-RightFoot",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.232517249966159,
+        "take": "muay_thai_straight_knee",
+        "tick": 760
+      },
+      {
+        "effector": "RightFoot-RightToes",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.374067200258207,
+        "take": "kickboxing_body_kick",
+        "tick": 969
+      },
+      {
+        "effector": "LeftHand",
+        "region": "torso_core",
+        "side": "a",
+        "surface_depth": 1.88225672381748e-07,
+        "take": "boxing_one_two",
+        "tick": 1441
+      },
+      {
+        "effector": "LeftHand",
+        "region": "torso_core",
+        "side": "a",
+        "surface_depth": -7.99952291075101e-08,
+        "take": "boxing_one_two",
+        "tick": 1442
+      },
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.00090250188604829,
+        "take": "hook_lead",
+        "tick": 1568
+      },
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "a",
+        "surface_depth": -1.51728569153242e-08,
+        "take": "hook_lead",
+        "tick": 2168
+      },
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -4.15389695140878e-07,
+        "take": "boxing_one_two",
+        "tick": 2179
+      },
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -5.94203629467049e-07,
+        "take": "boxing_one_two",
+        "tick": 2180
+      },
+      {
+        "effector": "LeftHand",
+        "region": "torso_core",
+        "side": "b",
+        "surface_depth": -1.98383913296851e-07,
+        "take": "hook_lead",
+        "tick": 3302
+      },
+      {
+        "effector": "RightFoot-RightToes",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.384005449804483,
+        "take": "kickboxing_axe_kick",
+        "tick": 3464
+      },
+      {
+        "effector": "RightFoot-RightToes",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.410367278143396,
+        "take": "kickboxing_axe_kick",
+        "tick": 3465
+      }
+    ],
+    "event_hash": "c69594a7fdf028beee661c28308f542d1706d4149826885edf8c2b2fea7de279",
+    "clip_clock_sha256": "d8b619b9d50a98446aa50bc15a479300f4c431b22b1342292f01575fc9bcb61c",
+    "frames": 3600
+  },
+  "c198_trial3": {
+    "overlap_frames": 420,
+    "share": 0.116666666666667,
+    "longest_s": 0.716666666666667,
+    "owner_frames": {
+      "legacy_strike": 86,
+      "unowned_locomotion_guard": 41,
+      "unowned_reaction": 40,
+      "whole_strike": 253
+    },
+    "pair_frames": {
+      "Chest-UpperChest / Hips-Spine": 7,
+      "Chest-UpperChest / LeftHand": 3,
+      "Chest-UpperChest / LeftLowerArm-LeftHand": 14,
+      "Chest-UpperChest / LeftShoulder-LeftUpperArm": 5,
+      "Chest-UpperChest / LeftUpperArm-LeftLowerArm": 10,
+      "Chest-UpperChest / RightFoot-RightToes": 3,
+      "Chest-UpperChest / RightLowerArm-RightHand": 1,
+      "Chest-UpperChest / RightLowerLeg-RightFoot": 19,
+      "Chest-UpperChest / RightShoulder-RightUpperArm": 24,
+      "Chest-UpperChest / RightUpperArm-RightLowerArm": 22,
+      "Chest-UpperChest / RightUpperLeg-RightLowerLeg": 32,
+      "Head / Chest-UpperChest": 14,
+      "Head / Hips-Spine": 18,
+      "Head / LeftFoot-LeftToes": 4,
+      "Head / LeftHand": 7,
+      "Head / LeftLowerArm-LeftHand": 10,
+      "Head / LeftLowerLeg-LeftFoot": 5,
+      "Head / LeftShoulder-LeftUpperArm": 34,
+      "Head / LeftUpperArm-LeftLowerArm": 34,
+      "Head / LeftUpperLeg-LeftLowerLeg": 7,
+      "Head / RightLowerLeg-RightFoot": 6,
+      "Head / RightShoulder-RightUpperArm": 9,
+      "Head / RightUpperArm-RightLowerArm": 4,
+      "Head / RightUpperLeg-RightLowerLeg": 13,
+      "Head / Spine-Chest": 14,
+      "Head / UpperChest-Neck": 9,
+      "Hips-Spine / LeftLowerArm-LeftHand": 1,
+      "Hips-Spine / LeftUpperArm-LeftLowerArm": 2,
+      "Hips-Spine / RightFoot-RightToes": 8,
+      "Hips-Spine / RightLowerArm-RightHand": 1,
+      "Hips-Spine / RightLowerLeg-RightFoot": 17,
+      "Hips-Spine / RightUpperLeg-RightLowerLeg": 10,
+      "LeftFoot-LeftToes / LeftFoot-LeftToes": 54,
+      "LeftFoot-LeftToes / LeftLowerLeg-LeftFoot": 22,
+      "LeftFoot-LeftToes / RightFoot-RightToes": 32,
+      "LeftFoot-LeftToes / RightLowerLeg-RightFoot": 5,
+      "LeftHand / Chest-UpperChest": 8,
+      "LeftHand / LeftHand": 9,
+      "LeftHand / LeftLowerArm-LeftHand": 9,
+      "LeftHand / LeftShoulder-LeftUpperArm": 4,
+      "LeftHand / RightHand": 9,
+      "LeftHand / Spine-Chest": 1,
+      "LeftHand / UpperChest-Neck": 3,
+      "LeftLowerArm-LeftHand / Chest-UpperChest": 3,
+      "LeftLowerArm-LeftHand / Head": 5,
+      "LeftLowerArm-LeftHand / Hips-Spine": 3,
+      "LeftLowerArm-LeftHand / LeftHand": 4,
+      "LeftLowerArm-LeftHand / LeftLowerArm-LeftHand": 2,
+      "LeftLowerArm-LeftHand / LeftShoulder-LeftUpperArm": 7,
+      "LeftLowerArm-LeftHand / LeftUpperArm-LeftLowerArm": 2,
+      "LeftLowerArm-LeftHand / Neck-Head": 1,
+      "LeftLowerArm-LeftHand / RightHand": 10,
+      "LeftLowerArm-LeftHand / RightLowerArm-RightHand": 2,
+      "LeftLowerArm-LeftHand / RightShoulder-RightUpperArm": 1,
+      "LeftLowerArm-LeftHand / RightUpperArm-RightLowerArm": 1,
+      "LeftLowerArm-LeftHand / RightUpperLeg-RightLowerLeg": 3,
+      "LeftLowerArm-LeftHand / Spine-Chest": 1,
+      "LeftLowerArm-LeftHand / UpperChest-Neck": 9,
+      "LeftLowerLeg-LeftFoot / LeftFoot-LeftToes": 4,
+      "LeftLowerLeg-LeftFoot / LeftLowerLeg-LeftFoot": 7,
+      "LeftLowerLeg-LeftFoot / LeftUpperLeg-LeftLowerLeg": 8,
+      "LeftLowerLeg-LeftFoot / RightFoot-RightToes": 24,
+      "LeftShoulder-LeftUpperArm / Chest-UpperChest": 29,
+      "LeftShoulder-LeftUpperArm / Hips-Spine": 25,
+      "LeftShoulder-LeftUpperArm / LeftHand": 9,
+      "LeftShoulder-LeftUpperArm / LeftLowerArm-LeftHand": 10,
+      "LeftShoulder-LeftUpperArm / LeftShoulder-LeftUpperArm": 14,
+      "LeftShoulder-LeftUpperArm / LeftUpperArm-LeftLowerArm": 6,
+      "LeftShoulder-LeftUpperArm / RightHand": 1,
+      "LeftShoulder-LeftUpperArm / RightLowerLeg-RightFoot": 7,
+      "LeftShoulder-LeftUpperArm / RightShoulder-RightUpperArm": 13,
+      "LeftShoulder-LeftUpperArm / RightUpperLeg-RightLowerLeg": 33,
+      "LeftShoulder-LeftUpperArm / Spine-Chest": 17,
+      "LeftShoulder-LeftUpperArm / UpperChest-Neck": 14,
+      "LeftUpperArm-LeftLowerArm / Chest-UpperChest": 21,
+      "LeftUpperArm-LeftLowerArm / Head": 2,
+      "LeftUpperArm-LeftLowerArm / Hips-Spine": 24,
+      "LeftUpperArm-LeftLowerArm / LeftHand": 5,
+      "LeftUpperArm-LeftLowerArm / LeftLowerArm-LeftHand": 1,
+      "LeftUpperArm-LeftLowerArm / LeftShoulder-LeftUpperArm": 11,
+      "LeftUpperArm-LeftLowerArm / LeftUpperArm-LeftLowerArm": 2,
+      "LeftUpperArm-LeftLowerArm / LeftUpperLeg-LeftLowerLeg": 2,
+      "LeftUpperArm-LeftLowerArm / RightHand": 6,
+      "LeftUpperArm-LeftLowerArm / RightLowerArm-RightHand": 1,
+      "LeftUpperArm-LeftLowerArm / RightLowerLeg-RightFoot": 5,
+      "LeftUpperArm-LeftLowerArm / RightShoulder-RightUpperArm": 1,
+      "LeftUpperArm-LeftLowerArm / RightUpperArm-RightLowerArm": 1,
+      "LeftUpperArm-LeftLowerArm / RightUpperLeg-RightLowerLeg": 35,
+      "LeftUpperArm-LeftLowerArm / Spine-Chest": 12,
+      "LeftUpperArm-LeftLowerArm / UpperChest-Neck": 10,
+      "LeftUpperLeg-LeftLowerLeg / LeftLowerLeg-LeftFoot": 12,
+      "LeftUpperLeg-LeftLowerLeg / LeftUpperLeg-LeftLowerLeg": 13,
+      "LeftUpperLeg-LeftLowerLeg / RightFoot-RightToes": 7,
+      "LeftUpperLeg-LeftLowerLeg / RightLowerLeg-RightFoot": 11,
+      "LeftUpperLeg-LeftLowerLeg / RightUpperLeg-RightLowerLeg": 10,
+      "Neck-Head / LeftLowerArm-LeftHand": 3,
+      "Neck-Head / LeftUpperArm-LeftLowerArm": 1,
+      "Neck-Head / RightLowerLeg-RightFoot": 1,
+      "Neck-Head / RightUpperLeg-RightLowerLeg": 14,
+      "RightFoot-RightToes / LeftFoot-LeftToes": 30,
+      "RightFoot-RightToes / LeftLowerLeg-LeftFoot": 3,
+      "RightFoot-RightToes / RightFoot-RightToes": 10,
+      "RightHand / LeftHand": 4,
+      "RightHand / LeftLowerArm-LeftHand": 4,
+      "RightHand / LeftUpperArm-LeftLowerArm": 4,
+      "RightLowerArm-RightHand / LeftHand": 1,
+      "RightLowerArm-RightHand / LeftLowerArm-LeftHand": 4,
+      "RightLowerArm-RightHand / LeftUpperArm-LeftLowerArm": 2,
+      "RightLowerArm-RightHand / LeftUpperLeg-LeftLowerLeg": 1,
+      "RightLowerArm-RightHand / RightShoulder-RightUpperArm": 5,
+      "RightLowerArm-RightHand / RightUpperLeg-RightLowerLeg": 1,
+      "RightLowerLeg-RightFoot / RightFoot-RightToes": 10,
+      "RightShoulder-RightUpperArm / Chest-UpperChest": 19,
+      "RightShoulder-RightUpperArm / Head": 9,
+      "RightShoulder-RightUpperArm / LeftLowerArm-LeftHand": 3,
+      "RightShoulder-RightUpperArm / LeftLowerLeg-LeftFoot": 8,
+      "RightShoulder-RightUpperArm / LeftUpperLeg-LeftLowerLeg": 11,
+      "RightShoulder-RightUpperArm / RightLowerArm-RightHand": 2,
+      "RightShoulder-RightUpperArm / RightLowerLeg-RightFoot": 6,
+      "RightShoulder-RightUpperArm / RightShoulder-RightUpperArm": 31,
+      "RightShoulder-RightUpperArm / RightUpperArm-RightLowerArm": 32,
+      "RightShoulder-RightUpperArm / RightUpperLeg-RightLowerLeg": 13,
+      "RightShoulder-RightUpperArm / UpperChest-Neck": 24,
+      "RightUpperArm-RightLowerArm / Chest-UpperChest": 19,
+      "RightUpperArm-RightLowerArm / Head": 9,
+      "RightUpperArm-RightLowerArm / LeftHand": 1,
+      "RightUpperArm-RightLowerArm / LeftLowerLeg-LeftFoot": 8,
+      "RightUpperArm-RightLowerArm / LeftUpperLeg-LeftLowerLeg": 10,
+      "RightUpperArm-RightLowerArm / RightLowerArm-RightHand": 1,
+      "RightUpperArm-RightLowerArm / RightLowerLeg-RightFoot": 3,
+      "RightUpperArm-RightLowerArm / RightShoulder-RightUpperArm": 26,
+      "RightUpperArm-RightLowerArm / RightUpperArm-RightLowerArm": 26,
+      "RightUpperArm-RightLowerArm / RightUpperLeg-RightLowerLeg": 10,
+      "RightUpperArm-RightLowerArm / UpperChest-Neck": 17,
+      "RightUpperLeg-RightLowerLeg / RightFoot-RightToes": 8,
+      "RightUpperLeg-RightLowerLeg / RightLowerLeg-RightFoot": 8,
+      "Spine-Chest / LeftLowerArm-LeftHand": 4,
+      "Spine-Chest / LeftUpperArm-LeftLowerArm": 5,
+      "Spine-Chest / RightFoot-RightToes": 6,
+      "Spine-Chest / RightLowerArm-RightHand": 1,
+      "Spine-Chest / RightLowerLeg-RightFoot": 16,
+      "Spine-Chest / RightShoulder-RightUpperArm": 10,
+      "Spine-Chest / RightUpperArm-RightLowerArm": 1,
+      "Spine-Chest / RightUpperLeg-RightLowerLeg": 15,
+      "UpperChest-Neck / Chest-UpperChest": 4,
+      "UpperChest-Neck / Hips-Spine": 14,
+      "UpperChest-Neck / LeftHand": 7,
+      "UpperChest-Neck / LeftLowerArm-LeftHand": 29,
+      "UpperChest-Neck / LeftShoulder-LeftUpperArm": 22,
+      "UpperChest-Neck / LeftUpperArm-LeftLowerArm": 42,
+      "UpperChest-Neck / LeftUpperLeg-LeftLowerLeg": 2,
+      "UpperChest-Neck / RightFoot-RightToes": 1,
+      "UpperChest-Neck / RightLowerArm-RightHand": 3,
+      "UpperChest-Neck / RightLowerLeg-RightFoot": 17,
+      "UpperChest-Neck / RightShoulder-RightUpperArm": 35,
+      "UpperChest-Neck / RightUpperArm-RightLowerArm": 35,
+      "UpperChest-Neck / RightUpperLeg-RightLowerLeg": 34,
+      "UpperChest-Neck / Spine-Chest": 9
+    },
+    "worst": [
+      {
+        "a": "react_leg",
+        "a_clock": 0.45,
+        "b": "kickboxing_low_kick",
+        "b_clock": 0.518042132258415,
+        "depth": 0.261201135187047,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.128179287744169
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0933681588282574
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.261201135187047
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.177212709811461
+          },
+          {
+            "a_class": "head",
+            "a_name": "Neck-Head",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.143811800486913
+          },
+          {
+            "a_class": "head",
+            "a_name": "Neck-Head",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.045828401958451
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.160680181013609
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0536120697711898
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightShoulder-RightUpperArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.215899481494261
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightShoulder-RightUpperArm",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.201031973587938
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftUpperArm-LeftLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.076096559968291
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightUpperArm-RightLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.116008867620996
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightUpperArm-RightLowerArm",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.169363703636334
+          },
+          {
+            "a_class": "head",
+            "a_name": "Head",
+            "b_class": "torso",
+            "b_name": "Hips-Spine",
+            "depth": 0.0365727977708804
+          },
+          {
+            "a_class": "head",
+            "a_name": "Head",
+            "b_class": "leg",
+            "b_name": "LeftUpperLeg-LeftLowerLeg",
+            "depth": 0.115737210600539
+          },
+          {
+            "a_class": "head",
+            "a_name": "Head",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.105674190743292
+          }
+        ],
+        "seconds": 44.7833333333333,
+        "tick": 2687
+      },
+      {
+        "a": "react_head#3",
+        "a_clock": 0.133333333333333,
+        "b": "kickboxing_axe_kick",
+        "b_clock": 0.271833058198293,
+        "depth": 0.252611497185894,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "torso",
+            "b_name": "Hips-Spine",
+            "depth": 0.0433582956079899
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.114836615181143
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "torso",
+            "b_name": "Hips-Spine",
+            "depth": 0.105786979679782
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "torso",
+            "b_name": "Spine-Chest",
+            "depth": 0.0563878678149292
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.252611497185894
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0382257319693594
+          },
+          {
+            "a_class": "head",
+            "a_name": "Neck-Head",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.171966075797271
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "torso",
+            "b_name": "Hips-Spine",
+            "depth": 0.0880739240277671
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "torso",
+            "b_name": "Spine-Chest",
+            "depth": 0.0315588073382761
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.1922313841687
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightShoulder-RightUpperArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.147919997093681
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightShoulder-RightUpperArm",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0360738941488852
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftUpperArm-LeftLowerArm",
+            "b_class": "torso",
+            "b_name": "Hips-Spine",
+            "depth": 0.0477697740222211
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftUpperArm-LeftLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.11561713509785
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightUpperArm-RightLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0573378014794403
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftUpperLeg-LeftLowerLeg",
+            "b_class": "leg",
+            "b_name": "LeftUpperLeg-LeftLowerLeg",
+            "depth": 0.0648981777563754
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftUpperLeg-LeftLowerLeg",
+            "b_class": "leg",
+            "b_name": "LeftLowerLeg-LeftFoot",
+            "depth": 0.0671408522915782
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftLowerLeg-LeftFoot",
+            "b_class": "leg",
+            "b_name": "LeftUpperLeg-LeftLowerLeg",
+            "depth": 0.0277717077692532
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftLowerLeg-LeftFoot",
+            "b_class": "leg",
+            "b_name": "LeftLowerLeg-LeftFoot",
+            "depth": 0.0300144121067783
+          },
+          {
+            "a_class": "head",
+            "a_name": "Head",
+            "b_class": "torso",
+            "b_name": "Hips-Spine",
+            "depth": 0.0684299985958597
+          },
+          {
+            "a_class": "head",
+            "a_name": "Head",
+            "b_class": "torso",
+            "b_name": "Spine-Chest",
+            "depth": 0.0617747931097531
+          },
+          {
+            "a_class": "head",
+            "a_name": "Head",
+            "b_class": "torso",
+            "b_name": "Chest-UpperChest",
+            "depth": 0.0684104260321307
+          },
+          {
+            "a_class": "head",
+            "a_name": "Head",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.120306570775405
+          }
+        ],
+        "seconds": 57.6333333333333,
+        "tick": 3458
+      },
+      {
+        "a": "react_head#1",
+        "a_clock": 0.0665476190476191,
+        "b": "kickboxing_body_kick",
+        "b_clock": 0.3,
+        "depth": 0.249858752375208,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.130060925313375
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.0656171379270203
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0415502978722527
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.203453559025587
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.0654957981349275
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0937958635160611
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.249858752375208
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.0870126511007802
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.099452598913885
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.184956492764564
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.0451730378791431
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightShoulder-RightUpperArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0334929875564047
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightUpperArm-RightLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0613989759471901
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightUpperArm-RightLowerArm",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0283251585137079
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightLowerArm-RightHand",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0201991607827826
+          }
+        ],
+        "seconds": 16.1833333333333,
+        "tick": 971
+      },
+      {
+        "a": "react_head#1",
+        "a_clock": 0.0832142857142857,
+        "b": "kickboxing_body_kick",
+        "b_clock": 0.316666666666667,
+        "depth": 0.243709101870121,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.213926605113886
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.133644783276523
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0262838049094155
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.243709101870121
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.103734636449938
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0526803113290951
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.227992631977164
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.103254603877689
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0459749688946971
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.105995723886104
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightUpperArm-RightLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0397223014619835
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftUpperLeg-LeftLowerLeg",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0442100131831854
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftUpperLeg-LeftLowerLeg",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.0401126354752896
+          }
+        ],
+        "seconds": 16.2,
+        "tick": 972
+      },
+      {
+        "a": "react_head#1",
+        "a_clock": 0.0498809523809524,
+        "b": "kickboxing_body_kick",
+        "b_clock": 0.283333333333333,
+        "depth": 0.239407479135888,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0549575354201106
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0428584881749601
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.124631254227518
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.107529782861465
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.232960595024233
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.186061837862967
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.239407479135888
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.191370660689604
+          },
+          {
+            "a_class": "head",
+            "a_name": "Neck-Head",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0262052090536267
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0928973617425214
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightShoulder-RightUpperArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.112740294132663
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightShoulder-RightUpperArm",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0797174386704642
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftUpperArm-LeftLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.031814019289313
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightUpperArm-RightLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0897871154542477
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightUpperArm-RightLowerArm",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0567131862620566
+          }
+        ],
+        "seconds": 16.1666666666667,
+        "tick": 970
+      },
+      {
+        "a": "react_head#1",
+        "a_clock": 0.116547619047619,
+        "b": "kickboxing_body_kick",
+        "b_clock": 0.35,
+        "depth": 0.233830656173512,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.233830656173512
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.206219093364823
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.13328393658995
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.0888095678484997
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.051482410322665
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightUpperArm-RightLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0307069021459133
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftUpperLeg-LeftLowerLeg",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.159332095574802
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftUpperLeg-LeftLowerLeg",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.15347448094798
+          },
+          {
+            "a_class": "leg",
+            "a_name": "RightUpperLeg-RightLowerLeg",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0995113876185367
+          },
+          {
+            "a_class": "leg",
+            "a_name": "RightUpperLeg-RightLowerLeg",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.0818214910445787
+          }
+        ],
+        "seconds": 16.2333333333333,
+        "tick": 974
+      },
+      {
+        "a": "loc_strafe_left",
+        "a_clock": 0.00687688688437144,
+        "b": "kickboxing_body_kick",
+        "b_clock": 0.266666666666667,
+        "depth": 0.232309251396554,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0292750264746455
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.103023125083803
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0691085245311194
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.220386473668222
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.182564654540061
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.232309251396554
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.193542571988833
+          },
+          {
+            "a_class": "head",
+            "a_name": "Neck-Head",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0428586722980649
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.150868965910936
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0858151778434707
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightShoulder-RightUpperArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0863682935575977
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightShoulder-RightUpperArm",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0532944761241156
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftUpperArm-LeftLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0859894855883701
+          }
+        ],
+        "seconds": 16.15,
+        "tick": 969
+      },
+      {
+        "a": "react_leg",
+        "a_clock": 0.4,
+        "b": "kickboxing_low_kick",
+        "b_clock": 0.491701006889343,
+        "depth": 0.230281248005912,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0226419533831386
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.230281248005912
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.190336616200554
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0438533557966938
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.153014348059886
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.0599946262038311
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0733954219347284
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.1154976199975
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0686464079903537
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.047654124227297
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftUpperArm-LeftLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0481064124968631
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftLowerArm-LeftHand",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0320734651658394
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftUpperLeg-LeftLowerLeg",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.18588373709864
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftUpperLeg-LeftLowerLeg",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.130555668017396
+          },
+          {
+            "a_class": "leg",
+            "a_name": "RightUpperLeg-RightLowerLeg",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.124274450214858
+          },
+          {
+            "a_class": "leg",
+            "a_name": "RightUpperLeg-RightLowerLeg",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.15239225051981
+          },
+          {
+            "a_class": "head",
+            "a_name": "Head",
+            "b_class": "torso",
+            "b_name": "Hips-Spine",
+            "depth": 0.0241233246282565
+          },
+          {
+            "a_class": "head",
+            "a_name": "Head",
+            "b_class": "leg",
+            "b_name": "LeftUpperLeg-LeftLowerLeg",
+            "depth": 0.0873331088711463
+          }
+        ],
+        "seconds": 44.7333333333333,
+        "tick": 2684
+      },
+      {
+        "a": "react_head#1",
+        "a_clock": 0.0998809523809524,
+        "b": "kickboxing_body_kick",
+        "b_clock": 0.333333333333333,
+        "depth": 0.228272523048207,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.228272523048207
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Hips-Spine",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.164308214050877
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.193826181054109
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Spine-Chest",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.115954528907593
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.134352700006007
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.0633619682398455
+          },
+          {
+            "a_class": "arm",
+            "a_name": "RightUpperArm-RightLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0224411535258801
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftUpperLeg-LeftLowerLeg",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.120255782198376
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftUpperLeg-LeftLowerLeg",
+            "b_class": "foot",
+            "b_name": "RightFoot-RightToes",
+            "depth": 0.154492222806939
+          },
+          {
+            "a_class": "leg",
+            "a_name": "RightUpperLeg-RightLowerLeg",
+            "b_class": "leg",
+            "b_name": "RightLowerLeg-RightFoot",
+            "depth": 0.0262247723064372
+          }
+        ],
+        "seconds": 16.2166666666667,
+        "tick": 973
+      },
+      {
+        "a": "react_head#3",
+        "a_clock": 0.316666666666667,
+        "b": "kickboxing_axe_kick",
+        "b_clock": 0.386839352051417,
+        "depth": 0.22015452856882,
+        "owner": "whole_strike",
+        "pairs": [
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "torso",
+            "b_name": "Hips-Spine",
+            "depth": 0.0587237769846378
+          },
+          {
+            "a_class": "torso",
+            "a_name": "Chest-UpperChest",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.0842781035663435
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "torso",
+            "b_name": "Hips-Spine",
+            "depth": 0.113213703517634
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "torso",
+            "b_name": "Spine-Chest",
+            "depth": 0.0885511301821778
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "torso",
+            "b_name": "Chest-UpperChest",
+            "depth": 0.0451693913308355
+          },
+          {
+            "a_class": "torso",
+            "a_name": "UpperChest-Neck",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.111098645023771
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "torso",
+            "b_name": "Hips-Spine",
+            "depth": 0.11892105623373
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "torso",
+            "b_name": "Spine-Chest",
+            "depth": 0.0622075603852655
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftShoulder-LeftUpperArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.22015452856882
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftUpperArm-LeftLowerArm",
+            "b_class": "torso",
+            "b_name": "Hips-Spine",
+            "depth": 0.0973902086640592
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftUpperArm-LeftLowerArm",
+            "b_class": "torso",
+            "b_name": "Spine-Chest",
+            "depth": 0.0205688027785538
+          },
+          {
+            "a_class": "arm",
+            "a_name": "LeftUpperArm-LeftLowerArm",
+            "b_class": "leg",
+            "b_name": "RightUpperLeg-RightLowerLeg",
+            "depth": 0.188023501565326
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftUpperLeg-LeftLowerLeg",
+            "b_class": "leg",
+            "b_name": "LeftUpperLeg-LeftLowerLeg",
+            "depth": 0.142285309506959
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftUpperLeg-LeftLowerLeg",
+            "b_class": "leg",
+            "b_name": "LeftLowerLeg-LeftFoot",
+            "depth": 0.110901762921804
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftLowerLeg-LeftFoot",
+            "b_class": "leg",
+            "b_name": "LeftUpperLeg-LeftLowerLeg",
+            "depth": 0.105158839519837
+          },
+          {
+            "a_class": "leg",
+            "a_name": "LeftLowerLeg-LeftFoot",
+            "b_class": "leg",
+            "b_name": "LeftLowerLeg-LeftFoot",
+            "depth": 0.0737752482311985
+          },
+          {
+            "a_class": "head",
+            "a_name": "Head",
+            "b_class": "torso",
+            "b_name": "Hips-Spine",
+            "depth": 0.0938709895206949
+          },
+          {
+            "a_class": "head",
+            "a_name": "Head",
+            "b_class": "torso",
+            "b_name": "Spine-Chest",
+            "depth": 0.113561454257824
+          },
+          {
+            "a_class": "head",
+            "a_name": "Head",
+            "b_class": "torso",
+            "b_name": "Chest-UpperChest",
+            "depth": 0.140020265829151
+          },
+          {
+            "a_class": "head",
+            "a_name": "Head",
+            "b_class": "torso",
+            "b_name": "UpperChest-Neck",
+            "depth": 0.104757635672015
+          }
+        ],
+        "seconds": 57.8166666666667,
+        "tick": 3469
+      }
+    ],
+    "contacts": [
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "a",
+        "surface_depth": 3.8678525215996e-08,
+        "take": "hook_lead",
+        "tick": 103
+      },
+      {
+        "effector": "RightHand",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.384497560562441,
+        "take": "hook_rear",
+        "tick": 236
+      },
+      {
+        "effector": "LeftHand",
+        "region": "torso_core",
+        "side": "a",
+        "surface_depth": -0.177921371397806,
+        "take": "hook_lead",
+        "tick": 535
+      },
+      {
+        "effector": "RightLowerLeg-RightFoot",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.232517249966159,
+        "take": "muay_thai_straight_knee",
+        "tick": 760
+      },
+      {
+        "effector": "RightFoot-RightToes",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.374067200258207,
+        "take": "kickboxing_body_kick",
+        "tick": 969
+      },
+      {
+        "effector": "LeftHand",
+        "region": "torso_core",
+        "side": "a",
+        "surface_depth": 1.88225672381748e-07,
+        "take": "boxing_one_two",
+        "tick": 1441
+      },
+      {
+        "effector": "LeftHand",
+        "region": "torso_core",
+        "side": "a",
+        "surface_depth": -7.99952291075101e-08,
+        "take": "boxing_one_two",
+        "tick": 1442
+      },
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.00280234033361909,
+        "take": "hook_lead",
+        "tick": 1568
+      },
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "a",
+        "surface_depth": -2.71695721476561e-10,
+        "take": "hook_lead",
+        "tick": 2168
+      },
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": 0.00753839498265746,
+        "take": "boxing_one_two",
+        "tick": 2179
+      },
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": 0.0036315638373709,
+        "take": "boxing_one_two",
+        "tick": 2180
+      },
+      {
+        "effector": "LeftHand",
+        "region": "torso_core",
+        "side": "b",
+        "surface_depth": -1.98383913296851e-07,
+        "take": "hook_lead",
+        "tick": 3302
+      },
+      {
+        "effector": "RightFoot-RightToes",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.384005449804483,
+        "take": "kickboxing_axe_kick",
+        "tick": 3464
+      },
+      {
+        "effector": "RightFoot-RightToes",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.410367278143396,
+        "take": "kickboxing_axe_kick",
+        "tick": 3465
+      }
+    ],
+    "event_hash": "c69594a7fdf028beee661c28308f542d1706d4149826885edf8c2b2fea7de279",
+    "clip_clock_sha256": "d8b619b9d50a98446aa50bc15a479300f4c431b22b1342292f01575fc9bcb61c",
+    "frames": 3600
+  },
+  "off_path": {
+    "frames": 3600,
+    "all_pose_hashes_equal": true,
+    "event_hash_equal": true,
+    "event_hash": "89c1ea39d1cdeae92765d45cb0de243a8b83ea359a55ca8e07355d8a70561f60",
+    "pose_sequence_sha256": "298f2db7f2ffa2a2829c37c1f2063e01e556ba2caaed3e514cf316ddea8b5a25"
+  },
+  "protocol": {
+    "seed": 92012,
+    "discipline": "mma",
+    "population": "175 cm grappler versus 185 cm striker",
+    "census_hz": 60,
+    "video_fps": 30,
+    "duration_s": 60,
+    "switches_on": [
+      "strikes_play_whole",
+      "reactions_play_whole",
+      "contact_stop",
+      "readable_onset",
+      "human_speed_tempo"
+    ],
+    "accepted": "c198_trial2",
+    "before_video": "_captures/watch_loop/c198_pass1_before.mp4",
+    "after_video": "_captures/watch_loop/c198_pass1.mp4",
+    "c198_trial_rejected": "Landed kick gaps worsened despite lower overlap",
+    "c198_trial3_rejected": "Overlap and one landed punch gap worsened"
+  }
+}

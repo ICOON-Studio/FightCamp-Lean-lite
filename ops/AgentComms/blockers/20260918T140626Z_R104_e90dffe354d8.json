@@ -1,0 +1,8 @@
+{
+ "agent": "claude",
+ "created_at": "2026-09-18T14:06:26Z",
+ "id": "e90dffe354d8",
+ "resolved_at": null,
+ "task": "R104",
+ "why": "Needs the Ludo/text-to-motion generator. Two independent reasons, both recorded 2026-09-15/09-18: the container's egress wall blocks the generator hosts, and the operator PAUSED all generator spend behind the engine stage ('Make them count'). Tangential to ENGINE FIRST. Unblock when the operator releases credits AND a session has the generator reachable - **AND BOTH ARMS ARE ALREADY ANSWERED NEGATIVE - do NOT pay to re-run them.** `research/HIGGSFIELD_MMA_PIPELINE_STUDY.md` ran R104's experiment on Higgsfield: ARM A, 8 two-fighter generations (two prompt styles, seeds 11 and 37), ALL 8 came back as ONE BODY, and of the 4 armbar prompts NONE reached the ground at all (three stood, one 'sat' in the air). ARM B is the `compose_takedown.py` test - 6 attackers x 6 defenders, deliberately aligned (defender turned to face, fall onset on the attacker's reach frame, mid-thigh on the attacker's hands) - and it scored 0 of 36: every attacker stops at the grab (follow-through 0.00-0.06 m) and the torsos interpenetrate in 16-81% of frames. That study's verdict stands: for grappling, 'generation fails - one body, and composition 0/36'. What is left for R104 is the NARROW residue only - whether LUDO specifically (not Higgsfield) behaves differently, and whether a HELD pose is easier than the dynamic entries that were tested. Cheap to check, but it is a long shot: side control is a GROUND position and the generator would not put a man on the floor even once."
+}

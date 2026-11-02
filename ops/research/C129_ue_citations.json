@@ -1,0 +1,36 @@
+{
+  "defaults": {
+    "FAnimNode_StrideWarping.Mode": "EWarpingEvaluationMode::Manual",
+    "FAnimNode_StrideWarping.StrideDirection": "FVector::ForwardVector",
+    "FAnimNode_StrideWarping.StrideScale": 1.0,
+    "FAnimNode_StrideWarping.LocomotionSpeed": 0.0,
+    "FAnimNode_StrideWarping.MinRootMotionSpeedThreshold": 10.0,
+    "FAnimNode_StrideWarping.FloorNormalDirection": "{ EWarpingVectorMode::WorldSpaceVector, FVector::UpVector }",
+    "FAnimNode_StrideWarping.GravityDirection": "{ EWarpingVectorMode::WorldSpaceVector, FVector::DownVector }",
+    "FAnimNode_StrideWarping.bOrientStrideDirectionUsingFloorNormal": true,
+    "FAnimNode_StrideWarping.bCompensateIKUsingFKThighRotation": true,
+    "FAnimNode_StrideWarping.bClampIKUsingFKLimits": true,
+    "FAnimNode_StrideWarping.bDisableIfMissingRootMotion": true,
+    "FAnimNode_StrideWarping.DebugDrawScale": 1.0,
+    "FAnimNode_StrideWarping.bEnableDebugDraw": false,
+    "FAnimNode_StrideWarping.bDebugDrawIKFootOrigin": false,
+    "FAnimNode_StrideWarping.bDebugDrawIKFootAdjustment": false,
+    "FAnimNode_StrideWarping.bDebugDrawPelvisAdjustment": false,
+    "FAnimNode_StrideWarping.bDebugDrawThighAdjustment": false,
+    "FAnimNode_StrideWarping.bDebugDrawIKFootFinal": false
+  },
+  "citations": [
+    {"id":"S1","claim":"Graph mode returns when the root-motion attribute is missing and the disable flag is enabled.","file":"Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_StrideWarping.cpp","line":129,"quote":"else if (bDisableIfMissingRootMotion)"},
+    {"id":"S1","claim":"Graph mode computes stride scale as locomotion speed divided by root-motion speed.","file":"Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_StrideWarping.cpp","line":209,"quote":"ActualStrideScale = LocomotionSpeed / CachedRootMotionDeltaSpeed;"},
+    {"id":"S1","claim":"All configured foot bone indices must be present for evaluation.","file":"Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_StrideWarping.cpp","line":450,"quote":"if (Foot.IKFootBoneIndex == INDEX_NONE || Foot.FKFootBoneIndex == INDEX_NONE || Foot.ThighBoneIndex == INDEX_NONE)"},
+    {"id":"S2","claim":"The stride-warping plane origin is found by intersecting gravity from the thigh with the foot floor plane.","file":"Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_StrideWarping.cpp","line":242,"quote":"const FVector StrideWarpingPlaneOrigin = (FMath::Abs(ResolvedGravityDirection | ResolvedFloorNormal) > DELTA) ? FMath::LinePlaneIntersection(ThighBoneLocation, ThighBoneLocation + ResolvedGravityDirection, IKFootLocation, ResolvedFloorNormal) : IKFootLocation;"},
+    {"id":"S2","claim":"The scale origin is the foot projected onto that plane along the stride direction.","file":"Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_StrideWarping.cpp","line":245,"quote":"const FVector ScaleOrigin = FVector::PointPlaneProject(IKFootLocation, StrideWarpingPlaneOrigin, ActualStrideDirection);"},
+    {"id":"S2","claim":"The final foot location scales its offset from the scale origin.","file":"Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_StrideWarping.cpp","line":248,"quote":"const FVector WarpedLocation = ScaleOrigin + (IKFootLocation - ScaleOrigin) * ActualStrideScale;"},
+    {"id":"S3","claim":"The node supplies original FK pelvis distances and warped IK locations to the pelvis solver.","file":"Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_StrideWarping.cpp","line":290,"quote":"PelvisTransform = PelvisIKFootSolver.Solve(PelvisTransform, FKFootDistancesToPelvis, IKFootLocations, CachedDeltaTime);"},
+    {"id":"S3","claim":"The solver averages ideal pelvis positions based on each IK target and FK distance.","file":"Engine/Source/Runtime/AnimGraphRuntime/Private/BoneControllers/BoneControllerSolvers.cpp","line":32,"quote":"const FVector IdealLocation = IKFootLocations[Index] + (PreAdjustmentLocation - IKFootLocations[Index]).GetSafeNormal() * FKFootDistancesToPelvis[Index];"},
+    {"id":"S3","claim":"The solver smooths, blends, and caps the pelvis displacement.","file":"Engine/Source/Runtime/AnimGraphRuntime/Private/BoneControllers/BoneControllerSolvers.cpp","line":55,"quote":"if (FVector::DistSquared(AdjustedPelvisLocation, InitialPelvisLocation) >= AdjustmentDistMaxSquared)"},
+    {"id":"S4","claim":"Thigh compensation translates the thigh by pelvis offset and rotates it toward the warped target.","file":"Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_StrideWarping.cpp","line":357,"quote":"AdjustedThighTransform.AddToTranslation(PelvisOffset);"},
+    {"id":"S4","claim":"FK limits replace an overextended IK target with one at the original FK leg length.","file":"Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_StrideWarping.cpp","line":397,"quote":"const FVector ClampedFootLocation = AdjustedThighTransform.GetLocation() + TargetDir * FKLength;"},
+    {"id":"S5","claim":"The node appends pelvis, thighs, and final IK feet as bone transforms and sorts them.","file":"Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_StrideWarping.cpp","line":343,"quote":"OutBoneTransforms.Add(FBoneTransform(PelvisBoneIndex, PelvisTransform));"}
+  ]
+}

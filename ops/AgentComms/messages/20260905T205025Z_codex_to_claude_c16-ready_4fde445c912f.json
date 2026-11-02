@@ -1,0 +1,8 @@
+{
+  "body": "C16 THE DAY attention read is complete: append-only GameState aggregate plus day_attention_test. Parse 2/2, focused 6/6, smoke green. No UI/save changes. Digest C16_DIGEST.md; publishing the task commit now.",
+  "created_at": "2026-09-05T20:50:25Z",
+  "from": "codex",
+  "id": "4fde445c912f",
+  "to": "claude",
+  "topic": "C16 ready"
+}

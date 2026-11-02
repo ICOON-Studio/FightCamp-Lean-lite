@@ -1,0 +1,20 @@
+You are working in the git worktree D:/FightCamp/wt/C226 (branch codex/c226-st1-stamina) of the FightCamp Godot 4.7.2 game.
+Your task is fully specified in research/TASK_C226_ST1_STAMINA.md - read it first, then do it start to finish.
+
+Key points (the task file wins if anything differs):
+- Goal: stamina drives the moves and the decisions (in-round recovery only while NOT working, rest-seeking intent,
+  lighter shots when tired), ALL behind one new engine switch `in_round_recovery` added to DEMO_SWITCHES; OFF must be
+  byte-identical to master.
+- Edit ONLY the owned files and ONLY the named windows of FightRealtime.gd (7441 lines - never read it whole; sed -n).
+- Numbers come from research/D65_IN_ROUND_RECOVERY_RAW.txt lines 171-260 (label every new constant AUTHORED or
+  DERIVED and from which D65 row). Never invent a figure.
+- Write tools/c226_stamina_census.gd and run it BEFORE your first edit and AFTER, on the same seeds, with legal,
+  DIFFERENT fighters (never two identical fighters). Put both tables in research/C226_DIGEST.md.
+- The .godot import cache is already in the worktree. Parse gate before any test:
+  python Godot/tools/check_scripts.py Godot/scripts/FightStamina.gd Godot/scripts/FightIntent.gd Godot/scripts/FightRealtime.gd
+- One test: "%LOCALAPPDATA%\Programs\Godot\Godot_v4.7.2-stable_win64_console.exe" --headless --path Godot --script tests/<name>.gd
+- At the end: python Godot/tools/run_tests.py --jobs 2 --only fight_stamina,fatigue_curve,fight_intent,boxing_output,fight_pace_anchor,fight_realtime,fight_in_round_recovery
+  (wait on the runner's exit; never loosen a test band - report numbers instead).
+- git add the changed/new files explicitly by path (never `git add .`, never Godot/.godot), commit, and
+  git push -u origin codex/c226-st1-stamina.
+Do not stop at "written": run the census and the tests yourself and finish with the push.

@@ -1,0 +1,543 @@
+{
+  "bouts_per_size": 64,
+  "catalogue": "technique_catalog.json (LIVE, 272 nodes, 15 disciplines)",
+  "control_arm": {
+    "noise_clinch_per_min": 0.0,
+    "noise_corner": 0.0028302852723843,
+    "noise_fence": 0.00215586462392472,
+    "noise_mean_sep": 0.0154219990057796,
+    "noise_strikes_per_round": 0.895833333333336,
+    "noise_td_rate": 0.0198589796740762,
+    "run_a": {
+      "across_flats_m": 6.0,
+      "area_m2": 29.8233764908628,
+      "bouts": 64,
+      "clinch": {
+        "entries": 0,
+        "entries_per_min": 0.0,
+        "mean_duration_s": 0.0,
+        "total_ticks": 28740
+      },
+      "distance": {
+        "band_shares": {
+          "CLINCH": 0.0353963554316286,
+          "GROUND": 0.089301285303985,
+          "LONG": 0.599264977560139,
+          "MID": 0.121717154300522,
+          "POCKET": 0.154320227403725
+        },
+        "band_ticks": {
+          "CLINCH": 28740,
+          "GROUND": 72508,
+          "LONG": 486572,
+          "MID": 98828,
+          "POCKET": 125300
+        },
+        "mean_separation_m": 1.08008588816311,
+        "samples": 811948
+      },
+      "half_width": 3.0,
+      "half_width_assert_fails": 0,
+      "label": "ctrl_a",
+      "round_seconds_total": 40597.4,
+      "strikes": {
+        "body": 2559,
+        "body_share": 0.400218955270566,
+        "head": 3502,
+        "head_share": 0.547700969659055,
+        "landed_per_round": 33.3020833333333,
+        "landed_total": 6394,
+        "leg": 333,
+        "leg_share": 0.0520800750703785,
+        "sig_body": 2559,
+        "sig_body_share": 0.400218955270566,
+        "sig_head": 3502,
+        "sig_head_share": 0.547700969659055,
+        "sig_landed": 6394,
+        "sig_leg": 333,
+        "sig_leg_share": 0.0520800750703785
+      },
+      "takedowns": {
+        "attempts": 25,
+        "attempts_fence_defender": 1,
+        "fence_success_rate": 2.0,
+        "landed": 47,
+        "landed_fence_defender": 2,
+        "per_min": 0.0694625764211501,
+        "success_rate": 1.88
+      },
+      "zone": {
+        "centre_share": 0.926821668382704,
+        "centre_ticks": 1505062,
+        "corner_share": 0.0329583914240813,
+        "corner_ticks": 53521,
+        "corner_ticks_a": 7411,
+        "corner_ticks_b": 46110,
+        "fence_share": 0.0279716188721445,
+        "fence_ticks": 45423,
+        "fence_ticks_a": 4487,
+        "fence_ticks_b": 40936,
+        "ropes_share": 0.0402199401932143,
+        "ropes_ticks": 65313
+      }
+    },
+    "run_b": {
+      "across_flats_m": 6.0,
+      "area_m2": 29.8233764908628,
+      "bouts": 64,
+      "clinch": {
+        "entries": 0,
+        "entries_per_min": 0.0,
+        "mean_duration_s": 0.0,
+        "total_ticks": 22327
+      },
+      "distance": {
+        "band_shares": {
+          "CLINCH": 0.0271445957002922,
+          "GROUND": 0.0600276467105399,
+          "LONG": 0.621730022698509,
+          "MID": 0.130047743461869,
+          "POCKET": 0.16104999142879
+        },
+        "band_ticks": {
+          "CLINCH": 22327,
+          "GROUND": 49374,
+          "LONG": 511386,
+          "MID": 106967,
+          "POCKET": 132467
+        },
+        "mean_separation_m": 1.09550788716889,
+        "samples": 822521
+      },
+      "half_width": 3.0,
+      "half_width_assert_fails": 0,
+      "label": "ctrl_b",
+      "round_seconds_total": 41126.05,
+      "strikes": {
+        "body": 2557,
+        "body_share": 0.410961105753777,
+        "head": 3274,
+        "head_share": 0.526197364191578,
+        "landed_per_round": 32.40625,
+        "landed_total": 6222,
+        "leg": 391,
+        "leg_share": 0.0628415300546448,
+        "sig_body": 2557,
+        "sig_body_share": 0.410961105753777,
+        "sig_head": 3274,
+        "sig_head_share": 0.526197364191578,
+        "sig_landed": 6222,
+        "sig_leg": 391,
+        "sig_leg_share": 0.0628415300546448
+      },
+      "takedowns": {
+        "attempts": 34,
+        "attempts_fence_defender": 1,
+        "fence_success_rate": 1.0,
+        "landed": 34,
+        "landed_fence_defender": 1,
+        "per_min": 0.0496035967470739,
+        "success_rate": 1.0
+      },
+      "zone": {
+        "centre_share": 0.932092919208142,
+        "centre_ticks": 1533332,
+        "corner_share": 0.030128106151697,
+        "corner_ticks": 49562,
+        "corner_ticks_a": 6412,
+        "corner_ticks_b": 43150,
+        "fence_share": 0.0258157542482198,
+        "fence_ticks": 42468,
+        "fence_ticks_a": 4390,
+        "fence_ticks_b": 38078,
+        "ropes_share": 0.0377789746401612,
+        "ropes_ticks": 62148
+      }
+    }
+  },
+  "fighter_a": {
+    "body_radius_m": 0.198597996574684,
+    "height_cm": 180.0,
+    "mass_kg": 84.0,
+    "name": "Grappler"
+  },
+  "fighter_b": {
+    "body_radius_m": 0.198597996574684,
+    "height_cm": 185.0,
+    "mass_kg": 84.0,
+    "name": "Striker"
+  },
+  "population": "MMA grappler (82 grapple, 60 tech) vs striker (34 grapple, 72 tech), both legal for MMA",
+  "rest_seconds": 60,
+  "round_seconds": 300,
+  "rounds": 3,
+  "ruleset": "mma",
+  "sizes": [
+    {
+      "across_flats_m": 6.0,
+      "area_m2": 29.8233764908628,
+      "bouts": 64,
+      "clinch": {
+        "entries": 0,
+        "entries_per_min": 0.0,
+        "mean_duration_s": 0.0,
+        "total_ticks": 28740
+      },
+      "distance": {
+        "band_shares": {
+          "CLINCH": 0.0353963554316286,
+          "GROUND": 0.089301285303985,
+          "LONG": 0.599264977560139,
+          "MID": 0.121717154300522,
+          "POCKET": 0.154320227403725
+        },
+        "band_ticks": {
+          "CLINCH": 28740,
+          "GROUND": 72508,
+          "LONG": 486572,
+          "MID": 98828,
+          "POCKET": 125300
+        },
+        "mean_separation_m": 1.08008588816311,
+        "samples": 811948
+      },
+      "half_width": 3.0,
+      "half_width_assert_fails": 0,
+      "label": "gym_6m",
+      "round_seconds_total": 40597.4,
+      "strikes": {
+        "body": 2559,
+        "body_share": 0.400218955270566,
+        "head": 3502,
+        "head_share": 0.547700969659055,
+        "landed_per_round": 33.3020833333333,
+        "landed_total": 6394,
+        "leg": 333,
+        "leg_share": 0.0520800750703785,
+        "sig_body": 2559,
+        "sig_body_share": 0.400218955270566,
+        "sig_head": 3502,
+        "sig_head_share": 0.547700969659055,
+        "sig_landed": 6394,
+        "sig_leg": 333,
+        "sig_leg_share": 0.0520800750703785
+      },
+      "takedowns": {
+        "attempts": 25,
+        "attempts_fence_defender": 1,
+        "fence_success_rate": 2.0,
+        "landed": 47,
+        "landed_fence_defender": 2,
+        "per_min": 0.0694625764211501,
+        "success_rate": 1.88
+      },
+      "zone": {
+        "centre_share": 0.926821668382704,
+        "centre_ticks": 1505062,
+        "corner_share": 0.0329583914240813,
+        "corner_ticks": 53521,
+        "corner_ticks_a": 7411,
+        "corner_ticks_b": 46110,
+        "fence_share": 0.0279716188721445,
+        "fence_ticks": 45423,
+        "fence_ticks_a": 4487,
+        "fence_ticks_b": 40936,
+        "ropes_share": 0.0402199401932143,
+        "ropes_ticks": 65313
+      }
+    },
+    {
+      "across_flats_m": 5.4864,
+      "area_m2": 24.9361410515912,
+      "bouts": 64,
+      "clinch": {
+        "entries": 0,
+        "entries_per_min": 0.0,
+        "mean_duration_s": 0.0,
+        "total_ticks": 27857
+      },
+      "distance": {
+        "band_shares": {
+          "CLINCH": 0.0366412675613571,
+          "GROUND": 0.0826266699813091,
+          "LONG": 0.601234046639124,
+          "MID": 0.125706498935237,
+          "POCKET": 0.153791516882973
+        },
+        "band_ticks": {
+          "CLINCH": 27857,
+          "GROUND": 62818,
+          "LONG": 457096,
+          "MID": 95570,
+          "POCKET": 116922
+        },
+        "mean_separation_m": 1.08526731482092,
+        "samples": 760263
+      },
+      "half_width": 2.7432,
+      "half_width_assert_fails": 0,
+      "label": "abc_18ft",
+      "round_seconds_total": 38013.15,
+      "strikes": {
+        "body": 2433,
+        "body_share": 0.406312625250501,
+        "head": 3228,
+        "head_share": 0.539078156312625,
+        "landed_per_round": 31.1875,
+        "landed_total": 5988,
+        "leg": 327,
+        "leg_share": 0.0546092184368737,
+        "sig_body": 2433,
+        "sig_body_share": 0.406312625250501,
+        "sig_head": 3228,
+        "sig_head_share": 0.539078156312625,
+        "sig_landed": 5988,
+        "sig_leg": 327,
+        "sig_leg_share": 0.0546092184368737
+      },
+      "takedowns": {
+        "attempts": 24,
+        "attempts_fence_defender": 1,
+        "fence_success_rate": 2.0,
+        "landed": 44,
+        "landed_fence_defender": 2,
+        "per_min": 0.0694496509760438,
+        "success_rate": 1.83333333333333
+      },
+      "zone": {
+        "centre_share": 0.890585889356709,
+        "centre_ticks": 1354159,
+        "corner_share": 0.05379519981901,
+        "corner_ticks": 81797,
+        "corner_ticks_a": 13401,
+        "corner_ticks_b": 68396,
+        "fence_share": 0.0445234083468484,
+        "fence_ticks": 67699,
+        "fence_ticks_a": 9624,
+        "fence_ticks_b": 58075,
+        "ropes_share": 0.0556189108242805,
+        "ropes_ticks": 84570
+      }
+    },
+    {
+      "across_flats_m": 7.62,
+      "area_m2": 48.1021239421127,
+      "bouts": 64,
+      "clinch": {
+        "entries": 0,
+        "entries_per_min": 0.0,
+        "mean_duration_s": 0.0,
+        "total_ticks": 28688
+      },
+      "distance": {
+        "band_shares": {
+          "CLINCH": 0.0352997054256317,
+          "GROUND": 0.0810473263130954,
+          "LONG": 0.600581027638803,
+          "MID": 0.124919711873291,
+          "POCKET": 0.158152228749179
+        },
+        "band_ticks": {
+          "CLINCH": 28688,
+          "GROUND": 65867,
+          "LONG": 488091,
+          "MID": 101522,
+          "POCKET": 128530
+        },
+        "mean_separation_m": 1.08121459957258,
+        "samples": 812698
+      },
+      "half_width": 3.81,
+      "half_width_assert_fails": 0,
+      "label": "ufc_25ft",
+      "round_seconds_total": 40634.9,
+      "strikes": {
+        "body": 2568,
+        "body_share": 0.406136327692551,
+        "head": 3401,
+        "head_share": 0.5378775897517,
+        "landed_per_round": 32.9322916666667,
+        "landed_total": 6323,
+        "leg": 354,
+        "leg_share": 0.0559860825557489,
+        "sig_body": 2568,
+        "sig_body_share": 0.406136327692551,
+        "sig_head": 3401,
+        "sig_head_share": 0.5378775897517,
+        "sig_landed": 6323,
+        "sig_leg": 354,
+        "sig_leg_share": 0.0559860825557489
+      },
+      "takedowns": {
+        "attempts": 22,
+        "attempts_fence_defender": 0,
+        "fence_success_rate": 0.0,
+        "landed": 47,
+        "landed_fence_defender": 1,
+        "per_min": 0.0693984727414119,
+        "success_rate": 2.13636363636364
+      },
+      "zone": {
+        "centre_share": 0.97668875769351,
+        "centre_ticks": 1587506,
+        "corner_share": 0.00746894910532572,
+        "corner_ticks": 12140,
+        "corner_ticks_a": 702,
+        "corner_ticks_b": 11438,
+        "fence_share": 0.00762767965468108,
+        "fence_ticks": 12398,
+        "fence_ticks_a": 353,
+        "fence_ticks_b": 12045,
+        "ropes_share": 0.0158422932011645,
+        "ropes_ticks": 25750
+      }
+    },
+    {
+      "across_flats_m": 9.144,
+      "area_m2": 69.2670584766423,
+      "bouts": 64,
+      "clinch": {
+        "entries": 0,
+        "entries_per_min": 0.0,
+        "mean_duration_s": 0.0,
+        "total_ticks": 25176
+      },
+      "distance": {
+        "band_shares": {
+          "CLINCH": 0.0324285473231893,
+          "GROUND": 0.0801890377186666,
+          "LONG": 0.605271055821257,
+          "MID": 0.125207218881102,
+          "POCKET": 0.156904140255786
+        },
+        "band_ticks": {
+          "CLINCH": 25176,
+          "GROUND": 62255,
+          "LONG": 469904,
+          "MID": 97205,
+          "POCKET": 121813
+        },
+        "mean_separation_m": 1.08684810924371,
+        "samples": 776353
+      },
+      "half_width": 4.572,
+      "half_width_assert_fails": 0,
+      "label": "ufc_30ft",
+      "round_seconds_total": 38817.65,
+      "strikes": {
+        "body": 2496,
+        "body_share": 0.414686825053996,
+        "head": 3206,
+        "head_share": 0.532646619039708,
+        "landed_per_round": 31.3489583333333,
+        "landed_total": 6019,
+        "leg": 317,
+        "leg_share": 0.0526665559062967,
+        "sig_body": 2496,
+        "sig_body_share": 0.414686825053996,
+        "sig_head": 3206,
+        "sig_head_share": 0.532646619039708,
+        "sig_landed": 6019,
+        "sig_leg": 317,
+        "sig_leg_share": 0.0526665559062967
+      },
+      "takedowns": {
+        "attempts": 20,
+        "attempts_fence_defender": 0,
+        "fence_success_rate": 0.0,
+        "landed": 39,
+        "landed_fence_defender": 0,
+        "per_min": 0.060281856320514,
+        "success_rate": 1.95
+      },
+      "zone": {
+        "centre_share": 0.993774095031513,
+        "centre_ticks": 1543039,
+        "corner_share": 0.00149931796489484,
+        "corner_ticks": 2328,
+        "corner_ticks_a": 86,
+        "corner_ticks_b": 2242,
+        "fence_share": 0.0019024850808846,
+        "fence_ticks": 2954,
+        "fence_ticks_a": 19,
+        "fence_ticks_b": 2935,
+        "ropes_share": 0.00472658700359244,
+        "ropes_ticks": 7339
+      }
+    },
+    {
+      "across_flats_m": 9.7536,
+      "area_m2": 78.8105198667574,
+      "bouts": 64,
+      "clinch": {
+        "entries": 0,
+        "entries_per_min": 0.0,
+        "mean_duration_s": 0.0,
+        "total_ticks": 25636
+      },
+      "distance": {
+        "band_shares": {
+          "CLINCH": 0.0325998079820953,
+          "GROUND": 0.0763048633938847,
+          "LONG": 0.606644328159871,
+          "MID": 0.126312175333965,
+          "POCKET": 0.158138825130184
+        },
+        "band_ticks": {
+          "CLINCH": 25636,
+          "GROUND": 60005,
+          "LONG": 477056,
+          "MID": 99330,
+          "POCKET": 124358
+        },
+        "mean_separation_m": 1.08327822836109,
+        "samples": 786385
+      },
+      "half_width": 4.8768,
+      "half_width_assert_fails": 0,
+      "label": "abc_32ft",
+      "round_seconds_total": 39319.25,
+      "strikes": {
+        "body": 2561,
+        "body_share": 0.422119663754739,
+        "head": 3207,
+        "head_share": 0.528597329817043,
+        "landed_per_round": 31.5989583333333,
+        "landed_total": 6067,
+        "leg": 299,
+        "leg_share": 0.0492830064282182,
+        "sig_body": 2561,
+        "sig_body_share": 0.422119663754739,
+        "sig_head": 3207,
+        "sig_head_share": 0.528597329817043,
+        "sig_landed": 6067,
+        "sig_leg": 299,
+        "sig_leg_share": 0.0492830064282182
+      },
+      "takedowns": {
+        "attempts": 20,
+        "attempts_fence_defender": 0,
+        "fence_success_rate": 0.0,
+        "landed": 42,
+        "landed_fence_defender": 0,
+        "per_min": 0.0640907443555002,
+        "success_rate": 2.1
+      },
+      "zone": {
+        "centre_share": 0.994739853888363,
+        "centre_ticks": 1564497,
+        "corner_share": 0.00130597608041862,
+        "corner_ticks": 2054,
+        "corner_ticks_a": 75,
+        "corner_ticks_b": 1979,
+        "fence_share": 0.00169191935248002,
+        "fence_ticks": 2661,
+        "fence_ticks_a": 29,
+        "fence_ticks_b": 2632,
+        "ropes_share": 0.00395417003121881,
+        "ropes_ticks": 6219
+      }
+    }
+  ],
+  "task": "Q121 cage size sweep"
+}

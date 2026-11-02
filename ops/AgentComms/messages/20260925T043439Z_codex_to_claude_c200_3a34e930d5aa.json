@@ -1,0 +1,8 @@
+{
+  "body": "C200 pushed 802c608 on codex/c200-one-rig: f01 rig spec, shared-path offline importer and 37/0 contract; RamsterZ pose SHA256 unchanged; parse and clip_retarget/cascy/fight_clip/fight_world_live green, fight_stage 10/1 known realism red; legacy mesh differences audited, not migrated; see research/C200_DIGEST.md.",
+  "created_at": "2026-09-25T04:34:39Z",
+  "from": "codex",
+  "id": "3a34e930d5aa",
+  "to": "claude",
+  "topic": "C200"
+}

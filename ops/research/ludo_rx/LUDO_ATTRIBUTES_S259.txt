@@ -1,0 +1,255 @@
+FIGHTCAMP — S259 FIGHTER ATTRIBUTE SPECIFICATION
+
+Project: FightCamp (PC Deep Boxing Management Sim — Godot 4.7 / Steam Early Access)
+
+Document: Final Canonical Fighter Attribute & Kinematic Driving Specification
+
+Version: S259-ATTR-01
+
+1. THE FINAL ATTRIBUTE LIST
+
+To make 3D combat look like two distinct human beings rather than mirrored animation rigs running identical scripts, we split the over-compressed legacy stats (speed and defense) into kinematic drivers, elevate core psychological mechanics, and establish strict boundaries between Trained Attributes, Innate/Ceiling Constants, and Derived Parameters.
+
+Summary of Actions on Legacy & r114 Stats
+technique (Keep & Sharpen): Stripped of defensive responsibility; purely offensive biomechanical precision, trajectory efficiency, and hit-angle consistency.
+power (Keep): Kinetic force, impact velocity, tissue displacement, and knockdown probability.
+speed (SPLIT into TWO): Split permanently into hand_speed (fist velocity, frame duration of extensions/retractions) and footwork (step velocity, pivot snap, ring geometry maintenance). A fighter with fast hands and cement feet (e.g., late-career James Toney) is now expressible.
+defense (SPLIT into TWO): Split permanently into guard (isometric limb barrier integrity, forearm coverage, blocking absorption) and head_movement (cervical/torso slips, ducks, pull-counters).
+conditioning (Keep): Aerobic/anaerobic gas tank, total joule output capacity, and round-to-round recovery ceiling.
+fight_iq / Ring IQ (Keep): Tactical recognition velocity, opponent habit extraction, adaptation rate, and positional decision-making.
+chin (Keep as INNATE CEILING): Structural brain-trauma threshold. Cannot be trained upward; only decays through career concussive load.
+composure (Promote from state to TRAINED ATTRIBUTE): Emotional regulation under fire, panic resistance, flinch suppression, and freeze-frame recovery.
+recovery (Promote from derived to TRAINED ATTRIBUTE): Inter-round and in-bout physiological reset velocity (heart rate decay, lactic acid clearance, swelling resilience).
+aggression (Keep as MENTAL ATTRIBUTE): Forward-engagement drive, territorial assertiveness, and willingness to exchange in pocket.
+grapple (DROP): Parked completely. Boxing demo only. Zero clinch/grappling training in this slice.
+The 11 Canonical Attributes (0–100 Scale Calibration)
+
+$$\begin{array}{|l|l|l|l|l|}
+\hline
+\textbf{Attribute} & \textbf{Type} & \textbf{Level 20 (Novice / Low Pro)} & \textbf{Level 50 (Solid Regional)} & \textbf{Level 80 (World Class / Elite)} \
+\hline
+\textbf{hand_speed} & \text{Trained} & \text{Telegraphed arm punches; 0.28s jab} & \text{Standard pro snap; 0.23s jab} & \text{Whip-like firing; 0.19s jab} \
+\textbf{footwork} & \text{Trained} & \text{Shuffling flat-footed, crossed ankles} & \text{Clean step-slide, basic 45}^\circ\text{ pivot} & \text{Pendulum bounce, angles at 0.12s} \
+\textbf{guard} & \text{Trained} & \text{Loose hands, forearms flare open} & \text{Standard earmuff, absorbs cleanly} & \text{Impenetrable shell, catches punches} \
+\textbf{head_movement} & \text{Trained} & \text{Static centerline, blinks on incoming} & \text{Rhythmic slips, resets after 1-2} & \text{Fluid compound slips, rolls under} \
+\textbf{technique} & \text{Trained} & \text{Looping wide shots, elbow flaring} & \text{Clean kinetic chain from hip to fist} & \text{Laser straight, turns over at impact} \
+\textbf{power} & \text{Trained} & \text{Pushes punches; low kinetic transfer} & \text{Stings with body weight; honest pop} & \text{Bone-bruising leverage; 1-shot KO} \
+\textbf{conditioning} & \text{Trained} & \text{Red-lined by round 4; hands drop} & \text{Steady 8-round pace at 45 punches/rd} & \text{12-round engine at 75 punches/rd} \
+\textbf{fight_iq} & \text{Trained} & \text{Bites on every feint; repeats errors} & \text{Reads patterns by rd 4; adapts} & \text{Traps opponents, calculates range} \
+\textbf{composure} & \text{Trained} & \text{Panics when hurt, wild flailing} & \text{Breathes through danger, clinches} & \text{Unshakable poise; fires counters} \
+\textbf{recovery} & \text{Trained} & \text{Lactic lockup, HR stays >160 on stool} & \text{Clears fatigue in 45s of corner time} & \text{HR drops to 110 bpm; swelling frozen} \
+\textbf{chin} & \textbf{Innate} & \text{Wobbles on clean jab; glass jaw} & \text{Absorbs flush hooks; steady equilibrium} & \text{Granite chin; absorbs overhands} \
+\hline
+\end{array}$$
+
+Physical Facts (Immutable Frame Constants)
+height ($\text{cm}$), reach ($\text{cm}$), weight ($\text{kg}$), stance ($\text{Orthodox} / \text{Southpaw}$).
+Derived Metrics (Calculated Dynamically on Engine Tick)
+punch_accuracy: $$\text{technique} \times 0.60 + \text{fight_iq} \times 0.25 + \text{hand_speed} \times 0.15$$
+evasion_total: $$\text{head_movement} \times 0.50 + \text{footwork} \times 0.35 + \text{fight_iq} \times 0.15$$
+ko_leverage: $$\text{power} \times 0.70 + \text{technique} \times 0.30$$
+damage_mitigation: $$\text{guard} \times 0.65 + \text{composure} \times 0.20 + \text{technique} \times 0.15$$
+2. HOW EACH ATTRIBUTE IS TRAINED (GYM ECONOMY)
+
+Consistent with the Move Mastery mechanics established in r115 ($100\text{ hours}$ to master an individual punch tier from $0 \to 100$), attributes progress on a diminishing-returns logarithmic curve.
+
+Growth Curve Formula:
+Points Gained = Base_Rate * Coach_Efficiency * (1.0 - (Current_Val / Hard_Cap)^1.6) * Age_Factor
+
++----------------------------------------------------------------------------------------------------+
+| GYM TRAINING MATRIX: STATIONS, RATES, CAPS & DECAY                                                 |
++-------------------+-----------------------------+-----------+--------+---------------+-------------+
+| Attribute         | Primary Station(s)          | Pts/Hr    | Max    | Decay (Idle)  | Age Pivot   |
++-------------------+-----------------------------+-----------+--------+---------------+-------------+
+| hand_speed        | Speed Bag, Focus Mitts      | 0.35      | GenCap | -0.15 pts/day | Decline 27+ |
+| footwork          | Jump Rope, Agility Ladder   | 0.40      | GenCap | -0.12 pts/day | Decline 28+ |
+| guard             | Double-End Bag, Sparring    | 0.30      | 95     | -0.05 pts/day | Stable 34+  |
+| head_movement     | Slip Bag (Maize Ball), Mitts| 0.35      | GenCap | -0.10 pts/day | Decline 29+ |
+| technique         | Heavy Bag, Mirror Shadowbox | 0.25      | 99     | -0.02 pts/day | Retained 36+|
+| power             | Heavy Bag, Medicine Ball    | 0.20      | GenCap | -0.08 pts/day | Retained 33+|
+| conditioning      | Roadwork (Track), AirDyne   | 0.50      | 95     | -0.25 pts/day | Decline 26+ |
+| fight_iq          | Film Study, Sparring Debrief| 0.20      | 99     | ZERO DECAY    | Retained 40+|
+| composure         | Hard Sparring, Ice Bath     | 0.15      | 90     | -0.04 pts/day | Retained 35+|
+| recovery          | Pool, Sports Massage/Physio | 0.30      | GenCap | -0.18 pts/day | Decline 25+ |
+| chin              | UNTRAINABLE (INNATE)        | 0.00      | Born   | Concussion loss| Decline 24+ |
++-------------------+-----------------------------+-----------+--------+---------------+-------------+
+
+Age Curves and Biological Baselines
+The Twitch Group (hand_speed, footwork, recovery):
+Peak: Ages $21–26$.
+Decline: At age $27+$, decay accelerates by $+12%$ compound annually. At age $32+$, training returns drop by $-40%$.
+The Density Group (power, guard, technique):
+Peak: Ages $26–31$.
+Minimal natural decay (retained through neural muscle memory).
+The Wisdom Group (fight_iq, composure):
+Peak: Ages $30–36$.
+Zero natural decay. Gains accelerate with total career rounds boxed ($+0.05\text{ pts/round}$ in sanctioned bouts).
+The Chin Attrition Rule (chin):
+Starts at a rolled genetic constant ($40–95$).
+Every clean flash-knockdown suffered permanently deducts $-1.5\text{ pts}$ from the max cap.
+Every concussive KO loss permanently deducts $-4.0\text{ pts}$. Chin cannot be trained back.
+3. HOW ATTRIBUTES DRIVE THE 3D WATCHED FIGHT (KINEMATIC PARAMETERS)
+
+To eliminate the "mirrored robots" defect, each attribute links directly to explicit Godot 3D engine variables, skeletal modifiers, and animation tree parameters. Adjectives are banned; these are physical units.
+
+       [HIGH FOOTWORK (80)]                             [LOW FOOTWORK (20)]
+  Wide base, weight on balls of feet              Flat-footed, heels glued to floor
+  Step cycle: 0.18s | Reset rate: 1.8/s           Step cycle: 0.36s | Reset rate: 0.5/s
+  Pendulum bounce: 1.8cm amplitude                Pendulum bounce: 0.0cm (Static drag)
+  
+       [HIGH HAND SPEED (80)]                           [LOW HAND SPEED (20)]
+  Jab extension: 0.200s (Hard floor)              Jab extension: 0.275s
+  Retraction: 0.180s                              Retraction: 0.245s
+  Total punch commitment: 0.413s                  Total punch commitment: 0.553s
+
+Motion Parameter Calibration Table
+
+$$\begin{array}{|l|l|c|c|c|}
+\hline
+\textbf{Attribute} & \textbf{Driven Motion Parameter} & \textbf{Unit} & \textbf{Val @ 20} & \textbf{Val @ 80} \
+\hline
+\textbf{hand_speed} & \text{Jab Extension Duration} & \text{seconds} & 0.275\text{ s} & 0.200\text{ s (Floor)} \
+& \text{Jab Retraction Duration} & \text{seconds} & 0.245\text{ s} & 0.180\text{ s (Floor)} \
+& \text{Cross Extension Duration} & \text{seconds} & 0.360\text{ s} & 0.280\text{ s} \
+\hline
+\textbf{footwork} & \text{Step Translation Speed} & \text{m/s} & 1.10\text{ m/s} & 2.45\text{ m/s} \
+& \text{Step Cycle Duration} & \text{seconds} & 0.360\text{ s} & 0.180\text{ s} \
+& \text{Pivot Angular Snap} & \text{deg/s} & 140^\circ/\text{s} & 380^\circ/\text{s} \
+& \text{Directional Reset Frequency} & \text{events/min} & 8.0 & 26.0 \
+\hline
+\textbf{guard} & \text{Glove Resting Height (Y-Offset to Clavicle)} & \text{metres} & -0.12\text{ m (Chest)} & +0.06\text{ m (Cheek)} \
+& \text{Forearm Flare Angle (Elbow to Ribs)} & \text{degrees} & 24.0^\circ\text{ (Open)} & 4.0^\circ\text{ (Tight)} \
+& \text{Block Recoil Displacement} & \text{metres} & 0.14\text{ m} & 0.03\text{ m} \
+\hline
+\textbf{head_movement} & \text{Slip Torso Lean Angle} & \text{degrees} & 6.0^\circ & 22.0^\circ \
+& \text{Slip Velocity (Lateral Head Travel)} & \text{m/s} & 0.85\text{ m/s} & 2.30\text{ m/s} \
+& \text{Post-Slip Reset Time} & \text{seconds} & 0.420\text{ s} & 0.140\text{ s} \
+\hline
+\textbf{technique} & \text{Elbow Flare on Straight Punch} & \text{degrees} & 28.0^\circ\text{ (Looping)} & 2.0^\circ\text{ (Piston)} \
+& \text{Shoulder Camber at Full Extension} & \text{degrees} & 10.0^\circ\text{ (Exposed)} & 42.0^\circ\text{ (Chin tucked)} \
+& \text{Fist Rotation at Impact (Pronation)} & \text{degrees} & 45.0^\circ\text{ (Slapping)} & 90.0^\circ\text{ (Turned over)} \
+\hline
+\textbf{power} & \text{Impact Hit-Stop Duration} & \text{frames @ 30fps} & 1\text{ frame (0.033s)} & 3\text{ frames (0.100s)} \
+& \text{Target Mesh Head Displacement} & \text{metres} & 0.04\text{ m} & 0.16\text{ m} \
+& \text{Target Hit-Stumble Backwards} & \text{metres} & 0.10\text{ m} & 0.65\text{ m} \
+\hline
+\textbf{composure} & \text{Damage Flinch Amplitude (Spinal Flex)} & \text{degrees} & 24.0^\circ\text{ (Breakdown)} & 4.0^\circ\text{ (Absorbed)} \
+& \text{Hit-Stun Control Lockout} & \text{seconds} & 0.380\text{ s} & 0.090\text{ s} \
+& \text{Blink Duration on Feint} & \text{seconds} & 0.220\text{ s} & 0.000\text{ s (Eyes locked)} \
+\hline
+\textbf{fight_iq} & \text{Range Error Tolerance} & \text{metres} & \pm 0.35\text{ m} & \pm 0.06\text{ m} \
+& \text{Tactical Range Correction Delay} & \text{seconds} & 1.40\text{ s} & 0.25\text{ s} \
+& \text{Feint Bite Rate} & \text{probability} & 0.72 & 0.14 \
+\hline
+\end{array}$$
+
+Conditioning & The Fatigue Degrade Vector
+
+As a fighter’s gas tank empties during a round, kinematic values degrade linearly per $10%$ tank drop beneath $50%$:
+
+Glove Drop: For every $10%$ tank lost below $50%$, resting glove height drops $-0.03\text{ m}$. At $10%$ stamina, gloves sit on the upper abdomen.
+Stance Narrowing: Feet pull inward by $-0.04\text{ m}$ per $10%$ tank loss, destroying base stability and increasing stumble probability by $+20%$.
+Extension Slowdown: Extension times lengthen by $+0.015\text{ s}$ per $10%$ tank loss.
+Breathing Morph: Chest-cavity morph target scales from $0.0 \to 1.0$ (mouth gaping, shoulders heaving at $0.03\text{ m}$ vertical displacement).
+4. HOW ATTRIBUTES DRIVE THE FIGHT SIMULATION ENGINE
+
+Every simulation tick ($10\text{ Hz}$ decision tick, $30\text{ Hz}$ trajectory evaluation), the engine resolves hit outcomes, spatial targets, and tissue damage using clean deterministic equations.
+
+       OFFENSIVE RESOLUTION                           DEFENSIVE RESOLUTION
++---------------------------------+           +---------------------------------+
+| technique (0.60)                |           | head_movement (0.50)            |
+| fight_iq  (0.25)                |    vs     | footwork      (0.35)            |
+| hand_speed(0.15)                |           | fight_iq      (0.15)            |
+|   -> ATK_ROLL [0..100]          |           |   -> DEF_ROLL [0..100]          |
++---------------------------------+           +---------------------------------+
+                 \                                     /
+                  \                                   /
+            [ ATK_ROLL - DEF_ROLL = HIT_MARGIN (-100 to +100) ]
+
+Mathematical Engine Formulations
+1. Hit Resolution (Trajectory Overlap)
+
+$$\text{AtkRating} = (\text{technique} \times 0.60) + (\text{fight_iq} \times 0.25) + (\text{hand_speed} \times 0.15) + \text{MoveMasteryModifier}$$
+$$\text{DefRating} = (\text{head_movement} \times 0.50) + (\text{footwork} \times 0.35) + (\text{fight_iq} \times 0.15)$$
+$$\Delta = \text{AtkRating} - \text{DefRating} + \text{RNG}_{[-12, +12]}$$
+
+$\Delta < -15$: Clean Miss (Whiff). Attacker commits to full recovery frames; opens counter-vulnerability window for $0.25\text{ s}$.
+$-15 \le \Delta \le 5$: Glancing Contact / Deflected. Damage reduced by $75%$.
+$6 \le \Delta \le 30$: Guarded / Blocked. Resolved against defender’s guard: $$\text{DamageThroughGuard} = \text{RawDamage} \times \left(1.0 - \frac{\text{guard} \times 0.85}{100}\right)$$
+$\Delta > 30$: Flush Hit. Full damage applied directly to jaw/body tissue.
+2. Damage & Trauma Calculation
+
+$$\text{KineticForce} = (\text{power} \times 0.65) + (\text{technique} \times 0.35) \times \text{WeightModifier}$$
+$$\text{TissueDamage} = \text{KineticForce} \times \text{PunchTypeMultiplier} \times \text{FatiguePenalty}$$
+
+Clean counter punches landing inside the opponent’s vulnerability window receive an automatic multiplier: $$\text{Damage}_{\text{final}} = \text{TissueDamage} \times 1.45$$
+3. Consciousness Check (Knockdown / Rocked State)
+
+$$\text{TraumaThreshold} = (\text{chin} \times 0.60) + (\text{composure} \times 0.25) + (\text{conditioning} \times 0.15)$$
+$$\text{StunRatio} = \frac{\text{Damage}_{\text{final}}}{\text{TraumaThreshold}}$$
+
+If $\text{StunRatio} \ge 1.0$: Flash Knockdown. Ragdoll/get-up state machine triggered.
+If $0.70 \le \text{StunRatio} < 1.0$: Rocked / Stunned. Legs enter wobbly IK state for $3.5\text{ s}$; player loses all defensive inputs; auto-retreat forced.
+4. Spatial Selection & Ring Positioning
+Target engagement distance is computed via fight_iq and physical reach: $$\text{IdealDistance} = (\text{FighterReach} + \text{OpponentReach}) \times 0.52 \times \text{RangeBias}$$
+A fighter with $\text{fight_iq} = 80$ adjusts their footwork trajectory within $0.25\text{ s}$ of the opponent breaking distance threshold; a fighter with $\text{fight_iq} = 20$ stands frozen for up to $1.40\text{ s}$ while being trapped on the ropes.
+5. MIGRATION SPECIFICATION: 9 LEGACY STATS $\to$ 11 CANONICAL STATS
+
+To preserve save compatibility and ensure existing stable rosters remain intact, use this deterministic mapping script.
+
+def migrate_legacy_fighter(old):
+    new = {}
+    
+    # 1. Direct Preservations
+    new['technique']    = old['technique']
+    new['power']        = old['power']
+    new['conditioning'] = old['conditioning']
+    new['fight_iq']     = old['fight_iq']
+    new['aggression']   = old['aggression']
+    
+    # 2. Speed Split (Hand Speed vs Footwork)
+    # If a fighter was fast, distribute into hand speed and footwork based on technique bias
+    tech_ratio = old['technique'] / 100.0
+    new['hand_speed']   = int(round(old['speed'] * 0.70 + old['technique'] * 0.30))
+    new['footwork']     = int(round(old['speed'] * 0.60 + old['fight_iq'] * 0.40))
+    
+    # 3. Defense Split (Guard vs Head Movement)
+    # High agility fighters lean head movement; low agility / high chin lean guard
+    new['guard']         = int(round(old['defense'] * 0.70 + old['chin'] * 0.30))
+    new['head_movement']= int(round(old['defense'] * 0.60 + old['speed'] * 0.40))
+    
+    # 4. Composure (Elevated from Fight IQ + Defense)
+    new['composure']    = int(round(old['fight_iq'] * 0.50 + old['defense'] * 0.30 + old['chin'] * 0.20))
+    
+    # 5. Recovery (Elevated from Conditioning + Chin)
+    new['recovery']     = int(round(old['conditioning'] * 0.70 + old['chin'] * 0.30))
+    
+    # 6. Chin (Clamp Innate Value)
+    new['chin']         = old['chin']
+    
+    # 7. Drop Grapple completely
+    # del old['grapple']
+    
+    # Clamp all attributes safely to [1, 99]
+    for key in new:
+        new[key] = max(1, min(99, new[key]))
+        
+    return new
+
+6. THE 4 ATTRIBUTES THAT MATTER MOST TO MAKE THE FIGHT LOOK HUMAN
+
+If we only had engineering budget to hook up four attributes to 3D animation parameters before Steam Early Access, these are the four, ranked in order of human visual perception:
+
+[RANK 1: FOOTWORK]        --> Stops the ice-skating; anchors the fighters in space.
+[RANK 2: GUARD]           --> Stops the open-torso mannequin stare; creates visual defense.
+[RANK 3: COMPOSURE]       --> Stops the robotic indifference to pain; creates vulnerability.
+[RANK 4: HAND SPEED]      --> Breaks uniform punch cadences; creates human timing variation.
+
+1. footwork (Rank 1: Ground Contact & Spatial Authority)
+Why it matters most: Humans are exceptionally attuned to gravity and ground locomotion. When two boxers float, slide, cross their legs, or stand static at $0.55\text{ m}$, the brain instantly reads them as cheap video game meshes. Giving fighters variable step cycles, crisp pivots, and distinct approach velocities instantly makes them read as real athletes carrying physical mass.
+2. guard (Rank 2: Combat Posture & Defensive Readiness)
+Why it ranks second: A real fighter’s posture is defined by their guard. A fighter whose hands hang at their upper chest with flaring elbows looks untrained or broken. Dynamic guard height (tucking behind the lead shoulder, keeping the rear glove welded to the zygomatic arch, tightening the elbows on body assault) creates the visual impression of self-preservation.
+3. composure (Rank 3: Physical Reaction to Trauma & Danger)
+Why it ranks third: The clearest tell of a soulless game animation is an avatar taking a flush $80\text{-power}$ right hook to the jaw and immediately resetting into an idle animation with zero emotional or physical recoil. composure dictates the flinch, the head-snap recovery duration, the desperate clinch reach, and whether the fighter’s eyes track the opponent when hurt. It injects human fragility into the sim.
+4. hand_speed (Rank 4: Rhythmic Asymmetry & Striking Texture)
+Why it ranks fourth: When every jab extends in exactly $0.20\text{ s}$ and retracts in $0.18\text{ s}$, the fight feels like a metronome. Real boxing is defined by broken rhythms: slow pawing range-finders punctuated by explosive combinations. Scaling punch extension/retraction across the $0.20\text{ s} \dots 0.28\text{ s}$ spectrum ensures that a blazing speedster looks unmistakably distinct from a thudding, methodical heavy hitter.

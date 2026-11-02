@@ -1,0 +1,52 @@
+FightCamp is a PC deep management simulation (Football Manager / Motorsport Manager class), NOT a mobile or casual game: no energy timers, gacha, daily-login rewards, tap-to-collect, ads or monetisation loops; mechanics and loops must reward long-term planning, readable systems and consequences. No garage start, no tiny-start-space ladder: the player runs a real boxing CLUB.
+
+ROUND 36 - DESIGN THE BOXING CLUB'S TRAINING HALL AS AN EXACT FLOOR PLAN (coordinates, not a picture)
+
+Our owner has asked for three competing floor plans of the SAME hall: one from you (Ludo, our lead game + art designer), one from Claude, one from another agent. Each is built into the real game and shown on the real game camera; he keeps the best. Yours must be buildable EXACTLY as you write it, so I need numbers, not an image. Please give the longest, most complete answer you can - every item placed, every number written out. If you run out of room, stop at a row boundary and I will say "continue".
+
+THE HALL (fixed - do not change it)
+- Rectangle 30.0 m wide x 18.0 m deep, ceiling 3.6 m. Coordinates in metres: x runs from the WEST wall (x=0) to the EAST wall (x=30); z runs from the BACK wall (z=0) to the FRONT wall (z=18). The game camera looks from the front (z>18, high) towards the back wall, so the back wall is what the player sees most.
+- The FRONT wall (z=18) has five doors into separate rooms that already exist (they are NOT on the hall floor): locker room door at x=1.8, physio room door at x=7.2, reception door at x=11.3 (the street entrance - members walk in here), office door at x=14.1, equipment store door at x=25.0. Each door needs 1.2 m of clear floor in front of it (z 16.8-18).
+- The fire exit is on the EAST wall around z=9.5 (keep 1.2 m clear in front of it).
+- Lockers, showers, reception desk, office, physio table and ice tub are in those rooms - do NOT put them on the hall floor.
+
+THE STATIONS (must all appear, with these ids; size = the floor it uses including where the boxer stands, width x depth in metres)
+- heavy_bag_1, heavy_bag_2, heavy_bag_3, heavy_bag_4: heavy bag hung from a wall, 1.8 x 2.0 each
+- speed_bag_1, speed_bag_2: speed-bag platform on the BACK wall, 1.2 x 1.4 each
+- mirror_strip: wall mirror + shadow-boxing floor, 2.4 x 7.0 (the mirror is on a wall)
+- pads: open floor for coach mitt work, 4.0 x 3.5
+- defence_drill: slip rope / defence floor, 4.0 x 3.5
+- ring: one 16 ft boxing ring INCLUDING its 1.0 m apron = 7.8 x 7.8 (the steps are on one side; at least 1.0 m between the ring's apron and any wall)
+- weights: compact weights station, 3.2 x 3.2
+- olympic_platform: lifting platform, 2.6 x 3.2
+- power_rack: power rack, 2.2 x 3.2
+- treadmill: 2.0 x 3.2 ; bike: 2.0 x 3.2
+- recovery: stretch/recovery mats, 3.8 x 3.2
+- agility_ladder: footwork ladder on the floor, 1.6 x 3.2
+- bench_water: ringside bench + water, 0.6 x 4.0
+- glove_rack: wall pegs for gloves and wraps, 0.6 x 1.2
+
+EXTRA KIT YOU MAY ADD (catalogue ids, footprint w x d in metres; use only these ids)
+BAGS: heavy_bag 1x2, double_end_bag 1x1, speed_bag 1x1. RECOVERY: first_aid 1x1 (wall), foam_roller_set 2x1, mobility_stretch_station 2x1, yoga_mat_area 2x2. CARDIO: air_bike 1x2, rowing_ergometer 1x2, ski_erg 2x1, jump_rope_station 2x1, reaction_footwork_grid 3x3. STRENGTH: dumbbell_rack 2x1, kettlebell_set 2x1, medicine_ball_set 2x1, slam_ball_set 2x1, squat_stand 2x2, adjustable_bench 2x1, weight_tree_plates 2x1, battle_ropes 4x1, plyo_box_set 2x2, suspension_trainer_station 2x1, sandbag_set 2x2, turf_sled_lane 5x2.
+
+THE RULES (from real boxing gyms - Whitby ABC, Wild Card, Kronk, England Boxing's club checklist, UFC Gym plates)
+1. 8 to 12 heavy bags in total, EVERY one hung on a wall (bag centre no more than 1.2 m from the back, west or east wall), at least 1.5 m apart, nothing standing behind a bag.
+2. Speed bags: 2 (the two stations), on the back wall. One double-end ball is welcome. Exactly ONE first-aid kit, on a wall.
+3. The ring is the heart of the gym: visible from the door and from the coach's spot; apron empty; at least 1.0 m to any wall.
+4. ONE strength corner on rubber - not spread around the hall. Cardio is secondary in a boxing gym (ropes and floor beat machines) and stays out of the boxing traffic.
+5. A quiet recovery corner, away from the bags and the walk.
+6. Open floor for shadow boxing, pads, slip rope and skipping, next to the bags.
+7. A clear walk from the reception door (x=11.3, z=18) into the hall and to every station: walkways at least 1.2 m wide, nothing standing in them. The coach can see bags, ring and open floor from one spot.
+8. Nothing in the wrong zone: no bag among the weights, no first-aid kits as decoration.
+
+WHAT I NEED BACK (exactly this, so I can type it into the game without interpreting)
+A. One paragraph: your plan in plain words and WHY (where the eye goes from the camera, how a member walks in, how the coach sees the floor).
+B. THE TABLE - one row per item (every station above + every extra item you add), columns separated by " | ":
+   id | kind (station or extra) | x0 | z0 | x1 | z1 | which wall it is on or "floor" | facing (north = towards the back wall, south, east, west) | one-line reason
+   where x0,z0 is the corner nearest the back-west corner and x1,z1 the opposite corner, in metres with one decimal, inside 0-30 x 0-18. Rectangles must not overlap.
+C. THE ZONES - the floor patches with their label and material: label (BAG LINE, RING, OPEN FLOOR, SKIPPING, CARDIO, STRENGTH TRAINING, TURF FUNCTIONAL, RECOVERY, FIRST AID) | x0 | z0 | x1 | z1 | material (wood, rubber, turf, mat, concrete).
+D. THE WALKS - every walkway as a line: from (x,z) to (x,z), width in metres. Show how they connect the reception door to every station.
+E. A self-check: for each of rules 1-8, does your plan pass, with the numbers (e.g. "bag 7 centre 0.9 m from the east wall").
+F. Optional, after the table: what a premium club would add later (we use it for upgrades), as a short list.
+
+Please write the whole table - do not summarise, do not stop at "etc.", and do not give code; plain rows only.

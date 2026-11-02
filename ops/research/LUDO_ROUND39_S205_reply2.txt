@@ -1,0 +1,409 @@
+SECTION 2 — JUDGMENT OF THE BUILT V3 GYM HUD
+
+The V3 HUD implementation built behind the feature switch represents an operational step forward, but introducing full-screen inner views ($x \in [90, 1904]$) alongside a top time-bar restructure exposes critical layout collisions and interaction debt. Below is the line-item audit against the FightCamp design mandate: deep systems, zero click-waste, immediate readability, and absolute fidelity to the simulation loop.
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| V3 BUILT HUD LAYOUT AUDIT (1920x1080)                                                                                                                       |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| (16,16) [TREASURY & RUN-RATE]          (540,12) [TIME BAR: Date | Sim Controls | Crest | Mail] [CONTINUE (1384,12)]         (1600,12) [FIGHT COUNTDOWN]     |
+| 320x64                                 840x48                                                 180x48                         304x80                         |
++-----------------------------------------------------------------------------------------------------------------------------+-------------------------------+
+| (16,120)                                                                                                                    |                               |
+| [ICON DOCK]                                                                                                                 |                               |
+| 8 Icons + 2 Divs                                                                                                            |                               |
+| Ends at y=594                                                                                                               |                               |
+| ---------                                                                                                                   |                               |
+| (16,606)                                                                                                                    |                               |
+| [UTILITY DOCK]                                                                                                              | [INSPECTION DRAWER (SLIDING)] |
+| Settings, Handbook, Back                                                                                                    | (1190,0)                      |
+| Ends at y=744                                                                                                               | 730x1080                      |
+| ---------                                                                                                                   |                               |
+| (16,760)                                                                                                                    |                               |
+| [DAY GOALS]                                                                                                                 |                               |
+| 320x180                                                                                                                     |                               |
+| ---------                                                                                                                   |                               |
+| (16,960) [ROSTER STRIP]                (410,960) [DAY-FEED STRIP]                                                           |                               |
+| 380x104                                480x104 (Gym Floor Viewport Only)                                                    |                               |
++-----------------------------------------------------------------------------------------------------------------------------+-------------------------------+
+
+2.1 Item-by-Item Architectural Audit
+1. Top-Left Treasury & Run-Rate (16, 16, 320, 64)
+The Built State: Houses current cash balance and 30-day projected run-rate.
+Audit Verdict: KEEP WITH INTERNAL RESTRUCTURING.
+The Flaw: At $64\text{ px}$ height, developers frequently format this as two centered rows: cash on top, burn on bottom. In an FM-class game, run-rate is meaningless without the runway cliff metric.
+Required Change: Use a strict 3-column micro-grid:
+Column 1: Liquid Treasury Balance ($142,850, bold 16px).
+Column 2: Net Monthly Run-Rate (-$12,400/mo, colored #EF4444 when negative, #22C55E when positive).
+Column 3: Runway Projection (11.5 mos, warning amber #F59E0B if $< 3.0\text{ mos}$).
+Add tooltip: Complete payroll ledger breakdown on hover.
+2. Top-Centre Time Bar (540, 12, 840, 48) + CONTINUE Placement
+The Built State: Date card, transport buttons (||, >, >>), club crest + name, mail notification bell, with the primary CONTINUE button slapped directly to the right at (1384, 12, 180, 48).
+Audit Verdict: REJECT CONTINUE PLACEMENT; REVISE TIME BAR.
+The Problem: Placing the primary progression button (CONTINUE) horizontally flush with simulation speed toggles is an ergonomics failure:
+Fitts's Law Failure: The most clicked button in a management sim must be large and spatially isolated to prevent misclicks. Cramming it into a continuous strip next to the mail bell causes managers to click the mail icon when trying to advance the day, or accidentally toggle speed when trying to halt simulation.
+Spatial Occlusion with Full-Width Pages: When inner pages open from $x=90$ to $x=1904$, this top bar hangs over the page's category headers, creating visual noise.
+The Solution: RESTORE THE DEDICATED "STEP IN" ACTION ROW.
+Shift CONTINUE down to anchor the action hub, or implement the Unified Action Anchor at the top right, separating simulation transport from chronological advancement. Keep the Time Bar strictly as a display and transport container: [<] MON 14 OCT 2026 [>] | [||] [>] [>>] [>>>] | FIGHTCAMP METRO | [BELL (3)].
+The CONTINUE button moves to its own dedicated interaction anchor at (1680, 12, 224, 52) with a distinct visual silhouette (Gold substrate #D69E2E, black high-contrast bold typography), leaving the time-bar centered at (540, 12, 800, 48).
+3. Top-Right Fight Countdown Card (1600, 12, 304, 80)
+The Built State: Displays "NO FIGHT BOOKED" + "FIND A FIGHT" button, or an active countdown to the next scheduled bout.
+Audit Verdict: COLLIDES WITH TOP BAR / WRONG HEIGHT.
+The Problem: The Time Bar is $y=12, h=48$ (bottom edge at $y=60$). The Fight Countdown is $y=12, h=80$ (bottom edge at $y=92$). This uneven lower baseline looks unpolished. Furthermore, having CONTINUE at (1384, 12) leaves a dead gap between $x=1564$ and $x=1600$, after which the countdown card abruptly drops $32\text{ px}$ lower than the rest of the header.
+Required Change: Normalize all header containers to a uniform height of $56\text{ px}$ ($y \in [10, 66]$).
+If no fight is booked, collapse the card into a compact urgent call-to-action banner: [!] NO BOUT SANCTIONED — MATCHMAKER [M].
+If a fight is booked, show an information-dense progress bar: VS. M. VANCE | 12 DAYS | WEIGHT: +1.4 LBS (ON TRACK) | CAMP DAY 18/30.
+4. Icon Dock Left (16, 120) Ending at y=594 + Utility Dock (16, 606) to y=744
+The Built State: The 8 primary navigation icons + 2 separators end at $y=594$. The three utility buttons (Settings, Handbook, Back) are stacked immediately below from $y=606$ to $y=744$.
+Audit Verdict: ACCEPT WITH ANCHOR CORRECTION.
+The Reality: Your original design had the dock end at $y=540$. Extending it to $y=594$ accurately reflects real hit-box sizing ($44 \times 44\text{ px}$ icons with $6\text{ px}$ spacing and two $10\text{ px}$ rule lines).
+The Flaw: Placing Back inside the utility stack at $y=700$ is wrong. In a deep desktop hierarchy, "Back" belongs either at the top-left corner (ESC breadcrumb) or in the browser-style navigation history slot next to the page title. Stacking Back below the Handbook button makes it hard to find.
+Required Change: Remove Back from the bottom of the dock. Keep only [SYSTEM SETTINGS] and [OPERATIONAL HANDBOOK] pinned to the lower dock. Move Back to a contextual breadcrumb bar on all inner pages.
+5. Day Goals at (16, 760, 320, 180)
+The Built State: Displays today's micro-objectives (e.g., "Complete Vance sparring", "Review cutman medical bills").
+Audit Verdict: ACCEPT (CRITICAL MANAGEMENT CONTEXT).
+Validation: Sits cleanly above the bottom roster strip. It provides essential feedback on why the player cannot fast-forward time (e.g., "Cannot advance: Contract counter-offer pending response").
+6. Fighter Cards Bottom-Left (16, 960, 380, 104)
+The Built State: Horizontal scroll or compact roster card at the bottom-left corner.
+Audit Verdict: MARGINAL COLLISION WITH DAY-FEED STRIP.
+The Problem: The Roster card runs from $x=16$ to $x=396$. The Day-Feed strip starts at $x=410$. That leaves a narrow $14\text{ px}$ gutter. When roster notifications pop up (e.g., injury alerts), they overlap the day-feed log.
+Required Change: Fix width to $360\text{ px}$ ($x \in [16, 376]$). Set the Day-Feed strip start at $x=392$, maintaining an explicit $16\text{ px}$ grid gutter across the entire bottom deck.
+7. Day-Feed Strip Bottom-Centre (410, 960, 480, 104)
+The Built State: Live event feed (ticker) showing real-time training events; visible only on the gym floor viewport.
+Audit Verdict: KEEP AND EXPAND DATA LOGGING DENSITY.
+Refinement: The 3-line ticker must use strict monospace tabular numbers (JetBrains Mono, 11px) with color-coded event prefixes:
+[10:14] TRN: N. Park completed Mitts (Power +0.2%, Fatigue +8%)
+[11:00] MED: M. Vance orbital swelling resolved by Cutman (Condition 94%)
+[11:30] FAC: Speed Bag #2 bracket failure — Maintenance dispatched ($120)
+8. Full-Screen Inner Pages ($x=90$ to $x=1904$)
+The Built State: Schedule, Office, Scouting, Rankings, and Training screens open as large panels covering the gym floor, leaving only the $90\text{ px}$ left dock exposed.
+Audit Verdict: CORRECT DESIGN CHOICE — PRESERVE VIEWPORT DECOUPLING.
+Validation: Full-screen coverage is essential for management views. An FM-class scouting table needs at least 12 columns to remain readable (Rank, Name, Record, Age, Weight, Reach, Stance, Power, Defense, Chin, Condition, Purse). Squeezing that into a partial window ruins the interface.
+Implementation Rule: When an inner page opens, the 3D Gym Floor SubViewport must suspend its render loop (render_target_update_mode = SubViewport.UPDATE_DISABLED) to eliminate background GPU draw calls while reviewing tables.
+2.2 The "CONTINUE" vs. "STEP IN" Architectural Verdict
+The Flaw of "CONTINUE Beside the Time Bar"
+
+Putting the primary advance button next to the simulation controls conflates two different systems:
+
+Time Flow: Letting the clock run at $1\times, 2\times, 4\times$ speed while monitoring the gym floor.
+Turn/State Progression: Committing current managerial decisions and resolving all pending encounters, negotiations, and medical assessments.
++-----------------------------------------------------------------------------------------------------------------------------+
+| RECOMMENDED TOP DECK ARCHITECTURE (1920x56)                                                                                |
++------------------------------+---------------------------------------------------------------+------------------------------+
+| [TREASURY & RUN-RATE]        | [CENTRAL SIMULATION CONTROLS]                                 | [PRIMARY ADVANCE HUB]        |
+| x: 16 to 340                 | x: 500 to 1420                                                | x: 1460 to 1904              |
+| Cash: $142,850               | Date: MON 14 OCT 2026 | Week 42                               | Bout: VS. VANCE (12d)        |
+| Burn: -$12,400/mo            | Flow: [||] [>] [>>] [>>>]                                     | Status: READY                |
+| Runway: 11.5 mos             | Gym State: MORNING SESSION                                    | [ STEP IN / ADVANCE (SPACE) ]|
++------------------------------+---------------------------------------------------------------+------------------------------+
+
+The "STEP IN" Row Layout
+
+Rather than an ambiguous "CONTINUE" button, the primary button should adapt to the gym's current state:
+
+When on the Gym Floor during an active session, the action is [STEP IN: DRILL OBSERVATION] or [RESOLVE SESSION].
+When all daily obligations are met, the action becomes [COMPLETE DAY -> TUE 15 OCT] (highlighted in high-contrast gold #D69E2E).
+When an unread critical event exists (e.g., purse bid deadline, medical emergency), the button changes to a split-action state: [MUST RESOLVE: CONTRACT OFFER] (highlighted in crimson #EF4444). Clicking it jumps directly to the pending decision.
+SECTION 3 — TECHNICAL ENGINE IMPLEMENTATION
+3.1 Fatigue System: Complete Equations, Calibrated Constants, and Godot 4.7.2 GDScript
+Mathematical Formulation
+
+Boxer fatigue combines short-term physical exertion with long-term systemic wear:
+
+                      [PUNCHES / FOOTWORK / SLIPS]
+                                   │
+                                   ▼
+             ┌───────────────────────────────────────────┐
+             │       ACUTE EXERTION ACCUMULATION         │
+             │       tau_recov = 4.5s (Phosphagen)       │
+             └─────────────────────┬─────────────────────┘
+                                   │
+                         Overflow Exceeds VO2max
+                                   │
+                                   ▼
+             ┌───────────────────────────────────────────┐
+             │      LACTATE / CARDIOVASCULAR FATIGUE     │
+             │       tau_recov = 45.0s (Aerobic)         │
+             └─────────────────────┬─────────────────────┘
+                                   │
+                         Cumulative Ring Mileage
+                                   │
+                                   ▼
+             ┌───────────────────────────────────────────┐
+             │         SYSTEMIC POSTURAL COLLAPSE        │
+             │      tau_recov = 420.0s (Between Rounds)  │
+             └───────────────────────────────────────────┘
+
+
+Kinetic Work Calculation ($W_{\text{strike}}$):
+$$W_{\text{strike}} = \frac{1}{2} M_{\text{arm}} v_{\text{glove}}^2 + E_{\text{trunk_rot}}$$
+Where:
+
+$M_{\text{arm}} = 3.85\text{ kg}$ (combined arm mass).
+$v_{\text{glove}}$ ranges from $9.1\text{ m/s}$ (jab) to $12.5\text{ m/s}$ (cross).
+$E_{\text{trunk_rot}} \approx 45.0\text{ J}$ (metabolic work done by core muscles).
+
+Acute Stamina Depletion Dynamics:
+$$\frac{dS_{\text{acute}}}{dt} = -\frac{W_{\text{strike}}}{\text{Stamina Capacity}} + \frac{1 - S_{\text{acute}}}{\tau_{\text{fast}}}$$
+Where $\tau_{\text{fast}} = 4.5\text{ s}$ represents creatine phosphate resynthesis during lulls in combat.
+
+Cardiovascular / Lactic Drain ($S_{\text{cardio}}$):
+When $S_{\text{acute}} < 0.35$, anaerobic glycolysis causes systemic fatigue:
+$$\frac{dS_{\text{cardio}}}{dt} = -k_{\text{lactic}} \cdot (0.35 - S_{\text{acute}})^{1.4} + \frac{1 - S_{\text{cardio}}}{\tau_{\text{slow}}}$$
+Where:
+
+$k_{\text{lactic}} = 0.082\text{ s}^{-1}$.
+$\tau_{\text{slow}} = 48.0\text{ s}$ (aerobic clearance rate).
+
+Postural Degradation Channels (Section 4 Telemetry):
+
+Wrist Drop ($D_{\text{wrist}}$): $$D_{\text{wrist}} = D_{\text{max}} \cdot \left(\frac{1 - S_{\text{cardio}}}{1.0}\right)^{1.85} \quad (D_{\text{max}} = 0.14\text{ m})$$
+Forward Cervical Extension ($Z_{\text{head}}$): $$Z_{\text{head}} = 0.055\text{ m} \cdot (1.0 - S_{\text{cardio}})^{1.2}$$
+Respiratory Chest Amplitude ($A_{\text{breath}}$): $$A_{\text{breath}} = 0.04\text{ rad} \cdot \left[1.0 + 2.5 \cdot (1.0 - S_{\text{cardio}})\right]$$
+Production GDScript: res://scripts/sim/FatigueSubsystem.gd
+class_name FatigueSubsystem
+extends RefCounted
+
+# HARD INVARIANT (Rule A): Module default disabled
+@export var enable_fatigue_subsystem: bool = false
+
+# Internal Simulation State
+var stamina_acute: float = 1.0     # [0.0, 1.0] Fast recovery (Phosphagen)
+var stamina_cardio: float = 1.0    # [0.0, 1.0] Slow recovery (Lactate clearance)
+var stamina_systemic: float = 1.0  # [0.0, 1.0] Round-over-round floor
+var round_progression: float = 0.0 # [0.0, 1.0] Bout distance elapsed
+
+# Biomechanical Sourced Constants
+const TAU_FAST_RECOVERY_SEC: float = 4.5     # CP resynthesis half-life
+const TAU_SLOW_RECOVERY_SEC: float = 48.0    # Lactic acid clearance constant
+const LACTIC_THRESHOLD: float = 0.35        # Anaerobic transition boundary
+const K_LACTIC_DRAIN: float = 0.082         # Lactic conversion coefficient
+const MAX_WRIST_DROP_METERS: float = 0.14   # 14.0 cm physical limit
+const MIN_WRIST_DROP_METERS: float = 0.08   # 8.0 cm lower qualification boundary
+
+func reset_state() -> void:
+	stamina_acute = 1.0
+	stamina_cardio = 1.0
+	stamina_systemic = 1.0
+	round_progression = 0.0
+
+func apply_strike_work(glove_velocity_mps: float, trunk_engagement_joules: float, base_capacity_joules: float) -> void:
+	if not enable_fatigue_subsystem:
+		return
+	
+	# Kinetic work = 0.5 * m * v^2 + trunk_work
+	var arm_mass_kg: float = 3.85
+	var kinetic_energy: float = 0.5 * arm_mass_kg * pow(glove_velocity_mps, 2.0)
+	var total_joules: float = kinetic_energy + trunk_engagement_joules
+	
+	var drain_ratio: float = total_joules / maxf(base_capacity_joules, 1000.0)
+	stamina_acute = clampf(stamina_acute - drain_ratio, 0.0, 1.0)
+
+func advance_simulation(delta_sec: float) -> void:
+	if not enable_fatigue_subsystem:
+		return
+
+	# 1. Fast Acute Phosphagen Regeneration
+	if stamina_acute < 1.0:
+		var fast_regen_rate: float = (1.0 - stamina_acute) / TAU_FAST_RECOVERY_SEC
+		stamina_acute = clampf(stamina_acute + fast_regen_rate * delta_sec, 0.0, 1.0)
+
+	# 2. Slow Cardio Lactic Accumulation and Clearance
+	if stamina_acute < LACTIC_THRESHOLD:
+		var anaerobic_overdraft: float = LACTIC_THRESHOLD - stamina_acute
+		var drain: float = K_LACTIC_DRAIN * pow(anaerobic_overdraft, 1.4) * delta_sec
+		stamina_cardio = clampf(stamina_cardio - drain, 0.0, 1.0)
+	else:
+		# Aerobic recovery
+		var cardio_regen_rate: float = (1.0 - stamina_cardio) / TAU_SLOW_RECOVERY_SEC
+		stamina_cardio = clampf(stamina_cardio + cardio_regen_rate * delta_sec, 0.0, 1.0)
+
+	# Cardio stamina limits the acute recovery ceiling
+	stamina_acute = minf(stamina_acute, stamina_cardio)
+
+func apply_between_round_recovery(recovery_quality_factor: float) -> void:
+	if not enable_fatigue_subsystem:
+		return
+	
+	# 60-second corner rest recovery: restore up to 45% of lost cardio reserves
+	var rest_bonus: float = 0.45 * clampf(recovery_quality_factor, 0.5, 1.5)
+	stamina_cardio = clampf(stamina_cardio + (1.0 - stamina_cardio) * rest_bonus, 0.0, 1.0)
+	stamina_acute = stamina_cardio
+
+func get_wrist_drop_cm() -> float:
+	if not enable_fatigue_subsystem:
+		return 0.0 # Rule A: Bit-identical zero output when OFF
+	
+	var exhaustion_factor: float = pow(1.0 - stamina_cardio, 1.85)
+	var drop_m: float = exhaustion_factor * MAX_WRIST_DROP_METERS
+	return drop_m * 100.0
+
+func get_head_forward_cm() -> float:
+	if not enable_fatigue_subsystem:
+		return 0.0
+	return (pow(1.0 - stamina_cardio, 1.2) * 0.055) * 100.0
+
+func get_breathing_parameters() -> Vector2:
+	# Returns Vector2(frequency_hz, amplitude_rad)
+	if not enable_fatigue_subsystem:
+		return Vector2(0.25, 0.0)
+	
+	var exhaustion: float = 1.0 - stamina_cardio
+	var freq: float = 0.25 + (0.90 * exhaustion) # 0.25 Hz to 1.15 Hz
+	var amp: float = 0.038 * (1.0 + 1.5 * exhaustion)
+	return Vector2(freq, amp)
+
+Headless Unit Test & Mutation Specification
+# res://test/unit/test_fatigue_subsystem.gd
+class_name TestFatigueSubsystem
+extends SceneTree
+
+func _init() -> void:
+	var system: FatigueSubsystem = FatigueSubsystem.new()
+
+	# 1. TEST RULE A: Switch OFF produces bit-identical zero offsets
+	system.enable_fatigue_subsystem = false
+	system.stamina_cardio = 0.10
+	assert(system.get_wrist_drop_cm() == 0.0, "FAIL: Switch OFF must produce exactly 0.0 cm drop")
+	assert(system.get_head_forward_cm() == 0.0, "FAIL: Switch OFF must produce exactly 0.0 cm head shift")
+
+	# 2. TEST QUALIFICATION: Low stamina must produce 8.0 to 14.0 cm wrist drop
+	system.enable_fatigue_subsystem = true
+	system.reset_state()
+	
+	# Apply heavy metabolic work: 40 hard crosses at 11.5 m/s
+	for i in range(40):
+		system.apply_strike_work(11.5, 55.0, 12000.0) # 12kJ capacity
+		system.advance_simulation(0.25)
+	
+	# Simulate 10 seconds of exhaustion without adequate rest
+	for step in range(100):
+		system.advance_simulation(0.1)
+
+	var measured_drop_cm: float = system.get_wrist_drop_cm()
+	print("TEST STEP 8 - MEASURED WRIST DROP: %0.2f cm" % measured_drop_cm)
+	assert(measured_drop_cm >= 8.0, "FAIL: Fatigue drop %0.2f cm < 8.0 cm threshold" % measured_drop_cm)
+	assert(measured_drop_cm <= 14.0, "FAIL: Fatigue drop %0.2f cm > 14.0 cm threshold" % measured_drop_cm)
+
+	# 3. TEST RECOVERY: Corner rest must restore reserves and reduce posture drop
+	system.apply_between_round_recovery(1.0)
+	var recovered_drop_cm: float = system.get_wrist_drop_cm()
+	print("POST-CORNER RECOVERED DROP: %0.2f cm" % recovered_drop_cm)
+	assert(recovered_drop_cm < measured_drop_cm, "FAIL: Corner rest did not recover posture")
+
+	print("FATIGUE SUBSYSTEM TEST: PASS")
+	quit(0)
+
+Mutation Test to Force Failure:
+Mutation File: res://scripts/sim/FatigueSubsystem.gd
+Change: Modify line 16 from const MAX_WRIST_DROP_METERS: float = 0.14 to const MAX_WRIST_DROP_METERS: float = 0.05.
+Result: At peak exhaustion, get_wrist_drop_cm() yields $4.76\text{ cm}$. The test halts with FAIL: Fatigue drop 4.76 cm < 8.0 cm threshold, verifying test coverage.
+3.2 FightStagePlayer State Machine, Clip Contracts, and Event Mapping
+State Machine Architecture
+
+The FightStagePlayer coordinates clip playback and procedurally warps bones to match simulation outcomes. It resolves clip data sequentially:
+
++---------------------------------------------------------------------------------------------------------+
+|                                      FIGHTSTAGEPLAYER STATE MACHINE                                     |
++---------------------------------------------------------------------------------------------------------+
+                                                     │
+                                                     ▼
+                                          ┌──────────────────────┐
+                                          │      STATE: IDLE     │
+                                          │  Base Stance / Guard │
+                                          └──────────┬───────────┘
+                                                     │
+                             Intent Received: EventTriggered(exchange_id)
+                                                     │
+                                                     ▼
+                                          ┌──────────────────────┐
+                      ┌───────────────────┤ STATE: ANTICIPATION  ├───────────────────┐
+                      │                   │ Kinetic Chain Coil   │                   │
+                      │                   └──────────┬───────────┘                   │
+                      │                              │                               │
+                      │               t >= t_anticipation_end                        │
+                      │                              │                               │
+                      │                              ▼                               │
+                      │                   ┌──────────────────────┐                   │
+                      │                   │ STATE: ACCELERATION  │                   │
+                      │                   │ Procedural S-Curve   │                   │
+                      │                   └──────────┬───────────┘                   │
+                      │                              │                               │
+                      │                   t == t_contact_window                      │
+                      │                              │                               │
+                      ▼                              ▼                               ▼
+           ┌──────────────────────┐       ┌──────────────────────┐       ┌──────────────────────┐
+           │     STATE: EVADE     │       │    STATE: CONTACT    │       │     STATE: CLINCH    │
+           │  Slip, Roll, Weave   │       │ C223 Certified Freeze│       │   Mutual Lockup      │
+           └──────────┬───────────┘       └──────────┬───────────┘       └──────────┬───────────┘
+                      │                              │                               │
+                      │                   t > t_contact_window                       │
+                      │                              │                               │
+                      │                              ▼                               │
+                      │                   ┌──────────────────────┐                   │
+                      │                   │  STATE: RETRACTION   │                   │
+                      │                   │  Elastic Guard Snap  │                   │
+                      │                   └──────────┬───────────┘                   │
+                      │                              │                               │
+                      └──────────────────────────────┼───────────────────────────────┘
+                                                     │
+                                          Exchange Fully Resolved
+                                                     │
+                                                     ▼
+                                          ┌──────────────────────┐
+                                          │      STATE: IDLE     │
+                                          │  Return to Stance    │
+                                          └──────────────────────┘
+
+Clip Certification Invariants (The C223 Gate Contract)
+
+Every clip marked CERTIFIED_BOXING_STRIKE must satisfy these rules:
+
+Contact Frame Immutability ($t_{\text{contact}} \pm 45\text{ ms}$): The procedural pipeline must not edit Root Bone Translation or Foot Bone Transforms during this window.
+Foot Slide Maximum ($d_{\text{slide}} \le 1.5\text{ cm}$): Planted support feet must remain clamped within $1.5\text{ cm}$ of their world coordinate origin.
+Trajectory Clearance: The striking glove must never intersect the attacker's own head or torso geometry.
+Certified Clip Index Matrix
+
+| Clip ID | Target Bone | Contact Frame ($t_{\text{contact}}$) | Total Length ($T$) | Protected Window ($[t_0, t_1]$) | Intended Speed ($v_{\max}$) |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| box_jab_lead_head | mixamorig_LeftHand | $0.125\text{ s}$ | $0.280\text{ s}$ | $[0.080\text{ s}, 0.170\text{ s}]$ | $10.2\text{ m/s}$ |
+| box_cross_rear_head | mixamorig_RightHand | $0.180\text{ s}$ | $0.360\text{ s}$ | $[0.135\text{ s}, 0.225\text{ s}]$ | $11.8\text{ m/s}$ |
+| box_hook_lead_head | mixamorig_LeftHand | $0.170\text{ s}$ | $0.340\text{ s}$ | $[0.125\text{ s}, 0.215\text{ s}]$ | $12.4\text{ m/s}$ |
+| box_uppercut_rear_head| mixamorig_RightHand | $0.200\text{ s}$ | $0.390\text{ s}$ | $[0.155\text{ s}, 0.245\text{ s}]$ | $10.8\text{ m/s}$ |
+| box_hook_lead_body | mixamorig_LeftHand | $0.190\text{ s}$ | $0.370\text{ s}$ | $[0.145\text{ s}, 0.235\text{ s}]$ | $11.2\text{ m/s}$ |
+| box_slip_outside_lead | mixamorig_Hips | N/A (Defensive) | $0.420\text{ s}$ | None (Unrestricted IK) | $2.4\text{ m/s}$ (Pelvis) |
+
+Exchange-to-Animation Event Mapping
+
+When the simulation emits an exchange tick, FightStagePlayer processes the event through this pipeline:
+
+[SIMULATION EXCHANGE TICK]
+  │
+  ├── Intent: STRIKE (Damage: 24, Contact: Frame 11, Miss Offset: Vector3.ZERO)
+  │     │
+  │     ├── 1. Load certified AnimationClip into primary Track 0
+  │     ├── 2. Configure PunchTimeWarpController (Hermite S-Curve, lock t_contact)
+  │     ├── 3. Set BalanceCoMController: enforce 3cm stability margin
+  │     └── 4. During contact window [t_contact - 45ms, t_contact + 45ms]:
+  │               ├── BIND root translation & foot transforms
+  │               └── SUPPRESS GloveSpringModifier
+  │
+  └── Opponent Reaction: IMPACT (Damage: 24, Head Target)
+        │
+        ├── 1. Fire AdditiveHitLayer on receiver Skeleton3D
+        ├── 2. Calculate impact impulse J = clamp(Damage * 0.0012, 0.01, 0.035) N*s
+        └── 3. Wake GloveSpringModifier on blocker gloves if guard held
+
+3.3 Godot 4.7.2 Complete Scene Tree & Reusable Animation Components
+Complete Scene Tree Layout
+FightStagePresenter (Node3D, script="res://scripts/presentation/FightStagePresenter.gd")
+├── RingEnvironment (Node3D)
+│   ├── CanvasFloor (StaticBody3D, collision_layer=1, collision_mask=0)
+│   │   ├── MeshInstance3D (BoxMesh, size=Vector3(6.1, 0.2, 6.1))
+│   │   └── CollisionShape3D (BoxShape3D, size=Vector3(6.1, 0.2, 6.1))
+│   ├── RingRopesRig (Node3D)
+│   └──
+
+Can you continue from Section 2 with the complete V3 HUD pixel rectangles, interaction rules, and corrected time-bar layout?
+Can you continue from Section 3.1 with the remaining fatigue equations, constants, headless tests, and mutation tests?
+Can you provide the exact Godot animation state machine, clip contracts, event mappings, and reusable component scripts?
+Can you generate a labeled ASCII top-down gym floor plan showing every station, zone, doorway, collision boundary, and walkway?

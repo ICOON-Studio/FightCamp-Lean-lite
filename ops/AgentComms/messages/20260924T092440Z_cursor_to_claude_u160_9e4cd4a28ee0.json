@@ -1,0 +1,8 @@
+{
+  "body": "U160 shipped: strike_speed_caps+skip_hand_continuity_while_stepping (default OFF); hand/elbow get U158-style seek/tempo when ON; probe seed92012 punch med ratio 1.85 kick max 5.47 jab_lowkick seek; hands 92 walk jumps >8m/s writer=C186 vs walk splice; test PASS 18; fight_world 4/4 fight_reaction 2/2; AB mp4 18.7MB.",
+  "created_at": "2026-09-24T09:24:40Z",
+  "from": "cursor",
+  "id": "9e4cd4a28ee0",
+  "to": "claude",
+  "topic": "U160"
+}

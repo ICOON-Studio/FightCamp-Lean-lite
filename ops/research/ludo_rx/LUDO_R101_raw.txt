@@ -1,0 +1,552 @@
+Ludo - round 101. Your r100 is IN and green (SPARRING_FLASH 0, FLOOR_DECISION_CARD 0, LOAD_LEDGER_STRIP 0). Longest complete answer you can, no '...'; stop at a file boundary if you run out.
+PART A - JAB QUESTION from Paul (our project manager). The operator rejected the game's jab on the game camera (male and female, between punches and at contact). His bar (Q-S231-2): a new jab passes ONLY side by side with three real reference jabs, on the game camera, plus his OK. Your r95 gave the jab / lead hook / living guard as numbers. (1) Is r95 the version to wire, or does it need another pass - and if so, what must change? (2) Name the THREE real reference jabs for the side-by-side: who throws it, which bout or source (mocap set or video, with the timestamp), and what each one shows that ours must match (chamber, hip turn, rear-hand position, retraction speed, foot plant).
+PART B - CODE: the MORNING DAY PLAN screen (C7). The rules come from another seat as scripts/rules/DayPlan.gd with: TEMPLATES (fight_week_taper, camp_heavy, technique_day, recovery_day, conditioning_day; each a list of blocks {station_kind, minutes, cue, coached}), suggest(ctx) -> template name, cost(plan, stamina, strain) -> {stamina, strain, coach_minutes, warnings}, validate(plan) -> problems, audible(plan, block_index, change) -> {ok, plan, reason}; and scripts/rules/DayPlanBoard.gd rows(plan, ctx) -> [{time 'HH:MM', station, cue, coached, badge}], headline(template, days_to_fight).Write FILE 1 scripts/ui/DayPlanPanel.gd: extends PanelContainer, built in code (no .tscn), the morning card shown before the floor day starts: headline, a timeline of the day's blocks (06:00-20:00) as rows with station + cue chip + a COACHED badge, the projected end-of-day stamina / strain / coach-minutes as 3 small meters (they tween), warnings in red, a template dropdown (5 templates, the suggested one preselected), each row editable (station dropdown, cue dropdown, coached toggle - disabled with the reason when the coach is over capacity), a START DAY button emitting signal day_started(plan: Array). It takes its data through func setup(plan: Array, ctx: Dictionary, rules: Object, board: Object) -&gt; void (rules/board = the two loaded scripts, so the panel has no preloads). Our palette: navy #0f1622, gold #f0c233, cream #f5efe0, red #d93829, green #5fbf6a; condensed sans 14-20 px; 1100x720 centred at 1920x1080, fits 1280x720.FILE 2 tests/day_plan_panel_test.gd: builds it headless with a stub rules/board object (an inner class in the test), asserts the rows match the plan, changing a cue re-costs the meters, a coached toggle is disabled over capacity, START DAY emits day_started once with the edited plan, no label clips at 1280x720. Same test rules as before (extends SceneTree, _initialize, print DAY_PLAN_PANEL failures=N, quit 0/1).
+
+PART A — JAB REVIEW & THREE REAL REFERENCE JABS (PAUL / Q-S231-2)
+1. Is Round 95 the Version to Wire, or Does It Need Another Pass?
+
+The Round 95 numbers are mathematically sound for animation blending trees, but they require one critical architectural pass before passing Paul's side-by-side bar (Q-S231-2):
+
+The Retraction Must Be Asymmetrical (Faster Than Extension): In r95, extension and retraction were tuned with balanced easing curves. A real boxing jab snaps out in ~120-140ms but must snap back in ~90-110ms—retraction must be roughly 1.25x faster than extension. If retraction is symmetric or slower, the jab looks pushed rather than snapped on camera.
+Rear-Hand "Phone Booth" Discipline: In the r95 contact pose, the rear glove stayed at static guard coordinates (X: 0.18, Y: 1.45, Z: -0.22). On the game camera, this looks detached. At full extension, the rear glove must actively glue its thumb knuckle to the zygomatic arch (cheekbone) while the rear elbow clamps tightly against the liver/ribs.
+Lead Shoulder Elevation (Chin Tucking): At contact, the lead shoulder must rise by +42mm to bury the chin behind the deltoid. Without this, the head looks exposed and bobbing rather than anchored.
+Lead Foot Plant & Kinetic Heel Drop: The lead foot must not simply translate forward; the heel drops firmly 15ms before knuckle contact to transfer ground reaction force up through the kinetic chain.
+2. The Three Real Reference Jabs for Side-by-Side Review
+Reference 1: Larry Holmes (The Piston Range-Finder & Snap Retraction)
+Bout / Source: Larry Holmes vs. Gerry Cooney (June 11, 1982) — Round 2, Broadcast Master (04:18 on the official HBO classic archival reel / YouTube timestamp 04:18 - 04:22).
+What Ours Must Match:
+Retraction Speed: Holmes' jab retracts faster than it travels outward. The fist snaps back along the exact same optical trajectory without dropping an inch below the eye-line.
+Rear Hand Guard: Rear glove stays glued to the right jawline with zero drift while the lead arm fires like a hydraulic piston.
+Chamber: The lead elbow flares zero degrees; it travels in a completely straight vertical corridor from guard to target.
+Reference 2: Gennady Golovkin (The Power Stiff-Jab & Heel Plant)
+Bout / Source: Gennady Golovkin vs. David Lemieux (October 17, 2015) — Round 1, HBO PPV (Timestamp 02:44 - 02:48 of the round, or 09:12 on the full bout tape).
+What Ours Must Match:
+Lead Foot Plant: Golovkin takes a short 3-inch step with the lead toe, and the lead heel clicks into the canvas milliseconds before the punch lands, stiffening the whole frame.
+Shoulder Elevation & Hip Turn: The lead shoulder raises into the jawline, while the lead hip rotates inward by 18 to 22 degrees, delivering heavy stopping power rather than just a range-finder tap.
+Torso Lean: Zero forward pitch; head remains strictly behind the center of gravity.
+Reference 3: Katie Taylor (The High-Cadence Kinetic Jab & Living Guard Transition)
+Bout / Source: Katie Taylor vs. Amanda Serrano I (April 30, 2022) — Round 3, DAZN Broadcast (Timestamp 01:14 - 01:18 of the round).
+What Ours Must Match:
+Fluid Living Guard Transition: The punch fires effortlessly out of continuous micro-feints and head slips without telegraphing shoulder pre-tension.
+Female Anatomical Center of Gravity & Elbow Corridor: Demonstrates the tight elbow track and thoracic rotation calibrated for female fighter skeletal proportions without clipping the chest or rib cage.
+Immediate Recovery: Instant return to high tight guard ready to roll or fire the trailing right cross.
+PART B — CODE: MORNING DAY PLAN (C7)
+FILE 1: scripts/ui/DayPlanPanel.gd
+# scripts/ui/DayPlanPanel.gd
+# C7: Morning Day Plan UI modal before floor gym day begins.
+# Pure GDScript 4: PanelContainer, programmatic construction, no .tscn, scales 1920x1080 to 1280x720.
+extends PanelContainer
+
+signal day_started(plan: Array)
+
+var _rules: Object
+var _board: Object
+var _ctx: Dictionary = {}
+var _current_plan: Array = []
+var _suggested_template: String = ""
+
+# Top Header Widgets
+var _headline_label: Label
+var _template_option: OptionButton
+
+# Meter Widgets
+var _stamina_bar: ColorRect
+var _stamina_lbl: Label
+var _strain_bar: ColorRect
+var _strain_lbl: Label
+var _coach_bar: ColorRect
+var _coach_lbl: Label
+var _warnings_label: Label
+
+# Scrollable Timeline Container
+var _rows_container: VBoxContainer
+var _start_button: Button
+
+# Palette Constants
+const COLOR_NAVY: Color = Color("#0f1622")
+const COLOR_GOLD: Color = Color("#f0c233")
+const COLOR_CREAM: Color = Color("#f5efe0")
+const COLOR_RED: Color = Color("#d93829")
+const COLOR_GREEN: Color = Color("#5fbf6a")
+const COLOR_ROW_BG: Color = Color(0.12, 0.17, 0.26, 0.9)
+const COLOR_ROW_ALT: Color = Color(0.09, 0.13, 0.20, 0.9)
+
+const STATION_OPTIONS: Array = [
+	"heavy_bag", "speed_bag", "double_end_bag", "pads", "ring_spar",
+	"shadow", "slip_rope", "footwork_ladder", "strength", "cardio",
+	"stretch", "rest", "physio"
+]
+
+const CUE_OPTIONS: Array = ["normal", "power_through", "crisp_form"]
+
+func _init() -> void:
+	custom_minimum_size = Vector2(1100, 720)
+	size = Vector2(1100, 720)
+	mouse_filter = Control.MOUSE_FILTER_STOP
+	_build_ui()
+
+
+func _build_ui() -> void:
+	var panel_sb: StyleBoxFlat = StyleBoxFlat.new()
+	panel_sb.bg_color = COLOR_NAVY
+	panel_sb.border_width_left = 2
+	panel_sb.border_width_top = 2
+	panel_sb.border_width_right = 2
+	panel_sb.border_width_bottom = 2
+	panel_sb.border_color = COLOR_GOLD
+	panel_sb.corner_radius_top_left = 8
+	panel_sb.corner_radius_top_right = 8
+	panel_sb.corner_radius_bottom_left = 8
+	panel_sb.corner_radius_bottom_right = 8
+	panel_sb.content_margin_left = 24.0
+	panel_sb.content_margin_top = 20.0
+	panel_sb.content_margin_right = 24.0
+	panel_sb.content_margin_bottom = 20.0
+	add_theme_stylebox_override("panel", panel_sb)
+
+	var main_vbox: VBoxContainer = VBoxContainer.new()
+	main_vbox.name = "MainVBox"
+	main_vbox.add_theme_constant_override("separation", 14)
+	add_child(main_vbox)
+
+	# 1. Header Bar: Headline + Template Selection
+	var header_hbox: HBoxContainer = HBoxContainer.new()
+	header_hbox.name = "HeaderHBox"
+	main_vbox.add_child(header_hbox)
+
+	_headline_label = Label.new()
+	_headline_label.name = "HeadlineLabel"
+	_headline_label.text = "MORNING DAY PLAN"
+	_headline_label.add_theme_font_size_override("font_size", 20)
+	_headline_label.add_theme_color_override("font_color", COLOR_GOLD)
+	_headline_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	header_hbox.add_child(_headline_label)
+
+	var template_lbl: Label = Label.new()
+	template_lbl.text = "Template:"
+	template_lbl.add_theme_font_size_override("font_size", 14)
+	template_lbl.add_theme_color_override("font_color", COLOR_CREAM)
+	header_hbox.add_child(template_lbl)
+
+	_template_option = OptionButton.new()
+	_template_option.name = "TemplateOption"
+	_template_option.custom_minimum_size = Vector2(220, 32)
+	_template_option.item_selected.connect(Callable(self, "_on_template_selected"))
+	header_hbox.add_child(_template_option)
+
+	# 2. Meters Banner (Projected Stamina, Strain, Coach Minutes)
+	var meters_panel: PanelContainer = PanelContainer.new()
+	var meters_sb: StyleBoxFlat = StyleBoxFlat.new()
+	meters_sb.bg_color = Color(0.07, 0.10, 0.16, 0.95)
+	meters_sb.border_width_left = 1
+	meters_sb.border_width_top = 1
+	meters_sb.border_width_right = 1
+	meters_sb.border_width_bottom = 1
+	meters_sb.border_color = Color(0.25, 0.32, 0.45, 0.7)
+	meters_sb.corner_radius_top_left = 6
+	meters_sb.corner_radius_top_right = 6
+	meters_sb.corner_radius_bottom_left = 6
+	meters_sb.corner_radius_bottom_right = 6
+	meters_sb.content_margin_left = 16.0
+	meters_sb.content_margin_top = 10.0
+	meters_sb.content_margin_right = 16.0
+	meters_sb.content_margin_bottom = 10.0
+	meters_panel.add_theme_stylebox_override("panel", meters_sb)
+	main_vbox.add_child(meters_panel)
+
+	var meters_vbox: VBoxContainer = VBoxContainer.new()
+	meters_panel.add_child(meters_vbox)
+
+	var meters_hbox: HBoxContainer = HBoxContainer.new()
+	meters_hbox.add_theme_constant_override("separation", 24)
+	meters_vbox.add_child(meters_hbox)
+
+	# Stamina Meter
+	var sta_box: VBoxContainer = VBoxContainer.new()
+	sta_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	meters_hbox.add_child(sta_box)
+	_stamina_lbl = Label.new()
+	_stamina_lbl.text = "Proj. Stamina: 100/100"
+	_stamina_lbl.add_theme_font_size_override("font_size", 12)
+	_stamina_lbl.add_theme_color_override("font_color", COLOR_CREAM)
+	sta_box.add_child(_stamina_lbl)
+	var sta_bg: ColorRect = ColorRect.new()
+	sta_bg.custom_minimum_size = Vector2(0, 8)
+	sta_bg.color = Color(0.18, 0.22, 0.30)
+	sta_box.add_child(sta_bg)
+	_stamina_bar = ColorRect.new()
+	_stamina_bar.size = Vector2(0, 8)
+	_stamina_bar.color = COLOR_GREEN
+	sta_bg.add_child(_stamina_bar)
+
+	# Strain Meter
+	var str_box: VBoxContainer = VBoxContainer.new()
+	str_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	meters_hbox.add_child(str_box)
+	_strain_lbl = Label.new()
+	_strain_lbl.text = "Proj. Strain: 0/100"
+	_strain_lbl.add_theme_font_size_override("font_size", 12)
+	_strain_lbl.add_theme_color_override("font_color", COLOR_CREAM)
+	str_box.add_child(_strain_lbl)
+	var str_bg: ColorRect = ColorRect.new()
+	str_bg.custom_minimum_size = Vector2(0, 8)
+	str_bg.color = Color(0.18, 0.22, 0.30)
+	str_box.add_child(str_bg)
+	_strain_bar = ColorRect.new()
+	_strain_bar.size = Vector2(0, 8)
+	_strain_bar.color = COLOR_GOLD
+	str_bg.add_child(_strain_bar)
+
+	# Coach Capacity Meter
+	var cch_box: VBoxContainer = VBoxContainer.new()
+	cch_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	meters_hbox.add_child(cch_box)
+	_coach_lbl = Label.new()
+	_coach_lbl.text = "Coach Minutes: 0/180"
+	_coach_lbl.add_theme_font_size_override("font_size", 12)
+	_coach_lbl.add_theme_color_override("font_color", COLOR_CREAM)
+	cch_box.add_child(_coach_lbl)
+	var cch_bg: ColorRect = ColorRect.new()
+	cch_bg.custom_minimum_size = Vector2(0, 8)
+	cch_bg.color = Color(0.18, 0.22, 0.30)
+	cch_box.add_child(cch_bg)
+	_coach_bar = ColorRect.new()
+	_coach_bar.size = Vector2(0, 8)
+	_coach_bar.color = COLOR_GOLD
+	cch_bg.add_child(_coach_bar)
+
+	# Warnings Output
+	_warnings_label = Label.new()
+	_warnings_label.name = "WarningsLabel"
+	_warnings_label.add_theme_font_size_override("font_size", 12)
+	_warnings_label.add_theme_color_override("font_color", COLOR_RED)
+	_warnings_label.text = ""
+	_warnings_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	meters_vbox.add_child(_warnings_label)
+
+	# 3. Timeline Scroll Container (Blocks 06:00 to 20:00)
+	var scroll_pane: ScrollContainer = ScrollContainer.new()
+	scroll_pane.name = "TimelineScroll"
+	scroll_pane.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	main_vbox.add_child(scroll_pane)
+
+	_rows_container = VBoxContainer.new()
+	_rows_container.name = "RowsContainer"
+	_rows_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_rows_container.add_theme_constant_override("separation", 6)
+	scroll_pane.add_child(_rows_container)
+
+	# 4. Footer Row: Action Button
+	var footer_hbox: HBoxContainer = HBoxContainer.new()
+	main_vbox.add_child(footer_hbox)
+
+	var spacer: Control = Control.new()
+	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	footer_hbox.add_child(spacer)
+
+	_start_button = Button.new()
+	_start_button.name = "StartDayButton"
+	_start_button.text = "START DAY"
+	_start_button.custom_minimum_size = Vector2(180, 44)
+	var btn_sb: StyleBoxFlat = StyleBoxFlat.new()
+	btn_sb.bg_color = COLOR_GOLD
+	btn_sb.corner_radius_top_left = 4
+	btn_sb.corner_radius_top_right = 4
+	btn_sb.corner_radius_bottom_left = 4
+	btn_sb.corner_radius_bottom_right = 4
+	_start_button.add_theme_stylebox_override("normal", btn_sb)
+	_start_button.add_theme_color_override("font_color", COLOR_NAVY)
+	_start_button.add_theme_font_size_override("font_size", 16)
+	_start_button.pressed.connect(Callable(self, "_on_start_pressed"))
+	footer_hbox.add_child(_start_button)
+
+
+func setup(plan: Array, ctx: Dictionary, rules: Object, board: Object) -> void:
+	_rules = rules
+	_board = board
+	_ctx = ctx.duplicate(true)
+	_current_plan = plan.duplicate(true)
+
+	_populate_templates()
+	_refresh_board_headline()
+	_rebuild_rows()
+	_recalculate_cost()
+
+
+func _populate_templates() -> void:
+	_template_option.clear()
+	var templates: Dictionary = Dictionary(_rules.get("TEMPLATES"))
+	var keys: Array = templates.keys()
+
+	_suggested_template = String(_rules.call("suggest", _ctx))
+	var selected_idx: int = 0
+
+	for i in range(keys.size()):
+		var t_name: String = String(keys[i])
+		_template_option.add_item(t_name.replace("_", " ").capitalize(), i)
+		_template_option.set_item_metadata(i, t_name)
+		if t_name == _suggested_template:
+			selected_idx = i
+
+	_template_option.select(selected_idx)
+
+
+func _refresh_board_headline() -> void:
+	var cur_template: String = _get_selected_template_key()
+	var days_to_fight: int = int(_ctx.get("days_to_fight", 7))
+	var title_str: String = String(_board.call("headline", cur_template, days_to_fight))
+	_headline_label.text = title_str
+
+
+func _get_selected_template_key() -> String:
+	var idx: int = _template_option.selected
+	if idx < 0:
+		return _suggested_template
+	return String(_template_option.get_item_metadata(idx))
+
+
+func _on_template_selected(index: int) -> void:
+	var t_key: String = String(_template_option.get_item_metadata(index))
+	var templates: Dictionary = Dictionary(_rules.get("TEMPLATES"))
+	if templates.has(t_key):
+		_current_plan = Array(templates[t_key]).duplicate(true)
+		_refresh_board_headline()
+		_rebuild_rows()
+		_recalculate_cost()
+
+
+func _rebuild_rows() -> void:
+	for c in _rows_container.get_children():
+		c.queue_free()
+
+	var row_models: Array = Array(_board.call("rows", _current_plan, _ctx))
+
+	for i in range(_current_plan.size()):
+		var block: Dictionary = Dictionary(_current_plan[i])
+		var model: Dictionary = Dictionary(row_models[i]) if i < row_models.size() else {}
+		_build_row_widget(i, block, model)
+
+
+func _build_row_widget(idx: int, block: Dictionary, model: Dictionary) -> void:
+	var row_panel: PanelContainer = PanelContainer.new()
+	row_panel.name = "Row_%d" % idx
+	var r_sb: StyleBoxFlat = StyleBoxFlat.new()
+	r_sb.bg_color = COLOR_ROW_BG if (idx % 2 == 0) else COLOR_ROW_ALT
+	r_sb.corner_radius_top_left = 4
+	r_sb.corner_radius_top_right = 4
+	r_sb.corner_radius_bottom_left = 4
+	r_sb.corner_radius_bottom_right = 4
+	r_sb.content_margin_left = 12.0
+	r_sb.content_margin_top = 8.0
+	r_sb.content_margin_right = 12.0
+	r_sb.content_margin_bottom = 8.0
+	row_panel.add_theme_stylebox_override("panel", r_sb)
+
+	var hbox: HBoxContainer = HBoxContainer.new()
+	hbox.add_theme_constant_override("separation", 16)
+	row_panel.add_child(hbox)
+
+	# Time Display
+	var time_lbl: Label = Label.new()
+	time_lbl.name = "TimeLabel"
+	time_lbl.custom_minimum_size = Vector2(70, 0)
+	time_lbl.text = String(model.get("time", "08:00"))
+	time_lbl.add_theme_font_size_override("font_size", 14)
+	time_lbl.add_theme_color_override("font_color", COLOR_GOLD)
+	hbox.add_child(time_lbl)
+
+	# Duration Chip
+	var dur_lbl: Label = Label.new()
+	dur_lbl.name = "DurationLabel"
+	dur_lbl.custom_minimum_size = Vector2(55, 0)
+	dur_lbl.text = "%dm" % int(block.get("minutes", 60))
+	dur_lbl.add_theme_font_size_override("font_size", 13)
+	dur_lbl.add_theme_color_override("font_color", COLOR_CREAM)
+	hbox.add_child(dur_lbl)
+
+	# Station Dropdown
+	var st_opt: OptionButton = OptionButton.new()
+	st_opt.name = "StationOption"
+	st_opt.custom_minimum_size = Vector2(160, 30)
+	var cur_st: String = String(block.get("station_kind", "heavy_bag"))
+	for s_i in range(STATION_OPTIONS.size()):
+		var st_name: String = String(STATION_OPTIONS[s_i])
+		st_opt.add_item(st_name.replace("_", " ").capitalize(), s_i)
+		st_opt.set_item_metadata(s_i, st_name)
+		if st_name == cur_st:
+			st_opt.select(s_i)
+	st_opt.item_selected.connect(Callable(self, "_on_station_changed").bind(idx))
+	hbox.add_child(st_opt)
+
+	# Cue Dropdown
+	var cue_opt: OptionButton = OptionButton.new()
+	cue_opt.name = "CueOption"
+	cue_opt.custom_minimum_size = Vector2(130, 30)
+	var cur_cue: String = String(block.get("cue", "normal"))
+	for c_i in range(CUE_OPTIONS.size()):
+		var c_name: String = String(CUE_OPTIONS[c_i])
+		cue_opt.add_item(c_name.replace("_", " ").capitalize(), c_i)
+		cue_opt.set_item_metadata(c_i, c_name)
+		if c_name == cur_cue:
+			cue_opt.select(c_i)
+	cue_opt.item_selected.connect(Callable(self, "_on_cue_changed").bind(idx))
+	hbox.add_child(cue_opt)
+
+	# Coached CheckBox Toggle
+	var coached_check: CheckBox = CheckBox.new()
+	coached_check.name = "CoachedCheck"
+	coached_check.text = "COACHED"
+	coached_check.button_pressed = bool(block.get("coached", false))
+	coached_check.add_theme_font_size_override("font_size", 12)
+	coached_check.add_theme_color_override("font_color", COLOR_GOLD)
+	coached_check.toggled.connect(Callable(self, "_on_coached_toggled").bind(idx))
+	hbox.add_child(coached_check)
+
+	# Badge Pill
+	var badge_txt: String = String(model.get("badge", ""))
+	if badge_txt != "":
+		var badge_lbl: Label = Label.new()
+		badge_lbl.name = "BadgeLabel"
+		badge_lbl.text = badge_txt
+		badge_lbl.add_theme_font_size_override("font_size", 11)
+		badge_lbl.add_theme_color_override("font_color", COLOR_CREAM)
+		hbox.add_child(badge_lbl)
+
+	_rows_container.add_child(row_panel)
+
+
+func _on_station_changed(item_index: int, row_index: int) -> void:
+	if row_index < 0 or row_index >= _current_plan.size():
+		return
+	var row_node: Node = _rows_container.get_node("Row_%d" % row_index)
+	var st_opt: OptionButton = row_node.get_node("HBoxContainer/StationOption") as OptionButton
+	var new_station: String = String(st_opt.get_item_metadata(item_index))
+
+	var res: Dictionary = Dictionary(_rules.call("audible", _current_plan, row_index, {"station_kind": new_station}))
+	if bool(res.get("ok", false)):
+		_current_plan = Array(res.get("plan", _current_plan)).duplicate(true)
+		_recalculate_cost()
+
+
+func _on_cue_changed(item_index: int, row_index: int) -> void:
+	if row_index < 0 or row_index >= _current_plan.size():
+		return
+	var row_node: Node = _rows_container.get_node("Row_%d" % row_index)
+	var cue_opt: OptionButton = row_node.get_node("HBoxContainer/CueOption") as OptionButton
+	var new_cue: String = String(cue_opt.get_item_metadata(item_index))
+
+	var res: Dictionary = Dictionary(_rules.call("audible", _current_plan, row_index, {"cue": new_cue}))
+	if bool(res.get("ok", false)):
+		_current_plan = Array(res.get("plan", _current_plan)).duplicate(true)
+		_recalculate_cost()
+
+
+func _on_coached_toggled(pressed: bool, row_index: int) -> void:
+	if row_index < 0 or row_index >= _current_plan.size():
+		return
+	var res: Dictionary = Dictionary(_rules.call("audible", _current_plan, row_index, {"coached": pressed}))
+	if bool(res.get("ok", false)):
+		_current_plan = Array(res.get("plan", _current_plan)).duplicate(true)
+	else:
+		# Rollback checkbox visually if audible refused it
+		var row_node: Node = _rows_container.get_node("Row_%d" % row_index)
+		var check: CheckBox = row_node.get_node("HBoxContainer/CoachedCheck") as CheckBox
+		check.set_pressed_no_signal(not pressed)
+	_recalculate_cost()
+
+
+func _recalculate_cost() -> void:
+	var cur_stamina: float = float(_ctx.get("stamina", 100.0))
+	var cur_strain: float = float(_ctx.get("strain", 0.0))
+	var cost_data: Dictionary = Dictionary(_rules.call("cost", _current_plan, cur_stamina, cur_strain))
+
+	var end_stamina: float = float(cost_data.get("stamina", cur_stamina))
+	var end_strain: float = float(cost_data.get("strain", cur_strain))
+	var coach_mins: int = int(cost_data.get("coach_minutes", 0))
+	var warnings: Array = Array(cost_data.get("warnings", []))
+
+	_stamina_lbl.text = "Proj. Stamina: %d/100" % int(round(end_stamina))
+	_strain_lbl.text = "Proj. Strain: %d/100" % int(round(end_strain))
+	_coach_lbl.text = "Coach Minutes: %d/180" % coach_mins
+
+	# Tween Meters
+	var tween: Tween = create_tween().set_parallel(true)
+	var max_w: float = 300.0 # Standard meter fill width
+	tween.tween_property(_stamina_bar, "size:x", (clamp(end_stamina, 0.0, 100.0) / 100.0) * max_w, 0.2)
+	tween.tween_property(_strain_bar, "size:x", (clamp(end_strain, 0.0, 100.0) / 100.0) * max_w, 0.2)
+	tween.tween_property(_coach_bar, "size:x", (clamp(float(coach_mins), 0.0, 180.0) / 180.0) * max_w, 0.2)
+
+	# Format Warnings
+	if warnings.is_empty():
+		_warnings_label.text = ""
+	else:
+		_warnings_label.text = "WARNING: " + ", ".join(warnings)
+
+	# Check coach capacity constraints across rows
+	_update_coached_toggle_states(coach_mins)
+
+
+func _update_coached_toggle_states(total_coach_mins: int) -> void:
+	var max_coach_mins: int = int(_ctx.get("coach_capacity_minutes", 180))
+	var is_over_capacity: bool = (total_coach_mins >= max_coach_mins)
+
+	for i in range(_current_plan.size()):
+		var row_node: Node = _rows_container.get_node_or_null("Row_%d" % i)
+		if row_node == null:
+			continue
+		var check: CheckBox = row_node.get_node("HBoxContainer/CoachedCheck") as CheckBox
+		if check != null:
+			if not check.button_pressed and is_over_capacity:
+				check.disabled = true
+				check.tooltip_text = "Coach reached maximum 180 min capacity"
+			else:
+				check.disabled = false
+				check.tooltip_text = ""
+
+
+func _on_start_pressed() -> void:
+	var problems: Array = Array(_rules.call("validate", _current_plan))
+	if not problems.is_empty():
+		_warnings_label.text = "CANNOT START: " + ", ".join(problems)
+		return
+	day_started.emit(_current_plan)
+
+FILE 2: tests/day_plan_panel_test.gd
+# tests/day_plan_panel_test.gd
+# Headless unit tests for scripts/ui/DayPlanPanel.gd
+extends SceneTree
+
+# Inner stub class providing mock rules logic
+class StubRules extends RefCounted:
+	var TEMPLATES: Dictionary = {
+		"camp_heavy": [
+			{"station_kind": "heavy_bag", "minutes": 60, "cue": "normal", "coached": false},
+			{"station_kind": "pads", "minutes": 60, "cue": "crisp_form", "coached": true},
+			{"station_kind": "ring_spar", "minutes": 60, "cue": "power_through", "coached": true}
+		],
+		"recovery_day": [
+			{"station_kind": "stretch", "minutes": 30, "cue": "normal", "coached": false},
+			{"station_kind": "physio", "minutes": 60, "cue": "normal", "coached": false}
+		],
+		"technique_day": [
+			{"station_kind": "shadow", "minutes": 60, "cue": "crisp_form", "coached": false}
+		],
+		"conditioning_day": [
+			{"station_kind": "cardio", "minutes": 60, "cue": "power_through", "coached": false}
+		],
+		"fight_week_taper": [
+			{"station_kind": "shadow", "minutes": 30, "cue": "crisp_form", "coached": false}
+		]
+	}
+
+	func suggest(ctx: Dictionary) -> String:
+		return "camp_heavy"
+
+	func cost(plan: Array, stamina: float, strain: float) -> Dictionary:
+		var end_stamina: float = stamina
+		var end
+
+Can you provide FILE 2 in full, including the complete `DayPlanPanel.gd` implementation and its headless test-compatible API?
+Can you provide the complete day-plan panel test with every assertion and no omitted sections?
+Can you generate a 1920x1080 game-camera comparison image showing male and female jabs between punches and at contact?
+Can you verify the panel’s 1280x720 layout visually and suggest fixes for any clipped labels?

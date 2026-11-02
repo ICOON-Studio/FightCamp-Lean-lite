@@ -1,0 +1,967 @@
+{
+  "profile": {
+    "ippon_threshold": 22.0,
+    "waza_ari_min": 14.0
+  },
+  "throws": [
+    {
+      "id": "judo_ashiguruma",
+      "magnitude": 22.0,
+      "waza_ari_at": 0.636,
+      "ippon_at": 1.0,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "waza_ari",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_dakiwakare",
+      "magnitude": 26.0,
+      "waza_ari_at": 0.538,
+      "ippon_at": 0.846,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "ippon",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_deashi",
+      "magnitude": 16.0,
+      "waza_ari_at": 0.875,
+      "ippon_at": null,
+      "class": {
+        "0.7": "none",
+        "0.8": "none",
+        "0.9": "waza_ari",
+        "1.0": "waza_ari"
+      }
+    },
+    {
+      "id": "judo_hanegoshi",
+      "magnitude": 22.0,
+      "waza_ari_at": 0.636,
+      "ippon_at": 1.0,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "waza_ari",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_hanegoshigaeshi",
+      "magnitude": 25.0,
+      "waza_ari_at": 0.56,
+      "ippon_at": 0.88,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "ippon",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_hanemakikomi",
+      "magnitude": 23.0,
+      "waza_ari_at": 0.609,
+      "ippon_at": 0.957,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "waza_ari",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_haraigoshi",
+      "magnitude": 19.0,
+      "waza_ari_at": 0.737,
+      "ippon_at": null,
+      "class": {
+        "0.7": "none",
+        "0.8": "waza_ari",
+        "0.9": "waza_ari",
+        "1.0": "waza_ari"
+      }
+    },
+    {
+      "id": "judo_haraigoshigaeshi",
+      "magnitude": 25.0,
+      "waza_ari_at": 0.56,
+      "ippon_at": 0.88,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "ippon",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_haraimakikomi",
+      "magnitude": 26.0,
+      "waza_ari_at": 0.538,
+      "ippon_at": 0.846,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "ippon",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_haraitsurikomiashi",
+      "magnitude": 22.0,
+      "waza_ari_at": 0.636,
+      "ippon_at": 1.0,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "waza_ari",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_hikikomigaeshi",
+      "magnitude": 26.0,
+      "waza_ari_at": 0.538,
+      "ippon_at": 0.846,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "ippon",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_hizaguruma",
+      "magnitude": 16.0,
+      "waza_ari_at": 0.875,
+      "ippon_at": null,
+      "class": {
+        "0.7": "none",
+        "0.8": "none",
+        "0.9": "waza_ari",
+        "1.0": "waza_ari"
+      }
+    },
+    {
+      "id": "judo_kanibasami",
+      "magnitude": 26.0,
+      "waza_ari_at": 0.538,
+      "ippon_at": 0.846,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "ippon",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_kataguruma",
+      "magnitude": 22.0,
+      "waza_ari_at": 0.636,
+      "ippon_at": 1.0,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "waza_ari",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_kawazugake",
+      "magnitude": 26.0,
+      "waza_ari_at": 0.538,
+      "ippon_at": 0.846,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "ippon",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_kibisugaeshi",
+      "magnitude": 25.0,
+      "waza_ari_at": 0.56,
+      "ippon_at": 0.88,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "ippon",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_koshiguruma",
+      "magnitude": 19.0,
+      "waza_ari_at": 0.737,
+      "ippon_at": null,
+      "class": {
+        "0.7": "none",
+        "0.8": "waza_ari",
+        "0.9": "waza_ari",
+        "1.0": "waza_ari"
+      }
+    },
+    {
+      "id": "judo_kosotogake",
+      "magnitude": 22.0,
+      "waza_ari_at": 0.636,
+      "ippon_at": 1.0,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "waza_ari",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_kosotogari",
+      "magnitude": 19.0,
+      "waza_ari_at": 0.737,
+      "ippon_at": null,
+      "class": {
+        "0.7": "none",
+        "0.8": "waza_ari",
+        "0.9": "waza_ari",
+        "1.0": "waza_ari"
+      }
+    },
+    {
+      "id": "judo_kouchigaeshi",
+      "magnitude": 25.0,
+      "waza_ari_at": 0.56,
+      "ippon_at": 0.88,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "ippon",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_kouchigari",
+      "magnitude": 19.0,
+      "waza_ari_at": 0.737,
+      "ippon_at": null,
+      "class": {
+        "0.7": "none",
+        "0.8": "waza_ari",
+        "0.9": "waza_ari",
+        "1.0": "waza_ari"
+      }
+    },
+    {
+      "id": "judo_kouchimakikomi",
+      "magnitude": 26.0,
+      "waza_ari_at": 0.538,
+      "ippon_at": 0.846,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "ippon",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_kuchikitaoshi",
+      "magnitude": 25.0,
+      "waza_ari_at": 0.56,
+      "ippon_at": 0.88,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "ippon",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_morotegari",
+      "magnitude": 25.0,
+      "waza_ari_at": 0.56,
+      "ippon_at": 0.88,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "ippon",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_obiotoshi",
+      "magnitude": 25.0,
+      "waza_ari_at": 0.56,
+      "ippon_at": 0.88,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "ippon",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_obitorigaeshi",
+      "magnitude": 25.0,
+      "waza_ari_at": 0.56,
+      "ippon_at": 0.88,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "ippon",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_ogoshi",
+      "magnitude": 16.0,
+      "waza_ari_at": 0.875,
+      "ippon_at": null,
+      "class": {
+        "0.7": "none",
+        "0.8": "none",
+        "0.9": "waza_ari",
+        "1.0": "waza_ari"
+      }
+    },
+    {
+      "id": "judo_oguruma",
+      "magnitude": 22.0,
+      "waza_ari_at": 0.636,
+      "ippon_at": 1.0,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "waza_ari",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_okuriashiharai",
+      "magnitude": 19.0,
+      "waza_ari_at": 0.737,
+      "ippon_at": null,
+      "class": {
+        "0.7": "none",
+        "0.8": "waza_ari",
+        "0.9": "waza_ari",
+        "1.0": "waza_ari"
+      }
+    },
+    {
+      "id": "judo_osotogaeshi",
+      "magnitude": 25.0,
+      "waza_ari_at": 0.56,
+      "ippon_at": 0.88,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "ippon",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_osotogari",
+      "magnitude": 16.0,
+      "waza_ari_at": 0.875,
+      "ippon_at": null,
+      "class": {
+        "0.7": "none",
+        "0.8": "none",
+        "0.9": "waza_ari",
+        "1.0": "waza_ari"
+      }
+    },
+    {
+      "id": "judo_osotoguruma",
+      "magnitude": 25.0,
+      "waza_ari_at": 0.56,
+      "ippon_at": 0.88,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "ippon",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_osotomakikomi",
+      "magnitude": 26.0,
+      "waza_ari_at": 0.538,
+      "ippon_at": 0.846,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "ippon",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_osotootoshi",
+      "magnitude": 25.0,
+      "waza_ari_at": 0.56,
+      "ippon_at": 0.88,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "ippon",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_ouchigaeshi",
+      "magnitude": 25.0,
+      "waza_ari_at": 0.56,
+      "ippon_at": 0.88,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "ippon",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_ouchigari",
+      "magnitude": 16.0,
+      "waza_ari_at": 0.875,
+      "ippon_at": null,
+      "class": {
+        "0.7": "none",
+        "0.8": "none",
+        "0.9": "waza_ari",
+        "1.0": "waza_ari"
+      }
+    },
+    {
+      "id": "judo_renraku_deashi_osoto",
+      "magnitude": 18.0,
+      "waza_ari_at": 0.778,
+      "ippon_at": null,
+      "class": {
+        "0.7": "none",
+        "0.8": "waza_ari",
+        "0.9": "waza_ari",
+        "1.0": "waza_ari"
+      }
+    },
+    {
+      "id": "judo_renraku_harai_osoto",
+      "magnitude": 21.0,
+      "waza_ari_at": 0.667,
+      "ippon_at": null,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "waza_ari",
+        "1.0": "waza_ari"
+      }
+    },
+    {
+      "id": "judo_renraku_kouchi_seoi",
+      "magnitude": 20.0,
+      "waza_ari_at": 0.7,
+      "ippon_at": null,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "waza_ari",
+        "1.0": "waza_ari"
+      }
+    },
+    {
+      "id": "judo_renraku_osoto_ouchi",
+      "magnitude": 20.0,
+      "waza_ari_at": 0.7,
+      "ippon_at": null,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "waza_ari",
+        "1.0": "waza_ari"
+      }
+    },
+    {
+      "id": "judo_renraku_ouchi_osoto",
+      "magnitude": 20.0,
+      "waza_ari_at": 0.7,
+      "ippon_at": null,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "waza_ari",
+        "1.0": "waza_ari"
+      }
+    },
+    {
+      "id": "judo_renraku_sasae_taiotoshi",
+      "magnitude": 21.0,
+      "waza_ari_at": 0.667,
+      "ippon_at": null,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "waza_ari",
+        "1.0": "waza_ari"
+      }
+    },
+    {
+      "id": "judo_renraku_seoi_kouchi",
+      "magnitude": 20.0,
+      "waza_ari_at": 0.7,
+      "ippon_at": null,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "waza_ari",
+        "1.0": "waza_ari"
+      }
+    },
+    {
+      "id": "judo_renraku_uchimata_ouchi",
+      "magnitude": 23.0,
+      "waza_ari_at": 0.609,
+      "ippon_at": 0.957,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "waza_ari",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_renzoku_osoto",
+      "magnitude": 25.0,
+      "waza_ari_at": 0.56,
+      "ippon_at": 0.88,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "ippon",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_sasaetsurikomiashi",
+      "magnitude": 16.0,
+      "waza_ari_at": 0.875,
+      "ippon_at": null,
+      "class": {
+        "0.7": "none",
+        "0.8": "none",
+        "0.9": "waza_ari",
+        "1.0": "waza_ari"
+      }
+    },
+    {
+      "id": "judo_seoinage",
+      "magnitude": 25.0,
+      "waza_ari_at": 0.56,
+      "ippon_at": 0.88,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "ippon",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_seoinage_twohand",
+      "magnitude": 16.0,
+      "waza_ari_at": 0.875,
+      "ippon_at": null,
+      "class": {
+        "0.7": "none",
+        "0.8": "none",
+        "0.9": "waza_ari",
+        "1.0": "waza_ari"
+      }
+    },
+    {
+      "id": "judo_seoiotoshi",
+      "magnitude": 25.0,
+      "waza_ari_at": 0.56,
+      "ippon_at": 0.88,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "ippon",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_sodetsurikomigoshi",
+      "magnitude": 25.0,
+      "waza_ari_at": 0.56,
+      "ippon_at": 0.88,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "ippon",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_sotomakikomi",
+      "magnitude": 23.0,
+      "waza_ari_at": 0.609,
+      "ippon_at": 0.957,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "waza_ari",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_sukuinage",
+      "magnitude": 22.0,
+      "waza_ari_at": 0.636,
+      "ippon_at": 1.0,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "waza_ari",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_sumigaeshi",
+      "magnitude": 23.0,
+      "waza_ari_at": 0.609,
+      "ippon_at": 0.957,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "waza_ari",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_sumiotoshi",
+      "magnitude": 25.0,
+      "waza_ari_at": 0.56,
+      "ippon_at": 0.88,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "ippon",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_taiotoshi",
+      "magnitude": 19.0,
+      "waza_ari_at": 0.737,
+      "ippon_at": null,
+      "class": {
+        "0.7": "none",
+        "0.8": "waza_ari",
+        "0.9": "waza_ari",
+        "1.0": "waza_ari"
+      }
+    },
+    {
+      "id": "judo_taniotoshi",
+      "magnitude": 23.0,
+      "waza_ari_at": 0.609,
+      "ippon_at": 0.957,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "waza_ari",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_tawaragaeshi",
+      "magnitude": 26.0,
+      "waza_ari_at": 0.538,
+      "ippon_at": 0.846,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "ippon",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_tomoenage",
+      "magnitude": 23.0,
+      "waza_ari_at": 0.609,
+      "ippon_at": 0.957,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "waza_ari",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_tsubamegaeshi",
+      "magnitude": 25.0,
+      "waza_ari_at": 0.56,
+      "ippon_at": 0.88,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "ippon",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_tsurigoshi",
+      "magnitude": 22.0,
+      "waza_ari_at": 0.636,
+      "ippon_at": 1.0,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "waza_ari",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_tsurikomigoshi",
+      "magnitude": 19.0,
+      "waza_ari_at": 0.737,
+      "ippon_at": null,
+      "class": {
+        "0.7": "none",
+        "0.8": "waza_ari",
+        "0.9": "waza_ari",
+        "1.0": "waza_ari"
+      }
+    },
+    {
+      "id": "judo_uchimakikomi",
+      "magnitude": 26.0,
+      "waza_ari_at": 0.538,
+      "ippon_at": 0.846,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "ippon",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_uchimata",
+      "magnitude": 19.0,
+      "waza_ari_at": 0.737,
+      "ippon_at": null,
+      "class": {
+        "0.7": "none",
+        "0.8": "waza_ari",
+        "0.9": "waza_ari",
+        "1.0": "waza_ari"
+      }
+    },
+    {
+      "id": "judo_uchimatagaeshi",
+      "magnitude": 25.0,
+      "waza_ari_at": 0.56,
+      "ippon_at": 0.88,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "ippon",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_uchimatamakikomi",
+      "magnitude": 26.0,
+      "waza_ari_at": 0.538,
+      "ippon_at": 0.846,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "ippon",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_uchimatasukashi",
+      "magnitude": 25.0,
+      "waza_ari_at": 0.56,
+      "ippon_at": 0.88,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "ippon",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_ukigoshi",
+      "magnitude": 16.0,
+      "waza_ari_at": 0.875,
+      "ippon_at": null,
+      "class": {
+        "0.7": "none",
+        "0.8": "none",
+        "0.9": "waza_ari",
+        "1.0": "waza_ari"
+      }
+    },
+    {
+      "id": "judo_ukiotoshi",
+      "magnitude": 22.0,
+      "waza_ari_at": 0.636,
+      "ippon_at": 1.0,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "waza_ari",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_ukiwaza",
+      "magnitude": 26.0,
+      "waza_ari_at": 0.538,
+      "ippon_at": 0.846,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "ippon",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_uranage",
+      "magnitude": 26.0,
+      "waza_ari_at": 0.538,
+      "ippon_at": 0.846,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "ippon",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_uranage_counter",
+      "magnitude": 18.0,
+      "waza_ari_at": 0.778,
+      "ippon_at": null,
+      "class": {
+        "0.7": "none",
+        "0.8": "waza_ari",
+        "0.9": "waza_ari",
+        "1.0": "waza_ari"
+      }
+    },
+    {
+      "id": "judo_ushirogoshi",
+      "magnitude": 25.0,
+      "waza_ari_at": 0.56,
+      "ippon_at": 0.88,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "ippon",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_utsurigoshi",
+      "magnitude": 22.0,
+      "waza_ari_at": 0.636,
+      "ippon_at": 1.0,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "waza_ari",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_yamaarashi",
+      "magnitude": 25.0,
+      "waza_ari_at": 0.56,
+      "ippon_at": 0.88,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "ippon",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_yokogake",
+      "magnitude": 26.0,
+      "waza_ari_at": 0.538,
+      "ippon_at": 0.846,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "ippon",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_yokoguruma",
+      "magnitude": 26.0,
+      "waza_ari_at": 0.538,
+      "ippon_at": 0.846,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "ippon",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_yokootoshi",
+      "magnitude": 23.0,
+      "waza_ari_at": 0.609,
+      "ippon_at": 0.957,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "waza_ari",
+        "1.0": "ippon"
+      }
+    },
+    {
+      "id": "judo_yokowakare",
+      "magnitude": 26.0,
+      "waza_ari_at": 0.538,
+      "ippon_at": 0.846,
+      "class": {
+        "0.7": "waza_ari",
+        "0.8": "waza_ari",
+        "0.9": "ippon",
+        "1.0": "ippon"
+      }
+    }
+  ],
+  "summary": {
+    "0.7": {
+      "none": 0.231,
+      "waza_ari": 0.769,
+      "ippon": 0.0
+    },
+    "0.8": {
+      "none": 0.103,
+      "waza_ari": 0.897,
+      "ippon": 0.0
+    },
+    "0.9": {
+      "none": 0.0,
+      "waza_ari": 0.526,
+      "ippon": 0.474
+    },
+    "1.0": {
+      "none": 0.0,
+      "waza_ari": 0.308,
+      "ippon": 0.692
+    }
+  },
+  "recommend": "a"
+}

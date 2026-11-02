@@ -1,0 +1,15 @@
+{
+  "checked_at": "2026-10-10T00:15:28Z",
+  "files": [
+    "Godot/scripts/FightRealtime.gd",
+    "Godot/scripts/FightWorldLiveScreen.gd",
+    "Godot/scripts/LudoDoctorOverlay.gd",
+    "Godot/scripts/GameState.gd",
+    "Godot/tests/doctor_live_test.gd",
+    "Godot/tests/ludo_doctor_overlay_test.gd",
+    "Godot/tools/doctor_still.gd"
+  ],
+  "output": "CHECK total=7 fails=0 autoload_refs=1 autoload_warnings=0 time=4s\n",
+  "passed": true,
+  "task": "LUDO_DOC2"
+}

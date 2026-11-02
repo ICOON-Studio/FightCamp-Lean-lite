@@ -1,0 +1,372 @@
+FIGHTCAMP — CORNER APRON SHOUTS & TACTICAL DRILL SYSTEM
+
+Document Revision: r116 (Build Target: Godot 4 / Steam Early Access)
+
+Author: Ludo.ai Systems Design
+
+Date: 18 October 2026
+
+1. THE COMPLETE SHOUT LIST (12 SHOUTS)
+
+All apron shouts modify the fight engine runtime vectors for a duration $D$ (seconds). Shouts operate under hard constraints: only levers exposed to the runtime simulator are shifted (punch family weights, target bias, guard state, lateral movement/distance, counter commitment, pace/output, and accuracy/evasion modifiers).
+
+Engine Levers & Baselines
+Target Choice Head/Body: Baseline weight ratio 75/25. Shifts alter selection probability before punch generation.
+Punch Family Weights: Baseline [Jab: 40%, Straight: 25%, Hook: 20%, Uppercut: 15%].
+Guard Height: High (reduces clean head hits, exposes ribs), Neutral (balanced), Low/Philly (exposes head, counters/slips boosted).
+Distance/Lateral Movement: Distance Bias $[-1.0 \text{ (Infight)} \dots 0.0 \dots +1.0 \text{ (Outbox/Stick)}]`.
+Pace / Output: Multiplier on stamina burn rate and punch generation tick frequency ($1.0\times$ baseline).
+Clinch Urgency: Base clinching roll threshold when distance $\le 0.4\text{m}$.
+Counter Commitment: Boolean window flag or evasion-into-strike modifier ($+0.0 \dots +0.30$).
+Accuracy / Evasion: Direct delta applied to combat resolution math (e.g., $+6%$ accuracy vs $-8%$ defense).
+Shout Directory
+1. STAY_BEHIND_JAB — "Stay behind the jab!"
+Tactical Need: Resetting range when getting walked down or losing distance control to an aggressive forward fighter.
+Duration: 14.0 s.
+Engine Levers Modified:
+Punch Family Weights: Jab weight set to 65% (Straight 15%, Hook 10%, Uppercut 10%).
+Target Choice: Head 85% / Body 15%.
+Distance Bias: $+0.45$ towards maximum reach.
+Evasion: $+5%$ against incoming straight shots; $-6%$ against incoming overhands/looping hooks.
+Counter-Risk: Opponent ducks/slips under the predictable rhythm. If the opponent throws a slip-counter hook during this window, their counter accuracy gains $+14%$.
+2. OFF_THE_ROPES — "Off the ropes! Angle out!" (Existing Retained)
+Tactical Need: Fighter backed onto the ropes or corner (TRAPPED_ON_ROPES).
+Duration: 3.5 s (burst burst-movement mechanic).
+Engine Levers Modified:
+Distance/Lateral Movement: Immediate forced lateral circle angle attempt roll every $0.5\text{ s}$ ($+40%$ lateral vector magnitude).
+Punch Output: Reduced by $-45%$ while pivoting off ropes.
+Guard Height: Forced High during lateral step.
+Counter-Risk: Pivot interception. If opponent fires a shovel hook or body hook during the pivot frame, it gains $+20%$ critical/stun chance.
+3. GO_TO_THE_BODY — "Bury it down low! Work the body!" (Existing Retained)
+Tactical Need: Opponent is shelling up in a high tight earmuff guard (HIGH_GUARD_OPPONENT).
+Duration: 18.0 s.
+Engine Levers Modified:
+Target Choice: Head 20% / Body 80%.
+Punch Family Weights: Hook 40%, Uppercut 25%, Straight 20%, Jab 15%.
+Guard Height: Drops to Neutral-Low during offensive bursts.
+Counter-Risk: Level-change uppercut vulnerability. Opponent counter-uppercuts gain $+12%$ accuracy and $+15%$ head damage.
+4. TIE_HIM_UP — "Clinched! Wrap him up! Hold him!" (Existing Retained)
+Tactical Need: Fighter is rocked (ROCKED_OR_LOW_STAMINA), stamina $< 20%$, or head health critical.
+Duration: 8.0 s or until referee break.
+Engine Levers Modified:
+Clinch Urgency: $+65%$ trigger threshold when within $0.8\text{m}$.
+Punch Output: Clamped to zero except short dirty boxing taps.
+Distance Bias: Hard forward lunge to $0.0\text{m}$ (close proximity).
+Counter-Risk: Getting caught while reaching. While lunging in to tie up, incoming opponent uppercuts and short hooks gain $+18%$ accuracy and bypass guard block value by $25%$.
+5. BOX_AND_MOVE — "Stick and turn! Don't stand there!" (Existing Retained)
+Tactical Need: Swarmed inside (SWARMED_INSIDE) by an inside-brawler/slugger with shorter reach.
+Duration: 16.0 s.
+Engine Levers Modified:
+Distance Bias: $+0.60$ outbox preference.
+Lateral Movement: $+35%$ footwork movement ticks per second.
+Punch Selection: Jab 45%, Straight 30%, Hooks 15%, Uppercut 10%.
+Stamina Burn Rate: $1.25\times$.
+Counter-Risk: Ring cutting. If opponent has higher Ring IQ or Footwork than fighter, opponent's ring-cutting modifier triggers a rope-trap roll with $+25%$ trap effectiveness.
+6. STEP_ON_THE_GAS — "He's hurt! Put him away!" (Existing Retained)
+Tactical Need: Opponent rocked, wobbly, or bleeding heavily (OPPONENT_HURT).
+Duration: 12.0 s.
+Engine Levers Modified:
+Pace/Output: Punch tick rate $+45%$; stamina burn $1.40\times$.
+Punch Weights: Power punches (Hook 35%, Straight 35%, Uppercut 20%, Jab 10%).
+Guard Height: Drops to Low offensive drive.
+Counter-Risk: Walking into a desperate hail-mary counter (e.g., Juan Manuel Márquez vs. Manny Pacquiao IV). Opponent counter-punch damage boosted $+30%$ if they slip the first shot of the rush.
+7. TIME_THE_COUNTER — "Make him miss! Make him pay!"
+Tactical Need: Opponent is over-committing with aggressive power punches ($>65%$ power punch bias).
+Duration: 15.0 s.
+Engine Levers Modified:
+Counter Commitment: $+25%$ counter-window activation chance.
+Output: Base punch generation reduced by $-35%$ (patience mode).
+Evasion: $+8%$ bonus on slip/pull rolls.
+Next strike after a successful evasion gets $+25%$ accuracy and $+20%$ crit damage.
+Counter-Risk: Feints and freeze-ups. If opponent throws a feint or doubles up on a jab, fighter absorbs clean damage with zero guard ($-20%$ guard efficiency).
+8. HIGH_GUARD_WALKDOWN — "Tuck your chin! Walk him down!"
+Tactical Need: Facing a retreating, out-pointing out-boxer who is picking at range.
+Duration: 16.0 s.
+Engine Levers Modified:
+Guard Height: Locked High Guard (+25% head block efficiency).
+Distance Bias: $-0.70$ forward pressure.
+Evasion: $-15%$ (stops slipping, absorbs into gloves).
+Output: $-20%$ until inside $0.6\text{m}$.
+Counter-Risk: Liver and solar plexus vulnerability. Opponent body shot accuracy $+18%$, body punch damage $+20%$.
+9. DOUBLE_THE_JAB — "Double it up! Two jabs!"
+Tactical Need: Opponent has calibrated timing on a single jab (slipping it cleanly $>30%$ of the time).
+Duration: 14.0 s.
+Engine Levers Modified:
+Jab Punch Family Weight: 60%.
+Multi-hit Combination Flag: Forces Jab $\to$ Jab sequencing on punch chain generation ($75%$ probability).
+Accuracy: Second jab gets $+12%$ accuracy bonus over first.
+Counter-Risk: Overhand over top. Slipping outside the second jab gives opponent $+22%$ power bonus on an overhand right/cross.
+10. RIP_THE_LIVER — "Left hook to the body! Dig it in!"
+Tactical Need: Opponent breathing heavily (stamina $< 35%$, pulse flashing red/amber), backing up straight.
+Duration: 10.0 s.
+Engine Levers Modified:
+Punch Selection: Lead Hook weight forced to 45%, target Body locked to 85%.
+Body Damage: $+15%$ stamina depletion on hit.
+Counter-Risk: Dropping the lead hand leaves fighter wide open to a straight right down the pipe. Head defense drops $-18%$.
+11. CHANGE_THE_LEVELS — "Head-body-head! Mix it up!"
+Tactical Need: Opponent’s guard prediction is dialed in (blocking $>55%$ of head shots or $>50%$ of body shots).
+Duration: 16.0 s.
+Engine Levers Modified:
+Target Switch Enforcer: Consecutive punches must toggle targets (Head $\to$ Body $\to$ Head).
+Accuracy: $+8%$ across all combination punches.
+Guard Penetration: $+12%$ chance to bypass passive block.
+Counter-Risk: High cognitive load. Composure falls by $-1$ every $3\text{ s}$ if fighter has Ring IQ $< 60$.
+12. KILL_THE_CLOCK — "Take a breather! Move and clinch!"
+Tactical Need: Last 30 seconds of round, fighter is ahead on points or exhausted, needs to survive to the stool.
+Duration: 20.0 s.
+Engine Levers Modified:
+Distance Bias: Maximum perimeter movement ($+0.80$).
+Clinch Urgency: $+40%$.
+Punch Output: $-70%$.
+Stamina Recovery: Tactical micro-recovery tick ($+0.4\text{ stam/s}$).
+Counter-Risk: Ring generalship point penalty from judges if pinned; referee warning for passivity.
+2. HOW A SHOUT IS LEARNED IN THE GYM
+
+A shout in FightCamp is not a magical button; it is a learned verbal-kinesthetic trigger developed through repetition until it becomes instinctive under duress.
+
+Shout Mastery Bar (0–100 Scale)
+
+Every fighter maintains a dictionary of shouts with mastery scores:
+$$\text{ShoutMastery} \in [0, 100]$$
+
+| Mastery Range | Tier Name | Operational Status |
+| :--- | :--- | :--- |
+| 0 – 29 | Raw | High failure and blunder rate. Fighter second-guesses the shout. |
+| 30 – 59 | Usable | Baseline execution. Functional under calm conditions, shakes under fire. |
+| 60 – 84 | Sharp | Reliable. Quick response time, low misinterpretation chance. |
+| 85 – 100 | Drilled-in | Instinctive. Near-instant execution, zero panic penalty, minor execution buff. |
+
+Learning Stations and XP Rates
+
+Shouts are trained across specific gym stations during the daily training lap:
+
+| Shout | Primary Station | Secondary Station | Film Study Station | Points/Hour (Primary) | Points/Hour (Secondary) |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| STAY_BEHIND_JAB | Pads (Coach) | Heavy Bag | Video Office | $2.40$ | $1.10$ |
+| OFF_THE_ROPES | 16ft Ring (Sparring) | Slip Rope | Video Office | $2.20$ | $1.20$ |
+| GO_TO_THE_BODY | Pads (Coach) | Heavy Bag | Video Office | $2.40$ | $1.15$ |
+| TIE_HIM_UP | 16ft Ring (Sparring) | Mirror/Skipping | Video Office | $1.90$ | $0.80$ |
+| BOX_AND_MOVE | 16ft Ring (Sparring) | Slip Rope | Video Office | $2.10$ | $1.30$ |
+| STEP_ON_THE_GAS | Pads (Coach) | Heavy Bag | Video Office | $2.50$ | $1.20$ |
+| TIME_THE_COUNTER| 16ft Ring (Sparring) | Slip Rope | Video Office | $2.00$ | $1.10$ |
+| HIGH_GUARD_WALK | Pads (Coach) | 16ft Ring | Video Office | $2.20$ | $1.00$ |
+| DOUBLE_THE_JAB | Speed Bag | Pads (Coach) | Video Office | $2.30$ | $1.40$ |
+| RIP_THE_LIVER | Heavy Bag | Pads (Coach) | Video Office | $2.20$ | $1.30$ |
+| CHANGE_LEVELS | Pads (Coach) | 16ft Ring | Video Office | $2.10$ | $1.20$ |
+| KILL_THE_CLOCK | 16ft Ring (Sparring) | Treadmill | Video Office | $1.80$ | $0.90$ |
+
+Coach Presence Multiplier: If the player (Head Coach) stands at the station running the drill: $$\text{Gain}{\text{Actual}} = \text{Gain}{\text{Base}} \times 1.35$$
+Assistant Coach (Level dependent): Multiplier between $0.80\times$ and $1.05\times$.
+Film Study in Office (Passive Tactical Priming): Adding a 1-hour session in Fight Week film study adds a flat $+6.0$ mastery directly to up to 2 selected shouts (capped at $60$ max via film alone).
+Mastery Cap Formula
+
+A fighter's brain limits how many complex corner tactics they can master:
+$$\text{MasteryCap} = \min\Big(100,\ 35 + (\text{Fight IQ} \times 0.40) + (\text{Technique} \times 0.25)\Big)$$
+
+Example: Leo Vance (Fight IQ 52, Technique 44): $$\text{Cap} = 35 + (52 \times 0.40) + (44 \times 0.25) = 35 + 20.8 + 11.0 = 66.8 \implies \mathbf{66} \text{ (Sharp ceiling)}$$
+A ring genius with IQ 90 and Technique 85 reaches: $$35 + 36 + 21.25 = 92.25 \implies \mathbf{92} \text{ (Drilled-in reachable)}$$
+Decay Formula
+
+Undrilled tactics rust. If a shout is not drilled at least 0.5 hours during a calendar week:
+$$\text{Decay} = 0.85 \text{ points/week}$$
+
+Hard Decay Floor: A shout never decays below $30.0$ once it has crossed Usable tier. If it was never drilled to $30.0$, it decays back to $0.0$.
+3. THE RISK OF AN UNLEARNED CALL & EXECUTION MATH
+
+Calling a shout is not risk-free. When the apron yells, the fighter rolls an execution check.
+
+Execution Probability Formula
+
+The probability $P_{\text{exec}}$ that the fighter successfully adopts the shouted tactic is:
+$$P_{\text{exec}} = \Big(\text{ShoutMastery} \times 0.55\Big) + \Big(\text{Trust} \times 0.25\Big) + \Big(\text{Composure} \times 0.20\Big)$$
+
+Clamped between $5%$ and $98%$.
+If $P_{\text{exec}} \ge 70$, execution is Clean.
+If $40 \le P_{\text{exec}} < 70$, execution is Delayed/Hesitant.
+If $P_{\text{exec}} < 40$, the execution Fails.
+Failure Outcomes (When Execution Fails)
+
+When an execution check fails, the fighter rolls on the failure table based on their mastery tier:
+
+                      [ Apron Shout Fired ]
+                                |
+                      [ P_exec Roll Check ]
+                                |
+            +-------------------+-------------------+
+            |                                       |
+    P_exec >= 40 (Pass)                     P_exec < 40 (Fail)
+            |                                       |
+     [Execution]                       Roll d100 on Failure Table:
+   • Clean (>= 70)                     • 1-50:  IGNORES ("Noise")
+   • Hesitant (40-69)                  • 51-80: DELAYED / HESITANT
+                                       • 81-00: BLUNDER / COMPROMISED
+
+1. Ignored / Tuned Out ($50%$ of failures at Raw, $70%$ at Usable)
+What happens: The fighter is overwhelmed by crowd noise and adrenaline.
+Log Output: "Leo tunes out the corner yelling 'Stay behind the jab!' — sticking to his own instincts."
+Cost: Cooldown spent; zero engine changes applied. Trust drops $-1$.
+2. Delayed & Hesitant ($30%$ of failures at Raw, $25%$ at Usable)
+What happens: The fighter processes the shout $3.5\text{ s}$ to $5.0\text{ s}$ too late.
+Log Output: "Leo hesitates, looking unsure as the apron yells 'Go to the body!' — caught in two minds."
+Engine Effect: While "thinking", fighter's evasion drops $-15%$ and counter rate drops to $0%$ for $2.5\text{ s}$. The tactic then kicks in for whatever duration remains.
+3. Blunder / Compromised ($20%$ of failures at Raw, $5%$ at Usable, $0%$ at Sharp/Drilled)
+What happens: The fighter attempts something they do not know how to do instinctively under fire. They cross their feet, drop their hands, or charge blindly.
+Log Output: "Leo lunges into an uncoordinated body attack on coach's orders — leaves his jaw completely exposed!"
+Engine Penalty: Guard drops to $0$ for $1.8\text{ s}$. Opponent gains guaranteed counter opportunity with $+30%$ Accuracy and $+40%$ Critical Power. Composure drops $-8$.
+The Trust Multiplier
+
+Trust ($0–100$) represents the fighter’s faith in the coach’s tactical eye:
+
+Trust $< 30$ (Skeptical): The fighter rejects shouts that contradict their primary style. An Outboxer told to HIGH_GUARD_WALKDOWN with low trust will suffer a $-30%$ penalty to $P_{\text{exec}}$.
+Trust $> 75$ (Loyal): $+12%$ bonus to $P_{\text{exec}}$. Furthermore, blunders are converted to simple ignores (the fighter will not blindly suicide on a bad call).
+4. THE RHYTHM: CADENCE, COOLDOWNS & LIMITS
+
+The operator's request stated: "every 25s... vs today's 22s cooldown and max 3 per round."
+
+Cadence Specification
+Round Timeline: 180 Seconds (3:00)
+|--- 25s Cooldown ---|--- 25s Cooldown ---|--- 25s Cooldown ---|--- 25s Cooldown ---|
+[Shout 1]           [Shout 2]            [Shout 3]            [Shout 4 (Cap unlock)]
+
+Base Cooldown: Exactly $25.0\text{ seconds}$ from the moment a shout is triggered.
+Base Round Cap: 3 shouts per round for a standard coach and fighter.
+Cap Scaling Mechanic
+
+A corner cannot scream constantly without the fighter experiencing auditory saturation. However, elite corners manage fight pace better:
+
+$$\text{MaxShoutsPerRound} = 3 + \text{BonusShouts}$$
+
+Coach Corner Rating / Reputation $\ge 70$ OR Coach Ring IQ Perk "Second Voice": $+1$ Shout/Round.
+Fighter Composure Level:
+If fighter is Broken (Composure $< 20$): Max shouts clamped to 1 per round (fighter is panicked; corner yells just cause paralysis).
+If fighter is Focused (Composure $\ge 70$): Cooldown recovers $15%$ faster ($21.25\text{ s}$).
+Max Cap Absolute Ceiling: 4 shouts per round (at 25s cooldown + 10-18s execution, 4 shouts fill ~140s of a 180s round).
+5. OPPONENT LIVE READS & CORNER INTELLIGENCE
+
+A shout must answer a specific ring reality. The player is not just guessing; they are observing real-time telemetry from the why-line parser.
+
+The 4 Opponent Live Reads (HUD Telemetry)
+
+The corner hears and sees 4 diagnostic telemetry readouts, refreshing on a rolling $8.0\text{ second}$ evaluation window:
+
++----------------------------------------------------------------------------------------------------+
+| LIVE READ TELEMETRY (Refreshes every 8.0s)                                                         |
++------------------------------------+-----------------------------------+---------------------------+
+| READ NAME                          | THRESHOLD TRIGGER LOGIC           | SUGGESTED COUNTER SHOUT   |
++------------------------------------+-----------------------------------+---------------------------+
+| 1. "READING YOUR LEAD"             | Opponent slipped/blocked >= 60%   | DOUBLE_THE_JAB            |
+|    (Jab Predictability)            | of jabs over last 20 seconds      | CHANGE_THE_LEVELS         |
++------------------------------------+-----------------------------------+---------------------------+
+| 2. "SHELLING TIGHT"                | Opponent High Guard active        | GO_TO_THE_BODY            |
+|    (High Guard Shell)              | for >= 6.0 of last 8.0s           | RIP_THE_LIVER             |
++------------------------------------+-----------------------------------+---------------------------+
+| 3. "TELEGRAPHING POWER"            | Opponent throwing > 65% power     | TIME_THE_COUNTER          |
+|    (Heavy Commitment)              | punches with accuracy < 40%       | STAY_BEHIND_JAB           |
++------------------------------------+-----------------------------------+---------------------------+
+| 4. "GASPING / LOW SNAPPING"        | Opponent stamina < 30%            | STEP_ON_THE_GAS           |
+|    (Fatigue / Gas Out)             | or BPM > 185 (Pulse Amber/Red)    | RIP_THE_LIVER             |
++------------------------------------+-----------------------------------+---------------------------+
+
+Can You Hear the Opponent's Corner?
+
+Yes. FightCamp models both corners.
+
+Opponent Shout Mechanics: The AI corner runs an identical 25s cooldown timer and selects shouts based on the AI coach's tendencies and the same telemetry triggers.
+Audibility Check:
+When the opponent’s coach yells, an audio/text cue fires if the player’s Gym Sound Awareness / Ringside Proximity is clear.
+In the bout log, it prints in red italics:
+Opponent Corner yells: "Take his head off! Double the right hand!"
+Countering Their Call: The player has a $4.0\text{ s}$ reaction window to counter-shout! If the opponent's corner shouts "Bury it to the body!", the player can instantly trigger "Tuck your chin! Walk him down!" or "Tie him up!", blunting their tactical shift before it lands clean.
+6. HUD SPECIFICATION (1920x1080 BROADCAST STYLE)
+
+Adhering strictly to FightCamp's aesthetic: sharp $90^\circ$ corners, zero rounded bubbly cards, flat slate dark layout, high-contrast typography, and mono data readouts.
+
++-------------------------------------------------------------------------------------------------------------+
+| TOP BAR: [LEO VANCE  |||||||||||||||| 162 BPM]   -- R3 01:42 (1x) --   [TOMMY PEREZ  |||||||||||||| 188 BPM]  |
++-------------------------------------------------------------------------------------------------------------+
+|                                                                                                             |
+|                                            [ 3D RING ACTION ]                                               |
+|                                                                                                             |
++-------------------------------------------------------------------------------------------------------------+
+| LIVE READ TICKER (x: 480, y: 840, w: 960, h: 44)                                                            |
+| [!] OPPONENT READ: SHELLING TIGHT (High Guard 72% last 10s) -> SUGGEST: GO_TO_THE_BODY / RIP_THE_LIVER      |
++-------------------------------------------------------------------------------------------------------------+
+| SHOUT SELECTION DOCK (x: 260, y: 894, w: 1400, h: 146)                                                      |
+| +---------------------------------------------------------------------------------------------------------+ |
+| | COOLDOWN TRAY (Top 26px): [ COOLDOWN: 14.2s ] | [ ROUND CALLS REMAINING: [■][■][ ] 2/3 ]                | |
+| +---------------------------------------------------------------------------------------------------------+ |
+| |  [1] JAB LEAD    |  [2] OFF ROPES  |  [3] WORK BODY  |  [4] TIE HIM UP |  [5] COUNTER    |  [6] GAS IT    | |
+| |  "Behind Jab"   |  "Angle Out!"   |  "Go to Body"   |  "Clinched!"    |  "Time Counter" |  "Put Away!"   | |
+| |  +-------------+ |  +------------+ |  +------------+ |  +------------+ |  +------------+ |  +------------+ | |
+| |  | USABLE 54%  | |  | SHARP 78%  | |  | DRILLED 91%| |  | RAW 22% (!) | |  | USABLE 46%  | |  | SHARP 68%  | | |
+| |  +-------------+ |  +------------+ |  +------------+ |  +------------+ |  +------------+ |  +------------+ | |
+| +---------------------------------------------------------------------------------------------------------+ |
++-------------------------------------------------------------------------------------------------------------+
+
+Detailed Layout Geometry (Pixels)
+1. Live Read Ticker Panel
+Position: $X = 480\text{ px}$, $Y = 840\text{ px}$, Width = $960\text{ px}$, Height = $44\text{ px}$.
+Background: Solid #0E1116, Border: $1\text{ px}$ #2A323D.
+Typography: JetBrains Mono or Roboto Mono, $14\text{ pt}$, Regular.
+Color Formatting:
+Header label: #8E9AA8 (Muted Steel).
+State text: #F3F4F6 (Pure White).
+Recommendation highlight: #EAB308 (Amber Gold).
+2. Shout Command Dock
+Position: Centered horizontally at bottom ($X = 260\text{ px}$, $Y = 894\text{ px}$, Width = $1400\text{ px}$, Height = $146\text{ px}$).
+Background Frame: #090B0E at $95%$ opacity. Outer outline: $2\text{ px}$ #1E2530.
+3. Top Status Row (Inside Dock)
+Height: $26\text{ px}$.
+Left: Cooldown bar gauge ($220\text{ px} \times 8\text{ px}$) accompanied by numerical read: COOLDOWN: 18.4s (Color: #3B82F6 blue when active, #22C55E green when ready: READY TO SHOUT).
+Right: Round shout pips ($3\text{ or } 4$ square boxes, $12 \times 12\text{ px}$ each; filled #F3F4F6 when remaining, empty #1F2937 when expended).
+4. Shout Buttons (Grid of 6 active loadout slots)
+Button Dimensions: Width = $220\text{ px}$, Height = $108\text{ px}$. Gap = $12\text{ px}$ between buttons.
+Corner Radius: $0\text{ px}$ (Strict square architectural corners).
+Button Hierarchy:
+Shortcut Key Pip: Top-left, $18 \times 18\text{ px}$ square, #1F2937 background, text [1] to [6], $11\text{ pt}$ bold white.
+Shout Name (Uppercase): $12\text{ pt}$ bold #9CA3AF.
+Verbatim Call (Yell Text): $14\text{ pt}$ bold #FFFFFF (e.g. "Bury it down low!").
+Mastery Footer Strip (Height $22\text{ px}$): Full width at bottom of button.
+Progress Bar: Base fill backing #111827, fill gauge matches Tier Color.
+Tier Label & Percentage: Left aligned tier text, right aligned value.
+RAW: Fill color #DC2626 (Red-600), Text: RAW 24%
+USABLE: Fill color #F59E0B (Amber-500), Text: USABLE 52%
+SHARP: Fill color #3B82F6 (Blue-500), Text: SHARP 74%
+DRILLED-IN: Fill color #10B981 (Emerald-500), Text: DRILLED 96%
+Disabled/Cooldown State: When cooldown $> 0$, entire button overlay darkened with #000000 at $65%$ opacity, showing a sweep timer bar from right to left.
+7. THE TRAINING SCREEN: REAL-TIME SHOUT LEARNING
+
+On the top-down 3D gym floor, the player watches the fighter execute drills at the selected station. As the fighter punches the pads or spars, shout mastery increases in real time.
+
++-----------------------------------------------------------------------------------------------+
+| STATION OVERHEAD HUD: PADS [3.6, 3.2]                                                         |
+| Fighter: Leo Vance | Coach: Player (+35% Boost) | Stamina: 74%                                |
++-----------------------------------------------------------------------------------------------+
+| CURRENT TACTIC DRILL: STAY_BEHIND_JAB                                                         |
+| [======== SHARP: 71.4% ==================>           ] (+2.40 pts/hr)                         |
+|                                                                                               |
+| 3D ACTION TICK: Coach calls "Behind the jab!" -> Leo pops 1-1 -> [FLOAT: +0.08 MASTERY]     |
+| 3D ACTION TICK: Leo resets range -> Coach taps head guard -> [FLOAT: "SNAPPING"]              |
++-----------------------------------------------------------------------------------------------+
+
+Visual & Interactive Feedback Loop
+1. Real-Time Filling Bar
+Above the station or pinned in the bottom training drawer sits the Tactic Mastery Progress Bar ($340\text{ px} \times 16\text{ px}$, sharp edges).
+Every drill animation cycle (approx. $1.8\text{ seconds}$ per pad sequence or sparring exchange), an engine update fires: $$\Delta \text{Mastery} = \frac{\text{PointsPerHour}}{3600} \times \Delta t_{\text{tick}} \times \text{CoachMultiplier}$$
+The numerical readout shows precision to one decimal place: 58.2% -> 58.3%.
+The progress bar smoothly tweens forward using a linear shader fill.
+2. Floating World-Space Text
+When the fighter performs a correct rep during the drill animation, a small, mono-styled floating text pip drifts upward in 3D world space over the fighter's head:
++0.08 STAY_BEHIND_JAB (Color: #10B981 Emerald).
+If the coach is present and boosting: +0.11 STAY_BEHIND_JAB [COACH BOOST].
+3. Tier Upgrade Event
+When the bar crosses a tier threshold ($30.0$, $60.0$, or $85.0$), a crisp, non-modal broadcast flash appears across the training HUD for $2.5\text{ seconds}$:
++--------------------------------------------------------------+
+| TACTIC LEVEL UP: [STAY_BEHIND_JAB] HAS REACHED [SHARP] (60%)  |
+| * Evasion bonus increased to +5%                             |
+| * Hesitation fail chance reduced to 2%                       |
++--------------------------------------------------------------+
+
+Audio
+Sources:
+FightCamp

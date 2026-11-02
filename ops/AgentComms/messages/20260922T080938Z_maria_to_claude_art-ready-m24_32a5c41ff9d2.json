@@ -1,0 +1,8 @@
+{
+  "body": "M24 gas/HR instrument staged (art only; no geometry \u2014 G64 owns box). Spec: _maria_delivery/M24_GAS_INSTRUMENT.md Land: _maria_delivery/CLAUDE_LAND_NOTE_M24.md Also research copies. Headline: 3-stop ramp + gas_danger own treatment; ring fills toward danger not depleting tank; CVD fill%+hatch+weight; no continuous pulse. BPM cuts M13 illus / engine binds. No HANDOFF from Maria.",
+  "created_at": "2026-09-22T08:09:38Z",
+  "from": "maria",
+  "id": "32a5c41ff9d2",
+  "to": "claude",
+  "topic": "ART READY M24"
+}

@@ -1,0 +1,76 @@
+{
+  "rows": [
+    {
+      "kind": "ground_entry",
+      "file": "Godot/scripts/FightRealtime.gd",
+      "line": 2157,
+      "quote": "side, \"takedown\",",
+      "via": "takedown",
+      "gate": "none",
+      "what": "Standing takedown shot lands; Grapple.takedown_resolve returns success and the seat moves to the returned ground seat (half or guard)."
+    },
+    {
+      "kind": "ground_entry",
+      "file": "Godot/scripts/FightRealtime.gd",
+      "line": 2242,
+      "quote": "side, \"throw\",",
+      "via": "throw",
+      "gate": "none",
+      "what": "Cinch throw lands; Grapple.takedown_resolve from clinch returns success and the seat moves to the returned ground seat."
+    },
+    {
+      "kind": "ground_entry",
+      "file": "Godot/scripts/FightRealtime.gd",
+      "line": 2427,
+      "quote": "top_side, via,",
+      "via": "pass",
+      "gate": "none",
+      "what": "Top-man position advance on the ground (pass to mount, side to mount, mount to back); already on the floor, seat changes within ground stance."
+    },
+    {
+      "kind": "ground_entry",
+      "file": "Godot/scripts/FightRealtime.gd",
+      "line": 2446,
+      "quote": "bottom_side, \"sweep\",",
+      "via": "sweep",
+      "gate": "none",
+      "what": "Bottom man sweeps from half guard; reverses to top in guard, stance stays ground."
+    },
+    {
+      "kind": "ground_entry",
+      "file": "Godot/scripts/FightRealtime.gd",
+      "line": 2450,
+      "quote": "top_side, \"escape\",",
+      "via": "escape",
+      "gate": "none",
+      "what": "Bottom man escapes from side/mount/back to full guard; stance stays ground, top unchanged."
+    },
+    {
+      "kind": "submission_open",
+      "file": "Godot/scripts/FightRealtime.gd",
+      "line": 2409,
+      "quote": "g[\"sub_open\"] = true",
+      "via": "",
+      "gate": "none",
+      "what": "Top man in mount or back held long enough with a low action roll opens a submission attempt; no ruleset check gates it."
+    },
+    {
+      "kind": "submission_finish",
+      "file": "Godot/scripts/FightRealtime.gd",
+      "line": 2405,
+      "quote": "_finish_submission(state, tick, seconds, top_side, bottom_side, seat)",
+      "via": "",
+      "gate": "none",
+      "what": "Open submission advances to finished; GrappleResolve.submission_advance returns finished true and the bout stops."
+    },
+    {
+      "kind": "palette",
+      "file": "Godot/scripts/FightRealtime.gd",
+      "line": 2040,
+      "quote": "Moves.grapple_arsenal(fighter.get(\"athlete\", fighter), ruleset_id)",
+      "via": "",
+      "gate": "none",
+      "what": "Grapple technique palette is built from the ruleset's discipline_tags via FightMoves.grapple_arsenal; muay_thai's tags (muay_thai, boxing, clinch) carry takedown and throw nodes that feed the ground path."
+    }
+  ]
+}

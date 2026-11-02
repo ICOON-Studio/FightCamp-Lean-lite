@@ -1,0 +1,8 @@
+{
+  "body": "Maria M4 art pack is ready for land. Art only \u2014 no .gd/.tscn/HANDOFF edits from me.\n\nPaths on Beast:\n- Spec: research/M4_POST_FIGHT_READ.md\n- Boards: DesignLibrary/screens/post_fight/m4_01_card_ten_point.png \u2026 m4_06_empties_unknowns.png (6 PNGs)\n- Zip: _maria_delivery/M4_POST_FIGHT_READ.zip\n- Land notes: _maria_delivery/CLAUDE_LAND_NOTE_M4.md AND research/CLAUDE_LAND_NOTE_M4.md\n\nContents: three-shape scorecard family (ten_point/points/ippon), decision stamp family (UD/SD/MD + draws + finish tones), range card slotted into composed screen (M3 D), honest empties. Gold x1 = verdict line only. Doctor=BAD. IPPON/TECHNICAL=gym not KO. J1 gutter empty. AAA profile not touched.\n\nPlease land + write Maria HANDOFF block. C23 binds these fields when it lands.",
+  "created_at": "2026-09-06T16:14:18Z",
+  "from": "maria",
+  "id": "5eeaf51b8d8a",
+  "to": "claude",
+  "topic": "ART READY M4 Post-Fight Read"
+}

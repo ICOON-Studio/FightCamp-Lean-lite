@@ -1,0 +1,183 @@
+FIGHTCAMP — S259 COMBAT MOTION AUDIT & SIM ANIMATION SPECIFICATION
+
+Roles: Lead Game Systems Designer & Art Director
+
+Target Engine: Godot 4.7 / Steam Early Access
+
+Asset Inspected: Clip Review 1 (Seed 95501, 20-second A/B test: Multi-Root vs. One-Root-Writer)
+
+Primary Metric Reference: 40 s sample (1,200 frames @ 30 fps), Top 10 = BEFORE, Bottom 10 = AFTER (1 frame every 2.0 s / 60 engine ticks).
+
+1. A/B COMPARATIVE ANALYSIS: WHICH SIDE READS AS BOXING, AND WHERE IT BREAKS
+The Macro Verdict
+
+The AFTER side (One-Root-Writer, bottom strip) is strictly superior mechanically, but it is not yet "boxing."
+
+What AFTER Fixed: It completely eliminated the physics-breaking root spikes (> 4 m/s teleports went from 8/9 frames down to 0). Blue’s deep-crouch hip collapse is largely stabilized (39 frames down to 5). It cuts foot sliding roughly in half ($26–28% \to 13–15%$).
+Why the Operator Still Called it "Terrible": The motion remains broken because the locomotion layer and striking layer are fighting for root authority without Inverse Kinematics (IK) foot pinning. When the upper body executes a punch, the root continues translating or rotating independently of the planted feet, causing the boots to skate across the canvas. More egregiously, Red’s extreme spinal twist (19 frames $> 50^\circ$) and the chest-center collapse ($0.557\text{ m}$) make the fighters look like entangled mannequins rather than two athletes contesting space.
+Frame-by-Frame Breakdown of Critical Breaks
+Frame Index Map (Sampled every 2.0s / 60 frames):
+Row 1: [F01: 0.0s] [F02: 2.0s] [F03: 4.0s] [F04: 6.0s] [F05: 8.0s]
+Row 2: [F06: 10.0s] [F07: 12.0s] [F08: 14.0s] [F09: 16.0s] [F10: 18.0s]
+
+Break 1: The Rhythmic Foot Float (Frames F01 & F06)
+BEFORE (Top): Red’s rear foot floats off the floor while moving forward; stance width stretches past $1.15\text{ m}$. Red looks like he is slipping on ice.
+AFTER (Bottom): Red's stance width is clamped ($<0.95\text{ m}$ violations dropped from 42 to 25), but as Red throws the jab, the lead foot slides forward $0.22\text{ m}$ during glove extension rather than stepping before the punch. The foot moves like an air hockey puck with zero friction or weight transfer.
+Break 2: The Severe Torso Disarticulation & Hunch (Frames F03 & F04)
+BEFORE (Top F03–F04): Red’s hips drop to $0.62\text{ m}$ (below the legal knee line). Red looks like he is attempting an Olympic wrestling double-leg takedown rather than throwing a punch.
+AFTER (Bottom F03–F04): Red still exhibits a catastrophic thoracic twist. Red’s hips face the camera at $0^\circ$, but the upper spine/chest is twisted past $54^\circ$ toward Blue. Red’s right shoulder is thrown completely out of its anatomical socket. Because there is no pelvic counter-rotation, Red looks deformed.
+Break 3: The Interpenetration / Torso Merge (Frames F03, F08, F09)
+BOTH BEFORE & AFTER: At $0.557\text{ m}$ chest-center distance, Red's lead shoulder and chest clip directly into Blue's pectoral geometry. Blue’s rear glove passes entirely through Red’s left latissimus dorsi.
+Why it happens: The engine treats range as a single distance float between two point-masses. When both fighters step forward on an attack tick, the collision cylinder radii ($0.30\text{ m}$ each) overlap before the physics solver can push them apart.
+2. FOOTWORK KINEMATICS & CODEABLE FOOT RULES
+
+In real boxing, punches are generated from the ground up: Force = Foot Anchor $\to$ Hip Rotation $\to$ Scapular Extension. In the current build, hands fire while feet are in mid-translation.
+
+       ORTHODOX JAB (PUSH STEP)                 ORTHODOX REAR CROSS (REAR PIVOT)
+    [Lead Foot]        [Rear Foot]           [Lead Foot]          [Rear Foot]
+    Steps fwd 8-12cm   Pushes, then drags    Planted firmly       Ball pivots 45-60 deg
+    PLANTED at impact  up same distance      DO NOT MOVE          Heel kicks OUTWARD
+        |                  |                     |                    |
+     (LOCK IK)          (TRAIL)               (LOCK IK)          (ROTATIONAL PIVOT)
+
+The Three Fundamental Striking Footwork Rules
+Rule 1: The Push Step (Lead Jab)
+
+When a boxer steps into a jab:
+
+Initiation ($t = 0.00\text{ s}$ to $0.08\text{ s}$): The rear foot pushes against the canvas.
+Step Phase ($t = 0.08\text{ s}$ to $0.18\text{ s}$): The lead foot lifts a maximum of $0.03\text{ m}$ off the canvas, stepping forward between $0.08\text{ m}$ and $0.15\text{ m}$ (governed by reach).
+Plant Lock ($t = 0.18\text{ s}$): The lead foot MUST plant before contact. At $t = 0.18\text{ s}$, the lead foot contacts the canvas and is hard-locked via Two-Bone IK with zero translation.
+Impact ($t = 0.28\text{ s}$): Impact occurs only when the lead foot is planted.
+Rear Foot Trail ($t = 0.28\text{ s}$ to $0.42\text{ s}$): The rear foot slides forward the identical distance ($0.08\text{ m}$ to $0.15\text{ m}$) to re-establish the baseline stance width ($0.45\text{ m} \pm 0.05\text{ m}$).
+Rule 2: The Pivot (Rear Cross / Straight Right)
+
+A rear cross never translates the lead foot:
+
+Lead Foot: Clamped to the canvas (IK weight $= 1.0$). Maximum translation allowed $= 0.00\text{ m}$.
+Rear Foot: Heel raises off canvas; the ball of the foot acts as a fixed pin ($X, Z$ coordinates stationary). The rear heel rotates outward by $45^\circ\text{ to } 60^\circ$ around the vertical $Y$-axis.
+Weight Transfer: The center of mass shifts from $50/50$ to $60%$ lead leg, $40%$ rear leg.
+Rule 3: The Lead Hook Pivot
+Lead Foot: The ball of the lead foot pins to the canvas. The lead heel kicks outward $45^\circ\text{ to } 70^\circ$, driving the hip rotation.
+Rear Foot: Remains planted, absorbing the rotational torque.
+Codeable State-Machine Invariants (Godot GDScript Implementation)
+# Kinematic constraints enforced during strike animations
+func enforce_striking_foot_constraints(boxer: BoxerBody, current_punch: PunchType, punch_time: float):
+    match current_punch:
+        PunchType.JAB:
+            if punch_time >= 0.18 and punch_time <= 0.45:
+                # Lock lead foot firmly to canvas
+                boxer.left_foot_ik.target_weight = 1.0
+                boxer.left_foot.linear_velocity = Vector3.ZERO
+        PunchType.CROSS:
+            # Lead foot completely immobilized
+            boxer.left_foot_ik.target_weight = 1.0
+            boxer.left_foot.global_position = boxer.lead_foot_anchor_pos
+            # Rear foot pinned at ball, heel yawed
+            boxer.right_foot_ik.pin_to_canvas_ball_of_foot()
+        PunchType.LEAD_HOOK:
+            boxer.right_foot_ik.target_weight = 1.0
+            boxer.left_foot_ik.apply_heel_pivot(45.0, 70.0)
+
+3. PUNCH SPEEDS: SIM READABILITY VS. REALITY
+Why Real Boxing Speed Looks Broken to a Manager
+In real professional boxing, an elite lead jab reaches full extension in $0.12\text{ s to } 0.16\text{ s}$ (4 to 5 frames at 30 fps).
+In a third-person management camera (isometric/high-angle at $Z = 2.6\text{m} \dots 5.0\text{m}$):
+A 4-frame punch lacks intermediate frames. The glove appears to instantly disappear from the cheek and reappear in the opponent’s face. This produces the operator's complaint: "the jab fires like a bullet why is it so fast."
+The human eye needs at least 6 to 8 frames of wind-up/extension from a distant vantage point to register wind-up, target intent, and collision.
+The Management Sim Formula: $1.35\times$ Broadcast Readability Scaling
+
+We do not use real-life speed; we apply a $+35%$ time dilation to strike extension while preserving snappy, realistic impact audio.
+
+$$\begin{array}{|l|c|c|c|c|c|}
+\hline
+\textbf{Punch Type} & \textbf{Real Life Ext.} & \textbf{Sim Ext. (Windup to Hit)} & \textbf{Frames @ 30fps} & \textbf{Impact Hold} & \textbf{Retraction to Guard} \
+\hline
+\text{Lead Jab} & 0.14\text{ s} & \mathbf{0.260\text{ s}} & 8 \text{ frames} & 0.033\text{ s (1 fr)} & \mathbf{0.180\text{ s}} \text{ (5 fr)} \
+\text{Rear Cross} & 0.22\text{ s} & \mathbf{0.340\text{ s}} & 10 \text{ frames} & 0.033\text{ s (1 fr)} & \mathbf{0.220\text{ s}} \text{ (7 fr)} \
+\text{Lead Hook} & 0.24\text{ s} & \mathbf{0.360\text{ s}} & 11 \text{ frames} & 0.066\text{ s (2 fr)} & \mathbf{0.240\text{ s}} \text{ (7 fr)} \
+\text{Rear Uppercut} & 0.26\text{ s} & \mathbf{0.380\text{ s}} & 11 \text{ frames} & 0.066\text{ s (2 fr)} & \mathbf{0.260\text{ s}} \text{ (8 fr)} \
+\text{Overhand Right} & 0.32\text{ s} & \mathbf{0.440\text{ s}} & 13 \text{ frames} & 0.066\text{ s (2 fr)} & \mathbf{0.320\text{ s}} \text{ (10 fr)} \
+\hline
+\end{array}$$
+
+Total Jab Cycle: $0.260\text{ s (Extension)} + 0.033\text{ s (Impact)} + 0.180\text{ s (Retract)} = \mathbf{0.473\text{ s}}$ (Approx. 14 frames at 30 fps).
+The "Tell" Phase (First 3 frames, $0.00\text{ s} - 0.10\text{ s}$): The fighter's lead shoulder elevates $2\text{cm}$ and hips rotate $5^\circ$ before the fist moves. This telegraph gives the viewer's eye the visual clue required to track the punch before it extends.
+4. SPACING, COMBAT DISTANCES & PREVENTING MESH MERGING
+The Fatal Flaw: $0.557\text{ m}$ Chest Distance
+
+In the measured data, the engine held a chest-center distance of $0.557\text{ m}$.
+
+An average male boxer torso has an anterior-posterior chest depth of $0.24\text{ m}$ and shoulder width of $0.46\text{ m}$.
+Two boxers facing each other at $0.557\text{ m}$ chest-center have less than $0.077\text{ m}$ (7.7 cm) of clearance between their chest surfaces.
+Any standard arm swing or lean forward causes the skeletal meshes to intersect.
+       OUTSIDE (JAB)                   INSIDE (HOOK / INFIGHT)               CLINCH (CHEST TO CHEST)
+[BOXER A] <---- 1.45m ----> [BOXER B]   [BOXER A] <-- 0.85m --> [BOXER B]     [BOXER A] < 0.65m > [BOXER B]
+- Arms extend fully                     - Elbows bent 90 deg                  - Underhooks, hands pinned
+- Zero mesh overlap                     - Clean 0.37m chest clearance         - Dedicated clinch animation
+
+Hard-Coded Distance Tiers
+
+$$\begin{array}{|l|c|c|l|}
+\hline
+\textbf{Combat Zone} & \textbf{Chest-Center Distance} & \textbf{Clear Air Margin} & \textbf{Permitted Strikes / States} \
+\hline
+\textbf{Reset / Ring Move} & > 1.80\text{ m} & > 1.32\text{ m} & \text{Circling, reset, recovery, no punches} \
+\textbf{Jab / Long Range} & \mathbf{1.35\text{ m} \dots 1.55\text{ m}} & 0.87\text{ m} \dots 1.07\text{ m} & \text{Lead Jab, Straight Cross} \
+\textbf{Medium Range} & \mathbf{1.05\text{ m} \dots 1.25\text{ m}} & 0.57\text{ m} \dots 0.77\text{ m} & \text{Overhand, 1-2 Combos} \
+\textbf{Infight / Hook Range} & \mathbf{0.80\text{ m} \dots 0.95\text{ m}} & 0.32\text{ m} \dots 0.47\text{ m} & \text{Short Hooks, Uppercuts, Body Rips} \
+\textbf{Clinch / Tie-Up} & \mathbf{0.62\text{ m} \dots 0.68\text{ m}} & 0.14\text{ m} \dots 0.20\text{ m} & \text{Dedicated Clinch Mesh/Overhooks ONLY} \
+\hline
+\end{array}$$
+
+The Capsule Separation Solver
+
+To prevent meshes from ever merging below $0.80\text{ m}$ outside of a clinch:
+
+Kinematic Torso Buffer: Attach a vertical capsule collider to the root spine bone ($Radius = 0.38\text{ m}$, $Height = 1.2\text{ m}$).
+Repulsion Velocity: If chest-center distance falls below $0.78\text{ m}$ and no Clinch State is active, inject an immediate non-linear separation force: $$\vec{V}{\text{pushback}} = \hat{D}{AB} \times \left(\frac{0.80 - \text{dist}}{0.80}\right) \times 2.8\text{ m/s}$$
+Guard Elbow Bumping: If boxers collide at $<0.80\text{ m}$, play the Forearm Frame state: the boxers post their lead forearms against the opponent’s shoulders rather than letting the arms clip behind the opponent's back.
+5. THE THREE WORST MOMENTS & THE FIGHTING-GAME ANIMATOR'S FIX
+                    PRIORITY REPAIR PIPELINE
++---------------------------------------------------------------------------------+
+| PRIORITY 1: SPINE & TORSO TWIST CLAMP                                           |
+| -> Enforce hard anatomical limit (max 32 deg spinal rotation).                  |
+| -> Move remaining rotation into Pelvis + Foot Pivots.                          |
++---------------------------------------------------------------------------------+
+                                      |
+                                      v
++---------------------------------------------------------------------------------+
+| PRIORITY 2: CHEST-CENTER MINIMUM DISTANCE & INTERPENETRATION                    |
+| -> Hard floor at 0.82m for striking exchanges.                                  |
+| -> Pushback solver prevents fighters occupying the same coordinate.             |
++---------------------------------------------------------------------------------+
+                                      |
+                                      v
++---------------------------------------------------------------------------------+
+| PRIORITY 3: FOOT IK PINNING ON ATTACK CONTACT                                   |
+| -> Lock foot position during punch active frames (Impact hold).                 |
+| -> Eliminate "ice skating" glide during punches.                                |
++---------------------------------------------------------------------------------+
+
+Worst Moment 1: The Disarticulated Spine (Red in Frames F03–F04, F09)
+What Happened: Red's spine twisted past $54^\circ$ while hips stayed static. Red's neck snapped backward into an unnatural hunch.
+The Fighting-Game Animator Fix:
+Clamp Spine Yaw: Clamp bone Spine_02 and Spine_03 rotational yaw to a hard maximum of $\pm 18^\circ$ each (cumulative maximum spinal rotation $= \mathbf{36^\circ}$).
+Pelvis Distribution: Any rotational requirement beyond $36^\circ$ must be forced into the Pelvis/Hips bone ($50%$) and the Rear Foot Ball Pivot ($50%$). If the feet cannot pivot, the punch cannot reach; the punch animation must abort or fall short rather than tearing the torso apart.
+Worst Moment 2: The $0.55\text{ m}$ Torso Fusion (Frames F03, F08)
+What Happened: Both boxers moved into the same coordinate space, shoulders clipping inside each other's ribcages while throwing punches behind each other's backs.
+The Fighting-Game Animator Fix:
+Enforce Hard In-Fight Perimeter ($0.82\text{ m}$). If an attack animation moves the boxer closer than $0.82\text{ m}$, clip translation is halted at the threshold while arm IK extends forward.
+Implement an Auto-Frame Guard: when distance $< 0.80\text{ m}$, fighter arms automatically default to a high tight earmuff or collar-tie frame, preventing arms from flailing behind the opponent’s model.
+Worst Moment 3: The Gliding / Ice-Skating Plant (Frames F01, F06, F10)
+What Happened: Red’s lead foot traveled $0.22\text{ m}$ across the canvas while the left hand was fully extended in a jab.
+The Fighting-Game Animator Fix:
+Implement Foot Contact Locking (IK Ground Pinning) in Godot's SkeletonModification2DTwoBoneIK (or 3D equivalent).
+The moment the animation tag reaches PLANT_LEAD ($t = 0.18\text{ s}$), save the world-space transform of the foot bone. During all active striking frames ($t = 0.18\text{ s} \dots 0.40\text{ s}$), lock the foot mesh to that exact world transform, allowing the torso root to translate forward over the planted foot (closing the hip angle) without moving the boot on the canvas.
+VERDICT: WHAT WE FIX FIRST (IN S259 EXECUTION)
+
+Fix the Spatial Interpenetration ($0.82\text{ m}$ Distance Clamp) FIRST, followed immediately by the Spine Clamp.
+
+Today (Hour 1): Change the combat collision engine's minimum distance floor from $0.557\text{ m}$ to $0.85\text{ m}$. Boxers will immediately stop merging, arms will strike the front of the body instead of clipping through torsos, and punches will have room to visually extend.
+Today (Hour 2): Add the hard rotation clamp of $36^\circ$ to the upper spine node in Godot. The bizarre, grotesque contortions marked by the operator will vanish instantly.
+Tomorrow: Implement the Two-Bone IK Foot Lock on contact frames to stop foot sliding from $15%$ down to our production target of $\le 5%$.

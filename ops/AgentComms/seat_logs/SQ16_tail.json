@@ -1,0 +1,687 @@
+{
+  "entries": [
+    {
+      "kind": "message",
+      "id": "t57u",
+      "role": "user",
+      "content": "# JOHN_MOCAP_MORE_S271 - where do we get MORE real boxing motion capture like the Rokoko free takes? (research only)\n\nOperator S271, on the 11 Rokoko free-fight renders: \"all 11 look perfect , how can we make more of those ?\"\nWhat we have: Rokoko \"13 free fight animations\" (captured by Sam Lazarus with a Rokoko suit; free for any game, commercial).\n5 boxing takes (Boxing, ShadowBoxing, FightingIdle, 2 knockouts) -> 10 single punches cut, mostly jabs + 1 cross + 1 rear body shot.\nWe need: lead/rear hooks, uppercuts (lead + rear), body hooks, slips, rolls, blocks/parries, head + body hit reactions, clinch\nentry, footwork (step in/out, pivot, circle), knockdown + get-up, corner sitting. Skeleton: anything Mixamo-named or UE5 Manny\nretargets cleanly through our MixamoMotion path. Budget: ZERO money right now (operator: \"i dont have money now\").\nAlready out (do not propose): ViCoS, QuickMagic, Harmony4D (licence), Bandai Namco dataset (non-commercial), Ludo text-to-motion\n(tested S270, all takes failed), Mixamo/ActionForge/H2H (owned, not boxing), Meshy library (owned, 45 clips - being judged now).\n\nAnswer, longest complete answer you can give, every claim with its URL and the licence text quoted:\n1. Every FREE source of real (captured, not keyframed) boxing / martial-arts-striking mocap whose licence allows a commercial game:\n   Rokoko's other free packs / Rokoko Motion Library free items, CMU Graphics Lab Motion Capture Database (which subjects are\n   boxing; its exact licence wording), Mixamo's mocap-origin boxing clips, university datasets, Unity/Unreal free packs, itch.io.\n2. VIDEO -> MOCAP tools with a free tier whose output we may ship commercially: Rokoko Vision (free tier limits, clip length,\n   export format, licence of output), Move.ai, DeepMotion Animate 3D, Plask, RADiCAL, FreeMoCap (open source), any other.\n   For each: what a single phone video of a real boxer shadowboxing would give us, how clean hands/feet are, known failure modes.\n3. If we film our own boxer (a local gym, a phone on a tripod): the exact capture recipe (camera height/distance, fps, clothing,\n   lighting, one move per take, take length) that gives the cleanest result in the best free tool from (2).\n4. Rank the top 5 routes by (quality of boxing motion) x (zero cost) x (licence safety), with the first concrete step for each.\n",
+      "isStreaming": false,
+      "timestampMs": 1792464035905,
+      "clientNonce": "6232ad8e-41fb-4324-8876-aebb0393ff9a",
+      "requestId": "1baa25be-d781-4e4b-ab7e-561560f823d2",
+      "seq": 455
+    },
+    {
+      "kind": "send-message",
+      "id": "t57s456",
+      "message": {
+        "type": "text",
+        "content": "On it. I'm starting the S271 mocap research now: free captured boxing sources, free video-to-mocap tools, a capture recipe for filming your own boxer, and a top 5 ranking. Every claim will have its URL and the licence text quoted."
+      },
+      "timestampMs": 1792464044981,
+      "requestId": "1baa25be-d781-4e4b-ab7e-561560f823d2",
+      "seq": 456
+    },
+    {
+      "kind": "send-message",
+      "id": "t57s457",
+      "message": {
+        "type": "text",
+        "content": "The S271 mocap research has started. I'll paste the full answer here when it's done, with every source's URL and licence quote and the top 5 ranking."
+      },
+      "timestampMs": 1792464064141,
+      "requestId": "1baa25be-d781-4e4b-ab7e-561560f823d2",
+      "seq": 457
+    },
+    {
+      "kind": "send-message",
+      "id": "t57s458",
+      "message": {
+        "type": "text",
+        "content": "**JOHN_MOCAP_MORE_S271, first pass (part 1 of 2).** Some sources are still NOT VERIFIED, and I've started a second pass to open them. That covers the Unity Asset Store, itch.io, OpenGameArt, Sketchfab, Quaternius, Kenney, Truebones, ActorCore, Reallusion, Mocap Online, most of the datasets, Plask, RADiCAL, Cascadeur, 4DHumans, the Move One licence, and user reviews of fast-punch tracking.\n\n**1a. Rokoko free packs: commercial use OK**\n- [13 free fight animations](https://www.rokoko.com/resources/rokoko-mocap-13-free-fight-animations), VERIFIED: \"you can use them in any animation, VFX, game, 3D art etc project you want, from passion project to commercial use.\" The pack is FBX on a Mixamo skeleton at 30 fps.\n- [6 free martial arts animations](https://www.rokoko.com/resources/rokoko-mocap-6-free-martial-arts-animations): the same wording appears in a search snippet only (SEARCH-ONLY).\n- [Motion Library 10 free fight and weapon animations](https://www.rokoko.com/resources/motion-library-10-free-fight-and-weapon-animations): the licence on that page isn't verified yet. The pricing page snippet says Motion Library clips can be used \"in any of your projects, including commercial ones\".\n- **Clip names** come from an unofficial archive.org mirror, so download the real files from rokoko.com.\n  - **FIGHT-MOTIONS pack:** Idle_FightStance, StepForwardandPunch (step-in), FightScene_PersonA/B (a two-person exchange, probably with hits, reactions and blocks: GUESS), WoundedChestFight (probably a body-hit reaction: GUESS), PunchingtheGround, KingKongFight, WrestlingIntro, AngryArgument and sword clips.\n  - **MARTIAL-ARTS pack:** **GetUp_WipeBloodfromMouth** (a knockdown get-up candidate), plus MartialArtsKata and sword clips.\n  - **SPORTS pack:** JogginginPlace could work as a bounce idle (GUESS).\n  - The weapons pack has no boxing.\n- The [free resources hub](https://www.rokoko.com/free-resources) lists a \"263 free assets\" pack, \"including for commercial use\" (search snippet).\n\n**1b. CMU Graphics Lab database: VERIFIED, the most permissive licence**\n- Licence, verbatim from the [CMU FAQ](http://mocap.cs.cmu.edu/faqs.php): \"The motion capture data may be copied, modified, or redistributed without permission.\"\n- It was captured with Vicon at 120 Hz.\n- Boxing trials from the [CMU boxing search](http://mocap.cs.cmu.edu/search.php?subjectnumber=%&motion=boxing):\n  - Subject 13, trial 17.\n  - Subject 14, trial 1, plus two more rows whose numbers didn't render (probably 14_02 and 14_03: GUESS).\n  - Subject 15, trials 4, 5 and 13.\n  - Subject 17, trial 10.\n  - Subject 79, trial 8.\n  - Subject 80, trial 10.\n- Subject 144 wasn't in the boxing search (NOT FOUND).\n- These are amateur shadowboxing takes, good for filler punches and footwork but not polished hooks (GUESS).\n\n**1c. Mixamo:** I couldn't verify which boxing clips are mocap-origin, because Adobe doesn't label them.\n\n**1d. Research datasets**\n- [LaFAN1](https://github.com/ubisoft/ubisoft-laforge-animation-dataset) is **not shippable**: \"Creative Commons Attribution-NonCommercial-NoDerivatives 4.0\". It also has no boxing.\n- [AMASS](https://amass.is.tue.mpg.de/license.html), and BABEL built on it, are **not shippable**: \"any use for commercial purposes, is prohibited … incorporation in a commercial product\".\n- The rest aren't opened yet.\n\n**1e. Fab:** the [Fab EULA](https://www.fab.com/eula) says \"usage is not limited to Unreal Engine\" and allows you to \"Commercially distribute your Projects with the Fab assets incorporated\". So Fab free packs are fine in Godot. I haven't searched for specific boxing packs yet."
+      },
+      "timestampMs": 1792464218228,
+      "requestId": "a8b5752c-6b66-4786-af93-b1b525128b93",
+      "seq": 458
+    },
+    {
+      "kind": "send-message",
+      "id": "t57s459",
+      "message": {
+        "type": "text",
+        "content": "**S271, first pass (part 2 of 2)**\n\n**2. Video-to-mocap tools with a free tier**\n- **Rokoko Vision 3.0**, in [Rokoko Create](https://create.rokoko.com/):\n  - **Free tier:** 30 s of video a month, FBX export, on a Mixamo, HIK or UE5 Manny skeleton. BVH needs the $10/month plan. There's no finger tracking, and it's single camera only, because dual-camera has been removed.\n  - **Output licence, verbatim:** \"Yes, all generated data with text-to-motion and with video-to-motion can be used commercially.\"\n  - **Caveat:** [a third-party summary](https://assetforgeindex.com/commercial-use/rokoko) says Rokoko's service terms let it sublicense your uploads in anonymised form.\n- **Move.ai Move One:**\n  - **Free tier:** iPhone only, 30 lifetime credits (about 30 s total), with free videos capped at 30 s ([pricing doc](https://docs.move.ai/knowledge/move-one-pricing), search snippet).\n  - **Licence:** a search summary says Move AI owns the output and gives you a royalty-free licence to use it. The EULA page returned 404, so that's NOT VERIFIED verbatim.\n- **DeepMotion Animate 3D** is **not shippable on the free tier**. Its [terms](https://www.animate-3d.com/terms-of-use) say \"Non-Commercial License … Commercial use is granted with a Paid Plan\" (seen in a search snippet), and the [portal](https://portal.deepmotion.com/) shows \"Commercial License: Unavailable\" for Freemium.\n- **[FreeMoCap](https://github.com/freemocap/freemocap)** is open source with AGPL-3.0 code and needs 2+ cameras. Who owns the captured output isn't verified (GUESS: the data is yours).\n- **[WHAM](https://github.com/yohanshin/WHAM)** has MIT code but needs SMPL body-model weights, which are non-commercial. That's a FLAG: it isn't shippable without a licence for those weights.\n- **[GVHMR](https://github.com/zju3dv/GVHMR)** is **not shippable**: \"educational, research and non-profit purposes only … prohibited for commercial use\".\n- **Fast boxing footage, what to expect** (GUESS, plus vendor statements):\n  - Punches blur and lose their extension.\n  - The rear arm gets hidden when a boxer stands side-on. Rokoko itself says \"occluded limbs will translate in less good tracking capabilities\".\n  - Expect foot sliding and no finger data, so plan cleanup in Blender.\n  - I couldn't get any user-review quotes yet because Reddit was blocked.\n\n**3. Recipe for filming your own boxer (Rokoko Vision, one phone)**\n- **Camera:** a tripod at chest height (\"between your hips and head\"), with head to feet in frame for the whole take. The vendor's \"at least 2 m\" comes from its old dual-camera guide. I'd guess 3–4 m in landscape.\n- **Resolution:** 1080p or higher, per the vendor.\n- **Clothing:** tight sportswear that contrasts with the background, not black or baggy.\n- **Room:** even, diffuse light, no mirrors, one person in frame.\n- **Frame rate:** 60 fps with a fast shutter (1/500 or faster) to cut punch blur, which needs bright light. That's a GUESS, not in the vendor docs.\n- **Takes:** one move per take, 3–8 s long, starting and ending in guard, to stretch the 30 s/month quota (GUESS). No T-pose is required.\n- **Angle:** about 45° off the front so neither arm is hidden, and repeat each move mirrored (GUESS).\n- **Sources:** [Rokoko support guide](https://support.rokoko.com/hc/en-us/articles/29064372040977), [how Rokoko Vision works](https://www.rokoko.com/insights/is-rokoko-vision-generative-ai-how-markerless-motion-capture-actually-works), [Rokoko recording tips](https://support.rokoko.com/hc/en-us/articles/28312013117841).\n\n**4. Top 5 routes (quality × zero cost × licence safety)**\n1. **Rokoko free packs.** First step: download the 263-asset pack from the free resources hub, search the clip names for hook, uppercut, hit, fall and get-up, and pull GetUp_WipeBloodfromMouth, WoundedChestFight and FightScene_PersonA/B.\n2. **CMU mocap.** First step: get BVH conversions of 13_17, 14_01–03, 15_13, 17_10, 79_08 and 80_10, then cut out the hooks, uppercuts and footwork.\n3. **Rokoko Vision on your own boxer** (free 30 s/month). First step: shoot one 5 s test each of a lead hook, a slip and a head-hit reaction using the recipe above, and judge the result.\n4. **Move One** (free 30 credits, iPhone). First step: open its EULA and confirm the output licence before filming.\n5. **Fab free animation packs.** First step: search Fab for free boxing or martial-arts packs that say they're mocap and use the Standard License.\n\nRuled out: the DeepMotion free tier, LaFAN1, AMASS/BABEL, GVHMR, and anything that relies on SMPL weights.\n\nI'll post the second-pass findings and a revised top 5 here as soon as it's done."
+      },
+      "timestampMs": 1792464234609,
+      "requestId": "a8b5752c-6b66-4786-af93-b1b525128b93",
+      "seq": 459
+    },
+    {
+      "kind": "send-message",
+      "id": "t57s460",
+      "message": {
+        "type": "text",
+        "content": "**S271, second pass.** The best new lead is a **Fab \"Boxing Animation Pack\" by Ailive**. It has the lead and rear hooks and uppercuts, plus a duck, a sway and footwork. Its $0 price and its licence still need checking in a browser.\n\n**New boxing pack**\n- [Ailive Boxing Animation Pack on Fab](https://www.fab.com/listings/02943b05-f6cb-44d6-b73c-bad3d94dc585)\n  - The page says: \"10 full-body Variable Boxing animations, including finger movement, captured via motion capture and lightly cleaned for usability. Use them freely in your games, cinematic sequences, and various other projects. Animations are based on UE5's Manny character.\"\n  - Clips: Boxing_Footwork, Dudging_with_a_Ducking, Dudging_with_a_Sway, Shadow_Boxing_Quickly, Left/Right_Uppercut, Left/Right_Hook, Punch_with_Left/Right_Hand.\n  - **Still open:** \"free\" appeared only in a search snippet. The page I fetched showed no price and a blank licence field. Ailive also makes an AI animation generator, so some clips might be AI-assisted (GUESS), even though the page says \"captured via motion capture\".\n\n**Rokoko**\n- The licences for the 6-pack and the 263-asset pack are now **verified** from the pages:\n  - 6-pack: \"you can use them in any animation, VFX, game, 3D art etc project you want, from passion project to commercial use.\"\n  - 263-asset pack: \"you can use in any animation, VFX, game, 3D project you want, including for commercial use.\"\n- I couldn't get the 263 pack's clip names because the download sits behind an email form.\n- The Motion Library 10-pack's licence still isn't on its page, and the pack turns out to be weapon clips (knife, grenade, guns, bow). It's of little use for boxing.\n\n**Stores and libraries**\n- **Out on budget:** the Unity \"Boxing animation package\" (67 mocap clips) costs $14.99.\n- **Free Unity packs, search snippet only:** \"Free Those Who Fighter Animations\" and Magicpot's \"Fighting Motions Vol.1\" (25 karate and kickboxing moves). I didn't check whether either is mocap.\n- **Unity assets in Godot:** Unity's support article says (snippet) \"Unity Asset Store assets are not restricted to Unity projects. You can use them with other engines provided you follow the EULA guidelines\". Two limits: it doesn't apply to Restricted Assets, and the EULA (section 2.2.1(a)) allows use only \"as an embedded component\" of the game.\n- **MoCap Online free Sampler Pack:** \"Standard License, which permits use in commercial projects - including games\" (snippet). It isn't boxing-specific.\n- **Quaternius Universal Animation Library:** \"Free to use in personal, educational and commercial projects. (CC0 License)\". It has Punch Jab and Hit Head, but I didn't confirm whether those are mocap or keyframed.\n- **Kenney** is CC0 but has no boxing mocap.\n- **MocapFlow (GitHub)** is low trust: its readme says CC BY 4.0 while its licence file says CC0, and where the capture came from is unknown.\n- **Nothing usable:**\n  - Sketchfab: the boxing items were non-commercial or made from Mixamo clips.\n  - ActorCore: its \"Free Fight\" pack is listed at $99 (snippet).\n  - Truebones, itch.io, OpenGameArt and Reallusion had nothing.\n\n**Datasets: none has boxing mocap you could ship**\n- **Not shippable:**\n  - Motorica: \"Use for commercial purposes is not permitted without prior written consent.\"\n  - Human3.6M: academic use only.\n- **CC BY 4.0 but no boxing:** 100STYLE (Zenodo 8127870) is stylised walking only. Emokine (Zenodo 7821844) and AIST++ (snippet) are dance.\n- **Unverified:**\n  - HDM05: CC BY-SA 3.0, per a snippet.\n  - Berkeley MHAD: BSD-2 per a snippet, and it might include punching (GUESS).\n  - KIT: \"freely available to the scientific community\", per a snippet.\n  - SFU: the site returned nothing.\n- **Zenodo search for \"boxing\":** no dataset.\n\n**Video tools**\n- **Move One:** its licence is now verified at [Move One app EULA](https://www.move.ai/move-one-app-eula).\n  - Ownership (7.1.2): \"Move AI owns and shall retain ownership of all Intellectual Property Rights in and to ... the Motion Data, Output\".\n  - Grant (7.3): \"Move AI hereby grants to you a worldwide, royalty-free, fully paid-up, non-exclusive transferable, sublicensable licence of all Intellectual Property Rights it owns in the Output\".\n  - It bans using the output \"to train any AI System\" or \"as an input for any AI System\".\n  - My reading is that shipping the output in the game is allowed, including on the free tier. That's an interpretation, not legal advice.\n- **Not usable on free tiers:**\n  - Plask: \"personal non-commercial use\".\n  - Cascadeur: \"Free and Educational plans don't allow any commercial use\", and its free plan exports only its own CASC format.\n- **RADiCAL** now redirects to Autodesk Flow Studio, which denied access, so I'm treating it as unavailable.\n- **4D-Humans** has MIT code but relies on non-commercial SMPL body-model weights, so it isn't shippable.\n\n**Evidence on tracking fast punches**\n- Lahkar et al. 2022 (Frontiers) tested a 10-camera markerless system against marker-based capture on elite boxers.\n  - It found \"higher differences ... at the elbow (more than 3 cm)\" and wrist and elbow errors \"more than or equal to 20° in some DoFs\".\n  - The front arm was worse, which the authors put down to its \"relatively higher and faster movement\".\n  - A single phone will likely do worse (GUESS).\n- Reddit was blocked again, so there are still no user reviews."
+      },
+      "timestampMs": 1792464676965,
+      "requestId": "32a198e7-33b3-403b-ae62-06c64a6ed411",
+      "seq": 460
+    },
+    {
+      "kind": "send-message",
+      "id": "t57s461",
+      "message": {
+        "type": "text",
+        "content": "**Revised top 5 (quality × zero cost × licence safety)**\n1. **Fab Ailive Boxing Animation Pack.** It's the only free source found for hooks, uppercuts, a duck, a sway and footwork. First step: open the listing and confirm the $0 price, the Standard License and how it was made, then export the FBX files (UE5 Manny skeleton).\n2. **Rokoko free packs** (13 + 6 + 263, licences verified). First step: fill in the email form, download the 263 pack, and search the clip names for hit, fall, getup, block and sit.\n3. **CMU mocap.** It has the most permissive licence and suits filler punches and footwork. First step: get BVH versions of 13_17, 14_01–03, 15_13, 17_10, 79_08 and 80_10.\n4. **Rokoko Vision free tier (30 s a month) on your own boxer.** It's the only free way to cover slips, rolls, parries, the clinch, hit reactions, knockdowns and corner sitting. First step: film one 5-second test per move using the recipe in my previous message.\n5. **Move One free credits (30, iPhone).** First step: film the same test moves and compare them with the Rokoko Vision results.\n\nRuled out: the Plask, Cascadeur and DeepMotion free tiers (all non-commercial), RADiCAL (unavailable), and 4D-Humans, WHAM and GVHMR (non-commercial SMPL weights or code). The full report is attached."
+      },
+      "timestampMs": 1792464681978,
+      "requestId": "32a198e7-33b3-403b-ae62-06c64a6ed411",
+      "seq": 461
+    },
+    {
+      "kind": "send-message",
+      "id": "t57s462",
+      "message": {
+        "type": "attachment",
+        "url": "file:///home/box/agent-data/agents/f5f7f322-ac00-420e-b02e-b06d6662a26e/attachments/d08f9bbc5387d449774f52c3e218fe8fc4089ce884bfa3502ad63218cca18151.md",
+        "file_name": "JOHN_MOCAP_MORE_S271.md"
+      },
+      "timestampMs": 1792464682881,
+      "requestId": "32a198e7-33b3-403b-ae62-06c64a6ed411",
+      "seq": 462
+    },
+    {
+      "kind": "message",
+      "id": "t58u",
+      "role": "user",
+      "content": "# JOHN_MOTIONGEN_S271 - which AI motion GENERATORS make boxing clips as good as real mocap? (research only)\n\nOperator S271: \"there are powerful generators that can generate the clips like rokoko , also meshy clips are not bad we can use them\"\nOur bar: the Rokoko free mocap (a real boxer in a suit) - the operator called it \"perfect\". Ludo text-to-motion FAILED (S270: a\n\"jab\" prompt gave waving / celebrating). We need: lead+rear hooks, uppercuts, body shots, slips, rolls, blocks, hit reactions,\nfootwork, knockdown, get-up - one boxer, 30 fps, full body, exported FBX/GLB on a Mixamo or UE5 skeleton, licence that allows a\ncommercial Steam game. Money: ask only if the free tier cannot do it (operator: \"i dont have money now\").\n\nAnswer, longest complete answer you can give, every claim with its URL, licence text quoted, and DATE of the source:\n1. Every text-to-motion and video-to-motion generator active in 2026 (e.g. Uthana, DeepMotion SayMotion + Animate 3D, Kinetix,\n   Plask, Krikey, Move.ai, Rokoko Vision, Cascadeur AI tools, Meshy text-to-animation, Higgsfield/Tripo motion, Hunyuan Motion,\n   MotionGPT / MoMask / open models) - for each: free tier limits, output format/skeleton, commercial licence of the output.\n2. Which of them have shown a REAL boxing punch (a jab that drives from the legs/hips, hook with pivot) - link the example.\n3. For video-to-motion: the result quality on fast hand motion (punches blur) - published comparisons, known failure modes.\n4. Rank the top 5 for \"boxing clips like real mocap\" x free tier x licence, with the exact first test to run on each.\n",
+      "isStreaming": false,
+      "timestampMs": 1792467637036,
+      "clientNonce": "282ad26c-934d-4a23-bec3-33f8aaa02d6f",
+      "requestId": "2d3706a3-8445-41d9-a2e3-5e4082d94a9f",
+      "seq": 463
+    },
+    {
+      "kind": "send-message",
+      "id": "t58s464",
+      "message": {
+        "type": "text",
+        "content": "On it. I'm starting the S271 motion-generator research now. It covers every text-to-motion and video-to-motion tool active in 2026, which ones have shown a real boxing punch, how they handle fast hands, and a top 5 with the first test to run on each."
+      },
+      "timestampMs": 1792467642645,
+      "requestId": "2d3706a3-8445-41d9-a2e3-5e4082d94a9f",
+      "seq": 464
+    },
+    {
+      "kind": "send-message",
+      "id": "t58s465",
+      "message": {
+        "type": "text",
+        "content": "The S271 motion-generator research has started. I'll paste the full answer here when it's done, with a dated URL and quoted licence for every claim and the top 5 tests."
+      },
+      "timestampMs": 1792467657368,
+      "requestId": "2d3706a3-8445-41d9-a2e3-5e4082d94a9f",
+      "seq": 465
+    },
+    {
+      "kind": "send-message",
+      "id": "t58s466",
+      "message": {
+        "type": "text",
+        "content": "The first pass on motion generators came back thin. I opened only four sources, so I've started a deeper second pass. Three findings are already solid, all checked today (2026-10-20):\n\n- **Tencent HY-Motion 1.0 is out for us.** Its licence defines the territory as \"worldwide … excluding the territory of the European Union, United Kingdom and South Korea\", and Cyprus is in the EU. Sources: [HY-Motion on GitHub](https://github.com/Tencent-Hunyuan/HY-Motion-1.0), released 2025-12-30 per [Hugging Face](https://huggingface.co/tencent/HY-Motion-1.0).\n- **Uthana has no free tier any more.** \"Uthana stopped offering new subscriptions in August 2026\", and it's now pay-as-you-go only: text-to-motion 3.0 is $0.10/s and video-to-motion 2.1 is $0.05 per input second. Its licence says \"Paid usage includes commercial use of generated outputs\" ([Uthana pricing](https://uthana.com/pricing), undated).\n- **No generator has shown a real skeletal boxing punch so far.** The boxing results I found are all 2D video templates with no skeleton, such as [Higgsfield's Boxing preset](https://higgsfield.ai/motion/17a55db6-8775-4a9f-a2c9-d0d373bee590).\n\nThe second pass covers Meshy, Kinetix, Krikey, Tripo, NVIDIA's models, Autodesk Flow Studio, Move Gen2, the open models' training-data licences, X and YouTube demos, and the fast-punch comparison papers. I'll post the full answer and top 5 when it's done."
+      },
+      "timestampMs": 1792467744513,
+      "requestId": "c30913b8-cc90-402c-ac9d-d7685c9deedf",
+      "seq": 466
+    },
+    {
+      "kind": "send-message",
+      "id": "t58s467",
+      "message": {
+        "type": "text",
+        "content": "**JOHN_MOTIONGEN_S271 is done (part 1 of 2).** No generator has shown a verified skeletal jab driven from the legs or a hook with a pivot. The X search came back empty. Two free leads that allow commercial use are worth testing: **NVIDIA Kimodo** and **Meshy's animation library**. I opened every page today (2026-10-20); the source's own date is in brackets.\n\n**1. Tools, free tiers and licences**\n- **NVIDIA Kimodo-SOMA-RP v1.2** [released 2026-10-15]\n  - **Licence:** the code is Apache-2.0. The model is under the NVIDIA Open Model License: \"This model is ready for commercial use\", and \"NVIDIA claims no ownership rights in outputs\" [undated].\n  - **Training data:** licensed studio mocap, not AMASS: \"Bones Rigplay … over 700 hours of production-quality human motion … covers … videogame combat\".\n  - **Running it:** free locally. It needs about 17 GB of GPU memory, or under 3 GB with `TEXT_ENCODER_DEVICE=cpu`, and makes at most 10 s per prompt.\n  - **Output:** NPZ, or BVH with `--bvh`, on its own SOMA skeleton. Retargeting to Mixamo and the frame rate are NOT VERIFIED.\n  - **Avoid:** the SMPL-X variant, which is under an R&D licence.\n- **Meshy animation library** (ready-made clips, not generated)\n  - **Free plan:** 100 credits a month.\n  - **Licence** [terms updated 2026-09-19]: free-plan output is licensed \"under the Creative Commons Attribution 4.0 International License … as long as the free plan customer provides appropriate credit to Meshy\". So commercial use is fine with a credit line.\n  - **Clips listed:** Right_Jab_from_Guard (192), Right/Left_Uppercut_from_Guard (194/196), Punch_Combo ×4, Boxing_Practice, Dodge_and_Counter, Block ×5, Stand_Dodge ×3, Face_Punch_Reaction_1, Hit_Reaction_to_Waist, Knock_Down ×2, and Walk_Fight forward and back. Left Hook and Left Jab appear only in search snippets.\n  - **Still unknown:** whether CC BY also covers the bundled library clips, the credits each clip costs, and the exact skeleton.\n- **Rokoko** [undated]\n  - **Free Starter plan:** \"30 seconds of Vision AI video processing per month, unlimited Text-to-Motion clips, and .FBX export\" on \"UE5 Manny, HIK, Mixamo skeletons\".\n  - **Licence:** \"Yes, all generated data with text-to-motion and with video-to-motion can be used commercially.\"\n  - Vision 3.0 has a rebuilt solver, and [Rokoko Create](https://create.rokoko.com/) shows a \"Sparring / Fast-paced motions\" example that I didn't inspect.\n- **Move One** ([Move One EULA](https://move.ai/move-one-app-eula), undated)\n  - **Free plan:** \"a one-time amount of 30 credits\", with videos up to 30 s. Gen 2 costs 2 credits per second, so about 15 s total, if free accounts can use Gen 2 (NOT VERIFIED).\n  - **Licence (7.3):** \"worldwide, royalty-free, fully paid-up, non-exclusive transferable, sublicensable licence … in the Output\".\n  - **Catch (7.2):** you give Move AI a \"perpetual, irrevocable\" licence to your video, which it uses for \"training and improvement of our products\".\n- **[Uthana](https://uthana.com/pricing)** [undated, mentions August 2026]: no free tier, because it \"stopped offering new subscriptions in August 2026\". Text-to-motion 3.0 costs $0.10/s and video-to-motion 2.1 costs $0.05 per input second. \"Paid usage includes commercial use of generated outputs.\"\n- **Kinetix:** \"the User may use the Outputs for commercial purposes\", but Kinetix may train AI on your inputs and outputs. It now looks focused on video, and its free tier and skeleton export are NOT VERIFIED.\n- **Krikey:** 20 free credits, once. Its 2024 terms allow commercial use. A reported $100k revenue cap and FBX being Pro-only are NOT VERIFIED.\n- **Anything World:** free under $100K revenue, with the credit \"Animated by Anything World\" required. It has no boxing content.\n- **Autodesk Flow Studio** (formerly RADiCAL): it has a free tier with USD export. Whether the free tier allows commercial use is NOT VERIFIED.\n- **Ruled out:**\n  - **Tencent HY-Motion 1.0:** the territory is \"worldwide … excluding the territory of the European Union, United Kingdom and South Korea\", and Cyprus is in the EU ([HY-Motion on GitHub](https://github.com/Tencent-Hunyuan/HY-Motion-1.0), released 2025-12-30).\n  - **DeepMotion:** \"Freemium accounts are available for personal, non-commercial use.\"\n  - **Cascadeur:** \"Free and Educational plans don't allow any commercial use\", and the free plan exports only CASC files.\n  - **Tripo:** its free tier is \"Non-Commercial Use\".\n  - **Plask:** its free tier is personal, non-commercial.\n  - **Sloyd:** commercial use needs a paid plan.\n  - **Mootion:** \"now a paid product\", and it makes videos.\n  - **Open models MoMask, MDM, MotionGPT, T2M-GPT:** the code is MIT or Apache-2.0, but the weights are trained on AMASS data. The AMASS licence says \"any use for commercial purposes, is prohibited … production of other artefacts for commercial purposes\". That's my reading, not legal advice.\n  - **Higgsfield:** its [Boxing preset](https://higgsfield.ai/motion/17a55db6-8775-4a9f-a2c9-d0d373bee590) is 2D video, not a skeleton."
+      },
+      "timestampMs": 1792468126936,
+      "requestId": "0861fdcd-6f27-4efc-aa2f-9f4d9a3eab2a",
+      "seq": 467
+    },
+    {
+      "kind": "send-message",
+      "id": "t58s468",
+      "message": {
+        "type": "text",
+        "content": "**S271 motion generators (part 2 of 2)**\n\n**2. Real boxing punch demos:** none verified. The closest leads are Meshy's jab, uppercut and combo previews, Rokoko's \"Sparring\" example and Kimodo's \"videogame combat\" training data, and I haven't watched any of them.\n\n**3. Video-to-motion on fast hands**\n- **Lahkar et al., Frontiers** [2022-07-25]: a 10-camera markerless system (Theia3D) tested against marker-based capture on elite boxers.\n  - Elbow error was over 3 cm, while shoulder and wrist were under 2.5 cm.\n  - Joint twist was poorly captured, but hand speed matched well (front hand peaked at 7.5 vs 7.0 m/s).\n  - That's a best case; a single phone will do worse.\n- **Jie & Chung** [accepted 2026-01-02]: one camera at 60 fps, with no punches tested.\n  - Scores out of 5: Rokoko Vision 3.4, DeepMotion 4.2, Meshcapade 4.1.\n  - All three failed when limbs touched or blocked the body, and \"Rokoko Vision failed to capture individual fingers\".\n  - The test may predate Vision 3.0.\n- **Sinfull Studios** [2026-06-18]: \"single-cam blocks, multi-cam ships\". Every tool leaves jitter, foot sliding and popping limbs. Note that this studio sells cleanup work.\n\n**4. Top 5** (quality untested, so the order is a GUESS)\n1. **Meshy library** (free, CC BY 4.0).\n   - **Test:** auto-rig a humanoid, apply clips 192, 194, 198, 175 and 187, export FBX, and retarget in Godot with a SkeletonProfileHumanoid BoneMap.\n   - **Check:** the hip turns, the rear heel lifts, and the punch returns to guard. Judge whether it looks like mocap or hand-keyed, and confirm the credit cost and the attribution text.\n2. **Kimodo v1.2** (free locally, commercial use OK).\n   - **Test:** `kimodo_gen \"A person in a boxing stance throws a left hook, pivoting on the front foot and rotating the hips, then returns to guard.\" --duration 3 --num_samples 4 --bvh --output hook`. Repeat for a jab, an uppercut, a slip, a roll and \"knocked down then stands up\".\n   - **Check:** the BVH opens in Blender, the pivot is real, and the SOMA bones map to Mixamo names.\n3. **Rokoko** (unlimited free text-to-motion plus 30 s a month of Vision).\n   - **Text test:** \"A boxer throws a jab-cross-left hook combination, pivoting the lead foot on the hook.\"\n   - **Vision test:** 10 s at 60 fps from a 3/4 front view on a plain background, with a real boxer throwing a jab, cross, lead hook and rear uppercut, then a slip and a roll.\n   - **Check:** the fists reach full extension, the elbows don't pop, and the feet don't slide.\n4. **Move One** (30 free credits, once).\n   - **Test:** the same clip as the Rokoko Vision test, compared side by side at full extension and foot planting.\n5. **Uthana** (paid). This is the first fallback if the free routes fail.\n   - **Test:** video-to-motion 2.1 on the same clip, about $0.50.\n\n**Not covered yet:** Higgsfield's 3D tools, whether free Move accounts can use Gen 2, the Flow Studio and SayMotion terms, and Meshy's full list of export formats. The full report is attached."
+      },
+      "timestampMs": 1792468136192,
+      "requestId": "0861fdcd-6f27-4efc-aa2f-9f4d9a3eab2a",
+      "seq": 468
+    },
+    {
+      "kind": "send-message",
+      "id": "t58s469",
+      "message": {
+        "type": "attachment",
+        "url": "file:///home/box/agent-data/agents/f5f7f322-ac00-420e-b02e-b06d6662a26e/attachments/df5ca0d0a90d191bbf4c399b7367d7a035e6d8aea1d093a893b13f8b401b7b2e.md",
+        "file_name": "JOHN_MOTIONGEN_S271.md"
+      },
+      "timestampMs": 1792468137111,
+      "requestId": "0861fdcd-6f27-4efc-aa2f-9f4d9a3eab2a",
+      "seq": 469
+    },
+    {
+      "kind": "message",
+      "id": "t59u",
+      "role": "user",
+      "content": "# JOHN SFX S274 - free, HIGH-QUALITY fight sound: the exact files to download (research only)\n\nOperator S274: \"the sounds are pretty bad right now\" -> board Q-S273-4 answer: \"free only but high quality\".\n\n## What we ship today (why it sounds bad)\nGodot/assets/audio/fight/ (LICENCES.md): bell x2, canvas scuffs x8, crowd murmur/roar x4, glove landed/blocked, thud - all CC0\ncuts from Freesound FIELD recordings of real matches (kyles 637246, craigsmith 486206, felix.blume 684516, bruno.auzet 524567).\nNoisy, thin, one source per cue. Our earlier studies: J22 (what a fight must sound like: layered thud + slap + leather by\nregion and contact quality, 59 cues, ~302 files with variants), J40 (free/PD shortlist - Freesound CC0 + Mixkit), S92.\n\n## The ask (answer as long and complete as you can - every pack and file named, no summaries)\n1. Sonniss \"GDC Game Audio Bundle\" (every year 2015-2024): which packs/libraries contain studio-quality\n   (a) punch / body impact / face slap / glove leather, (b) boxing or fight foley (footsteps on canvas, ring ropes, cloth swish),\n   (c) arena / sports crowd beds and reactions (murmur, rise, roar, boo, applause), (d) bells, (e) whooshes for punch swings.\n   For each: bundle year, pack name, publisher, the files inside that fit (names), format/sample rate, size of the pack download,\n   and the EXACT licence text that allows use in a commercial game (quote it, with the URL).\n2. Other free sources that are studio quality AND commercial-safe with no attribution: e.g. Kenney (CC0), itch.io CC0 fight\n   packs, Mixkit (licence limits?), Pixabay SFX (licence terms), OpenGameArt CC0 - name the files, licence, quality notes.\n   Exclude CC-BY-NC, \"personal use\", and anything ripped from games or TV.\n3. A recommended set: for each cue in J22's list that matters for a boxing demo (glove hits head/body clean vs blocked vs\n   glancing, swing whoosh, footwork on canvas, ropes, bell, corner stool, crowd bed + 4 reactions, knockdown thud), the best\n   2-4 free files to LAYER, with the source of each.\n4. Total download size for the recommended set.\n\n## Rules\nFacts with URLs; mark anything you could not open as UNVERIFIED. No downloads - Claude downloads the approved batch.\n",
+      "isStreaming": false,
+      "timestampMs": 1792500035548,
+      "clientNonce": "f2d47dd2-e5af-45f3-b22c-abf6a2a0c28e",
+      "requestId": "c49b277d-92d6-47b2-a6ff-2855f0470985",
+      "seq": 470
+    },
+    {
+      "kind": "send-message",
+      "id": "t59s471",
+      "message": {
+        "type": "text",
+        "content": "Starting on JOHN SFX S274 now. I'll go through every GDC Bundle year from 2015 to 2024, then the other free sources, and build the layered set for each cue. Everything gets pasted here in full when it's done."
+      },
+      "timestampMs": 1792500040141,
+      "requestId": "c49b277d-92d6-47b2-a6ff-2855f0470985",
+      "seq": 471
+    },
+    {
+      "kind": "send-message",
+      "id": "t59s472",
+      "message": {
+        "type": "text",
+        "content": "The SFX research is underway. I won't download any audio, since Claude downloads the approved batch."
+      },
+      "timestampMs": 1792500056652,
+      "requestId": "c49b277d-92d6-47b2-a6ff-2855f0470985",
+      "seq": 472
+    },
+    {
+      "kind": "send-message",
+      "id": "t59s473",
+      "message": {
+        "type": "text",
+        "content": "**JOHN_SFX_S274 is done (part 1 of 2).** The Sonniss GDC bundles from 2015 to 2024 are the best free source of studio fight sound. Each pack in them holds only 2–5 sample files, though, and none is a boxing library. I checked every file name and size against Sonniss's official torrent file lists and tracklists, without downloading any audio.\n\n**Sonniss licence**, from the [Sonniss GDC licence page](https://sonniss.com/gdc-bundle-license/) (v2.0, effective 2026-08-27): \"may use and modify the licensed sound effects for personal and commercial projects without attribution to the original creator.\" You can't sell or redistribute the sounds as sounds, and AI training is banned. Using them in a game sold on Steam is fine.\n\n**The best Sonniss finds:**\n- **2017:**\n  - Borg Sound \"Gym, Boxing, Punching bag hits, chain perspective.wav\".\n  - Gamemaster `punch_blocked_02.wav` and `punch_general_body_impact_03.wav`, at 96 kHz/24-bit.\n  - \"Crowd Lutte .wav\". Going by the name, it's probably a Senegalese wrestling crowd (GUESS).\n- **2018:** Chris Alan \"Face Slap Hard 04\", \"Deep Punch 02\" and \"Body Slam Floor 08\".\n- **2019:** 2496 arena crowd swells.\n- **2020:**\n  - PMSFX Lethal Blow, recorded at 192 kHz/24-bit.\n  - Sonic Bat \"SBssa_Crowd Booing 002.wav\", at 96 kHz/24-bit.\n\nNo bundle year has ring ropes, a corner stool or a real boxing bell. The best free bell is BigSoundBank \"Boxing bell #1\" (#1926): CC0, 48 kHz/24-bit, recorded on a Neumann KM184.\n\n**Other sources:**\n- **Kenney Impact Sounds (CC0):** 130 OGG files, e.g. `impactPunch_heavy/medium`, `impactSoft`, `impactBell_heavy` and `footstep_carpet`.\n- **Mixkit:** a free licence with no attribution, and video games are allowed. You can't redistribute the files on their own or register them with a rights-management service. It has 12 boxing sounds (IDs 2049–2165), a boo (#463) and a cheer (#462).\n- **Pixabay:** free with no attribution, but you can't resell the sounds on their own. They're mostly MP3, and I couldn't open the individual pages (UNVERIFIED).\n- **OpenGameArt (CC0):** low quality.\n- **Excluded:**\n  - moodfrog and SFXMint, because they're AI-generated.\n  - floraphonic, because it costs $5.\n  - The SoundSpool bell, which is a bicycle bell recorded on a Zoom H1."
+      },
+      "timestampMs": 1792500582238,
+      "requestId": "cec678fe-6916-4b13-a700-f5e9c071c44c",
+      "seq": 473
+    },
+    {
+      "kind": "send-message",
+      "id": "t59s474",
+      "message": {
+        "type": "text",
+        "content": "**S274 layers for each cue (part 2 of 2).** S means a Sonniss bundle, followed by its year.\n\n- **Head, clean:** Deep Punch 02 (S2018) · PM_LB_DESIGNED_PUNCH_SIMPLE_CLEAN_DEEP_48 (S2020) · PUNCH_DESIGNED_LIGHT_78 (S2020) · Kenney impactPunch_medium\n- **Body, clean:** punch_general_body_impact_03 (S2017) · Gym punching bag hits (S2017) · PM_LB_SOURCE_PUNCH_SMACK_LETTUCE…16 (S2020) · Kenney impactPunch_heavy\n- **Blocked:** punch_blocked_02 (S2017) · PM_LB_DESIGNED_GRAB_BLOCK_THROW_7 (S2020) · RTS \"FLOG Leather Hit Smack 01\" (S2019)\n- **Glancing:** Face Slap Hard 04 (S2018) · Whoosh_Cloth_Leather_Fight_174 (S2016) · Kenney impactSoft_medium\n- **Swing whoosh:** Airborne \"Whoosh,Organic,Fabric,Glove…\" (S2019) · Soundholder t-shirt fast swings (S2019) · David Dumais HighSwings15 (S2020)\n- **Footwork on canvas:** Filmnoise \"SNEAKER PLASTIC FLOOR MAT…\" and \"SOCKS WOOD DECK…FIGHT\" (S2016) · Studio 23 Doormat_Scrapes_01 (S2019) · Kenney footstep_carpet\n- **Ropes (GUESS substitute):** Boat Pulley \"BOAT_042…Tension_Release_w_Wood_Creaks\" (S2015) · Systematic-Sound leather jacket movement (S2020)\n- **Bell:** BigSoundBank #1926 · Mechanical Wave BELLHand_Metallic Bell_22 (S2024) · Kenney impactBell_heavy · Chris Alan cowbell (S2018)\n- **Corner stool (GUESS substitute):** \"Drop metal handle on floor\" (S2017) · Borg duffel bag drop/place (S2019) · Kenney impactWood/Plank_medium\n- **Crowd bed:** Crowd Lutte (S2017) · SBssa_Crowd Talking 010 (S2020) · SBhma EHF Cup Match 002 (S2024)\n- **Rise:** 2496 Forum \"Short Swell 2\" · 2496 Staples \"Short Swell 24\" (5.1, needs a stereo fold-down) · GAF \"Cheer Applause…Crescendo\" (S2016)\n- **Roar:** 2496 Rose Bowl \"Big Surge\" (5.1) · SBssa_Goal Miss 002 · Sound Ex Machina \"Score 4\" (S2015) · Mixkit #462\n- **Boo:** SBssa_Crowd Booing 002 · Airborne \"Boo,Aww\" (S2018) · basketball \"boo, crowd clapping…\" (S2017) · Mixkit #463\n- **Applause:** Soundrangers audience_cheers_13 (S2018) · Sound Ex Machina \"Crowd Applause 4\" and \"Audience applauding 09\" (S2015) · BigSoundBank #0019\n- **Knockdown thud:** Body Slam Floor 08 (S2018) · RL_bodyfall_Wood_Rustic…Soft_Impact_07 (S2019) · IMPACT_LOW_THUD_10 (S2020) · Baxter \"10 Hit Deep Thud\" (S2019)\n\n**Download size:**\n- **Torrent route, about 500.6 MB for the 42 Sonniss files.** You tick single files in Sonniss's official torrents, which the licence allows. By year: 2015 59.4 MB, 2016 33.2, 2017 115.9, 2018 10.6, 2019 62.8, 2020 135.5, 2024 83.3.\n- **Non-Sonniss files:** the Kenney zip, two BigSoundBank files and two Mixkit files. Their sizes are UNVERIFIED, so the grand total of about 0.5 GB is a GUESS.\n- **ZIP route, 168.3 GB.** Sonniss doesn't say which ZIP part holds which pack, so you'd need the full bundle for each of the 7 years. Use the torrent route.\n\n**Not verified:**\n- I couldn't open the 2024 GDC page because of a Cloudflare check.\n- Several Sonniss product pages don't list sample rate or bit depth.\n- The Freesound and NSFRL licences are unconfirmed.\n\nThe full report, including Appendix B, is attached. Appendix B lists every file in the roughly 100 candidate packs, with the exact licence quotes."
+      },
+      "timestampMs": 1792500593305,
+      "requestId": "cec678fe-6916-4b13-a700-f5e9c071c44c",
+      "seq": 474
+    },
+    {
+      "kind": "send-message",
+      "id": "t59s475",
+      "message": {
+        "type": "attachment",
+        "url": "file:///home/box/agent-data/agents/f5f7f322-ac00-420e-b02e-b06d6662a26e/attachments/6316adbcf50debb916e4b0bf445f92ee9cc25f81e887a43032c9b973fe40eb80.md",
+        "file_name": "JOHN_SFX_S274.md",
+        "alt": "JOHN_SFX_S274.md"
+      },
+      "timestampMs": 1792500594096,
+      "requestId": "cec678fe-6916-4b13-a700-f5e9c071c44c",
+      "seq": 475
+    },
+    {
+      "kind": "message",
+      "id": "t60u",
+      "role": "user",
+      "content": "# TASK GYMDECOR1 - free 3D assets to decorate a boxing gym, room by room (research)\n\nModel: John (deep research). Discipline: BOXING gym (demo).\nOperator S276: \"find assets for decals and things you can decorate a gym also ? jus tlike how those 2 games build their rooms\"\n(Two Point Museum / Two Point Hospital and Mad Games Tycoon 2: every room has a catalogue of decorations the player places).\n\n## Ask\nFind downloadable 3D models (glTF/GLB or FBX/OBJ convertible) and decal textures we can ship in a commercial Steam game, for decorating\na boxing gym in a stylised/low-poly Two Point look. Group by ROOM: training floor, office, reception, locker room, physio room, lounge,\ntoilets, outside plot (trees, benches, bins, lamp posts, fences, street props). Wanted: fight posters/frames, flags, banners, floor\ndecals (logos, tape lines, numbers), wall decals, plants, benches, water coolers, clocks, trophies, belts on display, vending machines,\nlockers, mirrors, mats, rugs, lamps, signage, trash bins, fans.\n\n## For every pack\nname, URL, licence (CC0 / CC-BY / paid-royalty-free - quote the licence line), format, polycount range, style (low-poly / realistic),\nhow many useful items, and which room they fit. Prefer CC0 (Kenney, Quaternius, Poly Pizza, Sketchfab CC0, itch.io free packs, Fab\nfree). Mark anything with an AI-training, no-commercial or attribution-only restriction. Rank the top 10 packs for our use.\n\n## Output\nOne markdown table per room + the ranked top 10 + total item count. No downloads - links and licence lines only.\n",
+      "isStreaming": false,
+      "timestampMs": 1792521623376,
+      "clientNonce": "94b60b96-f97e-4406-bc76-ad5a60327ceb",
+      "requestId": "5d39f992-e9d7-4f08-aa25-3367a786243e",
+      "seq": 476
+    },
+    {
+      "kind": "send-message",
+      "id": "t60s477",
+      "message": {
+        "type": "text",
+        "content": "Starting GYMDECOR1 now. I'll go room by room through the free packs that are licensed for a commercial game, then rank the top 10. The full tables go here when it's done."
+      },
+      "timestampMs": 1792521627755,
+      "requestId": "5d39f992-e9d7-4f08-aa25-3367a786243e",
+      "seq": 477
+    },
+    {
+      "kind": "send-message",
+      "id": "t60s478",
+      "message": {
+        "type": "text",
+        "content": "The GYMDECOR1 research is underway. I'm only collecting links and quoted licence lines, not downloading anything."
+      },
+      "timestampMs": 1792521637420,
+      "requestId": "5d39f992-e9d7-4f08-aa25-3367a786243e",
+      "seq": 478
+    },
+    {
+      "kind": "send-message",
+      "id": "t60s479",
+      "message": {
+        "type": "text",
+        "content": "The first GYMDECOR1 pass is back but thin, so I've started a deeper second pass. Here's what's solid so far, all CC0 with commercial use and no attribution:\n- [KayKit Furniture Bits](https://kaylousberg.itch.io/furniture-bits): 50+ models, closest to the Two Point look.\n- [KayKit City Builder Bits](https://kaylousberg.itch.io/city-builder-bits): for the outside plot.\n- [Kenney Furniture Kit](https://kenney.nl/assets/furniture-kit) and [Kenney City Kit Roads](https://kenney.nl/assets/city-kit-roads): Roads has a dumpster and road signs.\n- [Quaternius Ultimate Nature](https://quaternius.com/packs/ultimatenature.html): 150 trees and plants.\n\nVending machines, water coolers, lockers, trophies and belts aren't covered yet, and I haven't confirmed the item names or polycounts. The second pass covers those plus Sketchfab CC0, Fab, OpenGameArt and decals. I'll paste the full tables and the top 10 when it's done."
+      },
+      "timestampMs": 1792521722481,
+      "requestId": "e27233bf-8105-4e6b-ac3f-f00e5e15669f",
+      "seq": 479
+    },
+    {
+      "kind": "send-message",
+      "id": "t60s480",
+      "message": {
+        "type": "text",
+        "content": "**GYMDECOR1 is done (part 1 of 3).** The best new find is [One More Rep](https://thesidequestshop.itch.io/one-more-rep-gym-fitness-props): 21 CC0 gym props in GLB and FBX, 15,214 tris in total, in the chunky KayKit style. Its free base tier is licensed \"CC0 1.0, public domain, commercial use, no attribution\".\n\n**Licence flags**\n- **CC0 (no attribution):** Kenney, KayKit, Quaternius singles, One More Rep's base tier, Polytoon Gym, ambientCG and Poly Haven.\n- **CC-BY 3.0 (BY3 below):** every Poly Pizza model that isn't CC0. That's not the CC BY 4.0 you allowed, so the operator needs to approve it, and the authors must be credited.\n- **CC BY 4.0, attribution required:** [VNB Low Poly Gym Set](https://vnbp.itch.io/low-poly-gym-set), 70+ models in FBX.\n- **No AI-training or no-commercial clauses** on any page I read.\n- **Unconfirmed:** the [Quaternius Ultimate House Interior](https://quaternius.com/packs/ultimatehomeinterior.html) page says \"free to use in personal and commercial projects\", but its exact licence name isn't confirmed.\n- **Excluded:**\n  - **Sketchfab CC0:** API searches returned only museum scans, and every vending machine was CC-BY.\n  - **Fab:** returned HTTP 403, so UNVERIFIED.\n  - **Oxygen3D Gym:** no licence line shown.\n\n**Packs** (all CC0 unless marked)\n- [KayKit Furniture Bits](https://kaylousberg.itch.io/furniture-bits): 53 glTF models.\n  - Furniture: armchair, couch, beds, chairs, stools, shelves, cabinets and tables.\n  - Decor: lamp_standing, lamp_table, rugs (oval, rectangle and striped), cacti, books and pillows.\n  - Frames: pictureframe_large/medium/small/standing.\n- [KayKit City Builder Bits](https://kaylousberg.itch.io/city-builder-bits): 32+ models.\n- [KayKit Restaurant Bits](https://kaylousberg.itch.io/kaykit-restaurant-bits): 140+ models, mostly food.\n- **Kenney kits** (file counts; formats and item names UNVERIFIED):\n  - [Furniture Kit](https://kenney.nl/assets/furniture-kit): 140 files.\n  - [City Kit Suburban](https://kenney.nl/assets/city-kit-suburban): 40 files.\n  - [City Kit Roads](https://kenney.nl/assets/city-kit-roads): 90 files, including a dumpster, signs and traffic lights.\n  - [City Kit Commercial](https://kenney.nl/assets/city-kit-commercial): 50 files.\n  - [Mini Market](https://kenney.nl/assets/mini-market): 20 files.\n  - [Food Kit](https://kenney.nl/assets/food-kit): 200 files.\n  - [Survival Kit](https://kenney.nl/assets/survival-kit): 80 files.\n  - [Kenney Fonts](https://kenney.nl/assets/kenney-fonts): for floor numbers and signs.\n- [Quaternius Ultimate Nature](https://quaternius.com/packs/ultimatenature.html): 150 trees, rocks and plants.\n- [Polytoon Gym](https://comphonia.itch.io/unity-asset-polytoon-gym): \"NOW FREE UNDER CC0\", 24 models including a speedbag and dome. It's listed as a Unity asset, so the format is UNVERIFIED.\n- **One More Rep contents:** power rack with barbell, dumbbell rack, plates and plate tree, kettlebells, flat and incline benches, yoga mats, water cooler, shakers and chalk bucket."
+      },
+      "timestampMs": 1792522038440,
+      "requestId": "f5f6b231-37f9-4170-ad99-0ec20d65e265",
+      "seq": 480
+    },
+    {
+      "kind": "send-message",
+      "id": "t60s481",
+      "message": {
+        "type": "text",
+        "content": "**GYMDECOR1, room by room (part 2 of 3).** Tri counts come from Poly Pizza.\n\n**Training floor**\n| Item | Source | Licence | Tris |\n|---|---|---|---|\n| Rack, benches, plates, mats, chalk, cooler | One More Rep | CC0 | 15,214 for all 21 |\n| Speedbag, dome, balls | Polytoon Gym | CC0 | — |\n| [Punching Bag (Zsky)](https://poly.pizza/m/4VgbuuhY8j) | Poly Pizza | BY3 | 300 |\n| [Wall Flag](https://poly.pizza/m/TWDvd4qPzq), [Flag](https://poly.pizza/m/FuOkF3WBrx) (Quaternius) | Poly Pizza | CC0 | 368 / UNVERIFIED |\n| [Banner](https://poly.pizza/m/svYG8KZxjq), [Banner Wall](https://poly.pizza/m/dQjx8fBjIl) (Quaternius) | Poly Pizza | CC0 | 564 / 440 |\n| [Trophy (CreativeTrio)](https://poly.pizza/m/fLy8KmmD1t) | Poly Pizza | CC0 | 518 |\n| [Fan (J-Toastie)](https://poly.pizza/m/dPExITRhhZ), [Large fan](https://poly.pizza/m/a2ManZQPrEn) | Poly Pizza | BY3 | 2216 / 1612 |\n| Championship belt | none found | — | build in-house |\n\n**Office:** KayKit tables, chairs, shelves, cabinet, table lamp, books, frames and cacti (CC0) · [Light Desk (Quaternius)](https://poly.pizza/m/uJDWrSJGVH), CC0, 356 tris · [Clock (jeremy)](https://poly.pizza/m/31XZ7p2-c1q) and [analog clock (Google)](https://poly.pizza/m/5gAoMR2YHs3), BY3, 440 / 588 tris.\n\n**Reception:** KayKit couch, armchair, striped rug, low table, standing lamp and cacti (CC0) · [Vending Machine (dook)](https://poly.pizza/m/yNG4vqWVq0), BY3, 1496 tris · [Vending Machine (Don Carson)](https://poly.pizza/m/0CX6wj64Swu), BY3, 3332 tris · water cooler from One More Rep (CC0) or [J-Toastie](https://poly.pizza/m/zWi9p5FSxD) (BY3, 854 tris) · plants: [White Pot](https://poly.pizza/m/7ig0HcyfT93) and [House plant](https://poly.pizza/m/3qh9saogdJd), BY3 · Kenney Mini Market shelves (CC0).\n\n**Locker room:** [Locker](https://poly.pizza/m/aGmZ4jQD2y) and [Open Locker](https://poly.pizza/m/AT7YLkpg6n) (J-Toastie), BY3, 542 / 1112 tris · [Red Locker](https://poly.pizza/m/03FiPUcjhSl), BY3, 308 tris · mirrors ([1](https://poly.pizza/m/cjvm-bUFBAW), [2](https://poly.pizza/m/3Cmxakw58Px), [3](https://poly.pizza/m/4hidwn0IkQN)), BY3 · [Bench (Quaternius)](https://poly.pizza/m/jLxjFxFRpw), CC0, 376 tris · Bags ([1](https://poly.pizza/m/VRfAODZ0Xk), [2](https://poly.pizza/m/gzvyAQ797z)), CC0. I found no CC0 locker.\n\n**Physio:** KayKit single beds as a massage-table stand-in, plus cabinet, shelf and pillows (CC0) · One More Rep yoga mats (CC0) · [Modern rug](https://poly.pizza/m/6acMdZwnCkQ), BY3.\n\n**Lounge:** KayKit couch, armchair, oval rug, low table, standing lamp and large frame (CC0) · Kenney [Rug Square](https://poly.pizza/m/FiyXx0J6VB) and [Kitchen Sink](https://poly.pizza/m/nNGtcp9qK2), CC0 · KayKit Restaurant and Kenney Food kitchen props (CC0) · [Ceiling fan](https://poly.pizza/m/evjKlG1pgr-), BY3.\n\n**Toilets:** Quaternius House Interior toilet, sink and bath pieces (free commercial; item names UNVERIFIED) · Kenney Kitchen Sink as a hand basin (CC0) · mirrors from the locker room (BY3).\n\n**Outside plot** (all from Quaternius on Poly Pizza unless noted):\n- **CC0:** [Street Light](https://poly.pizza/m/nFwrlcLvM5), 292 tris · [Traffic Light](https://poly.pizza/m/lg9AKWejnF), 1369 tris · [Fence](https://poly.pizza/m/e02PFKKhbr), 188 tris · [Trash Container](https://poly.pizza/m/IvvdNqXmAW), 1374 tris · [Bench](https://poly.pizza/m/jLxjFxFRpw).\n- **Kenney:** the Roads, Suburban and Commercial kits.\n- **Packs:** Quaternius Nature (150) and KayKit City (32+)."
+      },
+      "timestampMs": 1792522054572,
+      "requestId": "f5f6b231-37f9-4170-ad99-0ec20d65e265",
+      "seq": 481
+    },
+    {
+      "kind": "send-message",
+      "id": "t60s482",
+      "message": {
+        "type": "text",
+        "content": "**GYMDECOR1: decals, top 10 and total (part 3 of 3).**\n\n**Decals** (all CC0, from [ambientCG](https://ambientcg.com/license) and [Poly Haven](https://polyhaven.com/license))\n- Tape lines: [Tape001](https://ambientcg.com/a/Tape001) to Tape006, and RoadLines019A–035B.\n- Logo base: [Sticker001](https://ambientcg.com/a/Sticker001).\n- Grunge: [Leaking012A](https://ambientcg.com/a/Leaking012A) to 019C.\n- Floors:\n  - [Rubber001](https://ambientcg.com/a/Rubber001) to Rubber004.\n  - Poly Haven [anti_skid_tiles](https://polyhaven.com/a/anti_skid_tiles), anti_slip_concrete and concrete_floor_painted.\n- Floor numbers and signs: Kenney Fonts.\n\nThese are photoreal, so they need flattening for the Two Point look. Posters, fight cards, gym flags and belt plates have no suitable free source, so make them in-house as flat textures.\n\n**Top 10**\n1. **One More Rep:** CC0, GLB, made for gyms.\n2. **KayKit Furniture Bits:** CC0, 53 named items.\n3. **Quaternius singles on Poly Pizza:** CC0 flags, banners, bench, street light, fence, bin and trophy.\n4. **KayKit City Builder Bits:** CC0.\n5. **Kenney City Kit Roads:** CC0.\n6. **Polytoon Gym:** CC0. Check the format.\n7. **Kenney Furniture Kit:** CC0.\n8. **Quaternius Ultimate Nature:** CC0.\n9. **ambientCG decals:** CC0.\n10. **Poly Pizza CC-BY 3.0 picks:** vending machines, water cooler, lockers, mirrors and fans. They need attribution and operator approval.\n\nRunner-up: VNB Gym Set (CC BY 4.0, 70+ models).\n\n**Total:** the pack pages state **1,253** models or files, plus 54 Poly Pizza singles I checked (about 16 CC0 and 30 BY3 relevant). Roughly 250–300 should be useful (GUESS).\n\n**Gaps:**\n- Nothing free covers a championship belt, a CC0 vending machine, a CC0 locker or a CC0 wall fan.\n- **Still UNVERIFIED:**\n  - Kenney's formats and item names.\n  - Fab.\n  - Oxygen3D's licence.\n  - The Quaternius Interior licence name.\n  - OpenGameArt's \"angel-trophy\" and \"training-device\".\n\nThe full report is attached."
+      },
+      "timestampMs": 1792522061113,
+      "requestId": "f5f6b231-37f9-4170-ad99-0ec20d65e265",
+      "seq": 482
+    },
+    {
+      "kind": "send-message",
+      "id": "t60s483",
+      "message": {
+        "type": "attachment",
+        "url": "file:///home/box/agent-data/agents/f5f7f322-ac00-420e-b02e-b06d6662a26e/attachments/65dbcb9bed718bcb79145cbf85e1b17eeb2f7eb8cab7b4632f1194dab3ade216.md",
+        "file_name": "GYMDECOR1.md",
+        "alt": "GYMDECOR1.md"
+      },
+      "timestampMs": 1792522061879,
+      "requestId": "f5f6b231-37f9-4170-ad99-0ec20d65e265",
+      "seq": 483
+    },
+    {
+      "kind": "message",
+      "id": "t61u",
+      "role": "user",
+      "content": "# TASK GYMCLIPS2 (John, research) - a source for two gym workout clips: stationary bike and agility ladder\n\nModel: John (deep research). Discipline: BOXING gym floor (demo). Research only, no code.\n\n## Why\nIn FightCamp (a boxing-gym management game, Godot 4, isometric camera), gym members walk to the equipment the player built and work it\non a looping workout animation. Two pieces have NO clip, so nobody uses them: the **stationary exercise bike** (seated pedalling) and\nthe **agility ladder** (quick footwork drills along a floor ladder: in-in-out-out, lateral shuffles, high knees). The other pieces\nuse Mixamo clips retargeted to our humanoid rig. Mixamo has no bike-pedalling or ladder clip (checked S233: \"Bicycle_Crunch\" is floor work).\n\n## What would a human do?\nA game animator would look for an existing loop first (a marketplace pack, a free mocap library, a text-to-motion tool), check the\nlicence for a commercial Steam game, and only then plan a capture or a hand-keyed loop.\n\n## Prior research\nresearch/GYMLIFE_CLIPS_S233.md (missing-clip list), research/topics/clips_sources.md (owned packs, Mixamo, CMU, Rokoko\nfree library approved S270, ActionForge in use, Cascadeur until 2026-10-27; Meshy REJECTED S272, MPFB/generator bodies banned).\n\n## Prefab check (this IS the task)\nFor EACH of the two motions, list up to 6 concrete sources, best first:\n- name + direct URL of the clip/pack page\n- format (FBX/BVH/GLB), skeleton (Mixamo / UE Manny / custom), frame rate, loop yes/no, length in seconds\n- price and the exact licence words on commercial game use (quote under 15 words + link); flag anything unclear\n- for the bike: does the clip include a seated pelvis height / hands on handlebars we can align to a bike seat at ~0.75 m?\n- for the ladder: does the motion travel forward (root motion) or stay in place, and how many metres per loop?\nInclude free mocap libraries (CMU, Rokoko free motion library, Bandai Namco research set, Mixamo-alikes), Unity/Unreal/Fab\nmarketplace packs (fitness / gym / sports packs), and text-to-motion tools with commercial terms. Rank the top pick for each motion\nand say why. Plain text answer, as long and complete as you can.\n",
+      "isStreaming": false,
+      "timestampMs": 1792710640590,
+      "clientNonce": "f3347047-49b8-4238-be0f-90feb98ae66b",
+      "requestId": "8bcd7532-53af-46c3-af76-e2247512469f",
+      "seq": 484
+    },
+    {
+      "kind": "send-message",
+      "id": "t61s485",
+      "message": {
+        "type": "text",
+        "content": "Starting GYMCLIPS2 now. I'll look for free and marketplace sources for a stationary-bike loop and an agility-ladder loop, checking licences and fit, and paste the full answer here."
+      },
+      "timestampMs": 1792710648778,
+      "requestId": "8bcd7532-53af-46c3-af76-e2247512469f",
+      "seq": 485
+    },
+    {
+      "kind": "send-message",
+      "id": "t61s486",
+      "message": {
+        "type": "text",
+        "content": "The GYMCLIPS2 research is underway, and I'll post the full ranked answer here once it's done."
+      },
+      "timestampMs": 1792710661164,
+      "requestId": "8bcd7532-53af-46c3-af76-e2247512469f",
+      "seq": 486
+    },
+    {
+      "kind": "send-message",
+      "id": "t61s487",
+      "message": {
+        "type": "text",
+        "content": "GYMCLIPS2's first pass came back too thin, so a deeper second pass is running now. Neither motion has a free ready-made clip so far. CMU has no bike or agility-ladder trials; its closest are 143_40 \"Walk Sideways\" and 143_31 \"Hopscotch\", and those would only work as a base to edit.\n\n- **Bike:** the only confirmed seated pedal loop is AssetLoom's \"Bicycle Ride Loop\", in its [Vehicle and Seated pack](https://assetloom.io/assets/vehicle-and-seated-pack).\n  - It's FBX, GLB or BVH on UE5-style bone names, 30 fps, about 1 s, in-place or root-motion, with seat-alignment proxies.\n  - It costs \"300 credits\", and I haven't checked the cash value or the full licence yet.\n- **Ladder:** the best lead is the Fab [Fitness Workout Mocap pack](https://www.fab.com/listings/f2694ada-a459-4e53-b2e5-e998970d9d3a), which has High Knees only. Its price and licence are UNVERIFIED.\n- **Zero-budget fallback:** hand-key both loops in Cascadeur before 2026-10-27, or capture the ladder drills with Rokoko Vision.\n\nThe second pass checks those licences and covers Rokoko's library, Uthana, Move AI, SayMotion, ActorCore, Truebones and others. I'll post the full ranked answer when it's done."
+      },
+      "timestampMs": 1792710751886,
+      "requestId": "7b6d520d-fc15-4f90-a304-e54f71afdadb",
+      "seq": 487
+    },
+    {
+      "kind": "send-message",
+      "id": "t61s488",
+      "message": {
+        "type": "text",
+        "content": "**GYMCLIPS2 is done (part 1 of 2: bike).** The top pick is AssetLoom's \"Bicycle Ride Loop\", in its [Vehicle and Seated pack](https://assetloom.io/assets/vehicle-and-seated-pack). It costs 300 credits, which is US$3 at \"1 Loom Credit = US$0.01\". New accounts get \"500 welcome bonus credits\", so it's effectively free.\n\n**AssetLoom Bicycle Ride Loop** (page opened):\n- **Format:** FBX, plus a GLB per clip, BVH, .blend and bone_map.json. The skeleton uses UE5-style bone names.\n- **Timing:** 30 fps, loops, 31 frames (about 1 s, one crank turn). In-place and root-motion versions are both included.\n- **Pose:** seated, with feet on the pedals. Hands on the bars are confirmed: version 1.2.0 added an \"overhand grip on ... bicycle handlebars\".\n- **Seat height:** the pelvis height isn't stated. The root sits \"on the floor under the seated hips\", and the pack ships alignment proxies and a contact_points.json. It's a road-bike pose, so fitting a 0.75 m spin-bike seat needs a hip offset (GUESS).\n- **Licence** ([AssetLoom licences](https://assetloom.io/licenses)): \"Can I use it in a game I sell? Yes.\" Attribution is not required, and resale or sharing of the files isn't allowed.\n- **Caveat:** the vendor is new (v1.0.0 dated 2026-10-06) and has no reviews.\n- **Matching prop:** the [Grab3D exercise bike](https://grab3d.com/models/sports/exercise-bike/) is a CC0 GLB/FBX model, 0.96 × 0.58 × 1.14 m, with a separately pivoted crank.\n\n**Other bike sources:**\n- [Unity \"Bicycle Animation\"](https://assetstore.unity.com/packages/3d/animations/bicycle-animation-330896): $15, with clips anim_Relaxed_Pedal_Seated_Loop and Seat_Up_Pedal_Loop.\n  - Its format, fps and length are UNVERIFIED, and it's an outdoor bike.\n  - **Licence:** Unity Support says the assets \"are not restricted to Unity projects\", so Godot is fine (quoted from a search snippet).\n- **Sketchfab \"Cycles (All)\":** the licence isn't shown and the rig's origin is unclear, so avoid it.\n- **CGTrader \"Bicycle Stationary Exercise Man\":** seen only in a search summary, so it's UNVERIFIED and may not exist.\n- **Uthana free plan** (CC BY 4.0, with the credit line \"Animation generated with Uthana (uthana.com)\") or **NVIDIA Kimodo** (weights \"commercially usable\"): free text-to-motion, but the quality is a GUESS.\n\n**No bike clip found:**\n- **CMU:** none. Its \"motorcycle\" trials are only seated pantomimes.\n- **Rokoko library, ActorCore, Mocap Online, Truebones, Kevin Iglesias:** nothing confirmed. For several I could only search, not open the store.\n\n**Excluded:**\n- **DeepMotion free tier:** \"exclusively for non-commercial purposes\".\n- **Bandai Namco, AMASS, HumanML3D and Motion-X:** non-commercial licences.\n- **Movekit:** video only."
+      },
+      "timestampMs": 1792710904511,
+      "requestId": "cd1ce64d-a583-4a5f-a99c-986d1275c29a",
+      "seq": 488
+    },
+    {
+      "kind": "send-message",
+      "id": "t61s489",
+      "message": {
+        "type": "text",
+        "content": "**GYMCLIPS2 (part 2 of 2: agility ladder).** No ready-made clip covers in-in-out-out or the lateral shuffle. There are real high-knees clips, but their licences aren't checked yet.\n\n**Ladder sources, best first:**\n1. [Fab Fitness Workout Mocap pack](https://www.fab.com/listings/f2694ada-a459-4e53-b2e5-e998970d9d3a): 22 HIIT clips, including High Knees In, Loop and Out.\n   - The page's \"License terms\" field is blank, and it says \"Allows usage with AI: Yes\".\n   - Its price, skeleton and fps were blocked by Cloudflare (UNVERIFIED).\n2. [Fab Fitness Mocap Collection](https://www.fab.com/listings/547dfdc1-48f9-4881-941f-e947ef2092e5): 25 looping clips, including High Knee Running, Walking in Place, Square Walking and Tap Step & Turning. I only saw a search snippet, so details are UNVERIFIED.\n3. [Unity StockMoves01 Footwork](https://assetstore.unity.com/packages/3d/animations/stockmoves01-footwork-79393): $15, FBX on Unity's humanoid rig, from 2017. The page has no clip list.\n4. [Unity AA_Aerobic_Exercise](https://assetstore.unity.com/packages/3d/animations/aa-aerobic-exercise-283245): 61 looping clips with generic names (type01 to type14). A review says characters slip.\n5. [Fab \"36 Fitness exercices set 2\"](https://www.fab.com/listings/b5327bd1-4851-4fd5-86e1-584ab2be1490): UE5 Mannequin, with knees-to-chest and heel-to-butt clips but no ladder drills (UNVERIFIED).\n6. **CMU, free:** there are no agility trials. 143_40 \"Walk Sideways\" and 143_31 \"Hopscotch\" could serve as a base to edit; they're 120 Hz BVH files.\n   - **Licence:** \"You may include this data in commercially-sold products.\"\n\n**Travel per loop:** no source says whether these move forward or stay in place, or how far. A standard ladder box is about 0.45 m, so one in-in-out-out cycle covers about 0.45 m (GUESS). I'd use in-place loops and move the boxer along the ladder in code.\n\n**Top pick for the ladder:**\n- **In-in-out-out and lateral shuffle:** hand-key them in Cascadeur before 2026-10-27, as about 24–32-frame in-place loops on a Mixamo skeleton (GUESS). Or film a real drill and run it through [Rokoko Vision](https://www.rokoko.com/insights/tutorial-start-animating-with-our-free-ai-mocap-tool-rokoko-video), then clean it up in Cascadeur.\n- **High knees:** take them from a Fab fitness pack once its licence is confirmed in a browser.\n- **Last resort:** Uthana's free plan (CC BY 4.0, with the credit line).\n\nThe report is attached. I didn't download or buy anything."
+      },
+      "timestampMs": 1792710913134,
+      "requestId": "cd1ce64d-a583-4a5f-a99c-986d1275c29a",
+      "seq": 489
+    },
+    {
+      "kind": "send-message",
+      "id": "t61s490",
+      "message": {
+        "type": "attachment",
+        "url": "file:///home/box/agent-data/agents/f5f7f322-ac00-420e-b02e-b06d6662a26e/assets/28965552ff120febcb0c69282882e91baf1448ffa5d26ae7113852b8e9741b6d.md",
+        "file_name": "GYMCLIPS2.md",
+        "source_path": "/workspace/gymclips2/GYMCLIPS2.md",
+        "alt": "GYMCLIPS2.md"
+      },
+      "timestampMs": 1792710915408,
+      "requestId": "cd1ce64d-a583-4a5f-a99c-986d1275c29a",
+      "seq": 490
+    },
+    {
+      "kind": "message",
+      "id": "t62u",
+      "role": "user",
+      "content": "# J90 - Tooltips that players praise: what makes them great, and the build spec for FightCamp\n\nSeat: John (deep research). Discipline: boxing demo (the whole game's UI). Model: your default. Output: one markdown answer, as long as it needs.\n\n## Why\nOperator S290 (2026-10-23), verbatim: \"you need to make cooler tooltips , look for tutorials or other games that have been praised for their tooltips\".\nFightCamp is a Godot 4 gym-management sim (boxing first), visual direction Two Point Museum / Mad Games Tycoon 2: bright, warm, a dark brass/cream UI (top bar, BUILD window with picture tiles, modals). Today a tooltip is a plain dark box with a title line and one text line, appearing after a delay at the cursor.\n\n## Prior research\n- J52_TOOLTIPS_AND_TUTORIAL.md (S?): WHAT goes on screen vs in a tooltip, glossary, tutorial. Do not redo it - this task is HOW tooltips LOOK and BEHAVE.\n- S184_TIPS_AUDIT2.md: census of which controls have tooltips (coverage, not quality).\n- M_HUD2_MARIA.md: menu look rules (one hero per screen, lifted panels).\n\n## What would a human do?\nA UI designer would play the games known for great tooltips, screenshot them, list what they have in common, then write a spec with sizes, timings and states.\n\n## Prefab check\nName any Godot 4 tooltip addon / asset (Asset Library, GitHub, itch) with its licence, and whether it fits (rich text, nested tooltips, icons inline).\n\n## Questions (answer all, with sources: articles, GDC talks, reviews, Reddit/forum threads praising them)\n1. Which games are PRAISED for their tooltips, and for what exactly? At least: Crusader Kings 3 / Victoria 3 (nested, lockable tooltips), Slay the Spire (keyword tooltips beside cards), Path of Exile / Diablo (item tooltips), Civilization VI, Two Point Hospital / Museum, Football Manager, Balatro, Into the Breach, RimWorld, Hades, Frostpunk, Anno 1800, Factorio. Add others you find praised.\n2. The patterns, as a table: delay before showing (ms), fade/scale animation (ms), follow-cursor vs anchored, max width (px at 1080p), title/body/footer structure, icons and numbers inline, colour coding (good/bad/keyword), nested tooltips (hover a keyword -> its own tooltip; lock with a key or by holding), comparisons (current vs new, +/- deltas), keyboard hint chips, pointer/arrow, edge flipping.\n3. Common mistakes players complain about (too slow, covers what you look at, walls of text, flicker).\n4. Accessibility: font size, contrast, a setting for delay, readable at 1080p and 4K.\n5. A BUILD SPEC for FightCamp: 3 tooltip tiers (simple hover label; rich card with title, icon, stats rows, coloured deltas, hint chips; nested keyword tooltips for game terms like Stamina, Strain, Sharpness, Focus) with exact numbers (delays, sizes, paddings, radii, animation), states, and where each tier is used (top bar icons, BUILD tiles - price, footprint, what it trains, members it holds; floor stations; fighter stats).\n6. Tutorials / talks on designing tooltips (links) worth reading.\n\nReply in the chat; Claude saves it to research/J90_TOOLTIPS_PRAISED.md.\n",
+      "isStreaming": false,
+      "timestampMs": 1792726516616,
+      "clientNonce": "2c91e367-d4c8-4089-b909-9768efc0584d",
+      "requestId": "a1c52de8-0d97-41e5-ab1b-94492d0a34a0",
+      "seq": 491
+    },
+    {
+      "kind": "send-message",
+      "id": "t62s492",
+      "message": {
+        "type": "text",
+        "content": "Starting J90 now. I'm looking at the games praised for their tooltips and Godot 4 tooltip addons, and then I'll write FightCamp's three-tier build spec."
+      },
+      "timestampMs": 1792726522122,
+      "requestId": "a1c52de8-0d97-41e5-ab1b-94492d0a34a0",
+      "seq": 492
+    },
+    {
+      "kind": "send-message",
+      "id": "t62s493",
+      "message": {
+        "type": "text",
+        "content": "J90 research is running, and I'll paste the full answer here with the .md attached when it's done."
+      },
+      "timestampMs": 1792726540695,
+      "requestId": "a1c52de8-0d97-41e5-ab1b-94492d0a34a0",
+      "seq": 493
+    },
+    {
+      "kind": "send-message",
+      "id": "t62s494",
+      "message": {
+        "type": "text",
+        "content": "J90's first pass is written, but it's too thin to hand over yet. Twelve of the games you listed have no sources so far, including Civilization VI, Two Point, Football Manager, RimWorld, Hades and Anno 1800, so I've started a deeper second pass.\n\nThe solid part so far:\n- **Nested tooltips:** Crusader Kings 3 and Victoria 3 have sourced praise. Victoria 3 offers three ways to lock one open: after a timer, with middle mouse, or a mix of both.\n- **Show delay:** 300–500 ms is typical, and Godot's default is 0.5 s.\n- **Text size:** Xbox's accessibility guidelines ask for at least 26 px text at 1080p.\n- **Godot 4 addon:** Tooltips Pro is the best fit, with nested tooltips, lock modes and pins. Its licence still needs confirming.\n\nI'll paste the full answer and attach the .md when the second pass is done."
+      },
+      "timestampMs": 1792726691894,
+      "requestId": "86b98213-9c57-4a4f-a692-d8fc5750bfa5",
+      "seq": 494
+    },
+    {
+      "kind": "send-message",
+      "id": "t62s495",
+      "message": {
+        "type": "text",
+        "content": "**J90 is done (part 1 of 3: who's praised, and for what).** The three best references are Crusader Kings 3, Victoria 3 and Stellaris, for nested tooltips you can lock open. Next come Old World's \"infinite tooltips\", the item compare in Path of Exile and Diablo IV, Factorio's stats grouped by category, and Into the Breach's animated previews. Balatro and Frostpunk 2 are what not to do. Every claim below has a URL, and anything I couldn't open is marked UNVERIFIED. The .md is attached at the end.\n\n**Nested tooltips you can lock**\n- **Crusader Kings III:** blue keywords open their own tooltip, and an in-game encyclopedia backs them up.\n  - Dev Diary #16: \"relevant information can just be a mouse move away whenever you see blue highlighted text\" ([Dev Diary #16](https://www.reddit.com/r/CrusaderKings/comments/fcuo7j/dev_diary_16_tutorials_tooltips_and_encyclopedias/)).\n  - A player calls it \"like a contextual ingame wiki!\" ([Reddit thread](https://www.reddit.com/r/CrusaderKings/comments/ilphpf/can_we_all_just_appreciate_how_easy_and_useful/)).\n- **Victoria 3:** nested concepts, number breakdowns and graphs inside tooltips.\n  - There are three lock modes, \"Mouse Tendency, Timer Lock, or Action Lock\", and the timer is adjustable ([Dev Diary #29](https://forum.paradoxplaza.com/forum/threads/victoria-3-dev-diary-29-user-experience.1506484/page-3)). Action Lock is middle mouse.\n  - Dev Diary #74 moved tooltips so you can reach a nested one \"without accidentally opening another tooltip\" ([Dev Diary #74](https://www.paradoxinteractive.com/games/victoria-3/news/dev-diary-74-ux-improvements)).\n- **Stellaris:** nested \"Concepts\" in cyan `{33,232,208}`. A tooltip locks after a short delay or on middle-click; a spinning ring shows the timer, then the edges light up ([Dev Diary #292](https://forum.paradoxplaza.com/forum/threads/stellaris-dev-diary-292-3-7-4-released-and-concepts.1576269/)).\n  - When the lock broke in 4.3.1, players called it \"Really annoying\" ([Reddit thread](https://www.reddit.com/r/Stellaris/comments/1s0etjb/)).\n- **Old World:** Soren Johnson's GDC postmortem says \"our tooltips have tooltips… we have infinite tool tips\". Middle-click or Shift-click opens the next one ([Old World postmortem](https://www.youtube.com/watch?v=VXH9_d_pDa4)).\n- **Europa Universalis V and Endless Legend 2:** EU5 has a mixed lock, where a key locks the tooltip before the timer runs out. EL2 has a pin button. Both come second-hand from the [Tooltips Pro notes](https://forum.godotengine.org/t/tooltips-pro-advanced-tooltip-positioning-functionality/111511).\n- **Baldur's Gate 3:** press T to pin and expand a tooltip, then hover highlighted terms for the next level. Players call the key \"unintuitive\" ([Larian forum](https://forums.larian.com/ubbthreads.php?Number=840682&ubb=showflat)).\n\n**Item compare**\n- **Path of Exile:** hold Alt to see mod tiers and ranges, Ctrl to compare with your equipped item, or Ctrl+Alt for both. The keys can be rebound ([Reddit thread](https://www.reddit.com/r/pathofexile/comments/9760s3/)).\n- **Diablo IV:** green marks a stat you'd gain and red one you'd lose. Shift shows the full compare, and stat ranges look like `66 All Stats [42-78]`.\n  - \"Advanced Tooltip Compare is something everyone should be taking advantage of\" ([Windows Central](https://www.windowscentral.com/gaming/the-one-diablo-4-tip-i-wish-i-knew-before-i-started-playing)).\n  - The complaint is that the arrows only compare raw stats, so they don't show build value ([Blizzard forum](https://us.forums.blizzard.com/en/d4/t/item-power-green-upgradered-downgrade-ruins-game/5743)).\n\n**Other praised designs**\n- **Factorio:** the [FFF #318](https://www.factorio.com/blog/post/fff-318) redesign made tooltips compact and grouped stats into categories, with recipe, item and building info in side-by-side tooltips.\n- **Into the Breach:** tooltips show a small animation of your own mech using the weapon. Justin Ma says it's \"a thousand times more effective\" than text ([Game Developer interview](https://www.gamedeveloper.com/design/-i-into-the-breach-i-dev-on-ui-design-sacrifice-cool-ideas-for-the-sake-of-clarity-every-time-)).\n- **Slay the Spire:** keywords are bold, each with a one-line definition, e.g. Exhaust: \"Removed until the end of combat.\" ([keyword wiki](https://slaythespire.wiki.gg/wiki/Keywords)). That the boxes sit beside the card is from memory, and I found no praise quote (UNVERIFIED).\n- **RimWorld:** a 0.45 s delay, tooltips follow the mouse, a bold title over grey text, and stacked tips 2 px apart. These come from an [old decompile](https://raw.githubusercontent.com/josh-m/RW-Decompile/master/Verse/TooltipHandler.cs), so the current value is UNVERIFIED.\n- **Civilization VI:** three modes (show after a delay, a toggle button, or always show). Game script values that players quote are 2.0 s for UI tooltips and 1.1 s for map tiles ([Steam thread](https://steamcommunity.com/app/289070/discussions/3/1796278072838094916/)). Players call the map-tile popups spam.\n- **Anno 1800:** hovering in the build menu shows production time, which players use to work out production-chain ratios ([Steam thread](https://steamcommunity.com/app/916440/discussions/0/3362406825532284016/)). No praise quote.\n- **Against the Storm:** holding Alt, Ctrl or B shows overlays instead of tooltips. Players asked for a key that keeps a tooltip open ([keybindings wiki](https://wiki.hoodedhorse.com/Against_the_Storm/List_of_Keybindings)).\n- **Two Point Museum:** [PC Gamer](https://www.pcgamer.com/games/sim/two-point-museum-review/) scored it 85 but says it can \"occasionally get icons that I didn't understand at all\". Later fixes to tooltip placement are UNVERIFIED (patch notes not opened).\n- **Hades:** players built an \"Improved Boon Info\" mod, which suggests they want more detail. No praise quote.\n- **Football Manager:** hover rollovers on attributes, from one review I didn't open (UNVERIFIED).\n\n**What not to do**\n- **Balatro:** no text-size option, with tiny text; that is its most-filed complaint ([teemo.dev](https://teemo.dev/game-design/balatro/systems/ux-ui-and-accessibility/)).\n- **Frostpunk 2:** players call its tooltips hidden, tiny and inconsistent ([Reddit thread](https://www.reddit.com/r/Frostpunk/comments/1fjbbdn/)).\n- **Terra Invicta and Imperator:** players say the delay is too long.\n\n**Not researched:** Diablo III, Frostpunk 1 and Dorfromantik."
+      },
+      "timestampMs": 1792726840746,
+      "requestId": "ebf5ae7d-bd12-471b-a790-f7baf273f338",
+      "seq": 495
+    },
+    {
+      "kind": "send-message",
+      "id": "t62s496",
+      "message": {
+        "type": "text",
+        "content": "**J90 (part 2 of 3: patterns, mistakes, accessibility and Godot add-ons).**\n\n**Patterns**\n- **Delay before showing:** 300–500 ms is typical and 400 ms is common ([uxpickle](https://uxpickle.com/delay-before-the-tooltip-shows-up/), [NetEase UX article](https://oscerlot.github.io/2023/07/24/netease-ux-articles/news_20230726_28584_1101043/)).\n  - Godot's default is 0.5 s (`gui/timers/tooltip_delay_sec`). RimWorld uses 0.45 s and Civilization VI 2.0 s.\n  - A 0.1 s delay caused UI stutter in Pathfinder: Wrath of the Righteous ([Reddit thread](https://www.reddit.com/r/Pathfinder_Kingmaker/comments/1ezwb1v/)).\n- **Moving to a neighbour:** when a tooltip is already open and you move to the next item, the next one shows at 0 ms. When you leave, wait up to about 500 ms before hiding (uxpickle).\n- **Fade:** no source gives a value; 80–150 ms is my GUESS.\n- **Where it appears:** either anchored to the item (Victoria 3 moved to this so nested tooltips can be reached) or following the cursor (RimWorld, Godot's default).\n- **Width:** no game source gives one. A [Unity tutorial](https://www.youtube.com/watch?v=HXFoUGw7eKk) wraps at a preferred width of 500 and shrinks to fit short text.\n- **Layout:** title, then body, then a breakdown. Stats are grouped by category (Factorio), and RimWorld uses a bold title over grey text.\n- **Colour:** keywords get their own colour (blue in CK3, cyan in Stellaris, gold in Old World). Gains are green and losses red (Diablo IV). Colour alone is never enough ([USWDS accessibility tests](https://designsystem.digital.gov/components/tooltip/accessibility-tests/)).\n- **Compare:** hold a modifier to compare (Ctrl in Path of Exile, Shift in Diablo IV), or put tooltips side by side (Factorio).\n- **Keyboard hints:** modifier keys expand a tooltip (Alt in Path of Exile, T in Baldur's Gate 3).\n- **Animated preview:** Into the Breach.\n\nThe doc also has a table with one row per game. Only RimWorld, Civilization VI and Godot have measured delays in it, and no game has a measured width.\n\n**Mistakes players complain about**\n- **Too slow:** \"Tooltips really shouldn't be on a 1 sec delay\" (a [Terra Invicta thread](https://www.reddit.com/r/TerraInvicta/comments/ywcegm/)). Players asked for the same in Imperator, and in Pathfinder they complain the delay can't be changed.\n- **Too fast:** stutter at 0.1 s, as above. Flicker also happens when a tooltip catches the mouse and cancels its own hover (UNVERIFIED as a quote).\n- **Walls of text:** an r/gamedev thread is titled \"…let me show this wall of text, blocking half of the screen\". I could only read the title.\n- **Can't reach the nested tooltip:** Victoria 3 had to fix this in Dev Diary #74.\n- **Lock breaks:** Stellaris 4.3.1.\n- **Popup spam:** Civilization VI's map-tile tooltips.\n- **Hidden shortcut:** Baldur's Gate 3's T key.\n- **Misleading raw deltas:** Diablo IV's arrows.\n- **Text too small:** Balatro.\n- **Colour-only keywords:** Balatro's seals, so players open the tooltip every time.\n\n**Accessibility**\n- **Text size:** [Xbox's accessibility guidelines (XAG 101)](https://learn.microsoft.com/en-us/gaming/accessibility/Xbox-accessibility-guidelines/101) ask for at least 26 px at 1080p and 52 px at 4K, scalable to 200%.\n  - The [Game Accessibility Guidelines](https://gameaccessibilityguidelines.com/use-an-easily-readable-default-font-size/) give 28 px at 1080p \"as a minimum rather than a target\", and recommend letting players choose the size.\n  - Both are TV distance. A PC desk game can go smaller, but should offer a 100–200% UI scale (my call).\n- **Web accessibility rule ([WCAG 1.4.13](https://www.w3.org/WAI/WCAG22/Understanding/content-on-hover-or-focus)):** hover content must be dismissible (Esc), hoverable (the mouse can move onto it) and persistent (it stays until dismissed).\n- **Contrast:** 4.5:1 for normal text and 3:1 for large text, and don't use colour alone.\n- **Delay setting:** players keep asking for one, and Imperator offers 0.1 s.\n- **4K:** use Godot's `canvas_items` stretch so 1080p sizes double cleanly.\n- **Game UI Database:** the [Game UI Database](https://www.gameuidatabase.com/) is a library of game UI screenshots. I didn't run a tooltip search there, so I have no per-game screenshots from it (UNVERIFIED).\n\n**Godot 4 add-ons (prefab check)**\n- [Tooltips Pro](https://github.com/hewplayfair/tooltips-pro/) is the best fit on features, but its licence is a problem.\n  - It's GDScript for Godot 4.4+, with nested tooltips, timer, key or mixed locks, pins, and keyword links in rich text since v1.2.\n  - The Godot Asset Library lists its licence as **Proprietary**, the repo has no LICENSE file, and I haven't read its full terms.\n  - It's untested on 4.7.2 (GUESS that it works).\n- [Nested Tooltips](https://github.com/duzychri/Nested-Tooltips) is MIT with timer or key locks and pins, but it's **C# only**. It's a good design reference.\n- [Khemitron's devlog](https://khemitron-industries.net/quality-of-life-improvements-nested-tooltips/) is a recipe for nested tooltips built on rich-text links.\n- **Built into Godot:** [`Control._make_custom_tooltip`](https://docs.godotengine.org/en/stable/classes/class_control.html) can return any panel, which is enough for the plain and rich tiers. Its popup can't be hovered or locked, so it can't do nested tooltips.\n- [Mapdu's Tooltip Component](https://mapdu.itch.io/tooltip-component-godot) (itch.io) is free but has no nesting. Its licence is unknown because the page returned 404.\n- [Nebula UI Plugin](https://egodeath-llc.itch.io/nebula-ui-plugin-plug-and-play-game-ui-for-godot-4) is a full UI kit. I didn't open it, so its licence is UNVERIFIED.\n\n**Verdict:** build our own tooltip layer that copies Tooltips Pro's lock model, unless its terms turn out to be acceptable."
+      },
+      "timestampMs": 1792726860857,
+      "requestId": "ebf5ae7d-bd12-471b-a790-f7baf273f338",
+      "seq": 496
+    },
+    {
+      "kind": "send-message",
+      "id": "t62s497",
+      "message": {
+        "type": "text",
+        "content": "**J90 (part 3 of 3: FightCamp build spec).** All sizes are at 1080p and double at 4K. Numbers marked DESIGN are my own calls for FightCamp, and each one notes the source it's based on.\n\n**Colours (DESIGN, contrast still to be checked with a tool)**\n- **Panel and text:** cream `#F6ECD6` panel with dark brown `#2B1E12` text. About 14:1 contrast is my GUESS until it's checked.\n- **Border:** 2 px dark brass `#8A6A2F` with a 1 px `#E8C978` inner highlight.\n- **Title bar:** `#3A2A1A` with cream text.\n- **Gains and losses:** green `#2E7D32` with ▲, red `#B23A2A` with ▼. Each delta also has a sign, so it never relies on colour alone.\n- **Keywords:** blue `#1F5FA8` with a dotted underline, following CK3.\n- **Shadow:** 4 px down, 12 px blur, 35% black.\n\n**How every tooltip behaves**\n- **States:** hidden, waiting for the delay, shown, locked (nested tier only), fading out, hidden again.\n- **Delay before showing:** 400 ms, based on the 300–500 ms range, RimWorld's 0.45 s and Godot's 0.5 s.\n  - The player can set it to Instant 0, Fast 200, Normal 400 or Slow 800 ms. The lowest non-instant setting is 200 ms, because of the stutter at 0.1 s.\n  - Keyboard focus shows a tooltip instantly.\n- **Moving to a neighbour:** if a tooltip closed less than 300 ms ago, the next one shows at 0 ms.\n- **Animation:** fade in over 120 ms with ease-out while scaling from 0.96 to 1.0, and fade out over 80 ms. A Reduce Motion setting keeps the fade only. These timings are a GUESS.\n- **Hiding:** wait 150 ms after the mouse leaves before hiding a plain or rich tooltip.\n- **Flicker fix:** a tooltip ignores the mouse unless it's locked, so it never steals the hover.\n- **Esc** closes every tooltip.\n- **Placement:** anchored to the hovered item with an 8 px gap, never following the cursor.\n  - It goes below the top bar, to the right of BUILD tiles, and below-right of floor objects.\n  - At the screen edge (16 px safe inset) it flips, then clamps if it still doesn't fit. It never covers the thing you're hovering.\n- Only one top-level tooltip is open at a time.\n\n**T1: plain hover label**\n- **Used for:** top-bar icons, toolbar buttons and modal buttons.\n- **Size:** 18 px text, 8×6 px padding, 4 px corner radius, 2 px brass border.\n- **Width:** at most 280 px, shrinking to fit short text.\n- **Extras:** an optional key chip such as `[F1]`.\n- **Build:** Godot's built-in `_make_custom_tooltip`.\n\n**T2: rich card**\n- **Used for:** BUILD tiles, floor stations, fighter stats, and the cash icon (income and spending breakdown).\n- **Card:** 360 px wide, 12 px padding, 6 px radius.\n- **Header:** 40 px tall, with a 24 px icon, a 20 px bold cream title on the dark title bar, and a 14 px category tag.\n- **Stat rows:** 24 px tall, with 16 px text and a 16 px icon on the left and the value on the right, grouped by category as Factorio does.\n  - **BUILD tile:** Price `$1,200`, Footprint `2×3`, Trains `Power ▲, Stamina`, Holds `2 members`, Upkeep `$40/day`.\n  - **Floor station:** who is using it, its condition %, and the Strain each session adds.\n  - **Fighter stat:** the value plus a breakdown, e.g. `Base 40`, `Coach +6 ▲`, `Fatigue −4 ▼`, as CK3 and Victoria 3 do.\n- **Compare:** hold Shift on a BUILD tile that replaces or upgrades something to see a current-to-new column with coloured deltas, the Path of Exile and Diablo pattern.\n- **Footer:** 28 px, under a 1 px brass rule, with key-hint chips `[LMB] Place` `[Shift] Compare` `[R] Rotate`. Chips are 20 px tall, 6 px radius, dark brass with 13 px cream text.\n- **Flavour text:** at most two lines, 15 px italic.\n- **Later (phase 2):** a 120×68 px looping preview of a fighter using the station, like Into the Breach.\n\n**T3: nested keyword tooltips you can lock**\n- **Used for:** Stamina, Strain, Sharpness, Focus, and any game term inside other text.\n- **Build:** a RichTextLabel link like `[url=kw:stamina]`, in blue with a dotted underline and a small icon.\n- **Card:** 300 px wide, 10 px padding, 18 px title, 15 px body. Up to 4 levels deep.\n- **Lock:** a timer plus a key, the EU5 pattern.\n  - The tooltip locks after 1,000 ms open, or instantly with middle mouse or Space.\n  - A 3 px progress ring runs along the top edge while the timer counts, then the border turns bright brass `#C9A13B`, like Stellaris.\n  - A setting lets the player choose timer only, key only, or both, as Victoria 3 does.\n- **Once locked:** you can move the mouse onto the tooltip. It closes 300 ms after you leave it and its children, on Esc, or on right-click. A pin button keeps it open until you close it.\n- **Child placement:** to the right of the parent, aligned with the keyword's line, 4 px gap. It flips left at the screen edge, steps down if both sides are blocked, and never overlaps its parent. The parent stays open while any child is open.\n\n**Build order**\n1. Do T1 and T2 with `_make_custom_tooltip` and set `tooltip_delay_sec` to 0.4.\n2. Trial Tooltips Pro in a throwaway branch after checking its proprietary terms and testing it on 4.7.2.\n3. If that fails, write our own top-layer tooltip system on RichTextLabel's `meta_hover_started` and `meta_clicked` signals.\n\n**Talks and tutorials worth reading**\n- [CK3 Dev Diary #16](https://www.reddit.com/r/CrusaderKings/comments/fcuo7j/) on tutorials, tooltips and the encyclopedia.\n- [Victoria 3 Dev Diary #29](https://forum.paradoxplaza.com/forum/threads/victoria-3-dev-diary-29-user-experience.1506484/page-3) and [#74](https://www.paradoxinteractive.com/games/victoria-3/news/dev-diary-74-ux-improvements) on nested tooltips, lock modes and placement.\n- [Stellaris Dev Diary #292](https://forum.paradoxplaza.com/forum/threads/stellaris-dev-diary-292-3-7-4-released-and-concepts.1576269/) on how its nested tooltips work.\n- [Factorio FFF #318](https://www.factorio.com/blog/post/fff-318) on its tooltip redesign.\n- [Into the Breach UI interview](https://www.gamedeveloper.com/design/-i-into-the-breach-i-dev-on-ui-design-sacrifice-cool-ideas-for-the-sake-of-clarity-every-time-) and the [GDC design postmortem](https://www.youtube.com/watch?v=s_I07Iq_2XM).\n- [Old World GDC postmortem](https://www.youtube.com/watch?v=VXH9_d_pDa4), the \"infinite tooltips\" section.\n- [NetEase UX article on tooltip design](https://oscerlot.github.io/2023/07/24/netease-ux-articles/news_20230726_28584_1101043/) and [uxpickle on tooltip delay](https://uxpickle.com/delay-before-the-tooltip-shows-up/).\n- [Unity responsive tooltip tutorial](https://www.youtube.com/watch?v=HXFoUGw7eKk) and [Khemitron's Godot nested tooltips devlog](https://khemitron-industries.net/quality-of-life-improvements-nested-tooltips/).\n- [Game UI Database](https://www.gameuidatabase.com/), [Game Accessibility Guidelines on font size](https://gameaccessibilityguidelines.com/use-an-easily-readable-default-font-size/), [WCAG 1.4.13](https://www.w3.org/WAI/WCAG22/Understanding/content-on-hover-or-focus) and [XAG 101](https://learn.microsoft.com/en-us/gaming/accessibility/Xbox-accessibility-guidelines/101).\n\n**Still open**\n- No game source gave a tooltip width, so every px width here is my own call.\n- I didn't find CK3 or Victoria 3's default lock timer.\n- Football Manager and Hades are thin, and Diablo III, Frostpunk 1 and Dorfromantik weren't researched.\n- I haven't read Tooltips Pro's full terms, and the licences for the two itch.io add-ons are unknown.\n\nThe .md is attached."
+      },
+      "timestampMs": 1792726885837,
+      "requestId": "ebf5ae7d-bd12-471b-a790-f7baf273f338",
+      "seq": 497
+    },
+    {
+      "kind": "send-message",
+      "id": "t62s498",
+      "message": {
+        "type": "attachment",
+        "url": "file:///home/box/agent-data/agents/f5f7f322-ac00-420e-b02e-b06d6662a26e/assets/086d54dc3a2feec536566f82d773fc1718ee224817eea3c9f7eee0428dbacf22.md",
+        "file_name": "J90_TOOLTIPS_PRAISED.md",
+        "source_path": "/workspace/j90/J90_TOOLTIPS_PRAISED.md",
+        "alt": "J90_TOOLTIPS_PRAISED.md"
+      },
+      "timestampMs": 1792726887667,
+      "requestId": "ebf5ae7d-bd12-471b-a790-f7baf273f338",
+      "seq": 498
+    },
+    {
+      "kind": "message",
+      "id": "t63u",
+      "role": "user",
+      "content": "# TASK J-KDRATES1 - JOHN - knockdowns and stoppages in WOMEN'S AMATEUR boxing (real numbers, with sources)\n\nModel: John (Grok bot, research). Discipline: boxing (demo). Research only: no code.\n\n## Why\nOur boxing manager game (PC, deep management sim) simulates women's amateur bouts (3 x 2 min or 3 x 3 min, AIBA/IBA/World\nBoxing and England Boxing rules, headguard rules as they apply) and the first 4-round women's pro debut. We are adding\nknockdowns and stoppages to the simulation. The game must hit REAL rates, so we need the numbers before we tune anything.\nWe already know men's MMA knockdown rates (UFC ~35% of bouts have a knockdown) and boxing pro KO share (~47% BoxRec);\nwe have NOTHING for women or for amateurs. Do not repeat the men's/MMA figures.\n\n## The questions (answer every one; longest complete answer you can; a source for every number - name, year, link)\n1. Women's amateur boxing (elite and youth; Olympics 2012-2024, World Championships, European, national championships such\n   as England Boxing / USA Boxing): what share of bouts end by RSC / RSC-H / KO / ABD / DSQ vs on points? Per tournament\n   where you can find it (Olympic results sheets list the decision type).\n2. Standing 8 counts / knockdowns per bout in women's amateur boxing: how many bouts have at least one count, and how many\n   counts per bout? If only men's amateur data exists, give it and say so, plus any women/men ratio from any source.\n3. How the rules change it: headguard (removed for elite men 2013, kept for women until when?), the three-count rule\n   (three counts in a round / four in a bout = RSC), the 2-min vs 3-min rounds, the referee's early stoppage culture.\n4. Women's PRO boxing: share of bouts won by KO/TKO (BoxRec or any census), for 4-round debut bouts if anything exists, and\n   overall. Compare to men's pro.\n5. Weight class: is the stoppage rate higher at middleweight+ than at flyweight in women's amateurs?\n6. What a manager sim should target per 100 women's amateur bouts: bouts with a count, bouts stopped, decisions. Give a\n   band (low-high), never one number, and say how sure you are.\n\n## Prior research\nOld repo topics/knockdowns_stoppage.md: men's UFC KD incidence 35.1% of 8,337 bouts; boxing ~47% KO/TKO (BoxRec modern);\ndoctor stoppage ~1% of bouts. Nothing for women or amateurs.\n\n## What would a human do?\nPull the official results PDFs (Olympic/World Championship results books list WP/RSC/KO per bout) and count.\n\n## Prefab check\nDatasets: BoxRec, the IBA/World Boxing results books, Olympedia, any Kaggle amateur boxing set - name each you used.\n",
+      "isStreaming": false,
+      "timestampMs": 1793234438818,
+      "clientNonce": "22816f67-c828-4623-afc8-34d2d50bbe44",
+      "requestId": "b144edc4-f72a-4ccd-ad2c-f391294c61c2",
+      "seq": 499
+    },
+    {
+      "kind": "send-message",
+      "id": "t63s500",
+      "message": {
+        "type": "text",
+        "content": "Starting J-KDRATES1 now. First I'm pulling the official Olympic and World Championship results books to count how each women's bout ended."
+      },
+      "timestampMs": 1793234442950,
+      "requestId": "b144edc4-f72a-4ccd-ad2c-f391294c61c2",
+      "seq": 500
+    },
+    {
+      "kind": "send-message",
+      "id": "t63s501",
+      "message": {
+        "type": "text",
+        "content": "J-KDRATES1 research is running, and I'll post the full answer here with the .md attached when it's done."
+      },
+      "timestampMs": 1793234455466,
+      "requestId": "b144edc4-f72a-4ccd-ad2c-f391294c61c2",
+      "seq": 501
+    },
+    {
+      "kind": "send-message",
+      "id": "t63s502",
+      "message": {
+        "type": "text",
+        "content": "**J-KDRATES1 is done.** Women's amateur bouts are rarely stopped. My count of about 1,700 women's bouts gives 1.4% across the 2012–2024 Olympics and 4–11% at the IBA/AIBA World Championships. There is no public data anywhere on standing-8 counts or knockdowns for women amateurs, so every count figure below is a GUESS.\n\nMy counts come from [Olympedia](https://www.olympedia.org) and Wikipedia brackets, not the official results-book PDFs, so they still need checking against those.\n\n**1. Share of bouts stopped (RSC, KO, ABD or DSQ; walkovers left out)**\n\n| Tournament | Bouts | Stopped | Share |\n|---|---|---|---|\n| Olympics 2012 | 33 | 0 | 0% |\n| Olympics 2016 | 33 | 2 RSC | 6.1% |\n| Olympics 2020 | 97 | 1 RSC | 1.0% |\n| Olympics 2024 | 115 | 1 ABD (Khelif v Carini) | 0.9% |\n| **All four Olympics** | **278** | **4** | **1.4%** |\n| AIBA Worlds 2018 | 239 | 12 RSC, 2 DSQ | 5.9% |\n| AIBA Worlds 2019 | 203 | 9 | 4.4% |\n| IBA Worlds 2022 | 287 | 24 | 8.4% |\n| [IBA Worlds 2023](https://en.wikipedia.org/wiki/2023_IBA_Women%27s_World_Boxing_Championships) | 307 | 35 | 11.4% |\n| IBA Women's Worlds 2025 | 208 | 45 | 21.6% (outlier) |\n| World Boxing Championships 2025 | 191 | 1 | 0.5% (probably too low) |\n\nThe World Boxing 2025 figure is likely an undercount. Its Wikipedia pages list almost every result as a judges' score, so stoppages may be hidden there.\n\n**2. Counts and knockdowns per bout**\n- **Women:** I found no source for this.\n- **Men, the closest data:**\n  - Olympic men's knockouts fell from 6.3% to 3.8% of bouts when headguards became mandatory in 1984, while all early endings rose from 17.3% to 21.8% ([BJSM 2013](https://bjsm.bmj.com/content/47/7/452)).\n  - Loosemore 2017 found head-blow stoppages fell from 28.9 to 10 per 10,000 rounds without headguards ([Clin J Sport Med](https://doi.org/10.1097/JSM.0000000000000322)).\n- **Women/men ratios:** only rough ones exist.\n  - The pro stoppage rate per minute fought is about 0.83 for women versus men.\n  - Concussion rates are almost identical ([Combat Sports Law](https://combatsportslaw.com/2025/04/10/study-male-and-female-boxers-suffer-almost-identical-concussion-rates/)).\n\n**3. Rules**\n- **Headguard:** [World Boxing's competition rules](https://worldboxing.org/wp-content/uploads/2025/09/World-Boxing-Competition-Rules-Nov-2024-Approved-4.pdf) (Nov 2024) require it for elite women and ban it for elite men. Women wore headguards at every Olympics from 2012 to 2024.\n- **IBA headguards:** IBA dropped women's headguards about a year before its 2025 Worlds, then allowed them back for that event. A 12-month trial is still being discussed ([IBA coaches' forum](https://www.iba.sport/news/open-forum-held-for-coaches-on-headguards-at-iba-womens-world-boxing-championships)).\n- **Count limit:** a bout is stopped after 3 counts in a round or 4 in a bout, under World Boxing and the [England Boxing 2025 rulebook](https://www.englandboxing.org/wp-content/uploads/2025/04/2025-Rule-Book-Final.pdf). Also see the [USA Boxing rulebook](https://assets.contentstack.io/v3/assets/blteb7d012fc7ebef7f/blt38c82f8d00897a1f/67b8d0360c0965f2c1e1d577/USA_Boxing_Rule_Book_Rev._1.1.2025.pdf).\n- **Round length:** 3×3 min for elite and under-19s, and 3×2 min for under-17s and England Boxing development bouts.\n- **Unconfirmed:** the Olympic women's round format for 2012–2016.\n\n**4. Women's pro**\n- An [AAN 2025 abstract](https://www.aan.com/msa/Public/Events/AbstractDetails/58398) based on BoxRec (2014–2024) finds 29% of women's bouts end by KO/TKO (5% KO, 24% TKO) across 14,555 bouts, against 47% for men. Per minute fought, the two are nearly equal.\n- I found no data on 4-round debut bouts.\n\n**5. Weight class**\nThere's no real difference, based on my counts from the 2018–2025 IBA/AIBA Worlds:\n- **Up to 54 kg:** 10.6% stopped (51 of 479).\n- **57–70 kg:** 9.5% stopped (54 of 569).\n- **Middleweight and up:** 11.2% stopped (22 of 196).\n- **Olympics:** no middleweight stoppages in about 52 bouts.\n\n**6. What the sim should target per 100 women's amateur bouts**\n\n| Metric | Elite (Olympics, World Boxing) | IBA-style, national or club | How sure |\n|---|---|---|---|\n| Stopped | 1–6 | 5–12 (rare events up to ~20) | Medium |\n| Points decisions | 94–99 | 88–95 | Medium |\n| Bouts with at least one count | 5–15 (GUESS) | 10–25 (GUESS) | Low |\n| Counts per bout | 0.07–0.25 (GUESS) | 0.15–0.4 (GUESS) | Low |\n| Pro 4-round debut, KO/TKO | 25–45 (GUESS, built around the 29% figure) | — | Low to medium |\n\nThe count bands assume 2–4 bouts with a count for every bout that's stopped. That ratio is my assumption, not data.\n\n**Datasets**\n- **Used:** Olympedia and Wikipedia brackets.\n- **Not used:** BoxRec needs a login. Kaggle's [Boxing at the Summer Olympics](https://www.kaggle.com/datasets/mathurinache/boxing-at-the-summer-olympics) and [Boxing Matches](https://www.kaggle.com/datasets/mexwell/boxing-matches) weren't checked for bout-level detail.\n- **Cross-check:** amateur-boxing.strefa.pl came back empty.\n\n**Gaps**\n- No women's count or knockdown data. The official per-bout results PDFs might list counts.\n- World Boxing 2025 needs checking against its results book.\n- European Championships, England Boxing and USA Boxing nationals weren't counted, because I found no public bout-level results.\n- No youth women's tournaments were counted.\n- No census of 4-round debuts exists; it would need a BoxRec query.\n- There's no same-event men's comparison.\n\nThe full report with every source is attached. My counts and scrape scripts are in the same folder on my computer, `/workspace/jkdrates1/`."
+      },
+      "timestampMs": 1793234750545,
+      "requestId": "401e7b8f-7c6c-4545-a3e7-8650a25ffe40",
+      "seq": 502
+    },
+    {
+      "kind": "send-message",
+      "id": "t63s503",
+      "message": {
+        "type": "attachment",
+        "url": "file:///home/box/agent-data/agents/f5f7f322-ac00-420e-b02e-b06d6662a26e/assets/e229c6da40374e36457956752908fe6147397b78faaac4a1af6e8624b9e53df5.md",
+        "file_name": "J_KDRATES1.md",
+        "source_path": "/workspace/jkdrates1/J_KDRATES1.md",
+        "alt": "J_KDRATES1.md"
+      },
+      "timestampMs": 1793234751781,
+      "requestId": "401e7b8f-7c6c-4545-a3e7-8650a25ffe40",
+      "seq": 503
+    },
+    {
+      "kind": "message",
+      "id": "t64u",
+      "role": "user",
+      "content": "# TASK J-GUARDPACE1 - JOHN - what a real boxing guard and real punch pace look like (numbers, with sources)\n\nKind: research\nModel: John (Grok research seat). Discipline: boxing (demo). Assigned 2026-10-29 (S301).\n\n## Why\nThe operator watched our 3D fight (women's amateur boxing, side-on broadcast camera) on 2026-10-29 and wrote:\n\"the guard looks fake, still too slow, the punches feel like they have no power and target enemys hand rather than\ntheir head\". We need real-world numbers to fix each, not guesses.\n\n## Questions (answer each with numbers and a source; say when a number is an estimate)\n1. THE GUARD (orthodox, amateur and pro women if possible, else men scaled): where are the gloves relative to the face\n   (glove height vs chin/eyes, distance in front of the face in cm), elbows (tucked to ribs? how far from the torso),\n   chin tucked, shoulders raised, knee bend, stance width (feet apart as a fraction of height), weight split front/back,\n   how much the guard MOVES while waiting (bounce amplitude cm, rhythm Hz, hand pumping/feints). What makes a guard\n   look stiff/fake on screen versus alive (animation or broadcast-analysis sources welcome)?\n2. PACE: punches thrown per minute per boxer in women's amateur bouts (CompuBox-style or study data), typical\n   combination length, seconds between exchanges, time from first visible movement to contact for jab / cross / hook,\n   retraction time. We have: jab ~0.4 s first movement to contact, retraction jab ~262 ms, power ~170 ms - confirm or\n   correct.\n3. POWER ON SCREEN: what makes a punch read as powerful on broadcast and in games (weight transfer: hip/shoulder\n   rotation degrees, rear-foot pivot, head snap of the receiver in degrees and ms, hit-stop / impact frames in fighting\n   games in ms, camera shake). Cite game-animation talks or fighting-game frame data where you can.\n4. WHERE PUNCHES LAND: in amateur bouts, what share of thrown punches hit the guard/gloves vs the head vs the body,\n   and at what distance (cm between the fronts of the two boxers' heads) a jab lands on the face past the guard.\n\n## Prior research\nresearch/topics/striking.md, G75_STRIKE_SPEEDS.md (Kimm & Thiel 2015 jab speeds), J28_HOW_FIGHT_MOVES_FLOW.md\n(retraction ~170/262 ms, Menzel), J50_HOW_A_DEFENDER_DEFENDS.md (jab ~405 ms to contact), UNDISPUTED_STUDY_S254.md\n(clip-start -> impact jab 0.365 s, cross 0.501, hook 0.534, uppercut 0.489). Do not repeat these; build on them.\n\n## What would a human do?\nA boxing coach judges a guard by eye in seconds (gloves at the cheekbones, elbows on the ribs, chin down, always\nmoving); a game animator matches mocap to broadcast reference frame by frame and adds impact frames for weight. We want\nthe numbers those two people carry in their heads.\n\n## Prefab check\nNone: this is a research question. Name any free dataset (punch-phase timings, CompuBox women's stats, open mocap of a\nboxing guard) with its licence if you find one.\n\n## Answer format\nMarkdown, one section per question, every number with its source (title, author/site, year, URL). Longest complete\nanswer; then \"continue\" if cut.\n",
+      "isStreaming": false,
+      "timestampMs": 1793247419530,
+      "clientNonce": "2a9a4110-d5ea-4623-bf17-8ae72b82cd1d",
+      "requestId": "f80699cf-9481-4aab-a264-e185885ac46a",
+      "seq": 504
+    },
+    {
+      "kind": "send-message",
+      "id": "t64s505",
+      "message": {
+        "type": "text",
+        "content": "Starting J-GUARDPACE1 now. First I'm pulling guard measurements, punch-rate data and fighting-game impact-frame sources."
+      },
+      "timestampMs": 1793247422354,
+      "requestId": "f80699cf-9481-4aab-a264-e185885ac46a",
+      "seq": 505
+    },
+    {
+      "kind": "send-message",
+      "id": "t64s506",
+      "message": {
+        "type": "text",
+        "content": "J-GUARDPACE1 research is running, and I'll post the full sourced answer here with the .md attached when it's done."
+      },
+      "timestampMs": 1793247437926,
+      "requestId": "f80699cf-9481-4aab-a264-e185885ac46a",
+      "seq": 506
+    },
+    {
+      "kind": "send-message",
+      "id": "t64s507",
+      "message": {
+        "type": "text",
+        "content": "**J-GUARDPACE1 is done**, though several key numbers are still estimates. The biggest corrections are that the jab is about 0.30–0.36 s from first movement to contact, not 0.4 s, and that the guard should bob at about 1 Hz.\n\nMost numbers below come from abstracts or search excerpts, not full papers I read. I couldn't open the England Boxing handbook. Glove distance, bounce size, head-snap angle and jab distance have no source and are marked ESTIMATE.\n\n**1. The guard**\n- **Coaching position:** lead glove at eyebrow height, rear glove on the cheekbone, elbows on the ribs, chin behind the lead shoulder. Feet about shoulder width apart, knees slightly bent, rear heel up. These are qualitative, from the [Boxing Scotland toolkit](https://www.boxingscotlandtoolkit.org/session-delivery/skill-fundamentals-stance-guard/) and [Honour & Glory Boxing](https://www.honourandglory.co.uk/coaching/foundations-guard-footwork-jab-cross).\n- **Weight at rest:** 55.9% on the rear foot and 44.1% on the lead foot.\n  - The lead foot carries its weight on the heel (63.7%), and the rear foot on its forefoot (51.8%), so the rear heel is light.\n  - Source: a [foot-pressure study](https://www.researchgate.net/publication/352646639), about 2021.\n- **Weight during a cross:** 60.6% front and 39.4% rear in elite boxers ([Dinu & Louis 2020](https://pmc.ncbi.nlm.nih.gov/articles/PMC7739747/)).\n- **Angles at impact:** knee 142.8° and neck flexion 23.1° (Dinu 2020). The neck angle is our best number for how far the chin tucks.\n- **Idle rhythm:** elite women make about 63 up-and-down hip movements per minute, roughly 1 Hz ([Davis et al., women](https://pubmed.ncbi.nlm.nih.gov/25933441/)). Men are lower, about 47 per minute ([Davis 2015](https://pubmed.ncbi.nlm.nih.gov/24912199/)).\n- **ESTIMATES:** gloves about 10–20 cm in front of the face, a bounce of 2–5 cm, and feet about 0.25 × height apart.\n- **Why ours looks fake (design suggestion):** a frozen guard is the giveaway. Add a constant bob of about 1 Hz and 2–5 cm, small hand pumps and feints, rear heel up, and the chin tucked about 23°.\n\n**2. Pace**\n- **Punches thrown per minute per boxer:** about 16 for elite women at the 2012 Olympics. About 20 for Olympic men, and about 21 for men after the 2013 rule changes ([Davis 2018](https://doi.org/10.1519/jsc.0000000000001864)).\n- **Activity:** about 1.6 actions per second for women. For men, active time outweighs breaks 18 to 1, falling from 31:1 in round 1 to 6.6:1 in round 3 (Davis 2015).\n- **2023 IBA women's World Championship finals:** 1,323 attacking actions over 12 bouts, about 6 attacks per minute per boxer. Boxers who threw single counterpunches tended to lose ([PMC 2025 study](https://pmc.ncbi.nlm.nih.gov/articles/PMC12452553/)).\n- **Start to contact:** jab and cross 357 ± 178 ms, hook 477 ± 203 ms. The second punch of a combination lands about 125 ms after the first ([Piorkowski et al. 2011](https://knowledge.lancashire.ac.uk/id/eprint/3757/1/piorkowski-et-al-2011-punch-kinematics.pdf)).\n- **A cross measured with a wearable sensor:** 402 ms in total, of which 111 ms to the target and 169 ms coming back ([Sensors 2021](https://www.mdpi.com/1424-8220/21/23/7882)).\n- **Checking our numbers:**\n  - Jab at about 0.4 s to contact should be **0.30–0.36 s**.\n  - Power punch coming back in about 170 ms is **confirmed** (169 ms).\n  - Jab coming back in 262 ms is not independently confirmed.\n\n**3. Power on screen**\n- **Hip rotation:** about 17° (range 10–27°) in a straight right ([Cheraghi 2014](https://aassjournal.com/article-1-136-en.pdf)). Experienced boxers turn the pelvis more, while novices twist the spine ([pelvic-rotation study](https://core.ac.uk/download/223208425.pdf), degree values not seen).\n- **Elbow at impact:** about 113°, so the arm is never locked straight (Dinu 2020).\n- **Impact on a crash-test head:**\n  - A straight punch hits at 3,427 N and 9.14 m/s, with peak head rotation acceleration of 6,343 rad/s² ([Walilko & Viano 2005](https://pmc.ncbi.nlm.nih.gov/articles/PMC1725037/)).\n  - A hook hits at 11 m/s and 4,405 N, with 9,306 rad/s² ([Viano 2005](https://journals.lww.com/neurosurgery/fulltext/10.1227/01.neu.0000187541.87937.d9)).\n  - Neither gives the head-snap angle in degrees.\n- **Street Fighter 6 hit-stop:** light 9 frames (150 ms), medium 11 frames (183 ms), heavy 13 frames (217 ms) ([FeelFrames](https://feelframes.dev/g/street-fighter-6-hit-stop)).\n- **[Sakurai on hit-stop](https://www.youtube.com/watch?v=CiQzmwz_Olg):** both fighters freeze, the one hit shakes more and the shake fades, and the hurt pose blends in over about 4 frames.\n- **Design suggestion (ESTIMATE):** use a shorter freeze than Street Fighter, 2–3 frames for a jab and 4–6 for power punches. Combine it with the rear foot pivoting, the hips turning about 17°, weight moving to about 60% on the front foot, and the receiver's head snapping back.\n\n**4. Where punches land**\n- **Head vs body:** in the 2023 women's finals, about 80% of landed punches hit the head and about 20% the body (1,052 of 1,309, my own sum from the paper's tables). Men land about 5 to the head for every 1 to the body (Davis 2015).\n- **How often attacks land:** winners land 38–39% of their attacking actions, losers 26–29% (2023 finals paper).\n- **Hits on the guard:** no study gives a share. Davis 2015 only says boxers took punches on their guard.\n- **Jab distance:** arm span is about 1.01 × height ([ScienceDirect study](https://www.sciencedirect.com/science/article/pii/S2666602222001598)). From that, I estimate a jab lands at about 60–75 cm face to face for a 169 cm woman (ESTIMATE).\n- **Fix for punches aiming at the hands (design suggestion):** aim each fist at a target point on the opponent's chin or nose. Only play the separate fist-meets-glove animation when the defender's block actually succeeds.\n\n**Datasets:** none usable yet. CompuBox is proprietary, and I found no open mocap of a boxing guard. The CMU motion-capture database has boxing clips, but I haven't checked their licence. The two timing papers publish their own tables.\n\n**Gaps:**\n- **Guard measurements:** glove and elbow distances, stance width and bounce size in cm, and how often boxers pump their hands or feint.\n- **Cross mechanics:** shoulder and rear-foot pivot angles, plus the receiver's head-snap angle and timing.\n- **Pace data:** women's pro punch counts, how long combinations usually are, and the seconds between exchanges.\n- **Defence:** the share of punches blocked on the guard.\n- **Game sources:** Tekken frame data, camera-shake numbers, and Fight Night or Undisputed animation talks.\n\nThe full report is attached."
+      },
+      "timestampMs": 1793247579766,
+      "requestId": "2f079786-70f2-49c0-aeca-20a073acf023",
+      "seq": 507
+    },
+    {
+      "kind": "send-message",
+      "id": "t64s508",
+      "message": {
+        "type": "attachment",
+        "url": "file:///home/box/agent-data/agents/f5f7f322-ac00-420e-b02e-b06d6662a26e/assets/72ec16b4313d0247dcdf52ce8b4d74228724ec487a591b9314e054d3a85d84bf.md",
+        "file_name": "J_GUARDPACE1.md",
+        "source_path": "/workspace/jguardpace1/J_GUARDPACE1.md",
+        "alt": "J_GUARDPACE1.md"
+      },
+      "timestampMs": 1793247580841,
+      "requestId": "2f079786-70f2-49c0-aeca-20a073acf023",
+      "seq": 508
+    },
+    {
+      "kind": "message",
+      "id": "t65u",
+      "role": "user",
+      "content": "# TASK J-COMBOENERGY1 - JOHN - what combinations cost a boxer in energy, and how tiredness changes them (numbers, sources)\n\nKind: research\nModel: John (Grok research seat). Discipline: boxing (demo). Assigned 2026-10-29 (S302).\n\n## Why\nWe are adding trainable combinations to a women's amateur boxing game (3 x 3 min rounds, 1 min breaks). The operator:\n\"combos should also be associated with energy (stamina) in the fight\". Our first numbers are ESTIMATES; we need real\nones. Say clearly when a number is measured (cite it), derived, or an estimate. Read the papers, not summaries: a\nsummary of Piorkowski 2011 claimed \"125 ms between punches\" and the paper itself says ~0.35 s contact to contact.\n\n## Questions\n1. ENERGY COST: oxygen uptake, heart rate or blood lactate for combinations versus single punches (bag, pad or\n   sparring studies; e.g. Davis et al., Smith 2006, Arseneau, Hukkanen & Hakkinen, Kravitz, Bruzas). Per punch or per\n   minute, by combination length if anyone measured it.\n2. OUTPUT ACROSS ROUNDS: punches thrown and landed per round in amateur bouts (women if possible), round 1 vs 2 vs 3;\n   does combination share or combination length fall in later rounds (e.g. Davis 2013/2018, El-Ashker, Thomson)?\n3. TIREDNESS AND TECHNIQUE: how fatigue changes punch speed, force, accuracy and the time between punches in a\n   combination (fatigue protocol studies). Percent changes, please.\n4. RECOVERY: how much heart rate / lactate recovers in the 60 s break between amateur rounds, and how conditioning\n   (VO2max, training level) changes it.\n5. Translate into a game rule in plain words: e.g. \"a fighter at X% of her energy throws combinations Y% shorter and\n   Z% slower\"; give your best numbers for a 100-point energy tank over 3 rounds.\n\n## Prior research (do not repeat; build on it)\nresearch/G49_THE_EXCHANGE.md s2, G53_THE_COMBINATION_INTERVAL.md, Q17_DIGEST.md (cardio as heart rate),\nJ_GUARDPACE1_JOHN.md (incl. the correction at its end), topics/body_damage.md, topics/pace_calibration.md.\n",
+      "isStreaming": false,
+      "timestampMs": 1793256039395,
+      "clientNonce": "be0d11b4-695a-4b22-bd99-deeafbba7295",
+      "requestId": "4083a9ac-d886-4e3e-a093-638f4e7fc8c7",
+      "seq": 509
+    },
+    {
+      "kind": "send-message",
+      "id": "t65s510",
+      "message": {
+        "type": "text",
+        "content": "Starting J-COMBOENERGY1 now. I'll begin with the bag, pad and sparring energy studies, reading the full papers rather than summaries."
+      },
+      "timestampMs": 1793256044800,
+      "requestId": "4083a9ac-d886-4e3e-a093-638f4e7fc8c7",
+      "seq": 510
+    },
+    {
+      "kind": "send-message",
+      "id": "t65s511",
+      "message": {
+        "type": "text",
+        "content": "J-COMBOENERGY1 is underway. I'll post the full sourced answer here with the .md attached. Each number will be marked as measured, derived or an estimate."
+      },
+      "timestampMs": 1793256054522,
+      "requestId": "4083a9ac-d886-4e3e-a093-638f4e7fc8c7",
+      "seq": 511
+    },
+    {
+      "kind": "send-message",
+      "id": "t65s512",
+      "message": {
+        "type": "text",
+        "content": "**J-COMBOENERGY1 is done, but no study measures what a 2-, 3- or 4-punch combination costs against a single punch.** I used the best stand-in instead: on the bag, a punch thrown at fast cadence costs about 1.39× one thrown slowly. That's DERIVED from [Arseneau 2011](https://pubmed.ncbi.nlm.nih.gov/21217532/), where oxygen use was 24.7, 30.4 and 38.3 ml/kg/min at 60, 120 and 180 punches per minute. Punching is a small part of the total: at about 18 punches a minute it adds only about 5% of the cost of sparring.\n\n**Output across rounds** comes from the women's 2023 world finals, 12 bouts ([Martusciello 2025a](https://pmc.ncbi.nlm.nih.gov/articles/PMC12452553/), MEASURED):\n- **Winners** threw 19.3, 16.8 and 18.1 punches per minute in rounds 1–3. Their rear-hand punches fell 19% in round 2, while the jab barely moved, so tired winners drop power shots first.\n- **Accuracy** stayed flat for winners (0.39, 0.38, 0.39), and losers actually improved slightly.\n- **Combinations** made up 46.6% of winners' actions, but only as a whole-bout figure. No one has published combination share by round.\n- **Exchanges** in the 81+ kg final shortened by 31% from round 1 to round 3 ([Martusciello 2025b](https://pmc.ncbi.nlm.nih.gov/articles/PMC12197034/)). In the 52 kg final they got longer.\n- **Elite men** ([Dunn 2017](https://pmc.ncbi.nlm.nih.gov/articles/PMC5747423/)) threw a flat number of punches per round, but clinch time rose 78%, time with the guard down rose 41%, and bouncing fell 23%.\n\n**Tiredness and technique:**\n- **Reaction time** slowed about 18% after round 3, but only for boxers not yet peaked for competition ([Hukkanen 2017](https://doi.org/10.1519/jsc.0000000000001885)).\n- **Punch force** didn't fall across rounds. [Smith 2006](https://pmc.ncbi.nlm.nih.gov/articles/PMC3863921/) measured 1265 N in round 1 and 1314 N in round 4, and Hukkanen saw force rise.\n- **Punch speed and travel time** didn't change in any study we found.\n- **The time between punches in a combination** under fatigue hasn't been published.\n\n**Recovery in the 60 s break** ([Davis 2014](https://doi.org/10.1123/ijspp.2013-0006), MEASURED unless marked):\n- **Heart rate** drops only about 13 bpm in each break, and each round runs about 7 bpm higher than the last (166, 173, 174).\n- **Lactate** keeps climbing (6.7, 8.6, 9.5 mmol/L), so the break doesn't clear it.\n- **Muscles' fast energy store:** about half of what's used up refills in 60 s. That's DERIVED from [Bogdanis 1995](https://pmc.ncbi.nlm.nih.gov/articles/PMC1157744/), which gives a half-time of 56.6 s.\n- **Fitness:** fitter athletes recover faster, but there's no boxing number for how much."
+      },
+      "timestampMs": 1793256572694,
+      "requestId": "7965624d-ca11-4549-aa7b-ac32a43923bd",
+      "seq": 512
+    },
+    {
+      "kind": "send-message",
+      "id": "t65s513",
+      "message": {
+        "type": "text",
+        "content": "**Proposed rule for a 100-point energy tank:**\n- **Targets (ESTIMATE):** at finals pace she ends rounds at about 68, 46 and 29, and starts rounds 2 and 3 at about 78 and 61.\n- **Drain (ESTIMATE unless marked):**\n  - Moving and guarding: 0.10 points per second.\n  - A single punch: 0.22 points.\n  - A combination of n punches: 0.22 × [1 + 1.39 × (n−1)], where 1.39 is DERIVED. That gives 0.53, 0.83 and 1.14 points for 2, 3 and 4 punches.\n  - Rear-hand punches and hooks cost 1.1× as much.\n- **Recovery (ESTIMATE):** 60% of what she spends comes back quickly and 40% slowly.\n  - Each break refills 52% of the quick part (DERIVED).\n  - The slow part never refills during the fight.\n  - A fitness factor from 0.8 to 1.2 scales recovery.\n\nIn plain words, between energy 70 and 30 she throws about 10% fewer punches (DERIVED). Her combinations get about 30% shorter (ESTIMATE), and she throws 19% fewer power shots (DERIVED). She reacts about 18% slower unless she has peaked for competition (MEASURED). Her speed, force, accuracy and combination timing hold steady down to energy 20. Below 20, crosses and hooks lose 10% of their force and her combinations stretch 10% (ESTIMATE).\n\n**Gaps:**\n- What combinations cost by length.\n- Combination share by round, especially for women.\n- The time between punches in a combination when tired.\n- Women's lab energy data for the 3×3 format. The only women's figures are for 3×2 bouts, and I took them from another paper's citation, not the original.\n\nA few figures came from abstracts or search snippets only; the memo flags each one. My notes to Claude are still on hold until your computer is back online."
+      },
+      "timestampMs": 1793256578384,
+      "requestId": "7965624d-ca11-4549-aa7b-ac32a43923bd",
+      "seq": 513
+    },
+    {
+      "kind": "send-message",
+      "id": "t65s514",
+      "message": {
+        "type": "attachment",
+        "url": "file:///home/box/agent-data/agents/f5f7f322-ac00-420e-b02e-b06d6662a26e/assets/58e4ff3ae1194df6dbb5649558ad1be1a6c750ba30cabdc2ae7c62019b9adaf6.md",
+        "file_name": "J_COMBOENERGY1.md",
+        "source_path": "/workspace/jcomboenergy1/J_COMBOENERGY1.md",
+        "alt": "J_COMBOENERGY1.md"
+      },
+      "timestampMs": 1793256579859,
+      "requestId": "7965624d-ca11-4549-aa7b-ac32a43923bd",
+      "seq": 514
+    }
+  ],
+  "nextBeforeSeq": 455,
+  "precedingTimestampMs": 1792415652004
+}

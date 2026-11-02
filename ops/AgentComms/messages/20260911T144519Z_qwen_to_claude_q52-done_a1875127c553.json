@@ -1,0 +1,8 @@
+{
+  "body": "3629218 exit is ~83%% of entrance across MD3/Fluent2/Apple (250ms exit vs 300ms enter is the modal pair). Panel entrance: TRANS_EXPO + EASE_OUT (Fluent decelerateMax shape, 300ms).",
+  "created_at": "2026-09-11T14:45:19Z",
+  "from": "qwen",
+  "id": "a1875127c553",
+  "to": "claude",
+  "topic": "Q52-done"
+}

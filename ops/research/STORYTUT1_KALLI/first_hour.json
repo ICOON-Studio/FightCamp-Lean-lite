@@ -1,0 +1,183 @@
+{
+  "beats": [
+    {
+      "id": "gym_intro",
+      "minute_from": 0,
+      "minute_to": 4,
+      "screen": "Office & Gym Floor (Keys)",
+      "decision": "Keep the name Calder House or rename the gym; Mara is waiting in the locker room.",
+      "tutorial_line": "You have the keys and a lease. You don't throw punches here - you keep the doors open.",
+      "exit_flag": "prospect_signed",
+      "unlocks": []
+    },
+    {
+      "id": "fighter_profile",
+      "minute_from": 5,
+      "minute_to": 9,
+      "screen": "Fighter Profile: Mara Solano",
+      "decision": "Read Mara's 6 core stats and 2 readouts, then pick her first focus: Recovery Rate or Cut & Swell Resistance.",
+      "tutorial_line": "Six numbers say what she can do. Recovery Rate and Cut & Swell Resistance say how long she can keep doing it.",
+      "exit_flag": "profile_read",
+      "unlocks": []
+    },
+    {
+      "id": "technique_tree",
+      "minute_from": 10,
+      "minute_to": 13,
+      "screen": "Technique Tree (one_two)",
+      "decision": "Set the 1-2 as Mara's first drilled technique; see what it opens in the tree.",
+      "tutorial_line": "Every combination starts with a jab and a straight right. Drill it until her hands stop thinking.",
+      "exit_flag": "one_two_set",
+      "unlocks": [
+        "technique_tree"
+      ]
+    },
+    {
+      "id": "week_plan",
+      "minute_from": 14,
+      "minute_to": 17,
+      "screen": "Training Plan (7-Day Week)",
+      "decision": "Fill Mara's week with stations, or keep the coach's default week.",
+      "tutorial_line": "A week is seven days of choices. Push her and she grows; push too hard and she wears.",
+      "exit_flag": "camp_confirmed",
+      "unlocks": []
+    },
+    {
+      "id": "auto_day",
+      "minute_from": 18,
+      "minute_to": 21,
+      "screen": "GymHall3D (Advance)",
+      "decision": "Watch the day play out or press Advance; the floor runs the plan either way.",
+      "tutorial_line": "You don't need to stand over every round on the bag. Advance when you've seen enough.",
+      "exit_flag": "auto_day_accepted",
+      "unlocks": []
+    },
+    {
+      "id": "week_review_1",
+      "minute_from": 22,
+      "minute_to": 24,
+      "screen": "Week Review (Body Wear)",
+      "decision": "Read where the week landed on her body and keep or ease next week's plan.",
+      "tutorial_line": "Stats went up. So did the wear on her shoulders. Both carry into Monday.",
+      "exit_flag": "wear_reviewed",
+      "unlocks": [
+        "assistant_hire"
+      ]
+    },
+    {
+      "id": "pre_fight_1",
+      "minute_from": 25,
+      "minute_to": 29,
+      "screen": "Amateur Draw & Scouting",
+      "decision": "Accept the amateur draw against Elena Perez and spend on film to read her tells.",
+      "tutorial_line": "Elena Perez drops her right hand when she lunges with the hook. Pay to look, or find out in the ring.",
+      "exit_flag": "scout_reviewed",
+      "unlocks": [
+        "film_study",
+        "sparring_tell_bank"
+      ],
+      "opponent_id": "elena_perez"
+    },
+    {
+      "id": "bout_1",
+      "minute_from": 30,
+      "minute_to": 33,
+      "screen": "FightRealtime: Bout 1 (Rounds 1-2)",
+      "decision": "Watch the pacing; drag the Towel Tray only if she is badly hurt.",
+      "tutorial_line": "The corner stays quiet during rounds. Trust the week and watch her body.",
+      "exit_flag": "bout_1_round_2_done",
+      "unlocks": [],
+      "opponent_id": "elena_perez"
+    },
+    {
+      "id": "corner_1",
+      "minute_from": 34,
+      "minute_to": 36,
+      "screen": "FightRealtime: Corner 1 (45s Clock)",
+      "decision": "Spend Chief Second 15s (1 AP) on a tone; Second lane 15s (1 AP) on Water/Stamina (+8%).",
+      "tutorial_line": "Read her pulse and her state. Match the tone: Calm, Fire Her Up, or Tell Her the Truth.",
+      "exit_flag": "corner_1_done",
+      "unlocks": [],
+      "opponent_id": "elena_perez"
+    },
+    {
+      "id": "bout_1_finish",
+      "minute_from": 37,
+      "minute_to": 40,
+      "screen": "FightRealtime: Bout 1 (Round 3 & Verdict)",
+      "decision": "Hear the verdict, then pick your word to her: praise the work or warn about the trades she took.",
+      "tutorial_line": "Win or lose, the card is on the ledger. The next one is already being drawn.",
+      "exit_flag": "bout_1_over",
+      "unlocks": [],
+      "opponent_id": "elena_perez"
+    },
+    {
+      "id": "office_trap",
+      "minute_from": 41,
+      "minute_to": 44,
+      "screen": "Office: The Bill & Northline",
+      "decision": "Pay the month's bill, then answer Cass Orth's Northline development deal: sign, refuse, or delay 4 weeks.",
+      "tutorial_line": "The bill came on its date. Cass Orth came with it, smiling, holding a contract with Mara's name already on it.",
+      "exit_flag": "trap_answered",
+      "unlocks": []
+    },
+    {
+      "id": "fight_week_thursday",
+      "minute_from": 45,
+      "minute_to": 47,
+      "screen": "Booking: Regional Card, then GymHall3D Fight Week Thursday",
+      "decision": "Book Mara on the regional card Hale Yard shares; at Thursday's test spar, Lock One, Sacrifice One: lock Right Cross Power (+15% crit) or keep Low Hook Guard (-10% vs left hooks if dropped).",
+      "tutorial_line": "Rook Hale's gym is on the same card. Thursday's spar is the last test: lock one weapon, give up one guard.",
+      "exit_flag": "lock_sacrifice_done",
+      "unlocks": [
+        "regional_booking"
+      ]
+    },
+    {
+      "id": "weigh_in",
+      "minute_from": 48,
+      "minute_to": 51,
+      "screen": "Weigh-In Screen (Friday Scale)",
+      "decision": "Weight cut: Safe Sweat (-5% stamina) or Sauna Push (10% fail risk, -15% chin).",
+      "tutorial_line": "Hale Yard is watching from across the room. Drain the water, or drain the chin.",
+      "exit_flag": "weight_cut_chosen",
+      "unlocks": [
+        "rivalry_heat"
+      ]
+    },
+    {
+      "id": "bout_2",
+      "minute_from": 52,
+      "minute_to": 55,
+      "screen": "FightRealtime: Bout 2 (Rounds 1-2)",
+      "decision": "Read the swelling under her eye; decide whether the corner calls for the clinch.",
+      "tutorial_line": "Her eye is closing. Less vision means more shots she doesn't see coming.",
+      "exit_flag": "bout_2_round_2_done",
+      "unlocks": [],
+      "opponent_id": "nadia_kerr"
+    },
+    {
+      "id": "doctor",
+      "minute_from": 56,
+      "minute_to": 58,
+      "screen": "FightRealtime: Corner 2, Doctor & Towel",
+      "decision": "Cutman lane: Ice (swelling) or Swab (cut). Then the doctor looks: drag the towel to ring centre, or wave the doctor off and fight on (risk Cut-Prone scar).",
+      "tutorial_line": "The doctor is looking at her. Throw the towel to protect the career, or trust her to see the round out.",
+      "exit_flag": "doctor_resolved",
+      "unlocks": [],
+      "opponent_id": "nadia_kerr"
+    },
+    {
+      "id": "chapter_1_end",
+      "minute_from": 59,
+      "minute_to": 60,
+      "screen": "Office: Chapter 1 End (Keys)",
+      "decision": "Read the week's result on the Wall, then Advance into the full gym.",
+      "tutorial_line": "The doors are still open. Everything in the gym is yours now.",
+      "exit_flag": "chapter_1_done",
+      "unlocks": [
+        "sandbox_full"
+      ]
+    }
+  ]
+}

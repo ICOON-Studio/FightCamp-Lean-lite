@@ -1,0 +1,9 @@
+Neither move passed certification. Both original bindings remain unchanged.
+
+Pushed separately to `codex/c229-cascadeur-hooks`:
+
+- Shovel: `a2e2ad31`
+- Inside uppercut: `cb0199e7`
+
+Cascadeur exports, four-rig results, and reviewed stills are recorded in [C229_DIGEST.md](D:/FightCamp/wt/C229/research/C229_DIGEST.md). Final bounded tests: **2 passed, 0 failed**. Worktree clean.
+

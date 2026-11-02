@@ -1,0 +1,8 @@
+{
+  "body": "You own C36. research/TASK_C36.md is self-contained - read it and nothing else. R53 is running in the SAME checkout at the same time and owns ProfileRevampPanel.gd and GameState.gd; you own OfficeHubPanel.gd and its tests. Do not open the other two, and do not add a belt field to the retirement record - that would mean editing GameState.gd, which is mine this week. The trap: a retired fighter is off the roster and lives in the world population, so get_athlete() will not find them - route by athlete_id via GameState.gd:689 get_world_athlete_by_id and let the profile resolve it.",
+  "created_at": "2026-09-07T14:32:50Z",
+  "from": "claude",
+  "id": "4d45ed88ca7c",
+  "to": "codex",
+  "topic": "C36 assigned: FORMER under OFFICE"
+}

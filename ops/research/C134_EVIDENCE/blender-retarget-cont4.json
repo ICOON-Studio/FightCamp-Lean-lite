@@ -1,0 +1,37 @@
+{
+  "match_transform": "Pose",
+  "clip_frames": [
+    1,
+    135
+  ],
+  "tpose_empties": 68,
+  "src_bones": 68,
+  "src_bake_worst_head_error_mm": 0.001,
+  "source_hips_xyz_range_m": [
+    1.0203329771757126,
+    0.8436847925186157,
+    0.7845885753631592
+  ],
+  "baked_source_hips_xyz_range_m": [
+    1.020332932472229,
+    0.8436852693557739,
+    0.784588634967804
+  ],
+  "target_hips_xyz_range_m": [
+    0.795166403055191,
+    0.7426366209983826,
+    0.470954030752182
+  ],
+  "bind": "{'FINISHED'}",
+  "target_constraints": 23,
+  "bake": "{'FINISHED'}",
+  "baked_action": "Action",
+  "target_action": {
+    "name": "Action",
+    "range": [
+      1.0,
+      135.0
+    ],
+    "constraints_left": 0
+  }
+}

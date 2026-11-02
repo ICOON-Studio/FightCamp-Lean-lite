@@ -1,0 +1,139 @@
+<!-- Ludo round 65 part 3 ('continue') verbatim, S226 2026-10-15, 14676 chars -->
+
+
+
+3D asset, heavy industrial workshop workbench with mechanic vise, chunky stylized realism, thick laminated beech hardwood butcherblock slab top with 2-segment chamfered edges, dark grey welded square-tube steel base with lower open tool shelf, heavy cast iron swivel mechanics bench vise bolted to the left corner with an oversized brass screw bar, a steel peg rail mounted on the back edge holding leather awls, heavy curved needle, and a rubber mallet, isometric three-quarter view from slightly above, isolated on plain light-grey background, soft studio lighting, no people.
+
+
+
+Prop 07 (Heavy Timber Stepladder):
+
+3D asset, vintage commercial wooden A-frame stepladder, chunky stylized realism, thick varnished ash timber construction with wide grooved steps and rounded chamfered corners, heavy stamped dark steel top hinge plate and prominent locking scissor spreader brackets on the sides, small specks of dried plaster on the lower rungs, resting folded in a neat upright stance, isometric three-quarter view from slightly above, isolated on solid light-grey background, crisp clean studio shadows.
+
+D. Rejection Rules
+Equipment Shelving (Prop 01): Reject if shelves are sagging sheet metal with paper-thin edges; reject if boxing gloves and pads are rendered as an indistinguishable mushy mass; reject if modern neon or blue plastic storage totes appear.
+Medicine Ball Tree (Prop 02): Reject if medicine balls appear as perfect shiny billiard balls with smooth digital textures; reject if the raw-hide laces are missing or painted on flatly; reject if the tubular frame lacks welded join collars.
+Glove Airing Tree (Prop 03): Reject if gloves are floating off the pegs; reject if the central mast is razor-thin; reject if gloves look like thin latex dishwashing gloves rather than 16-oz leather boxing gloves.
+Bag Storage Gantry (Prop 04): Reject if the hanging chains are simple 2D transparent alpha planes; reject if bags are clipping through each other; reject if the heavy I-beam looks like flat aluminum conduit.
+Rope Pegboard (Prop 05): Reject if the jump rope cords create noisy sub-pixel spaghettification; reject if the pegboard has modern plastic modular bins; reject if the board is paper-thin without its chamfered wood frame.
+Workbench & Vise (Prop 06): Reject if the vise is missing its screw handle; reject if the wood top has photographic noise or modern melamine plastic laminate; reject if the tools are fused flat onto the tabletop.
+Timber Stepladder (Prop 07): Reject if modern aluminum extruded ladder grooves appear; reject if the scissor hinges are missing; reject if legs are spindly matchsticks.
+E. Room Shell & Atmosphere
+Walls:
+Base Wall ($0.0\text{ m} - 1.1\text{ m}$): Heavy Exposed Industrial Red Kiln Brick (#b8402e) with coarse, deep weathered mortar lines (#8e2f22).
+Upper Wall ($1.1\text{ m} - 3.6\text{ m}$): Rough Aged Lime Stucco Plaster (#efe4cf) with structural surface spalls and water staining around the gantry anchor points.
+Floor: High-load Industrial Concrete Screed in Weathered Stone Gray (#b7b2a6), treated with an oil-resistant matte sealant, displaying surface micro-cracks and yellow forklift/staging floor-stripes (faded #d98039) denoting the clear aisleway.
+Lighting:
+$2\times$ Heavy Enamelled Industrial Dome Pendants (Dark Charcoal green exterior #2b2f36, White Enamel reflector interior) with wire bulb cages, suspended by conduit stems at $Y = 3.0\text{ m}$ centered at $(X: 2.2, Z: 2.25)$ and $(X: 5.2, Z: 2.25)$.
+Bulbs: $3500\text{ K}$ Commercial Halogen ($1200\text{ lm}$ each), illuminating the gear racks and work surface with crisp, high-contrast industrial shadows.
+Flat Wall Graphics:
+North Wall (between gantry and shelving): Stencilled bold black industrial lettering on plaster: "STORE ALL GEAR IN ASSIGNED BAYS - NO WET WRAPS ON TIMBER".
+East Wall (above workbench): Heavy punched-metal equipment maintenance sign with brass corner screws: "STATION SERVICE & LEATHER CARE".
+PART F: ARCHITECTURAL EVALUATION, BUILD ORDER & RISK ANALYSIS
+========================================================================================================================
+ROOM DESIGN CONFIDENCE SCORES
+========================================================================================================================
+ROOM                   SCORE (/10)  JUSTIFICATION & GAMEPLAY INTEGRATION
+------------------------------------------------------------------------------------------------------------------------
+01 RECEPTION           9.8 / 10     Perfect translation of the club's "front door". Solves walk-ins, phone calls, 
+                                    and trophy milestones with distinct clickable silhouettes that do not crowd the 
+                                    1.4m thoroughfare between street and gym hall doors.
+
+02 YOUR OFFICE         9.7 / 10     Captures the manager's tactical hub. The clear observation window maintains a 
+                                    direct visual link to the main training floor, while dividing contract work, 
+                                    finances, and the fight-tape CRT into clear, distinct click targets.
+
+03 PHYSIO              9.5 / 10     Masterfully navigates the narrow 3.6m corridor footprint. The treatment table, 
+                                    galvanized cold plunge, and supply cabinet are arranged linearly to prevent camera 
+                                    occlusion while keeping an open 1.3m walkway for visiting fighters.
+
+04 EQUIPMENT STORE     9.9 / 10     Replaces the 3 generic grey kit boxes with an authentic boxing warehouse aesthetic. 
+                                    Separates equipment purchasing, glove wear, and heavy-bag service into 
+                                    functionally readable zones with heavy industrial weight.
+========================================================================================================================
+AVERAGE SCORE:         9.73 / 10
+========================================================================================================================
+
+Recommended Build & Shipping Order
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                    PRODUCTION ROLLOUT SEQUENCE                                   │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                                  │
+│   STAGE 1: ROOM 01 — RECEPTION                                                                   │
+│   Why First: Reception is the emotional and functional entry point to FightCamp. It shares the  │
+│   highest player visual frequency alongside the gym hall and directly reuses the locker-room    │
+│   bench asset, establishing the benchmark for all three remaining rooms.                         │
+│                                                                                                  │
+│   STAGE 2: ROOM 04 — EQUIPMENT STORE                                                             │
+│   Why Second: The current state (Sheet 05) is the sparsest room in the build (3 generic kit     │
+│   boxes). It introduces the critical "Station Wear & Replacement" visual loop, unlocking the    │
+│   equipment management screens with the highest visual return on investment.                    │
+│                                                                                                  │
+│   STAGE 3: ROOM 02 — YOUR OFFICE                                                                 │
+│   Why Third: High systemic complexity. It features an open glass viewing wall onto the main     │
+│   gym hall that requires careful depth-of-field and lighting-leak testing in Godot Forward+.    │
+│                                                                                                  │
+│   STAGE 4: ROOM 03 — PHYSIO                                                                      │
+│   Why Fourth: The narrowest room (3.6m) with specialized clinical lighting (4000K). Building it │
+│   last ensures the team can apply all learned lighting and spatial lessons from Rooms 1-3.       │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+The One Critical Production Risk
+
+THE RISK: LIGHT BLEED & AMBIENT PROBE CLASH ACROSS THE GLASS PARTITION WALLS.
+
+In Godot 4.7 Forward+, the Office window ($Z = 0.0\text{ m}, X: 0.4 - 5.2\text{ m}$) looks directly into the main gym hall, and all four rooms feature open doorways cut into the $Z = 0$ wall.
+
+If ambient light probes (VoxelGI or LightmapGI) are baked across the boundary without strict per-room culling or dedicated localized ReflectionProbe boundaries, the cool $4000\text{ K}$ medical fluorescent light from the Physio and the bright $3500\text{ K}$ halogen light from the Equipment Store will bleed across the hall floor, washing out the moody $2700\text{ K}$ warm tungsten aesthetic of the Reception and Main Gym.
+The Mitigation: Place an explicit AABB boundary box on every interior room's ReflectionProbe and ensure interior Omni/Spot lights use negative shadow-contact offsets to prevent light leaks through the $Z=0$ cut-plane.
+PART G: 3D MODEL GENERATION LEDGER (CREDIT BUDGET)
+
+To ensure the Operator can approve the exact generation budget before spending Ludo credits, here is the complete model accounting across all four rooms:
+
+========================================================================================================================
+ROUND 65 GENERATION LEDGER: NEW 3D ASSETS VS. REUSED ASSETS
+========================================================================================================================
+ROOM                 PROP #   PROP NAME                              STATUS        POLYGON TARGET  HERO / DECOR
+------------------------------------------------------------------------------------------------------------------------
+01 RECEPTION         PROP 01  Heritage Oak Reception Counter         NEW ASSET     <= 7,500 tris   HERO (Front Desk)
+                     PROP 02  Heavy Bakelite Desk Phone              NEW ASSET     <= 3,200 tris   HERO (Inbox)
+                     PROP 03  Polished Brass Service Bell            NEW ASSET     <= 1,200 tris   HERO (Interviews)
+                     PROP 04  Glass & Oak Trophy Cabinet             NEW ASSET     <= 6,800 tris   HERO (Objectives)
+                     PROP 05  Cork Notice Board & Schedule           NEW ASSET     <= 2,500 tris   HERO (Calendar)
+                     PROP 06  Waiting Bench                          REUSED ASSET  -- (0 CREDITS)  Reused Locker Room Bench
+                     PROP 07  Cast Iron Umbrella & Coat Stand        NEW ASSET     <= 3,400 tris   DECOR
+
+02 YOUR OFFICE       PROP 01  Manager's Executive Leather Desk       NEW ASSET     <= 7,800 tris   HERO (Office Menu)
+                     PROP 02  Steel Filing Cabinet                   NEW ASSET     <= 3,200 tris   HERO (Contracts)
+                     PROP 03  Cast Iron Floor Safe                   NEW ASSET     <= 4,500 tris   HERO (Finances)
+                     PROP 04  Champion Photo Wall & Credenza         NEW ASSET     <= 5,200 tris   HERO (Roster/Rankings)
+                     PROP 05  Rolling Fight-Tape CRT Cart            NEW ASSET     <= 5,800 tris   HERO (Film Room)
+                     PROP 06  Head Coach Tactical Desk               NEW ASSET     <= 3,800 tris   HERO (Staff)
+                     PROP 07  Manager's Swivel Armchair              NEW ASSET     <= 4,200 tris   DECOR
+
+03 PHYSIO            PROP 01  Physio Treatment Table                 NEW ASSET     <= 7,200 tris   HERO (Physio Screen)
+                     PROP 02  Cold Immersion Ice Tub                 NEW ASSET     <= 5,400 tris   HERO (Recovery)
+                     PROP 03  Glass-Front Medical Supply Cabinet     NEW ASSET     <= 6,200 tris   HERO (Medical Supplies)
+                     PROP 04  Skeleton Anatomy Stand                 NEW ASSET     <= 5,800 tris   DECOR
+                     PROP 05  Infrared Heat Therapy Lamp             NEW ASSET     <= 3,900 tris   DECOR
+                     PROP 06  Doctor Stool & Sanitary Step-Can       NEW ASSET     <= 3,400 tris   DECOR
+
+04 EQUIPMENT STORE   PROP 01  Heavy Slotted Steel Shelving           NEW ASSET     <= 7,800 tris   HERO (Equipment List)
+                     PROP 02  Tiered Medicine Ball Tree              NEW ASSET     <= 4,200 tris   HERO (Upgrades)
+                     PROP 03  Glove Airing Tree Stand                NEW ASSET     <= 4,800 tris   DECOR
+                     PROP 04  Overhead Bag Storage Gantry            NEW ASSET     <= 6,400 tris   HERO (Station Wear)
+                     PROP 05  Jump Rope & Wrap Pegboard              NEW ASSET     <= 3,900 tris   HERO (Equipment List)
+                     PROP 06  Maintenance Workbench & Vise           NEW ASSET     <= 6,100 tris   HERO (Repair Station)
+                     PROP 07  Heavy Timber Stepladder                NEW ASSET     <= 2,200 tris   DECOR
+========================================================================================================================
+
+Final Accounting Summary
+Total Props Specified: 28 Props
+Reused Props from Locker Room (Round 58): 1 Prop (01_locker_room wooden slatted changing bench $\rightarrow$ Reception waiting bench PROP 06).
+Total NEW 3D Models to Generate via Ludo Image-to-3D: 27 Models
+Reception: 6 new models
+Your Office: 7 new models
+Physio: 6 new models
+Equipment Store: 7 new models
+Operator Credit Approval Request: 27 Image-to-3D generations (at $\le 5\text{k} - 8\text{k}$ tris, $1024\text{ px}$ PBR, authored at $1.0\times$ metric, placed at $1.2\times$ scale in Godot 4.7). All prompts are verified against Maria's master palette and ready for instant conversion.

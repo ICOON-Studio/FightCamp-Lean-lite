@@ -1,0 +1,13 @@
+{
+  "checked_at": "2026-10-09T23:00:30Z",
+  "files": [
+    "Godot/scripts/LudoGymHud.gd",
+    "Godot/scripts/GymHallPanel.gd",
+    "Godot/tests/ludo_gym_hud_test.gd",
+    "Godot/tools/ludo_gym_stills.gd",
+    "Godot/tools/gym_club_stills.gd"
+  ],
+  "output": "CHECK total=5 fails=0 autoload_refs=0 autoload_warnings=0 time=4s\n",
+  "passed": true,
+  "task": "LUDO_GYMUI1"
+}

@@ -1,0 +1,89 @@
+7. THE TRAINING SCREEN: REAL-TIME SHOUT LEARNING (Continued)
+4. Audio Feedback Loop
+The Call-and-Response Audio Event: During station drills (e.g., Pads or Sparring), the audio bus plays an apron-shout voice clip from the coach profile every 12–18 gym seconds (e.g., "Behind the jab, Leo!").
+The Execution Clack: When the fighter hits the mitts in rhythm with that call, a clean, high-impact leather crack sample plays (pad_strike_sharp_03.wav), mixed 4 dB above ambient gym audio.
+The Tier Breakthrough Chime: Crossing a threshold ($30.0$, $60.0$, $85.0$) plays a low, dry metallic clink—the sound of a ring timer bell striking once (bell_single_dry.wav) accompanied by a subtle low-frequency punch sub-bass transient ($60\text{ Hz}$ drop).
+Fatigued Stumble Audio: If training continues below $25%$ stamina, the pad snap changes to a dull, dragging thud (pad_thud_tired.wav), and the fighter’s audio emits heavy breathing audio cues. The progress bar visual changes from solid green/blue fill to a hazard-striped amber, and the floating text warns: STAMINA DEPLETED: GAIN x0.40.
+8. TRAPS TO AVOID & EXACT BALANCE TARGETS
+The Four Design Traps and Engine Guards
+               POTENTIAL DESIGN TRAPS & HOW ENGINE GUARDS ELIMINATE THEM
++--------------------------+-----------------------------+---------------------------------------+
+| TRAP PHENOMENON          | MECHANISM OF FAILURE        | ENGINE GUARD / CODE MITIGATION        |
++--------------------------+-----------------------------+---------------------------------------+
+| 1. "Shout Spam"          | Player mashes calls every   | Hard 25s cooldown + 3 calls/rd limit. |
+|    (Cadence Overload)    | 25s like cooldown abilities | Auditory Fatigue: -8% trust per call  |
+|                          | in an MMORPG.               | after 3rd consecutive ignore.         |
++--------------------------+-----------------------------+---------------------------------------+
+| 2. "Must-Pick" Meta      | One shout (e.g. Work Body)  | Hard Counter-Risk windows.            |
+|    (Dominant Strategy)   | is mathematically optimal   | Predictability tracking: AI counters  |
+|                          | in all situations.          | repeated shouts with +24% crit rate.  |
++--------------------------+-----------------------------+---------------------------------------+
+| 3. Punishing Silent Play | A player who prefers pure   | Base fighter AI is viable (82-88%     |
+|    (Corner Dependency)   | gym management feels their  | baseline autonomy). Shouts only       |
+|                          | fighter turns into an idiot.| provide tactical pivot deltas.        |
++--------------------------+-----------------------------+---------------------------------------+
+| 4. Unfair Blunder Rants  | RNG instantly knocks out    | Transparent warning states: "RAW (!)" |
+|    (Bullshit Deaths)     | fighter with zero warning.  | badge on UI + failure reasons printed |
+|                          |                             | verbatim in the fight log why-lines.  |
++--------------------------+-----------------------------+---------------------------------------+
+
+Trap 1: The "Shout Spam" MMORPG Trap
+The Risk: In management sims, giving active mid-round buttons risks transforming a deliberate tactical watcher into an APM-addicted cooldown-masher.
+The Safeguards:
+Strict Mechanical Ceilings: The 25-second cooldown and 3-call cap per 180-second round limit the player to a maximum of 3 inputs every 3 minutes.
+Auditory Fatigue / "The Tuned-Out Corner": If a coach triggers a shout when no relevant tactical condition is met (e.g., yelling "Step on the gas!" while the opponent is completely fresh at 95% stamina and circling), the fighter rolls a Common Sense Check: $$\text{CommonSenseRoll} = \text{Fighter Ring IQ} - 25$$ If passed, the fighter ignores the illogical call entirely, prints a log warning ("Leo looks over at the corner with confusion — ignores the call"), and burns the 25-second cooldown without any benefit.
+Trust Degradation: Calling unlearned (Raw) tactics that fail repeatedly chips away at Trust by $-2.0$ per incident, which in turn degrades corner stool recovery efficiency between rounds.
+Trap 2: The "Must-Pick" Shout
+The Risk: If one shout (e.g., GO_TO_THE_BODY or TIME_THE_COUNTER) yields a strictly superior damage-per-second ratio, players will map it to every fight and ignore the remaining 11 tactics.
+The Safeguards:
+Symmetric Counter-Risks: Every positive lever has an equal, opposing structural vulnerability coded directly into the damage engine. GO_TO_THE_BODY lowers head defense; if the opponent throws an uppercut, that uppercut gets a $+12%$ accuracy and $+15%$ damage buff.
+AI Pattern Adaptation: If the player uses the same shout twice in back-to-back rounds, the opponent's corner adaptive logic notes it. In the third execution, the opponent's counter-strategy probability against that tactic jumps by $+40%$. Repeating a shout turns it from a surprise adjustment into a tactical trap.
+Trap 3: Punishing the "Hands-Off" Silent Player
+The Risk: FightCamp is primarily an in-depth management simulation. If an autonomous, highly trained fighter loses every fight unless the player micro-manages apron yells, the game breaks its identity and violates its core pitch.
+The Safeguards:
+The Stool Remains Primary: $75%$ of fight-night coaching impact must remain on the stool between rounds (the tone choice, cutman work, and master tactical plans). Mid-round apron shouts are tactical course corrections, not operational lifelines.
+Autonomous Baseline: An unprompted fighter defaults to their natural archetype and camp plan with $100%$ of their natural attribute efficiency. Apron shouts merely apply transient, targeted deltas ($+5%$ to $+15%$) to solve specific micro-crises.
+Trap 4: Blunders Feeling Arbitrary or Cheap
+The Risk: A player yells "Tie him up!", their fighter blunders, gets flash-knocked out, and the player rage-quits, calling the system rigged dice.
+The Safeguards:
+Blatant Visual UI Warning: If a shout is in the Raw tier ($<30%$), the button features a high-contrast red warning icon [!], and hovering over it displays explicit tooltip odds: RISK: 20% BLUNDER / 50% IGNORE.
+Causal Transparency in the Why-Lines: The fight engine log never reports a generic failure. It explicitly logs the mechanical breakdown:
+"Leo Vance attempted an unpracticed Clinch (Mastery 18%) -> failed level change -> absorbed Miller's counter uppercut flush (Clean Hit, Chin 82 vs Power 84)"
+Blunder Damage Caps: A blunder grants the opponent a high-percentage counter window, but does not roll an automatic one-hit knockout. It guarantees a clean counter hit that rolls against the standard Chin and Damage formulas already established in r114.
+Balance Targets and Validation Metrics
+
+To ensure the simulation remains honest, reproducible, and balanced, the following statistical targets are calibrated across automated 100-bout test batches in Godot 4:
+
++----------------------------------------------------------------------------------------------------+
+| 100-BOUT AUTOMATED SIMULATION BALANCE TARGETS                                                      |
++------------------------------------+-----------------------+---------------------------------------+
+| METRIC FIELD                       | TARGET VALUE          | TOLERANCE / ACCEPTANCE RANGE          |
++------------------------------------+-----------------------+---------------------------------------+
+| 1. Win-Rate Swing (Trained vs None)| +12.5% Win Share      | 10.0% to 15.0% maximum swing          |
+| 2. Per-Round Point Margin Shift    | +0.35 Points/Round    | +0.20 to +0.50 round score delta      |
+| 3. Clean Execution Hit Delta       | +1.8 Clean Hits Net   | +1.2 to +2.4 net landed per execution |
+| 4. 10-Round Raw Blunder Frequency  | 1.8 to 2.4 Blunders   | At 3 Raw shouts/rd (30 total calls)   |
+| 5. Drilled Blunder Frequency       | 0.00 Blunders         | Absolute zero blunders at Mastery 85+ |
++------------------------------------+-----------------------+---------------------------------------+
+
+1. What Share of Fights a Well-Drilled Corner Swings vs. a Silent Corner
+The 50/50 Matchup Baseline: In a simulated 10-round fight between two statistically identical fighters ($50.0%$ baseline win rate for both):
+A corner utilizing Sharp or Drilled-In shouts targeted correctly at live telemetry reads will achieve a $62.5%$ win rate over a completely silent corner.
+The Swing: A well-drilled corner accounts for an exact $+12.5%$ net swing in match outcome.
+If the matchup is heavily asymmetrical (e.g., an underdog out-matched by $15$ attribute points across the board), corner shouts can elevate winning chances from an impossible $12%$ up to a viable puncher's chance of $22%$, but shouts will never bridge a massive skill gap on their own.
+2. Expected Connect/Score Effect per Clean Execution
+Single Clean Execution Impact: Over a standard shout duration ($10\text{ s}$ to $18\text{ s}$):
+Net Punch Differential: A clean shout produces a net punch connection advantage of $+1.8\text{ landed punches}$ (either via $+1.2$ punches landed offensively or $-0.6$ opponent clean shots avoided via evasive calls).
+Round Scoring Impact: In a tight round (typically decided by a margin of 2–3 clean punches on the Compubox-style engine tally), landing one well-timed clean shout shifts the round scorecard swing probability by $+28%$.
+Landing two successful shouts in one round swings the round win probability to the caller by $+64%$.
+3. How Often a Raw Call Should Blunder Over a 10-Round Fight
+Test Case: A desperate player spams 3 unlearned, Raw calls ($<30%$ mastery) every round for all 10 rounds (30 shouts total):
+Total Calls Fired: 30 shouts.
+Ignore Count: $15\text{ to } 18$ calls ($50% - 60%$) produce zero result.
+Hesitation Count: $7\text{ to } 9$ calls ($25% - 30%$) result in delayed actions and compromised defense.
+Severe Blunders: Exactly $1.8\text{ to } 2.4$ catastrophic blunders occur per 10-round bout.
+Bout Outcome Impact: Over 10 rounds, suffering 2 severe blunders (absorbing unmitigated counter power punches with 0 block efficiency) results in an average of:
+$1.1$ knockdowns suffered.
+A $68%$ drop in overall fighter composure.
+A $-4.2\text{ point}$ deficit on the official scorecards compared to a silent corner baseline.
+Trained Contrast: At Sharp ($60–84%$), blunders drop to zero ($0%$), delayed executions fall below $6%$, and clean execution rate exceeds $82%$, ensuring that preparation and gym hours dictate ringside execution.

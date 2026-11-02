@@ -1,0 +1,62 @@
+﻿=== grok_task 2026-10-02T18:28:13 rc=1 ws=E:\FightCamp\wt\C243
+I'll read the prompt file and follow it from start to finish.The task is a bookable first fight for every signable fighter. I'll read the offer, amateur-calendar, and offer-count code in windows before changing anything.
+--- stderr ---
+Internal error: {
+  "message": "API error (status 402 Payment Required): Grok Build usage balance exhausted",
+  "http_status": 402,
+  "promptUsage": {
+    "inputTokens": 3753222,
+    "outputTokens": 34232,
+    "totalTokens": 3787454,
+    "cachedReadTokens": 3558016,
+    "cacheCreationTokens": 0,
+    "reasoningTokens": 30321,
+    "modelCalls": 37,
+    "apiDurationMs": 558492,
+    "costUsdTicks": 8074360800,
+    "modelUsage": {
+      "grok-4.7-build": {
+        "inputTokens": 3753222,
+        "outputTokens": 34232,
+        "totalTokens": 3787454,
+        "cachedReadTokens": 3558016,
+        "cacheCreationTokens": 0,
+        "reasoningTokens": 30321,
+        "modelCalls": 37,
+        "apiDurationMs": 558492,
+        "costUsdTicks": 8074360800
+      }
+    },
+    "numTurns": 37
+  }
+}
+Error: Internal error: {
+  "message": "API error (status 402 Payment Required): Grok Build usage balance exhausted",
+  "http_status": 402,
+  "promptUsage": {
+    "inputTokens": 3753222,
+    "outputTokens": 34232,
+    "totalTokens": 3787454,
+    "cachedReadTokens": 3558016,
+    "cacheCreationTokens": 0,
+    "reasoningTokens": 30321,
+    "modelCalls": 37,
+    "apiDurationMs": 558492,
+    "costUsdTicks": 8074360800,
+    "modelUsage": {
+      "grok-4.7-build": {
+        "inputTokens": 3753222,
+        "outputTokens": 34232,
+        "totalTokens": 3787454,
+        "cachedReadTokens": 3558016,
+        "cacheCreationTokens": 0,
+        "reasoningTokens": 30321,
+        "modelCalls": 37,
+        "apiDurationMs": 558492,
+        "costUsdTicks": 8074360800
+      }
+    },
+    "numTurns": 37
+  }
+}
+

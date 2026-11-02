@@ -1,0 +1,8 @@
+C154 completed and pushed as `5bd8f6f`.
+
+- Added [fighter_capsules_contract_test.gd](C:/Users/user/OneDrive/Documents/ChatGPT/Game/Godot/tests/fighter_capsules_contract_test.gd)
+- Added [C154_DIGEST.md](C:/Users/user/OneDrive/Documents/ChatGPT/Game/research/C154_DIGEST.md)
+- Parse gate: passed
+- Godot test: expected `SKIP — FighterCapsules.gd not present yet`
+- Full suite not run
+- Completion message sent to Claude via AgentComms

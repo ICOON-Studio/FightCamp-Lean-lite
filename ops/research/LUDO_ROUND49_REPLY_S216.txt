@@ -1,0 +1,203 @@
+OUND 49 — ATTRIBUTE ARCHITECTURE & COMPARISON SYSTEMS
+1. AUDIT OF THE COMPETITOR'S NINE STATS
+
+Below is the evaluation of the nine competitor stats against our simulation architecture:
+
+Sim Attributes (Engine keys, 0–100): power, technique, speed, defense, conditioning, fight_iq (plus MMA keys: grapple_offense, grapple_defence, top_control).
+Player-Facing Readout (Profile bars): POWER, TECHNIQUE, SPEED, STAMINA, CHIN, DEFENCE, FOOTWORK, RING IQ, COMPOSURE.
+Biometric & Damage Reality: Six discrete body regions with four damage bands (fine >55, hurt <=55, critical <=35, doctor <=15), heart-rate cardio engine (aerobic/anaerobic thresholds at 70/80/90% HRmax), and per-technique mastery stages (1–4).
++---------------+-------------------+---------------------------------------------------------+---------------------------------+-----------------------------------------------------------------------------------------------------------------------------------+
+| CANDIDATE     | STATUS VS         | EXISTING MAPPING                                        | ARCHITECTURAL                   | DEEP-SIM VERDICT & JUSTIFICATION                                                                                                 |
+| STAT          | FIGHTCAMP DATA    | IN FIGHTCAMP                                            | VERDICT                         | (FM / MOTORSPORT MANAGER STANDARD)                                                                                                |
++---------------+-------------------+---------------------------------------------------------+---------------------------------+-----------------------------------------------------------------------------------------------------------------------------------+
+| Accuracy      | Already Covered   | technique (Sim)                                         | DO NOT ADD                      | Arcade stat. In a deep sim, accuracy is not a flat dice modifier; it is the interaction between attacker technique,              |
+|               | (Dynamic Output)  | TECHNIQUE (Readout)                                     | (Keep as runtime                | defender defense, movement vectors, and technique stage. Exposing it as an intrinsic raw stat                                     |
+|               |                   | + Opponent defense                                      | telemetry only)                 | duplicates technique and destroys tactical simulation depth.                                                                     |
++---------------+-------------------+---------------------------------------------------------+---------------------------------+-----------------------------------------------------------------------------------------------------------------------------------+
+| Attack Speed  | Already Covered   | speed (Sim)                                             | DO NOT ADD                      | Redundant. Punch velocity and execution frames are governed directly by speed and biomechanical technique                         |
+|               |                   | SPEED (Readout)                                         |                                 | stage multipliers (0.82x to 1.14x). Splitting "Movement Speed" from "Attack Speed" creates arcade stat bloat.                   |
++---------------+-------------------+---------------------------------------------------------+---------------------------------+-----------------------------------------------------------------------------------------------------------------------------------+
+| Chin          | Already Covered   | chin (Profile Bar /                                     | KEEP EXISTING                   | We already have CHIN as a first-class profile readout bar and internal damage threshold factor.                                   |
+|               | (Settled System)  | Knockdown Engine Key)                                   | (No changes needed)             | It governs trauma resistance on the head_neck region. No new integration required.                                               |
++---------------+-------------------+---------------------------------------------------------+---------------------------------+-----------------------------------------------------------------------------------------------------------------------------------+
+| Footwork      | Already Covered   | footwork (Readout)                                      | KEEP EXISTING                   | Already a primary profile readout, derived from speed, technique, and conditioning, modified by left_leg/right_leg health.        |
+|               |                   | = f(speed, technique)                                   | (No changes needed)             | It governs ring positioning, rope escape rates, and angle cuts.                                                                   |
++---------------+-------------------+---------------------------------------------------------+---------------------------------+-----------------------------------------------------------------------------------------------------------------------------------+
+| Health        | Genuinely Bad     | 6 Body Regions                                          | REJECT COMPLETELY               | Monolithic "Health" / "HP" is an arcade convention. Our 6-region anatomical model (head_neck, torso_core, limbs)                  |
+|               | Arcade Concept    | fine/hurt/crit/doc                                      | (Violates Core Design)          | with localized trauma, cuts, and orthopedic functional loss makes a single HP bar an unacceptable regression.                    |
++---------------+-------------------+---------------------------------------------------------+---------------------------------+-----------------------------------------------------------------------------------------------------------------------------------+
+| HP Recovery   | Partly Covered    | Regional Tissue                                         | ADD AS DERIVED READOUT:         | "HP Recovery" as a passive healing aura is rejected. However, a fighter's biological rate of swelling reduction,               |
+|               | (Missing Realism) | Healing / Swelling                                      | CUT & SWELL RESISTANCE          | cut clotting, and tissue recovery under cornerman care is a vital physiological trait (e.g., bad scar tissue vs tough skin).     |
+|               |                   | Dissipation                                             | (Engine key: `tissue_recovery`) | This maps cleanly to corner interventions without using magical HP regeneration.                                                  |
++---------------+-------------------+---------------------------------------------------------+---------------------------------+-----------------------------------------------------------------------------------------------------------------------------------+
+| Stamina       | Already Covered   | conditioning (Sim)                                      | KEEP EXISTING                   | Already covered by conditioning (engine) and STAMINA (profile readout bar), integrated into our heart-rate                         |
+|               |                   | STAMINA (Readout)                                       | (No changes needed)             | cardio simulation engine.                                                                                                         |
++---------------+-------------------+---------------------------------------------------------+---------------------------------+-----------------------------------------------------------------------------------------------------------------------------------+
+| SP Recovery   | Partly Covered    | HR Drop Rate                                            | ADD AS DERIVED READOUT:         | "Stamina Pool Recovery" is arcade language, but Heart Rate Recovery (HRR)—the drop in BPM over 60 seconds of corner rest—        |
+|               | (Missing Realism) | (Heart Rate Engine)                                     | AEROBIC RECOVERY                | is the single most important physiological metric in elite combat sports (parasympathetic tone).                                  |
+|               |                   |                                                         | (Engine key: `aerobic_recovery`)| We promote this physiological mechanic to a player-facing profile readout.                                                        |
++---------------+-------------------+---------------------------------------------------------+---------------------------------+-----------------------------------------------------------------------------------------------------------------------------------+
+| Strength      | Already Covered   | power (Sim)                                             | DO NOT ADD                      | Redundant. Power in boxing is kinetic energy transferred at impact ($E_k = \frac{1}{2}mv^2$), combining muscular strength,      |
+|               | (Duplicate Stat)  | POWER (Readout)                                         | (Destroys Tuning)               | technique, and velocity. Splitting power into "Power" and "Strength" creates double-counting and breaks physical consistency.     |
++---------------+-------------------+---------------------------------------------------------+---------------------------------+-----------------------------------------------------------------------------------------------------------------------------------+
+
+2. FULL INTEGRATION SOLUTION FOR APPROVED STATS
+
+We are adding zero redundant core simulation attributes. The existing six boxing simulation attributes (power, technique, speed, defense, conditioning, fight_iq) remain the authoritative foundation.
+
+To capture the physiological realities exposed by "HP Recovery" and "SP Recovery" without adopting arcade tropes, we introduce two derived physiological metrics:
+
+aerobic_recovery (Player-facing profile readout: RECOVERY RATE)
+tissue_recovery (Player-facing medical readout: CUT & SWELL RESISTANCE)
+EXISTING ENGINE FOUNDATION:
+  Sim Attributes (6):  [power] [technique] [speed] [defense] [conditioning] [fight_iq]
+                                │                           │
+                                ▼                           ▼
+DERIVED READOUT ADDITIONS:  [tissue_recovery]         [aerobic_recovery]
+                            "CUT & SWELL RESISTANCE"  "RECOVERY RATE"
+
+STAT A: aerobic_recovery (Player-Facing: "RECOVERY RATE")
+a. Data Definition & Generation
+Internal Key: aerobic_recovery (float, 0.0 to 100.0).
+Player Readout: RECOVERY RATE (Integer display 0–100 with descriptive bandings).
+Real Boxing Meaning:
+20 (Compromised / Poor Parasympathetic Tone): A fighter whose heart rate stays elevated in the red zone ($>85%$ HRmax) throughout the 60-second corner rest. They recover only 12–16 BPM between rounds, entering late rounds exhausted.
+50 (Club Standard): Standard professional baseline. Recovers 22–26 BPM during the 60-second break when seated, allowing them to sustain a steady work rate through 6–8 rounds.
+80 (Elite Aerobic Engine): Exceptional parasympathetic reactivation. Heart rate drops 34–40 BPM within 45 seconds of sitting down. They clear lactic acid rapidly and can maintain high punch volumes across 12 full rounds.
+Generation Formula: $$\text{aerobic_recovery} = (\text{conditioning} \times 0.65) + (\text{breathing_mastery_bonus}) + \text{Gaussian}(\mu=0, \sigma=4.0)$$
+Weight Class Bias: Heavyweights skew $-12$ points lower on average; Flyweights/Bantams skew $+14$ points higher due to cardiac output and body mass scaling.
+Technique Interlock: Having boxing_breathing_rhythm at Stage 3 or 4 grants a permanent $+6.0$ to $+10.0$ bonus to this metric.
+b. Fight Engine Integration
+What It Changes: During the 60-second corner rest interval, heart rate drops according to this recovery curve: $$\Delta \text{BPM}_{\text{rest}} = 14.0 + \left(\frac{\text{aerobic_recovery}}{100.0} \times 24.0\right) + (\text{Coach Cutman/Cornerman Skill} \times 0.08)$$
+At aerobic_recovery = 20: Fighter recovers $\approx 18.8\text{ BPM}$ per corner interval.
+At aerobic_recovery = 80: Fighter recovers $\approx 33.2\text{ BPM}$ per corner interval.
+In-Round Lactic Buffer: When a fighter breaks from exchanges ($>2.5\text{m}$ distance, no punches thrown for 3 seconds), heart rate decay speed scales directly with this stat: $$\text{BPM Decay (Active Rest)} = 0.15 + \left(\frac{\text{aerobic_recovery}}{100.0} \times 0.35\right)\text{ BPM/sec}$$
+What It Must NOT Change: It must never modify maximum punch velocity (speed), base punch impact force (power), or flash knockdown resistance (chin). It strictly governs cardiac recovery and energy replenishment.
+c. Training & Progression
+Primary Gym Stations: Roadwork, Rowing Ergometer, Air Bike, High-Intensity Sparring intervals.
+Progression Rate: Scales slower than raw muscle adaptation: $+0.15$ to $+0.35$ points per 7-day training block with an aerobic focus.
+Ceiling & Detraining: Bounded by the fighter's genetic conditioning cap. If aerobic conditioning is neglected for more than 21 days, aerobic_recovery decays by $-0.4$ points per week down to a baseline floor of $\text{conditioning} \times 0.50$.
+d. Aging & Injury Impact
+Aging Curve: Peaks early between ages 22–26. Beginning at age 29, it declines by $-0.8$ points per year. By age 34, this decay accelerates to $-1.8$ points per year, forcing older fighters to rely on ring craft, pace control, and counter-punching rather than sustained output.
+Injuries: Chronic rib fractures or pulmonary illnesses apply a temporary $-15%$ to $-25%$ penalty to recovery rates for 6 to 12 weeks.
+e. Scouting & Fog of War
+Unscouted / Unknown Opponent: Displayed as a wide estimated range based on fight film (e.g., RECOVERY: 40–65).
+Scouted (Level 2 Analyst): Displayed as a narrowed 10-point tier (e.g., RECOVERY: 68–78).
+Fully Scouted (Opponent Sparring Footage Audited): Exact value revealed with historical heart-rate recovery telemetry from their previous 3 bouts.
+STAT B: tissue_recovery (Player-Facing: "CUT & SWELL RESISTANCE")
+a. Data Definition & Generation
+Internal Key: tissue_recovery (float, 0.0 to 100.0).
+Player Readout: CUT & SWELL RESISTANCE (Integer display 0–100 with medical status tags).
+Real Boxing Meaning:
+20 (Vulnerable / Heavy Scar Tissue): Thin, brittle skin and prominent orbital bone structure. Prone to opening deep cuts from glancing jabs; hematomas swell rapidly and threaten doctor stoppages.
+50 (Resilient / Pro Standard): Average professional durability. Absorbs standard head contact without abnormal swelling; cuts occur primarily from clean, high-impact clashes or flush power shots.
+80 (Pristine / Tough Facial Tissue): Dense skin and resilient facial structure. Resists cuts from minor friction or glancing punches; swelling remains localized and responds quickly to adrenaline and cold compress treatment.
+Generation Formula: $$\text{tissue_recovery} = 100.0 - (\text{Career Rounds} \times 0.15) - (\text{Severe Facial Cuts Count} \times 4.5) + \text{Gaussian}(0, 5.0)$$
+Young debut fighters start high ($75–92$).
+Veterans with 35+ professional bouts who have been involved in ring wars will naturally drop toward $25–45$ due to accumulated scar tissue.
+b. Fight Engine Integration
+What It Changes:
+Laceration Check Threshold: When a clean head punch lands (head_neck region), the probability of opening a cut is calculated as: $$P(\text{cut}) = \text{BaseTechniqueCutChance} \times \left(1.0 - \frac{\text{tissue_recovery}}{120.0}\right)$$
+Corner Cutman Efficiency: During the 60-second break, the corner team's work with the Enswell compress, adrenaline chloride ($1:1000$), and thrombin scales directly against this attribute: $$\text{Swelling Reduction} = \text{CutmanSkill} \times \left(0.40 + \frac{\text{tissue_recovery}}{100.0} \times 0.60\right)$$
+What It Must NOT Change: It must never absorb kinetic concussion damage, prevent knockdowns, or improve punch evasion. It governs purely external soft-tissue durability and ringside medical interventions.
+c. Training & Progression
+Cannot Be Trained Upward: You cannot improve facial skin durability through heavy bag work.
+Management & Mitigation: Managed through preventative medical care:
+Allocating training budget to high-grade protective headgear during hard sparring preserves skin integrity.
+Allowing facial lacerations to heal completely before scheduling the next bout (minimum 6–8 weeks post-cut) prevents the formation of fragile scar tissue.
+d. Aging & Injury Impact
+Permanent Degradation: Every severe laceration suffered in a fight applies a permanent $-2.0$ to $-4.0$ reduction to tissue_recovery.
+Scar Tissue Accumulation: By the end of a long, punishing career, a fighter's resistance naturally drops into the $20–35$ range. This makes veteran fighters vulnerable to technical stoppages on cuts, even when their tactical skills and power remain elite.
+e. Scouting & Fog of War
+Visual Inspection (Tale of the Tape): Visible scar tissue around the eyebrows and cheekbones is immediately recognizable to scouts:
+Pristine (80–100): "No visible facial wear; skin clean."
+Moderate (45–79): "Mild scar tissue over right orbital ridge."
+Compromised (0–44): "Extensive scar tissue around both eyes; high laceration risk."
+3. REALITY OF COMBAT RECOVERY SYSTEMS
+
+In a simulation-focused management title, combat recovery must mirror real human physiology rather than fantasy RPG archetypes:
+
++---------------------+-------------------------------+-----------------------------------+-----------------------------------------------------------------+
+| COMBAT RECOVERY     | ARCADE / RPG CONVENTION       | FIGHTCAMP PHYSIOLOGICAL REALITY   | MATHEMATICAL SIMULATION MECHANISM                               |
+| DIMENSION           | (REJECTED)                    | (APPROVED ARCHITECTURE)           |                                                                 |
++---------------------+-------------------------------+-----------------------------------+-----------------------------------------------------------------+
+| Intra-Round         | "SP Recovery" passive trickle | Heart Rate Decay via              | When out of exchange range (>2.5m for 3s), heart rate drops      |
+| Micro-Recovery      | refill bar.                   | Parasympathetic Activation        | toward baseline at 0.15–0.50 BPM/s based on `aerobic_recovery`.  |
++---------------------+-------------------------------+-----------------------------------+-----------------------------------------------------------------+
+| Inter-Round         | Instant +35% HP & SP          | 60-Second Corner Intervention:    | 1. HR Drops by 18–38 BPM based on `aerobic_recovery`.           |
+| Corner Break        | potion/bucket heal.           | Cardiac reset, cut treatment,     | 2. Cutman treats highest facial wear region with Enswell.       |
+|                     |                               | mental recalibration.             | 3. High composure restores 4–8 points of transient Ring IQ.     |
++---------------------+-------------------------------+-----------------------------------+-----------------------------------------------------------------+
+| Inter-Bout          | Rest 3 days, full HP          | Multi-Week Biological Recovery:   | 1. Acute soft-tissue trauma clears in 7–14 days.                |
+| Camp Recovery       | restored to 100%.             | Orthopedic repair, brain trauma   | 2. Deep bone/joint wear requires 4–12 weeks of light work.      |
+|                     |                               | healing, systemic fatigue reset.  | 3. Severe cuts impose medical suspensions (30–60 days).         |
++---------------------+-------------------------------+-----------------------------------+-----------------------------------------------------------------+
+
+4. TALE OF THE TAPE & PRE-FIGHT TACTICAL PREVIEW
+
+Below is the approved layout for the Pre-Fight Tale of the Tape screen (1920×1080), prioritizing physical fundamentals, verified ring records, and readable scouting attributes:
+
+0,0                                                                                                            1920,0
++-------------------------------------------------------------------------------------------------------------------+
+| PRE-BOUT TALE OF THE TAPE: WBC REGIONAL TITLE ELIMINATOR (12 ROUNDS x 3 MIN)                                      |
++-------------------------------------------------------------------------------------------------------------------+
+| RED CORNER: LEO "THE LION" VANCE                 | METRIC / ATTRIBUTE           | BLUE CORNER: JULIAN "THE VIPER" CRUZ    |
++--------------------------------------------------+------------------------------+---------------------------------+
+| 24 years old                                     | AGE                          | 31 years old                    |
+| 14-1-0 (9 KOs)                                   | RECORD                       | 28-4-1 (18 KOs)                 |
+| 178 cm / 5'10"                                   | HEIGHT                       | 175 cm / 5'9"                   |
+| 183 cm / 72.0"                                   | REACH                        | 173 cm / 68.0"                  |
+| 69.8 kg / 154.0 lbs (Super Welter)               | OFFICIAL WEIGHT              | 70.1 kg / 154.5 lbs             |
+| Orthodox                                         | STANCE                       | Southpaw                        |
++--------------------------------------------------+------------------------------+---------------------------------+
+| [██████████████░░░░░░] 68                        | POWER                        | [██████████████████░░] 82       |
+| [████████████████░░░░] 74                        | TECHNIQUE                    | [████████████░░░░░░░░] 58       |
+| [████████████████░░░░] 76                        | SPEED                        | [████████████░░░░░░░░] 60       |
+| [██████████████░░░░░░] 72                        | DEFENCE                      | [██████████████░░░░░░] 66       |
+| [████████████████░░░░] 78                        | STAMINA                      | [████████████░░░░░░░░] 62       |
+| [██████████████░░░░░░] 70                        | CHIN                         | [██████████████░░░░░░] 68       |
+| [████████████████░░░░] 76                        | FOOTWORK                     | [██████████░░░░░░░░░░] 52       |
+| [████████████░░░░░░░░] 62                        | RING IQ                      | [████████████████░░░░] 78       |
+| [██████████████░░░░░░] 68                        | COMPOSURE                    | [████████████████░░░░] 74       |
++--------------------------------------------------+------------------------------+---------------------------------+
+| [██████████████████░░] 82 (Elite HR Recovery)    | RECOVERY RATE                | [██████████░░░░░░░░░░] 54 (Avg) |
+| [██████████████████░░] 88 (Pristine Skin)        | CUT & SWELL RESISTANCE       | [██████░░░░░░░░░░░░░░] 34 (Scar)|
++--------------------------------------------------+------------------------------+---------------------------------+
+| [Stage 3] boxing_slip_counter                    | SIGNATURE THREAT             | [Stage 4] boxing_overhand       |
+| [Stage 4] boxing_one_two                         | PRIMARY COMBINATION          | [Stage 3] boxing_cross_body     |
++--------------------------------------------------+------------------------------+---------------------------------+
+
+5. BUILD ORDER & DANGERS OF COPYING ARCADE PANELS
++-----------+-----------------------+---------------------------------------+-------------------------------------------------------+
+| MILESTONE | IMPLEMENTATION SCOPE  | ENGINE INTEGRATION LAYER              | VALIDATION CRITERIA & ACCEPTANCE TEST                 |
++-----------+-----------------------+---------------------------------------+-------------------------------------------------------+
+| STEP 1    | Engine Heart-Rate     | Wire `aerobic_recovery` directly to   | Automated 12-round simulation: Fighter with 80        |
+|           | Recovery Bridge       | 60-second corner rest heart-rate decay| recovery clears 14 BPM more per break than 20         |
+|           |                       | in the combat simulation loop.        | recovery fighter, maintaining punch volume in Rd 12.  |
++-----------+-----------------------+---------------------------------------+-------------------------------------------------------+
+| STEP 2    | Laceration & Swelling | Hook `tissue_recovery` into facial    | Run 500 simulated rounds: Fighter with 25 resistance  |
+|           | Trauma Model          | damage checks on the `head_neck`      | suffers 3.2x more cuts and 2.4x more doctor           |
+|           |                       | anatomical region.                    | interventions than fighter with 85 resistance.        |
++-----------+-----------------------+---------------------------------------+-------------------------------------------------------+
+| STEP 3    | Pre-Fight Preview &   | Build the 1920x1080 Tale of the Tape  | Display comparison panel with fog-of-war logic,       |
+|           | Tale of the Tape UI   | screen featuring the 9 core readouts  | accurately showing data based on scouting depth.      |
+|           |                       | plus the 2 new physiological metrics. |                                                       |
++-----------+-----------------------+---------------------------------------+-------------------------------------------------------+
+
+Why Copying the Competitor's Panel Literally Harms a Deep Sim
+ARCADE PANEL APPROACH (COMPETITOR):
+  - 9 arbitrary stats shown side-by-side.
+  - "Health" and "HP Recovery" turn fighters into fantasy RPG health pools.
+  - "Attack Speed" and "Strength" duplicate "Speed" and "Power", muddying the numbers.
+  - Tactical decisions collapse into simple stat-checking: pick whoever has higher total numbers.
+
+DEEP-SIM ARCHITECTURE (FIGHTCAMP):
+  - Every stat represents a clear, functional physiological or technical variable.
+  - Punch accuracy emerges naturally from technique, footwork, and opponent positioning.
+  - Damage is tracked across six distinct anatomical regions, creating realistic medical risks.
+  - Preserves the tactical depth expected of an authentic, high-end sports management simulation.
+
+Can you complete the six-region recovery model with exact numbers for between-round, within-round, and between-fight recovery?
+Can you produce the full Tale of the Tape row order using only FightCamp’s confirmed attributes and physical fields?
+Can you define bounded acceptance tests, including a control arm and real-world anchors, for each proposed simulation system?
+Can you create a visual fight-preview wireframe showing the approved Tale of the Tape without RPG-style HP or recovery bars?

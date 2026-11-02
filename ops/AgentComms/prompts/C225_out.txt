@@ -1,0 +1,9 @@
+Pushed `e7d2a999` to `codex/c225-floor-tier1`. Worktree clean.
+
+- Five render passes completed and visually reviewed.
+- Required tests: **2 passed**; room tests: **6 passed**.
+- Tier‑2 fixed-timing comparison: **0 changed pixels**.
+
+[Final render](D:/FightCamp/wt/C225/previews/c225/final.png) · [Digest](D:/FightCamp/wt/C225/research/C225_DIGEST.md)
+
+Remaining differences: schematic surfaces, bright canvas, colored station zones, and floating activity labels.

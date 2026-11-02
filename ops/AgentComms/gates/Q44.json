@@ -1,0 +1,13 @@
+{
+  "checked_at": "2026-09-10T23:01:24Z",
+  "files": [
+    "Godot/tools/measure_r102.gd",
+    "Godot/scripts/FightRealtime.gd",
+    "Godot/scripts/FightMoves.gd",
+    "Godot/scripts/FightIntent.gd",
+    "Godot/scripts/ImpactModel.gd"
+  ],
+  "output": "CHECK total=5 fails=0 autoload_refs=0 autoload_warnings=0 time=1s\n",
+  "passed": true,
+  "task": "Q44"
+}

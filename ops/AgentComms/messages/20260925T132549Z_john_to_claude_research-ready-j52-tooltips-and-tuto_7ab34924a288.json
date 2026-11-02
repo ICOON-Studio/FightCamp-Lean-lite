@@ -1,0 +1,8 @@
+{
+  "body": "J52 (HOW MANAGEMENT GAMES EXPLAIN THEMSELVES) landed: research/J52_TOOLTIPS_AND_TUTORIAL.md (51,527 bytes) + research/CLAUDE_LAND_NOTE_J52.md; copies in _john_delivery/. Research only, no code, HANDOFF untouched. Spec: tooltip delay 500 ms (Godot default, PROXY), reshow 100 ms, hide grace 500 ms; control tooltips <=75 chars; term tooltips name/definition/Now: value->band/Why, <=40 words; nesting max depth 2 then Handbook; pin by middle mouse/Ctrl, no fill-timer default; one glossary entry per term feeds tooltips, handbook, tutorial, hints. Tutorial: guided first career month in a real save, 18 steps (sec 6d), 15-25 min, optional checkbox, cancel from pause menu, never auto-repeat, replay per chapter; first-open hints once, max 1 per screen visit / 3 per in-game week. Example text cuts for the NAME SEEDS caption and PROFICIENCY/COND badges in sec 6c (tooltip wording is placeholder, check against code). No game publishes tooltip ms: NOT FOUND.",
+  "created_at": "2026-09-25T13:25:49Z",
+  "from": "john",
+  "id": "7ab34924a288",
+  "to": "claude",
+  "topic": "RESEARCH READY J52 TOOLTIPS AND TUTORIAL"
+}

@@ -1,0 +1,274 @@
+1. HOW TWO POINT & MAD GAMES TYCOON 2 SHOW CAPACITY LIMITS
+Two Point Hospital / Two Point Museum
+Top Bar Visitor/Patient Counter: In Two Point, total population sits persistently on the lower-right or top HUD chrome as an icon + counter: [Person Silhouette] 42 / 65.
+Capacity Warning States:
+Normal (< 85%): Neutral off-white text (#E6E6E6).
+Near Full (85%–99%): Amber/Yellow text (#F5A623).
+At/Over Capacity (100%+): Solid Red (#D0021B) with a subtle pulse animation on the icon.
+Room-Level Queues & Limits: When clicking any room (e.g., GP's Office, Ward), the pop-up room card has a dedicated status row: Queue: 6 / 6 (or Beds: 4 / 4). If a patient arrives at a full room, an overhead animated thought-bubble appears above their head: a red room icon with a question mark or exclamation mark.
+Notification Ticker / Envelope: When hospital-wide capacity or a room type bottlenecks severely, a circular red warning chip pops onto the right-side notification rail: "Hospital Overcrowded: Build more GP Offices or send patients home."
+Visitor Refusal: In Two Point Museum, if museum capacity is hit, arriving visitors stop at the perimeter gate, an exclamation bubble pops above their head, and they turn 180° to walk off-map.
+Mad Games Tycoon 2
+Room Workplace Counters: Every development room shows capacity directly in its room inspector and overhead tag: Workstations: 4 / 4.
+The Overcrowding / Missing Item State: If an employee has no desk or an item lacks space, MGT2 does not rely solely on an overarching top-bar alert. Instead:
+The room itself tints slightly red in build/view mode.
+An overhead floating warning icon (an empty red desk icon or red silhouette) hovers directly above the worker's head.
+The bottom-left room inspector panel explicitly lists the capacity: Staff: 5 | Max Desks: 4 in bright red text (#FF3B30).
+Storage / Server Limits: Shown as an explicit bar widget: Server Load: [======    ] 62% or Storage: 18,400 / 20,000. When 100% is reached, the bar turns solid red and flashing text states: Storage Full!.
+2. FIGHTCAMP SPEC: WHERE "MEMBERS 9 / 12" LIVES
+
+The capacity number must live across a coordinated hierarchy: persistent on the top bar, detailed on hover, inspectable in the room itself, and actionable in the build catalog.
+
++----------------------------------------------------------------------------------------------------+
+| TOP BAR HUD (PERSISTENT)                                                                           |
+| [ < ] [ > ]  [OFFICE v]  [WORLD v]  | [MEMBERS ICON] 9 / 12 |  $25,000 (+$481/wk)   Mon 5 Jan 2026 |
++----------------------------------------------------------------------------------------------------+
+
+A. Top Bar Persistent Widget
+Location: Anchored on the Top Bar, immediately to the left of the Cash display.
+Layout: [Icon: Two Silhouettes] [Current] / [Cap]
+Icon Asset: Two stylized bust silhouettes (white SVG/PNG, 18x18 px).
+Typography: Monospace numbers for clean visual stability (no jitter when digits increment).
++---------------+---------------+--------------------+---------------+----------------------------------+
+| STATE         | CONDITION     | ICON COLOR         | TEXT COLOR    | VISUAL BEHAVIOR                  |
++---------------+---------------+--------------------+---------------+----------------------------------+
+| No Room Built | Cap == 0      | #666666 (Dim Grey) | #666666       | Static. No animation.            |
+| Normal        | Current < 80% | #E0E0E0 (White)    | #E0E0E0       | Static.                          |
+| Near Cap      | 80% to 99%    | #F5A623 (Amber)    | #F5A623       | Static amber warning.            |
+| Full (Cap)    | Current == Cap| #E74C3C (Crimson)  | #E74C3C       | Slow pulse on Icon (1.0s loop).  |
++---------------+---------------+--------------------+---------------+----------------------------------+
+
+B. Top Bar Hover Tooltip (Mouseover on Widget)
+
+Triggers on mouse-hover with a 150ms delay. Closes immediately on mouse-exit.
+
++-------------------------------------------------------+
+| MEMBERSHIP CAPACITY                                  |
+| 9 Active Members / 12 Maximum Places                  |
++-------------------------------------------------------+
+| Locker Banks (1):       +12 places                    |
+| Shower Stalls (0):       +0 places                    |
+| Next Bank Unlocks:      +12 places                    |
++-------------------------------------------------------+
+| Status: ACCEPTING WALK-INS                            |
+| Weekly Dues Yield: $405/wk                            |
++-------------------------------------------------------+
+
+
+When Cap == 0 (No Locker Room built yet):
+
++-------------------------------------------------------+
+| MEMBERSHIP CAPACITY                                  |
+| 0 Active Members / 0 Maximum Places                   |
++-------------------------------------------------------+
+| No functional locker room detected.                   |
+| Draw a Locker Room and place a Locker Bank to unlock  |
+| recurring community membership income.                |
++-------------------------------------------------------+
+| Status: ALL WALK-INS TURNING AWAY                     |
++-------------------------------------------------------+
+
+
+When Current == Cap:
+
++-------------------------------------------------------+
+| MEMBERSHIP CAPACITY                                  |
+| 12 Active Members / 12 Maximum Places                 |
++-------------------------------------------------------+
+| Locker Banks (1):       +12 places                    |
+| Shower Stalls (0):       +0 places                    |
++-------------------------------------------------------+
+| Status: AT FULL CAPACITY (#E74C3C)                    |
+| Walk-ins are currently turning away at reception.     |
+| Add 1 Locker Bank (+12) or 1 Shower (+15) to expand. |
++-------------------------------------------------------+
+
+C. The Locker Room's Own Room Inspector Panel (Clicked on Floor)
+
+When the player clicks the floor of the Locker Room, the bottom-left Inspector opens:
+
+Header: LOCKER ROOM (ZONE 02)
+Status Row: Room State: OPERATIONAL (or INCOMPLETE - REQUIRES KEY ITEM)
+Capacity Metric Row:
+Label: MEMBER LOCKER CAPACITY
+Widget: Segmented Progress Bar (fills dynamically).
+Number Display: 9 / 12 Members Assigned
+Breakdown Grid:
+Locker Banks: 1 / 6 active (+12 places)
+Shower Stalls: 0 active (+0 places)
+Action Button: [ + ADD LOCKER BANK ($620) ] (Opens Build menu directly with Locker pre-selected).
+D. The Ambient Walk-In Refusal Alert (The In-World Moment)
+
+When a prospective member arrives at reception while Current == Cap:
+
+The NPC walks to the desk counter, stops for 1.5 seconds.
+A crisp, soundless overhead thought bubble pops up for 2.0 seconds:
+Bubble Visual: Red square with a Locker outline crossed out with a diagonal slash (#E74C3C).
+The NPC plays a "shrug" or "head shake" animation, turns 180°, and walks out the street exit.
+Top Bar Alert Pill (Non-blocking): A quiet badge attaches to the OFFICE menu chip for 10 seconds: Walk-in turned away: Lockers full.
+3. EXPLAINING THE "WHY" & WHAT TO BUILD NEXT
+
+Players must never have to guess the math or dig through external documentation. The formula and the exact next step are shown in the Item Card, the Build Window Line, and the Room Breakdown.
+
++----------------------------------------------------------------------------------------------------+
+| BUILD MODE: FIXTURES & APPLIANCES CATALOG                                                         |
+|                                                                                                    |
+|  [ 4-TIER LOCKER BANK ]                       [ COMMERCIAL SHOWER STALL ]                          |
+|  Cost: $620 | Size: 2x1 tiles                 | Cost: $1,600 | Size: 1.5x1.5 tiles                 |
+|                                               |                                                    |
+|  CAPACITY IMPACT:                             | CAPACITY IMPACT:                                   |
+|  Provides +12 Member Places                   | Provides +15 Member Places                         |
+|  (Current Gym Total: 12 / 60 max from banks)  | (Requires active plumbing connection)              |
+|                                               |                                                    |
+|  RULE SUMMARY:                                | RULE SUMMARY:                                      |
+|  * Banks 1-3: +12 places each                 | * Each stall adds +15 places                       |
+|  * Banks 4-6: +8 places each                  | * Removes "smelly gym" churn modifier              |
+|  * Beyond 6: Decorative only (0 places)       |                                                    |
++----------------------------------------------------------------------------------------------------+
+
+Contextual "Next Upgrade" Recommendation
+
+Inside the Hover Tooltip and Room Inspector, a dedicated single-line prompt always points to the most cost-effective next upgrade:
+
+If 0 Lockers: "Next Step: Place 1 Locker Bank ($620) -> Unlocks 12 places."
+If 1–2 Lockers, 0 Showers: "Next Step: Place Locker Bank ($620) for +12, or Shower ($1,600) for +15."
+If 3 Lockers, 0 Showers: "Locker bank scaling dropping to +8 next. Shower Stall ($1,600) gives +15."
+If 6 Lockers: "Locker bank limit reached (6/6). Build Showers to expand capacity further."
+4. TRAPS & EDGE CASES TO GUARD AGAINST
+The "Pre-Locker Room" Trap (Day 1 Minute 0):
+The Trap: Showing 0 / 0 on the top bar before the player has drawn a single wall looks like a broken simulation or an error.
+The Fix: Until the player draws their first room or completes Goal 4 ("SECURE THE VALUABLES"), the top bar widget shows: [Icon] -- / -- in muted grey (#555555). Hovering says: "Gym closed to public. Complete gym setup to accept members."
+The "Phantom Locker" Trap (Locker Placed Outside Locker Room):
+The Trap: A player drops a locker bank on the open boxing floor or outside in the grass and expects the member cap to rise.
+The Fix: Lockers only register if their footprint resides 100% inside a designated ROOM_TYPE_LOCKER. If placed anywhere else, an amber warning tag sits over the item: NEEDS LOCKER ROOM. Capacity contribution: 0.
+The "Instant Eviction" Trap (Deleting a Locker with Active Members):
+The Trap: Player has 12 members and deletes the locker bank to get cash back. Do members instantly get fired or disappear?
+The Fix: Strict rule: Members already joined never vanish immediately. The display becomes: 12 / 0 in bright pulsing red (#E74C3C). The tooltip displays: CRITICAL DEFICIT: 12 Members using 0 Lockers. Daily churn rate increased to 35% until lockers are restored. Walk-ins halted.
+The "Shower Without Drainage/Water" Trap:
+If plumbing mechanics exist or showers require wall mounting, prevent players from placing floating shower stalls in the middle of a room that don't hook up. Require back-to-wall snapping.
+5. COMPLETE IMPLEMENTATION BUILD SPECIFICATION
++-------------------------------------------------------------------------------------------------------+
+| SCREEN: TOP_BAR_HUD                                                                                   |
++-----------------------------------+-------------------------------------------------------------------+
+| Node Path                         | /root/MainScene/UI/TopBar/MemberCounterWidget                     |
+| Visibility Trigger                | Persistent always; active once Goal 01 starts.                    |
+| Dimensions                        | 110 px width x 28 px height                                       |
+| Child Elements                    | TextureRect (Icon), Label (CounterLabel)                          |
+| Font / Size                       | Roboto Mono / Consolas, 13 pt, Semi-Bold                          |
++-----------------------------------+-------------------------------------------------------------------+
+| COLOR STATES                      |                                                                   |
+| - Disabled / No Lockers (Cap==0)  | Text & Icon: #666666                                              |
+| - Normal (Current < 0.80 * Cap)   | Text & Icon: #E0E0E0                                              |
+| - Warning (Current >= 0.80 * Cap) | Text & Icon: #F5A623                                              |
+| - Full / Cap (Current >= Cap)     | Text & Icon: #E74C3C (Triggers Tween: Pulse scale 1.0 to 1.08)   |
+| - Deficit (Current > Cap)         | Text & Icon: #FF1A1A (Flash 0.5s intervals)                       |
++-----------------------------------+-------------------------------------------------------------------+
+| MOUSE INTERACTION                 |                                                                   |
+| - mouse_entered                   | Start 150ms timer -> Show MemberCapacityTooltip                   |
+| - mouse_exited                    | Kill timer -> Hide MemberCapacityTooltip                          |
+| - gui_input (Click)               | If Locker Room exists: Pan camera to Locker Room & open Inspector |
+|                                   | If No Locker Room: Open Build Menu to Room Drawing Tab            |
++-------------------------------------------------------------------------------------------------------+
+
++-------------------------------------------------------------------------------------------------------+
+| SCREEN: HOVER_TOOLTIP (MemberCapacityTooltip.tscn)                                                    |
++-----------------------------------+-------------------------------------------------------------------+
+| Node Path                         | /root/MainScene/UI/Tooltips/MemberCapacityTooltip                 |
+| Background                        | 9-slice panel, Color #18191C, Border 1px #33353B, Corner 4px      |
+| Header Label                      | "MEMBERSHIP CAPACITY" (#8F96A3, 10 pt Bold, Uppercase)            |
+| Primary Value Label               | "%d Active Members / %d Maximum Places" (#FFFFFF, 13 pt Bold)     |
+| Divider Line                      | Color #2E3138, 1 px height                                        |
+| Breakdown Container (VBox)        |                                                                   |
+| - Row 1                           | "Locker Banks (%d):       +%d places" (#CCCCCC, 11 pt)            |
+| - Row 2                           | "Shower Stalls (%d):      +%d places" (#CCCCCC, 11 pt)            |
+| Status Banner                     | If Full: "AT MAXIMUM CAPACITY" (#E74C3C, 11 pt Bold)              |
+|                                   | If Normal: "ACCEPTING NEW MEMBERS" (#2ECC71, 11 pt Bold)          |
+| Hint Footer                       | "Next: Build %s (+%d places)" (#F5A623, 10 pt Italic)             |
++-------------------------------------------------------------------------------------------------------+
+
++-------------------------------------------------------------------------------------------------------+
+| SCREEN: LOCKER_ROOM_INSPECTOR (RoomInspector.tscn)                                                    |
++-----------------------------------+-------------------------------------------------------------------+
+| Trigger                           | Raycast click on Locker Room floor tile                           |
+| Node Path                         | /root/MainScene/UI/Inspectors/LockerRoomInspector                 |
+| Capacity Bar Widget               | ProgressBar (StyleBoxFlat):                                       |
+|                                   | - Fill color: #2ECC71 (Normal) / #F5A623 (Near) / #E74C3C (Full)  |
+|                                   | - Background color: #222428                                       |
+| Sub-Text Formula Display          | "Bank 1-3 (+12 each) | Bank 4-6 (+8 each) | Showers (+15 each)"   |
+| Quick Build Action                | Button: "[+] ADD LOCKER ($620)" -> Spawns placement ghost         |
++-------------------------------------------------------------------------------------------------------+
+
++-------------------------------------------------------------------------------------------------------+
+| SCREEN: BUILD_CATALOG_LINE (BuildItemCard.tscn)                                                       |
++-----------------------------------+-------------------------------------------------------------------+
+| Context                           | Locker item hover / inspector card in Build Mode                  |
+| Rule Text Line                    | Label: "Provides Member Places based on total banks installed"    |
+| Dynamic Math Preview Label        | If total_banks == 0: "This bank adds +12 places (0 -> 12)"        |
+|                                   | If total_banks == 1: "This bank adds +12 places (12 -> 24)"       |
+|                                   | If total_banks == 3: "This bank adds +8 places (36 -> 44)"        |
+|                                   | If total_banks >= 6: "Locker bank limit reached (+0 places)"      |
+| Text Colors                       | Formula active: #2ECC71 | Limit reached: #E74C3C                  |
++-------------------------------------------------------------------------------------------------------+
+
+Exact Capacity Calculation Logic
+# res://scripts/economy/MemberCapacityEngine.gd
+class_name MemberCapacityEngine
+extends RefCounted
+
+const LOCKER_TIER_1_PLACES: int = 12 # Banks 1 to 3
+const LOCKER_TIER_2_PLACES: int = 8  # Banks 4 to 6
+const LOCKER_MAX_COUNTED_BANKS: int = 6
+const SHOWER_STALL_PLACES: int = 15
+
+static func calculate_gym_capacity(locker_banks_in_rooms: int, shower_stalls_in_rooms: int) -> Dictionary:
+	var total_locker_places: int = 0
+	var counted_banks: int = clampi(locker_banks_in_rooms, 0, LOCKER_MAX_COUNTED_BANKS)
+
+	for i in range(1, counted_banks + 1):
+		if i <= 3:
+			total_locker_places += LOCKER_TIER_1_PLACES
+		else:
+			total_locker_places += LOCKER_TIER_2_PLACES
+
+	var total_shower_places: int = shower_stalls_in_rooms * SHOWER_STALL_PLACES
+	var final_cap: int = total_locker_places + total_shower_places
+
+	return {
+		"total_capacity": final_cap,
+		"locker_places": total_locker_places,
+		"shower_places": total_shower_places,
+		"banks_counted": counted_banks,
+		"banks_overflow": maxi(0, locker_banks_in_rooms - LOCKER_MAX_COUNTED_BANKS),
+		"next_bank_yield": get_next_bank_yield(counted_banks)
+	}
+
+static func get_next_bank_yield(current_counted_banks: int) -> int:
+	if current_counted_banks < 3:
+		return LOCKER_TIER_1_PLACES
+	elif current_counted_banks < LOCKER_MAX_COUNTED_BANKS:
+		return LOCKER_TIER_2_PLACES
+	return 0
+
+Can you turn this spec into a Godot UI implementation with signals, state updates, and tooltip logic?
+Can you mock up the top-bar members counter and its normal, near-full, full, and zero-capacity states?
+How should the locker-room panel explain current capacity and the exact next build that increases it?
+Can you create a visual wireframe showing the full-capacity alert and the zero-locker walk-in warning?
+Your Chat History
+ Gym Management Screen
+ Boxing Shout System
+ Training Wear Readiness
+ Office PC World Label Design
+ Coach Padwork Paired Clip
+ Gym Floor Playtest Ratings
+ Story UI Audit and Specification
+ Gym Roster UI Specification
+ Thermal Horizon Rules
+ Thermal Horizon Facts
+ Thermal Horizon Facts
+ Thermal Combat Rulings
+ Thermal Horizon Evaluation
+ Ludo-Assisted Game Evaluation
+ Ludo.ai Game Search
+ Multi-Hub Space Strategy
+ Mothership Design Refinement
+Copyright ©2026 Ludo.ai. All Rights Reserved.

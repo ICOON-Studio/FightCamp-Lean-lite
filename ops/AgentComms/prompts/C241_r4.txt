@@ -1,0 +1,23 @@
+RUN 4 (Claude, S144 17:32) - SWITCH TO THE DOWNLOADED GLOVE. Operator approved and Claude downloaded your recommended CC-BY model:
+  E:/FightCamp/incoming/sketchfab_boxing_glove_incg5764.glb (4.4 MB, 4.1k triangles, 2K PBR textures)
+  E:/FightCamp/incoming/sketchfab_boxing_glove_incg5764.CREDITS.txt (author, licence, chain credit - carry ALL of it)
+Do, in your worktree E:/FightCamp/wt/C241 (branch codex/c241-glove-asset, your checkpoint 1e83b5b5):
+1. Blender 5.2.1 headless: import the GLB, inspect it (one glove? which hand? scale/axes), make a right glove and a mirrored left,
+   decimate to <= 2,000 triangles each if it keeps the silhouette (else keep 4.1k), downscale textures to 1K (512 if it still reads),
+   export Godot/assets/models/gloves/boxing_glove.glb (replace your authored boxing glove; KEEP your MMA and mitt GLBs).
+   Keep the asset light: the final GLB well under 1.5 MB.
+2. Fit it to the SAME attachment contract (CCFighterSkin._build_glove, existing fist/cuff size and position values, envelope from
+   G80_GLOVE_DIMENSIONS.md): the fist, thumb and cuff must CLOSE OVER the hand - no hand/thumb geometry poking through at frames 0/30/59.
+3. Credits: Godot/assets/models/gloves/CREDITS.md with the full text of the credits file, and register the asset wherever
+   asset_manifest_test.gd expects shipped third-party assets (read that test; licence = CC-BY-4.0, status approved).
+4. Re-render review.gd (boxing, close + broadcast, frames 0/30/59), OPEN the stills with your file tool, compare to before.
+5. Focused tests: run_tests.py --only ccfighter,glove,portrait,asset_manifest --jobs 2. Digest, commit by explicit path, push.
+PC: temperature limit 84 C SUSTAINED over 10 s (watchdog -Once in this worktree already does it; AMBER is a pass). ONE heavy job
+at a time; when RED, wait and poll every 2 min for up to 90 min - never end the run because it is hot. Never open a viewer/window.
+
+RESUME RUN (S144, 2026-10-02). Your previous run on this task was STOPPED by Claude for a PC restart (the PC was overheating). Nothing was lost: your work is committed as the "WIP checkpoint" commit at the tip of branch codex/c241-glove-asset in the worktree E:/FightCamp/wt/C241. Before anything else: cd E:/FightCamp/wt/C241, run git log --oneline -5 and git diff --stat master...HEAD, and read what you already did. Then CONTINUE the task from where it stopped - do not restart from scratch, do not redo finished steps.
+PC LOAD (operator, today: "watch the pc load"): the CPU idles at ~70 C; the hard limit is 80 C / 80% CPU. Run powershell -NoProfile -ExecutionPolicy Bypass -File Tools\pc_watchdog.ps1 -Once before EVERY heavy step (Godot test, render, Blender) and chain it with && so a RED reading stops the step. Never more than ONE Godot/Blender process of yours at a time; run_tests.py only with --jobs 2. If the watchdog is RED, wait (poll it every 2 minutes) instead of running.
+The worktree shows modified *.import files (addons/kickback icons, fonts) - Godot re-import noise: never commit them (git add only your own files by explicit path).
+The original brief follows, unchanged. Where it says "fresh from master", read it as "resumed from your checkpoint".
+
+You are working in the git worktree E:/FightCamp/wt/C241 (branch codex/c241-glove-asset, fresh from master) of the FightCamp Godot 4.7.2 game. Your task is fully specified in research/TASK_C241_REAL_GLOVE_ASSET.md - read it in full first, and read research/G80_GLOVE_DIMENSIONS.md before building anything. The operator's own words: "the gloves look terrible make another asset for the gloves" - they saw the current procedural glove (two stretched primitives: a sphere + a cylinder) and want real geometry. Check for a usable CC0/permissive prefab first (name the source + licence); if none fits, author one in Blender 5.2.1 headless. Keep the existing attachment contract (CCFighterSkin._build_glove's inputs/outputs) so every caller picks it up unchanged. Open before/after stills with your file tool before calling this done - never open a viewer, never pop a window on the operator's screens. Parse gate before any test, watchdog before any heavy run, renders through Tools\godot_hidden.ps1. Never edit HANDOFF.md. git add your files by explicit path, commit, git push -u origin codex/c241-glove-asset. Do not stop at written.

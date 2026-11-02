@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stills and Videos</title>
+<style>
+  :root {
+    --bg: #0e1116; --bg2: #161b22; --bg3: #1c2330; --line: #2a3341;
+    --text: #e6edf3; --muted: #8b949e; --dim: #6e7681;
+    --good: #3fb950; --amber: #d29922; --bad: #f85149; --link: #58a6ff;
+    --radius: 10px; --sans: "Segoe UI", system-ui, -apple-system, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 15px; }
+  .fcnav { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; padding: 10px 16px; border-bottom: 1px solid var(--line); }
+  .fcnav a { color: var(--link); text-decoration: none; font-size: .9rem; }
+  .fcnav a.here { color: var(--text); font-weight: 600; }
+  header { padding: 12px 16px 0; }
+  header h1 { margin: 0 0 4px; font-size: 1.2rem; }
+  .rule { color: var(--muted); font-size: .85rem; margin: 0; }
+  .tabs { display: flex; gap: 6px; padding: 10px 16px; position: sticky; top: 0; background: var(--bg); z-index: 4; }
+  .tabs button { background: var(--bg2); color: var(--text); border: 1px solid var(--line); border-radius: 999px;
+                 padding: 6px 14px; font: inherit; font-size: .9rem; cursor: pointer; }
+  .tabs button.on { border-color: var(--link); background: rgba(88,166,255,.14); }
+  main { padding: 4px 16px 60px; max-width: 1400px; margin: 0 auto; }
+  .post { margin: 10px 0 16px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+  .post h2 { font-size: 1.05rem; margin: 0 0 2px; }
+  .post .meta { color: var(--muted); font-size: .82rem; margin-bottom: 10px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; }
+  .card { background: var(--bg2); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; }
+  .card img, .card video { width: 100%; height: 170px; object-fit: cover; display: block; background: #000; }
+  .card video { object-fit: contain; }
+  .card img { cursor: zoom-in; }
+  .card .body { padding: 8px; display: flex; flex-direction: column; gap: 6px; }
+  .card textarea, .card .save { display: none; }
+  .card.open textarea, .card.open .save { display: block; }
+  .cap { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .cap:hover { -webkit-line-clamp: unset; }
+  .name { display: none; }
+  .cap { font-size: .9rem; }
+  .note { background: var(--bg3); border-left: 3px solid var(--amber); padding: 6px 8px; border-radius: 6px; font-size: .88rem; }
+  .note .when { color: var(--dim); font-size: .75rem; }
+  .note.seen { border-left-color: var(--good); }
+  textarea { width: 100%; min-height: 54px; resize: vertical; background: var(--bg); color: var(--text);
+             border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; font: inherit; font-size: .9rem; }
+  .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .row button { background: var(--link); color: #0b1220; border: 0; border-radius: 6px; padding: 7px 14px; font: inherit; font-weight: 600; cursor: pointer; }
+  .row button:disabled { opacity: .5; cursor: default; }
+  .row label { color: var(--muted); font-size: .82rem; display: flex; gap: 4px; align-items: center; }
+  .ok { color: var(--good); font-size: .82rem; }
+  .err { color: var(--bad); font-size: .82rem; }
+  details.folder { background: var(--bg2); border: 1px solid var(--line); border-radius: var(--radius); margin: 8px 0; }
+  details.folder summary { padding: 10px 12px; cursor: pointer; }
+  details.folder summary .c { color: var(--muted); font-size: .85rem; }
+  details.folder .grid { padding: 0 12px 12px; }
+  .empty { color: var(--muted); padding: 20px 0; }
+  .post h2 .old { display: inline-block; margin-left: 8px; padding: 1px 8px; border-radius: 999px; font-size: .75rem;
+                   background: rgba(210,153,34,.18); color: var(--amber); vertical-align: middle; }
+  .post.superseded { opacity: .62; }
+  .ghost { background: transparent; color: var(--muted); border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px;
+           font: inherit; font-size: .8rem; cursor: pointer; }
+  .ghost:hover { color: var(--bad); border-color: var(--bad); }
+  .ghost.restore:hover { color: var(--good); border-color: var(--good); }
+  .posthead { display: flex; gap: 10px; align-items: baseline; justify-content: space-between; flex-wrap: wrap; }
+  .bulk { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 10px 0 0; color: var(--muted); font-size: .85rem; }
+  .bulk button { background: var(--amber); color: #0b1220; border: 0; border-radius: 6px; padding: 7px 14px; font: inherit; font-weight: 600; cursor: pointer; }
+  #zoom { position: fixed; inset: 0; background: rgba(0,0,0,.92); display: none; align-items: center; justify-content: center; z-index: 9; cursor: zoom-out; }
+  #zoom img { max-width: 100vw; max-height: 100vh; }
+  @media (max-width: 480px) { .grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<nav class="fcnav"><b>FIGHTCAMP</b><a href="/">Roadmap</a><a class="here" href="/review">Stills &amp; videos</a><a href="/agents">Agents live</a><a href="/animations">Boxer animations</a><a href="/old">Old detailed board</a><a href="http://127.0.0.1:4101/" title="Model router live: every Claude session (desktop via the model-router mod)">Model router</a></nav>
+<header>
+  <h1>Stills &amp; videos</h1>
+  <p class="rule">The recent stills and videos, newest first. Click a picture to enlarge it; <b>Comment</b> opens a box under it.
+  The page keeps the 10 newest posts; anything older than a day (or replaced by a newer version) moves to <b>Removed</b> by itself - nothing is deleted, and Restore keeps a post for good.</p>
+</header>
+<div class="tabs"><button id="tSent" class="on">Sent to you</button><button id="tRemoved">Removed</button><button id="tAll">All previews</button></div>
+<main id="main"><div class="empty">Loading…</div></main>
+<div id="zoom"><img alt=""></div>
+<script>
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const mediaUrl = k => "/media/" + k.split("/").map(encodeURIComponent).join("/");
+const fmtT = s => { s = Math.round(s); return Math.floor(s/60) + ":" + String(s%60).padStart(2,"0"); };
+let tab = "sent", data = null;
+
+function noteHtml(c) {
+  return `<div class="note ${c.seen_by_claude ? "seen" : ""}">${c.at_s != null ? `<b>at ${fmtT(c.at_s)}</b> ` : ""}${esc(c.text)}
+    <div class="when">${esc((c.at||"").replace("T"," ").replace("Z"," UTC"))} · ${c.seen_by_claude ? "read by Claude" : "not read yet"}</div></div>`;
+}
+function cardHtml(f, removed) {
+  const u = mediaUrl(f.key);
+  const media = f.kind === "video"
+    ? `<video controls preload="metadata" muted playsinline src="${u}"></video>`
+    : `<img loading="lazy" src="${u}" alt="${esc(f.name)}">`;
+  return `<div class="card" data-key="${esc(f.key)}">${media}<div class="body">
+    ${f.caption ? `<div class="cap" title="${esc(f.name)}">${esc(f.caption)}</div>` : `<div class="cap" style="color:var(--dim)">${esc(f.name)}</div>`}
+    <div class="notes">${(f.comments||[]).map(noteHtml).join("")}</div>
+    <textarea maxlength="8000" placeholder="Your comment on this ${f.kind}…"></textarea>
+    ${f.batch ? `<div class="row" style="justify-content:flex-end"><button class="ghost ${removed ? "restore" : ""}" data-act="${removed ? "restore" : "remove"}" data-batch="${esc(f.batch)}" data-file="${esc(f.name)}">${removed ? "Restore picture" : "Remove picture"}</button></div>` : ""}
+    <div class="row"><button data-act="open">Comment</button><button class="save" data-act="comment">Save</button>${f.kind === "video" ? `<label><input type="checkbox" checked> at the paused moment</label>` : `<a href="/markup?q=${encodeURIComponent("media:" + f.key)}" target="_blank" style="color:#e3b341;font-weight:600;text-decoration:none">✎ Mark areas</a>`}<span class="msg"></span></div>
+  </div></div>`;
+}
+async function load() {
+  const r = await fetch("/api/media", {cache: "no-store"});
+  data = await r.json();
+  render();
+}
+function postHtml(p, removed) {
+  const old = !removed && p.superseded_by;
+  return `<section class="post ${old ? "superseded" : ""}"><div class="posthead"><h2>${esc(p.title)}${old ? `<span class="old" title="replaced by ${esc(p.superseded_by)}">Older version</span>` : ""}</h2>
+    <button class="ghost ${removed ? "restore" : ""}" data-act="${removed ? "restore" : "remove"}" data-batch="${esc(p.batch)}">${removed ? "Restore post" : "Remove post"}</button></div>
+    <div class="meta">${esc(p.stage)} ${esc((p.at||"").replace("T"," "))} · ${p.files.length} file${p.files.length>1?"s":""}${removed && p.removed_at ? " · removed " + esc(p.removed_at.replace("T"," ")) : ""}</div>
+    <div class="grid">${p.files.map(f => cardHtml({...f, batch: p.batch}, removed)).join("")}</div></section>`;
+}
+function render() {
+  const m = document.getElementById("main");
+  if (!data) return;
+  document.getElementById("tRemoved").textContent = "Removed" + ((data.removed||[]).length ? " (" + data.removed.length + ")" : "");
+  if (tab === "sent") {
+    const olds = data.sent.filter(p => p.superseded_by).length;
+    m.innerHTML = (olds ? `<div class="bulk"><span>${olds} post${olds>1?"s are":" is"} an older version of a newer post.</span><button data-act="older">Remove all ${olds} older versions</button></div>` : "")
+      + (data.sent.length ? data.sent.map(p => postHtml(p, false)).join("") : `<div class="empty">Nothing sent yet.</div>`);
+  } else if (tab === "removed") {
+    m.innerHTML = (data.removed||[]).length ? data.removed.map(p => postHtml(p, true)).join("") : `<div class="empty">Nothing removed.</div>`;
+  } else {
+    m.innerHTML = data.folders.map(f => `<details class="folder" data-folder="${esc(f.folder)}"><summary>${esc(f.folder)}
+      <span class="c">· ${f.count} · ${new Date(f.newest*1000).toISOString().slice(0,10)}</span></summary><div class="grid"></div></details>`).join("");
+    m.querySelectorAll("details.folder").forEach(d => d.addEventListener("toggle", async () => {
+      const g = d.querySelector(".grid");
+      if (!d.open || g.dataset.done) return;
+      g.innerHTML = `<div class="empty">Loading…</div>`;
+      const r = await fetch("/api/media?folder=" + encodeURIComponent(d.dataset.folder), {cache: "no-store"});
+      const j = await r.json();
+      g.innerHTML = j.files.map(f => cardHtml(f, false)).join(""); g.dataset.done = "1";
+    }));
+  }
+}
+document.getElementById("main").addEventListener("click", async e => {
+  if (e.target.tagName === "IMG") { const z = document.getElementById("zoom"); z.querySelector("img").src = e.target.src; z.style.display = "flex"; return; }
+  if (e.target.tagName !== "BUTTON") return;
+  const act = e.target.dataset.act;
+  if (act === "open") { const c = e.target.closest(".card"); c.classList.toggle("open"); if (c.classList.contains("open")) c.querySelector("textarea").focus(); return; }
+  if (act === "remove" || act === "restore" || act === "older") {
+    const b = e.target, what = act === "older" ? "every post marked Older version" : (b.dataset.file ? "this picture" : "this whole post");
+    if (act !== "restore" && !confirm("Remove " + what + " from the board? It moves to the Removed tab (nothing is deleted).")) return;
+    b.disabled = true;
+    const body = act === "older" ? {} : {batch: b.dataset.batch, ...(b.dataset.file ? {file: b.dataset.file} : {})};
+    const url = act === "older" ? "/api/media_remove_older" : act === "remove" ? "/api/media_remove" : "/api/media_restore";
+    try {
+      const r = await fetch(url, {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(body)});
+      const j = await r.json(); if (!r.ok) throw new Error(j.error || r.status);
+      await load();
+    } catch (err) { b.disabled = false; alert("Not done: " + err.message); }
+    return;
+  }
+  const card = e.target.closest(".card"), ta = card.querySelector("textarea"), msg = card.querySelector(".msg");
+  const text = ta.value.trim(); if (!text) { msg.className = "msg err"; msg.textContent = "write something first"; return; }
+  const body = {path: card.dataset.key, text};
+  const v = card.querySelector("video"), cb = card.querySelector("input[type=checkbox]");
+  if (v && cb && cb.checked && v.currentTime > 0) body.at_s = v.currentTime;
+  e.target.disabled = true;
+  try {
+    const r = await fetch("/api/media_comment", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(body)});
+    const j = await r.json();
+    if (!r.ok) throw new Error(j.error || r.status);
+    card.querySelector(".notes").insertAdjacentHTML("beforeend", noteHtml(j));
+    ta.value = ""; msg.className = "msg ok"; msg.textContent = "saved";
+  } catch (err) { msg.className = "msg err"; msg.textContent = "not saved: " + err.message; }
+  e.target.disabled = false;
+});
+document.getElementById("zoom").addEventListener("click", e => e.currentTarget.style.display = "none");
+const TABS = [["tSent","sent"],["tRemoved","removed"],["tAll","all"]];
+for (const [id, t] of TABS) document.getElementById(id).addEventListener("click", () => {
+  tab = t; for (const [i2, t2] of TABS) document.getElementById(i2).classList.toggle("on", t2===t); render();
+});
+load();
+</script>
+</body>
+</html>

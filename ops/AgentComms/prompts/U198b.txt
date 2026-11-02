@@ -1,0 +1,25 @@
+You own TASK_U198 - SEND-BACK 1 from Claude (S125). Worktree D:\FightCamp\wt\U197, branch cursor/u198-room-root-writes.
+FIRST: git fetch origin && git merge origin/master (must include 24aa67f4: the room's glove stop now RELEASES over 50 ms via FightStagePlayer
+begin_contact_hold/end_contact_hold, and defensive pieces are skipped by the landing aim; fight_contact_stop_test is 145/0 on master now).
+Do NOT read HANDOFF.md, CURRENT_STATUS.md or HANDOFF_ARCHIVE.md. FightWorldLiveScreen.gd ~5,400 lines, FightStagePlayer.gd ~4,950 - never whole; grep -n, sed -n.
+
+Claude's review of 74dd2d48 (read against your own digest):
+- KEEP: rope clamp + root cap as the LAST root writer (no_teleport PASS, ring_bounds PASS). The _pair_mesh_a/b split and the pair_live finding
+  (seed 810039 emits 0 head jabs -> 0 qualifying) are correct; pair_live stays red, not yours to fix.
+- REJECTED: the cap runs after contact_stop's separation and UNDOES it: fight_body_overlap worst hand>head 0.151 m (master: 1.3 mm), contact_stop FAIL.
+  And ROOT_FRAME_CAP_M = 3 cm PER FRAME ignores frame time (the old budget was 4 m/s * delta * _speed) - a frame-rate-dependent cap.
+DO:
+1. Budget in metres per SECOND scaled by delta * _speed (and yaw in deg/s). Justify the number from what a boxer's root really does (a lunge/step-in
+   ~1.5-2.5 m/s) - print the per-frame value it gives at 60 fps.
+2. The separation must survive the cap. Options, in order: (a) let the cap limit the placement/engine writes and run the contact separation after it,
+   with the separation itself eased over frames the way overlap_sep_ease does, or (b) give the cap a separation allowance. Pick one, say why.
+3. Measure with the game's switches. Print achieved beside wanted for every row.
+MERGE BAR (all on the same merged tree): fight_room_no_teleport PASS; fight_room_ring_bounds PASS; fight_contact_stop 145/0 (as master);
+fight_body_overlap no worse than master (TOTAL=2 fails=1, worst ~1.3 mm - run it on master in this worktree first as the control);
+footwork_beats_reach_room, fight_body_layers_live, boxing_output unchanged. Run each test alone (fight_room_positions / readable_onset run ~100 min
+alone - run room_positions once at the end, the others only if time allows, and say which you did not run).
+Parse gate before any test; never the full suite. Windowed Godot only through Tools\godot_hidden.ps1. Before any Godot run:
+powershell -NoProfile -ExecutionPolicy Bypass -File Tools\pc_watchdog.ps1 -Once (exit 1 = RED = wait).
+Commit per fix, push your branch (never master), update research/U198_DIGEST.md (a "Send-back 1" section with the before/after table),
+then python Tools/agent_comms.py send --from cursor --to claude --topic U198 --body "<one line>".
+Trap: a cap that passes no_teleport by leaving the men inside each other is the same failure moved to another test - print overlap beside every jump.

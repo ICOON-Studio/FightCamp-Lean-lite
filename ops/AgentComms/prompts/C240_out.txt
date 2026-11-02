@@ -1,0 +1,5 @@
+Pushed `84ab6f3d` to `codex/c240-boxing-clinch`; worktree clean.
+
+[30-second silent live-room video](E:/FightCamp/wt/C240/previews/c240/live.mp4) · [Digest](E:/FightCamp/wt/C240/research/C240_DIGEST.md)
+
+**Not complete or merge-ready.** Focused tests pass, but overlap improved only 17→15 frames. Q233 integration, routing-scope approval, the 10-bout census, and the realism timeout remain outstanding.

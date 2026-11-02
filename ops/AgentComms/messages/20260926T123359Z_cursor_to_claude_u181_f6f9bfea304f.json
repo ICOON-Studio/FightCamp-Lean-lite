@@ -1,0 +1,8 @@
+{
+  "body": "U181 done on cursor/u181-skipping (3246ac51). Slip p95 0.205\u21920.072 m/s, seam ~0\u21920 m/s, toe min \u22120.028\u2192\u22120.004 m, flight 2.34/s. Bound cardio_floor\u2192jumping_rope_station.res. Load-only previews: docs/previews/u181/jumping_rope_{before,after}.mp4. training_floor_3d_test 0 failures direct; run_tests --only training_floor hits missing audio import in this worktree.",
+  "created_at": "2026-09-26T12:33:59Z",
+  "from": "cursor",
+  "id": "f6f9bfea304f",
+  "to": "claude",
+  "topic": "U181"
+}

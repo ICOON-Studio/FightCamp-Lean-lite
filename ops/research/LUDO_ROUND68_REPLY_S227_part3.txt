@@ -1,0 +1,586 @@
+
+tab)
+if is_sel:
+b.add_theme_stylebox_override("normal", UIKit.create_panel_style(UIKit.COLOR_BRASS_ANTIQUE, UIKit.COLOR_GOLD_BRIGHT, 1, 2))
+b.add_theme_color_override("font_color", UIKit.COLOR_CHARCOAL_DARK)
+else:
+b.add_theme_stylebox_override("normal", UIKit.create_panel_style(UIKit.COLOR_CHARCOAL_MID, UIKit.COLOR_STEEL_BORDER, 1, 2))
+b.add_theme_color_override("font_color", UIKit.COLOR_CREAM_PAPER)
+
+if animate and is_inside_tree():
+	var tw := create_tween().set_parallel(true)
+	tw.tween_property(tab_indicator_bar, "position:x", target_x, 0.16).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tw.tween_property(tab_indicator_bar, "size:x", target_w, 0.16).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+else:
+	tab_indicator_bar.position.x = target_x
+	tab_indicator_bar.size.x = target_w
+
+# 2. Swap Content Node with Fade & Slide
+_mount_tab_content(target_tab, animate)
+
+
+func _mount_tab_content(tab: Tab, animate: bool) -> void:
+var old_content := current_content_node
+var new_content: Control = null
+
+match tab:
+	Tab.OVERVIEW:
+		new_content = ProfileOverview.new()
+	Tab.TECHNIQUES:
+		new_content = ProfileTechniques.new()
+	Tab.PERFORMANCE_CAMP:
+		new_content = ProfilePerformanceCamp.new()
+	Tab.MEDICAL_BIO:
+		new_content = ProfileMedicalBio.new()
+	Tab.CAREER_CONTRACT:
+		new_content = ProfileCareerContract.new()
+
+new_content.size = content_container.size
+content_container.add_child(new_content)
+if new_content.has_method("populate_data"):
+	new_content.call("populate_data", boxer_data)
+
+current_content_node = new_content
+
+if old_content:
+	if animate and is_inside_tree():
+		var out_tw := create_tween()
+		out_tw.set_parallel(true)
+		out_tw.tween_property(old_content, "modulate:a", 0.0, 0.08)
+		out_tw.tween_property(old_content, "position:x", -24.0, 0.08)
+		out_tw.chain().tween_callback(func():
+			old_content.queue_free()
+		)
+
+		new_content.modulate.a = 0.0
+		new_content.position.x = 30.0
+		var in_tw := create_tween()
+		in_tw.set_parallel(true)
+		in_tw.tween_property(new_content, "modulate:a", 1.0, 0.16).set_delay(0.08)
+		in_tw.tween_property(new_content, "position:x", 0.0, 0.16).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT).set_delay(0.08)
+	else:
+		old_content.queue_free()
+		new_content.position = Vector2.ZERO
+		new_content.modulate.a = 1.0
+else:
+	new_content.position = Vector2.ZERO
+	new_content.modulate.a = 1.0
+
+
+func _update_header_data() -> void:
+if boxer_data.is_empty():
+return
+var n_lbl := header_panel.get_node_or_null("NameBox/NameLabel") as Label
+if n_lbl and boxer_data.has("name"):
+n_lbl.text = str(boxer_data["name"]).to_upper()
+var s_lbl := header_panel.get_node_or_null("NameBox/SubLabel") as Label
+if s_lbl:
+var nick: String = boxer_data.get("nickname", "CONTENDER")
+var rec: String = boxer_data.get("record", "0-0-0")
+s_lbl.text = ""%s"  ★  %s" % [nick.to_upper(), rec]
+
+
+---
+
+### 3. `AttributeTile.gd` (Engineered Segmented Metric Tile)
+```gdscript
+# res://scripts/ui/profile/AttributeTile.gd
+class_name AttributeTile
+extends Panel
+
+var attr_name: String = "POWER"
+var attr_value: int = 50
+var max_value: int = 100
+var category_icon: String = "zap"
+
+var title_label: Label
+var value_label: Label
+var grade_label: Label
+var segments_container: HBoxContainer
+var segments: Array[ColorRect] = []
+
+func _init(p_name: String = "POWER", p_val: int = 50, p_icon: String = "zap") -> void:
+	attr_name = p_name
+	attr_value = clampi(p_val, 0, 100)
+	category_icon = p_icon
+	custom_minimum_size = Vector2(244, 104)
+
+func _ready() -> void:
+	add_theme_stylebox_override("panel", 
+		UIKit.create_panel_style(UIKit.COLOR_CHARCOAL_MID, UIKit.COLOR_STEEL_BORDER, 1, 3))
+	_build_ui()
+	set_value(attr_value, false)
+
+func _build_ui() -> void:
+	# Header Row: Icon + Title + Grade Stamp
+	var header := HBoxContainer.new()
+	header.position = Vector2(10, 8)
+	header.size = Vector2(size.x - 20, 20)
+	add_child(header)
+
+	title_label = Label.new()
+	title_label.text = attr_name.to_upper()
+	title_label.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_BODY)
+	title_label.add_theme_color_override("font_color", UIKit.COLOR_CREAM_PAPER)
+	header.add_child(title_label)
+
+	var spacer := Control.new()
+	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	header.add_child(spacer)
+
+	grade_label = Label.new()
+	grade_label.text = _compute_grade(attr_value)
+	grade_label.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_MICRO)
+	grade_label.add_theme_color_override("font_color", UIKit.COLOR_GOLD_BRIGHT)
+	header.add_child(grade_label)
+
+	# Main Metric Readout (Large League Gothic style)
+	value_label = Label.new()
+	value_label.position = Vector2(10, 28)
+	value_label.size = Vector2(120, 44)
+	value_label.text = str(attr_value)
+	value_label.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_HERO)
+	value_label.add_theme_color_override("font_color", UIKit.COLOR_GOLD_BRIGHT)
+	add_child(value_label)
+
+	# Segmented Gauge Bar (10 physical tactile pips)
+	segments_container = HBoxContainer.new()
+	segments_container.position = Vector2(10, 78)
+	segments_container.size = Vector2(size.x - 20, 14)
+	segments_container.add_theme_constant_override("separation", 3)
+	add_child(segments_container)
+
+	for i in range(10):
+		var pip := ColorRect.new()
+		pip.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		pip.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		pip.color = UIKit.COLOR_TRACK_DARK
+		segments_container.add_child(pip)
+		segments.append(pip)
+
+func set_value(new_val: int, animate: bool = true) -> void:
+	attr_value = clampi(new_val, 0, 100)
+	if value_label:
+		value_label.text = str(attr_value)
+	if grade_label:
+		grade_label.text = _compute_grade(attr_value)
+
+	var active_pips := int(round(float(attr_value) / 10.0))
+	for i in range(10):
+		var pip := segments[i]
+		var is_lit := i < active_pips
+		var target_col := _get_pip_color(i, attr_value) if is_lit else UIKit.COLOR_TRACK_DARK
+
+		if animate and is_inside_tree():
+			var tw := create_tween()
+			tw.tween_property(pip, "color", target_col, 0.12).set_delay(i * 0.015)
+		else:
+			pip.color = target_col
+
+func _get_pip_color(pip_idx: int, val: int) -> Color:
+	if val >= 90 and pip_idx >= 8:
+		return UIKit.COLOR_GOLD_BRIGHT
+	if val >= 75:
+		return UIKit.COLOR_BRASS_ANTIQUE
+	if val <= 35:
+		return UIKit.COLOR_OXBLOOD_BRIGHT
+	return UIKit.COLOR_GOLD_MUTED
+
+func _compute_grade(val: int) -> String:
+	if val >= 95: return "GRADE S"
+	if val >= 85: return "GRADE A"
+	if val >= 70: return "GRADE B"
+	if val >= 55: return "GRADE C"
+	return "GRADE D"
+
+4. QuickLookCard.gd (Gym Floor Grounded Popup)
+# res://scripts/ui/quicklook/QuickLookCard.gd
+class_name QuickLookCard
+extends Control
+
+signal open_profile_requested(boxer_id: String)
+signal change_drill_requested(boxer_id: String)
+signal close_requested
+
+var current_boxer_id: String = ""
+var target_world_pos: Vector3 = Vector3.ZERO
+var gym_camera: Camera3D
+
+var root_panel: Panel
+var name_label: Label
+var sub_label: Label
+var drill_label: Label
+var stamina_bar: ProgressBar
+var fatigue_bar: ProgressBar
+var bout_box: Panel
+var leader_line: Line2D
+
+func _init() -> void:
+	custom_minimum_size = Vector2(380, 440)
+	size = Vector2(380, 440)
+
+func _ready() -> void:
+	leader_line = Line2D.new()
+	leader_line.width = 2.0
+	leader_line.default_color = UIKit.COLOR_BRASS_ANTIQUE
+	add_child(leader_line)
+	_build_card_ui()
+
+func _process(_delta: float) -> void:
+	if gym_camera and target_world_pos != Vector3.ZERO:
+		_track_camera_anchor()
+
+func open_for_boxer(data: Dictionary, world_pos: Vector3, cam: Camera3D) -> void:
+	current_boxer_id = data.get("id", "")
+	target_world_pos = world_pos
+	gym_camera = cam
+	visible = true
+
+	name_label.text = str(data.get("name", "UNKNOWN")).to_upper()
+	sub_label.text = "%s • %s" % [str(data.get("division", "MIDDLEWEIGHT")).to_upper(), str(data.get("record", "0-0-0"))]
+	drill_label.text = "DRILL: %s (COACH: %s)" % [str(data.get("drill", "HEAVY BAG")).to_upper(), str(data.get("coach", "ASSIGNED")).to_upper()]
+
+	stamina_bar.value = data.get("stamina", 0.8)
+	fatigue_bar.value = data.get("fatigue", 0.2)
+
+	_track_camera_anchor()
+	_play_open_animation()
+
+func _build_card_ui() -> void:
+	root_panel = Panel.new()
+	root_panel.size = Vector2(380, 440)
+	root_panel.add_theme_stylebox_override("panel", 
+		UIKit.create_panel_style(UIKit.COLOR_CHARCOAL_MID, UIKit.COLOR_BRASS_ANTIQUE, 2, 4))
+	add_child(root_panel)
+
+	# Header Box
+	var h_box := VBoxContainer.new()
+	h_box.position = Vector2(16, 14)
+	h_box.size = Vector2(348, 54)
+
+	name_label = Label.new()
+	name_label.text = "BOXER NAME"
+	name_label.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_TITLE)
+	name_label.add_theme_color_override("font_color", UIKit.COLOR_CREAM_PAPER)
+	h_box.add_child(name_label)
+
+	sub_label = Label.new()
+	sub_label.text = "HEAVYWEIGHT • 0-0-0"
+	sub_label.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_BODY)
+	sub_label.add_theme_color_override("font_color", UIKit.COLOR_GOLD_BRIGHT)
+	h_box.add_child(sub_label)
+	root_panel.add_child(h_box)
+
+	# Drill & Coach Strip
+	drill_label = Label.new()
+	drill_label.position = Vector2(16, 76)
+	drill_label.size = Vector2(348, 24)
+	drill_label.text = "DRILL: HEAVY BAG (COACH: TERRY McGEE)"
+	drill_label.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_MICRO)
+	drill_label.add_theme_color_override("font_color", UIKit.COLOR_BRASS_ANTIQUE)
+	root_panel.add_child(drill_label)
+
+	# Stamina & Fatigue Gauges
+	var v_box := VBoxContainer.new()
+	v_box.position = Vector2(16, 108)
+	v_box.size = Vector2(348, 64)
+	v_box.add_theme_constant_override("separation", 6)
+
+	stamina_bar = _create_gauge("STAMINA / ENERGY", UIKit.COLOR_GOLD_BRIGHT, v_box)
+	fatigue_bar = _create_gauge("SESSION FATIGUE", UIKit.COLOR_OXBLOOD_BRIGHT, v_box)
+	root_panel.add_child(v_box)
+
+	# Triad Metric Row (Power / Speed / Chin)
+	var triad := HBoxContainer.new()
+	triad.position = Vector2(16, 184)
+	triad.size = Vector2(348, 54)
+	triad.add_theme_constant_override("separation", 8)
+	triad.add_child(_create_triad_chip("POWER", "78", "A"))
+	triad.add_child(_create_triad_chip("SPEED", "64", "B"))
+	triad.add_child(_create_triad_chip("CHIN", "72", "B+"))
+	root_panel.add_child(triad)
+
+	# Upcoming Bout Card
+	bout_box = Panel.new()
+	bout_box.position = Vector2(16, 252)
+	bout_box.size = Vector2(348, 80)
+	bout_box.add_theme_stylebox_override("panel", 
+		UIKit.create_panel_style(UIKit.COLOR_CHARCOAL_DARK, UIKit.COLOR_STEEL_BORDER, 1, 3))
+	
+	var b_lbl := Label.new()
+	b_lbl.position = Vector2(10, 8)
+	b_lbl.size = Vector2(328, 64)
+	b_lbl.text = "NEXT SCHEDULED BOUT:\nvs. NIKOLAY SHEVCHENKO\nIN 18 DAYS • YORK HALL (10 RDS)"
+	b_lbl.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_MICRO)
+	b_lbl.add_theme_color_override("font_color", UIKit.COLOR_CREAM_PAPER)
+	bout_box.add_child(b_lbl)
+	root_panel.add_child(bout_box)
+
+	# Action Buttons
+	var open_btn := UIKit.create_chamfer_button("OPEN FULL FIGHTER PROFILE", true)
+	open_btn.position = Vector2(16, 344)
+	open_btn.size = Vector2(348, 40)
+	open_btn.pressed.connect(func(): open_profile_requested.emit(current_boxer_id))
+	root_panel.add_child(open_btn)
+
+	var change_btn := UIKit.create_chamfer_button("REASSIGN DRILL / COACH", false)
+	change_btn.position = Vector2(16, 392)
+	change_btn.size = Vector2(348, 36)
+	change_btn.pressed.connect(func(): change_drill_requested.emit(current_boxer_id))
+	root_panel.add_child(change_btn)
+
+func _create_gauge(title: String, fill_col: Color, parent: Control) -> ProgressBar:
+	var h := HBoxContainer.new()
+	var lbl := Label.new()
+	lbl.text = title
+	lbl.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_MICRO)
+	lbl.add_theme_color_override("font_color", UIKit.COLOR_TEXT_MUTED)
+	h.add_child(lbl)
+	parent.add_child(h)
+
+	var bar := ProgressBar.new()
+	bar.custom_minimum_size = Vector2(0, 8)
+	bar.max_value = 1.0
+	bar.show_percentage = false
+	bar.add_theme_stylebox_override("background", UIKit.create_panel_style(UIKit.COLOR_TRACK_DARK, Color.TRANSPARENT, 0, 2))
+	bar.add_theme_stylebox_override("fill", UIKit.create_panel_style(fill_col, Color.TRANSPARENT, 0, 2))
+	parent.add_child(bar)
+	return bar
+
+func _create_triad_chip(stat_name: String, stat_val: String, grade: String) -> Panel:
+	var p := Panel.new()
+	p.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	p.add_theme_stylebox_override("panel", 
+		UIKit.create_panel_style(UIKit.COLOR_CHARCOAL_DARK, UIKit.COLOR_STEEL_BORDER, 1, 2))
+	
+	var v := VBoxContainer.new()
+	v.set_anchors_preset(PRESET_FULL_RECT)
+	v.alignment = BoxContainer.ALIGNMENT_CENTER
+
+	var n := Label.new()
+	n.text = stat_name
+	n.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	n.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_MICRO)
+	n.add_theme_color_override("font_color", UIKit.COLOR_TEXT_MUTED)
+	v.add_child(n)
+
+	var val := Label.new()
+	val.text = "%s [%s]" % [stat_val, grade]
+	val.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	val.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_BODY)
+	val.add_theme_color_override("font_color", UIKit.COLOR_GOLD_BRIGHT)
+	v.add_child(val)
+
+	p.add_child(v)
+	return p
+
+func _track_camera_anchor() -> void:
+	if not gym_camera:
+		return
+	var screen_pos := gym_camera.unproject_position(target_world_pos)
+	var viewport_size := get_viewport_rect().size
+
+	# Place card to the right-top of boxer, clamp within screen
+	var desired_x: float = clampf(screen_pos.x + 40.0, 20.0, viewport_size.x - size.x - 20.0)
+	var desired_y: float = clampf(screen_pos.y - size.y * 0.5, 20.0, viewport_size.y - size.y - 20.0)
+	position = Vector2(desired_x, desired_y)
+
+	# Leader needle line from card edge to screen_pos
+	leader_line.clear_points()
+	var card_center := Vector2(0, size.y * 0.5)
+	var target_local := to_local(screen_pos)
+	leader_line.add_point(card_center)
+	leader_line.add_point(target_local)
+
+func _play_open_animation() -> void:
+	modulate.a = 0.0
+	scale = Vector2(0.95, 0.95)
+	var tw := create_tween().set_parallel(true)
+	tw.tween_property(self, "modulate:a", 1.0, 0.12)
+	tw.tween_property(self, "scale", Vector2.ONE, 0.12).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+
+5. ProfileOverview.gd (Tab 1: Overview)
+# res://scripts/ui/profile/ProfileOverview.gd
+class_name ProfileOverview
+extends Control
+
+var col_stage: Control
+var col_attributes: VBoxContainer
+var col_schedule: VBoxContainer
+
+var tiles: Dictionary = {}
+var damage_map_canvas: Control
+
+func _init() -> void:
+	set_anchors_preset(PRESET_FULL_RECT)
+
+func _ready() -> void:
+	_build_layout_grid()
+
+func populate_data(data: Dictionary) -> void:
+	var attrs: Dictionary = data.get("attributes", {
+		"power": 78, "speed": 64, "stamina": 82,
+		"accuracy": 71, "defence": 68, "footwork": 59,
+		"chin": 72, "heart": 84, "ring_iq": 66
+	})
+	for k in attrs.keys():
+		if tiles.has(k):
+			tiles[k].set_value(int(attrs[k]))
+	if damage_map_canvas:
+		damage_map_canvas.queue_redraw()
+
+func _build_layout_grid() -> void:
+	# COLUMN 1: 3D Stage + Anatomical Wireframe Map (Width: 460)
+	col_stage = Control.new()
+	col_stage.position = Vector2(0, 0)
+	col_stage.size = Vector2(460, size.y)
+	add_child(col_stage)
+
+	var stage_panel := Panel.new()
+	stage_panel.position = Vector2(0, 0)
+	stage_panel.size = Vector2(460, 520)
+	stage_panel.add_theme_stylebox_override("panel", 
+		UIKit.create_panel_style(UIKit.COLOR_CHARCOAL_MID, UIKit.COLOR_STEEL_BORDER, 1, 4))
+	col_stage.add_child(stage_panel)
+
+	# 3D Boxer Plinth Label
+	var stage_lbl := Label.new()
+	stage_lbl.position = Vector2(16, 12)
+	stage_lbl.text = "COMBAT STAGE • STANDING IDLE"
+	stage_lbl.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_MICRO)
+	stage_lbl.add_theme_color_override("font_color", UIKit.COLOR_BRASS_ANTIQUE)
+	stage_panel.add_child(stage_lbl)
+
+	# Anatomical Damage Map Card (Permanently Replaces the Block-Man)
+	var anatomy_panel := Panel.new()
+	anatomy_panel.position = Vector2(0, 536)
+	anatomy_panel.size = Vector2(460, 360)
+	anatomy_panel.add_theme_stylebox_override("panel", 
+		UIKit.create_panel_style(UIKit.COLOR_CHARCOAL_MID, UIKit.COLOR_STEEL_BORDER, 1, 4))
+	col_stage.add_child(anatomy_panel)
+
+	var ant_lbl := Label.new()
+	ant_lbl.position = Vector2(16, 12)
+	ant_lbl.text = "ANATOMICAL INTEGRITY & DAMAGE"
+	ant_lbl.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_MICRO)
+	ant_lbl.add_theme_color_override("font_color", UIKit.COLOR_BRASS_ANTIQUE)
+	anatomy_panel.add_child(ant_lbl)
+
+	damage_map_canvas = Control.new()
+	damage_map_canvas.position = Vector2(16, 36)
+	damage_map_canvas.size = Vector2(428, 308)
+	damage_map_canvas.draw.connect(_draw_anatomical_wireframe)
+	anatomy_panel.add_child(damage_map_canvas)
+
+	# COLUMN 2: 9 Attribute Tiles in 3 Pillars (Width: 780, X: 480)
+	col_attributes = VBoxContainer.new()
+	col_attributes.position = Vector2(480, 0)
+	col_attributes.size = Vector2(780, size.y)
+	col_attributes.add_theme_constant_override("separation", 14)
+	add_child(col_attributes)
+
+	_build_attribute_pillar("PHYSICAL CAPABILITIES", [
+		["power", "POWER", 78, "zap"],
+		["speed", "SPEED", 64, "wind"],
+		["stamina", "STAMINA", 82, "activity"]
+	])
+	_build_attribute_pillar("TECHNICAL PROFICIENCY", [
+		["accuracy", "ACCURACY", 71, "target"],
+		["defence", "DEFENCE", 68, "shield"],
+		["footwork", "FOOTWORK", 59, "move"]
+	])
+	_build_attribute_pillar("MENTAL FORTITUDE & GRIT", [
+		["chin", "CHIN", 72, "shield-alert"],
+		["heart", "HEART", 84, "heart"],
+		["ring_iq", "RING IQ", 66, "brain"]
+	])
+
+	# COLUMN 3: Schedule, Camp Log & Tactical Actions (Width: 560, X: 1280)
+	col_schedule = VBoxContainer.new()
+	col_schedule.position = Vector2(1280, 0)
+	col_schedule.size = Vector2(560, size.y)
+	col_schedule.add_theme_constant_override("separation", 14)
+	add_child(col_schedule)
+
+	# Next Bout Card
+	var bout_card := Panel.new()
+	bout_card.custom_minimum_size = Vector2(560, 260)
+	bout_card.add_theme_stylebox_override("panel", 
+		UIKit.create_panel_style(UIKit.COLOR_CHARCOAL_MID, UIKit.COLOR_BRASS_DARK, 1, 4))
+	
+	var b_header := Label.new()
+	b_header.position = Vector2(16, 12)
+	b_header.text = "CONFIRMED SANCTIONED BOUT"
+	b_header.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_MICRO)
+	b_header.add_theme_color_override("font_color", UIKit.COLOR_GOLD_BRIGHT)
+	bout_card.add_child(b_header)
+
+	var b_content := Label.new()
+	b_content.position = Vector2(16, 44)
+	b_content.size = Vector2(528, 140)
+	b_content.text = "vs. NIKOLAY SHEVCHENKO (11-1-0)\nHEAVYWEIGHT DIVISION CONTENDER\n\nDATE: 18 DAYS REMAINING\nVENUE: YORK HALL, BETHNAL GREEN, LONDON\nRULES: 10 ROUNDS • BBBofC JURISDICTION\nPURSE SPLIT: 65% / 35%"
+	b_content.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_BODY)
+	b_content.add_theme_color_override("font_color", UIKit.COLOR_CREAM_PAPER)
+	bout_card.add_child(b_content)
+
+	var sim_btn := UIKit.create_chamfer_button("ENTER TACTICAL FIGHT CAMP", true)
+	sim_btn.position = Vector2(16, 204)
+	sim_btn.size = Vector2(528, 42)
+	bout_card.add_child(sim_btn)
+	col_schedule.add_child(bout_card)
+
+	# Recent 3-Week Log
+	var log_card := Panel.new()
+	log_card.custom_minimum_size = Vector2(560, 310)
+	log_card.add_theme_stylebox_override("panel", 
+		UIKit.create_panel_style(UIKit.COLOR_CHARCOAL_MID, UIKit.COLOR_STEEL_BORDER, 1, 4))
+	
+	var log_header := Label.new()
+	log_header.position = Vector2(16, 12)
+	log_header.text = "RECENT 3-WEEK CAMP LEDGER"
+	log_header.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_MICRO)
+	log_header.add_theme_color_override("font_color", UIKit.COLOR_BRASS_ANTIQUE)
+	log_card.add_child(log_header)
+
+	var log_text := Label.new()
+	log_text.position = Vector2(16, 42)
+	log_text.size = Vector2(528, 250)
+	log_text.text = "WEEK 1: Base Conditioning • 18 Rds Sparring • Load: 72% [GRADE A]\nWEEK 2: Power Focus • 14 Rds Sparring • Load: 84% [GRADE B+]\nWEEK 3: Sparring Taper • Minor Right Hand Sprain • Load: 55%\n\nWEIGHT STATUS: 218.4 lbs (Within Division Tolerance)\nCOACH NOTE: \"Right straight snapping with elite velocity.\""
+	log_text.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_BODY)
+	log_text.add_theme_color_override("font_color", UIKit.COLOR_CREAM_PAPER)
+	log_card.add_child(log_text)
+	col_schedule.add_child(log_card)
+
+func _build_attribute_pillar(pillar_title: String, attr_definitions: Array) -> void:
+	var pillar_box := VBoxContainer.new()
+	pillar_box.add_theme_constant_override("separation", 6)
+
+	var header := Label.new()
+	header.text = pillar_title
+	header.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_MICRO)
+	header.add_theme_color_override("font_color", UIKit.COLOR_BRASS_ANTIQUE)
+	pillar_box.add_child(header)
+
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 10)
+
+	for item in attr_definitions:
+		var key: String = item[0]
+		var title: String = item[1]
+		var val: int = item[2]
+		var icon: String = item[3]
+
+		var tile := AttributeTile.new(title, val, icon)
+		row.add_child(tile)
+		tiles[key] = tile
+
+	pillar_box.add_child(row)
+	col_attributes.add_child(pillar_box)
+
+func _draw_anatomical_wireframe() -> void:
+	# Monochromatic, sleek wireframe boxer silhouette
+
+Can you finish the remaining Part E GDScript files with complete, compile-ready implementations and no placeholders?
+Can you provide the complete tab host implementation, including content mounting, transitions, cleanup, and signal handling?
+Can you implement the header strip, attribute tile, and quick-look card as reusable Godot components matching the brass-and-charcoal UI?
+Can you generate a visual mockup of the completed boxer career dashboard with all Part E tabs visible?

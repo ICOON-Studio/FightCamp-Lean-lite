@@ -1,0 +1,7 @@
+WINDOW frames=1..900 n=900 seconds=30.000 fps=30
+CAMERA accel_std_m_s2=14.785468 spikes_gt_3x_median=142 median_m_s2=0.910485
+IDLE min_cm_s=0.505359 median_cm_s=88.952422 samples=3306 guard_min_cm_s=2.346435 guard_samples=2727
+SEPARATION min_cm=45.386182 frames_under_55cm=5
+JOINS median_deg_s2=11104.381940 p95_deg_s2=38238.523677 changes=49
+FEET median_cm_plant=nan max_cm_plant=nan plants=0
+FRAMING failed_frames=0

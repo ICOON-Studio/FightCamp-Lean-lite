@@ -1,0 +1,35 @@
+TEXT ANSWER ONLY (no image). LUDO ROUND 92 - floor gains as Game Dev Tycoon bubbles. Longest complete answer you can give.
+
+The attached still is our live gym floor (game camera, 1920x1080). The "+1.8 POWER" in big yellow plain text over the heavy bag is what the player sees today when a fighter gains a stat. Our CEO ruled: "whatever is gained make it look like gamedev tycoon with bubbles or something like that, plain text is not looking good".
+
+Today every floating gain/beat/vibe/badge goes through ONE Godot 4.7 function on the GymHall3D node (a Node3D):
+
+func _float_text(text: String, color: Color, over_place: String = "") -> void
+  - parent = the fighter's Node3D, or (when over_place is set) the hall itself at work_position(over_place) (a Vector3)
+  - today: a billboard Label3D, fixed_size = true, pixel_size 0.0006, font_size 44, outline 10, no_depth_test,
+    starts 2.15 m above the base, tweens up to 2.75 m over 1.6 s and fades from 0.5 s, then queue_free
+  - callers pass texts like "+1.8 POWER", "+0.4 TECHNIQUE", "+2 CONDITIONING", "BEAT!", "VIBE +1", "JAB USABLE",
+    and a colour (gold for stat gains, green for good beats, red/orange for strain warnings)
+  - the stats are: power, speed, technique, conditioning, defense, fight_iq, chin, footwork, composure
+
+PART 1 - DESIGN (the Game Dev Tycoon reference: small round coloured bubbles that pop out of the worker and drift up,
+one colour per category, the number or a tiny icon inside, many small ones instead of one big word):
+  1. Bubble anatomy: size on a 1080p screen, shape, fill, rim, the content (value? stat initials? icon?), font.
+  2. One colour per stat (hex) that reads on our warm brick/wood floor AND the dark mats; plus colours for
+     beat / vibe / warning / unlock.
+  3. Motion: spawn point, how several gains in one tick spread (a fan? a stream of 3-5 small bubbles?), rise
+     height, wobble, speed, lifetime, pop/fade, max bubbles alive at once, what happens at 4x game speed.
+  4. Non-stat messages (BEAT!, JAB USABLE, warnings): bubble or pill? keep readable.
+  5. Readability rule at our camera distance (the fighter is ~40 px tall on this still).
+
+PART 2 - IMPLEMENTATION: a complete GDScript file `res://scripts/club_look/GainBubbles.gd` (extends RefCounted,
+static functions, no autoloads, Godot 4.7 typed GDScript, no `:=` on Variant returns) with:
+  static func spawn(parent: Node3D, base: Vector3, text: String, color: Color) -> Array   # returns the nodes it made
+  that parses the text ("+1.8 POWER" -> stat power, value 1.8; anything else -> a message pill), builds the bubbles
+  (Sprite3D or MeshInstance3D with a generated circle texture/material - no image files), billboarded, fixed size,
+  no depth test, animates them with tweens and frees them. Plus the exact 3-line replacement body for _float_text that
+  calls it.
+
+PART 3 - TEST: `res://tests/gain_bubbles_test.gd` (extends SceneTree, prints "OK:"/"FAIL:" lines): parsing of
+"+1.8 POWER" / "+0.4 TECHNIQUE" / "BEAT!", one colour per stat, bubbles freed after their lifetime, never more than
+the cap alive, a control check that the OLD Label3D path is gone.

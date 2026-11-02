@@ -1,0 +1,40 @@
+# Branches deleted from origin on 2026-09-15, with the tag that keeps each one.
+# Verified before deletion: the tag's commit SHA equals the branch tip EXACTLY for all 36.
+# Recover any of them with: git branch <name> <tag>
+
+claude/s4a-deadblend                                 collected/claude/s4a-deadblend                 ae6fa349
+claude/s4a-footlock                                  collected/claude/s4a-footlock                  56fbfbe8
+cursor/televised-mma-gap-478b                        collected/televised-mma-gap-478b               9174e9c8
+cursor/u102-pose-bridge                              collected/u102-pose-bridge                     0e897676
+cursor/u103-pair-viewer                              collected/u103-pair-viewer                     bfda04d5
+cursor/u104-before-shot                              collected/u104-before-shot                     f79d50da
+cursor/u105-room-track                               collected/u105-room-track                      cc2fb89e
+cursor/u106-higgsfield-jab                           collected/u106-higgsfield-jab                  314584c2
+cursor/u107-t2m-jab-types                            collected/u107-t2m-jab-types                   1aaefcb3
+cursor/u108-clip-census                              collected/u108-clip-census                     cb5147f2
+cursor/u25-fight-hud-panel-e353                      collected/u25-fight-hud-panel-e353             38270bd5
+cursor/u26-grapple-resolve-4018                      collected/u26-grapple-resolve-4018             f4b103b8
+cursor/u60-judo-bjj-vocab                            collected/u60-judo-bjj-vocab                   f04be614
+cursor/u80-defence-curve                             collected/u80-defence-curve                    e1e8cfa1
+cursor/u81-retarget-triptych                         collected/u81-retarget-triptych                076322f3
+cursor/u82-triptych-floor                            collected/u82-triptych-floor                   50438798
+cursor/u83-pelvis-by-tree                            collected/u83-pelvis-by-tree                   baa9ebaf
+cursor/u84-stride-speed                              collected/u84-stride-speed                     25c70846
+cursor/u85-guard-return                              collected/u85-guard-return                     b0df8d09
+cursor/u86-single-punches                            collected/cursor/u86-single-punches            42ff005b
+cursor/u92-plant-census                              collected/u92-plant-census                     02ba7cde
+cursor/u93-hook-splice                               collected/u93-hook-splice                      92298000
+cursor/u94-hook-global                               collected/cursor/u94-hook-global               302d8e35
+cursor/u95-overlap                                   collected/cursor/u95-overlap                   16237cf1
+qwen/q100-fm1-rig                                    collected/q100-fm1-rig                         3d7aa3e7
+qwen/q107-mocap-chain                                collected/q107-mocap-chain                     f0ae04d1
+qwen/q108-footage-batch3                             collected/q108-footage-batch3                  b2c59a5c
+qwen/q109-posture                                    collected/q109-posture                         db98477f
+qwen/q81-failed-escape-carry                         collected/q81-failed-escape-carry              a3d36a85
+qwen/q83-dropped-position-tracks                     collected/q83-dropped-position-tracks          4b4c1a07
+qwen/q84-blend-probe                                 collected/q84-blend-probe                      114d3554
+qwen/q85-playback-mechanics                          collected/q85-playback-mechanics               17e567af
+qwen/q86-stance-takes                                collected/q86-stance-takes                     7f75fe9b
+qwen/q87-hip-carry                                   collected/q87-hip-carry                        4187a3af
+qwen/q88-engine-rhythm                               collected/qwen/q88-engine-rhythm               76540270
+qwen/q99-skate-sources                               collected/q99-skate-sources                    c7537dae

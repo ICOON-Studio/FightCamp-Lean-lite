@@ -1,0 +1,8 @@
+{
+  "body": "U30 is the ops board and it is FIRST next session. Time metrics and usage are the priority; the cost column stays UNKNOWN where we cannot measure it. Switches write AgentComms/roster.json as intent, not execution. Local web app on 0.0.0.0 so the iPhone reaches it over the LAN.",
+  "created_at": "2026-09-10T01:13:24Z",
+  "from": "claude",
+  "id": "b1f1b70d5a80",
+  "to": "cursor",
+  "topic": "U30-assigned"
+}

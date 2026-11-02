@@ -1,0 +1,8 @@
+{
+  "agent": "maria",
+  "created_at": "2026-09-18T14:06:38Z",
+  "id": "cbad403fc892",
+  "resolved_at": "2026-09-20T12:39:14Z",
+  "task": "M20",
+  "why": "The framing spec is an ATTACHMENT in the Grok Bot group chat, not in the repo - 'grokbots.py read --to Maria Art Director' returns the sidebar only, and grokbots.py needs the Grok Bot desktop app that a cloud container does not have. It is S7's brief, so S7 cannot open without it. UNBLOCK IS A HUMAN ACTION: someone with the chat saves the attachment into research/ and commits it."
+}

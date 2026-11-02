@@ -1,0 +1,140 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+CLPROBE population=probe20 bouts=20 switches=DEMO_SWITCHES discipline=boxing rounds=6
+BELL bout 0 r1 a FIRED S1_OPP_TORSO,S2_SOLID,S3_PACING opp_whiff 0.063/32 wst 0.19 acc_opp 34.4 jab 8/30 cpt 2 body 12 share 0.33
+BELL bout 0 r1 b FIRED S1_NEUTRAL,S2_HEAD,S3_PACING opp_whiff 0.083/60 wst 0.05 acc_opp 36.7 jab 5/17 cpt 7 body 3 share 0.83
+BELL bout 0 r2 a FIRED S1_OPP_ACCURACY,S2_SOLID,S3_PACING opp_whiff 0.061/33 wst 0.22 acc_opp 18.2 jab 12/39 cpt 1 body 8 share 0.30
+BELL bout 0 r2 b FIRED S1_NEUTRAL,S2_HEAD,S3_PACING opp_whiff 0.076/79 wst 0.06 acc_opp 32.9 jab 3/11 cpt 3 body 2 share 0.50
+BELL bout 1 r1 a FIRED S1_NEUTRAL,S2_SOLID,S3_PACING opp_whiff 0.063/64 wst 0.07 acc_opp 32.8 jab 5/13 cpt 4 body 1 share 0.50
+BELL bout 1 r1 b FIRED S1_OPP_CHIN,S2_HEAD,S3_PACING opp_whiff 0.051/39 wst 0.14 acc_opp 35.9 jab 13/29 cpt 3 body 9 share 0.45
+BELL bout 1 r2 a FIRED S1_NEUTRAL,S2_CUT,S3_PACING opp_whiff 0.100/70 wst 0.06 acc_opp 37.1 jab 1/7 cpt 2 body 1 share 0.50
+BELL bout 1 r2 b FIRED S1_OPP_ACCURACY,S2_SOLID,S3_WHIFF_BURN opp_whiff 0.056/36 wst 0.25 acc_opp 16.7 jab 13/37 cpt 1 body 13 share 0.27
+BELL bout 1 r3 a FIRED S1_NEUTRAL,S2_LEAK,S3_PACING opp_whiff 0.136/59 wst 0.04 acc_opp 27.1 jab 5/16 cpt 5 body 1 share 0.67
+BELL bout 1 r3 b FIRED S1_OPP_CHIN,S2_SOLID,S3_WHIFF_BURN opp_whiff 0.028/36 wst 0.29 acc_opp 27.8 jab 7/25 cpt 0 body 11 share 0.33
+BELL bout 1 r4 a FIRED S1_NEUTRAL,S2_SOLID,S3_PACING opp_whiff 0.091/33 wst 0.11 acc_opp 30.3 jab 3/17 cpt 1 body 1 share 0.38
+BELL bout 1 r4 b FIRED S1_OPP_TORSO,S2_LEAK,S3_PACING opp_whiff 0.103/29 wst 0.10 acc_opp 31.0 jab 7/18 cpt 2 body 5 share 0.67
+BELL bout 2 r1 a FIRED S1_NEUTRAL,S2_HEAD,S3_PACING opp_whiff 0.105/57 wst 0.06 acc_opp 45.6 jab 8/26 cpt 3 body 2 share 0.57
+BELL bout 2 r1 b FIRED S1_OPP_TORSO,S2_HEAD,S3_PACING opp_whiff 0.042/48 wst 0.22 acc_opp 31.3 jab 19/38 cpt 4 body 10 share 0.41
+BELL bout 3 r1 a FIRED S1_OPP_CHIN,S2_HEAD,S3_PACING opp_whiff 0.091/55 wst 0.04 acc_opp 45.5 jab 6/21 cpt 9 body 6 share 0.53
+BELL bout 3 r1 b FIRED S1_OPP_TORSO,S2_SOLID,S3_PACING opp_whiff 0.020/49 wst 0.21 acc_opp 30.6 jab 12/25 cpt 6 body 12 share 0.36
+BELL bout 4 r1 a FIRED S1_NEUTRAL,S2_HEAD,S3_PACING opp_whiff 0.136/59 wst 0.00 acc_opp 33.9 jab 8/19 cpt 8 body 6 share 0.56
+BELL bout 4 r1 b FIRED S1_OPP_TORSO,S2_HEAD,S3_WHIFF_BURN opp_whiff 0.000/44 wst 0.25 acc_opp 45.5 jab 6/27 cpt 6 body 9 share 0.50
+BELL bout 4 r2 a FIRED S1_NEUTRAL,S2_HEAD,S3_PACING opp_whiff 0.074/68 wst 0.07 acc_opp 35.3 jab 0/0 cpt 9 body 6 share 0.43
+BELL bout 4 r2 b FIRED S1_OPP_TORSO,S2_HEAD,S3_PACING opp_whiff 0.065/46 wst 0.15 acc_opp 50.0 jab 7/21 cpt 17 body 12 share 0.57
+BELL bout 4 r3 a FIRED S1_NEUTRAL,S2_HEAD,S3_PACING opp_whiff 0.098/61 wst 0.03 acc_opp 36.1 jab 4/12 cpt 11 body 5 share 0.50
+BELL bout 4 r3 b FIRED S1_OPP_TORSO,S2_HEAD,S3_PACING opp_whiff 0.021/47 wst 0.18 acc_opp 34.0 jab 3/5 cpt 8 body 8 share 0.46
+BELL bout 4 r4 a FIRED S1_NEUTRAL,S2_LEAK,S3_PACING opp_whiff 0.020/50 wst 0.12 acc_opp 28.0 jab 0/0 cpt 6 body 3 share 0.69
+BELL bout 4 r4 b FIRED S1_OPP_TORSO,S2_HEAD,S3_PACING opp_whiff 0.091/44 wst 0.03 acc_opp 40.9 jab 1/7 cpt 9 body 8 share 0.62
+BELL bout 5 r1 a FIRED S1_NEUTRAL,S2_HEAD,S3_WHIFF_BURN opp_whiff 0.078/51 wst 0.28 acc_opp 41.2 jab 7/23 cpt 8 body 3 share 0.67
+BELL bout 5 r1 b FIRED S1_OPP_WHIFF,S2_SOLID,S3_PACING opp_whiff 0.188/48 wst 0.17 acc_opp 27.1 jab 5/19 cpt 3 body 6 share 0.32
+BELL bout 5 r2 a FIRED S1_NEUTRAL,S2_CUT,S3_PACING opp_whiff 0.032/31 wst 0.13 acc_opp 25.8 jab 1/2 cpt 2 body 6 share 0.17
+BELL bout 5 r2 b FIRED S1_NEUTRAL,S2_SOLID,S3_JAB opp_whiff 0.093/43 wst 0.04 acc_opp 32.6 jab 4/22 cpt 3 body 2 share 0.50
+BELL bout 6 r1 a FIRED S1_OPP_CHIN,S2_HEAD,S3_WHIFF_BURN opp_whiff 0.092/76 wst 0.26 acc_opp 44.7 jab 3/21 cpt 6 body 7 share 0.57
+BELL bout 6 r1 b FIRED S1_OPP_WHIFF,S2_SOLID,S3_PACING opp_whiff 0.143/49 wst 0.23 acc_opp 22.4 jab 19/39 cpt 4 body 16 share 0.15
+BELL bout 6 r2 a FIRED S1_OPP_WHIFF,S2_LEAK,S3_PACING opp_whiff 0.157/51 wst 0.00 acc_opp 43.1 jab 0/0 cpt 6 body 1 share 0.67
+BELL bout 6 r2 b FIRED S1_OPP_TORSO,S2_CUT,S3_WHIFF_BURN opp_whiff 0.000/33 wst 0.28 acc_opp 27.3 jab 7/22 cpt 4 body 10 share 0.20
+BELL bout 6 r3 a FIRED S1_NEUTRAL,S2_HEAD,S3_PACING opp_whiff 0.100/40 wst 0.09 acc_opp 52.5 jab 5/20 cpt 7 body 4 share 0.50
+BELL bout 6 r3 b FIRED S1_OPP_TORSO,S2_SOLID,S3_PACING opp_whiff 0.075/40 wst 0.12 acc_opp 22.5 jab 8/16 cpt 0 body 15 share 0.36
+BELL bout 7 r1 a FIRED S1_NEUTRAL,S2_SOLID,S3_PACING opp_whiff 0.070/57 wst 0.24 acc_opp 29.8 jab 7/23 cpt 1 body 2 share 0.45
+BELL bout 7 r1 b FIRED S1_OPP_WHIFF,S2_SOLID,S3_PACING opp_whiff 0.162/37 wst 0.13 acc_opp 21.6 jab 12/31 cpt 1 body 6 share 0.43
+BELL bout 7 r2 a FIRED S1_NEUTRAL,S2_LEAK,S3_PACING opp_whiff 0.082/49 wst 0.09 acc_opp 44.9 jab 3/11 cpt 5 body 1 share 0.67
+BELL bout 7 r2 b FIRED S1_OPP_TORSO,S2_SOLID,S3_PACING opp_whiff 0.074/27 wst 0.17 acc_opp 33.3 jab 11/24 cpt 2 body 10 share 0.43
+BELL bout 7 r3 a FIRED S1_NEUTRAL,S2_LEAK,S3_PACING opp_whiff 0.135/52 wst 0.04 acc_opp 34.6 jab 0/13 cpt 1 body 2 share 0.78
+BELL bout 7 r3 b FIRED S1_OPP_ACCURACY,S2_LEAK,S3_PACING opp_whiff 0.037/27 wst 0.23 acc_opp 18.5 jab 12/34 cpt 5 body 10 share 0.67
+BELL bout 7 r4 a FIRED S1_OPP_WHIFF,S2_SOLID,S3_PACING opp_whiff 0.143/49 wst 0.08 acc_opp 36.7 jab 7/15 cpt 2 body 1 share 0.53
+BELL bout 7 r4 b FIRED S1_NEUTRAL,S2_SOLID,S3_PACING opp_whiff 0.063/32 wst 0.25 acc_opp 31.3 jab 12/24 cpt 1 body 7 share 0.50
+BELL bout 7 r5 a FIRED S1_OPP_WHIFF,S2_SOLID,S3_PACING opp_whiff 0.143/35 wst 0.03 acc_opp 31.4 jab 9/14 cpt 3 body 3 share 0.36
+BELL bout 7 r5 b FIRED S1_OPP_TORSO,S2_SOLID,S3_PACING opp_whiff 0.024/42 wst 0.15 acc_opp 38.1 jab 5/14 cpt 2 body 4 share 0.64
+BELL bout 8 r1 a FIRED S1_NEUTRAL,S2_HEAD,S3_WHIFF_BURN opp_whiff 0.018/55 wst 0.31 acc_opp 45.5 jab 3/22 cpt 5 body 1 share 0.43
+BELL bout 8 r1 b FIRED S1_OPP_WHIFF,S2_SOLID,S3_PACING opp_whiff 0.175/57 wst 0.03 acc_opp 24.6 jab 17/38 cpt 3 body 9 share 0.30
+BELL bout 8 r2 a FIRED S1_NEUTRAL,S2_CUT,S3_JAB opp_whiff 0.074/54 wst 0.07 acc_opp 35.2 jab 2/18 cpt 3 body 1 share 0.32
+BELL bout 8 r2 b FIRED S1_OPP_ACCURACY,S2_SOLID,S3_PACING opp_whiff 0.051/39 wst 0.15 acc_opp 12.8 jab 12/35 cpt 1 body 10 share 0.33
+BELL bout 8 r3 a FIRED S1_NEUTRAL,S2_CUT,S3_PACING opp_whiff 0.103/39 wst 0.11 acc_opp 33.3 jab 1/13 cpt 2 body 3 share 0.46
+BELL bout 8 r3 b FIRED S1_OPP_ACCURACY,S2_SOLID,S3_PACING opp_whiff 0.103/29 wst 0.12 acc_opp 17.2 jab 8/21 cpt 2 body 3 share 0.27
+BELL bout 9 r1 a FIRED S1_NEUTRAL,S2_HEAD,S3_PACING opp_whiff 0.089/56 wst 0.17 acc_opp 41.1 jab 6/16 cpt 8 body 3 share 0.55
+BELL bout 9 r1 b FIRED S1_NEUTRAL,S2_HEAD,S3_PACING opp_whiff 0.102/49 wst 0.15 acc_opp 32.7 jab 6/16 cpt 5 body 7 share 0.38
+BELL bout 9 r2 a FIRED S1_NEUTRAL,S2_HEAD,S3_WHIFF_BURN opp_whiff 0.091/44 wst 0.29 acc_opp 59.1 jab 3/7 cpt 10 body 3 share 0.67
+BELL bout 9 r2 b FIRED S1_OPP_WHIFF,S2_SOLID,S3_PACING opp_whiff 0.170/47 wst 0.12 acc_opp 31.9 jab 11/15 cpt 5 body 10 share 0.31
+BELL bout 10 r1 a FIRED S1_OPP_TORSO,S2_SOLID,S3_WHIFF_BURN opp_whiff 0.111/45 wst 0.28 acc_opp 28.9 jab 8/32 cpt 6 body 8 share 0.55
+BELL bout 10 r1 b FIRED S1_OPP_WHIFF,S2_SOLID,S3_PACING opp_whiff 0.152/66 wst 0.14 acc_opp 22.7 jab 5/21 cpt 3 body 6 share 0.50
+BELL bout 10 r2 a FIRED S1_NEUTRAL,S2_SOLID,S3_JAB opp_whiff 0.119/42 wst 0.23 acc_opp 38.1 jab 4/26 cpt 1 body 6 share 0.56
+BELL bout 10 r2 b FIRED S1_OPP_ACCURACY,S2_SOLID,S3_PACING opp_whiff 0.125/64 wst 0.12 acc_opp 18.8 jab 13/25 cpt 3 body 6 share 0.17
+BELL bout 10 r3 a FIRED S1_NEUTRAL,S2_SOLID,S3_PACING opp_whiff 0.045/67 wst 0.22 acc_opp 32.8 jab 0/0 cpt 3 body 2 share 0.38
+BELL bout 10 r3 b FIRED S1_OPP_WHIFF,S2_SOLID,S3_PACING opp_whiff 0.195/41 wst 0.08 acc_opp 26.8 jab 12/41 cpt 2 body 9 share 0.42
+BELL bout 11 r1 a FIRED S1_OPP_TORSO,S2_HEAD,S3_WHIFF_BURN opp_whiff 0.100/50 wst 0.32 acc_opp 44.0 jab 9/26 cpt 6 body 13 share 0.67
+BELL bout 11 r1 b FIRED S1_OPP_WHIFF,S2_HEAD,S3_PACING opp_whiff 0.153/59 wst 0.12 acc_opp 37.3 jab 11/25 cpt 9 body 11 share 0.67
+BELL bout 11 r2 a FIRED S1_OPP_TORSO,S2_SOLID,S3_PACING opp_whiff 0.122/49 wst 0.17 acc_opp 24.5 jab 14/30 cpt 5 body 18 share 0.30
+BELL bout 11 r2 b FIRED S1_NEUTRAL,S2_SOLID,S3_PACING opp_whiff 0.076/66 wst 0.18 acc_opp 39.4 jab 1/3 cpt 6 body 4 share 0.53
+BELL bout 11 r3 a FIRED S1_OPP_TORSO,S2_SOLID,S3_PACING opp_whiff 0.114/35 wst 0.23 acc_opp 31.4 jab 18/36 cpt 6 body 15 share 0.43
+BELL bout 11 r3 b FIRED S1_NEUTRAL,S2_SOLID,S3_PACING opp_whiff 0.095/63 wst 0.11 acc_opp 38.1 jab 1/3 cpt 5 body 2 share 0.47
+BELL bout 11 r4 a FIRED S1_OPP_TORSO,S2_SOLID,S3_PACING opp_whiff 0.069/29 wst 0.07 acc_opp 44.8 jab 3/14 cpt 6 body 7 share 0.44
+BELL bout 11 r4 b FIRED S1_OPP_ACCURACY,S2_CUT,S3_PACING opp_whiff 0.043/47 wst 0.05 acc_opp 21.3 jab 0/0 cpt 4 body 4 share 0.33
+BELL bout 13 r1 a FIRED S1_OPP_CHIN,S2_HEAD,S3_PACING opp_whiff 0.100/50 wst 0.04 acc_opp 36.0 jab 4/16 cpt 2 body 2 share 0.48
+BELL bout 13 r1 b FIRED S1_NEUTRAL,S2_HEAD,S3_PACING opp_whiff 0.020/50 wst 0.13 acc_opp 32.0 jab 13/31 cpt 5 body 6 share 0.57
+BELL bout 14 r1 a FIRED S1_NEUTRAL,S2_HEAD,S3_PACING opp_whiff 0.133/75 wst 0.16 acc_opp 29.3 jab 9/32 cpt 6 body 7 share 0.50
+BELL bout 14 r1 b FIRED S1_OPP_TORSO,S2_SOLID,S3_WHIFF_BURN opp_whiff 0.087/46 wst 0.29 acc_opp 26.1 jab 13/33 cpt 2 body 10 share 0.32
+BELL bout 14 r2 a FIRED S1_OPP_WHIFF,S2_HEAD,S3_PACING opp_whiff 0.159/44 wst 0.03 acc_opp 38.6 jab 4/7 cpt 9 body 3 share 0.60
+BELL bout 14 r2 b FIRED S1_OPP_TORSO,S2_SOLID,S3_PACING opp_whiff 0.043/23 wst 0.22 acc_opp 34.8 jab 5/12 cpt 2 body 9 share 0.25
+BELL bout 14 r3 a FIRED S1_NEUTRAL,S2_CUT,S3_PACING opp_whiff 0.071/56 wst 0.24 acc_opp 30.4 jab 0/0 cpt 4 body 7 share 0.15
+BELL bout 14 r3 b FIRED S1_OPP_TORSO,S2_HEAD,S3_PACING opp_whiff 0.086/70 wst 0.14 acc_opp 28.6 jab 6/28 cpt 10 body 8 share 0.40
+BELL bout 14 r4 a FIRED S1_NEUTRAL,S2_CUT,S3_JAB opp_whiff 0.109/55 wst 0.22 acc_opp 34.5 jab 4/25 cpt 5 body 2 share 0.35
+BELL bout 14 r4 b FIRED S1_OPP_ACCURACY,S2_SOLID,S3_PACING opp_whiff 0.135/37 wst 0.18 acc_opp 21.6 jab 9/24 cpt 1 body 7 share 0.22
+BELL bout 14 r5 a FIRED S1_OPP_ACCURACY,S2_SOLID,S3_PACING opp_whiff 0.081/37 wst 0.07 acc_opp 21.6 jab 0/1 cpt 2 body 1 share 0.20
+BELL bout 14 r5 b FIRED S1_OPP_TORSO,S2_HEAD,S3_PACING opp_whiff 0.061/33 wst 0.10 acc_opp 30.3 jab 3/12 cpt 10 body 4 share 0.27
+BELL bout 15 r1 a FIRED S1_NEUTRAL,S2_HEAD,S3_PACING opp_whiff 0.057/88 wst 0.09 acc_opp 29.5 jab 6/14 cpt 7 body 5 share 0.45
+BELL bout 15 r1 b FIRED S1_OPP_TORSO,S2_SOLID,S3_PACING opp_whiff 0.070/43 wst 0.18 acc_opp 37.2 jab 9/38 cpt 1 body 9 share 0.50
+BELL bout 15 r2 a FIRED S1_NEUTRAL,S2_SOLID,S3_PACING opp_whiff 0.093/43 wst 0.10 acc_opp 30.2 jab 4/8 cpt 6 body 5 share 0.36
+BELL bout 15 r2 b FIRED S1_NEUTRAL,S2_SOLID,S3_PACING opp_whiff 0.057/53 wst 0.15 acc_opp 35.8 jab 6/18 cpt 5 body 6 share 0.57
+BELL bout 15 r3 a FIRED S1_NEUTRAL,S2_SOLID,S3_PACING opp_whiff 0.070/57 wst 0.13 acc_opp 36.8 jab 0/0 cpt 6 body 3 share 0.50
+BELL bout 15 r3 b FIRED S1_OPP_TORSO,S2_HEAD,S3_PACING opp_whiff 0.118/34 wst 0.15 acc_opp 35.3 jab 9/24 cpt 7 body 8 share 0.43
+BELL bout 15 r4 a FIRED S1_NEUTRAL,S2_LEAK,S3_PACING opp_whiff 0.020/51 wst 0.10 acc_opp 39.2 jab 1/2 cpt 6 body 5 share 0.75
+BELL bout 15 r4 b FIRED S1_OPP_TORSO,S2_SOLID,S3_PACING opp_whiff 0.103/29 wst 0.05 acc_opp 41.4 jab 11/30 cpt 6 body 9 share 0.57
+BELL bout 15 r5 a FIRED S1_NEUTRAL,S2_SOLID,S3_PACING opp_whiff 0.026/38 wst 0.09 acc_opp 34.2 jab 10/20 cpt 1 body 5 share 0.50
+BELL bout 15 r5 b FIRED S1_OPP_TORSO,S2_SOLID,S3_PACING opp_whiff 0.070/43 wst 0.03 acc_opp 46.5 jab 9/23 cpt 5 body 6 share 0.56
+BELL bout 16 r1 a FIRED S1_NEUTRAL,S2_SOLID,S3_PACING opp_whiff 0.133/45 wst 0.12 acc_opp 31.1 jab 14/35 cpt 1 body 6 share 0.43
+BELL bout 16 r1 b FIRED S1_NEUTRAL,S2_HEAD,S3_WHIFF_BURN opp_whiff 0.059/68 wst 0.26 acc_opp 41.2 jab 5/14 cpt 7 body 6 share 0.42
+BELL bout 16 r2 a FIRED S1_NEUTRAL,S2_SOLID,S3_JAB opp_whiff 0.075/40 wst 0.21 acc_opp 30.0 jab 4/19 cpt 6 body 4 share 0.57
+BELL bout 16 r2 b FIRED S1_NEUTRAL,S2_SOLID,S3_JAB opp_whiff 0.136/44 wst 0.13 acc_opp 22.7 jab 2/18 cpt 3 body 4 share 0.25
+BELL bout 17 r1 a FIRED S1_NEUTRAL,S2_HEAD,S3_PACING opp_whiff 0.047/43 wst 0.19 acc_opp 27.9 jab 7/28 cpt 7 body 1 share 0.38
+BELL bout 17 r1 b FIRED S1_OPP_CHIN,S2_HEAD,S3_PACING opp_whiff 0.098/61 wst 0.07 acc_opp 23.0 jab 2/14 cpt 3 body 7 share 0.31
+BELL bout 17 r2 a FIRED S1_NEUTRAL,S2_CUT,S3_WHIFF_BURN opp_whiff 0.128/47 wst 0.29 acc_opp 25.5 jab 8/29 cpt 3 body 6 share 0.45
+BELL bout 17 r2 b FIRED S1_OPP_WHIFF,S2_HEAD,S3_PACING opp_whiff 0.161/62 wst 0.20 acc_opp 32.3 jab 5/18 cpt 6 body 1 share 0.50
+BELL bout 18 r1 a FIRED S1_NEUTRAL,S2_HEAD,S3_PACING opp_whiff 0.060/50 wst 0.12 acc_opp 30.0 jab 5/22 cpt 4 body 1 share 0.33
+BELL bout 18 r1 b FIRED S1_NEUTRAL,S2_HEAD,S3_PACING opp_whiff 0.073/55 wst 0.10 acc_opp 27.3 jab 10/27 cpt 3 body 6 share 0.50
+BELL bout 18 r2 a FIRED S1_NEUTRAL,S2_SOLID,S3_JAB opp_whiff 0.055/55 wst 0.20 acc_opp 30.9 jab 3/19 cpt 6 body 0 share 0.33
+BELL bout 18 r2 b FIRED S1_OPP_WHIFF,S2_SOLID,S3_PACING opp_whiff 0.140/57 wst 0.11 acc_opp 10.5 jab 6/20 cpt 1 body 5 share 0.19
+BELL bout 18 r3 a FIRED S1_NEUTRAL,S2_SOLID,S3_JAB opp_whiff 0.095/42 wst 0.09 acc_opp 31.0 jab 4/18 cpt 4 body 3 share 0.43
+BELL bout 18 r3 b FIRED S1_NEUTRAL,S2_SOLID,S3_PACING opp_whiff 0.068/44 wst 0.14 acc_opp 29.5 jab 6/17 cpt 4 body 3 share 0.27
+BELL bout 18 r4 a FIRED S1_OPP_WHIFF,S2_SOLID,S3_PACING opp_whiff 0.167/36 wst 0.04 acc_opp 27.8 jab 4/11 cpt 1 body 3 share 0.42
+BELL bout 18 r4 b FIRED S1_NEUTRAL,S2_SOLID,S3_PACING opp_whiff 0.074/27 wst 0.18 acc_opp 29.6 jab 2/17 cpt 2 body 3 share 0.44
+BELL bout 18 r5 a FIRED S1_NEUTRAL,S2_SOLID,S3_PACING opp_whiff 0.111/36 wst 0.12 acc_opp 27.8 jab 1/11 cpt 2 body 3 share 0.43
+BELL bout 18 r5 b FIRED S1_OPP_WHIFF,S2_SOLID,S3_PACING opp_whiff 0.143/28 wst 0.14 acc_opp 25.0 jab 3/12 cpt 2 body 3 share 0.00
+BELL bout 19 r1 a FIRED S1_OPP_TORSO,S2_SOLID,S3_PACING opp_whiff 0.139/36 wst 0.24 acc_opp 36.1 jab 9/31 cpt 1 body 11 share 0.57
+BELL bout 19 r1 b FIRED S1_NEUTRAL,S2_SOLID,S3_PACING opp_whiff 0.085/71 wst 0.17 acc_opp 29.6 jab 9/24 cpt 5 body 6 share 0.50
+BELL bout 19 r2 a FIRED S1_OPP_CHIN,S2_SOLID,S3_PACING opp_whiff 0.081/37 wst 0.10 acc_opp 32.4 jab 9/21 cpt 0 body 13 share 0.44
+BELL bout 19 r2 b FIRED S1_NEUTRAL,S2_HEAD,S3_PACING opp_whiff 0.055/55 wst 0.09 acc_opp 41.8 jab 8/29 cpt 5 body 2 share 0.47
+BELL bout 19 r3 a FIRED S1_NEUTRAL,S2_SOLID,S3_WHIFF_BURN opp_whiff 0.077/39 wst 0.28 acc_opp 25.6 jab 10/27 cpt 1 body 5 share 0.29
+BELL bout 19 r3 b FIRED S1_OPP_WHIFF,S2_CUT,S3_PACING opp_whiff 0.140/57 wst 0.10 acc_opp 26.3 jab 6/24 cpt 2 body 3 share 0.50
+PCT opp_whiff_rate p10 0.032 p25 0.061 p50 0.087 p75 0.119 p90 0.143 max 0.195
+PCT opp_thrown p10 32.000 p25 38.000 p50 47.000 p75 56.000 p90 66.000 max 88.000
+PCT whiff_stamina p10 0.038 p25 0.087 p50 0.132 p75 0.206 p90 0.256 max 0.320
+PCT opp_acc_pct p10 22.449 p25 27.273 p50 31.915 p75 36.842 p90 44.000 max 59.091
+PCT jab_thrown p10 3.000 p25 13.000 p50 20.000 p75 26.000 p90 33.000 max 41.000
+PCT jab_land_pct p10 11.111 p25 22.222 p50 31.250 p75 39.394 p90 50.000 max 73.333
+PCT clean_power_taken p10 1.000 p25 2.000 p50 4.000 p75 6.000 p90 8.000 max 17.000
+PCT body_landed p10 1.000 p25 3.000 p50 6.000 p75 8.000 p90 11.000 max 18.000
+PCT max_punch_land_share p10 0.267 p25 0.333 p50 0.455 p75 0.545 p90 0.667 max 0.833
+PCT head_drop p10 1.304 p25 3.736 p50 8.153 p75 11.464 p90 14.345 max 26.896
+RULE S1_NEUTRAL 55/114
+RULE S1_OPP_ACCURACY 9/114
+RULE S1_OPP_CHIN 7/114
+RULE S1_OPP_TORSO 26/114
+RULE S1_OPP_WHIFF 17/114
+RULE S2_CUT 10/114
+RULE S2_HEAD 37/114
+RULE S2_LEAK 8/114
+RULE S2_SOLID 59/114
+RULE S3_JAB 8/114
+RULE S3_PACING 92/114
+RULE S3_WHIFF_BURN 14/114
+CLPROBE DONE bells=114

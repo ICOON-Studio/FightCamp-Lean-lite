@@ -1,0 +1,7 @@
+---
+name: project-session-S95-2026-09-27
+description: S95 - props at 1K (30->17 MB), wear coat + tier-3 lookup shipped but D42 says wear reads as camouflage; Q195 merged, fight_realtime red under footwork economy -> Q196; manifest green
+metadata:
+  type: project
+---
+S95 (2026-09-27): `Tools/glb_texture_downsize.py` (1K, 2K originals on D:/FightCamp/originals); Tripo Export dialog has a 1k option (remembered). `TrainingFloor3D.prop_model_path` picks `<model>_t3.glb` at quality_tier>=3; `_apply_wear` gives worn props an own material copy + a next_pass dust coat. Shipped heavy_bag_t3, compact_weights_t3, cold_water_tub, first_aid; locker_t3 rejected twice (too wide for its 1.0 m zone). **Dola D42: tier 3 'different, not better', wear reads as CAMOUFLAGE** -> S96 = worn MODEL variants + tier-3 re-prompts with high-contrast cues + mirror wall + worn floor. Q195 merged (drift = Q183 footwork_economy, intended); fight_realtime_test RED on master under economy ON, green OFF -> Q196 (Qwen). Mixamo training pack approved -> asset_manifest green (operator asked). Claude in Chrome was not connected until the operator opened Chrome (Brave has no extension). Chrome names repeat downloads `name (1).glb`. A task line "HELD until X" makes Codex idle - lift it in the launch prompt. Operator then asked for LIVE limb damage + corner (see [[project-live-limb-damage]]); asked about Tripo's developer API: not needed (Codex doesn't use it; separate API billing, key is a credential). See [[project-session-S94-2026-09-27]], [[feedback-open-the-output-before-the-gate]].

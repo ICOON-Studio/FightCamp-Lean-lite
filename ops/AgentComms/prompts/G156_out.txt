@@ -1,0 +1,26 @@
+﻿=== grok_task 2026-10-02T00:03:59 rc=0 ws=E:\FightCamp\wt\G156
+I'll read the prompt file and follow it from start to finish.The task is to wire every built-but-unwired player feature. I'll start with the wiring audit and the census so the digest lists what's still unwired.The audit and the G154 offer-desk pattern are in. Next IΓÇÖll re-run the census so the digest lists every action that still has no button.The script census is in. IΓÇÖll cross-check every public GameState action against the shipped scripts so the digest can name the ones that still have no button.The census is already done. I'll write it into the digest, then wire each unwired decision onto the screen where the player already makes that choice.The branch matches the panels I need. Next IΓÇÖll read the insertion points and word-module APIs, then wire them.The census is in hand. Next IΓÇÖll add the shared wiring helper and put each decision on the screen where that choice already lives.The wiring is on disk and uncommitted. Next IΓÇÖll parse-check every touched script, then run the new tests and finish the digest, stills, commit, and push.Parse gate is clean: 17 scripts, no failures. IΓÇÖll check the machine, then run the new tests and capture stills.The shape-frame words sit under a clipping frame, and the fight-week surface line overlaps the bout line. IΓÇÖll move both so the controls are actually on screen, then capture stills and run the tests.The panel suite passed, 18 tests and no failures. Next IΓÇÖll capture the stills and open each image.The remaining player decisions and the word modules are wired into the career, committed as `49cbfb43`, and pushed to `grok/g156-wire-the-rest`.
+
+Each decision is an icon with a tooltip on the screen where that choice already lives:
+
+- Fight week: the three cut plans. The aggressive icon writes the plan.
+- Weigh-in: standard, emergency, accept the miss, and withdraw, only while the scale is still open.
+- Day feed: an open press question, with its answers. A quiet week draws nothing.
+- Offers desk: cancel a booking, plus the world reads that desk was already able to make.
+- Skills strip: cancel a development program, or start a ready discipline.
+- Staff: release the selected coach.
+- Gym walls: move a hung piece to the next free slot.
+- New career: abandon a pending slot.
+
+The sentences sit on the numbers they explain. Skill bands are the D23 caps (NOVICE through WORLD-CLASS). The profile shape frame also shows the spread, the injury ledger, and the stat legend. Fight week shows the surface, the contest length, and the age clock. The gym expand row says whether the ring fits the room.
+
+Fight heart-rate HUD and the spare scorecard stay off. The live fight already has a clock, and the result screen already draws the judges. Portraits, walkout, and bot art were left alone.
+
+Parse gate was clean. The five new scene-tree tests and the stat-word contract passed. The follow-up suite (`smoke`, `schedule_hub`, `weigh`, `profile_revamp`, `office_hub`, `ui_kit`, `offer_desk`) was 18 tests, 0 failures. The stills are in `previews/g156/` and were opened. These are desktop panels, so they were checked in Godot, not in a browser. The write-up is `research/G156_DIGEST.md`.
+
+--- stderr ---
+Auto-compacting conversation (80% full)...
+Conversation compacted.
+Auto-compacting conversation (80% full)...
+Conversation compacted.
+

@@ -1,0 +1,8 @@
+{
+  "body": "Maria finished AAA profile ART kickoff (boards + brief only \u2014 not a code claim). Implement when operator says go.\n\nWhere to find it:\n- Brief: research/AAA_PROFILE_ART_BRIEF.md\n- Boards 01-10: DesignLibrary/screens/profile_aaa/\n- Staging zip: _maria_delivery/AAA_PROFILE_KICKOFF.zip\n- Land note (mailbox + research): _maria_delivery/CLAUDE_LAND_NOTE_AAA_PROFILE.md AND research/CLAUDE_LAND_NOTE_AAA_PROFILE.md\n\nWorking target: IA Version A \u2014 Command Deck. Cage Desk rules apply (graphic sil hero, gold x1, CONTINUE green only, condition cyan, body heat condition->warn->danger).\n\nREMINDER \u2014 prior land still pending (see research/CLAUDE_LAND_NOTE_MARIA_2026-09-06.md):\n- M1 Range: research/M1_RANGE_VISUAL.md + DesignLibrary/screens/range/ + _maria_delivery/M1_RANGE_VISUAL_DELIVERY.zip\n- M2 Cage Desk: _maria_delivery/M2_CAGE_DESK_DELIVERY.zip + manifest",
+  "created_at": "2026-09-06T13:01:35Z",
+  "from": "maria",
+  "id": "3ebd89068fa7",
+  "to": "claude",
+  "topic": "ART READY AAA profile kickoff"
+}

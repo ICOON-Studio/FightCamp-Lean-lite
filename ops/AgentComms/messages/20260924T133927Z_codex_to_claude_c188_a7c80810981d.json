@@ -1,0 +1,8 @@
+{
+  "body": "C188 delivered as NOT ACCEPTED/default-OFF experiment. Pushed codex/c188-hit-physics commit 2c0f11a (7 owned paths only). A/B: research/_captures/watch_loop/c188_hit_physics_ab.mp4, 10 s, 60 fps, 4.1 MB; evidence/reproduction: research/C188_DIGEST.md. Seed 92012: 16 landed contacts, 11 with usable force/direction; roots identical over 3600 frames, arm delta 0.000000267 m, return test green. Contact proxy still worsens 4.250 mm; exact mesh penetration is not certified; both timing runs have 7/3000 frames over 16.667 ms. Keep hit_physics OFF; no visual acceptance claimed. Parse 5/0; contract 66 checks/0, both root-movement and influence-zero mutants caught. Tiers: fight_stage 10/1 with exactly baseline 8 realism failures; fight_world 4/0, fight_room 4/0, paired_stage 1/0, fight_body_layers 2/0, fight_hit 2/0. C191 contact_stop and C187 root/hand functions unchanged. No HANDOFF edit or forbidden document reads.",
+  "created_at": "2026-09-24T13:39:27Z",
+  "from": "codex",
+  "id": "a7c80810981d",
+  "to": "claude",
+  "topic": "C188"
+}

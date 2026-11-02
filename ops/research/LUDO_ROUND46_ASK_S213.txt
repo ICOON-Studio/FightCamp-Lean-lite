@@ -1,0 +1,106 @@
+FightCamp is a PC deep management simulation (Football Manager / Motorsport Manager / Out of the Park Baseball class), NOT a mobile or casual game: no energy timers, gacha, daily-login rewards, tap-to-collect, ads, loot boxes or monetisation loops, no 'start in a garage' trope (gym tiers are club -> commercial -> elite); mechanics and loops must reward long-term planning, readable systems and consequences.
+
+ROUND 46 - THE SKILL-LEARNING SYSTEM: REVIEW IT AND DESIGN WHAT MAKES TRAINING ALWAYS PAY OFF IN THE FIGHT (you are our lead game designer; the owner approves your verdict after you)
+
+THE OWNER'S BRIEF (verbatim): "review our current learning skill system and propose improvements/mechanics that always reach the fight in a meaningful and enjoyable way for the player to be addicted in continuing playing the game and in the same time be close to how real fighters improve by training"
+
+Please give the LONGEST, most complete answer you can - do not summarise or cut sections short; if you run out of room, stop at a clean point and I will say "continue". Use ONLY the stat names, readout bars and technique ids in the GAME FACTS sheet below - never invent stats (no Reflexes, Agility, Strength stats) or techniques.
+
+=== GAME FACTS (generated from our data files) ===
+FIGHTCAMP - GAME FACTS (generated from the game's data files by Tools/ludo_facts.py; use THESE names, never invent)
+
+1. SIMULATION ATTRIBUTES (the fight sim's stat keys, 0-100): power, technique, speed, defense, conditioning, fight_iq, grapple_offense, grapple_defence, top_control
+2. PLAYER-FACING READOUT (the 9 bars on the profile): POWER=power, TECHNIQUE=technique, SPEED=speed, STAMINA=stamina, CHIN=chin, DEFENCE=defense, FOOTWORK=footwork, RING IQ=ring_iq, COMPOSURE=composure
+3. TECHNIQUE REQUIREMENTS use these attribute names: power, technique, speed, defense, conditioning, fight_iq, grapple; tiers: 1=Foundation, 2=Core, 3=Advanced, 4=Signature
+4. THE REAL BOXING TECHNIQUE TREE (54 nodes; id | name | tier | branch | needs attributes | needs techniques):
+   boxing_one_two | One-Two | T1 | combinations | speed 26, technique 26 | boxing_jab, boxing_cross
+   boxing_one_two_hook | One-Two-Hook | T2 | combinations | speed 30, technique 30 | boxing_one_two, boxing_lead_hook
+   boxing_jab_body_head | Jab Body, Jab Head | T3 | combinations | technique 36, speed 34 | boxing_jab, boxing_jab_body
+   boxing_counter_combination | Counter Combination | T4 | combinations | fight_iq 46, speed 44 | boxing_pull_counter, boxing_one_two_hook
+   boxing_liver_combo | Jab-Cross-Lead Hook to the Body | T4 | combinations | power 44, technique 44 | boxing_one_two_hook, boxing_body_hook, boxing_jab, boxing_cross
+   boxing_six_punch_combo | Six-Punch Combination | T4 | combinations | conditioning 46, speed 44 | boxing_one_two_hook, boxing_rear_uppercut
+   boxing_catch | Catch the Jab | T1 | defense_counters | defense 24 | boxing_stance_guard
+   boxing_parry | Parry | T1 | defense_counters | defense 24, fight_iq 22 | boxing_stance_guard
+   boxing_slip | Slip | T1 | defense_counters | speed 26, defense 24 | boxing_stance_guard
+   boxing_block_elbow | Elbow and Forearm Block | T2 | defense_counters | defense 30 | boxing_catch
+   boxing_bob_weave | Bob and Weave | T2 | defense_counters | speed 32, conditioning 30 | boxing_roll
+   boxing_catch_counter | Catch and Return | T2 | defense_counters | fight_iq 30 | boxing_catch, boxing_cross
+   boxing_pull | Pull | T2 | defense_counters | speed 30, fight_iq 28 | boxing_slip
+   boxing_roll | Roll Under | T2 | defense_counters | speed 30, defense 30 | boxing_slip
+   boxing_slip_counter | Slip-Cross Counter | T2 | defense_counters | speed 30, fight_iq 30 | boxing_slip, boxing_cross
+   boxing_check_hook | Check Hook | T3 | defense_counters | speed 36, fight_iq 36 | boxing_lead_hook, boxing_pivot_footwork
+   boxing_check_hook_pivot | Check Hook and Pivot | T3 | defense_counters | speed 38, fight_iq 36 | boxing_check_hook
+   boxing_counter_over_jab | Counter Over the Jab | T3 | defense_counters | fight_iq 38, technique 34 | boxing_slip_counter
+   boxing_long_guard | Long Guard | T3 | defense_counters | defense 36 | boxing_block_elbow
+   boxing_pull_counter | Pull-Cross Counter | T3 | defense_counters | speed 36, fight_iq 36 | boxing_pull, boxing_cross
+   boxing_shoulder_roll | Shoulder Roll | T3 | defense_counters | defense 38, fight_iq 34 | boxing_roll
+   boxing_step_in_out | Step In, Step Out | T1 | footwork_ring | speed 24 | boxing_stance_guard
+   boxing_circle_lead | Circle to the Lead Side | T2 | footwork_ring | speed 28, conditioning 28 | boxing_step_in_out
+   boxing_circle_rear | Circle to the Rear Side | T2 | footwork_ring | speed 28, fight_iq 28 | boxing_step_in_out
+   boxing_feint | Feint | T2 | footwork_ring | fight_iq 30, technique 28 | boxing_distance_read, boxing_jab
+   boxing_pivot_footwork | Ring Pivot | T2 | footwork_ring | speed 30 | boxing_step_in_out
+   boxing_angle_step | L-Step Angle | T3 | footwork_ring | speed 36, technique 34 | boxing_pivot_footwork
+   boxing_cutoff_ring | Cut Off the Ring | T3 | footwork_ring | fight_iq 36 | boxing_circle_lead, boxing_circle_rear
+   boxing_rhythm_change | Breaking the Rhythm | T3 | footwork_ring | fight_iq 38 | boxing_feint, boxing_breathing_rhythm
+   boxing_rope_work | Working Off the Ropes | T3 | footwork_ring | defense 38, fight_iq 36 | boxing_shoulder_roll
+   boxing_drawing | Drawing the Lead | T4 | footwork_ring | fight_iq 46 | boxing_rhythm_change, boxing_pull_counter
+   boxing_switch_stance | Switching Stance | T4 | footwork_ring | technique 44, fight_iq 44 | boxing_angle_step, boxing_rhythm_change
+   boxing_breathing_rhythm | Breathing and Rhythm | T1 | fundamentals | conditioning 24 | boxing_stance_guard
+   boxing_distance_read | Finding the Range | T1 | fundamentals | fight_iq 24 | boxing_stance_guard
+   boxing_stance_guard | Stance and High Guard | T1 | fundamentals | defense 22 | -
+   boxing_lead_hook | Lead Hook | T2 | hooks_bodywork | power 30, technique 30 | boxing_one_two
+   boxing_lead_uppercut | Lead Uppercut | T2 | hooks_bodywork | power 30, technique 32 | boxing_lead_hook
+   boxing_rear_hook | Rear Hook | T2 | hooks_bodywork | power 32, technique 30 | boxing_lead_hook
+   boxing_rear_uppercut | Rear Uppercut | T2 | hooks_bodywork | power 32, technique 32 | boxing_lead_uppercut
+   boxing_body_hook | Lead Hook to the Body | T3 | hooks_bodywork | power 34, conditioning 32 | boxing_lead_hook
+   boxing_rear_hook_body | Rear Hook to the Body | T3 | hooks_bodywork | power 36, conditioning 32 | boxing_body_hook
+   boxing_shovel_hook | Shovel Hook | T3 | hooks_bodywork | power 34, technique 36 | boxing_rear_uppercut
+   boxing_clinch_tieup | Tie Up | T2 | infighting | technique 30, conditioning 30 | boxing_block_elbow
+   boxing_forearm_frame | Forearm Frame | T3 | infighting | defense 36, power 32 | boxing_clinch_tieup
+   boxing_inside_uppercut | Uppercut on the Inside | T3 | infighting | power 36, technique 34 | boxing_clinch_tieup, boxing_rear_uppercut
+   boxing_pivot_out | Pivot Out of the Clinch | T3 | infighting | speed 36, technique 34 | boxing_clinch_tieup, boxing_pivot_footwork
+   boxing_shoulder_bump | Shoulder Bump | T3 | infighting | power 34, conditioning 34 | boxing_clinch_tieup
+   boxing_cross | Rear Cross | T1 | straight_punching | power 26, technique 24 | boxing_jab
+   boxing_jab | Jab | T1 | straight_punching | speed 24 | boxing_stance_guard
+   boxing_cross_body | Cross to the Body | T2 | straight_punching | power 30, technique 28 | boxing_cross
+   boxing_double_jab | Double Jab | T2 | straight_punching | speed 30 | boxing_jab
+   boxing_jab_body | Jab to the Body | T2 | straight_punching | speed 28, technique 28 | boxing_jab
+   boxing_overhand | Overhand Right | T3 | straight_punching | power 36, technique 32 | boxing_cross
+   boxing_up_jab | Up Jab | T3 | straight_punching | speed 34, technique 34 | boxing_jab_body
+5. CERTIFIED BOXING MOVES (the only ones the demo animates and lets a player train): strikes boxing_jab, boxing_cross, boxing_rear_uppercut, boxing_jab_body, boxing_body_hook, boxing_up_jab, boxing_overhand, boxing_cross_body, boxing_double_jab, boxing_one_two, boxing_slip_counter, boxing_pull_counter, boxing_counter_over_jab, boxing_catch_counter, boxing_lead_uppercut, boxing_check_hook, boxing_lead_hook, boxing_rear_hook, boxing_rear_hook_body, boxing_one_two_hook, boxing_liver_combo, boxing_six_punch_combo; defence boxing_slip, boxing_pull, boxing_catch
+6. BODY REGIONS (wear 0-100%): head_neck, torso_core, left_arm, right_arm, left_leg, right_leg
+7. GYM TIERS: T1 30.0x18.0 m; T2 40.0x25.0 m; T3 60.0x31.0 m (club -> commercial -> elite; no garage)
+8. SCREEN: 1920x1080, Godot 4.7.2 GDScript; boxing first (demo), MMA later; PC deep management sim (FM / Motorsport Manager class).
+
+=== HOW LEARNING WORKS TODAY (audited from the code, S213) ===
+A. FOUR SEPARATE PROGRESS TRACKS that do not talk to each other:
+ 1. STATS (0-100 floats). Weekly plan = 7 days of focus + station. Gain per day = 0.6 x station quality (0.7+0.3 x tier) x condition x coach factor (0.5+0.7 x avg coach rating/100) x headroom ((potential-current)/20, clamped 0.15-1) x fraction of week x crowding, x drill-pip bonus, capped at potential+10. A week on a station = roughly +0.1 to +0.5 of a point. Station "training_modifiers" tags map to stats. Fatigue: ring/bags +16 per focus, rest -15, recovery -25; at fatigue 95+ a 15% injury roll; any body region under 80% readiness forces rest. Fatigue does NOT slow the gain (the tooltip claims it does). Age: one step per birthday by age band, max +/-3; potential -1 a year once declining. FIGHT IQ is derived, not trained: 0.40 fights + 0.25 discipline depth + 0.13 breadth + 0.10 learned moves + 0.12 raw ring stat. Discipline proficiency: +2/week x coach, facility, equipment, partner, readiness, rapport, headroom factors; 45 = competent.
+ 2. TECHNIQUES: states locked -> eligible -> training -> learned (permanent). Gate = discipline proficiency + attribute minimums + learned prerequisites (the tree above). Per tier: T1 coach teaching 25+, no partner, 0 live rounds, 1 week min, 2 sessions/wk; T2 coach 45+, partner, 4 live rounds, 2 weeks, 3/wk; T3 coach 62+, partner, 10 live rounds, 4 weeks, 3/wk; T4 coach 76+, partner, 20 live rounds, 6 weeks, 4/wk, only inside a fight camp. Each session adds 22 x factors in reps; learned when reps + weeks + live rounds are all met. There is NO per-technique mastery value once learned.
+ 3. DRILL PIPS per station (mastery of a drill): 5 pips at 6/16/36/72/140 focused hours, +0.5-1.5% gain each; a "breakthrough" chance (6% of quality sessions at pips I-II, 2-4% later, scaled by coach bond) cuts the remaining hours of the current pip by 25-40% (grounded: motor-sequence consolidation after sleep). Pip V auto-learns the lowest unlearned combo of that family.
+ 4. COMBO TIGHTNESS 0-100: +6/week on mitt stations, -3/week decay otherwise; signature and game-plan chains get bonuses.
+ Also: sparring gives body marks, coach bond and a small "spar edge" (+5% sharp edge next fight); a FIGHT CAMP (pre-bout weeks) gives edges, combo tightness, film study; day-lap station visits give "move card" minutes (120 = usable, 600 = mastered) - a fifth record not linked to technique progress.
+B. WHAT REACHES THE FIGHT TODAY:
+ - Fight-ready snapshot: every stat + (coach average - 50) x 0.1; fight_iq = the derived value; conditioning from body readiness.
+ - The live 3D fight engine (boxing): everyone knows tiers 1-2; learned moves only add tiers 3-4; the demo palette is the 25 certified moves above. It reads small edges (strand edges +/-6%, sharp edge, camp edges, pad-card mastery). It does NOT read discipline proficiency or combo tightness, and it records NO technique usage back, so "moves improve by being used in fights" never fires for boxing.
+C. WHAT THE PLAYER SEES: "+N%" gain labels and "DEFENSE 54.0 -> 54.4" lines, 7-day trend arrows, a 28-day sparkline, gold drill pips ("II - 62% to III"), a skill tree with rep progress, proficiency + derived Fight IQ + learned-move count, overall/ceiling dials, a one-line Monday coach comment, a day-card moment when a pip or combo lands.
+D. THE PROBLEM AS WE SEE IT: progress is real but invisible in the fight - the player trains a slip for weeks and cannot SEE his boxer slipping more, cannot see why he won, and the numbers move by tenths. Five records, one weak bridge to the fight.
+
+=== HOW REAL FIGHTERS IMPROVE (our sourced research - extend it, correct it if you know better) ===
+- Motor skill follows a power law in practice hours (log-hours); everyday skills plateau after < 50 h once "good enough"; elite work fights the plateau with deliberate practice (Ericsson 2009). One night's sleep after a novel motor sequence gives ~18-20% faster execution (consolidation).
+- Strength: untrained ~2.5%/week early, trained ~1.6%/week, slowing; detraining after 2-3 weeks off.
+- Skills move through stages: shadow/technique -> pads/mitts (coach feeds) -> bag (power/volume) -> drilling with a partner -> situational sparring -> hard sparring -> fights; a move that works on pads often disappears under pressure until it has been sparred.
+- Fight camps 6-10 weeks: build, peak, taper (last 7-10 days lighter); overtraining shows as flat performance, stress, injuries.
+- Coaches matter by specialty and by bond; a fighter learns best from a coach who teaches HIS style; a "signature" move comes from thousands of reps of a few things, not breadth.
+- Fights teach what the gym cannot (composure, ring IQ), and losses teach more than wins when reviewed (film study).
+
+=== WHAT I NEED FROM YOU (sections A-H, build-ready) ===
+A. REVIEW: what is good, what is broken or boring in the system above, judged as a deep management sim (FM's training/dynamics, Motorsport Manager's car development, OOTP player development, Punch Club, Fight Night Champion's legacy mode, any you know). Be blunt.
+B. THE CORE LOOP REDESIGN: ONE learning model the player can read (merge or rename our five records - say which survives, which becomes a view of another, which is cut). Every training choice must produce something the player SEES IN THE NEXT FIGHT. Show the full chain: week plan -> what changes in the boxer -> what the live fight does differently -> how the result screen proves it -> what the player wants to do next week.
+C. MASTERY PER TECHNIQUE (the missing piece): stages from "learned" to "signature" that mirror the real path (pads -> bag -> partner -> sparring -> fight-proven). What each stage changes in the live fight engine in concrete terms we can implement: chance to choose the move, execution quality, speed of the motion, accuracy, stamina cost, how often it is landed under pressure, counter timing window. Give numbers as RANGES and say which of our stats/tracks feed each one.
+D. FIGHT -> TRAINING FEEDBACK: what the fight writes back (usage counts, lands under pressure, the opponent's style exposing a hole), and how the post-fight screen + film study turn it into next week's plan. Include losses as a learning engine.
+E. THE "ONE MORE WEEK" HOOKS that respect a deep sim: visible thresholds, breakthroughs, plateaus and how the player breaks them (new coach, sparring partner style, fight against a type), signature moves, rivalries that demand a specific skill, camp planning against a named opponent's tendencies, readiness peaking for fight night. Every hook must be a real decision with a cost (time, money, fatigue, injury risk, wear), never a free reward or a timer.
+F. REALISM GUARDRAILS: rates and caps per age/potential, plateau and detraining, overtraining, tapering, injury risk rising with hard sparring, so a career takes years not weeks. Say where our current numbers are too fast/slow.
+G. UI: what the player sees on the profile, the weekly plan, the fight HUD (live, small) and the result screen so the cause -> effect is legible in one glance (e.g. "Slip: Sparring-proven - slipped 9 of 14 jabs, 3 counters landed"). PC screen 1920x1080, our boxers are realistic 3D (MetaHuman) in a broadcast-camera fight.
+H. BUILD ORDER: the smallest first slice that makes the player feel training in the fight (we have the live boxing engine, the 25 certified moves, the weekly plan, the profile, a result screen), then the next 3 slices. For each: data it adds, what the fight engine must read, the test that proves it (e.g. "same boxer, slip at stage 1 vs stage 4, 200 seeded rounds: slips landed rise by X-Y%").
+
+Rules: no new stats beyond the sheet; numbers as ranges, labelled REAL (from the world) or DESIGN (tuning); no mobile patterns; boxing first (MMA later reuses the model).

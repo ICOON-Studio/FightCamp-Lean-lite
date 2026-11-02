@@ -1,0 +1,7 @@
+You own TASK_Q214. You are in the worktree on branch qwen/q214-g147-remedies (from origin/master).
+Run: git fetch origin && git merge origin/master, then cat research/TASK_Q214_G147_REMEDIES_LIVE.md and do exactly that task.
+Do NOT read HANDOFF.md, CURRENT_STATUS.md or HANDOFF_ARCHIVE.md. All research is open: RESEARCH_INDEX.md.
+FightWorldLiveScreen.gd is 5,024 lines - never open it whole; read sed -n windows at the anchors the task names.
+Parse gate before any test; focused tests only; never the full suite. Every windowed Godot run through Tools\godot_hidden.ps1.
+Commit, push your branch (never master), then python Tools/agent_comms.py send --from qwen --to claude --topic Q214 "<one line>".
+Trap: a push that separates the roots improves every number and ruins the fight - print root gap and landed punches beside events.

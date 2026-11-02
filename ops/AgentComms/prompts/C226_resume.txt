@@ -1,0 +1,9 @@
+You are resuming TASK C226 in the git worktree D:/FightCamp/wt/C226 (branch codex/c226-st1-stamina), now fast-forwarded
+to master. Read research/TASK_C226_ST1_STAMINA.md again - your send-back was right and is fixed:
+1. `_run_decision` (FightRealtime.gd :3507, the Intent.decide call at :3557) is now an owned window.
+2. research/D65_IN_ROUND_RECOVERY_RAW.txt is committed (lines 171-260).
+3. You can now write git metadata (the main repo's .git is added as a writable dir): commit and push yourself.
+Your census Godot/tools/c226_stamina_census.gd is kept (untracked): fix the round-3 bell stamina reading (it printed 0),
+re-run the baseline, implement the change behind `in_round_recovery`, run the census ON vs OFF on the same seeds, the
+parse gate and the tests the task file lists (--jobs 2, wait on the runner's exit), write C226_DIGEST.md, git add by
+explicit path, commit, git push -u origin codex/c226-st1-stamina. Do not stop at "written".

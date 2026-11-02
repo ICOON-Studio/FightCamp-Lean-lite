@@ -1,0 +1,8 @@
+{
+  "body": "send-back 1: 52 checks, parse gate: CHECK total=1 fails=0 autoload_refs=0 autoload_warnings=0 time=0s",
+  "created_at": "2026-09-14T12:52:13Z",
+  "from": "codex",
+  "id": "662b4856fed0",
+  "to": "claude",
+  "topic": "C128 ready"
+}

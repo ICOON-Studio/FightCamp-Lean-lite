@@ -1,0 +1,296 @@
+<!-- Ludo round 42 (S207), reply part 5 verbatim: C4 pixel spec continued (rest of col 1, centre stage + LOOP/SLOW-MO, right icon column + 8-col grid, bottom bar), 20,292 chars -->
+
+
+2. LEFT COLUMN (CONTINUED)
+       - Footer Pill: rect(44, 898, 324, 32)
+         * Styling: Background #1E293B, Border 1px solid #334155, Radius 3px
+         * Layout: Centered HBoxContainer
+         * Icon: Lucide "info" (14x14 px), Color #94A3B8
+         * Typography: Inter 10px Medium, #E2E8F0
+         * Text: "STYLE ARCHETYPE: CLASSIC COUNTER-PUNCHER"
+
+   2.7 Column 1 Base Margin / Anchor:
+       - Bottom boundary terminates at y = 1064 (matching full profile column alignment).
+
+3. CENTRE 3D STAGE BLOCK & PLAYBACK CONTROLS
+Outer Container Rect: rect(412, 124, 792, 940)
+Background Canvas: #070A0F (Matte Stage Black)
+Border: 1px solid #1E293B
+Corner Radius: 4px
++----------------------------------------------------------------------------------------------------+
+| 3D SUBVIEWPORT STAGE (rect(412, 124, 792, 736))                                                   |
+| Camera: 35mm lens equivalent, FOV 32.0, Pitch -4.5°, Yaw +28.0°                                    |
+| Subject: 3D Boxer Model on Octagonal Oak & Brass Plinth (r = 1.2m)                                |
+| Lighting: Rim light #38BDF8 (Cyan), Key light #FFE6C7 (Warm, 1.4 energy), Fill #0F172A (Deep Slate)|
+| Overlays:                                                                                          |
+|   - Top-Left: Active Technique Name Badge & Tier Pill                                              |
+|   - Top-Right: Camera Orbit Gizmo & Reset View Button                                              |
++----------------------------------------------------------------------------------------------------+
+| PLAYBACK & BIOMECHANIC SCRUBBER BAR (rect(412, 860, 792, 204))                                     |
+|   - Timeline Scrubber Track: rect(432, 876, 752, 24)                                               |
+|   - Transport Controls Row:  rect(432, 912, 752, 42)                                               |
+|   - Biomechanical Frame Readout Data Strip: rect(432, 966, 752, 86)                                 |
++----------------------------------------------------------------------------------------------------+
+
+3.1 3D Stage Overlays (Within SubViewport Canvas)
+Active Move Floating Chip (rect(428, 140, 360, 38)):
+Background: #0B0F17 (85% alpha scrim), Border: 1px solid #334155, Radius: 4px.
+Tier Pill: rect(436, 147, 28, 24). Background: #38BDF8, Text: JetBrains Mono 10px Bold #0B0F17, "T2".
+Title Label: rect(472, 147, 240, 24). Font: Chakra Petch 13px Bold, #F8FAFC, uppercase: "ONE-TWO-HOOK".
+Demo Badge: rect(720, 147, 56, 24). Background: #0369A1, Text: JetBrains Mono 9px Bold #E0F2FE, "DEMO".
+Camera Reset / Free Orbit Toggle (rect(1148, 140, 44, 38)):
+Background: #0B0F17 (85% alpha scrim), Border: 1px solid #334155, Radius: 4px.
+Icon: Lucide orbit (18×18 px), Color: #94A3B8. Hover: #D69E2E.
+Tooltip: "Left-click drag to orbit camera around fighter; scroll wheel to zoom."
+3.2 Timeline Scrubber Track (rect(432, 876, 752, 24))
+Track Background: rect(432, 886, 752, 4). Color: #1E293B.
+Impact Window Zone (Colored Segment on Track): rect(552, 886, 84, 4). Color: #D69E2E (Gold) — highlights active punch impact frames (e.g., Frame 16 to 22).
+Recovery Window Zone: rect(636, 886, 68, 4). Color: #38BDF8 (Cyan) — highlights return to guard frames.
+Scrubber Playhead Thumb: rect(590, 880, 16, 16). Circle, Background: #F8FAFC, Border: 2px solid #D69E2E.
+Frame Counter Tag: Tooltip pinned to playhead: JetBrains Mono 9px Bold, #0B0F17, Background: #F8FAFC, padding: 2px 4px: "FR 18 / 42".
+3.3 Transport Controls Row (rect(432, 912, 752, 42))
+Button 1: Play / Pause Toggle (rect(432, 912, 110, 42)):
+Background: #1E293B, Border: 1px solid #334155, Radius: 3px.
+Layout: Centered HBoxContainer, Gap: 6px.
+Icon: Lucide play / pause (16×16 px), Color: #F8FAFC.
+Text: Chakra Petch 11px Bold, #F8FAFC, "PAUSE".
+State Active: Background #334155.
+Button 2: Playback Speed Selector (rect(550, 912, 160, 42)):
+Layout: 3 segment segmented control (rect(550, 912, 53, 42) each).
+Segment 1 (0.25x): Background #D69E2E, Text #0B0F17 (Active slow-mo). Font: JetBrains Mono 10px Bold.
+Segment 2 (0.50x): Background #1E293B, Text #94A3B8.
+Segment 3 (1.0x): Background #1E293B, Text #94A3B8.
+Button 3: Loop Toggle (rect(718, 912, 110, 42)):
+Background: #0F172A, Border: 1px solid #22C55E (Active state), Radius: 3px.
+Icon: Lucide repeat (16×16 px), Color: #22C55E.
+Text: Chakra Petch 11px Bold, #22C55E, "LOOP ON".
+Button 4: Step Frame Backward (rect(836, 912, 54, 42)):
+Background: #1E293B, Border: 1px solid #334155, Radius: 3px.
+Icon: Lucide step-back (16×16 px), Color: #94A3B8. Hover: #F8FAFC.
+Button 5: Step Frame Forward (rect(898, 912, 54, 42)):
+Background: #1E293B, Border: 1px solid #334155, Radius: 3px.
+Icon: Lucide step-forward (16×16 px), Color: #94A3B8. Hover: #F8FAFC.
+Button 6: Target Dummy Toggle (rect(960, 912, 224, 42)):
+Background: #1E293B, Border: 1px solid #334155, Radius: 3px.
+Icon: Lucide user-check (16×16 px), Color: #38BDF8.
+Text: Chakra Petch 11px Bold, #F8FAFC, "TARGET DUMMY: ON".
+Hover: Background #334155.
+3.4 Biomechanical Telemetry Strip (rect(432, 966, 752, 86))
+Background: #0B0F17, Border: 1px solid #1E293B, Radius: 3px.
+Column 1 — Kinetic Output (rect(448, 976, 220, 66)):
+Title: Inter 9px Bold, #64748B, uppercase: "KINETIC TELEMETRY"
+Metric 1: JetBrains Mono 10px Regular, #94A3B8: "Kinetic Force Peak:  482 N"
+Metric 2: JetBrains Mono 10px Regular, #94A3B8: "Torque Generation:   38.4 Nm"
+Column 2 — Frame Timing (rect(688, 976, 220, 66)):
+Title: Inter 9px Bold, #64748B, uppercase: "FRAME TIMING (60 FPS)"
+Metric 1: JetBrains Mono 10px Regular, #94A3B8: "Windup / Startup:    12 frames"
+Metric 2: JetBrains Mono 10px Regular, #94A3B8: "Impact Active Frame: 18 (6f window)"
+Column 3 — Resource Drain (rect(928, 976, 236, 66)):
+Title: Inter 9px Bold, #64748B, uppercase: "RESOURCE CONSUMPTION"
+Metric 1: JetBrains Mono 10px Regular, #94A3B8: "Stamina Cost:        14.2 pts"
+Metric 2: JetBrains Mono 10px Regular, #38BDF8: "Counter Vulnerability: 24%"
+4. RIGHT ICON COLUMN (THE REDESIGNED MOVE BROWSER)
+Outer Container Rect: rect(1220, 124, 684, 940)
+Background: #0B0F17
+Border: 1px solid #1E293B
+Corner Radius: 4px
++----------------------------------------------------------------------------------------------------+
+| 4.1 GLOBAL REPERTOIRE SUMMARY STRIP: rect(1236, 136, 652, 28)                                      |
+| Total Learned: 14 / 54 (25.9%) | Active GDD Branch: 7 Branches | Demo Nodes: 25 Certified          |
++----------------------------------------------------------------------------------------------------+
+| 4.2 BRANCH NAVIGATION TABS: rect(1236, 172, 652, 36)                                               |
+| [FUND 3/3] [STR 4/7] [HOOK 3/7] [DEF 2/11] [FOOT 1/11] [COMBO 1/6] [INSIDE 0/5] [ALL 14/54]       |
++----------------------------------------------------------------------------------------------------+
+| 4.3 MOVE ICON GRID CANVAS (8-COLUMN DENSE ATLAS): rect(1236, 218, 652, 492)                       |
+|   - 8 Columns x N Rows of Compact Interactive Tiles (68x72 px each)                                |
+|   - Horizontal Gap: 15px | Vertical Gap: 12px                                                      |
+|   - ScrollContainer with hidden native scrollbar, custom thin grabber                              |
++----------------------------------------------------------------------------------------------------+
+| 4.4 DIVIDER: rect(1236, 718, 652, 2), Color: #1E293B                                               |
++----------------------------------------------------------------------------------------------------+
+| 4.5 SELECTED TECHNIQUE INSPECTOR & ASSIGNMENT CARD: rect(1236, 728, 652, 324)                      |
+|   - Master Icon (64x64 px) + Title + Branch + Tier Chip                                            |
+|   - Gating Attribute Requirements vs Current Fighter Stats                                         |
+|   - Biomechanical & Tactical Description                                                           |
+|   - Action Buttons: [ASSIGN TO STATION] [TACTICAL USAGE: PRIMARY/SUPPRESSED]                       |
++----------------------------------------------------------------------------------------------------+
+
+4.1 Global Repertoire Summary Strip (rect(1236, 136, 652, 28))
+Layout: HBoxContainer, Space Between.
+Text Left: Chakra Petch 12px Bold, #F8FAFC, uppercase: "TECHNIQUE REPERTOIRE ATLAS"
+Text Right: JetBrains Mono 11px Bold, #D69E2E: "14 / 54 LEARNED (25.9%)"
+4.2 Branch Navigation Tabs (rect(1236, 172, 652, 36))
+Total Width: 652px, 8 buttons total (7 branches + 1 "ALL" toggle).
+Button Width: 76px each ((8 * 76) + (7 * 6) = 608 + 42 = 650px $\rightarrow$ four at 76px, four at 77px, gap 6px).
+Height: 32px.
+Buttons:
+FUND (Fundamentals: 3 nodes)
+STR (Straight Punching: 7 nodes)
+HOOK (Hooks & Bodywork: 7 nodes)
+DEF (Defense & Counters: 11 nodes)
+FOOT (Footwork & Ring Craft: 11 nodes)
+COMBO (Combinations: 6 nodes)
+INSIDE (Infighting & Clinch: 5 nodes)
+ALL (Master Atlas: 54 nodes)
+Tab Visual Styling:
+Active: Background #D69E2E, Text #0B0F17, Font Chakra Petch 10px Bold.
+Inactive: Background #0F172A, Border 1px solid #1E293B, Text #94A3B8, Font Chakra Petch 10px Medium. Hover: Background #1E293B, Text #F8FAFC.
+4.3 The 8-Column Move Icon Grid (rect(1236, 218, 652, 492))
+Architecture: GridContainer inside a ScrollContainer.
+Columns: Exactly 8 Columns.
+Tile Dimensions: 68px Width × 72px Height.
+Horizontal Spacing: 15px $\rightarrow$ (8 * 68px) + (7 * 15px) = 544px + 105px = 649px (Centering offset +1.5px left/right margin).
+Vertical Spacing: 12px.
+Capacity View: Displays 32 visible tiles simultaneously without scrolling (4 full rows visible). Full 54-tree branches scroll smoothly down to 7 total rows.
+4.3.1 Compact Tile Anatomy (68×72 px)
++---------------------------------------------+  y = 0
+| [T1]                             [STATUS]   |  h = 16px (Header row)
++---------------------------------------------+  y = 16
+|                                             |
+|             44x44 PICTOGRAM BOX             |  h = 44px (Vector art)
+|                                             |
++---------------------------------------------+  y = 60
+| NAME (JetBrains Mono 8px Bold, 1 line clip) |  h = 12px (Footer label)
++---------------------------------------------+  y = 72
+  w = 68px
+
+Tile Container: rect(0, 0, 68, 72). Radius 3px.
+Tile States:
+Learned Tile:
+Background: #0F172A, Border: 1.5px solid #22C55E.
+Pictogram: Crisp chalk white line art (#F8FAFC) with gold trajectory arrows (#D69E2E).
+Status Dot: rect(54, 4, 8, 8), Circle, Fill #22C55E.
+Name Label: Inter 8px Bold, #F8FAFC, clipped with ellipsis.
+Learnable Tile (Meets Stat & Technique Gates):
+Background: #0F172A, Border: 1.5px dashed #38BDF8.
+Pictogram: Electric cyan line art (#38BDF8) with gold vectors.
+Status Dot: rect(54, 4, 8, 8), Circle, Fill #38BDF8.
+Name Label: Inter 8px Bold, #38BDF8.
+Locked Tile (Stat or Prereq Missing):
+Background: #070A0F, Border: 1px solid #1E293B, Opacity 0.45.
+Pictogram: Dark slate silhouette (#334155).
+Status Lock: rect(54, 4, 8, 8), Lucide lock icon (8×8 px), Color #64748B.
+Name Label: Inter 8px Regular, #64748B.
+Active Selection (Currently Focused on 3D Stage):
+Outline: 2px solid #D69E2E, Glow: 0 0 8px rgba(214, 158, 46, 0.4).
+4.3.2 Tooltip Hover Card (rect(cursor_x + 12, cursor_y + 12, 280, 160))
+
+Hovering over any tile for $\ge 0.15\text{ seconds}$ spawns an instantaneous, non-blocking telemetry tooltip:
+
+Background: #0B0F17 (95% opacity), Border: 1px solid #D69E2E, Radius: 4px.
+Header: Chakra Petch 12px Bold, #F8FAFC: "ONE-TWO-HOOK [T2 CORE]"
+Prerequisite Technique Check:
+[x] One-Two (Learned) in #22C55E
+[x] Lead Hook (Learned) in #22C55E
+Attribute Requirements:
+Speed: 30 (Fighter: 72) in #22C55E
+Technique: 30 (Fighter: 68) in #22C55E
+Subtext: Inter 10px Regular, #94A3B8: "Fast three-strike combination that tests mid-guard recovery."
+Footer Notice: JetBrains Mono 9px Medium, #D69E2E: "CLICK TO LOAD 3D STAGE & ASSIGN"
+4.4 Selected Technique Inspector Card (rect(1236, 728, 652, 324))
+Background: #0F172A
+Border: 1px solid #1E293B
+Corner Radius: 4px
++----------------------------------------------------------------------------------------------------+
+| [64x64 MASTER ICON] | ONE-TWO-HOOK (T2 Core Combination)                                          |
+| rect(1252, 744,     | Branch: Combinations | ID: boxing_one_two_hook                               |
+|      64, 64)        | [DEMO READY] [TACTICAL STATUS: EQUIPPED (PRIMARY)]                          |
++----------------------------------------------------------------------------------------------------+
+| GATING ATTRIBUTES:                                                                                 |
+| Speed: Req 30 -> Current 72 (+42 OVER)   | Technique: Req 30 -> Current 68 (+38 OVER)             |
+| Prerequisites: boxing_one_two [CLEARED] | boxing_lead_hook [CLEARED]                              |
++----------------------------------------------------------------------------------------------------+
+| TACTICAL BEHAVIOUR & BIOMECHANICS:                                                                 |
+| Fires fluid jab-cross followed by a rapid-torque lead hook. Staggers high guard shells.            |
+| Base Stamina Drain: 14 pts | Impact Frames: 18, 26, 38 | Clinch Vulnerability: Low                   |
++----------------------------------------------------------------------------------------------------+
+| ACTIONS ROW:                                                                                       |
+| [ASSIGN TO BAG STATION] [ASSIGN TO PADS] [PRIORITY: PRIMARY / SITUATIONAL / BENCH]                |
++----------------------------------------------------------------------------------------------------+
+
+Header Block (rect(1252, 744, 620, 68)):
+Master Vector Icon: rect(1252, 744, 64, 64), Background #1E293B, Border 1px solid #334155, Radius 4px.
+Title: rect(1328, 744, 380, 22), Chakra Petch 15px Bold, #F8FAFC, uppercase: "ONE-TWO-HOOK".
+Branch / ID Subtitle: rect(1328, 768, 380, 16), JetBrains Mono 10px Regular, #94A3B8: "BRANCH: COMBINATIONS | ID: boxing_one_two_hook".
+State Pill: rect(1328, 786, 110, 20), Background #064E3B, Border 1px solid #22C55E, Text JetBrains Mono 9px Bold #34D399: "[MASTERED: 100%]".
+Requirement Matrix Box (rect(1252, 820, 620, 48)):
+Background: #0B0F17, Border: 1px solid #1E293B, Radius: 3px.
+Grid: 2 Columns × 2 Rows:
+Col 1: JetBrains Mono 10px Medium, #22C55E: "Speed Req: 30 (Fighter: 72)"
+Col 2: JetBrains Mono 10px Medium, #22C55E: "Technique Req: 30 (Fighter: 68)"
+Col 1, Row 2: Inter 10px Regular, #94A3B8: "Prereq 1: One-Two [MASTERED]"
+Col 2, Row 2: Inter 10px Regular, #94A3B8: "Prereq 2: Lead Hook [MASTERED]"
+Biomechanical & Sim Notes (rect(1252, 876, 620, 78)):
+Font: Inter 11px Regular, line-height 16px, #E2E8F0.
+Text: "A high-efficiency 3-strike flow. Initiates with a range-finding lead jab, drives the rear cross through the guard seam, and hooks tight around the defensive shell. Highly effective when opponent is pinned against ropes. Causes +24% guard fatigue."
+Assignment Button Row (rect(1252, 962, 620, 42)):
+Button 1: Slot into Heavy Bag Drill (rect(1252, 962, 196, 42)):
+Background #1E293B, Border 1px solid #334155, Hover #334155.
+Typography: Chakra Petch 11px Bold, #F8FAFC, "+ HEAVY BAG ROUTINE".
+Button 2: Slot into Mitts / Pads Drill (rect(1456, 962, 196, 42)):
+Background #1E293B, Border 1px solid #334155, Hover #334155.
+Typography: Chakra Petch 11px Bold, #F8FAFC, "+ MITTS DRILL".
+Button 3: Tactical Priority Cycle (rect(1660, 962, 212, 42)):
+Background #0F172A, Border 1px solid #D69E2E, Radius 3px.
+Typography: Chakra Petch 11px Bold, #D69E2E, "TACTIC: PRIMARY COMBO".
+Subtext Tooltip: "Toggles AI fight engine strike selection weight (Primary, Situational, Suppressed)."
+5. BOTTOM ACTION & STATUS DOCK (FULL PROFILE FOOTER BAR)
+Canvas Rect: rect(16, 1072, 1888, 36)
+Background: #0B0F17
+Border: 1px solid #1E293B
+Corner Radius: 3px
+Layout: HBoxContainer, Space-Between, Padding: 0 16px
++----------------------------------------------------------------------------------------------------+
+| LEFT: HOTKEY TELEMETRY & VIEW CONTROLS           | RIGHT: SAVE / RESET / RETURN ACTIONS            |
+| [ESC: BACK TO ROSTER] [SPACE: PLAY/PAUSE MOVE]   | [RESET TO DEFAULT] [APPLY LOADOUT TO CAMP]      |
+| [1-7: SWITCH BRANCH] [R: RESET 3D ORBIT]         | Status: "All training assignments saved to disk"|
++----------------------------------------------------------------------------------------------------+
+
+Detailed Dock Elements
+Left Hotkey Indicators (rect(32, 1072, 900, 36)):
+Font: JetBrains Mono 10px Medium, #64748B.
+Hotkey Pills:
+[ESC]: Background #1E293B, Text #94A3B8, Label: "Roster Overview"
+[SPACE]: Background #1E293B, Text #94A3B8, Label: "Play/Pause Animation"
+[TAB]: Background #1E293B, Text #94A3B8, Label: "Next Branch"
+[F]: Background #1E293B, Text #94A3B8, Label: "Focus 3D Head/Torso"
+[R]: Background #1E293B, Text #94A3B8, Label: "Reset Camera"
+Right Commit Buttons (rect(1420, 1076, 468, 28)):
+Revert Changes Button (rect(1420, 1076, 140, 28)):
+Background: #1E293B, Border: 1px solid #334155, Radius: 2px.
+Font: Chakra Petch 10px Bold, #94A3B8, uppercase: "DISCARD CHANGES".
+Hover: Background #334155, Text #F8FAFC.
+Save Repertoire Preset (rect(1568, 1076, 150, 28)):
+Background: #1E293B, Border: 1px solid #334155, Radius: 2px.
+Font: Chakra Petch 10px Bold, #38BDF8, uppercase: "SAVE AS PRESET".
+Hover: Background #334155.
+Commit & Return to Camp (rect(1726, 1076, 162, 28)):
+Background: #22C55E, Border: 1px solid #16A34A, Radius: 2px.
+Font: Chakra Petch 10px Bold, #0B0F17, uppercase: "CONFIRM LOADOUT".
+Hover: Background #16A34A.
+COMPLETE COLOR PALETTE & TYPOGRAPHY SYSTEM SHEET
++----------------------------------------------------------------------------------------------------+
+| COLOR TOKENS (HEX)                                                                                 |
++----------------------------------------------------------------------------------------------------+
+| Void Canvas Background:     #020617 | Primary Surface Panel:       #0B0F17                         |
+| Secondary Card Background:  #0F172A | Muted Structural Borders:    #1E293B                         |
+| Interactive Border Focus:   #334155 | High-Contrast Accent Gold:   #D69E2E                         |
+| Gold Hover / Glow State:    #F59E0B | Athletic Engine Cyan:        #38BDF8                         |
+| Mastered / Success Green:   #22C55E | Severe Stress / Locked Red:  #EF4444                         |
+| High Tier Purple Accent:    #A855F7 | High-Emphasis Primary Text:  #F8FAFC                         |
+| Body Paragraph Readout:     #E2E8F0 | Secondary Label Muted Slate: #94A3B8                         |
+| De-emphasized Caption Gray: #64748B | Disabled / Ghost Element:    #475569                         |
++----------------------------------------------------------------------------------------------------+
+| TYPOGRAPHY SCALE (1920x1080 Native)                                                                |
++----------------------------------------------------------------------------------------------------+
+| Primary Screen Title:       Chakra Petch Bold, 20px, tracking +1.0px, uppercase                    |
+| Section Headers:            Chakra Petch Bold, 14px, tracking +0.5px, uppercase                    |
+| Card Sub-Headings:          Chakra Petch Bold, 12px, tracking +0.5px, uppercase                    |
+| Primary Data Metric:        JetBrains Mono Bold, 13px, tabular numbers                             |
+| Secondary Data Readout:     JetBrains Mono Medium, 11px, tabular numbers                           |
+| System Badges & Telemetry:  JetBrains Mono Bold, 9px, uppercase                                    |
+| Interactive Button Labels:  Chakra Petch Bold, 11px, tracking +0.5px, uppercase                    |
+| Body & Narrative Text:      Inter Regular, 11px, line-height 16px                                  |
+| Field & Stat Labels:        Inter SemiBold, 11px, uppercase                                        |
+| Caption & Tooltip Notes:    Inter Medium, 10px, line-height 14px                                   |
++----------------------------------------------------------------------------------------------------+

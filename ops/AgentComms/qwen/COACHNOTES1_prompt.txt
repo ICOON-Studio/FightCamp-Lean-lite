@@ -1,0 +1,1 @@
+You work in E:\FightCamp\wt\LEAN_COACHNOTES1 (a git worktree of the Lean game repo, branch qwen/coachnotes1). Read TASK_COACHNOTES1.md in that folder and do exactly what it says: create scripts/rules/CoachNotes.gd and tests/coach_notes_test.gd, run the two headless tests it names, commit on qwen/coachnotes1. Do not touch any other file. Do not open any window. Do not push.

@@ -1,0 +1,521 @@
+LUDO ROUND 35 (S200, 2026-10-11) - Ask Ludo chat 'Gym Management Screen', VERBATIM.
+Asked: evaluate the CURRENT gym floor (attached previews/s199_for_ludo/01_ludo_overview.jpg, game camera stop 1).
+PART 1 = 27889 chars (Ludo stopped on its own mid coordinate table). PART 2 (after 'continue' + operator's UI-placement ask) = 28876 chars.
+
+==== PART 1 ====
+
+FIGHTCAMP — LEAD ART DIRECTION & TECHNICAL AUDIT REPORT
+
+Engine Target: Godot 4.7.2 Forward+ | Platform: PC Steam (1920×1080 native, 1:1 UI Pixel Scale) | Perspective: Roof-Off Cutaway 3/4 Overview (Stop 1) | Sim Class: High-Fidelity Management Simulation
+
+1. CRITICAL AUDIT: WHAT FAILS THE AAA SHIPPING BAR (WORST FIRST)
+
+Looking at the overview capture from Camera Stop 1, the scene reads as an early graybox prototype rather than a shipping PC simulation. Below is the prioritized audit of visual and mechanical failures, ordered from most damaging to least, with explicit production fixes.
+
++----------------------------------------------------------------------------------------------------------------------------------+
+| FAILURE SEVERITY INDEX                                                                                                           |
+| 1. Lighting Model & Shadow Depth (Completely Flat / Blown Ambiance) ───► WORST (Kills depth perception and spatial hierarchy)    |
+| 2. Floor Materiality & Contrast Boundaries (Monolithic Black vs Flat Tan)                                                        |
+| 3. Building Shell, Perimeter Trim & Outer Void (Cardboard Wall Aesthetic)                                                       |
+| 4. Grey Placeholder Prisms & Monolithic Gray Cubes (Destroys Diegesis)                                                           |
+| 5. Spatial Ring Staging & Scale Inconsistency                                                                                    |
+| 6. Floating Bags & Lack of Overhead Structural Hardware                                                                          |
+| 7. Typography, Wayfinding & Decal Readability                                                                                     |
+| 8. Palette Cohesion & Visual Noise                                                                                               |
+| 9. Atmospheric Density & World Life (Living Gym Ambience)                                                                        |
++----------------------------------------------------------------------------------------------------------------------------------+
+
+Failure 1: The Lighting Model & Absence of Grounding Shadows (WORST)
+The Flaw: The hall is lit by a high-intensity, omnidirectional ambient light source with weak directional falloff. Equipment casts faint, undefined contact shadows, causing treadmills, mats, and characters to look like they are floating on top of the floor rather than resting on it. The scene lacks ambient occlusion in floor-wall junctures and beneath machinery.
+The Fix:
+Action Type: Engine / Lighting Environment Config (WorldEnvironment & DirectionalLight3D).
+Direct Sun/Sky: Disable generic environment sky energy. Add a key DirectionalLight3D tilted at Pitch -55.0°, Yaw 35.0° (angled from the high-street clerestory side). Color #FFF7ED (Warm Daylight, 5400K), Energy 1.85. Shadows enabled: shadow_bias = 0.02, shadow_normal_bias = 1.5, shadow_blur = 1.2, 4-split Directional Shadow Cascades (PSSM) with maximum distance 45.0m.
+Interior Fixture Lighting: Add 8 down-facing spot grids representing recessed high-bay warehouse LED troffers at y = 3.55m along the unseen truss coordinates. Attenuation 1.8, Spot Angle 65°, Color #F8FAFC (Clean 6000K neutral light), Energy 0.9.
+SSAO / SSIL (Screen-Space Ambient Occlusion & Indirect Lighting): Enable Godot SSAO: Radius 1.4m, Intensity 2.8, Power 1.5, Horizon 0.12. Enable SSIL to allow light bouncing off the tan subfloors onto adjacent equipment bases.
+Failure 2: Monolithic Floor Materials & Jarring Cut Lines
+The Flaw: The floor plan is split into two clashing extremes: pitch-black rubber (#0F1115) on the south side and pale cardboard-tan slabs (#D4B896) on the north side. The boundary lines look like hard mathematical polygon edges without baseboards, transition strips, bevels, or material ramps.
+The Fix:
+Action Type: Layout + Shader Pass (FloorSubstrate.gdshader).
+Color Rebalancing: Replace pitch-black rubber with Deep Slate Vulcanized Rubber (#1E222A, Roughness 0.78, Metallic 0.02). Replace the pale tan sand-colored wood with Aged Sealed Red Maple Gym Planks (#78350F / #9A3412, Roughness 0.38, clear-coat sheen 0.25).
+Beveled Transition Thresholds: Insert 100mm wide extruded brushed-aluminum floor edging ramps (#475569, Metallic 0.90, Roughness 0.35) between the rubber workout decks, wood floor, and green turf.
+Decal Wear & Grime: Place subtle roughness variance decals along the primary circulation routes (corridor z = 8.0m to z = 10.0m) to indicate human foot traffic.
+Failure 3: Thin "Cardboard" Walls and the Raw Black Void
+The Flaw: The perimeter walls are thin single-quad planes (0.05m thick) painted cream with primary-blue door placeholders. Outside the walls lies pitch-black empty engine space, breaking the physical setting.
+The Fix:
+Action Type: Layout + Structural Mesh Shell.
+Wall Thickness & Profiles: Give all perimeter exterior walls a true physical thickness of 0.35m (Double-wythe brick + interior furring channels). Add extruded baseboards (Height: 0.12m, Depth: 0.025m, Color #1E293B) along all interior wall-floor junctions.
+Upper Architectural Trim: Top the 3.6m cutaway walls with structural cap coping (dark gray stone cap #334155, Width 0.40m, Height 0.08m) so the wall looks intentionally sectioned rather than clipped.
+Exterior Grounding: Replace the void outside the north/east walls with a low-detail exterior ground apron (Width: 6.0m, Color #0F172A, Dark Asphalt) featuring an industrial brick parapet shadow, grounding the building in an alleyway.
+Failure 4: Grey Placeholder Blocks & Untextured Machine Geometry
+The Flaw: Over 80 machines, benches, and racks are represented by flat gray boxes, cylinders, and untextured shapes that draw the eye directly to the scene's unfinished elements.
+The Fix:
+Action Type: New Generated 3D Assets (Prioritized below in Section 2). Replace all primitive boxes with factory-finished PBR models scaled to real-world metric dimensions.
+Failure 5: Boxing Ring Scale, Elevation & Canvas Detailing
+The Flaw: The boxing ring sits too far forward in the center aisle, bottlenecking circulation. The canvas is flat gray, the corner turnbuckle pads lack structural depth, and the ring stairs are oversized blocks that clip into the canvas apron.
+The Fix:
+Action Type: Asset Regeneration + Layout Shift.
+Push the ring back flush into the back half of the gym floor (Center: x = 15.0m, z = 5.25m).
+Scale the ring to official professional dimensions: 6.5m × 6.5m outer apron footprint, 0.90m elevated platform, 5.5m × 5.5m inner rope boundary.
+Swap the gray canvas for Bleached Heavy-Duty Canvas Duck (#E2E8F0, Roughness 0.85), with clean corner pads (Red: North-West, Blue: South-East, White: Neutral) and realistic turnbuckle tension rods.
+Failure 6: Hanging Equipment Anchors
+The Flaw: Heavy bags and double-end balls hang from chains terminating in empty air.
+The Fix:
+Action Type: Structural Mesh Installation.
+Deploy the Wall-Mounted Cantilever I-Beam Frame along the north wall (z = 0.35m to z = 1.85m), anchoring all bags directly to the masonry via steel trusses and swivel clamps.
+Failure 7: Decals, Signage & Wayfinding Typographic Clutter
+The Flaw: White rectangular signboards (e.g., "TURF FUNCTIONAL", "STRENGTH TRAINING") are stuck directly to the floor. They look like developer debug labels rather than believable architectural signage.
+The Fix:
+Action Type: Layout / UI Polish.
+Remove all floating 3D text billboards and flat rectangular white signs from the floor mats.
+Replace them with Industrial Floor Paint Decals: Stenciled 1-bit typography sprayed directly onto the rubber (Chakra Petch Bold, letter height 0.40m, color #64748B at 60% opacity with chipped paint roughness).
+Failure 8: Palette Cohesion & Visual Noise
+The Flaw: The scene mixes too many saturated, uncoordinated colors: royal blue wall panels, bright green turf tracks, oxblood bags, cream walls, and stark white signs, creating visual chaos.
+The Fix:
+Action Type: Materials Pass.
+Establish a unified Industrial Athletic Palette:
+Primary Architecture (Brick/Concrete): #3F3F46 / #27272A
+Rubber Floor Substrates: #18181B to #24272F
+Wood Sparring Platforms: Aged Hickory #78350F
+Steel Hardware: Dark Powdercoat #0F172A, Galvanized Zinc #64748B
+Accent Color (Gym Identity): Deep Gold #D97706 / Safety Amber #F59E0B used sparingly on bag collars and turf boundary stripes.
+Turf Track: Dark Forest Muted Polyethylene (#14532D, Roughness 0.90), desaturating the current neon green turf.
+Failure 9: Life and Environmental Storytelling
+The Flaw: The space looks sterile and frozen. There are no water coolers, corner towels, gym bags, foam rollers, hanging wraps, wall clocks, or whiteboard brackets.
+The Fix:
+Action Type: Layout Prop Pass (Scatter sets).
+Scatter non-occluding environmental props around perimeter posts and locker walls: a commercial water cooler at (x=1.2, z=9.0), digital interval round timer on the brick wall at (x=15.0, z=0.15, y=2.8), rolled sweat towels, and a whiteboard with daily sparring schedules.
+2. THE 10 MOST VISIBLE PLACEHOLDER MACHINES (PRIORITIZED FOR GENERATION)
+
+From the overview camera (Stop 1), the foreground and central midground dominate the player's view. These 10 gray placeholder assets must be generated first.
+
++---------------------------------------------------------------------------------------------------------------------------------+
+| GENERATION PRIORITY MATRIX: TOP 10 VISIBLE ASSETS                                                                               |
++---------------------------------------------------------------------------------------------------------------------------------+
+| Asset Identifier                Gym Zone     Screen Real Estate  Generation Priority    Budget (Triangles / Textures)           |
+| 01. Commercial Treadmill Bank   Zone B       High (Foreground)   P1 (Immediate)         3,200 tris / 2048x2048 PBR              |
+| 02. Olympic Power Rack & Cage   Zone C       High (Foreground)   P2 (Immediate)         3,800 tris / 2048x2048 PBR              |
+| 03. 3-Tier Dumbbell Saddle Rack Zone C       High (Foreground)   P3 (Immediate)         2,600 tris / 2048x2048 PBR              |
+| 04. Adjustable Flat/Incline BencZone C       High (Foreground)   P4 (Immediate)         2,200 tris / 1024x1024 PBR              |
+| 05. Heavy Prowler Turf Sled     Zone E       High (Foreground)   P5 (High)              2,400 tris / 1024x1024 PBR              |
+| 06. Air-Resistance Rower        Zone B       Midground Left      P6 (High)              2,800 tris / 2048x2048 PBR              |
+| 07. Airdyne Fan Assault Bike    Zone B       Midground Left      P7 (High)              3,100 tris / 2048x2048 PBR              |
+| 08. Cable Crossover Station     Zone C       Midground Center    P8 (Medium)            4,400 tris / 2048x2048 PBR              |
+| 09. Heavy Wooden Plyo Box Set   Zone E       Midground Right     P9 (Medium)            1,200 tris / 1024x1024 PBR              |
+| 10. Wall-Mounted Heavy Bag Arm  Zone A       Background Spine    P10 (Structural)       2,800 tris / 2048x2048 PBR              |
++---------------------------------------------------------------------------------------------------------------------------------+
+
+Complete Ludo 3D Generation Prompts
+Prompt 01: Commercial Curved Slat Treadmill (Zone B)
+Dimensions: Length 1.95m, Width 0.90m, Height 1.60m | Origin: Center base on floor (Y=0.0m).
+Ludo 3D Prompt:
+
+Commercial curved manual treadmill, non-motorized high-performance athletic training equipment, factory-new condition. Curved running deck with segmented black vulcanized rubber slats. Heavy-gauge matte charcoal powder-coated steel frame with curved front safety handrails and ergonomic rubberized grips. Slim digital LCD console mounted on an upright tubular stalk, screen off, clean glass. Broad rubber stabilizer feet resting flat on the floor. Flawless industrial finish, zero scratches, zero scuffs. glTF 2.0 format, low-poly game model under 3200 triangles, clean PBR normal, roughness and metallic maps, centered origin at floor base, Y-up.
+
+Prompt 02: Olympic Power Rack & Pull-Up Cage (Zone C)
+Dimensions: Width 1.30m, Depth 1.50m, Height 2.35m | Origin: Center base on floor (Y=0.0m).
+Ludo 3D Prompt:
+
+Heavy-duty commercial 4-post Olympic power cage, strength and conditioning athletic equipment, brand new factory build. Four vertical 75mm by 75mm steel box uprights with precision laser-cut numbered pin holes, finished in dark textured anthracite powder coat. Multi-grip overhead pull-up crossbar with knurled steel grips. Two polished steel safety spotter arms and two adjustable J-hooks with yellow-zinc finish. Four rear vertical weight storage horns. Flawless industrial construction, sharp edges, zero rust. glTF 2.0 asset, 3800 triangle budget, PBR metallic and roughness maps, centered floor origin, Y-up.
+
+Prompt 03: 3-Tier Commercial Dumbbell Saddle Rack (Zone C)
+Dimensions: Width 2.20m, Depth 0.75m, Height 0.85m | Origin: Center base on floor (Y=0.0m).
+Ludo 3D Prompt:
+
+Commercial three-tier dumbbell storage saddle rack, professional weight room equipment, pristine factory condition. Heavy welded steel tube frame in matte gunmetal-gray finish. Three angled horizontal steel shelves fitted with individual molded black polyurethane saddle cups for ten pairs of dumbbells. Symmetrical heavy rubber floor protector boots at each corner. Clean mechanical welds, factory-fresh sheen, zero chipped paint. glTF 2.0 format, 2600 triangle budget, PBR materials, origin at base floor center, Y-up.
+
+Prompt 04: Commercial Adjustable Incline/Flat Bench (Zone C)
+Dimensions: Length 1.40m, Width 0.65m, Height 0.45m | Origin: Center base on floor (Y=0.0m).
+Ludo 3D Prompt:
+
+Commercial adjustable weightlifting bench, strength training gym furniture, factory-new condition. Heavy rectangular steel spine and triangular base in dark charcoal gray finish. Backrest pad and seat pad upholstered in high-density non-slip textured black vinyl with clean dual French seams. Laser-cut steel angle adjustment ladder with knurled chrome pull-pin knob. Integrated transport wheels and front lift handle. Flawless upholstery, zero cracks, zero wear. glTF 2.0 asset, 2200 triangles, clean PBR normal and roughness channels, origin at floor center, Y-up.
+
+Prompt 05: Heavy Steel Prowler Sled (Zone E)
+Dimensions: Length 1.10m, Width 0.85m, Height 1.00m | Origin: Center of base runners on turf (Y=0.0m).
+Ludo 3D Prompt:
+
+Heavy commercial turf prowler sled, athletic conditioning push sled, brand-new condition. Solid flat steel ski skids in low-friction black powder coat. Central vertical Olympic plate loading horn holding two pristine black rubber 20kg bumper plates. Two tall vertical push posts with knurled steel handles and lower crossbar handle. Crisp welds, factory finish, zero scuffs, zero turf marks. glTF 2.0 asset, 2400 triangles, PBR metallic and roughness maps, origin at base runner level, Y-up.
+
+Prompt 06: Commercial Performance Air Rower (Zone B)
+Dimensions: Length 2.45m, Width 0.62m, Height 0.90m | Origin: Front foot floor contact (Y=0.0m).
+Ludo 3D Prompt:
+
+Commercial indoor air-resistance rowing ergometer, athletic gym conditioning machine, factory-new condition. Extruded black-anodized aluminum monorail with ergonomic molded black foam rolling seat. Front air resistance flywheel housing with perforated stainless steel air damper cage. Sturdy black tubular steel support legs with rubber foot pads. Digital performance monitor on an articulated arm, screen off. Low-poly game asset under 2800 triangles, PBR normal and roughness maps, glTF 2.0, origin at front floor base, Y-up.
+
+Prompt 07: Dual-Action Air Assault Bike (Zone B)
+Dimensions: Length 1.30m, Width 0.60m, Height 1.30m | Origin: Center base on floor (Y=0.0m).
+Ludo 3D Prompt:
+
+Heavy-duty commercial air fan assault bike, high-intensity cardio machine, factory-fresh build. Massive front steel-blade resistance fan enclosed in a clean wire-cage housing. Synchronized dual-action pump handle arms with textured rubber grip sleeves. Textured black vinyl adjustable saddle seat. Heavy steel chassis with broad stabilizer base and front transport wheels. Pristine matte-black powder coat, zero scratches. glTF 2.0 format, 3100 triangle budget, PBR textures, centered floor origin, Y-up.
+
+Prompt 08: Dual-Column Cable Crossover Station (Zone C)
+Dimensions: Width 3.60m, Depth 1.10m, Height 2.35m | Origin: Center base between towers (Y=0.0m).
+Ludo 3D Prompt:
+
+Commercial dual-tower cable crossover machine, selectorized gym strength station, brand-new condition. Two tall vertical steel towers connected by a rigid overhead bridge frame with integrated multi-angle pull-up handles. Twin 100kg weight stacks enclosed behind smoked acrylic protective shields. Chrome vertical slider columns with yellow-handled pop-pin pulley height adjusters and braided aircraft-grade steel cables. Factory-fresh black powder-coat frame. glTF 2.0 asset, 4400 triangles, clean PBR textures, origin at base floor center, Y-up.
+
+Prompt 09: Heavy Wood & Foam Plyometric Box Set (Zone E)
+Dimensions: Length 0.75m, Width 0.60m, Height 0.50m | Origin: Bottom face on floor (Y=0.0m).
+Ludo 3D Prompt:
+
+Commercial 3-in-1 plyometric jump box, athletic training equipment, factory-new condition. High-density EVA foam core encased in heavy-duty matte textured black vinyl shell with clean, heat-sealed seams. Bold stenciled white height markings indicating 20-inch, 24-inch, and 30-inch jump heights. Reinforced corner seams, perfectly square silhouette, zero dents, zero scuffs. glTF 2.0 asset, 1200 triangles, clean PBR normal and roughness maps, origin at base bottom center, Y-up.
+
+Prompt 10: Structural I-Beam Heavy Bag Rack Section (Zone A)
+Dimensions: Width 3.00m, Depth 1.50m, Height 1.40m | Origin: Lower wall mounting plate base (Y=0.0m).
+Ludo 3D Prompt:
+
+Industrial wall-mounted cantilever heavy bag bracket section, boxing gym structural hardware, factory-new build. Horizontal W-section steel I-beam arm in dark charcoal industrial enamel, supported by a 45-degree diagonal square-tube steel brace anchored to thick rectangular wall mounting plates with heavy industrial hex head bolts. Lower flange houses heavy-duty steel trolley clamps and load-rated shackle eyelets. Solid architectural steel construction, zero rust, uniform coating. glTF 2.0 format, 2800 triangles, PBR materials, origin at wall plate base, Y-up.
+
+3. REALISTIC GYM LAYOUT AUDIT & AUTHORITATIVE COORDINATE PLAN
+3.1 What Is Missing, Broken, and In The Wrong Place
+The Ring Placement is Inverted: The competition ring is currently set in the middle of the floor, creating a bottleneck that splits the gym into awkward halves. In an authentic boxing gym, the ring is staged in a dedicated zone (traditionally the rear corner or center back), flanked by an apron for trainers and water buckets.
+Missing Warm-Up/Mobility Transition: Fighters must stretch and wrap hands before hitting heavy bags or sparring. Currently, the glove rack is separated from the wrap benches, and there is no dedicated mat space near the entrance or locker line.
+Missing Coach / Observation Circulation: The central aisle (z = 8.0 to z = 10.0) lacks clear lines of sight. Coaches cannot stand in one spot and survey both sparring and the bag line simultaneously.
+Cardio and Turf Misalignment: Cardio machines (rowers, bikes) are placed right next to free weights, creating collision hazards and noise crossover. The turf track is interrupted by open mats rather than extending cleanly along the east perimeter wall.
+3.2 Corrected 30m × 18m Coordinate Plan
+Axis Orientation:
+$X \in [0.0\text{m}, 30.0\text{m}]$: From West wall ($X=0$) to East wall ($X=30$).
+$Z \in [0.0\text{m}, 18.0\text{m}]$: From North/Back wall ($Z=0$) to South/Street wall ($Z=18$).
+$Y$: Vertical elevation above floor ($Y=0.0\text{m}$ at finished floor slab).
++---------------------------------------------------------------------------------------------------------------------------------+
+| TOP-DOWN MASTER FACILITY ZONING (30.0m x 18.0m)                                                                                 |
+| NORTH / BACK WALL (z = 0.0m)                                                                                                    |
+| 0.0m                    11.5m                           18.5m                                                            30.0m  |
+| ┌─────────────────────────┬───────────────────────────────┬──────────────────────────────────────────────────────────────────┐  |
+| │  ZONE A: BAG RACK LINE  │     ZONE D: SPARRING RING     │               ZONE F: RECOVERY & TACTICAL FILM                   │  |
+| │  (Cantilever I-Beams,   │  (6.5m x 6.5m Championship    │  (Tatami Mats, Ice Baths, Treatment Benches, Chalkboard Desk)    │  |
+| │   Leather Bags, Drums)  │   Elevated Canvas Platform)   │                                                                  │  |
+| ├─────────────────────────┴───────────────────────────────┴──────────────────────────────────────────────────────────────────┤  |
+| │◄────────────────────── PRIMARY ARTERY CORRIDOR (Clear Width 2.40m, z = 7.8m to 10.2m) ────────────────────────────────────►│  |
+| ├─────────────────────────┬───────────────────────────────┬──────────────────────────────────────────────────────────────────┤  |
+| │   ZONE B: CARDIO DECK   │   ZONE C: STRENGTH & POWER    │               ZONE E: TURF & AGILITY TRACK                       │  |
+| │  (Treadmills, Rowers,   │  (Power Cages, Benches, Cable │  (15m Sled Track, Plyo Boxes, Kettlebell Racks)                  │  |
+| │   Assault Bikes)        │   Crossover, Dumbbell Racks)  │                                                                  │  |
+| └─────────────────────────┴───────────────────────────────┴──────────────────────────────────────────────────────────────────┘  |
+| 0.0m                                                                                                                     30.0m  |
+| SOUTH / STREET ENTRANCE WALL (z = 18.0m)                                                                                        |
++---------------------------------------------------------------------------------------------------------------------------------+
+
+=================================================================================================================================
+AUTHORITATIVE GYM EQUIPMENT COORDINATE TABLE (METRIC SYSTEM)
+=================================================================================================================================
+EQUIPMENT IDENTIFIER             X (m)   Z (m)   WIDTH   DEPTH   ROT-Y   SUBSTRATE / MATERIAL              FUNCTION / STATION
+---------------------------------------------------------------------------------------------------------------------------------
+ARCHITECTURAL SHELL & FLOOR SLABS:
+• Slab Zone A (Bag Line)          5.75    3.80   11.50    7.60    0.0°    Vulcanized Rubber / #20242B       Impact noise mitigation
+• Slab Zone D (Ring Apron)       15.00    3.80    7.00    7.60    0.0°    Aged Red Maple / #78350F          Elevated sparring deck
+• Slab Zone F (Recovery Mat)     24.25    3.80   11.50    7.60    0.0°    Slate Vinyl Tatami / #1E293B      Sanitized mobility floor
+• Slab Central Walkway           15.00    9.00   30.00    2.40    0.0°    Polished Concrete / #3F3F46       Unimpeded main artery
+• Slab Zone B (Cardio Deck)       5.75   14.10   11.50    7.80    0.0°    Interlocking Tiles / #2A2E37      Aerobic conditioning
+• Slab Zone C (Strength Bay)     15.00   14.10    7.00    7.80    0.0°    Heavy Drop Rubber / #18181B       Steel weight dampening
+• Slab Zone E (Turf Track)       24.25   14.10   11.50    7.80    0.0°    Directional Turf / #14532D        Sleds & agility drills
+
+ZONE A: SUSPENDED HEAVY BAG LINE (Along North Wall Cantilever, z = 1.50m):
+• Cantilever I-Beam Spine #1      5.75    0.20   11.00    0.30    0.0°    Structural Steel / #1E232A        Overhead bag suspension
+• Heavy Leather Bag 01 (Oxblood)  1.80    1.50    0.45    0.45    0.0°    Oxblood Leather / #5B1D1D         Power hook / bone density
+• Heavy Leather Bag 02 (Oxblood)  3.40    1.50    0.45    0.45    0.0°    Oxblood Leather / #5B1D1D         Power hook / bone density
+• Heavy Leather Bag 03 (Black)    5.00    1.50    0.45    0.45    0.0°    Textured Leather / #18181B        Output volume stamina
+• Heavy Leather Bag 04 (Black)    6.60    1.50    0.45    0.45    0.0°    Textured Leather / #18181B        Output volume stamina
+• Aqua Hydro Bag (Teardrop)       8.20    1.50    0.50    0.50    0.0°    Marine Vinyl / #0284C7            Low-wear wrist drilling
+• Double-End Reflex Bag           9.80    1.50    0.25    0.25    0.0°    Tan Leather / #B45309             Timing & counter-punch
+• Wall Speed Bag Platform         11.00    0.45    0.60    0.75    0.0°    Laminated Birch / #854D0E         Hand speed & shoulder burn
+
+ZONE D: COMPETITION SPARRING RING (Centered at x = 15.00m, z = 3.80m):
+• Ring Elevated Canvas Platform  15.00    3.80    6.50    6.50    0.0°    Bleached Canvas / #E2E8F0         Official 6.5m pro frame
+• Corner Post (Red - Challenger) 12.00    1.00    0.25    0.25    0.0°    Enamel Steel / #DC2626            North-West tension post
+• Corner Post (Blue - Champion)  18.00    6.60    0.25    0.25    0.0°    Enamel Steel / #2563EB            South-East tension post
+• Corner Post (White Neutral A)  18.00    1.00    0.25    0.25    0.0°    Enamel Steel / #F8FAFC            North-East neutral post
+• Corner Post (White Neutral B)  12.00    6.60    0.25    0.25    0.0°    Enamel Steel / #F8FAFC            South-West neutral post
+• Corner Stool (Red)             12.35    1.35    0.35    0.35    0.0°    Vinyl & Chrome / #F8FAFC          60s corner rest seat
+• Corner Stool (Blue)            17.65    6.25    0.35    0.35    0.0°    Vinyl & Chrome / #F8FAFC          60s corner rest seat
+• Access Steel Stairs            15.00    7.15    1.00    0.70    0.0°    Diamond Steel / #52525B           Apron entry steps
+
+ZONE F: RECOVERY & TACTICAL FILM ROOM (North-East Quadrant):
+• Coach Chalkboard & Film Desk   23.00    1.20    2.40    0.90    0.0°    Oak & Chalk / #1C1917             Strategy & tape audit
+• Treatment / Cutman Table       26.80    1.80    2.00    0.80   90.0°    Medical Vinyl / #0284C7           Tissue flush & ice packs
+• Ice Bath Barrel #1             28.80    1.20    0.95    0.95    0.0°    Rotomolded Poly / #0F172A         Cryo fatigue flush
+• Ice Bath Barrel #2             28.80    2.40    0.95    0.95    0.0°    Rotomolded Poly / #0F172A         Cryo fatigue flush
+• Mobility Mat Array (4 Mats)    25.50    5.00    4.20    2.80    0.0°    Slate Tatami / #1E293B            Post-spar cool down
+
+ZONE B: CARDIO TRAINING DECK (South-West Quadrant, z = 11.50m to 17.50m):
+• Curved Treadmill 01             2.20   12.50    0.90    1.95    0.0°    Textured Polymer / #09090B        VO2 max sprint intervals
+• Curved Treadmill 02             3.50   12.50    0.90    1.95    0.0°    Textured Polymer / #09090B        VO2 max sprint intervals
+• Curved Treadmill 03             4.80   12.50    0.90    1.95    0.0°    Textured Polymer / #09090B        VO2 max sprint intervals
+• Concept2 Air Rower 01           2.20   15.50    0.62    2.45    0.0°    Extruded Aluminum / #52525B       Lactic acid clearance
+• Concept2 Air Rower 02           3.50   15.50    0.62    2.45    0.0°    Extruded Aluminum / #52525B       Lactic acid clearance
+• Assault Air Bike 01             6.20   12.50    0.60    1.30    0.0°    Steel & Poly / #18181B            Anaerobic threshold flush
+• Assault Air Bike 02             7.20   12.50    0.60    1.30    0.0°    Steel & Poly / #18181B            Anaerobic threshold flush
+• Jump Rope Stencil Decals (x3)   9.20   14.20    2.
+
+
+==== PART 2 (continue + operator S200: 'ask it also to place each UI item needed') ====
+
+A) CONTINUATION OF THE AUTHORITATIVE GYM EQUIPMENT COORDINATE TABLE
+=================================================================================================================================
+AUTHORITATIVE GYM EQUIPMENT COORDINATE TABLE (CONTINUED)
+X-Axis: 0.0m to 30.0m (West to East) | Z-Axis: 0.0m to 18.0m (North/Back Wall to South/Street Wall) | Floor Elevation: Y=0.0m
+=================================================================================================================================
+EQUIPMENT IDENTIFIER             X (m)   Z (m)   WIDTH   DEPTH   ROT-Y   SUBSTRATE / MATERIAL              FUNCTION / STATION
+---------------------------------------------------------------------------------------------------------------------------------
+ZONE B: CARDIO TRAINING DECK (CONTINUED):
+• Jump Rope Stencil Decals (x3)   9.20   14.20    2.20    4.20    0.0°    Epoxy Floor Stencil / #E2E8F0     Calf conditioning & cadence
+• Cardio Hydration Station        1.20   12.20    0.60    0.60    0.0°    Brushed Steel / #64748B           Rapid fluid replenishment
+• Heart Rate Telemetry Display    5.75   17.70    1.80    0.15  180.0°    Matte Composite / #0F172A         Live squad aerobic monitoring
+
+ZONE C: STRENGTH & POWER BAY (South Center, x = 11.5m to 18.5m, z = 10.5m to 17.8m):
+• Olympic Power Cage 01          13.00   12.50    1.30    1.50  180.0°    Anthracite Steel / #18181B        Compound pressing & squatting
+• Olympic Power Cage 02          17.00   12.50    1.30    1.50  180.0°    Anthracite Steel / #18181B        Compound pressing & squatting
+• Olympic Flat Bench Press       13.00   15.50    1.25    1.45    0.0°    Textured Vinyl / #0F172A          Horizontal press power
+• Dual-Column Cable Crossover    15.00   11.50    3.60    1.10    0.0°    Enamel Steel / #1E232A            Rotational torque & punch cable
+• 3-Tier Dumbbell Saddle Rack    17.00   16.80    2.20    0.75  180.0°    Heavy Steel / #27272A             Auxiliary hypertrophy & scaption
+• Deadlift Drop Platform 01      13.00   14.00    2.40    1.80    0.0°    Hardwood & Rubber / #78350F       Posterior chain explosive drive
+• Deadlift Drop Platform 02      17.00   14.00    2.40    1.80    0.0°    Hardwood & Rubber / #78350F       Posterior chain explosive drive
+• Chalk Basin Tripod Stand       15.00   14.00    0.45    0.45    0.0°    Cast Iron / #18181B               Hand friction maintenance
+• Weight Plate Tree (Bumper)     15.00   16.50    0.75    0.75    0.0°    Black Steel / #3F3F46             Olympic bumper plate staging
+
+ZONE E: TURF & AGILITY TRACK (South-East Quadrant, x = 18.5m to 29.5m, z = 10.5m to 17.8m):
+• High-Density Turf Strip        24.00   14.20   10.00    6.50    0.0°    Polyethylene Turf / #14532D       Sled drives & unweighted sprints
+• Prowler Sled Track Lane A      21.50   14.20    1.20   10.00    0.0°    Marked White Turf / #F8FAFC       Lower body drive overload
+• Prowler Sled Track Lane B      23.50   14.20    1.20   10.00    0.0°    Marked White Turf / #F8FAFC       Lower body drive overload
+• Prowler Heavy Sled Unit A      21.50   11.50    0.85    1.10    0.0°    Coated Carbon Steel / #18181B     Resisted acceleration training
+• Prowler Heavy Sled Unit B      23.50   16.50    0.85    1.10  180.0°    Coated Carbon Steel / #18181B     Resisted acceleration training
+• 3-in-1 Foam Plyo Box 01        26.50   12.50    0.75    0.60    0.0°    Textured PVC / #0F172A            Explosive plantar jump drills
+• 3-in-1 Foam Plyo Box 02        26.50   14.50    0.75    0.60    0.0°    Textured PVC / #0F172A            Explosive plantar jump drills
+• Kettlebell Storage Rack        28.50   12.00    1.80    0.60  270.0°    Industrial Steel / #27272A        Ballistic hip hinge power
+• Heavy Agility Ladder Decal     28.00   15.50    0.60    6.00    0.0°    High-Tac Vinyl / #F59E0B          Footwork lateral speed cadence
+
+CIRCULATION CORRIDORS & TRANSITION ARTERIES:
+• East-West Main Artery          15.00    9.00   30.00    2.40    0.0°    Polished Concrete / #3F3F46       Unimpeded facility highway
+• North-South Ring Spur West     11.00    5.50    1.50    7.00    0.0°    Polished Concrete / #3F3F46       Zone A to Zone D pathway
+• North-South Ring Spur East     19.00    5.50    1.50    7.00    0.0°    Polished Concrete / #3F3F46       Zone F to Zone D pathway
+• South Ingress Walkway          15.00   17.50    2.40    1.00    0.0°    Diamond Plate / #52525B           Entry airlock distribution
+
+WEST PERIMETER: LOCKERS, WRAP BENCHES & SANITARY WARD (x = 0.2m to 2.8m, z = 0.2m to 10.5m):
+• 8-Door Steel Locker Bank 01     0.45    2.20    0.50    1.80   90.0°    Powdercoat Steel / #1E232A        Athlete personal gear storage
+• 8-Door Steel Locker Bank 02     0.45    4.20    0.50    1.80   90.0°    Powdercoat Steel / #1E232A        Athlete personal gear storage
+• Solid Hardwood Wrap Bench 01    1.60    2.20    0.60    2.20   90.0°    Sealed Ash Timber / #A16207       Pre-training hand wrapping
+• Solid Hardwood Wrap Bench 02    1.60    4.20    0.60    2.20   90.0°    Sealed Ash Timber / #A16207       Pre-training hand wrapping
+• Wall Glove Peg Rail (40 Pairs)  0.30    6.20    0.20    3.20   90.0°    Industrial Steel / #475569        Laced glove storage & drying
+• Scale & Weight Gauge Station    2.20    6.20    0.80    0.80    0.0°    Mechanical Balance / #E2E8F0      Daily weigh-in accountability
+• Athlete Restroom Access Door    0.35    8.50    0.15    1.10   90.0°    Reinforced Timber / #334155       Sanitary threshold barrier
+
+SOUTH ENTRANCE & ADMINISTRATIVE RECEPTION (x = 24.5m to 29.5m, z = 16.0m to 17.8m):
+• Street Entry Double Glass Door 27.00   17.90    2.20    0.20    0.0°    Aluminum & Glass / #64748B        Public exterior facility access
+• Commercial Reception Desk      26.50   16.80    2.40    0.90  180.0°    Matte Laminate / #1E232A          Check-in, dues collection, admin
+• Member Biometric Turnstile     28.50   16.80    0.90    0.90    0.0°    Brushed Stainless / #94A3B8       Attendance validation node
+• Executive Coach Desk           23.00   16.80    1.80    0.80  180.0°    Dark Walnut / #451A03             Contract negotiation, scouting
+• Administrative Filing Safe     21.50   17.40    0.75    0.60    0.0°    Reinforced Alloy / #0F172A        Financial ledgers & fight licenses
+=================================================================================================================================
+
+B) CAMERA FRAMING SPECIFICATION: OPTION (A) VS OPTION (B) FOR THE 38% UI DRAWER
+
+When displaying a persistent or contextual side drawer that takes up 38% of horizontal screen width (730px out of 1920px), centering the 3D scene creates severe composition problems: the right-hand slice of the gym is permanently occluded, burying Zone E, Zone F, and the administrative stations under opaque UI.
+
+Option (a): Hall Centered Across the Full Screen (Full Width)
+Camera Parameters:
+Projection: Perspective, Vertical FOV: $44.0^\circ$
+Camera World Position: $X = 15.00,\text{m}$, $Y = 22.40,\text{m}$, $Z = 35.80,\text{m}$
+Camera Rotation (Euler): Pitch: $-36.5^\circ$, Yaw: $0.0^\circ$, Roll: $0.0^\circ$
+Focal Look-At Target: Center of gym floor $(X = 15.00,\text{m}, Y = 0.00,\text{m}, Z = 9.00,\text{m})$
+Frustum Margin: 1.8m clearance past perimeter walls on left and right borders.
+Drawback: When the right drawer slides out, it covers the eastern 38% of the viewport. Players must manually pan left to inspect athletes on the agility turf or review tactical film at the coach's desk.
+Option (b): Asymmetric Framing (Hall Offset into Left 62% Viewport)
+
+To leave the right 38% (730px) clear for UI while framing the entire 30m × 18m facility within the remaining 62% (1190px), the camera must be translated rightwards and its focal target shifted, or Godot's frustum offset feature must be used. In standard perspective, the physical camera is translated and pitched to map the gym's bounding box precisely into the normalized screen coordinates $U \in [0.00, 0.62]$.
+
+Camera Parameters:
+Projection: Perspective, Vertical FOV: $42.0^\circ$
+Camera World Position: $X = 22.25,\text{m}$, $Y = 24.80,\text{m}$, $Z = 38.60,\text{m}$
+Camera Rotation (Euler): Pitch: $-37.2^\circ$, Yaw: $-9.5^\circ$, Roll: $0.0^\circ$
+Focal Look-At Target: Adjusted center of left viewport $(X = 12.80,\text{m}, Y = 0.00,\text{m}, Z = 9.00,\text{m})$
+Alternative Native Godot 4 Frustum Offset Method (Cleaner):
+Keep Camera Position: $X = 15.00,\text{m}$, $Y = 23.50,\text{m}$, $Z = 37.20,\text{m}$
+Pitch: $-36.5^\circ$, Yaw: $0.0^\circ$, Roll: $0.0^\circ$
+Use custom frustum horizontal projection offset: camera.set_frustum_offset(Vector2(-0.38 * viewport_width_half, 0.0))
+Recommendation: Option (b) is strongly recommended.
+Core Justification: In a high-information PC management simulation (like Motorsport Manager or Two Point Campus), the player spends 70% of their operational time interacting with athlete dossiers, training cards, and schedule inspectors. Shifting the camera framing keeps the simulation world fully readable while the player adjusts training protocols, with zero equipment hidden beneath the UI.
+C) AUTHORITATIVE 1920×1080 UI SYSTEM SPECIFICATION
+=================================================================================================================================
+MASTER UI COMPONENT INVENTORY — FIGHTCAMP OPERATING HUD (1920x1080 NATIVE)
+Base Style Guide: Panels: #12161F (High Alpha 0.94) | Borders: #1E293B (1px) | Accent: #D69E2E (Gold) | Error: #EF4444
+Fonts: Chakra Petch (Headers/Readouts) | Inter (Body/Labels) | JetBrains Mono (Data/Timers/Currencies)
+=================================================================================================================================
+#   ITEM NAME               DISPLAY CONTENT                PIXEL RECT (X, Y, W, H)   ANCHOR      FONT & SIZE       HOTKEY TOOLTIP TEXT
+---------------------------------------------------------------------------------------------------------------------------------
+01  Top Time & Date Bar     Day, Week, Clock, Sim Speed    [540, 12, 840, 48]        Top Center  JetBrains Mono 14 Space  "Space: Pause/Resume. Keys 1-3: Speed."
+02  Morning Ticker & Step   Schedule ticker + STEP IN btn  [540, 64, 840, 36]        Top Center  Inter 12 / Chakra 13 Enter  "Advance clock to next scheduled activity."
+03  Left Icon Dock          Build, Move, Repair, Zone modes[16, 120, 56, 420]        Top-Left    Inter 10 / Icons  B, M, R"Open gym facility construction & equipment catalog."
+04  Treasury & Ledger HUD   Liquid cash, run rate, dues    [16, 16, 320, 64]         Top-Left    JetBrains Mono 16 L      "Click to expand financial ledger & dues ledger."
+05  Calendar & Bout Tracker Weeks to bout, opponent avatar [1600, 12, 304, 80]       Top-Right   Chakra Petch 14   C      "Fight night timeline & contract milestones."
+06  Active Fighter Stamina  Name, Stamina bar, Strain bar  [16, 960, 380, 104]       Bottom-Left Chakra 16/Mono 12 P      "Selected athlete bio-status. Click for auto-pause."
+07  Auto-Pause Bell Toggle  Toggle sound on exhaustion     [350, 972, 34, 34]        Bottom-Left Chakra Petch 12   Alt+P  "Toggle automatic sim pause when strain > 80%."
+08  Day Event Action Feed   Rolling log of gym occurrences [410, 960, 480, 104]      Bot-Center  Inter 11 / Mono 11F      "Live gym log: sparring injuries, dues, wear."
+09  Day & Week Goals HUD    3 active operational targets   [16, 560, 240, 160]       Mid-Left    Inter 11 / Chakra 12 G      "Gym objectives & board expectations."
+10  Floor Station Labels    World-projected equipment tags Dynamic Screen-Space      3D Project  Inter 10 Bold     Alt    "Hold ALT to unmask all station load & fatigue rates."
+11  Right Drawer (Profile)  Athlete dossier & cards        [1190, 0, 730, 1080]      Top-Right   Chakra / Inter    Tab    "Toggle Athlete Management & Strategy Dossier."
+12  Station Info Card       Contextual gym station stats   [1190, 720, 730, 360]     Bot-Right   Inter / Mono 12   I      "Equipment condition, active user, wear rate."
+13  Skip-Day Fast Preview   Day-advance risks & schedule   [1190, 840, 730, 240]     Bot-Right   Chakra Petch 14   K      "Fast-forward current training block (Auto-play)."
+14  Last-Spar Decision Card Irreversible tactical choice   [660, 240, 600, 600]      Center      Chakra Petch 16   T      "Select fight-night commitment (Irreversible)."
+---------------------------------------------------------------------------------------------------------------------------------
+PROFESSIONAL ADDITIONS FOR A SHIPPING PC MANAGEMENT SIMULATION (CLASS AUDIT):
+---------------------------------------------------------------------------------------------------------------------------------
+15  Gym Atmosphere & Temp   HVAC temp, humidity, oxygen %  [350, 16, 175, 48]        Top-Left    JetBrains Mono 11 H      "Room climate: affects stamina burn & weight cuts."
+16  Roster Quick-Select Bar Small avatars of all 4 fighters[16, 880, 380, 64]        Bottom-Left Chakra Petch 11   F1-F4  "Quick-switch selected fighter focus."
+17  Zone Efficiency Heatmap Toggles wear, flow & noise maps[16, 500, 56, 44]         Mid-Left    Icons / Inter 9   H      "Toggle heatmaps: Floor Traffic, Audio Decibels."
+18  Sparring Overlay Card   Live punches landed, damage HUD[1190, 100, 730, 600]     Top-Right   Chakra / Mono 13  S      "Sparring metrics: clean blows, head trauma rate."
+=================================================================================================================================
+
+Detailed Drawer State Dynamics (Open vs Closed)
+Item 01 (Time Bar) & Item 02 (Morning Ticker):
+Drawer Closed: Centered at X = 540, spanning 840px.
+Drawer Open: Shifts smoothly via cubic lerp to X = 180, shrinking to width 820px to clear the right drawer.
+Item 05 (Calendar & Bout Tracker):
+Drawer Closed: Fully visible at [1600, 12, 304, 80].
+Drawer Open: Slides left to [870, 12, 304, 80] or pins to the top-right header inside the drawer itself.
+Item 08 (Day Event Feed):
+Drawer Closed: Width spans 480px at X = 410.
+Drawer Open: Clamps width to 380px at X = 410, keeping bottom center readable.
+Item 11 (The Right 38% Drawer Profile):
+Drawer Closed: Positioned at X = 1920 (visible = false, zero processing draw).
+Drawer Open: Interpolates to X = 1190 over 180ms (visible = true). Contains 9 readout cards:
+Fighter Identity & Headshot: Name, age, division, record (28-2-0), morale.
+Dynamic Vitals: Stamina, neurological strain, hydration level, heart rate.
+Interactive Body Paper-Doll: Skeletal wear diagram highlighting wrists, elbows, ribs, and chin integrity.
+Attribute Hexagon: Punch Snap, Footwork, Defensive IQ, Hand Speed, Toughness, Power.
+Active Technique Cards: Currently assigned training drills (e.g., Check Hook Mastery, Philly Shell Drill).
+Weight Cut Progression: Target fight weight, current dry weight, water shed rate per hour.
+Contract & Purse Split: Gym cut %, monthly stipend, manager cut, promotional status.
+Cornerman Loadout: Assigned cutman, head trainer, tactical focus.
+Action Commitment Bar: Direct buttons for "Order Medical Scan", "Assign Sparring Partner", "Open Last-Spar Decision".
+SCREEN WIREFRAME: 1920×1080 (DRAWER CLOSED)
+0000        0200        0400        0600        0800        1000        1200        1400        1600        1800     1920
+0000┌──────────────────┬──────────┬────────────────────────────────────────────────────────┬─────────────────────────┐0000
+    │ [04] TREASURY    │ [15]     │ [01] TIME / DATE / SPEED CONTROLS (Day 14, 10:15 AM)   │ [05] BOUT COUNTDOWN     │
+    │ $42,850  +$1.2k/w│ HVAC 21C │ [02] MORNING TICKER: Danny Reyes on Treadmill [STEP IN]│ Title Fight: 12 Days    │
+0080├──────┬───────────┴──────────┴────────────────────────────────────────────────────────┴─────────────────────────┤0080
+    │ [03] │                                                                                                         │
+    │ DOCK │                                                                                                         │
+    │ ───  │                                                                                                         │
+    │ BLD  │                                                                                                         │
+    │ MOV  │                                                                                                         │
+0240│ REP  │                                                                                                         │0240
+    │ ZONE │                                  3D GYM VIEWPORT (FULL WIDTH)                                           │
+    │ ───  │                                                                                                         │
+    │ [17] │                           [10] Floor Station Labels Floating Over Assets                                │
+0400│ HEAT │                                                                                                         │0400
+    ├──────┤                                                                                                         │
+    │ [09] │                                                                                                         │
+    │ GOAL │                                                                                                         │
+    │ HUD  │                                                                                                         │
+0560│      │                                                                                                         │0560
+    ├──────┘                                                                                                         │
+    │                                                                                                                │
+    │                                                                                                                │
+0720│                                                                                                                │0720
+    │                                                                                                                │
+    │ [16] ROSTER BAR: [F1: Reyes] [F2: Ward] [F3: Alvarez] [F4: Vance]                                              │
+0880├────────────────────────────────────┬─────────────────────────────────────────────────┬─────────────────────────┤0880
+    │ [06] FIGHTER STATUS: REYES         │ [08] DAY EVENT FEED                             │ (EMPTY 3D VIEWPORT)     │
+    │ STAMINA: [████████████░░] 74%      │ 09:45 Danny Reyes began VO2 Max Interval        │                         │
+1000│ STRAIN:  [████░░░░░░░░░░] 28% [07] │ 10:02 Cable Crossover pulley cable worn to 42%   │ [TAB: OPEN PROFILE] ──► │
+1080└────────────────────────────────────┴─────────────────────────────────────────────────┴─────────────────────────┘1080
+0000        0200        0400        0600        0800        1000        1200        1400        1600        1800     1920
+
+SCREEN WIREFRAME: 1920×1080 (DRAWER OPEN - LEFT 62% WORLD / RIGHT 38% UI)
+0000        0200        0400        0600        0800        1000        1190        1400        1600        1800     1920
+0000┌──────────────────┬───────────────────────────────────────────┬───┬─────────────────────────────────────────┐0000
+    │ [04] TREASURY    │ [01] TIME / SPEED [05] BOUT: 12 DAYS      │ X │ [11] FIGHTER PROFILE: DANNY REYES       │
+    │ $42,850          │ [02] TICKER: Reyes on Treadmill [STEP IN] │   │ Division: Welterweight (147 lbs)       │
+0080├──────┬───────────┴───────────────────────────────────────────┤   ├─────────────────────────────────────────┤0080
+    │ [03] │                                                       │   │ CARD 1: BIO & ATTRIBUTES                │
+    │ DOCK │                                                       │   │ Record: 18-1-0 (14 KO)   Morale: High   │
+    │ ───  │                                                       │   │ Snap: 84 | Def IQ: 72 | Power: 88       │
+    │ BLD  │                                                       │   ├─────────────────────────────────────────┤
+0240│ MOV  │                                                       │   │ CARD 2: REAL-TIME VITALS                │0240
+    │ REP  │                                                       │   │ Stamina: 74%       Neurological: 12%    │
+    │ ZONE │             3D GYM VIEWPORT (LEFT 62%)                │ D │ Hydration: 92%     Resting HR: 54 bpm   │
+    │ ───  │                                                       │ R ├─────────────────────────────────────────┤
+0400│ [17] │         All 3D assets, equipment, and characters      │ A │ CARD 3: TISSUE WEAR & PAPER-DOLL        │0400
+    │ HEAT │         remain fully visible without occlusion.       │ W │ [R.Wrist: 14%]  [L.Elbow: 4%]           │
+    ├──────┤                                                       │ E │ [Head Trauma: 8%] [Ribs: Nominal]       │
+    │ [09] │                                                       │ R ├─────────────────────────────────────────┤
+0560│ GOALS│                                                       │   │ CARD 4: WEIGHT CUT TRACKER              │0560
+    ├──────┘                                                       │ 3 │ Current: 152.2 lbs | Limit: 147.0 lbs   │
+    │                                                              │ 8 │ Water Shed Required: -5.2 lbs           │
+    │                                                              │ % ├─────────────────────────────────────────┤
+0720│                                                              │   │ CARD 5: ACTIVE DRILL CARDS              │0720
+    │                                                              │ W │ [Slot 1: Slip-Counter Hook (Tier 3)]    │
+    │ [16] ROSTER QUICK-SELECT: [F1] [F2] [F3] [F4]                │ I │ [Slot 2: High-Altitude Conditioning]    │
+0880├───────────────────────────────┬──────────────────────────────┤ D ├─────────────────────────────────────────┤0880
+    │ [06] FIGHTER STATUS: REYES    │ [08] DAY EVENT FEED          │ T │ CARD 6: ACTIONS & COMMITMENTS           │
+    │ STAMINA: [████████░░] 74%     │ 09:45 Reyes on Treadmill     │ H │ [ORDER MRI SCAN ($450)]                 │
+1000│ STRAIN:  [████░░░░░░] 28% [07]│ 10:02 Cable wear: 42%        │   │ [ENTER LAST-SPAR DECISION]              │
+1080└───────────────────────────────┴──────────────────────────────┴───┴─────────────────────────────────────────┘1080
+0000        0200        0400        0600        0800        1000        1190        1400        1600        1800     1920
+
+D) VERBATIM RESPONSES TO FOLLOW-UP SPECIFICATIONS
+1. Can you continue from Section 4 with the full Ludo 3D fighter model pipeline, animation requirements, and Godot integration details?
+The Fighter Model Pipeline
+
+Because Ludo's 3D asset generation produces unrigged, static polygonal geometry without vertex groups, armature nodes, or quad topology, the fighter production pipeline must run through a standardized, headless transformation pipeline before loading into Godot:
+
++---------------------------------------------------------------------------------------------------+
+| FIGHTER ASSET PRODUCTION & ENGINE INTEGRATION PIPELINE                                            |
++---------------------------------------------------------------------------------------------------+
+| 1. High-Poly Reference Generation (Ludo.ai / Concept Mesh)                                        |
+|    • Clean A-Pose humanoid mesh generated via prompt with isolated gray neutral background.       |
+|    • Format: glTF 2.0 binary (.glb). Output: Single continuous triangle manifold mesh.             |
+|                                                                                                   |
+| 2. Automated Retopology & UV Repacking (Blender Python CLI Subprocess)                            |
+|    • Remesh to 18,500 quads (LOD0) preserving facial boundary edge loops and joint bend rings.     |
+|    • UV unwrap into 2 UDIM tiles: Tile 1001 (Head, Torso, Arms), Tile 1002 (Trunks, Boots, Gloves)|
+|                                                                                                   |
+| 3. Skeletal Binding & Auto-Rigging (Rigify / Standard Humanoid Mapping)                           |
+|    • Armature Structure: 64 deformation bones based on Godot 4 Humanoid BoneMap naming.           |
+|    • 4 Spine bones, 2 Neck/Head bones, 3 Clavicle/Arm bones per side, 5 Finger bones per glove.   |
+|    • Joint twist bones: Two forearm roll bones, two thigh roll bones (eliminates mesh pinch).     |
+|                                                                                                   |
+| 4. Weight Painting & Soft Tissue Constraints                                                      |
+|    • Bone weights normalized: Max 4 bone weights per vertex for high-performance mobile/PC compute.|
+|    • Vertex group masking for glove swapouts, facial expression blendshapes, and blood decals.    |
+|                                                                                                   |
+| 5. Engine Ingestion: Godot 4.7.2 Forward+ Profile                                                 |
+|    • Exported as .glb with embedded skin weights and Humanoid BoneMap profile.                    |
+|    • Auto-imported into Godot as an Inherited Scene containing `Skeleton3D` and `MeshInstance3D`. |
++---------------------------------------------------------------------------------------------------+
+
+Animation Requirements & Inertialization Tree
+
+To eliminate blending kinks and foot skating in Godot 4.7.2, animations must never rely on simple linear cross-fades between disparate velocity clips.
+
++---------------------------------------------------------------------------------------------------+
+| GODOT 4.7.2 ANIMATION TREE ARCHITECTURE (Inertial Blending & IK Pinning)                         |
++---------------------------------------------------------------------------------------------------+
+|                                                                                                   |
+|  [AnimationNodeStateMachine]                                                                      |
+|  ├── State: IDLE_ORTHODOX  (Base combat stance, rhythmic micro-bounce)                            |
+|  ├── State: STEP_JAB       (Root motion forward displacement: +0.45m/s)                           |
+|  ├── State: CROSS_PUNCH    (Torso rotation twist, pivot on rear metatarsal)                       |
+|  └── State: SLIP_RIGHT     (Head displacement: -0.18m lateral, shoulder roll)                     |
+|           │                                                                                       |
+|           ▼                                                                                       |
+|  [Inertialization Node] (Godot 4.7.2 Custom Smooth Transition Node)                               |
+|  • Tracks bone velocities and angular accelerations on the frame of transition.                   |
+|  • Applies an analytical polynomial decay curve to bridge discontinuities in < 80ms.              |
+|           │                                                                                       |
+|           ▼                                                                                       |
+|  [Two-Bone IK Foot Lock Layer (SkeletonIK3D)]                                                     |
+|  • Tracks custom float curve: `lead_foot_plant` and `rear_foot_plant` (Values: 0.0 to 1.0).       |
+|  • When plant_curve > 0.5: Raycasts to canvas floor, locks foot bone transform to surface.       |
+|  • Completely eliminates visual foot sliding and mat skating.                                     |
+|           │                                                                                       |
+|           ▼                                                                                       |
+|  [Dynamic Guard Collision Clamp (GDScript Constraint)]                                            |
+|  • Monitors distance between LeftHand bone and Head bone.                                         |
+|  • Clamps minimum separation distance to 0.185m to prevent glove-to-skull interpenetration.       |
++---------------------------------------------------------------------------------------------------+
+
+2. Can you provide
+Can you continue the coordinate table without truncation and place every remaining gym station in our x/z coordinates?
+Can you provide exact Godot camera transforms for full-width and 62%-left hall framing, including pitch, yaw, FOV, and target point?
+Can you create a 1920×1080 annotated wireframe showing the closed and open UI drawer layouts over the gym overview?
+Can you list every missing shipping-quality management UI element and place each one precisely on the screen?

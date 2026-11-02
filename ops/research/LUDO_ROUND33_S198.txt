@@ -1,0 +1,1077 @@
+﻿LUDO ROUND 33 (S198, 2026-10-11) - asked in Ask Ludo chat 'Gym Management Screen' (prompt: LUDO_ROUND33_PROMPT_S198.txt, 6,224 chars, 1 still attached: gym_look2_s198b/02_mid.jpg). PART 1 reply = 27725 chars (Ludo stopped on his own mid SECTION 2 item 5, no CONTINUE marker). Verbatim:
+
+
+FIGHTCAMP — PRODUCTION SPECIFICATION & ENGINE INTEGRATION AUDIT
+
+Engine: Godot 4.7.2 Forward+ | Target Resolution: 1920×1080 (1:1 UI Pixel Scale) | Platform: PC (Steam, Mouse + Keyboard) | Document Status: Build-Ready Engineering Spec
+
+SECTION 1 — THE GYM ON THE GAME CAMERA: ART DIRECTION & SCENE AUDIT
+
+Based on the inspection of your active build capture (Godot 4.7.2 Forward+ overhead render), the scene successfully establishes the foundational spatial footprint and material zoning. However, it currently reads as an early engine blockout rather than a shipping $19.99 PC simulation.
+
+Below is the definitive art-direction breakdown to transition this scene into a polished, tactile product.
+
++--------------------------------------------------------------------------------------------------+
+| CAMERA FRUSTUM & BOUNDS SCHEMATIC (30m x 18m HALL)                                              |
+|                                                                                                  |
+| [WALL NORTH: z = 0.0m] ────────────────────────────────────────────────────────┐                 |
+| │  [ZONE D: RING] (Center: x=15.0m, z=4.5m)                                     │ [WALL EAST]     |
+| │  [ZONE A: BAGS] (x=1.5m to 11.5m, z=1.5m to 5.5m)                             │ (x = 30.0m)     |
+| │  [ZONE F: MATS] (x=18.5m to 28.5m, z=1.5m to 5.5m)                            │                 |
+| │                                                                               │                 |
+| │  ── PRIMARY CIRCULATION ARTERY (Width 2.2m, z = 7.0m to 9.2m) ─────────────── │                 |
+| │                                                                               │                 |
+| │  [ZONE B: CARDIO]    [ZONE C: WEIGHTS]    [ZONE E: TURF / SLEDS]              │                 |
+| │  (x=1.5m to 10.5m)   (x=11.5m to 20.5m)   (x=21.5m to 28.5m)                  │                 |
+| │  (z=9.5m to 16.5m)   (z=9.5m to 16.5m)    (z=9.5m to 16.5m)                   │                 |
+| [WALL SOUTH: z = 18.0m] ────────────────────────────────────────────────────────┘                 |
+|                                                                                                  |
+| CAMERA RIG: Position (x=15.0m, y=14.2m, z=28.5m) -> Look-At (x=15.0m, y=0.8m, z=8.5m)           |
++--------------------------------------------------------------------------------------------------+
+
+1.1 The 10 Biggest "Prototype" Tells & Exact Engine Fixes
+1. Wall Tops, Cutaway Shells, and Light Leaks (Rank 1 — Critical)
+The Issue: The perimeter walls are razor-thin, single-plane cutouts ending abruptly in naked flat tops. Pure key light spills straight over the edges into the interior floor, breaking the feeling of an enclosed industrial warehouse.
+The Exact Fix:
+Extrude all perimeter walls to a real architectural thickness of 0.45m.
+Cap all exposed cutaway tops with a dark structural steel beam profile: Albedo #1E232A, Roughness 0.45, Metallic 0.85.
+Add an unrendered exterior ceiling geometry (cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_SHADOWS_ONLY) with cutouts matching the skylights. This preserves the cool skylight shafts while blocking unnatural omnidirectional ambient bleeding over the wall rims.
+2. The Untextured Pale Floor Slabs (Rank 2 — High)
+The Issue: The yellow/tan zones across the central floor read as raw untextured default placeholder materials with flat roughness and no micro-detail, making up over 40% of the visible viewport.
+The Exact Fix:
+Replace with proper composite multi-material assignments:
+Heavy Duty Vulcanized Rubber (Bags/Weights): Albedo #20242B, Roughness 0.72, Metallic 0.02, Normal map with 2mm pebble-grain texture (Tiling: Vector2(60, 60)).
+Functional Sled Turf: Albedo #14532D, Roughness 0.88, Metallic 0.00, Height/Normal map with directional fiber nap. Add painted polyurethane white yardlines at 1.0m intervals: Albedo #E2E8F0, Roughness 0.55.
+High-Impact Cardio Flooring: Albedo #2A2E37, Roughness 0.65, Metallic 0.05, featuring interlocking mat seam normals (500mm × 500mm square tiles).
+3. Ring Canvas & Apron Materiality (Rank 3 — High)
+The Issue: The boxing ring appears as a flat white geometric box with thin wire ropes and zero textural response. It fails to convey the weight and history of a gritty boxing gym.
+The Exact Fix:
+Canvas Mat: Albedo #C5CAD1, Roughness 0.86, Metallic 0.00. Apply a detail normal map of heavy 18oz woven duck canvas. Add a subtle center-ring circular logo decal (5.0m diameter) faded to 0.42 alpha to simulate footwork abrasion.
+Ring Apron (Skirt): Albedo #0F172A, Roughness 0.70, Metallic 0.00, with vertical fold displacement wrinkles.
+Ropes (4-Rope Configuration): Thickness 45mm. Rope 1 & 3: High-gloss vinyl wrap #DC2626 (Roughness 0.28). Rope 2 & 4: Deep blue #1D4ED8 (Roughness 0.28).
+Corner Turnbuckles: Pad covers in heavy vinyl (#FFFFFF on neutrals, #DC2626 on Red, #1D4ED8 on Blue). Expose the threaded steel tensioners behind the pads: Albedo #71717A, Roughness 0.22, Metallic 0.92.
+4. The Floor-to-Wall Intersection Junctions (Rank 4 — Medium-High)
+The Issue: Walls meet the rubber and concrete floors at razor-sharp, zero-radius 90-degree mathematical angles with no baseboards, expansion joints, or dirt build-up, exposing the scene as a digital construct.
+The Exact Fix:
+Add a continuous perimeter cove base molding (0.10m height, 0.025m depth): Albedo #18181B, Roughness 0.80, Metallic 0.00.
+In the Godot WorldEnvironment settings, tune SSAO to ground these corners:
+ssao_radius = 1.45
+ssao_intensity = 3.2
+ssao_power = 1.8
+ssao_detail = 0.85
+ssao_horizon = 0.12
+
+Place a decal strip along the base of the brick walls adding subtle plaster flaking, dust settle, and moisture staining (Roughness 0.95, Albedo modulation #3E2723 at 0.35 opacity).
+5. Uniform Lighting Contrast & Specular Deadness (Rank 5 — Medium-High)
+The Issue: The lighting setup produces an overly uniform exposure. The floor lacks rich specular highlights, giving the entire facility a flat, matte appearance.
+The Exact Fix:
+ACES Tonemapper Adjustment: Set tonemap_exposure = 1.25, tonemap_white = 5.2.
+Key Skylights (5600K): Increase energy from 2.4 to 3.6. Enable shadow_blur = 1.5 on the Directional/Omni sources to soften penumbras.
+Brick Grazers (4x Warm 2400K SpotLights on North Brick Wall):
+Position: y = 4.2m, z = 0.3m, pointed down at -75° pitch.
+Light Energy: 4.5, Range: 6.0m, Spot Angle: 42°, Attenuation: 1.85.
+This creates striking downward triangular light pools across the red brick (#7A3D31), breaking horizontal monotony.
+Floor Wet-Look/Sweat Puddles: Scatter 8–12 local roughness decals across the bag line and treadmill exits (Roughness override: 0.08, Albedo: Color(1, 1, 1, 0.05)). This yields crisp specular reflections from the overhead fills.
+6. Missing Structural Ceiling Trusses & Light Fixtures (Rank 6 — Medium)
+The Issue: The player looks down into an open-topped box. There are no overhead industrial elements visible, making the camera feel detached from the game world.
+The Exact Fix:
+Construct 4 structural open-web steel joists (trusses) running north-to-south across the ceiling span at x = 4.5m, 11.5m, 18.5m, 25.5m, positioned at height y = 6.2m.
+Material: Oxidized structural steel: Albedo #262626, Roughness 0.52, Metallic 0.80.
+Hang 8 industrial high-bay LED UFO light fixtures from these trusses via thin steel cables (y = 5.4m). Add an emissive surface to the fixture lenses: Albedo #FFFFFF, Emission Energy: 8.0, Emission Color: #E2E8F0 (5000K).
+Camera Culling: Tag these trusses and lights with a custom visual layer, or use a clipping distance/fade shader so they don't obstruct the camera when zooming in.
+7. Wall Paint, Signage, and Decal Layering (Rank 7 — Medium)
+The Issue: The blue racing stripe on the north wall is a flat, uniform strip of color. The painted text labels on the floor are clean vector stamps that look like UI pasted onto the 3D geometry.
+The Exact Fix:
+Blue Wall Stripe (#1D4ED8): Break up the solid color with an alpha-tested scratch/scuff mask. Add impact marks and chipped paint where athletes and equipment lean against the wall.
+Floor Zone Stencils: Lower decal opacity to 0.72. Add a grunge/wear mask that chips the letters along the expansion seams of the rubber mats.
+Posters & Visual Interest: Add 6 vintage boxing lithographs (1.2m × 1.8m) on the brick wall:
+Poster paper material: Roughness 0.88, with subtle corner peeling modeled via 4-vertex bent geometry.
+Include regulatory notices: "NO SPARRING WITHOUT HEADGEAR", "AMATEUR LICENSING MEDICAL REQUIREMENTS", "CLEAN YOUR EQUIPMENT".
+8. Equipment Rigidity & Micro-Offsets (Rank 8 — Medium-Low)
+The Issue: The equipment is aligned on a rigid, sterile grid. Every heavy bag hangs dead still at the exact same rotation, creating an artificial, lifeless atmosphere.
+The Exact Fix:
+Introduce micro-rotations on all floor props (Y-axis jitter between -4.0° and +4.5°).
+Heavy Bags (Idle Physics): Give each bag a subtle, asynchronous idle sway:
+# Heavy bag idle animation script (Procedural)
+func _process(delta: float) -> void:
+    var sway_time: float = Time.get_ticks_msec() * 0.001 + bag_seed_offset
+    bag_pivot.rotation.x = sin(sway_time * 0.8) * 0.012
+    bag_pivot.rotation.z = cos(sway_time * 0.65) * 0.009
+
+Hang bags at slightly varying heights (offsets of 0.04m to 0.08m) using distinct steel chain links (#52525B, Roughness 0.25, Metallic 0.90).
+9. Human Presence, Clutter, and Scale Anchorage (Rank 9 — Medium-Low)
+The Issue: Outside of the active fighter on the treadmill, the facility feels abandoned. There are no personal effects or indicators of human activity.
+The Exact Fix:
+Gym Bags & Footwear: Place 6 unzipped gym duffel bags (#C2410C, #1E3A8A, #18181B) on benches and floor corners with tape rolls, water bottles, and boxing shoes poking out.
+Towels: Hang 4 dirty gym towels over the ring ropes and bag crossbars using cloth-drape meshes: Albedo #F1F5F9, Roughness 0.92.
+Chalk Stations: Place 2 steel chalk stands near the bag line and strength racks. Scatter white powder foot-scuff decals (#F8FAFC, alpha 0.45) within a 2.0m radius on the rubber floor.
+10. The UI Floor Anchor / In-World Nameplates (Rank 10 — Low-Polished)
+The Issue: The player nameplate ("DANNY REYES") sits in the top-left corner of the viewport like a debug UI element, disconnected from the spatial tracking of the 3D athlete.
+The Exact Fix:
+Retain the screen-space corner card for deep management telemetry, but anchor an In-World Tactical Ring beneath the active fighter's feet:
+Diameter: 1.1m, Line thickness: 3px, Color: Gym Gold #D69E2E.
+Integrate a subtle, dynamic arc meter into the ring indicating Current Station Stamina (0–100%).
+Anchor a clean 3D billboard tag 2.15m above the fighter's head: Name in Chakra Petch Bold 11px, with a compact state badge (e.g., [DRILLING: JAB] in JetBrains Mono). Fade this element to zero opacity when zooming all the way out to keep the management view clean.
+1.2 The Definitive Camera Specification for a 30m × 18m Hall
+
+To balance high-level facility management with close-up training inspections, FightCamp uses a constrained, smooth-interpolating stepped isometric camera system.
+
+===================================================================================================
+CAMERA RIG SPECIFICATION: 3-STOP STEPPED ORTHO-PERSPECTIVE
+===================================================================================================
+Camera Mode: Perspective (Low-FOV to minimize perspective distortion on floor grids)
+Camera Rig Origin: Gimbal Node centered at (x=15.0m, y=0.0m, z=9.0m)
+Rotation Constraints: Pitch locked between -32.0° and -48.0°, Yaw locked to 0.0° (True North)
+
+STOP LEVEL         WORLD POS (X, Y, Z)          LOOK-AT (X, Y, Z)           FOV    PITCH    PURPOSE
+---------------------------------------------------------------------------------------------------
+STOP 1: OVERVIEW   (15.0m, 16.5m, 26.2m)       (15.0m, 0.4m, 8.5m)         38.0°  -36.5°   Full-gym master view.
+(Default Sim Mode)                                                                           Shows all 6 zones and ring.
+                                                                                            Right 38% UI drawer clear.
+
+STOP 2: TACTICAL   (15.0m, 9.2m, 18.4m)        (Target_X, 0.8m, Target_Z)  42.0°  -32.0°   Focus on single zone.
+(Mid-Zoom / Zone)                                                                            Pads, Bag Line, or Ring.
+
+STOP 3: ATHLETE    (Fighter_X, 3.2m, Z+4.2m)   (Fighter_X, 1.4m, Fighter_Z)54.0°  -22.0°   Close inspection.
+(Macro / Inspect)                                                                            Reads sweat, muscle wear,
+                                                                                            and exact punch mechanics.
+===================================================================================================
+
+# Complete Camera Controller Implementation (Godot 4.7.2 Forward+)
+class_name GymCameraController extends Node3D
+
+@export var pan_speed: float = 18.0
+@export var zoom_smoothness: float = 8.5
+@export var hall_bounds_min: Vector2 = Vector2(4.0, 3.0)   # X, Z min in metres
+@export var hall_bounds_max: Vector2 = Vector2(26.0, 15.0) # X, Z max in metres
+
+var current_stop: int = 1 # 0: Overview, 1: Tactical, 2: Athlete
+var target_zoom_y: float = 16.5
+var target_zoom_z: float = 26.2
+var target_pitch: float = -36.5
+var target_fov: float = 38.0
+
+@onready var camera: Camera3D = $Camera3D
+
+func _unhandled_input(event: InputEvent) -> void:
+    if event.is_action_pressed("camera_zoom_in"):
+        step_zoom(-1)
+    elif event.is_action_pressed("camera_zoom_out"):
+        step_zoom(1)
+
+func step_zoom(direction: int) -> void:
+    current_stop = clampi(current_stop + direction, 0, 2)
+    match current_stop:
+        0: # Overview
+            target_zoom_y = 16.5
+            target_zoom_z = 26.2
+            target_pitch = -36.5
+            target_fov = 38.0
+        1: # Tactical Zone
+            target_zoom_y = 9.2
+            target_zoom_z = 18.4
+            target_pitch = -32.0
+            target_fov = 42.0
+        2: # Athlete Inspect
+            target_zoom_y = 3.2
+            target_zoom_z = 7.5
+            target_pitch = -22.0
+            target_fov = 54.0
+
+func _process(delta: float) -> void:
+    # Smooth zoom interpolation
+    camera.position.y = lerpf(camera.position.y, target_zoom_y, delta * zoom_smoothness)
+    camera.position.z = lerpf(camera.position.z, target_zoom_z, delta * zoom_smoothness)
+    camera.rotation_degrees.x = lerpf(camera.rotation_degrees.x, target_pitch, delta * zoom_smoothness)
+    camera.fov = lerpf(camera.fov, target_fov, delta * zoom_smoothness)
+    
+    # Edge panning (only permitted in Stop 1 and Stop 2)
+    if current_stop != 0:
+        var pan_input: Vector2 = Input.get_vector("pan_left", "pan_right", "pan_up", "pan_down")
+        position.x = clampf(position.x + pan_input.x * pan_speed * delta, hall_bounds_min.x, hall_bounds_max.x)
+        position.z = clampf(position.z + pan_input.y * pan_speed * delta, hall_bounds_min.y, hall_bounds_max.y)
+    else:
+        # Snap back to center hall on overview
+        position.x = lerpf(position.x, 15.0, delta * 4.0)
+        position.z = lerpf(position.z, 9.0, delta * 4.0)
+
+1.3 The Void Outside the Building: Environmental Framing
+
+Leaving the exterior background as pure black #000000 creates a sterile "diorama" aesthetic that shatters immersion. The gym should feel firmly rooted in a living industrial district.
+
++--------------------------------------------------------------------------------------------------+
+| EXTERIOR ENVIRONMENT COMPOSITION (OUTSIDE THE 30m x 18m PERIMETER)                              |
+|                                                                                                  |
+| [NORTH / WEST BACKDROP: ANVIL STREET INDUSTRIAL YARD]                                            |
+|                                                                                                  |
+| 1. The Brick Alleyway (3.5m width along North and East walls):                                   |
+|    • Wet asphalt road bed (#1A1D20, Roughness 0.22, Metallic 0.05).                              |
+|    • Concrete sidewalk curb (#4B5563) with fallen autumn leaves and rain puddles.                |
+|    • Chain-link security fence (Height: 2.8m, Galvanized steel mesh #64748B, Metallic 0.90).     |
+|                                                                                                  |
+| 2. Architectural Silhouettes (Low-Poly Skybox Shells, 15m to 40m distance):                      |
+|    • Red-brick industrial tenements and Victorian warehouses (#3E2723, desaturated).             |
+|    • Steel fire escapes, corrugated metal lean-tos, and HVAC ducting towers.                     |
+|                                                                                                  |
+| 3. Dynamic City Props:                                                                           |
+|    • Parked delivery van (White, matte, mud-splattered lower panels).                           |
+|    • 2 Heavy industrial green dumpsters (#14532D) overflowing with cardboard scrap.              |
+|    • Commercial roll-up loading bay door on East wall (Weathered corrugated steel #374151).      |
+|                                                                                                  |
+| 4. Exterior Atmospheric Lighting:                                                                |
+|    • Street sodium-vapor lamp (2100K Warm Orange) casting long, moody raking light               |
+|      through the North alleyway windows.                                                         |
+|    • Godot Ambient Environment background set to deep twilight blue: #0A0E17.                    |
++--------------------------------------------------------------------------------------------------+
+
+1.4 High-Priority Equipment Assets & Rendering Budgets
+
+For a PC management simulation targeting 60+ FPS in Godot 4.7 Forward+ with up to 50 concurrent agents on the floor, detailed sub-division meshes must be replaced with efficient, clean low-poly models featuring high-quality baked normal maps.
+
+Rank  Asset Name                  Tri Budget  LOD1 Tris  Texture Res   Material Channels               Screen Time / Importance
+---------------------------------------------------------------------------------------------------------------------------------
+01    Heavy Leather Bag (Chained) 2,400       650        2048×2048     Albedo, Normal, Rough/Metal      Continuous / Primary Focus
+02    Standard Boxing Ring (Total)8,500       2,800      4096×4096     Albedo, Normal, Rough, Decal-AO  Continuous / Main Stage
+03    Commercial Treadmill        3,200       850        2048×2048     Albedo, Normal, Rough/Metal, EmisContinuous / Core Cardio
+04    Focus Mitts (Coach Pair)    1,800       450        1024×1024     Albedo, Normal, Roughness        Continuous / Center Stage
+05    Speed Bag & Rebound Board   2,200       600        1024×1024     Albedo, Normal, Rough/Metal      Continuous / Bag Line
+06    Power Rack / Pull-up Frame  3,800       1,100      2048×2048     Albedo, Normal, Rough/Metal      High / Strength Bay
+07    Steel Prowler Sled + Plates 2,600       750        1024×1024     Albedo, Normal, Rough/Metal      High / Turf Track
+08    Olympic Flat Bench & Bar    2,100       550        1024×1024     Albedo, Normal, Rough/Metal      High / Strength Bay
+09    Concept2-Style Rower        2,800       800        2048×2048     Albedo, Normal, Rough/Metal      Medium / Cardio Bay
+10    Cast Iron Dumbbell Rack     2,400       700        1024×1024     Albedo, Normal, Rough/Metal      Medium / Free Weights
+11    Foam Roller & Recovery Mat  850         220        1024×1024     Albedo, Normal, Roughness        Medium / Stretch Mat
+12    Double-End Reflex Bag       1,600       400        1024×1024     Albedo, Normal, Rough/Metal      Medium / Bag Line
+13    Corner Stool (Wood/Steel)   950         250        512×512       Albedo, Normal, Roughness        High (Fight Night / Spar)
+14    Steel Chalk Bowl Stand      1,200       320        512×512       Albedo, Normal, Rough/Metal      Medium / Atmospheric
+15    Wall Locker Bank (8-Door)   2,200       600        1024×1024     Albedo, Normal, Rough/Metal      Medium / Perimeter
+
+SECTION 2 — HEADERS ON SCREEN WITH NO MECHANIC BEHIND THEM
+
+Below are the 11 audited non-functional UI headers from your build. For each, we specify the concrete mathematical design and engine mechanics required to bring them online—or a direct recommendation to strike them from the interface.
+
+Header 1: "NO TREE FOR THIS DISCIPLINE YET" (Training / Skills Tab)
+The Issue: The player selects a discipline (e.g., Clinch Wrestling, Southpaw Infighting, Shell Defense), but encounters a dead-end placeholder header because no tree structure is defined.
+Recommendation: DO NOT REMOVE. ACTIVATE THE TIERED CARD CATALOGUE TREE.
+The Mechanic:
+Disciplines in FightCamp should not use traditional branching RPG fantasy trees. Instead, they operate as a Prerequisite Tech-Matrix containing 4 evolutionary tiers.
+Inputs: Fighter's primary attribute levels (e.g., Technique, Footwork, Ring IQ) and total drill hours logged in the discipline.
+Formula: $$\text{Tier Unlock Score} = (\text{Technique} \times 0.40) + (\text{Ring IQ} \times 0.35) + (\text{Discipline Drill Hours} \times 0.25)$$
+Tier 1 (Fundamentals): Unlock Score $\ge 20$ (Requires 0 hours).
+Tier 2 (Advanced Chains): Unlock Score $\ge 45$ (Requires 15 hours).
+Tier 3 (Master Counters): Unlock Score $\ge 70$ (Requires 40 hours).
+Tier 4 (Signature Exploits): Unlock Score $\ge 88$ (Requires 80 hours + 1 Pro Bout Win using Tier 3).
+Player Decisions: The coach commits weekly drill slots to a specific node on the tree (e.g., unlocking the Philly Shell Cross-Counter requires mastering Lead Shoulder Roll to Tier 3 first).
+On-Screen UI Implementation: Replace the empty header with a horizontal node chain (4 nodes, 110px × 64px each, joined by golden conduits). Locked nodes display exact requirements in JetBrains Mono: REQ: RING IQ 65 | TECH 50 | 12.5 hrs DRILL REMAINING.
+Header 2: "HOW DEVELOPMENT WORKS" (Fighter Card)
+The Issue: A static, generic paragraph explaining progression that clutters the UI and provides no dynamic gameplay value.
+Recommendation: REMOVE STATIC TEXT. REPLACE WITH DYNAMIC "DEVELOPMENT TRAJECTORY RADAR".
+The Mechanic:
+Replace the text block with an active predictive telemetry module tracking age, physical prime curves, and development efficiency.
+Inputs: Fighter Age ($A$), Biological Prime Peak ($P_{\text{peak}}$, default 26.5 years), Accumulated Career Wear ($W_{\text{total}}$, 0.0–1.0), Gym Coaching Efficiency ($\mu_{\text{coach}}$).
+Development Multiplier Formula: $$M_{\text{dev}} = \begin{cases} 1.0 + \left(\frac{P_{\text{peak}} - A}{10}\right) \times \mu_{\text{coach}} & \text{if } A < P_{\text{peak}} \ 1.0 - \left(\frac{A - P_{\text{peak}}}{6}\right) - (W_{\text{total}} \times 0.65) & \text{if } A \ge P_{\text{peak}} \end{cases}$$
+On-Screen UI Implementation:
+Header reads: DEVELOPMENT TRAJECTORY: [GROWTH PHASE / PRIME PEAK / AGE DECLINE].
+Visual element: A sleek line graph (220px × 56px) showing the athlete's projected attribute trajectory over the next 36 months, factoring in current training volume and wear accumulation.
+Header 3: "MMA TRANSITION — A SECOND ART BECOMES A COMPLETE GAME"
+The Issue: A forward-looking placeholder for the planned MMA expansion that confuses players in a pure boxing Early Access launch.
+Recommendation: REMOVE FOR STEAM EARLY ACCESS LAUNCH. RE-ENABLE IN UPDATE 1.2.
+Why: Displaying an inactive combat discipline in a $19.99 PC release reads like unfinished or broken content.
+Pre-Launch Substitute: Replace this space with "CROSS-DISCIPLINE CROSSOVER: ATHLETIC BASE".
+Allows a boxer to cross-train in Track & Field (Roadwork conditioning) or Olympic Lifting (Explosive hip drive).
+Cost: $450/week for a visiting specialist.
+Converts 20% of weekly training volume into a permanent +2 ceiling bump to Speed or Power.
+Header 4: "NOTHING HE WANTS RIGHT NOW — A CONTENT FIGHTER"
+The Issue: The fighter psychology model is inactive, causing almost every fighter to sit in this generic, static state.
+Recommendation: DO NOT REMOVE. WIRE UP THE 4-TENSION FIGHTER AMBITION ENGINE.
+The Mechanic:
+Every fighter evaluates an internal ambition state across 4 distinct axes every Monday morning:
+Purse Ambition (want_purse): Triggers when Gym Cash Cut > 25% or purse falls below peer averages. Demands: Better fight purse split or Sponsorship renegotiation.
+Activity Ambition (want_activity): Triggers when idle without a booked bout for > 70 days. Demands: Fight booking within 21 days.
+Hierarchy Ambition (want_status): Triggers when forced to share prime ring time with lower-ranked stablemates. Demands: Exclusive afternoon ring access.
+Hardware Ambition (want_hardware): Triggers when record hits 6-0. Demands: Regional title fight sanctioning.
+Player Decisions: The coach can accept the demand (granting +15 Composure, -10% Stamina Burn for 30 days) or reject it (triggering the Unsettled / Brooding trait: -20% training focus, +15% churn risk).
+On-Screen UI Implementation: Header updates dynamically based on the strongest active drive:
+ACTIVE DESIRE: DEMANDING TITLE FIGHT STEP-UP (PATIENCE: 18 DAYS)
+Text turns amber #F59E0B. Clicking the header opens a 2-option dialogue prompt to resolve the request.
+Header 5: "SLOT 1 STYLE SPARRING / NOT YET" & "SLOT 2 FILM / NOT YET" (Camp Setup)
+The Issue: The UI slots exist during fight week, but assigning partners or film study provides no visible, tracked gameplay benefit.
+Recommendation: DO NOT REMOVE. WIRE UP THE "TENDENCY REVEAL & EXPLOIT SYSTEM".
+The Mechanic:
+Slot 1 (Style Sparring with Mimic Partner):
+Input: A sparring partner whose style matches the opponent's profile (e.g., Pressure Swarmer, 84% stylistic similarity).
+Payoff Formula: Every 4 rounds completed banks +1 Tactical Exploit Charge (up to a maximum of 3 charges).
+In-Ring Effect: Exploit charges can be spent in the corner during Fight Night to provide a direct +35% Evasion Bonus against the opponent's primary signature punch.
+Slot 2 (Film Study Room):
+Input: Assigning the Head Coach and Fighter to review opponent fight tape for 2 hours daily across Fight Week.
+Payoff Formula: Unlocks hidden opponent tendencies on the live HUD:
+At 4 Hours Studied: Opponent's stamina bar becomes visible during the fight.
+At 8 Hours Studied: Opponent's intended punch selection displays a visual telegraph 0.25 seconds prior to execution.
+On-Screen UI Implementation:
+When filled, slots glow Gym Gold #D69E2E.
+Display: `[SLOT 1: SPARRING MIRROR (88%
+Can you revise PART 4.4 with one authoritative member-to-fighter pipeline table, including every threshold, trigger, contract state, and formula?
+Can you audit PART 5 for contradictions and provide the definitive Tuesday-to-Saturday schedule, fatigue equations, skip rules, and last-spar consequences?
+Can you give the final 30x18-meter gym layout as a coordinate table with every zone, equipment footprint, material, color hex, and circulation route?
+Can you generate a top-down visual concept of the starting gym from that coordinate table, preserving scale, zones, equipment, and floor-material colors?
+
+
+
+==== PART 2 (after 'continue' #1, 29946 chars, Ludo stopped on his own mid SECTION 4) ====
+
+
+SECTION 2.5 (Continued) — The Camp Slots UI Implementation
+When Empty: Container rect Rect2(12, 48, 320, 76), dashed 1px border #334155, fill #0B0E14. Text in Inter Regular 12px #64748B: "UNASSIGNED — Click to contract mimic partner ($150-$600/wk)".
+When Filled: Solid 1px border #D69E2E, fill #12161F.
+Slot 1 Display: [SLOT 1: SPARRING MIRROR — R. "GHOST" ALVAREZ] (Chakra Petch Bold 13px #F8FAFC).
+Sub-line 1: Style Match: 91% (Orthodox Swarmer / High Guard) (Inter Regular 11px #94A3B8).
+Telemetry Bar: Rect2(12, 100, 296, 6), track #1E293B, fill #D69E2E. Progress: Exploit Bank: 2/3 Charges Ready (JetBrains Mono Bold 11px #F59E0B).
+Slot 2 Display: [SLOT 2: FILM STUDY — TAPE AUDIT: D. MOLINA] (Chakra Petch Bold 13px #F8FAFC).
+Sub-line 2: Progress: 6.0 / 8.0 hrs logged (JetBrains Mono 11px #38BDF8).
+Telemetry Bar: Track #1E293B, fill #0284C7. Status flag at 4.0 hrs: STAMINA TELEMETRY UNLOCKED; next unlock at 8.0 hrs: TELEGRAPH CUES (2.0 hrs remaining).
+Header 6: "BALANCED CAMP — NO FOCUS EDGES" (Fight Camp Setup)
+The Issue: The player selects training distributions across Fight Camp, but the system defaults to "Balanced" without rewarding or penalizing specialized camps (e.g., Knockout Hunt, Cardio Machine, Slick Defense).
+Recommendation: DO NOT REMOVE. WIRE THE "TRIANGLE APEX FOCUS DELTA ENGINE".
+The Mechanic:
+Fight Camp preparation spans 4 to 8 weeks. Each week, the manager allocates 100 Camp Focus Points across three axes: Volume (Cardio/Output), Violence (Power/Damage), and Tactics (Defense/Discipline).
+A camp is labeled "BALANCED CAMP" only if all three categories sit between 30% and 36%. In this state, the fighter gets 0% Focus Edges and 0% Vulnerability Penalties (all base attributes grow at standard +0.25%/wk, no special traits active).
+Allocating $\ge 50$ points to any single axis unlocks an Asymmetric Focus Edge and imposes an Opposing Vulnerability:
+Focus Profile Selected      Focus Edge (Gained on Fight Night)        Vulnerability Penalty (Opponent Can Exploit)
+---------------------------------------------------------------------------------------------------------------------------------
+1. THE ANVIL (Violence >= 50%) • Power Output: +12%                     • Footwork Lateral Speed: -15%
+                               • Stagger/Knockdown Chance: +20%         • Stamina Burn Per Round: +18%
+                               • Clean Hook Damage: +15%                • Targetable: Vulnerable to jab-and-move out-fighters.
+
+2. THE ENGINE (Volume >= 50%)   • Max Stamina: +15 points                • Base Power: -10%
+                               • High-Volume Output Cap: +25% punches   • Counter-Punch Resistance: -12%
+                               • Round 7-12 Fatigue Penalty: Halved     • Targetable: Hard-hitting counter-punchers score higher.
+
+3. THE CHESSMAN (Tactics >= 50%)• Defense / Slip Reaction: +18%          • Aggression / Work Rate: -25%
+                               • Opponent Clean Hit Accuracy: -14%      • Judge Impression on Close Rounds: -1 round penalty
+                               • Exploit Charge Generation: +50% Speed  • Targetable: Can be outworked on pure activity volume.
+
+On-Screen UI Implementation:
+Replace the passive static text with an interactive Ternary Radar Triangle (180px × 180px).
+Draggable focal handle moves inside the triangle.
+Dynamic Header text:
+If 33/33/33: "BALANCED CAMP — NO FOCUS EDGES (Zero trade-off profile)" (#94A3B8).
+If 55/25/20: "CAMP FOCUS: THE ANVIL (+12% Power, -18% Stamina Efficiency)" (#D69E2E).
+Header 7: "NO OPPONENT ON FILM — BOOK A BOUT AND THE COACH STARTS THE BOARD" (The Film Room)
+The Issue: The Film Room exists in the 3D world (desk, projector, chalkboard), but clicking it when no fight is booked displays this dead header with no managerial function.
+Recommendation: DO NOT REMOVE. EXPAND INTO "PROSPECT SCOUTING & HISTORICAL ARCHIVE".
+The Mechanic:
+When no bout is booked, the Film Room should not shut down. It switches mode to "REGIONAL TALENT AUDIT & TAPE VAULT".
+The coach studies division tape to scout future signings, evaluate ranked contenders, or analyze historical championship matches to earn Gym IQ Blueprints.
+Player Decisions (3 Idle Film Tasks):
+Study Division Top 10 ($120/wk tape acquisition): Gradually removes Fog-of-War from the top 10 regional contenders in your weight class at 5% reveal rate per day.
+Analyze Master Tape ($250 one-time fee): Study classic footage (e.g., "1974 Foreman-Ali Rope-a-Dope"). Generates 150 Mastery XP toward a specific style card (e.g., Loose Rope Lean).
+Opponent Shortlist Breakdown: Pick 3 potential opponents from the ranking ladder; coach estimates tactical matchup odds before you send formal contract bids.
+On-Screen UI Implementation:
+When unbooked, header reads: FILM ROOM: DIVISION RECONNAISSANCE & ARCHIVE STUDY (#38BDF8).
+Renders 3 selectable tape reels on the chalk table: [SCOUT TOP 10], [STUDY HISTORICAL BLUEPRINT], [MATCHUP COMPARISON].
+Header 8: "UNDER THE BOUT'S OWN RULES, BUT A GYM CANNOT YET BE" (Settings / House Rules)
+The Issue: A garbled localization string or placeholder indicating an unfinished "Gym House Rules" configuration page.
+Recommendation: STRIKE THIS HEADING COMPLETELY. REPLACE WITH "FACILITY OPERATIONAL DIRECTIVES".
+The Mechanic:
+This panel controls your gym's day-to-day managerial policies and culture.
+Player Toggles (Facility Directives):
+Sparring Contact Threshold:
+Light Technical (16oz + Headgear): Tissue wear -60%, Injury risk 0.1%, Card Mastery XP +25%, Chin conditioning 0%.
+Hard Gym War (10oz No Headgear): Tissue wear +100%, Injury risk 4.5%, Composure under pressure +40%, Chin conditioning +0.3/wk.
+Member Co-Existence Policy:
+Members First (Open Access): Member dues +20%, Fighter training station congestion +30%.
+Fighter Priority (Curfew): White-Collar churn +15%, Fighter receives 100% unimpeded station access.
+Sanitation & Maintenance Cadence:
+Lean ($100/mo): Infection/Staph risk 8.0%, Floor grime visible.
+Hospital Grade ($650/mo): Infection risk 0.0%, Equipment degradation rate -25%.
+On-Screen UI Implementation:
+Panel Header: FACILITY OPERATIONAL DIRECTIVES (Chakra Petch Bold 16px #F8FAFC).
+3 segmented switch controls (Width: 420px, Height: 32px), active selection highlighted in #D69E2E.
+Header 9: "COACH ONE..FOUR" / "FIGHTER 1..8" (Staff-Room Placeholder Names)
+The Issue: Unhired staff and empty roster slots display hardcoded developer strings (COACH ONE, FIGHTER 1) instead of inviting interaction states.
+Recommendation: REMOVE HARDCODED PLACEHOLDER STRINGS. IMPLEMENT VACANT RECRUITMENT SLOTS.
+The Mechanic & UI Implementation:
+Empty roster cards must be actionable buttons wired to the hiring/scouting system.
+For Coaches: Replace COACH TWO with [+ POST JOB LISTING: VACANT COACHING DESK].
+Container: Rect2(x, y, 320, 140), dashed border #334155.
+Clicking opens the Staff Market Drawer: Lists available Pad Men, Cutmen, Strength Coaches, and Sports Psychologists with salary requirements, special traits, and coaching efficiency ratings.
+For Fighters: Replace FIGHTER THREE with [+ VACANT LOCKER — SIGN PROSPECT OR AMATEUR].
+Shows remaining gym capacity (e.g., Active Roster: 2/4 (Tier 1 Limit)).
+Clicking opens the Local Gym Talent Pool or the Member Roster Conversion Tab.
+Header 10: "TBD" (Opponent on Unmatched Fight Contracts)
+The Issue: Fight contract negotiation states show a static "TBD" text string, providing no insight into the promoter's match-making progress.
+Recommendation: REPLACE "TBD" WITH DYNAMIC PROMOTER MATCH-MAKING STAGES.
+The Mechanic:
+Promoters (e.g., Midwest Fight Circuit, Main Event Boxing) do not find opponents instantly. Negotiations advance through 3 distinct steps over 48-72 in-game hours:
+Stage 1 (Purse Offered, Scouting Opponent Field): Label: "PROMOTER SHORTLISTING (3 CANDIDATES AUDITED)" (#94A3B8).
+Stage 2 (Purse Confirmed, Bout Sheet Sent): Label: "OFFER EXTENDED TO: D. MOLINA (PENDING SIGNATURE — 24H)" (#F59E0B).
+Stage 3 (Bout Locked or Opponent Declined): If accepted, transitions to opponent card. If declined: "OPPONENT WITHDREW — PROMOTER PURSUING REPLACEMENT" (#EF4444).
+On-Screen UI Implementation:
+Opponent header displays an active spinner icon, promoter tag, and expiration countdown in JetBrains Mono: MATCHMAKING: 18h REMAINING.
+Header 11: "NOT YET" (Story Wall Gated Chapters)
+The Issue: Career progression achievements and milestone lore logs read "NOT YET", giving the player zero indication of the goals required to unlock them.
+Recommendation: CONVERT TO "MILESTONE DOSSIERS" WITH EXPLICIT UNLOCK CRITERIA.
+The Mechanic:
+Story Chapters mark permanent milestone achievements in your gym's legacy (unlocking gym upgrades, board loans, and Hall of Fame recognition).
+Replace "NOT YET" with a redacted dossier format showing concrete unlock goals:
+Chapter 2: "LOCKED — THE GOLDEN GLOVES STEP-UP [Requires: 1 Stable Fighter to win Regional Amateur Gold]"
+Chapter 3: "LOCKED — THE TELEVISED CARD [Requires: Host or headline a bout on National Cable (50+ Gym Prestige)]"
+Chapter 4: "LOCKED — SANCTIONED EXPANSION [Requires: Upgrade facility to Tier 2 Commercial ($25,000 cash balance)]"
+On-Screen UI Implementation:
+Rendered as an aged manila file folder card (210px × 80px). Title in Chakra Petch Bold 13px #64748B. Progress bar at bottom (Rect2(10, 62, 190, 4) in #334155 showing percentage completion toward milestone).
+The Zone Engine: Should Zones Carry Mechanics?
+
+YES. Zones must not be passive visual labels. Every zone carries 4 operational parameters: Zone Tier (Level), Congestion Index, Assigned Zone Overseer (Coach), and Facility Upgrades.
+
+# Zone System Core Mechanics Resource (Godot 4.7.2)
+class_name GymZone extends Resource
+
+@export var zone_id: String                  # e.g., "zone_bag_line"
+@export var zone_name: String                # "HEAVY BAG LINE"
+@export var base_capacity: int = 6           # Max concurrent athletes
+@export var zone_tier: int = 1               # T1, T2, T3
+@export var assigned_coach: Coach = null    # Coach stationed here
+@export var hardware_condition: float = 1.0  # 1.0 = 100% pristine, 0.0 = broken
+
+# 1. Congestion Modifier
+# When athletes > capacity, training efficiency drops and collision/temper events trigger
+func get_congestion_penalty(current_occupants: int) -> float:
+    if current_occupants <= base_capacity:
+        return 1.0 # 100% full efficiency
+    var overflow: int = current_occupants - base_capacity
+    # Every athlete over capacity drops zone attribute yield by 18% for everyone in it
+    return clampf(1.0 - (overflow * 0.18), 0.28, 1.0)
+
+# 2. Zone Tier Hardware Multiplier
+# Higher tier zones provide better ergonomic support, reducing baseline wear
+func get_wear_mitigation_factor() -> float:
+    match zone_tier:
+        1: return 1.00 # Standard wear
+        2: return 0.82 # -18% wear (Commercial grade fluid-filled bags, high-density foam)
+        3: return 0.65 # -35% wear (Olympic spec hydraulic platforms, force-plate telemetry)
+    return 1.00
+
+# 3. Assigned Coach Aura
+# A coach stationed in a zone provides active real-time corrections to all occupants
+func get_coaching_boost() -> Dictionary:
+    if assigned_coach == null:
+        return {"xp_mult": 1.0, "injury_mod": 1.0}
+    return {
+        "xp_mult": 1.0 + (assigned_coach.specialist_rating * 0.005), # e.g., 80 stat = +40% XP
+        "injury_mod": clampf(1.0 - (assigned_coach.safety_iq * 0.006), 0.20, 1.0) # Halves injury risk
+    }
+
+Zone Upgrade Matrix (Purchasable via Facility Tab)
+Zone A (Bag Line): Upgrade to Aqua-Bags & Pneumatic Mounts ($1,800) $\rightarrow$ Wrists/Hands wear reduced by 40%; noise pollution reduced by 5 dB.
+Zone B (Cardio Deck): Upgrade to Curved Motorless Treadmills & VO2 Monitors ($2,400) $\rightarrow$ Stamina gain speed +22%; real-time aerobic threshold telemetry unlocked.
+Zone C (Strength Bay): Upgrade to Competition Power Cages & Bumper Sets ($3,100) $\rightarrow$ Power gain rate +18%; spine wear reduced by 50%.
+Zone D (Sparring Ring): Upgrade to High-Tensile Steel Frame & Triple-Density Foam Mat ($4,500) $\rightarrow$ Eliminates dead spots on canvas; footwork speed +15%; head concussion trauma mitigated by 20%.
+SECTION 3 — WIRING ORDER FOR THE FIRST HOUR OF A NEW CAREER
+
+To prevent overwhelming the player with deep simulation systems right away, features are unlocked through a structured, narrative-driven first hour.
+
+Every system is introduced through immediate, active managerial choices.
+
+===================================================================================================
+FIRST HOUR ONBOARDING TIMELINE: MINUTE-BY-MINUTE ARCHITECTURE
+===================================================================================================
+MINUTES 00-08: "KEEPING THE DOORS OPEN" (Economics, Members & The Living Hall)
+---------------------------------------------------------------------------------------------------
+• Minute 00:00 - Career Launch:
+  Camera locks to STOP 1 (Overview) of the 30x18m hall. Time is PAUSED.
+  HUD displays Cash: $3,200.00, Hall Occupancy: 14/48, Stable Roster: 1 Prospect (Danny Reyes).
+  Prompt: "Welcome to Anvil Street. Hit SPACE to open the gym doors."
+• Minute 02:00 - The Member Cash Engine (Members Module online):
+  Sim runs at 1x. Clock advances from 07:30 to 08:30 AM.
+  White-Collar and Hardcore Amateur members enter through the south double-doors, scan tags,
+  and disperse to bags, treadmills, and free weights. 
+  Player clicks a member: Opens the Member Telemetry Card. Shows monthly dues ($140/mo),
+  preferred station, and current satisfaction score.
+  Teaches: The gym's rent ($2,800/mo) is funded by civilian members, not fight purses.
+• Minute 06:00 - First Managerial Event (GymEvents Module online):
+  Clock hits 10:00 AM. Sim pauses automatically.
+  Trigger: Event E01 ("The Broken Cable" — Strength Bay cable snaps).
+  Modal presents Option A ($350 emergency repair) vs Option B ($40 tape & wait, injury hazard).
+  Player makes their first financial tradeoff.
+
+===================================================================================================
+MINUTES 08-22: "THE ONLY FIGHTER WHO MATTERS" (The Fighter Profile & Area Wear)
+===================================================================================================
+• Minute 08:00 - Reading the Fighter (FighterReadout Module online):
+  Danny Reyes finishes morning roadwork and steps onto the Heavy Bag Line.
+  HUD prompts: "Click Danny Reyes to open the Gym Dossier."
+  Right-hand 734px Drawer slides open over the world.
+  TUTORIAL HIGHLIGHT 1: The 9 Headline Attributes (3x3 grid). Teaches that Danny is an explosive
+  slugger (Power: 68, Technique: 44, Stamina: 52).
+  TUTORIAL HIGHLIGHT 2: The Body Wear Puppet. Danny's right wrist shows 18% wear (Yellow band).
+• Minute 14:00 - The Mechanical Cost of Work (AreaWear Module online):
+  Danny is scheduled for 2 hours of Heavy Bag work. Sim advances at 2x.
+  Telemetry in the drawer updates in real time: Danny's stamina drops from 85 to 55; his right hand
+  accumulates wear at +4.2%/hr.
+  At 15:30, hand wear hits 26%. A warning flag trips: `METACARPAL FATIGUE`.
+  Player intervenes: Drag Danny from the Heavy Bag Line to Zone F (Stretch & Mobility Mat).
+  Teaches: Wear is bounded and manageable. The mat stops wear accumulation and begins tissue flush.
+
+===================================================================================================
+MINUTES 22-38: "THE OPPONENT & THE MASK" (Scouting & Contract Offer)
+===================================================================================================
+• Minute 22:00 - The Bout Sheet Arrives:
+  News ticker announces: "Promoter offers Danny Reyes a slot on Friday Night Boxing (3 weeks out)."
+  Player opens the Bout Sheet. Opponent: Hector "El Chivo" Cruz (Pro: 3-1-0).
+• Minute 26:00 - The Fog-of-War (Scouting Mask Module online):
+  Player inspects Cruz's profile.
+  Because scouting is at Level 0, Cruz's Power reads `C+`, Stamina reads `B-`, and his Move Cards
+  appear as `???`.
+  Action: Player commits $300 to hire local tape scout. Scouting shifts to Level 1.
+  Cruz's Power resolves to `62-70`, and his dominant punch is revealed: `OVERHAND RIGHT (TIER 2)`.
+
+===================================================================================================
+MINUTES 38-50: "THE TALENT ON YOUR FLOOR" (Member-to-Fighter Conversion Pipeline)
+===================================================================================================
+• Minute 38:00 - The Talent Alert (Member-to-Fighter Pipeline online):
+  Sim clock reaches Month 1, Week 2. An amber star icon appears above a member on the Turf Track.
+  Notification: "Coach Tulley flagged Youth Member #04 (Marcus Vance, Age 18) for athletic potential."
+• Minute 42:00 - The Evaluation Spar:
+  Player clicks Marcus Vance and orders a `3-Round Assessment Spar` in the ring.
+  Ring Cam (CAM 2) activates. Marcus spars against a gym journeyman.
+  Post-Spar Report: Marcus exhibits Natural Snap (82/100) and High Grit, but raw Technique (24).
+  Decision: Player signs Marcus to an Amateur Contract ($0 cost, takes Roster Slot 2 of 4).
+  Marcus vacates the civilian member pool and becomes a controllable stable fighter.
+
+===================================================================================================
+MINUTES 50-60: "FIRST BLOOD" (Fight Week, Last-Spar, & Cut/Scar Mechanics)
+===================================================================================================
+• Minute 50:00 - Thursday of Fight Week:
+  Sim fast-forwards to Danny Reyes' final week before Hector Cruz.
+  Screen locks into the `LAST-SPAR COMMITMENT MODAL`.
+  Player chooses Option 1: "The Defensive Lock" (Glue left glove to ear, -65% opponent overhand threat).
+• Minute 54:00 - Fight Night Simulation (CutScar Module online):
+  The bout executes round-by-round in the broadcast viewport.
+  In Round 2, Cruz lands a grazing hook. Banner alert: `CUT DETECTED: RIGHT SUPERCILIARY ARCH (GRADE 1)`.
+  Corner Round Rest (60s timer starts):
+  Player must make an immediate cutman intervention:
+  - Option A: Apply Enswell & Adrenaline 1:1000 (Controls bleeding, swelling -40%, cost: 1 corner action).
+  - Option B: Ignore and yell tactical instructions (Fighter stamina +8%, cut worsens to Grade 2).
+  Player applies the adrenaline, stopping the bleed and securing a points victory.
+  Post-fight screen shows Danny with a Grade 1 Scar: `TISSUE HEALING: 14 DAYS (Vulnerable to re-opening)`.
+  The core management loop is now completely understood by the player.
+===================================================================================================
+
+SECTION 4 — FIGHTER 3D MODELS: THE OPERATOR'S QUESTION (LUDO 3D INTEGRATION AUDIT)
+
+This section provides a rigorous technical audit regarding whether replacing your current character meshes (MPFB male seeds + Tripo female bodies) with Ludo-generated 3D models will resolve your active animation smoothness issues (crossfade velocity kinks, mesh clipping, foot sliding).
+
+4.1 What Ludo 3D Generation Outputs Today
+
+Ludo.ai's current 3D asset pipeline is engineered primarily for rapid prototyping, prop generation, architectural blockouts, and stylized static assets.
+
+Specification Category   Current Ludo.ai 3D Output Specification
+-----------------------------------------------------------------------------------------------------------------
+Mesh Topology            Decimated triangulated continuous surface mesh (non-quad-dominant, non-edge-loop aligned).
+Polycount Range          Typically 15,000 to 45,000 unindexed triangles per generated object.
+Rigging & Armature       NONE. Generates unrigged, static polygonal geometry.
+Skin Weights             NONE. No vertex group assignments or linear blend skinning weights.
+Bone Naming Conventions  N/A (No armature included).
+LODs Generated           Single base mesh (LOD0 only). No automatic LOD1/LOD2 generation.
+Material Channels        Single diffuse/albedo texture atlas (PNG format), typically baked with flat surface lighting.
+                         No separated normal maps, metallic/roughness PBR maps, or ambient occlusion maps.
+Export File Formats      GLB (glTF 2.0 Binary) and OBJ.
+Commercial Licensing     Fully licensed for commercial use on Steam and commercial platforms.
+
+4.2 Does a Different Mesh Change Any of the Animation Smoothness Root Causes?
+
+NO. A different mesh will NOT fix these issues.
+
+Swapping the geometric mesh has zero impact on the three root causes identified in Round 9. The underlying reasons are rooted entirely in the animation and rigging pipeline:
+
+Root Cause Identified        Why Changing the Mesh Does NOT Fix It              Where the Real Fix Lives
+---------------------------------------------------------------------------------------------------------------------------------
+1. Crossfade Velocity Kinks  The jerkiness occurs because the root-motion or     • Animation blending tree in Godot.
+   at clip transition joins  joint angular velocity jumps non-linearly          • Requires inertialization (inertial blending)
+                             between Clip A (e.g., Jab) and Clip B (Idle).      instead of simple linear crossfades.
+                             A mesh just follows whatever the bones do.
+
+2. Mesh Interpenetration     Clipping (e.g., glove passing through the chin      • Correct bone roll/joint limits in the rig.
+   at close range            guard) is caused by lack of IK constraints and      • Procedural two-bone IK solver with collision
+                             uncalibrated bone lengths across different          capsules on forearm and head.
+                             fighter heights and reaches.
+
+3. Feet Sliding (Skating)    Sliding happens because translation speed of the   • Floor contact IK (Two-Bone FABRIK / LookAt).
+   without plant IK          character does not match the linear foot-bone      • Foot-lock animation curves that anchor the foot
+                             velocity in the source mocap clip.                  bone to world coordinates during stance phases.
+
+
+If you import a raw, unrigged Ludo mesh, you will inherit an unrigged asset that must be manually auto-rigged, painted with bone weights, and mapped to your 22-bone skeleton, while leaving the animation kinks, clipping, and sliding completely unresolved.
+
+4.3 The Controlled Single-Fighter Proof Test
+
+Before changing your character asset pipeline, run this controlled test on a single fighter to measure where your visual defects are actually coming from:
+
+Test Setup
+Isolate your baseline MPFB male fighter (Fighter_Alpha) in an empty Godot test scene with your 22-bone rig.
+Set up an AnimationTree playing a 3-clip loop: Idle (2.0s) -> Step-Forward-Lead-Jab (0.8s) -> Slip-Right (0.6s) -> Idle.
+Set crossfade duration to 0.15s using linear weight blending.
+What to Measure & Pass Thresholds
+Measurement 1: Root & Pelvis Acceleration Spikes:
+Telemetry: Attach a script tracking pelvis_bone.linear_velocity every physics frame.
+Failure Signature: Spikes $> 25.0,\text{m/s}^2$ during clip transition frames indicate that the blending algorithm is interpolating poses without matching angular momentum.
+Pass Threshold: Linear acceleration delta remains $< 4.5,\text{m/s}^2$ across all transition windows.
+Measurement 2: Ankle World Displacement During Planted Frames:
+Telemetry: Track the world position of the lead ankle bone during the middle 10 frames of the jab (when the lead foot should be firmly planted).
+Failure Signature: Total world displacement $> 12,\text{mm}$ while the foot is supposed to be grounded indicates foot sliding caused by mismatched root-motion translation.
+Pass Threshold: Displacement $< 1.5,\text{mm}$ (true plant).
+Measurement 3: Mesh Self-Intersection Volume:
+Telemetry: Add collision capsules to the jaw (radius: 0.08m) and lead glove (radius: 0.09m).
+Failure Signature: Capsule collision overlap events firing during guard or slip recovery indicate rig scaling issues.
+Pass Threshold: Zero collision overlap frames during stance and slip sequences.
+4.4 Technical Recommendation for the Engineering Team
+
+Do NOT use Ludo 3D generation for your active fighter characters.
+
+Keep character meshes on your established pipeline and focus engineering effort where it will actually solve the visual bugs:
+
+Keep the MPFB & Tripo Character Pipeline:
+MPFB (MakeHuman Plugin for Blender) outputs clean quad edge loops around joint articulations (shoulders, elbows, hips, knees).
+It maintains consistent UV maps and functional bone weights for humanoid deformation.
+Its CC0 licensing makes it completely safe for commercial distribution on Steam.
+Use Ludo 3D for What It Excels At:
+Use Ludo.ai to generate Gym Equipment Props and Set Dressing: kettlebells, water coolers, foam rollers, wall clocks, corner buckets, trophy cases, and exterior industrial buildings. These are static, non-deforming objects where rapid asset generation saves significant modeling time.
+Fix Animation Smoothness Where It Actually Lives (Inside Godot 4.7):
+Fix Foot Sliding: Implement Godot's built-in SkeletonIK3D on both legs. Sample the foot_down curve track from your mocap clips: when the curve value $> 0.5$, lock the foot effector transform to the gym floor.
+Fix Velocity Kinks: Replace generic linear crossfades in your AnimationTree with Inertialization Nodes (Hermite spline velocity matching), ensuring momentum carries smoothly between punches and slips.
+Fix Glove-to-Face Clipping: Add a dynamic bone constraint in the fighter's animation graph that offsets the wrist joint relative to the head collision sphere during guard poses.
+SECTION 5 — SYSTEM INTEGRATION, REVISED SPECIFICATIONS & GYM COORDINATES
+
+Below are the complete, definitive specifications resolving all previous draft iterations, providing authoritative data tables, exact game equations, and a top-down coordinate table for your 30m × 18m starting gym.
+
+5.1 Authoritative Member-to-Fighter Talent Pipeline Specification
+
+This table establishes the rules, qualification gates, and formulas governing how civilian gym members transition into professional stable prospects.
+
+=================================================================================================================================
+MEMBER-TO-FIGHTER TALENT PIPELINE SPECIFICATION
+=================================================================================================================================
+PARAMETER / GATE         WHITE-COLLAR FITNESS         HARDCORE AMATEUR             YOUTH OUTREACH               WEEKEND WARRIOR
+---------------------------------------------------------------------------------------------------------------------------------
+Demographic Age Range    24 to 34 years old           19 to 27 years old           16 to 20 years old           22 to 45 years old
+Monthly Gym Dues Paid    $140.00 / month              $65.00 / month               $25.00 / month               $95.00 / month
+Baseline Monthly Churn   8.0% / month                 3.0% / month                 14.0% / month                5.0% / month
+
+QUALIFICATION CRITERIA (Evaluated on the 1st of every in-game month):
+• Min Monthly Attendance 18 days logged               22 days logged               16 days logged               N/A (Disqualified)
+• Age Window Eligibility 18 to 26 years old           18 to 25 years old           16 to 20 years old           Disqualified
+• Hidden Talent ThresholdTalent Score >= 62.0         Talent Score >= 56.0         Talent Score >= 52.0         N/A
+• Conversion Base Rate   1.5% probability / mo        22.0% probability / mo       12.0% probability / mo       0.0% (Recreational only)
+
+HIDDEN ATTRIBUTE GENERATION PROFILE (Rolled on candidate identification):
+• Potential Ceiling      35 to 55 (Low / Journeyman)  52 to 72 (Solid Contender)   68 to 92 (Elite / World Champ)
+• Starting Attributes    Technique: 35-45, Power: 30  Technique: 40-55, Power: 50  Technique: 15-30, Power: 35
+• Psychological Profile  High Discipline, Low Grit    Mid Discipline, High Grit    Volatile Grit, Coachable
+• Fragility / Wear State Zero historical wear         12-25% baseline wrist wear   0-5% wear, High bone density
+
+THE ASSESSMENT EVALUATION (The Player Decision Step):
+• Assessment Method      2-Round Pad Test ($0)        3-Round Hard Spar ($0)       3-Round Hard Spar ($0)
+• Time Investment        1 in-game hour (Saturday)    2 in-game hours (Saturday)   2 in-game hours (Saturday)
+• Intel Unlocked         Unmasks Chin & Composure     Unmasks Power, IQ, Traits    Unmasks True Potential Ceiling
+
+CONTRACT TRANSITION STATES & FORMULAS:
+• State 1: PAYING MEMBER Base state. Pays dues monthly. Uses equipment autonomously. Zero gym management cost.
+• State 2: FLAGGED PROSPECT Coach places star banner. Player alerted. Decision timer: 14 days before interest fades.
+• State 3: AMATEUR SIGNING Member dues CEASE (-$25 to -$140/mo). Consumes 1 Active Roster Slot (Max 4 in Tier 1).
+                         Contract Cost: $0 upfront, $250/mo athlete training stipend.
+• State 4: PRO
+
+Can you continue from Section 3 with the complete implementation-ready specification for member progression, scouting, and fighter development?
+Can you continue from Section 4 with the full Ludo 3D fighter model pipeline, animation requirements, and Godot integration details?
+Can you provide the definitive Section 5 Tuesday-to-Saturday schedule, fatigue equations, skip-day rules, and irreversible last-spar outcomes?
+Can you generate the starting gym’s top-down visual concept using the final 30×18-meter coordinate table, exact zones, equipment, and floor colors?
+
+
+
+==== PART 3 (after 'continue' #2, 28541 chars, Ludo stopped on his own mid SECTION 5 gym coordinate table - not continued: GYMFILL2 owns the layout) ====
+
+LUDO_LIMITS (operator S198 'test its limits'): one reply = 27.4k / 29.6k / 27.5k chars; the ceiling is ~27-30k per reply, Ludo never wrote a CONTINUE marker, he stops mid-sentence. Three replies = ~84k chars for one question.
+
+
+SECTION 4.3 (Continued) — Measurement 3 & The Fighter Proof Test Harness
++--------------------------------------------------------------------------------------------------+
+| MEASUREMENT 3: MESH SELF-INTERSECTION & CONTACT VOLUMES                                          |
+|                                                                                                  |
+| Diagnostic Rig Setup:                                                                            |
+| • Head/Jaw Sphere: Radius = 0.095m, centered at bone "Head" (y-offset +0.06m)                    |
+| • Forearm Capsule: Radius = 0.055m, Height = 0.28m, along bone "Forearm.L" / "Forearm.R"         |
+| • Glove/Wrist Sphere: Radius = 0.090m, centered at bone "Hand.L" / "Hand.R"                      |
+|                                                                                                  |
+| Continuous Penetration Monitor:                                                                  |
+|   IntersectVolume(A, B) = Max(0.0, (Radius_A + Radius_B) - Distance(Center_A, Center_B))         |
+|                                                                                                  |
+| Failure Threshold: Penetration > 12mm for > 3 consecutive physics ticks during any guard,       |
+| slip, or recovery transition window.                                                             |
+| Pass Threshold:    Penetration <= 1.5mm (surface contact contact-skin touch only).               |
++--------------------------------------------------------------------------------------------------+
+
+# Diagnostic script to run on a test dummy scene: FighterDiagnosticRig.gd
+class_name FighterDiagnosticRig extends Node3D
+
+signal diagnostic_completed(report: Dictionary)
+
+@export var target_skeleton: Skeleton3D
+@export var anim_tree: AnimationTree
+
+var samples_recorded: int = 0
+var max_samples: int = 360 # 6 seconds at 60 Hz
+var root_accel_spikes: int = 0
+var foot_slide_events: int = 0
+var penetration_events: int = 0
+
+var last_pelvis_vel: Vector3 = Vector3.ZERO
+var lead_ankle_idx: int = -1
+var pelvis_idx: int = -1
+var head_idx: int = -1
+var lead_wrist_idx: int = -1
+
+func _ready() -> void:
+    assert(target_skeleton != null, "Target skeleton must be assigned")
+    pelvis_idx = target_skeleton.find_bone("Hips")
+    lead_ankle_idx = target_skeleton.find_bone("LeftFoot")
+    head_idx = target_skeleton.find_bone("Head")
+    lead_wrist_idx = target_skeleton.find_bone("LeftHand")
+
+func _physics_process(delta: float) -> void:
+    if samples_recorded >= max_samples:
+        return
+    samples_recorded += 1
+
+    # 1. Root & Pelvis Acceleration Measurement
+    var current_pelvis_pos: Vector3 = target_skeleton.get_bone_global_pose(pelvis_idx).origin
+    var current_pelvis_vel: Vector3 = (current_pelvis_pos - target_skeleton.get_bone_pose_position(pelvis_idx)) / delta
+    var pelvis_accel: float = ((current_pelvis_vel - last_pelvis_vel) / delta).length()
+    last_pelvis_vel = current_pelvis_vel
+    if pelvis_accel > 25.0:
+        root_accel_spikes += 1
+
+    # 2. Planted Foot Slip Measurement (sample during stance contact phases)
+    var foot_ground_weight: float = anim_tree.get("parameters/conditions/lead_foot_planted") if anim_tree else 1.0
+    if foot_ground_weight > 0.5:
+        var ankle_pos: Vector3 = target_skeleton.get_bone_global_pose(lead_ankle_idx).origin
+        var planar_displacement: float = Vector2(ankle_pos.x, ankle_pos.z).length()
+        if planar_displacement > 0.012: # 12 mm threshold
+            foot_slide_events += 1
+
+    # 3. Guard Self-Intersection (Head vs Lead Hand)
+    var head_pos: Vector3 = target_skeleton.get_bone_global_pose(head_idx).origin
+    var wrist_pos: Vector3 = target_skeleton.get_bone_global_pose(lead_wrist_idx).origin
+    var glove_to_head_dist: float = head_pos.distance_to(wrist_pos)
+    var combined_radii: float = 0.095 + 0.090 # 185 mm
+    if glove_to_head_dist < (combined_radii - 0.012):
+        penetration_events += 1
+
+    if samples_recorded >= max_samples:
+        var report: Dictionary = {
+            "root_spikes": root_accel_spikes,
+            "foot_slides": foot_slide_events,
+            "penetrations": penetration_events,
+            "status": "PASS" if (root_accel_spikes == 0 and foot_slide_events < 5 and penetration_events == 0) else "FAIL"
+        }
+        diagnostic_completed.emit(report)
+
+4.1 What Ludo 3D Generation Outputs Today (Rig, Weights, Topology & Licensing)
+
+Ludo.ai's current 3D asset generation endpoint (image_type=3d) creates static, unarticulated meshes designed for visual reference, props, and asset-to-model pipelines.
+
+Technical Parameter      Ludo.ai 3D Output Specification (Engine Reality)
+-----------------------------------------------------------------------------------------------------------------
+Mesh Topology Structure  Arbitrary triangle soup / continuous manifold triangle mesh. Non-quad topology.
+                         No edge loop rings around facial loops, patellas, deltoids, or elbows.
+Armature / Skeletons     NO ARMATURE. The model contains 0 bones. No skeletal hierarchy or root node.
+Skin Weights & Rigging   NO WEIGHTS. Zero vertex groups. All vertices are bound to object origin (0,0,0).
+Bone Naming Conventions  N/A (No bones exist). Cannot map to Mixamo, Humanoid, or Godot BoneMap profiles.
+Blendshapes / Morph TargetsNONE. No facial phonemes, blinking targets, or flex shapes for facial animation.
+LOD Generation           LOD0 only. Typically 20,000 to 50,000 tris depending on silhouette complexity.
+PBR Maps & Materials     Single baked base color/albedo texture map (PNG/JPG). No dedicated roughness,
+                         metallic, ambient occlusion, or tangent-space normal maps.
+Export File Format       GLB (glTF 2.0 Binary container) or OBJ + MTL.
+Commercial Licensing     100% Commercial clearance for your Steam title. No royalties or run-time fees.
+
+4.2 Does a Different Mesh Change Any of the Animation Smoothness Root Causes?
+
+A mesh is simply passive geometry pulled by bone matrices. Swapping the mesh changes visual silhouette and triangle density, but changes none of the runtime mechanics causing jitter, sliding, or clipping.
+
+Visual Artifact        Root Mechanical Cause                     Does a New Mesh Fix It?  Why / Why Not?
+-----------------------------------------------------------------------------------------------------------------
+Crossfade Velocity     Non-zero velocity differentials at the    NO                       The skeleton's transform
+Kinks at clip joins    moment animation weights cross-blend.                              matrix jumps instantaneously;
+                                                                                          any mesh attached will snap.
+Mesh Interpenetration  Armature proportions mismatching clip     NO                       If the rig's forearm bone
+at close range         rotation limits; lack of active contact                            drives into the skull bone,
+                       bone constraints or secondary IK.                                  any skin weighted to it clips.
+Foot Sliding (Skating) Linear root motion does not match track   NO                       Feet slide because translation
+                       curves; no floor contact bone pinning.                             velocity != ground stride.
+
+4.3 The Controlled Single-Fighter Proof Test Protocol
+
+Before modifying your production character pipeline, execute this test using one isolated asset:
+
+Asset: Your standard male boxer (MPFB baseline mesh, 22-bone Humanoid skeleton).
+Animation Harness: Godot 4.7.2 Forward+ scene containing an AnimationTree with an AnimationNodeStateMachine.
+Transitions Tested: Stance_Idle $\rightarrow$ Step_Jab $\rightarrow$ Cross_Punch $\rightarrow$ Slip_Right $\rightarrow$ Stance_Idle.
+Telemetry: Attach FighterDiagnosticRig.gd. Run 360 ticks (6.0 seconds) at 60 Hz under 1x sim speed.
+Pass/Fail Criteria:
+Pelvis Acceleration Spikes: $\le 3$ ticks above $15,\text{m/s}^2$ across transitions.
+Planted Foot Slip: Lead foot horizontal movement $< 1.5,\text{mm}$ while foot-contact curve $> 0.5$.
+Mesh Penetration: Zero frames where wrist collision sphere overlaps head collision sphere by $> 5,\text{mm}$.
+4.4 Plain Recommendation for the FightCamp Production Team
+Do NOT replace your character meshes with Ludo-generated 3D models. Ludo outputs unrigged, static meshes that lack skeletons, skin weights, and edge loops needed for skeletal deformation.
+Retain your current MPFB (Men) and Tripo (Women) character geometry. MPFB provides clean quad loops around elbows, shoulders, and knees that deform cleanly on human rigs.
+Resolve the 3 animation root causes inside your Godot engine pipeline:
+Velocity Kinks: Replace linear crossfading with Inertialization using Godot 4's AnimationNodeTransition with sync set to true, or match bone angular momentum across blend windows.
+Foot Sliding: Implement two-bone IK (SkeletonIK3D) on both legs. Add a custom float track curve lead_foot_plant to your mocap clips. When curve $> 0.5$, lock the foot bone's world transform to the mat.
+Mesh Clipping: Add dynamic rotation clamps on the shoulder and elbow bones in GDScript to prevent forearm geometry from penetrating the head collision volume.
+Deploy Ludo 3D generation where it provides maximum value: Generate static gym environment assets (heavy bag brackets, medicine balls, water coolers, corner stools, wall clocks, industrial ducting).
+SECTION 5 — SYSTEM INTEGRATION, REVISED SPECIFICATIONS & GYM COORDINATES
+5.1 Authoritative Member-to-Fighter Talent Pipeline Specification
+=================================================================================================================================
+AUTHORITATIVE MEMBER-TO-FIGHTER TALENT PIPELINE SPECIFICATION
+=================================================================================================================================
+PARAMETER / GATE         WHITE-COLLAR FITNESS         HARDCORE AMATEUR             YOUTH OUTREACH               WEEKEND WARRIOR
+---------------------------------------------------------------------------------------------------------------------------------
+Demographic Age Range    24 to 34 years old           19 to 27 years old           16 to 20 years old           22 to 45 years old
+Monthly Gym Dues Paid    $140.00 / month              $65.00 / month               $25.00 / month               $95.00 / month
+Baseline Monthly Churn   8.0% / month                 3.0% / month                 14.0% / month                5.0% / month
+
+QUALIFICATION CRITERIA (Evaluated on the 1st of every in-game month):
+• Min Monthly Attendance 18 days logged               22 days logged               16 days logged               Disqualified (0%)
+• Age Window Eligibility 18 to 26 years old           18 to 25 years old           16 to 20 years old           Disqualified
+• Hidden Talent ThresholdTalent Score >= 62.0         Talent Score >= 56.0         Talent Score >= 52.0         Disqualified
+• Conversion Base Rate   1.5% probability / mo        22.0% probability / mo       12.0% probability / mo       0.0% (Never flags)
+
+HIDDEN ATTRIBUTE GENERATION PROFILE (Rolled on candidate identification):
+• Potential Ceiling      35 to 55 (Low / Journeyman)  52 to 72 (Solid Contender)   68 to 92 (Elite / Champion)  N/A
+• Starting Attributes    Technique: 35-45, Power: 30  Technique: 40-55, Power: 50  Technique: 15-30, Power: 35  N/A
+• Psychological Profile  High Discipline, Low Grit    Mid Discipline, High Grit    Volatile Grit, Coachable     N/A
+• Fragility / Wear State Zero historical wear         12-25% baseline wrist wear   0-5% wear, High bone density N/A
+
+THE ASSESSMENT EVALUATION (The Player Decision Step):
+• Assessment Method      2-Round Pad Test ($0)        3-Round Hard Spar ($0)       3-Round Hard Spar ($0)       N/A
+• Time Investment        1 in-game hour (Saturday)    2 in-game hours (Saturday)   2 in-game hours (Saturday)   N/A
+• Intel Unlocked         Unmasks Chin & Composure     Unmasks Power, IQ, Traits    Unmasks True Potential CeilingN/A
+
+CONTRACT TRANSITION STATES & FORMULAS:
+• State 1: PAYING MEMBER Base civilian state. Pays monthly dues. Zero management overhead.
+• State 2: FLAGGED PROSPECT Gold star badge over head. 14-day decision window before candidate loses interest.
+• State 3: AMATEUR SIGNING Member dues cease. Takes 1 of 4 T1 roster slots. Stipend: $250.00/mo.
+• State 4: PRO CONTRACT    Sanctioned pro license. Purse Split: Gym takes 15% (Standard) to 33% (Predatory).
+=================================================================================================================================
+
+Complete Candidate Assessment & State Machine
+# Pipeline engine implementation: MemberTalentPipeline.gd
+class_name MemberTalentPipeline extends Node
+
+signal prospect_flagged(member: GymMember)
+signal contract_signed(fighter: FighterInstance)
+
+const TALENT_EVALUATION_DAY: int = 1 # 1st of every month
+const TIER_1_ROSTER_MAX: int = 4
+
+func evaluate_monthly_member_pool(members: Array[GymMember], active_roster_count: int) -> void:
+    for m in members:
+        if not is_member_eligible(m):
+            continue
+        
+        var talent_score: float = calculate_hidden_talent(m)
+        var threshold: float = get_archetype_threshold(m.archetype)
+        
+        if talent_score >= threshold:
+            var roll: float = randf_range(0.0, 100.0)
+            if roll <= get_archetype_conversion_rate(m.archetype):
+                flag_member_as_prospect(m, talent_score)
+
+func is_member_eligible(m: GymMember) -> bool:
+    if m.archetype == GymMember.Archetype.WEEKEND_WARRIOR:
+        return false
+    if m.age < 16 or m.age > 26:
+        return false
+    if m.monthly_attendance_days < 16:
+        return false
+    return true
+
+func calculate_hidden_talent(m: GymMember) -> float:
+    # 40% Natural Snap + 35% Grit + 25% Bone Density
+    return (m.hidden_snap * 0.40) + (m.hidden_grit * 0.35) + (m.hidden_bone_density * 0.25)
+
+func get_archetype_threshold(arch: GymMember.Archetype) -> float:
+    match arch:
+        GymMember.Archetype.WHITE_COLLAR: return 62.0
+        GymMember.Archetype.HARDCORE_AMATEUR: return 56.0
+        GymMember.Archetype.YOUTH_OUTREACH: return 52.0
+    return 999.0
+
+func get_archetype_conversion_rate(arch: GymMember.Archetype) -> float:
+    match arch:
+        GymMember.Archetype.WHITE_COLLAR: return 1.5
+        GymMember.Archetype.HARDCORE_AMATEUR: return 22.0
+        GymMember.Archetype.YOUTH_OUTREACH: return 12.0
+    return 0.0
+
+func flag_member_as_prospect(m: GymMember, talent: float) -> void:
+    m.is_flagged_prospect = true
+    m.flagged_expiry_days = 14
+    prospect_flagged.emit(m)
+
+func sign_amateur_contract(m: GymMember, gym_state: GymManager) -> bool:
+    if gym_state.active_fighters.size() >= TIER_1_ROSTER_MAX:
+        return false # Roster full
+    
+    # Cease dues, instantiate fighter
+    gym_state.monthly_dues_income -= m.monthly_dues
+    var new_fighter: FighterInstance = FighterInstance.new()
+    new_fighter.fighter_name = m.full_name
+    new_fighter.age = m.age
+    new_fighter.potential_ceiling = m.hidden_talent_ceiling
+    new_fighter.stipend_cost = 250.0 # $250/mo
+    new_fighter.contract_status = FighterInstance.ContractState.AMATEUR
+    
+    gym_state.active_fighters.append(new_fighter)
+    gym_state.civilian_members.erase(m)
+    contract_signed.emit(new_fighter)
+    return true
+
+5.2 Definitive Tuesday-to-Saturday Schedule, Fatigue Formulas & Last-Spar System
+=================================================================================================================================
+FIGHT WEEK CANONICAL SCHEDULE MATRIX (TUESDAY 08:00 TO BOUT NIGHT 23:00)
+=================================================================================================================================
+TIMEOFFSET  SESSION TYPE            INTENSITY DURATION  FATIGUE DELTA  SNAP DELTA   TISSUE REGION WEAR      WEIGHT DELTA
+---------------------------------------------------------------------------------------------------------------------------------
+TUE 08:00   Padwork: Speed Counters HIGH      3.0 hrs   +14.0% Stam    +4.0% Snap   Right Wrist (+6.0%)     -1.8 lbs (Sweat)
+TUE 13:00   Footwork / Shadow Drill MEDIUM    2.0 hrs   +8.0% Stam     +1.5% Snap   Achilles / Calves (+3%) -0.9 lbs
+TUE 18:00   Cryo & Active Mobility  LOW       1.5 hrs   -12.0% Stam    +1.0% Snap   Tissue Flush (-8.0%)    +0.0 lbs
+---------------------------------------------------------------------------------------------------------------------------------
+WED 08:00   Track Sprint Ladder     HIGH      2.5 hrs   +18.0% Stam    -2.0% Snap   Patellar Tendons (+7%)  -2.2 lbs
+WED 13:00   Tactical Film Breakdown NONE      2.0 hrs   +0.0% Stam     +0.0% Snap   None (Mental Stress +5%)+0.0 lbs
+WED 18:00   Epsom Bath / Contrast   LOW       1.5 hrs   -10.0% Stam    +2.0% Snap   Muscular Flush (-6.0%)  -0.6 lbs
+---------------------------------------------------------------------------------------------------------------------------------
+THU 10:00   THE LAST SPAR (2 RNDS)  MAX       0.75 hrs  +22.0% Stam    +8.0% Snap   Head (+4%), Wrists (+5%)-1.5 lbs
+THU 14:00   LAST-SPAR COMMITMENT    ---       DECISION  ---            ---          ---                     ---
+THU 18:00   Sauna Water Shed        MEDIUM    2.0 hrs   +12.0% Stam    -5.0% Snap   Joint Fluid Dry (+4%)   -3.8 lbs (Target)
+---------------------------------------------------------------------------------------------------------------------------------
+FRI 09:00   OFFICIAL WEIGH-IN GAUGE ZERO      1.0 hrs   Weight Checked Target: 154.0 lbs (Tolerance: +/-0.0 lbs)
+FRI 11:00   Carbohydrate & Fluid Re-FEED      6.0 hrs   -25.0% Stam    +6.0% Snap   System Hydration (+100%)+8.5 lbs
+FRI 18:00   Mental Focus WalkthroughLOW       1.0 hrs   -10.0% Stam    +2.0% Snap   Composure: LOCKED       +0.0 lbs
+---------------------------------------------------------------------------------------------------------------------------------
+SAT 10:00   Glove Lacing & Handwrap ZERO      1.0 hrs   0.0% Stam      0.0% Snap    None                    0.0 lbs
+SAT 14:00   Corner Prep Briefing    LOW       1.0 hrs   0.0% Stam      +1.0% Snap   None                    0.0 lbs
+SAT 21:00   Pre-Fight Pad Warmup    MEDIUM    0.5 hrs   +6.0% Stam     +4.0% Snap   None                    -0.5 lbs
+SAT 22:15   RING WALK (BOUT COMMENCES)        READINESS SCORE: Evaluated from Net Stamina, Snap, and Residual Wear
+=================================================================================================================================
+
+Canonical Fatigue, Snap, and Readiness Formulas
+# Canonical Fight Week Physics & Physiology Formulas
+class_name FightWeekPhysiology extends RefCounted
+
+# 1. Net Daily Stamina Burn Equation
+static func compute_hourly_fatigue(intensity: float, base_conditioning: float, gym_temp_celsius: float) -> float:
+    # intensity: 0.0 (Rest) to 3.0 (Max Spar)
+    # base_conditioning: 1 to 100
+    var temp_penalty: float = 1.0 + maxf(0.0, (gym_temp_celsius - 22.0) * 0.035)
+    var burn_rate: float = (intensity * 8.5) / (1.0 + (base_conditioning * 0.012))
+    return burn_rate * temp_penalty
+
+# 2. Punch Snap Decay & Peak Equation
+# Snap measures neuromuscular explosive discharge. Too much fatigue kills snap; too much rest makes snap sluggish.
+static func compute_snap(base_snap: float, stamina_pct: float, hours_since_high_intensity: float) -> float:
+    var freshness_curve: float = 1.0
+    if hours_since_high_intensity < 18.0:
+        # Neuromuscular post-activation potentiation peak occurs between 18 and 36 hours post-spar
+        freshness_curve = 0.88 + (hours_since_high_intensity / 18.0) * 0.12
+    elif hours_since_high_intensity > 48.0:
+        # Sluggishness decay kicks in if idle > 48 hours
+        freshness_curve = maxf(0.75, 1.0 - ((hours_since_high_intensity - 48.0) * 0.008))
+    
+    var stamina_factor: float = clampf(stamina_pct / 80.0, 0.5, 1.0)
+    return base_snap * freshness_curve * stamina_factor
+
+# 3. Composite Fight Readiness Rating (0 to 100%)
+static func compute_fight_readiness(stamina: float, snap: float, max_tissue_wear: float, weight_miss_lbs: float) -> float:
+    var stamina_component: float = clampf(stamina, 0.0, 100.0) * 0.35
+    var snap_component: float = clampf(snap, 0.0, 100.0) * 0.40
+    var wear_penalty: float = max_tissue_wear * 0.25 # Highest single damaged body part
+    var weight_penalty: float = 0.0
+    if weight_miss_lbs > 0.0:
+        weight_penalty = 25.0 + (weight_miss_lbs * 15.0) # Massive penalty if over limit
+    
+    return clampf((stamina_component + snap_component) - wear_penalty - weight_penalty, 0.0, 100.0)
+
+The Irreversible Last-Spar Choices & Outcomes
+
+Executed on Thursday at 14:00. Selecting an option writes permanent tactical overrides to the fighter instance for Saturday night:
+
+=================================================================================================================================
+THE THREE IRREVERSIBLE LAST-SPAR COMMITMENTS
+=================================================================================================================================
+OUTCOME METRIC           OPTION 1: THE DEFENSIVE LOCK         OPTION 2: DOUBLE-DOWN ENGINE         OPTION 3: TISSUE TAPER
+---------------------------------------------------------------------------------------------------------------------------------
+Tactical Paradigm        "Glue Left Glove to Temple"          "Step Through and Fire Hook"         "Flush Fatigue Immediately"
+Primary Intent           Completely shut down power hand      Crush opponent on volume/damage      Enter ring at 100% physical prime
+
+PREDICTED FIGHT-NIGHT RAMIFICATIONS:
+• Opponent Signature KO  REDUCED BY 65.0%                     NO CHANGE                            NO CHANGE
+• Counter-Punch Risk     NO CHANGE                            INCREASED BY 40.0%                   NO CHANGE
+• Clean Power Output     REDUCED BY 15.0%                     INCREASED BY 25.0%                   NO CHANGE
+• Hand/Footwork Speed    REDUCED BY 8.0%                      NO CHANGE                            INCREASED BY 10.0%
+• Stagger Infliction Rate-12.0%                               +30.0%                               0.0%
+• Starting Stamina Pool  Unchanged (Normal rest)              -8.0 Stamina (High spar cost)        +15.0 Stamina (Full flush)
+• Punch Snap Rating      -4.0% (Defensive muscle tension)     +6.0% (Explosive potentiation)       LOCKED TO 100.0% PEAK
+• Cut / Swelling Hazard  Eye cut risk reduced by 50.0%        Cut risk increased by 35.0%          Baseline cut resistance +15%
+• Active Move Cards      Lead Hook Card DEACTIVATED           Overhand Right Card FORCED ACTIVE    All equipped cards locked
+=================================================================================================================================
+
+The Auto-Play Skip-Day Mechanics & Penalties
+
+When skipping days (e.g., fast-forwarding to weigh-in), the simulation uses explicit trade-offs rather than randomized outcomes:
+
+Coach Competence Cap: Daily training efficiency is capped at 80% + (Coach_IQ * 0.15). Skipping always yields 5% to 20% less attribute development than manual micro-management.
+Safety Cut-off: The assistant coach halts training immediately if stamina drops below 25.0. The fighter will not suffer catastrophic injury during a skip, but will forfeit any remaining scheduled drills for the day.
+Technique XP Penalty: Technique cards earn only 50% XP during auto-play. The remaining training hours are converted to flat physical conditioning.
+Weight Cut Drift: If Friday is skipped with weight remaining to be cut, the AI executes an emergency sauna cut, reducing Saturday starting stamina by 12.0 points per pound shed in the automated window.
+5.3 Authoritative 30m × 18m Starting Gym Layout (Top-Down Coordinate Table)
+=================================================================================================================================
+30.0m × 18.0m FACILITY COORDINATE SPECIFICATION (ORIGIN AT SOUTH-WEST CORNER: X=0, Z=0)
+X-Axis: 0.0m to 30.0m (West to East) | Z-Axis: 0.0m to 18.0m (South to North) | Floor Elevation: Y=0.0m
+=================================================================================================================================
+ITEM / ZONE IDENTIFIER       X (m)   Z (m)   WIDTH   DEPTH   Y-ROT   MATERIAL PALETTE / COLOR HEX      SYSTEM FUNCTION
+---------------------------------------------------------------------------------------------------------------------------------
+ZONE BOUNDARIES & FLOOR SURFACES:
+• Floor Slab: Zone A (Bags)   6.50    15.00   11.00   5.00    0.0°    Vulcanized Rubber / #20242B       Pebble rubber, absorbs impact
+• Floor Slab: Zone B (Cardio) 5.50    4.50    9.50    7.00    0.0°    Interlocking Tiles / #2A2E37      Aerobic impact absorption
+• Floor Slab: Zone C (Weights)16.00   4.50    9.00    7.00    0.0°    Heavy Rubber Tiles / #1C1917      Drop-rated steel vibration damp
+• Floor Slab: Zone D (Ring)   15.00   14.50   7.50    6.50    0.0°    Reinforced Subfloor / #27272A     Deadened plywood sleeper floor
+• Floor Slab: Zone E (Turf)   25.50   5.00    7.00    8.00    0.0°    Polyethylene Turf / #14532D       High-density directional grass
+• Floor Slab: Zone F (Mats)   24.50   15.00   9.00    5.00    0.0°    Smooth Vinyl Tatami / #1E293B     Sanitized closed-cell foam
+
+CIRCULATION CORRIDORS (CLEAR PATHWAYS — NO EQUIPMENT PERMITTED):
+• Main East-West Artery      15.00   9.00    28.00   2.20    0.0°    Polished Concrete / #3F3F46       Main walkway from entrance
+• Ring Approach North-South  15.00   10.50   2.40    3.50    0.0°    Polished Concrete / #3F3F46       Direct access to ring apron
+• West Perimeter Alley       1.00    9.00    1.20    16.00   0.0°    Polished Concrete / #3F3F46       Locker and bag line access
+• East Perimeter Alley       29.00   9.00    1.20    16.00   0.0°    Polished Concrete / #3F3F46       Turf and mat access
+
+ZONE A: HEAVY BAG LINE (X: 1.5 to 11.5, Z: 13.0 to 17.5)
+• Structural I-Beam Rack     6.50    16.80   10.00   0.30    0.0°    Structural Steel / #18181B        Overhead bag suspension truss
+• Heavy Leather Bag #1       2.20    16.50   0.45    0.45    12.0°   Oxblood Leather / #5B1D1D         Power hook / bone conditioning
+• Heavy Leather Bag #2       3.80    16.50   0.45    0.45    -5.0°   Oxblood Leather / #5B1D1D         Power hook / bone conditioning
+• Heavy Leather Bag #3       5.40    16.50   0.45    0.45    4.0°    Classic Black / #18181B           General punch output volume
+• Heavy Leather Bag #4       7.00    16.50   0.45    0.45    -8.0°   Classic Black / #18181B           General punch output volume
+• Aqua Water Bag #1          8.60    16.50   0.50    0.50    0.0°    Marine Vinyl / #0284C7            Low-wear wrist / snap drilling
+• Double-End Reflex Bag      10.20   16.50   0.25    0.25    0.0°    Tan Leather / #B45309             Timing, rhythm & counter snaps
+• Steel Chalk Stand A        1.60    14.00   0.45    0.45    0.0°    Powdercoated Steel / #3F3F46      Grip & hand maintenance
+
+ZONE B: CARDIO DECK (X: 1.5 to 10.5, Z: 1.5 to 7.5)
+• Commercial Treadmill #1    2.40    3.20    0.95    2.10    0.0°    Textured Polymer / #09090B        Aerobic threshold conditioning
+• Commercial Treadmill #2    3.70    3.20    0.95    2.10    0.0°    Textured Polymer / #09090B        Aerobic threshold conditioning
+• Commercial Treadmill #3    5.00    3.20    0.95    2.10    0.0°    Textured Polymer / #09090B        Aerobic threshold conditioning
+• Concept2 Rower #1          2.40    6.20    0.65    2.40    90.0°   Extruded Aluminum / #52525B       Lactic acid threshold flush
+• Concept2 Rower #2          4.20    6.20    0.65    2.40    90.0°   Extruded Aluminum / #52525B       Lactic acid threshold flush
+• Airdyne Fan Bike           6.40    6.20    0.70    1.30    0.0°    Matte Steel / #18181B             Anaerobic sprint overload
+• Jump Rope Stencil #1       8.50    3.50    1.80    1.80    0.0°    Painted Floor Decal / #E2E8F0     Calf endurance & foot speed
+• Jump Rope Stencil #2       8.
+
+

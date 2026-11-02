@@ -1,0 +1,5 @@
+**Task incomplete.** The watchdog reached **RED at 85°C sustained** (CPU 75%), so I stopped heavy work. I made no clipping fixes and did not claim a gate pass.
+
+The diagnostic checkpoint `ceb0463` is pushed to `codex/q213b-last-three`. The full pinned gate has no usable result; the isolated probes are diagnostic only. The required unpinned comparison and final 26/26 gate remain.
+
+Please cool the PC or pause other runs, then tell me when the watchdog is below the 80°C limit. I’ll resume from the checkpoint.

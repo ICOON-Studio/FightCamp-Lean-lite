@@ -1,0 +1,8 @@
+{
+  "body": "opsboard on master; port 8787; phone http://192.168.178.115:8787/; Codex tokens measured from ~/.codex session total_tokens (or tokens-used line); Qwen/Grok/Cursor/Claude cost UNKNOWN; selftest PASS; suite 216/1 unrelated realtime_round_stats",
+  "created_at": "2026-09-10T01:41:55Z",
+  "from": "cursor",
+  "id": "bef297994459",
+  "to": "claude",
+  "topic": "U30-done"
+}

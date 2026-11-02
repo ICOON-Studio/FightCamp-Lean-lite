@@ -1,0 +1,370 @@
+
+FIGHTCAMP (S227) — ROUND 70: UIBIBLE1
+THE UNIFIED DESIGN SYSTEM & UI BIBLE FOR THE WHOLE GAME
+
+Document Reference: FC-SPEC-S227-UIBIBLE1-DESIGN-SYSTEM
+
+Target Engine: Godot 4.7.2 Forward+, pure GDScript controls, native $1920 \times 1080$, dynamic graceful scaling down to $1280 \times 720$.
+
+Core Theme Directive: Gleason’s Gym 1970s Industrial Dossier (Aged Brass, Championship Gold, Deep Charcoal, Stamped Steel, Oxblood, Bond Paper Cream). No neon greens, no blue lasers, no pure white blinding text, no raw unbordered grey boxes.
+
+PART A: THE FORENSIC AUDIT OF SCREENS A–F
+(Why the Game Looks Like It Was Built by Six Disconnected Teams)
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                   CROSS-SCREEN FRACTURE MAP                                      │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                                  │
+│   SCREEN A: Globe & Market Card       SCREEN B: Gym Floor HUD         SCREEN C: Training Planner │
+│   • Stamped Gold (#d4af37) dossier    • Neon mustard pill button      • Black void canvas        │
+│   • Microscopic white ledger text     • Translucent floating dock     • Desaturated airport pills│
+│   • Dark brass border framing         • High-contrast lime pips       • Yellow sticky button     │
+│                 │                                  │                               │             │
+│                 └──────────────────────────────────┼───────────────────────────────┘             │
+│                                                    ▼                                             │
+│                                       [ ZERO VISUAL CONTINUITY ]                                 │
+│                                                    ▲                                             │
+│                 ┌──────────────────────────────────┴───────────────────────────────┐             │
+│                 │                                  │                               │             │
+│   SCREEN D: Profile Overview          SCREEN E: Profile Career        SCREEN F: Quick-Look Floor │
+│   • Flat modern cyan bars             • Neon Matrix green (#00ff66)   • Floating blue-slate box  │
+│   • Bright orange highlight (#ff9900) • Cyberpunk violet button       • Disconnected from 3D     │
+│   • Block-man vector glitch           • Raw monospaced debug text     • White unstyled text      │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+Every screen violates visual cohesion across five core dimensions:
+
+1. Inconsistent Gold/Yellow Palette (6 Different Hues across 6 Screens)
+Screen A (Globe): Uses an antique ochre brass (#d4af37 / #c89e3a) for borders and header bands.
+Screen B (Gym Floor HUD): Uses a vibrant, oversaturated "construction mustard" (#f5b82e) on the top date chip and bottom-right "GUIDE" button.
+Screen C (Training Planner): Introduces a dull light mustard on "WATCH THE FLOOR" (#e8b338) while retaining the bright yellow "GUIDE" button at the bottom right.
+Screen D (Profile Overview): Shifts entirely to an electric amber/orange (#ff9f1c) for the "UNASSIGNED" button and stat meters.
+Screen E (Profile Career): Ditches yellow entirely, substituting a bright neon arcade green (#00ff7f) and electric indigo (#5865f2).
+Screen F (Quick-Look): Uses a desaturated muted bronze on the top buttons with pale yellow text labels.
+2. Panel Materiality and Depth Fractures
+Screen A: Features physical inset cards with $1.5\text{ px}$ brass trims and dark leatherette fills.
+Screen B & F: Floor HUD and Quick-Look Card use floating translucent glassmorphism (rgba(24, 26, 30, 0.85)) with rounded corners that clash with the period aesthetic.
+Screen C: Renders flat, borderless CSS-style grey rectangles floating in an unlit void.
+Screen D & E: Dark slate blue cards (#1b2028) with razor-sharp borders and zero tactile framing, completely abandoning the Gleason gym theme.
+3. Button Geometry, Weights, and Hover States
+Screen A: Stamped full-width rectangular brass block ("CHOOSE MARKET").
+Screen B: Oval, heavily rounded pill buttons ("Mon 5 Feb", "Guide - Hire a coach").
+Screen C: Squircle preset buttons, pill drag items, and sharp-cornered day cells.
+Screen D: Rectangular flat orange block button with dark text.
+Screen E: Rounded sci-fi neon green ("EXTEND CONTRACT") and blue buttons ("RENEGOTIATE CONTRACT").
+Screen F: Deep recessed dark buttons with microscopic borders.
+4. Typography Anarchy
+Multiple font families collide: Inter/Roboto clean sans-serif (Screens B, C, F), monospaced terminal code (Screen E), and condensed Gothic display titles (Screen A, C).
+Inconsistent font cases: Some screens use UPPERCASE with tracking (Screen A), others use Title Case (Screen B), and some mix lowercase and uppercase haphazardly (Screen D, E).
+Text brightness varies wildly: Screen E uses raw #ffffff that blows out contrast, while Screen C uses muted #777777 that is unreadable at $1080\text{ p}$.
+5. UI Canvas Integration
+The top HUD bar and left icon rail look like an engine debug overlay stuck onto the viewport, completely disconnected from the screens below them.
+PART B: THE BIBLE — THE DEFINITIVE SYSTEM TOKENS
+
+Every value below is canonical. No agent or engineer may write hardcoded hex values or raw pixel dimensions into screen scripts again.
+
+1. COLOUR TOKENS
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                     MASTER PALETTE MATRIX                                        │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ BACKGROUNDS:        PANELS & SURFACES:    BRASS & GOLD:         ACCENTS & FEEDBACK:              │
+│ BG_VOID   #0d0c0b   SURF_BASE   #1a1816   GOLD_BRIGHT #f0c233   OXBLOOD_BRT #c62f2a (Danger)     │
+│ BG_CANVAS #141312   SURF_ELEV   #22201d   GOLD_MUTED  #c8931b   AMBER_WARN  #e08a1e (Warning)    │
+│ BG_RECESS #100f0e   SURF_CARD   #282521   BRASS_ANTQ  #d4af37   EMERALD_VAL #2f855a (Success)    │
+│                     SURF_BORDER #36322b   BRASS_DARK  #8c6f2d   STEEL_INFO  #4a758c (Telemetry)  │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ CREAM TEXT & LABELS:                                            INTERACTIVE STATES:              │
+│ TEXT_HERO   #f5ede0 (Paper Cream High)                          STATE_HOVER #ffffff (8% tint)    │
+│ TEXT_BODY   #d8cebe (Aged Bond Neutral)                         STATE_PRESS #000000 (15% shade)  │
+│ TEXT_MUTED  #8c8476 (Weathered Pencil)                          STATE_FOCUS #f0c233 (1.5px ring) │
+│ TEXT_FAINT  #544e45 (Etched Steel / Disabled)                   STATE_DISAB #3a362f (Surface)    │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+Complete Hex Reference Table:
+
+| Token Name | Hex Code | Visual Identity & Strict Usage |
+| :--- | :--- | :--- |
+| BG_VOID | #0d0c0b | Screen boundary underlay, modal scrim background. |
+| BG_CANVAS | #141312 | Default full-screen window background (Gleason dark oiled floor). |
+| BG_RECESS | #100f0e | Inset meter troughs, empty equipment alcoves, sunken text boxes. |
+| SURF_BASE | #1a1816 | Standard panel surface, unselected tab background, table rows. |
+| SURF_ELEV | #22201d | Floating cards, modal frames, dropdown menus, context dockets. |
+| SURF_CARD | #282521 | Interactive cards, day cells, focused fighter tiles. |
+| SURF_BORDER | #36322b | Standard structural $1\text{ px}$ separation line for panels and cards. |
+| SURF_BEVEL | #48433a | Top/left highlight edge of bevelled metallic surfaces. |
+| GOLD_BRIGHT | #f0c233 | Championship Gold: Selected tabs, primary CTA, active today pins. |
+| GOLD_MUTED | #c8931b | Secondary gold accents, high-grade stat bars (80–89%). |
+| BRASS_ANTQ | #d4af37 | Stamped header bands, category banners, card frames, leader pins. |
+| BRASS_DARK | #8c6f2d | Chamfered button borders, inactive gold indicators, divider rules. |
+| OXBLOOD_DARK | #7a1e22 | Destructive CTA normal state, critical warning background. |
+| OXBLOOD_BRT | #c62f2a | Fatigue danger, severe injury alerts, cancel button hover. |
+| AMBER_WARN | #e08a1e | Overtraining warnings, pending bout alerts, contract expiration. |
+| EMERALD_VAL | #2f855a | Clean medical status, optimal camp progression, positive deltas. |
+| STEEL_INFO | #4a758c | Hydrotherapy/Recovery focus, cold telemetry metrics. |
+| TEXT_HERO | #f5ede0 | Clean high-contrast cream for display names, main numbers, titles. |
+| TEXT_BODY | #d8cebe | Default readable cream for table contents, descriptions, details. |
+| TEXT_MUTED | #8c8476 | Category headers, secondary labels, metadata tags, unlit units. |
+| TEXT_FAINT | #544e45 | Watermarks, disabled action text, locked feature indicators. |
+
+2. TYPE SCALE & TYPOGRAPHY SYSTEM
+
+We deploy two battle-tested, commercially permissive open-source typefaces that capture the 1970s print journalism and industrial gym era:
+
+Display / Numerics / Headers: League Gothic (Open Font License) / Alternate: Oswald.
+Body / Telemetry / Interface Labels: Barlow Semi Condensed / Alternate: Roboto Condensed.
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                   HIERARCHICAL TYPE RUNWAY                                       │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                                  │
+│   HERO NUMERIC:   84  (44pt League Gothic Bold, Gold, Tracking +1.0px)                           │
+│   SCREEN TITLE:   WEEKLY TRAINING PLANNER  (32pt League Gothic, Cream, +1.5px)                   │
+│   CARD HEADING:   ANATOMICAL INTEGRITY  (16pt Oswald Bold, Antique Brass, +1.0px)               │
+│   BODY TEXT:      Left hook snapping with elite velocity.  (13pt Barlow Medium, Cream)          │
+│   TABLE CAPTION:  BOUT RECORD AT WEIGH-IN  (10pt Barlow Bold, Muted Pencil, +1.2px)              │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+Type Tokens:
+
+| Level Token | Font Family | Size (1080p) | Weight | Tracking | Default Color | Transform |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| FONT_HERO_NUM | League Gothic | $44\text{ pt}$ | Bold | $+1.0\text{ px}$ | GOLD_BRIGHT | None |
+| FONT_DISPLAY | League Gothic | $32\text{ pt}$ | Regular | $+1.5\text{ px}$ | TEXT_HERO | UPPERCASE |
+| FONT_TITLE | League Gothic | $24\text{ pt}$ | Regular | $+1.2\text{ px}$ | TEXT_HERO | UPPERCASE |
+| FONT_HEADING | Oswald | $16\text{ pt}$ | SemiBold | $+1.0\text{ px}$ | BRASS_ANTQ | UPPERCASE |
+| FONT_SUBHEAD | Oswald | $13\text{ pt}$ | Medium | $+0.8\text{ px}$ | TEXT_BODY | UPPERCASE |
+| FONT_BODY | Barlow Semi Cond | $13\text{ pt}$ | Regular | $+0.2\text{ px}$ | TEXT_BODY | Sentence |
+| FONT_BODY_BOLD| Barlow Semi Cond | $13\text{ pt}$ | Bold | $+0.4\text{ px}$ | TEXT_HERO | Sentence |
+| FONT_CAPTION | Barlow Semi Cond | $11\text{ pt}$ | Medium | $+0.6\text{ px}$ | TEXT_MUTED | UPPERCASE |
+| FONT_MICRO | Barlow Semi Cond | $9\text{ pt}$ | Bold | $+1.0\text{ px}$ | TEXT_MUTED | UPPERCASE |
+| FONT_STAT_NUM | League Gothic | $22\text{ pt}$ | Regular | $+0.5\text{ px}$ | GOLD_BRIGHT | None |
+
+3. SPACING GRID & CORNER RADII
+
+All UI layout follows a strict $4\text{ px}$ base unit with an $8\text{ px}$ structural grid:
+
+Micro Spacing: $SP_2 = 2\text{ px}$ (Divider offsets, borders)
+Tight Spacing: $SP_4 = 4\text{ px}$ (Segment gap, badge internal padding)
+Standard Component Gap: $SP_8 = 8\text{ px}$ (Table row gap, button item spacing)
+Container Padding: $SP_12 = 12\text{ px}$ (Card inner margins, chip padding)
+Block Separation: $SP_16 = 16\text{ px}$ (Distance between header and content)
+Major Grid Gaps: $SP_24 = 24\text{ px}$ (Column gutter between primary dockets)
+Screen Margin Buffer: $SP_40 = 40\text{ px}$ (Canvas perimeter padding)
+Corner Radii (No hyper-rounded modern iOS pills):
+RADIUS_NONE: $0\text{ px}$ (Sharp corners for table headers, divider strips, progress fills).
+RADIUS_PILL: $2\text{ px}$ (Meters, micro badges, tags, indicator dots).
+RADIUS_CARD: $3\text{ px}$ (Attribute tiles, day cells, focus drag blocks).
+RADIUS_PANEL: $4\text{ px}$ (Major screens, modals, session drawer, roster cards).
+4. PANEL & CARD ANATOMY
+
+Every panel is structured with tangible physical weight:
+
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ PANEL / CARD STRUCTURAL ANATOMY                                                                  │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ ┌──────────────────────────────────────────────────────────────────────────────────────────────┐ │
+│ │ HEADER STRIP: 1px Brass Bevel Highlight (SURF_BEVEL #48433a)                                 │ │
+│ │ ┌──────────────────────────────────────────────────────────────────────────────────────────┐ │ │
+│ │ │ [ICON] CATEGORY HEADER TITLE                           [SUB-TAG / STATUS CHIP]           │ │ │
+│ │ └──────────────────────────────────────────────────────────────────────────────────────────┘ │ │
+│ │ 1px Inset Brass Divider Line (SURF_BORDER #36322b)                                           │ │
+│ ├──────────────────────────────────────────────────────────────────────────────────────────────┤ │
+│ │                                                                                              │ │
+│ │ PANEL BODY: Dark Surface (SURF_BASE #1a1816 or SURF_CARD #282521)                           │ │
+│ │ Inset Shadow: 2px soft drop-shadow (rgba(0, 0, 0, 0.45))                                     │ │
+│ │ Outer Border: 1px solid antique brass/steel (SURF_BORDER #36322b)                            │ │
+│ │                                                                                              │ │
+│ └──────────────────────────────────────────────────────────────────────────────────────────────┘ │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+Outer Border: Always $1\text{ px}$ (or $1.5\text{ px}$ on active/focused cards) in SURF_BORDER (#36322b).
+Top Inner Highlight: A $1\text{ px}$ inset horizontal line in SURF_BEVEL (#48433a) to simulate directional overhead lighting from gym fluorescents.
+Corner Accents: Optional $3\text{ px} \times 3\text{ px}$ brass rivets in BRASS_DARK (#8c6f2d) on key contract or championship docket panels.
+Drop Shadow: Recessed cards cast a soft shadow: Offset $(0, 4)$, Blur $12\text{ px}$, Color Color(0, 0, 0, 0.5).
+5. BUTTON SPECIFICATION MATRIX
+
+Buttons represent physical machined brass and stamped steel switchgear. No flat neon blobs.
+
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                     BUTTON VARIATIONS                                            │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                                  │
+│   PRIMARY CTA:        [ ★ COMMIT TRAINING PLAN ]   (Gold Fill #f0c233, Charcoal Text #1a1816)    │
+│   SECONDARY ACTION:   [ EDIT DRILL FOCUS ]         (Steel Fill #22201d, Brass Border #d4af37)    │
+│   GHOST UTILITY:      [ ✕ CLOSE DOCKET ]           (Clear Fill, Faint Border, Cream Text)        │
+│   DANGER ACTION:      [ TERMINATE CONTRACT ]       (Oxblood Fill #7a1e22, High-Cream Text)       │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+Style Token States:
+PRIMARY BUTTON (btn_primary):
+Normal: Fill GOLD_BRIGHT (#f0c233), Border $1.5\text{ px}$ BRASS_DARK (#8c6f2d), Text BG_VOID (#0d0c0b), Font: League Gothic $18\text{ pt}$.
+Hover: Fill #ffcf47 ($+10%$ luminance), Border GOLD_BRIGHT, Text BG_VOID, Scale $+1.02$.
+Pressed: Fill GOLD_MUTED (#c8931b), Offset $Y = +1\text{ px}$.
+Disabled: Fill SURF_BASE, Border SURF_BORDER, Text TEXT_FAINT.
+SECONDARY BUTTON (btn_secondary):
+Normal: Fill SURF_ELEV (#22201d), Border $1\text{ px}$ BRASS_DARK (#8c6f2d), Text TEXT_HERO, Font: Oswald Medium $13\text{ pt}$.
+Hover: Fill SURF_CARD (#282521), Border BRASS_ANTQ (#d4af37), Text GOLD_BRIGHT.
+Pressed: Fill SURF_BASE, Text TEXT_BODY.
+GHOST BUTTON (btn_ghost):
+Normal: Fill Color.TRANSPARENT, Border $1\text{ px}$ SURF_BORDER, Text TEXT_BODY.
+Hover: Fill rgba(255, 255, 255, 0.04), Border BRASS_DARK, Text TEXT_HERO.
+DANGER BUTTON (btn_danger):
+Normal: Fill OXBLOOD_DARK (#7a1e22), Border $1\text{ px}$ #9e2a2f, Text TEXT_HERO.
+Hover: Fill OXBLOOD_BRT (#c62f2a), Border #ff4a50, Text WHITE.
+Standard Button Heights:
+Hero / CTA: $44\text{ px}$ (Minimum width: $180\text{ px}$)
+Standard Action: $36\text{ px}$ (Minimum width: $120\text{ px}$)
+Compact Table Utility: $28\text{ px}$ (Minimum width: $80\text{ px}$)
+Icon Square: $32 \times 32\text{ px}$ or $40 \times 40\text{ px}$
+6. TABS, CHIPS & FILTERS
+Tab Bar Architecture:
+Sits over an unbroken $1\text{ px}$ baseline in SURF_BORDER.
+Individual tabs: Height $36\text{ px}$. Unselected: Background transparent, Text TEXT_MUTED.
+Active Tab: Stamped plate in SURF_ELEV with a $2.5\text{ px}$ underline strip in GOLD_BRIGHT that smoothly animates X position and width across switches.
+Filter Chips:
+Height: $28\text{ px}$. Background: SURF_BASE (#1a1816), Border: $1\text{ px}$ SURF_BORDER.
+Content: Label (Oswald Medium $11\text{ pt}$) + Counter Badge in brackets [3].
+Active/Toggled State: Border GOLD_BRIGHT, Text GOLD_BRIGHT, Badge background BRASS_DARK.
+Alert State (Needs Attention $> 0$): Background OXBLOOD_DARK, Text WHITE, pulsing alpha.
+7. MODAL WINDOWS & POPUPS
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ MODAL DIALOG ANATOMY                                                                             │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ ┌──────────────────────────────────────────────────────────────────────────────────────────────┐ │
+│ │ MODAL SCRIM: Covers full viewport with Color(0.05, 0.04, 0.04, 0.75) + 3px Backdrop Blur     │ │
+│ │                                                                                              │ │
+│ │    ┌────────────────────────────────────────────────────────────────────────────────────┐    │ │
+│ │    │ MODAL HEADER: Height 52px • Background SURF_BASE • 1px Bottom Brass Divider       │    │ │
+│ │    │ [ICON] MODAL TITLE IDENTIFIER                                          [✕ CLOSE]  │    │ │
+│ │    ├────────────────────────────────────────────────────────────────────────────────────┤    │ │
+│ │    │ MODAL BODY (CONTENT DOCKET): Padding 24px • SURF_ELEV #22201d                      │    │ │
+│ │    │ Structured data, form elements, confirmation text, or tactical cards.              │    │ │
+│ │    ├────────────────────────────────────────────────────────────────────────────────────┤    │ │
+│ │    │ MODAL ACTION FOOTER: Height 64px • 1px Top Divider                                 │    │ │
+│ │    │ [ GHOST: CANCEL / DISMISS ]                 [ PRIMARY CTA: CONFIRM ACTION ]        │    │ │
+│ │    └────────────────────────────────────────────────────────────────────────────────────┘    │ │
+│ └──────────────────────────────────────────────────────────────────────────────────────────────┘ │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+Size Classes:
+Compact / Confirm Modal (MODAL_SM): $W: 480\text{ px}, H: 260\text{ px}$ (Release fighter, reset drill).
+Standard Form Modal (MODAL_MD): $W: 680\text{ px}, H: 440\text{ px}$ (Hire coach, bout offer negotiation).
+Tactical Inspection Docket (MODAL_LG): $W: 960\text{ px}, H: 640\text{ px}$ (Fight contract, deep scouting report).
+8. TOOLTIP ARCHITECTURE & METRIC DELTAS
+Hover Delay: Strictly $220\text{ ms}$. Tooltips never fire instantly to prevent visual spam during mouse navigation.
+Padding: $8\text{ px}$ horizontal, $6\text{ px}$ vertical. Border: $1\text{ px}$ BRASS_DARK. Fill: BG_VOID (#0d0c0b).
+Rich Stat Tooltip Anatomy:
+Title: Oswald SemiBold $11\text{ pt}$ in BRASS_ANTQ.
+Mechanical Explanation: Barlow $11\text{ pt}$ in TEXT_BODY.
+Dynamic Delta Strip:
+Base Value: 72
+Delta: +4.2% (Rendered in EMERALD_VAL #2f855a with an upward triangle ▲) or -2.8% (Rendered in OXBLOOD_BRT with ▼).
+9. TOASTS & NOTIFICATIONS
+Screen Anchor: Top-right corner ($X: 1480, Y: 80$), stacking downwards with $8\text{ px}$ gap. Max 3 concurrent toasts.
+Dimensions: Width $400\text{ px}$, Height $64\text{ px}$.
+Structure: Left edge $4\text{ px}$ status color band (Green/Amber/Oxblood/Gold), Icon ($24\text{ px}$), Title ($12\text{ pt}$ Oswald Bold), Message ($11\text{ pt}$ Barlow).
+Lifespan: $4200\text{ ms}$ display duration, smooth $180\text{ ms}$ slide-in from right, $120\text{ ms}$ fade-out.
+10. METERS, BARS & TELEMETRY
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ SEGMENTED TACTILE METER (10 PIPS)                                                                │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ [ ■■■■■■■■□□ ]  VALUE: 78 / 100  [GRADE A]                                                       │
+│ Pips 1-7: Championship Gold (#f0c233) • Pips 8-10: Dark Recess (#100f0e)                         │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+Segmented Attribute Gauges:
+Used for persistent attributes (Power, Speed, Chin).
+10 distinct physical blocks with $2\text{ px}$ spacing.
+Heights: $10\text{ px}$ (Compact) or $14\text{ px}$ (Card tile).
+Smooth Fluid Progress Gauges:
+Used for continuous fluid states (Stamina, Session Fatigue, Camp Peak, Weight Cut).
+Background: Sunken track BG_RECESS (#100f0e), $1\text{ px}$ border SURF_BORDER.
+Height: $8\text{ px}$ standard, $12\text{ px}$ hero.
+Band Color Progression:
+$0% - 29%$: OXBLOOD_BRT (#c62f2a)
+$30% - 54%$: AMBER_WARN (#e08a1e)
+$55% - 79%$: GOLD_MUTED (#c8931b)
+$80% - 100%$: GOLD_BRIGHT (#f0c233)
+11. ICON SYSTEM
+Standard: Stroke-based vector glyphs (Lucide / Custom boxing iconography).
+Stroke Width: Strictly $1.75\text{ px}$ uniform stroke. No hairline lines ($< 1\text{ px}$) that shimmer during downscaling.
+Standard Grid Sizes:
+Small / Inline: $14 \times 14\text{ px}$
+Standard Utility: $18 \times 18\text{ px}$
+Major Category / Drag Tile: $24 \times 24\text{ px}$
+Hero Display Plinth: $36 \times 36\text{ px}$
+Color Rules: Icons inherit the text color token of their parent container (never hardcoded white).
+12. MOTION CHOREOGRAPHY & TIMING TOKENS
+
+The game avoids sluggish animation while preventing jarring instant cuts. All UI movement follows authored tween curves:
+
+| Action | Duration | Transition Curve | Easing |
+| :--- | :--- | :--- | :--- |
+| Tab Switch Slide | $160\text{ ms}$ | TRANS_QUAD | EASE_OUT |
+| Drawer Slide Up / Down| $220\text{ ms}$ | TRANS_CUBIC | EASE_OUT |
+| Modal Open (Scale + Fade)| $180\text{ ms}$ | TRANS_BACK (Scale $0.95 \to 1.0$) | EASE_OUT |
+| Modal Close | $120\text{ ms}$ | TRANS_QUAD | EASE_IN |
+| Button Hover Scale | $80\text{ ms}$ | TRANS_SINE | EASE_OUT |
+| Meter Value Fill | $280\text{ ms}$ | TRANS_QUAD | EASE_OUT |
+| Numeric Tally Count-Up | $340\text{ ms}$ | TRANS_LINEAR | EASE_IN_OUT |
+
+13. HUD TOP BAR & LEFT ICON RAIL UNIFICATION
+
+The HUD and Left Rail are brought inside the Gleason design language:
+
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ UNIFIED HUD TOP BAR (Height: 60px, Background: SURF_BASE, Bottom Border: 1px BRASS_DARK)         │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ [BANKROLL CHIP]      │ [TIME CONTROLS: PAUSE / 1X / 2X]   [DATE CARTOUCHE] │ [NEXT BOUT DOCKET]  │
+│ $24,780 (+850/wk)    │ ❚❚  ▶  ▶▶   •   Mon 5 Jan 1976 (Week 1)             │ 18 Days: Shevchenko │
+│ League Gothic 20pt   │ Machined brass buttons, dark charcoal face          │ Gold alert banner   │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+HUD Top Bar ($H: 60\text{ px}$):
+Replace the floating detached rounded pills with a structured dark steel transom (SURF_BASE #1a1816) spanning $X: 64$ to $1920$.
+Bankroll Readout: Stamped brass pocket with League Gothic $22\text{ pt}$ Cream text.
+Time & Date Controls: Interlocked industrial switch cluster. Active speed highlighted with a Championship Gold pip.
+Left Icon Rail ($W: 64\text{ px}$):
+Background: Solid BG_VOID (#0d0c0b) with a continuous vertical $1\text{ px}$ right border in SURF_BORDER.
+Active Screen Icon: Placed inside a $44 \times 44\text{ px}$ square brass frame with an arrow cursor pointing into the main canvas.
+14. 3D WORLD OVERLAYS (GYM FLOOR INTEGRATION)
+
+To ensure that world-space elements match the 2D UI:
+
+Fighter Overhead Nameplates:
+Projected via unproject_position().
+Background: rgba(16, 15, 14, 0.88) with $1\text{ px}$ border in BRASS_DARK.
+Text: League Gothic $14\text{ pt}$ Cream. Sub-label: Current action in Antique Brass.
+Equipment Station Tags (Heavy Bags, Sparring Ring, Bench):
+Stamped brass plaques anchored to equipment posts.
+Shows occupancy count: [1 / 4 IN USE].
+Selection Reticle on Gym Floor:
+A circular brass gear decal ($1.5\text{ m}$ radius) projected on the gym floor under the selected boxer, rotating slowly at $6^\circ / \text{sec}$.
+PART C: GODOT 4 PRODUCTION IMPLEMENTATION
+
+Below is the complete, single-source-of-truth implementation of UIKit.gd for Godot 4.7.2.
+
+# res://scripts/ui/UIKit.gd
+class_name UIKit
+extends RefCounted
+
+# ==============================================================================
+# 1. COLOR TOKENS (GLEASON GYM 1970s INDUSTRIAL PALETTE)
+# ==============================================================================
+# Backgrounds & Recesses
+const COLOR_BG_VOID        := Color("#0d0c0b")
+const COLOR_BG_CANVAS      := Color("#141312")
+const COLOR_BG_RECESS      := Color("#100f0e")
+
+# Surfaces & Borders
+const COLOR_SURF_BASE      := Color("#1a1816")
+const COLOR_SURF_ELEV      := Color("#22201d")
+const COLOR_SURF_CARD      := Color("#282521")
+const COLOR_SURF_BORDER
+
+Can you finish the complete UIKit.gd token constants and helper functions for every UIBIBLE section?
+Can you provide the full Godot Theme resource structure, including type variations and naming conventions?
+Can you write the migration checklist for screens A–F with one concrete acceptance test per screen?
+Can you create a unified visual contact sheet showing screens A–F restyled in the Gleason’s Gym design system?

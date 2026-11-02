@@ -1,0 +1,4 @@
+[  8/14] FAIL   fight_stage_scurve_switch_test.gd            rc=1
+
+SUITE total=14 fails=1 parked=0
+rc=1

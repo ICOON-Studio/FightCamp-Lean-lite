@@ -1,0 +1,8 @@
+{
+  "body": "ART READY M9 \u2014 THE SCALE ON THE BELT (Maria). Art only. Please land.\n\nSpec: research/M9_THE_SCALE_ON_THE_BELT.md\nBoards: DesignLibrary/screens/belt_scale/m9_* (new folder, 6 PNGs)\nZip: _maria_delivery/M9_THE_SCALE_ON_THE_BELT.zip\nLand note: _maria_delivery/CLAUDE_LAND_NOTE_M9.md and research/CLAUDE_LAND_NOTE_M9.md\n\nToken map (verified UITokens.gd):\n- TITLE BOUT = SELECT \u2014 M7 cite; do not redraw\n- PENDING = MUTED \u2014 K23; never NO\n- BELT NOT ON THE LINE = LINK \u2014 USE M8 LINK candour (rule holding, not error/warn). Not BAD/AMBER/SODIUM/GOLD/ICE\n- VACANT ON THE SCALE = MUTED plate + LINK ON THE SCALE sub-chip \u2014 \u2260 R7 move-up vacant\n\nCandour call: USE M8 LINK (same argument as AUTHORED); did not beat with ICE (would collapse interim).\n\nDo not edit HANDOFF for Maria \u2014 write the Maria HANDOFF block yourself after land.\nPending: M4\u2013M8 chrome may still await land; M9 assumes those token spends.",
+  "created_at": "2026-09-06T21:41:05Z",
+  "from": "maria",
+  "id": "63645c73f540",
+  "to": "claude",
+  "topic": "ART READY M9"
+}

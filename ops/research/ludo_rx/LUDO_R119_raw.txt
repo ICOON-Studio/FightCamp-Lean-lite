@@ -1,0 +1,225 @@
+FIGHTCAMP — R119 EXECUTIVE DESIGN & ART DIRECTIVE
+
+Project: FightCamp (PC Deep Boxing Management Sim — Godot 4.7 / Steam Early Access)
+
+Roles: Lead Game Systems Designer & Art Director
+
+Date: 18 October 2026
+
+SECTION A: PRODUCTION ROADMAP REVIEW
+1. Roadmap Order Assessment: Pull S259 Before S258
+The Diagnosis
+
+The current roadmap plans:
+$$\text{S258: Demo .exe of the loop} \longrightarrow \text{S259: Watchable Jab Benchmark}$$
+This order is structurally flawed. Delivering an external or internal .exe demo to testers, investors, or publisher partners in S258 before fixing the core visual execution (the jab) creates an immediate negative perception. In sports management simulations (such as Football Manager or Motorsport Manager), if the 3D match engine looks broken, wooden, or amateurish, players judge the mathematical backend as equally broken—regardless of how deep the stats are.
+
+Recommended Sequence Reorder
+Current Order: S254 $\to$ S255 $\to$ S256 $\to$ S257 $\to$ S258 $\to$ S259 $\to$ S260
+Approved Target Order:
+S254: Shout dock live, discipline rows, 100-bout validation run. (Complete)
+S255: Career Slice 1 (Single deadline screen, GAINS vs ATTRITION meters, Punch Feel timing fix from Section B).
+S256: Watchable Jab & Combat Fluidity pass (Promote the animation fix from S259 directly into here so the gym & fight engine share clean striking).
+S257: Career Slice 2 (Watch training day, 1 coach active, fatigue/stress management loop).
+S258: Career Slice 3 (Opponent scouting tied to target goal, match day, why-lines resolution).
+S259: Loop Integration & Demo .exe internal playtest (Polishing film study $+6$, live read ticker, final lever tuning).
+S260: Steam Early Access Release candidate candidate lock.
+
+Reasoning: S256 must ensure the boxer looks authentic throwing punches on the gym floor and mitts before the complete fight loop is exported into an .exe package.
+
+2. S255: The Minimal On-Screen Management Read
+
+To fulfill the operator's directive ("ONE screen with a deadline goal plus GAINS and ATTRITION meters that show the day the player must change the plan"), the UI must present exactly two primary opposing dynamics:
+
++---------------------------------------------------------------------------------------------------+
+| BOUT GOAL: 21 DAYS UNTIL REGIONAL TITLE DEBUT vs HECTOR BRAVO (WEIGHT TARGET: 154.0 LBS)           |
++---------------------------------------------------------------------------------------------------+
+| [ GAINS: READINESS ] ====================================> [ 68% ]  TARGET: >= 80%                |
+| [ ATTRITION: WEAR ]  ===================>                  [ 44% ]  DANGER: >= 60% (OVERTRAINED)  |
++---------------------------------------------------------------------------------------------------+
+| DAY 14 OF 21 -- STATUS: [ WARNING -- ATTRITION VELOCITY EXCEEDS RECOVERY MARGIN ]                |
+| "Leo's knees are inflamed and chin snap is dulling. If you drill pads tomorrow, risk rises +35%." |
++---------------------------------------------------------------------------------------------------+
+
+The Exact Metric Formulations
+The GAINS Bar (Readiness $0–100%$):
+Formula: $$\text{Readiness} = (\text{Plan Familiarity} \times 0.35) + (\text{Weight Cut Progress} \times 0.35) + (\text{Primary Tactic Mastery} \times 0.30)$$
+Target for Bout Night: $\ge 80%$.
+The ATTRITION Bar (Systemic Wear $0–100%$):
+Formula: $$\text{Systemic Wear} = (\text{Accumulated Muscle Fatigue} \times 0.40) + (\text{Micro-Trauma / Chin Wear} \times 0.35) + (\text{Weight Drain Stress} \times 0.25)$$
+Thresholds:
+$0–39%$ (Fresh): Full attribute performance in gym; $+0%$ injury risk.
+$40–59%$ (Productive Strain): Optimal training zone; stat gains are at $1.0\times$ efficiency.
+$60–79%$ (Overtrained / Danger Zone): CRITICAL CHANGE POINT. Stat growth falls by $-40%$; sparring head hits cause permanent micro-cuts; injury risk jumps to $+25%$ per session.
+$80–100%$ (Exhaustion / Breakdown): Camp disaster. $-15%$ fight-night chin value, $-20%$ stamina recovery between rounds, high risk of bout cancellation.
+The "Change the Plan" Trigger
+The Crossing Point: The exact day Attrition reaches or exceeds $60%$, the HUD displays an amber border alert.
+The Action Required: The player must cancel intensive contact stations (Sparring, Heavy Bag) and swap to Active Recovery / Low-Impact Work (Pool/Stretch Corner, Film Study, Hyperbaric/Massage) for 48 hours until Attrition drops below $50%$.
+3. Held & Parked Features: Playable Scope Verification
+Held Features that MUST Remain OFF for the S259/S260 First Playable
+Two Point Style Equipment Placement (Grid Construction): Keep hardcoded station slots (gym_club.json layout). Moving punching bags adds zero boxing depth and introduces pathfinding/navmesh edge bugs.
+Light Casual Gym Customers (Background NPCs): Defer. Only render the player's active roster fighter and Sal "The Anvil" Barone.
+Promotion/Sponsorship Simulation: Keep purse money strictly deterministic based on match tier.
+Critical Elements That CANNOT Be Cut for the First 30 Minutes
+Visual Weight Scale / Weigh-In Check: Players must see the scale on Friday of Fight Week. Weight management is fundamental to the sport; removing it reduces FightCamp to a generic RPG level-up system.
+One Visible Cut / Bleed Interaction in the Fight: If a fighter is hit with clean power hooks, the player must see the swelling or cut open up on the 3D model, followed by cutman intervention on the stool card. Without this, the medical simulation feels non-functional.
+Audio-Tactile Mitt Pop in Training: When viewing the fighter on the pads, clean hit audio must trigger with variable pitch based on punch mastery.
+SECTION B: PUNCH FEEL & ANIMATION ENGINE TIMINGS
+1. Control Return and Recovery Benchmarks
+The Core Problem
+
+In the current Godot build, our fighter remains locked in animation state for up to $1.4\text{ seconds}$ after landing a punch. In boxing, this creates an unnatural turn-based feel where fighters take turns executing actions rather than engaging in continuous exchanges.
+
+The Rule: Hitbox $\to$ Impact $\to$ Early Control Return $\to$ Blend Out
+
+We will adopt the industry benchmark: Control returns at $\text{Impact} + 0.12\text{ s to } 0.17\text{ s}$.
+The animation clip does not stop; rather, its return-to-guard recovery frames are pushed to a secondary blend layer that immediately yields priority to:
+
+Slipping / ducking / blocking.
+The next punch in a buffered combination.
+Rapid lateral footwork resets.
+Master Punch Timing Table (All Values in Seconds)
+
+$$\begin{array}{|l|c|c|c|c|c|}
+\hline
+\textbf{Punch Action} & \textbf{Hitbox On} & \textbf{Contact / Impact} & \textbf{Hitbox Off} & \textbf{Control Returns} & \textbf{Full Clip End} \
+\hline
+\text{Lead Jab (Head)} & 0.180 & 0.260 & 0.300 & \mathbf{0.380} \text{ (+0.120)} & 0.480 \
+\text{Double Jab (2nd Shot)} & 0.140 & 0.220 & 0.260 & \mathbf{0.330} \text{ (+0.110)} & 0.440 \
+\text{Lead Jab (Body)} & 0.220 & 0.320 & 0.360 & \mathbf{0.450} \text{ (+0.130)} & 0.560 \
+\text{Rear Cross (Head)} & 0.240 & 0.340 & 0.400 & \mathbf{0.490} \text{ (+0.150)} & 0.620 \
+\text{Rear Cross (Body)} & 0.260 & 0.380 & 0.440 & \mathbf{0.540} \text{ (+0.160)} & 0.680 \
+\text{Lead Hook (Head)} & 0.260 & 0.360 & 0.420 & \mathbf{0.500} \text{ (+0.140)} & 0.640 \
+\text{Lead Hook (Body)} & 0.280 & 0.400 & 0.460 & \mathbf{0.550} \text{ (+0.150)} & 0.700 \
+\text{Rear Hook (Head)} & 0.300 & 0.420 & 0.480 & \mathbf{0.580} \text{ (+0.160)} & 0.740 \
+\text{Rear Hook (Body)} & 0.320 & 0.440 & 0.500 & \mathbf{0.600} \text{ (+0.160)} & 0.760 \
+\text{Lead Uppercut (Head)} & 0.220 & 0.320 & 0.380 & \mathbf{0.460} \text{ (+0.140)} & 0.600 \
+\text{Rear Uppercut (Head)} & 0.260 & 0.360 & 0.420 & \mathbf{0.520} \text{ (+0.160)} & 0.660 \
+\text{Overhand Right (Head)} & 0.340 & 0.460 & 0.520 & \mathbf{0.630} \text{ (+0.170)} & 0.800 \
+\hline
+\end{array}$$
+
+2. Body Shot Timing Calibration
+
+Our current body hook contact time of $0.70\text{ s}$ is excessively slow. A real fighter does not spend three-quarters of a second winding up an inside rib strike; that constitutes an amateur telegraph that would be countered reliably in any regional bout.
+
+Target Body Hook Contact Time: $0.400\text{ seconds}$ (Lead Body Hook) / $0.440\text{ seconds}$ (Rear Body Hook).
+Target Body Jab Contact Time: $0.320\text{ seconds}$.
+Level Change Mechanics: The level change (dropping the hips and knees by $0.18\text{ metres}$) must begin at $t = 0.080\text{ s}$, simultaneous with the forward fist extension—not as an isolated preliminary animation that plays before the strike begins.
+3. The Counter-Window (Vulnerability Window) Rule
+
+Every punch opens a mechanical counter window where the attacking fighter cannot benefit from their passive defensive stats:
+
+$$\text{Vulnerability Window} = [\text{Hitbox On} - 0.05\text{ s}] \quad \text{to} \quad [\text{Control Return}]$$
+
+Timeline: Lead Cross
+[0.00s]--------- [0.19s]=================[0.34s]=================[0.49s]-------------[0.62s]
+ Start            Counter Vulnerability    IMPACT                 Control             End Clip
+                  Window Opens                                    Returns / Guarded
+
+Mechanical Penalties Inside the Window
+The puncher's passive Evasion is set to $0%$.
+Incoming strikes that land during this window gain $+25%$ Critical Damage and $+20%$ Stun/Rocked Probability (simulating absorbing a strike while off balance).
+Scaling with Skill and Fatigue
+
+The duration of the vulnerability window is governed by:
+$$\text{WindowDuration} = \text{BaseWindow} \times \left(1.0 + \frac{100 - \text{Technique}}{200}\right) \times \left(1.0 + \frac{\text{Fatigue}}{100} \times 0.40\right)$$
+
+An elite technician (Technique 90, Fresh): Vulnerability window compresses by $-22%$. The fighter recovers into defensive guard almost immediately.
+A tired brawler (Technique 35, Stamina 20%): Vulnerability window broadens by $+58%$, remaining exposed up to $0.35\text{ s}$ after contact.
+4. Guarding Against Blend Pops and Broken IK Snapping
+
+When allowing a clip to be interrupted at $t = \text{Impact} + 0.12\text{ s}$, standard linear crossfading will cause visual defects: the puncher's extended arm will unnaturally snap backwards into a guard stance over a single frame.
+
+Technical Implementation Rules (Godot 4 AnimationTree):
+Dynamic Inertialization (Inertial Blending): Use an AnimationNodeBlend2 configured with an Inertializer rather than a crossfade node. Inertialization carries the velocity and momentum of the hand forward into the retraction phase rather than interpolating raw bone positions.
+Two-Bone IK Soft Constraints: The lead and rear arms must use two-bone inverse kinematics targeting a floating shoulder-relative guard target. When an evasion command interrupts a punch, the arm does not pop to the chest; it follows an elliptical retraction curve back to the cheek bone over a minimum of $0.14\text{ s}$.
+Impact Freeze Frame (Micro-Stop): On solid contact, pause bone motion for exactly 2 frames ($33.3\text{ ms}$). This physical pause creates the visual sensation of resistance and impact weight, masking the transition into the recovery blend.
+SECTION C: ART DIRECTIVE — BOXER PREVIEW PANEL
+1. Fighter Styling, Anatomy & Pose Overhaul
+
+The current preview looks like an untextured gymnast wearing purple cycling shorts. It breaks tone and contradicts the sim focus of the game.
+
++---------------------------------------------------------------------------------------------------+
+| PREVIEW PANEL REDESIGN (CENTER VIEWPORT)                                                          |
+|                                                                                                   |
+|           [ OLYMPIC RED CORNER BOXING OUTFIT ]                                                    |
+|           - Matte satin trunks (Folded waistband, white trim, mid-thigh cut)                      |
+|           - Black leather high-top boxing boots (Laces visible, white athletic socks)             |
+|           - 10oz Professional lace-up gloves (Oxblood matte leather #8B1E1E)                      |
+|           - White cotton handwraps visible under glove wrist cuffs                                |
+|                                                                                                   |
+|           [ ORTHODOX BOXER'S COMBAT POSE ]                                                        |
+|           - Stance: 55-degree blade angle to camera, feet shoulder-width + 15cm                   |
+|           - Knees: 15-degree athletic compression (weight 60% rear foot, 40% lead)                |
+|           - Guard: Rear glove pinned firmly to right cheekbone (NO WINGING OUT)                   |
+|           - Lead hand: Floating at eyebrow level, 20cm out from nose                              |
+|           - Chin: Tucked hard into the lead clavicle notch; eyes looking UP through brows         |
+|                                                                                                   |
+|           [ SUBTLE COMBAT IDLE ANIMATION ]                                                        |
+|           - 125 BPM synced gentle heel shift (rhythmic micro-bounce)                              |
+|           - Diaphragmatic combat breathing: chest expands, shoulders rise 1.5cm                   |
++---------------------------------------------------------------------------------------------------+
+
+Detailed Clothing Specifications
+Trunks: Traditional mid-thigh professional boxing trunks. Material: Matte woven satin (Roughness 0.45, Metallic 0.08, zero shiny latex/spandex). Wide $10\text{cm}$ white elastic waistband with a centered gym patch. Deep Navy (#0F172A) or Dark Charcoal (#1E2229) with Gold trim (#E8B04B).
+Footwear: High-top laced boxing boots ($22\text{cm}$ ankle height). Material: Black treated cowhide with suede grip soles. White athletic socks rolled down just above boot collar.
+Hands & Wrists: 10oz professional competition gloves in classic Oxblood Red (#8B1E1E, Roughness 0.35). White gauze/tape handwraps visible at the wrist boundary ($3\text{cm}$ strip between glove and forearm).
+2. Lighting & Plinth Staging (Dark Slate Broadcast Style)
+
+The current dark floating disc produces no ground contact shadows, making the fighter look ungrounded in 3D space.
+
+The Ringside Training Pedestal
+Geometry: Octagonal cast concrete ring plinth ($2.4\text{m}$ diameter, $0.12\text{m}$ height).
+Surface Material: Canvas-wrapped top with ring-mat texture (Roughness 0.85). Color: Deep Graphite Slate (#151921).
+Perimeter Ring: Subtle brushed brass metallic edge trim (#C59A41, Metallic 0.85, Roughness 0.30).
+Contact Shadowing: Hard Directional Screen-Space Ambient Occlusion (SSAO) beneath the boots so the fighter feels planted on the floor.
+3. Lighting Blueprint & Coordinates
+                             [ BACK WALL ]
+                                   |
+             [ RIM LIGHT 1 ]               [ RIM LIGHT 2 ]
+             Pos: (-1.8, 2.8, -1.5)        Pos: (+1.8, 2.4, -1.2)
+             Col: #E8B04B (Warm Gold)      Col: #7DD3FC (Cold Cyan)
+             Energy: 4.5                   Energy: 2.8
+                         \                   /
+                          \                 /
+                           [ 3D BOXER MODEL ] (0.0, 0.0, 0.0)
+                          /                 \
+                         /                   \
+            [ KEY LIGHT ]                     [ FILL LIGHT ]
+            Pos: (-1.4, 2.2, 2.2)             Pos: (+2.0, 1.4, 1.8)
+            Col: #FFF8EE (Warm White)         Col: #384556 (Muted Navy)
+            Energy: 3.2                       Energy: 1.1
+                                   |
+                           [ CAMERA VIEWPORT ]
+                           Pos: (0.0, 1.35, 2.65)
+                           Pitch: -4.0 deg | FOV: 32 deg
+
+Lighting Parameters
+Key Light (Omni/Spot):
+Position: $X = -1.4\text{m}, Y = 2.2\text{m}, Z = 2.2\text{m}$ (High left front, casting shadows down across the torso musculature).
+Color: #FFF8EE (3800K Clean Halogen Warmth).
+Energy: 3.2 lumens.
+Fill Light:
+Position: $X = +2.0\text{m}, Y = 1.4\text{m}, Z = 1.8\text{m}$ (Soft right, illuminating the shadow side of the face).
+Color: #384556 (Desaturated Slate/Navy to keep shadows deep and cinematic).
+Energy: 1.1 lumens.
+Rim Light 1 (The Signature Gold Edge):
+Position: $X = -1.8\text{m}, Y = 2.8\text{m}, Z = -1.5\text{m}$ (High rear left).
+Color: #E8B04B (FightCamp Identity Gold).
+Energy: 4.5 lumens (Sharp rim separation along the boxer's shoulders, deltoids, and head).
+Rim Light 2 (Atmospheric Rim):
+Position: $X = +1.8\text{m}, Y = 2.4\text{m}, Z = -1.2\text{m}$ (High rear right).
+Color: #7DD3FC (Muted Gym Sky Blue).
+Energy: 2.8 lumens.
+Camera Framing Constants
+Camera Coordinate: $X = 0.0\text{m}, Y = 1.35\text{m}, Z = 2.65\text{m}$.
+Focal Length / Field of View: $32^\circ\text{ FOV}$ (Narrow portrait lens; compresses perspective and prevents fisheye distortion on extremities).
+Pitch Angle: $-4.0^\circ$ (Slight upward hero angle; places the boxer's eye-line at exactly $68%$ screen height).
+Viewport Framing: Boxer occupies $82%$ of the vertical frame height, with $10%$ headroom and $8%$ plinth base visible.
+Implementation Verification Checklist for Godot 4.7
+[ ] Replace fighter trunks material with non-metallic satin shader (trunks_satin_01.tres).
+[ ] Bind boot meshes and sock geometry to fighter skeletal rig (boxer_skeleton.tres).
+[ ] Correct resting orthodox guard blend shape (snap right fist locator to cheekbone bone weight).
+[ ] Apply inertialized blend tree transition to jab and body hook recovery frames.
+[ ] Set preview camera FOV to $32^\circ$ and enable three-point lighting rig in techniques_preview.tscn.

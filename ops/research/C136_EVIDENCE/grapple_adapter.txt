@@ -1,0 +1,12 @@
+R75-RC=1
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FAIL: MT adapter moved striking for a round 1 expected=18.0450762360826 actual=20.8763181790622
+FAIL: MT adapter moved striking for a round 2 expected=21.9844581204623 actual=35.1678349754721
+FAIL: MT adapter moved striking for a round 3 expected=23.8040211710011 actual=25.9353079615541
+FAIL: MT adapter moved striking for b round 1 expected=12.061632653274 actual=12.0626848202296
+FAIL: MT adapter moved striking for b round 2 expected=12.0603735316043 actual=15.0859466971085
+FAIL: MT adapter moved striking for b round 3 expected=3.56265131407306 actual=16.5185257737731
+TOTAL=125 fails=6
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)

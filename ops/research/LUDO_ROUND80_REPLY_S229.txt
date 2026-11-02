@@ -1,0 +1,514 @@
+Here is the complete implementation for the Gym Upgrades Panel, the training-gain multiplier hook, and the unit test suite.
+
+PART 1: FloorActions.gd static hook (Training Gain Multiplier)
+
+Place this static function inside res://scripts/FloorActions.gd. In boxing economics, level 1 is base equipment; level 2 represents pro-grade apparatus (calibrated weights, swivels, heavy leather bags) yielding +15% efficiency; level 3 represents custom competition-spec gear and digital cadence tracking (e.g. Cleto Reyes contest bags, Olympic Eleiko bar sets) yielding +35% efficiency.
+
+# Add to res://scripts/FloorActions.gd
+
+const LEVEL_GAIN_MULTIPLIERS: Dictionary = {
+	1: 1.00,
+	2: 1.15,
+	3: 1.35
+}
+
+static func level_gain_multiplier(level: int) -> float:
+	return float(LEVEL_GAIN_MULTIPLIERS.get(clampi(level, 1, 3), 1.00))
+
+PART 2: GymUpgradesPanel.gd
+
+Save as res://scripts/ui/GymUpgradesPanel.gd. Built entirely in code with no .tscn dependency, respecting the dark-brass/gold UI tokens and Godot 4.7 conventions.
+
+extends Control
+
+signal closed()
+signal upgraded(station_id: String, new_level: int)
+
+const FloorActionsScript = preload("res://scripts/FloorActions.gd")
+
+# UI Tokens
+const C_VOID: Color = Color("#0d0c0b")
+const C_PANEL_DARK: Color = Color("#1a1816")
+const C_PANEL_MID: Color = Color("#22201d")
+const C_PANEL_LIGHT: Color = Color("#282521")
+const C_BORDER: Color = Color("#3e3831")
+const C_BORDER_BRASS: Color = Color("#8c6f3d")
+const C_GOLD: Color = Color("#f0c233")
+const C_CREAM: Color = Color("#f6f0e0")
+const C_MUTED: Color = Color("#8f877c")
+const C_RED: Color = Color("#b34033")
+const C_GREEN: Color = Color("#4aa366")
+
+const STATIONS_REGISTRY: Array[Dictionary] = [
+	# Bags
+	{"id": "speed_bag_1", "name": "Speed Bag 1 (North)", "zone": "Bags"},
+	{"id": "speed_bag_2", "name": "Speed Bag 2 (South)", "zone": "Bags"},
+	{"id": "heavy_bag_1", "name": "Heavy Bag 1 (Wrecking Ball)", "zone": "Bags"},
+	{"id": "heavy_bag_2", "name": "Heavy Bag 2 (Standard Leather)", "zone": "Bags"},
+	{"id": "heavy_bag_3", "name": "Heavy Bag 3 (Pole Bag)", "zone": "Bags"},
+	{"id": "heavy_bag_4", "name": "Heavy Bag 4 (Tear Drop)", "zone": "Bags"},
+	# Ring & Drills
+	{"id": "ring", "name": "16ft Sparring Ring", "zone": "Ring & Drills"},
+	{"id": "pads", "name": "Pad Work Square", "zone": "Ring & Drills"},
+	{"id": "defence_drill", "name": "Slip Rope & Bobbing Line", "zone": "Ring & Drills"},
+	{"id": "mirror_strip", "name": "Shadowboxing Mirror Strip", "zone": "Ring & Drills"},
+	# Conditioning
+	{"id": "treadmill", "name": "Commercial Slat Treadmill", "zone": "Conditioning"},
+	{"id": "bike", "name": "Fan Air Bike", "zone": "Conditioning"},
+	{"id": "agility_ladder", "name": "Agility Ladder & Cones", "zone": "Conditioning"},
+	# Strength
+	{"id": "weights", "name": "Free Weight Dumbbell Rack", "zone": "Strength"},
+	{"id": "power_rack", "name": "Heavy Duty Power Rack", "zone": "Strength"},
+	{"id": "olympic_platform", "name": "Oak Olympic Lifting Platform", "zone": "Strength"},
+	# Recovery
+	{"id": "recovery", "name": "Stretch Mats Corner", "zone": "Recovery"}
+]
+
+var _game_state: Node = null
+var _lbl_cash: Label
+var _lbl_invested: Label
+var _content_box: VBoxContainer
+
+func setup(game_state: Node) -> void:
+	_game_state = game_state
+	_build_ui()
+	_refresh()
+
+func _ready() -> void:
+	if _game_state == null:
+		# Standalone safety
+		set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+
+func _build_ui() -> void:
+	# Root layout
+	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	
+	# Background blackout panel
+	var bg := Panel.new()
+	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	var bg_style := StyleBoxFlat.new()
+	bg_style.bg_color = C_VOID
+	bg.add_theme_stylebox_override("panel", bg_style)
+	add_child(bg)
+	
+	# Main Container (Margin + VBox)
+	var margin := MarginContainer.new()
+	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	margin.add_theme_constant_override("margin_left", 32)
+	margin.add_theme_constant_override("margin_top", 24)
+	margin.add_theme_constant_override("margin_right", 32)
+	margin.add_theme_constant_override("margin_bottom", 24)
+	add_child(margin)
+	
+	var main_vbox := VBoxContainer.new()
+	main_vbox.add_theme_constant_override("separation", 16)
+	margin.add_child(main_vbox)
+	
+	# 1. Header Bar
+	var header_bar := PanelContainer.new()
+	var hb_style := StyleBoxFlat.new()
+	hb_style.bg_color = C_PANEL_DARK
+	hb_style.border_color = C_BORDER_BRASS
+	hb_style.set_border_width_all(1)
+	hb_style.set_corner_radius_all(4)
+	header_bar.add_theme_stylebox_override("panel", hb_style)
+	main_vbox.add_child(header_bar)
+	
+	var hb_margin := MarginContainer.new()
+	hb_margin.add_theme_constant_override("margin_left", 20)
+	hb_margin.add_theme_constant_override("margin_top", 12)
+	hb_margin.add_theme_constant_override("margin_right", 20)
+	hb_margin.add_theme_constant_override("margin_bottom", 12)
+	header_bar.add_child(hb_margin)
+	
+	var hb_hbox := HBoxContainer.new()
+	hb_margin.add_child(hb_hbox)
+	
+	var title_lbl := Label.new()
+	title_lbl.text = "GYM FACILITY & EQUIPMENT UPGRADES"
+	title_lbl.add_theme_color_override("font_color", C_GOLD)
+	title_lbl.add_theme_font_size_override("font_size", 20)
+	hb_hbox.add_child(title_lbl)
+	
+	var spacer := Control.new()
+	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	hb_hbox.add_child(spacer)
+	
+	_lbl_cash = Label.new()
+	_lbl_cash.add_theme_color_override("font_color", C_CREAM)
+	_lbl_cash.add_theme_font_size_override("font_size", 16)
+	hb_hbox.add_child(_lbl_cash)
+	
+	var sep1 := VSeparator.new()
+	sep1.custom_minimum_size = Vector2(24, 0)
+	hb_hbox.add_child(sep1)
+	
+	_lbl_invested = Label.new()
+	_lbl_invested.add_theme_color_override("font_color", C_MUTED)
+	_lbl_invested.add_theme_font_size_override("font_size", 14)
+	hb_hbox.add_child(_lbl_invested)
+	
+	var sep2 := VSeparator.new()
+	sep2.custom_minimum_size = Vector2(24, 0)
+	hb_hbox.add_child(sep2)
+	
+	var btn_close := Button.new()
+	btn_close.text = "CLOSE (ESC)"
+	_style_button(btn_close, false)
+	btn_close.pressed.connect(func(): closed.emit())
+	hb_hbox.add_child(btn_close)
+	
+	# 2. Scrollable Equipment Rows
+	var scroll := ScrollContainer.new()
+	scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	main_vbox.add_child(scroll)
+	
+	_content_box = VBoxContainer.new()
+	_content_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_content_box.add_theme_constant_override("separation", 14)
+	scroll.add_child(_content_box)
+
+func _refresh() -> void:
+	if _game_state == null:
+		return
+		
+	var gym_data: Dictionary = _game_state.get_gym()
+	var current_cash: int = gym_data.get("cash", 0)
+	var station_levels: Dictionary = gym_data.get("station_levels", {})
+	
+	var total_invested: int = 0
+	for s in STATIONS_REGISTRY:
+		var lvl: int = station_levels.get(s["id"], 1)
+		if lvl >= 2:
+			total_invested += 350
+		if lvl >= 3:
+			total_invested += 950
+			
+	_lbl_cash.text = "Cash Available: $" + str(current_cash)
+	_lbl_invested.text = "Total Facility Invested: $" + str(total_invested)
+	
+	for child in _content_box.get_children():
+		child.queue_free()
+		
+	# Group by zone
+	var zones: Array[String] = ["Bags", "Ring & Drills", "Conditioning", "Strength", "Recovery"]
+	for zone_name in zones:
+		var zone_stations: Array[Dictionary] = []
+		for st in STATIONS_REGISTRY:
+			if st["zone"] == zone_name:
+				zone_stations.append(st)
+				
+		if zone_stations.is_empty():
+			continue
+			
+		var zone_header := PanelContainer.new()
+		var zh_style := StyleBoxFlat.new()
+		zh_style.bg_color = C_PANEL_LIGHT
+		zh_style.set_corner_radius_all(3)
+		zone_header.add_theme_stylebox_override("panel", zh_style)
+		_content_box.add_child(zone_header)
+		
+		var zh_margin := MarginContainer.new()
+		zh_margin.add_theme_constant_override("margin_left", 12)
+		zh_margin.add_theme_constant_override("margin_top", 6)
+		zh_margin.add_theme_constant_override("margin_right", 12)
+		zh_margin.add_theme_constant_override("margin_bottom", 6)
+		zone_header.add_child(zh_margin)
+		
+		var zh_lbl := Label.new()
+		zh_lbl.text = zone_name.to_upper()
+		zh_lbl.add_theme_color_override("font_color", C_GOLD)
+		zh_lbl.add_theme_font_size_override("font_size", 13)
+		zh_margin.add_child(zh_lbl)
+		
+		for st in zone_stations:
+			var row := _build_station_row(st, station_levels.get(st["id"], 1), current_cash)
+			_content_box.add_child(row)
+
+func _build_station_row(st: Dictionary, level: int, cash: int) -> Control:
+	var row_panel := PanelContainer.new()
+	var row_style := StyleBoxFlat.new()
+	row_style.bg_color = C_PANEL_MID
+	row_style.border_color = C_BORDER
+	row_style.set_border_width_all(1)
+	row_style.set_corner_radius_all(4)
+	row_panel.add_theme_stylebox_override("panel", row_style)
+	
+	var row_margin := MarginContainer.new()
+	row_margin.add_theme_constant_override("margin_left", 16)
+	row_margin.add_theme_constant_override("margin_top", 10)
+	row_margin.add_theme_constant_override("margin_right", 16)
+	row_margin.add_theme_constant_override("margin_bottom", 10)
+	row_panel.add_child(row_margin)
+	
+	var hbox := HBoxContainer.new()
+	hbox.add_theme_constant_override("separation", 16)
+	row_margin.add_child(hbox)
+	
+	# Column 1: Station Name & Pips
+	var left_vbox := VBoxContainer.new()
+	left_vbox.custom_minimum_size = Vector2(280, 0)
+	hbox.add_child(left_vbox)
+	
+	var name_lbl := Label.new()
+	name_lbl.text = st["name"]
+	name_lbl.add_theme_color_override("font_color", C_CREAM)
+	name_lbl.add_theme_font_size_override("font_size", 14)
+	left_vbox.add_child(name_lbl)
+	
+	var pips_hbox := HBoxContainer.new()
+	pips_hbox.add_theme_constant_override("separation", 6)
+	left_vbox.add_child(pips_hbox)
+	
+	var pips_label := Label.new()
+	pips_label.text = "GRADE:"
+	pips_label.add_theme_color_override("font_color", C_MUTED)
+	pips_label.add_theme_font_size_override("font_size", 11)
+	pips_hbox.add_child(pips_label)
+	
+	for i in range(1, 4):
+		var pip := ColorRect.new()
+		pip.custom_minimum_size = Vector2(16, 8)
+		pip.color = C_GOLD if i <= level else C_PANEL_LIGHT
+		pips_hbox.add_child(pip)
+	
+	# Column 2: Upgrade Benefit Description
+	var desc_vbox := VBoxContainer.new()
+	desc_vbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	hbox.add_child(desc_vbox)
+	
+	var gain_title := Label.new()
+	gain_title.add_theme_font_size_override("font_size", 12)
+	var gain_detail := Label.new()
+	gain_detail.add_theme_font_size_override("font_size", 11)
+	gain_detail.add_theme_color_override("font_color", C_MUTED)
+	
+	var next_cost: int = 0
+	var can_upgrade: bool = true
+	var disable_reason: String = ""
+	
+	if level == 1:
+		next_cost = 350
+		gain_title.text = "Next: Level 2 (+15% Training Gain Multiplier)"
+		gain_title.add_theme_color_override("font_color", C_GREEN)
+		gain_detail.text = "Commercial grade apparatus, pro-swivels and precision shock padding."
+	elif level == 2:
+		next_cost = 950
+		gain_title.text = "Next: Level 3 (+35% Training Gain Multiplier)"
+		gain_title.add_theme_color_override("font_color", C_GREEN)
+		gain_detail.text = "Contest-certified competition spec with digital rhythm tracking."
+	else:
+		gain_title.text = "MAX LEVEL REACHED (+35% Training Gain Active)"
+		gain_title.add_theme_color_override("font_color", C_GOLD)
+		gain_detail.text = "Elite championship tier station. No further upgrades possible."
+		can_upgrade = false
+		disable_reason = "MAX LEVEL"
+		
+	if can_upgrade and cash < next_cost:
+		can_upgrade = false
+		disable_reason = "NEED $" + str(next_cost - cash) + " MORE"
+		
+	desc_vbox.add_child(gain_title)
+	desc_vbox.add_child(gain_detail)
+	
+	# Column 3: Upgrade Button & Cost
+	var btn_vbox := VBoxContainer.new()
+	btn_vbox.custom_minimum_size = Vector2(180, 0)
+	btn_vbox.alignment = BoxContainer.ALIGNMENT_CENTER
+	hbox.add_child(btn_vbox)
+	
+	var btn_upgrade := Button.new()
+	btn_upgrade.custom_minimum_size = Vector2(180, 34)
+	
+	if level >= 3:
+		btn_upgrade.text = "AT MAXIMUM"
+		btn_upgrade.disabled = true
+		_style_button(btn_upgrade, false, true)
+	elif not can_upgrade:
+		btn_upgrade.text = "UPGRADE ($" + str(next_cost) + ")\n" + disable_reason
+		btn_upgrade.disabled = true
+		_style_button(btn_upgrade, false, true)
+	else:
+		btn_upgrade.text = "UPGRADE TO LVL " + str(level + 1) + " ($" + str(next_cost) + ")"
+		btn_upgrade.disabled = false
+		_style_button(btn_upgrade, true, false)
+		var st_id: String = st["id"]
+		btn_upgrade.pressed.connect(func(): _on_upgrade_pressed(st_id))
+		
+	btn_vbox.add_child(btn_upgrade)
+	return row_panel
+
+func _on_upgrade_pressed(station_id: String) -> void:
+	if _game_state == null:
+		return
+	var ctx: Dictionary = {
+		"station_id": station_id,
+		"gym": _game_state.get_gym()
+	}
+	var res: Dictionary = FloorActionsScript.resolve("station", "upgrade", ctx)
+	if not res.get("ok", false):
+		return
+		
+	var effects: Array = res.get("effects", [])
+	var new_lvl: int = 1
+	for eff in effects:
+		var d: Dictionary = eff
+		_game_state.apply_floor_effect(d)
+		if d.get("type", "") == "station_level":
+			new_lvl = d.get("new_level", 1)
+			
+	upgraded.emit(station_id, new_lvl)
+	_refresh()
+
+func _style_button(btn: Button, is_primary: bool, is_disabled: bool = false) -> void:
+	var style := StyleBoxFlat.new()
+	style.set_corner_radius_all(4)
+	if is_disabled:
+		style.bg_color = C_PANEL_LIGHT
+		style.border_color = C_BORDER
+		btn.add_theme_color_override("font_color", C_MUTED)
+	elif is_primary:
+		style.bg_color = C_GOLD
+		style.border_color = C_BORDER_BRASS
+		btn.add_theme_color_override("font_color", C_VOID)
+	else:
+		style.bg_color = C_PANEL_LIGHT
+		style.border_color = C_BORDER_BRASS
+		btn.add_theme_color_override("font_color", C_CREAM)
+		
+	style.set_border_width_all(1)
+	btn.add_theme_stylebox_override("normal", style)
+	btn.add_theme_stylebox_override("hover", style)
+	btn.add_theme_stylebox_override("pressed", style)
+	btn.add_theme_stylebox_override("disabled", style)
+
+PART 3: tests/gym_upgrades_panel_test.gd
+
+Save as res://tests/gym_upgrades_panel_test.gd. Standalone executable SceneTree test covering all requirements.
+
+extends SceneTree
+
+const GymUpgradesPanelScript = preload("res://scripts/ui/GymUpgradesPanel.gd")
+const FloorActionsScript = preload("res://scripts/FloorActions.gd")
+
+class FakeGameState extends Node:
+	var gym: Dictionary = {
+		"cash": 0,
+		"station_levels": {}
+	}
+	
+	func get_gym() -> Dictionary:
+		return gym
+		
+	func apply_floor_effect(effect: Dictionary) -> Dictionary:
+		var type: String = effect.get("type", "")
+		if type == "money":
+			gym["cash"] += int(effect.get("delta", 0))
+			return {"ok": true}
+		elif type == "station_level":
+			var sid: String = effect.get("station_id", "")
+			var nlvl: int = effect.get("new_level", 1)
+			gym["station_levels"][sid] = nlvl
+			return {"ok": true}
+		return {"ok": false, "reason": "unknown_effect"}
+
+func _initialize() -> void:
+	var failures: int = 0
+	
+	# Test 1: Training Gain Multiplier pure function
+	if not is_equal_approx(FloorActionsScript.level_gain_multiplier(1), 1.00):
+		print("FAIL: level 1 multiplier != 1.00")
+		failures += 1
+	if not is_equal_approx(FloorActionsScript.level_gain_multiplier(2), 1.15):
+		print("FAIL: level 2 multiplier != 1.15")
+		failures += 1
+	if not is_equal_approx(FloorActionsScript.level_gain_multiplier(3), 1.35):
+		print("FAIL: level 3 multiplier != 1.35")
+		failures += 1
+	if not is_equal_approx(FloorActionsScript.level_gain_multiplier(99), 1.35):
+		print("FAIL: level clamp != 1.35")
+		failures += 1
+
+	# Setup Fake Game State
+	var fake_state := FakeGameState.new()
+	fake_state.gym["cash"] = 0
+	
+	var panel = GymUpgradesPanelScript.new()
+	root.add_child(panel)
+	panel.setup(fake_state)
+	
+	# Test 2: Check all 17 stations are populated
+	var total_stations_found: int = 0
+	for zone_panel in panel._content_box.get_children():
+		if zone_panel is PanelContainer:
+			# Verify if it's a station row (has an upgrade button inside)
+			var btn := _find_button_recursive(zone_panel)
+			if btn != null and btn.text != "CLOSE (ESC)":
+				total_stations_found += 1
+				
+	if total_stations_found != 17:
+		print("FAIL: Expected 17 stations, found ", total_stations_found)
+		failures += 1
+		
+	# Test 3: At Cash = 0, upgrade buttons must be disabled with reason
+	var sample_row: PanelContainer = null
+	for c in panel._content_box.get_children():
+		var b := _find_button_recursive(c)
+		if b != null and b.text != "CLOSE (ESC)":
+			sample_row = c
+			if not b.disabled:
+				print("FAIL: Upgrade button should be disabled when broke")
+				failures += 1
+			if not "NEED $" in b.text:
+				print("FAIL: Upgrade button missing shortfall reason text")
+				failures += 1
+			break
+
+	# Test 4: Give cash, perform upgrade, verify cost and level step
+	fake_state.gym["cash"] = 2000
+	panel._refresh()
+	
+	var first_btn := _find_button_recursive(sample_row)
+	if first_btn == null or first_btn.disabled:
+		print("FAIL: Upgrade button should be enabled after cash injected")
+		failures += 1
+	else:
+		# Emulate clicking upgrade on heavy_bag_1 (or first item)
+		var test_station_id: String = "heavy_bag_1"
+		panel._on_upgrade_pressed(test_station_id)
+		
+		if fake_state.gym["cash"] != 1650:
+			print("FAIL: Upgrade to lvl 2 did not deduct $350 (cash: ", fake_state.gym["cash"], ")")
+			failures += 1
+		if fake_state.gym["station_levels"].get(test_station_id, 1) != 2:
+			print("FAIL: Station level did not advance to 2")
+			failures += 1
+			
+		# Upgrade to Level 3
+		panel._on_upgrade_pressed(test_station_id)
+		if fake_state.gym["cash"] != 700: # 1650 - 950 = 700
+			print("FAIL: Upgrade to lvl 3 did not deduct $950 (cash: ", fake_state.gym["cash"], ")")
+			failures += 1
+		if fake_state.gym["station_levels"].get(test_station_id, 1) != 3:
+			print("FAIL: Station level did not advance to 3")
+			failures += 1
+			
+		# At level 3, button must show max level
+		panel._refresh()
+		var btn_after_max := _find_button_recursive(sample_row)
+		if btn_after_max == null or not btn_after_max.disabled or not ("MAX" in btn_after_max.text or "AT MAXIMUM" in btn_after_max.text):
+			print("FAIL: Level 3 row does not indicate maximum")
+			failures += 1
+
+	print("GYM_UPGRADES failures=", failures)
+	quit(0 if failures == 0 else 1)
+
+func _find_button_recursive(node: Node) -> Button:
+	if node is Button:
+		return node
+	for c in node.get_children():
+		var res := _find_button_recursive(c)
+		if res != null:
+			return res
+	return null

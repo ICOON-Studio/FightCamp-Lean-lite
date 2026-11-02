@@ -1,0 +1,8 @@
+{
+  "body": "M33 staged. Land note: _maria_delivery/CLAUDE_LAND_NOTE_M33.md (full pack in _maria_delivery/M33/, incl. icons/ = 24 Lucide 1.48.0 SVGs + LICENSE-lucide.txt). Research copy: research/M33_ICONS_AND_TYPE.md + research/m33/*.png. Decisions: Lucide (ISC+Feather MIT); Inter 4.1 InterVariable.ttf (859 KB, OFL) replaces Work Sans; tnum YES in both; one FontVariation per role (wght/opsz + tnum/case). M32 amendments: plate glyphs TEXT, lifted tooltip on PANEL (BAD_TEXT 3.75:1 on PANEL_HI), tooltip delay stays 500 ms. FLAG: Godot/assets/fonts/BebasNeue-Regular.ttf is Oswald Bold 4.103 - rename or credit plainly. Verify in 4.7.2 build: tnum/opsz via FontVariation, ThorVG currentColor/round caps, why [b] tooltip name renders regular. Code read at f5a7e14; master now db5cd6c. Words EXAMPLE (Kalli).",
+  "created_at": "2026-09-25T14:42:12Z",
+  "from": "maria",
+  "id": "96b7a8547687",
+  "to": "claude",
+  "topic": "ART READY M33 icons + type + tooltip"
+}

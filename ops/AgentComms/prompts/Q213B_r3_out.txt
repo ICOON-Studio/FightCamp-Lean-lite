@@ -1,0 +1,7 @@
+Fixed the three failures and pushed `1a303032` to `codex/q213b-last-three`. Parse and focused checks pass.
+
+Pinned gate prints **26/26**, but four moves were silently skipped for missing certificates: **22/22 are genuinely verified**. Unpinned remains 10/26.
+
+[Full report](E:/FightCamp/wt/Q213B/research/Q213B_DIGEST.md).
+
+Coverage repair awaits your approval because the [brief](E:/FightCamp/wt/Q213B/research/TASK_Q213B_LAST_THREE_CLIPPING_FAILS.md) restricts gate edits to “diagnostic-print additions only.”

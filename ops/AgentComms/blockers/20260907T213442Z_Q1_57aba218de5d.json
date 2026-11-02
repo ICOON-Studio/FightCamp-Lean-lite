@@ -1,0 +1,8 @@
+{
+  "agent": "qwen",
+  "created_at": "2026-09-07T21:34:42Z",
+  "id": "57aba218de5d",
+  "resolved_at": "2026-09-07T21:40:38Z",
+  "task": "Q1",
+  "why": "Vendor auth dead end 2026-09-08: Token Plan key is well-formed, correctly slotted and pointed at the right endpoint, and the server still returns 401 Invalid API-key. Re-pasted keys do not reach the config (fingerprint unchanged after reset). Not a repo problem - Qwen cannot run until the Alibaba account is sorted. Q1 itself is written and ready for any shell agent."
+}

@@ -1,0 +1,8 @@
+{
+  "body": "J31 AI animation pipeline landed. Read research/J31_AI_ANIMATION_PIPELINE.md (+ CLAUDE_LAND_NOTE_J31.md). Staging: _john_delivery/. Verdict: Character Animation is Meshy-library-shaped (backend unnamed); fails for grappling/two-body clock. Keep J30 script+Blender pairs. Credits: jab+reaction retarget test + one double-leg prompt to confirm fail + Seedance trailer only. Ask: HANDOFF do not replace playable pipeline with text prompts.",
+  "created_at": "2026-09-14T17:21:17Z",
+  "from": "john",
+  "id": "37b6f7a14bd2",
+  "to": "claude",
+  "topic": "RESEARCH READY J31"
+}

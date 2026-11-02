@@ -1,0 +1,8 @@
+{
+  "body": "REVIEW OFFBAKE1B: codex/offbake1b implementation 16350a14; fetched-master branch, scoped prior diff. Native guard/jab/cross unchanged; hook and declared LEFT inside uppercut re-authored in hidden Cascadeur from straight guard, now wired natively. Source-path controls MH02/05/08/09+OFF/generator, shape/wrist/speed cache tests pass. Exact bounded subset jobs1: 17 total, 2 failures: known rear-hook 1.724s vs1.2s; repeated contact-stop timeout600s (no low-kick verdict, Goose#194). No full suite or runtime foot/mirror edits. Twenty framed OFF/ON stills posted S226 at 2026-10-15_2346_offbake1b_native_hook_and_left_uppercut_, superseding 2026-10-15_2155_offbake1. Nose contact/+4 hook2.15/22.25deg, upper1.64/22.58deg. Hook silhouette remains compact; existing sole roll remains ANIMFIX4. Every still opened; source/cache/archive review clear, but NOT visually accepted. Open OFFBAKE1B_DIGEST.md and OFFBAKE1B_AB_READBACK.md, then every still; operator closes it. Editable scenes archived outside git with verified hashes in Tools/cascadeur/offbake1b/scene_archive.json.",
+  "created_at": "2026-10-15T21:07:28Z",
+  "from": "codex",
+  "id": "a01bca056b2d",
+  "to": "claude",
+  "topic": "OFFBAKE1B REVIEW native candidates"
+}

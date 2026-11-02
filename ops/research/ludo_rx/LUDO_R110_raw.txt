@@ -1,0 +1,374 @@
+[Cardio
+
+...and Conditioning], [Strength & Iron], [Recovery & Mats], [Gym Decor], [Flooring/Pads].     *   **Item Cards:** Horizontal scroll tray displaying icon, title, footprint dimension tags (e.g., 2.0m x 1.5m), cost ($1,200), stat impact (+12 Power / hr, +8 Stamina), and wear rate.     *   **Contextual Cursor Drawer:**         *   Floats adjacent to the item ghost: shows item name, rotation angle, purchase cost in red/green based on current treasury, and instant red error banners when invalid: "OBSTRUCTED", "NO AISLE PATH", "BLOCKED WORKSPACE", "REQUIRES WALL"`.
+
+Controls & Hotkeys:
+LMB: Place / Confirm.
+RMB: Cancel / Drop / Deselect.
+Z / C or R: Rotate $90^\circ$ counter-clockwise / clockwise (or $45^\circ$ for floor decor).
+Del or Backspace: Sell / Delete targeted existing item ($100%$ refund within 60 seconds of placement; depreciated scrap value after active training rounds).
+M: Pick up and relocate an existing piece of equipment.
+Space: Pause / Resume simulation (placement defaults to pausing the gym round timer automatically).
+B6. Pure GDScript 4 Placement Validator Module & Test Cases
+
+This pure module (RefCounted) handles:
+
+Footprint dimension rotation around an origin cell.
+Clearance buffer boundary mapping.
+Bounding box containment inside the gym hall.
+Occupancy collision (solid equipment vs. solid equipment).
+Clearance overlap checks (work areas cannot overlap solid items).
+Wall-mounting adjacency validation.
+Breadth-First Search (BFS) Pathfinding: Verifies that a contiguous, 2-cell wide ($1.0\text{ m}$) walkway remains navigable from the main front entrance door to every placed station’s approach_point.
+# ==============================================================================
+# PlacementValidator.gd
+# Pure functional placement validation & walkway reachability engine
+# ==============================================================================
+class_name PlacementValidator
+extends RefCounted
+
+const CELL_SIZE: float = 0.5 # 0.5 meters per tile
+
+# ------------------------------------------------------------------------------
+# Footprint & Geometry Helpers
+# ------------------------------------------------------------------------------
+
+## Rotates a 2D integer footprint (width, depth in cells) by rotation index (0: 0°, 1: 90°, 2: 180°, 3: 270°)
+static func get_rotated_size(w: int, d: int, rot: int) -> Vector2i:
+	match rot % 4:
+		0, 2:
+			return Vector2i(w, d)
+		1, 3:
+			return Vector2i(d, w)
+		_:
+			return Vector2i(w, d)
+
+## Computes array of grid cells occupied by an item given its origin, dimensions, and rotation
+static func get_occupied_cells(origin: Vector2i, w: int, d: int, rot: int) -> Array[Vector2i]:
+	var cells: Array[Vector2i] = []
+	var eff_size := get_rotated_size(w, d, rot)
+	for x in range(eff_size.x):
+		for y in range(eff_size.y):
+			cells.append(Vector2i(origin.x + x, origin.y + y))
+	return cells
+
+## Computes clearance boundary cells surrounding the solid footprint (front, sides, back)
+static func get_clearance_cells(origin: Vector2i, w: int, d: int, rot: int, clearance_pad: int) -> Array[Vector2i]:
+	var cells: Array[Vector2i] = []
+	var eff_size := get_rotated_size(w, d, rot)
+	var min_x := origin.x - clearance_pad
+	var max_x := origin.x + eff_size.x + clearance_pad - 1
+	var min_y := origin.y - clearance_pad
+	var max_y := origin.y + eff_size.y + clearance_pad - 1
+	
+	for x in range(min_x, max_x + 1):
+		for y in range(min_y, max_y + 1):
+			var pt := Vector2i(x, y)
+			# Only return cells that are outside the solid footprint itself
+			var in_solid := (x >= origin.x and x < origin.x + eff_size.x and y >= origin.y and y < origin.y + eff_size.y)
+			if not in_solid:
+				cells.append(pt)
+	return cells
+
+# ------------------------------------------------------------------------------
+# Core Validation
+# ------------------------------------------------------------------------------
+
+## item: Dictionary:
+##   { "id": String, "footprint_w": int, "footprint_d": int, "clearance": int, "wall_mounted": bool }
+## cell: Target origin cell (Vector2i)
+## rot: Rotation index (0..3)
+## occupied_grid: Dictionary of Vector2i -> String (item_id occupying this solid cell)
+## hall_bounds: Rect2i (grid bounding rectangle, e.g., 60x36 cells for 30x18 m)
+## walls: Array of Dictionaries defining solid wall boundary lines/cells
+## entrance_cells: Array[Vector2i] cells representing the exterior door entrance
+## all_approach_points: Array[Vector2i] all existing interact/work points that must stay reachable
+static func can_place(
+	item: Dictionary,
+	cell: Vector2i,
+	rot: int,
+	occupied_grid: Dictionary,
+	hall_bounds: Rect2i,
+	walls: Array = [],
+	entrance_cells: Array = [],
+	all_approach_points: Array = []
+) -> Dictionary:
+	var w: int = item["footprint_w"]
+	var d: int = item["footprint_d"]
+	var clearance: int = item.get("clearance", 1)
+	var wall_mounted: bool = item.get("wall_mounted", false)
+	
+	var solid_cells := get_occupied_cells(cell, w, d, rot)
+	
+	# 1. Hall Bounds Check
+	for c in solid_cells:
+		if not hall_bounds.has_point(c):
+			return {"ok": false, "reason": "Out of gym bounds"}
+			
+	# 2. Solid-on-Solid Overlap Check
+	for c in solid_cells:
+		if occupied_grid.has(c):
+			return {"ok": false, "reason": "Cell already obstructed by %s" % occupied_grid[c]}
+			
+	# 3. Wall Mounted Rule Check
+	if wall_mounted:
+		var against_wall := false
+		for c in solid_cells:
+			# Wall adjacent if sitting on the exterior grid perimeter
+			if c.x == hall_bounds.position.x or c.x == hall_bounds.end.x - 1 \
+			or c.y == hall_bounds.position.y or c.y == hall_bounds.end.y - 1:
+				against_wall = true
+				break
+		if not against_wall:
+			return {"ok": false, "reason": "Item must be mounted flush against a wall"}
+			
+	# 4. Clearance vs Solid Overlap
+	# Clearance zones of the new item cannot overlap existing solid items
+	var cl_cells := get_clearance_cells(cell, w, d, rot, clearance)
+	for cl in cl_cells:
+		if hall_bounds.has_point(cl) and occupied_grid.has(cl):
+			return {"ok": false, "reason": "Clearance envelope blocked by %s" % occupied_grid[cl]}
+
+	# 5. Walkway Connectivity BFS Check
+	# Temporarily map new solid cells into a test grid to verify all equipment remains pathable
+	if not entrance_cells.is_empty():
+		var test_grid := occupied_grid.duplicate()
+		for c in solid_cells:
+			test_grid[c] = item["id"]
+			
+		# Derive the approach point for this placed item (1 tile in front of the item relative to rotation)
+		var this_approach := _get_approach_point(cell, w, d, rot)
+		var targets_to_verify: Array[Vector2i] = []
+		for pt in all_approach_points:
+			targets_to_verify.append(pt)
+		targets_to_verify.append(this_approach)
+		
+		var path_result := verify_walkway_connectivity(entrance_cells[0], targets_to_verify, test_grid, hall_bounds)
+		if not path_result.ok:
+			return {"ok": false, "reason": "Blocks critical hallway: %s" % path_result.reason}
+
+	return {"ok": true, "reason": "Valid placement"}
+
+static func _get_approach_point(origin: Vector2i, w: int, d: int, rot: int) -> Vector2i:
+	var eff_size := get_rotated_size(w, d, rot)
+	match rot % 4:
+		0: return Vector2i(origin.x + eff_size.x / 2, origin.y + eff_size.y) # Front (+Z / South)
+		1: return Vector2i(origin.x - 1, origin.y + eff_size.y / 2)         # West
+		2: return Vector2i(origin.x + eff_size.x / 2, origin.y - 1)         # North
+		3: return Vector2i(origin.x + eff_size.x, origin.y + eff_size.y / 2) # East
+	return origin
+
+# ------------------------------------------------------------------------------
+# BFS Navigable Path Checker
+# ------------------------------------------------------------------------------
+
+## Runs an unweighted breadth-first flood search across traversable grid tiles.
+## Guarantees an open path from the gym entrance to every station's work/approach node.
+static func verify_walkway_connectivity(
+	start_cell: Vector2i,
+	required_destinations: Array,
+	blocked_cells: Dictionary,
+	bounds: Rect2i
+) -> Dictionary:
+	if blocked_cells.has(start_cell):
+		return {"ok": false, "reason": "Entrance blocked"}
+		
+	var queue: Array[Vector2i] = [start_cell]
+	var visited: Dictionary = {start_cell: true}
+	var reachable_count: int = 0
+	
+	var dest_map: Dictionary = {}
+	for d in required_destinations:
+		dest_map[d] = false
+		if d == start_cell:
+			dest_map[d] = true
+			reachable_count += 1
+			
+	var directions: Array[Vector2i] = [
+		Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)
+	]
+	
+	var head := 0
+	while head < queue.size():
+		var current = queue[head]
+		head += 1
+		
+		for dir in directions:
+			var neighbor: Vector2i = current + dir
+			
+			if not bounds.has_point(neighbor):
+				continue
+			if visited.has(neighbor):
+				continue
+			if blocked_cells.has(neighbor):
+				continue
+				
+			visited[neighbor] = true
+			queue.append(neighbor)
+			
+			if dest_map.has(neighbor) and dest_map[neighbor] == false:
+				dest_map[neighbor] = true
+				reachable_count += 1
+				if reachable_count >= dest_map.size():
+					return {"ok": true, "reason": "All stations reachable"}
+
+	for dest in dest_map.keys():
+		if not dest_map[dest]:
+			return {"ok": false, "reason": "Station at (%d, %d) is isolated" % [dest.x, dest.y]}
+			
+	return {"ok": true, "reason": "All stations reachable"}
+
+Unit Test Executable Script
+# ==============================================================================
+# PlacementValidatorTest.gd
+# Self-contained executable verification tests for PlacementValidator
+# ==============================================================================
+class_name PlacementValidatorTest
+extends RefCounted
+
+static func run_tests() -> bool:
+	var hall_bounds := Rect2i(0, 0, 60, 36) # 30m x 18m at 0.5m/cell
+	var entrance := [Vector2i(30, 35)]       # South door center
+	var occupied: Dictionary = {}
+	var existing_approaches: Array[Vector2i] = []
+	
+	# Item Definitions
+	var heavy_bag := {"id": "heavy_bag_01", "footprint_w": 4, "footprint_d": 4, "clearance": 1, "wall_mounted": false}
+	var wall_mirror := {"id": "mirror_wall", "footprint_w": 6, "footprint_d": 1, "clearance": 1, "wall_mounted": true}
+	var ring_16ft := {"id": "ring_16", "footprint_w": 16, "footprint_d": 16, "clearance": 2, "wall_mounted": false}
+
+	# Test 1: Valid Heavy Bag Placement in Open Hall
+	var res1 = PlacementValidator.can_place(heavy_bag, Vector2i(10, 10), 0, occupied, hall_bounds, [], entrance, existing_approaches)
+	assert(res1.ok, "Test 1 Failed: Valid bag placement flagged as invalid: " + res1.reason)
+	print("Placement Test 1 (Open Floor Valid): PASSED")
+
+	# Register the heavy bag in the mock grid
+	for cell in PlacementValidator.get_occupied_cells(Vector2i(10, 10), 4, 4, 0):
+		occupied[cell] = heavy_bag.id
+	existing_approaches.append(PlacementValidator._get_approach_point(Vector2i(10, 10), 4, 4, 0))
+
+	# Test 2: Solid Collision Overlap
+	var res2 = PlacementValidator.can_place(heavy_bag, Vector2i(11, 11), 0, occupied, hall_bounds, [], entrance, existing_approaches)
+	assert(not res2.ok and res2.reason.begins_with("Cell already obstructed"), "Test 2 Failed: Did not detect collision")
+	print("Placement Test 2 (Direct Overlap Detection): PASSED")
+
+	# Test 3: Clearance Buffer Overlap (Placing right against the bag's swing border)
+	var res3 = PlacementValidator.can_place(heavy_bag, Vector2i(10, 6), 0, occupied, hall_bounds, [], entrance, existing_approaches)
+	assert(not res3.ok and res3.reason.begins_with("Clearance envelope blocked"), "Test 3 Failed: Did not detect clearance overlap")
+	print("Placement Test 3 (Clearance Violation): PASSED")
+
+	# Test 4: Wall Mounted Constraint Check (Middle of room vs Wall)
+	var res4_fail = PlacementValidator.can_place(wall_mirror, Vector2i(20, 20), 0, occupied, hall_bounds, [], entrance, existing_approaches)
+	assert(not res4_fail.ok and res4_fail.reason.begins_with("Item must be mounted"), "Test 4A Failed: Allowed wall item in room center")
+	
+	var res4_pass = PlacementValidator.can_place(wall_mirror, Vector2i(0, 10), 1, occupied, hall_bounds, [], entrance, existing_approaches)
+	assert(res4_pass.ok, "Test 4B Failed: Blocked valid wall placement: " + res4_pass.reason)
+	print("Placement Test 4 (Wall-Mounted Validation): PASSED")
+
+	# Test 5: Hallway Occlusion / Entrapment via BFS (Wall of rings sealing the gym entrance)
+	# Build a solid barricade across the hall right above the entrance door
+	var barricade_grid := occupied.duplicate()
+	for x in range(0, 60):
+		barricade_grid[Vector2i(x, 34)] = "concrete_barrier"
+		
+	var res5 = PlacementValidator.can_place(ring_16ft, Vector2i(2, 2), 0, barricade_grid, hall_bounds, [], entrance, existing_approaches)
+	assert(not res5.ok and res5.reason.begins_with("Blocks critical hallway"), "Test 5 Failed: Did not catch blocked pathing")
+	print("Placement Test 5 (BFS Walkway Sealing Detection): PASSED")
+
+	# Test 6: Rotation Dimensions Swapping Verification
+	var rot_size_0 = PlacementValidator.get_rotated_size(6, 2, 0)
+	var rot_size_1 = PlacementValidator.get_rotated_size(6, 2, 1)
+	assert(rot_size_0 == Vector2i(6, 2) and rot_size_1 == Vector2i(2, 6), "Test 6 Failed: Rotation size failed to swap axes")
+	print("Placement Test 6 (Rotation Dimensions Swap): PASSED")
+
+	return true
+
+Ranked Build Order
+Phase 1 (Sprint 1): Dynamic Wall Cutaway & Discrete Cam Stepping (WallVisibilityManager)
+Deliverable: Implement discrete Q/E rotation ($0.28\text{ s}$ cubic transition), hook WallVisibilityManager to swap between the $3.6\text{ m}$ wall instance and $0.4\text{ m}$ stub rail instance, and drop wall-hung decor automatically. Resolves all floating props immediately.
+Phase 2 (Sprint 2): Core Grid Collision & Static Station Movement (PlacementValidator)
+Deliverable: Implement the $0.5\text{ m}$ grid state machine, placement cursor ghost (green/red shader), footprint collision, and clearance envelopes for existing demo stations. Allow moving/rearranging existing gym stations with full undo (Ctrl+Z).
+Phase 3 (Sprint 3): Walkway Path Validation & Station Reachability (BFS)
+Deliverable: Integrate BFS reachability checks into the placement pipeline. When the player places a ring or bag line that seals off an aisle or traps an assistant coach, immediately block placement with the contextual error message "NO AISLE PATH".
+Phase 4 (Sprint 4): Build Mode HUD & Purchase Economy
+Deliverable: Build mode toggle (B), bottom drawer category catalog, purchase transactions, 100% pause refund buffer, and stat aggregation (station count feeding club prestige).
+Phase 5 (Post-Demo / Early Access): Modular Enclosed Support Rooms & Custom Ring Crafter
+Deliverable: Two Point-style rectangular room drafting (Office, Physio, Lockers) with door placement requirements, wear-and-tear degradation, and blueprint saving.
+Operator Verdict Paragraphs
+Part A Verdict
+
+The proposed camera cutaway rule—dropping near walls facing the camera down to a $0.4\text{ m}$ capped stub while keeping background walls at full height with all hung assets intact—is completely sound and resolves the floating assets visible in your Godot 4 render. Do not implement transparent alpha walls or manual 3-state wall toggles; transparency introduces visual clutter that disrupts the readable telemetry required by sports simulation enthusiasts, while manual toggles increase cognitive friction during high-stress 2-minute training rounds. Adopting strict 90-degree stepped camera turns with a snappy $0.28\text{ s}$ cubic ease guarantees visual stability, matches standard Godot 4 batch rendering cleanly, and eliminates per-frame clipping recalculations.
+
+Part B Verdict
+
+Emulating the placement flow of Two Point Hospital is the ideal design direction for FightCamp, provided you respect the functional difference between an enclosed clinic and an active athletic hall. Keep training equipment (rings, bags, cardio stations) free-standing on an unpartitioned $0.5\text{ m}$ spatial grid with explicit clearance envelopes for striking dynamics, while restricting modular room drawing exclusively to support services (Physio, Office, Changing Rooms) along the building perimeter. This preserves FightCamp’s simulation depth: coach pathing time between stations becomes a direct tactical variable, gym overcrowding degrades athlete focus and dues, and the BFS walkway validation guarantees your AI boxers never encounter pathfinding deadlocks.
+
+PART C — RECONCILE WITH MEASURED VALUES (TWO POINT MUSEUM, 2025)
+C1. Analytical Comparison: Where Our Numbers Differ and Why
+
+The telemetry extracted from Two Point Museum (TPM, 2025) provides an exceptional empirical baseline from the genre’s leading production team. Here is how our engineering choices compare, along with tailored adaptations for FightCamp:
+
+CAMERA SYSTEM COMPARISON:
+Two Point Museum: [FOV 17° (Near-Ortho)] ──> [Height 20-280m] ──> [Free Yaw Drag @ 90°/s]
+FightCamp Spec:   [FOV 24° (Sports Depth)] ──> [Height 12-45m]  ──> [Discrete 90° Snapping]
+
+1. Camera Projection & FOV: 17° vs. 36°
+Measured TPM: Perspective with FOV $17^\circ$ (effectively an orthographic telephoto perspective, completely suppressing perspective distortion across vast $100\text{ m}+$ museum complexes).
+FightCamp Original: FOV $36^\circ$ to $48^\circ$.
+The Conflict: At FOV $36^\circ$ to $48^\circ$, tall characters ($1.8\text{ m}$) standing near the near camera edge exhibit intense perspective barrel elongation, distorting their proportions. However, at $17^\circ$, depth cues flatten so heavily that ring ropes, apron steps, and fighter bob-and-weave verticality lose their physical punch.
+Reconciliation: Adopt FOV $24^\circ$. This sits directly in the sweet spot: it delivers the near-orthographic readability of a technical management sim while retaining sufficient foreshortening to showcase muscular boxing animations and ring ropes.
+2. Camera Rotation: Free Yaw (90°/s) vs. Discrete 90-Degree Steps
+Measured TPM: Free continuous yaw rotation via keys ($90^\circ/\text{s}$) or mouse drag, backed by continuous shader updates (SetWallShaderToTransparentMode).
+FightCamp PART A: Fixed discrete $90^\circ$ steps ($45^\circ \to 135^\circ \to 225^\circ \to 315^\circ$).
+The Conflict: Continuous free rotation in Godot 4 with dynamic cutaway geometry requires either per-frame backface cull passes or runtime dissolve shaders across materials, increasing shader complexity. More importantly, FightCamp features active real-time athletic interactions (coach boosting a fighter at a bag, pad chains executing in the ring) occurring on strict 2-minute clocks. Searching for a manual rotation angle during active gameplay is frustrating.
+Reconciliation: Retain Discrete $90^\circ$ Steps as the Default Game Control (Q/E), but adopt TPM’s Free Drag ($90^\circ/\text{s}$) strictly during Build Mode (B). When constructing or arranging equipment, the player gains full rotational freedom to inspect alignments. The moment they return to simulation mode, the camera snaps smoothly to the nearest of the four standard isometric quadrants ($45^\circ, 135^\circ, 225^\circ, 315^\circ$).
+3. Wall Rendering: Backface / Shader Cut vs. Geometric Stub
+Measured TPM: ShowBackfaceWallsOnly on far walls, and SetWallShaderToTransparentMode on camera-facing walls. Visual wall height is completely decoupled from selection/placement wall height. Ceiling height is $6\text{ m}$.
+FightCamp Part A: Geometric physical drop to a $0.4\text{ m}$ stub with cap rails.
+Reconciliation: Adopt TPM’s Decoupling Principle with FightCamp’s Stub Geometry.
+Visuals: Keep our $0.4\text{ m}$ physical stub cap rail. Transparent walls look washed out over brick gym aesthetics. A clean architectural cutaway is visually clearer than a transparent dither.
+Selection & Snapping: Adopt TPM’s exact decoupled logic: even when a wall is cut down to a $0.4\text{ m}$ visual stub, its virtual placement plane remains at full $3.6\text{ m}$ height. When the player drags a poster or round clock near the stub, the full wall highlight appears, snapping the item cleanly to its correct height ($1.8\text{ m}$).
+4. Grid Snap: 0.5 m Grid Density (87% Dominance in TPM)
+Measured TPM: $0.5\text{ m}$ on 87% of items, $1.0\text{ m}$ on 5%, fine $0.25/0.1\text{ m}$ on decor. Free (off-grid) placement allowed on 99% of items.
+FightCamp Part B: Proposed $0.5\text{ m}$ uniform grid.
+Reconciliation: Full Alignment. TPM proves conclusively that $0.5\text{ m}$ is the operational standard for top-down sim management. We adopt $0.5\text{ m}$ for all training stations, $1.0\text{ m}$ for the boxing ring platform footprint, and allow free off-grid placement (Alt hold) strictly for small decorative floor objects (chalk buckets, water bottles, gym bags).
+5. Room Sizing & Prestige Mechanics
+Measured TPM: Minimum room sizes (Bathrooms $2 \times 1\text{ cells}$, Staff $3 \times 2$, Workshops $4 \times 4$); MaxPrestigePerCell clamped between 30 and 48; construction grows dynamically ($20% \to 95%$ over 2 seconds).
+FightCamp Adaptation: Our support rooms match TPM's exact scale curves: Physio ($3 \times 3\text{ m} \to 6 \times 6\text{ cells}$), Locker Room ($4 \times 3\text{ m} \to 8 \times 6\text{ cells}$). We adopt TPM’s MaxPrestigePerCell architecture to prevent exploit exploits (e.g., players cramming 50 boxing trophies into a $2 \times 2\text{ m}$ closet to artificially inflate gym rating).
+C2. Final FightCamp Technical Parameter Specification Table
+
+The following unified parameter table is calibrated against measured data from Two Point Museum and scaled to FightCamp’s $30 \times 18\text{ m}$ (T2) gym hall:
+
+| Parameter Category | Metric / Specification | Godot 4 Technical Implementation Rule |
+| :--- | :--- | :--- |
+| Grid Base Cell | $0.5\text{ m} \times 0.5\text{ m}$ | Base unit for all occupancy matrices, navmesh stitching, and clearance tests. |
+| Rotation Snap (Stations) | $90^\circ$ Strict | Z / C rotates in $90^\circ$ steps for all functional equipment (Heavy Bags, Rings, Cardio). |
+| Rotation Snap (Decor) | $45^\circ$ Snap / Free Drag | Posters, championship banners, equipment crates, water coolers, and benches. |
+| Free Off-Grid Mode | Hold Alt | Permitted only on non-functional decorative props. Blocked on training stations. |
+| Camera Projection | Perspective FOV $24^\circ$ | Delivers telephoto isometric clarity without edge-stretching $1.8\text{ m}$ character models. |
+| Camera Pitch Range | $35^\circ$ (Live Sim) to $55^\circ$ (Build Mode) | Smooth camera elevation tween on entering/exiting build mode (TRANS_CUBIC, $0.25\text{ s}$). |
+| Camera Height Range | $12.0\text{ m}$ to $45.0\text{ m}$ | Zoom steps clamped to prevent clipping ceiling geometry or losing athlete detail. |
+| Camera Yaw Mode | Discrete $90^\circ$ Live / Free Yaw in Build | Normal play snaps to $45^\circ/135^\circ/225^\circ/315^\circ$ ($0.28\text{ s}$). Free drag available in Build mode. |
+| Wall Visual Cut Height | $0.40\text{ m}$ (Low Stub) | Finished with a dark walnut/concrete top cap rail (#2C2A29, $0.06\text{ m}$ thick). |
+| Ceiling Height | $3.60\text{ m}$ | Supports overhead light gantries, suspended bag rails, and industrial ductwork. |
+| Wall Placement Plane | Decoupled $3.60\text{ m}$ Virtual | Near cut walls still detect wall-mounted items at their real height during drag operations. |
+| Financial Refund Policy | $100%$ Immediate / $65%$ Active | $100%$ refund during active Build Mode; depreciates to $65%$ once equipment is used. |
+| Construction Tween | $1.2\text{ seconds}$ Assembly | Materializes via an ascending vertical clip-plane shader with audio feedback. |
+
+Station Footprints, Clearances, and Room Minimums
+
+| Facility Element | Dimensions (Meters) | Grid Cells ($0.5\text{ m}$) | Mandatory Clearance Envelope | Prestige Value | Functional Simulation Contribution |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Heavy Bag Station | $1.0\text{ m} \times 1.0\text{ m}$ | $2 \times 2\text{ cells}$ | $0.5\text{ m}$ perimeter ($1\text{ cell}$ all sides) | $+1.5\text{ pts}$ | Trains Power, Technique; increases Hand Conditioning. |
+| Double-End / Speed Bag | $1.0\text{ m} \times 0.5\text{ m}$ | $2 \times 1\text{ cells}$ | $0.5\text{ m}$ front & sides | $+1.2\text{ pts}$ | Trains Hand Speed, Reflexes, Rhythm. |
+| 16-ft Sparring Ring | $6.0\text{ m} \times 6.0\text{ m}$ (Platform) | $12 \times 12\text{ cells}$ | $1.0\text{ m}$ apron ($2\text{ cells}$ all sides) | $+12.0\text{ pts}$ | Hard sparring, pad chains; unlocks corner tactical drills. |
+| 20-ft Pro Bout Ring | $7.8\text{ m} \times 7.8\text{ m}$ (Platform) | $16 \times 16\text{ cells}$ | $1.0\text{ m}$ apron + $1.5\text{ m}$ corner | $+22.0\text{ pts}$ | Sanctioned bouts, media revenue, major prestige boost. |
+| Treadmill / Air Bike | $1.0\text{ m} \times 1.5\text{ m}$ | $2 \times 3\text{ cells}$ | $0.5\text{ m}$ rear (safety) | $+0.8\text{ pts}$ | Aerobic conditioning; manages athlete weight cuts. |
+| Free Weight Deadlift Rack | $2.0\text{ m} \times 2.0\text{ m}$ | $4 \times 4\text{ cells}$ | $0.5\text{ m}$ perimeter | $+2.0\text{ pts}$ | Max Power, Kinetic Chain snap, Chin stability. |
+| Physio Room (Enclosed) | Min: $3.0\text{ m} \times 3.0\text{ m}$ | $6 \times 6\text{ cells}$ | Requires: Door, Table, Ice Tub | $+8.0\text{ pts}$ | Accelerates Cut/Swell healing; reduces permanent scars. |
+| Management Office | Min: $3.0\text{ m} \times 2.5\text{ m}$ | $6 \times 5\text{ cells}$ | Requires: Door, Desk, PC, File Cabinet | $+5.0\text{ pts}$ | Unlocks film study, contract negotiations, scouting lists. |
+| Locker & Changing Room | Min: $4.0\text{ m} \times 3.0\text{ m}$ | $8 \times 6\text{ cells}$ | Requires: Door, Lockers, Benches | $+6.0\text{ pts}$ | Member capacity cap; baseline athlete morale. |
+| Staff Lounge | Min: $3.0\text{ m} \times 2.0\text{ m}$ | $6 \times 4\text{ cells}$ | Requires: Door, Sofa, Coffee Machine | $+4.0\text{ pts}$ | Prevents Assistant Coach and Cutman burnout/fatigue. |
+| Primary Walkway Aisle | Min: $1.5\text{ m}$ Clear | $3\text{ cells wide}$ | Zero obstruction permitted | — | Prevents pedestrian bottlenecks between athlete stations. |
+
+This complete technical specification unifies the design pillars of FightCamp with the production metrics of Two Point Museum, establishing an authoritative blueprint for your Godot 4 implementation.

@@ -1,0 +1,248 @@
+Section A: Defect Audit (Gym Floor HUD & First Story Modal)
+
+Based on the S229 capture (1920×1080) against the Round-70 UI Bible (#0d0c0b Void base, #1a1816/#22201d/#282521 surface tiers, #f0c233 Championship Gold, brass borders, cream typography, 4px radii):
+
+Catastrophic Vertical Word Wrap in Bottom-Left Panel (x=0, y=800 approx): The widget container has custom_minimum_size.x = 0 or missing horizontal container stretch (autowrap_mode = WORD_SMART without a bounded width), causing text to render 1 character per line downwards.
+Missing Screen Dimmer / Scrim on Story Modal: The modal sits directly over the lit 3D training floor without a back-scrim (Color(0.05, 0.045, 0.04, 0.65)), destroying contrast between modal brass outlines and gym station floors.
+Invalid Root Back-Arrow: Left navigation bar displays a top back-arrow (<) at (x=12, y=60) despite being on the root Home screen (Gym Floor). Root screens must never render a back-navigation affordance.
+Hardcoded Developer Placeholder in News Bar: Bottom marquee bar reads verbatim "THE DAY'S NEWS LANDS HERE" instead of procedural game-state fallback tickers (e.g., "LOCAL CIRCUIT: Regional Golden Gloves registration opens in 14 days • ANVIL ST: Gym doors unlocked").
+Top Bar Fragmentation & Dead Space: Top HUD items (Bank Balance, Time Controls, Next Bout) are broken into disconnected floating pills with inconsistent vertical centers (y=8 to y=16) and harsh black alpha drop-shadows rather than resting on a cohesive top shelf or unified 48px header strip.
+Date/Time Widget Hierarchy Inversion: The pause/play buttons use rounded pill buttons while the date pill uses a taller chamfered box with low-contrast muted cream text, drawing less visual weight than the speed buttons.
+Next Bout Widget Disconnected from Roster State: Top-right "NO BOUT BOOKED / FIND A FIGHT >" container lacks a primary CTA button hierarchy (#f0c233 Championship Gold accent) and floats with bare right-padding instead of locking to the right margin grid (x=1896).
+Notification Bell Detached & Unanchored: The notification bell icon at x=984 floats isolated in the middle of void space between the Date/Clock container and the Bout container, lacking a clear anchor, badge counter container, or unified slot in the top bar.
+Left Rail Contrast & Hitbox Failure: The icon rail on the left uses ungrounded icons with sub-30% opacity grey glyphs without pill backing, hover plates, or active indicator notch (the Gold 2×24px active left pip required by the UI Bible).
+Camera Zoom Control Floating Naked: The [+] zoom button at (x=48, y=72) is floating adrift near the left rail with no grouped UI docking, creating visual clutter against the gym ceiling geometry.
+Modal Button Visual Hierarchy: The primary button "Open the gym" in the story modal uses solid yellow with black text, but lacks the Round-70 4px radius, bevel edge, and hover token state; the secondary button "LATER" has an irregular border thickness and floating baseline alignment.
+Right Edge Calendar Tab Clipping & Readability: The "27d" calendar drawer tab at (x=1896, y=360) has micro-sized unreadable vertical text, an unstyled pill handle, and fails to align with the standard 48px grid units.
+3D Floor Bleed Behind News Bar: The bottom marquee bar lacks a solid #1a1816 backing and gradient top-feather (1px #282521 border), allowing the grey gym asphalt and floor chalk lines to create visual noise beneath running text.
+Section B: Target Layout at 1920×1080 (Grid & Tokens)
+
+All coordinates are in absolute pixels [x, y, width, height]. Base depth hierarchy: Floor 3D (z=0) -> Scrim (z=10) -> HUD Persistent (z=20) -> Modals (z=30) -> Tooltips/Popovers (z=40).
+
++---------------------------------------------------------------------------------------------------+ [y=0, h=48]
+| [LOGO/GYM]  $25,000 (+120/wk)  |  [<<] [>] [>>]  Mon 5 Jan W1  (10:45)  [BELL:2]  |  [NEXT BOUT: 18d]  |
++---+-------------------------------------------------------------------------------------------+---+ [y=48]
+| H |                                                                                           | C |
+| O |                                                                                           | A |
+| M |                                     [ STORY MODAL ]                                       | L |
+| E |                           x=660, y=380, w=600, h=320                              | E |
+|   |                                                                                           | N |
+| R |                                                                                           | D |
+| A |                                                                                           | A |
+| I |                                                                                           | R |
+| L |                                                                                           |   |
+|   |  +---------------------------+                                                            |   |
+|   |  | TODAY'S FOCUS (w=320,h=180)|                                                            |   |
+|   |  +---------------------------+                                                            |   |
++---+-------------------------------------------------------------------------------------------+---+ [y=1048]
+| TICKER: Leo Vance completed morning roadwork (-12% Stamina) • Rent due in 6 days ($350)       |SPEED| [h=32]
++---------------------------------------------------------------------------------------------------+ [y=1080]
+
+1. Top HUD Strip: [x=0, y=0, w=1920, h=48]
+Background: Panel #1a1816 with bottom 1px solid border #282521.
+Segment 1 — Gym Brand & Finances [x=16, y=6, w=320, h=36]:
+Gym name: Anvil Street Gym (Cream #e8e4df, 12px uppercase bold, tracking +1px).
+Treasury: $25,000 (Championship Gold #f0c233, 16px tabular figures bold).
+Cashflow chip: +$420/mo (Muted Green #5cb85c, 11px).
+Segment 2 — Play/Pause & Calendar Center Shelf [x=760, y=6, w=400, h=36]:
+Speed group: [ || ], [ > ], [ >> ] buttons (each 32x32px, surface #22201d, hover #282521, active #f0c233 with #0d0c0b icon).
+Date display: MON 5 JAN • WK 1 (Cream #f5f3f0, 14px bold), subtitle 10:14 AM (Muted #8c857b, 11px).
+Notification Bell [x=1128, y=8, w=32, h=32]: Brass outline icon. Badge: [x=1146, y=6, w=16, h=16], fill Crimson #d9534f, text 1 (White, 9px bold).
+Segment 3 — Next Fight CTA Shelf [x=1580, y=6, w=324, h=36]:
+If no bout booked: Background #22201d, border 1px #332f2a. Label: "NO BOUT SCHEDULED" (#8c857b, 11px). Action link: + MATCHMAKE (#f0c233, 12px bold, hover underline).
+If bout booked: Opponent thumbnail (28×28px), name + countdown "vs T. Perez (19d)" (#e8e4df), click opens Match Hub.
+2. Left Rail Navigation: [x=0, y=48, w=56, h=1000] (Expands to w=200 on hover)
+Base Surface: #121110, right border 1px solid #22201d.
+Rail Items (8 slots, each w=56, h=48, expanding to w=200):
+Slots: 1: Gym Floor (Home), 2: Roster, 3: Training, 4: Staff & Cutmen, 5: Scouting, 6: Schedule/Fights, 7: Finances, 8: Gym Facilities.
+Active Indicator: 3px wide vertical strip on the left edge in #f0c233. Icon tinted #f0c233. Background plate #1a1816.
+Inactive Item: Icon tinted #8c857b. Hover state shifts icon to #f5f3f0, adds background pill #22201d with 120ms ease-out.
+3. Bottom-Left Quick Status Card: [x=72, y=836, w=340, h=196]
+Container: Surface #1a1816cc (80% alpha) with 1px border #282521, radius 4px.
+Header [h=28]: Title "TODAY'S ORDERS" (#8c857b, 10px uppercase, tracking +1.5px).
+Roster Quick Peek (Leo Vance):
+Status: "Sparring (Station 8)" with amber activity pip.
+Stamina Bar: Height 6px, track #22201d, fill #5cb85c (78%).
+Next Check: "Weigh-in in 5 days (147.2 / 147 lbs)".
+4. Story Modal (First Contact / Incident): [x=610, y=340, w=700, h=400]
+Scrim: Fullscreen [0, 0, 1920, 1080], Color #0d0c0b at 65% opacity. Fade-in: 150ms linear.
+Window Box: Solid #1a1816, 1px solid brass border #8c733e, outer corner radius 4px. Drop shadow: 0 8px 32px rgba(0,0,0,0.7).
+Header Strip [h=40]: Breadcrumb label "CHAPTER 1 • ANVIL STREET • KEYS" (#8c857b, 11px uppercase tracking +1px). Close button [X] top-right (#8c857b -> #f5f3f0 hover).
+Body Content [y=56, pad=24]:
+Headline: "Dessa's Call" (Cream #f5f3f0, 24px serif / display bold).
+Paragraph: "Dessa has suffered a stroke. The heavy keys are in your palm, Coach. The bills are piled inside the oak desk drawer, and the sparring ring sits empty. Anvil Street's name is on your shoulders now." (Body cream #d4cecc, 14px, line-height 22px).
+Button Tray [x=24, y=328, w=652, h=48]:
+Secondary [x=380, y=0, w=120, h=40]: Label "LATER" (Border 1px #3a352f, bg #22201d, text #8c857b, hover #f5f3f0).
+Primary CTA [x=512, y=0, w=140, h=40]: Label "OPEN THE GYM" (Bg #f0c233, text #0d0c0b, font bold 12px uppercase, hover #ffd24d, active #d4aa29).
+5. Bottom News Ticker: [x=0, y=1048, w=1920, h=32]
+Background: Solid #121110, top border 1px #22201d.
+Tag Badge [x=0, y=0, w=84, h=32]: Solid #1a1816, border-right 1px #282521. Label "LATEST" (#f0c233, 10px bold uppercase).
+Marquee Text Stream [x=96, y=8, w=1810, h=20]: Smooth horizontal scroll at 36 px/s. Color #b5afa8, highlights in #f5f3f0. Separator: Golden dot " • ".
+Section C: Proven Management Sim HUD Conventions
+
+| Reference Game | Core UI Structure Applied to FightCamp |
+| :--- | :--- |
+| Football Manager | Top Unified Date & Action Header: FM groups Continue/Calendar top-right with an unmistakable dominant action button. We use this for the match countdown and spacebar continue prompt. Left bookmark icon rail with sub-panels preserves horizontal screen real estate for the pitch/gym floor. |
+| Motorsport Manager | Always-Visible Financial Health Chip: Displays income per race / week directly next to total bank reserves so player feels cost pressures without opening the ledger page. |
+| Two Point Hospital | Ground-Level Persistent Status HUD: Unobtrusive bottom-left card showing current active roster task without obstructing central clinic/gym navigation corridors. |
+| Punch Club 2 | High-Readability Daily Ticker & Time Block: Time segmented into concrete work blocks (Roadwork, Station Sparring, Recovery) with high-contrast badge status. |
+
+Section D: Implementation Steps & Measurable Checks
+Step 1: Fix Bottom-Left Widget Layout Container
+Action: Wrap the bottom-left daily goals label in a VBoxContainer inside a PanelContainer with explicit custom_minimum_size = Vector2(340, 180) and set the label's autowrap_mode = TextServer.AUTOWRAP_WORD_SMART.
+Acceptance Check: Text strings exceeding 30 characters wrap naturally onto subsequent horizontal lines; bounding container does not shrink below 340px width under any text length.
+Step 2: Implement Fullscreen Scrim on Modal Layer
+Action: Create a ColorRect named ScreenDimmer inside the modal canvas layer (z_index = 25) with color Color(0.05, 0.047, 0.043, 0.65). Connect modal open/close signals to fade this alpha between 0.0 and 0.65 in 120ms.
+Acceptance Check: When the story dialog opens, gym floor 3D pixel luminances drop by >50%, and clicks on the floor stations do not fire raycasts.
+Step 3: Top Navigation Bar Unification
+Action: Merge all floating top pills (Bank, Speed, Date, Bout) into a single full-width root Panel (1920x48px) anchored to Top Wide.
+Acceptance Check: No background gym floor geometry or ceiling rafters are visible between top buttons; top edge maintains consistent y=0 to y=48 solid #1a1816 backing.
+Step 4: Procedural Marquee Ticker
+Action: Replace the static string "THE DAY'S NEWS LANDS HERE" with the scrolling news banner script fed from the GymEventManager message queue.
+Acceptance Check: Marquee continuously scrolls feed strings across the bottom bar at steady pixel rate without frame stutter; hovering pauses scroll.
+Section E: GDScript (Godot 4.7)
+1. News Ticker Component (news_ticker.gd)
+class_name NewsTicker
+extends Control
+
+@export var scroll_speed: float = 38.0
+@export var feed_items: Array[String] = [
+	"ANVIL STREET: Dessa stepped down as head trainer; gym ownership transferred.",
+	"REGIONAL LEAGUE: Welterweight rankings updated for January cycle.",
+	"EQUIPMENT: Heavy bag #3 leather strap inspected - optimal condition."
+]
+
+var _stream_label: Label
+var _scroll_offset: float = 0.0
+var _total_text_width: float = 0.0
+var _is_paused: bool = false
+
+const COLOR_VOID: Color = Color("#0d0c0b")
+const COLOR_SURFACE: Color = Color("#121110")
+const COLOR_BORDER: Color = Color("#22201d")
+const COLOR_TEXT: Color = Color("#b5afa8")
+const COLOR_GOLD: Color = Color("#f0c233")
+
+func _ready() -> void:
+	custom_minimum_size = Vector2(1920, 32)
+	mouse_entered.connect(func(): _is_paused = true)
+	mouse_exited.connect(func(): _is_paused = false)
+	
+	var bg := ColorRect.new()
+	bg.color = COLOR_SURFACE
+	bg.set_anchors_preset(PRESET_FULL_RECT)
+	add_child(bg)
+	
+	var top_border := ColorRect.new()
+	top_border.color = COLOR_BORDER
+	top_border.size = Vector2(1920, 1)
+	add_child(top_border)
+	
+	# Badge Tag
+	var badge := PanelContainer.new()
+	badge.size = Vector2(88, 32)
+	var badge_style := StyleBoxFlat.new()
+	badge_style.bg_color = Color("#1a1816")
+	badge_style.border_width_right = 1
+	badge_style.border_color = COLOR_BORDER
+	badge.add_theme_stylebox_override("panel", badge_style)
+	
+	var badge_lbl := Label.new()
+	badge_lbl.text = "FEED"
+	badge_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	badge_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	badge_lbl.add_theme_color_override("font_color", COLOR_GOLD)
+	badge_lbl.add_theme_font_size_override("font_size", 10)
+	badge.add_child(badge_lbl)
+	add_child(badge)
+	
+	# Scroll Container Node
+	var clip_box := Control.new()
+	clip_box.position = Vector2(96, 0)
+	clip_box.size = Vector2(1824, 32)
+	clip_box.clip_contents = true
+	add_child(clip_box)
+	
+	_stream_label = Label.new()
+	_stream_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	_stream_label.size = Vector2(0, 32)
+	_stream_label.add_theme_color_override("font_color", COLOR_TEXT)
+	_stream_label.add_theme_font_size_override("font_size", 12)
+	clip_box.add_child(_stream_label)
+	
+	_rebuild_ticker_string()
+
+func _rebuild_ticker_string() -> void:
+	var separator: String = "    •    "
+	var full_text: String = separator.join(feed_items) + separator
+	_stream_label.text = full_text + full_text # Doubled for continuous looping
+	_total_text_width = _stream_label.get_theme_font("font").get_string_size(
+		full_text,
+		HORIZONTAL_ALIGNMENT_LEFT,
+		-1,
+		_stream_label.get_theme_font_size("font_size")
+	).x
+	_scroll_offset = 0.0
+
+func _process(delta: float) -> void:
+	if _is_paused or _total_text_width <= 0:
+		return
+	_scroll_offset += scroll_speed * delta
+	if _scroll_offset >= _total_text_width:
+		_scroll_offset -= _total_text_width
+	_stream_label.position.x = -_scroll_offset
+
+2. Left Rail Icon Navigation Button (rail_button.gd)
+class_name RailNavButton
+extends Button
+
+signal item_selected(route_id: String)
+
+@export var route_id: String = "home"
+@export var is_current_route: bool = false:
+	set(val):
+		is_current_route = val
+		queue_redraw()
+
+var is_hovered_state: bool = false
+
+const COLOR_VOID: Color = Color("#0d0c0b")
+const COLOR_SURFACE: Color = Color("#1a1816")
+const COLOR_HOVER: Color = Color("#22201d")
+const COLOR_BORDER: Color = Color("#282521")
+const COLOR_GOLD: Color = Color("#f0c233")
+const COLOR_INACTIVE: Color = Color("#8c857b")
+
+func _ready() -> void:
+	custom_minimum_size = Vector2(56, 48)
+	flat = true
+	focus_mode = FOCUS_NONE
+	mouse_entered.connect(_on_mouse_enter)
+	mouse_exited.connect(_on_mouse_exit)
+	pressed.connect(func(): item_selected.emit(route_id))
+
+func _on_mouse_enter() -> void:
+	is_hovered_state = true
+	var tween := create_tween()
+	tween.tween_property(self, "modulate:a", 1.0, 0.12).set_trans(Tween.TRANS_QUAD)
+	queue_redraw()
+
+func _on_mouse_exit() -> void:
+	is_hovered_state = false
+	queue_redraw()
+
+func _draw() -> void:
+	var r := Rect2(Vector2.ZERO, size)
+	
+	# Background
+	if is_current_route:
+		draw_rect(r, COLOR_SURFACE)
+	elif is_hovered_state:
+		draw_rect(r, COLOR_HOVER)
+	
+	# Active Gold Left Notch (3px)
+	if is_current_route:
+		draw_rect(Rect2(0, 8, 3, size.y - 16), COLOR_GOLD)
+	
+	# Subtle bottom border line
+	draw_line(Vector2(8, size.y), Vector2(size.x - 8, size.y), COLOR_BORDER, 1.0)

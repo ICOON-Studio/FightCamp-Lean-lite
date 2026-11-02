@@ -1,0 +1,9 @@
+LUDO ROUND 87 (FightCamp, S229) - CODE ASK: the FORM CUE bar (your round-84 audit #1). TEXT AND CODE ONLY - do NOT generate any image. Longest complete answer you can, full code, no placeholders; if you run out, end with CONTINUE.
+
+LANDED since r84: sparring beats in the ring (your r86), move-card milestone banners, country-true names (your r85), thick market bars + top 5.
+
+THE ENGINE (Claude is building it now): the floor's day plan gets a per-order "cue": "" (normal), "power_through" (gains x1.30, stamina drain x1.25), "crisp_form" (move-card minutes x1.35, normal drain), "pace_yourself" (gains x0.75, drain x0.60). The floor exposes set_cue(cue_id: String) -> Dictionary and current_cue() -> String; a cue lasts until changed or he leaves the station.
+
+DELIVER:
+1. FormCueBar.gd (extends Control, built in code, round-70 tokens: void #0d0c0b, panels #1a1816/#22201d/#282521, gold #f0c233, cream #f6f0e0, 4 px radius; 180 ms hovers): a compact bar of three icon+label buttons (POWER THROUGH / CRISP FORM / PACE YOURSELF) with a one-line effect under each ("+30% gains, burns 25% more"), the active one gold-outlined; clicking the active one again returns to normal. API: func setup(floor: Node) -> void (calls floor.set_cue / floor.current_cue), func refresh() -> void, signal cue_chosen(cue_id: String). Hidden when floor.current_station() == "" (he is walking or idle). Keyboard: 1 / 2 / 3.
+2. tests/form_cue_bar_test.gd (extends SceneTree, func _initialize, prints "FORM_CUE_BAR failures=N", quit(0/1)) with a fake floor Node: each button sets its cue, clicking the active one clears it, the bar hides with no station, keys 1-3 work.

@@ -1,0 +1,22 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+VENUES2 ring fit: rope span=6.705600 x 6.705600 m / spec contest 6.705600; canvas+apron=7.620000 x 7.620000 m / spec 7.620000; deck=1.270000 / spec surface_y 1.270000; source rope=6.1460 floor=7.0000 deck=1.0092; rope heights above deck [0.53, 0.928, 1.332] (spec [0.4572, 0.762, 1.0668, 1.3716])
+INERTIAL_JOINS unknown_pairs=0
+INERTIAL_JOINS unknown_pairs=0
+[FightWorldLive] BOXING - seed 95501, 3 rounds | waiting for the first beat
+BODY_SPACING torso_radius_a_m=0.18415360266089 torso_radius_b_m=0.16506879805298 sum_m=0.34922240071387
+INERTIAL_JOINS unknown_pairs=1 from=CROSS to=JAB
+INERTIAL_JOINS unknown_pairs=2 from=GUARD_IDLE to=UNKNOWN
+INERTIAL_JOINS unknown_pairs=3 from=UNKNOWN to=JAB
+JAB_SPEED_TAKE side=b clip=boxing_lead_hook t=1.28 hand=l ext_s=0.417 ret_s=0.150 reach=0.094 peak=3.52 rel_peak=3.28 mean=0.23 speed=1.00 frames=49
+JAB_SPEED_CURVE side=a clip=boxing_jab t=3.10 pos0=0.017 reach_m=0.38,0.38,0.37,0.37,0.35,0.32,0.29,0.20,0.23,0.26,0.33,0.43,0.54,0.62,0.68,0.71,0.70,0.68,0.66,0.62,0.57,0.53,0.48,0.43,0.37,0.31,0.26,0.19,0.17,0.17,0.18,0.18,0.18,0.18,0.17,0.17,0.17,0.17,0.17,0.19,0.21,0.25,0.28,0.30,0.31,0.32
+JAB_SPEED_TAKE side=a clip=boxing_jab t=3.10 hand=l ext_s=0.250 ret_s=0.133 reach=0.327 peak=6.01 rel_peak=6.31 mean=1.31 speed=1.00 frames=46
+JAB_SPEED_TAKE side=a clip=boxing_cross t=5.03 hand=r ext_s=0.250 ret_s=0.183 reach=0.294 peak=7.57 rel_peak=6.69 mean=1.18 speed=1.00 frames=40
+JAB_SPEED_CURVE side=a clip=boxing_jab t=5.70 pos0=0.017 reach_m=0.22,0.22,0.22,0.22,0.22,0.22,0.22,0.22,0.26,0.30,0.36,0.46,0.56,0.63,0.69,0.72,0.71,0.69,0.66,0.62,0.57,0.53,0.48,0.42,0.36,0.30,0.26,0.19,0.18,0.19,0.20,0.20,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21
+JAB_SPEED_TAKE side=a clip=boxing_jab t=5.70 hand=l ext_s=0.250 ret_s=0.167 reach=0.494 peak=6.29 rel_peak=6.42 mean=1.97 speed=1.00 frames=46
+JAB_SPEED_CURVE side=a clip=boxing_jab t=11.08 pos0=0.017 reach_m=0.25,0.25,0.24,0.20,0.20,0.21,0.22,0.22,0.24,0.29,0.38,0.50,0.58,0.65,0.70,0.72,0.71,0.69,0.66,0.63,0.57,0.51,0.45,0.39,0.33,0.29,0.26,0.21,0.21,0.22,0.23,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.23,0.23,0.23,0.22,0.22,0.22,0.22,0.21
+JAB_SPEED_TAKE side=a clip=boxing_jab t=11.08 hand=l ext_s=0.250 ret_s=0.150 reach=0.467 peak=7.81 rel_peak=7.95 mean=1.87 speed=1.00 frames=46
+JAB_SPEED_CLIP clip=boxing_lead_hook n=1 ext_s=0.417 ret_s=0.150 reach=0.094 peak=3.52 max_peak=3.52 rel_peak=3.28 mean=0.23 speed=1.00
+JAB_SPEED_CLIP clip=boxing_jab n=3 ext_s=0.250 ret_s=0.150 reach=0.429 peak=6.70 max_peak=7.81 rel_peak=6.89 mean=1.72 speed=1.00
+JAB_SPEED_CLIP clip=boxing_cross n=1 ext_s=0.250 ret_s=0.183 reach=0.294 peak=7.57 max_peak=7.57 rel_peak=6.69 mean=1.18 speed=1.00
+JAB_SPEED_DONE takes=20 seed=95501 off=- pair=demo boxing a/b

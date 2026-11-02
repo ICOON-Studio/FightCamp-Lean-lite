@@ -1,0 +1,15 @@
+{
+  "checked_at": "2026-09-09T12:05:35Z",
+  "files": [
+    "Godot/scripts/RealtimeRoundStats.gd",
+    "Godot/tests/realtime_round_stats_test.gd",
+    "Godot/scripts/FightRealtime.gd",
+    "Godot/scripts/ImpactModel.gd",
+    "Godot/scripts/RoundScoring.gd",
+    "Godot/scripts/JudgePanel.gd",
+    "Godot/scripts/FightSimulation.gd"
+  ],
+  "output": "CHECK total=7 fails=0 autoload_refs=1 time=1s\n",
+  "passed": true,
+  "task": "U22"
+}

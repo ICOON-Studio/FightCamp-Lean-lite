@@ -1,0 +1,10 @@
+LUDO ROUND 85 (FightCamp, S229) - DATA ASK: fighter name pools per country. TEXT ONLY (one JSON block) - do NOT generate any image. Longest complete answer you can; if you run out, end with CONTINUE and I will ask for the rest.
+
+THE PROBLEM (seen on the market card today): the United Kingdom's top 5 boxers are "Niko Carvalho, Emil Santos, Niko Nakamura, Mateo Rossi, Farid Lopez" - the game draws every name from one global list. Names must fit the country (with the real mix a country has: a UK pool can hold some names of Irish, Caribbean, South Asian and Polish heritage, a USA pool Hispanic and African-American names, etc. - in realistic proportions, mostly the majority culture).
+
+FICTIONAL PEOPLE ONLY: never a real boxer's full name (no Tyson Fury, Canelo Alvarez, Naoya Inoue...). Ordinary common first names and surnames are fine; just never combine them into a famous fighter.
+
+DELIVER exactly one JSON object, no comments, ASCII only (transliterate: Lopez not López, Muller not Müller, Seo-jun not 서준), keyed by these 24 countries exactly as written:
+Argentina, Australia, Brazil, Canada, China, Cyprus, France, Georgia, Germany, Italy, Japan, Kazakhstan, Mexico, Netherlands, Philippines, Poland, Russia, South Africa, South Korea, Spain, Thailand, United Kingdom, United States of America, Uzbekistan
+Each value: {"male": [40 first names], "female": [30 first names], "last": [50 surnames]}.
+HARD RULES: (1) a first name never appears in BOTH a male list and a female list anywhere in the whole file (no Andrea, Jean, Sasha, Kim, Jordan, Alex, Nikita, Yuki...); (2) single-word first names only (no spaces) - East Asian given names in their usual one-word romanisation; (3) surnames single words where the country allows it; (4) at least 20 distinct names per list; no duplicates inside a list.

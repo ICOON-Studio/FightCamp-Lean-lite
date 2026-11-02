@@ -1,0 +1,3613 @@
+{
+  "catalogue_commit": "c3474a8",
+  "kick_criterion": "has kick_damage in effects, OR has kick in id and is a striking technique (excluding guards, checks, catches, knees, slams, footwork reads), OR has leg_damage/lowline_damage and is a named kick technique from a kicking discipline",
+  "kicks_total": 126,
+  "unlocated": 87,
+  "census": [
+    {
+      "id": "boxing_jab",
+      "discipline": "boxing",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "boxing_cross",
+      "discipline": "boxing",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "boxing_lead_hook",
+      "discipline": "boxing",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "boxing_rear_uppercut",
+      "discipline": "boxing",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "boxing_slip_counter",
+      "discipline": "boxing",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "boxing_body_hook",
+      "discipline": "boxing",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "boxing_check_hook",
+      "discipline": "boxing",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "boxing_pull_counter",
+      "discipline": "boxing",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "boxing_liver_combo",
+      "discipline": "boxing",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "boxing_overhand",
+      "discipline": "boxing",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "boxing_lead_uppercut",
+      "discipline": "boxing",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "boxing_double_jab",
+      "discipline": "boxing",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "boxing_pivot_footwork",
+      "discipline": "boxing",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "boxing_check_hook_pivot",
+      "discipline": "boxing",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "boxing_six_punch_combo",
+      "discipline": "boxing",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "boxing_distance_read",
+      "discipline": "boxing",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "boxing_one_two",
+      "discipline": "boxing",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "boxing_jab_body",
+      "discipline": "boxing",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "boxing_cross_body",
+      "discipline": "boxing",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "boxing_up_jab",
+      "discipline": "boxing",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "boxing_rear_hook",
+      "discipline": "boxing",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "boxing_rear_hook_body",
+      "discipline": "boxing",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "boxing_shovel_hook",
+      "discipline": "boxing",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "boxing_catch_counter",
+      "discipline": "boxing",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "boxing_counter_over_jab",
+      "discipline": "boxing",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "boxing_step_in_out",
+      "discipline": "boxing",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "boxing_circle_lead",
+      "discipline": "boxing",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "boxing_circle_rear",
+      "discipline": "boxing",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "boxing_feint",
+      "discipline": "boxing",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "boxing_angle_step",
+      "discipline": "boxing",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "boxing_rhythm_change",
+      "discipline": "boxing",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "boxing_switch_stance",
+      "discipline": "boxing",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "boxing_drawing",
+      "discipline": "boxing",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "boxing_inside_uppercut",
+      "discipline": "boxing",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "boxing_one_two_hook",
+      "discipline": "boxing",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "boxing_jab_body_head",
+      "discipline": "boxing",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "boxing_counter_combination",
+      "discipline": "boxing",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "kickboxing_front_kick",
+      "discipline": "kickboxing",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "kickboxing_roundhouse",
+      "discipline": "kickboxing",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "kickboxing_low_kick",
+      "discipline": "kickboxing",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "kickboxing_jab_lowkick",
+      "discipline": "kickboxing",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "kickboxing_switch_kick",
+      "discipline": "kickboxing",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "kickboxing_high_kick",
+      "discipline": "kickboxing",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "kickboxing_spinning_back",
+      "discipline": "kickboxing",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "kickboxing_four_strike",
+      "discipline": "kickboxing",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "kickboxing_body_kick",
+      "discipline": "kickboxing",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "kickboxing_question_mark",
+      "discipline": "kickboxing",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "kickboxing_jab_cross_lowkick",
+      "discipline": "kickboxing",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "kickboxing_catch_kick_return",
+      "discipline": "kickboxing",
+      "is_kick": false,
+      "r137_is_kick": true
+    },
+    {
+      "id": "kickboxing_switch_step_read",
+      "discipline": "kickboxing",
+      "is_kick": false,
+      "r137_is_kick": true
+    },
+    {
+      "id": "kickboxing_blitz_four_kick",
+      "discipline": "kickboxing",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "kickboxing_teep",
+      "discipline": "kickboxing",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "kickboxing_side_kick",
+      "discipline": "kickboxing",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "kickboxing_hook_kick",
+      "discipline": "kickboxing",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "kickboxing_axe_kick",
+      "discipline": "kickboxing",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "kickboxing_spinning_hook",
+      "discipline": "kickboxing",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "kickboxing_clinch_knee",
+      "discipline": "kickboxing",
+      "is_kick": false,
+      "r137_is_kick": true
+    },
+    {
+      "id": "kickboxing_dutch_combination",
+      "discipline": "kickboxing",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "muay_thai_teep",
+      "discipline": "muay_thai",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "muay_thai_round_kick",
+      "discipline": "muay_thai",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "muay_thai_straight_knee",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": true
+    },
+    {
+      "id": "muay_thai_horizontal_elbow",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_clinch_knees",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": true
+    },
+    {
+      "id": "muay_thai_up_elbow",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_clinch_dump",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_eight_limb_chain",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_switch_kick_body",
+      "discipline": "muay_thai",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "muay_thai_catch_sweep",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_diagonal_elbow",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_spinning_elbow",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_dumps_offbalance",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_low_kick",
+      "discipline": "muay_thai",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "muay_thai_mat_yaep",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_mat_trong",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_mat_wiang_san",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_mat_wiang_yao",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_mat_soei",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_sok_phung",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_te_chiang",
+      "discipline": "muay_thai",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_te_kot",
+      "discipline": "muay_thai",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_te_khao",
+      "discipline": "muay_thai",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_body_kick",
+      "discipline": "muay_thai",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "muay_thai_khao_chiang",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_khao_khong",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_khao_tat",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_khao_ti",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_thip_khang",
+      "discipline": "muay_thai",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_thip_top",
+      "discipline": "muay_thai",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_switch_kick",
+      "discipline": "muay_thai",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "muay_thai_mat_wiang_klap",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_kradot_chok",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_jab_cross_hook",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_jab_cross_body_kick",
+      "discipline": "muay_thai",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "muay_thai_slip_counter_punch",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_sok_wiang_klap",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_te_klap_lang",
+      "discipline": "muay_thai",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_te_khrueng_khaeng",
+      "discipline": "muay_thai",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_kradot_te",
+      "discipline": "muay_thai",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_khayoep_te",
+      "discipline": "muay_thai",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_fake_teep_kick",
+      "discipline": "muay_thai",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "muay_thai_khao_yao",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_khao_yiap",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_khao_thon",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_fake_jab_knee",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": true
+    },
+    {
+      "id": "muay_thai_thip_klap_lang",
+      "discipline": "muay_thai",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_kradot_thip",
+      "discipline": "muay_thai",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_counter_teep",
+      "discipline": "muay_thai",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "muay_thai_chapko_head_sweep",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_catch_strike",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_double_kick",
+      "discipline": "muay_thai",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "muay_thai_check_counter_kick",
+      "discipline": "muay_thai",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "muay_thai_kick_knee_combo",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": true
+    },
+    {
+      "id": "muay_thai_khao_counter",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_pull_counter",
+      "discipline": "muay_thai",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_sok_long_guard_counter",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_sok_klap_khu",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_kradot_sok",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_counter_sok_klap",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_sok_clinch_combo",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_jorakhe_faad_hang",
+      "discipline": "muay_thai",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_spinning_back_kick",
+      "discipline": "muay_thai",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "muay_thai_khao_loi",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_khao_dot",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_superman_knee",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": true
+    },
+    {
+      "id": "muay_thai_khao_clinch_entry",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_teep_knee_chain",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": true
+    },
+    {
+      "id": "muay_thai_superman_knee_punch",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": true
+    },
+    {
+      "id": "muay_thai_jab_cross_sok_klap",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_chapko_sweep_throw",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_full_spectacle",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_thip_mat_te_combo",
+      "discipline": "muay_thai",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_low_cross_hook",
+      "discipline": "muay_thai",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_switch_cross",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_thip_clinch_knee",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": true
+    },
+    {
+      "id": "muay_thai_cross_body_low",
+      "discipline": "muay_thai",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_jab_teep_switch",
+      "discipline": "muay_thai",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "muay_thai_slip_sok_klap",
+      "discipline": "muay_thai",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "muay_thai_check_kick_counter",
+      "discipline": "muay_thai",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "karate_kizamizuki",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_gyakuzuki",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_maegeri",
+      "discipline": "karate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_mawashigeri",
+      "discipline": "karate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_ashibarai",
+      "discipline": "karate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_counter_gyaku",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_yokogeri",
+      "discipline": "karate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_uramawashi",
+      "discipline": "karate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_sweep_finish",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_nidan_geri",
+      "discipline": "karate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_kizami_gyaku",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_deai_counter",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_uke_counter",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_kizami_maegeri",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_ushiro_geri",
+      "discipline": "karate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_sanbon_chain",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_chokuzuki",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_junzuki",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_tatezuki",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_urazuki",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_kagizuki",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_agezuki",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_gyakuagezuki",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_heikozuki",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_awasezuki",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_yamazuki",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_hasamizuki",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_morotezuki",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_renzuki",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_nukite",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_ipponnukite",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_nihonnukite",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_shihonnukite",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_ipponken",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_nakadakaken",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_hiraken",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_urakenuchi",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_tettsuiuchi",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_shutouchi",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_haitouchi",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_haishuuchi",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_teishouchi",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_seiryutouchi",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_keitouchi",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_kokutouchi",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_washideuchi",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_kumadeuchi",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_empiuchi",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_ageempiuchi",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_yokoempiuchi",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_ushiroempiuchi",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_otoshiempiuchi",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_mawashiempiuchi",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_maemawashiempiuchi",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_shutosakotsuuchi",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_shutosakotsuuchikomi",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_shutohizouchi",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_shutojodanuchi",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_shutoyokoganmenuchi",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_yokourakenuchi",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_otoshiurakenuchi",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_urakenmawashiuchi",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_teishofuriuchi",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_tateteishouchi",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_tsukiage",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_tettsuihasamiuchi",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_maegerikeage",
+      "discipline": "karate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_maegerikekomi",
+      "discipline": "karate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_maeashigeri",
+      "discipline": "karate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_oimaegeri",
+      "discipline": "karate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_rengeri",
+      "discipline": "karate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_maeashimawashigeri",
+      "discipline": "karate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_ushiromawashigeri",
+      "discipline": "karate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_yokogerikeage",
+      "discipline": "karate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_yokogerikekomi",
+      "discipline": "karate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_fumikomigeri",
+      "discipline": "karate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_hizageri",
+      "discipline": "karate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_maehizageri",
+      "discipline": "karate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_mawashihizageri",
+      "discipline": "karate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_kingeri",
+      "discipline": "karate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_mikazukigeri",
+      "discipline": "karate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_gyakumikazukigeri",
+      "discipline": "karate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_kakatogeri",
+      "discipline": "karate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_otoshikakatogeri",
+      "discipline": "karate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_urakakatogeri",
+      "discipline": "karate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_tobimaegeri",
+      "discipline": "karate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_tobiyokogeri",
+      "discipline": "karate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_tobimawashigeri",
+      "discipline": "karate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_tobiushirogeri",
+      "discipline": "karate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_byobudaoshi",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_katawaguruma",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_kubiwa",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_sakazuchi",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_taniotoshi",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_tsubamegaeshi",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_yaridama",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_blitz_combo",
+      "discipline": "karate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_ageuke_gyakuzuki_combo",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_sotouke_empi_uraken_gyaku_combo",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_shutouke_nukite_combo",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_maegeri_junzuki_combo",
+      "discipline": "karate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_mawashi_gyaku_combo",
+      "discipline": "karate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_yokogeri_gyaku_combo",
+      "discipline": "karate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "karate_ashibarai_gyaku_combo",
+      "discipline": "karate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "tkd_apchagi",
+      "discipline": "taekwondo",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "tkd_dollyochagi",
+      "discipline": "taekwondo",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "tkd_yeopchagi",
+      "discipline": "taekwondo",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "tkd_cut_kick",
+      "discipline": "taekwondo",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "tkd_dwichagi",
+      "discipline": "taekwondo",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "tkd_double_round",
+      "discipline": "taekwondo",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "tkd_naeryochagi",
+      "discipline": "taekwondo",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "tkd_spinning_hook",
+      "discipline": "taekwondo",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "tkd_tornado_chain",
+      "discipline": "taekwondo",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "taekwondo_dwit_hurigi",
+      "discipline": "taekwondo",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "taekwondo_narae_chagi",
+      "discipline": "taekwondo",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "taekwondo_bandae_dollyo",
+      "discipline": "taekwondo",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "taekwondo_footwork_switch",
+      "discipline": "taekwondo",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "taekwondo_cut_counter",
+      "discipline": "taekwondo",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "taekwondo_back_kick_counter",
+      "discipline": "taekwondo",
+      "is_kick": false,
+      "r137_is_kick": true
+    },
+    {
+      "id": "taekwondo_spin_combo_chain",
+      "discipline": "taekwondo",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "sanda_straights",
+      "discipline": "sanda",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "sanda_side_kick",
+      "discipline": "sanda",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "sanda_round_kick",
+      "discipline": "sanda",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "sanda_kick_catch",
+      "discipline": "sanda",
+      "is_kick": false,
+      "r137_is_kick": true
+    },
+    {
+      "id": "sanda_inside_sweep",
+      "discipline": "sanda",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "sanda_side_throw",
+      "discipline": "sanda",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "sanda_catch_dump",
+      "discipline": "sanda",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "sanda_spinning_back",
+      "discipline": "sanda",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "sanda_full_chain",
+      "discipline": "sanda",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "sanda_jab_side_kick",
+      "discipline": "sanda",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "sanda_sweep_counter",
+      "discipline": "sanda",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "sanda_catch_side_throw",
+      "discipline": "sanda",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "sanda_liftup_slam",
+      "discipline": "sanda",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "sanda_straight_blast",
+      "discipline": "sanda",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "sanda_leg_catch_read",
+      "discipline": "sanda",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "sanda_full_sanda_chain",
+      "discipline": "sanda",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "savate_direct",
+      "discipline": "savate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "savate_fouette",
+      "discipline": "savate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "savate_chasse_frontal",
+      "discipline": "savate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "savate_chasse_lateral",
+      "discipline": "savate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "savate_coup_bas",
+      "discipline": "savate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "savate_revers_fouette",
+      "discipline": "savate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "savate_direct_fouette",
+      "discipline": "savate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "savate_revers_balance",
+      "discipline": "savate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "savate_elite_chain",
+      "discipline": "savate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "savate_chasse_bas",
+      "discipline": "savate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "savate_fouette_high",
+      "discipline": "savate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "savate_revers_counter",
+      "discipline": "savate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "savate_direct_double",
+      "discipline": "savate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "savate_assaut_footwork",
+      "discipline": "savate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "savate_chasse_lateral_counter",
+      "discipline": "savate",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "savate_elite_precision_chain",
+      "discipline": "savate",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "capoeira_bencao",
+      "discipline": "capoeira",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "capoeira_martelo",
+      "discipline": "capoeira",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "capoeira_queixada",
+      "discipline": "capoeira",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "capoeira_rasteira",
+      "discipline": "capoeira",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "capoeira_armada",
+      "discipline": "capoeira",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "capoeira_meialua",
+      "discipline": "capoeira",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "capoeira_flow_chain",
+      "discipline": "capoeira",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "capoeira_meia_lua_compasso",
+      "discipline": "capoeira",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "capoeira_chapa_side",
+      "discipline": "capoeira",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "capoeira_armada_double",
+      "discipline": "capoeira",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "capoeira_negativa_sweep",
+      "discipline": "capoeira",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "capoeira_martelo_rotado",
+      "discipline": "capoeira",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "capoeira_ginga_flow_chain",
+      "discipline": "capoeira",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "silat_langkah",
+      "discipline": "pencak_silat",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "silat_front_kick",
+      "discipline": "pencak_silat",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "silat_side_kick",
+      "discipline": "pencak_silat",
+      "is_kick": true,
+      "r137_is_kick": true
+    },
+    {
+      "id": "silat_sapuan",
+      "discipline": "pencak_silat",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "silat_catch_dump",
+      "discipline": "pencak_silat",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "silat_guntingan",
+      "discipline": "pencak_silat",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "silat_elbow_counter",
+      "discipline": "pencak_silat",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "silat_complete_response",
+      "discipline": "pencak_silat",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "pencak_silat_sapuan_low",
+      "discipline": "pencak_silat",
+      "is_kick": true,
+      "r137_is_kick": false
+    },
+    {
+      "id": "pencak_silat_elbow_destruction",
+      "discipline": "pencak_silat",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "pencak_silat_langkah_angle",
+      "discipline": "pencak_silat",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "pencak_silat_guntingan_scissor",
+      "discipline": "pencak_silat",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "pencak_silat_catch_kick_takedown",
+      "discipline": "pencak_silat",
+      "is_kick": false,
+      "r137_is_kick": true
+    },
+    {
+      "id": "pencak_silat_total_response_chain",
+      "discipline": "pencak_silat",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "mma_stance_switch",
+      "discipline": "mma",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "mma_jab_levelchange",
+      "discipline": "mma",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "mma_sprawl_fronthead",
+      "discipline": "mma",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "mma_clinch_knee_trip",
+      "discipline": "mma",
+      "is_kick": false,
+      "r137_is_kick": true
+    },
+    {
+      "id": "mma_complete_chain",
+      "discipline": "mma",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "mma_dirty_boxing",
+      "discipline": "mma",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "mma_kick_catch_slam",
+      "discipline": "mma",
+      "is_kick": false,
+      "r137_is_kick": true
+    },
+    {
+      "id": "mma_switch_hit",
+      "discipline": "mma",
+      "is_kick": false,
+      "r137_is_kick": false
+    },
+    {
+      "id": "mma_finish_iq",
+      "discipline": "mma",
+      "is_kick": false,
+      "r137_is_kick": false
+    }
+  ],
+  "rows": [
+    {
+      "id": "capoeira_armada",
+      "discipline": "capoeira",
+      "effects": {
+        "head_route": 12,
+        "rotation_power": 10
+      },
+      "sim_today": "head",
+      "moves_today": "ruleset_default",
+      "target": "head",
+      "confidence": "high",
+      "reason": "armada is a spinning kick to the head"
+    },
+    {
+      "id": "capoeira_armada_double",
+      "discipline": "capoeira",
+      "effects": {
+        "head_damage": 9,
+        "surprise": 6
+      },
+      "sim_today": "head",
+      "moves_today": "head",
+      "target": "head",
+      "confidence": "high",
+      "reason": "double spinning kick to the head"
+    },
+    {
+      "id": "capoeira_bencao",
+      "discipline": "capoeira",
+      "effects": {
+        "pushback": 9,
+        "body_damage": 7
+      },
+      "sim_today": "body",
+      "moves_today": "body",
+      "target": "body",
+      "confidence": "high",
+      "reason": "bencao is a blessing push kick to the body"
+    },
+    {
+      "id": "capoeira_chapa_side",
+      "discipline": "capoeira",
+      "effects": {
+        "damage": 8,
+        "range_control": 5
+      },
+      "sim_today": "DRAW",
+      "moves_today": "ruleset_default",
+      "target": "body",
+      "confidence": "high",
+      "reason": "chapa is a side kick to the body"
+    },
+    {
+      "id": "capoeira_martelo",
+      "discipline": "capoeira",
+      "effects": {
+        "kick_damage": 11,
+        "rhythm_setup": 6
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "spread",
+      "confidence": "high",
+      "reason": "martelo is a roundhouse that goes head, body or leg"
+    },
+    {
+      "id": "capoeira_martelo_rotado",
+      "discipline": "capoeira",
+      "effects": {
+        "damage": 9,
+        "feint": 6
+      },
+      "sim_today": "DRAW",
+      "moves_today": "ruleset_default",
+      "target": "spread",
+      "confidence": "medium",
+      "reason": "rotated hammer kick, varies"
+    },
+    {
+      "id": "capoeira_meia_lua_compasso",
+      "discipline": "capoeira",
+      "effects": {
+        "damage": 10,
+        "rotation_power": 6
+      },
+      "sim_today": "DRAW",
+      "moves_today": "ruleset_default",
+      "target": "spread",
+      "confidence": "medium",
+      "reason": "half-moon compass kick, varies"
+    },
+    {
+      "id": "capoeira_meialua",
+      "discipline": "capoeira",
+      "effects": {
+        "head_damage": 16,
+        "surprise": 10
+      },
+      "sim_today": "head",
+      "moves_today": "head",
+      "target": "head",
+      "confidence": "high",
+      "reason": "meia-lua is a half-moon kick to the head"
+    },
+    {
+      "id": "capoeira_queixada",
+      "discipline": "capoeira",
+      "effects": {
+        "angle_attack": 10,
+        "feint": 7
+      },
+      "sim_today": "DRAW",
+      "moves_today": "ruleset_default",
+      "target": "spread",
+      "confidence": "medium",
+      "reason": "queixada is a round kick, varies by height"
+    },
+    {
+      "id": "capoeira_rasteira",
+      "discipline": "capoeira",
+      "effects": {
+        "sweep": 12,
+        "counter_timing": 8
+      },
+      "sim_today": "DRAW",
+      "moves_today": "ruleset_default",
+      "target": "leg",
+      "confidence": "high",
+      "reason": "rasteira is a low sweeping kick to the leg"
+    },
+    {
+      "id": "karate_ashibarai",
+      "discipline": "karate",
+      "effects": {
+        "kick_damage": 11,
+        "kick_accuracy": 6
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "leg",
+      "confidence": "high",
+      "reason": "ashibarai is a sweeping/reaping kick to the leg"
+    },
+    {
+      "id": "karate_blitz_combo",
+      "discipline": "karate",
+      "effects": {
+        "straight_damage": 13,
+        "kick_damage": 11
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "spread",
+      "confidence": "medium",
+      "reason": "combo ending with a kick, target varies"
+    },
+    {
+      "id": "karate_fumikomigeri",
+      "discipline": "karate",
+      "effects": {
+        "kick_damage": 9,
+        "kick_accuracy": 5
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "body",
+      "confidence": "high",
+      "reason": "stomping kick aimed at the body/thigh"
+    },
+    {
+      "id": "karate_gyakumikazukigeri",
+      "discipline": "karate",
+      "effects": {
+        "kick_damage": 11,
+        "kick_accuracy": 6
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "head",
+      "confidence": "high",
+      "reason": "reverse crescent kick arcing to the head"
+    },
+    {
+      "id": "karate_hizageri",
+      "discipline": "karate",
+      "effects": {
+        "kick_damage": 9,
+        "kick_accuracy": 5
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "body",
+      "confidence": "high",
+      "reason": "knee strike to the body"
+    },
+    {
+      "id": "karate_kakatogeri",
+      "discipline": "karate",
+      "effects": {
+        "kick_damage": 11,
+        "kick_accuracy": 6
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "head",
+      "confidence": "medium",
+      "reason": "axe kick, can reach head or body"
+    },
+    {
+      "id": "karate_kingeri",
+      "discipline": "karate",
+      "effects": {
+        "kick_damage": 7,
+        "kick_accuracy": 4
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "body",
+      "confidence": "high",
+      "reason": "groin kick to the lower body"
+    },
+    {
+      "id": "karate_maeashigeri",
+      "discipline": "karate",
+      "effects": {
+        "kick_damage": 9,
+        "kick_accuracy": 5
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "body",
+      "confidence": "high",
+      "reason": "front kick with the ball of the foot to the torso"
+    },
+    {
+      "id": "karate_maeashimawashigeri",
+      "discipline": "karate",
+      "effects": {
+        "kick_damage": 11,
+        "kick_accuracy": 6
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "spread",
+      "confidence": "medium",
+      "reason": "front-roundhouse hybrid, target varies"
+    },
+    {
+      "id": "karate_maegeri",
+      "discipline": "karate",
+      "effects": {
+        "kick_damage": 7,
+        "kick_accuracy": 4
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "body",
+      "confidence": "high",
+      "reason": "front kick to the midsection"
+    },
+    {
+      "id": "karate_maegeri_junzuki_combo",
+      "discipline": "karate",
+      "effects": {
+        "kick_damage": 7,
+        "straight_damage": 7
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "spread",
+      "confidence": "medium",
+      "reason": "front kick + punch combo, targets vary"
+    },
+    {
+      "id": "karate_maegerikeage",
+      "discipline": "karate",
+      "effects": {
+        "kick_damage": 7,
+        "kick_accuracy": 4
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "head",
+      "confidence": "high",
+      "reason": "rising front kick snapped up to the head"
+    },
+    {
+      "id": "karate_maegerikekomi",
+      "discipline": "karate",
+      "effects": {
+        "kick_damage": 9,
+        "kick_accuracy": 5
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "body",
+      "confidence": "high",
+      "reason": "thrusting front kick to the body"
+    },
+    {
+      "id": "karate_maehizageri",
+      "discipline": "karate",
+      "effects": {
+        "kick_damage": 9,
+        "kick_accuracy": 5
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "body",
+      "confidence": "high",
+      "reason": "front knee strike to the torso"
+    },
+    {
+      "id": "karate_mawashi_gyaku_combo",
+      "discipline": "karate",
+      "effects": {
+        "kick_damage": 11,
+        "straight_damage": 11
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "spread",
+      "confidence": "medium",
+      "reason": "roundhouse + reverse punch combo"
+    },
+    {
+      "id": "karate_mawashigeri",
+      "discipline": "karate",
+      "effects": {
+        "kick_damage": 11,
+        "kick_accuracy": 6
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "spread",
+      "confidence": "high",
+      "reason": "roundhouse kick, goes head body or leg by height"
+    },
+    {
+      "id": "karate_mawashihizageri",
+      "discipline": "karate",
+      "effects": {
+        "kick_damage": 11,
+        "kick_accuracy": 6
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "body",
+      "confidence": "high",
+      "reason": "roundhouse knee to the body"
+    },
+    {
+      "id": "karate_mikazukigeri",
+      "discipline": "karate",
+      "effects": {
+        "kick_damage": 9,
+        "kick_accuracy": 5
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "head",
+      "confidence": "high",
+      "reason": "crescent kick arcing to the head"
+    },
+    {
+      "id": "karate_nidan_geri",
+      "discipline": "karate",
+      "effects": {
+        "kick_damage": 11,
+        "kick_accuracy": 6
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "body",
+      "confidence": "medium",
+      "reason": "double kick, typically body level"
+    },
+    {
+      "id": "karate_oimaegeri",
+      "discipline": "karate",
+      "effects": {
+        "kick_damage": 9,
+        "kick_accuracy": 5
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "body",
+      "confidence": "high",
+      "reason": "lunge front kick to the midsection"
+    },
+    {
+      "id": "karate_otoshikakatogeri",
+      "discipline": "karate",
+      "effects": {
+        "kick_damage": 13,
+        "kick_accuracy": 7
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "body",
+      "confidence": "medium",
+      "reason": "dropping axe kick to the body"
+    },
+    {
+      "id": "karate_rengeri",
+      "discipline": "karate",
+      "effects": {
+        "kick_damage": 11,
+        "kick_accuracy": 6
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "spread",
+      "confidence": "medium",
+      "reason": "consecutive kicks, target varies"
+    },
+    {
+      "id": "karate_tobimaegeri",
+      "discipline": "karate",
+      "effects": {
+        "kick_damage": 11,
+        "kick_accuracy": 6
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "body",
+      "confidence": "high",
+      "reason": "jumping front kick to the body"
+    },
+    {
+      "id": "karate_tobimawashigeri",
+      "discipline": "karate",
+      "effects": {
+        "kick_damage": 13,
+        "kick_accuracy": 7
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "spread",
+      "confidence": "high",
+      "reason": "jumping roundhouse, goes head body or leg"
+    },
+    {
+      "id": "karate_tobiushirogeri",
+      "discipline": "karate",
+      "effects": {
+        "kick_damage": 13,
+        "kick_accuracy": 7
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "body",
+      "confidence": "high",
+      "reason": "jumping back kick to the body"
+    },
+    {
+      "id": "karate_tobiyokogeri",
+      "discipline": "karate",
+      "effects": {
+        "kick_damage": 13,
+        "kick_accuracy": 7
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "body",
+      "confidence": "high",
+      "reason": "jumping side kick to the body"
+    },
+    {
+      "id": "karate_urakakatogeri",
+      "discipline": "karate",
+      "effects": {
+        "kick_damage": 13,
+        "kick_accuracy": 7
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "head",
+      "confidence": "medium",
+      "reason": "reverse axe kick, can reach head or body"
+    },
+    {
+      "id": "karate_uramawashi",
+      "discipline": "karate",
+      "effects": {
+        "kick_damage": 13,
+        "kick_accuracy": 7
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "head",
+      "confidence": "high",
+      "reason": "spinning hook kick to the head"
+    },
+    {
+      "id": "karate_ushiro_geri",
+      "discipline": "karate",
+      "effects": {
+        "kick_damage": 13,
+        "kick_accuracy": 7
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "body",
+      "confidence": "high",
+      "reason": "back kick to the torso"
+    },
+    {
+      "id": "karate_ushiromawashigeri",
+      "discipline": "karate",
+      "effects": {
+        "kick_damage": 13,
+        "kick_accuracy": 7
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "spread",
+      "confidence": "high",
+      "reason": "spinning roundhouse, target varies by height"
+    },
+    {
+      "id": "karate_yokogeri",
+      "discipline": "karate",
+      "effects": {
+        "kick_damage": 7,
+        "kick_accuracy": 4
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "body",
+      "confidence": "high",
+      "reason": "side kick to the body"
+    },
+    {
+      "id": "karate_yokogeri_gyaku_combo",
+      "discipline": "karate",
+      "effects": {
+        "kick_damage": 9,
+        "straight_damage": 9
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "spread",
+      "confidence": "medium",
+      "reason": "side kick + reverse punch combo"
+    },
+    {
+      "id": "karate_yokogerikeage",
+      "discipline": "karate",
+      "effects": {
+        "kick_damage": 7,
+        "kick_accuracy": 4
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "head",
+      "confidence": "high",
+      "reason": "rising side kick snapped up to the head"
+    },
+    {
+      "id": "karate_yokogerikekomi",
+      "discipline": "karate",
+      "effects": {
+        "kick_damage": 9,
+        "kick_accuracy": 5
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "body",
+      "confidence": "high",
+      "reason": "thrusting side kick to the body"
+    },
+    {
+      "id": "kickboxing_axe_kick",
+      "discipline": "kickboxing",
+      "effects": {
+        "head_damage": 9,
+        "guard": -5
+      },
+      "sim_today": "head",
+      "moves_today": "head",
+      "target": "head",
+      "confidence": "high",
+      "reason": "axe kick brought down onto the head"
+    },
+    {
+      "id": "kickboxing_blitz_four_kick",
+      "discipline": "kickboxing",
+      "effects": {
+        "damage": 11,
+        "head_damage": 9,
+        "entry_speed": 8
+      },
+      "sim_today": "head",
+      "moves_today": "head",
+      "target": "head",
+      "confidence": "high",
+      "reason": "blitz combo ending with a high kick"
+    },
+    {
+      "id": "kickboxing_body_kick",
+      "discipline": "kickboxing",
+      "effects": {
+        "body_damage": 10,
+        "kick_damage": 6
+      },
+      "sim_today": "body",
+      "moves_today": "spread",
+      "target": "body",
+      "confidence": "high",
+      "reason": "named body kick"
+    },
+    {
+      "id": "kickboxing_dutch_combination",
+      "discipline": "kickboxing",
+      "effects": {
+        "damage": 10,
+        "leg_damage": 8,
+        "combo_open": 8
+      },
+      "sim_today": "leg",
+      "moves_today": "leg",
+      "target": "leg",
+      "confidence": "high",
+      "reason": "combo ending in a leg kick (has leg_damage)"
+    },
+    {
+      "id": "kickboxing_four_strike",
+      "discipline": "kickboxing",
+      "effects": {
+        "damage": 12,
+        "leg_damage": 8,
+        "head_damage": 9
+      },
+      "sim_today": "head",
+      "moves_today": "leg",
+      "target": "leg",
+      "confidence": "medium",
+      "reason": "four-strike combo with leg_damage finish"
+    },
+    {
+      "id": "kickboxing_front_kick",
+      "discipline": "kickboxing",
+      "effects": {
+        "range_control": 8,
+        "pushback": 5
+      },
+      "sim_today": "DRAW",
+      "moves_today": "ruleset_default",
+      "target": "body",
+      "confidence": "high",
+      "reason": "push/front kick to the midsection"
+    },
+    {
+      "id": "kickboxing_high_kick",
+      "discipline": "kickboxing",
+      "effects": {
+        "head_damage": 12,
+        "kick_damage": 8
+      },
+      "sim_today": "head",
+      "moves_today": "spread",
+      "target": "head",
+      "confidence": "high",
+      "reason": "named high kick to the head"
+    },
+    {
+      "id": "kickboxing_hook_kick",
+      "discipline": "kickboxing",
+      "effects": {
+        "head_damage": 9,
+        "angle_attack": 7
+      },
+      "sim_today": "head",
+      "moves_today": "head",
+      "target": "head",
+      "confidence": "high",
+      "reason": "hook kick snapping to the head"
+    },
+    {
+      "id": "kickboxing_jab_cross_lowkick",
+      "discipline": "kickboxing",
+      "effects": {
+        "leg_damage": 9,
+        "combo_open": 7
+      },
+      "sim_today": "leg",
+      "moves_today": "leg",
+      "target": "leg",
+      "confidence": "high",
+      "reason": "punch combo finishing with a low kick"
+    },
+    {
+      "id": "kickboxing_jab_lowkick",
+      "discipline": "kickboxing",
+      "effects": {
+        "leg_damage": 8,
+        "combo_open": 6
+      },
+      "sim_today": "leg",
+      "moves_today": "leg",
+      "target": "leg",
+      "confidence": "high",
+      "reason": "jab finishing with a low kick"
+    },
+    {
+      "id": "kickboxing_low_kick",
+      "discipline": "kickboxing",
+      "effects": {
+        "leg_damage": 9,
+        "opponent_mobility": -6
+      },
+      "sim_today": "leg",
+      "moves_today": "leg",
+      "target": "leg",
+      "confidence": "high",
+      "reason": "low kick to the leg"
+    },
+    {
+      "id": "kickboxing_question_mark",
+      "discipline": "kickboxing",
+      "effects": {
+        "head_damage": 10,
+        "entry_open": 7
+      },
+      "sim_today": "head",
+      "moves_today": "head",
+      "target": "head",
+      "confidence": "high",
+      "reason": "question mark kick, deceptive arc to the head"
+    },
+    {
+      "id": "kickboxing_roundhouse",
+      "discipline": "kickboxing",
+      "effects": {
+        "kick_damage": 9,
+        "range": 6
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "spread",
+      "confidence": "high",
+      "reason": "roundhouse kick, goes head body or leg by height"
+    },
+    {
+      "id": "kickboxing_side_kick",
+      "discipline": "kickboxing",
+      "effects": {
+        "range_control": 8,
+        "impact": 6
+      },
+      "sim_today": "DRAW",
+      "moves_today": "ruleset_default",
+      "target": "body",
+      "confidence": "high",
+      "reason": "side kick to the body"
+    },
+    {
+      "id": "kickboxing_spinning_back",
+      "discipline": "kickboxing",
+      "effects": {
+        "body_damage": 11,
+        "risk": 7
+      },
+      "sim_today": "body",
+      "moves_today": "body",
+      "target": "body",
+      "confidence": "high",
+      "reason": "spinning back kick to the body"
+    },
+    {
+      "id": "kickboxing_spinning_hook",
+      "discipline": "kickboxing",
+      "effects": {
+        "head_damage": 13,
+        "risk": 9
+      },
+      "sim_today": "head",
+      "moves_today": "head",
+      "target": "head",
+      "confidence": "high",
+      "reason": "spinning hook kick to the head"
+    },
+    {
+      "id": "kickboxing_switch_kick",
+      "discipline": "kickboxing",
+      "effects": {
+        "kick_damage": 10,
+        "body_damage": 7,
+        "entry_speed": 6
+      },
+      "sim_today": "body",
+      "moves_today": "spread",
+      "target": "body",
+      "confidence": "high",
+      "reason": "switch kick typically aimed at the body"
+    },
+    {
+      "id": "kickboxing_teep",
+      "discipline": "kickboxing",
+      "effects": {
+        "range_control": 8,
+        "opponent_mobility": -5
+      },
+      "sim_today": "DRAW",
+      "moves_today": "ruleset_default",
+      "target": "body",
+      "confidence": "high",
+      "reason": "teep is a push kick to the midsection"
+    },
+    {
+      "id": "muay_thai_body_kick",
+      "discipline": "muay_thai",
+      "effects": {
+        "body_damage": 9,
+        "kick_damage": 6
+      },
+      "sim_today": "body",
+      "moves_today": "spread",
+      "target": "body",
+      "confidence": "high",
+      "reason": "named body kick"
+    },
+    {
+      "id": "muay_thai_check_counter_kick",
+      "discipline": "muay_thai",
+      "effects": {
+        "counter_strike": 8,
+        "kick_damage": 9
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "leg",
+      "confidence": "medium",
+      "reason": "counter off a check, typically low kick return"
+    },
+    {
+      "id": "muay_thai_check_kick_counter",
+      "discipline": "muay_thai",
+      "effects": {
+        "damage": 9,
+        "guard": 6,
+        "kick_damage": 7
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "leg",
+      "confidence": "low",
+      "reason": "counter from checking, target varies"
+    },
+    {
+      "id": "muay_thai_counter_teep",
+      "discipline": "muay_thai",
+      "effects": {
+        "counter_strike": 8,
+        "range_control": 7
+      },
+      "sim_today": "DRAW",
+      "moves_today": "ruleset_default",
+      "target": "body",
+      "confidence": "medium",
+      "reason": "counter teep to the midsection"
+    },
+    {
+      "id": "muay_thai_cross_body_low",
+      "discipline": "muay_thai",
+      "effects": {
+        "damage": 11,
+        "leg_damage": 7,
+        "body_damage": 6
+      },
+      "sim_today": "leg",
+      "moves_today": "leg",
+      "target": "leg",
+      "confidence": "high",
+      "reason": "cross-body low kick to the leg"
+    },
+    {
+      "id": "muay_thai_double_kick",
+      "discipline": "muay_thai",
+      "effects": {
+        "kick_damage": 10,
+        "combo_continuity": 7
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "spread",
+      "confidence": "medium",
+      "reason": "two kicks in sequence, target varies"
+    },
+    {
+      "id": "muay_thai_fake_teep_kick",
+      "discipline": "muay_thai",
+      "effects": {
+        "combo_continuity": 7,
+        "kick_damage": 8
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "body",
+      "confidence": "high",
+      "reason": "fake teep feints at the midsection"
+    },
+    {
+      "id": "muay_thai_jab_cross_body_kick",
+      "discipline": "muay_thai",
+      "effects": {
+        "combo_continuity": 7,
+        "body_damage": 9
+      },
+      "sim_today": "body",
+      "moves_today": "body",
+      "target": "body",
+      "confidence": "high",
+      "reason": "punch combo finishing with a body kick"
+    },
+    {
+      "id": "muay_thai_jab_teep_switch",
+      "discipline": "muay_thai",
+      "effects": {
+        "range_control": 9,
+        "damage": 6
+      },
+      "sim_today": "DRAW",
+      "moves_today": "ruleset_default",
+      "target": "body",
+      "confidence": "high",
+      "reason": "jab leading to a teep switch"
+    },
+    {
+      "id": "muay_thai_jorakhe_faad_hang",
+      "discipline": "muay_thai",
+      "effects": {
+        "kick_damage": 14,
+        "knockdown_power": 10,
+        "surprise": 8
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "spread",
+      "confidence": "medium",
+      "reason": "crocodile tail sweep, can hit leg or body"
+    },
+    {
+      "id": "muay_thai_khayoep_te",
+      "discipline": "muay_thai",
+      "effects": {
+        "kick_damage": 8,
+        "accuracy": 7
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "leg",
+      "confidence": "high",
+      "reason": "short teep aimed at the thigh or body"
+    },
+    {
+      "id": "muay_thai_kradot_te",
+      "discipline": "muay_thai",
+      "effects": {
+        "kick_damage": 11,
+        "knockdown_power": 7
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "body",
+      "confidence": "high",
+      "reason": "jumping teep to the body"
+    },
+    {
+      "id": "muay_thai_kradot_thip",
+      "discipline": "muay_thai",
+      "effects": {
+        "range_control": 7,
+        "knockdown_power": 8
+      },
+      "sim_today": "DRAW",
+      "moves_today": "ruleset_default",
+      "target": "body",
+      "confidence": "high",
+      "reason": "jumping teep to the body"
+    },
+    {
+      "id": "muay_thai_low_cross_hook",
+      "discipline": "muay_thai",
+      "effects": {
+        "damage": 10,
+        "leg_damage": 6
+      },
+      "sim_today": "leg",
+      "moves_today": "leg",
+      "target": "leg",
+      "confidence": "high",
+      "reason": "combo finishing with a low kick to the leg"
+    },
+    {
+      "id": "muay_thai_low_kick",
+      "discipline": "muay_thai",
+      "effects": {
+        "leg_damage": 8,
+        "off_balance_threat": 5
+      },
+      "sim_today": "leg",
+      "moves_today": "leg",
+      "target": "leg",
+      "confidence": "high",
+      "reason": "low kick to the leg"
+    },
+    {
+      "id": "muay_thai_pull_counter",
+      "discipline": "muay_thai",
+      "effects": {
+        "counter_strike": 8,
+        "kick_damage": 7
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "leg",
+      "confidence": "medium",
+      "reason": "pull counter, typically a low kick return"
+    },
+    {
+      "id": "muay_thai_round_kick",
+      "discipline": "muay_thai",
+      "effects": {
+        "kick_damage": 9,
+        "body_damage": 7
+      },
+      "sim_today": "body",
+      "moves_today": "spread",
+      "target": "body",
+      "confidence": "high",
+      "reason": "round kick to the body (Thai round kick default)"
+    },
+    {
+      "id": "muay_thai_spinning_back_kick",
+      "discipline": "muay_thai",
+      "effects": {
+        "kick_damage": 13,
+        "knockdown_power": 9,
+        "surprise": 8
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "spread",
+      "confidence": "medium",
+      "reason": "spinning back kick, can hit head or body"
+    },
+    {
+      "id": "muay_thai_switch_kick",
+      "discipline": "muay_thai",
+      "effects": {
+        "kick_damage": 8,
+        "combo_continuity": 5
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "body",
+      "confidence": "high",
+      "reason": "switch kick typically to the body"
+    },
+    {
+      "id": "muay_thai_switch_kick_body",
+      "discipline": "muay_thai",
+      "effects": {
+        "body_damage": 9,
+        "damage": 5
+      },
+      "sim_today": "body",
+      "moves_today": "body",
+      "target": "body",
+      "confidence": "high",
+      "reason": "named body switch kick"
+    },
+    {
+      "id": "muay_thai_te_chiang",
+      "discipline": "muay_thai",
+      "effects": {
+        "kick_damage": 8,
+        "damage": 5
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "leg",
+      "confidence": "high",
+      "reason": "oblique/pointed teep aimed at the thigh"
+    },
+    {
+      "id": "muay_thai_te_khao",
+      "discipline": "muay_thai",
+      "effects": {
+        "head_damage": 7,
+        "kick_damage": 6
+      },
+      "sim_today": "head",
+      "moves_today": "spread",
+      "target": "head",
+      "confidence": "medium",
+      "reason": "knee to the head (te khao = knee, has head_damage)"
+    },
+    {
+      "id": "muay_thai_te_khrueng_khaeng",
+      "discipline": "muay_thai",
+      "effects": {
+        "kick_damage": 8,
+        "body_damage": 7
+      },
+      "sim_today": "body",
+      "moves_today": "spread",
+      "target": "body",
+      "confidence": "high",
+      "reason": "half-leg kick to the body"
+    },
+    {
+      "id": "muay_thai_te_klap_lang",
+      "discipline": "muay_thai",
+      "effects": {
+        "kick_damage": 10,
+        "surprise": 7
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "spread",
+      "confidence": "medium",
+      "reason": "surprise kick from behind, target varies"
+    },
+    {
+      "id": "muay_thai_te_kot",
+      "discipline": "muay_thai",
+      "effects": {
+        "leg_damage": 8,
+        "off_balance_threat": 6
+      },
+      "sim_today": "leg",
+      "moves_today": "leg",
+      "target": "leg",
+      "confidence": "high",
+      "reason": "low teep to the leg"
+    },
+    {
+      "id": "muay_thai_teep",
+      "discipline": "muay_thai",
+      "effects": {
+        "range_control": 9,
+        "balance_break": 5
+      },
+      "sim_today": "DRAW",
+      "moves_today": "ruleset_default",
+      "target": "body",
+      "confidence": "high",
+      "reason": "teep is a push kick to the midsection"
+    },
+    {
+      "id": "muay_thai_thip_khang",
+      "discipline": "muay_thai",
+      "effects": {
+        "range_control": 8,
+        "balance_break": 5
+      },
+      "sim_today": "DRAW",
+      "moves_today": "ruleset_default",
+      "target": "leg",
+      "confidence": "medium",
+      "reason": "sideways teep to the thigh"
+    },
+    {
+      "id": "muay_thai_thip_klap_lang",
+      "discipline": "muay_thai",
+      "effects": {
+        "range_control": 8,
+        "surprise": 6
+      },
+      "sim_today": "DRAW",
+      "moves_today": "ruleset_default",
+      "target": "body",
+      "confidence": "medium",
+      "reason": "surprise teep from behind"
+    },
+    {
+      "id": "muay_thai_thip_mat_te_combo",
+      "discipline": "muay_thai",
+      "effects": {
+        "damage": 12,
+        "combo_continuity": 7
+      },
+      "sim_today": "DRAW",
+      "moves_today": "ruleset_default",
+      "target": "spread",
+      "confidence": "medium",
+      "reason": "kick combo, targets vary"
+    },
+    {
+      "id": "muay_thai_thip_top",
+      "discipline": "muay_thai",
+      "effects": {
+        "range_control": 7,
+        "damage": 5
+      },
+      "sim_today": "DRAW",
+      "moves_today": "ruleset_default",
+      "target": "body",
+      "confidence": "high",
+      "reason": "forward teep to the body"
+    },
+    {
+      "id": "pencak_silat_sapuan_low",
+      "discipline": "pencak_silat",
+      "effects": {
+        "balance_break": 8,
+        "counter_takedown": 5
+      },
+      "sim_today": "DRAW",
+      "moves_today": "ruleset_default",
+      "target": "leg",
+      "confidence": "high",
+      "reason": "low sweeping kick to the leg"
+    },
+    {
+      "id": "silat_front_kick",
+      "discipline": "pencak_silat",
+      "effects": {
+        "body_damage": 8,
+        "range_control": 6
+      },
+      "sim_today": "body",
+      "moves_today": "body",
+      "target": "body",
+      "confidence": "high",
+      "reason": "front kick to the body"
+    },
+    {
+      "id": "silat_sapuan",
+      "discipline": "pencak_silat",
+      "effects": {
+        "sweep": 12,
+        "balance_break": 9
+      },
+      "sim_today": "DRAW",
+      "moves_today": "ruleset_default",
+      "target": "leg",
+      "confidence": "high",
+      "reason": "sapuan is a sweeping kick to the leg"
+    },
+    {
+      "id": "silat_side_kick",
+      "discipline": "pencak_silat",
+      "effects": {
+        "stop_hit": 11,
+        "pushback": 8
+      },
+      "sim_today": "DRAW",
+      "moves_today": "ruleset_default",
+      "target": "body",
+      "confidence": "high",
+      "reason": "side kick to the body"
+    },
+    {
+      "id": "sanda_jab_side_kick",
+      "discipline": "sanda",
+      "effects": {
+        "combo_open": 7,
+        "range_control": 6
+      },
+      "sim_today": "DRAW",
+      "moves_today": "ruleset_default",
+      "target": "body",
+      "confidence": "high",
+      "reason": "jab leading into a side kick to the body"
+    },
+    {
+      "id": "sanda_round_kick",
+      "discipline": "sanda",
+      "effects": {
+        "kick_damage": 11,
+        "range": 6
+      },
+      "sim_today": "DRAW",
+      "moves_today": "spread",
+      "target": "spread",
+      "confidence": "high",
+      "reason": "round kick, goes head body or leg by height"
+    },
+    {
+      "id": "sanda_side_kick",
+      "discipline": "sanda",
+      "effects": {
+        "stop_hit": 9,
+        "pushback": 7
+      },
+      "sim_today": "DRAW",
+      "moves_today": "ruleset_default",
+      "target": "body",
+      "confidence": "high",
+      "reason": "side kick to the body"
+    },
+    {
+      "id": "sanda_spinning_back",
+      "discipline": "sanda",
+      "effects": {
+        "body_damage": 15,
+        "pushback": 10
+      },
+      "sim_today": "body",
+      "moves_today": "body",
+      "target": "body",
+      "confidence": "high",
+      "reason": "spinning back kick to the body"
+    },
+    {
+      "id": "savate_chasse_bas",
+      "discipline": "savate",
+      "effects": {
+        "leg_damage": 8,
+        "range_control": 5
+      },
+      "sim_today": "leg",
+      "moves_today": "leg",
+      "target": "leg",
+      "confidence": "high",
+      "reason": "chasse bas is a low kick to the leg in savate"
+    },
+    {
+      "id": "savate_chasse_frontal",
+      "discipline": "savate",
+      "effects": {
+        "stop_hit": 11,
+        "pushback": 8
+      },
+      "sim_today": "DRAW",
+      "moves_today": "ruleset_default",
+      "target": "body",
+      "confidence": "high",
+      "reason": "front push kick to the body"
+    },
+    {
+      "id": "savate_chasse_lateral",
+      "discipline": "savate",
+      "effects": {
+        "body_damage": 12,
+        "range_control": 8
+      },
+      "sim_today": "body",
+      "moves_today": "body",
+      "target": "body",
+      "confidence": "high",
+      "reason": "lateral push kick to the body"
+    },
+    {
+      "id": "savate_coup_bas",
+      "discipline": "savate",
+      "effects": {
+        "balance_break": 10,
+        "lowline_damage": 8
+      },
+      "sim_today": "DRAW",
+      "moves_today": "leg",
+      "target": "leg",
+      "confidence": "high",
+      "reason": "coup bas is a low-line strike to the leg"
+    },
+    {
+      "id": "savate_direct",
+      "discipline": "savate",
+      "effects": {
+        "accuracy": 7,
+        "combo_open": 5
+      },
+      "sim_today": "DRAW",
+      "moves_today": "ruleset_default",
+      "target": "body",
+      "confidence": "medium",
+      "reason": "direct kick to the midsection"
+    },
+    {
+      "id": "savate_direct_double",
+      "discipline": "savate",
+      "effects": {
+        "combo_open": 7,
+        "distance_read": 5
+      },
+      "sim_today": "DRAW",
+      "moves_today": "ruleset_default",
+      "target": "body",
+      "confidence": "medium",
+      "reason": "double direct kick to the body"
+    },
+    {
+      "id": "savate_direct_fouette",
+      "discipline": "savate",
+      "effects": {
+        "combo_accuracy": 13,
+        "target_switch": 9
+      },
+      "sim_today": "DRAW",
+      "moves_today": "ruleset_default",
+      "target": "spread",
+      "confidence": "medium",
+      "reason": "direct-fouette combo, targets vary"
+    },
+    {
+      "id": "savate_elite_chain",
+      "discipline": "savate",
+      "effects": {
+        "distance_mastery": 17,
+        "combo_accuracy": 15
+      },
+      "sim_today": "DRAW",
+      "moves_today": "ruleset_default",
+      "target": "spread",
+      "confidence": "medium",
+      "reason": "elite chain combo, targets vary"
+    },
+    {
+      "id": "savate_elite_precision_chain",
+      "discipline": "savate",
+      "effects": {
+        "precision": 10,
+        "combo_speed": 8
+      },
+      "sim_today": "DRAW",
+      "moves_today": "ruleset_default",
+      "target": "spread",
+      "confidence": "medium",
+      "reason": "precision chain combo, targets vary"
+    },
+    {
+      "id": "savate_fouette",
+      "discipline": "savate",
+      "effects": {
+        "kick_accuracy": 9,
+        "range": 7
+      },
+      "sim_today": "DRAW",
+      "moves_today": "ruleset_default",
+      "target": "spread",
+      "confidence": "high",
+      "reason": "fouette is a flick kick, goes head or body"
+    },
+    {
+      "id": "savate_fouette_high",
+      "discipline": "savate",
+      "effects": {
+        "head_damage": 9,
+        "precision": 6
+      },
+      "sim_today": "head",
+      "moves_today": "head",
+      "target": "head",
+      "confidence": "high",
+      "reason": "high flick kick to the head"
+    },
+    {
+      "id": "savate_revers_balance",
+      "discipline": "savate",
+      "effects": {
+        "head_damage": 15,
+        "angle_attack": 11
+      },
+      "sim_today": "head",
+      "moves_today": "head",
+      "target": "head",
+      "confidence": "high",
+      "reason": "reverse balance kick to the head"
+    },
+    {
+      "id": "savate_revers_fouette",
+      "discipline": "savate",
+      "effects": {
+        "angle_attack": 12,
+        "head_route": 9
+      },
+      "sim_today": "head",
+      "moves_today": "ruleset_default",
+      "target": "head",
+      "confidence": "medium",
+      "reason": "reverse flick kick arcing to the head"
+    },
+    {
+      "id": "taekwondo_bandae_dollyo",
+      "discipline": "taekwondo",
+      "effects": {
+        "head_damage": 10,
+        "rotation_power": 6
+      },
+      "sim_today": "head",
+      "moves_today": "head",
+      "target": "head",
+      "confidence": "high",
+      "reason": "reverse roundhouse to the head"
+    },
+    {
+      "id": "taekwondo_dwit_hurigi",
+      "discipline": "taekwondo",
+      "effects": {
+        "feint": 7,
+        "combo_open": 6
+      },
+      "sim_today": "DRAW",
+      "moves_today": "ruleset_default",
+      "target": "body",
+      "confidence": "medium",
+      "reason": "dwit hurigi is a back kick to the body"
+    },
+    {
+      "id": "taekwondo_narae_chagi",
+      "discipline": "taekwondo",
+      "effects": {
+        "combo_speed": 8,
+        "damage": 5
+      },
+      "sim_today": "DRAW",
+      "moves_today": "ruleset_default",
+      "target": "spread",
+      "confidence": "medium",
+      "reason": "consecutive kick combo, targets vary"
+    },
+    {
+      "id": "taekwondo_spin_combo_chain",
+      "discipline": "taekwondo",
+      "effects": {
+        "damage": 12,
+        "combo_speed": 8
+      },
+      "sim_today": "DRAW",
+      "moves_today": "ruleset_default",
+      "target": "spread",
+      "confidence": "medium",
+      "reason": "spinning kick chain, targets vary"
+    },
+    {
+      "id": "tkd_apchagi",
+      "discipline": "taekwondo",
+      "effects": {
+        "range_control": 8,
+        "body_score": 5
+      },
+      "sim_today": "DRAW",
+      "moves_today": "ruleset_default",
+      "target": "body",
+      "confidence": "high",
+      "reason": "apchagi is a front push kick to the midsection"
+    },
+    {
+      "id": "tkd_cut_kick",
+      "discipline": "taekwondo",
+      "effects": {
+        "intercept": 10,
+        "distance_reset": 8
+      },
+      "sim_today": "DRAW",
+      "moves_today": "ruleset_default",
+      "target": "leg",
+      "confidence": "high",
+      "reason": "cut kick (frontleg intercept) to the leading leg"
+    },
+    {
+      "id": "tkd_dollyochagi",
+      "discipline": "taekwondo",
+      "effects": {
+        "kick_speed": 8,
+        "head_route": 5
+      },
+      "sim_today": "head",
+      "moves_today": "ruleset_default",
+      "target": "spread",
+      "confidence": "high",
+      "reason": "dollyochagi is a roundhouse kick, varies by height"
+    },
+    {
+      "id": "tkd_double_round",
+      "discipline": "taekwondo",
+      "effects": {
+        "combo_speed": 13,
+        "target_switch": 9
+      },
+      "sim_today": "DRAW",
+      "moves_today": "ruleset_default",
+      "target": "spread",
+      "confidence": "medium",
+      "reason": "double roundhouse combo, target varies"
+    },
+    {
+      "id": "tkd_dwichagi",
+      "discipline": "taekwondo",
+      "effects": {
+        "body_damage": 12,
+        "turning_bonus": 7
+      },
+      "sim_today": "body",
+      "moves_today": "body",
+      "target": "body",
+      "confidence": "high",
+      "reason": "dwichagi is a back kick to the body"
+    },
+    {
+      "id": "tkd_naeryochagi",
+      "discipline": "taekwondo",
+      "effects": {
+        "head_damage": 14,
+        "guard_bypass": 8
+      },
+      "sim_today": "head",
+      "moves_today": "head",
+      "target": "head",
+      "confidence": "high",
+      "reason": "naeryochagi is a downward axe kick to the head"
+    },
+    {
+      "id": "tkd_spinning_hook",
+      "discipline": "taekwondo",
+      "effects": {
+        "head_damage": 16,
+        "finish_chance": 8
+      },
+      "sim_today": "head",
+      "moves_today": "head",
+      "target": "head",
+      "confidence": "high",
+      "reason": "spinning hook kick to the head"
+    },
+    {
+      "id": "tkd_tornado_chain",
+      "discipline": "taekwondo",
+      "effects": {
+        "combo_speed": 17,
+        "angle_attack": 14,
+        "finish_chance": 9
+      },
+      "sim_today": "DRAW",
+      "moves_today": "ruleset_default",
+      "target": "spread",
+      "confidence": "medium",
+      "reason": "tornado kick chain, targets vary"
+    },
+    {
+      "id": "tkd_yeopchagi",
+      "discipline": "taekwondo",
+      "effects": {
+        "stop_hit": 11,
+        "body_damage": 8
+      },
+      "sim_today": "body",
+      "moves_today": "body",
+      "target": "body",
+      "confidence": "high",
+      "reason": "yeopchagi is a side kick to the body"
+    }
+  ]
+}

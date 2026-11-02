@@ -1,0 +1,316 @@
+{
+  "base_commit": "3447396c",
+  "metric": "angle(lowerarm->hand, hand->middle proximal), degrees; source FK with original hierarchy",
+  "native_contact_seconds": 0.26666666666666666,
+  "guard_limit_deg": 10,
+  "failures": 18,
+  "native_guard_failures": 6,
+  "native_source_sha256": {
+    "mh_cross.glb": "ed66bb151a5f9b9405ee17e2209e78cbeebaef96d86231dd53cf43f3676848a2",
+    "mh_guard_pose.glb": "876bd08b35bcda02500748769ed663f289843137be6c93830761df65bf7c3385",
+    "mh_inside_uppercut.glb": "ee328175aeafb28274673e1b804a36f279f904fa3b69c583daa4439c8de21b27",
+    "mh_jab.glb": "cea613a10a1a9259700671814dc4a5aeb511445e5716909324f6404c0abb64a9",
+    "mh_lead_hook.glb": "4bc3e213e7e626f247308c2e0ac491bee084e175fefe0a37b0dda7aa1e187550"
+  },
+  "rows": [
+    {
+      "Left": 19.2744762339796,
+      "Right": 27.3769605991837,
+      "body": "source",
+      "file": "res://assets/anim/metahuman/mh_guard_pose.glb",
+      "role": "guard_pose",
+      "stage": "native_guard_start",
+      "time": 0.0
+    },
+    {
+      "Left": 19.2744762339796,
+      "Right": 27.3769605991837,
+      "body": "source",
+      "file": "res://assets/anim/metahuman/mh_guard_pose.glb",
+      "role": "guard_pose",
+      "stage": "native_guard_end",
+      "time": 0.666666666666667
+    },
+    {
+      "Left": 19.2744762339796,
+      "Right": 27.3769605991837,
+      "body": "source",
+      "file": "res://assets/anim/metahuman/mh_guard_pose.glb",
+      "role": "guard_pose",
+      "stage": "native_guard_hold",
+      "time": 0.6
+    },
+    {
+      "Left": 19.2744762339796,
+      "Right": 27.3769605991837,
+      "body": "source",
+      "file": "res://assets/anim/metahuman/mh_jab.glb",
+      "role": "jab",
+      "stage": "native_guard_start",
+      "time": 0.0
+    },
+    {
+      "Left": 19.2744762339796,
+      "Right": 27.3769605991837,
+      "body": "source",
+      "file": "res://assets/anim/metahuman/mh_jab.glb",
+      "role": "jab",
+      "stage": "native_guard_end",
+      "time": 0.666666666666667
+    },
+    {
+      "Left": 17.3057715359191,
+      "Right": 23.7908449075494,
+      "body": "source",
+      "file": "res://assets/anim/metahuman/mh_jab.glb",
+      "role": "jab",
+      "stage": "native_contact",
+      "time": 0.266666666666667
+    },
+    {
+      "Left": 19.2744762339796,
+      "Right": 27.3769605991837,
+      "body": "source",
+      "file": "res://assets/anim/metahuman/mh_cross.glb",
+      "role": "cross",
+      "stage": "native_guard_start",
+      "time": 0.0
+    },
+    {
+      "Left": 19.2744762339796,
+      "Right": 27.3769605991837,
+      "body": "source",
+      "file": "res://assets/anim/metahuman/mh_cross.glb",
+      "role": "cross",
+      "stage": "native_guard_end",
+      "time": 0.666666666666667
+    },
+    {
+      "Left": 20.6310149823939,
+      "Right": 18.1867259199727,
+      "body": "source",
+      "file": "res://assets/anim/metahuman/mh_cross.glb",
+      "role": "cross",
+      "stage": "native_contact",
+      "time": 0.266666666666667
+    },
+    {
+      "Left": 19.2744762339796,
+      "Right": 27.3769605991837,
+      "body": "source",
+      "file": "res://assets/anim/metahuman/mh_lead_hook.glb",
+      "role": "lead_hook",
+      "stage": "native_guard_start",
+      "time": 0.0
+    },
+    {
+      "Left": 19.2744762339796,
+      "Right": 27.3769605991837,
+      "body": "source",
+      "file": "res://assets/anim/metahuman/mh_lead_hook.glb",
+      "role": "lead_hook",
+      "stage": "native_guard_end",
+      "time": 0.666666666666667
+    },
+    {
+      "Left": 37.9788468232219,
+      "Right": 18.277352284975,
+      "body": "source",
+      "file": "res://assets/anim/metahuman/mh_lead_hook.glb",
+      "role": "lead_hook",
+      "stage": "native_contact",
+      "time": 0.266666666666667
+    },
+    {
+      "Left": 19.2744762339796,
+      "Right": 27.3769605991837,
+      "body": "source",
+      "file": "res://assets/anim/metahuman/mh_inside_uppercut.glb",
+      "role": "inside_uppercut",
+      "stage": "native_guard_start",
+      "time": 0.0
+    },
+    {
+      "Left": 19.2744762339796,
+      "Right": 27.3769605991837,
+      "body": "source",
+      "file": "res://assets/anim/metahuman/mh_inside_uppercut.glb",
+      "role": "inside_uppercut",
+      "stage": "native_guard_end",
+      "time": 0.666666666666667
+    },
+    {
+      "Left": 14.1097612449564,
+      "Right": 26.2310665923199,
+      "body": "source",
+      "file": "res://assets/anim/metahuman/mh_inside_uppercut.glb",
+      "role": "inside_uppercut",
+      "stage": "native_contact",
+      "time": 0.266666666666667
+    },
+    {
+      "Left": 19.0594789543805,
+      "Right": 19.3185907182814,
+      "body": "source",
+      "file": "res://assets/anim/c223/c237/active_guard.glb",
+      "role": "idle",
+      "stage": "source_raw_clock",
+      "time": 0.6
+    },
+    {
+      "Left": 19.0594789543805,
+      "Right": 19.3185907182814,
+      "body": "source",
+      "file": "res://assets/anim/c223/c237/active_guard.glb",
+      "role": "idle",
+      "stage": "source_matching_game_clock",
+      "time": 0.6
+    },
+    {
+      "Left": 17.3279184243028,
+      "Right": 19.7359101539273,
+      "body": "02",
+      "role": "idle",
+      "stage": "retarget",
+      "time": 0.6
+    },
+    {
+      "Left": 17.3279184243028,
+      "Right": 19.7359101539273,
+      "body": "02",
+      "role": "idle",
+      "stage": "production_pose_layer",
+      "time": 0.6
+    },
+    {
+      "Left": 18.1965801753978,
+      "Right": 16.8221770672092,
+      "body": "05",
+      "role": "idle",
+      "stage": "retarget",
+      "time": 0.6
+    },
+    {
+      "Left": 18.1965801753978,
+      "Right": 16.8221770672092,
+      "body": "05",
+      "role": "idle",
+      "stage": "production_pose_layer",
+      "time": 0.6
+    },
+    {
+      "Left": 17.5258624290917,
+      "Right": 21.1601480298475,
+      "body": "08",
+      "role": "idle",
+      "stage": "retarget",
+      "time": 0.6
+    },
+    {
+      "Left": 17.5258624290917,
+      "Right": 21.1601480298475,
+      "body": "08",
+      "role": "idle",
+      "stage": "production_pose_layer",
+      "time": 0.6
+    },
+    {
+      "Left": 16.9706773325964,
+      "Right": 19.8171347635371,
+      "body": "09",
+      "role": "idle",
+      "stage": "retarget",
+      "time": 0.6
+    },
+    {
+      "Left": 16.9706773325964,
+      "Right": 19.8171347635371,
+      "body": "09",
+      "role": "idle",
+      "stage": "production_pose_layer",
+      "time": 0.6
+    },
+    {
+      "Left": 23.391263473178,
+      "Right": 39.120649546773,
+      "body": "source",
+      "file": "res://assets/anim/c223/mixamo_pipeline_a/Boxing_Lead_Hand_Uppercut.glb",
+      "role": "boxing_lead_uppercut",
+      "stage": "source_raw_clock",
+      "time": 0.6
+    },
+    {
+      "Left": 15.063456289897,
+      "Right": 37.4346583312904,
+      "body": "source",
+      "file": "res://assets/anim/c223/mixamo_pipeline_a/Boxing_Lead_Hand_Uppercut.glb",
+      "role": "boxing_lead_uppercut",
+      "stage": "source_matching_game_clock",
+      "time": 0.784633325
+    },
+    {
+      "Left": 14.8022459503736,
+      "Right": 40.186644000726,
+      "body": "02",
+      "role": "boxing_lead_uppercut",
+      "stage": "retarget",
+      "time": 0.6
+    },
+    {
+      "Left": 14.8022135069751,
+      "Right": 40.186644000726,
+      "body": "02",
+      "role": "boxing_lead_uppercut",
+      "stage": "production_pose_layer",
+      "time": 0.6
+    },
+    {
+      "Left": 13.2386184276454,
+      "Right": 35.5262727413375,
+      "body": "05",
+      "role": "boxing_lead_uppercut",
+      "stage": "retarget",
+      "time": 0.6
+    },
+    {
+      "Left": 13.2386329417974,
+      "Right": 35.5262385903917,
+      "body": "05",
+      "role": "boxing_lead_uppercut",
+      "stage": "production_pose_layer",
+      "time": 0.6
+    },
+    {
+      "Left": 15.483589763481,
+      "Right": 41.7267184698751,
+      "body": "08",
+      "role": "boxing_lead_uppercut",
+      "stage": "retarget",
+      "time": 0.6
+    },
+    {
+      "Left": 15.483642697447,
+      "Right": 41.7266604132672,
+      "body": "08",
+      "role": "boxing_lead_uppercut",
+      "stage": "production_pose_layer",
+      "time": 0.6
+    },
+    {
+      "Left": 14.7374308702448,
+      "Right": 40.7362010213453,
+      "body": "09",
+      "role": "boxing_lead_uppercut",
+      "stage": "retarget",
+      "time": 0.6
+    },
+    {
+      "Left": 14.7373813513733,
+      "Right": 40.7361634553048,
+      "body": "09",
+      "role": "boxing_lead_uppercut",
+      "stage": "production_pose_layer",
+      "time": 0.6
+    }
+  ]
+}

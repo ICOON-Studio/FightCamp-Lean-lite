@@ -1,0 +1,535 @@
+FIGHTCAMP — ANIMATION ENGINEERING SPECIFICATION (GODOT 4.7.2)
+
+Module: Animation Runtime & Presentation Layer (FightStagePlayer)
+
+Target: MPFB-Generated Humanoid Skeleton (Skeleton3D), Mixamo Bone Protocol
+
+Hard Invariants Enforced:
+
+Rule (a) - Hard Switch Default OFF: Every feature has a boolean flag defaulting to false. When false, the skeleton transforms are bit-for-bit identical to master.
+Rule (b) - Certified Contact Window Protection (C223 Gate): No procedural modification touches root translation or foot transforms during a certified clip's contact window ($[t_{\text{contact}} - \delta t, t_{\text{contact}} + \delta t]$).
+Rule (c) - Foot Slide Threshold: Planted feet must not translate $> 1.5\text{ cm}$ across contact or stance hold intervals.
+Rule (d) - Asymmetric Proportions: Solvers are verified against diverse, non-identical skeleton pairs (e.g., Vance: 188 cm reach vs. Miller: 175 cm reach).
+1. THE INTENT BUS
+1.1 Architectural Contract
+
+The Intent Bus decouples deterministic fight resolution ticks ($10\text{ Hz}$ or event-driven) from Presentation Layer rendering ($60\text{ Hz} / 120\text{ Hz}$). When the simulation executes an exchange, it emits an immutable ExchangeIntentData resource. If the Intent Bus is disabled (enable_intent_bus = false) or an event lacks fields, the pipeline degrades gracefully to raw un-warped AnimationPlayer clip playback.
+
++-------------------------------------------------------------------------+
+|                         FIGHT SIMULATION ENGINE                         |
+|             (Deterministic Combat Resolution / Fixed Step)              |
++-------------------------------------------------------------------------+
+                                     │
+                                     │ emits ExchangeIntentData RefCounted
+                                     ▼
++-------------------------------------------------------------------------+
+|                               INTENT BUS                                |
+|          Validates, time-aligns, and sequences intent buffers           |
++-------------------------------------------------------------------------+
+                                     │
+                                     │ feeds
+                                     ▼
++-------------------------------------------------------------------------+
+|                         FIGHT STAGE PRESENTER                           |
+|  - Phase Timeline Warper (Step 6)   - CoM & Support Balancer (Step 7)   |
+|  - Secondary Spring Bus (Step 9)    - Fatigue Deformation (Step 8)      |
++-------------------------------------------------------------------------+
+                                     │
+                                     │ evaluates overrides & offsets
+                                     ▼
++-------------------------------------------------------------------------+
+|                GODOT SKELETON3D / SKELETONMODIFIER3D                    |
+|   Protected Window Check: [t_contact - delta, t_contact + delta]        |
+|   IF Inside Window -> Bypass procedural root/foot modifiers             |
+|   IF Outside Window -> Apply kinetic chain offsets & postural sags      |
++-------------------------------------------------------------------------+
+
+1.2 ExchangeIntentData.gd Implementation
+
+Save as: res://scripts/animation/ExchangeIntentData.gd
+
+class_name ExchangeIntentData
+extends RefCounted
+
+enum StrikePhase {
+	NONE,
+	ANTICIPATION,
+	ACCELERATION,
+	CONTACT,
+	RETRACTION
+}
+
+enum DamageBand {
+	GLANCING_0,
+	LIGHT_1,
+	MEDIUM_2,
+	HEAVY_3,
+	CRITICAL_CONCUSSION_4
+}
+
+enum ComposureState {
+	COMPOSED,
+	PRESSURED,
+	RATTLED,
+	PANICKED
+}
+
+# Identity
+@export var exchange_id: int = -1
+@export var fighter_id: StringName = &""
+@export var clip_name: StringName = &""
+
+# Phase Timeline Targets (in normalized clip time [0.0, 1.0])
+@export var anticipation_end_norm: float = 0.15
+@export var acceleration_end_norm: float = 0.40
+@export var contact_point_norm: float = 0.45
+@export var retraction_end_norm: float = 0.85
+@export var contact_window_half_width_sec: float = 0.045 # Absolute window protection (90ms total)
+
+# Spatial Offsets & Variances
+@export var intended_miss_offset_cm: Vector3 = Vector3.ZERO # (X: Lateral, Y: Vertical, Z: Depth)
+@export var damage_band: DamageBand = DamageBand.LIGHT_1
+@export var raw_damage_value: float = 18.0
+
+# Clinch Telemetry
+@export var is_clinch_intent: bool = false
+@export var clinch_hold_duration_sec: float = 0.0
+@export var clinch_break_time_sec: float = 0.0
+@export var ref_break_enforced: bool = false
+
+# Evasion, Slip & Weight Transfer
+@export var slip_vector: Vector2 = Vector2.ZERO # X: Lateral shift, Y: Forward/Back slip
+@export var pivot_angle_deg: float = 0.0
+@export var intended_com_shift_m: Vector2 = Vector2.ZERO
+
+# Psychological Restraint
+@export var composure: ComposureState = ComposureState.COMPOSED
+@export var suppress_pad_chains: bool = false
+
+func is_valid() -> bool:
+	return exchange_id >= 0 and not clip_name.is_empty()
+
+func is_inside_contact_window(current_clip_time_sec: float, clip_length_sec: float) -> bool:
+	var contact_sec: float = contact_point_norm * clip_length_sec
+	return absf(current_clip_time_sec - contact_sec) <= contact_window_half_width_sec
+
+1.3 IntentBusConsumer.gd Implementation
+
+Save as: res://scripts/animation/IntentBusConsumer.gd
+
+class_name IntentBusConsumer
+extends Node
+
+signal strike_phase_changed(fighter_id: StringName, phase: ExchangeIntentData.StrikePhase)
+signal contact_window_entered(fighter_id: StringName)
+signal contact_window_exited(fighter_id: StringName)
+
+@export var enable_intent_bus: bool = false # HARD SWITCH (Rule A)
+
+var _current_intent: ExchangeIntentData = null
+var _clip_length: float = 1.0
+var _current_time: float = 0.0
+var _was_in_contact_window: bool = false
+var _current_phase: ExchangeIntentData.StrikePhase = ExchangeIntentData.StrikePhase.NONE
+
+func load_intent(intent: ExchangeIntentData, clip_len: float) -> void:
+	if not enable_intent_bus or intent == null or not intent.is_valid():
+		_current_intent = null
+		_current_phase = ExchangeIntentData.StrikePhase.NONE
+		return
+	_current_intent = intent
+	_clip_length = maxf(clip_len, 0.001)
+	_current_time = 0.0
+	_was_in_contact_window = false
+	_evaluate_phase()
+
+func process_frame(delta_time: float, current_playback_time: float) -> void:
+	if not enable_intent_bus or _current_intent == null:
+		if _current_phase != ExchangeIntentData.StrikePhase.NONE:
+			_current_phase = ExchangeIntentData.StrikePhase.NONE
+			strike_phase_changed.emit(&"red", _current_phase)
+		return
+
+	_current_time = current_playback_time
+	_evaluate_phase()
+	_evaluate_contact_window()
+
+func get_current_phase() -> ExchangeIntentData.StrikePhase:
+	return _current_phase
+
+func is_in_certified_contact_window() -> bool:
+	if not enable_intent_bus or _current_intent == null:
+		return false
+	return _current_intent.is_inside_contact_window(_current_time, _clip_length)
+
+func _evaluate_phase() -> void:
+	var norm_t: float = clampf(_current_time / _clip_length, 0.0, 1.0)
+	var new_phase: ExchangeIntentData.StrikePhase
+
+	if norm_t < _current_intent.anticipation_end_norm:
+		new_phase = ExchangeIntentData.StrikePhase.ANTICIPATION
+	elif norm_t < _current_intent.acceleration_end_norm:
+		new_phase = ExchangeIntentData.StrikePhase.ACCELERATION
+	elif norm_t <= _current_intent.retraction_end_norm:
+		# Encompasses contact and early follow-through
+		if _current_intent.is_inside_contact_window(_current_time, _clip_length):
+			new_phase = ExchangeIntentData.StrikePhase.CONTACT
+		else:
+			new_phase = ExchangeIntentData.StrikePhase.ACCELERATION
+	else:
+		new_phase = ExchangeIntentData.StrikePhase.RETRACTION
+
+	if new_phase != _current_phase:
+		_current_phase = new_phase
+		strike_phase_changed.emit(_current_intent.fighter_id, _current_phase)
+
+func _evaluate_contact_window() -> void:
+	var in_window: bool = _current_intent.is_inside_contact_window(_current_time, _clip_length)
+	if in_window and not _was_in_contact_window:
+		contact_window_entered.emit(_current_intent.fighter_id)
+	elif not in_window and _was_in_contact_window:
+		contact_window_exited.emit(_current_intent.fighter_id)
+	_was_in_contact_window = in_window
+
+2. STEP 6 — PUNCH S-CURVE BIOMECHANICS & WARPING ENGINE
+2.1 Biomechanical Velocity Profiles
+
+Real boxing kinematics dictate that punches exhibit asymmetric bell curves (asymmetric S-curves) with a prolonged acceleration phase driven by the kinetic chain (ankle $\to$ knee $\to$ pelvis $\to$ trunk $\to$ shoulder $\to$ elbow $\to$ wrist), a nearly instantaneous deceleration upon impact, and a rapid, elastic retraction.
+
+Authoritative Biomechanical Data Matrix
+
+Sources: Lenetsky et al. (2013) Sports Medicine; Smith et al. (2000) British Journal of Sports Medicine; Whiting et al. (1988).
+
+| Strike Type | Peak Velocity ($v_{\max}$) | Total Duration | Anticipation % | Acceleration % | Contact Window % | Retraction % |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Jab | $9.1 - 10.5\text{ m/s}$ | $280\text{ ms}$ | $14%$ ($39\text{ ms}$) | $28%$ ($78\text{ ms}$) | $42 - 46%$ ($12\text{ ms}$) | $54%$ ($151\text{ ms}$) |
+| Cross | $10.8 - 12.2\text{ m/s}$| $360\text{ ms}$ | $18%$ ($65\text{ ms}$) | $32%$ ($115\text{ ms}$)| $50 - 54%$ ($14\text{ ms}$) | $46%$ ($166\text{ ms}$) |
+| Lead Hook | $11.2 - 13.0\text{ m/s}$| $340\text{ ms}$ | $20%$ ($68\text{ ms}$) | $30%$ ($102\text{ ms}$)| $50 - 54%$ ($14\text{ ms}$) | $46%$ ($156\text{ ms}$) |
+| Rear Uppercut | $9.8 - 11.5\text{ m/s}$ | $390\text{ ms}$ | $22%$ ($86\text{ ms}$) | $30%$ ($117\text{ ms}$)| $52 - 56%$ ($16\text{ ms}$) | $44%$ ($171\text{ ms}$) |
+| Body Hook | $10.5 - 11.8\text{ m/s}$| $370\text{ ms}$ | $24%$ ($89\text{ ms}$) | $28%$ ($104\text{ ms}$)| $52 - 56%$ ($15\text{ ms}$) | $44%$ ($162\text{ ms}$) |
+
+2.2 Piecewise Cubic Hermite S-Curve Formulation
+
+Let normalized clip time be $\tau \in [0, 1]$. We construct a monotonic piecewise cubic spline $S(\tau)$ mapping uniform time $\tau$ to biomechanical animation time $t_{\text{warped}}$.
+Given keyframes $(\tau_0, t_0), (\tau_1, t_1), (\tau_2, t_2), (\tau_3, t_3), (\tau_4, t_4)$:
+
+Point 0: $(0.0, 0.0)$ — Start of motion.
+Point 1: $(\tau_{\text{ant}}, t_{\text{ant}})$ — End of trunk coiling / pelvis preparation.
+Point 2: $(\tau_{\text{contact}}, t_{\text{contact}})$ — Exact certified impact frame. Invariant: $S(\tau_{\text{contact}}) \equiv \tau_{\text{contact}}$ to prevent desyncing contact frames.
+Point 3: $(\tau_{\text{rebound}}, t_{\text{rebound}})$ — End of elastic recoil.
+Point 4: $(1.0, 1.0)$ — Complete return to baseline guard.
+
+Between points $i$ and $i+1$, the normalized progress $u = \frac{\tau - \tau_i}{\tau_{i+1} - \tau_i}$ is evaluated via smooth Hermite interpolation:
+$$S(u) = t_i (2u^3 - 3u^2 + 1) + t_{i+1} (-2u^3 + 3u^2) + m_i (u^3 - 2u^2 + u) (\tau_{i+1} - \tau_i) + m_{i+1} (u^3 - u^2) (\tau_{i+1} - \tau_i)$$
+Where slopes $m_i$ are constrained via Fritsch-Carlson conditions to guarantee monotonicity ($m_i \ge 0$).
+
+2.3 PunchTimeWarpController.gd Implementation
+
+Save as: res://scripts/animation/PunchTimeWarpController.gd
+
+class_name PunchTimeWarpController
+extends Node
+
+@export var enable_punch_s_curve: bool = false # HARD SWITCH (Rule A)
+@export var current_strike_phase_string: String = "NONE" # Instrument for grader
+
+var _active_intent: ExchangeIntentData = null
+var _clip_duration: float = 0.3
+var _elapsed_raw_time: float = 0.0
+
+func bind_intent(intent: ExchangeIntentData, duration: float) -> void:
+	if not enable_punch_s_curve:
+		_active_intent = null
+		current_strike_phase_string = "NONE"
+		return
+	_active_intent = intent
+	_clip_duration = maxf(duration, 0.001)
+	_elapsed_raw_time = 0.0
+
+func advance_and_warp(delta_time: float) -> float:
+	if not enable_punch_s_curve or _active_intent == null:
+		current_strike_phase_string = "NONE"
+		_elapsed_raw_time += delta_time
+		return _elapsed_raw_time
+
+	_elapsed_raw_time += delta_time
+	var tau: float = clampf(_elapsed_raw_time / _clip_duration, 0.0, 1.0)
+	
+	# Determine active phase and update test instrument
+	if tau < _active_intent.anticipation_end_norm:
+		current_strike_phase_string = "ANTICIPATION"
+	elif tau < _active_intent.contact_point_norm:
+		current_strike_phase_string = "ACCELERATION"
+	elif absf(tau - _active_intent.contact_point_norm) <= (_active_intent.contact_window_half_width_sec / _clip_duration):
+		current_strike_phase_string = "CONTACT"
+	elif tau < _active_intent.retraction_end_norm:
+		current_strike_phase_string = "RETRACTION"
+	else:
+		current_strike_phase_string = "GUARD_RESET"
+
+	# Piecewise S-Curve mapping
+	var warped_tau: float = _evaluate_s_curve(tau, _active_intent)
+	return warped_tau * _clip_duration
+
+func _evaluate_s_curve(tau: float, intent: ExchangeIntentData) -> float:
+	var tc: float = intent.contact_point_norm
+	var ta: float = intent.anticipation_end_norm
+	var tr: float = intent.retraction_end_norm
+
+	# Phase 1: Anticipation (coiling, flat slope, slow accumulation)
+	if tau <= ta:
+		var u: float = tau / ta
+		return ta * (u * u * (3.0 - 2.0 * u) * 0.7) # Quintic ease-in damp
+
+	# Phase 2: Acceleration (explosive kinetic chain release, steep slope)
+	elif tau <= tc:
+		var u: float = (tau - ta) / (tc - ta)
+		var start_val: float = ta * 0.7
+		# Rapid acceleration peaking exactly at tc
+		var curve: float = pow(u, 2.4)
+		return lerpf(start_val, tc, curve)
+
+	# Phase 3: Immediate Retraction (elastic recoil)
+	elif tau <= tr:
+		var u: float = (tau - tc) / (tr - tc)
+		var curve: float = 1.0 - pow(1.0 - u, 1.8)
+		return lerpf(tc, tr, curve)
+
+	# Phase 4: Final Guard Settle
+	else:
+		var u: float = (tau - tr) / (1.0 - tr)
+		return lerpf(tr, 1.0, u)
+
+3. STEP 7 — CENTRE OF MASS & BASE OF SUPPORT CONTROLLER
+3.1 Anthropometric Segment-Mass Model (Dempster / de Leva)
+
+To calculate an anatomically accurate Centre of Mass (CoM), the MPFB/Mixamo skeleton is partitioned into 16 discrete rigid segments. Masses are expressed as fractions of total body mass $M_{\text{total}}$.
+
+          Head (6.94%)
+             [Neck]
+               │
+      ┌────────┴────────┐
+      │  Thorax (21.6%) │
+      └────────┬────────┘
+  Upper Arm    │    Upper Arm
+   (2.71%)     │     (2.71%)
+      │   Abdomen (13.9%)
+   Forearm     │     Forearm
+   (1.62%)     │     (1.62%)
+      │   Pelvis (14.2%)
+    Hand       │       Hand
+   (0.61%) ┌───┴───┐ (0.61%)
+           │       │
+       Thigh       Thigh
+      (14.16%)    (14.16%)
+           │       │
+         Shank   Shank
+        (4.33%) (4.33%)
+           │       │
+         Foot     Foot
+        (1.37%) (1.37%)
+
+Bone Segment Parameters
+
+Origin and Insertion vectors are defined in bone local coordinates.
+
+| Segment Name | Mixamo Proximal Joint | Mixamo Distal Joint | Mass % ($M_i$) | CoM Position (% from Proximal) |
+| :--- | :--- | :--- | :--- | :--- |
+| Head & Neck | mixamorig_Neck | mixamorig_HeadTop_End| $6.94%$ | $50.0%$ |
+| Thorax | mixamorig_Spine2 | mixamorig_Neck | $21.58%$ | $45.0%$ |
+| Abdomen | mixamorig_Spine | mixamorig_Spine2 | $13.92%$ | $44.0%$ |
+| Pelvis | mixamorig_Hips | mixamorig_Spine | $14.21%$ | $40.0%$ |
+| R/L Upper Arm | mixamorig_RightArm | mixamorig_RightForeArm| $2.71%$ each | $43.6%$ |
+| R/L Forearm | mixamorig_RightForeArm | mixamorig_RightHand | $1.62%$ each | $43.0%$ |
+| R/L Hand | mixamorig_RightHand | mixamorig_RightHandMiddle3| $0.61%$ each | $46.8%$ |
+| R/L Thigh | mixamorig_RightUpLeg | mixamorig_RightLeg | $14.16%$ each| $43.3%$ |
+| R/L Shank | mixamorig_RightLeg | mixamorig_RightFoot | $4.33%$ each | $43.4%$ |
+| R/L Foot | mixamorig_RightFoot | mixamorig_RightToeBase| $1.37%$ each | $50.0%$ |
+
+Total segment mass sum $= 100.0%$.
+
+3.2 Support Polygon Dynamics
+Double-Support (Both Feet Planted): The Base of Support (BoS) is the 2D convex hull formed by the 4 corner points of each foot sole projected onto the ground plane:
+Heel-Left, Toe-Left, Heel-Right, Toe-Right.
+Single-Support (Lead Foot Stepping): BoS shrinks to the sole quadrilateral of the grounded rear foot.
+Ball-of-Foot Pivot: During a cross or hook hip rotation, the rear foot BoS collapses into a circle of radius $r = 4.5\text{ cm}$ centered at mixamorig_RightToeBase.
+Stability Margin Metric ($M_{\text{stability}}$): $$M_{\text{stability}} = \min_{e \in \text{Edges}} \text{dist}(\mathbf{CoM}{xz}, e)$$ Where positive values denote the CoM is inside the polygon, and negative values denote an out-of-balance condition. The design benchmark requires $M{\text{stability}} \ge 0.03\text{ m}$ ($3.0\text{ cm}$) at all times during defensive slips.
+3.3 BalanceCoMController.gd Implementation
+
+Save as: res://scripts/animation/BalanceCoMController.gd
+
+class_name BalanceCoMController
+extends SkeletonModifier3D
+
+@export var enable_com_balancer: bool = false # HARD SWITCH (Rule A)
+@export var min_stability_margin_m: float = 0.03 # 3.0 cm threshold
+@export var emergency_recovery_step_trigger: bool = false
+
+# Bone Segment Cache Structure
+struct BoneSegmentDef:
+	var prox_idx: int
+	var dist_idx: int
+	var mass_weight: float
+	var com_ratio: float
+
+var _skeleton: Skeleton3D
+var _segments: Array[BoneSegmentDef] = []
+var _is_initialized: bool = false
+
+# Foot Indices for BoS calculation
+var _l_foot_idx: int = -1
+var _r_foot_idx: int = -1
+var _l_toe_idx: int = -1
+var _r_toe_idx: int = -1
+var _hips_idx: int = -1
+
+func _init() -> void:
+	active = true
+
+func _validate_setup() -> void:
+	_skeleton = get_skeleton()
+	if _skeleton == null:
+		return
+
+	_segments.clear()
+	_hips_idx = _skeleton.find_bone("mixamorig_Hips")
+	_l_foot_idx = _skeleton.find_bone("mixamorig_LeftFoot")
+	_r_foot_idx = _skeleton.find_bone("mixamorig_RightFoot")
+	_l_toe_idx = _skeleton.find_bone("mixamorig_LeftToeBase")
+	_r_toe_idx = _skeleton.find_bone("mixamorig_RightToeBase")
+
+	# Register essential segments with Dempster weights
+	_register_segment("mixamorig_Hips", "mixamorig_Spine", 0.1421, 0.40)
+	_register_segment("mixamorig_Spine", "mixamorig_Spine2", 0.1392, 0.44)
+	_register_segment("mixamorig_Spine2", "mixamorig_Neck", 0.2158, 0.45)
+	_register_segment("mixamorig_Neck", "mixamorig_Head", 0.0694, 0.50)
+	_register_segment("mixamorig_LeftUpLeg", "mixamorig_LeftLeg", 0.1416, 0.433)
+	_register_segment("mixamorig_RightUpLeg", "mixamorig_RightLeg", 0.1416, 0.433)
+	_register_segment("mixamorig_LeftLeg", "mixamorig_LeftFoot", 0.0433, 0.434)
+	_register_segment("mixamorig_RightLeg", "mixamorig_RightFoot", 0.0433, 0.434)
+	_register_segment("mixamorig_LeftArm", "mixamorig_LeftForeArm", 0.0271, 0.436)
+	_register_segment("mixamorig_RightArm", "mixamorig_RightForeArm", 0.0271, 0.436)
+
+	_is_initialized = (_hips_idx >= 0 and _l_foot_idx >= 0 and _r_foot_idx >= 0)
+
+func _register_segment(prox_name: String, dist_name: String, mass: float, ratio: float) -> void:
+	var p: int = _skeleton.find_bone(prox_name)
+	var d: int = _skeleton.find_bone(dist_name)
+	if p >= 0 and d >= 0:
+		var seg = BoneSegmentDef.new()
+		seg.prox_idx = p
+		seg.dist_idx = d
+		seg.mass_weight = mass
+		seg.com_ratio = ratio
+		_segments.append(seg)
+
+func _process_modification() -> void:
+	if not enable_com_balancer:
+		return # Bypass: outputs byte-identical pose to base AnimationPlayer
+
+	if not _is_initialized:
+		_validate_setup()
+		if not _is_initialized:
+			return
+
+	var current_com_world: Vector3 = _calculate_center_of_mass()
+	var bos_hull: PackedVector2Array = _build_support_polygon()
+	
+	var com_2d: Vector2 = Vector2(current_com_world.x, current_com_world.z)
+	var margin: float = _calculate_signed_distance_to_polygon(com_2d, bos_hull)
+
+	# Benchmark enforcement: Keep CoM >= 3cm inside Base of Support
+	if margin < min_stability_margin_m:
+		var correction_2d: Vector2 = _calculate_correction_vector(com_2d, bos_hull, min_stability_margin_m - margin)
+		
+		# Rule B Check: Do not alter pelvic/root balance if feet are locked in a certified contact window
+		var hip_trans: Vector3 = _skeleton.get_bone_pose_position(_hips_idx)
+		hip_trans.x += correction_2d.x * 0.85 # Counter-shift hips over support
+		hip_trans.z += correction_2d.y * 0.85
+		_skeleton.set_bone_pose_position(_hips_idx, hip_trans)
+
+		# Check if correction exceeded physical kinematic capability
+		if margin < -0.05:
+			emergency_recovery_step_trigger = true
+
+func _calculate_center_of_mass() -> Vector3:
+	var weighted_sum: Vector3 = Vector3.ZERO
+	var total_mass: float = 0.0
+
+	for seg in _segments:
+		var p_pos: Vector3 = _skeleton.get_bone_global_pose(seg.prox_idx).origin
+		var d_pos: Vector3 = _skeleton.get_bone_global_pose(seg.dist_idx).origin
+		var seg_com: Vector3 = p_pos.lerp(d_pos, seg.com_ratio)
+		weighted_sum += seg_com * seg.mass_weight
+		total_mass += seg.mass_weight
+
+	return weighted_sum / maxf(total_mass, 0.001)
+
+func _build_support_polygon() -> PackedVector2Array:
+	var points: PackedVector2Array = PackedVector2Array()
+	var l_foot: Vector3 = _skeleton.get_bone_global_pose(_l_foot_idx).origin
+	var r_foot: Vector3 = _skeleton.get_bone_global_pose(_r_foot_idx).origin
+	var l_toe: Vector3 = _skeleton.get_bone_global_pose(_l_toe_idx).origin
+	var r_toe: Vector3 = _skeleton.get_bone_global_pose(_r_toe_idx).origin
+
+	# Sole footprints: Width 9cm, Length 24cm footprint approximations
+	points.append(Vector2(l_foot.x - 0.05, l_foot.z - 0.08))
+	points.append(Vector2(l_foot.x + 0.05, l_foot.z - 0.08))
+	points.append(Vector2(l_toe.x + 0.05, l_toe.z + 0.08))
+	points.append(Vector2(l_toe.x - 0.05, l_toe.z + 0.08))
+
+	points.append(Vector2(r_foot.x - 0.05, r_foot.z - 0.08))
+	points.append(Vector2(r_foot.x + 0.05, r_foot.z - 0.08))
+	points.append(Vector2(r_toe.x + 0.05, r_toe.z + 0.08))
+	points.append(Vector2(r_toe.x - 0.05, r_toe.z + 0.08))
+
+	return Geometry2D.convex_hull(points)
+
+func _calculate_signed_distance_to_polygon(point: Vector2, polygon: PackedVector2Array) -> float:
+	if polygon.size() < 3:
+		return 0.0
+	
+	var is_inside: bool = Geometry2D.is_point_in_polygon(point, polygon)
+	var min_dist: float = 1e8
+
+	for i in range(polygon.size()):
+		var p1: Vector2 = polygon[i]
+		var p2: Vector2 = polygon[(i + 1) % polygon.size()]
+		var dist: float = Geometry2D.get_closest_point_to_segment(point, p1, p2).distance_to(point)
+		min_dist = minf(min_dist, dist)
+
+	return min_dist if is_inside else -min_dist
+
+func _calculate_correction_vector(point: Vector2, polygon: PackedVector2Array, deficit: float) -> Vector2:
+	var centroid: Vector2 = Vector2.ZERO
+	for p in polygon:
+		centroid += p
+	centroid /= float(polygon.size())
+	
+	var dir_to_center: Vector2 = (centroid - point).normalized()
+	return dir_to_center * deficit
+
+4. STEP 8 — FATIGUE POSTURE DEFORMATION LAYER
+4.1 Physiological Fatigue Parameters
+
+Under acute lactic acidosis and systemic cardio exhaustion (Stamina $< 30%$), professional boxers exhibit clear kinematic degradation:
+
+Guard Sag & Wrist Drop: Rotator cuffs and anterior deltoids yield under the weight of $10\text{ oz}$ gloves. The wrists drop vertically by 8.0 to 14.0 cm relative to the zygomatic arch (cheekbones).
+Cervical Hyperextension (Head Forward): The sternocleidomastoid fatigues, projecting the head forward by 3.5 to 6.0 cm along the Z-axis, increasing vulnerable target area.
+Thoracic Kyphosis (Shoulder Slump): Upper spine curls inward ($4.0^\circ - 7.5^\circ$ forward pitch).
+Hyperventilation Oscillation: Deep chest expansion cycle frequency increases from $0.25\text{ Hz}$ (rest) to $1.15\text{ Hz}$ (exhaustion), with an amplified thoracic pitch displacement of $2.2^\circ$.
+Stamina 100% (High Guard)           Stamina 15% (Exhausted / Guard Sag)
+        O  <- Head High                    \ O  <- Head Forward (+5.2cm)
+      ┌─┴─┐                                ┌─┴─┐
+   [O]│   │[O] <- Wrists at Cheek         /│   │\
+      └───┘                              │ └───┘ │
+                                        [O]     [O] <- Wrists Dropped (-12.4cm)
+
+4.2 Dynamic Transfer Equations
+
+Let $S \in [0.0, 1
+
+Can you continue from section 1 and provide the complete animation engineering specification with full GDScript and formulas?
+Can you define the exact FightStagePlayer state machine, clip contracts, timing rules, and exchange-to-animation event mapping?
+Can you provide the complete Godot 4.7.2 scene tree and reusable animation component specifications without truncation?
+Can you generate a labeled ASCII-style top-down gym floor plan showing every station, zone, doorway, collision bound, and walkway?

@@ -1,0 +1,10 @@
+{
+  "checked_at": "2026-09-23T15:21:33Z",
+  "files": [
+    "Godot/scripts/FightRealtime.gd",
+    "Godot/tests/fight_ground_policy_test.gd"
+  ],
+  "output": "CHECK total=2 fails=0 autoload_refs=0 autoload_warnings=0 time=1s\n",
+  "passed": true,
+  "task": "Q153_NO_GROUND_IN_MUAY_THAI"
+}

@@ -1,0 +1,7177 @@
+{
+  "version": 1,
+  "task": "U60B",
+  "note": "Replacement/expansion set for judo + brazilian_jiu_jitsu. Claude validates and merges. Shared judo/BJJ throws appear once under judo ids with flags.shared_disciplines. U60B: grades (Kodokan kyu/dan; Alliance-style BJJ belts) + combinations branch + unread effect remap.",
+  "branches_added": {
+    "judo": [
+      "te_waza",
+      "koshi_waza",
+      "ashi_waza",
+      "ma_sutemi_waza",
+      "yoko_sutemi_waza",
+      "osaekomi_waza",
+      "shime_waza",
+      "kansetsu_waza",
+      "ukemi_grips",
+      "combinations"
+    ],
+    "brazilian_jiu_jitsu": [
+      "positions",
+      "escapes",
+      "sweeps",
+      "submissions",
+      "leg_locks",
+      "guard_retention",
+      "guard",
+      "passing",
+      "takedowns",
+      "combinations"
+    ]
+  },
+  "counts": {
+    "judo_nage_waza": 68,
+    "judo_katame_waza": 32,
+    "judo_extra_skills_sequences": 4,
+    "bjj_root_family_nodes": 70,
+    "total_nodes": 187,
+    "new_effect_keys": [],
+    "dag_ok": true,
+    "missing_prereqs": [],
+    "foreign_id_collisions": [],
+    "combination_nodes": 16,
+    "graded_nodes": 187
+  },
+  "nodes": [
+    {
+      "id": "judo_ukemi",
+      "name": "Ukemi",
+      "kind": "skill",
+      "tier": 1,
+      "branch": "ukemi_grips",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 5,
+        "attributes": {
+          "defense": 22,
+          "conditioning": 20
+        },
+        "prerequisites": [],
+        "reps": 40
+      },
+      "match": {
+        "role": "defense",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "throw_damage_reduction": 9,
+          "scramble": 4
+        },
+        "range_band": [
+          "MID",
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan / IJF Academy; existing catalog id retained",
+      "grade": "6th kyu",
+      "grade_rank": 1
+    },
+    {
+      "id": "judo_kumikata",
+      "name": "Kumi-kata",
+      "kind": "skill",
+      "tier": 1,
+      "branch": "ukemi_grips",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 12,
+        "attributes": {
+          "technique": 25,
+          "fight_iq": 25
+        },
+        "prerequisites": [
+          "judo_ukemi"
+        ],
+        "reps": 90
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "clinch"
+        ],
+        "effects": {
+          "grip_control": 8,
+          "throw_setup": 6
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {
+        "gi_preferred": true
+      },
+      "source": "DOCUMENTED Kodokan kumikata; existing catalog id retained",
+      "grade": "6th kyu",
+      "grade_rank": 2
+    },
+    {
+      "id": "judo_seoinage_twohand",
+      "name": "Seoi-nage",
+      "kind": "move",
+      "tier": 1,
+      "branch": "te_waza",
+      "discipline": "judo",
+      "gokyo_group": "ikkyo",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "technique": 38,
+          "power": 34,
+          "speed": 34
+        },
+        "prerequisites": [
+          "judo_kumikata"
+        ],
+        "reps": 120
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 9,
+          "throw_setup": 7
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {
+        "shared_disciplines": [
+          "judo",
+          "brazilian_jiu_jitsu"
+        ]
+      },
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "3rd kyu",
+      "grade_rank": 28
+    },
+    {
+      "id": "judo_seoinage",
+      "name": "Ippon-seoi-nage",
+      "kind": "move",
+      "tier": 4,
+      "branch": "te_waza",
+      "discipline": "judo",
+      "gokyo_group": "shinmeisho",
+      "requires": {
+        "discipline": 78,
+        "attributes": {
+          "technique": 68,
+          "power": 58,
+          "speed": 58
+        },
+        "prerequisites": [
+          "judo_seoinage_twohand"
+        ],
+        "reps": 480
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 15,
+          "throw_setup": 10
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {
+        "shared_disciplines": [
+          "judo",
+          "brazilian_jiu_jitsu"
+        ]
+      },
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "5th kyu",
+      "grade_rank": 17
+    },
+    {
+      "id": "judo_seoiotoshi",
+      "name": "Seoi-otoshi",
+      "kind": "move",
+      "tier": 4,
+      "branch": "te_waza",
+      "discipline": "judo",
+      "gokyo_group": "shinmeisho",
+      "requires": {
+        "discipline": 78,
+        "attributes": {
+          "technique": 68,
+          "power": 58,
+          "speed": 58
+        },
+        "prerequisites": [
+          "judo_seoinage_twohand"
+        ],
+        "reps": 480
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 15,
+          "throw_setup": 10
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "1st kyu",
+      "grade_rank": 48
+    },
+    {
+      "id": "judo_taiotoshi",
+      "name": "Tai-otoshi",
+      "kind": "move",
+      "tier": 2,
+      "branch": "te_waza",
+      "discipline": "judo",
+      "gokyo_group": "nikyo",
+      "requires": {
+        "discipline": 34,
+        "attributes": {
+          "technique": 48,
+          "power": 42,
+          "speed": 42
+        },
+        "prerequisites": [
+          "judo_seoinage_twohand"
+        ],
+        "reps": 200
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 11,
+          "throw_setup": 8
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {
+        "shared_disciplines": [
+          "judo",
+          "brazilian_jiu_jitsu"
+        ]
+      },
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "3rd kyu",
+      "grade_rank": 25
+    },
+    {
+      "id": "judo_kataguruma",
+      "name": "Kata-guruma",
+      "kind": "move",
+      "tier": 3,
+      "branch": "te_waza",
+      "discipline": "judo",
+      "gokyo_group": "sankyo",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 58,
+          "power": 50,
+          "speed": 50
+        },
+        "prerequisites": [
+          "judo_taiotoshi"
+        ],
+        "reps": 320
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 13,
+          "throw_setup": 9
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "2nd kyu",
+      "grade_rank": 37
+    },
+    {
+      "id": "judo_sukuinage",
+      "name": "Sukui-nage",
+      "kind": "move",
+      "tier": 3,
+      "branch": "te_waza",
+      "discipline": "judo",
+      "gokyo_group": "yonkyo",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 58,
+          "power": 50,
+          "speed": 50
+        },
+        "prerequisites": [
+          "judo_kataguruma"
+        ],
+        "reps": 320
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 13,
+          "throw_setup": 9
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "1st kyu",
+      "grade_rank": 43
+    },
+    {
+      "id": "judo_obiotoshi",
+      "name": "Obi-otoshi",
+      "kind": "move",
+      "tier": 4,
+      "branch": "te_waza",
+      "discipline": "judo",
+      "gokyo_group": "shinmeisho",
+      "requires": {
+        "discipline": 78,
+        "attributes": {
+          "technique": 68,
+          "power": 58,
+          "speed": 58
+        },
+        "prerequisites": [
+          "judo_sukuinage"
+        ],
+        "reps": 480
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 15,
+          "throw_setup": 10
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "1st dan",
+      "grade_rank": 58
+    },
+    {
+      "id": "judo_ukiotoshi",
+      "name": "Uki-otoshi",
+      "kind": "move",
+      "tier": 3,
+      "branch": "te_waza",
+      "discipline": "judo",
+      "gokyo_group": "yonkyo",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 58,
+          "power": 50,
+          "speed": 50
+        },
+        "prerequisites": [
+          "judo_sukuinage"
+        ],
+        "reps": 320
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 13,
+          "throw_setup": 9
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "1st kyu",
+      "grade_rank": 47
+    },
+    {
+      "id": "judo_sumiotoshi",
+      "name": "Sumi-otoshi",
+      "kind": "move",
+      "tier": 4,
+      "branch": "te_waza",
+      "discipline": "judo",
+      "gokyo_group": "gokyo",
+      "requires": {
+        "discipline": 78,
+        "attributes": {
+          "technique": 68,
+          "power": 58,
+          "speed": 58
+        },
+        "prerequisites": [
+          "judo_sukuinage"
+        ],
+        "reps": 480
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 15,
+          "throw_setup": 10
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "1st dan",
+      "grade_rank": 56
+    },
+    {
+      "id": "judo_yamaarashi",
+      "name": "Yama-arashi",
+      "kind": "move",
+      "tier": 4,
+      "branch": "te_waza",
+      "discipline": "judo",
+      "gokyo_group": "shinmeisho",
+      "requires": {
+        "discipline": 78,
+        "attributes": {
+          "technique": 68,
+          "power": 58,
+          "speed": 58
+        },
+        "prerequisites": [
+          "judo_sumiotoshi"
+        ],
+        "reps": 480
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 15,
+          "throw_setup": 10
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "2nd dan",
+      "grade_rank": 70
+    },
+    {
+      "id": "judo_obitorigaeshi",
+      "name": "Obi-tori-gaeshi",
+      "kind": "move",
+      "tier": 4,
+      "branch": "te_waza",
+      "discipline": "judo",
+      "gokyo_group": "shinmeisho",
+      "requires": {
+        "discipline": 78,
+        "attributes": {
+          "technique": 68,
+          "power": 58,
+          "speed": 58
+        },
+        "prerequisites": [
+          "judo_sumiotoshi"
+        ],
+        "reps": 480
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 15,
+          "throw_setup": 10
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "2nd dan",
+      "grade_rank": 71
+    },
+    {
+      "id": "judo_morotegari",
+      "name": "Morote-gari",
+      "kind": "move",
+      "tier": 4,
+      "branch": "te_waza",
+      "discipline": "judo",
+      "gokyo_group": "shinmeisho",
+      "requires": {
+        "discipline": 78,
+        "attributes": {
+          "technique": 68,
+          "power": 58,
+          "speed": 58
+        },
+        "prerequisites": [
+          "judo_sumiotoshi"
+        ],
+        "reps": 480
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 15,
+          "throw_setup": 10
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {
+        "shared_disciplines": [
+          "judo",
+          "brazilian_jiu_jitsu"
+        ]
+      },
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "4th kyu",
+      "grade_rank": 29
+    },
+    {
+      "id": "judo_kuchikitaoshi",
+      "name": "Kuchiki-taoshi",
+      "kind": "move",
+      "tier": 4,
+      "branch": "te_waza",
+      "discipline": "judo",
+      "gokyo_group": "shinmeisho",
+      "requires": {
+        "discipline": 78,
+        "attributes": {
+          "technique": 68,
+          "power": 58,
+          "speed": 58
+        },
+        "prerequisites": [
+          "judo_sumiotoshi"
+        ],
+        "reps": 480
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 15,
+          "throw_setup": 10
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {
+        "shared_disciplines": [
+          "judo",
+          "brazilian_jiu_jitsu"
+        ]
+      },
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "3rd kyu",
+      "grade_rank": 29
+    },
+    {
+      "id": "judo_kibisugaeshi",
+      "name": "Kibisu-gaeshi",
+      "kind": "move",
+      "tier": 4,
+      "branch": "te_waza",
+      "discipline": "judo",
+      "gokyo_group": "shinmeisho",
+      "requires": {
+        "discipline": 78,
+        "attributes": {
+          "technique": 68,
+          "power": 58,
+          "speed": 58
+        },
+        "prerequisites": [
+          "judo_sumiotoshi"
+        ],
+        "reps": 480
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 15,
+          "throw_setup": 10
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {
+        "shared_disciplines": [
+          "judo",
+          "brazilian_jiu_jitsu"
+        ]
+      },
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "1st kyu",
+      "grade_rank": 49
+    },
+    {
+      "id": "judo_uchimatasukashi",
+      "name": "Uchi-mata-sukashi",
+      "kind": "move",
+      "tier": 4,
+      "branch": "te_waza",
+      "discipline": "judo",
+      "gokyo_group": "shinmeisho",
+      "requires": {
+        "discipline": 78,
+        "attributes": {
+          "technique": 68,
+          "power": 58,
+          "speed": 58
+        },
+        "prerequisites": [
+          "judo_uchimata"
+        ],
+        "reps": 480
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 15,
+          "throw_setup": 10
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "1st dan",
+      "grade_rank": 59
+    },
+    {
+      "id": "judo_kouchigaeshi",
+      "name": "Ko-uchi-gaeshi",
+      "kind": "move",
+      "tier": 4,
+      "branch": "te_waza",
+      "discipline": "judo",
+      "gokyo_group": "shinmeisho",
+      "requires": {
+        "discipline": 78,
+        "attributes": {
+          "technique": 68,
+          "power": 58,
+          "speed": 58
+        },
+        "prerequisites": [
+          "judo_kouchigari"
+        ],
+        "reps": 480
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 15,
+          "throw_setup": 10
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "1st dan",
+      "grade_rank": 60
+    },
+    {
+      "id": "judo_ukigoshi",
+      "name": "Uki-goshi",
+      "kind": "move",
+      "tier": 1,
+      "branch": "koshi_waza",
+      "discipline": "judo",
+      "gokyo_group": "ikkyo",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "technique": 38,
+          "power": 34,
+          "speed": 34
+        },
+        "prerequisites": [
+          "judo_seoinage_twohand"
+        ],
+        "reps": 120
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 9,
+          "throw_setup": 7
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "5th kyu",
+      "grade_rank": 13
+    },
+    {
+      "id": "judo_ogoshi",
+      "name": "O-goshi",
+      "kind": "move",
+      "tier": 1,
+      "branch": "koshi_waza",
+      "discipline": "judo",
+      "gokyo_group": "ikkyo",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "technique": 38,
+          "power": 34,
+          "speed": 34
+        },
+        "prerequisites": [
+          "judo_seoinage_twohand"
+        ],
+        "reps": 120
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 9,
+          "throw_setup": 7
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "5th kyu",
+      "grade_rank": 15
+    },
+    {
+      "id": "judo_koshiguruma",
+      "name": "Koshi-guruma",
+      "kind": "move",
+      "tier": 2,
+      "branch": "koshi_waza",
+      "discipline": "judo",
+      "gokyo_group": "nikyo",
+      "requires": {
+        "discipline": 34,
+        "attributes": {
+          "technique": 48,
+          "power": 42,
+          "speed": 42
+        },
+        "prerequisites": [
+          "judo_taiotoshi"
+        ],
+        "reps": 200
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 11,
+          "throw_setup": 8
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "4th kyu",
+      "grade_rank": 22
+    },
+    {
+      "id": "judo_tsurikomigoshi",
+      "name": "Tsurikomi-goshi",
+      "kind": "move",
+      "tier": 2,
+      "branch": "koshi_waza",
+      "discipline": "judo",
+      "gokyo_group": "nikyo",
+      "requires": {
+        "discipline": 34,
+        "attributes": {
+          "technique": 48,
+          "power": 42,
+          "speed": 42
+        },
+        "prerequisites": [
+          "judo_taiotoshi"
+        ],
+        "reps": 200
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 11,
+          "throw_setup": 8
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "4th kyu",
+      "grade_rank": 23
+    },
+    {
+      "id": "judo_sodetsurikomigoshi",
+      "name": "Sode-tsurikomi-goshi",
+      "kind": "move",
+      "tier": 4,
+      "branch": "koshi_waza",
+      "discipline": "judo",
+      "gokyo_group": "shinmeisho",
+      "requires": {
+        "discipline": 78,
+        "attributes": {
+          "technique": 68,
+          "power": 58,
+          "speed": 58
+        },
+        "prerequisites": [
+          "judo_sumiotoshi"
+        ],
+        "reps": 480
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 15,
+          "throw_setup": 10
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "1st kyu",
+      "grade_rank": 48
+    },
+    {
+      "id": "judo_haraigoshi",
+      "name": "Harai-goshi",
+      "kind": "move",
+      "tier": 2,
+      "branch": "koshi_waza",
+      "discipline": "judo",
+      "gokyo_group": "nikyo",
+      "requires": {
+        "discipline": 34,
+        "attributes": {
+          "technique": 48,
+          "power": 42,
+          "speed": 42
+        },
+        "prerequisites": [
+          "judo_taiotoshi"
+        ],
+        "reps": 200
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 11,
+          "throw_setup": 8
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {
+        "shared_disciplines": [
+          "judo",
+          "brazilian_jiu_jitsu"
+        ]
+      },
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "3rd kyu",
+      "grade_rank": 26
+    },
+    {
+      "id": "judo_tsurigoshi",
+      "name": "Tsuri-goshi",
+      "kind": "move",
+      "tier": 3,
+      "branch": "koshi_waza",
+      "discipline": "judo",
+      "gokyo_group": "sankyo",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 58,
+          "power": 50,
+          "speed": 50
+        },
+        "prerequisites": [
+          "judo_kataguruma"
+        ],
+        "reps": 320
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 13,
+          "throw_setup": 9
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "2nd kyu",
+      "grade_rank": 31
+    },
+    {
+      "id": "judo_hanegoshi",
+      "name": "Hane-goshi",
+      "kind": "move",
+      "tier": 3,
+      "branch": "koshi_waza",
+      "discipline": "judo",
+      "gokyo_group": "sankyo",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 58,
+          "power": 50,
+          "speed": 50
+        },
+        "prerequisites": [
+          "judo_kataguruma"
+        ],
+        "reps": 320
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 13,
+          "throw_setup": 9
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "2nd kyu",
+      "grade_rank": 34
+    },
+    {
+      "id": "judo_utsurigoshi",
+      "name": "Utsuri-goshi",
+      "kind": "move",
+      "tier": 3,
+      "branch": "koshi_waza",
+      "discipline": "judo",
+      "gokyo_group": "yonkyo",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 58,
+          "power": 50,
+          "speed": 50
+        },
+        "prerequisites": [
+          "judo_sukuinage"
+        ],
+        "reps": 320
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 13,
+          "throw_setup": 9
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "1st kyu",
+      "grade_rank": 44
+    },
+    {
+      "id": "judo_ushirogoshi",
+      "name": "Ushiro-goshi",
+      "kind": "move",
+      "tier": 4,
+      "branch": "koshi_waza",
+      "discipline": "judo",
+      "gokyo_group": "gokyo",
+      "requires": {
+        "discipline": 78,
+        "attributes": {
+          "technique": 68,
+          "power": 58,
+          "speed": 58
+        },
+        "prerequisites": [
+          "judo_sumiotoshi"
+        ],
+        "reps": 480
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 15,
+          "throw_setup": 10
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "1st dan",
+      "grade_rank": 54
+    },
+    {
+      "id": "judo_deashi",
+      "name": "De-ashi-harai",
+      "kind": "move",
+      "tier": 1,
+      "branch": "ashi_waza",
+      "discipline": "judo",
+      "gokyo_group": "ikkyo",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "technique": 38,
+          "power": 34,
+          "speed": 34
+        },
+        "prerequisites": [
+          "judo_seoinage_twohand"
+        ],
+        "reps": 120
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 9,
+          "throw_setup": 7
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {
+        "shared_disciplines": [
+          "judo",
+          "brazilian_jiu_jitsu"
+        ]
+      },
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "6th kyu",
+      "grade_rank": 10
+    },
+    {
+      "id": "judo_hizaguruma",
+      "name": "Hiza-guruma",
+      "kind": "move",
+      "tier": 1,
+      "branch": "ashi_waza",
+      "discipline": "judo",
+      "gokyo_group": "ikkyo",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "technique": 38,
+          "power": 34,
+          "speed": 34
+        },
+        "prerequisites": [
+          "judo_seoinage_twohand"
+        ],
+        "reps": 120
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 9,
+          "throw_setup": 7
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "6th kyu",
+      "grade_rank": 11
+    },
+    {
+      "id": "judo_sasaetsurikomiashi",
+      "name": "Sasae-tsurikomi-ashi",
+      "kind": "move",
+      "tier": 1,
+      "branch": "ashi_waza",
+      "discipline": "judo",
+      "gokyo_group": "ikkyo",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "technique": 38,
+          "power": 34,
+          "speed": 34
+        },
+        "prerequisites": [
+          "judo_seoinage_twohand"
+        ],
+        "reps": 120
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 9,
+          "throw_setup": 7
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "6th kyu",
+      "grade_rank": 12
+    },
+    {
+      "id": "judo_osotogari",
+      "name": "O-soto-gari",
+      "kind": "move",
+      "tier": 1,
+      "branch": "ashi_waza",
+      "discipline": "judo",
+      "gokyo_group": "ikkyo",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "technique": 38,
+          "power": 34,
+          "speed": 34
+        },
+        "prerequisites": [
+          "judo_seoinage_twohand"
+        ],
+        "reps": 120
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 9,
+          "throw_setup": 7
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {
+        "shared_disciplines": [
+          "judo",
+          "brazilian_jiu_jitsu"
+        ]
+      },
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "5th kyu",
+      "grade_rank": 14
+    },
+    {
+      "id": "judo_ouchigari",
+      "name": "O-uchi-gari",
+      "kind": "move",
+      "tier": 1,
+      "branch": "ashi_waza",
+      "discipline": "judo",
+      "gokyo_group": "ikkyo",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "technique": 38,
+          "power": 34,
+          "speed": 34
+        },
+        "prerequisites": [
+          "judo_seoinage_twohand"
+        ],
+        "reps": 120
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 9,
+          "throw_setup": 7
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {
+        "shared_disciplines": [
+          "judo",
+          "brazilian_jiu_jitsu"
+        ]
+      },
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "5th kyu",
+      "grade_rank": 16
+    },
+    {
+      "id": "judo_kosotogari",
+      "name": "Ko-soto-gari",
+      "kind": "move",
+      "tier": 2,
+      "branch": "ashi_waza",
+      "discipline": "judo",
+      "gokyo_group": "nikyo",
+      "requires": {
+        "discipline": 34,
+        "attributes": {
+          "technique": 48,
+          "power": 42,
+          "speed": 42
+        },
+        "prerequisites": [
+          "judo_taiotoshi"
+        ],
+        "reps": 200
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 11,
+          "throw_setup": 8
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "4th kyu",
+      "grade_rank": 20
+    },
+    {
+      "id": "judo_kouchigari",
+      "name": "Ko-uchi-gari",
+      "kind": "move",
+      "tier": 2,
+      "branch": "ashi_waza",
+      "discipline": "judo",
+      "gokyo_group": "nikyo",
+      "requires": {
+        "discipline": 34,
+        "attributes": {
+          "technique": 48,
+          "power": 42,
+          "speed": 42
+        },
+        "prerequisites": [
+          "judo_taiotoshi"
+        ],
+        "reps": 200
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 11,
+          "throw_setup": 8
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {
+        "shared_disciplines": [
+          "judo",
+          "brazilian_jiu_jitsu"
+        ]
+      },
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "4th kyu",
+      "grade_rank": 21
+    },
+    {
+      "id": "judo_okuriashiharai",
+      "name": "Okuri-ashi-harai",
+      "kind": "move",
+      "tier": 2,
+      "branch": "ashi_waza",
+      "discipline": "judo",
+      "gokyo_group": "nikyo",
+      "requires": {
+        "discipline": 34,
+        "attributes": {
+          "technique": 48,
+          "power": 42,
+          "speed": 42
+        },
+        "prerequisites": [
+          "judo_taiotoshi"
+        ],
+        "reps": 200
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 11,
+          "throw_setup": 8
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "3rd kyu",
+      "grade_rank": 24
+    },
+    {
+      "id": "judo_uchimata",
+      "name": "Uchi-mata",
+      "kind": "move",
+      "tier": 2,
+      "branch": "ashi_waza",
+      "discipline": "judo",
+      "gokyo_group": "nikyo",
+      "requires": {
+        "discipline": 34,
+        "attributes": {
+          "technique": 48,
+          "power": 42,
+          "speed": 42
+        },
+        "prerequisites": [
+          "judo_taiotoshi"
+        ],
+        "reps": 200
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 11,
+          "throw_setup": 8
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {
+        "shared_disciplines": [
+          "judo",
+          "brazilian_jiu_jitsu"
+        ]
+      },
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "3rd kyu",
+      "grade_rank": 27
+    },
+    {
+      "id": "judo_kosotogake",
+      "name": "Ko-soto-gake",
+      "kind": "move",
+      "tier": 3,
+      "branch": "ashi_waza",
+      "discipline": "judo",
+      "gokyo_group": "sankyo",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 58,
+          "power": 50,
+          "speed": 50
+        },
+        "prerequisites": [
+          "judo_kataguruma"
+        ],
+        "reps": 320
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 13,
+          "throw_setup": 9
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "2nd kyu",
+      "grade_rank": 30
+    },
+    {
+      "id": "judo_ashiguruma",
+      "name": "Ashi-guruma",
+      "kind": "move",
+      "tier": 3,
+      "branch": "ashi_waza",
+      "discipline": "judo",
+      "gokyo_group": "sankyo",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 58,
+          "power": 50,
+          "speed": 50
+        },
+        "prerequisites": [
+          "judo_kataguruma"
+        ],
+        "reps": 320
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 13,
+          "throw_setup": 9
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "2nd kyu",
+      "grade_rank": 33
+    },
+    {
+      "id": "judo_haraitsurikomiashi",
+      "name": "Harai-tsurikomi-ashi",
+      "kind": "move",
+      "tier": 3,
+      "branch": "ashi_waza",
+      "discipline": "judo",
+      "gokyo_group": "sankyo",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 58,
+          "power": 50,
+          "speed": 50
+        },
+        "prerequisites": [
+          "judo_kataguruma"
+        ],
+        "reps": 320
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 13,
+          "throw_setup": 9
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "2nd kyu",
+      "grade_rank": 35
+    },
+    {
+      "id": "judo_oguruma",
+      "name": "O-guruma",
+      "kind": "move",
+      "tier": 3,
+      "branch": "ashi_waza",
+      "discipline": "judo",
+      "gokyo_group": "yonkyo",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 58,
+          "power": 50,
+          "speed": 50
+        },
+        "prerequisites": [
+          "judo_sukuinage"
+        ],
+        "reps": 320
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 13,
+          "throw_setup": 9
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "1st kyu",
+      "grade_rank": 45
+    },
+    {
+      "id": "judo_osotoguruma",
+      "name": "O-soto-guruma",
+      "kind": "move",
+      "tier": 4,
+      "branch": "ashi_waza",
+      "discipline": "judo",
+      "gokyo_group": "gokyo",
+      "requires": {
+        "discipline": 78,
+        "attributes": {
+          "technique": 68,
+          "power": 58,
+          "speed": 58
+        },
+        "prerequisites": [
+          "judo_sumiotoshi"
+        ],
+        "reps": 480
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 15,
+          "throw_setup": 10
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "1st dan",
+      "grade_rank": 50
+    },
+    {
+      "id": "judo_osotootoshi",
+      "name": "O-soto-otoshi",
+      "kind": "move",
+      "tier": 4,
+      "branch": "ashi_waza",
+      "discipline": "judo",
+      "gokyo_group": "shinmeisho",
+      "requires": {
+        "discipline": 78,
+        "attributes": {
+          "technique": 68,
+          "power": 58,
+          "speed": 58
+        },
+        "prerequisites": [
+          "judo_sumiotoshi"
+        ],
+        "reps": 480
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 15,
+          "throw_setup": 10
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "2nd kyu",
+      "grade_rank": 38
+    },
+    {
+      "id": "judo_tsubamegaeshi",
+      "name": "Tsubame-gaeshi",
+      "kind": "move",
+      "tier": 4,
+      "branch": "ashi_waza",
+      "discipline": "judo",
+      "gokyo_group": "shinmeisho",
+      "requires": {
+        "discipline": 78,
+        "attributes": {
+          "technique": 68,
+          "power": 58,
+          "speed": 58
+        },
+        "prerequisites": [
+          "judo_deashi"
+        ],
+        "reps": 480
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 15,
+          "throw_setup": 10
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "1st dan",
+      "grade_rank": 61
+    },
+    {
+      "id": "judo_osotogaeshi",
+      "name": "O-soto-gaeshi",
+      "kind": "move",
+      "tier": 4,
+      "branch": "ashi_waza",
+      "discipline": "judo",
+      "gokyo_group": "shinmeisho",
+      "requires": {
+        "discipline": 78,
+        "attributes": {
+          "technique": 68,
+          "power": 58,
+          "speed": 58
+        },
+        "prerequisites": [
+          "judo_osotogari"
+        ],
+        "reps": 480
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 15,
+          "throw_setup": 10
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "1st dan",
+      "grade_rank": 62
+    },
+    {
+      "id": "judo_ouchigaeshi",
+      "name": "O-uchi-gaeshi",
+      "kind": "move",
+      "tier": 4,
+      "branch": "ashi_waza",
+      "discipline": "judo",
+      "gokyo_group": "shinmeisho",
+      "requires": {
+        "discipline": 78,
+        "attributes": {
+          "technique": 68,
+          "power": 58,
+          "speed": 58
+        },
+        "prerequisites": [
+          "judo_ouchigari"
+        ],
+        "reps": 480
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 15,
+          "throw_setup": 10
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "1st dan",
+      "grade_rank": 63
+    },
+    {
+      "id": "judo_hanegoshigaeshi",
+      "name": "Hane-goshi-gaeshi",
+      "kind": "move",
+      "tier": 4,
+      "branch": "ashi_waza",
+      "discipline": "judo",
+      "gokyo_group": "shinmeisho",
+      "requires": {
+        "discipline": 78,
+        "attributes": {
+          "technique": 68,
+          "power": 58,
+          "speed": 58
+        },
+        "prerequisites": [
+          "judo_hanegoshi"
+        ],
+        "reps": 480
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 15,
+          "throw_setup": 10
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "1st dan",
+      "grade_rank": 64
+    },
+    {
+      "id": "judo_haraigoshigaeshi",
+      "name": "Harai-goshi-gaeshi",
+      "kind": "move",
+      "tier": 4,
+      "branch": "ashi_waza",
+      "discipline": "judo",
+      "gokyo_group": "shinmeisho",
+      "requires": {
+        "discipline": 78,
+        "attributes": {
+          "technique": 68,
+          "power": 58,
+          "speed": 58
+        },
+        "prerequisites": [
+          "judo_haraigoshi"
+        ],
+        "reps": 480
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 15,
+          "throw_setup": 10
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "1st dan",
+      "grade_rank": 65
+    },
+    {
+      "id": "judo_uchimatagaeshi",
+      "name": "Uchi-mata-gaeshi",
+      "kind": "move",
+      "tier": 4,
+      "branch": "ashi_waza",
+      "discipline": "judo",
+      "gokyo_group": "shinmeisho",
+      "requires": {
+        "discipline": 78,
+        "attributes": {
+          "technique": 68,
+          "power": 58,
+          "speed": 58
+        },
+        "prerequisites": [
+          "judo_uchimata"
+        ],
+        "reps": 480
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 15,
+          "throw_setup": 10
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "1st dan",
+      "grade_rank": 66
+    },
+    {
+      "id": "judo_tomoenage",
+      "name": "Tomoe-nage",
+      "kind": "move",
+      "tier": 3,
+      "branch": "ma_sutemi_waza",
+      "discipline": "judo",
+      "gokyo_group": "sankyo",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 58,
+          "power": 50,
+          "speed": 50
+        },
+        "prerequisites": [
+          "judo_kataguruma"
+        ],
+        "reps": 320
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "clinch",
+          "ground"
+        ],
+        "effects": {
+          "takedown": 14,
+          "sacrifice_throw": 9
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {
+        "shared_disciplines": [
+          "judo",
+          "brazilian_jiu_jitsu"
+        ]
+      },
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "2nd kyu",
+      "grade_rank": 36
+    },
+    {
+      "id": "judo_sumigaeshi",
+      "name": "Sumi-gaeshi",
+      "kind": "move",
+      "tier": 3,
+      "branch": "ma_sutemi_waza",
+      "discipline": "judo",
+      "gokyo_group": "yonkyo",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 58,
+          "power": 50,
+          "speed": 50
+        },
+        "prerequisites": [
+          "judo_sukuinage"
+        ],
+        "reps": 320
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "clinch",
+          "ground"
+        ],
+        "effects": {
+          "takedown": 14,
+          "sacrifice_throw": 9
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "1st kyu",
+      "grade_rank": 40
+    },
+    {
+      "id": "judo_hikikomigaeshi",
+      "name": "Hikikomi-gaeshi",
+      "kind": "move",
+      "tier": 4,
+      "branch": "ma_sutemi_waza",
+      "discipline": "judo",
+      "gokyo_group": "shinmeisho",
+      "requires": {
+        "discipline": 78,
+        "attributes": {
+          "technique": 68,
+          "power": 58,
+          "speed": 58
+        },
+        "prerequisites": [
+          "judo_sumiotoshi"
+        ],
+        "reps": 480
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "clinch",
+          "ground"
+        ],
+        "effects": {
+          "takedown": 16,
+          "sacrifice_throw": 10
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "1st kyu",
+      "grade_rank": 49
+    },
+    {
+      "id": "judo_tawaragaeshi",
+      "name": "Tawara-gaeshi",
+      "kind": "move",
+      "tier": 4,
+      "branch": "ma_sutemi_waza",
+      "discipline": "judo",
+      "gokyo_group": "shinmeisho",
+      "requires": {
+        "discipline": 78,
+        "attributes": {
+          "technique": 68,
+          "power": 58,
+          "speed": 58
+        },
+        "prerequisites": [
+          "judo_sumiotoshi"
+        ],
+        "reps": 480
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "clinch",
+          "ground"
+        ],
+        "effects": {
+          "takedown": 16,
+          "sacrifice_throw": 10
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "1st dan",
+      "grade_rank": 67
+    },
+    {
+      "id": "judo_uranage",
+      "name": "Ura-nage",
+      "kind": "move",
+      "tier": 4,
+      "branch": "ma_sutemi_waza",
+      "discipline": "judo",
+      "gokyo_group": "gokyo",
+      "requires": {
+        "discipline": 78,
+        "attributes": {
+          "technique": 68,
+          "power": 58,
+          "speed": 58
+        },
+        "prerequisites": [
+          "judo_sumiotoshi"
+        ],
+        "reps": 480
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "clinch",
+          "ground"
+        ],
+        "effects": {
+          "takedown": 16,
+          "sacrifice_throw": 10
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "1st dan",
+      "grade_rank": 55
+    },
+    {
+      "id": "judo_yokootoshi",
+      "name": "Yoko-otoshi",
+      "kind": "move",
+      "tier": 3,
+      "branch": "yoko_sutemi_waza",
+      "discipline": "judo",
+      "gokyo_group": "sankyo",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 58,
+          "power": 50,
+          "speed": 50
+        },
+        "prerequisites": [
+          "judo_kataguruma"
+        ],
+        "reps": 320
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "clinch",
+          "ground"
+        ],
+        "effects": {
+          "takedown": 14,
+          "sacrifice_throw": 9
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "2nd kyu",
+      "grade_rank": 32
+    },
+    {
+      "id": "judo_taniotoshi",
+      "name": "Tani-otoshi",
+      "kind": "move",
+      "tier": 3,
+      "branch": "yoko_sutemi_waza",
+      "discipline": "judo",
+      "gokyo_group": "yonkyo",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 58,
+          "power": 50,
+          "speed": 50
+        },
+        "prerequisites": [
+          "judo_sukuinage"
+        ],
+        "reps": 320
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "clinch",
+          "ground"
+        ],
+        "effects": {
+          "takedown": 14,
+          "sacrifice_throw": 9
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "1st kyu",
+      "grade_rank": 41
+    },
+    {
+      "id": "judo_hanemakikomi",
+      "name": "Hane-makikomi",
+      "kind": "move",
+      "tier": 3,
+      "branch": "yoko_sutemi_waza",
+      "discipline": "judo",
+      "gokyo_group": "yonkyo",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 58,
+          "power": 50,
+          "speed": 50
+        },
+        "prerequisites": [
+          "judo_sukuinage"
+        ],
+        "reps": 320
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "clinch",
+          "ground"
+        ],
+        "effects": {
+          "takedown": 14,
+          "sacrifice_throw": 9
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "1st kyu",
+      "grade_rank": 42
+    },
+    {
+      "id": "judo_sotomakikomi",
+      "name": "Soto-makikomi",
+      "kind": "move",
+      "tier": 3,
+      "branch": "yoko_sutemi_waza",
+      "discipline": "judo",
+      "gokyo_group": "yonkyo",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 58,
+          "power": 50,
+          "speed": 50
+        },
+        "prerequisites": [
+          "judo_sukuinage"
+        ],
+        "reps": 320
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "clinch",
+          "ground"
+        ],
+        "effects": {
+          "takedown": 14,
+          "sacrifice_throw": 9
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "1st kyu",
+      "grade_rank": 46
+    },
+    {
+      "id": "judo_uchimakikomi",
+      "name": "Uchi-makikomi",
+      "kind": "move",
+      "tier": 4,
+      "branch": "yoko_sutemi_waza",
+      "discipline": "judo",
+      "gokyo_group": "shinmeisho",
+      "requires": {
+        "discipline": 78,
+        "attributes": {
+          "technique": 68,
+          "power": 58,
+          "speed": 58
+        },
+        "prerequisites": [
+          "judo_sumiotoshi"
+        ],
+        "reps": 480
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "clinch",
+          "ground"
+        ],
+        "effects": {
+          "takedown": 16,
+          "sacrifice_throw": 10
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "1st dan",
+      "grade_rank": 68
+    },
+    {
+      "id": "judo_ukiwaza",
+      "name": "Uki-waza",
+      "kind": "move",
+      "tier": 4,
+      "branch": "yoko_sutemi_waza",
+      "discipline": "judo",
+      "gokyo_group": "gokyo",
+      "requires": {
+        "discipline": 78,
+        "attributes": {
+          "technique": 68,
+          "power": 58,
+          "speed": 58
+        },
+        "prerequisites": [
+          "judo_sumiotoshi"
+        ],
+        "reps": 480
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "clinch",
+          "ground"
+        ],
+        "effects": {
+          "takedown": 16,
+          "sacrifice_throw": 10
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "1st dan",
+      "grade_rank": 51
+    },
+    {
+      "id": "judo_yokowakare",
+      "name": "Yoko-wakare",
+      "kind": "move",
+      "tier": 4,
+      "branch": "yoko_sutemi_waza",
+      "discipline": "judo",
+      "gokyo_group": "gokyo",
+      "requires": {
+        "discipline": 78,
+        "attributes": {
+          "technique": 68,
+          "power": 58,
+          "speed": 58
+        },
+        "prerequisites": [
+          "judo_sumiotoshi"
+        ],
+        "reps": 480
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "clinch",
+          "ground"
+        ],
+        "effects": {
+          "takedown": 16,
+          "sacrifice_throw": 10
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "1st dan",
+      "grade_rank": 52
+    },
+    {
+      "id": "judo_yokoguruma",
+      "name": "Yoko-guruma",
+      "kind": "move",
+      "tier": 4,
+      "branch": "yoko_sutemi_waza",
+      "discipline": "judo",
+      "gokyo_group": "gokyo",
+      "requires": {
+        "discipline": 78,
+        "attributes": {
+          "technique": 68,
+          "power": 58,
+          "speed": 58
+        },
+        "prerequisites": [
+          "judo_sumiotoshi"
+        ],
+        "reps": 480
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "clinch",
+          "ground"
+        ],
+        "effects": {
+          "takedown": 16,
+          "sacrifice_throw": 10
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "1st dan",
+      "grade_rank": 53
+    },
+    {
+      "id": "judo_yokogake",
+      "name": "Yoko-gake",
+      "kind": "move",
+      "tier": 4,
+      "branch": "yoko_sutemi_waza",
+      "discipline": "judo",
+      "gokyo_group": "gokyo",
+      "requires": {
+        "discipline": 78,
+        "attributes": {
+          "technique": 68,
+          "power": 58,
+          "speed": 58
+        },
+        "prerequisites": [
+          "judo_sumiotoshi"
+        ],
+        "reps": 480
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "clinch",
+          "ground"
+        ],
+        "effects": {
+          "takedown": 16,
+          "sacrifice_throw": 10
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "1st dan",
+      "grade_rank": 57
+    },
+    {
+      "id": "judo_dakiwakare",
+      "name": "Daki-wakare",
+      "kind": "move",
+      "tier": 4,
+      "branch": "yoko_sutemi_waza",
+      "discipline": "judo",
+      "gokyo_group": "shinmeisho",
+      "requires": {
+        "discipline": 78,
+        "attributes": {
+          "technique": 68,
+          "power": 58,
+          "speed": 58
+        },
+        "prerequisites": [
+          "judo_sumiotoshi"
+        ],
+        "reps": 480
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "clinch",
+          "ground"
+        ],
+        "effects": {
+          "takedown": 16,
+          "sacrifice_throw": 10
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "2nd dan",
+      "grade_rank": 72
+    },
+    {
+      "id": "judo_osotomakikomi",
+      "name": "O-soto-makikomi",
+      "kind": "move",
+      "tier": 4,
+      "branch": "yoko_sutemi_waza",
+      "discipline": "judo",
+      "gokyo_group": "shinmeisho",
+      "requires": {
+        "discipline": 78,
+        "attributes": {
+          "technique": 68,
+          "power": 58,
+          "speed": 58
+        },
+        "prerequisites": [
+          "judo_sumiotoshi"
+        ],
+        "reps": 480
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "clinch",
+          "ground"
+        ],
+        "effects": {
+          "takedown": 16,
+          "sacrifice_throw": 10
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "1st dan",
+      "grade_rank": 69
+    },
+    {
+      "id": "judo_uchimatamakikomi",
+      "name": "Uchi-mata-makikomi",
+      "kind": "move",
+      "tier": 4,
+      "branch": "yoko_sutemi_waza",
+      "discipline": "judo",
+      "gokyo_group": "shinmeisho",
+      "requires": {
+        "discipline": 78,
+        "attributes": {
+          "technique": 68,
+          "power": 58,
+          "speed": 58
+        },
+        "prerequisites": [
+          "judo_sumiotoshi"
+        ],
+        "reps": 480
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "clinch",
+          "ground"
+        ],
+        "effects": {
+          "takedown": 16,
+          "sacrifice_throw": 10
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "1st dan",
+      "grade_rank": 69
+    },
+    {
+      "id": "judo_haraimakikomi",
+      "name": "Harai-makikomi",
+      "kind": "move",
+      "tier": 4,
+      "branch": "yoko_sutemi_waza",
+      "discipline": "judo",
+      "gokyo_group": "shinmeisho",
+      "requires": {
+        "discipline": 78,
+        "attributes": {
+          "technique": 68,
+          "power": 58,
+          "speed": 58
+        },
+        "prerequisites": [
+          "judo_sumiotoshi"
+        ],
+        "reps": 480
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "clinch",
+          "ground"
+        ],
+        "effects": {
+          "takedown": 16,
+          "sacrifice_throw": 10
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "1st dan",
+      "grade_rank": 69
+    },
+    {
+      "id": "judo_kouchimakikomi",
+      "name": "Ko-uchi-makikomi",
+      "kind": "move",
+      "tier": 4,
+      "branch": "yoko_sutemi_waza",
+      "discipline": "judo",
+      "gokyo_group": "shinmeisho",
+      "requires": {
+        "discipline": 78,
+        "attributes": {
+          "technique": 68,
+          "power": 58,
+          "speed": 58
+        },
+        "prerequisites": [
+          "judo_sumiotoshi"
+        ],
+        "reps": 480
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "clinch",
+          "ground"
+        ],
+        "effects": {
+          "takedown": 16,
+          "sacrifice_throw": 10
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "1st dan",
+      "grade_rank": 69
+    },
+    {
+      "id": "judo_kanibasami",
+      "name": "Kani-basami",
+      "kind": "move",
+      "tier": 4,
+      "branch": "yoko_sutemi_waza",
+      "discipline": "judo",
+      "gokyo_group": "shinmeisho",
+      "requires": {
+        "discipline": 78,
+        "attributes": {
+          "technique": 68,
+          "power": 58,
+          "speed": 58
+        },
+        "prerequisites": [
+          "judo_sumiotoshi"
+        ],
+        "reps": 480
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "clinch",
+          "ground"
+        ],
+        "effects": {
+          "takedown": 16,
+          "sacrifice_throw": 10
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {
+        "ijf_competition_illegal": true,
+        "ruleset_notes": "IJF/Kodokan: prohibited in competition (marked on classification list)"
+      },
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "2nd dan",
+      "grade_rank": 73
+    },
+    {
+      "id": "judo_kawazugake",
+      "name": "Kawazu-gake",
+      "kind": "move",
+      "tier": 4,
+      "branch": "yoko_sutemi_waza",
+      "discipline": "judo",
+      "gokyo_group": "shinmeisho",
+      "requires": {
+        "discipline": 78,
+        "attributes": {
+          "technique": 68,
+          "power": 58,
+          "speed": 58
+        },
+        "prerequisites": [
+          "judo_sumiotoshi"
+        ],
+        "reps": 480
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "clinch",
+          "ground"
+        ],
+        "effects": {
+          "takedown": 16,
+          "sacrifice_throw": 10
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {
+        "ijf_competition_illegal": true,
+        "ruleset_notes": "IJF/Kodokan: prohibited in competition (marked on classification list)"
+      },
+      "source": "DOCUMENTED Kodokan Global / IJF Academy Classification (1 Apr 2017)",
+      "grade": "2nd dan",
+      "grade_rank": 74
+    },
+    {
+      "id": "judo_kesagatame",
+      "name": "Kesa-gatame",
+      "kind": "move",
+      "tier": 1,
+      "branch": "osaekomi_waza",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 20,
+        "attributes": {
+          "technique": 30,
+          "conditioning": 28,
+          "power": 28
+        },
+        "prerequisites": [
+          "judo_ukemi"
+        ],
+        "reps": 140
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "pin_control": 8
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "shared_disciplines": [
+          "judo",
+          "brazilian_jiu_jitsu"
+        ]
+      },
+      "source": "DOCUMENTED Kodokan osaekomi-waza (10)",
+      "grade": "5th kyu",
+      "grade_rank": 18
+    },
+    {
+      "id": "judo_kuzurekesagatame",
+      "name": "Kuzure-kesa-gatame",
+      "kind": "move",
+      "tier": 1,
+      "branch": "osaekomi_waza",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 24,
+        "attributes": {
+          "technique": 33,
+          "conditioning": 31,
+          "power": 30
+        },
+        "prerequisites": [
+          "judo_kesagatame"
+        ],
+        "reps": 160
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "pin_control": 9
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan osaekomi-waza (10)",
+      "grade": "4th kyu",
+      "grade_rank": 22
+    },
+    {
+      "id": "judo_ushirokesagatame",
+      "name": "Ushiro-kesa-gatame",
+      "kind": "move",
+      "tier": 1,
+      "branch": "osaekomi_waza",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 28,
+        "attributes": {
+          "technique": 36,
+          "conditioning": 34,
+          "power": 32
+        },
+        "prerequisites": [
+          "judo_kuzurekesagatame"
+        ],
+        "reps": 180
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "pin_control": 10
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan osaekomi-waza (10)",
+      "grade": "3rd kyu",
+      "grade_rank": 28
+    },
+    {
+      "id": "judo_katagatame",
+      "name": "Kata-gatame",
+      "kind": "move",
+      "tier": 1,
+      "branch": "osaekomi_waza",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 32,
+        "attributes": {
+          "technique": 39,
+          "conditioning": 37,
+          "power": 34
+        },
+        "prerequisites": [
+          "judo_ushirokesagatame"
+        ],
+        "reps": 200
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "pin_control": 11
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "shared_disciplines": [
+          "judo",
+          "brazilian_jiu_jitsu"
+        ]
+      },
+      "source": "DOCUMENTED Kodokan osaekomi-waza (10)",
+      "grade": "4th kyu",
+      "grade_rank": 22
+    },
+    {
+      "id": "judo_kamishihogatame",
+      "name": "Kami-shiho-gatame",
+      "kind": "move",
+      "tier": 2,
+      "branch": "osaekomi_waza",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 36,
+        "attributes": {
+          "technique": 42,
+          "conditioning": 40,
+          "power": 36
+        },
+        "prerequisites": [
+          "judo_katagatame"
+        ],
+        "reps": 220
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "pin_control": 12
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "shared_disciplines": [
+          "judo",
+          "brazilian_jiu_jitsu"
+        ]
+      },
+      "source": "DOCUMENTED Kodokan osaekomi-waza (10)",
+      "grade": "3rd kyu",
+      "grade_rank": 28
+    },
+    {
+      "id": "judo_kuzurekamishihogatame",
+      "name": "Kuzure-kami-shiho-gatame",
+      "kind": "move",
+      "tier": 2,
+      "branch": "osaekomi_waza",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 40,
+        "attributes": {
+          "technique": 45,
+          "conditioning": 43,
+          "power": 38
+        },
+        "prerequisites": [
+          "judo_katagatame"
+        ],
+        "reps": 240
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "pin_control": 12
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan osaekomi-waza (10)",
+      "grade": "2nd kyu",
+      "grade_rank": 38
+    },
+    {
+      "id": "judo_yokoshihogatame",
+      "name": "Yoko-shiho-gatame",
+      "kind": "move",
+      "tier": 2,
+      "branch": "osaekomi_waza",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 44,
+        "attributes": {
+          "technique": 48,
+          "conditioning": 46,
+          "power": 40
+        },
+        "prerequisites": [
+          "judo_katagatame"
+        ],
+        "reps": 260
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "pin_control": 12
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "shared_disciplines": [
+          "judo",
+          "brazilian_jiu_jitsu"
+        ]
+      },
+      "source": "DOCUMENTED Kodokan osaekomi-waza (10)",
+      "grade": "4th kyu",
+      "grade_rank": 22
+    },
+    {
+      "id": "judo_tateshihogatame",
+      "name": "Tate-shiho-gatame",
+      "kind": "move",
+      "tier": 2,
+      "branch": "osaekomi_waza",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 48,
+        "attributes": {
+          "technique": 51,
+          "conditioning": 49,
+          "power": 42
+        },
+        "prerequisites": [
+          "judo_katagatame"
+        ],
+        "reps": 280
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "pin_control": 12
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "shared_disciplines": [
+          "judo",
+          "brazilian_jiu_jitsu"
+        ]
+      },
+      "source": "DOCUMENTED Kodokan osaekomi-waza (10)",
+      "grade": "3rd kyu",
+      "grade_rank": 28
+    },
+    {
+      "id": "judo_ukigatame",
+      "name": "Uki-gatame",
+      "kind": "move",
+      "tier": 2,
+      "branch": "osaekomi_waza",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 52,
+        "attributes": {
+          "technique": 54,
+          "conditioning": 52,
+          "power": 44
+        },
+        "prerequisites": [
+          "judo_katagatame"
+        ],
+        "reps": 300
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "pin_control": 12
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan osaekomi-waza (10)",
+      "grade": "2nd kyu",
+      "grade_rank": 38
+    },
+    {
+      "id": "judo_uragatame",
+      "name": "Ura-gatame",
+      "kind": "move",
+      "tier": 2,
+      "branch": "osaekomi_waza",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 57,
+          "conditioning": 55,
+          "power": 46
+        },
+        "prerequisites": [
+          "judo_katagatame"
+        ],
+        "reps": 320
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "pin_control": 12
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan osaekomi-waza (10)",
+      "grade": "1st kyu",
+      "grade_rank": 48
+    },
+    {
+      "id": "judo_namijujijime",
+      "name": "Nami-juji-jime",
+      "kind": "move",
+      "tier": 2,
+      "branch": "shime_waza",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 40,
+        "attributes": {
+          "technique": 42,
+          "fight_iq": 40
+        },
+        "prerequisites": [
+          "judo_kesagatame"
+        ],
+        "reps": 220
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 9,
+          "submission_setup": 5
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "shared_disciplines": [
+          "judo",
+          "brazilian_jiu_jitsu"
+        ],
+        "gi_only": true
+      },
+      "source": "DOCUMENTED Kodokan shime-waza (12)",
+      "grade": "4th kyu",
+      "grade_rank": 23,
+      "finishes_fight": true
+    },
+    {
+      "id": "judo_gyakujujijime",
+      "name": "Gyaku-juji-jime",
+      "kind": "move",
+      "tier": 2,
+      "branch": "shime_waza",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 43,
+        "attributes": {
+          "technique": 44,
+          "fight_iq": 42
+        },
+        "prerequisites": [
+          "judo_namijujijime"
+        ],
+        "reps": 235
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 9,
+          "submission_setup": 5
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "gi_only": true
+      },
+      "source": "DOCUMENTED Kodokan shime-waza (12)",
+      "grade": "3rd kyu",
+      "grade_rank": 29,
+      "finishes_fight": true
+    },
+    {
+      "id": "judo_katajujijime",
+      "name": "Kata-juji-jime",
+      "kind": "move",
+      "tier": 2,
+      "branch": "shime_waza",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 46,
+        "attributes": {
+          "technique": 46,
+          "fight_iq": 44
+        },
+        "prerequisites": [
+          "judo_gyakujujijime"
+        ],
+        "reps": 250
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 9,
+          "submission_setup": 5
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "gi_only": true
+      },
+      "source": "DOCUMENTED Kodokan shime-waza (12)",
+      "grade": "3rd kyu",
+      "grade_rank": 29,
+      "finishes_fight": true
+    },
+    {
+      "id": "judo_hadakajime",
+      "name": "Hadaka-jime",
+      "kind": "move",
+      "tier": 2,
+      "branch": "shime_waza",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 49,
+        "attributes": {
+          "technique": 48,
+          "fight_iq": 46
+        },
+        "prerequisites": [
+          "judo_katajujijime"
+        ],
+        "reps": 265
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 9,
+          "submission_setup": 5
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "shared_disciplines": [
+          "judo",
+          "brazilian_jiu_jitsu"
+        ]
+      },
+      "source": "DOCUMENTED Kodokan shime-waza (12)",
+      "grade": "4th kyu",
+      "grade_rank": 23,
+      "finishes_fight": true
+    },
+    {
+      "id": "judo_okurierijime",
+      "name": "Okuri-eri-jime",
+      "kind": "move",
+      "tier": 2,
+      "branch": "shime_waza",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 52,
+        "attributes": {
+          "technique": 50,
+          "fight_iq": 48
+        },
+        "prerequisites": [
+          "judo_hadakajime"
+        ],
+        "reps": 280
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 9,
+          "submission_setup": 5
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "shared_disciplines": [
+          "judo",
+          "brazilian_jiu_jitsu"
+        ],
+        "gi_only": true
+      },
+      "source": "DOCUMENTED Kodokan shime-waza (12)",
+      "grade": "2nd kyu",
+      "grade_rank": 39,
+      "finishes_fight": true
+    },
+    {
+      "id": "judo_katahajime",
+      "name": "Kataha-jime",
+      "kind": "move",
+      "tier": 2,
+      "branch": "shime_waza",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 55,
+        "attributes": {
+          "technique": 52,
+          "fight_iq": 50
+        },
+        "prerequisites": [
+          "judo_hadakajime"
+        ],
+        "reps": 295
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 9,
+          "submission_setup": 5
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "gi_only": true
+      },
+      "source": "DOCUMENTED Kodokan shime-waza (12)",
+      "grade": "2nd kyu",
+      "grade_rank": 39,
+      "finishes_fight": true
+    },
+    {
+      "id": "judo_katatejime",
+      "name": "Katate-jime",
+      "kind": "move",
+      "tier": 3,
+      "branch": "shime_waza",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 58,
+        "attributes": {
+          "technique": 54,
+          "fight_iq": 52
+        },
+        "prerequisites": [
+          "judo_hadakajime"
+        ],
+        "reps": 310
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 10,
+          "submission_setup": 5
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "gi_only": true
+      },
+      "source": "DOCUMENTED Kodokan shime-waza (12)",
+      "grade": "1st kyu",
+      "grade_rank": 48,
+      "finishes_fight": true
+    },
+    {
+      "id": "judo_ryotejime",
+      "name": "Ryote-jime",
+      "kind": "move",
+      "tier": 3,
+      "branch": "shime_waza",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 61,
+        "attributes": {
+          "technique": 56,
+          "fight_iq": 54
+        },
+        "prerequisites": [
+          "judo_hadakajime"
+        ],
+        "reps": 325
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 10,
+          "submission_setup": 5
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "gi_only": true
+      },
+      "source": "DOCUMENTED Kodokan shime-waza (12)",
+      "grade": "1st kyu",
+      "grade_rank": 48,
+      "finishes_fight": true
+    },
+    {
+      "id": "judo_sodegurumajime",
+      "name": "Sode-guruma-jime",
+      "kind": "move",
+      "tier": 3,
+      "branch": "shime_waza",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 64,
+        "attributes": {
+          "technique": 58,
+          "fight_iq": 56
+        },
+        "prerequisites": [
+          "judo_hadakajime"
+        ],
+        "reps": 340
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 10,
+          "submission_setup": 5
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "shared_disciplines": [
+          "judo",
+          "brazilian_jiu_jitsu"
+        ],
+        "gi_only": true
+      },
+      "source": "DOCUMENTED Kodokan shime-waza (12)",
+      "grade": "1st kyu",
+      "grade_rank": 48,
+      "finishes_fight": true
+    },
+    {
+      "id": "judo_tsukkomijime",
+      "name": "Tsukkomi-jime",
+      "kind": "move",
+      "tier": 3,
+      "branch": "shime_waza",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 67,
+        "attributes": {
+          "technique": 60,
+          "fight_iq": 58
+        },
+        "prerequisites": [
+          "judo_hadakajime"
+        ],
+        "reps": 355
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 10,
+          "submission_setup": 5
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "gi_only": true
+      },
+      "source": "DOCUMENTED Kodokan shime-waza (12)",
+      "grade": "1st dan",
+      "grade_rank": 58,
+      "finishes_fight": true
+    },
+    {
+      "id": "judo_sankaku",
+      "name": "Sankaku-jime",
+      "kind": "move",
+      "tier": 3,
+      "branch": "shime_waza",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 70,
+        "attributes": {
+          "technique": 62,
+          "fight_iq": 60
+        },
+        "prerequisites": [
+          "judo_hadakajime"
+        ],
+        "reps": 370
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 10,
+          "submission_setup": 5
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "shared_disciplines": [
+          "judo",
+          "brazilian_jiu_jitsu"
+        ]
+      },
+      "source": "DOCUMENTED Kodokan shime-waza (12)",
+      "grade": "2nd kyu",
+      "grade_rank": 39,
+      "finishes_fight": true
+    },
+    {
+      "id": "judo_dojime",
+      "name": "Do-jime",
+      "kind": "move",
+      "tier": 4,
+      "branch": "shime_waza",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 73,
+        "attributes": {
+          "technique": 64,
+          "fight_iq": 62
+        },
+        "prerequisites": [
+          "judo_hadakajime"
+        ],
+        "reps": 385
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 10,
+          "submission_setup": 5
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "ijf_competition_illegal": true,
+        "ruleset_notes": "Kodokan/IJF: Do-jime prohibited in competition"
+      },
+      "source": "DOCUMENTED Kodokan shime-waza (12)",
+      "grade": "2nd dan",
+      "grade_rank": 75,
+      "finishes_fight": true
+    },
+    {
+      "id": "judo_udegarami",
+      "name": "Ude-garami",
+      "kind": "move",
+      "tier": 2,
+      "branch": "kansetsu_waza",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 44,
+        "attributes": {
+          "technique": 44,
+          "fight_iq": 42
+        },
+        "prerequisites": [
+          "judo_kesagatame"
+        ],
+        "reps": 240
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 10,
+          "arm_isolation": 6
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "shared_disciplines": [
+          "judo",
+          "brazilian_jiu_jitsu"
+        ]
+      },
+      "source": "DOCUMENTED Kodokan kansetsu-waza (10)",
+      "grade": "4th kyu",
+      "grade_rank": 23,
+      "finishes_fight": true
+    },
+    {
+      "id": "judo_jujigatame",
+      "name": "Ude-hishigi-juji-gatame",
+      "kind": "move",
+      "tier": 2,
+      "branch": "kansetsu_waza",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 47,
+        "attributes": {
+          "technique": 46,
+          "fight_iq": 44
+        },
+        "prerequisites": [
+          "judo_udegarami"
+        ],
+        "reps": 255
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 10,
+          "arm_isolation": 6
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "shared_disciplines": [
+          "judo",
+          "brazilian_jiu_jitsu"
+        ]
+      },
+      "source": "DOCUMENTED Kodokan kansetsu-waza (10)",
+      "grade": "4th kyu",
+      "grade_rank": 23,
+      "finishes_fight": true
+    },
+    {
+      "id": "judo_udehishigiudegatame",
+      "name": "Ude-hishigi-ude-gatame",
+      "kind": "move",
+      "tier": 2,
+      "branch": "kansetsu_waza",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 50,
+        "attributes": {
+          "technique": 48,
+          "fight_iq": 46
+        },
+        "prerequisites": [
+          "judo_jujigatame"
+        ],
+        "reps": 270
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 10,
+          "arm_isolation": 6
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan kansetsu-waza (10)",
+      "grade": "3rd kyu",
+      "grade_rank": 29,
+      "finishes_fight": true
+    },
+    {
+      "id": "judo_udehishigihizagatame",
+      "name": "Ude-hishigi-hiza-gatame",
+      "kind": "move",
+      "tier": 2,
+      "branch": "kansetsu_waza",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 53,
+        "attributes": {
+          "technique": 50,
+          "fight_iq": 48
+        },
+        "prerequisites": [
+          "judo_udehishigiudegatame"
+        ],
+        "reps": 285
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 10,
+          "arm_isolation": 6
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan kansetsu-waza (10)",
+      "grade": "2nd kyu",
+      "grade_rank": 39,
+      "finishes_fight": true
+    },
+    {
+      "id": "judo_udehishigiwakigatame",
+      "name": "Ude-hishigi-waki-gatame",
+      "kind": "move",
+      "tier": 3,
+      "branch": "kansetsu_waza",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 52,
+          "fight_iq": 50
+        },
+        "prerequisites": [
+          "judo_udehishigiudegatame"
+        ],
+        "reps": 300
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 11,
+          "arm_isolation": 6
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan kansetsu-waza (10)",
+      "grade": "2nd kyu",
+      "grade_rank": 39,
+      "finishes_fight": true
+    },
+    {
+      "id": "judo_udehishigiharagatame",
+      "name": "Ude-hishigi-hara-gatame",
+      "kind": "move",
+      "tier": 3,
+      "branch": "kansetsu_waza",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 59,
+        "attributes": {
+          "technique": 54,
+          "fight_iq": 52
+        },
+        "prerequisites": [
+          "judo_udehishigiudegatame"
+        ],
+        "reps": 315
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 11,
+          "arm_isolation": 6
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan kansetsu-waza (10)",
+      "grade": "1st kyu",
+      "grade_rank": 49,
+      "finishes_fight": true
+    },
+    {
+      "id": "judo_udehishigiashigatame",
+      "name": "Ude-hishigi-ashi-gatame",
+      "kind": "move",
+      "tier": 3,
+      "branch": "kansetsu_waza",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 62,
+        "attributes": {
+          "technique": 56,
+          "fight_iq": 54
+        },
+        "prerequisites": [
+          "judo_udehishigiudegatame"
+        ],
+        "reps": 330
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 11,
+          "arm_isolation": 6
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan kansetsu-waza (10)",
+      "grade": "1st kyu",
+      "grade_rank": 49,
+      "finishes_fight": true
+    },
+    {
+      "id": "judo_udehishigitegatame",
+      "name": "Ude-hishigi-te-gatame",
+      "kind": "move",
+      "tier": 3,
+      "branch": "kansetsu_waza",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 65,
+        "attributes": {
+          "technique": 58,
+          "fight_iq": 56
+        },
+        "prerequisites": [
+          "judo_udehishigiudegatame"
+        ],
+        "reps": 345
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 11,
+          "arm_isolation": 6
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan kansetsu-waza (10)",
+      "grade": "1st dan",
+      "grade_rank": 58,
+      "finishes_fight": true
+    },
+    {
+      "id": "judo_udehishigisankakugatame",
+      "name": "Ude-hishigi-sankaku-gatame",
+      "kind": "move",
+      "tier": 3,
+      "branch": "kansetsu_waza",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 68,
+        "attributes": {
+          "technique": 60,
+          "fight_iq": 58
+        },
+        "prerequisites": [
+          "judo_udehishigiudegatame"
+        ],
+        "reps": 360
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 11,
+          "arm_isolation": 6
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "shared_disciplines": [
+          "judo",
+          "brazilian_jiu_jitsu"
+        ]
+      },
+      "source": "DOCUMENTED Kodokan kansetsu-waza (10)",
+      "grade": "1st dan",
+      "grade_rank": 58,
+      "finishes_fight": true
+    },
+    {
+      "id": "judo_ashigarami",
+      "name": "Ashi-garami",
+      "kind": "move",
+      "tier": 4,
+      "branch": "kansetsu_waza",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 71,
+        "attributes": {
+          "technique": 62,
+          "fight_iq": 60
+        },
+        "prerequisites": [
+          "judo_udehishigiudegatame"
+        ],
+        "reps": 375
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 11,
+          "arm_isolation": 6
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "ijf_competition_illegal": true,
+        "ruleset_notes": "Kodokan/IJF: Ashi-garami prohibited in competition (leg lock)"
+      },
+      "source": "DOCUMENTED Kodokan kansetsu-waza (10)",
+      "grade": "2nd dan",
+      "grade_rank": 75,
+      "finishes_fight": true
+    },
+    {
+      "id": "judo_osaekomi_chain",
+      "name": "Osaekomi Transitions",
+      "kind": "skill",
+      "tier": 3,
+      "branch": "osaekomi_waza",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 60,
+        "attributes": {
+          "fight_iq": 56,
+          "conditioning": 52
+        },
+        "prerequisites": [
+          "judo_kesagatame"
+        ],
+        "reps": 230
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "pin_control": 9,
+          "transition": 6
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "Existing catalog skill retained",
+      "grade": "2nd kyu",
+      "grade_rank": 39
+    },
+    {
+      "id": "judo_grip_break_counter",
+      "name": "Grip Break to Counter",
+      "kind": "skill",
+      "tier": 3,
+      "branch": "ukemi_grips",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "fight_iq": 58,
+          "technique": 50
+        },
+        "prerequisites": [
+          "judo_kumikata"
+        ],
+        "reps": 230
+      },
+      "match": {
+        "role": "setup",
+        "phases": [
+          "clinch"
+        ],
+        "effects": {
+          "grip_control": 9,
+          "takedown_ready": 6
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "Existing catalog skill retained",
+      "grade": "3rd kyu",
+      "grade_rank": 29
+    },
+    {
+      "id": "judo_tomoe_chain",
+      "name": "Tomoe-nage to Juji-gatame",
+      "kind": "sequence",
+      "tier": 4,
+      "branch": "combinations",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 86,
+        "attributes": {
+          "technique": 84,
+          "fight_iq": 80,
+          "speed": 72
+        },
+        "prerequisites": [
+          "judo_tomoenage",
+          "judo_jujigatame"
+        ],
+        "reps": 850
+      },
+      "match": {
+        "role": "setup",
+        "phases": [
+          "clinch",
+          "ground"
+        ],
+        "effects": {
+          "sacrifice_throw": 17,
+          "submission_chain": 15
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "Existing catalog sequence retained; U60B moved to combinations branch",
+      "chain": [
+        "judo_tomoenage",
+        "judo_jujigatame"
+      ],
+      "grade": "1st dan",
+      "grade_rank": 60
+    },
+    {
+      "id": "judo_uranage_counter",
+      "name": "Ura-nage Counter",
+      "kind": "move",
+      "tier": 4,
+      "branch": "ma_sutemi_waza",
+      "discipline": "judo",
+      "requires": {
+        "discipline": 82,
+        "attributes": {
+          "power": 70,
+          "technique": 68,
+          "fight_iq": 66
+        },
+        "prerequisites": [
+          "judo_uchimata",
+          "judo_kosotogari"
+        ],
+        "reps": 340
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "clinch"
+        ],
+        "effects": {
+          "counter_throw": 11,
+          "throw_damage": 7
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {
+        "note": "Catalog framing of Ura-nage as counter; canonical throw is judo_uranage"
+      },
+      "source": "Existing catalog id retained alongside canonical Ura-nage",
+      "grade": "1st dan",
+      "grade_rank": 66
+    },
+    {
+      "id": "bjj_guard",
+      "name": "Closed Guard",
+      "kind": "skill",
+      "tier": 1,
+      "branch": "positions",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 12,
+        "attributes": {
+          "technique": 38,
+          "fight_iq": 36
+        },
+        "prerequisites": [],
+        "reps": 90
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "guard_control": 7,
+          "submission_setup": 4
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "Existing; White→Blue band",
+      "grade": "white belt",
+      "grade_rank": 1
+    },
+    {
+      "id": "bjj_open_guard",
+      "name": "Open Guard",
+      "kind": "skill",
+      "tier": 1,
+      "branch": "positions",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 12,
+        "attributes": {
+          "technique": 38,
+          "fight_iq": 36
+        },
+        "prerequisites": [
+          "bjj_guard"
+        ],
+        "reps": 90
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "guard_control": 6,
+          "sweep_threat": 4
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "INFERENCE positional vocabulary",
+      "grade": "white belt",
+      "grade_rank": 2
+    },
+    {
+      "id": "bjj_half_guard",
+      "name": "Half Guard",
+      "kind": "skill",
+      "tier": 2,
+      "branch": "positions",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 32,
+        "attributes": {
+          "technique": 48,
+          "fight_iq": 46
+        },
+        "prerequisites": [
+          "bjj_guard"
+        ],
+        "reps": 180
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "guard_control": 7,
+          "sweep_threat": 5
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "Operator checklist Blue→Purple",
+      "grade": "white belt",
+      "grade_rank": 3
+    },
+    {
+      "id": "bjj_side_control",
+      "name": "Side Control",
+      "kind": "skill",
+      "tier": 1,
+      "branch": "positions",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 12,
+        "attributes": {
+          "technique": 38,
+          "fight_iq": 36
+        },
+        "prerequisites": [
+          "bjj_guard"
+        ],
+        "reps": 90
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "control": 8,
+          "submission_setup": 4
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "INFERENCE positional foundation",
+      "grade": "white belt",
+      "grade_rank": 4
+    },
+    {
+      "id": "bjj_mount",
+      "name": "Mount Control",
+      "kind": "skill",
+      "tier": 2,
+      "branch": "positions",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 32,
+        "attributes": {
+          "technique": 48,
+          "fight_iq": 46
+        },
+        "prerequisites": [
+          "bjj_side_control"
+        ],
+        "reps": 180
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "control": 12,
+          "submission_setup": 7
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "Existing; White→Blue",
+      "grade": "white belt",
+      "grade_rank": 5
+    },
+    {
+      "id": "bjj_knee_on_belly",
+      "name": "Knee-on-Belly",
+      "kind": "skill",
+      "tier": 2,
+      "branch": "positions",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 32,
+        "attributes": {
+          "technique": 48,
+          "fight_iq": 46
+        },
+        "prerequisites": [
+          "bjj_side_control"
+        ],
+        "reps": 180
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "control": 9,
+          "top_control": 6
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "INFERENCE positional gap",
+      "grade": "blue belt",
+      "grade_rank": 20
+    },
+    {
+      "id": "bjj_north_south",
+      "name": "North-South",
+      "kind": "skill",
+      "tier": 2,
+      "branch": "positions",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 32,
+        "attributes": {
+          "technique": 48,
+          "fight_iq": 46
+        },
+        "prerequisites": [
+          "bjj_side_control"
+        ],
+        "reps": 180
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "control": 8,
+          "submission_setup": 5
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "INFERENCE positional gap",
+      "grade": "blue belt",
+      "grade_rank": 21
+    },
+    {
+      "id": "bjj_back_control",
+      "name": "Back Control",
+      "kind": "skill",
+      "tier": 2,
+      "branch": "positions",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 32,
+        "attributes": {
+          "technique": 48,
+          "fight_iq": 46
+        },
+        "prerequisites": [
+          "bjj_mount"
+        ],
+        "reps": 180
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "back_control": 12,
+          "submission_setup": 8
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "INFERENCE; RNC prerequisite",
+      "grade": "white belt",
+      "grade_rank": 6
+    },
+    {
+      "id": "bjj_turtle",
+      "name": "Turtle",
+      "kind": "skill",
+      "tier": 2,
+      "branch": "positions",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 32,
+        "attributes": {
+          "technique": 48,
+          "fight_iq": 46
+        },
+        "prerequisites": [
+          "bjj_guard"
+        ],
+        "reps": 180
+      },
+      "match": {
+        "role": "defense",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "control_escape": 6,
+          "scramble": 5
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "INFERENCE positional gap",
+      "grade": "white belt",
+      "grade_rank": 7
+    },
+    {
+      "id": "bjj_5050",
+      "name": "50/50 Guard",
+      "kind": "skill",
+      "tier": 3,
+      "branch": "positions",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 58,
+          "fight_iq": 56
+        },
+        "prerequisites": [
+          "bjj_half_guard"
+        ],
+        "reps": 300
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "leg_attack": 7,
+          "guard_control": 5
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "ibjjf_reaping_risk": true,
+        "ruleset_notes": "Often adjacent to IBJJF reaping fouls in gi"
+      },
+      "source": "INFERENCE positional gap",
+      "grade": "brown belt",
+      "grade_rank": 60
+    },
+    {
+      "id": "bjj_shrimp_escape",
+      "name": "Hip Escape (Shrimp)",
+      "kind": "move",
+      "tier": 1,
+      "branch": "escapes",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 12,
+        "attributes": {
+          "technique": 38,
+          "fight_iq": 36
+        },
+        "prerequisites": [
+          "bjj_guard"
+        ],
+        "reps": 90
+      },
+      "match": {
+        "role": "defense",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "escape": 8,
+          "guard_recovery": 7
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "Existing + checklist",
+      "grade": "white belt",
+      "grade_rank": 8
+    },
+    {
+      "id": "bjj_bridge_escape",
+      "name": "Bridge Escape (Upa)",
+      "kind": "move",
+      "tier": 1,
+      "branch": "escapes",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 12,
+        "attributes": {
+          "technique": 38,
+          "fight_iq": 36
+        },
+        "prerequisites": [
+          "bjj_mount"
+        ],
+        "reps": 90
+      },
+      "match": {
+        "role": "defense",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "escape": 8,
+          "scramble": 4
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "Checklist mount→guard",
+      "grade": "white belt",
+      "grade_rank": 9
+    },
+    {
+      "id": "bjj_frame_escape",
+      "name": "Frame Escape (Side Control)",
+      "kind": "move",
+      "tier": 1,
+      "branch": "escapes",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 12,
+        "attributes": {
+          "technique": 38,
+          "fight_iq": 36
+        },
+        "prerequisites": [
+          "bjj_side_control"
+        ],
+        "reps": 90
+      },
+      "match": {
+        "role": "defense",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "escape": 7,
+          "guard_recovery": 6
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "Checklist",
+      "grade": "white belt",
+      "grade_rank": 10
+    },
+    {
+      "id": "bjj_back_escape",
+      "name": "Back Escape (Hand Fighting)",
+      "kind": "move",
+      "tier": 2,
+      "branch": "escapes",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 32,
+        "attributes": {
+          "technique": 48,
+          "fight_iq": 46
+        },
+        "prerequisites": [
+          "bjj_back_control"
+        ],
+        "reps": 180
+      },
+      "match": {
+        "role": "defense",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "escape": 8,
+          "control_escape": 6
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "Checklist seatbelt counter",
+      "grade": "blue belt",
+      "grade_rank": 22
+    },
+    {
+      "id": "brazilian_jiu_jitsu_guard_retention",
+      "name": "Guard Retention Frames",
+      "kind": "skill",
+      "tier": 2,
+      "branch": "guard_retention",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 32,
+        "attributes": {
+          "technique": 48,
+          "fight_iq": 46
+        },
+        "prerequisites": [
+          "bjj_guard"
+        ],
+        "reps": 180
+      },
+      "match": {
+        "role": "defense",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "guard_recovery": 9,
+          "guard_control": 5
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "Existing",
+      "grade": "blue belt",
+      "grade_rank": 23
+    },
+    {
+      "id": "brazilian_jiu_jitsu_knee_shield",
+      "name": "Knee Shield Guard",
+      "kind": "skill",
+      "tier": 3,
+      "branch": "guard_retention",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 58,
+          "fight_iq": 56
+        },
+        "prerequisites": [
+          "brazilian_jiu_jitsu_guard_retention"
+        ],
+        "reps": 300
+      },
+      "match": {
+        "role": "defense",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "guard_control": 8,
+          "sweep_threat": 6
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "Existing",
+      "grade": "blue belt",
+      "grade_rank": 24
+    },
+    {
+      "id": "bjj_dela_riva",
+      "name": "De La Riva Guard",
+      "kind": "skill",
+      "tier": 2,
+      "branch": "guard",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 32,
+        "attributes": {
+          "technique": 48,
+          "fight_iq": 46
+        },
+        "prerequisites": [
+          "bjj_open_guard"
+        ],
+        "reps": 180
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "guard_control": 8,
+          "sweep_threat": 7
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "Checklist Blue→Purple",
+      "grade": "blue belt",
+      "grade_rank": 25
+    },
+    {
+      "id": "bjj_x_guard",
+      "name": "X-Guard / Single-Leg X",
+      "kind": "skill",
+      "tier": 2,
+      "branch": "guard",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 32,
+        "attributes": {
+          "technique": 48,
+          "fight_iq": 46
+        },
+        "prerequisites": [
+          "bjj_open_guard"
+        ],
+        "reps": 180
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "sweep_threat": 9,
+          "guard_control": 6
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "Checklist; SLX+X as one family",
+      "grade": "purple belt",
+      "grade_rank": 40
+    },
+    {
+      "id": "bjj_butterfly_guard",
+      "name": "Butterfly Guard",
+      "kind": "skill",
+      "tier": 2,
+      "branch": "guard",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 32,
+        "attributes": {
+          "technique": 48,
+          "fight_iq": 46
+        },
+        "prerequisites": [
+          "bjj_open_guard"
+        ],
+        "reps": 180
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "sweep_threat": 8,
+          "guard_control": 6
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "INFERENCE gap fill",
+      "grade": "blue belt",
+      "grade_rank": 26
+    },
+    {
+      "id": "bjj_spider_guard",
+      "name": "Spider Guard",
+      "kind": "skill",
+      "tier": 3,
+      "branch": "guard",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 58,
+          "fight_iq": 56
+        },
+        "prerequisites": [
+          "bjj_open_guard"
+        ],
+        "reps": 300
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "guard_control": 9,
+          "sweep_threat": 7
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "gi_only": true
+      },
+      "source": "Checklist Purple+; gi-only",
+      "grade": "purple belt",
+      "grade_rank": 41
+    },
+    {
+      "id": "bjj_worm_guard",
+      "name": "Worm Guard",
+      "kind": "skill",
+      "tier": 4,
+      "branch": "guard",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 80,
+        "attributes": {
+          "technique": 68,
+          "fight_iq": 66
+        },
+        "prerequisites": [
+          "bjj_spider_guard"
+        ],
+        "reps": 450
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "guard_control": 10,
+          "sweep_threat": 8
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "gi_only": true
+      },
+      "source": "Checklist Purple→Black; gi-only",
+      "grade": "brown belt",
+      "grade_rank": 61
+    },
+    {
+      "id": "bjj_lasso_guard",
+      "name": "Lasso Guard",
+      "kind": "skill",
+      "tier": 3,
+      "branch": "guard",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 58,
+          "fight_iq": 56
+        },
+        "prerequisites": [
+          "bjj_spider_guard"
+        ],
+        "reps": 300
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "guard_control": 8,
+          "sweep_threat": 6
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "gi_only": true
+      },
+      "source": "INFERENCE gi open-guard family",
+      "grade": "purple belt",
+      "grade_rank": 42
+    },
+    {
+      "id": "bjj_deep_half",
+      "name": "Deep Half Guard",
+      "kind": "skill",
+      "tier": 3,
+      "branch": "guard",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 58,
+          "fight_iq": 56
+        },
+        "prerequisites": [
+          "bjj_half_guard"
+        ],
+        "reps": 300
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "sweep_threat": 9,
+          "guard_control": 6
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "Checklist",
+      "grade": "purple belt",
+      "grade_rank": 43
+    },
+    {
+      "id": "bjj_posture_break",
+      "name": "Closed-Guard Posture Break",
+      "kind": "skill",
+      "tier": 1,
+      "branch": "guard",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 12,
+        "attributes": {
+          "technique": 38,
+          "fight_iq": 36
+        },
+        "prerequisites": [
+          "bjj_guard"
+        ],
+        "reps": 90
+      },
+      "match": {
+        "role": "setup",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission_setup": 6,
+          "guard_control": 5
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "Checklist posture concept as skill",
+      "grade": "white belt",
+      "grade_rank": 11
+    },
+    {
+      "id": "bjj_guard_pass",
+      "name": "Torreando Pass",
+      "kind": "move",
+      "tier": 1,
+      "branch": "passing",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 12,
+        "attributes": {
+          "technique": 38,
+          "fight_iq": 36
+        },
+        "prerequisites": [
+          "bjj_guard"
+        ],
+        "reps": 90
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "pass_guard": 9,
+          "side_control": 6
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "Existing id; bullfighter as Foundation pass",
+      "grade": "white belt",
+      "grade_rank": 12
+    },
+    {
+      "id": "brazilian_jiu_jitsu_knee_cut_pass",
+      "name": "Knee Cut Pass",
+      "kind": "move",
+      "tier": 2,
+      "branch": "passing",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 32,
+        "attributes": {
+          "technique": 48,
+          "fight_iq": 46
+        },
+        "prerequisites": [
+          "bjj_guard_pass"
+        ],
+        "reps": 180
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "pass_guard": 9,
+          "top_control": 5
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "Existing + checklist",
+      "grade": "blue belt",
+      "grade_rank": 27
+    },
+    {
+      "id": "bjj_stack_pass",
+      "name": "Stack Pass",
+      "kind": "move",
+      "tier": 2,
+      "branch": "passing",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 32,
+        "attributes": {
+          "technique": 48,
+          "fight_iq": 46
+        },
+        "prerequisites": [
+          "bjj_guard_pass"
+        ],
+        "reps": 180
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "pass_guard": 8,
+          "control": 5
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "INFERENCE gap",
+      "grade": "blue belt",
+      "grade_rank": 28
+    },
+    {
+      "id": "bjj_leg_drag_pass",
+      "name": "Leg Drag Pass",
+      "kind": "move",
+      "tier": 2,
+      "branch": "passing",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 32,
+        "attributes": {
+          "technique": 48,
+          "fight_iq": 46
+        },
+        "prerequisites": [
+          "brazilian_jiu_jitsu_knee_cut_pass"
+        ],
+        "reps": 180
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "pass_guard": 9,
+          "back_control": 5
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "Checklist",
+      "grade": "purple belt",
+      "grade_rank": 44
+    },
+    {
+      "id": "bjj_over_under_pass",
+      "name": "Over-Under Pass",
+      "kind": "move",
+      "tier": 2,
+      "branch": "passing",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 32,
+        "attributes": {
+          "technique": 48,
+          "fight_iq": 46
+        },
+        "prerequisites": [
+          "bjj_guard_pass"
+        ],
+        "reps": 180
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "pass_guard": 9,
+          "control": 6
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "Checklist",
+      "grade": "purple belt",
+      "grade_rank": 45
+    },
+    {
+      "id": "bjj_body_lock_pass",
+      "name": "Body Lock Pass",
+      "kind": "move",
+      "tier": 3,
+      "branch": "passing",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 58,
+          "fight_iq": 56
+        },
+        "prerequisites": [
+          "bjj_over_under_pass"
+        ],
+        "reps": 300
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "pass_guard": 10,
+          "top_control": 7
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "INFERENCE gap",
+      "grade": "purple belt",
+      "grade_rank": 46
+    },
+    {
+      "id": "bjj_smash_pass",
+      "name": "Smash Pass",
+      "kind": "move",
+      "tier": 3,
+      "branch": "passing",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 58,
+          "fight_iq": 56
+        },
+        "prerequisites": [
+          "bjj_stack_pass"
+        ],
+        "reps": 300
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "pass_guard": 9,
+          "control": 7
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "INFERENCE gap",
+      "grade": "blue belt",
+      "grade_rank": 29
+    },
+    {
+      "id": "bjj_scissor_sweep",
+      "name": "Scissor Sweep",
+      "kind": "move",
+      "tier": 1,
+      "branch": "sweeps",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 12,
+        "attributes": {
+          "technique": 38,
+          "fight_iq": 36
+        },
+        "prerequisites": [
+          "bjj_guard"
+        ],
+        "reps": 90
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "sweep": 11,
+          "top_position": 7
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "Existing + checklist",
+      "grade": "white belt",
+      "grade_rank": 13
+    },
+    {
+      "id": "brazilian_jiu_jitsu_hip_bump_sweep",
+      "name": "Hip Bump Sweep",
+      "kind": "move",
+      "tier": 2,
+      "branch": "sweeps",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 32,
+        "attributes": {
+          "technique": 48,
+          "fight_iq": 46
+        },
+        "prerequisites": [
+          "bjj_scissor_sweep"
+        ],
+        "reps": 180
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "sweep": 8,
+          "chain_open": 5
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "Existing + checklist",
+      "grade": "white belt",
+      "grade_rank": 14
+    },
+    {
+      "id": "bjj_flower_sweep",
+      "name": "Flower / Pendulum Sweep",
+      "kind": "move",
+      "tier": 2,
+      "branch": "sweeps",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 32,
+        "attributes": {
+          "technique": 48,
+          "fight_iq": 46
+        },
+        "prerequisites": [
+          "bjj_scissor_sweep"
+        ],
+        "reps": 180
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "sweep": 10,
+          "submission_setup": 4
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "INFERENCE gap",
+      "grade": "blue belt",
+      "grade_rank": 30
+    },
+    {
+      "id": "bjj_butterfly_sweep",
+      "name": "Butterfly Sweep",
+      "kind": "move",
+      "tier": 2,
+      "branch": "sweeps",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 32,
+        "attributes": {
+          "technique": 48,
+          "fight_iq": 46
+        },
+        "prerequisites": [
+          "bjj_butterfly_guard"
+        ],
+        "reps": 180
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "sweep": 10,
+          "top_position": 6
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "INFERENCE gap",
+      "grade": "blue belt",
+      "grade_rank": 31
+    },
+    {
+      "id": "bjj_x_guard_sweep",
+      "name": "X-Guard Sweep Family",
+      "kind": "move",
+      "tier": 3,
+      "branch": "sweeps",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 58,
+          "fight_iq": 56
+        },
+        "prerequisites": [
+          "bjj_x_guard"
+        ],
+        "reps": 300
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "sweep": 11,
+          "top_position": 7
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "Checklist X-guard",
+      "grade": "purple belt",
+      "grade_rank": 47
+    },
+    {
+      "id": "bjj_tripod_sweep",
+      "name": "Tripod / Sickle Sweep",
+      "kind": "move",
+      "tier": 2,
+      "branch": "sweeps",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 32,
+        "attributes": {
+          "technique": 48,
+          "fight_iq": 46
+        },
+        "prerequisites": [
+          "bjj_open_guard"
+        ],
+        "reps": 180
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "sweep": 8,
+          "throw_setup": 6
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "INFERENCE gap",
+      "grade": "blue belt",
+      "grade_rank": 32
+    },
+    {
+      "id": "brazilian_jiu_jitsu_berimbolo",
+      "name": "Berimbolo",
+      "kind": "move",
+      "tier": 4,
+      "branch": "sweeps",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 80,
+        "attributes": {
+          "technique": 68,
+          "fight_iq": 66
+        },
+        "prerequisites": [
+          "bjj_dela_riva",
+          "bjj_back_control"
+        ],
+        "reps": 450
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "back_control": 10,
+          "sweep": 6
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "Existing; Signature",
+      "grade": "purple belt",
+      "grade_rank": 48
+    },
+    {
+      "id": "bjj_guard_pull",
+      "name": "Guard Pull",
+      "kind": "move",
+      "tier": 1,
+      "branch": "takedowns",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 12,
+        "attributes": {
+          "technique": 38,
+          "fight_iq": 36
+        },
+        "prerequisites": [
+          "bjj_guard"
+        ],
+        "reps": 90
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "clinch",
+          "ground"
+        ],
+        "effects": {
+          "guard_control": 6,
+          "phase_transition": 7
+        },
+        "range_delta": 0,
+        "range_band": [
+          "POCKET"
+        ]
+      },
+      "flags": {},
+      "source": "INFERENCE BJJ clinch→ground",
+      "grade": "white belt",
+      "grade_rank": 15
+    },
+    {
+      "id": "bjj_arm_drag",
+      "name": "Arm Drag to Back",
+      "kind": "move",
+      "tier": 2,
+      "branch": "takedowns",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 32,
+        "attributes": {
+          "technique": 48,
+          "fight_iq": 46
+        },
+        "prerequisites": [
+          "bjj_guard_pull"
+        ],
+        "reps": 180
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "standing",
+          "clinch"
+        ],
+        "effects": {
+          "back_control": 8,
+          "takedown": 5
+        },
+        "range_delta": 0,
+        "range_band": [
+          "POCKET"
+        ]
+      },
+      "flags": {},
+      "source": "Checklist / gap",
+      "grade": "blue belt",
+      "grade_rank": 33
+    },
+    {
+      "id": "bjj_ankle_pick",
+      "name": "Ankle Pick",
+      "kind": "move",
+      "tier": 2,
+      "branch": "takedowns",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 32,
+        "attributes": {
+          "technique": 48,
+          "fight_iq": 46
+        },
+        "prerequisites": [
+          "bjj_arm_drag"
+        ],
+        "reps": 180
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "takedown": 8,
+          "throw_setup": 6
+        },
+        "range_delta": 0,
+        "range_band": [
+          "POCKET"
+        ]
+      },
+      "flags": {
+        "note": "Related to wrestling_ankle_pick; separate BJJ teaching entry"
+      },
+      "source": "INFERENCE gap",
+      "grade": "blue belt",
+      "grade_rank": 34
+    },
+    {
+      "id": "bjj_rnc",
+      "name": "Rear Naked Choke",
+      "kind": "move",
+      "tier": 1,
+      "branch": "submissions",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 12,
+        "attributes": {
+          "technique": 38,
+          "fight_iq": 36
+        },
+        "prerequisites": [
+          "bjj_back_control"
+        ],
+        "reps": 90
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 12,
+          "back_control": 6
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "Checklist; split from back-take sequence",
+      "grade": "white belt",
+      "grade_rank": 16,
+      "finishes_fight": true
+    },
+    {
+      "id": "bjj_armbar",
+      "name": "Armbar (Juji-gatame Family)",
+      "kind": "move",
+      "tier": 1,
+      "branch": "submissions",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 12,
+        "attributes": {
+          "technique": 38,
+          "fight_iq": 36
+        },
+        "prerequisites": [
+          "bjj_mount"
+        ],
+        "reps": 90
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 11,
+          "arm_isolation": 8
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "shared_with_judo_id": "judo_jujigatame"
+      },
+      "source": "Existing; one family across guard/mount",
+      "grade": "white belt",
+      "grade_rank": 17,
+      "finishes_fight": true
+    },
+    {
+      "id": "bjj_kimura",
+      "name": "Kimura (Ude-garami Family)",
+      "kind": "move",
+      "tier": 2,
+      "branch": "submissions",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 32,
+        "attributes": {
+          "technique": 48,
+          "fight_iq": 46
+        },
+        "prerequisites": [
+          "bjj_side_control"
+        ],
+        "reps": 180
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 11,
+          "shoulder_isolation": 8
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "shared_with_judo_id": "judo_udegarami"
+      },
+      "source": "Existing + checklist",
+      "grade": "white belt",
+      "grade_rank": 18,
+      "finishes_fight": true
+    },
+    {
+      "id": "bjj_americana",
+      "name": "Americana (Ude-garami Top Variation)",
+      "kind": "move",
+      "tier": 2,
+      "branch": "submissions",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 32,
+        "attributes": {
+          "technique": 48,
+          "fight_iq": 46
+        },
+        "prerequisites": [
+          "bjj_kimura"
+        ],
+        "reps": 180
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 10,
+          "shoulder_isolation": 7
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "note": "Same mechanical family as Kimura; named IBJJF-common entry"
+      },
+      "source": "Checklist",
+      "grade": "white belt",
+      "grade_rank": 19,
+      "finishes_fight": true
+    },
+    {
+      "id": "bjj_omoplata",
+      "name": "Omoplata",
+      "kind": "move",
+      "tier": 2,
+      "branch": "submissions",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 32,
+        "attributes": {
+          "technique": 48,
+          "fight_iq": 46
+        },
+        "prerequisites": [
+          "bjj_guard"
+        ],
+        "reps": 180
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 11,
+          "sweep_threat": 6
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "Existing",
+      "grade": "blue belt",
+      "grade_rank": 35,
+      "finishes_fight": true
+    },
+    {
+      "id": "bjj_triangle",
+      "name": "Triangle Choke",
+      "kind": "move",
+      "tier": 2,
+      "branch": "submissions",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 32,
+        "attributes": {
+          "technique": 48,
+          "fight_iq": 46
+        },
+        "prerequisites": [
+          "bjj_guard",
+          "bjj_armbar"
+        ],
+        "reps": 180
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 14,
+          "counter_to_pass": 7
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "Existing + checklist",
+      "grade": "blue belt",
+      "grade_rank": 36,
+      "finishes_fight": true
+    },
+    {
+      "id": "bjj_guillotine",
+      "name": "Guillotine Choke",
+      "kind": "move",
+      "tier": 2,
+      "branch": "submissions",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 32,
+        "attributes": {
+          "technique": 48,
+          "fight_iq": 46
+        },
+        "prerequisites": [
+          "bjj_guard_pull"
+        ],
+        "reps": 180
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "clinch",
+          "ground"
+        ],
+        "effects": {
+          "submission": 12,
+          "front_headlock_open": 6
+        },
+        "range_delta": 0,
+        "range_band": [
+          "POCKET"
+        ]
+      },
+      "flags": {},
+      "source": "Checklist",
+      "grade": "blue belt",
+      "grade_rank": 37,
+      "finishes_fight": true
+    },
+    {
+      "id": "bjj_front_headlock",
+      "name": "Front Headlock Control",
+      "kind": "skill",
+      "tier": 2,
+      "branch": "positions",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 32,
+        "attributes": {
+          "technique": 48,
+          "fight_iq": 46
+        },
+        "prerequisites": [
+          "bjj_guillotine"
+        ],
+        "reps": 180
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "clinch",
+          "ground"
+        ],
+        "effects": {
+          "control": 8,
+          "submission_setup": 7
+        },
+        "range_delta": 0,
+        "range_band": [
+          "POCKET"
+        ]
+      },
+      "flags": {},
+      "source": "INFERENCE setup for DArce/Anaconda",
+      "grade": "blue belt",
+      "grade_rank": 38
+    },
+    {
+      "id": "bjj_arm_triangle",
+      "name": "Arm Triangle (Kata-gatame Choke)",
+      "kind": "move",
+      "tier": 2,
+      "branch": "submissions",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 32,
+        "attributes": {
+          "technique": 48,
+          "fight_iq": 46
+        },
+        "prerequisites": [
+          "bjj_side_control",
+          "bjj_mount"
+        ],
+        "reps": 180
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 12,
+          "control": 6
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "shared_with_judo_id": "judo_katagatame"
+      },
+      "source": "Gap fill; related to judo Kata-gatame",
+      "grade": "blue belt",
+      "grade_rank": 39,
+      "finishes_fight": true
+    },
+    {
+      "id": "bjj_darce",
+      "name": "D'Arce Choke",
+      "kind": "move",
+      "tier": 3,
+      "branch": "submissions",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 58,
+          "fight_iq": 56
+        },
+        "prerequisites": [
+          "bjj_front_headlock"
+        ],
+        "reps": 300
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 13,
+          "submission_setup": 6
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "Split from existing darce_chain",
+      "grade": "purple belt",
+      "grade_rank": 49,
+      "finishes_fight": true
+    },
+    {
+      "id": "bjj_anaconda",
+      "name": "Anaconda Choke",
+      "kind": "move",
+      "tier": 3,
+      "branch": "submissions",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 58,
+          "fight_iq": 56
+        },
+        "prerequisites": [
+          "bjj_front_headlock"
+        ],
+        "reps": 300
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 13,
+          "submission_setup": 6
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "Split from existing darce_chain",
+      "grade": "purple belt",
+      "grade_rank": 50,
+      "finishes_fight": true
+    },
+    {
+      "id": "brazilian_jiu_jitsu_darce_chain",
+      "name": "D'Arce & Anaconda Chain",
+      "kind": "move",
+      "tier": 4,
+      "branch": "combinations",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 80,
+        "attributes": {
+          "technique": 68,
+          "fight_iq": 66
+        },
+        "prerequisites": [
+          "bjj_darce",
+          "bjj_anaconda"
+        ],
+        "reps": 450
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission_chain": 10,
+          "damage_to_submission": 6
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "Existing sequence retained; U60B moved to combinations branch",
+      "grade": "purple belt",
+      "grade_rank": 51,
+      "finishes_fight": true
+    },
+    {
+      "id": "bjj_bow_and_arrow",
+      "name": "Bow-and-Arrow Choke",
+      "kind": "move",
+      "tier": 3,
+      "branch": "submissions",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 58,
+          "fight_iq": 56
+        },
+        "prerequisites": [
+          "bjj_back_control"
+        ],
+        "reps": 300
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 13,
+          "back_control": 5
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "gi_only": true
+      },
+      "source": "Gap fill; gi lapel",
+      "grade": "purple belt",
+      "grade_rank": 52,
+      "finishes_fight": true
+    },
+    {
+      "id": "bjj_cross_collar",
+      "name": "Cross-Collar Choke",
+      "kind": "move",
+      "tier": 2,
+      "branch": "submissions",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 32,
+        "attributes": {
+          "technique": 48,
+          "fight_iq": 46
+        },
+        "prerequisites": [
+          "bjj_mount",
+          "bjj_guard"
+        ],
+        "reps": 180
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 11,
+          "submission_setup": 5
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "gi_only": true
+      },
+      "source": "Gap fill; gi",
+      "grade": "blue belt",
+      "grade_rank": 39,
+      "finishes_fight": true
+    },
+    {
+      "id": "bjj_ezekiel",
+      "name": "Ezekiel Choke (Sode-guruma-jime)",
+      "kind": "move",
+      "tier": 2,
+      "branch": "submissions",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 32,
+        "attributes": {
+          "technique": 48,
+          "fight_iq": 46
+        },
+        "prerequisites": [
+          "bjj_mount"
+        ],
+        "reps": 180
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 10,
+          "submission_setup": 4
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "gi_preferred": true,
+        "shared_with_judo_id": "judo_sodegurumajime"
+      },
+      "source": "Gap fill; Kodokan Sode-guruma-jime",
+      "grade": "blue belt",
+      "grade_rank": 39,
+      "finishes_fight": true
+    },
+    {
+      "id": "bjj_clock_choke",
+      "name": "Clock Choke",
+      "kind": "move",
+      "tier": 3,
+      "branch": "submissions",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 58,
+          "fight_iq": 56
+        },
+        "prerequisites": [
+          "bjj_turtle"
+        ],
+        "reps": 300
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 11,
+          "control": 5
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "gi_only": true
+      },
+      "source": "Gap fill",
+      "grade": "purple belt",
+      "grade_rank": 53,
+      "finishes_fight": true
+    },
+    {
+      "id": "bjj_baseball_bat_choke",
+      "name": "Baseball Bat Choke",
+      "kind": "move",
+      "tier": 3,
+      "branch": "submissions",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 58,
+          "fight_iq": 56
+        },
+        "prerequisites": [
+          "bjj_side_control"
+        ],
+        "reps": 300
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 11,
+          "submission_setup": 5
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "gi_only": true
+      },
+      "source": "Gap fill",
+      "grade": "purple belt",
+      "grade_rank": 54,
+      "finishes_fight": true
+    },
+    {
+      "id": "bjj_north_south_choke",
+      "name": "North-South Choke",
+      "kind": "move",
+      "tier": 3,
+      "branch": "submissions",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 58,
+          "fight_iq": 56
+        },
+        "prerequisites": [
+          "bjj_north_south"
+        ],
+        "reps": 300
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 12,
+          "control": 5
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "Gap fill",
+      "grade": "purple belt",
+      "grade_rank": 55,
+      "finishes_fight": true
+    },
+    {
+      "id": "bjj_gogoplata",
+      "name": "Gogoplata",
+      "kind": "move",
+      "tier": 4,
+      "branch": "submissions",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 80,
+        "attributes": {
+          "technique": 68,
+          "fight_iq": 66
+        },
+        "prerequisites": [
+          "bjj_triangle"
+        ],
+        "reps": 450
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 12,
+          "submission_setup": 6
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "INFERENCE rare/signature",
+      "grade": "brown belt",
+      "grade_rank": 62,
+      "finishes_fight": true
+    },
+    {
+      "id": "bjj_wrist_lock",
+      "name": "Wrist Lock Family",
+      "kind": "move",
+      "tier": 3,
+      "branch": "submissions",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 58,
+          "fight_iq": 56
+        },
+        "prerequisites": [
+          "bjj_kimura"
+        ],
+        "reps": 300
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 8,
+          "submission_setup": 4
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "ibjjf_min_belt": "blue",
+        "ruleset_notes": "IBJJF: illegal at white; legal blue+ (adult)"
+      },
+      "source": "Gap fill + IBJJF table",
+      "grade": "blue belt",
+      "grade_rank": 39,
+      "finishes_fight": true
+    },
+    {
+      "id": "bjj_bicep_slicer",
+      "name": "Bicep Slicer",
+      "kind": "move",
+      "tier": 4,
+      "branch": "submissions",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 80,
+        "attributes": {
+          "technique": 68,
+          "fight_iq": 66
+        },
+        "prerequisites": [
+          "bjj_triangle"
+        ],
+        "reps": 450
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 11,
+          "arm_isolation": 6
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "ibjjf_min_belt": "brown",
+        "ruleset_notes": "IBJJF illegal white–purple; legal brown/black"
+      },
+      "source": "Gap fill",
+      "grade": "brown belt",
+      "grade_rank": 63,
+      "finishes_fight": true
+    },
+    {
+      "id": "brazilian_jiu_jitsu_straight_ankle",
+      "name": "Straight Ankle Lock",
+      "kind": "move",
+      "tier": 2,
+      "branch": "leg_locks",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 32,
+        "attributes": {
+          "technique": 48,
+          "fight_iq": 46
+        },
+        "prerequisites": [
+          "bjj_guard"
+        ],
+        "reps": 180
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "leg_attack": 8,
+          "submission_setup": 6
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "Existing + checklist",
+      "grade": "blue belt",
+      "grade_rank": 39,
+      "finishes_fight": true
+    },
+    {
+      "id": "bjj_kneebar",
+      "name": "Kneebar",
+      "kind": "move",
+      "tier": 3,
+      "branch": "leg_locks",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 58,
+          "fight_iq": 56
+        },
+        "prerequisites": [
+          "brazilian_jiu_jitsu_straight_ankle"
+        ],
+        "reps": 300
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 12,
+          "leg_attack": 8
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "ibjjf_min_belt": "brown",
+        "ruleset_notes": "IBJJF adult brown/black (confirm current book)"
+      },
+      "source": "Checklist Purple→Brown",
+      "grade": "brown belt",
+      "grade_rank": 64,
+      "finishes_fight": true
+    },
+    {
+      "id": "bjj_toe_hold",
+      "name": "Toe Hold",
+      "kind": "move",
+      "tier": 3,
+      "branch": "leg_locks",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 58,
+          "fight_iq": 56
+        },
+        "prerequisites": [
+          "brazilian_jiu_jitsu_straight_ankle"
+        ],
+        "reps": 300
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 11,
+          "leg_attack": 7
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "ibjjf_min_belt": "brown",
+        "ruleset_notes": "IBJJF adult brown/black"
+      },
+      "source": "Checklist",
+      "grade": "brown belt",
+      "grade_rank": 65,
+      "finishes_fight": true
+    },
+    {
+      "id": "brazilian_jiu_jitsu_heel_hook",
+      "name": "Heel Hook (Inside/Outside Family)",
+      "kind": "move",
+      "tier": 4,
+      "branch": "leg_locks",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 80,
+        "attributes": {
+          "technique": 68,
+          "fight_iq": 66
+        },
+        "prerequisites": [
+          "brazilian_jiu_jitsu_straight_ankle",
+          "bjj_5050"
+        ],
+        "reps": 450
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 12,
+          "leg_attack": 8
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "ibjjf_min_belt": "brown",
+        "ibjjf_nogi_only": true,
+        "gi_illegal": true,
+        "ruleset_notes": "IBJJF: adult brown/black No-Gi only; illegal in gi all belts"
+      },
+      "source": "Existing + IBJJF 2021+",
+      "grade": "brown belt",
+      "grade_rank": 66,
+      "finishes_fight": true
+    },
+    {
+      "id": "bjj_calf_slicer",
+      "name": "Calf Slicer",
+      "kind": "move",
+      "tier": 4,
+      "branch": "leg_locks",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 80,
+        "attributes": {
+          "technique": 68,
+          "fight_iq": 66
+        },
+        "prerequisites": [
+          "brazilian_jiu_jitsu_straight_ankle"
+        ],
+        "reps": 450
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission": 11,
+          "leg_attack": 7
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "ibjjf_min_belt": "brown",
+        "ruleset_notes": "IBJJF illegal white–purple; legal brown/black"
+      },
+      "source": "Gap fill",
+      "grade": "brown belt",
+      "grade_rank": 67,
+      "finishes_fight": true
+    },
+    {
+      "id": "bjj_back_take_rnc",
+      "name": "Back Take to Rear Naked Choke",
+      "kind": "sequence",
+      "tier": 3,
+      "branch": "combinations",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 58,
+          "fight_iq": 56
+        },
+        "prerequisites": [
+          "bjj_rnc",
+          "bjj_leg_drag_pass"
+        ],
+        "reps": 300
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "back_control": 13,
+          "submission": 15
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "Existing sequence; U60B moved to combinations branch",
+      "grade": "purple belt",
+      "grade_rank": 45,
+      "finishes_fight": true,
+      "chain": [
+        "bjj_leg_drag_pass",
+        "bjj_rnc"
+      ]
+    },
+    {
+      "id": "bjj_kimura_chain",
+      "name": "Kimura Control Chain",
+      "kind": "sequence",
+      "tier": 3,
+      "branch": "combinations",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 58,
+          "fight_iq": 56
+        },
+        "prerequisites": [
+          "bjj_kimura",
+          "bjj_scissor_sweep",
+          "bjj_armbar"
+        ],
+        "reps": 300
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "control": 12,
+          "sweep": 9,
+          "submission": 11
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "Existing; U60B moved to combinations branch",
+      "grade": "blue belt",
+      "grade_rank": 37
+    },
+    {
+      "id": "bjj_submission_chain",
+      "name": "Armbar-Triangle-Omoplata Chain",
+      "kind": "sequence",
+      "tier": 4,
+      "branch": "combinations",
+      "discipline": "brazilian_jiu_jitsu",
+      "requires": {
+        "discipline": 80,
+        "attributes": {
+          "technique": 68,
+          "fight_iq": 66
+        },
+        "prerequisites": [
+          "bjj_triangle",
+          "bjj_omoplata",
+          "bjj_armbar"
+        ],
+        "reps": 450
+      },
+      "match": {
+        "role": "setup",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission_chain": 18,
+          "submission_setup": 15
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "Existing; U60B moved to combinations branch",
+      "grade": "purple belt",
+      "grade_rank": 56
+    },
+    {
+      "id": "judo_renraku_osoto_ouchi",
+      "name": "Osoto-gari → Ouchi-gari (Renraku-waza)",
+      "kind": "sequence",
+      "tier": 2,
+      "branch": "combinations",
+      "discipline": "judo",
+      "grade": "4th kyu",
+      "grade_rank": 22,
+      "requires": {
+        "discipline": 48,
+        "attributes": {
+          "technique": 48,
+          "fight_iq": 46
+        },
+        "prerequisites": [
+          "judo_osotogari",
+          "judo_ouchigari"
+        ],
+        "reps": 220
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 12,
+          "throw_setup": 8
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan renraku-waza; classic osoto→ouchi combination attack"
+    },
+    {
+      "id": "judo_renraku_seoi_kouchi",
+      "name": "Seoi-nage → Kouchi-gari (Renraku-waza)",
+      "kind": "sequence",
+      "tier": 2,
+      "branch": "combinations",
+      "discipline": "judo",
+      "grade": "4th kyu",
+      "grade_rank": 22,
+      "requires": {
+        "discipline": 50,
+        "attributes": {
+          "technique": 50,
+          "fight_iq": 48
+        },
+        "prerequisites": [
+          "judo_seoinage",
+          "judo_kouchigari"
+        ],
+        "reps": 240
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 12,
+          "throw_setup": 8
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan renraku-waza; seoi→kouchi when uke blocks the shoulder throw"
+    },
+    {
+      "id": "judo_renraku_ouchi_osoto",
+      "name": "Ouchi-gari → Osoto-gari (Renraku-waza)",
+      "kind": "sequence",
+      "tier": 2,
+      "branch": "combinations",
+      "discipline": "judo",
+      "grade": "4th kyu",
+      "grade_rank": 22,
+      "requires": {
+        "discipline": 48,
+        "attributes": {
+          "technique": 48,
+          "fight_iq": 46
+        },
+        "prerequisites": [
+          "judo_ouchigari",
+          "judo_osotogari"
+        ],
+        "reps": 220
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 12,
+          "throw_setup": 8
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan renraku-waza; ouchi draws weight onto the far leg for osoto"
+    },
+    {
+      "id": "judo_renraku_deashi_osoto",
+      "name": "Deashi-harai → Osoto-gari (Renraku-waza)",
+      "kind": "sequence",
+      "tier": 2,
+      "branch": "combinations",
+      "discipline": "judo",
+      "grade": "5th kyu",
+      "grade_rank": 18,
+      "requires": {
+        "discipline": 42,
+        "attributes": {
+          "technique": 42,
+          "speed": 40
+        },
+        "prerequisites": [
+          "judo_deashi",
+          "judo_osotogari"
+        ],
+        "reps": 180
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 11,
+          "throw_setup": 7
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan renraku-waza; failed deashi loads the near leg for osoto"
+    },
+    {
+      "id": "judo_renraku_harai_osoto",
+      "name": "Harai-goshi → Osoto-gari (Renraku-waza)",
+      "kind": "sequence",
+      "tier": 3,
+      "branch": "combinations",
+      "discipline": "judo",
+      "grade": "3rd kyu",
+      "grade_rank": 28,
+      "requires": {
+        "discipline": 58,
+        "attributes": {
+          "technique": 56,
+          "fight_iq": 52
+        },
+        "prerequisites": [
+          "judo_haraigoshi",
+          "judo_osotogari"
+        ],
+        "reps": 280
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 13,
+          "throw_setup": 8
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan renraku-waza; harai hip entry into osoto when uke steps off"
+    },
+    {
+      "id": "judo_renraku_sasae_taiotoshi",
+      "name": "Sasae-tsurikomi-ashi → Tai-otoshi (Renraku-waza)",
+      "kind": "sequence",
+      "tier": 3,
+      "branch": "combinations",
+      "discipline": "judo",
+      "grade": "3rd kyu",
+      "grade_rank": 28,
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 54,
+          "fight_iq": 50
+        },
+        "prerequisites": [
+          "judo_sasaetsurikomiashi",
+          "judo_taiotoshi"
+        ],
+        "reps": 260
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 13,
+          "throw_setup": 8
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan renraku-waza; sasae breaks posture into tai-otoshi"
+    },
+    {
+      "id": "judo_renraku_kouchi_seoi",
+      "name": "Kouchi-gari → Seoi-nage (Renraku-waza)",
+      "kind": "sequence",
+      "tier": 2,
+      "branch": "combinations",
+      "discipline": "judo",
+      "grade": "4th kyu",
+      "grade_rank": 22,
+      "requires": {
+        "discipline": 50,
+        "attributes": {
+          "technique": 50,
+          "fight_iq": 48
+        },
+        "prerequisites": [
+          "judo_kouchigari",
+          "judo_seoinage"
+        ],
+        "reps": 240
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 12,
+          "throw_setup": 8
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan renraku-waza; kouchi pulls uke forward onto seoi"
+    },
+    {
+      "id": "judo_renraku_uchimata_ouchi",
+      "name": "Uchi-mata → Ouchi-gari (Renraku-waza)",
+      "kind": "sequence",
+      "tier": 3,
+      "branch": "combinations",
+      "discipline": "judo",
+      "grade": "3rd kyu",
+      "grade_rank": 28,
+      "requires": {
+        "discipline": 60,
+        "attributes": {
+          "technique": 58,
+          "fight_iq": 54
+        },
+        "prerequisites": [
+          "judo_uchimata",
+          "judo_ouchigari"
+        ],
+        "reps": 300
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 14,
+          "throw_setup": 9
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan renraku-waza; uchimata feint into ouchi when uke widens stance"
+    },
+    {
+      "id": "judo_renzoku_osoto",
+      "name": "Osoto-gari Renzoku (Continuous Attack)",
+      "kind": "sequence",
+      "tier": 4,
+      "branch": "combinations",
+      "discipline": "judo",
+      "grade": "1st dan",
+      "grade_rank": 51,
+      "requires": {
+        "discipline": 62,
+        "attributes": {
+          "technique": 58,
+          "conditioning": 54,
+          "fight_iq": 52
+        },
+        "prerequisites": [
+          "judo_osotogari",
+          "judo_osotootoshi",
+          "judo_osotoguruma"
+        ],
+        "reps": 320
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "clinch"
+        ],
+        "effects": {
+          "takedown": 15,
+          "throw_setup": 10
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED Kodokan renzoku-waza; continuous osoto family (gari→otoshi→guruma)"
+    },
+    {
+      "id": "bjj_chain_kimura_sweep_back",
+      "name": "Kimura → Sweep → Back Take",
+      "kind": "sequence",
+      "tier": 3,
+      "branch": "combinations",
+      "discipline": "brazilian_jiu_jitsu",
+      "grade": "blue belt",
+      "grade_rank": 38,
+      "requires": {
+        "discipline": 56,
+        "attributes": {
+          "technique": 56,
+          "fight_iq": 54
+        },
+        "prerequisites": [
+          "bjj_kimura",
+          "brazilian_jiu_jitsu_hip_bump_sweep",
+          "bjj_back_control"
+        ],
+        "reps": 300
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "ground"
+        ],
+        "effects": {
+          "submission_setup": 12,
+          "sweep": 10,
+          "back_control": 12
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "DOCUMENTED BJJ submission chain (Alliance/GB curriculum pattern); kimura grip to sweep to back"
+    },
+    {
+      "id": "bjj_chain_guillotine_mount",
+      "name": "Guillotine → Mount Finish",
+      "kind": "sequence",
+      "tier": 3,
+      "branch": "combinations",
+      "discipline": "brazilian_jiu_jitsu",
+      "grade": "blue belt",
+      "grade_rank": 38,
+      "requires": {
+        "discipline": 54,
+        "attributes": {
+          "technique": 52,
+          "fight_iq": 50
+        },
+        "prerequisites": [
+          "bjj_guillotine",
+          "bjj_mount"
+        ],
+        "reps": 280
+      },
+      "match": {
+        "role": "submission",
+        "phases": [
+          "ground",
+          "clinch"
+        ],
+        "effects": {
+          "submission": 14,
+          "submission_setup": 10,
+          "top_control": 8
+        },
+        "range_delta": 0,
+        "range_band": [
+          "POCKET"
+        ]
+      },
+      "flags": {},
+      "source": "DOCUMENTED BJJ chain; guillotine snap-down into mounted guillotine finish",
+      "finishes_fight": true
+    }
+  ],
+  "fixup_note": "U60B: every node has grade/grade_rank; combinations branch added (judo renraku/renzoku + BJJ submission chains); unread effects remapped balance_break→throw_setup, counter_ready→takedown_ready, opponent_stamina→pin_control, reaction_punish→submission_setup, score_or_damage→throw_damage, surprise→submission_setup."
+}

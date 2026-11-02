@@ -1,0 +1,331 @@
+FIGHTCAMP — FIGHTER PROFILE INTERFACE SPECIFICATION
+
+Target Engine: Godot 4.7.2 Forward+
+
+Reference Canvas: 1920 × 1080 (Integer Baseline)
+
+Display Philosophy: Sports analytics density (FM/Motorsport Manager class). Zero decorative fluff, zero mobile/casual widgets. Information hierarchy governed strictly by grid alignment, contrast ratios, and monospace tabular alignment.
+
+1. OVERVIEW TAB SPECIFICATION (1920 × 1080)
+1.1 Layout Grid & Spatial Anchors
+Canvas Resolution: 1920 × 1080 px
+Outer Margins: Left 24 px, Right 24 px, Top 16 px, Bottom 20 px
+Usable Canvas Area: Width 1872 px (X: 24 to 1896), Height 1044 px (Y: 16 to 1060)
+Horizontal Column Grid: 12 equal structural columns
+Column Width: 136 px
+Gutter Width: 20 px
+Total Calculation: $(12 \times 136) + (11 \times 20) = 1632 + 220 = 1852\text{ px}$. Compensated by expanding outer gutters or inner margins to exactly 1872 px.
+Vertical Structure:
+Top Bar / Navigation: Y: 16 to 52 (Height 36 px)
+Identity Banner: Y: 60 to 144 (Height 84 px)
+Main Work Area: Y: 154 to 1024 (Height 870 px)
+Global Utility / Footer: Y: 1032 to 1060 (Height 28 px)
+1.2 Master Color Tokens
+
+All UI elements draw strictly from these authoritative hex definitions:
+
+| Token Name | Hex Code | Purpose / Usage |
+| :--- | :--- | :--- |
+| BG_VOID | #07090E | Root window background behind all panels |
+| BG_BASE | #0B0E14 | Primary viewport backdrop |
+| PANEL_BG | #12161F | Standard card, container, and window backgrounds |
+| PANEL_ELEVATED | #181E2A | Hover states, table row alternating tint, card headers |
+| PANEL_BORDER | #1F2637 | 1 px structural stroke around panels |
+| PANEL_BORDER_FOCUS | #333E56 | Active input or selected card border |
+| TEXT_PRIMARY | #FFFFFF | Fighter name, key numerical ratings, primary titles |
+| TEXT_SECONDARY | #94A3B8 | Field labels, organizational subheadings, meta metadata |
+| TEXT_MUTED | #475569 | Inactive tabs, table column headers, unit labels (KG, CM) |
+| GOLD_PRIMARY | #D69E2E | Master brand accent, active tab line, primary call-to-action border |
+| GOLD_HOVER | #B7791F | Pressed/Hover state for gold accents |
+| GOLD_MUTED | #744210 | Subtle gold backgrounds (15% alpha overlay on gold items) |
+| DELTA_POS | #22C55E | Attribute growth (+1 to +5) since last month |
+| DELTA_NEG | #EF4444 | Attribute decay (-1 to -5) since last month |
+| DELTA_NEUTRAL | #64748B | Attribute unchanged (flat dash) |
+| BAND_ELITE | #6366F1 | Attribute score 90–100 (Deep Indigo / World Class) |
+| BAND_EXCELLENT | #22C55E | Attribute score 75–89 (Vibrant Green / High Pro) |
+| BAND_COMPETENT | #EAB308 | Attribute score 60–74 (Warm Amber / Regional Pro) |
+| BAND_MEDIOCRE | #F97316 | Attribute score 40–59 (Orange / Journeyman / Novice) |
+| BAND_POOR | #EF4444 | Attribute score 0–39 (Red / Amateur Deficient) |
+| WEAR_PRISTINE | #22C55E | Anatomical wear 0–14% (Flawless tissue integrity) |
+| WEAR_MINOR | #84CC16 | Anatomical wear 15–29% (Superficial microtrauma) |
+| WEAR_MODERATE | #EAB308 | Anatomical wear 30–49% (Inflammation / sore tendons) |
+| WEAR_HEAVY | #F97316 | Anatomical wear 50–69% (Sprain, partial tear, structural fatigue) |
+| WEAR_SEVERE | #EF4444 | Anatomical wear 70–84% (High reinjury threat, acute impairment) |
+| WEAR_CRITICAL | #991B1B | Anatomical wear 85–100% (Fracture risk / unpassable medical) |
+
+1.3 Typography Rules & Text Styles
+
+| Style Class | Font Family | Size | Weight | Tracking / Letter-Spacing | Line Height | Case | Color Token |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| H1_NAME | Chakra Petch | 32 px | Bold | +0.04 em | 36 px | UPPERCASE | TEXT_PRIMARY |
+| H1_NICK | Chakra Petch | 20 px | SemiBold | +0.02 em | 24 px | Title Case | GOLD_PRIMARY |
+| H2_PANEL | Chakra Petch | 13 px | Bold | +0.08 em | 16 px | UPPERCASE | TEXT_SECONDARY |
+| TAB_LABEL | Chakra Petch | 14 px | SemiBold | +0.06 em | 16 px | UPPERCASE | TEXT_MUTED (Active: TEXT_PRIMARY) |
+| NUM_HERO | JetBrains Mono | 28 px | Bold | -0.02 em | 28 px | Tabular | TEXT_PRIMARY |
+| NUM_ATTR | JetBrains Mono | 18 px | Bold | 0.00 em | 18 px | Tabular | Color matched to Score Band |
+| NUM_DELTA | JetBrains Mono | 11 px | Medium | 0.00 em | 12 px | Tabular | DELTA_POS / DELTA_NEG |
+| BODY_REG | Inter | 13 px | Regular | 0.00 em | 18 px | Standard | TEXT_PRIMARY |
+| BODY_SUB | Inter | 11 px | Medium | +0.01 em | 14 px | Standard | TEXT_SECONDARY |
+| LABEL_METRIC | Chakra Petch | 10 px | Bold | +0.08 em | 12 px | UPPERCASE | TEXT_MUTED |
+| CHIP_TEXT | Chakra Petch | 11 px | Bold | +0.04 em | 11 px | UPPERCASE | Dynamic Token |
+
+1.4 Exact Pixel Layout & Screen Panels (1920 × 1080)
+Top Navigation Bar & Screen Tabs
+Bounding Box: x: 24, y: 16, w: 1872, h: 36
+Components:
+Back Button: x: 24, y: 16, w: 36, h: 36 (Icon: arrow left, #94A3B8).
+Breadcrumb: x: 68, y: 26, w: 320, h: 16 (ROSTER > NIKO PARK).
+Tab Container: x: 480, y: 16, w: 800, h: 36
+4 Horizontal Tabs: OVERVIEW, TECHNIQUES (34), MEDICAL, TRAINING PLAN.
+Each tab has width 180 px, centered text TAB_LABEL.
+Active Tab has 2 px underline at y: 50, h: 2 colored GOLD_PRIMARY.
+Quick Utility Cluster: x: 1680, y: 16, w: 216, h: 36
+Action Buttons: COMPARE (w: 96), SCOUT REPORT (w: 110).
+Fighter Identity Banner
+Bounding Box: x: 24, y: 58, w: 1872, h: 86
+Visual Frame: Background PANEL_BG, border 1 px PANEL_BORDER.
+Internal Layout:
+Flag Icon & Origin: x: 40, y: 72, w: 28, h: 18 (Vector GB flag icon + "GBR / LIVERPOOL").
+Primary Nameplate: x: 40, y: 94, w: 560, h: 42
+Displays: NIKO "THE ANVIL" PARK.
+Meta Matrix: x: 620, y: 74, w: 580, h: 54
+4 Vertical Data Slices (each w: 140 px):
+Slice 1: AGE -> 24 YEARS (DOB: 14 AUG 2001).
+Slice 2: DIVISION -> WELTERWEIGHT (147 LBS / 66.68 KG).
+Slice 3: RECORD -> 9-1-0 (6 KO) (Pro Licensed).
+Slice 4: STANCE & REACH -> ORTHODOX / 73.5 IN (187 CM).
+Status & Morale Chips: x: 1220, y: 78, w: 340, h: 46
+Morale Chip (x: 1220, y: 88, w: 100, h: 26): EXCELLENT (Bg #064E3B, Text #34D399).
+Weight Cut Chip (x: 1330, y: 88, w: 110, h: 26): 152 LBS (+5 LBS) (Bg #451A03, Text #F59E0B).
+Composure Chip (x: 1450, y: 88, w: 100, h: 26): RESOLUTE (Bg #1E1B4B, Text #818CF8).
+Primary Contract Badges: x: 1580, y: 78, w: 300, h: 46
+Gym Cut: 18.5% | Tier: A-PROSPECT | Contract Remainder: 14 MOS.
+1.5 Main Column Architecture (Y: 154 to 1024, Height: 870 px)
+
+The screen space splits horizontally across three structural columns:
+
+Left Column (Anatomy & Physicality): x: 24, y: 154, w: 460, h: 870
+Center Column (Core Performance & Analytics): x: 504, y: 154, w: 844, h: 870
+Right Column (Logistics, Camp, Form & Schedule): x: 1368, y: 154, w: 528, h: 870
++---------------------------------------------------------------------------------------------------+
+| 1920x1080 MASTER FIGHTER OVERVIEW SCREEN                                                          |
++---------------------------------------------------------------------------------------------------+
+| [TOP BAR] Breadcrumb / Tab Switcher (OVERVIEW | TECHNIQUES | MEDICAL | PLAN) / Actions            |
++---------------------------------------------------------------------------------------------------+
+| [IDENTITY BANNER] Name, Stance, Reach, Division, Record, Weight Cut Chip, Morale, Contract Badge   |
++---------------------------------+---------------------------------+-------------------------------+
+| LEFT COLUMN (460px)             | CENTER COLUMN (844px)           | RIGHT COLUMN (528px)          |
+|                                 |                                 |                               |
+| 1. Real-Time 3D Portrait Frame  | 1. Primary 9 Attribute Matrix   | 1. Next Scheduled Bout Banner |
+|    (460 x 440)                  |    (9 Cards with segmented tick |    Opponent, Date, Venue,     |
+|    Dynamic stance lighting      |    bars and delta indicators)   |    Camp Progress Gauge        |
+|                                 |                                 |                               |
+| 2. Anatomical Body Wear Diagram | 2. Dynamic Performance Radar    | 2. Camp Objective & Training  |
+|    (460 x 410)                  |    & Analytical Hexagon         |    Assigned Coach, Spar Feed  |
+|    Vector wireframe with 6      |                                 |                               |
+|    glowing tissue health zones  | 3. Hidden Potential Band &      | 3. Contract, Demands & Purse  |
+|    Head, Torso, L/R Arm, Legs   |    Scouting Confidence Metric   |                               |
+|                                 |                                 | 4. Recent Form Badges & Log   |
++---------------------------------+---------------------------------+-------------------------------+
+| [FOOTER UTILITY STRIP] Tooltip Feed / System Status / Keyboard Shortcut Hints                     |
++---------------------------------------------------------------------------------------------------+
+
+1.6 Detailed Left Column Components
+Real-Time 3D Portrait Viewport
+Bounding Box: x: 24, y: 154, w: 460, h: 440
+Substrate Panel: PANEL_BG with 1 px border PANEL_BORDER.
+Viewport Texture & Shading Setup:
+Houses a dedicated SubViewport node rendering the fighter's actual 3D character model from the chest up.
+Camera Parameters: Orthographic projection, size 0.85m, distance 1.6m, looking at Vector3(0, 1.62, 0) (eye level).
+Studio Lighting Rig:
+Key Light: Warm directional light (Color #FFF4E6, Energy 1.8), angled $35^\circ$ left, $20^\circ$ elevated.
+Fill Light: Cool fill light (Color #93C5FD, Energy 0.6), angled $-40^\circ$ right.
+Rim Light (Crucial): Intense gold backlight (Color #D69E2E, Energy 3.2) grazing the shoulders and jawline to pop the silhouette off the #12161F background.
+Overlaid Metadata Badges:
+Top-Left: Weight Verification Badge 147.0 LBS (x: 36, y: 166, w: 90, h: 22).
+Bottom-Center: Stance Indicator ORTHODOX SLIP-COUNTER SPECIALIST (x: 44, y: 554, w: 420, h: 26).
+Anatomical Body Wear Diagram
+Bounding Box: x: 24, y: 606, w: 460, h: 418
+Substrate Panel: PANEL_BG with 1 px border PANEL_BORDER.
+Title: ANATOMICAL READOUT & TISSUE WEAR (H2_PANEL).
+Visual Engine: Dual front/back simplified athletic vector silhouettes centered in the panel (w: 220, h: 340).
+The 6 Target Anatomical Regions:
+HEAD & CERVICAL (Skull, jaw, neck)
+TORSO & INTERCOSTALS (Chest, ribs, abdominals, thoracic spine)
+LEFT ARM & SHOULDER (Shoulder joint, bicep, elbow, wrist/metacarpals)
+RIGHT ARM & SHOULDER (Shoulder joint, bicep, elbow, wrist/metacarpals)
+LEFT LEG & KNEE (Hip flexor, quadricep, knee joint, ankle/calf)
+RIGHT LEG & KNEE (Hip flexor, quadricep, knee joint, ankle/calf)
+Wear Visualization Rules:
+When wear is 0–14% (PRISTINE), the region is shaded with a subtle translucent green fill (Hex #22C55E, Alpha 0.15) with an outer 1 px line.
+As wear progresses, the color dynamically interpolates through the established wear tokens (MINOR $\to$ MODERATE $\to$ HEAVY $\to$ SEVERE $\to$ CRITICAL).
+Regions above 50% wear display a faint, 1.2-second rhythmic pulsing outline to immediately alert the gym manager to fatigue and injury risk.
+Side Readout Table (Docked Right of Silhouettes within panel):
+Placed at x: 260, y: 648, w: 210, h: 360.
+Rows list each anatomical zone accompanied by a JetBrains Mono percentage readout, a color-coded status pip, and recovery timeline (e.g., HEAD: 08% [PRISTINE], R.ARM: 42% [MODERATE - 4d]).
+1.7 Detailed Center Column: Performance & Attributes
+Primary Attribute Grid (9 Headline Metrics)
+Bounding Box: x: 504, y: 154, w: 844, h: 480
+Grid Pattern: 3 rows × 3 columns.
+Individual Card Dimensions: Width 268 px, Height 148 px.
+Row Pitch: 156 px (Y offsets: 154, 310, 466).
+Column Pitch: 288 px (X offsets: 504, 792, 1080).
+The 9 Monitored Attributes:
+Row 1: POWER, TECHNIQUE, SPEED
+Row 2: STAMINA, CHIN, DEFENCE
+Row 3: FOOTWORK, RING IQ, COMPOSURE
+Anatomical Architecture of a Single Attribute Card
+
+Each 268 × 148 px card contains:
+
+Header Row (y + 12):
+Attribute Title: e.g., POWER (H2_PANEL, #94A3B8).
+Numerical Value: e.g., 78 (NUM_HERO, JetBrains Mono Bold, colored according to band token).
+Delta Tracking (y + 46):
+Change since last 30-day evaluation: e.g., +2 in DELTA_POS or -1 in DELTA_NEG.
+Mini arrow glyph: ▲ or ▼.
+The Segmented Tick-Mark Progress Bar (x + 14, y + 68, w: 240, h: 18):
+Total Width: 240 px, Height: 18 px.
+Total Discrete Segments: 20 ticks (each tick equals exactly 5 attribute points).
+Single Segment Width: 10 px.
+Segment Gap: 2 px. Calculation: $(20 \times 10) + (19 \times 2) = 200 + 38 = 238\text{ px}$ (+ 2 px end buffer = 240 px).
+Active segments illuminate in the band color corresponding to the value.
+Inactive segments remain dark slate #1F2637.
+Opponent Scout Reference Pin: If scouting comparison is toggled, a small vertical white indicator line (18 px high, 2 px wide) renders at the opponent's known rating tick.
+Historical Trend Ghost: A faint hollow outline marks where the fighter's rating sat 30 days ago.
+Sub-Attribute Footnote Readout (y + 98):
+Three specific granular mechanics driving that headline stat.
+Example under POWER: LEFT HOOK: 82 | CROSS: 76 | OVERHAND: 79 (BODY_SUB, #64748B).
+Performance Radar & Historical Progression
+Bounding Box: x: 504, y: 648, w: 844, h: 376
+Substrate Panel: PANEL_BG with 1 px border PANEL_BORDER.
+Split Layout:
+Left Half: Octagonal Radar Polygon (x: 520, y: 660, w: 400, h: 350).
+Right Half: Hidden Potential, Scouting Confidence, & Progression Ledger (x: 934, y: 660, w: 398, h: 350).
+Radar Parameters:
+Center Point: (720, 835), Radius: 135 px.
+Axis Order (Clockwise from top, $0^\circ$): POWER $\to$ SPEED $\to$ RING IQ $\to$ COMPOSURE $\to$ DEFENCE $\to$ FOOTWORK $\to$ STAMINA $\to$ TECHNIQUE.
+Grid Rings: 4 concentric isometric rings marking 25, 50, 75, and 100 ratings.
+Fill: Warm Gold #D69E2E with 25% alpha.
+Border Stroke: 2 px solid #D69E2E.
+Hidden Potential & Scouting Confidence Matrix:
+Development Ceiling: Displays scouted potential tier (e.g., REGIONAL CONTENDER (78-83 CEILING)).
+Ceiling Confidence Rating: 4 discrete pips indicating how accurately the backroom staff has mapped his long-term ceiling: ● ● ● ○ (75% CONFIDENCE).
+Career Peak Projection: Projected peak age window (e.g., PEAK WINDOW: 26 - 29 YRS).
+1.8 Detailed Right Column: Next Bout, Camp, Morale & Form
+Next Scheduled Bout Banner
+Bounding Box: x: 1368, y: 154, w: 528, h: 270
+Substrate Panel: PANEL_BG with prominent top accent border (3 px GOLD_PRIMARY).
+Components:
+Header: NEXT BOOKED BOUT (H2_PANEL) + Countdown: FIGHT IN 21 DAYS.
+Opponent Profile Slot (x: 1384, y: 196, w: 496, h: 90):
+Opponent Name: MATEO "EL TORO" RAMOS (Record: 12-0-0, 8 KO).
+Bout Parameters: 10 ROUNDS | BBBofC BRITISH WELTERWEIGHT TITLE.
+Venue & Date: M&S BANK ARENA, LIVERPOOL | SATURDAY, 01 NOV 2026.
+Camp Progress Bar (x: 1384, y: 300, w: 496, h: 34):
+Progress Track: Height 10 px, showing CAMP WEEK 5 OF 8.
+Conditioning Gauge: WEIGHT ON TARGET: 94% | GAMEPLAN MASTERY: 71%.
+Tactician's Briefing Button (x: 1384, y: 348, w: 496, h: 36):
+Label: OPEN GAMEPLAN CHALKBOARD (Triggers fight-plan drawer).
+Camp Objectives & Daily Workload
+Bounding Box: x: 1368, y: 438, w: 528, h: 220
+Substrate Panel: PANEL_BG with 1 px border PANEL_BORDER.
+Assigned Personnel:
+Head Coach: MARCUS VANCE (Tactical focus: Slipping off the line).
+Cutman: DOC O'REILLY (Conditioning focus: Facial skin hydration).
+Current Week Primary Drills:
+Morning Session: HEAVY BAG (POWER COMBINATIONS) — Fatigue Load: High.
+Afternoon Session: SPARRING (LIVE COUNTER DRILLS) — Trauma Load: Moderate.
+Last Spar Evaluation Summary:
+Readout from the latest session: "Disciplined pacing through 6 rounds. Slip-cross timing cleanly punishing orthodox jabs."
+Contract, Ambitions & Management Demands
+Bounding Box: x: 1368, y: 672, w: 528, h: 180
+Substrate Panel: PANEL_BG with 1 px border PANEL_BORDER.
+Contract Matrix:
+Purse per Bout: £14,500 (Club Take: 18.5% = £2,682.50).
+Contract Expiry: 14 MONTHS REMAINING.
+Fighter Ambitions & Patience Ledger:
+Demand 1: TITLE OPPORTUNITY — Patience: 180 Days (● ● ● ● ○).
+Demand 2: DEDICATED STRENGTH COACH — Patience: 45 Days (● ● ○ ○ ○).
+Demand 3: PURSE ESCALATION — Satisfied (STABLE).
+Recent Form & Fight Ledger Badges
+Bounding Box: x: 1368, y: 866, w: 528, h: 158
+Substrate Panel: PANEL_BG with 1 px border PANEL_BORDER.
+Form Sequence Badges (Last 5 Fights):
+Row of 5 circular badges (w: 36, h: 36 each, 12 px gap):
+Fight 1: W (KO 4) — Green #22C55E
+Fight 2: W (UD 8) — Green #22C55E
+Fight 3: W (TKO 2) — Green #22C55E
+Fight 4: L (SD 10) — Red #EF4444 (Career sole loss to top-10 contender)
+Fight 5: W (KO 1) — Green #22C55E
+Summary Statement: LAST BOUT: SEP 05, 2026 vs CALLUM REID (W TKO-3).
+2. TECHNIQUES, MEDICAL, AND TRAINING PLAN TABS
+2.1 Tab 2: TECHNIQUES Specification
+
+Replaces Center and Right Columns (x: 504 to 1896, w: 1392, h: 870). The Left Column (Portrait + Body Readout) remains permanently locked on screen.
+
+Left Sub-Panel: Master Technique Catalogue & Mastery Matrix
+Bounding Box: x: 504, y: 154, w: 860, h: 870
+Data Organization: Filterable tabular tree grouping the 696-technique catalogue into 5 boxing disciplines:
+Punches & Combinations (Jabs, Crosses, Hooks, Uppercuts, Overhands)
+Defensive Maneuvers (Slips, Bob & Weave, Shoulder Roll, High Guard, Parries)
+Footwork & Angles (Pivot, Lateral Cut, Step-Around, Shift)
+Clinch & Inside Fighting (Collar Tie, Frame, Body Pummel, Underhook)
+Counterpunching Systems (Pull-Counter, Slip-Hook, Check Hook)
+Table Columns (JetBrains Mono tabular rows):
+Column 1 (w: 280): Technique Name & Category (e.g., CHECK HOOK (REAR PIVOT)).
+Column 2 (w: 80): Level Tier (TIER I to TIER V).
+Column 3 (w: 240): Mastery Progress Bar (0–100% with segmented visual fill).
+Column 4 (w: 120): Muscle Memory Retention (Decay rate per week without drill).
+Column 5 (w: 140): In-Bout Execution Frequency (% tendency during live bouts).
+Right Sub-Panel: Active Repertoire & Fight-Night Loadout
+Bounding Box: x: 1380, y: 154, w: 516, h: 870
+Components:
+Equipped Signature Moves (Slot 1–4):
+Slot 1: LEAD SLIP-CROSS COUNTER (Mastery 88% — Lethal Execution).
+Slot 2: LIVER HOOK OFF WEAVE (Mastery 74% — High Knockdown Risk).
+Slot 3: DOUBLE JAB TO OVERHAND (Mastery 82% — Primary Opener).
+Slot 4: STEP-OFF CHECK HOOK (Mastery 67% — Countering Aggressive Pressure).
+Tactical Synergy Analysis: Readout indicating bonuses against the next opponent’s weaknesses (e.g., "+12% Knockdown probability against Mateo Ramos' low-guard entry").
+2.2 Tab 3: MEDICAL & BIOMETRICS Specification
+Left Sub-Panel: Comprehensive Orthopedic & Trauma Ledger
+Bounding Box: x: 504, y: 154, w: 760, h: 870
+Deep Medical Breakdown:
+Expanded diagnostic breakdown of all 6 anatomical regions.
+Structural Bone Integrity (Micro-fractures, hand calcification index).
+Tendon & Ligament Elasticity (Rotator cuff wear, ACL/MCL strain).
+Neurological Load & Concussion Baseline:
+Cumulative Head Impact Index (CHII): Lifetime brain trauma tally.
+Concussion Recovery Gauge: Days since last traumatic brain injury.
+Sparring Ban Threshold: Automated medical suspension flags.
+Right Sub-Panel: Rehabilitation Protocols & Physiotherapy Assignment
+Bounding Box: x: 1280, y: 154, w: 616, h: 870
+Active Interventions:
+Hyperbaric Oxygen Therapy: ACTIVE (3 SESSIONS/WK)
+Cryotherapy / Cold Plunge: SCHEDULED POST-SPARRING
+Deep Tissue Physiotherapy: ASSIGNED TO PHYSIO DR. ELENA ROSTOVA
+Weight Cut Biometrics & Dehydration Threat:
+Current Mass: 152.0 LBS | Target Weigh-In Mass: 147.0 LBS.
+Safe Cut Rate: 0.8 LBS/DAY | Current Cut Deficit: EXCELLENT.
+Renal Stress Index: LOW (1.020 SPECIFIC GRAVITY).
+2.3 Tab 4: TRAINING PLAN Specification
+Master Weekly Schedule Matrix
+Bounding Box: x: 504, y: 154, w: 1392, h: 620
+Grid Architecture: 6 Days (Monday through Saturday, Sunday Mandatory Rest) × 3 Daily Time Slots.
+Columns: Mon, Tue, Wed, Thu, Fri, Sat (w: 228 px each, 4 px gutter).
+Rows:
+Morning Slot (08:00–11:00): Cardiovascular conditioning, track work, roadwork.
+Afternoon Slot (13:30–16:00): Technical sparring, mitts, technical drill pads.
+Evening Slot (17:30–19:30): Strength training, hypertrophy, rehab, film study.
+Interactive Station Assignment Cards:
+Managers can drag-and-drop gym stations from the club floor into slots:
+HEAVY BAG LINE | BOXING RING | POWER CAGE | TURF SLED | PADS | FILM ROOM.
+Weekly Fatigue vs. Adaptation Projection Engine
+Bounding Box: x: 504, y: 790, w: 1392, h: 234
+Dual Line Graph Visualization:
+Blue Curve: Acute Workload (Fatigue build-up).
+Gold Curve: Chronic Training Adaptation (Attribute retention & sharpness).
+Warning Threshold Line (Red Dash): Over-training threshold where injury risk spikes $>35%$.
+3. QUICK-LOOK POPUP CARD (IN-GYM FLOOR INSPECTION)
+
+When clicking any athlete training on the 3D floor, this compact card immediately anchors to

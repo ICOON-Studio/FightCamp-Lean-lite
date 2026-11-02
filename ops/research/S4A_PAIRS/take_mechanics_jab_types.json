@@ -1,0 +1,80 @@
+{
+  "population": "Five jab takes on f01: t2m_committed, t2m_rangefinder and t2m_feint from Higgsfield ARDY npz clips retargeted via npz_clip_to_bridge; bought_jab from f01_takes.json; meshy_jab from f01_takes_meshy.json.",
+  "takes": {
+    "t2m_committed": {
+      "bridge": "C:/Users/user/AppData/Local/Temp/FightCamp-moves/f01_takes_t2m.json",
+      "take": "jab_committed_t2m",
+      "arm_len_m": 0.5039,
+      "reach_share_peak": 0.9874,
+      "guard_share": 0.3647,
+      "onset_s": 1.8667,
+      "peak_s": 2.0,
+      "extension_s": 0.1333,
+      "hips_out_T": 0.302,
+      "lead_ankle_out_T": 0.1763,
+      "rear_hand_v_head_m": -0.0982,
+      "length_s": 2.55,
+      "return_s": 0.1667
+    },
+    "t2m_rangefinder": {
+      "bridge": "C:/Users/user/AppData/Local/Temp/FightCamp-moves/f01_takes_t2m.json",
+      "take": "jab_rangefinder_t2m",
+      "arm_len_m": 0.5039,
+      "reach_share_peak": 0.7388,
+      "guard_share": 0.3647,
+      "onset_s": 1.2,
+      "peak_s": 1.6333,
+      "extension_s": 0.4333,
+      "hips_out_T": 0.0927,
+      "lead_ankle_out_T": -0.0309,
+      "rear_hand_v_head_m": -0.1053,
+      "length_s": 2.55,
+      "return_s": 0.2
+    },
+    "t2m_feint": {
+      "bridge": "C:/Users/user/AppData/Local/Temp/FightCamp-moves/f01_takes_t2m.json",
+      "take": "jab_feint_t2m",
+      "arm_len_m": 0.5039,
+      "reach_share_peak": 0.6552,
+      "guard_share": 0.4938,
+      "onset_s": 1.4167,
+      "peak_s": 1.5,
+      "extension_s": 0.0833,
+      "hips_out_T": 0.0107,
+      "lead_ankle_out_T": 0.0534,
+      "rear_hand_v_head_m": -0.0617,
+      "length_s": 2.55,
+      "return_s": 0.3833
+    },
+    "bought_jab": {
+      "bridge": "C:/Users/user/AppData/Local/Temp/FightCamp-moves/f01_takes.json",
+      "take": "jab",
+      "arm_len_m": 0.5039,
+      "reach_share_peak": 1.0,
+      "guard_share": 0.413,
+      "onset_s": 0.2167,
+      "peak_s": 0.2333,
+      "extension_s": 0.0167,
+      "hips_out_T": 0.0207,
+      "lead_ankle_out_T": 0.0004,
+      "rear_hand_v_head_m": -0.2089,
+      "length_s": 0.833,
+      "return_s": 0.2167
+    },
+    "meshy_jab": {
+      "bridge": "C:/Users/user/AppData/Local/Temp/FightCamp-moves/f01_takes_meshy.json",
+      "take": "jab_meshy",
+      "arm_len_m": 0.5039,
+      "reach_share_peak": 0.979,
+      "guard_share": 0.3934,
+      "onset_s": 0.35,
+      "peak_s": 0.7333,
+      "extension_s": 0.3833,
+      "hips_out_T": 0.2435,
+      "lead_ankle_out_T": 0.2455,
+      "rear_hand_v_head_m": -0.0923,
+      "length_s": 1.7667,
+      "return_s": 0.3
+    }
+  }
+}

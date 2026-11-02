@@ -1,0 +1,418 @@
+{
+	"bouts": [
+		{
+			"by_class": {
+				"arm=arm": {
+					"depth_p95_m": 0.136350139047221,
+					"frames": 590
+				},
+				"arm=hand": {
+					"depth_p95_m": 0.0993895801565406,
+					"frames": 661
+				},
+				"arm>hand": {
+					"depth_p95_m": 0.150631652130267,
+					"frames": 380
+				},
+				"arm>head": {
+					"depth_p95_m": 0.0,
+					"frames": 0
+				},
+				"arm>torso": {
+					"depth_p95_m": 0.251572093822774,
+					"frames": 88
+				},
+				"foot=foot": {
+					"depth_p95_m": 0.150090714343026,
+					"frames": 177
+				},
+				"hand=hand": {
+					"depth_p95_m": 0.0992410664135057,
+					"frames": 1724
+				},
+				"hand>head": {
+					"depth_p95_m": 0.165904797260427,
+					"frames": 93
+				},
+				"hand>torso": {
+					"depth_p95_m": 0.19461107987953,
+					"frames": 302
+				},
+				"head=head": {
+					"depth_p95_m": 0.02046785877959,
+					"frames": 1
+				},
+				"leg=leg": {
+					"depth_p95_m": 0.216615872161415,
+					"frames": 303
+				},
+				"other": {
+					"depth_p95_m": 0.219404954320104,
+					"frames": 46
+				},
+				"torso=torso": {
+					"depth_p95_m": 0.315045325745964,
+					"frames": 10
+				}
+			},
+			"by_takes": [
+				{
+					"a": "idle",
+					"b": "idle",
+					"depth_p95_m": 0.111890638491888,
+					"frames": 2034
+				},
+				{
+					"a": "idle",
+					"b": "jab",
+					"depth_p95_m": 0.107484694259747,
+					"frames": 202
+				},
+				{
+					"a": "idle",
+					"b": "hook_lead",
+					"depth_p95_m": 0.165984058436225,
+					"frames": 153
+				},
+				{
+					"a": "jab",
+					"b": "idle",
+					"depth_p95_m": 0.103451591436061,
+					"frames": 128
+				},
+				{
+					"a": "react_head",
+					"b": "hook_rear",
+					"depth_p95_m": 0.165111727866951,
+					"frames": 117
+				},
+				{
+					"a": "idle",
+					"b": "cross",
+					"depth_p95_m": 0.158451280202033,
+					"frames": 112
+				},
+				{
+					"a": "cross",
+					"b": "idle",
+					"depth_p95_m": 0.166261182931029,
+					"frames": 106
+				},
+				{
+					"a": "react_head",
+					"b": "hook_lead",
+					"depth_p95_m": 0.158202834005245,
+					"frames": 88
+				},
+				{
+					"a": "react_body",
+					"b": "hook_lead",
+					"depth_p95_m": 0.149400434970121,
+					"frames": 87
+				},
+				{
+					"a": "idle",
+					"b": "hook_rear",
+					"depth_p95_m": 0.188290603615823,
+					"frames": 77
+				}
+			],
+			"depth_max_m": 0.318601147000813,
+			"depth_p50_m": 0.0820214592540104,
+			"depth_p95_m": 0.160871895110196,
+			"frames": 19802,
+			"gap": {
+				"all": {
+					"p5": 1.09934307386237,
+					"p50": 1.32632234062963,
+					"p95": 1.36152383039914
+				},
+				"overlap": {
+					"p5": 1.09851210184058,
+					"p50": 1.141802477062,
+					"p95": 1.36034182757335
+				}
+			},
+			"overlap_frames": 4375,
+			"overlap_share": 0.220937279062721,
+			"population": "realism",
+			"seed": 94301
+		},
+		{
+			"by_class": {
+				"arm=arm": {
+					"depth_p95_m": 0.133808647905526,
+					"frames": 626
+				},
+				"arm=hand": {
+					"depth_p95_m": 0.0972961830756423,
+					"frames": 2021
+				},
+				"arm>hand": {
+					"depth_p95_m": 0.144034429594587,
+					"frames": 258
+				},
+				"arm>head": {
+					"depth_p95_m": 0.0,
+					"frames": 0
+				},
+				"arm>torso": {
+					"depth_p95_m": 0.226657134365348,
+					"frames": 94
+				},
+				"foot=foot": {
+					"depth_p95_m": 0.140121217337098,
+					"frames": 254
+				},
+				"hand=hand": {
+					"depth_p95_m": 0.0960464023673374,
+					"frames": 3501
+				},
+				"hand>head": {
+					"depth_p95_m": 0.170120120812916,
+					"frames": 96
+				},
+				"hand>torso": {
+					"depth_p95_m": 0.190937558393967,
+					"frames": 338
+				},
+				"head=head": {
+					"depth_p95_m": 0.0210731290461229,
+					"frames": 1
+				},
+				"leg=leg": {
+					"depth_p95_m": 0.216748764728054,
+					"frames": 308
+				},
+				"other": {
+					"depth_p95_m": 0.184153974714359,
+					"frames": 32
+				},
+				"torso=torso": {
+					"depth_p95_m": 0.0,
+					"frames": 0
+				}
+			},
+			"by_takes": [
+				{
+					"a": "idle",
+					"b": "idle",
+					"depth_p95_m": 0.0958102125953975,
+					"frames": 4997
+				},
+				{
+					"a": "idle",
+					"b": "jab",
+					"depth_p95_m": 0.131805042010096,
+					"frames": 214
+				},
+				{
+					"a": "react_head",
+					"b": "hook_lead",
+					"depth_p95_m": 0.161516937377866,
+					"frames": 148
+				},
+				{
+					"a": "idle",
+					"b": "hook_lead",
+					"depth_p95_m": 0.155157564354428,
+					"frames": 145
+				},
+				{
+					"a": "jab",
+					"b": "idle",
+					"depth_p95_m": 0.105655081761868,
+					"frames": 144
+				},
+				{
+					"a": "react_head",
+					"b": "hook_rear",
+					"depth_p95_m": 0.145540207622206,
+					"frames": 131
+				},
+				{
+					"a": "cross",
+					"b": "idle",
+					"depth_p95_m": 0.169322042526821,
+					"frames": 120
+				},
+				{
+					"a": "idle",
+					"b": "cross",
+					"depth_p95_m": 0.159317119835242,
+					"frames": 113
+				},
+				{
+					"a": "hook_lead",
+					"b": "react_head",
+					"depth_p95_m": 0.140480770841313,
+					"frames": 95
+				},
+				{
+					"a": "react_body",
+					"b": "hook_lead",
+					"depth_p95_m": 0.141331310927871,
+					"frames": 72
+				}
+			],
+			"depth_max_m": 0.279618767477187,
+			"depth_p50_m": 0.08149391513679,
+			"depth_p95_m": 0.137913508607291,
+			"frames": 19802,
+			"gap": {
+				"all": {
+					"p5": 1.09927252269906,
+					"p50": 1.25961291077102,
+					"p95": 1.36196581175883
+				},
+				"overlap": {
+					"p5": 1.09854592483816,
+					"p50": 1.0997740249836,
+					"p95": 1.3209706330458
+				}
+			},
+			"overlap_frames": 7529,
+			"overlap_share": 0.38021411978588,
+			"population": "realism",
+			"seed": 51227
+		},
+		{
+			"by_class": {
+				"arm=arm": {
+					"depth_p95_m": 0.132086656447549,
+					"frames": 523
+				},
+				"arm=hand": {
+					"depth_p95_m": 0.0952450811551175,
+					"frames": 3363
+				},
+				"arm>hand": {
+					"depth_p95_m": 0.160145678956931,
+					"frames": 224
+				},
+				"arm>head": {
+					"depth_p95_m": 0.0,
+					"frames": 0
+				},
+				"arm>torso": {
+					"depth_p95_m": 0.257597225574825,
+					"frames": 48
+				},
+				"foot=foot": {
+					"depth_p95_m": 0.149105095474212,
+					"frames": 169
+				},
+				"hand=hand": {
+					"depth_p95_m": 0.0957496874654133,
+					"frames": 3587
+				},
+				"hand>head": {
+					"depth_p95_m": 0.159212785419785,
+					"frames": 80
+				},
+				"hand>torso": {
+					"depth_p95_m": 0.187759556335036,
+					"frames": 299
+				},
+				"head=head": {
+					"depth_p95_m": 0.0,
+					"frames": 0
+				},
+				"leg=leg": {
+					"depth_p95_m": 0.204231943329824,
+					"frames": 305
+				},
+				"other": {
+					"depth_p95_m": 0.162042333376362,
+					"frames": 22
+				},
+				"torso=torso": {
+					"depth_p95_m": 0.287391011332297,
+					"frames": 6
+				}
+			},
+			"by_takes": [
+				{
+					"a": "idle",
+					"b": "idle",
+					"depth_p95_m": 0.094909435843499,
+					"frames": 6480
+				},
+				{
+					"a": "idle",
+					"b": "jab",
+					"depth_p95_m": 0.131229810486626,
+					"frames": 188
+				},
+				{
+					"a": "react_body",
+					"b": "hook_lead",
+					"depth_p95_m": 0.163472088845439,
+					"frames": 151
+				},
+				{
+					"a": "jab",
+					"b": "idle",
+					"depth_p95_m": 0.111507377127052,
+					"frames": 144
+				},
+				{
+					"a": "idle",
+					"b": "cross",
+					"depth_p95_m": 0.158197526203566,
+					"frames": 125
+				},
+				{
+					"a": "hook_lead",
+					"b": "react_head",
+					"depth_p95_m": 0.186617279107214,
+					"frames": 116
+				},
+				{
+					"a": "cross",
+					"b": "idle",
+					"depth_p95_m": 0.167136322826727,
+					"frames": 106
+				},
+				{
+					"a": "react_head",
+					"b": "hook_rear",
+					"depth_p95_m": 0.194319166656259,
+					"frames": 78
+				},
+				{
+					"a": "idle",
+					"b": "hook_rear",
+					"depth_p95_m": 0.182929663517061,
+					"frames": 67
+				},
+				{
+					"a": "idle",
+					"b": "hook_lead",
+					"depth_p95_m": 0.123368645953557,
+					"frames": 64
+				}
+			],
+			"depth_max_m": 0.288192850266719,
+			"depth_p50_m": 0.0834699088476696,
+			"depth_p95_m": 0.127306580347397,
+			"frames": 19866,
+			"gap": {
+				"all": {
+					"p5": 1.09853497249036,
+					"p50": 1.25837714618079,
+					"p95": 1.36183399475032
+				},
+				"overlap": {
+					"p5": 1.09826388646282,
+					"p50": 1.09958009792702,
+					"p95": 1.31344833154756
+				}
+			},
+			"overlap_frames": 8626,
+			"overlap_share": 0.434209201651062,
+			"population": "realism",
+			"seed": 77003
+		}
+	]
+}

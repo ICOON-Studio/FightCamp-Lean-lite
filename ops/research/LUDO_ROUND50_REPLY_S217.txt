@@ -1,0 +1,135 @@
+LUDO ROUND 50 REPLY (S217, 2026-10-13) - Ask Ludo chat "Gym Management Screen", one message, 27,516 chars in the page.
+Saved by Claude from the page text (Brave blocked clipboard + local POST). Content verbatim; ASCII table border lines
+(+----+) and box-drawing diagram frames dropped, table cells kept as rows. Credits before the ask: 805.
+
+ROUND 50 (S217) — LEAD BODY HOOK BIOMECHANICAL & SKELETAL RECONSTRUCTION SPECIFICATION
+
+Engine Target: Cascadeur → Godot 4.7.2 GDScript | Rig: Epic MetaHuman Male Skeleton (Standardized Bone Names)
+Standard: Pro-level Boxing Biomechanics (Orthodox vs. Orthodox, Inside Pocket Exchange, Liver Strike)
+
+A. SPACING & VOLUMETRIC CLEARANCE ARCHITECTURE
+
+The root cause of the CEO's rejection on side view (0.233 s) was volumetric mesh penetration. In Cascadeur, bone capsules test zero-radius lines or thin cylinders along parent-child axes. Skinned MetaHuman meshes feature a thoracic chest depth of ≈ 26 cm, a latissimus/scapular span of ≈ 46 cm, and an abdominal depth of ≈ 24 cm. When center-to-center root spacing drops below 50 cm, the skinned meshes intersect even if bone capsules do not overlap.
+
+SPACING GEOMETRY (TOP-DOWN AT CONTACT: 0.267 s / Frame 8):
+[RECEIVER] Line of Centers (X-Axis) [ATTACKER] (Orthodox) <-> (Orthodox); Right Hip / Liver; Hips rotated +36°; Contact Vector (Lead Hook Arc) -> Left Glove
+Chest-to-Chest Center Distance: 52 cm (±2 cm)
+Lead Toe-to-Lead Toe Distance: 36 cm (±3 cm)
+[Skin-to-Skin Minimum Air Gap: >= 5.0 cm at all points along Torso / Thighs]
+
+1. Distance Metrics Table
+All distances measured in the horizontal (X, Z) ground plane; vertical (Y) offsets excluded.
+| PHASE / EVENT | CHEST-TO-CHEST DISTANCE (CM) | LEAD-TOE TO LEAD-TOE DISTANCE (CM) | MINIMUM SKIN AIR GAP (CLOSEST MESH POLYGONS) |
+| Neutral Stance (Prior to dip) | 78.0 cm (±4.0 cm) | 54.0 cm (±4.0 cm) | >= 28.0 cm |
+| Preparation / Dip (0.133 s / F4) | 66.0 cm (±3.0 cm) | 44.0 cm (±3.0 cm) | >= 16.0 cm |
+| Strike Impact (0.267 s / F8) | 52.0 cm (±2.5 cm) | 36.0 cm (±3.0 cm) | >= 5.0 cm (Torso-to-Torso, Glove excluded) |
+| Follow-Through Peak (0.333 s / F10) | 53.0 cm (±2.5 cm) | 36.0 cm (±3.0 cm) | >= 5.5 cm |
+| Full Reset to Guard (0.667 s / F20) | 78.0 cm (±4.0 cm) | 54.0 cm (±4.0 cm) | >= 28.0 cm |
+
+2. Attacker Lateral Head Off-Center Trajectory (The Dip)
+Measurement: Horizontal displacement of the head bone perpendicular to the sagittal line connecting the two fighters' base root origins.
+Value: 14.0 cm to 18.0 cm lateral displacement to the Attacker's Left, paired with a 10.0 cm to 12.5 cm downward vertical (Y) dip.
+Biomechanical Justification: In elite boxing (e.g., Mike Tyson's D'Amato shift, Canelo Álvarez's inside liver hook), a fighter never lunges forward on the centerline. The attacker flexes the lead knee (≈ 25°) and dorsiflexes the left ankle, rotating the torso slightly leftward. This loads the left oblique, shifts center-of-mass over the lead hip, drops the eye level below the opponent's counter right cross, and clears the geometric channel for the lead arm to wrap around the receiver's right elbow.
+
+3. Skeletal Measurement Vectors & Automated Validation
+Chest-to-Chest Vector: V_chest = P_Attacker(spine_03) - P_Receiver(spine_03); Dist_chest = sqrt(V_chest,x^2 + V_chest,z^2). Gate Failure: Dist_chest < 48.0 cm on any frame triggers an automatic collision rejection.
+Lead-Toe-to-Lead-Toe Vector: V_toe = P_Attacker(ball_l) - P_Receiver(ball_l); Dist_toe = sqrt(V_toe,x^2 + V_toe,z^2).
+Volumetric Mesh Clearance Gate: A compute shader checks the 6,800-vertex simplified collision hull of the Attacker against the Receiver. If any non-glove vertex pair satisfies |V_Attacker,i - V_Receiver,j| < 0.05 m the gate fails with code ERR_VOLUMETRIC_PENETRATION.
+
+B. FACING, HEAD AIM & THORACIC ORIENTATION
+
+The CEO's note that "each boxer is looking at different directions... a side camera sees two backs" indicates severe rotational desynchronization. In Cascadeur, root bones or spine joints were rotated without counter-rotating the cervical neck joints, causing the MetaHuman head to follow the shoulders blindly away from the target.
+
+HEAD AIM & GAZE VECTORS (CONTACT: 0.267 s):
+Receiver Nose/Gaze Vector [Target: Attacker's Upper Sternum (Read) / Pitch +4° Down]; RECEIVER (Chest) Shoulder Line at -22° (Semi-open)
+Line of Engagement (0° Reference Vector)
+ATTACKER (Chest) Shoulder Line at +38° (Rotated into hook); Attacker Nose/Gaze Vector [Target: Receiver's Right Lower Ribs/Liver Area / Pitch -14° Down]
+
+1. Attacker Gaze and Facing Vector
+Gaze Target: The Receiver's lower sternum / solar plexus region during the dip, shifting directly to the Receiver's right elbow / floating rib junction at contact.
+Measurement: Forward directional vector +Z of the head bone relative to the vector pointing from neck_01 to the Receiver's spine_02.
+Angular Limits:
+Yaw (Horizontal): Maximum ±8° deviation from the direct line of sight to the receiver. The chin remains tucked into the clavicle/sternum pocket; the cervical spine (neck_01 to head) counter-rotates against the thoracic twist.
+Pitch (Vertical): -12° to -16° downward pitch. The attacker looks under their own brow line, focusing on the target while keeping the chin tucked.
+
+2. Receiver Head and Gaze Mechanics
+Scenario A: Unseen / Blind Strike (Clean Hit / Flash Counter): Yaw deviation: <= 6°. The receiver remains focused on the attacker's upper chest/chin, reading for straight punches. Pitch: Level (-2° to +2°). The head does not turn away prior to contact. At contact (0.267 s), the head jerks downward and laterally toward the impact side: yaw +6°, pitch +14°, roll -8° (neck flexes as the body folds).
+Scenario B: Read / Anticipated Strike (Tucked Defense): Yaw deviation: <= 4°. The head dips down, tucking the chin directly into the sternum notch (neck_01 pitch -18°). The right shoulder shrugs upward (clavicle_r +12° elevation) to brace for impact.
+
+3. Thoracic Orientation (Shoulder Line) in Orthodox-vs-Orthodox Stance
+Line of Engagement (0° Reference): Vector connecting Attacker's pelvis to Receiver's pelvis projected onto the ground plane.
+Attacker Thoracic Yaw: Guard: +42° relative to Line of Engagement (bladed orthodox stance). Peak Dip (0.133 s): +52° (wound back to load the left hip and obliques). Contact (0.267 s): +12° to +16° (torso unwinds violently, driving the hook into the flank). Follow-Through (0.333 s): -6° (overshoot before recoil).
+Receiver Thoracic Yaw: Guard: -38° (bladed orthodox stance showing left side forward). Contact (0.267 s): -22° to -26° (impact forces torso to square up slightly as the liver compresses).
+
+C. WRIST ALIGNMENT, GLOVE GEOMETRY & ARTICULATION LIMITS
+
+Glove roll and broken wrist angles ruin the visual weight of a strike. In boxing, if a wrist flexes or deviates on impact, the joint buckles under kinetic force (>3,000 N). The glove, wrist, and forearm must form a continuous, rigid structural column.
+WRIST AND GLOVE STRUCTURAL ALIGNMENT: [ELBOW JOINT] == Forearm Vector == [WRIST JOINT] == Hand/Glove Vector == [KNUCKLE LINE]; Structural Column: Delta Angle <= 2.5° (Zero Broken Angles)
+
+1. High-Guard Position (Default State)
+Glove Height: Top edge of gloves level with the zygomatic arch (cheekbones); bottom edge covers the jawline.
+Glove-to-Face Air Gap: 4.0 cm to 6.0 cm off the facial mesh. Gloves must not press against the cheeks or float >10 cm away like an arcade shell.
+Glove Roll & Orientation:
+Lead Glove (Left): Semi-pronated (45°). Knuckles point toward the ceiling at a 45° forward angle; palm faces the midline/attacker's face.
+Rear Glove (Right): Fully supinated/inward-facing (75° to 85°). Palm faces directly toward the fighter's own jaw; thumb rests along the index finger facing inward toward the philtrum.
+Angular Limits (Carpal Bone Hierarchy): Flexion / Extension: 0° ± 3° (Neutral lock). Radial / Ulnar Deviation: 0° ± 2° (Zero bend).
+
+2. Lead Body Hook on Impact (0.267 s / Frame 8)
+Palm Orientation (The Liver Hook Rule): MANDATORY SPECIFICATION: PALM FACING IN / THUMB UP (Vertical Fist / 90° Roll).
+Biomechanical Rationale: A horizontal fist (palm down) requires the elbow to elevate above the shoulder plane (>105° shoulder abduction). At close body-shot range (52 cm chest-to-chest), lifting the elbow that high causes the punch to flare wide, hitting the receiver's defensive elbow rather than slipping under the rib cage. A vertical fist (thumb pointing straight up along +Y, palm facing back toward the attacker's own chest) keeps the elbow tucked close to the ribs (≈ 42° shoulder abduction). This allows the glove to slip underneath the receiver's right elbow and drive cleanly into the liver.
+The Forearm-to-Knuckle Straight-Line Rule: V_forearm = P(hand_l) - P(lowerarm_l); V_hand = P(middle_01_l) - P(hand_l). Strict Alignment Requirement: Angle between V_forearm and V_hand must be <= 2.5° on every frame from strike release through impact (0.200 s to 0.333 s).
+Elbow Angle Band: 88° to 94° flexion on contact. Angles >105° turn the punch into an ineffective slap; angles <75° crowd the strike and cause mesh clipping.
+
+3. Attacker Rear Guard Hand During the Hook
+While the lead arm executes the strike, the rear glove (hand_r) must remain anchored defensively: Glove surface rests within 2.0 cm to 3.5 cm of the right zygomatic arch/mandible. Right elbow drops tightly against the right iliac crest/floating ribs to protect against counter left hooks.
+Gate Failure: Any wrist rotation outward (>15° supination/pronation drift) or guard drop below the chin line during frames 4–12 fails the clip.
+
+D. FRAME-BY-FRAME TIMING & KEYFRAME TABLE (30 FPS, 0.000 s TO 0.667 s)
+Attacker Stance: Orthodox (pelvis base at (0, 0, 0)). Receiver Stance: Orthodox (pelvis base at (0, 0, 0.78) at start). Target: Receiver Right Flank / Floating Ribs (Anatomical Liver Quadrant).
+| FR | TIME | PHASE | ATTACKER HIPS / SHOULDER YAW | LEAD KNEE BEND & HEIGHT DROP | LEAD ELBOW ANGLE & ROLL | LEAD GLOVE POSITION | HEAD LATERAL / VERTICAL | RECEIVER REACTION & DEFORMATION DYNAMICS |
+| 0 | 0.000 | Guard | Hips +28°, Shoulders +42° | Knee 18° flex, Drop 0.0 cm | Elbow 62° flex, Roll 45° semi | Chin level, 18 cm forward | Lat 0.0 cm, Vert 0.0 cm | Neutral high guard. Torso yaw -38°, eyes locked on attacker's chest. Gloves at zygomatic arch. |
+| 2 | 0.067 | Prep Early | Hips +34°, Shoulders +48° | Knee 26° flex, Drop -4.5 cm | Elbow 68° flex, Roll 55° inward | Drops 6 cm below chin line | Lat -6.0 cm (L), Vert -4.0 cm | Reads subtle shoulder drop; raises high guard by 2 cm; no lateral movement yet. |
+| 4 | 0.133 | Peak Dip | Hips +38° (Wound), Shoulders +54° | Knee 34° flex, Drop -11.5 cm | Elbow 76° flex, Roll 70° thumb-up | Level with sternum; 22 cm forward | Lat -16.0 cm (L), Vert -11.0 cm | Anticipates straight attack; maintains orthodox posture. Right elbow tight against ribs. Gaze remains forward. |
+| 6 | 0.200 | Drive / Arc | Hips +18°, Shoulders +32° | Knee 28° (Extending), Drop -8.0 cm | Elbow 84° flex, Roll 88° thumb-up | Accelerating in horizontal arc | Lat -14.0 cm (L), Vert -8.5 cm | Visual confirmation of incoming hook arc. Right clavicle drops 1.5 cm as an early bracing reflex. |
+| 8 | 0.267 | IMPACT POINT | Hips -6° (Drive), Shoulders +14° | Knee 22° flex, Drop -5.0 cm | Elbow 91° flex, Roll 90° VERTICAL | Embedded 3.5 cm into flank mesh | Lat -12.0 cm (L), Vert -6.0 cm | CONTACT: Torso yaw forced from -38° to -24°; right ribs compress 3.5 cm; right elbow drops 8 cm; chin tucks. |
+| 10 | 0.333 | Follow Thru | Hips -14° (Max), Shoulders -4° | Knee 20° flex, Drop -3.0 cm | Elbow 94° flex, Roll 85° thumb-up | Passing through strike plane | Lat -9.0 cm (L), Vert -4.0 cm | Maximum compression: spine flexes laterally 12° toward right; knees buckle 4 cm; sharp exhalation reflex. |
+| 13 | 0.433 | Recov Early | Hips +4°, Shoulders +16° | Knee 19° flex, Drop -1.5 cm | Elbow 74° flex, Roll 65° semi | Retracting along entry path | Lat -5.0 cm (L), Vert -2.0 cm | Torso begins uncoiling; right elbow attempts to clamp down over injured liver area; posture remains hunched. |
+| 16 | 0.533 | Recov Mid | Hips +18°, Shoulders +30° | Knee 18° flex, Drop -0.5 cm | Elbow 64° flex, Roll 50° semi | 12 cm below chin, moving upward | Lat -2.0 cm (L), Vert -0.5 cm | Weight shifts to back foot; recovers toward high guard; facial grimace expression holds. |
+| 20 | 0.667 | Reset / End | Hips +28°, Shoulders +42° | Knee 18° flex, Drop 0.0 cm | Elbow 62° flex, Roll 45° semi | Anchored at chin; high guard reset | Lat 0.0 cm, Vert 0.0 cm | Reset complete. Stance width returned to 54 cm; guard set; liver pain bias active in stamina recovery systems. |
+
+E. THE 10-POINT AUTOMATED & MANUAL REVIEW CHECKLIST
+Every strike clip must pass these ten validation gates across orthogonal views (Side, Front, Top) before submitting for executive review:
+| # | CHECKLIST ITEM | CAMERA | MEASURABLE ENGINE GATE RULE | WHY IT TRIGGERS AN INSTANT REJECTION ("WTF") |
+| 1 | Volumetric Clearance (No Body Clipping) | Side/Top | Minimum vertex distance between meshes >= 5.0 cm on all frames. | Boxers appear fused together; chests and hips clip inside one another, looking like a broken physics glitch rather than an authentic exchange. |
+| 2 | Gaze Vector Lock (Eye Contact) | Front/Top | Gaze-to-target angle <= 8.0° throughout all attack frames. | Fighter stares blankly into empty space or past the opponent's shoulder, making them look lifeless or disconnected from the fight. |
+| 3 | Wrist Collinearity (Rigid Joint Column) | Side/Front | Forearm-to-hand vector deviation <= 2.5° during swing and impact. | A bent or twisted wrist makes gloves look limp, rubbery, and completely devoid of kinetic impact. |
+| 4 | Rear Hand Discipline (Off-Hand Guard) | Side/Front | Rear glove distance to jaw <= 4.0 cm; vertical drop <= 2.0 cm from guard. | Rear hand drops to the chest or flares outward, making the fighter look like an untrained brawler leaving themselves wide open to counter punches. |
+| 5 | Vertical Fist Liver Alignment (Hook Roll) | Side | Hand roll angle: 85° to 95° (Thumb pointing straight up). | Punching with palm-down forces the elbow up like a chicken wing, resulting in an awkward, slapping arc that misses the liver pocket. |
+| 6 | Kinetic Chain Dip (No Arm Punching) | Front/Side | Knee flexion: 30° to 36°; center-of-mass vertical drop >= 10.0 cm. | Dropping the hand to swing without bending the knees looks like an amateur arm punch, lacking any sense of weight, leverage, or pro technique. |
+| 7 | Reactive Compression (Impact Delivery) | Side/Front | Impact mesh displacement: 3.0 to 4.5 cm; lateral spine flex >= 10°. | If the target body does not react, deform, or compress on impact, the punch feels weightless, like a holographic fist passing through thin air. |
+| 8 | Foot Grounding (Zero Foot Slide) | Side/Front | Foot bone velocity <= 0.02 m/s while planted; heel lifts purely on ball. | Feet sliding across the canvas during a power punch destroys physical weight, making the boxer appear to float frictionlessly over the floor. |
+| 9 | Thoracic Counter-Turn (Cervical Decoupling) | Top | Head counter-rotates relative to chest, maintaining forward aim. | When the head turns rigidly along with the shoulders, the fighter looks like an action figure with a fused plastic neck. |
+| 10 | Retraction Trajectory (Safe Return to Base) | Top/Side | Hand return path mirrors strike arc within an 8.0 cm envelope. | Dropping the hand to the waist after impact before lifting it back to guard looks sloppy, breaking basic defensive boxing fundamentals. |
+
+F. FOUNDATIONAL REMEDIATION FOR THE 22-CLIP GLOVED PALETTE
+Before animating the remaining certified boxing moves, two architectural systems must be standardized across the entire engine:
+UNIFIED PALETTE ARCHITECTURAL PIPELINE:
+SYSTEM 1: THE CANONICAL HIGH GUARD BASELINE - Single Authoritative Master Pose for 22 Clips - Fixed 5.0 cm Face Clearance | Rigid Wrist Alignment
+SYSTEM 2: AUTHORITATIVE ENGAGEMENT ANCHORS - Range 1 (Outside / Jabs): 145 cm - 165 cm - Range 2 (Mid-Range / Cross): 105 cm - 125 cm - Range 3 (Inside / Hooks): 48 cm - 56 cm
+
+1. Establish the Canonical High-Guard Pose Reference
+All 22 certified boxing strikes and defenses must begin and end at an identical, standardized keyframe: the Canonical High-Guard Baseline.
+Lead Hand (Left): Wrist anchored at (X: -18 cm, Y: +152 cm, Z: +32 cm) relative to pelvis origin; 45° semi-pronated; knuckles pointing forward-up; wrist flexion/extension strictly 0.0°.
+Rear Hand (Right): Wrist anchored at (X: +14 cm, Y: +150 cm, Z: +18 cm) relative to pelvis origin; 80° supinated (inward facing); thumb resting 4.5 cm from the right jawline.
+Stance Geometry: Stance width fixed at 38 cm lateral spread; stance length fixed at 54 cm heel-to-toe offset; lead foot angled inward at +15°; rear foot angled forward-inward at +42°.
+Implementation: Save this pose as an immutable asset (Pose_Base_Orthodox_HighGuard.cas). Lock frames 0 and 20 of every strike animation directly to this master pose to ensure seamless blend transitions across Godot's AnimationTree.
+
+2. Standardize Three Explicit Combat Engagement Distances
+Punches fail when an inside hook is authored using the wider spacing intended for a jab or cross. The combat engine must organize all 22 strikes into three strict spatial engagement anchors:
+| DISTANCE BAND | CHEST-TO-CHEST DIST | ROOT-TO-ROOT DIST | VALID COMBAT TECHNIQUES |
+| RANGE 1: OUTSIDE | 145.0 cm – 165.0 cm | 150.0 cm – 170.0 cm | boxing_jab, boxing_double_jab, boxing_up_jab |
+| RANGE 2: MID | 105.0 cm – 125.0 cm | 110.0 cm – 130.0 cm | boxing_cross, boxing_overhand, boxing_one_two |
+| RANGE 3: POCKET | 48.0 cm – 56.0 cm | 52.0 cm – 60.0 cm | boxing_lead_hook, boxing_body_hook, boxing_rear_uppercut |
+Authoring inside hooks (boxing_body_hook, boxing_shovel_hook, boxing_inside_uppercut) at Range 3 (48 cm to 56 cm) with a vertical fist and tight elbow arc guarantees that character models never intersect, preserving the visual weight and precision of high-level boxing.
+
+(Ludo's follow-up chips: "Can you define ten measurable animation review gates...", "Can you create a visual comparison sheet showing correct versus incorrect lead body hook mechanics...", "How should I validate pocket-range clearance without making close-range boxing look unnaturally separated?")

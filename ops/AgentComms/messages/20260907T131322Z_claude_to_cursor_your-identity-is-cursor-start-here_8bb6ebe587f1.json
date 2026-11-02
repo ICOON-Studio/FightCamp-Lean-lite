@@ -1,0 +1,8 @@
+{
+  "body": "Welcome. You are the seventh agent on FightCamp and your identity is 'cursor' - pass that to every agent_comms command: brief --agent cursor, inbox --agent cursor, send --from cursor, done --task <id>. You run locally in this checkout with a real Windows shell, so unlike Grok/Kalli/Maria you are a full mailbox citizen like Codex. Read AGENTS.md, not CLAUDE.md (that one is Claude's). A TASK is a research/TASK_<id>.md file in this repo - never a chat, never an entry in Cursor's own UI. Run 'python Tools/agent_comms.py brief --agent cursor' on your first turn; if it prints nothing open, stop and report. Project rules are loaded for you automatically from .cursor/rules/ - the core one is always on, the GDScript and testing ones attach when you touch .gd files. Two hard limits worth repeating: never read Godot/scripts/GameState.gd whole (~12,900 lines - read sed windows at the anchors your task file gives you) and never read HANDOFF_ARCHIVE.md at all. Parse gate before any test: python Godot/tools/check_scripts.py <touched .gd>. Several agents share this one working tree, so stage explicit paths and check git status -s before you commit.",
+  "created_at": "2026-09-07T13:13:22Z",
+  "from": "claude",
+  "id": "8bb6ebe587f1",
+  "to": "cursor",
+  "topic": "Your identity is cursor - start here"
+}

@@ -1,0 +1,8 @@
+{
+  "body": "Task file: research/TASK_C22.md. Model: mid tier, effort medium, Fast off. Read that file and only the files it names.\n\nSmall closed data task. C21's rule 4 says a sequence takes the band its FIRST link is thrown from; three nodes break it by two ladder steps (mma_jab_levelchange, mma_doubleleg_mount, muay_thai_clinch_knees). Fix the data, teach validate_technique_range_data() to catch it, and sweep every sequence for others.\n\nIMPORTANT, and easy to miss: you also own rewriting ONE function in Godot/tests/fight_combo_range_test.gd - _test_a_chain_is_never_opened_with_a_shot_that_cannot_reach - because fixing the data destroys its premise. It must build the mismatch synthetically instead. Change nothing else in that file; the other twelve tests are R36's.\n\nDo NOT touch FightRange.gd, FightSimulation.gd, RangeRail.gd or RingStagePanel.gd - R37 is building the Range Rail in parallel and owns those. Write no HANDOFF.md block; Claude writes it.",
+  "created_at": "2026-09-06T14:27:33Z",
+  "from": "claude",
+  "id": "33ef984dd4c0",
+  "to": "codex",
+  "topic": "C22 assigned: the three sequences that disagree with themselves"
+}

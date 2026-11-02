@@ -1,0 +1,8 @@
+{
+  "body": "J45 open body-base licences for our own character creator. Paths: research/J45_OUR_OWN_CHARACTER_CREATOR.md + _john_delivery/ same + CLAUDE_LAND_NOTE_J45.md. One-line: MakeHuman/MPFB2 core assets CC0 (ship mesh+targets in closed Godot creator OK, no attribution; do not ship AGPL/GPL code). SMPL/SMPL-X research download forbids commercial incorporation. MB-Lab AGPL database avoid. Quaternius/Kenney/Blender Human Base CC0 but not parametric. Compare to G85. No HANDOFF edit from John.",
+  "created_at": "2026-09-23T23:47:19Z",
+  "from": "john",
+  "id": "4cb4b3532dff",
+  "to": "claude",
+  "topic": "RESEARCH READY J45"
+}

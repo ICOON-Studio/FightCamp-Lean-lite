@@ -1,0 +1,642 @@
+[
+	{
+		"Left_forearm_length_error_m": 0.0,
+		"Left_sole": {
+			"pitch": 1.7655948291033,
+			"roll": 1.55327167528599
+		},
+		"Left_wrist_deg": 0.840250031777527,
+		"Right_forearm_length_error_m": 0.0,
+		"Right_sole": {
+			"pitch": 8.77002265845161,
+			"roll": -0.706545183432267
+		},
+		"Right_wrist_deg": 1.46827167861248,
+		"body": "02",
+		"bone_length_errors_m": {
+			"LeftFoot": 0.0,
+			"LeftHand": 0.0,
+			"LeftLowerArm": 0.0,
+			"LeftLowerLeg": 0.0,
+			"LeftUpperArm": 0.0,
+			"LeftUpperLeg": 0.0000687539577484131,
+			"RightFoot": 0.0,
+			"RightHand": 0.0,
+			"RightLowerArm": 0.0,
+			"RightLowerLeg": 0.0,
+			"RightUpperArm": 0.0,
+			"RightUpperLeg": 0.0000702738761901855
+		},
+		"role": "idle",
+		"source": "res://assets/anim/metahuman/baked/mh_guard_pose.glb",
+		"time": 0.6
+	},
+	{
+		"Left_forearm_length_error_m": 0.0,
+		"Left_sole": {
+			"pitch": 2.31254773337976,
+			"roll": 2.23838340493764
+		},
+		"Left_wrist_deg": 0.8405217986013,
+		"Right_forearm_length_error_m": 0.0,
+		"Right_sole": {
+			"pitch": 8.95199255831909,
+			"roll": -0.229450253367514
+		},
+		"Right_wrist_deg": 1.46826762318766,
+		"body": "02",
+		"bone_length_errors_m": {
+			"LeftFoot": 0.0,
+			"LeftHand": 0.0,
+			"LeftLowerArm": 0.0,
+			"LeftLowerLeg": 0.0,
+			"LeftUpperArm": 0.0,
+			"LeftUpperLeg": 0.0000489205121994019,
+			"RightFoot": 0.0,
+			"RightHand": 0.0,
+			"RightLowerArm": 0.0,
+			"RightLowerLeg": 0.0,
+			"RightUpperArm": 0.0,
+			"RightUpperLeg": 0.0000516772270202637
+		},
+		"role": "boxing_jab",
+		"source": "res://assets/anim/metahuman/baked/mh_jab.glb",
+		"time": 0.266666666666667
+	},
+	{
+		"Left_forearm_length_error_m": 0.0,
+		"Left_sole": {
+			"pitch": 6.32032451309458,
+			"roll": 6.27774682135602
+		},
+		"Left_wrist_deg": 0.84030600731221,
+		"Right_forearm_length_error_m": 0.0,
+		"Right_sole": {
+			"pitch": 19.5014160993424,
+			"roll": 7.48822240125647
+		},
+		"Right_wrist_deg": 1.46810071043982,
+		"body": "02",
+		"bone_length_errors_m": {
+			"LeftFoot": 0.0,
+			"LeftHand": 0.0,
+			"LeftLowerArm": 0.0,
+			"LeftLowerLeg": 0.0,
+			"LeftUpperArm": 0.0,
+			"LeftUpperLeg": 0.00010506808757782,
+			"RightFoot": 0.0,
+			"RightHand": 0.0,
+			"RightLowerArm": 0.0,
+			"RightLowerLeg": 0.0,
+			"RightUpperArm": 0.0,
+			"RightUpperLeg": 0.000101566314697266
+		},
+		"role": "boxing_cross",
+		"source": "res://assets/anim/metahuman/baked/mh_cross.glb",
+		"time": 0.266666666666667
+	},
+	{
+		"Left_forearm_length_error_m": 0.0,
+		"Left_sole": {
+			"pitch": 1.74613903525252,
+			"roll": 1.54252896166033
+		},
+		"Left_wrist_deg": 0.840401576599737,
+		"Right_forearm_length_error_m": 0.0,
+		"Right_sole": {
+			"pitch": 9.00254705723458,
+			"roll": 0.380450154547452
+		},
+		"Right_wrist_deg": 1.46822984370381,
+		"body": "02",
+		"bone_length_errors_m": {
+			"LeftFoot": 0.0,
+			"LeftHand": 0.0,
+			"LeftLowerArm": 0.0,
+			"LeftLowerLeg": 0.0,
+			"LeftUpperArm": 0.0,
+			"LeftUpperLeg": 0.000395804643630981,
+			"RightFoot": 0.0,
+			"RightHand": 0.0,
+			"RightLowerArm": 0.0,
+			"RightLowerLeg": 0.0,
+			"RightUpperArm": 0.0,
+			"RightUpperLeg": 0.000375032424926758
+		},
+		"role": "boxing_lead_hook",
+		"source": "res://assets/anim/metahuman/baked/mh_lead_hook.glb",
+		"time": 0.266666666666667
+	},
+	{
+		"Left_forearm_length_error_m": 0.0,
+		"Left_sole": {
+			"pitch": 2.19319295239813,
+			"roll": 1.3551643862873
+		},
+		"Left_wrist_deg": 0.840245496105032,
+		"Right_forearm_length_error_m": 0.0,
+		"Right_sole": {
+			"pitch": 8.77983678651527,
+			"roll": -2.00815480348944
+		},
+		"Right_wrist_deg": 1.46829067507611,
+		"body": "02",
+		"bone_length_errors_m": {
+			"LeftFoot": 0.0,
+			"LeftHand": 0.0,
+			"LeftLowerArm": 0.0,
+			"LeftLowerLeg": 0.0,
+			"LeftUpperArm": 0.0,
+			"LeftUpperLeg": 0.000213906168937683,
+			"RightFoot": 0.0,
+			"RightHand": 0.0,
+			"RightLowerArm": 0.0,
+			"RightLowerLeg": 0.0,
+			"RightUpperArm": 0.0,
+			"RightUpperLeg": 0.000220693647861481
+		},
+		"role": "boxing_inside_uppercut",
+		"source": "res://assets/anim/metahuman/baked/mh_inside_uppercut.glb",
+		"time": 0.266666666666667
+	},
+	{
+		"Left_forearm_length_error_m": 0.0,
+		"Left_sole": {
+			"pitch": 1.57223847028088,
+			"roll": 1.49651643182118
+		},
+		"Left_wrist_deg": 4.83722918954906,
+		"Right_forearm_length_error_m": 0.0,
+		"Right_sole": {
+			"pitch": 7.53013158823003,
+			"roll": -0.444755825294167
+		},
+		"Right_wrist_deg": 3.21737981844155,
+		"body": "05",
+		"bone_length_errors_m": {
+			"LeftFoot": 0.0,
+			"LeftHand": 0.0,
+			"LeftLowerArm": 0.0,
+			"LeftLowerLeg": 0.0,
+			"LeftUpperArm": 0.0,
+			"LeftUpperLeg": 0.000487394630908966,
+			"RightFoot": 0.0,
+			"RightHand": 0.0,
+			"RightLowerArm": 0.0,
+			"RightLowerLeg": 0.0,
+			"RightUpperArm": 0.0,
+			"RightUpperLeg": 0.000485211610794067
+		},
+		"role": "idle",
+		"source": "res://assets/anim/metahuman/baked/mh_guard_pose.glb",
+		"time": 0.6
+	},
+	{
+		"Left_forearm_length_error_m": 0.0,
+		"Left_sole": {
+			"pitch": 2.09859227107252,
+			"roll": 2.09248907016229
+		},
+		"Left_wrist_deg": 6.38449883610191,
+		"Right_forearm_length_error_m": 0.0,
+		"Right_sole": {
+			"pitch": 7.73672346628176,
+			"roll": 0.0441294853715888
+		},
+		"Right_wrist_deg": 2.04518616817854,
+		"body": "05",
+		"bone_length_errors_m": {
+			"LeftFoot": 0.0,
+			"LeftHand": 0.0,
+			"LeftLowerArm": 0.0,
+			"LeftLowerLeg": 0.0,
+			"LeftUpperArm": 0.0,
+			"LeftUpperLeg": 0.000337839126586914,
+			"RightFoot": 0.0,
+			"RightHand": 0.0,
+			"RightLowerArm": 0.0,
+			"RightLowerLeg": 0.0,
+			"RightUpperArm": 0.0,
+			"RightUpperLeg": 0.000346407294273376
+		},
+		"role": "boxing_jab",
+		"source": "res://assets/anim/metahuman/baked/mh_jab.glb",
+		"time": 0.266666666666667
+	},
+	{
+		"Left_forearm_length_error_m": 0.0,
+		"Left_sole": {
+			"pitch": 5.83235701576866,
+			"roll": 5.63739524232617
+		},
+		"Left_wrist_deg": 2.78185365978933,
+		"Right_forearm_length_error_m": 0.0,
+		"Right_sole": {
+			"pitch": 19.362102438389,
+			"roll": 8.49396007257803
+		},
+		"Right_wrist_deg": 6.75055044495087,
+		"body": "05",
+		"bone_length_errors_m": {
+			"LeftFoot": 0.0,
+			"LeftHand": 0.0,
+			"LeftLowerArm": 0.0,
+			"LeftLowerLeg": 0.0,
+			"LeftUpperArm": 0.0,
+			"LeftUpperLeg": 0.000703409314155579,
+			"RightFoot": 0.0,
+			"RightHand": 0.0,
+			"RightLowerArm": 0.0,
+			"RightLowerLeg": 0.0,
+			"RightUpperArm": 0.0,
+			"RightUpperLeg": 0.000702761113643646
+		},
+		"role": "boxing_cross",
+		"source": "res://assets/anim/metahuman/baked/mh_cross.glb",
+		"time": 0.266666666666667
+	},
+	{
+		"Left_forearm_length_error_m": 0.0,
+		"Left_sole": {
+			"pitch": 1.51517672207707,
+			"roll": 1.45164368979979
+		},
+		"Left_wrist_deg": 1.49525935684879,
+		"Right_forearm_length_error_m": 0.0,
+		"Right_sole": {
+			"pitch": 7.78735907369364,
+			"roll": 0.611521510625787
+		},
+		"Right_wrist_deg": 1.42399892602098,
+		"body": "05",
+		"bone_length_errors_m": {
+			"LeftFoot": 0.0,
+			"LeftHand": 0.0,
+			"LeftLowerArm": 0.0,
+			"LeftLowerLeg": 0.0,
+			"LeftUpperArm": 0.0,
+			"LeftUpperLeg": 0.0026187002658844,
+			"RightFoot": 0.0,
+			"RightHand": 0.0,
+			"RightLowerArm": 0.0,
+			"RightLowerLeg": 0.0,
+			"RightUpperArm": 0.0,
+			"RightUpperLeg": 0.00263071060180664
+		},
+		"role": "boxing_lead_hook",
+		"source": "res://assets/anim/metahuman/baked/mh_lead_hook.glb",
+		"time": 0.266666666666667
+	},
+	{
+		"Left_forearm_length_error_m": 0.0,
+		"Left_sole": {
+			"pitch": 1.89243218904238,
+			"roll": 1.30399239558215
+		},
+		"Left_wrist_deg": 4.32200240724561,
+		"Right_forearm_length_error_m": 0.0,
+		"Right_sole": {
+			"pitch": 7.4131432543524,
+			"roll": -1.93604742920456
+		},
+		"Right_wrist_deg": 4.57223577899914,
+		"body": "05",
+		"bone_length_errors_m": {
+			"LeftFoot": 0.0,
+			"LeftHand": 0.0,
+			"LeftLowerArm": 0.0,
+			"LeftLowerLeg": 0.0,
+			"LeftUpperArm": 0.0,
+			"LeftUpperLeg": 0.00147546827793121,
+			"RightFoot": 0.0,
+			"RightHand": 0.0,
+			"RightLowerArm": 0.0,
+			"RightLowerLeg": 0.0,
+			"RightUpperArm": 0.0,
+			"RightUpperLeg": 0.00147400051355362
+		},
+		"role": "boxing_inside_uppercut",
+		"source": "res://assets/anim/metahuman/baked/mh_inside_uppercut.glb",
+		"time": 0.266666666666667
+	},
+	{
+		"Left_forearm_length_error_m": 0.0,
+		"Left_sole": {
+			"pitch": 1.4425212251113,
+			"roll": 0.394268107486064
+		},
+		"Left_wrist_deg": 0.185817630907511,
+		"Right_forearm_length_error_m": 0.0,
+		"Right_sole": {
+			"pitch": 6.9398551142133,
+			"roll": -0.976589839038532
+		},
+		"Right_wrist_deg": 0.321845610684435,
+		"body": "08",
+		"bone_length_errors_m": {
+			"LeftFoot": 0.0,
+			"LeftHand": 0.0,
+			"LeftLowerArm": 0.0,
+			"LeftLowerLeg": 0.0,
+			"LeftUpperArm": 0.0,
+			"LeftUpperLeg": 0.000189989805221558,
+			"RightFoot": 0.0,
+			"RightHand": 0.0,
+			"RightLowerArm": 0.0,
+			"RightLowerLeg": 0.0,
+			"RightUpperArm": 0.0,
+			"RightUpperLeg": 0.000190749764442444
+		},
+		"role": "idle",
+		"source": "res://assets/anim/metahuman/baked/mh_guard_pose.glb",
+		"time": 0.6
+	},
+	{
+		"Left_forearm_length_error_m": 0.0,
+		"Left_sole": {
+			"pitch": 1.67659500961881,
+			"roll": 1.22418665105073
+		},
+		"Left_wrist_deg": 0.185477588872465,
+		"Right_forearm_length_error_m": 0.0,
+		"Right_sole": {
+			"pitch": 7.06208006875021,
+			"roll": -0.408118397101527
+		},
+		"Right_wrist_deg": 0.321912631915666,
+		"body": "08",
+		"bone_length_errors_m": {
+			"LeftFoot": 0.0,
+			"LeftHand": 0.0,
+			"LeftLowerArm": 0.0,
+			"LeftLowerLeg": 0.0,
+			"LeftUpperArm": 0.0,
+			"LeftUpperLeg": 0.000132665038108826,
+			"RightFoot": 0.0,
+			"RightHand": 0.0,
+			"RightLowerArm": 0.0,
+			"RightLowerLeg": 0.0,
+			"RightUpperArm": 0.0,
+			"RightUpperLeg": 0.000137269496917725
+		},
+		"role": "boxing_jab",
+		"source": "res://assets/anim/metahuman/baked/mh_jab.glb",
+		"time": 0.266666666666667
+	},
+	{
+		"Left_forearm_length_error_m": 0.0,
+		"Left_sole": {
+			"pitch": 6.01398625995128,
+			"roll": 6.01311967970034
+		},
+		"Left_wrist_deg": 0.18591502780425,
+		"Right_forearm_length_error_m": 0.0,
+		"Right_sole": {
+			"pitch": 18.3537240451795,
+			"roll": 9.48747085151163
+		},
+		"Right_wrist_deg": 0.321993393566516,
+		"body": "08",
+		"bone_length_errors_m": {
+			"LeftFoot": 0.0,
+			"LeftHand": 0.0,
+			"LeftLowerArm": 0.0,
+			"LeftLowerLeg": 0.0,
+			"LeftUpperArm": 0.0,
+			"LeftUpperLeg": 0.000278562307357788,
+			"RightFoot": 0.0,
+			"RightHand": 0.0,
+			"RightLowerArm": 0.0,
+			"RightLowerLeg": 0.0,
+			"RightUpperArm": 0.0,
+			"RightUpperLeg": 0.000276312232017517
+		},
+		"role": "boxing_cross",
+		"source": "res://assets/anim/metahuman/baked/mh_cross.glb",
+		"time": 0.266666666666667
+	},
+	{
+		"Left_forearm_length_error_m": 0.0,
+		"Left_sole": {
+			"pitch": 1.45290151182413,
+			"roll": 0.443221754134411
+		},
+		"Left_wrist_deg": 0.185915107845529,
+		"Right_forearm_length_error_m": 0.0,
+		"Right_sole": {
+			"pitch": 7.02361970042069,
+			"roll": 0.278953703563621
+		},
+		"Right_wrist_deg": 0.321905614963511,
+		"body": "08",
+		"bone_length_errors_m": {
+			"LeftFoot": 0.0,
+			"LeftHand": 0.0,
+			"LeftLowerArm": 0.0,
+			"LeftLowerLeg": 0.0,
+			"LeftUpperArm": 0.0,
+			"LeftUpperLeg": 0.00104480981826782,
+			"RightFoot": 0.0,
+			"RightHand": 0.0,
+			"RightLowerArm": 0.0,
+			"RightLowerLeg": 0.0,
+			"RightUpperArm": 0.0,
+			"RightUpperLeg": 0.00102542340755463
+		},
+		"role": "boxing_lead_hook",
+		"source": "res://assets/anim/metahuman/baked/mh_lead_hook.glb",
+		"time": 0.266666666666667
+	},
+	{
+		"Left_forearm_length_error_m": 0.0,
+		"Left_sole": {
+			"pitch": 2.28590551330506,
+			"roll": 0.216091737372292
+		},
+		"Left_wrist_deg": 0.18587438017456,
+		"Right_forearm_length_error_m": 0.0,
+		"Right_sole": {
+			"pitch": 7.16476940160041,
+			"roll": -2.72405233016445
+		},
+		"Right_wrist_deg": 0.321782137949922,
+		"body": "08",
+		"bone_length_errors_m": {
+			"LeftFoot": 0.0,
+			"LeftHand": 0.0,
+			"LeftLowerArm": 0.0,
+			"LeftLowerLeg": 0.0,
+			"LeftUpperArm": 0.0,
+			"LeftUpperLeg": 0.00057876855134964,
+			"RightFoot": 0.0,
+			"RightHand": 0.0,
+			"RightLowerArm": 0.0,
+			"RightLowerLeg": 0.0,
+			"RightUpperArm": 0.0,
+			"RightUpperLeg": 0.000585712492465973
+		},
+		"role": "boxing_inside_uppercut",
+		"source": "res://assets/anim/metahuman/baked/mh_inside_uppercut.glb",
+		"time": 0.266666666666667
+	},
+	{
+		"Left_forearm_length_error_m": 0.0,
+		"Left_sole": {
+			"pitch": 1.04895110426147,
+			"roll": -0.283787396422728
+		},
+		"Left_wrist_deg": 0.523750271418243,
+		"Right_forearm_length_error_m": 0.0,
+		"Right_sole": {
+			"pitch": 7.67506307977582,
+			"roll": -0.35532658434603
+		},
+		"Right_wrist_deg": 1.04761398800973,
+		"body": "09",
+		"bone_length_errors_m": {
+			"LeftFoot": 0.0,
+			"LeftHand": 0.0,
+			"LeftLowerArm": 0.0,
+			"LeftLowerLeg": 0.0,
+			"LeftUpperArm": 0.0,
+			"LeftUpperLeg": 0.0000392869114875793,
+			"RightFoot": 0.0,
+			"RightHand": 0.0,
+			"RightLowerArm": 0.0,
+			"RightLowerLeg": 0.0,
+			"RightUpperArm": 0.0,
+			"RightUpperLeg": 0.0000409483909606934
+		},
+		"role": "idle",
+		"source": "res://assets/anim/metahuman/baked/mh_guard_pose.glb",
+		"time": 0.6
+	},
+	{
+		"Left_forearm_length_error_m": 0.0,
+		"Left_sole": {
+			"pitch": 0.780957052870941,
+			"roll": 0.328331062064348
+		},
+		"Left_wrist_deg": 0.524023478985044,
+		"Right_forearm_length_error_m": 0.0,
+		"Right_sole": {
+			"pitch": 7.88061933039464,
+			"roll": 0.0624660753536268
+		},
+		"Right_wrist_deg": 1.04757492786542,
+		"body": "09",
+		"bone_length_errors_m": {
+			"LeftFoot": 0.0,
+			"LeftHand": 0.0,
+			"LeftLowerArm": 0.0,
+			"LeftLowerLeg": 0.0,
+			"LeftUpperArm": 0.0,
+			"LeftUpperLeg": 0.0000285506248474121,
+			"RightFoot": 0.0,
+			"RightHand": 0.0,
+			"RightLowerArm": 0.0,
+			"RightLowerLeg": 0.0,
+			"RightUpperArm": 0.0,
+			"RightUpperLeg": 0.0000308454036712646
+		},
+		"role": "boxing_jab",
+		"source": "res://assets/anim/metahuman/baked/mh_jab.glb",
+		"time": 0.266666666666667
+	},
+	{
+		"Left_forearm_length_error_m": 0.0,
+		"Left_sole": {
+			"pitch": 4.06323257969004,
+			"roll": 3.97660443667312
+		},
+		"Left_wrist_deg": 0.5236220986496,
+		"Right_forearm_length_error_m": 0.0,
+		"Right_sole": {
+			"pitch": 18.6895542013853,
+			"roll": 6.98017628220482
+		},
+		"Right_wrist_deg": 1.04791515666345,
+		"body": "09",
+		"bone_length_errors_m": {
+			"LeftFoot": 0.0,
+			"LeftHand": 0.0,
+			"LeftLowerArm": 0.0,
+			"LeftLowerLeg": 0.0,
+			"LeftUpperArm": 0.0,
+			"LeftUpperLeg": 0.0000628605484962463,
+			"RightFoot": 0.0,
+			"RightHand": 0.0,
+			"RightLowerArm": 0.0,
+			"RightLowerLeg": 0.0,
+			"RightUpperArm": 0.0,
+			"RightUpperLeg": 0.0000589638948440552
+		},
+		"role": "boxing_cross",
+		"source": "res://assets/anim/metahuman/baked/mh_cross.glb",
+		"time": 0.266666666666667
+	},
+	{
+		"Left_forearm_length_error_m": 0.0,
+		"Left_sole": {
+			"pitch": 1.02084690353928,
+			"roll": -0.320582666018218
+		},
+		"Left_wrist_deg": 0.523580637266904,
+		"Right_forearm_length_error_m": 0.0,
+		"Right_sole": {
+			"pitch": 7.91621571502781,
+			"roll": 0.543387225364589
+		},
+		"Right_wrist_deg": 1.04757951689877,
+		"body": "09",
+		"bone_length_errors_m": {
+			"LeftFoot": 0.0,
+			"LeftHand": 0.0,
+			"LeftLowerArm": 0.0,
+			"LeftLowerLeg": 0.0,
+			"LeftUpperArm": 0.0,
+			"LeftUpperLeg": 0.000237025320529938,
+			"RightFoot": 0.0,
+			"RightHand": 0.0,
+			"RightLowerArm": 0.0,
+			"RightLowerLeg": 0.0,
+			"RightUpperArm": 0.0,
+			"RightUpperLeg": 0.00021757185459137
+		},
+		"role": "boxing_lead_hook",
+		"source": "res://assets/anim/metahuman/baked/mh_lead_hook.glb",
+		"time": 0.266666666666667
+	},
+	{
+		"Left_forearm_length_error_m": 0.0,
+		"Left_sole": {
+			"pitch": 1.95409492342585,
+			"roll": -0.473409482718575
+		},
+		"Left_wrist_deg": 0.523689333324242,
+		"Right_forearm_length_error_m": 0.0,
+		"Right_sole": {
+			"pitch": 7.50658109597182,
+			"roll": -1.63365072882088
+		},
+		"Right_wrist_deg": 1.04771665429069,
+		"body": "09",
+		"bone_length_errors_m": {
+			"LeftFoot": 0.0,
+			"LeftHand": 0.0,
+			"LeftLowerArm": 0.0,
+			"LeftLowerLeg": 0.0,
+			"LeftUpperArm": 0.0,
+			"LeftUpperLeg": 0.00012534111738205,
+			"RightFoot": 0.0,
+			"RightHand": 0.0,
+			"RightLowerArm": 0.0,
+			"RightLowerLeg": 0.0,
+			"RightUpperArm": 0.0,
+			"RightUpperLeg": 0.000131569802761078
+		},
+		"role": "boxing_inside_uppercut",
+		"source": "res://assets/anim/metahuman/baked/mh_inside_uppercut.glb",
+		"time": 0.266666666666667
+	}
+]

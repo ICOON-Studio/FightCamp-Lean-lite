@@ -1,0 +1,141 @@
+{
+  "control": [
+    {
+      "beat_index": 1,
+      "film_key": "Paired_FullMount_Takedown_BodyLock_Start",
+      "join_to_next_m": {
+        "attacker_hands": 1.74780917167664,
+        "attacker_hips": 1.56193101406097,
+        "victim_hips": 1.57076144218445
+      },
+      "live_graft_attacker_hip_travel_m": 2.03352332115173,
+      "source_film_attacker_hip_travel_m": 2.02133274078369,
+      "pair_clock_drift_s": 0.0
+    },
+    {
+      "beat_index": 2,
+      "film_key": "Paired_FullMount_Takedown_BodyLock_Loop",
+      "join_to_next_m": {
+        "attacker_hands": 0.576062023639679,
+        "attacker_hips": 0.319471895694733,
+        "victim_hips": 0.288094222545624
+      },
+      "live_graft_attacker_hip_travel_m": 1.57076144218445,
+      "source_film_attacker_hip_travel_m": 0.0,
+      "pair_clock_drift_s": 0.0
+    },
+    {
+      "beat_index": 3,
+      "film_key": "Paired_FullMount_H2H_Punches",
+      "join_to_next_m": {
+        "attacker_hands": 0.516855418682098,
+        "attacker_hips": 0.322427958250046,
+        "victim_hips": 0.327122509479523
+      },
+      "live_graft_attacker_hip_travel_m": 0.319473177194595,
+      "source_film_attacker_hip_travel_m": 0.0,
+      "pair_clock_drift_s": 0.0
+    },
+    {
+      "beat_index": 4,
+      "film_key": "Paired_FullMount_Reversal",
+      "join_to_next_m": {
+        "attacker_hands": 0.169880002737045,
+        "attacker_hips": 0.149993136525154,
+        "victim_hips": 0.150400534272194
+      },
+      "live_graft_attacker_hip_travel_m": 0.381651520729065,
+      "source_film_attacker_hip_travel_m": 0.509595394134521,
+      "pair_clock_drift_s": 0.0
+    },
+    {
+      "beat_index": 5,
+      "film_key": "Paired_FullMount_H2H_ArmBar",
+      "join_to_next_m": {
+        "attacker_hands": 0.657188236713409,
+        "attacker_hips": 0.945534646511078,
+        "victim_hips": 0.323109894990921
+      },
+      "live_graft_attacker_hip_travel_m": 0.828103423118591,
+      "source_film_attacker_hip_travel_m": 0.667715609073639,
+      "pair_clock_drift_s": 0.0
+    },
+    {
+      "beat_index": 6,
+      "film_key": "Paired_FullMount_H2H_Strangle",
+      "live_graft_attacker_hip_travel_m": 0.322907298803329,
+      "source_film_attacker_hip_travel_m": 0.0384515896439552,
+      "pair_clock_drift_s": 0.0
+    }
+  ],
+  "chain": [
+    {
+      "beat_index": 1,
+      "film_key": "Paired_FullMount_Takedown_BodyLock_Start",
+      "join_to_next_m": {
+        "attacker_hands": 1.74919664859772,
+        "attacker_hips": 1.56148540973663,
+        "victim_hips": 1.57107031345367
+      },
+      "live_graft_attacker_hip_travel_m": 2.03318953514099,
+      "source_film_attacker_hip_travel_m": 2.02133274078369,
+      "pair_clock_drift_s": 0.0
+    },
+    {
+      "beat_index": 2,
+      "film_key": "Paired_FullMount_Takedown_BodyLock_Loop",
+      "join_to_next_m": {
+        "attacker_hands": 0.57629919052124,
+        "attacker_hips": 0.31937101483345,
+        "victim_hips": 0.288084596395493
+      },
+      "live_graft_attacker_hip_travel_m": 1.57107055187225,
+      "source_film_attacker_hip_travel_m": 0.0,
+      "pair_clock_drift_s": 0.0
+    },
+    {
+      "beat_index": 3,
+      "film_key": "Paired_FullMount_H2H_Punches",
+      "join_to_next_m": {
+        "attacker_hands": 0.514300227165222,
+        "attacker_hips": 0.321853369474411,
+        "victim_hips": 0.325020134449005
+      },
+      "live_graft_attacker_hip_travel_m": 0.319372415542603,
+      "source_film_attacker_hip_travel_m": 0.0,
+      "pair_clock_drift_s": 0.0
+    },
+    {
+      "beat_index": 4,
+      "film_key": "Paired_FullMount_Reversal",
+      "join_to_next_m": {
+        "attacker_hands": 0.0950061082839966,
+        "attacker_hips": 0.0982248187065125,
+        "victim_hips": 0.0903453826904297
+      },
+      "live_graft_attacker_hip_travel_m": 0.454686254262924,
+      "source_film_attacker_hip_travel_m": 0.509595394134521,
+      "pair_clock_drift_s": 0.0
+    },
+    {
+      "beat_index": 5,
+      "film_key": "Paired_FullMount_H2H_ArmBar",
+      "join_to_next_m": {
+        "attacker_hands": 0.638018310070038,
+        "attacker_hips": 0.961823582649231,
+        "victim_hips": 0.313831448554993
+      },
+      "live_graft_attacker_hip_travel_m": 0.790356576442719,
+      "source_film_attacker_hip_travel_m": 0.667715609073639,
+      "pair_clock_drift_s": 0.0
+    },
+    {
+      "beat_index": 6,
+      "film_key": "Paired_FullMount_H2H_Strangle",
+      "live_graft_attacker_hip_travel_m": 0.313585877418518,
+      "source_film_attacker_hip_travel_m": 0.0384515896439552,
+      "pair_clock_drift_s": 0.0
+    }
+  ],
+  "_note": "S29/C140. The SAME harness, run twice: `control` resets both root nodes to the spawn transforms at every beat (C138's shipped behaviour, and it reproduces C138's published joins to the digit); `chain` carries the previous beat's live root transforms forward instead. The joins do not move, so the reset was never the cause. `_align_pair` best-fits a rigid transform over 360 yaw candidates and measures the residual AFTER applying it, so the base transform is washed out and the residual is a POSE mismatch no rotation or translation can remove."
+}

@@ -1,0 +1,7 @@
+**U203** is on `cursor/u203-hand-pops` (pushed). Switch **`hand_contact_sync`** defers hand finish/settle until after late contact/rope and caps held separation pushes.
+
+**Probes (92012, `as_game`):** hitches **34→18**, total pops **86→84**, hand pops **58→46** (about **21%** down — short of the ~50% gate). Bullet (**0** >25 m/s, **1** >15) and facing (LANDED p50 **0.365 m**) unchanged vs control.
+
+**Tests:** `fight_contact_stop` **145/0** (~6 min direct run). `fight_room_no_teleport` **PASS**. `fight_body_overlap` still **FAIL** (2.1 mm hand>head; tests don’t enable the new switch). Earlier `run_tests.py` jobs were killed mid-run, not failed suites.
+
+Details: `research/U203_DIGEST.md`. If you want the hand-pop gate closed, the next step is deeper work inside `contact_stop`/head-stop writers, not more smoothing.

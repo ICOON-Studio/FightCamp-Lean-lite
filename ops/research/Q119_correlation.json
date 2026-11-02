@@ -1,0 +1,10 @@
+{
+  "count": 252,
+  "seed": 117,
+  "generation": "WorldPopulation._generate_athlete v2 (independent grapple)",
+  "grapple_correlation": 0.3525,
+  "no_weakness_count": 2,
+  "no_weakness_fraction": 0.0079,
+  "ceiling_count": 0,
+  "ceiling_fraction": 0.0
+}

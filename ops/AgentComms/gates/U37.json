@@ -1,0 +1,12 @@
+{
+  "checked_at": "2026-09-10T13:27:35Z",
+  "files": [
+    "Godot/scripts/FightNightScreen.gd",
+    "Godot/scripts/FightRealtime.gd",
+    "Godot/scripts/FightBeatAdapter.gd",
+    "Godot/tests/smoke_test.gd"
+  ],
+  "output": "CHECK total=4 fails=0 autoload_refs=0 autoload_warnings=0 time=1s\n",
+  "passed": true,
+  "task": "U37"
+}

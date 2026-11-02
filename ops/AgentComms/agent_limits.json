@@ -1,0 +1,180 @@
+{
+  "_rule": "Ops board usage panel (operator 2026-10-04: 'put the usage/limits for each agent on the opsboard with their reset day'). `live` = read by server.py at request time; everything else is RECORDED here with the date and source - update at session start/handover. reset.type: daily_utc (time HH:MM UTC) | weekly_at (ISO time, repeats every 7 days) | monthly_day (day of month, UTC) | date (one-off ISO) | none.",
+  "updated": "2026-10-04 S158 handover",
+  "agents": [
+    {
+      "agent": "claude",
+      "plan": "Claude Max",
+      "limit": "5-hour window + weekly (all models)",
+      "status": "5h 24% · weekly 48% (extra usage off, EUR 5.14 of 40)",
+      "reset": {
+        "type": "weekly_at",
+        "at": "2026-10-08T14:00:00Z"
+      },
+      "source": "get_usage in the session, 2026-10-04 01:24 local",
+      "live": null
+    },
+    {
+      "agent": "github",
+      "plan": "GitHub Free (private repo)",
+      "limit": "2,000 Actions minutes/month, then $0.006/min up to the $5 budget",
+      "status": "",
+      "reset": {
+        "type": "monthly_day",
+        "day": 1
+      },
+      "source": "live: gh api users/.../settings/billing/usage/summary",
+      "live": "github_actions"
+    },
+    {
+      "agent": "codex",
+      "plan": "ChatGPT prolite (Codex)",
+      "limit": "weekly window",
+      "status": "",
+      "reset": {
+        "type": "weekly_at",
+        "at": "2026-10-09T21:10:57Z"
+      },
+      "source": "live: rate_limits in the newest ~/.codex/sessions log",
+      "live": "codex_log",
+      "note": "out of rotation (operator S154)"
+    },
+    {
+      "agent": "gemini",
+      "plan": "Gemini API free tier (key GEMINI_API_KEY)",
+      "limit": "per-model requests per minute + per day",
+      "status": "quota ran out 10-04 00:40 (Goose); OpenCode got 503 high demand",
+      "reset": {
+        "type": "daily_utc",
+        "time": "07:00"
+      },
+      "source": "Goose/OpenCode logs; Google resets daily quotas at midnight Pacific",
+      "live": null,
+      "note": "used by Goose + OpenCode"
+    },
+    {
+      "agent": "openrouter",
+      "plan": "OpenRouter (key used by Cline)",
+      "limit": "free models: 50 requests/day (1,000/day after a one-time $10 top-up), 20/min - per ACCOUNT",
+      "status": "",
+      "reset": {
+        "type": "daily_utc",
+        "time": "00:00"
+      },
+      "source": "live: openrouter.ai/api/v1/key",
+      "live": "openrouter"
+    },
+    {
+      "agent": "qwen",
+      "plan": "ModelStudio Token Plan",
+      "limit": "plan token quota",
+      "status": "OUT - quota exhausted (insufficient_quota 429)",
+      "reset": {
+        "type": "date",
+        "at": "2026-10-08T16:00:00Z"
+      },
+      "source": "roster note S143 (reset date from the operator)",
+      "live": null,
+      "note": "cloud seat READY (secret QWEN_API_KEY added 10-04) - first task the day the quota resets"
+    },
+    {
+      "agent": "cursor",
+      "plan": "Cursor Pro $20/mo",
+      "limit": "included usage (Cursor models + other models) + credit balance; on-demand OFF",
+      "status": "Included usage 100% used (both); CREDITS $12 of $25 left (auto-applied, expire 2026-10-30); Grok Bot weekly 10%",
+      "reset": {
+        "type": "date",
+        "at": "2026-10-07T00:00:00Z"
+      },
+      "source": "cursor.com/dashboard/spending, operator screenshot 2026-10-04",
+      "live": null,
+      "note": "cloud seat LIVE (secret CURSOR_API_KEY added 10-04) - Q213I (#36) running on the $12 credits"
+    },
+    {
+      "agent": "grok",
+      "plan": "SuperGrok (weekly limit) + extra credits",
+      "limit": "weekly SuperGrok limit",
+      "status": "WEEKLY LIMIT REACHED - Grok Build 99%, Chat 1%; extra credits: none",
+      "reset": {
+        "type": "date",
+        "at": "2026-10-05T10:42:00Z"
+      },
+      "source": "grok.com -> Settings -> Usage, read 2026-10-04 (resets Oct 5 1:42 PM local)",
+      "live": null,
+      "note": "top-up is the operator's call"
+    },
+    {
+      "agent": "grokbots",
+      "plan": "Grok Bot (Kalli, John, Maria via gbot)",
+      "limit": "Grok Bot weekly usage (included in Cursor Pro)",
+      "status": "10% of the weekly usage used; pauses at the limit, on-demand OFF",
+      "reset": {
+        "type": "date",
+        "at": "2026-10-08T00:00:00Z"
+      },
+      "source": "cursor.com/dashboard/spending (Grok Bot section), operator screenshot 2026-10-04",
+      "live": null,
+      "note": "new chat for every task (operator rule)"
+    },
+    {
+      "agent": "dola",
+      "plan": "Dola / Cici app (free)",
+      "limit": "chat: no published limit; Create Videos = 1 clip/day (Seedance)",
+      "status": "in use - D70 answered 2026-10-04",
+      "reset": {
+        "type": "daily_utc",
+        "time": "00:00"
+      },
+      "source": "AGENT_TOOLS.md roster row; no usage page found in the app",
+      "live": null,
+      "note": "daily reset applies to the video clip only"
+    },
+    {
+      "agent": "arena",
+      "plan": "arena.ai Agent Mode",
+      "limit": "free, no published limit",
+      "status": "in use (several chats at once)",
+      "reset": {
+        "type": "none"
+      },
+      "source": "AGENT_TOOLS.md",
+      "live": null
+    },
+    {
+      "agent": "openhands",
+      "plan": "OpenHands Cloud free",
+      "limit": "10 conversations/day",
+      "status": "",
+      "reset": {
+        "type": "daily_utc",
+        "time": "00:00"
+      },
+      "source": "OpenHands pricing; count = runs started today in live_runs",
+      "live": "openhands_count"
+    },
+    {
+      "agent": "cline",
+      "plan": "OpenRouter free stealth model",
+      "limit": "daily limit (hit 10-03)",
+      "status": "model ENDS 2026-10-05",
+      "reset": {
+        "type": "date",
+        "at": "2026-10-05T00:00:00Z"
+      },
+      "source": "reference_cline_seat memory",
+      "live": null
+    },
+    {
+      "agent": "higgsfield",
+      "plan": "Higgsfield Plus",
+      "limit": "1,000 credits/month",
+      "status": "1 / 1,000 left",
+      "reset": {
+        "type": "date",
+        "at": "2026-10-14T00:00:00Z"
+      },
+      "source": "reference_higgsfield memory",
+      "live": null
+    }
+  ]
+}

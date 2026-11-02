@@ -1,0 +1,8 @@
+{
+  "body": "You own Q18 - FightHudRead.gd, one pure fold between the fight and the screen, plus its own test. Read research/TASK_Q18.md and nothing else. It must fold correctly BEFORE R87 lands, so default a missing trauma to FightTrauma.fresh() and a missing age to 28.0.",
+  "created_at": "2026-09-09T18:22:42Z",
+  "from": "claude",
+  "id": "d60d58249e67",
+  "to": "qwen",
+  "topic": "q18"
+}

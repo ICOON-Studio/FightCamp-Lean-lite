@@ -1,0 +1,24 @@
+FightCamp - S270 - LEAD DESIGNER ASK: 2-3 BOXERS ON ONE FLOOR - THE STATION PUZZLE (boxing demo). Please give the LONGEST, most complete answer you can, no length limit; if you run out, end with "CONTINUE".
+
+The operator read your 10/10 plan and answered (verbatim): "no guided yet unitl the loop is proven fun keep it simple but what if 2 or 3 boxers come into the gym thep player will have to profam each fighter on different stations that might be a good puzzle if you cna show it to the player good enough to understand his options"
+
+So: NO guided first career for now. Instead he wants the core loop itself to become the puzzle: 2 or 3 boxers in the gym, the player programs each one on different stations, and the game must SHOW the options well enough that the player understands the trade-offs. "Keep it simple" is the hard constraint (his standing line: "keep it simple but deep").
+
+WHAT EXISTS TODAY (built and live):
+- The floor plays ONE boxer through the day (the first fighter on the roster): the Day Plan (9 timed blocks: station, minutes, intensity, coached chip, a per-block FOCUS pick), START DAY, the 600-minute day, gain bubbles naming the attribute, the station FOCUS CARD (2-3 focus options per station, keys 1-3, e.g. heavy bag: POWER SHOTS / COMBINATIONS / BAG ROUNDS), the RING REPORT after a spar, the CHANGE THE PLAN nudge after 3 same-focus days (gain multiplier down to 0.85), the end-of-day wrap.
+- Other people on the floor are ambient gym members (walkers); they do not compete with the boxer for a station in any visible way.
+- Every floor item has a station_capacity (how many can use it at once) and a condition; the gym has a member count and a station capacity total. One coach (hired) walks to a station; his specialty boosts matching stations (Pad man +15% at bag/pads); a coachless station is self-directed at 0.40 (your S266 rule, now built).
+- 11 trained attributes (hand_speed, footwork, guard, head_movement, technique, power, conditioning, fight_iq, composure, recovery; chin innate); each station grows its own mix; station focus weights it.
+- Meters per boxer: gains this week, attrition (fatigue + wear), stamina/strain.
+- The camera is the Two Point Museum perspective (FOV 17); the HUD is one Two Point top bar + modals.
+
+MY QUESTIONS (number your answer to match):
+1. THE PUZZLE IN ONE SENTENCE: what is the player actually solving each morning with 2-3 boxers? (e.g. one ring, one pair of mitts and one coach between three men with different needs and different fight dates). Give the core tension and why it stays fun on day 30, not only day 1.
+2. THE CONSTRAINTS THAT MAKE IT A PUZZLE (keep it to the fewest that work): station capacity (which stations are single-use in a small boxing gym: ring, pads/mitts with the coach, heavy bags x N, speed bag, double-end, skipping area, weights, bike), the coach's attention (one coach, one station at a time? split minutes?), sparring needs a PARTNER (two of your own boxers spar each other = both use the ring), fatigue, fight dates. Use REAL small-boxing-gym numbers (how many heavy bags, one ring, how a real coach splits pad rounds between 3 pros in a morning session) - cite where they come from.
+3. WHAT THE PLAYER SEES TO UNDERSTAND HIS OPTIONS: the morning screen for 3 boxers (one board with 3 rows? a timeline per boxer with station lanes - a Gantt? drag-and-drop onto stations?), how conflicts show BEFORE the day starts (two men on one ring at 08:00), how each boxer's needs show (his fight in 12 days, weak guard, tired), the projected result per boxer (the projection row we have: stamina/strain/coach minutes), and on the floor during the day (who is where, who is waiting). Reference games: Two Point (staff rota / room assignment), Football Manager (training schedule per unit), Game Dev Tycoon, Punch Club, Motorsport Manager (two drivers, one budget), Kairosoft, others you know. Describe the exact screen.
+4. SIMPLE BY DEFAULT: what the coach suggests automatically (an AUTO-PLAN button that fills a sane plan the player edits?), what the first time with 2 boxers looks like, and when a third boxer joins.
+5. WHAT CHANGES IN THE DAY: walking/waiting rules (a boxer waiting for a busy station loses minutes - shown how?), the coach walking between them, gain bubbles for 3 men without clutter, the end-of-day receipt for 3 boxers.
+6. HOW THE 2nd AND 3rd BOXER ARRIVE in the demo (walk-ins at reception exist; signing exists) and how a bigger roster (5+) is handled later without the puzzle becoming a spreadsheet.
+7. BUILD ORDER: the smallest first slice we can build and playtest to prove "is it fun" (the operator's test), then the next slices. Tag each item BUILD NOW (inside the approved training day / station focus / Day Plan features) or NEEDS OPERATOR (new mechanic/screen/look/money). The operator approves final verdicts.
+
+Plain text please (no code this time), numbered to match, as long as you need.

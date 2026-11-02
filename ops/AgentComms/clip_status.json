@@ -1,0 +1,9 @@
+{
+  "arm_error_pct": 8.0,
+  "arm_pair": "head_to_head",
+  "bound": 158,
+  "total_motion": 534,
+  "note": "S73: U171 graft loosen cap merged - att_lhand 15->0%, vic_rhand 13->2% (control-verified); worst on mma_dirty_boxing is now head_to_head 8%. Coverage NOT re-measured (158/534 from S62).",
+  "when": "2026-09-25T03:47:48+03:00",
+  "commit": "07901c9018922c9e82965f9170301050a75cd6d0"
+}

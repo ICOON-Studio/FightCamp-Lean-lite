@@ -1,0 +1,225 @@
+FIGHTCAMP (S220) — PRODUCTION SPECIFICATION & ARCHITECTURAL RULING: 3D INTERACTIVE GLOBE & TIME-HUD/CALENDAR SYSTEM
+EXECUTIVE SUMMARY & SYSTEMIC VERDICTS
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                    ROUND 61 ARCHITECTURAL RULINGS                                │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ PART A: 3D ROTATING GLOBE                                                                        │
+│ VERDICT: BUILD THE CHEAP HYBRID GLOBE (SPHERE SHADER + UV LOOKUP + TEXT FILTER HUD).            │
+│ DO NOT build full interactive 3D tessellated country meshes. Use a single low-poly sphere with   │
+│ Natural Earth raster lookup textures. Keeps draw calls to 1, dev time to 3.5 days, and looks    │
+│ stunning against the cinematic camera.                                                           │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ PART B: TOP BAR CALENDAR STRIP                                                                   │
+│ VERDICT: KILL THE 12-DAY MINI-STRIP IN THE TOP BAR. MOVE UPCOMING EVENTS TO THE RIGHT DRAWER.    │
+│ The mini-strip inside the central time bar is mechanically redundant, unreadable at 1280x720,  │
+│ collides directly with the intraday Bell/Ticker, and causes cognitive noise during active flow.  │
+│ The Top Bar must be an authoritative TIMELINE ENGINE (Date, Clock, Speed, Step In).              │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+PART A: THE 3D ROTATING GLOBE (COUNTRY PICKER STEP 1)
+
+The operator asks: "use a 3d rotating globe to pick a country".
+In Step 1 today (Screenshot 1 Top), we present an overwhelming grid of flat brown country cards spanning Afghanistan to Azerbaijan. It looks like an Excel directory. Replacing or anchoring this with an interactive rotating globe adds immense tactical immersion and production value—if engineered correctly without asset bloat.
+
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                 HYBRID 3D GLOBE ARCHITECTURE                                     │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                                  │
+│       [ 3D VIEWPORT: LEFT / CENTER ]                  [ RIGHT PANEL: 480px STICKY HUD ]          │
+│                                                                                                  │
+│           . - ~ ~ ~ - .                                ┌──────────────────────────────────────┐  │
+│       . '      /\       ' .                            │ [FLAG] UNITED KINGDOM                │  │
+│     /       _ /  \ _        \                          │ REGION: WESTERN EUROPE  | TIER 1     │  │
+│    /       (  UK  ) \        \                         ├──────────────────────────────────────┤  │
+│   |        \  _ /    |        |                        │ ECONOMY      [████████░░] $82/100    │  │
+│  |      <-- ROTATE -->         |                       │ TALENT DEPTH [███████░░░] 74/100     │  │
+│   |          \                |                        │ COMBAT TRAD. [█████████░] 88/100     │  │
+│    \          ` - . _        /                         ├──────────────────────────────────────┤  │
+│     \                 ` - _ /                          │ CITIES (4): London, Manchester, ...  │  │
+│       . '                 '                            │ ACTIVE GYMS: 18                      │  │
+│           ' - ~ ~ ~ - '                                ├──────────────────────────────────────┤  │
+│                                                        │ [  CONFIRM COUNTRY  (ENTER)  ]       │  │
+│   PIN: Lat/Lon Marker + Amber Halo                     └──────────────────────────────────────┘  │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+1. Data Source, Licensing & Precedent
+Geographic Dataset: Natural Earth (Vector & Raster).
+License: Public Domain (100% free for commercial use, zero attribution required, legally bulletproof for Steam commercial distribution).
+Assets Needed:
+Land/Ocean Vector Mask (for vector boundary lines).
+4K Albedo Relief Map (stylized, desaturated sepia/slate to match our leatherette palette).
+Country ID Pick Map (16-bit integer texture where each country’s landmass is filled with a unique flat RGB/Hex index matching its ISO-3166 numeric code).
+2. Technical Implementation Architecture (Godot 4.7)
+
+Do not import 195 separate 3D country boundary meshes. That is a performance and collision nightmare. Instead, use the UV-Projection Shader Technique:
+
+[Sphere Mesh (1,440 tris)] 
+    └─ Material: Standard Material 3D with Custom Shader
+          ├─ Albedo Texture: Stylized Earth (Sepia/Dark Slate #1A1C20 & Land #2B2F36)
+          ├─ Highlight Shader Parameter: Selected Country ISO ID
+          ├─ Atmosphere Rim Shader: Soft Amber glow (#E5B842, Power 2.4, Rim 0.25)
+          └─ Mouse Raycast -> UV Coordinates -> ID Texture Reader -> Trigger Country Select
+
+Geometry: A single UV-Sphere primitive (MeshInstance3D), radius $2.2\text{ m}$, subdivided to 64 rings $\times$ 64 segments (4,096 triangles total).
+Interactive Picking (Raycast to Country):
+The camera casts an unprojected ray from mouse screen coordinates onto the Sphere collider.
+get_collision_point() computes the intersection point in local sphere coordinates.
+A 3-line mathematical transformation converts the 3D unit normal $(X, Y, Z)$ to Equirectangular UV coordinates: $$\text{longitude} = \text{atan2}(X, Z), \quad \text{latitude} = \text{asin}(Y)$$ $$U = 0.5 + \frac{\text{longitude}}{2\pi}, \quad V = 0.5 - \frac{\text{latitude}}{\pi}$$
+The engine samples the 1-pixel color at $(U, V)$ from an in-memory Image of the pre-baked 2K Country ID Index map.
+The sampled ID immediately triggers the UI state update: highlights the country border via shader uniform uniform int selected_country_id, and pulls the country's simulation facts onto the Right Inspector Panel.
+Camera & Interaction Controls:
+Left-Click + Drag: Rotates the sphere smoothly (Euler yaw and pitch with spherical quaternion slerp damping, inertia decay factor 0.92).
+Mouse Wheel: Zooms camera field of view between $35^\circ$ and $60^\circ$ (clamps radius; keeps the globe tactile and responsive).
+Search / Quick Select Box: An autocomplete dropdown at the top-left allows keyboard navigation ([Search Country...]). Typing "Japan" smoothly interpolates the globe's rotation quaternion to Japan's geographic center $(\text{lat } 36.2, \text{lon } 138.2)$ over $450\text{ ms}$ using a Cubic ease-out transition.
+3. Visual Styling (Fighting Maria's Art Bible)
+Ocean: Deep dark charcoal tone #141619 with a subtle grid of latitude/longitude lines in #22262C ($15^\circ$ intervals).
+Landmasses: Warm dark stone #2A2B30. Unselected countries have crisp 1px borders in #3A3E48.
+Selected Country: Filled with warm brass gold #E5B842 at 40% emission, bordered with a 2px glowing gold line (#FFD700).
+Pin Marker: A physical chunky 3D brass needle with an illuminated ruby head (#C62F2A) planted perpendicular to the sphere surface at the capital city coordinates.
+Atmosphere: An inverted-hull Fresnel rim shader that casts a gentle warm amber atmospheric glow (#E5B842) around the limb of the sphere, seamlessly tying into the 3D boxing gym backdrop behind it.
+4. Performance & Prefab Check
+Godot Asset Library Options:
+Godot-Globe-3D (MIT): Available on GitHub. Provides basic lat/lon conversion, but relies on unoptimized multi-mesh boundaries.
+Recommended Build Choice: Build custom in-house (Shader + UV sampler). It is less than 120 lines of GDScript and 40 lines of Godot Shading Language.
+Performance Budget:
+Draw Calls: Exactly 2 draw calls (1 for Globe Sphere, 1 for Capital Marker Pins MultiMeshInstance3D).
+VRAM Overhead: $< 16\text{ MB}$ total for the three 2K textures.
+Frame Time: $< 0.12\text{ ms}$ on GTX 1060 / Steam Deck.
+5. Honest Cost & Verdict
+Is it worth it? YES, 100%. Country selection is the literal "first 60 seconds" of a player’s franchise journey. A spinning tactile globe immediately tells the player: "This is a global tactical boxing empire sim, not an indie spreadsheet."
+Cheapest Shiplike Version: Build the single sphere with UV texture sampling + camera lerp. Do not build country elevation displacement or realistic water reflection. Total implementation cost: 3.5 days engineering, 1 day technical art.
+PART B: THE CALENDAR STRIP — ARCHITECTURAL RULING
+1. The Verdict: KILL THE 12-DAY STRIP IN THE TOP TIME BAR
+
+Look closely at Screenshot 2 (Bottom):
+
+[ $10,530 ]  [ ◀ || ▶ ▶▶ ]  [ Mon 9 Feb ]  [ Mo 9 | Tu 10 | We 11 | ... | Fr 20 ] (🔔)  [ NO BOUT BOOKED ]
+
+
+The 12-day micro-strip (Mo 9 ... Fr 20) sitting between the date and the bell is an ergonomics failure. It must be REMOVED from the top time bar immediately.
+
+Why the Mini-Strip Fails Inside the Top Bar:
+Severe Information Jamming: Cramming 12 date boxes into the center of a fixed $1920\text{ px}$ bar leaves each day only $22\text{ px}$ wide. It is impossible to show event types (sparring, weigh-in, bout, contract expiry, travel, medical suspension) with legible icons.
+Destroys Responsive Scaling (1280×720 Breakpoint): At $1280\text{ px}$ (Steam Deck native), the Top Bar suffers a catastrophic overlap: the 12-day strip smashes directly into the financial ledger pill on the left and the Bout Status card on the right.
+Temporal Confusion (Clock vs. Schedule): The Top Bar is a real-time execution engine (Pause, Play, Fast Forward, Current Hour, Current Day Ticker). A 12-day calendar strip represents future planning. Mixing immediate execution controls with a 2-week scheduling timeline creates cognitive friction.
+2. Where the Calendar Actually Lives: THE DEDICATED SLIDE-OUT DRAWER
+
+The calendar does not disappear from the game—it moves to its proper home: The Right-Edge Calendar Tab (visible on the right edge of Screenshot 2).
+
+Clicking the Right Calendar Tab (or pressing hotkey C) smoothly slides out the Full 4-Week Tactical Campaign Drawer ($480\text{ px}$ wide):
+Full Height Days: Every day has an $80\text{ px} \times 96\text{ px}$ tile.
+Clear Multi-Icon Event Stacks: Shows exact icons:
+🥊 Bout Day: Crimson #C62F2A banner with opponent headshot and weight division.
+⚖️ Weigh-In: Brass Gold #E5B842 scale icon with target weight limit.
+🩺 Medical Clearance / Suspension: White #ECEBE6 cross on red badge.
+✈️ Travel / Camp Relocation: Slate Blue #2A5F9E directional arrow.
+💰 Payroll / Upkeep Due: Amber coin badge #D98039.
+Interactive Scheduling: Clicking any future day opens the day's training itinerary and allows setting camp rest protocols.
+3. The New Top Bar Layout Specification (Clean, Robust, Uncrowded)
+
+By removing the 12-day strip, the Top Bar becomes clean, perfectly proportioned, and responsive from $1280\text{ px}$ to $4\text{K}$.
+
+┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                                 TOP TIME & COMMAND BAR (H: 56px)                                                 │
+├────────────────────────────────┬───────────────────────────────────────────────────────────────┬─────────────────────────────────┤
+│ [1. FINANCIAL STATUS HUD]      │ [2. TIMELINE EXECUTION & TICKER ENGINE]                       │ [3. BOUT & EVENT ACTION TILE]   │
+│                                │                                                               │                                 │
+│ ┌────────────────────────────┐ │  ┌─────────┐ ┌───────────────┐ ┌───────────────────────────┐  │ ┌─────────────────────────────┐ │
+│ │ 💰 $10,530                 │ │  │ ⏸ ⏵ ⏩ │ │  MON 9 FEB   │ │ [████████░░░░░░░░] 10:45  │  │ │ 🥊 NO BOUT BOOKED          │ │
+│ │ RUNWAY: 8 WKS  (-$367/WK)  │ │  │ SPD: 1x │ │  WEEK 6, Y1   │ │ SESSION: MORNING DRILLS │ 🔔│ │    [ FIND FIGHT (F) ]       │ │
+│ └────────────────────────────┘ │  └─────────┘ └───────────────┘ └───────────────────────────┘  │ └─────────────────────────────┘ │
+└────────────────────────────────┴───────────────────────────────────────────────────────────────┴─────────────────────────────────┘
+  X: 24px | W: 240px               X: CENTER (Anchored at X: 960px) | Total W: 580px               X: RIGHT (1656px) | W: 240px
+
+Detailed Breakdown of the Three Top Bar Clusters:
+Cluster 1: Financial Ledger Pill (Left: $X = 24\text{ px}, W = 240\text{ px}$)
+Main Text: $10,530 in bold 18pt Cream #F6F0E0.
+Sub-Indicator: RUNWAY: 8 WKS with a contextual status dot:
+Green (#4EBA64) if $> 12\text{ weeks}$.
+Amber (#E5B842) if $4\text{ to }12\text{ weeks}$.
+Pulsing Crimson (#C62F2A) if $< 4\text{ weeks}$.
+Hover Tooltip: Shows strict cashflow breakdown (Weekly Sponsor Inflow vs. Upkeep + Coach Salaries).
+Cluster 2: Timeline Execution Engine (Center: $W = 580\text{ px}$, Centered at $X = 960\text{ px}$)
+Playback Speed Controls ($W = 108\text{ px}$):
+Three tactile toggle buttons: Pause [Space], Normal 1x [1], Fast 3x [2].
+Active button highlighted in radiant gold brass #E5B842 with dark charcoal glyph #1E1713.
+Date Badge ($W = 160\text{ px}$):
+Top line: MON 9 FEB (16pt bold uppercase cream).
+Bottom line: WEEK 6, YEAR 1 (11pt muted tan #A39281).
+Intraday Bell & Session Ticker ($W = 290\text{ px}$):
+Shows the current time in the boxing gym workday (08:00 to 20:00).
+Progress Bar: High-contrast horizontal gauge showing time elapsed in the active session.
+Session Label: MORNING WORKOUT (08:00–12:00) $\to$ MIDDAY REST (12:00–14:00) $\to$ SPARRING & DRILLS (14:00–18:00) $\to$ EVENING CONDITIONING (18:00–20:00).
+The Round Bell (🔔): Tactile brass bell icon. Rings with an authentic metallic audio chime at session transitions, flashing with an amber outer ripple.
+STEP IN Button Integration:
+When an athlete triggers an actionable event (e.g., Danny Reyes hits exhaustion threshold or an injury occurs), the Session Ticker transforms into an amber call-to-action button: [ STEP IN (SPACE) ], pausing the simulation clock and snapping the camera directly to the fighter’s station.
+Cluster 3: Bout Status Action Tile (Right: $X = 1656\text{ px}, W = 240\text{ px}$)
+When No Bout is Booked:
+Dark textured leatherette chassis #1E1713.
+Header: NO BOUT BOOKED in muted tan #8C7D70.
+Action Sub-Button: [ FIND A FIGHT ] in high-contrast gold outline, hotkey F. Clicking opens the Matchmaker Offer Matrix.
+When a Bout is Scheduled:
+High-impact fight teaser: Opponent silhouette + Name (vs. V. DRAGO).
+Days Countdown Badge: IN 12 DAYS in vibrant boxing crimson #C62F2A.
+Weight Division Tag: LIGHTWEIGHT (135 LBS).
+PART C: SCREENSHOT 2 (BOTTOM) AUDIT & FIX REGISTER
+
+Careful inspection of Screenshot 2 (Bottom) reveals 7 serious UI/UX hierarchy, overlap, and readability violations that degrade the game’s production quality:
+
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                             BOTTOM SCREENSHOT: DEFECT LOCATION AUDIT                             │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ [DEFECT 1: TOP BAR SQUASHING] ──────> 12-day calendar strip smashes clock into bout finder       │
+│ [DEFECT 2: FLOATING DEV WATERMARK] ─> "DEV JUMP 303" raw debug text printed over ring center     │
+│ [DEFECT 3: FLOATING STAMINA HUD] ───> Orphaned "Stamina above 50 at the bell" pinned bottom-left │
+│ [DEFECT 4: BOTTOM FEED CUTOFF] ─────> News ticker text truncated and half-hidden under footer    │
+│ [DEFECT 5: VERTICAL ICON CLUTTER] ──> Left vertical nav toolbar lacks labels and category groups │
+│ [DEFECT 6: UNBOUNDED CAMERA VIEW] ──> Exterior void visible outside white perimeter gym walls    │
+│ [DEFECT 7: ASYMMETRICAL STEP-IN] ───> "GUIDE -> Hire a coach" floating as a detached button     │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+Defect 1: The Crammed Top Bar Overlap
+The Error: The 12-day calendar strip occupies the exact horizontal screen territory needed for legible time display and bout countdowns. Text is running into borders.
+The Fix: Delete the 12-day strip from the Top Bar as specified in Part B. Anchor Cluster 1 Left, Cluster 2 Center, and Cluster 3 Right with dedicated minimum spacing ($48\text{ px}$ buffer).
+Defect 2: Raw Debug Text "DEV JUMP 303" Floating in 3D Space
+The Error: A massive bright white monospace debug string (DEV JUMP 303) is rendered directly over the canvas above the boxing ring, destroying spatial depth and production polish.
+The Fix: Encapsulate all debug identifiers into a single collapsible developer console (F12), completely hidden in standard production builds (#if DEBUG compilation flag).
+Defect 3: Orphaned Bottom-Left Floating Objective
+The Error: Text reading "Stamina above 50 at the bell" with an icon floats arbitrarily at $X = 30\text{ px}, Y = 840\text{ px}$, detached from any UI card or fighter profile. The player cannot tell which fighter this objective applies to.
+The Fix: Attach objective pills directly to the active fighter’s floor nameplate billboard, or pin them cleanly inside the left-hand Active Session Drawer under the fighter's face thumbnail.
+Defect 4: Bottom News Ticker Truncation & Overlap
+The Error: The scrolling league news wire at the screen bottom (Alejandro Tanaka defeated Hans Vargas...) is trapped inside an awkward cut-out panel with an unfinished dashed border, overlapping the bottom viewport margin.
+The Fix: Convert the bottom ticker into a streamlined, edge-to-edge $32\text{ px}$ translucent dark leatherette bar #1E1713. News events scroll cleanly from right to left with bold yellow fighter names (#E5B842) and crisp result chips (KO R4, DEC 3-0).
+Defect 5: Unlabeled Left-Hand Vertical Navigation Strip
+The Error: A stack of 6 tiny, unpadded white line icons sits flush against the left screen boundary ($X = 12\text{ px}$). They lack visual hierarchy, active state indicators, or keyboard shortcut hints.
+The Fix: Place icons on rounded dark square tiles ($42\text{ px} \times 42\text{ px}$) with $8\text{ px}$ separation. Add clear Godot tooltip bindings showing Section Name and Quick Hotkey (e.g., Roster [F1], Training Floor [F2], Staff [F3], Finances [F4], Schedule [F5]).
+Defect 6: Unmasked Black Void Outside Gym Perimeter Walls
+The Error: The camera frustum renders raw black void outside the north and west perimeter walls of the gym, breaking the physical illusion of a real urban boxing club building.
+The Fix: Implement a static low-poly urban exterior vista (adjacent brick warehouse walls, fire escapes, alleyway asphalt, and subtle city silhouette) outside the windows and wall tops, blocking the black engine clear-color completely.
+Defect 7: Detached "GUIDE -> Hire a coach" Bottom Button
+The Error: At the bottom-right corner, an isolated yellow pill button (GUIDE -> Hire a coach) floats without contextual grounding or completion tracking.
+The Fix: Integrate onboarding and tutorial objectives into a unified Club Directive Widget in the top-right corner beneath the Bout Card, featuring a clear step progress indicator (OBJECTIVE 1/4: HIRE A COACH [VIEW CANDIDATES]).
+SELF-AUDIT & SCORE REGISTER
+====================================================================================================
+SECTION                         SCORE (/10)  PRIMARY RISK & MITIGATION
+====================================================================================================
+Part A: 3D Interactive Globe        9.4      Risk: Coordinate alignment drift between 3D sphere raycast 
+                                             and 2D country polygon IDs. 
+                                             Mitigation: Use exact Equirectangular projection maps 
+                                             with clamped UV bounds and test with 10 extreme-latitude 
+                                             countries (e.g., Chile, Norway, New Zealand).
+
+Part B: Calendar Strip Ruling       9.7      Risk: Players accustomed to glanceable day-by-day 
+                                             schedules might feel anxious without a visible strip. 
+                                             Mitigation: The Bout Status tile on the right prominently 
+                                             displays days remaining ("IN 4 DAYS"), and the Bell chiming 
+                                             anchors daily rhythm.
+
+Part C: UI Defect Rectification     9.8      Risk: Cleaning up bottom ticker and debug text may leave 
+                                             the bottom third feeling too empty during calm periods. 
+                                             Mitigation: The clear view allows the rich 3D floor 
+                                             simulations (spotted fighters, swinging bags) to shine.
+====================================================================================================
+OVERALL ARCHITECTURAL SCORE:        9.6 / 10
+====================================================================================================

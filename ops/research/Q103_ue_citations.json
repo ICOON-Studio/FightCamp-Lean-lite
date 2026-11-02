@@ -1,0 +1,164 @@
+{
+  "defaults": {
+    "FAnimNode_OrientationWarping.Mode": "EWarpingEvaluationMode::Manual",
+    "FAnimNode_OrientationWarping.TargetTime": 0.8,
+    "FAnimNode_OrientationWarping.OrientationAngle": 0.0,
+    "FAnimNode_OrientationWarping.LocomotionAngle": 0.0,
+    "FAnimNode_OrientationWarping.LocomotionDirection": "{ 0.f, 0.f, 0.f }",
+    "FAnimNode_OrientationWarping.MinRootMotionSpeedThreshold": 10.0,
+    "FAnimNode_OrientationWarping.LocomotionAngleDeltaThreshold": 90.0,
+    "FAnimNode_OrientationWarping.RotationAxis": "EAxis::Z",
+    "FAnimNode_OrientationWarping.DistributedBoneOrientationAlpha": 0.5,
+    "FAnimNode_OrientationWarping.RotationInterpSpeed": 10.0,
+    "FAnimNode_OrientationWarping.CounterCompensateInterpSpeed": 45.0,
+    "FAnimNode_OrientationWarping.MaxCorrectionDegrees": 180.0,
+    "FAnimNode_OrientationWarping.MaxRootMotionDeltaToCompensateDegrees": 45.0,
+    "FAnimNode_OrientationWarping.bCounterCompenstateInterpolationByRootMotion": true,
+    "FAnimNode_OrientationWarping.bScaleByGlobalBlendWeight": false,
+    "FAnimNode_OrientationWarping.bUseManualRootMotionVelocity": false,
+    "FAnimNode_OrientationWarping.ManualRootMotionVelocity": "FVector::ZeroVector",
+    "FAnimNode_OrientationWarping.CurrentAnimAssetTime": 0.0,
+    "FAnimNode_OrientationWarping.WarpingSpace": "EOrientationWarpingSpace::ComponentTransform",
+    "FAnimNode_OrientationWarping.DebugDrawScale": 1.0,
+    "FAnimNode_OrientationWarping.bEnableDebugDraw": false,
+    "FAnimNode_Steering.TargetOrientation": "FQuat::Identity",
+    "FAnimNode_Steering.bMirrored": false,
+    "FAnimNode_Steering.ProceduralTargetTime": 0.2,
+    "FAnimNode_Steering.TargetTime_DEPRECATED": 0.2,
+    "FAnimNode_Steering.AnimatedTargetTime": 2.0,
+    "FAnimNode_Steering.RootMotionThreshold": 1.0,
+    "FAnimNode_Steering.DisableSteeringBelowSpeed": 1.0,
+    "FAnimNode_Steering.DisableAdditiveBelowSpeed": -1.0,
+    "FAnimNode_Steering.MinScaleRatio": 0.5,
+    "FAnimNode_Steering.MaxScaleRatio": 1.5,
+    "FAnimNode_Steering.CurrentAnimAssetTime": 0.0
+  },
+  "citations": [
+    {
+      "id": "W1",
+      "claim": "Graph mode computes the warp angle as the signed angle between root-motion delta direction and locomotion forward around the rotation axis.",
+      "file": "Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_OrientationWarping.cpp",
+      "line": 287,
+      "quote": "TargetOrientationAngleRad = UE::Anim::SignedAngleRadBetweenNormals(RootMotionDeltaDirection, LocomotionForward, RotationAxisVector);"
+    },
+    {
+      "id": "W1",
+      "claim": "Manual mode takes OrientationAngle directly in degrees and converts to radians via a quaternion around the rotation axis.",
+      "file": "Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_OrientationWarping.cpp",
+      "line": 241,
+      "quote": "const FQuat LocomotionRotation = FQuat(RotationAxisVector, LocomotionAngleRadians);"
+    },
+    {
+      "id": "W1",
+      "claim": "Root bone receives ActualOrientationAngleRad * DistributedBoneOrientationAlpha around the rotation axis.",
+      "file": "Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_OrientationWarping.cpp",
+      "line": 605,
+      "quote": "const float RootOffset = FMath::UnwindRadians(ActualOrientationAngleRad * DistributedBoneOrientationAlpha);"
+    },
+    {
+      "id": "W1",
+      "claim": "Each spine bone counter-rotates by -ActualOrientationAngleRad * DistributedBoneOrientationAlpha * Weight to keep the upper body facing forward.",
+      "file": "Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_OrientationWarping.cpp",
+      "line": 629,
+      "quote": "const FQuat SpineBoneCounterRotation = FQuat(RotationAxisVector, -ActualOrientationAngleRad * DistributedBoneOrientationAlpha * BoneData.Weight);"
+    },
+    {
+      "id": "W1",
+      "claim": "IK foot root receives ActualOrientationAngleRad * (1 - DistributedBoneOrientationAlpha) so feet follow the locomotion direction.",
+      "file": "Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_OrientationWarping.cpp",
+      "line": 639,
+      "quote": "const float IKFootRootOrientationAlpha = 1.f - DistributedBoneOrientationAlpha;"
+    },
+    {
+      "id": "W1",
+      "claim": "IK foot bones counter-rotate by the same alpha as the foot root to stay flat on the ground.",
+      "file": "Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_OrientationWarping.cpp",
+      "line": 660,
+      "quote": "const FQuat IKFootRotation = FQuat(RotationAxisVector, -ActualOrientationAngleRad * IKFootRootOrientationAlpha);"
+    },
+    {
+      "id": "W2",
+      "claim": "RotationInterpSpeed drives FInterpTo from ActualOrientationAngleRad toward TargetOrientationAngleRad each frame, clamped by MaxCorrectionDegrees per second.",
+      "file": "Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_OrientationWarping.cpp",
+      "line": 377,
+      "quote": "const float SmoothOrientationAngleRad = FMath::FInterpTo(ActualOrientationAngleRad, TargetOrientationAngleRad, DeltaSeconds, RotationInterpSpeed);"
+    },
+    {
+      "id": "W2",
+      "claim": "Per-frame correction is clamped to +/- MaxCorrectionDegrees * DeltaSeconds to prevent pops.",
+      "file": "Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_OrientationWarping.cpp",
+      "line": 152,
+      "quote": "const float MaxAngleCorrectionRad = FMath::DegreesToRadians(MaxCorrectionDegrees);"
+    },
+    {
+      "id": "W2",
+      "claim": "Counter-compensate adds the root-motion delta angle to a target and FInterpTo's it back to zero at CounterCompensateInterpSpeed, preserving animated root motion.",
+      "file": "Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_OrientationWarping.cpp",
+      "line": 340,
+      "quote": "float CounterCompensateAngle = FMath::FInterpTo(0, CounterCompensateTargetAngleRad, DeltaSeconds, CounterCompensateInterpSpeed);"
+    },
+    {
+      "id": "W2",
+      "claim": "MinRootMotionSpeedThreshold gates warping: below it, target snaps to zero and interpolation eases the body back.",
+      "file": "Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_OrientationWarping.cpp",
+      "line": 277,
+      "quote": "if (RootMotionDeltaSpeed < MinRootMotionSpeedThreshold)"
+    },
+    {
+      "id": "W2",
+      "claim": "LocomotionAngleDeltaThreshold inverts the locomotion direction when the warp angle exceeds it, avoiding 180-degree over-rotation.",
+      "file": "Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_OrientationWarping.cpp",
+      "line": 293,
+      "quote": "if (LocomotionAngleDeltaThreshold > 0.f)"
+    },
+    {
+      "id": "W2",
+      "claim": "MaxRootMotionDeltaToCompensateDegrees skips counter-compensation when the instantaneous root-motion delta exceeds it, treating it as a pivot.",
+      "file": "Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_OrientationWarping.cpp",
+      "line": 336,
+      "quote": "const float MaxRootMotionDeltaToCompensateRad = FMath::DegreesToRadians(MaxRootMotionDeltaToCompensateDegrees);"
+    },
+    {
+      "id": "W3",
+      "claim": "WarpingSpace selects ComponentTransform, RootBoneTransform or a CustomTransform pin as the reference frame for locomotion direction.",
+      "file": "Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Public/BoneControllers/AnimNode_OrientationWarping.h",
+      "line": 22,
+      "quote": "ComponentTransform,"
+    },
+    {
+      "id": "W3",
+      "claim": "RotationAxis (default Z) sets the twist axis; GetAxisVector maps X/Y/Z to unit vectors.",
+      "file": "Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_OrientationWarping.cpp",
+      "line": 153,
+      "quote": "const FVector RotationAxisVector = UE::Anim::GetAxisVector(RotationAxis);"
+    },
+    {
+      "id": "T1",
+      "claim": "Steering drives remaining error with a critical spring-damper quaternion over ProceduralTargetTime seconds.",
+      "file": "Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_Steering.cpp",
+      "line": 151,
+      "quote": "SpringMath::CriticalSpringDamperQuat(IN OUT LinearCorrection, IN OUT AngularVelocity, DeltaToTargetOrientation, SpringMath::HalfLifeToSmoothingTime(ProceduralTargetTime), DeltaSeconds);"
+    },
+    {
+      "id": "T1",
+      "claim": "When predicted animated root-motion yaw exceeds RootMotionThreshold, its yaw is scaled by Ratio = clamp(YawToTarget / PredictedYaw, MinScaleRatio, MaxScaleRatio).",
+      "file": "Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_Steering.cpp",
+      "line": 129,
+      "quote": "Ratio = FMath::Clamp(Ratio, MinScaleRatio, MaxScaleRatio);"
+    },
+    {
+      "id": "T1",
+      "claim": "DisableSteeringBelowSpeed gates the entire node: current speed below it skips both scaling and additive correction.",
+      "file": "Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_Steering.cpp",
+      "line": 74,
+      "quote": "if (CurrentSpeed > DisableSteeringBelowSpeed)"
+    },
+    {
+      "id": "R",
+      "claim": "OrientationWarping maintains upper-body facing while rotating the lower body toward capsule velocity direction.",
+      "file": "Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Public/BoneControllers/AnimNode_OrientationWarping.h",
+      "line": 30,
+      "quote": "Maintains a look at direction for the upper body (orientation), while rotating the lower body to match capsule velocity direction"
+    }
+  ]
+}

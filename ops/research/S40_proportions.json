@@ -1,0 +1,682 @@
+{
+ "18/19_05": {
+  "cmu_18_05": {
+   "bones": [
+    {
+     "capture_m": 0.0,
+     "cmu": "lowerback",
+     "ours": "Spine",
+     "ratio": null,
+     "rig_rest_m": 0.10346863476185092,
+     "rig_scaled_m": 0.09967345189338134,
+     "segment_is": "root"
+    },
+    {
+     "capture_m": 0.1270289272069931,
+     "cmu": "upperback",
+     "ours": "Chest",
+     "ratio": 0.9038249884136798,
+     "rig_rest_m": 0.11918351629836217,
+     "rig_scaled_m": 0.1148119186610627,
+     "segment_is": "lowerback"
+    },
+    {
+     "capture_m": 0.12693051993846893,
+     "cmu": "thorax",
+     "ours": "UpperChest",
+     "ratio": 1.0648959558838849,
+     "rig_rest_m": 0.1403144688080009,
+     "rig_scaled_m": 0.13516779736071438,
+     "segment_is": "upperback"
+    },
+    {
+     "capture_m": 0.12779463827610016,
+     "cmu": "lclavicle",
+     "ours": "LeftShoulder",
+     "ratio": 1.1295984902003182,
+     "rig_rest_m": 0.1498531774308949,
+     "rig_scaled_m": 0.14435663045237854,
+     "segment_is": "thorax"
+    },
+    {
+     "capture_m": 0.20283731818199188,
+     "cmu": "lhumerus",
+     "ours": "LeftUpperArm",
+     "ratio": 0.6411614283525923,
+     "rig_rest_m": 0.13500332576403348,
+     "rig_scaled_m": 0.13005146464877515,
+     "segment_is": "lclavicle"
+    },
+    {
+     "capture_m": 0.3037578761577606,
+     "cmu": "lradius",
+     "ours": "LeftLowerArm",
+     "ratio": 0.7580252577098021,
+     "rig_rest_m": 0.23902341338169444,
+     "rig_scaled_m": 0.23025614235586864,
+     "segment_is": "lhumerus"
+    },
+    {
+     "capture_m": 0.18813590705394753,
+     "cmu": "lwrist",
+     "ours": "LeftHand",
+     "ratio": 1.430230820212538,
+     "rig_rest_m": 0.279323222510453,
+     "rig_scaled_m": 0.2690777726571972,
+     "segment_is": "lradius"
+    },
+    {
+     "capture_m": 0.12779463827610016,
+     "cmu": "rclavicle",
+     "ours": "RightShoulder",
+     "ratio": 1.129598465824646,
+     "rig_rest_m": 0.1498531741972044,
+     "rig_scaled_m": 0.14435662733729834,
+     "segment_is": "thorax"
+    },
+    {
+     "capture_m": 0.19306187331676497,
+     "cmu": "rhumerus",
+     "ours": "RightUpperArm",
+     "ratio": 0.6736259016108365,
+     "rig_rest_m": 0.1350033401215692,
+     "rig_scaled_m": 0.1300514784796829,
+     "segment_is": "rclavicle"
+    },
+    {
+     "capture_m": 0.29179206490516685,
+     "cmu": "rradius",
+     "ours": "RightLowerArm",
+     "ratio": 0.7891103633359683,
+     "rig_rest_m": 0.23902341338169444,
+     "rig_scaled_m": 0.23025614235586864,
+     "segment_is": "rhumerus"
+    },
+    {
+     "capture_m": 0.19094401597976687,
+     "cmu": "rwrist",
+     "ours": "RightHand",
+     "ratio": 1.4091973438311103,
+     "rig_rest_m": 0.27932325103879513,
+     "rig_scaled_m": 0.2690778001391326,
+     "segment_is": "rradius"
+    },
+    {
+     "capture_m": 0.13648323714733135,
+     "cmu": "lfemur",
+     "ours": "LeftUpperLeg",
+     "ratio": 0.8240309111444738,
+     "rig_rest_m": 0.11674869578106205,
+     "rig_scaled_m": 0.11246640626246275,
+     "segment_is": "lhipjoint"
+    },
+    {
+     "capture_m": 0.4201916754245759,
+     "cmu": "ltibia",
+     "ours": "LeftLowerLeg",
+     "ratio": 1.00092498779242,
+     "rig_rest_m": 0.43659443459277264,
+     "rig_scaled_m": 0.42058034759482016,
+     "segment_is": "lfemur"
+    },
+    {
+     "capture_m": 0.4290041327476502,
+     "cmu": "lfoot",
+     "ours": "LeftFoot",
+     "ratio": 0.9535409941871964,
+     "rig_rest_m": 0.4246489596125716,
+     "rig_scaled_m": 0.40907302725061034,
+     "segment_is": "ltibia"
+    }
+   ],
+   "chains": {
+    "root->L elbow": {
+     "capture_m": 0.8883492797613147,
+     "net_m": -0.03403187438913395,
+     "retargeted_m": 0.8543174053721808,
+     "worst_case_m": 0.2829773173729443
+    },
+    "root->L foot": {
+     "capture_m": 0.9856790453195574,
+     "net_m": -0.043559264211664214,
+     "retargeted_m": 0.9421197811078933,
+     "worst_case_m": 0.0443366085521527
+    },
+    "root->L hand": {
+     "capture_m": 1.0764851868152623,
+     "net_m": 0.046909991214115696,
+     "retargeted_m": 1.123395178029378,
+     "worst_case_m": 0.36391918297619397
+    },
+    "root->R elbow": {
+     "capture_m": 0.866608023643494,
+     "net_m": -0.012290607555485708,
+     "retargeted_m": 0.8543174160880084,
+     "worst_case_m": 0.26123604430913566
+    },
+    "root->R hand": {
+     "capture_m": 1.057552039623261,
+     "net_m": 0.06584317660387999,
+     "retargeted_m": 1.123395216227141,
+     "worst_case_m": 0.3393698284685014
+    }
+   },
+   "mesh_h": 1.850000023841858,
+   "mount_scale": 0.96332045090568,
+   "ratio_max": 1.430230820212538,
+   "ratio_min": 0.6411614283525923,
+   "rig": "f05_m_mma_light_rigged",
+   "subject": "18",
+   "target_h": 1.7821428571428573
+  },
+  "cmu_19_05": {
+   "bones": [
+    {
+     "capture_m": 0.0,
+     "cmu": "lowerback",
+     "ours": "Spine",
+     "ratio": null,
+     "rig_rest_m": 0.05592898854357347,
+     "rig_scaled_m": 0.10570578834735385,
+     "segment_is": "root"
+    },
+    {
+     "capture_m": 0.11750348657369615,
+     "cmu": "upperback",
+     "ours": "Chest",
+     "ratio": 1.084624019250034,
+     "rig_rest_m": 0.06743233009706599,
+     "rig_scaled_m": 0.12744710388345473,
+     "segment_is": "lowerback"
+    },
+    {
+     "capture_m": 0.11791117489337921,
+     "cmu": "thorax",
+     "ours": "UpperChest",
+     "ratio": 1.2157311556768315,
+     "rig_rest_m": 0.07584565551340788,
+     "rig_scaled_m": 0.1433482889203409,
+     "segment_is": "upperback"
+    },
+    {
+     "capture_m": 0.11835312843322754,
+     "cmu": "lclavicle",
+     "ours": "LeftShoulder",
+     "ratio": 1.3084840596805607,
+     "rig_rest_m": 0.08193819151756845,
+     "rig_scaled_m": 0.15486318196820437,
+     "segment_is": "thorax"
+    },
+    {
+     "capture_m": 0.18503764271736164,
+     "cmu": "lhumerus",
+     "ours": "LeftUpperArm",
+     "ratio": 0.8622241476959842,
+     "rig_rest_m": 0.08441477448870432,
+     "rig_scaled_m": 0.15954392378365118,
+     "segment_is": "lclavicle"
+    },
+    {
+     "capture_m": 0.3136499822139742,
+     "cmu": "lradius",
+     "ours": "LeftLowerArm",
+     "ratio": 0.7579942696941736,
+     "rig_rest_m": 0.1257909466708317,
+     "rig_scaled_m": 0.23774488920787193,
+     "segment_is": "lhumerus"
+    },
+    {
+     "capture_m": 0.2054460197687241,
+     "cmu": "lwrist",
+     "ours": "LeftHand",
+     "ratio": 1.4315700333083632,
+     "rig_rest_m": 0.15561394992771588,
+     "rig_scaled_m": 0.294110365363383,
+     "segment_is": "lradius"
+    },
+    {
+     "capture_m": 0.11835312843322754,
+     "cmu": "rclavicle",
+     "ours": "RightShoulder",
+     "ratio": 1.33934530860167,
+     "rig_rest_m": 0.08387074461660013,
+     "rig_scaled_m": 0.15851570732537423,
+     "segment_is": "thorax"
+    },
+    {
+     "capture_m": 0.1954678446054465,
+     "cmu": "rhumerus",
+     "ours": "RightUpperArm",
+     "ratio": 0.8162157491110277,
+     "rig_rest_m": 0.08441477947711772,
+     "rig_scaled_m": 0.15954393321175248,
+     "segment_is": "rclavicle"
+    },
+    {
+     "capture_m": 0.30160495638847634,
+     "cmu": "rradius",
+     "ours": "RightLowerArm",
+     "ratio": 0.7882659510004371,
+     "rig_rest_m": 0.12579096178518923,
+     "rig_scaled_m": 0.23774491777400764,
+     "segment_is": "rhumerus"
+    },
+    {
+     "capture_m": 0.2060790061950684,
+     "cmu": "rwrist",
+     "ours": "RightHand",
+     "ratio": 1.4271725963673578,
+     "rig_rest_m": 0.1556139208085823,
+     "rig_scaled_m": 0.29411031032822055,
+     "segment_is": "rradius"
+    },
+    {
+     "capture_m": 0.1354095339775086,
+     "cmu": "lfemur",
+     "ours": "LeftUpperLeg",
+     "ratio": 0.9284779693847314,
+     "rig_rest_m": 0.06652104187448148,
+     "rig_scaled_m": 0.12572476914276998,
+     "segment_is": "lhipjoint"
+    },
+    {
+     "capture_m": 0.4231649935245517,
+     "cmu": "ltibia",
+     "ours": "LeftLowerLeg",
+     "ratio": 1.0978921974464082,
+     "rig_rest_m": 0.2458145738746377,
+     "rig_scaled_m": 0.46458954462306523,
+     "segment_is": "lfemur"
+    },
+    {
+     "capture_m": 0.46097090840339666,
+     "cmu": "lfoot",
+     "ours": "LeftFoot",
+     "ratio": 0.9487242517094757,
+     "rig_rest_m": 0.23139379901314802,
+     "rig_scaled_m": 0.43733428013484976,
+     "segment_is": "ltibia"
+    }
+   ],
+   "chains": {
+    "root->L elbow": {
+     "capture_m": 0.8524554148316388,
+     "net_m": 0.07619776127923819,
+     "retargeted_m": 0.9286531761108769,
+     "worst_case_m": 0.2789953851588637
+    },
+    "root->L foot": {
+     "capture_m": 1.019545435905457,
+     "net_m": 0.008103157995227983,
+     "retargeted_m": 1.027648593900685,
+     "worst_case_m": 0.07474594420179903
+    },
+    "root->L hand": {
+     "capture_m": 1.0579014346003628,
+     "net_m": 0.16486210687389707,
+     "retargeted_m": 1.22276354147426,
+     "worst_case_m": 0.36765973075352254
+    },
+    "root->R elbow": {
+     "capture_m": 0.8508405908942258,
+     "net_m": 0.08146514856805809,
+     "retargeted_m": 0.9323057394622838,
+     "worst_case_m": 0.28103304858438355
+    },
+    "root->R hand": {
+     "capture_m": 1.0569195970892942,
+     "net_m": 0.16949645270121025,
+     "retargeted_m": 1.2264160497905043,
+     "worst_case_m": 0.3690643527175357
+    }
+   },
+   "mesh_h": 1.0,
+   "mount_scale": 1.89,
+   "ratio_max": 1.4315700333083632,
+   "ratio_min": 0.7579942696941736,
+   "rig": "f06_m_mma_lhw_rigged",
+   "subject": "19",
+   "target_h": 1.89
+  }
+ },
+ "22/23_17": {
+  "cmu_22_17": {
+   "bones": [
+    {
+     "capture_m": 0.0,
+     "cmu": "lowerback",
+     "ours": "Spine",
+     "ratio": null,
+     "rig_rest_m": 0.10346863476185092,
+     "rig_scaled_m": 0.09967345189338134,
+     "segment_is": "root"
+    },
+    {
+     "capture_m": 0.12220995128154755,
+     "cmu": "upperback",
+     "ours": "Chest",
+     "ratio": 0.9394645645227266,
+     "rig_rest_m": 0.11918351629836217,
+     "rig_scaled_m": 0.1148119186610627,
+     "segment_is": "lowerback"
+    },
+    {
+     "capture_m": 0.1223466768860817,
+     "cmu": "thorax",
+     "ours": "UpperChest",
+     "ratio": 1.1047933691453717,
+     "rig_rest_m": 0.1403144688080009,
+     "rig_scaled_m": 0.13516779736071438,
+     "segment_is": "upperback"
+    },
+    {
+     "capture_m": 0.12244650721549988,
+     "cmu": "lclavicle",
+     "ours": "LeftShoulder",
+     "ratio": 1.1789362860168637,
+     "rig_rest_m": 0.1498531774308949,
+     "rig_scaled_m": 0.14435663045237854,
+     "segment_is": "thorax"
+    },
+    {
+     "capture_m": 0.19051176309586407,
+     "cmu": "lhumerus",
+     "ours": "LeftUpperArm",
+     "ratio": 0.6826427016127831,
+     "rig_rest_m": 0.13500332576403348,
+     "rig_scaled_m": 0.13005146464877515,
+     "segment_is": "lclavicle"
+    },
+    {
+     "capture_m": 0.29649502038955733,
+     "cmu": "lradius",
+     "ours": "LeftLowerArm",
+     "ratio": 0.7765936239109207,
+     "rig_rest_m": 0.23902341338169444,
+     "rig_scaled_m": 0.23025614235586864,
+     "segment_is": "lhumerus"
+    },
+    {
+     "capture_m": 0.19812798500061043,
+     "cmu": "lwrist",
+     "ours": "LeftHand",
+     "ratio": 1.3581007885199465,
+     "rig_rest_m": 0.279323222510453,
+     "rig_scaled_m": 0.2690777726571972,
+     "segment_is": "lradius"
+    },
+    {
+     "capture_m": 0.12244650721549988,
+     "cmu": "rclavicle",
+     "ours": "RightShoulder",
+     "ratio": 1.1789362605765286,
+     "rig_rest_m": 0.1498531741972044,
+     "rig_scaled_m": 0.14435662733729834,
+     "segment_is": "thorax"
+    },
+    {
+     "capture_m": 0.1867111474275615,
+     "cmu": "rhumerus",
+     "ours": "RightUpperArm",
+     "ratio": 0.6965383710157911,
+     "rig_rest_m": 0.1350033401215692,
+     "rig_scaled_m": 0.1300514784796829,
+     "segment_is": "rclavicle"
+    },
+    {
+     "capture_m": 0.298433959484103,
+     "cmu": "rradius",
+     "ours": "RightLowerArm",
+     "ratio": 0.7715480595904969,
+     "rig_rest_m": 0.23902341338169444,
+     "rig_scaled_m": 0.23025614235586864,
+     "segment_is": "rhumerus"
+    },
+    {
+     "capture_m": 0.197862982749942,
+     "cmu": "rwrist",
+     "ours": "RightHand",
+     "ratio": 1.3599198617115331,
+     "rig_rest_m": 0.27932325103879513,
+     "rig_scaled_m": 0.2690778001391326,
+     "segment_is": "rradius"
+    },
+    {
+     "capture_m": 0.13599342107772833,
+     "cmu": "lfemur",
+     "ours": "LeftUpperLeg",
+     "ratio": 0.8269988751748624,
+     "rig_rest_m": 0.11674869578106205,
+     "rig_scaled_m": 0.11246640626246275,
+     "segment_is": "lhipjoint"
+    },
+    {
+     "capture_m": 0.4128647446632385,
+     "cmu": "ltibia",
+     "ours": "LeftLowerLeg",
+     "ratio": 1.0186879675034375,
+     "rig_rest_m": 0.43659443459277264,
+     "rig_scaled_m": 0.42058034759482016,
+     "segment_is": "lfemur"
+    },
+    {
+     "capture_m": 0.4414997994899754,
+     "cmu": "lfoot",
+     "ours": "LeftFoot",
+     "ratio": 0.9265531439044258,
+     "rig_rest_m": 0.4246489596125716,
+     "rig_scaled_m": 0.40907302725061034,
+     "segment_is": "ltibia"
+    }
+   ],
+   "chains": {
+    "root->L elbow": {
+     "capture_m": 0.8540099188685505,
+     "net_m": 0.00030748650363021657,
+     "retargeted_m": 0.8543174053721808,
+     "worst_case_m": 0.26850190470615515
+    },
+    "root->L foot": {
+     "capture_m": 0.9903579652309422,
+     "net_m": -0.04823818412304902,
+     "retargeted_m": 0.9421197811078933,
+     "worst_case_m": 0.06366938998621229
+    },
+    "root->L hand": {
+     "capture_m": 1.052137903869161,
+     "net_m": 0.07125727416021696,
+     "retargeted_m": 1.123395178029378,
+     "worst_case_m": 0.33945169236274186
+    },
+    "root->R elbow": {
+     "capture_m": 0.8521482422947937,
+     "net_m": 0.002169173793214657,
+     "retargeted_m": 0.8543174160880084,
+     "worst_case_m": 0.26664021118641035
+    },
+    "root->R hand": {
+     "capture_m": 1.0500112250447358,
+     "net_m": 0.07338399118240524,
+     "retargeted_m": 1.123395216227141,
+     "worst_case_m": 0.3378550285756009
+    }
+   },
+   "mesh_h": 1.850000023841858,
+   "mount_scale": 0.96332045090568,
+   "ratio_max": 1.3599198617115331,
+   "ratio_min": 0.6826427016127831,
+   "rig": "f05_m_mma_light_rigged",
+   "subject": "22",
+   "target_h": 1.7821428571428573
+  },
+  "cmu_23_17": {
+   "bones": [
+    {
+     "capture_m": 0.0,
+     "cmu": "lowerback",
+     "ours": "Spine",
+     "ratio": null,
+     "rig_rest_m": 0.05592898854357347,
+     "rig_scaled_m": 0.10570578834735385,
+     "segment_is": "root"
+    },
+    {
+     "capture_m": 0.11588684469461441,
+     "cmu": "upperback",
+     "ours": "Chest",
+     "ratio": 1.0997547152077871,
+     "rig_rest_m": 0.06743233009706599,
+     "rig_scaled_m": 0.12744710388345473,
+     "segment_is": "lowerback"
+    },
+    {
+     "capture_m": 0.11647484451532364,
+     "cmu": "thorax",
+     "ours": "UpperChest",
+     "ratio": 1.2307231618710746,
+     "rig_rest_m": 0.07584565551340788,
+     "rig_scaled_m": 0.1433482889203409,
+     "segment_is": "upperback"
+    },
+    {
+     "capture_m": 0.11767112463712695,
+     "cmu": "lclavicle",
+     "ours": "LeftShoulder",
+     "ratio": 1.316067832663025,
+     "rig_rest_m": 0.08193819151756845,
+     "rig_scaled_m": 0.15486318196820437,
+     "segment_is": "thorax"
+    },
+    {
+     "capture_m": 0.19037331640720367,
+     "cmu": "lhumerus",
+     "ours": "LeftUpperArm",
+     "ratio": 0.8380582257777702,
+     "rig_rest_m": 0.08441477448870432,
+     "rig_scaled_m": 0.15954392378365118,
+     "segment_is": "lclavicle"
+    },
+    {
+     "capture_m": 0.3015820384025574,
+     "cmu": "lradius",
+     "ours": "LeftLowerArm",
+     "ratio": 0.7883257586134012,
+     "rig_rest_m": 0.1257909466708317,
+     "rig_scaled_m": 0.23774488920787193,
+     "segment_is": "lhumerus"
+    },
+    {
+     "capture_m": 0.2072989791631699,
+     "cmu": "lwrist",
+     "ours": "LeftHand",
+     "ratio": 1.4187738239264642,
+     "rig_rest_m": 0.15561394992771588,
+     "rig_scaled_m": 0.294110365363383,
+     "segment_is": "lradius"
+    },
+    {
+     "capture_m": 0.11767112463712695,
+     "cmu": "rclavicle",
+     "ours": "RightShoulder",
+     "ratio": 1.347107948650983,
+     "rig_rest_m": 0.08387074461660013,
+     "rig_scaled_m": 0.15851570732537423,
+     "segment_is": "thorax"
+    },
+    {
+     "capture_m": 0.1940488964319265,
+     "cmu": "rhumerus",
+     "ours": "RightUpperArm",
+     "ratio": 0.8221841821590644,
+     "rig_rest_m": 0.08441477947711772,
+     "rig_scaled_m": 0.15954393321175248,
+     "segment_is": "rclavicle"
+    },
+    {
+     "capture_m": 0.3132553696632385,
+     "cmu": "rradius",
+     "ours": "RightLowerArm",
+     "ratio": 0.7589492177886448,
+     "rig_rest_m": 0.12579096178518923,
+     "rig_scaled_m": 0.23774491777400764,
+     "segment_is": "rhumerus"
+    },
+    {
+     "capture_m": 0.2085060030221956,
+     "cmu": "rwrist",
+     "ours": "RightHand",
+     "ratio": 1.4105603966563607,
+     "rig_rest_m": 0.1556139208085823,
+     "rig_scaled_m": 0.29411031032822055,
+     "segment_is": "rradius"
+    },
+    {
+     "capture_m": 0.1333221644163132,
+     "cmu": "lfemur",
+     "ours": "LeftUpperLeg",
+     "ratio": 0.9430147619729641,
+     "rig_rest_m": 0.06652104187448148,
+     "rig_scaled_m": 0.12572476914276998,
+     "segment_is": "lhipjoint"
+    },
+    {
+     "capture_m": 0.434100478887558,
+     "cmu": "ltibia",
+     "ours": "LeftLowerLeg",
+     "ratio": 1.0702350428491572,
+     "rig_rest_m": 0.2458145738746377,
+     "rig_scaled_m": 0.46458954462306523,
+     "segment_is": "lfemur"
+    },
+    {
+     "capture_m": 0.446701526641846,
+     "cmu": "lfoot",
+     "ours": "LeftFoot",
+     "ratio": 0.9790301891793026,
+     "rig_rest_m": 0.23139379901314802,
+     "rig_scaled_m": 0.43733428013484976,
+     "segment_is": "ltibia"
+    }
+   ],
+   "chains": {
+    "root->L elbow": {
+     "capture_m": 0.841988168656826,
+     "net_m": 0.08666500745405092,
+     "retargeted_m": 0.9286531761108769,
+     "worst_case_m": 0.2759980910905268
+    },
+    "root->L foot": {
+     "capture_m": 1.014124169945717,
+     "net_m": 0.013524423954967807,
+     "retargeted_m": 1.027648593900685,
+     "worst_case_m": 0.04745370751604669
+    },
+    "root->L hand": {
+     "capture_m": 1.0492871478199959,
+     "net_m": 0.173476393654264,
+     "retargeted_m": 1.22276354147426,
+     "worst_case_m": 0.36280947729073987
+    },
+    "root->R elbow": {
+     "capture_m": 0.85733707994223,
+     "net_m": 0.07496865952005383,
+     "retargeted_m": 0.9323057394622838,
+     "worst_case_m": 0.29499948973886364
+    },
+    "root->R hand": {
+     "capture_m": 1.0658430829644256,
+     "net_m": 0.16057296682607877,
+     "retargeted_m": 1.2264160497905043,
+     "worst_case_m": 0.38060379704488856
+    }
+   },
+   "mesh_h": 1.0,
+   "mount_scale": 1.89,
+   "ratio_max": 1.4187738239264642,
+   "ratio_min": 0.7589492177886448,
+   "rig": "f06_m_mma_lhw_rigged",
+   "subject": "23",
+   "target_h": 1.89
+  }
+ }
+}

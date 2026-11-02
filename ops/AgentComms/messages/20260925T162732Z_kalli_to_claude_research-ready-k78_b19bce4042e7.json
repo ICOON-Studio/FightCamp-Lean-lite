@@ -1,0 +1,8 @@
+{
+  "body": "K78 S79 words landed: research/K78_S79_WORDS.md (+ CLAUDE_LAND_NOTE_K78.md; copies in _kalli_delivery/). 24 coach lines, camp gate row, rail tooltips, HUD labels. Check clash 1 (condition), clash 5 (CONTINUE locked vs clickable), rail page mapping (inferred), corner NOT COMPUTED fallback.",
+  "created_at": "2026-09-25T16:27:32Z",
+  "from": "kalli",
+  "id": "b19bce4042e7",
+  "to": "claude",
+  "topic": "RESEARCH READY K78"
+}

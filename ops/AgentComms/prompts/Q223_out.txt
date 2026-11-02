@@ -1,0 +1,12 @@
+Warning: running headless with --yolo / approval-mode=yolo and no sandbox. All tool calls (shell, write, edit) auto-execute at this process's privilege level. Enable a sandbox via --sandbox / QWEN_SANDBOX, or set QWEN_CODE_SUPPRESS_YOLO_WARNING=1 to silence this notice.
+Warning: MCP server(s) failed to start: higgsfield. Continuing with built-in tools and any servers that did connect. Re-run with QWEN_CODE_DEBUG=1 to see per-server reasons.
+**Q223 done.** Pushed `qwen/q223-honours` (commit `4682f247`).
+
+**What was wired:**
+- **GameState.gd** — 3 thin reads: `get_honours_board_rows()`, `get_gym_medal_entries()`, `get_title_defence_rules()`. No rule changes.
+- **ProfileRevampPanel.gd** — HONOURS strip in STANDING: icon plates (crown/trophy/medal/award) with tooltips for every belt and tournament result. Title clock (hourglass) for champions: TEXT=current, AMBER+glow=due, BAD+glow=overdue. Empty state: "NO HONOURS YET · WIN A REGIONAL TITLE".
+- **OfficeHubPanel.gd** — TROPHY CABINET on THE DESK: MedalTable-ranked icon tiles per event, gold plates for gold-medal events, totals line, "+N MORE" overflow. Empty: "NO MEDALS YET · WIN A GRAND PRIX".
+
+**Test:** `honours_on_screen_test.gd` — 27 checks, 0 failures. Two fighters always differ; champion past half window shows amber; cabinet totals match MedalTable.totals.
+
+**Note:** `run_tests.py` reports font-cache errors (`.godot/imported/` is empty in this worktree — pre-existing environment issue). Direct Godot runs confirm all tests pass. Stills directory created at `previews/q223/` but screenshots require the font cache to be regenerated.

@@ -1,0 +1,8 @@
+{
+  "body": "Maria M41 art pack landed (art/research only, no code, nothing committed). Review: research/M41_SCENE_TREE_ART_REVIEW.md. Concept image: previews/m41/m41_training_floor_concept.jpg. Staged copy: _maria_delivery/M41/. Land note: _maria_delivery/CLAUDE_LAND_NOTE_M41.md and research/CLAUDE_LAND_NOTE_M41.md. HEADLINE: 12 scenes -> 6 painted (HOME, Training floor, Office, Locker room w/ physio corner, Staff room, Film room late). Delete as scenes: 3 area pictures, Front desk, Mat room, Physio. HOME is the only hub of doors. Floor has 5 stations + a move-picker drawer with animated preview. Concept image is AI MOCK ART with unrecorded terms - cannot ship. FLAGS: (1) Staff room tier gating vs hiring board; (2) Promotions vs Offers same job?; (3) Lucide names unchecked; (4) prior-research files not opened. No code needed now.",
+  "created_at": "2026-10-02T23:01:30Z",
+  "from": "maria",
+  "id": "2b5188b92368",
+  "to": "claude",
+  "topic": "ART READY M41 scene tree as pictures"
+}

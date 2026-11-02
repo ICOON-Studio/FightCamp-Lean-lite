@@ -1,0 +1,40 @@
+{
+  "status": "HARNESS PARSE-CLEAN; LIVE CAPTURE BLOCKED BY HEADLESS SCENE-TREE PROCESSING",
+  "fps": 30,
+  "before_chain_fix": {
+    "join_1_to_2_m": 1.56236243247986,
+    "join_2_to_3_m": 0.319471925497055,
+    "join_3_to_4_m": 0.322427988052368,
+    "join_4_to_5_m": 0.15130814909935,
+    "join_5_to_6_m": 0.945765435695648
+  },
+  "after_chain_fix": {
+    "join_1_to_2_m": 0.0,
+    "join_2_to_3_m": 0.0,
+    "join_3_to_4_m": 0.0,
+    "join_4_to_5_m": 0.0,
+    "join_5_to_6_m": 0.0,
+    "note": "Expected geometry after carrying the prior live roots; not live-capture verified in this host."
+  },
+  "ceremony": {
+    "opening_gap_m": 1.087,
+    "opening_gap_derivation": "mean of FightIntent.preferred_range * FightMoves.arm_length_m for reach 186 cm and 172 cm",
+    "walk_distance_per_man_m": "derived at runtime from spawn gap minus 1.087, divided by two",
+    "walk_duration_s": "derived from distance / 1.736",
+    "stride_speed_mps": 1.736,
+    "bow": {"bones": ["Spine", "Chest"], "degrees_forward": 22.0, "label": "AUTHORED"},
+    "glove_touch_seam": "FightContactSolve world-space hand targets; reserved for boxing/MMA",
+    "disciplines": {"bow": ["bjj", "judo", "muay_thai"], "glove_touch": ["boxing", "mma"]}
+  },
+  "cuts": [
+    {"camera": "hard_cam", "event": "walk_in_and_bow"},
+    {"camera": "hard_cam", "event": "beat_1"},
+    {"camera": "high_three_quarter", "event": "beat_2"},
+    {"camera": "low_three_quarter", "event": "beat_3"},
+    {"camera": "top_down_pair_framed", "event": "beat_4"},
+    {"camera": "quad_replay", "event": "beat_4_only_2.0s"},
+    {"camera": "hard_cam", "event": "beats_5_to_6"}
+  ],
+  "pair_clock_drift_s": "0.0 in the inherited C138 paired clock; C139 live capture pending",
+  "recording_sha256": "pending: capture did not complete in the available headless host"
+}

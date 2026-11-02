@@ -1,0 +1,210 @@
+{
+  "anchor_documented": {
+    "against": "21.0 punches per minute",
+    "label": "DOCUMENTED (notational, research instrument)",
+    "quantity": "defensive movements per minute, per fighter",
+    "source": "Davis et al., via G54 section 3",
+    "sport": "elite amateur BOXING (hand / trunk / foot coded separately)",
+    "value": 3.6
+  },
+  "bouts": 30,
+  "no_study": "slip duration, reset time, and the movement/guard split of a fighter's defence - G54 section 3 reports NOT FOUND at punch resolution",
+  "populations": [
+    {
+      "answered_by_roll": 6749,
+      "answered_pre_contact": 0,
+      "built_impacts": 34007,
+      "built_per_fighter_per_min": 26.4042144874949,
+      "connect_share_of_built": 0.473402534772253,
+      "contact_words": {
+        "absorbed": 1682,
+        "blocked": 1325,
+        "clean": 9082,
+        "glancing": 7017,
+        "missed": 11159,
+        "slipped": 3742
+      },
+      "grapple_events": 0,
+      "methods": {
+        "DECISION": 25,
+        "KO": 5
+      },
+      "movement_kinds": {},
+      "movements": 0,
+      "movements_per_100_incoming": 0.0,
+      "movements_per_fighter_per_min": 0.0,
+      "population": "BOXING ring 6.0 m - out-boxer v pressure fighter (non-identical, both legal for boxing)",
+      "pre_contact_share_of_built": 0.0,
+      "round_minutes": 643.969166666667,
+      "ruleset": "boxing",
+      "striking_defence": 0.526597465227747,
+      "variant": "base"
+    },
+    {
+      "answered_by_roll": 6213,
+      "answered_pre_contact": 851,
+      "built_impacts": 32129,
+      "built_per_fighter_per_min": 26.4267648207933,
+      "connect_share_of_built": 0.459460300662952,
+      "contact_words": {
+        "absorbed": 1557,
+        "blocked": 1230,
+        "clean": 8346,
+        "glancing": 6416,
+        "missed": 10303,
+        "slipped": 4277
+      },
+      "grapple_events": 0,
+      "methods": {
+        "DECISION": 19,
+        "KO": 11
+      },
+      "movement_kinds": {
+        "evade": 3429,
+        "footwork": 758
+      },
+      "movements": 4187,
+      "movements_per_100_incoming": 13.031840393414,
+      "movements_per_fighter_per_min": 3.44389381258868,
+      "population": "BOXING ring 6.0 m - out-boxer v pressure fighter (non-identical, both legal for boxing)",
+      "pre_contact_share_of_built": 0.0264869743845124,
+      "round_minutes": 607.8875,
+      "ruleset": "boxing",
+      "striking_defence": 0.540539699337047,
+      "variant": "window"
+    },
+    {
+      "answered_by_roll": 6601,
+      "answered_pre_contact": 825,
+      "built_impacts": 34174,
+      "built_per_fighter_per_min": 26.3745592856472,
+      "connect_share_of_built": 0.461608240182595,
+      "contact_words": {
+        "absorbed": 1669,
+        "blocked": 1273,
+        "clean": 8894,
+        "glancing": 6881,
+        "missed": 10973,
+        "slipped": 4484
+      },
+      "grapple_events": 0,
+      "methods": {
+        "DECISION": 24,
+        "KO": 6
+      },
+      "movement_kinds": {
+        "evade": 3593,
+        "footwork": 855
+      },
+      "movements": 4448,
+      "movements_per_100_incoming": 13.0157429624861,
+      "movements_per_fighter_per_min": 3.43284484410835,
+      "population": "BOXING ring 6.0 m - out-boxer v pressure fighter (non-identical, both legal for boxing)",
+      "pre_contact_share_of_built": 0.0241411599461579,
+      "round_minutes": 647.859166666667,
+      "ruleset": "boxing",
+      "striking_defence": 0.538391759817405,
+      "variant": "window_step"
+    },
+    {
+      "answered_by_roll": 4346,
+      "answered_pre_contact": 0,
+      "built_impacts": 22069,
+      "built_per_fighter_per_min": 27.2542590568636,
+      "connect_share_of_built": 0.470343015089039,
+      "contact_words": {
+        "absorbed": 1427,
+        "blocked": 1043,
+        "clean": 5796,
+        "glancing": 4584,
+        "missed": 7343,
+        "slipped": 1876
+      },
+      "grapple_events": 1004,
+      "methods": {
+        "DECISION": 25,
+        "KO": 1,
+        "SUBMISSION": 4
+      },
+      "movement_kinds": {},
+      "movements": 0,
+      "movements_per_100_incoming": 0.0,
+      "movements_per_fighter_per_min": 0.0,
+      "population": "MMA cage 9.1 m - striker v grappler (non-identical, both legal for MMA)",
+      "pre_contact_share_of_built": 0.0,
+      "round_minutes": 404.8725,
+      "ruleset": "mma",
+      "striking_defence": 0.529656984910961,
+      "variant": "base"
+    },
+    {
+      "answered_by_roll": 4436,
+      "answered_pre_contact": 311,
+      "built_impacts": 22821,
+      "built_per_fighter_per_min": 28.1050836116282,
+      "connect_share_of_built": 0.463564260987687,
+      "contact_words": {
+        "absorbed": 1525,
+        "blocked": 1033,
+        "clean": 5907,
+        "glancing": 4672,
+        "missed": 7495,
+        "slipped": 2189
+      },
+      "grapple_events": 1203,
+      "methods": {
+        "DECISION": 22,
+        "KO": 4,
+        "SUBMISSION": 4
+      },
+      "movement_kinds": {
+        "evade": 2037,
+        "footwork": 283
+      },
+      "movements": 2320,
+      "movements_per_100_incoming": 10.1660751062618,
+      "movements_per_fighter_per_min": 2.8571839086358,
+      "population": "MMA cage 9.1 m - striker v grappler (non-identical, both legal for MMA)",
+      "pre_contact_share_of_built": 0.0136277989571009,
+      "round_minutes": 405.994166666667,
+      "ruleset": "mma",
+      "striking_defence": 0.536435739012313,
+      "variant": "window"
+    },
+    {
+      "answered_by_roll": 4383,
+      "answered_pre_contact": 271,
+      "built_impacts": 22623,
+      "built_per_fighter_per_min": 28.333409869874,
+      "connect_share_of_built": 0.466383768730938,
+      "contact_words": {
+        "absorbed": 1540,
+        "blocked": 1077,
+        "clean": 5871,
+        "glancing": 4680,
+        "missed": 7418,
+        "slipped": 2037
+      },
+      "grapple_events": 1397,
+      "methods": {
+        "DECISION": 22,
+        "KO": 4,
+        "SUBMISSION": 4
+      },
+      "movement_kinds": {
+        "evade": 1958,
+        "footwork": 276
+      },
+      "movements": 2234,
+      "movements_per_100_incoming": 9.87490606904478,
+      "movements_per_fighter_per_min": 2.79789761080752,
+      "population": "MMA cage 9.1 m - striker v grappler (non-identical, both legal for MMA)",
+      "pre_contact_share_of_built": 0.0119789594660301,
+      "round_minutes": 399.228333333333,
+      "ruleset": "mma",
+      "striking_defence": 0.533616231269062,
+      "variant": "window_step"
+    }
+  ],
+  "task": "S4e (2) defence as a movement decision"
+}

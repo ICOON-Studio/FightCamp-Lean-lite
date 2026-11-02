@@ -1,0 +1,7 @@
+You own TASK_U196. You are in the worktree on branch cursor/u196-boxing-room-reds (from origin/master).
+Run: git fetch origin && git merge origin/master, then cat research/TASK_U196_BOXING_ROOM_REDS.md and do exactly that task.
+Do NOT read HANDOFF.md, CURRENT_STATUS.md or HANDOFF_ARCHIVE.md. All research is open: RESEARCH_INDEX.md. Read research/S122_DIGEST.md first (tonight's engine changes).
+FightWorldLiveScreen.gd is 5,143 lines and FightStagePlayer.gd 4,894 - never open them whole; grep -n, then sed -n windows.
+Parse gate before any test; one test at a time, then the subset the task names; never the full suite. Windowed Godot only through Tools\godot_hidden.ps1.
+Commit per fix, push your branch (never master), write research/U196_DIGEST.md, then python Tools/agent_comms.py send --from cursor --to claude --topic U196 "<one line>".
+Trap: fight_body_layers_live compares a legs-layered arm to an OFF arm on one seed - if both arms moved tonight, it is the S122 footwork change, not your fix.

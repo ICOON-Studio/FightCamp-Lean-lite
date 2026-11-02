@@ -1,0 +1,282 @@
+
+
+1. The Verdict: Floor-vs-Planning Decision Architecture
+The Direct Answer
+
+Neither extreme works for a PC management simulation.
+
+If the 3D training floor is purely passive ambient animation (zero interaction), the game feels like a glorified spreadsheet running alongside an expensive tech demo; the 3D space loses its justification, and the player disconnects from the physical reality of their gym.
+If the training floor requires continuous micro-clicking (moving pads every 15 seconds, tapping water bottles, clicking floating stat bubbles), it degenerates into a mobile casual time-management title (Cooking Mama / Gym Tycoon) that repels fans of Football Manager and Out of the Park Baseball.
+The PC Sim Formula: Macro-Planning $\rightarrow$ Autonomous Execution $\rightarrow$ Exception-Based Tactical Intervention
+
+In Football Manager, you do not tell the striker where to plant his left foot during Tuesday’s shooting drill. You set the training schedule, focus areas, and tactical instructions during the planning phase. When you watch the match (or training match engine), you observe execution, spot systemic breakdowns (e.g., fatigue spikes, low morale, tactical mismatches), and make tactical interventions.
+
++-----------------------------------------------------------------------------------------------------------------------+
+| PLANNING PHASE (Before the Day / Week)            | EXECUTION PHASE (The Live Floor)                                  |
+| "Set the Strategy, Budgets, and Profiles"         | "Monitor Simulation, Spot Exceptions, Intervene"                  |
++-----------------------------------------------------------------------------------------------------------------------+
+| - Camp Training Protocol (Volume vs Intensity)    | - Real-time Sim Clock (1x, 2x, 5x, Space to Pause)                |
+| - Daily Station Slot Allocation (60m blocks)      | - Coach Relocation (Assign to one station to boost it)            |
+| - Fight Strategy Matrix & Tactical Plan           | - Workload Auditing (Pulling a redlined fighter off a station)    |
+| - Sparring Partner Casting & Sparring Intensity   | - Real-time Form Cue Adjustment (Push / Crisp / Conserve)         |
+| - Weight Cut Protocol & Daily Caloric Deficit     | - Environmental/Injury Exception Handling (Soreness flags)        |
++-----------------------------------------------------------------------------------------------------------------------+
+
+Exactly What Belongs on the 3D Floor vs. The Planning Screens
+On the Planning Screens (Static / Pre-Session):
+The 3-Block Daily Schedule: Assigning morning, afternoon, and evening blocks (e.g., Block 1: Heavy Bag, Block 2: Sparring, Block 3: Cryo).
+Move Card / Technique Unlocks: Picking which punch chains, counter routes, or defensive habits to drill.
+Weight Cut Curve: Choosing between a linear deficit, sweat pushes, or extreme late water cuts.
+Contract Negotiation & Bout Scouting: Reviewing upcoming opponent tendencies, tape study, and purse agreements.
+On the Live 3D Floor (Active Simulation):
+Live Workload / Strain Triage: The player runs the clock at 2x or 5x. If Danny’s strain meter spikes into the red (85+) on the heavy bag and his injury hazard trips to HIGH, the player taps the spacebar to pause. The player can override: "Cut session short, send to Ice Bath" or "Dial back intensity."
+Coach Station Presence (The Walking Buff): The head coach has a physical presence. Standing at the ring grants a +30% boost to sparring read-rates; moving him to the pad station boosts technique acquisition. Moving the coach is a deliberate, physical decision with transit travel time.
+Form Cue Toggling (Tactical Engine Switches): Three macro toggles available while a session is live:
+[1] Power Through: +30% gains, +50% strain rate, +15% injury roll risk.
+[2] Crisp Form: Baseline gains, baseline strain, accelerated move mastery (+40%).
+[3] Pace Yourself: -25% gains, -40% stamina drain, enables recovery while training.
+The "Spotted Breakdown" Alert (Exception Management): An assistant coach pops a toast: "Danny’s dropping his left hand on the double-end bag." The player clicks the alert to zoom to the station and can order: "Correct habit (+Ring IQ, costs 15m session time)" or "Ignore (keep pace)."
+2. What Boxing Fans & Sim Players Expect: The 13 Pillars
+
+Sim players and boxing purists share a low tolerance for arbitrary mechanics. If a punch lands or misses, the game must explain why via transparent math.
+
++-----------------------------------+---------------------------------------------------------------------------------------------------+
+| MUST-HAVE PILLAR                  | WHY BOXING / SIM FANS DEMAND IT                                                                   |
++-----------------------------------+---------------------------------------------------------------------------------------------------+
+| 1. True Evasion (Whiffing Punches)| Current code says defence only reduces damage. In real boxing, slipping/ducking makes punches     |
+|                                   | miss entirely. Whiffing drains huge stamina and creates counter-punch opportunities.              |
++-----------------------------------+---------------------------------------------------------------------------------------------------+
+| 2. Distinct Hand Speed vs Accuracy| Fast hands with low accuracy throw lightning-fast flurries that hit gloves or air. Slow hands     |
+|                                   | with high accuracy pick clean, surgical openings. Blending them into "speed" ruins archetypes.    |
++-----------------------------------+---------------------------------------------------------------------------------------------------+
+| 3. Chin as Durability & Threshold | Chin cannot be a static cosmetic label. It must be an operational damage threshold that dictates |
+|                                   | flash knockdowns, flash recovery, and long-term concussive degradation.                           |
++-----------------------------------+---------------------------------------------------------------------------------------------------+
+| 4. Ring Generalship & Footwork    | Pressure fighters cut the ring; out-boxers circle away. If the ropes/corners have no mechanical   |
+|                                   | trap penalty, ring positioning is meaningless visually and tactically.                           |
++-----------------------------------+---------------------------------------------------------------------------------------------------+
+| 5. Stylistic Counter-Play         | The rock-paper-scissors of boxing: Swarmer beats Out-Boxer, Out-Boxer beats Slugger, Slugger beats|
+|                                   | Swarmer, Counter-Puncher exploits aggressive mistake-makers.                                      |
++-----------------------------------+---------------------------------------------------------------------------------------------------+
+| 6. The Real Weight Cut Dilemma    | Weight cutting is boxing’s greatest invisible battle. Dropping 15 lbs yields a physical size      |
+|                                   | advantage, but drains stamina pools and lowers chin/concussion resistance on fight night.         |
++-----------------------------------+---------------------------------------------------------------------------------------------------+
+| 7. Body Work as Long-Term Payoff  | Ripping the liver or solar plexus doesn't always produce a KO in Round 1; it pays dividends in    |
+|                                   | Rounds 7-10 by permanently cratering the opponent's max stamina and foot speed.                  |
++-----------------------------------+---------------------------------------------------------------------------------------------------+
+| 8. The Jab as the Master Key      | Boxing runs on the jab. A good jab measures distance, interrupts combinations, blunts rushes,    |
+|                                   | blinds opponents, and banks rounds on judges' scorecards.                                         |
++-----------------------------------+---------------------------------------------------------------------------------------------------+
+| 9. Cut, Swelling & Doctor Stoppage| Damage is not just hit points. A cut above the eye impairs vision (cuts defense/evasion on that   |
+|                                   | side) and brings ringside physicians into play for technical stoppage risks.                      |
++-----------------------------------+---------------------------------------------------------------------------------------------------+
+| 10. Transparent Damage Math       | Players despise invisible dice rolls. If a fighter gets dropped, show: "Clean Counter Right Hook  |
+|                                   | while throwing (Vulnerability 1.6x) + Power 84 vs Chin 62 = Knockdown."                           |
++-----------------------------------+---------------------------------------------------------------------------------------------------+
+| 11. Stool & Corner Strategy       | The 60-second break between rounds is the coach's primary stage: triage bleeding, reset composure,|
+|                                   | point out recurring opponent tells, and alter tactical instructions.                             |
++-----------------------------------+---------------------------------------------------------------------------------------------------+
+| 12. Aging, Mileage & Wear         | Fighters are perishable assets. A 32-year-old veteran with 40 fights retains high Ring IQ and     |
+|                                   | Power, but his Chin has degraded, legs are slow, and scar tissue tears in round 2.                |
++-----------------------------------+---------------------------------------------------------------------------------------------------+
+| 13. Transparent Post-Fight Audit  | A match screen that details not just punch counts, but why rounds were scored the way they were:  |
+|                                   | clean punches vs volume, ring control, and explicit decisive moments.                             |
++-----------------------------------+---------------------------------------------------------------------------------------------------+
+
+3. The Re-Engineered Attribute Architecture
+
+The current 6-stat model collapses distinct boxing mechanics into oversimplified buckets. The updated design introduces a complete 12-attribute system, connecting every training station directly to specific equations in the fight simulation engine.
+
+                    CORE ATTRIBUTE ARCHITECTURE (0 - 100 SCALE)
++---------------------------------------------------------------------------------------------------+
+| PHYSICAL ATTRIBUTES          | TECHNICAL ATTRIBUTES         | MENTAL & DURABILITY ATTRIBUTES      |
+| - Power                      | - Hand Speed                 | - Chin (Damage / Flash Threshold)   |
+| - Conditioning (Work Rate)   | - Accuracy (Target Tracking) | - Ring IQ (Tactical Adherence)      |
+| - Footwork (Ring Velocity)   | - Evasion (Slip / Bob / Roll)| - Composure (Crisis Discipline)     |
+| - Physical Frame / Reach     | - Guard (Blocking Mechanics) | - Recovery (Heart / Stool Resets)   |
++---------------------------------------------------------------------------------------------------+
+
+Attribute Mappings, Stations, and Engine Math
+1. Power
+Trained At: Heavy Bag (Primary), Weights Rig (Secondary).
+Fight Model Impact: Direct scaler on raw damage output ($F$). $$\text{Damage} = (\text{Base Punch Force} \times \text{Power}) \times \text{Target Zone Modifier}$$ Determines whether a landed punch causes head-condition trauma, facial cuts, or guards-breaking shock.
+2. Hand Speed
+Trained At: Speed Bag (Primary), Focus Pads (Secondary).
+Fight Model Impact: Determines Punch Animation Duration and Reaction Window. Hand Speed shortens the frame window the defender has to identify and react to an incoming punch, reducing their effective evasion percentage.
+3. Accuracy
+Trained At: Focus Pads (Primary), Double-End Bag (Secondary).
+Fight Model Impact: Opposes defender’s Evasion. High accuracy narrows the cone of deviation when targeting moving head and body zones, ensuring punches land cleanly rather than grazing off the shoulders or neck.
+4. Footwork
+Trained At: Mirror & Skipping Rope (Primary), Footwork Ladder (Secondary).
+Fight Model Impact: Drives Ring Positioning Velocity and distance-band transitions (Outside $\leftrightarrow$ Pocket $\leftrightarrow$ Inside). Calculates who cuts off the ring and who gets trapped against the ropes. Adds a damage penalty to incoming strikes if the fighter is actively moving out of range.
+5. Evasion
+Trained At: Slip Bag & Slip Ropes (Primary), Sparring (Secondary).
+Fight Model Impact: Fixes the "no-whiff" flaw. When an incoming punch is triggered, the engine calculates: $$P(\text{Clean Whiff}) = \frac{\text{Evasion} \times 1.2}{\text{Evasion} + \text{Attacker Accuracy}} \times \text{Distance Fit}$$ If a whiff triggers, the punch misses entirely. The attacker burns 1.5× baseline stamina, recovery frames increase by 60%, and the defender gains a $+45%$ counter-window window bonus.
+6. Guard
+Trained At: Defence Drills (Primary), Sparring (Secondary).
+Fight Model Impact: Governs active parries, forearm blocks, and arm absorbing. If a punch is not evaded, Guard determines if the punch is absorbed by the gloves/arms (reducing damage by 65–85% and eliminating head shock) or penetrates clean to the skull/body.
+7. Conditioning
+Trained At: Treadmill, Air Bike, Circuit Drills.
+Fight Model Impact: Dictates Total Aerobic Stamina Pool and recovery kinetics. Governs the rate at which punches, slipping, and foot movement deplete round stamina, and how much stamina regenerates during the 60-second stool rest.
+8. Chin (Durability / Concussion Threshold)
+Trained At: NOT directly trainable through standard drills. Modifiable only through neck resistance exercises (slow +0.1 caps), preserved through light camps, or permanently degraded by hard sparring, clean knockdowns, and harsh weight cuts.
+Fight Model Impact: Acts as the denominator in the Knockdown and Stun Roll: $$P(\text{Stun / KD}) = \frac{\text{Impact Damage} - (\text{Chin} \times 0.65)}{\text{Chin}} \times (1.0 + \text{Accumulated Head Wear})$$ A high Chin (80+) shrugs off clean hooks that would floor a fighter with low Chin (45).
+9. Ring IQ
+Trained At: Sparring (Primary), Film Study in Office (Secondary).
+Fight Model Impact:
+Prevents throwing wrong-distance punches (e.g., throwing an uppercut at long range).
+Increases the trigger rate of customized Pad Chains.
+Accelerates in-fight pattern recognition: every 3 rounds, a high Ring IQ fighter decodes an opponent's "Tell," reducing the opponent's accuracy by 15%.
+10. Composure
+Trained At: High-Stakes Sparring, Big-Fight Experience.
+Fight Model Impact: Governs tactical discipline under crisis. When rocked, hurt, or cut, low composure triggers panic (flailing wildly, dropping guard, ignoring corner instructions), while high composure initiates clinical survival mechanics (clinching, rolling with punches, taking a knee to beat the 10-count).
+11. Recovery
+Trained At: Physio Station, Foam Rolling, Ice Baths, Sleep Protocol.
+Fight Model Impact:
+Stool recovery multiplier (heart rate reduction and stamina top-up between rounds).
+Beating the count: determines how quickly head shock clears when on the canvas.
+12. Physical Frame & Weight
+Trained At: Regulated via Diet, Caloric Deficit, and Sauna.
+Fight Model Impact: Dictates reach leverage, absolute force momentum, and weight division eligibility.
+4. Regulating the Fight Through Camp: 4 Tactical Levers
+
+To give the player deep management agency, preparation during the 4-week camp must translate directly into tangible fight night behaviors.
+
++-------------------------------------------------------------------------------------------------------+
+| LEVER 1: THE GAMEPLAN MATRIX                                                                          |
++-------------------------------------------------------------------------------------------------------+
+| Distance Plan:   [ Outside / Stick & Move ]  [ Mid-Range Pocket ]  [ Inside Smother ]                 |
+| Tempo / Output:  [ Conserve & Pick Shots  ]  [ Structured Volume ] [ Relentless Swarm ]               |
+| Target Bias:     [ 80% Head / 20% Body    ]  [ 50% / 50% Balanced ] [ 30% Head / 70% Ribs & Liver ]   |
+| Defensive Stance:[ High Guard / Shell     ]  [ Philly Shell / Roll] [ Head Movement & Slips ]         |
++-------------------------------------------------------------------------------------------------------+
+
+The 4 Pillars of Fight Regulation
+1. The Tactical Gameplan Matrix
+
+Set during fight week, this matrix establishes the baseline rules for the AI match engine:
+
+Distance Priority: Keeps the fighter in their optimal reach zone. If an out-boxer with 76" reach faces a 68" swarmer, the tactical instruction is: "Maintain long distance: Circle away from the right hand."
+Trigger Conditions: If the opponent drops below 40% stamina, the matrix auto-switches tempo to "Turn up the heat: Hunt the finish."
+2. Opponent-Specific Drills (The Scouting Payoff)
+
+By studying film in the Office PC, the player identifies the opponent’s dominant tendencies:
+
+Scouting Report: Tommy Perez throws a looping overhand right whenever his jab is parried.
+Camp Response: Assign the fighter to the Slip Rope / Focus Pad Station running the "Slip Inside the Right $\rightarrow$ Counter Liver Hook" drill.
+The Result: Each hour spent drilling this route increases its fight-night execution probability by $+5%$. On fight night, when Perez throws his signature right, the player watches their preparation play out in 3D: their boxer slips under the punch and drives a clean counter hook into the ribs.
+3. Sparring Partner Archetype Casting
+
+The player spends money to hire specific sparring partners who mirror the upcoming opponent:
+
+Facing an aggressive southpaw swarmer? Hiring a cheap orthodox sparring partner results in poor preparation; the fighter receives a -20% defense penalty against southpaw angles during the bout.
+Spending $800 to hire an authentic southpaw pressure partner builds muscle memory, eliminating the awkward-angle penalty and increasing ring generalship before fight night.
+4. Corner Tactical Interventions (The 60-Second Stool)
+
+Between rounds, the player is presented with a fast, high-stakes decision drawer (2 Action Points per round):
+
+Cutman Priorities: Apply the Enswell to reduce swelling (restores peripheral vision/defense), or pack a bleeding cut with coagulant (reduces doctor stoppage risk).
+Tactical Audits: Spotting patterns in real-time: "He’s timing your jab with overhand rights." The player selects: "Feint the jab, step back, and fire the straight right."
+Tone Selection: Choose how to deliver corner advice:
+Calm: Lowers heart rate by -15 BPM, restores +12 Composure (ideal for rattled/panicking fighters).
+Fire Up: Boosts power and punch output by +15% for the first minute of the next round, but burns stamina faster.
+Truth: Directly adjusts tactical adherence, cutting through mental complacency.
+5. The 3 Screens That Make the Simulation Legible
+
+A deep simulation lives or dies by its clarity. If the player cannot understand why a fighter succeeded or failed, the depth goes to waste.
+
+Screen 1: The Fighter Dossier (The Player Profile)
+Layout: Three-panel wide-aspect dossier layout (no phone cards).
+Left Column (Biometrics & Career):
+Identity: Name, Moniker, Age, Hometown, Weight Division, Pro Record (with explicit KO ratio).
+Physical Specs: Height, Reach, Stance, Natural Walk-Around Weight vs. Fight-Night Target.
+Career Arc: Total Rounds Boxed, Mileage Index (wear and tear gauge), Morale, Gym Loyalty, Next Contract Status.
+Center Column (Attribute Matrix & Radar):
+12 Primary Attributes displayed as clean numerical bars (0-100 scale).
+Clear visual markers showing the Career Ceiling for each stat.
+30-Day Training Velocity: Color-coded directional deltas showing recent stat trajectory (+1.4 this month vs. plateaued).
+Trait List: Visual badges with explicit mechanics (e.g., Iron Will: +15 Composure when knocked down; cannot be intimidated on the stool).
+Right Column (Mastered Pad Chains & Combat Catalog):
+Unlocked Punch Chains: Diagramming triggers, defensive maneuvers, and follow-up strikes.
+Punch Mastery Progress Bars: Tracks drilling volume (e.g., Lead Hook Counter: 420 / 600 minutes to complete mastery).
+Screen 2: The Bout Preview & Tactical Tale of the Tape
+Layout: Split-screen matchup view comparing both fighters, displayed when finalizing fight week strategy.
+Comparative Stats Bar:
+Direct head-to-head stat comparisons with color-coded advantages:
+Reach: Danny Reyes ($72"$) +4" Advantage vs. Tommy Perez ($68"$).
+Speed: Reyes ($81$) +12 Advantage vs. Perez ($69$).
+Power: Perez ($86$) +12 Advantage vs. Reyes ($74$).
+Stylistic Mismatch Analysis:
+Engine-generated tactical assessment: "Reyes’ out-boxing style holds a natural spacing advantage over Perez’s compact infighting, provided he maintains distance. However, Perez possesses single-punch knockout power that exploits Reyes’ lower chin durability (76 vs. 86)."
+Scouted Opponent Tells:
+Visual cards detailing uncovered opponent habits, their trigger conditions, and the recommended tactical counter.
+Referee Profile:
+Shows the assigned third man in the ring: Strictness rating (how fast they break clinches), Cut Stoppage Sensitivity (high/low), and Tendency to Allow Inside Roughhousing.
+Screen 3: The Post-Fight Audit & "Why" Deconstruction
+
+This screen eliminates ambiguity, transparently showing how the training camp directly determined the outcome of the fight.
+
++-----------------------------------------------------------------------------------------------------------------------+
+| POST-FIGHT AUDIT: DANNY REYES W KO 8 (2:14) TOMMY PEREZ                                                               |
+| Official Scorecards prior to stoppage: Judge A: 68-65 (Reyes) | Judge B: 67-66 (Perez) | Judge C: 68-65 (Reyes)        |
++-----------------------------------------------------------------------------------------------------------------------+
+| THE THREE DECISIVE FACTORS (Engine Breakdown):                                                                        |
+| 1. The Jab Kept the Gates Closed (Camp Footwork & Distance Plan):                                                     |
+|    Reyes maintained Outside Distance for 71% of the fight. Perez was forced to lunge from bad range, missing        |
+|    54 of 72 attempted power punches (Whiff Rate 75%).                                                                |
+|                                                                                                                       |
+| 2. Drilled Pad Chain #2 Fired Cleanly:                                                                                |
+|    At Round 8 (2:08), Perez threw the telegraphed overhand right. Reyes' drilled evasion fired:                      |
+|    [Slip Outside -> Right Cross -> Left Hook to Liver]. Damage: 142 shock units. Perez failed the 10-count.          |
+|                                                                                                                       |
+| 3. Stamina Conservation vs. Early Gassing:                                                                            |
+|    Perez entered Round 7 at 22% stamina due to high output and missed strikes. His defensive guard dropped by -40%,   |
+|    allowing the fight-ending counter to land with 100% clean contact.                                                 |
++-----------------------------------------------------------------------------------------------------------------------+
+| COMPREHENSIVE METRICS                                                                                                 |
+| Total Punches:         184 / 412 (44.6%)        vs.        98 / 340 (28.8%)                                           |
+| Jabs:                  112 / 210 (53.3%)        vs.        18 /  85 (21.1%)                                           |
+| Power Shots:            72 / 202 (35.6%)        vs.        80 / 255 (31.3%)                                           |
+| Punches Whiffed (Air): 86 (Low Fatigue Cost)    vs.       188 (High Fatigue Cost)                                     |
+| Damage Absorbed:       420 Total Points         vs.       890 Total Points                                            |
++-----------------------------------------------------------------------------------------------------------------------+
+
+6. Prioritised 4-Week Production Roadmap
+
+To transition FightCamp into a legible, mechanically sound management sim, development should follow this clear sprint structure:
+
++-----------------------+-----------------------------------------------------------------------------------------------+
+| SPRINT                | CORE DELIVERABLES & ARCHITECTURAL OBJECTIVES                                                  |
++-----------------------+-----------------------------------------------------------------------------------------------+
+| Week 1:               | 1. Expand backend attributes: integrate Chin, Footwork, Accuracy, and Evasion into the engine.|
+| Combat Math & The     | 2. Implement the Whiff Mechanic: calculate evasion misses instead of treating defence purely  |
+| Missing Mechanics     |    as damage absorption.                                                                      |
+|                       | 3. Connect Chin as a dynamic threshold in Knockdown, Stun, and Recovery equations.            |
++-----------------------+-----------------------------------------------------------------------------------------------+
+| Week 2:               | 1. Rebuild the Fighter Profile screen with full tabular attributes, deltas, and ceilings.     |
+| Data Legibility &     | 2. Implement attribute hover tooltips that expose exact mathematical breakdowns.              |
+| Transparent Tooltips  | 3. Create the Post-Fight Audit screen displaying the "Three Decisive Factors" breakdown.     |
++-----------------------+-----------------------------------------------------------------------------------------------+
+| Week 3:               | 1. Implement the 3-State Form Cue controller on the gym floor (Power / Crisp / Pace).        |
+| Tactical Levers &     | 2. Connect the Focus Pad and Slip Rope stations directly to specific Pad Chain masteries.     |
+| Camp Preparation      | 3. Implement the Gameplan Matrix (Distance, Output, Target Bias) in the fight engine.         |
++-----------------------+-----------------------------------------------------------------------------------------------+
+| Week 4:               | 1. Implement the Stool Management drawer between rounds (AP system, cuts, tone selection).    |
+| Stool System & End-   | 2. Finalize the full gameplay loop: Camp Schedule -> 3D Floor Training -> Bout Strategy ->    |
+| to-End Demo Loop      |    Fight Night Execution -> Post-Fight Audit.                                                 |
+|                       | 3. Run balance passes to ensure trained stat deltas produce measurable differences in fights.  |
++-----------------------+-----------------------------------------------------------------------------------------------+
+
+Summary Opinion
+
+A management sim thrives on explainable cause and effect. When the 3D training floor reflects the player's strategic scheduling, and the fight engine clearly demonstrates how training decisions won or lost the bout, the game delivers on the true appeal of the genre: rewarding smart, long-term preparation over twitch reflexes.
+
+Can you define the complete damage, targeting, accuracy, defense, stamina, and recovery formulas for the fight simulation?
+Can you specify the fighter profile screen with every attribute, derived rating, weakness indicator, and training-history panel?
+Which training stations, drills, sparring partners, and coaching actions should regulate each fight attribute in the playable demo?
+Can you create a dense 1920×1080 PC management HUD showing matchup analysis, training effects, and post-fight explanations?
+Copyright ©2026 Ludo.ai. All Rights Reserved.
+ Claude is active in this tab group  
+Open chat
+ 
+Dismiss

@@ -1,0 +1,229 @@
+﻿FIGHTCAMP — TACTICAL DOSSIER SPECIFICATION: TABS 1 THROUGH 6
+
+Platform: PC Exclusive (x86_64, Windows / Linux / macOS)
+
+Resolution Baseline: $1920 \times 1080$ (Integer-snapped pixel grid, strictly 1:1, non-scaled fonts)
+
+Design Paradigm: Hardcore Tactical Management Simulation (Football Manager, Motorsport Manager class)
+
+Style System: Dark tactical dossier; Background #0B0F17; Primary Panels #121826; Borders #1E293B (1px solid); Text Primary #F8FAFC; Text Secondary #94A3B8; Accent Gold #D69E2E; Accent Green #22C55E; Warning Red #EF4444; Violet Accent #6366F1; Inactive Slate #334155.
+
+GLOBAL TOP SHELL (Common to All Tabs)
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+| [ROSTER > LEO VANCE]                                                                                    [MAIL (3)] [NOTIFS] [SAVE] [EXIT [ESC]]     |
+| (16, 8, 480, 24)                                                                                        (1680, 8, 224, 24)                          |
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+| [OVERVIEW]  [[TECHNIQUES]]  [MEDICAL]  [TRAINING PLAN]  [FIGHT RECORD]  [CONTRACT & MONEY]  [CAMP]                                                 |
+| (16, 40, 1888, 36)                                                                                                                                 |
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+| LEO VANCE | AGE 24 | DIVISION -66.7 kg | RECORD 9-2-0 (6 KO) | STANCE ORTHODOX | MORALE HIGH | COMPOSURE SETTLED | CONTRACT 18 WKS                   |
+| (16, 84, 1888, 28)                                                                                                                                 |
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+
+Breadcrumb & Global Utility: rect(16, 8, 1888, 24). Font: Inter 11px Medium. Hex: #94A3B8.
+Tab Navigation Bar: rect(16, 40, 1888, 36). 7 Tabs: OVERVIEW, TECHNIQUES, MEDICAL, TRAINING PLAN, FIGHT RECORD, CONTRACT, CAMP. Active tab has 2px bottom border #D69E2E, text #F8FAFC, background #121826. Inactive tabs text #94A3B8, background #0B0F17.
+Fighter Telemetry Header Strip: rect(16, 84, 1888, 28). Background: #121826, Border: #1E293B. Font: JetBrains Mono 12px Bold. Populated fields: LEO VANCE | AGE 24 | DIVISION -66.7 kg | RECORD 9-2-0 (6 KO) | STANCE ORTHODOX | MORALE HIGH | COMPOSURE SETTLED | CONTRACT 18 WKS. Empty state for new signing: NIKO PARK | AGE 18 | DIVISION -75 kg | RECORD 0-0-0 AM | STANCE ORTHODOX | MORALE CONTENT | COMPOSURE CALM | CONTRACT 52 WKS.
+SECTION 1 — TAB 1: TECHNIQUES
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+| TAB 1: TECHNIQUES LAYOUT (1920x1080)                                                                                                               |
++-------------------------------------+----------------------------------------------------+---------------------------------------------------------+
+| COLUMN 1: READOUT (260 px)          | COLUMN 2: 3D BIOMECHANICS STAGE (920 px)           | COLUMN 3: 54-NODE REPERTOIRE TREE (684 px)              |
+| rect(16, 120, 260, 944)             | rect(284, 120, 920, 944)                           | rect(1212, 120, 692, 944)                               |
+|                                     |                                                    |                                                         |
+| - 9 Profile Readout Bars            | - 3D Viewport on circular plinth (810 px height)   | - 7 Branch Filter Chips (1212, 128, 692, 32)            |
+|   (POWER, TECHNIQUE, SPEED,         | - Stage Telemetry Strip (rect(284, 942, 920, 114)) | - Node List Scroll Container (1212, 168, 692, 770)      |
+|   STAMINA, CHIN, DEFENCE,           |   * Technique Name & Certification Badge           |   * Densely packed rows (h=68px each)                   |
+|   FOOTWORK, RING IQ, COMPOSURE)     |   * Telemetry readouts (Speed, Stamina Cost)       |   * 5 States: LEARNED, LEARNING, AVAILABLE,             |
+| - Derived Sim Attributes Overlay    |   * Controls: [LOOP], [SLOW-MO], [ORBIT]           |     LOCKED, NOT IN THIS BUILD                           |
+| - Primary Style Bias Footnote       |                                                    | - Bottom Allocation Strip (1212, 946, 692, 110)         |
+|                                     |                                                    |   * LEARNED count / NEXT TO LEARN / ASSIGN / WEIGHT     |
++-------------------------------------+----------------------------------------------------+---------------------------------------------------------+
+
+1.1 Column 1: Profile Bars & Core Sim Attributes (rect(16, 120, 260, 944))
+Container: Background #121826, Border #1E293B.
+Header: rect(28, 132, 236, 20), Inter 11px Bold, #94A3B8, Text: "PROFILE ATTRIBUTES (0-100)".
+The 9 Readout Bars: Positioned vertically from $y=160$ to $y=592$ ($48\text{ px}$ stride per bar). Each bar entry has:
+Metric Label: rect(28, y, 120, 16), JetBrains Mono 11px Bold, #F8FAFC.
+Numeric Value: rect(212, y, 40, 16), JetBrains Mono 12px Bold, Right-aligned. Color rules: $\ge 80$ #22C55E, $50\text{--}79$ #F8FAFC, $< 50$ #94A3B8.
+20-Tick Progress Track: rect(28, y+20, 224, 8). 20 segmented blocks ($9.2\text{ px}$ width, $2\text{ px}$ gap). Filled blocks #6366F1 (Violet), unfilled #1E293B.
+Populated Example (Leo Vance):
+POWER: 31 (6 filled ticks)
+TECHNIQUE: 44 (8 filled ticks)
+SPEED: 52 (10 filled ticks)
+STAMINA: 47 (9 filled ticks)
+CHIN: 58 (11 filled ticks)
+DEFENCE: 40 (8 filled ticks)
+FOOTWORK: 46 (9 filled ticks)
+RING IQ: 39 (7 filled ticks)
+COMPOSURE: 50 (10 filled ticks)
+Underlying Simulation Stat Card: rect(28, 620, 236, 220). Background #0B0F17, Border #1E293B.
+Header: rect(36, 628, 220, 16), Inter 10px SemiBold, #94A3B8, Text: "RAW SIMULATION ATTRIBUTES".
+Rows for exact simulation keys (JetBrains Mono 11px, #F8FAFC):
+power: 31 | technique: 44
+speed: 52 | defense: 40
+conditioning: 47 | fight_iq: 39
+grapple_offense: 12 | grapple_defence: 15 | top_control: 10
+Decision Served: Direct comparison between raw trainer attributes and technique requirements. If a node requires technique 36, the manager immediately sees Leo's technique: 44 clears the check.
+1.2 Column 2: 3D Biomechanics Stage (rect(284, 120, 920, 944))
+3D Sub-Viewport: rect(284, 120, 920, 814). Godot SubViewportContainer hosting an isolated ring-mat plinth under key-light and rim-light.
+Biomechanical Stage Telemetry Card: rect(296, 942, 896, 110). Background #121826, Border #1E293B.
+Node Title & Badges: rect(312, 954, 520, 24).
+Populated: JetBrains Mono 14px Bold, #F8FAFC, "LEAD HOOK [T2 - HOOKS & BODYWORK]".
+Badge 1: rect(640, 954, 110, 20), Background #065F46, Border #059669, Text: Inter 10px Bold, #34D399, "CERTIFIED DEMO".
+Badge 2: rect(758, 954, 70, 20), Background #1E293B, Text: Inter 10px SemiBold, #94A3B8, "ANIMATED".
+Biomechanical Readouts: rect(312, 984, 600, 20). Font: JetBrains Mono 11px, Text: "EXECUTION SPEED: 11.2 m/s | STAMINA DRAIN: 5.2 | IMPACT FRAME: 11 (0.170s) | COUNTERS: CROSS".
+Playback Controls: rect(312, 1014, 560, 28).
+[LOOP] Button: rect(312, 1014, 70, 26), State Active, Background #6366F1, Text: Inter 11px SemiBold, #FFFFFF.
+[SLOW-MO 0.25x] Button: rect(390, 1014, 110, 26), State Inactive, Background #1E293B, Text: Inter 11px SemiBold, #94A3B8.
+[ORBIT VIEW] Button: rect(508, 1014, 90, 26), Toggle drag-orbit on 3D stage.
+Empty State (No technique clicked / Idle): 3D stage displays boxer in standard orthodox guard breathing idle (box_guard_idle). Telemetry card displays: "BASE STANCE: ORTHODOX | IDLE TELEMETRY | REACH: 71.0 in | STABILITY: 100% | Select any node from the tree to preview biomechanics." Controls disabled.
+1.3 Column 3: The 54-Node Repertoire Tree (rect(1212, 120, 692, 944))
+Branch Filter Row: rect(1212, 120, 692, 34). 7 horizontally packed toggle chips:
+FUNDAMENTALS (3)
+STRAIGHT (7) [ACTIVE]
+HOOKS & BODY (7)
+DEFENCE (15)
+FOOTWORK (11)
+COMBOS (6)
+INSIDE (5)
+Chip styling: Height 28px, Inter 10px Bold. Active chip has background #D69E2E, text #0B0F17. Inactive chips have background #1E293B, text #94A3B8.
+Node Scroll List Container: rect(1212, 160, 692, 770). Vertical scrollbar width: 6px (#334155). Contains rows for the selected branch. Row height: $68\text{ px}$, margin bottom: $4\text{ px}$.
+Node Row Anatomy for the 5 Operational States
+
+Every node row occupies rect(1212, y, 680, 68).
+
++----------------------------------------------------------------------------------------------------+
+| [TIER] TECHNIQUE NAME                     [DEMO BADGE]                      [STATE PILL]           |
+| Sub-line 1: Prerequisites / Learning Station / Mastery Progress Bar                                |
+| Sub-line 2: Fight-Plan Usage Weight: [PRIMARY | SITUATIONAL | SUPPRESSED]                          |
++----------------------------------------------------------------------------------------------------+
+
+State 1: LEARNED
+Background: #121826, Left Border: 3px solid #22C55E (Green), Other Borders: 1px #1E293B.
+Title Row: rect(1224, y+8, 240, 18), JetBrains Mono 12px Bold, #F8FAFC. Example: [T1] Jab.
+Demo Badge: rect(1480, y+8, 90, 16), Background #065F46, Text: Inter 9px Bold, #34D399, "IN THE DEMO".
+State Pill: rect(1790, y+8, 90, 18), Background #14532D, Text: Inter 10px Bold, #4ADE80, "LEARNED".
+Sub-line 1: rect(1224, y+28, 400, 16), Inter 10px, #94A3B8, Text: "Mastered in Week 3 | Quality: 84/100 | Stance: Orthodox".
+Sub-line 2: Weight Selector: [PRIMARY] (Active, Gold #D69E2E), [SITUATIONAL], [SUPPRESSED].
+State 2: LEARNING
+Background: #1A2234, Left Border: 3px solid #D69E2E (Gold), Other Borders: 1px #D69E2E.
+Title Row: rect(1224, y+8, 240, 18), JetBrains Mono 12px Bold, #F8FAFC. Example: [T2] Double Jab.
+Demo Badge: rect(1480, y+8, 90, 16), "IN THE DEMO".
+State Pill: rect(1790, y+8, 90, 18), Background #78350F, Text: Inter 10px Bold, #FBBF24, "LEARNING".
+Sub-line 1: rect(1224, y+28, 480, 16). Inter 10px, #FBBF24, Text: "Station: Heavy Bag 2 | Load: 4.0 h/wk | Coach: Marcus Vance | Reps: 62%".
+Progress Bar: rect(1224, y+48, 540, 6). Track #1E293B, Fill #D69E2E (62% width).
+State 3: AVAILABLE
+Background: #121826, Left Border: 3px solid #3B82F6 (Blue), Other Borders: 1px #1E293B.
+Title Row: rect(1224, y+8, 240, 18), JetBrains Mono 12px Bold, #F8FAFC. Example: [T2] Jab to the Body.
+Demo Badge: rect(1480, y+8, 90, 16), "IN THE DEMO".
+State Pill: rect(1780, y+8, 100, 18), Background #1E3A8A, Text: Inter 10px Bold, #60A5FA, "AVAILABLE".
+Sub-line 1: rect(1224, y+28, 540, 16), Inter 10px, #94A3B8, Text: "Reqs Cleared: speed 28 (has 52), technique 28 (has 44), Jab. Ready to assign.".
+Sub-line 2: Action Link: rect(1224, y+46, 200, 16), Inter 10px SemiBold, #60A5FA, Text: "[+ ADD TO TRAINING PLAN]".
+State 4: LOCKED
+Background: #0E131F, Left Border: 3px solid #EF4444 (Red), Other Borders: 1px #1E293B.
+Title Row: rect(1224, y+8, 240, 18), JetBrains Mono 12px Bold, #64748B. Example: [T3] Overhand Right.
+Demo Badge: rect(1480, y+8, 90, 16), "IN THE DEMO".
+State Pill: rect(1790, y+8, 90, 18), Background #450A0A, Text: Inter 10px Bold, #F87171, "LOCKED".
+Sub-line 1: rect(1224, y+28, 540, 16), Inter 10px, #EF4444, Text: "LACKS ATTRIBUTE: power 36 (Current: 31, Deficit: -5). Requires: Rear Cross (Learned).".
+Sub-line 2: Action Link: rect(1224, y+46, 260, 16), Inter 10px, #64748B, Text: "Assign Strength & Conditioning to unlock.".
+State 5: NOT IN THIS BUILD
+Background: #0B0F17, Left Border: 3px dashed #475569, Other Borders: 1px dashed #334155.
+Title Row: rect(1224, y+8, 240, 18), JetBrains Mono 12px Bold, #475569. Example: [T4] Drawing the Lead.
+Demo Badge: None.
+State Pill: rect(1730, y+8, 150, 18), Background #1E293B, Text: Inter 9px Bold, #94A3B8, "NOT IN THIS BUILD".
+Sub-line 1: rect(1224, y+28, 540, 16), Inter 10px Italic, #64748B, Text: "Logic simulated in background engine. 3D animation clip deferred to Full Release.".
+Detailed 7 Rows for STRAIGHT PUNCHING Branch (Leo Vance Populated State):
+
+Row 1: [T1] Jab | State: LEARNED | Reqs: speed 24 | Certified Clip: box_jab | Status: Mastered Wk 1 | Weight: PRIMARY.
+
+Row 2: [T1] Rear Cross | State: LEARNED | Reqs: power 26, technique 24 | Certified Clip: box_cross | Status: Mastered Wk 3 | Weight: PRIMARY.
+
+Row 3: [T2] Double Jab | State: LEARNING | Reqs: speed 30 | Certified Clip: box_double_jab | Progress: 62% at Heavy Bag 2.
+
+Row 4: [T2] Jab to the Body | State: AVAILABLE | Reqs: speed 28, technique 28 | Certified Clip: box_jab_body | Unlocked Wk 6.
+
+Row 5: [T2] Cross to the Body | State: AVAILABLE | Reqs: power 30, technique 28 | Certified Clip: box_cross_body | Unlocked Wk 6.
+
+Row 6: [T3] Overhand Right | State: LOCKED | Reqs: power 36, technique 32 | Certified Clip: box_overhand | Deficit: power -5.
+
+Row 7: [T3] Up Jab | State: LOCKED | Reqs: speed 34, technique 34, boxing_jab_body | Certified Clip: box_up_jab | Missing: Jab to the Body.
+
+Bottom Technique Allocation Strip: rect(1212, 936, 692, 120). Background #121826, Border #1E293B.
+
+Summary Text: rect(1228, 946, 660, 20), JetBrains Mono 11px Bold, #F8FAFC, "REPERTOIRE: 9/54 LEARNED (6 IN THE DEMO) | ACTIVE LEARNING: 1 | AVAILABLE: 8".
+Next to Learn Recommendation: rect(1228, 970, 660, 16), Inter 10px, #D69E2E, "RECOMMENDED NEXT: Jab to the Body (Matches high technique 44, counters low guards)".
+Actions:
+[ASSIGN TO TRAINING PLAN] Button: rect(1228, 994, 210, 32), Background #22C55E, Text: Inter 11px Bold, #0B0F17. Opens Station Assignment modal.
+Fight-Plan Weight Selector: rect(450, 994, 220, 32). 3 Segment Buttons: [PRIMARY] (Gold), [SITUATIONAL] (Slate), [SUPPRESSED] (Red).
+
+Decision Served: Direct tactical customization of fighter AI behavior during fight simulation rounds. Marking Jab as PRIMARY and Rear Cross as SITUATIONAL instructs the sim decision tree to prioritize lead-hand probing and counter-striking.
+
+SECTION 2 — TAB 2: MEDICAL
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+| TAB 2: MEDICAL LAYOUT (1920x1080)                                                                                                                  |
++---------------------------------------------+----------------------------------------------+-------------------------------------------------------+
+| COLUMN 1: ANATOMICAL WEAR & CUTS (600 px)   | COLUMN 2: ACTIVE INJURIES & CLINIC (660 px)  | COLUMN 3: WEIGHT, CUT & FATIGUE (604 px)              |
+| rect(16, 120, 600, 944)                     | rect(632, 120, 660, 944)                     | rect(1308, 120, 596, 944)                             |
+|                                             |                                              |                                                       |
+| - Front & Back Wireframe Silhouettes        | - Active Trauma List (Cards with prognosis)  | - Weight vs Division Threshold Bar                    |
+| - 6 Official Body Regions (0-100% wear)     | - Cut & Scarring Severity Matrix (Lvl 0-3)   | - Walk-around weight vs Weigh-in Target               |
+| - Career Wear & Structural Integrity Meter  | - Physician Forecast Weeks to Clear          | - Diet Protocol Selector (Safe, Moderate, Extreme)    |
+| - Bout History Worst Region Summary         | - Clinic Assignment CTA Button               | - Acute Fatigue vs Chronic Condition Bars             |
++---------------------------------------------+----------------------------------------------+-------------------------------------------------------+
+
+2.1 Column 1: Anatomical Wear & 6 Body Regions (rect(16, 120, 600, 944))
+Container: Background #121826, Border #1E293B.
+Section Header: rect(32, 136, 568, 24), Inter 12px Bold, #94A3B8, "ANATOMICAL STRUCTURAL INTEGRITY (6 REGIONS)".
+Wireframe Silhouette Viewport: rect(32, 170, 568, 380). Two vector anatomical silhouettes (Front and Back projection). Regions highlighted dynamically by wear state:
+$0\text{--}9%$ Wear: Dark Green (#22C55E)
+$10\text{--}29%$ Wear: Amber Green (#84CC16)
+$30\text{--}59%$ Wear: Warning Amber (#F59E0B)
+$60\text{--}100%$ Wear: Severe Crimson (#EF4444)
+The 6 Exact Body Region Progress Bars: Located rect(32, 570, 568, 260). Vertically stacked ($40\text{ px}$ stride):
+HEAD / NECK (head_neck): rect(32, 570, 568, 32)
+Populated: 14% MILD CONCUSSION RISK | Bar fill 14% (#84CC16).
+Empty: 0% PRISTINE | Bar fill 0%.
+TORSO / CORE (torso_core): rect(32, 610, 568, 32)
+Populated: 8% RESILIENT | Bar fill 8% (#22C55E).
+Empty: 0% PRISTINE | Bar fill 0%.
+LEFT ARM (left_arm): rect(32, 650, 568, 32)
+Populated: 22% EXTENSOR STRAIN | Bar fill 22% (#84CC16).
+Empty: 0% PRISTINE | Bar fill 0%.
+RIGHT ARM (right_arm): rect(32, 690, 568, 32)
+Populated: 5% OPTIMAL | Bar fill 5% (#22C55E).
+Empty: 0% PRISTINE | Bar fill 0%.
+LEFT LEG (left_leg): rect(32, 730, 568, 32)
+Populated: 12% CALF TIGHTNESS | Bar fill 12% (#84CC16).
+Empty: 0% PRISTINE | Bar fill 0%.
+RIGHT LEG (right_leg): rect(32, 770, 568, 32)
+Populated: 4% OPTIMAL | Bar fill 4% (#22C55E).
+Empty: 0% PRISTINE | Bar fill 0%.
+Career Wear Meter: rect(32, 840, 568, 50). Background #0B0F17, Border #1E293B.
+Label: rect(44, 848, 200, 16), Inter 10px SemiBold, #94A3B8, "CAREER WEAR INTEGRITY".
+Value: rect(500, 848, 80, 16), JetBrains Mono 11px Bold, Populated: "88% SOUND", Empty: "100% UNTOUCHED".
+Bout History Worst Region: rect(32, 900, 568, 40). Inter 11px, Populated: "Historical Trauma Focus: HEAD/NECK (3 knockdowns sustained across career)", Empty: "No historical fight trauma on record."
+Decision Served: Determines whether fighter can be scheduled for hard ring sparring without risking neurological KO threshold degradation.
+2.2 Column 2: Active Injuries & Cut Severity Matrix (rect(632, 120, 660, 944))
+Container: Background #121826, Border #1E293B.
+Active Injury Dossier: rect(648, 136, 628, 420).
+Header: rect(648, 136, 628, 24), Inter 12px Bold, #94A3B8, "DIAGNOSED INJURIES & TRAUMA PROGNOSIS".
+Populated Card 1: rect(648, 170, 628, 110). Background #1A2234, Border 1px #EF4444.
+Title: rect(664, 182, 300, 20), JetBrains Mono 13px Bold, #F8FAFC, "LEFT BICEP TENDINITIS (GRADE 1)".
+Region: rect(664, 206, 200, 16), Inter 11px, #EF4444, "Location: left_arm | Severity: Mild".
+Clearance Forecast: rect(664, 226, 320, 16), JetBrains Mono 11px Bold, #FBBF24, "Physician Forecast: 2.5 Weeks to 100% Clearance".
+Training Impact: rect(664, 246, 500, 16), Inter 10px, #94A3B8, "Restricts: Heavy Bag drills & Padwork. Sparring prohibited.".
+CTA: rect(1160, 182, 100, 28), Background #334155, Text: Inter 10px Bold, #F8FAFC, "[TREAT IN CLINIC]".
+Empty State (Uninjured): rect(648, 170, 628, 120). Background #0B0F17, Border 1px dashed #1E293B.
+Centered Text: rect(648, 210, 628, 24), Inter 12px Medium, #22C55E, "NO ACTIVE INJURIES REPORTED".
+Subtext: rect(648, 234, 628, 20), Inter 10px, #94A3B8, "Athlete cleared for unrestricted training load and full-contact sparring."
+Cut & Facial Scarring Severity Matrix (Level 0-3): rect(648, 610, 628, 300).
+Header: rect(648, 610, 628, 20), Inter 12px Bold, #94A3B8, "FACIAL SCARRING & CUT SUSCEPTIBILITY"
+Table Header: Region | Scar Tier | Reopen Risk | Cutman Assessment.
+Row 1: Left Supraorbital (Eye) | Level 2 (Moderate) | +40% Bleed Chance | "Tissue fragile from Bout 8"
+Row 2: Right Zygomatic (Cheek) | Level 1 (Minor) | +15% Bleed Chance | "Well consolidated"
+Row 3: Bridge of Nose | Level 0 (None) | Base Risk | "Pristine cartilage"
+Populated Value: Lvl 2 Cut Warning: "High probability of stoppage on repeated right crosses."
+Empty State: All regions listed as Level 0 (None) - Pristine tissue. No prior lacerations.
+Decision Served: Cut level dictates cutman hiring requirements for next camp and headgear mandate during sparring.
+2.3 Column 3: Weight, Weight Cut Plan & Fatigue Engine (rect(1308, 120, 596, 944))
+Container: Background #121826, Border #1E293B.

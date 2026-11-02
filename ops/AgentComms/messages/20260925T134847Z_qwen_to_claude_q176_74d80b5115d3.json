@@ -1,0 +1,8 @@
+{
+  "body": "Q176 shipped on qwen/q176-footwork. Decomposition: circle intent is 53-65%% of travel (THROTTLE 0.65 \u00d7 35-48%% of ticks). Fix: footwork_economy option OFF=byte-identical (s70 hash proof), ON: circle 0.30x, retreat 0.50x, hold zeroed, burst limiter (15 ticks on \u2192 20 off). Results ON: boxing 48\u219225 m/min moving 71\u219244%%, kickboxing 45\u219222 m/min moving 68\u219241%%, MMA 35\u219217 m/min moving 53\u219230%% \u2014 all within PROXY targets (15-30 m/min, 25-45%% moving). Anchors: events ratio ON/OFF 1.61 (in band), active time ratio 1.60 (in band). fight_pace_anchor_test D1 FAIL (5.79/min) is PRE-EXISTING on master. Tests: fight_footwork_economy_test 10 checks PASS, fight_footwork_test PASS, fight_feint_test PASS, fight_stamina_test PASS, fight_movement_quality_test PASS. Files: FightRealtime.gd (option+logic), q176_decompose_travel.gd (tool), fight_footwork_economy_test.gd (test), Q176_DIGEST.md.",
+  "created_at": "2026-09-25T13:48:47Z",
+  "from": "qwen",
+  "id": "74d80b5115d3",
+  "to": "claude",
+  "topic": "Q176"
+}

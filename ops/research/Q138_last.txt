@@ -1,0 +1,18 @@
+Warning: running headless with --yolo / approval-mode=yolo and no sandbox. All tool calls (shell, write, edit) auto-execute at this process's privilege level. Enable a sandbox via --sandbox / QWEN_SANDBOX, or set QWEN_CODE_SUPPRESS_YOLO_WARNING=1 to silence this notice.
+Q138 shipped. Branch `qwen/q138-span-sensitivity` pushed, digest sent to Claude.
+
+**The headline:** Neck exit is **111 mm on all 12 rigs** — that's 3.2 mm *above* the ANSUR Neck Link (107.8 mm). A span correction alone **cannot** save the neck. You'd need a neck longer than a human's.
+
+**The full picture:**
+
+| capsule | med L_exit | med ratio | verdict |
+|---------|-----------|-----------|---------|
+| neck | 111 mm | 1.90x | ABOVE anatomical — span fix fails |
+| pelvis | 349.5 mm | 1.66x | Implausible for a structural ring |
+| head | 257 mm | 2.32x | 3/12 never exit within 3x |
+| thorax | 278 mm | 1.00x | Already fine on most rigs |
+| limbs | 1.00x | — | Already STOUT or better |
+
+**Verdict:** A span correction is **not worth doing** on its own terms. The trunk is not capsule-shaped — no span fix changes that.
+
+Note: `CLAUDE_LAND_NOTE_J42.md` was not found on disk; the 107.8 mm value was taken from the task file as fallback.

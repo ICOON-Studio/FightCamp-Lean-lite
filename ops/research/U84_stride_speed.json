@@ -1,0 +1,136 @@
+{
+	"bound": {
+		"loc_advance": {
+			"native_speed_mps": 1.73565075088006
+		},
+		"loc_retreat": {
+			"native_speed_mps": 1.78127631665237
+		}
+	},
+	"clips": [
+		{
+			"cadence_steps_per_s": 3.0,
+			"file": "H2H_WalkBack.FBX",
+			"length_s": 1.0,
+			"native_speed_mps": 1.78127631665237,
+			"planted_spans": 3,
+			"root_direction_deg": 179.789443937223,
+			"root_travel_m": 0.0,
+			"step_length_m": 0.610677440961202,
+			"sweep_speed_mps": 1.78127631665237,
+			"twin": "H2H_WalkBack_RootMotion.fbx",
+			"twin_native_speed_mps": 1.83203232288361,
+			"twin_planted_skate_mps": 0.0493748761005537,
+			"twin_root_travel_m": 1.83203232288361
+		},
+		{
+			"cadence_steps_per_s": 3.0,
+			"file": "H2H_WalkBackLeft.FBX",
+			"length_s": 1.0,
+			"native_speed_mps": 1.78121223204559,
+			"planted_spans": 3,
+			"root_direction_deg": -135.149362918393,
+			"root_travel_m": 0.0,
+			"step_length_m": 0.609091281890869,
+			"sweep_speed_mps": 1.78121223204559,
+			"twin": "H2H_WalkBackLeft_RootMotion.fbx",
+			"twin_native_speed_mps": 1.82727384567261,
+			"twin_planted_skate_mps": 0.0483595349197817,
+			"twin_root_travel_m": 1.82727384567261
+		},
+		{
+			"cadence_steps_per_s": 3.0,
+			"file": "H2H_WalkBackRight.FBX",
+			"length_s": 1.0,
+			"native_speed_mps": 1.7811372095058,
+			"planted_spans": 3,
+			"root_direction_deg": 134.85140274604,
+			"root_travel_m": 0.0,
+			"step_length_m": 0.612259745597839,
+			"sweep_speed_mps": 1.7811372095058,
+			"twin": "H2H_WalkBackRight_RootMotion.fbx",
+			"twin_native_speed_mps": 1.83677923679352,
+			"twin_planted_skate_mps": 0.0518766801608515,
+			"twin_root_travel_m": 1.83677923679352
+		},
+		{
+			"cadence_steps_per_s": 2.0,
+			"file": "H2H_WalkForward.FBX",
+			"length_s": 1.0,
+			"native_speed_mps": 1.73565075088006,
+			"planted_spans": 2,
+			"root_direction_deg": -0.000337330063501895,
+			"root_travel_m": 0.0,
+			"step_length_m": 0.916009962558746,
+			"sweep_speed_mps": 1.73565075088006,
+			"twin": "H2H_WalkForward_RootMotion.fbx",
+			"twin_native_speed_mps": 1.83201992511749,
+			"twin_planted_skate_mps": 0.0194075007757234,
+			"twin_root_travel_m": 1.83201992511749
+		},
+		{
+			"cadence_steps_per_s": 3.0,
+			"file": "H2H_WalkForwardLeft.FBX",
+			"length_s": 1.0,
+			"native_speed_mps": 1.7353591724084,
+			"planted_spans": 3,
+			"root_direction_deg": -45.0003427616976,
+			"root_travel_m": 0.0,
+			"step_length_m": 0.610673268636068,
+			"sweep_speed_mps": 1.7353591724084,
+			"twin": "H2H_WalkForwardLeft_RootMotion.fbx",
+			"twin_native_speed_mps": 1.8320198059082,
+			"twin_planted_skate_mps": 0.0193055072378804,
+			"twin_root_travel_m": 1.8320198059082
+		},
+		{
+			"cadence_steps_per_s": 2.0,
+			"file": "H2H_WalkForwardRight.FBX",
+			"length_s": 1.0,
+			"native_speed_mps": 1.73530539067892,
+			"planted_spans": 2,
+			"root_direction_deg": 44.9996768182535,
+			"root_travel_m": 0.0,
+			"step_length_m": 0.916010081768036,
+			"sweep_speed_mps": 1.73530539067892,
+			"twin": "H2H_WalkForwardRight_RootMotion.fbx",
+			"twin_native_speed_mps": 1.83202016353607,
+			"twin_planted_skate_mps": 0.0193543925187052,
+			"twin_root_travel_m": 1.83202016353607
+		},
+		{
+			"cadence_steps_per_s": 2.0,
+			"file": "H2H_WalkLeft.FBX",
+			"length_s": 1.0,
+			"native_speed_mps": 1.70454363242306,
+			"planted_spans": 2,
+			"root_direction_deg": -90.0006103913143,
+			"root_travel_m": 0.0,
+			"step_length_m": 0.921405553817749,
+			"sweep_speed_mps": 1.70454363242306,
+			"twin": "H2H_WalkLeft_RootMotion.fbx",
+			"twin_native_speed_mps": 1.8428111076355,
+			"twin_planted_skate_mps": 0.0418176377570489,
+			"twin_root_travel_m": 1.8428111076355
+		},
+		{
+			"cadence_steps_per_s": 2.0,
+			"file": "H2H_WalkRight.FBX",
+			"length_s": 1.0,
+			"native_speed_mps": 1.76388724396626,
+			"planted_spans": 2,
+			"root_direction_deg": 89.9993877874529,
+			"root_travel_m": 0.0,
+			"step_length_m": 0.921405494213104,
+			"sweep_speed_mps": 1.76388724396626,
+			"twin": "H2H_WalkRight_RootMotion.fbx",
+			"twin_native_speed_mps": 1.84281098842621,
+			"twin_planted_skate_mps": 0.0511983610526163,
+			"twin_root_travel_m": 1.84281098842621
+		}
+	],
+	"population": {
+		"folder": "res://assets/anim/audition/ramsterz_h2h/",
+		"fps": 60
+	}
+}

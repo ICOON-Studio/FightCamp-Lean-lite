@@ -1,0 +1,6006 @@
+[
+  {
+    "id": "karate_kamae",
+    "name": "Kamae and Maai",
+    "kind": "skill",
+    "tier": 1,
+    "grade": "10th kyu",
+    "grade_rank": 1,
+    "branch": "stances",
+    "requires": {
+      "discipline": 8,
+      "attributes": {
+        "technique": 24,
+        "fight_iq": 20
+      },
+      "prerequisites": [],
+      "reps": 60
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_shizentai",
+    "name": "Shizen-tai",
+    "kind": "skill",
+    "tier": 1,
+    "grade": "10th kyu",
+    "grade_rank": 1,
+    "branch": "stances",
+    "requires": {
+      "discipline": 8,
+      "attributes": {
+        "technique": 24,
+        "fight_iq": 20
+      },
+      "prerequisites": [
+        "karate_kamae"
+      ],
+      "reps": 60
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_heisokudachi",
+    "name": "Heisoku-dachi",
+    "kind": "skill",
+    "tier": 1,
+    "grade": "10th kyu",
+    "grade_rank": 1,
+    "branch": "stances",
+    "requires": {
+      "discipline": 8,
+      "attributes": {
+        "technique": 24,
+        "fight_iq": 20
+      },
+      "prerequisites": [
+        "karate_kamae"
+      ],
+      "reps": 60
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_musubidachi",
+    "name": "Musubi-dachi",
+    "kind": "skill",
+    "tier": 1,
+    "grade": "10th kyu",
+    "grade_rank": 1,
+    "branch": "stances",
+    "requires": {
+      "discipline": 8,
+      "attributes": {
+        "technique": 24,
+        "fight_iq": 20
+      },
+      "prerequisites": [
+        "karate_kamae"
+      ],
+      "reps": 60
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_heikodachi",
+    "name": "Heiko-dachi",
+    "kind": "skill",
+    "tier": 1,
+    "grade": "10th kyu",
+    "grade_rank": 1,
+    "branch": "stances",
+    "requires": {
+      "discipline": 8,
+      "attributes": {
+        "technique": 24,
+        "fight_iq": 20
+      },
+      "prerequisites": [
+        "karate_kamae"
+      ],
+      "reps": 60
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_hachijidachi",
+    "name": "Hachiji-dachi",
+    "kind": "skill",
+    "tier": 1,
+    "grade": "10th kyu",
+    "grade_rank": 1,
+    "branch": "stances",
+    "requires": {
+      "discipline": 8,
+      "attributes": {
+        "technique": 24,
+        "fight_iq": 20
+      },
+      "prerequisites": [
+        "karate_kamae"
+      ],
+      "reps": 60
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_uchihachijidachi",
+    "name": "Uchi-hachiji-dachi",
+    "kind": "skill",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "stances",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "fight_iq": 38
+      },
+      "prerequisites": [
+        "karate_kamae"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_zenkutsudachi",
+    "name": "Zenkutsu-dachi",
+    "kind": "skill",
+    "tier": 1,
+    "grade": "9th kyu",
+    "grade_rank": 2,
+    "branch": "stances",
+    "requires": {
+      "discipline": 8,
+      "attributes": {
+        "technique": 24,
+        "fight_iq": 20
+      },
+      "prerequisites": [
+        "karate_kamae"
+      ],
+      "reps": 60
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_kokutsudachi",
+    "name": "Kokutsu-dachi",
+    "kind": "skill",
+    "tier": 1,
+    "grade": "8th kyu",
+    "grade_rank": 3,
+    "branch": "stances",
+    "requires": {
+      "discipline": 8,
+      "attributes": {
+        "technique": 24,
+        "fight_iq": 20
+      },
+      "prerequisites": [
+        "karate_kamae"
+      ],
+      "reps": 60
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_kibadachi",
+    "name": "Kiba-dachi",
+    "kind": "skill",
+    "tier": 1,
+    "grade": "7th kyu",
+    "grade_rank": 4,
+    "branch": "stances",
+    "requires": {
+      "discipline": 8,
+      "attributes": {
+        "technique": 24,
+        "fight_iq": 20
+      },
+      "prerequisites": [
+        "karate_kamae"
+      ],
+      "reps": 60
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_fudodachi",
+    "name": "Fudo-dachi",
+    "kind": "skill",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "stances",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "fight_iq": 58
+      },
+      "prerequisites": [
+        "karate_uchihachijidachi"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_sochindachi",
+    "name": "Sochin-dachi",
+    "kind": "skill",
+    "tier": 4,
+    "grade": "1st dan",
+    "grade_rank": 11,
+    "branch": "stances",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "technique": 78,
+        "fight_iq": 74
+      },
+      "prerequisites": [
+        "karate_fudodachi"
+      ],
+      "reps": 620
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_sanchindachi",
+    "name": "Sanchin-dachi",
+    "kind": "skill",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "stances",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "fight_iq": 58
+      },
+      "prerequisites": [
+        "karate_fudodachi"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_hangetsudachi",
+    "name": "Hangetsu-dachi",
+    "kind": "skill",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "stances",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "fight_iq": 58
+      },
+      "prerequisites": [
+        "karate_fudodachi"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_kosadachi",
+    "name": "Kosa-dachi",
+    "kind": "skill",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "stances",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "fight_iq": 38
+      },
+      "prerequisites": [
+        "karate_uchihachijidachi"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_nekoashidachi",
+    "name": "Neko-ashi-dachi",
+    "kind": "skill",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "stances",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "fight_iq": 58
+      },
+      "prerequisites": [
+        "karate_fudodachi"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_renojidachi",
+    "name": "Renoji-dachi",
+    "kind": "skill",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "stances",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "fight_iq": 38
+      },
+      "prerequisites": [
+        "karate_uchihachijidachi"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_teijidachi",
+    "name": "Teiji-dachi",
+    "kind": "skill",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "stances",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "fight_iq": 38
+      },
+      "prerequisites": [
+        "karate_uchihachijidachi"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_tsuruashidachi",
+    "name": "Tsuru-ashi-dachi",
+    "kind": "skill",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "stances",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "fight_iq": 58
+      },
+      "prerequisites": [
+        "karate_fudodachi"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_sagiashidachi",
+    "name": "Sagi-ashi-dachi",
+    "kind": "skill",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "stances",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "fight_iq": 58
+      },
+      "prerequisites": [
+        "karate_fudodachi"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_gankakudachi",
+    "name": "Gankaku-dachi",
+    "kind": "skill",
+    "tier": 4,
+    "grade": "1st dan",
+    "grade_rank": 11,
+    "branch": "stances",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "technique": 78,
+        "fight_iq": 74
+      },
+      "prerequisites": [
+        "karate_sochindachi"
+      ],
+      "reps": 620
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_iaigoshidachi",
+    "name": "Iaigoshi-dachi",
+    "kind": "skill",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "stances",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "fight_iq": 58
+      },
+      "prerequisites": [
+        "karate_fudodachi"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_ayumiashi",
+    "name": "Ayumi-ashi",
+    "kind": "skill",
+    "tier": 1,
+    "grade": "10th kyu",
+    "grade_rank": 1,
+    "branch": "tai_sabaki",
+    "requires": {
+      "discipline": 8,
+      "attributes": {
+        "technique": 24,
+        "fight_iq": 20
+      },
+      "prerequisites": [
+        "karate_kamae"
+      ],
+      "reps": 60
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_suriashi",
+    "name": "Suri-ashi",
+    "kind": "skill",
+    "tier": 1,
+    "grade": "10th kyu",
+    "grade_rank": 1,
+    "branch": "tai_sabaki",
+    "requires": {
+      "discipline": 8,
+      "attributes": {
+        "technique": 24,
+        "fight_iq": 20
+      },
+      "prerequisites": [
+        "karate_ayumiashi"
+      ],
+      "reps": 60
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_tsugiashi",
+    "name": "Tsugi-ashi",
+    "kind": "skill",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "tai_sabaki",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "fight_iq": 38
+      },
+      "prerequisites": [
+        "karate_ayumiashi"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_yoriashi",
+    "name": "Yori-ashi",
+    "kind": "skill",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "tai_sabaki",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "fight_iq": 38
+      },
+      "prerequisites": [
+        "karate_tsugiashi"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_okuriashi",
+    "name": "Okuri-ashi",
+    "kind": "skill",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "tai_sabaki",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "fight_iq": 38
+      },
+      "prerequisites": [
+        "karate_tsugiashi"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_hikiashi",
+    "name": "Hiki-ashi",
+    "kind": "skill",
+    "tier": 1,
+    "grade": "10th kyu",
+    "grade_rank": 1,
+    "branch": "tai_sabaki",
+    "requires": {
+      "discipline": 8,
+      "attributes": {
+        "technique": 24,
+        "fight_iq": 20
+      },
+      "prerequisites": [
+        "karate_ayumiashi"
+      ],
+      "reps": 60
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_mawariashi",
+    "name": "Mawari-ashi",
+    "kind": "skill",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "tai_sabaki",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "fight_iq": 38
+      },
+      "prerequisites": [
+        "karate_tsugiashi"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_taisabaki",
+    "name": "Tai-sabaki",
+    "kind": "skill",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "tai_sabaki",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "fight_iq": 38
+      },
+      "prerequisites": [
+        "karate_tsugiashi"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_tenshin",
+    "name": "Tenshin",
+    "kind": "skill",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "tai_sabaki",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "fight_iq": 58
+      },
+      "prerequisites": [
+        "karate_tsugiashi"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_maai_control",
+    "name": "Maai",
+    "kind": "skill",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "tai_sabaki",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "fight_iq": 58
+      },
+      "prerequisites": [
+        "karate_tenshin"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_chokuzuki",
+    "name": "Choku-zuki",
+    "kind": "move",
+    "tier": 1,
+    "grade": "10th kyu",
+    "grade_rank": 1,
+    "branch": "zuki",
+    "requires": {
+      "discipline": 8,
+      "attributes": {
+        "technique": 24,
+        "speed": 20,
+        "power": 18
+      },
+      "prerequisites": [
+        "karate_kamae"
+      ],
+      "reps": 60
+    },
+    "match": {
+      "role": "setup",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "straight_damage": 7,
+        "accuracy": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_junzuki",
+    "name": "Jun-zuki (Oi-zuki)",
+    "kind": "move",
+    "tier": 1,
+    "grade": "9th kyu",
+    "grade_rank": 2,
+    "branch": "zuki",
+    "requires": {
+      "discipline": 8,
+      "attributes": {
+        "technique": 24,
+        "speed": 20,
+        "power": 18
+      },
+      "prerequisites": [
+        "karate_chokuzuki"
+      ],
+      "reps": 60
+    },
+    "match": {
+      "role": "setup",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "straight_damage": 7,
+        "accuracy": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_gyakuzuki",
+    "name": "Gyaku-zuki",
+    "kind": "move",
+    "tier": 2,
+    "grade": "5th kyu",
+    "grade_rank": 6,
+    "branch": "zuki",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "speed": 36,
+        "power": 32
+      },
+      "prerequisites": [
+        "karate_chokuzuki"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "straight_damage": 9,
+        "accuracy": 5
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_kizamizuki",
+    "name": "Kizami-zuki",
+    "kind": "move",
+    "tier": 4,
+    "grade": "1st dan",
+    "grade_rank": 11,
+    "branch": "zuki",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "technique": 78,
+        "speed": 72,
+        "power": 68
+      },
+      "prerequisites": [
+        "karate_gyakuzuki"
+      ],
+      "reps": 620
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "straight_damage": 13,
+        "accuracy": 7
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_tatezuki",
+    "name": "Tate-zuki",
+    "kind": "move",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "zuki",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "speed": 36,
+        "power": 32
+      },
+      "prerequisites": [
+        "karate_gyakuzuki"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "straight_damage": 9,
+        "accuracy": 5
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_urazuki",
+    "name": "Ura-zuki",
+    "kind": "move",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "zuki",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "speed": 36,
+        "power": 32
+      },
+      "prerequisites": [
+        "karate_gyakuzuki"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "straight_damage": 9,
+        "accuracy": 5
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_kagizuki",
+    "name": "Kagi-zuki",
+    "kind": "move",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "zuki",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "speed": 36,
+        "power": 32
+      },
+      "prerequisites": [
+        "karate_gyakuzuki"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "straight_damage": 9,
+        "accuracy": 5
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_agezuki",
+    "name": "Age-zuki",
+    "kind": "move",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "zuki",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_gyakuzuki"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "straight_damage": 11,
+        "accuracy": 6
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_gyakuagezuki",
+    "name": "Gyaku-age-zuki",
+    "kind": "move",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "zuki",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_agezuki"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "straight_damage": 11,
+        "accuracy": 6
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_heikozuki",
+    "name": "Heiko-zuki",
+    "kind": "move",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "zuki",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_agezuki"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "straight_damage": 11,
+        "accuracy": 6
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_awasezuki",
+    "name": "Awase-zuki",
+    "kind": "move",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "zuki",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_agezuki"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "straight_damage": 11,
+        "accuracy": 6
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_yamazuki",
+    "name": "Yama-zuki",
+    "kind": "move",
+    "tier": 4,
+    "grade": "1st dan",
+    "grade_rank": 11,
+    "branch": "zuki",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "technique": 78,
+        "speed": 72,
+        "power": 68
+      },
+      "prerequisites": [
+        "karate_kizamizuki"
+      ],
+      "reps": 620
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "straight_damage": 13,
+        "accuracy": 7
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_hasamizuki",
+    "name": "Hasami-zuki",
+    "kind": "move",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "zuki",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_agezuki"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "straight_damage": 11,
+        "accuracy": 6
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_morotezuki",
+    "name": "Morote-zuki",
+    "kind": "move",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "zuki",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_agezuki"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "straight_damage": 11,
+        "accuracy": 6
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_sanbon_chain",
+    "name": "Sanbon-renzuki",
+    "kind": "sequence",
+    "tier": 3,
+    "grade": "1st kyu",
+    "grade_rank": 10,
+    "branch": "combinations",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_chokuzuki",
+        "karate_junzuki",
+        "karate_gyakuzuki"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "straight_damage": 11,
+        "accuracy": 6
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_renzuki",
+    "name": "Ren-zuki",
+    "kind": "move",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "zuki",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "speed": 36,
+        "power": 32
+      },
+      "prerequisites": [
+        "karate_gyakuzuki"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "straight_damage": 9,
+        "accuracy": 5
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_nukite",
+    "name": "Nukite",
+    "kind": "move",
+    "tier": 2,
+    "grade": "4th kyu",
+    "grade_rank": 7,
+    "branch": "zuki",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "speed": 36,
+        "power": 32
+      },
+      "prerequisites": [
+        "karate_gyakuzuki"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "straight_damage": 9,
+        "accuracy": 5
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_ipponnukite",
+    "name": "Ippon-nukite",
+    "kind": "move",
+    "tier": 4,
+    "grade": "1st dan",
+    "grade_rank": 11,
+    "branch": "zuki",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "technique": 78,
+        "speed": 72,
+        "power": 68
+      },
+      "prerequisites": [
+        "karate_kizamizuki"
+      ],
+      "reps": 620
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "straight_damage": 13,
+        "accuracy": 7
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_nihonnukite",
+    "name": "Nihon-nukite",
+    "kind": "move",
+    "tier": 4,
+    "grade": "1st dan",
+    "grade_rank": 11,
+    "branch": "zuki",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "technique": 78,
+        "speed": 72,
+        "power": 68
+      },
+      "prerequisites": [
+        "karate_kizamizuki"
+      ],
+      "reps": 620
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "straight_damage": 13,
+        "accuracy": 7
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_shihonnukite",
+    "name": "Shihon-nukite",
+    "kind": "move",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "zuki",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_agezuki"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "straight_damage": 11,
+        "accuracy": 6
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_ipponken",
+    "name": "Ippon-ken",
+    "kind": "move",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "zuki",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_agezuki"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "straight_damage": 11,
+        "accuracy": 6
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_nakadakaken",
+    "name": "Nakadaka-ken",
+    "kind": "move",
+    "tier": 4,
+    "grade": "1st dan",
+    "grade_rank": 11,
+    "branch": "zuki",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "technique": 78,
+        "speed": 72,
+        "power": 68
+      },
+      "prerequisites": [
+        "karate_kizamizuki"
+      ],
+      "reps": 620
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "straight_damage": 13,
+        "accuracy": 7
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_hiraken",
+    "name": "Hiraken",
+    "kind": "move",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "zuki",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_agezuki"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "straight_damage": 11,
+        "accuracy": 6
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_kizami_gyaku",
+    "name": "Kizami-zuki, Gyaku-zuki",
+    "kind": "sequence",
+    "tier": 4,
+    "grade": "1st dan",
+    "grade_rank": 11,
+    "branch": "combinations",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "technique": 78,
+        "speed": 72,
+        "power": 68
+      },
+      "prerequisites": [
+        "karate_kizamizuki",
+        "karate_gyakuzuki"
+      ],
+      "reps": 620
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "straight_damage": 13,
+        "accuracy": 7
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_urakenuchi",
+    "name": "Uraken-uchi",
+    "kind": "move",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "uchi",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_kamae"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_tettsuiuchi",
+    "name": "Tettsui-uchi",
+    "kind": "move",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "uchi",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "speed": 36,
+        "power": 32
+      },
+      "prerequisites": [
+        "karate_kamae"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "impact": 9,
+        "head_damage": 4
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_shutouchi",
+    "name": "Shuto-uchi",
+    "kind": "move",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "uchi",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "speed": 36,
+        "power": 32
+      },
+      "prerequisites": [
+        "karate_tettsuiuchi"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "impact": 9,
+        "head_damage": 4
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_haitouchi",
+    "name": "Haito-uchi",
+    "kind": "move",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "uchi",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_urakenuchi"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_haishuuchi",
+    "name": "Haishu-uchi",
+    "kind": "move",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "uchi",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "speed": 36,
+        "power": 32
+      },
+      "prerequisites": [
+        "karate_tettsuiuchi"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "impact": 9,
+        "head_damage": 4
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_teishouchi",
+    "name": "Teisho-uchi",
+    "kind": "move",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "uchi",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "speed": 36,
+        "power": 32
+      },
+      "prerequisites": [
+        "karate_tettsuiuchi"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "impact": 9,
+        "head_damage": 4
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_seiryutouchi",
+    "name": "Seiryuto-uchi",
+    "kind": "move",
+    "tier": 4,
+    "grade": "1st dan",
+    "grade_rank": 11,
+    "branch": "uchi",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "technique": 78,
+        "speed": 72,
+        "power": 68
+      },
+      "prerequisites": [
+        "karate_urakenuchi"
+      ],
+      "reps": 620
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "impact": 13,
+        "head_damage": 6
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_keitouchi",
+    "name": "Keito-uchi",
+    "kind": "move",
+    "tier": 4,
+    "grade": "1st dan",
+    "grade_rank": 11,
+    "branch": "uchi",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "technique": 78,
+        "speed": 72,
+        "power": 68
+      },
+      "prerequisites": [
+        "karate_seiryutouchi"
+      ],
+      "reps": 620
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "impact": 13,
+        "head_damage": 6
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_kokutouchi",
+    "name": "Kokuto-uchi",
+    "kind": "move",
+    "tier": 4,
+    "grade": "1st dan",
+    "grade_rank": 11,
+    "branch": "uchi",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "technique": 78,
+        "speed": 72,
+        "power": 68
+      },
+      "prerequisites": [
+        "karate_seiryutouchi"
+      ],
+      "reps": 620
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "impact": 13,
+        "head_damage": 6
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_washideuchi",
+    "name": "Washide-uchi",
+    "kind": "move",
+    "tier": 4,
+    "grade": "1st dan",
+    "grade_rank": 11,
+    "branch": "uchi",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "technique": 78,
+        "speed": 72,
+        "power": 68
+      },
+      "prerequisites": [
+        "karate_seiryutouchi"
+      ],
+      "reps": 620
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "impact": 13,
+        "head_damage": 6
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_kumadeuchi",
+    "name": "Kumade-uchi",
+    "kind": "move",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "uchi",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_urakenuchi"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_empiuchi",
+    "name": "Empi-uchi",
+    "kind": "move",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "uchi",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "speed": 36,
+        "power": 32
+      },
+      "prerequisites": [
+        "karate_tettsuiuchi"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "impact": 9,
+        "head_damage": 4
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_ageempiuchi",
+    "name": "Age-empi-uchi",
+    "kind": "move",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "uchi",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_urakenuchi"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_yokoempiuchi",
+    "name": "Yoko-empi-uchi",
+    "kind": "move",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "uchi",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_urakenuchi"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_ushiroempiuchi",
+    "name": "Ushiro-empi-uchi",
+    "kind": "move",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "uchi",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_urakenuchi"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_otoshiempiuchi",
+    "name": "Otoshi-empi-uchi",
+    "kind": "move",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "uchi",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_urakenuchi"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_mawashiempiuchi",
+    "name": "Mawashi-empi-uchi",
+    "kind": "move",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "uchi",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_urakenuchi"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_maemawashiempiuchi",
+    "name": "Mae-mawashi-empi-uchi",
+    "kind": "move",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "uchi",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_urakenuchi"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_shutosakotsuuchi",
+    "name": "Shuto-sakotsu-uchi",
+    "kind": "move",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "uchi",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_urakenuchi"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_shutosakotsuuchikomi",
+    "name": "Shuto-sakotsu-uchikomi",
+    "kind": "move",
+    "tier": 4,
+    "grade": "1st dan",
+    "grade_rank": 11,
+    "branch": "uchi",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "technique": 78,
+        "speed": 72,
+        "power": 68
+      },
+      "prerequisites": [
+        "karate_seiryutouchi"
+      ],
+      "reps": 620
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "impact": 13,
+        "head_damage": 6
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_shutohizouchi",
+    "name": "Shuto-hizo-uchi",
+    "kind": "move",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "uchi",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_urakenuchi"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_shutojodanuchi",
+    "name": "Shuto-jodan-uchi",
+    "kind": "move",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "uchi",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_urakenuchi"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_shutoyokoganmenuchi",
+    "name": "Shuto-yoko-ganmen-uchi",
+    "kind": "move",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "uchi",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_urakenuchi"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_yokourakenuchi",
+    "name": "Yoko-uraken-uchi",
+    "kind": "move",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "uchi",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_urakenuchi"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_otoshiurakenuchi",
+    "name": "Otoshi-uraken-uchi",
+    "kind": "move",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "uchi",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_urakenuchi"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_urakenmawashiuchi",
+    "name": "Uraken-mawashi-uchi",
+    "kind": "move",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "uchi",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_urakenuchi"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_teishofuriuchi",
+    "name": "Teisho-furi-uchi",
+    "kind": "move",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "uchi",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_urakenuchi"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_tateteishouchi",
+    "name": "Tate-teisho-uchi",
+    "kind": "move",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "uchi",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_urakenuchi"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_tsukiage",
+    "name": "Tsuki-age",
+    "kind": "move",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "uchi",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_urakenuchi"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "impact": 11,
+        "head_damage": 5
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_tettsuihasamiuchi",
+    "name": "Tettsui-hasami-uchi",
+    "kind": "move",
+    "tier": 4,
+    "grade": "1st dan",
+    "grade_rank": 11,
+    "branch": "uchi",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "technique": 78,
+        "speed": 72,
+        "power": 68
+      },
+      "prerequisites": [
+        "karate_seiryutouchi"
+      ],
+      "reps": 620
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "impact": 13,
+        "head_damage": 6
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_ageuke",
+    "name": "Age-uke",
+    "kind": "skill",
+    "tier": 1,
+    "grade": "10th kyu",
+    "grade_rank": 1,
+    "branch": "uke",
+    "requires": {
+      "discipline": 8,
+      "attributes": {
+        "technique": 24,
+        "fight_iq": 20
+      },
+      "prerequisites": [
+        "karate_kamae"
+      ],
+      "reps": 60
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 7,
+        "counter_open": 3
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_gedanbarai",
+    "name": "Gedan-barai",
+    "kind": "skill",
+    "tier": 1,
+    "grade": "10th kyu",
+    "grade_rank": 1,
+    "branch": "uke",
+    "requires": {
+      "discipline": 8,
+      "attributes": {
+        "technique": 24,
+        "fight_iq": 20
+      },
+      "prerequisites": [
+        "karate_ageuke"
+      ],
+      "reps": 60
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 7,
+        "counter_open": 3
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_sotouke",
+    "name": "Soto-uke",
+    "kind": "skill",
+    "tier": 1,
+    "grade": "10th kyu",
+    "grade_rank": 1,
+    "branch": "uke",
+    "requires": {
+      "discipline": 8,
+      "attributes": {
+        "technique": 24,
+        "fight_iq": 20
+      },
+      "prerequisites": [
+        "karate_ageuke"
+      ],
+      "reps": 60
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 7,
+        "counter_open": 3
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_uchiuke",
+    "name": "Uchi-uke",
+    "kind": "skill",
+    "tier": 1,
+    "grade": "7th kyu",
+    "grade_rank": 4,
+    "branch": "uke",
+    "requires": {
+      "discipline": 8,
+      "attributes": {
+        "technique": 24,
+        "fight_iq": 20
+      },
+      "prerequisites": [
+        "karate_ageuke"
+      ],
+      "reps": 60
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 7,
+        "counter_open": 3
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_shutouke",
+    "name": "Shuto-uke",
+    "kind": "skill",
+    "tier": 1,
+    "grade": "8th kyu",
+    "grade_rank": 3,
+    "branch": "uke",
+    "requires": {
+      "discipline": 8,
+      "attributes": {
+        "technique": 24,
+        "fight_iq": 20
+      },
+      "prerequisites": [
+        "karate_ageuke"
+      ],
+      "reps": 60
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 7,
+        "counter_open": 3
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_empiuke",
+    "name": "Empi-uke",
+    "kind": "skill",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "uke",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "fight_iq": 38
+      },
+      "prerequisites": [
+        "karate_ageuke"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 9,
+        "counter_open": 4
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_gedanmorotebarai",
+    "name": "Gedan-morote-barai",
+    "kind": "skill",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "uke",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "fight_iq": 38
+      },
+      "prerequisites": [
+        "karate_empiuke"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 9,
+        "counter_open": 4
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_haiwanuke",
+    "name": "Haiwan-uke",
+    "kind": "skill",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "uke",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "fight_iq": 38
+      },
+      "prerequisites": [
+        "karate_empiuke"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 9,
+        "counter_open": 4
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_gedanjujiuke",
+    "name": "Gedan-juji-uke",
+    "kind": "skill",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "uke",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "fight_iq": 38
+      },
+      "prerequisites": [
+        "karate_empiuke"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 9,
+        "counter_open": 4
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_jodanjujiuke",
+    "name": "Jodan-juji-uke",
+    "kind": "skill",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "uke",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "fight_iq": 38
+      },
+      "prerequisites": [
+        "karate_empiuke"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 9,
+        "counter_open": 4
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_kaishoageuke",
+    "name": "Kaisho-age-uke",
+    "kind": "skill",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "uke",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "fight_iq": 58
+      },
+      "prerequisites": [
+        "karate_empiuke"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 11,
+        "counter_open": 5
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_kaishohaiwanuke",
+    "name": "Kaisho-haiwan-uke",
+    "kind": "skill",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "uke",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "fight_iq": 38
+      },
+      "prerequisites": [
+        "karate_empiuke"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 9,
+        "counter_open": 4
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_kaishojujiuke",
+    "name": "Kaisho-juji-uke",
+    "kind": "skill",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "uke",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "fight_iq": 38
+      },
+      "prerequisites": [
+        "karate_empiuke"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 9,
+        "counter_open": 4
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_kakiwakeuke",
+    "name": "Kakiwake-uke",
+    "kind": "skill",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "uke",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "fight_iq": 38
+      },
+      "prerequisites": [
+        "karate_empiuke"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 9,
+        "counter_open": 4
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_moroteuke",
+    "name": "Morote-uke",
+    "kind": "skill",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "uke",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "fight_iq": 38
+      },
+      "prerequisites": [
+        "karate_empiuke"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 9,
+        "counter_open": 4
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_nagashiuke",
+    "name": "Nagashi-uke",
+    "kind": "skill",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "uke",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "fight_iq": 58
+      },
+      "prerequisites": [
+        "karate_kaishoageuke"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 11,
+        "counter_open": 5
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_osaeuke",
+    "name": "Osae-uke",
+    "kind": "skill",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "uke",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "fight_iq": 38
+      },
+      "prerequisites": [
+        "karate_empiuke"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 9,
+        "counter_open": 4
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_otoshiuke",
+    "name": "Otoshi-uke",
+    "kind": "skill",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "uke",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "fight_iq": 38
+      },
+      "prerequisites": [
+        "karate_empiuke"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 9,
+        "counter_open": 4
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_shutoageuke",
+    "name": "Shuto-age-uke",
+    "kind": "skill",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "uke",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "fight_iq": 58
+      },
+      "prerequisites": [
+        "karate_kaishoageuke"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 11,
+        "counter_open": 5
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_shutogedanbarai",
+    "name": "Shuto-gedan-barai",
+    "kind": "skill",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "uke",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "fight_iq": 58
+      },
+      "prerequisites": [
+        "karate_kaishoageuke"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 11,
+        "counter_open": 5
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_shutomawashiuke",
+    "name": "Shuto-mawashi-uke",
+    "kind": "skill",
+    "tier": 4,
+    "grade": "1st dan",
+    "grade_rank": 11,
+    "branch": "uke",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "technique": 78,
+        "fight_iq": 74
+      },
+      "prerequisites": [
+        "karate_kaishoageuke"
+      ],
+      "reps": 620
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 13,
+        "counter_open": 6
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_sukuiuke",
+    "name": "Sukui-uke",
+    "kind": "skill",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "uke",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "fight_iq": 58
+      },
+      "prerequisites": [
+        "karate_kaishoageuke"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 11,
+        "counter_open": 5
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_tateshutouke",
+    "name": "Tate-shuto-uke",
+    "kind": "skill",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "uke",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "fight_iq": 58
+      },
+      "prerequisites": [
+        "karate_kaishoageuke"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 11,
+        "counter_open": 5
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_teosaeuke",
+    "name": "Te-osae-uke",
+    "kind": "skill",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "uke",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "fight_iq": 38
+      },
+      "prerequisites": [
+        "karate_empiuke"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 9,
+        "counter_open": 4
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_udebarai",
+    "name": "Ude-barai",
+    "kind": "skill",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "uke",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "fight_iq": 38
+      },
+      "prerequisites": [
+        "karate_empiuke"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 9,
+        "counter_open": 4
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_ushirogedanbarai",
+    "name": "Ushiro-gedan-barai",
+    "kind": "skill",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "uke",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "fight_iq": 58
+      },
+      "prerequisites": [
+        "karate_kaishoageuke"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 11,
+        "counter_open": 5
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_teishouke",
+    "name": "Teisho-uke",
+    "kind": "skill",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "uke",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "fight_iq": 58
+      },
+      "prerequisites": [
+        "karate_kaishoageuke"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 11,
+        "counter_open": 5
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_chudansoeteuke",
+    "name": "Chudan-soete-uke",
+    "kind": "skill",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "uke",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "fight_iq": 58
+      },
+      "prerequisites": [
+        "karate_kaishoageuke"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 11,
+        "counter_open": 5
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_tsukiuke",
+    "name": "Tsuki-uke",
+    "kind": "skill",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "uke",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "fight_iq": 58
+      },
+      "prerequisites": [
+        "karate_kaishoageuke"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 11,
+        "counter_open": 5
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_morotetsukamiuke",
+    "name": "Morote-tsukami-uke",
+    "kind": "skill",
+    "tier": 4,
+    "grade": "1st dan",
+    "grade_rank": 11,
+    "branch": "uke",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "technique": 78,
+        "fight_iq": 74
+      },
+      "prerequisites": [
+        "karate_shutomawashiuke"
+      ],
+      "reps": 620
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 13,
+        "counter_open": 6
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_mawashiuke",
+    "name": "Mawashi-uke",
+    "kind": "skill",
+    "tier": 4,
+    "grade": "1st dan",
+    "grade_rank": 11,
+    "branch": "uke",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "technique": 78,
+        "fight_iq": 74
+      },
+      "prerequisites": [
+        "karate_shutomawashiuke"
+      ],
+      "reps": 620
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 13,
+        "counter_open": 6
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_haishuuke",
+    "name": "Haishu-uke",
+    "kind": "skill",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "uke",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "fight_iq": 38
+      },
+      "prerequisites": [
+        "karate_empiuke"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 9,
+        "counter_open": 4
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_kosauke",
+    "name": "Kosa-uke (Joge-uke)",
+    "kind": "skill",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "uke",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "fight_iq": 38
+      },
+      "prerequisites": [
+        "karate_empiuke"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 9,
+        "counter_open": 4
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_teishoawaseuke",
+    "name": "Teisho-awase-uke",
+    "kind": "skill",
+    "tier": 4,
+    "grade": "1st dan",
+    "grade_rank": 11,
+    "branch": "uke",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "technique": 78,
+        "fight_iq": 74
+      },
+      "prerequisites": [
+        "karate_shutomawashiuke"
+      ],
+      "reps": 620
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 13,
+        "counter_open": 6
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_manjiuke",
+    "name": "Manji-uke",
+    "kind": "skill",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "uke",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "fight_iq": 58
+      },
+      "prerequisites": [
+        "karate_kaishoageuke"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 11,
+        "counter_open": 5
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_maegeri",
+    "name": "Mae-geri",
+    "kind": "move",
+    "tier": 1,
+    "grade": "10th kyu",
+    "grade_rank": 1,
+    "branch": "geri",
+    "requires": {
+      "discipline": 8,
+      "attributes": {
+        "technique": 24,
+        "speed": 20,
+        "power": 18
+      },
+      "prerequisites": [
+        "karate_kamae"
+      ],
+      "reps": 60
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 7,
+        "kick_accuracy": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": -1
+    }
+  },
+  {
+    "id": "karate_maegerikeage",
+    "name": "Mae-geri-keage",
+    "kind": "move",
+    "tier": 1,
+    "grade": "10th kyu",
+    "grade_rank": 1,
+    "branch": "geri",
+    "requires": {
+      "discipline": 8,
+      "attributes": {
+        "technique": 24,
+        "speed": 20,
+        "power": 18
+      },
+      "prerequisites": [
+        "karate_maegeri"
+      ],
+      "reps": 60
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 7,
+        "kick_accuracy": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": -1
+    }
+  },
+  {
+    "id": "karate_maegerikekomi",
+    "name": "Mae-geri-kekomi",
+    "kind": "move",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "geri",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "speed": 36,
+        "power": 32
+      },
+      "prerequisites": [
+        "karate_maegeri"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 9,
+        "kick_accuracy": 5
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": -1
+    }
+  },
+  {
+    "id": "karate_maeashigeri",
+    "name": "Mae-ashi-geri",
+    "kind": "move",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "geri",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "speed": 36,
+        "power": 32
+      },
+      "prerequisites": [
+        "karate_maegerikekomi"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 9,
+        "kick_accuracy": 5
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": -1
+    }
+  },
+  {
+    "id": "karate_oimaegeri",
+    "name": "Oi-mae-geri",
+    "kind": "move",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "geri",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "speed": 36,
+        "power": 32
+      },
+      "prerequisites": [
+        "karate_maegerikekomi"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 9,
+        "kick_accuracy": 5
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_rengeri",
+    "name": "Ren-geri",
+    "kind": "move",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "geri",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_maegerikekomi"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 11,
+        "kick_accuracy": 6
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_nidan_geri",
+    "name": "Nidan-geri",
+    "kind": "move",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "geri",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_rengeri"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 11,
+        "kick_accuracy": 6
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_mawashigeri",
+    "name": "Mawashi-geri",
+    "kind": "move",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "geri",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_rengeri"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 11,
+        "kick_accuracy": 6
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_maeashimawashigeri",
+    "name": "Mae-ashi-mawashi-geri",
+    "kind": "move",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "geri",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_rengeri"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 11,
+        "kick_accuracy": 6
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": -1
+    }
+  },
+  {
+    "id": "karate_ushiro_geri",
+    "name": "Ushiro-geri",
+    "kind": "move",
+    "tier": 4,
+    "grade": "4th dan",
+    "grade_rank": 14,
+    "branch": "geri",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "technique": 78,
+        "speed": 72,
+        "power": 68
+      },
+      "prerequisites": [
+        "karate_rengeri"
+      ],
+      "reps": 620
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 13,
+        "kick_accuracy": 7
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_ushiromawashigeri",
+    "name": "Ushiro-mawashi-geri",
+    "kind": "move",
+    "tier": 4,
+    "grade": "1st dan",
+    "grade_rank": 11,
+    "branch": "geri",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "technique": 78,
+        "speed": 72,
+        "power": 68
+      },
+      "prerequisites": [
+        "karate_ushiro_geri"
+      ],
+      "reps": 620
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 13,
+        "kick_accuracy": 7
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_uramawashi",
+    "name": "Ura-mawashi-geri",
+    "kind": "move",
+    "tier": 4,
+    "grade": "1st dan",
+    "grade_rank": 11,
+    "branch": "geri",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "technique": 78,
+        "speed": 72,
+        "power": 68
+      },
+      "prerequisites": [
+        "karate_ushiro_geri"
+      ],
+      "reps": 620
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 13,
+        "kick_accuracy": 7
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_yokogeri",
+    "name": "Yoko-geri",
+    "kind": "move",
+    "tier": 1,
+    "grade": "8th kyu",
+    "grade_rank": 3,
+    "branch": "geri",
+    "requires": {
+      "discipline": 8,
+      "attributes": {
+        "technique": 24,
+        "speed": 20,
+        "power": 18
+      },
+      "prerequisites": [
+        "karate_maegeri"
+      ],
+      "reps": 60
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 7,
+        "kick_accuracy": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": -1
+    }
+  },
+  {
+    "id": "karate_yokogerikeage",
+    "name": "Yoko-geri-keage",
+    "kind": "move",
+    "tier": 1,
+    "grade": "8th kyu",
+    "grade_rank": 3,
+    "branch": "geri",
+    "requires": {
+      "discipline": 8,
+      "attributes": {
+        "technique": 24,
+        "speed": 20,
+        "power": 18
+      },
+      "prerequisites": [
+        "karate_maegeri"
+      ],
+      "reps": 60
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 7,
+        "kick_accuracy": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": -1
+    }
+  },
+  {
+    "id": "karate_yokogerikekomi",
+    "name": "Yoko-geri-kekomi",
+    "kind": "move",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "geri",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "speed": 36,
+        "power": 32
+      },
+      "prerequisites": [
+        "karate_maegerikekomi"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 9,
+        "kick_accuracy": 5
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": -1
+    }
+  },
+  {
+    "id": "karate_fumikomigeri",
+    "name": "Fumikomi-geri",
+    "kind": "move",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "geri",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "speed": 36,
+        "power": 32
+      },
+      "prerequisites": [
+        "karate_maegerikekomi"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 9,
+        "kick_accuracy": 5
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_hizageri",
+    "name": "Hiza-geri",
+    "kind": "move",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "geri",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "speed": 36,
+        "power": 32
+      },
+      "prerequisites": [
+        "karate_maegerikekomi"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 9,
+        "kick_accuracy": 5
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_maehizageri",
+    "name": "Mae-hiza-geri",
+    "kind": "move",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "geri",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "speed": 36,
+        "power": 32
+      },
+      "prerequisites": [
+        "karate_maegerikekomi"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 9,
+        "kick_accuracy": 5
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": -1
+    }
+  },
+  {
+    "id": "karate_mawashihizageri",
+    "name": "Mawashi-hiza-geri",
+    "kind": "move",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "geri",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_rengeri"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 11,
+        "kick_accuracy": 6
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_kingeri",
+    "name": "Kin-geri",
+    "kind": "move",
+    "tier": 1,
+    "grade": "10th kyu",
+    "grade_rank": 1,
+    "branch": "geri",
+    "requires": {
+      "discipline": 8,
+      "attributes": {
+        "technique": 24,
+        "speed": 20,
+        "power": 18
+      },
+      "prerequisites": [
+        "karate_maegeri"
+      ],
+      "reps": 60
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 7,
+        "kick_accuracy": 4
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_mikazukigeri",
+    "name": "Mikazuki-geri",
+    "kind": "move",
+    "tier": 2,
+    "grade": "6th kyu",
+    "grade_rank": 5,
+    "branch": "geri",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "speed": 36,
+        "power": 32
+      },
+      "prerequisites": [
+        "karate_maegerikekomi"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 9,
+        "kick_accuracy": 5
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_gyakumikazukigeri",
+    "name": "Gyaku-mikazuki-geri",
+    "kind": "move",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "geri",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_rengeri"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 11,
+        "kick_accuracy": 6
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_kakatogeri",
+    "name": "Kakato-geri",
+    "kind": "move",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "geri",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_rengeri"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 11,
+        "kick_accuracy": 6
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_otoshikakatogeri",
+    "name": "Otoshi-kakato-geri",
+    "kind": "move",
+    "tier": 4,
+    "grade": "1st dan",
+    "grade_rank": 11,
+    "branch": "geri",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "technique": 78,
+        "speed": 72,
+        "power": 68
+      },
+      "prerequisites": [
+        "karate_ushiro_geri"
+      ],
+      "reps": 620
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 13,
+        "kick_accuracy": 7
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_urakakatogeri",
+    "name": "Ura-kakato-geri",
+    "kind": "move",
+    "tier": 4,
+    "grade": "1st dan",
+    "grade_rank": 11,
+    "branch": "geri",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "technique": 78,
+        "speed": 72,
+        "power": 68
+      },
+      "prerequisites": [
+        "karate_ushiro_geri"
+      ],
+      "reps": 620
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 13,
+        "kick_accuracy": 7
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_tobimaegeri",
+    "name": "Tobi-mae-geri",
+    "kind": "move",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "geri",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_rengeri"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 11,
+        "kick_accuracy": 6
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_tobiyokogeri",
+    "name": "Tobi-yoko-geri",
+    "kind": "move",
+    "tier": 4,
+    "grade": "1st dan",
+    "grade_rank": 11,
+    "branch": "geri",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "technique": 78,
+        "speed": 72,
+        "power": 68
+      },
+      "prerequisites": [
+        "karate_ushiro_geri"
+      ],
+      "reps": 620
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 13,
+        "kick_accuracy": 7
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_tobimawashigeri",
+    "name": "Tobi-mawashi-geri",
+    "kind": "move",
+    "tier": 4,
+    "grade": "1st dan",
+    "grade_rank": 11,
+    "branch": "geri",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "technique": 78,
+        "speed": 72,
+        "power": 68
+      },
+      "prerequisites": [
+        "karate_ushiro_geri"
+      ],
+      "reps": 620
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 13,
+        "kick_accuracy": 7
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_tobiushirogeri",
+    "name": "Tobi-ushiro-geri",
+    "kind": "move",
+    "tier": 4,
+    "grade": "1st dan",
+    "grade_rank": 11,
+    "branch": "geri",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "technique": 78,
+        "speed": 72,
+        "power": 68
+      },
+      "prerequisites": [
+        "karate_ushiro_geri"
+      ],
+      "reps": 620
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 13,
+        "kick_accuracy": 7
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_ashibarai",
+    "name": "Ashi-barai",
+    "kind": "move",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "geri",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_rengeri"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 11,
+        "kick_accuracy": 6
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_byobudaoshi",
+    "name": "Byobu-daoshi",
+    "kind": "move",
+    "tier": 4,
+    "grade": "1st dan",
+    "grade_rank": 11,
+    "branch": "nage_kansetsu",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "technique": 78,
+        "speed": 72,
+        "power": 68
+      },
+      "prerequisites": [
+        "karate_kamae"
+      ],
+      "reps": 620
+    },
+    "match": {
+      "role": "takedown",
+      "phases": [
+        "standing",
+        "clinch"
+      ],
+      "effects": {
+        "balance_break": 12,
+        "takedown": 11
+      },
+      "range_band": [
+        "POCKET"
+      ],
+      "range_delta": 2
+    },
+    "finishes_fight": true
+  },
+  {
+    "id": "karate_katawaguruma",
+    "name": "Katawa-guruma",
+    "kind": "move",
+    "tier": 4,
+    "grade": "1st dan",
+    "grade_rank": 11,
+    "branch": "nage_kansetsu",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "technique": 78,
+        "speed": 72,
+        "power": 68
+      },
+      "prerequisites": [
+        "karate_byobudaoshi"
+      ],
+      "reps": 620
+    },
+    "match": {
+      "role": "takedown",
+      "phases": [
+        "standing",
+        "clinch"
+      ],
+      "effects": {
+        "balance_break": 12,
+        "takedown": 11
+      },
+      "range_band": [
+        "POCKET"
+      ],
+      "range_delta": 2
+    },
+    "finishes_fight": true
+  },
+  {
+    "id": "karate_komanage",
+    "name": "Koma-nage",
+    "kind": "move",
+    "tier": 4,
+    "grade": "1st dan",
+    "grade_rank": 11,
+    "branch": "nage_kansetsu",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "technique": 78,
+        "speed": 72,
+        "power": 68
+      },
+      "prerequisites": [
+        "karate_byobudaoshi"
+      ],
+      "reps": 620
+    },
+    "match": {
+      "role": "control",
+      "phases": [
+        "standing",
+        "clinch"
+      ],
+      "effects": {
+        "arm_isolation": 12,
+        "takedown": 10
+      },
+      "range_band": [
+        "POCKET"
+      ],
+      "range_delta": 2
+    }
+  },
+  {
+    "id": "karate_kubiwa",
+    "name": "Kubi-wa",
+    "kind": "move",
+    "tier": 4,
+    "grade": "1st dan",
+    "grade_rank": 11,
+    "branch": "nage_kansetsu",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "technique": 78,
+        "speed": 72,
+        "power": 68
+      },
+      "prerequisites": [
+        "karate_byobudaoshi"
+      ],
+      "reps": 620
+    },
+    "match": {
+      "role": "takedown",
+      "phases": [
+        "standing",
+        "clinch"
+      ],
+      "effects": {
+        "balance_break": 12,
+        "takedown": 11
+      },
+      "range_band": [
+        "POCKET"
+      ],
+      "range_delta": 2
+    },
+    "finishes_fight": true
+  },
+  {
+    "id": "karate_sakazuchi",
+    "name": "Saka-zuchi",
+    "kind": "move",
+    "tier": 4,
+    "grade": "1st dan",
+    "grade_rank": 11,
+    "branch": "nage_kansetsu",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "technique": 78,
+        "speed": 72,
+        "power": 68
+      },
+      "prerequisites": [
+        "karate_byobudaoshi"
+      ],
+      "reps": 620
+    },
+    "match": {
+      "role": "takedown",
+      "phases": [
+        "standing",
+        "clinch"
+      ],
+      "effects": {
+        "balance_break": 12,
+        "takedown": 11
+      },
+      "range_band": [
+        "POCKET"
+      ],
+      "range_delta": 2
+    },
+    "finishes_fight": true
+  },
+  {
+    "id": "karate_taniotoshi",
+    "name": "Tani-otoshi",
+    "kind": "move",
+    "tier": 4,
+    "grade": "1st dan",
+    "grade_rank": 11,
+    "branch": "nage_kansetsu",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "technique": 78,
+        "speed": 72,
+        "power": 68
+      },
+      "prerequisites": [
+        "karate_byobudaoshi"
+      ],
+      "reps": 620
+    },
+    "match": {
+      "role": "takedown",
+      "phases": [
+        "standing",
+        "clinch"
+      ],
+      "effects": {
+        "balance_break": 12,
+        "takedown": 11
+      },
+      "range_band": [
+        "POCKET"
+      ],
+      "range_delta": 2
+    },
+    "finishes_fight": true
+  },
+  {
+    "id": "karate_tsubamegaeshi",
+    "name": "Tsubame-gaeshi",
+    "kind": "move",
+    "tier": 4,
+    "grade": "1st dan",
+    "grade_rank": 11,
+    "branch": "nage_kansetsu",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "technique": 78,
+        "speed": 72,
+        "power": 68
+      },
+      "prerequisites": [
+        "karate_byobudaoshi"
+      ],
+      "reps": 620
+    },
+    "match": {
+      "role": "takedown",
+      "phases": [
+        "standing",
+        "clinch"
+      ],
+      "effects": {
+        "balance_break": 12,
+        "takedown": 11
+      },
+      "range_band": [
+        "POCKET"
+      ],
+      "range_delta": 2
+    },
+    "finishes_fight": true
+  },
+  {
+    "id": "karate_udewa",
+    "name": "Ude-wa",
+    "kind": "move",
+    "tier": 4,
+    "grade": "1st dan",
+    "grade_rank": 11,
+    "branch": "nage_kansetsu",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "technique": 78,
+        "speed": 72,
+        "power": 68
+      },
+      "prerequisites": [
+        "karate_byobudaoshi"
+      ],
+      "reps": 620
+    },
+    "match": {
+      "role": "control",
+      "phases": [
+        "standing",
+        "clinch"
+      ],
+      "effects": {
+        "arm_isolation": 12,
+        "takedown": 10
+      },
+      "range_band": [
+        "POCKET"
+      ],
+      "range_delta": 2
+    }
+  },
+  {
+    "id": "karate_yaridama",
+    "name": "Yari-dama",
+    "kind": "move",
+    "tier": 4,
+    "grade": "1st dan",
+    "grade_rank": 11,
+    "branch": "nage_kansetsu",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "technique": 78,
+        "speed": 72,
+        "power": 68
+      },
+      "prerequisites": [
+        "karate_byobudaoshi"
+      ],
+      "reps": 620
+    },
+    "match": {
+      "role": "takedown",
+      "phases": [
+        "standing",
+        "clinch"
+      ],
+      "effects": {
+        "balance_break": 12,
+        "takedown": 11
+      },
+      "range_band": [
+        "POCKET"
+      ],
+      "range_delta": 2
+    },
+    "finishes_fight": true
+  },
+  {
+    "id": "karate_blitz_combo",
+    "name": "Kizami-zuki - Gyaku-zuki - Mawashi-geri (Blitz)",
+    "kind": "sequence",
+    "tier": 4,
+    "grade": "1st dan",
+    "grade_rank": 11,
+    "branch": "combinations",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "technique": 78,
+        "speed": 72,
+        "power": 68
+      },
+      "prerequisites": [
+        "karate_kizamizuki",
+        "karate_gyakuzuki",
+        "karate_mawashigeri"
+      ],
+      "reps": 620
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "straight_damage": 13,
+        "kick_damage": 11
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    },
+    "finishes_fight": true
+  },
+  {
+    "id": "karate_ageuke_gyakuzuki_combo",
+    "name": "Age-uke - Gyaku-zuki",
+    "kind": "sequence",
+    "tier": 2,
+    "grade": "5th kyu",
+    "grade_rank": 6,
+    "branch": "combinations",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "speed": 36,
+        "power": 32
+      },
+      "prerequisites": [
+        "karate_ageuke",
+        "karate_gyakuzuki"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "counter_open": 3,
+        "straight_damage": 9
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_sotouke_empi_uraken_gyaku_combo",
+    "name": "Soto-uke - Yoko-empi-uchi - Uraken-uchi - Gyaku-zuki",
+    "kind": "sequence",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "combinations",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_sotouke",
+        "karate_yokoempiuchi",
+        "karate_urakenuchi",
+        "karate_gyakuzuki"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "impact": 11,
+        "straight_damage": 11
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    },
+    "finishes_fight": true
+  },
+  {
+    "id": "karate_shutouke_nukite_combo",
+    "name": "Shuto-uke - Nukite",
+    "kind": "sequence",
+    "tier": 2,
+    "grade": "4th kyu",
+    "grade_rank": 7,
+    "branch": "combinations",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "speed": 36,
+        "power": 32
+      },
+      "prerequisites": [
+        "karate_shutouke",
+        "karate_nukite"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "counter_open": 3,
+        "straight_damage": 9
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "karate_maegeri_junzuki_combo",
+    "name": "Mae-geri - Jun-zuki",
+    "kind": "sequence",
+    "tier": 1,
+    "grade": "9th kyu",
+    "grade_rank": 2,
+    "branch": "combinations",
+    "requires": {
+      "discipline": 8,
+      "attributes": {
+        "technique": 24,
+        "speed": 20,
+        "power": 18
+      },
+      "prerequisites": [
+        "karate_maegeri",
+        "karate_junzuki"
+      ],
+      "reps": 60
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 7,
+        "straight_damage": 7
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": -1
+    }
+  },
+  {
+    "id": "karate_mawashi_gyaku_combo",
+    "name": "Mawashi-geri - Gyaku-zuki",
+    "kind": "sequence",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "combinations",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_mawashigeri",
+        "karate_gyakuzuki"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 11,
+        "straight_damage": 11
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    },
+    "finishes_fight": true
+  },
+  {
+    "id": "karate_yokogeri_gyaku_combo",
+    "name": "Yoko-geri-kekomi - Gyaku-zuki",
+    "kind": "sequence",
+    "tier": 2,
+    "grade": "5th kyu",
+    "grade_rank": 6,
+    "branch": "combinations",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "technique": 42,
+        "speed": 36,
+        "power": 32
+      },
+      "prerequisites": [
+        "karate_yokogerikekomi",
+        "karate_gyakuzuki"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 9,
+        "straight_damage": 9
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": -1
+    }
+  },
+  {
+    "id": "karate_ashibarai_gyaku_combo",
+    "name": "Ashi-barai - Gyaku-zuki",
+    "kind": "sequence",
+    "tier": 3,
+    "grade": "3rd kyu",
+    "grade_rank": 8,
+    "branch": "combinations",
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 62,
+        "speed": 56,
+        "power": 52
+      },
+      "prerequisites": [
+        "karate_ashibarai",
+        "karate_gyakuzuki"
+      ],
+      "reps": 360
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "balance_break": 8,
+        "straight_damage": 11
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 1
+    },
+    "finishes_fight": true
+  }
+]

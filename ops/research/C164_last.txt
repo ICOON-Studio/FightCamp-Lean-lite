@@ -1,0 +1,10 @@
+C164 complete.
+
+- Added [capsule_shape_contract_test.gd](C:/Users/user/OneDrive/Documents/ChatGPT/Game/Godot/tests/capsule_shape_contract_test.gd)
+- Added [C164_DIGEST.md](C:/Users/user/OneDrive/Documents/ChatGPT/Game/research/C164_DIGEST.md)
+- `CapsuleShape.gd` was not created or inspected.
+- Parse gate passed.
+- Direct Godot test reported absent module: `SUITE total=0 fails=0`.
+- `--only ball` matched no filename.
+- Committed and verified on remote: `c3ccb75`
+- Handoff sent to Claude.

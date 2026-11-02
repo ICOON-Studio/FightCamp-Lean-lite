@@ -1,0 +1,305 @@
+FIGHTCAMP DESIGN DIRECTIVE: S229 / ROUND 78
+MARKET SELECTION CARD REDESIGN ("CHOOSE THE MARKET")
+PART A: DEFECT AUDIT OF CURRENT SHIPPING CARD
+
+Looking at the current United Kingdom market panel crop (480 px fixed panel):
+
+Extreme Text-Heavy Barrenness (Zero Visual Identity): The card looks like an unstyled developer debug inspector. Aside from an isolated, low-resolution 2D country flag thumbnail and a single brass crest glyph, there is zero environmental or boxing world art. A player choosing a starting home turf wants grit, atmosphere, and prestige (the mist over Bethnal Green, the York Hall brick, the neon glare of an arena).
+Hairline, Anemic Pillar Bars: The current progress bars are flat, thin 4-pixel strips with mismatched, harsh colors (a jarring primary yellow, pure saturated red, and dull mustard) that ignore the Round-70 visual token hierarchy. They lack physical weight, tick divisions, depth beveling, or tactile tactile impact.
+Redundant & Low-Value Data Clutter ("Active Hub Dossier"): The card devotes massive vertical space to reading out generic local gym names ("London Boxing", "Vanguard Training Centre") in plain white text. At the market selection stage, the player does not care about individual rival AI gym names; they care about macro competition, national talent level, economic viability, and who reigns at the top of the food chain.
+Governing Bodies Dead-End: "BRITISH BOXING BOARD OF CONTROL / +1 MORE" sits inside a boxed panel that gives zero gameplay mechanics or actionable friction/rules to the player. It operates as dead typographic weight.
+Absent Competitive Stakes (No Star Power): Boxing is an athlete-driven star sport. A country select screen that does not showcase the national champions or top pound-for-pound prospects fails to trigger the player's core fantasy: "Can my gym produce someone who can dethrone the UK's #1 heavyweight or outbox their golden boy?"
+Muted Typography & Flat Hierarchy: The letter grades ("GRADE S", "GRADE A+", "GRADE B+") share identical font size, weight, and tracking as the numerical scores ("92 / 100"). The tier tag ("TIER 1 COMBAT MARKET") is trapped inside an awkward bordered box with excessive empty space.
+Missing Primary Action Anchor: The crop lacks the fixed, punchy CTA button ("ESTABLISH GYM IN THIS MARKET" or "CHOOSE MARKET") styled in #f0c233 Championship Gold.
+PART B: TARGET CARD SPECIFICATION (1920x1080 & 1280x720)
+1. Screen Space & Layout Architecture
+
+The card sits docked on the right side of the screen over the 3D interactive globe.
+
+1920x1080 Resolution:
+Panel Anchor: Top-Right.
+Size: W = 500 px, H = 1000 px (40 px top margin, 40 px bottom margin, 40 px right margin).
+Structure: Vertical container with a fixed Header Hero (Art + Identity), fixed Primary Pillars, dynamic Middle Tab (Top 5 Fighters vs Hub Details), and fixed Footer CTA.
+1280x720 Resolution:
+Size: W = 380 px, H = 664 px (28 px margins).
+Proportional adjustments: Hero art shrinks from 180 px to 110 px; pillar bars scale down; font sizes step down 2 pt; list items drop from 5 to 4 visible rows (or compact 28 px rows).
+2. Layout Breakdown (1920x1080 Dimensions)
+[===================== 500 px =====================]
+| [HERO ART: Atmospheric Landmark / Gym Hall] 180px |
+|  - Dark gradient overlay bottom-to-top            |
+|  - Flag badge (36x24) + "UNITED KINGDOM" (22pt)   |
+|  - Subtitle: "TIER 1 COMBAT MARKET • EST. 1891"   |
++---------------------------------------------------+
+| PILLAR METRICS SECTION (150 px)                   |
+|  - Combat Popularity: [########..] 92  [ S ]      |
+|  - Talent Pool Depth: [########..] 90  [ A+]      |
+|  - Media Economy:     [######....] 74  [ B+]      |
++---------------------------------------------------+
+| NATION SANCTIONING & RULE PROFILE (44 px)         |
+|  - BBBofC Tag | Strict Cuts | Purse Tax 15%        |
++---------------------------------------------------+
+| SECTION TAB SWITCHER (36 px)                      |
+|  [ TOP 5 RANKED FIGHTERS ]  [ HUBS & GYMS (3) ]   |
++---------------------------------------------------+
+| LIST CONTENT AREA (390 px)                        |
+|  - Row 1: #1 Jack 'The Anvil' Ryan (Heavyweight)  |
+|  - Row 2: #2 Tariq Khan (Super Welter)            |
+|  - Row 3: #3 Callum Vance (Light Heavyweight)     |
+|  - Row 4: #4 Liam O'Connor (Middleweight)         |
+|  - Row 5: #5 Dean 'Basher' Bell (Cruiserweight)   |
++---------------------------------------------------+
+| FOOTER CTA (100 px)                               |
+|  - Starting Cost / Licensing Fee: £12,500         |
+|  - [ CHOOSE THIS MARKET ] (Championship Gold)     |
+[===================================================]
+
+3. Pillar Bars Redesign
+Dimensions: Height = 14 px (up from 4 px), Width = 320 px.
+Notches / Segments: Divided into 10 discrete segments (each representing 10 points) separated by a 1 px #0d0c0b void slit.
+Visual Styling:
+Background trough: #141210 with an inner 1 px shadow.
+Active Fill: High-contrast gradient reflecting the metric tier:
+Grade S / A (85-100): Championship Gold (#f0c233 to #d4a317).
+Grade B (70-84): Industrial Amber (#c87d2a to #9e5c18).
+Grade C / D (<70): Cold Iron Grey (#78726a to #4a4640).
+Grade Badges: Embedded on the far right as a beveled brass plaque (28x18 px), background #282521, border 1 px #4a4338, font 11 pt Bold, text #f0c233.
+Fill Animation: On market switch, bars wipe fill left-to-right via Tween.EASE_OUT over 450 ms, delayed sequentially by 80 ms per bar.
+4. The "Top 5 Fighters" Module
+Data Filter: Generated dynamically from the global athlete database querying: discipline == BOXING, nationality == CURRENT_MARKET, sorted descending by national_ranking_points.
+Row Anatomy (H = 48 px, spaced 4 px apart):
+Rank Badge: 24x24 px square, background #22201d, text #b3aba0 ("#1" through "#5"). Top 1 receives a gold border (#f0c233).
+Portrait: 36x36 px rounded thumbnail showing the 3D-rendered athlete bust or high-contrast silhouette with dynamic lighting.
+Fighter Name & Moniker: 13 pt Bold #e6e1d8 (e.g., "Jack 'The Anvil' Ryan").
+Record & Division: 11 pt Regular #8c857b (e.g., "24-1-0 (19 KO) • Heavyweight").
+Current Status Badge: Small micro-tag ("CHAMP", "CONTENDER", "PROSPECT").
+Hover State: Background shifts from #1a1816 to #282521, left 2 px brass accent line illuminates, portrait zooms 1.05x.
+5. Art Integration & Redundant Content Cut
+Country Header Art: A 500x180 px cinematic header image showing a stylized dusk panorama of the nation's combat heartland (e.g., London misty skyline, industrial brick arches, faint ring lights). Treated with a multi-stop vertical vignette: transparent at top, solid #1a1816 at bottom.
+Federation Crest Treatment: Real sports federations (BBBofC, NSAC, JBC) have trademark/licensing constraints. We render them as bespoke in-engine heraldic brass badges (crossed gloves, laurel wreaths, minimalist typography) stamped with official regulatory status.
+What Gets Folded / Cut:
+The redundant list of gym names ("Active Hub Dossier") is removed from the default view and placed behind the secondary tab ("HUBS & INFRASTRUCTURE").
+"+1 MORE" governing bodies text is collapsed into a single regulatory chip tooltip.
+6. Round-70 UI Token System
+Background Void: #0d0c0b
+Base Card Panel: #1a1816
+Elevated Rows / Wells: #22201d
+Hover / Active Borders: #282521 and #4a4338
+Primary Accent / CTA: #f0c233 (Championship Gold)
+Primary Text: #e6e1d8 (Bone White / Cream)
+Muted Text: #8c857b (Ash Grey)
+Corner Radii: Uniform 4 px
+Motion Timings: 180 ms for button hovers; 300 ms for card sliding transition; 450 ms for bar ease-out fills.
+PART C: REFERENCE STUDY — WHAT SHIPPED TITLES DO
+Football Manager (Nation Selection):
+Mechanism: Highlights league reputation (stars), economic power, work permit strictness, and youth rating.
+Takeaway: Players need to know the bureaucratic friction of a nation. We add a small regulatory chip: e.g., "Strict Cut Stoppages" for UK, "High Sanctioning Fees" for USA.
+Motorsport Manager (Team / HQ Location):
+Mechanism: Shows HQ facility tiers, local sponsor markets, and engine supply advantages.
+Takeaway: Clear economic tradeoffs. UK offers high media revenue but fierce gym competition.
+Civilization VI (Leader / Civ Selection):
+Mechanism: Massive character bust/portrait on the right; unique national traits and signature units clearly itemized.
+Takeaway: A prominent focal point of human presence. Boxing is about fighters, not legal entities; displaying the Top 5 fighters provides that "Civilization Unique Unit" appeal.
+Crusader Kings III (Realm Selection):
+Mechanism: Shows the ruler, their immediate heir, realm military strength, and difficulty rating.
+Takeaway: Contextual power balance. Showing the UK's undisputed #1 boxer tells the player what mountain they have to climb if they start in this region.
+Punch Club 2 / EA Sports UFC Career:
+Mechanism: Gritty urban atmosphere, immediate visual impression of the local gym scene.
+Takeaway: Mood matters. The header cannot just be a clean vector flag; it must look like a working-class gym culture.
+PART D: ASSET GENERATION LIST & IMPLEMENTATION ROADMAP
+Art Generation Prompts (For subsequent generation tasks)
+Header Hero Art — United Kingdom Combat Market:
+Dimensions: 1000x360 px (2:1 aspect ratio, downsampled to 500x180 px for UI retina display).
+Style: Stylized 3D concept art matching the Godot 4 render pipeline. Chunky shapes, moody golden-hour volumetric backlighting, gritty London brick warehouse gym architecture along the Thames, vintage ring ropes visible through high industrial steel-framed windows, damp cobblestones, warm yellow interior glow (#f0c233 tint), deep black-brown shadows (#0d0c0b). Painterly yet sharp PBR textures.
+Header Hero Art — United States (East Coast / Philly & NY):
+Dimensions: 1000x360 px.
+Style: Stylized 3D concept art. Classic American walk-up boxing club above an old diner, subway overpass in the distance, dusk sky with orange-gold pollution haze, neon gym sign glowing softly, heavy bags visible through steamed glass.
+Header Hero Art — Mexico (Julio Cesar Chavez Legacy / Mexico City):
+Dimensions: 1000x360 px.
+Style: Stylized 3D concept art. High-altitude outdoor training rooftop, weathered terracotta walls, traditional red and green boxing ring canvases, afternoon sun casting sharp brass-colored rim light, boxing posters plastered across worn plaster.
+Generic Silhouette Portraits (Fallback for procedurally generated fighters without 3D busts):
+Dimensions: 256x256 px.
+Style: High-contrast graphic stylized 3D fighter silhouette busts against a dark #22201d background, rim-lit by championship gold light, distinct weight-class body proportions (Heavyweight bulky traps vs Featherweight lean jawline).
+Agent Build Steps & Acceptance Criteria
+Step 1: UI Scene Node Tree Refactor
+Task: Convert MarketCard.tscn from a single VBoxContainer into a structured PanelContainer with explicit sub-containers (HeroSection, PillarsSection, TabSection, ContentList, FooterSection).
+Acceptance Check: Card root measures exactly 500 px wide at 1080p, child controls do not overflow or clip when text is extended by 20%.
+Step 2: Custom Segmented ProgressBar Control
+Task: Implement SegmentedBar.gd with segment count, trough styling, and tweened value updates.
+Acceptance Check: Calling set_value(92) renders 9 full gold notches, 1 partially filled notch (or empty), and updates the associated grade label to "S" within 450 ms.
+Step 3: Database Query & Fighter Row Instantiation
+Task: Wire FighterRosterService to return top 5 athletes sorted by ranking points matching the selected country code, populating the Top5Container.
+Acceptance Check: Switching markets on the globe correctly frees previous row nodes and instances 5 populated rows in under 16 ms without frame stutter.
+Step 4: Tab Switcher Logic
+Task: Wire "Top 5 Fighters" and "Hubs & Gyms" tabs to toggle visibility of their respective sub-panels while preserving scroll state.
+Acceptance Check: Clicking "Hubs & Gyms" displays the city count and local gym distribution; clicking "Top 5" returns to the fighter list with active tab highlight bar sliding smoothly.
+PART E: GDSCRIPT (GODOT 4.7) IMPLEMENTATION
+1. SegmentedBar.gd (Thick Notched Pillar Bar)
+# SegmentedBar.gd
+# Round-70 compliant thick segmented meter with tween animations.
+@tool
+class_name SegmentedBar
+extends Control
+
+signal animation_completed
+
+@export var max_value: float = 100.0
+@export var current_value: float = 0.0:
+	set(val):
+		current_value = clamp(val, 0.0, max_value)
+		queue_redraw()
+
+@export var segments: int = 10
+@export var bar_height: float = 14.0
+@export var segment_gap: float = 2.0
+@export var corner_radius: float = 2.0
+
+# Round-70 Color Tokens
+const COLOR_VOID: Color = Color("#0d0c0b")
+const COLOR_TROUGH: Color = Color("#141210")
+const COLOR_BORDER: Color = Color("#282521")
+const COLOR_GOLD_HIGH: Color = Color("#f0c233")
+const COLOR_GOLD_LOW: Color = Color("#c87d2a")
+const COLOR_MUTED_BAR: Color = Color("#78726a")
+
+var _display_value: float = 0.0
+var _tween: Tween
+
+func _ready() -> void:
+	custom_minimum_size.y = bar_height
+
+func animate_to_value(target_val: float, duration: float = 0.45, delay: float = 0.0) -> void:
+	if _tween and _tween.is_running():
+		_tween.kill()
+	
+	_tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	if delay > 0.0:
+		_tween.tween_interval(delay)
+	
+	_tween.tween_property(self, "_display_value", clamp(target_val, 0.0, max_value), duration)
+	_tween.connect("step_finished", Callable(self, "_on_tween_step"))
+	_tween.connect("finished", Callable(self, "_on_tween_finished"))
+
+func _on_tween_step(_idx: int) -> void:
+	queue_redraw()
+
+func _on_tween_finished() -> void:
+	current_value = _display_value
+	emit_signal("animation_completed")
+
+func _draw() -> void:
+	var total_w: float = size.x
+	var available_w: float = total_w - (segment_gap * (segments - 1))
+	var seg_w: float = available_w / float(segments)
+	
+	var active_ratio: float = _display_value / max_value
+	var filled_segments_float: float = active_ratio * float(segments)
+	
+	# Determine color grading based on value
+	var fill_color: Color = COLOR_GOLD_HIGH
+	if _display_value < 70.0:
+		fill_color = COLOR_MUTED_BAR
+	elif _display_value < 85.0:
+		fill_color = COLOR_GOLD_LOW
+		
+	for i in range(segments):
+		var seg_x: float = i * (seg_w + segment_gap)
+		var seg_rect: Rect2 = Rect2(seg_x, (size.y - bar_height) * 0.5, seg_w, bar_height)
+		
+		# Draw Background Trough Segment
+		draw_rect(seg_rect, COLOR_TROUGH, true)
+		draw_rect(seg_rect, COLOR_BORDER, false, 1.0)
+		
+		# Draw Active Fill Segment
+		if float(i + 1) <= filled_segments_float:
+			# Fully filled segment
+			draw_rect(seg_rect.grow(-1.0), fill_color, true)
+		elif float(i) < filled_segments_float:
+			# Partially filled segment
+			var partial_ratio: float = filled_segments_float - float(i)
+			var partial_w: float = (seg_w - 2.0) * partial_ratio
+			var partial_rect: Rect2 = Rect2(seg_rect.position + Vector2(1.0, 1.0), Vector2(partial_w, bar_height - 2.0))
+			draw_rect(partial_rect, fill_color, true)
+
+2. TopFighterRow.gd (Top 5 Fighter List Item)
+# TopFighterRow.gd
+# Round-70 compliant fighter item row displaying national star profile.
+class_name TopFighterRow
+extends PanelContainer
+
+signal fighter_inspected(fighter_id: String)
+
+@onready var rank_label: Label = %RankLabel
+@onready var portrait_rect: TextureRect = %PortraitRect
+@onready var name_label: Label = %NameLabel
+@onready var record_label: Label = %RecordLabel
+@onready var division_label: Label = %DivisionLabel
+@onready var status_badge: Label = %StatusBadge
+
+# Round-70 Color & Style Constants
+const COLOR_BASE_PANEL: Color = Color("#1a1816")
+const COLOR_HOVER_PANEL: Color = Color("#22201d")
+const COLOR_BORDER_DEFAULT: Color = Color("#282521")
+const COLOR_BORDER_HOVER: Color = Color("#4a4338")
+const COLOR_GOLD: Color = Color("#f0c233")
+const COLOR_CREAM: Color = Color("#e6e1d8")
+const COLOR_ASH: Color = Color("#8c857b")
+
+var _fighter_data: Dictionary = {}
+var _stylebox: StyleBoxFlat
+
+func _ready() -> void:
+	custom_minimum_size.y = 48.0
+	mouse_filter = Control.MOUSE_FILTER_STOP
+	
+	_stylebox = StyleBoxFlat.new()
+	_stylebox.bg_color = COLOR_BASE_PANEL
+	_stylebox.border_color = COLOR_BORDER_DEFAULT
+	_stylebox.set_border_width_all(1)
+	_stylebox.set_corner_radius_all(4)
+	add_theme_stylebox_override("panel", _stylebox)
+	
+	mouse_entered.connect(_on_mouse_entered)
+	mouse_exited.connect(_on_mouse_exited)
+
+func populate(rank: int, data: Dictionary) -> void:
+	_fighter_data = data
+	rank_label.text = "#%d" % rank
+	if rank == 1:
+		rank_label.add_theme_color_override("font_color", COLOR_GOLD)
+	else:
+		rank_label.add_theme_color_override("font_color", COLOR_ASH)
+		
+	name_label.text = data.get("name", "Unknown Fighter")
+	var wins: int = data.get("wins", 0)
+	var losses: int = data.get("losses", 0)
+	var draws: int = data.get("draws", 0)
+	var kos: int = data.get("kos", 0)
+	record_label.text = "%d-%d-%d (%d KO)" % [wins, losses, draws, kos]
+	division_label.text = data.get("weight_class", "Middleweight").to_upper()
+	
+	var status: String = data.get("status", "")
+	if status != "":
+		status_badge.visible = true
+		status_badge.text = status.to_upper()
+	else:
+		status_badge.visible = false
+		
+	if data.has("portrait_texture"):
+		portrait_rect.texture = data["portrait_texture"]
+
+func _gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		accept_event()
+		emit_signal("fighter_inspected", _fighter_data.get("id", ""))
+
+func _on_mouse_entered() -> void:
+	var tween: Tween = create_tween().set_parallel(true).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_property(_stylebox, "bg_color", COLOR_HOVER_PANEL, 0.18)
+	tween.tween_property(_stylebox, "border_color", COLOR_BORDER_HOVER, 0.18)
+	name_label.add_theme_color_override("font_color", COLOR_GOLD)
+
+func _on_mouse_exited() -> void:
+	var tween: Tween = create_tween().set_parallel(true).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_property(_stylebox, "bg_color", COLOR_BASE_PANEL, 0.18)
+	tween.tween_property(_stylebox, "border_color", COLOR_BORDER_DEFAULT, 0.18)
+	name_label.add_theme_color_override("font_color", COLOR_CREAM)

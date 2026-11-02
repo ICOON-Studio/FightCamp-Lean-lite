@@ -1,0 +1,281 @@
+ROUND 57 (S220) — STEP 3 "NAME THE GYM" COMPLETE REDESIGN
+1. LAYOUT ARCHITECTURE (1920x1080)
+Choice of Preview Rendering: Interactive 3D SubViewport (Floor Camera Angle)
+Decision: We use an interactive 3D SubViewport running the real game camera at the live floor angle ($\approx 35^\circ$ isometric tilt, looking south-to-north across the $30\text{ m} \times 18\text{ m}$ hall), with a synchronized 2D orthographic projection overlay for zone boundaries.
+Why over a flat 2D blueprint: In Two Point Hospital, room placement is engaging because you immediately see the 3D volume, wall textures, lighting, and animated props as you build. A flat 2D vector plan creates an emotional disconnect: the player plans in a spreadsheet/CAD mode, then clicks "Open Gym" and is jarred by entering a completely different-looking 3D space. Rendering the actual 3D club inside the SubViewport creates instant continuity: the gym you configure on this screen is the exact gym you walk into on Day 1.
+┌────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ TOP BAR: FIGHTCAMP  |  BACK (x:480)  |  STEP 3: THE GYM  |  [CYPRUS > NICOSIA]              (H: 56px)  │
+├──────────────────────────────────────────────────────┬─────────────────────────────────────────────────┤
+│ LEFT DRAWER: IDENTITY & FINANCES (W: 460px)          │ CENTER-RIGHT: INTERACTIVE 3D GYM PREVIEW        │
+│ • Gym Name & Head Coach Name (Y: 72)                 │ (X: 476, Y: 72, W: 1428, H: 864)                │
+│ • Career Start Mode Selector (Story / Sandboxes)     │                                                 │
+│ • Real Financial Burn Strip ($25K, Upkeep, Runway)   │ • Real 3D SubViewport showing 30x18m club       │
+│ • Selected Zone Inspector (Expands on Zone Click)    │ • Dynamic 2D floor bounding projection          │
+│ • Starter Roster Mini-Card (Mara Solano or Empty)    │ • Drag-and-drop zone layout handles             │
+│ • "Advanced Options" Collapsible Drawer              │ • Aisle & door clearance guides                 │
+├──────────────────────────────────────────────────────┴─────────────────────────────────────────────────┤
+│ BOTTOM HUD / ACTION STRIP (Y: 952, H: 128px)                                                           │
+│ [RESET LAYOUT]  [UNDO (Ctrl+Z)]  |  ZONES CONFIGURED: 8/9  |  FLOOR USED: 284/360 m²  |  [ OPEN GYM ]  │
+└────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+Exact Coordinates & Dimensions (1920x1080)
++----+-----------------------------+-----+-----+------+-----+----------------------------------------------------+
+| ID | PANEL / BLOCK               | X   | Y   | W    | H   | FUNCTIONAL PURPOSE & STATE                         |
++----+-----------------------------+-----+-----+------+-----+----------------------------------------------------+
+| P0 | Top Navigation Bar          | 0   | 0   | 1920 | 56  | Logo, Back, Breadcrumb, Step counter, Escape exit  |
+| P1 | Left Sidebar Shell          | 16  | 72  | 444  | 864 | Dark walnut container `#181310`, holds forms & stats|
+|    | - Input: Gym Name           | 32  | 88  | 412  | 60  | Alphanumeric string input field                    |
+|    | - Input: Coach Name         | 32  | 156 | 412  | 60  | Manager persona input field                        |
+|    | - Start Mode Toggle Chips   | 32  | 224 | 412  | 36  | Story / Guided Sandbox / Open Sandbox              |
+|    | - Financial Telemetry Bar   | 32  | 268 | 412  | 76  | Cash ($25K), Upkeep ($367), Runway (9 Wks), Floor  |
+|    | - Zone Inspector Accordion  | 32  | 352 | 412  | 340 | Shows selected zone data or contextual help        |
+|    | - Roster Summary Tile       | 32  | 700 | 412  | 156 | Mara Solano mini-profile or "EMPTY ROSTER" notice  |
+|    | - Advanced Toggle Accordion | 32  | 864 | 412  | 56  | Hardcore options collapsible tray                  |
+| P2 | 3D Gym Viewport Container   | 476 | 72  | 1428 | 864 | Live SubViewport rendering 30x18m hall             |
+|    | - Camera Viewport Canvas    | 476 | 72  | 1428 | 864 | SubViewport texture display                        |
+|    | - Viewport Tool Overlay     | 492 | 88  | 320  | 40  | Camera pan/zoom hints + Snap toggle (1m / 0.5m)    |
+|    | - Blueprint Grid Overlay    | 476 | 72  | 1428 | 864 | 2D Control drawing zone outlines and handles       |
+| P3 | Bottom Footer Action Strip  | 16  | 952 | 1888 | 112 | Action bar containing layout stats & CTA           |
+|    | - Reset / Undo Button Group | 32  | 980 | 240  | 48  | Reset to Defaults, Undo, Redo                      |
+|    | - Spatial Allocation Meter  | 300 | 974 | 600  | 60  | Linear breakdown of m² allocated per category      |
+|    | - Start Story Pitch Summary | 940 | 964 | 560  | 80  | Dynamic text recap of the selected start           |
+|    | - Big Action: "OPEN GYM"    | 1540| 972 | 340  | 64  | Primary gold CTA button `#E5B842`                  |
++----+-----------------------------+-----+-----+------+-----+----------------------------------------------------+
+
+What Stays vs. What Is Cut
+STAYS (Reformatted):
+Gym Name & Coach Name fields (condensed to left sidebar).
+Career Start chips (Story / Guided / Open).
+4 Financial Tiles: Cash, Weekly Upkeep, Runway (calculated dynamically from active zones/equipment), and Total Floor Space used.
+Starter Roster (Mara Solano for Story; replaced with contextual "RECRUIT ON OPENING" for Sandboxes).
+"OPEN GYM" primary call-to-action button.
+CUT ENTIRELY:
+The 10 standalone equipment cards list: Destroyed. Replaced by clicking the physical zones directly in the 3D preview.
+The single dashed "+ install equipment 9 m²" card: Destroyed. Free space is now visible as open, unallocated wood/concrete floor in the 3D hall.
+The abstract teal blueprint card: Destroyed. Replaced by the actual 3D viewport.
+2. ZONE MOVEMENT & MANIPULATION SYSTEM
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                   ZONE EDITING LOGIC & RULES                                     │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ 1. SELECTION ───────> Left-click on zone floor plane highlights boundary in gold (#E5B842).      │
+│ 2. DRAG / MOVE ─────> Click + Drag translates zone across X/Z floor plane with 1.0m grid snap.    │
+│ 3. ROTATION ────────> 'R' key or circular rotation widget rotates zone in 90° increments.        │
+│ 4. RESIZE ──────────> Edge/Corner handles allow stretching zone if within min/max footprint bounds.│
+│ 5. SWAP DETECTION ──> Dragging Zone A over Zone B highlights B in cyan (#38767A) for quick swap. │
+│ 6. COLLISION GUARD ─> Overlapping illegal areas (Aisles, Ring, Walls) tints boundary red (#D15341)│
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+Dragging, Swapping, and Grid Snapping
+Grid Resolution: Snaps strictly to $1.0\text{ m}$ increments (toggleable to $0.5\text{ m}$ in advanced mode).
+Direct Drag: Clicking and holding inside any zone polygon enters DRAG_STATE. The camera smooths slightly, and a semi-transparent ghost of the zone tracks the cursor across the floor plane.
+Swap Mechanic: If the player drags a zone directly over an existing valid zone of compatible dimensions (or drops within $\ge 60%$ bounding box overlap), the UI indicates SWAP via a cyan perimeter highlight (#38767A). Releasing swaps the two zones' origins cleanly.
+Rotation: Pressing R or clicking the rotation handle rotates the zone $90^\circ$ around its local center. If the rotation causes an out-of-bounds or collision error, it snaps back with an audible error buzz.
+Fixed Elements vs. Moveable Zones
+STRICTLY FIXED (Cannot be moved or deleted):
+Exterior Hall Walls: North, South, East, West structural perimeter ($30\text{ m} \times 18\text{ m}$).
+Front Entrance & Fire Exits: South wall double doors ($X: 13.5\text{--}16.5, Z: 18$).
+Primary Thoroughfare Aisles:
+Main East-West Transit Spine: $Z: 10.4\text{ m}$ to $11.6\text{ m}$ (must remain completely clear of apparatus).
+Entrance Reception Vestibule: $Z: 16.4\text{ m}$ to $18.0\text{ m}$.
+The Boxing Ring ($X: 12.0\text{--}21.0, Z: 3.5\text{--}10.4$): In the demo, the raised ring is structurally bolted to the concrete foundations in the center bay. It is immovable in Story Mode (serves as the architectural anchor of Calder House). In Open Sandbox, it can be relocated between 3 designated pre-reinforced floor bays.
+FREELY MOVEABLE (8 Zones):
+Bag Line West, Bag Line East, Boxing Floor, Cardio Zone, Timing Bag Run, Footwork/Agility Grid, Stretch Area, Strength/Weights Zone.
+Collision, Overlap, and Boundary Rules
+Clearance Envelopes: Every zone has a hard boundary that includes athlete operating clearance ($0.5\text{ m}$ perimeter padding around heavy bags; $1.0\text{ m}$ around weight barbells).
+Invalid Drop Behavior: If dropped in collision with another zone, overlapping an aisle, or clipping exterior brick walls:
+The boundary strokeline flashes high-contrast crimson (#D15341) at $4\text{ Hz}$.
+An on-screen floating error tag appears at the cursor: BLOCKED: AISLE CLEARANCE REQUIRED or BLOCKED: ZONE OVERLAP.
+Upon mouse release, the zone plays a smooth spring-damper tween (0.2s duration) returning to its last valid coordinates (revert_to_origin()).
+Undo / Redo / Reset Stack:
+Full command pattern (MoveZoneCommand, SwapZoneCommand, ResizeZoneCommand).
+Ctrl+Z (Undo), Ctrl+Y (Redo).
+RESET TO DEFAULT button instantly restores the canonical hall configuration.
+Granularity: Zones vs. Individual Props (Demo Scope)
+Demo Rule: ZONES ONLY.
+The player manipulates functional zones as atomic units (e.g., moving the entire Strength Zone with its rack, bench, and platforms together).
+Why: Allowing free-form placement of individual dumbbells, barbells, and speed bag swivels introduces collision bugs, athlete pathfinding mesh invalidations, and immense cognitive load before the game has even begun.
+One Editor or Two? ONE UNIFIED SYSTEM.
+This screen is simply an instance of the game's core Gym Renovation / Build Mode Engine (GymLayoutManager.tscn) instantiated with initial-setup flags.
+The exact same viewport, gizmos, and zone data are used when the player opens the "Renovate Gym" tab later during active career management.
+3. ZONE VISUAL FEEDBACK & INSPECTOR TELEMETRY
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                   INSPECTOR & VIEWPORT DISPLAY                                   │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ VIEWPORT OVERLAY (ON THE 3D FLOOR):                                                              │
+│ • Bounding outline: 2px dashed border (#E5B842 active, #9E9284 idle)                             │
+│ • Center floating pill: [ICON] ZONE NAME (e.g., "STRENGTH & WEIGHTS")                            │
+│ • Condition badge: Segmented 10-step mini-bar (Average Integrity: 68% WORN)                     │
+│ • Area tag: "36.0 m²"                                                                            │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ LEFT INSPECTOR (WHEN ZONE IS CLICKED):                                                           │
+│ • Header: STRENGTH ZONE (Footprint: 12.0m x 3.0m | 36.0 m²)                                     │
+│ • Installed Apparatus: Compact Free Weight Rack, Heavy Squat Stand, Flat Bench, Rubber Platform │
+│ • Primary Attributes Trained: POWER (x1.2), STRENGTH (x1.5)                                      │
+│ • Current Condition: 68% (WORN) — Est. 45 hrs before service needed                              │
+│ • Upkeep Contribution: $35.00 / week                                                             │
+│ • [ACTION]: STOW ZONE (Returns equipment to storage, frees 36 m²)                                │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+Hover vs. Click States
+Unselected / Idle:
+Zone boundary drawn with subtle, dark bronze floor trim (#3D3126, 1px solid).
+Minimal floating label with zone name and footprint (11px, #9E9284).
+Hover State:
+Bounding outline brightens to warm gold (#E5B842, 2px solid).
+Interior floor area receives a soft gold additive tint ($15%$ alpha).
+Cursor changes to can_drag (four-way directional arrow).
+Tooltip expands showing: Attributes Trained, Equipment Count, and Weekly Cost.
+Selected / Clicked State (Pinned):
+Boundary turns into an active, pulsing gold stroke (#F5C862, 2.5px width).
+Four corner translation/scaling handles appear.
+The Left Sidebar Accordion immediately populates with the full breakdown of all apparatus inside the zone, individual wear ratings, and training multipliers.
+4. THE THREE CAREER STARTS (PREVIEW PARITY)
++---------------------+---------------------------+---------------------------+---------------------------+
+| PARAMETER           | THE HOUSE THAT HOLDS      | GUIDED SANDBOX            | OPEN SANDBOX              |
+|                     | (CANONICAL STORY START)   | (STRUCTURED PLAY)         | (BLANK CANVAS)            |
++---------------------+---------------------------+---------------------------+---------------------------+
+| Narrative Premise   | Inherited Calder House;   | Moderate grant; buy basic | Empty commercial lease;   |
+|                     | historic gritty gym.      | working setup.            | install everything.       |
+| Initial Floor State | ALL 9 ZONES PRE-FILLED    | 4 CORE ZONES INSTALLED    | 100% EMPTY HALL           |
+|                     | (Full equipment layout)   | (Ring, 1 Bag, Stretch)    | (Only bare floor & ring)  |
+| Equipment Wear      | WORN & DAMAGED (30-65%)   | GOOD / PRISTINE (85-100%) | N/A (Purchased new: 100%) |
+| Move Restrictions   | Ring is locked in center; | Ring moveable to 3 bays;  | Complete freedom; player  |
+|                     | 8 zones freely moveable.  | zones freely moveable.    | places zones from catalogue|
+| Starter Roster      | MARA SOLANO (Lightweight) | NO FIGHTERS (Roster empty)| NO FIGHTERS (Roster empty)|
+| Starting Cash       | $25,000 (Low liquidity)   | $45,000                   | $65,000                   |
+| Starting Upkeep     | $367.00 / week            | $185.00 / week            | $75.00 / week (Base lease)|
+| Starting Runway     | 9 Weeks (Tight financial) | 24 Weeks                  | 38 Weeks                  |
++---------------------+---------------------------+---------------------------+---------------------------+
+
+Dynamic Start Updates in Step 3
+Clicking "THE HOUSE THAT HOLDS":
+Viewport instantly loads the full, gritty, lived-in Calder House setup.
+Heavy bags, platforms, and racks spawn with wear shaders applied (scuffed canvas, faded paint).
+Left roster tile populates with Mara Solano ($21\text{ y/o}$, Lightweight, 6 core attribute bars).
+Clicking "OPEN SANDBOX":
+Viewport runs a clean wipe: all zones vanish. The 3D camera displays the bare $30\text{ m} \times 18\text{ m}$ maple and concrete hall with only the center ring installed.
+Left drawer switches to a Zone Palette ([+ ADD BAG LINE], [+ ADD CARDIO ZONE], [+ ADD STRENGTH]) where the player drags zones from the catalogue onto the vacant floor.
+Cash deducts live as zones are dropped; Weekly Upkeep and Runway dynamically recalculate per placement.
+Roster tile shows: ROSTER EMPTY — HIRE TALENT VIA SCOUTING ONCE DOORS OPEN.
+5. FINANCIAL & EDITING FEEDBACK RULES
+A. Pre-Opening Editing (Step 3 Creation Screen)
+Zero Cost: Rearranging, rotating, swapping, and reconfiguring zones prior to clicking OPEN GYM is 100% FREE.
+Why: Penalizing a manager for planning their initial floor layout before day one creates friction and punishes experimentation.
+Instant Telemetry Reactivity: If the player in Open Sandbox adds or removes zones, the four metric cards update on that frame: $$\text{Runway (Weeks)} = \frac{\text{Current Cash}}{\text{Base Hall Lease} + \sum \text{Installed Zone Upkeep} + \text{Staff Base}}$$
+B. Post-Opening Editing (Live Career Build Mode)
+Once the gym is operational, moving heavy gym machinery carries logistical realism:
+Relocation Fee: Moving a zone costs $$150.00$ (contractor moving fee). Relocating the Boxing Ring costs $$1,200.00$ (structural rigging & canvas re-tensioning).
+Operational Downtime: The moved zone is marked with a yellow caution barrier and is unavailable for training for 24 game hours (1 day) while bolts are set.
+If an athlete is scheduled to train on that zone during that day, their training session cancels with an alert: STATION RELOCATING.
+6. BENCHMARK SCORE & GODOT 4 RISK AUDIT
+Benchmark Scoring
+Score: 9.1 / 10
+vs. Two Point Hospital (Room Placement): 9.0/10. Matches Two Point's immediate spatial clarity, boundary dragging, and invalid-drop feedback, while honoring the adult, industrial tone of a professional fight gym.
+vs. Motorsport Manager (HQ Facility Screen): 9.2/10. Superior in tactile agency. Motorsport Manager only allows clicking upgrade buttons on pre-set building nodes; FightCamp gives true spatial management of training square footage.
+The 3 Riskiest Implementation Hurdles in Godot 4.7.2
+========================================================================================================================
+TECHNICAL RISK AUDIT (GODOT 4.7.2 ENGINE IMPLEMENTATION)
+========================================================================================================================
+#  RISK DESCRIPTION                              SEVERITY   EXACT ENGINE MITIGATION STRATEGY
+------------------------------------------------------------------------------------------------------------------------
+1  SubViewport Input Event & Raycast Parallax   HIGH       In Godot 4, forwarding GUI mouse events from a parent 
+                                                           Control through a SubViewportContainer to a 3D Camera3D 
+                                                           often suffers scaling and coordinate offset bugs when 
+                                                           window scaling is active.
+                                                           --> MITIGATION: Implement an unhandled_input raycaster on 
+                                                           the Camera3D using `project_ray_origin` and intersect with 
+                                                           an invisible 3D StaticBody3D floor plane (`CollisionLayer 9`).
+
+2  Dynamic AStar2D / NavigationMesh Invalidation MEDIUM     Moving zones on the floor alters walkability bounds for 
+                                                           background athletes and coaches.
+                                                           --> MITIGATION: Do not bake full 3D NavMeshes at runtime. 
+                                                           Use a 2D discrete grid (`AStarGrid2D`) with 1m cell size 
+                                                           representing the hall floor. Mark zone rectangles as solid 
+                                                           obstacles; keep aisle cells strictly walkable.
+
+3  Visual Overdraw: 2D CanvasLayer over 3D Depth LOW-MED    Rendering crisp 2D zone boundary outlines, drag handles, 
+                                                           and selection pills over perspective 3D geometry causes 
+                                                           Z-fighting or sorting flicker.
+                                                           --> MITIGATION: Render zone outlines using 3D ImmediateMesh 
+                                                           or Decals projected onto the floor geometry rather than 
+                                                           floating 2D Control nodes, guaranteeing perfect perspective.
+========================================================================================================================
+
+7. STATION WEAR SPECIFICATIONS (FOLLOW-UPS FROM ROUND 56)
+Heavy Bag: Exact Thresholds, Penalties, and Breakdown Rules
+========================================================================================================================
+HEAVY BAG LIFESPAN & WEAR SPECIFICATION
+========================================================================================================================
+PARAMETER                      VALUE               SYSTEMIC MECHANIC / EXPLANATION
+------------------------------------------------------------------------------------------------------------------------
+Base Purchase Cost             $850.00             Initial installation / replacement cost.
+Routine Service Cost           $220.00             Tighten ceiling D-rings, restuff foam core, re-tape strike face.
+Wear Rate                      0.20% / athlete-hr  Hits WORN (74%) after 130 hours; DAMAGED (44%) after 280 hours.
+------------------------------------------------------------------------------------------------------------------------
+INTEGRITY BANDS & EFFECTS:
+• Pristine (90% - 100%)        Gain: x1.05         Injury Risk: 0.00% / session. Optimal density and rebound.
+• Good (75% - 89%)             Gain: x1.00         Injury Risk: 0.05% / session. Standard training performance.
+• Worn (45% - 74%)             Gain: x0.85         Injury Risk: 0.40% / session. Settling sand creates hard base.
+• Damaged (20% - 44%)          Gain: x0.65         Injury Risk: 1.25% / session. Wrist sprain / finger jam risk.
+• Failing (01% - 19%)          Gain: x0.40         Injury Risk: 3.50% / session. 5% Breakdown roll per session.
+• Out of Use (00%)             Gain: x0.00         Station locked. Cannot train until serviced or replaced.
+------------------------------------------------------------------------------------------------------------------------
+BREAKDOWN CONSEQUENCES (ROLL TRIGGERED ON FAILING BAND):
+1. Bag rips from swivel or lower vinyl bursts during training.
+2. Station drops immediately to 0% (Out of Use).
+3. Striking fighter takes mandatory injury check: 75% Mild Wrist Sprain (7 days), 25% Metacarpal Bruise (14 days).
+========================================================================================================================
+
+Complete Heavy Bag Card Layout Spec
+┌──────────────────────────────────────────────────────────────────────────────────┐
+│ HEAVY BAG INSPECTION CARD (360 x 390 px)                                         │
+├──────────────────────────────────────────────────────────────────────────────────┤
+│ [ICON] HEAVY BAG (LEATHER #01)              [DAMAGED] [34%]       [ X ] (32x32)  │
+│ Coordinates: X=48, Y=210 | Size: 360x390 px | Background: #181310 | Border: #3D3126 │
+├──────────────────────────────────────────────────────────────────────────────────┤
+│ INTEGRITY CONDITION: 34% (DAMAGED)                                               │
+│ [▓▓▓░░░░░░░] (10-Step Segmented Bar, W: 320px, H: 14px, Ochre #E5A93C)           │
+│ ESTIMATED RUNTIME: ~18 ATHLETE-HOURS BEFORE FAILURE                              │
+├──────────────────────────────────────────────────────────────────────────────────┤
+│ PERFORMANCE IMPACT:                                                              │
+│ • Training Efficiency: x0.65 (-35% penalty)                                      │
+│ • Session Injury Risk: 1.25% (Wrist Strain / Joint Sprain)                       │
+├──────────────────────────────────────────────────────────────────────────────────┤
+│ ATTRIBUTES DEVELOPED:                                                            │
+│ [ POWER ]          [ COMBINATIONS ]          [ STAMINA ]                         │
+├──────────────────────────────────────────────────────────────────────────────────┤
+│ FINANCIAL DETAILS:                                                               │
+│ Weekly Base Upkeep: $18.00 / wk           Routine Maintenance: $220.00           │
+├──────────────────────────────────────────────────────────────────────────────────┤
+│ [ SERVICE ($220) ]                        [ REPLACE ($850) ]                     │
+│ (+50% -> 84% Condition)                   (Factory New 100%)                     │
+│ Size: 154x42 px | Fill: #2D2319           Size: 154x42 px | Fill: #E5B842        │
+│ Border: 1.5px #E5A93C | Text: #E5A93C     Border: None    | Text: #181310        │
+├──────────────────────────────────────────────────────────────────────────────────┤
+│ PINNED • PRESS ESC OR CLICK FLOOR TO CLOSE                                       │
+└──────────────────────────────────────────────────────────────────────────────────┘
+
+Service Button State Rules:
+Enabled when Integrity $\le 89%$.
+Disabled when Integrity $\ge 90%$ (Background #251E19, Text #6E6255, Border #3D3126, Cursor not_allowed). Tooltip: "Apparatus in optimal condition ($\ge 90%$). Maintenance unneeded."
+3D Floor Signal States & Asset Specifications
++--------------------+-----------------------------+-----------------------------+-----------------------------+
+| PARAMETER          | WORN (45% - 74%)            | DAMAGED (20% - 44%)         | FAILING (01% - 19%)         |
++--------------------+-----------------------------+-----------------------------+-----------------------------+
+| 3D Floor Decal     | Subtle contact line:        | Dashed hazard perimeter:    | Diagonal hatched perimeter: |
+|                    | 1px solid `#9E9284`         | 2px dashed `#E5A93C`        | 3px yellow/black `#D15341`  |
+| Decal Alpha        | 25% opacity (barely visible)| 60% opacity (clear alert)   | 85% opacity (flashing pulse)|
+| Floating Billboard | NONE (Zero clutter in good/ | Amber circular pill (32px): | Crimson hexagon pill (36px):|
+| Badge Icon         | moderate states)            | Dark wrench icon `#181310`  | White exclamation `#FFF3E0` |
+| 3D Model Tint      | Standard textures           | Roughness +0.10; slight     | Heavy scuff decal; visible  |
+|                    |                             | diffuse darkening (-10%)    | sagging bag chain mesh      |
+| Interactive Sound  | Crisp leather impact        | Denser, deadened thud       | Harsh metallic chain rattle |
++--------------------+-----------------------------+-----------------------------+-----------------------------+
+
+
+This completes the comprehensive functional and spatial redesign of Step 3, fulfilling the operator's exact direction for a live preview and interactive zone manipulation, while maintaining full parity with the boxing mechanics and station wear engines.
+
+Can you provide the exact 1920x1080 wireframe for the redesigned Name the Gym screen, including every panel’s position and size?
+Can you define the interactive zone-moving controls, snapping rules, collision feedback, and confirmation states in the 3D preview?
+Can you specify the Godot 4 Control/SubViewport architecture and synchronization approach for the live gym preview?
+Can you generate a visual mockup of the redesigned Name the Gym screen with the live 3D gym preview, zones, and equipment placement controls?

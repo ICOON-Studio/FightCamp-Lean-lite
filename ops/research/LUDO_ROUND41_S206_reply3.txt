@@ -1,0 +1,316 @@
+﻿4.2 Column 2 (Continued): Selected Bout Detail Flyout (rect(528, 730, 1360, 218))
+Decision Served (Scorecards & Punch Stats): Informs whether fighter is winning on active ring generalship (judge bias toward forward movement) or clean punching volume; reveals punch accuracy decay in late rounds, dictating whether conditioning or technical punch form must be adjusted.
+Empty State (New Prospect / 0-0-0):
+Element Rect: rect(528, 730, 1360, 218).
+Visual: Background #0B0F17, Border 1px dashed #1E293B.
+Typography: Inter 11px Regular, Color #475569.
+Text (Centered): "NO COMPLETED BOUTS TO AUDIT. SCORECARDS, COMPUSTAT BREAKDOWNS, AND OFFICIAL UNIFIED RULES PROTOCOLS WILL POPULATE HERE AFTER FIRST LICENSED MATCH."
+SECTION 5 — TAB 5: CONTRACT & MONEY
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+| TAB 5: CONTRACT & MONEY LAYOUT (1920x1080)                                                                                                         |
++---------------------------------------------------+--------------------------------------------------+---------------------------------------------+
+| COLUMN 1: PAYROLL & TERMS (580 px)                | COLUMN 2: PURSE ECONOMICS (640 px)               | COLUMN 3: MORALE, REQUESTS & TRUST (644 px) |
+| rect(16, 120, 580, 944)                           | rect(612, 120, 640, 944)                         | rect(1268, 120, 636, 944)                   |
+|                                                   |                                                  |                                             |
+| - Primary Contract Ledger Card                    | - Projected Next Purse Waterfall                 | - Fighter Demand / Request Queue Card       |
+| - Weekly Stipend vs Market Value Delta            | - Contractual Purse Share Split (Fighter vs Gym) | - Negotiation & Formal Response Buttons     |
+| - Contract Expiration & Renewal Runway            | - Historical Earnings Ledger (Career Gross)      | - Promise Ledger (Kept vs Broken Counter)   |
+| - Re-negotiate / Extension CTA Buttons            | - Sanctioning Fees & Camp Surcharge Deductions   | - Ambition / Desires Satisfaction Metrics   |
++---------------------------------------------------+--------------------------------------------------+---------------------------------------------+
+
+5.1 Column 1: Payroll, Market Valuation & Expiration Runway (rect(16, 120, 580, 944))
+Container: Background #121826, Border 1px solid #1E293B.
+Section Header: rect(32, 136, 548, 24), Inter 12px Bold, #94A3B8, "LEGAL CONTRACT TERMS & GYM RETAINER".
+Primary Terms Ledger Block
+Sub-Container: rect(32, 168, 548, 290), Background #0B0F17, Border 1px solid #1E293B.
+Weekly Base Salary / Retainer:
+Element Rect: rect(48, 184, 516, 26).
+Font & Size: JetBrains Mono 14px Bold.
+Colour: Primary #F8FAFC, Currency #22C55E.
+Data Field: contract.gym_cut, contract.term (derived weekly stipend from contract ledger).
+Decision Served: Direct payroll burn rate; manager monitors weekly cash drain against monthly gym facility operational revenue.
+Populated Value (Leo Vance): CURRENT STIPEND: $450 / wk ($1,800 / mo)
+Empty State (Amateur / New Signing): CURRENT STIPEND: $0 / wk (AMATEUR STATUS - UNPAID RETAINER)
+Market Wage Benchmark:
+Element Rect: rect(48, 218, 516, 22).
+Font & Size: JetBrains Mono 11px Regular.
+Colour: #94A3B8.
+Data Field: market_salary (Calculated baseline for 9-2 welterweight prospect).
+Decision Served: Evaluates flight risk; if current stipend is $<60%$ of market salary, fighter will refuse extensions and trigger morale penalties.
+Populated Value (Leo Vance): Estimated Market Baseline: $650 / wk (Underpaid by -$200/wk)
+Empty State: Estimated Market Baseline: $0 / wk (Standard Unranked Amateur)
+Contract Expiration Runway Meter:
+Element Rect: rect(48, 248, 516, 32).
+Font & Size: JetBrains Mono 12px Bold.
+Colour: #F8FAFC, Warning Tone #F59E0B.
+Data Field: contract.term (Weeks remaining).
+Decision Served: If $<8$ weeks remain, manager enters open window where rival promotions can submit tender offers without gym compensation.
+Populated Value (Leo Vance): RUNWAY: 18 WEEKS REMAINING (Expires Wk 15, 2027)
+Empty State: RUNWAY: 52 WEEKS REMAINING (Standard 1-Year Developmental Agmt)
+Wage Demand to Resign:
+Element Rect: rect(48, 288, 516, 20).
+Font & Size: Inter 11px Regular.
+Colour: #94A3B8.
+Data Field: contract.wage_demand_to_sign.
+Decision Served: Defines bottom-line number required to lock fighter into a multi-year exclusive extension.
+Populated Value (Leo Vance): Fighter Agent Asking Terms: $800 / wk + 15% Win Bonus
+Empty State: Fighter Agent Asking Terms: N/A (Signed to standard rookie developmental tier)
+Contract Action Controls
+Sub-Container: rect(32, 474, 548, 120), Background #0B0F17, Border 1px solid #1E293B.
+Action Buttons:
+[OFFER CONTRACT EXTENSION] Button: rect(48, 490, 516, 40).
+Font & Size: Inter 11px Bold.
+Colour: Background #22C55E, Text #0B0F17.
+Decision Served: Opens negotiation drawer to adjust duration, weekly stipend, gym cut, and purse percentages.
+[RELEASE FIGHTER / TERMINATE CONTRACT] Button: rect(48, 538, 516, 36).
+Font & Size: Inter 11px SemiBold.
+Colour: Background #1E293B, Border 1px solid #EF4444, Text #EF4444.
+Decision Served: Cuts fighter to free up roster capacity and eliminate weekly stipend burn; costs severance if cut before expiry.
+Financial History Ledger (Lifetime Gym Profitability)
+Sub-Container: rect(32, 610, 548, 338), Background #0B0F17, Border 1px solid #1E293B.
+Ledger Entries: rect(48, 626, 516, 300). JetBrains Mono 11px, Line height: 26px.
+Total Career Gym Stipend Paid:  -$12,600
+Total Gym Cut Revenue Accrued:  +$18,450
+Medical Clinic Subsidies Paid:  -$1,400
+Camp Facility Cost Allocation:   -$3,200
+----------------------------------------
+NET ATHLETE PROFITABILITY:       +$1,250 (NET CASH POSITIVE)
+Empty State (New Prospect):
+All historical ledgers read $0.00. NET ATHLETE PROFITABILITY: $0.00.
+5.2 Column 2: Purse Economics & Revenue Waterfall (rect(612, 120, 640, 944))
+Container: Background #121826, Border 1px solid #1E293B.
+Section Header: rect(628, 136, 608, 24), Inter 12px Bold, #94A3B8, "PURSE PARTICIPATION & BOUT REVENUE WATERFALL".
+Contractual Split Percentages
+Sub-Container: rect(628, 168, 608, 200), Background #0B0F17, Border 1px solid #1E293B.
+Gym Cut %:
+Element Rect: rect(644, 184, 576, 32).
+Font & Size: JetBrains Mono 14px Bold.
+Colour: #D69E2E.
+Data Field: contract.gym_cut (Exact game fact).
+Decision Served: Percentage of total purse retained by gym to fund coaches, facilities, and rent.
+Populated Value (Leo Vance): GYM CUT: 20.0% OF GROSS PURSE
+Empty State: GYM CUT: 15.0% OF GROSS PURSE (Rookie Baseline)
+Fighter Purse Share %:
+Element Rect: rect(644, 224, 576, 32).
+Font & Size: JetBrains Mono 14px Bold.
+Colour: #38BDF8.
+Data Field: contract.purse_share (Exact game fact).
+Decision Served: Dictates fighter financial satisfaction; high purse share keeps top fighters loyal without inflating fixed weekly payroll.
+Populated Value (Leo Vance): FIGHTER SHARE: 80.0% OF NET PROMOTIONAL PURSE
+Empty State: FIGHTER SHARE: 85.0% OF NET PROMOTIONAL PURSE
+Expected Next Purse Breakdown Waterfall
+Sub-Container: rect(628, 384, 608, 300), Background #0B0F17, Border 1px solid #1E293B.
+Waterfall Rows: rect(644, 400, 576, 260). JetBrains Mono 12px, Line height: 28px.
+Populated Values (Leo Vance - Bout 12 vs Tariq King):
+Guaranteed Base Purse:             $8,000
+Projected Win Bonus:               $4,000 (Conditional)
+Gross Projected Purse:            $12,000
+Less: Sanctioning Body Fees (3%):   -$360
+Less: State Athletic Tax (5%):      -$600
+NET PURSE POOL:                   $11,040
+GYM CUT (20%):                     $2,208 (CREDITED TO GYM BALANCE)
+FIGHTER PAYOUT (80%):              $8,832
+Empty State (Unbooked Fighter):
+rect(644, 440, 576, 180), Inter 11px Regular, #64748B.
+"NO ACTIVE BOUT CONTRACT SANCTIONED. PURSE WATERFALL CURRENTLY INACTIVE. SANCTION A BOUT VIA MATCHMAKER TO GENERATE REVENUE ESTIMATE."
+Career Gross Earnings Summary
+Sub-Container: rect(628, 700, 608, 248), Background #0B0F17, Border 1px solid #1E293B.
+Summary Fields:
+Total Gross Career Purses: $46,800 across 11 professional bouts.
+Highest Single Purse: $8,500 (Regional Title Challenge).
+Average Purse per Bout: $4,254.
+Empty State:
+Total Gross Career Purses: $0.00 across 0 bouts.
+5.3 Column 3: Morale, Requests & Promise Ledger (rect(1268, 120, 636, 944))
+Container: Background #121826, Border 1px solid #1E293B.
+Section Header: rect(1284, 136, 604, 24), Inter 12px Bold, #94A3B8, "FIGHTER DEMANDS, DESIRES & PROMISES".
+Fighter Open Demands / Desires Card
+Sub-Container: rect(1284, 168, 604, 280), Background #0B0F17, Border 1px solid #1E293B.
+Active Demand Header:
+Element Rect: rect(1300, 184, 572, 24).
+Font & Size: JetBrains Mono 12px Bold.
+Colour: Alert Amber #F59E0B.
+Data Field: ambition/desires (Exact game fact).
+Decision Served: Unmet demands lower morale and trigger camp disruption; manager must accept, reject, or negotiate.
+Populated Value (Leo Vance): ACTIVE DEMAND: PURSE SHARE HIKE & TITLE FIGHT
+Empty State: ACTIVE DEMAND: NONE. Fighter is completely content with current contract status.
+Demand Details & Expiration Deadline:
+Element Rect: rect(1300, 216, 572, 80).
+Font & Size: Inter 11px Regular.
+Colour: #F8FAFC.
+Populated Value (Leo Vance):
+"Fighter believes their 3-fight win streak warrants an upgrade to 85% purse share and wants a confirmed Regional Title bout within the next 8 weeks."
+RESPONSE DEADLINE: 12 DAYS REMAINING
+Empty State: "No formal demands registered with gym management."
+Response Action Buttons:
+[ACCEPT DEMAND] Button: rect(1300, 310, 180, 34), Background #22C55E, Text: Inter 10px Bold, #0B0F17.
+[NEGOTIATE ALTERNATIVE] Button: rect(1490, 310, 200, 34), Background #1E293B, Border 1px solid #334155, Text: Inter 10px Bold, #F8FAFC.
+[REJECT DEMAND] Button: rect(1700, 310, 172, 34), Background #450A0A, Border 1px solid #EF4444, Text: Inter 10px Bold, #FCA5A5.
+Empty State: All buttons disabled (#1E293B, text #475569).
+The Formal Promise Ledger
+Sub-Container: rect(1284, 464, 604, 250), Background #0B0F17, Border 1px solid #1E293B.
+Header & Stats: rect(1300, 476, 572, 24).
+Populated: PROMISES KEPT: 4 | PROMISES BROKEN: 0 | TRUST SCORE: 96%
+Empty: PROMISES KEPT: 0 | PROMISES BROKEN: 0 | TRUST SCORE: 100%
+Active Promises List: rect(1300, 508, 572, 180). JetBrains Mono 10px.
+Row 1: Promise: "Secure Lead Coach Marcus Vance for all camp pads" | Status: ON TRACK (Week 3/8) | Impact: +5 Morale.
+Row 2: Promise: "Sanction bout before December 2026" | Status: FULFILLED | Impact: +12 Morale.
+Empty State: rect(1300, 540, 572, 100), Inter 11px Regular, #64748B, "No active management promises pending for this fighter."
+Personality Traits & Ambition Trajectory
+Sub-Container: rect(1284, 730, 604, 218), Background #0B0F17, Border 1px solid #1E293B.
+Personality Matrix:
+Primary Trait: [AMBITIOUS] — +15% performance in title fights; -20% patience with contract delays.
+Secondary Trait: [PROFESSIONAL] — Never misses morning roadwork; minimal weight fluctuations.
+Ambition Index: CAREER AMBITION: WORLD CONTENDER (Tier 4 / Elite)
+Empty State (New Prospect):
+Primary Trait: [UNTESTED] | Ambition: REGIONAL CIRCUIT SURVIVAL
+SECTION 6 — TAB 6: CAMP
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+| TAB 6: CAMP LAYOUT (1920x1080)                                                                                                                     |
++---------------------------------------------------+--------------------------------------------------+---------------------------------------------+
+| COLUMN 1: OPPONENT SCOUTING DOSSIER (600 px)      | COLUMN 2: CAMP CALENDAR & RECOVERY (640 px)      | COLUMN 3: WEIGHT DESCENT & TACTICS (624 px) |
+| rect(16, 120, 600, 944)                           | rect(632, 120, 640, 944)                         | rect(1288, 120, 616, 944)                   |
+|                                                   |                                                  |                                             |
+| - Booked Bout Plaque: Opponent, Event, Date       | - 8-Week Fight Camp Timeline Tracker             | - 8-Week Weight Descent Runway              |
+| - Scouting Level 0-3 Information Resolution       | - Phase Indicator (Base, Intensity, Spar, Taper) | - Tactical Fight-Plan Blueprint             |
+| - Opponent Profile Readouts & Revealed Moves      | - Daily Sparring Load & Round Limits             | - Station Focus Allocations                 |
+| - Upgrade Scouting Level CTA Button               | - Fatigue vs Recovery Projections                | - Bout Readiness Score (%)                  |
++---------------------------------------------------+--------------------------------------------------+---------------------------------------------+
+
+6.1 Column 1: Opponent Scouting Dossier (rect(16, 120, 600, 944))
+Container: Background #121826, Border 1px solid #1E293B.
+Section Header: rect(32, 136, 568, 24), Inter 12px Bold, #94A3B8, "SANCTIONED OPPONENT & INTELLIGENCE REPORT".
+Booked Bout Banner Plaque
+Element Rect: rect(32, 168, 568, 120), Background #0B0F17, Border 1px solid #1E293B.
+Bout Target Information:
+Header: rect(48, 180, 536, 22), JetBrains Mono 14px Bold, #F8FAFC.
+Populated: "VS. TARIQ 'THE VIPER' KING (11-0-0, 8 KO)"
+Empty State: "NO ACTIVE BOUT SANCTIONED"
+Sub-Details: rect(48, 206, 536, 18), Inter 11px Regular, #94A3B8.
+Populated: "Apex Championship 18 | Main Event | 8 Rounds x 3 Min | Welterweight (66.7 kg)"
+Empty State: "Fighter is currently unbooked and operating on standard gym maintenance."
+Date & Countdown: rect(48, 228, 536, 20), JetBrains Mono 11px Bold, #D69E2E.
+Populated: "BOUT DATE: WK 48, 2026 | 5 WEEKS REMAINING (CAMP PHASE: INTENSIVE SPARRING)"
+Empty State: "COUNTDOWN: INACTIVE | OPEN MATCHMAKER TO BID FOR BOUTS"
+Scouting Level Resolution Matrix (Levels 0–3)
+Sub-Container: rect(32, 304, 568, 480), Background #0B0F17, Border 1px solid #1E293B.
+Current Scouting Level Badge:
+Element Rect: rect(48, 318, 536, 28).
+Font & Size: Inter 11px Bold.
+Colour: Level 2 Accent #38BDF8.
+Data Field: scouting_level (0, 1, 2, 3 - Exact game fact).
+Populated Value (Leo Vance - Level 2): SCOUTING RESOLUTION: LEVEL 2 (SCOUTED VIA RECENT TAPE - 8-POINT RANGE)
+Empty State: SCOUTING RESOLUTION: LEVEL 0 (UNSCOUTED / NO OPPONENT)
+Opponent Attribute Profile Readouts (Under Level 2):
+rect(48, 356, 536, 260). Font: JetBrains Mono 11px.
+POWER:       74 - 82 (Exact range under Level 2)
+TECHNIQUE:   68 - 76
+SPEED:       81 - 89 (Primary Threat: Elite hand speed)
+STAMINA:     65 - 73
+CHIN:        60 - 68 (Suspected Vulnerability)
+DEFENCE:     70 - 78
+FOOTWORK:    78 - 86
+RING IQ:     72 - 80
+COMPOSURE:   64 - 72
+Scouting Level Resolution Breakdown Rules:
+Level 0 (Unscouted): All stats display ???. Tendencies completely hidden.
+Level 1 (Basic Record): Letter grades shown (Power: B+, Speed: A, Chin: C).
+Level 2 (Tape Review - Populated above): 8-point numerical ranges shown.
+Level 3 (Full Camp Breakdown): Exact values revealed (Power: 79, Chin: 62). Known combinations revealed: Double Jab -> Overhand Right.
+Identified Tendencies & Counter Tactics:
+rect(48, 626, 536, 140). Inter 10px, Line height: 18px.
+Populated:
+Favored Opener: Double Jab (High frequency - 42% of entries)
+Defensive Weakness: Leaves chin exposed during lead uppercut recovery
+Recommended Counter: boxing_check_hook (Check Hook)
+Empty State: No intelligence data available.
+Scouting Action CTA
+Element Rect: rect(32, 800, 568, 80).
+Action Button: rect(48, 814, 536, 44).
+Populated: [DISPATCH ANALYST TO ADVANCE SCOUTING TO LEVEL 3 ($850 / 1 Wk)] (Background #1E293B, Border 1px solid #38BDF8, Text #38BDF8).
+Empty State: Disabled (#1E293B, Text #475569).
+6.2 Column 2: Camp Calendar, Phases & Sparring Load (rect(632, 120, 640, 944))
+Container: Background #121826, Border 1px solid #1E293B.
+Section Header: rect(648, 136, 608, 24), Inter 12px Bold, #94A3B8, "CAMP SCHEDULE, PHASES & SPARRING VOLUME".
+The 8-Week Microcycle Progress Tracker
+Sub-Container: rect(648, 168, 608, 130), Background #0B0F17, Border 1px solid #1E293B.
+Week-by-Week Visual Block Track: rect(664, 184, 576, 44).
+8 segmented horizontal blocks (w=68px each, gap=4px).
+Weeks 1–2 (Base Conditioning): Completed (#22C55E).
+Week 3 (Strength / Technical): Completed (#22C55E).
+Week 4 (Intensive Sparring): CURRENT WEEK (Border 2px solid #D69E2E, Fill #78350F).
+Weeks 5–6 (Hard Sparring & Speed): Pending (#1E293B).
+Week 7 (Sharpening & Active Taper): Pending (#1E293B).
+Week 8 (Fight Week / Weigh-In / Rest): Pending (#1E293B).
+Active Camp Phase Tag:
+rect(664, 244, 576, 24), JetBrains Mono 12px Bold, #D69E2E.
+Populated: PHASE 3: INTENSIVE SPARRING (Peak volume, high trauma risk)
+Empty State: NO ACTIVE CAMP. Standard gym routines running.
+Sparring Volume & Round Quotas
+Sub-Container: rect(648, 314, 608, 310), Background #0B0F17, Border 1px solid #1E293B.
+Sparring Load Metrics:
+Element Rect: rect(664, 330, 576, 40).
+Font & Size: JetBrains Mono 12px Bold.
+Colour: #F8FAFC.
+Data Field: fight_camp.sparring_load (Exact game fact).
+Decision Served: Balances Ring IQ/readiness gains against acute concussion/tissue wear before fight night.
+Populated Value (Leo Vance): SPARRING VOLUME THIS WEEK: 18 ROUNDS / 24 ROUND CAP
+Empty State: SPARRING VOLUME: 0 ROUNDS (No camp running)
+Active Sparring Partner Roster:
+rect(664, 380, 576, 120). Inter 11px Regular, Line height: 22px.
+Partner 1: Alex Rivera (Orthodox, High Speed) | 10 Rounds Completed | Intensity: 75%
+Partner 2: Darnell Cole (Southpaw, Power Striker) | 8 Rounds Completed | Intensity: 85%
+Headgear & Sparring Safety Rules:
+rect(664, 510, 576, 32), Inter 10px SemiBold, #22C55E.
+"16 oz Sparring Gloves Mandated | Cheek-Protection Headgear Active (-40% Cut Chance)"
+Camp Fatigue vs. Readiness Projection
+Sub-Container: rect(648, 640, 608, 280), Background #0B0F17, Border 1px solid #1E293B.
+Target Bout Readiness:
+Populated: BOUT READINESS SCORE: 78% (Projected at Bout: 94% after taper)
+Empty State: BOUT READINESS SCORE: N/A
+Projected Fight-Night Stamina Penalty:
+Populated: -0.0% (Current training load clears taper runway cleanly)
+Empty State: 0.0%
+6.3 Column 3: Weight Descent & Tactical Gameplan (rect(1288, 120, 616, 944))
+Container: Background #121826, Border 1px solid #1E293B.
+Section Header: rect(1304, 136, 584, 24), Inter 12px Bold, #94A3B8, "WEIGHT CUT RUNWAY & GAMEPLAN PRESET".
+Weight Cut Trajectory Table
+Sub-Container: rect(1304, 168, 584, 320), Background #0B0F17, Border 1px solid #1E293B.
+Weigh-In Countdown Plaque:
+rect(1320, 184, 552, 28), JetBrains Mono 13px Bold, #F8FAFC.
+Populated: WEIGH-IN: 33 DAYS REMAINING | TARGET: 66.70 kg
+Empty State: NO WEIGH-IN SCHEDULED
+Descent Vector Table:
+Wk 1 (Start): 71.2 kg | Actual: 71.2 kg | Status: ON TRACK
+Wk 2:         70.8 kg | Actual: 70.6 kg | Status: AHEAD (-0.2 kg)
+Wk 3:         70.2 kg | Actual: 70.0 kg | Status: ON TRACK
+Wk 4 (Now):   69.6 kg | Current: 69.4 kg | Status: OPTIMAL
+Wk 6 (Target): 68.5 kg (Pre-Water Depletion Threshold)
+Weigh-In Day: 66.7 kg (Final Water Pull: 1.8 kg / 2.6%)
+Tactical Bout Blueprint Settings
+Sub-Container: rect(1304, 504, 584, 330), Background #0B0F17, Border 1px solid #1E293B.
+Primary Round Strategy:
+Rounds 1-3: OUT-BOXING & JAB PROBING (Pace: Moderate, Distance: Long)
+Rounds 4-6: COUNTER-PUNCHING ON THE RETREAT (Target Tariq's overhand)
+Rounds 7-8: COMBINATION AGGRESSION & BODY ATTACK (High Output)
+Technique Weight Overrides for Bout:
+Lead Hook: PRIMARY [Weight: 40%]
+Double Jab: PRIMARY [Weight: 35%]
+Rear Cross: SITUATIONAL [Weight: 25%]
+Global Empty State for Entire CAMP Tab (When No Bout Booked)
+
+When booked_bout == null, Column 1, 2, and 3 content is suppressed and replaced by the unified Unsanctioned Camp Dashboard:
+
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+| UNIFIED CAMP EMPTY STATE (1888x920)                                                                                                                |
+| rect(16, 120, 1888, 920) | Background: #0B0F17 | Border: 1px dashed #1E293B                                                                        |
+|                                                                                                                                                    |
+|                                                     [CIRCULAR RADAR ICON: SCANNING]                                                                |
+|                                                                                                                                                    |
+|                                                    NO ACTIVE FIGHT CAMP SCHEDULED                                                                  |
+|                                        (Chakra Petch Bold 22px, #F8FAFC, rect(400, 420, 1120, 36))                                                 |
+|                                                                                                                                                    |
+|                     Leo Vance is currently not contracted for an upcoming bout. Training stations are operating in                                 |
+|                      developmental mode. To activate an 8-week structured camp, lock in an opponent via the Matchmaker.                            |
+|                                          (Inter 13px Regular, #94A3B8, rect(40
+

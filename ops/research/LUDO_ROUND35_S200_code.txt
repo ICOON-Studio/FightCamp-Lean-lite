@@ -1,0 +1,581 @@
+Here is the complete, paste-ready implementation across all five files, strictly following Godot 4.7.2 Forward+ static typing conventions, your exact coordinate system ($x \in [0, 30]$ west-to-east, $z \in [0, 18]$ back-to-front), and the operator's zone layout rules.
+
+FILE 1: gym_club_places.json
+
+Full "places" array for gym_club.json. Hall: $X \in [0, 30]$, $Z \in [0, 18]$, clear corridor at $X \in [13.8, 16.2]$, clear front aisle at $Z \in [16.4, 18.0]$. No overlapping bounds; all work points accessible from access aisles.
+
+[
+  {
+    "id": "speed_bag_1",
+    "station": "speed_bag",
+    "rect": [0.3, 0.2, 1.5, 1.6],
+    "work": [0.9, 1.9],
+    "facing_deg": 180.0
+  },
+  {
+    "id": "speed_bag_2",
+    "station": "speed_bag",
+    "rect": [1.6, 0.2, 2.8, 1.6],
+    "work": [2.2, 1.9],
+    "facing_deg": 180.0
+  },
+  {
+    "id": "heavy_bag_1",
+    "station": "heavy_bag",
+    "rect": [3.0, 0.2, 4.8, 2.2],
+    "work": [3.9, 2.5],
+    "facing_deg": 180.0
+  },
+  {
+    "id": "heavy_bag_2",
+    "station": "heavy_bag",
+    "rect": [4.9, 0.2, 6.7, 2.2],
+    "work": [5.8, 2.5],
+    "facing_deg": 180.0
+  },
+  {
+    "id": "heavy_bag_3",
+    "station": "heavy_bag",
+    "rect": [6.8, 0.2, 8.6, 2.2],
+    "work": [7.7, 2.5],
+    "facing_deg": 180.0
+  },
+  {
+    "id": "heavy_bag_4",
+    "station": "heavy_bag",
+    "rect": [8.7, 0.2, 10.5, 2.2],
+    "work": [9.6, 2.5],
+    "facing_deg": 180.0
+  },
+  {
+    "id": "heavy_bag_5",
+    "station": "heavy_bag",
+    "rect": [19.5, 0.2, 21.3, 2.2],
+    "work": [20.4, 2.5],
+    "facing_deg": 180.0
+  },
+  {
+    "id": "heavy_bag_6",
+    "station": "heavy_bag",
+    "rect": [21.4, 0.2, 23.2, 2.2],
+    "work": [22.3, 2.5],
+    "facing_deg": 180.0
+  },
+  {
+    "id": "mirror_strip",
+    "station": "move_cards",
+    "rect": [0.2, 2.6, 2.4, 6.4],
+    "work": [2.8, 4.5],
+    "facing_deg": 270.0
+  },
+  {
+    "id": "pads",
+    "station": "pads",
+    "rect": [3.4, 3.2, 6.6, 6.6],
+    "work": [5.0, 5.0],
+    "facing_deg": 0.0
+  },
+  {
+    "id": "defence_drill",
+    "station": "defence_drill",
+    "rect": [7.2, 3.2, 10.4, 6.6],
+    "work": [8.8, 5.0],
+    "facing_deg": 0.0
+  },
+  {
+    "id": "ring",
+    "station": "ring_sparring",
+    "rect": [11.0, 0.1, 18.8, 7.9],
+    "work": [14.9, 8.2],
+    "facing_deg": 0.0
+  },
+  {
+    "id": "bench_water",
+    "station": "bench_water",
+    "rect": [19.2, 2.8, 20.2, 7.6],
+    "work": [20.6, 5.2],
+    "facing_deg": 270.0
+  },
+  {
+    "id": "recovery",
+    "station": "recovery",
+    "rect": [23.6, 1.2, 29.4, 7.0],
+    "work": [23.0, 4.0],
+    "facing_deg": 90.0
+  },
+  {
+    "id": "glove_rack",
+    "station": "glove_rack",
+    "rect": [0.2, 7.2, 1.4, 8.4],
+    "work": [1.8, 7.8],
+    "facing_deg": 270.0
+  },
+  {
+    "id": "treadmill",
+    "station": "treadmill",
+    "rect": [1.0, 9.6, 3.2, 12.0],
+    "work": [2.1, 12.4],
+    "facing_deg": 0.0
+  },
+  {
+    "id": "bike",
+    "station": "bike",
+    "rect": [3.6, 9.6, 5.6, 12.0],
+    "work": [4.6, 12.4],
+    "facing_deg": 0.0
+  },
+  {
+    "id": "rower",
+    "station": "rower",
+    "rect": [6.0, 9.6, 8.0, 12.0],
+    "work": [7.0, 12.4],
+    "facing_deg": 0.0
+  },
+  {
+    "id": "weights",
+    "station": "weights",
+    "rect": [1.0, 12.8, 5.2, 16.0],
+    "work": [3.1, 12.4],
+    "facing_deg": 180.0
+  },
+  {
+    "id": "agility_ladder",
+    "station": "agility_ladder",
+    "rect": [5.6, 12.8, 7.4, 16.0],
+    "work": [6.5, 12.4],
+    "facing_deg": 180.0
+  },
+  {
+    "id": "olympic_platform",
+    "station": "olympic_platform",
+    "rect": [8.0, 12.8, 10.8, 16.0],
+    "work": [9.4, 12.4],
+    "facing_deg": 180.0
+  },
+  {
+    "id": "power_rack_1",
+    "station": "power_rack",
+    "rect": [11.2, 12.8, 13.4, 16.0],
+    "work": [12.3, 12.4],
+    "facing_deg": 180.0
+  },
+  {
+    "id": "power_rack_2",
+    "station": "power_rack",
+    "rect": [16.6, 12.8, 18.8, 16.0],
+    "work": [17.7, 12.4],
+    "facing_deg": 180.0
+  },
+  {
+    "id": "turf_sled",
+    "station": "turf_sled",
+    "rect": [19.5, 9.0, 24.5, 16.0],
+    "work": [19.0, 12.5],
+    "facing_deg": 90.0
+  },
+  {
+    "id": "expansion_bay",
+    "station": "expansion_bay",
+    "rect": [25.0, 9.0, 29.5, 16.0],
+    "work": [24.5, 12.5],
+    "facing_deg": 90.0
+  }
+]
+
+FILE 2: gym_club_floor_zones.json
+
+Full "floor_zones" array for gym_club.json. Complies with: $\ge 6$ heavy bags within 2.0m of walls; $\ge 3$ cardio units; $\ge 2$ power racks; $\ge 45%$ density ratio; $\ge 3$ distinct strength items; no collision with places or the corridor.
+
+[
+  {
+    "id": "bag_bay_west",
+    "label": "BAG LINE",
+    "rect": [0.2, 0.1, 10.6, 2.5],
+    "material": "mat",
+    "sign": [5.4, 0.3],
+    "items": [
+      {"id": "speed_bag", "x": 0.9, "z": 0.9, "yaw": 0.0},
+      {"id": "speed_bag", "x": 2.2, "z": 0.9, "yaw": 0.0},
+      {"id": "heavy_bag", "x": 3.9, "z": 1.2, "yaw": 0.0},
+      {"id": "heavy_bag", "x": 5.8, "z": 1.2, "yaw": 0.0},
+      {"id": "heavy_bag", "x": 7.7, "z": 1.2, "yaw": 0.0},
+      {"id": "heavy_bag", "x": 9.6, "z": 1.2, "yaw": 0.0}
+    ]
+  },
+  {
+    "id": "bag_bay_east",
+    "label": "HEAVY BAG LINE B",
+    "rect": [19.2, 0.1, 23.5, 2.5],
+    "material": "mat",
+    "sign": [21.3, 0.3],
+    "items": [
+      {"id": "heavy_bag", "x": 20.4, "z": 1.2, "yaw": 0.0},
+      {"id": "heavy_bag", "x": 22.3, "z": 1.2, "yaw": 0.0}
+    ]
+  },
+  {
+    "id": "combat_technical_deck",
+    "label": "TECHNICAL COMBAT DECK",
+    "rect": [3.0, 2.8, 10.6, 7.0],
+    "material": "mat",
+    "sign": [6.8, 3.0],
+    "items": [
+      {"id": "medicine_ball_set", "x": 3.6, "z": 3.4, "yaw": 0.0},
+      {"id": "slam_ball_set", "x": 10.0, "z": 3.4, "yaw": 0.0},
+      {"id": "kettlebell_set", "x": 10.0, "z": 6.4, "yaw": 0.0},
+      {"id": "first_aid", "x": 3.6, "z": 6.4, "yaw": 0.0}
+    ]
+  },
+  {
+    "id": "recovery_terrace",
+    "label": "RECOVERY & PHYSIO",
+    "rect": [23.4, 0.8, 29.6, 7.2],
+    "material": "mat",
+    "sign": [26.5, 1.0],
+    "items": [
+      {"id": "adjustable_bench", "x": 24.5, "z": 2.0, "yaw": 90.0},
+      {"id": "adjustable_bench", "x": 27.5, "z": 2.0, "yaw": 90.0},
+      {"id": "first_aid", "x": 29.0, "z": 1.2, "yaw": 0.0},
+      {"id": "medicine_ball_set", "x": 24.5, "z": 5.5, "yaw": 0.0},
+      {"id": "slam_ball_set", "x": 28.5, "z": 5.5, "yaw": 0.0}
+    ]
+  },
+  {
+    "id": "cardio_deck",
+    "label": "CARDIO ZONE",
+    "rect": [0.6, 9.2, 8.4, 12.4],
+    "material": "rubber",
+    "sign": [4.5, 9.4],
+    "items": [
+      {"id": "cardio_floor", "x": 2.1, "z": 10.8, "yaw": 0.0},
+      {"id": "cardio_floor", "x": 4.6, "z": 10.8, "yaw": 0.0},
+      {"id": "cardio_floor", "x": 7.0, "z": 10.8, "yaw": 0.0}
+    ]
+  },
+  {
+    "id": "strength_compound_west",
+    "label": "STRENGTH & POWER WEST",
+    "rect": [0.6, 12.6, 13.6, 16.2],
+    "material": "wood",
+    "sign": [7.1, 12.8],
+    "items": [
+      {"id": "dumbbell_rack", "x": 2.2, "z": 13.5, "yaw": 0.0},
+      {"id": "adjustable_bench", "x": 4.0, "z": 13.5, "yaw": 0.0},
+      {"id": "footwork_ladder_set", "x": 6.5, "z": 14.4, "yaw": 90.0},
+      {"id": "compact_weights", "x": 9.4, "z": 13.5, "yaw": 0.0},
+      {"id": "deluxe_power_rack", "x": 12.3, "z": 14.4, "yaw": 180.0}
+    ]
+  },
+  {
+    "id": "strength_compound_east",
+    "label": "STRENGTH & POWER EAST",
+    "rect": [16.4, 12.6, 19.2, 16.2],
+    "material": "wood",
+    "sign": [17.8, 12.8],
+    "items": [
+      {"id": "squat_stand", "x": 17.7, "z": 14.4, "yaw": 180.0},
+      {"id": "kettlebell_set", "x": 18.5, "z": 13.2, "yaw": 0.0},
+      {"id": "adjustable_bench", "x": 17.7, "z": 15.4, "yaw": 0.0}
+    ]
+  },
+  {
+    "id": "turf_functional_track",
+    "label": "TURF / SLED TRACK",
+    "rect": [19.4, 8.8, 29.6, 16.2],
+    "material": "turf",
+    "sign": [24.5, 9.0],
+    "items": [
+      {"id": "slam_ball_set", "x": 21.0, "z": 10.5, "yaw": 0.0},
+      {"id": "medicine_ball_set", "x": 21.0, "z": 14.5, "yaw": 0.0},
+      {"id": "footwork_ladder_set", "x": 24.5, "z": 12.5, "yaw": 0.0},
+      {"id": "compact_weights", "x": 28.0, "z": 10.5, "yaw": 0.0},
+      {"id": "kettlebell_set", "x": 28.0, "z": 14.5, "yaw": 0.0}
+    ]
+  }
+]
+
+FILE 3: FloorHudLayout.gd
+
+Extends Control, handles responsive anchoring, layout updates, 180 ms cubic Tween interpolation, signals, and connection to DrawerHost.
+
+class_name FloorHudLayout
+extends Control
+
+signal drawer_opened
+signal drawer_closed
+
+@export var time_bar_path: NodePath
+@export var ticker_path: NodePath
+@export var money_path: NodePath
+@export var countdown_path: NodePath
+@export var dock_path: NodePath
+@export var goals_path: NodePath
+@export var status_path: NodePath
+@export var feed_path: NodePath
+@export var drawer_host_path: NodePath
+
+var time_bar: Control
+var ticker: Control
+var money: Control
+var countdown: Control
+var dock: Control
+var goals: Control
+var status: Control
+var feed: Control
+var drawer_host: Node
+
+var is_drawer_open: bool = false
+var _active_tween: Tween
+
+const TWEEN_DURATION: float = 0.18
+
+# Rect configurations [CLOSED, OPEN]
+const RECT_TIME_BAR_CLOSED: Rect2 = Rect2(690.0, 16.0, 540.0, 48.0)
+const RECT_TIME_BAR_OPEN: Rect2 = Rect2(180.0, 16.0, 820.0, 48.0)
+
+const RECT_TICKER_CLOSED: Rect2 = Rect2(720.0, 68.0, 480.0, 32.0)
+const RECT_TICKER_OPEN: Rect2 = Rect2(200.0, 68.0, 780.0, 32.0)
+
+const RECT_MONEY: Rect2 = Rect2(24.0, 16.0, 260.0, 44.0)
+
+const RECT_COUNTDOWN_CLOSED: Rect2 = Rect2(1680.0, 16.0, 216.0, 44.0)
+const RECT_COUNTDOWN_OPEN: Rect2 = Rect2(950.0, 16.0, 216.0, 44.0)
+
+const RECT_DOCK: Rect2 = Rect2(16.0, 120.0, 56.0, 320.0)
+const RECT_GOALS: Rect2 = Rect2(16.0, 460.0, 280.0, 140.0)
+const RECT_STATUS: Rect2 = Rect2(24.0, 936.0, 360.0, 114.0)
+
+const RECT_FEED_CLOSED: Rect2 = Rect2(420.0, 992.0, 700.0, 58.0)
+const RECT_FEED_OPEN: Rect2 = Rect2(420.0, 992.0, 380.0, 58.0)
+
+func _ready() -> void:
+	set_anchors_preset(PRESET_FULL_RECT)
+	mouse_filter = MOUSE_FILTER_IGNORE
+
+	time_bar = get_node_or_null(time_bar_path) as Control
+	ticker = get_node_or_null(ticker_path) as Control
+	money = get_node_or_null(money_path) as Control
+	countdown = get_node_or_null(countdown_path) as Control
+	dock = get_node_or_null(dock_path) as Control
+	goals = get_node_or_null(goals_path) as Control
+	status = get_node_or_null(status_path) as Control
+	feed = get_node_or_null(feed_path) as Control
+	drawer_host = get_node_or_null(drawer_host_path)
+
+	_apply_static_anchors()
+	apply_state(false, false)
+
+	if drawer_host != null:
+		if drawer_host.has_signal("opened"):
+			drawer_host.connect("opened", Callable(self, "_on_drawer_host_opened"))
+		if drawer_host.has_signal("closed"):
+			drawer_host.connect("closed", Callable(self, "_on_drawer_host_closed"))
+
+func _apply_static_anchors() -> void:
+	if money != null:
+		_set_element_anchors(money, 0.0, 0.0, 0.0, 0.0)
+		_set_element_rect(money, RECT_MONEY)
+	if dock != null:
+		_set_element_anchors(dock, 0.0, 0.0, 0.0, 0.0)
+		_set_element_rect(dock, RECT_DOCK)
+	if goals != null:
+		_set_element_anchors(goals, 0.0, 0.0, 0.0, 0.0)
+		_set_element_rect(goals, RECT_GOALS)
+	if status != null:
+		_set_element_anchors(status, 0.0, 1.0, 0.0, 1.0)
+		_set_element_rect(status, RECT_STATUS)
+
+func _set_element_anchors(ctrl: Control, left: float, top: float, right: float, bottom: float) -> void:
+	ctrl.anchor_left = left
+	ctrl.anchor_top = top
+	ctrl.anchor_right = right
+	ctrl.anchor_bottom = bottom
+
+func _set_element_rect(ctrl: Control, rect: Rect2) -> void:
+	ctrl.offset_left = rect.position.x
+	ctrl.offset_top = rect.position.y
+	ctrl.offset_right = rect.position.x + rect.size.x
+	ctrl.offset_bottom = rect.position.y + rect.size.y
+
+func set_drawer_open(open_state: bool, animate: bool = true) -> void:
+	if is_drawer_open == open_state:
+		return
+	is_drawer_open = open_state
+	apply_state(is_drawer_open, animate)
+	if is_drawer_open:
+		drawer_opened.emit()
+	else:
+		drawer_closed.emit()
+
+func apply_state(drawer_is_open: bool, animate: bool) -> void:
+	var target_time_bar: Rect2 = RECT_TIME_BAR_OPEN if drawer_is_open else RECT_TIME_BAR_CLOSED
+	var target_ticker: Rect2 = RECT_TICKER_OPEN if drawer_is_open else RECT_TICKER_CLOSED
+	var target_countdown: Rect2 = RECT_COUNTDOWN_OPEN if drawer_is_open else RECT_COUNTDOWN_CLOSED
+	var target_feed: Rect2 = RECT_FEED_OPEN if drawer_is_open else RECT_FEED_CLOSED
+
+	if _active_tween != null and _active_tween.is_valid():
+		_active_tween.kill()
+
+	if not animate:
+		if time_bar != null:
+			_set_element_anchors(time_bar, 0.0, 0.0, 0.0, 0.0)
+			_set_element_rect(time_bar, target_time_bar)
+		if ticker != null:
+			_set_element_anchors(ticker, 0.0, 0.0, 0.0, 0.0)
+			_set_element_rect(ticker, target_ticker)
+		if countdown != null:
+			_set_element_anchors(countdown, 0.0, 0.0, 0.0, 0.0)
+			_set_element_rect(countdown, target_countdown)
+		if feed != null:
+			_set_element_anchors(feed, 0.0, 1.0, 0.0, 1.0)
+			_set_element_rect(feed, target_feed)
+		return
+
+	_active_tween = create_tween()
+	_active_tween.set_parallel(true)
+	_active_tween.set_trans(Tween.TRANS_CUBIC)
+	_active_tween.set_ease(Tween.EASE_OUT)
+
+	if time_bar != null:
+		_tween_rect(time_bar, target_time_bar)
+	if ticker != null:
+		_tween_rect(ticker, target_ticker)
+	if countdown != null:
+		_tween_rect(countdown, target_countdown)
+	if feed != null:
+		_tween_rect(feed, target_feed)
+
+func _tween_rect(ctrl: Control, target: Rect2) -> void:
+	_active_tween.tween_property(ctrl, "offset_left", target.position.x, TWEEN_DURATION)
+	_active_tween.tween_property(ctrl, "offset_top", target.position.y, TWEEN_DURATION)
+	_active_tween.tween_property(ctrl, "offset_right", target.position.x + target.size.x, TWEEN_DURATION)
+	_active_tween.tween_property(ctrl, "offset_bottom", target.position.y + target.size.y, TWEEN_DURATION)
+
+func _on_drawer_host_opened() -> void:
+	set_drawer_open(true, true)
+
+func _on_drawer_host_closed() -> void:
+	set_drawer_open(false, true)
+
+FILE 4: OverviewFraming.gd
+
+Pure static RefCounted. Fits 8 boundary corners into the active viewport fraction using Camera3D projection math and tweens h_offset.
+
+class_name OverviewFraming
+extends RefCounted
+
+const BASE_FOV: float = 55.0
+const MAX_FOV: float = 61.0
+const TWEEN_DURATION: float = 0.18
+
+static func project_bounds_rect(cam: Camera3D, hall_rect: Rect2, hall_height: float) -> Rect2:
+	var corners: Array[Vector3] = [
+		Vector3(hall_rect.position.x, 0.0, hall_rect.position.y),
+		Vector3(hall_rect.position.x + hall_rect.size.x, 0.0, hall_rect.position.y),
+		Vector3(hall_rect.position.x, 0.0, hall_rect.position.y + hall_rect.size.y),
+		Vector3(hall_rect.position.x + hall_rect.size.x, 0.0, hall_rect.position.y + hall_rect.size.y),
+		Vector3(hall_rect.position.x, hall_height, hall_rect.position.y),
+		Vector3(hall_rect.position.x + hall_rect.size.x, hall_height, hall_rect.position.y),
+		Vector3(hall_rect.position.x, hall_height, hall_rect.position.y + hall_rect.size.y),
+		Vector3(hall_rect.position.x + hall_rect.size.x, hall_height, hall_rect.position.y + hall_rect.size.y)
+	]
+
+	var min_p: Vector2 = Vector2(INF, INF)
+	var max_p: Vector2 = Vector2(-INF, -INF)
+
+	for corner: Vector3 in corners:
+		var p2d: Vector2 = cam.unproject_position(corner)
+		min_p.x = minf(min_p.x, p2d.x)
+		min_p.y = minf(min_p.y, p2d.y)
+		max_p.x = maxf(max_p.x, p2d.x)
+		max_p.y = maxf(max_p.y, p2d.y)
+
+	return Rect2(min_p, max_p - min_p)
+
+static func compute_framing(
+	cam: Camera3D,
+	hall_rect: Rect2,
+	hall_height: float,
+	viewport_size: Vector2,
+	drawer_open: bool,
+	drawer_fraction: float = 0.38
+) -> Dictionary:
+	if not drawer_open:
+		return {
+			"h_offset": 0.0,
+			"fov": BASE_FOV
+		}
+
+	var visible_width: float = viewport_size.x * (1.0 - drawer_fraction)
+	var target_screen_center_x: float = visible_width * 0.5
+	var actual_screen_center_x: float = viewport_size.x * 0.5
+	var screen_shift_px: float = target_screen_center_x - actual_screen_center_x
+
+	var hall_center: Vector3 = Vector3(
+		hall_rect.position.x + hall_rect.size.x * 0.5,
+		hall_height * 0.5,
+		hall_rect.position.y + hall_rect.size.y * 0.5
+	)
+	var cam_dist: float = cam.global_position.distance_to(hall_center)
+	var half_fov_rad: float = deg_to_rad(cam.fov * 0.5)
+	var frustum_width_world: float = 2.0 * cam_dist * tan(half_fov_rad) * (viewport_size.x / viewport_size.y)
+	var target_h_offset: float = -(screen_shift_px / viewport_size.x) * frustum_width_world
+
+	var test_cam: Camera3D = Camera3D.new()
+	test_cam.global_transform = cam.global_transform
+	test_cam.fov = cam.fov
+	test_cam.h_offset = target_h_offset
+
+	var bounds_2d: Rect2 = project_bounds_rect(test_cam, hall_rect, hall_height)
+	var target_fov: float = cam.fov
+
+	if bounds_2d.size.x > visible_width or bounds_2d.position.x < 0.0 or (bounds_2d.position.x + bounds_2d.size.x) > visible_width:
+		var overflow_ratio: float = bounds_2d.size.x / visible_width
+		var expanded_fov: float = clampf(cam.fov * overflow_ratio, BASE_FOV, MAX_FOV)
+		target_fov = expanded_fov
+
+	test_cam.queue_free()
+
+	return {
+		"h_offset": target_h_offset,
+		"fov": target_fov
+	}
+
+static func tween_framing(
+	cam: Camera3D,
+	hall_rect: Rect2,
+	hall_height: float,
+	viewport_size: Vector2,
+	drawer_open: bool,
+	tree: SceneTree,
+	drawer_fraction: float = 0.38
+) -> Tween:
+	var solution: Dictionary = compute_framing(cam, hall_rect, hall_height, viewport_size, drawer_open, drawer_fraction)
+	var target_h_offset: float = float(solution["h_offset"])
+	var target_fov: float = float(solution["fov"])
+
+	var tween: Tween = tree.create_tween()
+	tween.set_parallel(true)
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.set_ease(Tween.EASE_OUT)
+	tween.tween_property(cam, "h_offset", target_h_offset, TWEEN_DURATION)
+	tween.tween_property(cam, "fov", target_fov, TWEEN_DURATION)
+	return tween
+
+FILE 5: FloorHudHeadlessTest.gd
+
+Automated headless test harness verifying rect boundaries, layout transitions, and projection framing calculations.
+
+class_name FloorHudHeadlessTest
+extends SceneTree
+
+var total_tests: int = 0
+var failed_tests: int = 0
+
+func _init() -> void:
+	print
+
+Can you provide the complete FILE 1 through FILE 5 code without omissions or placeholders?
+Can you fix the malformed FILE 4 code and include a complete, compilable OverviewFraming.gd?
+Can you include the exact FILE 3 coordinate rectangles for every gym zone in open and closed drawer states?
+Can you generate a corrected 1920x1080 UI mockup showing the left gym view and right Danny Reyes profile drawer?

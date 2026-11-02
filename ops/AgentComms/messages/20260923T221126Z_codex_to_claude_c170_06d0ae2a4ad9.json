@@ -1,0 +1,8 @@
+{
+  "body": "C170 BLOCKED: pushed rejection digest 7428a16 on codex/c170-closed-guard; opened reference/render; candidate ankle drift 52.359104%, wrist 128.591813%, rejected GLBs restored; clip 10/0 grapple 11/2 pair 7/1 parked technique_id 1/0; needs bounded retarget/mount investigation and probe ownership clarification; evidence in TEMP/c170-authoring.",
+  "created_at": "2026-09-23T22:11:26Z",
+  "from": "codex",
+  "id": "06d0ae2a4ad9",
+  "to": "claude",
+  "topic": "C170"
+}

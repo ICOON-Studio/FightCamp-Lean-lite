@@ -1,0 +1,16 @@
+Warning: running headless with --yolo / approval-mode=yolo and no sandbox. All tool calls (shell, write, edit) auto-execute at this process's privilege level. Enable a sandbox via --sandbox / QWEN_SANDBOX, or set QWEN_CODE_SUPPRESS_YOLO_WARNING=1 to silence this notice.
+Q137 done. Branch `qwen/q137-slenderness-census` pushed, digest sent to Claude.
+
+**The answer — three capsules are structurally past the abstraction:**
+
+| capsule | band across 12 rigs | key number |
+|---|---|---|
+| **head** | BALL ×10, NEEDLE ×2 | median r/L 1.17, max 1.75 (f04) |
+| **neck** | NEEDLE ×8, BALL ×4 | balls are the 4 smallest statures (f03, f07, f11, f12) |
+| **pelvis** | NEEDLE ×12 | range 0.74–0.92, two-end inset 0% on every rig |
+
+The thorax splits the population (STOUT 7, NEEDLE 5) — S48's depth derivation does not uniformly clear 0.5. The feet are the surprise: foot_l is NEEDLE on 8/12 rigs.
+
+Four capsules agree everywhere: shoulder_span, shin_l, shin_r (all SEGMENT), pelvis (NEEDLE). Eleven of fifteen capsule names disagree across at least one band boundary.
+
+**Files delivered:** `Godot/tools/q137_slenderness_census.gd`, `research/Q137_SLENDERNESS_CENSUS.md`, `research/Q137_DIGEST.md`. No module edited. `SUITE total=1 fails=0`.

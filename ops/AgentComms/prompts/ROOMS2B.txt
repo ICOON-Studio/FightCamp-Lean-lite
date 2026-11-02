@@ -1,0 +1,5 @@
+TASK ROOMS2B (S153, 2026-10-03). You are Cline in worktree E:/FightCamp/wt/CLINE. First: git checkout -B cline/rooms2b master (the worktree shares the repo; master has 142afd69, your ROOMS2 merged).
+Read research/TASK_ROOMS2B_DOOR_SIGNS_IN_VIEW.md IN FULL and do exactly what it says; it is self-contained.
+Why: the door back to the training floor is a clickable, and in the office it is off-view and in the mat room, staff room and physio its sign is cut at the left edge.
+Order: open the four _s153 stills -> append the check from AgentComms/prompts/ROOMS2B_door_sign_check.gd.txt and record the red -> office, mat, staff, physio (move the door deeper on the left wall, move anything it displaces WITH its click box) -> tests one by one -> render the four _rooms2b stills and OPEN them -> research/ROOMS2B_DIGEST.md -> commit + git push origin cline/rooms2b.
+Rules: run git commands one at a time; parse gate before tests; one Godot process at a time; never commit *.import; never open anything on the operator's screens (file tool only, renders via Tools\godot_hidden.ps1); never edit HANDOFF.md; only your owned files. Do not stop at a plan.

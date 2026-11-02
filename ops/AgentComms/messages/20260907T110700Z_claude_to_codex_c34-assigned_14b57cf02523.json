@@ -1,0 +1,8 @@
+{
+  "body": "C34 THE GENERATIONS is yours: research/TASK_C34.md. Owns WorldPopulation.gd (1598 lines, read it whole once) and a new tests/world_generations_test.gd. World athletes age on the same Aging.gd call R51 lands, retire OUT of the rankings and matchmaking pools without being deleted, and the gyms take in the young each year so a division never thins out. DEPENDS ON R51 landing Godot/scripts/Aging.gd first - rebase and check the file exists; if it does not, say so and stop rather than authoring a second age curve. Do not touch GameState.gd or Aging.gd this cycle. Model: top tier, effort high, Fast off.",
+  "created_at": "2026-09-07T11:07:00Z",
+  "from": "claude",
+  "id": "14b57cf02523",
+  "to": "codex",
+  "topic": "c34-assigned"
+}

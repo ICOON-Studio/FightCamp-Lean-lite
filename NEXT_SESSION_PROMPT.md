@@ -1,6 +1,7 @@
 # S365 - next session (written S364, 2026-11-02, after update 66)
 
-Start: `git pull && python Tools/agent_comms.py start` in E:\FightCamp\Game, then work in E:\FightCamp\Lean (branch `main`).
+Start: open the session in E:\FightCamp\Lean (ONE repo since S366: the workflow is in `ops/`), then
+`git pull && python ops/Tools/agent_comms.py start`. Old paths below ("Game/Godot/research/X") are now `ops/research/X`.
 S363 (Lean 6f1758c): Kalli's SQ26 belt-road review collected (Game/Godot/research/K_BELTROAD1_KALLI.md). Her first change is
 built: the stripe is a choice (scripts/rules/StripeCall.gd: give now / hold back / give early). Morale is read at the opens
 (NoGi.win_chance) and moved by her results. Ana's week is in the week review (WeekReview._grappler, Grapplers.week_report).

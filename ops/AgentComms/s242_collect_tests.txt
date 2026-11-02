@@ -1,0 +1,3 @@
+﻿[ 11/15] FAIL   playable_loop_test.gd                        script-error (7 lines: SCRIPT ERROR: Trying to cast a freed object.)
+
+SUITE total=15 fails=1

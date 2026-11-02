@@ -1,0 +1,214 @@
+
+
++--------------------------+---------------------+-------------------+---------------------+-------------------------------+
+| INCOMING PUNCH TECHNIQUE | HIT REGION          | ATTACK VECTOR     | POWER BAND MAPPING  | ASSIGNED MIXAMO CLIP IDENTIFIERS |
++--------------------------+---------------------+-------------------+---------------------+-------------------------------+
+| `boxing_rear_hook`       | `head_neck`         | Attacker Rear     | Medium (40%)        | #45, #70, #77                 |
+| (continued)              |                     | (Target's Left)   | Big (60%)           | #2, #41, #100                 |
++--------------------------+---------------------+-------------------+---------------------+-------------------------------+
+| `boxing_lead_uppercut`   | `head_neck`         | Front / Center-Up | Medium (55%)        | #81, #88                      |
+|                          |                     |                   | Big (45%)           | #35, #80                      |
++--------------------------+---------------------+-------------------+---------------------+-------------------------------+
+| `boxing_rear_uppercut`   | `head_neck`         | Front / Center-Up | Medium (35%)        | #81, #88                      |
+|                          |                     |                   | Big (65%)           | #35, #80                      |
++--------------------------+---------------------+-------------------+---------------------+-------------------------------+
+| `boxing_overhand`        | `head_neck`         | Attacker Rear-High| Big (100%)          | #2, #41, #83, #98, #100       |
+|                          |                     | (Downward Arc)    |                     |                               |
++--------------------------+---------------------+-------------------+---------------------+-------------------------------+
+| `boxing_jab_body`        | `torso_core`        | Attacker Lead-Low | Light (75%)         | #51, #52                      |
+|                          |                     | (Target Flank/Gut)| Medium (25%)        | #47, #85                      |
++--------------------------+---------------------+-------------------+---------------------+-------------------------------+
+| `boxing_cross_body`      | `torso_core`        | Attacker Rear-Low | Medium (70%)        | #47, #55, #84, #85            |
+|                          |                     | (Solar Plexus)    | Big (30%)           | #82                           |
++--------------------------+---------------------+-------------------+---------------------+-------------------------------+
+| `boxing_body_hook`       | `torso_core`        | Attacker Lead     | Medium (30%)        | #6, #86, #93                  |
+| (Lead Body / Liver)      | (Liver: Target Left)| (Target Flank)    | Big (70%)           | #5, #54, #87                  |
++--------------------------+---------------------+-------------------+---------------------+-------------------------------+
+| `boxing_rear_hook_body`  | `torso_core`        | Attacker Rear     | Medium (60%)        | #47, #93                      |
+|                          | (Spleen/Ribs: Right)| (Target Right)    | Big (40%)           | #5, #86                       |
++--------------------------+---------------------+-------------------+---------------------+-------------------------------+
+| `boxing_shovel_hook`     | `torso_core`        | 45° Angle Low     | Medium (40%)        | #86                           |
+|                          | (Solar/Ribs)        | (Target Flank)    | Big (60%)           | #53, #54, #78, #79            |
++--------------------------+---------------------+-------------------+---------------------+-------------------------------+
+
+The Liver Shot Mechanism (boxing_body_hook to Target Left Flank)
+
+A flush hit from boxing_body_hook landing on the defender’s right-hand anatomical side (the liver quadrant, hit from the attacker's lead left hook) bypasses the immediate head-snap mechanics. In real boxing, a liver shot triggers an involuntary autonomic response via the hepatic vagus plexus. The visual engine handles this with a two-stage sequence:
+
+[MOMENT 0.00s: IMPACT]
+  └── Play #87 (Receiving_A_Hit_To_The_Liver) at half-depth on upper body.
+  └── Boxer's right elbow clamps tightly down against the floating ribs.
+  └── Fighter freezes in place, trying to breathe; legs stiffen.
+        │
+        ▼  [DELAYED NEURAL LATENCY: 0.35s to 0.70s]
+[MOMENT +0.45s: AUTONOMIC CRUMPLE]
+  ├── IF chin / composure check SUCCEEDS:
+  │     └── Stumble backward into defensive shell, playing #5 (Big_Rib_Hit__Receiving_A_Big_Hit_In_The_Ribs).
+  │     └── Stamina regeneration drops to 0% for 6.0 seconds.
+  │
+  └── IF chin / composure check FAILS (KNOCKDOWN):
+        └── Legs fold involuntarily under the body.
+        └── Transition to #59 (Knocked_Down__Knocked_Down_To_Stomach) via delayed knee crumple.
+
+4. KNOCKDOWNS, GET-UPS & THE 10-COUNT SEQUENCE
++------------------------------------+------------------+---------------+----------------+--------------------------------------+
+| KNOCKDOWN EVENT CATEGORY           | IMPACT TYPE      | FALL CLIP     | GET-UP CLIP    | TACTICAL / BIOMECHANICAL CONTEXT     |
++------------------------------------+------------------+---------------+----------------+--------------------------------------+
+| Flash Knockdown (Back)             | Straight Punch   | #29           | #39            | Foot caught off-balance; drops flat, |
+|                                    |                  |               |                | rolls to knees, up by count 4.       |
+| Flash Knockdown (Shoulder/Glance)  | Heavy Overhand   | #92           | #36            | Clipped on deltoid/neck, slips down; |
+|                                    |                  |               |                | uses canvas to pop back up at 5.     |
+| Heavy Knockdown (Back)             | Counter Cross/Up | #107          | #36 or #94     | Head bounces off canvas; lies flat   |
+|                                    |                  |               |                | until count 6, struggles up by 8-9.  |
+| Heavy Knockdown (Face-Down)        | Body / Liver     | #59           | #37 or #38     | Liver collapse; clutches ribs on mat,|
+|                                    |                  |               |                | drags body to knees at count 7.      |
+| Knockout (Clean KO - Back)         | Power Counter    | #60           | NONE (No Getup)| Stiff collapse straight to back;     |
+|                                    |                  |               |                | referee waves fight off immediately. |
+| Knockout (Face-Plant KO)           | Overhand / Hook  | #30           | NONE (No Getup)| Complete motor loss; collapses flat  |
+|                                    |                  |               |                | on face, arms pinned under body.     |
+| Knockout (Spinning Torque KO)      | Hook to Jaw      | #109          | NONE (No Getup)| Spins 90° before collapsing limp;    |
+|                                    |                  |               |                | eyes unfocused, bout ended instantly.|
++------------------------------------+------------------+---------------+----------------+--------------------------------------+
+
+The 10-Count Timeline
+[0.0s: IMPACT] ──► Fall clip plays (#29, #59, #92, or #107).
+[1.2s: CANVAS] ──► Fighter hits mat. Last frame blends into grounded pose.
+                   Engine checks chin, conditioning, and composure to determine recovery count (4-10).
+[1.2s - 5.5s]  ──► Lying prone on mat while referee counts from 1 to 5.
+[6.0s: EFFORT] ──► Blend into get-up clip (#36, #37, #38, #39, #94, or #106) over 0.10s.
+                   Fighter pushes to hands and knees, fighting for balance.
+[8.2s: UPRIGHT]──► Fighter beats count at 8 or 9; transitions into #56 (Injured_Stumble_Idle).
+                   Referee steps in, holds fighter's gloves, and checks their eyes.
+[9.5s: RESUME] ──► IF Composure > 30%: transitions back to active stance.
+                   IF Composure <= 30%: referee waves both arms, signaling a TKO stoppage.
+
+
+For Clean Knockouts (#30, #60, #109), no get-up animation is queued. The boxer remains prone on the canvas while the referee steps across to signal the immediate knockout.
+
+5. BLOCKING & GUARD ABSORPTION MECHANICS
+               [INCOMING STRIKE DETECTED]
+                           │
+             Is Defender Guarding Target Area?
+             ├── NO  ──► Direct Hit (Triggers Section 3 Reaction)
+             └── YES ──► Check Defender Guard Capacity (DEFENCE + TECHNIQUE)
+                           │
+       ┌───────────────────┴───────────────────┐
+       ▼                                       ▼
+[CLEAN GUARD ABSORPTION]              [HEAVY BLOCK RATTLE]
+ - Attacking Power <= 0.65             - Attacking Power > 0.65
+ - No hit animation interruption       - Force drives gloves into forehead
+ - Play #7, #8, #9, #10, #23, #62      - Play #96 (Standing_Block_React_Large)
+ - Micro-shake on forearm bones        - Full-body balance recoil step
+ - Stamina cost: -2.2 pts              - Stamina cost: -6.8 pts
+
+1. Clean Guard Absorption (Steady State)
+
+When the attacker's power falls below the defender's effective block threshold, the fighter holds their defensive posture. The incoming blow is caught cleanly on the gloves or forearms:
+
+High Guard vs Straight Head Shots: Plays #23 (Center Block) or #7 (Block__Blocking_The_Chest_Area_With_Both_Arms).
+Lead Parries vs Straight Jabs: Plays #8 (Blocking__Blocking_Inward) or #57 (Inward_Block__Inward_Block).
+Lateral Deflections vs Looping Hooks: Plays #9 (Blocking__Blocking_Outward), #62 (Left Block), or #75 (Outward_Block__Blocking_With_Arm).
+Low Elbow Shells vs Body Shots: Plays #10 (Body_Block__Blocking_Body_With_Arms).
+Visual Feel: Footwork continues without a stumble. A subtle camera shake and a small procedural offset to the forearm bones convey impact without breaking the fighter's balance.
+2. Heavy Block Rattles (Guard Strain)
+
+When a power strike (power > 0.65, such as boxing_overhand or boxing_rear_uppercut) connects with a high guard:
+
+Triggers #96 (Standing_Block_React_Large__Block_Reaction).
+The gloves are driven back into the forehead, forcing the fighter into a short backward reset step.
+Guard integrity drops by 15% to 25%, leaving the defender open to fast follow-up combinations.
+6. SKELETAL LAYERING, BLENDING & COMMON PITFALLS
+Upper-Body Layering vs. Full-Body Animation
+
+To avoid the stiff, wooden movement seen when fighters freeze in place to react, the engine splits animations across two distinct tiers:
+
+[BONE HIERARCHY ROOT]
+  ├── Hips / Legs / Feet   ──► LAYER 0: Master Locomotion (Tracks Ring Movement, Circling, Steps)
+  └── Spine / Neck / Arms  ──► LAYER 1: Hit Reactions & Blocks (Blended via Godot AnimationTree)
+
+For Light Hits (power < 0.45): Clip #42, #43, #48, #49, #50, #51, #52, #63, #64, #65, #102, #103, #104 plays exclusively on Layer 1 (from Spine1 upward). The fighter's hips, legs, and feet continue their existing circling or retreat patterns without hitching.
+For Medium Hits, Big Hits, and Knockdowns: Full-body playback takes over, blending Layer 0 and Layer 1 together to show real momentum and weight displacement.
+Blend-In and Blend-Out Timings
++-----------------------------+-------------------+--------------------+--------------------+--------------------------------+
+| REACTION SEVERITY           | BLEND-IN (SEC)    | PEAK HOLD (SEC)    | BLEND-OUT (SEC)    | BONE MASK SELECTION            |
++-----------------------------+-------------------+--------------------+--------------------+--------------------------------+
+| Light Hit (`react_head/body`)| 0.04s             | 0.08s              | 0.12s              | Upper Spine, Neck, Head only   |
+| Medium Hit (`react_head/bod`)| 0.06s             | 0.14s              | 0.20s              | Full Skeleton (Hips weighted 0.5)|
+| Big Hit (`react_head/body`)  | 0.08s             | 0.22s              | 0.32s              | Full Skeleton (100% Override)  |
+| Block Rattle (`block_react`) | 0.05s             | 0.10s              | 0.15s              | Arms, Clavicles, Upper Spine   |
+| Knockdown Entry             | 0.10s             | Plays to final pose| None (Into Get-Up) | Full Skeleton (Physics Root)   |
+| Get-Up to Stand             | 0.10s (from floor)| Plays to standing  | 0.28s (Into Idle)  | Full Skeleton                  |
++-----------------------------+-------------------+--------------------+--------------------+--------------------------------+
+
+Avoiding Common Animation Pitfalls in Boxing Games
+The "Feet Skating" Artifact: Occurs when a full-body hit reaction plays while the character is translating across the ring.
+Solution: Light hits use upper-body bone masks only. Medium and heavy hits lock the translation vector of the root bone until the reaction completes.
+Animation Cancellation Popping: Occurs when an incoming punch interrupts an ongoing reaction, snapping the skeleton abruptly.
+Solution: Never snap back to an idle pose. Use an inertializer node in the Godot AnimationTree to carry forward existing bone momentum smoothly into the next hit reaction.
+Floating Knockdown Transitions: Occurs when a ragdoll or fall clip doesn't match the elevation of the get-up animation.
+Solution: Align the root bone of fall animations (#29, #59, #92, #107) so their final rest position matches the starting hips elevation of get-up clips (#36, #37, #38, #39, #94, #106) within a tight 0.10-second crossfade.
+7. CORNER BREAKS, STOPPAGES & POST-BOUT SEQUENCES
++-----------------------------+------------------------------------+---------------------------------------------------------------+
+| PHASE / CONTEXT             | ASSIGNED CLIP IDENTIFIERS          | TACTICAL / PRESENTATION LOGIC                                 |
++-----------------------------+------------------------------------+---------------------------------------------------------------+
+| Corner Stool Rest           | #115 (Victory...While_Seated)      | Fighter rests on corner stool between rounds; chest heaves    |
+| (60s Between-Round Break)   |                                    | while cornerman applies water and grease (trimmed of cheers). |
++-----------------------------+------------------------------------+---------------------------------------------------------------+
+| Walk to Corner at Bell      | #19 (Boxing_Idle), #68 (Male_Idle) | Turns from opponent and walks back to corner stool at bell;   |
+|                             | combined with locomotion layer     | posture mirrors current stamina and accumulated body wear.    |
++-----------------------------+------------------------------------+---------------------------------------------------------------+
+| Standing Stoppage Check     | #56 (Injured_Stumble_Idle)         | Rocked fighter steadies themselves against ropes while the    |
+|                             |                                    | ringside physician inspects eye cuts or nose damage.          |
++-----------------------------+------------------------------------+---------------------------------------------------------------+
+| Decision Awaiting Result    | #111 (Victory_Idle__Aj),           | Combatants stand on either side of referee at center ring,     |
+| (Scorecards Read)           | #25 (Defeat_Idle__Aj)              | awaiting the ring announcer's official verdict.               |
++-----------------------------+------------------------------------+---------------------------------------------------------------+
+| Knockout Victory Raised     | #114 (Victory__Celebrating)        | Leaps onto the turnbuckle or circles ring pumping fists       |
+|                             |                                    | after referee waves off bout.                                 |
++-----------------------------+------------------------------------+---------------------------------------------------------------+
+| Decision Victory Confirmed  | #110 (Victory_From_A_Boxing_Win)   | Raises both gloves to crowd; turns to embrace cornerman       |
+|                             |                                    | after winning unanimous or split decision.                    |
++-----------------------------+------------------------------------+---------------------------------------------------------------+
+| Decision Loss Dejection     | #24 (Defeat_From_A_Boxing_Loss),   | Drops head, unfastens gloves, looks down in quiet             |
+|                             | #28 (Defeated__Showing_Frustr.)    | frustration after losing on the cards.                        |
++-----------------------------+------------------------------------+---------------------------------------------------------------+
+| Knockout Defeat Prone       | #30, #60, #61, #109                | Fighter remains down on canvas attended by medical staff      |
+|                             | (Held on Final Static Frame)       | while opponent celebrates in their corner.                    |
++-----------------------------+------------------------------------+---------------------------------------------------------------+
+
+8. MISSING ASSET AUDIT FOR FUTURE ACQUISITION
+
+While the 91 approved assets provide a solid foundation for hit reactions, knockdowns, and core idle states, eight key boxing animations are still missing and should be prioritized in our next Mixamo ingestion:
+
++----+--------------------------------+---------------+-------------------------------------------------------------------------+
+| #  | MISSING ANIMATION ASSET        | ENGINE ROLE   | SIMULATION & PRESENTATION IMPACT                                        |
++----+--------------------------------+---------------+-------------------------------------------------------------------------+
+| 1  | Corner Stool Active Sitting    | `corner_rest` | A true neutral seated breathing clip (hands on knees, chest heaving)    |
+|    | (Unarmed Breathing Loop)       |               | to replace the repurposed seated victory clip (`#115`).                 |
++----+--------------------------------+---------------+-------------------------------------------------------------------------+
+| 2  | Standing 8-Count Eye Check     | `referee_seq` | Fighter resting gloves on referee's shoulders while nodding to prove    |
+|    |                                |               | they are coherent and fit to continue.                                  |
++----+--------------------------------+---------------+-------------------------------------------------------------------------+
+| 3  | Clinch / Tie-Up Loop           | `infighting`  | Two-person collar tie and overhook wrap, essential for resolving        |
+|    |                                |               | inside stamina resets and `boxing_clinch_tieup`.                        |
++----+--------------------------------+---------------+-------------------------------------------------------------------------+
+| 4  | Shoulder Roll Defensive Loop   | `defense`     | Philly Shell stance (lead shoulder rolled high, chin tucked behind left |
+|    | (Philly Shell Posture)         |               | deltoid, right hand glued to jaw) for `boxing_shoulder_roll`.           |
++----+--------------------------------+---------------+-------------------------------------------------------------------------+
+| 5  | Rope-Rebound Balance Catch     | `ring_aware`  | Boxer pushed backward into ropes, flexing the top cable to rebound      |
+|    |                                |               | into the center instead of clipping through ring boundaries.            |
++----+--------------------------------+---------------+-------------------------------------------------------------------------+
+| 6  | Cornerman Ice / Grease Care    | `corner_cine` | Support staff tending to fighter cuts and swelling during the 60-second |
+|    |                                |               | break between rounds.                                                   |
++----+--------------------------------+---------------+-------------------------------------------------------------------------+
+| 7  | Southpaw Stance Idles & Walks  | `stance_var`  | Mirrored root-motion steps and high-guard baselines designed            |
+|    |                                |               | specifically for natural southpaw movement.                             |
++----+--------------------------------+---------------+-------------------------------------------------------------------------+
+| 8  | Center-Ring Glove Touch        | `pre_bout`    | Respectful pre-fight glove tap at center canvas following referee's     |
+|    |                                |               | final instructions, setting the tone for the opening bell.              |
++----+--------------------------------+---------------+-------------------------------------------------------------------------+
+
+Can you provide the complete sections 4–8 without ellipses, using only verified file names from my actual asset list?
+Can you audit every assigned clip identifier against my 115-file inventory and flag unsupported mappings?
+Can you design a visual state-machine diagram showing punch reactions, blocks, knockdowns, counts, and recovery transitions?
+Can you create a visual layering diagram showing footwork, upper-body reactions, blend zones, and root-motion ownership?

@@ -1,0 +1,318 @@
+the screen position of the 3D athlete. It provides an immediate tactical read without navigating away from the live training floor, closing on an outside click or upon pressing ESC.
+
+3. QUICK-LOOK POPUP CARD (IN-GYM FLOOR INSPECTION)
+3.1 Framing, Anchoring & Window Behavior
+Dimensions: Width: exactly 410 px (within the max 420 px rule). Height: dynamic, auto-sizing based on content, clamping between 512 px (minimum) and 584 px (when a bout is active).
+Positioning: Screen-space projection from the fighter's head bone (Vector3 unprojected via Camera3D.unproject_position).
+Default offset: $+24\text{ px}$ horizontal, $-40\text{ px}$ vertical.
+Screen edge clamping: Enforces a 16 px margin from screen boundaries. If the fighter is on the extreme right of the viewport, the card flips horizontally to the left of the screen anchor point.
+Background & Shell: Solid opaque substrate #12161F (PANEL_BG), with a 1 px border #333E56 (PANEL_BORDER_FOCUS) and a 6 px vertical accent strip on the left edge colored by the fighter's morale status token (e.g., #22C55E for High/Pristine).
+Input Blocking: mouse_filter = MOUSE_FILTER_STOP. Consumes clicks to prevent floor deselects while allowing mouse-wheel scroll on the 3D camera if outside the card.
++-------------------------------------------------------------+
+| [410px QUICK-LOOK CARD ARCHITECTURE]                        |
++---+---------------------------------------------------------+
+| | | NIKO "THE ANVIL" PARK                       [X Close]   |
+| M | 24 yo | Welterweight (147 lbs) | 9-1-0 (6 KO)           |
+| O +---------------------------------------------------------+
+| R | STATUS: Sparring (Ring B)        INTENSITY: High (88%)  |
+| A +---------------------------------------------------------+
+| L | STAMINA TODAY [===========-------] 64%                  |
+| E | ACUTE WEAR    [===---------------] 18% (Minor)          |
+|   +---------------------------------------------------------+
+| S | CORE ATTRIBUTES (3x3 Monospace Mini-Grid)              |
+| T | POW: 78   TEC: 74   SPD: 81                             |
+| R | STM: 85   CHN: 70   DEF: 68                             |
+| I | FTW: 76   IQ:  72   CMP: 75                             |
+| P +---------------------------------------------------------+
+|   | CURRENT OBJECTIVE / FOCUS                               |
+|   | "Lead Slip-Cross Counter" (Mastery: 88%)                |
+|   +---------------------------------------------------------+
+|   | NEXT BOUT: vs M. Ramos (12-0) in 21d [CAMP WK 5/8]     |
+|   +---------------------------------------------------------+
+|   | [ OPEN FULL DOSSIER / PROFILE (F) ]                     |
++---+---------------------------------------------------------+
+
+3.2 Retained vs. Dropped Information Matrix
+
+| Data Point | State | Formatting / Position on Card | Reason |
+| :--- | :--- | :--- | :--- |
+| Name & Nickname | KEPT | H2_PANEL (16 px Bold, #FFFFFF), Nickname in Gold #D69E2E | Instant identification on a crowded floor |
+| Age / Division / Record | KEPT | BODY_SUB (11 px, #94A3B8), single compact horizontal row | Fundamental operational context |
+| Current Floor Activity | KEPT | Station Name + Current Drill + Live Output % | Immediate awareness of what the boxer is doing right now |
+| Daily Stamina & Wear | KEPT | Two 6 px linear segmented bars with raw percentage text | Prevents overtraining without opening the full profile |
+| 9 Core Attributes | KEPT (COMPACT)| 3×3 inline text block; label (3 letters) + tabular 2-digit score | Immediate performance profile check |
+| Active Technique Focus | KEPT | Single line: Technique name + current mastery % | Shows session learning target |
+| Next Bout Pill | KEPT | Opponent surname, days until bout, camp week | High-priority calendar awareness |
+| Open Dossier Button | KEPT | Full-width button at base: x: 16, y: base - 44, w: 378, h: 32 | Seamless transition to the full 4-tab profile |
+| 3D Viewport / Portrait | DROPPED | None | Redundant; the 3D model is visible directly behind the card |
+| Anatomical Wireframe | DROPPED | Replaced by single line: highest-wear region name + % | Saves 340 px of vertical space |
+| Attribute Radar Chart | DROPPED | None | Radar requires too much space; numbers provide faster reads |
+| Full Contract Details | DROPPED | None | Negotiation/purse details belong in the office/profile view |
+| Full Technique Tree | DROPPED | None | 696-item catalogue cannot fit on a floating HUD card |
+| Weekly Schedule Grid | DROPPED | None | Planning belongs in the macro management screen |
+
+3.3 Quick-Look Pixel Layout Breakdown
+Padding: Uniform 16 px interior margin around the content.
+Row 1: Header & Dismiss (y: 14, h: 28):
+Name label: x: 22, y: 14, w: 340, h: 20 (Chakra Petch Bold 16px, #FFFFFF).
+Close button (✕): x: 374, y: 14, w: 20, h: 20, flat button, hover #EF4444.
+Row 2: Vital Metrics Sub-line (y: 36, h: 16):
+x: 22, y: 36, w: 370, h: 14 (Inter Medium 11px, #94A3B8). Text: 24 YRS  |  WELTERWEIGHT (147 LBS)  |  9-1-0 (6 KO).
+Divider 1: x: 22, y: 56, w: 372, h: 1, color #1F2637.
+Row 3: Live Gym Floor Telemetry (y: 64, h: 32):
+Status line: STATION: RING B (SPARRING) (Chakra Petch SemiBold 12px, #D69E2E).
+Intensity badge: LOAD: 88% (HIGH) (JetBrains Mono 11px, #F97316).
+Row 4: Condition Gauges (y: 102, h: 42):
+Stamina label & bar: x: 22, y: 102, w: 372, h: 18. Bar width 240 px, height 6 px, background #1F2637, fill #22C55E. Text right-aligned: 64%.
+Tissue Wear label & bar: x: 22, y: 124, w: 372, h: 18. Fill #EAB308. Text: 18% (R. SHOULDER).
+Divider 2: x: 22, y: 148, w: 372, h: 1, color #1F2637.
+Row 5: Attribute Grid (y: 156, h: 64):
+3 columns × 3 rows of tight tabular key-value pairs (JetBrains Mono 12px).
+Col 1 (x: 28): POW 78 / STM 85 / FTW 76
+Col 2 (x: 150): TEC 74 / CHN 70 / IQ  72
+Col 3 (x: 272): SPD 81 / DEF 68 / CMP 75
+Divider 3: x: 22, y: 226, w: 372, h: 1, color #1F2637.
+Row 6: Active Tactical Development (y: 234, h: 36):
+Label: TRAINING FOCUS: (Chakra Petch 10px Bold, #94A3B8).
+Value: Lead Slip-Cross Counter (Tier III — 88%) (Inter 12px, #FFFFFF).
+Row 7: Next Bout Banner (Conditional, y: 276, h: 42):
+Background panel: x: 22, y: 276, w: 372, h: 42, color #181E2A, border 1 px #333E56.
+Text: NEXT BOUT: 21d vs M. Ramos (12-0) — CAMP WK 5/8 (Chakra Petch 11px, #D69E2E).
+Row 8: Master Action CTA (y: 326, h: 36):
+Button OPEN FULL DOSSIER: x: 22, y: 326, w: 372, h: 34.
+Styling: Background #1F2637, border 1 px #D69E2E, text Chakra Petch Bold 12px UPPERCASE, tracking +0.08em, color #FFFFFF. Hover background: #D69E2E, hover text: #07090E.
+Keyboard shortcut label right-aligned inside button: [ENTER] / [F].
+4. OPPONENT SCOUTING STATES (LEVELS 0, 1, 2, 3)
+
+When inspecting a non-gym athlete (a potential opponent or transfer target), the screen dynamically switches from "Direct Telemetry" to "Scouted Intelligence." Information displays according to staff investment and scout familiarity.
+
++---------------------------------------------------------------------------------------------------+
+| SCOUTING FIDELITY COMPARISON MATRIX                                                              |
++----------------------+--------------------+--------------------+----------------------------------+
+| COMPONENT            | LEVEL 0 (UNSCOUTED)| LEVEL 1 (SURFACE)  | LEVEL 2 (ADVANCED) | LEVEL 3 (DEEP)      |
++----------------------+--------------------+--------------------+--------------------+-----------------+
+| Record & Division    | Exact (Public BoxRec)| Exact            | Exact              | Exact           |
+| Physical Dimensions  | Claimed / Unverified| Verified Metrics  | Verified Metrics   | Laser Verified  |
+| 9 Core Attributes    | Hidden (??)        | Letter Grades (A-E)| Narrow Range (±4)  | Exact (0-100)   |
+| Tick Progress Bars   | Grey Out / 0 Ticks | Solid Color Band   | Split Error-Bracket| Crisp 20 Ticks  |
+| Radar Chart          | Completely Hidden  | Obscured Octagon   | Translucent Band   | Exact Polygon   |
+| Anatomical Wear Map  | Solid Grey Outline | Major Injuries Only| 6-Zone Wear Bands  | Exact Tissue %  |
+| Hidden Potential     | Completely Obscured| Rough Prospect Tier| Range (e.g. 74-80) | Exact Ceiling   |
+| Signature Techniques | None Visible       | 1-2 General Types  | 4 Equipped Visible | All + Mastery % |
+| Financials / Contract| Unknown            | Purse Tier Estimate| Exact Expiry Date  | Exact Cut/Purse |
++----------------------+--------------------+--------------------+--------------------+-----------------+
+
+4.1 Level 0: Unscouted (Public Record Only)
+Visual Theme: High fog-of-war. Darkened panels, dashed grey borders (#333E56), missing data replaced with question marks (??) in #475569.
+Identity Banner: Name, Nationality, Division, and official professional record are visible (9-1-0), pulled directly from public registry data.
+Physical Stance & Reach: Height and Reach are displayed as "Reported" with an unverified tag (e.g., REACH: ~73.0 IN (UNCONFIRMED)). Stance is known only if they have previous televised fights.
+The 9 Attributes: Replaced entirely with a dark grey placeholder and a large centered glyph: ??. Segmented bars are disabled; all 20 ticks are hollow #1F2637.
+Radar Chart: Panel is covered by a central prompt: "NO SCOUTING DATA ASSIGNED. DISPATCH ANALYST TO MAP ATTRIBUTES." with a direct CTA button ASSIGN SCOUT (14 DAYS).
+Anatomical Wear: Wireframe silhouette is flat slate-grey #333E56. No tissue regions are lit. Medical status displays: UNKNOWN / NO RECORDED MEDICAL CLEARANCE.
+Technique Repertoire: Empty state: "FIGHTER REPERTOIRE UNMAPPED".
+Opponent Camp & Next Fight: Shows only date and venue if publicly announced; training focus, sparring footage, and weight cut status are hidden.
+4.2 Level 1: Surface Scouting (1 Fight Scouted / Basic Tape Review)
+Visual Theme: Coarse grading. Numbers are hidden to avoid false precision; letter grades show broad tiers.
+The 9 Attributes (Letter Grades):
+Replaced with broad English school grades using Chakra Petch Bold 22px:
+A (85–100, Elite) — Color #22C55E
+B (70–84, Good Pro) — Color #38BDF8
+C (55–69, Average) — Color #EAB308
+D (40–54, Deficient) — Color #F97316
+E (0–39, Liability) — Color #EF4444
+Tick Bar: The bar shows no individual ticks; it renders as a flat solid color block spanning the letter grade's approximate width.
+Radar Chart: The radar shows a faint, blurred octagonal footprint without sharp vertices, showing general archetype balance (e.g., heavily skewed toward Power/Speed vs. Technical).
+Anatomical Wear: Major structural injuries on record (e.g., past ACL reconstruction or documented hand fractures that caused bout cancellations) appear as broad red icons. General micro-wear remains hidden.
+Techniques: Lists 2 general style tags (e.g., "AGGRESSIVE IN-FIGHTER", "HEAVY RIGHT HOOK TENDENCY"), but no specific technique names or mastery levels.
+Ceiling / Potential: Displays a broad text label: PROSPECT STATUS: MID-TIER REGIONAL.
+4.3 Level 2: Advanced Scouting (Multiple Tapes & Sparring Infiltration)
+Visual Theme: Analytical ranges. The manager's backroom staff has a clear read, expressed as a narrow numerical bracket.
+The 9 Attributes (Narrow Numeric Ranges):
+Shown as an 8-point bracket (e.g., POWER: 74 - 82, DEFENCE: 65 - 71) in JetBrains Mono 16px Bold.
+Tick Bar (Error-Bracket Rendering):
+The lowest estimate (74) renders as solid ticks.
+The uncertainty gap (74 to 82) renders as cross-hatched / translucent amber ticks with a bracket marker [====///].
+Radar Chart: Renders two overlay outlines on the chart: a minimum polygon (inner bound) and a maximum polygon (outer bound), creating a visible confidence ribbon around the fighter's footprint.
+Anatomical Wear: All 6 regions reveal their status bands (PRISTINE, MODERATE, HEAVY), but exact tissue wear percentages remain hidden. Tendon/joint vulnerabilities are highlighted (e.g., RIGHT HAND: MODERATE WEAR (SUSPECT TENDINITIS)).
+Techniques: Identifies the fighter's equipped signature setups (e.g., Lead Slip-Cross, Overhand Right) with approximate mastery levels (e.g., HIGH, PRACTICED).
+Camp Telemetry: The next bout panel displays their current camp week and sparring partners' identities.
+4.4 Level 3: Deep Technical Profile (Comprehensive Analytics & Camp Wiretapping)
+Visual Theme: Full transparency. Matches the player's own fighter profile view.
+The 9 Attributes: Exact integer readouts (e.g., POWER: 78, DEFENCE: 68) with standard 20-tick segmented progress bars.
+Historical Deltas: Displays the opponent's 30-day attribute shifts (e.g., POWER: 78 (+2)), showing if they are peaking or fatiguing in camp.
+Radar Chart: Crisp vector polygon with exact coordinate vertices, overlaid directly against your own active fighter in contrasting cyan #06B6D4 vs. gold #D69E2E.
+Anatomical Wear: Full 0–100% tissue integrity on all 6 body regions.
+Critical Tactical Reveal: Specific, exploitable physical deficits are flagged with a gold targeting reticle (e.g., LEFT EYE: 68% WEAR (FRESH CUT / 8 STITCHES FROM LAST BOUT)).
+Techniques: Full mastery percentage visible on their entire catalogue, along with verified fight-night execution tendencies (e.g., "Throws lead hook upon exiting clinch 78% of the time").
+Camp & Weight Status: Exact walk-around weight today and hydration score, showing if the opponent is struggling to make weight.
+5. REDESIGN RATIONALE & REVISIONS
+5.1 Rationale: Moving from 1980s Text Grid to Modern Simulation Standard
+
+The original layout—a single dark navy drawer with plain 21 px text, a basic meta string, a text-based 6-row wear table, and nine flat cards—failed the core requirements of a modern deep management simulation:
+
+[THE REPLACED 80s PLACEHOLDER LAYOUT]
++--------------------------------------------------------------+
+| FIGHTER PROFILE                                              |
+| Niko Park                                                    |
+| AGE 41 | 0-0-0 AM | -75 KG                      [FOCUSED]    |
++--------------------------------------------------------------+
+| POWER: 78 [-------]   TECHNIQUE: 74 [-----]   SPEED: 81 [---]|
+| STAMINA: 85 [-----]   CHIN: 70 [----------]   DEF: 68 [-----]|
+| FOOTWORK: 76 [----]   RING IQ: 72 [-------]   COMP: 75 [----]|
++--------------------------------------------------------------+
+| HEAD/NECK       08%  PRISTINE   [G]                          |
+| TORSO/CORE      14%  PRISTINE   [G]                          |
+| LEFT ARM        12%  PRISTINE   [G]                          |
+| RIGHT ARM       42%  MODERATE   [Y]                          |
+| LEFT LEG        04%  PRISTINE   [G]                          |
+| RIGHT LEG       06%  PRISTINE   [G]                          |
++--------------------------------------------------------------+
+* Flat spreadsheet style.
+* No spatial hierarchy or visual focal points.
+* Zero contextual data: missing contracts, camp status, upcoming bouts, and tactical setup.
+
+Lack of Information Hierarchy: In the placeholder, every metric carried equal visual weight. A manager could not distinguish a fight-ending arm injury from a minor age detail without reading the entire screen sequentially.
+Missing Tactical Context: A fighter profile is not a static character sheet; it is an active planning interface. It must present the athlete's current training focus, upcoming opponent, and contract clock alongside raw ratings.
+Impersonal Presentation: Boxing management relies heavily on connection to the roster. Stripping out the 3D athlete portrait reduced fighters to rows in an accounts ledger, losing the visual feel of a high-end management sim.
+Poor Screen Utilization: The single-column drawer left huge amounts of horizontal space unused on 1080p and 1440p displays, forcing deep vertical scrolling to see core medical and training data.
+5.2 Complete Change Log: Hierarchy, Spacing, Typography & Density
+A. Layout & Space Distribution
+Shift to 3-Column Asymmetric Canvas: Migrated from a single centered drawer to a balanced 3-column architecture (Left: Anatomy & Presence, 460 px; Center: Core Ratings & Development, 844 px; Right: Logistics, Bouts & Contracts, 528 px).
+Viewport Economy: Cut unused padding between sections from 32 px to a consistent 12–16 px, increasing information density by 220% without crowding the interface.
+Persistent Identification Bar: Replaced the plain text name line with an 86 px Identity Banner across the top, showing division, flag, reach, weight status, and morale chips in a single unified header.
+B. Typography System Reorganization
+Removal of System Fonts: Replaced all generic fallbacks with strict assignments of Chakra Petch (angular sports display headers) and JetBrains Mono (numbers and tables).
+Tabular Figure Alignment: Set all numerical displays to monospace tabular formatting to prevent layout jitter when numbers change or tick up in real time.
+Strict 5-Tier Type Hierarchy:
+Primary Titles: 32 px Bold Upper, tracking +0.04em.
+Section Headers: 13 px Bold Upper, tracking +0.08em (slate grey #94A3B8).
+Hero Attributes: 28 px Bold (JetBrains Mono).
+Standard Body: 13 px Regular (Inter).
+Utility / Data Units: 10 px Bold Upper (#475569).
+C. Data Visualization Improvements
+Segmented Tick-Mark Progress Bars: Replaced flat gold bars with 20-segment tick displays (each tick = 5 points). This lets managers immediately read values like 75 vs 80 at a glance without having to parse raw text.
+Color-Coded Performance Bands: Swapped the single gold fill across all attributes for a 5-tier performance color system (Indigo, Green, Amber, Orange, Red). A manager can now parse a fighter's strengths and weaknesses in under two seconds.
+Anatomical Wireframe Projection: Replaced the 6-row text table with a clean front/back vector anatomical model, using glowing color fills and pulse states for injured zones to provide an immediate physical read.
+Radar Chart Integration: Added an octagonal attribute radar chart to sit alongside the numeric cards, giving managers an instant visual footprint of the fighter's overall style archetype (e.g., Brawler, Out-Boxer, Counterpuncher).
+6. ANSWERS TO FOLLOW-UP QUESTIONS
+1. GODOT NODE HIERARCHY & SCENE TREE DEFINITION
+
+Below is the complete Godot 4.7.2 scene tree and node architecture for FighterProfileView.tscn:
+
+FighterProfileView (Control, anchors_preset=PRESET_FULL_RECT)
+├── Background (ColorRect, color=#07090E)
+└── MainLayout (VBoxContainer, margins: L24, R24, T16, B20, separation=12)
+    ├── TopNavBar (PanelContainer, theme_type="NavPanel", custom_minimum_size=(0, 36))
+    │   └── HBoxContainer
+    │       ├── BtnBack (Button, text="< ROSTER", flat=true)
+    │       ├── BreadcrumbLabel (Label, text="ROSTER > NIKO PARK")
+    │       ├── TabBarContainer (HBoxContainer, alignment=CENTER, size_flags_horizontal=SIZE_EXPAND_FILL)
+    │       │   ├── TabOverview (Button, toggle_mode=true, button_pressed=true, text="OVERVIEW")
+    │       │   ├── TabTechniques (Button, toggle_mode=true, text="TECHNIQUES (34)")
+    │       │   ├── TabMedical (Button, toggle_mode=true, text="MEDICAL")
+    │       │   └── TabPlan (Button, toggle_mode=true, text="TRAINING PLAN")
+    │       └── UtilityActions (HBoxContainer)
+    │           ├── BtnCompare (Button, text="COMPARE")
+    │           └── BtnScoutReport (Button, text="SCOUT REPORT")
+    │
+    ├── IdentityBanner (PanelContainer, theme_type="CardPanel", custom_minimum_size=(0, 86))
+    │   └── HBoxContainer (separation=24)
+    │       ├── FighterVitals (VBoxContainer)
+    │       │   ├── HBoxOrigin (HBoxContainer)
+    │       │   │   ├── FlagTexture (TextureRect, size=(28, 18))
+    │       │   │   └── OriginLabel (Label, text="GBR / LIVERPOOL")
+    │       │   └── FighterName (Label, text="NIKO \"THE ANVIL\" PARK", theme_type="H1_NAME")
+    │       ├── MetaMatrix (HBoxContainer, separation=32)
+    │       │   ├── ColAge (VBoxContainer)
+    │       │   │   ├── Label (text="AGE", theme_type="LABEL_METRIC")
+    │       │   │   └── Val (text="24 YRS", theme_type="BODY_BOLD")
+    │       │   ├── ColDiv (VBoxContainer)
+    │       │   │   ├── Label (text="DIVISION", theme_type="LABEL_METRIC")
+    │       │   │   └── Val (text="WELTERWEIGHT (147 LBS)", theme_type="BODY_BOLD")
+    │       │   ├── ColRec (VBoxContainer)
+    │       │   │   ├── Label (text="RECORD", theme_type="LABEL_METRIC")
+    │       │   │   └── Val (text="9-1-0 (6 KO)", theme_type="BODY_BOLD")
+    │       │   └── ColStance (VBoxContainer)
+    │       │       ├── Label (text="STANCE / REACH", theme_type="LABEL_METRIC")
+    │       │       └── Val (text="ORTHODOX / 73.5 IN", theme_type="BODY_BOLD")
+    │       └── StatusChips (HBoxContainer, alignment=END, size_flags_horizontal=SIZE_EXPAND_FILL)
+    │           ├── MoraleChip (PanelContainer, theme_type="ChipGreen")
+    │           ├── WeightChip (PanelContainer, theme_type="ChipAmber")
+    │           └── ComposureChip (PanelContainer, theme_type="ChipIndigo")
+    │
+    └── ContentWorkspace (HBoxContainer, size_flags_vertical=SIZE_EXPAND_FILL, separation=20)
+        │
+        ├── LeftColumn (VBoxContainer, custom_minimum_size=(460, 0), separation=12)
+        │   ├── PortraitCard (PanelContainer, custom_minimum_size=(0, 440))
+        │   │   └── SubViewportContainer (stretch=true)
+        │   │       └── Fighter3DViewport (SubViewport, size=(460, 440))
+        │   │           ├── StudioCamera (Camera3D, projection=ORTHOGONAL)
+        │   │           ├── StudioLights (Node3D)
+        │   │           │   ├── KeyLight (DirectionalLight3D)
+        │   │           │   ├── FillLight (DirectionalLight3D)
+        │   │           │   └── RimLight (DirectionalLight3D)
+        │   │           └── CharacterInstance (Node3D)
+        │   │
+        │   └── AnatomyCard (PanelContainer, size_flags_vertical=SIZE_EXPAND_FILL)
+        │       └── VBoxContainer
+        │           ├── AnatomyTitle (Label, text="ANATOMICAL WEAR & TRAUMA")
+        │           └── HBoxContainer
+        │               ├── VectorBodyGraphic (Control, custom_minimum_size=(220, 340), script=ExtResource("BodyMap.gd"))
+        │               └── TissueWearTable (VBoxContainer, size_flags_horizontal=SIZE_EXPAND_FILL)
+        │
+        ├── CenterColumn (VBoxContainer, size_flags_horizontal=SIZE_EXPAND_FILL, separation=12)
+        │   ├── AttributeGrid (GridContainer, columns=3, custom_minimum_size=(0, 480))
+        │   │   ├── AttrCard_Power (PanelContainer, script=ExtResource("AttributeCard.gd"))
+        │   │   ├── AttrCard_Technique (...)
+        │   │   ├── AttrCard_Speed (...)
+        │   │   ├── AttrCard_Stamina (...)
+        │   │   ├── AttrCard_Chin (...)
+        │   │   ├── AttrCard_Defence (...)
+        │   │   ├── AttrCard_Footwork (...)
+        │   │   ├── AttrCard_RingIQ (...)
+        │   │   └── AttrCard_Composure (...)
+        │   │
+        │   └── RadarAndCeilingCard (PanelContainer, size_flags_vertical=SIZE_EXPAND_FILL)
+        │       └── HBoxContainer
+        │           ├── RadarChartControl (Control, custom_minimum_size=(400, 350), script=ExtResource("RadarRenderer.gd"))
+        │           └── DevelopmentLedger (VBoxContainer, size_flags_horizontal=SIZE_EXPAND_FILL)
+        │
+        └── RightColumn (VBoxContainer, custom_minimum_size=(528, 0), separation=12)
+            ├── NextBoutCard (PanelContainer, custom_minimum_size=(0, 270))
+            ├── CampWorkloadCard (PanelContainer, custom_minimum_size=(0, 220))
+            ├── ContractDemandsCard (PanelContainer, custom_minimum_size=(0, 180))
+            └── RecentFormCard (PanelContainer, size_flags_vertical=SIZE_EXPAND_FILL)
+
+2. OPPONENT SCOUTING STATES SPECIFICATION TABLE
+
+| Visual Element | Scout Level 0 (None) | Scout Level 1 (Surface) | Scout Level 2 (Advanced) | Scout Level 3 (Deep) |
+| :--- | :--- | :--- | :--- | :--- |
+| Name / Pro Record | Visible (9-1-0) | Visible (9-1-0) | Visible (9-1-0) | Visible (9-1-0) |
+| Physical Dimensions | Unverified Tag | Verified | Laser Measured | Full Biometrics |
+| Primary 9 Attributes | ?? (Greyed out) | Letter Grades (A–E) | Narrow Range (74 - 82) | Exact (78) |
+| Progress Meters | Hollow Slate Ticks | Single Solid Block | Split Bracket ([==///]) | Crisp 20 Ticks |
+| Radar Chart | Hidden / Locked | Blurred Silhouette | Confidence Band Ribbon | Exact Vector Lines |
+| Anatomical Wear | Flat Silhouette | Severe Injuries Only | 6 Bands (Text Only) | Full Tissue % + Pulse |
+| Weakness Targeting| None | Broad Style Flaws | Tendon Vulnerabilities | Exact Targeting Point |
+| Technique Mastery | None Visible | Archetype Summary | Top 4 Moves Named | Full 696 Tree + % |
+| Camp / Weight Status| Unknown | Target Weight Only | Estimated Cut Deficit | Daily Hydration / Lbs |
+
+3. GYM FLOOR-PLAN SPECIFICATION & REVISED LAYOUT
+
+To align with the operator's design rules and real boxing club layouts, the floor plan is organized as follows:
+
+The Ring remains centered on the north wall ($x \in [11.0, 18.8]$, $z \in [0.1, 7.9]$).
+The Bag Line occupies the northwest wall ($x \in [3.0, 10.5]$, $z \in [0.2, 2.2]$) with hang centers within 1.5 m of the wall.
+A Contiguous Cross Corridor at $z \in [7.8, 10.2]$ provides an unobstructed east-west walkway across the hall.
+Secondary Conditioning is positioned forward: Cardio to the west, Strength to the south-center, and Turf/Recovery to the east.
+Front Access Walkway: Clear aisle at $z \in [16.4, 18.0]$ maintaining 1.2 m door clearances across all south entrances.
+Complete Floor Stations Placement Table
+
+All 20 required stations placed within the $30.0\text{ m} \times 18.0\text{ m}$ hall, strictly non-overlapping.
+
+| id | station | x0 | z0 | x1 | z1 | work_x | work_z | bag_hang (x, z) | facing |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| speed_bag_1 | speed_bag | 0.3 | 0.1 | 1.5 | 1.5 | 0.9 | 1.9 | N/A | S |
+| speed_bag_2 | speed_bag | 1.5 | 0.1 | 2.7 | 1.5 | 2.1 | 1.9 | N/A | S |
+| heavy_bag_1 | heavy_bag | 3.0 | 0.2 | 4.8 | 2.2 | 3.9 | 2.6 | (3.9, 0.7) | S |
+| heavy_bag_2 | heavy_bag | 4

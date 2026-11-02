@@ -1,0 +1,170 @@
+{
+ "_note": "Ops board launch targets (operator ask 2026-09-15: 'add on opsboard a trigger to run the Claude app in the pc'). The board is a scheduled task with a 5-minute self-healing trigger, so it stays up when the Claude desktop app does not - which makes it the one thing on the PC a phone can still reach. THE REQUEST NEVER CARRIES A PATH OR A COMMAND: /api/launch takes a target NAME from this file and nothing else, because the board binds 0.0.0.0 on the LAN with no authentication and an endpoint that ran what it was told would be a remote shell on the house network. Add a target by adding a row here; a row whose candidates all miss is reported as not-found with every path it tried, never guessed at. S310 (operator: 'they dont do anything when i click them'): the board is an S4U task in session 0, so a GUI it starts directly (even through explorer) opens on no screen. The FightCamp buttons run `schtasks /run` on Interactive tasks 'FightCamp Play ...' (Tools/register_play_tasks.ps1), which start the build in his own desktop session; the test jumps ride the task's '-- jump=...' argument (Lean scripts/ui/TestJump.gd).",
+ "targets": [
+  {
+   "id": "fightcamp_latest",
+   "label": "Play FightCamp (latest build)",
+   "why": "The newest exported build (E:/FightCamp/Lean/Builds), from the title screen. Operator S310: 'add a link on the board to launch the latest version'. Close a running copy first - an export cannot replace the exe while it is open.",
+   "candidates": [
+    "%WINDIR%/System32/schtasks.exe"
+   ],
+   "args": [
+    "/run",
+    "/tn",
+    "FightCamp Play latest"
+   ],
+   "gui": false
+  },
+  {
+   "id": "fightcamp_test_film",
+   "label": "Test: fight night WITH film study",
+   "why": "Starts the latest build straight at the part to test: a quick-start career, Lucy's next bout booked, camp with film study, weighed in, fight night open - the shout bar marks the coach's pick from film. Its own save slot; your career save is untouched.",
+   "candidates": [
+    "%WINDIR%/System32/schtasks.exe"
+   ],
+   "args": [
+    "/run",
+    "/tn",
+    "FightCamp Play test film"
+   ],
+   "gui": false
+  },
+  {
+   "id": "fightcamp_test_nofilm",
+   "label": "Test: fight night WITHOUT film study",
+   "why": "The same jump with no film study in camp - no coach's pick on the shout bar: read the clue yourself. Its own save slot.",
+   "candidates": [
+    "%WINDIR%/System32/schtasks.exe"
+   ],
+   "args": [
+    "/run",
+    "/tn",
+    "FightCamp Play test nofilm"
+   ],
+   "gui": false
+  },
+  {
+   "id": "fightcamp_test_corner",
+   "label": "Test: the corner minute (recover, set-up, talk)",
+   "why": "Fight night with film study and two combinations drilled on the pads: after round 1 the corner card has the recover points, a combination set-up and the talk; in round 2 the gold NOW button fires the set-up. Its own save slot.",
+   "candidates": [
+    "%WINDIR%/System32/schtasks.exe"
+   ],
+   "args": [
+    "/run",
+    "/tn",
+    "FightCamp Play test corner"
+   ],
+   "gui": false
+  },
+  {
+   "id": "fightcamp_test_injury",
+   "label": "Test: an injury before her bout (update 29)",
+   "why": "A quick-start career: Lucy booked and in camp, then a hand injury in training runs past the bout. Opens on the choice: how serious, when she is fit, pull her out ($300) or let her fight hurt. Its own save slot.",
+   "candidates": [
+    "%WINDIR%/System32/schtasks.exe"
+   ],
+   "args": [
+    "/run",
+    "/tn",
+    "FightCamp Play test injury"
+   ],
+   "gui": false
+  },
+  {
+   "id": "fightcamp_test_nationals",
+   "label": "Test: the road to the nationals (update 30)",
+   "why": "Starts the latest build at the day Lucy can enter the National Amateur Championships (a known career played through its first bouts), on WORLD > Nationals: press Enter, then CONTINUE through the London regional. Its own save slot; your career save is untouched.",
+   "candidates": [
+    "%WINDIR%/System32/schtasks.exe"
+   ],
+   "args": [
+    "/run",
+    "/tn",
+    "FightCamp Play test nationals"
+   ],
+   "gui": false
+  },
+  {
+   "id": "fightcamp_test_pro",
+   "label": "Test: the pro offer and her debut (update 31)",
+   "why": "A quick-start career with Lucy put at the line (9-1 amateur): the promoter's offer opens - her 100 debut tickets as a bar, what the gym pays now. Turn her pro, then CONTINUE through her debut camp to the fight; the result page shows the tickets sold. Its own save slot; your career save is untouched.",
+   "candidates": [
+    "%WINDIR%/System32/schtasks.exe"
+   ],
+   "args": [
+    "/run",
+    "/tn",
+    "FightCamp Play test pro"
+   ],
+   "gui": false
+  },
+  {
+   "id": "fightcamp_test_camp",
+   "label": "Test: a camp on the whiteboard (update 59)",
+   "why": "A quick-start career: Lucy booked and her camp started, a twist card dealt for you to answer (the short-notice swap when her bout is 2+ weeks out). Opens on her Training tab - the coach's whiteboard: the camp phase writes the week, answer the twist, press Test it, then CONTINUE through the camp to fight night. Its own save slot; your career save is untouched.",
+   "candidates": [
+    "%WINDIR%/System32/schtasks.exe"
+   ],
+   "args": [
+    "/run",
+    "/tn",
+    "FightCamp Play test camp"
+   ],
+   "gui": false
+  },
+  {
+   "id": "fightcamp_test_belt",
+   "label": "Test: the BJJ belt road (update 64)",
+   "why": "Starts the latest build on Ana Ribeiro's Record tab: the road to black belt, her syllabus, the coach's call (stripes, promotion) and the next opens to enter. Its own save slot.",
+   "candidates": [
+    "%WINDIR%/System32/schtasks.exe"
+   ],
+   "args": [
+    "/run",
+    "/tn",
+    "FightCamp Play test belt"
+   ],
+   "gui": false
+  },
+  {
+   "id": "claude",
+   "label": "Claude desktop app",
+   "why": "The app crashed and the operator is on the phone. Start it here, then type /remote-control in its prompt box to drive this PC from the phone - the CLI route does not exist on this machine (HANDOFF 2026-09-13: `claude` is not on PATH, and it is absent from .local/bin, Programs and npm). LAUNCHED BY AppUserModelID, not by path: Claude is an MSIX package under C:/Program Files/WindowsApps, which is ACL-locked and carries a version that changes on every update. On 2026-09-21 the path search resolved ready=true against a STALE STAGED COPY in WindowsApps.tmp - version 1.8555.1.0 while the installed package was 2.2553.1.0 - so the button would have started an app a year out of date. The candidates below are kept as a fallback for a future non-packaged build.",
+   "candidates": [
+    "%LOCALAPPDATA%/AnthropicClaude/claude.exe",
+    "%LOCALAPPDATA%/Programs/Claude/Claude.exe",
+    "%LOCALAPPDATA%/Programs/claude/Claude.exe",
+    "%PROGRAMFILES%/Claude/Claude.exe",
+    "%PROGRAMFILES(X86)%/Claude/Claude.exe",
+    "%APPDATA%/Microsoft/Windows/Start Menu/Programs/Claude.lnk",
+    "%PROGRAMDATA%/Microsoft/Windows/Start Menu/Programs/Claude.lnk"
+   ],
+   "search": {
+    "roots": [
+     "%LOCALAPPDATA%",
+     "%LOCALAPPDATA%/Programs",
+     "%PROGRAMFILES%",
+     "%PROGRAMFILES(X86)%"
+    ],
+    "names": [
+     "claude.exe",
+     "Claude.exe"
+    ],
+    "max_depth": 3
+   },
+   "aumid": "Claude_pzs8sxrjxfjjc!Claude"
+  },
+  {
+   "id": "opsboard_repo",
+   "label": "Explorer at the checkout",
+   "why": "Opens the repo folder on the PC - the quickest way to get at PowerShell, the rebuild command and the task scheduler when the app is down.",
+   "candidates": [
+    "%WINDIR%/explorer.exe"
+   ],
+   "args": [
+    "<repo_root>"
+   ]
+  }
+ ]
+}

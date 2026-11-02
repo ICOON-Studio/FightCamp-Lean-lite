@@ -1,7 +1,14 @@
 # FightCamp (lean restart) - working rules
 
-A boxing gym management game in Godot 4.7.2 for Windows. Restarted small on 2026-10-28 after the first project
-(`E:\FightCamp\Game`: its code is a read-only reference; its ops board and agent tooling are in use again) was cancelled by the operator: months of work, no version he enjoyed playing.
+A boxing gym management game in Godot 4.7.2 for Windows. Restarted small on 2026-10-28 after the first project was
+cancelled by the operator: months of work, no version he enjoyed playing. Its code is archived on GitHub
+(ICOON-Studio/FightCamp, read-only reference).
+
+ONE REPO (S366, operator: "why have 2 repos for 1 project?", "fix this make the workflow properly"): this repo holds the game
+(the root) AND the workflow in `ops/` - `ops/Tools` (ops board, watchdog, agent tools), `ops/AgentComms` (roadmap, questions,
+runs), `ops/research` (the research memory). `ops/.gdignore` keeps Godot out of it. The workflow gates (PC, screens, visual,
+git, agents, operator, board) are `ops/WORKFLOW.md`, imported here; where it and this page disagree, THIS page wins:
+@ops/WORKFLOW.md
 
 ## Read first
 - `docs/RESTART_PLAN.md` - the decision, the weekly builds, week 1 in detail.
@@ -16,14 +23,14 @@ and say what you decided. Ask him only about taste, scope or money. Be concise, 
 ## How we work
 1. One playable .exe a week. His playing is the gate; a green test closes nothing on its own.
 2. The old workflow is back (operator 2026-10-28: "bring back workflow before i told you the project is cancelled"). The ops
-   board (http://127.0.0.1:8787, `E:\FightCamp\Game\Tools\opsboard`) shows the lean roadmap from
-   `E:\FightCamp\Game\AgentComms\roadmap.json` `plan` (objects `{id, who, title, after}`, plain words). Agents, cloud jobs and
+   board (http://127.0.0.1:8787, `ops/Tools/opsboard`) shows the lean roadmap from
+   `ops/AgentComms/roadmap.json` `plan` (objects `{id, who, title, after}`, plain words). Agents, cloud jobs and
    scheduled tasks run only once he has switched them back on (see "Wrap-up" and roadmap `now`).
 3. 2D menus and the simulation first. The 3D fight and 3D gym come later as views on the same data.
 4. Scope: boxing only, one gym, a small roster, amateur to first pro fight. New systems enter only when the last build feels right.
 5. Small files: no script over 500 lines; one `Career` data resource, a `Clock`, pure rule modules, one scene per screen.
 6. Tests: pure rule modules have unit tests; one golden-path test plays the build's path. Run them before every export.
-7. Rule modules may be copied from `E:\FightCamp\Game\Godot\scripts` (TrainingPreview, rules/FighterGoal, Membership,
+7. Rule modules may be copied from the archived old repo's `Godot/scripts` (GitHub ICOON-Studio/FightCamp; TrainingPreview, rules/FighterGoal, Membership,
    state/GameMoney, FightCamp, AmateurBooking, rules/MoveMastery, FightPlans, Retention) with their tests. Re-read each and strip
    what is not needed. Never read GameState.gd or FightRealtime.gd whole (huge).
 
@@ -45,6 +52,12 @@ Claude decides design and integrates; the operator approves (D49: Ludo makes ass
   operator "the heat fixed"); a headless test or two may run beside a film or windowed render while the watchdog reads
   GREEN (operator S355: "you can change the rule"); two windowed renders never at once.
 - No audio in tests (`--audio-driver Dummy`).
+- DISK (S366: E: is a 480 GB DRAM-less SATA SSD; at 96% full one git repack stalled every write ~1 s and froze the PC): E:
+  stays under 85% full - the watchdog reads E: free space and write latency (AMBER < 15% free, RED < 5% free or writes
+  > 250 ms) and names any git packer running. Git auto-gc stays ON here (this repo is small, so loose objects never pile
+  up); the old repo's had been blocked since 9/10 by a stale lock, 9.5 GB piled up, and one fetch repacked it all at once.
+  Never delete a `.git/*.lock` / `gc.pid` / `gc.log` by hand mid-session, and never start a manual `git gc` / `git repack`
+  in a session.
 - To see real screens, render on the never-shown desktop: `python tools/hidden_desktop.py run --timeout=180 <godot.exe>
   --path . --windowed --resolution 1920x1080 --script res://tools/layout_snapshot.gd -- <out_dir>` writes `*_real.png`.
   Off-screen window positions are NOT hidden (they land on his second monitor).
@@ -64,14 +77,13 @@ round 2+ opens on the corner call; one broadcast camera + a 1.5 s close-up on th
 (headless tests stay in words). Stills: `tools/fight3d_play.gd` (real flow) / `tools/fight3d_still.gd` (poses) on the hidden desktop.
 
 ## Session start
-`cd /e/FightCamp/Game && git pull && python Tools/agent_comms.py start`, then read `NEXT_SESSION_PROMPT.md` here. Questions for
-the operator go on the board (`python Tools/agent_comms.py ask "<text>" --options "a|b"`, run in E:\FightCamp\Game).
+Open the session in `E:\FightCamp\Lean`. `git pull && python ops/Tools/agent_comms.py start`, then read `NEXT_SESSION_PROMPT.md`.
+Questions for the operator go on the board (`python ops/Tools/agent_comms.py ask "<text>" --options "a|b"`).
 
 ## Wrap-up (every session, before the handover)
 1. Tests green, `sh tools/export.sh`, WHAT_TO_TRY.txt current.
-2. Ops board: in `E:\FightCamp\Game\AgentComms\roadmap.json` update `now`, `next`, `plan` (working_now / next / done_recently /
-   titles) and append the session to `sessions`; run `python Tools/render_roadmap.py`; commit that repo (stage roadmap.json and
-   ROADMAP.md only).
+2. Ops board: in `ops/AgentComms/roadmap.json` update `now`, `next`, `plan` (working_now / next / done_recently /
+   titles) and append the session to `sessions`; run `python ops/Tools/render_roadmap.py`; commit them with the session's work.
 3. Rewrite `NEXT_SESSION_PROMPT.md` here for the next session.
 3b. The Miro production map (operator S323: "so i can always know what we work on and next"): move the cards between
    DONE / NOW / NEXT in P0 and the part frames P1-P9 (https://miro.com/app/board/uXjVEV03QWA=/, right of frame 11) and keep

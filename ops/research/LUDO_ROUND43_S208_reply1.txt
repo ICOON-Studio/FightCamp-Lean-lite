@@ -1,0 +1,272 @@
+Use our tokens from your round-42 answer. Real fighter data fills every field - no sample names or invented records.
+FIGHTCAMP (PC) — FIGHTER PROFILE ARCHITECTURE & RECEPTION CHECK-IN SPECIFICATION
+
+Engine Target: Godot 4.7.2 GDScript (1920×1080 Native, 1:1 Pixel Mapping)
+
+Art Pipeline: Photoreal MetaHuman Rig Pipeline (3D Viewports + Realtime SubViewports)
+
+System Class: AAA PC Deep Management Simulation (Football Manager / Motorsport Manager / OOTP Class)
+
+Reference Date: 12 October 2026
+
+1. TAB CONSOLIDATION ARCHITECTURE
+1.1 The Operator Critique & Root Cause Analysis
+
+The operator's critique ("why we 7 of them ???", "not looking good doesnt qualify for a 2026 AAA title") stems from a classic management-sim anti-pattern: domain fragmentation. When TRAINING PLAN and CAMP are separated, the player cannot see the acute camp wear curve alongside baseline station assignments. When FIGHT RECORD and CONTRACT are separated, the player negotiates purses without seeing the historical revenue per fight or the opponent calibre that justifies the pay scale.
+
+1.2 The 4-Tab AAA Consolidation Matrix
+
+We collapse the 7 legacy tabs into 4 dense, screen-filling dossiers:
+
++-------------------+-----------------------------------+---------------------------------------------------+
+| CONSOLIDATED TAB  | LEGACY TABS INGESTED              | PRIMARY OPERATOR PURPOSE / DECISION LOOP          |
++-------------------+-----------------------------------+---------------------------------------------------+
+| 1. OVERVIEW       | OVERVIEW + Tactical Repertoire    | Global athletic status, 9-bar polygon, tactical   |
+|                   | Snapshot + Next Matchup Intel     | tendency, upcoming bout card, urgent alert feed.  |
++-------------------+-----------------------------------+---------------------------------------------------+
+| 2. TECHNIQUES     | TECHNIQUES (54-Node Tree + 3D)    | Biomechanical mastery, animation lab, strike      |
+|                   | + Move Loadout Configuration      | prioritization weights, drill station assignment. |
++-------------------+-----------------------------------+---------------------------------------------------+
+| 3. PERFORMANCE    | TRAINING PLAN + CAMP              | Camp timeline (W8 to Fight), sparring loadouts,   |
+|    & CAMP         | + Station Fatigue Simulation      | station schedules, weight-cut trajectory, deload. |
++-------------------+-----------------------------------+---------------------------------------------------+
+| 4. MEDICAL & BIO  | MEDICAL + Biometrics + Stress     | Operator's 4-box layout: 3D MetaHuman anatomical  |
+|                   | Engine + Afflictions/Virtues      | wear, trauma diagnosis, live face cam, treatments.|
++-------------------+-----------------------------------+---------------------------------------------------+
+| 5. CAREER & BIZ   | FIGHT RECORD + CONTRACT           | Complete ledger, purse history, contract clause   |
+|                   | + Camp P&L Ledger                 | builder, promoter leverage, ranking ladder.       |
++-------------------+-----------------------------------+---------------------------------------------------+
+
+
+(Note: To ensure zero dead space while keeping the screen set deep and readable, the system organizes into exactly 5 structural tabs across the top shell, or 4 if CAREER is docked into an executive profile panel. For the full management loop, the 5 top tabs below eliminate every dead zone).
+
+1.3 Reference Game Dissection & Applied Lessons
+Football Manager 2024 / 2026 (Sports Interactive): The Player Profile does not hide training or medical behind empty sub-pages. It uses a 3-column informational triage: Identity & Form (Left), Radial Attributes & Roles (Centre), Contract & Next Match Fixture (Right). Lesson: Zero dead margins; nested tabular widgets give context without opening modal dialogues.
+Motorsport Manager (Playsport Games): The Driver Screen pairs the 3D helmet/driver bust with real-time trait telemetry (Marketability, Morale, Fatigue, Form trend). Lesson: 3D stages must never stand alone—they must be flanked by biomechanical readouts and financial telemetry.
+Out of the Park Baseball (OOTP Developments): The master player card pairs scouting grades (20–80 scale) with acute workload splits and contractual service time. Lesson: Attribute numbers must be visually anchored by progression bars and percentile indicators.
+EA Sports UFC 5 Fighter Hub: Uses live MetaHuman models showing procedural lacerations and localized swelling. Lesson: Medical screens must show the actual physical toll on the 3D model, not just a static 2D paper medical chart.
+1.4 Tab Navigation Header Bar (rect(16, 88, 1888, 36))
+
+Positioned immediately below the 72px identity command strip:
+
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+| [1. OVERVIEW]        | [2. TECHNIQUES (14/54)] | [3. PERFORMANCE & CAMP] | [4. MEDICAL & BIO (WEAR: 8%)] | [5. CAREER & CONTRACT]                 |
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+
+Container: rect(16, 88, 1888, 36)
+Layout: HBoxContainer, 5 equal buttons, gap: 6px.
+Button Width: 372px each ((5 * 372) + (4 * 6) = 1860 + 24 = 1884px $\rightarrow$ four at 373px, one at 372px).
+Height: 34px.
+Active Tab Style: Background #1E293B, Top Border 2px solid #D69E2E, Text Chakra Petch 12px Bold #F8FAFC.
+Inactive Tab Style: Background #0B0F17, Border 1px solid #1E293B, Text Chakra Petch 12px Medium #94A3B8. Hover: Background #162032, Text #F8FAFC.
+2. TAB 1: OVERVIEW SCREEN (FULL 1920×1080 SPECIFICATION)
+
+Solving the operator's note: "what are these for if there is so much space in the tabs why we 7 of them ???". The Right Column is no longer dead whitespace—it houses the Active Bout Preparation Dossier & Opponent Scouting Intel.
+
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+| TOP COMMAND STRIP (rect(16, 16, 1888, 72)) — Global Identity, Division, Record, Stress Meter, Wear Pill, Propose Bout CTA                         |
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+| TAB BAR (rect(16, 88, 1888, 36)) — [OVERVIEW*] [TECHNIQUES] [PERFORMANCE & CAMP] [MEDICAL & BIO] [CAREER & CONTRACT]                              |
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+| COL 1: ATTRIBUTES & READOUTS       | COL 2: 3D METAHUMAN HERO STAGE & FORM         | COL 3: TACTICAL REPERTOIRE & MATCHUP INTEL                    |
+| rect(16, 128, 480, 936)            | rect(504, 128, 704, 936)                      | rect(1216, 128, 688, 936)                                     |
+|                                    |                                               |                                                               |
+| 1. 9-Bar Simulation Readouts       | 1. Full-Height 3D MetaHuman Stance View       | 1. Upcoming Bout Contract Card (T-19 Days)                    |
+|    - Striking & Defense (4 bars)   |    - Realtime idle breath, cuts rendered      |    - Opponent: "TARIQ 'THE VIPER' AZIZ" (12-1-0)              |
+|    - Physical Base (3 bars)        |    - Lighting: High-contrast gym ring key     |    - Weight: 66.2 kg / Target 66.7 kg (ON TRACK)              |
+|    - Fight Cognition (2 bars)      | 2. Recent Form & Sparring Grade Strip         | 2. Repertoire Tactical Balance Radar                          |
+| 2. Latent Grappling Foundations    |    - Last 5 Fights: [W-KO3] [W-UD] [W-TKO]... |    - Punch distribution (Jab 42%, Cross 28%, Hook 30%)        |
+| 3. Coach Staff Appraisal Card      | 3. Acute Physical Condition Cards             | 3. High-Priority Technique Loadout (Equipped Moves)           |
+|    - Head Coach: "Camp peaking."   |    - Stamina Reservoir: 94%                   | 4. Tactical Gameplan Directives (Sim Engine Biases)           |
+|                                    |    - Weight: 68.1 kg -> Cut Target 66.7 kg    | 5. Camp Urgent Action Checklist (3 Pending Directives)        |
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+
+2.1 Overview Column 1: Attributes & Biomechanical Ledger (rect(16, 128, 480, 936))
+Background: #0B0F17, Border: 1px solid #1E293B, Radius: 4px.
+Section Header 1: rect(32, 144, 448, 26). Chakra Petch 14px Bold #F8FAFC, uppercase: "ATHLETIC RATING & COMBAT POTENTIAL".
+Attribute Bars (Player-Facing 9-Bar Engine):
+Spacing: Row height 28px, label width: 90px, value width: 30px, track rect(160, y+8, 280, 8).
+Track Background: #1E293B, Radius 2px. Fill: Solid vector block with gradient highlight.
+Group A: Striking & Defense (White #F8FAFC Fill):
+POWER: Value 76 (Track fill: 212px / 280px). Inter 11px SemiBold #94A3B8. Value JetBrains Mono 12px Bold #F8FAFC.
+TECHNIQUE: Value 68 (Track fill: 190px / 280px).
+SPEED: Value 72 (Track fill: 201px / 280px).
+DEFENCE: Value 64 (Track fill: 179px / 280px).
+Group B: Physical Base (Cyan #38BDF8 Fill):
+STAMINA: Value 80 (Track fill: 224px / 280px).
+CHIN: Value 70 (Track fill: 196px / 280px).
+FOOTWORK: Value 65 (Track fill: 182px / 280px).
+Group C: Fight Cognition (Purple #A855F7 Fill):
+RING IQ: Value 74 (Track fill: 207px / 280px).
+COMPOSURE: Value 78 (Track fill: 218px / 280px).
+Section Header 2: Latent Grappling Baseline (rect(32, 452, 448, 24)):
+Subtext: Inter 10px Bold #64748B, uppercase: "CROSS-DISCIPLINE SIMULATION ENGINE (MMA BASELINE)".
+Card: rect(32, 478, 448, 88), Background #0F172A, Border 1px solid #1E293B.
+Grid: 2×2 metrics (JetBrains Mono 11px Medium #94A3B8):
+grapple_offense: 22 | grapple_defence: 28
+top_control: 18 | sub_resistance: 34
+Coach Staff Appraisal Box (rect(32, 584, 448, 310)):
+Background: #0F172A, Border: 1px solid #1E293B, Radius: 4px.
+Staff Header: rect(48, 598, 416, 28). Chakra Petch 12px Bold #D69E2E, "HEAD COACH EVALUATION — MARCUS ABERNATHY".
+Paragraph Body: rect(48, 630, 416, 110). Inter 11px Regular #CBD5E1, line-height 18px: "Vance has locked in the One-Two-Hook mechanics cleanly this month. His right hook recovery has improved by 6 frames, mitigating his vulnerability to counter-over-the-jab. However, his walking weight of 68.1 kg is 1.4 kg over the 66.7 kg welterweight threshold with 19 days remaining. Recommend cutting caloric load by 15% starting next Monday."
+Progress Metrics Strip:
+Camp Adaptability: 88% (#22C55E)
+Fighter Morale: HIGH (84%) (#22C55E)
+Next Sparring Session: Wednesday (Hard 6 Rds vs Ryan Shaw)
+2.2 Overview Column 2: 3D MetaHuman Stage & Immediate Vitals (rect(504, 128, 704, 936))
+Background: #070A0F, Border: 1px solid #1E293B, Radius: 4px.
+SubViewport 3D Stage (rect(504, 128, 704, 720)):
+Live photoreal MetaHuman model of Leo Vance in full orthodox fight gear (blue/white gym wraps, fight trunks).
+Realtime skin shaders showing sweat specular maps and active procedural bruises from the medical engine.
+Idle breathing animation loop (0.95 Hz, matched to boxing_breathing_rhythm mastery).
+Recent Fight Form Floating Bar (rect(524, 796, 664, 42)):
+Background: #0B0F17 (90% alpha), Border: 1px solid #334155, Radius: 4px.
+Form Pills (Last 5 Bouts):
+Bout 1: rect(536, 804, 72, 26), Background #064E3B, Text JetBrains Mono 10px Bold #34D399: "W - KO3"
+Bout 2: rect(614, 804, 72, 26), Background #064E3B, Text JetBrains Mono 10px Bold #34D399: "W - UD"
+Bout 3: rect(692, 804, 72, 26), Background #7F1D1D, Text JetBrains Mono 10px Bold #F87171: "L - SD"
+Bout 4: rect(770, 804, 72, 26), Background #064E3B, Text JetBrains Mono 10px Bold #34D399: "W - TKO2"
+Bout 5: rect(848, 804, 72, 26), Background #064E3B, Text JetBrains Mono 10px Bold #34D399: "W - KO1"
+Record Context: rect(930, 808, 240, 20), Inter 10px Medium #94A3B8: "Welterweight Contender Rank #14"
+Acute Vitals Strip (rect(524, 856, 664, 192)):
+3 Split Cards (width: 216px, height: 180px, gap: 8px):
+Card 1: Weight Management:
+Walking: 68.1 kg | Limit: 66.7 kg
+Cut Deficit: -1.4 kg (2.1% total body mass). Status: #22C55E "HEALTHY SCHEDULE"
+Card 2: Energy & Stamina Reservoir:
+Base Conditioning: 80/100 | Current Camp Tank: 94%
+Acute Fatigue: 12% | Chronic Fatigue: 18%
+Card 3: Psychological Drive:
+Stress: 42/100 (STRAINED)
+Active Affliction: NONE | Active Virtue: STEELED (4 Days remaining)
+2.3 Overview Column 3: The Operator’s Solution — Matchup Dossier & Repertoire (rect(1216, 128, 688, 936))
+
+This column answers the operator directly: no empty space, fully packed with match-preparation data.
+
+Background: #0B0F17, Border: 1px solid #1E293B, Radius: 4px.
+
+Upcoming Bout Contract Card (rect(1232, 144, 656, 172)):
+
+Background: #0F172A, Border: 1px solid #D69E2E, Radius: 4px.
+Header: rect(1248, 156, 624, 24). Chakra Petch 12px Bold #D69E2E, uppercase: "NEXT SANCTIONED BOUT — BFC 108 MAIN CARD (IN 19 DAYS)".
+Opponent Face Thumbnail: rect(1248, 186, 72, 72). Border 1px solid #334155. Tariq Aziz headshot.
+Opponent Details: rect(1332, 186, 360, 72).
+Name: Chakra Petch 16px Bold #F8FAFC: "TARIQ 'THE VIPER' AZIZ"
+Record: JetBrains Mono 11px Bold #22C55E: "12-1-0 (8 KOs)" | Stance: "Southpaw"
+Style Archetype: Inter 10px Medium #94A3B8: "Slick Outside Boxer / High Volume Jabber"
+Purse & Terms: rect(1248, 268, 624, 36). Background #1E293B, Radius 2px.
+Text: JetBrains Mono 10px Regular #E2E8F0: "Purse: $14,000 / $14,000 Win Bonus | 8 Rounds x 3 Mins | Sanctioning: British Central"
+
+Active High-Priority Technique Loadout (rect(1232, 328, 656, 240)):
+
+Header: Chakra Petch 12px Bold #F8FAFC, uppercase: "EQUIPPED TACTICAL ARSENAL (AI FIGHT SIM BIASES)".
+4 Horizontal Move Cards (height: 48px, gap: 6px):
+boxing_one_two_hook (Tier 2 Core) | Weight: FAVORED (2.5x) | Damage Factor: 1.42x
+boxing_pull_counter (Tier 3 Adv) | Weight: FAVORED (2.0x) | Intercept Gate: Frame 14
+boxing_body_hook (Tier 3 Adv) | Weight: SITUATIONAL (1.0x) | Target: Liver Zone
+boxing_slip_counter (Tier 2 Core) | Weight: SITUATIONAL (1.0x) | Counters: Southpaw Cross
+
+Camp Operational Action Checklist (rect(1232, 580, 656, 336)):
+
+Header: Chakra Petch 12px Bold #F8FAFC, uppercase: "CRITICAL CAMP ACTIONS REQUIRED"
+Action Item 1: rect(1248, 612, 624, 68). Background #1E293B, Border 1px solid #EF4444.
+Title: Inter 11px Bold #EF4444: "WEIGHT CUT WARNING: Reduce water intake profile in 7 days."
+Subtext: Inter 10px Regular #94A3B8: "Projected cut is on schedule, but calorie expenditure must not drop below 2,800 kcal."
+CTA Button: rect(1720, 626, 140, 36), Background #7F1D1D, Text #FCA5A5 "[ALTER PLAN]"
+Action Item 2: rect(1248, 688, 624, 68). Background #1E293B, Border 1px solid #38BDF8.
+Title: Inter 11px Bold #38BDF8: "SPARRING PARTNER ASSIGNMENT: Southpaw specialist needed."
+Subtext: Inter 10px Regular #94A3B8: "Current partner Ryan Shaw is Orthodox. Hire external southpaw ($650/wk)."
+CTA Button: rect(1720, 702, 140, 36), Background #0369A1, Text #E0F2FE "[HIRE SPARRER]"
+Action Item 3: rect(1248, 764, 624, 68). Background #1E293B, Border 1px solid #22C55E.
+Title: Inter 11px Bold #22C55E: "STEELED VIRTUE ACTIVE: 4 days remaining before decay."
+Subtext: Inter 10px Regular #94A3B8: "Composure +12 in hard rounds. Recommended to schedule Heavy Sparring before Friday."
+CTA Button: rect(1720, 778, 140, 36), Background #064E3B, Text #86EFAC "[SCHEDULE]"
+3. TAB 4: MEDICAL & BIOMETRICS SCREEN (THE OPERATOR’S 4-BOX SPECIFICATION)
+
+This fulfills the operator’s exact sketch:
+
+LEFT (Full Height): Humanoid MetaHuman anatomical wear diagram with front/back toggle.
+CENTRE TOP: Diagnosis & Psychological State (Stress meter, Afflictions/Virtues, Weight status).
+CENTRE BOTTOM: Live 3D MetaHuman Head & Face Close-Up Camera (procedural cuts, swelling, scar tissue).
+RIGHT (Full Height): Treatment Options Management Deck with staff and facility costs.
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+| TOP COMMAND STRIP: rect(16, 16, 1888, 72)                                                                                                          |
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+| TAB BAR: rect(16, 88, 1888, 36) — [OVERVIEW] [TECHNIQUES] [PERFORMANCE & CAMP] [MEDICAL & BIO*] [CAREER & CONTRACT]                                |
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+| BOX 1: LEFT COLUMN                 | BOX 2: CENTRE TOP — DIAGNOSIS PANEL           | BOX 4: RIGHT COLUMN — TREATMENT DECK          |
+| ANATOMICAL WEAR & INJURIES         | rect(532, 128, 776, 420)                     | rect(1324, 128, 580, 936)                    |
+| rect(16, 128, 500, 936)            |                                               |                                              |
+|                                    | 1. Chief Medical Officer Plain-Words Diagnosis| 1. Card 1: PHYSIO THERAPY SESSION            |
+| 1. Front / Back Anatomy Viewport   | 2. Stress Bar (42/100 STRAINED) + Affliction  |    - Staff: Jim Vance (Senior Physio)        |
+|    - 6 Body Regions:               | 3. Weight Status & Dehydration Level          |    - Cost: $450 | Time: 2 Days | Wear -4%    |
+|      * head_neck:   14% (Pristine) | 4. Clearance Status: CLEARED FOR FULL CAMP    | 2. Card 2: SCHEDULE DELOAD WEEK              |
+|      * torso_core:  18% (Light)    +-----------------------------------------------+    - No Sparring, Tech Only | Stress -25 |
+|      * left_arm:     8% (Pristine) | BOX 3: CENTRE BOTTOM — FACE CLOSE-UP CAM      | 3. Card 3: CUT MAN SCAR REPAIR & TREATMENT   |
+|      * right_arm:   24% (Moderate) | rect(532, 560, 776, 504)                      |    - Reduce reopen risk on supraorbital cut  |
+|      * left_leg:     6% (Pristine) |                                               | 4. Card 4: MANDATORY MEDICAL HOLD            |
+|      * right_leg:    9% (Pristine) | 1. Live 3D Head SubViewport (MetaHuman)       |    - Full 14-day bed rest | Sanction Board   |
+| 2. Career Wear Meter: 12.4%        |    - Procedural Swelling / Lacerations / Cuts | 5. Card 5: HEAD COACH OFFICE TALK            |
+| 3. Front/Back Toggle Buttons       | 2. Cut & Scar Overlay Callouts (Supraorbital) |    - Stress Relief | 14-Day Cooldown         |
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+
+3.1 Box 1: Left Column — Anatomical Wear & Region Diagram (rect(16, 128, 500, 936))
+Background: #0B0F17, Border: 1px solid #1E293B, Radius: 4px.
+Header Strip (rect(32, 144, 468, 28)):
+Chakra Petch 14px Bold #F8FAFC, uppercase: "STRUCTURAL WEAR & ANATOMY"
+Career Wear Badge: rect(340, 144, 150, 24), Background #1E293B, Text JetBrains Mono 10px Bold #38BDF8: "CAREER WEAR: 12.4%"
+Front / Back Toggle Switch (rect(160, 184, 180, 32)):
+2 Buttons (width: 88px, height: 30px):
+[FRONT VIEW] (Selected): Background #D69E2E, Text #0B0F17 Chakra Petch 10px Bold.
+[REAR VIEW]: Background #0F172A, Text #94A3B8, Border 1px solid #1E293B.
+MetaHuman 2.5D Anatomical Diagram (rect(32, 226, 468, 480)):
+High-definition, translucent medical silhouette of the boxer’s physique.
+The 6 Body Regions from data facts are rendered as discrete, glow-mapped meshes with color grading:
+head_neck: 14% wear $\rightarrow$ Hex #22C55E (Green, Band: 0–19% Pristine).
+torso_core: 18% wear $\rightarrow$ Hex #22C55E (Green, Band: 0–19% Pristine).
+left_arm: 8% wear $\rightarrow$ Hex #22C55E (Green, Band: 0–19% Pristine).
+right_arm: 24% wear $\rightarrow$ Hex #EAB308 (Yellow, Band: 20–39% Light Wear / Triceps strain).
+left_leg: 6% wear $\rightarrow$ Hex #22C55E (Green, Band: 0–19% Pristine).
+right_leg: 9% wear $\rightarrow$ Hex #22C55E (Green, Band: 0–19% Pristine).
+Hovering over any region highlights its boundary with a 1.5px white rim and displays acute inflammation stats.
+Injury & Trauma List (rect(32, 718, 468, 230)):
+Header: Inter 10px Bold #64748B, uppercase: "ACTIVE TRAUMA PINS & PATHOLOGY"
+Item 1: rect(32, 742, 468, 64). Background #0F172A, Border 1px solid #EAB308, Radius 3px.
+Region: Inter 11px Bold #F8FAFC: "RIGHT ARM — TRICEPS TENDON STRAIN (GRADE 1)"
+Subtext: JetBrains Mono 10px Regular #EAB308: "Wear: 24% | Acute Pain: Minor | Time to Full Health: 9 Days"
+Effect: Inter 10px Regular #94A3B8: "-6% Rear Cross Power until resolved."
+Item 2: rect(32, 814, 468, 64). Background #0F172A, Border 1px solid #22C55E, Radius 3px.
+Region: Inter 11px Bold #F8FAFC: "HEAD / NECK — CERVICAL SPINE CONDITIONING"
+Subtext: JetBrains Mono 10px Regular #22C55E: "Wear: 14% | Structural Integrity: Robust"
+Effect: Inter 10px Regular #94A3B8: "No sparring concussion flags reported."
+Empty State Handling: If an uninjured boxer has 0 trauma pins, this card renders:
+Background #0F172A, Border 1px solid #22C55E, Text Inter 11px Medium #22C55E: "NO ACUTE PATHOLOGY DETECTED. ALL 6 ANATOMICAL REGIONS WITHIN COMBAT-READY TOLERANCES."
+3.2 Box 2: Centre Top — Diagnosis Panel (rect(532, 128, 776, 420))
+
+Background: #0B0F17, Border: 1px solid #1E293B, Radius: 4px.
+
+Chief Medical Officer Diagnosis Card (rect(548, 144, 744, 96)):
+
+Background: #0F172A, Border: 1px solid #334155, Radius: 4px.
+Doctor Header: Chakra Petch 12px Bold #D69E2E, "CLINICAL SUMMARY — DR. ARIS VANDENBERG (RINGSIDE PHYSICIAN)".
+Plain-Words Text: Inter 12px Regular #F8FAFC, line-height 18px: "Leo Vance is in peak structural readiness to continue Camp Week 5. The minor right triceps strain sustained during heavy bag work on Tuesday is responding to cryotherapy. His neurological and cognitive readouts are crisp. Clinically cleared for 10 rounds of sparring."
+
+The Approved Stress Engine & Affliction / Virtue Module (rect(548, 252, 744, 150)):
+
+Stress Meter Row (rect(548, 256, 744, 44)):
+Label: Inter 11px Bold #94A3B8: "PSYCHOLOGICAL STRESS: 42 / 100"
+State Badge: rect(780, 256, 120, 20), Background #854D0E, Text JetBrains Mono 9px Bold #FEF08A: "[STRAINED]"
+Meter Track: rect(548, 282, 744, 10), Background #1E293B, Radius 3px.
+4 Tier Zones:
+0 - 25: CALM (Green #22C55E, 186px)
+26 - 50: STRAINED (Amber #EAB308, 186px $\rightarrow$ Active Thumb at 312px)
+51 - 75: ON EDGE (Orange #F97316, 186px)
+76 - 100: BREAKING (Red #EF4444, 186px)
+Active Affliction / Virtue Card (rect(548, 304, 744, 88)):
+Displaying data facts engine status:
+Current Status: **V
+Can you continue the complete ASCII wireframe from the last section, preserving every Round-42 token and using real fighter data in every field?
+Can you specify the right-column branch tabs, 8-column icon grid, hover tooltips, selection states, and click-to-play behavior pixel by pixel?
+Can you create a 1920×1080 annotated ASCII wireframe of the complete Techniques tab with coordinates for every rectangle?
+Can you define AAA depth, motion, typography, iconography, and dense-data polish values for the entire Fighter Profile and reception check-in app?
+Copyright ©2026 Ludo.ai. All Rights Reserved.

@@ -1,0 +1,207 @@
+1. Architectural Fit: Comparing Time Progression Paradigms
+
+To establish the correct model for FightCamp, we need to analyze how time functions across the four relevant reference paradigms:
+
++-----------------------------------+---------------------------------------+
+| Model                             | Temporal Flow & Decision Cadence      |
++-----------------------------------+---------------------------------------+
+| FightCamp Current                 | 14 min / week at 1x. S276 "never      |
+|                                   | pause, queue icons" rule.             |
+|                                   |                                       |
+| Two Point Hospital / Campus       | Days tick (~1 sec/day, ~30 sec/month).|
+|                                   | Never force-pauses. Soft pacing.      |
+|                                   |                                       |
+| Football Manager                  | Turn-based "Continue" stepper. Halts  |
+|                                   | on hard inbox items. 2D/3D match engine|
+|                                   | separated from manager hub.           |
+|                                   |                                       |
+| Mad Games Tycoon 2                | Continuous weekly calendar ticks      |
+|                                   | (~15-20 sec/week). Hard auto-pause on |
+|                                   | completed tasks & critical popups.    |
++-----------------------------------+---------------------------------------+
+
+Evaluation Against FightCamp’s Core Identity
+
+FightCamp is an intersection: it features a living 3D gym floor (Two Point-style spatial agency, pathfinding, visual feedback of boxers training, hitting pads, sparring) paired with a deep calendar-driven simulation (Football Manager-style fight camps, contractual deadlines, weight-cutting, injury rehabilitation, fight booking cycles).
+
+Why the Current Model Fails: At 14 real minutes per game week at 1x, an 8-week training camp requires 112 real minutes (nearly two hours) of real-time watching. If a player manages 3–4 fighters who each fight 2–3 times a year, progressing one calendar year takes 10–12 real hours at 1x. Even at 3x speed, an 8-week camp takes ~37 minutes. This pacing starves the macro-loop (matchmaking, scouting, gym expansion, career arcs). The S276 "never interrupt" ruling compound this: the player is forced to run at 3x or 5x speed out of boredom, causing them to miss critical top-bar notification deadlines (e.g., expiring fight offers, acute injuries, weight cuts) while looking at station layouts.
+Why Pure Football Manager Fails: A discrete "Continue" button converts the gym floor into an idle screensaver between clicks. The player loses the delight of tactile physical management—watching coach stamina drain, watching ring congestion, observing water breaks, and adjusting equipment on the fly.
+Why Pure Two Point Fails: Two Point games do not have strict external temporal deadlines; an illness in Two Point has an individual patient fuse, but there is no external, immovable deadline like a sanctioned Title Bout at Madison Square Garden on November 14th where contracts breach, purses forfeit, and weight must hit 147.0 lbs on the scales.
+The Verdict on MGT2 Flow: ADAPT MGT2. MGT2 nails the tempo for desk-and-floor tycoon games: work on the floor runs continuously at an accelerated cadence, but the macro calendar moves fast enough that shipping a game (or in our case, running an 8-week fight camp) takes 3 to 5 real minutes, not 40. However, MGT2 relies on frequent popups that halt the simulation for minor room completions. FightCamp must adopt MGT2’s calendar acceleration and safety-net auto-pause, while retaining visible daily physical floor routines and strictly curating what is allowed to pause the clock.
+2. Time Scale & The 600-Minute Gym Floor
+
+If we adopt MGT2-style calendar progression, the temporal math must compress without destroying the legibility of 3D animations (sparring punches, speedbag cadences, coach pad-work, walking to lockers).
+
+The Operational Numbers
+
+The sweet spot for a sports management week on a living floor is 20 to 25 real seconds per week at 1x speed (roughly equivalent to MGT2’s baseline pace).
+
++-------+--------------------+--------------------+--------------------+
+| Speed | Seconds / Game Day | Seconds / Game Week| 8-Week Camp Duration|
++-------+--------------------+--------------------+--------------------+
+| 1x    | 3.5s               | 24.5s              | ~3.25 minutes      |
+| 2x    | 1.75s              | 12.25s             | ~1.6 minutes       |
+| 3x    | 0.85s              | ~6.0s              | ~48 seconds        |
+| 5x*   | 0.40s              | ~2.8s              | ~22 seconds        |
++-------+--------------------+--------------------+--------------------+
+
+
+(5x unlocked as a dedicated "Fast-Forward / Sim to Fight" speed).
+
+How the 600-Minute Gym Day Stays Visible
+
+We do not drop the daily floor view or convert the game to an abstract calendar screen. We preserve the 3D day through a Two Point-style stylized abstraction:
+
+Decouple Animation Speed from Calendar Math: At 3.5 real seconds per game day (08:00 to 18:00), 1 real second = ~171 game minutes. If characters moved at raw physical real-time scale, they would be static; if they moved at calendar-synchronized speed, they would look like a 1920s slapstick film. Instead, use the standard tycoon illusion: A boxer does not perform 100 individual isolated punches across 600 discrete minutes.
+When the calendar ticks from 08:00 to 18:00 across 3.5 seconds, the boxer completes one full visual activity cycle (walks to heavy bag -> performs a stylized 5-punch combo sequence with dynamic VFX -> wipes sweat -> walks to bench).
+The training gains, fatigue cost, and coach interactions calculate under the hood per day-tick at the 18:00 shift marker.
+The Visual Day Cycle (Floor Feedback):
+08:00 – Doors Open: Gym lights fade up; boxers and trainers enter from locker rooms and populate their assigned weekday stations.
+08:00 to 17:00 – Floor Session: Active training animations run at a smooth, readable 1.0x visual playback speed regardless of the clock tick.
+17:00 to 18:00 – Cool Down & Clean: Fighters shower/exit; revenue/membership daily delta numbers float up from the reception desk; daily wear-and-tear on equipment applies.
+18:00 – The Midnight Sweep (0.5s night transition): Floor goes into clean ambient night mode for half a second while daily background payroll/recovery calculations resolve, then 08:00 initiates the next day.
+
+This guarantees that the gym floor remains the visual beating heart of the game, providing immediate spatial diagnostics (e.g., "why is the sparring ring empty? Coach is fatigued in the lounge"), while the calendar advances at a satisfying tycoon clip.
+
+3. Auto-Pause Architecture: Complete Event Matrix
+
+The studio owner’s S276 ruling ("nothing interrupts, everything waits in icons") creates critical playability failure when calendar speed increases. Conversely, classic MGT2/Kairosoft-style interruption creates "click-fatigue" where the player cannot watch their gym for 10 seconds without a popup slamming down.
+
+The rule for FightCamp must be: Only irreversible, catastrophic, or hard-deadline events AUTO-PAUSE. Informational progress, minor RNG, and passive opportunities raise an ICON.
+
++--------------------------------+------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Event Candidate                | Action     | Justification & Mechanical Handling                                                                                                                                      |
++--------------------------------+------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 1. Fight Offer with Deadline   | PAUSE      | Irreversible loss of marquee gameplay. If an offer expires in 48 game hours (7 real seconds), an icon-only approach guarantees missed fights. Pop dialog with Accept/Decline/Negotiate. |
+|                                |            |                                                                                                                                                                          |
+| 2. Fight Night Arrives         | PAUSE      | Hard calendar gate. The fight is a bespoke 3D live bout screen. The game must freeze, play a stinger sound, and present the "Walkout / Fight Center" prompt.           |
+|                                |            |                                                                                                                                                                          |
+| 3. Acute Injury (Major)        | PAUSE      | Severe, game-altering event (e.g., torn rotator cuff 10 days before title bout). Requires instant intervention: pull out, find replacement doctor, alter camp load.    |
+|                                |            |                                                                                                                                                                          |
+| 4. Cash Below Zero / Debt      | PAUSE      | Imminent bankruptcy threat. Triggers when cash hits negative after weekly payroll/rent. Gives player 14 game days to liquidate assets, take high-risk bout, or secure loan. |
+|                                |            |                                                                                                                                                                          |
+| 5. Contract Expiry (< 7 Days)  | PAUSE      | Final hard warning before a fighter enters free agency / is poached by a rival. Triggers exactly once at the 7-day mark.                                                |
+|                                |            |                                                                                                                                                                          |
+| 6. Minor Injury / Fatigue Flaw | ICON ONLY  | Sprained wrist, blister, or overtraining fatigue. Top-bar badge with yellow warning. Fighter auto-routes to rehab bench or reduces intensity per standing gym policy. |
+|                                |            |                                                                                                                                                                          |
+| 7. Boxer Wants to Leave        | ICON ONLY  | Discontent rises over weeks (morale meter). When threshold breaks, raises a persistent red badge with a 14-day negotiation fuse. Does not warrant snapping camera flow.    |
+|                                |            |                                                                                                                                                                          |
+| 8. New Applicant / Scout Find  | ICON ONLY  | Standard flow. Walk-ins and scouted amateur prospects deposit into the "Recruitment" inbox tab. Badged with green dot; reviewed when the player chooses.             |
+|                                |            |                                                                                                                                                                          |
+| 9. Sparring Result             | ICON ONLY  | Occurs weekly. Telemetry card floating above the ring (e.g., "Sparring: +2 Jab Defense, +3% Cut Risk"). Auto-logged to boxer's logbook. Halting here destroys tempo.   |
+|                                |            |                                                                                                                                                                          |
+| 10. Rival Gym Event            | ICON ONLY  | World-building and sports media news (e.g., "Challenger KO'd in round 2; rankings shift"). Feeds the bottom-right sports ticker.                                       |
+|                                |            |                                                                                                                                                                          |
+| 11. End of Month Report        | ICON ONLY  | Pops an expandable ledger notification on the 1st of each month. Flashes yellow if running at an operating loss, green if profitable. Does not pause unless in debt.   |
+|                                |            |                                                                                                                                                                          |
+| 12. Sponsor Offer              | ICON ONLY  | Commercial offers arrive with generous window fuses (e.g., 30 game days). Stored in the Commercial inbox; badge updates with offer count.                               |
+|                                |            |                                                                                                                                                                          |
+| 13. Training Milestone / Level | ICON ONLY  | Boxer gains a stat tier or unlocks a perk (e.g., "Power Punch tier 4 reached"). Floats a gold celebratory icon over the fighter's head and drops into fighter log.    |
++--------------------------------+------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+Summary: The Auto-Pause list is strictly throttled to four operational triggers: Hard Fight Offers, Fight Night Walkout, Major Acute Injuries, and Financial Insolvency/Final Contract Deadline. All other notifications queue non-intrusively.
+
+4. Player Temporal Controls & UX Layout
+
+To grant players total psychological control over the faster clock, implement the proven Grand Strategy / Sim management cluster:
+
+[SPACE: Pause]   [1: Normal (1x)]   [2: Fast (2x)]   [3: Very Fast (3x)]   [>>| TAB: Skip to Next Event]
+CALENDAR: SAT 14 NOV 2026 | WEEK 42 | NEXT FIGHT: 6 DAYS (vs. V. Petrov) -------------------------
+
+The Essential Toolset
+The Core Keybindings:
+Spacebar: Master Pause/Unpause toggle.
+Keys 1, 2, 3: 1x (3.5s/day), 2x (1.75s/day), 3x (0.85s/day).
+Key 4 or Shift+3 (Fast Camp): 5x speed (0.4s/day), dedicated for seasoned players running through predictable training weeks.
+The "Skip to Next Event" Button (Tab or UI Button):
+Derived directly from Football Manager and Crusader Kings.
+When clicked, the game runs at maximum engine simulation speed (5x) and auto-pauses instantly the moment any item hits the Auto-Pause criteria (or an optional flagged event occurs). This eliminates "dead watching" during peaceful mid-camp recovery weeks.
+Granular Auto-Pause Settings Panel (Settings -> Simulation -> Pauses):
+Players must be given an options matrix with checkboxes:
+Fight Offers with < 3 days left [Default: ON]
+Severe Injuries [Default: ON]
+Weight Cut Off-Target (< 7 days out) [Default: ON]
+Fighter Morale Rebellion [Default: OFF]
+Scout Arrival [Default: OFF]
+Monthly Financial Summary [Default: OFF]
+This respects both player archetypes: the "hands-off operational manager" who wants the game to pause constantly, and the "relaxed builder" who hates popups.
+Visual "Emergency Freeze" Indicator:
+When an auto-pause triggers, the game edge pulses with a clean red/amber vignette, the paused clock button pulses, and a dedicated, clear focal card slides into the center with an audible low-pitch thud sound. Spacebar dismisses/acts.
+5. Temporal Flow of Fight Camps vs. Fight Night
+
+A boxing sim cannot treat all weeks equally. An 8-week training camp has a distinct physiological cadence: early general physical preparation, mid-camp heavy sparring and tactical installation, and late-camp tapering and weight-cutting.
+
++---------------------------+-----------------------------------+------------------------------------------+
+| Phase                     | Simulation Pace & Floor Behavior  | Temporal Rules                           |
++---------------------------+-----------------------------------+------------------------------------------+
+| Weeks 1 to 6              | Normal / Accelerated Pacing       | Runs at chosen player speed (1x-3x).     |
+| (Base conditioning &      | (12 to 24 seconds per week).      | Daily routines loop. Sparring runs on    |
+| sparring blocks)          | Boxers build attributes/fatigue.  | scheduled days (e.g., Tuesday/Thursday). |
+|                           |                                   |                                          |
+| Week 7                    | Tactical Tuning & Taper           | Game alerts player via icon if weight    |
+| (Taper & Weight Trim)     | Pacing unchanged, but alerts      | target is drifting (>2 lbs over target). |
+|                           | become more sensitive.            | Intensity auto-scales down.              |
+|                           |                                   |                                          |
+| Fight Week (Final 7 Days) | Focused Micro-Phase               | Clock default speed steps down to 1x     |
+| (Weigh-in & Media)        | Visual UI adds a "Fight Week" bar.| automatically on Day 1 of Fight Week.   |
+|                           | Weigh-in happens on Day 6 (Fri).  | Weigh-in triggers a pause if failed.     |
+|                           |                                   |                               -----------+
+| Fight Day (Saturday)      | HARD CALENDAR STOP                | Day runs until 18:00 (rest/prep). At     |
+|                           | Gym floor freezes; camera centers | 18:00, gym shuts down. Auto-pause locks  |
+|                           | on fighter locker room.           | the engine: "ENTER THE ARENA" prompt.    |
++---------------------------+-----------------------------------+------------------------------------------+
+
+The Fight Night Transition
+When Fight Day reaches fight time (Saturday 18:00), the world clock completely halts.
+The UI transitions seamlessly: the 3D gym background softly blurs, and the player is presented with the Bout Staging Screen (Tale of the tape, locker room prep, corner instructions, tactical strategy against the opponent).
+Launching the bout shifts the engine into the 3D Fight Engine Screen.
+During the fight, gym time is frozen. When the fight concludes (purse awarded, ranking points applied, post-fight medical suspension assigned), the player clicks "Return to Gym."
+The game drops the player back to Sunday (Rest Day) on the gym floor, paused, giving them time to review medical reports, distribute bonuses, and assign recovery schedules before resuming the clock.
+6. Architectural Impact: What Breaks & Implementation Roadmap
+
+Switching from a 14-minute real-time day floor to a 24-second continuous MGT2 week creates specific system collisions that must be re-engineered.
+
+The Breakages & Solutions
+The Per-Weekday Training Plan:
+Problem: Currently, players micromanage what a boxer does each weekday (Mon: Bags, Tue: Sparring, Wed: Roadwork). At 3.5 seconds per day, micromanaging station-by-station daily rosters is frustrating and unreadable.
+Solution: Keep the weekly template, but shift micromanagement to macro assignments. The player sets a "Weekly Camp Template" (e.g., Mon/Wed/Fri: Speed & Technical, Tue/Thu: Sparring & Core, Sat: Conditioning, Sun: Rest). The boxer automatically executes this weekly routine cycle after cycle until edited.
+Pathfinding & Floor Congestion:
+Problem: At fast speeds, pathfinding calculations can lag or cause boxers to spend their entire 3.5-second day walking across a poorly designed gym to get to a bench, missing their training tick.
+Solution: Decouple training gains from exact station contact. If a boxer reaches the heavy bag zone within the first 25% of the daytime cycle, they earn 100% of the session's training tick. If the path is blocked, the boxer immediately defaults to shadowboxing/calisthenics in place and raises a yellow "Station Inaccessible" gym-efficiency warning above their head.
+Staff Shift & Stamina Depletion:
+Problem: Trainers currently drain stamina over 600 continuous real-time minutes.
+Solution: Shift staff fatigue to a daily deduction model. A coach working a full gym day with 4 assigned fighters loses 30% stamina per day tick at 18:00. If their stamina drops below 20%, their coaching effectiveness suffers, requiring the player to hire assistant trainers or assign rest rotations.
+Implementation Order (Smallest First Step That the Studio Owner Can Play)
+Step 1: The Pacing Harness (Playable in 2 Days)
+└── Keep current assets and station logic untouched.
+└── Reparameterize the global time controller:
+    • Set 1x game minute = 0.0058 real seconds (3.5s per game day, ~24.5s per week).
+    • Add Spacebar = hard pause; Keys 1, 2, 3 = speed scalers.
+    • Hook up a single Auto-Pause condition: "Fight Date Reached".
+    └── RESULT FOR OWNER: The owner can immediately load an existing gym, run an 8-week camp in 3 minutes, experience the dramatic improvement in career pacing, and feel why the gym floor still looks alive.
+
+Step 2: Core Auto-Pause Triad
+└── Implement the popup pause triggers:
+    1. Fight Offer Received with Countdown Timer.
+    2. Severe Acute Injury event.
+    3. Insolvency / Zero Balance warning.
+└── Ensure all other events route into top-bar non-pausing badges.
+
+Step 3: The "Fight Week" Stepper & Weigh-In Gate
+└── Add automatic downshifting to 1x speed during Fight Week.
+└── Wire the hard stop at Saturday 18:00 that launches the live fight screen.
+
+Step 4: Station Automation & Navigation Polish
+└── Implement the weekly repeating template UI.
+└── Add the "Skip to Next Event" (Tab) fast-sim key.
+
+7. Verdict & First Step
+
+VERDICT: ADAPT.
+Do not blindly replicate Mad Games Tycoon 2 by turning FightCamp into an endless barrage of modal interruption popups, but unconditionally discard the current 14-minute-per-week drag and the S276 "never pause" rule. Adopt MGT2’s continuous weekly calendar speed (~24.5 real seconds per week at 1x) while preserving the living 3D gym floor via stylized animation looping. Support this with a strictly curated four-event auto-pause safety net (Fight Offers, Fight Day, Acute Injuries, Bankruptcy) and a player-controlled "Skip to Next Event" button. This preserves the tactile pleasure of building a gym while giving the management sim the brisk, addictive career velocity it currently lacks.
+
+The Single First Build Step:
+Re-parameterize the engine’s master calendar clock so that one full gym day (08:00–18:00) resolves in 3.5 real seconds at 1x speed (mapping Spacebar to Pause and Keys 1, 2, 3 to 1x, 2x, and 3x), and hook up a single mandatory auto-pause hook on Fight Day so the owner can sit down, recruit a fighter, and play through a complete, fluid 8-week fight camp cycle in under four minutes.
+
+What risks could this faster clock create for daily training, gym-floor activity, and player readability?

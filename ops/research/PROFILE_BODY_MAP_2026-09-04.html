@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=1920"/>
+<title>FightCamp · Body Map · Kian Sterling · 2026-09-04</title>
+<!-- K3 Body study (Kalli). 1920×1080 research mock. Companion to PROFILE_MERGED. -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0f131b; --panel:#1c2230; --panel2:#222a3b; --line:#121722; --edge:#4a5a78;
+  --blue:#3f86cc; --blue2:#24558a; --gold:#f0c233; --gold2:#c99a1a; --goldhi:#f7d65a;
+  --ink:#f3f5fa; --mute:#94a1b8; --text2:#c9d1e0;
+  --ok:#4fc46a; --warn:#e8781c; --hot:#c8281f;
+  --display:"Bebas Neue",sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:var(--bg);color:var(--ink);font-family:var(--mono)}
+body{background:radial-gradient(70% 90% at 50% 20%,#243049 0%,#171c27 48%,#0c1018 100%)}
+.stage{width:1920px;height:1080px;display:grid;grid-template-rows:72px 48px 40px 1fr;position:relative}
+
+/* —— top identity —— */
+.top{display:grid;grid-template-columns:1fr auto auto;align-items:center;padding:0 28px;gap:28px;
+  background:linear-gradient(180deg,rgba(52,64,90,.96),rgba(28,34,48,.96));
+  border-bottom:1px solid var(--line);box-shadow:0 1px 0 rgba(255,255,255,.1) inset}
+.iden .eyebrow{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.iden h1{font-family:var(--display);font-size:42px;letter-spacing:.04em;line-height:1;font-weight:400;margin-top:2px}
+.iden .age{font-size:13px;font-weight:600;letter-spacing:.14em;color:var(--text2);margin-top:2px}
+.iden .age b{color:var(--gold);font-weight:700}
+.chips{display:flex;gap:8px;align-items:center}
+.chip{height:28px;padding:0 12px;display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:3px;
+  font-size:11px;font-weight:700;letter-spacing:.1em;background:linear-gradient(180deg,#3a4560,#2b3449);color:var(--ink);white-space:nowrap}
+.chip.gold{background:linear-gradient(180deg,var(--goldhi),var(--gold2));color:#1a1508;border-color:#7a5c0c}
+.chip.warn{background:linear-gradient(180deg,#f6b22e,#c77c12);color:#1b1207;border-color:#7a4c08}
+.chip.hot{background:linear-gradient(180deg,#ef5a50,#b62e26);color:#fff;border-color:#5a120e}
+.meters{display:flex;gap:18px;align-items:center}
+.meter{display:flex;flex-direction:column;align-items:center;gap:2px}
+.meter .cap{font-size:10px;font-weight:700;letter-spacing:.16em;color:var(--mute);text-transform:uppercase}
+.ring{width:58px;height:58px}
+.ring text{fill:var(--ink);font-family:var(--display);font-size:20px}
+.radar{width:72px;height:58px}
+
+/* —— GAME tabs —— */
+.gametabs{display:flex;align-items:stretch;padding:0 28px;gap:0;background:rgba(18,23,34,.85);border-bottom:1px solid var(--line)}
+.gametabs button{height:48px;padding:0 22px;border:0;border-right:1px solid var(--line);cursor:pointer;
+  font:400 18px/1 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--text2);
+  background:transparent}
+.gametabs button[aria-selected="true"]{color:#1a1508;background:linear-gradient(180deg,var(--goldhi),var(--gold2));
+  box-shadow:0 1px 0 rgba(255,255,255,.35) inset}
+.gametabs button:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
+
+/* —— Body subtabs —— */
+.subtabs{display:flex;align-items:center;gap:6px;padding:0 28px;background:rgba(12,16,24,.55);border-bottom:1px solid rgba(74,90,120,.4)}
+.subtabs .lab-tag{font-size:10px;font-weight:700;letter-spacing:.18em;color:var(--mute);margin-right:10px;text-transform:uppercase}
+.subtabs button{height:28px;padding:0 16px;border:1px solid var(--line);border-radius:2px;cursor:pointer;
+  font:700 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--text2);
+  background:linear-gradient(180deg,#3a4560,#2b3449)}
+.subtabs button[aria-selected="true"]{color:#1a1508;background:linear-gradient(180deg,var(--goldhi),var(--gold2));border-color:#7a5c0c}
+.subtabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.subtabs .hint{margin-left:auto;font-size:11px;color:var(--mute);letter-spacing:.08em}
+
+/* —— panels —— */
+.panel{position:relative;min-height:0;overflow:hidden}
+.panel[hidden]{display:none!important}
+
+/* MAP */
+#p-map{display:grid;grid-template-columns:210px 1fr 210px;gap:0;height:100%}
+.gutter{position:relative;z-index:4;padding:18px 10px;display:flex;flex-direction:column;justify-content:space-around;gap:10px}
+.gutter.left{background:linear-gradient(90deg,rgba(12,16,24,.92),rgba(12,16,24,.15))}
+.gutter.right{background:linear-gradient(270deg,rgba(12,16,24,.92),rgba(12,16,24,.15))}
+.region{display:grid;grid-template-columns:1fr 44px;gap:6px 8px;align-items:center;padding:8px 10px;
+  background:rgba(28,34,48,.88);border:1px solid var(--edge);border-radius:3px;cursor:pointer;
+  box-shadow:0 4px 14px rgba(0,0,0,.35)}
+.region:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.region[data-status="ok"]{border-color:rgba(79,196,106,.55)}
+.region[data-status="warn"]{border-color:rgba(232,120,28,.7)}
+.region[data-status="hot"]{border-color:rgba(200,40,31,.8);box-shadow:0 0 16px rgba(200,40,31,.25)}
+.region .nm{font-family:var(--display);font-size:16px;letter-spacing:.1em;text-transform:uppercase;line-height:1}
+.region .sc{font-size:10px;font-weight:700;letter-spacing:.1em;color:var(--mute);margin-top:3px}
+.region[data-status="ok"] .nm{color:var(--ok)}
+.region[data-status="warn"] .nm{color:var(--warn)}
+.region[data-status="hot"] .nm{color:#ff6b5e}
+.region .spark{width:100%;height:18px;grid-column:1/-1}
+.micro{width:44px;height:44px}
+.micro text{font-family:var(--display);font-size:14px;fill:var(--ink)}
+
+.map-bleed{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(ellipse at 50% 42%,#2a3548 0%,#141a26 55%,#0a0e16 100%)}
+.map-bleed img{height:96%;width:auto;max-width:100%;object-fit:contain;display:block;
+  filter:drop-shadow(0 18px 40px rgba(0,0,0,.65)) saturate(1.05) contrast(1.04)}
+svg.leaders{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2}
+.hit{position:absolute;z-index:3;border:0;padding:0;background:transparent;cursor:pointer;border-radius:4px}
+.hit:focus-visible{outline:2px solid var(--gold);outline-offset:2px;background:rgba(240,194,51,.08)}
+.hit:hover{background:rgba(240,194,51,.05)}
+
+/* WEIGHT */
+#p-weight{display:grid;grid-template-columns:1.5fr 1fr;gap:16px;padding:20px 28px;height:100%}
+.card{border:1px solid var(--line);background:rgba(34,42,59,.92);border-radius:4px;overflow:hidden;
+  box-shadow:0 1px 0 rgba(255,255,255,.08) inset,0 8px 24px rgba(0,0,0,.35);display:flex;flex-direction:column}
+.card .hbar{height:36px;padding:0 14px;display:flex;align-items:center;gap:10px;
+  background:linear-gradient(180deg,#4a5670,#333d52); /* slate — not header blue */
+  font-family:var(--display);font-size:18px;letter-spacing:.1em;color:#fff;border-bottom:1px solid var(--line)}
+.card .hbar .r{margin-left:auto;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.12em;opacity:.9}
+.card .b{padding:18px;flex:1;display:flex;flex-direction:column;gap:14px}
+.statrow{display:flex;justify-content:space-between;align-items:flex-end}
+.stat .k{font-size:10px;font-weight:700;letter-spacing:.16em;color:var(--mute);text-transform:uppercase}
+.stat .v{font-family:var(--display);font-size:48px;line-height:1;letter-spacing:.02em}
+.stat .v.gold{color:var(--gold)}
+.spark-lg{width:100%;height:160px}
+.dial-wrap{display:flex;align-items:center;justify-content:center;gap:28px}
+.dial{width:200px;height:120px}
+.bars{display:flex;flex-direction:column;gap:12px}
+.bar-lab{display:flex;justify-content:space-between;font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--mute);margin-bottom:4px}
+.bar{height:12px;background:#111621;border:1px solid var(--line);overflow:hidden;border-radius:2px}
+.bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--blue2),var(--blue),#8cc4f4)}
+.pairrow{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pair{display:grid;grid-template-columns:1fr auto;height:40px;border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.pair .pl{display:flex;align-items:center;padding:0 10px;background:linear-gradient(180deg,#4a5670,#333d52);
+  font-family:var(--display);font-size:15px;letter-spacing:.08em;color:#fff;border-right:1px solid var(--line)}
+.pair .pv{display:flex;align-items:center;justify-content:center;min-width:70px;padding:0 10px;
+  font-family:var(--display);font-size:22px;background:linear-gradient(180deg,#34405a,#222a3b)}
+
+/* MEDICAL */
+#p-med{display:grid;grid-template-rows:auto 1fr;gap:16px;padding:20px 28px;height:100%}
+.chipgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.mchip{border:1px solid var(--line);background:rgba(28,34,48,.95);padding:14px 16px;border-radius:3px}
+.mchip .k{font-size:10px;font-weight:700;letter-spacing:.16em;color:var(--mute);text-transform:uppercase}
+.mchip .t{font-family:var(--display);font-size:28px;letter-spacing:.06em;margin-top:4px;line-height:1}
+.mchip .bar{margin-top:10px}
+.gaugerow{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.gauge-card{border:1px solid var(--line);background:rgba(34,42,59,.92);border-radius:4px;padding:16px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.gauge-card .k{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--mute);text-transform:uppercase;align-self:flex-start}
+.gauge-svg{width:180px;height:110px}
+.gauge-card .note{font-size:12px;color:var(--text2);text-align:center;line-height:1.4}
+
+/* tooltip */
+#tip{position:fixed;z-index:50;pointer-events:none;display:none;padding:10px 12px;max-width:260px;
+  background:#1c2230;border:1px solid var(--gold);box-shadow:0 10px 28px rgba(0,0,0,.55);font-size:12px}
+#tip strong{display:block;font-family:var(--display);font-size:20px;letter-spacing:.08em;margin-bottom:4px}
+#tip .st{font-weight:700;letter-spacing:.08em;margin-bottom:4px}
+#tip .st.ok{color:var(--ok)}#tip .st.warn{color:var(--warn)}#tip .st.hot{color:#ff6b5e}
+#tip .meta{color:var(--text2);line-height:1.4}
+</style>
+</head>
+<body>
+<div class="stage" id="root">
+
+  <header class="top">
+    <div class="iden">
+      <div class="eyebrow">FightCamp · PC profile · Body readiness</div>
+      <h1>Kian Sterling</h1>
+      <div class="age"><b>AGE 26</b> · Mid-career · Bantam · Camp W4/6</div>
+    </div>
+    <div class="chips" aria-hidden="true">
+      <span class="chip gold">READINESS 78</span>
+      <span class="chip warn">R LEG 77</span>
+      <span class="chip hot">HIPS HOT</span>
+    </div>
+    <div class="meters" aria-hidden="true">
+      <div class="meter">
+        <svg class="ring" viewBox="0 0 64 64">
+          <defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8cc4f4"/><stop offset="1" stop-color="#24558a"/></linearGradient></defs>
+          <circle cx="32" cy="32" r="26" fill="none" stroke="#111621" stroke-width="6"/>
+          <circle cx="32" cy="32" r="26" fill="none" stroke="url(#rg)" stroke-width="6" stroke-linecap="round"
+            stroke-dasharray="163.4" stroke-dashoffset="36" transform="rotate(-90 32 32)"/>
+          <text x="32" y="38" text-anchor="middle">78</text>
+        </svg>
+        <span class="cap">Ready</span>
+      </div>
+      <div class="meter">
+        <svg class="radar" viewBox="0 0 100 80">
+          <polygon points="50,6 92,32 76,74 24,74 8,32" fill="none" stroke="#4a5a78" stroke-width="1"/>
+          <polygon points="50,14 84,34 72,64 28,64 16,34" fill="none" stroke="#2a3548" stroke-width="1"/>
+          <polygon points="50,18 78,36 68,60 34,58 24,40" fill="rgba(63,134,204,.32)" stroke="#3f86cc" stroke-width="1.6"/>
+          <circle cx="50" cy="18" r="2.2" fill="#4fc46a"/><!-- head -->
+          <circle cx="78" cy="36" r="2.2" fill="#4fc46a"/><!-- arms -->
+          <circle cx="68" cy="60" r="2.2" fill="#e8781c"/><!-- r leg -->
+          <circle cx="34" cy="58" r="2.2" fill="#c8281f"/><!-- hips -->
+          <circle cx="24" cy="40" r="2.2" fill="#4fc46a"/><!-- core -->
+        </svg>
+        <span class="cap">Regions</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="gametabs" role="tablist" aria-label="Profile game tabs">
+    <button type="button" role="tab" aria-selected="true">Lab</button>
+    <button type="button" role="tab" aria-selected="false">Development</button>
+    <button type="button" role="tab" aria-selected="false">Skills</button>
+    <button type="button" role="tab" aria-selected="false">Record</button>
+    <button type="button" role="tab" aria-selected="false">Camp</button>
+  </nav>
+
+  <div class="subtabs" role="tablist" aria-label="Body subtabs">
+    <span class="lab-tag">Lab · Body</span>
+    <button type="button" role="tab" id="t-map" aria-selected="true" aria-controls="p-map">Map</button>
+    <button type="button" role="tab" id="t-weight" aria-selected="false" aria-controls="p-weight">Weight</button>
+    <button type="button" role="tab" id="t-med" aria-selected="false" aria-controls="p-med">Medical</button>
+    <span class="hint">Leaders · tooltips · no hotspot dots · graphic-first</span>
+  </div>
+
+  <!-- MAP -->
+  <section class="panel" id="p-map" role="tabpanel" aria-labelledby="t-map">
+    <aside class="gutter left">
+      <button class="region" data-status="ok" data-id="head" type="button">
+        <div><div class="nm">Head / Neck</div><div class="sc">CLEAR · PUSH</div></div>
+        <svg class="micro" viewBox="0 0 44 44"><circle cx="22" cy="22" r="16" fill="none" stroke="#111621" stroke-width="4"/><circle cx="22" cy="22" r="16" fill="none" stroke="#4fc46a" stroke-width="4" stroke-dasharray="100.5" stroke-dashoffset="8" transform="rotate(-90 22 22)"/><text x="22" y="26" text-anchor="middle">92</text></svg>
+        <svg class="spark" viewBox="0 0 120 18" preserveAspectRatio="none"><polyline fill="none" stroke="#4fc46a" stroke-width="1.6" points="0,12 20,10 40,11 60,8 80,9 100,7 120,6"/></svg>
+      </button>
+      <button class="region" data-status="warn" data-id="shoulders" type="button">
+        <div><div class="nm">Shoulders</div><div class="sc">TIGHT R · MANAGE</div></div>
+        <svg class="micro" viewBox="0 0 44 44"><circle cx="22" cy="22" r="16" fill="none" stroke="#111621" stroke-width="4"/><circle cx="22" cy="22" r="16" fill="none" stroke="#e8781c" stroke-width="4" stroke-dasharray="100.5" stroke-dashoffset="18" transform="rotate(-90 22 22)"/><text x="22" y="26" text-anchor="middle">84</text></svg>
+        <svg class="spark" viewBox="0 0 120 18" preserveAspectRatio="none"><polyline fill="none" stroke="#e8781c" stroke-width="1.6" points="0,6 20,7 40,8 60,10 80,11 100,12 120,13"/></svg>
+      </button>
+      <button class="region" data-status="hot" data-id="hips" type="button">
+        <div><div class="nm">Hips</div><div class="sc">HOT · PROTECT</div></div>
+        <svg class="micro" viewBox="0 0 44 44"><circle cx="22" cy="22" r="16" fill="none" stroke="#111621" stroke-width="4"/><circle cx="22" cy="22" r="16" fill="none" stroke="#c8281f" stroke-width="4" stroke-dasharray="100.5" stroke-dashoffset="32" transform="rotate(-90 22 22)"/><text x="22" y="26" text-anchor="middle">68</text></svg>
+        <svg class="spark" viewBox="0 0 120 18" preserveAspectRatio="none"><polyline fill="none" stroke="#c8281f" stroke-width="1.6" points="0,5 20,6 40,8 60,10 80,13 100,14 120,15"/></svg>
+      </button>
+      <button class="region" data-status="warn" data-id="rleg" type="button">
+        <div><div class="nm">Right Leg</div><div class="sc">NIGGLE · MONITOR</div></div>
+        <svg class="micro" viewBox="0 0 44 44"><circle cx="22" cy="22" r="16" fill="none" stroke="#111621" stroke-width="4"/><circle cx="22" cy="22" r="16" fill="none" stroke="#e8781c" stroke-width="4" stroke-dasharray="100.5" stroke-dashoffset="23" transform="rotate(-90 22 22)"/><text x="22" y="26" text-anchor="middle">77</text></svg>
+        <svg class="spark" viewBox="0 0 120 18" preserveAspectRatio="none"><polyline fill="none" stroke="#e8781c" stroke-width="1.6" points="0,7 20,7 40,8 60,9 80,11 100,12 120,12"/></svg>
+      </button>
+    </aside>
+
+    <div class="map-bleed">
+      <img src="fighter-muscle-map-front.png" alt="Front muscular anatomy map — Kian Sterling"/>
+      <!-- leaders: viewBox matches bleed; gutters are outside so lines start at bleed edges -->
+      <svg class="leaders" viewBox="0 0 1500 920" preserveAspectRatio="none" aria-hidden="true">
+        <g fill="none" stroke-width="1.7" stroke-linecap="square">
+          <!-- L: head -->
+          <path d="M8 110 L280 140 L620 155" stroke="#4fc46a"/>
+          <!-- L: shoulders -->
+          <path d="M8 290 L260 310 L560 295" stroke="#e8781c"/>
+          <!-- L: hips -->
+          <path d="M8 500 L300 520 L640 530" stroke="#c8281f"/>
+          <!-- L: right leg (fighter's right = viewer's left) -->
+          <path d="M8 740 L320 720 L610 700" stroke="#e8781c"/>
+          <!-- R: core -->
+          <path d="M1492 220 L1180 250 L820 310" stroke="#4fc46a"/>
+          <!-- R: left arm (fighter's left = viewer's right) -->
+          <path d="M1492 420 L1160 400 L900 360" stroke="#4fc46a"/>
+          <!-- R: left leg -->
+          <path d="M1492 680 L1140 660 L820 700" stroke="#4fc46a"/>
+        </g>
+        <!-- crosshair anchors (not circular hotspots) -->
+        <g stroke="#f3f5fa" stroke-width="1.5" fill="none">
+          <path d="M616 151 h10 M621 146 v10"/>
+          <path d="M556 291 h10 M561 286 v10"/>
+          <path d="M636 526 h10 M641 521 v10"/>
+          <path d="M606 696 h10 M611 691 v10"/>
+          <path d="M816 306 h10 M821 301 v10"/>
+          <path d="M896 356 h10 M901 351 v10"/>
+          <path d="M816 696 h10 M821 691 v10"/>
+        </g>
+      </svg>
+      <!-- invisible hit regions over figure (no dots) -->
+      <button class="hit" data-id="head" style="left:44%;top:6%;width:12%;height:11%" aria-label="Head / Neck" type="button"></button>
+      <button class="hit" data-id="shoulders" style="left:32%;top:18%;width:36%;height:9%" aria-label="Shoulders" type="button"></button>
+      <button class="hit" data-id="core" style="left:42%;top:28%;width:16%;height:16%" aria-label="Core" type="button"></button>
+      <button class="hit" data-id="arms" style="left:62%;top:26%;width:12%;height:18%" aria-label="Left Arm" type="button"></button>
+      <button class="hit" data-id="hips" style="left:40%;top:46%;width:20%;height:10%" aria-label="Hips" type="button"></button>
+      <button class="hit" data-id="rleg" style="left:34%;top:58%;width:14%;height:28%" aria-label="Right Leg" type="button"></button>
+      <button class="hit" data-id="lleg" style="left:52%;top:58%;width:14%;height:28%" aria-label="Left Leg" type="button"></button>
+    </div>
+
+    <aside class="gutter right">
+      <button class="region" data-status="ok" data-id="core" type="button">
+        <div><div class="nm">Core</div><div class="sc">STRONG · PUSH</div></div>
+        <svg class="micro" viewBox="0 0 44 44"><circle cx="22" cy="22" r="16" fill="none" stroke="#111621" stroke-width="4"/><circle cx="22" cy="22" r="16" fill="none" stroke="#4fc46a" stroke-width="4" stroke-dasharray="100.5" stroke-dashoffset="10" transform="rotate(-90 22 22)"/><text x="22" y="26" text-anchor="middle">90</text></svg>
+        <svg class="spark" viewBox="0 0 120 18" preserveAspectRatio="none"><polyline fill="none" stroke="#4fc46a" stroke-width="1.6" points="0,11 20,10 40,9 60,8 80,8 100,7 120,6"/></svg>
+      </button>
+      <button class="region" data-status="ok" data-id="arms" type="button">
+        <div><div class="nm">Hands / Arms</div><div class="sc">FRESH · PUSH</div></div>
+        <svg class="micro" viewBox="0 0 44 44"><circle cx="22" cy="22" r="16" fill="none" stroke="#111621" stroke-width="4"/><circle cx="22" cy="22" r="16" fill="none" stroke="#4fc46a" stroke-width="4" stroke-dasharray="100.5" stroke-dashoffset="6" transform="rotate(-90 22 22)"/><text x="22" y="26" text-anchor="middle">94</text></svg>
+        <svg class="spark" viewBox="0 0 120 18" preserveAspectRatio="none"><polyline fill="none" stroke="#4fc46a" stroke-width="1.6" points="0,10 20,9 40,9 60,8 80,7 100,7 120,6"/></svg>
+      </button>
+      <button class="region" data-status="ok" data-id="lleg" type="button">
+        <div><div class="nm">Left Leg</div><div class="sc">BASE CLEAR</div></div>
+        <svg class="micro" viewBox="0 0 44 44"><circle cx="22" cy="22" r="16" fill="none" stroke="#111621" stroke-width="4"/><circle cx="22" cy="22" r="16" fill="none" stroke="#4fc46a" stroke-width="4" stroke-dasharray="100.5" stroke-dashoffset="12" transform="rotate(-90 22 22)"/><text x="22" y="26" text-anchor="middle">88</text></svg>
+        <svg class="spark" viewBox="0 0 120 18" preserveAspectRatio="none"><polyline fill="none" stroke="#4fc46a" stroke-width="1.6" points="0,10 20,9 40,10 60,8 80,9 100,8 120,7"/></svg>
+      </button>
+    </aside>
+  </section>
+
+  <!-- WEIGHT -->
+  <section class="panel" id="p-weight" role="tabpanel" aria-labelledby="t-weight" hidden>
+    <div class="card">
+      <div class="hbar">Cut trajectory <span class="r">WEIGH-IN FRIDAY</span></div>
+      <div class="b">
+        <div class="statrow">
+          <div class="stat"><div class="k">Current</div><div class="v">55.1</div></div>
+          <div class="stat" style="text-align:right"><div class="k">Limit</div><div class="v gold">53.5</div></div>
+        </div>
+        <svg class="spark-lg" viewBox="0 0 640 160" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="wf" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#3f86cc" stop-opacity=".35"/><stop offset="1" stop-color="#3f86cc" stop-opacity="0"/></linearGradient>
+          </defs>
+          <line x1="0" y1="130" x2="640" y2="130" stroke="#f0c233" stroke-dasharray="6 5" stroke-width="1.5"/>
+          <text x="8" y="124" fill="#f0c233" font-size="11" font-family="IBM Plex Mono" font-weight="700">53.5 LIMIT</text>
+          <polygon fill="url(#wf)" points="0,40 64,48 128,52 192,58 256,68 320,78 384,90 448,102 512,114 576,122 640,128 640,160 0,160"/>
+          <polyline fill="none" stroke="#3f86cc" stroke-width="3" points="0,40 64,48 128,52 192,58 256,68 320,78 384,90 448,102 512,114 576,122 640,128"/>
+          <circle cx="640" cy="128" r="4" fill="#f0c233"/>
+        </svg>
+        <div class="pairrow">
+          <div class="pair"><span class="pl">TO CUT</span><span class="pv">1.6 KG</span></div>
+          <div class="pair"><span class="pl">TRACK</span><span class="pv" style="color:#8ff0a2">ON PACE</span></div>
+          <div class="pair"><span class="pl">PROTOCOL</span><span class="pv" style="font-size:16px">STANDARD</span></div>
+          <div class="pair"><span class="pl">COST NIGHT</span><span class="pv" style="color:#8ff0a2">0%</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="hbar">Load dials <span class="r">CAMP W4</span></div>
+      <div class="b">
+        <div class="dial-wrap">
+          <svg class="dial" viewBox="0 0 200 120">
+            <path d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke="#111621" stroke-width="14"/>
+            <path d="M20 100 A80 80 0 0 1 148 36" fill="none" stroke="#e8781c" stroke-width="14" stroke-linecap="round"/>
+            <text x="100" y="88" text-anchor="middle" fill="#f3f5fa" font-family="Bebas Neue" font-size="36">72</text>
+            <text x="100" y="108" text-anchor="middle" fill="#94a1b8" font-size="10" font-family="IBM Plex Mono" font-weight="700" letter-spacing="2">HYDRATION</text>
+          </svg>
+          <svg class="dial" viewBox="0 0 200 120">
+            <path d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke="#111621" stroke-width="14"/>
+            <path d="M20 100 A80 80 0 0 1 160 48" fill="none" stroke="#3f86cc" stroke-width="14" stroke-linecap="round"/>
+            <text x="100" y="88" text-anchor="middle" fill="#f3f5fa" font-family="Bebas Neue" font-size="36">81</text>
+            <text x="100" y="108" text-anchor="middle" fill="#94a1b8" font-size="10" font-family="IBM Plex Mono" font-weight="700" letter-spacing="2">ENERGY</text>
+          </svg>
+        </div>
+        <div class="bars">
+          <div>
+            <div class="bar-lab"><span>CUT STRESS</span><span>28%</span></div>
+            <div class="bar"><i style="width:28%;background:linear-gradient(90deg,#c8281f,#e8781c)"></i></div>
+          </div>
+          <div>
+            <div class="bar-lab"><span>SPARRING LOAD</span><span>74%</span></div>
+            <div class="bar"><i style="width:74%"></i></div>
+          </div>
+          <div>
+            <div class="bar-lab"><span>RECOVERY</span><span>61%</span></div>
+            <div class="bar"><i style="width:61%;background:linear-gradient(90deg,#2b5c33,#4fc46a)"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEDICAL -->
+  <section class="panel" id="p-med" role="tabpanel" aria-labelledby="t-med" hidden>
+    <div class="chipgrid">
+      <div class="mchip"><div class="k">Clearance</div><div class="t" style="color:var(--ok)">Spar ok</div><div class="bar"><i style="width:100%;background:linear-gradient(90deg,#1f6a38,#4fc46a)"></i></div></div>
+      <div class="mchip"><div class="k">Watch</div><div class="t" style="color:var(--warn)">R shoulder</div><div class="bar"><i style="width:55%;background:linear-gradient(90deg,#a85a10,#e8781c)"></i></div></div>
+      <div class="mchip"><div class="k">Flag</div><div class="t" style="color:var(--hot)">Hip load</div><div class="bar"><i style="width:78%;background:linear-gradient(90deg,#8a1812,#c8281f)"></i></div></div>
+      <div class="mchip"><div class="k">Monitor</div><div class="t" style="color:var(--warn)">R leg 77</div><div class="bar"><i style="width:42%;background:linear-gradient(90deg,#a85a10,#e8781c)"></i></div></div>
+    </div>
+    <div class="gaugerow">
+      <div class="gauge-card">
+        <div class="k">Injury risk</div>
+        <svg class="gauge-svg" viewBox="0 0 200 110">
+          <path d="M20 95 A80 80 0 0 1 180 95" fill="none" stroke="#111621" stroke-width="14"/>
+          <path d="M20 95 A80 80 0 0 1 70 28" fill="none" stroke="#4fc46a" stroke-width="14" stroke-linecap="round"/>
+          <text x="100" y="78" text-anchor="middle" fill="#f3f5fa" font-family="Bebas Neue" font-size="40">6%</text>
+        </svg>
+        <div class="note">Low overall. Soft-tissue only — no medical hold.</div>
+      </div>
+      <div class="gauge-card">
+        <div class="k">Hip stress</div>
+        <svg class="gauge-svg" viewBox="0 0 200 110">
+          <path d="M20 95 A80 80 0 0 1 180 95" fill="none" stroke="#111621" stroke-width="14"/>
+          <path d="M20 95 A80 80 0 0 1 150 38" fill="none" stroke="#c8281f" stroke-width="14" stroke-linecap="round"/>
+          <text x="100" y="78" text-anchor="middle" fill="#ff6b5e" font-family="Bebas Neue" font-size="40">68</text>
+        </svg>
+        <div class="note">Hot region. Protect in hard sparring; film clinch entries.</div>
+      </div>
+      <div class="gauge-card">
+        <div class="k">Right leg niggle</div>
+        <svg class="gauge-svg" viewBox="0 0 200 110">
+          <path d="M20 95 A80 80 0 0 1 180 95" fill="none" stroke="#111621" stroke-width="14"/>
+          <path d="M20 95 A80 80 0 0 1 132 30" fill="none" stroke="#e8781c" stroke-width="14" stroke-linecap="round"/>
+          <text x="100" y="78" text-anchor="middle" fill="#e8781c" font-family="Bebas Neue" font-size="40">77</text>
+        </svg>
+        <div class="note">Soft tissue from hard spar. Monitor — available to fight.</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div id="tip" role="tooltip"></div>
+<script>
+const DATA={
+  head:{label:'Head / Neck',status:'CLEAR',cls:'ok',score:92,note:'No flags. Sparring load normal.'},
+  shoulders:{label:'Shoulders',status:'TIGHT R',cls:'warn',score:84,note:'Right trap tightness. Manage volume; wrap care.'},
+  core:{label:'Core',status:'STRONG',cls:'ok',score:90,note:'Core clear. Conditioning feeds recovery.'},
+  arms:{label:'Hands / Arms',status:'FRESH',cls:'ok',score:94,note:'Strike volume green. Power side clear.'},
+  hips:{label:'Hips',status:'HOT',cls:'hot',score:68,note:'Hip load flagged. Protect — reduce clinch rounds.'},
+  rleg:{label:'Right Leg',status:'NIGGLE',cls:'warn',score:77,note:'Soft tissue niggle from hard sparring. Monitor — no medical hold.'},
+  lleg:{label:'Left Leg',status:'BASE CLEAR',cls:'ok',score:88,note:'Kick / base clear. Fresh for pressure plan.'}
+};
+const tip=document.getElementById('tip');
+function show(id,x,y){
+  const d=DATA[id]; if(!d) return;
+  tip.innerHTML='<strong>'+d.label+' · '+d.score+'</strong><div class="st '+d.cls+'">'+d.status+'</div><div class="meta">'+d.note+'</div>';
+  tip.style.display='block';
+  tip.style.left=Math.min(1920-280,x+14)+'px';
+  tip.style.top=Math.min(1080-100,y+14)+'px';
+}
+function hide(){ tip.style.display='none'; }
+document.querySelectorAll('.hit,.region').forEach(el=>{
+  const id=el.dataset.id;
+  el.addEventListener('mouseenter',e=>show(id,e.clientX,e.clientY));
+  el.addEventListener('mousemove',e=>show(id,e.clientX,e.clientY));
+  el.addEventListener('mouseleave',hide);
+  el.addEventListener('focus',()=>{ const r=el.getBoundingClientRect(); show(id,r.right,r.top); });
+  el.addEventListener('blur',hide);
+});
+const tabs=[['t-map','p-map'],['t-weight','p-weight'],['t-med','p-med']];
+tabs.forEach(([tid,pid])=>{
+  document.getElementById(tid).addEventListener('click',()=>{
+    tabs.forEach(([t,p])=>{
+      document.getElementById(t).setAttribute('aria-selected', t===tid?'true':'false');
+      document.getElementById(p).hidden = p!==pid;
+    });
+  });
+});
+</script>
+</body>
+</html>

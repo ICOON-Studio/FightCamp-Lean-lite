@@ -1,0 +1,9 @@
+Completed and pushed `eb2677b2` to `codex/mh2-metahuman-boxers-wip-s143`.
+
+[Watch the 20-second fight video](E:/FightCamp/wt/MH2/previews/mh2/live_room.mp4).
+
+- Four MetaHuman models integrated; body and regression gates pass.
+- C223 remains failing: 346/356 measured rows have findings; 44 combinations lack assets.
+- Average frame time: **16.56 ms MetaHuman vs 12.58 ms MPFB**.
+
+[Full delivery report](E:/FightCamp/wt/MH2/research/MH2_DIGEST.md).

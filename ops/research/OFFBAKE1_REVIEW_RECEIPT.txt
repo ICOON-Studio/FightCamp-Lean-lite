@@ -1,0 +1,18 @@
+OFFBAKE1 final S226 review publication receipt
+Review: E:\FightCamp\review\2026-10-15_2155_offbake1_final_a_b_hook_facing_regressio
+Stage: S226
+Twelve original PNGs opened in file-image tool before posting.
+Supersedes requested prior 2135 post; tool found zero older active posts.
+
+before/guard.png -> guard.png SHA256 195cef8634db96a57fc13f70291f84177f4f85249394cff8e55a5167256aebf0
+after/guard.png -> guard_1.png SHA256 30bc1bd6d44d568f57bad16adc32e4746b14d79a6692d12a0028416f613a1fea
+before/jab_between.png -> jab_between.png SHA256 4ce271045bb940046e4b50cf9334ca3aaf801698ad61074acf40d2376594d472
+after/jab_between.png -> jab_between_1.png SHA256 f8800c2dbe96902d6be01090bdbebe6a17afe19abf3a7fb59b03c5815bc70b74
+before/jab_contact.png -> jab_contact.png SHA256 3d071fe4c1786bdfec1478558e73740951d52f41e271879449a2941379c148c0
+after/jab_contact.png -> jab_contact_1.png SHA256 7c7358f2b9ddf4a9e5a1294749962245332b8a741240dc07df80062689d69b32
+before/cross_contact.png -> cross_contact.png SHA256 a50baeb4e80c43f47ff2a05cc434fe1f8c795623be4e1d66447f7d707512a185
+after/cross_contact.png -> cross_contact_1.png SHA256 d149583b58738a3fbe266c22989e5b8339afd28b54def2f7399254299a13f241
+before/hook_contact.png -> hook_contact.png SHA256 32231b970f1edc3e2f4b4d94b306b73fe6cc086b5645bf339560632f17c50ad0
+after/hook_contact.png -> hook_contact_1.png SHA256 2105bed273d68c1253c276ab23bf8a3e592f0c9e57c80b979135b75820d50d0a
+before/uppercut_contact.png -> uppercut_contact.png SHA256 7902f8ad17945edb332ef6a63e343254447042e518eab52ae583f5e28cbdb220
+after/uppercut_contact.png -> uppercut_contact_1.png SHA256 45721456dfbc05ab33ef70c8e25060eb2eb9b06313635489be0c71a83bc58ab5

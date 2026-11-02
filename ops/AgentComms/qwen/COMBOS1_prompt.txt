@@ -1,0 +1,1 @@
+You work in E:\FightCamp\wt\LEAN_COMBOS1 (a git worktree of the Lean game repo, branch qwen/combos1). Read COMBOS_DESIGN_S302.md and TASK_COMBOS1.md in that folder and do exactly what the task says: create scripts/rules/Combos.gd and tests/combos_test.gd, run the two headless tests it names, commit on qwen/combos1. Do not touch any other file. Do not open any window. Do not push.

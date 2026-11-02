@@ -1,0 +1,295 @@
+TASK J_TPH_LOOK (John, deep research) - FightCamp S206
+FightCamp is a PC boxing-gym management sim (Godot 4.7.2, tiny studio, Football Manager / Motorsport Manager depth) whose gym is a
+3D top-down club the player watches. The CEO, looking at our current gym floor, asked (verbatim): "how are these assets made in
+the game ? why we cannot have beautiful graphics and assets like 2point hospital ?"
+Research and answer in depth (the longest complete answer you can, with sources/links):
+1. How Two Point Hospital / Two Point Campus / Two Point Museum get their look: team size, art pipeline (modelling, texturing,
+   hand-painted vs PBR, shaders, lighting, outlines, colour scripts), the style rules that make rooms readable from the camera.
+2. Which other management sims hit a similar charm on small teams (e.g. Prison Architect, Jail/Gym Tycoon-style games, Rimworld-
+   era sims, Parkitect, Planet Coaster vs smaller titles) and how they did it.
+3. What a 1-2 person Godot team can realistically use to reach that look in weeks, not years: asset packs with their LICENCE and
+   price (Synty POLYGON, Kenney, Quaternius, KayKit, Itch packs) that include gym / fitness / boxing equipment (heavy bags, rings,
+   racks, treadmills, mats), stylised character packs that could replace realistic MPFB bodies in the gym view, Godot shader
+   approaches (toon / stylised PBR / outlines), and AI 3D generation (Meshy, Tripo, Hunyuan3D) quality for props.
+4. A concrete recommendation: the 5 changes with the biggest visual gain per hour for a top-down 3D gym, in order.
+Plain words, numbers where they exist, every claim with its source. No code needed.
+[send-message t43s365] On it. I'm researching how Two Point gets its look, which small teams reached similar charm, and what a 1–2 person Godot team can use. I'll send the full sourced answer here with the top 5 changes ranked.
+[send-message t43s366] The deep research for J_TPH_LOOK is underway, and the full document will come back here. It will also deal with one tension directly: J65 went semi-realistic for a Gleason's look, but the Two Point charm is stylised. Mixing Kenney toy furniture, realistic MPFB bodies and photoreal props is a likely cause of the current gym looking wrong, so the document will recommend one direction.
+[send-message t43s367] J_TPH_LOOK is finished. Two Point looks beautiful because it picked one strict, chunky, clay-like style on day one and every asset follows it, not because of budget or tech; the team was about 16 veterans at launch. Our gym most likely looks bad because it mixes three styles: Kenney toy furniture, realistic MPFB bodies and photoreal props. My recommendation is to go stylised, keeping J65's Gleason's colours and set dressing. The full document (279 lines) follows in three parts.
+[send-message t43s368] # J_TPH_LOOK - Why Two Point looks beautiful, and how we get there
+
+- Date: 2026-10-11 (Asia/Nicosia)
+- Owner: John Research
+- Status: research only. No game code was changed.
+- Question (CEO, verbatim): "how are these assets made in the game ? why we cannot have beautiful graphics and assets like 2point hospital ?"
+- Tags: **SOURCED** = backed by the linked page (page date given, all accessed 2026-10-11). **JUDGEMENT** = my opinion or estimate. **NOT FOUND** = I looked and could not verify it. **INTERNAL** = from our own brief or memos, not the web.
+
+---
+
+## 0. Answer first
+
+- **Two Point is not beautiful because of a big budget or fancy tech. It is beautiful because one strict style was chosen on day one and every asset obeys it.** The art director Mark Smart was the only artist at the start and picked "a simple, cartoonish style that was easy to put together and where the characters' expressions were clearly visible" (Gameliner interview, 2022-05-26, translated from Dutch). The rules were "clean and simplistic", "slightly chunky, a lot more rounded and soft", "no real dirt or noisiness" (Hardcore Gamer, 2018-07-18). SOURCED.
+- **The team was small when it shipped.** Two Point Hospital started with about 6 people and shipped with about 16 after roughly 2 years (Gamingcypher, 2018). Sega bought a 17-person studio in May 2019 (Sega IR, 2019-05-09). Wikipedia now lists 40 staff, date of that figure NOT FOUND. These were 20-year veterans from Bullfrog, Lionhead and Mucky Foot, not beginners. SOURCED. So "small team" is true, but it was a small team of experts. JUDGEMENT.
+- **Why our gym looks bad: our assets do not match each other.** We are mixing three styles: toy-like Kenney furniture (CC0), realistic MakeHuman/MPFB2 bodies, and the photoreal Poly Haven / Sketchfab gear that J65 proposed. INTERNAL (brief). Two Point's main lesson is a single style that holds together, and our mix breaks exactly that rule. JUDGEMENT. That clash, plus flat lighting with no ambient occlusion or colour grading, is the most likely reason the floor looks "ugly". JUDGEMENT.
+- **Pick one direction: stylised, not semi-realistic.** I recommend a "chunky stylised" look, like Two Point or a toy diorama. Keep the J65 Gleason's/Repton cues (red walls with photos, grey concrete, black steel columns, red/black heavy bags), but build them as clean, simple, slightly oversized shapes with flat colour, not photo-scanned leather. JUDGEMENT. Reasons: (a) CC0 and cheap packs exist in this style, with gym and boxing items (see 3a). (b) Stylised characters avoid the uncanny look of realistic bodies seen from above. (c) A 1-2 person team cannot produce or clean up photoreal assets consistently. JUDGEMENT.
+- **Fastest route (weeks, not months):** (1) a lighting and post-processing pass in Godot (AgX tonemapper, SSAO, SSIL or a baked LightmapGI, a colour-grading LUT). (2) Replace the MPFB bodies with stylised CC0 characters (Quaternius Ultimate Modular, CC0) driven by CC0 or Mixamo animations. (3) Rebuild the props from ONE stylised gym pack. Candidates: Synty POLYGON Shops Pack, USD 199.99, which ships a Godot 4.6.2 project and includes treadmills, squat racks, boxing bags and gym characters. Or Shrimple3D Low Poly Fitness Gym Pack, USD 39.99, 900 prefabs including 4 boxing rings/MMA cages. SOURCED prices, checked 2026-10-11. (4) Readability rules: walls-down cutaway, colour-coded floor zones, props scaled up slightly. (5) Polish: tilt-shift DOF and an optional outline. Total about 60-100 hours. JUDGEMENT.
+- **Licence traps found today:** Synty's licence works in any engine and covers 5 seats per purchase, but bans feeding Synty files into AI 3D generators (Synty EULA, as at 2026-07-09). Synty's new "Sidekick" characters list only Unity/Unreal files, with no FBX or Godot project. Hunyuan3D 2.1's licence explicitly does NOT apply in the European Union, UK or South Korea, so it is unusable for a Cyprus-based studio. Tripo's free tier is non-commercial. Meshy's free tier is CC BY 4.0 (credit required). SOURCED.
+- **AI 3D generation is a helper, not the answer.** Paid tiers cost about USD 20/month (Meshy Pro: 1,000 credits, about 20 credits per model; Tripo Pro: about 200 models/month, billed annually). Independent tests still report topology that needs cleanup (top3d.ai, 2026-01-02). SOURCED. Generated textures will clash with a flat stylised palette unless repainted. JUDGEMENT.
+- **GDC / 80.lv / Unity art-pipeline talks about Two Point's art: NOT FOUND.** Facts on the pipeline come from interviews and artists' portfolio pages. Exact details like hand-painted vs PBR texturing, outline use and post-processing are NOT FOUND (see section 6).
+
+---
+
+## 1. Two Point Hospital / Campus / Museum: how the look was made
+
+### 1.1 Studio and team over time
+
+| When | Fact | Tag | Source (page date) |
+|---|---|---|---|
+| 26 Jul 2016 | Two Point Studios founded in Farnham, UK, by **Ben Hymers, Mark Webley and Gary Carr** (three founders, not two) | SOURCED | Wikipedia "Two Point Studios" (accessed 2026-10-11); GamesIndustry.biz 2019-05-09 |
+| Jan 2017 | Publishing partnership with Sega Europe's "Searchlight" programme begins | SOURCED | Sega Sammy IR notice, 2019-05-09 |
+| 2016-2018 | "We started with just 6 people on the team, and now there are 16 of us. It took about 2 years developing the game." (Mark Smart, paraphrased by interviewer) | SOURCED | Gamingcypher interview, 2018 (exact day NOT FOUND) |
+| 2016 | "our founding eight ... They'd all worked on Fable for many years" (Mark Webley) | SOURCED | Screen Rant, 2022-06-10 |
+| Hospital era | "we were a small team; probably about 10-15 of us" (Webley) | SOURCED | Screen Rant, 2022-06-10 |
+| Start of Hospital | Mark Smart: when work began "I was the only artist employed and had to devise and make it myself" (translated from Dutch) | SOURCED | Gameliner, 2022-05-26 |
+| 30 Aug 2018 | Two Point Hospital launches on PC | SOURCED | Sega IR notice, 2019-05-09 |
+| 9 May 2019 | Sega acquires the studio; "17-strong team" | SOURCED | Sega IR notice 2019-05-09; Eurogamer 2019-05-09 |
+| 9 Aug 2022 | Two Point Campus launches (PC + consoles) | SOURCED | Gameliner, 2022-05-26 |
+| 5 Mar 2025 | Two Point Museum launches on PC, PS5, Xbox Series X/S | SOURCED | GamerBraves interview (date NOT FOUND); Unity blog 2025-03-05 |
+| Now | ~40 employees (Wikipedia infobox; date of figure NOT FOUND; LinkedIn headcount not checked) | SOURCED (weak) | Wikipedia (accessed 2026-10-11) |
+| Art team size | Exact art headcount at any point: **NOT FOUND**. Named art staff: Mark Smart (art director), Chris Knott (lead, later senior, animator), David Oxford (senior environment artist), Przemek Fatek (artist, rooms and textures), Nikta Farrokhi (senior artist, from a search snippet, not opened) | SOURCED / NOT FOUND | PCGamesInsider 2018-08-30; Screen Rant 2022-06-10; ArtStation pages (dates NOT FOUND) |
+| Name check | **Ben Hymers is co-founder and Technical Director, not the art director.** The art director is **Mark Smart** | SOURCED | GameWatcher, 2018-07-18; Unity blog, 2025-03-05 |
+
+### 1.2 Art pipeline (what is known, what is not)
+
+| Topic | What we know | Tag | Source (page date) |
+|---|---|---|---|
+| Engine | Unity, for Hospital, Campus and Museum | SOURCED | GameWatcher 2018-07-18 ("modern game engine"); Unity blog 2025-03-05 |
+| Modelling tools | Senior environment artist David Oxford lists Maya, Photoshop, Substance 3D Designer, ZBrush. That is one person's résumé, not a confirmed studio-wide pipeline | SOURCED (individual) | davidoxfordjnr.artstation.com/resume (date NOT FOUND) |
+| Marketing (not the game) | Trailer artist Kev Hayes rebuilt game assets in Maya, textured in Substance Painter, rendered in Unity, later in Octane | SOURCED | kevhayes.com/two-point-hospital (date NOT FOUND) |
+| Texturing method | Artists did make per-room textures ("from the assets to the room textures"). Whether these are hand-painted, PBR or flat colour atlases: **NOT FOUND** | SOURCED / NOT FOUND | merp.artstation.com/projects/VdGLVZ (date NOT FOUND) |
+| Texturing (observation) | Surfaces look mostly flat colour with soft gradients and very little high-frequency detail, consistent with "no real dirt or noisiness" | JUDGEMENT | from Hardcore Gamer 2018-07-18 quote |
+| Lighting, Hospital/Campus | Specific technique (baked or real-time GI, AO type): **NOT FOUND** | NOT FOUND | - |
+| Lighting exploration | Early Maya renders of the meta-map were used "to help explore lighting methods. The simple, toy-like/miniature quality worked best." | SOURCED | davidoxfordjnr.artstation.com/projects/mqWod1 (date NOT FOUND) |
+| Lighting, Museum | "a custom Global Illumination-like lighting system that spreads light around beautifully"; "dark corners contrasting with the glowing bright areas near windows, and the exhibits lit with spotlights" (Ben Hymers) | SOURCED | Unity blog, 2025-03-05 |
+| Outlines | **NOT FOUND** in any source. Screenshots show no ink outlines | NOT FOUND / JUDGEMENT | - |
+| Post-processing / tilt-shift / DOF | **NOT FOUND** in any source | NOT FOUND | - |
+| Colour palette | "very even-toned, with lots of different colors but nothing too heavily saturated or distracting" (Smart, paraphrased) | SOURCED | Gamingcypher, 2018 |
+| Long-life style | Gary Carr: "a very clay/soft look that doesn't look too rendered, it looks a little wonky and hand-crafted", so it is "not too tech dependent" and ages slowly | SOURCED | Retronauts, 2018-05-09 |
+| Data overlays | Hospital's heat-map views are often copied. How they are built: NOT FOUND (only a forum guess) | NOT FOUND | Unity Discussions thread (date NOT FOUND) |
+
+### 1.3 Character style rules
+
+| Rule | Evidence | Tag | Source (page date) |
+|---|---|---|---|
+| Claymation / Wallace & Gromit look | Interviewer and Smart both reference "old claymation movies like Wallace and Gromit"; Webley: "something that looks handmade, kind of like Wallace and Gromit" | SOURCED | Hardcore Gamer 2018-07-18; Screen Rant 2022-06-10 |
+| Big hands and feet for top-down readability | "characters to be easily seen from a distance ... that's why we gave the characters such large hands and feet!" | SOURCED | Gamingcypher, 2018 |
+| Modular bodies for variety | "different sets of legs, different jackets, different textures on those jackets"; masks stop wrong combinations ("you won't be seeing any doctors wearing shorts"); art sets a naming convention that code reads | SOURCED | Hardcore Gamer, 2018-07-18 |
+| Faces readable from far away | Hospital used only "six or five" blendshapes for expressions; Campus moved to "a full face rig ... so the characters can properly emote to the player from further away" | SOURCED | Screen Rant, 2022-06-10 |
+| Animation carries comedy and state | Students should "do stupid things and to look silly, while still drawing your attention" to problems; anger visible without menus | SOURCED | Screen Rant, 2022-06-10 |
+| Variation where the player looks most | The most repeated animations (cupboard, bed, shower) get the most variants | SOURCED | Screen Rant, 2022-06-10 |
+| Big head proportion | Not stated in any source. Characters look moderately stylised, not chibi | NOT FOUND / JUDGEMENT | - |
+
+### 1.4 Room readability rules
+
+| Rule | Evidence | Tag | Source (page date) |
+|---|---|---|---|
+| See through walls | Smart's favourite new feature: "The ability to see behind the walls! ... You can decorate your hospital a lot more, and now actually be able to see what you put there!" | SOURCED | GameWatcher, 2018-07-18 |
+| Clean, low noise | "When you're above the action there's no real dirt or noisiness" | SOURCED | Hardcore Gamer, 2018-07-18 |
+| Chunky, rounded, soft shapes | "We made everything sort of slightly chunky, and a lot more rounded and soft so that [players] could pick out what the action was" | SOURCED | Hardcore Gamer, 2018-07-18 |
+| One hero machine per room | "In every room, we've got the main centerpiece machine"; Campus courses each have "a very large set piece" | SOURCED | Screen Rant, 2022-06-10 |
+| Props have a game function | "if you put down a plant or bin ... Everything has a knock-on effect on the staff and patients" | SOURCED | PCGamesInsider, 2018-08-30 |
+| Player decoration | Campus/Museum added colourable items, wallpapers, colour picker and partition walls, so players make rooms pretty themselves | SOURCED | Unity blog 2025-03-05; Screen Rant (Museum, date NOT FOUND) |
+| Object scale exaggeration | Not stated. Machines and props look oversized next to characters | NOT FOUND / JUDGEMENT | - |
+| Colour-coding of rooms | Not stated as a rule | NOT FOUND | - |
+| Clutter density | Not stated. Rooms look busy with props but low in surface detail | NOT FOUND / JUDGEMENT | - |
+
+**What this means for FightCamp (JUDGEMENT):** Two Point gets its beauty from consistency (one shape language, one palette, one texture density), readability (cutaway walls, chunky shapes, big hands and feet) and life (lots of animation variation). None of these needs AAA tech. All of them need one style decision that is then held to.
+
+---
+
+## 2. Other management sims with charm on small teams
+
+| Game (developer) | Team size (verified) | Art approach | Lesson for us | Tag | Source (page date) |
+|---|---|---|---|---|---|
+| Prison Architect (Introversion) | Studio core of 3 (Morris, Delay, Arundel) plus freelancers; one artist, Ryan Sumo, and one audio person during alpha | 2D top-down, simple flat "iconic" sprites; started from a blueprint look that was dropped; wall colours used to separate areas | One artist plus a strict, simple style can carry a hit sim | SOURCED | MCV/Develop 2012-10-15; Ryan Sumo blog 2012-01-12 |
+| RimWorld (Ludeon Studios) | Tynan Sylvester did the early art himself, then hired pixel artist Rhopunzel (2013); Ricardo Tomé credited for art (portraits/key art) | 2D vector, very abstract characters: "We'd rather have 100 kinds of characters with 3 frames of animation each than 3 characters with a hundred frames each" | Variety and readability beat detail; abstraction leaves room for player imagination | SOURCED | Ludeon blog 2013-12-10; MobyGames credits (date NOT FOUND) |
+| Parkitect (Texel Raptor) | 3 people at Kickstarter (Sebastian Mayer code, Garret Randell art, Gordon McGladdery audio); a 4th joined in 2019; 2 community contractors | Stylised low-poly 3D in Unity; a single artist made all assets | A 1-artist team can ship a 3D tycoon if the style is simple. Exact shading method NOT FOUND | SOURCED / JUDGEMENT | Texel Raptor blog 2025-11-29; Cliqist 2014-09-18 |
+| Project Hospital (Oxymoron Games) | "a team of 2-4 people"; Roman was "lead designer and main artist" | Clean, realistic-leaning isometric hospital | Even realism works if it is consistent across all assets. Its look is plainer than Two Point | SOURCED / JUDGEMENT | Journal of Geek Studies 2020-03-08 |
+| Megaquarium (Twice Circled) | Designer Tim Wicksteed; all in-game visuals by one artist, Rob Wicksteed | Full 3D, "modelled in Cinema4D, textured using Photoshop and After Effects"; Unity | Two people can make a charming 3D management sim with simple textured models | SOURCED | rob-wtd.co.uk 2020-04-01; Wikipedia (accessed) |
+| Big Pharma (Twice Circled) | Designer Tim Wicksteed, art by Rob Wicksteed ("our first title"); not full 3D | Isometric, simple readable machines; Unity | Clear machine shapes and conveyor readability over realism | SOURCED | rob-wtd.co.uk 2020-04-01; Wikipedia (accessed) |
+| Gym Manager (Han GAMES / PlayWay) | Team size NOT FOUND | 3D gym management; Steam page discloses "Few images in-game are prepared using AI tools" | The closest genre rival. A direct comparison of art quality was not done (NOT FOUND) | SOURCED / NOT FOUND | Steam store page (accessed 2026-10-11; release 2024-07-31) |
+| Planet Coaster (Frontier) | Team size NOT FOUND (not researched) | Detailed semi-real 3D | Shown only to contrast with big-team realism | NOT FOUND | - |
+
+**Pattern (JUDGEMENT):** every small-team success above either went abstract (Prison Architect, RimWorld) or went simple stylised 3D with one artist owning every asset (Parkitect, Megaquarium). None of them mixed asset sources from different style families.
+[send-message t43s369] ## 3a. Asset packs: gym, boxing and interior items
+
+| Pack | Gym / boxing items | Style | Licence (exact) | Price (2026-10-11) | URL | Page date |
+|---|---|---|---|---|---|---|
+| Synty POLYGON - Shops Pack | Treadmill, cross trainer, benches, leg press, pec deck, leg curl, squat rack, spin bike, dumbbells, kettlebells, plates, yoga mats, Swiss balls, **boxing bags**, boxing glove; "Gym Female/Gym Male" characters; 1,933 prefabs | Low-poly, flat-colour atlas | Synty One Time Purchase Licence: "not limited by game engine"; 5 seats per licence; bans use for AI 3D generation and uploading source files to AI services | USD 199.99 | syntystore.com/products/polygon-shops-pack | Listing says "Compatible with Godot 4.6.2" with a Godot project + FBX; EULA "As at 9 July 2026" |
+| Shrimple3D Low Poly Fitness Gym Pack | 900 prefabs: 4 boxing rings/MMA cages, 41 "fight zone" props, 33 barbells/racks, 23 dumbbells/kettlebells, 20 cardio machines, rigged characters with facial blendshapes | Low-poly stylised | Page lists Standard Unity Asset Store EULA. Unity says Asset Store assets may be used in other engines if not redistributed. Confirm the per-pack field before buying | USD 39.99 | assetstore.unity.com/packages/3d/props/interior/low-poly-fitness-gym-pack-257326 | Unity support article 2025-07-02 |
+| IceTimeAdventures Low Poly Boxing Gym Asset Pack | Full boxing ring, corner stools, heavy bags + stand, speed bags, treadmill, dumbbell rack, lockers, floor mats | Low-poly; FBX/Blender; "No generative AI was used" | **NOT FOUND** on page (no licence text). Ask the seller before commercial use | USD 3.99 or more | icetimeadventures.itch.io/low-poly-boxing-gym-asset-pack | accessed 2026-10-11 |
+| Synty POLYGON - Office Pack | Office props for manager office/front desk; 18 characters | Low-poly | Synty EULA (as above) | USD 49.99 | syntystore.com/products/polygon-office-pack | Unity/Unreal + FBX/OBJ |
+| Synty POLYGON Starter Pack | Sampler | Low-poly | Synty EULA | Free | syntystore.com/products/polygon-starter-pack | Godot 4.6.2 project listed |
+| Kenney Furniture Kit | 140 furniture files (chairs, tables, beds); no gym gear | Toy-like flat colour | Creative Commons CC0 | Free | kenney.nl/assets/furniture-kit | Released 2018 |
+| Poly Haven (J65 choice) | Textures/HDRIs/models; semi-real | Photoreal | CC0 | Free | polyhaven.com/license | accessed 2026-10-11 |
+| Free CC0 single props (punching bag, weights) | Punching bag, weights | Mixed | Stated CC0 in search snippets; pages not opened. OpenGameArt returned "Access denied" | Free | pixor.art, grab3d.com, opengameart.org | NOT FOUND (unverified) |
+
+Notes:
+- The Synty Shops Pack is the only pack found today that ships an **official Godot project** and also contains gym machines plus boxing bags. SOURCED. It has no boxing ring (none listed), so pair it with a ring from the USD 3.99 or USD 39.99 pack, or build one from primitives in 2-4 hours. JUDGEMENT.
+- Do not mix Synty and Kenney in the same room without a recolour pass. Both are flat-colour, but proportions and bevels differ. JUDGEMENT.
+
+## 3b. Stylised character packs (to replace realistic MPFB2 bodies)
+
+| Pack | What you get | Style | Licence (exact) | Price | URL | Page date |
+|---|---|---|---|---|---|---|
+| Quaternius Ultimate Modular Women (and matching Men pack) | 10 characters, each split into 4 swappable parts, 24 animations, humanoid rig; FBX/OBJ/glTF/Blend | Stylised, chunky, simple colours | CC0 ("free to use in personal and commercial projects"; no attribution needed per FAQ) | Free | quaternius.com/packs/ultimatemodularwomen.html | Feb 2022. Men pack page returned "doesn't exist" at the URL I guessed, so its URL is NOT FOUND |
+| Quaternius Universal Animation Library | 120+ animations on a universal humanoid rig, "compatible with Unreal Engine, Godot and Unity, ready for retargeting" | - | CC0 | Free | quaternius.com/packs/universalanimationlibrary.html | Mar 2025 |
+| KayKit Character Pack: Adventurers | 5 rigged/animated characters (+3 in paid EXTRA); single 1024x1024 gradient atlas; FBX/GLTF | Chunky stylised low-poly | CC0 ("please don't resell unmodified copies") | Free / USD 7.95+ for EXTRA | kaylousberg.itch.io/kaykit-adventurers | accessed 2026-10-11 |
+| KayKit Character Animations | Movement, unarmed melee, sitting, cheering etc. Retargetable | - | Licence line not captured in my fetch: NOT FOUND (other KayKit pages say CC0) | Name your own price | kaylousberg.itch.io/kaykit-character-animations | accessed 2026-10-11 |
+| Kenney Mini Characters | 25 files, animated | Very small toy figures | CC0 | Free | kenney.nl/assets/mini-characters | Released 2024 |
+| Kenney Blocky Characters | 20 files, animated | Blocky | CC0 | Free | kenney.nl/assets/blocky-characters | v2.0 remake |
+| Synty POLYGON City Characters | 19 characters x 4 colour variants x 3 skin tones; FBX (no Godot project listed); no animations | Low-poly | Synty EULA | USD 29.99 | syntystore.com/products/polygon-city-characters-pack | accessed 2026-10-11 |
+| Synty Sidekick Modern Civilians | 160+ parts, character creator tool | Stylised realistic | Synty EULA | USD 199.99 (free starter exists) | syntystore.com/products/modern-civilians-sidekick-modular-characters | Lists only Unity package + Unreal plugin, **no FBX/Godot**, so not usable for us |
+| Mixamo (Adobe) animations | Large humanoid animation library + auto-rigger | - | "use both characters and animations royalty free for personal, commercial, and non-profit projects including ... video games" | Free with Adobe ID | helpx.adobe.com/creative-cloud/faq/mixamo-faq.html | 2021-09-14 |
+
+JUDGEMENT: Quaternius Ultimate Modular is the best fit for a Two Point feel. It is modular like Two Point's character system, CC0, and chunky. Boxing-specific moves (bag work, pad work, skipping, sparring) will need Mixamo clips or our own keyframing. Mixamo's boxing clip coverage: NOT FOUND (not checked today).
+
+## 3c. Godot 4 look techniques (Godot 4.7.2 released 2026-08-18, SOURCED: GitHub release API)
+
+| Technique | What it does | Godot support (verified) | Licence / source | Cost to us | Tag |
+|---|---|---|---|---|---|
+| AgX tonemapper | Film-like curve, "Better than other tonemappers at maintaining the hue of colors as they become brighter"; separate AgX contrast control | Built-in Environment setting | Godot docs "Environment and post-processing" (stable, accessed) | 1 h | SOURCED |
+| 3D LUT colour grading | Grade a screenshot and a neutral LUT together in an image editor, then apply in-engine | Built-in (Environment > Adjustments > Color Correction) | Godot docs (same page) | 2-4 h | SOURCED |
+| SSAO | Contact shadows under bags, benches, feet | Forward+ and Compatibility only, not Mobile | Godot docs | 1 h | SOURCED |
+| SSIL | Screen-space bounce light, half-res by default | Forward+ only | Godot docs "Introduction to global illumination" | 1 h | SOURCED |
+| LightmapGI (baked) | Best visuals for static rooms: "baked techniques will often look better and will result in fewer light leaks"; "Suited for integrated graphics" | Built-in; baking needs RenderingDevice hardware | Godot docs GI intro | 4-8 h incl. UV2 setup | SOURCED |
+| SDFGI (real-time) | Real-time GI for large scenes; slower; not in Mobile/Compatibility | Built-in | Godot docs GI intro | 1-2 h | SOURCED |
+| Our choice of GI | Player-built gym rooms change layout, so a full LightmapGI bake per layout is awkward. Use SSIL + SSAO + warm key/cool fill, and test SDFGI on target hardware | - | - | - | JUDGEMENT |
+| Tilt-shift DOF (depth-based) | Miniature/diorama feel; blur from a focal plane; full-screen quad shader | Works on 4.3+ | godotshaders.com "Depth based Tilt-shift" (2023-12-20, updated 2024-08-23). Per-shader licence not shown in my fetch: NOT FOUND. The site allows CC0, MIT or GPL v3 | 2-3 h | SOURCED / NOT FOUND |
+| Built-in camera DOF | Near/far blur | Built-in CameraAttributes | Godot docs | 1 h | SOURCED |
+| Post-process outline (depth + normal) | Edge lines on all geometry | Godot 4.x only (needs normal buffer) | godotshaders.com "Post-Process Outline (Depth/Normal)" (2023-05-01, updated 2024-12-07). Licence NOT FOUND in fetch | 2-4 h | SOURCED / NOT FOUND |
+| Inverted-hull outline | Per-object outline via next-pass material | Godot 4 | godotshaders.com "Improved inverted hull" (licence/date NOT FOUND); EMBYRDEV/godot-toon-outline repo: MIT per GitHub API, last push 2023-05-25 | 2-4 h | SOURCED / NOT FOUND |
+| Distance-field outlines | Wide, efficient outlines | Godot 4 Forward+ (version claim from search snippet only) | pink-arcana/godot-distance-field-outlines: LICENSE says MIT for the project, with third-party assets excepted | 4-6 h | SOURCED (partly) |
+| Stylised material rule | Flat albedo colours, roughness about 0.6-0.8, no photo textures, small bevels so edges catch light | Standard material | - | 4-8 h for a pass | JUDGEMENT |
+| Outlines: yes or no? | Two Point uses none (no source says so). An outline can make cheap packs look unified, but it shifts the look toward "cartoon". Try it and A/B test | - | - | - | JUDGEMENT |
+
+## 3d. AI 3D generation for props
+
+| Tool | Pricing (verified 2026-10-11) | Commercial licence | Quality evidence (dated) | Fit for us | Tag |
+|---|---|---|---|---|---|
+| Meshy | Free USD 0 (100 credits/mo), Pro USD 20/mo (1,000 credits), Premium USD 40 (3,000), Ultra USD 100 (8,000), Studio USD 70/seat. One Image/Text-to-3D generation = 20 credits (25 for Meshy 7 Image-to-3D), so Pro is about 40-50 models/month | Paid: user owns output, full commercial. Free: CC BY 4.0, and the help centre says free users cannot download models | Retopology test: "Chaotic edge flow", "Heavy" manual cleanup (top3d.ai, 2026-01-02) | Props only, with cleanup | SOURCED (help.meshy.ai 2026-08-27; docs.meshy.ai) |
+| Tripo | Free (200 credits ≈ 13 models, **non-commercial**, public); Pro USD 20/mo billed annually (USD 240/yr), 3,000 credits ≈ 200 models, commercial; Max USD 90/mo | Paid tiers: "Private Models · Commercial Use" | Tripo's own claim: P2.0 makes native quads, 500-50K triangles or 500-25K quads, part separation (vendor blog, date NOT FOUND). Independent test: "Moderate" cleanup (top3d.ai, 2026-01-02) | Best AI option for low-poly props | SOURCED |
+| Hunyuan3D 2.1 (Tencent) | Open weights (self-host) | Licence: "DOES NOT APPLY IN THE EUROPEAN UNION, UNITED KINGDOM AND SOUTH KOREA"; use outside the Territory "is unlicensed and unauthorized" (release 2025-06-13) | Cleanest retopology in the top3d.ai test (2026-01-02) | **Do not use**: we are in Cyprus (EU) | SOURCED + JUDGEMENT |
+| Rodin (Hyper3D) | Plans: Free / Creator / Business / Enterprise. Dollar prices were not in the fetched page text: **NOT FOUND** (a search snippet said USD 30 and USD 120/mo, unverified) | Creator and above: "Unlimited export and any use" | Offers "Smart Low-Poly", baked normals. Independent dated test: NOT FOUND | Possible, not tested | SOURCED / NOT FOUND |
+| Texture quality (all) | - | - | Independent dated comparison of texture quality: **NOT FOUND** | Generated textures tend to have baked-in lighting and noise, which breaks a clean flat palette. Repaint as flat colours in Blender | JUDGEMENT |
+| Steam | - | Steam store pages carry an "AI Generated Content Disclosure" section (e.g. Gym Manager) | - | Budget for disclosure if AI assets ship | SOURCED |
+
+---
+
+## 4. Top-5 changes, ranked by visual gain per hour (JUDGEMENT throughout, hours are rough for one generalist)
+
+Before anything else, **write a one-page style sheet** (about 2 h). It should cover: "chunky stylised gym; Gleason's palette (brick-red walls, grey concrete floor, black steel columns, red/black/white leather); flat colours, no photo textures; characters with big hands and feet; props 10-25% oversized; warm key + cool fill; bright and alive." Every later step is checked against it. This matches the house rule "bright and alive, never dark or empty" (INTERNAL).
+
+| Rank | Change | Why it gives the most per hour | Rough hours |
+|---|---|---|---|
+| 1 | **Lighting + post pass**: AgX tonemapper, SSAO on, SSIL on, warm directional key (about 3,500-4,500 K feel) + cool fill/ambient, a few warm point lights over the ring and bags, one 3D LUT grade, slight bloom on windows | Touches every pixel without new assets. Contact shadows alone ground the props. Fixes the "flat/empty" feel quickly | 6-10 |
+| 2 | **Swap characters to stylised**: Quaternius Ultimate Modular (CC0), scaled hands and feet up about 15-20% in Blender, retarget Quaternius UAL / Mixamo / KayKit animations; 4-6 colour schemes per role (boxer, coach, member, staff) | Realistic MPFB bodies seen from above clash most with toy props. Characters are what the player watches | 16-30 |
+| 3 | **One prop source**: buy Synty Shops Pack (USD 199.99, Godot project) or Shrimple3D Fitness Gym Pack (USD 39.99, rings/cages), recolour to the style sheet, remove all Poly Haven/Sketchfab photoreal gear and any Kenney piece that does not match | Removes the style clash. Gym machines, bags and racks become one family | 12-20 |
+| 4 | **Readability rules**: walls-down/cutaway toggle (camera-facing walls drop to stubs), colour-coded floor mats per zone (ring = blue canvas, bag zone = red mats, weights = black rubber, cardio = grey), one hero object per zone (ring, bag row, rack), red brick walls with framed fight posters as decals | Two Point's own top feature was "see behind the walls". Zones read at a glance | 10-16 |
+| 5 | **Polish**: depth-based tilt-shift (subtle), A/B-test an outline shader, small bevels/edge highlights on props, idle animation variants for the most-seen actions (skipping, bag work, resting) | Gives the "miniature diorama" charm. Animation variety is where Two Point puts its comedy | 8-14 |
+| | **Total** | | **about 54-92 h, plus about 2 h for the style sheet** |
+
+What NOT to do (JUDGEMENT): do not mix photoreal scanned gear with stylised characters. Do not use AI generation as the main asset source. Do not add realistic grime textures (Two Point: "no real dirt or noisiness"). Show wear through shape, such as a slightly sagging bag or tape on gloves, and through colour, not through texture noise.
+
+### On the J65 tension (semi-realistic vs stylised), JUDGEMENT
+
+- J65 (2026-10-08) recommended semi-realistic Poly Haven CC0 + Sketchfab CC-BY gear for a Gleason's/Repton look. INTERNAL.
+- Two Point's charm is explicitly stylised, clay-like and "not too rendered". SOURCED (Retronauts 2018-05-09).
+- Recommendation: **keep J65's mood board, change its rendering style.** Gleason's is a palette and a set of objects: red walls, photos, concrete, steel, a ring in the middle. All of that can be built as chunky stylised assets. Semi-realism needs consistent photoreal characters, PBR texturing and lighting skill that a 1-2 person team cannot maintain. Mixing semi-real props with Kenney toys and MPFB humans is the most likely cause of today's ugliness.
+- Sketchfab CC-BY gear also adds attribution bookkeeping per asset. JUDGEMENT. (CC-BY requires credit. Sketchfab per-model terms were not re-checked today: NOT FOUND.)
+[send-message t43s370] ## 5. Sources (all accessed 2026-10-11)
+
+Two Point
+1. Hardcore Gamer, "Mark Smart Discusses Bringing Quirky Hospitals To Life in 'Two Point Hospital'", 2018-07-18. https://hardcoregamer.com/features/interviews/mark-smart-discusses-bringing-quirky-hospitals-to-life-in-two-point-hospital/306412/
+2. Gamingcypher, "Two Point Hospital Event Preview Impressions and Interview", 2018 (day NOT FOUND). https://gamingcypher.com/two-point-hospital-event-preview-impressions-and-interview/
+3. Retronauts, "Two Point Hospital: The Developers Speak", 2018-05-09. https://retronauts.com/article/848/two-point-hospital-the-developers-speak
+4. GameWatcher, "Two Point Hospital PC Interview", 2018-07-18. https://www.gamewatcher.com/interviews/two-point-hospital-interview/13046
+5. PCGamesInsider, "This is 20 years in the making", 2018-08-30. https://www.pcgamesinsider.biz/interviews-and-opinion/67708/this-is-20-years-in-the-making-meet-theme-hospital-spiritual-successor-two-point-hospital/
+6. GamesIndustry.biz, "Sega acquires Two Point Studios", 2019-05-09. https://www.gamesindustry.biz/sega-acquires-two-point-studios
+7. Eurogamer, "Sega acquires Two Point Hospital developer Two Point Studios", 2019-05-09. https://www.eurogamer.net/sega-acquires-two-point-hospital-developer-two-point-studio
+8. Sega Sammy IR notice, 2019-05-09. https://ircms.irstreet.com/contents/data_file.php?brand=93&filename=pdf_file.pdf&folder_contents=11198&src_data=249290&template=51
+9. Wikipedia, "Two Point Studios" (page date NOT FOUND). https://en.wikipedia.org/wiki/Two_Point_Studios
+10. Gameliner, interview with Lewis Brundish and Mark Smart, 2022-05-26. https://gameliner.nl/artikelen/interview-met-two-point-campus-director-lewis-brundish-en-art-director-mark-smart/42352
+11. Screen Rant, "Mark Webley & Chris Knott Interview: Two Point Campus", 2022-06-10. https://screenrant.com/mark-webley-chris-knott-interview-two-point-campus/
+12. Unity blog, "Expanding the Two Point universe", 2025-03-05. https://unity.com/blog/expanding-the-two-point-universe
+13. Screen Rant, Two Point Museum interview (date NOT FOUND). https://screenrant.com/two-point-museum-interview/
+14. GamerBraves, Two Point Museum interview (date NOT FOUND). https://www.gamerbraves.com/exclusive-two-point-museums-creative-vision-a-deep-dive-with-design-director-ben-huskins-and-senior-producer-jo-koehler/
+15. Przemek Fatek, ArtStation "Two Point Hospital Room assets" (date NOT FOUND). https://merp.artstation.com/projects/VdGLVZ
+16. David Oxford, ArtStation résumé and meta-map renders (dates NOT FOUND). https://davidoxfordjnr.artstation.com/resume ; https://davidoxfordjnr.artstation.com/projects/mqWod1
+17. Kev Hayes, Two Point Hospital promo (date NOT FOUND). http://www.kevhayes.com/two-point-hospital
+
+Other sims
+18. MCV/Develop, "Breaking out with Prison Architect", 2012-10-15. https://mcvuk.com/business-news/pc/breaking-out-with-prison-architect/
+19. Ryan Sumo, "On Introversion and Prison Architect", 2012-01-12. http://ryansumo.blogspot.com/2012/01/on-introversion-and-prison-architect.html
+20. Ludeon blog, "Rhopunzel in the house", 2013-12-10. https://ludeon.com/blog/2013/12/rhopunzel-in-the-house/
+21. MobyGames, RimWorld credits (date NOT FOUND). https://www.mobygames.com/game/84704/rimworld/credits/windows/
+22. Texel Raptor, "Seven years of Parkitect!", 2025-11-29. https://www.texelraptor.com/blog/seven-years-of-parkitect
+23. Cliqist, "Texel Raptor Discusses ... Parkitect", 2014-09-18. http://cliqist.com/2014/09/18/texel-raptor-discusses-amusement-park-sim-parkitect/
+24. Journal of Geek Studies, Project Hospital interview, 2020-03-08. https://jgeekstudies.org/2020/03/08/project-hospital-a-realistic-take-on-hospital-simulation/
+25. Rob Wicksteed, "Megaquarium", 2020-04-01. http://www.rob-wtd.co.uk/rob/2020/04/megaquarium-computer-game-trailer/
+26. Wikipedia, "Megaquarium" and "Big Pharma (video game)" (page dates NOT FOUND). https://en.wikipedia.org/wiki/Megaquarium ; https://en.wikipedia.org/wiki/Big_Pharma_(video_game)
+27. Steam, Gym Manager (release 2024-07-31). https://store.steampowered.com/app/2337460/Gym_Manager/
+
+Assets and licences
+28. Synty One Time Purchase Licence, "As at 9 July 2026". https://syntystore.com/pages/end-user-licence-agreement
+29. Synty POLYGON Shops Pack (USD 199.99). https://syntystore.com/products/polygon-shops-pack
+30. Synty Office Pack, City Characters, Starter Pack, Sidekick Modern Civilians product pages. https://syntystore.com/products/polygon-office-pack ; https://syntystore.com/products/polygon-city-characters-pack ; https://syntystore.com/products/polygon-starter-pack ; https://syntystore.com/products/modern-civilians-sidekick-modular-characters
+31. Unity Asset Store, Low Poly Fitness Gym Pack (USD 39.99). https://assetstore.unity.com/packages/3d/props/interior/low-poly-fitness-gym-pack-257326
+32. Unity Support, "Can I use assets from the Asset Store with other engines?", 2025-07-02. https://support.unity.com/hc/en-us/articles/34387186019988-Can-I-use-assets-from-the-Asset-Store-with-other-engines
+33. itch.io, Low Poly Boxing Gym Asset Pack (USD 3.99+). https://icetimeadventures.itch.io/low-poly-boxing-gym-asset-pack
+34. Kenney Furniture Kit, Mini Characters, Blocky Characters, Support FAQ. https://kenney.nl/assets/furniture-kit ; https://kenney.nl/assets/mini-characters ; https://kenney.nl/assets/blocky-characters ; https://kenney.nl/support
+35. Quaternius Ultimate Modular Women (Feb 2022), Universal Animation Library (Mar 2025), FAQ. https://quaternius.com/packs/ultimatemodularwomen.html ; https://quaternius.com/packs/universalanimationlibrary.html ; https://quaternius.com/faq.html
+36. KayKit Adventurers; KayKit Character Animations. https://kaylousberg.itch.io/kaykit-adventurers ; https://kaylousberg.itch.io/kaykit-character-animations
+37. Adobe Mixamo FAQ, 2021-09-14. https://helpx.adobe.com/creative-cloud/faq/mixamo-faq.html
+38. Poly Haven licence. https://polyhaven.com/license
+
+Godot
+39. Godot docs, "Environment and post-processing" (stable). https://docs.godotengine.org/en/stable/tutorials/3d/environment_and_post_processing.html
+40. Godot docs, "Introduction to global illumination" (stable). https://docs.godotengine.org/en/stable/tutorials/3d/global_illumination/introduction_to_global_illumination.html
+41. Godot 4.7.2-stable release, 2026-08-18. https://github.com/godotengine/godot/releases/tag/4.7.2-stable
+42. Godot Shaders licence page. https://godotshaders.com/license/
+43. Godot Shaders "Depth based Tilt-shift", 2023-12-20 (updated 2024-08-23). https://godotshaders.com/shader/depth-based-tilt-shift/
+44. Godot Shaders "Post-Process Outline (Depth/Normal)", 2023-05-01 (updated 2024-12-07). https://godotshaders.com/shader/post-process-outline-depth-normal/
+45. Godot Shaders "Improved inverted hull" (date NOT FOUND). https://godotshaders.com/shader/improved-inverted-hull-simplest-outline-shader-improved/
+46. GitHub EMBYRDEV/godot-toon-outline (MIT). https://github.com/embyrdev/godot-toon-outline
+47. GitHub pink-arcana/godot-distance-field-outlines (MIT project licence). https://github.com/pink-arcana/godot-distance-field-outlines
+
+AI 3D
+48. Meshy Help Center plan comparison, 2026-08-27. https://help.meshy.ai/en/articles/12062933-which-meshy-plan-is-right-for-you-free-vs-pro-vs-premium-vs-ultra
+49. Meshy docs, pricing and credits. https://docs.meshy.ai/en/webapp/pricing ; Meshy pricing FAQ https://www.meshy.ai/pricing
+50. Tripo pricing. https://www.tripo3d.ai/pricing ; Tripo P2.0 blog (date NOT FOUND) https://www.tripo3d.ai/blog/tripo-p2-0-preview
+51. Tencent Hunyuan 3D 2.1 Community License (release 2025-06-13). https://huggingface.co/tencent/Hunyuan3D-2.1/blob/main/LICENSE
+52. Hyper3D pricing. https://hyper3d.ai/pricing
+53. top3d.ai, "AI Retopology Showdown: Hunyuan 3D vs Meshy vs Tripo", 2026-01-02. https://www.top3d.ai/learn/retopology-comparison-2025
+
+Internal
+54. INTERNAL: task brief 2026-10-11 (J65 memo of 2026-10-08, "Keep none" decision, house lighting rule, MPFB2 characters).
+
+---
+
+## 6. Limits
+
+- **No primary source on Two Point's technical art**: hand-painted vs PBR texturing, shader set-up, AO, outlines, post-processing and tilt-shift in Hospital/Campus are NOT FOUND. No GDC, 80.lv or Unity art-pipeline talk on Two Point art was found. Statements about what their screenshots show are JUDGEMENT.
+- **Headcounts**: "6 → 16" is the interviewer's paraphrase of Mark Smart. "17" comes from Sega's press release. "40" comes from Wikipedia with no date. LinkedIn was not checked. Art team size is NOT FOUND.
+- **Prices change**. All prices were read on 2026-10-11 in USD. The Synty price was read through the store's product JSON with store currency USD. Unity price came from page metadata. Regional pricing and VAT were not checked.
+- **Licences**: the IceTime itch pack has no licence text. Per-shader licences on godotshaders.com did not render in my fetch. The KayKit Animations licence line was not captured. Confirm each one before shipping.
+- **Shrimple3D pack** is a Unity package. Getting FBX out of it needs Unity (free) or a converter. Whether it also ships raw FBX: NOT FOUND.
+- **Synty Godot project** targets Godot 4.6.2. Behaviour on 4.7.2 was not tested (JUDGEMENT: likely fine).
+- **AI tools**: quality claims rest on one independent test (top3d.ai) plus vendor claims. Texture quality was not tested by anyone I could find. The Rodin price is unverified.
+- **Not researched**: Planet Coaster team size, Good Company, Hospital Tycoon, Mad Games Tycoon 2, Kingdom Two Crowns (out of time; NOT FOUND).
+- **Hours are estimates** for one generalist who already knows Godot and Blender, and do not include testing on low-end PCs.
+- I did not open the current FightCamp gym scene. The diagnosis of the "style clash" rests on the brief's description (INTERNAL) plus JUDGEMENT.
+
+---
+
+That's the whole document. A copy is on my computer at `/workspace/jtph/J_TPH_LOOK.md`, so Claude can land it as `research/J_TPH_LOOK.md`.

@@ -1,0 +1,8 @@
+{
+  "body": "C55 is queued behind C54: research/TASK_C55.md, THE PATH. Operator-proposed, research only, two markdown files. Four areas: the career has no entry (an athlete is created with discipline already set, GameState.gd:821); an athlete holds exactly ONE discipline forever and nothing in the research record touches crossover; a grade has no consequence (C52 said what a grade is, deliberately not what it does); and turning pro is a side effect with no decision - _turn_pro at :5499 fires only from :5619 and :11705 and the player is never asked. IMPORTANT: C52's ground is fenced off. How grades are EARNED is settled and GradeLadder.gd is being written from it right now - cite C52, never re-derive it, or you will contradict a module built against the first answer. Q12, Q18 and Q20 are design questions: label authored invention as invention, the way C31 is the citation for the corner rule being authored. Finish C54 first, one task per session.",
+  "created_at": "2026-09-08T15:30:54Z",
+  "from": "claude",
+  "id": "7bc2b10fc16f",
+  "to": "codex",
+  "topic": "C55 queued behind C54"
+}

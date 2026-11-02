@@ -1,0 +1,82 @@
+PROFILE TAB MOCKUPS - round 41. FightCamp is a PC deep management simulation (Football Manager / Motorsport Manager class), NOT mobile/casual: no energy timers, gacha, login rewards, ads. Boxing demo first.
+
+GAME FACTS (generated from the game's own data files - use THESE names and stats, never invent others):
+FIGHTCAMP - GAME FACTS (generated from the game's data files by Tools/ludo_facts.py; use THESE names, never invent)
+
+1. SIMULATION ATTRIBUTES (the fight sim's stat keys, 0-100): power, technique, speed, defense, conditioning, fight_iq, grapple_offense, grapple_defence, top_control
+2. PLAYER-FACING READOUT (the 9 bars on the profile): POWER=power, TECHNIQUE=technique, SPEED=speed, STAMINA=stamina, CHIN=chin, DEFENCE=defense, FOOTWORK=footwork, RING IQ=ring_iq, COMPOSURE=composure
+3. TECHNIQUE REQUIREMENTS use these attribute names: power, technique, speed, defense, conditioning, fight_iq, grapple; tiers: 1=Foundation, 2=Core, 3=Advanced, 4=Signature
+4. THE REAL BOXING TECHNIQUE TREE (54 nodes; id | name | tier | branch | needs attributes | needs techniques):
+   boxing_one_two | One-Two | T1 | combinations | speed 26, technique 26 | boxing_jab, boxing_cross
+   boxing_one_two_hook | One-Two-Hook | T2 | combinations | speed 30, technique 30 | boxing_one_two, boxing_lead_hook
+   boxing_jab_body_head | Jab Body, Jab Head | T3 | combinations | technique 36, speed 34 | boxing_jab, boxing_jab_body
+   boxing_counter_combination | Counter Combination | T4 | combinations | fight_iq 46, speed 44 | boxing_pull_counter, boxing_one_two_hook
+   boxing_liver_combo | Jab-Cross-Lead Hook to the Body | T4 | combinations | power 44, technique 44 | boxing_one_two_hook, boxing_body_hook, boxing_jab, boxing_cross
+   boxing_six_punch_combo | Six-Punch Combination | T4 | combinations | conditioning 46, speed 44 | boxing_one_two_hook, boxing_rear_uppercut
+   boxing_catch | Catch the Jab | T1 | defense_counters | defense 24 | boxing_stance_guard
+   boxing_parry | Parry | T1 | defense_counters | defense 24, fight_iq 22 | boxing_stance_guard
+   boxing_slip | Slip | T1 | defense_counters | speed 26, defense 24 | boxing_stance_guard
+   boxing_block_elbow | Elbow and Forearm Block | T2 | defense_counters | defense 30 | boxing_catch
+   boxing_bob_weave | Bob and Weave | T2 | defense_counters | speed 32, conditioning 30 | boxing_roll
+   boxing_catch_counter | Catch and Return | T2 | defense_counters | fight_iq 30 | boxing_catch, boxing_cross
+   boxing_pull | Pull | T2 | defense_counters | speed 30, fight_iq 28 | boxing_slip
+   boxing_roll | Roll Under | T2 | defense_counters | speed 30, defense 30 | boxing_slip
+   boxing_slip_counter | Slip-Cross Counter | T2 | defense_counters | speed 30, fight_iq 30 | boxing_slip, boxing_cross
+   boxing_check_hook | Check Hook | T3 | defense_counters | speed 36, fight_iq 36 | boxing_lead_hook, boxing_pivot_footwork
+   boxing_check_hook_pivot | Check Hook and Pivot | T3 | defense_counters | speed 38, fight_iq 36 | boxing_check_hook
+   boxing_counter_over_jab | Counter Over the Jab | T3 | defense_counters | fight_iq 38, technique 34 | boxing_slip_counter
+   boxing_long_guard | Long Guard | T3 | defense_counters | defense 36 | boxing_block_elbow
+   boxing_pull_counter | Pull-Cross Counter | T3 | defense_counters | speed 36, fight_iq 36 | boxing_pull, boxing_cross
+   boxing_shoulder_roll | Shoulder Roll | T3 | defense_counters | defense 38, fight_iq 34 | boxing_roll
+   boxing_step_in_out | Step In, Step Out | T1 | footwork_ring | speed 24 | boxing_stance_guard
+   boxing_circle_lead | Circle to the Lead Side | T2 | footwork_ring | speed 28, conditioning 28 | boxing_step_in_out
+   boxing_circle_rear | Circle to the Rear Side | T2 | footwork_ring | speed 28, fight_iq 28 | boxing_step_in_out
+   boxing_feint | Feint | T2 | footwork_ring | fight_iq 30, technique 28 | boxing_distance_read, boxing_jab
+   boxing_pivot_footwork | Ring Pivot | T2 | footwork_ring | speed 30 | boxing_step_in_out
+   boxing_angle_step | L-Step Angle | T3 | footwork_ring | speed 36, technique 34 | boxing_pivot_footwork
+   boxing_cutoff_ring | Cut Off the Ring | T3 | footwork_ring | fight_iq 36 | boxing_circle_lead, boxing_circle_rear
+   boxing_rhythm_change | Breaking the Rhythm | T3 | footwork_ring | fight_iq 38 | boxing_feint, boxing_breathing_rhythm
+   boxing_rope_work | Working Off the Ropes | T3 | footwork_ring | defense 38, fight_iq 36 | boxing_shoulder_roll
+   boxing_drawing | Drawing the Lead | T4 | footwork_ring | fight_iq 46 | boxing_rhythm_change, boxing_pull_counter
+   boxing_switch_stance | Switching Stance | T4 | footwork_ring | technique 44, fight_iq 44 | boxing_angle_step, boxing_rhythm_change
+   boxing_breathing_rhythm | Breathing and Rhythm | T1 | fundamentals | conditioning 24 | boxing_stance_guard
+   boxing_distance_read | Finding the Range | T1 | fundamentals | fight_iq 24 | boxing_stance_guard
+   boxing_stance_guard | Stance and High Guard | T1 | fundamentals | defense 22 | -
+   boxing_lead_hook | Lead Hook | T2 | hooks_bodywork | power 30, technique 30 | boxing_one_two
+   boxing_lead_uppercut | Lead Uppercut | T2 | hooks_bodywork | power 30, technique 32 | boxing_lead_hook
+   boxing_rear_hook | Rear Hook | T2 | hooks_bodywork | power 32, technique 30 | boxing_lead_hook
+   boxing_rear_uppercut | Rear Uppercut | T2 | hooks_bodywork | power 32, technique 32 | boxing_lead_uppercut
+   boxing_body_hook | Lead Hook to the Body | T3 | hooks_bodywork | power 34, conditioning 32 | boxing_lead_hook
+   boxing_rear_hook_body | Rear Hook to the Body | T3 | hooks_bodywork | power 36, conditioning 32 | boxing_body_hook
+   boxing_shovel_hook | Shovel Hook | T3 | hooks_bodywork | power 34, technique 36 | boxing_rear_uppercut
+   boxing_clinch_tieup | Tie Up | T2 | infighting | technique 30, conditioning 30 | boxing_block_elbow
+   boxing_forearm_frame | Forearm Frame | T3 | infighting | defense 36, power 32 | boxing_clinch_tieup
+   boxing_inside_uppercut | Uppercut on the Inside | T3 | infighting | power 36, technique 34 | boxing_clinch_tieup, boxing_rear_uppercut
+   boxing_pivot_out | Pivot Out of the Clinch | T3 | infighting | speed 36, technique 34 | boxing_clinch_tieup, boxing_pivot_footwork
+   boxing_shoulder_bump | Shoulder Bump | T3 | infighting | power 34, conditioning 34 | boxing_clinch_tieup
+   boxing_cross | Rear Cross | T1 | straight_punching | power 26, technique 24 | boxing_jab
+   boxing_jab | Jab | T1 | straight_punching | speed 24 | boxing_stance_guard
+   boxing_cross_body | Cross to the Body | T2 | straight_punching | power 30, technique 28 | boxing_cross
+   boxing_double_jab | Double Jab | T2 | straight_punching | speed 30 | boxing_jab
+   boxing_jab_body | Jab to the Body | T2 | straight_punching | speed 28, technique 28 | boxing_jab
+   boxing_overhand | Overhand Right | T3 | straight_punching | power 36, technique 32 | boxing_cross
+   boxing_up_jab | Up Jab | T3 | straight_punching | speed 34, technique 34 | boxing_jab_body
+5. CERTIFIED BOXING MOVES (the only ones the demo animates and lets a player train): strikes boxing_jab, boxing_cross, boxing_rear_uppercut, boxing_jab_body, boxing_body_hook, boxing_up_jab, boxing_overhand, boxing_cross_body, boxing_double_jab, boxing_one_two, boxing_slip_counter, boxing_pull_counter, boxing_counter_over_jab, boxing_catch_counter, boxing_lead_uppercut, boxing_check_hook, boxing_lead_hook, boxing_rear_hook, boxing_rear_hook_body, boxing_one_two_hook, boxing_liver_combo, boxing_six_punch_combo; defence boxing_slip, boxing_pull, boxing_catch
+6. BODY REGIONS (wear 0-100%): head_neck, torso_core, left_arm, right_arm, left_leg, right_leg
+7. GYM TIERS: T1 30.0x18.0 m; T2 40.0x25.0 m; T3 60.0x31.0 m (club -> commercial -> elite; no garage)
+8. SCREEN: 1920x1080, Godot 4.7.2 GDScript; boxing first (demo), MMA later; PC deep management sim (FM / Motorsport Manager class).
+
+THE ASK - IMAGES: generate SIX separate 1920x1080 mockup IMAGES, one per tab of the full-screen FIGHTER PROFILE, in the SAME visual language as the attached image (your own r40 OVERVIEW mockup: dark tactical dossier, 3-column grid, header strip with name / age / division vs limit / stance / record / morale / composure / contract). One image per tab, each titled with its tab name, every tab showing a REAL-looking populated state for one boxer (Leo Vance, 24, orthodox, welterweight, 9-2-0). Only show data the game has (listed per tab below). If you can only produce one image per answer, produce TAB 1 now and end with "NEXT: TAB 2" and I will ask for each in turn.
+TAB 1 TECHNIQUES - the real 54-node tree from the facts sheet, 7 branches, tiers T1-T4, states LOCKED (missing requirements in red) / AVAILABLE / LEARNING (station + hours/week) / LEARNED (learned week) / NOT IN THIS BUILD (uncertified - dashed). Certified moves marked "IN THE DEMO". Right strip: LEARNED x/54, NEXT TO LEARN (3), ASSIGN TO TRAINING PLAN, fight-plan weight PRIMARY / SITUATIONAL / SUPPRESSED. Centre: the 3D stage playing the selected certified move.
+TAB 2 MEDICAL - 6 body regions (head_neck, torso_core, left_arm, right_arm, left_leg, right_leg) wear 0-100% on a front/back silhouette with bands; injury list with forecast weeks to clear; cut scar level 0-3 ("reopens easier"); weight now vs division limit, walk-around weight, cut status message and diet plan; fatigue and condition; career wear meter; bout history worst region.
+TAB 3 TRAINING PLAN - the game's own week (7 days): per day the station (heavy bag, pads, ring sparring, treadmill, bike, weights, rest), minutes and intensity; fight day marked; the coach on each station; techniques being learned this week; a CHANGE PLAN button. No drag-and-drop grid, no invented fatigue graph.
+TAB 4 FIGHT RECORD - W-L-D, wins by KO / decision, streak; one row per bout: date (week/year), opponent, result, method, round, event, title fight, purse, judges' scorecards when it went the distance, grudge/rival tag; ranking points.
+TAB 5 CONTRACT & MONEY - weekly salary, market salary, wage to sign, contract weeks remaining and expiry, purse share %, expected next purse, gym cut, the fighter's open request (raise / more fights / title shot) with its deadline and the respond buttons, promises kept / broken.
+TAB 6 CAMP - the booked bout's camp: opponent name, record, rating, scouting level 0-3, weeks to the fight, weight cut path to the limit, camp focus, coach support rating, the plan; empty state when no bout ("NO CAMP RUNNING - OPEN MATCHMAKER").
+Rules for every tab: one fighter, real numbers in our ranges (stats 0-100), no placeholder lorem, readable at 1920x1080, the same tab bar on all six (OVERVIEW | TECHNIQUES | MEDICAL | TRAINING PLAN | FIGHT RECORD | CONTRACT | CAMP).
+
+AFTER THE IMAGES (or in the next answers), your own follow-ups from last round, verbatim:
+- Can you continue from Section A and specify all 54 official technique nodes, grouped across the seven branches?
+- Can you define the exact pixel rectangles, hierarchy, and decision purpose for every must-have boxing demo element?
+- Can you design the Medical and Training Plan tabs with complete empty states for an unsanctioned fighter?
+- Can you generate a 1920x1080 mockup showing the populated dossier, seven-branch technique tree, medical tab, and training plan tab?

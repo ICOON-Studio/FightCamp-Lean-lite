@@ -1,0 +1,11 @@
+﻿=== grok_task 2026-09-30T14:11:05 rc=0 ws=D:\FightCamp\wt\G148
+The task is a clarity pass on Body Lab and fatigue hovers. I'll read the spec sections and the existing tip pattern before editing.Region recovery is one rule for every body part, with injury ceilings on top. I'll state that ceiling in the hover when it is actually holding the number down.Body Lab regions and Technical Flow's fatigue and injury-risk figures now explain themselves on hover. Pushed as `94328040` on `grok/g150-body-fatigue`.
+
+Each region hover states the value and three lines from `BodyReadiness`: training needs **80**, amber is **60**, and the cage needs **90** of the head, **85** of the torso, and **80** of each limb. Under the cage line it blocks a bout. Under 80 it blocks training. Rest and a recovery station are measured with `apply_activity` on a copy at 40. On the starter boxer that week is **+9** from rest, **+17** from the station, and **+7** more when the station is aimed at the region. The week that spends a region most is ring for the head and torso (**5**), bags for the arms (**5**), and cardio for the legs (**5**). A bout writes its damage onto that number, and the next bout reads what is left.
+
+Technical Flow adds **+6** fatigue a camp week, stored from 0 to 100. The last camp week also adds **ΓêÆ10** from the taper. A bout is refused above **85**. A rest week changes fatigue by **ΓêÆ15**, and the seven days apply **ΓêÆ2, ΓêÆ2, ΓêÆ2, ΓêÆ3, ΓêÆ2, ΓêÆ2, ΓêÆ2**. This protocol's injury base is **0**, so a camp week rolls no injury. Fatigue at or above **60** multiplies a non-zero camp roll by **1.5**. A training week that ends at or above **95** fatigue rolls a **15** percent injury.
+
+Parse gate was clean. `gf1_body_fatigue_tips_test.gd` passed, and the required subset was 9 tests and 0 failures. Stills are `previews/g150/17_body_lab.png` and `62_technical_flow.png`.
+
+--- stderr ---
+

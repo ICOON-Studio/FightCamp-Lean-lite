@@ -1,0 +1,350 @@
+<!-- Ludo round 42 (S207), reply part 3 verbatim: the 54-technique icon art spec (sent via a suggestion chip), 35,533 chars - NEW CEILING (r34 ~26k) -->
+Here is the complete, production-ready art specification for all 54 nodes of the technique tree, designed for an icon sheet or sprite atlas (e.g., an 8×7 grid of 128×128 or 256×256 master vectors).
+
+GLOBAL ART & ICON STYLE GUIDE (For Artists & Texture Pipelines)
+Canvas & Dimensions: Master resolution 256×256 px (rendered down to 64×64 px and 48×48 px in-engine without loss of legibility).
+Grid & Safety Margins: Outer boundary padding of 16px. Primary visual action contained within a circular safe area d = 224px.
+Perspective & Camera:
+Strikes, Hooks, & Combos: 3/4 isometric side-profile or clean lateral profile.
+Footwork & Ring Craft: High-angle top-down (downward $60^\circ$ bird’s-eye perspective on canvas texture with footprint decals and rotational vectors).
+Infighting & Clinch: Chest-level frontal/isometric close-contact.
+Palette & Rendering Style: High-contrast graphic minimalism (Vector / Precision Blueprint aesthetic):
+Background Container: Dark slate vignette (#0F172A center to #020617 edge), subtle diagonal carbon-fiber/canvas hatch at 5% opacity.
+Player Fighter Anatomy (Executor): Stark clean chalk white (#F8FAFC) silhouette line work with solid #1E293B inner body fills. Left hand/glove identified with subtle cyan rim lighting (#38BDF8), right hand/glove identified with subtle steel rim lighting (#94A3B8).
+Opponent Anatomy (Dummy / Target): Muted slate silhouette (#475569) with 40% alpha, dashed outlines (#334155) to indicate incoming strikes or target zones.
+Kinetic Vector & Impact Language:
+Thrust/Impact Vectors: Bold vibrant gold (#D69E2E) arrows with tapering speed trails.
+Defensive Evasions: Electric cyan (#38BDF8) motion displacement arcs.
+Opponent Incoming Threats: Desaturated crimson (#EF4444) dashed attack lines showing avoided danger.
+Target Impact Starburst: Concentric sharp geometric shock diamond (#F59E0B) at point of impact.
+COMPLETE 54-NODE TECHNIQUE PICTOGRAM DIRECTORY
+BRANCH 1: FUNDAMENTALS (3 NODES)
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_stance_guard | NAME: Stance and High Guard | TIER: T1 Foundation                          |
+| COMPOSITION: Frontal 3/4 torso view of orthodox boxer. Both gloves raised to temple/cheekbone level. |
+| Gloves form a tight defensive barrier with elbows tucked parallel protecting floating ribs.         |
+| KEY ACCENTS: Dual vertical cyan guard brackets flanking the boxer's head, indicating cover.          |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_distance_read | NAME: Finding the Range | TIER: T1 Foundation                             |
+| COMPOSITION: Profile silhouette. Lead arm extended forward with an open/half-clenched glove lightly  |
+| measuring distance against an opponent's forehead silhouette.                                        |
+| KEY ACCENTS: Horizontal segmented gold measurement calipers (radar/ruler tick marks) between gloves. |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_breathing_rhythm | NAME: Breathing and Rhythm | TIER: T1 Foundation                       |
+| COMPOSITION: Boxer silhouette in relaxed, spring-loaded bounce posture. Stylized lungs/diaphragm core |
+| glowing softly with rhythmic sine-wave rings radiating outward from the mouth/nose.                  |
+| KEY ACCENTS: Twin pulsing cyan wave-crests undulating horizontally beneath the boxer's feet.         |
++------------------------------------------------------------------------------------------------------+
+
+BRANCH 2: STRAIGHT PUNCHING (7 NODES)
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_jab | NAME: Jab | TIER: T1 Foundation                                                     |
+| COMPOSITION: Pure profile view facing right. Left lead arm fully extended horizontally like a piston |
+| at head height. Rear right glove glued to chin.                                                      |
+| KEY ACCENTS: Straight, razor-sharp gold spear vector through the glove centerline into a small impact |
+| diamond.                                                                                             |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_cross | NAME: Rear Cross | TIER: T1 Foundation                                            |
+| COMPOSITION: Dynamic 3/4 rear-to-front perspective. Right shoulder violently driven forward, hips    |
+| rotated, rear foot pivoted on ball. Rear fist extended deep into opponent's center-line.             |
+| KEY ACCENTS: Heavy rotational torque arrow around waistline, followed by a thick gold power arrow.   |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_double_jab | NAME: Double Jab | TIER: T2 Core                                             |
+| COMPOSITION: Profile view. Lead arm rendered with twin motion ghosting (overlapping trail frames) in |
+| rapid succession. Two consecutive fist silhouettes.                                                  |
+| KEY ACCENTS: Dual stacked gold chevron arrows (`>>`) accelerating toward the opponent's face.        |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_jab_body | NAME: Jab to the Body | TIER: T2 Core                                          |
+| COMPOSITION: Low profile view. Boxer has dipped knees and bent waist, shooting the lead jab down at  |
+| a 30-degree declining angle beneath an opposing high guard into the solar plexus.                    |
+| KEY ACCENTS: Downward-angled gold thrust arrow terminating at an illuminated target zone on torso.  |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_cross_body | NAME: Cross to the Body | TIER: T2 Core                                      |
+| COMPOSITION: Deep level change. Right knee lowered near canvas, hips fully engaged, rear fist driving |
+| forward and downward directly into the stomach of an upright opposing silhouette.                    |
+| KEY ACCENTS: Downward diagonal heavy gold vector with trailing spiral wind-up line.                  |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_up_jab | NAME: Up Jab | TIER: T3 Advanced                                                 |
+| COMPOSITION: Crouched boxer exploding vertically. Lead fist rising along an upward 45-degree angle   |
+| from a low, non-telegraphed hip origin directly underneath the opponent's guard.                     |
+| KEY ACCENTS: Vertical ascending gold arrow with an upward speed-line spray.                          |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_overhand | NAME: Overhand Right | TIER: T3 Advanced                                       |
+| COMPOSITION: Aggressive 3/4 angle. Boxer ducking head slightly off-center to the left, rear arm      |
+| looping high over the top in a violent, looping overhead downward arc.                              |
+| KEY ACCENTS: Pronounced downward-curving gold rainbow-arc vector smashing through a raised guard.    |
++------------------------------------------------------------------------------------------------------+
+
+BRANCH 3: HOOKS & BODYWORK (7 NODES)
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_lead_hook | NAME: Lead Hook | TIER: T2 Core                                               |
+| COMPOSITION: Front-facing 3/4 view. Lead left arm bent at a rigid 90-degree angle, elbow level with  |
+| shoulder, torso rotated sharply right on lead heel pivot.                                            |
+| KEY ACCENTS: Broad horizontal curved gold scythe vector cutting across the frame to the jaw target.  |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_rear_hook | NAME: Rear Hook | TIER: T2 Core                                               |
+| COMPOSITION: Mirrored 3/4 angle. Right arm looping horizontally, rear shoulder swung forward, weight |
+| transferred across the front foot.                                                                   |
+| KEY ACCENTS: Wide looping inward gold power arc striking the left temple/jawline of the dummy.       |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_lead_uppercut | NAME: Lead Uppercut | TIER: T2 Core                                       |
+| COMPOSITION: Close isometric view. Lead arm dropped low then driving strictly upward, palm facing    |
+| backward, knees rising out of a crouch.                                                              |
+| KEY ACCENTS: Vertical straight upward gold rocket arrow splitting the gap between opposing gloves.   |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_rear_uppercut | NAME: Rear Uppercut | TIER: T2 Core                                       |
+| COMPOSITION: Rear leg driving upward from the floor. Rear fist rising in a tight vertical power line |
+| straight under the chin silhouette.                                                                  |
+| KEY ACCENTS: Deep upward spiral vector with an explosive impact diamond under the jaw.              |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_body_hook | NAME: Lead Hook to the Body | TIER: T3 Advanced                               |
+| COMPOSITION: Crouched profile. Left arm executing a tight, vicious 90-degree hook specifically       |
+| targeting the lower right side (anatomical liver zone) of the opponent's torso.                      |
+| KEY ACCENTS: Horizontal curving gold arc targeting a highlighted amber liver silhouette graphic.     |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_rear_hook_body | NAME: Rear Hook to the Body | TIER: T3 Advanced                          |
+| COMPOSITION: Boxer driving rear hook inward into the opponent's spleen/rib area on the left side of  |
+| their body. Rear shoulder dipped.                                                                    |
+| KEY ACCENTS: Inward-driving gold sickle vector slamming into the lower ribcage area.                 |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_shovel_hook | NAME: Shovel Hook | TIER: T3 Advanced                                       |
+| COMPOSITION: 45-degree hybrid strike: half hook, half uppercut. Fist angled diagonally upward and    |
+| inward, digging directly under the opponent's floating ribcage.                                      |
+| KEY ACCENTS: Upward-diagonal 45-degree gold wedge arrow with concussive shockwave rings.             |
++------------------------------------------------------------------------------------------------------+
+
+BRANCH 4: COMBINATIONS (6 NODES)
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_one_two | NAME: One-Two | TIER: T1 Foundation                                             |
+| COMPOSITION: Sequential twin-fist display. Faint lead jab glove leading, followed immediately by a  |
+| dominant, fully driven rear cross behind it.                                                         |
+| KEY ACCENTS: Numbered badges `"1"` (cyan) and `"2"` (gold) linked by a linear kinetic trail ribbon.  |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_one_two_hook | NAME: One-Two-Hook | TIER: T2 Core                                         |
+| COMPOSITION: Three-strike cascade: Straight jab line, followed by a straight cross line, terminating |
+| in a sharp horizontal lead hook arc.                                                                 |
+| KEY ACCENTS: Cascading numbered pills `"1" -> "2" -> "3"` forming an "L" shaped strike trajectory.  |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_jab_body_head | NAME: Jab Body, Jab Head | TIER: T3 Advanced                              |
+| COMPOSITION: Split-level visualization. Lower ghosted jab arrow targeting torso, instantly followed  |
+| by an elevated upper solid jab arrow snapping the chin upward.                                       |
+| KEY ACCENTS: Vertical zig-zag gold vector connecting low hit zone to high hit zone.                  |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_counter_combination | NAME: Counter Combination | TIER: T4 Signature                      |
+| COMPOSITION: Boxer slipping an incoming crimson punch line, followed by a fast two-punch return      |
+| cross and hook combo striking the exposed opening.                                                   |
+| KEY ACCENTS: Incoming red threat dashed line deflecting wide, countered by twin linked gold bolts.   |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_liver_combo | NAME: Jab-Cross-Lead Hook to the Body | TIER: T4 Signature                  |
+| COMPOSITION: Dual high punches targeting the guard, forcing the dummy's hands upward, leaving the   |
+| lower torso wide open for a vicious dipping lead hook.                                               |
+| KEY ACCENTS: Two high red diversion vectors, crowned by a massive gold scythe targeting the liver.   |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_six_punch_combo | NAME: Six-Punch Combination | TIER: T4 Signature                        |
+| COMPOSITION: Flurry of fists represented by an intricate, flowing geometric web of 6 striking vectors|
+| (Jab, Cross, Hook, Uppercut, Hook, Cross) overwhelming a guarded silhouette.                         |
+| KEY ACCENTS: Circular energy ribbon containing 6 gold stars surrounding a broken shield icon.        |
++------------------------------------------------------------------------------------------------------+
+
+BRANCH 5: DEFENSE & COUNTERS (15 NODES)
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_catch | NAME: Catch the Jab | TIER: T1 Foundation                                         |
+| COMPOSITION: Front-facing perspective. Boxer's rear right glove open with palm facing outward like a |
+| baseball mitt, smothering an incoming red jab fist inches from their face.                           |
+| KEY ACCENTS: Circular cyan shock-absorption ring radiating from the center of the catching palm.     |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_parry | NAME: Parry | TIER: T1 Foundation                                                 |
+| COMPOSITION: Boxer's open lead glove performing a crisp downward/inward slap against the wrist of an  |
+| incoming red strike, redirecting it harmlessly off-target.                                           |
+| KEY ACCENTS: Angular cyan deflection arrow pushing the red punch trajectory downward at 45 degrees.  |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_slip | NAME: Slip | TIER: T1 Foundation                                                   |
+| COMPOSITION: Torso and head tilted sharply off the center line. An incoming straight punch passes     |
+| directly over the boxer's dipped shoulder through empty air.                                         |
+| KEY ACCENTS: Cyan curved dodge arrow around the red attack line; double-line center-axis marker.     |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_block_elbow | NAME: Elbow and Forearm Block | TIER: T2 Core                               |
+| COMPOSITION: Boxer raising their left elbow high and turning forearm inward, fielding a heavy hook   |
+| cleanly on the thick triangular elbow bone and forearm meat.                                         |
+| KEY ACCENTS: Heavy cyan armor-plate chevron overlaying the raised forearm; spark on point of impact. |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_bob_weave | NAME: Bob and Weave | TIER: T2 Core                                           |
+| COMPOSITION: Boxer dipping their entire upper body beneath a swinging red hook in a deep, circular   |
+| "U" shaped duck-and-roll movement.                                                                   |
+| KEY ACCENTS: Prominent cyan "U" shape curved vector dipping low and surfacing on the other side.     |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_catch_counter | NAME: Catch and Return | TIER: T2 Core                                    |
+| COMPOSITION: Right hand catches an incoming jab while the left hand simultaneously explodes forward  |
+| with a return counter-punch into the opponent's exposed jaw.                                         |
+| KEY ACCENTS: Twin simultaneous vectors: Cyan catch pad on right, Gold linear counter-arrow on left.  |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_pull | NAME: Pull | TIER: T2 Core                                                         |
+| COMPOSITION: Boxer bending sharply backward at the waist and hips by 2 inches, allowing an incoming  |
+| punch to miss the tip of their nose by millimeters.                                                  |
+| KEY ACCENTS: Backward-curving cyan motion vector arching away from a frustrated red punch line.      |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_roll | NAME: Roll Under | TIER: T2 Core                                                   |
+| COMPOSITION: Boxer transferring weight smoothly from lead leg to back leg while rolling shoulders in |
+| a continuous semi-circle under an incoming cross.                                                    |
+| KEY ACCENTS: Circular sweeping cyan orbital path wrapping underneath the incoming attack vector.     |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_slip_counter | NAME: Slip-Cross Counter | TIER: T2 Core                                   |
+| COMPOSITION: Boxer slips head to the outside of an incoming jab, instantaneously firing a hard rear   |
+| cross over the opponent's outstretched arm.                                                          |
+| KEY ACCENTS: Diagonal slip displacement indicator paired with a straight gold counter-strike bolt.   |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_check_hook | NAME: Check Hook | TIER: T3 Advanced                                         |
+| COMPOSITION: Opponent aggressively charging forward. Boxer pivoting 90 degrees on lead foot, hitting |
+| a sharp lead hook that catches the rusher flush as the boxer pivots clear.                           |
+| KEY ACCENTS: Circular rotational compass pivot on canvas + wide horizontal gold hook vector.         |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_check_hook_pivot | NAME: Check Hook and Pivot | TIER: T3 Advanced                         |
+| COMPOSITION: Complete sequence of the check hook, displaying the full exit angle: Boxer landing hook  |
+| and completely clearing out to the opponent's blind side.                                            |
+| KEY ACCENTS: 90-degree curved escape path vector sweeping behind the charging red opponent.          |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_counter_over_jab | NAME: Counter Over the Jab | TIER: T3 Advanced                         |
+| COMPOSITION: Opponent's low jab extended. Boxer's right arm looping cleanly over top of the opponent's|
+| lead shoulder and arm, driving straight down the pipe into their chin.                               |
+| KEY ACCENTS: Elevated over-the-top gold trajectory crossing over a depressed red vector.             |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_long_guard | NAME: Long Guard | TIER: T3 Advanced                                         |
+| COMPOSITION: Boxer posting their lead arm fully extended with palm braced against opponent's forehead |
+| or shoulder, while rear glove covers their own chin, creating a stiff distance barrier.              |
+| KEY ACCENTS: Horizontal rigid cyan beam acting as a spacer bar preventing forward entry.             |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_pull_counter | NAME: Pull-Cross Counter | TIER: T3 Advanced                               |
+| COMPOSITION: Signature Mayweather-style move: Head pulled back just out of range of a jab, then rear |
+| cross snaps forward instantly like a coiled spring into the opening.                                 |
+| KEY ACCENTS: Spring-coil tension graphic expanding into a laser-straight gold counter-punch vector.  |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_shoulder_roll | NAME: Shoulder Roll | TIER: T3 Advanced                                   |
+| COMPOSITION: Philly Shell stance. Lead shoulder rolled high to tuck the chin, rear hand covering jaw. |
+| An incoming right hand bounces harmlessly off the sloped shoulder muscle.                            |
+| KEY ACCENTS: Deflection arc spraying upward off an illuminated cyan shoulder armor emblem.           |
++------------------------------------------------------------------------------------------------------+
+
+BRANCH 6: FOOTWORK & RING CRAFT (11 NODES)
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_step_in_out | NAME: Step In, Step Out | TIER: T1 Foundation                               |
+| COMPOSITION: High-angle canvas view. Pair of boots stepping forward into punch range, then reversing  |
+| back along the exact same linear axis into safety.                                                   |
+| KEY ACCENTS: Dual bidirectional gold and cyan arrows (`<--->`) overlaid between boot outlines.       |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_circle_lead | NAME: Circle to the Lead Side | TIER: T2 Core                               |
+| COMPOSITION: Top-down ring map. Boxer silhouette circling smoothly along a clockwise perimeter arc   |
+| away from the opponent's power hand toward their own lead side.                                      |
+| KEY ACCENTS: Clockwise curved cyan orbital arrow sweeping around an opposing center pivot node.      |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_circle_rear | NAME: Circle to the Rear Side | TIER: T2 Core                               |
+| COMPOSITION: Top-down ring map. Boxer stepping counter-clockwise toward their opponent's weak side,  |
+| maintaining outside lead foot dominance.                                                             |
+| KEY ACCENTS: Counter-clockwise sweeping cyan vector with footprint placement markers.               |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_feint | NAME: Feint | TIER: T2 Core                                                       |
+| COMPOSITION: Profile view. Boxer twitching lead shoulder and knee forward with a semi-transparent,   |
+| ghosted punch silhouette causing the opponent's guard to flare wide in reaction.                     |
+| KEY ACCENTS: Dashed illusory punch outline + opponent's open startled guard silhouette.              |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_pivot_footwork | NAME: Ring Pivot | TIER: T2 Core                                         |
+| COMPOSITION: High-angle ring floor. Boxer's lead foot anchored to canvas as a central axis pin, while |
+| rear foot swings around 90 degrees, turning the corner on the opponent.                              |
+| KEY ACCENTS: Compass pin icon on front toe with a quarter-circle sweeping rotation arrow.            |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_angle_step | NAME: L-Step Angle | TIER: T3 Advanced                                       |
+| COMPOSITION: Top-down canvas diagram. Boxer takes one step back, then immediately steps laterally at |
+| a right angle, forming a clean "L" shaped geometric path.                                            |
+| KEY ACCENTS: Glowing cyan "L" path graphic with sharp cornering vectors bypassing the red opponent.  |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_cutoff_ring | NAME: Cut Off the Ring | TIER: T3 Advanced                                  |
+| COMPOSITION: Tactical overview of the boxing ring. Boxer moving laterally along horizontal barrier   |
+| lines, effectively trapping a backpedaling opponent against the ring ropes.                         |
+| KEY ACCENTS: Lateral clamp vectors pinching inward, backed by red ring rope boundary lines.          |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_rhythm_change | NAME: Breaking the Rhythm | TIER: T3 Advanced                             |
+| COMPOSITION: Musical tempo visualizer applied to footwork. Boxer alternating between slow fluid steps |
+| and an explosive instantaneous burst forward.                                                        |
+| KEY ACCENTS: Segmented audio waveform line abruptly spiking into a vertical lightning-bolt slash.    |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_rope_work | NAME: Working Off the Ropes | TIER: T3 Advanced                               |
+| COMPOSITION: Boxer leaning back against dynamic, flexing ring ropes, utilizing rope recoil to spring |
+| under an attack or bounce back into position.                                                        |
+| KEY ACCENTS: Three horizontal ring ropes bending backward with an energetic cyan spring vector.      |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_drawing | NAME: Drawing the Lead | TIER: T4 Signature                                     |
+| COMPOSITION: Deliberate tactical baiting. Boxer intentionally drops their guard slightly, luring the |
+| opponent into throwing a committed strike, pre-loading their own trap counter.                       |
+| KEY ACCENTS: Golden fishhook motif subtly woven into an open hand guard posture.                     |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_switch_stance | NAME: Switching Stance | TIER: T4 Signature                               |
+| COMPOSITION: Boxer executing a dynamic shift step, transitioning seamlessly from Orthodox posture    |
+| (left foot forward) to Southpaw posture (right foot forward) mid-stride.                             |
+| KEY ACCENTS: Yin-Yang style interlocking circular arrows (`<->`) swapping lead and rear boot decals.  |
++------------------------------------------------------------------------------------------------------+
+
+BRANCH 7: INFIGHTING & CLINCH (5 NODES)
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_clinch_tieup | NAME: Tie Up | TIER: T2 Core                                               |
+| COMPOSITION: Tight frontal view. Boxer wrapping both arms over and around opponent's biceps/triceps, |
+| head buried firmly against opponent's chest/shoulder, nullifying their ability to punch.             |
+| KEY ACCENTS: Twin cyan locking clamp brackets wrapping around opponent's arms; "LOCK" motif.        |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_forearm_frame | NAME: Forearm Frame | TIER: T3 Advanced                                   |
+| COMPOSITION: Inside infighting view. Boxer using a horizontal forearm wedge pinned against opponent's |
+| collarbone/neck to maintain space and leverage their head back.                                      |
+| KEY ACCENTS: Rigid cyan structural I-beam wedge graphic overlaid across the forearm.                |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_inside_uppercut | NAME: Uppercut on the Inside | TIER: T3 Advanced                        |
+| COMPOSITION: Chest-to-chest infight range. Boxer's head controlling inside position, driving a short,|
+| compact vertical uppercut directly between the locked guards into the chin.                          |
+| KEY ACCENTS: Short, explosive vertical gold piston arrow with impact burst in tight telephone-booth  |
+| quarters.                                                                                            |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_pivot_out | NAME: Pivot Out of the Clinch | TIER: T3 Advanced                             |
+| COMPOSITION: Boxer breaking the clinch lock by framing with one hand while executing a fast 90-degree |
+| hip turn, leaving the opponent lunging forward into empty space.                                     |
+| KEY ACCENTS: Clean break-away arrow peeling away from an off-balance red silhouette.                 |
++------------------------------------------------------------------------------------------------------+
+| ID: boxing_shoulder_bump | NAME: Shoulder Bump | TIER: T3 Advanced                                   |
+| COMPOSITION: Heavy shoulder contact. Boxer driving their front lead shoulder violently into the      |
+| opponent's chin/sternum from inside the clinch to create an opening.                                 |
+| KEY ACCENTS: Concussive blunt impact diamond radiating directly from the shoulder cap.              |
++------------------------------------------------------------------------------------------------------+
+
+PIXEL SPECIFICATION OF THE FULL TECHNIQUES TAB (1920×1080)
+
+To ensure the UI engineer and technical artist assemble the screen with exact layout geometry, here is the complete absolute pixel mapping for the Fighter Profile — Techniques Tab (active_tab == 4):
+
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+| TOP GLOBAL HEADER: rect(16, 40, 1888, 72)                                                                                                          |
+| [LEO VANCE] [24 YRS] [WELTERWEIGHT (-66.7 kg)] [9-2-0 (6 KO)] [ORTHODOX] [MORALE: HIGH] [STRESS: 42/100] [WEAR: 8%] [PROPOSE BOUT BUTTON]          |
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+| COL 1: ATTRIBUTE ROSTER            | COL 2: 3D VIEWPORT & PLAYBACK CONTROLS       | COL 3: TECHNIQUE BROWSER & ASSIGNMENT PANEL                    |
+| rect(16, 124, 380, 940)            | rect(412, 124, 792, 940)                     | rect(1220, 124, 684, 940)                                      |
+|                                    |                                              |                                                                |
+| - Header: rect(32, 140, 348, 28)   | - 3D SubViewport: rect(412, 124, 792, 740)   | - Branch Filter Tabs: rect(1232, 136, 660, 34)                |
+| - Group A: rect(32, 176, 348, 170) |   * Camera FOV 32, Boxer Plinth at origin    | - Move Grid: rect(1232, 180, 660, 560)                         |
+|   POWER, TECHNIQUE, SPEED, DEFENCE |   * Real-time shadow & key lights            |   * 4x4 Grid of 144x120px Move Tiles                           |
+| - Group B: rect(32, 356, 348, 134) |                                              |                                                                |
+|   STAMINA, CHIN, FOOTWORK          | - 3D Controls Bar: rect(412, 876, 792, 188)  | - Move Inspector Card: rect(1232, 750, 660, 300)               |
+| - Group C: rect(32, 500, 348, 100) |   * Scrub Slider: rect(436, 892, 744, 20)    |   * Large Icon (64x64): rect(1248, 766, 64, 64)                |
+|   RING IQ, COMPOSURE               |   * [PLAY/PAUSE]: rect(436, 928, 110, 36)    |   * Title & Tier: rect(1328, 766, 400, 24)                     |
+| - Grapple Engine Baseline Card:    |   * [SLOW-MO 0.25x]: rect(558, 928, 110, 36) |   * Stat Reqs: rect(1328, 794, 550, 18)                        |
+|   rect(32, 620, 348, 90)           |   * [LOOP TOGGLE]: rect(680, 928, 110, 36)   |   * Biomechanics Text: rect(1248, 846, 628, 48)                |
+| - Repertoire Summary Card:         |   * [CAMERA ORBIT]: rect(802, 928, 110, 36)  |   * Station Buttons: rect(1248, 906, 628, 40)                  |
+|   rect(32, 730, 348, 170)          |   * Move Tag Pill: rect(930, 928, 250, 36)   |   * Strategic Weight: rect(1248, 958, 628, 36)                 |
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+
+Detailed Interaction Logic & State Handling for Column 3 Tiles:
+Hover State (tile_node.mouse_entered):
+Tile background shifts from #0F172A to #1E293B.
+Border lightens to #D69E2E (Gold).
+Hover tooltip displays prerequisite chain (e.g., "Requires: One-Two (Learned), Lead Hook (Learned)").
+Left-Click State (tile_node.gui_input with MOUSE_BUTTON_LEFT):
+Selects technique as active.
+Updates Inspector Card (rect(1232, 750, 660, 300)) with mechanics, stat gates, and assignment options.
+Commands 3D boxer model in Center Viewport to play the certified move animation (anim_player.play(technique_id)).
+Status Badges on Each Tile:
+LEARNED: Top-right corner displays 12x12px solid green check badge (#22C55E).
+IN DEMO: Bottom-left displays a 44x16px pill: "DEMO" in #38BDF8.
+LOCKED: Center of tile darkened with 50% black scrim, displaying a padlock icon and failing stat requirement in red (e.g., "REQ: TECH 36").

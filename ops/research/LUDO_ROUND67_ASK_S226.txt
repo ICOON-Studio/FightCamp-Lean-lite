@@ -1,0 +1,20 @@
+LUDO ROUND 67 - THE MARKET CARD (right side of the New Career globe): the operator says it is "too blunt".
+
+The operator (CEO, verbatim, with the attached screenshot of the card as it is now): "this to blunt on the right". (He also asked for a livelier country pointer - done: bigger, breathing size, gold halo, radar rings, glint.)
+
+THE CARD TODAY (attached): 480 x 1080 px dark charcoal card (#1d1c1a, 2 px brass border), header (flag, UNITED KINGDOM, ochre "TIER 1 COMBAT MARKET"), three thin bars (combat popularity 92, talent 90, economy 74), "3 CITIES - 27 GYMS", then ~500 px of empty space, then the gold CHOOSE MARKET button.
+
+REAL DATA WE HAVE PER COUNTRY (use only these, no invented stats):
+- economy, talent_depth, combat_popularity (0-100)
+- a culture score 0-100 per combat sport the country has (boxing, MMA, kickboxing, muay thai, wrestling, BJJ, judo... - the list differs per country)
+- its city names (e.g. London, Manchester, Glasgow) and gym count per country
+- per city: rival gym names, the real organisations / federations based there (e.g. the national boxing board), the events held there
+- the flag (svg)
+
+WHAT I NEED - the longest complete answer (text only, no image unless you add one at the end):
+A. Why the current card reads blunt/cheap (be specific about hierarchy, density, texture, ornament, motion).
+B. The NEW card, top to bottom, as a spec I can build in Godot 4 Controls: every block with height in px, fonts (sizes, weights, colours from our palette: gold #f0c233, brass #d4af37/#b8933b, oxblood #c62f2a/#8b1e1b, cream #f6f0e0, steel #2b2f36, charcoal #1d1c1a/#242220), textures (leather, brushed brass plate, paper), dividers, icons (we have the Lucide set + flags), and how each data field above is shown (bars, chips, small lists, a mini city list, sport icons...). Fill the full height with meaning - no dead space.
+C. Motion: what animates when a new country is picked (count-up numbers, bars filling, header slide, the flag) with timings in ms.
+D. Hover/tooltip text for each block (one line each, plain words).
+E. Rejection rules - what makes the next screenshot still look blunt.
+F. Your score for this spec and the one risk.

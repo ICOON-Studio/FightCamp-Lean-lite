@@ -1,0 +1,76 @@
+R75-RC=1
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[FightWorldLive] MMA - seed 77321, 3 rounds | waiting for the first beat
+  ok    the room assembles { "seed": 77321, "rounds": 3, "discipline": "mma" }
+  ok    a booked MMA bout presents grapple beats at all
+  ok    grapple beats reach the schedule - the "action"-only filter is closed
+  ok    every presented grapple beat is either scheduled or counted as no_clip
+  ok    every scheduled grapple entry carries a beat typed "grapple"
+  ok    M19: only an id we own a paired film for is ever scheduled
+  ok    a ground pair is ONE entry naming BOTH men, attacker first
+  ok    paired_metadata_for carries BOTH halves, where clip_for carries only the attacker's
+[FightWorldLive] MMA - seed 77321, 3 rounds | waiting for the first beat
+  ok    the room assembles { "seed": 77321, "rounds": 3, "discipline": "mma", "grapple_pairs": false }
+  ok    grapple_pairs off asks the adapter for no grapple beats at all
+[FightWorldLive] BOXING - seed 77321, 3 rounds | waiting for the first beat
+  ok    the room assembles { "seed": 77321, "rounds": 3 }
+  ok    a BOXING bout books no ground pair - the room's default is untouched
+[FightWorldLive] MMA - seed 77321, 3 rounds | waiting for the first beat
+  ok    the room assembles { "seed": 77321, "rounds": 3, "discipline": "mma" }
+  FAIL  a bought ground film plays in a booked MMA bout  played=0 films=[]
+  FAIL  the film holds real frames  held=0
+  ok    every film that was asked for grafted onto both skeletons
+  ok    every held frame has the attacker's half on A and the victim's on B
+  ok    both solo players are suspended for the film's window, and only for it
+  ok    the two playheads stay in step (PairedClipMount.in_step)
+  ok    one mount: both bodies sit at the same transform while the film plays
+  ok    the room does not place, aim or push a body the film is driving
+  ok    no frame leaves an unheld body with nothing playing
+  ok    every started film completes, leaves its required seat, or remains active; no ordinary interruption
+  ok    a hold that was entered covers show seconds
+  ok    every replay and every preemption came from an entry
+  note  grapple seam: { "events": 2, "no_clip": 2, "busy": 0, "set_piece": 0, "already_playing": 0, "graft_failed": 0, "played": 0, "completed": 0, "cut": 0, "seat_cut": 0, "suspended": 0, "bjj_action_unshown": 0, "ground_position_refused": 0, "ground_events": 0, "ground_played": 0, "ground_fallback": 0, "hold_entered": 0, "hold_replayed": 0, "hold_preempted": 0, "hold_s": 0.0 }
+[FightWorldLive] MMA - seed 77321, 3 rounds | waiting for the first beat
+  ok    the room assembles { "seed": 77321, "rounds": 3, "discipline": "mma" }
+  ok    a booked MMA bout routes ground strikes to the paired path
+  ok    every routed ground strike reaches the schedule
+  ok    a ground strike entry carries an ACTION beat, not a grapple one
+  ok    only a technique with a paired ground-strike film is ever routed
+  ok    a ground strike is ONE entry naming BOTH men, attacker first
+  ok    the entry is decided no later than the beat's own impact tick
+  ok    every routed beat carries the ordinary action entries as its fallback
+[FightWorldLive] MMA - seed 77321, 3 rounds | waiting for the first beat
+  ok    the room assembles { "seed": 77321, "rounds": 3, "discipline": "mma" }
+  FAIL  the play arm routes ground strikes too  routed=0
+  ok    every routed beat is played, handed back, or still pending - none is lost
+  S6c ground strikes: routed=0 played=0 fallback=0 pending=0 films=[]
+[FightWorldLive] MMA - seed 77321, 3 rounds | waiting for the first beat
+  ok    the room assembles { "seed": 77321, "rounds": 3, "discipline": "mma" }
+  ok    a full mount reads A on top
+  ok    the same mount reversed reads B on top
+  ok    no seat but a FULL MOUNT opens the hold
+  ok    the beat's actor is the top man
+  ok    with no actor the seat decides the side
+  ok    a settled mount opens the resting film
+  ok    the resting film is marked a hold, not a beat
+  ok    and it is the film S6b watched
+  ok    grafted with the engine's top man on top
+  ok    both bodies are held by it
+  ok    the hold does not count as a film played
+  ok    it is counted in its own partition
+  ok    the hold ends the frame the mount does
+  ok    and it scores neither a cut nor a completed grapple
+  ok    the hold opens again after a mount returns
+  ok    a sweep re-enters the hold with the men the other way round
+  ok    a real beat takes the bodies off the hold
+  ok    and is NOT refused already_playing, which is what 68 of 79 were
+  ok    the ground strike's own film is what plays
+  ok    and it is counted as a ground strike played
+  ok    a mount-only action actually releases on seat departure
+  ok    seat departure is a named cut, never a completed film
+TOTAL=59 fails=3
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+WARNING: 1890 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)

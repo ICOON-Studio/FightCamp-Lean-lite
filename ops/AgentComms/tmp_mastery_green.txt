@@ -1,0 +1,17 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+=== MASTERY WIRE ===
+POPULATION  boxing out-boxer (counter plan) vs pressure fighter, 20 bouts per arm, 3 rounds
+OK   real GameState autoload exists
+OK   career starts
+OK   OFF visit writes no move_mastery
+TRAIN  5 x 60 min pads: jab M48.22 (from 45), rear uppercut M45.00
+OK   pads drill the jab: jab mastery rises above 45 after 5 pad days (M48.22)
+OK   pads never drill the uppercut: it stays at the USABLE baseline 45 (M45.00)
+FIGHT  A jab connect RAW M18 38.3% (358/935, slipped 77)  SHARP M80 44.2% (388/878, slipped 46)
+OK   a SHARP jab lands more than a RAW one (>= 2 pts: 38.3 -> 44.2)
+OK   a SHARP jab is slipped less per throw than a RAW one (0.082 -> 0.052)
+OK   the fight log carries the mastery note (e.g. 'Reyes fires Sharp Jab (M80) - lands clean')
+CONTROL  no mastery: 831 jabs / 802 landed / 2012 thrown all   USABLE M45: 831 / 802 / 2012
+OK   USABLE M45 fights exactly the bout of no mastery (balance holds, no new draw)
+MASTERY_WIRE failures=0

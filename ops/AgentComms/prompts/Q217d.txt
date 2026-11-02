@@ -1,0 +1,42 @@
+You own TASK_Q217 (STANDING). Worktree D:/FightCamp/wt/Q217, branch qwen/q217-close-range. PART 4 - the three hooks left: rear_hook, rear_hook_body, shovel_hook.
+Model: qwen3-coder (medium). Claude reviews every still you make; a number that passes and a still that does not = not certified.
+
+FIRST: the worktree has uncommitted re-rendered previews (run6_*.png) - discard them: git restore previews/c223/run6_*.png
+Then: git fetch origin && git merge origin/master. S129 (Claude) landed things you need:
+  - Godot/scripts/FightClipFootPlant.gd `lock_foot(anim, skel, spec)` (~90 lines, after `bake`): holds one ankle's FLOOR position (XZ) where it stood
+    at from_s; height + the foot's own rotation stay authored; knee bends in its authored plane (FightLegIK two-bone solve, bend hint Vector3.FORWARD).
+    A binding opts in with "foot_lock":{"side":"Left"} (defaults from_s 0, to_s = clip end, blend_s 0.1). FightStagePlayer._graft_retargeted applies it
+    after the pose layer and before the floor bake; the bound path copies it from the binding (FightStagePlayer.gd lines 928 and 1704 - not the runtime `_foot_lock`, which is a different thing).
+  - boxing_lead_hook CERTIFIED with it (FightClipBinding.gd, "boxing_lead_hook"): hold_root_xz + foot_lock Left + split warp. Before: LEG 6.5-8.3 cm
+    (lead thigh into his lead thigh) and a post-impact lunge in the stills; after: every G147 class 0.0 cm, 0 pops, strike 10.1-11.9 m/s, onset 167 ms.
+    Certificate docs/previews/c223/s129_lead_hook_hold_split.json. DO NOT EDIT the lead hook, check hook or any other certified binding.
+  - The three hooks already carry "foot_lock":{"side":"Left"} (uncertified). Measured with it (docs/previews/c223/s129_hooks_lock.json, bound):
+      owned_rear_hook  LEG 11.3-13.7 cm 82-99 f  (+ pin pops on 3 rigs)   - the lock did NOT help
+      rear_body_hook   LEG 5.2-9.3 cm 15-40 f                              - did NOT help
+      shovel_hook      LEG 3.1-7.9 cm 15-59 f   (was 9.1-11.3)             - helped, not enough
+    Worst pair every time: attacker LeftUpperLeg-LeftLowerLeg vs receiver LeftUpperLeg-LeftLowerLeg (lead thigh vs lead thigh). The ankle is held, so
+    what still crosses is the KNEE/THIGH turning in with the hip rotation.
+
+THE WORK, one hook at a time (rear_hook first):
+1. MEASURE before you change anything: write tools/q217_knee_probe.gd that plays the bound hook (copy how c223_production_gate.gd builds the pair) and
+   prints per frame the attacker's left knee (LeftLowerLeg head) world XZ, the receiver's left knee XZ, and their distance, with the lock on and off.
+   Report which way the attacker's knee travels (in toward the centre line? forward?) and when.
+2. Fix at the knee, by TARGET, not by guessed angles. Candidates, in this order: (a) give lock_foot an optional "knee_out" spec (a bend hint pointing
+   to the fighter's own lead side, so the knee bends outward) - DEFAULT MUST BE BYTE-IDENTICAL: the lead hook must re-certify unchanged;
+   (b) an optional "offset":[x,z] on the lock anchor (a slightly wider stance, <= 8 cm); (c) a smaller Hips yaw pose layer - only if (a)/(b) fail, and
+   never remove the hip turn (a rear hook without the hip turn is not a rear hook).
+3. Never move the men apart to pass (keep the fixture spacing the gate solves), never change the receiver.
+
+GATE (the one command, tier = production gate; ~60 s):
+  python Tools/c223_parallel.py production -- plant phase live_contact bound clips=owned_rear_hook,rear_body_hook,shovel_hook report=q217d_<name>.json
+  In `bound` mode the gate reads the BINDING - trial by editing the binding (revert what fails). THE TRAP: gate args like warp=/foot_lock= are IGNORED
+  in bound mode.
+  Also re-run clips=owned_lead_hook bound after ANY change to FightClipFootPlant.gd: it must stay 4/4 with every G147 class 0.0.
+Parse gate before any Godot run: python Godot/tools/check_scripts.py <every .gd you touched>
+Certified = 4/4 rigs with mechanical_failures empty (includes g147 + pin pops), strike and onset INSIDE their bands and not on an edge, then stills:
+  powershell -NoProfile -ExecutionPolicy Bypass -File Tools\godot_hidden.ps1 --path Godot --script tools/c223_production_gate.gd -- plant phase live_contact bound render stills_only clips=<id> rig=generator_welter_a prefix=q217d_game_ report=x.json
+  and the same with yaw=90 prefix=q217d_side_. Describe each still plainly in research/Q217_DIGEST.md (feet, knee, hook arc, rear/lead glove at the chin).
+Owned files: Godot/scripts/FightClipBinding.gd (ONLY the boxing_rear_hook, boxing_rear_hook_body, boxing_shovel_hook entries),
+  Godot/scripts/FightClipFootPlant.gd (lock_foot only; 272 lines), Godot/tools/q217_*.gd (new), Godot/tools/c223_layers/q217_*.json, research/Q217_DIGEST.md.
+Launch Godot only through Tools\godot_hidden.ps1 or headless. Commit + push the branch after each move; do not merge to master; do not touch
+certified_moves.json (Claude adds a move with its certificate). Send one line with python Tools/agent_comms.py send when a move is done or you are stuck.

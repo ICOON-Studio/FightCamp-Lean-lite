@@ -1,0 +1,27 @@
+FightCamp is a PC deep management simulation (Football Manager / Motorsport Manager class), NOT a mobile or casual game: no energy timers, gacha, daily-login rewards, tap-to-collect, ads or monetisation loops; mechanics and loops must reward long-term planning, readable systems and consequences. No garage start - tiers are club -> commercial -> elite. Godot 4.7.2, 1920x1080, boxing first (demo palette = certified boxing moves only).
+
+ROUND 39 - give the LONGEST, most complete answer you can (full specs, pixel rects, node trees, GDScript where useful - never summarise). When you hit your limit, stop at a section boundary and write CONTINUE FROM SECTION n. TEXT ONLY.
+
+SECTION 1 - THE FIGHTER PROFILE AS A 3D "LOADOUT" SCREEN (the producer's idea, judge it honestly)
+Reference: Phoenix Point's personnel/loadout screen (https://forums.snapshotgames.com/t/backer-build-5-the-character-loadout-screen-could-use-streamlining/4353) and the same family (Destiny 2 inventory, Guild Wars 2 hero panel, Mandalorian-RPG concept UI): a full-body 3D character standing on a lit plinth in the CENTRE, a stats/abilities panel on the LEFT, an equipment grid on the RIGHT, the roster switcher under the left panel, tabs along the bottom. Note the critique in that thread: the screen "could use streamlining" - too many small icons, unclear grouping.
+The producer's proposal for FightCamp: the fighter profile becomes this kind of screen -
+- CENTRE: the fighter's own 3D model, animated (idle guard, breathing; turns on drag), on a plinth in the gym.
+- LEFT: biometrics - height, reach, weight vs. division limit, age, the 9 attributes (POW TEC SPD STM CHN DEF FTW IQ CMP), body-region wear (head/neck, torso/core, arms, legs) and condition.
+- RIGHT: the technique / skill tree (jab, cross, hooks, uppercuts, body shots, slips, rolls, footwork... each with level, progress and prerequisites).
+- CLICK A TECHNIQUE -> the 3D fighter in the centre EXECUTES it (the real in-game clip), looped, with its key numbers (speed, damage, stamina cost, what counters it) beside it.
+Today we have a 2D right-hand drawer (730 px, your round 37 layout: 9 attribute bars + region wear table) and a full PROFILE screen being rebuilt from your r37 spec. Questions:
+1.1 Is this a good idea for a deep management sim of our class? Strengths, risks (readability, data density vs. a 3D model eating the centre third, performance of a second 3D viewport, how FM/MM-class players use a profile screen many times per week), and your verdict: adopt / adapt / reject.
+1.2 If adopt/adapt: the full 1920x1080 layout as a pixel table (rect, anchor, content, font, hotkey) for left biometrics, centre 3D stage, right technique tree, roster switcher, tabs; how it coexists with the 730 px drawer (drawer = quick look, this = the full screen?).
+1.3 The technique tree for BOXING only: the node list, tiers, prerequisites, how a node shows level/progress/"learning now at station X", and how clicking it plays the clip (camera framing for each move class so the punch reads: front-3/4 for straights, side for hooks/uppercuts, low for body shots), loop length, a slow-motion toggle, and what text sits beside the playing move.
+1.4 The 3D stage: lighting (key/rim/fill values), plinth, background (the gym blurred vs. a neutral studio), camera (FOV, distance, height), drag-to-rotate limits, idle animation set, how to keep it cheap (SubViewport size, when it renders, shadow settings).
+1.5 How the screen ties to the management loop: what decision does the player make here (assign the technique to train, set the camp focus, compare to the booked opponent side by side?) - no screen without a decision.
+1.6 Godot 4.7.2 scene tree for the screen + the signals between the tree, the stage and the training planner.
+
+SECTION 2 - JUDGE OUR NEW GYM HUD (your round-35 V3 placements, now built behind a switch)
+Built at 1920x1080: money + run rate top-left (16,16 320x64); time bar top-centre (540,12 840x48: date card, pause/play/fast, club crest + name, mail bell) with CONTINUE just right of it; fight countdown top-right (1600,12 304x80, "NO FIGHT BOOKED" + FIND A FIGHT); icon dock left from y=120; settings/handbook/back stacked under the dock (y 606-744, because our dock is 8 icons + 2 separators and ends at y=594 - your sheet had it end at 540); day goals at (16,760); fighter cards bottom-left (16,960); day-feed strip bottom-centre (410,960 480x104, gym floor only); right drawer 730 px. Inner pages (schedule, office, scouting, rankings, training) now run full screen from x=90 to x=1904 under the bar. What would you change, item by item, and why? Is CONTINUE beside the time bar right, or should it be your STEP IN row under it?
+
+SECTION 3 - YOUR OWN FOLLOW-UPS FROM ROUND 38 (asked verbatim)
+3.1 Can you continue from section 4.2 and provide the complete fatigue equations, constants, and GDScript implementation?
+3.2 Can you define the exact FightStagePlayer state machine, clip contracts, timing rules, and exchange-to-animation event mapping?
+3.3 Can you provide the complete Godot 4.7.2 scene tree and reusable animation component specifications without truncation?
+3.4 Can you generate a labeled ASCII-style top-down gym floor plan showing every station, zone, doorway, collision bound, and walkway?

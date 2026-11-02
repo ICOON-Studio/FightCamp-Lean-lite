@@ -1,0 +1,284 @@
+CONTINUE round 43 a last time: your answer stopped inside section 9.2 (branch navigation tabs, at the Inactive Tab border). Finish 9.2, then 9.3+ (the 8-column icon grid with Maria's tile states LEARNED / IN TRAINING / LOCKED / IN DEMO, hover tooltip content and rect, selection state, click-to-play on the centre stage), then section 10 (the complete 1920x1080 ASCII wireframe of the Techniques tab with every coordinate) and section 11 (AAA polish values for the whole profile and the reception app: depth/shadows/glass, motion timings in ms, micro-typography, iconography, dense-data rules). TEXT ONLY. Longest complete answer. Data bindings in {braces}, never invented examples.
+Your suggested follow-ups, included verbatim:- Can you continue section 6.3 from Aspiration Track and complete membership fees, assessment, trial offer, outcomes, close, and glide-back bindings? (done in your last answer - only correct it if needed)- Can you specify section 6.4 camera framing for the desk, prospect, receptionist, lighting, occlusion, and 1920×1080 coordinates? (done - only correct it if needed)- Can you create a 1920×1080 ASCII wireframe of the complete Techniques tab with every rectangle, coordinate, tooltip, state, and click behavior?- Can you generate a visual mockup of the Fighter Profile and reception check-in app using the defined AAA depth, motion, and typography rules? (TEXT ONLY this round.)
+
+9. TECHNIQUES TAB: RIGHT COLUMN SPECIFICATION (CONTINUED)
+9.2 Branch Navigation Tabs (Continued)
+Inactive Tab State:
+Background: #0F172A
+Border: 1px solid #1E293B
+Font: Chakra Petch 10px Medium #94A3B8
+Hover Tab State:
+Background: #162032
+Border: 1px solid #334155
+Font Color: #F8FAFC
+Badge Readout Inside Each Tab:
+JetBrains Mono 9px Regular:
+If branch complete (learned == total): Text #22C55E
+If in progress (learned > 0): Text #D69E2E
+If unstarted (learned == 0): Text #64748B
+9.3 8-Column Icon Grid Canvas (rect(1236, 214, 652, 496))
+
+The grid displays up to 54 technique nodes in a high-density, 8-column layout. When filtered by branch, active branch tiles fill top-to-bottom and non-branch tiles dim or collapse based on toggle settings.
+
+Grid Geometry:
+Container Rect: rect(1236, 214, 652, 496)
+Columns: 8
+Tile Size: 68×68 px
+Horizontal Gap: 15px ((8 * 68) + (7 * 15) = 544 + 105 = 649px, padded 1.5px left/right inside 652px)
+Vertical Gap: 12px (up to 7 visible rows without scroll; scroll bar activates when filtering is set to ALL 54)
+Scroll Track: rect(1882, 214, 4, 496), Track Color #1E293B, Thumb Color #334155
+The Four Procedural Tile States
++------------------+  +------------------+  +------------------+  +------------------+
+| LEARNED          |  | IN TRAINING      |  | LOCKED           |  | IN DEMO (CERT.)  |
+| rect(x, y, 68, 68)|  | rect(x, y, 68, 68)|  | rect(x, y, 68, 68)|  | rect(x, y, 68, 68)|
+| #0B0F17 bg       |  | #0F172A bg       |  | #05070A bg       |  | #0B132B bg       |
+| 1px #22C55E bdr  |  | 1px #38BDF8 bdr  |  | 1px #1E293B bdr  |  | 1px #D69E2E bdr  |
+| Icon: 100% white |  | Icon: Pulsing    |  | Icon: 25% grey   |  | Gold Star pip    |
+| Mastery: 100%    |  | Progress bar     |  | Lock Glyph       |  | Full 3D anim     |
++------------------+  +------------------+  +------------------+  +------------------+
+
+
+State 1: LEARNED
+
+Condition: {technique.id} in boxer.learned_techniques
+Background: #0B0F17
+Border: 1.5px solid #22C55E (Solid Green)
+Icon Fill: 100% Opacity #F8FAFC
+Corner Pip: Solid circle 6×6 px at rect(x + 58, y + 4, 6, 6), #22C55E
+Mastery Level Label: rect(x + 4, y + 52, 60, 12), JetBrains Mono 8px Bold #22C55E: "LV {technique.mastery_level}"
+
+State 2: IN TRAINING
+
+Condition: {technique.id} == boxer.active_training_technique
+Background: #0F172A
+Border: 1.5px solid #38BDF8 (Cyan, pulsating at 1.0 Hz: alpha 0.6 to 1.0)
+Icon Fill: 85% Opacity #38BDF8
+Progress Bar Track: rect(x + 4, y + 58, 60, 5), Background #1E293B, Fill #38BDF8
+Progress Value: int((technique.xp_accumulated / float(technique.xp_target)) * 60) px
+
+State 3: LOCKED
+
+Condition: Unmet attribute requirements OR unmet prerequisite technique nodes
+Background: #05070A
+Border: 1px solid #1E293B
+Icon Fill: 20% Opacity #475569
+Centre Overlay: Lucide lock glyph (14×14 px), #475569 at rect(x + 27, y + 27, 14, 14)
+Requirements Met Indicator: If attributes are met but prerequisite techniques are missing: bottom pip #EAB308 (Amber)
+
+State 4: IN DEMO (CERTIFIED BOXING MOVE)
+
+Condition: Node matches one of the 22 certified strikes or 3 certified defences from data facts (e.g. boxing_one_two, boxing_liver_combo, boxing_slip_counter, boxing_slip)
+Accent: Upper-left triangle tag (8×8 px) in #D69E2E (Gold)
+Badge Indicator: Small dot at rect(x + 4, y + 4, 5, 5), #D69E2E
+Functionality: Clicking triggers live 3D animation playback in the Section 7 centre stage viewport.
+Selected State Overlay (Active Focus)
+When a tile is selected (via click or keyboard nav):
+Outer Ring: rect(x - 3, y - 3, 74, 74), Border 2px solid #F8FAFC, Radius 4px
+Drop Shadow: 0 0 12px rgba(214, 158, 46, 0.45)
+Inspector Panel (Section 9.5) updates instantly (< 16ms) with full node metadata.
+Real-Time Hover Tooltip Engine
+Trigger Latency: 120ms mouse-still threshold (avoids flickering during rapid pointer traversal).
+Placement Logic: Dynamically flips left if tile is in Columns 5–8:
+Cols 1–4: x = tile.x + 76
+Cols 5–8: x = tile.x - 328
+Y clamped between y: 128 and y: 680
+Tooltip Container: rect(x, y, 320, 180)
+Styling: Background #070A0F (96% alpha), Border 1.5px solid #334155, Shadow 0px 8px 24px rgba(0,0,0,0.85)
+Tooltip Content Layout:
+Header Row: rect(x + 12, y + 10, 296, 20)
+Technique Name: Chakra Petch 12px Bold #F8FAFC: "{technique.name}"
+Tier Chip: JetBrains Mono 9px Bold #D69E2E: "T{technique.tier} ({technique.tier_name})"
+Branch Line: rect(x + 12, y + 32, 296, 16), Inter 9px Medium #94A3B8: "Branch: {technique.branch}"
+Divider: rect(x + 12, y + 50, 296, 1), #1E293B
+Prerequisites Checklist (y: 56 to y: 110):
+Attribute Requirements: JetBrains Mono 9px Regular
+If met: #22C55E "[OK] {req.attribute_name} >= {req.value} (Current: {boxer.stat})"
+If unmet: #EF4444 "[X]  {req.attribute_name} >= {req.value} (Current: {boxer.stat})"
+Technique Prerequisites:
+If learned: #22C55E "[OK] {prereq.name}"
+If unlearned: #EF4444 "[X]  {prereq.name}"
+Simulation Impact Summary (rect(x + 12, y + 120, 296, 48)):
+Inter 9px Regular #CBD5E1: "{technique.tactical_role_description}"
+9.4 Section Divider (rect(1236, 718, 652, 2))
+Solid separator line: Color #1E293B
+9.5 Technique Inspector & Assignment Card (rect(1236, 728, 652, 324))
+
+Displays granular telemetry for the currently selected technique and exposes operational coaching actions:
+
++----------------------------------------------------------------------------------------------------+
+| 9.5 TECHNIQUE INSPECTOR & ASSIGNMENT CARD (rect(1236, 728, 652, 324))                              |
+|                                                                                                    |
+| [ICON 64x64]  {technique.name}                           | STATUS: {technique.boxer_status}        |
+| rect(1248,    Tier: {technique.tier} ({tier_name})       | Mastery: LV {technique.level} / 5       |
+| 740, 64, 64)  Branch: {technique.branch}                 | Certified Move: {technique.is_certified}|
+|                                                                                                    |
+| STATISTICAL GATES & ATTRIBUTE MATCH (rect(1248, 814, 628, 62)):                                    |
+|   Required: {technique.required_attributes_formatted}                                              |
+|   Prerequisite Techniques: {technique.required_techniques_formatted}                               |
+|                                                                                                    |
+| SIMULATION COMBAT PARAMETERS (rect(1248, 882, 628, 76)):                                           |
+|   Base Damage Mod: {technique.damage_mod}x   | Kinetic Peak: {technique.force_n} N                 |
+|   Stamina Cost:    {technique.stamina} pts   | Counter Exposure: {technique.counter_vuln_pct}%     |
+|   Hitbox Gate:     Frame {technique.impact_f}| Tactical Bias: {technique.sim_preference_weight}    |
+|                                                                                                    |
+| INTERACTION & ASSIGNMENT BUTTONS (rect(1248, 966, 628, 74)):                                       |
+|   [BTN 1: DRILL IN GYM]      [BTN 2: TACTICAL BIAS (+)]   [BTN 3: INSPECT 3D ANIMATION]            |
+|   rect(1248, 974, 196, 48)   rect(1452, 974, 210, 48)     rect(1670, 974, 206, 48)                 |
++----------------------------------------------------------------------------------------------------+
+
+Button Specifications & Operational Behaviors
+
+Button 1: Drill in Gym / Assign to Daily Station (rect(1248, 974, 196, 48)):
+
+State Available: Background #1E293B, Border 1.5px solid #22C55E, Text Chakra Petch 11px Bold #22C55E: "[ASSIGN TO DRILL]"
+State Active: Background #064E3B, Border 1.5px solid #22C55E, Text #4ADE80: "[CURRENTLY DRILLING]"
+State Locked: Background #0F172A, Border 1px solid #334155, Text #64748B: "[GATES UNMET]"
+Action on Click: Binds technique to Midday Training Slot in the Performance & Camp schedule.
+
+Button 2: Tactical Sim Bias / AI Preference Weight (rect(1452, 974, 210, 48)):
+
+Background: #1E293B, Border: 1px solid #D69E2E, Radius: 3px
+Label: Chakra Petch 10px Bold #F8FAFC: "AI WEIGHT: {technique.bias_rating}"
+Subtext: JetBrains Mono 9px Regular #D69E2E: "[NORMAL / FAVORED / RESTRICT]"
+Action on Click: Cycles combat sim fight-engine weighting (0.5x situational $\rightarrow$ 1.0x baseline $\rightarrow$ 2.5x favored).
+
+Button 3: Inspect 3D Animation / Live Playback (rect(1670, 974, 206, 48)):
+
+If move is in Certified 25 list:
+Background: #D69E2E, Border: 1px solid #F59E0B, Text Chakra Petch 11px Bold #0B0F17: "[PLAY ANIMATION]"
+Action on Click: Loads animation track into Centre Viewport (Section 7), resets Scrubber Playhead (Section 8) to frame 0, triggers playback.
+If move is outside Certified 25 (non-animated in current demo build):
+Background: #0F172A, Border: 1px solid #334155, Text Chakra Petch 10px Medium #64748B: "[UNANIMATED IN DEMO]"
+Disabled; shows tooltip: "Procedural combat sim only. Rig animation scheduled for subsequent build."
+10. COMPLETE 1920×1080 ANNOTATED ASCII WIREFRAME (TECHNIQUES TAB)
+
+All components are strictly positioned with exact pixel coordinates. Zero floating widgets.
+
+0,0                                                                                                            1920,0
++-------------------------------------------------------------------------------------------------------------------+
+| 10.1 TOP IDENTITY COMMAND STRIP: rect(16, 16, 1888, 72)                                                           |
+| [PORTRAIT 56x56] LEO "THE HAMMER" VANCE          | STRESS GAUGE              | CAREER WEAR | [PROPOSE SANCTIONED  |
+| rect(32,24,56,56) Welterweight (66.7 kg) | 14-2-0 | rect(1166,32,190,40)      | rect(1368,  |  BOUT CONTRACT]      |
+|                   Rank #14 Contender | Orthodox  | {boxer.stress}/100 STRAIN | 32,160,40)  | rect(1660,26,228,52) |
++-------------------------------------------------------------------------------------------------------------------+
+| 10.2 TAB BAR: rect(16, 88, 1888, 36)                                                                              |
+| [1. OVERVIEW] | [2. TECHNIQUES*] | [3. PERFORMANCE & CAMP] | [4. MEDICAL & BIO] | [5. CAREER & CONTRACT]          |
+| rect(16,88,373,34) rect(395,88,373,34) rect(774,88,373,34) rect(1153,88,373,34) rect(1532,88,372,34)             |
++-------------------------------------------------------------------------------------------------------------------+
+| 10.3 LEFT COLUMN: ATTRIBUTES  | 10.4 CENTRE 3D STAGE & SCRUBBER            | 10.5 RIGHT COLUMN: REPERTOIRE ATLAS  |
+| rect(16, 124, 380, 940)       | rect(412, 124, 792, 940)                   | rect(1220, 124, 684, 940)            |
+|                               |                                            |                                      |
+| 1. SIMULATION READOUTS (9 BARS)| 1. 3D BIOMECHANICS VIEWPORT                | 1. ATLAS PROGRESS STRIP              |
+|    rect(32, 140, 348, 420)    |    rect(412, 124, 792, 736)                |    rect(1236, 136, 652, 28)          |
+|                               |    - SubViewport: MetaHuman Rig            |    Learned: {count}/54 ({pct}%)      |
+|    STRIKING & DEFENCE:        |    - Lighting: Key Halogen, Rim Cyan       +--------------------------------------+
+|    POWER      {stat} [======] |    - Oak/Brass Octagonal Plinth            | 2. BRANCH SELECTOR TABS              |
+|    TECHNIQUE  {stat} [======] |    - Kinetic Floor Trajectory Rings        |    rect(1236, 172, 652, 34)          |
+|    SPEED      {stat} [======] |                                            |    [FUND] [STR] [HOOK] [DEF]         |
+|    DEFENCE    {stat} [======] |    Active Move Badge:                      |    [FOOT] [COMBO] [INSIDE] [ALL]     |
+|                               |    rect(428, 140, 360, 38)                 +--------------------------------------+
+|    PHYSICAL BASE:             |    "{technique.name} | T{tier}"            | 3. 8-COLUMN ICON GRID CANVAS         |
+|    STAMINA    {stat} [======] |                                            |    rect(1236, 214, 652, 496)         |
+|    CHIN       {stat} [======] |    Camera Controls Reset:                  |    [T01] [T02] [T03] [T04] ... [T08] |
+|    FOOTWORK   {stat} [======] |    rect(1148, 140, 44, 38)                 |    [T09] [T10] [T11] [T12] ... [T16] |
+|                               |                                            |    [T17] [T18] [T19] [T20] ... [T24] |
+|    FIGHT COGNITION:           |                                            |    [T25] [T26] [T27] [T28] ... [T32] |
+|    RING IQ    {stat} [======] |                                            |    [T33] [T34] [T35] [T36] ... [T40] |
+|    COMPOSURE  {stat} [======] |                                            |    [T41] [T42] [T43] [T44] ... [T48] |
+|                               +--------------------------------------------+    [T49] [T50] [T51] [T52] ... [T54] |
+| 2. TECHNIQUE SYNERGY METER    | 2. SCRUBBER & PLAYBACK CONTROLS            |                                      |
+|    rect(32, 576, 348, 96)     |    rect(412, 860, 792, 204)                |    Tile States:                      |
+|    Combos Mastered: {c}/6     |    - Scrubber Track:                       |    - LEARNED (Green border)          |
+|    Counters Active: {ct}/11   |      rect(432, 874, 752, 26)               |    - IN TRAINING (Cyan pulse)        |
+|    Tactical Readiness: 78%    |      [0f]====[WINDUP]==[IMPACT]==[42f]     |    - LOCKED (Dark + Lock glyph)      |
+|                               |    - Transport Buttons:                    |    - IN DEMO (Gold star pip)         |
+| 3. ACTIVE COACH ASSIGNMENT    |      rect(432, 908, 752, 42)               +--------------------------------------+
+|    rect(32, 688, 348, 160)    |      [PLAY] [SPEED: 0.25x|0.5x|1.0x]       | 4. DIVIDER: rect(1236, 718, 652, 2)  |
+|    Coach: Marcus Abernathy    |      [LOOP ON] [STEP<] [STEP>] [DUMMY ON]  +--------------------------------------+
+|    Specialty: Lead Hook /     |    - Biomechanical Telemetry Dock:         | 5. TECHNIQUE INSPECTOR CARD          |
+|               Shoulder Roll   |      rect(432, 958, 752, 94)               |    rect(1236, 728, 652, 324)         |
+|    Drill Efficiency: +18%     |      Force: {f} N  | Startup: {s} f        |    - Master Icon + Tier + Branch     |
+|                               |      Torque: {t} Nm | Active:  {a} f        |    - Stat Gates vs Fighter Attributes|
+| 4. STANCE & REACH METRICS     |      Drain:  {d} pt | Recov:   {r} f        |    - Simulation Damage / Stamina Cost|
+|    rect(32, 864, 348, 184)    |                                            |    - [ASSIGN DRILL] Action CTA      |
+|    Arm Reach: 182 cm          |                                            |    - [TACTICAL WEIGHT] Sim Bias CTA  |
+|    Leg Reach: 104 cm          |                                            |    - [PLAY ANIMATION] 3D CTA        |
++-------------------------------------------------------------------------------------------------------------------+
+0,1080                                                                                                      1920,1080
+
+11. AAA POLISH VALUES & DESIGN TOKENS (PC EXCLUSIVE STANDARD)
+
+To meet the 2026 AAA benchmark and eliminate flat spreadsheet aesthetics, FightCamp utilizes a specialized UI layout and rendering pipeline.
+
+11.1 Layering, Depth, Shadows & Materials
+Background Surfaces (Dark-Room Philosophy):
+Base Shell Canvas: #020617 (Deepest Void Navy)
+Primary Structural Containers: #0B0F17 (Matte Charcoal Navy)
+Secondary Cards & Data Wells: #0F172A (Elevated Slate Navy)
+Active / Interactive Elements: #1E293B (Border & Surface Core)
+Glassmorphism & Shader Blur:
+Floating HUD elements (Scrubber Dock, Inspection Cards, Overlays) utilize a Godot CanvasItemMaterial with screen_texture mipmap blur:
+Background Blur Kernel: Lod 2.5 (sigma: 4.0)
+Tint Color: rgba(11, 15, 23, 0.88)
+Edge Highlights: 1.0px solid inner border with gradient falloff: top border rgba(255, 255, 255, 0.08), bottom border rgba(0, 0, 0, 0.40).
+Drop Shadows (Multi-Elevation Model):
+Level 1 (Static Cards): 0px 2px 4px rgba(0, 0, 0, 0.4)
+Level 2 (Selected Cards / Interactive Focus): 0px 6px 16px rgba(0, 0, 0, 0.65)
+Level 3 (Floating Modal / Check-In App Dock): 0px 16px 36px rgba(0, 0, 0, 0.85)
+Inner Glow (Active Equipment / Health Wells): inset 0px 1px 2px rgba(255, 255, 255, 0.06)
+11.2 Micro-Typography Hierarchy & Spacing
+
+Strict enforcement of our 3-typeface system to guarantee semantic readability:
+
++--------------------+-------------------+---------+-----------+--------------------------------------------+
+| ROLE               | TYPEFACE          | WEIGHT  | SIZE (PX) | COLOR TOKEN & USAGE                        |
++--------------------+-------------------+---------+-----------+--------------------------------------------+
+| Global Headers     | Chakra Petch      | Bold    | 16–18 px  | #F8FAFC (Screen Titles, Boxer Name)        |
+| Section Headers    | Chakra Petch      | Bold    | 12–14 px  | #D69E2E / #F8FAFC (Container Labels)       |
+| Primary Data/Codes | JetBrains Mono    | Bold    | 11–13 px  | #F8FAFC / Dynamic Stat Values              |
+| Technical Subtext  | JetBrains Mono    | Medium  | 9–10 px   | #38BDF8 (Frame data, currencies, weights)  |
+| Body & Scrip       | Inter             | Regular | 11–12 px  | #CBD5E1 (Clinical diagnoses, coach notes)  |
+| UI Labels/Metadata | Inter             | SemiBold| 9–10 px   | #64748B (Field descriptors, table headers) |
++--------------------+-------------------+---------+-----------+--------------------------------------------+
+
+Letter Spacing (Kerning):
+Chakra Petch Headers: +0.05em (Tech aesthetic)
+Inter Metadata Labels: +0.02em uppercase
+JetBrains Mono Numbers: 0.0em (Tabular figures enabled; guarantees vertical decimal alignment)
+11.3 Motion Timings, Curves & Animation States
+
+All UI animations execute via deterministic Godot Tween sequences configured to exact millisecond budgets:
+
++------------------------------------+------------+----------------------+----------------------------------+
+| ANIMATION SEQUENCE                 | TIME (MS)  | EASE / TRANS TYPE    | BEHAVIOR / DETAILS               |
++------------------------------------+------------+----------------------+----------------------------------+
+| Tab Transition (Screen Swap)       | 180 ms     | Cubic / EaseOut      | Crossfade alpha + 6px Y-offset   |
+| Card Hover Lift                    | 80 ms      | Quad / EaseOut       | Border shifts to #38BDF8, -2px Y |
+| Button Click Press / Release       | 60 ms      | Linear               | Scale down to 0.985, return 1.0  |
+| Reception Glide (Cam3D Interpolate)| 1200 ms    | Cubic / EaseInOut    | Non-linear cinematic pan to desk |
+| Check-In Dock Slide-In             | 350 ms     | Back / EaseOut       | Slides from X:1920 to X:1300     |
+| Stat Number Count-Up (On load)     | 400 ms     | Quint / EaseOut      | Values roll 0 -> Target value    |
+| Progress Bar Fill Sweep            | 300 ms     | Quad / EaseOut       | Fill bar expands from left       |
+| Scrubber Playhead Scrub Response   | 0 ms       | Instant (< 16.6 ms)  | Direct frame seek (1:1 locked)   |
+| Tooltip Fade-In                    | 100 ms     | Quad / EaseOut       | 120ms latency gate, then fade-in |
++------------------------------------+------------+----------------------+----------------------------------+
+
+11.4 Iconography Standards
+Vector Base: Lucide Core Vector Icon Library (Rendered via clean vector SVGs in Godot).
+Default Resolution: Rendered within strict pixel bounding boxes (14×14 px, 16×16 px, or 20×20 px).
+Color Binding Rules:
+Physical / Biomechanical: #38BDF8 (Cyan)
+Combat / Strikes / Danger: #EF4444 (Red) or #F97316 (Orange)
+Financial / Mastery / Accents: #D69E2E (Gold)
+Clinical / Structural Health: #22C55E (Green)
+System Neutral / Passive: #64748B (Muted Slate)
+11.5 Dense-Data Management Sim Rules (Preventing the "Spreadsheet" Look)
+Never Show Naked Numbers: Every raw metric must be accompanied by a visual visualizer (a mini-bar, delta indicator, tier badge, or percentile rank). A value of 74 must be immediately understood as Upper Quartile / Contender Grade without mental translation.
+Tabular Metric Stacking: Labels sit strictly above or to the left of values, never floating ambiguously. Every table alternates row striping using #070A0F and #0B0F17 with a 1px demarcation border.
+Semantic Color Coding (30% Rule): Colored indicators may never cover more than 30% of any widget surface. The base must remain deep matte dark (#0B0F17); vivid colors are strictly reserved for state changes, thresholds, and actionable alerts.
+Contextual Actionability: Dense readouts must lead directly to operational choices. Viewing elevated wear (right_arm 24%) presents an immediate one-click pathway to assign targeted physio care or deload sessions. Information is never displayed without purpose.
+Can you finish section 9.3 with all Maria tile states, tooltip rectangles, selection behavior, and click-to-play bindings?
+Can you provide the complete 1920×1080 Techniques ASCII wireframe with every panel, coordinate, state, and interaction?
+Can you complete section 11 with exact AAA depth, shadows, glass, motion timings, typography, iconography, and dense-data rules?
+Can you generate a visual mockup of the Techniques tab and reception check-in app using the specified AAA visual system?
+Copyright ©2026 Ludo.ai. All Rights Reserved.

@@ -1,0 +1,324 @@
+Here is the complete analysis and replacement script for author.py.
+
+PART 1: Biomechanics & Keyframe Coordinate Roadmap
+Diagnosis of Current Defects
+Lead Hook: In the current script, target = [-5., head[1]-6., 0.] solves $z$ using the circle equation from the shoulder, producing $z \approx \text{shoulder}[2] + \sqrt{\text{radius}^2 - \dots} \approx \text{head}[2] + 2 \text{ cm}$. The fist stops right at Miller's cheek instead of crossing into the pocket.
+Inside Uppercut: Current target set $z$ to head[2] + 32 cm. At mid-range (~160 cm fighter separation), 32 cm is still tucked inside Miller’s own chest/chin airspace.
+Pelvis shift: Current script had shift[2] = 2.0 * strike cm (only 2 cm weight shift). Real power hooks and uppercuts require shifting body mass onto the lead foot by 12 to 15 cm forward ($+z$) and 3 to 5 cm lateral ($+x$).
+Reference Frame (Orthodox Stance, Centimetres)
+Coordinate axes: $+z$ is forward (toward opponent), $+y$ is up, $+x$ is lateral (fighter's left).
+Guard origin baseline: Pelvis $(0, 95, 0)$, Head $(0, 158, 12)$, Lead Shoulder Left $(19, 142, 16)$, Lead Hand Left $(12, 148, 38)$.
+1. Lead Hook Trajectory & Landmarks
+Action: Dip and load on lead hip (frames 2–3), pivot on the ball of lead foot ($35^\circ$ inward), drive pelvis forward $+14\text{ cm}$, core rotation opens to centerline, lead elbow raises parallel to the floor, left fist sweeps in an arc crossing the center line to opponent jaw ($x \approx -4\text{ to } -6$, $y \approx \text{head}_y - 4$, $z \approx \text{head}_z + 62$).
+Arm Geometry: Elbow angle $\approx 90^\circ$ ($||\text{wrist} - \text{shoulder}|| \approx 0.707 \times (L_1 + L_2) \approx 45\text{ cm}$). Elbow pole must flare outward and slightly up ($+x, +y$) so the forearm sits within $15^\circ$ of horizontal.
+
+| Frame | Phase | Pelvis $(x,y,z)$ | Head $(x,y,z)$ | Lead Shoulder $(x,y,z)$ | Active Wrist $(x,y,z)$ | Elbow Pole Vector / Pos |
+|---|---|---|---|---|---|---|
+| 0 | Guard | $(0, 95, 0)$ | $(0, 158, 12)$ | $(18, 142, 16)$ | $(12, 148, 38)$ | Guard default |
+| 3 | Chamber/Dip | $(2, 92, 4)$ | $(3, 152, 16)$ | $(21, 137, 20)$ | $(16, 140, 36)$ | Lateral low |
+| 5 | Acceleration | $(4, 94, 9)$ | $(3, 154, 21)$ | $(16, 141, 26)$ | $(22, 150, 52)$ | High lateral flare ($+x, +y$) |
+| 8 | Contact | $(4, 95, 14)$ | $(1, 156, 26)$ | $(12, 143, 32)$ | $(-5, 154, 88)$ | Horizontal wing $(+x=35, y=154, z=60)$ |
+| 11| Follow/Arrest | $(3, 95, 13)$ | $(1, 156, 25)$ | $(10, 143, 31)$ | $(-12, 153, 86)$ | High horizontal |
+| 14| Recoil / Return| $(2, 95, 8)$ | $(0, 157, 19)$ | $(14, 142, 24)$ | $(4, 150, 60)$ | Relaxing down |
+| 20| Reset Guard | $(0, 95, 0)$ | $(0, 158, 12)$ | $(18, 142, 16)$ | $(12, 148, 38)$ | Guard default |
+
+Contact Wrist Reach relative to Head: $\Delta z = 88 - 26 = \mathbf{+62\text{ cm}}$ (satisfies $\ge 50\text{ cm}$).
+
+2. Inside Left Uppercut Trajectory & Landmarks
+Action: Slip/dip outside-left (drop pelvis $8\text{ cm}$, advance $+10\text{ cm}$), drop left fist to solar-plexus level ($y \approx 115$), then explosive hip extension and upward shovel drive.
+Arm Geometry: Elbow stays low and underneath the fist ($y_{\text{elbow}} < y_{\text{wrist}}$), fist drives upward to opponent chin level ($y \approx \text{head}_y - 2 = 156$), reaching forward $\Delta z = \mathbf{+58\text{ cm}}$ beyond own head.
+
+| Frame | Phase | Pelvis $(x,y,z)$ | Head $(x,y,z)$ | Lead Shoulder $(x,y,z)$ | Active Wrist $(x,y,z)$ | Elbow Pole Vector / Pos |
+|---|---|---|---|---|---|---|
+| 0 | Guard | $(0, 95, 0)$ | $(0, 158, 12)$ | $(18, 142, 16)$ | $(12, 148, 38)$ | Guard default |
+| 3 | Chamber/Drop | $(3, 88, 6)$ | $(4, 148, 18)$ | $(20, 134, 22)$ | $(14, 116, 42)$ | Pointing straight down |
+| 5 | Drive Upward | $(3, 92, 10)$ | $(2, 152, 22)$ | $(16, 139, 26)$ | $(6, 132, 60)$ | Directly under forearm |
+| 8 | Contact | $(2, 95, 13)$ | $(0, 157, 24)$ | $(13, 144, 30)$ | $(-3, 156, 82)$ | Underhand vertical $(x=5, y=105, z=55)$ |
+| 11| Peak Lift | $(1, 95, 12)$ | $(0, 157, 23)$ | $(13, 144, 29)$ | $(-3, 160, 80)$ | Underhand |
+| 14| Retraction | $(1, 95, 7)$ | $(0, 157, 18)$ | $(15, 143, 22)$ | $(5, 150, 56)$ | Returning |
+| 20| Reset Guard | $(0, 95, 0)$ | $(0, 158, 12)$ | $(18, 142, 16)$ | $(12, 148, 38)$ | Guard default |
+
+Contact Wrist Reach relative to Head: $\Delta z = 82 - 24 = \mathbf{+58\text{ cm}}$ (satisfies $\ge 50\text{ cm}$).
+
+Contact Wrist Height: $y = 156\text{ cm} \ge \text{head}_y - 5\text{ cm}$ (chin height).
+
+PART 2 & 3: Complete author.py Replacement
+"""Inside Cascadeur: two punches re-authored from the saved straight guard.
+
+Only native rig controllers are keyed. No joint or exported track patching.
+Centimetres, 30 fps, contact 8, shared guard 0/20. Foot pivot is authored here;
+the game's foot/mirror/planting code is untouched.
+"""
+import json
+import math
+import os
+import numpy as np
+
+sc = app.current_scene().domain_scene()
+mv = sc.model_viewer()
+bv = mv.behaviour_viewer()
+dv = mv.data_viewer()
+lv = sc.layers_viewer()
+objects = {mv.get_object_name(o): o for o in mv.get_objects()}
+guard = {n: np.array(v, dtype=float) for n, v in json.load(open(os.path.join(WORKDIR, 'shared_guard.json'))).items()}
+assert MOVE in ('lead_hook', 'inside_uppercut') and lv.frames_count() == 21
+
+
+def data(name):
+    return bv.get_behaviour_data(bv.get_behaviour_by_name(objects[name], 'Transform'), 'global_position')
+
+
+def position(name, frame=0):
+    return np.array(dv.get_data_value(data(name), frame), dtype=float)
+
+
+def unit(v):
+    norm = np.linalg.norm(v)
+    return v / norm if norm > 1e-8 else v
+
+
+def smooth(t):
+    t = max(0.0, min(1.0, t))
+    return t * t * (3.0 - 2.0 * t)
+
+
+def yaw(degrees):
+    a = math.radians(degrees)
+    c, s = math.cos(a), math.sin(a)
+    return np.array([[c, 0.0, s], [0.0, 1.0, 0.0], [-s, 0.0, c]])
+
+
+def elbow_target(shoulder, wrist, side, mode='hook'):
+    upper, lower = lengths[side]
+    delta = wrist - shoulder
+    distance = np.linalg.norm(delta)
+    max_reach = upper + lower - 0.5
+    if distance >= max_reach:
+        distance = max_reach
+        delta = unit(delta) * distance
+        wrist = shoulder + delta
+    assert abs(upper - lower) < distance < upper + lower, (MOVE, side, distance, upper, lower)
+    axis = delta / distance
+    along = (upper * upper - lower * lower + distance * distance) / (2.0 * distance)
+    h = math.sqrt(max(0.0, upper * upper - along * along))
+
+    if mode == 'uppercut':
+        # Uppercut pole drives downward under the arm line
+        candidate = np.array([0.0, -1.0, 0.0])
+    else:
+        # Hook pole wings horizontally outward (left for left hand, +X)
+        candidate = np.array([1.0, 0.25, 0.0]) if side == 'l' else np.array([-1.0, 0.25, 0.0])
+
+    normal = candidate - axis * np.dot(candidate, axis)
+    if np.linalg.norm(normal) < 1e-4:
+        normal = np.array([0.0, 1.0, 0.0]) - axis * np.dot(np.array([0.0, 1.0, 0.0]), axis)
+    pole = unit(normal)
+    return shoulder + axis * along + pole * h
+
+
+lengths = {s: (np.linalg.norm(position('upperarm_' + s) - position('lowerarm_' + s)),
+               np.linalg.norm(position('lowerarm_' + s) - position('hand_' + s))) for s in ['l', 'r']}
+
+pelvis = guard['pelvis_MainPoint']
+head = guard['head_MainPoint']
+ball_l = position('ball_l')
+
+frames = []
+for f in range(21):
+    # Strike progress curve
+    if f <= 3:
+        prep = smooth(f / 3.0)
+    else:
+        prep = 1.0
+
+    if f <= 8:
+        strike = smooth((f - 2.0) / 6.0) if f >= 2 else 0.0
+    else:
+        strike = 1.0 - smooth((f - 8.0) / 9.0)
+
+    # Biomechanical Weight shift forward onto lead foot
+    fwd_shift = 14.0 * strike if MOVE == 'lead_hook' else 12.0 * strike
+    lat_shift = 4.0 * strike if MOVE == 'lead_hook' else 2.5 * strike
+    dip = 7.0 * math.sin(math.pi * f / 7.0)**2 if (MOVE == 'inside_uppercut' and f <= 7) else 0.0
+    shift = np.array([lat_shift, -dip, fwd_shift])
+
+    # Torso Rotation
+    turn_deg = (30.0 if MOVE == 'lead_hook' else 22.0) * strike
+    rot_matrix = yaw(turn_deg)
+
+    row = {n: p.copy() for n, p in guard.items()}
+
+    # Move spine, pelvis, neck, and shoulders with core turn and forward weight shift
+    for n, p in guard.items():
+        if n.startswith(('pelvis', 'thigh', 'spine', 'neck', 'clavicle', 'upperarm')):
+            row[n] = pelvis + rot_matrix @ (p - pelvis) + shift
+
+    head_new = pelvis + rot_matrix @ (head - pelvis) + shift
+
+    # Uppercut tucks head securely behind lead shoulder
+    if MOVE == 'inside_uppercut':
+        head_new[2] = min(head_new[2], row['upperarm_MainPoint_l'][2] - 4.0)
+
+    # Eyes & Nose lock onto opponent (counteract torso yaw)
+    head_counter_yaw = (turn_deg + 8.0) * strike
+    for n, p in guard.items():
+        if n.startswith('head'):
+            row[n] = head_new + yaw(head_counter_yaw) @ (p - head)
+
+    # Foot mechanics: lead foot pivots on the ball for the hook
+    if MOVE == 'lead_hook':
+        lead_foot_pivot = 32.0 * strike
+        for n, p in guard.items():
+            if n.startswith(('foot', 'ball')) and n.endswith('_l'):
+                row[n] = ball_l + yaw(lead_foot_pivot) @ (p - ball_l)
+
+    # Hands & Arms Authoring
+    for side in ['l', 'r']:
+        active = (side == 'l')
+        start = guard['hand_MainPoint_' + side]
+        wrist = start + (head_new - head)
+        shoulder = row['upperarm_MainPoint_' + side]
+
+        if active and MOVE == 'lead_hook':
+            # Target delivers across opponent chin: X crosses slightly inside center (-5),
+            # Y matches chin height, Z reaches 62 cm beyond head_new.
+            contact_wrist = np.array([-5.0, head_new[1] - 4.0, head_new[2] + 62.0])
+            # Load phase chambers slightly out/back
+            chamber_wrist = np.array([start[0] + 5.0, start[1] - 6.0, start[2] - 4.0])
+
+            if f <= 3:
+                wrist = start + (chamber_wrist - start) * smooth(f / 3.0)
+            elif f <= 8:
+                t = smooth((f - 3.0) / 5.0)
+                # Outward flare arc on delivery
+                flare_x = 12.0 * math.sin(math.pi * t)
+                wrist = chamber_wrist + (contact_wrist - chamber_wrist) * t + np.array([flare_x, 0.0, 0.0])
+            else:
+                t = smooth((f - 8.0) / 12.0)
+                wrist = contact_wrist + (start - contact_wrist) * t
+
+        elif active and MOVE == 'inside_uppercut':
+            # Chamber drops fist to solar plexus height
+            chamber_wrist = np.array([start[0] + 2.0, head_new[1] - 38.0, start[2] + 4.0])
+            # Contact drives fist up to chin level, 58 cm ahead of head
+            contact_wrist = np.array([-3.0, head_new[1] - 2.0, head_new[2] + 58.0])
+
+            if f <= 3:
+                wrist = start + (chamber_wrist - start) * smooth(f / 3.0)
+            elif f <= 8:
+                t = smooth((f - 3.0) / 5.0)
+                wrist = chamber_wrist + (contact_wrist - chamber_wrist) * t
+            else:
+                t = smooth((f - 8.0) / 12.0)
+                wrist = contact_wrist + (start - contact_wrist) * t
+
+        else:
+            # Rear hand remains glued to the chin as active guard
+            rear_chin_guard = np.array([guard['hand_MainPoint_r'][0], head_new[1] - 6.0, head_new[2] + 18.0])
+            wrist = guard['hand_MainPoint_r'] + (rear_chin_guard - guard['hand_MainPoint_r']) * strike
+
+        # Translate hand triangle points
+        for stem in ['hand_MainPoint_', 'hand_DirectionPoint_', 'hand_AdditionalPoint_']:
+            name = stem + side
+            row[name] = guard[name] + (wrist - start)
+
+        # Solve elbow direction pole
+        if active and strike > 0.0:
+            pole_mode = 'uppercut' if MOVE == 'inside_uppercut' else 'hook'
+            solved_pole = elbow_target(shoulder, wrist, side, mode=pole_mode)
+            if MOVE == 'inside_uppercut':
+                # Pull elbow pole low and clear of IK singularities
+                solved_pole = shoulder + 3.2 * (solved_pole - shoulder)
+            else:
+                # Elevate hook elbow to keep forearm horizontal
+                solved_pole[1] = max(solved_pole[1], wrist[1])
+                solved_pole = shoulder + 2.2 * (solved_pole - shoulder)
+
+            row['lowerarm_LimbDir_' + side] = guard['lowerarm_LimbDir_' + side] * (1.0 - strike) + solved_pole * strike
+
+    if f in (0, 20):
+        row = {n: p.copy() for n, p in guard.items()}
+    frames.append(row)
+
+
+def key(me, ue, su):
+    for name in guard:
+        layer = lv.layer_id_by_obj_id_or_null(objects[name])
+        for f in range(21):
+            me.layers_editor().set_fixed_interpolation_or_key_if_need(layer, f, True)
+    me.fit_animation_size_by_layers()
+    su.generate_update()
+    for f, row in enumerate(frames):
+        touched = set()
+        for name, value in row.items():
+            did = data(name)
+            me.data_editor().set_data_value(did, f, np.array(value, dtype=np.float32))
+            touched.add(did)
+        su.run_update(touched, f)
+
+
+assert sc.modify_update('OFFBAKE1B re-author ' + MOVE + ' from straight guard', key)
+
+# Two passes of hand orientation convergence
+for iteration in range(2):
+    targets = {}
+    for f in range(21):
+        for side in ['l', 'r']:
+            wrist = position('hand_' + side, f)
+            forearm = unit(wrist - position('lowerarm_' + side, f))
+            knuckles = unit(position('middle_01_' + side, f) - wrist)
+            axis = np.cross(knuckles, forearm)
+            angle = math.atan2(float(np.linalg.norm(axis)), float(np.dot(knuckles, forearm)))
+            matrix = np.eye(3)
+            if angle > 1e-7:
+                matrix = np.array(csc.math.Rotation.from_angle_axis(angle, np.array(unit(axis), dtype=np.float32)).to_rotation_matrix())
+            centre = position('hand_MainPoint_' + side, f)
+            for stem in ['hand_DirectionPoint_', 'hand_AdditionalPoint_']:
+                name = stem + side
+                targets[name, f] = centre + matrix @ (position(name, f) - centre)
+
+    def orient(me, ue, su):
+        for f in range(21):
+            touched = set()
+            for (name, frame), value in targets.items():
+                if frame != f:
+                    continue
+                did = data(name)
+                me.data_editor().set_data_value(did, f, np.array(value, dtype=np.float32))
+                touched.add(did)
+            su.run_update(touched, f)
+
+    assert sc.modify_update('OFFBAKE1B author hand orientation ' + str(iteration), orient)
+
+# ==============================================================================
+# AUDIT & VERIFICATION GATES (Frame 8 Contact)
+# ==============================================================================
+c_head = position('head', 8)
+c_wrist = position('hand_l', 8)
+c_elbow = position('lowerarm_l', 8)
+
+z_reach = c_wrist[2] - c_head[2]
+print('AUDIT Frame 8 Reach Z: %.2f cm (Required >= 50.0 cm)' % z_reach)
+assert z_reach >= 50.0, 'FAILED: Active wrist reach z (%f cm) is < 50.0 cm ahead of head' % z_reach
+
+if MOVE == 'lead_hook':
+    forearm_vec = unit(c_wrist - c_elbow)
+    forearm_pitch_deg = abs(math.degrees(math.asin(float(forearm_vec[1]))))
+    print('AUDIT Hook Forearm Pitch: %.2f deg (Required <= 20.0 deg)' % forearm_pitch_deg)
+    assert forearm_pitch_deg <= 20.0, 'FAILED: Hook forearm pitch (%f deg) exceeds 20 deg horizontal threshold' % forearm_pitch_deg
+
+elif MOVE == 'inside_uppercut':
+    chin_ref_y = c_head[1] - 8.0
+    print('AUDIT Uppercut Fist Y: %.2f cm, Chin Ref Y: %.2f cm' % (c_wrist[1], chin_ref_y))
+    assert c_wrist[1] >= chin_ref_y, 'FAILED: Uppercut fist y (%f cm) is below chin line (%f cm)' % (c_wrist[1], chin_ref_y)
+
+# Save readback & scene
+readback = {n: [position(n, f).tolist() for f in range(21)] for n in
+            ['head', 'pelvis', 'upperarm_l', 'upperarm_r', 'lowerarm_l', 'lowerarm_r',
+             'hand_l', 'hand_r', 'foot_l', 'foot_r', 'ball_l', 'ball_r']}
+
+with open(os.path.join(WORKDIR, 'authored_' + MOVE + '.json'), 'w') as stream:
+    json.dump(readback, stream, indent=2)
+
+app.current_scene().save(os.path.join(WORKDIR, 'mh_' + MOVE + '.casc'))
+print('OFFBAKE1B_AUTHORED', MOVE, 'guard endpoints 0/20 contact 8 - ALL GATES GREEN', lengths)

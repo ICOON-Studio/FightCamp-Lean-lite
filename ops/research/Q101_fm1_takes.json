@@ -1,0 +1,1620 @@
+{
+  "idle_first": {
+    "lead": "LeftToes",
+    "split_m": 0.586273193359375,
+    "width_m": 0.32629457116127
+  },
+  "population": {
+    "binding": "boxing",
+    "fighter": "f01_m_box_welter",
+    "fps": 30,
+    "map_size": 21,
+    "map_source": "Q100_fm1_rig.json",
+    "node": "still",
+    "pack": "magicpot_fighting_motions_vol1",
+    "reference_pose": "BlueGuy.fbx",
+    "sampler": "direct_fbx_skeleton3d_sampling",
+    "sampler_note": "FM1 clips import as Skeleton3D; FightClipRetarget._index cannot read them. Source rotations on our rest positions with production hip_position."
+  },
+  "references": [
+    {
+      "bones": 22,
+      "carry": false,
+      "entry_pose_deg": 0.0118694046176678,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.586273193359375,
+        "width_m": 0.32629457116127
+      },
+      "frames": 60,
+      "hand": "",
+      "hands_f0": {
+        "left_y": 0.455904722213745,
+        "right_y": 0.496172428131104
+      },
+      "head_height_f0_m": 0.608177423477173,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.586834341287613,
+        "width_m": 0.325699731707573
+      },
+      "length_s": 4.66666666666667,
+      "lowest_toe_m": -0.000947773456573486,
+      "name": "idle",
+      "path": "idle",
+      "planted_frames": 59,
+      "skate_mean_mps": 0.0120615088306264,
+      "skate_p95_mps": 0.0201272492995486,
+      "strike": null
+    },
+    {
+      "bones": 22,
+      "carry": false,
+      "entry_pose_deg": 75.3869958791508,
+      "error": "",
+      "first": {
+        "lead": "RightToes",
+        "split_m": 0.578220337629318,
+        "width_m": 0.334710001945496
+      },
+      "frames": 30,
+      "hand": "RightHand",
+      "hands_f0": {
+        "left_y": 0.499814748764038,
+        "right_y": 0.453768014907837
+      },
+      "head_height_f0_m": 0.607972383499146,
+      "last": {
+        "lead": "RightToes",
+        "split_m": 0.682254001498222,
+        "width_m": 0.331469565629959
+      },
+      "length_s": 1.0,
+      "lowest_toe_m": -0.00986665487289429,
+      "name": "hook_rear",
+      "path": "hook_rear",
+      "planted_frames": 24,
+      "skate_mean_mps": 0.325343560016336,
+      "skate_p95_mps": 0.757029689848423,
+      "strike": {
+        "frame": 10,
+        "x": 0.126442819833755,
+        "y": 0.500270843505859,
+        "z": 1.04906713962555
+      }
+    },
+    {
+      "bones": 22,
+      "carry": false,
+      "entry_pose_deg": 0.140069911439845,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.586274370551109,
+        "width_m": 0.325940728187561
+      },
+      "frames": 25,
+      "hand": "LeftHand",
+      "hands_f0": {
+        "left_y": 0.454930305480957,
+        "right_y": 0.496391534805298
+      },
+      "head_height_f0_m": 0.607701539993286,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.585779190063477,
+        "width_m": 0.325667560100555
+      },
+      "length_s": 0.833,
+      "lowest_toe_m": -0.000262916088104248,
+      "name": "jab",
+      "path": "jab",
+      "planted_frames": 17,
+      "skate_mean_mps": 0.123370747177807,
+      "skate_p95_mps": 0.242426851764321,
+      "strike": {
+        "frame": 9,
+        "x": -0.224766969680786,
+        "y": 0.399577379226685,
+        "z": 1.09199357032776
+      }
+    },
+    {
+      "bones": 22,
+      "carry": false,
+      "entry_pose_deg": 0.133081507038048,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.586400181055069,
+        "width_m": 0.325934588909149
+      },
+      "frames": 25,
+      "hand": "RightHand",
+      "hands_f0": {
+        "left_y": 0.454930067062378,
+        "right_y": 0.496391534805298
+      },
+      "head_height_f0_m": 0.607701063156128,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.586509004235268,
+        "width_m": 0.326071292161942
+      },
+      "length_s": 0.833,
+      "lowest_toe_m": 0.000426888465881348,
+      "name": "cross",
+      "path": "cross",
+      "planted_frames": 19,
+      "skate_mean_mps": 0.462152663017868,
+      "skate_p95_mps": 1.56338654458523,
+      "strike": {
+        "frame": 11,
+        "x": -0.104122817516327,
+        "y": 0.311998128890991,
+        "z": 1.05715656280518
+      }
+    },
+    {
+      "bones": 22,
+      "carry": false,
+      "entry_pose_deg": 0.0888568273227893,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.586132481694222,
+        "width_m": 0.326080352067947
+      },
+      "frames": 30,
+      "hand": "LeftHand",
+      "hands_f0": {
+        "left_y": 0.45526123046875,
+        "right_y": 0.496323823928833
+      },
+      "head_height_f0_m": 0.607866287231445,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.689069792628288,
+        "width_m": 0.322836115956306
+      },
+      "length_s": 1.0,
+      "lowest_toe_m": -0.0088202953338623,
+      "name": "hook_lead",
+      "path": "hook_lead",
+      "planted_frames": 27,
+      "skate_mean_mps": 0.325423100617223,
+      "skate_p95_mps": 0.917518213391304,
+      "strike": {
+        "frame": 10,
+        "x": -0.130756556987762,
+        "y": 0.503110408782959,
+        "z": 1.04884564876556
+      }
+    }
+  ],
+  "rows": [
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 86.415633582608,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.340563669800758,
+        "width_m": 0.249408781528473
+      },
+      "frames": 10,
+      "hand": "",
+      "hands_f0": {
+        "left_y": 0.114420652389526,
+        "right_y": 0.192647695541382
+      },
+      "head_height_f0_m": 0.48870325088501,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "length_s": 0.30000001190833,
+      "lowest_toe_m": 0.043344259262085,
+      "name": "bb_front_A.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/bb_front_A.fbx",
+      "planted_frames": 0,
+      "skate_mean_mps": 0.0,
+      "skate_p95_mps": 0.0,
+      "strike": null
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 84.1362539200082,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.400683909654617,
+        "width_m": 0.147499054670334
+      },
+      "frames": 10,
+      "hand": "",
+      "hands_f0": {
+        "left_y": 0.255053997039795,
+        "right_y": 0.253666877746582
+      },
+      "head_height_f0_m": 0.469523906707764,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "length_s": 0.30000001190833,
+      "lowest_toe_m": 0.043344259262085,
+      "name": "bd_front_A.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/bd_front_A.fbx",
+      "planted_frames": 0,
+      "skate_mean_mps": 0.0,
+      "skate_p95_mps": 0.0,
+      "strike": null
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 76.3206730976497,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "frames": 15,
+      "hand": "LeftHand",
+      "hands_f0": {
+        "left_y": 0.311406373977661,
+        "right_y": -0.0195305347442627
+      },
+      "head_height_f0_m": 0.514012575149536,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.353176802396774,
+        "width_m": 0.253007300198078
+      },
+      "length_s": 0.5,
+      "lowest_toe_m": 0.043344259262085,
+      "name": "bk_push_left_A.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/bk_push_left_A.fbx",
+      "planted_frames": 0,
+      "skate_mean_mps": 0.0,
+      "skate_p95_mps": 0.0,
+      "strike": {
+        "frame": 4,
+        "x": 0.178386449813843,
+        "y": 0.332954883575439,
+        "z": 0.0425737053155899
+      }
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 76.9582199151717,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "frames": 23,
+      "hand": "RightHand",
+      "hands_f0": {
+        "left_y": 0.311406373977661,
+        "right_y": 0.316261529922485
+      },
+      "head_height_f0_m": 0.514012575149536,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.367211848497391,
+        "width_m": 0.29063069075346
+      },
+      "length_s": 0.75,
+      "lowest_toe_m": 0.00668203830718994,
+      "name": "bk_rh_right_A.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/bk_rh_right_A.fbx",
+      "planted_frames": 4,
+      "skate_mean_mps": 4.50455708429217,
+      "skate_p95_mps": 4.37085315585136,
+      "strike": {
+        "frame": 4,
+        "x": -0.116829395294189,
+        "y": 0.159616947174072,
+        "z": 0.233044967055321
+      }
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 76.9582209193759,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "frames": 19,
+      "hand": "RightHand",
+      "hands_f0": {
+        "left_y": 0.311406373977661,
+        "right_y": 0.316261529922485
+      },
+      "head_height_f0_m": 0.514012575149536,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "length_s": 0.600000023838311,
+      "lowest_toe_m": 0.043344259262085,
+      "name": "bp_hook_right_A.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/bp_hook_right_A.fbx",
+      "planted_frames": 0,
+      "skate_mean_mps": 0.0,
+      "skate_p95_mps": 0.0,
+      "strike": {
+        "frame": 8,
+        "x": -0.361509025096893,
+        "y": 0.049168586730957,
+        "z": 0.135708823800087
+      }
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 75.9138536008284,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.341304250061512,
+        "width_m": 0.250830255448818
+      },
+      "frames": 21,
+      "hand": "LeftHand",
+      "hands_f0": {
+        "left_y": 0.311406373977661,
+        "right_y": 0.322268009185791
+      },
+      "head_height_f0_m": 0.514012575149536,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.336658805608749,
+        "width_m": 0.236799329519272
+      },
+      "length_s": 0.7,
+      "lowest_toe_m": -0.00259214639663696,
+      "name": "bp_upper_left_A.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/bp_upper_left_A.fbx",
+      "planted_frames": 9,
+      "skate_mean_mps": 1.47936555867394,
+      "skate_p95_mps": 2.45347738265991,
+      "strike": {
+        "frame": 0,
+        "x": 0.135859876871109,
+        "y": 0.311406373977661,
+        "z": 0.0261023193597794
+      }
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 84.6233960512713,
+      "error": "",
+      "first": {
+        "lead": "RightToes",
+        "split_m": 0.00461360812187195,
+        "width_m": 0.0347081003710628
+      },
+      "frames": 30,
+      "hand": "",
+      "hands_f0": {
+        "left_y": 0.742321491241455,
+        "right_y": 0.783428430557251
+      },
+      "head_height_f0_m": 0.540461301803589,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "length_s": 1.0,
+      "lowest_toe_m": -0.0112722516059875,
+      "name": "getup_A.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/getup_A.fbx",
+      "planted_frames": 0,
+      "skate_mean_mps": 0.0,
+      "skate_p95_mps": 0.0,
+      "strike": null
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 77.1403891777553,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.348321706056595,
+        "width_m": 0.273817922919989
+      },
+      "frames": 10,
+      "hand": "",
+      "hands_f0": {
+        "left_y": 0.35103964805603,
+        "right_y": 0.281407833099365
+      },
+      "head_height_f0_m": 0.517484426498413,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "length_s": 0.30000001190833,
+      "lowest_toe_m": 0.043344259262085,
+      "name": "hb_front_A.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/hb_front_A.fbx",
+      "planted_frames": 0,
+      "skate_mean_mps": 0.0,
+      "skate_p95_mps": 0.0,
+      "strike": null
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 76.6827559796649,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.34214798361063,
+        "width_m": 0.25367072224617
+      },
+      "frames": 10,
+      "hand": "",
+      "hands_f0": {
+        "left_y": 0.288322448730469,
+        "right_y": 0.303647994995117
+      },
+      "head_height_f0_m": 0.531840085983276,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "length_s": 0.30000001190833,
+      "lowest_toe_m": 0.043344259262085,
+      "name": "hd_front_A.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/hd_front_A.fbx",
+      "planted_frames": 0,
+      "skate_mean_mps": 0.0,
+      "skate_p95_mps": 0.0,
+      "strike": null
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 74.3262866848252,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.307571679353714,
+        "width_m": 0.315953409299254
+      },
+      "frames": 19,
+      "hand": "",
+      "hands_f0": {
+        "left_y": 0.110483169555664,
+        "right_y": 0.15190315246582
+      },
+      "head_height_f0_m": 0.539577484130859,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "length_s": 0.600000023838311,
+      "lowest_toe_m": 0.043344259262085,
+      "name": "hd_front_B.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/hd_front_B.fbx",
+      "planted_frames": 0,
+      "skate_mean_mps": 0.0,
+      "skate_p95_mps": 0.0,
+      "strike": null
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 76.9582209193759,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "frames": 25,
+      "hand": "RightHand",
+      "hands_f0": {
+        "left_y": 0.311406373977661,
+        "right_y": 0.316261529922485
+      },
+      "head_height_f0_m": 0.514012575149536,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "length_s": 0.80000001190833,
+      "lowest_toe_m": 0.0086326003074646,
+      "name": "hk_rh_right_A.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/hk_rh_right_A.fbx",
+      "planted_frames": 6,
+      "skate_mean_mps": 1.05186139699072,
+      "skate_p95_mps": 1.1290006712079,
+      "strike": {
+        "frame": 4,
+        "x": -0.106441080570221,
+        "y": 0.171818733215332,
+        "z": 0.245858624577522
+      }
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 76.9582209193759,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "frames": 21,
+      "hand": "LeftHand",
+      "hands_f0": {
+        "left_y": 0.311406373977661,
+        "right_y": 0.316261529922485
+      },
+      "head_height_f0_m": 0.514012575149536,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.311714425683022,
+        "width_m": 0.286288693547249
+      },
+      "length_s": 0.7,
+      "lowest_toe_m": 0.0289990901947021,
+      "name": "hk_side_left_A.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/hk_side_left_A.fbx",
+      "planted_frames": 2,
+      "skate_mean_mps": 3.58820557594299,
+      "skate_p95_mps": 2.08424940705299,
+      "strike": {
+        "frame": 16,
+        "x": 0.338487803936005,
+        "y": 0.0788662433624268,
+        "z": 0.105817392468452
+      }
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 76.9582209193759,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "frames": 15,
+      "hand": "LeftHand",
+      "hands_f0": {
+        "left_y": 0.311406373977661,
+        "right_y": 0.316261529922485
+      },
+      "head_height_f0_m": 0.514012575149536,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.332194373011589,
+        "width_m": 0.23111991584301
+      },
+      "length_s": 0.5,
+      "lowest_toe_m": 0.0254772305488586,
+      "name": "hp_hook_left_A.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/hp_hook_left_A.fbx",
+      "planted_frames": 0,
+      "skate_mean_mps": 0.0,
+      "skate_p95_mps": 0.0,
+      "strike": {
+        "frame": 9,
+        "x": 0.223133474588394,
+        "y": 0.237668037414551,
+        "z": 0.261397480964661
+      }
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 76.3695056516268,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.313924953341484,
+        "width_m": 0.313560057431459
+      },
+      "frames": 15,
+      "hand": "LeftHand",
+      "hands_f0": {
+        "left_y": 0.281035423278809,
+        "right_y": -0.00465130805969238
+      },
+      "head_height_f0_m": 0.514012575149536,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.304720647633076,
+        "width_m": 0.299255799502134
+      },
+      "length_s": 0.5,
+      "lowest_toe_m": 0.0293211936950684,
+      "name": "hp_hook_left_Tiramis.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/hp_hook_left_Tiramis.fbx",
+      "planted_frames": 0,
+      "skate_mean_mps": 0.0,
+      "skate_p95_mps": 0.0,
+      "strike": {
+        "frame": 9,
+        "x": 0.230635225772858,
+        "y": 0.221397161483765,
+        "z": 0.28753799200058
+      }
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 68.319172799574,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "frames": 7,
+      "hand": "LeftHand",
+      "hands_f0": {
+        "left_y": 0.311547517776489,
+        "right_y": 0.427683353424072
+      },
+      "head_height_f0_m": 0.514012575149536,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "length_s": 0.200000002966257,
+      "lowest_toe_m": 0.043344259262085,
+      "name": "hp_straight_left_A.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/hp_straight_left_A.fbx",
+      "planted_frames": 0,
+      "skate_mean_mps": 0.0,
+      "skate_p95_mps": 0.0,
+      "strike": {
+        "frame": 3,
+        "x": 0.378020793199539,
+        "y": 0.186150312423706,
+        "z": 0.447055637836456
+      }
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 57.6239107261799,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.313924953341484,
+        "width_m": 0.313559997826815
+      },
+      "frames": 7,
+      "hand": "LeftHand",
+      "hands_f0": {
+        "left_y": 0.319353342056274,
+        "right_y": 0.386044263839722
+      },
+      "head_height_f0_m": 0.514012575149536,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.31417290866375,
+        "width_m": 0.308822091668844
+      },
+      "length_s": 0.200000002966257,
+      "lowest_toe_m": 0.0291804671287537,
+      "name": "hp_straight_left_Tiramis.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/hp_straight_left_Tiramis.fbx",
+      "planted_frames": 1,
+      "skate_mean_mps": 0.484051275998354,
+      "skate_p95_mps": 0.484051275998354,
+      "strike": {
+        "frame": 3,
+        "x": 0.38961473107338,
+        "y": 0.234331369400024,
+        "z": 0.464641928672791
+      }
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 76.9582209193759,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "frames": 13,
+      "hand": "RightHand",
+      "hands_f0": {
+        "left_y": 0.311406373977661,
+        "right_y": 0.316261529922485
+      },
+      "head_height_f0_m": 0.514012575149536,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "length_s": 0.400000005954165,
+      "lowest_toe_m": 0.0297240018844604,
+      "name": "hp_straight_right_A.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/hp_straight_right_A.fbx",
+      "planted_frames": 1,
+      "skate_mean_mps": 1.52715135365725,
+      "skate_p95_mps": 1.52715135365725,
+      "strike": {
+        "frame": 4,
+        "x": -0.512417614459991,
+        "y": -0.0677890777587891,
+        "z": 0.312677681446075
+      }
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 76.9582209193759,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.341304317116737,
+        "width_m": 0.250830136239529
+      },
+      "frames": 19,
+      "hand": "RightHand",
+      "hands_f0": {
+        "left_y": 0.311406373977661,
+        "right_y": 0.316261529922485
+      },
+      "head_height_f0_m": 0.514012575149536,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.344194963574409,
+        "width_m": 0.25186263769865
+      },
+      "length_s": 0.633333325365578,
+      "lowest_toe_m": 0.0330409407615662,
+      "name": "hp_upper_right_A.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/hp_upper_right_A.fbx",
+      "planted_frames": 0,
+      "skate_mean_mps": 0.0,
+      "skate_p95_mps": 0.0,
+      "strike": {
+        "frame": 9,
+        "x": -0.135802984237671,
+        "y": 0.069110631942749,
+        "z": 0.176247373223305
+      }
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 75.9138521875196,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "frames": 25,
+      "hand": "",
+      "hands_f0": {
+        "left_y": 0.311406373977661,
+        "right_y": 0.322268009185791
+      },
+      "head_height_f0_m": 0.514012575149536,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.342919707298279,
+        "width_m": 0.253243900835514
+      },
+      "length_s": 0.80000001190833,
+      "lowest_toe_m": 0.00676256418228149,
+      "name": "idle_A.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/idle_A.fbx",
+      "planted_frames": 12,
+      "skate_mean_mps": 0.564578617922962,
+      "skate_p95_mps": 0.810624249279499,
+      "strike": null
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 72.3224914460357,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.313924953341484,
+        "width_m": 0.313559997826815
+      },
+      "frames": 25,
+      "hand": "",
+      "hands_f0": {
+        "left_y": 0.231991767883301,
+        "right_y": 0.250159025192261
+      },
+      "head_height_f0_m": 0.514012575149536,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.314618535339832,
+        "width_m": 0.311957336962223
+      },
+      "length_s": 0.80000001190833,
+      "lowest_toe_m": -0.00557047128677368,
+      "name": "idle_Tiramis.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/idle_Tiramis.fbx",
+      "planted_frames": 17,
+      "skate_mean_mps": 0.530465981608038,
+      "skate_p95_mps": 1.04026045650244,
+      "strike": null
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 76.9582209193759,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "frames": 25,
+      "hand": "",
+      "hands_f0": {
+        "left_y": 0.311406373977661,
+        "right_y": 0.316261529922485
+      },
+      "head_height_f0_m": 0.514012575149536,
+      "last": {
+        "lead": "RightToes",
+        "split_m": 0.00461360812187195,
+        "width_m": 0.0347080966457725
+      },
+      "length_s": 0.80000001190833,
+      "lowest_toe_m": -0.0518504977226257,
+      "name": "knockdown_A.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/knockdown_A.fbx",
+      "planted_frames": 7,
+      "skate_mean_mps": 0.784378578620298,
+      "skate_p95_mps": 1.06258258223534,
+      "strike": null
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 84.2122337100886,
+      "error": "",
+      "first": {
+        "lead": "RightToes",
+        "split_m": 0.00541897118091583,
+        "width_m": 0.0301175462082028
+      },
+      "frames": 60,
+      "hand": "",
+      "hands_f0": {
+        "left_y": 0.742321252822876,
+        "right_y": 0.783428430557251
+      },
+      "head_height_f0_m": 0.540461301803589,
+      "last": {
+        "lead": "RightToes",
+        "split_m": 0.00470759719610214,
+        "width_m": 0.0304983919486403
+      },
+      "length_s": 2.0,
+      "lowest_toe_m": -0.011707603931427,
+      "name": "knockdown_loop_A.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/knockdown_loop_A.fbx",
+      "planted_frames": 59,
+      "skate_mean_mps": 0.0720446592964374,
+      "skate_p95_mps": 0.0956313405185938,
+      "strike": null
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 77.2786291441731,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.196714609861374,
+        "width_m": 0.0947068631649017
+      },
+      "frames": 10,
+      "hand": "",
+      "hands_f0": {
+        "left_y": 0.300060033798218,
+        "right_y": 0.302058458328247
+      },
+      "head_height_f0_m": 0.518180131912231,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "length_s": 0.30000001190833,
+      "lowest_toe_m": 0.0430054068565369,
+      "name": "lb_front_A.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/lb_front_A.fbx",
+      "planted_frames": 0,
+      "skate_mean_mps": 0.0,
+      "skate_p95_mps": 0.0,
+      "strike": null
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 76.3121733074381,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.171810016036034,
+        "width_m": 0.279019795358181
+      },
+      "frames": 10,
+      "hand": "",
+      "hands_f0": {
+        "left_y": 0.286579847335815,
+        "right_y": 0.302589893341064
+      },
+      "head_height_f0_m": 0.530827283859253,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "length_s": 0.30000001190833,
+      "lowest_toe_m": 0.0430261492729187,
+      "name": "ld_front_A.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/ld_front_A.fbx",
+      "planted_frames": 0,
+      "skate_mean_mps": 0.0,
+      "skate_p95_mps": 0.0,
+      "strike": null
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 76.9582209193759,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "frames": 19,
+      "hand": "LeftHand",
+      "hands_f0": {
+        "left_y": 0.311406373977661,
+        "right_y": 0.316261529922485
+      },
+      "head_height_f0_m": 0.514012575149536,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "length_s": 0.600000023838311,
+      "lowest_toe_m": -0.00210815668106079,
+      "name": "lk_rh_left_A.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/lk_rh_left_A.fbx",
+      "planted_frames": 2,
+      "skate_mean_mps": 2.91920576244593,
+      "skate_p95_mps": 1.40647418797016,
+      "strike": {
+        "frame": 0,
+        "x": 0.135859876871109,
+        "y": 0.311406373977661,
+        "z": 0.0261023342609406
+      }
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 76.9582209193759,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "frames": 21,
+      "hand": "RightHand",
+      "hands_f0": {
+        "left_y": 0.311406373977661,
+        "right_y": 0.316261529922485
+      },
+      "head_height_f0_m": 0.514012575149536,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.38690297305584,
+        "width_m": 0.408691853284836
+      },
+      "length_s": 0.699999988070019,
+      "lowest_toe_m": -0.0381304621696472,
+      "name": "lk_rh_right_A.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/lk_rh_right_A.fbx",
+      "planted_frames": 1,
+      "skate_mean_mps": 3.9384001493454,
+      "skate_p95_mps": 3.9384001493454,
+      "strike": {
+        "frame": 3,
+        "x": 0.0486032962799072,
+        "y": 0.212710857391357,
+        "z": 0.185890421271324
+      }
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 73.3590532365051,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.31417290866375,
+        "width_m": 0.308822091668844
+      },
+      "frames": 21,
+      "hand": "RightHand",
+      "hands_f0": {
+        "left_y": 0.23352313041687,
+        "right_y": 0.210371255874634
+      },
+      "head_height_f0_m": 0.514012575149536,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.365137651562691,
+        "width_m": 0.451619833707809
+      },
+      "length_s": 0.699999988070019,
+      "lowest_toe_m": -0.0451874732971191,
+      "name": "lk_rh_right_Tiramis.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/lk_rh_right_Tiramis.fbx",
+      "planted_frames": 1,
+      "skate_mean_mps": 4.72782835364342,
+      "skate_p95_mps": 4.72782835364342,
+      "strike": {
+        "frame": 3,
+        "x": 0.0635160207748413,
+        "y": 0.129580736160278,
+        "z": 0.195250764489174
+      }
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 72.1141021768198,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.344862714409828,
+        "width_m": 0.245374239981174
+      },
+      "frames": 25,
+      "hand": "",
+      "hands_f0": {
+        "left_y": 0.311761140823364,
+        "right_y": 0.313527822494507
+      },
+      "head_height_f0_m": 0.536489486694336,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.344862714409828,
+        "width_m": 0.245374239981174
+      },
+      "length_s": 0.80000001190833,
+      "lowest_toe_m": 0.0435701012611389,
+      "name": "move_backward_B.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/move_backward_B.fbx",
+      "planted_frames": 0,
+      "skate_mean_mps": 0.0,
+      "skate_p95_mps": 0.0,
+      "strike": null
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 79.9003713659176,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.344862714409828,
+        "width_m": 0.245374239981174
+      },
+      "frames": 25,
+      "hand": "",
+      "hands_f0": {
+        "left_y": 0.036931037902832,
+        "right_y": 0.318520784378052
+      },
+      "head_height_f0_m": 0.524062633514404,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.344862714409828,
+        "width_m": 0.245374239981174
+      },
+      "length_s": 0.80000001190833,
+      "lowest_toe_m": 0.0435581803321838,
+      "name": "move_forward_B.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/move_forward_B.fbx",
+      "planted_frames": 0,
+      "skate_mean_mps": 0.0,
+      "skate_p95_mps": 0.0,
+      "strike": null
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 76.9582199151717,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "frames": 23,
+      "hand": "RightHand",
+      "hands_f0": {
+        "left_y": 0.311406373977661,
+        "right_y": 0.316261529922485
+      },
+      "head_height_f0_m": 0.514012575149536,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.367211848497391,
+        "width_m": 0.29063069075346
+      },
+      "length_s": 0.75,
+      "lowest_toe_m": 0.00668203830718994,
+      "name": "nomove/bk_rh_right_A2.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/nomove/bk_rh_right_A2.fbx",
+      "planted_frames": 4,
+      "skate_mean_mps": 4.50455708429217,
+      "skate_p95_mps": 4.37085315585136,
+      "strike": {
+        "frame": 4,
+        "x": -0.116829395294189,
+        "y": 0.159616947174072,
+        "z": 0.233044967055321
+      }
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 76.9582209193759,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "frames": 19,
+      "hand": "RightHand",
+      "hands_f0": {
+        "left_y": 0.311406373977661,
+        "right_y": 0.316261529922485
+      },
+      "head_height_f0_m": 0.514012575149536,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "length_s": 0.600000023838311,
+      "lowest_toe_m": 0.043344259262085,
+      "name": "nomove/bp_hook_right_A2.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/nomove/bp_hook_right_A2.fbx",
+      "planted_frames": 0,
+      "skate_mean_mps": 0.0,
+      "skate_p95_mps": 0.0,
+      "strike": {
+        "frame": 8,
+        "x": -0.361509025096893,
+        "y": 0.049168586730957,
+        "z": 0.135708823800087
+      }
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 75.9138536008284,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.341304250061512,
+        "width_m": 0.250830255448818
+      },
+      "frames": 21,
+      "hand": "LeftHand",
+      "hands_f0": {
+        "left_y": 0.311406373977661,
+        "right_y": 0.322268009185791
+      },
+      "head_height_f0_m": 0.514012575149536,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.336658805608749,
+        "width_m": 0.236799329519272
+      },
+      "length_s": 0.699999988070019,
+      "lowest_toe_m": -0.00259214639663696,
+      "name": "nomove/bp_upper_left_A2.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/nomove/bp_upper_left_A2.fbx",
+      "planted_frames": 9,
+      "skate_mean_mps": 1.47936544381082,
+      "skate_p95_mps": 2.45347738265991,
+      "strike": {
+        "frame": 0,
+        "x": 0.135859876871109,
+        "y": 0.311406373977661,
+        "z": 0.0261023193597794
+      }
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 76.9582209193759,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "frames": 25,
+      "hand": "RightHand",
+      "hands_f0": {
+        "left_y": 0.311406373977661,
+        "right_y": 0.316261529922485
+      },
+      "head_height_f0_m": 0.514012575149536,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "length_s": 0.80000001190833,
+      "lowest_toe_m": 0.0086326003074646,
+      "name": "nomove/hk_rh_right_A2.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/nomove/hk_rh_right_A2.fbx",
+      "planted_frames": 6,
+      "skate_mean_mps": 1.05186110828072,
+      "skate_p95_mps": 1.1290006712079,
+      "strike": {
+        "frame": 4,
+        "x": -0.106441080570221,
+        "y": 0.171818733215332,
+        "z": 0.245858624577522
+      }
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 76.9582209193759,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "frames": 21,
+      "hand": "LeftHand",
+      "hands_f0": {
+        "left_y": 0.311406373977661,
+        "right_y": 0.316261529922485
+      },
+      "head_height_f0_m": 0.514012575149536,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.311714425683022,
+        "width_m": 0.286288700997829
+      },
+      "length_s": 0.699999988070019,
+      "lowest_toe_m": 0.0289990901947021,
+      "name": "nomove/hk_side_left_A2.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/nomove/hk_side_left_A2.fbx",
+      "planted_frames": 2,
+      "skate_mean_mps": 3.58820546418428,
+      "skate_p95_mps": 2.08424918353558,
+      "strike": {
+        "frame": 16,
+        "x": 0.338487803936005,
+        "y": 0.0788662433624268,
+        "z": 0.105817392468452
+      }
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 76.9582209193759,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "frames": 13,
+      "hand": "RightHand",
+      "hands_f0": {
+        "left_y": 0.311406373977661,
+        "right_y": 0.316261529922485
+      },
+      "head_height_f0_m": 0.514012575149536,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "length_s": 0.400000005954165,
+      "lowest_toe_m": 0.0297240018844604,
+      "name": "nomove/hp_straight_right_A2.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/nomove/hp_straight_right_A2.fbx",
+      "planted_frames": 1,
+      "skate_mean_mps": 1.52715146541595,
+      "skate_p95_mps": 1.52715146541595,
+      "strike": {
+        "frame": 4,
+        "x": -0.512417614459991,
+        "y": -0.0677890777587891,
+        "z": 0.312677681446075
+      }
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 76.9582209193759,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.341304317116737,
+        "width_m": 0.250830136239529
+      },
+      "frames": 19,
+      "hand": "RightHand",
+      "hands_f0": {
+        "left_y": 0.311406373977661,
+        "right_y": 0.316261529922485
+      },
+      "head_height_f0_m": 0.514012575149536,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.344194963574409,
+        "width_m": 0.25186263024807
+      },
+      "length_s": 0.633333325365578,
+      "lowest_toe_m": 0.0330409407615662,
+      "name": "nomove/hp_upper_right_A2.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/nomove/hp_upper_right_A2.fbx",
+      "planted_frames": 0,
+      "skate_mean_mps": 0.0,
+      "skate_p95_mps": 0.0,
+      "strike": {
+        "frame": 9,
+        "x": -0.135802984237671,
+        "y": 0.069110631942749,
+        "z": 0.176247373223305
+      }
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 76.9582209193759,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "frames": 25,
+      "hand": "",
+      "hands_f0": {
+        "left_y": 0.311406373977661,
+        "right_y": 0.316261529922485
+      },
+      "head_height_f0_m": 0.514012575149536,
+      "last": {
+        "lead": "RightToes",
+        "split_m": 0.00461360812187195,
+        "width_m": 0.0347080966457725
+      },
+      "length_s": 0.80000001190833,
+      "lowest_toe_m": -0.0518504977226257,
+      "name": "nomove/knockdown_A2.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/nomove/knockdown_A2.fbx",
+      "planted_frames": 7,
+      "skate_mean_mps": 0.784378578620298,
+      "skate_p95_mps": 1.06258258223534,
+      "strike": null
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 76.9582209193759,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "frames": 19,
+      "hand": "LeftHand",
+      "hands_f0": {
+        "left_y": 0.311406373977661,
+        "right_y": 0.316261529922485
+      },
+      "head_height_f0_m": 0.514012575149536,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "length_s": 0.600000023838311,
+      "lowest_toe_m": -0.00210815668106079,
+      "name": "nomove/lk_rh_left_A2.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/nomove/lk_rh_left_A2.fbx",
+      "planted_frames": 2,
+      "skate_mean_mps": 2.91920576244593,
+      "skate_p95_mps": 1.40647418797016,
+      "strike": {
+        "frame": 0,
+        "x": 0.135859876871109,
+        "y": 0.311406373977661,
+        "z": 0.0261023342609406
+      }
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 76.9582209193759,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "frames": 21,
+      "hand": "RightHand",
+      "hands_f0": {
+        "left_y": 0.311406373977661,
+        "right_y": 0.316261529922485
+      },
+      "head_height_f0_m": 0.514012575149536,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.38690297305584,
+        "width_m": 0.408691853284836
+      },
+      "length_s": 0.699999988070019,
+      "lowest_toe_m": -0.0381304621696472,
+      "name": "nomove/lk_rh_right_A2.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/nomove/lk_rh_right_A2.fbx",
+      "planted_frames": 1,
+      "skate_mean_mps": 3.93840104341507,
+      "skate_p95_mps": 3.93840104341507,
+      "strike": {
+        "frame": 3,
+        "x": 0.0486032962799072,
+        "y": 0.212710857391357,
+        "z": 0.185890421271324
+      }
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 72.1141035790112,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.344862714409828,
+        "width_m": 0.245374239981174
+      },
+      "frames": 25,
+      "hand": "",
+      "hands_f0": {
+        "left_y": 0.311761140823364,
+        "right_y": 0.313527822494507
+      },
+      "head_height_f0_m": 0.536489486694336,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.344862714409828,
+        "width_m": 0.245374239981174
+      },
+      "length_s": 0.80000001190833,
+      "lowest_toe_m": 0.0436116456985474,
+      "name": "nomove/move_backward_B2.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/nomove/move_backward_B2.fbx",
+      "planted_frames": 0,
+      "skate_mean_mps": 0.0,
+      "skate_p95_mps": 0.0,
+      "strike": null
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 79.9003727681091,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.344862714409828,
+        "width_m": 0.245374239981174
+      },
+      "frames": 25,
+      "hand": "",
+      "hands_f0": {
+        "left_y": 0.036931037902832,
+        "right_y": 0.318520784378052
+      },
+      "head_height_f0_m": 0.524062633514404,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.344862714409828,
+        "width_m": 0.245374239981174
+      },
+      "length_s": 0.80000001190833,
+      "lowest_toe_m": 0.0436116456985474,
+      "name": "nomove/move_forward_B2.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/nomove/move_forward_B2.fbx",
+      "planted_frames": 0,
+      "skate_mean_mps": 0.0,
+      "skate_p95_mps": 0.0,
+      "strike": null
+    },
+    {
+      "bones": 21,
+      "carry": false,
+      "entry_pose_deg": 76.9582209193759,
+      "error": "",
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.341304279863834,
+        "width_m": 0.250830136239529
+      },
+      "frames": 30,
+      "hand": "",
+      "hands_f0": {
+        "left_y": 0.311406373977661,
+        "right_y": 0.316261529922485
+      },
+      "head_height_f0_m": 0.514012575149536,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.0911074504256248,
+        "width_m": 0.414354656822979
+      },
+      "length_s": 1.0,
+      "lowest_toe_m": 0.0254451632499695,
+      "name": "win_A.fbx",
+      "path": "res://assets/anim/audition/magicpot_fm1/win_A.fbx",
+      "planted_frames": 9,
+      "skate_mean_mps": 0.307394495854775,
+      "skate_p95_mps": 0.372382113710046,
+      "strike": null
+    }
+  ]
+}

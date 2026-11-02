@@ -1,0 +1,36 @@
+You own TASK_Q216, PART 2: items 4, 5, 6 and one added red (8) ONLY. Item 7 (fighter_reachability_contract) belongs to Kimi (KM2) - do not touch it or FighterCapsules.gd.
+You are in the worktree C:/Users/user/AppData/Local/Temp/FightCamp-Q216 on branch qwen/q216-engine-reds.
+Run: git fetch origin && git merge origin/master, then cat research/TASK_Q216_ENGINE_REDS_OUTSIDE_BOXING.md and research/Q216_DIGEST.md (your own part 1).
+Do NOT read HANDOFF.md, CURRENT_STATUS.md or HANDOFF_ARCHIVE.md. All research is open: RESEARCH_INDEX.md. Read research/S122_DIGEST.md (the footwork switch).
+FightRealtime.gd is ~7,400 lines - never open it whole; grep -n, then sed -n windows.
+
+The four reds, re-measured by Claude on master 2026-09-29 (S124) - they are real, not load artefacts:
+ 4. fight_back_bands_contract_test: "two strikers (grapple gap) sub-finish share 33.3% not in 12-32%" = 5 of 15 back visits
+    (45 bouts x 0.333 visits). At 15 visits one visit is 6.7 points, so FIRST decide whether this is the engine or the sample:
+    measure the same population on the commit BEFORE S122's footwork switch (953542ce^) and on origin/master, and run the
+    population at 3x the bouts on master. If the share at 3x sits inside 12-32% the test's sample cannot resolve its band -
+    raise that population's bout count until it has >= 40 visits (say the runtime cost). NEVER widen the band. If it is
+    genuinely above 32% at 3x, find the engine cause.
+ 5. fight_plan_ai_corner_test: "the better coach's plan won less often, pooled". Your part-1 note said "known issue, task
+    C216" - open TASK_C216 / C216_DIGEST (primary source) and say what it actually says before relying on it. Measure on
+    953542ce^ vs master first, then fix the cause.
+ 6. fight_footwork_economy_test: "mma ON m/min >= 12 (got 9.3)", boxing ON 34.5 passes. Your part-1 note called it "a real
+    regression from the footwork fix". PROVE which side moved: S122 made footwork a `footwork` event instead of an `action`.
+    If the metre counter the test (or the engine) reads only counts `action` events, the fighters did not slow down - the
+    instrument went blind. Measure metres from positions, not from event types, on 953542ce^ and master before any fix.
+
+ 8. fight_ring_position_test RULE R16 cut_off_closes_the_gap (red on every nightly since 09-27): the RING arm passes
+    (gap closes -0.092 -> -0.174 m/s with cutting off ON), the CAGE arm fails by 0.006 m/s (-0.065 OFF -> -0.059 ON,
+    n=12010/7850). The constants are AUTHORED (CUT_OFF_LEAD_S in FightRealtime.gd; no study). Find why cutting off does
+    not help in the octagon (geometry of the cut-off target against an 8-sided wall?) and fix the cage path; the ring
+    number must not get worse. Do not loosen the rule.
+Gate: each test passes, or your digest says exactly why it cannot yet (a ceiling, not an exact count). Boxing must not move:
+boxing_output_test, footwork_not_a_blow_test, judge_panel_test still pass. NEVER TEST IDENTICAL FIGHTERS; a fighter must be
+legal for his ruleset.
+Parse gate before any test: python Godot/tools/check_scripts.py <touched .gd>. One test at a time, then the subset:
+python Godot/tools/run_tests.py --only fight_back_bands,fight_plan_ai,fight_footwork_economy,fight_ring_position,boxing_output,footwork_not_a_blow,judge_panel
+Never the full suite. Windowed Godot only through Tools\godot_hidden.ps1.
+Commit per fix, push your branch (never master), append a "## Part 2" section to research/Q216_DIGEST.md with the
+before/after numbers (953542ce^, master, your fix), then
+python Tools/agent_comms.py send --from qwen --to claude --topic Q216 "<one line>".
+Trap: a number that moved on 09-28 may be S122's footwork switch, not an engine defect - measure both commits and cite both.

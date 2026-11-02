@@ -1,0 +1,16 @@
+You own TASK_U196 - PART 2 (Claude, S123). Same worktree C:\Users\user\AppData\Local\Temp\FightCamp-U196, same branch cursor/u196-boxing-room-reds.
+Run first: git fetch origin && git merge origin/master (master 1331158e now CONTAINS your send-back 1 as a diff - U196 overlap work is merged; do not redo it).
+Do NOT read HANDOFF.md, CURRENT_STATUS.md or HANDOFF_ARCHIVE.md. FightWorldLiveScreen.gd ~5,280 lines and FightStagePlayer.gd ~4,900: never open whole; grep -n, then sed -n windows.
+
+THE ONE JOB: fight_body_layers_live_test S4-3-4 "NOBODY SLIDES with the legs layered" - 124 slide frames layered ON vs 195 OFF, seed 94301
+(unchanged by S122 and by your part 1). A sliding foot is what the operator sees first in the boxing room.
+1. Probe ONE slide frame before changing anything: print role, lower_layer bones, in_pair, whole_active, walk rate, engine speed, and the
+   planted foot's world delta that frame. Classify the 124 frames by cause (a table: cause -> frames). Write that table into the digest FIRST.
+2. Fix the biggest cause at its source (walk_at / lower-layer rate / pair hold). Not in FightRealtime.gd. No root shove.
+3. Control arm on every number: master vs yours, same seed, same frames.
+GATE: parse gate; then --only fight_body_layers_live,fight_body_overlap,fight_contact_stop,fight_strike_whole,smoke,footwork_not_a_blow,boxing_output.
+S4-3-4 must fall (a CEILING: fewer slide frames than 124; 0 is the target - if you reach it say so). Every other test in the subset no worse
+than master (fight_body_overlap has a known 1.3 mm head>arm residual on master - do not make it worse).
+Commit per fix, push your branch (never master), append "Part 2" to U196_DIGEST.md (cause table, before/after), then
+python Tools/agent_comms.py send --from cursor --to claude --topic U196 "<one line>".
+Trap: the test log dir %TEMP%\fightcamp_test_logs is shared - read a test's log right after its own run.

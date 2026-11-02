@@ -1,0 +1,175 @@
+{
+  "consequences": [
+    {
+      "engine": "simulation",
+      "kind": "damage",
+      "file": "Godot/scripts/FightSimulation.gd",
+      "line": 2113,
+      "token": "magnitude * 0.55 * execution_quality * power_scale",
+      "what": "A landed leg strike (role damage/counter) subtracts health like any other region",
+      "bounded_by": "health floor 0.0 via maxf(0.0, ...) at line 2117"
+    },
+    {
+      "engine": "simulation",
+      "kind": "scoring",
+      "file": "Godot/scripts/FightSimulation.gd",
+      "line": 2118,
+      "token": "striking_score",
+      "what": "The damage from a landed leg strike is added to the actor's striking_score for judges",
+      "bounded_by": "unbounded across the fight"
+    },
+    {
+      "engine": "simulation",
+      "kind": "scoring",
+      "file": "Godot/scripts/FightSimulation.gd",
+      "line": 2084,
+      "token": "zone = \"legs\"",
+      "what": "A leg region hit is filed under the legs scoring zone for karate/taekwondo judges",
+      "bounded_by": "integer hit counter hits_round[legs]"
+    },
+    {
+      "engine": "simulation",
+      "kind": "body_condition",
+      "file": "Godot/scripts/FightSimulation.gd",
+      "line": 2370,
+      "token": "BODY_CONDITION_DAMAGE_SCALE",
+      "what": "The leg region's body_condition is reduced by 60% of the damage dealt",
+      "bounded_by": "clampi(before - deterioration, 0, 100) at line 2371"
+    },
+    {
+      "engine": "simulation",
+      "kind": "other",
+      "file": "Godot/scripts/FightSimulation.gd",
+      "line": 327,
+      "token": "MORALE_BODY_COMPROMISED",
+      "what": "When leg condition crosses a readiness band boundary the fighter loses 3 morale",
+      "bounded_by": "one-shot per band transition; morale floor 0"
+    },
+    {
+      "engine": "simulation",
+      "kind": "mobility",
+      "file": "Godot/scripts/FightSimulation.gd",
+      "line": 2309,
+      "token": "MOBILITY_FLOOR",
+      "what": "Leg condition drives the mobility factor that scales initiative and defense",
+      "bounded_by": "MOBILITY_FLOOR = 0.65 at line 317"
+    },
+    {
+      "engine": "simulation",
+      "kind": "other",
+      "file": "Godot/scripts/FightSimulation.gd",
+      "line": 1283,
+      "token": "_mobility_factor",
+      "what": "A fighter with worn legs wins fewer exchanges because initiative is multiplied by mobility",
+      "bounded_by": "initiative probability clamped 0.25..0.75 at line 1288"
+    },
+    {
+      "engine": "simulation",
+      "kind": "other",
+      "file": "Godot/scripts/FightSimulation.gd",
+      "line": 1440,
+      "token": "_mobility_factor(target)",
+      "what": "Worn legs reduce the defender's defense_factor so fewer defensive reads succeed",
+      "bounded_by": "defense_factor feeds success_chance clamped 0.1..0.95 at line 1451"
+    },
+    {
+      "engine": "simulation",
+      "kind": "stoppage",
+      "file": "Godot/scripts/FightSimulation.gd",
+      "line": 2939,
+      "token": "float(target[\"health\"]) <= 0.0",
+      "what": "Accumulated leg-strike damage can deplete health to zero, ending the fight KO/TKO",
+      "bounded_by": "health is bounded at 0 by maxf at line 2117"
+    },
+    {
+      "engine": "both",
+      "kind": "presentation",
+      "file": "Godot/scripts/FightBeatAdapter.gd",
+      "line": 124,
+      "token": "LEG KICK",
+      "what": "Both left_leg and right_leg map to the LEG KICK broadcast callout",
+      "bounded_by": "static lookup table, no numeric bound"
+    },
+    {
+      "engine": "realtime",
+      "kind": "presentation",
+      "file": "Godot/scripts/FightBeatAdapter.gd",
+      "line": 831,
+      "token": "react_leg",
+      "what": "A leg region impact selects the react_leg receiver animation role",
+      "bounded_by": "static match, no numeric bound"
+    },
+    {
+      "engine": "realtime",
+      "kind": "damage",
+      "file": "Godot/scripts/ImpactModel.gd",
+      "line": 33,
+      "token": "0.8",
+      "what": "A leg strike's wear is multiplied by 0.8 (80% of a head/torso strike's wear)",
+      "bounded_by": "constant 0.8, read at line 115 via REGION_WEAR_COEFFICIENTS[region]"
+    },
+    {
+      "engine": "realtime",
+      "kind": "damage",
+      "file": "Godot/scripts/ImpactModel.gd",
+      "line": 115,
+      "token": "REGION_WEAR_COEFFICIENTS",
+      "what": "The region coefficient is applied to compute the wear subtracted from the leg condition",
+      "bounded_by": "wear is force * contact_coeff * 0.8 * 0.6, bounded by force clamp 0..1"
+    },
+    {
+      "engine": "realtime",
+      "kind": "body_condition",
+      "file": "Godot/scripts/FightRealtime.gd",
+      "line": 1788,
+      "token": "clampf(before - float(wear[region_key]), 0.0, FULL_CONDITION)",
+      "what": "The computed leg wear is subtracted from the leg region's condition",
+      "bounded_by": "clamped 0.0..FULL_CONDITION (100.0)"
+    },
+    {
+      "engine": "realtime",
+      "kind": "stamina",
+      "file": "Godot/scripts/FightRealtime.gd",
+      "line": 1833,
+      "token": "impact_drain(wear_total",
+      "what": "The target's stamina is drained proportionally to the wear the leg strike delivered",
+      "bounded_by": "stamina floor 0.0 via Stamina.apply"
+    },
+    {
+      "engine": "realtime",
+      "kind": "scoring",
+      "file": "Godot/scripts/FightRealtime.gd",
+      "line": 1874,
+      "token": "wear",
+      "what": "The leg wear value is stored on the impact event for the scoring fold to read",
+      "bounded_by": "wear is bounded by the ImpactModel computation"
+    },
+    {
+      "engine": "realtime",
+      "kind": "scoring",
+      "file": "Godot/scripts/RealtimeRoundStats.gd",
+      "line": 136,
+      "token": "_wear_sum",
+      "what": "The leg wear is summed into striking_score which the judges read for round scoring",
+      "bounded_by": "wear sum bounded by ImpactModel force * coefficients"
+    },
+    {
+      "engine": "realtime",
+      "kind": "scoring",
+      "file": "Godot/scripts/RealtimeRoundStats.gd",
+      "line": 67,
+      "token": "legs",
+      "what": "Both left_leg and right_leg map to the legs scoring zone for MMA judges",
+      "bounded_by": "integer hit counter hits[legs]"
+    },
+    {
+      "engine": "realtime",
+      "kind": "other",
+      "file": "Godot/scripts/FightRealtime.gd",
+      "line": 852,
+      "token": "Impact.corner_recovery",
+      "what": "Between rounds the leg region recovers condition at 4.0 per minute, partially undoing leg wear",
+      "bounded_by": "CORNER_RECOVERY_PER_MIN = 4.0, clamped to missing amount at ImpactModel.gd line 154"
+    }
+  ]
+}

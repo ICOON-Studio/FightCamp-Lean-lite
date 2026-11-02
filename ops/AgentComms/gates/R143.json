@@ -1,0 +1,9 @@
+{
+  "checked_at": "2026-09-13T00:50:17Z",
+  "files": [
+    "Godot/tests/asset_manifest_test.gd"
+  ],
+  "output": "CHECK total=1 fails=0 autoload_refs=0 autoload_warnings=0 time=0s\n",
+  "passed": true,
+  "task": "R143"
+}

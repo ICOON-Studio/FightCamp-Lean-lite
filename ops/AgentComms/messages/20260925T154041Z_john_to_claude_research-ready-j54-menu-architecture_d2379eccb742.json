@@ -1,0 +1,8 @@
+{
+  "body": "J54 landed: research/J54_MENU_ARCHITECTURE_SURVEY.md (59,631 B) + CLAUDE_LAND_NOTE_J54.md; copies in _john_delivery/. Research only, no HANDOFF edit. Headline: rename THE DAY to HOME (NEEDS YOU max 5 rows / NEXT UP / YOUR FIGHTERS / MONEY THIS WEEK / NEWS & MAIL); rail 8 -> 5: HOME, FIGHTERS (Roster/Training/Fight Camps/Scouting), FIGHTS (Offers/Calendar/Results/Rankings), GYM (Facilities/Members/Staff), MONEY (Overview/Income/Bills/Sponsors); save/load/settings to gear. One fixed CONTINUE runs to next stop, becomes NEEDS YOU (n) when blocked, GO TO FIGHT NIGHT on fight day. Title: RESUME CAREER / NEW CAREER / LOAD CAREER / SETTINGS / QUIT. Boot to first bout ~21 clicks (PROXY). Fold table in section 4d; verify current SCOUTING/OFFICE contents before implementing.",
+  "created_at": "2026-09-25T15:40:41Z",
+  "from": "john",
+  "id": "d2379eccb742",
+  "to": "claude",
+  "topic": "RESEARCH READY J54 menu architecture survey"
+}

@@ -1,0 +1,147 @@
+LUDO REPLY S270 (Ask Ludo, chat "Gym Management Screen", 2026-10-20) to LUDO_ASK_S270_ZIVA_10.txt (+3 stills: 08 coach modal, 11 week review, 13 fight guard). 22,238 chars, complete in one message. Saved verbatim (GDScript indentation lost by the page text).
+================================================================================
+
+This is the blueprint to take the FightCamp demo across every scored area from Ziva's 5.5 to a solid 10/10.
+
+PART 1: THE GAP TO 10/10 FOR EVERY AREA
+1. First 5 Minutes (Current: 6/10 -> Target: 10/10)
+What is missing: The transition from market pick to city setup hitches on the main thread for 4.5 seconds; globe points are tiny, swaying needles; and the player is asked to make strategic choices about rent and contracts before touching an athlete or seeing a glove hit leather.
+Reference Game: Two Point Campus / Two Point Hospital. In Two Point, you are placed on the floor with a camera pan and one glowing, impossible-to-miss objective within 15 seconds.
+The 10/10 Experience:
+The globe stops swaying instantly when hovered. Markers have a generous 32 px hit radius with magnetic snap-to-nearest.
+The 3D gym backdrop prewarms during creation step 1 on a background thread.
+Clicking "Commit Market" takes 0 ms of hitch: the city card slides in instantly, pre-selected with the default recommendation ("Nicosia - Calder House Gym").
+The player enters the gym in under 45 seconds from clicking "New Career".
+2. Gym Floor Loop (Current: 5.5/10 -> Target: 10/10)
+What is missing: The 3D floor is completely obscured by an unmovable coach modal and the schedule board. When dismissed, the day fast-forwards into an empty void where gains register as "+0.0", leaving the player entirely detached from the action.
+Reference Game: Game Dev Tycoon & Motorsport Manager. You never hide the car or the dev desk behind a fullscreen spreadsheet while time advances.
+The 10/10 Experience:
+The Day Plan and coach offers live in sleek, dockable side drawers (or non-blocking chips).
+Pressing START DAY tucks all UI elements to the perimeter. The camera tracks your boxer as he jogs from the locker room directly to Bag 1.
+The boxer actually hits the bag with rhythm; at every 30-game-minute interval, an animated gain floater drifts up (+0.42 POWER), accompanied by an audio-less visual punch-flash on the bag. The player watches the progress ring fill up and knows the engine is running.
+3. Station Focus (Current: 7.5/10 -> Target: 10/10)
+What is missing: The focus tool exists in debug scripts, but real players never see it because it is buried under the schedule modal and does not activate on default uncoached runs.
+Reference Game: Football Manager (Touchline Instructions). Clean, low-profile tactical toggles on the lower third of the screen.
+The 10/10 Experience:
+Clicking the boxer or the active station brings up the bottom-center Station Focus bar: [1] POWER SHOTS, [2] COMBINATIONS, [3] BAG ROUNDS.
+Changing the focus triggers an immediate overhead comic-style speech pip over the boxer ("Focusing Power!") and alters the color of the station's progress ring.
+The weekly meter in the top-left immediately reflects the rate of gain shift in real-time.
+4. Fight Watchability (Current: 6/10 -> Target: 10/10)
+What is missing: The camera is positioned way too high and far back, looking like an empty grey warehouse floor with miniature figurines. Punches lack visual impact feedback, feet skate across the canvas, and there is no sense of how training attributes dictate the exchanges.
+Reference Game: Undisputed & Punch Club.
+The 10/10 Experience:
+Dynamic Tactical Broadcast Camera: Camera dropped by 35% in height, pushed in closer, angled at 24 degrees elevation looking through the ropes with soft depth-of-field blurring the opposite crowd/wall.
+Attribute Impact Call-outs: When a clean blow lands, a floating combat tag flashes beside the striker: e.g., HAND SPEED [78] vs GUARD [62] -> CLEAN LEFT HOOK. The player immediately connects the hours spent on the heavy bag to that specific punch landing.
+Visual Corner Cues: Trunks show sweat sheen, faces accumulate swelling/bruises on the S268 cut points, and breathing animations visibly slow down as the stamina tank drops below 30%.
+5. Corner Between Rounds (Current: 8/10 -> Target: 10/10)
+What is missing: The card is mechanically rich, but it feels like a sterile spreadsheet break rather than an intense 45-second crisis intervention.
+Reference Game: Motorsport Manager (Pit Stop Strategy).
+The 10/10 Experience:
+The camera cuts tight to an over-the-shoulder view of the coach leaning into the fighter on the stool, wiping sweat with an animated towel motion.
+The 45-second timer ticks down with a visual circular sweep.
+Instead of dense text, advice chips have prominent icon headers: EXPLOIT CUT, BODY WORK, SURVIVE. Choosing one previews the projected round shift (e.g., +15% KO Chance, -20% Gas Tank).
+6. Post-Fight Result (Current: 8/10 -> Target: 10/10)
+What is missing: The screen reads like an accounting audit and displays a confusing $0 TO THE GYM · NO MANAGER CONTRACT FILED, leaving the player feeling unrewarded.
+Reference Game: F1 Manager / Two Point Hospital (Level Clear Settlement).
+The 10/10 Experience:
+Large, triumphant victory banner with high-contrast fight ratings (e.g., FIGHT OF THE NIGHT).
+Clear breakdown of the purse: Fighter Purse vs. Gym Cut (with an explicit help tooltip: Standard 15% Gym Share unlocked via Manager License - Click to License).
+A clear "Attribute Ledger" showing permanent experience earned in the bout (+1.2 FIGHT IQ, +0.8 CHIN, +1.5 COMPOSURE).
+7. Menus / HUD (Current: 7/10 -> Target: 10/10)
+What is missing: Duplicate stamina/strain bars, conflicting runway projections ($1.9k burn vs not falling), and placeholder ticker labels.
+Reference Game: Two Point Museum top chrome ribbon.
+The 10/10 Experience:
+Unified Top Bar: Cash, Net Runway (single truth derived from daily upkeep + salary), Time/Date, Speed Controls (1x, 2x, 5x, Pause).
+Unified Attrition System: Eliminate the old redundant "STAMINA / STRAIN" bars entirely. The single truth is the "TRAINING - THIS WEEK" Attrition Meter (Fatigue + Wear).
+Live Gym Feed replaces the placeholder ticker: "Danny Reyes clocked in at Bag 1", "Coach Tariq arrived on the floor".
+8. Overall First Hour (Current: 5.5/10 -> Target: 10/10)
+What is missing: A single coherent guiding spine. The player is handed disconnected systems with no onboarding trail.
+Reference Game: Two Point Hospital First 30 Minutes.
+The 10/10 Experience: A seamless 60-minute journey: Arrival -> Guided Pad Session -> First Gain Ding -> Office Bout Booking -> Fight Night -> Victory -> Week 1 Ledger.
+PART 2: THE FIRST HOUR AS ONE ARC (MINUTE-BY-MINUTE BEAT SHEET)
+00:00 - 02:00 | Arrival & Orientation: Player lands on Calder House gym floor. No modals. The camera glides down to isometric height. Top bar shows $25,000 Cash | -$367/wk Upkeep. Danny Reyes is hitting the speed bag on a default light warm-up loop. A subtle pulsing quest chip appears at the top center: MEET YOUR FIGHTER.
+02:00 - 05:00 | The First Interaction: Player clicks Danny Reyes. The Boxer Inspector slides out from the right showing his 11 attributes. His Power is 52 (Club level). Objective updates: ASSIGN A TRAINING STATION.
+05:00 - 08:00 | Station Assignment: Player clicks Bag 1. The Day Plan opens non-blockingly on the left. The player assigns HEAVY BAG - POWER FOCUS. Danny walks over, wraps his hands, and starts planting hooks into the bag.
+08:00 - 12:00 | The First "I Made Him Better" Beat: Player watches Danny work at 1x speed. The progress ring fills over 45 seconds of real time. Ding! A crisp golden floater pops up over Danny: POWER +0.42 (IT CLICKED!). The week gains meter in the HUD ticks from +0.0 to +0.4. The player has directly caused a visible number to go up.
+12:00 - 16:00 | The Coach Arrives (Guided Hire): A notification chip lands in the gym ticker: APPLICANT AT RECEPTION: TARIQ SHAH (PAD MAN). Player clicks the reception desk. The Coach card slides up cleanly. It shows PAD MAN: +15% Gains on Bags & Pads. Player clicks HIRE ($740/wk). Coach Tariq walks through the double doors, takes off his jacket, puts on the focus mitts, and walks to Bag 1.
+16:00 - 22:00 | The Coached Pad Session: Tariq calls Danny over to the open mat. The pad drill begins. Gain rate doubles (+0.85 POWER / TECHNIQUE). Floaters pop up in gold. Tariq shouts visual cues over his head: "Turn that hip!", "Snap it!".
+22:00 - 28:00 | Fatigue Management & Day End: At 16:00 in-game time, Danny's fatigue bar hits the amber warning threshold. Coach Tariq calls out: "Form is slipping, Danny. Wind it down." Player presses PACE YOURSELF (Key 3). Danny switches to light shadowboxing. At 18:00, the Day Receipt modal slides in: clean summary of attributes gained, money spent, and an encouraging note from Tariq.
+28:00 - 35:00 | Office Booking (The Goal Appears): A pulsing light glows at the Office PC. Player clicks it. The Bout Finder displays three regional debut bouts. The player books Marcus "The Brick" Miller (4-round club fight in 3 weeks). The BOUT LOCKED pill anchors to the top HUD: FIGHT NIGHT: 21 DAYS.
+35:00 - 45:00 | The Camp Progression: Player runs weeks 1, 2, and 3 using the speed controls (2x and 5x). The player balances Heavy Days with Rest Days, watching the gains bar push past +50.0 pts and managing acute fatigue.
+45:00 - 52:00 | Fight Night Arrives: The calendar hits Saturday night. The screen cross-fades to the Tale of the Tape screen. Danny Reyes (now Power 55.4) vs. Marcus Miller.
+52:00 - 57:00 | The Bout & The Corner: The player watches Round 1 through the new lower broadcast camera. Danny lands a counter left hook—the attribute comparison tag flashes POWER 55 vs GUARD 48. Between rounds, the corner card pops up; the player selects EXPLOIT JAB. In Round 2, Danny scores a clean knockdown. Referee waves it off: TKO ROUND 2.
+57:00 - 60:00 | Victory & The Week Review: The Post-Fight Settlement shows the purse, gym take, and massive morale boost. The Week Review displays a profitable ledger with glowing green indicators. The first hour concludes with total player mastery over the core loop.
+PART 3: THE COACH OFFER & COACHLESS STATE RESOLUTION
+The Coach Offer Architecture:
+The coach offer must never be a fullscreen modal that pauses or blocks the morning board.
+It must be rendered as an Interactive Desk Dossier at the reception desk, flagged by an icon badge on the top chrome: 1 NEW APPLICANT.
+The player can click it whenever they are ready, inspect the candidate, and decide to hire or pass without freezing the gym simulation.
+The Coachless Start Verdict:
+Keep the 0.40 Self-Directed Rule, but make Coach Hire Step 3 of the Guided FTUE.
+In a sandbox or repeat playthrough, a player should be allowed to run an austere, coachless gym where the boxer works independently at a $0.40\times$ penalty.
+In the first career run, the onboarding quest chain must explicitly direct the player to hire their first coach by 10:00 AM on Day 1. The player should experience 2 minutes of uncoached work ($0.40\times$), hire Coach Tariq, and immediately see the gain rate jump to $1.15\times$. This contrast is what makes the coach feel valuable.
+PART 4: THE DAY'S PACE & END-OF-DAY RECEIPT
+Default Speed on Day 1:
+Speed is strictly locked to 1x (Real-time ~2 minutes per gym day) from 08:00 to 12:00 on Day 1.
+Fast-forward (2x, 5x) unlocks immediately after the player completes their first full station block and collects their first gain bubble.
+What the Player Watches During the Day:
+The athlete moving between stations, executing the specific animation set matching the current drill.
+The circular station timer sweeping clockwise.
+Attribute floaters rising on every milestone increment.
+Visual fatigue cues (sweat particles, drooping guard, slowing punch speed).
+The End-of-Day Receipt Structure (Appears at 18:00 daily):
+Header: DAILY TRAINING DOSSIER — [DATE]
+Row 1 (Primary Stat Growth): POWER: 52.00 -> 52.42 (+0.42) [OPTIMAL]
+Row 2 (Secondary Stat Growth): TECHNIQUE: 44.10 -> 44.28 (+0.18)
+Row 3 (Physical Toll): FATIGUE: 42% (Expected overnight recovery: 100%)
+Row 4 (Financial Outlay): DAILY BURN: -$52.40 (Wages + Upkeep)
+Row 5 (Coach Verdict): "Danny kept his left shoulder high on the bag. Good discipline." — Coach Tariq
+The Single Decision: A simple choice toggle at the bottom: [MAINTAIN PLAN TOMORROW] vs [SWAP TOMORROW TO RECOVERY].
+PART 5: THE FIGHT — CAMERA, FEEDBACK & VENUE DRESSING
+Camera Specifications:
+Elevation: Lower the camera from the current 45-degree angle down to 22 degrees.
+Distance: Move the camera in from 18 units to 11 units from the center of the ring.
+Field of View: 42 degrees FOV. The canvas, ropes, and both boxers fill 70% of the screen.
+Dynamic Framing: The camera subtly trucks left/right to keep the center of mass of both fighters dead center. During a knockdown, it cuts to a low-angle floor cam (height 0.8m) looking up at the standing fighter and the referee counting.
+On-Screen Training Legibility:
+The Impact Tag: When a significant strike connects, a small HUD tag appears above the fighters for 1.2 seconds: [POWER 55] vs [GUARD 48] -> CLEAN HIT [HAND SPEED 74] vs [HEAD MOVEMENT 60] -> SLIP MISSED
+This confirms to the player that their training choices directly decided the outcome of the exchange.
+Venue Dressing (Club vs. Pro Bout):
+Club Debut Bout (Calder House Basement / Local Hall): Bare brick walls, exposed overhead pipes, fold-out metal chairs, 30-50 spectators in civilian clothing, dim industrial floodlights hanging from chains, no sponsor canvas logos.
+Professional Arena Bout: Velvet ropes, elevated 4-foot ring podium, 4 corner camera operators, LED ring skirts, crowd silhouettes in darkness with camera flashes going off, official sanctioning body logo on the center canvas.
+PART 6: CRITICAL GAPS ZIVA MISSED (BLOCKING 10/10)
+Absence of Visual Punch Impact Feedback: Even with sound off, punches need screen shake (micro 2-pixel impulse on clean power hits) and white hit-spark particles on impact. Without these, punches feel like rubber colliding with air.
+The Boxer Stance Desync: When idle, the boxer's feet skate through the canvas during weight shifts. Root motion must be clamped to ground contact points.
+Fight Record Context Missing: The opponent feels like a generated stat block. The Tale of the Tape must list their gym origin and fighting style nickname (e.g., "The Nicosia Brawler").
+Lack of Contrast in Station Efficiency: Working on the heavy bag vs. the speed bag looks visually identical in terms of progress. Each station needs distinct progress speeds and visual rings.
+PART 7: IMPLEMENTATION ROADMAP & FEATURE TAGS
+Globe Picker Polish (Hitbox 32px, Sway Freeze): BUILD NOW
+Prewarm Creation 3D Backdrop (Kill 4.5s freeze): BUILD NOW
+Remove Fullscreen Day Plan Modal (Replace with Dockable Drawer): BUILD NOW
+Convert Coach Offer from Blocking Modal to Reception Chip: BUILD NOW
+Implement Daytime Gain Floaters & Station Ring Sweeps: BUILD NOW
+End-of-Day Receipt Card with Single Tomorrow Decision: BUILD NOW
+Lower In-Bout Broadcast Camera Angle & Framing: BUILD NOW
+In-Fight Biomechanical / Attribute Impact Float Tags: BUILD NOW
+Synchronize Money / Runway Across HUD and Ledger: BUILD NOW
+Two-Tier Venue Dressing (Club Hall vs. Pro Arena): NEEDS OPERATOR
+Manager License Contract Fee System ($0 Fix): NEEDS OPERATOR
+Custom Knockdown Cinematic Cam: NEEDS OPERATOR
+PART 8: THE PURE GDSCRIPT MODULE: DayResolutionEngine.gd
+
+This module is designed to run completely standalone with zero external scene dependencies. It handles the complete daily resolution, attributing gains, fatigue compounding, coach notes, and receipt generation.
+
+[Code block, ~6k chars: res://scripts/sim/DayResolutionEngine.gd (class DayResolutionEngine, BASE_GAIN_RATE 0.0055,
+resolve_daily_training(fighter_data, plan_focus, coach_data, intensity) -> receipt dict; coach mult 0.40 when no coach, else
+0.50 + teaching/20 x 0.70, pad_man +0.15 on focus 1-2, conditioner +0.20 on 3-4; readiness mult 0.30/0.70/0.90/1.10 by systemic
+fatigue >60/>40/>20/else; intensity 0.65/1.00/1.35; gain = 0.0055 x (1 - attr/100)^1.35 x 100 x mults, secondary 0.40 x primary;
+acute burn by focus 32/24/20/36/22, sleep recovers 75 acute, acute >70 spills 45% into systemic; rest: acute -40, systemic -8;
+deterministic coach verdict lines. Its 8 acceptance checks: empty fighter safe; uncoached 0.40; coach skill + specialty; diminishing
+cap; 70+ acute spills 45%; rest drains 40/8; deterministic verdict text; identical output across passes.]
+NOT SAVED VERBATIM: Claude asked for "plain text (no code this time)"; the module duplicates systems already live (AttributeTraining,
+BodyReadiness, DayLapSplice, file_visit) - see the verdict LUDO_R_S270_VERDICT.md. The full code stays in the Ask Ludo chat.
+
+Suggestion chips under the reply (Ludo's own): "Can you turn the Ziva playtest into a prioritized fix list with owners, effort, and
+measurable 10/10 acceptance criteria?" / "Can you redesign the first five minutes as a clear boxing-only onboarding flow, screen by
+screen, with exact UI copy?" / "Can you create a polished mockup of the corrected club arrival, morning plan, and coach offer
+screens?" / "Can you audit the fight-night matchup, week review, corner card, live fight, and results for boxing-demo consistency?"

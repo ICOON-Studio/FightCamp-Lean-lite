@@ -1,0 +1,200 @@
+{
+  "baseline": {
+    "total": 39,
+    "fails": 5,
+    "played": 1,
+    "qualifying": 3,
+    "out_of_range": 2,
+    "clock_bad_frames": 1,
+    "layer_bad_frames": 50,
+    "frame40_room_m": 0.632,
+    "frame40_authored_m": 0.535
+  },
+  "candidate2": {
+    "total": 39,
+    "fails": 3,
+    "clock_bad_frames": 0,
+    "layer_bad_frames": 0,
+    "frame44_room_m": 0.409,
+    "frame44_authored_m": 0.29
+  },
+  "census": [
+    {
+      "seed": 930093,
+      "side": "a",
+      "fighter": "leo_vance",
+      "sim_actions": 10,
+      "live_punches": 11,
+      "seconds": 60.0333333333325,
+      "sim_punches": 11
+    },
+    {
+      "seed": 930093,
+      "side": "b",
+      "fighter": "ray_miller",
+      "sim_actions": 11,
+      "live_punches": 11,
+      "seconds": 60.0333333333325,
+      "sim_punches": 11
+    },
+    {
+      "seed": 94301,
+      "side": "a",
+      "fighter": "malik_adebayo",
+      "sim_actions": 17,
+      "live_punches": 25,
+      "seconds": 60.0333333333325,
+      "sim_punches": 25
+    },
+    {
+      "seed": 94301,
+      "side": "b",
+      "fighter": "tommy_perez",
+      "sim_actions": 17,
+      "live_punches": 24,
+      "seconds": 60.0333333333325,
+      "sim_punches": 24
+    }
+  ],
+  "remaining": [
+    "pair selection and missing 14.10 impact",
+    "authored scale, mount and grounding mismatch",
+    "13-21 punches per minute band",
+    "visual acceptance"
+  ],
+  "logs_root": "E:\\FightCamp\\tmp\\pairlive1",
+  "candidate3": {
+    "total": 39,
+    "fails": 3,
+    "clock_bad_frames": 0,
+    "layer_bad_frames": 0,
+    "glove_samples_frame_room_authored": [
+      [
+        40,
+        0.637,
+        0.535
+      ],
+      [
+        42,
+        0.616,
+        0.516
+      ],
+      [
+        44,
+        0.336,
+        0.29
+      ],
+      [
+        46,
+        0.329,
+        0.271
+      ],
+      [
+        48,
+        0.376,
+        0.305
+      ],
+      [
+        50,
+        0.471,
+        0.355
+      ],
+      [
+        52,
+        0.666,
+        0.496
+      ],
+      [
+        54,
+        0.838,
+        0.618
+      ],
+      [
+        56,
+        0.836,
+        0.66
+      ]
+    ],
+    "accepted": false
+  },
+  "affected_tests": [
+    {
+      "test": "fight_foot_lock_test.gd",
+      "rc": 0,
+      "summary": [
+        "SUITE total=1 fails=0"
+      ]
+    },
+    {
+      "test": "fight_held_pairs_contract_test.gd",
+      "rc": 0,
+      "summary": [
+        "SUITE total=1 fails=0"
+      ]
+    },
+    {
+      "test": "fight_pair_live_test.gd",
+      "rc": 1,
+      "summary": [
+        "SUITE total=1 fails=1"
+      ]
+    },
+    {
+      "test": "fight_pair_schedule_test.gd",
+      "rc": 0,
+      "summary": [
+        "SUITE total=1 fails=0"
+      ]
+    },
+    {
+      "test": "fight_paired_anchor_test.gd",
+      "rc": 0,
+      "summary": [
+        "SUITE total=1 fails=0"
+      ]
+    },
+    {
+      "test": "fight_stage_realism_test.gd",
+      "rc": 1,
+      "summary": [
+        "SUITE total=1 fails=1"
+      ]
+    },
+    {
+      "test": "fight_world_pair_test.gd",
+      "rc": 0,
+      "summary": [
+        "SUITE total=1 fails=0"
+      ]
+    },
+    {
+      "test": "jab_share_test.gd",
+      "rc": 0,
+      "summary": [
+        "SUITE total=1 fails=0"
+      ]
+    },
+    {
+      "test": "paired_clip_mount_test.gd",
+      "rc": 0,
+      "summary": [
+        "SUITE total=1 fails=0"
+      ]
+    },
+    {
+      "test": "paired_stage_player_test.gd",
+      "rc": 0,
+      "summary": [
+        "SUITE total=1 fails=0"
+      ]
+    },
+    {
+      "test": "switch_gate_hold_pair_geometry_test.gd",
+      "rc": 0,
+      "summary": [
+        "SUITE total=1 fails=0"
+      ]
+    }
+  ],
+  "review_directory": "previews\\pairlive1\\s224_broadcast"
+}

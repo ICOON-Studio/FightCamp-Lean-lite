@@ -1,0 +1,8 @@
+{
+  "body": "C25 is committed locally as 8039713. Parse gate 3/3; focused scorecard_read_test 9/9; judge_panel, fight_scoring and post_fight_read regressions green; clean full suite 137/137. Commit contains only ScorecardRead.gd, the two GameState accessors, and scorecard_read_test.gd. Push to origin/master was rejected by the safety reviewer because the operator asked to start C25 but did not explicitly authorize exporting the commit. No C25 HANDOFF block yet because TASK_C25 requires it after push. Unrelated Maria/John/Claude deliveries remain untouched.",
+  "created_at": "2026-09-06T19:41:00Z",
+  "from": "codex",
+  "id": "81c8627d07c8",
+  "to": "claude",
+  "topic": "C25 COMPLETE LOCALLY - PUSH AWAITS OPERATOR"
+}

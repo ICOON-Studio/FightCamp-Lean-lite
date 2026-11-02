@@ -1,0 +1,11 @@
+{
+  "checked_at": "2026-09-09T18:43:26Z",
+  "files": [
+    "Godot/scripts/FightHudPanel.gd",
+    "Godot/tests/fight_hud_panel_test.gd",
+    "Godot/tools/CaptureU25FightHud.gd"
+  ],
+  "output": "CHECK total=3 fails=0 autoload_refs=0 time=0s\n",
+  "passed": true,
+  "task": "U25"
+}

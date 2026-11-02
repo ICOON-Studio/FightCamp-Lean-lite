@@ -1,0 +1,691 @@
+ROUND 32 - TEXT ONLY, FightCamp. FightCamp is a PC deep management simulation (Football Manager / Motorsport Manager depth), NOT a mobile game: no energy timers, gacha, daily rewards. You run a boxing gym (start hall 30 x 18 m, tiers T1 club / T2 commercial / T3 elite), sign and train fighters, book fights, run fight week, and coach the corner live. Engine Godot 4.7 Forward+, stylized 3D gym as the home screen; UI = drawers over the right 38% of the screen with time paused; fonts Chakra Petch / Inter / JetBrains Mono; panels #12161F, gym gold #D69E2E. Answer in numbered PARTS as build-ready specs (exact numbers, hex, pixel rects at 1920x1080, GDScript-ready data shapes). Use as much length as you need; stop only at a part boundary and write CONTINUE FROM PART n.
+PART 1 - THE GYM LOOK, finishing your art spec. Already decided: cool 5600K skylight key, 6 neutral 4000K fills, 4 warm 2400K grazers on the brick back wall, ACES, SSAO/SSIL, soft glow, faint volumetric dust; floors: base rubber #2A2E35, bag line #20242B, cardio #333842, turf #15803D, stretch mat #1E3A8A, ring canvas #D1D5DB, brick #7A3D31, blue wall stripe #1D4ED8. Give: (a) the equipment colour palette per category (bags, cardio, strength racks/benches/plates, turf sled, ring, mats, storage) with primary, accent, hardware hex; (b) the three camera shots that sell a boxing gym (position in hall metres, look-at, FOV, height); (c) post-processing (colour grading, vignette, sharpen, DOF if any); (d) what makes the gym still look alive: people, props, signage, posters, light shafts, sweat, chalk, towels - with counts per zone for a busy T1 morning.
+PART 2 - THE FIGHTER READOUT. The player sees 9 headline bars (power, technique, speed, stamina, chin, defence, footwork, ring IQ, composure) but underneath we have a 696-technique catalogue with mastery, 6 body regions with wear, composure bands (Focused/Rattled/Shaken/Broken), personality traits, a fight plan, reach/age/frame. Design the fighter profile readout so a manager reads a fighter in 5 seconds and can dig to the technique level: layout with pixel rects inside a 734 px drawer, what is a number, a band word, a bar, a body diagram, a tag; comparisons (vs opponent, vs last month); what is hidden until scouted.
+PART 3 - TRAINING AREAS AND THE BODY. Each training area (bag line, cardio, strength, turf/conditioning, stretch/mobility, sparring ring, pads) gives benefits and inflicts different wear on body regions (Darkest Dungeon-style stress, but bounded): a table per area: attributes trained per hour, body region wear per hour, fatigue, injury risk curve, which coach role reduces it; plus 12 cross-equipment mechanics (combos, diminishing returns, overuse).
+PART 4 - MEMBERS AND THE LIVING GYM. Paying members: archetypes (JSON), how they arrive, churn, peak hours, capacity queues, fees for a 540 m2 club, 30 gym events (with triggers, choices, outcomes), and how a member becomes a fighter. Keep it a manager decision layer, not a second game.
+PART 5 - FIGHT WEEK AND SKIPPING DAYS. Answer your own four follow-ups: What should the Tuesday-to-Saturday schedule UI look like so fatigue, snap, recovery, and fight readiness are immediately readable? How should the last-spar decision screen present the three irreversible choices and their predicted fight-night consequences? What auto-play rule should make skipping days useful while exposing fatigue, missed development, or injury risks? How can members, sparring partners, and rival gyms make the gym feel alive without creating a distracting secondary management game?
+PART 6 - THE INTERFACE, finishing it. Also answer: Can you continue with the remaining interface panels, exact 1920x1080 pixel rectangles, and implementation-ready interaction states (hover, pressed, disabled, focus, loading, empty)? Can you give a complete PC management-simulation HUD specification with navigation, typography, colours, and data-density rules? Can you describe, as text only, a top-down FightCamp gym layout showing all zones, equipment, circulation routes, and colour-coded floor materials for the 30 x 18 m start hall?
+
+FIGHTCAMP — TECHNICAL DESIGN DOCUMENT & IMPLEMENTATION SPECIFICATION
+
+Engine: Godot 4.7 Forward+ | Target Resolution: 1920×1080 (Pixel Scale 1:1) | Target SKU: PC Steam Early Access ($19.99)
+
+PART 1 — THE GYM LOOK (Art Direction, Camera Rig, Materials & Set Dressing)
+1.1 Equipment Colour Palette Specification
+
+Every training asset in FightCamp uses a defined PBR tri-colour material breakdown (Albedo Hex, Roughness, Metallic) to ensure asset cohesion and avoid muddy visual overlap across high-density zones.
+
+Zone / Asset Category      Primary Shell (Hex / R / M)       Accent Trim (Hex / R / M)         Hardware / Core (Hex / R / M)
+-------------------------------------------------------------------------------------------------------------------------------
+01. Heavy Bags             #1C1917 (R 0.58, M 0.05) [Leather]#C2410C (R 0.42, M 0.00) [Vinyl]  #52525B (R 0.28, M 0.88) [Chrome Steel]
+02. Speed Bags & Platforms #78350F (R 0.35, M 0.00) [Oak]    #9A3412 (R 0.48, M 0.00) [Welting]#71717A (R 0.22, M 0.95) [Cast Iron]
+03. Cardio (Treadmill/Erg) #18181B (R 0.65, M 0.15) [ABS]    #0284C7 (R 0.30, M 0.00) [Decal]  #27272A (R 0.35, M 0.75) [Black Oxide]
+04. Strength (Racks/Benches)#262626 (R 0.40, M 0.80) [Powder] #D97706 (R 0.35, M 0.10) [Pad Trim]#E4E4E7 (R 0.18, M 0.98) [Barbell Chrome]
+05. Free Weight Plates     #09090B (R 0.70, M 0.05) [Rubber] #D69E2E (R 0.50, M 0.00) [KG Stamp]#71717A (R 0.30, M 0.85) [Hub Center]
+06. Turf Sled & Track      #15803D (R 0.88, M 0.00) [Turf]   #FAFAFA (R 0.90, M 0.00) [Yardline]#18181B (R 0.32, M 0.80) [Sled Skids]
+07. Sparring Ring          #D1D5DB (R 0.82, M 0.00) [Canvas] #DC2626 (R 0.40, M 0.00) [Rope 1/3]#1E3A8A (R 0.40, M 0.00) [Rope 2/4]
+    * Ring Corner Pads:    #B91C1C (Red), #1D4ED8 (Blue), #FAFAFA (Neutral 1 & 2)
+    * Turnbuckles:         #A1A1AA (R 0.20, M 0.92) [Raw Steel with threaded grease specular]
+08. Stretch / Floor Mats   #1E3A8A (R 0.75, M 0.00) [Textured]#F59E0B (R 0.60, M 0.00) [Border] #0F172A (R 0.85, M 0.00) [Underside]
+09. Storage Racks & Lockers#3F3F46 (R 0.45, M 0.65) [Enamel] #D69E2E (R 0.35, M 0.00) [Numbers] #18181B (R 0.30, M 0.85) [Padlocks]
+
+1.2 The Three Canonical Camera Shots
+
+The 30m (X-axis, width) × 18m (Z-axis, depth) hall uses 3 fixed cinematic tracking cameras mounted on virtual structural trusses.
+
+Shot Identifier       World Position (X, Y, Z)  Look-At Target (X, Y, Z)  FOV   Height (Y) Pitch / Yaw
+------------------------------------------------------------------------------------------------------------------
+CAM_01: The Floor Boss  (X: 15.0m, Y: 8.5m, Z: 24.5m) (X: 15.0m, Y: 1.2m, Z: 9.0m) 48.0° 8.5m AGL   -32.0° / 0.0°
+CAM_02: The Crucible    (X: 5.5m,  Y: 3.2m, Z: 6.8m)  (X: 9.0m,  Y: 1.6m, Z: 4.5m) 62.0° 3.2m AGL   -14.5° / +42.0°
+CAM_03: The Gauntlet    (X: 28.2m, Y: 2.1m, Z: 16.5m) (X: 12.0m, Y: 1.4m, Z: 16.5m)36.0° 2.1m AGL   -3.5°  / -90.0°
+
+CAM_01 ("The Floor Boss" — Default Management View): Overhead isometric perspective mounted directly over the southern mezzanine entry. Captures all 7 functional zones simultaneously while leaving the right 38% screen quadrant visually clear for UI drawer expansion.
+CAM_02 ("The Crucible" — Sparring Ring Focus): Low, aggressive corner-post angle framed through the top and middle ropes. Focuses on sparring ring action with background depth-of-field revealing the heavy bag line.
+CAM_03 ("The Gauntlet" — Trench Level): High-speed linear perspective shot down the bag line and turf sled lane. Emphasizes exhaustion, athlete stride length, and physical proximity to working members.
+1.3 Post-Processing Pipeline (Godot 4.7 Forward+ WorldEnvironment)
+# Environment Resource Configurations
+background_mode = WorldEnvironment.BG_COLOR
+background_color = Color("#0B0D13")
+
+# Tonemapping & Exposure
+tonemap_mode = Environment.TONE_MAPPER_ACES
+tonemap_exposure = 1.08
+tonemap_white = 6.0
+
+# SSAO & SSIL
+ssao_enabled = true
+ssao_radius = 1.85
+ssao_intensity = 2.4
+ssao_power = 1.5
+ssao_detail = 0.65
+ssao_horizon = 0.08
+
+ssil_enabled = true
+ssil_radius = 4.2
+ssil_intensity = 0.85
+ssil_sharpness = 0.90
+
+# Glow & Bloom
+glow_enabled = true
+glow_normalized = false
+glow_intensity = 0.35
+glow_bloom = 0.04
+glow_blend_mode = Environment.GLOW_BLEND_MODE_SOFTLIGHT
+glow_hdr_threshold = 1.15
+glow_hdr_scale = 1.8
+
+# Color Grading & Adjustments
+adjustment_enabled = true
+adjustment_brightness = 0.98
+adjustment_contrast = 1.12
+adjustment_saturation = 0.92  # Gritty desaturation, shifts skin and sweat into relief
+adjustment_color_correction = SubResource("GradientTexture1D_fightcamp_lut")
+
+# Screen Space Effects
+vignette_intensity = 0.22      # Radial falloff concentrated at corners
+vignette_color = Color("#000000")
+sharpen_force = 0.18           # Enhances canvas weave, muscle striation, and chalk dust
+dof_blur_far_enabled = false   # Kept off during simulation for HUD readability
+dof_blur_near_enabled = false
+
+1.4 Environmental Life, Props & Atmospheric Density (T1 Morning, 08:30 AM)
+
+Total Active Entities: 14 Members, 2 Coaches, 1 Prospect, 1 Janitor.
+
+Zone Name                Size      Entity Breakdown           Props & Environmental Decals (Exact Counts)
+---------------------------------------------------------------------------------------------------------------------------------
+Zone A: Bag Line         12m × 4m  4 Members (2 M, 2 F)       • 6 Heavy Bags (4 in rhythmic motion, swing amplitude 0.08m to 0.35m)
+                                   1 Prospect (Focus Mitts)   • 2 Unused bags wrapped in duct tape at base
+                                   1 Pad Coach                • 8 Towels (3 draped over bag mounts, 5 on floor/benches)
+                                                              • 3 Chalk bowls on posts with 12 foot-scuff floor decals (#E4E4E7)
+                                                              • 5 Water bottles (metal, dented, translucent plastic with fluid level)
+
+Zone B: Cardio Deck      8m × 5m   3 Members (Fat-Loss)       • 3 Commercial Treadmills (2 active, 1 idle with maintenance tag)
+                                                              • 2 Concept2-style Rowers (1 active with flywheel fan particles)
+                                                              • 4 Puddles of localized sweat decals (roughness: 0.05, albedo alpha: 0.6)
+
+Zone C: Free Weights     10m × 6m  3 Members (Bro-Split)      • 2 Power Racks, 3 Benches (1 member benching, 1 spotting)
+                                                              • 1 Chalk stand with active 3D particle dust cloud (emission: 8 part/sec)
+                                                              • 14 Loose weight plates scattered within 1.5m of racks
+                                                              • 2 Gym bags on floor (unzipped, shoes protruding)
+
+Zone D: Sparring Ring    6m × 6m   Empty / Scheduled          • Ring canvas showing historical wear: 6 bloodstain micro-decals
+                                                              • 2 Corner buckets (Red/Blue), 2 wooden corner stools inside
+                                                              • 1 Round card girl sign leaning against apron: "ROUND 3"
+
+Zone E: Turf / Prowler   15m × 2m  1 Member (Conditioning)    • 1 Steel Prowler Sled loaded with 80kg bumper plates
+                                                              • Skid marks on turf (roughness modulation decal along center axis)
+                                                              • 2 Agility ladders taped to turf edge
+
+Zone F: Stretch & Mats   6m × 4m   2 Members (Mobility)       • 4 Foam rollers (2 foam, 2 high-density trigger-point)
+                                                              • 3 Resistance bands hooked to wall anchors
+                                                              • 1 Mobile whiteboard with marker scribbles: "AMRAP 20 - NO COMPLAINING"
+
+Zone G: Office / Lounge  6m × 5m   1 Desk Staff / Janitor     • Reception desk: PC monitor (5000K screen glow), vintage bell, receipt spike
+                                                              • Wall of Fame: 18 framed fight posters (3 cracked glass, 4 askew by 2-5°)
+                                                              • Metal locker bank: 16 doors (3 dented, 2 open showing pad sets)
+
+
+Lighting & Atmosphere Particles:
+
+Volumetric Dust Particles: Continuous global particle system across hall volume: 450 concurrent billboard dust motes, lifetime 12.0s, velocity Vector3(0.02, -0.01, 0.01), illuminated via Forward+ clustered light culling through 5600K skylights.
+Wall Art & Posters: 6 large vintage lithographs (1.2m × 1.8m) on back brick wall (#7A3D31). Blue painted trim line (#1D4ED8) at 1.4m height, scratched and scuffed near plate racks.
+PART 2 — THE FIGHTER READOUT (734px Drawer Interface Specification)
+2.1 Screen Allocation and Anchor Mapping
+Total Viewport: 1920 × 1080 px.
+3D World Render View: Rect2(0, 0, 1186, 1080) (Occupies the left 61.77% of screen width).
+Fighter Profile Drawer Container: Rect2(1186, 0, 734, 1080).
+Background Base: Solid Panel #12161F with 1px border left #1E293B.
+========================================================================================
+DRAWER LAYOUT SCHEMATIC (WIDTH: 734px, HEIGHT: 1080px)
+========================================================================================
+[HEADER RECT: 0, 0 to 734, 132]
+  Avatar [20, 16, 96, 96]  | Name: "MARCUS 'THE OX' VANCE" [132, 20, 420, 28]
+                           | Age: 23 | Pro: 4-0-0 (3 KO) | Super Welter [132, 52, 420, 20]
+                           | Morale: HIGH | Composure Band: FOCUSED [132, 76, 420, 20]
+                           | [CLOSE X Button: 686, 16, 28, 28]
+----------------------------------------------------------------------------------------
+[TAB SELECTOR: 0, 132 to 734, 172] (4 Tabs: OVERVIEW | TECHNIQUES | MEDICAL | PLAN)
+----------------------------------------------------------------------------------------
+[SCROLL CONTAINER VIEWPORT: 0, 172 to 734, 1080]
+  SECTION 1: HEADLINE ATTRIBUTE MATRIX [20, 188, 694, 260]
+    9 Headline Attributes (3×3 Grid of 218px × 72px cards)
+    [POWER] [TECHNIQUE] [SPEED]
+    [STAMINA] [CHIN] [DEFENCE]
+    [FOOTWORK] [RING IQ] [COMPOSURE]
+
+  SECTION 2: BIOMETRICS, CUT & WEAR DIAGRAM [20, 464, 694, 210]
+    Vector Body Puppet [24, 474, 110, 190] | 6 Regional Wear Trackers [150, 474, 550, 190]
+    (Head, Jaw, Torso, Left Arm/Hand, Right Arm/Hand, Legs)
+
+  SECTION 3: SCOUTING & COMPARISON OVERLAY [20, 690, 694, 140]
+    Toggle: [vs Opponent: D. Molina] | [vs Self (Last Month)]
+    Horizontal Delta Bars (-15 to +15 differential)
+
+  SECTION 4: ACTIVE MOVE LOADOUT & MASTERY BREAKDOWN [20, 846, 694, 218]
+    3 Assigned Weekly Technique Cards (Slots 1, 2, 3)
+    Catalogue Deep Drill Link: "[OPEN FULL 696-TECHNIQUE CATALOGUE ->]"
+========================================================================================
+
+2.2 Headline Attribute Grid (Pixel Rectangles & Typographic Rules)
+
+The 9 headline attributes sit in a 3×3 grid. Each cell is exactly 220px × 74px with a 12px gutter.
+
+X Columns: Col 0: 20px, Col 1: 252px, Col 2: 484px.
+Y Rows: Row 0: 188px, Row 1: 270px, Row 2: 352px.
+# Layout per Attribute Cell (e.g., POWER)
+# Total Size: 220 x 74 px
+# Rect2(0, 0, 220, 74) - Panel background: #161B26, Border: #262F40, Radius: 4px
+
+Attribute Label: Rect2(12, 10, 110, 16) | Font: Chakra Petch Bold, 12px, Uppercase, Tracking +1.5, Colour #94A3B8.
+Numeric Score: Rect2(130, 8, 78, 22) | Font: JetBrains Mono Bold, 18px, Align Right, Colour #F8FAFC.
+Delta Tag (vs Last Month): Rect2(130, 30, 78, 14) | Font: JetBrains Mono Regular, 11px, Align Right. If positive: +2.4 in #22C55E; if negative: -1.1 in #EF4444.
+Progress Track (Underlying Base): Rect2(12, 48, 196, 6) | Colour #0F172A, Corner Radius 3px.
+Progress Fill Bar: Rect2(12, 48, fill_width, 6) | Fill width = (score / 100.0) * 196. Colour: Gradient from #D69E2E to #F59E0B.
+Opponent Ghost Marker (When scouting active): Vertical line indicator Rect2(12 + (opp_score / 100.0 * 196), 46, 2, 10) | Colour #DC2626 (Red).
+2.3 Body Region Wear Model & Visual Representation
+
+The anatomical puppet (110px × 190px) is rendered as a clean 2D vector schematic with 6 independently shaded interactive hitboxes:
+
+Head (Cranium/Eyes): Concussion risk, cut history.
+Jaw (Chin): Structural trauma, knockout liability.
+Torso (Ribs/Liver): Core wind, body shot vulnerability.
+Left Arm & Hand: Lead hook/jab stress, knuckle micro-fractures.
+Right Arm & Hand: Power hand metacarpal strain, elbow tendonitis.
+Legs (Knees/Calves): Plant stability, lateral ring-cut speed.
+
+Wear Bands and Exact Shader Colour Map:
+
+Wear Band Name       Damage Threshold   Hex Fill Code      Glow Intensity    UI Tooltip Descriptor
+-----------------------------------------------------------------------------------------------------------------
+Pristine             0.00 to 0.14       #10B981 (Green)    0.0               "100% Structural Integrity"
+Fatigued             0.15 to 0.39       #FBBF24 (Yellow)   0.0               "Minor Tissue Strain / Micro-trauma"
+Degraded             0.40 to 0.69       #F97316 (Orange)   0.2               "Inflammation: -15% Local Output"
+Compromised          0.70 to 0.89       #EF4444 (Red)      0.5               "High Injury Risk: -35% Output"
+Critical / Fractured 0.90 to 1.00       #7F1D1D (Dark Red) 0.8 (Pulsing 1Hz) "FRACTURE IMMINENT: Stoppage Risk"
+
+
+Adjacent to the puppet are 6 stacked micro-bars (Rect2(148, 474 + (i * 32), 550, 24)), detailing region name, wear percentage in JetBrains Mono, and the primary active debuff (e.g., RT HAND: 74% [METACARPAL INFLAMMATION: -22% POWER]).
+
+2.4 Composure Bands & Psychological Traits
+
+Composure is not a generic slider; it is an active state machine band that dictates autonomous behavior when plans fail in the ring:
+
+FOCUSED (Composure 80–100): Adheres strictly to corner plan. +15% reaction speed to slip cues. Label: #10B981.
+RATTLED (Composure 55–79): Fighter ignores secondary tactics; relies only on Mastered (Tier 3) cards. Label: #FBBF24.
+SHAKEN (Composure 25–54): Stifled punch output (-30%). Fighter backs straight up into ropes when hit cleanly. Label: #F97316.
+BROKEN (Composure 0–24): Fight-or-flight triggered. Clinches excessively, commits flagrant fouls, or curls into shell. Corner commands suffer a 2-round delay. Label: #EF4444.
+2.5 The Fog-of-War / Scouting Mask
+
+Fighters outside your gym possess obscured stats based on your scouting investment:
+
+Scout Level 0 (Record Only): You see age, height, reach, stance, and win/loss record. All 9 headline attributes display wide letter-grade ranges (C- to A). Body wear is completely hidden. Techniques appear as ???.
+Scout Level 1 (Single Tape Study): Attributes show numerical ranges (e.g., Power: 68–78). Top 2 primary punches identified.
+Scout Level 2 (Full Film Study + Camp Sparring Mirror): Numerical stats resolved to single values (Power: 74). Full technique loadout revealed.
+Scout Level 3 (Inside Intelligence): Opponent’s hidden physical flaws revealed (e.g., Right Hand Wear: 82% [Chronic Sprain]; Chin Vulnerability: Left Hook to Jaw on Exit).
+PART 3 — TRAINING AREAS AND THE BODY (Darkest Dungeon-Style Bounded Wear)
+3.1 Zone Physics, Attribute Accumulation & Wear Rates
+
+Every real-time training hour (12 seconds at 1x sim speed) computes wear, stamina drain, and skill gain using fixed tick math:
+
+$$\text{Net Gain} = \text{Base Gain} \times \left(\frac{\text{Current Stamina}}{100.0}\right) \times \text{Coach Multiplier}$$
+
+$$\text{Wear Inflicted} = \text{Base Wear} \times \left(1.0 + \max\left(0, \frac{25 - \text{Current Stamina}}{10}\right)\right)$$
+
+Training Zone      Attributes Trained/Hr       Body Wear Inflicted/Hr     Base Stamina Cost  Primary Coach Role
+-----------------------------------------------------------------------------------------------------------------------
+01. Bag Line       • Power: +0.45              • Hands/Wrists: +4.2%      -18 Stamina / hr   Pad Man / Striking Coach
+                   • Technique: +0.20          • Shoulders: +2.8%                            (Halves hand wear)
+                   • Speed: +0.10              • Torso: +0.5%
+
+02. Speed Bag      • Speed: +0.50              • Shoulders: +3.8%         -12 Stamina / hr   Technical Specialist
+                   • Ring IQ: +0.15            • Hands/Wrists: +0.8%                         (-30% shoulder burn)
+                   • Composure: +0.10          • Neck/Eyes: +0.2%
+
+03. Sparring Ring  • Ring IQ: +0.60            • Head / Brain: +5.5%      -26 Stamina / hr   Head Coach / Cutman
+                   • Defence: +0.45            • Jaw: +4.0%                                  (Stops cut accumulation)
+                   • Composure: +0.35          • Torso: +3.2%
+                   • Power: +0.15              • Arms: +2.1%
+
+04. Focus Mitts    • Technique: +0.55          • Wrists/Hands: +1.8%      -16 Stamina / hr   Pad Man
+(Pad Work)         • Footwork: +0.30           • Legs: +1.2%                                 (+40% Move Card XP)
+                   • Speed: +0.25              • Shoulders: +1.5%
+
+05. Cardio Deck    • Stamina: +0.65            • Legs / Knees: +3.5%      -22 Stamina / hr   Conditioning Coach
+(Treadmill/Erg)    • Footwork: +0.15           • Feet (Plantar): +2.0%                       (-50% knee wear)
+                   • Speed: +0.10              • Torso: +0.4%
+
+06. Strength Rack  • Power: +0.50              • Torso / Spine: +4.0%     -24 Stamina / hr   Strength & Conditioning
+(Squat/Bench/Dead) • Chin (Neck): +0.30        • Knees: +2.5%                                (Eliminates spine strain)
+                   • Stamina: +0.10            • Shoulders: +2.2%
+
+07. Turf Lane      • Footwork: +0.55           • Legs / Ankles: +3.8%     -20 Stamina / hr   Conditioning Coach
+(Sled/Agility)     • Speed: +0.35              • Knees: +2.1%                                (-25% stamina burn)
+                   • Stamina: +0.20            • Torso: +1.0%
+
+08. Stretch / Mat  • Defence (Flex): +0.15     • ALL REGIONS: -6.5%       +15 Stamina / hr   Physical Therapist
+(Mobility/Ice)     • Composure: +0.30          (Wear Regeneration)                           (Doubles tissue healing)
+
+3.2 Twelve Cross-Equipment Interaction Mechanics
+Kinetic Sequence (Heavy Bag $\rightarrow$ Speed Bag): Hitting the Speed Bag within 60 minutes of Heavy Bag work grants +25% Speed gain and negates the "heavy arm" punch-velocity penalty.
+Neural Burnout (Strength Rack $\rightarrow$ Sparring Ring): Lifting heavy directly before live sparring drops fighter Head Movement Reaction by 40%. The fighter absorbs 1.5× more clean shots.
+The Roadwork Flush (Cardio Deck $\rightarrow$ Stretch Mat): Running 30 minutes of light treadmill before stretching accelerates lactic acid removal, converting 50% of temporary muscle soreness into immediate stamina recovery.
+Metacarpal Overload (Heavy Bag $\rightarrow$ Focus Mitts): Drilling power hooks on the bag followed immediately by hard mitt work stacks hand wear multiplicatively ($1.5 \times 1.5 = 2.25\times$). Triggers the Swollen Knuckles status condition.
+Foundation First (Turf Lane $\rightarrow$ Focus Mitts): Sled sprints directly followed by footwork mitt drills increases Card Mastery acquisition for lateral shifts and pivot counters by +35%.
+Concussion Ceiling (Sparring Ring Overuse): Running live sparring more than twice in a 5-day cycle lowers the fighter's base Chin attribute by 1 point per excess round for the next 14 in-game days.
+Dead-Leg Syndrome (Cardio Deck Overload): If Leg Wear exceeds 60%, training on the Turf Lane or Bag Line yields 0% Footwork gains; all spent time funnels into knee tendonitis risk.
+Prowler Hip Hinge (Turf Sled $\rightarrow$ Strength Rack): Sled pushes warm the posterior chain: squat sessions completed immediately after suffer 0% lower back wear.
+The Glass Cannon Trap (Strength Rack $\rightarrow$ Heavy Bag): Grinding maximum lifting and heavy bag work without cardio lowers max stamina pool by 5 points every week, creating a knockout puncher who gasses out in under 4 minutes.
+Cold Plunge Stiffening (Stretch Mat [Ice] $\rightarrow$ Sparring Ring): Never spar within 2 hours of cold recovery. Muscle elasticity drops; hamstring strain probability spikes to 45% on the first slip attempt.
+Rhythm Lock (Speed Bag $\rightarrow$ Sparring Ring): 30 minutes on the speed bag directly prior to sparring increases Jab Accuracy in the first 2 sparring rounds by +18%.
+Systemic Collapse (Low-Stamina Compounding): Training any contact station (Bags, Mitts, Sparring) with global stamina below 15 points raises the permanent structural injury chance from 0.2% to 8.5% per minute.
+PART 4 — MEMBERS AND THE LIVING GYM (Economic Infrastructure)
+4.1 Member Archetypes (JSON Data Structure)
+[
+  {
+    "id": "archetype_white_collar",
+    "name": "White-Collar Fitness Member",
+    "description": "Tech workers and lawyers paying premium fees for stress relief and cardio boxing.",
+    "monthly_dues": 140.0,
+    "peak_hours": [7, 8, 12, 13, 18, 19],
+    "equipment_priority": ["cardio_deck", "speed_bag", "stretch_mat"],
+    "tolerance_grime": 0.20,
+    "tolerance_crowding": 0.35,
+    "conversion_to_amateur_rate": 0.015,
+    "churn_rate_baseline": 0.08
+  },
+  {
+    "id": "archetype_hardcore_amateur",
+    "name": "Local Tough / Gym Rat",
+    "description": "Dedicated amateur boxers who treat the gym like a temple. High wear on heavy gear.",
+    "monthly_dues": 65.0,
+    "peak_hours": [15, 16, 17, 18, 20],
+    "equipment_priority": ["bag_line", "sparring_ring", "strength_rack"],
+    "tolerance_grime": 0.85,
+    "tolerance_crowding": 0.80,
+    "conversion_to_amateur_rate": 0.220,
+    "churn_rate_baseline": 0.03
+  },
+  {
+    "id": "archetype_youth_afterschool",
+    "name": "Youth Outreach Athlete",
+    "description": "Subsidized local teenagers. Low revenue, but the primary pool for generational prospect talent.",
+    "monthly_dues": 25.0,
+    "peak_hours": [15, 16, 17],
+    "equipment_priority": ["turf_lane", "bag_line", "cardio_deck"],
+    "tolerance_grime": 0.50,
+    "tolerance_crowding": 0.90,
+    "conversion_to_amateur_rate": 0.120,
+    "churn_rate_baseline": 0.14
+  },
+  {
+    "id": "archetype_weekend_warrior",
+    "name": "Weekend Warrior",
+    "description": "Attends sporadically. Pays dues reliably unless the gym runs out of hot water or clean towels.",
+    "monthly_dues": 95.0,
+    "peak_hours": [9, 10, 11],
+    "equipment_priority": ["cardio_deck", "bag_line", "stretch_mat"],
+    "tolerance_grime": 0.40,
+    "tolerance_crowding": 0.25,
+    "conversion_to_amateur_rate": 0.005,
+    "churn_rate_baseline": 0.05
+  }
+]
+
+4.2 Facility Economics (540 m² Hall — Tier 1 Balance Sheet)
+Maximum Safe Member Capacity: 48 concurrent occupants.
+Hard Physical Choke Point: 6 Heavy Bags, 3 Treadmills, 2 Power Racks.
+Monthly Fixed Rent (Industrial Zone B): $2,800.00.
+Monthly Utilities & Insurance: $950.00 base + $8.50 per active member.
+Equipment Maintenance & Sanitization Budget: $450.00 / month.
+4.3 Thirty Managerial Gym Events
+ID   Event Name               Trigger Condition              Choices & Outcomes
+-------------------------------------------------------------------------------------------------------------------------------------------------
+E01  The Broken Cable         Cardio/Strength wear > 75%     A: Emergency Repair ($350, instant).
+                                                             B: Tape & Wait ($40, 25% injury chance for users, -10 member morale).
+E02  The Mezzanine Leak       Heavy Rain weather effect      A: Roof Patch ($800, resolves permanently).
+                                                             B: Buckets on Canvas ($0, Ring unusable for 48 hrs, +5% slip hazard).
+E03  The Encroaching SyndicateGym balance < $500             A: Take High-Interest Loan ($5,000, repay $7,500 over 3 months).
+                                                             B: Refuse (Trainer walkout risk spikes to 50%).
+E04  The Street Prodigy       Youth member count > 8         A: Sign Free to Stable (Prospect gained, -1 gym slot, $0 cost).
+                                                             B: Charge Full Dues (Gain $65/mo, kid walks away forever).
+E05  Noise Complaint          21:00 sparring session active  A: Pay City Fine ($250, retain night access).
+                                                             B: Restrict Hours to 20:00 (-15% White Collar revenue).
+E06  The Steamed Mirror       HVAC
+
+Can you finish the remaining interface panels with exact 1920×1080 rectangles and all interaction states?
+Can you provide the complete PC HUD specification, including navigation, typography, colors, and data-density rules?
+Can you describe the 30×18-meter starting gym as a top-down, color-coded layout with zones, equipment, and circulation routes?
+Can you generate a top-down visual concept of the FightCamp starting gym using the specified zones, floor materials, and equipment layout?
+Copyright ©2026 Ludo.ai. All Rights Reserved.
+
+===== CONTINUATION (saved S197 via clipboard) =====
+
+﻿CONTINUE round 32 - TEXT ONLY, FightCamp. Your PART 4 stopped inside 4.3 at event E06 "The Steamed Mirror": continue 4.3 from E06 to E30, then 4.4 how a member becomes a fighter (pipeline, triggers, numbers), then PART 5 (fight week and skipping days: the Tuesday-to-Saturday schedule UI for fatigue, snap, recovery and readiness; the last-spar decision screen with the three irreversible choices and their predicted fight-night consequences; the auto-play rule that makes skipping days useful while exposing fatigue, missed development or injury risk; how members, sparring partners and rival gyms make the gym feel alive without a second management game), then PART 6 (the interface). For PART 6 answer your own follow-ups in full: Can you finish the remaining interface panels with exact 1920x1080 rectangles and all interaction states? Can you provide the complete PC HUD specification, including navigation, typography, colors, and data-density rules? Can you describe the 30x18-meter starting gym as a top-down, color-coded layout with zones, equipment, and circulation routes? Can you generate a top-down visual concept of the FightCamp starting gym using the specified zones, floor materials, and equipment layout? (for this last one give a precise text description an artist or a script can draw from: every item with x,z metres, size, colour hex). Stop only at a part boundary and write CONTINUE FROM PART n.
+
+PART 4.3 (Continued) — Thirty Managerial Gym Events (E06 to E30)
+ID   Event Name               Trigger Condition              Choices & Outcomes
+-------------------------------------------------------------------------------------------------------------------------------------------------
+E06  The Steamed Mirror       HVAC unit wear > 70% in summer A: Overhaul Compressor ($1,200, instant fix, +5% White-Collar retention).
+                                                             B: Propped Doors & Fans ($60, indoor humidity up, +12% dehydration rate on floor).
+E07  The Stolen Wraps         Locker bank unlocked / no cam  A: Install CCTV Security ($450, resolves petty theft permanently).
+                                                             B: Post Warning Sign ($15, member trust -8, 2 Hardcore Amateurs churn).
+E08  Blood on the Canvas      Unsanctioned hard spar occurs  A: Professional Biohazard Wash ($180, canvas clean, ring down 6 hours).
+                                                             B: Bleach Wipe by Janitor ($20, canvas stains permanent, sanitation inspector risk).
+E09  The Disgruntled Pro      Pro fighter loses 2 in a row   A: Private Camp Guarantee (Give exclusive ring access 14:00-16:00, -12 member dues).
+                                                             B: Enforce Gym Rules ($0, fighter morale -25, 40% chance fighter seeks new stable).
+E10  The Viral Pad Clip       Pad man drills 100-hit combo   A: Monetize Socials (Gain $300 one-off, +15 White-Collar applications).
+                                                             B: Keep It Grounded (Pad Man loyalty +10, gym prestige among pros +5).
+E11  Broken Hand on Bag 4     Heavy bag filling settled hard A: Repack All 6 Bags ($220, bags safe, takes 8 hours staff time).
+                                                             B: Flip Bag Upside Down ($0, temporary fix, 15% metacarpal strain risk remains).
+E12  The Ripped Canvas        Ring canvas age > 180 days     A: Full Canvas Replacement ($900, brand new look, +10% sponsor impression value).
+                                                             B: Heavy Duct Tape Patch ($25, creates tripping micro-zone, +8% ankle wear).
+E13  Supplement Rep Visit     Gym reputation > 25            A: Stock Shady Pre-Workout ($600 profit/mo, 5% random drug test failure risk).
+                                                             B: Stock Certified Clean Brand ($150 profit/mo, clean athlete guarantee).
+E14  The Bully on the Mat     Amateur roughs up fitness guy  A: Ban the Amateur (White-Collar retention +15%, lose top amateur talent).
+                                                             B: Coach Pulls Him Aside ($0, 50% chance White-Collar member cancels membership).
+E15  Local Newspaper Profile  Prospect reaches 3-0 record    A: Grant Access ($0, +8 Gym Prestige, +10 members, reveals 1 hidden prospect stat).
+                                                             B: Lock the Doors (Protect fight camp secrets, zero media distraction).
+E16  Boiler Explodes in WinterAmbient temp < 5°C, boiler old A: Emergency Plumber ($1,400, instant heat restored).
+                                                             B: Cold Showers Only ($0, 35% member churn within 7 days, athlete sickness risk).
+E17  The Visiting Champion    T3 Champion visits town        A: Offer Free Facility ($0, +15 gym prestige, displaced members complain).
+                                                             B: Charge Commercial Drop-in ($100, champion leaves, no prestige gain).
+E18  City Inspector Drop-In   Random (every 60-90 days)      A: Full Code Compliance Check (Passes if repairs up to date; fine $1,500 if degraded).
+                                                             B: Bribe Inspector ($400, avoids inspection, creates recurring extortion risk).
+E19  The Staph Outbreak       Sanitation budget < $200/mo    A: Total Gym Fogging & Quarantine ($750, gym closed 3 days, halts staph).
+                                                             B: Isolate Affected Athletes ($50, 40% chance spreads to active pro camp).
+E20  Sponsor Banner Offer     Gym prestige > 40              A: Sign Local Auto Dealership ($400/mo, ugly banner over ring reduces aesthetics).
+                                                             B: Hold Out for Boxing Apparel ($0 now, unlocks elite sponsor at prestige 60).
+E21  The Late-Night Lockout   Front desk staff no-show       A: Coach Drives Down to Open ($0, coach exhausted tomorrow: -20% training efficacy).
+                                                             B: Leave Gym Closed Till Noon ($0, 8 angry early-morning members churn).
+E22  Dented Ring Apron        Heavyweight prospect trips     A: Re-weld Steel Apron Frame ($320, ring structural integrity 100%).
+                                                             B: Prop with Wooden Block ($10, ring corner flexes 2 inches under heavy load).
+E23  Chalk Powder Shortage    Supplier supply chain freeze   A: Buy Premium Chalk Mark-Up ($140, grip retained).
+                                                             B: Tell Athletes to Use Towels ($0, +10% wrist slippage on heavy bag power work).
+E24  The Gambling Scout       Suspicious ringside spectator  A: Kick Him Out (Preserves camp integrity, rival gym hostility +10).
+                                                             B: Let Him Watch ($0, opponent gets +20% intel on current move cards).
+E25  Broken Treadmill Belt    Cardio belt hours > 500        A: OEM Belt Replacement ($280, restored to factory spec).
+                                                             B: Slice Off Frayed Edge ($0, max speed capped at 10 km/h, -25% cardio efficiency).
+E26  The Unpaid Dues Ring     10+ members default payment    A: Hire Debt Collector ($200, recover 70% cash, member culture suffers).
+                                                             B: Amnesty Week ($0, recover 20% cash, morale up, 3 recurring non-payers leave).
+E27  Sparring Partner Strike  Camp sparring partner underpaidA: Bump Daily Rate to $150 ($300 extra cost, partner spars at 100% intensity).
+                                                             B: Refuse (Partner pulls punches, last-spar simulation accuracy drops by 40%).
+E28  Ring Light Flickering    Electrical panel overloaded    A: Rewire Main Circuit ($650, stable 5600K lighting restored).
+                                                             B: Replace Single Fluorescent ($35, buzz persists, night session fatigue rate +5%).
+E29  The Prodigy's Manager    Outside agent approaches kid   A: Sign Manager Agreement (Keep fighter, manager takes 20% purse cuts).
+                                                             B: Advise Kid to Stay Independent (Kid trusts coach, manager sabotages fight offers).
+E30  Fire Marshal Capacity    Occupancy hits 52 members      A: Pay Tier 2 Expansion Deposit ($5,000, begins progression to commercial tier).
+                                                             B: Strict Capacity Cap ($0, queues form at door, White-Collar churn doubles).
+
+4.4 How a Member Becomes a Fighter (The Talent Pipeline)
+
+Every paying gym member runs an internal recruitment evaluation tick on the 1st of each in-game month. The process is transparent, mechanistic, and does not require manual micro-management.
+
++-------------------------------------------------------------------------------+
+|                       MEMBER TO PROSPECT PIPELINE                             |
+|                                                                               |
+|  [Member Pool]                                                                |
+|         │                                                                     |
+|         ▼  (Monthly Qualification Gate: Age 16-27, Attendance >= 16 days/mo,  |
+|             Base Hidden Ceiling >= 55)                                        |
+|  [Identified Raw Talent] ──> Coach Flag Icon appears on member floor avatar   |
+|         │                                                                     |
+|         ▼  (Action: Coach initiates 3-Round Sparring Evaluation Test)         |
+|  [Gym Assessment Bout]                                                        |
+|         │                                                                     |
+|         ├─► Fails Test: Returns to paying member (+10% dues loyalty)          |
+|         │                                                                     |
+|         └─► Passes Test: Decision Dialog Prompt                               |
+|                 │                                                             |
+|                 ├── Option A: Sign Amateur Contract ($0, loses member dues,   |
+|                 │             takes 1 of 4 stable roster slots)               |
+|                 └── Option B: Decline (Remains paying member, talent decays)  |
++-------------------------------------------------------------------------------+
+
+Qualification Thresholds & Numeric Data
+# Member Talent Identification Logic
+func evaluate_member_for_signing(member: Member) -> bool:
+    if member.age < 16 or member.age > 27:
+        return false
+    if member.attendance_days_last_month < 16:
+        return false
+    # Hidden potentials: Grit (1-100), Punch Natural Snap (1-100), Bone Density (1-100)
+    var raw_potential_score: float = (member.hidden_grit * 0.4) + (member.hidden_snap * 0.4) + (member.hidden_bone_density * 0.2)
+    return raw_potential_score >= 58.0
+
+Conversion Base Rates by Archetype:
+archetype_youth_afterschool: 12.0% chance per month to meet criteria. Generates fighters with high potential ceiling (65–90), low starting attributes (15–30), age 16–19.
+archetype_hardcore_amateur: 22.0% chance per month to meet criteria. Generates fighters with mid potential ceiling (50–70), solid starting base (35–55), age 20–25.
+archetype_white_collar: 1.5% chance per month. Generates low potential (35–50), high composure/discipline, age 24–27.
+archetype_weekend_warrior: 0.5% chance per month. Rarely viable.
+The Assessment Spar (Player Decision Point):
+Costs $0, takes 2 in-game hours on Saturday afternoon.
+The coach watches a 3-round amateur test against your current gatekeeper or a coach on the pads.
+Reveals: True Power range, Chin baseline, and one dominant Personality Trait (e.g., Gym Bully, Glass Jaw, Coachable, Cold-Blooded).
+The Signing Roster Cap:
+T1 Club allows a maximum of 4 active stable fighters (amateur or pro). Signing a 5th requires cutting an existing prospect or upgrading the facility to T2 Commercial.
+PART 5 — FIGHT WEEK AND SKIPPING DAYS
+5.1 Tuesday-to-Saturday Schedule UI (Readability Spec)
+
+During fight week, the standard training dashboard collapses into the Fight Week Schedule Grid occupying Rect2(20, 188, 1146, 540).
+
+===================================================================================================
+FIGHT WEEK SCHEDULE: MARCUS VANCE vs DANIEL MOLINA (SATURDAY NIGHT)
+===================================================================================================
+DAY        MORNING (08:00-12:00)       AFTERNOON (13:00-17:00)     EVENING (18:00-21:00)   DAILY DELTAS
+---------------------------------------------------------------------------------------------------
+TUESDAY    [Mitts: Slip Counters]     [Light Bag / Rhythm]        [Cryo & Mobility]       FATIGUE: +14%
+           Dur: 3.5h | Int: HIGH      Dur: 2.0h | Int: MED        Dur: 2.0h | Int: LOW    SNAP:    +4%
+           Wear: R-Wrist +6%          Wear: Clean                 Wear: Tissue -8%        WEIGHT:  -1.8 lbs
+---------------------------------------------------------------------------------------------------
+WEDNESDAY  [Cardio: Sweat Run]        [Film Study: Molina Counter][Active Stretch]        FATIGUE: +18%
+           Dur: 4.0h | Int: HIGH      Dur: 2.0h | Int: NONE       Dur: 1.5h | Int: LOW    SNAP:    -2%
+           Wear: Knees +5%            Wear: Clean                 Wear: Tissue -6%        WEIGHT:  -2.4 lbs
+---------------------------------------------------------------------------------------------------
+THURSDAY   [THE LAST SPAR: 2 RNDS]    [Sauna & Rehydration Check] [REST / LIGHT WALK]     FATIGUE: +22%
+           Dur: 1.0h | Int: MAX       Dur: 2.5h | Int: LOW        Dur: 1.0h | Int: ZERO   SNAP:    +8%
+           Wear: Head +4%, Hand +3%   Wear: Water Shed            Wear: Clean             WEIGHT:  -1.5 lbs
+---------------------------------------------------------------------------------------------------
+FRIDAY     [OFFICIAL WEIGH-IN]        [Carb Load & Electrolytes]  [Mental Walkthrough]    FATIGUE: -35%
+(WEIGH-IN) Target: 154.0 lbs          Target: +8.0 lbs rehydrate  Composure: FOCUSED      SNAP:    +12%
+           Status: ON WEIGHT (153.8)  Status: ABSORBING           Wear: Restored          WEIGHT:  +6.2 lbs
+---------------------------------------------------------------------------------------------------
+SATURDAY   [Corner Prep / Hands Wrap] [Shadow Boxing (Warmup)]    [FIGHT NIGHT: 22:00]    READINESS: 96%
+(BOUT)     Dur: 1.0h | Int: LOW       Dur: 0.5h | Int: MED        THE MAIN EVENT          SNAP: 94% | STAM: 98
+===================================================================================================
+
+Readability Meters (Persistent Header Bar)
+
+Directly above the grid sits the Fight Readiness Telemetry Bar (Rect2(20, 140, 1146, 42)):
+
+Stamina Pool Reserve: Rect2(24, 148, 220, 24) | Green battery meter #10B981, Displays 98 / 100.
+Punch Snap Integrity: Rect2(264, 148, 220, 24) | Cyan dial #06B6D4, Displays 94% [CRISP - HIGH KO THREAT].
+Tissue Wear Penalty: Rect2(504, 148, 220, 24) | Amber warning #F59E0B, Displays 8% [MINOR R-WRIST STRAIN].
+Weight Target Progress: Rect2(744, 148, 220, 24) | White-to-Red slider, Displays 154.8 lbs / 154.0 lbs (-0.8 to make).
+Composite Fight Readiness Score: Rect2(984, 148, 170, 24) | Hex display #D69E2E, JetBrains Mono Bold, Displays READINESS: 96%.
+5.2 The Last-Spar Decision Screen (Thursday Evening)
+
+At the conclusion of the 2-round test spar against the cast partner, the screen pauses and enters the Last-Spar Commitment Modal (Rect2(360, 180, 1200, 720)). This presents the coach with three mutually exclusive tactical locks.
+
++----------------------------------------------------------------------------------------------------+
+| LAST SPAR DIAGNOSTIC REPORT: 2 ROUNDS COMPLETED VS CAST PARTNER                                    |
+| Telemetry Observed: Fighter landed 14/18 lead hooks, but absorbed 4 flush counter overhand rights. |
++----------------------------------------------------------------------------------------------------+
+| CHOOSE ONE IRREVERSIBLE TACTICAL COMMITMENT BEFORE WEIGH-IN (CANNOT BE UNDONE)                     |
++------------------------------------+----------------------------------+----------------------------+
+| OPTION 1: THE DEFENSIVE LOCK       | OPTION 2: DOUBLE-DOWN ENGINE     | OPTION 3: TISSUE TAPER     |
++------------------------------------+----------------------------------+----------------------------+
+| "Glue the Left Glove to the Ear"   | "Step Through and Fire Hook"     | "Flush Camp Fatigue Now"   |
+|                                    |                                  |                            |
+| TACTICAL RATIONALE:                | TACTICAL RATIONALE:              | TACTICAL RATIONALE:        |
+| Neutralize Molina's power right    | Molina drops his guard when      | Fighter is entering fight  |
+| hand completely.                   | pressured; trade fire for fire.  | week with 24% residual     |
+|                                    |                                  | wrist/neck wear.           |
+| PREDICTED OUTCOMES:                | PREDICTED OUTCOMES:              | PREDICTED OUTCOMES:        |
+| [+] Opponent KO Threat: -65%       | [+] Fighter Power Output: +25%   | [+] Starting Stamina: +15  |
+| [+] Overhand Right Clean Hits: -80%| [+] Stagger/Knockdown Rate: +30% | [+] Punch Snap: Set to 100%|
+| [-] Fighter Punch Volume: -22%     | [-] Counters Absorbed: +40%      | [-] Move Card Mastery:     |
+| [-] Lead Hook Card Deactivated     | [-] Cut Risk Around Eyes: +35%   |     Locked at current tier |
+|                                    |                                  | [-] No tactical changes to |
+|                                    |                                  |     counter opponent plan  |
++------------------------------------+----------------------------------+----------------------------+
+| [COMMIT OPTION 1 (PRESS '1')]      | [COMMIT OPTION 2 (PRESS '2')]    | [COMMIT OPTION 3 (PRESS 3)]|
++------------------------------------+----------------------------------+----------------------------+
+
+5.3 Auto-Play Skip Rule (Meaningful, Transparent, Cost-Bearing)
+
+Skipping a day executes the Assistant Coach Floor Delegation Algorithm. Skipping is never a silent black-box roll; it uses explicit mechanics that prevent accidental camp failure while demanding an intentional trade-off.
+
+# Auto-Play Skip Computation Rule
+func execute_day_skip(day: TrainingDay, fighter: Fighter, lead_coach: Coach):
+    # Rule 1: The Competence Ceiling
+    # Uncoached manual play achieves up to 120% efficiency via micro-management.
+    # Delegated auto-play caps floor efficiency at 80% + (Coach.skill * 0.15)
+    var delegation_efficiency: float = clamp(0.80 + (lead_coach.training_iq * 0.0015), 0.80, 0.95)
+    
+    # Rule 2: The Safety Governor
+    # Auto-play strictly respects the Stamina Floor (default: 25).
+    # If a fighter hits 25 stamina, the coach pulls them off stations and sends them to Stretch Mat.
+    # COST: Fighter loses scheduled drill hours if stamina runs out early.
+    var available_energy: float = fighter.stamina - 25.0
+    var workable_hours: float = min(day.scheduled_hours, available_energy / fighter.stamina_burn_rate)
+    
+    # Rule 3: Missed Technique Gains
+    # Move Cards require active coach intervention for Mastery advancement.
+    # Auto-play generates only 50% Card Mastery XP, dumping remainder into flat attributes.
+    fighter.apply_card_mastery_xp(workable_hours * 0.50)
+    fighter.apply_attribute_gains(workable_hours * delegation_efficiency)
+    
+    # Rule 4: Wear & Injury Protection
+    # Assistant coaches will never push into the red injury zone.
+    # Risk of catastrophic structural injury during skip = 0.0%.
+    fighter.accumulate_controlled_wear(workable_hours)
+
+The Pre-Skip Confirmation Drawer (Rect2(1200, 420, 680, 240))
+
+When pressing the [SKIP TO TOMORROW] button, an interactive confirmation panel opens before the sim advances:
+
+Header: DELEGATING FLOOR TO: COACH RAY "BEAR" TULLEY
+Projected Attribute Gain: +0.3 Power, +0.1 Stamina (82% Optimal Capacity)
+Technique Mastery Loss: ⚠️ Move Card "Lead Hook 2" will miss 45 drill minutes
+End-of-Day Stamina Estimate: 34 / 100 (Safe, No Injury Risk)
+Buttons: [CONFIRM SKIP (ENTER)] | [CANCEL & STAY ON FLOOR (ESC)]
+5.4 Living Gym Atmosphere Without Feature Creep
+
+To ensure the gym feels alive without cluttering the management interface with secondary mini-games, ambient elements are wired directly into core sim mechanics:
+
+Paying Members as an Ambient Thermometer:
+Members do not need individual management. They operate as an aggregate Noise & Energy Multiplier.
+When 12+ members are working out on bags and treadmills, gym ambient sound reaches 75 dB, generating a passive +10% Motivation Buff to your pro fighter (lowering stamina burn by 5%).
+If the gym is filthy or equipment is broken, members grumble, sit on benches looking at phones, and the gym soundscape drops to a dull hum, removing the motivation buff.
+Sparring Partners as Tactical Fixtures:
+Cast sparring partners do not have life stories or demands; they are temporary contract assets with clear functional stats.
+They are physically visible in the gym from 13:00 to 17:00, stretching, drinking water, and working the ring.
+Clicking a sparring partner directly opens their Mimic Alignment Card, showing how closely their current style matches your upcoming opponent (e.g., Molina Match: 88% Accuracy).
+Rival Gyms as Broadcast Benchmarks:
+Rival gyms (e.g., Kronk-style "Eastside Iron", slick corporate "Apex Boxing") exist entirely through Rankings, Fight Offers, and Weigh-in Antagonism.
+Every 4 weeks, the Regional Gym Power Index updates in your news ticker. If an Eastside Iron fighter wins a title, their gym prestige jumps, and their coach will occasionally appear in your lobby on fight night to scout your main event.
+PART 6 — THE INTERFACE (Complete Specification, HUD, Layout & Architecture)
+6.1 Remaining Interface Panels (Exact 1920×1080 Rectangles)
+Panel 1: Technique Deep Catalogue Drawer (696-Card Browser)
+
+Replaces the Fighter Readout when drilling down into specific move cards.
+
+Bounding Rect: Rect2(1186, 0, 734, 1080) (Standard right-drawer format).
+Panel Header: Rect2(1206, 20, 694, 60) | Title: TECHNIQUE CATALOGUE (696 ENTRIES).
+Category Filter Bar: Rect2(1206, 90, 694, 36) | 5 Pill Buttons: PUNCHES (240) | SLIPS (112) | FOOTWORK (164) | CLINCH (88) | GUARDS (92).
+Search Input Field: Rect2(1206, 134, 694, 38) | Background #161B26, Border #262F40, Text: Inter Regular 13px.
+Scrollable Move List: Rect2(1206, 180, 694, 780) | Renders 10 visible technique rows at a time (each 72px tall).
+Row Rect: Rect2(0, 0, 694, 72) | Border bottom 1px #1E293B.
+Card Icon / Stance: Rect2(12, 12, 48, 48) | Icon depicting punch vector.
+Technique Name: Rect2(72, 12, 340, 20) | Chakra Petch Bold 14px #F8FAFC.
+Mastery Level: Rect2(72, 36, 340, 16) | JetBrains Mono 11px: TIER 2: USABLE (740 / 1000 XP).
+Assign Slot Button: Rect2(550, 18, 130, 36) | Button: [DRILL THIS WEEK].
+Bottom Summary Bar: Rect2(1206, 970, 694, 90) | Shows active weekly loadout slots (Slot 1, Slot 2, Slot 3).
+Panel 2: Corner Strategy Inter-Round Call Card (Fight Night)
+
+Appears during the 60-second between-round rest window on Fight Night.
+
+Bounding Rect: Rect2(260, 680, 1400, 360) (Centered lower third across broadcast viewport).
+Fighter Status Left: Rect2(280, 700, 320, 320):
+Head/Torso Cut Diagram (120px × 120px).
+Stamina Bar, Swelling Indicators (Left Eye: 40%, Jaw Wear: 65%).
+Composure State Banner: RATTLED (-15% DEFENCE).
+Three Tactical Corner Action Slots:
+Action Slot 1 (Medical/Cutman): Rect2(630, 710, 310, 290) | [APPLY ENSWELL (SWELLING -30%)] or [GREASE CUT (STOPS BLEEDING)].
+Action Slot 2 (Tactical Instruction): Rect2(960, 710, 310, 290) | [TARGET THE LIVER] or [STEP OFF THE ROPES] or [CLINCH TO SURVIVE].
+Action Slot 3 (Psychological Cue): Rect2(1290, 710, 310, 290) | [FIRE UP (RESTORE COMPOSURE)] or [CALM DOWN (SAVE STAMINA)].
+Round Clock Count-Down: Rect2(910, 650, 100, 24) | JetBrains Mono Bold 18px #D69E2E: REST: 00:38.
+Panel 3: Gym Financial Balance Sheet & Facilities Panel
+Bounding Rect: Rect2(1186, 0, 734, 1080) (Standard right-drawer format).
+Header: Rect2(1206, 20, 694, 60) | Title: FINANCIAL LEDGER & LEASE.
+Cash Reserves Banner: Rect2(1206, 88, 694, 80) | Big Number: $8,450.00 in #10B981, Monthly Burn: -$3,240.00/mo in #EF4444.
+Revenue Breakdown List: Rect2(1206, 180, 694, 200):
+White-Collar Member Dues (18 members): +$2,520.00
+Amateur Dues (12 members): +$780.00
+Sponsorship Banners (2 active): +$650.00
+Fight Purses Cut (15% gym fee): +$1,200.00
+Expense Breakdown List: Rect2(1206, 390, 694, 240):
+Hall Lease (30×18m T1 Facility): -$2,800.00
+Coaching Staff Salaries (2 staff): -$1,900.00
+Utilities, Water & Waste: -$680.00
+Equipment Maintenance & Medical Kit: -$410.00
+Facility Upgrade Gate: Rect2(1206, 650, 694, 380):
+Upgrade to TIER 2: COMMERCIAL GYM (900 m²).
+Requirements: Balance $25,000, 35 Active Members, Gym Prestige 50+.
+Upgrade Button: [COMMISSION EXPANSION - $25,000] (Disabled if criteria not met).
+6.2 Implementation-Ready Interaction States (Engine Specification)
+
+Every control in FightCamp complies with this unified state matrix to ensure rock-solid feel and visual feedback:
+
+State Name      Background Hex   Border Hex       Text Hex         Sound FX (WAV)             Cursor Mode
+----------------------------------------------------------------------------------------------------------------
+Default / Normal#161B26          #262F40 (1px)    #F8FAFC          None                       ARROW
+Hovered         #1E2536          #D69E2E (1px)    #FFFFFF          sfx_ui_hover.wav (Vol -12) POINTING_HAND
+Pressed / Active#0F131C          #F59E0B (2px)    #D69E2E          sfx_ui_click.wav (Vol -8)  POINTING_HAND
+Focused (Keyb)  #161B26          #38BDF8 (2px)    #F8FAFC          sfx_ui_focus.wav (Vol -15) ARROW
+Disabled        #0B0D13          #1E293B (1px)    #475569          None                       FORBIDDEN
+Loading / Busy  #161B26 (Pulse)  #D69E2E (Stripes)#94A3B8          None                       WAIT
+Empty State     #0F1219 (Dashed) #334155 (Dashed) #64748B (Italic) None                       ARROW
+
+Empty State Visual Rules
+When a slot is empty (e.g., No Technique Assigned, No Opponent Booked), the container renders with a 1px dashed border (#334155, dash pattern: 4px dash, 4px gap).
+Centered within the slot: A 24px faded icon (#475569) above an Inter Regular 12px label: "+ ASSIGN MOVE CARD".
+On hover, the dashed line turns solid gym gold (#D69E2E), and the background brightens to #161B26.
+6.3 Complete PC Management-Simulation HUD Specification
+===================================================================================================
+PC HUD MASTER ANCHOR LAYOUT (1920 × 1080)
+===================================================================================================
+[TOP MASTER NAVIGATION BAR: Rect2(0, 0, 1920, 52)]
+  Left: Gym Title & Tier Tag: "ANVIL STREET BOXING [T1 CLUB]" [24, 14, 280, 24]
+  Center Navigation Tabs (5 Tabs, each 140px × 36px, Y: 8):
+    [1. GYM FLOOR] | [2. FIGHTERS] | [3. CALENDAR] | [4. FINANCES] | [5. ROSTER]
+  Right Telemetry Block (Y: 10):
+    Date: "TUE 14 OCT 2026" [1340, 16, 140, 20]
+    Cash: "$8,450.00" [1490, 16, 120, 20] (Green #10B981)
+    Sim Speed Controls: [ || ] [ 1x ] [ 2x ] [ 4x ] [1630, 10, 150, 32]
+    Global Options Gear: [1860, 12, 28, 28]
+
+[LEFT QUICK-ACTION TOOL STRIP: Rect2(16, 68, 64, 480)]
+  6 Icon Quick-Buttons (52px × 52px each, stacked vertically):
+  • [CAM 1: Master View]
+  • [CAM 2: Ring Cam]
+  • [CAM 3: Trench Cam]
+  • [Heatmap Toggle: Wear]
+  • [Heatmap Toggle: Congestion]
+  • [Sound Mute / Ambient Ambience]
+
+[BOTTOM TELEMETRY TICKER: Rect2(0, 1044, 1920, 36)]
+  Left News Feed: "• Daniel Molina camp releases sparring footage... • Heavy Bag #4 repacked..."
+  Right System Status: "GODOT 4.7 Forward+ | 60 FPS | Hall Occupancy: 18 / 48"
+===================================================================================================
+
+Typography Rules
+Headline Font (Chakra Petch): Exclusively used for UI headers, panel titles, attribute categories, and round counters. Never used for long body paragraphs.
+Body & UI Data Font (Inter): Used for member descriptions, news feed items, contract legal terms, tooltips, and button labels.
+Numeric & Telemetry Font (JetBrains Mono): Exclusively used for all numbers, cash balances, percentages, coordinates, clock timers, and attribute scores. This ensures tabular numeric alignment across all UI columns without
+Can you continue PART 4.3 from E07 through E30 with exact triggers, costs, probabilities, and consequences?
+Can you specify PART 4.4’s member-to-fighter pipeline with eligibility thresholds, scouting triggers, contracts, and implementation-ready data?
+Can you complete PART 5 with Tuesday-to-Saturday scheduling, fatigue formulas, skip-day rules, and irreversible last-spar outcomes?
+Can you generate a top-down visual concept of the 30×18-meter FightCamp starting gym using the exact equipment coordinates and floor-material palette?
+Copyright ©2026 Ludo.ai. All Rights Reserved.

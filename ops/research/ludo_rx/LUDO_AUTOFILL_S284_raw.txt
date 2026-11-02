@@ -1,0 +1,209 @@
+1. WALL BAG SPACING RULE (30 x 22.5 m Hall)
+Sane standard: 1 bag per 2.5 metres of wall.
+Absolute physical minimum: 2.0 m (bags touch when swinging laterally).
+Comfortable club standard: 2.5 m (allows clean footwork, pivoting, and a coach standing off-hip holding cues).
+Luxury pro standard: 3.0 m.
+On this 30 x 22.5 m warehouse shell:
+A 30 m uninterrupted wall fits 11 wall-mount bags maximum (allowing 1.25 m clearance at each corner).
+A 22.5 m end wall fits 8 wall-mount bags maximum.
+Rule of thumb: Never fill more than 40% of total perimeter wall length with bags on Day 1, or room partitioning becomes impossible without tearing down mountings.
+2. THE THREE PRESETS: DEFINITIONS & ROLES
+PRESET 1: "CANVAS & IRON" (The True $25k Starter)
+Identity: A raw, hungry contender's basement gym. Covers every functional training pillar on Day 1 (bag work, slip/speed timing, sparring, recovery, signups) while preserving a healthy cash float.
+Budget: Target ≤ $18,000 spend ($7,000+ cash float out of $25,000).
+PRESET 2: "FIGHT CLUB COMMERCIAL" (The $25k Member-Heavy Alternative)
+Identity: Skips the heavy pro sparring ring to focus entirely on member cash flow and white-collar bag circuits. Maximum bag line, maximum lockers, higher upfront capacity.
+Budget: Target ≤ $22,500 spend ($2,500 cash float out of $25,000).
+PRESET 3: "CHAMPIONSHIP COMPOUND" (The $80k Dev / Full Club Preset)
+Identity: The fully realized, turn-key regional contender facility with an elevated pro arena ring, private office, dedicated strength room, physio recovery clinic, and high-end member facilities.
+Budget: Fits the $80,000 expanded tester budget (Target ~$70,000 spend, leaving $10,000 runway).
+3. PRESET MASTER SPECIFICATION TABLES
+PRESET 1: "CANVAS & IRON" (The True $25,000 Starter)
+
+Total Budget: $25,000 | Spent: $17,450 | Remaining Runway Float: $7,550 (30.2%)
+
++-------------------------------------------------------------------------------------------------------+
+| ROOMS DRAWN (Preset 1)                                                                               |
++---------------------+---------+---------+------------+-----------------------+-----------+------------+
+| Room Type           | Size    | Area    | Flat Permit| Floor Rate ($/m²)     | Key Item  | Room Total |
++---------------------+---------+---------+------------+-----------------------+-----------+------------+
+| reception           | 3 x 3 m | 9 m²    | $400       | 9 m² x $35 = $315     | Desk $800 |     $1,515 |
+| locker_room         | 4 x 3 m | 12 m²   | $500       | 12 m² x $30 = $360    | Bank $620 |     $1,480 |
+| training_floor      | 8 x 6 m | 48 m²   | $600       | 48 m² x $25 = $1,200  | Bag $450  |     $2,250 |
+| sparring_pit        | 4 x 4 m | 16 m²   | $300       | 16 m² x $40 = $640    | Ring $900 |     $1,840 |
++---------------------+---------+---------+------------+-----------------------+-----------+------------+
+| SUB-TOTAL: ROOMS & KEY ITEMS (4 Rooms)                                               |     $7,085 |
++-------------------------------------------------------------------------------------------------------+
+
++-------------------------------------------------------------------------------------------------------+
+| PIECES PLACED (Preset 1)                                                                              |
++--------------------------------------+---------+------------+-----------------------------------------+
+| Item Name                            | Count   | Unit Cost  | Total Cost | Placement Location         |
++--------------------------------------+---------+------------+-----------------------------------------+
+| wall-arm heavy bag                   | 3       | $550       |     $1,650 | Training Floor (long wall) |
+| speed bag                            | 1       | $450       |       $450 | Training Floor (wall)      |
+| double-end bag                       | 1       | $380       |       $380 | Training Floor (interior)  |
+| focus-mitt locker                    | 1       | $480       |       $480 | Training Floor (corner)    |
+| agility ladder                       | 1       | $420       |       $420 | Training Floor (floor)     |
+| commercial exercise bike             | 1       | $1,450     |     $1,450 | Training Floor (cardio bay)|
+| communal bench                       | 3       | $180       |       $540 | 2 in Lockers, 1 at Ring    |
+| water cooler                         | 2       | $350       |       $700 | 1 Training Floor, 1 Lockers|
+| shower stall                         | 2       | $1,100     |     $2,200 | Locker Room                |
+| locker bank (additional)             | 1       | $620       |       $620 | Locker Room                |
+| trophy cabinet                       | 1       | $600       |       $600 | Reception                  |
+| vending machine                      | 1       | $850       |       $850 | Reception                  |
++--------------------------------------+---------+------------+-----------------------------------------+
+| SUB-TOTAL: LOOSE PIECES (18 pieces)                                                  |    $10,365 |
++-------------------------------------------------------------------------------------------------------+
+| GRAND TOTAL COST: $17,450                                                            | CASH: $7,550
++-------------------------------------------------------------------------------------------------------+
+*Capacity summary: 2 Locker Banks (24) + 2 Showers (30) = 54 Member Capacity on Day 1.*
+
+PRESET 2: "FIGHT CLUB COMMERCIAL" ($25,000 Member-Heavy Alternative)
+
+Total Budget: $25,000 | Spent: $21,980 | Remaining Runway Float: $3,020 (12.1%)
+
++-------------------------------------------------------------------------------------------------------+
+| ROOMS DRAWN (Preset 2)                                                                               |
++---------------------+---------+---------+------------+-----------------------+-----------+------------+
+| Room Type           | Size    | Area    | Flat Permit| Floor Rate ($/m²)     | Key Item  | Room Total |
++---------------------+---------+---------+------------+-----------------------+-----------+------------+
+| reception           | 4 x 3 m | 12 m²   | $400       | 12 m² x $35 = $420    | Desk $800 |     $1,620 |
+| locker_room         | 6 x 4 m | 24 m²   | $500       | 24 m² x $30 = $720    | Bank $620 |     $1,840 |
+| training_floor      |12 x 8 m | 96 m²   | $600       | 96 m² x $25 = $2,400  | Bag $450  |     $3,450 |
++---------------------+---------+---------+------------+-----------------------+-----------+------------+
+| SUB-TOTAL: ROOMS & KEY ITEMS (3 Rooms - No Sparring Pit)                             |     $6,910 |
++-------------------------------------------------------------------------------------------------------+
+
++-------------------------------------------------------------------------------------------------------+
+| PIECES PLACED (Preset 2)                                                                              |
++--------------------------------------+---------+------------+-----------------------------------------+
+| Item Name                            | Count   | Unit Cost  | Total Cost | Placement Location         |
++--------------------------------------+---------+------------+-----------------------------------------+
+| wall-arm heavy bag                   | 6       | $550       |     $3,300 | Training Floor (Wall line) |
+| speed bag                            | 2       | $450       |       $900 | Training Floor (Wall line) |
+| double-end bag                       | 2       | $380       |       $760 | Training Floor (interior)  |
+| focus-mitt locker                    | 1       | $480       |       $480 | Training Floor             |
+| agility ladder                       | 2       | $420       |       $840 | Training Floor             |
+| commercial exercise bike             | 2       | $1,450     |     $2,900 | Training Floor             |
+| communal bench                       | 4       | $180       |       $720 | Locker Room                |
+| locker bank (additional)             | 2       | $620       |     $1,240 | Locker Room (3 banks total)|
+| shower stall                         | 2       | $1,100     |     $2,200 | Locker Room                |
+| water cooler                         | 2       | $350       |       $700 | 1 Reception, 1 Floor       |
+| vending machine                      | 1       | $850       |       $850 | Reception                  |
+| trophy cabinet                       | 1       | $600       |       $600 | Reception                  |
++--------------------------------------+---------+------------+-----------------------------------------+
+| SUB-TOTAL: LOOSE PIECES (25 pieces)                                                  |    $15,070 |
++-------------------------------------------------------------------------------------------------------+
+| GRAND TOTAL COST: $21,980                                                            | CASH: $3,020
++-------------------------------------------------------------------------------------------------------+
+*Capacity summary: 3 Locker Banks (36) + 2 Showers (30) = 66 Member Capacity on Day 1.*
+*Note: Fighter cannot spar hard in-house on Day 1; must build Sparring Pit or take away bouts.*
+
+PRESET 3: "CHAMPIONSHIP COMPOUND" (The $80,000 Dev / Full Club Preset)
+
+Total Budget: $80,000 | Spent: $70,725 | Remaining Runway Float: $9,275 (11.6%)
+
++-------------------------------------------------------------------------------------------------------+
+| ROOMS DRAWN (Preset 3)                                                                               |
++---------------------+---------+---------+------------+-----------------------+-----------+------------+
+| Room Type           | Size    | Area    | Flat Permit| Floor Rate ($/m²)     | Key Item  | Room Total |
++---------------------+---------+---------+------------+-----------------------+-----------+------------+
+| reception           | 4 x 3 m | 12 m²   | $400       | 12 m² x $35 = $420    | Desk $800 |     $1,620 |
+| office              | 3 x 3 m | 9 m²    | $350       | 9 m² x $20 = $180     | PC $750   |     $1,280 |
+| locker_room         | 6 x 5 m | 30 m²   | $500       | 30 m² x $30 = $900    | Bank $620 |     $2,020 |
+| training_floor      |12 x 8 m | 96 m²   | $600       | 96 m² x $25 = $2,400  | Bag $450  |     $3,450 |
+| ring_pit            | 8 x 8 m | 64 m²   | $2,500     | 64 m² x $60 = $3,840  | Ring15,500|    $21,840 |
+| strength_room       | 6 x 5 m | 30 m²   | $600       | 30 m² x $50 = $1,500  | Rack$2,200|     $4,300 |
+| physio              | 4 x 3 m | 12 m²   | $750       | 12 m² x $45 = $540    | Tab.$1,400|     $2,690 |
++---------------------+---------+---------+------------+-----------------------+-----------+------------+
+| SUB-TOTAL: ROOMS & KEY ITEMS (7 Rooms Complete)                                      |    $37,200 |
++-------------------------------------------------------------------------------------------------------+
+
++-------------------------------------------------------------------------------------------------------+
+| PIECES PLACED (Preset 3)                                                                              |
++--------------------------------------+---------+------------+-----------------------------------------+
+| Item Name                            | Count   | Unit Cost  | Total Cost | Placement Location         |
++--------------------------------------+---------+------------+-----------------------------------------+
+| wall-arm heavy bag                   | 6       | $550       |     $3,300 | Training Floor             |
+| speed bag                            | 2       | $450       |       $900 | Training Floor             |
+| double-end bag                       | 2       | $380       |       $760 | Training Floor             |
+| focus-mitt locker                    | 1       | $480       |       $480 | Training Floor             |
+| agility ladder                       | 2       | $420       |       $840 | Training Floor             |
+| mobility and stretch station         | 1       | $1,300     |     $1,300 | Training Floor             |
+| commercial exercise bike             | 2       | $1,450     |     $2,900 | Training Floor             |
+| curved manual treadmill              | 1       | $5,200     |     $5,200 | Training Floor (High-end)  |
+| locker bank (additional)             | 4       | $620       |     $2,480 | Locker Room (5 banks total)|
+| shower stall                         | 4       | $1,100     |     $4,400 | Locker Room                |
+| communal bench                       | 6       | $180       |     $1,080 | Lockers, Ring, Gym Floor   |
+| water cooler                         | 3       | $350       |     $1,050 | Reception, Floor, Strength |
+| vending machine                      | 2       | $850       |     $1,700 | Reception, Lockers         |
+| trophy cabinet                       | 2       | $600       |     $1,200 | Reception, Office          |
+| olympic barbell and plates           | 1       | $2,400     |     $2,400 | Strength Room              |
+| compact free weights                 | 1       | $2,600     |     $2,600 | Strength Room              |
+| deluxe power rack                    | 1       | $2,200     |     $2,200 | Strength Room              |
++--------------------------------------+---------+------------+-----------------------------------------+
+| SUB-TOTAL: LOOSE PIECES (37 pieces)                                                  |    $33,525 |
++-------------------------------------------------------------------------------------------------------+
+| GRAND TOTAL COST: $70,725                                                            | CASH: $9,275
++-------------------------------------------------------------------------------------------------------+
+*Capacity summary: 5 Locker Banks (52) + 4 Showers (60) = 112 Member Capacity.*
+
+4. WHAT IS DELIBERATELY NOT PRE-PLACED IN $25K STARTERS
+
+To keep the game a management simulation rather than an idle screensaver, the following pieces are intentionally omitted from both $25,000 starter presets:
+
+The $18,000 Pro Ring ($2,500 permit + $3,840 floor + $15,500 ring):
+Why omit: Placing this instantly bankrupts the player on Day 1. The player must earn this milestone by fighting away from home first, then building it when headlining.
+The Physio Room ($750 permit + $1,400 table):
+Why omit: Acute fatigue in the first 2 weeks can be managed by scheduled rest and light taper days. Makes Goal 9 ("FEEL THE STIFFNESS") a meaningful progression unlock.
+The Dedicated Strength Room ($600 permit + $2,200 half rack):
+Why omit: Heavy strength work is unnecessary for unranked 4-round novices. Bodyweight conditioning and agility ladders handle Week 1–4 physical prep.
+Curved Manual Treadmill ($5,200) & Olympic Barbell Set ($2,400):
+Why omit: Capital traps. Buying a curved treadmill on Day 1 eats 21% of your entire bank account for an item that only trains aerobic conditioning. The commercial bike ($1,450) or jump ropes fulfill the exact same requirement for a third of the price.
+The Dedicated Management Office ($350 permit + $750 PC):
+Why omit: In the starter presets, match contracts and administrative work are completed directly through the Reception Desk terminal. Building a private sanctuary office is a reward for when roster size grows to 2+ boxers.
+5. EXECUTION & PLACEMENT SEQUENCE (Fallback Priority Order)
+
+If cash runs short during placement (e.g., player customized room dimensions slightly larger than standard before clicking auto-fill), items and rooms must instantiate strictly in this priority order:
+
+[STEP 01] Reception Room Shell + Desk ($1,515)
+          * Hard Gate: Receptionist & signups impossible without this.
+
+[STEP 02] Training Floor Shell + 1 Key Heavy Bag ($2,250)
+          * Hard Gate: Boxer cannot execute any training without a designated floor.
+
+[STEP 03] Locker Room Shell + 1 Key Locker Bank ($1,480)
+          * Hard Gate: Member capacity remains 0 without this; walk-ins turn around.
+
+[STEP 04] Sparring Pit Shell + Taped Ring ($1,840)
+          * Hard Gate: Unlocks tactical sparring mechanics and safe infighting practice.
+
+[STEP 05] Water Cooler & 1 Communal Bench ($530)
+          * Operational: Halts rapid early hydration/fatigue spikes during drills.
+
+[STEP 06] Wall-Arm Heavy Bag Line (Bags #2 and #3) ($1,100)
+          * Operational: Allows simultaneous fighter + member training on the bags.
+
+[STEP 07] Double-End Bag ($380) & Speed Bag ($450)
+          * Technical: Unlocks rhythm, timing, and reflex training paths.
+
+[STEP 08] Commercial Exercise Bike ($1,450)
+          * Conditioning: Unlocks active aerobic recovery sessions.
+
+[STEP 09] 1st Shower Stall ($1,100)
+          * Economic: Adds +15 member places and eliminates the early "smelly gym" churn.
+
+[STEP 10] Focus-Mitt Locker ($480) & Agility Ladder ($420)
+          * Tactical: Unlocks coach pad work and footwork drills.
+
+[STEP 11] 2nd Locker Bank ($620) & 2nd Shower Stall ($1,100)
+          * Economic: Scales member cap from 27 to 54 for strong weekly subscription cash.
+
+[STEP 12] Vending Machine ($850) & Trophy Cabinet ($600)
+          * Secondary: Passive concession revenue and baseline gym prestige boost.
+
+
+If the budget cuts off at any point along this chain, the gym remains 100% playable, operational, and financially viable.
+
+Which pieces should the $80,000 preset add, and what should its total cost and training capacity be?

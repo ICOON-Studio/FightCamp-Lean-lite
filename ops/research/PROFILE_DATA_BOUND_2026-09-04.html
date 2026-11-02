@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>FightCamp · Data-bound Fighter Profile Design</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@500;600;700&display=swap">
+<style>
+:root{
+  --ground:#1c2230; --panel:#2a3347; --panel-hi:#34405a; --panel-lo:#222a3b;
+  --edge:#121722; --edge-hi:rgba(255,255,255,.14); --line:#4a5a78;
+  --gym:#2f6fb0; --gym-hi:#3f86cc; --gym-lo:#24558a; --gym-deep:#1a3d63; --gym-tint:rgba(47,111,176,.22);
+  --gold:#f0c233; --gold-hi:#f7d65a; --gold-lo:#c99a1a;
+  --good:#4fc46a; --amber:#f0a020; --bad:#e5433a; --cyan:#2fd3ff;
+  --text:#f3f5fa; --text-2:#c9d1e0; --muted:#94a1b8; --link:#7fb6ee;
+  --display:"Bebas Neue","Arial Narrow",sans-serif;
+  --mono:"IBM Plex Mono",Consolas,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(130% 90% at 50% 0%,#2a3346,#0f131b 70%);color:var(--text);font-family:var(--mono);font-size:13px;font-weight:500;line-height:1.45}
+.wrap{max-width:1580px;margin:0 auto;padding:28px 20px 70px}
+.eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:700}
+h1{font-family:var(--display);font-size:52px;letter-spacing:.02em;line-height:.92;margin:6px 0 8px}
+.lede{color:var(--text-2);max-width:78ch;margin:0 0 18px}
+.bind{background:rgba(0,0,0,.28);border:1px solid var(--edge);border-radius:6px;padding:12px 14px;margin:0 0 22px;color:var(--muted);font-size:12px}
+.bind b{color:var(--gold)}
+.bind code{color:var(--cyan);font-size:11px}
+.monitor{background:linear-gradient(#3a3f4a,#1b1e25);border-radius:14px;padding:9px 9px 0;box-shadow:0 40px 90px -30px #000,0 0 0 1px #0c0e13}
+.screen{position:relative;background:var(--ground);border-radius:5px;overflow:hidden;min-height:920px}
+.chin{height:28px;display:flex;align-items:center;justify-content:center}.chin span{font-family:var(--display);letter-spacing:.28em;color:#565c69;font-size:12px}
+.shell{display:grid;grid-template-columns:168px 1fr;grid-template-rows:56px 1fr 40px;min-height:920px}
+.hdr{grid-column:1/3;display:flex;align-items:stretch;background:linear-gradient(180deg,#34405a,#262e42);border-bottom:1px solid var(--edge)}
+.crest{width:168px;display:flex;align-items:center;gap:10px;padding:0 12px;background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));border-right:1px solid var(--edge)}
+.crest .m{width:34px;height:34px;border-radius:50%;background:#fff;color:var(--gym-deep);display:grid;place-items:center;font-family:var(--display);font-size:16px}
+.crest .n{font-family:var(--display);font-size:18px;color:#fff;line-height:1}.crest .s{font-size:10px;letter-spacing:.12em;color:rgba(255,255,255,.85)}
+.hdr .ttl{padding:0 16px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid var(--edge)}
+.hdr .ttl h2{font-family:var(--display);font-size:28px;margin:0;letter-spacing:.05em}
+.hdr .ttl .bc{font-size:11px;color:var(--muted);letter-spacing:.08em}
+.hdr .spacer{flex:1}
+.hchip{padding:0 14px;display:flex;flex-direction:column;justify-content:center;border-left:1px solid var(--edge)}
+.hchip .k{font-size:10px;letter-spacing:.14em;color:var(--muted);font-weight:700}.hchip .v{font-family:var(--display);font-size:20px}
+.cont{padding:0 18px;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:#1a1508;font-family:var(--display);font-size:22px;letter-spacing:.06em}
+.rail{background:rgba(28,34,48,.96);border-right:1px solid var(--edge);display:flex;flex-direction:column}
+.rail a{display:flex;align-items:center;gap:8px;height:40px;padding:0 10px;color:var(--text-2);text-decoration:none;font-size:12px;font-weight:700;letter-spacing:.06em;border-left:4px solid transparent;border-bottom:1px solid rgba(0,0,0,.3)}
+.rail a.on{background:linear-gradient(90deg,var(--gym-tint),transparent);color:#fff;border-left-color:var(--gym-hi)}
+.main{display:flex;flex-direction:column;min-width:0;background:rgba(20,26,38,.55)}
+.tabs{display:flex;gap:6px;padding:10px 12px;border-bottom:1px solid var(--edge);background:rgba(0,0,0,.18);flex-wrap:wrap}
+.tab{font-family:var(--display);font-size:16px;letter-spacing:.08em;padding:8px 14px;border-radius:3px;border:1px solid var(--edge);color:var(--text-2);background:linear-gradient(180deg,#3a4560,#2b3449)}
+.tab.on{color:#1a1508;background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));border-color:#7a5c0c;box-shadow:0 0 16px rgba(240,194,51,.35)}
+.content{padding:12px;display:grid;grid-template-columns:1.15fr .95fr;gap:10px;align-content:start}
+.frame{border:1px solid var(--edge);border-radius:4px;background:rgba(34,42,59,.94);box-shadow:0 1px 0 var(--edge-hi) inset,0 6px 16px rgba(0,0,0,.35);overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.frame.glow-gold{box-shadow:0 0 0 1px rgba(240,194,51,.25),0 0 28px rgba(240,194,51,.18),0 6px 16px rgba(0,0,0,.35)}
+.frame.glow-red{box-shadow:0 0 0 1px rgba(229,67,58,.3),0 0 28px rgba(229,67,58,.18),0 6px 16px rgba(0,0,0,.35)}
+.frame.glow-cyan{box-shadow:0 0 0 1px rgba(47,211,255,.25),0 0 24px rgba(47,211,255,.14),0 6px 16px rgba(0,0,0,.35)}
+.hbar{display:flex;align-items:center;gap:8px;height:32px;padding:0 10px;background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));font-family:var(--display);font-size:16px;letter-spacing:.08em;color:#fff;border-bottom:1px solid var(--edge)}
+.hbar.gold{background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:#1a1508}
+.hbar.bad{background:linear-gradient(180deg,#ef5a50,#b62e26)}
+.hbar .r{margin-left:auto;font-family:var(--mono);font-size:11px;font-weight:700;opacity:.95}
+.in{padding:10px;display:flex;flex-direction:column;gap:8px}
+.hero{display:grid;grid-template-columns:120px 1fr 140px;gap:12px;align-items:start}
+.portrait{width:120px;height:148px;border-radius:4px;border:1px solid var(--line);background:radial-gradient(80px 90px at 50% 40%,#3a4864,#121722 75%);display:grid;place-items:center;font-family:var(--display);font-size:42px;color:var(--gold);text-shadow:0 0 20px rgba(240,194,51,.4)}
+.id .nick{font-size:11px;letter-spacing:.16em;color:var(--gold);font-weight:700}
+.id h3{font-family:var(--display);font-size:42px;line-height:.9;margin:2px 0 6px;letter-spacing:.02em}
+.id .meta{font-size:12px;color:var(--text-2);letter-spacing:.04em}
+.pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{display:inline-flex;align-items:center;height:26px;padding:0 9px;border-radius:3px;border:1px solid var(--edge);background:linear-gradient(180deg,#3a4560,#2b3449);font-size:11px;letter-spacing:.08em;font-weight:700}
+.chip.gold{background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:#1a1508;border-color:#7a5c0c}
+.chip.gym{background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff}
+.chip.cyan{border-color:rgba(47,211,255,.5);color:var(--cyan)}
+.rec{display:flex;gap:16px;margin-top:10px}
+.rec .n{font-family:var(--display);font-size:40px;line-height:.85}.rec .n.l{color:var(--bad)}.rec .l{font-size:10px;letter-spacing:.12em;color:var(--muted);margin-top:4px}
+.dial{width:130px;height:130px;border-radius:50%;border:10px solid #161c2a;background:conic-gradient(from 210deg,#e5433a 0deg,#f0a020 90deg,#f0c233 210deg,#161c2a 210deg);display:grid;place-items:center;box-shadow:0 0 24px rgba(240,194,51,.35);position:relative}
+.dial::after{content:"";position:absolute;inset:12px;border-radius:50%;background:#121722}
+.dial .g{position:relative;z-index:1;font-family:var(--display);font-size:54px;color:var(--gold);line-height:1;text-shadow:0 0 18px rgba(240,194,51,.55)}
+.dial .sub{position:absolute;bottom:18px;z-index:1;font-size:9px;letter-spacing:.1em;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.pair{display:grid;grid-template-columns:1fr auto;height:40px;border:1px solid var(--edge);border-radius:3px;overflow:hidden}
+.pair .lab{display:flex;align-items:center;padding:0 8px;background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));font-family:var(--display);font-size:14px;letter-spacing:.06em;color:#fff}
+.pair .val{min-width:58px;display:grid;place-items:center;background:linear-gradient(180deg,var(--panel-hi),var(--panel-lo));font-family:var(--display);font-size:22px}
+.pair .val.hi{background:linear-gradient(180deg,var(--gold-hi),var(--gold));color:#1a1508}
+.gb{display:flex;align-items:center;gap:8px}
+.gb .track{flex:1;height:12px;background:#111621;border:1px solid var(--edge);border-radius:2px;overflow:hidden}
+.gb .fill{display:block;height:100%;background:linear-gradient(90deg,#c8281f,#e8781c 50%,#f4c62e)}
+.gb .fill.cool{background:linear-gradient(90deg,#24486f,#3f86cc 60%,#8cc4f4)}
+.gb .fill.life{background:linear-gradient(90deg,#2b5c33,#4fc46a)}
+.gb .read{font-family:var(--display);font-size:16px;min-width:52px;text-align:right}
+.gb .read i{font-style:normal;color:var(--muted);font-size:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:34px;padding:0 12px;border-radius:3px;font-family:var(--display);font-size:15px;letter-spacing:.08em;border:1px solid var(--edge);background:linear-gradient(180deg,#445273,#303a52);color:var(--text)}
+.btn.gold{background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:#1a1508;border-color:#7a5c0c;box-shadow:0 0 14px rgba(240,194,51,.4)}
+.btn.ghost{background:rgba(20,25,38,.8)}
+.row{display:flex;align-items:center;gap:8px;justify-content:space-between;border-bottom:1px dashed rgba(74,90,120,.45);padding:4px 0}
+.row:last-child{border-bottom:0}
+.muted{color:var(--muted)}.good{color:var(--good)}.bad{color:var(--bad)}.gold{color:var(--gold)}.cyan{color:var(--cyan)}
+.foot{grid-column:1/3;display:flex;align-items:center;gap:12px;padding:0 12px;border-top:1px solid var(--edge);background:rgba(0,0,0,.25);font-size:11px;letter-spacing:.08em;color:var(--muted)}
+.foot .bc{color:var(--text-2);font-weight:700}
+.notes{margin-top:22px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.note{border:1px solid var(--edge);border-radius:6px;padding:12px;background:rgba(34,42,59,.55)}
+.note h4{font-family:var(--display);font-size:20px;margin:0 0 6px;letter-spacing:.04em}
+.note ul{margin:0;padding-left:1.1em;color:var(--text-2);font-size:12px}
+.note li{margin:4px 0}.note code{color:var(--cyan);font-size:11px}
+@media (max-width:1100px){.content{grid-template-columns:1fr}.notes{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">FightCamp · research design · data-bound · 2026-09-04 · Kalli</div>
+  <h1>Fighter Profile · bound to live GameState</h1>
+  <p class="lede">Preview only — no <code>.gd</code> changes. Uses the game’s real five tabs, six-stat model, and featured athlete numbers. Sample: <b>Ilia Topuria</b> (<code>real_ilia_topuria</code>) from <code>featured_real_athletes.json</code>. Shell: rail + breadcrumb + gym colour. Gravity: Decide now / What wins / Long game.</p>
+
+  <div class="bind">
+    <b>DATA CONTRACT (Overview)</b><br/>
+    Identity: <code>name · age · country · primary_discipline · weight_class · record · fame · potential · personality · ambition · status · portrait_path</code><br/>
+    Grade: mean of <code>STAT_ORDER</code> power · technique · speed · defense · conditioning · fight_iq → letter dial; ceiling = <code>potential</code><br/>
+    Condition: BodyReadiness + <code>morale</code> + <code>fatigue</code> + clearance APIs<br/>
+    Next bout: <code>booked_fight</code> + <code>get_fight_camp</code> + <code>get_weight_status</code> + plan<br/>
+    Weapons: <code>get_athlete_combos</code> + <code>signature_battles</code> · People: rapport + <code>get_athlete_loyalty</code><br/>
+    Long game: <code>fight_history</code> · <code>get_athlete_ambition</code> · awards · asks · media · rivalries · promotion
+  </div>
+
+  <div class="monitor"><div class="screen"><div class="shell">
+    <div class="hdr">
+      <div class="crest"><div class="m">IV</div><div><div class="n">IRON VEIN</div><div class="s">YOUR GYM</div></div></div>
+      <div class="ttl"><h2>ATHLETE COMMAND</h2><div class="bc">OFFICE › FIGHTERS › ILIA TOPURIA › ATHLETE LAB</div></div>
+      <div class="spacer"></div>
+      <div class="hchip"><div class="k">WEEK</div><div class="v">34</div></div>
+      <div class="hchip"><div class="k">CASH</div><div class="v">$184K</div></div>
+      <div class="cont">CONTINUE</div>
+    </div>
+    <nav class="rail">
+      <a href="#">OFFICE</a><a href="#">SCHEDULE</a><a class="on" href="#">FIGHTERS</a>
+      <a href="#">RECRUIT</a><a href="#">EVENTS</a><a href="#">ORGS</a><a href="#">FINANCE</a>
+    </nav>
+    <div class="main">
+      <div class="tabs">
+        <span class="tab on">ATHLETE LAB</span>
+        <span class="tab">DEVELOPMENT</span>
+        <span class="tab">SKILLS &amp; MOVES</span>
+        <span class="tab">FIGHT RECORD</span>
+        <span class="tab">FIGHT CAMP</span>
+      </div>
+      <div class="content">
+
+        <div class="frame glow-gold" style="grid-column:1/-1">
+          <div class="hbar gold">IDENTITY <span class="r">DECIDE NOW · featured_real</span></div>
+          <div class="in">
+            <div class="hero">
+              <div class="portrait">IT</div>
+              <div class="id">
+                <div class="nick">PERSONALITY · CONFIDENT · AMBITION · REDEMPTION</div>
+                <h3>ILIA TOPURIA</h3>
+                <div class="meta"><span class="chip gym">MMA</span> <span class="chip">LIGHTWEIGHT</span> · 29 · SPAIN · 170.2 CM · REACH 175.3 · ACTIVE</div>
+                <div class="pills">
+                  <span class="chip gold">POTENTIAL 98</span>
+                  <span class="chip cyan">FAME 930</span>
+                  <span class="chip">RANKING PTS LIVE</span>
+                </div>
+                <div class="rec">
+                  <div><div class="n">17</div><div class="l">WINS</div></div>
+                  <div><div class="n l">1</div><div class="l">LOSS</div></div>
+                  <div><div class="n" style="color:var(--muted)">0</div><div class="l">DRAWS</div></div>
+                  <div style="margin-left:8px"><div class="l">RECORD_DISPLAY</div><div style="font-family:var(--display);font-size:28px;color:var(--gold)">17-1-0</div></div>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+                <div class="dial"><div class="g">S</div><div class="sub">OVR ~92</div></div>
+                <div class="muted" style="font-size:10px;letter-spacing:.1em;text-align:center">CEILING<br/>POTENTIAL 98</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="frame glow-red">
+          <div class="hbar bad">NEXT BOUT <span class="r">booked_fight empty → camp locked</span></div>
+          <div class="in">
+            <div style="font-family:var(--display);font-size:28px">NO BOUT BOOKED</div>
+            <div class="muted">Matches AthleteProfileScreen: SEND TO FIGHT CAMP disabled until booked_fight is set.</div>
+            <div class="row"><span class="muted">WEIGHT</span><span>get_weight_status</span></div>
+            <div class="row"><span class="muted">PLAN</span><span>booking archetype · natural style</span></div>
+            <div style="display:flex;gap:8px;margin-top:4px">
+              <span class="btn ghost">TAPE</span><span class="btn ghost">FIGHT PLAN</span><span class="btn">FIGHT CAMP · LOCKED</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="frame glow-cyan">
+          <div class="hbar">CONDITION <span class="r">tonight’s truth</span></div>
+          <div class="in">
+            <div class="grid3">
+              <div class="pair"><div class="lab">READY</div><div class="val hi">96</div></div>
+              <div class="pair"><div class="lab">FATIGUE</div><div class="val">12</div></div>
+              <div class="pair"><div class="lab">MORALE</div><div class="val">78</div></div>
+            </div>
+            <div class="muted" style="font-size:11px">BodyReadiness · athlete.fatigue=12 · athlete.morale=78 · clearance APIs</div>
+            <div class="row"><span class="good">● TRAINING GREEN</span><span class="good">● MEDICALS CLEAR</span></div>
+          </div>
+        </div>
+
+        <div class="frame">
+          <div class="hbar">ATTRIBUTES <span class="r">STAT_ORDER · current → potential</span></div>
+          <div class="in">
+            <div class="gb"><span style="width:110px">POWER</span><div class="track"><i class="fill" style="width:94%"></i></div><div class="read">94 <i>/98</i></div></div>
+            <div class="gb"><span style="width:110px">TECHNIQUE</span><div class="track"><i class="fill" style="width:95%"></i></div><div class="read">95 <i>/98</i></div></div>
+            <div class="gb"><span style="width:110px">SPEED</span><div class="track"><i class="fill cool" style="width:90%"></i></div><div class="read">90 <i>/98</i></div></div>
+            <div class="gb"><span style="width:110px">DEFENSE</span><div class="track"><i class="fill cool" style="width:91%"></i></div><div class="read">91 <i>/98</i></div></div>
+            <div class="gb"><span style="width:110px">CONDITIONING</span><div class="track"><i class="fill life" style="width:90%"></i></div><div class="read">90 <i>/98</i></div></div>
+            <div class="gb"><span style="width:110px">FIGHT IQ</span><div class="track"><i class="fill" style="width:94%"></i></div><div class="read">94 <i>/98</i></div></div>
+          </div>
+        </div>
+
+        <div class="frame">
+          <div class="hbar">WEAPONS <span class="r">get_athlete_combos</span></div>
+          <div class="in">
+            <div class="row"><span class="muted">TIGHTNESS</span><span class="gold">50 NEUTRAL</span></div>
+            <div class="row"><span class="muted">SIGNATURE</span><span>— until known chains</span></div>
+            <div class="row"><span class="muted">GAME PLAN</span><span>tactical → 1–3 chains</span></div>
+            <div class="row"><span class="muted">DUEL</span><span>signature_battles won/lost</span></div>
+          </div>
+        </div>
+
+        <div class="frame">
+          <div class="hbar">CAMP SHAPE <span class="r">get_fight_camp</span></div>
+          <div class="in">
+            <div class="muted">No active camp without a booking. Live: track · protocol · film depth · injury risk · spend.</div>
+            <div class="row"><span class="muted">TAB</span><span>FIGHT CAMP → FightCampPanel</span></div>
+          </div>
+        </div>
+
+        <div class="frame">
+          <div class="hbar">BODY · SIX REGIONS <span class="r">AthleteProfileScreen BODY_REGIONS</span></div>
+          <div class="in">
+            <div class="grid2">
+              <div class="row"><span class="muted">HEAD/NECK</span><span class="good">100</span></div>
+              <div class="row"><span class="muted">TORSO</span><span class="good">100</span></div>
+              <div class="row"><span class="muted">LEFT ARM</span><span class="good">100</span></div>
+              <div class="row"><span class="muted">RIGHT ARM</span><span class="good">100</span></div>
+              <div class="row"><span class="muted">LEFT LEG</span><span class="good">100</span></div>
+              <div class="row"><span class="muted">RIGHT LEG</span><span class="good">100</span></div>
+            </div>
+            <div class="muted" style="font-size:11px">Keep Lab interactive map; restyle to muscular figure (2026-09-04 ruling).</div>
+          </div>
+        </div>
+
+        <div class="frame">
+          <div class="hbar">CORNER &amp; GYM <span class="r">rapport · get_athlete_loyalty</span></div>
+          <div class="in">
+            <div class="gb"><span style="width:120px">RAPPORT</span><div class="track"><i class="fill" style="width:50%"></i></div><div class="read">NEUT</div></div>
+            <div class="gb"><span style="width:120px">LOYALTY</span><div class="track"><i class="fill life" style="width:55%"></i></div><div class="read">—</div></div>
+            <div class="row"><span class="muted">CONTRACT</span><span>contract_weeks · weekly_salary</span></div>
+            <div class="row"><span class="muted">LISTEN %</span><span>rapport + Fight IQ listen roll</span></div>
+          </div>
+        </div>
+
+        <div class="frame" style="grid-column:1/-1">
+          <div class="hbar">LONG GAME <span class="r">ambition · G2 awards/media · rivalries · signing</span></div>
+          <div class="in" style="display:grid;grid-template-columns:1.2fr .9fr .9fr;gap:12px">
+            <div>
+              <div class="muted" style="letter-spacing:.12em;font-size:11px;margin-bottom:4px">AMBITION · REDEMPTION</div>
+              <div class="gb"><div class="track"><i class="fill" style="width:20%"></i></div><div class="read">API</div></div>
+              <div class="muted" style="font-size:11px;margin-top:6px">get_athlete_ambition · fight_history rows after settled bouts</div>
+            </div>
+            <div>
+              <div class="muted" style="letter-spacing:.12em;font-size:11px">AWARDS &amp; MEDIA</div>
+              <div class="row"><span class="muted">AWARDS</span><span>get_athlete_awards</span></div>
+              <div class="row"><span class="muted">ASK</span><span>get_athlete_request</span></div>
+              <div class="row"><span class="muted">PRESSER</span><span>get_media_questions</span></div>
+            </div>
+            <div>
+              <div class="muted" style="letter-spacing:.12em;font-size:11px">SIGNING · RIVALRIES</div>
+              <div class="row"><span class="muted">PROMOTION</span><span>get_athlete_promotion</span></div>
+              <div class="row"><span class="muted">TITLE</span><span>get_athlete_title</span></div>
+              <div class="row"><span class="muted">RIVALRIES</span><span>get_athlete_rivalries</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="foot"><span class="bc">← BACK</span> OFFICE › FIGHTERS › ILIA TOPURIA › ATHLETE LAB <span style="margin-left:auto">PREVIEW · NOT SHIPPED</span></div>
+  </div></div>
+  <div class="chin"><span>FIGHTCAMP</span></div></div>
+
+  <div class="notes">
+    <div class="note"><h4>Tier 1 · Decide now</h4>
+      <ul>
+        <li>Gold hero: name, MMA + Lightweight chips, record, S-dial</li>
+        <li>Red bout cell only lights with booked_fight</li>
+        <li>Cyan condition: ready · fatigue · morale</li>
+      </ul>
+    </div>
+    <div class="note"><h4>Keep the real tabs</h4>
+      <ul>
+        <li>ATHLETE LAB · DEVELOPMENT · SKILLS &amp; MOVES</li>
+        <li>FIGHT RECORD (rivalries + G2 awards/media)</li>
+        <li>FIGHT CAMP → FightCampPanel</li>
+      </ul>
+    </div>
+    <div class="note"><h4>Honest data</h4>
+      <ul>
+        <li>Topuria stats/fame/morale/fatigue from JSON</li>
+        <li>Camp/combos/loyalty shown empty-honest until career fills them</li>
+        <li>Build: restyle shell → bind getters → G2 last</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</body>
+</html>

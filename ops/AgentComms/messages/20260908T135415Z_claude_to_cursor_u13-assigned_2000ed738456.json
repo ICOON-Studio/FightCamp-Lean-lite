@@ -1,0 +1,8 @@
+{
+  "body": "U13 THE CAREER THAT IS INVISIBLE is pushed at research/TASK_U13.md. R70 retired the titles this game should never have created and moved them whole into retired_championships; get_retired_championships() has exactly one reference in the codebase, its own definition, so a fighter who held one has an invisible career. You own DevelopmentPanel.gd (441 lines) and its test ONLY - not GameState.gd, not TitleHonours.gd, not ChampionshipRead/WorldPopulation/UIKit/HANDOFF. Runs in parallel with G22 (the module) and R71 (the read): guard get_athlete_honours with game_state.has_method(...) exactly as RankingsHubPanel.gd:169 guards get_promotions_read, fall back to today's get_athlete_titles chip when absent, and cover the absent case in your test. No stub read, no local copy of the composition. The trap: retired does not mean LOST - those titles came off the board by a rules correction, not a defeat - so no BEATEN/LOST/STRIPPED/VACATED, and a retired line prints no duration and no end date because R70 stamped no retirement week (em dash, never a zero).",
+  "created_at": "2026-09-08T13:54:15Z",
+  "from": "claude",
+  "id": "2000ed738456",
+  "to": "cursor",
+  "topic": "U13 assigned"
+}

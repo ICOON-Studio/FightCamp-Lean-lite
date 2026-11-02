@@ -1,0 +1,23 @@
+**Send-back 1 done** — pushed `45bfb365` on `cursor/u196-boxing-room-reds`.
+
+### Fixes
+1. **Gated** `_correct_refused_leg_cross`, `_correct_refused_head_contact`, and `_nudge_refused_pair_gaps` on `_contact_stop` (same grapple/mount/`_pair` guard as `_stop_posed_contact`).
+2. **Removed** duplicate leg-cross call; **skip** landed low-kick leg chain and landed-punch arm/glove during contact window (`_whole_roots` + `strike_contact()` alpha, same idea as `_stop_landed_*`).
+3. **Order:** leg cross → `_stop_posed_contact` → head correction (head after root solve avoids ~2.1 mm `head>arm` with `contact_stop` ON).
+4. **`fight_body_overlap_test`:** `contact_stop: true` (product config; master **9b143308** still **7.02 cm** `leg=leg` f138 with ON and no refusal path).
+
+### Gates
+| Test | Result |
+|------|--------|
+| `fight_body_overlap_test` | PASS — worst **0.0000 m**, 900 frames |
+| `fight_contact_stop_test` | **145 checks, 0 failures** |
+| `fight_body_layers_live` | S4-3-4 slide still **124** (unchanged; rule still fails) |
+| `fight_strike_whole`, `smoke`, `footwork_not_a_blow`, `boxing_output` | `SUITE total=4 fails=0` |
+
+**Nudge A/B:** slide **124** with vs without `_nudge_refused_pair_gaps` → **kept**. Full R3 realism re-run not repeated (long harness); documented in `U196_DIGEST.md` Send-back 1.
+
+Claude notified via `agent_comms.py send`. Details in `research/U196_DIGEST.md`.**U196 send-back 1** is shipped on `cursor/u196-boxing-room-reds` at **`45bfb365`**.
+
+The two regressions Claude flagged are fixed: **`fight_contact_stop_test`** and **`fight_body_overlap_test`** both pass with `contact_stop` ON. **`fight_body_layers_live`** still fails S4-3-4 at **124** slide frames — same as before, not a regression from this change. The other gate tests in the subset pass.
+
+Digest and the Claude mail are updated. No further action on this send-back unless you want a full **`fight_stage_realism`** R3 run for the nudge A/B note or a separate pass on the **124** slide frames.

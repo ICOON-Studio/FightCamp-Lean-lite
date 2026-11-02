@@ -1,0 +1,128 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== S4a step 0: the presented bout against a real bout ==
+[FightWorldLive] BOXING - seed 94301, 3 rounds | waiting for the first beat
+[FightWorldLive] FIGHT OVER - DECISION | beats 540 | named clip played 457 | honest degrade 83
+  seed 94301: 19802 frames stepped in 3528 ms
+[FightWorldLive] BOXING - seed 51227, 3 rounds | waiting for the first beat
+[FightWorldLive] FIGHT OVER - DECISION | beats 544 | named clip played 469 | honest degrade 75
+  seed 51227: 19802 frames stepped in 3684 ms
+[FightWorldLive] BOXING - seed 77003, 3 rounds | waiting for the first beat
+[FightWorldLive] FIGHT OVER - DECISION | beats 500 | named clip played 440 | honest degrade 60
+  seed 77003: 19866 frames stepped in 3944 ms
+POPULATION ruleset=boxing rounds=3 seeds=[94301, 51227, 77003] bouts_finished=3/3 frames=59470 fps=30 joins=inertialized (production: into a strike 0.27 s, back to stance 0.27 s, into a hit 0.05 s)
+  out-boxer (A) | body f01_m_box_welter | 66.0 kg 180 cm reach 186 | plan boxing_out_boxer | 28 techniques | stats { "technique": 72, "power": 55, "speed": 70, "defense": 68, "conditioning": 66, "fight_iq": 70, "grapple": 30, "chin": 58, "aggression": 40 }
+  pressure puncher (B) | body f09_m_bare_welter | 66.5 kg 172 cm reach 172 | plan boxing_pressure | 24 techniques | stats { "technique": 58, "power": 74, "speed": 58, "defense": 54, "conditioning": 72, "fight_iq": 55, "grapple": 35, "chin": 72, "aggression": 78 }
+  catalogue res://assets/data/technique_catalog.json md5 875094aa82f44cd3fcfc9822d7a30503 | clips FightClipBinding.BINDINGS (RamsterZ H2H + combo_jab_cross_hook)
+  ok    [population] the two men differ in attributes and frame (NEVER TEST IDENTICAL FIGHTERS)
+  ok    [population] both men make welterweight (66.7 kg) - a legal boxing booking
+  ok    [population] every seeded bout reached its end
+RULE R1 space_between_exchanges | GATED S4a | FAIL
+    study:    JPES 2016 art178 - boxing time-motion, World Championship later winners, 64/69/75 kg (J28, K29)
+    real:     active 1.2+-0.8 s; inactive 2.3+-1.8 s; inactive >4 s averages 5.6+-1.7 s about 7.6 times a round
+    bound:    mean inactive 1.4..3.2 s and mean active 0.8..1.6 s (study mean +- half an SD; a pause under 0.3 s joins its exchange - INFERENCE)
+    label:    DOCUMENTED (bout); range width INFERENCE
+    measured: active 1.92 s (n=417, p95 3.97); inactive 1.93 s (n=408, p95 6.30); inactive >4 s: 5.0 per round
+RULE R2 stance_takes | GATED S4a | FAIL
+    study:    NO STUDY - what neutral consists of is NOT FOUND in any bout study (J28, K29 GAPS)
+    real:     none; the operator's realism spec: rotate several stance takes the way react_head rotates four
+    bound:    at least 3 distinct stance takes seen per man
+    label:    OPERATOR SPEC (no study)
+    measured: A 1 takes ["idle"]; B 1 takes ["idle"]
+RULE R2b never_frozen | GATED S4a | PASS
+    study:    PHYSIOLOGY - a standing athlete is never motionless (quiet standing always sways; boxers in neutral bounce and step: Dunn 2017 via K29, unverified by Claude)
+    real:     no bout number for 'frozen'; bouncing and stepping fill most of a round (K29)
+    bound:    a stopped clip holding its last frame on at most 2% of frames per man
+    label:    PHYSIOLOGY (no bout number)
+    measured: A 0.0% frozen, B 0.0% frozen; 0 frames lying on the canvas after a knockdown, not counted; frozen on: {  }
+RULE R3 planted_foot_skate | GATED S4a | FAIL
+    study:    PHYSICS - a foot bearing weight has zero ground velocity; 0.1 m/s is the planted threshold Q49 found in practice
+    real:     0 m/s
+    bound:    mean horizontal speed of the lower toe while it is within 5 cm of the canvas (its rest height) at most 0.10 m/s
+    label:    PHYSICS; threshold INDUSTRY (Q49)
+    measured: mean 0.172 m/s, p95 0.941 m/s over 113767 planted frames; most skate by take: react_body 0.91 m/s x5923, hook_rear 1.50 m/s x2179, hook_lead 0.55 m/s x4486, cross 0.50 m/s x3733, idle 0.02 m/s x82805
+RULE R3b feet_above_the_canvas | GATED S4a | PASS
+    study:    PHYSICS - a foot cannot pass through the canvas; Q87 measured the bound clips themselves, unblended, through production: the deepest any takes a toe is 0.0263 m under its rest height (a pivot foot)
+    real:     0 frames below the canvas
+    bound:    no frame with the lower toe more than 0.0263 m under its rest height - anything deeper is made by the room, not the clips
+    label:    PHYSICS; bound DOCUMENTED (Q87)
+    measured: 0 of 118940 frames under the bound; deepest 0.000 m at none; by the take 0.20 s earlier: {  }
+R3-SOURCE join | 23323 | 0.205 | 0.574 | 0.560 | 0.048 | 0.291
+R3-SOURCE take | 90444 | 0.795 | 0.068 | 0.063 | 0.010 | 0.291
+R3-SOURCE walk | 0 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000
+R3-SOURCE finished | 0 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000
+R3-SOURCE all | 113767 | 1.000 | 0.172 | 0.165 | 0.018 | 0.291
+R3-SOURCE-ROLE bucket | role | frames | mean_total_mps | mean_body_mps | sum_total_mps
+R3-SOURCE-ROLE join | hook_rear | 1087 | 2.755 | 2.748 | 2995.184
+R3-SOURCE-ROLE join | hook_lead | 2374 | 0.834 | 0.825 | 1980.743
+R3-SOURCE-ROLE join | react_body | 1914 | 0.982 | 0.978 | 1879.720
+R3-SOURCE-ROLE join | cross | 2048 | 0.807 | 0.797 | 1653.478
+R3-SOURCE-ROLE join | jab | 2453 | 0.652 | 0.644 | 1598.524
+R3-SOURCE-ROLE join | react_head | 3581 | 0.330 | 0.308 | 1183.383
+R3-SOURCE-ROLE take | react_body | 4009 | 0.877 | 0.885 | 3516.349
+R3-SOURCE-ROLE take | idle | 74904 | 0.013 | 0.011 | 979.977
+R3-SOURCE-ROLE take | hook_lead | 2112 | 0.232 | 0.190 | 489.920
+R3-SOURCE-ROLE take | react_head | 3550 | 0.106 | 0.090 | 376.850
+R3-SOURCE-ROLE take | hook_rear | 1092 | 0.244 | 0.211 | 266.256
+R3-SOURCE-ROLE take | cross | 1685 | 0.129 | 0.106 | 217.162
+RULE R4 back_in_guard | GATED S4a | PASS
+    study:    Menzel & Potthast 2021 (Sensors) - experienced boxers, n=11, single maximal punches on a BAG; return-to-guard in a BOUT is NOT FOUND (K29)
+    real:     retraction to guard: cross 169+-41 ms, hook 168+-97, uppercut 171+-33, jab 262+-42; in combinations the next punch starts at the previous impact
+    bound:    90% of punch exits: into anything but a punch, hand within 25% of its extension and at least mean-1SD after the peak (jab 220 ms, others 128 ms); into a punch, extension complete; into a hit reaction, not judged (J19, K30: the reaction starts at contact)
+    label:    LAB (bag), not a bout; the 25% and 90% are INFERENCE
+    measured: 1019 of 1076 exits pass (95%); 234 hit mid-punch, reported only (J19, K30); 0 kicks reported only (no bout study; Robalino 2025 LAB roundhouse return ~400 ms); 19 without an extension skipped; first failure: hook_rear -> neutral: hand 0.36 of 0.61 m out, 700 ms after the peak; failures by kind: { "into neutral: not home": 57 }
+    R4 example into neutral: not home: seed 94301 f4324 hook_rear 29 of 31 frames, peak f+7, next idle | seed 94301 f7635 hook_rear 24 of 31 frames, peak f+3, next idle | seed 94301 f8483 hook_rear 24 of 31 frames, peak f+3, next idle
+RULE R5 joins_move_like_the_performance | GATED S4a | FAIL
+    study:    DERIVED FROM THE CLIPS' OWN MOTION - the bought performance is the human reference; no study gives a blend time (J28 NOT FOUND; G57/J19 found engine defaults only)
+    real:     each joint's own p99 angular speed across every frame of every clip, as authored, played unblended
+    bound:    in the 0.35 s after any change of take - except into a hit reaction or a knockdown, which moves at the blow's speed (J19, K30) - each joint's p99 speed at most 1.2x its own clip p99 (factor INFERENCE)
+    label:    DERIVED (the performance); factor INFERENCE
+    measured: worst RightUpperArm at 3.42x; over the bound: Hips 849/511 deg/s, Spine 1012/622 deg/s, Chest 1343/773 deg/s, UpperChest 1343/773 deg/s, LeftUpperArm 2435/930 deg/s, LeftLowerArm 1715/1050 deg/s, RightUpperArm 2433/712 deg/s, RightLowerArm 1324/934 deg/s, LeftUpperLeg 938/433 deg/s, LeftLowerLeg 864/461 deg/s, RightUpperLeg 982/530 deg/s, RightLowerLeg 942/516 deg/s; configured blend 0.10 s (a setting, not an observation)
+RULE R5b joins_against_the_same_frames | GATED S4a | FAIL
+    study:    DERIVED FROM THE CLIPS' OWN MOTION - as R5, but the reference is the incoming take's authored speed at the same frames
+    real:     the seen motion equals the performance's own at every join frame (ratio 1.0)
+    bound:    in the same windows as R5, each joint's p99 speed at most 1.2x the incoming performance's own p99 over those very frames (factor INFERENCE, as R5); R5 and R5b both gate (operator, 2026-09-13)
+    label:    DERIVED (the performance, same frames); factor INFERENCE
+    measured: worst LeftUpperLeg at 2.09x; over 1.2x: LeftUpperLeg 938/448 deg/s, LeftLowerLeg 864/524 deg/s, RightUpperLeg 982/690 deg/s, RightLowerLeg 942/663 deg/s; R5's reference is 71% idle frames (82326 of 115570)
+R5-PAIRS pair | ending | windows | over | share | worst_bone | mean_ratio
+R5-PAIRS react_head -> idle | finished | 240 | 218 | 0.908 | RightLowerArm | 3.80
+R5-PAIRS jab -> idle | finished | 172 | 170 | 0.988 | RightLowerArm | 1.90
+R5-PAIRS cross -> idle | finished | 140 | 134 | 0.957 | RightLowerArm | 2.54
+R5-PAIRS hook_lead -> idle | cut | 89 | 85 | 0.955 | RightLowerArm | 9.63
+R5-PAIRS slip -> idle | finished | 87 | 85 | 0.977 | RightLowerArm | 6.21
+R5-PAIRS react_body -> idle | finished | 86 | 78 | 0.907 | RightLowerArm | 4.63
+R5-PAIRS idle -> hook_rear | finished | 59 | 59 | 1.000 | LeftUpperLeg | 2.63
+R5-PAIRS cross -> jab | cut | 50 | 49 | 0.980 | RightUpperArm | 3.13
+R5-PAIRS hook_rear -> idle | cut | 47 | 47 | 1.000 | RightLowerArm | 110.69
+R5-PAIRS idle -> hook_lead | finished | 132 | 46 | 0.348 | RightUpperLeg | 1.75
+R5-PAIRS hook_lead -> cross | cut | 45 | 42 | 0.933 | RightLowerArm | 2.02
+R5-PAIRS hook_rear -> hook_lead | cut | 40 | 40 | 1.000 | RightUpperLeg | 2.52
+R5-PAIRS hook_lead -> hook_rear | cut | 37 | 37 | 1.000 | LeftUpperLeg | 2.76
+R5-PAIRS jab -> cross | cut | 37 | 36 | 0.973 | RightUpperLeg | 2.20
+R5-PAIRS block -> idle | finished | 34 | 34 | 1.000 | LeftLowerArm | 119.28
+R5-ENDING ending | windows | over | share
+R5-ENDING cut | 1060 | 892 | 0.842
+R5-ENDING finished | 1477 | 947 | 0.641
+R5-GROUP group | over_windows
+R5-GROUP arms | 1527
+R5-GROUP legs | 1733
+R5-ENTRY outgoing | windows | mean_used_deg | mean_best_deg | share_best_lt_half_used | p10_phase_s | p50_phase_s | p90_phase_s
+R5-ENTRY react_head | 240 | 1.46 | 1.30 | 0.000 | 4.367 | 4.633 | 4.633
+R5-ENTRY jab | 172 | 0.95 | 0.76 | 0.000 | 4.567 | 4.567 | 4.567
+R5-ENTRY cross | 140 | 1.38 | 0.98 | 0.000 | 0.100 | 0.100 | 0.100
+R5-ENTRY hook_lead | 101 | 4.78 | 4.09 | 0.000 | 1.267 | 1.267 | 1.267
+R5-ENTRY hook_rear | 57 | 77.68 | 76.94 | 0.000 | 0.133 | 0.133 | 0.133
+R5-ENTRY slip | 87 | 2.09 | 1.47 | 0.000 | 4.067 | 4.067 | 4.133
+R5-ENTRY react_body | 108 | 2.71 | 2.22 | 0.000 | 4.033 | 4.400 | 4.633
+R5-ENTRY block | 34 | 59.47 | 57.64 | 0.000 | 1.267 | 1.267 | 1.267
+R5-ENTRY other | 31 | 1.42 | 1.01 | 0.000 | 0.100 | 0.100 | 0.100
+RULE R6 ring_movement | REPORT S4 | INFO
+    study:    Schortgen ECSS 2023 - French elite boxing, 32 fights (conference abstract, via K29); Thomson via M18
+    real:     distance between the men 1.23+-0.16 m; 155+-28 m travelled per round (~0.86 m/s); mean ring speed 0.6 m/s
+    bound:    none yet - S4 feeds the engine's 2D positions into the room
+    label:    DOCUMENTED (abstract) / SECONDARY
+    measured: mean body speed 0.019 m/s (p95 0.124); mean distance 0.97 m (p5 0.83, p95 1.07)
+TOTAL=11 fails=5
+FAIL
+WARNING: 810 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)

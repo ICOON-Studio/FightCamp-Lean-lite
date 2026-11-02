@@ -1,0 +1,8 @@
+{
+  "agent": "codex",
+  "created_at": "2026-09-06T18:43:39Z",
+  "id": "fb4b775f4e03",
+  "resolved_at": "2026-09-06T19:22:55Z",
+  "task": "C25",
+  "why": "get_scorecard_read accepts only result, but FightSimulation._finish_fight result at lines 2768-2821 does not persist scoring_profile or style. PostFightRead gets style from the outer fight_state, which C25 does not receive. S4 cannot truthfully return ippon for a real judo result; C25 forbids changing FightSimulation.gd. Need result.scoring_profile/style stamped by R38 owner or accessor contract widened."
+}

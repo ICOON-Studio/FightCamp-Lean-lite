@@ -1,0 +1,460 @@
+Here is the complete, drop-in GDScript implementation addressing both audit items (#7 station advice overlay and #2 station queue path visualizer), along with a headless test suite.
+
+1. res://scripts/training/StationAdvice.gd
+class_name StationAdvice
+extends RefCounted
+
+# Maps place_id prefixes or exact keys to their primary training profiles.
+# Target attributes use standard GDD keys: power, speed, technique, defence, conditioning, footwork, ring_iq.
+const STATION_PROFILES: Dictionary = {
+	"speed_bag": {
+		"label": "Speed Bag",
+		"attrs": ["speed"],
+		"stamina_cost": 0.8,
+		"heavy": false,
+		"recovery": false
+	},
+	"heavy_bag": {
+		"label": "Heavy Bag",
+		"attrs": ["power", "conditioning"],
+		"stamina_cost": 1.4,
+		"heavy": true,
+		"recovery": false
+	},
+	"mirror_strip": {
+		"label": "Mirror Strip",
+		"attrs": ["technique", "footwork"],
+		"stamina_cost": 0.6,
+		"heavy": false,
+		"recovery": false
+	},
+	"pads": {
+		"label": "Pads",
+		"attrs": ["technique", "speed"],
+		"stamina_cost": 1.2,
+		"heavy": false,
+		"recovery": false
+	},
+	"defence_drill": {
+		"label": "Defence Drill",
+		"attrs": ["defence"],
+		"stamina_cost": 1.0,
+		"heavy": false,
+		"recovery": false
+	},
+	"ring": {
+		"label": "Ring",
+		"attrs": ["ring_iq", "defence"],
+		"stamina_cost": 1.5,
+		"heavy": true,
+		"recovery": false
+	},
+	"treadmill": {
+		"label": "Treadmill",
+		"attrs": ["conditioning"],
+		"stamina_cost": 1.3,
+		"heavy": true,
+		"recovery": false
+	},
+	"bike": {
+		"label": "Air Bike",
+		"attrs": ["conditioning"],
+		"stamina_cost": 0.9,
+		"heavy": false,
+		"recovery": false
+	},
+	"recovery": {
+		"label": "Recovery",
+		"attrs": [],
+		"stamina_cost": -1.0,
+		"heavy": false,
+		"recovery": true
+	},
+	"agility_ladder": {
+		"label": "Agility Ladder",
+		"attrs": ["footwork", "speed"],
+		"stamina_cost": 0.7,
+		"heavy": false,
+		"recovery": false
+	},
+	"power_rack": {
+		"label": "Power Rack",
+		"attrs": ["power"],
+		"stamina_cost": 1.3,
+		"heavy": true,
+		"recovery": false
+	},
+	"olympic_platform": {
+		"label": "Olympic Platform",
+		"attrs": ["power"],
+		"stamina_cost": 1.4,
+		"heavy": true,
+		"recovery": false
+	},
+	"weights": {
+		"label": "Weights",
+		"attrs": ["power"],
+		"stamina_cost": 1.1,
+		"heavy": true,
+		"recovery": false
+	}
+}
+
+static func _resolve_profile(place_id: String) -> Dictionary:
+	if STATION_PROFILES.has(place_id):
+		return STATION_PROFILES[place_id]
+	for prefix in STATION_PROFILES.keys():
+		if place_id.begins_with(prefix):
+			return STATION_PROFILES[prefix]
+	return {
+		"label": place_id.capitalize(),
+		"attrs": [],
+		"stamina_cost": 1.0,
+		"heavy": false,
+		"recovery": false
+	}
+
+# Returns an Array of Dictionaries:
+# { "place_id": String, "tag": "BEST"|"GOOD"|"REST"|"", "reason": String, "score": float }
+static func rank(stats: Dictionary, fatigue: int, levels: Dictionary, place_ids: Array) -> Array:
+	var out: Array = []
+	if place_ids.is_empty():
+		return out
+
+	var is_exhausted: bool = fatigue >= 70
+
+	# Find fighter's lowest attributes to guide priorities
+	var tracked_attrs: Array = ["power", "speed", "technique", "defence", "conditioning", "footwork", "ring_iq"]
+	var lowest_attr: String = ""
+	var lowest_val: float = 999.0
+	for attr in tracked_attrs:
+		var v: float = float(stats.get(attr, stats.get("stamina", 50.0) if attr == "conditioning" else 50.0))
+		if v < lowest_val:
+			lowest_val = v
+			lowest_attr = attr
+
+	var candidates: Array = []
+
+	for place in place_ids:
+		var pid: String = str(place)
+		var prof: Dictionary = _resolve_profile(pid)
+		var lvl: int = int(levels.get(pid, 1))
+		var level_mult: float = 1.0 + (lvl - 1) * 0.15 # L1: 1.0, L2: 1.15, L3: 1.30+
+
+		var base_score: float = 0.0
+		var tag: String = ""
+		var reason: String = ""
+
+		if prof.recovery:
+			if is_exhausted:
+				tag = "REST"
+				reason = "Fatigued (%d%%) - needs recovery" % fatigue
+				base_score = 500.0 + (fatigue - 70) * 10.0 + (lvl * 2.0)
+			else:
+				tag = ""
+				reason = "Stamina is stable"
+				base_score = 5.0
+		elif is_exhausted:
+			if prof.heavy:
+				tag = ""
+				reason = "Injury risk high - too tired"
+				base_score = -100.0
+			elif pid.begins_with("bike"):
+				tag = "GOOD"
+				reason = "Active flush - keeps conditioning"
+				base_score = 150.0 + (lvl * 5.0)
+			else:
+				tag = ""
+				reason = "Lighter work only"
+				base_score = 20.0
+		else:
+			# Non-exhausted rating
+			var trains_weakness: bool = prof.attrs.has(lowest_attr)
+			var need_sum: float = 0.0
+			for a in prof.attrs:
+				var cur: float = float(stats.get(a, stats.get("stamina", 50.0) if a == "conditioning" else 50.0))
+				need_sum += (100.0 - cur)
+
+			base_score = (need_sum * 1.5) * level_mult
+
+			if trains_weakness:
+				base_score += 120.0
+				reason = "%s is his weakest - %s" % [lowest_attr.capitalize(), prof.label]
+			elif prof.attrs.size() > 0:
+				reason = "Drills %s" % [str(prof.attrs[0]).capitalize()]
+			else:
+				reason = prof.label
+
+		# Enforce max 40 chars on reason
+		if reason.length() > 40:
+			reason = reason.substr(0, 37) + "..."
+
+		candidates.append({
+			"place_id": pid,
+			"tag": tag,
+			"reason": reason,
+			"score": base_score,
+			"level": lvl,
+			"profile": prof
+		})
+
+	# Sort descending by score, tiebreak by level
+	candidates.sort_custom(func(a, b):
+		if not is_equal_approx(a.score, b.score):
+			return a.score > b.score
+		return a.level > b.level
+	)
+
+	# Assign BEST and GOOD tags
+	var best_assigned: int = 0
+	var max_best: int = 3
+
+	for entry in candidates:
+		if is_exhausted:
+			if entry.profile.recovery:
+				entry.tag = "REST"
+			elif entry.place_id.begins_with("bike"):
+				entry.tag = "GOOD"
+			elif entry.tag != "REST" and entry.tag != "GOOD":
+				entry.tag = ""
+		else:
+			if entry.score >= 120.0 and best_assigned < max_best:
+				entry.tag = "BEST"
+				best_assigned += 1
+			elif entry.score >= 50.0:
+				entry.tag = "GOOD"
+			else:
+				entry.tag = ""
+
+		out.append({
+			"place_id": entry.place_id,
+			"tag": entry.tag,
+			"reason": entry.reason,
+			"score": entry.score
+		})
+
+	return out
+
+2. Station Pick Marks Recolor & Reason Labels
+
+Call apply_advice once your floor pick pad meshes exist under PickMarks.
+
+# Place inside your GymFloorController.gd or TrainingFloorController.gd
+
+const COLOR_BEST := Color(0.941, 0.761, 0.200, 0.55)  # Gold #f0c233
+const COLOR_GOOD := Color(0.960, 0.940, 0.860, 0.35)  # Warm Cream
+const COLOR_REST := Color(0.350, 0.450, 0.580, 0.50)  # Blue-Grey
+const COLOR_DEFAULT := Color(0.25, 0.25, 0.25, 0.20)  # Default neutral pad
+
+func apply_advice(pick_marks: Node3D, advice: Array, zone_center: Callable) -> void:
+	if pick_marks == null:
+		return
+
+	# Clear previous reason badges
+	for old_label in pick_marks.get_tree().get_nodes_in_group("AdviceBadge"):
+		old_label.queue_free()
+
+	# Map advice results by place_id
+	var advice_map: Dictionary = {}
+	for adv in advice:
+		advice_map[adv.place_id] = adv
+
+	for child in pick_marks.get_children():
+		if not (child is MeshInstance3D and child.name.begins_with("Pick_")):
+			continue
+
+		var place_id: String = child.name.trim_prefix("Pick_")
+		var entry: Dictionary = advice_map.get(place_id, {})
+		var tag: String = entry.get("tag", "")
+		var reason: String = entry.get("reason", "")
+
+		var target_color: Color = COLOR_DEFAULT
+		match tag:
+			"BEST":
+				target_color = COLOR_BEST
+			"GOOD":
+				target_color = COLOR_GOOD
+			"REST":
+				target_color = COLOR_REST
+			_:
+				target_color = COLOR_DEFAULT
+
+		# Assign override material without modifying shared assets
+		var mat: StandardMaterial3D = StandardMaterial3D.new()
+		mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		mat.albedo_color = target_color
+		mat.cull_mode = BaseMaterial3D.CULL_DISABLED
+		child.material_override = mat
+
+		# Put reason label 1.6m directly above the pad center for BEST stations
+		if tag == "BEST" and not reason.is_empty():
+			var center_pos: Vector3 = zone_center.call(place_id)
+			var label: Label3D = Label3D.new()
+			label.name = "Badge_" + place_id
+			label.add_to_group("AdviceBadge")
+			label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+			label.text = "★ " + reason.to_upper()
+			label.font_size = 20
+			label.outline_size = 6
+			label.modulate = Color(1.0, 0.92, 0.4, 1.0)
+			label.outline_modulate = Color(0.08, 0.08, 0.08, 0.95)
+			label.position = center_pos + Vector3(0.0, 1.6, 0.0)
+			label.no_depth_test = true
+			pick_marks.add_child(label)
+
+3. Station Queue Path Visualizer
+
+Draws dotted floor waypoints and a clear destination marker when a fighter queues an upcoming station.
+
+const QUEUE_MARKER_GROUP := "StationQueueMarkers"
+
+func show_queue_marker(root: Node3D, from_pos: Vector3, to_pos: Vector3, label: String) -> Node3D:
+	clear_queue_marker(root)
+	
+	var container: Node3D = Node3D.new()
+	container.name = "QueueVisualizer"
+	container.add_to_group(QUEUE_MARKER_GROUP)
+	root.add_child(container)
+
+	var start_p: Vector3 = Vector3(from_pos.x, 0.02, from_pos.z)
+	var end_p: Vector3 = Vector3(to_pos.x, 0.02, to_pos.z)
+	var delta: Vector3 = end_p - start_p
+	var dist: float = delta.length()
+
+	# 1. Dotted path discs
+	var step_size: float = 0.5
+	var steps: int = int(floor(dist / step_size))
+	var dot_mesh: CylinderMesh = CylinderMesh.new()
+	dot_mesh.top_radius = 0.08
+	dot_mesh.bottom_radius = 0.08
+	dot_mesh.height = 0.01
+
+	var dot_mat: StandardMaterial3D = StandardMaterial3D.new()
+	dot_mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	dot_mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	dot_mat.albedo_color = Color(0.941, 0.761, 0.2, 0.65) # Gold glow
+
+	var step_dir: Vector3 = delta.normalized()
+	for i in range(1, steps):
+		var marker: MeshInstance3D = MeshInstance3D.new()
+		marker.mesh = dot_mesh
+		marker.material_override = dot_mat
+		marker.position = start_p + (step_dir * (i * step_size))
+		container.add_child(marker)
+
+	# 2. Target anchor ring on floor
+	var ring: MeshInstance3D = MeshInstance3D.new()
+	var ring_mesh: TorusMesh = TorusMesh.new()
+	ring_mesh.inner_radius = 0.35
+	ring_mesh.outer_radius = 0.45
+	ring.mesh = ring_mesh
+	ring.material_override = dot_mat
+	ring.position = end_p
+	container.add_child(ring)
+
+	# 3. Label3D "NEXT: ..."
+	var label_3d: Label3D = Label3D.new()
+	label_3d.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	label_3d.text = "NEXT: " + label.to_upper()
+	label_3d.font_size = 22
+	label_3d.outline_size = 6
+	label_3d.modulate = Color(0.95, 0.85, 0.25, 1.0)
+	label_3d.outline_modulate = Color(0.1, 0.1, 0.1, 1.0)
+	label_3d.position = end_p + Vector3(0.0, 1.25, 0.0)
+	label_3d.no_depth_test = true
+	container.add_child(label_3d)
+
+	return container
+
+func clear_queue_marker(root: Node3D) -> void:
+	if root == null:
+		return
+	for node in root.get_tree().get_nodes_in_group(QUEUE_MARKER_GROUP):
+		node.queue_free()
+
+4. res://tests/station_advice_test.gd
+extends SceneTree
+
+func _initialize() -> void:
+	var failures: int = 0
+
+	var test_places: Array = [
+		"speed_bag_1",
+		"heavy_bag_1",
+		"mirror_strip",
+		"pads",
+		"defence_drill",
+		"ring",
+		"treadmill",
+		"bike",
+		"recovery",
+		"power_rack",
+		"olympic_platform",
+		"weights"
+	]
+
+	# TEST 1: Weakest stat wins BEST
+	# Fighter has 20 power, everything else is 70+
+	var stats_low_power: Dictionary = {
+		"power": 20,
+		"speed": 75,
+		"technique": 70,
+		"defence": 70,
+		"conditioning": 75,
+		"footwork": 70,
+		"ring_iq": 70
+	}
+	var res1: Array = StationAdvice.rank(stats_low_power, 20, {}, test_places)
+	var top_entry: Dictionary = res1[0]
+	if top_entry.tag != "BEST":
+		print("FAIL 1: Expected rank #1 to have tag BEST, got: ", top_entry.tag)
+		failures += 1
+	var targets_power: bool = (top_entry.place_id in ["heavy_bag_1", "power_rack", "olympic_platform", "weights"])
+	if not targets_power:
+		print("FAIL 1: Expected rank #1 to target Power weakness, got: ", top_entry.place_id)
+		failures += 1
+
+	# TEST 2: Max 3 BEST
+	var best_count: int = 0
+	for entry in res1:
+		if entry.tag == "BEST":
+			best_count += 1
+	if best_count > 3:
+		print("FAIL 2: BEST count exceeded 3. Got: ", best_count)
+		failures += 1
+
+	# TEST 3: Exhausted fighter (Fatigue >= 70)
+	# Recovery must have REST tag, heavy bags must NEVER be BEST
+	var res3: Array = StationAdvice.rank(stats_low_power, 85, {}, test_places)
+	var recovery_tagged_rest: bool = false
+	var heavy_bag_is_best: bool = false
+	for entry in res3:
+		if entry.place_id == "recovery" and entry.tag == "REST":
+			recovery_tagged_rest = true
+		if entry.place_id.begins_with("heavy_bag") and entry.tag == "BEST":
+			heavy_bag_is_best = true
+
+	if not recovery_tagged_rest:
+		print("FAIL 3A: Recovery station was not tagged REST for fatigued fighter.")
+		failures += 1
+	if heavy_bag_is_best:
+		print("FAIL 3B: Heavy bag received BEST while fighter was fatigued at 85%.")
+		failures += 1
+
+	# TEST 4: Level 3 station breaks ties
+	# Equal base stat priorities, compare heavy_bag_1 (L1) vs heavy_bag_2 (L3)
+	var tie_levels: Dictionary = {
+		"heavy_bag_1": 1,
+		"heavy_bag_2": 3
+	}
+	var res4: Array = StationAdvice.rank(stats_low_power, 20, tie_levels, ["heavy_bag_1", "heavy_bag_2"])
+	if res4[0].place_id != "heavy_bag_2":
+		print("FAIL 4: Level 3 station did not win tiebreak against Level 1. Got: ", res4[0].place_id)
+		failures += 1
+
+	print("STATION_ADVICE failures=%d" % failures)
+	if failures > 0:
+		quit(1)
+	else:
+		quit(0)

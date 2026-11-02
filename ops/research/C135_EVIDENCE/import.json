@@ -1,0 +1,56 @@
+[
+  {
+    "name": "f05_m_mma_light_rigged",
+    "joints": [
+      "RightToes",
+      "RightFoot",
+      "RightLowerLeg",
+      "RightUpperLeg",
+      "LeftToes",
+      "LeftFoot",
+      "LeftLowerLeg",
+      "LeftUpperLeg",
+      "RightHand",
+      "RightLowerArm",
+      "RightUpperArm",
+      "RightShoulder",
+      "LeftHand",
+      "LeftLowerArm",
+      "LeftUpperArm",
+      "LeftShoulder",
+      "Head",
+      "Neck",
+      "UpperChest",
+      "Chest",
+      "Spine",
+      "Hips"
+    ]
+  },
+  {
+    "name": "f06_m_mma_lhw_rigged",
+    "joints": [
+      "RightToes",
+      "RightFoot",
+      "RightLowerLeg",
+      "RightUpperLeg",
+      "LeftToes",
+      "LeftFoot",
+      "LeftLowerLeg",
+      "LeftUpperLeg",
+      "RightHand",
+      "RightLowerArm",
+      "RightUpperArm",
+      "RightShoulder",
+      "LeftHand",
+      "LeftLowerArm",
+      "LeftUpperArm",
+      "LeftShoulder",
+      "Head",
+      "Neck",
+      "UpperChest",
+      "Chest",
+      "Spine",
+      "Hips"
+    ]
+  }
+]

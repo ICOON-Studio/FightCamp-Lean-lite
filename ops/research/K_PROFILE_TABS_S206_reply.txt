@@ -1,0 +1,65 @@
+TASK K_PROFILE_TABS (Kalli, game design review) - FightCamp S206
+FightCamp: PC boxing-gym management sim (Football Manager depth). The full-screen FIGHTER PROFILE gets 7 tabs: OVERVIEW, TECHNIQUES,
+MEDICAL, TRAINING PLAN, FIGHT RECORD, CONTRACT, CAMP. Stats the game really has (use only these): power, technique, speed, stamina,
+chin, defence, footwork, ring IQ, composure (0-100); a 54-node boxing technique tree with tiers T1-T4 and prerequisites; 6 body regions
+with wear 0-100% (head/neck, torso/core, each arm, each leg), injuries with weeks to clear, cut scars 0-3, weight vs division limit with
+a cut plan; a 7-day training week of stations; fight history rows (opponent, result, method, round, purse, scorecards); contract
+(weekly salary, market salary, weeks left, purse share, the fighter's open requests with deadlines); a booked bout's camp (opponent,
+scouting level 0-3, weeks to fight, weight path).
+As our game designer: for EACH tab give (a) the one question the manager opens it to answer, (b) the 3 decisions it must let him make
+in under 3 clicks, (c) what must be visible without scrolling, (d) what to leave out of the demo, (e) the empty state for a new signing.
+Then rank the 7 tabs for the boxing demo (must / should / later). Design only - no research.
+[send-message t163s1050] The rank for the boxing demo: OVERVIEW, TRAINING PLAN, MEDICAL and CAMP are **must**; FIGHT RECORD and CONTRACT are **should**; the full TECHNIQUES tree is **later**, with the T1 and T2 nodes moved into TRAINING PLAN for now. My case is below, tab by tab.
+
+**OVERVIEW**
+- (a) The question: is he ready, and what needs me today?
+- (b) Decisions: rest him or train him today, accept or decline an open request, and open the booked bout's camp.
+- (c) Visible without scrolling: the nine stats as bars with this week's change, a body silhouette with the worst region lit, weight against the limit, the next bout (opponent and weeks to go), and a red badge for any request with a deadline.
+- (d) Leave out: stat history graphs and personality text.
+- (e) Empty state: the nine stats show as scouted ranges, and a line reads "No bout booked. Find him a fight" with a button to open fights.
+
+**TECHNIQUES**
+- (a) The question: what can he throw, and what should he learn next?
+- (b) Decisions: pick the next node, set it as the week's focus, and see what it unlocks.
+- (c) Visible without scrolling: the current tier band only (T1 or T2), with learned, learning and locked nodes and the prerequisite lines into the selected node.
+- (d) Leave out: T3 and T4, and the full 54-node pan view.
+- (e) Empty state: the T1 basics show as learned, every other node is locked with its requirement on the tooltip, and the first learnable node glows.
+
+**MEDICAL**
+- (a) The question: what is hurting, and when can he fight again?
+- (b) Decisions: rest a region, send him to the physio, and pull him from a booked bout.
+- (c) Visible without scrolling: the 6 regions with wear %, each injury with weeks to clear, cut scars as 0 to 3 pips, and a fight-ready date.
+- (d) Leave out: the treatment-cost breakdown and the injury history log.
+- (e) Empty state: all regions at 0% under a "Clean bill" line, and scars carried over from his amateur days if he has any.
+
+**TRAINING PLAN**
+- (a) The question: what is he doing this week, and is it too much?
+- (b) Decisions: swap a day's station, set one stat or technique focus, and set the intensity (easy, normal or hard).
+- (c) Visible without scrolling: the 7-day strip of stations, the strain each day adds per region, the stamina forecast, and the weight trend.
+- (d) Leave out: saved plan templates and coach-to-station assignment.
+- (e) Empty state: a default balanced week is filled in, with a line saying "Coach's default week. Change any day".
+
+**FIGHT RECORD**
+- (a) The question: how does he win and lose, and what is he worth?
+- (b) Decisions: open a bout's scorecards, compare a past opponent with the one booked, and filter wins from losses.
+- (c) Visible without scrolling: the W-L-D record and the KO count at the top, then the rows (opponent, result, method, round, purse).
+- (d) Leave out: video replays and win-rate charts by method.
+- (e) Empty state: "0-0. No pro fights yet", plus his amateur line if we have one.
+
+**CONTRACT**
+- (a) The question: is he happy with the money, and when does he walk?
+- (b) Decisions: answer a request (yes, no or counter), offer an extension, and change his purse share.
+- (c) Visible without scrolling: weekly salary next to market salary with the gap coloured, weeks left, purse share, and open requests with their deadlines.
+- (d) Leave out: bonus clauses, release fees and agents.
+- (e) Empty state: the signing terms just agreed, a line saying "No requests yet", and the weeks left counting down.
+
+**CAMP**
+- (a) The question: am I preparing for this opponent, and will he make weight?
+- (b) Decisions: raise the scouting level, change the cut plan's pace, and set the camp focus against the opponent.
+- (c) Visible without scrolling: the opponent card (whatever the scouting level reveals), weeks to the fight, the weight path line ending on weigh-in day, and our nine stats beside his known ones.
+- (d) Leave out: sparring partner hire and the walkout or entrance choice.
+- (e) Empty state: the tab stays visible but greyed, with "No bout booked" and a button to open fights.
+
+The strongest case for putting TECHNIQUES at must is that the 54-node tree is the deepest thing we have and it sells the game. It still loses for the demo: three full-depth tabs are already competing for the first hour, and a 54-node tree on minute ten reads as homework. TRAINING PLAN can carry the T1 and T2 picks until the tree earns its own tab.
+
+Whether the 3-click limit holds on CAMP when scouting costs money isn't computed. That depends on whether the purchase needs a confirm step.

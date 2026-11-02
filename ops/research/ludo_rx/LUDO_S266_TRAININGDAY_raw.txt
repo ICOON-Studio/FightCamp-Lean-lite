@@ -1,0 +1,400 @@
+
+
+FIGHTCAMP (S266) — TRAINING DAY EXECUTION & RESOLUTION ENGINE
+THE SIMULATION ARCHITECTURE FOR THE 24-HOUR WORK CYCLE
+PART 1: THE FOUR DAILY INTERVALS & TIME-BLOCK TICK ENGINE
+
+A training day runs as a state machine divided into four distinct phases spanning a 24-hour cycle. Each phase processes fatigue, skill acquisition, injury risk, and coach supervision in sequence.
+
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                   24-HOUR TRAINING DAY CYCLE                                     │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                                  │
+│   06:00 - 08:30              09:30 - 12:30              14:00 - 17:00              20:00 - 06:00 │
+│   ┌────────────────┐         ┌────────────────┐         ┌────────────────┐         ┌───────────┐ │
+│   │ 1. DAWN ROAD   │────────►│ 2. MORNING     │────────►│ 3. AFTERNOON   │────────►│ 4. NIGHT  │ │
+│   │    Aerobic Base│         │    Primary Work│         │    Tactical/Rec│         │    Repair │ │
+│   └────────────────┘         └────────────────┘         └────────────────┘         └───────────┘ │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+1. Dawn Aerobics (06:00 – 08:30)
+Focus: Aerobic capacity, lower-leg conditioning, weight management.
+Stations Active: Roadwork perimeter, jump rope bays.
+Energy Draw: $12%$ to $18%$ of baseline energy tank.
+Metrics Affected: Aerobic Base ($+0.12% \text{ to } +0.28%$), Acute Fatigue ($+8%$).
+Coach Role: Unsupervised or conditioning coach check-in.
+2. Primary Morning Session (09:30 – 12:30)
+Focus: Main technical and physical focus set in the Weekly Planner (BAGS, RING, STRENGTH, CARDIO).
+Stations Active: Sparring ring, heavy bag rows, iron pit.
+Energy Draw: $35%$ to $52%$ of baseline energy tank.
+Metrics Affected: Primary focus attribute ($+0.35% \text{ to } +0.65%$), Micro-trauma ($+12% \text{ to } +24%$).
+Coach Role: Direct 1-on-1 instruction or group supervision.
+3. Afternoon Secondary & Tactical (14:00 – 17:00)
+Focus: Mitt-work, film review, speed bags, neck bridge, or physiotherapy recovery.
+Stations Active: Speed bag racks, floor mats, hydrotherapy tank, doctor’s clinic.
+Energy Draw: $15%$ to $30%$ of baseline energy tank.
+Metrics Affected: Technique/sharpness ($+0.15%$), CNS fatigue ($+10%$).
+4. Night Repair & Sleep Consolidation (20:00 – 06:00)
+Focus: Recovery, neuromuscular adaptation, psychological settling.
+Stations Active: Bunkhouse, recovery clinic.
+Energy Draw: Net positive ($+45%$ to $+80%$ energy recovery).
+Metrics Affected: Acute fatigue decay ($-70%$), carry-over fatigue accumulation ($+5% \text{ to } +15%$ if overtrained).
+PART 2: THE MATHEMATICAL ATTRIBUTE FORMULATION
+
+Skill and attribute progression follows a non-linear diminishing-returns model driven by coach quality, boxer age, current attribute soft-caps, and acute readiness:
+
+$$\Delta\text{Attr} = \text{BaseGain} \times \left(1.0 - \frac{\text{CurrentAttr}}{100}\right)^{1.35} \times \text{CoachMod} \times \text{ReadinessMod} \times \text{CampIntensityMod}$$
+
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                ATTRIBUTE SCALING PROFILES                                        │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Current Rating │ Raw Base │ Diminishing Factor │ Coach 1.25x │ Net Gain (100% Ready) │ Work Days │
+│ 30 (Novice)    │ 0.60%    │ 0.618              │ 0.772       │ +0.463% / day         │ ~22 days  │
+│ 50 (Club)      │ 0.60%    │ 0.392              │ 0.490       │ +0.294% / day         │ ~34 days  │
+│ 70 (Contender) │ 0.60%    │ 0.198              │ 0.247       │ +0.148% / day         │ ~68 days  │
+│ 85 (Champion)  │ 0.60%    │ 0.078              │ 0.098       │ +0.059% / day         │ ~170 days │
+│ 95 (Elite Hall)│ 0.60%    │ 0.019              │ 0.024       │ +0.014% / day         │ ~714 days │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+Modifier Calculations:
+
+Coach Competency Multiplier ($\text{CoachMod}$):
+$$\text{CoachMod} = 0.50 + \left(\frac{\text{CoachSkill}}{100}\right) \times 0.75 \quad (\text{Range: } 0.50 \text{ to } 1.25)$$
+
+If coach has trait MASTER_PADMAN and station is SPARRING_RING: additional $+15%$ synergy.
+If station is unstaffed: $\text{CoachMod} = 0.40$ (self-directed penalty).
+
+Readiness Multiplier ($\text{ReadinessMod}$):
+
+$\text{Readiness} \ge 80%$: $1.10\times$ (Flow state bonus).
+$50% \le \text{Readiness} < 80%$: $1.00\times$ (Nominal rate).
+$30% \le \text{Readiness} < 50%$: $0.65\times$ (Sluggish mechanics).
+$\text{Readiness} < 30%$: $0.20\times$ (Exhaustion breakdown, zero skill gains).
+
+Camp Intensity Modifiers:
+
+LIGHT: $0.60\times$ gain, $0.40\times$ fatigue, $0.15\times$ injury risk.
+MEDIUM: $1.00\times$ gain, $1.00\times$ fatigue, $1.00\times$ injury risk.
+HEAVY: $1.35\times$ gain, $1.65\times$ fatigue, $2.40\times$ injury risk.
+MAX: $1.60\times$ gain, $2.40\times$ fatigue, $4.80\times$ injury risk.
+PART 3: FATIGUE DYNAMICS & CARRY-OVER COMPOUNDING
+
+Fatigue is divided into two separate physiological pools: Acute Session Fatigue and Carry-Over Systemic Exhaustion.
+
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                   TWO-POOL FATIGUE DYNAMICS                                      │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                                  │
+│   DAILY TRAINING WORK                                                                            │
+│            │                                                                                     │
+│            ▼                                                                                     │
+│   ┌────────────────────────────────┐                                                             │
+│   │  ACUTE FATIGUE (0 - 100)       │──[ Overnight Rest: -75% ]──► Clean Recovery                 │
+│   └────────────────────────────────┘                                                             │
+│            │                                                                                     │
+│       (If Acute > 70)                                                                            │
+│            │                                                                                     │
+│            ▼                                                                                     │
+│   ┌────────────────────────────────┐                                                             │
+│   │  SYSTEMIC EXHAUSTION (0 - 100) │◄── Accumulates 15% per day past threshold                   │
+│   └────────────────────────────────┘    Decays ONLY with full Rest / Cryo / Massage              │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+Acute Fatigue Generation:
+$$\Delta\text{Fatigue}_{\text{acute}} = \text{BaseStationBurn} \times \text{IntensityMod} \times (1.0 - \text{Conditioning} \times 0.003)$$
+
+Roadwork: $+12$
+Heavy Bags: $+26$
+Sparring: $+38$
+Weights: $+32$
+Speed Bags / Pads: $+16$
+
+Overnight Acute Dissipation:
+$$\text{Fatigue}{\text{acute, morning}} = \max\left(0, \text{Fatigue}{\text{acute, night}} - (\text{SleepQuality} \times 70)\right)$$
+
+Systemic Spillover Formula:
+Whenever acute fatigue exceeds $70$ at bedtime, excess spills directly into persistent systemic exhaustion:
+$$\Delta\text{Systemic} = (\text{Fatigue}_{\text{acute, night}} - 70) \times 0.45$$
+Systemic exhaustion permanently caps maximum daily readiness:
+$$\text{MaxReadiness} = 100 - \text{Systemic}$$
+
+PART 4: REFUSAL, FRICTION & CRISIS TRIGGERS
+
+Fighters do not mindlessly obey training schedules. Each day, an obedience/cooperation roll is performed. If friction triggers, the fighter refuses work or demands an audible change.
+
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                  CRISIS DECISION MATRIX                                          │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Friction Level │ Fighter Response            │ Mechanical Consequence    │ Manager Resolution   │
+│ 0 - 24 (Green) │ "Yes, Boss." Fully locked   │ 100% scheduled gain       │ None required        │
+│ 25 - 49 (Amber)│ Grumbles, cuts rounds short │ -25% session gains        │ Coach encouragement  │
+│ 50 - 74 (Warn) │ Walkout / refusal           │ Zero gains, morale -8     │ Concede or discipline│
+│ 75+ (Critical) │ Mutiny / Camp Strike        │ Hallway brawl / camp halt │ Emergency sit-down   │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+Refusal Risk Calculation:
+
+$$\text{RefusalScore} = (\text{Fatigue}_{\text{systemic}} \times 0.60) + ((100 - \text{Morale}) \times 0.40) + \text{EgoPenalty} - (\text{CoachAuthority} \times 0.35)$$
+
+Ego Penalty:
+Boxer is Rank 1-10 Contender and assigned to ROADWORK: $+25\text{ refusal pts}$.
+Boxer has PRIMA_DONNA trait and trains on unstaffed station: $+35\text{ refusal pts}$.
+Assigned coach has lower prestige than boxer: $+20\text{ refusal pts}$.
+Resolution Events:
+Concede to Boxer: Convert today to RECOVERY or REST.
+Consequence: Morale $+6$, Systemic Fatigue $-10$, Schedule broken, Coach authority $-5$.
+Crack the Whip (Discipline): Force the scheduled workout.
+Consequence: $50%$ chance workout completes at half efficiency; $50%$ chance boxer storms out, injury risk tripled ($3.0\times$), Coach-boxer bond damaged.
+Bring in Head Coach for 1-on-1: Requires Manager/Head Coach action point.
+Consequence: Nullifies refusal, converts workout into high-intensity breakthrough session.
+PART 5: GYM FLOOR PATHFINDING & POSITIONAL MAPPING
+
+In the 3D isometric view ($1920 \times 1080$), fighters physically walk between equipment nodes across the gym footprint ($48\text{ m} \times 32\text{ m}$ floor).
+
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                              GYM FLOOR EQUIPMENT COORDINATES                                     │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                                  │
+│   [-20, +12] ROADWORK DOOR          [-4, +12] LOCKER ROOM           [+18, +12] SPEED BAGS        │
+│   (Perimeter exit gate)             (Spawns/Retires)                (4 Wall Mounts)              │
+│                                                                                                  │
+│                                     [0, 0] REGULATION RING                                       │
+│                                     (12m x 12m Sparring Canvas)                                  │
+│                                                                                                  │
+│   [-18, -10] HEAVY BAG RACK         [-2, -12] BENCH & WEIGHTS       [+16, -10] PHYSIO TANK       │
+│   (6 Leather bags in line)          (Power racks & dumbbells)       (Ice tub & massage tables)   │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+Path Node Coordinates (Godot Vector3 World Units):
+NODE_LOCKER_ROOM: Vector3(-4.0, 0.0, 12.0)
+NODE_ROADWORK_DOOR: Vector3(-20.0, 0.0, 12.0)
+NODE_RING_CENTER: Vector3(0.0, 0.8, 0.0)
+NODE_RING_CORNER_BLUE: Vector3(-2.8, 0.8, -2.8)
+NODE_RING_CORNER_RED: Vector3(2.8, 0.8, 2.8)
+NODE_HEAVY_BAG_1: Vector3(-18.0, 0.0, -10.0)
+NODE_HEAVY_BAG_2: Vector3(-16.0, 0.0, -10.0)
+NODE_SPEED_BAGS: Vector3(18.0, 0.0, 12.0)
+NODE_IRON_PIT: Vector3(-2.0, 0.0, -12.0)
+NODE_PHYSIO_CLINIC: Vector3(16.0, 0.0, -10.0)
+
+Fighters move at $2.8\text{ m/s}$ walking speed. If an allocated station is at maximum capacity (e.g., Heavy Bags full at $6/6$), excess fighters route to adjacent rest benches.
+
+PART 6: DAILY RESOLUTION DOSSIER & UI TICKER FORMAT
+
+At the conclusion of Interval 4 (06:00 next day), the simulation engine generates a structured night report summary:
+
+================================================================================
+                    FIGHTCAMP TACTICAL DAILY LEDGER
+                    DATE: WEDNESDAY, 7 JANUARY 1976
+================================================================================
+
+[BOUT READY] DANNY REYES | HEAVYWEIGHT | CAMP DAY 16 OF 42
+--------------------------------------------------------------------------------
+STATION: HEAVY BAG FLOOR #2 (SUPERVISOR: TERRY McGEE)
+FOCUS: POWER DEVELOPMENT & HOOK MECHANICS
+COMPLIANCE: 100% (DISCIPLINED)
+
+METRIC MOVEMENTS:
+  • POWER:             78.42  -->  78.84  (+0.42%)  [A-GRADE PROGRESSION]
+  • STAMINA:           71.10  -->  71.28  (+0.18%)
+  • ACUTE FATIGUE:     14%    -->  46%    (+32%)
+  • SYSTEMIC STRAIN:   12%    -->  14%    (+2%)     [OPTIMAL RECOVERY BAND]
+  • MORALE:            88%    -->  90%    (+2%)
+
+MEDICAL & BIOMECHANICAL AUDIT:
+  • Left Metacarpal Bone Density: Nominal (0.4% stress)
+  • Rotator Cuff Tension: Mild (+6% tightness, no intervention required)
+
+COACH NOTE (T. McGEE):
+  "Danny's left hook was cracking the heavy leather in round four. 
+   His balance out of the pivot is tight. Keep him off the weights tomorrow."
+
+================================================================================
+
+PART 7: FULL GDSCRIPT MODULE IMPLEMENTATION
+
+Below is the complete, self-contained implementation of the daily execution engine:
+
+# res://scripts/sim/TrainingDayEngine.gd
+class_name TrainingDayEngine
+extends RefCounted
+
+signal interval_started(interval_index: int, interval_name: String)
+signal fighter_session_resolved(fighter_id: String, summary: Dictionary)
+signal day_cycle_completed(day_number: int, ledger: Array)
+signal refusal_event_triggered(fighter_id: String, refusal_data: Dictionary)
+
+enum Interval {
+	DAWN_AEROBICS = 0,
+	MORNING_PRIMARY = 1,
+	AFTERNOON_TACTICAL = 2,
+	NIGHT_RECOVERY = 3
+}
+
+const INTERVAL_NAMES: Array[String] = [
+	"Dawn Aerobics (06:00 - 08:30)",
+	"Morning Primary Session (09:30 - 12:30)",
+	"Afternoon Tactical & Clinic (14:00 - 17:00)",
+	"Night Repair & Sleep (20:00 - 06:00)"
+]
+
+# Base attribute gain coefficient
+const BASE_GAIN_RATE: float = 0.006
+
+# Run full resolution for one fighter across a 24-hour training day
+static func process_fighter_day(fighter: Dictionary, day_plan_focus: int, intensity: int, coach: Dictionary) -> Dictionary:
+	var result_summary := {
+		"fighter_id": fighter.get("id", "boxer_unknown"),
+		"name": fighter.get("name", "Unknown Boxer"),
+		"focus_id": day_plan_focus,
+		"refusal": false,
+		"attribute_deltas": {},
+		"fatigue_start": fighter.get("fatigue_acute", 10),
+		"fatigue_end": 0,
+		"systemic_start": fighter.get("fatigue_systemic", 5),
+		"systemic_end": 0,
+		"readiness_next_day": 100,
+		"coach_note": ""
+	}
+
+	# 1. Check for refusal / friction
+	var refusal_chance: float = _calculate_refusal_risk(fighter, day_plan_focus, coach)
+	if randf() < refusal_chance:
+		result_summary["refusal"] = true
+		result_summary["coach_note"] = "Boxer balked at assignment. Demanded altered schedule."
+		# Process minimal rest workout
+		fighter["morale"] = clampi(int(fighter.get("morale", 75)) - 8, 0, 100)
+		result_summary["fatigue_end"] = fighter.get("fatigue_acute", 10)
+		result_summary["systemic_end"] = fighter.get("fatigue_systemic", 5)
+		result_summary["readiness_next_day"] = clampi(100 - int(fighter["fatigue_systemic"]), 20, 100)
+		return result_summary
+
+	# 2. Rest / Recovery Focus Handling
+	if day_plan_focus == TrainingConstants.Focus.REST or day_plan_focus == TrainingConstants.Focus.RECOVERY:
+		_process_rest_cycle(fighter, day_plan_focus, result_summary)
+		return result_summary
+
+	# 3. Active Workout Execution
+	var coach_mod: float = _calculate_coach_modifier(coach)
+	var readiness_mod: float = _calculate_readiness_modifier(fighter)
+	var intensity_mult: float = _get_intensity_multiplier(intensity)
+
+	# Determine targeted primary and secondary stats
+	var focus_config: Dictionary = TrainingConstants.FOCUS_DATA.get(day_plan_focus, {})
+	var primary_attr: String = focus_config.get("primary_attr", "power")
+	var secondary_attr: String = focus_config.get("secondary_attr", "stamina")
+
+	# Compute Diminishing Gains
+	var cur_pri_val: float = float(fighter.get(primary_attr, 50))
+	var cur_sec_val: float = float(fighter.get(secondary_attr, 50))
+
+	var gain_pri: float = BASE_GAIN_RATE * pow(1.0 - (cur_pri_val / 100.0), 1.35) * coach_mod * readiness_mod * intensity_mult * 100.0
+	var gain_sec: float = (gain_pri * 0.40)
+
+	fighter[primary_attr] = clampf(cur_pri_val + gain_pri, 1.0, 99.9)
+	fighter[secondary_attr] = clampf(cur_sec_val + gain_sec, 1.0, 99.9)
+
+	result_summary["attribute_deltas"][primary_attr] = gain_pri
+	result_summary["attribute_deltas"][secondary_attr] = gain_sec
+
+	# 4. Fatigue & Medical Compounding
+	var base_burn: int = int(focus_config.get("burn_cost", 25))
+	var acute_burn: int = int(float(base_burn) * intensity_mult * (1.0 - (float(fighter.get("stamina", 50)) * 0.003)))
+	var total_acute: int = int(fighter.get("fatigue_acute", 0)) + acute_burn
+
+	# Overnight sleep clears up to 75% acute fatigue
+	var remaining_acute: int = clampi(total_acute - 75, 0, 100)
+	var current_systemic: int = int(fighter.get("fatigue_systemic", 0))
+
+	# Spillover to systemic if acute was deep into the red (> 70)
+	if total_acute > 70:
+		var spillover: int = int(float(total_acute - 70) * 0.45)
+		current_systemic = clampi(current_systemic + spillover, 0, 100)
+
+	fighter["fatigue_acute"] = remaining_acute
+	fighter["fatigue_systemic"] = current_systemic
+
+	result_summary["fatigue_end"] = remaining_acute
+	result_summary["systemic_end"] = current_systemic
+	result_summary["readiness_next_day"] = clampi(100 - current_systemic - (remaining_acute / 2), 15, 100)
+
+	# Generate tactical coach commentary
+	result_summary["coach_note"] = _generate_coach_dossier_text(fighter, primary_attr, gain_pri, current_systemic)
+	return result_summary
+
+static func _process_rest_cycle(fighter: Dictionary, focus: int, out_summary: Dictionary) -> void:
+	var acute_drain: int = 40
+	var systemic_drain: int = 8
+
+	if focus == TrainingConstants.Focus.RECOVERY:
+		# Physiotherapy / Cryo / Massage accelerates recovery
+		acute_drain = 65
+		systemic_drain = 18
+
+	fighter["fatigue_acute"] = clampi(int(fighter.get("fatigue_acute", 0)) - acute_drain, 0, 100)
+	fighter["fatigue_systemic"] = clampi(int(fighter.get("fatigue_systemic", 0)) - systemic_drain, 0, 100)
+	fighter["morale"] = clampi(int(fighter.get("morale", 80)) + 4, 0, 100)
+
+	out_summary["fatigue_end"] = fighter["fatigue_acute"]
+	out_summary["systemic_end"] = fighter["fatigue_systemic"]
+	out_summary["readiness_next_day"] = clampi(100 - int(fighter["fatigue_systemic"]), 30, 100)
+	out_summary["coach_note"] = "Rest & regeneration completed. Soft tissue inflammation subsided."
+
+static func _calculate_refusal_risk(fighter: Dictionary, focus: int, coach: Dictionary) -> float:
+	var sys_fatigue: float = float(fighter.get("fatigue_systemic", 0))
+	var morale: float = float(fighter.get("morale", 75))
+	var coach_authority: float = float(coach.get("authority", 50))
+
+	# High systemic exhaustion combined with low morale triggers refusal
+	var risk_score: float = (sys_fatigue * 0.50) + ((100.0 - morale) * 0.40) - (coach_authority * 0.30)
+
+	# Extreme hard work when exhausted guarantees friction
+	if sys_fatigue > 55 and focus != TrainingConstants.Focus.REST and focus != TrainingConstants.Focus.RECOVERY:
+		risk_score += 35.0
+
+	return clampf(risk_score / 100.0, 0.0, 0.85)
+
+static func _calculate_coach_modifier(coach: Dictionary) -> float:
+	if coach.is_empty():
+		return 0.40 # Self-directed training penalty
+	var coach_skill: float = float(coach.get("coaching_skill", 60))
+	return 0.50 + (coach_skill / 100.0) * 0.75
+
+static func _calculate_readiness_modifier(fighter: Dictionary) -> float:
+	var readiness: int = int(fighter.get("readiness", 80))
+	if readiness >= 80:
+		return 1.10
+	elif readiness >= 50:
+		return 1.00
+	elif readiness >= 30:
+		return 0.65
+	return 0.20
+
+static func _get_intensity_multiplier(intensity: int) -> float:
+	match intensity:
+		TrainingConstants.Intensity.LIGHT: return 0.60
+		TrainingConstants.Intensity.MEDIUM: return 1.00
+		TrainingConstants.Intensity.HEAVY: return 1.35
+		TrainingConstants.Intensity.MAX: return 1.60
+	return 1.00
+
+static func _generate_coach_dossier_text(fighter: Dictionary, stat_name: String, gain: float, systemic_fatigue: int) -> String:
+	var boxer_name: String = str(fighter.get("name", "Boxer")).split(" ")[0]
+	if systemic_fatigue >= 50:
+		return "%s was dragging late in the rounds. Systemic fatigue is compromising form; schedule rest soon." % boxer_name
+	elif gain >= 0.35:
+		return "Superb technical retention. %s registered exceptional work on %s today." % [boxer_name, stat_name.to_upper()]
+	else:
+		return "Solid, disciplined output. Drills executed to standard without biomechanical breakdown."
+
+Can you resend the complete S266 answer as plain text, without code blocks, including all seven parts and exact numbers?
+Can you provide the missing sections before the GDScript module, especially the training-day phases, fatigue rules, and resolution formulas?
+Can you create a training-day flowchart showing the four time blocks, transitions, fatigue changes, and recovery outcomes?
+Can you rewrite part 7 as numbered implementation steps so my developer can reproduce the module manually?
+
+
+# CLAUDE NOTE S266: reply 26,096 chars (Ask Ludo, chat "Gym Management Screen", 2nd try - the 1st stream died with the Chrome tab group). CAUSE (operator caught it): the first message went out as the TWO PICTURES ONLY - execCommand insertText filled the box but the page state never took it, so Ludo only saw the follow-up '7 parts ... GDScript in part 7' and invented a brief. RESEND the ask text (clipboard paste, memory S207) before any verdict. Content: it answers a 24-h simulation engine (4 intervals, refusals, pathfinding) instead of the 7 asked parts; only PART 6 (daily dossier/ticker) maps to ask #5. Re-ask point by point before any verdict.

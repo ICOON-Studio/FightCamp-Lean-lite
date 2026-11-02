@@ -1,0 +1,8 @@
+{
+  "body": "C44 is pushed (44cba5c): research/TASK_C44.md. Spend Q6's StatWords.gd into AthleteStatModel.gd and DevelopmentPanel.gd so a stat label lives in one place; compose fight_legend_text() instead of typing it; add the missing seventh placeholder in fight_legend_tooltip() at AthleteStatModel.gd:322 (six placeholders, seven args since C43) and record in the digest that the function has zero callers. ProfileRevampPanel.gd is OFF LIMITS - Cursor holds it under U9. Mid tier, medium effort, Fast off.",
+  "created_at": "2026-09-08T08:19:52Z",
+  "from": "claude",
+  "id": "fbcbc3a08c31",
+  "to": "codex",
+  "topic": "C44 assigned"
+}

@@ -1,0 +1,2284 @@
+[
+ {
+  "discipline": "boxing",
+  "id": "boxing_jab",
+  "role": "setup",
+  "kind": "move",
+  "name": "Jab"
+ },
+ {
+  "discipline": "boxing",
+  "id": "boxing_cross",
+  "role": "damage",
+  "kind": "move",
+  "name": "Rear Cross"
+ },
+ {
+  "discipline": "boxing",
+  "id": "boxing_lead_hook",
+  "role": "damage",
+  "kind": "move",
+  "name": "Lead Hook"
+ },
+ {
+  "discipline": "boxing",
+  "id": "boxing_rear_uppercut",
+  "role": "damage",
+  "kind": "move",
+  "name": "Rear Uppercut"
+ },
+ {
+  "discipline": "boxing",
+  "id": "boxing_slip_counter",
+  "role": "counter",
+  "kind": "move",
+  "name": "Slip-Cross Counter"
+ },
+ {
+  "discipline": "boxing",
+  "id": "boxing_body_hook",
+  "role": "damage",
+  "kind": "move",
+  "name": "Lead Hook to the Body"
+ },
+ {
+  "discipline": "boxing",
+  "id": "boxing_check_hook",
+  "role": "counter",
+  "kind": "move",
+  "name": "Check Hook"
+ },
+ {
+  "discipline": "boxing",
+  "id": "boxing_pull_counter",
+  "role": "counter",
+  "kind": "move",
+  "name": "Pull-Cross Counter"
+ },
+ {
+  "discipline": "boxing",
+  "id": "boxing_liver_combo",
+  "role": "damage",
+  "kind": "sequence",
+  "name": "Jab-Cross-Lead Hook to the Body"
+ },
+ {
+  "discipline": "boxing",
+  "id": "boxing_overhand",
+  "role": "damage",
+  "kind": "move",
+  "name": "Overhand Right"
+ },
+ {
+  "discipline": "boxing",
+  "id": "boxing_lead_uppercut",
+  "role": "damage",
+  "kind": "move",
+  "name": "Lead Uppercut"
+ },
+ {
+  "discipline": "boxing",
+  "id": "boxing_double_jab",
+  "role": "setup",
+  "kind": "move",
+  "name": "Double Jab"
+ },
+ {
+  "discipline": "boxing",
+  "id": "boxing_pivot_footwork",
+  "role": "adaptation",
+  "kind": "move",
+  "name": "Ring Pivot"
+ },
+ {
+  "discipline": "boxing",
+  "id": "boxing_check_hook_pivot",
+  "role": "damage",
+  "kind": "move",
+  "name": "Check Hook and Pivot"
+ },
+ {
+  "discipline": "boxing",
+  "id": "boxing_six_punch_combo",
+  "role": "damage",
+  "kind": "sequence",
+  "name": "Six-Punch Combination"
+ },
+ {
+  "discipline": "boxing",
+  "id": "boxing_distance_read",
+  "role": "setup",
+  "kind": "skill",
+  "name": "Finding the Range"
+ },
+ {
+  "discipline": "boxing",
+  "id": "boxing_one_two",
+  "role": "damage",
+  "kind": "sequence",
+  "name": "One-Two"
+ },
+ {
+  "discipline": "boxing",
+  "id": "boxing_jab_body",
+  "role": "setup",
+  "kind": "move",
+  "name": "Jab to the Body"
+ },
+ {
+  "discipline": "boxing",
+  "id": "boxing_cross_body",
+  "role": "damage",
+  "kind": "move",
+  "name": "Cross to the Body"
+ },
+ {
+  "discipline": "boxing",
+  "id": "boxing_up_jab",
+  "role": "setup",
+  "kind": "move",
+  "name": "Up Jab"
+ },
+ {
+  "discipline": "boxing",
+  "id": "boxing_rear_hook",
+  "role": "damage",
+  "kind": "move",
+  "name": "Rear Hook"
+ },
+ {
+  "discipline": "boxing",
+  "id": "boxing_rear_hook_body",
+  "role": "damage",
+  "kind": "move",
+  "name": "Rear Hook to the Body"
+ },
+ {
+  "discipline": "boxing",
+  "id": "boxing_shovel_hook",
+  "role": "damage",
+  "kind": "move",
+  "name": "Shovel Hook"
+ },
+ {
+  "discipline": "boxing",
+  "id": "boxing_catch_counter",
+  "role": "counter",
+  "kind": "move",
+  "name": "Catch and Return"
+ },
+ {
+  "discipline": "boxing",
+  "id": "boxing_counter_over_jab",
+  "role": "damage",
+  "kind": "move",
+  "name": "Counter Over the Jab"
+ },
+ {
+  "discipline": "boxing",
+  "id": "boxing_step_in_out",
+  "role": "setup",
+  "kind": "move",
+  "name": "Step In, Step Out"
+ },
+ {
+  "discipline": "boxing",
+  "id": "boxing_circle_lead",
+  "role": "setup",
+  "kind": "move",
+  "name": "Circle to the Lead Side"
+ },
+ {
+  "discipline": "boxing",
+  "id": "boxing_circle_rear",
+  "role": "setup",
+  "kind": "move",
+  "name": "Circle to the Rear Side"
+ },
+ {
+  "discipline": "boxing",
+  "id": "boxing_feint",
+  "role": "setup",
+  "kind": "move",
+  "name": "Feint"
+ },
+ {
+  "discipline": "boxing",
+  "id": "boxing_angle_step",
+  "role": "setup",
+  "kind": "move",
+  "name": "L-Step Angle"
+ },
+ {
+  "discipline": "boxing",
+  "id": "boxing_rhythm_change",
+  "role": "setup",
+  "kind": "move",
+  "name": "Breaking the Rhythm"
+ },
+ {
+  "discipline": "boxing",
+  "id": "boxing_switch_stance",
+  "role": "setup",
+  "kind": "move",
+  "name": "Switching Stance"
+ },
+ {
+  "discipline": "boxing",
+  "id": "boxing_drawing",
+  "role": "setup",
+  "kind": "move",
+  "name": "Drawing the Lead"
+ },
+ {
+  "discipline": "boxing",
+  "id": "boxing_inside_uppercut",
+  "role": "damage",
+  "kind": "move",
+  "name": "Uppercut on the Inside"
+ },
+ {
+  "discipline": "boxing",
+  "id": "boxing_one_two_hook",
+  "role": "damage",
+  "kind": "sequence",
+  "name": "One-Two-Hook"
+ },
+ {
+  "discipline": "boxing",
+  "id": "boxing_jab_body_head",
+  "role": "damage",
+  "kind": "sequence",
+  "name": "Jab Body, Jab Head"
+ },
+ {
+  "discipline": "boxing",
+  "id": "boxing_counter_combination",
+  "role": "damage",
+  "kind": "sequence",
+  "name": "Counter Combination"
+ },
+ {
+  "discipline": "kickboxing",
+  "id": "kickboxing_front_kick",
+  "role": "setup",
+  "kind": "move",
+  "name": "Front Kick"
+ },
+ {
+  "discipline": "kickboxing",
+  "id": "kickboxing_roundhouse",
+  "role": "damage",
+  "kind": "move",
+  "name": "Roundhouse Kick"
+ },
+ {
+  "discipline": "kickboxing",
+  "id": "kickboxing_low_kick",
+  "role": "damage",
+  "kind": "move",
+  "name": "Low Kick"
+ },
+ {
+  "discipline": "kickboxing",
+  "id": "kickboxing_jab_lowkick",
+  "role": "damage",
+  "kind": "sequence",
+  "name": "Jab to Low Kick"
+ },
+ {
+  "discipline": "kickboxing",
+  "id": "kickboxing_switch_kick",
+  "role": "damage",
+  "kind": "move",
+  "name": "Switch Roundhouse Kick"
+ },
+ {
+  "discipline": "kickboxing",
+  "id": "kickboxing_high_kick",
+  "role": "damage",
+  "kind": "move",
+  "name": "High Roundhouse Kick"
+ },
+ {
+  "discipline": "kickboxing",
+  "id": "kickboxing_spinning_back",
+  "role": "damage",
+  "kind": "move",
+  "name": "Spinning Back Kick"
+ },
+ {
+  "discipline": "kickboxing",
+  "id": "kickboxing_four_strike",
+  "role": "damage",
+  "kind": "sequence",
+  "name": "Cross-Hook-Low Kick-High Kick Chain"
+ },
+ {
+  "discipline": "kickboxing",
+  "id": "kickboxing_body_kick",
+  "role": "damage",
+  "kind": "move",
+  "name": "Body Roundhouse"
+ },
+ {
+  "discipline": "kickboxing",
+  "id": "kickboxing_question_mark",
+  "role": "damage",
+  "kind": "move",
+  "name": "Question Mark Kick"
+ },
+ {
+  "discipline": "kickboxing",
+  "id": "kickboxing_jab_cross_lowkick",
+  "role": "damage",
+  "kind": "move",
+  "name": "Jab-Cross-Low Kick"
+ },
+ {
+  "discipline": "kickboxing",
+  "id": "kickboxing_catch_kick_return",
+  "role": "counter",
+  "kind": "move",
+  "name": "Catch and Return"
+ },
+ {
+  "discipline": "kickboxing",
+  "id": "kickboxing_switch_step_read",
+  "role": "setup",
+  "kind": "skill",
+  "name": "Switch-Step Read"
+ },
+ {
+  "discipline": "kickboxing",
+  "id": "kickboxing_blitz_four_kick",
+  "role": "damage",
+  "kind": "sequence",
+  "name": "Blitz to High Kick"
+ },
+ {
+  "discipline": "kickboxing",
+  "id": "kickboxing_teep",
+  "role": "setup",
+  "kind": "move",
+  "name": "Teep / Front Kick"
+ },
+ {
+  "discipline": "kickboxing",
+  "id": "kickboxing_side_kick",
+  "role": "setup",
+  "kind": "move",
+  "name": "Side Kick"
+ },
+ {
+  "discipline": "kickboxing",
+  "id": "kickboxing_hook_kick",
+  "role": "damage",
+  "kind": "move",
+  "name": "Hook Kick"
+ },
+ {
+  "discipline": "kickboxing",
+  "id": "kickboxing_axe_kick",
+  "role": "damage",
+  "kind": "move",
+  "name": "Axe Kick"
+ },
+ {
+  "discipline": "kickboxing",
+  "id": "kickboxing_spinning_hook",
+  "role": "counter",
+  "kind": "move",
+  "name": "Spinning Hook Kick"
+ },
+ {
+  "discipline": "kickboxing",
+  "id": "kickboxing_clinch_knee",
+  "role": "damage",
+  "kind": "move",
+  "name": "Knee in the Clinch"
+ },
+ {
+  "discipline": "kickboxing",
+  "id": "kickboxing_dutch_combination",
+  "role": "damage",
+  "kind": "sequence",
+  "name": "Dutch Combination"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_teep",
+  "role": "setup",
+  "kind": "move",
+  "name": "Teep (Push Kick)"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_round_kick",
+  "role": "damage",
+  "kind": "move",
+  "name": "Round Kick"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_straight_knee",
+  "role": "damage",
+  "kind": "move",
+  "name": "Straight Knee"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_horizontal_elbow",
+  "role": "damage",
+  "kind": "move",
+  "name": "Horizontal Elbow"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_clinch_knees",
+  "role": "damage",
+  "kind": "sequence",
+  "name": "Clinch Knee Series"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_up_elbow",
+  "role": "damage",
+  "kind": "move",
+  "name": "Upward Elbow"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_clinch_dump",
+  "role": "takedown",
+  "kind": "move",
+  "name": "Clinch Turn and Dump"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_eight_limb_chain",
+  "role": "setup",
+  "kind": "sequence",
+  "name": "Teep-Round Kick-Clinch Knee-Elbow Chain"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_switch_kick_body",
+  "role": "damage",
+  "kind": "move",
+  "name": "Switch Body Kick"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_catch_sweep",
+  "role": "takedown",
+  "kind": "move",
+  "name": "Catch & Sweep"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_diagonal_elbow",
+  "role": "damage",
+  "kind": "move",
+  "name": "Diagonal Slashing Elbow"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_spinning_elbow",
+  "role": "damage",
+  "kind": "move",
+  "name": "Spinning Back Elbow"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_dumps_offbalance",
+  "role": "takedown",
+  "kind": "move",
+  "name": "Off-Balance Dump"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_low_kick",
+  "role": "damage",
+  "kind": "move",
+  "name": "Low Kick"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_mat_yaep",
+  "role": "setup",
+  "kind": "move",
+  "name": "Mat Yaep (Jab)"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_mat_trong",
+  "role": "damage",
+  "kind": "move",
+  "name": "Mat Trong (Cross)"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_mat_wiang_san",
+  "role": "damage",
+  "kind": "move",
+  "name": "Mat Wiang San (Hook)"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_mat_wiang_yao",
+  "role": "damage",
+  "kind": "move",
+  "name": "Mat Wiang Yao (Overhand)"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_mat_soei",
+  "role": "damage",
+  "kind": "move",
+  "name": "Mat Soei (Uppercut)"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_sok_phung",
+  "role": "damage",
+  "kind": "move",
+  "name": "Sok Phung (Forward Thrust Elbow)"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_te_chiang",
+  "role": "damage",
+  "kind": "move",
+  "name": "Te Chiang (Diagonal Kick)"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_te_kot",
+  "role": "damage",
+  "kind": "move",
+  "name": "Te Kot (Down Roundhouse)"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_te_khao",
+  "role": "damage",
+  "kind": "move",
+  "name": "Te Khao (Axe Heel Kick)"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_body_kick",
+  "role": "damage",
+  "kind": "move",
+  "name": "Body Kick"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_khao_chiang",
+  "role": "damage",
+  "kind": "move",
+  "name": "Khao Chiang (Diagonal Knee)"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_khao_khong",
+  "role": "damage",
+  "kind": "move",
+  "name": "Khao Khong (Curving Knee)"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_khao_tat",
+  "role": "damage",
+  "kind": "move",
+  "name": "Khao Tat (Horizontal Knee)"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_khao_ti",
+  "role": "setup",
+  "kind": "move",
+  "name": "Khao Ti (Knee Slap)"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_thip_khang",
+  "role": "setup",
+  "kind": "move",
+  "name": "Thip Khang (Sideways Foot-Thrust)"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_thip_top",
+  "role": "setup",
+  "kind": "move",
+  "name": "Thip Top (Slapping Foot-Thrust)"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_switch_kick",
+  "role": "damage",
+  "kind": "move",
+  "name": "Switch Kick"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_mat_wiang_klap",
+  "role": "damage",
+  "kind": "move",
+  "name": "Mat Wiang Klap (Spinning Backfist)"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_kradot_chok",
+  "role": "damage",
+  "kind": "move",
+  "name": "Kradot Chok (Superman Punch)"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_jab_cross_hook",
+  "role": "damage",
+  "kind": "sequence",
+  "name": "Jab-Cross-Hook"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_jab_cross_body_kick",
+  "role": "damage",
+  "kind": "sequence",
+  "name": "Jab-Cross-Body Kick"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_slip_counter_punch",
+  "role": "damage",
+  "kind": "move",
+  "name": "Slip Counter (Punch)"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_sok_wiang_klap",
+  "role": "damage",
+  "kind": "move",
+  "name": "Sok Wiang Klap (Reverse Horizontal Elbow)"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_te_klap_lang",
+  "role": "damage",
+  "kind": "move",
+  "name": "Te Klap Lang (Reverse Roundhouse)"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_te_khrueng_khaeng",
+  "role": "damage",
+  "kind": "move",
+  "name": "Te Khrueng Khaeng (Half-Shin Half-Knee)"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_kradot_te",
+  "role": "damage",
+  "kind": "move",
+  "name": "Kradot Te (Jump Kick)"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_khayoep_te",
+  "role": "damage",
+  "kind": "move",
+  "name": "Khayoep Te (Step-Up Kick)"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_fake_teep_kick",
+  "role": "setup",
+  "kind": "move",
+  "name": "Fake Teep to Kick"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_khao_yao",
+  "role": "damage",
+  "kind": "move",
+  "name": "Khao Yao (Knee Bomb)"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_khao_yiap",
+  "role": "damage",
+  "kind": "move",
+  "name": "Khao Yiap (Step-Up Knee)"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_khao_thon",
+  "role": "damage",
+  "kind": "move",
+  "name": "Khao Thon (Thrusting Knee)"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_fake_jab_knee",
+  "role": "setup",
+  "kind": "move",
+  "name": "Fake Jab to Knee"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_thip_klap_lang",
+  "role": "setup",
+  "kind": "move",
+  "name": "Thip Klap Lang (Reverse Foot-Thrust)"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_kradot_thip",
+  "role": "damage",
+  "kind": "move",
+  "name": "Kradot Thip (Jumping Foot-Thrust)"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_counter_teep",
+  "role": "damage",
+  "kind": "move",
+  "name": "Counter Teep"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_chapko_head_sweep",
+  "role": "takedown",
+  "kind": "move",
+  "name": "Chap Ko Head Sweep"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_catch_strike",
+  "role": "damage",
+  "kind": "move",
+  "name": "Catch and Strike"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_double_kick",
+  "role": "damage",
+  "kind": "move",
+  "name": "Double Kick"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_check_counter_kick",
+  "role": "damage",
+  "kind": "move",
+  "name": "Check-Counter Kick"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_kick_knee_combo",
+  "role": "damage",
+  "kind": "sequence",
+  "name": "Kick-Knee Combo"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_khao_counter",
+  "role": "damage",
+  "kind": "move",
+  "name": "Knee Counter"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_pull_counter",
+  "role": "damage",
+  "kind": "move",
+  "name": "Pull Counter"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_sok_long_guard_counter",
+  "role": "damage",
+  "kind": "move",
+  "name": "Long Guard Elbow Counter"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_sok_klap_khu",
+  "role": "damage",
+  "kind": "move",
+  "name": "Sok Klap Khu (Double Elbow Chop)"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_kradot_sok",
+  "role": "damage",
+  "kind": "move",
+  "name": "Kradot Sok (Jumping Elbow)"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_counter_sok_klap",
+  "role": "damage",
+  "kind": "move",
+  "name": "Counter Spinning Elbow"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_sok_clinch_combo",
+  "role": "damage",
+  "kind": "sequence",
+  "name": "Clinch Elbow Combo"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_jorakhe_faad_hang",
+  "role": "damage",
+  "kind": "move",
+  "name": "Jorakhe Faad Hang (Crocodile Sweeps Tail)"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_spinning_back_kick",
+  "role": "damage",
+  "kind": "move",
+  "name": "Spinning Back Kick"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_khao_loi",
+  "role": "damage",
+  "kind": "move",
+  "name": "Khao Loi (Flying Knee)"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_khao_dot",
+  "role": "damage",
+  "kind": "move",
+  "name": "Khao Dot (Jumping Knee)"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_superman_knee",
+  "role": "damage",
+  "kind": "move",
+  "name": "Superman Knee"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_khao_clinch_entry",
+  "role": "damage",
+  "kind": "move",
+  "name": "Knee Clinch Entry"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_teep_knee_chain",
+  "role": "setup",
+  "kind": "sequence",
+  "name": "Teep-Knee Chain"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_superman_knee_punch",
+  "role": "damage",
+  "kind": "sequence",
+  "name": "Superman Knee-Punch"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_jab_cross_sok_klap",
+  "role": "damage",
+  "kind": "sequence",
+  "name": "Jab-Cross-Spinning Elbow"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_chapko_sweep_throw",
+  "role": "takedown",
+  "kind": "move",
+  "name": "Chap Ko Sweep Throw"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_full_spectacle",
+  "role": "damage",
+  "kind": "move",
+  "name": "Full Spectacle"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_thip_mat_te_combo",
+  "role": "damage",
+  "kind": "sequence",
+  "name": "Thip - Mat Trong - Te Tat (Classic Chain)"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_low_cross_hook",
+  "role": "damage",
+  "kind": "sequence",
+  "name": "Low Kick - Cross - Hook"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_switch_cross",
+  "role": "damage",
+  "kind": "sequence",
+  "name": "Switch Kick - Cross"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_thip_clinch_knee",
+  "role": "damage",
+  "kind": "sequence",
+  "name": "Thip - Clinch Entry - Khao Trong"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_cross_body_low",
+  "role": "damage",
+  "kind": "sequence",
+  "name": "Cross - Body Kick - Low Kick"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_jab_teep_switch",
+  "role": "setup",
+  "kind": "sequence",
+  "name": "Mat Yaep - Thip - Switch Kick"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_slip_sok_klap",
+  "role": "damage",
+  "kind": "sequence",
+  "name": "Slip - Sok Klap (Slip-Spinning Elbow)"
+ },
+ {
+  "discipline": "muay_thai",
+  "id": "muay_thai_check_kick_counter",
+  "role": "damage",
+  "kind": "sequence",
+  "name": "Shin Check - Te Tat (Check-Counter Kick)"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_kizamizuki",
+  "role": "damage",
+  "kind": "move",
+  "name": "Kizami-zuki"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_gyakuzuki",
+  "role": "damage",
+  "kind": "move",
+  "name": "Gyaku-zuki"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_maegeri",
+  "role": "damage",
+  "kind": "move",
+  "name": "Mae-geri"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_mawashigeri",
+  "role": "damage",
+  "kind": "move",
+  "name": "Mawashi-geri"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_ashibarai",
+  "role": "damage",
+  "kind": "move",
+  "name": "Ashi-barai"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_counter_gyaku",
+  "role": "counter",
+  "kind": "sequence",
+  "name": "Tai-sabaki to Gyaku-zuki"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_yokogeri",
+  "role": "damage",
+  "kind": "move",
+  "name": "Yoko-geri"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_uramawashi",
+  "role": "damage",
+  "kind": "move",
+  "name": "Ura-mawashi-geri"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_sweep_finish",
+  "role": "adaptation",
+  "kind": "sequence",
+  "name": "Ashi-barai to Gyaku-zuki Finish"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_nidan_geri",
+  "role": "damage",
+  "kind": "move",
+  "name": "Nidan-geri"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_kizami_gyaku",
+  "role": "damage",
+  "kind": "sequence",
+  "name": "Kizami-zuki, Gyaku-zuki"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_deai_counter",
+  "role": "counter",
+  "kind": "move",
+  "name": "Deai Timing Counter"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_uke_counter",
+  "role": "counter",
+  "kind": "move",
+  "name": "Block to Reverse"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_kizami_maegeri",
+  "role": "setup",
+  "kind": "move",
+  "name": "Lead Front Snap Combo"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_ushiro_geri",
+  "role": "damage",
+  "kind": "move",
+  "name": "Ushiro-geri"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_sanbon_chain",
+  "role": "damage",
+  "kind": "sequence",
+  "name": "Sanbon-renzuki"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_chokuzuki",
+  "role": "setup",
+  "kind": "move",
+  "name": "Choku-zuki"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_junzuki",
+  "role": "setup",
+  "kind": "move",
+  "name": "Jun-zuki (Oi-zuki)"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_tatezuki",
+  "role": "damage",
+  "kind": "move",
+  "name": "Tate-zuki"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_urazuki",
+  "role": "damage",
+  "kind": "move",
+  "name": "Ura-zuki"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_kagizuki",
+  "role": "damage",
+  "kind": "move",
+  "name": "Kagi-zuki"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_agezuki",
+  "role": "damage",
+  "kind": "move",
+  "name": "Age-zuki"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_gyakuagezuki",
+  "role": "damage",
+  "kind": "move",
+  "name": "Gyaku-age-zuki"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_heikozuki",
+  "role": "damage",
+  "kind": "move",
+  "name": "Heiko-zuki"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_awasezuki",
+  "role": "damage",
+  "kind": "move",
+  "name": "Awase-zuki"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_yamazuki",
+  "role": "damage",
+  "kind": "move",
+  "name": "Yama-zuki"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_hasamizuki",
+  "role": "damage",
+  "kind": "move",
+  "name": "Hasami-zuki"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_morotezuki",
+  "role": "damage",
+  "kind": "move",
+  "name": "Morote-zuki"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_renzuki",
+  "role": "damage",
+  "kind": "move",
+  "name": "Ren-zuki"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_nukite",
+  "role": "damage",
+  "kind": "move",
+  "name": "Nukite"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_ipponnukite",
+  "role": "damage",
+  "kind": "move",
+  "name": "Ippon-nukite"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_nihonnukite",
+  "role": "damage",
+  "kind": "move",
+  "name": "Nihon-nukite"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_shihonnukite",
+  "role": "damage",
+  "kind": "move",
+  "name": "Shihon-nukite"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_ipponken",
+  "role": "damage",
+  "kind": "move",
+  "name": "Ippon-ken"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_nakadakaken",
+  "role": "damage",
+  "kind": "move",
+  "name": "Nakadaka-ken"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_hiraken",
+  "role": "damage",
+  "kind": "move",
+  "name": "Hiraken"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_urakenuchi",
+  "role": "damage",
+  "kind": "move",
+  "name": "Uraken-uchi"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_tettsuiuchi",
+  "role": "damage",
+  "kind": "move",
+  "name": "Tettsui-uchi"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_shutouchi",
+  "role": "damage",
+  "kind": "move",
+  "name": "Shuto-uchi"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_haitouchi",
+  "role": "damage",
+  "kind": "move",
+  "name": "Haito-uchi"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_haishuuchi",
+  "role": "damage",
+  "kind": "move",
+  "name": "Haishu-uchi"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_teishouchi",
+  "role": "damage",
+  "kind": "move",
+  "name": "Teisho-uchi"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_seiryutouchi",
+  "role": "damage",
+  "kind": "move",
+  "name": "Seiryuto-uchi"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_keitouchi",
+  "role": "damage",
+  "kind": "move",
+  "name": "Keito-uchi"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_kokutouchi",
+  "role": "damage",
+  "kind": "move",
+  "name": "Kokuto-uchi"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_washideuchi",
+  "role": "damage",
+  "kind": "move",
+  "name": "Washide-uchi"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_kumadeuchi",
+  "role": "damage",
+  "kind": "move",
+  "name": "Kumade-uchi"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_empiuchi",
+  "role": "damage",
+  "kind": "move",
+  "name": "Empi-uchi"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_ageempiuchi",
+  "role": "damage",
+  "kind": "move",
+  "name": "Age-empi-uchi"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_yokoempiuchi",
+  "role": "damage",
+  "kind": "move",
+  "name": "Yoko-empi-uchi"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_ushiroempiuchi",
+  "role": "damage",
+  "kind": "move",
+  "name": "Ushiro-empi-uchi"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_otoshiempiuchi",
+  "role": "damage",
+  "kind": "move",
+  "name": "Otoshi-empi-uchi"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_mawashiempiuchi",
+  "role": "damage",
+  "kind": "move",
+  "name": "Mawashi-empi-uchi"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_maemawashiempiuchi",
+  "role": "damage",
+  "kind": "move",
+  "name": "Mae-mawashi-empi-uchi"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_shutosakotsuuchi",
+  "role": "damage",
+  "kind": "move",
+  "name": "Shuto-sakotsu-uchi"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_shutosakotsuuchikomi",
+  "role": "damage",
+  "kind": "move",
+  "name": "Shuto-sakotsu-uchikomi"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_shutohizouchi",
+  "role": "damage",
+  "kind": "move",
+  "name": "Shuto-hizo-uchi"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_shutojodanuchi",
+  "role": "damage",
+  "kind": "move",
+  "name": "Shuto-jodan-uchi"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_shutoyokoganmenuchi",
+  "role": "damage",
+  "kind": "move",
+  "name": "Shuto-yoko-ganmen-uchi"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_yokourakenuchi",
+  "role": "damage",
+  "kind": "move",
+  "name": "Yoko-uraken-uchi"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_otoshiurakenuchi",
+  "role": "damage",
+  "kind": "move",
+  "name": "Otoshi-uraken-uchi"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_urakenmawashiuchi",
+  "role": "damage",
+  "kind": "move",
+  "name": "Uraken-mawashi-uchi"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_teishofuriuchi",
+  "role": "damage",
+  "kind": "move",
+  "name": "Teisho-furi-uchi"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_tateteishouchi",
+  "role": "damage",
+  "kind": "move",
+  "name": "Tate-teisho-uchi"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_tsukiage",
+  "role": "damage",
+  "kind": "move",
+  "name": "Tsuki-age"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_tettsuihasamiuchi",
+  "role": "damage",
+  "kind": "move",
+  "name": "Tettsui-hasami-uchi"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_maegerikeage",
+  "role": "damage",
+  "kind": "move",
+  "name": "Mae-geri-keage"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_maegerikekomi",
+  "role": "damage",
+  "kind": "move",
+  "name": "Mae-geri-kekomi"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_maeashigeri",
+  "role": "damage",
+  "kind": "move",
+  "name": "Mae-ashi-geri"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_oimaegeri",
+  "role": "damage",
+  "kind": "move",
+  "name": "Oi-mae-geri"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_rengeri",
+  "role": "damage",
+  "kind": "move",
+  "name": "Ren-geri"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_maeashimawashigeri",
+  "role": "damage",
+  "kind": "move",
+  "name": "Mae-ashi-mawashi-geri"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_ushiromawashigeri",
+  "role": "damage",
+  "kind": "move",
+  "name": "Ushiro-mawashi-geri"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_yokogerikeage",
+  "role": "damage",
+  "kind": "move",
+  "name": "Yoko-geri-keage"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_yokogerikekomi",
+  "role": "damage",
+  "kind": "move",
+  "name": "Yoko-geri-kekomi"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_fumikomigeri",
+  "role": "damage",
+  "kind": "move",
+  "name": "Fumikomi-geri"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_hizageri",
+  "role": "damage",
+  "kind": "move",
+  "name": "Hiza-geri"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_maehizageri",
+  "role": "damage",
+  "kind": "move",
+  "name": "Mae-hiza-geri"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_mawashihizageri",
+  "role": "damage",
+  "kind": "move",
+  "name": "Mawashi-hiza-geri"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_kingeri",
+  "role": "damage",
+  "kind": "move",
+  "name": "Kin-geri"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_mikazukigeri",
+  "role": "damage",
+  "kind": "move",
+  "name": "Mikazuki-geri"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_gyakumikazukigeri",
+  "role": "damage",
+  "kind": "move",
+  "name": "Gyaku-mikazuki-geri"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_kakatogeri",
+  "role": "damage",
+  "kind": "move",
+  "name": "Kakato-geri"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_otoshikakatogeri",
+  "role": "damage",
+  "kind": "move",
+  "name": "Otoshi-kakato-geri"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_urakakatogeri",
+  "role": "damage",
+  "kind": "move",
+  "name": "Ura-kakato-geri"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_tobimaegeri",
+  "role": "damage",
+  "kind": "move",
+  "name": "Tobi-mae-geri"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_tobiyokogeri",
+  "role": "damage",
+  "kind": "move",
+  "name": "Tobi-yoko-geri"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_tobimawashigeri",
+  "role": "damage",
+  "kind": "move",
+  "name": "Tobi-mawashi-geri"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_tobiushirogeri",
+  "role": "damage",
+  "kind": "move",
+  "name": "Tobi-ushiro-geri"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_byobudaoshi",
+  "role": "takedown",
+  "kind": "move",
+  "name": "Byobu-daoshi"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_katawaguruma",
+  "role": "takedown",
+  "kind": "move",
+  "name": "Katawa-guruma"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_kubiwa",
+  "role": "takedown",
+  "kind": "move",
+  "name": "Kubi-wa"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_sakazuchi",
+  "role": "takedown",
+  "kind": "move",
+  "name": "Saka-zuchi"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_taniotoshi",
+  "role": "takedown",
+  "kind": "move",
+  "name": "Tani-otoshi"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_tsubamegaeshi",
+  "role": "takedown",
+  "kind": "move",
+  "name": "Tsubame-gaeshi"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_yaridama",
+  "role": "takedown",
+  "kind": "move",
+  "name": "Yari-dama"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_blitz_combo",
+  "role": "damage",
+  "kind": "sequence",
+  "name": "Kizami-zuki - Gyaku-zuki - Mawashi-geri (Blitz)"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_ageuke_gyakuzuki_combo",
+  "role": "damage",
+  "kind": "sequence",
+  "name": "Age-uke - Gyaku-zuki"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_sotouke_empi_uraken_gyaku_combo",
+  "role": "damage",
+  "kind": "sequence",
+  "name": "Soto-uke - Yoko-empi-uchi - Uraken-uchi - Gyaku-zuki"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_shutouke_nukite_combo",
+  "role": "damage",
+  "kind": "sequence",
+  "name": "Shuto-uke - Nukite"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_maegeri_junzuki_combo",
+  "role": "damage",
+  "kind": "sequence",
+  "name": "Mae-geri - Jun-zuki"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_mawashi_gyaku_combo",
+  "role": "damage",
+  "kind": "sequence",
+  "name": "Mawashi-geri - Gyaku-zuki"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_yokogeri_gyaku_combo",
+  "role": "damage",
+  "kind": "sequence",
+  "name": "Yoko-geri-kekomi - Gyaku-zuki"
+ },
+ {
+  "discipline": "karate",
+  "id": "karate_ashibarai_gyaku_combo",
+  "role": "damage",
+  "kind": "sequence",
+  "name": "Ashi-barai - Gyaku-zuki"
+ },
+ {
+  "discipline": "taekwondo",
+  "id": "tkd_apchagi",
+  "role": "setup",
+  "kind": "move",
+  "name": "Ap-chagi (Front Kick)"
+ },
+ {
+  "discipline": "taekwondo",
+  "id": "tkd_dollyochagi",
+  "role": "damage",
+  "kind": "move",
+  "name": "Dollyo-chagi (Roundhouse Kick)"
+ },
+ {
+  "discipline": "taekwondo",
+  "id": "tkd_yeopchagi",
+  "role": "counter",
+  "kind": "move",
+  "name": "Yeop-chagi (Side Kick)"
+ },
+ {
+  "discipline": "taekwondo",
+  "id": "tkd_cut_kick",
+  "role": "setup",
+  "kind": "move",
+  "name": "Cut Kick"
+ },
+ {
+  "discipline": "taekwondo",
+  "id": "tkd_dwichagi",
+  "role": "counter",
+  "kind": "move",
+  "name": "Dwi-chagi (Back Kick)"
+ },
+ {
+  "discipline": "taekwondo",
+  "id": "tkd_double_round",
+  "role": "damage",
+  "kind": "sequence",
+  "name": "Double Roundhouse Kick"
+ },
+ {
+  "discipline": "taekwondo",
+  "id": "tkd_naeryochagi",
+  "role": "damage",
+  "kind": "move",
+  "name": "Naeryo-chagi (Axe Kick)"
+ },
+ {
+  "discipline": "taekwondo",
+  "id": "tkd_spinning_hook",
+  "role": "counter",
+  "kind": "move",
+  "name": "Dwi-huryeo-chagi (Spinning Hook Kick)"
+ },
+ {
+  "discipline": "taekwondo",
+  "id": "tkd_tornado_chain",
+  "role": "adaptation",
+  "kind": "sequence",
+  "name": "Cut Kick-Double Roundhouse-Spinning Hook Chain"
+ },
+ {
+  "discipline": "taekwondo",
+  "id": "taekwondo_dwit_hurigi",
+  "role": "setup",
+  "kind": "move",
+  "name": "Spinning Hook Setup"
+ },
+ {
+  "discipline": "taekwondo",
+  "id": "taekwondo_narae_chagi",
+  "role": "damage",
+  "kind": "move",
+  "name": "Double Roundhouse Fast"
+ },
+ {
+  "discipline": "taekwondo",
+  "id": "taekwondo_bandae_dollyo",
+  "role": "damage",
+  "kind": "move",
+  "name": "Reverse Turning Kick"
+ },
+ {
+  "discipline": "taekwondo",
+  "id": "taekwondo_footwork_switch",
+  "role": "adaptation",
+  "kind": "skill",
+  "name": "Switch Footwork Read"
+ },
+ {
+  "discipline": "taekwondo",
+  "id": "taekwondo_cut_counter",
+  "role": "counter",
+  "kind": "move",
+  "name": "Cut Kick Counter"
+ },
+ {
+  "discipline": "taekwondo",
+  "id": "taekwondo_back_kick_counter",
+  "role": "counter",
+  "kind": "move",
+  "name": "Back Kick Intercept"
+ },
+ {
+  "discipline": "taekwondo",
+  "id": "taekwondo_spin_combo_chain",
+  "role": "damage",
+  "kind": "move",
+  "name": "Spin Combination Chain"
+ },
+ {
+  "discipline": "sanda",
+  "id": "sanda_straights",
+  "role": "setup",
+  "kind": "sequence",
+  "name": "Lead-Rear Straight Punches"
+ },
+ {
+  "discipline": "sanda",
+  "id": "sanda_side_kick",
+  "role": "counter",
+  "kind": "move",
+  "name": "Side Kick"
+ },
+ {
+  "discipline": "sanda",
+  "id": "sanda_round_kick",
+  "role": "damage",
+  "kind": "move",
+  "name": "Roundhouse Kick"
+ },
+ {
+  "discipline": "sanda",
+  "id": "sanda_kick_catch",
+  "role": "counter",
+  "kind": "skill",
+  "name": "Kick Catch"
+ },
+ {
+  "discipline": "sanda",
+  "id": "sanda_inside_sweep",
+  "role": "takedown",
+  "kind": "sequence",
+  "name": "Kick-Catch Inside Sweep"
+ },
+ {
+  "discipline": "sanda",
+  "id": "sanda_side_throw",
+  "role": "takedown",
+  "kind": "move",
+  "name": "Body-Lock Side Throw"
+ },
+ {
+  "discipline": "sanda",
+  "id": "sanda_catch_dump",
+  "role": "takedown",
+  "kind": "sequence",
+  "name": "Round-Kick Catch and Dump"
+ },
+ {
+  "discipline": "sanda",
+  "id": "sanda_spinning_back",
+  "role": "damage",
+  "kind": "move",
+  "name": "Spinning Back Kick"
+ },
+ {
+  "discipline": "sanda",
+  "id": "sanda_full_chain",
+  "role": "adaptation",
+  "kind": "sequence",
+  "name": "Punch Entry-Kick Catch-Sweep-Platform Control"
+ },
+ {
+  "discipline": "sanda",
+  "id": "sanda_jab_side_kick",
+  "role": "setup",
+  "kind": "move",
+  "name": "Jab to Side Kick"
+ },
+ {
+  "discipline": "sanda",
+  "id": "sanda_sweep_counter",
+  "role": "takedown",
+  "kind": "move",
+  "name": "Low Sweep Counter"
+ },
+ {
+  "discipline": "sanda",
+  "id": "sanda_catch_side_throw",
+  "role": "takedown",
+  "kind": "move",
+  "name": "Catch to Side Throw"
+ },
+ {
+  "discipline": "sanda",
+  "id": "sanda_liftup_slam",
+  "role": "takedown",
+  "kind": "move",
+  "name": "Lift-Up Slam"
+ },
+ {
+  "discipline": "sanda",
+  "id": "sanda_straight_blast",
+  "role": "damage",
+  "kind": "move",
+  "name": "Straight Blast"
+ },
+ {
+  "discipline": "sanda",
+  "id": "sanda_leg_catch_read",
+  "role": "adaptation",
+  "kind": "skill",
+  "name": "Kick-Read Timing"
+ },
+ {
+  "discipline": "sanda",
+  "id": "sanda_full_sanda_chain",
+  "role": "takedown",
+  "kind": "move",
+  "name": "Strike-Catch-Throw Chain"
+ },
+ {
+  "discipline": "savate",
+  "id": "savate_direct",
+  "role": "setup",
+  "kind": "move",
+  "name": "Direct"
+ },
+ {
+  "discipline": "savate",
+  "id": "savate_fouette",
+  "role": "damage",
+  "kind": "move",
+  "name": "Fouetté"
+ },
+ {
+  "discipline": "savate",
+  "id": "savate_chasse_frontal",
+  "role": "counter",
+  "kind": "move",
+  "name": "Chassé Frontal"
+ },
+ {
+  "discipline": "savate",
+  "id": "savate_chasse_lateral",
+  "role": "damage",
+  "kind": "move",
+  "name": "Chassé Latéral"
+ },
+ {
+  "discipline": "savate",
+  "id": "savate_coup_bas",
+  "role": "takedown",
+  "kind": "move",
+  "name": "Coup de Pied Bas"
+ },
+ {
+  "discipline": "savate",
+  "id": "savate_revers_fouette",
+  "role": "counter",
+  "kind": "move",
+  "name": "Revers Fouetté"
+ },
+ {
+  "discipline": "savate",
+  "id": "savate_direct_fouette",
+  "role": "setup",
+  "kind": "sequence",
+  "name": "Direct-Fouetté Combination"
+ },
+ {
+  "discipline": "savate",
+  "id": "savate_revers_balance",
+  "role": "damage",
+  "kind": "move",
+  "name": "Revers Balancé"
+ },
+ {
+  "discipline": "savate",
+  "id": "savate_elite_chain",
+  "role": "adaptation",
+  "kind": "sequence",
+  "name": "Direct-Fouetté-Chassé-Revers Chain"
+ },
+ {
+  "discipline": "savate",
+  "id": "savate_chasse_bas",
+  "role": "damage",
+  "kind": "move",
+  "name": "Chassé Bas"
+ },
+ {
+  "discipline": "savate",
+  "id": "savate_fouette_high",
+  "role": "damage",
+  "kind": "move",
+  "name": "Fouetté Haut"
+ },
+ {
+  "discipline": "savate",
+  "id": "savate_revers_counter",
+  "role": "counter",
+  "kind": "move",
+  "name": "Revers Counter"
+ },
+ {
+  "discipline": "savate",
+  "id": "savate_direct_double",
+  "role": "setup",
+  "kind": "move",
+  "name": "Direct-Direct Setup"
+ },
+ {
+  "discipline": "savate",
+  "id": "savate_assaut_footwork",
+  "role": "adaptation",
+  "kind": "skill",
+  "name": "Assaut Footwork"
+ },
+ {
+  "discipline": "savate",
+  "id": "savate_chasse_lateral_counter",
+  "role": "counter",
+  "kind": "move",
+  "name": "Lateral Chassé Stop"
+ },
+ {
+  "discipline": "savate",
+  "id": "savate_elite_precision_chain",
+  "role": "damage",
+  "kind": "move",
+  "name": "Precision Kicking Chain"
+ },
+ {
+  "discipline": "capoeira",
+  "id": "capoeira_bencao",
+  "role": "counter",
+  "kind": "move",
+  "name": "Benção"
+ },
+ {
+  "discipline": "capoeira",
+  "id": "capoeira_martelo",
+  "role": "damage",
+  "kind": "move",
+  "name": "Martelo"
+ },
+ {
+  "discipline": "capoeira",
+  "id": "capoeira_queixada",
+  "role": "setup",
+  "kind": "move",
+  "name": "Queixada"
+ },
+ {
+  "discipline": "capoeira",
+  "id": "capoeira_rasteira",
+  "role": "takedown",
+  "kind": "move",
+  "name": "Rasteira"
+ },
+ {
+  "discipline": "capoeira",
+  "id": "capoeira_armada",
+  "role": "damage",
+  "kind": "move",
+  "name": "Armada"
+ },
+ {
+  "discipline": "capoeira",
+  "id": "capoeira_meialua",
+  "role": "counter",
+  "kind": "move",
+  "name": "Meia-lua de Compasso"
+ },
+ {
+  "discipline": "capoeira",
+  "id": "capoeira_flow_chain",
+  "role": "adaptation",
+  "kind": "sequence",
+  "name": "Ginga-Esquiva-Rasteira-Meia-lua Flow"
+ },
+ {
+  "discipline": "capoeira",
+  "id": "capoeira_meia_lua_compasso",
+  "role": "damage",
+  "kind": "move",
+  "name": "Meia Lua de Compasso"
+ },
+ {
+  "discipline": "capoeira",
+  "id": "capoeira_chapa_side",
+  "role": "damage",
+  "kind": "move",
+  "name": "Chapa Side Kick"
+ },
+ {
+  "discipline": "capoeira",
+  "id": "capoeira_armada_double",
+  "role": "damage",
+  "kind": "move",
+  "name": "Armada Dupla"
+ },
+ {
+  "discipline": "capoeira",
+  "id": "capoeira_negativa_sweep",
+  "role": "takedown",
+  "kind": "move",
+  "name": "Negativa to Rasteira"
+ },
+ {
+  "discipline": "capoeira",
+  "id": "capoeira_martelo_rotado",
+  "role": "damage",
+  "kind": "move",
+  "name": "Martelo Rotado"
+ },
+ {
+  "discipline": "capoeira",
+  "id": "capoeira_ginga_flow_chain",
+  "role": "damage",
+  "kind": "move",
+  "name": "Ginga Deception Chain"
+ },
+ {
+  "discipline": "pencak_silat",
+  "id": "silat_langkah",
+  "role": "setup",
+  "kind": "skill",
+  "name": "Langkah (Stepping Pattern)"
+ },
+ {
+  "discipline": "pencak_silat",
+  "id": "silat_front_kick",
+  "role": "damage",
+  "kind": "move",
+  "name": "Front Kick"
+ },
+ {
+  "discipline": "pencak_silat",
+  "id": "silat_side_kick",
+  "role": "counter",
+  "kind": "move",
+  "name": "Side Kick"
+ },
+ {
+  "discipline": "pencak_silat",
+  "id": "silat_sapuan",
+  "role": "takedown",
+  "kind": "move",
+  "name": "Sapuan (Sweep)"
+ },
+ {
+  "discipline": "pencak_silat",
+  "id": "silat_catch_dump",
+  "role": "takedown",
+  "kind": "sequence",
+  "name": "Kick Catch and Jatuhan"
+ },
+ {
+  "discipline": "pencak_silat",
+  "id": "silat_guntingan",
+  "role": "takedown",
+  "kind": "move",
+  "name": "Guntingan (Scissor Takedown)"
+ },
+ {
+  "discipline": "pencak_silat",
+  "id": "silat_elbow_counter",
+  "role": "counter",
+  "kind": "sequence",
+  "name": "Parry to Elbow Counter"
+ },
+ {
+  "discipline": "pencak_silat",
+  "id": "silat_complete_response",
+  "role": "adaptation",
+  "kind": "sequence",
+  "name": "Pasang-Parry-Strike-Guntingan Response"
+ },
+ {
+  "discipline": "pencak_silat",
+  "id": "pencak_silat_sapuan_low",
+  "role": "takedown",
+  "kind": "move",
+  "name": "Sapuan Low Sweep"
+ },
+ {
+  "discipline": "pencak_silat",
+  "id": "pencak_silat_elbow_destruction",
+  "role": "counter",
+  "kind": "move",
+  "name": "Sikut Elbow Counter"
+ },
+ {
+  "discipline": "pencak_silat",
+  "id": "pencak_silat_langkah_angle",
+  "role": "adaptation",
+  "kind": "skill",
+  "name": "Langkah Angle Step"
+ },
+ {
+  "discipline": "pencak_silat",
+  "id": "pencak_silat_guntingan_scissor",
+  "role": "takedown",
+  "kind": "move",
+  "name": "Guntingan Takedown"
+ },
+ {
+  "discipline": "pencak_silat",
+  "id": "pencak_silat_catch_kick_takedown",
+  "role": "takedown",
+  "kind": "move",
+  "name": "Catch Kick to Takedown"
+ },
+ {
+  "discipline": "pencak_silat",
+  "id": "pencak_silat_total_response_chain",
+  "role": "counter",
+  "kind": "move",
+  "name": "Total Response Chain"
+ },
+ {
+  "discipline": "mma",
+  "id": "mma_stance_switch",
+  "role": "adaptation",
+  "kind": "skill",
+  "name": "MMA Stance Switching"
+ },
+ {
+  "discipline": "mma",
+  "id": "mma_jab_levelchange",
+  "role": "setup",
+  "kind": "sequence",
+  "name": "Jab to Level-Change Feint"
+ },
+ {
+  "discipline": "mma",
+  "id": "mma_sprawl_fronthead",
+  "role": "counter",
+  "kind": "sequence",
+  "name": "Sprawl to Front Headlock"
+ },
+ {
+  "discipline": "mma",
+  "id": "mma_clinch_knee_trip",
+  "role": "takedown",
+  "kind": "sequence",
+  "name": "Cage Clinch Knee to Outside Trip"
+ },
+ {
+  "discipline": "mma",
+  "id": "mma_complete_chain",
+  "role": "adaptation",
+  "kind": "sequence",
+  "name": "Strike-Wrestle-Pass-Finish Chain"
+ },
+ {
+  "discipline": "mma",
+  "id": "mma_dirty_boxing",
+  "role": "damage",
+  "kind": "move",
+  "name": "Dirty Boxing in Clinch"
+ },
+ {
+  "discipline": "mma",
+  "id": "mma_kick_catch_slam",
+  "role": "takedown",
+  "kind": "move",
+  "name": "Kick Catch to Slam"
+ },
+ {
+  "discipline": "mma",
+  "id": "mma_switch_hit",
+  "role": "adaptation",
+  "kind": "skill",
+  "name": "Southpaw-Orthodox Switch"
+ },
+ {
+  "discipline": "mma",
+  "id": "mma_finish_iq",
+  "role": "adaptation",
+  "kind": "skill",
+  "name": "Finishing Instinct"
+ }
+]

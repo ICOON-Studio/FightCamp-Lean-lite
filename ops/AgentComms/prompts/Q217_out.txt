@@ -1,0 +1,21 @@
+Warning: running headless with --yolo / approval-mode=yolo and no sandbox. All tool calls (shell, write, edit) auto-execute at this process's privilege level. Enable a sandbox via --sandbox / QWEN_SANDBOX, or set QWEN_CODE_SUPPRESS_YOLO_WARNING=1 to silence this notice.
+## Q217 Session Summary
+
+**Completed: `boxing_lead_uppercut` - CERTIFIED 4/4**
+
+The fix: a pose layer with **Spine forward lean (25°)** + **Hips yaw (25°)**:
+- Spine lean enlarges the torso envelope, forcing `_clearance_spacing` to push the opponent further back (gap increases from 0.70m to 0.83-0.91m)
+- Hips yaw staggers the lead legs laterally, eliminating the thigh capsule overlap
+- Layer timing: peak_s=0.6, hold_s=0.2, to_s=2.01 (covers exit transition)
+
+Results per rig:
+| rig | gap (m) | G147 | pin pops | target | Q213 |
+|-----|---------|------|----------|--------|------|
+| welter_a vs welter_b | 0.855 | 0 | 0 | pass | PASS |
+| welter_b vs welter_a | 0.830 | 0 | 0 | pass | PASS |
+| heavy_c vs heavy_d | 0.907 | 0 | 0 | pass | PASS |
+| heavy_d vs heavy_c | 0.890 | 0 | 0 | pass | PASS |
+
+**Remaining: 5 moves** need the same Spine+Hips approach with per-move angle iteration. Inside_uppercut partially tested (needs tuning between 25° and 30°). The other 4 moves (rear_hook, rear_hook_body, shovel_hook, lead_hook) not started.
+
+Branch `qwen/q217-close-range` pushed with 2 commits. Status sent to Claude.

@@ -1,0 +1,1674 @@
+{
+ "at": "2026-10-18 02:52",
+ "days": 7,
+ "remote": 711,
+ "old": 488,
+ "kept_old": 155,
+ "on_master": [
+  {
+   "branch": "arena/01a10321-fightcamp",
+   "last": 1791061267,
+   "why": "ancestor"
+  },
+  {
+   "branch": "arena/01a1039f-fightcamp",
+   "last": 1791069945,
+   "why": "cherry"
+  },
+  {
+   "branch": "arena/01a103ba-fightcamp",
+   "last": 1791073787,
+   "why": "cherry"
+  },
+  {
+   "branch": "arena/01a10421-fightcamp",
+   "last": 1791074095,
+   "why": "cherry"
+  },
+  {
+   "branch": "arena/01a1071a-fightcamp",
+   "last": 1791127711,
+   "why": "content"
+  },
+  {
+   "branch": "arena/01a10c45-fightcamp",
+   "last": 1791207726,
+   "why": "cherry"
+  },
+  {
+   "branch": "arena/3862a9a6-fightcamp",
+   "last": 1791520079,
+   "why": "cherry"
+  },
+  {
+   "branch": "arena/49e2a0ab-fightcamp",
+   "last": 1791249390,
+   "why": "cherry"
+  },
+  {
+   "branch": "arena/4c46053d-fightcamp",
+   "last": 1791315155,
+   "why": "cherry"
+  },
+  {
+   "branch": "arena/5346eda4-fightcamp",
+   "last": 1791235326,
+   "why": "cherry"
+  },
+  {
+   "branch": "arena/59306226-fightcamp",
+   "last": 1791502707,
+   "why": "content"
+  },
+  {
+   "branch": "arena/5c49d266-fightcamp",
+   "last": 1791586568,
+   "why": "cherry"
+  },
+  {
+   "branch": "arena/9417dc9e-fightcamp",
+   "last": 1791299628,
+   "why": "cherry"
+  },
+  {
+   "branch": "arena/96a8f6cd-fightcamp",
+   "last": 1791505167,
+   "why": "cherry"
+  },
+  {
+   "branch": "arena/a16f79de-fightcamp",
+   "last": 1791669740,
+   "why": "content"
+  },
+  {
+   "branch": "arena/a40d4460-fightcamp",
+   "last": 1791473331,
+   "why": "cherry"
+  },
+  {
+   "branch": "arena/b8bcb16c-fightcamp",
+   "last": 1791583842,
+   "why": "cherry"
+  },
+  {
+   "branch": "arena/c33f37dd-fightcamp",
+   "last": 1791574993,
+   "why": "cherry"
+  },
+  {
+   "branch": "arena/c8e1b1c5-fightcamp",
+   "last": 1791523560,
+   "why": "ancestor"
+  },
+  {
+   "branch": "arena/d6596d7d-fightcamp",
+   "last": 1791586049,
+   "why": "cherry"
+  },
+  {
+   "branch": "claude/admiring-allen-oewpvn",
+   "last": 1791221693,
+   "why": "ancestor"
+  },
+  {
+   "branch": "claude/agent-comms-startup-2dyxcq",
+   "last": 1789737554,
+   "why": "ancestor"
+  },
+  {
+   "branch": "claude/agent-comms-startup-2vons6",
+   "last": 1789868960,
+   "why": "ancestor"
+  },
+  {
+   "branch": "claude/agent-comms-startup-3136au",
+   "last": 1789858296,
+   "why": "ancestor"
+  },
+  {
+   "branch": "claude/agent-comms-startup-42byvv",
+   "last": 1789284173,
+   "why": "ancestor"
+  },
+  {
+   "branch": "claude/agent-comms-startup-50mryc",
+   "last": 1789880102,
+   "why": "ancestor"
+  },
+  {
+   "branch": "claude/agent-comms-startup-8xpiho",
+   "last": 1789290049,
+   "why": "ancestor"
+  },
+  {
+   "branch": "claude/agent-comms-startup-cbswy0",
+   "last": 1789754667,
+   "why": "ancestor"
+  },
+  {
+   "branch": "claude/agent-comms-startup-gv2f61",
+   "last": 1789885834,
+   "why": "ancestor"
+  },
+  {
+   "branch": "claude/agent-comms-startup-iorwmq",
+   "last": 1789758761,
+   "why": "ancestor"
+  },
+  {
+   "branch": "claude/agent-comms-startup-leok54",
+   "last": 1790848501,
+   "why": "ancestor"
+  },
+  {
+   "branch": "claude/agent-comms-startup-lu8660",
+   "last": 1789732314,
+   "why": "ancestor"
+  },
+  {
+   "branch": "claude/agent-comms-startup-opbfys",
+   "last": 1789850601,
+   "why": "ancestor"
+  },
+  {
+   "branch": "claude/agent-comms-startup-um5vuq",
+   "last": 1789744420,
+   "why": "ancestor"
+  },
+  {
+   "branch": "claude/agent-comms-startup-ysfapc",
+   "last": 1789814533,
+   "why": "ancestor"
+  },
+  {
+   "branch": "claude/confident-albattani-s8fmz9",
+   "last": 1791321581,
+   "why": "ancestor"
+  },
+  {
+   "branch": "claude/fans1",
+   "last": 1791054808,
+   "why": "cherry"
+  },
+  {
+   "branch": "claude/godot-smoke-tests-zgor5m",
+   "last": 1789288855,
+   "why": "ancestor"
+  },
+  {
+   "branch": "claude/great-dijkstra-usyl6d",
+   "last": 1791324988,
+   "why": "ancestor"
+  },
+  {
+   "branch": "claude/s1-catalogue-merge",
+   "last": 1789234300,
+   "why": "ancestor"
+  },
+  {
+   "branch": "claude/s4a-d3",
+   "last": 1789318146,
+   "why": "ancestor"
+  },
+  {
+   "branch": "claude/s4a-d3-inertia",
+   "last": 1789321168,
+   "why": "ancestor"
+  },
+  {
+   "branch": "claude/s4a-deadblend",
+   "last": 1789357813,
+   "why": "ancestor"
+  },
+  {
+   "branch": "claude/s4a-footlock",
+   "last": 1789351462,
+   "why": "ancestor"
+  },
+  {
+   "branch": "claude/s4a-hip-carry",
+   "last": 1789341479,
+   "why": "ancestor"
+  },
+  {
+   "branch": "claude/s4a-realism",
+   "last": 1789303194,
+   "why": "ancestor"
+  },
+  {
+   "branch": "claude/s65-integration",
+   "last": 1790235544,
+   "why": "ancestor"
+  },
+  {
+   "branch": "claude/s65-ticking-clock",
+   "last": 1790234787,
+   "why": "ancestor"
+  },
+  {
+   "branch": "claude/venues2",
+   "last": 1791050671,
+   "why": "cherry"
+  },
+  {
+   "branch": "claude/watchable-room",
+   "last": 1789331782,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cline/train1b",
+   "last": 1791028313,
+   "why": "cherry"
+  },
+  {
+   "branch": "codex/c146-grapple-split-contract",
+   "last": 1789982813,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/c150-paired-anchor-contract",
+   "last": 1790002557,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/c170-closed-guard",
+   "last": 1790201506,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/c178-u143-fix",
+   "last": 1790147799,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/c179-cc-generator",
+   "last": 1790199554,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/c180-segment-tracker",
+   "last": 1790201834,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/c181-higgsfield-loop",
+   "last": 1790202286,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/c182-turtle",
+   "last": 1790206435,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/c183-closed-guard",
+   "last": 1790209477,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/c184-watch-loop-take1",
+   "last": 1790215685,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/c185-hands",
+   "last": 1790228367,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/c186-hand-writers",
+   "last": 1790231072,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/c187-hips-and-fist",
+   "last": 1790234882,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/c188-hit-physics",
+   "last": 1790258318,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/c189-control-arm",
+   "last": 1790235925,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/c190-strikes-whole",
+   "last": 1790240909,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/c191-what-still-clips",
+   "last": 1790245743,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/c192-blind-manager-test",
+   "last": 1790259176,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/c193-blind-body-map-test",
+   "last": 1790260412,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/c195-blind-feint-test",
+   "last": 1790279508,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/c196-feint-rate",
+   "last": 1790282581,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/c197-blind-market-two",
+   "last": 1790288810,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/c198-standing-motion",
+   "last": 1790311092,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/c199-mma-guard",
+   "last": 1790312361,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/c200-one-rig",
+   "last": 1790310921,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/c201-rebind-eleven",
+   "last": 1790332887,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/c203-standing-sources",
+   "last": 1790344585,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/c204-alive-stance",
+   "last": 1790347025,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/c205-mma-arena",
+   "last": 1790357373,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/c206-arena-fit",
+   "last": 1790360589,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/c207-walkout",
+   "last": 1790368800,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/c208-hub-eval",
+   "last": 1790371538,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/c209-training-clips",
+   "last": 1790375888,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/c210-drill-sources",
+   "last": 1790403607,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/c212-mixamo-audition",
+   "last": 1790405322,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/c213-generated-in-room",
+   "last": 1790467650,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/c226-st1-stamina",
+   "last": 1790766944,
+   "why": "cherry"
+  },
+  {
+   "branch": "codex/c95-fix",
+   "last": 1789172327,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/gymcap1",
+   "last": 1791662679,
+   "why": "cherry"
+  },
+  {
+   "branch": "codex/issue-101",
+   "last": 1791669532,
+   "why": "cherry"
+  },
+  {
+   "branch": "codex/issue-104",
+   "last": 1791672446,
+   "why": "content"
+  },
+  {
+   "branch": "codex/issue-106",
+   "last": 1791673741,
+   "why": "content"
+  },
+  {
+   "branch": "codex/ludo-pad1",
+   "last": 1791589581,
+   "why": "cherry"
+  },
+  {
+   "branch": "codex/opsboard1",
+   "last": 1791485267,
+   "why": "cherry"
+  },
+  {
+   "branch": "codex/q156-separation-ab",
+   "last": 1790199509,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/split2",
+   "last": 1791574369,
+   "why": "cherry"
+  },
+  {
+   "branch": "codex/venue-1-pass5",
+   "last": 1790149315,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/venue-2-limehouse",
+   "last": 1790150606,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/venue-3-paper-hall",
+   "last": 1790151591,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/venue-3-pass2",
+   "last": 1790152793,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/venue-4-cut-glass",
+   "last": 1790165620,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/venue-5-northlight",
+   "last": 1790179425,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/venue-6-north-dock",
+   "last": 1790180107,
+   "why": "ancestor"
+  },
+  {
+   "branch": "codex/venue-7-quarry",
+   "last": 1790199659,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/career-path-row-cap-2363",
+   "last": 1788994032,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/gym4g-day-goals-hud",
+   "last": 1791489205,
+   "why": "cherry"
+  },
+  {
+   "branch": "cursor/gym4h-ring-rows",
+   "last": 1791494389,
+   "why": "cherry"
+  },
+  {
+   "branch": "cursor/issue-67",
+   "last": 1791522901,
+   "why": "cherry"
+  },
+  {
+   "branch": "cursor/issue-68",
+   "last": 1791521016,
+   "why": "content"
+  },
+  {
+   "branch": "cursor/ludo-corner2a",
+   "last": 1791607255,
+   "why": "cherry"
+  },
+  {
+   "branch": "cursor/u10-body-column-fc5f",
+   "last": 1788863325,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u100-push-ease",
+   "last": 1789370956,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u101-retime",
+   "last": 1789373003,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u105-room-track",
+   "last": 1789403341,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u106-higgsfield-jab",
+   "last": 1789407937,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u107-t2m-jab-types",
+   "last": 1789414350,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u108-clip-census",
+   "last": 1789417264,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u109-between-rates",
+   "last": 1789904595,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u111-footage-rows",
+   "last": 1789929518,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u112-video-motion",
+   "last": 1789941863,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u113-cascadeur-export",
+   "last": 1789967288,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u114-cascadeur-retarget",
+   "last": 1789968733,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u115-moving-clip-and-gap",
+   "last": 1789974262,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u117-spine-split",
+   "last": 1789980815,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u118-grapple-split",
+   "last": 1789984490,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u119-body-overlap",
+   "last": 1789991328,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u12-org-kind-fields-ae2f",
+   "last": 1788872919,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u121-lean-units",
+   "last": 1790000815,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u122-bake-rate-census",
+   "last": 1790008157,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u123-turn-rate",
+   "last": 1790015124,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u124-declared-gates",
+   "last": 1790025964,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u125-weight-classes",
+   "last": 1790028984,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u126-screen-census",
+   "last": 1790031505,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u127-stat-row",
+   "last": 1790036929,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u128-region-panel",
+   "last": 1790064530,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u129-scored-card",
+   "last": 1790069182,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u130-post-fight",
+   "last": 1790074105,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u130-post-fight-result",
+   "last": 1790095931,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u131-technique-modal",
+   "last": 1790071776,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u133-arena-pass5",
+   "last": 1790093630,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u134-wire-result",
+   "last": 1790096420,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u135-fight-causation",
+   "last": 1790097391,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u136-capsule-overlay",
+   "last": 1790101107,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u137-approach-sweep",
+   "last": 1790107786,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u138-sweep-cutover",
+   "last": 1790109173,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u139-ground-graph-contract",
+   "last": 1790120572,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u14-promotion-kind-identity-3774",
+   "last": 1788882179,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u140-decay-shape",
+   "last": 1790122237,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u141-wiring-contract",
+   "last": 1790123710,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u142-bottom-man",
+   "last": 1790134196,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u143-name-the-control",
+   "last": 1790137405,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u145-transition-probe",
+   "last": 1790144038,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u146-no-teleports",
+   "last": 1790153264,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u147-overlap-duration",
+   "last": 1790169620,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u148-cc-skin-contract",
+   "last": 1790177637,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u149-distance-by-phase",
+   "last": 1790179900,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u15-tournament-nobody-can-see-8fdc",
+   "last": 1788886361,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u150-separation-contract",
+   "last": 1790202073,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u151-pose-solver-contract",
+   "last": 1790202952,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u152-hands-yield",
+   "last": 1790205961,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u153-live-grips",
+   "last": 1790215303,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u154-overlap",
+   "last": 1790209726,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u155-arena-scale",
+   "last": 1790228178,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u156-stature",
+   "last": 1790232656,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u157-grip-why",
+   "last": 1790235120,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u158-kicks-and-walk",
+   "last": 1790234141,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u159-reactions-whole",
+   "last": 1790237304,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u16-grand-prix-on-record-b2b6",
+   "last": 1788888170,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u160-speed-and-hands",
+   "last": 1790248855,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u161-c168-vs-u157",
+   "last": 1790247212,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u162-retarget-speed",
+   "last": 1790247910,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u163-take-four-kicks-hands",
+   "last": 1790253034,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u164-human-speed",
+   "last": 1790255172,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u165-readable-onset",
+   "last": 1790261253,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u166-kicking-foot",
+   "last": 1790275954,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u167-schedule-truth",
+   "last": 1790279129,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u168-profile-result",
+   "last": 1790279618,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u169-weigh-in",
+   "last": 1790280365,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u170-market-on-screen",
+   "last": 1790288650,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u172-defender-model",
+   "last": 1790312955,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u174-punch-output",
+   "last": 1790349176,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u175-real-sound",
+   "last": 1790355099,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u176-gloves",
+   "last": 1790388879,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u177-hub-eval",
+   "last": 1790373253,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u178-mma-leg-share",
+   "last": 1790407318,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u178b-leg-share-moving",
+   "last": 1790415588,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u179-prop-census",
+   "last": 1790412714,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u18-fight-feel-research-9e44",
+   "last": 1788913096,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u180-station-clips",
+   "last": 1790419327,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u181-skipping",
+   "last": 1790426029,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u19-broadcast-read-70f7",
+   "last": 1788915616,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u20-damage-in-real-time-c592",
+   "last": 1788946347,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u21-broadcast-read-span-d1bc",
+   "last": 1788949017,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u22-realtime-round-stats-0727",
+   "last": 1788955551,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u23-fighting-game-teardown-72e4",
+   "last": 1788962329,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u24-scorecard-panel-80cb",
+   "last": 1788976173,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u25-fight-hud-panel-26c5",
+   "last": 1788979416,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u26-grapple-resolve-fb05",
+   "last": 1788989438,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u34-judo-board-caller",
+   "last": 1789039133,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u4-amateur-fight-made-51c7",
+   "last": 1788804799,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u5-belt-board-one-read-b667",
+   "last": 1788813205,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u56-technique-demand",
+   "last": 1789148186,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u57-grapple-promotion",
+   "last": 1789154613,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u6-card-read-back-b667",
+   "last": 1788812983,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u60-fixup-roles",
+   "last": 1789172263,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u80-defence-curve",
+   "last": 1789291087,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u81-retarget-triptych",
+   "last": 1789294728,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u82-triptych-floor",
+   "last": 1789296792,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u83-pelvis-by-tree",
+   "last": 1789300724,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u84-stride-speed",
+   "last": 1789301809,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u85-guard-return",
+   "last": 1789302407,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u86-single-punches",
+   "last": 1789313045,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u87-getup",
+   "last": 1789316268,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u88-sway-carry",
+   "last": 1789326336,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u9-injury-on-screen-7555",
+   "last": 1788857748,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u90-join-pairs",
+   "last": 1789342896,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u91-stance-entry",
+   "last": 1789343567,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u92-plant-census",
+   "last": 1789345925,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u93-hook-splice",
+   "last": 1789346906,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u94-hook-global",
+   "last": 1789350326,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u95-overlap",
+   "last": 1789352798,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u96-real-spacing",
+   "last": 1789359467,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u97-r7-r8",
+   "last": 1789362002,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/u99-jerk-census",
+   "last": 1789365287,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/venue-1-iron-parish",
+   "last": 1790143790,
+   "why": "ancestor"
+  },
+  {
+   "branch": "cursor/venue-1-pass3",
+   "last": 1790145984,
+   "why": "ancestor"
+  },
+  {
+   "branch": "goose/issue-56",
+   "last": 1791319192,
+   "why": "content"
+  },
+  {
+   "branch": "grok/g151-weight-cut-spec",
+   "last": 1790768257,
+   "why": "cherry"
+  },
+  {
+   "branch": "grok/g152-judges",
+   "last": 1790770309,
+   "why": "cherry"
+  },
+  {
+   "branch": "master-vsqwsb",
+   "last": 1790825899,
+   "why": "ancestor"
+  },
+  {
+   "branch": "openhands/tut1c-handbook",
+   "last": 1791062031,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/ludo-corner1",
+   "last": 1791580186,
+   "why": "cherry"
+  },
+  {
+   "branch": "qwen/q100-fm1-rig",
+   "last": 1789347313,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q102-ue-root-offset",
+   "last": 1789360934,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q103-ue-orientation",
+   "last": 1789361694,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q104-reaction-direction",
+   "last": 1789368862,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q105-hand-steps",
+   "last": 1789372825,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q106-spike-census",
+   "last": 1789373461,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q108-footage-batch3",
+   "last": 1789400620,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q109-posture",
+   "last": 1789403670,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q110-jab-types",
+   "last": 1789415207,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q114-hold-census",
+   "last": 1789967530,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q115-clinch-distance",
+   "last": 1789968426,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q116-clinch-motion",
+   "last": 1789974170,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q117-attribute-census",
+   "last": 1789978091,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q118-loop-demands",
+   "last": 1789978886,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q119-stat-floor",
+   "last": 1789979662,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q121-cage-size",
+   "last": 1789984437,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q122-contact-census",
+   "last": 1790002386,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q123-clinch-arms",
+   "last": 1790004793,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q124-extrema-audit",
+   "last": 1790007959,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q126-pair-gap-baseline",
+   "last": 1790014748,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q127-census",
+   "last": 1790026930,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q128-overlap-gate",
+   "last": 1790034595,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q129-overlap-live",
+   "last": 1790037327,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q130-overlap-census",
+   "last": 1790064685,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q131-thorax-sensitivity",
+   "last": 1790066227,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q132-capsule-census",
+   "last": 1790069126,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q133-clip-coverage",
+   "last": 1790072008,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q134-limb-depth",
+   "last": 1790074030,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q137-slenderness-census",
+   "last": 1790096065,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q138-span-sensitivity",
+   "last": 1790097260,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q139-head-sphere-radius",
+   "last": 1790100760,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q140-head-coverage",
+   "last": 1790107843,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q141-vertex-clean",
+   "last": 1790109473,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q142-training-record",
+   "last": 1790121092,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q143-control-resolution",
+   "last": 1790122883,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q144-metres-hang",
+   "last": 1790127607,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q145-record-every-ruleset",
+   "last": 1790128054,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q146-unnamed-grapples",
+   "last": 1790133707,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q147-named-and-legal",
+   "last": 1790136161,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q148-phase-violations",
+   "last": 1790137357,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q149-hit-cam",
+   "last": 1790143600,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q150-u143-check",
+   "last": 1790145856,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q151-corner-card",
+   "last": 1790146786,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q152-judo-muaythai-names",
+   "last": 1790151546,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q153-ground-policy",
+   "last": 1790159924,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q154-gloves-data",
+   "last": 1790178094,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q155-u147-inert",
+   "last": 1790179940,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q157-grappling-family",
+   "last": 1790199947,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q158-see-the-family",
+   "last": 1790201193,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q159-apply-g82",
+   "last": 1790202570,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q160-see-the-holds",
+   "last": 1790203579,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q161-ramsterz-holds",
+   "last": 1790204965,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q162-ramsterz-grips",
+   "last": 1790207611,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q163-ramsterz-units",
+   "last": 1790209546,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q164-ten-eight",
+   "last": 1790226426,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q166-ground-game-finish",
+   "last": 1790244838,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q167-clip-phases",
+   "last": 1790236472,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q168-submission-baseline",
+   "last": 1790246014,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q169-traps-slice-one",
+   "last": 1790276043,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q170-trap-reach",
+   "last": 1790285412,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q171-pace-anchor",
+   "last": 1790290281,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q176-footwork",
+   "last": 1790348351,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q178-footwork-bands",
+   "last": 1790367814,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q179-hub-eval",
+   "last": 1790371449,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q180-footwork-default",
+   "last": 1790374758,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q181-footwork-powered",
+   "last": 1790376657,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q182-footwork-per-ruleset",
+   "last": 1790380322,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q183-footwork-full-census",
+   "last": 1790390420,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q184-kb-finishes",
+   "last": 1790404648,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q185-training-preview-test",
+   "last": 1790412408,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q186-kb-head-damage",
+   "last": 1790417633,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q187-drill-mastery-contract",
+   "last": 1790419024,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q188-spar-intensity",
+   "last": 1790421024,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q189-spar-edge",
+   "last": 1790427832,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q192-plan-separation",
+   "last": 1790445802,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q194-boxing-plan-roles",
+   "last": 1790454610,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q196-economy-ground",
+   "last": 1790467966,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q210-nightly-reds",
+   "last": 1790553613,
+   "why": "content"
+  },
+  {
+   "branch": "qwen/q81-failed-escape-carry",
+   "last": 1789291179,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q82-engine-retarget",
+   "last": 1789293933,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q83-dropped-position-tracks",
+   "last": 1789297665,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q84-blend-probe",
+   "last": 1789302112,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q85-playback-mechanics",
+   "last": 1789303014,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q86-stance-takes",
+   "last": 1789304958,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q87-hip-carry",
+   "last": 1789305995,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q88-engine-rhythm",
+   "last": 1789313242,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q89-reaction-sway",
+   "last": 1789319890,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q90-ground",
+   "last": 1789325799,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q91-ground-paths",
+   "last": 1789326456,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q92-counts",
+   "last": 1789329464,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q93-clinch",
+   "last": 1789329859,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q94-pace",
+   "last": 1789333722,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q94b-pace-fix",
+   "last": 1789340199,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q96-phantom-landings",
+   "last": 1789342254,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q97-contact-miss",
+   "last": 1789343012,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q98-mirror-stance",
+   "last": 1789343760,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/q99-skate-sources",
+   "last": 1789345846,
+   "why": "ancestor"
+  },
+  {
+   "branch": "qwen/r17-math2",
+   "last": 1791620496,
+   "why": "content"
+  },
+  {
+   "branch": "qwen/u110-commit-window",
+   "last": 1789933741,
+   "why": "ancestor"
+  },
+  {
+   "branch": "u55-paired-clip-mount",
+   "last": 1789144581,
+   "why": "ancestor"
+  }
+ ]
+}

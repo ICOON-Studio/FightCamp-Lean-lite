@@ -1,0 +1,163 @@
+{
+  "defaults": {
+    "FAnimNode_OffsetRootBone.EvaluationMode": "EWarpingEvaluationMode::Graph",
+    "FAnimNode_OffsetRootBone.bResetEveryFrame": false,
+    "FAnimNode_OffsetRootBone.TranslationMode": "EOffsetRootBoneMode::Interpolate",
+    "FAnimNode_OffsetRootBone.RotationMode": "EOffsetRootBoneMode::Interpolate",
+    "FAnimNode_OffsetRootBone.TranslationHalflife": 0.1,
+    "FAnimNode_OffsetRootBone.RotationHalfLife": 0.2,
+    "FAnimNode_OffsetRootBone.MaxTranslationError": -1.0,
+    "FAnimNode_OffsetRootBone.MaxRotationError": -1.0,
+    "FAnimNode_OffsetRootBone.bClampToTranslationVelocity": false,
+    "FAnimNode_OffsetRootBone.bClampToRotationVelocity": false,
+    "FAnimNode_OffsetRootBone.TranslationSpeedRatio": 0.5,
+    "FAnimNode_OffsetRootBone.RotationSpeedRatio": 0.5,
+    "FAnimNode_OffsetRootBone.bOnGround": true,
+    "FAnimNode_OffsetRootBone.GroundNormal": "{ 0, 0, 1 }",
+    "FAnimNode_OffsetRootBone.TranslationDelta": "FVector::ZeroVector",
+    "FAnimNode_OffsetRootBone.RotationDelta": "FRotator::ZeroRotator",
+    "FAnimNode_OffsetRootBone.bResetOnTeleport": false,
+    "FAnimNode_OffsetRootBone.CollisionTestingMode": "EOffsetRootBone_CollisionTestingMode::Disabled",
+    "FAnimNode_OffsetRootBone.CollisionTestShapeRadius": 30,
+    "FAnimNode_OffsetRootBone.CollisionTestShapeOffset": "{0,0,60}",
+    "FAnimNode_StrideWarping.Mode": "EWarpingEvaluationMode::Manual",
+    "FAnimNode_StrideWarping.StrideDirection": "FVector::ForwardVector",
+    "FAnimNode_StrideWarping.StrideScale": 1.0,
+    "FAnimNode_StrideWarping.LocomotionSpeed": 0.0,
+    "FAnimNode_StrideWarping.MinRootMotionSpeedThreshold": 10.0,
+    "FAnimNode_StrideWarping.FloorNormalDirection": "{ EWarpingVectorMode::WorldSpaceVector, FVector::UpVector }",
+    "FAnimNode_StrideWarping.GravityDirection": "{ EWarpingVectorMode::WorldSpaceVector, FVector::DownVector }",
+    "FAnimNode_StrideWarping.bOrientStrideDirectionUsingFloorNormal": true,
+    "FAnimNode_StrideWarping.bCompensateIKUsingFKThighRotation": true,
+    "FAnimNode_StrideWarping.bClampIKUsingFKLimits": true,
+    "FAnimNode_StrideWarping.bDisableIfMissingRootMotion": true,
+    "FAnimNode_StrideWarping.DebugDrawScale": 1.0,
+    "FAnimNode_StrideWarping.bEnableDebugDraw": false,
+    "FAnimNode_StrideWarping.bDebugDrawIKFootOrigin": false,
+    "FAnimNode_StrideWarping.bDebugDrawIKFootAdjustment": false,
+    "FAnimNode_StrideWarping.bDebugDrawPelvisAdjustment": false,
+    "FAnimNode_StrideWarping.bDebugDrawThighAdjustment": false,
+    "FAnimNode_StrideWarping.bDebugDrawIKFootFinal": false
+  },
+  "citations": [
+    {
+      "id": "O1",
+      "claim": "DamperImplicit computes alpha from halflife via exponential decay: 1 - exp(-0.693 * dt / halflife), clamped [0,1]",
+      "file": "Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_OffsetRootBone.cpp",
+      "line": 33,
+      "quote": "return FMath::Clamp((1.0f - FMath::InvExpApprox((0.69314718056f * DeltaTime) / (Halflife + Epsilon))), 0.0f, 1.0f);"
+    },
+    {
+      "id": "O1",
+      "claim": "DampenAlpha is computed from TranslationHalflife and CachedDeltaTime via DamperImplicit",
+      "file": "Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_OffsetRootBone.cpp",
+      "line": 323,
+      "quote": "const float DampenAlpha = UE::Anim::OffsetRootBone::DamperImplicit(GetTranslationHalflife(), CachedDeltaTime);"
+    },
+    {
+      "id": "O1",
+      "claim": "Translation offset delta is Lerp from zero to full offset by DampenAlpha each frame",
+      "file": "Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_OffsetRootBone.cpp",
+      "line": 324,
+      "quote": "FVector TranslationOffsetDelta = FMath::Lerp(FVector::ZeroVector, TranslationOffset, DampenAlpha);"
+    },
+    {
+      "id": "O1",
+      "claim": "MaxTranslationError clamps the gap between component and simulated when it exceeds the limit",
+      "file": "Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_OffsetRootBone.cpp",
+      "line": 395,
+      "quote": "if (TranslationOffsetSize > MaxTranslationOffset)"
+    },
+    {
+      "id": "O2",
+      "claim": "bClampToTranslationVelocity gates the catch-up speed cap",
+      "file": "Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_OffsetRootBone.cpp",
+      "line": 326,
+      "quote": "if (GetClampToTranslationVelocity())"
+    },
+    {
+      "id": "O2",
+      "claim": "MaxDelta is TranslationSpeedRatio times root motion translation delta magnitude",
+      "file": "Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_OffsetRootBone.cpp",
+      "line": 329,
+      "quote": "GetTranslationSpeedRatio() * RootMotionDelta;"
+    },
+    {
+      "id": "O2",
+      "claim": "bResetOnTeleport snaps simulated to component when teleport distance threshold is exceeded",
+      "file": "Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_OffsetRootBone.cpp",
+      "line": 157,
+      "quote": "if (GetResetOnTeleport())"
+    },
+    {
+      "id": "O2",
+      "claim": "bResetEveryFrame triggers Reset when the node update counter is out of sync",
+      "file": "Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_OffsetRootBone.cpp",
+      "line": 109,
+      "quote": "if (GetResetEveryFrame() ||"
+    },
+    {
+      "id": "S1",
+      "claim": "StrideScale in Graph mode is LocomotionSpeed divided by root motion speed",
+      "file": "Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_StrideWarping.cpp",
+      "line": 209,
+      "quote": "ActualStrideScale = LocomotionSpeed / CachedRootMotionDeltaSpeed;"
+    },
+    {
+      "id": "S1",
+      "claim": "Below MinRootMotionSpeedThreshold stride scale snaps to 1.0 (no adjustment)",
+      "file": "Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_StrideWarping.cpp",
+      "line": 199,
+      "quote": "if (CachedRootMotionDeltaSpeed <= MinRootMotionSpeedThreshold || FMath::IsNearlyZero(CachedRootMotionDeltaSpeed))"
+    },
+    {
+      "id": "S1",
+      "claim": "IK foot is warped along StrideDirection from a scale origin by ActualStrideScale",
+      "file": "Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_StrideWarping.cpp",
+      "line": 248,
+      "quote": "const FVector WarpedLocation = ScaleOrigin + (IKFootLocation - ScaleOrigin) * ActualStrideScale;"
+    },
+    {
+      "id": "S1",
+      "claim": "bDisableIfMissingRootMotion exits early when graph has no root motion attribute",
+      "file": "Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_StrideWarping.cpp",
+      "line": 129,
+      "quote": "else if (bDisableIfMissingRootMotion)"
+    },
+    {
+      "id": "S2",
+      "claim": "Pelvis is pulled down by PelvisIKFootSolver to maintain foot contact after feet warp",
+      "file": "Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_StrideWarping.cpp",
+      "line": 290,
+      "quote": "PelvisTransform = PelvisIKFootSolver.Solve(PelvisTransform, FKFootDistancesToPelvis, IKFootLocations, CachedDeltaTime);"
+    },
+    {
+      "id": "S2",
+      "claim": "bCompensateIKUsingFKThighRotation rotates thigh bones to preserve leg shape after IK foot warp",
+      "file": "Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_StrideWarping.cpp",
+      "line": 349,
+      "quote": "if (bCompensateIKUsingFKThighRotation)"
+    },
+    {
+      "id": "S2",
+      "claim": "bClampIKUsingFKLimits clamps IK foot distance to thigh to not exceed FK leg length",
+      "file": "Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_StrideWarping.cpp",
+      "line": 391,
+      "quote": "if (bClampIKUsingFKLimits)"
+    },
+    {
+      "id": "S2",
+      "claim": "Clamped foot location is thigh + TargetDir * FKLength when IK over-extends",
+      "file": "Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_StrideWarping.cpp",
+      "line": 397,
+      "quote": "const FVector ClampedFootLocation = AdjustedThighTransform.GetLocation() + TargetDir * FKLength;"
+    },
+    {
+      "id": "R",
+      "claim": "Below MinRootMotionSpeedThreshold stride scale snaps to 1.0, keeping natural step length at very low speeds",
+      "file": "Engine/Plugins/Animation/AnimationWarping/Source/Runtime/Private/BoneControllers/AnimNode_StrideWarping.cpp",
+      "line": 203,
+      "quote": "ActualStrideScale = 1.0f;"
+    }
+  ]
+}

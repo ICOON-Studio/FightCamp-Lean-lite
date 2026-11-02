@@ -1,0 +1,64 @@
+{
+  "q115": "clinch_distance",
+  "date": "2026-09-21",
+  "method": "pair_world.py PAIR_WORLD_v1 on track/*.npz",
+  "clinch_definition": "3D hip-to-hip distance <= 0.80 m (valley at 0.77 m in unimodal distribution, rounded to nearest 5 cm)",
+  "clean_clips": ["-vPZqptk8jo", "HL261oRyURE", "FCM7m6TJWUQ"],
+  "all_clips_processed": ["-vPZqptk8jo", "HL261oRyURE", "FCM7m6TJWUQ", "wzUWvsviqTM"],
+  "clip_frame_counts": {
+    "-vPZqptk8jo": 5861,
+    "HL261oRyURE": 5242,
+    "FCM7m6TJWUQ": 2439,
+    "wzUWvsviqTM": 8701
+  },
+  "total_frames_clean": 13542,
+  "total_frames_all": 22243,
+  "filter": "hip_sep >= 0.40 m and <= 3.0 m, both fighters hip visibility > 0.5",
+  "threshold_m": 0.80,
+  "error_bounds": {
+    "horizontal_p90_m": 0.15,
+    "depth_clean_p90_m": 0.19,
+    "depth_noisy_p90_m": 0.35,
+    "vertical_p90_m": 0.08
+  },
+  "full_distribution_clean": {
+    "p5": 0.882,
+    "p10": 0.909,
+    "p25": 0.955,
+    "p50": 1.049,
+    "p75": 1.167,
+    "p90": 1.361,
+    "p95": 1.400
+  },
+  "clinch_at_threshold": {
+    "n_frames": 57,
+    "pct_of_total": 0.4,
+    "hip_p10_m": 0.709,
+    "hip_p50_m": 0.719,
+    "hip_p90_m": 0.777,
+    "chest_p50_m": 0.778,
+    "head_p50_m": 0.786
+  },
+  "range_at_threshold": {
+    "n_frames": 13485,
+    "hip_p10_m": 0.910,
+    "hip_p50_m": 1.050,
+    "hip_p90_m": 1.361,
+    "chest_p50_m": 1.069,
+    "head_p50_m": 0.822
+  },
+  "p50_difference_m": 0.331,
+  "p50_difference_as_multiple_of_error": 2.2,
+  "sensitivity": [
+    {"threshold_m": 0.70, "n_clinch": 43, "clinch_p50_m": 0.715, "range_p50_m": 1.050, "diff_m": 0.335},
+    {"threshold_m": 0.80, "n_clinch": 57, "clinch_p50_m": 0.719, "range_p50_m": 1.050, "diff_m": 0.331},
+    {"threshold_m": 0.90, "n_clinch": 1016, "clinch_p50_m": 0.867, "range_p50_m": 1.066, "diff_m": 0.199}
+  ],
+  "authored_number": {
+    "value_m": 0.557,
+    "vs_observed_clinch_floor_m": -0.152,
+    "interpretation": "below observed floor; method cannot validate at this range"
+  },
+  "distribution_shape": "unimodal, peak at 0.95 m, valley at 0.77 m, no separate clinch mode",
+  "conclusion": "clinch hip separation p50 is 0.72 m (range 0.72-0.87 m depending on threshold). Authored 0.557 m is below the method's resolution floor."
+}

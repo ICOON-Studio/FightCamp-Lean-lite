@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FightCamp Roadmap</title>
+<style>
+:root{--bg:#14110f;--panel:#1e1a17;--line:#3a332d;--ink:#efe9e1;--dim:#a39a8e;--run:#3fb950;--next:#e3b341;--wait:#8b949e;--out:#f85149;--accent:#e0703a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,Segoe UI,sans-serif}
+main{max-width:1180px;margin:0 auto;padding:16px}
+h1{font-size:22px;margin:0}
+h2{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin:26px 0 10px;border-bottom:1px solid var(--line);padding-bottom:6px}
+.top{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:baseline;justify-content:space-between}
+.goal{color:var(--dim);margin:6px 0 0}
+.pc{font-size:13px;color:var(--dim)}
+.pc b{color:var(--ink)}
+.qmark{display:inline-block;margin:6px 0;padding:6px 12px;border:1px solid var(--next);border-radius:6px;color:var(--next);text-decoration:none;font-weight:600}
+.pill{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
+.GREEN,.in{background:#1f3d26;color:var(--run)}.AMBER{background:#3d3115;color:var(--next)}.RED,.out{background:#3d1a18;color:var(--out)}
+.who{background:#2b2520;color:var(--ink)}
+.timer{color:var(--good);font-variant-numeric:tabular-nums}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:10px}
+.card{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--run);border-radius:8px;padding:10px 12px}
+.card.claude{border-left-color:var(--accent)}
+.card .t{font-weight:600;margin:4px 0}
+.meta{font-size:12.5px;color:var(--dim)}
+.meta a{color:var(--next)}
+ol.next{margin:0;padding:0;list-style:none;counter-reset:n}
+ol.next li{counter-increment:n;display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:start;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin-bottom:6px}
+ol.next li::before{content:counter(n);font-weight:700;color:var(--next);font-size:17px}
+.after{font-size:12.5px;color:var(--dim)}
+table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+td,th{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;font-size:14px}
+th{font-size:12px;color:var(--dim);text-transform:uppercase;letter-spacing:.05em}
+tr:last-child td{border-bottom:0}
+.stages{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.stage{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.stage.active{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.bar{height:8px;background:#2b2520;border-radius:99px;overflow:hidden;margin:8px 0 4px}
+.bar i{display:block;height:100%;background:var(--accent)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.empty{color:var(--dim);font-style:italic}
+footer{margin:30px 0 10px;font-size:13px;color:var(--dim)}
+footer a{color:var(--dim)}
+.warn{color:var(--out);font-size:13px}
+.playbtn{font:inherit;font-weight:600;padding:8px 14px;margin:0 8px 8px 0;border-radius:6px;border:1px solid var(--accent);background:#3a2418;color:var(--ink);cursor:pointer}.playbtn.main{background:var(--accent);color:#14110f}.playbtn[disabled]{opacity:.5;cursor:not-allowed}
+.chip{display:inline-block;font-size:11px;padding:1px 8px;border-radius:6px;background:#2a2f3a;color:#9ec1ff;margin:0 6px 2px 0;white-space:nowrap}
+.chip.s{background:#33271f;color:#e0703a;font-weight:700}
+.card.run{border-left-color:var(--run);box-shadow:0 0 0 1px #2c5a35 inset}
+.pill.nowp{background:var(--run);color:#0b1d10}
+.pill.local{background:#e0a33a;color:#241405;font-weight:700}.pill.cloud{background:#2a3f5c;color:#9ec1ff;font-weight:700}
+ol.next li{border-left:4px solid var(--next)}
+ol.next li:first-child{box-shadow:0 0 0 1px var(--next) inset}
+.pill.nextp{background:var(--next);color:#241b05}
+table.donet td{border-left:4px solid #58a6ff}
+table.waitt td{border-left:4px solid var(--wait)}
+.lg{font-size:12.5px;color:var(--dim);margin:-4px 0 10px}.lg i{display:inline-block;width:10px;height:10px;border-radius:2px;margin:0 4px 0 12px;vertical-align:middle}
+.parts{margin-top:8px;font-size:12.5px}
+.parts div{display:flex;justify-content:space-between;gap:8px;padding:2px 0;border-top:1px solid var(--line)}
+.cn{white-space:nowrap}.cn .r{color:var(--run)}.cn .n{color:var(--next)}.cn .d{color:#58a6ff}
+@media (max-width:760px){.two{grid-template-columns:1fr}ol.next li{grid-template-columns:26px 1fr}ol.next li .whocol{grid-column:2}td:nth-child(4),th:nth-child(4){display:none}}
+.qbox{background:var(--panel);border:1px solid var(--next);border-radius:8px;padding:10px 12px;margin:10px 0}.qbox h2{margin:0 0 6px}.qrow{border-top:1px solid var(--line);padding:8px 0}.qrow:first-of-type{border-top:0}.qopts{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}.qopts button,.qsend{min-height:40px;font:inherit;border:1px solid var(--line);border-radius:8px;background:#2a241f;color:var(--ink);padding:6px 12px;cursor:pointer}.qopts button:hover,.qsend:hover{border-color:var(--next)}.qin{width:100%;box-sizing:border-box;min-height:40px;padding:6px 8px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;margin-top:6px}.qmeta{color:var(--dim);font-size:.85em;margin-top:4px}
+.qimg{max-width:100%;max-height:420px;border:1px solid var(--line);border-radius:6px;margin-top:8px;display:block}.qdoc{margin-top:8px;border:1px solid var(--line);border-radius:6px;padding:6px 10px;background:var(--bg)}.qdoc summary{cursor:pointer;color:var(--dim)}.qdoc a{color:var(--next)}.qdocbody{max-height:520px;overflow:auto;font-size:.92em}.qdocbody table{border-collapse:collapse;margin:6px 0}.qdocbody td,.qdocbody th{border:1px solid var(--line);padding:3px 6px;vertical-align:top}.qdocbody th{background:#2b2520}.qdocbody pre{white-space:pre-wrap;background:#221d18;padding:6px}
+.pmReply{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.pmReply.full{display:block;-webkit-line-clamp:unset}
+.pill.stopp{background:#5a1f1f;color:#ffb4a8}.pill.landp{background:#1d3550;color:#9ccbff}
+.gh-live{color:var(--good);animation:ghpulse 2s ease-in-out infinite}@keyframes ghpulse{50%{opacity:.25}}
+.muted{color:var(--muted,#8b949e)}
+</style>
+<style>
+.fcnav{position:sticky;top:0;z-index:50;display:flex;gap:4px;align-items:center;background:#0e0c0b;border-bottom:1px solid #3a332d;padding:8px 16px}
+.fcnav b{color:#e0703a;margin-right:14px;font-size:14px;letter-spacing:.04em}
+.fcnav a{color:#a39a8e;text-decoration:none;font-size:14px;padding:5px 12px;border-radius:6px}
+.fcnav a:hover{background:#2b2520;color:#efe9e1}
+.fcnav a.cur{background:#e0703a;color:#14110f;font-weight:700}
+</style>
+</head>
+<body>
+<nav class="fcnav"><b>FIGHTCAMP</b><a href="/" data-p="/">Roadmap</a><a href="/review" data-p="/review">Stills &amp; videos</a><a href="/agents" data-p="/agents">Agents live</a><a href="/animations" data-p="/animations">Boxer animations</a><a href="/old" data-p="/old">Old detailed board</a><a href="http://127.0.0.1:4101/" title="Model router live: every Claude session (desktop via the model-router mod)">Model router</a></nav>
+<script>document.querySelectorAll('.fcnav a').forEach(a=>{if(a.dataset.p===location.pathname.replace(/\.html$/,'')||(a.dataset.p==='/'&&location.pathname==='/index.html'))a.classList.add('cur')})</script>
+
+<main>
+<div class="top">
+  <div><h1>FightCamp roadmap</h1><p class="goal" id="goal">Loading…</p></div>
+  <div><div class="pc" id="pc">Reading the PC…</div><div class="pc" id="gh" style="margin-top:4px">Reading GitHub Actions…</div></div>
+</div>
+
+<!-- S310 operator: "add a link on the board to launch the latest version, or the part i need to test only" - the game's
+     rows of /api/launch (AgentComms/launch_targets.json, ids fightcamp_*). The button posts a target NAME only. -->
+<section class="qbox" id="playbox"><h2>Play the game</h2><div id="playList">Checking the build…</div><div class="meta" id="playState"></div></section>
+
+<section class="qbox" id="qbox"><h2>Questions for you</h2><div id="questions">Loading…</div></section>
+
+<!-- S231 operator: "how can i see the new bot" - Paul (xAI API, Tools/pm_bot.py); his newest review is AgentComms/pm/latest.md -->
+<section class="qbox" id="pmbox"><h2>Paul - project manager bot</h2>
+  <div><a href="/attach?path=AgentComms/pm/latest.md" target="_blank">Paul's latest review</a> <span class="meta" id="pmAt"></span> - status, stale items, the next 5, who does what, notes for Claude and Dola
+  &nbsp;·&nbsp; <a href="/attach?path=AgentComms/pm/PM_SNAPSHOT.md" target="_blank">what Paul was shown</a></div>
+  <!-- S231 operator: "where can i communicate with paul ?" - a message wakes Paul (hidden); his answer opens his next review -->
+  <div style="margin-top:8px"><textarea id="pmText" rows="3" style="width:100%;box-sizing:border-box" placeholder="Write to Paul - a question, a priority, a complaint. He answers at the top of his next review (about 4-6 minutes)."></textarea>
+  <button id="pmSend" onclick="pmSend()">Send to Paul</button> <span class="meta" id="pmState"></span></div>
+  <div id="pmMsgs" style="margin-top:8px"></div>
+  <div id="pmMsgs" class="meta" style="margin-top:6px"></div></section>
+
+
+<!-- S323 operator: "do a proper miro board for the whole game production and for each part seperately and use on the opsboard
+     if possible so i can always know what we work on and next" - links from roadmap.json plan.maps [{title, url, note}]. -->
+<section class="qbox" id="mapbox"><h2>Production map</h2><div id="maps">Loading…</div></section>
+
+<h2>Running now</h2>
+<p class="lg"><i style="background:var(--run)"></i>running now<i style="background:var(--next)"></i>up next<i style="background:#58a6ff"></i>finished<i style="background:var(--wait)"></i>waiting. <span class="pill local">ON THIS PC</span> = runs on your computer (heat, CPU); <span class="pill cloud">CLOUD</span> = runs on a remote server. The orange tag is the release STAGE; the blue tag is the PART of the game the work is for.</p>
+<div class="cards" id="running"></div>
+
+<h2>Up next, in order</h2>
+<ol class="next" id="next"></ol>
+
+<h2>Agents</h2>
+<table><thead><tr><th>Agent</th><th>Status</th><th>Running</th><th>Scheduled next</th></tr></thead><tbody id="agents"></tbody></table>
+
+<div class="two">
+  <div><h2>Waiting for an agent seat</h2><table class="waitt"><tbody id="waiting"></tbody></table></div>
+  <div><h2>Parked by you</h2><table><tbody id="parked"></tbody></table>
+       <h2>Finished in the last 2 days</h2><table class="donet"><tbody id="done"></tbody></table></div>
+</div>
+
+<h2>Release roadmap</h2>
+<div class="stages" id="stages"></div>
+
+<footer><button type="button" onclick="load();loadQuestions();loadPm()" style="padding:2px 10px">Refresh</button> · the page never reloads by itself (operator S192) · <span id="stamp"></span> ·
+  <a href="/review">stills &amp; videos</a> · <a href="/agents">agents live</a> · <a href="/animations">boxer animations</a> · <a href="/old">old detailed board</a></footer>
+</main>
+<script>
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const AGENT_ORDER = ["claude","arena","openhands","opencode","goose","cline","antigravity","dola","kalli","maria","john","codex","cursor","qwen","grok","kimi"];
+// S200 operator: "i want to see which runs are local". Local = a CLI on this PC; a run can override with where: "local"|"cloud".
+const LOCAL_AGENTS = new Set(["claude","codex","cursor","qwen","cline","antigravity","kimi"]);
+function where(v){ let w=(v&&v.where)|| (LOCAL_AGENTS.has(String(v&&v.agent||"").toLowerCase())? "local":"cloud"); if(/^(pc|local)/i.test(String(w))) w="local";  // S222: live_runs says "pc, wt ..." for local runs
+  return w==="local"? `<span class="pill local" title="runs on this PC">ON THIS PC</span>` : `<span class="pill cloud" title="runs on a remote server">CLOUD</span>`; }
+// S222 (operator: "add timers to tasks on the board to see the duration of work being done"): started/ended strings often carry a note
+// after the time ("2026-10-14 01:51 (relaunch)") - read the leading date+time; a live timer ticks on every running card.
+function when(s){ if(!s) return null; const m=String(s).match(/(\d{4}-\d{2}-\d{2})[ T](\d{1,2}:\d{2})/); const t=m? new Date(m[1]+"T"+m[2].padStart(5,"0")) : new Date(s); return isNaN(t)? null : t; }
+function dur(ms){ if(ms==null||ms<0) return ""; const m=Math.floor(ms/60000); return m<60? m+" min" : Math.floor(m/60)+" h "+String(m%60).padStart(2,"0")+" min"; }
+function ago(iso){ const t=when(iso); return t? dur(Date.now()-t) : ""; }
+function timer(start){ const t=when(start); return t? `<span class="timer" data-start="${t.getTime()}">⏱ ${dur(Date.now()-t)}</span>` : ""; }
+setInterval(()=>document.querySelectorAll(".timer[data-start]").forEach(e=>{ e.textContent="⏱ "+dur(Date.now()-Number(e.dataset.start)); }), 30000);
+function hhmm(iso){ if(!iso) return "?"; const t=when(iso); return !t? iso : t.toLocaleString([], {weekday:"short",hour:"2-digit",minute:"2-digit"}); }
+let AREAS={}, PARTS={}, STAGES={};
+function chips(id){ const p=PARTS[AREAS[id]]; if(!p) return ""; const st=STAGES[p.stage];
+  return `<span class="chip s" title="${esc(st?st.goal:"")}">Stage ${esc(p.stage)} · ${esc(st?st.title:"")}</span><span class="chip" title="${esc(p.what)}">${esc(p.name)}</span><span class="chip" style="background:none;color:var(--dim)">${esc(id)}</span>`; }
+async function get(u){ try{ const r=await fetch(u,{cache:"no-store"}); return await r.json(); }catch(e){ return null; } }
+
+function partsFor(sid, running, next, done){
+  const ids=Object.keys(PARTS).filter(k=>PARTS[k].stage===sid); if(!ids.length) return "";
+  const cnt=(list,get,k)=>list.filter(x=>AREAS[get(x)]===k).length;
+  return `<div class="parts">`+ids.map(k=>{ const r=cnt(running,x=>x[0],k)+((window.__wn||[]).filter(w=>AREAS[w.id]===k).length), n=cnt(next,x=>x.id,k), d=cnt(done,x=>x[0],k);
+    return `<div><span title="${esc(PARTS[k].what)}">${esc(PARTS[k].name)}</span><span class="cn"><span class="r">▶${r}</span> <span class="n">⏭${n}</span> <span class="d">✓${d}</span></span></div>`; }).join("")+`</div>`; }
+// S310: Play the game - the latest build, or straight to the part an update asks him to test.
+async function loadPlay(){
+  const info=await get("/api/launch"), box=$("playList");
+  const rows=((info&&info.targets)||[]).filter(t=>String(t.id).startsWith("fightcamp_"));
+  if(!rows.length){ box.innerHTML=`<span class="empty">No game build found on this PC.</span>`; return; }
+  box.innerHTML=rows.map(t=>`<button type="button" class="playbtn${t.id==="fightcamp_latest"?" main":""}" data-id="${esc(t.id)}" title="${esc(t.why)}"${t.ready?"":" disabled"}>${esc(t.label)}</button>`).join("")
+    +`<div class="meta">Close a running FightCamp first. The test buttons start a fresh career on their own save slot; your saved career is never touched.</div>`;
+  box.querySelectorAll(".playbtn").forEach(b=>b.onclick=async()=>{
+    b.disabled=true; $("playState").textContent="Starting "+b.textContent+"…";
+    let out=null; try{ const r=await fetch("/api/launch",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({target:b.dataset.id})}); out=await r.json(); }catch(e){ out={ok:false,error:String(e)}; }
+    $("playState").textContent=out&&out.ok? "Started - the game opens in a few seconds." : "Could not start: "+((out&&out.error)||"no answer");
+    setTimeout(()=>{ b.disabled=false; }, 4000); });
+}
+loadPlay();
+
+async function load(){
+  const [rm, live, roster, pc] = await Promise.all([get("/api/roadmap"), get("/api/agents"), get("/api/roster"), get("/api/pc")]);
+  const road = rm && rm.data || {}; const plan = road.plan || {}; const titles = plan.titles || {};
+  const runs = (live && live.runs) || {};
+  // S207: sessions wrote plain strings into next/working_now and the page showed blank rows - accept both forms.
+  const asItem = x => typeof x === "string" ? {title: x, who: (x.match(/^(\w+):/)||[])[1]?.toLowerCase() || "claude"} : (x || {});
+  plan.next = (plan.next||[]).map(asItem); plan.working_now = (plan.working_now||[]).map(asItem);
+  window.__wn=plan.working_now; AREAS=plan.areas||{}; PARTS=plan.parts||{}; STAGES=Object.fromEntries((road.stages||[]).map(s=>[s.id,s]));
+  $("goal").textContent = plan.goal || "";
+  // S323 the Miro production map: the whole game and each part, opened in a new tab.
+  const maps = plan.maps || [];
+  $("maps").innerHTML = maps.length ? maps.map(m => `<a href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.title)}</a>` +
+    (m.note ? ` <span class="meta">${esc(m.note)}</span>` : "")).join("<br>") : "<span class=\"meta\">No map linked yet.</span>";
+  paintPc(pc);
+
+  // Running now = live_runs status running (derived) + Claude's own work (plan.working_now)
+  // S231 operator: "add duration on tasks" - every live run that is not finished shows its timer (waiting/verifying too).
+  const running = Object.entries(runs).filter(([k,v]) => !/^(done|landed|rejected|queued|merged|collected)$/i.test(String(v.status||"")) && when(v.started));
+  // S233 operator ("i do not see these process , are they real ?" / "wtf is the board showing then ?"): a working_now row that names
+  // a run in live_runs is drawn ONCE, from the live run (its real status and place); a row whose own state says STOPPED/LANDED is never "now".
+  const stateOf = st => { st=String(st||"").toLowerCase();
+    if (/^(running|now|in_progress|started)/.test(st)) return ["now","nowp"];
+    if (/^(landed|ready|pushed|success|done_pending)/.test(st) || /landed/.test(st)) return ["landed - to collect","landp"];
+    if (/^(stale|stopped|failed|failure|dead|error|timeout)/.test(st) || /stopped|failed/.test(st)) return ["stopped","stopp"];
+    return [st||"now", st?"stopp":"nowp"]; };
+  const wn = (plan.working_now||[]).filter(w => !(w.run && runs[w.run]));
+  let html = wn.map(w => { const [lab,cls] = w.state ? stateOf(w.state) : ["now","nowp"];
+    return `<div class="card ${(w.who||"claude")==="claude"?"claude ":""}run"><span class="pill ${cls}">${esc(lab)}</span> <span class="pill who">${esc(w.who||"claude")}</span> ${where({agent:w.who||"claude", where:w.where})}
+     <div class="t">${esc(w.title)}</div><div>${chips(w.id)}</div><div class="meta">${(w.started||plan.session_started)? (lab==="now"?"running for":"started")+" <b>"+timer(w.started||plan.session_started)+"</b> ago · ":""}this session</div></div>`; }).join("");
+  html += running.map(([id,v]) => { const [lab,cls] = stateOf(v.status); return `<div class="card run"><span class="pill ${cls}">${esc(lab)}</span> <span class="pill who">${esc(v.agent)}</span> ${where(v)}${v.pid? ` <span class="pill">PID ${esc(v.pid)}</span>`:""}
+     <div class="t">${esc(titles[id] || v.title)}</div><div>${chips(id)}</div>
+     <div class="meta">${lab==="now"?"running for":"started"} <b>${timer(v.started)}</b>${lab==="now"?"":" ago"} · started ${esc(hhmm(v.started))} · expected ${esc(hhmm(v.eta))}${(v.chat||v.url)? ` · <a href="${esc(v.chat||v.url)}" target="_blank" rel="noopener">${v.gh_run? "open run on GitHub":"open chat"}</a>`:""}${v.branch? ` · branch ${esc(v.branch)}`:""}</div></div>`; }).join("");
+  $("running").innerHTML = html || `<p class="empty">Nothing running.</p>`;
+
+  const next = plan.next || [];
+  $("next").innerHTML = next.map((n,i) => `<li><div>${i===0?'<span class="pill nextp">next up</span> ':''}<div>${esc(n.title)}</div><div>${chips(n.id)}</div><div class="after">after: ${esc(n.after||"-")}</div></div>
+     <div class="whocol"><span class="pill who">${esc(n.who)}</span></div></li>`).join("") || `<p class="empty">Nothing queued.</p>`;
+
+  // Agents: roster rotation flag where it exists, plan.agents for the plain-words line
+  const desc = plan.agents || {};
+  const rost = roster || {};
+  const names = [...new Set([...AGENT_ORDER.filter(a => desc[a] || rost[a]), ...Object.keys(desc)])];
+  $("agents").innerHTML = names.map(a => {
+    const r = rost[a]; const isIn = r && typeof r === "object" ? !!r.in_rotation : !/^out/i.test(desc[a]||"");
+    const mine = running.filter(([k,v]) => v.agent === a).map(([k,v]) => esc(titles[k] || v.title));
+    (plan.working_now||[]).filter(w => (w.who||"claude") === a).forEach(w => mine.push(esc(w.title)));
+    const sched = next.filter(n => (n.who||"").split(/[ +,]+/).includes(a)).map(n => esc(n.title));
+    return `<tr><td><b>${esc(a)}</b><div class="meta">${esc(desc[a]||"")}</div></td>
+      <td><span class="pill ${isIn?"in":"out"}">${isIn?"in":"out"}</span></td>
+      <td>${mine.length? mine.map(m=>"• "+m).join("<br>") : '<span class="meta">-</span>'}</td>
+      <td>${sched.length? sched.map(m=>"• "+m).join("<br>") : '<span class="meta">-</span>'}</td></tr>`; }).join("");
+
+  $("waiting").innerHTML = (plan.waiting_seat||[]).map(w => `<tr><td>${esc(w.title)}<div>${chips(w.id)}</div><div class="meta">${esc(w.who)} · ${esc(w.why)}</div></td></tr>`).join("") || `<tr><td class="empty">none</td></tr>`;
+  $("parked").innerHTML = (plan.parked||[]).map(w => `<tr><td>${esc(w.title)}<div class="meta">${esc(w.why)}</div></td></tr>`).join("") || `<tr><td class="empty">none</td></tr>`;
+  const cutoff = Date.now() - 48*3600e3;
+  const done = Object.entries(runs).filter(([k,v]) => v.status==="done" && when(v.ended) && when(v.ended) > cutoff)
+    .sort((a,b) => when(b[1].ended) - when(a[1].ended));
+  $("done").innerHTML = done.map(([k,v]) => `<tr><td>${esc(titles[k] || v.title)}<div>${chips(k)}</div><div class="meta">${esc(v.agent)} · ${esc(hhmm(v.ended))}${(when(v.started)&&when(v.ended))? " · took <b>"+dur(when(v.ended)-when(v.started))+"</b>":""}</div></td></tr>`).join("") || `<tr><td class="empty">none</td></tr>`;
+
+  $("stages").innerHTML = (road.stages||[]).map(s => `<div class="stage ${s.state==="ACTIVE"?"active":""}">
+     <div><b>${esc(s.id)}</b> · ${esc(s.title)} ${s.state==="ACTIVE"?'<span class="pill AMBER">now</span>':""}</div>
+     <div class="bar"><i style="width:${+s.percent||0}%"></i></div><div class="meta">${+s.percent||0}% · ${esc(s.goal||"")}</div>${partsFor(s.id, running, next, done)}</div>`).join("");
+  $("stamp").textContent = "plan updated " + (plan.updated || "?") + " · read " + new Date().toLocaleTimeString();
+}
+// S181 (operator: "add option to answer pending questions on the opsboard"): the S178 answer box lived on /old only. Same API:
+// GET /api/questions, POST /api/answer {id, answer, note}. Open questions first; answered ones fold away.
+// OPERATOR S205 "i want the heat meter on opsboard to be in real time": temperature + CPU load straight from the
+// sensor (/api/pc/live, LibreHardwareMonitor) every 2 s; the GREEN/AMBER/RED pill stays the watchdog's verdict.
+// S227 (operator: "this doesnt make sense the shown value is wrong" - a RED pill beside "CPU 71.8 °C"): the pill was read ONCE at
+// page load (the page never reloads) while the temperature beside it is live every 2 s, so a minutes-old RED sat next to a cool
+// live reading. Now the watchdog verdict refreshes every 10 s and says WHY and WHEN; the live sensor reading is labelled live.
+function paintPc(pc){
+  if (!pc || !pc.ok) return;
+  const why = (pc.problems && pc.problems.length) ? pc.problems.join(" | ") : ("watchdog " + pc.temp_c + " °C, load " + pc.cpu_pct + "%");
+  $("pc").innerHTML = `<span class="pill ${esc(pc.state)}" title="${esc(why)}">${esc(pc.state)}</span> <span class="meta">${esc(why)} · checked ${esc(String(pc.stamp||"").slice(11))}</span> · live CPU <b id="liveTemp">${pc.temp_c} °C</b> · load <b id="liveCpu">${pc.cpu_pct}%</b><span id="liveAt"></span> · memory <b>${pc.ram_pct}%</b> · C: <b>${pc.c_free_gb} GB</b> free · E: <b>${pc.e_free_gb} GB</b> free`;
+}
+setInterval(async()=>paintPc(await get("/api/pc")), 10000);
+// S227 (operator: "can you show in the board what is making the heat rising"): the processes burning CPU right now, named.
+async function heatNow(){
+  const d = await get("/api/pc/heat"); let el = document.getElementById("heatNow");
+  if (!el) { el = document.createElement("div"); el.id = "heatNow"; el.className = "meta"; el.style.marginTop = "4px"; $("pc").after(el); }
+  if (!d || !d.ok) { el.textContent = "Heat now: " + ((d && d.why) || "unreadable"); return; }
+  el.innerHTML = "<b>Heat now</b> (" + esc(d.at) + "): " + (d.top.length ? d.top.map(t => `<span title="pid ${esc(t.pid)} · ${esc(t.name)} · ${esc(t.mb)} MB" style="${t.cores>=1.5?'color:#f85149;font-weight:600':t.cores>=0.6?'color:#e3b341':''}">${esc(t.what)} <b>${esc(t.cores)} core${t.cores===1?"":"s"}</b> (${esc(t.cpu)}%)</span>`).join(" · ") : "nothing above 1% CPU") +
+    ' <span title="16 threads on this Ryzen 7800X3D. One core flat out runs at full boost and alone lifts Tctl into the 80s - so 1 core = a lot of heat, even when total load reads low.">ⓘ 1 core flat out ≈ the 80s</span>';
+}
+heatNow(); setInterval(heatNow, 15000);
+// S227 (operator: "can you make a better real time graph with the cores and what they are running" + "show the flow from the task to
+// core"): LEFT the tasks (agent runs / Claude / apps), MIDDLE their processes, RIGHT the 8 cores x 2 threads live (load bar, 60 s trail,
+// watts, effective MHz). Band width = busy cores. Windows moves threads between cores every few ms, so a task feeds the whole pool -
+// the right column shows WHERE the load sits now, the bands show WHO puts it there.
+const CF = { hist: [], heat: null };
+async function coreFlow(){
+  const c = await get("/api/pc/cores"); if (!c || !c.ok) return;
+  CF.hist.push(c.threads); if (CF.hist.length > 30) CF.hist.shift();
+  let box = document.getElementById("coreFlow");
+  if (!box) { box = document.createElement("div"); box.id = "coreFlow"; box.style.cssText = "margin-top:6px;border:1px solid #30363d;border-radius:6px;padding:6px;background:#0d1117";
+    const h = document.getElementById("heatNow") || $("pc"); h.after(box); }
+  // S253 (operator screenshot "???": under load one core tile filled the whole screen): the chart is capped - 12 process rows,
+  // the px-per-core scale shrinks so the list fits 560 px, and the core column has its own fixed height.
+  const rows = ((CF.heat && CF.heat.ok) ? CF.heat.top : []).slice(0, 12);
+  const W = 1180, colT = 20, colP = 330, colC = 700, tw = 200, pw = 230, HMAX = 560, CORES_H = 8*34 + 7*4;
+  const busyAll = rows.reduce((s,r)=>s+Math.max(0, r.cores||0),0);
+  const k = Math.max(4, Math.min(34, busyAll > 0 ? (HMAX - 40 - rows.length*20) / busyAll : 34));   // px per busy core
+  const H = Math.min(HMAX, Math.max(CORES_H + 34, 40 + rows.reduce((s,r)=>s + Math.max(14, (r.cores||0)*k) + 6, 0)));
+  const tasks = {}; rows.forEach(r => { tasks[r.task] = (tasks[r.task] || 0) + (r.cores || 0); });
+  const tl = Object.entries(tasks).sort((a,b)=>b[1]-a[1]);
+  const busy = rows.reduce((s,r)=>s+(r.cores||0),0) || 1;
+  const col = v => v >= 1.5 ? "#f85149" : v >= 0.6 ? "#e3b341" : "#3fb950";
+  let svg = `<svg viewBox="0 0 ${W} ${H}" width="100%" style="font:12px system-ui;color:#c9d1d9">`;
+  svg += `<text x="${colT}" y="14" fill="#8b949e">TASK</text><text x="${colP}" y="14" fill="#8b949e">PROCESS</text><text x="${colC}" y="14" fill="#8b949e">CORES (2 threads each) · Tctl ${c.tctl} °C · CCD ${c.ccd} °C · ${c.package_w} W · total ${c.total}%</text>`;
+  // tasks
+  let y = 24; const ty = {};
+  tl.forEach(([t,v]) => { const h = Math.max(14, v*k); ty[t] = {y, h, used:0};
+    svg += `<rect x="${colT}" y="${y}" width="${tw}" height="${h}" rx="3" fill="#161b22" stroke="${col(v)}"/><text x="${colT+6}" y="${y+12}" fill="#e6edf3">${esc(t).slice(0,30)}</text><text x="${colT+tw-6}" y="${y+12}" text-anchor="end" fill="${col(v)}">${v.toFixed(1)}</text>`;
+    y += h + 6; });
+  // processes + bands
+  let py = 24; const pyEnd = [];
+  rows.forEach(r => { const v = r.cores || 0, h = Math.max(14, v*k), T = ty[r.task];
+    if (T) { const bh = Math.max(2, v*k), sy = T.y + T.used; T.used += bh;
+      svg += `<path d="M${colT+tw},${sy} C${(colT+tw+colP)/2},${sy} ${(colT+tw+colP)/2},${py} ${colP},${py} L${colP},${py+bh} C${(colT+tw+colP)/2},${py+bh} ${(colT+tw+colP)/2},${sy+bh} ${colT+tw},${sy+bh} Z" fill="${col(v)}" opacity="0.25"/>`; }
+    svg += `<rect x="${colP}" y="${py}" width="${pw}" height="${h}" rx="3" fill="#161b22" stroke="#30363d"/><text x="${colP+6}" y="${py+12}" fill="#e6edf3">${esc(String(r.name||"").split("#")[0]).slice(0,22)} · ${esc(r.pid)}</text><text x="${colP+pw-6}" y="${py+12}" text-anchor="end" fill="${col(v)}">${v.toFixed(1)} c</text>`;
+    pyEnd.push([py, h, v]); py += h + 6; });
+  // band from every process into the core pool
+  const cy0 = 24, cyH = CORES_H;
+  pyEnd.forEach(([py,h,v]) => { const bh = Math.max(2, v*k);
+    svg += `<path d="M${colP+pw},${py} C${(colP+pw+colC)/2},${py} ${(colP+pw+colC)/2},${cy0+cyH/2-bh/2} ${colC-8},${cy0+cyH/2-bh/2} L${colC-8},${cy0+cyH/2+bh/2} C${(colP+pw+colC)/2},${cy0+cyH/2+bh/2} ${(colP+pw+colC)/2},${py+bh} ${colP+pw},${py+bh} Z" fill="${col(v)}" opacity="0.18"/>`; });
+  svg += `<rect x="${colC-8}" y="${cy0}" width="4" height="${cyH}" fill="#30363d"/>`;
+  // cores: 8 tiles x 2 thread bars + trail
+  const tileH = (cyH - 7*4) / 8, barW = 150;
+  (c.cores.length ? c.cores : Array.from({length:8},(_,i)=>({core:i+1}))).forEach((co,i) => { const ty0 = cy0 + i*(tileH+4);
+    svg += `<rect x="${colC}" y="${ty0}" width="${W-colC-10}" height="${tileH}" rx="3" fill="#161b22" stroke="#30363d"/>`;
+    svg += `<text x="${colC+6}" y="${ty0+tileH/2+4}" fill="#e6edf3">Core ${co.core}</text>`;
+    for (let t=0;t<2;t++){ const idx = i*2+t, v = c.threads[idx] ?? 0, by = ty0 + 3 + t*(tileH/2-2), bh = tileH/2-4;
+      svg += `<rect x="${colC+60}" y="${by}" width="${barW}" height="${bh}" fill="#21262d"/><rect x="${colC+60}" y="${by}" width="${barW*v/100}" height="${bh}" fill="${v>=80?'#f85149':v>=50?'#e3b341':'#3fb950'}"/>`;
+      const pts = CF.hist.map((h,j)=>`${colC+220+j*6},${by+bh-(h[idx]||0)/100*bh}`).join(" ");
+      svg += `<polyline points="${pts}" fill="none" stroke="#58a6ff" stroke-width="1"/><text x="${colC+60+barW+4}" y="${by+bh-1}" fill="#8b949e" font-size="10">${Math.round(v)}%</text>`; }
+    svg += `<text x="${W-16}" y="${ty0+tileH/2+4}" text-anchor="end" fill="#8b949e">${co.w ?? "?"} W · ${co.eff_mhz ? Math.round(co.eff_mhz) : "?"} MHz</text>`; });
+  svg += `</svg><div class="meta">Band width = busy cores. Windows moves a task's threads across all cores every few ms, so each task feeds the pool; the right side shows where the load sits now (live 2 s, trail = last 60 s).</div>`;
+  box.innerHTML = svg;
+}
+async function coreFlowHeat(){ CF.heat = await get("/api/pc/heat"); }
+// the process read costs CPU itself - 15 s
+coreFlowHeat(); setInterval(coreFlowHeat, 15000);
+coreFlow(); setInterval(coreFlow, 2000);
+async function liveHeat(){
+  const d = await get("/api/pc/live"); if (!d || !d.ok) return;
+  const t = $("liveTemp"), c = $("liveCpu"), a = $("liveAt"); if (!t) return;
+  t.textContent = d.temp_c + " °C"; t.style.color = d.temp_c >= 84 ? "#f85149" : d.temp_c >= 74 ? "#e3b341" : "";
+  c.textContent = d.cpu_pct + "%"; a.textContent = " (live " + d.at + ")";
+}
+setInterval(liveHeat, 2000);
+// S212 (operator: "can you show the github meters on opsboard"); S260 REAL-TIME (operator: "add the actions github meter on
+// opsboard real-time sync"): the enterprise's included minutes = GitHub's billed hours + the live jobs not billed yet, jobs running
+// now, today's minutes (/api/github answers at once from a reading refreshed every 20 s; this pill re-reads every 15 s while
+// the tab is visible). The org budget is a hard stop: at the cap CI and every cloud agent halt until the 1st.
+async function ghMeter(){
+  const d = await get("/api/github"), box = $("gh");
+  if (!d || !d.ok) { box.textContent = "GitHub Actions: " + ((d && d.why) || "unreadable"); return; }
+  const pool = d.used_min / d.free_min;
+  const frac = d.budget_usd ? d.paid_usd / d.budget_usd : 0;
+  const state = frac >= 0.85 || pool >= 0.9 ? "RED" : frac >= 0.6 || pool >= 0.7 || d.today_min >= 3000 ? "AMBER" : "GREEN";
+  const today = Object.entries(d.today_by_repo || {}).map(([r, m]) => `${esc(r)} ${m.toLocaleString()}`).join(", ");
+  box.innerHTML = `<span class="pill ${state}">GitHub</span> <span class="gh-live" title="live">●</span> minutes <b>${d.used_min.toLocaleString()}</b> / ${d.free_min.toLocaleString()} included`
+    + ` <span title="GitHub billed through ${esc(d.billed_through || "?")}; the rest is live from the jobs">(billed ${d.billed_min.toLocaleString()} + live ${Math.round(d.unbilled_min).toLocaleString()})</span>`
+    + ` · running <b>${d.running_jobs}</b> jobs (${d.running_min.toFixed(1)} min), ${d.queued_jobs} queued`
+    + ` · today <b>${d.today_min.toLocaleString()}</b>${today ? ` <span title="today by repo">(${today})</span>` : ""}`
+    + ` · paid <b>$${d.paid_usd.toFixed(2)}</b>${d.budget_usd ? ` of $${d.budget_usd.toFixed(0)}${d.hard_stop ? " hard stop" : ""}` : ""}`
+    + ` · <span class="muted">live ${esc(d.at)}, ${d.age_s || 0} s ago</span>`;
+}
+ghMeter();
+setInterval(() => { if (document.visibilityState === "visible") ghMeter(); }, 15000);
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") ghMeter(); });
+async function loadQuestions(){
+  const box=$("questions"); const d=await get("/api/questions"); const qs=(d&&(d.questions||(d.data&&d.data.questions)))||[];
+  const open=qs.filter(q=>!q.answer), done=qs.filter(q=>q.answer);
+  const row=q=>{ const opts=Array.isArray(q.options)?q.options:[];
+    const ctl=opts.length? `<div class="qopts">${opts.map(o=>`<button type="button" data-q="${esc(q.id)}" data-a="${esc(o)}">${esc(o)}</button>`).join("")}</div>`
+      : `<input class="qin" maxlength="8000" placeholder="Your answer" data-free="${esc(q.id)}"><div class="qopts"><button class="qsend" type="button" data-send="${esc(q.id)}">Send</button></div>`;
+    // S188 operator: "i want to be able to not pick and answer, just comment on the opsboard" - the note box sends alone too.
+    const say=opts.length? `<div class="qopts"><button class="qsend" type="button" data-comment="${esc(q.id)}">Send as comment (no pick)</button></div>` : "";
+    // S191 operator: "when i need to approve something i want to be able to see it on the opsboard" - the attached doc/still shows here.
+    const att=(Array.isArray(q.attach)?q.attach:[]).map(p=>{ const u="/attach?path="+encodeURIComponent(p);
+      return /\.(png|jpe?g|webp|gif)$/i.test(p)
+        ? `<a href="${u}" target="_blank"><img class="qimg" src="${u}" alt="${esc(p)}"></a><div class="qopts"><a class="qmark" href="/markup?qid=${encodeURIComponent(q.id)}&q=${encodeURIComponent(p)}" target="_blank">✎ Mark areas on this picture</a></div>`
+        : `<details class="qdoc" open><summary>${esc(p.split("/").pop())} · <a href="${u}" target="_blank">open full page</a></summary><div class="qdocbody" data-doc="${esc(p)}">Loading…</div></details>`; }).join("");
+    return `<div class="qrow"><div>${esc(q.text||"")}</div>${att}${ctl}<input class="qin" maxlength="8000" placeholder="${opts.length?"Comment - goes with a pick, or alone":"Note (optional)"}" data-note="${esc(q.id)}">${say}`+
+      `<div class="qmeta">${esc(q.id)}${q.session?" · asked "+esc(q.session):""}<span id="qs-${esc(q.id)}"></span></div></div>`; };
+  box.innerHTML=(open.length? open.map(row).join("") : `<div class="qmeta">No open questions.</div>`)+
+    (done.length? `<details><summary class="qmeta">Answered (${done.length})</summary>${done.map(q=>`<div class="qrow"><div class="qmeta">${esc(q.text||"")}</div><div>${q.comment_only?"comment: ":""}<b>${esc(q.answer)}</b>${q.note?" · "+esc(q.note):""}</div></div>`).join("")}</details>`:"");
+  $("qbox").style.borderColor= open.length? "var(--next)" : "var(--line)";
+  box.querySelectorAll("[data-doc]").forEach(async el=>{ try{ const r=await fetch("/api/attach?path="+encodeURIComponent(el.dataset.doc),{cache:"no-store"});
+    el.innerHTML= r.ok? await r.text() : "attachment not found"; }catch(e){ el.textContent="attachment not readable"; } });
+  box.querySelectorAll("[data-q]").forEach(b=>b.addEventListener("click",()=>answerQ(b.dataset.q,b.dataset.a)));
+  box.querySelectorAll("[data-comment]").forEach(b=>b.addEventListener("click",()=>{ const id=b.dataset.comment; const n=box.querySelector(`[data-note="${id}"]`); const t=n&&n.value.trim();
+    if(!t){ const st=$("qs-"+id); if(st) st.textContent=" · type a comment first"; return; } n.value=""; answerQ(id,t); }));
+  box.querySelectorAll("[data-send]").forEach(b=>b.addEventListener("click",()=>{ const f=box.querySelector(`[data-free="${b.dataset.send}"]`); if(f&&f.value.trim()) answerQ(b.dataset.send,f.value.trim()); }));
+}
+async function answerQ(id,answer){
+  const st=$("qs-"+id); if(st) st.textContent=" · sending…";
+  const n=$("questions").querySelector(`[data-note="${id}"]`); const note=n&&n.value.trim()? n.value.trim() : undefined;
+  try{ const r=await fetch("/api/answer",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(note?{id,answer,note}:{id,answer})});
+    const j=await r.json(); if(!r.ok) throw new Error(j.error||"not saved"); await loadQuestions(); }
+  catch(e){ if(st) st.textContent=" · "+e.message; }
+}
+// S192 operator: "make the opsboard to not reload every 10 minutes" - no timed redraws; the Refresh button reloads the data.
+// S231: talk to Paul (POST /api/pm_message wakes him hidden; GET /api/pm shows the thread state).
+async function loadPm(){
+  const pm = await get("/api/pm"); if(!pm) return;
+  $("pmAt").textContent = pm.review_at? "(updated "+pm.review_at+")" : "(no review yet)";
+  $("pmState").textContent = pm.thinking? "Paul is thinking…" : "";
+  // S233 operator: "i still have no clue how to read pauls responses he does not appear anywhere" - his answer under each message.
+  const label = {waiting:"queued", thinking:"Paul is thinking…", answered:"answered"};
+  // S233 operator: "find a way to hide old pauls answers the box is getting too big" - the 2 newest open, the rest folded;
+  // a long answer shows 4 lines until clicked.
+  const one = m=>`<div style="margin:8px 0">
+    <div><b>You (${esc(m.id)})</b> <span class="meta">${esc(m.at)}</span> - ${esc(m.text.length>220 ? m.text.slice(0,220)+"…" : m.text)} <i>[${esc(label[m.status]||m.status)}]</i></div>
+    ${m.reply ? `<div class="pmReply" title="click to show all / less" onclick="this.classList.toggle('full')" style="margin:4px 0 0 18px;padding:6px 10px;border-left:3px solid #f0c233;white-space:pre-wrap;cursor:pointer"><b>Paul:</b> ${esc(m.reply)}</div>`
+      : `<div class="meta" style="margin-left:18px">${m.status==="answered" ? "Paul's answer is in his review above (no numbered reply found)" : "waiting for Paul (about 4-6 minutes)"}</div>`}
+  </div>`;
+  const all = (pm.messages||[]).slice().reverse(), recent = all.slice(0,2), older = all.slice(2);
+  $("pmMsgs").innerHTML = recent.map(one).join("")
+    + (older.length ? `<details style="margin-top:6px"><summary class="meta" style="cursor:pointer">Older messages (${older.length})</summary>${older.map(one).join("")}</details>` : "");
+}
+async function pmSend(){
+  const t=$("pmText").value.trim(); if(!t) return;
+  $("pmSend").disabled=true; $("pmState").textContent="sending…";
+  try{ const r=await fetch("/api/pm_message",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:t})});
+    const j=await r.json(); if(!r.ok) throw new Error(j.error||"not sent"); $("pmText").value=""; }
+  catch(e){ $("pmState").textContent="not sent: "+e.message; }
+  $("pmSend").disabled=false; loadPm();
+}
+
+load(); loadQuestions(); loadPm();
+</script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "body": "Task file: research/TASK_M3.md. Model: top tier, effort medium, Fast off.\n\nM1 landed and stands - the instrument, its five states, its motion table and its placement are all in the repo. M3 closes the four gaps the review found and draws the one K22 reading nobody has.\n\nYou are NOT blocking anything: R37 is building the Range Rail now from M1 plus rulings recorded in the task file, shipping with text labels and no glyphs. Your work slots in afterwards. Do not re-spec the rail geometry.\n\nThe real job is the band glyphs. The M1 set fails its own stated 16px bar - OUT, LONG and MID are indistinguishable at 16px because the only cue is the gap between two identical figures. Rebuild so each band is told apart by silhouette, not spacing. Also: the corner range call drawn on the tick (hollow = corner called, filled = his own game), the owner row in its three states, and the post-fight range card from K22 section 5.\n\nFour things were ruled and are not open: owner is a text row not a pip chip; the call rides the OURS tick; clinch lock is dropped (no engine state backs it); MENTAL #8B7AD8 is rejected for now. Token correction: COOL_LO/COOL/COOL_HI do not exist as constants - they are COOL_RAMP[0..2] in UITokens.gd:78. Your hexes were right, the names were not.\n\nYour AAA profile pack is parked, not rejected - it proposes a new left rail and reopens the R18/R23 profile, which are operator calls. Please do not extend it until the operator rules.",
+  "created_at": "2026-09-06T14:27:33Z",
+  "from": "claude",
+  "id": "27a4ccd3a31e",
+  "to": "maria",
+  "topic": "M3 assigned: the Range Rail, pass two"
+}

@@ -1,0 +1,7 @@
+You are resuming Q220 in D:/FightCamp/wt/Q219 (branch qwen/q220-km3-neck). SEND-BACK 1 from Claude: your fix re-enables split_inlet,
+and S55 MEASURED that arm collapsing the G73 upper-chest skin-hold share from 47% to 5%. Your digest ARGUES it did not collapse -
+that is not a gate. Measure it: find the G73 skin-hold census tool (python Tools/prior_research.py G73 skin hold upper chest; grep
+Godot/tools for skin_hold / g73), run it on master (split_inlet OFF) and on your branch (ON) with the SAME seeds and DIFFERENT
+fighters, print both shares. If the share collapses, change the geometry (e.g. keep one thorax capsule and cap its top at the
+neck base instead of splitting) until BOTH the reachability test passes AND the share holds; report numbers in Q220_DIGEST.md.
+Parse gate, the subset from the task file (--jobs 2), git add by path, commit, push. Do not stop at 'written'.

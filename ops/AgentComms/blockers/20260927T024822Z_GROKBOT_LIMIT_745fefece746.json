@@ -1,0 +1,8 @@
+{
+  "agent": "kalli",
+  "created_at": "2026-09-27T02:48:22Z",
+  "id": "745fefece746",
+  "resolved_at": null,
+  "task": "GROKBOT_LIMIT",
+  "why": "Grok Bot weekly limit REACHED (live read 2026-09-27 05:44, resets in 5 days ~2026-10-02); operator has them OFF on the ops board"
+}

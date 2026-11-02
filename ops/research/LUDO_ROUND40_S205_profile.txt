@@ -1,0 +1,405 @@
+FIGHTCAMP — TACTICAL BIOMECHANICAL DOSSIER SPECIFICATION
+
+Engine: Godot 4.7.2 Stable (PC Target: x86_64, Windows / Linux / macOS)
+
+Resolution Baseline: $1920 \times 1080$ (16:9 fixed scale factor, integer-snapped sub-elements)
+
+Genre Class: Hardcore Sports Management Simulation (Football Manager, Motorsport Manager)
+
+Design Mandate: Deep systems, explicit readability, high information density, zero mobile tropes. Every element must anchor directly to a manager decision.
+
+SECTION A — THE OFFICIAL 54-NODE BOXING TECHNIQUE REPERTOIRE
+A.1 Structural Mechanics & The 7 Official Branches
+
+The technique tree is rendered in the right-hand column ($x \in [1240, 1920]$, $w=680\text{ px}$, $h=968\text{ px}$). It replaces all generic RPG tropes with the game's actual 54 nodes across its 7 certified boxing branches.
+
+The 7 Boxing Branches & Hierarchy
+======================================================================================================
+                               OFFICIAL 54-NODE REPERTOIRE ARCHITECTURE
+======================================================================================================
+1. FUNDAMENTALS (3 Nodes)
+   ├── [T1] Stance and High Guard
+   ├── [T1] Breathing and Rhythm
+   └── [T1] Finding the Range
+
+2. STRAIGHT PUNCHING (7 Nodes)
+   ├── [T1] Jab
+   ├── [T1] Rear Cross
+   ├── [T2] Cross to the Body
+   ├── [T2] Double Jab
+   ├── [T2] Jab to the Body
+   ├── [T3] Overhand Right
+   └── [T3] Up Jab
+
+3. HOOKS & BODYWORK (7 Nodes)
+   ├── [T2] Lead Hook
+   ├── [T2] Lead Uppercut
+   ├── [T2] Rear Hook
+   ├── [T2] Rear Uppercut
+   ├── [T3] Lead Hook to the Body
+   ├── [T3] Rear Hook to the Body
+   └── [T3] Shovel Hook
+
+4. DEFENSE & COUNTERS (15 Nodes)
+   ├── [T1] Catch the Jab
+   ├── [T1] Parry
+   ├── [T1] Slip
+   ├── [T2] Elbow and Forearm Block
+   ├── [T2] Bob and Weave
+   ├── [T2] Catch and Return
+   ├── [T2] Pull
+   ├── [T2] Roll Under
+   ├── [T2] Slip-Cross Counter
+   ├── [T3] Check Hook
+   ├── [T3] Check Hook and Pivot
+   ├── [T3] Counter Over the Jab
+   ├── [T3] Long Guard
+   ├── [T3] Pull-Cross Counter
+   └── [T3] Shoulder Roll
+
+5. FOOTWORK & RING (11 Nodes)
+   ├── [T1] Step In Step Out
+   ├── [T2] Circle to the Lead Side
+   ├── [T2] Circle to the Rear Side
+   ├── [T2] Feint
+   ├── [T2] Ring Pivot
+   ├── [T3] L-Step Angle
+   ├── [T3] Cut Off the Ring
+   ├── [T3] Breaking the Rhythm
+   ├── [T3] Working Off the Ropes
+   ├── [T4] Drawing the Lead
+   └── [T4] Switching Stance
+
+6. COMBINATIONS (6 Nodes)
+   ├── [T1] One-Two
+   ├── [T2] One-Two-Hook
+   ├── [T3] Jab Body Jab Head
+   ├── [T4] Counter Combination
+   ├── [T4] Jab-Cross-Lead Hook to the Body
+   └── [T4] Six-Punch Combination
+
+7. INFIGHTING (5 Nodes)
+   ├── [T2] Tie Up
+   ├── [T3] Forearm Frame
+   ├── [T3] Uppercut on the Inside
+   ├── [T3] Pivot Out of the Clinch
+   └── [T3] Shoulder Bump
+======================================================================================================
+
+A.2 Node Display States & Visual Rules
+
+Each technique node within the branch list is displayed as an ultra-crisp, high-density chip ($w=644\text{ px}$, $h=58\text{ px}$). Its state determines its borders, backgrounds, and interactive readouts:
+
++----------------------------------------------------------------------------------------------------+
+| [T2] LEAD HOOK                   MASTERY: [||||||||||||||||||||] 78% (PROFICIENT) | DRILL: BAG 2   |
+| Req: Jab T1, Cross T1 | Tech: 34, Pwr: 38               Speed: 10.8 m/s | Stm: 5.2 | Quota: 4.0h/w |
++----------------------------------------------------------------------------------------------------+
+
+The 5 Concrete Display States
+
+LOCKED (Requirements Unmet):
+
+Visual Styling: Border $1\text{ px}$ #1E293B, background #0A0D14, text #475569.
+Content: Node Name, Tier Badge ([T2]), precise missing prereqs shown in red #EF4444 (e.g., MISSING: Rear Cross T1 (Mastery 0%), Technique 34 (Current: 28)).
+Interaction: Unclickable for animation preview; clicking opens dependency pathing tooltip.
+
+AVAILABLE (Trainable / Unlocked, 0% Mastery):
+
+Visual Styling: Border $1\text{ px}$ #334155, background #0F172A, text #94A3B8.
+Content: Node Name, Tier Badge, MASTERY: 0% [UNLEARNED], required attributes met in muted grey.
+Interaction: Clickable; stages base unrefined preview if certified; button [ASSIGN TO TRAINING PLAN] enabled.
+
+LEARNING (Actively Assigned to Gym Station):
+
+Visual Styling: Border $1\text{ px}$ vibrant green #22C55E, background #0B1F17, text #F8FAFC.
+Content: Node Name, current mastery percentage with animated progress fill, and explicit assignment tag: LEARNING AT: HEAVY BAG 2 (4.0 h/wk) -> +1.4%/wk.
+Interaction: Full 3D stage clip execution; telemetry reflects current partial mastery metrics.
+
+MASTERED (Proficient / Bout-Ready, Mastery $\ge 70%$):
+
+Visual Styling: Border $1\text{ px}$ gold #D69E2E, background #1C1917, text #FACC15.
+Content: Node Name, Tier Badge, MASTERY: 94% [CERTIFIED], Gameplan Weight pill ([PRIMARY] / [SITUATIONAL]).
+Interaction: Full 3D stage preview with peak execution velocity and crisp recovery frames.
+
+NOT-IN-THIS-BUILD (Uncertified Mechanics for Demo):
+
+Visual Styling: Border $1\text{ px}$ dashed #334155, background #07090E, text #64748B.
+Content: Node Name, Tier Badge, tag: SIMULATION ACTIVE | NO 3D ANIMATION CLIP IN DEMO.
+Interaction: Trainable in numbers and fully calculated in the fight engine, but the 3D Stage renders a static biomechanical guard pose with a clean telemetry label: [3D PREVIEW UNAVAILABLE FOR THIS NODE].
+A.3 Complete 54-Node Data & Certification Mapping
+
+Every requirement strictly uses the simulation attributes (power, technique, speed, defense, conditioning, fight_iq):
+
+| Node Title | Tier | Prerequisite Nodes | Attribute Minimums | Demo Animation Clip Trigger |
+| :--- | :--- | :--- | :--- | :--- |
+| Fundamentals | | | | |
+| Stance and High Guard | T1 | None | None | box_guard_orthodox / southpaw |
+| Breathing and Rhythm | T1 | Stance and High Guard | conditioning 20 | Static guard breathing pulse |
+| Finding the Range | T1 | Stance and High Guard | technique 20, fight_iq 20 | Static guard range-step |
+| Straight Punching | | | | |
+| Jab | T1 | Stance and High Guard | technique 15, speed 15 | Certified: jab |
+| Rear Cross | T1 | Jab | technique 20, power 20 | Certified: cross |
+| Cross to the Body | T2 | Rear Cross | technique 28, conditioning 25 | Certified: cross_body |
+| Double Jab | T2 | Jab | technique 30, speed 32 | Certified: double_jab |
+| Jab to the Body | T2 | Jab | technique 26, conditioning 24 | Certified: jab_body |
+| Overhand Right | T3 | Rear Cross | technique 42, power 50 | Certified: overhand |
+| Up Jab | T3 | Jab, Slip | technique 45, speed 42 | Certified: up_jab |
+| Hooks & Bodywork | | | | |
+| Lead Hook | T2 | Jab | technique 30, power 28 | Certified: lead_hook |
+| Lead Uppercut | T2 | Lead Hook | technique 32, speed 30 | Certified: lead_uppercut |
+| Rear Hook | T2 | Rear Cross | technique 32, power 35 | Certified: rear_hook |
+| Rear Uppercut | T2 | Rear Cross | technique 34, power 38 | Certified: rear_uppercut |
+| Lead Hook to the Body | T3 | Lead Hook | technique 44, conditioning 40 | Certified: body_hook |
+| Rear Hook to the Body | T3 | Rear Hook | technique 44, conditioning 40 | Certified: rear_hook_body |
+| Shovel Hook | T3 | Lead Hook to Body | technique 46, power 45 | Not in this build (Sim only) |
+| Defense & Counters | | | | |
+| Catch the Jab | T1 | Stance and High Guard | defense 18, technique 18 | Certified: defence_catch |
+| Parry | T1 | Stance and High Guard | defense 20, speed 20 | Not in this build (Sim only) |
+| Slip | T1 | Stance and High Guard | defense 22, speed 22 | Certified: defence_slip |
+| Elbow and Forearm Block | T2 | Stance and High Guard | defense 28, conditioning 25 | Not in this build (Sim only) |
+| Bob and Weave | T2 | Slip | defense 32, conditioning 30 | Not in this build (Sim only) |
+| Catch and Return | T2 | Catch the Jab, Rear Cross| defense 34, technique 32 | Certified: catch_counter |
+| Pull | T2 | Slip | defense 35, speed 38 | Certified: defence_pull |
+| Roll Under | T2 | Bob and Weave | defense 36, conditioning 34 | Not in this build (Sim only) |
+| Slip-Cross Counter | T2 | Slip, Rear Cross | defense 38, technique 36 | Certified: slip_counter |
+| Check Hook | T3 | Lead Hook, Ring Pivot | defense 48, technique 48 | Certified: check_hook |
+| Check Hook and Pivot | T3 | Check Hook | defense 52, footwork 50 | Not in this build (Sim only) |
+| Counter Over the Jab | T3 | Slip, Overhand Right | defense 46, fight_iq 45 | Certified: counter_over_jab |
+| Long Guard | T3 | Stance and High Guard | defense 44, technique 42 | Not in this build (Sim only) |
+| Pull-Cross Counter | T3 | Pull, Rear Cross | defense 48, speed 50 | Certified: pull_counter |
+| Shoulder Roll | T3 | Stance, Slip | defense 55, fight_iq 52 | Not in this build (Sim only) |
+| Footwork & Ring | | | | |
+| Step In Step Out | T1 | Stance and High Guard | speed 20, conditioning 20 | Not in this build (Sim only) |
+| Circle to the Lead Side | T2 | Step In Step Out | technique 28, speed 26 | Not in this build (Sim only) |
+| Circle to the Rear Side | T2 | Step In Step Out | technique 30, speed 28 | Not in this build (Sim only) |
+| Feint | T2 | Finding the Range | technique 32, fight_iq 35 | Not in this build (Sim only) |
+| Ring Pivot | T2 | Step In Step Out | technique 34, speed 34 | Not in this build (Sim only) |
+| L-Step Angle | T3 | Ring Pivot | technique 46, speed 45 | Not in this build (Sim only) |
+| Cut Off the Ring | T3 | Circle to Lead / Rear | fight_iq 48, conditioning 45| Not in this build (Sim only) |
+| Breaking the Rhythm | T3 | Feint, Breathing | fight_iq 52, technique 48 | Not in this build (Sim only) |
+| Working Off the Ropes | T3 | High Guard, Ring Pivot | defense 50, composure 48 | Not in this build (Sim only) |
+| Drawing the Lead | T4 | Feint, Counter Over Jab | fight_iq 65, technique 60 | Not in this build (Sim only) |
+| Switching Stance | T4 | Step In Step Out, Pivot | technique 68, speed 65 | Not in this build (Sim only) |
+| Combinations | | | | |
+| One-Two | T1 | Jab, Rear Cross | speed 26, technique 26 | Certified: one_two |
+| One-Two-Hook | T2 | One-Two, Lead Hook | speed 36, technique 38 | Certified: one_two_hook |
+| Jab Body Jab Head | T3 | Jab, Jab to the Body | speed 45, conditioning 44 | Not in this build (Sim only) |
+| Counter Combination | T4 | Slip-Cross, Check Hook | speed 60, fight_iq 62 | Not in this build (Sim only) |
+| Jab-Cross-Lead Hook Body| T4 | One-Two-Hook, Body Hook | technique 64, power 60 | Certified: liver_combo |
+| Six-Punch Combination | T4 | One-Two-Hook, Uppercut | speed 68, conditioning 66 | Certified: six_punch_combo |
+| Infighting | | | | |
+| Tie Up | T2 | Stance and High Guard | defense 30, conditioning 32 | Not in this build (Sim only) |
+| Forearm Frame | T3 | Tie Up, Elbow Block | defense 45, technique 44 | Not in this build (Sim only) |
+| Uppercut on the Inside | T3 | Rear Uppercut, Tie Up | technique 48, power 46 | Not in this build (Sim only) |
+| Pivot Out of Clinch | T3 | Tie Up, Ring Pivot | technique 50, speed 48 | Not in this build (Sim only) |
+| Shoulder Bump | T3 | Tie Up | power 52, conditioning 50 | Not in this build (Sim only) |
+
+SECTION B — COMPLETE DATA AUDIT: PROFILE, MEDICAL & TRAINING PLAN TABS
+
+The simulation tracks rich data per fighter (Fact 7). Squeezing all of it onto the default view creates visual clutter. Below is the exact layout mapping showing where each metric belongs across the OVERVIEW, MEDICAL, and TRAINING PLAN tabs, along with its pixel rect, its target manager decision, and its milestone flag (Demo vs. Later).
+
++----------------------------------------------------------------------------------------------------+
+| 1920x1080 MASTER PROFILE TAB ARCHITECTURE                                                          |
++----------------------------------------------------------------------------------------------------+
+| [NAV STRIP] ROSTER > NIKO PARK | [OVERVIEW] | [TECHNIQUES] | [MEDICAL] | [TRAINING PLAN]           |
++----------------------------------------------------------------------------------------------------+
+| [GLOBAL HEADER: METADATA, BIOMETRICS & WEIGHT CLIFF] (0, 56, 1920, 64)                             |
++----------------------------------------------------------------------------------------------------+
+|  TAB 1: OVERVIEW                    TAB 2: MEDICAL                TAB 3: TRAINING PLAN             |
+|  - Biometrics & 9 Profile Bars      - 6-Zone Tissue Damage Table  - Station Assignment Matrix      |
+|  - 3D Biomechanical Stage           - Chronic Wear Curves         - Coach Staff Ratios             |
+|  - Technique Repertoire Tree        - Cut / Scar Tissue History   - Weekly Hours Quotas            |
+|  - Bout Agreement / Countdown       - Brain Trauma / Concussion   - Fatigue / Overreach Curve      |
+|  - Contract Ledger                  - Weight Cut Deficit Ledger   - Sparring Schedule & Rules      |
++----------------------------------------------------------------------------------------------------+
+
+B.1 Global Header Strip (Visible Across All Tabs)
+Pixel Rect: (0, 56, 1920, 64)
+Content:
+Left: NIKO PARK (Chakra Petch Bold 20px, #FFFFFF), Age 41 yo, Division -75 kg (Middleweight), Stance ORTHODOX, Frame COMPACT-HEAVY.
+Center: Record: 0-0-0 AM | Morale: HIGH (92/100) | Composure State: SETTLED.
+Right: Contract: $450/wk Stipend | Gym Cut: 15% | Expires: 18 Wks | Ambition: REGIONAL GOLD.
+Manager Decision: Immediate roster triage: contract expiration alerts, weight division compliance, and fighter morale stability.
+Milestone: MUST-HAVE FOR BOXING DEMO.
+B.2 Tab 1: OVERVIEW (The Tactical Biomechanical Dossier)
+Left Column (0–540 px)
+
+The 9 Derived Profile Bars:
+
+Pixel Rect: (16, 128, 508, 360)
+Data: Displays the 9 profile bars derived directly from base simulation attributes: POWER 90, TECHNIQUE 97, SPEED 90, STAMINA 88, CHIN 94, DEFENCE 94, FOOTWORK 90, RING IQ 98, COMPOSURE 83.
+Visual: 20-tick discrete horizontal meters in violet #6366F1 with bright green accents for elite tiers ($\ge 90$).
+Manager Decision: Evaluates raw athletic capacity to pick appropriate technique specializations.
+Milestone: MUST-HAVE FOR BOXING DEMO.
+
+Personality Traits & Ambition Chips:
+
+Pixel Rect: (16, 496, 508, 96)
+Data: Traits: [DILIGENT WORKER] (+10% training consistency), [PRIDEFUL VETERAN] (-15% compliance with demotions), [IRON WILL] (maintains composure when rocked).
+Manager Decision: Informs coach assignments and contract negotiations; prideful fighters get upset if relegated to secondary sparring slots.
+Milestone: Later (Traits system backend exists, UI chip in demo is read-only).
+
+Active Bout Contract & Scouting Dossier:
+
+Pixel Rect: (16, 600, 508, 230)
+Data:
+If No Bout: Displays clean Empty State card (see Section C).
+If Bout Booked: Opponent Name, Record, Bout Date, Days Remaining.
+Scouting Level (0–3):
+Level 0 (Unscouted): Stats show as ???.
+Level 1 (Basic Tape): Letter grades (Power: B+, Chin: A).
+Level 2 (Scouted): 8-point ranges (Power: 76-84).
+Level 3 (Full Camp Breakdown): Exact values (Power: 81, preferred combo Jab-Cross-Hook).
+Manager Decision: Directs training camp focus toward exploiting the opponent's scouted weaknesses.
+Milestone: MUST-HAVE FOR BOXING DEMO (Levels 0–3 functional).
+
+Acute Condition & Camp Fatigue Bar:
+
+Pixel Rect: (16, 838, 508, 174)
+Data: Acute Fatigue ($S_{\text{acute}}$), Cardio Fatigue ($S_{\text{cardio}}$), and Camp Mileage.
+Manager Decision: Determines if the fighter should be rested or pushed hard during morning training sessions.
+Milestone: MUST-HAVE FOR BOXING DEMO.
+Center Column (540–1240 px): 3D Biomechanical Stage
+Pixel Rect: (540, 128, 700, 884)
+Content: Real-time 3D Viewport. Displays 41-year-old orthodox boxer executing the selected technique, complete with gold execution banner, frame data readouts, and playback toggles.
+Manager Decision: Visual inspection of attack trajectory, extension, balance, and opening counter windows.
+Milestone: MUST-HAVE FOR BOXING DEMO.
+Right Column (1240–1920 px): Technique Repertoire Tree
+Pixel Rect: (1240, 128, 664, 884)
+Content: Full 54-node tree navigation, branch filter tabs, mastery progress bars, station assignment tags, and bottom management action strip.
+Manager Decision: Weekly skill allocation and tactical bout weighting.
+Milestone: MUST-HAVE FOR BOXING DEMO.
+B.3 Tab 2: MEDICAL (Tissue Wear, Brain Trauma & Weight Cut Ledger)
++----------------------------------------------------------------------------------------------------+
+| TAB 2: MEDICAL & ORTHOPEDIC LEDGER (1920x968)                                                      |
++------------------------------------+---------------------------------------------------------------+
+| LEFT PANEL: ANATOMICAL BREAKDOWN   | RIGHT PANEL: CHRONIC WEAR, CUTS & WEIGHT CUT CLIFF            |
+| (16, 128, 640, 884)                | (668, 128, 1236, 884)                                         |
+|                                    |                                                               |
+| [1. 6-ZONE BODY WIREFRAME]         | [1. TISSUE WEAR MATRIX (6 REGIONS)]                           |
+| Front & Back Vector Silhouettes    | - HEAD/NECK:  0.0% Wear | Cartilage: Pristine | Concussion: 0 |
+|                                    | - TORSO/CORE: 0.0% Wear | Rib Stress: None   | Cutman: N/A    |
+| Color Bands:                       | - LEFT ARM:   0.0% Wear | Tendon Strain: 0%  | Power Mod: 1.0 |
+| Green:  0 - 15% (Pristine)         | - RIGHT ARM:  0.0% Wear | Tendon Strain: 0%  | Power Mod: 1.0 |
+| Yellow: 16 - 35% (Minor)           | - LEFT LEG:   0.0% Wear | Joint Fluid: Normal| Footwork: 1.0  |
+| Amber:  36 - 60% (Moderate)        | - RIGHT LEG:  0.0% Wear | Joint Fluid: Normal| Footwork: 1.0  |
+| Red:    61 - 85% (High Risk)       |                                                               |
+| Purple: 86 - 100% (Critical)       | [2. CONCUSSION & BRAIN TRAUMA LEDGER]                         |
+|                                    | Cumulative Sub-Concussive Hits: 0                             |
+|                                    | KO Recovery Days Remaining: 0 days                           |
+|                                    | Chin Degradation Factor: 1.00 (Uncompromised)                 |
+|                                    |                                                               |
+|                                    | [3. WEIGHT CUT MANAGEMENT LEDGER]                             |
+|                                    | Walk-Around Weight: 76.8 kg | Division Limit: 75.0 kg         |
+|                                    | Cut Target: 1.8 kg (2.3% Body Mass) - STATUS: OPTIMAL         |
+|                                    | Water Depletion Method: Sweat Suit + Sauna Protocol           |
+|                                    | Projected Weigh-In Penalty: 0% Stamina Penalty                |
++------------------------------------+---------------------------------------------------------------+
+
+Manager Decision Supported:
+Sparring Restrictions: If HEAD/NECK wear exceeds 40%, manager halts hard sparring to prevent permanent chin deterioration.
+Physician/Cutman Assignment: Assign cutman to treat facial scar tissue before bout sanctioning.
+Weight Cut Protocol: If a fighter is $+6.0\text{ kg}$ over division limits with 7 days to weigh-in, aggressive dehydration will degrade stamina by $-25%$ on fight night; manager must decide whether to forfeit purse percentage or push the cut.
+Milestone:
+6-Zone Wear Table & Wireframe: MUST-HAVE FOR BOXING DEMO.
+Complex Brain Trauma / Dehydration penalty formulas: Later (Basic stamina drop in demo).
+B.4 Tab 3: TRAINING PLAN (Gym Floor Allocation & Sparring Cadence)
++----------------------------------------------------------------------------------------------------+
+| TAB 3: TRAINING PLAN & STATION SCHEDULING (1920x968)                                               |
++----------------------------------------------------------------------------------------------------+
+| TOP SUMMARY: TOTAL WORKLOAD: 28.0 hrs/wk | RECOVERY DEFICIT: +2.1% | PRIMARY DRILL FOCUS: PUNCH FORM |
++------------------------------------+---------------------------------------------------------------+
+| STATION ASSIGNMENT SCHEDULE        | DRILL ALLOCATION BREAKDOWN                                    |
+| (16, 200, 1100, 812)               | (1128, 200, 776, 812)                                         |
+|                                    |                                                               |
+| [MON] 09:00 - Heavy Bag 2 (2.0h)   | - Straight Punching (Jab, Cross): 6.0 h/wk -> +1.8% Mastery   |
+|       14:00 - Coach Mitts (2.0h)   | - Bodywork (Hooks): 4.0 h/wk              -> +1.2% Mastery   |
+| [TUE] 09:00 - Speed Bag 1 (2.0h)   | - Sparring (Full Contact): 4.0 h/wk       -> +2.5% Ring IQ   |
+|       14:00 - Roadwork / S&C (2.0h)|                                                               |
+| [WED] 09:00 - Uppercut Bag (2.0h)  | COACHING STAFF OVERSIGHT                                      |
+|       14:00 - Technical Spar (2.0h)| - Lead Coach: Marcus Vance (Technique +15% Boost)             |
+| [THU] 09:00 - Heavy Bag 1 (2.0h)   | - S&C Specialist: Sarah Lin (Conditioning Drain -10%)         |
+|       14:00 - Video Review (2.0h)  |                                                               |
+| [FRI] 09:00 - Sparring Ring A (3h) | SPARRING PARTNER SELECTION                                    |
+|       14:00 - Massage Clinic (1.0h)| - Assigned: Jake "The Snake" Ruiz (Orthodox, High Speed)      |
+| [SAT] Active Rest / Mobility (2.0h)| - Intensity: 70% Controlled (Low injury risk)                 |
+| [SUN] FULL REST                    |                                                               |
++------------------------------------+---------------------------------------------------------------+
+
+Manager Decision Supported:
+Station Bottleneck Management: If both Niko Park and a prospect are booked for Heavy Bag 2 at 09:00 on Monday, the manager resolves the bottleneck.
+Gains vs. Wear Trade-off: High sparring hours yield faster Ring IQ and technique gains, but increase tissue wear and risk injury before the fight.
+Milestone:
+Weekly Hours allocation to stations: MUST-HAVE FOR BOXING DEMO.
+Detailed sparring partner rosters and coach assignment buffs: Later.
+SECTION C — THE EMPTY STATES SPECIFICATION
+
+In management sims, unbooked prospects, new amateur signings, and healthy fighters are common. Leaving panels blank makes the interface look unpolished and broken.
+
++----------------------------------------------------------------------------------------------------+
+| EMPTY STATE ARCHITECTURAL BLUEPRINT (1920x1080)                                                    |
++------------------------------------+-----------------------------------+---------------------------+
+| LEFT PANEL (UNBOOKED / HEALTHY)    | CENTRE STAGE (NO BOUT SCHEDULED)  | RIGHT PANEL (NEW AMATEUR) |
+|                                    |                                   |                           |
+| [MEDICAL STATUS: PRISTINE]         | [ATHLETE AT REST ON PLINTH]       | [NO ACTIVE TRAINING DRILL]|
+| "All 6 anatomical regions show     | Shaved-head boxer stands in guard | "No technique currently   |
+| zero orthopedic wear, micro-tears, | breathing at resting 0.25 Hz.     | assigned to weekly camp." |
+| or scar tissue. Athlete certified  |                                   |                           |
+| for unrestricted workload."        | Stage Banner:                     | Center Banner:            |
+|                                    | [DEFAULT POSE: ORTHODOX GUARD]    | [SELECT TECHNIQUE BELOW]  |
+| [BOUT STATUS: UNSANCTIONED]        | [CLICK TECHNIQUE TO PREVIEW]      |                           |
+| "Fighter is not contracted to an   |                                   | Full 54-node tree visible |
+| active bout card."                 | Telemetry Reads:                  | with T1 nodes unlocked    |
+| Button: [OPEN MATCHMAKER (M)]      | Velocity: --- | Frame Data: ---   | ready to be assigned.     |
++------------------------------------+-----------------------------------+---------------------------+
+
+C.1 Centre Panel Empty State: "Fighter at Rest"
+The Problem
+
+When the player has not clicked a specific technique, an unconfigured screen often leaves the 3D viewport blank or displays a broken T-pose.
+
+The FightCamp Implementation
+The 3D Scene Remains Live:
+The athlete stands centered on the circular gym-mat plinth in their natural stance (ORTHODOX or SOUTHPAW).
+Plays a smooth, low-energy idle breathing loop (box_guard_idle).
+The camera frames the fighter in the standard Front-Three-Quarter view ($2.40\text{ m}$ distance, $34^\circ$ FOV).
+The Sub-Stage Telemetry Card:
+Text reads: BASE STANCE: ORTHODOX GUARD | IDLE TELEMETRY (in clean slate #94A3B8).
+Metrics read: REACH EXTENSION: 73.5 INCHES | CENTER OF MASS: BALANCED (50/50 SPLIT).
+Buttons: [ORBIT VIEW] active, [SLOW-MO] disabled (greyed out), [PLAY/PAUSE] pauses the breathing loop.
+Tooltip: "Select any technique node from the right-hand repertoire tree to preview biomechanical execution, frame data, and stamina drain."
+C.2 Right Column Empty State: "No Active Training Drills"
+The Problem
+
+For a newly signed fighter or someone on rest, showing a blank column makes the UI look broken.
+
+The FightCamp Implementation
+The 54-Node Tree is ALWAYS Rendered:
+The tree is never blank. Foundation nodes (Stance and High Guard T1, Jab T1, Rear Cross T1, Slip T1, One-Two T1, etc.) are rendered in the AVAILABLE state with zero mastery progress bars.
+Advanced tiers are rendered in the LOCKED state, clearly listing their requirements.
+The Selected Detail Card (Top of Right Panel):
+If no node is clicked, this card displays a helpful overview:
++---------------------------------------------------------------------------------+
+| REPERTOIRE STATUS: UNASSIGNED CAMP                                              |
+| Total Mastery: 6/54 Nodes Unlocked | Weekly Allocation: 0.0 hrs / 28.0 hrs Max |
+| Current Focus: NONE (Click a technique below to allocate training hours)        |
++---------------------------------------------------------------------------------+
+
+An urgent green prompt displays: [+ ASSIGN FIRST DRILL TO SCHEDULE].
+C.3 Left Column Empty State: "Unsanctioned / Pristine Health"
+1. Bout Dossier Empty State (Unbooked Fighter)
+Replaces the opponent comparison card with an informative Matchmaker CTA:
++---------------------------------------------------------------------------------+
+| ACTIVE BOUT: NO BOUT SANCTIONED                                                 |
+| Status: Unscheduled | Fight Camp: DORMANT                                      |
+| Target Window: Ready for immediate booking (-75 kg Division)                    |
+|                                                                                 |
+| [FIND BOUT / OPEN MATCHMAKER (M)]                                               |
++---------------------------------------------------------------------------------+
+
+Clicking [FIND BOUT] opens the Matchmaker card filtered directly to the fighter's weight class ($-75\text{ kg}$) and amateur/pro tier.
+2. Medical Wireframe Empty State (0%
+Can you continue from Section A and specify all 54 official technique nodes, grouped across the seven branches?
+Can you define the exact pixel rectangles, hierarchy, and decision purpose for every must-have boxing demo element?
+Can you design the Medical and Training Plan tabs with complete empty states for an unsanctioned fighter?
+Can you generate a 1920×1080 mockup showing the populated dossier, seven-branch technique tree, medical tab, and training plan tab?

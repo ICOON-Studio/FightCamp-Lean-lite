@@ -1,0 +1,389 @@
+# FloorVibe.gd
+# Round 88 (S229) - Pure Floor Vibe & Member Spark Engine.
+# Evaluates ambient gym member moments, crowd station claims, visitor interest,
+# and reputation bursts during a 600-minute gym training day.
+# Pure: extends RefCounted, static functions, deterministic, zero preloads.
+class_name FloorVibe
+extends RefCounted
+
+const ALL_STATIONS: Array[String] = [
+	"speed_bag_1",
+	"speed_bag_2",
+	"heavy_bag_1",
+	"heavy_bag_2",
+	"heavy_bag_3",
+	"heavy_bag_4",
+	"mirror_strip",
+	"pads",
+	"defence_drill",
+	"ring",
+	"treadmill",
+	"bike",
+	"recovery",
+	"agility_ladder",
+	"power_rack",
+	"olympic_platform",
+	"weights"
+]
+
+const MIN_INTERVAL_MINUTES: int = 40
+const MAX_INTERVAL_MINUTES: int = 90
+const MAX_REP_GAIN_PER_DAY: int = 2
+
+# Text lines capped at 40 characters
+const MEMBER_PRAISE_LINES: Array[String] = [
+	"MEMBERS: LOOK AT THAT SNAP",
+	"MEMBERS: CLEAN COMBINATIONS",
+	"MEMBERS: SHARP LEV-OFF THERE",
+	"MEMBERS: HEAVY CONTACT HEARD",
+	"MEMBERS: GOOD CADENCE TODAY",
+	"MEMBERS: CRISP COUNTER PUNCH"
+]
+
+const VISITOR_LINES_PRESS: Array[String] = [
+	"PRESS: SCRIBBLING NOTES",
+	"PRESS: WATCHING THE WORKOUT",
+	"PRESS: TAKING DOWN DETAILS"
+]
+
+const VISITOR_LINES_SPONSOR: Array[String] = [
+	"SPONSOR: EYEING THE GEAR",
+	"SPONSOR: TALKING NUMBERS",
+	"SPONSOR: NODDING AT THE PACE"
+]
+
+const VISITOR_LINES_COACH: Array[String] = [
+	"COACH SCOUT: WATCHING PADS",
+	"COACH SCOUT: CHECKING STANCE"
+]
+
+const VISITOR_LINES_GENERIC: Array[String] = [
+	"VISITOR: CHECKING THE FLOOR",
+	"VISITOR: STOPPING TO WATCH",
+	"VISITOR: SIZING UP THE ROOM"
+]
+
+const ATMOSPHERE_EMPTY_LINES: Array[String] = [
+	"FLOOR: QUIET MORNING HUM",
+	"FLOOR: ECHO OFF THE WALLS",
+	"FLOOR: COLD AIR OFF THE BRICK"
+]
+
+const ATMOSPHERE_BUSY_LINES: Array[String] = [
+	"FLOOR: HEAVY SWEAT AND LEATHER",
+	"FLOOR: CHATTER OVER THE TIMERS",
+	"FLOOR: ROOM BUZZING WITH WORK",
+	"FLOOR: LEATHER ON LEATHER RHYTHM"
+]
+
+## Determines if a moment triggers, and returns the event payload or {}
+## minute: 0..599 (day minute)
+## ctx: {
+##   "members": int,
+##   "fighter_station": String,
+##   "coach_with_fighter": bool,
+##   "last_gain_line": String,
+##   "fighter_name": String,
+##   "visitors_inside": Array[String],
+##   "reputation": int (0-100),
+##   "last_moment_minute": int (optional, defaults to -999),
+##   "day_rep_gained": int (optional, defaults to 0)
+## }
+## roll: float in [0.0, 1.0)
+## pick: float in [0.0, 1.0)
+static func moment(minute: int, ctx: Dictionary, roll: float, pick: float) -> Dictionary:
+	var last_minute: int = ctx.get("last_moment_minute", -999)
+	if last_minute >= 0 and (minute - last_minute) < MIN_INTERVAL_MINUTES:
+		return {}
+
+	var members: int = int(ctx.get("members", 0))
+	var visitors: Array = ctx.get("visitors_inside", [])
+	var coach_with_fighter: bool = bool(ctx.get("coach_with_fighter", false))
+	var fighter_station: String = str(ctx.get("fighter_station", ""))
+	var fighter_name: String = str(ctx.get("fighter_name", "Fighter"))
+	var day_rep_gained: int = int(ctx.get("day_rep_gained", 0))
+	var elapsed_since: int = (minute - last_minute) if last_minute >= 0 else minute
+
+	# Base activation rate scales with gym activity and elapsed time
+	# At 40 min with 0 members/visitors, prob is low (~0.25).
+	# At 90 min or with 30 members, trigger becomes guaranteed.
+	var elapsed_factor: float = clampf(float(elapsed_since - MIN_INTERVAL_MINUTES) / float(MAX_INTERVAL_MINUTES - MIN_INTERVAL_MINUTES), 0.0, 1.0)
+	var activity_factor: float = clampf(float(members) / 30.0 + float(visitors.size()) * 0.15, 0.0, 1.0)
+	var threshold: float = 0.25 + (0.50 * elapsed_factor) + (0.25 * activity_factor)
+	if elapsed_since >= MAX_INTERVAL_MINUTES:
+		threshold = 1.01 # Force event
+
+	if roll > threshold:
+		return {}
+
+	# Weights for moment kinds
+	# If members == 0, member_praise and member_crowd weight are 0.
+	var w_praise: float = 0.0
+	if members > 0 and coach_with_fighter:
+		w_praise = 35.0 + minf(members * 1.5, 30.0)
+
+	var w_crowd: float = 0.0
+	if members >= 3:
+		w_crowd = 20.0 + minf(members * 1.2, 35.0)
+
+	var w_visitor: float = 0.0
+	if visitors.size() > 0:
+		w_visitor = 30.0 + float(visitors.size()) * 15.0
+
+	var w_atmosphere: float = 25.0
+
+	var total_w: float = w_praise + w_crowd + w_visitor + w_atmosphere
+	var p_scaled: float = clampf(pick, 0.0, 0.999999) * total_w
+
+	# 1. MEMBER PRAISE
+	if p_scaled < w_praise:
+		var line_idx: int = int(floor(clampf(roll, 0.0, 0.999999) * MEMBER_PRAISE_LINES.size()))
+		var text_line: String = MEMBER_PRAISE_LINES[line_idx]
+		var can_gain_rep: bool = (day_rep_gained < MAX_REP_GAIN_PER_DAY)
+		var effect: Dictionary = {}
+		if can_gain_rep:
+			effect = {"type": "reputation", "delta": 1}
+
+		var toast_msg: String = "%s watches %s train hard under coach guidance." % [
+			"A cluster of members" if members > 5 else "A paying member",
+			fighter_name
+		]
+
+		return {
+			"kind": "member_praise",
+			"text": text_line,
+			"toast": toast_msg,
+			"effect": effect
+		}
+	p_scaled -= w_praise
+
+	# 2. MEMBER CROWD (A member occupies a non-fighter station)
+	if p_scaled < w_crowd:
+		var available_stations: Array[String] = []
+		for st in ALL_STATIONS:
+			if st != fighter_station:
+				available_stations.append(st)
+
+		if available_stations.is_empty():
+			return _fallback_atmosphere(members, roll)
+
+		var st_idx: int = int(floor(clampf(roll, 0.0, 0.999999) * available_stations.size()))
+		var target_st: String = available_stations[st_idx]
+		var claim_mins: int = 10 + int(floor(clampf(pick, 0.0, 0.999999) * 11)) # 10 to 20 mins
+		var clean_name: String = target_st.replace("_", " ").to_upper()
+		var text_line: String = ("MEMBER AT " + clean_name)
+		if text_line.length() > 40:
+			text_line = text_line.substr(0, 40)
+
+		return {
+			"kind": "member_crowd",
+			"text": text_line,
+			"toast": "A member steps in to work on the %s for %d minutes." % [target_st.replace("_", " "), claim_mins],
+			"effect": {
+				"type": "crowd",
+				"station_id": target_st,
+				"minutes": claim_mins
+			}
+		}
+	p_scaled -= w_crowd
+
+	# 3. VISITOR WATCH
+	if p_scaled < w_visitor and visitors.size() > 0:
+		var v_idx: int = int(floor(clampf(roll, 0.0, 0.999999) * visitors.size()))
+		var visitor_kind: String = str(visitors[v_idx])
+		var text_line: String = ""
+		var toast_msg: String = ""
+
+		if visitor_kind == "press":
+			var l_idx: int = int(floor(clampf(pick, 0.0, 0.999999) * VISITOR_LINES_PRESS.size()))
+			text_line = VISITOR_LINES_PRESS[l_idx]
+			toast_msg = "Regional press correspondent leans against the rope observing camp."
+		elif visitor_kind == "sponsor":
+			var l_idx: int = int(floor(clampf(pick, 0.0, 0.999999) * VISITOR_LINES_SPONSOR.size()))
+			text_line = VISITOR_LINES_SPONSOR[l_idx]
+			toast_msg = "A potential brand sponsor evaluates the gym's morning hustle."
+		elif visitor_kind == "coach_candidate":
+			var l_idx: int = int(floor(clampf(pick, 0.0, 0.999999) * VISITOR_LINES_COACH.size()))
+			text_line = VISITOR_LINES_COACH[l_idx]
+			toast_msg = "A prospective cutman or trainer takes note of your coaching demeanor."
+		else:
+			var l_idx: int = int(floor(clampf(pick, 0.0, 0.999999) * VISITOR_LINES_GENERIC.size()))
+			text_line = VISITOR_LINES_GENERIC[l_idx]
+			toast_msg = "A neighborhood local stands by the entrance taking in the round."
+
+		return {
+			"kind": "visitor_watch",
+			"text": text_line,
+			"toast": toast_msg,
+			"effect": {}
+		}
+
+	# 4. ATMOSPHERE
+	return _fallback_atmosphere(members, roll)
+
+static func _fallback_atmosphere(members: int, roll: float) -> Dictionary:
+	var text_line: String = ""
+	var toast_msg: String = ""
+	if members >= 8:
+		var idx: int = int(floor(clampf(roll, 0.0, 0.999999) * ATMOSPHERE_BUSY_LINES.size()))
+		text_line = ATMOSPHERE_BUSY_LINES[idx]
+		toast_msg = "The gym reverberates with skipping ropes, heavy bags, and steady breath."
+	else:
+		var idx: int = int(floor(clampf(roll, 0.0, 0.999999) * ATMOSPHERE_EMPTY_LINES.size()))
+		text_line = ATMOSPHERE_EMPTY_LINES[idx]
+		toast_msg = "A focused stillness hangs over the gym canvas."
+
+	return {
+		"kind": "atmosphere",
+		"text": text_line,
+		"toast": toast_msg,
+		"effect": {}
+	}
+
+# tests/floor_vibe_test.gd
+# Round 88 test runner for FloorVibe.gd
+# Validates spacing, determinism, member gating, coach requirement,
+# station safety, and reputation limits.
+extends SceneTree
+
+func _initialize() -> void:
+	var failures: int = 0
+	
+	# Test 1: Spacing < 40 day-minutes returns {}
+	var ctx_base: Dictionary = {
+		"members": 15,
+		"fighter_station": "pads",
+		"coach_with_fighter": true,
+		"last_gain_line": "Jab Mastery +2",
+		"fighter_name": "Leo Vance",
+		"visitors_inside": ["press"],
+		"reputation": 45,
+		"last_moment_minute": 100,
+		"day_rep_gained": 0
+	}
+	
+	for m in range(101, 140):
+		var res: Dictionary = FloorVibe.moment(m, ctx_base, 0.01, 0.1)
+		if not res.is_empty():
+			printerr("FAIL: Triggered before 40m window at minute ", m)
+			failures += 1
+			break
+
+	# Test 2: Spacing >= 40 can trigger, and at >= 90 forces trigger
+	var res_force: Dictionary = FloorVibe.moment(195, ctx_base, 0.99, 0.1)
+	if res_force.is_empty():
+		printerr("FAIL: Moment should force trigger at >= 90m interval")
+		failures += 1
+
+	# Test 3: Deterministic outputs with exact same inputs
+	var res_a: Dictionary = FloorVibe.moment(145, ctx_base, 0.25, 0.65)
+	var res_b: Dictionary = FloorVibe.moment(145, ctx_base, 0.25, 0.65)
+	if res_a.hash() != res_b.hash():
+		printerr("FAIL: Function is not deterministic")
+		failures += 1
+
+	# Test 4: 0 members -> never member_praise or member_crowd
+	var ctx_empty: Dictionary = {
+		"members": 0,
+		"fighter_station": "pads",
+		"coach_with_fighter": true,
+		"last_gain_line": "",
+		"fighter_name": "Leo Vance",
+		"visitors_inside": [],
+		"reputation": 20,
+		"last_moment_minute": -999,
+		"day_rep_gained": 0
+	}
+	for i in range(100):
+		var roll: float = float(i) / 100.0
+		var pick: float = float((i * 7) % 100) / 100.0
+		var res: Dictionary = FloorVibe.moment(95, ctx_empty, roll, pick)
+		if not res.is_empty():
+			if res.kind == "member_praise" or res.kind == "member_crowd":
+				printerr("FAIL: 0 members generated member moment: ", res.kind)
+				failures += 1
+				break
+
+	# Test 5: Praise requires coach_with_fighter == true
+	var ctx_no_coach: Dictionary = {
+		"members": 25,
+		"fighter_station": "pads",
+		"coach_with_fighter": false,
+		"last_gain_line": "",
+		"fighter_name": "Leo Vance",
+		"visitors_inside": [],
+		"reputation": 40,
+		"last_moment_minute": -999,
+		"day_rep_gained": 0
+	}
+	for i in range(100):
+		var roll: float = float(i) / 100.0
+		var pick: float = float((i * 13) % 100) / 100.0
+		var res: Dictionary = FloorVibe.moment(95, ctx_no_coach, roll, pick)
+		if not res.is_empty() and res.kind == "member_praise":
+			printerr("FAIL: Praise triggered without coach present")
+			failures += 1
+			break
+
+	# Test 6: Crowd station claim NEVER names the fighter's current station
+	var ctx_crowd_test: Dictionary = {
+		"members": 30,
+		"fighter_station": "heavy_bag_2",
+		"coach_with_fighter": false,
+		"last_gain_line": "",
+		"fighter_name": "Leo Vance",
+		"visitors_inside": [],
+		"reputation": 40,
+		"last_moment_minute": -999,
+		"day_rep_gained": 0
+	}
+	for i in range(200):
+		var roll: float = float(i) / 200.0
+		var pick: float = 0.05 # low pick biases toward crowd when praise disabled
+		var res: Dictionary = FloorVibe.moment(100, ctx_crowd_test, roll, pick)
+		if not res.is_empty() and res.kind == "member_crowd":
+			if res.effect.station_id == "heavy_bag_2":
+				printerr("FAIL: Crowd claimed fighter's current station heavy_bag_2")
+				failures += 1
+				break
+
+	# Test 7: Reputation delta never awarded if day_rep_gained >= 2
+	var ctx_capped_rep: Dictionary = {
+		"members": 25,
+		"fighter_station": "pads",
+		"coach_with_fighter": true,
+		"last_gain_line": "",
+		"fighter_name": "Leo Vance",
+		"visitors_inside": [],
+		"reputation": 40,
+		"last_moment_minute": -999,
+		"day_rep_gained": 2
+	}
+	for i in range(100):
+		var roll: float = float(i) / 100.0
+		var pick: float = 0.01 # picks praise
+		var res: Dictionary = FloorVibe.moment(100, ctx_capped_rep, roll, pick)
+		if not res.is_empty() and res.kind == "member_praise":
+			if not res.effect.is_empty():
+				printerr("FAIL: Reputation awarded when day_rep_gained already at max (2)")
+				failures += 1
+				break
+
+	# Test 8: Output string constraint (text <= 40 chars)
+	for i in range(150):
+		var roll: float = float(i) / 150.0
+		var pick: float = float((i * 17) % 150) / 150.0
+		var res: Dictionary = FloorVibe.moment(100, ctx_base, roll, pick)
+		if not res.is_empty():
+			if res.text.length() > 40:
+				printerr("FAIL: res.text exceeds 40 characters: '", res.text, "'")
+				failures += 1
+				break
+
+	print("FLOOR_VIBE failures=%d" % failures)
+	quit(0 if failures == 0 else 1)
+
+
+Can you provide the complete corrected FloorVibe.gd file with no truncation or placeholders?
+Can you write a comprehensive floor_vibe_test.gd covering spacing, determinism, crowds, praise, and daily reputation caps?
+Can you generate a top-down 3D visual concept of FightCamp’s lively gym floor with members training around the player’s fighter?

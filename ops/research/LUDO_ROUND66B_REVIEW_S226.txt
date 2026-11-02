@@ -1,0 +1,211 @@
+<!-- Ludo round 66B review of the GLOBE2 build (globe2_uk_s226.png uploaded), verbatim, S226, 18863 chars -->
+FIGHTCAMP (S226) — ROUND 66: IN-ENGINE BUILD REVIEW & GAP ANALYSIS
+
+Document Reference: FC-ART-S226-WORLD-GLOBE-AUDIT
+
+Role: Lead UI/UX Architect & Principal Art Director
+
+Subject: In-Engine Shipped Render Review (1920×1080 Native Build, UK Selected) vs. Round 66 Target Benchmark.
+
+1. WHAT MATCHES (THE WINS)
+
+The engineering team executed several foundational architectural shifts correctly:
+
+The Black Lacquer Ocean: The flat mid-grey bowling ball from the earlier build is gone. The ocean material reads as deep, dark, and glossy obsidian/charcoal.
+The Astrolabe Orbit Lines: The concentric rings behind the globe are implemented in the correct coordinate space and anchor the sphere to the composition.
+The Dual-Pass Line Hierarchy Concept: Coastlines are clearly distinguished from interior land borders; Europe is no longer a vibrating wireframe birdcage.
+The Right Panel Framing: The right data card is now docked to the right edge and uses a dark warm card background rather than floating naked over screen-clearing grey.
+The Name Tag Layout: The white/cream pill tag "UNITED KINGDOM" exists with dark condensed typography and sits adjacent to the marker.
+The Clean UI Framing: The top header "CHOOSE THE MARKET" and the bottom-docked "CHOOSE MARKET" primary CTA button give the screen a clear start-and-end user flow.
+2. EVERY REMAINING GAP (RANKED BY "AMATEUR" SEVERITY)
+
+Despite the progress, the build looks like an early technical alpha rather than a shipped game. The visual disconnects are broken down below in order of severity, with explicit numeric fixes.
+
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                RANKED GAP SEVERITY DIAGRAM                                       │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                                  │
+│   [GAP 1: THE FLAT TARGET RINGS] ───► Looks like a 2D red archery bullseye, not a 3D medallion. │
+│   [GAP 2: MUDDY BROWN CONTINENTS] ──► Land looks like flat mud; picked UK has no gold glow.     │
+│   [GAP 3: HARSH HALO RIM LIGHT] ────► 1990s video-game edge outline cuts into black void.        │
+│   [GAP 4: RAW EMPTY DATA CARD] ─────► 85% of panel is dead space; raw unformatted ASCII stats.  │
+│   [GAP 5: GHOST ASTROLABE BACKDROP] ► Pitch-black void with bare vector circles, zero texture.   │
+│   [GAP 6: WIREFRAME TOP CONTROLS] ──► Hollow search input and pill button lack weight.          │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+GAP 1 (CRITICAL): The Marker Looks Like a 2D Target Ring, Not a 3D Medallion
+The Failure: The marker currently renders as two flat, concentric red circles sitting flush onto the United Kingdom like a 2D radar target or a bullseye decal.
+It has no vertical stem/pin, so it has no physical height off the sphere.
+It has no contact drop shadow, making it look glued on in Photoshop.
+The stamped gold boxing glove emblem is completely missing, leaving a blank red hole in the center.
+The brass bezel has zero metallic reflectivity or thickness.
+Why It Reads Amateur: Real shipped UI uses weighted physical micro-assets with depth, specular rim lighting, and clear iconography. A flat red ring reads like a developer debug collision circle.
+Exact Numeric Fix:
+Structure (Mesh or 2D Billboard): Stop rendering a flat decal on the surface normal. Use an angled billboard or 3D mesh standing vertical relative to camera view ($Y\text{-up}$, tilted $15^\circ$ back toward the sphere).
+Stem Pin: Add a tapered brass needle stem below the coin:
+Height: $28\text{ px}$ (at 1080p).
+Width: $4\text{ px}$ at the top, tapering to $1.5\text{ px}$ at the ground contact point.
+Color: #d4af37 (Antique Brass), Metallic: 0.90, Roughness: 0.25.
+Coin Medallion Head:
+Diameter: $52\text{ px} \times 52\text{ px}$.
+Outer Bezel Rim: $4\text{ px}$ wide, Chamfered Brass #f0c233, Metallic 0.95, Roughness 0.20.
+Face Recess: $1.5\text{ mm}$ deep, filled with Deep Oxblood Enamel #8b1e1b (not neon red #ff0000).
+Center Emblem: Explicit high-contrast Stamped Gold Boxing Glove (#f0c233, $24\text{ px} \times 24\text{ px}$ sprite/mesh) with a $1\text{ px}$ dark drop shadow #1a0505.
+Contact Shadow:
+Render an elliptical shadow decal directly beneath the needle contact point on the globe:
+Size: $36\text{ px} \times 16\text{ px}$.
+Color: #000000 at $70%$ opacity, Gaussian blur radius $6\text{ px}$, offset $(X: +3\text{ px}, Y: +5\text{ px})$.
+Name Tag Connection:
+Position the tag horizontally aligned with the coin head: offset $X = +34\text{ px}$, $Y = -6\text{ px}$ from the needle base.
+Keep the tag at $140\text{ px} \times 28\text{ px}$, Aged Cream #f6f0e0, with a $1.5\text{ px}$ dark iron border #2b2f36.
+GAP 2 (HIGH): Muddy Continents & Missing Selection "Jewel" Glow
+The Failure: The continents currently look like flat, dull, murky brown clay (#3e2a1b).
+The picked country (United Kingdom) is visually dead: it has almost the same dull brown fill as France, Spain, and Germany.
+There is no gold interior fill, no breathing pulse, and no inner edge highlight.
+The coastlines along the unlit side of the globe are brighter than the land itself, making the earth look hollow.
+Why It Reads Amateur: A player's eye is drawn to contrast and light. In the target concept, the selected nation is an illuminated, glowing golden jewel. Here, the UK is virtually invisible unless you read the floating name tag.
+Exact Numeric Fix:
+Base Land Color (Unselected):
+Shift away from muddy brown to Deep Vulcanized Graphite: #1e1d1b ($R: 0.118, G: 0.114, B: 0.106$).
+Roughness: 0.85 (Ultra-matte, absorbing light to let oceans and coastlines pop).
+Metallic: 0.00.
+Selected Country Shader (UK):
+Fill Color: Rich Golden Amber Velvet #d49a24 at $55%$ opacity over the land base.
+Interior Center Falloff: Modulate the fill so the perimeter has a $15\text{ px}$ golden edge gradient (#f0c233) that fades into a warm oxblood core (#421210 at $40%$ opacity).
+Selected Outer Border: Increase thickness from the current hair-thin line to $3.5\text{ px}$ solid Championship Gold (#f0c233) with Emission Energy = 1.2 (Godot WorldEnvironment Glow must catch it).
+Breathing Pulse Animation: $$\text{Emission} = 0.80 + 0.45 \times \sin(\text{TIME} \times 2.60)$$ (A slow, confident $2.4\text{ s}$ heartbeat pulse).
+Coastline Normalization:
+Normal coastlines: $2.0\text{ px}$ wide, Brushed Antique Brass #b8933b, Metallic: 0.70, Roughness: 0.35, Emission: 0.05.
+Internal borders: Reduce to $1.0\text{ px}$, Aged Steel #2e2b27 at $40%$ opacity.
+GAP 3 (HIGH): Flat Rim Lighting & Inverted Silhouette Halo
+The Failure: The lighting in the build is dominated by an artificial, high-contrast, uniform orange/yellow rim light hugging the outer circular silhouette of the sphere.
+It looks like an unshaded 2D circle stroke drawn behind the ball.
+The directional key light on the face of Europe is weak and flat, washing out the specular highlight on the ocean.
+Why It Reads Amateur: It mimics early 2000s rasterized outer-glow layer styles. Professional 3D lighting uses directional grazing angles where the rim light breaks naturally according to the light vector.
+Exact Numeric Fix:
+Key Directional Light (Theatrical Key):
+Position: Angle from top-left $(X: -0.6, Y: 0.8, Z: 0.7)$ normalized.
+Color: Warm Halogen Tungsten #fff2d9 ($3400\text{ K}$).
+Light Energy: Increase from current build to 2.4.
+Specular: 0.85 (This will create a crisp, localized brassy sheen across the North Sea and Atlantic Ocean).
+Silhouette Rim Light (Fresnel Pass):
+Cut the uniform rim light strength by $60%$.
+Exponent Falloff: Increase power from current $\approx 2.0$ to 5.0 (making it an ultra-thin, razor-sharp hairline grazing rim rather than a thick fuzzy belt).
+Rim Gradient: Transition from Antique Gold #d4af37 at the bright edge to deep Oxblood Red #781714 as it falls off into shadow.
+GAP 4 (HIGH): The Right Panel is Dead Space & Unformatted ASCII Data
+The Failure: The right data panel ($480\text{ px}$ wide) has two lines of tiny, unformatted text ("ECONOMY 74 - TALENT 84", "COMBAT POPULARITY 92", "CITIES: 27 GYMS") crammed in the top-left corner, leaving $80%$ of the card as empty black cardboard.
+The font looks like default raw OS sans-serif at small size.
+There are no data bars, no brass dividers, no region badge, and no visual hierarchy.
+The "CHOOSE MARKET" button at the bottom is a flat, unchamfered yellow bar.
+Why It Reads Amateur: Management simulation players spend hundreds of hours looking at data cards (Football Manager, F1 Manager). A blank panel with 3 lines of raw text screams "programmer art / prototype".
+Exact Numeric Fix:
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ RIGHT PANEL DATA REDESIGN (Width = 480 px, Height = 1080 px)                 │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│   [REGION HEADER BLOCK] (Height = 110 px, Background: #242220)              │
+│   - Flag / Region Icon: 48x32 px brass-framed UK Union Jack                  │
+│   - Title: "UNITED KINGDOM" (Font: Oswald / DIN Condensed, 28 pt, #f6f0e0)   │
+│   - Subtitle: "TIER 1 COMBAT MARKET • EUROPE" (Ochre #c29b38, 12 pt)         │
+│                                                                              │
+│   ────────────────── 2px Brass Inset Divider (#8c6f2d) ────────────────────   │
+│                                                                              │
+│   [STAT METER 01: COMBAT POPULARITY]                                         │
+│   - Label: "COMBAT POPULARITY" (Cream #f6f0e0, 13 pt)       Value: "92 / 100"│
+│   - Bar: Height 10 px. Track: #181716. Fill: Striped Gold #f0c233 (92% width)│
+│                                                                              │
+│   [STAT METER 02: TALENT DENSITY]                                            │
+│   - Label: "AMATEUR TALENT POOL"                            Value: "84 / 100"│
+│   - Bar: Height 10 px. Track: #181716. Fill: Oxblood #c62f2a (84% width)     │
+│                                                                              │
+│   [STAT METER 03: MEDIA ECONOMY]                                             │
+│   - Label: "MEDIA MARKET & BROADCASTING"                    Value: "74 / 100"│
+│   - Bar: Height 10 px. Track: #181716. Fill: Muted Brass #b8933b (74% width) │
+│                                                                              │
+│   ────────────────── 2px Brass Inset Divider (#8c6f2d) ────────────────────   │
+│                                                                              │
+│   [INFRASTRUCTURE GRID] (2-Column Key/Value Cards)                           │
+│   - Active Gyms: "27 LICENSED CLUBS"      Sanctioned Arenas: "14 VENUES"     │
+│   - Regional Trait: "DEEP AMATEUR HERITAGE" (+15% Stamina Development)       │
+│                                                                              │
+│   [BOTTOM CTA BUTTON: "CHOOSE MARKET"]                                       │
+│   - Height: 64 px. Chamfered Corners: 6 px.                                  │
+│   - Background: Gradient #f0c233 (top) to #cf9b1b (bottom).                  │
+│   - Inner Lip: 1 px Gold Highlight #fae29c. Drop Shadow: 4 px #000000 (80%).  │
+│   - Text: "CHOOSE MARKET", Bold Condensed All-Caps, 20 pt, Dark Charcoal     │
+│     (#1e1d1b) with a subtle cream top bevel reflection.                      │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+GAP 5 (MEDIUM): The Empty Backdrop (Pitch Black Void vs. Warm Astrolabe Chamber)
+The Failure: The background behind the globe is pitch black with two thin, razor-sharp vector circles.
+There is no texture, no vignette, no paper warmth, and no depth.
+It makes the globe look like it's floating in deep outer space (like a sci-fi game) rather than sitting in a warm, smoky, wood-and-brass boxing manager's office.
+Why It Reads Amateur: High-end strategy games ground their tactical maps in a physical setting (e.g., an officer's table, a mahogany desk, an antique cartographer's parchment).
+Exact Numeric Fix:
+Background Base Color: Replace pure black #000000 with Deep Aged Cast Iron Charcoal: #141312 ($R: 0.078, G: 0.075, B: 0.071$).
+Radial Vignette:
+Center at globe coordinates: $(X: 680\text{ px}, Y: 540\text{ px})$.
+Inner Radius: $450\text{ px}$ (#211f1d, soft warm charcoal glow).
+Outer Radius: $1100\text{ px}$ (#0a0a09, deep shadowed edge).
+Astrolabe Ring Polishing:
+Do not draw bare white/cream lines.
+Line Color: Antique Gold #b8933b at 25% opacity.
+Add radial degree tick-marks every $15^\circ$ along the outer ring (length: $6\text{ px}$, width: $1.5\text{ px}$).
+Micro-Grain / Canvas Texture:
+Blend a subtle procedural fine parchment/linen noise layer across the background at 3.5% opacity using OVERLAY blend mode.
+GAP 6 (MEDIUM): Top Navigation Bar (Search & Market List)
+The Failure: The "SEARCH MARKET" input box and "MARKET LIST" button look like default wireframe HTML elements.
+They have thin, rounded grey borders with zero depth.
+The search text is low-contrast grey on black.
+Exact Numeric Fix:
+SEARCH MARKET Input Field:
+Height: $36\text{ px}$, Width: $240\text{ px}$.
+Background: Solid Dark Charcoal #1b1a18 with an inset shadow (offset: (0, 2), blur: 3, #000000 at 60%).
+Border: $1.5\text{ px}$ Beveled Brass #8c6f2d.
+Font: Cream #f6f0e0, $14\text{ pt}$, with a $16\text{ px}$ brass magnifying glass icon pinned left.
+MARKET LIST Button:
+Height: $36\text{ px}$, Width: $130\text{ px}$.
+Style: Chamfered rectangular pill in Dark Steel #2b2f36 with a $1.5\text{ px}$ Gold Border #d4af37.
+Hover State: Background fills with Oiled Leather Brown #4a2c1b, text brightens to Pure White.
+3. ART DIRECTOR SCORE: 4.8 / 10
+========================================================================================================================
+SCORING BREAKDOWN (VS. ROUND 66 TARGET BENCHMARK)
+========================================================================================================================
+CATEGORY                 WEIGHT   SCORE (/10)  NOTES
+------------------------------------------------------------------------------------------------------------------------
+Geometry & Mesh Cleanliness 15%     7.5 / 10     Smooth sphere, good tessellation, zero silhouette faceting.
+Ocean & Land Materials     20%     5.0 / 10     Ocean lacquer is good; land is muddy clay with zero popularity depth.
+Country Selection Shader   20%     2.5 / 10     UK does not pop; missing gold velvet fill, pulse, and inner borders.
+Marker & Pin Execution     20%     2.0 / 10     Critical failure; flat red target ring instead of 3D brass medallion.
+Backdrop & Atmosphere      15%     4.0 / 10     Rings are present but backdrop is pitch-black outer space.
+UI & Data Card Hierarchy   10%     4.0 / 10     Right panel is 85% dead space; unformatted raw text.
+------------------------------------------------------------------------------------------------------------------------
+OVERALL COMPOSITE SCORE:           4.8 / 10     (Promising technical foundation; unpolished visual presentation)
+========================================================================================================================
+
+4. THE 3 FIXES THAT MOVE THE SCORE MOST (TO 8.5+)
+
+If the engineering team only has 4 hours before the next executive review with the CEO, execute ONLY these three fixes in this exact order:
+
+FIX 1: Overhaul the Medallion & Marker (Estimated Time: 75 mins)
+Stop projecting the flat red ring on the normal.
+Place a vertical billboarded 3D Champion Medallion at the UK anchor:
+$52\text{ px}$ diameter.
+Beveled Antique Brass frame (#f0c233), recessed Oxblood Enamel center (#8b1e1b).
+High-contrast stamped Gold Boxing Glove graphic (#f0c233) in the center.
+$28\text{ px}$ brass tapered pin needle extending to a contact drop-shadow ellipse on the terrain.
+Result: Instantly eliminates the "cheap mobile game" red circle artifact.
+FIX 2: Ignite the Selected Country Shader (Estimated Time: 60 mins)
+Update the country fragment pass in Godot:
+Tint the selected nation (UK) with #d49a24 Gold Amber Velvet at 55% opacity.
+Boost the selected boundary stroke to $3.5\text{ px}$ Championship Gold (#f0c233) with an active emission multiplier of 1.4.
+Add the $2.4\text{ s}$ sine-wave breathing pulse to the emission channel.
+Result: The selected country instantly becomes the focal jewel of the screen, making the entire globe feel reactive and high-end.
+FIX 3: Flesh Out the Right-Hand Data Card (Estimated Time: 45 mins)
+Populate the empty $480\text{ px}$ panel:
+Add the UK Region Header Block with brass divider lines (#8c6f2d).
+Convert the three text stats into three styled graphical progress bars (Gold #f0c233, Oxblood #c62f2a, Brass #b8933b) on dark recessed tracks.
+Restyle the bottom "CHOOSE MARKET" button with a $6\text{ px}$ chamfer, gold gradient, and dark bold typography.
+Result: Replaces the "unfinished debug window" feel with the density and authority of a premium desktop sports management simulation.

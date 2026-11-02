@@ -1,0 +1,16 @@
+Warning: running headless with --yolo / approval-mode=yolo and no sandbox. All tool calls (shell, write, edit) auto-execute at this process's privilege level. Enable a sandbox via --sandbox / QWEN_SANDBOX, or set QWEN_CODE_SUPPRESS_YOLO_WARNING=1 to silence this notice.
+Warning: MCP server(s) failed to start: higgsfield. Continuing with built-in tools and any servers that did connect. Re-run with QWEN_CODE_DEBUG=1 to see per-server reasons.
+Q224 complete. Branch `qwen/q224-fatigue-body` pushed.
+
+**Delivered:**
+- **Fatigue meter** on fighter card: heart icon (♥) + gauge bar + tooltip with per-session breakdown, forecast, and warnings
+- **Injury-risk banner** in Training Hub when any fighter's schedule ends at fatigue >= 95 (names the fighter, cites the 15% roll)
+- **Body Lab weeks-to-clear** label on damaged regions ("X WK TO CLEAR")
+- **Enhanced tooltip** showing forecast weeks to gym/cage threshold, fight penalty (blocked/open), and "SOUND — ONLY A BOUT CAN LOWER THIS REGION" for healthy regions
+- **Test**: 17/17 checks pass (fatigue math, warning threshold, weeks-to-clear)
+
+**Files:** UIKit.gd, TrainingHubPanel.gd, ProfileRevampPanel.gd, fatigue_body_read_test.gd, Q224_DIGEST.md, previews/q224/README.md
+
+**Constants named:** INJURY_FATIGUE=95, INJURY_CHANCE=0.15, competition limit=85, training threshold=80, cage thresholds=90/85/80
+
+Digest sent to Claude.

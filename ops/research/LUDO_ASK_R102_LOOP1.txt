@@ -1,0 +1,43 @@
+TEXT ANSWER ONLY (no image). FightCamp - Ask Ludo round 102 - LOOP1: the ONE simple core loop. You are our lead game designer. Give the LONGEST, most complete answer you can (do not shorten or summarize; if you run out of room, stop and I will say "continue").
+
+CONTEXT. The operator (CEO, 40 years of games) played the current build and said it is heavy and confusing. His scope call, verbatim:
+"my opinion is to focus on one simple loop and keep it simple: (no story yet switch that thing off for now) Start a fighter comes in , he is setting the goals and there is a timeline for that goal ( find my a fight within a month eg ) you set his training and you watch him train , you look for a coach to assign to him and watch them work together (this needs to be nicely handled with visuals on gains and atrittion meters so the player can understand when he need to change the training plan , so big emphasis on this part) , in the meantime the player needs check the progress according the goal and minor changes due to fatigue ,stress etc , handle other customers and equipment and try to find the right opponent . then the other features come in with the spying and film and move learning etc until you get to the fight , can we filter out everything else and keep what wee need only for that ?"
+
+The demo is BOXING ONLY: no story, no kicks, no knees, no clinch, no MMA.
+
+THE LOOP as we read it (correct us):
+1. A fighter walks in - one intake moment: who he is, record, numbers, what he wants.
+2. He sets a goal with a deadline ("find me a fight within a month") - a goal card with a days-left countdown stays on screen.
+3. You set his training - the Morning Day Plan (blocks, stations, cues) - already built.
+4. You watch him train - the 3D boxing floor runs the day - already built.
+5. You find a coach and assign him - watch them work together (coached blocks).
+6. THE BIG ONE: gains and attrition meters - per day and per week: what he gained (skill / form / conditioning) and what it cost (fatigue, wear, niggles, stress). Readable at a glance so the player KNOWS when to change the plan.
+7. Check progress against the goal - on track for the deadline? Small daily corrections for fatigue and stress.
+8. Side duties, light - other members (customers) and equipment wear/repair.
+9. Find the right opponent - offers / matchmaking against the goal.
+10. Camp extras once a fight is booked - scouting, film, learning a move.
+11. The fight - watch it; the result feeds the next goal.
+
+WHAT EXISTS NOW (switches that are ON in the game): day_plan, floor_actions, gain_bubbles (floating +numbers over a station), load_ledger (training load per day), career_wear, recovery_rate, form_breakdown, niggles, breakthrough, decision_card (6 decision cards a day, 2 an hour), floor_events (random floor events), corner_rehearsal, floor_cuts, open_spar_night, boxing_floor_members, walk_in_policy, station_wear, offers, matchmaking, booking, promoter traps, away circuit, scouting, film room, move cards, story campaign + story card + story inbox + story wall, an 11-step tutorial guide card, gym expansion / zone editing in creation, street_vista, office/physio/reception/locker/equipment rooms (a 4-room build is in progress), a walls toggle, boots for every boxer (WARDROBE1), a new jab animation pair (PAIRLIVE1; two jab stills already FAILED the operator's eyes).
+
+OUR DRAFT FILTER (one preset `core_loop`, nothing deleted, each feature returns by flipping its switch):
+- OFF: story (all of it), the 11-step tutorial card (replaced by the goal card), floor_events, corner_rehearsal, floor_cuts, open_spar_night, gym expansion/zone editing at creation, promoter traps, away circuit, street_vista, rooms the loop never visits, MMA, kicks.
+- ON: goal card + countdown, day_plan, floor_actions, gain_bubbles, load_ledger, career_wear, recovery_rate, form_breakdown, niggles, breakthrough, decision_card, coach hire + assign + coached blocks, boxing_floor_members, walk_in_policy, station_wear, offers, matchmaking, booking, scouting, film room, move cards (after booking), every fight switch, the 3D floor, office (offers) and locker (weigh-in).
+
+QUESTIONS - answer every one, numbered, as concrete as you can (exact on-screen layout, words, colours, thresholds, update timing):
+
+Q1. THE METERS (the operator's "big emphasis"). What is the SMALLEST on-screen read that shows gains AND attrition and tells the player to change the plan? Specify: where it sits (the floor HUD while the day runs? an end-of-day card? a weekly card? all three?), what each meter measures and from which of our systems (load_ledger, career_wear, recovery_rate, form_breakdown, niggles, gain_bubbles), the time window (today / last 7 days), the visual (bar, sparkline, two lines crossing, a dial), the colours, and the exact "change the plan" signal: what condition fires it and what words the player reads. Base thresholds on REAL boxing camp practice (acute:chronic workload ratio, RPE/session load, overtraining signs, how real coaches read a fighter going stale) and name the source for each number; do not invent averages.
+
+Q2. THE COACH on the same day: what is the coach SEEN doing on the 3D floor during a coached block (position, animation, a speech line?), how the player picks and assigns a coach (one screen, how many fields), the coach's limit (hours per day? fighters at once?) and how coaching shows up in the meters (faster gains? less attrition? a cue?).
+
+Q3. THE GOAL WITH A DEADLINE: the intake moment and the goal card. What goals can a walk-in fighter bring for the demo (list 3-5 boxing goals with deadlines), what the card shows, how "on track / behind / at risk" is computed and shown each day, and what happens at success and at failure (does he leave? lose morale? a new goal?).
+
+Q4. FATIGUE / STRESS small corrections: the ONE light daily fix the player makes (e.g. swap a block to recovery, a rest morning, a talk) - how it is offered (inside the Day Plan? a single prompt?) and how it moves the meters and the goal check.
+
+Q5. KEEP OR OFF, one line each with a reason: ROOMS3 (the 4-room build: office, physio, reception, locker/equipment), the walls toggle, decision_card (the 6 cards a day, PACING1), boots (WARDROBE1), the jab pair (PAIRLIVE1), floor_events, corner_rehearsal, floor_cuts, open_spar_night, promoter traps, away circuit, street_vista, the 11-step tutorial card, gym expansion at creation, customers (boxing_floor_members + walk_in_policy), station_wear.
+
+Q6. CORRECT OUR FILTER: anything we kept that the loop does not need, anything we switched off that the loop needs, anything MISSING from the loop entirely.
+
+Q7. ORDER OF BUILD: the smallest playable slices in order, each ending in something the operator can play in the .exe (e.g. slice 1 = walk-in + goal card + one watched day + meters). Say which slice must include the fight, given the jab animation is not yet approved.
+
+Q8. One paragraph: what will make this loop FEEL good to a player in the first 10 minutes (pacing, feedback, the first "I should change his plan" moment - on which in-game day should it happen?).

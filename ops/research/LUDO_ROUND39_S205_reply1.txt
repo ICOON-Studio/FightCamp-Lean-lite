@@ -1,0 +1,327 @@
+FIGHTCAMP — PRODUCTION SYSTEM SPECIFICATION
+
+Engine: Godot 4.7.2 Stable (PC Target: x86_64, Windows / Linux / macOS)
+
+Resolution Baseline: $1920 \times 1080$ (16:9 fixed scale factor, integer-snapped sub-elements)
+
+Genre Class: Hardcore Sports Management Simulation (Football Manager, Motorsport Manager)
+
+Design Mandate: Deep systems, explicit readability, high information density, zero mobile tropes. Every screen must anchor directly to a manager decision.
+
+SECTION 1 — THE FIGHTER PROFILE AS A 3D "LOADOUT" SCREEN
+1.1 Professional Critique & Strategic Verdict
+The Reference Analogy
+
+The producer’s proposal borrows from character-centric tactical games (Phoenix Point, Destiny 2, Guild Wars 2). In those titles, the player equips physical loot (weapons, armor modules, trinkets) onto a fantasy or sci-fi avatar. The visual feedback is immediate cosmetic and functional satisfaction: putting on a helmet changes the avatar’s silhouette.
+
+Critical Risk vs. Benefit Analysis for FightCamp
++----------------------------------------------------------------------------------------------------+
+|                                      DESIGN TRADEOFF MATRIX                                        |
++----------------------+----------------------------------------+------------------------------------+
+| DIMENSION            | RPG / TACTICAL SHOOTER ("LOADOUT")     | FIGHTCAMP (FM-CLASS MANAGEMENT)    |
++----------------------+----------------------------------------+------------------------------------+
+| Core Interaction     | Equip physical items onto 3D body      | Allocate training hours & regimens |
+| Screen Visit Rate    | 2–5 times per session (infrequent)     | 40–80 times per session (constant) |
+| Dominant Data Need   | Item stats, rarity, aesthetic match    | Biometrics, wear curves, scouting  |
+| Primary Spatial Cost | 3D avatar takes 45–55% screen width    | Spreadsheet / tables need width    |
+| Evaluation Speed     | Visual inspection (does it look cool?) | Scan 9 attributes in < 1.5 seconds  |
++----------------------+----------------------------------------+------------------------------------+
+
+Major Risks
+The "Data Density Starvation" Trap: A 3D model occupying the center third ($640\text{ px}$ to $700\text{ px}$) forces all textual and tabular simulation data into narrow side columns. In a management sim, managers compare 9 attributes, 6 body-region degradation vectors, camp wear curves, morale, and contractual obligations simultaneously. Squeezing these into a $400\text{ px}$ left column turns vital tables into truncated labels or nested sub-tabs.
+Workflow Latency / Session Fatigue: Football Manager players click through 15 fighter profiles in 90 seconds when triaging camp injuries or scouting an upcoming opponent card. If rendering a 3D model introduces viewport instantiation overhead or visual noise that slows down scanning attributes, the interface degrades the core management experience.
+The Disconnect Between Boxing and "Equipment": Boxers do not equip an "Epic Hook." They master biomechanical motor patterns through repeated training. Treating techniques like an inventory screen misrepresents the sport unless the interface reinforces that techniques are long-term investments with execution trade-offs.
+Major Strengths
+Kinematic Literacy (Visualizing Technique Quality): In boxing, numbers like Lead Hook: Level 4 do not tell the tactical story as clearly as seeing the arc. Showing the fighter physically execute the move allows the manager to evaluate reach extension, elbow drop, and recovery balance.
+Physicality & Emotional Attachment: Seeing a battered fighter stand in their actual physical condition—displaying taped ribs, a swollen left orbital bone, and visible posture fatigue—grounds the manager's roster in the physical realities of the sport far better than numbers on a spreadsheet.
+Verdict: ADAPT (Tactical Dossier Model)
+Do not adopt the RPG loadout model where the 3D model passively stands in the center while the manager clicks through small inventory icons.
+Do not reject the 3D asset, because previewing motion clips solves the simulation problem of communicating reach, stance, and execution speed.
+Adopt the "Tactical Biomechanical Dossier":
+The 730 px Right Drawer remains the quick-look inspection tool on the gym floor (fast check without scene shifts).
+The Full-Screen Profile ($1920 \times 1080$) adopts an asymmetric 3-column split:
+Left (540 px): Biometrics, 9 core attributes, body wear, condition, contract.
+Center (700 px): The 3D Biomechanical Stage (the athlete on a gym mat plinth, executing selected techniques on demand).
+Right (680 px): The Technical Repertoire Tree (structured by punch class and tactical role, showing masteries, learning allocations, and counters).
+Critical Anchor: This screen is where the manager sets Primary Tactical Focus and assigns Camp Drill Quotas. It is not a passive viewer; it is the command deck for technical development.
+1.2 Full 1920×1080 Pixel Layout Specification
++---------------------------------------------------------------------------------------------------------------------------------------+
+| TOP STRIP: [<- ROSTER] Niko "The Anvil" Park | 24 yo | 147 lbs | Orthodox | 9-1-0 (6 KO) | MORALE: [HIGH] [PREV FIGHTER] [NEXT FIGHTER] (F1/F2) |
++------------------------------------+---------------------------------------------------+----------------------------------------------+
+| LEFT PANEL: BIOMETRICS & VITALS    | CENTER PANEL: 3D BIOMECHANICAL STAGE             | RIGHT PANEL: TECHNIQUE REPERTOIRE            |
+| (x:0, y:56, w:540, h:968)          | (x:540, y:56, w:700, h:968)                       | (x:1240, y:56, w:680, h:968)                 |
+|                                    |                                                   |                                              |
+| [1. BIOMETRIC SUMMARY CARD]        | [3D VIEWPORT: SubViewportContainer]              | [1. REPERTOIRE CATEGORY SELECTOR]            |
+| Ht: 5'10" | Reach: 73.5" | Wt: 147 | - Fighter in active guard on gym mat              | [STRAIGHTS] [HOOKS] [UPPERCUTS] [DEFENSE]    |
+| Status: On Weight (+0.4 lbs)       | - Dynamic camera tracks strike execution          |                                              |
+|                                    | - Slow-motion toggle overlay [0.25x / 1.0x]       | [2. TECHNIQUE NODES TREE]                    |
+| [2. 9 CORE ATTRIBUTES (20-TICKS)]  |                                                   | > LEAD JAB (Mastery: Lv 5 - 94%)             |
+| POW 78 [===============-----]      | [OVERLAY: KINEMATIC READOUT STRIP]                |   Allocated: Heavy Bag 1 (4 hrs/wk)          |
+| TEC 74 [==============------]      | Velocity: 9.8 m/s | Impact: 18 dmg | Cost: 4 stm  | > REAR CROSS (Mastery: Lv 4 - 72%)           |
+| SPD 81 [================----]      | Frame Data: Startup 7f | Active 3f | Rec 12f      |   Allocated: Mitts Coach (6 hrs/wk)          |
+| STM 85 [=================---]      |                                                   | > CHECK HOOK (Mastery: Lv 2 - 31%)           |
+| CHN 70 [=============-------]      | [PLINTH FOOTER: ROTATION / PLAYBACK CONTROLS]     |   Prereq: Lead Hook Lv 3 [LOCKED]            |
+| DEF 68 [============--------]      | [<- ROTATE ->] [RESET CAM] [PLAY COMBO]           |                                              |
+| FTW 76 [==============------]      |                                                   | [3. SELECTED MOVE TACTICAL CARD]             |
+| IQ  72 [=============-------]      |                                                   | Counters: Overhand Right, Lazy Jab           |
+| CMP 75 [==============------]      |                                                   | Countered by: Slip-Cross, Shoulder Roll      |
+|                                    |                                                   |                                              |
+| [3. ANATOMICAL WEAR MONITOR]       |                                                   | [4. MANAGEMENT ACTION FOOTER]                |
+| Front/Back Vector Silhouette       |                                                   | [ASSIGN TO DRILL] [SET AS BOUT PLAN PRIMARY] |
+| 6-Zone Tissue Damage Readouts      |                                                   |                                              |
++------------------------------------+---------------------------------------------------+----------------------------------------------+
+| BOTTOM BAR: [ESC] Back to Gym Floor | [TAB] Overview | [T] Technique Tree | [M] Medical Ledger | [C] Camp Contract | [SPACE] Play/Pause Clip |
++---------------------------------------------------------------------------------------------------------------------------------------+
+
+Complete Pixel Layout Table
+
+| Element Name | Pixel Rect $(x, y, w, h)$ | Anchor | Content / Child Nodes | Font & Styling | Default Hotkey |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Screen Root | (0, 0, 1920, 1080) | Full Screen | Base container, dark substrate #07090E | N/A | N/A |
+| Top Navigation Strip | (0, 0, 1920, 56) | Top-Wide | Back button, Fighter Name, Flag, Class, Record, Roster arrows | Chakra Petch Bold 18px, #FFFFFF | ESC, F1, F2 |
+| Roster Prev / Next | (1720, 10, 184, 36) | Top-Right | [< PREV] [NEXT >] push-buttons | Chakra Petch SemiBold 12px | [ / ] |
+| Left Column (Biometrics) | (16, 68, 512, 944) | Left Dock | VBox: Bio Card, 9 Attributes, Wear Wireframe, Vitals | Container substrate #0D111A | N/A |
+| Bio Metric Card | (28, 80, 488, 110) | In Left Col | Height, Reach, Walk-around Weight, Division limit, Age | Inter Regular 12px, values JetBrains 14px | N/A |
+| 9 Core Attributes Panel | (28, 202, 488, 380)| In Left Col | 9 rows of labels, raw values, and 20-segment tick bars | JetBrains Mono Bold 13px, color bands | N/A |
+| Tissue Wear Card | (28, 594, 488, 280)| In Left Col | 6-region breakdown (Head, Core, L/R Arm, L/R Leg) | JetBrains Mono 11px, status pills | N/A |
+| Condition & Camp Stress | (28, 886, 488, 114)| In Left Col | Acute fatigue bar, Chronic wear bar, Morale chip | Inter Medium 11px, filled bars | N/A |
+| Center Column (3D Stage) | (540, 68, 700, 944) | Center | SubViewportContainer with interactive 3D scene | Render target #000000 base | N/A |
+| SubViewport Instance | (540, 68, 700, 780) | In Center | Real-time viewport: athlete on plinth | Anti-aliasing MSAA 4X | Click-Drag |
+| Kinematic Telemetry Strip| (552, 720, 676, 116)| In Center (Over)| Semi-transparent HUD: Velocity, Impact, Startup, Active, Rec | JetBrains Mono Bold 12px, #38BDF8 | N/A |
+| Playback Control Footer | (540, 856, 700, 44) | In Center | Play/Pause, Slow-mo (0.25x), Orbit Reset, Combo Step | Chakra Petch SemiBold 12px | SPACE, Z |
+| Plinth Stage Footer | (540, 908, 700, 104)| In Center | Camera angle buttons: Front-3/4, Profile, High-Angle | Chakra Petch Medium 11px | 1, 2, 3 |
+| Right Column (Technique)| (1252, 68, 652, 944)| Right Dock | Repertoire navigation, Tree, Active Tech Card, Action CTA | Container substrate #0D111A | T |
+| Category Tab Strip | (1264, 80, 628, 40) | In Right Col | Straights, Hooks, Uppercuts, Slips & Rolls, Footwork | Chakra Petch SemiBold 12px | Q / E |
+| Technique Scroll Tree | (1264, 132, 628, 480)| In Right Col | ScrollContainer: tiered tree nodes with level/progress | JetBrains Mono Regular 12px | Scroll / Nav |
+| Tactical Detail Card | (1264, 624, 628, 230)| In Right Col | Detailed mechanical profile: counters, vulnerability | Inter Regular 12px, tactical tags | N/A |
+| Management Decision CTA | (1264, 866, 628, 134)| In Right Col | [ASSIGN TO DRILL], [SET GAMEPLAN EMPHASIS], Quota Slider | Chakra Petch Bold 14px, Gold #D69E2E | ENTER |
+| Bottom Global Hotkey Bar| (0, 1032, 1920, 48) | Bottom-Wide | Keyboard shortcut breadcrumbs and operational mode tags | Inter Medium 11px, #64748B | N/A |
+
+Relationship with the 730 px Gym Drawer
+
+The two interfaces serve distinct operational needs:
+
+The 730 px Drawer (In-Gym Inspection): A sliding panel overlaid on the live 3D gym floor at $x \in [1190, 1920]$. It does not instantiate a secondary 3D athlete. It is used during real-time training simulation to monitor station occupancy, fatigue buildup, and daily training outputs without pausing the gym simulation.
+The Full-Screen Profile ($1920 \times 1080$): Opens when the player presses F on an athlete or double-clicks a roster row. It suspends gym floor simulation rendering, shifts the GPU pipeline to the dedicated character presentation stage, and provides deep planning tools for long-term development.
+1.3 Boxing Technique Tree & Biomechanical Playback Specification
+Technique Repertoire Hierarchy (Boxing Core Only)
+======================================================================================================
+                                     BOXING TECHNIQUE TREE
+======================================================================================================
+BRANCH 1: STRAIGHTS
+  ├── [Tier 1] Basic Lead Jab (Mastery 0-100%)
+  │     ├── [Tier 2] Range Finder / Stiff Jab (Req: Jab Lv 3)
+  │     │     └── [Tier 3] Stepping Double-Jab (Req: Stiff Jab Lv 3, Footwork Lv 2)
+  │     └── [Tier 2] Up-Jab from Low Guard (Req: Jab Lv 3, Slip Lv 2)
+  └── [Tier 1] Straight Rear Cross (Req: Basic Lead Jab Lv 2)
+        ├── [Tier 2] Overhand Cross (Req: Cross Lv 3, Power 70+)
+        └── [Tier 3] 1-2 Straight Combination (Req: Jab Lv 4, Cross Lv 4)
+
+BRANCH 2: HOOKS
+  ├── [Tier 1] Lead Hook to Head (Mastery 0-100%)
+  │     ├── [Tier 2] Shovel Hook / Body Hook (Req: Lead Hook Lv 2)
+  │     │     └── [Tier 3] Liver Puncture Hook (Req: Body Hook Lv 4)
+  │     └── [Tier 3] Check Hook on Pivot (Req: Lead Hook Lv 4, Pivot Lv 3)
+  └── [Tier 1] Rear Hook to Head (Req: Straight Cross Lv 2)
+
+BRANCH 3: UPPERCUTS
+  ├── [Tier 1] Rear Uppercut (Mastery 0-100%)
+  │     ├── [Tier 2] Inside Uppercut (Infight) (Req: Rear Uppercut Lv 3)
+  │     └── [Tier 3] Split-Guard Uppercut (Req: Inside Uppercut Lv 4, Ring IQ 70+)
+  └── [Tier 1] Lead Uppercut (Req: Lead Hook Lv 2, Rear Uppercut Lv 2)
+
+BRANCH 4: DEFENSE & EVASION
+  ├── [Tier 1] High Guard Block (Mastery 0-100%)
+  │     ├── [Tier 2] Cross-Arm / Tight Shell (Req: High Guard Lv 3)
+  │     └── [Tier 2] Catch & Counter Parry (Req: High Guard Lv 4, Reflexes 75+)
+  ├── [Tier 1] Outside Slip (Mastery 0-100%)
+  │     └── [Tier 2] Slip-Counter Cross (Req: Outside Slip Lv 3, Cross Lv 3)
+  └── [Tier 1] Duck & Weave / Roll (Req: Outside Slip Lv 2)
+======================================================================================================
+
+Visual Representation of Technique Tree Nodes
+
+Each node in the scrollable tree is rendered as a compact, data-rich component ($596 \times 74\text{ px}$):
+
++---------------------------------------------------------------------------------------+
+| [LV 4] LEAD HOOK TO HEAD (MID-RANGE)                             DRILL: HEAVY BAG 2   |
+| Mastery: [========================--------] 76% (Proficient)     Quota: 5.0 hrs/week  |
+| Stm: 6.2 | Speed: 11.4 m/s | Dmg: 28 HP | Counter: Cross         Growth: +1.2% / wk   |
++---------------------------------------------------------------------------------------+
+
+Color Codes:
+Mastery Level 1–2 (Novice): Border #334155, Fill #1E293B, Text #94A3B8.
+Mastery Level 3–4 (Proficient): Border #0284C7, Fill #0F172A, Text #38BDF8.
+Mastery Level 5 (Mastered): Border #D69E2E, Fill #1C1917, Text #FACC15.
+Locked / Incomplete Prerequisites: Border #1E293B, Fill #0A0D14, Text #475569.
+Station Indicator Tag: If the move is currently being trained in the weekly plan, a highlighted tag shows the station: DRILL: HEAVY BAG 2 (5 hrs/wk) in #22C55E.
+Biomechanical Clip Presentation Rules
+
+When a manager clicks a technique node, the 3D athlete smoothly transitions from their idle guard into the selected technique animation using the camera and framing rules below:
+
+| Technique Category | Target Bone Focus | Camera Framing Angle | Camera Distance | Vertical Offset ($Y$) | Default Clip Loop Duration |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Straight Punches (Jab/Cross) | mixamorig_Spine2 | Front-Three-Quarter ($25^\circ$ off-center) | $2.35\text{ m}$ | $+0.12\text{ m}$ (Chest level) | $1.20\text{ s}$ (Strike + pause in guard) |
+| Hooks (Lead/Rear/Check) | mixamorig_Neck | Side-Profile ($65^\circ$ lateral) | $2.10\text{ m}$ | $+0.08\text{ m}$ | $1.35\text{ s}$ |
+| Uppercuts (Inside/Split) | mixamorig_Head | Low-Angle Three-Quarter ($30^\circ$, pitched $+14^\circ$ up) | $1.85\text{ m}$ | $-0.15\text{ m}$ | $1.40\text{ s}$ |
+| Body Punches (Liver/Shovel)| mixamorig_Spine | Low Lateral Profile ($55^\circ$ lateral, pitched down $5^\circ$) | $1.95\text{ m}$ | $-0.22\text{ m}$ (Belt level) | $1.30\text{ s}$ |
+| Slips, Rolls & Evasions | mixamorig_Hips | Frontal ($0^\circ$ direct head-on) | $2.50\text{ m}$ | $+0.00\text{ m}$ | $1.60\text{ s}$ (Slip left, roll, reset) |
+
+Slow-Motion Toggle (Z or UI Button): Toggles playback speed between $1.0\times$ (normal real-time speed) and $0.25\times$ (biomechanical analysis speed), allowing the manager to inspect weight transfer, foot pivot, and guard recovery.
+On-Screen Kinematic Telemetry: A semi-transparent overlay anchored at the base of the viewport updates frame-by-frame with real simulation numbers:
+PEAK VELOCITY: 11.2 m/s (derived from glove bone velocity vector).
+EFFECTIVE MASS TRANSFER: 78.4% (kinetic chain involvement from hips to fist).
+RECOVERY LATENCY: 14 frames (233 ms) (window where fighter is open to counter-strikes).
+1.4 The 3D Stage: Lighting, Camera & Performance Architecture
+Lighting & Rendering Pipeline
+
+To give the 3D model clear physical presence without draining GPU resources, the screen uses an isolated, lightweight three-point studio lighting rig inside an independent World3D.
+
+                  [Neutral Rim Light]
+                  Angle: -145 deg, Elevation: +40 deg
+                  Color: #38BDF8, Energy: 2.2
+                           │
+                           ▼
+                     [Fighter Model]
+                  Standing on Gym Plinth
+                           ▲
+             ┌─────────────┴─────────────┐
+             │                           │
+  [Key Light - Directional]    [Fill Light - Directional]
+  Angle: +35 deg               Angle: -45 deg
+  Elevation: +25 deg           Elevation: +10 deg
+  Color: #FFF7ED, Energy: 2.8  Color: #64748B, Energy: 0.95
+
+Plinth Base: A low, circular gym training mat ($2.2\text{ m}$ diameter, $0.06\text{ m}$ height) with a dark matte charcoal canvas texture (#1A1D24) and subtle red canvas boundary stitching. It grounds the fighter and provides a spatial reference for foot rotation.
+Background Treatment: A neutral studio void. We avoid rendering a blurred gym floor here to prevent running a second complete 3D gym scene. The background is an unshaded dark gradient environment running from #0D111A at the top to #05070A at the base.
+Camera Configuration:
+Projection: Perspective, Vertical FOV: $34.0^\circ$ (flattens perspective distortion to accurately display body proportions and reach).
+Distance: $2.40\text{ m}$ default, clamped to $[1.60\text{ m}, 3.20\text{ m}]$ on scroll-wheel zoom.
+Target Height: Y-focus at $+1.15\text{ m}$ (solar plexus of standard $1.78\text{ m}$ model).
+Interactive Drag-to-Rotate:
+Left-click drag on the 3D viewport rotates the fighter around the Y-axis.
+Rotation Limits: Free $360^\circ$ continuous orbit with an automatic ease-back to the front-three-quarter default if idle for $>8\text{ seconds}$.
+Vertical pitch clamped between $-10^\circ$ and $+25^\circ$.
+Idle Animation Architecture:
+When no punch is playing, the model plays a breathing idle guard loop (boxing_idle_guard_orthodox or southpaw).
+If the athlete has acute fatigue ($>40%$), the idle loop blends into the drooping guard posture developed in Section 4.
+Performance & GPU Economy
+
+Running a secondary 3D viewport while the main gym floor is loaded requires careful resource management:
+
+SubViewport Sizing: Fixed at $700 \times 780\text{ px}$. This avoids rendering at full $1920 \times 1080$ resolution and saves roughly 60% of fragment shader fill-rate.
+Main Gym Floor Culling: When this full-screen profile is active, the primary gym floor SubViewport sets render_target_update_mode = UPDATE_DISABLED. The main gym simulation continues updating its logic in _physics_process, but all 3D mesh rendering, lighting, and shadow passes for the gym floor are suspended.
+Shadow Settings: The stage uses a single directional shadow map from the Key Light at $1024 \times 1024$ resolution with PCF5 filtering. The Fill and Rim lights do not cast shadows (shadow_enabled = false).
+1.5 The Management Loop: Decisions Grounded on This Screen
+
+A screen without meaningful decisions is visual fluff. In FightCamp, this screen serves as the primary workbench for three high-impact management decisions:
+
++---------------------------------------------------------------------------------------------------+
+| MANAGEMENT ACTION WORKFLOW                                                                        |
++--------------------------+-----------------------------------+------------------------------------+
+| 1. DRILL ALLOCATION      | 2. GAMEPLAN EMPHASIS              | 3. TACTICAL COUNTER-MATCHING       |
+| Direct assignment of     | Set attack frequency weighting    | Side-by-side comparison with       |
+| technique hours to       | for the fighter's upcoming bout   | the booked opponent's scouted      |
+| specific gym stations.   | instructions.                     | tendencies.                        |
++--------------------------+-----------------------------------+------------------------------------+
+
+1. Training Drill Allocation
+
+The manager clicks a technique (e.g., Rear Uppercut) and uses the action panel to assign training time directly:
+
+Slider sets weekly hours (e.g., $4.0\text{ hrs/week}$).
+The system checks gym requirements and automatically routes the athlete to an available station (e.g., Uppercut Bag 1 or Coach Sparring).
+If the required station is fully booked or missing, the interface warns: STATION CAPACITY EXCEEDED: UPPERCUT BAG OVERBOOKED (+2.5 hrs).
+2. Tactical Gameplan Emphasis
+
+Techniques are not just unlocked; they are prioritized for fight night:
+
+The manager sets the technique's tactical priority: PRIMARY WEAPON, SITUATIONAL, or SUPPRESSED.
+If an opponent has a weak chin and drops their left hand when exiting exchanges, the manager sets the fighter's Right Hook to Head to PRIMARY WEAPON (+35% trigger frequency).
+3. Opponent Comparison Mode (Split-Screen Overlay)
+
+Pressing C or clicking [COMPARE WITH OPPONENT] splits the right panel:
+
+Shows the booked opponent’s scouted technique ratings side-by-side with your fighter's ratings.
+Displays reach offsets directly: REACH ADVANTAGE: +2.5 INCHES (OUTSIDE JAB VIABLE).
+Visualizes where your fighter's strikes match up against the opponent's defensive tendencies.
+1.6 Godot 4.7.2 Scene Tree & Signal Architecture
+FighterLoadoutProfileView (Control, anchors_preset=PRESET_FULL_RECT)
+├── BackgroundSubstrate (ColorRect, color=#07090E)
+│
+├── TopBarNavigation (PanelContainer, custom_minimum_size=(1920, 56))
+│   └── HBoxContainer
+│       ├── BtnBack (Button, text="< GYM FLOOR [ESC]")
+│       ├── FighterIdentityBlock (HBoxContainer)
+│       │   ├── FlagTexture (TextureRect)
+│       │   ├── LblFighterName (Label, text="Niko 'The Anvil' Park")
+│       │   └── LblMeta (Label, text="24 yo | Welterweight | 9-1-0")
+│       └── RosterSwitcher (HBoxContainer)
+│           ├── BtnPrevFighter (Button, text="[< F1]")
+│           └── BtnNextFighter (Button, text="[F2 >]")
+│
+├── MainWorkspace (HBoxContainer, offset_top=56, offset_bottom=1032, separation=12)
+│   │
+│   ├── LeftBiometricsColumn (VBoxContainer, custom_minimum_size=(512, 968))
+│   │   ├── BiometricsCard (PanelContainer, custom_minimum_size=(0, 110))
+│   │   │   └── VBoxContainer (Ht, Reach, Walk Weight, Cut Deficit)
+│   │   ├── CoreAttributesGrid (PanelContainer, custom_minimum_size=(0, 380))
+│   │   │   └── VBoxContainer (9x AttributeRow components with 20-tick meters)
+│   │   ├── AnatomicalWearCard (PanelContainer, custom_minimum_size=(0, 280))
+│   │   │   └── HBoxContainer
+│   │   │       ├── VectorSilhouetteControl (Control, script="BodyWireframe.gd")
+│   │   │       └── WearValueRows (VBoxContainer)
+│   │   └── ConditionAndMoraleCard (PanelContainer, size_flags_vertical=SIZE_EXPAND_FILL)
+│   │
+│   ├── CenterStageColumn (VBoxContainer, custom_minimum_size=(700, 968))
+│   │   ├── StageViewportContainer (SubViewportContainer, stretch=true, size_flags_vertical=SIZE_EXPAND_FILL)
+│   │   │   └── Stage3DViewport (SubViewport, size=(700, 780), render_target_update_mode=UPDATE_ALWAYS)
+│   │   │       ├── WorldEnvironment (WorldEnvironment)
+│   │   │       ├── StudioKeyLight (DirectionalLight3D, light_energy=2.8, shadow_enabled=true)
+│   │   │       ├── StudioFillLight (DirectionalLight3D, light_energy=0.95, shadow_enabled=false)
+│   │   │       ├── StudioRimLight (DirectionalLight3D, light_energy=2.2, shadow_enabled=false)
+│   │   │       ├── StageCameraRig (Node3D, script="StageCameraOrbit.gd")
+│   │   │       │   └── Camera3D (Camera3D, fov=34.0)
+│   │   │       ├── PlinthBase (StaticBody3D)
+│   │   │       │   └── MeshInstance3D (CylinderMesh, r=1.1, h=0.06)
+│   │   │       └── AthletePreviewRig (Node3D, script="AthleteStagePresenter.gd")
+│   │   │           └── Skeleton3D (Skeleton3D)
+│   │   │               ├── MeshInstance3D (FighterMesh)
+│   │   │               └── AnimationPlayer (AnimationPlayer)
+│   │   │
+│   │   ├── KinematicHUDOverlay (PanelContainer, custom_minimum_size=(0, 80))
+│   │   │   └── HBoxContainer (Peak Velocity, Damage, Stamina, Frame Startup/Active/Rec)
+│   │   │
+│   │   └── StageControlFooter (PanelContainer, custom_minimum_size=(0, 60))
+│   │       └── HBoxContainer
+│   │           ├── BtnPlayPause (Button, text="PAUSE [SPACE]")
+│   │           ├── BtnSlowMo (Button, toggle_mode=true, text="SLOW-MO [Z]")
+│   │           ├── BtnCameraAngle (OptionButton, items=["3/4 View", "Profile", "Low-Angle"])
+│   │           └── BtnResetView (Button, text="RESET CAM")
+│   │
+│   └── RightTechniqueColumn (VBoxContainer, custom_minimum_size=(652, 968))
+│       ├── CategoryTabStrip (HBoxContainer, custom_minimum_size=(0, 40))
+│       │   ├── TabStraights (Button, toggle_mode=true, button_pressed=true, text="STRAIGHTS")
+│       │   ├── TabHooks (Button, toggle_mode=true, text="HOOKS")
+│       │   ├── TabUppercuts (Button, toggle_mode=true, text="UPPERCUTS")
+│       │   └── TabDefense (Button, toggle_mode=true, text="DEFENSE")
+│       │
+│       ├── TechniqueScrollTree (ScrollContainer, size_flags_vertical=SIZE_EXPAND_FILL)
+│       │   └── TechniqueVBox (VBoxContainer, script="TechniqueTreeRenderer.gd")
+│       │
+│       ├── SelectedMoveCard (PanelContainer, custom_minimum_size=(0, 210))
+│       │   └── VBoxContainer (Full description, counter analysis, stamina trade-offs)
+│       │
+│       └── DecisionActionPanel (PanelContainer, custom_minimum_size=(0, 110))
+│           └── VBoxContainer
+│               ├── HBoxDrillAllocation (HBoxContainer)
+│               │   ├── LblAllocHours (Label, text="Weekly Allocation: 4.0h")
+│               │   └── HSliderHours (HSlider, min_value=0, max_value=12, step=0.5)
+│               └── HBoxButtons (HBoxContainer)
+│                   ├── BtnCommitDrill (Button, text="ASSIGN TO DRILL SCHEDULE")
+│                   └── BtnSetTact
+
+Should CONTINUE appear beside the time bar, or belong in the STEP IN row beneath it?
+Can you provide the complete fatigue equations, sourced constants, GDScript, headless tests, and mutation tests?
+Can you define the exact FightStagePlayer state machine, clip contracts, timing rules, and exchange-to-animation event mappings?
+Can you generate a labeled ASCII top-down gym floor plan showing stations, zones, doorways, collision bounds, and walkways?

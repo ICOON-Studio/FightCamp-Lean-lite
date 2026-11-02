@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>FightCamp · K15 THE RANKINGS · Kalli</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@500;600;700&display=swap">
+<style>
+@font-face{font-family:"Bebas Neue";src:url("fonts/BebasNeue-Regular.ttf") format("truetype");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Mono";src:url("fonts/IBMPlexMono-Medium.ttf") format("truetype");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Mono";src:url("fonts/IBMPlexMono-Medium.ttf") format("truetype");font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Mono";src:url("fonts/IBMPlexMono-Medium.ttf") format("truetype");font-weight:700;font-style:normal;font-display:swap}
+:root{
+  --ground:#1c2230;--ground-2:#242c3d;--panel:#2a3347;--panel-hi:#34405a;--panel-lo:#222a3b;
+  --track:#111621;--edge:#121722;--line:#4a5a78;--line-soft:#2b3340;
+  --text:#f3f5fa;--text-2:#c9d1e0;--muted:#94a1b8;--dim:#6d7688;--ink:#1b1207;--link:#7fb6ee;
+  --gold:#f0c233;--gold-hi:#f7d65a;--gold-lo:#c99a1a;--gold-edge:#7a5c0c;
+  --gym:#2f6fb0;--gym-hi:#3f86cc;--gym-lo:#24558a;--gym-deep:#1a3d63;--gym-tint:rgba(47,111,176,.22);
+  --go:#22c55e;--go-hi:#4ade80;--go-lo:#15803d;--go-edge:#0b4a23;
+  --slate:#3f4a62;--control:#303a52;--chip:#333d52;--avatar:#3b4557;
+  --good:#4fc46a;--amber:#f0a020;--bad:#e5433a;--bad-edge:#5a120e;
+  --day:#171a22;--day-today:#1e2836;
+  --display:"Bebas Neue","Haettenschweiler","Arial Narrow",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --edge-hi:rgba(255,255,255,.14);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#0f131b;color:var(--text);font-family:var(--mono);font-size:13px;font-weight:500;line-height:1.35;-webkit-font-smoothing:antialiased}
+.doc{padding:28px 24px 80px;max-width:1960px;margin:0 auto}
+.eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.mast h1{font-family:var(--display);font-size:52px;letter-spacing:.02em;line-height:.94;margin:6px 0 10px}
+.mast p{max-width:96ch;color:var(--text-2);margin:0 0 8px}
+.rules{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 28px}
+.rules span{font-size:12px;letter-spacing:.08em;font-weight:700;padding:6px 10px;border:1px solid var(--edge);border-radius:3px;background:var(--panel-lo);color:var(--muted)}
+.sec{margin:36px 0 18px}
+.sec h2{font-family:var(--display);font-size:32px;letter-spacing:.06em;margin:0 0 6px}
+.sec p{margin:0;color:var(--text-2);max-width:92ch}
+.note{margin-top:8px;font-size:12px;letter-spacing:.04em;color:var(--muted)}
+.board{width:1920px;height:1080px;position:relative;overflow:hidden;background:var(--ground);margin:16px 0 40px;box-shadow:0 24px 60px rgba(0,0,0,.55)}
+.shell{width:100%;height:100%;position:relative;background:var(--ground)}
+.top{position:absolute;left:402px;top:16px;width:1494px;height:92px;background:linear-gradient(180deg,rgba(52,64,90,.98),rgba(38,46,66,.98));border:1px solid var(--edge);border-radius:3px;box-shadow:0 1px 0 var(--edge-hi) inset;display:grid;grid-template-columns:1fr auto;overflow:hidden}
+.top .left{padding:8px 14px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.crumb{font-size:12px;letter-spacing:.12em;font-weight:700;color:var(--muted)}
+.pills{display:flex;gap:8px;align-items:center}
+.pill{height:28px;padding:0 12px;border-radius:3px;border:1px solid var(--edge);display:inline-flex;align-items:center;font-size:12px;letter-spacing:.1em;font-weight:700;background:linear-gradient(180deg,#3a4560,#2b3449)}
+.pill.gold{background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:var(--ink);border-color:var(--gold-edge);box-shadow:0 1px 0 rgba(255,255,255,.35) inset}
+.daystrip{display:flex;gap:4px;margin-left:10px}
+.daycell{width:46px;height:28px;border-radius:2px;background:var(--day);border:1px solid var(--edge);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--dim);line-height:1.05}
+.daycell .n{font-family:var(--display);font-size:14px;color:var(--text-2)}
+.daycell.on{background:var(--day-today);border-color:var(--gold-lo);box-shadow:0 0 0 1px rgba(240,194,51,.35)}
+.daycell.on .n{color:var(--gold)}
+.top .right{display:flex;align-items:stretch}
+.dateblk{padding:0 16px;display:flex;flex-direction:column;justify-content:center;text-align:right;background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff;min-width:168px}
+.dateblk .w{font-size:12px;letter-spacing:.14em;font-weight:700;opacity:.92}
+.dateblk .d{font-family:var(--display);font-size:22px;line-height:1;margin-top:2px}
+.continue{display:flex;flex-direction:column;justify-content:center;padding:0 22px;min-width:220px;background:linear-gradient(180deg,var(--go-hi),var(--go-lo));color:#062a10;border-left:1px solid var(--go-edge);box-shadow:0 1px 0 rgba(255,255,255,.35) inset}
+.continue .t{font-family:var(--display);font-size:26px;letter-spacing:.06em;line-height:1}
+.continue .s{font-size:12px;letter-spacing:.1em;font-weight:700;margin-top:2px}
+.rail{position:absolute;left:16px;top:122px;width:370px;height:900px;background:linear-gradient(180deg,#243049,#1c2436);border:1px solid var(--edge);border-radius:3px;box-shadow:0 1px 0 var(--edge-hi) inset;display:flex;flex-direction:column;overflow:hidden}
+.crest{display:flex;align-items:center;gap:12px;padding:14px 14px 10px;border-bottom:1px solid var(--edge)}
+.crest .mark{width:44px;height:44px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#fff,#cfd8e6 70%);color:var(--gym-deep);font-family:var(--display);font-size:18px;display:grid;place-items:center;border:2px solid rgba(0,0,0,.35);flex:none}
+.crest .nm{font-family:var(--display);font-size:22px;letter-spacing:.04em;line-height:1;color:#fff}
+.crest .sub{font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--muted);margin-top:3px}
+.menucap{font-size:12px;letter-spacing:.16em;font-weight:700;color:var(--dim);padding:10px 18px 4px}
+.nav{display:flex;flex-direction:column;gap:2px;padding:4px 8px 12px;flex:1}
+.nav a{display:flex;align-items:center;height:40px;padding:0 12px 0 14px;border-radius:3px;color:var(--text-2);text-decoration:none;font-family:var(--display);font-size:18px;letter-spacing:.06em;position:relative}
+.nav a .badge{margin-left:auto;min-width:22px;height:20px;padding:0 6px;border-radius:10px;background:var(--bad);color:#fff;font-family:var(--mono);font-size:11px;font-weight:700;display:grid;place-items:center}
+.nav a.on{background:linear-gradient(90deg,var(--gym),var(--gym-lo));color:#fff}
+.nav a.on::before{content:"";position:absolute;left:4px;top:8px;width:4px;height:24px;border-radius:2px;background:var(--gold)}
+.body{position:absolute;left:402px;top:122px;width:1494px;height:900px;display:flex;flex-direction:column;gap:10px;min-height:0}
+.hubhead{height:44px;display:flex;align-items:center;gap:14px;padding:0 2px;flex:none}
+.hubhead h2{font-family:var(--display);font-size:32px;letter-spacing:.04em;margin:0;line-height:1}
+.hubhead .meta{font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--muted)}
+.tabs{display:flex;gap:4px;margin-left:auto}
+.tab{height:32px;padding:0 16px;border-radius:3px;border:1px solid var(--edge);background:linear-gradient(180deg,#3a4560,#2b3449);font-family:var(--display);font-size:16px;letter-spacing:.08em;color:var(--text-2);display:inline-flex;align-items:center}
+.tab.on{background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff;border-color:var(--gym-deep)}
+.tab.soft{opacity:.7}
+.scope{display:flex;gap:6px;align-items:center;padding:0 2px;flex:none;flex-wrap:wrap}
+.chip{height:26px;padding:0 10px;border-radius:3px;border:1px solid var(--edge);background:var(--chip);font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--text-2);display:inline-flex;align-items:center}
+.chip.on{background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff;border-color:var(--gym-deep)}
+.chip.lock{opacity:.55}
+.chip.sex{border-color:#2a5a8a;color:var(--link);background:rgba(127,182,238,.08)}
+.scope .ask{margin-left:auto;font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--dim)}
+.panel{flex:1;min-height:0;background:var(--panel);border:1px solid var(--edge);border-radius:3px;box-shadow:0 1px 0 var(--edge-hi) inset;display:flex;flex-direction:column;overflow:hidden}
+.kindnote{display:flex;gap:14px;padding:6px 12px;background:rgba(0,0,0,.18);border-bottom:1px solid var(--line-soft);font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--muted);flex:none}
+.kindnote b{color:var(--text-2)}
+.alert{display:flex;align-items:center;gap:10px;padding:8px 12px;background:linear-gradient(90deg,rgba(47,111,176,.22),rgba(47,111,176,.04));border-bottom:1px solid var(--gym-deep);font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--text-2);flex:none}
+.alert.warn{background:linear-gradient(90deg,rgba(240,160,32,.18),rgba(240,160,32,.04));border-bottom-color:#7a4c08;color:#ffd08a}
+.alert.calm{background:linear-gradient(90deg,rgba(148,161,184,.14),rgba(148,161,184,.03));border-bottom-color:var(--line);color:var(--muted)}
+.thead,.trow{display:grid;grid-template-columns:56px 44px 1.6fr 120px 72px 90px 110px 120px;align-items:center;gap:8px;padding:0 12px;border-bottom:1px solid var(--line-soft)}
+.thead{height:34px;background:var(--panel-lo);font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--dim);flex:none}
+.trow{height:52px;font-size:12px;color:var(--text-2)}
+.trow:nth-child(even){background:rgba(0,0,0,.12)}
+.trow.sel{background:linear-gradient(90deg,var(--gym-tint),rgba(47,111,176,.05));box-shadow:inset 4px 0 0 var(--gym-hi)}
+.trow.ours{background:linear-gradient(90deg,rgba(240,194,51,.16),rgba(47,111,176,.08));box-shadow:inset 4px 0 0 var(--gold)}
+.trow .rk{font-family:var(--display);font-size:22px;letter-spacing:.02em;color:#fff}
+.trow .nm{font-family:var(--display);font-size:18px;letter-spacing:.03em;color:#fff;line-height:1.05}
+.trow .sub{font-size:12px;letter-spacing:.05em;font-weight:700;color:var(--muted);margin-top:2px}
+.av{width:36px;height:36px;border-radius:50%;background:radial-gradient(circle at 40% 30%,#5a6578,#2a3347 70%);border:1px solid var(--edge);display:grid;place-items:center;font-family:var(--display);font-size:13px;color:var(--text-2);flex:none}
+.av.ours{box-shadow:0 0 0 2px rgba(240,194,51,.55)}
+.sil{width:36px;height:36px;border-radius:50%;background:linear-gradient(180deg,#4a5568,#2a3347);border:1px solid var(--edge);position:relative;overflow:hidden}
+.sil::after{content:"";position:absolute;left:50%;top:8px;transform:translateX(-50%);width:14px;height:14px;border-radius:50%;background:#1a2030}
+.sil::before{content:"";position:absolute;left:50%;bottom:2px;transform:translateX(-50%);width:22px;height:16px;border-radius:10px 10px 2px 2px;background:#1a2030}
+.mv{font-family:var(--display);font-size:18px}
+.mv.up{color:var(--good)}
+.mv.dn{color:#ff8f87}
+.mv.flat{color:var(--dim)}
+.flag{height:22px;padding:0 8px;border-radius:2px;border:1px solid var(--edge);display:inline-flex;align-items:center;font-size:11px;letter-spacing:.1em;font-weight:700}
+.flag.belt{background:linear-gradient(180deg,rgba(240,194,51,.22),rgba(240,194,51,.08));color:var(--gold);border-color:var(--gold-edge)}
+.flag.our{background:linear-gradient(180deg,rgba(240,194,51,.3),rgba(240,194,51,.12));color:var(--ink);border-color:var(--gold-edge);background:var(--gold);color:var(--ink)}
+.flag.ahead{background:rgba(79,196,106,.14);color:var(--good)}
+.flag.behind{background:rgba(148,161,184,.12);color:var(--muted)}
+.flag.gym{background:rgba(47,111,176,.22);color:var(--link);border-color:var(--gym-deep)}
+.flag.vacant{background:rgba(240,160,32,.16);color:var(--amber);border-color:#7a4c08}
+.flag.world{background:rgba(127,182,238,.14);color:var(--link)}
+.footbar{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line-soft);background:var(--panel-lo);flex:none;align-items:center}
+.footbar .blab{font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--muted);margin-right:auto}
+.btn{height:36px;padding:0 16px;border-radius:3px;border:1px solid var(--edge);background:linear-gradient(180deg,#3a4560,#2b3449);font-family:var(--display);font-size:16px;letter-spacing:.08em;color:var(--text-2);display:inline-flex;align-items:center;justify-content:center}
+.btn.gold{background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:var(--ink);border-color:var(--gold-edge);box-shadow:0 1px 0 rgba(255,255,255,.35) inset}
+.btn.soft{opacity:.7}
+.hint{display:flex;gap:16px;padding:6px 12px;border-top:1px solid var(--line-soft);background:rgba(0,0,0,.18);font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--dim);flex:none}
+.hint b{color:var(--muted)}
+.pair{padding:8px 10px;background:var(--slate);border-radius:3px;border:1px solid var(--edge)}
+.pair .lab{font-size:12px;letter-spacing:.12em;font-weight:700;color:var(--muted)}
+.pair .val{font-family:var(--display);font-size:20px;letter-spacing:.03em;margin-top:2px}
+/* P4P denser meta */
+.p4p .thead,.p4p .trow{grid-template-columns:56px 44px 1.5fr 100px 90px 110px 90px 110px}
+/* Champions grid */
+.champs{flex:1;display:grid;grid-template-columns:1.1fr .9fr;gap:10px;min-height:0;padding:2px}
+.beltlist{display:flex;flex-direction:column;min-height:0;background:var(--panel);border:1px solid var(--edge);border-radius:3px;overflow:hidden;box-shadow:0 1px 0 var(--edge-hi) inset}
+.belthead{height:34px;padding:0 12px;display:flex;align-items:center;gap:10px;background:var(--panel-lo);font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--dim);border-bottom:1px solid var(--line-soft);flex:none}
+.beltrow{display:grid;grid-template-columns:28px 1fr 1.1fr 90px;gap:8px;align-items:center;padding:0 12px;height:56px;border-bottom:1px solid var(--line-soft);font-size:12px;color:var(--text-2)}
+.beltrow:nth-child(even){background:rgba(0,0,0,.12)}
+.beltrow.sel{background:linear-gradient(90deg,var(--gym-tint),rgba(47,111,176,.05));box-shadow:inset 4px 0 0 var(--gym-hi)}
+.beltrow .bn{font-family:var(--display);font-size:18px;color:#fff;letter-spacing:.03em}
+.beltrow .bs{font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--muted);margin-top:2px}
+.beltmark{width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 40% 30%,var(--gold-hi),var(--gold-lo));border:1px solid var(--gold-edge);box-shadow:0 0 0 2px rgba(240,194,51,.2)}
+.beltmark.empty{background:radial-gradient(circle at 40% 30%,#4a5568,#2a3347);border-color:var(--line);box-shadow:none}
+.sidepeek{display:flex;flex-direction:column;gap:10px;min-height:0}
+.peek{flex:1;background:var(--panel);border:1px solid var(--edge);border-radius:3px;padding:14px;display:flex;flex-direction:column;gap:10px;box-shadow:0 1px 0 var(--edge-hi) inset;min-height:0}
+.peek .eye{font-size:12px;letter-spacing:.14em;font-weight:700;color:var(--muted)}
+.peek h3{font-family:var(--display);font-size:28px;margin:0;letter-spacing:.04em;line-height:1}
+.peek .loc{font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--text-2)}
+.superstrip{padding:12px;background:linear-gradient(90deg,rgba(240,194,51,.14),rgba(240,194,51,.03));border:1px solid var(--gold-edge);border-radius:3px}
+.superstrip .sl{font-size:12px;letter-spacing:.12em;font-weight:700;color:var(--gold)}
+.superstrip .sb{font-size:12px;letter-spacing:.05em;font-weight:700;color:var(--text-2);margin-top:6px;line-height:1.45}
+.k7note{padding:10px 12px;background:rgba(0,0,0,.22);border:1px dashed var(--line);border-radius:3px;font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--dim);line-height:1.45}
+.k7note b{color:var(--muted)}
+/* STATES */
+.states{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:10px;padding:2px;height:100%;flex:1;min-height:0}
+.scell{border:1px solid var(--edge);border-radius:3px;background:#151a24;overflow:hidden;position:relative;padding:36px 10px 10px;display:flex;flex-direction:column;min-height:0}
+.scell .stag{position:absolute;top:8px;left:8px;z-index:3;font-size:12px;letter-spacing:.12em;font-weight:700;padding:4px 8px;background:rgba(18,23,34,.92);border:1px solid var(--line-soft);border-radius:2px;color:var(--text-2)}
+.mini-body{height:100%;display:flex;flex-direction:column;gap:8px;min-height:0}
+.mini-row{display:grid;grid-template-columns:36px 28px 1fr auto;gap:8px;align-items:center;padding:8px 10px;border:1px solid var(--edge);border-radius:2px;background:var(--panel);font-size:12px}
+.mini-row.ours{border-color:var(--gold-edge);background:linear-gradient(90deg,rgba(240,194,51,.14),var(--panel))}
+.mini-row .nm{font-family:var(--display);font-size:16px;color:#fff}
+.emptyfloor{flex:1;display:flex;align-items:center;justify-content:center;gap:14px;border:1px dashed var(--line);border-radius:3px;background:rgba(0,0,0,.2)}
+.emptyfloor .msg{font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--muted);max-width:40ch;line-height:1.45}
+.ruling{margin:48px 0 20px;padding:18px 20px;background:var(--panel-lo);border:1px solid var(--edge);border-radius:3px;max-width:1100px}
+.ruling h3{font-family:var(--display);font-size:24px;margin:0 0 10px;letter-spacing:.06em}
+.ruling p{margin:0 0 8px;color:var(--text-2);max-width:100ch}
+.ruling b{color:var(--text)}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="eyebrow">K15 · KALLI STUDY · NO CODE SHIPS</div>
+  <div class="mast">
+    <h1>THE RANKINGS</h1>
+    <p>Last pre-kit screen with no study. Route exists (<code>nav: "rankings"</code>) but <code>ManagementChrome.NAV_ITEMS</code> never lists it — unreachable destination. This study settles placement, default open, row fields, OUR findability, the seam out, champions, and kit gaps. ShellChrome rhythm from K8/K11 (title/tabs free band, body ~210). Sample: Eastern Ring · boxing LW men · Kian Sterling #8.</p>
+  </div>
+  <div class="rules">
+    <span>BEBAS + PLEX</span><span>SIZE_MIN 12</span><span>GOLD ×1 / BOARD</span><span>GREEN = CONTINUE ONLY</span>
+    <span>PAIR = SLATE</span><span>GYM ≠ CAMP</span><span>♀≠♂ · SEPARATE LADDERS</span>
+    <span>SILHOUETTES</span><span>RANKED ≠ AVAILABLE</span><span>NO DRAG</span><span>INVENT NOTHING</span>
+  </div>
+
+  <div class="sec"><h2>01 · THE DIVISION</h2><p>One weight-class ladder, opened on the focused fighter’s discipline × weight × sex (B). Sex is locked to the ladder — never a free switch that mixes ♀ and ♂. Player asks for another class or discipline. Gold ×1 = FIND OURS.</p>
+  <p class="note">APIs: get_division_rankings(discipline, weight_class, sex). Tabs hold DIVISION / P4P / CHAMPIONS.</p></div>
+</div>
+
+<!-- BOARD 1: DIVISION -->
+<div class="board" id="board-division">
+<div class="shell">
+  <div class="top"><div class="left"><div class="crumb">EASTERN RING  /  RANKINGS  /  DIVISION</div>
+  <div class="pills"><span class="pill">$ 27,600</span><span class="pill">ROSTER 6</span><span class="pill">OUR #8 LW</span><div class="daystrip"><div class="daycell on"><span>MON</span><span class="n">26</span></div><div class="daycell"><span>TUE</span><span class="n">27</span></div><div class="daycell"><span>WED</span><span class="n">28</span></div><div class="daycell"><span>THU</span><span class="n">29</span></div><div class="daycell"><span>FRI</span><span class="n">30</span></div><div class="daycell"><span>SAT</span><span class="n">31</span></div><div class="daycell"><span>SUN</span><span class="n">1</span></div></div></div></div>
+  <div class="right"><div class="dateblk"><div class="w">WEEK 4</div><div class="d">MON 26 JAN 2026</div></div>
+  <div class="continue"><div class="t">CONTINUE</div><div class="s">1 MUST ANSWER FIRST</div></div></div></div>
+  <div class="rail"><div class="crest"><div class="mark">ER</div><div><div class="nm">EASTERN RING</div><div class="sub">NICOSIA  ·  TIER 1</div></div></div>
+  <div class="menucap">MENU</div><div class="nav"><a href="#">OFFICE</a><a href="#">THE DAY</a><a href="#">GYM<span class="badge">1</span></a><a href="#">STAFF</a><a href="#">TRAINING</a><a href="#">SCHEDULE<span class="badge">6</span></a><a href="#">SCOUTING</a><a class="on" href="#">RANKINGS</a></div></div>
+  <div class="body">
+<div class="hubhead"><h2>RANKINGS</h2><span class="meta">WORLD ORDER · ONE LADDER · ♀≠♂</span>
+    <div class="tabs"><span class="tab on">DIVISION</span><span class="tab soft">P4P</span><span class="tab soft">CHAMPIONS</span></div></div>
+<div class="scope">
+  <span class="chip on">BOXING</span><span class="chip">ASK · MMA</span>
+  <span class="chip on">LIGHTWEIGHT</span><span class="chip">ASK · WW</span><span class="chip">ASK · FW</span>
+  <span class="chip sex">MEN · LOCKED</span><span class="chip lock">WOMEN · OTHER LADDER</span>
+  <span class="ask">DEFAULT = OUR FIGHTER’S DIVISION · ASK TO CHANGE</span>
+</div>
+<div class="panel">
+  <div class="kindnote"><span><b>OPENED ON</b> · KIAN STERLING · BOXING LW MEN</span><span><b>SEX LOCKED</b> · NEVER MIX LADDERS</span><span><b>GOLD ×1</b> · FIND OURS</span></div>
+  <div class="thead"><span>#</span><span></span><span>NAME</span><span>RECORD</span><span>MOVE</span><span>BELT</span><span>VS OURS</span><span>MARK</span></div>
+  <div class="trow"><div class="rk">1</div><div class="sil"></div><div><div class="nm">MARCUS HALE</div><div class="sub">BOXING · LW · MEN</div></div><div>28-1-0 · 19KO</div><div class="mv flat">—</div><div><span class="flag belt">CHAMP</span></div><div><span class="flag ahead">AHEAD</span></div><div><span class="flag world">WORLD</span></div></div>
+  <div class="trow"><div class="rk">2</div><div class="sil"></div><div><div class="nm">LEO SANTOS</div><div class="sub">BOXING · LW · MEN</div></div><div>22-2-0 · 14KO</div><div class="mv up">↑1</div><div></div><div><span class="flag ahead">AHEAD</span></div><div><span class="flag world">WORLD</span></div></div>
+  <div class="trow"><div class="rk">3</div><div class="sil"></div><div><div class="nm">DANTE CROWE</div><div class="sub">BOXING · LW · MEN</div></div><div>19-3-1 · 11KO</div><div class="mv dn">↓1</div><div></div><div><span class="flag ahead">AHEAD</span></div><div><span class="flag world">WORLD</span></div></div>
+  <div class="trow"><div class="rk">4</div><div class="sil"></div><div><div class="nm">OMAR REIS</div><div class="sub">BOXING · LW · MEN</div></div><div>17-0-0 · 9KO</div><div class="mv up">↑2</div><div></div><div><span class="flag ahead">AHEAD</span></div><div><span class="flag world">WORLD</span></div></div>
+  <div class="trow"><div class="rk">5</div><div class="sil"></div><div><div class="nm">NIKO VARELA</div><div class="sub">BOXING · LW · MEN</div></div><div>21-4-0 · 12KO</div><div class="mv flat">—</div><div></div><div><span class="flag ahead">AHEAD</span></div><div><span class="flag world">WORLD</span></div></div>
+  <div class="trow"><div class="rk">6</div><div class="sil"></div><div><div class="nm">JACE HOLLOWAY</div><div class="sub">BOXING · LW · MEN</div></div><div>15-2-0 · 8KO</div><div class="mv dn">↓2</div><div></div><div><span class="flag ahead">AHEAD</span></div><div><span class="flag world">WORLD</span></div></div>
+  <div class="trow"><div class="rk">7</div><div class="sil"></div><div><div class="nm">TYRONE BECKETT</div><div class="sub">BOXING · LW · MEN</div></div><div>18-5-0 · 10KO</div><div class="mv flat">—</div><div></div><div><span class="flag ahead">AHEAD</span></div><div><span class="flag world">WORLD</span></div></div>
+  <div class="trow ours sel"><div class="rk">8</div><div class="av ours">KS</div><div><div class="nm">KIAN STERLING</div><div class="sub">BOXING · LW · MEN · EASTERN RING</div></div><div>12-1-0 · 7KO</div><div class="mv up">↑1</div><div></div><div><span class="flag our">OUR</span></div><div><span class="flag gym">GYM</span></div></div>
+  <div class="trow"><div class="rk">9</div><div class="sil"></div><div><div class="nm">ETHAN BROOKS</div><div class="sub">BOXING · LW · MEN</div></div><div>14-3-0 · 6KO</div><div class="mv flat">—</div><div></div><div><span class="flag behind">BEHIND</span></div><div><span class="flag world">WORLD</span></div></div>
+  <div class="trow"><div class="rk">10</div><div class="sil"></div><div><div class="nm">RAFI QURESHI</div><div class="sub">BOXING · LW · MEN</div></div><div>11-2-1 · 5KO</div><div class="mv dn">↓1</div><div></div><div><span class="flag behind">BEHIND</span></div><div><span class="flag world">WORLD</span></div></div>
+  <div class="footbar">
+    <span class="blab">SELECTED · KIAN STERLING · #8 · OUR GYM · OPEN PROFILE</span>
+    <div class="btn soft" style="width:150px">WORLD PEEK</div>
+    <div class="btn" style="width:160px">OPEN PROFILE</div>
+    <div class="btn gold" style="width:160px">FIND OURS</div>
+  </div>
+  <div class="hint"><span>DEFAULT = <b>OUR DIVISION</b></span><span>SEX <b>LOCKED</b> TO LADDER</span><span>PRESS OURS → <b>FIGHTER CARD</b></span><span>PRESS WORLD → <b>PEEK</b> · NOT OFFER</span></div>
+</div>
+</div></div>
+</div>
+
+<div class="doc"><div class="sec"><h2>02 · P4P</h2><p>Cross-division list for one sex (get_p4p_rankings). Still never mixes ♀ and ♂. Division column replaces belt-on-ladder. Gold ×1 = FIND OURS.</p>
+<p class="note">Player asks for P4P — it is not the default open.</p></div></div>
+
+<!-- BOARD 2: P4P -->
+<div class="board" id="board-p4p">
+<div class="shell">
+  <div class="top"><div class="left"><div class="crumb">EASTERN RING  /  RANKINGS  /  P4P</div>
+  <div class="pills"><span class="pill">$ 27,600</span><span class="pill">ROSTER 6</span><span class="pill">OUR P4P #14</span><div class="daystrip"><div class="daycell on"><span>MON</span><span class="n">26</span></div><div class="daycell"><span>TUE</span><span class="n">27</span></div><div class="daycell"><span>WED</span><span class="n">28</span></div><div class="daycell"><span>THU</span><span class="n">29</span></div><div class="daycell"><span>FRI</span><span class="n">30</span></div><div class="daycell"><span>SAT</span><span class="n">31</span></div><div class="daycell"><span>SUN</span><span class="n">1</span></div></div></div></div>
+  <div class="right"><div class="dateblk"><div class="w">WEEK 4</div><div class="d">MON 26 JAN 2026</div></div>
+  <div class="continue"><div class="t">CONTINUE</div><div class="s">1 MUST ANSWER FIRST</div></div></div></div>
+  <div class="rail"><div class="crest"><div class="mark">ER</div><div><div class="nm">EASTERN RING</div><div class="sub">NICOSIA  ·  TIER 1</div></div></div>
+  <div class="menucap">MENU</div><div class="nav"><a href="#">OFFICE</a><a href="#">THE DAY</a><a href="#">GYM<span class="badge">1</span></a><a href="#">STAFF</a><a href="#">TRAINING</a><a href="#">SCHEDULE<span class="badge">6</span></a><a href="#">SCOUTING</a><a class="on" href="#">RANKINGS</a></div></div>
+  <div class="body">
+<div class="hubhead"><h2>RANKINGS</h2><span class="meta">POUND-FOR-POUND · ONE SEX · CROSS DIVISION</span>
+    <div class="tabs"><span class="tab soft">DIVISION</span><span class="tab on">P4P</span><span class="tab soft">CHAMPIONS</span></div></div>
+<div class="scope">
+  <span class="chip sex on">MEN · P4P</span><span class="chip lock">WOMEN · OTHER LIST</span>
+  <span class="chip">LIMIT 15</span>
+  <span class="ask">ASKED FOR · NOT THE DEFAULT OPEN</span>
+</div>
+<div class="panel p4p">
+  <div class="kindnote"><span><b>CROSS-DIVISION</b> · SAME SEX ONLY</span><span><b>♀≠♂</b> · SEPARATE P4P LISTS</span><span><b>GOLD ×1</b> · FIND OURS</span></div>
+  <div class="thead"><span>#</span><span></span><span>NAME</span><span>RECORD</span><span>DIVISION</span><span>MOVE</span><span>VS OURS</span><span>MARK</span></div>
+  <div class="trow"><div class="rk">1</div><div class="sil"></div><div><div class="nm">MARCUS HALE</div><div class="sub">CHAMP · LW</div></div><div>28-1-0</div><div>LW</div><div class="mv flat">—</div><div><span class="flag ahead">AHEAD</span></div><div><span class="flag belt">BELT</span></div></div>
+  <div class="trow"><div class="rk">2</div><div class="sil"></div><div><div class="nm">IVAN KOVAL</div><div class="sub">CHAMP · MW</div></div><div>24-0-0</div><div>MW</div><div class="mv up">↑1</div><div><span class="flag ahead">AHEAD</span></div><div><span class="flag belt">BELT</span></div></div>
+  <div class="trow"><div class="rk">3</div><div class="sil"></div><div><div class="nm">SEAN DRAKE</div><div class="sub">CHAMP · WW</div></div><div>26-2-0</div><div>WW</div><div class="mv flat">—</div><div><span class="flag ahead">AHEAD</span></div><div><span class="flag world">WORLD</span></div></div>
+  <div class="trow"><div class="rk">4</div><div class="sil"></div><div><div class="nm">LEO SANTOS</div><div class="sub">CONTENDER · LW</div></div><div>22-2-0</div><div>LW</div><div class="mv dn">↓1</div><div><span class="flag ahead">AHEAD</span></div><div><span class="flag world">WORLD</span></div></div>
+  <div class="trow"><div class="rk">5</div><div class="sil"></div><div><div class="nm">CAIRO MENDES</div><div class="sub">CHAMP · FW</div></div><div>20-1-0</div><div>FW</div><div class="mv up">↑2</div><div><span class="flag ahead">AHEAD</span></div><div><span class="flag belt">BELT</span></div></div>
+  <div class="trow"><div class="rk">6</div><div class="sil"></div><div><div class="nm">DANTE CROWE</div><div class="sub">CONTENDER · LW</div></div><div>19-3-1</div><div>LW</div><div class="mv flat">—</div><div><span class="flag ahead">AHEAD</span></div><div><span class="flag world">WORLD</span></div></div>
+  <div class="trow"><div class="rk">7</div><div class="sil"></div><div><div class="nm">GARETH MOSS</div><div class="sub">CONTENDER · LHW</div></div><div>18-2-0</div><div>LHW</div><div class="mv up">↑1</div><div><span class="flag ahead">AHEAD</span></div><div><span class="flag world">WORLD</span></div></div>
+  <div class="trow"><div class="rk">8</div><div class="sil"></div><div><div class="nm">OMAR REIS</div><div class="sub">CONTENDER · LW</div></div><div>17-0-0</div><div>LW</div><div class="mv flat">—</div><div><span class="flag ahead">AHEAD</span></div><div><span class="flag world">WORLD</span></div></div>
+  <div class="trow ours sel"><div class="rk">14</div><div class="av ours">KS</div><div><div class="nm">KIAN STERLING</div><div class="sub">EASTERN RING · LW</div></div><div>12-1-0</div><div>LW</div><div class="mv up">↑3</div><div><span class="flag our">OUR</span></div><div><span class="flag gym">GYM</span></div></div>
+  <div class="trow"><div class="rk">15</div><div class="sil"></div><div><div class="nm">ETHAN BROOKS</div><div class="sub">CONTENDER · LW</div></div><div>14-3-0</div><div>LW</div><div class="mv dn">↓2</div><div><span class="flag behind">BEHIND</span></div><div><span class="flag world">WORLD</span></div></div>
+  <div class="footbar">
+    <span class="blab">SELECTED · KIAN STERLING · P4P #14 · SAME SEX LIST ONLY</span>
+    <div class="btn" style="width:160px">OPEN PROFILE</div>
+    <div class="btn gold" style="width:160px">FIND OURS</div>
+  </div>
+  <div class="hint"><span>P4P IS <b>ASKED FOR</b></span><span>SEX <b>LOCKED</b></span><span>NO BOOKABLE FLAG</span><span>NO MAKE OFFER</span></div>
+</div>
+</div></div>
+</div>
+
+<div class="doc"><div class="sec"><h2>03 · CHAMPIONS</h2><p>Belts from get_championships() as a tab of this board (F) — not a strip, not a second destination. K7 owns the CROWNING set-piece; this board only shows who holds what. Superfight offers (get_champion_superfight_offers) as a secondary note under the selected belt. Gold ×1 = OPEN HOLDER.</p>
+<p class="note">Vacant belts read as VACANT — never invent a champion.</p></div></div>
+
+<!-- BOARD 3: CHAMPIONS -->
+<div class="board" id="board-champions">
+<div class="shell">
+  <div class="top"><div class="left"><div class="crumb">EASTERN RING  /  RANKINGS  /  CHAMPIONS</div>
+  <div class="pills"><span class="pill">$ 27,600</span><span class="pill">BELTS 6</span><span class="pill">VACANT 1</span><div class="daystrip"><div class="daycell on"><span>MON</span><span class="n">26</span></div><div class="daycell"><span>TUE</span><span class="n">27</span></div><div class="daycell"><span>WED</span><span class="n">28</span></div><div class="daycell"><span>THU</span><span class="n">29</span></div><div class="daycell"><span>FRI</span><span class="n">30</span></div><div class="daycell"><span>SAT</span><span class="n">31</span></div><div class="daycell"><span>SUN</span><span class="n">1</span></div></div></div></div>
+  <div class="right"><div class="dateblk"><div class="w">WEEK 4</div><div class="d">MON 26 JAN 2026</div></div>
+  <div class="continue"><div class="t">CONTINUE</div><div class="s">1 MUST ANSWER FIRST</div></div></div></div>
+  <div class="rail"><div class="crest"><div class="mark">ER</div><div><div class="nm">EASTERN RING</div><div class="sub">NICOSIA  ·  TIER 1</div></div></div>
+  <div class="menucap">MENU</div><div class="nav"><a href="#">OFFICE</a><a href="#">THE DAY</a><a href="#">GYM<span class="badge">1</span></a><a href="#">STAFF</a><a href="#">TRAINING</a><a href="#">SCHEDULE<span class="badge">6</span></a><a href="#">SCOUTING</a><a class="on" href="#">RANKINGS</a></div></div>
+  <div class="body">
+<div class="hubhead"><h2>RANKINGS</h2><span class="meta">BELTS · HOLDERS · NOT THE CROWNING</span>
+    <div class="tabs"><span class="tab soft">DIVISION</span><span class="tab soft">P4P</span><span class="tab on">CHAMPIONS</span></div></div>
+<div class="scope">
+  <span class="chip on">BOXING</span><span class="chip">ASK · MMA</span>
+  <span class="chip sex">MEN + WOMEN · SEPARATE ROWS</span>
+  <span class="ask">K7 OWNS CROWNING · THIS BOARD ONLY LISTS</span>
+</div>
+<div class="champs">
+  <div class="beltlist">
+    <div class="belthead"><span>BELT</span><span style="margin-left:auto">HOLDER · DIVISION · SEX</span></div>
+    <div class="beltrow sel"><div class="beltmark"></div><div><div class="bn">WORLD LW</div><div class="bs">BOXING · MEN</div></div><div><div class="nm" style="font-family:var(--display);font-size:18px;color:#fff">MARCUS HALE</div><div class="bs">28-1-0 · 19KO</div></div><div><span class="flag belt">HELD</span></div></div>
+    <div class="beltrow"><div class="beltmark"></div><div><div class="bn">WORLD WW</div><div class="bs">BOXING · MEN</div></div><div><div class="nm" style="font-family:var(--display);font-size:18px;color:#fff">SEAN DRAKE</div><div class="bs">26-2-0 · 16KO</div></div><div><span class="flag belt">HELD</span></div></div>
+    <div class="beltrow"><div class="beltmark"></div><div><div class="bn">WORLD MW</div><div class="bs">BOXING · MEN</div></div><div><div class="nm" style="font-family:var(--display);font-size:18px;color:#fff">IVAN KOVAL</div><div class="bs">24-0-0 · 15KO</div></div><div><span class="flag belt">HELD</span></div></div>
+    <div class="beltrow"><div class="beltmark empty"></div><div><div class="bn">WORLD FW</div><div class="bs">BOXING · MEN</div></div><div><div class="nm" style="font-family:var(--display);font-size:18px;color:var(--amber)">VACANT</div><div class="bs">NO CHAMPION · DO NOT INVENT</div></div><div><span class="flag vacant">VACANT</span></div></div>
+    <div class="beltrow"><div class="beltmark"></div><div><div class="bn">WORLD LW</div><div class="bs">BOXING · WOMEN</div></div><div><div class="nm" style="font-family:var(--display);font-size:18px;color:#fff">SARA HADDAD</div><div class="bs">14-0-0 · 6KO</div></div><div><span class="flag belt">HELD</span></div></div>
+    <div class="beltrow"><div class="beltmark"></div><div><div class="bn">WORLD FLY</div><div class="bs">BOXING · WOMEN</div></div><div><div class="nm" style="font-family:var(--display);font-size:18px;color:#fff">ELENA VARGAS</div><div class="bs">11-1-0 · 4KO</div></div><div><span class="flag belt">HELD</span></div></div>
+    <div class="footbar" style="margin-top:auto">
+      <span class="blab">SELECTED · WORLD LW MEN · MARCUS HALE</span>
+      <div class="btn gold" style="width:170px">OPEN HOLDER</div>
+    </div>
+  </div>
+  <div class="sidepeek">
+    <div class="peek">
+      <div class="eye">HOLDER · WORLD REF · NOT AN OFFER</div>
+      <div style="display:flex;gap:14px;align-items:center">
+        <div class="sil" style="width:56px;height:56px;border-radius:50%"></div>
+        <div>
+          <h3>MARCUS HALE</h3>
+          <div class="loc">BOXING · LW · MEN · CHAMP · 28-1-0</div>
+        </div>
+      </div>
+      <div class="pair"><div class="lab">BELT</div><div class="val">WORLD LIGHTWEIGHT</div></div>
+      <div class="pair"><div class="lab">DEFENCES</div><div class="val">3</div></div>
+      <div class="superstrip">
+        <div class="sl">SUPERFIGHT OFFER · SECONDARY</div>
+        <div class="sb">Optional note from get_champion_superfight_offers — not a crowning, not a schedule book. Shown only when the API returns one.</div>
+      </div>
+      <div class="k7note"><b>K7 OWNS CROWNING.</b> This tab lists holders and vacancies. Do not restage the belt ceremony here.</div>
+    </div>
+  </div>
+</div>
+</div></div>
+</div>
+
+<div class="doc"><div class="sec"><h2>04 · STATES</h2><p>Nobody ranked from the gym (honest first-career); a division with no champion; our fighter visible in a world list; nothing generated yet. Calm, not BAD — invent nothing.</p></div></div>
+
+<!-- BOARD 4: STATES -->
+<div class="board" id="board-states">
+<div class="shell">
+  <div class="top"><div class="left"><div class="crumb">EASTERN RING  /  RANKINGS  /  STATES</div>
+  <div class="pills"><span class="pill">$ 12,400</span><span class="pill">ROSTER 1</span><span class="pill">STUDY STATES</span><div class="daystrip"><div class="daycell on"><span>MON</span><span class="n">5</span></div><div class="daycell"><span>TUE</span><span class="n">6</span></div><div class="daycell"><span>WED</span><span class="n">7</span></div><div class="daycell"><span>THU</span><span class="n">8</span></div><div class="daycell"><span>FRI</span><span class="n">9</span></div><div class="daycell"><span>SAT</span><span class="n">10</span></div><div class="daycell"><span>SUN</span><span class="n">11</span></div></div></div></div>
+  <div class="right"><div class="dateblk"><div class="w">WEEK 1</div><div class="d">MON 5 JAN 2026</div></div>
+  <div class="continue"><div class="t">CONTINUE</div><div class="s">READY</div></div></div></div>
+  <div class="rail"><div class="crest"><div class="mark">ER</div><div><div class="nm">EASTERN RING</div><div class="sub">NICOSIA  ·  TIER 1</div></div></div>
+  <div class="menucap">MENU</div><div class="nav"><a href="#">OFFICE</a><a href="#">THE DAY</a><a href="#">GYM</a><a href="#">STAFF</a><a href="#">TRAINING</a><a href="#">SCHEDULE</a><a href="#">SCOUTING</a><a class="on" href="#">RANKINGS</a></div></div>
+  <div class="body">
+<div class="hubhead"><h2>RANKINGS</h2><span class="meta">STATES · CALM · NO INVENTION</span>
+    <div class="tabs"><span class="tab on">DIVISION</span><span class="tab soft">P4P</span><span class="tab soft">CHAMPIONS</span></div></div>
+<div class="states">
+  <div class="scell">
+    <div class="stag">NOBODY RANKED · FIRST CAREER</div>
+    <div class="mini-body">
+      <div class="alert calm">NOBODY FROM EASTERN RING IS RANKED YET · WORLD LADDER STILL SHOWN</div>
+      <div class="mini-row"><span style="font-family:var(--display);font-size:16px">1</span><div class="sil" style="width:28px;height:28px"></div><div class="nm">MARCUS HALE</div><span class="flag belt">CHAMP</span></div>
+      <div class="mini-row"><span style="font-family:var(--display);font-size:16px">2</span><div class="sil" style="width:28px;height:28px"></div><div class="nm">LEO SANTOS</div><span class="flag world">WORLD</span></div>
+      <div class="mini-row"><span style="font-family:var(--display);font-size:16px">3</span><div class="sil" style="width:28px;height:28px"></div><div class="nm">DANTE CROWE</div><span class="flag world">WORLD</span></div>
+      <div class="btn soft" style="width:100%;margin-top:auto;opacity:.55">FIND OURS · NONE</div>
+    </div>
+  </div>
+  <div class="scell">
+    <div class="stag">NO CHAMPION · VACANT BELT</div>
+    <div class="mini-body">
+      <div class="alert warn">WORLD FW MEN · VACANT · DO NOT INVENT A HOLDER</div>
+      <div class="mini-row"><div class="beltmark empty" style="width:22px;height:22px"></div><div></div><div><div class="nm">WORLD FW</div><div style="font-size:12px;color:var(--muted);font-weight:700;letter-spacing:.06em">BOXING · MEN</div></div><span class="flag vacant">VACANT</span></div>
+      <div class="emptyfloor" style="min-height:90px"><div class="msg">Belt row stays. Holder column reads VACANT. Crowning stays in K7 when it happens.</div></div>
+    </div>
+  </div>
+  <div class="scell">
+    <div class="stag">OUR FIGHTER VISIBLE</div>
+    <div class="mini-body">
+      <div class="alert">KIAN STERLING · #8 · AUTO-SCROLLED · OUR CHIP + GOLD EDGE</div>
+      <div class="mini-row"><span style="font-family:var(--display);font-size:16px">7</span><div class="sil" style="width:28px;height:28px"></div><div class="nm">TYRONE BECKETT</div><span class="flag ahead">AHEAD</span></div>
+      <div class="mini-row ours"><span style="font-family:var(--display);font-size:16px;color:var(--gold)">8</span><div class="av ours" style="width:28px;height:28px;font-size:11px">KS</div><div class="nm">KIAN STERLING</div><span class="flag our">OUR</span></div>
+      <div class="mini-row"><span style="font-family:var(--display);font-size:16px">9</span><div class="sil" style="width:28px;height:28px"></div><div class="nm">ETHAN BROOKS</div><span class="flag behind">BEHIND</span></div>
+      <div class="btn gold" style="width:100%;margin-top:auto">FIND OURS</div>
+    </div>
+  </div>
+  <div class="scell">
+    <div class="stag">NOTHING GENERATED YET</div>
+    <div class="mini-body">
+      <div class="emptyfloor"><div class="msg">NO DIVISION LADDER RETURNED · NO BELTS · NO P4P · BOARD STAYS EMPTY UNTIL GAMESTATE SERVES LISTS · DO NOT FAKE NAMES</div></div>
+      <div class="alert calm" style="margin-top:auto">EMPTY IS HONEST · NOT A BUG SKIN</div>
+    </div>
+  </div>
+</div>
+</div></div>
+</div>
+
+<div class="doc">
+  <div class="ruling">
+    <h3>A–G RULINGS (SHORT)</h3>
+    <p><b>A · OWN RAIL ITEM RANKINGS.</b> Route exists; rail forgot it — bug, not verdict. Rejected WORLD hub (orgs/events already lean SCHEDULE/OFFICE; bundling delays the APIs that exist). Rejected SCOUTING tab (ranked ≠ available). Rejected dissolve into division asks (no home when not mid-ask).</p>
+    <p><b>B · DEFAULT = focused fighter’s division</b> (discipline × weight × sex). Sex locked to ladder. Player asks for other class/discipline, P4P, Champions. No four controls before a name.</p>
+    <p><b>C · ROW:</b> # · silhouette · name · record · move ↑↓— · belt if champ · vs-ours (AHEAD/BEHIND/OUR) · gym/world mark. Leave off: bookable, wage, full stats, scouting affordability.</p>
+    <p><b>D · OURS:</b> OUR chip + gold edge + auto-scroll. Empty gym first-career: calm strip, world ladder still shown, FIND OURS disabled — not BAD.</p>
+    <p><b>E · PRESS:</b> ours → fighter card; world → read-only peek / scouting candidate VIEW only — never MAKE OFFER from rankings (ranked ≠ available). Nothing if no card.</p>
+    <p><b>F · CHAMPIONS:</b> tab of this board (not own, not strip-only). K7 owns crowning. Vacant stays vacant.</p>
+    <p><b>G · KIT GAPS:</b> ranking_row · ladder_scope · our_in_ladder · belt_holder_row · vacant_belt_state · empty_gym_ranked. Reuse tab_bar, filter_strip, pair, badge, alert_strip, silhouettes. No drag.</p>
+    <p><b>GAMESTATE READ GAPS:</b> movement delta / prior-week snapshot not named in TASK APIs; is_ours / gym membership on ranking entries; focused-fighter division helper for default open. Existing: get_division_rankings · get_p4p_rankings · get_championships · get_champion_superfight_offers.</p>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,345 @@
+PART A — WALL VISIBILITY, CUTAWAYS, AND ROTATION ARCHITECTURE
+A1. The Right Cutaway Rule for FightCamp
+
+The rule you designed (near walls cut to a low stub, far walls at full height with all hung decor intact) is the gold standard for isometric, dense indoor management games. Here is the comparative evaluation:
+
+| Approach | Visual Readability | Gameplay Readability | Technical Overhead | Fit for FightCamp |
+| :--- | :--- | :--- | :--- | :--- |
+| Fully Down (No Shell Walls) | Poor. Floats props in mid-air (as seen in your screenshot). Loss of interior architectural weight. | Excellent floor view; zero occlusion. | Lowest draw call / geometry cost. | Unacceptable. It breaks the "lived-in, gritty brick boxing gym" aesthetic mandated by your GDD. |
+| Alpha / Dither Transparency | Mediocre. Ghostly brick patterns visually fight with 3D characters, heavy bags, and UI stat labels. | Poor during motion. Occlusion persists mentally even at $\alpha = 0.25$. | High (alpha-blended depth sorting bugs, shadow acne, fill-rate penalties). | Reject. Transparent walls produce visual noise, making it difficult to read fighter stamina and pulse bars. |
+| 3-Way Manual Toggle (The Sims) | High control, but high cognitive load. Players constantly toggle up to take screenshots and down to play. | Variable. If walls are toggled Up, ring corners and bag lines are obscured. | Requires maintaining three distinct mesh/shader execution paths. | Sub-optimal. FightCamp is an active sports sim with ticking timers (2-minute training days), not an architectural dollhouse. |
+| Two Point Cutaway / Dot-Product Stub (Proposed) | High. Maintains room grounding via stubs while leaving the entire floor visible. | Flawless. Camera-facing obstacles drop; the background backdrops remain solid. | Minimal. Evaluated only when rotating or stepping zoom. | Selected Default. Automates visibility without requiring player management. |
+
+Design Recommendation
+System Default: Dynamic 2-Wall Cutaway (Cut to Stub). At any of the 4 discrete viewpoints, the two walls facing the camera drop to a 0.4 m stub. The two rear walls remain at full height (3.6 m).
+Settings Override: Provide a binary toggle in Settings / Video: Wall Rendering: [Dynamic Cutaway | Always Flat Stub]. Never include a manual "Walls Full Up" mode during live training rounds, as it completely obscures stations along the South/East boundaries.
+A2. Stub Height, Caps, and Door Openings
+Stub Height ($0.4\text{ m}$):
+$0.4\text{ m}$ matches standard architectural wainscoting/skirting line height.
+It sits lower than a boxer’s knee ($~0.5\text{ m}$ on standard stylized athletic rigs), preventing occlusion of footwork, skipping ropes, or dropped weights.
+It remains tall enough to visually catch interior floor edges and floor shadow projections.
+Top Cap & Materialization:
+Do not leave hollow backfaces or open clipped geometry.
+Apply a distinct $0.06\text{ m}$ thick wooden or industrial concrete cap rail across the top cut edge.
+Palette: Dark industrial painted wood or aged cast concrete (#2C2A29 to #383431). This cleanly frames the cut edge, signaling an intentional architectural cross-section rather than a rendering glitch.
+Doors on Cut Walls:
+Frame: Cut the door jambs off cleanly at the $0.4\text{ m}$ stub level.
+Threshold / Floor Plate: Keep the metal or wooden floor transition strip ($0.02\text{ m}$ high) fully visible on the floor.
+Door Leaf: Drop/hide the door leaf completely on any cut wall. If an inner room door is swung open into a cut wall space, hide the leaf entirely. Leaving a floating or half-cut door leaf obstructs walkways and looks broken.
+A3. Wall-Hung Items: Vanish vs. Relocate
+
+Floating signs, clocks, and posters look unpolished. Wall-hung items must obey the following rules:
+
+Rule 1: Decorative Items Drop With The Wall.
+Fight posters, vintage boxing bills, wall sconces, pipe conduits, and the ANVIL STREET GYM metal marquee sign vanish immediately when their parent wall cuts down to $0.4\text{ m}$. They do not float, and they do not collapse down onto the stub.
+Rule 2: Gameplay-Critical Information Relocates to the Screen HUD.
+The Round / Training Clock: In a real gym, a 3-minute mechanical round timer hangs on the wall. In FightCamp, the wall clock is visual flavor only. The functional countdown timer must exist permanently on the Top-Center HUD. If the wall it hangs on is cut, hide the 3D model. Never move it to an awkward floor stand.
+Mirror Stations (Shadowboxing/Skipping): A mirror cannot float. When the mirror wall cuts, the mirror glass drops to the $0.4\text{ m}$ stub, turning into a low baseboard mirror edge. The functional station zone on the floor remains fully usable.
+Suspended Equipment (Heavy Bag Rails / Pull-up Bars):
+If heavy bags hang from wall brackets on a cut wall, the brackets cannot hang in mid-air.
+Art Solution: Heavy bag rails must be modeled as freestanding floor-anchored steel gantry frames (posts grounded at $z=0.2$ and $z=2.2$) or drop down completely when the wall is cut. We strongly recommend floor-anchored I-beam gantries for your heavy bag lines. That way, bags stay hung even when the South wall drops!
+A4. Camera Rotation: Discrete 90-Degree Steps vs. Free Drag
+Verdict: Strict 90-Degree Discrete Steps (Yaw: $45^\circ \to 135^\circ \to 225^\circ \to 315^\circ$).
+Why Free Drag Fails for FightCamp:
+Free rotation requires continuous wall-normal projection checks per frame, inducing visual popping as walls snap between full and stub states.
+Pathfinding grids, isometric projection alignments, and Godot 4 screen-space SSAO/SDFGI artifacts look substantially better when tuned to four fixed quadrant matrices.
+Two Point Studios uses fixed 90-degree increments for precise room layout alignment.
+Rotation Timing & Easing Curve:
+Duration: Exactly $0.28\text{ seconds}$. Anything $\ge 0.4\text{ s}$ feels sluggish when managing an urgent crisis; anything $\le 0.15\text{ s}$ disorients the player's spatial awareness.
+Curve: TRANS_CUBIC, EASE_IN_OUT (or TRANS_QUINT with strong damping).
+Input Lock: Buffer inputs during rotation. If the player double-taps E, queue a smooth single transition to the $180^\circ$ target over $0.42\text{ s}$.
+A5. Inner Room Walls (Physio, Office, Changing Rooms)
+
+Inner room partition walls cannot follow the pure exterior shell rule, nor can they simply stay cut at all times.
+
+Facing-Angle Check First: Partition walls facing the camera must drop to $0.4\text{ m}$ stubs by default so you can see inside the rooms from the main hall.
+Occlusion Ray Casting (The "Focus Rule"):
+When the player focuses on a character (e.g., coach talking to an athlete in the Physio room, or the player clicking the Office PC), cast a thick ray (capsule shape) from the camera to the target.
+Any inner wall intersecting this capsule drops to $0.4\text{ m}$, regardless of its orientation.
+Active Room State:
+If a fighter is receiving treatment on the physio table, that room’s ceiling and camera-facing interior walls are dropped. The back wall of the physio room remains full height, displaying medical licenses, tape racks, and anatomy charts.
+A6. Pure GDScript 4 Wall Visibility Module & Test Cases
+
+This class is completely standalone (RefCounted), contains no references to Node or the SceneTree, uses pure vector math, and is 100% unit-testable.
+
+# ==============================================================================
+# WallVisibilityManager.gd
+# Pure functional calculation of wall states and hung prop visibility
+# ==============================================================================
+class_name WallVisibilityManager
+extends RefCounted
+
+const STUB_CUTOFF_DOT: float = 0.05 # Threshold above which wall faces the camera
+
+## Evaluates visibility for shell and inner walls.
+## walls: Array of Dictionaries:
+##   { "id": String, "center": Vector3, "normal": Vector3, "kind": "shell"|"inner", "hung_items": Array[String] }
+## cam_yaw_deg: Camera Yaw in degrees (0 = North, 45 = default Iso, etc.)
+## cam_forward: Vector3 normalized forward vector of the camera
+## focus_points: Array of Vector3 (positions of boxers/coaches currently active)
+static func compute_visibility(
+	walls: Array,
+	cam_yaw_deg: float,
+	cam_forward: Vector3,
+	focus_points: Array = []
+) -> Dictionary:
+	var full_walls: Array[String] = []
+	var cut_walls: Array[String] = []
+	var hidden_items: Array[String] = []
+	
+	# Flat 2D camera direction vector (ignore elevation pitch for wall dot tests)
+	var cam_dir_2d := Vector2(cam_forward.x, cam_forward.z).normalized()
+	
+	for wall in walls:
+		var wall_id: String = wall["id"]
+		var normal: Vector3 = wall["normal"]
+		var normal_2d := Vector2(normal.x, normal.z).normalized()
+		var hung: Array = wall.get("hung_items", [])
+		
+		# Facing calculation:
+		# Dot product between wall outward normal and camera viewing vector.
+		# If dot > 0, the outward face points toward the camera (near wall -> CUT).
+		# If dot <= 0, the inside surface is exposed to the camera (far wall -> FULL).
+		var dot := normal_2d.dot(-cam_dir_2d)
+		var is_near_wall := dot > -STUB_CUTOFF_DOT
+		
+		var should_cut := false
+		
+		if wall["kind"] == "shell":
+			should_cut = is_near_wall
+		elif wall["kind"] == "inner":
+			if is_near_wall:
+				should_cut = true
+			else:
+				# Check ray occlusion to active characters for inner partitions
+				should_cut = _is_occluding_focus_points(wall, cam_forward, focus_points)
+		
+		if should_cut:
+			cut_walls.append(wall_id)
+			for item_id in hung:
+				hidden_items.append(str(item_id))
+		else:
+			full_walls.append(wall_id)
+			
+	return {
+		"full": full_walls,
+		"cut": cut_walls,
+		"hidden_items": hidden_items
+	}
+
+static func _is_occluding_focus_points(wall: Dictionary, cam_forward: Vector3, focus_points: Array) -> bool:
+	if focus_points.is_empty():
+		return false
+	
+	var wall_center: Vector3 = wall["center"]
+	var wall_normal: Vector3 = wall["normal"]
+	
+	for pt in focus_points:
+		var to_point: Vector3 = pt - wall_center
+		# If the focal point lies behind the wall relative to camera line of sight
+		if to_point.dot(cam_forward) > 0.1 and to_point.length_squared() < 64.0:
+			return true
+	return false
+
+Test Suite & 6 Test Cases
+
+Hall geometry: $30\text{ m}\ (\text{X}) \times 18\text{ m}\ (\text{Z})$ shell.
+
+North Wall (Back): Center (15, 0, 0), Normal (0, 0, 1) (faces South, inside faces South). Wait: outward normal points OUT of building:
+wall_north: center (15, 0, 0), Outward Normal (0, 0, -1)
+wall_south: center (15, 0, 18), Outward Normal (0, 0, 1)
+wall_west: center (0, 0, 9), Outward Normal (-1, 0, 0)
+wall_east: center (30, 0, 9), Outward Normal (1, 0, 0)
+# ==============================================================================
+# WallVisibilityTest.gd
+# Self-contained executable verification tests for WallVisibilityManager
+# ==============================================================================
+class_name WallVisibilityTest
+extends RefCounted
+
+static func run_tests() -> bool:
+	var walls = [
+		{"id": "wall_north", "center": Vector3(15, 1.8, 0),  "normal": Vector3(0, 0, -1), "kind": "shell", "hung_items": ["sign_anvil", "clock"]},
+		{"id": "wall_south", "center": Vector3(15, 1.8, 18), "normal": Vector3(0, 0, 1),  "kind": "shell", "hung_items": ["poster_tyson"]},
+		{"id": "wall_west",  "center": Vector3(0, 1.8, 9),   "normal": Vector3(-1, 0, 0), "kind": "shell", "hung_items": ["mirror_row"]},
+		{"id": "wall_east",  "center": Vector3(30, 1.8, 9),  "normal": Vector3(1, 0, 0),  "kind": "shell", "hung_items": ["bracket_bags"]}
+	]
+	
+	var all_passed = true
+	
+	# Camera forward vectors corresponding to typical isometric yaw angles:
+	# Pitch is ~35 deg downward. cam_forward.y is negative.
+	
+	# Case 1: Standard Default Iso (Yaw 45 deg, looking towards North-West: +X, +Z to -X, -Z)
+	# cam_forward: Vector3(-1, -0.7, -1).normalized()
+	var fwd_45 = Vector3(-0.64, -0.42, -0.64).normalized()
+	var res_45 = WallVisibilityManager.compute_visibility(walls, 45.0, fwd_45)
+	# Looking North-West: South wall and East wall face the camera -> CUT.
+	# North and West walls are backdrops -> FULL.
+	assert(res_45.full.has("wall_north") and res_45.full.has("wall_west"))
+	assert(res_45.cut.has("wall_south") and res_45.cut.has("wall_east"))
+	assert(res_45.hidden_items.has("poster_tyson") and res_45.hidden_items.has("bracket_bags"))
+	print("Test 1 (Yaw 45 Default Iso): PASSED")
+	
+	# Case 2: Yaw 135 deg (Looking North-East: -X, +Z to +X, -Z)
+	# cam_forward: Vector3(1, -0.7, -1).normalized()
+	var fwd_135 = Vector3(0.64, -0.42, -0.64).normalized()
+	var res_135 = WallVisibilityManager.compute_visibility(walls, 135.0, fwd_135)
+	# Near walls: South and West -> CUT. Far walls: North and East -> FULL.
+	assert(res_135.full.has("wall_north") and res_135.full.has("wall_east"))
+	assert(res_135.cut.has("wall_south") and res_135.cut.has("wall_west"))
+	print("Test 2 (Yaw 135): PASSED")
+
+	# Case 3: Yaw 225 deg (Looking South-East: -X, -Z to +X, +Z)
+	# cam_forward: Vector3(1, -0.7, 1).normalized()
+	var fwd_225 = Vector3(0.64, -0.42, 0.64).normalized()
+	var res_225 = WallVisibilityManager.compute_visibility(walls, 225.0, fwd_225)
+	# Near walls: North and West -> CUT. Far walls: South and East -> FULL.
+	assert(res_225.full.has("wall_south") and res_225.full.has("wall_east"))
+	assert(res_225.cut.has("wall_north") and res_225.cut.has("wall_west"))
+	assert(res_225.hidden_items.has("sign_anvil") and res_225.hidden_items.has("clock"))
+	print("Test 3 (Yaw 225): PASSED")
+
+	# Case 4: Yaw 315 deg (Looking South-West: +X, -Z to -X, +Z)
+	# cam_forward: Vector3(-1, -0.7, 1).normalized()
+	var fwd_315 = Vector3(-0.64, -0.42, 0.64).normalized()
+	var res_315 = WallVisibilityManager.compute_visibility(walls, 315.0, fwd_315)
+	# Near walls: North and East -> CUT. Far walls: South and West -> FULL.
+	assert(res_315.full.has("wall_south") and res_315.full.has("wall_west"))
+	assert(res_315.cut.has("wall_north") and res_315.cut.has("wall_east"))
+	print("Test 4 (Yaw 315): PASSED")
+
+	# Case 5: Inner Partition Wall with Ray Occlusion
+	var inner_walls = [
+		{"id": "physio_partition", "center": Vector3(10, 1.8, 14), "normal": Vector3(0, 0, -1), "kind": "inner", "hung_items": ["diploma"]}
+	]
+	# Camera looking North (fwd_45). Normal is (0,0,-1). Dot product will say it is a far wall (FULL).
+	# BUT focus point is inside physio room at (10, 0, 12) -> Camera ray is blocked -> Must CUT.
+	var res_inner = WallVisibilityManager.compute_visibility(inner_walls, 45.0, fwd_45, [Vector3(10, 0, 12)])
+	assert(res_inner.cut.has("physio_partition"))
+	assert(res_inner.hidden_items.has("diploma"))
+	print("Test 5 (Inner Partition Occlusion Ray): PASSED")
+
+	# Case 6: Edge Case (Camera looking straight West: Normal dot exactly on boundary)
+	var fwd_west = Vector3(-1, -0.5, 0).normalized()
+	var res_edge = WallVisibilityManager.compute_visibility(walls, 0.0, fwd_west)
+	# East wall faces camera completely -> CUT. West wall is far backdrop -> FULL.
+	assert(res_edge.cut.has("wall_east"))
+	assert(res_edge.full.has("wall_west"))
+	print("Test 6 (Cardinal Edge Direction): PASSED")
+
+	return all_passed
+
+PART B — PLACEMENT SYSTEM (TWO POINT STYLE)
+B1. Comparative Analysis of Placement Mechanics in Top Sim Games
+
+To fulfill the CEO's directive ("placement similar to Two Point games and similar games"), we must extract the exact functional mechanics that define the genre:
+
+| Feature | Two Point Hospital / Campus | Prison Architect | The Sims 4 | Planet Coaster / Zoo | Theme Hospital (1997) |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Grid Size | $1.0\text{ m} \times 1.0\text{ m}$ tiles (Rooms); items bind to $1\text{m}$ or fine half-grid ($0.5\text{m}$). | $1\text{ yard} \times 1\text{ yard}$ strict uniform square grid. | Quarter-tile ($0.25\text{ m}$) fine grid; free ungrid via Alt. | Gridless spline/surface placement + modular building grid ($1, 2, 4\text{ m}$). | Fixed tile square grid ($1\text{ tile} = 1\text{ human footprint}$). |
+| Room Creation | Drag rectangle boundary. Auto-fills interior floor & walls. Must meet min size (e.g., $3 \times 3$). | Drag foundation rectangle; build interior brick/concrete walls manually. | Push-pull dynamic walls or place complete room blueprints. | Grid wall piece assembly (piece-by-piece architecture). | Drag room border; system places walls and floor linoleum. |
+| Door Rule | Mandatory component of room definition. Cannot finish/open room without 1 valid exterior door. | Placed into walls. System tracks cell security status through doors. | Placed freely on walls; auto-cuts wall opening. | Free placement on paths/barriers. | Placed during room drafting phase; must connect to open corridor. |
+| Item Validation (Ghost) | Semi-transparent ghost: Green = valid, Red = invalid. Displays footprints + footprint clearance arrows. | Transparent icon overlay. Red tint if obstructed. | Green/Red translucent mesh ghosting. | Full-color mesh with collision bounding box wireframe highlight. | Solid sprite with red flashing footprint cells. |
+| Rotation Keys | Z / X or Left/Right Mouse Drag. 90-degree default; holding key allows fine-rot on small decor. | R or Middle Mouse Click (strict 90-degree rotations). | < and > (Comma/Period) or Right-click. 45-degree or 90-degree snaps. | Z key (fine degrees or angle snap toggle $15^\circ/45^\circ/90^\circ$). | Right Mouse Click rotates sprite $90^\circ$. |
+| Wall Snapping | Automatic: items tagged wall_mounted or wall_adjacent auto-orient their back to the nearest wall. | Items placed anywhere; some (windows, electrical) snap to wall line. | Direct wall attachment; slides along wall surface plane. | Snaps to building pieces if grid mode is on; free surface snap otherwise. | Auto-rotates to face away from adjacent wall. |
+| Required Items | Strict checklist: e.g., GP Office requires: Desk, Chair, Patient Chair, Filing Cabinet. | Mandatory furniture to qualify room type (Cell requires Bed + Toilet). | Room tagging exists, but does not strictly block functional play. | Habitat requirements (Feeder, Shelter, Water, Enrichment). | Strict room checklist (e.g., Operating Theatre requires 2 consoles + table). |
+| Prestige / Rating | Room Prestige (Level 1–5): Driven by room size, temperature, cleanliness, decor value. | Cell Quality (0–10): Driven by size, TV, bookshelf, window. | Room Environment Score (+Decor aura). | Scenery Rating (0–100%): Calculated via decor density around path. | Room Value (determines hospital reputation increase). |
+| Economic Operations | 100% immediate refund while paused or in draft; degrades to depreciated resale value once active. | Sell back at degraded cost; demolishing yields minor raw cash. | Immediate full refund via Ctrl+Z; buy-mode resale is depreciated. | 100% refund on unpaused recent items; scrap return value on operational rides. | Depreciated resale directly through cursor tool. |
+| Room Move / Pickup | Signature Two Point Feature: Click room tag -> "Pick Up Room" -> Move whole room with all internal furniture. | Clone tool (re-stamps blueprint, does not instantly move existing space). | Move whole room with contents using room drag handles. | Multi-select tool -> Move group gizmo. | None (must delete room, sell items, and redraw from scratch). |
+
+B2. FightCamp Adaptations: Rooms, Stations, Grids, and Clearances
+
+A boxing gym is a blend of specialized communal athletic space and enclosed support modules. FightCamp must not force the player to manually draw toilets, brick by brick, before their fighter can spar.
+
+1. Rooms vs. Training Stations Architecture
+Enclosed Support Rooms (Physio, Management Office, Locker Room, Staff Lounge):
+Phase 1 / Demo: Fixed footprint locations along the front block ($z=18.0\text{ to }22.5\text{ m}$). The player upgrades equipment inside them, but the perimeter walls are static.
+Full Game / EA: Two Point-style rectangular room drafting on the peripheral floor: Drag min $3 \times 3\text{ m}$ for Physio, min $4 \times 3\text{ m}$ for Locker Room. Room is validated only when a Door + Primary Asset (e.g., Treatment Table) is placed.
+Main Hall Training Stations (Ring, Heavy Bags, Speed Bags, Mats, Cardio, Weights):
+100% Free Placement on a Grid. Training equipment is placed directly on the open hall floor. No internal room walls surround heavy bags or lifting racks.
+2. Grid Sizing for FightCamp
+Grid Cell: $0.5\text{ m} \times 0.5\text{ m}$.
+Why $0.5\text{ m}$ instead of Two Point’s $1.0\text{ m}$?
+A $1.0\text{ m}$ grid is too coarse for gym equipment: an Air Bike is $0.6 \times 1.2\text{ m}$; placing it on a $1\text{m}$ grid forces it to occupy $2 \times 1 = 2.0\text{ m}^2$, creating unnatural gaps between cardio gear.
+$0.5\text{ m}$ allows realistic pacing:
+Treadmill: $2 \times 4\text{ cells}$ ($1.0 \times 2.0\text{ m}$).
+Air Bike: $2 \times 3\text{ cells}$ ($1.0 \times 1.5\text{ m}$).
+Speed Bag: $2 \times 2\text{ cells}$ ($1.0 \times 1.0\text{ m}$).
+Standard Ring ($16\text{ ft}$ platform): $12 \times 12\text{ cells}$ ($6.0 \times 6.0\text{ m}$).
+Olympic Competition Ring ($24\text{ ft}$ platform): $16 \times 16\text{ cells}$ ($8.0 \times 8.0\text{ m}$).
+3. Footprint & Clearance Specifications
+
+In a boxing gym, clearance is not just decorative; it represents human movement volume.
+
+       [0.5m Approach Tile]
+               |
+     +---------v---------+
+     |   WORK POINT      |  <-- Boxer stands here during training
++----+-------------------+----+
+| C  |                   | C  |
+| L  |   EQUIPMENT       | L  |  <-- Solid item geometry (No overlap)
+| E  |   FOOTPRINT       | E  |
+| A  |                   | A  |
+| R  +-------------------+ R  |
+| A  |  BAG SWING ZONE   | A  |  <-- Kinetic Clearance (Cannot overlap other stations)
++----+-------------------+----+
+
+Heavy Bag Station ($1.8 \times 2.0\text{ m} \to 4 \times 4\text{ cells}$):
+Solid Base: $0.5 \times 0.5\text{ m}$ bracket/hook anchor.
+Clearance Envelope: $1.5\text{ m}$ diameter swing and step circle.
+Approach Point: 1 tile on front edge for boxer approach.
+16-Foot Boxing Ring ($7.8 \times 7.8\text{ m}$ footprint with stairs):
+Platform Canvas: $6.0 \times 6.0\text{ m}$.
+Apron & Corner Stools: $0.9\text{ m}$ perimeter strip around ropes.
+Corner Clearance: $1.0\text{ m}$ corner clearances for Coach and Cutman pathing during the 60-second between-round stool phase.
+Walkways & Corridors:
+Primary Arteries (Aisles): Minimum width $1.5\text{ m}$ (3 cells) to allow two boxers or a coach and an athlete to pass without clipping.
+Secondary Station Access: Minimum width $1.0\text{ m}$ (2 cells).
+B3. System Integration: How Layout Drives Simulation Mechanics
+
+Placement directly drives your economic and athletic backend:
+
+Coach Travel Time & Training Efficiency (The Physical Lap):
+Your GDD states: "Training days are a lap on the top-down 3D gym floor: the clock runs (about 2 real minutes a day)... The head coach stands at one station and boosts it."
+If the Head Coach is at the Ring (East) and must walk to the Pads (West) to boost a struggling prospect, travel time is simulated on-path. A fragmented, maze-like layout drains $12\text{--}18$ simulation seconds per transition. An optimized layout with clear central aisles saves up to $15%$ of training drill time per week.
+Station Capacity, Bottlenecks, and Membership Dues:
+Club revenue is driven by paying amateur members alongside your pro prospects. Paying members require open stations.
+If equipment capacity is unbalanced (e.g., 6 Heavy Bags, but only 1 Treadmill), members form queues. Queuing members generate negative thoughts ("Waiting for Cardio"), lowering monthly club retention and dues.
+Gym Prestige ("Look Rating") & Prospect Attraction:
+Formula: $\text{Gym Prestige} = \text{Base Tier} + \text{Equipment Tier Quality} + \text{Layout Attractiveness} - \text{Clutter/Wear Penalty}$.
+High-tier prospects (like Leo Vance, Malik Adebayo) demand a prestige threshold before signing. Training in a cramped gym with bags pressed against the ring ropes lowers athlete morale and Composure recovery by $10%$.
+Equipment Wear & Maintenance Paths:
+Heavy use degrades leather pads and cables. At $25%$ condition, equipment induces an "Injury Risk Hazard" modifier (+20% chance of hand/wrist sprain).
+Repairing items requires an Assistant Coach or Gym Custodian to physically path to the item's work point. Blocked clearances lock out repairs.
+B4. Production Scoping: Demo vs. Early Access vs. 1.0
+
+To prevent feature creep, implement this phased rollout:
+
+[DEMO / First Hour] ──────> [EARLY ACCESS] ──────────────> [1.0 GOLD]
+- Fixed Rooms (Front Block) - Move/Sell existing items     - Full Free Room Drafting
+- Buy/Place 6 Station Types - Draw Support Rooms (Office)  - Blueprint Save/Load
+- Static Grid Validation    - Prestige / Attractiveness    - Custom Gym Facades
+- Auto-pathing BFS check    - Dynamic Equipment Wear/Decay - Complete Modding Support
+
+Boxing Demo (Target Scope — $1\text{ Hour First-Play Experience}$):
+Fixed room shells (Locker, Physio, Reception, Office).
+The 30x18 m floor has fixed initial equipment, but the player can enter Build Mode (B) to move existing equipment or purchase up to 4 new items (Double-End Bag, Air Bike, Romanian Deadlift Barbell Station, Defense Slip Rope).
+Rigid 2D tile-grid collision ($0.5\text{ m}$ cells) with green/red placement ghosts.
+BFS path check ensuring an open route from the front door to every active station.
+Early Access (EA):
+Free-form room drawing for Physio and Staff rooms (drag-to-size, door placement).
+Full decor catalog: posters, championship belt display cases, neon signage, brand banners, spectator seating benches.
+Item wear, tear, and maintenance logistics.
+Two Point-style "Pick Up Room" functionality.
+1.0 Launch:
+Multi-tier gym transitions (from the T1 Anvil Garage to the T4 Vegas Mega-Camp).
+Custom ring builder (rope colors, canvas logos, turnbuckle branding).
+Blueprint sharing via Steam Workshop.
+B5. Build-Mode UI/UX Design
+Mode Activation: Press B or click the Wrench/Hammer icon on the bottom HUD toolbar.
+Camera Transformation:
+Smoothly tilts pitch from game cam ($35^\circ$) up to $55^\circ$ for an unobstructed planar perspective.
+All exterior and interior walls automatically lower to the $0.4\text{ m}$ stub, unless the player picks up a wall_mounted prop (in which case the relevant back wall rises to $3.6\text{ m}$ with highlight outlines).
+HUD Layout:
+Bottom Shelf: Category Tabs: [Ring & Sparring], [Bags & Striking], `[Cardio

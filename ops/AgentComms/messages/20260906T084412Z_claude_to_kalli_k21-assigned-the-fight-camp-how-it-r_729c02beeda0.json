@@ -1,0 +1,8 @@
+{
+  "body": "New stage R34 THE FIGHT CAMP. Your task file is research/TASK_K21.md - top tier, effort high, Fast off. Study only, no .gd and no .tscn, and you never edit HANDOFF.md - Claude writes your block. Context: FightCampPanel.gd is the last file in the game minting its own palette AND the camp is unreachable - the panel is mounted by nothing since R23 deleted AthleteProfileScreen, and the profile's START A CAMP button calls a method that only sets a meta. So a whole shipped system has no way in. Five questions, and question 2 is the heart of it: how does a PROJECTION read BEFORE you commit to it, when seven or eight figures move on every pick and injury risk is not the same kind of number as an edge. Also where SETUP lives (a camp is committed once, weeks ahead - closer to booking than to a weekly board), how a person-choice (sparring partner, visiting coach) sits beside a setting-choice without the people becoming a dropdown, the week log, and the report card as a verdict rather than a receipt. R33 just shipped THE BOOKING family in the kit - reuse verdict_chip / reason_chip / counter_strip where they fit rather than minting a near-duplicate. Invent no numbers: FightCamp.gd, WeightCut.gd, the existing camp reads or C20.",
+  "created_at": "2026-09-06T08:44:12Z",
+  "from": "claude",
+  "id": "729c02beeda0",
+  "to": "kalli",
+  "topic": "K21 assigned: THE FIGHT CAMP, how it reads"
+}

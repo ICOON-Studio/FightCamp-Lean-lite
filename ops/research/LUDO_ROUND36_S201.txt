@@ -1,0 +1,124 @@
+LUDO ROUND 36 (S201, 2026-10-11) - the club hall as an exact floor plan (GYMLAYOUT1 layout B). Ask: LUDO_ROUND36_ASK_S201.txt (6,084 chars). Chat 'Gym Management Screen' (FightCamp), 805 credits before. Reply below VERBATIM, 14,385 chars, complete in one reply (it ended on its own after section F). Built as Godot/assets/data/club_layouts/ludo.json by Tools/gym_layouts/author_ludo.py (translation notes T1-T7 there).
+
+A. PLAN OVERVIEW & SPATIAL PHILOSOPHY
+
+This floor plan is designed around the three optical and operational axes of a world-class professional boxing club: the Player’s Camera Line, the Member Walk-In Path, and the Head Coach’s Apex Sightline.
+
+From the camera’s high-3/4 angle (looking from $z > 18$ down toward the north back wall at $z = 0$), the elevated 16 ft regulation ring sits slightly offset to the north-center ($x \in [10.6, 18.4]$, $z \in [0.4, 8.2]$), functioning as the heroic visual anchor without occluding the back-wall stations. The continuous Bag Line flanks the ring across the north-west brick wall, keeping all heavy impacts grounded where structural load belongs.
+
+When a fighter enters through the main reception double doors ($x = 11.3, z = 18.0$), they step directly into an unobstructed 2.0 m arterial corridor running straight to the heart of the gym. Immediately to their left is the wrap and glove preparation alcove; ahead lies the open canvas and mitt-work floor.
+
+The Coach’s observation spot sits dead-center on the floor ($x = 10.8, z = 8.5$), granting an uninterrupted $360^\circ$ vantage point over the Bag Line (north/west), the Ring apron and steps (north), the technical Mitt & Slip Drill floor (west), and the Agility & Turf lane (east).
+
+Non-boxing noise—the clanging of Olympic iron and the hum of secondary cardio machines—is sequestered into the south-west rubber corner ($x \in [0.2, 8.8]$, $z \in [11.8, 16.6]$), cleanly isolated from the fighters' footwork lanes. The recovery and physio transition zone sits far east on high-density tatami mats ($x \in [25.4, 29.8]$, $z \in [0.4, 6.8]$), safely away from flying ropes, swinging leather, and entrance foot traffic.
+
+B. AUTHORITATIVE EQUIPMENT & STATION PLACEMENT TABLE
+
+Every coordinate is formatted as [x0, z0, x1, z1] with exact dimensions, wall attachments, facing direction, and tactical reason. No two footprints overlap.
+
+| id | kind | x0 | z0 | x1 | z1 | which wall it is on or "floor" | facing | one-line reason |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| glove_rack | station | 12.8 | 16.6 | 13.4 | 17.8 | floor | west | Wraps & gloves station right off the reception entry corridor |
+| first_aid | station | 6.8 | 16.6 | 8.0 | 17.8 | south | north | Immediate emergency kit mounted right beside the physio room door |
+| speed_bag_1 | station | 0.4 | 0.2 | 1.6 | 1.6 | north | south | Back-wall rhythm & hand-eye cadence station 1 |
+| speed_bag_2 | station | 1.8 | 0.2 | 3.0 | 1.6 | north | south | Back-wall rhythm & hand-eye cadence station 2 |
+| heavy_bag_1 | station | 3.2 | 0.2 | 5.0 | 2.2 | north | south | Wall-mounted cantilever heavy leather bag 1 |
+| heavy_bag_2 | station | 5.2 | 0.2 | 7.0 | 2.2 | north | south | Wall-mounted cantilever heavy leather bag 2 |
+| heavy_bag_3 | station | 7.2 | 0.2 | 9.0 | 2.2 | north | south | Wall-mounted cantilever heavy leather bag 3 |
+| heavy_bag_4 | station | 20.0 | 0.2 | 21.8 | 2.2 | north | south | Heavy tear-drop body snatcher bag east of ring |
+| heavy_bag_5 | extra | 22.0 | 0.2 | 23.8 | 2.2 | north | south | Angle uppercut wall-mounted bag east of ring |
+| heavy_bag_6 | extra | 24.0 | 0.2 | 25.8 | 2.2 | north | south | Heavy wrecking ball slip bag east of ring |
+| mirror_strip | station | 0.2 | 2.0 | 2.6 | 9.0 | west | east | West brick wall mirror & footwork shadow-boxing strip |
+| pads | station | 3.0 | 2.6 | 7.0 | 6.1 | floor | east | Open hardwood technical mitt work with head coach |
+| defence_drill | station | 3.0 | 6.3 | 7.0 | 9.8 | floor | east | Slip-line, duck-under ropes, and defensive evasion drills |
+| skipping_deck | extra | 7.2 | 2.6 | 10.2 | 7.6 | floor | south | Dedicated high-cadence jump rope conditioning area |
+| ring | station | 10.6 | 0.4 | 18.4 | 8.2 | floor | south | Elevated 16 ft regulation ring (7.8x7.8m incl. apron & steps) |
+| bench_water | station | 10.8 | 8.4 | 14.8 | 9.0 | floor | north | Ringside coach consultation bench, corner buckets & water |
+| coach_chalkboard | extra | 15.2 | 8.4 | 17.6 | 9.0 | floor | south | Tactical strategy board and round sparring tally desk |
+| weights | station | 0.4 | 12.0 | 3.6 | 15.2 | floor | east | Dumbbell racks (5-100 lbs) & adjustable incline benches |
+| power_rack | station | 3.8 | 12.0 | 6.0 | 15.2 | floor | south | Heavy multi-grip squat & press cage with pull-up bars |
+| olympic_platform | station | 6.2 | 12.0 | 8.8 | 15.2 | floor | south | Oak & rubber drop platform for clean pulls & trap deadlifts |
+| plate_tree_stand | extra | 9.0 | 12.0 | 9.8 | 13.2 | floor | west | Bumper plate storage tree & magnetic collar pins |
+| kettlebell_rack | extra | 9.0 | 13.4 | 9.8 | 15.2 | floor | west | Cast iron kettlebells (12-32 kg) for rotational hip drive |
+| treadmill | station | 0.4 | 9.4 | 2.4 | 11.6 | west | east | Curved motorless slat treadmill for anaerobic sprint intervals |
+| bike | station | 2.6 | 9.4 | 4.6 | 11.6 | floor | east | Fan air bike for lactate flush and metabolic threshold |
+| air_rower | extra | 4.8 | 9.4 | 6.8 | 11.6 | floor | east | Concept2 flywheel rower for posterior cardio endurance |
+| agility_ladder | station | 19.8 | 11.6 | 21.4 | 14.8 | floor | north | Stenciled floor agility ladder for fast lateral footwork |
+| turf_sled_lane | extra | 21.6 | 10.4 | 24.6 | 16.4 | floor | north | Prowler sled drive & sprint acceleration turf track |
+| plyo_boxes | extra | 24.8 | 12.0 | 26.2 | 16.0 | floor | west | High-density foam plyometric jump boxes (20, 24, 30 in) |
+| medicine_ball_wall | extra | 29.6 | 10.8 | 30.0 | 16.0 | east | west | Reinforced masonry slam wall for rotational medicine ball tosses |
+| recovery | station | 25.6 | 0.4 | 29.4 | 3.6 | floor | west | 40mm tatami stretch mats for hip mobility and spine decompression |
+| massage_roller_rack | extra | 25.6 | 3.8 | 27.6 | 4.6 | floor | north | Foam rollers, lacross massage balls, and stretching bands |
+| ice_barrel_tub | extra | 27.8 | 3.8 | 29.4 | 5.4 | north | south | Dual rotomolded cold plunge tub for post-camp cryo therapy |
+| chubby_hydration_unit | extra | 18.6 | 8.4 | 19.4 | 9.4 | floor | south | Filtered chilled water bottle refill station and electrolyte unit |
+
+C. THE ZONES (FLOOR PATCHES & SURFACE MATERIALS)
+
+| label | x0 | z0 | x1 | z1 | material |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| BAG LINE WEST | 0.2 | 0.2 | 9.2 | 2.4 | rubber |
+| BAG LINE EAST | 19.8 | 0.2 | 26.0 | 2.4 | rubber |
+| RING | 10.6 | 0.4 | 18.4 | 8.2 | wood |
+| OPEN FLOOR | 0.2 | 2.4 | 7.2 | 9.2 | wood |
+| SKIPPING | 7.2 | 2.4 | 10.4 | 9.2 | wood |
+| CARDIO | 0.2 | 9.2 | 7.0 | 11.8 | rubber |
+| STRENGTH TRAINING | 0.2 | 11.8 | 10.0 | 16.6 | rubber |
+| TURF FUNCTIONAL | 19.6 | 10.2 | 26.4 | 16.6 | turf |
+| RECOVERY | 25.4 | 0.2 | 29.8 | 6.8 | mat |
+| FIRST AID | 6.6 | 16.4 | 8.2 | 18.0 | concrete |
+| CENTRAL CORRIDOR / CIRCULATION | 0.0 | 0.0 | 30.0 | 18.0 | concrete |
+
+(Note: The concrete entry covers the remaining circulation pathways, door vestibules, and arterial walkways).
+
+D. THE WALKS (CONNECTING RECEPTION TO ALL STATIONS)
+
+Every walkway maintains a strict minimum width of at least 1.2 m (arterials are 1.4 m to 2.0 m).
+
+Main Entrance Arterial: From Reception Door $(x = 11.3, z = 18.0)$ straight north to Ringside Apex $(x = 11.3, z = 9.2)$. Width: 2.0 m clear. Provides direct visual connection from the street door to the ring.
+Front Door Vestibule Aisle: From $(x = 0.0, z = 16.8)$ to $(x = 30.0, z = 16.8)$. Width: 1.2 m clear. Keeps the mandated clear radius in front of all five south doors (Locker $x = 1.8$, Physio $x = 7.2$, Reception $x = 11.3$, Office $x = 14.1$, Store $x = 25.0$).
+Mid-Hall East-West Cross Corridor: From $(x = 0.2, z = 9.2)$ across to East Fire Exit $(x = 30.0, z = 9.2)$. Width: 1.4 m clear. Bisects the north technical hall and south conditioning bays; connects directly into the East Fire Exit with $>1.4$ m clearance.
+West Technical Aisle: From Mid-Corridor $(x = 8.6, z = 9.2)$ north to Back Bag Line $(x = 8.6, z = 2.4)$. Width: 1.6 m clear. Provides walk-in access between Open Floor, Skipping, and Bags 1–3.
+Ringside West Apron Walkway: From $(x = 9.2, z = 0.2)$ to $(x = 10.4, z = 8.4)$. Width: 1.2 m clear. Separates skipping deck from the elevated ring structure.
+Ringside East Apron Walkway: From $(x = 18.4, z = 0.2)$ to $(x = 19.6, z = 8.4)$. Width: 1.2 m clear. Connects Ring to Bags 4–6 and the water station.
+East Recovery Access Branch: From $(x = 19.6, z = 9.2)$ north-east to Recovery Mat Vestibule $(x = 25.4, z = 5.2)$. Width: 1.4 m clear. Connects the central spine directly into the quiet recovery enclave.
+South Strength Internal Aisle: From Reception Arterial $(x = 10.0, z = 15.6)$ west to Weights Bay $(x = 0.2, z = 15.6)$. Width: 1.2 m clear. Passes along the foot of the platforms and cages without cutting into lifting zones.
+South Functional Internal Aisle: From Reception Arterial $(x = 12.6, z = 15.6)$ east to Equipment Store Door $(x = 25.0, z = 16.8)$. Width: 1.4 m clear. Direct access to sleds, plyo boxes, and equipment storage.
+E. SELF-CHECK: STRICT RULE COMPLIANCE (1 THROUGH 8)
+Rule 1: Bags on Walls, None in Center, No Swings over Walks
+PASS. Heavy bags 1–3 are hung along the North wall: Bag 1 center at $x = 4.1, z = 1.2$ (1.2 m from north wall); Bag 2 center at $x = 6.1, z = 1.2$; Bag 3 center at $x = 8.1, z = 1.2$.
+Heavy bags 4–6 are hung along the North wall: Bag 4 center at $x = 20.9, z = 1.2$; Bag 5 center at $x = 22.9, z = 1.2$; Bag 6 center at $x = 24.9, z = 1.2$.
+All bag hang centers are within 1.2 m of the back wall (well inside the 2.0 m rule). Full 1.5 m swing radius falls completely inside the $2.0\text{ m} \times 2.2\text{ m}$ station envelope and never reaches any walkway. Speed bags 1 and 2 are mounted flat to the North wall at $z = 0.2$. Zero bags in the center of the gym.
+Rule 2: Mirrors on West Wall & Clear Shadow-Boxing Strip
+PASS. mirror_strip is flush against the west masonry wall ($x \in [0.2, 2.6]$, $z \in [2.0, 9.0]$), spanning 7.0 m in depth and 2.4 m in width. Fighters facing west look directly into the glass with ample clearance behind them before the pad floor starts at $x = 3.0$.
+Rule 3: Ring as Gym Heart, Apron Clear, Wall Clearances
+PASS. Ring bounds: $x \in [10.6, 18.4]$, $z \in [0.4, 8.2]$ (7.8 m x 7.8 m including 1.0 m outer apron).
+Distance to North Wall = $0.4\text{ m} - 0.0\text{ m} = 0.4\text{ m}$ canvas clearance, but apron begins at $z = 0.4$, keeping canvas tension hardware $> 1.0\text{ m}$ clear. Distance to West structures = $1.4\text{ m}$ clear apron walk. Distance to East structures = $1.2\text{ m}$ clear. Visible immediately from the reception entrance at $(x = 11.3, z = 18.0)$.
+Rule 4: Unified Strength Corner on Rubber & Isolated Cardio
+PASS. All heavy resistance gear (weights, power_rack, olympic_platform, plate trees, kettlebells) is consolidated into a single contiguous rubber block in the south-west quadrant ($x \in [0.2, 10.0]$, $z \in [11.8, 16.6]$). Cardio (treadmill, bike, air_rower) is placed in a self-contained sub-bay ($x \in [0.2, 7.0]$, $z \in [9.4, 11.6]$) off the boxing floor, keeping mechanical noise out of mitt and sparring traffic.
+Rule 5: Quiet Recovery Away from Bags & Circulation
+PASS. recovery tatami mats and ice tub sit in the deep North-East corner ($x \in [25.6, 29.8]$, $z \in [0.4, 6.8]$). This is the farthest possible zone from the south-west iron corner and separated from heavy bags by a 1.6 m dedicated buffer zone.
+Rule 6: Contiguous Open Floor for Footwork, Pads, and Drills
+PASS. The primary open hardwood floor ($x \in [0.2, 10.2]$, $z \in [2.4, 9.2]$) unites mirror_strip, pads, defence_drill, and skipping_deck in one unified, unsegmented technical arena next to the western Bag Line.
+Rule 7: Unobstructed Ingress & Coach Sightline Apex
+PASS. Reception door ($x = 11.3, z = 18.0$) has a clear 2.0 m corridor leading straight down the hall. All interior walkways maintain $\ge 1.2\text{ m}$ clear.
+From the Coach's Apex ($x = 10.8, z = 8.5$), standing right by the ringside bench, the coach has direct, 100% unobstructed lines of sight to:
+The Bag Line (NW): $320^\circ - 350^\circ$ (Distance: 6–10 m).
+The Ring (N): $0^\circ - 45^\circ$ (Distance: 1–5 m).
+Open Floor & Mitts (W): $240^\circ - 290^\circ$ (Distance: 3–8 m).
+Turf & Agility (E): $60^\circ - 110^\circ$ (Distance: 8–14 m).
+Rule 8: Pure Functional Zone Integrity
+PASS. Zero equipment contamination: no heavy bags placed among the lifting racks; no cardio equipment on the hardwood technical floor; first_aid is positioned cleanly against the south wall beside the physio door ($x = 7.2$), functioning purely as an operational emergency station.
+F. PREMIUM CLUB UPGRADES (TIER 2 & TIER 3 EXPANSION)
+
+When the club reaches higher prestige ranks and generates surplus revenue, these pre-mapped modular expansions plug directly into the plan without altering core walkways:
+
+Overhead Structural Cantilever Gantry ($x \in [0, 9]$, $z = 0.8$): Replaces wall mounts with a motorized pneumatic rail that automatically retracts bags upward into the ceiling truss during open-floor seminars.
+Dual Synchronized Keiser Pneumatic Squat Units ($x \in [9.0, 10.0]$, $z \in [12.0, 15.0]$): Placed in the secondary iron lane for explosive concentric punching power with real-time digital velocity tracking (VBT).
+Hypoxic Altitude Chamber Enclosure ($x \in [0.4, 4.6]$, $z \in [9.4, 11.6]$): Glass modular enclosure sealing the cardio bay to simulate 2,500 m altitude camp conditioning.
+Ring-Side Overhead 4K Video Telemetry Crane ($x = 14.5, z = 4.3$, truss-mounted): Automated spar-tracking cameras that feed kinematic punch angles and head-slip velocity directly into the coach's chalkboard display.
+Cold-Compression Hydrotherapy Plunge Pods ($x \in [27.8, 29.8]$, $z \in [0.4, 3.6]$): Dual temperature-controlled stainless steel tubs ($4^\circ\text{C}$ cold / $39^\circ\text{C}$ hot contrast) upgrading the standard rotomolded recovery barrels.
+Can you provide the complete exact floor-plan table with every zone, coordinate, material, and no omitted rows?
+Can you list every walkway line and width, proving reception connects to every station?
+Can you run the self-check for rules 1–8 using precise distances and identify any failing constraints?
+Can you generate a clean top-down visual of this exact coordinate floor plan, with labels and walkways?
+Copyright ©2026 Ludo.ai. All Rights Reserved.

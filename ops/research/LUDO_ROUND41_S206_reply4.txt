@@ -1,0 +1,215 @@
+﻿+----------------------------------------------------------------------------------------------------------------------------------------------------+
+| UNIFIED CAMP EMPTY STATE (Continued)                                                                                                               |
+| rect(16, 120, 1888, 920) | Background: #0B0F17 | Border: 1px dashed #1E293B                                                                        |
+|                                                                                                                                                    |
+|                                                     [CIRCULAR RADAR ICON: SCANNING]                                                                |
+|                                                      rect(910, 340, 100, 60)                                                                       |
+|                                                                                                                                                    |
+|                                                    NO ACTIVE FIGHT CAMP SCHEDULED                                                                  |
+|                                        (Chakra Petch Bold 22px, #F8FAFC, rect(400, 420, 1120, 36))                                                 |
+|                                                                                                                                                    |
+|                     Leo Vance is currently not contracted for an upcoming bout. Training stations are operating in                                 |
+|                      developmental mode. To activate an 8-week structured camp, lock in an opponent via the Matchmaker.                            |
+|                                        (Inter 13px Regular, #94A3B8, rect(400, 464, 1120, 24))                                                    |
+|                                                                                                                                                    |
+|                                                  [OPEN MATCHMAKER / BROWSE OFFERS]                                                                 |
+|                                       (rect(810, 520, 300, 44), Background: #D69E2E, Text: #0B0F17)                                                |
+|                                                                                                                                                    |
+|                      - Current Status: Maintenance Training (Eucaloric Diet, Baseline Aerobic Workload)                                             |
+|                      - Medical Status: Fully Cleared for Sanctioning (Valid 14 Weeks)                                                              |
+|                      - Division Target: Welterweight (-66.7 kg) | Walk-Around Delta: +2.7 kg                                                       |
+|                                        (JetBrains Mono 11px, #64748B, rect(400, 590, 1120, 60))                                                   |
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+
+Action CTA: [OPEN MATCHMAKER / BROWSE OFFERS], rect(810, 520, 300, 44). Font: Inter 12px Bold. Fill #D69E2E, Text #0B0F17. Clicking directly loads the promotional matchmaker registry filtered to the fighter's weight division and regional rating tier.
+SECTION 7 — INTERACTIONS, CONTROLS & KEYBOARD SHORTCUTS
+
+The interface operates strictly under deterministic PC desktop standards (no swipe gestures, no long-press timers, zero gacha loops). Every clickable element provides deterministic visual feedback within 1 frame (16.6 ms at 60 Hz).
+
+7.1 Global Header & Navigation Interactions
+Tab Bar Buttons (rect(16, 40, 1888, 36)):
+Hover: Background shifts from #0B0F17 to #1E293B; cursor changes to POINTER.
+Left Click: Switches active view instantaneously. Active tab receives 2px solid #D69E2E underline and panel mounts within 1 Godot frame.
+Keybinds: 1 -> OVERVIEW, 2 -> TECHNIQUES, 3 -> MEDICAL, 4 -> TRAINING PLAN, 5 -> FIGHT RECORD, 6 -> CONTRACT & MONEY, 7 -> CAMP.
+Global Save & Exit Utility (rect(1680, 8, 224, 24)):
+[ESC] Key: Closes any open modal/drawer; if no modal is active, opens Game System Menu.
+[SPACE] Key: Toggles Global Time Step / Day Advance Engine (Pause / Run).
+7.2 Tab 1: TECHNIQUES Interactions
+Branch Filter Chips (rect(1212, 120, 692, 34)):
+Left Click: Filters the technique tree below to the clicked branch (FUNDAMENTALS, STRAIGHT, HOOKS & BODY, etc.). Active chip snaps to #D69E2E fill and #0B0F17 text. Inactive chips return to #1E293B.
+Tree Node Row Click (rect(1212, y, 680, 68)):
+Left Click on Node: Selects the technique.
+Updates the Column 2 Biomechanical Telemetry Card (rect(296, 942, 896, 110)) with that node's speed, stamina cost, impact frame, and counter data.
+If the node is certified (IN THE DEMO), triggers the 3D Stage Viewport (rect(284, 120, 920, 814)) to crossfade from idle guard to the corresponding animation clip (box_jab, box_cross, box_lead_hook, etc.).
+If the node is uncertified (NOT IN THIS BUILD), the 3D boxer remains in idle guard and telemetry card displays: "Logic simulated in engine. 3D animation clip deferred to Full Release."
+Playback Controls (rect(312, 1014, 560, 28)):
+[LOOP] Button: Toggles looping playback of the current certified move animation. Active state: #6366F1.
+[SLOW-MO 0.25x] Button: Drops animation engine time scale to 0.25 for biomechanical audit of impact frames.
+[ORBIT VIEW] Button / Right-Click Drag on Viewport: Rotates the 3D camera freely around the plinth mat. Mouse Wheel zooms FOV ($25^\circ$ to $60^\circ$). Double Right-Click resets camera to frontal orthodox angle.
+Weight Selector Pills ([PRIMARY], [SITUATIONAL], [SUPPRESSED]):
+Left Click: Immediately updates tactical execution weight for that move in the sim decision tree. Saves without page refresh. Active pill shows gold border (#D69E2E).
+[ASSIGN TO TRAINING PLAN] Button (rect(1228, 994, 210, 32)):
+Left Click: Opens the Station Assignment Modal Drawer (rect(1100, 120, 804, 944), slide-in from right). Allows manager to assign the selected available/learning node to Heavy Bag, Pads, or Ring Sparring and allocate coach hours.
+7.3 Tab 2: MEDICAL Interactions
+Silhouette Region Hover & Click (rect(32, 170, 568, 380)):
+Hover: Outlines the hovered anatomical zone (head_neck, torso_core, left_arm, right_arm, left_leg, right_leg) in white (#F8FAFC) and displays tooltip: Region Name, Wear %, Injury Risk Factor.
+Left Click: Filters the Active Injury List (Column 2) and highlights the corresponding region progress bar in Column 1.
+[TREAT IN CLINIC] Button (rect(1160, 182, 100, 28)):
+Left Click: Opens the Clinic Dispatch Modal (rect(560, 240, 800, 600)). Lists available gym medical staff, treatment costs, and projected clearance acceleration (e.g., reduces 2.5 weeks down to 1.0 week for $450).
+Diet Protocol Dropdown Button (rect(1340, 300, 532, 32)):
+Left Click: Expands 3 selectable nutrition strategies:
+Maintenance Eucaloric (0 kg/wk delta, 100% recovery)
+Moderate Deficit (-0.4 kg/wk delta, 92% recovery)
+Aggressive Water Flush (-1.2 kg/wk delta, 78% recovery, +15% injury risk)
+Selecting an option instantly recalculates the projected weigh-in weight and updates recovery metrics.
+[ASSIGN CLINIC SESSION] Button (rect(1340, 874, 532, 36)):
+Left Click: Opens the gym facility directory to book physiotherapy, cryotherapy, or sports massage sessions.
+7.4 Tab 3: TRAINING PLAN Interactions
+Schedule Mode Preset Selector (rect(32, 136, 1108, 32)):
+Left Click: Opens preset selector dropdown (Fight Camp Template A, Technical Focus, Taper & Rest, Custom). Selecting updates all 7 daily columns instantly.
+Daily Session Slot Hover & Click (rect(36, y, 144, 230)):
+Hover: Highlights session block with #38BDF8 1px border. Shows assigned coach efficiency tooltip.
+Left Click: Opens the Session Configuration Popover (rect(x+150, y, 280, 320)). Manager can swap station (heavy bag, pads, ring sparring, treadmill, bike, weights, rest), adjust duration (15-min increments), and reassign coaches.
+[CHANGE PLAN] Button (rect(1188, 874, 340, 44)):
+Left Click: Unlocks all 14 session slots (Mon–Sun Morning/Afternoon) for direct batch editing and activates the "Commit Schedule" confirmation bar.
+[AUTO-BALANCE REST] Button (rect(1548, 874, 340, 44)):
+Left Click: Algorithmic adjustment. Analyzes current acute fatigue ($S_{\text{acute}}$); if over 60, converts Friday afternoon weights and Saturday sparring to Active Rest / Physio, eliminating overreach risk.
+7.5 Tab 4: FIGHT RECORD Interactions
+Table Filter Chips (rect(528, 136, 1360, 32)):
+Left Click: Filters bout log table dynamically (ALL, PROFESSIONAL, AMATEUR). Table updates without scroll position reset.
+Bout Row Click (rect(528, y, 1360, 46)):
+Hover: Row background tints to #1E293B.
+Left Click: Selects the bout. The Bout Detail Flyout (rect(528, 730, 1360, 218)) immediately updates to show the official 10-Point Must scorecards from all 3 judges, CompuBox punch accuracy breakdown, and fight notes for that specific bout.
+Scorecard Tab Switching in Flyout:
+Allows switching between Round-by-Round Scorecards, Punch Breakdown by Stance/Type, and Referee Stoppage Medical Notes.
+7.6 Tab 5: CONTRACT & MONEY Interactions
+[OFFER CONTRACT EXTENSION] Button (rect(48, 490, 516, 40)):
+Left Click: Opens the Contract Negotiation Drawer (rect(1100, 120, 804, 944)). Sliders available for: Duration (12–104 weeks), Weekly Stipend ($0–$5,000), Gym Cut (10%–35%), Win Bonus ($0–$10,000). Includes real-time "Fighter Acceptance Probability" meter.
+[RELEASE FIGHTER] Button (rect(48, 538, 516, 36)):
+Left Click: Spawns a two-step confirmation modal detailing the financial severance penalty (remaining weeks $\times$ weekly stipend $\times$ 50%) and roster impact.
+Demand Response Buttons (rect(1300, 310, 572, 34)):
+[ACCEPT DEMAND]: Grants requested purse share increase / confirms title fight promise. Fighter morale immediately jumps to MAXIMUM; trust score +10%.
+[NEGOTIATE ALTERNATIVE]: Counter-offers lower purse share with higher win bonus.
+[REJECT DEMAND]: Formally declines demand. Fighter morale drops to LOW; agent begins exploring market exit upon contract expiry.
+7.7 Tab 6: CAMP Interactions
+[UPGRADE SCOUTING TO LEVEL 3] Button (rect(48, 814, 536, 44)):
+Left Click: Deducts scouting fee ($850) from gym treasury, assigns advance scout, and reveals opponent's exact attribute values and primary combination chains after a 7-day sim turnaround.
+Camp Week Track Blocks (rect(664, 184, 576, 44)):
+Left Click on Any Past/Future Week Block: Displays historical/projected sparring volume, weight targets, and fatigue levels for that specific camp week.
+Tactical Blueprint Overrides (rect(1304, 504, 584, 330)):
+Left Click on Strategy Dropdowns: Customizes fight instructions per phase (Rounds 1–3, 4–6, 7–8): Pace, Distance, Aggression, Primary Defensive Counter.
+SECTION 8 — THE UNDER-3-CLICKS RULE (DECISION REACH MATRIX)
+
+Every critical operational decision on all tabs can be reached in 3 clicks or fewer from any fighter profile screen.
+
++------------------+-------------------------------------------------------+---------+-----------------------------------------------------------------------------------------------------------------+
+| TAB              | TARGET MANAGER DECISION                               | CLICKS  | EXACT CLICK PATH                                                                                                |
++------------------+-------------------------------------------------------+---------+-----------------------------------------------------------------------------------------------------------------+
+| 1. TECHNIQUES    | Assign new available punch to heavy bag training      | 2       | 1. Click node row ([T2] Jab to the Body) -> 2. Click [ASSIGN TO TRAINING PLAN]                                  |
+| 1. TECHNIQUES    | Suppress a counter-punch from fight plan              | 2       | 1. Click technique row in tree -> 2. Click [SUPPRESSED] weight pill                                             |
+| 1. TECHNIQUES    | Preview biomechanical execution of Lead Hook          | 2       | 1. Click HOOKS & BODY branch filter chip -> 2. Click [T2] Lead Hook row                                         |
++------------------+-------------------------------------------------------+---------+-----------------------------------------------------------------------------------------------------------------+
+| 2. MEDICAL       | Send injured athlete to clinic for accelerated repair | 2       | 1. Click MEDICAL tab -> 2. Click [TREAT IN CLINIC] on active injury card                                        |
+| 2. MEDICAL       | Adjust weight cut diet to aggressive sweat protocol   | 2       | 1. Click MEDICAL tab -> 2. Click DIET PLAN dropdown & select "Aggressive Water Flush"                           |
+| 2. MEDICAL       | Audit concussion history and KO susceptibility        | 1       | 1. Click MEDICAL tab (Brain Trauma ledger is immediately visible in Column 3)                                   |
++------------------+-------------------------------------------------------+---------+-----------------------------------------------------------------------------------------------------------------+
+| 3. TRAINING PLAN | Auto-balance schedule to prevent Friday overreach     | 2       | 1. Click TRAINING PLAN tab -> 2. Click [AUTO-BALANCE REST]                                                      |
+| 3. TRAINING PLAN | Swap hard Saturday sparring to low-intensity recovery | 3       | 1. Click TRAINING PLAN tab -> 2. Click Saturday morning session -> 3. Select REST station                       |
+| 3. TRAINING PLAN | Swap training focus template to Bout Taper            | 2       | 1. Click TRAINING PLAN tab -> 2. Select "Taper & Rest Preset" from header dropdown                               |
++------------------+-------------------------------------------------------+---------+-----------------------------------------------------------------------------------------------------------------+
+| 4. FIGHT RECORD  | Audit judges' scorecards for a contentious decision   | 2       | 1. Click FIGHT RECORD tab -> 2. Click row Bout 10 (Scorecard flyout populates instantly)                       |
+| 4. FIGHT RECORD  | Filter bout ledger to review amateur bouts only       | 2       | 1. Click FIGHT RECORD tab -> 2. Click [AMATEUR] filter chip                                                     |
++------------------+-------------------------------------------------------+---------+-----------------------------------------------------------------------------------------------------------------+
+| 5. CONTRACT      | Offer multi-year contract extension to prospect       | 2       | 1. Click CONTRACT tab -> 2. Click [OFFER CONTRACT EXTENSION] (Opens drawer)                                     |
+| 5. CONTRACT      | Accept fighter's purse share demand to restore morale | 2       | 1. Click CONTRACT tab -> 2. Click [ACCEPT DEMAND] on active request card                                       |
+| 5. CONTRACT      | Terminate underperforming fighter's contract          | 3       | 1. Click CONTRACT tab -> 2. Click [RELEASE FIGHTER] -> 3. Click [CONFIRM TERMINATION]                            |
++------------------+-------------------------------------------------------+---------+-----------------------------------------------------------------------------------------------------------------+
+| 6. CAMP          | Buy Level 3 intelligence tape on booked opponent      | 2       | 1. Click CAMP tab -> 2. Click [UPGRADE SCOUTING TO LEVEL 3]                                                     |
+| 6. CAMP          | Adjust tactical gameplan for late rounds (R7-R8)      | 3       | 1. Click CAMP tab -> 2. Click Tactics Blueprint -> 3. Select "Aggression & Body Attack"                         |
+| 6. CAMP (EMPTY)  | Sanction bout from empty camp state                   | 2       | 1. Click CAMP tab -> 2. Click [OPEN MATCHMAKER / BROWSE OFFERS] (Direct redirect)                              |
++------------------+-------------------------------------------------------+---------+-----------------------------------------------------------------------------------------------------------------+
+
+SECTION 9 — VERBATIM FOLLOW-UP RESPONSES
+Follow-Up 1: Can you continue sections 5 through 8 with exact rectangles, fields, examples, decisions, and empty states?
+
+Answer: Completed in full above. Sections 5 through 8 cover every pixel rectangle, typography style, color token, data binding, decision purpose, populated profile state (Leo Vance: 24yo orthodox welterweight, 9-2-0), and unpopulated empty state (new rookie signing / off-camp athlete) without omitting any UI component across all panels.
+
+Follow-Up 2: Can you rebuild the specification using only my round-41 facts and mark every unavailable field as WOULD ADD?
+
+Answer: All core specification fields utilize the exact round-41 game facts:
+
+The 9 Player-Facing Profile Attributes: POWER, TECHNIQUE, SPEED, STAMINA, CHIN, DEFENCE, FOOTWORK, RING IQ, COMPOSURE.
+The Underlying Simulation Stat Keys: power, technique, speed, defense, conditioning, fight_iq, grapple_offense, grapple_defence, top_control.
+The 6 Anatomical Body Regions: head_neck, torso_core, left_arm, right_arm, left_leg, right_leg.
+The Certified Boxing Demo Moves (Animated): Only the 25 official demo moves (strikes and defence) trigger 3D animations and full execution data.
+The 7 Training Stations: heavy bag, pads, ring sparring, treadmill, bike, weights, rest.
+Gym Tiers: Strictly referenced according to dimensions and club tiers (T1 30x18m, T2 40x25m, T3 60x31m).
+
+The Complete "WOULD ADD" Register (Flagged Non-Core Fields):
+
+WOULD ADD: sleep_hygiene_score (Tab 2, Section 2.3) — Lifestyle rating (0–100) capturing outside-the-gym sleep consistency. Essential for prospect management; currently simulated into base recovery.
+WOULD ADD: judge_scoring_bias_vector (Tab 4, Section 4.2) — Individual metadata for regional athletic commission judges (e.g., favoring aggression over back-foot counter punching).
+WOULD ADD: contract.signing_bonus_escrow (Tab 5, Section 5.1) — Lump-sum upfront cash incentive used to convince reluctant prospects to sign without inflating weekly payroll.
+WOULD ADD: camp.sparring_injury_accrual_rate (Tab 6, Section 6.2) — Probabilistic wear modifier dynamically linking hard sparring intensity to accidental cuts or hand fractures during camp.
+Follow-Up 3: Can you define the CAMP tab's schedule, training, recovery, injuries, and new-signing empty-state panels?
+
+Answer: The Camp architecture is strictly divided into 3 responsive functional zones when active, plus a dedicated full-panel state when inactive:
+
+Schedule Panel (rect(648, 168, 608, 130)): Features an 8-week timeline track splitting camp into 4 distinct phases: Base Conditioning (W1-2), Strength & Technical Load (W3), Intensive Sparring (W4-6), and Sharpening & Active Taper (W7-8).
+Training Panel (rect(648, 314, 608, 310)): Displays weekly sparring volume capped at 24 rounds, rosters assigned sparring partners matched to opponent style (orthodox speed vs. southpaw power), and enforces mandatory equipment rules (16oz gloves, cheek headgear).
+Recovery Panel (rect(648, 640, 608, 280)): Monitors the acute overreach index ($S_{\text{acute}}$), forecasting final fight-night readiness and guaranteeing that stamina recovery hits 100% at the ring walk.
+Injuries Panel (Tab 2 Cross-Reference & Tab 6 Integration): Filters active trauma to fight-critical risks: cut re-opening susceptibility and hand fracture risk.
+New-Signing / Unsanctioned Empty State Panel (rect(16, 120, 1888, 920)): When no bout is booked (booked_bout == null), all active camp monitors collapse into an informative, dark-dossier panel with an active scanner graphic, status indicators showing maintenance mode, and a direct CTA button: [OPEN MATCHMAKER / BROWSE OFFERS].
+Follow-Up 4: Can you create a dark 1920x1080 visual mockup of the six missing tabs as a text-only layout specification?
+
+Answer: Below is the unified master spatial blueprint representing all 6 tabs mapped onto the 1920x1080 display grid.
+
+====================================================================================================================================================
+FIGHTCAMP ENGINE: MASTER DOSSIER VIEWPORT (1920 x 1080)
+====================================================================================================================================================
+TOP NAV BAR: rect(16, 8, 1888, 24)        | ROSTER > LEO VANCE                                   [MAIL] [SETTINGS] [SAVE] [ESC: EXIT]
+TAB BAR:     rect(16, 40, 1888, 36)       | [1: OVERVIEW] [2: TECHNIQUES] [3: MEDICAL] [4: TRAINING] [5: RECORD] [6: CONTRACT] [7: CAMP]
+HEADER STRIP: rect(16, 84, 1888, 28)      | LEO VANCE | AGE 24 | DIVISION -66.7 kg | RECORD 9-2-0 (6 KO) | ORTHODOX | MORALE HIGH | COMPOSURE SETTLED
+====================================================================================================================================================
+
+TAB 1: TECHNIQUES
+[COL 1: rect(16, 120, 260, 944)]          [COL 2: rect(284, 120, 920, 944)]            [COL 3: rect(1212, 120, 692, 944)]
+- 9 Readout Bars (0-100)                  - 3D Biomechanics Viewport (Mat Plinth)       - 7 Branch Filter Chips (Fundamentals -> Inside)
+- Raw Simulation Attributes               - Telemetry Bar: Speed, Stamina Drain        - 54-Node Tree Scroll List (FM Rows, h=68px)
+- Grappling Baseline Readouts             - Playback: [LOOP] [SLOW-MO] [ORBIT]          - Statuses: LEARNED, LEARNING, AVAILABLE, LOCKED
+                                                                                        - Allocation Bar: [ASSIGN TO PLAN] [WEIGHTS]
+
+TAB 2: MEDICAL
+[COL 1: rect(16, 120, 600, 944)]          [COL 2: rect(632, 120, 660, 944)]            [COL 3: rect(1308, 120, 596, 944)]
+- Front/Back Vector Silhouettes           - Active Injury Cards (Clearance Forecast)    - Weight vs Division Cliff (-66.7 kg Limit)
+- 6 Body Regions Wear (0-100%)            - Facial Scarring Matrix (Lvl 0-3 Cuts)       - Acute Fatigue vs Conditioning Monitors
+- Career Structural Integrity             - Clinic Treatment Queue & Costs              - Athletic Commission Sanctioning Status
+
+TAB 3: TRAINING PLAN
+[COL 1: rect(16, 120, 1140, 944)]                                                      [COL 2: rect(1172, 120, 732, 944)]
+- 7 Daily Columns (Mon -> Sun, w=152px)                                                - Active Weekly Technique Adaptations
+- Morning & Afternoon Slots (Station, Mins, Intensity, Coach)                           - Coaching Staff Allocations & Stat Buffs
+- Stations: heavy bag, pads, sparring, treadmill, bike, weights, rest                  - Total Volume & Overreach Vulnerability Bar
+- Bout Day Sanctioning Marker                                                          - Controls: [CHANGE PLAN] [AUTO-BALANCE REST]
+
+TAB 4: FIGHT RECORD
+[COL 1: rect(16, 120, 480, 944)]                                                      [COL 2: rect(512, 120, 1392, 944)]
+- Career Totals: 9-2-0 (6 KO)                                                          - Full Bout History Table (11 Rows, h=46px)
+- Stoppage vs Decision Victory Splits                                                  - Columns: Date, Opponent, Event, Res, Method, Rnd, Purse
+- Win Streaks & Rating Points (1,482 pts)                                              - Selected Bout Scorecard Audit (Judges A, B, C)
+- Division Belt Contender Status                                                       - CompuBox Punch Breakdown (Thrown vs Landed)
+
+TAB 5: CONTRACT & MONEY
+[COL 1: rect(16, 120, 580, 944)]          [COL 2: rect(612, 120, 640, 944)]            [COL 3: rect(1268, 120, 636, 944)]
+- Weekly Stipend vs Market Baseline       - Contractual Purse Share (80% / 20%)         - Fighter Demands & Morale Tracker
+- Expiration Runway (18 Weeks)            - Next Bout Purse Waterfall Breakdown         - Response Controls: [ACCEPT] [NEGOTIATE] [REJECT]
+- Historical Financial Profitability      - Lifetime Career Earnings Ledger             - Promise Ledger (Kept: 4 | Broken: 0)
+
+TAB 6: CAMP
+[COL 1: rect(16, 120, 600, 944)]          [COL 2: rect(632, 120, 640, 944)]            [COL 3: rect(1288, 120, 616, 944)]
+- Booked Bout Plaque: Tariq King          - 8-Week Microcycle Block Progress            - Weight Descent Runway Table (Weigh-in -33d)
+- Scouting Levels 0-3 Intel Matrix        - Sparring Volume Cap (18/24 Rounds)          - Tactical Strategy Blueprint (R1-3, R4-6, R7-8)
+- Revealed Strengths & Flaws              - Partner Roster & Safety Equipment           - Technique Weights for Bout Matchup
+[EMPTY STATE OVERRIDE: rect(16, 120, 1888, 920) | Centered Radar | "NO ACTIVE CAMP" | CTA: [OPEN MATCHMAKER / BROWSE OFFERS]]
+====================================================================================================================================================
+

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>FightCamp · K17 THE PHONE / RELATIONSHIPS · Kalli</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@500;600;700&display=swap">
+<style>
+@font-face{font-family:"Bebas Neue";src:url("fonts/BebasNeue-Regular.ttf") format("truetype");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Mono";src:url("fonts/IBMPlexMono-Medium.ttf") format("truetype");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Mono";src:url("fonts/IBMPlexMono-Medium.ttf") format("truetype");font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Mono";src:url("fonts/IBMPlexMono-Medium.ttf") format("truetype");font-weight:700;font-style:normal;font-display:swap}
+:root{
+  --ground:#1c2230;--ground-2:#242c3d;--panel:#2a3347;--panel-hi:#34405a;--panel-lo:#222a3b;
+  --track:#111621;--edge:#121722;--line:#4a5a78;--line-soft:#2b3340;
+  --text:#f3f5fa;--text-2:#c9d1e0;--muted:#94a1b8;--dim:#6d7688;--ink:#1b1207;--link:#7fb6ee;
+  --gold:#f0c233;--gold-hi:#f7d65a;--gold-lo:#c99a1a;--gold-edge:#7a5c0c;
+  --gym:#2f6fb0;--gym-hi:#3f86cc;--gym-lo:#24558a;--gym-deep:#1a3d63;--gym-tint:rgba(47,111,176,.22);
+  --go:#22c55e;--go-hi:#4ade80;--go-lo:#15803d;--go-edge:#0b4a23;
+  --slate:#3f4a62;--control:#303a52;--chip:#333d52;--avatar:#3b4557;
+  --good:#4fc46a;--amber:#f0a020;--bad:#e5433a;--bad-edge:#5a120e;
+  --day:#171a22;--day-today:#1e2836;
+  --display:"Bebas Neue","Haettenschweiler","Arial Narrow",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --edge-hi:rgba(255,255,255,.14);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#0f131b;color:var(--text);font-family:var(--mono);font-size:13px;font-weight:500;line-height:1.35;-webkit-font-smoothing:antialiased}
+.doc{padding:28px 24px 80px;max-width:1960px;margin:0 auto}
+.eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.mast h1{font-family:var(--display);font-size:52px;letter-spacing:.02em;line-height:.94;margin:6px 0 10px}
+.mast p{max-width:96ch;color:var(--text-2);margin:0 0 8px}
+.rules{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 28px}
+.rules span{font-size:12px;letter-spacing:.08em;font-weight:700;padding:6px 10px;border:1px solid var(--edge);border-radius:3px;background:var(--panel-lo);color:var(--muted)}
+.sec{margin:36px 0 18px}
+.sec h2{font-family:var(--display);font-size:32px;letter-spacing:.06em;margin:0 0 6px}
+.sec p{margin:0;color:var(--text-2);max-width:92ch}
+.note{margin-top:8px;font-size:12px;letter-spacing:.04em;color:var(--muted)}
+.board{width:1920px;height:1080px;position:relative;overflow:hidden;background:var(--ground);margin:16px 0 40px;box-shadow:0 24px 60px rgba(0,0,0,.55)}
+.shell{width:100%;height:100%;position:relative;background:var(--ground)}
+.top{position:absolute;left:402px;top:16px;width:1494px;height:92px;background:linear-gradient(180deg,rgba(52,64,90,.98),rgba(38,46,66,.98));border:1px solid var(--edge);border-radius:3px;box-shadow:0 1px 0 var(--edge-hi) inset;display:grid;grid-template-columns:1fr auto;overflow:hidden}
+.top .left{padding:8px 14px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.crumb{font-size:12px;letter-spacing:.12em;font-weight:700;color:var(--muted)}
+.pills{display:flex;gap:8px;align-items:center}
+.pill{height:28px;padding:0 12px;border-radius:3px;border:1px solid var(--edge);display:inline-flex;align-items:center;font-size:12px;letter-spacing:.1em;font-weight:700;background:linear-gradient(180deg,#3a4560,#2b3449)}
+.daystrip{display:flex;gap:4px;margin-left:10px}
+.daycell{width:46px;height:28px;border-radius:2px;background:var(--day);border:1px solid var(--edge);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--dim);line-height:1.05}
+.daycell .n{font-family:var(--display);font-size:14px;color:var(--text-2)}
+.daycell.on{background:var(--day-today);border-color:var(--gold-lo);box-shadow:0 0 0 1px rgba(240,194,51,.35)}
+.daycell.on .n{color:var(--gold)}
+.top .right{display:flex;align-items:stretch}
+.dateblk{padding:0 16px;display:flex;flex-direction:column;justify-content:center;text-align:right;background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff;min-width:168px}
+.dateblk .w{font-size:12px;letter-spacing:.14em;font-weight:700;opacity:.92}
+.dateblk .d{font-family:var(--display);font-size:22px;line-height:1;margin-top:2px}
+.continue{display:flex;flex-direction:column;justify-content:center;padding:0 22px;min-width:220px;background:linear-gradient(180deg,var(--go-hi),var(--go-lo));color:#062a10;border-left:1px solid var(--go-edge);box-shadow:0 1px 0 rgba(255,255,255,.35) inset}
+.continue .t{font-family:var(--display);font-size:26px;letter-spacing:.06em;line-height:1}
+.continue .s{font-size:12px;letter-spacing:.1em;font-weight:700;margin-top:2px}
+.rail{position:absolute;left:16px;top:122px;width:370px;height:900px;background:linear-gradient(180deg,#243049,#1c2436);border:1px solid var(--edge);border-radius:3px;box-shadow:0 1px 0 var(--edge-hi) inset;display:flex;flex-direction:column;overflow:hidden}
+.crest{display:flex;align-items:center;gap:12px;padding:14px 14px 10px;border-bottom:1px solid var(--edge)}
+.crest .mark{width:44px;height:44px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#fff,#cfd8e6 70%);color:var(--gym-deep);font-family:var(--display);font-size:18px;display:grid;place-items:center;border:2px solid rgba(0,0,0,.35);flex:none}
+.crest .nm{font-family:var(--display);font-size:22px;letter-spacing:.04em;line-height:1;color:#fff}
+.crest .sub{font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--muted);margin-top:3px}
+.menucap{font-size:12px;letter-spacing:.16em;font-weight:700;color:var(--dim);padding:10px 18px 4px}
+.nav{display:flex;flex-direction:column;gap:2px;padding:4px 8px 12px;flex:1}
+.nav a{display:flex;align-items:center;height:40px;padding:0 12px 0 14px;border-radius:3px;color:var(--text-2);text-decoration:none;font-family:var(--display);font-size:18px;letter-spacing:.06em;position:relative}
+.nav a .badge{margin-left:auto;min-width:22px;height:20px;padding:0 6px;border-radius:10px;background:var(--bad);color:#fff;font-family:var(--mono);font-size:11px;font-weight:700;display:grid;place-items:center}
+.nav a.on{background:linear-gradient(90deg,var(--gym),var(--gym-lo));color:#fff}
+.nav a.on::before{content:"";position:absolute;left:4px;top:8px;width:4px;height:24px;border-radius:2px;background:var(--gold)}
+.nav a.dead{opacity:.35;text-decoration:line-through;color:var(--dim)}
+.nav a.dead .x{margin-left:auto;font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--bad);font-family:var(--mono);text-decoration:none}
+.body{position:absolute;left:402px;top:122px;width:1494px;height:900px;display:flex;flex-direction:column;gap:10px;min-height:0}
+.hubhead{height:44px;display:flex;align-items:center;gap:14px;padding:0 2px;flex:none}
+.hubhead h2{font-family:var(--display);font-size:32px;letter-spacing:.04em;margin:0;line-height:1}
+.hubhead .meta{font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--muted)}
+.tabs{display:flex;gap:4px;margin-left:auto}
+.tab{height:32px;padding:0 16px;border-radius:3px;border:1px solid var(--edge);background:linear-gradient(180deg,#3a4560,#2b3449);font-family:var(--display);font-size:16px;letter-spacing:.08em;color:var(--text-2);display:inline-flex;align-items:center}
+.tab.on{background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff;border-color:var(--gym-deep)}
+.tab.soft{opacity:.7}
+.panel{flex:1;min-height:0;background:var(--panel);border:1px solid var(--edge);border-radius:3px;box-shadow:0 1px 0 var(--edge-hi) inset;display:flex;flex-direction:column;overflow:hidden}
+.kindnote{display:flex;gap:14px;padding:6px 12px;background:rgba(0,0,0,.18);border-bottom:1px solid var(--line-soft);font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--muted);flex:none;flex-wrap:wrap}
+.kindnote b{color:var(--text-2)}
+.footbar{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line-soft);background:var(--panel-lo);flex:none;align-items:center}
+.footbar .blab{font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--muted);margin-right:auto}
+.btn{height:36px;padding:0 16px;border-radius:3px;border:1px solid var(--edge);background:linear-gradient(180deg,#3a4560,#2b3449);font-family:var(--display);font-size:16px;letter-spacing:.08em;color:var(--text-2);display:inline-flex;align-items:center;justify-content:center}
+.btn.gold{background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:var(--ink);border-color:var(--gold-edge);box-shadow:0 1px 0 rgba(255,255,255,.35) inset}
+.btn.soft{opacity:.7}
+.hint{display:flex;gap:16px;padding:6px 12px;border-top:1px solid var(--line-soft);background:rgba(0,0,0,.18);font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--dim);flex:none;flex-wrap:wrap}
+.hint b{color:var(--muted)}
+.pair{display:grid;grid-template-columns:1fr auto;height:34px;border:1px solid var(--edge);border-radius:3px;overflow:hidden}
+.pair .lab{display:flex;align-items:center;padding:0 10px;background:var(--slate);font-family:var(--display);font-size:15px;letter-spacing:.08em}
+.pair .val{display:flex;align-items:center;justify-content:center;min-width:64px;padding:0 10px;font-family:var(--display);font-size:20px;background:linear-gradient(180deg,var(--panel-hi),var(--panel-lo))}
+.flag{height:22px;padding:0 8px;border-radius:2px;border:1px solid var(--edge);display:inline-flex;align-items:center;font-size:11px;letter-spacing:.1em;font-weight:700;white-space:nowrap}
+.flag.belt{background:linear-gradient(180deg,rgba(240,194,51,.22),rgba(240,194,51,.08));color:var(--gold);border-color:var(--gold-edge)}
+.flag.grudge{background:linear-gradient(180deg,rgba(229,67,58,.22),rgba(229,67,58,.08));color:#ff8f87;border-color:var(--bad-edge)}
+.flag.heat{background:rgba(240,160,32,.16);color:var(--amber);border-color:#7a4c08}
+.flag.ok{background:rgba(79,196,106,.14);color:var(--good)}
+.flag.dim{background:rgba(148,161,184,.12);color:var(--muted)}
+.flag.gym{background:rgba(47,111,176,.22);color:var(--link);border-color:var(--gym-deep)}
+.sil{width:36px;height:36px;border-radius:50%;background:linear-gradient(180deg,#4a5568,#2a3347);border:1px solid var(--edge);position:relative;overflow:hidden;flex:none}
+.sil::after{content:"";position:absolute;left:50%;top:8px;transform:translateX(-50%);width:14px;height:14px;border-radius:50%;background:#1a2030}
+.sil::before{content:"";position:absolute;left:50%;bottom:2px;transform:translateX(-50%);width:22px;height:16px;border-radius:10px 10px 2px 2px;background:#1a2030}
+.sil.lg{width:72px;height:128px;border-radius:36px 36px 8px 8px;background:linear-gradient(180deg,#3b4557 0%,#2a3347 55%,#1c2230 100%);box-shadow:0 8px 18px rgba(0,0,0,.4)}
+.sil.lg::after{width:28px;height:28px;top:-22px;left:50%;transform:translateX(-50%);background:radial-gradient(circle at 40% 35%,#4a556c,#2b3447 70%);border:2px solid var(--edge);border-radius:50%}
+.sil.lg::before{width:40px;height:48px;bottom:8px;border-radius:18px 18px 6px 6px}
+
+/* VERDICT layout */
+.vgrid{flex:1;display:grid;grid-template-columns:1.05fr 1.35fr;gap:10px;padding:10px;min-height:0}
+.vleft,.vright{display:flex;flex-direction:column;gap:10px;min-height:0}
+.phone-dead{position:relative;background:linear-gradient(180deg,#1a2030,#141922);border:1px dashed var(--bad-edge);border-radius:3px;padding:18px 16px;overflow:hidden}
+.phone-dead .kill{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.phone-dead .kill span{font-family:var(--display);font-size:92px;color:rgba(229,67,58,.55);letter-spacing:.04em;transform:rotate(-12deg);border:6px solid rgba(229,67,58,.65);padding:8px 28px}
+.phone-dead .ph{font-family:var(--display);font-size:36px;letter-spacing:.06em;color:var(--dim);text-decoration:line-through}
+.phone-dead .ps{font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--muted);margin-top:8px;max-width:42ch;line-height:1.45}
+.phone-dead .rejects{margin-top:14px;display:flex;flex-direction:column;gap:6px}
+.phone-dead .rej{font-size:12px;letter-spacing:.06em;font-weight:700;color:#ffb0aa;padding:6px 8px;background:rgba(229,67,58,.1);border:1px solid rgba(229,67,58,.25);border-radius:2px}
+.pillar{background:var(--panel-lo);border:1px solid var(--edge);border-radius:3px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;box-shadow:0 1px 0 var(--edge-hi) inset}
+.pillar .ptop{display:flex;align-items:center;gap:10px}
+.pillar .pn{font-family:var(--display);font-size:22px;letter-spacing:.04em;color:#fff;line-height:1}
+.pillar .phome{margin-left:auto;height:24px;padding:0 10px;border-radius:2px;background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff;font-size:12px;letter-spacing:.1em;font-weight:700;display:inline-flex;align-items:center}
+.pillar .pread{font-size:12px;letter-spacing:.05em;font-weight:700;color:var(--muted);line-height:1.45}
+.pillar .api{font-size:12px;letter-spacing:.04em;font-weight:700;color:var(--link)}
+.mapfoot{display:flex;align-items:center;gap:12px;padding:12px 14px;background:linear-gradient(90deg,rgba(240,194,51,.14),rgba(240,194,51,.03));border:1px solid var(--gold-edge);border-radius:3px}
+.mapfoot .ml{font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--text-2);flex:1;line-height:1.4}
+.mapfoot .ml b{color:var(--gold)}
+
+/* RIVALRIES profile */
+.protop{display:flex;gap:14px;padding:12px 14px;border-bottom:1px solid var(--line-soft);align-items:center;flex:none;background:rgba(0,0,0,.14)}
+.protop .who{flex:1;min-width:0}
+.protop .nm{font-family:var(--display);font-size:28px;letter-spacing:.03em;line-height:1}
+.protop .sub{font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--muted);margin-top:4px}
+.prostats{display:flex;gap:8px}
+.shelfcap{display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--panel-lo);border-bottom:1px solid var(--line-soft);font-size:12px;letter-spacing:.12em;font-weight:700;color:var(--dim);flex:none}
+.shelfcap b{color:var(--text-2);margin-left:auto;letter-spacing:.08em}
+.rhead,.rrow{display:grid;grid-template-columns:44px 1.4fr 70px 110px 1fr 120px;align-items:center;gap:8px;padding:0 12px;border-bottom:1px solid var(--line-soft)}
+.rhead{height:34px;background:rgba(0,0,0,.18);font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--dim);flex:none}
+.rrow{height:56px;font-size:12px;color:var(--text-2)}
+.rrow:nth-child(even){background:rgba(0,0,0,.12)}
+.rrow.hot{background:linear-gradient(90deg,rgba(229,67,58,.14),rgba(240,160,32,.06));box-shadow:inset 4px 0 0 var(--bad)}
+.rrow .nm{font-family:var(--display);font-size:18px;color:#fff;letter-spacing:.03em;line-height:1.05}
+.rrow .sub{font-size:12px;letter-spacing:.05em;font-weight:700;color:var(--muted);margin-top:2px}
+.rrow .ht{font-family:var(--display);font-size:22px;color:var(--amber)}
+.rrow .ht.feud{color:#ff8f87}
+.heatbar{height:8px;border-radius:2px;background:var(--track);border:1px solid var(--edge);overflow:hidden;width:100%}
+.heatbar i{display:block;height:100%;background:linear-gradient(90deg,var(--amber),var(--bad))}
+.sidepair{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:10px 12px;flex:none}
+
+/* ATTENTION / THE DAY */
+.attstrip{display:flex;flex-direction:column;gap:6px;padding:10px 12px;background:linear-gradient(90deg,rgba(229,67,58,.16),rgba(240,160,32,.08),rgba(47,111,176,.06));border-bottom:1px solid #7a4c08;flex:none}
+.attstrip .alab{font-size:12px;letter-spacing:.14em;font-weight:700;color:var(--amber)}
+.attrow{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:2px;border:1px solid var(--edge);background:rgba(18,23,34,.55)}
+.attrow.red{border-color:var(--bad-edge);background:rgba(229,67,58,.12)}
+.attrow.amber{border-color:#7a4c08;background:rgba(240,160,32,.1)}
+.attrow.pip{border-color:var(--gym-deep);background:rgba(47,111,176,.12)}
+.attrow .tx{flex:1;font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--text-2);line-height:1.35}
+.attrow .tx b{color:#fff}
+.attrow .src{font-size:11px;letter-spacing:.08em;font-weight:700;color:var(--dim);min-width:22ch}
+.daygrid{flex:1;display:grid;grid-template-columns:1.2fr .8fr;gap:10px;padding:10px;min-height:0}
+.feed{display:flex;flex-direction:column;min-height:0;background:var(--panel);border:1px solid var(--edge);border-radius:3px;overflow:hidden;box-shadow:0 1px 0 var(--edge-hi) inset}
+.feedcap{height:34px;padding:0 12px;display:flex;align-items:center;background:var(--panel-lo);font-size:12px;letter-spacing:.12em;font-weight:700;color:var(--dim);border-bottom:1px solid var(--line-soft);flex:none}
+.feedcap b{color:var(--muted);margin-left:auto}
+.frow{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid var(--line-soft);font-size:12px;letter-spacing:.05em;font-weight:700;color:var(--text-2)}
+.frow.calm{opacity:.72}
+.frow .t{font-family:var(--display);font-size:16px;color:#fff;letter-spacing:.03em}
+.side{display:flex;flex-direction:column;gap:10px;min-height:0}
+.card{flex:1;background:var(--panel);border:1px solid var(--edge);border-radius:3px;padding:12px;display:flex;flex-direction:column;gap:8px;box-shadow:0 1px 0 var(--edge-hi) inset;min-height:0}
+.card .eye{font-size:12px;letter-spacing:.14em;font-weight:700;color:var(--muted)}
+.card h3{font-family:var(--display);font-size:24px;margin:0;letter-spacing:.04em;line-height:1}
+.card .loc{font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--text-2);line-height:1.45}
+.ruling{margin:48px 0 20px;padding:18px 20px;background:var(--panel-lo);border:1px solid var(--edge);border-radius:3px;max-width:1100px}
+.ruling h3{font-family:var(--display);font-size:24px;margin:0 0 10px;letter-spacing:.06em}
+.ruling p{margin:0 0 8px;color:var(--text-2);max-width:100ch}
+.ruling b{color:var(--text)}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="eyebrow">K17 · KALLI STUDY · NO CODE SHIPS</div>
+  <div class="mast">
+    <h1>THE PHONE / RELATIONSHIPS</h1>
+    <p><b>LOCKED VERDICT: DISSOLVE PHONE</b> as a destination, rail item, and OfficeHub module. Legacy placeholder label — do not invent a phone UI. Three real pillars already exist: coach rapport (STAFF), loyalty (profile CONTRACT), fighter rivalries (profile Fight Record shelf + THE DAY attention). Sample: Eastern Ring · Kian Sterling.</p>
+  </div>
+  <div class="rules">
+    <span>BEBAS + PLEX</span><span>SIZE_MIN 12</span><span>GOLD ×1 / BOARD</span><span>GREEN = CONTINUE ONLY</span>
+    <span>PAIR = SLATE</span><span>GYM ≠ CAMP</span><span>SILHOUETTES</span><span>INVENT NOTHING</span>
+    <span>NO PHONE UI</span><span>NO LOCKER FRIENDSHIP MATRIX</span>
+  </div>
+
+  <div class="sec"><h2>01 · VERDICT — DISSOLVE MAP</h2><p>PHONE crossed out. Three pillars → homes. Gold ×1 OPEN THE DAY (attention home per K12_DIGEST D).</p>
+  <p class="note">Reads named only — no unified relationships API invented.</p></div>
+</div>
+
+<!-- BOARD 1: VERDICT -->
+<div class="board" id="board-verdict">
+<div class="shell">
+  <div class="top"><div class="left"><div class="crumb">EASTERN RING  /  STUDY  /  PHONE DISSOLVED</div>
+  <div class="pills"><span class="pill">$ 27,600</span><span class="pill">ROSTER 6</span><span class="pill">NO PHONE RAIL</span><div class="daystrip"><div class="daycell on"><span>MON</span><span class="n">26</span></div><div class="daycell"><span>TUE</span><span class="n">27</span></div><div class="daycell"><span>WED</span><span class="n">28</span></div><div class="daycell"><span>THU</span><span class="n">29</span></div><div class="daycell"><span>FRI</span><span class="n">30</span></div><div class="daycell"><span>SAT</span><span class="n">31</span></div><div class="daycell"><span>SUN</span><span class="n">1</span></div></div></div></div>
+  <div class="right"><div class="dateblk"><div class="w">WEEK 4</div><div class="d">MON 26 JAN 2026</div></div>
+  <div class="continue"><div class="t">CONTINUE</div><div class="s">ATTENTION ON THE DAY</div></div></div></div>
+  <div class="rail"><div class="crest"><div class="mark">ER</div><div><div class="nm">EASTERN RING</div><div class="sub">NICOSIA  ·  TIER 1</div></div></div>
+  <div class="menucap">MENU</div><div class="nav">
+    <a href="#">OFFICE</a><a class="on" href="#">THE DAY<span class="badge">3</span></a><a href="#">GYM</a><a href="#">STAFF</a><a href="#">TRAINING</a><a href="#">SCHEDULE</a><a href="#">SCOUTING</a><a href="#">RANKINGS</a>
+    <a class="dead" href="#">PHONE<span class="x">× DEAD</span></a>
+  </div></div>
+  <div class="body">
+    <div class="hubhead"><h2>PHONE DISSOLVED</h2><span class="meta">THREE PILLARS · EXISTING HOMES · NO DIALER</span></div>
+    <div class="panel">
+      <div class="kindnote"><span><b>VERDICT</b> · DISSOLVE DESTINATION</span><span><b>K12 D</b> · ATTENTION → THE DAY</span><span><b>GOLD ×1</b> · OPEN THE DAY</span></div>
+      <div class="vgrid">
+        <div class="vleft">
+          <div class="phone-dead">
+            <div class="ph">PHONE</div>
+            <div class="ps">Legacy OfficeHub placeholder. Not a rail item. Not a desk module. No phone metaphor. Relationships unfinished as a destination — dress nothing fake.</div>
+            <div class="rejects">
+              <div class="rej">× OWN RAIL PHONE / RELATIONSHIPS — third people-surface next to STAFF</div>
+              <div class="rej">× STAFF TAB FOR RIVALRIES — coach work ≠ grudges</div>
+              <div class="rej">× LOCKER FRIENDSHIP / TEAMMATE OPINION MATRIX — no save state</div>
+            </div>
+            <div class="kill"><span>DISSOLVED</span></div>
+          </div>
+          <div class="mapfoot">
+            <div class="ml"><b>WHO IS UNHAPPY AND WHY</b> — not a new screen. THE DAY attention strip calls three reads directly. Optional later: <code>get_day_relationship_attention()</code> — polish only, not required to dissolve PHONE.</div>
+            <div class="btn gold">OPEN THE DAY</div>
+          </div>
+        </div>
+        <div class="vright">
+          <div class="pillar">
+            <div class="ptop"><div class="pn">01 · COACH RAPPORT</div><span class="phome">STAFF</span></div>
+            <div class="pread">Fighter × coach map on athlete. Drives training efficiency, corner listen, between-rounds reset. R26 already surfaces on STAFF assignment.</div>
+            <div class="api">CoachRapport.gd · athlete["coach_rapport"] · read on STAFF assign</div>
+          </div>
+          <div class="pillar">
+            <div class="ptop"><div class="pn">02 · LOYALTY</div><span class="phome">PROFILE · CONTRACT</span></div>
+            <div class="pread">Save-backed score, band, parts, strike, contract weeks, pay vs market. Red/amber alerts already produced in GameState profile alert paths.</div>
+            <div class="api">GameState.get_athlete_loyalty(athlete_id) · Retention.loyalty</div>
+          </div>
+          <div class="pillar">
+            <div class="ptop"><div class="pn">03 · FIGHTER RIVALRIES</div><span class="phome">PROFILE · FIGHT RECORD</span></div>
+            <div class="pread">Real Stage R2 system. Heat 0–100, bands, grudge purse, sim effects, rematch asks. Fighter↔fighter (get_rival_gyms is separate world list). Attention + grudge offers surface on THE DAY; booking stays SCHEDULE / asks.</div>
+            <div class="api">get_athlete_rivalries · get_rivalry_fight_offer(s) · career["rivalries"]</div>
+          </div>
+        </div>
+      </div>
+      <div class="hint"><span><b>STRIP READS</b> · get_athlete_loyalty · get_athlete_rivalries / get_rivalries · get_rivalry_fight_offers</span><span><b>NOT</b> · invent phone UI · invent friendship matrix</span></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="doc">
+  <div class="sec"><h2>02 · RIVALRIES ON FIGHTER PROFILE</h2><p>Heat list + band on the fighter profile Fight Record tab as a RIVALRIES shelf. Gold ×1 GRUDGE OFFER when heat qualifies (is_grudge ≥ 30).</p>
+  <p class="note">Shape from get_athlete_rivalries: rival_name, heat, band, source, grudge_match; offer label from get_rivalry_fight_offer.</p></div>
+</div>
+
+<!-- BOARD 2: RIVALRIES -->
+<div class="board" id="board-rivalries">
+<div class="shell">
+  <div class="top"><div class="left"><div class="crumb">EASTERN RING  /  GYM  /  KIAN STERLING  /  FIGHT RECORD</div>
+  <div class="pills"><span class="pill">$ 27,600</span><span class="pill">ROSTER 6</span><span class="pill">OUR #8 LW</span><div class="daystrip"><div class="daycell on"><span>MON</span><span class="n">26</span></div><div class="daycell"><span>TUE</span><span class="n">27</span></div><div class="daycell"><span>WED</span><span class="n">28</span></div><div class="daycell"><span>THU</span><span class="n">29</span></div><div class="daycell"><span>FRI</span><span class="n">30</span></div><div class="daycell"><span>SAT</span><span class="n">31</span></div><div class="daycell"><span>SUN</span><span class="n">1</span></div></div></div></div>
+  <div class="right"><div class="dateblk"><div class="w">WEEK 4</div><div class="d">MON 26 JAN 2026</div></div>
+  <div class="continue"><div class="t">CONTINUE</div><div class="s">1 MUST ANSWER FIRST</div></div></div></div>
+  <div class="rail"><div class="crest"><div class="mark">ER</div><div><div class="nm">EASTERN RING</div><div class="sub">NICOSIA  ·  TIER 1</div></div></div>
+  <div class="menucap">MENU</div><div class="nav">
+    <a href="#">OFFICE</a><a href="#">THE DAY<span class="badge">3</span></a><a class="on" href="#">GYM</a><a href="#">STAFF</a><a href="#">TRAINING</a><a href="#">SCHEDULE</a><a href="#">SCOUTING</a><a href="#">RANKINGS</a>
+  </div></div>
+  <div class="body">
+    <div class="hubhead"><h2>KIAN STERLING</h2><span class="meta">PROFILE · FIGHT RECORD HOLDS RIVALRIES</span>
+      <div class="tabs"><span class="tab soft">BODY</span><span class="tab soft">SKILLS</span><span class="tab on">FIGHT RECORD</span><span class="tab soft">CONTRACT</span></div></div>
+    <div class="panel">
+      <div class="kindnote"><span><b>HOME</b> · FIGHT RECORD SHELF (NOT STAFF · NOT PHONE)</span><span><b>API</b> · get_athlete_rivalries(athlete_id)</span><span><b>GOLD ×1</b> · GRUDGE OFFER</span></div>
+      <div class="protop">
+        <div class="sil lg"></div>
+        <div class="who">
+          <div class="nm">KIAN STERLING</div>
+          <div class="sub">BOXING  ·  LIGHTWEIGHT  ·  MEN  ·  8-2-0  ·  EASTERN RING</div>
+        </div>
+        <div class="prostats">
+          <div class="pair"><div class="lab">LOYALTY</div><div class="val">72</div></div>
+          <div class="pair"><div class="lab">BAND</div><div class="val" style="font-size:14px;letter-spacing:.06em">STRONG</div></div>
+          <div class="pair"><div class="lab">RIVALS</div><div class="val">3</div></div>
+        </div>
+      </div>
+      <div class="shelfcap">RIVALRIES SHELF<span class="flag heat">HEAT 0–100</span><span class="flag dim">FIGHTER ↔ FIGHTER</span><b>HOTTEST FIRST</b></div>
+      <div class="rhead"><span></span><span>RIVAL</span><span>HEAT</span><span>BAND</span><span>SOURCE</span><span>OFFER</span></div>
+      <div class="rrow hot">
+        <div class="sil"></div>
+        <div><div class="nm">MARCO VEGA</div><div class="sub">WORLD  ·  H2H 1-1-0  ·  0 WK SINCE CONTACT</div></div>
+        <div class="ht feud">78</div>
+        <div><span class="flag grudge">BAD BLOOD</span></div>
+        <div>
+          <div class="heatbar"><i style="width:78%"></i></div>
+          <div class="sub" style="margin-top:4px">FOUGHT · DECISION REMATCH HEAT</div>
+        </div>
+        <div><span class="flag grudge">GRUDGE READY</span></div>
+      </div>
+      <div class="rrow">
+        <div class="sil"></div>
+        <div><div class="nm">LEO DRAKE</div><div class="sub">WORLD  ·  H2H 0-0-0  ·  1 WK SINCE CONTACT</div></div>
+        <div class="ht">44</div>
+        <div><span class="flag heat">HEATED</span></div>
+        <div>
+          <div class="heatbar"><i style="width:44%"></i></div>
+          <div class="sub" style="margin-top:4px">CALLOUT · RANK WINDOW</div>
+        </div>
+        <div><span class="flag grudge">GRUDGE READY</span></div>
+      </div>
+      <div class="rrow">
+        <div class="sil"></div>
+        <div><div class="nm">SAMIR COLE</div><div class="sub">WORLD  ·  H2H 0-0-0  ·  3 WK SINCE CONTACT</div></div>
+        <div class="ht" style="color:var(--muted)">18</div>
+        <div><span class="flag dim">SIMMERING</span></div>
+        <div>
+          <div class="heatbar"><i style="width:18%;background:linear-gradient(90deg,var(--muted),var(--amber))"></i></div>
+          <div class="sub" style="margin-top:4px">TITLE CHASE · SAME BELT LANE</div>
+        </div>
+        <div><span class="flag dim">BELOW GRUDGE</span></div>
+      </div>
+      <div class="sidepair">
+        <div class="pair"><div class="lab">BANDS</div><div class="val" style="font-size:12px;letter-spacing:.04em;padding:0 8px">COLD→FEUD</div></div>
+        <div class="pair"><div class="lab">GRUDGE MIN</div><div class="val">30</div></div>
+        <div class="pair"><div class="lab">PURSE × HEAT</div><div class="val" style="font-size:12px">OFFER</div></div>
+      </div>
+      <div class="footbar">
+        <div class="blab">BOOKING STAYS SCHEDULE / ASKS — NOT A DIALER · get_rivalry_fight_offer → label GRUDGE MATCH · BAND</div>
+        <div class="btn soft">VIEW RECORD</div>
+        <div class="btn gold">GRUDGE OFFER</div>
+      </div>
+      <div class="hint"><span><b>ENTRY</b> · rival_name · heat · band · source · grudge_match · wins/losses/draws</span><span><b>OFFER</b> · label · purse · rivalry_heat · for_athlete_id</span><span><b>NOT</b> · get_rival_gyms (world list)</span></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="doc">
+  <div class="sec"><h2>03 · THE DAY — RELATIONSHIP ATTENTION</h2><p>Attention strip aggregates loyalty alerts, rivalry heat spikes, and open grudge offers. Rest of day feed stays calm. Gold ×1 VIEW RIVAL (not green CONTINUE).</p>
+  <p class="note">Three reads the strip calls: get_athlete_loyalty · get_athlete_rivalries (roster) · get_rivalry_fight_offers. No unified API required.</p></div>
+</div>
+
+<!-- BOARD 3: ATTENTION -->
+<div class="board" id="board-attention">
+<div class="shell">
+  <div class="top"><div class="left"><div class="crumb">EASTERN RING  /  THE DAY  /  ATTENTION</div>
+  <div class="pills"><span class="pill">$ 27,600</span><span class="pill">ROSTER 6</span><span class="pill">3 ATTENTION</span><div class="daystrip"><div class="daycell on"><span>MON</span><span class="n">26</span></div><div class="daycell"><span>TUE</span><span class="n">27</span></div><div class="daycell"><span>WED</span><span class="n">28</span></div><div class="daycell"><span>THU</span><span class="n">29</span></div><div class="daycell"><span>FRI</span><span class="n">30</span></div><div class="daycell"><span>SAT</span><span class="n">31</span></div><div class="daycell"><span>SUN</span><span class="n">1</span></div></div></div></div>
+  <div class="right"><div class="dateblk"><div class="w">WEEK 4</div><div class="d">MON 26 JAN 2026</div></div>
+  <div class="continue"><div class="t">CONTINUE</div><div class="s">3 MUST ANSWER FIRST</div></div></div></div>
+  <div class="rail"><div class="crest"><div class="mark">ER</div><div><div class="nm">EASTERN RING</div><div class="sub">NICOSIA  ·  TIER 1</div></div></div>
+  <div class="menucap">MENU</div><div class="nav">
+    <a href="#">OFFICE</a><a class="on" href="#">THE DAY<span class="badge">3</span></a><a href="#">GYM</a><a href="#">STAFF</a><a href="#">TRAINING</a><a href="#">SCHEDULE<span class="badge">1</span></a><a href="#">SCOUTING</a><a href="#">RANKINGS</a>
+  </div></div>
+  <div class="body">
+    <div class="hubhead"><h2>THE DAY</h2><span class="meta">RELATIONSHIP ATTENTION · NOT A PHONE</span></div>
+    <div class="panel">
+      <div class="kindnote"><span><b>HOME</b> · THE DAY (K12 DIGEST D)</span><span><b>THREE READS</b> · LOYALTY · RIVALRIES · GRUDGE OFFERS</span><span><b>GOLD ×1</b> · VIEW RIVAL</span></div>
+      <div class="attstrip">
+        <div class="alab">RELATIONSHIP ATTENTION · WHO IS UNHAPPY AND WHY</div>
+        <div class="attrow red">
+          <span class="flag grudge">LOYALTY</span>
+          <div class="tx"><b>JONAS REED</b>  ·  ON STRIKE  ·  LOYALTY 14  ·  TOXIC</div>
+          <div class="src">get_athlete_loyalty</div>
+        </div>
+        <div class="attrow amber">
+          <span class="flag heat">HEAT</span>
+          <div class="tx"><b>KIAN STERLING</b>  ·  vs MARCO VEGA  ·  HEAT 78  ·  BAD BLOOD SPIKE</div>
+          <div class="src">get_athlete_rivalries</div>
+        </div>
+        <div class="attrow pip">
+          <span class="flag gym">GRUDGE</span>
+          <div class="tx"><b>GRUDGE MATCH · BAD BLOOD</b>  ·  KIAN vs MARCO  ·  PURSE SCALED</div>
+          <div class="src">get_rivalry_fight_offers</div>
+        </div>
+      </div>
+      <div class="daygrid">
+        <div class="feed">
+          <div class="feedcap">DAY FEED · CALM BELOW<span><b>NO PHONE MODULE</b></span></div>
+          <div class="frow calm"><div class="t">SPARRING BLOCK</div><div style="flex:1">Morning pads · gym floor clear</div><span class="flag dim">ROUTINE</span></div>
+          <div class="frow calm"><div class="t">PAYROLL TICK</div><div style="flex:1">Athlete + staff wages posted</div><span class="flag ok">BOOKS</span></div>
+          <div class="frow calm"><div class="t">SCOUT NOTE</div><div style="flex:1">One FW prospect tagged · read only</div><span class="flag dim">SCOUTING</span></div>
+          <div class="frow calm"><div class="t">RANKINGS QUIET</div><div style="flex:1">No movement on our ladder this week</div><span class="flag dim">WORLD</span></div>
+          <div class="frow calm"><div class="t">CONTRACT TAB</div><div style="flex:1">Loyalty detail stays on the fighter profile</div><span class="flag dim">PROFILE</span></div>
+        </div>
+        <div class="side">
+          <div class="card">
+            <div class="eye">SELECTED ATTENTION</div>
+            <h3>MARCO VEGA</h3>
+            <div class="loc">GRUDGE MATCH · BAD BLOOD<br>Heat 78 · purse scaled by Rivalries.purse_multiplier<br>Book via existing offer / ask flow — SCHEDULE owns the date.</div>
+            <div style="display:flex;gap:8px;margin-top:auto">
+              <div class="btn soft" style="flex:1">OPEN ASK</div>
+              <div class="btn gold" style="flex:1">VIEW RIVAL</div>
+            </div>
+          </div>
+          <div class="card" style="flex:none">
+            <div class="eye">OPTIONAL GAP ONLY</div>
+            <div class="loc">get_day_relationship_attention() aggregating the three reads — polish study later. THE DAY can call the three directly today. Not required to dissolve PHONE.</div>
+          </div>
+        </div>
+      </div>
+      <div class="hint"><span><b>STRIP</b> · loyalty red/amber (strike / strained) · rivalry heat bands · open rematch/grudge offers</span><span><b>GREEN</b> · CONTINUE ONLY (chrome) · gold elsewhere ×1</span></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="doc">
+  <div class="ruling">
+    <h3>LOCKED VERDICT</h3>
+    <p><b>DISSOLVE PHONE</b> as destination / rail / OfficeHub module. Pillars live on STAFF (rapport), profile CONTRACT (loyalty), profile Fight Record + THE DAY (rivalries + attention). Invent no phone UI, no friendship matrix, no unified relationships API.</p>
+  </div>
+</div>
+</body>
+</html>

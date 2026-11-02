@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>FightCamp · ALT A · Fight Poster · Kian Sterling</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@500;600;700&display=swap">
+<style>
+:root{
+  --ground:#1c2230;--panel:#2a3347;--panel-hi:#34405a;--panel-lo:#222a3b;
+  --edge:#121722;--edge-hi:rgba(255,255,255,.14);--line:#4a5a78;
+  --gym:#2f6fb0;--gym-hi:#3f86cc;--gym-lo:#24558a;--gym-deep:#1a3d63;--gym-tint:rgba(47,111,176,.22);
+  --gold:#f0c233;--gold-hi:#f7d65a;--gold-lo:#c99a1a;
+  --good:#4fc46a;--amber:#f0a020;--bad:#e5433a;
+  --text:#f3f5fa;--text-2:#c9d1e0;--muted:#94a1b8;--link:#7fb6ee;
+  --v1:#7a2a22;--v2:#b34a1e;--v3:#d07a1a;--v4:#e6a41c;--v5:#f0c233;
+  --display:"Bebas Neue","Haettenschweiler","Arial Narrow",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#0a0d14;color:var(--text);font-family:var(--mono);font-size:13px;font-weight:500}
+.stage{width:1920px;height:1080px;position:relative;background:radial-gradient(90% 70% at 55% 18%,#2a3346 0%,#171c27 50%,#0c1018 100%);display:flex;flex-direction:column}
+/* top chrome strip */
+.topbar{height:52px;flex:none;display:grid;grid-template-columns:180px 1fr auto;align-items:center;background:linear-gradient(180deg,rgba(52,64,90,.96),rgba(38,46,66,.96));border-bottom:1px solid var(--edge);box-shadow:0 1px 0 rgba(255,255,255,.12) inset}
+.crest{display:flex;align-items:center;gap:10px;height:100%;padding:0 14px;background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));border-right:1px solid var(--edge)}
+.crest .mark{width:32px;height:32px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#fff,#cfd8e6);color:var(--gym-deep);font-family:var(--display);font-size:15px;display:grid;place-items:center;border:2px solid rgba(0,0,0,.35)}
+.crest .nm{font-family:var(--display);font-size:18px;letter-spacing:.06em;color:#fff;line-height:1}
+.crest .sb{font-size:10px;letter-spacing:.14em;color:rgba(255,255,255,.85);font-weight:700;margin-top:2px}
+.crumb{padding:0 18px;font-size:12px;letter-spacing:.12em;font-weight:700;color:var(--muted)}
+.crumb b{color:var(--gold);font-weight:700}
+.top-right{display:flex;height:100%}
+.bell{width:52px;display:grid;place-items:center;border-left:1px solid var(--edge);position:relative;background:rgba(0,0,0,.15)}
+.bell svg{width:18px;height:18px;fill:var(--gold)}
+.bell .badge{position:absolute;top:8px;right:8px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:linear-gradient(180deg,#ff6259,#c72c24);color:#fff;font-size:11px;font-weight:700;display:grid;place-items:center;border:1px solid #5a120e}
+.date{padding:0 14px;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff;text-align:right}
+.date .w{font-size:10px;letter-spacing:.16em;font-weight:700;opacity:.9}.date .d{font-family:var(--display);font-size:18px;line-height:1;margin-top:1px}
+.cont{padding:0 18px;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:#1a1508}
+.cont .t{font-family:var(--display);font-size:22px;letter-spacing:.06em;line-height:1}.cont .s{font-size:10px;letter-spacing:.12em;font-weight:700;margin-top:2px}
+
+/* POSTER HERO — the IA centrepiece */
+.poster-wrap{flex:1;min-height:0;padding:14px 18px 8px;display:flex;flex-direction:column;gap:10px}
+.poster{
+  flex:1;min-height:0;position:relative;border-radius:6px;overflow:hidden;
+  border:1px solid var(--edge);
+  box-shadow:0 1px 0 var(--edge-hi) inset,0 18px 40px rgba(0,0,0,.55),0 0 0 1px rgba(240,194,51,.18);
+  background:#0e1320;
+  display:grid;grid-template-columns:520px 1fr 340px;
+}
+.poster::before{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(55% 70% at 28% 40%,rgba(63,134,204,.35),transparent 70%),
+    radial-gradient(40% 50% at 78% 20%,rgba(240,194,51,.18),transparent 65%),
+    linear-gradient(180deg,#1a2233 0%,#0c1018 100%);
+}
+.poster-edge{position:absolute;inset:10px;border:1px solid rgba(240,194,51,.28);border-radius:3px;pointer-events:none;z-index:5}
+.poster-corner{position:absolute;width:28px;height:28px;border:2px solid var(--gold);z-index:6;opacity:.7}
+.poster-corner.tl{top:14px;left:14px;border-right:0;border-bottom:0}
+.poster-corner.tr{top:14px;right:14px;border-left:0;border-bottom:0}
+.poster-corner.bl{bottom:14px;left:14px;border-right:0;border-top:0}
+.poster-corner.br{bottom:14px;right:14px;border-left:0;border-top:0}
+
+.por-col{position:relative;z-index:2;display:flex;align-items:flex-end;justify-content:center;padding:28px 12px 72px}
+.por-frame{
+  width:420px;height:560px;position:relative;border-radius:4px;overflow:hidden;
+  border:4px solid var(--gym-hi);
+  box-shadow:0 0 40px rgba(63,134,204,.45),0 12px 28px rgba(0,0,0,.6),0 0 0 1px #0a0d14;
+  background:#121722;
+}
+.por-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;filter:contrast(1.05) saturate(1.05)}
+.por-frame .live{position:absolute;left:12px;top:12px;height:26px;padding:0 10px;display:flex;align-items:center;gap:7px;background:rgba(12,16,24,.85);border:1px solid rgba(79,196,106,.5);border-radius:3px;font-size:11px;letter-spacing:.14em;font-weight:700;color:var(--good);z-index:2}
+.por-frame .live i{width:8px;height:8px;border-radius:50%;background:var(--good);box-shadow:0 0 8px var(--good);display:block}
+.por-frame .rank-badge{
+  position:absolute;right:-8px;top:28px;z-index:3;
+  width:78px;height:78px;border-radius:50%;
+  background:radial-gradient(circle at 40% 35%,#5a3a1a,#1f2636 75%);
+  border:4px solid var(--amber);box-shadow:0 0 22px rgba(240,160,32,.55),0 4px 12px rgba(0,0,0,.5);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font-family:var(--display);color:var(--amber);
+}
+.por-frame .rank-badge .n{font-size:28px;line-height:1}.por-frame .rank-badge .k{font-family:var(--mono);font-size:9px;letter-spacing:.12em;color:var(--text-2);font-weight:700}
+
+.mid-col{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:center;padding:36px 28px 90px 8px;gap:14px}
+.eyebrow{font-size:13px;letter-spacing:.28em;font-weight:700;color:var(--gold);text-transform:uppercase}
+.poster-name{font-family:var(--display);font-size:110px;letter-spacing:.02em;line-height:.88;color:#fff;text-shadow:0 4px 0 rgba(0,0,0,.5),0 0 40px rgba(63,134,204,.25)}
+.poster-name span{display:block;font-size:72px;letter-spacing:.06em;color:var(--gold-hi);text-shadow:0 3px 0 rgba(0,0,0,.45)}
+.age-line{font-size:14px;letter-spacing:.18em;font-weight:700;color:var(--muted);margin-top:-4px}
+.id-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.chip{display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:3px;border:1px solid var(--edge);background:linear-gradient(180deg,#3a4560,#2b3449);font-family:var(--display);font-size:18px;letter-spacing:.1em;color:#fff;box-shadow:0 1px 0 var(--edge-hi) inset}
+.chip.disc{background:linear-gradient(180deg,#ef5a50,#b62e26);border-color:#5a120e}
+.chip.div{background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:#1a1508;border-color:#7a5c0c}
+.chip.gym{background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo))}
+.record-row{display:flex;align-items:center;gap:18px;margin-top:8px}
+.record-big{font-family:var(--display);font-size:48px;letter-spacing:.04em;line-height:1;color:#fff}
+.record-big i{font-style:normal;color:var(--muted);font-size:28px}
+.split{display:flex;gap:10px}
+.vc{min-width:54px;height:42px;padding:0 8px;border:1px solid var(--edge);border-radius:3px;display:grid;place-items:center;font-family:var(--display);font-size:24px;box-shadow:0 1px 0 rgba(255,255,255,.16) inset,0 2px 3px rgba(0,0,0,.35);background:linear-gradient(180deg,var(--panel-hi),var(--panel-lo))}
+.vc.g4{background:linear-gradient(180deg,#f0b52a,var(--v4));color:#1b1207}
+.vc.g5{background:linear-gradient(180deg,var(--gold-hi),var(--v5));color:#1b1207}
+.vc.g3{background:linear-gradient(180deg,#e08c22,var(--v3));color:#1b1207}
+.vc .lab{font-family:var(--mono);font-size:9px;letter-spacing:.1em;font-weight:700;opacity:.75;margin-top:2px}
+.stars{display:inline-flex;gap:3px}.stars svg{width:20px;height:20px}.stars svg path{fill:#3c475e}.stars svg.on path{fill:var(--gold)}
+
+.hw-col{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:center;gap:16px;padding:40px 28px 90px 0}
+.hw-title{font-size:11px;letter-spacing:.22em;font-weight:700;color:var(--gold);text-align:center}
+.hw-shelf{display:flex;flex-direction:column;align-items:center;gap:14px}
+.belt-obj{width:220px;filter:drop-shadow(0 8px 14px rgba(0,0,0,.55))}
+.medal-row{display:flex;gap:12px;justify-content:center}
+.medal-obj{width:72px;height:72px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 40% 30%,#5a3a1a,#1a2030 75%);border:3px solid var(--gold);
+  box-shadow:0 0 18px rgba(240,194,51,.4),0 4px 10px rgba(0,0,0,.5);font-family:var(--display);color:var(--gold)}
+.medal-obj .n{font-size:22px;line-height:1}.medal-obj .k{font-family:var(--mono);font-size:8px;letter-spacing:.1em;color:var(--text-2);font-weight:700;margin-top:2px}
+.trophy-row{display:flex;gap:10px;justify-content:center}
+.trophy{width:48px;height:56px;filter:drop-shadow(0 4px 8px rgba(0,0,0,.5))}
+.hw-cap{text-align:center;font-size:11px;letter-spacing:.1em;font-weight:700;color:var(--text-2);line-height:1.4}
+.hw-cap b{display:block;font-family:var(--display);font-size:18px;letter-spacing:.06em;color:var(--gold);font-weight:400}
+
+/* poster bottom bout line */
+.bout-line{
+  position:absolute;left:0;right:0;bottom:0;z-index:4;height:64px;
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;padding:0 28px;
+  background:linear-gradient(180deg,rgba(18,23,34,.2),rgba(12,16,24,.95) 40%);
+  border-top:1px solid rgba(240,194,51,.35);
+  box-shadow:0 -12px 30px rgba(0,0,0,.4);
+}
+.bout-line .left{font-size:12px;letter-spacing:.2em;font-weight:700;color:var(--gold)}
+.bout-line .centre{text-align:center}
+.bout-line .centre .vs{font-family:var(--display);font-size:32px;letter-spacing:.04em;line-height:1;color:#fff}
+.bout-line .centre .vs em{font-style:normal;color:var(--gold);margin:0 8px}
+.bout-line .centre .meta{font-size:11px;letter-spacing:.12em;font-weight:700;color:var(--text-2);margin-top:3px}
+.bout-line .right{display:flex;justify-content:flex-end;gap:8px;align-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:34px;padding:0 14px;border-radius:3px;font-family:var(--display);font-size:16px;letter-spacing:.08em;color:var(--text);background:linear-gradient(180deg,#445273,#303a52);border:1px solid var(--edge);box-shadow:0 1px 0 rgba(255,255,255,.16) inset;cursor:pointer}
+.btn.gold{background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:#1a1508;border-color:#7a5c0c;box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 0 14px rgba(240,194,51,.35)}
+.heat{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 40% 35%,#5a2a1a,#1f2636);border:3px solid var(--amber);font-family:var(--display);font-size:18px;color:var(--amber);box-shadow:0 0 14px rgba(240,160,32,.5)}
+.heat .k{font-family:var(--mono);font-size:7px;letter-spacing:.08em;color:var(--text-2);font-weight:700}
+
+/* tabs beneath poster */
+.tabs-row{flex:none;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 18px 10px}
+.seg{display:inline-flex;border:1px solid var(--edge);border-radius:3px;overflow:hidden;box-shadow:0 2px 4px rgba(0,0,0,.35)}
+.seg button{height:40px;padding:0 22px;background:linear-gradient(180deg,#3a4560,#2b3449);color:var(--text-2);border:none;cursor:pointer;font-family:var(--display);font-size:18px;letter-spacing:.1em}
+.seg button+button{border-left:1px solid var(--edge)}
+.seg button.on{background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff;box-shadow:0 1px 0 rgba(255,255,255,.2) inset}
+.tab-hint{font-size:11px;letter-spacing:.14em;font-weight:700;color:var(--muted)}
+.tab-hint b{color:var(--gold)}
+</style>
+</head>
+<body>
+<div class="stage">
+  <header class="topbar">
+    <div class="crest"><div class="mark">ER</div><div><div class="nm">EASTERN RING</div><div class="sb">NICOSIA · GYM</div></div></div>
+    <div class="crumb">OFFICE › FIGHTERS › <b>KIAN STERLING</b> › LAB</div>
+    <div class="top-right">
+      <div class="bell"><svg viewBox="0 0 24 24"><path d="M12 3a5 5 0 0 0-5 5v2.5c0 .8-.3 1.6-.9 2.2L5 14h14l-1.1-1.3c-.6-.6-.9-1.4-.9-2.2V8a5 5 0 0 0-5-5zm-1 16h2a1 1 0 0 1-2 0z"/></svg><span class="badge">2</span></div>
+      <div class="date"><div class="w">WEEK 11 · WED</div><div class="d">18 MAR 2026</div></div>
+      <div class="cont"><span class="t">CONTINUE →</span><span class="s">2 MUST ANSWER FIRST</span></div>
+    </div>
+  </header>
+
+  <div class="poster-wrap">
+    <div class="poster">
+      <div class="poster-edge"></div>
+      <div class="poster-corner tl"></div><div class="poster-corner tr"></div>
+      <div class="poster-corner bl"></div><div class="poster-corner br"></div>
+
+      <div class="por-col">
+        <div class="por-frame">
+          <img src="fighter-hero-plate.png" alt="Kian Sterling"/>
+          <div class="live"><i></i>IN CAMP · WK 4/6</div>
+          <div class="rank-badge"><span class="n">#3</span><span class="k">WORLD</span></div>
+        </div>
+      </div>
+
+      <div class="mid-col">
+        <div class="eyebrow">FIGHT CAMP · ATHLETE POSTER</div>
+        <h1 class="poster-name">KIAN<span>STERLING</span></h1>
+        <div class="age-line">AGE 26 · ORTHODOX · 170 CM · 175 CM REACH</div>
+        <div class="id-chips">
+          <span class="chip disc">BOXING → MMA</span>
+          <span class="chip div">BANTAMWEIGHT</span>
+          <span class="chip gym">EASTERN RING</span>
+          <span class="chip">🇨🇾 CYP</span>
+        </div>
+        <div class="record-row">
+          <div class="record-big">14–2–0 <i>· 9 KO</i></div>
+          <div class="split">
+            <div class="vc g5" style="flex-direction:column;height:auto;padding:6px 10px"><span>B+</span><span class="lab">OVERALL</span></div>
+            <div class="vc g4" style="flex-direction:column;height:auto;padding:6px 10px"><span>86</span><span class="lab">CEILING</span></div>
+            <div class="vc g3" style="flex-direction:column;height:auto;padding:6px 10px"><span>132</span><span class="lab">FAME</span></div>
+          </div>
+          <div class="stars" aria-label="Promotion standing 3 of 5">
+            <svg class="on" viewBox="0 0 24 24"><path d="M12 2l2.9 6.4L22 9.3l-5 4.7 1.4 7L12 17.8 5.6 21l1.4-7-5-4.7 7.1-.9z"/></svg>
+            <svg class="on" viewBox="0 0 24 24"><path d="M12 2l2.9 6.4L22 9.3l-5 4.7 1.4 7L12 17.8 5.6 21l1.4-7-5-4.7 7.1-.9z"/></svg>
+            <svg class="on" viewBox="0 0 24 24"><path d="M12 2l2.9 6.4L22 9.3l-5 4.7 1.4 7L12 17.8 5.6 21l1.4-7-5-4.7 7.1-.9z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.4L22 9.3l-5 4.7 1.4 7L12 17.8 5.6 21l1.4-7-5-4.7 7.1-.9z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.4L22 9.3l-5 4.7 1.4 7L12 17.8 5.6 21l1.4-7-5-4.7 7.1-.9z"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="hw-col">
+        <div class="hw-title">HARDWARE · OBJECTS</div>
+        <div class="hw-shelf">
+          <svg class="belt-obj" viewBox="0 0 220 70" aria-label="Regional title belt">
+            <defs><linearGradient id="gp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbe58a"/><stop offset=".5" stop-color="#f0c233"/><stop offset="1" stop-color="#b8880f"/></linearGradient></defs>
+            <rect x="8" y="26" width="204" height="18" rx="7" fill="#3b2a12" stroke="#0e1320" stroke-width="2"/>
+            <rect x="8" y="29" width="204" height="5" fill="#5a4118"/>
+            <ellipse cx="110" cy="35" rx="42" ry="28" fill="url(#gp)" stroke="#7a5c0c" stroke-width="2"/>
+            <ellipse cx="110" cy="35" rx="24" ry="14" fill="none" stroke="#7a5c0c" stroke-width="1.5"/>
+            <circle cx="48" cy="35" r="10" fill="url(#gp)" stroke="#7a5c0c" stroke-width="1.5"/>
+            <circle cx="172" cy="35" r="10" fill="url(#gp)" stroke="#7a5c0c" stroke-width="1.5"/>
+            <text x="110" y="39" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" font-weight="700" fill="#3b2a12" letter-spacing="1">REGIONAL</text>
+          </svg>
+          <div class="medal-row">
+            <div class="medal-obj"><span class="n">#3</span><span class="k">RANK</span></div>
+            <div class="medal-obj" style="border-color:#c9a227"><span class="n">B+</span><span class="k">GRADE</span></div>
+            <div class="medal-obj" style="border-color:var(--amber)"><span class="n">×3</span><span class="k">NIGHT</span></div>
+          </div>
+          <div class="trophy-row">
+            <svg class="trophy" viewBox="0 0 40 44"><path d="M10 4h20v12a10 10 0 0 1-20 0z" fill="url(#gp)" stroke="#7a5c0c" stroke-width="1.5"/><path d="M8 6H3v5a7 7 0 0 0 7 6M32 6h5v5a7 7 0 0 1-7 6" fill="none" stroke="#b8880f" stroke-width="2"/><rect x="17" y="26" width="6" height="7" fill="#b8880f"/><rect x="11" y="33" width="18" height="6" rx="1" fill="#3b2a12" stroke="#0e1320" stroke-width="1.5"/></svg>
+            <svg class="trophy" viewBox="0 0 40 44"><path d="M10 4h20v12a10 10 0 0 1-20 0z" fill="url(#gp)" stroke="#7a5c0c" stroke-width="1.5"/><path d="M8 6H3v5a7 7 0 0 0 7 6M32 6h5v5a7 7 0 0 1-7 6" fill="none" stroke="#b8880f" stroke-width="2"/><rect x="17" y="26" width="6" height="7" fill="#b8880f"/><rect x="11" y="33" width="18" height="6" rx="1" fill="#3b2a12" stroke="#0e1320" stroke-width="1.5"/></svg>
+            <svg class="trophy" viewBox="0 0 40 44"><circle cx="20" cy="26" r="12" fill="url(#gp)" stroke="#7a5c0c" stroke-width="1.5"/><path d="M13 4l7 12 7-12" fill="#e5433a" stroke="#0e1320" stroke-width="1.5"/></svg>
+          </div>
+          <div class="hw-cap"><b>PERF ×2 · FIGHT ×1</b>World title shot guaranteed · 9 wks</div>
+        </div>
+      </div>
+
+      <div class="bout-line">
+        <div class="left">NEXT BOUT · SATURDAY</div>
+        <div class="centre">
+          <div class="vs">vs <em>DMITRI VASA</em> · #4</div>
+          <div class="meta">NICOSIA FIGHT NIGHT · FEATURED · PURSE $9,680 · PLAN PRESSURE · GRUDGE</div>
+        </div>
+        <div class="right">
+          <div class="heat">42<span class="k">HEAT</span></div>
+          <button class="btn">TAPE</button>
+          <button class="btn gold">SEND TO CAMP</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="tabs-row">
+      <div class="seg" role="tablist">
+        <button class="on" type="button">LAB</button>
+        <button type="button">DEVELOPMENT</button>
+        <button type="button">SKILLS</button>
+        <button type="button">RECORD</button>
+        <button type="button">CAMP</button>
+      </div>
+      <div class="tab-hint">IA · <b>FIGHT POSTER</b> — hero is the poster; tabs open depth beneath</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,9 @@
+Committed and pushed `7bb269da` to `codex/c231-cascy-strike-graft`. Worktree clean.
+
+- Native Cascy graft fixed; inside uppercut certified on all four rigs.
+- Zero candidate failures or pops; side/game stills opened and checked.
+- Parse passed; required tests: **12 passed, 0 failed**.
+- Existing reference-jab heavy-C pin issue remains unchanged.
+
+[Delivery digest](D:/FightCamp/wt/C231/research/C231_DIGEST.md)
+

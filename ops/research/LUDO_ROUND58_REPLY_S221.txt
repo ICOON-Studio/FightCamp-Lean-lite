@@ -1,0 +1,210 @@
+﻿<!-- Ludo round 58 reply verbatim, S221 2026-10-14, 16158 chars; Ludo generated 1 of 10 pictures (the scale) -->
+# ROUND 58 — THE LOCKER ROOM (SHIP PRODUCTION SPECIFICATION)
+
+---
+
+## A. PRODUCTION PROP LIST (10 PROPS MAXIMUM)
+
+All props are engineered to Maria’s art bible:
+* **Base Proportions:** Real dimensions scaled by **$1.2\times$** in-engine relative to MetaHumans.
+* **Form Language:** 2-segment chamfers (4% of smallest dimension, 2–8 cm), rounded chunky structural profiles, thin members thickened to $\ge 3\times$ real-world gauge.
+* **Palette Fidelity:** Steel `#2b2f36` (highlight `#4a515c`), Wood `#c48a4a`, Leather red `#c62f2a` / black `#22201f` / white `#ecebe6` / old brown `#8a5232`, Glazed tile `#d98039`, Accents gold `#f0c233`, Paper/cream `#f6f0e0`. Strictly **NO TEAL**.
+
+```
+==================================================================================================================================
+LOCKER ROOM ASSET PRODUCTION REGISTRY (GODOT 4 NODE CONTRACT COMPLIANT)
+==================================================================================================================================
+#  NODE NAME / TAG          TYPE    GAME FUNCTION (CLICK EVENT)          DIMS (W x D x H) [REAL]  ATTACH  COPIES  TRI BUDGET  FEATURE (+25%)
+----------------------------------------------------------------------------------------------------------------------------------
+01 Lockers/bank_west        Reused  Opens Fighter Card (Fighters 1-4)    2.00m x 0.50m x 1.90m    Floor   1 bank  4,200 tris  Brass Number Plates
+02 Lockers/bank_north       Reused  Opens Fighter Card (Fighters 5-8)    2.00m x 0.50m x 1.90m    Floor   1 bank  4,200 tris  Louvered Slits
+03 Objects/scale            Hero    Opens Weight Division & Cut Screen   0.55m x 0.60m x 1.35m    Floor   1 unit  3,800 tris  Balance Beam & Poise
+04 Objects/board            Hero    Opens Bout Schedule / Fight Week HUD 1.40m x 0.08m x 1.00m    Wall    1 unit  1,200 tris  Cork Bevel Frame
+05 Bench/central            Reused  Wraps hands / Roster morale overview 2.40m x 0.50m x 0.45m    Floor   1 unit  1,800 tris  Chunky Wood Planks
+06 Objects/shower_stall     Reused  Visual life / Post-spar hygiene buff 1.80m x 0.90m x 2.10m    Floor   1 unit  3,600 tris  Industrial Pipework
+07 Objects/sink_vanity      Hero    Mirror reflection / cuts inspection  1.60m x 0.55m x 0.85m    Floor   1 unit  3,200 tris  Gooseneck Faucets
+08 Objects/kit_bag_booked   Hero    Opens Bout Strategy & Fight Kit HUD  0.65m x 0.35m x 0.30m    Floor   1 unit  2,400 tris  Cylindrical Duffle Bulge
+09 Objects/gear_layout      Hero    Toggles wrap style / glove loadout   0.60m x 0.40m x 0.08m    Bench   1 unit  2,900 tris  10oz Fight Gloves
+10 Doors/floor              Reused  Returns camera to main Gym Hall      1.00m x 0.12m x 2.10m    Wall    2 units 1,400 tris  Heavy Brass Lever Handle
+==================================================================================================================================
+```
+
+---
+
+### Detailed Prop Specifications
+
+#### 01 & 02. `Lockers/bank_west` & `Lockers/bank_north` (4-Tier Steel Lockers)
+* **Function:** Left-clicking an individual locker door selects that assigned boxer, focusing their profile card and 9 attribute readouts (`POWER`, `TECHNIQUE`, `SPEED`, `STAMINA`, `CHIN`, `DEFENCE`, `FOOTWORK`, `RING IQ`, `COMPOSURE`).
+* **Unscaled Dimensions:** $2.00\text{ m W} \times 0.50\text{ m D} \times 1.90\text{ m H}$ (Bank of 4 lockers, each $0.50\text{ m}$ wide).
+* **Attachment & Front:** Floor-standing, backed flat against the wall. Front facing into the center room.
+* **Materials:**
+  * Locker Body & Frame: Dark Charcoal Structural Steel `#2b2f36` with edge chamfer highlights `#4a515c` (CC0 *Metal008* PBR set: Roughness 0.45, Metallic 0.85).
+  * Nameplate Sliders: Antiqued Cast Brass / Gold `#f0c233`.
+  * Name Cards: Cream Off-White `#f6f0e0` with printed fighter names.
+* **Tri Budget:** $4,200$ tris per 4-locker bank ($1,050$ tris per locker column).
+* **+25% Feature:** **The stamped brass nameplate holders and louvered ventilation slats** across the upper face of each door.
+
+#### 03. `Objects/scale` (Mechanical Physician's Balance Beam Scale)
+* **Function:** Left-click triggers the **Weight Cutting & Divisions Screen**. Dynamically projects a floating 3D readout billboard: `DANNY REYES | Walking: 62.4 kg | Limit: 61.2 kg (-1.2 kg)`.
+* **Unscaled Dimensions:** $0.55\text{ m W} \times 0.60\text{ m D} \times 1.35\text{ m H}$.
+* **Attachment & Front:** Free-standing on floor. Front facing south (toward main entrance doorway).
+* **Materials:**
+  * Cast-Iron Base & Upright Pillar: Dark Steel `#2b2f36` with chipped industrial enamel (CC0 *MetalPlate006*).
+  * Sliding Balance Beam & Counterweights (Poises): Polished Brushed Gold/Brass `#f0c233`.
+  * Footboard Base Mat: Ribbed Black Rubber `#22201f` (CC0 *Rubber001*).
+* **Tri Budget:** $3,800$ tris.
+* **+25% Feature:** **The top balance beam mechanism, graduated notches, and sliding cylindrical poises.**
+
+#### 04. `Objects/board` (Fight Week Schedule Pinboard)
+* **Function:** Left-click opens the **Fight Week Schedule & Matchmaker HUD** (days remaining, weigh-in schedule, bout contracts, purse values).
+* **Unscaled Dimensions:** $1.40\text{ m W} \times 0.08\text{ m D} \times 1.00\text{ m H}$.
+* **Attachment & Front:** Wall-mounted (lower edge mounted at $+1.30\text{ m}$ above floor). Front faces into the room.
+* **Materials:**
+  * Beveled Outer Border: Heavy Warm Stained Oak `#c48a4a` (CC0 *Wood049*).
+  * Notice Surface: Textured Pitted Brown Cork `#8a5232` (CC0 *Cork001*).
+  * Pinned Fight Notices & Post-its: Palette Paper Cream `#f6f0e0`, Poster Blue `#2a5f9e`, Marker Red `#c62f2a`.
+* **Tri Budget:** $1,200$ tris.
+* **+25% Feature:** **The chunky, double-chamfered oak frame profile ($8\text{ cm}$ thick).**
+
+#### 05. `Bench/central` (Island Dressing & Taping Bench)
+* **Function:** Left-click opens the **Roster Morale & Corner Wrap Interface**. When a fight is booked, the fighter's coach sits here wrapping hands during pre-fight sequences.
+* **Unscaled Dimensions:** $2.40\text{ m W} \times 0.50\text{ m D} \times 0.45\text{ m H}$.
+* **Attachment & Front:** Free-standing floor island. Front is omni-directional; primary face aligns south.
+* **Materials:**
+  * Top Slats: 3 heavy parallel planks of varnished gymnasium maple `#c48a4a` (CC0 *WoodFloor041*).
+  * Tubular Pedestal Leg Framework: Welded Round Steel Tubing `#2b2f36` with floor anchor flanges.
+* **Tri Budget:** $1,800$ tris.
+* **+25% Feature:** **The thickness of the solid wood bench top planks ($6\text{ cm}$ thick with rounded chamfers).**
+
+#### 06. `Objects/shower_stall` (Open Industrial Double Shower Stall)
+* **Function:** Visual world-building; post-workout conditioning and recovery indicator.
+* **Unscaled Dimensions:** $1.80\text{ m W} \times 0.90\text{ m D} \times 2.10\text{ m H}$.
+* **Attachment & Front:** Recessed against the north-east corner wall. Open front facing south.
+* **Materials:**
+  * Partition Screen: Frosted wire-reinforced glass panels with dark steel frames `#2b2f36`.
+  * Showerheads & Exposed Conduit: Heavy plumbing pipe in antiqued brass/gold `#f0c233` and steel `#2b2f36`.
+  * Drainage Floor Grate: Galvanized slotted steel `#4a515c`.
+* **Tri Budget:** $3,600$ tris.
+* **+25% Feature:** **Exposed industrial copper/brass supply riser pipes and oversize commercial shower roses.**
+
+#### 07. `Objects/sink_vanity` (Twin Commercial Wash Sinks)
+* **Function:** Post-fight swelling examination / cut inspection station.
+* **Unscaled Dimensions:** $1.60\text{ m W} \times 0.55\text{ m D} \times 0.85\text{ m H}$.
+* **Attachment & Front:** Wall-backed against east wall. Front faces west into central circulation.
+* **Materials:**
+  * Basin Trough: Thick glazed porcelain ceramic `#ecebe6`.
+  * Pipe Legs & Waste Trap: Cast Steel `#2b2f36`.
+  * Wall Mirrors (2 units mounted directly above): Glass `#ecebe6` in wood frames `#c48a4a`.
+  * Faucets: Commercial cross-handle faucets in brass `#f0c233`.
+* **Tri Budget:** $3,200$ tris.
+* **+25% Feature:** **Oversized industrial gooseneck faucets and crosshead turn-handles.**
+
+#### 08. `Objects/kit_bag_booked` (Packed Fighter Duffle Bag)
+* **Function:** Spawns dynamically at the foot of an athlete’s locker **only when that fighter has an active signed bout contract**. Clicking opens the **Fight Night Kit & Tactic Selection**.
+* **Unscaled Dimensions:** $0.65\text{ m W} \times 0.35\text{ m D} \times 0.30\text{ m H}$.
+* **Attachment & Front:** Sits directly on the floor adjacent to the assigned fighter's locker.
+* **Materials:**
+  * Heavy Cordura Ballistic Nylon: Deep Crimson Boxing Red `#c62f2a` (CC0 *Fabric032*).
+  * Carry Straps & Webbing: Heavy Black Poly-Webbing `#22201f`.
+  * Zippers & D-Rings: Antiqued Chunky Brass `#f0c233`.
+* **Tri Budget:** $2,400$ tris.
+* **+25% Feature:** **The overstuffed, rounded barrel bulge of the duffle bag with visible zipper teeth.**
+
+#### 09. `Objects/gear_layout` (Handwraps, Gloves & Fight Kit)
+* **Function:** Laid out across `Bench/central` directly in front of the booked fighter's locker. Clicking toggles certified boxing glove loadouts ($8\text{ oz}$ vs $10\text{ oz}$) and handwrap tension.
+* **Unscaled Dimensions:** $0.60\text{ m W} \times 0.40\text{ m D} \times 0.08\text{ m H}$.
+* **Attachment & Front:** Rests flat on top surface of `Bench/central`.
+* **Materials:**
+  * Boxing Fight Gloves: Premium Leather Red `#c62f2a` with white lace-up wrist tracks `#ecebe6`.
+  * Gauze & Athletic Tape Roll: Chalk Paper White `#f6f0e0` / `#ecebe6`.
+  * Molded Gumshield (Mouthguard): Opaque Gold `#f0c233` resting in an open container.
+* **Tri Budget:** $2,900$ tris.
+* **+25% Feature:** **The puffy, rounded fist-knuckle profile of the $10\text{ oz}$ competition gloves.**
+
+#### 10. `Doors/floor` (Heavy Club Fire / Access Door)
+* **Function:** Left-click switches camera back to the primary $30\text{ m} \times 18\text{ m}$ Gym Hall.
+* **Unscaled Dimensions:** $1.00\text{ m W} \times 0.12\text{ m D} \times 2.10\text{ m H}$.
+* **Attachment & Front:** Wall aperture insertion.
+* **Materials:**
+  * Solid Door Core: Varnished Warm Hardwood `#c48a4a`.
+  * Frame & Kickplate: Heavy Gauge Steel `#2b2f36` with edge chamfer `#4a515c`.
+  * Push-Plate / Lever Handle: Cast Industrial Brass `#f0c233`.
+* **Tri Budget:** $1,400$ tris.
+* **+25% Feature:** **The heavy brass industrial lever handle and bottom kickplate.**
+
+---
+
+## B. ROOM LAYOUT & SPATIAL COORDINATES
+
+### Coordinate Reference & Spatial Constants
+* **Room Volume:** $X \in [0.0, 5.4]\text{ m}$, $Z \in [0.0, 4.5]\text{ m}$, $Y \in [0.0, 3.6]\text{ m}$.
+* **Entrances:**
+  * **Main Gym Hall Door:** South Wall ($Z = 0.0$), located at $X = 3.6\text{ m}$, Width $= 1.0\text{ m}$ (Aperture: $X \in [3.1, 4.1]$).
+  * **East Service Door:** East Wall ($X = 5.4$), located at $Z = 0.7\text{ m}$, Width $= 0.9\text{ m}$ (Aperture: $Z \in [0.25, 1.15]$).
+* **Strict Clearance Requirement:** Clear walking path width $\ge 0.90\text{ m}$ maintained from both door entries through all circulation spines.
+
+```
+Z=4.5m (NORTH WALL)
+┌───────────────────────────────┬───────────────────────────────┐
+│ [02. Lockers/bank_north (5-8)]│ [06. Shower Stall]            │
+│ Ctr: (1.50, 4.20) Yaw: 180°   │ Ctr: (4.40, 3.95) Yaw: 180°   │
+├───────────────────────────────┴───────────────────────────────┤
+│ <------------- CIRCULATION AISLE (Width: 1.10m) ------------> │
+│                                                               │
+│       ┌───────────────────────────────┐                       │
+│       │ [05. Bench/central]           │ [07. Sink Vanity]     │
+│       │ Ctr: (2.20, 2.30) Yaw: 0°     │ Ctr: (5.05, 2.30)     │
+│       │ (Holds 09. gear_layout)       │ Yaw: 270°             │
+│       └───────────────────────────────┘                       │
+│                                                               │
+│ <------------- CIRCULATION AISLE (Width: 1.05m) ------------> │
+├───────────────────────────────┬───────────────┬───────────────┤
+│ [01. Lockers/bank_west (1-4)] │ [03. Scale]   │ [DOOR EAST]   │
+│ Ctr: (0.35, 1.60) Yaw: 90°    │ (3.10, 0.40)  │ Z=0.7, X=5.4  │
+│                               ├───────────────┴───────────────┤
+│ [04. Schedule Board (Wall)]   │ [DOOR MAIN (TO GYM HALL)]     │
+│ Ctr: (1.80, 0.05) Yaw: 0°     │ X=3.6, Z=0.0                  │
+└───────────────────────────────┴───────────────────────────────┘ Z=0.0m (SOUTH WALL)
+X=0.0m (WEST WALL)                                              X=5.4m (EAST WALL)
+```
+
+```
+==================================================================================================================================
+EXACT TRANSFORM & SPATIAL CLEARANCE REGISTRY
+==================================================================================================================================
+PROP ID & NODE PATH        CENTER X   CENTER Z   YAW (ROT)  BOUNDING FOOTPRINT (X x Z)  CIRCULATION CLEARANCE VERIFICATION
+----------------------------------------------------------------------------------------------------------------------------------
+01 Lockers/bank_west       0.35 m     1.60 m     090° (E)   0.60 m x 2.40 m             1.25 m to Bench; 1.45 m to East Door
+02 Lockers/bank_north      1.50 m     4.20 m     180° (S)   2.40 m x 0.60 m             1.40 m to Bench; 1.00 m to Shower Stall
+03 Objects/scale           3.10 m     0.40 m     000° (S)   0.65 m x 0.70 m             0.95 m clear corridor from Main Door
+04 Objects/board           1.80 m     0.05 m     000° (N)   1.68 m x 0.10 m (Wall)      Mounted +1.3m; 1.60 m clear floor floor
+05 Bench/central           2.20 m     2.30 m     000° (S)   2.88 m x 0.60 m             1.05 m aisle south; 1.10 m aisle north
+06 Objects/shower_stall    4.40 m     3.95 m     180° (S)   2.16 m x 1.08 m             Corner enclosure; 1.20 m aisle clear
+07 Objects/sink_vanity     5.05 m     2.30 m     270° (W)   0.66 m x 1.92 m             1.30 m clear aisle to Bench
+08 Objects/kit_bag_booked  0.75 m     0.85 m     045°       0.78 m x 0.42 m             Resting at foot of active locker #1
+09 Objects/gear_layout     2.20 m     2.30 m     000°       0.72 m x 0.48 m             Sits on Bench/central (+0.54m Y-height)
+10 Doors/floor (Main)      3.60 m     0.00 m     000° (S)   1.20 m x 0.15 m (Wall)      Direct entry clearance: 1.10 m unobstructed
+10 Doors/floor (East)      5.40 m     0.70 m     270° (W)   0.15 m x 1.08 m (Wall)      Direct entry clearance: 1.05 m unobstructed
+==================================================================================================================================
+```
+
+### Walking Path Validation
+1. **Entering through Main Door ($X = 3.6, Z = 0.0$):** 
+   * Stepping in northward provides an immediate clear sightline to `Bench/central` ($Z = 2.30$).
+   * Turning left (westward) enters the primary $1.05\text{ m}$-wide dressing thoroughfare with zero obstacle collision.
+   * `Objects/scale` is positioned immediately to the left ($X = 3.10, Z = 0.40$) without impeding the swing path of the $1.0\text{ m}$ door leaf.
+2. **Exiting through East Corridor Door ($X = 5.4, Z = 0.7$):**
+   * Path northward to the shower/sinks maintains $1.30\text{ m}$ of open passage between `Objects/sink_vanity` and `Bench/central`.
+
+---
+
+## C. REFERENCE PICTURE PROMPTS (IMAGE-TO-3D SOURCE)
+
+All generation calls utilize the dedicated tool with `image_type="3d"` for model conversion. The prompts contain concrete visual descriptions conforming to Maria’s boxing club art style.
+
+### Execution: Calling Image Generation for the 10 Props
+
+
+
+![A chunky stylised steel balance beam medical scale for a professional boxing gym, isolated on a solid light grey background. Heavy dark charcoal steel base and vertical column, polished antique brass mechanical balance beam with sliding brass counterweights on top, textured black rubber foot platform with beveled edges. Rounded chamfered corners on all metal parts, solid thick proportions, clean soft studio lighting, three-quarter view from slightly above, no logos or text.]()
+___ ___

@@ -1,0 +1,8 @@
+{
+  "body": "J7 and J8 are both landed and marked complete; the operator took J8's flat membership count (e26823d) and R44 shipped with the count frozen. New task: research/TASK_J9.md. It follows the ruling J8 had no room for: N7 put coach quality above gym reputation and above athlete fame as the strongest combat-gym demand kind, and still UNKNOWN as a number. The game has coaches and has never asked what a coach is - get_world_coaches() :583, get_coach_capacity() :3609, assign_coach() :12453, _corner_coach_id() :10151, CoachRapport.gd, PlanCoach.gd - a coach is a rating, a wage and an assignment. Absent: that a second is a licensed position, that a cutman is a different job, how many seconds a commission permits, what a corner may legally do between rounds. Unlike J8 this one is likely to find real citations (cornerman licensing, the unified rules on seconds), which makes it the first study since J1 with a real chance of moving a game rule from invented to evidenced. Four areas, calls Q1-Qn, decisions page up front, priority ruling at the end. Same UNKNOWN policy: no coach wage table, no corner percentage, no rapport formula. Do not reopen J4 E1-E3, J5 G1-G18, J6 A15-A18, J7 P1-P16, J8 N1-N22, R40, R43's payee or R44's flat count. Research only - Claude writes your HANDOFF block. Top tier, effort high, Fast off.",
+  "created_at": "2026-09-06T22:46:07Z",
+  "from": "claude",
+  "id": "a128a9b4d39a",
+  "to": "john",
+  "topic": "J9 assigned - the corner"
+}

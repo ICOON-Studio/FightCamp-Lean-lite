@@ -1,0 +1,304 @@
+<!-- Ludo round 65 part 2 ('continue') verbatim, S226 2026-10-15, 30947 chars -->
+
+
+
+3D asset, 1980s mobile audiovisual TV cart, chunky stylized realism, black tubular steel two-tier utility rolling cart with four oversized rubber caster wheels, top shelf holds a bulky 20-inch beige CRT television with a rounded convex glass screen, bottom shelf holds a front-loading black VCR unit and a stack of three labelled VHS tape cassettes, isometric three-quarter view from slightly above, isolated on plain light-grey background, soft studio lighting, no logos.
+
+
+
+Prop 06 (Head Coach Secondary Tactical Desk):
+
+3D asset, vintage utility coaching desk, chunky stylized realism, solid warm ash wood rectangular top with rounded chamfered corners, heavy matte dark grey tubular steel legs with crossbar, attached two-drawer steel pedestal on the right side with brass cup pulls, resting on top is a brown clipboard with papers and a chunky mechanical chrome stopwatch with a thick red lanyard, isometric three-quarter view, isolated on plain neutral grey background, clean studio lighting.
+
+Prop 07 (Manager's Swivel Armchair):
+
+3D asset, vintage executive tufted swivel desk chair, chunky stylized realism, deep oxblood red leather upholstery with thick rolled armrests and deep diamond button tufting, brass upholstery tacks along the trim, heavy four-star black cast iron wheeled base with a central screw adjustment column, isometric three-quarter view from slightly above, isolated on plain light-grey background, soft clean shadows, no people.
+
+D. Rejection Rules
+Manager Desk: Reject if the top is bare particle board or modern plastic laminate; reject if the green banker lamp or leather inlay is melted into the geometry; reject if drawer handles are modern thin wire pulls.
+Filing Cabinet: Reject if the drawers are open at conflicting angles; reject if metal looks like modern brushed aluminum or glossy white enamel; reject if corners are razor-sharp.
+Floor Safe: Reject if the dial or 3-spoke wheel is a flat 2D decal; reject if modern digital keypad is generated; reject if the door is hanging open exposing unmodeled interior voids.
+CRT Cart: Reject if the TV is a modern flat-panel LCD; reject if wheels are tiny fragile pins rather than chunky industrial rubber casters; reject if cables form a messy floating geometric web.
+Swivel Armchair: Reject if legs are modern plastic 5-star office casters; reject if leather is shiny black vinyl; reject if the silhouette is thin and spindly.
+E. Room Shell & Atmosphere
+Walls:
+Base Wainscot ($0.0\text{ m} - 1.1\text{ m}$): Vertical grooved beadboard wood paneling in Dark Oiled Ash (#8a5232) with a heavy beveled chair rail cap.
+Upper Wall ($1.1\text{ m} - 3.6\text{ m}$): Muted Warm Plaster (#efe4cf) with a slightly aged, tea-stained patina.
+Window Frame (Wall $Z = 0.0\text{ m}$, $X: 0.4 - 5.2\text{ m}$): Heavy industrial steel-mullioned partition frame (#2b2f36) divided into 8 chunky glass panes looking onto the main gym hall.
+Floor: Classic Herringbone / Parquet Hardwood Planks in Warm Oiled Oak (#b98e5e), with a high-traffic lacquer wear-path looping from the entry door to the executive desk.
+Lighting:
+Primary: $1\times$ Central Art Deco brass milk-glass pendant fixture (#f0c233) suspended at $Y = 2.9\text{ m}$, centered at $(X: 3.2, Z: 2.2)$, delivering $3000\text{ K}$ warm ambient light ($900\text{ lm}$).
+Task: Manager Desk Green Banker Lamp (#2a5f9e / brass) casting a tight $2700\text{ K}$ warm glow directly onto the blotter; TV CRT emits a soft cool phosphor ambient bounce.
+Flat Wall Graphics:
+North Wall (above TV): Large framed black-and-white panoramic photograph of Madison Square Garden fight night ($1.4\text{ m} \times 0.6\text{ m}$) in a heavy black frame (#22201f).
+East Wall (above Coach Desk): Pinned canvas tactical ring chart showing footwork diagrams and sector grids ($0.8\text{ m} \times 0.8\text{ m}$).
+ROOM 3: PHYSIO (RECOVERY, HEALING & MEDICAL)
+ROOM BOUNDS: 3.6m Wide (X: 0.0 -> 3.6) x 4.5m Deep (Z: 0.0 -> 4.5), Height: 3.6m (Narrow Room).
+DOORS:
+- Hall Doorway: Z = 0.0, X: 1.3 to 2.3 (1.0m wide opening centered on front wall).
+FLOOR: Anti-Bacterial Pale Celadon Ceramic Floor Tile (#dfe6e8).
+CAMERA ANGLE: Looking North-East through cut Z=0 wall down the narrow corridor layout.
+
+┌────────────────────────────────────────────────────────────────────────┐
+│ [X=0, Z=4.5]             NORTH WALL (Z = 4.5m)          [X=3.6, Z=4.5] │
+│ ┌──────────────────────┐                       ┌─────────────────────┐ │
+│ │ PROP 02:             │                       │ PROP 04:            │ │
+│ │ STAINLESS ICE TUB    │                       │ SKELETON ANATOMY    │ │
+│ │ (Cold Immersion)     │                       │ CHART & STAND       │ │
+│ └──────────────────────┘                       └─────────────────────┘ │
+│                                                                        │
+│                                                ┌─────────────────────┐ │
+│                                                │ PROP 03:            │ │
+│                                                │ GLASS-DOOR SURGICAL │ │
+│                                                │ MEDICINE CABINET    │ │
+│                                                └─────────────────────┘ │
+│ ┌──────────────────────────────────────────┐                           │
+│ │ PROP 01:                                 │                           │
+│ │ ADJUSTABLE PHYSIO TREATMENT TABLE        │                           │
+│ │ (Padded Black Vinyl / Steel Base)        │                           │
+│ └──────────────────────────────────────────┘                           │
+│                                                ┌─────────────────────┐ │
+│ ┌──────────────────────┐                       │ PROP 06:            │ │
+│ │ PROP 05:             │                       │ MEDICAL STEP-ON     │ │
+│ │ MOBILE INFRARED HEAT │                       │ TRASH CAN & STOOL   │ │
+│ │ LAMP                 │                       └─────────────────────┘ │
+│ └──────────────────────┘                                               │
+│ [X=0, Z=0.0]              CUT HALL WALL (Z = 0.0m)      [X=3.6, Z=0.0] │
+│                           [HALL DOORWAY]                               │
+│                           (X: 1.3 - 2.3)                               │
+└────────────────────────────────────────────────────────────────────────┘
+
+A. Physio Prop List
+Prop 01: Heavy Physio Treatment Table (Hero)
+Screen Route: THE PHYSIO (Injured fighter's body diagram, sprains, fractures, deep tissue work).
+Dimensions (Real W×D×H): $2.10\text{ m} \times 0.80\text{ m} \times 0.75\text{ m}$.
+Attachment: Floor-standing. Positioned longitudinally along West wall ($X = 1.0\text{ m}, Z = 2.4\text{ m}$). Front faces East.
+Source: Brand-New Hero Model.
+Materials: Heavy Dark Leather Black Vinyl Cushion (#22201f), Hospital Enamel White Steel Tubular Frame (#e8ecef), Cast Iron Mechanical Lift Foot Pump (#2b2f36), White Paper Roll Dispenser at headrest (#f6f0e0).
+Poly Budget: $\le 7,200$ triangles.
++25% Feature: The oversized hydraulic foot-pedal pump cylinder beneath the base and the thick sanitary white sanitary paper roll holder.
+Prop 02: Galvanized Cold-Water Immersion Tub (Hero)
+Screen Route: RECOVERY (Strain dissipation, swelling flush, lactic acid reduction).
+Dimensions (Real W×D×H): $1.40\text{ m} \times 0.85\text{ m} \times 0.80\text{ m}$.
+Attachment: Floor-standing in North-West corner ($X = 0.9\text{ m}, Z = 3.9\text{ m}$).
+Source: Brand-New Hero Model.
+Materials: Corrugated Galvanized Steel Tank (#2b2f36 with #4a515c rim), Chunky Brass Drain Gate Valve (#f0c233), Dark Rubber Base Matting (#1e1f21). Water plane with floating geometric ice chunks.
+Poly Budget: $\le 5,400$ triangles.
++25% Feature: The massive industrial brass water inlet valve and temperature dial pipe assembly.
+Prop 03: Glass-Front Medical Supply Cabinet (Hero)
+Screen Route: MEDICAL SUPPLIES (Bandages, coagulation swabs, cold compresses, liniment, anti-inflammatories).
+Dimensions (Real W×D×H): $0.90\text{ m} \times 0.45\text{ m} \times 1.75\text{ m}$.
+Attachment: Back against East Wall ($X = 3.6\text{ m}, Z = 3.0\text{ m}$). Front faces West ($-X$).
+Source: Brand-New Hero Model.
+Materials: Medical Enamel White Sheet Metal (#e8ecef), Clear Glass Window Door with Steel Chamfered Bevels, Chrome Locking Latch, Interior glass shelves stocked with amber tincture bottles, white bandage rolls, and surgical steel trays.
+Poly Budget: $\le 6,200$ triangles.
++25% Feature: The chunky chrome hospital turn-latch handle on the glass door.
+Prop 04: Anatomical Boxing Spine & Skeleton Stand (Hero)
+Screen Route: DECOR (Grounds the sports science / injury diagnosis theme).
+Dimensions (Real W×D×H): $0.50\text{ m} \times 0.50\text{ m} \times 1.80\text{ m}$.
+Attachment: Standing in North-East corner ($X = 3.0\text{ m}, Z = 4.1\text{ m}$). Front faces South-West.
+Source: Brand-New Hero Model.
+Materials: Aged Ivory Bone Resin (#efe4cf), Black Steel Rod Center Pole (#2b2f36), Weighted 5-Star Iron Base with chunky caster wheels.
+Poly Budget: $\le 5,800$ triangles.
++25% Feature: Chunky stylized skull and articulated cervical spine column with oversized vertebrae.
+Prop 05: Rolling Deep-Heat Infrared Therapy Lamp (Hero)
+Screen Route: DECOR (Post-sparring muscle warmup and relaxation equipment).
+Dimensions (Real W×D×H): $0.60\text{ m} \times 0.60\text{ m} \times 1.55\text{ m}$.
+Attachment: Floor-standing on West wall near entrance ($X = 0.5\text{ m}, Z = 1.0\text{ m}$).
+Source: Brand-New Hero Model.
+Materials: White Baked Enamel Hood (#e8ecef), Heavy Chrome Articulated Gooseneck Arm, Ruby Red Glass Heat Bulb (#c62f2a), Cast Iron Base (#2b2f36).
+Poly Budget: $\le 3,900$ triangles.
++25% Feature: The oversized hemispherical red glass bulb lens and bell housing reflector.
+Prop 06: Rolling Doctor's Stool & Stainless Step-Can (Hero Set)
+Screen Route: DECOR (Doctor workstation accompaniment to Prop 01).
+Dimensions (Real W×D×H): Stool: $0.45\text{ m} \times 0.45\text{ m} \times 0.55\text{ m}$; Can: $0.35\text{ m} \times 0.35\text{ m} \times 0.60\text{ m}$.
+Attachment: Clustered along East wall opposite table ($X = 3.0\text{ m}, Z = 1.6\text{ m}$).
+Source: Brand-New Hero Model.
+Materials: Black Vinyl Stool Cushion (#22201f), Chrome Pedestal, Brushed Stainless Steel Step-Can (#4a515c) with Red Biohazard Foot Pedal (#c62f2a).
+Poly Budget: $\le 3,400$ triangles total (pair).
++25% Feature: The wide mechanical red foot pedal on the waste bin.
+B. Physio Layout & Walking Clearances
+========================================================================================================================
+PHYSIO PROP POSITIONING TABLE (ORIGIN: SOUTH-WEST CORNER X=0, Z=0)
+========================================================================================================================
+PROP ID   PROP NAME              CENTER X   CENTER Z   BASE Y   YAW ROTATION    CLEARANCE & MOUNTING NOTES
+------------------------------------------------------------------------------------------------------------------------
+PROP 01   Treatment Table        1.10 m     2.40 m     0.00 m   90° (E)         Long edge parallel to Z. 1.1m aisle to East wall.
+PROP 02   Cold Immersion Tub     0.90 m     3.90 m     0.00 m   0° (N)          North-West nook. Direct drainage plumbed to wall.
+PROP 03   Medical Cabinet        3.25 m     3.00 m     0.00 m   270° (W)        Against East wall. Clear door arc into main aisle.
+PROP 04   Skeleton Stand         3.10 m     4.10 m     0.00 m   225° (SW)       North-East corner, clear of tub splash zone.
+PROP 05   Infrared Lamp          0.50 m     1.10 m     0.00 m   45° (NE)        West wall corner, tucks behind door sweep.
+PROP 06   Stool & Step-Can Set   3.00 m     1.60 m     0.00 m   270° (W)        East wall flank, facing treatment table.
+========================================================================================================================
+*Corridor Clearance: In a 3.6m wide room, placing the 0.8m table at X=1.1 leaves an aisle from X=1.5 to 2.8 (1.3m clear unobstructed corridor) extending straight from the doorway (X:1.3 - 2.3) all the way to the tub and skeleton.*
+
+C. Reference-Picture Prompts for Image-to-3D Generation
+Prop 01 (Physio Treatment Table):
+
+3D asset, vintage clinical examination treatment table, chunky stylized realism, thick padded black leatherette mattress with rounded beveled edges, adjustable angled headrest with a white paper roll dispenser bracket, heavy hospital white enamel tubular steel base frame with a chunky mechanical hydraulic chrome foot pedal, isometric three-quarter view from slightly above, isolated on plain light-grey background, soft clean studio shadows, no people.
+
+Prop 02 (Cold Immersion Tub):
+
+3D asset, industrial athletic cold plunge ice bath tub, chunky stylized realism, oval corrugated galvanized steel water trough with a thick rolled steel rim, an oversized vintage brass gate valve and pipe assembly on one end with a circular dial gauge, water surface filled with floating chunky ice cubes, sitting on a textured black rubber mat, isometric three-quarter view, isolated on plain neutral grey background, clean studio rim lighting.
+
+Prop 03 (Medical Supply Cabinet):
+
+3D asset, vintage hospital medical supply cabinet, chunky stylized realism, tall single-door steel cabinet painted clean sanitary off-white with beveled corners, upper half has a large clear glass pane showing three shelves stocked with amber glass medicine bottles, gauze roll boxes, and stainless kidney dishes, chunky chrome turn-handle latch, short tapered steel feet, isometric three-quarter view, isolated on plain light-grey background, no text.
+
+Prop 04 (Skeleton Anatomy Stand):
+
+3D asset, medical demonstration human skeleton model on stand, chunky stylized realism, simplified chunky ivory bone construction with thick spine and exaggerated skull proportions, suspended by a black steel spine bracket from a tall dark steel center pole on a heavy five-star rolling caster base, isometric three-quarter view, isolated on solid light-grey background, soft studio lighting.
+
+Prop 05 (Infrared Heat Lamp):
+
+3D asset, vintage medical infrared heat therapy lamp, chunky stylized realism, large domed white enamel lamp shade with a heavy ceramic rim housing a large glowing ruby-red glass bulb, attached to a thick articulated chrome gooseneck arm on an off-white steel vertical stand with a circular cast iron base, isometric three-quarter view, isolated on plain light-grey background, crisp clean reflections.
+
+Prop 06 (Doctor's Stool & Step-Can):
+
+3D asset, vintage clinical doctor stool and foot-pedal waste bin set, chunky stylized realism, round backless stool with thick black padded vinyl cushion on an off-white steel three-leg base with chrome foot ring, paired with a cylindrical stainless steel sanitary trash can featuring a prominent red foot pedal and black rubber rimmed lid, isometric three-quarter view, isolated on neutral grey background.
+
+D. Rejection Rules
+Treatment Table: Reject if modern high-tech motorized remote control wands or electrical wires appear; reject if cushions have razor-sharp polygonal seams; reject if base legs look like thin bent wires.
+Cold Tub: Reject if modern plastic molded hot tub jets appear; reject if water texture is completely flat opaque grey; reject if galvanized corrugation is a blurry flat normal map.
+Medical Cabinet: Reject if glass door reflections obscure interior supplies entirely; reject if items inside are fused into an unrecognizable solid geometry lump.
+Skeleton Stand: Reject if hyper-realistic microscopic anatomical ribs cause noisy sub-pixel aliasing; reject if stand looks bent or unstable; reject if skull lacks clear stylized eye sockets and jaw.
+E. Room Shell & Atmosphere
+Walls:
+Base Wall ($0.0\text{ m} - 1.8\text{ m}$): Crisp Square Sanitary Ceramic Tiles in Pale Celadon/Hospital Mint (#dfe6e8) with dark waterproof charcoal grout.
+Upper Wall ($1.8\text{ m} - 3.6\text{ m}$): Smooth Semi-Gloss Off-White Washable Plaster (#efe4cf).
+Floor: Non-Slip Commercial Hospital Mosaic Floor Tile in Pale Celadon Gray (#dfe6e8) with a central brass floor drain grille centered at $(X: 1.0, Z: 4.1)$ near the tub.
+Lighting:
+Primary: $2\times$ Ceiling-mounted flush vapor-tight frosted glass fluorescent-style industrial trough fixtures (#e8ecef housing), mounted at $(X: 1.8, Z: 1.5)$ and $(X: 1.8, Z: 3.2)$.
+Bulbs: $4000\text{ K}$ Clean Neutral Medical White ($1100\text{ lm}$ each), lifting the room out of the gloom into an authentic, sterile sports clinic brightness.
+Flat Wall Graphics:
+East Wall (above stool): Framed vintage anatomical wall chart displaying human muscular zones with boxing punch impact points ($1.0\text{ m} \times 1.4\text{ m}$).
+North Wall (above tub): Baked enamel red-and-white metal warning sign: "COLD IMMERSION: MAXIMUM 6 MINUTES".
+ROOM 4: EQUIPMENT STORE (THE ARMORY & WORKSHOP)
+ROOM BOUNDS: 7.4m Wide (X: 0.0 -> 7.4) x 4.5m Deep (Z: 0.0 -> 4.5), Height: 3.6m.
+DOORS:
+- Hall Doorway: Z = 0.0, X: 3.2 to 4.2 (1.0m wide opening centered on front wall).
+FLOOR: Industrial Heavy-Duty Grey Screed Concrete (#b7b2a6).
+CAMERA ANGLE: Looking North-East through cut Z=0 wall; full wide warehouse perspective.
+
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│ [X=0, Z=4.5]                 NORTH WALL (Z = 4.5m)                   [X=7.4, Z=4.5]    │
+│ ┌──────────────────────────┐   ┌──────────────────────────┐   ┌──────────────────────┐ │
+│ │ PROP 01:                 │   │ PROP 04:                 │   │ PROP 05:             │ │
+│ │ HEAVY STEEL EQUIPMENT    │   │ VERTICAL BAG STORAGE     │   │ JUMP ROPE & WRAP     │ │
+│ │ SHELVING (Gloves/Pads)   │   │ RACK (Replacement Bags)  │   │ WALL PEGBOARD        │ │
+│ └──────────────────────────┘   └──────────────────────────┘   └──────────────────────┘ │
+│                                                                                        │
+│ ┌──────────────────────────┐                                  ┌──────────────────────┐ │
+│ │ PROP 02:                 │                                  │ PROP 06:             │ │
+│ │ TIERED MEDICINE BALL     │                                  │ INDUSTRIAL WORKBENCH │ │
+│ │ CRADLE TREE              │                                  │ & REPAIR VISE        │ │
+│ └──────────────────────────┘                                  │ (Station Wear/Fix)   │ │
+│                                                               └──────────────────────┘ │
+│                                                                                        │
+│ ┌──────────────────────────┐                                  ┌──────────────────────┐ │
+│ │ PROP 03:                 │                                  │ PROP 07:             │ │
+│ │ BOXING GLOVE DRYING      │                                  │ CORNER STOOL REUSE   │ │
+│ │ TREE STAND               │                                  │ & STEP LADDER        │ │
+│ └──────────────────────────┘                                  └──────────────────────┘ │
+│ [X=0, Z=0.0]                  CUT HALL WALL (Z = 0.0m)               [X=7.4, Z=0.0]    │
+│                                  [HALL DOORWAY]                                        │
+│                                  (X: 3.2 - 4.2)                                        │
+└────────────────────────────────────────────────────────────────────────────────────────┘
+
+A. Equipment Store Prop List
+Prop 01: Heavy Multi-Tier Steel Equipment Shelving (Hero)
+Screen Route: EQUIPMENT LIST (Club inventory, glove batches, focus mitts, headguards, wear tracking).
+Dimensions (Real W×D×H): $2.20\text{ m} \times 0.70\text{ m} \times 2.40\text{ m}$.
+Attachment: Back against North Wall ($Z = 4.5\text{ m}, X = 1.4\text{ m}$). Front faces South ($-Z$).
+Source: Brand-New Hero Model.
+Materials: Structural Slotted Angle Steel in Gunmetal Charcoal (#2b2f36), Chipped Orange Shelf Lips (#d98039), Wire Mesh Shelves, Stacked chunky red and black boxing gloves (#c62f2a / #22201f), padded curved focus mitts, and rolled cotton hand wraps.
+Poly Budget: $\le 7,800$ triangles.
++25% Feature: The thick slotted angle uprights with visible heavy bolt flanges.
+Prop 02: Tiered Tubular Steel Medicine Ball Tree (Hero)
+Screen Route: BUYING / UPGRADING (Purchasing upgraded conditioning equipment).
+Dimensions (Real W×D×H): $0.75\text{ m} \times 0.75\text{ m} \times 1.55\text{ m}$.
+Attachment: Floor-standing against West Wall ($X = 0.5\text{ m}, Z = 2.8\text{ m}$).
+Source: Brand-New Hero Model.
+Materials: Matte Black Tubular Steel Frame (#2b2f36), 4 tiered heavy vintage leather medicine balls in two-tone brown and black (#8a5232 / #22201f) with thick white laced seams (#ecebe6).
+Poly Budget: $\le 4,200$ triangles.
++25% Feature: The chunky cross-laced white raw-hide seams on each leather medicine ball.
+Prop 03: Rotary Boxing Glove Airing Tree (Hero)
+Screen Route: DECOR (Sanitation, hygiene maintenance, post-sparring drying).
+Dimensions (Real W×D×H): $0.70\text{ m} \times 0.70\text{ m} \times 1.70\text{ m}$.
+Attachment: Floor-standing on West Wall near entrance ($X = 0.6\text{ m}, Z = 1.2\text{ m}$).
+Source: Brand-New Hero Model.
+Materials: Welded Heavy Steel Pipe Tree (#2b2f36), 8 upward-angled pegs holding 4 pairs of inverted boxing gloves in alternating red and cream leather (#c62f2a / #ecebe6).
+Poly Budget: $\le 4,800$ triangles.
++25% Feature: The chunky circular welded pipe base flange and thick upward glove-holding spires.
+Prop 04: Heavy Bag Overhead Storage Gantry (Hero)
+Screen Route: STATION WEAR (Spare heavy bags, maize bags, wrecking balls; service and replacement).
+Dimensions (Real W×D×H): $2.00\text{ m} \times 0.80\text{ m} \times 2.60\text{ m}$.
+Attachment: Back against North Wall ($Z = 4.5\text{ m}, X = 4.0\text{ m}$). Front faces South.
+Source: Brand-New Hero Model.
+Materials: Heavy I-Beam Steel Framing (#2b2f36), Heavy Chrome Swivel Shackles & Chains (#4a515c), two spare heavy punch bags hanging (one classic oxblood leather #c62f2a, one black canvas #22201f).
+Poly Budget: $\le 6,400$ triangles.
++25% Feature: The massive cast-steel forged D-shackles and eye-bolts connecting the chains to the I-beam.
+Prop 05: Jump Rope & Handwrap Workshop Pegboard (Hero)
+Screen Route: EQUIPMENT LIST (Jump ropes, leather speed ropes, tape reserves).
+Dimensions (Real W×D×H): $1.60\text{ m} \times 0.10\text{ m} \times 1.20\text{ m}$.
+Attachment: Wall-mounted on North Wall ($Z = 4.5\text{ m}, X = 6.3\text{ m}$), mounted at $Y = 1.4\text{ m}$.
+Source: Brand-New Hero Model.
+Materials: Industrial Perforated Steel Pegboard painted Machinery Gray (#4a515c), Chamfered Wood Border (#c48a4a), heavy bent steel hooks holding coiled leather jump ropes with polished wood handles (#c48a4a) and rows of white cloth athletic tape.
+Poly Budget: $\le 3,900$ triangles.
++25% Feature: Chunky contoured wooden jump rope handles hanging neatly in pairs.
+Prop 06: Heavy Maintenance Workbench & Swivel Vise (Hero)
+Screen Route: STATION WEAR (Repairing torn bags, re-stitching gloves, servicing ring hardware).
+Dimensions (Real W×D×H): $1.80\text{ m} \times 0.80\text{ m} \times 0.95\text{ m}$.
+Attachment: Back against East Wall ($X = 7.4\text{ m}, Z = 2.6\text{ m}$). Front faces West ($-X$).
+Source: Brand-New Hero Model.
+Materials: Thick Solid Beech Plank Butcherblock Top (#c48a4a), Welded Square Tube Steel Base (#2b2f36), Heavy Cast Iron Swivel Bench Vise (#2b2f36 with #f0c233 brass screw bar), leather punch tools, awls, and mallet on rack.
+Poly Budget: $\le 6,100$ triangles.
++25% Feature: The massive industrial cast-iron mechanics vise bolted to the left corner.
+Prop 07: Heavy Timber Stepladder (Hero)
+Screen Route: DECOR (Maintenance tool for hanging high bags and rigging ring lights).
+Dimensions (Real W×D×H): $0.55\text{ m} \times 0.85\text{ m} \times 1.50\text{ m}$.
+Attachment: Folded/propped against East Wall near front door ($X = 7.1\text{ m}, Z = 1.0\text{ m}$).
+Source: Brand-New Hero Model.
+Materials: Heavy Varnished Ash Timber Slats (#c48a4a), Stamped Steel Hinge Brackets (#2b2f36), Paint Specks (#efe4cf).
+Poly Budget: $\le 2,200$ triangles.
++25% Feature: Oversized stamped steel locking hinge spreader bars on the ladder flanks.
+B. Equipment Store Layout & Walking Clearances
+========================================================================================================================
+EQUIPMENT STORE PROP POSITIONING TABLE (ORIGIN: SOUTH-WEST CORNER X=0, Z=0)
+========================================================================================================================
+PROP ID   PROP NAME              CENTER X   CENTER Z   BASE Y   YAW ROTATION    CLEARANCE & MOUNTING NOTES
+------------------------------------------------------------------------------------------------------------------------
+PROP 01   Steel Shelving Rack    1.40 m     4.10 m     0.00 m   180° (S)        Against North wall. 1.2m aisle in front.
+PROP 02   Medicine Ball Tree     0.50 m     2.80 m     0.00 m   90° (E)         West wall, center flank.
+PROP 03   Glove Airing Tree      0.60 m     1.20 m     0.00 m   45° (NE)        West wall, near door. Easy drop-off.
+PROP 04   Bag Storage Gantry     4.00 m     4.05 m     0.00 m   180° (S)        North wall, center bay. Suspended bags.
+PROP 05   Rope Pegboard          6.30 m     4.45 m     1.40 m   180° (S)        North wall, East corner. Mounted flush.
+PROP 06   Maintenance Workbench  6.95 m     2.60 m     0.00 m   270° (W)        East wall, center. 1.4m clearance to bags.
+PROP 07   Timber Stepladder      7.00 m     1.00 m     0.00 m   290° (WNW)      East wall corner, folded against jamb.
+========================================================================================================================
+*Main Aisle Clearance: Entry door at X:3.2 - 4.2 leads into an expansive 2.0m wide open center arena floor. Staff can walk directly to any station (Workbench, Shelving, Gantry) without crossing closer than 1.1m to any perimeter prop.*
+
+C. Reference-Picture Prompts for Image-to-3D Generation
+Prop 01 (Heavy Equipment Shelving):
+
+3D asset, industrial warehouse heavy equipment storage rack, chunky stylized realism, dark charcoal slotted steel frame with safety-orange shelf front lips and beveled corner uprights, four wide wire-grid shelves stacked with neatly arranged boxing gear: pairs of red and black leather boxing gloves, thick curved black focus punch mitts, and bundles of white canvas hand wraps, isometric three-quarter view from slightly above, isolated on plain light-grey background, soft studio lighting, no text.
+
+Prop 02 (Medicine Ball Tree):
+
+3D asset, heavy commercial medicine ball rack tree, chunky stylized realism, matte black welded tubular steel upright spine with four curved cradle ring arms, holding four heavy vintage leather medicine balls ranging in size from small to large in tan, oxblood, and black leather with chunky white laced seams, heavy round base, isometric three-quarter view from slightly above, isolated on plain neutral grey background, clean studio rim light.
+
+Prop 03 (Glove Airing Tree):
+
+3D asset, freestanding commercial boxing glove drying tree, chunky stylized realism, heavy black industrial pipe column welded to a thick circular floor flange, eight thick upward angled steel round pegs holding four pairs of upside-down vintage boxing gloves in alternating red and cream leather, isometric three-quarter view from slightly above, isolated on plain light-grey background, soft clean shadows.
+
+Prop 04 (Bag Storage Gantry):
+
+3D asset, heavy overhead punch bag gantry rack, chunky stylized realism, structural dark steel I-beam frame with thick bolted gusset plates, two heavy punch bags suspended by chunky steel link chains and oversized D-shackles: one long heavy black canvas bag and one thick teardrop brown leather heavy bag, isometric three-quarter view from slightly above, isolated on plain light-grey background, industrial gym aesthetic.
+
+Prop 05 (Rope & Wrap Pegboard):
+
+3D asset, industrial workshop tool pegboard for boxing gym, chunky stylized realism, dark grey perforated steel board with a beveled warm ash wood perimeter frame, arranged with heavy bent metal hooks holding three coiled leather jump ropes with turned wood handles, several stacked rolls of white cotton athletic tape, and a hanging pair of hand shears, isometric three-quarter view, isolated on solid light-grey background, clean lighting.
+
+Prop 06 (Maintenance Workbench & Vise):
+
+`3D asset, heavy industrial workshop workbench with mechanic vise, chunky stylized realism, thick laminated beech hardwood butcherblock slab

@@ -1,0 +1,191 @@
+FightCamp ROUND 73 (S229) - CODE ASK: re-author the LEAD HOOK and LEFT UPPERCUT in Cascadeur so they actually reach the opponent. Give the longest complete answer you can (full code, no placeholders); if you run out, stop and I will say "continue".
+
+THE PICTURE (attached, one sheet, game camera at the contact frame): left = our native JAB (good - the arm extends toward the opponent). Middle = the new LEAD HOOK at contact: the left glove ends at Miller's own cheek, it reads as a guard, not a punch. Right = the new LEFT UPPERCUT at contact: the fist stops beside his own chin, ~0.35 m ahead of his head, while the opponent's head is 1.55-1.65 m away. Both fixed the old defect (head no longer turns away, nose error 2 deg) but lost the punch itself.
+
+FACTS: Cascadeur Python, MetaHuman rig controllers only (no joint patching), centimetres, 30 fps, 21 frames, contact frame 8, frames 0 and 20 = the shared straight guard. Both moves use the LEFT hand (lead, orthodox). Axes in the script: z = forward toward the opponent, y = up, x = lateral. The game holds root XZ (no step in the clip), so the reach must come from torso turn, weight shift onto the lead leg (pelvis forward up to ~15 cm), shoulder roll and arm extension. Head distance in the fight at punch time = 1.55-1.65 m, so a real hook/uppercut at contact must put the glove at the opponent's head/chin line, i.e. about 55-75 cm in front of our own head (compare: the jab glove is about that far out). Gates that must stay green: nose within 10 deg of the opponent at contact, head behind the lead shoulder (uppercut), wrist straight within 10 deg, elbow ~90 deg for the hook with the forearm horizontal, uppercut elbow below the wrist with the fist rising from chest to chin height, rear glove stays at the chin, feet: lead foot pivots on the ball for the hook.
+
+THE CURRENT SCRIPT (author.py, 179 lines) - the bug is in the wrist targets: hook target = [-5, head_y-6, 0] with z solved from the shoulder (ends at the cheek); uppercut target = [-5, head_y-6, head_z+32] (32 cm ahead of the head). Please:
+1) Explain in numbers where each key frame's wrist, elbow pole, pelvis, shoulder and head should be (frames 0,3,5,8,11,14,20) for a real lead hook and a real lead uppercut at this range, from boxing biomechanics.
+2) Rewrite author.py completely (same API calls, same file outputs, same guard endpoints) with the corrected targets and a forward weight shift; keep the hand-orientation passes.
+3) Add an assert block at the end that fails if, at frame 8, the active wrist is less than 50 cm in front of the head (z), the hook forearm is not within 20 deg of horizontal, or the uppercut fist is below the chin height.
+
+author.py:
+"""Inside Cascadeur: two punches re-authored from the saved straight guard.
+
+Only native rig controllers are keyed. No joint or exported track patching.
+Centimetres, 30 fps, contact 8, shared guard 0/20. Foot pivot is authored here;
+the game's foot/mirror/planting code is untouched.
+"""
+import json
+import math
+import os
+import numpy as np
+
+sc = app.current_scene().domain_scene()
+mv = sc.model_viewer()
+bv = mv.behaviour_viewer()
+dv = mv.data_viewer()
+lv = sc.layers_viewer()
+objects = {mv.get_object_name(o): o for o in mv.get_objects()}
+guard = {n: np.array(v, dtype=float) for n, v in json.load(open(os.path.join(WORKDIR, 'shared_guard.json'))).items()}
+assert MOVE in ('lead_hook', 'inside_uppercut') and lv.frames_count() == 21
+
+
+def data(name):
+    return bv.get_behaviour_data(bv.get_behaviour_by_name(objects[name], 'Transform'), 'global_position')
+
+
+def position(name, frame=0):
+    return np.array(dv.get_data_value(data(name), frame), dtype=float)
+
+
+def unit(v):
+    return v / np.linalg.norm(v)
+
+
+def smooth(t):
+    t = max(0.0, min(1.0, t))
+    return t*t*(3-2*t)
+
+
+def yaw(degrees):
+    a = math.radians(degrees)
+    c, s = math.cos(a), math.sin(a)
+    return np.array([[c, 0, s], [0, 1, 0], [-s, 0, c]])
+
+
+def elbow_target(shoulder, wrist, side, low=False):
+    upper, lower = lengths[side]
+    delta = wrist-shoulder
+    distance = np.linalg.norm(delta)
+    assert abs(upper-lower) < distance < upper+lower, (MOVE, side, distance)
+    axis = delta/distance
+    along = (upper*upper-lower*lower+distance*distance)/(2*distance)
+    pole = np.array([0., -1., 0.]) if low else np.array([1., 0., 0.])
+    pole = unit(pole-axis*np.dot(pole, axis))
+    return shoulder+axis*along+pole*math.sqrt(max(0, upper*upper-along*along))
+
+
+lengths = {s: (np.linalg.norm(position('upperarm_'+s)-position('lowerarm_'+s)),
+               np.linalg.norm(position('lowerarm_'+s)-position('hand_'+s))) for s in ['l', 'r']}
+pelvis = guard['pelvis_MainPoint']
+head = guard['head_MainPoint']
+ball = position('ball_l')
+frames = []
+for f in range(21):
+    strike = smooth((f-3)/5) if f <= 8 else 1-smooth((f-8)/7)
+    dip = 6.0*math.sin(math.pi*f/8)**2 if MOVE == 'inside_uppercut' and f < 8 else 0.0
+    turn = (28 if MOVE == 'lead_hook' else 24)*strike
+    rotation = yaw(turn)
+    shift = np.array([0., -dip, 2.0*strike])
+    row = {n: p.copy() for n, p in guard.items()}
+    for n, p in guard.items():
+        if n.startswith(('pelvis', 'thigh', 'spine', 'neck', 'clavicle', 'upperarm')):
+            row[n] = pelvis+rotation@(p-pelvis)+shift
+    head_new = pelvis+rotation@(head-pelvis)+shift
+    if MOVE == 'inside_uppercut':
+        head_new[2] = min(head_new[2], row['upperarm_MainPoint_l'][2]-3.0)
+    # Keep the gaze on the opponent instead of inheriting the entire torso turn.
+    # 38 degrees counteracts the guard's measured native blade at contact.
+    for n, p in guard.items():
+        if n.startswith('head'):
+            row[n] = head_new+yaw(38*strike)@(p-head)
+    if MOVE == 'lead_hook':
+        # Rotate the complete lead-foot controller triangle about its actual ball.
+        for n, p in guard.items():
+            if n.startswith(('foot', 'ball')) and n.endswith('_l'):
+                row[n] = ball+yaw(25*strike)@(p-ball)
+    for side in ['l', 'r']:
+        # Both roles declare LeftHand in FightStagePlayer._catalog_effector.
+        active = side == 'l'
+        start = guard['hand_MainPoint_'+side]
+        wrist = start+(head_new-head)
+        shoulder = row['upperarm_MainPoint_'+side]
+        if active and MOVE == 'lead_hook':
+            upper, lower = lengths[side]
+            target = np.array([-5., head[1]-6., 0.])
+            radius2 = upper*upper+lower*lower
+            target[2] = shoulder[2]+math.sqrt(max(1., radius2-np.sum((target[:2]-shoulder[:2])**2)))
+            wrist = wrist+(target-wrist)*strike+np.array([10.*math.sin(math.pi*strike), 0., 0.])
+        elif active:
+            chamber = np.array([-12., head[1]-35., head[2]+28.])
+            target = np.array([-5., head[1]-6., head[2]+32.])
+            if f <= 3:
+                wrist = start+(chamber-start)*smooth(f/3)
+            elif f <= 8:
+                wrist = chamber+(target-chamber)*strike
+            else:
+                wrist = start+(target-start)*strike
+        for stem in ['hand_MainPoint_', 'hand_DirectionPoint_', 'hand_AdditionalPoint_']:
+            name = stem+side
+            row[name] = guard[name]+(wrist-start)
+        if active and 0 < strike:
+            solved = elbow_target(shoulder, wrist, side, MOVE == 'inside_uppercut')
+            if MOVE == 'inside_uppercut':
+                # Existing author_uppercuts.py uses a distant low pole: an
+                # elbow-centre point can fall inside the solver's IK branch.
+                solved = shoulder+3.0*(solved-shoulder)
+            # Limb direction is an IK pole, never an output elbow joint.
+            row['lowerarm_LimbDir_'+side] = guard['lowerarm_LimbDir_'+side]*(1-strike)+solved*strike
+    if f in (0, 20):
+        row = {n: p.copy() for n, p in guard.items()}
+    frames.append(row)
+
+
+def key(me, ue, su):
+    for name in guard:
+        layer = lv.layer_id_by_obj_id_or_null(objects[name])
+        for f in range(21):
+            me.layers_editor().set_fixed_interpolation_or_key_if_need(layer, f, True)
+    me.fit_animation_size_by_layers()
+    su.generate_update()
+    for f, row in enumerate(frames):
+        touched = set()
+        for name, value in row.items():
+            did = data(name)
+            me.data_editor().set_data_value(did, f, np.array(value, dtype=np.float32))
+            touched.add(did)
+        su.run_update(touched, f)
+
+
+assert sc.modify_update('OFFBAKE1B re-author '+MOVE+' from straight guard', key)
+# The initial arm solve has translated the guard hand triangle, leaving its
+# orientation at guard. Author that orientation together with the new arm pose,
+# then let OFFBAKE1's independent cleanup audit verify the settled result.
+# Two passes converge the coupled point-controller IK; no output joint is set.
+for iteration in range(2):
+    targets = {}
+    for f in range(21):
+        for side in ['l', 'r']:
+            wrist = position('hand_'+side, f)
+            forearm = unit(wrist-position('lowerarm_'+side, f))
+            knuckles = unit(position('middle_01_'+side, f)-wrist)
+            axis = np.cross(knuckles, forearm)
+            angle = math.atan2(float(np.linalg.norm(axis)), float(np.dot(knuckles, forearm)))
+            matrix = np.eye(3)
+            if angle > 1e-7:
+                matrix = np.array(csc.math.Rotation.from_angle_axis(angle, np.array(unit(axis), dtype=np.float32)).to_rotation_matrix())
+            centre = position('hand_MainPoint_'+side, f)
+            for stem in ['hand_DirectionPoint_', 'hand_AdditionalPoint_']:
+                name = stem+side
+                targets[name, f] = centre+matrix@(position(name, f)-centre)
+
+    def orient(me, ue, su):
+        for f in range(21):
+            touched = set()
+            for (name, frame), value in targets.items():
+                if frame != f:
+                    continue
+                did = data(name)
+                me.data_editor().set_data_value(did, f, np.array(value, dtype=np.float32))
+                touched.add(did)
+            su.run_update(touched, f)
+
+    assert sc.modify_update('OFFBAKE1B author hand orientation '+str(iteration), orient)
+readback = {n: [position(n, f).tolist() for f in range(21)] for n in
+            ['head', 'pelvis', 'upperarm_l', 'upperarm_r', 'lowerarm_l', 'lowerarm_r',
+             'hand_l', 'hand_r', 'foot_l', 'foot_r', 'ball_l', 'ball_r']}
+with open(os.path.join(WORKDIR, 'authored_'+MOVE+'.json'), 'w') as stream:
+    json.dump(readback, stream, indent=2)
+app.current_scene().save(os.path.join(WORKDIR, 'mh_'+MOVE+'.casc'))
+print('OFFBAKE1B_AUTHORED', MOVE, 'guard endpoints 0/20 contact 8', lengths)

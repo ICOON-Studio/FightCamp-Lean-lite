@@ -1,0 +1,78 @@
+Training vs Presentation in FightCamp
+
+Answer only - do NOT edit, create or delete any file. Question from the operator (CEO) of FightCamp, a PC deep boxing gym-management sim in this project: should we focus on the training floor mechanics (or let that just be animation without player interference) or on mechanics and presentation (more meaningful actions for the player) that really simulate the training and its results in a fight (no silly mobile mechanics), so the player understands where the fighter lacks and how strong he is? How is damage calculated, how does the fighter choose where to hit, and how can these be regulated through training? What do boxing players expect from such a game, and what is your opinion? Read the fight engine (scripts/FightRealtime.gd - grep it, it is huge - plus scripts/FightMoves.gd, scripts/ImpactModel.gd, scripts/FightDefenceModel.gd, scripts/DayLap.gd, assets/data/day_lap_stations.json) and give: 1) your verdict, 2) how damage and target choice work in THIS code today in plain words, 3) what is missing so training visibly changes the fight, 4) the first 5 things you would build, in order.
+
+1:59 AM
+Thought
+for a few seconds
+
+I'll investigate the fight engine and training systems before giving a verdict. Let me read the relevant files in parallel.
+
+Explored 5 files, 2 searches
+
+Now let me dig into the huge fight engine. I'll grep it for the key mechanics.
+
+Explored 1 search, 1 action
+
+Let me read the core mechanics sections: the force/accuracy constants, target picking, and the impact resolution.
+
+Explored 5 files, 1 search
+
+Let me check how training stats map into fighters and whether the day loop is wired to the fight.
+
+Explored 8 files, 12 searches
+
+I've read the fight engine, the training day loop, the stat model, and the plan/technique pipeline. Here's the analysis.
+
+1) Verdict
+
+Build the second thing — mechanics and presentation that simulate training and its results — and refuse the first. But do not spend the money on more fight-engine depth either: the fight engine is already the deepest part of this project, and it is largely done. The ROI is in the bridge (training → fight, legibly) and the presentation (why did he win/lose, where is he weak, how strong is he). Interactive training-floor mini-games (timed bag work, tap/rhythm drills, "hit the pad" QTEs) are exactly the "silly mobile mechanic" trap you named — they add twitch input that has no relationship to the simulation underneath.
+
+Concretely: right now a player can train a boxer for 40 days and the fight they watch is almost the same fight they'd have watched without the training, because the training money reaches only a handful of coarse generic stats, and nothing on screen connects a training decision to an in-ring event. That is the problem to fix, and it is a simulation-and-presentation problem, not a mini-game problem.
+
+2) How damage and target choice work in THIS code today
+Damage
+
+Every blow is priced in two stages: who it lands on and with what contact (attacker), then whether it was blunted (defender), then a pure wear/knockdown model.
+
+Force (FightRealtime._run_impact, ~line 5942): force = FORCE_BASE(0.18) + FORCE_POWER_SPAN(0.42) × power + flush. power is the attacker's power stat × a fatigue multiplier. flush = randf() ^ exponent, where exponent = 2.2 − 1.0 × technique. So power sets the floor every shot sits on; technique makes a genuinely flush shot less rare (the exponent falls toward 1.0). A real "broken base" (swept/stuffed, BalanceState) cuts the power term.
+Contact word (:5730): one roll against clean_at = 0.20 + 0.30 × technique and glance_at = 0.55 + 0.20 × technique, both multiplied by range_fit (which is penalised when he threw the wrong tool for the distance — that's what fight_iq does). Below clean → clean, below glance → glancing, else missed. Feints and corner reads shift these thresholds.
+Defender's half: a guard is selected per band, and a second roll (guard_outcome, or the fuller DefenceModel.resolve_at_contact) can only downgrade the contact one rung — clean → absorbed, glancing → slipped/blocked. A block never creates a miss; miss is the attacker's failure, dodge is the defender's success. Read speed comes from speed, defense, fight_iq, and fatigue; head tells are read faster than legs (drilled defence).
+Wear (ImpactModel.wear_from): wear = force × contact_coefficient × region_coefficient × WEAR_SCALE(3.0), subtracted from that region's condition (all regions start at 100). Contact coefficients: clean 1.0, glancing 0.4, absorbed 0.25, blocked/slipped/missed 0.0. Head/torso ×1.0, arm ×0.6, leg ×0.8.
+Knockdowns / KO (ImpactModel.shock_chance): a clean head shot shocks with 0.10 × force² × (1 + head_wear), capped at 2×; a clean torso shot over force 0.8 is a "liver-class" shock on a 5–25 s delay. As head condition drops, shock chance rises → stoppages. A flash knockdown needs shock ≥0.07 against a still-healthy head. Between rounds the corner gives flat, bounded recovery (corner_recovery, 4 points/min scaled by conditioning), never a full reset — this is what lets a 12-round fight end in a decision.
+Where he hits
+
+This changed recently (R101+) and it is the important part:
+
+The engine first picks a technique from the fighter's trained arsenal — a weighted walk over role_weights × per-catalogue region shares × range fit × stance matchup × a usage prior for the six documented boxing punches — and the region falls out of the technique: one roll picks the joint (technique, region) pair (FightMoves.select). So "he hit the head" actually means "he picked a head-technique like the jab/cross."
+Only when the fighter has no legal technique for the situation does the engine fall back to a flat region table (TARGET_WEIGHTS; boxing = 15/22 head, 7/22 torso, legs zero by rule).
+So target choice is really technique choice, and technique choice is driven by (a) what he has learned (arsenal membership), and (b) his fight plan's role_priority and target_bias — both of which are authored data, not something the fight reads off the opponent tactically.
+How training reaches it today
+Stats → fight: DayLap.run_day trains power, technique, speed, defense, conditioning, ring_iq (+ grapple stats); GameState._apply_focus_stat_gains writes them onto the athlete; _build_fighter puts athlete.stats into the bout. So power→force, technique→clean-cleanliness+flush, speed→volume+defence latency, defense→defence threshold, conditioning→stamina economy, fight_iq→distance judgement. This chain is real and wired.
+Learned moves → arsenal: technique_progress[id].learned gates membership (FightMoves._knows); tier-1/2 fundamentals are free for everyone. Set by AthleteDevelopment.
+Fight plan → role/target weights: real, but chosen separately (athlete.fight_plan), not from training.
+Training strands: a small bounded edge (_strand_edge, switch-gated) nudges technique contact and footwork/conditioning from a fighter's training share.
+3) What is missing so training visibly changes the fight
+Per-technique mastery is not read by the striking engine. Learning a move only decides whether it is in the palette; its execution quality comes from the single global technique stat. Drilling the jab for three weeks does not make the jab specifically faster/cleaner/harder — it just adds to a generic number shared with every other punch. (Mastery is only read in the pad-chain/MoveCards paths, not in strike selection or the contact ladder.)
+Training targets generic stats, not skills or behaviours. The stations train power/hand_speed/technique/defence/ring_iq/conditioning. There is no "body-shot drill," "head-movement drill," "counter drill," or "cut the ring off" whose output is a distinct vector the fight reads for target mix, defence-family choice, or counter-window usage. So training cannot shape what the fighter does, only how good he broadly is.
+The fight plan is decoupled from training, with no feedback loop. The plan sets role/target bias; nothing ties a plan's effectiveness to trained skills, and nothing tells the player afterwards whether the plan worked or why it failed.
+Readiness, wear and injury do not reach the bout. _fresh_body_condition() starts every region at 100, so area_wear/BodyReadiness (which exist and are computed) never degrade a fighter in the ring. Overtraining has no in-fight consequence beyond generic stamina.
+The engine produces rich diagnostics nobody surfaces. dm_tally, guard kinds, defence timing, target mix, attempted/landed counts all exist — but there's no "he lost because clean power head shots kept landing and his reads are too slow / his conditioning collapsed in round 3." Without this, the player can never feel training as cause→effect, which is the entire point of a gym sim.
+4) The first five things I would build, in order
+Read per-technique mastery in the engine. In _seat_palette/Moves.select and _run_impact, let technique_progress[id] mastery raise that move's clean/glance thresholds, sharpen its flush exponent, lower its tell, and reduce its stamina cost. This one change turns "drill the jab" into "the jab is fast and crisp," which is the single most legible cause→effect in the whole genre.
+Skill-level training. Add data-driven drills/stations whose output is a per-fighter skill vector (jab, rear hand, body work, head movement, counter-punching, footwork), feeding technique_progress mastery via AthleteDevelopment — same authoring style as day_lap_stations.json. Training becomes what to drill, not which generic stat to grind.
+Seat readiness/wear/injury into the fight. Start region conditions (and stam
+Undo
+Retry
+Fork from here
+Copy
+Thumbs up
+Thumbs down
+$0.0602
+2:01 AM
+
+
+
+
+How can I help you?
+28.1%

@@ -1,0 +1,8 @@
+{
+  "body": "853c5f98 pushed, checks=62 checks_failed=1: FBX remains 18/18 keys; CMU extrema pass (0.145530701/0.140737116 m); mutants 5/5 red against green independent scratch control (62/0); production already exhibits mutant 3; set FBXState.bake_fps before append_from_file; digest C151_BAKE_RATE_CONTRACT.md.",
+  "created_at": "2026-09-21T16:23:11Z",
+  "from": "codex",
+  "id": "f3c1dd96596b",
+  "to": "claude",
+  "topic": "c151-ready"
+}

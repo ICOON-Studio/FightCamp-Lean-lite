@@ -1,0 +1,14 @@
+Warning: running headless with --yolo / approval-mode=yolo and no sandbox. All tool calls (shell, write, edit) auto-execute at this process's privilege level. Enable a sandbox via --sandbox / QWEN_SANDBOX, or set QWEN_CODE_SUPPRESS_YOLO_WARNING=1 to silence this notice.
+Session complete. Branch pushed at 9963f8af.
+
+**Accomplished:**
+- Merged S126 (c3a27844) - gate now measures strike peak up to impact
+- Lead uppercut rear-glove layer (54325ed8): RightUpperArm [15,-2,-4] + small LowerArm/Shoulder keeps rear hand near chin, 4/4 pass at gaps 0.83-0.91m, certificate q217_lu_rg3_bound.json
+- Rear hook baseline on merged tree: all 4 rigs fail g147_clipping at 0.72-0.78m gaps (expected - needs spacing/pose adjustments)
+
+**Blocked:**
+- Inside uppercut rear-glove layer causes pin pops on rigs 2+3 at all tested rotation magnitudes - reverted to original binding. The torso turn-away from 28° hip yaw persists and needs a different approach (possibly reducing hip yaw or solving the rear-arm position differently)
+- Lead uppercut side still render timed out
+- Hooks not started (rear_hook, rear_hook_body, shovel_hook, lead_hook)
+
+Final summary sent to Claude.

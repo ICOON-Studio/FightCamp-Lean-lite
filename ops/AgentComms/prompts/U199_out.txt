@@ -1,0 +1,26 @@
+Connection lost, reconnecting to https://agentn.global.api5.cursor.sh (attempt 1)...
+Retry attempt 1...
+Pushed. Here's the summary:
+
+## What changed
+Dressed the lobby in `Godot/scripts/Lobby3D.gd` (4 render passes, compared each against `lobby_target_concept.jpg`), all procedural Godot meshes — no downloads, no Blender needed since the game's own low-poly cup/belt/frame idiom already reads well at this camera distance:
+
+- **Trophy/belt wall**: two wood shelves under the honours frames, warm under-shelf glow, gold/silver/bronze cup cylinders and flat belt cases — always dressed, not just when honours are earned.
+- **Photo wall**: 3×2 framed bust-silhouette portraits with fake fight records, on the left wall between the two doors.
+- **Bench prospects**: two seated fighters always on the bench (gym bag, one with a towel), independent of the game-state `WalkIn`.
+- **Small lived-in details** (D55's ask): a mug + notebook on the desk counter; a folded-shirt stack + glove box (Kenney CC0) on the merch shelf; a trash can (Kenney CC0) + water cooler by the street door.
+- **Lighting**: two new warm practicals over the trophy shelf and photo wall.
+
+## A defect found and fixed mid-session
+My first shelf height band collided with the "to-come" honour captions' text (and could collide with an earned plaque's). Lowered it and capped its width short of the desk's hanging sign, which still clips the shelf's rightmost sliver from this camera angle (a perspective artifact, not a world-space overlap).
+
+## Infra snag (not a code bug)
+This fresh worktree had no `.godot` import cache at all — running the render via `--script` alone doesn't trigger asset import, so it hung on a missing font import every time. Fixed by running `godot_hidden.ps1 --path Godot --import` once to warm the cache; renders completed cleanly afterward.
+
+## Verified
+`check_scripts.py` clean every pass; `run_tests.py --only front_door`: 0 failures; final render at `previews/u199/final.png`.
+
+## Not matched to the concept
+No "UPCOMING FIGHTS" poster board — the room's right wall is a 1m cutaway, too short to hang one without it floating above. Photo-wall portraits are procedural silhouettes, not rendered fighter stills (a render tool for that wasn't in the owned-files list).
+
+Committed and pushed to `cursor/u199-lobby`: [PR link](https://github.com/Guru-Meditation/FightCamp/pull/new/cursor/u199-lobby). Digest at `research/U199_DIGEST.md`.Those two are stale — leftover from the early render attempts I killed while diagnosing the missing `.godot` import cache (before I ran `--import` to warm it). No action needed: the task completed successfully afterward with clean renders, passing tests, and the branch is committed and pushed.

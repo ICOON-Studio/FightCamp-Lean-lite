@@ -1,0 +1,38 @@
+Pushed **`9fbfc4a8`** to `origin/codex/q213c`.
+
+**26/26 pass across all four pairings:** 104 completed runs, 13,916 measured frames. Under identical inputs, **92/92 unaffected-move hashes and 48/48 non-opted sequence hashes match**.
+
+| Move | Worst cm | Result |
+|---|---:|---|
+| boxing_body_hook | 0.00 | PASS |
+| boxing_catch | 0.00 | PASS |
+| boxing_check_hook | 0.00 | PASS |
+| boxing_counter_over_jab | 0.00 | PASS |
+| boxing_cross | 0.00 | PASS |
+| boxing_cross_body | 0.00 | PASS |
+| boxing_double_jab | 0.00 | PASS |
+| boxing_inside_uppercut | 0.00 | Diagnostic PASS |
+| boxing_jab | 0.00 | PASS |
+| boxing_jab_body | 0.00 | PASS |
+| boxing_lead_hook | 2.33 | PASS |
+| boxing_lead_uppercut | 0.00 | PASS |
+| boxing_liver_combo | 2.94 | PASS |
+| boxing_one_two | 2.52 | PASS |
+| boxing_one_two_hook | 6.72 | PASS |
+| boxing_overhand | 0.00 | PASS |
+| boxing_pull | 0.00 | PASS |
+| boxing_pull_counter | 0.00 | PASS |
+| boxing_rear_hook | 8.95 | PASS |
+| boxing_rear_hook_body | 3.66 | PASS |
+| boxing_rear_uppercut | 0.00 | PASS |
+| boxing_shovel_hook | 0.00 | PASS |
+| boxing_six_punch_combo | 7.17 | PASS |
+| boxing_slip | 0.00 | PASS |
+| boxing_slip_counter | 0.00 | PASS |
+| boxing_up_jab | 0.00 | PASS |
+
+Brief overlaps retain the unchanged duration limits. Inside uppercut remains withdrawn.
+
+Parse, isolation, coverage, clipping-contract and playback checks passed. Technique-fidelity has one identical **pre-existing NEAREST fixture failure** on `5e613215`.
+
+[Full evidence and reproduction](E:/FightCamp/wt/Q213C/research/Q213C_DIGEST.md:143). No imports or HANDOFF changes committed.

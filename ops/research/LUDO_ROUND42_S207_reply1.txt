@@ -1,0 +1,365 @@
+<!-- Ludo round 42 (S207, 2026-10-12), chat 'Gym Management Screen', reply part 1 verbatim, 26,624 chars (stopped mid B4). Ask: LUDO_ROUND42_S207_ask.txt -->
+
+
+SECTION A — FIRST CUSTOMER CHECK-IN AT RECEPTION
+A1. The Exact Trigger, Frequency, and Prompt Wording
+Trigger Conditions
+
+The check-in event does not poll randomly. It evaluates during the gym floor simulation loop when the global calendar time step is running (sim_speed > 0):
+
+First-Time Trigger: Fires precisely when the gym's cumulative reputation score passes 100 points (e.g., after the gym's first amateur fight or week 2 of club tier operation), and an unassigned walk-in NPC agent enters the outer perimeter door node (nav_door_exterior) and paths to reception_counter_front_node (Vector3(4.2, 0.0, -1.8) in Tier 1 gym coordinates).
+Post-First-Time Throttle (Never a Nag):
+Check-in prompts will never interrupt the player if a bout is currently booked in Fight Camp mode, or if the manager has a modal menu open.
+Maximum frequency: 1 prompt per in-game calendar week for Tier 1 (Club); 2 per week for Tier 2 (Commercial); auto-handled by Front Desk Staff if the player has hired an Administrative Assistant (unlockable staff role at Tier 2), completely eliminating manual prompts unless a rare "high-potential prospect" arrives.
+If a customer arrives while the player is paused or reviewing a screen, the walk-in waits at the counter for up to 48 in-game hours (visible as an NPC standing at the desk) without pausing the game or throwing an intrusive popup. The prompt only pops when the player returns to the Gym Floor camera view.
+Prompt Visual Presentation & Wording
+
+A non-modal toast pill drops down smoothly from the top center of the viewport:
+
+Position & Size: rect(760, 24, 400, 72).
+Container Styling: Background #0B0F17 (95% opacity), border 1px solid #D69E2E (Gold), corner radius 4px.
+Primary Label (rect(776, 32, 368, 20)): Chakra Petch 13px Bold, #F8FAFC, uppercase: "NEW PROSPECT AT RECEPTION DESK"
+Sub-Label (rect(776, 52, 240, 16)): Inter 11px Regular, #94A3B8: "Walk-in requesting membership & assessment."
+Button 1 (Accept / Zoom): rect(1024, 40, 60, 26).
+Background #22C55E (Green), Hover #16A34A. Text: Inter 11px Bold, #0B0F17, "ATTEND".
+Tooltip: "Zoom to reception desk and conduct intake interview."
+Button 2 (Decline / Dismiss): rect(1090, 40, 54, 26).
+Background #1E293B (Muted), Border 1px solid #334155, Hover #334155. Text: Inter 11px Medium, #94A3B8, "IGNORE".
+Tooltip: "Customer will train on a standard day-pass ($15) without custom contract setup."
+A2. The Camera Move Specification
+
+When the player clicks "ATTEND":
+
+Source Camera (cam_floor_3d):
+Top-down 3/4 management overview.
+Transform3D: Position Vector3(0.0, 18.5, 14.2), Rotation Vector3(-52.0, 0.0, 0.0) degrees, FOV 45.0.
+Target Camera (cam_reception_desk):
+Eye-level cinematic framing focused on the desk.
+Transform3D: Position Vector3(2.8, 1.45, -0.6), Rotation Vector3(-4.5, 32.0, 0.0) degrees, FOV 34.0.
+Framing Alignment:
+The physical desk (dark vertical slatted timber facade, matte wax-oiled oak countertop, brushed brass strip engraved with "RECEPTION") occupies the lower-left to mid-left quadrant of the screen (x range: 0px to 1160px).
+The Player Character avatar (Gym Head Coach / Owner) is seated/standing behind the counter on the left side (x: ~380px), framed waist-up.
+The Customer NPC model is standing directly in front of the counter on the right-middle side (x: ~840px), full torso and face framed in warm 45-degree key light (#FFE6C7, energy 1.2).
+The right third of the screen (x: 1180px to 1920px) is cleared of 3D clutter to host the 2D Check-In Application Drawer.
+Interpolation & Duration:
+Duration: Exactly 1.20 seconds (crisp, snappy, avoids simulator lag).
+Easing: Tween.EASE_IN_OUT using Tween.TRANS_CUBIC curve in Godot GDScript.
+Audio cue: Light interior footstep on rubber gym mat, followed by a soft paper/tablet desk placement sound effect (sfx_intake_start.wav, -6 dB).
+A3. The Check-In Application (Right-Side Drawer UI)
+
+The drawer slides in from the right edge (x: 1920 to x: 1200) over 0.25 seconds using Tween.EASE_OUT, Tween.TRANS_QUAD.
+
++--------------------------------------------------------------------------------------------------------------------+
+| 1920x1080 VIEWPORT (CINEMATIC RECEPTION VIEW)                                | CHECK-IN APPLICATION DRAWER         |
+|                                                                              | rect(1200, 0, 720, 1080)            |
+| [3D VIEWPORT: CAMERA AT RECEPTION DESK]                                      | Background: #0B0F17                 |
+|                                                                              | Border-Left: 1px solid #1E293B      |
+|                                                                              |                                     |
+|                                                                              | HEADER: RECEPTION INTAKE DOSSIER    |
+|                                                                              | rect(1224, 24, 672, 48)             |
+|                                                                              |                                     |
+|                                                                              | SECTION 1: APPLICANT IDENTITY       |
+|                                                                              | rect(1224, 88, 672, 110)            |
+|                                                                              |                                     |
+|                                                                              | SECTION 2: ATTRIBUTE ASSESSMENT     |
+|                                                                              | rect(1224, 214, 672, 170)           |
+|                                                                              |                                     |
+|                                                                              | SECTION 3: MEMBERSHIP TIER SELECTION|
+|                                                                              | rect(1224, 400, 672, 220)           |
+|                                                                              |                                     |
+|                                                                              | SECTION 4: GYM ROLE & STATIONS      |
+|                                                                              | rect(1224, 636, 672, 180)           |
+|                                                                              |                                     |
+|                                                                              | SECTION 5: FINANCIAL PROJECTION     |
+|                                                                              | rect(1224, 832, 672, 110)           |
+|                                                                              |                                     |
+|                                                                              | CONTROLS: [REGISTER] or [REJECT]    |
+|                                                                              | rect(1224, 960, 672, 80)            |
++--------------------------------------------------------------------------------------------------------------------+
+
+Field Specifications, Data Sources & Sim Impact
+Header & Applicant Identity (rect(1224, 88, 672, 110))
+Name & Photo: customer.name (e.g., "Marcus Brody"), Age: 22, Archetype: "Collegiate Wrestler transitioning to striking".
+Physical Profile: Height: 178 cm, Walking Weight: 73.5 kg, Natural Division: Welterweight (-66.7 kg).
+Source Data: Generated procedurally from CustomerGenerator.gd based on local municipal demographic seeds.
+Attribute Readout (Assessment Scan) (rect(1224, 214, 672, 170))
+
+Displays raw starting potential across the sim keys (0–100):
+
+POWER: 42 | TECHNIQUE: 18 | SPEED: 38
+STAMINA (conditioning): 64 (High baseline cardio from wrestling)
+CHIN: 50 | DEFENCE: 22 | FOOTWORK: 25
+RING IQ (fight_iq): 31 | COMPOSURE: 55
+Grappling Background baseline: grapple_offense: 58, grapple_defence: 62, top_control: 60.
+Decision Served: Player audits whether this applicant is merely a cash-paying hobbyist or viable developmental raw material for the fight team.
+Membership Tier Selection (rect(1224, 400, 672, 220))
+
+Three mutually exclusive radio-card selectors (rect(1224, y, 672, 60) each):
+
+Tier A: Fitness / General Public ($45 / month)
+Privileges: Access to treadmill, bike, weights only during open hours (09:00–17:00).
+Sim Impact: Zero ring wear; zero sparring availability; purely passive gym income.
+Tier B: Amateur Boxer / Sparring Pool ($85 / month)
+Privileges: Access to all 7 stations (heavy bag, pads, ring sparring, treadmill, bike, weights, rest).
+Sim Impact: Adds +1 body to the gym's in-house sparring partner pool. Uses equipment, causing facility condition wear (-0.4% durability per week to ring canvas and heavy bags).
+Tier C: Subsidized Academy Prospect ($0 fee / -$150 gym stipend / month)
+Privileges: Full-time roster access; assigned dedicated coach time.
+Sim Impact: Gym absorbs monthly costs; fighter signs a 24-month exclusive developmental contract with an automatic 25% gym cut on future purses.
+Gym Role & Station Footprint Allocation (rect(1224, 636, 672, 180))
+Primary Station Anchor: Dropdown selection: heavy bag vs weights vs ring sparring.
+Assigned Training Slot: Morning (08:00–12:00) vs Evening (16:00–20:00).
+Sim Impact: Directly populates the real-time floor simulation. If ring sparring is selected, Marcus Brody will physically spawn in the ring between 16:00 and 18:00 on Tuesdays and Thursdays, available for the player's pro fighters (e.g., Leo Vance) to work with.
+Financial & Rep Projection (rect(1224, 832, 672, 110))
+Dynamic ledger line:
+Monthly Cashflow Delta:       +$85.00
+Equipment Depreciation Cost:   -$12.50
+Net Facility Profit:           +$72.50 / month
+Sparring Value to Stable:     +24 rounds/month (Orthodox / Power Grappler style)
+Final Action Buttons (rect(1224, 960, 672, 80))
+Confirm Button (rect(1224, 976, 440, 48)):
+Background #22C55E, Hover #16A34A. Font: Inter 12px Bold, #0B0F17.
+Label: "[REGISTER MEMBER & ASSIGN LOCKER]"
+Sim action: Deducts 1 locker capacity, instantiates Member node into GymWorld, logs first month fee to Treasury.cash.
+Decline Button (rect(1680, 976, 216, 48)):
+Background #1E293B, Border 1px solid #EF4444, Text #EF4444. Font: Inter 12px SemiBold.
+Label: "[DECLINE INTAKE]"
+Sim action: Customer thanks the coach and paths out through the exit door; locker remains open; no money exchanged.
+A4. Long-Term Value of a Member (Detailed Mechanics & Numbers)
+
+A member is never a disposable coin-fountain. They are a multi-dimensional club resource governed by three interconnected systems:
+
+1. Economic Cashflow (The Working Capital Engine)
+Commercial pro fights pay out irregularly (purses arrive every 8 to 12 weeks).
+A stable of 30 general/amateur members paying an average of $65/month produces $1,950/month in guaranteed recurring revenue.
+In Tier 1 (Club Gym, $1,400/month facility rent + utilities), amateur memberships cover base operational overhead, ensuring the manager does not go bankrupt while developing young prospects whose pro purses are only $800–$1,500.
+2. The Internal Sparring Ecosystem
+Hiring external sparring partners for an 8-week camp costs between $250 and $600 per week per partner.
+Having in-house amateur members with specific traits (e.g., Marcus Brody: collegiate wrestling pedigree, high physical conditioning) allows your pro fighters to spar against specific looks without paying external contract rates.
+Trade-off / Wear: If your pro boxer (Leo Vance, Power 76) spars recklessly against an amateur member, the amateur can suffer injuries (cuts, concussions). An injured member freezes their dues, drops gym reputation, and may cancel their contract.
+3. Gym Reputation & Organic Recruitment
+Every amateur member who competes in regional amateur bouts (Golden Gloves / state championships) generates gym prestige:
+Amateur win: +2.5 Gym Prestige.
+Amateur title: +15.0 Gym Prestige.
+Higher gym prestige directly increases walk-in applicant quality, boosting the probability of unearthing high-ceiling prospects with 80+ stat potential.
+A5. Why This Stays a Deep-Management Decision (Not a Casual Tap)
+
+This mechanic avoids hypercasual/mobile design through capacity constraints, overcrowding friction, and resource competition:
+
+Physical Capacity & Station Congestion:
+In Tier 1 (30.0m $\times$ 18.0m floor space), the gym only has 4 Heavy Bags, 1 Sparring Ring, 2 Treadmills, and 1 Multi-Rack Weight Station.
+If the player indiscriminately accepts every walk-in customer for quick cash, the floor becomes congested.
+Consequence: When pro boxer Leo Vance arrives for his mandatory camp session at 16:00, all heavy bags are occupied. Vance either waits (losing 40% session efficiency) or experiences a morale/stress penalty (+3 Stress: Gym overcrowded).
+Coach Attention Slicing:
+Coaches have finite hours per day (40 hours/week max before fatigue degrades their teaching quality).
+Allocating coach pad-work hours to high-paying amateurs increases immediate revenue but starves pro prospects of technique training, slowing down their progress on the 54-node technique tree.
+Locker Room & Hygiene Constraints:
+Member counts beyond locker capacity (24 lockers in Tier 1) degrade gym hygiene, driving up facility maintenance costs and raising the baseline infection/illness risk for everyone in the gym.
+A6. The Return to the Floor Camera
+
+Upon clicking either "[REGISTER MEMBER]" or "[DECLINE INTAKE]", the following sequence executes:
+
+The Check-In Application Drawer slides smoothly out to the right (x: 1200 to 1920, 0.20s, Tween.EASE_IN).
+If registered, the Customer NPC plays a brief head-nod animation (anim_nod_agree), turns 180 degrees, and paths toward the locker room (nav_locker_room).
+Camera transitions from cam_reception_desk back to cam_floor_3d:
+Duration: 1.00 second.
+Easing: Tween.EASE_IN_OUT, Tween.TRANS_CUBIC.
+Framing: Returns smoothly to the top-down 3/4 management overview.
+Top HUD unpauses (if previously paused), and the newly registered member's profile is registered in the gym roster directory under the "MEMBERS & AMATEURS" tab.
+A7. Headless Acceptance Test List (For GDScript / CI Pipeline)
+
+A software engineer can run these headless tests in Godot (gut test suite or headless script execution) without rendering visuals:
+
+# test_reception_workflow.gd
+extends GutTest
+
+func test_first_time_customer_trigger_threshold():
+    var gym = GymManager.new()
+    gym.reputation = 99
+    assert_false(gym.should_spawn_reception_intake())
+    gym.reputation = 101
+    assert_true(gym.should_spawn_reception_intake())
+
+func test_throttle_blocks_prompts_during_fight_camp():
+    var gym = GymManager.new()
+    gym.reputation = 150
+    gym.active_fighter.is_in_active_camp = true
+    assert_false(gym.should_spawn_reception_intake())
+
+func test_registration_adds_member_and_updates_cashflow():
+    var gym = GymManager.new()
+    var starting_cash = gym.treasury.cash
+    var intake_data = {
+        "id": "cust_001",
+        "tier": MembershipTier.AMATEUR,
+        "monthly_fee": 85.0,
+        "locker_required": true
+    }
+    gym.register_customer(intake_data)
+    assert_eq(gym.members.size(), 1)
+    assert_eq(gym.lockers_available, gym.lockers_total - 1)
+    # Simulate 30 days
+    gym.advance_calendar_days(30)
+    assert_eq(gym.treasury.cash, starting_cash + 85.0)
+
+func test_declined_customer_does_not_consume_resources():
+    var gym = GymManager.new()
+    var starting_lockers = gym.lockers_available
+    gym.decline_customer("cust_002")
+    assert_eq(gym.members.size(), 0)
+    assert_eq(gym.lockers_available, starting_lockers)
+
+func test_overcrowding_penalizes_training_efficiency():
+    var gym = GymManager.new()
+    gym.fill_station_capacity("heavy_bag", 1.0) # 100% full
+    var session_efficiency = gym.calculate_station_efficiency("heavy_bag", gym.pro_fighter)
+    assert_lt(session_efficiency, 0.70) # Efficiency must drop below 70%
+
+SECTION B — STRESS AND AFFLICTIONS FOR BOXERS
+B1. Verdicts on John’s Research and Kalli’s Design
+
+| Proposed Element | Source | Verdict | Detailed Rationale & Engine Integration |
+|---|---|---|---|
+| Stress Meter (0–100 scale) | Both | KEEP | Industry standard, legible, and directly compatible with simulation math. |
+| Resolve Check at 80 | John | CHANGE | Move back to 100. John argues for 80 so danger is visible, but having the roll at 80 makes 81–100 redundant phantom space. Instead, use Kalli's model: 0–49 Normal, 50–79 Strained (warning badge), 80–99 On Edge (incidents, UI pulses amber), 100 = The Resolve Check. |
+| Single Roll vs. Growing Daily Chance | Kalli vs John | KEEP SINGLE ROLL | Growing random rolls feel like random failure spikes. A single roll at 100 gives the manager a definite, high-stakes moment they saw coming for weeks. |
+| Composure as Roll & Rate Modifier | Kalli | KEEP | Essential fact alignment: uses composure (0–100 player-facing attribute) to scale stress gains (0.6x at 90 composure, 1.4x at 20 composure) and virtues (15% + (composure / 5)). |
+| 4 Afflictions for Demo | Kalli | KEEP (WITH 1 SWAP) | Demo scope requires 4 core afflictions. Keep GUN-SHY (losses/concussions), STARVING (weight cut), FRAGILE (injuries/wear). Swap RECKLESS for OVERCOOKED. Why: Overcooking/overtraining is the quintessential boxing camp failure mode (NFOR). John's research on training load overreach is too vital to defer to post-demo. MUTINOUS, PARANOID, HAUNTED, GLORY-SICK deferred to full release. |
+| 1 Virtue for Demo | Kalli | KEEP (STEELED) | Provides a positive payout for high-composure prospects who push through adversity. |
+| Head Injuries as Non-Stress | John | KEEP | Concussions and cuts belong exclusively to MEDICAL wear (0–100% on head_neck). Concussions trigger medical holds, not mood debuffs. |
+| Relief Buff Post-Check | John | KEEP | Upon triggering an affliction or virtue at 100, stress instantly resets down to 60 (Catharsis), preventing immediate back-to-back rolls. |
+| Mental Health Framing | John | KEEP | Zero clinical labels. Use boxing-accurate behavioral terminology (OVERCOOKED, GUN-SHY, STARVING, FRAGILE). No depictions of self-harm or substance abuse. |
+
+B2. The Final Unified Stress System Specification
+STRESS VALUE: Integer 0 to 100 (Stored in fighter.stress)
+PASSIVE DECAY (Evaluated weekly on Sunday midnight):
+  - If Stress < 40: -8 / week (Fighter rests naturally, relaxed baseline)
+  - If Stress 40-69: -4 / week
+  - If Stress >= 70:  0 / week (Chronic stress blocks passive recovery)
+
+Complete Stress Inputs (Gains & Deductions)
+
+All stress increases are multiplied by the fighter's Composure Modifier:
+$$\text{Effective Gain} = \text{Base Gain} \times \left(1.6 - \frac{\text{composure}}{100}\right)$$
+(A fighter with 80 Composure takes $0.8\times$ stress; a fighter with 20 Composure takes $1.4\times$ stress).
+
+Stress Increases (Base Values Before Composure Modifier)
+Training & Physical Load:
+Hard Training Day (Station intensity $>75%$): +3
+Extreme Strain Day (Daily physical wear $>60%$): +5
+Back-to-Back Hard Days without Rest: +4 additional
+Training Overreach (Weekly load $>130%$ of 4-week rolling avg): +10 / week
+Weight Cut (Pre-Bout Camp):
+Fight Week cut $>3%$ to $5%$ of body mass: +4 / week
+Severe water cut ($>5%$ of body mass in final 72 hrs): +12
+Failed Official Weigh-In: +18
+Bout Outcomes & In-Ring Trauma:
+Loss by Split / Majority Decision: +8
+Loss by Unanimous Decision: +12
+Loss by KO / TKO: +22
+Each Knockdown Suffered: +5
+Health & Contractual Shocks:
+Sustaining an Acute Injury: +10
+Injury forcing withdrawal from booked bout: +16
+Opponent pulls out within 7 days of fight: +8
+Unmet Contract Demand / Broken Promise: +18
+Overdue Request Ignored past deadline: +10
+Inactive on Roster (No fight booked for $>16$ weeks when healthy): +3 / week
+Stress Relievers (Deductions - Not Scaled by Composure)
+Full Rest Day (Scheduled rest station on calendar): -6
+Full Deload Week (All 7 days on rest / light mobility): -18
+Official Bout Victory (Decision): -12
+Official Bout Victory (KO / Stoppage): -18
+Winning Regional / Continental Title: -30
+Contract Promise Kept by Management: -12
+Clinic Treatment / Sports Massage / Physio Session: -5 (Max 1/week)
+One-on-One Head Coach Office Talk: -8 (Cooldown: 14 days)
+Successful Weight Cut (Hit division target on schedule with zero emergency sweat): -8
+B3. The Threshold Event, Affliction Roster & Virtue
+The Resolve Check Mechanics (At Stress = 100)
+The Roll: The moment stress reaches 100 during a day's simulation tick, the calendar pauses.
+Virtue Calculation: $$\text{Virtue Chance (%)} = 15% + \left(\frac{\text{composure}}{5}\right)$$ (At 20 Composure: 19% chance; at 50 Composure: 25% chance; at 90 Composure: 33% chance).
+If Virtue Passes: Fighter gains the STEELED virtue. Stress resets to 50.
+If Virtue Fails: Fighter gains an Affliction determined deterministically by their Dominant Stress Contributor over the prior 4 weeks. Stress drops to 60 (Catharsis buffer).
+If Training Overreach was highest $\rightarrow$ OVERCOOKED
+If KO / Knockdown trauma was highest $\rightarrow$ GUN-SHY
+If Weight Cut depletion was highest $\rightarrow$ STARVING
+If Untreated Injury / Physical Wear was highest $\rightarrow$ FRAGILE
+The 4 Certified Demo Afflictions & 1 Virtue
+1. OVERCOOKED (Negative — Physical / Neuroendocrine Overreach)
+Primary Trigger: Sustained high training volume, double sessions, consecutive hard sparring without rest.
+Gym & Training Effect:
+Training attribute gains slashed by $-50%$ across all stations.
+Acute injury risk on all strength/conditioning stations increased by $+25%$.
+Animation: Drops hands low on heavy bag; leans against ropes with heavy panting between rounds.
+Fight Night Effect:
+Late-round stamina decay: In rounds 5 and above, stamina drain per punch and footwork move is increased by $+25%$.
+Recovery between rounds restored at only $65%$ normal rate.
+Duration: 3 to 6 weeks.
+Cure: Mandatory Deload Protocol: Reduce training volume by $\ge 50%$ for 2 consecutive weeks. Zero hard sparring allowed. Completely clears once fatigue metrics drop below baseline.
+2. GUN-SHY (Negative — Psychological Trauma Post-Stoppage)
+Primary Trigger: Suffering a KO/TKO loss, multiple knockdowns, or heavy damage in camp sparring.
+Gym & Training Effect:
+Refuses hard sparring: Slotting the fighter into ring sparring results in a red warning icon; fighter refuses to engage at full intensity (sparring XP reduced by $-75%$).
+Animation: Flinches visibly when holding pads; steps away from sparring partners before combos finish.
+Fight Night Effect:
+Punch output volume reduced by $-25%$.
+Fighter heavily biases toward defensive moves (boxing_slip, boxing_pull, boxing_catch, boxing_clinch_tieup).
+Strike damage with power reduced by $-10$ until they land at least 5 clean punches.
+Duration: 4 to 8 weeks.
+Cure: 2 consecutive weeks with zero sparring, 1 Head Coach Office Talk, followed by 1 sanctioned bout against a lower-ranked opponent resulting in a victory.
+3. STARVING (Negative — Severe Weight Cut Depletion)
+Primary Trigger: Cutting $>5%$ of body mass during fight week, aggressive water fasting.
+Gym & Training Effect:
+Base conditioning regeneration drops to $60%$.
+Morning training sessions suffer a $20%$ chance of skipped workouts due to lethargy.
+Animation: Sits slumped on locker room bench; noticeably sunken facial model.
+Fight Night Effect:
+stamina attribute permanently reduced by $-15$ for the entire bout.
+chin attribute reduced by $-8$ in rounds 4 and later (drastically elevated susceptibility to flash knockouts).
+Duration: Persists through fight night; clears 7 days post-fight once hydration and calories normalize.
+Cure: Immediate transition to eucaloric diet, or moving up one weight division (e.g., Welterweight $-66.7\text{ kg}$ to Super Welterweight $-69.9\text{ kg}$).
+4. FRAGILE (Negative — Structural Fatigue & Pain Avoidance)
+Primary Trigger: Cumulative region wear ($>60%$ on any of the 6 body regions: head_neck, torso_core, left_arm, right_arm, left_leg, right_leg) without rehabilitation.
+Gym & Training Effect:
+The fighter refuses any training station that loads the afflicted region (e.g., refuses heavy bag if left_arm or right_arm is fragile).
+Regional wear accumulation on that zone accelerates by $2.0\times$.
+Fight Night Effect:
+Damage sustained to the fragile region is magnified by $+30%$.
+The fighter alters their guard to protect the injured region, reducing general defense by $-12$ and creating openings elsewhere.
+Duration: 4 to 10 weeks (or until structural integrity is restored).
+Cure: 2 Physiotherapy/Clinic sessions plus bringing wear on that body region below $25%$.
+VIRTUE: STEELED (Positive — Hardened Resolve)
+Primary Trigger: Passing the Resolve Check at 100 Stress.
+Gym & Training Effect:
+Stress accumulation rate halved ($0.5\times$) for all events over the next 4 weeks.
+Technique acquisition rate increased by $+15%$.
+Fight Night Effect:
+composure locked at $99$ for the entire bout; immune to ring-walk jitters and early-round pressure.
+Damage from opponent power punches reduces stamina by $20%$ less.
+Duration: Exactly 4 calendar weeks.
+Cure: N/A (Beneficial state; naturally expires after 28 days).
+B4. Where the Player Sees It (Visual & UI Placement)
+
+Stress is never hidden; it is fully transparent across the interface so the player can always identify causes and take corrective action:
+
+Top Global Roster Strip / Portrait (rect(16, 84, 1888, 28)):
+A thin status bar sits underneath the fighter's portrait photo:
+0–49 Stress: Muted Slate (#64748B).
+50–79 Stress (Strained): Amber outline around portrait (#F59E0B), tooltip: "Strained: Nerves fraying".
+80–99 Stress (On Edge): Pulsing Orange outline (#EA580C), tooltip: "On Edge: High incident risk".
+Afflicted: Broken red badge (#EF4444) with state name (e.g., [GUN-SHY]).
+Virtue: Glowing gold ring (#D69E2E) with icon (e.g., [STEELED]).
+Profile Tab 1: OVERVIEW:
+Directly below the Morale meter sits the Stress Telemetry Bar (rect(32, 280, 240, 24)):
+Segmented 0–100 bar with a clear vertical marker at 100.
+Text readout: STRESS: 74 / 100 (STRAINED).
+Sub-ledger showing last 3 stress movements:
++5: Hard sparring vs D. Cole
++4: Weight cut deficit (-1.2 kg)
+-6: Scheduled rest day
+Profile Tab 2: MEDICAL:
+FRAGILE and STARVING badges appear directly beside the Anatomical Silhouette and Weight Runway panels, highlighting the physical roots of the condition.
+Profile Tab 3: TRAINING PLAN:
+Each daily station block displays its stress cost alongside physical strain:
+Hard Sparring: Strain: 68% | Stress: +3.
+Active Rest: Strain: 0% | Stress: -6.

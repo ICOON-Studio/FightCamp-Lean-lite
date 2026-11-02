@@ -1,0 +1,523 @@
+{
+  "summary": {
+    "docs_scanned": 1363,
+    "docs_with_extrema": 15,
+    "extrema_found": 57,
+    "high_confidence": 52
+  },
+  "entries": [
+    {
+      "doc": "S39_THE_GRIP_WAS_READ_ONE_BONE_OFF.md",
+      "line": 10,
+      "quote": "fixture=22/23_17   SOURCE A_hand->B_elbow min=0.099   (Q122's figure)",
+      "kind": "min",
+      "value": "0.099",
+      "clip_evidence": "SOURCE probe reading GLB clip fixture 22/23_17",
+      "confidence": "high"
+    },
+    {
+      "doc": "S39_THE_GRIP_WAS_READ_ONE_BONE_OFF.md",
+      "line": 11,
+      "quote": "fixture=18/19_05   SOURCE A_hand->B_elbow min=0.141   DRIFT p0 +8.8%   (the control, both halves)",
+      "kind": "min",
+      "value": "0.141",
+      "clip_evidence": "SOURCE probe reading GLB clip fixture 18/19_05",
+      "confidence": "high"
+    },
+    {
+      "doc": "S39_THE_GRIP_WAS_READ_ONE_BONE_OFF.md",
+      "line": 11,
+      "quote": "fixture=18/19_05   SOURCE A_hand->B_elbow min=0.141   DRIFT p0 +8.8%   (the control, both halves)",
+      "kind": "p0",
+      "value": "+8.8%",
+      "clip_evidence": "p0 drift of clip measurement through 30 Hz bake",
+      "confidence": "high"
+    },
+    {
+      "doc": "S39_THE_GRIP_WAS_READ_ONE_BONE_OFF.md",
+      "line": 44,
+      "quote": "max |glb[J] - asf[J]|         = 0.429005 m",
+      "kind": "max",
+      "value": "0.429005 m",
+      "clip_evidence": "GLB vs ASF joint comparison on clip fixtures",
+      "confidence": "high"
+    },
+    {
+      "doc": "S39_THE_GRIP_WAS_READ_ONE_BONE_OFF.md",
+      "line": 45,
+      "quote": "max |glb[J] - asf[parent J]|  = 0.000002 m",
+      "kind": "max",
+      "value": "0.000002 m",
+      "clip_evidence": "GLB vs ASF parent joint comparison on clip fixtures",
+      "confidence": "high"
+    },
+    {
+      "doc": "S39_THE_GRIP_WAS_READ_ONE_BONE_OFF.md",
+      "line": 88,
+      "quote": "| 18/19_05 min | 0.1407 | **0.1455** | 0.146 |",
+      "kind": "min",
+      "value": "0.1407 -> 0.1455",
+      "clip_evidence": "120 Hz vs 30 Hz resample of clip minimum, the central finding",
+      "confidence": "high"
+    },
+    {
+      "doc": "S39_THE_GRIP_WAS_READ_ONE_BONE_OFF.md",
+      "line": 90,
+      "quote": "| 22/23_17 min | 0.0987 | **0.0987** | 0.099 |",
+      "kind": "min",
+      "value": "0.0987 -> 0.0987",
+      "clip_evidence": "120 Hz vs 30 Hz resample of clip minimum, sustained grip lost nothing",
+      "confidence": "high"
+    },
+    {
+      "doc": "S39_THE_GRIP_WAS_READ_ONE_BONE_OFF.md",
+      "line": 94,
+      "quote": "18/19_05's closest approach is a one-frame dip, so it lost 4.8 mm",
+      "kind": "closest",
+      "value": "4.8 mm",
+      "clip_evidence": "closest approach of clip lost to 30 Hz resample",
+      "confidence": "high"
+    },
+    {
+      "doc": "S39_THE_GRIP_WAS_READ_ONE_BONE_OFF.md",
+      "line": 121,
+      "quote": "SOURCE   min=0.099 p10=0.126 p50=0.152 p90=0.283",
+      "kind": "min",
+      "value": "0.099",
+      "clip_evidence": "SOURCE clip measurement of 22/23_17 through retarget pipeline",
+      "confidence": "high"
+    },
+    {
+      "doc": "S39_THE_GRIP_WAS_READ_ONE_BONE_OFF.md",
+      "line": 122,
+      "quote": "RETARGET min=0.461 p10=0.494 p50=0.559 p90=0.667",
+      "kind": "min",
+      "value": "0.461",
+      "clip_evidence": "RETARGET clip measurement after retarget pipeline",
+      "confidence": "high"
+    },
+    {
+      "doc": "S39_THE_GRIP_WAS_READ_ONE_BONE_OFF.md",
+      "line": 123,
+      "quote": "DRIFT p0 +367.3%   p10 +292.3%   p50 +268.5%",
+      "kind": "p0",
+      "value": "+367.3%",
+      "clip_evidence": "p0 drift between SOURCE and RETARGET clip measurements",
+      "confidence": "high"
+    },
+    {
+      "doc": "S39_THE_GRIP_WAS_READ_ONE_BONE_OFF.md",
+      "line": 132,
+      "quote": "DRIFT p0 -70.1%   p10 -61.5%   p50 -8.4%   p90 +116.9%",
+      "kind": "p0",
+      "value": "-70.1%",
+      "clip_evidence": "p0 drift of shared-anchor clip measurement",
+      "confidence": "high"
+    },
+    {
+      "doc": "BRIEF_DOLA_CLINCH_POSE.md",
+      "line": 42,
+      "quote": "trials on disk. In **18/19_03 the closest a hand comes to an elbow across 592",
+      "kind": "closest",
+      "value": "0.239 m",
+      "clip_evidence": "BVH clip measurement of hand-to-elbow distance across frames",
+      "confidence": "high"
+    },
+    {
+      "doc": "BRIEF_DOLA_CLINCH_POSE.md",
+      "line": 57,
+      "quote": "closest approach 0.099 m.",
+      "kind": "closest",
+      "value": "0.099 m",
+      "clip_evidence": "BVH clip 22/23_17 closest approach measurement",
+      "confidence": "high"
+    },
+    {
+      "doc": "BRIEF_DOLA_CLINCH_POSE.md",
+      "line": 83,
+      "quote": "| CMU paired mocap 18/19_05 | root-to-root minimum | **0.766 m** |",
+      "kind": "minimum",
+      "value": "0.766 m",
+      "clip_evidence": "CMU paired mocap clip root-to-root minimum",
+      "confidence": "high"
+    },
+    {
+      "doc": "C100_RETARGET_BY_FRAME.md",
+      "line": 3,
+      "quote": "The R108 tripwire is 7.21\u00b0 mean / 19.64\u00b0 max on the nine-sample f01 control.",
+      "kind": "max",
+      "value": "19.64\u00b0",
+      "clip_evidence": "Retarget pipeline measurement on FBX clips at 30 fps, 336 rows",
+      "confidence": "high"
+    },
+    {
+      "doc": "C100_RETARGET_BY_FRAME.md",
+      "line": 5,
+      "quote": "The worst pooled joint is `hip_l` (36.81\u00b0 max).",
+      "kind": "worst",
+      "value": "36.81\u00b0",
+      "clip_evidence": "Worst pooled joint from retarget measurement on FBX clips",
+      "confidence": "high"
+    },
+    {
+      "doc": "C100_RETARGET_BY_FRAME.md",
+      "line": 7,
+      "quote": "Worst reach difference is arm 0.19498 (f10), versus leg 0.09953 (f12).",
+      "kind": "worst",
+      "value": "0.19498",
+      "clip_evidence": "Reach difference from retarget measurement on FBX clips",
+      "confidence": "high"
+    },
+    {
+      "doc": "C100_RETARGET_BY_FRAME.md",
+      "line": 7,
+      "quote": "The largest floor penetration is -0.07366 m; the largest float is +0.95537 m (f01).",
+      "kind": "largest",
+      "value": "-0.07366 m",
+      "clip_evidence": "Floor penetration from retarget measurement on FBX clips",
+      "confidence": "high"
+    },
+    {
+      "doc": "C100_RETARGET_BY_FRAME.md",
+      "line": 7,
+      "quote": "The largest floor penetration is -0.07366 m; the largest float is +0.95537 m (f01).",
+      "kind": "largest",
+      "value": "+0.95537 m",
+      "clip_evidence": "Float from retarget measurement on FBX clips",
+      "confidence": "high"
+    },
+    {
+      "doc": "C100_RETARGET_BY_FRAME.md",
+      "line": 28,
+      "quote": "| hip_l | 13.84 | 21.94 | 36.81 |",
+      "kind": "max",
+      "value": "36.81\u00b0",
+      "clip_evidence": "Pooled joint max from retarget on FBX clips",
+      "confidence": "high"
+    },
+    {
+      "doc": "C100_RETARGET_BY_FRAME.md",
+      "line": 29,
+      "quote": "| hip_r | 9.36 | 19.05 | 31.02 |",
+      "kind": "max",
+      "value": "31.02\u00b0",
+      "clip_evidence": "Pooled joint max from retarget on FBX clips",
+      "confidence": "high"
+    },
+    {
+      "doc": "C100_RETARGET_BY_FRAME.md",
+      "line": 30,
+      "quote": "| elbow_l | 14.22 | 22.02 | 24.61 |",
+      "kind": "max",
+      "value": "24.61\u00b0",
+      "clip_evidence": "Pooled joint max from retarget on FBX clips",
+      "confidence": "high"
+    },
+    {
+      "doc": "C101_OFFSET_OR_MOTION.md",
+      "line": 5,
+      "quote": "The largest pooled motion part is hip_r at 8.06\u00b0, below C100's largest per-joint error as required.",
+      "kind": "largest",
+      "value": "8.06\u00b0",
+      "clip_evidence": "Motion part from retarget error decomposition on FBX clips",
+      "confidence": "high"
+    },
+    {
+      "doc": "C101_OFFSET_OR_MOTION.md",
+      "line": 47,
+      "quote": "The nine-sample f01_m_box_welter / H2H_HitReaction01.FBX tripwire reproduced C100 at 7.2110\u00b0 mean and 19.6378\u00b0 maximum",
+      "kind": "maximum",
+      "value": "19.6378\u00b0",
+      "clip_evidence": "FBX clip tripwire measurement reproducing C100",
+      "confidence": "high"
+    },
+    {
+      "doc": "C102_SILHOUETTE_FIX.md",
+      "line": 9,
+      "quote": "residual ON maxima remain 14.001\u00b0 at hip_l and 11.646\u00b0 at hip_r.",
+      "kind": "maxima",
+      "value": "14.001\u00b0",
+      "clip_evidence": "Residual maxima from retarget ON state on FBX clips",
+      "confidence": "high"
+    },
+    {
+      "doc": "C102_SILHOUETTE_FIX.md",
+      "line": 9,
+      "quote": "residual ON maxima remain 14.001\u00b0 at hip_l and 11.646\u00b0 at hip_r.",
+      "kind": "maxima",
+      "value": "11.646\u00b0",
+      "clip_evidence": "Residual maxima from retarget ON state on FBX clips",
+      "confidence": "high"
+    },
+    {
+      "doc": "C102_SILHOUETTE_FIX.md",
+      "line": 28,
+      "quote": "| hip_l | 13.838 | 21.935 | 36.812 | 1.617 | 4.071 | 14.001 |",
+      "kind": "max",
+      "value": "36.812\u00b0 OFF, 14.001\u00b0 ON",
+      "clip_evidence": "Per-joint OFF/ON max from retarget on FBX clips",
+      "confidence": "high"
+    },
+    {
+      "doc": "C102_SILHOUETTE_FIX.md",
+      "line": 29,
+      "quote": "| hip_r | 9.362 | 19.050 | 31.021 | 1.102 | 2.912 | 11.646 |",
+      "kind": "max",
+      "value": "31.021\u00b0 OFF, 11.646\u00b0 ON",
+      "clip_evidence": "Per-joint OFF/ON max from retarget on FBX clips",
+      "confidence": "high"
+    },
+    {
+      "doc": "C103_FACING.md",
+      "line": 14,
+      "quote": "Worst relation by maximum error is `head_chest`: 179.87\u00b0 OFF and 179.99\u00b0 ON.",
+      "kind": "worst",
+      "value": "179.87\u00b0",
+      "clip_evidence": "Facing error from retarget on FBX clips",
+      "confidence": "high"
+    },
+    {
+      "doc": "C103_FACING.md",
+      "line": 14,
+      "quote": "ON the largest mean is `right_foot_pelvis` (10.34\u00b0).",
+      "kind": "largest",
+      "value": "10.34\u00b0",
+      "clip_evidence": "Facing error from retarget ON state on FBX clips",
+      "confidence": "high"
+    },
+    {
+      "doc": "C137_PAIRED_BJJ_IN_GAME.md",
+      "line": 31,
+      "quote": "| max pair clock drift | **0.000 s** |",
+      "kind": "max",
+      "value": "0.000 s",
+      "clip_evidence": "In-game measurement of paired BJJ clip playback",
+      "confidence": "high"
+    },
+    {
+      "doc": "C137_PAIRED_BJJ_IN_GAME.md",
+      "line": 32,
+      "quote": "| phase 0 (0.00-1.67 s, 51 f) | largest landmark step 0.00087 m;",
+      "kind": "largest",
+      "value": "0.00087 m",
+      "clip_evidence": "In-game landmark step from paired clip playback",
+      "confidence": "high"
+    },
+    {
+      "doc": "C137_PAIRED_BJJ_IN_GAME.md",
+      "line": 33,
+      "quote": "| phase 1 (1.70-3.50 s, 55 f) | largest landmark step 0.501 m (actor 0 LeftHand);",
+      "kind": "largest",
+      "value": "0.501 m",
+      "clip_evidence": "In-game landmark step from paired clip playback",
+      "confidence": "high"
+    },
+    {
+      "doc": "C137_PAIRED_BJJ_IN_GAME.md",
+      "line": 34,
+      "quote": "| phase 2 (3.53-5.50 s, 60 f) | largest landmark step 0.036 m;",
+      "kind": "largest",
+      "value": "0.036 m",
+      "clip_evidence": "In-game landmark step from paired clip playback",
+      "confidence": "high"
+    },
+    {
+      "doc": "C149_CMU_SOURCE.md",
+      "line": 18,
+      "quote": "| A_lhand -> B_lhand | 0.487099 | 0.746139 | 1.327536 | 1.820255 | 2.012378 |",
+      "kind": "min",
+      "value": "0.487099 m",
+      "clip_evidence": "CMU source ASF/AMC clip measurement at 120 fps",
+      "confidence": "high"
+    },
+    {
+      "doc": "C149_CMU_SOURCE.md",
+      "line": 18,
+      "quote": "| A_lhand -> B_lhand | 0.487099 | 0.746139 | 1.327536 | 1.820255 | 2.012378 |",
+      "kind": "max",
+      "value": "2.012378 m",
+      "clip_evidence": "CMU source ASF/AMC clip measurement at 120 fps",
+      "confidence": "high"
+    },
+    {
+      "doc": "C149_CMU_SOURCE.md",
+      "line": 22,
+      "quote": "| closest_hand_pair | 0.320026 | 0.586582 | 0.811375 | 0.943977 | 1.050415 |",
+      "kind": "min",
+      "value": "0.320026 m",
+      "clip_evidence": "CMU source clip closest hand pair measurement",
+      "confidence": "high"
+    },
+    {
+      "doc": "C149_CMU_SOURCE.md",
+      "line": 28,
+      "quote": "| 0.765420 | 0.842156 | 0.993449 | 1.512095 | 1.711768 |",
+      "kind": "min",
+      "value": "0.765420 m",
+      "clip_evidence": "CMU source clip root-to-root separation",
+      "confidence": "high"
+    },
+    {
+      "doc": "C149_CMU_SOURCE.md",
+      "line": 28,
+      "quote": "| 0.765420 | 0.842156 | 0.993449 | 1.512095 | 1.711768 |",
+      "kind": "max",
+      "value": "1.711768 m",
+      "clip_evidence": "CMU source clip root-to-root separation",
+      "confidence": "high"
+    },
+    {
+      "doc": "C149_CMU_SOURCE.md",
+      "line": 87,
+      "quote": "| `A_hand->B_elbow` | **0.130** | 0.153 | **0.203** | 0.982 | 1.286 |",
+      "kind": "min",
+      "value": "0.130 m",
+      "clip_evidence": "Corrected CMU source clip measurement after 3-bug fix",
+      "confidence": "high"
+    },
+    {
+      "doc": "C149_CMU_SOURCE.md",
+      "line": 87,
+      "quote": "| `A_hand->B_elbow` | **0.130** | 0.153 | **0.203** | 0.982 | 1.286 |",
+      "kind": "max",
+      "value": "1.286 m",
+      "clip_evidence": "Corrected CMU source clip measurement after 3-bug fix",
+      "confidence": "high"
+    },
+    {
+      "doc": "C149_CMU_SOURCE.md",
+      "line": 82,
+      "quote": "disagreement `0.000021203 m` across all 438 frames, which is float rounding from",
+      "kind": "worst",
+      "value": "0.000021203 m",
+      "clip_evidence": "Worst joint disagreement between two clip readers",
+      "confidence": "high"
+    },
+    {
+      "doc": "C84_THE_PUSH_APART.md",
+      "line": 8,
+      "quote": "and 25.00 cm at maximum.",
+      "kind": "maximum",
+      "value": "25.00 cm",
+      "clip_evidence": "Push-apart correction max from engine replay of 200 bouts at 30 fps",
+      "confidence": "low"
+    },
+    {
+      "doc": "C87_THE_RETARGET_LADDER.md",
+      "line": 199,
+      "quote": "largest-gap=muay_thai_teep 5.7%",
+      "kind": "largest",
+      "value": "5.7%",
+      "clip_evidence": "Retarget ladder gap from clip coverage analysis",
+      "confidence": "high"
+    },
+    {
+      "doc": "C91_PAIRED_CONTENT.md",
+      "line": 100,
+      "quote": "Worst single dead-air offender: **Paired_FullMount_Takedown_BodyLock_End_Att.fbx**, tied with its `_Vic` half at **2.333 s** each",
+      "kind": "worst",
+      "value": "2.333 s",
+      "clip_evidence": "Dead-air measurement from paired FBX clip files",
+      "confidence": "low"
+    },
+    {
+      "doc": "C92_STRIKING_CONTENT.md",
+      "line": 219,
+      "quote": "Worst single offender: **H2H_StaggerLarge04_LowHit.FBX** \u2014 **8.833 s** dead air",
+      "kind": "worst",
+      "value": "8.833 s",
+      "clip_evidence": "Dead-air measurement from striking FBX clip files",
+      "confidence": "low"
+    },
+    {
+      "doc": "C98_FIGHTER_SKINNING.md",
+      "line": 21,
+      "quote": "| Roster min | .2710 | .4242 | .8445 | .8814 | .1875 | .1016 |",
+      "kind": "min",
+      "value": ".2710 .4242 .8445 .8814 .1875 .1016",
+      "clip_evidence": "Roster min skinning ratios from FBX fighter meshes",
+      "confidence": "low"
+    },
+    {
+      "doc": "C98_FIGHTER_SKINNING.md",
+      "line": 22,
+      "quote": "| Roster max | .2982 | .4976 | 1.2371 | .9768 | .2595 | .1297 |",
+      "kind": "max",
+      "value": ".2982 .4976 1.2371 .9768 .2595 .1297",
+      "clip_evidence": "Roster max skinning ratios from FBX fighter meshes",
+      "confidence": "low"
+    },
+    {
+      "doc": "C99_SOURCE_SKELETON.md",
+      "line": 58,
+      "quote": "is shorter than the source clip's height-scaled chain. The largest forearm",
+      "kind": "largest",
+      "value": "+39.14%",
+      "clip_evidence": "Skeleton ratio mismatch between source FBX and fighter rigs",
+      "confidence": "high"
+    },
+    {
+      "doc": "C99_SOURCE_SKELETON.md",
+      "line": 59,
+      "quote": "ratio mismatch is f06 (+39.14%); the largest arm-ratio mismatch is f02",
+      "kind": "largest",
+      "value": "+37.15%",
+      "clip_evidence": "Skeleton ratio mismatch between source FBX and fighter rigs",
+      "confidence": "high"
+    },
+    {
+      "doc": "U98_CLIPS_VS_VIDEO.md",
+      "line": 16,
+      "quote": "elbow 106\u00b0 at peak",
+      "kind": "peak",
+      "value": "106\u00b0",
+      "clip_evidence": "Clip measurement of elbow angle at peak vs video reference",
+      "confidence": "high"
+    },
+    {
+      "doc": "C103_FACING.md",
+      "line": 24,
+      "quote": "1. `H2H_KnockDown02.FBX` 0.00\u20132.00s \u2014 `f01_m_box_welter` \u2014 178.60\u00b0",
+      "kind": "worst",
+      "value": "178.60\u00b0",
+      "clip_evidence": "Worst facing row from FBX clip retarget measurement",
+      "confidence": "high"
+    },
+    {
+      "doc": "C103_FACING.md",
+      "line": 25,
+      "quote": "2. `H2H_KnockDown02.FBX` 0.00\u20132.00s \u2014 `f02_m_box_heavy` \u2014 179.89\u00b0",
+      "kind": "worst",
+      "value": "179.89\u00b0",
+      "clip_evidence": "Worst facing row from FBX clip retarget measurement",
+      "confidence": "high"
+    },
+    {
+      "doc": "C100_RETARGET_BY_FRAME.md",
+      "line": 13,
+      "quote": "| H2H_Haymaker_InPlace.FBX | 0.00\u20131.00 | f04_f_box_middle | 36.81 | hip_l |",
+      "kind": "max",
+      "value": "36.81\u00b0",
+      "clip_evidence": "Max angle from worst retarget row on FBX clip",
+      "confidence": "high"
+    },
+    {
+      "doc": "C100_RETARGET_BY_FRAME.md",
+      "line": 14,
+      "quote": "| H2H_Haymaker_InPlace.FBX | 0.00\u20131.00 | f01_m_box_welter | 34.21 | hip_l |",
+      "kind": "max",
+      "value": "34.21\u00b0",
+      "clip_evidence": "Max angle from retarget row on FBX clip",
+      "confidence": "high"
+    },
+    {
+      "doc": "C100_RETARGET_BY_FRAME.md",
+      "line": 17,
+      "quote": "| H2H_SlipLeft.FBX | 0.00\u20130.67 | f04_f_box_middle | 30.28 | hip_r |",
+      "kind": "max",
+      "value": "30.28\u00b0",
+      "clip_evidence": "Max angle from retarget row on FBX clip",
+      "confidence": "high"
+    }
+  ]
+}

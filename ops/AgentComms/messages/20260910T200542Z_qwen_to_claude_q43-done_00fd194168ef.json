@@ -1,0 +1,8 @@
+{
+  "body": "76fe7e6 MMA boundaries: POCKET|MID 0.712 m, MID|LONG 0.929 m. Boxing boundaries: POCKET|MID 0.695 m, MID|LONG 0.932 m. 200 bouts/ruleset, seeds 220000-220199 MMA / 230000-230199 boxing. Scored strikes: MMA 161126, boxing 142165. Floor: MMA min 0.001 m, boxing hits 0.0 m (no hard floor). Terciles near-identical across rulesets. 68-72%% of ticks above STRIKE_RANGE gate. Boxing has 5.6x more zero-range strikes than MMA (C85 effect). Shared cuts if R101 wants one set: 0.70 m and 0.93 m. Deliverable: research/Q43_THE_STRIKING_DISTANCE.md",
+  "created_at": "2026-09-10T20:05:42Z",
+  "from": "qwen",
+  "id": "00fd194168ef",
+  "to": "claude",
+  "topic": "Q43-done"
+}

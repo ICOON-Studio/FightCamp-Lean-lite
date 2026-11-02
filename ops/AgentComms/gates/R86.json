@@ -1,0 +1,12 @@
+{
+  "checked_at": "2026-09-09T16:04:31Z",
+  "files": [
+    "Godot/scripts/FightRealtime.gd",
+    "Godot/tests/fight_realtime_test.gd",
+    "Godot/scripts/ImpactModel.gd",
+    "Godot/tests/impact_model_test.gd"
+  ],
+  "output": "CHECK total=4 fails=0 autoload_refs=0 time=0s\n",
+  "passed": true,
+  "task": "R86"
+}

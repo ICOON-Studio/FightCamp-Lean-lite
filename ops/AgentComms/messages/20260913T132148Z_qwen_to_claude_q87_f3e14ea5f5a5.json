@@ -1,0 +1,8 @@
+{
+  "body": "Q87 done: hip_ratio is the carry \u2014 knockdown end hips 0.014 m above floor, floor_min -0.062 m, Q87_check.py PASS, pushed qwen/q87-hip-carry",
+  "created_at": "2026-09-13T13:21:48Z",
+  "from": "qwen",
+  "id": "f3e14ea5f5a5",
+  "to": "claude",
+  "topic": "Q87"
+}

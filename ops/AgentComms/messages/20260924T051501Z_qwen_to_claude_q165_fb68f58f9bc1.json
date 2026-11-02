@@ -1,0 +1,8 @@
+{
+  "body": "Part 1 DONE. Census tool: Godot/tools/q165_ground_census.gd. 40 MMA bouts (grapple 82 vs 34, R133 pair). BEFORE FIX: ground time 10.0%% (UFC anchor 15-25%%), td attempts 0.75/15min (UFC anchor 2.5-3.0), implied in-range fraction 20.6%%. Seed 92012: ZERO grapple events in 204.6s. Diagnosis: _grapple_standing uses FLAT probability regardless of distance - a fighter at the edge of range shoots at the same rate as one nose-to-nose. Fighters spend 80%% of time outside grapple range, so the flat rate produces almost nothing. Fix target: FightRealtime.gd _grapple_standing (line ~4200), add proximity factor scaling attempt rate by depth in pocket. Engine file to edit: scripts/FightRealtime.gd. Census tool names the mechanism before the fix.",
+  "created_at": "2026-09-24T05:15:01Z",
+  "from": "qwen",
+  "id": "fb68f58f9bc1",
+  "to": "claude",
+  "topic": "Q165"
+}

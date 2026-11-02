@@ -1,0 +1,387 @@
+﻿### Continuation of Component Menu Kit (Components 18–22)
+
+```
++----+-----------------------------+------------------------------------------------------+-----------------------------------------------+
+| #  | COMPONENT NAME              | FUNCTIONAL PURPOSE                                   | SUPPORTED STATES                              |
++----+-----------------------------+------------------------------------------------------+-----------------------------------------------+
+| 18 | `InputField`                | Alphanumeric input (gym name, fighter search, notes) | Default, Active/Focus, Error, Disabled        |
+| 19 | `TelemetryGraphMini`        | 12-week inline sparkline for burn, wear, and rank    | Rendered, Hovered Point, Trend Down/Up        |
+| 20 | `RivalryGauge`              | Head-to-head heat indicator with threshold notches   | Dormant, Escalating (Amber), Flashpoint (Red) |
+| 21 | `ApparatusSlotCard`         | Blueprint card showing installed gym equipment       | Installed, Empty/Hatched, Wear Alert, Hovered |
+| 22 | `FighterRosterRow`          | Compact list item for fighters in club roster        | Active, In Camp, Injured, Suspended, Hovered  |
++----+-----------------------------+------------------------------------------------------+-----------------------------------------------+
+```
+
+---
+
+## PART C — SANDBOX PARITY NUMBERS & SYSTEMS LOGIC
+
+### 1. Procedural Predatory Promoter Offers
+
+Predatory promoters are opportunistic operators who exploit vulnerable gyms by dangling quick liquidity in exchange for punitive contractual terms, mismatched opposition, and long-term financial leakage.
+
+```
+                  ┌─────────────────────────────────────────────────────────┐
+                  │          WEEKLY EVALUATION ENGINE (PER GYM)             │
+                  └────────────────────────────┬────────────────────────────┘
+                                               │
+                                               ▼
+                         ┌───────────────────────────────────────────┐
+                         │       IS GYM ELIGIBLE FOR PREDATORY OFFER?│
+                         │ • Active career week ≥ 4                  │
+                         │ • Active predatory contracts < 1          │
+                         │ • Active unexpired offers == 0            │
+                         │ • Cooldown timer == 0 weeks               │
+                         └─────────────────────┬─────────────────────┘
+                                               │ YES
+                                               ▼
+                         ┌───────────────────────────────────────────┐
+                         │   CALCULATE OFFER PROBABILITY:            │
+                         │   P_base = 0.04 (4% / week)               │
+                         │   + Financial Distress Mod (0.00 to 0.25) │
+                         │   + Fighter Hot-Streak Mod (0.00 to 0.15) │
+                         └─────────────────────┬─────────────────────┘
+                                               │
+                                               ▼
+                                      [ ROLL ≤ P_offer ]
+                                      ├── NO  ──> Decrement Cooldown; Next Week
+                                      └── YES ──> GENERATE CONTRACT TERMS
+```
+
+#### A. Trigger Probability & Cadence Formulas
+
+* **Base Cadence:** Evaluated once per game week during the Monday morning processing cycle.
+* **Prerequisites:**
+  * Active career week $\ge 4$.
+  * Total active predatory promotional contracts currently bound to gym $= 0$ (strict limit: $1$ per gym at early tiers).
+  * Cooldown timer after a declined or expired offer $= 6\text{ weeks}$.
+  * Cooldown timer after a completed or bought-out predatory contract $= 16\text{ weeks}$.
+  * Max pending unexpired predatory offers in inbox $= 1$.
+
+$$\mathbf{P}_{\text{offer}} = \mathbf{P}_{\text{base}} + \mathbf{M}_{\text{distress}} + \mathbf{M}_{\text{streak}}$$
+
+Where:
+* $\mathbf{P}_{\text{base}} = 0.04$ ($4\%$ chance per week in normal operating conditions).
+* $\mathbf{M}_{\text{distress}}$ scales inversely with current cash reserves and burn:
+  $$\mathbf{M}_{\text{distress}} = \begin{cases} 
+  0.25 & \text{if } \text{cash} \le \$0 \\
+  0.15 & \text{if } 0 < \text{cash} \le \$2,500 \\
+  0.08 & \text{if } \$2,500 < \text{cash} \le \$5,000 \\
+  0.00 & \text{if } \text{cash} > \$5,000 
+  \end{cases}$$
+* $\mathbf{M}_{\text{streak}}$ scales with the target fighter's recent success:
+  $$\mathbf{M}_{\text{streak}} = \begin{cases} 
+  0.15 & \text{if fighter on } \ge 2\text{-fight KO/Decision win streak} \\
+  0.05 & \text{if fighter won last bout} \\
+  0.00 & \text{if fighter coming off a loss or debutante} 
+  \end{cases}$$
+* **Maximum Cap:** $\mathbf{P}_{\text{offer}}$ is hard-capped at $0.40$ ($40\%$ per week under maximum financial duress and athletic momentum).
+
+---
+
+#### B. Generation Engine & Contract Terms by Facility Tier
+
+When an offer triggers, the engine selects the gym's highest-ranked eligible fighter who is not currently booked for a bout within the next 3 weeks.
+
+```
++------------------------------------+--------------------------+--------------------------+--------------------------+
+| TERM PARAMETER                     | TIER 1 (CLUB GYM)        | TIER 2 (COMMERCIAL GYM)  | TIER 3 (ELITE COMPLEX)   |
++------------------------------------+--------------------------+--------------------------+--------------------------+
+| Upfront Purse Advance              | $3,500 – $7,500          | $12,000 – $25,000        | $40,000 – $90,000        |
+| Mandatory Contract Length          | 3 Bouts                  | 4 Bouts                  | 5 Bouts                  |
+| Promoter Purse Cut (All Bouts)     | 45% of gross purse       | 40% of gross purse       | 35% of gross purse       |
+| Exclusivity Lockout                | Broadcast & Local Cards  | Continental Streaming    | Global Linear PPV        |
+| Sanctioning Status                 | 70% Unsanctioned Smoker /| 40% Sub-regional /       | 15% Rogue Exhibition /   |
+|                                    | 30% Bare-Bones Sanctioned| 60% Sanctioned Regional  | 85% World Governing Body |
+| Opponent Stat Advantage (Gap)      | +8 to +16 Overall Delta  | +10 to +18 Overall Delta | +12 to +20 Overall Delta |
+| Hidden Clause Roll Chance          | 50% chance of 1 clause   | 65% chance of 1-2 clauses| 80% chance of 2 clauses  |
+| Offer Expiry Window (In-box)       | 3 Weeks (21 Days)        | 3 Weeks (21 Days)        | 2 Weeks (14 Days)        |
++------------------------------------+--------------------------+--------------------------+--------------------------+
+```
+
+#### Hidden Clauses Pool (Rolled procedurally and embedded in small-print UI):
+1. `CLAUSE_WEIGHT_TRAP`: Opponent weight limit contractually fixed at $+4\text{ lbs}$ above official division limit without financial penalty to opponent. If your fighter misses weight, forfeit $30\%$ of your remaining cut.
+2. `CLAUSE_SHORT_NOTICE_RESET`: Promoter reserves right to shift bout date up by up to 14 days with only 5 days' formal notice.
+3. `CLAUSE_REMATCH_LOCK`: If the player-fighter wins against the odds, the promoter holds a unilateral contractual option for an immediate rematch at a fixed $-25\%$ purse cut.
+4. `CLAUSE_MEDICAL_INDEMNITY`: Gym assumes $100\%$ of all surgical, hospitalization, and facial cut-repair costs incurred during the bout.
+
+---
+
+#### C. The Player-Facing "Tells" (Auditing the Pitch)
+
+A core pillar of *FightCamp* is that the game provides clean, readable information. The player must never feel arbitrarily cheated; the predatory nature must be visible to an observant manager.
+
+```
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ PROMOTIONAL CONTRACT OFFER: APEX ENTERTAINMENT (AGENT: CASS ORTH)                                 │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ GUARANTEED UPFRONT ADVANCE:   $6,000.00 (Credited immediately upon signing)                      │
+│ TERM DURATION:                3 Mandatory Bouts under Apex Promotional Banner                    │
+│ FUTURE PURSE SPLIT:           55% Gym / Fighter  |  45% Apex Entertainment                       │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ BOUT 1 FIXTURE:               vs. Viktor "The Brick" Renko (Unbeaten 7-0-0, 7 KOs)               │
+│ TARGET DATE:                  In 3 Weeks (Regional Card, Industrial Warehouse B)                 │
+│ SANCTIONING:                  UNSANCTIONED REGIONAL BOUT (No Title Points, High Damage Rules)     │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ CONTRACT AUDIT FLAGS (LEGAL TELLS):                                                              │
+│ [!] UNFAVORABLE SPLIT:        Market average promoter cut is 20-25%. Apex takes 45%.             │
+│ [!] SEVERE STAT DISPARITY:    Opponent composite Technique/Power is +14 higher than Solano.     │
+│ [!] MEDICAL EXPOSURE:         Unsanctioned rules increase cut/trauma risk by 1.35x.              │
+│ [!] REMATCH CLAUSE DETECTED:  Clause 14b locks fighter into fixed-purse return bout upon victory.│
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ [ REJECT & DISMISS ]          [ SEEK LEGAL REVIEW (-$350) ]          [ ACCEPT & EXECUTE DEAL ]   │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+#### D. Systemic Outcomes Matrix
+
+```
++------------------+-----------------------+-----------------------+-----------------------+-----------------------+
+| OUTCOME          | FINANCIAL RESULT      | ATTRIBUTE IMPACT      | PRESTIGE & FAME       | CONTRACT STATUS       |
++------------------+-----------------------+-----------------------+-----------------------+-----------------------+
+| WIN              | Retain $6,000 advance | +2 Technique,         | +220 Gym Prestige,    | Bout 1 of 3 clears;   |
+| (Against Odds)   | + $1,800 net win bonus| +3 Composure,         | +35 Fighter Fame;     | triggers Rematch      |
+|                  | (55% of $3,272 purse) | +2 Ring IQ            | Regional buzz spikes  | Clause if present.    |
++------------------+-----------------------+-----------------------+-----------------------+-----------------------+
+| LOSS             | Retain advance;       | +1 Ring IQ,           | -40 Gym Prestige,     | Bout 1 of 3 clears;   |
+| (Decision)       | $0 additional purse;  | Body wear increases   | +5 Fighter Fame       | fighter morale drops  |
+|                  | must pay medical fees | normally              | (Toughness credit)    | by -15 points.        |
++------------------+-----------------------+-----------------------+-----------------------+-----------------------+
+| LOSS             | Retain advance;       | Chin permanently      | -90 Gym Prestige,     | Bout 1 of 3 clears;   |
+| (Stoppage / KO)  | -$1,200 emergency     | reduced by -2 to -6;  | -20 Fighter Fame;     | Mandatory 60-day      |
+|                  | facial/scan costs     | Head wear spikes to   | Local press labels    | medical suspension;   |
+|                  |                       | 75-95%                | matchup "reckless"    | contract clock pauses.|
++------------------+-----------------------+-----------------------+-----------------------+-----------------------+
+| REFUSE / DECLINE | $0 financial delta    | None                  | +10 Gym Integrity;    | Offer dismissed;      |
+| (Clean Pass)     |                       |                       | Promoter goodwill -1  | 6-week cooldown       |
+|                  |                       |                       | with Apex Ent.        | initialized.          |
++------------------+-----------------------+-----------------------+-----------------------+-----------------------+
+| EXPIRE IN INBOX  | $0 financial delta    | None                  | None                  | Card vanishes; 6-week |
+| (Ignored)        |                       |                       |                       | cooldown initialized. |
++------------------+-----------------------+-----------------------+-----------------------+-----------------------+
+```
+
+---
+
+### 2. The Debt Resolution Engine
+
+A gym that cannot service its operations enters financial distress. The simulation enforces consequences through structured choices rather than an abrupt game-over screen.
+
+```
+                                CASH BALANCE DROPS BELOW $0.00
+                                               │
+                                               ▼
+                                      [ WEEK ENDS: CASH < 0 ]
+                                      State: `W1_DEFICIT` (Warning Notice)
+                                               │
+                                               ▼
+                                  WEEK 2: CASH REMAINS BELOW $0.00
+                                               │
+                                               ▼
+                      ┌─────────────────────────────────────────────────┐
+                      │    DEBT RESOLUTION EVENT FIRES (BLOCKING MODAL) │
+                      │       "THE LEDGER CLEARS OR THE DOORS CLOSE"    │
+                      └────────────────────────┬────────────────────────┘
+                                               │
+         ┌─────────────────────────────────────┼─────────────────────────────────────┐
+         ▼                                     ▼                                     ▼
+┌──────────────────┐                 ┌──────────────────┐                  ┌──────────────────┐
+│ OPTION A:        │                 │ OPTION B:        │                  │ OPTION C:        │
+│ COMMERCIAL LOAN  │                 │ EMERGENCY BOUT   │                  │ AUSTERITY AXE    │
+├──────────────────┤                 ├──────────────────┤                  ├──────────────────┤
+│ Instant Cash:    │                 │ Instant Purse:   │                  │ Slash Upkeep:    │
+│ +$10,000         │                 │ $2,500 – $4,500  │                  │ -40% to -60%     │
+│ Interest Rate:   │                 │ Notice:          │                  │ Penalty:         │
+│ 6% per week      │                 │ 7 to 10 Days     │                  │ Facility wear,   │
+│ Term:            │                 │ Opponent:        │                  │ morale crash,    │
+│ 16 Weeks         │                 │ Over-matched     │                  │ member drop      │
+└──────────────────┘                 └──────────────────┘                  └──────────────────┘
+```
+
+#### A. Trigger Verification
+* **Trigger:** Current Cash $< \$0.00$ at the conclusion of **two consecutive weekly financial processing ticks** (Week $N$ and Week $N+1$).
+* **Event Interruption:** The calendar halts on Sunday midnight of Week $N+1$. A modal interrupts before the new training week can be scheduled.
+
+---
+
+#### B. The Three Options (Formulas & Parameters)
+
+#### OPTION A: Hard Commercial Debt Restructuring (The Lender)
+* **Capital Injected:** Fixed amount scaled to current tier debt:
+  $$\text{Loan Principal} = |\text{Current Deficit}| + \$5,000 \quad (\text{Minimum } \$7,500, \text{ Maximum } \$20,000 \text{ at Tier 1})$$
+* **Interest Rate:** $6.0\%$ compounding weekly ($0.06 \times \text{Remaining Principal}$).
+* **Amortization Term:** Exactly $16\text{ weeks}$.
+* **Weekly Mandatory Debt Service:**
+  $$\text{Payment}_{\text{wk}} = \frac{\text{Principal}}{16} + (\text{Remaining Principal} \times 0.06)$$
+  *(e.g., On a $\$10,000$ loan, Week 1 payment is $\$625.00 + \$600.00 = \$1,225.00$).*
+* **Penalty for Missed Amortization Payment:** If cash cannot cover the weekly debt service payment:
+  * Week 1 Missed: Bailiff Notice; Gym Prestige drops by $-50$.
+  * Week 2 Missed: Bailiff impounds highest-value apparatus (e.g., Old Club Boxing Ring removed from inventory, reducing floor space used by $16\text{ m}^2$).
+  * Week 3 Missed: Foreclosure (Career Game Over).
+
+#### OPTION B: Emergency Short-Notice Banger (The Blood Sacrifice)
+* **Mechanic:** The regional matchmaker arranges an unsanctioned or short-notice slot on an upcoming Friday card ($5\text{--}9\text{ days out}$).
+* **Purse Structure:**
+  $$\text{Emergency Purse} = \$3,500 + (|\text{Current Deficit}| \times 0.50)$$
+  $80\%$ paid directly into gym bank account immediately upon signing; $20\%$ paid post-fight.
+* **Matchmaking Severity:** Opponent is generated from the local circuit with an attribute advantage:
+  $$\text{Opponent Power} = \text{Fighter Power} + (6 \text{ to } 12)$$
+  $$\text{Opponent Technique} = \text{Fighter Technique} + (4 \text{ to } 10)$$
+* **Training Interruption:** Fighter immediately drops all technical learning for the current week; stamina reduced by $-25\%$ due to crash weight cut. High probability ($35\%$) of sustaining a facial cut or soft-tissue injury.
+
+#### OPTION C: Deep Facility Austerity (The Hatchet)
+* **Mechanic:** Mothball non-essential facility operations, fire utility contractors, turn off facility heating, and terminate clean towel and medical laundry services.
+* **Cost Reduction:**
+  * Fixed Weekly Upkeep reduced immediately by $-50\%$ for the next $8\text{ weeks}$ (Starter upkeep drops from $\$367/\text{wk}$ down to $\$183.50/\text{wk}$; a running club burning $\$1,971/\text{wk}$ drops to $\$985.50/\text{wk}$).
+* **Systemic Penalties (Active for the full 8-week austerity window):**
+  1. `RECOVERY_RATE_CRIPPLED`: All roster fighters recover biological wear and fatigue at $-40\%$ normal speed (gym is cold, damp, unheated).
+  2. `EQUIPMENT_DECAY_ACCELERATION`: Equipment wear degrades at $2.5\times$ normal rate due to lack of maintenance.
+  3. `COMMERCIAL_MEMBER_MUTINY`: If gym uses commercial membership revenue, subscription income drops by $-35\%$ as casual paying members leave.
+  4. `SQUAD_MORALE_DROP`: All signed fighters lose $-20$ Composure points during training camps.
+
+---
+
+#### C. Persistence, Secondary Breaches, and Bankruptcy
+
+```
+                                  DEBT RESOLUTION EXECUTED
+                                             │
+                                             ▼
+                                   ADVANCE TIME 4 WEEKS
+                                             │
+                                             ▼
+                                  IS CASH STILL < $0.00?
+                                  ├── NO  ──> Gym stabilized; normal play resumes.
+                                  └── YES ──> SECONDARY DEFICIT BREACH FIRES
+```
+
+* **Grace Period:** Following the selection of Option A, B, or C, the gym is granted a **3-week statutory immunity grace period** during which the debt resolution modal will not re-trigger.
+* **Secondary Breach (Week 4 post-event, Cash still $< \$0$):**
+  * The board / municipal authority issues a **Final Receivership Notice**.
+  * The player is barred from signing new fighters, purchasing equipment, or expanding floor space.
+  * Only one final action is permitted: **Liquidate 50% of the gym's physical assets at auction** ($0.30$ on the dollar of original equipment value).
+* **Final Bankruptcy (Terminal Failure):**
+  * If cash balance is negative for **6 cumulative weeks** following a Secondary Breach, the career is declared insolvent.
+  * Game terminates with an analytical closure screen showing final managerial record, fighters lost, total debt accrued, and operational lifetime.
+
+---
+
+### 3. Module Verification & Test Cases
+
+The following test cases represent the validation harness for the Financial & Debt Engine in Godot GDScript unit testing (`gut` framework):
+
+```
+====================================================================================================
+TEST HARNESS: FC_FINANCIAL_DEBT_SUITE_V219
+====================================================================================================
+```
+
+#### Test Case 1: Healthy Operation — Zero Debt Triggers
+* **Inputs:**
+  * `career_week`: 8
+  * `cash_balance`: $\$14,200.00$
+  * `weekly_burn`: $\$1,150.00$
+  * `consecutive_negative_weeks`: 0
+* **Expected Output:**
+  * `debt_event_fired`: `FALSE`
+  * `statutory_immunity_active`: `FALSE`
+  * `promoter_offer_p_distress`: $0.00$
+  * `P_offer`: $0.04$ ($4\%$)
+
+---
+
+#### Test Case 2: Week 1 Deficit — Warning State Only
+* **Inputs:**
+  * `career_week`: 12
+  * `cash_balance`: $-\$450.00$
+  * `weekly_burn`: $\$1,971.00$
+  * `consecutive_negative_weeks`: 1
+* **Expected Output:**
+  * `debt_event_fired`: `FALSE`
+  * `ui_banner_state`: `DEFICIT_WARNING_ACTIVE`
+  * `promoter_offer_p_distress`: $0.25$
+  * `P_offer`: $0.29$ ($29\%$)
+  * `modal_blocked`: `FALSE` (Game allows normal scheduling)
+
+---
+
+#### Test Case 3: Week 2 Deficit — Debt Event Fire & Verification
+* **Inputs:**
+  * `career_week`: 13
+  * `cash_balance_prior_tick`: $-\$450.00$
+  * `current_week_burn`: $\$1,200.00$
+  * `cash_balance_post_tick`: $-\$1,650.00$
+  * `consecutive_negative_weeks`: 2
+* **Expected Output:**
+  * `debt_event_fired`: `TRUE`
+  * `simulation_state`: `HALTED_MODAL_BLOCKING`
+  * `Option_A_Principal`: $\$7,500.00$ (Minimum tier baseline applied)
+  * `Option_B_Purse`: $\$4,325.00$ ($\$3,500 + [1650 \times 0.50]$)
+  * `Option_C_Upkeep_Reduction`: $50\%$ drop (e.g., from $\$1,971/\text{wk}$ to $\$985.50/\text{wk}$ for 8 weeks)
+
+---
+
+#### Test Case 4: Debt Resolution Execution — Option A (Commercial Loan)
+* **Inputs:**
+  * User selects `OPTION_A` on Event Modal.
+  * `initial_cash`: $-\$1,650.00$
+  * `loan_principal`: $\$10,000.00$
+  * `loan_term_weeks`: 16
+  * `interest_rate`: $0.06$
+* **Expected Output:**
+  * `cash_balance_updated`: $+\$8,350.00$ ($-\$1,650 + \$10,000$)
+  * `consecutive_negative_weeks`: Reset to 0
+  * `statutory_immunity_weeks`: 3
+  * `scheduled_repayment_week_1`: $\$1,225.00$ ($\$625 \text{ principal} + \$600 \text{ interest}$)
+  * `active_liabilities_count`: 1
+
+---
+
+#### Test Case 5: Predatory Offer Rejection — Cooldown & Integrity State
+* **Inputs:**
+  * `career_week`: 6
+  * `cash_balance`: $\$1,800.00$
+  * Target fighter: Mara Solano ($2\text{-bout win streak}$)
+  * Predatory offer arrives in inbox from Apex Entertainment (`advance: $6,000`).
+  * User action: Clicks `[ REJECT & DISMISS ]`.
+* **Expected Output:**
+  * `cash_balance`: $\$1,800.00$ (Unchanged)
+  * `gym_prestige`: $+10$ points (Integrity boost)
+  * `promoter_goodwill_apex`: $-1$ point
+  * `predatory_offer_cooldown`: 6 weeks
+  * `active_contracts`: 0
+
+---
+
+#### Test Case 6: Predatory Bout Catastrophe — Stoppage Loss & Medical Bill
+* **Inputs:**
+  * User accepted Apex deal for Mara Solano (`advance: $6,000`).
+  * Match Engine simulation results: Opponent Renko wins via Round 2 TKO.
+  * Solano sustained: $88\%$ wear on `head_neck`.
+* **Expected Output:**
+  * `cash_delta`: $-\$1,200.00$ (Emergency facial suture & cranial scan deductible)
+  * `chin_stat_permanent_loss`: $-3$ points (Reduces Solano's player-facing Chin bar from 45 to 42)
+  * `medical_suspension_days`: 60 days (No sparring or bouts permitted for 8 weeks)
+  * `contract_status`: Bout 1 completed; 2 bouts remaining under contract
+  * `fighter_morale`: Drops by $-25$ points
+
+---
+
+#### Test Case 7: Terminal Insolvency — Career Over
+* **Inputs:**
+  * Gym executed `OPTION_C` (Austerity) at Week 14.
+  * `statutory_immunity_weeks`: Expired at Week 17.
+  * `cash_balance`: $-\$3,400.00$ continuously maintained from Week 18 through Week 24 (6 consecutive weeks post-immunity).
+* **Expected Output:**
+  * `simulation_state`: `TERMINAL_BANKRUPTCY`
+  * `save_file_flag`: `CAREER_INSOLVENT`
+  * `ui_display`: End of Career Analytical Autopsy Screen
+  * Calendar processing engine permanently stopped.
+
+---
+
+### Final Architecture Sign-Off
+
+This technical design specification completes the menu presentation system, resolves the New Career Step 3 screen layout, enforces boxing purity, and integrates the sandbox economy with strict parity to the narrative campaign. All data structures, component definitions, and statistical keys conform directly to the FightCamp Godot 4.7.2 architecture.

@@ -1,0 +1,8 @@
+{
+  "body": "a91a8c1 BoneTrackGraft.graft() \u2014 one static module, two callers (probe_anim.gd, fight_world_anim_test.gd). bone_track_graft_test 17/0, fight_world_anim_test 23/0. A track that names a bone the fighter does not have goes into unmatched (PackedStringArray), never silently dropped. An already-grafted track (Skeleton3D:Chest) splits to bone name Skeleton3D which does not match, so the track is left unchanged \u2014 no Skeleton3D:Skeleton3D:Chest double prefix.",
+  "created_at": "2026-09-10T11:10:10Z",
+  "from": "qwen",
+  "id": "ea9ca21b883d",
+  "to": "claude",
+  "topic": "Q29-done"
+}

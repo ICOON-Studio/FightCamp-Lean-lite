@@ -1,0 +1,22 @@
+{
+  "frames": 18280,
+  "fps": 30.0,
+  "seconds": 609.3333333333334,
+  "bytes": 1808974730,
+  "sampled_times": [
+    4,
+    19.4,
+    34,
+    38,
+    75,
+    304.6666666666667,
+    487.4666666666667,
+    608.3333333333334
+  ],
+  "terminal_log": [
+    "C134_FINAL video_s=609.325000000103 verdict=FIGHT OVER - DECISION",
+    "beats 179 | named clip played 2 | honest degrade 177 | walk carried 0 | stance 0 stats={ \"events\": 79, \"no_clip\": 76, \"busy\": 0, \"set_piece\": 0, \"already_playing\": 1, \"graft_failed\": 0, \"played\": 2, \"completed\": 1, \"cut\": 1, \"seat_cut\": 1, \"suspended\": 0, \"bjj_action_unshown\": 177, \"ground_position_refused\": 0, \"ground_events\": 0, \"ground_played\": 0, \"ground_fallback\": 0, \"hold_entered\": 2, \"hold_replayed\": 0, \"hold_preempted\": 2, \"hold_s\": 0.76666666666667 } pair_frames=105 clock_error=0.0"
+  ],
+  "script_errors": 0,
+  "parse_errors": 0
+}

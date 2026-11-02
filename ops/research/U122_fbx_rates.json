@@ -1,0 +1,2215 @@
+{
+  "files": [
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/bb_front_A.fbx",
+      "keys": 20,
+      "span_s": 0.316667,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/bd_front_A.fbx",
+      "keys": 20,
+      "span_s": 0.316667,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/bk_push_left_A.fbx",
+      "keys": 32,
+      "span_s": 0.516667,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/bk_rh_right_A.fbx",
+      "keys": 46,
+      "span_s": 0.75,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/BlueGuy.fbx",
+      "keys": 121,
+      "span_s": 5.0,
+      "native_hz": 24.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/bp_hook_right_A.fbx",
+      "keys": 38,
+      "span_s": 0.616667,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/bp_upper_left_A.fbx",
+      "keys": 43,
+      "span_s": 0.7,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/getup_A.fbx",
+      "keys": 61,
+      "span_s": 1.0,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/hb_front_A.fbx",
+      "keys": 20,
+      "span_s": 0.316667,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/hd_front_A.fbx",
+      "keys": 20,
+      "span_s": 0.316667,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/hd_front_B.fbx",
+      "keys": 38,
+      "span_s": 0.616667,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/hk_rh_right_A.fbx",
+      "keys": 50,
+      "span_s": 0.816667,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/hk_side_left_A.fbx",
+      "keys": 43,
+      "span_s": 0.7,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/hp_hook_left_A.fbx",
+      "keys": 32,
+      "span_s": 0.516667,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/hp_hook_left_Tiramis.fbx",
+      "keys": 32,
+      "span_s": 0.516667,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/hp_straight_left_A.fbx",
+      "keys": 14,
+      "span_s": 0.216667,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/hp_straight_left_Tiramis.fbx",
+      "keys": 14,
+      "span_s": 0.216667,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/hp_straight_right_A.fbx",
+      "keys": 26,
+      "span_s": 0.416667,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/hp_upper_right_A.fbx",
+      "keys": 39,
+      "span_s": 0.633333,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/idle_A.fbx",
+      "keys": 50,
+      "span_s": 0.816667,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/idle_Tiramis.fbx",
+      "keys": 50,
+      "span_s": 0.816667,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/knockdown_A.fbx",
+      "keys": 50,
+      "span_s": 0.816667,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/knockdown_loop_A.fbx",
+      "keys": 122,
+      "span_s": 2.016667,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/lb_front_A.fbx",
+      "keys": 20,
+      "span_s": 0.316667,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/ld_front_A.fbx",
+      "keys": 20,
+      "span_s": 0.316667,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/lk_rh_left_A.fbx",
+      "keys": 38,
+      "span_s": 0.616667,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/lk_rh_right_A.fbx",
+      "keys": 43,
+      "span_s": 0.7,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/lk_rh_right_Tiramis.fbx",
+      "keys": 43,
+      "span_s": 0.7,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/move_backward_B.fbx",
+      "keys": 50,
+      "span_s": 0.816667,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/move_forward_B.fbx",
+      "keys": 50,
+      "span_s": 0.816667,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/win_A.fbx",
+      "keys": 61,
+      "span_s": 1.0,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/nomove/bk_rh_right_A2.fbx",
+      "keys": 46,
+      "span_s": 0.75,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/nomove/bp_hook_right_A2.fbx",
+      "keys": 38,
+      "span_s": 0.616667,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/nomove/bp_upper_left_A2.fbx",
+      "keys": 43,
+      "span_s": 0.7,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/nomove/hk_rh_right_A2.fbx",
+      "keys": 50,
+      "span_s": 0.816667,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/nomove/hk_side_left_A2.fbx",
+      "keys": 43,
+      "span_s": 0.7,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/nomove/hp_straight_right_A2.fbx",
+      "keys": 26,
+      "span_s": 0.416667,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/nomove/hp_upper_right_A2.fbx",
+      "keys": 39,
+      "span_s": 0.633333,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/nomove/knockdown_A2.fbx",
+      "keys": 50,
+      "span_s": 0.816667,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/nomove/lk_rh_left_A2.fbx",
+      "keys": 38,
+      "span_s": 0.616667,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/nomove/lk_rh_right_A2.fbx",
+      "keys": 43,
+      "span_s": 0.7,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/nomove/move_backward_B2.fbx",
+      "keys": 50,
+      "span_s": 0.816667,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/magicpot_fm1/nomove/move_forward_B2.fbx",
+      "keys": 50,
+      "span_s": 0.816667,
+      "native_hz": 60.0,
+      "loses_at_30": true,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/judo_ankle_sweep.fbx",
+      "keys": 120,
+      "span_s": 3.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/judo_hip_throw.fbx",
+      "keys": 180,
+      "span_s": 5.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/muay_thai_body_kick.fbx",
+      "keys": 120,
+      "span_s": 3.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/muay_thai_combination.fbx",
+      "keys": 300,
+      "span_s": 9.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/muay_thai_elbow_cut.fbx",
+      "keys": 90,
+      "span_s": 2.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/muay_thai_guard_stance.fbx",
+      "keys": 300,
+      "span_s": 9.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/muay_thai_knee_clinch.fbx",
+      "keys": 120,
+      "span_s": 3.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/muay_thai_push_kick_defense.fbx",
+      "keys": 90,
+      "span_s": 2.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/muay_thai_roundhouse.fbx",
+      "keys": 120,
+      "span_s": 3.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/muay_thai_teep.fbx",
+      "keys": 120,
+      "span_s": 3.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/spear_thrust_sequence.fbx",
+      "keys": 150,
+      "span_s": 4.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/staff_block.fbx",
+      "keys": 90,
+      "span_s": 2.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/staff_combo.fbx",
+      "keys": 210,
+      "span_s": 6.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/staff_overhead_strike.fbx",
+      "keys": 120,
+      "span_s": 3.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/staff_spin_guard.fbx",
+      "keys": 180,
+      "span_s": 5.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/staff_sweep_legs.fbx",
+      "keys": 120,
+      "span_s": 3.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/staff_thrust.fbx",
+      "keys": 90,
+      "span_s": 2.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/sword_block_high.fbx",
+      "keys": 90,
+      "span_s": 2.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/sword_combo_slash_thrust.fbx",
+      "keys": 210,
+      "span_s": 6.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/sword_draw_stance.fbx",
+      "keys": 150,
+      "span_s": 4.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/sword_overhead_strike.fbx",
+      "keys": 120,
+      "span_s": 3.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/sword_parry_and_riposte.fbx",
+      "keys": 150,
+      "span_s": 4.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/sword_sheathe.fbx",
+      "keys": 120,
+      "span_s": 3.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/sword_slash_diagonal_down.fbx",
+      "keys": 120,
+      "span_s": 3.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/sword_slash_horizontal.fbx",
+      "keys": 120,
+      "span_s": 3.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/sword_spinning_slash.fbx",
+      "keys": 150,
+      "span_s": 4.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/sword_thrust_forward.fbx",
+      "keys": 120,
+      "span_s": 3.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/tkd_axe_kick.fbx",
+      "keys": 120,
+      "span_s": 3.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/tkd_back_kick.fbx",
+      "keys": 120,
+      "span_s": 3.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/tkd_front_kick_high.fbx",
+      "keys": 120,
+      "span_s": 3.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/tkd_jump_front_kick.fbx",
+      "keys": 150,
+      "span_s": 4.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/tkd_jump_spinning_kick.fbx",
+      "keys": 180,
+      "span_s": 5.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/tkd_roundhouse_high.fbx",
+      "keys": 120,
+      "span_s": 3.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/tkd_side_kick.fbx",
+      "keys": 120,
+      "span_s": 3.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/tkd_spinning_heel_kick.fbx",
+      "keys": 150,
+      "span_s": 4.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/wrestling_body_slam.fbx",
+      "keys": 180,
+      "span_s": 5.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/wrestling_double_leg_takedown.fbx",
+      "keys": 150,
+      "span_s": 4.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/wrestling_guard_position.fbx",
+      "keys": 300,
+      "span_s": 9.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/wrestling_single_leg_takedown.fbx",
+      "keys": 150,
+      "span_s": 4.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/motifect/unpacked/Motifect_martial_arts_v1_0/FBX/wrestling_stand_up_defense.fbx",
+      "keys": 120,
+      "span_s": 3.966667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz/Android_SkeletalMesh.fbx",
+      "keys": 171,
+      "span_s": 5.666667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz/Hammer_Mesh.FBX",
+      "keys": 0,
+      "span_s": 0.0,
+      "native_hz": 0.0,
+      "loses_at_30": false,
+      "status": "no_animation",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz/OneHandAxe.fbx",
+      "keys": 0,
+      "span_s": 0.0,
+      "native_hz": 0.0,
+      "loses_at_30": false,
+      "status": "no_animation",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz/OneHandSword_Mesh.fbx",
+      "keys": 0,
+      "span_s": 0.0,
+      "native_hz": 0.0,
+      "loses_at_30": false,
+      "status": "no_animation",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz/Paired_FullMount_1HM_AxeToFace_Att.fbx",
+      "keys": 81,
+      "span_s": 2.666667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz/Paired_FullMount_1HM_AxeToFace_Vic.fbx",
+      "keys": 81,
+      "span_s": 2.666667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz/Paired_FullMount_1HM_BluntSmack_Att.fbx",
+      "keys": 41,
+      "span_s": 1.333333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz/Paired_FullMount_1HM_BluntSmack_Vic.fbx",
+      "keys": 41,
+      "span_s": 1.333333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz/Paired_FullMount_1HM_KnifeStab_Att.fbx",
+      "keys": 81,
+      "span_s": 2.666667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz/Paired_FullMount_1HM_KnifeStab_Vic.fbx",
+      "keys": 81,
+      "span_s": 2.666667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz/Paired_FullMount_1HM_SlashNeck_Att.fbx",
+      "keys": 41,
+      "span_s": 1.333333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz/Paired_FullMount_1HM_SlashNeck_Vic.fbx",
+      "keys": 41,
+      "span_s": 1.333333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz/Paired_FullMount_AttackBlock_Att.fbx",
+      "keys": 41,
+      "span_s": 1.333333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz/Paired_FullMount_AttackBlock_Vic.fbx",
+      "keys": 41,
+      "span_s": 1.333333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz/Paired_FullMount_H2H_ArmBar_Att.fbx",
+      "keys": 135,
+      "span_s": 4.466667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz/Paired_FullMount_H2H_ArmBar_Vic.fbx",
+      "keys": 135,
+      "span_s": 4.466667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz/Paired_FullMount_H2H_HeadSmash_Att.fbx",
+      "keys": 46,
+      "span_s": 1.5,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz/Paired_FullMount_H2H_HeadSmash_Vic.fbx",
+      "keys": 46,
+      "span_s": 1.5,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz/Paired_FullMount_H2H_Punches_Att.fbx",
+      "keys": 36,
+      "span_s": 1.166667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz/Paired_FullMount_H2H_Punches_Vic.fbx",
+      "keys": 36,
+      "span_s": 1.166667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz/Paired_FullMount_H2H_Strangle_Att.fbx",
+      "keys": 181,
+      "span_s": 6.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz/Paired_FullMount_H2H_Strangle_Vic.fbx",
+      "keys": 181,
+      "span_s": 6.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz/Paired_FullMount_PushOff_Att.fbx",
+      "keys": 81,
+      "span_s": 2.666667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz/Paired_FullMount_PushOff_Vic.fbx",
+      "keys": 81,
+      "span_s": 2.666667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz/Paired_FullMount_Reversal_Att.fbx",
+      "keys": 56,
+      "span_s": 1.833333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz/Paired_FullMount_Reversal_Vic.fbx",
+      "keys": 56,
+      "span_s": 1.833333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz/Paired_FullMount_Takedown_BodyLock_End_Att.fbx",
+      "keys": 77,
+      "span_s": 4.833333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz/Paired_FullMount_Takedown_BodyLock_End_Vic.fbx",
+      "keys": 77,
+      "span_s": 4.833333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz/Paired_FullMount_Takedown_BodyLock_Loop_Att.fbx",
+      "keys": 51,
+      "span_s": 1.666667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz/Paired_FullMount_Takedown_BodyLock_Loop_Vic.fbx",
+      "keys": 51,
+      "span_s": 1.666667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz/Paired_FullMount_Takedown_BodyLock_Start_Att.fbx",
+      "keys": 71,
+      "span_s": 2.333333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz/Paired_FullMount_Takedown_BodyLock_Start_Vic.fbx",
+      "keys": 71,
+      "span_s": 2.333333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz/Paired_FullMount_Takedown_DoubleLeg_Start_Att.fbx",
+      "keys": 51,
+      "span_s": 1.666667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz/Paired_FullMount_Takedown_DoubleLeg_Start_Vic.fbx",
+      "keys": 51,
+      "span_s": 1.666667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz/Paired_FullMount_VictimAttack_Att.fbx",
+      "keys": 51,
+      "span_s": 1.666667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz/Paired_FullMount_VictimAttack_Vic.fbx",
+      "keys": 51,
+      "span_s": 1.666667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz/T_pose.fbx",
+      "keys": 3,
+      "span_s": 0.066667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/Android_SkeletalMesh.fbx",
+      "keys": 171,
+      "span_s": 5.666667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_AxeKick_InPlace.FBX",
+      "keys": 31,
+      "span_s": 1.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_BackflipKick_InPlace.FBX",
+      "keys": 41,
+      "span_s": 1.333333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_BackHandSwing_Forward.FBX",
+      "keys": 29,
+      "span_s": 0.933333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_BarrelRollKick_Forward.FBX",
+      "keys": 39,
+      "span_s": 1.266667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_BlockEnd.FBX",
+      "keys": 12,
+      "span_s": 2.333333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_BlockIdle.FBX",
+      "keys": 24,
+      "span_s": 0.766667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_BlockLoop.FBX",
+      "keys": 52,
+      "span_s": 2.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_BlockStart.FBX",
+      "keys": 11,
+      "span_s": 0.333333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_Dodge_Back.FBX",
+      "keys": 21,
+      "span_s": 0.666667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_Dodge_Forward.FBX",
+      "keys": 21,
+      "span_s": 0.666667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_Dodge_Left.FBX",
+      "keys": 21,
+      "span_s": 0.666667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_Dodge_Right.FBX",
+      "keys": 21,
+      "span_s": 0.666667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_Equip.FBX",
+      "keys": 21,
+      "span_s": 0.666667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_FadeBack.FBX",
+      "keys": 21,
+      "span_s": 0.666667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_FlipAxeKick_Forward.FBX",
+      "keys": 28,
+      "span_s": 0.9,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_FrontflipKick_Forward.FBX",
+      "keys": 33,
+      "span_s": 1.066667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_GetUp01.FBX",
+      "keys": 31,
+      "span_s": 1.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_GroinPunch_InPlace.FBX",
+      "keys": 31,
+      "span_s": 1.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_Haymaker_Forward.FBX",
+      "keys": 31,
+      "span_s": 1.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_Haymaker_InPlace.FBX",
+      "keys": 31,
+      "span_s": 1.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_HighSideKick_InPlace.FBX",
+      "keys": 36,
+      "span_s": 1.166667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_HitReaction01.FBX",
+      "keys": 19,
+      "span_s": 3.033333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_HitReaction02.FBX",
+      "keys": 30,
+      "span_s": 4.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_HitReaction03.FBX",
+      "keys": 27,
+      "span_s": 4.866667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_HitReaction04.FBX",
+      "keys": 29,
+      "span_s": 5.8,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_HookPunch_InPlace.FBX",
+      "keys": 31,
+      "span_s": 1.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_Idle.FBX",
+      "keys": 141,
+      "span_s": 4.666667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_JabForward.FBX",
+      "keys": 26,
+      "span_s": 0.833333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_JabInPlace.FBX",
+      "keys": 26,
+      "span_s": 0.833333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_JumpIdle.FBX",
+      "keys": 37,
+      "span_s": 1.2,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_JumpingBackKick_Forward.FBX",
+      "keys": 28,
+      "span_s": 0.9,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_JumpingBackKick_InPlace.FBX",
+      "keys": 28,
+      "span_s": 0.9,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_JumpingUppercut_Forward.FBX",
+      "keys": 47,
+      "span_s": 1.533333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_JumpingUppercut_InPlace.FBX",
+      "keys": 47,
+      "span_s": 1.533333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_JumpLand.FBX",
+      "keys": 17,
+      "span_s": 2.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_JumpLoop.FBX",
+      "keys": 37,
+      "span_s": 1.5,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_JumpSpinHookKick_Forward.FBX",
+      "keys": 35,
+      "span_s": 1.133333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_JumpStart.FBX",
+      "keys": 11,
+      "span_s": 0.333333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_KneeStrike_Forward.FBX",
+      "keys": 28,
+      "span_s": 0.9,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_KnockDown01.FBX",
+      "keys": 59,
+      "span_s": 1.933333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_KnockDown02.FBX",
+      "keys": 61,
+      "span_s": 2.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_LeadingUppercut_InPlace.FBX",
+      "keys": 31,
+      "span_s": 1.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_LeftCutKick_Forward.FBX",
+      "keys": 31,
+      "span_s": 1.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_LeftCutKick_InPlace.FBX",
+      "keys": 31,
+      "span_s": 1.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_LegBlockEnd.FBX",
+      "keys": 12,
+      "span_s": 2.333333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_LegBlockIdle.FBX",
+      "keys": 24,
+      "span_s": 0.766667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_LegBlockLoop.FBX",
+      "keys": 52,
+      "span_s": 2.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_LegBlockStart.FBX",
+      "keys": 11,
+      "span_s": 0.333333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_LegSweep_InPlace.FBX",
+      "keys": 24,
+      "span_s": 0.766667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_LowSideKick_InPlace.FBX",
+      "keys": 36,
+      "span_s": 1.166667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_PowerChargeEnd.FBX",
+      "keys": 27,
+      "span_s": 3.5,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_PowerChargeLoop.FBX",
+      "keys": 58,
+      "span_s": 2.666667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_PowerChargeStart.FBX",
+      "keys": 25,
+      "span_s": 0.8,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_PowerHayMaker_Forward.FBX",
+      "keys": 35,
+      "span_s": 1.133333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_PowerPunch01_Forward.FBX",
+      "keys": 65,
+      "span_s": 2.133333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_RightCutKick_Forward.FBX",
+      "keys": 31,
+      "span_s": 1.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_RightCutKick_InPlace.FBX",
+      "keys": 31,
+      "span_s": 1.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_RoundhouseKick_InPlace.FBX",
+      "keys": 22,
+      "span_s": 0.7,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_RunBack.FBX",
+      "keys": 16,
+      "span_s": 0.5,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_RunBackLeft.FBX",
+      "keys": 16,
+      "span_s": 0.5,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_RunBackLeft_RootMotion.fbx",
+      "keys": 16,
+      "span_s": 0.5,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_RunBackRight.FBX",
+      "keys": 16,
+      "span_s": 0.5,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_RunBackRight_RootMotion.fbx",
+      "keys": 16,
+      "span_s": 0.5,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_RunBack_RootMotion.fbx",
+      "keys": 16,
+      "span_s": 0.5,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_RunForward.FBX",
+      "keys": 16,
+      "span_s": 0.5,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_RunForwardLeft.FBX",
+      "keys": 16,
+      "span_s": 0.5,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_RunForwardLeft_RootMotion.fbx",
+      "keys": 16,
+      "span_s": 0.5,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_RunForwardRight.FBX",
+      "keys": 16,
+      "span_s": 0.5,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_RunForwardRight_RootMotion.fbx",
+      "keys": 16,
+      "span_s": 0.5,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_RunForward_RootMotion.fbx",
+      "keys": 16,
+      "span_s": 0.5,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_RunLeft.FBX",
+      "keys": 16,
+      "span_s": 0.5,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_RunLeft_RootMotion.fbx",
+      "keys": 16,
+      "span_s": 0.5,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_RunRight.FBX",
+      "keys": 16,
+      "span_s": 0.5,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_RunRight_RootMotion.fbx",
+      "keys": 16,
+      "span_s": 0.5,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_SlipLeft.FBX",
+      "keys": 21,
+      "span_s": 0.666667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_SlipRight.FBX",
+      "keys": 21,
+      "span_s": 0.666667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_SnappingBackfist_InPlace.FBX",
+      "keys": 31,
+      "span_s": 1.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_SpinningElbow_Forward.FBX",
+      "keys": 35,
+      "span_s": 1.133333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_SpinningHookKick_InPlace.FBX",
+      "keys": 25,
+      "span_s": 0.8,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_SprintForward.FBX",
+      "keys": 18,
+      "span_s": 0.566667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_SprintForward_RootMotion.fbx",
+      "keys": 18,
+      "span_s": 0.566667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_StaggerFromBehind01.FBX",
+      "keys": 38,
+      "span_s": 1.233333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_StaggerFromBehind02.FBX",
+      "keys": 46,
+      "span_s": 3.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_StaggerLarge01.FBX",
+      "keys": 80,
+      "span_s": 2.633333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_StaggerLarge02.FBX",
+      "keys": 95,
+      "span_s": 5.766667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_StaggerLarge03.FBX",
+      "keys": 92,
+      "span_s": 8.8,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_StaggerLarge04_LowHit.FBX",
+      "keys": 83,
+      "span_s": 11.533333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_StaggerLarge_FromBehind01.FBX",
+      "keys": 71,
+      "span_s": 2.333333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_StaggerLarge_FromBehind02.FBX",
+      "keys": 80,
+      "span_s": 2.633333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_StaggerLarge_FromBehind03.FBX",
+      "keys": 91,
+      "span_s": 3.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_StaggerMedium01.FBX",
+      "keys": 54,
+      "span_s": 1.766667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_StaggerMedium02.FBX",
+      "keys": 54,
+      "span_s": 3.633333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_StaggerMedium03.FBX",
+      "keys": 50,
+      "span_s": 5.266667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_StaggerMedium04.FBX",
+      "keys": 47,
+      "span_s": 6.8,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_StaggerSmall01.FBX",
+      "keys": 31,
+      "span_s": 1.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_StaggerSmall02.FBX",
+      "keys": 44,
+      "span_s": 2.433333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_StaggerSmall03.FBX",
+      "keys": 38,
+      "span_s": 7.033333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_StraightPunchForward.FBX",
+      "keys": 26,
+      "span_s": 0.833333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_StraightPunchInPlace.FBX",
+      "keys": 26,
+      "span_s": 0.833333,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_TornadoKick_Forward.FBX",
+      "keys": 28,
+      "span_s": 0.9,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_TrippleSpinningHookKick_Forward.FBX",
+      "keys": 49,
+      "span_s": 1.6,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_Turn180.FBX",
+      "keys": 22,
+      "span_s": 0.7,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_TurnLeft90.FBX",
+      "keys": 19,
+      "span_s": 0.6,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_TurnRight90.FBX",
+      "keys": 19,
+      "span_s": 0.6,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_Unequip.FBX",
+      "keys": 21,
+      "span_s": 0.666667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_WalkBack.FBX",
+      "keys": 31,
+      "span_s": 1.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_WalkBackLeft.FBX",
+      "keys": 31,
+      "span_s": 1.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_WalkBackLeft_RootMotion.fbx",
+      "keys": 31,
+      "span_s": 1.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_WalkBackRight.FBX",
+      "keys": 31,
+      "span_s": 1.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_WalkBackRight_RootMotion.fbx",
+      "keys": 31,
+      "span_s": 1.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_WalkBack_RootMotion.fbx",
+      "keys": 31,
+      "span_s": 1.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_WalkForward.FBX",
+      "keys": 31,
+      "span_s": 1.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_WalkForwardLeft.FBX",
+      "keys": 31,
+      "span_s": 1.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_WalkForwardLeft_RootMotion.fbx",
+      "keys": 31,
+      "span_s": 1.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_WalkForwardRight.FBX",
+      "keys": 31,
+      "span_s": 1.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_WalkForwardRight_RootMotion.fbx",
+      "keys": 31,
+      "span_s": 1.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_WalkForward_RootMotion.fbx",
+      "keys": 31,
+      "span_s": 1.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_WalkLeft.FBX",
+      "keys": 31,
+      "span_s": 1.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_WalkLeft_RootMotion.fbx",
+      "keys": 31,
+      "span_s": 1.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_WalkRight.FBX",
+      "keys": 31,
+      "span_s": 1.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/H2H_WalkRight_RootMotion.fbx",
+      "keys": 31,
+      "span_s": 1.0,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/Standing_Idle.FBX",
+      "keys": 201,
+      "span_s": 6.666667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/anim/audition/ramsterz_h2h/T_pose.fbx",
+      "keys": 3,
+      "span_s": 0.066667,
+      "native_hz": 30.0,
+      "loses_at_30": false,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "path": "Godot/assets/vendor/polyronin_old_school_gym/old-school-gym-equipment-1.fbx",
+      "keys": 0,
+      "span_s": 0.0,
+      "native_hz": 0.0,
+      "loses_at_30": false,
+      "status": "no_animation",
+      "error": ""
+    }
+  ],
+  "summary": {
+    "total": 245,
+    "parsed": 241,
+    "unreadable": 0,
+    "losing_at_30": 42
+  }
+}

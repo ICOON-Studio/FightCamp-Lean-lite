@@ -1,0 +1,418 @@
+0
+679
+Ask Ludo
+Chat with your game design companion.
+Gym Roster UI Specification
+All Chats 
+How can I help you with your game design today?
+
+LUDO ROUND 71 (FightCamp, S228) - UI CENSUS row 4: THE GYM ROSTER SCREEN. One screenshot attached: today's GYM screen (the roster list of the gym's fighters, week 1 of a new career - "NOBODY IN THE BUILDING").
+Context: the operator ruled "all screens must be checked by ludo keeping a smooth look across all game and menus modals tooltips etc". You wrote the UI BIBLE in round 70 (tokens: void #0d0c0b, panels #1a1816/#22201d/#282521, Championship Gold #f0c233 for selected tabs and the primary CTA, brass borders, cream text, 4 px panel radius, 36 px tabs with a gold underline, modal and tooltip anatomy). Apply that bible to THIS screen. One screen per round.
+What the screen is for: the list of the player's fighters (name, discipline, record, form, condition, stance, weight class, contract, what he is doing today), sorting/filtering, and opening a fighter's profile (round 68). Filters today: ALL / NEEDS YOU / UNPLANNED / IN CAMP / BLOCKED style chips. A gym has 0-8 fighters; week 1 usually has 0-1 - the empty state is what the player sees first and must invite the action (recruit at the front desk, scout).
+GIVE THE LONGEST COMPLETE ANSWER YOU CAN (if you run out, end with CONTINUE):A. Every defect you see, numbered.B. The target layout at 1920x1080 (every block x, y, w, h), the row anatomy for one fighter, the EMPTY state (0 fighters) and the FULL state (8), hover, click, sort, transitions (ms) - all in the round-70 tokens.C. What FM / Motorsport Manager / Two Point do for a squad list, and what we take.D. The build steps for one agent with one measurable acceptance check each.E. GDScript for the row component and the empty state, using the round-70 token names.
+
+LUDO ROUND 71 — UI CENSUS ROW 4: THE GYM ROSTER SCREEN (res://ui/screens/gym_roster.tscn)
+PART A: DEFECT CENSUS (AUDIT OF ATTACHED SCREENSHOT)
+
+Comparing the attached Week 1 Gym Roster capture against the Round 70 UI Bible (#0d0c0b void, #1a1816 canvas, #22201d surface, #282521 card, brass border tokens, #f0c233 Championship Gold accents, 4px corner radii, 36px tabs with active underline, standardized typography and tooltips):
+
+Tab Bar Misalignment and Token Violation (Top-Right Sub-Nav):
+
+Observed: The ROSTER | FLOOR | STORE segmented pill bar sits in the upper right (x≈1630, y≈130) rendered in cyan/teal neon fill (#00e5ff tint), completely violating the Round 70 brand palette.
+Bible Conflict: All sub-navigation tabs must use the 36px tall tab standard: transparent background, #a8a29e text, 2px bottom border #f0c233 on active selection, no rounded pill/bubble container.
+
+Unanchored Empty State ("NOBODY IN THE BUILDING"):
+
+Observed: A generic grey shooting-target dummy silhouette sits next to an unstyled headline NOBODY IN THE BUILDING with a dim subtitle SCOUTING FINDS THEM - THE FLOOR IS WAITING.
+Bible Conflict: There is zero clear call-to-action (CTA). The user is stranded. It fails to provide an immediate interactive portal or primary button (#f0c233 CTA: [ SCOUT FREE AGENTS ] or [ POST LOCAL TRYOUT ]). The empty state card is a featureless, flat, washed-out horizontal panel without the standard #22201d surface fill, #3d372e 1px brass stroke, or 4px radius.
+
+Sub-Header Metadata Redundancy & Clutter:
+
+Observed: ANVIL STREET GYM · LONDON · FAME 0 · ROSTER 0 sits as tiny low-contrast uppercase text under the giant GYM title, and immediately below it sits another chip saying DAY ONE - ROSTER 0 - FLOOR READY.
+Bible Conflict: Duplicated information (ROSTER 0 appears twice within 40 vertical pixels). Wastes valuable layout vertical budget. Header should adhere to the single unified breadcrumb standard: GYM / SQUAD (0/8).
+
+Filter Chips Violate Round 70 Token Standards:
+
+Observed: ALL, NEEDS YOU, BOOKED, OPEN BOOK are rendered as pill-shaped buttons with cyan border outlines and dark interiors.
+Bible Conflict: Round 70 design tokens mandate rectangular 4px radius chips, 28px height, #1a1816 background, #332f27 brass stroke. Selected chip must have a solid border #f0c233 with gold text #f0c233 and subtle 10% gold background tint, not cyan wireframes.
+
+Table Column Header Typography & Contrast:
+
+Observed: Column headers (FIGHTER, RECORD, COND, MORALE, WEIGHT, PLAN, NEXT BOUT, FLAG) are rendered in mid-gray all-caps with uneven horizontal tracking, low contrast against the void backdrop, and an oversized down-triangle sort arrow next to COND that crowds the text.
+Bible Conflict: Headers must be set in 11px uppercase bold (#8c8273 Muted Brass), tabular alignment matching row cells, with a dedicated 12px SVG chevron icon with 4px left margin.
+
+Missing Stance and Contract Columns:
+
+Observed: The table headers in the screenshot show MORALE, PLAN, and FLAG, omitting STANCE (Orthodox/Southpaw) and CONTRACT (weekly wage / bouts remaining), which are critical tactical and financial data points specified in the screen brief.
+
+Extraneous Top-Left Plus Icon:
+
+Observed: A lone + icon sits isolated inside a grey square button at x=52, y=94 right above the word GYM.
+Bible Conflict: Orphaned floating utility button with no label, no tooltip, and no established grid alignment. Recruitment actions belong inside the primary empty state and the top-right header action zone.
+
+Guidance Toast Clashing with Canvas ("GUIDE - Sign your first boxer"):
+
+Observed: A bright yellow floating pill sits at bottom right (x≈1550, y≈945) detached from the content area.
+Bible Conflict: Floating guide tags clutter the screen edges and collide with bottom utility bars. The roster empty state itself must natively convey the primary action rather than relying on an out-of-flow overlay.
+PART B: TARGET LAYOUT AT 1920x1080 & COMPONENT SPECIFICATIONS
++------------------------------------------------------------------------------------------------------------------------+
+| GLOBAL TOP BAR (Height: 56px, y: 0 to 56) [Preserved Framework Component]                                             |
++------------------------------------------------------------------------------------------------------------------------+
+| LEFT RAIL | SCREEN HEADER REGION (y: 56 to 140)                                                                        |
+| (w: 64px) |  [GYM ROSTER]  Total Boxers: 0/8 | Weekly Payroll: $0                                 [+ SCOUT FREE AGENTS] |
+|           +------------------------------------------------------------------------------------------------------------+
+|           | SUB-NAV TABS (y: 140 to 176, h: 36px)                                                                      |
+|           |  [ ROSTER (Active) ]     [ FLOOR ]     [ EQUIPMENT & FACILITY ]                                            |
+|           +------------------------------------------------------------------------------------------------------------+
+|           | FILTER & TOOLBAR (y: 188 to 224, h: 36px)                                                                  |
+|           |  Chips: [ALL (0)] [NEEDS YOU (0)] [UNPLANNED (0)] [IN CAMP (0)] [BLOCKED (0)]          Sort: [NAME (ASC) v]    |
+|           +------------------------------------------------------------------------------------------------------------+
+|           | TABLE HEADER ROW (y: 232 to 264, h: 32px)                                                                  |
+|           |  STATUS | FIGHTER / NAT / AGE | DISCIPLINE / STANCE | WEIGHT | RECORD | COND | FORM | CONTRACT | CURRENT TASK |
+|           +------------------------------------------------------------------------------------------------------------+
+|           | SQUAD LIST CONTAINER / ROSTER VIEWPORT (y: 268 to 1016, h: 748px, w: 1808px)                              |
+|           |                                                                                                            |
+|           |  [ STATE A: EMPTY STATE (0 Fighters) - Centered Guidance Card with dual direct recruitment CTAs ]           |
+|           |                                                                                                            |
+|           |  [ STATE B: POPULATED LIST (1 to 8 Fighters) - Stack of 84px tall interactive fighter rows ]               |
+|           |                                                                                                            |
+|           +------------------------------------------------------------------------------------------------------------+
+|           | TABLE FOOTER SUMMARY BAR (y: 1024 to 1060, h: 36px)                                                        |
+|           |  Roster Capacity: 0/8 Slots  |  Avg Condition: --  |  Bouts Scheduled: 0  |  Medical Attention: 0 Required     |
++------------------------------------------------------------------------------------------------------------------------+
+
+1. Coordinate Grid Breakdown (1920x1080)
+Left Navigation Rail (Existing): x: 0, y: 0, w: 64, h: 1080
+Content Canvas Margin: Left x = 88 (24px gutter from rail), Right x = 1896 (24px gutter), Width = 1808px.
+Screen Header: x: 88, y: 72, w: 1808, h: 56
+Title: GYM ROSTER (24px bold, #f5f0e6 Cream White)
+Meta Badges: w: 320, h: 28 (#1a1816 background, 1px border #332f27, 4px radius)
+Header Right CTA: x: 1672, y: 76, w: 224, h: 40, background #f0c233, text #0d0c0b bold.
+Sub-Nav Tabs: x: 88, y: 140, w: 1808, h: 36
+Tab items: ROSTER (Active), FLOOR & SPARRING, FACILITY & GEAR. Active indicator: 2px #f0c233 bottom stroke.
+Filter Strip: x: 88, y: 188, w: 1808, h: 36
+Filter chips: 5 chips (ALL, NEEDS YOU, UNPLANNED, IN CAMP, BLOCKED), each height 28px, 4px radius.
+Right Sort Selector: x: 1648, y: 188, w: 248, h: 28.
+Table Header Row: x: 88, y: 232, w: 1808, h: 32. Background #151311, border-bottom 1px #2a2620.
+Roster Scroll/Viewport Area: x: 88, y: 268, w: 1808, h: 748.
+Footer Status Bar: x: 88, y: 1024, w: 1808, h: 36. Background #1a1816, 1px border #2a2620.
+2. Table Column Sizing & Alignment Specifications
+
+Total Available Width = 1808px.
+
+| Column # | Field Name | Width | Align | Content / Formatting |
+|---|---|---|---|---|
+| 01 | STATUS | 44px | Center | Severity pip: Green (Ready), Yellow (Action needed), Red (Injured/Blocked) |
+| 02 | FIGHTER IDENT | 320px | Left | 56x56 Headshot portrait, Full Name (15px bold #f5f0e6), Flag + Age + Nickname (12px #a8a29e) |
+| 03 | STYLE / STANCE | 180px | Left | Style badge (OUT-FIGHTER, SLUGGER, etc.) + Stance (ORTHODOX / SOUTHPAW) |
+| 04 | WEIGHT CLASS | 150px | Left | Division name + Current scale weight (WELTERWEIGHT · 146.4 lbs) |
+| 05 | RECORD | 120px | Center | W - L - D (KO) (e.g. 14-1-0 (11)) set in monospaced tabular font |
+| 06 | CONDITION | 170px | Left | Segmented micro-bar (0–100%) + numerical label (e.g. 94%) |
+| 07 | FORM / MORALE| 160px | Left | Last 5 fight spark-indicators (W W W L W) + Morale icon (HIGH) |
+| 08 | CONTRACT | 184px | Left | Weekly wage + bouts left (e.g. $1,400/wk · 3 bouts left) |
+| 09 | TODAY'S ACTIVITY| 320px | Left | Dropdown trigger / action pill: Current schedule (e.g., Heavy Bag [09:00 - 12:00], Resting, Medical) |
+| 10 | ACTION / VIEW| 160px | Right | Secondary action button: PROFILE > (opens Round 68 modal) |
+
+3. Individual Fighter Row Anatomy (Populated State)
+Dimensions: w: 1808px, h: 84px. Vertical margin: 4px between rows.
+Base Panel:
+Background: #1a1816 (Card Normal).
+Border: 1px solid #282521.
+Corner Radius: 4px.
+Hover State:
+Background transitions to #22201d in 120ms (ease-out).
+Border transitions to #3d372e (Subtle Brass).
+Mouse cursor: CURSOR_POINTING_HAND.
+Selected / Active State:
+Background: #282521.
+Left border accent: 3px solid #f0c233 (Championship Gold).
+Attention Alert Pulse (Needs You / Unplanned):
+Left status dot pulses between #f0c233 (alpha 1.0) and #f0c233 (alpha 0.3) over a 1600ms sine curve.
+4. Empty State Architecture (0 Fighters — Week 1 Launch)
+
+When the roster count equals 0, the table header and rows are hidden, and a centered card displays:
+
+Container: w: 780px, h: 440px, centered within x: 602, y: 422.
+Visual Frame:
+Background: #1a1816 with a soft radial gradient highlight centered at top.
+Border: 1px solid #332f27, 4px radius.
+Graphic Element:
+72x72px Brass line-art emblem depicting an open boxing ring and unwrapped gloves (rendered in #8c8273, not an empty grey mannequin silhouette).
+Typography:
+Primary Header: THE STABLE IS EMPTY (22px bold uppercase, #f5f0e6).
+Sub-Header: Week 1: Your gym has open stalls and zero registered fighters. Scout the local regional circuits or post open tryouts to sign your first prospect. (14px regular, #a8a29e, max-width 560px, center aligned).
+Action Buttons (Dual CTA):
+Primary CTA: [ SCOUT FREE AGENTS ] — w: 240px, h: 44px, background #f0c233, text #0d0c0b 14px bold, 4px radius. Hover: #ffcf40. Leads directly to Scouting / Free Agency screen.
+Secondary CTA: [ HOST REGIONAL TRYOUT ($500) ] — w: 240px, h: 44px, background #22201d, border 1px solid #3d372e, text #f5f0e6 14px bold. Generates 3 local amateur prospects.
+Help Tip Footer:
+12px italic text #635c50: "Gym Tier 1 allows a maximum of 4 active fighter contracts simultaneously."
+5. Full State Behavior (8/8 Fighters Loaded)
+Capacity Banner: Header counter updates to ROSTER: 8/8 (MAX CAPACITY) with an amber alert indicator icon.
+Scroll Dynamics: If viewport height decreases or future upgrades expand roster slots to 12+, a custom scrollbar appears on the right edge: track width 6px #151311, thumb #3d372e, hover thumb #f0c233, radius 3px.
+Fast Batch Planning Action: A secondary toolbar button activates: [ AUTO-ASSIGN ALL SCHEDULES ] to eliminate repetitive row clicks.
+6. Interactive Micro-Interactions & Transitions
+Row Hover: Duration 120ms (Tween.TRANS_CUBIC, Tween.EASE_OUT). Scales icon preview by 1.03x.
+Filter Switch: 160ms fade out of current list (modulate.a -> 0.0), re-sorting and layout re-order, followed by 180ms fade in (modulate.a -> 1.0).
+Row Click: Clicking anywhere on the row (except the activity dropdown) fires the Fighter Profile Modal (Round 68) sliding in from the right (x: 1920 -> 1280) over 250ms with dark overlay scrim (#0d0c0b at 65% alpha).
+Dropdown Selection: Clicking TODAY'S ACTIVITY spawns a popover anchored below the cell: 6 options (Sparring, Heavy Bag, Roadwork, Tactical Film, Physio/Rest, Weight Cut), height 210px, background #22201d, border 1px #3d372e, elevation shadow 8px.
+PART C: INDUSTRY SQUAD-LIST BENCHMARKS & BEST PRACTICES
+1. Football Manager (Sports Interactive)
+What FM does: FM uses high-density table rows packed with tactical condition pies, morale icons, playing duty markers, and training workload warnings.
+What we take: The "Attention/Duty State" flag. Instead of making the player click into each boxer to see if they are idle, a dedicated column and row pip flags boxers who have no training scheduled today or whose contract expires in under 4 weeks.
+2. Motorsport Manager (Playsport Games)
+What MM does: Uses visual card-row hybrids for drivers and mechanics. Displays clear contract expiration counters and weekly wage drain right alongside their performance rating.
+What we take: The Contract & Wage presentation. In FightCamp, managing cash runway is crucial. Showing $1,200/wk · 2 bouts remaining directly on the squad list prevents sudden unexpected contract lapses without requiring manual drill-downs.
+3. Two Point Campus / Hospital (Two Point Studios)
+What Two Point does: Employs actionable empty states when a department has zero staff. It doesn't merely state "No Doctors"; it places a direct button reading "Hire Doctor" inside the vacant roster frame.
+What we take: The Direct Action Empty State. Never strand the player with descriptive text alone. The empty screen is converted into an active onboarding gateway with primary action buttons.
+PART D: IMPLEMENTATION & VERIFICATION PLAN
+
+| Step | Target Subsystem / Task | Implementation Detail | Measurable Acceptance Check |
+|---|---|---|---|
+| 01 | Scene Refactoring & Layout Setup | Remove cyan segmented pill buttons and legacy mannequin empty state. Construct the root VBox/HBox grid layout per the 1920x1080 coordinate spec. | Root node contains GymHeader, SubNavTabs, FilterBar, TableHeaders, ViewportContainer, and FooterBar. Zero elements exceed 1920x1080 bounds. |
+| 02 | Color Token Strict Binding | Replace all ad-hoc hex values with UI Bible tokens (#0d0c0b, #1a1816, #22201d, #282521, #3d372e, #f0c233, #f5f0e6, #a8a29e). | Grep check across res://ui/screens/gym_roster.tscn confirms 0 instances of #00e5ff, #00ffff, or unapproved hex codes. |
+| 03 | Roster Row Component (fighter_row.tscn) | Build modular row component adhering to the 10-column layout (height: 84px, horizontal padding: 16px, hover/active signals). | Instantiating 8 mock rows results in exactly 84px height each, with 4px spacing and smooth 120ms hover transition. |
+| 04 | Dynamic Empty State (empty_roster.tscn) | Create empty state container with brass icon, descriptive prompt, and functional [ SCOUT FREE AGENTS ] & [ HOST TRYOUT ] buttons. | Setting fighter array to empty ([]) hides table headers and displays centered empty card with functioning CTA signals. |
+| 05 | Filter & Sorting Controller | Wire up ALL, NEEDS YOU, UNPLANNED, IN CAMP, BLOCKED filter chips and column sort chevrons. | Clicking NEEDS YOU shows only fighters with unassigned activities or medical warnings. Column click sorts records ascending/descending. |
+| 06 | Profile Drawer Integration | Wire row click signal to trigger the Round 68 Fighter Profile Modal. | Clicking a boxer's row emits fighter_selected(fighter_id) and opens the profile drawer without layout stutter. |
+
+PART E: GDSCRIPT PRODUCTION IMPLEMENTATION
+1. res://scripts/ui/fighter_roster_row.gd
+class_name FighterRosterRow
+extends PanelContainer
+
+signal fighter_selected(fighter_id: String)
+signal activity_change_requested(fighter_id: String, global_pos: Vector2)
+
+# Round 70 Design System Tokens
+const COLOR_VOID: Color = Color("#0d0c0b")
+const COLOR_BG_NORMAL: Color = Color("#1a1816")
+const COLOR_BG_HOVER: Color = Color("#22201d")
+const COLOR_BG_SELECTED: Color = Color("#282521")
+const COLOR_BORDER_DEFAULT: Color = Color("#282521")
+const COLOR_BORDER_HOVER: Color = Color("#3d372e")
+const COLOR_GOLD: Color = Color("#f0c233")
+const COLOR_TEXT_CREAM: Color = Color("#f5f0e6")
+const COLOR_TEXT_MUTED: Color = Color("#a8a29e")
+const COLOR_STATUS_GREEN: Color = Color("#22c55e")
+const COLOR_STATUS_AMBER: Color = Color("#eab308")
+const COLOR_STATUS_RED: Color = Color("#ef4444")
+
+var fighter_data: Dictionary = {}
+var is_hovered: bool = false
+var is_selected: bool = false
+
+@onready var status_pip: ColorRect = %StatusPip
+@onready var portrait_rect: TextureRect = %PortraitRect
+@onready var name_label: Label = %NameLabel
+@onready var meta_label: Label = %MetaLabel
+@onready var style_label: Label = %StyleLabel
+@onready var weight_label: Label = %WeightLabel
+@onready var record_label: Label = %RecordLabel
+@onready var cond_bar: ProgressBar = %ConditionBar
+@onready var cond_label: Label = %ConditionLabel
+@onready var form_container: HBoxContainer = %FormContainer
+@onready var contract_wage_label: Label = %ContractWageLabel
+@onready var contract_duration_label: Label = %ContractDurationLabel
+@onready var activity_btn: Button = %ActivityButton
+@onready var profile_btn: Button = %ProfileButton
+@onready var selection_accent: ColorRect = %SelectionAccent
+
+var stylebox: StyleBoxFlat
+
+func _ready() -> void:
+	custom_minimum_size = Vector2(1808, 84)
+	mouse_filter = Control.MOUSE_FILTER_STOP
+	
+	stylebox = StyleBoxFlat.new()
+	stylebox.bg_color = COLOR_BG_NORMAL
+	stylebox.border_color = COLOR_BORDER_DEFAULT
+	stylebox.set_border_width_all(1)
+	stylebox.set_corner_radius_all(4)
+	add_theme_stylebox_override("panel", stylebox)
+	
+	mouse_entered.connect(_on_mouse_entered)
+	mouse_exited.connect(_on_mouse_exited)
+	gui_input.connect(_on_gui_input)
+	
+	activity_btn.pressed.connect(_on_activity_pressed)
+	profile_btn.pressed.connect(_on_profile_pressed)
+	selection_accent.visible = false
+
+func bind_fighter(data: Dictionary) -> void:
+	fighter_data = data
+	name_label.text = data.get("name", "Unknown Boxer").to_upper()
+	name_label.add_theme_color_override("font_color", COLOR_TEXT_CREAM)
+	
+	var country = data.get("country_code", "USA")
+	var age = str(data.get("age", 20))
+	var nickname = data.get("nickname", "")
+	meta_label.text = ("\"%s\" · " % nickname if nickname != "" else "") + "%s yrs · %s" % [age, country]
+	meta_label.add_theme_color_override("font_color", COLOR_TEXT_MUTED)
+	
+	style_label.text = "%s\n%s" % [data.get("style", "Out-Fighter"), data.get("stance", "Orthodox")]
+	weight_label.text = "%s\n%1.1f lbs" % [data.get("weight_class", "Welterweight"), data.get("current_weight", 147.0)]
+	
+	var rec = data.get("record", {"w": 0, "l": 0, "d": 0, "ko": 0})
+	record_label.text = "%d-%d-%d (%d)" % [rec.w, rec.l, rec.d, rec.ko]
+	
+	var cond_val: float = data.get("condition", 100.0)
+	cond_bar.value = cond_val
+	cond_label.text = "%d%%" % int(cond_val)
+	
+	contract_wage_label.text = "$%d / wk" % data.get("weekly_wage", 800)
+	contract_duration_label.text = "%d bouts left" % data.get("bouts_remaining", 4)
+	
+	_render_form_spark(data.get("last_bouts", ["W", "W", "W"]))
+	_update_status_pip(data)
+	
+	activity_btn.text = data.get("today_activity", "UNASSIGNED")
+	if activity_btn.text == "UNASSIGNED":
+		activity_btn.modulate = COLOR_GOLD
+	else:
+		activity_btn.modulate = Color.WHITE
+
+func _render_form_spark(results: Array) -> void:
+	for child in form_container.get_children():
+		child.queue_free()
+	
+	for res in results:
+		var lbl = Label.new()
+		lbl.text = str(res)
+		lbl.custom_minimum_size = Vector2(18, 18)
+		lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		
+		var font_col = COLOR_STATUS_GREEN if res == "W" else (COLOR_STATUS_RED if res == "L" else COLOR_TEXT_MUTED)
+		lbl.add_theme_color_override("font_color", font_col)
+		form_container.add_child(lbl)
+
+func _update_status_pip(data: Dictionary) -> void:
+	var cond = data.get("condition", 100.0)
+	var planned = data.get("today_activity", "UNASSIGNED") != "UNASSIGNED"
+	
+	if cond < 50.0 or data.get("is_injured", false):
+		status_pip.color = COLOR_STATUS_RED
+	elif not planned or cond < 75.0:
+		status_pip.color = COLOR_STATUS_AMBER
+	else:
+		status_pip.color = COLOR_STATUS_GREEN
+
+func _on_mouse_entered() -> void:
+	if is_selected:
+		return
+	is_hovered = true
+	var tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	tween.parallel().tween_property(stylebox, "bg_color", COLOR_BG_HOVER, 0.12)
+	tween.parallel().tween_property(stylebox, "border_color", COLOR_BORDER_HOVER, 0.12)
+
+func _on_mouse_exited() -> void:
+	if is_selected:
+		return
+	is_hovered = false
+	var tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	tween.parallel().tween_property(stylebox, "bg_color", COLOR_BG_NORMAL, 0.12)
+	tween.parallel().tween_property(stylebox, "border_color", COLOR_BORDER_DEFAULT, 0.12)
+
+func _on_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		_on_profile_pressed()
+
+func _on_activity_pressed() -> void:
+	activity_change_requested.emit(fighter_data.get("id", ""), activity_btn.global_position + Vector2(0, activity_btn.size.y))
+
+func _on_profile_pressed() -> void:
+	fighter_selected.emit(fighter_data.get("id", ""))
+
+2. res://scripts/ui/gym_roster_screen.gd
+class_name GymRosterScreen
+extends Control
+
+signal open_scouting_requested
+signal open_tryouts_requested
+signal inspect_fighter_profile(fighter_id: String)
+
+const COLOR_VOID: Color = Color("#0d0c0b")
+const COLOR_GOLD: Color = Color("#f0c233")
+const COLOR_TEXT_CREAM: Color = Color("#f5f0e6")
+const COLOR_TEXT_MUTED: Color = Color("#a8a29e")
+
+@onready var roster_list_container: VBoxContainer = %RosterListContainer
+@onready var empty_state_card: PanelContainer = %EmptyStateCard
+@onready var table_header_row: PanelContainer = %TableHeaderRow
+@onready var roster_count_label: Label = %RosterCountLabel
+@onready var btn_empty_scout: Button = %EmptyScoutButton
+@onready var btn_empty_tryout: Button = %EmptyTryoutButton
+@onready var btn_header_scout: Button = %HeaderScoutButton
+
+var roster_collection: Array[Dictionary] = []
+var active_filter: String = "ALL"
+var current_sort_col: String = "NAME"
+var sort_ascending: bool = true
+
+func _ready() -> void:
+	btn_empty_scout.pressed.connect(func(): open_scouting_requested.emit())
+	btn_header_scout.pressed.connect(func(): open_scouting_requested.emit())
+	btn_empty_tryout.pressed.connect(func(): open_tryouts_requested.emit())
+	_setup_filters()
+	refresh_roster_data()
+
+func populate_roster(fighters: Array[Dictionary]) -> void:
+	roster_collection = fighters
+	refresh_display()
+
+func refresh_display() -> void:
+	for child in roster_list_container.get_children():
+		child.queue_free()
+	
+	var total_count = roster_collection.size()
+	roster_count_label.text = "ROSTER CAPACITY: %d/8" % total_count
+	
+	if total_count == 0:
+		empty_state_card.visible = true
+		table_header_row.visible = false
+		btn_header_scout.visible = false
+		return
+	
+	empty_state_card.visible = false
+	table_header_row.visible = true
+	btn_header_scout.visible = true
+	
+	var filtered = _apply_filter_and_sort(roster_collection)
+	for f_data in filtered:
+		var row: FighterRosterRow = preload("res://ui/components/fighter_roster_row.tscn").instantiate()
+		roster_list_container.add_child(row)
+		row.bind_fighter(f_data)
+		row.fighter_selected.connect(func(f_id): inspect_fighter_profile.emit(f_id))
+
+func _setup_filters() -> void:
+	var filter_group = %FilterChipsContainer
+	for btn in filter_group.get_children():
+		if btn is Button:
+			btn.pressed.connect(func():
+				for b in filter_group.get_children():
+					b.set_pressed_no_signal(b == btn)
+				active_filter = btn.name.to_upper()
+				refresh_display()
+			)
+
+func _apply_filter_and_sort(source: Array[Dictionary]) -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
+	for f in source:
+		match active_filter:
+			"NEEDS_YOU":
+				if f.get("today_activity", "UNASSIGNED") == "UNASSIGNED" or f.get("condition", 100.0) < 60.0:
+					result.append(f)
+			"UNPLANNED":
+				if f.get("today_activity", "UNASSIGNED") == "UNASSIGNED":
+					result.append(f)
+			"IN_CAMP":
+				if f.get("in_camp", false):
+					result.append(f)
+			"BLOCKED":
+				if f.get("is_injured", false) or f.get("condition", 100.0) < 4
+
+Can you turn the defects into a prioritized fix list with exact acceptance criteria for each issue?
+Can you create a 1920×1080 visual mockup of the corrected Gym Roster screen using the Round 70 UI tokens?
+Can you provide the complete GDScript implementation for the fighter row, sorting, filtering, hover states, and empty roster?
+Can you create visual variants comparing the empty, one-fighter, and full eight-fighter roster states?

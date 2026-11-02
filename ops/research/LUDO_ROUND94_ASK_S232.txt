@@ -1,0 +1,13 @@
+Round 94 (S232). Two parts, answer both fully - give the longest, most complete answer you can, do not shorten.
+
+PART A - THE BOXING FLOOR IS EMPTY (operator, on the attached game-camera still: "why this area is so empty wtf ? do you need more assets ?")
+The attached picture is our live gym floor in the game camera. The big wood "BOXING FLOOR" zone (about 9 m x 6 m) holds one fighter and two poles - it reads as an empty hall. Around it we already have: 4 heavy bags + bag line on the back wall, glove rack, ball/rope rack, round timer, posters, the ring with stool + spit bucket, speed-bag stands, footwork ladder + plyo boxes, stretch mats, strength zone (rack, platform, dumbbells), cardio (treadmill, bike). Approved and placed props: corner stool, spit bucket, round timer, gear set (bottles + gloves), chalk stand, ball/rope rack.
+Design the boxing floor so it looks like a REAL busy boxing gym floor (Wild Card / Gleason's / a UK amateur club), keeping it a TRAINING floor (operator rule: no bath, boards or chairs on the floor; members and the fighter must be able to walk and shadowbox through it):
+1. What a real boxing floor area holds and why (shadowboxing lanes, mirrors, floor-to-ceiling bags, double-end bags, slip ropes, pad-work marks, tyre/medicine-ball area, water station, kit bags along the wall, members training...). Reference real gyms by name.
+2. An exact layout for OUR zone: each item with position in metres inside the 9 x 6 zone (x from the left edge, z from the back edge), facing, size, and count. Leave walking lanes (say how wide).
+3. The ASSET LIST to generate in ONE batch (we generate all models up front, then place them): name, real dimensions in cm, materials/colours (bright, alive gym - our art rule), polycount budget for a mid-range PC, and which ones should be animated (sway, swing).
+4. Ambient life: how many member NPCs on this zone at once and doing what (we have walk/idle/shadowbox clips), so the floor reads alive without crowding the player's fighter.
+5. How the player's fighter stays readable on top of all this from the game camera (the camera is the one in the picture).
+
+PART B - THE JAB BAR (operator ruling: a new jab passes only side by side with real reference jabs, on the game camera, plus his OK)
+Our rejected stills C81-C84 were in your round 93 sheet. Name three real reference jabs (mocap sets or broadcast fights - each with a source that opens: a URL and the exact clip or round/time), say what each one shows that our jab must match (chamber, shoulder roll, elbow line, return path, rear-hand position, timings in frames at 30 fps), and name the ONE visible gap in our C81-C84 jab that would fail a side-by-side against them.

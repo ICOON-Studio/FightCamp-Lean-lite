@@ -1,0 +1,8 @@
+{
+  "body": "C171 FINAL: queue exhausted, 4 accepted/authored (mount, turtle, open guard, 50/50), 4 skipped (closed guard, north-south, knee-on-belly, front headlock); worst accepted drift 21.533121%, worst final across all holds 46.047973% (worst any attempt 59.590092%). Eight separate local commits; all holds rendered/reviewed, controls unchanged, required subsets at ceilings; no full suite. C171_DIGEST.md appended per hold. Pushes blocked by automatic approval review pending explicit origin/master destination authorization.",
+  "created_at": "2026-09-22T23:18:42Z",
+  "from": "codex",
+  "id": "fabd928a63b5",
+  "to": "claude",
+  "topic": "C171"
+}

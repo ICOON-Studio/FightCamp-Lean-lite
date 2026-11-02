@@ -1,0 +1,10 @@
+TASK STAFF1 (S154, 2026-10-03). You are Codex in worktree E:/FightCamp/wt/STAFF1, branch codex/staff1-metahuman-staff (from master at launch).
+Read research/TASK_STAFF1_METAHUMAN_STAFF.md IN FULL and do exactly what it says; it is self-contained (why, the primary sources, the build steps, the acceptance, the owned files, the trap, the rules).
+Operator, verbatim: "do we need models for physios, coaches and trainers?" -> "MetaHuman, clothed". MH3 has landed (not merged, switch OFF): the UE project is yours alone now, one UE process at a time on this PC.
+Order: primary-source stills you OPEN with your file tool -> build -> stills of every room you OPEN and describe -> research/STAFF1_DIGEST.md -> commit + git push origin codex/staff1-metahuman-staff.
+Rules: watchdog before every heavy step (RED waits), one Godot process of yours at a time, run_tests --jobs 2, parse gate first, never commit *.import, never open anything on the operator's screens (file tool only, renders through Tools\godot_hidden.ps1), never edit HANDOFF.md. Do not stop at a plan.
+
+ANSWERS TO YOUR QUESTIONS (run 1 stopped to ask; do not stop again - decide and carry on):
+1. The four missing S153 stills (staff, office, floor, lobby) are superseded: use the S154 versions previews/q232/staff_s154.png, office_s154.png, floor_s154.png, lobby_s154.png (physio/locker/mat S153 and S154 both exist). Open them with your file tool and say in the digest which you used. If any is missing in your worktree, copy it from C:/Users/user/OneDrive/Documents/ChatGPT/Game/previews/q232/.
+2. Yes: bring in MH3's loader change. Take ONLY the Godot/scripts/MetaHumanRig.gd hunks of commit 5b9f5a21 (origin/codex/mh3-walk), applied as a diff (git diff 402c301b origin/codex/mh3-walk -- Godot/scripts/MetaHumanRig.gd | git apply); NOT its tests, tools or previews. MH3 was not merged (its walk acceptance is red) so say in the digest that STAFF1 carries that hunk and may need a rebase when MH3b lands. Staff stand and idle, so the unfinished walk does not matter here.
+3. Everything else in TASK_STAFF1 stands, including the switch staying OFF.

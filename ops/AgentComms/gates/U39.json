@@ -1,0 +1,11 @@
+{
+  "checked_at": "2026-09-10T16:15:46Z",
+  "files": [
+    "Godot/scripts/FightClipBinding.gd",
+    "Godot/scripts/FightStagePlayer.gd",
+    "Godot/tests/fight_stage_playback_test.gd"
+  ],
+  "output": "CHECK total=3 fails=0 autoload_refs=0 autoload_warnings=0 time=0s\n",
+  "passed": true,
+  "task": "U39"
+}

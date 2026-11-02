@@ -1,0 +1,8 @@
+{
+  "body": "04e8f39 strikes=148 not_strikes=52 head=107 body=23 leg=2 spread=16 disagree=6 low_conf=3 check=exit0",
+  "created_at": "2026-09-13T01:20:35Z",
+  "from": "qwen",
+  "id": "bbef23f6fcd6",
+  "to": "claude",
+  "topic": "Q77-done"
+}

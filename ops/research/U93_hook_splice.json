@@ -1,0 +1,107 @@
+{
+  "idle_first": {
+    "lead": "LeftToes",
+    "split_m": 0.586273193359375,
+    "width_m": 0.32629457116127
+  },
+  "population": {
+    "binding": "boxing",
+    "fighter": "f01_m_box_welter",
+    "fps": 30,
+    "node": "still"
+  },
+  "variants": [
+    {
+      "entry_pose_deg": 75.3869958791508,
+      "first": {
+        "lead": "RightToes",
+        "split_m": 0.578220337629318,
+        "width_m": 0.334710001945496
+      },
+      "frames": 30,
+      "hand_chest_dev_max_m": 0.0,
+      "hand_chest_dev_mean_m": 0.0,
+      "hand_node_dev_max_m": 0.0,
+      "hand_node_dev_mean_m": 0.0,
+      "last": {
+        "lead": "RightToes",
+        "split_m": 0.682254001498222,
+        "width_m": 0.331469565629959
+      },
+      "name": "mirror",
+      "planted_frames": 24,
+      "reach_fwd_max_m": 1.04906713962555,
+      "skate_mean_mps": 0.325343560016336,
+      "torso_yaw_dev_max_deg": 0.0
+    },
+    {
+      "entry_pose_deg": 23.126440777702,
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.586132481694222,
+        "width_m": 0.326080352067947
+      },
+      "frames": 30,
+      "hand_chest_dev_max_m": 0.000000190827975643515,
+      "hand_chest_dev_mean_m": 0.000000104555447322241,
+      "hand_node_dev_max_m": 1.08593952655792,
+      "hand_node_dev_mean_m": 0.678188459078471,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.689069792628288,
+        "width_m": 0.322836115956306
+      },
+      "name": "upper_mirror_lower_lead",
+      "planted_frames": 27,
+      "reach_fwd_max_m": 0.418706059455872,
+      "skate_mean_mps": 0.325423100617223,
+      "torso_yaw_dev_max_deg": 177.958281550277
+    },
+    {
+      "entry_pose_deg": 23.0679280657069,
+      "first": {
+        "lead": "LeftToes",
+        "split_m": 0.586273193359375,
+        "width_m": 0.32629457116127
+      },
+      "frames": 30,
+      "hand_chest_dev_max_m": 0.000000208616256713867,
+      "hand_chest_dev_mean_m": 0.0000000887420958643285,
+      "hand_node_dev_max_m": 1.2271271944046,
+      "hand_node_dev_mean_m": 0.791842657327652,
+      "last": {
+        "lead": "LeftToes",
+        "split_m": 0.586045235395432,
+        "width_m": 0.325582966208458
+      },
+      "name": "upper_mirror_lower_idle",
+      "planted_frames": 29,
+      "reach_fwd_max_m": 0.345767915248871,
+      "skate_mean_mps": 0.0140412447888531,
+      "torso_yaw_dev_max_deg": 128.345451473866
+    },
+    {
+      "entry_pose_deg": 64.4007119342969,
+      "first": {
+        "lead": "RightToes",
+        "split_m": 0.106157198548317,
+        "width_m": 0.660491794347763
+      },
+      "frames": 30,
+      "hand_chest_dev_max_m": 0.00000012287812012346,
+      "hand_chest_dev_mean_m": 0.0000000667385718836992,
+      "hand_node_dev_max_m": 0.544129073619843,
+      "hand_node_dev_mean_m": 0.312735050637275,
+      "last": {
+        "lead": "RightToes",
+        "split_m": 0.155596081167459,
+        "width_m": 0.650314390659332
+      },
+      "name": "upper_mirror_hipsrot_mirror_lower_idle",
+      "planted_frames": 25,
+      "reach_fwd_max_m": 0.685776174068451,
+      "skate_mean_mps": 1.07994627580047,
+      "torso_yaw_dev_max_deg": 0.0279764551182933
+    }
+  ]
+}

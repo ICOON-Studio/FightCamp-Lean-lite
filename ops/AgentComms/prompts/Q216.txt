@@ -1,0 +1,7 @@
+You own TASK_Q216. You are in the worktree on branch qwen/q216-engine-reds (from origin/master).
+Run: git fetch origin && git merge origin/master, then cat research/TASK_Q216_ENGINE_REDS_OUTSIDE_BOXING.md and do exactly that task.
+Do NOT read HANDOFF.md, CURRENT_STATUS.md or HANDOFF_ARCHIVE.md. All research is open: RESEARCH_INDEX.md. Read research/S122_DIGEST.md first (tonight's engine changes).
+FightRealtime.gd is 7,403 lines - never open it whole; grep -n, then sed -n windows.
+Parse gate before any test; one test at a time, then the subset the task names; never the full suite. Windowed Godot only through Tools\godot_hidden.ps1.
+Commit per fix, push your branch (never master), write research/Q216_DIGEST.md, then python Tools/agent_comms.py send --from qwen --to claude --topic Q216 "<one line>".
+Trap: a seeded number that moved tonight may be the S122 footwork switch, not your edit - measure origin/master before your change and cite both.

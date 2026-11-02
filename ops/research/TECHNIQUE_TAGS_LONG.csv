@@ -1,0 +1,1642 @@
+origin,discipline,id,name,kind,tier,branch,role,phases,tag,value
+LIVE,boxing,boxing_stance_guard,Stance and High Guard,skill,1,fundamentals,defense,standing,balance,5
+LIVE,boxing,boxing_stance_guard,Stance and High Guard,skill,1,fundamentals,defense,standing,guard,8
+LIVE,boxing,boxing_jab,Jab,move,1,straight_punching,setup,standing,accuracy,7
+LIVE,boxing,boxing_jab,Jab,move,1,straight_punching,setup,standing,combo_open,5
+LIVE,boxing,boxing_jab,Jab,move,1,straight_punching,setup,standing,range_control,6
+LIVE,boxing,boxing_cross,Rear Cross,move,1,straight_punching,damage,standing,accuracy,4
+LIVE,boxing,boxing_cross,Rear Cross,move,1,straight_punching,damage,standing,damage,8
+LIVE,boxing,boxing_lead_hook,Lead Hook,move,2,hooks_bodywork,damage,standing|pocket,angle_attack,7
+LIVE,boxing,boxing_lead_hook,Lead Hook,move,2,hooks_bodywork,damage,standing|pocket,damage,10
+LIVE,boxing,boxing_rear_uppercut,Rear Uppercut,move,2,hooks_bodywork,counter,pocket|clinch_break,damage,11
+LIVE,boxing,boxing_rear_uppercut,Rear Uppercut,move,2,hooks_bodywork,counter,pocket|clinch_break,guard_split,8
+LIVE,boxing,boxing_slip_counter,Slip-Cross Counter,move,2,defense_counters,counter,standing,counter_accuracy,10
+LIVE,boxing,boxing_slip_counter,Slip-Cross Counter,move,2,defense_counters,counter,standing,evasion,9
+LIVE,boxing,boxing_body_hook,Lead Hook to the Body,move,3,hooks_bodywork,damage,pocket,body_damage,13
+LIVE,boxing,boxing_body_hook,Lead Hook to the Body,move,3,hooks_bodywork,damage,pocket,opponent_stamina,-8
+LIVE,boxing,boxing_check_hook,Check Hook,move,3,defense_counters,counter,standing,angle_exit,11
+LIVE,boxing,boxing_check_hook,Check Hook,move,3,defense_counters,counter,standing,counter_accuracy,12
+LIVE,boxing,boxing_pull_counter,Pull-Cross Counter,move,3,defense_counters,counter,standing,counter_damage,10
+LIVE,boxing,boxing_pull_counter,Pull-Cross Counter,move,3,defense_counters,counter,standing,evasion,12
+LIVE,boxing,boxing_liver_combo,Jab-Cross-Lead Hook to Body,sequence,4,hooks_bodywork,damage,standing|pocket,body_damage,16
+LIVE,boxing,boxing_liver_combo,Jab-Cross-Lead Hook to Body,sequence,4,hooks_bodywork,damage,standing|pocket,combo_accuracy,14
+LIVE,boxing,boxing_liver_combo,Jab-Cross-Lead Hook to Body,sequence,4,hooks_bodywork,damage,standing|pocket,finish_chance,6
+LIVE,boxing,boxing_overhand,Overhand Right,move,2,straight_punching,damage,standing,accuracy,3
+LIVE,boxing,boxing_overhand,Overhand Right,move,2,straight_punching,damage,standing,damage,10
+LIVE,boxing,boxing_lead_uppercut,Lead Uppercut,move,2,hooks_bodywork,damage,pocket,combo_open,6
+LIVE,boxing,boxing_lead_uppercut,Lead Uppercut,move,2,hooks_bodywork,damage,pocket,damage,8
+LIVE,boxing,boxing_double_jab,Double Jab,move,2,straight_punching,setup,standing,combo_open,7
+LIVE,boxing,boxing_double_jab,Double Jab,move,2,straight_punching,setup,standing,range_control,8
+LIVE,boxing,boxing_shoulder_roll,Shoulder Roll,skill,3,defense_counters,defense,pocket,counter_ready,7
+LIVE,boxing,boxing_shoulder_roll,Shoulder Roll,skill,3,defense_counters,defense,pocket,evasion,9
+LIVE,boxing,boxing_pivot_footwork,Ring Pivot,skill,2,footwork_ring,adaptation,standing,angle_attack,6
+LIVE,boxing,boxing_pivot_footwork,Ring Pivot,skill,2,footwork_ring,adaptation,standing,mobility,8
+LIVE,boxing,boxing_cutoff_ring,Cut Off the Ring,skill,3,footwork_ring,adaptation,standing,boundary_control,9
+LIVE,boxing,boxing_cutoff_ring,Cut Off the Ring,skill,3,footwork_ring,adaptation,standing,opponent_mobility,-6
+LIVE,boxing,boxing_check_hook_pivot,Check Hook & Pivot,move,3,defense_counters,counter,pocket,angle_exit,7
+LIVE,boxing,boxing_check_hook_pivot,Check Hook & Pivot,move,3,defense_counters,counter,pocket,counter_damage,9
+LIVE,boxing,boxing_six_punch_combo,Six-Punch Combination,move,4,hooks_bodywork,damage,pocket,body_damage,6
+LIVE,boxing,boxing_six_punch_combo,Six-Punch Combination,move,4,hooks_bodywork,damage,pocket,combo_speed,8
+LIVE,boxing,boxing_six_punch_combo,Six-Punch Combination,move,4,hooks_bodywork,damage,pocket,damage,12
+LIVE,kickboxing,kickboxing_guard,Kickboxing Stance and Guard,skill,1,fundamentals,defense,standing,guard,7
+LIVE,kickboxing,kickboxing_guard,Kickboxing Stance and Guard,skill,1,fundamentals,defense,standing,kick_balance,5
+LIVE,kickboxing,kickboxing_front_kick,Front Kick,move,1,kicks,setup,standing,pushback,5
+LIVE,kickboxing,kickboxing_front_kick,Front Kick,move,1,kicks,setup,standing,range_control,8
+LIVE,kickboxing,kickboxing_roundhouse,Roundhouse Kick,move,1,kicks,damage,standing,kick_damage,8
+LIVE,kickboxing,kickboxing_roundhouse,Roundhouse Kick,move,1,kicks,damage,standing,range,6
+LIVE,kickboxing,kickboxing_low_kick,Low Kick,move,2,kicks,damage,standing,leg_damage,10
+LIVE,kickboxing,kickboxing_low_kick,Low Kick,move,2,kicks,damage,standing,opponent_mobility,-6
+LIVE,kickboxing,kickboxing_kick_check,Shin Check,skill,2,counters,defense,standing,low_kick_defense,12
+LIVE,kickboxing,kickboxing_kick_check,Shin Check,skill,2,counters,defense,standing,return_damage,4
+LIVE,kickboxing,kickboxing_jab_lowkick,Jab-Cross-Low Kick,sequence,2,combinations,setup,standing,combo_accuracy,9
+LIVE,kickboxing,kickboxing_jab_lowkick,Jab-Cross-Low Kick,sequence,2,combinations,setup,standing,leg_damage,8
+LIVE,kickboxing,kickboxing_switch_kick,Switch Roundhouse Kick,move,3,kicks,damage,standing,body_damage,11
+LIVE,kickboxing,kickboxing_switch_kick,Switch Roundhouse Kick,move,3,kicks,damage,standing,kick_speed,11
+LIVE,kickboxing,kickboxing_high_kick,High Roundhouse Kick,move,3,kicks,damage,standing,finish_chance,7
+LIVE,kickboxing,kickboxing_high_kick,High Roundhouse Kick,move,3,kicks,damage,standing,head_damage,14
+LIVE,kickboxing,kickboxing_spinning_back,Spinning Back Kick,move,3,counters,counter,standing,body_damage,15
+LIVE,kickboxing,kickboxing_spinning_back,Spinning Back Kick,move,3,counters,counter,standing,counter_risk,6
+LIVE,kickboxing,kickboxing_four_strike,Cross-Hook-Low Kick-High Kick Chain,sequence,4,combinations,damage,standing,combo_accuracy,14
+LIVE,kickboxing,kickboxing_four_strike,Cross-Hook-Low Kick-High Kick Chain,sequence,4,combinations,damage,standing,finish_chance,8
+LIVE,kickboxing,kickboxing_four_strike,Cross-Hook-Low Kick-High Kick Chain,sequence,4,combinations,damage,standing,guard_break,12
+LIVE,kickboxing,kickboxing_teep_stop,Push Kick Stop,skill,2,counters,defense,standing,opponent_mobility,-5
+LIVE,kickboxing,kickboxing_teep_stop,Push Kick Stop,skill,2,counters,defense,standing,range_control,8
+LIVE,kickboxing,kickboxing_body_kick,Body Roundhouse,move,2,kicks,damage,standing,body_damage,9
+LIVE,kickboxing,kickboxing_body_kick,Body Roundhouse,move,2,kicks,damage,standing,damage,5
+LIVE,kickboxing,kickboxing_question_mark,Question Mark Kick,move,3,kicks,damage,standing,feint,6
+LIVE,kickboxing,kickboxing_question_mark,Question Mark Kick,move,3,kicks,damage,standing,head_damage,10
+LIVE,kickboxing,kickboxing_jab_cross_lowkick,Jab-Cross-Low Kick,move,2,combinations,damage,standing,combo_open,6
+LIVE,kickboxing,kickboxing_jab_cross_lowkick,Jab-Cross-Low Kick,move,2,combinations,damage,standing,leg_damage,8
+LIVE,kickboxing,kickboxing_catch_kick_return,Catch & Return,move,3,counters,counter,pocket,counter_damage,9
+LIVE,kickboxing,kickboxing_catch_kick_return,Catch & Return,move,3,counters,counter,pocket,counter_takedown,5
+LIVE,kickboxing,kickboxing_clinch_knee_sweep,Clinch Knee to Sweep,move,3,clinch_sweeps,control,clinch,clinch_damage,7
+LIVE,kickboxing,kickboxing_clinch_knee_sweep,Clinch Knee to Sweep,move,3,clinch_sweeps,control,clinch,sweep,6
+LIVE,kickboxing,kickboxing_switch_step_read,Switch-Step Read,skill,2,fundamentals,adaptation,standing,distance_read,6
+LIVE,kickboxing,kickboxing_switch_step_read,Switch-Step Read,skill,2,fundamentals,adaptation,standing,rhythm_control,7
+LIVE,kickboxing,kickboxing_blitz_four_kick,Blitz to High Kick,move,4,combinations,damage,standing,combo_speed,8
+LIVE,kickboxing,kickboxing_blitz_four_kick,Blitz to High Kick,move,4,combinations,damage,standing,damage,12
+LIVE,muay_thai,muay_thai_stance,Muay Thai Stance,skill,1,eight_limbs,defense,standing,check_readiness,6
+LIVE,muay_thai,muay_thai_stance,Muay Thai Stance,skill,1,eight_limbs,defense,standing,guard,7
+LIVE,muay_thai,muay_thai_teep,Teep (Push Kick),move,1,kicks_knees,setup,standing,balance_break,5
+LIVE,muay_thai,muay_thai_teep,Teep (Push Kick),move,1,kicks_knees,setup,standing,range_control,9
+LIVE,muay_thai,muay_thai_round_kick,Round Kick,move,1,kicks_knees,damage,standing,body_damage,7
+LIVE,muay_thai,muay_thai_round_kick,Round Kick,move,1,kicks_knees,damage,standing,kick_damage,9
+LIVE,muay_thai,muay_thai_straight_knee,Straight Knee,move,2,kicks_knees,damage,standing|clinch,body_damage,10
+LIVE,muay_thai,muay_thai_straight_knee,Straight Knee,move,2,kicks_knees,damage,standing|clinch,close_range,7
+LIVE,muay_thai,muay_thai_horizontal_elbow,Horizontal Elbow,move,2,elbows,damage,pocket|clinch_break,cut_chance,10
+LIVE,muay_thai,muay_thai_horizontal_elbow,Horizontal Elbow,move,2,elbows,damage,pocket|clinch_break,damage,9
+LIVE,muay_thai,muay_thai_plum,Double-Collar Clinch,skill,2,clinch,control,clinch,clinch_control,12
+LIVE,muay_thai,muay_thai_plum,Double-Collar Clinch,skill,2,clinch,control,clinch,knee_setup,9
+LIVE,muay_thai,muay_thai_clinch_knees,Clinch Knee Series,sequence,3,clinch,damage,clinch,body_damage,13
+LIVE,muay_thai,muay_thai_clinch_knees,Clinch Knee Series,sequence,3,clinch,damage,clinch,opponent_stamina,-10
+LIVE,muay_thai,muay_thai_up_elbow,Upward Elbow,move,3,elbows,counter,pocket|clinch,counter_damage,11
+LIVE,muay_thai,muay_thai_up_elbow,Upward Elbow,move,3,elbows,counter,pocket|clinch,cut_chance,13
+LIVE,muay_thai,muay_thai_clinch_dump,Clinch Turn and Dump,move,3,clinch,takedown,clinch,balance_break,14
+LIVE,muay_thai,muay_thai_clinch_dump,Clinch Turn and Dump,move,3,clinch,takedown,clinch,control_score,9
+LIVE,muay_thai,muay_thai_eight_limb_chain,Teep-Round Kick-Clinch Knee-Elbow Chain,sequence,4,eight_limbs,adaptation,standing|pocket|clinch,damage,13
+LIVE,muay_thai,muay_thai_eight_limb_chain,Teep-Round Kick-Clinch Knee-Elbow Chain,sequence,4,eight_limbs,adaptation,standing|pocket|clinch,finish_chance,8
+LIVE,muay_thai,muay_thai_eight_limb_chain,Teep-Round Kick-Clinch Knee-Elbow Chain,sequence,4,eight_limbs,adaptation,standing|pocket|clinch,phase_transition,15
+LIVE,muay_thai,muay_thai_switch_kick_body,Switch Body Kick,move,2,kicks_knees,damage,standing,body_damage,9
+LIVE,muay_thai,muay_thai_switch_kick_body,Switch Body Kick,move,2,kicks_knees,damage,standing,damage,5
+LIVE,muay_thai,muay_thai_teep_defense,Long Guard & Teep,skill,2,defense_ringcraft,defense,standing,guard,6
+LIVE,muay_thai,muay_thai_teep_defense,Long Guard & Teep,skill,2,defense_ringcraft,defense,standing,range_control,8
+LIVE,muay_thai,muay_thai_catch_sweep,Catch & Sweep,move,3,clinch,control,clinch,balance_break,6
+LIVE,muay_thai,muay_thai_catch_sweep,Catch & Sweep,move,3,clinch,control,clinch,sweep,8
+LIVE,muay_thai,muay_thai_diagonal_elbow,Diagonal Slashing Elbow,move,3,elbows,damage,pocket,cut_chance,7
+LIVE,muay_thai,muay_thai_diagonal_elbow,Diagonal Slashing Elbow,move,3,elbows,damage,pocket,head_damage,10
+LIVE,muay_thai,muay_thai_spinning_elbow,Spinning Back Elbow,move,4,elbows,damage,pocket,head_damage,12
+LIVE,muay_thai,muay_thai_spinning_elbow,Spinning Back Elbow,move,4,elbows,damage,pocket,surprise,8
+LIVE,muay_thai,muay_thai_knee_curfew,Clinch Knee Curfew,move,3,clinch,control,clinch,clinch_damage,9
+LIVE,muay_thai,muay_thai_knee_curfew,Clinch Knee Curfew,move,3,clinch,control,clinch,opponent_stamina,-6
+LIVE,muay_thai,muay_thai_dumps_offbalance,Off-Balance Dump,move,3,clinch,takedown,clinch,balance_break,8
+LIVE,muay_thai,muay_thai_dumps_offbalance,Off-Balance Dump,move,3,clinch,takedown,clinch,score_or_damage,6
+LIVE,muay_thai,muay_thai_ringcraft_walk,Ring Generalship,skill,3,defense_ringcraft,adaptation,standing,boundary_control,9
+LIVE,muay_thai,muay_thai_ringcraft_walk,Ring Generalship,skill,3,defense_ringcraft,adaptation,standing,tempo,6
+LIVE,wrestling,wrestling_stance,Wrestling Stance and Motion,skill,1,entries,defense,standing,entry_speed,5
+LIVE,wrestling,wrestling_stance,Wrestling Stance and Motion,skill,1,entries,defense,standing,takedown_defense,6
+LIVE,wrestling,wrestling_level_change,Level Change and Penetration Step,skill,1,entries,setup,standing,entry_accuracy,8
+LIVE,wrestling,wrestling_level_change,Level Change and Penetration Step,skill,1,entries,setup,standing,feint,4
+LIVE,wrestling,wrestling_single_leg,Single-Leg Takedown,move,1,takedowns,takedown,standing,chain_open,5
+LIVE,wrestling,wrestling_single_leg,Single-Leg Takedown,move,1,takedowns,takedown,standing,takedown,9
+LIVE,wrestling,wrestling_double_leg,Double-Leg Takedown,move,2,takedowns,takedown,standing,impact,6
+LIVE,wrestling,wrestling_double_leg,Double-Leg Takedown,move,2,takedowns,takedown,standing,takedown,11
+LIVE,wrestling,wrestling_sprawl,Sprawl,move,2,defense,defense,standing|scramble,front_headlock_open,6
+LIVE,wrestling,wrestling_sprawl,Sprawl,move,2,defense,defense,standing|scramble,takedown_defense,13
+LIVE,wrestling,wrestling_snapdown,Snapdown to Front Headlock,sequence,2,entries,control,standing|scramble,control,10
+LIVE,wrestling,wrestling_snapdown,Snapdown to Front Headlock,sequence,2,entries,control,standing|scramble,go_behind_open,8
+LIVE,wrestling,wrestling_ankle_pick,Ankle Pick,move,3,takedowns,takedown,standing,energy_efficiency,7
+LIVE,wrestling,wrestling_ankle_pick,Ankle Pick,move,3,takedowns,takedown,standing,takedown,13
+LIVE,wrestling,wrestling_gut_wrench,Gut Wrench,move,3,par_terre,control,ground_top,control_score,10
+LIVE,wrestling,wrestling_gut_wrench,Gut Wrench,move,3,par_terre,control,ground_top,turn,14
+LIVE,wrestling,wrestling_mat_return,Rear Body-Lock Mat Return,move,3,takedowns,takedown,clinch|standing_back,control,10
+LIVE,wrestling,wrestling_mat_return,Rear Body-Lock Mat Return,move,3,takedowns,takedown,clinch|standing_back,takedown,14
+LIVE,wrestling,wrestling_suplex,Suplex Throw,move,4,takedowns,takedown,clinch|standing_back,impact,15
+LIVE,wrestling,wrestling_suplex,Suplex Throw,move,4,takedowns,takedown,clinch|standing_back,risk,8
+LIVE,wrestling,wrestling_suplex,Suplex Throw,move,4,takedowns,takedown,clinch|standing_back,takedown,18
+LIVE,wrestling,wrestling_high_crotch,High Crotch,move,2,takedowns,takedown,standing,entry_accuracy,5
+LIVE,wrestling,wrestling_high_crotch,High Crotch,move,2,takedowns,takedown,standing,takedown,9
+LIVE,wrestling,wrestling_duck_under,Duck Under,move,2,entries,setup,standing,angle_entry,6
+LIVE,wrestling,wrestling_duck_under,Duck Under,move,2,entries,setup,standing,go_behind_open,8
+LIVE,wrestling,wrestling_blast_double,Blast Double,move,3,takedowns,takedown,standing,impact,6
+LIVE,wrestling,wrestling_blast_double,Blast Double,move,3,takedowns,takedown,standing,takedown,11
+LIVE,wrestling,wrestling_whizzer_defense,Whizzer Defense,skill,2,defense,defense,clinch,scramble,5
+LIVE,wrestling,wrestling_whizzer_defense,Whizzer Defense,skill,2,defense,defense,clinch,takedown_defense,9
+LIVE,wrestling,wrestling_front_headlock,Front Headlock,skill,3,scrambles,control,scramble,front_headlock_open,9
+LIVE,wrestling,wrestling_front_headlock,Front Headlock,skill,3,scrambles,control,scramble,go_behind_open,6
+LIVE,wrestling,wrestling_scramble_reversal,Scramble Reversal,move,3,scrambles,escape,scramble,escape_or_takedown,9
+LIVE,wrestling,wrestling_scramble_reversal,Scramble Reversal,move,3,scrambles,escape,scramble,momentum_shift,6
+LIVE,wrestling,wrestling_leg_ride,Leg Ride & Turn,skill,3,par_terre,control,ground_top,top_control,9
+LIVE,wrestling,wrestling_leg_ride,Leg Ride & Turn,skill,3,par_terre,control,ground_top,turn,6
+LIVE,wrestling,wrestling_chain_wrestle,Chain Takedown Sequence,move,4,takedowns,takedown,standing,chain_open,8
+LIVE,wrestling,wrestling_chain_wrestle,Chain Takedown Sequence,move,4,takedowns,takedown,standing,takedown,12
+LIVE,brazilian_jiu_jitsu,bjj_guard,Closed Guard,skill,1,positions,control,ground_bottom,guard_control,7
+LIVE,brazilian_jiu_jitsu,bjj_guard,Closed Guard,skill,1,positions,control,ground_bottom,submission_setup,4
+LIVE,brazilian_jiu_jitsu,bjj_shrimp_escape,Hip Escape (Shrimp),move,1,escapes,escape,ground_bottom,escape,8
+LIVE,brazilian_jiu_jitsu,bjj_shrimp_escape,Hip Escape (Shrimp),move,1,escapes,escape,ground_bottom,guard_recovery,7
+LIVE,brazilian_jiu_jitsu,bjj_guard_pass,Knee-Cut Guard Pass,move,1,positions,transition,ground_top,pass_guard,9
+LIVE,brazilian_jiu_jitsu,bjj_guard_pass,Knee-Cut Guard Pass,move,1,positions,transition,ground_top,side_control,6
+LIVE,brazilian_jiu_jitsu,bjj_mount,Mount Control,skill,2,positions,control,ground_top,control,12
+LIVE,brazilian_jiu_jitsu,bjj_mount,Mount Control,skill,2,positions,control,ground_top,submission_setup,7
+LIVE,brazilian_jiu_jitsu,bjj_scissor_sweep,Scissor Sweep,move,2,sweeps,transition,ground_bottom,sweep,11
+LIVE,brazilian_jiu_jitsu,bjj_scissor_sweep,Scissor Sweep,move,2,sweeps,transition,ground_bottom,top_position,7
+LIVE,brazilian_jiu_jitsu,bjj_armbar,Armbar,move,2,submissions,submission,ground_top|ground_bottom,arm_isolation,8
+LIVE,brazilian_jiu_jitsu,bjj_armbar,Armbar,move,2,submissions,submission,ground_top|ground_bottom,submission,11
+LIVE,brazilian_jiu_jitsu,bjj_kimura,Kimura (Shoulder Lock),move,2,submissions,submission,ground_top|ground_bottom,shoulder_isolation,8
+LIVE,brazilian_jiu_jitsu,bjj_kimura,Kimura (Shoulder Lock),move,2,submissions,submission,ground_top|ground_bottom,submission,11
+LIVE,brazilian_jiu_jitsu,bjj_omoplata,Omoplata (Shoulder Lock from Guard),move,2,submissions,submission,ground_bottom,submission,11
+LIVE,brazilian_jiu_jitsu,bjj_omoplata,Omoplata (Shoulder Lock from Guard),move,2,submissions,submission,ground_bottom,sweep_threat,6
+LIVE,brazilian_jiu_jitsu,bjj_triangle,Triangle Choke,move,3,submissions,submission,ground_bottom,counter_to_pass,7
+LIVE,brazilian_jiu_jitsu,bjj_triangle,Triangle Choke,move,3,submissions,submission,ground_bottom,submission,14
+LIVE,brazilian_jiu_jitsu,bjj_back_take_rnc,Back Take to Rear Naked Choke,sequence,3,submissions,submission,ground_top|scramble,back_control,13
+LIVE,brazilian_jiu_jitsu,bjj_back_take_rnc,Back Take to Rear Naked Choke,sequence,3,submissions,submission,ground_top|scramble,submission,15
+LIVE,brazilian_jiu_jitsu,bjj_kimura_chain,Kimura Control Chain,sequence,3,submissions,transition,ground_top|ground_bottom,control,12
+LIVE,brazilian_jiu_jitsu,bjj_kimura_chain,Kimura Control Chain,sequence,3,submissions,transition,ground_top|ground_bottom,submission,11
+LIVE,brazilian_jiu_jitsu,bjj_kimura_chain,Kimura Control Chain,sequence,3,submissions,transition,ground_top|ground_bottom,sweep,9
+LIVE,brazilian_jiu_jitsu,bjj_submission_chain,Armbar-Triangle-Omoplata Chain,sequence,4,submissions,adaptation,ground_bottom|scramble,reaction_punish,15
+LIVE,brazilian_jiu_jitsu,bjj_submission_chain,Armbar-Triangle-Omoplata Chain,sequence,4,submissions,adaptation,ground_bottom|scramble,submission_chain,18
+LIVE,brazilian_jiu_jitsu,brazilian_jiu_jitsu_knee_cut_pass,Knee Cut Pass,move,2,positions,control,ground_top,pass_guard,9
+LIVE,brazilian_jiu_jitsu,brazilian_jiu_jitsu_knee_cut_pass,Knee Cut Pass,move,2,positions,control,ground_top,top_control,5
+LIVE,brazilian_jiu_jitsu,brazilian_jiu_jitsu_hip_bump_sweep,Hip Bump Sweep,move,2,sweeps,control,ground_bottom,chain_open,5
+LIVE,brazilian_jiu_jitsu,brazilian_jiu_jitsu_hip_bump_sweep,Hip Bump Sweep,move,2,sweeps,control,ground_bottom,sweep,8
+LIVE,brazilian_jiu_jitsu,brazilian_jiu_jitsu_berimbolo,Berimbolo,move,4,sweeps,transition,ground_bottom,back_control,10
+LIVE,brazilian_jiu_jitsu,brazilian_jiu_jitsu_berimbolo,Berimbolo,move,4,sweeps,transition,ground_bottom,sweep,6
+LIVE,brazilian_jiu_jitsu,brazilian_jiu_jitsu_straight_ankle,Straight Ankle Lock,move,2,leg_locks,submission,ground,leg_attack,8
+LIVE,brazilian_jiu_jitsu,brazilian_jiu_jitsu_straight_ankle,Straight Ankle Lock,move,2,leg_locks,submission,ground,submission_setup,6
+LIVE,brazilian_jiu_jitsu,brazilian_jiu_jitsu_heel_hook,Heel Hook,move,4,leg_locks,submission,ground,leg_attack,8
+LIVE,brazilian_jiu_jitsu,brazilian_jiu_jitsu_heel_hook,Heel Hook,move,4,leg_locks,submission,ground,submission,12
+LIVE,brazilian_jiu_jitsu,brazilian_jiu_jitsu_guard_retention,Guard Retention Frames,skill,2,guard_retention,defense,ground_bottom,guard_control,5
+LIVE,brazilian_jiu_jitsu,brazilian_jiu_jitsu_guard_retention,Guard Retention Frames,skill,2,guard_retention,defense,ground_bottom,guard_recovery,9
+LIVE,brazilian_jiu_jitsu,brazilian_jiu_jitsu_knee_shield,Knee Shield Guard,skill,3,guard_retention,defense,ground_bottom,guard_control,8
+LIVE,brazilian_jiu_jitsu,brazilian_jiu_jitsu_knee_shield,Knee Shield Guard,skill,3,guard_retention,defense,ground_bottom,sweep_threat,6
+LIVE,brazilian_jiu_jitsu,brazilian_jiu_jitsu_darce_chain,D'Arce & Anaconda Chain,move,4,submissions,submission,ground_top,damage_to_submission,6
+LIVE,brazilian_jiu_jitsu,brazilian_jiu_jitsu_darce_chain,D'Arce & Anaconda Chain,move,4,submissions,submission,ground_top,submission_chain,10
+LIVE,judo,judo_ukemi,Ukemi (Breakfalls),skill,1,ukemi_grips,defense,takedown|ground_entry,scramble,4
+LIVE,judo,judo_ukemi,Ukemi (Breakfalls),skill,1,ukemi_grips,defense,takedown|ground_entry,throw_damage_reduction,9
+LIVE,judo,judo_kumikata,Kumi-kata (Grip Fighting),skill,1,ukemi_grips,control,clinch,grip_control,8
+LIVE,judo,judo_kumikata,Kumi-kata (Grip Fighting),skill,1,ukemi_grips,control,clinch,throw_setup,6
+LIVE,judo,judo_deashi,De-ashi-harai,move,1,ashi_waza,takedown,clinch,balance_break,9
+LIVE,judo,judo_deashi,De-ashi-harai,move,1,ashi_waza,takedown,clinch,takedown,7
+LIVE,judo,judo_osotogari,O-soto-gari,move,2,ashi_waza,takedown,clinch,impact,7
+LIVE,judo,judo_osotogari,O-soto-gari,move,2,ashi_waza,takedown,clinch,takedown,11
+LIVE,judo,judo_ogoshi,O-goshi,move,2,hand_hip_throws,takedown,clinch,position,6
+LIVE,judo,judo_ogoshi,O-goshi,move,2,hand_hip_throws,takedown,clinch,takedown,11
+LIVE,judo,judo_kesagatame,Kesa-gatame,move,2,newaza,control,ground_top,opponent_stamina,-5
+LIVE,judo,judo_kesagatame,Kesa-gatame,move,2,newaza,control,ground_top,pin_control,12
+LIVE,judo,judo_seoinage,Ippon-seoi-nage,move,3,hand_hip_throws,takedown,clinch,impact,10
+LIVE,judo,judo_seoinage,Ippon-seoi-nage,move,3,hand_hip_throws,takedown,clinch,takedown,14
+LIVE,judo,judo_uchimata,Uchi-mata,move,3,ashi_waza,takedown,clinch,counter_throw,8
+LIVE,judo,judo_uchimata,Uchi-mata,move,3,ashi_waza,takedown,clinch,takedown,16
+LIVE,judo,judo_jujigatame,Juji-gatame,move,3,newaza,submission,ground_top,submission,14
+LIVE,judo,judo_jujigatame,Juji-gatame,move,3,newaza,submission,ground_top,transition,8
+LIVE,judo,judo_tomoe_chain,Tomoe-nage to Juji-gatame,sequence,4,newaza,adaptation,clinch|ground_top,sacrifice_throw,17
+LIVE,judo,judo_tomoe_chain,Tomoe-nage to Juji-gatame,sequence,4,newaza,adaptation,clinch|ground_top,submission_chain,15
+LIVE,judo,judo_haraigoshi,Harai Goshi,move,2,hand_hip_throws,takedown,clinch,score_or_damage,8
+LIVE,judo,judo_haraigoshi,Harai Goshi,move,2,hand_hip_throws,takedown,clinch,throw_setup,5
+LIVE,judo,judo_kouchigari,Ko-uchi Gari,move,2,ashi_waza,setup,clinch,balance_break,8
+LIVE,judo,judo_kouchigari,Ko-uchi Gari,move,2,ashi_waza,setup,clinch,throw_open,6
+LIVE,judo,judo_kosotogari,Ko-soto Gari,move,2,ashi_waza,takedown,clinch,counter_throw,4
+LIVE,judo,judo_kosotogari,Ko-soto Gari,move,2,ashi_waza,takedown,clinch,score_or_damage,8
+LIVE,judo,judo_taiotoshi,Tai Otoshi,move,3,hand_hip_throws,takedown,clinch,score_or_damage,10
+LIVE,judo,judo_taiotoshi,Tai Otoshi,move,3,hand_hip_throws,takedown,clinch,throw_setup,6
+LIVE,judo,judo_uranage_counter,Ura Nage Counter,move,4,counters,counter,clinch,counter_throw,11
+LIVE,judo,judo_uranage_counter,Ura Nage Counter,move,4,counters,counter,clinch,score_or_damage,7
+LIVE,judo,judo_sankaku,Sankaku-jime,move,3,newaza,submission,ground_top,submission,9
+LIVE,judo,judo_sankaku,Sankaku-jime,move,3,newaza,submission,ground_top,submission_setup,6
+LIVE,judo,judo_osaekomi_chain,Osaekomi Transitions,skill,3,newaza,control,ground_top,pin_control,9
+LIVE,judo,judo_osaekomi_chain,Osaekomi Transitions,skill,3,newaza,control,ground_top,transition,6
+LIVE,judo,judo_grip_break_counter,Grip Break to Counter,skill,3,counters,adaptation,clinch,counter_ready,6
+LIVE,judo,judo_grip_break_counter,Grip Break to Counter,skill,3,counters,adaptation,clinch,grip_control,9
+LIVE,karate,karate_kamae,Kamae and Maai,skill,1,movement,defense,standing,distance_read,7
+LIVE,karate,karate_kamae,Kamae and Maai,skill,1,movement,defense,standing,first_step,5
+LIVE,karate,karate_kizamizuki,Kizami-zuki,move,1,punching,setup,standing,entry_accuracy,8
+LIVE,karate,karate_kizamizuki,Kizami-zuki,move,1,punching,setup,standing,tempo,5
+LIVE,karate,karate_gyakuzuki,Gyaku-zuki,move,1,punching,damage,standing,counter_accuracy,5
+LIVE,karate,karate_gyakuzuki,Gyaku-zuki,move,1,punching,damage,standing,straight_damage,9
+LIVE,karate,karate_maegeri,Mae-geri,move,2,kicking,setup,standing,body_damage,7
+LIVE,karate,karate_maegeri,Mae-geri,move,2,kicking,setup,standing,range_control,9
+LIVE,karate,karate_mawashigeri,Mawashi-geri,move,2,kicking,damage,standing,head_route,5
+LIVE,karate,karate_mawashigeri,Mawashi-geri,move,2,kicking,damage,standing,kick_damage,11
+LIVE,karate,karate_ashibarai,Ashi-barai,move,2,timing_counters,takedown,standing,balance_break,11
+LIVE,karate,karate_ashibarai,Ashi-barai,move,2,timing_counters,takedown,standing,followup_open,8
+LIVE,karate,karate_counter_gyaku,Tai-sabaki to Gyaku-zuki,sequence,3,timing_counters,counter,standing,counter_accuracy,13
+LIVE,karate,karate_counter_gyaku,Tai-sabaki to Gyaku-zuki,sequence,3,timing_counters,counter,standing,evasion,11
+LIVE,karate,karate_yokogeri,Yoko-geri,move,3,kicking,damage,standing,body_damage,13
+LIVE,karate,karate_yokogeri,Yoko-geri,move,3,kicking,damage,standing,stop_hit,8
+LIVE,karate,karate_uramawashi,Ura-mawashi-geri,move,3,kicking,counter,standing,angle_attack,10
+LIVE,karate,karate_uramawashi,Ura-mawashi-geri,move,3,kicking,counter,standing,head_damage,14
+LIVE,karate,karate_sweep_finish,Ashi-barai to Gyaku-zuki Finish,sequence,4,timing_counters,adaptation,standing|grounded_opponent,score_or_damage,15
+LIVE,karate,karate_sweep_finish,Ashi-barai to Gyaku-zuki Finish,sequence,4,timing_counters,adaptation,standing|grounded_opponent,timing,16
+LIVE,karate,karate_nidan_geri,Nidan Geri,move,3,kicking,damage,standing,feint,6
+LIVE,karate,karate_nidan_geri,Nidan Geri,move,3,kicking,damage,standing,head_damage,9
+LIVE,karate,karate_kizami_gyaku,Kizami-Gyaku Combination,move,2,combinations,damage,standing,accuracy,5
+LIVE,karate,karate_kizami_gyaku,Kizami-Gyaku Combination,move,2,combinations,damage,standing,combo_speed,8
+LIVE,karate,karate_deai_counter,Deai Timing Counter,move,3,timing_counters,counter,standing,counter_damage,6
+LIVE,karate,karate_deai_counter,Deai Timing Counter,move,3,timing_counters,counter,standing,stop_hit,9
+LIVE,karate,karate_uke_counter,Block to Reverse,move,2,timing_counters,counter,standing,counter_open,6
+LIVE,karate,karate_uke_counter,Block to Reverse,move,2,timing_counters,counter,standing,intercept,7
+LIVE,karate,karate_kizami_maegeri,Lead Front Snap Combo,move,2,combinations,setup,standing,combo_open,7
+LIVE,karate,karate_kizami_maegeri,Lead Front Snap Combo,move,2,combinations,setup,standing,distance_read,5
+LIVE,karate,karate_ushiro_geri,Ushiro Geri,move,3,kicking,damage,standing,damage,10
+LIVE,karate,karate_ushiro_geri,Ushiro Geri,move,3,kicking,damage,standing,surprise,6
+LIVE,karate,karate_maai_control,Maai Distance Mastery,skill,3,movement,adaptation,standing,distance_mastery,9
+LIVE,karate,karate_maai_control,Maai Distance Mastery,skill,3,movement,adaptation,standing,rhythm_control,6
+LIVE,karate,karate_sanbon_chain,Sanbon Scoring Chain,move,4,combinations,damage,standing,combo_speed,8
+LIVE,karate,karate_sanbon_chain,Sanbon Scoring Chain,move,4,combinations,damage,standing,score_or_damage,11
+LIVE,taekwondo,tkd_stance,Kyorugi Stance and Bounce,skill,1,footwork,defense,standing,kick_ready,5
+LIVE,taekwondo,tkd_stance,Kyorugi Stance and Bounce,skill,1,footwork,defense,standing,mobility,7
+LIVE,taekwondo,tkd_apchagi,Ap-chagi (Front Kick),move,1,linear_kicks,setup,standing,body_score,5
+LIVE,taekwondo,tkd_apchagi,Ap-chagi (Front Kick),move,1,linear_kicks,setup,standing,range_control,8
+LIVE,taekwondo,tkd_dollyochagi,Dollyo-chagi (Roundhouse Kick),move,1,turning_kicks,damage,standing,head_route,5
+LIVE,taekwondo,tkd_dollyochagi,Dollyo-chagi (Roundhouse Kick),move,1,turning_kicks,damage,standing,kick_speed,8
+LIVE,taekwondo,tkd_yeopchagi,Yeop-chagi (Side Kick),move,2,linear_kicks,counter,standing,body_damage,8
+LIVE,taekwondo,tkd_yeopchagi,Yeop-chagi (Side Kick),move,2,linear_kicks,counter,standing,stop_hit,11
+LIVE,taekwondo,tkd_cut_kick,Cut Kick,move,2,footwork,setup,standing,distance_reset,8
+LIVE,taekwondo,tkd_cut_kick,Cut Kick,move,2,footwork,setup,standing,intercept,10
+LIVE,taekwondo,tkd_dwichagi,Dwi-chagi (Back Kick),move,2,turning_kicks,counter,standing,body_damage,12
+LIVE,taekwondo,tkd_dwichagi,Dwi-chagi (Back Kick),move,2,turning_kicks,counter,standing,turning_bonus,7
+LIVE,taekwondo,tkd_double_round,Double Roundhouse Kick,sequence,3,combinations,damage,standing,combo_speed,13
+LIVE,taekwondo,tkd_double_round,Double Roundhouse Kick,sequence,3,combinations,damage,standing,target_switch,9
+LIVE,taekwondo,tkd_naeryochagi,Naeryo-chagi (Axe Kick),move,3,linear_kicks,damage,standing,guard_bypass,8
+LIVE,taekwondo,tkd_naeryochagi,Naeryo-chagi (Axe Kick),move,3,linear_kicks,damage,standing,head_damage,14
+LIVE,taekwondo,tkd_spinning_hook,Dwi-huryeo-chagi (Spinning Hook Kick),move,3,turning_kicks,counter,standing,finish_chance,8
+LIVE,taekwondo,tkd_spinning_hook,Dwi-huryeo-chagi (Spinning Hook Kick),move,3,turning_kicks,counter,standing,head_damage,16
+LIVE,taekwondo,tkd_tornado_chain,Cut Kick-Double Roundhouse-Spinning Hook Chain,sequence,4,combinations,adaptation,standing,angle_attack,14
+LIVE,taekwondo,tkd_tornado_chain,Cut Kick-Double Roundhouse-Spinning Hook Chain,sequence,4,combinations,adaptation,standing,combo_speed,17
+LIVE,taekwondo,tkd_tornado_chain,Cut Kick-Double Roundhouse-Spinning Hook Chain,sequence,4,combinations,adaptation,standing,finish_chance,9
+LIVE,taekwondo,taekwondo_dwit_hurigi,Spinning Hook Setup,move,2,turning_kicks,setup,standing,combo_open,6
+LIVE,taekwondo,taekwondo_dwit_hurigi,Spinning Hook Setup,move,2,turning_kicks,setup,standing,feint,7
+LIVE,taekwondo,taekwondo_narae_chagi,Double Roundhouse Fast,move,2,combinations,damage,standing,combo_speed,8
+LIVE,taekwondo,taekwondo_narae_chagi,Double Roundhouse Fast,move,2,combinations,damage,standing,damage,5
+LIVE,taekwondo,taekwondo_bandae_dollyo,Reverse Turning Kick,move,3,turning_kicks,damage,standing,head_damage,10
+LIVE,taekwondo,taekwondo_bandae_dollyo,Reverse Turning Kick,move,3,turning_kicks,damage,standing,rotation_power,6
+LIVE,taekwondo,taekwondo_footwork_switch,Switch Footwork Read,skill,2,footwork,adaptation,standing,distance_read,6
+LIVE,taekwondo,taekwondo_footwork_switch,Switch Footwork Read,skill,2,footwork,adaptation,standing,first_step,8
+LIVE,taekwondo,taekwondo_cut_counter,Cut Kick Counter,move,3,defense_counters,counter,standing,counter_open,6
+LIVE,taekwondo,taekwondo_cut_counter,Cut Kick Counter,move,3,defense_counters,counter,standing,stop_hit,8
+LIVE,taekwondo,taekwondo_back_kick_counter,Back Kick Intercept,move,3,defense_counters,counter,standing,counter_damage,9
+LIVE,taekwondo,taekwondo_back_kick_counter,Back Kick Intercept,move,3,defense_counters,counter,standing,stop_hit,6
+LIVE,taekwondo,taekwondo_push_kick_manage,Push Kick Distance Manage,skill,2,footwork,defense,standing,opponent_mobility,-5
+LIVE,taekwondo,taekwondo_push_kick_manage,Push Kick Distance Manage,skill,2,footwork,defense,standing,range_control,8
+LIVE,taekwondo,taekwondo_spin_combo_chain,Spin Combination Chain,move,4,combinations,damage,standing,combo_speed,8
+LIVE,taekwondo,taekwondo_spin_combo_chain,Spin Combination Chain,move,4,combinations,damage,standing,damage,12
+LIVE,sanda,sanda_stance,Sanda Stance and Platform Awareness,skill,1,striking,defense,standing,boundary_control,6
+LIVE,sanda,sanda_stance,Sanda Stance and Platform Awareness,skill,1,striking,defense,standing,mobility,6
+LIVE,sanda,sanda_straights,Lead-Rear Straight Punches,sequence,1,striking,setup,standing,accuracy,7
+LIVE,sanda,sanda_straights,Lead-Rear Straight Punches,sequence,1,striking,setup,standing,combo_open,5
+LIVE,sanda,sanda_side_kick,Side Kick,move,1,kicks,counter,standing,pushback,7
+LIVE,sanda,sanda_side_kick,Side Kick,move,1,kicks,counter,standing,stop_hit,9
+LIVE,sanda,sanda_round_kick,Roundhouse Kick,move,2,kicks,damage,standing,kick_damage,11
+LIVE,sanda,sanda_round_kick,Roundhouse Kick,move,2,kicks,damage,standing,range,6
+LIVE,sanda,sanda_kick_catch,Kick Catch,skill,2,catches,counter,standing,kick_counter,11
+LIVE,sanda,sanda_kick_catch,Kick Catch,skill,2,catches,counter,standing,throw_open,8
+LIVE,sanda,sanda_inside_sweep,Kick-Catch Inside Sweep,sequence,2,throws,takedown,standing,counter_score,9
+LIVE,sanda,sanda_inside_sweep,Kick-Catch Inside Sweep,sequence,2,throws,takedown,standing,takedown,12
+LIVE,sanda,sanda_side_throw,Body-Lock Side Throw,move,3,throws,takedown,clinch,boundary_score,8
+LIVE,sanda,sanda_side_throw,Body-Lock Side Throw,move,3,throws,takedown,clinch,takedown,14
+LIVE,sanda,sanda_catch_dump,Round-Kick Catch and Dump,sequence,3,catches,counter,standing,counter_takedown,15
+LIVE,sanda,sanda_catch_dump,Round-Kick Catch and Dump,sequence,3,catches,counter,standing,momentum_shift,9
+LIVE,sanda,sanda_spinning_back,Spinning Back Kick,move,3,kicks,damage,standing,body_damage,15
+LIVE,sanda,sanda_spinning_back,Spinning Back Kick,move,3,kicks,damage,standing,pushback,10
+LIVE,sanda,sanda_full_chain,Punch Entry-Kick Catch-Sweep-Platform Control,sequence,4,throws,adaptation,standing|clinch,control,12
+LIVE,sanda,sanda_full_chain,Punch Entry-Kick Catch-Sweep-Platform Control,sequence,4,throws,adaptation,standing|clinch,phase_transition,16
+LIVE,sanda,sanda_full_chain,Punch Entry-Kick Catch-Sweep-Platform Control,sequence,4,throws,adaptation,standing|clinch,takedown,15
+LIVE,sanda,sanda_jab_side_kick,Jab to Side Kick,move,2,kicks,setup,standing,combo_open,7
+LIVE,sanda,sanda_jab_side_kick,Jab to Side Kick,move,2,kicks,setup,standing,range_control,6
+LIVE,sanda,sanda_sweep_counter,Low Sweep Counter,move,3,catches,counter,standing,balance_break,6
+LIVE,sanda,sanda_sweep_counter,Low Sweep Counter,move,3,catches,counter,standing,counter_takedown,8
+LIVE,sanda,sanda_catch_side_throw,Catch to Side Throw,move,3,throws,takedown,clinch,score_or_damage,6
+LIVE,sanda,sanda_catch_side_throw,Catch to Side Throw,move,3,throws,takedown,clinch,throw_damage,9
+LIVE,sanda,sanda_lead_slip_defense,Slip & Circle,skill,2,defense,defense,standing,angle_exit,5
+LIVE,sanda,sanda_lead_slip_defense,Slip & Circle,skill,2,defense,defense,standing,evasion,8
+LIVE,sanda,sanda_liftup_slam,Lift-Up Slam,move,4,throws,takedown,clinch,impact,8
+LIVE,sanda,sanda_liftup_slam,Lift-Up Slam,move,4,throws,takedown,clinch,throw_damage,12
+LIVE,sanda,sanda_straight_blast,Straight Blast,move,2,striking,damage,pocket,combo_speed,5
+LIVE,sanda,sanda_straight_blast,Straight Blast,move,2,striking,damage,pocket,damage,8
+LIVE,sanda,sanda_leg_catch_read,Kick-Read Timing,skill,3,defense,adaptation,standing,distance_read,6
+LIVE,sanda,sanda_leg_catch_read,Kick-Read Timing,skill,3,defense,adaptation,standing,kick_counter,9
+LIVE,sanda,sanda_full_sanda_chain,Strike-Catch-Throw Chain,move,4,throws,takedown,standing,chain_open,8
+LIVE,sanda,sanda_full_sanda_chain,Strike-Catch-Throw Chain,move,4,throws,takedown,standing,strike_to_throw,11
+LIVE,sambo,sambo_stance,Sambo Stance and Jacket Grips,skill,1,grips_throws,control,standing|clinch,grip_control,7
+LIVE,sambo,sambo_stance,Sambo Stance and Jacket Grips,skill,1,grips_throws,control,standing|clinch,throw_defense,5
+LIVE,sambo,sambo_outside_trip,Outside Trip,move,1,grips_throws,takedown,clinch,balance_break,6
+LIVE,sambo,sambo_outside_trip,Outside Trip,move,1,grips_throws,takedown,clinch,takedown,8
+LIVE,sambo,sambo_hip_throw,Jacket-Grip Hip Throw,move,1,grips_throws,takedown,clinch,impact,6
+LIVE,sambo,sambo_hip_throw,Jacket-Grip Hip Throw,move,1,grips_throws,takedown,clinch,takedown,10
+LIVE,sambo,sambo_holddown,Chest-to-Chest Hold-Down,skill,2,ground_control,control,ground_top,opponent_stamina,-5
+LIVE,sambo,sambo_holddown,Chest-to-Chest Hold-Down,skill,2,ground_control,control,ground_top,pin_control,12
+LIVE,sambo,sambo_straight_ankle,Straight Ankle Lock,move,2,leg_locks,submission,ground_top|ground_bottom,leg_attack,9
+LIVE,sambo,sambo_straight_ankle,Straight Ankle Lock,move,2,leg_locks,submission,ground_top|ground_bottom,submission,11
+LIVE,sambo,sambo_kneebar,Kneebar,move,2,leg_locks,submission,ground_top|scramble,scramble_attack,8
+LIVE,sambo,sambo_kneebar,Kneebar,move,2,leg_locks,submission,ground_top|scramble,submission,12
+LIVE,sambo,sambo_counter_throw,Counter-Throw,skill,3,grips_throws,counter,clinch,counter_takedown,14
+LIVE,sambo,sambo_counter_throw,Counter-Throw,skill,3,grips_throws,counter,clinch,position,9
+LIVE,sambo,sambo_rolling_kneebar,Rolling Kneebar Entry,sequence,3,leg_locks,submission,standing|scramble,submission,15
+LIVE,sambo,sambo_rolling_kneebar,Rolling Kneebar Entry,sequence,3,leg_locks,submission,standing|scramble,surprise,10
+LIVE,sambo,sambo_strike_bodylock,Overhand to Body-Lock Throw,sequence,3,combat_linking,adaptation,standing|clinch,strike_to_throw,15
+LIVE,sambo,sambo_strike_bodylock,Overhand to Body-Lock Throw,sequence,3,combat_linking,adaptation,standing|clinch,takedown,13
+LIVE,sambo,sambo_throw_leglock,Throw-to-Leg-Lock Chain,sequence,4,combat_linking,adaptation,standing|clinch|ground,phase_transition,18
+LIVE,sambo,sambo_throw_leglock,Throw-to-Leg-Lock Chain,sequence,4,combat_linking,adaptation,standing|clinch|ground,submission,16
+LIVE,sambo,sambo_arm_drag_bodylock,Arm Drag to Body Lock,move,2,grips_throws,setup,clinch,go_behind_open,5
+LIVE,sambo,sambo_arm_drag_bodylock,Arm Drag to Body Lock,move,2,grips_throws,setup,clinch,throw_open,8
+LIVE,sambo,sambo_front_trip,Front Trip,move,2,grips_throws,takedown,clinch,balance_break,5
+LIVE,sambo,sambo_front_trip,Front Trip,move,2,grips_throws,takedown,clinch,score_or_damage,8
+LIVE,sambo,sambo_scarf_holddown,Scarf Hold Control,skill,2,ground_control,control,ground_top,pin_control,8
+LIVE,sambo,sambo_scarf_holddown,Scarf Hold Control,skill,2,ground_control,control,ground_top,top_control,5
+LIVE,sambo,sambo_bent_kneebar,Bent Leg Kneebar,move,3,leg_locks,submission,ground,leg_attack,6
+LIVE,sambo,sambo_bent_kneebar,Bent Leg Kneebar,move,3,leg_locks,submission,ground,submission,9
+LIVE,sambo,sambo_straight_footlock_pass,Footlock to Pass,move,3,leg_locks,transition,ground,pass_guard,7
+LIVE,sambo,sambo_straight_footlock_pass,Footlock to Pass,move,3,leg_locks,transition,ground,submission_setup,6
+LIVE,sambo,sambo_jab_bodylock,Strike Entry Body Lock,move,2,standing_striking,setup,standing,entry_open,8
+LIVE,sambo,sambo_jab_bodylock,Strike Entry Body Lock,move,2,standing_striking,setup,standing,throw_setup,5
+LIVE,sambo,sambo_counter_hip_toss,Counter Hip Toss,move,3,grips_throws,counter,clinch,counter_throw,9
+LIVE,sambo,sambo_counter_hip_toss,Counter Hip Toss,move,3,grips_throws,counter,clinch,score_or_damage,6
+LIVE,sambo,sambo_throw_to_leglock,Throw to Leg Entanglement,move,4,leg_locks,submission,clinch,leg_attack,7
+LIVE,sambo,sambo_throw_to_leglock,Throw to Leg Entanglement,move,4,leg_locks,submission,clinch,submission_chain,11
+LIVE,savate,savate_garde,Garde and Déplacement,skill,1,movement_boxing,defense,standing,distance_read,5
+LIVE,savate,savate_garde,Garde and Déplacement,skill,1,movement_boxing,defense,standing,mobility,7
+LIVE,savate,savate_direct,Direct,move,1,movement_boxing,setup,standing,accuracy,7
+LIVE,savate,savate_direct,Direct,move,1,movement_boxing,setup,standing,combo_open,5
+LIVE,savate,savate_fouette,Fouetté,move,1,fouette,damage,standing,kick_accuracy,9
+LIVE,savate,savate_fouette,Fouetté,move,1,fouette,damage,standing,range,7
+LIVE,savate,savate_chasse_frontal,Chassé Frontal,move,2,chasse,counter,standing,pushback,8
+LIVE,savate,savate_chasse_frontal,Chassé Frontal,move,2,chasse,counter,standing,stop_hit,11
+LIVE,savate,savate_chasse_lateral,Chassé Latéral,move,2,chasse,damage,standing,body_damage,12
+LIVE,savate,savate_chasse_lateral,Chassé Latéral,move,2,chasse,damage,standing,range_control,8
+LIVE,savate,savate_coup_bas,Coup de Pied Bas,move,2,revers_lowline,takedown,standing,balance_break,10
+LIVE,savate,savate_coup_bas,Coup de Pied Bas,move,2,revers_lowline,takedown,standing,lowline_damage,8
+LIVE,savate,savate_revers_fouette,Revers Fouetté,move,3,revers_lowline,counter,standing,angle_attack,12
+LIVE,savate,savate_revers_fouette,Revers Fouetté,move,3,revers_lowline,counter,standing,head_route,9
+LIVE,savate,savate_direct_fouette,Direct-Fouetté Combination,sequence,3,movement_boxing,setup,standing,combo_accuracy,13
+LIVE,savate,savate_direct_fouette,Direct-Fouetté Combination,sequence,3,movement_boxing,setup,standing,target_switch,9
+LIVE,savate,savate_revers_balance,Revers Balancé,move,3,revers_lowline,damage,standing,angle_attack,11
+LIVE,savate,savate_revers_balance,Revers Balancé,move,3,revers_lowline,damage,standing,head_damage,15
+LIVE,savate,savate_elite_chain,Direct-Fouetté-Chassé-Revers Chain,sequence,4,movement_boxing,adaptation,standing,combo_accuracy,15
+LIVE,savate,savate_elite_chain,Direct-Fouetté-Chassé-Revers Chain,sequence,4,movement_boxing,adaptation,standing,distance_mastery,17
+LIVE,savate,savate_chasse_bas,Chassé Bas,move,2,chasse,damage,standing,leg_damage,8
+LIVE,savate,savate_chasse_bas,Chassé Bas,move,2,chasse,damage,standing,range_control,5
+LIVE,savate,savate_fouette_high,Fouetté Haut,move,3,fouette,damage,standing,head_damage,9
+LIVE,savate,savate_fouette_high,Fouetté Haut,move,3,fouette,damage,standing,precision,6
+LIVE,savate,savate_revers_counter,Revers Counter,move,3,counters,counter,standing,counter_damage,9
+LIVE,savate,savate_revers_counter,Revers Counter,move,3,counters,counter,standing,return_angle,6
+LIVE,savate,savate_direct_double,Direct-Direct Setup,move,2,movement_boxing,setup,standing,combo_open,7
+LIVE,savate,savate_direct_double,Direct-Direct Setup,move,2,movement_boxing,setup,standing,distance_read,5
+LIVE,savate,savate_assaut_footwork,Assaut Footwork,skill,2,movement_boxing,adaptation,standing,first_step,6
+LIVE,savate,savate_assaut_footwork,Assaut Footwork,skill,2,movement_boxing,adaptation,standing,mobility,8
+LIVE,savate,savate_chasse_lateral_counter,Lateral Chassé Stop,move,3,counters,counter,standing,opponent_mobility,-5
+LIVE,savate,savate_chasse_lateral_counter,Lateral Chassé Stop,move,3,counters,counter,standing,stop_hit,8
+LIVE,savate,savate_lowline_read,Lowline Read,skill,3,revers_lowline,defense,standing,distance_read,6
+LIVE,savate,savate_lowline_read,Lowline Read,skill,3,revers_lowline,defense,standing,low_kick_defense,9
+LIVE,savate,savate_elite_precision_chain,Precision Kicking Chain,move,4,fouette,damage,standing,combo_speed,8
+LIVE,savate,savate_elite_precision_chain,Precision Kicking Chain,move,4,fouette,damage,standing,precision,10
+LIVE,capoeira,capoeira_ginga,Ginga,skill,1,movement,defense,standing,evasion,5
+LIVE,capoeira,capoeira_ginga,Ginga,skill,1,movement,defense,standing,rhythm,7
+LIVE,capoeira,capoeira_esquiva,Esquiva Lateral,move,1,movement,defense,standing,counter_open,5
+LIVE,capoeira,capoeira_esquiva,Esquiva Lateral,move,1,movement,defense,standing,evasion,9
+LIVE,capoeira,capoeira_bencao,Benção,move,1,straight_arc_kicks,counter,standing,body_damage,7
+LIVE,capoeira,capoeira_bencao,Benção,move,1,straight_arc_kicks,counter,standing,pushback,9
+LIVE,capoeira,capoeira_martelo,Martelo,move,2,straight_arc_kicks,damage,standing,kick_damage,11
+LIVE,capoeira,capoeira_martelo,Martelo,move,2,straight_arc_kicks,damage,standing,rhythm_setup,6
+LIVE,capoeira,capoeira_queixada,Queixada,move,2,spinning_kicks,setup,standing,angle_attack,10
+LIVE,capoeira,capoeira_queixada,Queixada,move,2,spinning_kicks,setup,standing,feint,7
+LIVE,capoeira,capoeira_rasteira,Rasteira,move,2,sweeps_acrobatics,takedown,standing,counter_timing,8
+LIVE,capoeira,capoeira_rasteira,Rasteira,move,2,sweeps_acrobatics,takedown,standing,sweep,12
+LIVE,capoeira,capoeira_armada,Armada,move,3,spinning_kicks,damage,standing,head_route,12
+LIVE,capoeira,capoeira_armada,Armada,move,3,spinning_kicks,damage,standing,rotation_power,10
+LIVE,capoeira,capoeira_au_role,Aú to Rolê Transition,sequence,3,sweeps_acrobatics,escape,standing|scramble,angle_reset,11
+LIVE,capoeira,capoeira_au_role,Aú to Rolê Transition,sequence,3,sweeps_acrobatics,escape,standing|scramble,evasion,13
+LIVE,capoeira,capoeira_meialua,Meia-lua de Compasso,move,3,spinning_kicks,counter,standing,head_damage,16
+LIVE,capoeira,capoeira_meialua,Meia-lua de Compasso,move,3,spinning_kicks,counter,standing,surprise,10
+LIVE,capoeira,capoeira_flow_chain,Ginga-Esquiva-Rasteira-Meia-lua Flow,sequence,4,movement,adaptation,standing|scramble,counter_chain,15
+LIVE,capoeira,capoeira_flow_chain,Ginga-Esquiva-Rasteira-Meia-lua Flow,sequence,4,movement,adaptation,standing|scramble,rhythm_control,18
+LIVE,capoeira,capoeira_meia_lua_compasso,Meia Lua de Compasso,move,3,spinning_kicks,damage,standing,damage,10
+LIVE,capoeira,capoeira_meia_lua_compasso,Meia Lua de Compasso,move,3,spinning_kicks,damage,standing,rotation_power,6
+LIVE,capoeira,capoeira_chapa_side,Chapa Side Kick,move,2,straight_arc_kicks,damage,standing,damage,8
+LIVE,capoeira,capoeira_chapa_side,Chapa Side Kick,move,2,straight_arc_kicks,damage,standing,range_control,5
+LIVE,capoeira,capoeira_esquiva_read,Esquiva Flow Read,skill,3,defense_reads,defense,standing,counter_ready,6
+LIVE,capoeira,capoeira_esquiva_read,Esquiva Flow Read,skill,3,defense_reads,defense,standing,evasion,9
+LIVE,capoeira,capoeira_armada_double,Armada Dupla,move,3,spinning_kicks,damage,standing,head_damage,9
+LIVE,capoeira,capoeira_armada_double,Armada Dupla,move,3,spinning_kicks,damage,standing,surprise,6
+LIVE,capoeira,capoeira_negativa_sweep,Negativa to Rasteira,move,2,sweeps_acrobatics,counter,standing,balance_break,5
+LIVE,capoeira,capoeira_negativa_sweep,Negativa to Rasteira,move,2,sweeps_acrobatics,counter,standing,counter_takedown,8
+LIVE,capoeira,capoeira_au_evade,Aú Evasion,skill,2,defense_reads,escape,standing,angle_exit,5
+LIVE,capoeira,capoeira_au_evade,Aú Evasion,skill,2,defense_reads,escape,standing,evasion,8
+LIVE,capoeira,capoeira_martelo_rotado,Martelo Rotado,move,3,spinning_kicks,damage,standing,damage,9
+LIVE,capoeira,capoeira_martelo_rotado,Martelo Rotado,move,3,spinning_kicks,damage,standing,feint,6
+LIVE,capoeira,capoeira_ginga_flow_chain,Ginga Deception Chain,move,4,spinning_kicks,damage,standing,damage,8
+LIVE,capoeira,capoeira_ginga_flow_chain,Ginga Deception Chain,move,4,spinning_kicks,damage,standing,surprise,10
+LIVE,arnis,arnis_ready_angles,Ready Position and Angles of Attack,skill,1,single_stick,setup,weapon_standing,angle_read,7
+LIVE,arnis,arnis_ready_angles,Ready Position and Angles of Attack,skill,1,single_stick,setup,weapon_standing,weapon_control,5
+LIVE,arnis,arnis_forehand,Forehand Strike,move,1,single_stick,damage,weapon_standing,accuracy,8
+LIVE,arnis,arnis_forehand,Forehand Strike,move,1,single_stick,damage,weapon_standing,damage,6
+LIVE,arnis,arnis_backhand,Backhand Strike,move,1,single_stick,damage,weapon_standing,combo_open,6
+LIVE,arnis,arnis_backhand,Backhand Strike,move,1,single_stick,damage,weapon_standing,return_angle,8
+LIVE,arnis,arnis_roof_block,Roof Block,move,2,defense_counters,defense,weapon_standing,block,12
+LIVE,arnis,arnis_roof_block,Roof Block,move,2,defense_counters,defense,weapon_standing,counter_open,7
+LIVE,arnis,arnis_block_counter,Block-and-Counter Strike,sequence,2,defense_counters,counter,weapon_standing,counter_accuracy,12
+LIVE,arnis,arnis_block_counter,Block-and-Counter Strike,sequence,2,defense_counters,counter,weapon_standing,tempo,8
+LIVE,arnis,arnis_thrust,Centerline Thrust,move,2,single_stick,damage,weapon_standing,precision,11
+LIVE,arnis,arnis_thrust,Centerline Thrust,move,2,single_stick,damage,weapon_standing,range,8
+LIVE,arnis,arnis_disarm,Control-and-Disarm,sequence,3,disarms,control,weapon_clinch,control,10
+LIVE,arnis,arnis_disarm,Control-and-Disarm,sequence,3,disarms,control,weapon_clinch,disarm,15
+LIVE,arnis,arnis_punyo,Punyo Strike,move,3,defense_counters,counter,weapon_clinch,close_damage,12
+LIVE,arnis,arnis_punyo,Punyo Strike,move,3,defense_counters,counter,weapon_clinch,disarm_open,8
+LIVE,arnis,arnis_sinawali,Double-Stick Sinawali,sequence,3,double_weapon,adaptation,weapon_standing,combo_speed,15
+LIVE,arnis,arnis_sinawali,Double-Stick Sinawali,sequence,3,double_weapon,adaptation,weapon_standing,coverage,12
+LIVE,arnis,arnis_disarm_chain,Block-Counter-Disarm Chain,sequence,4,disarms,adaptation,weapon_standing|weapon_clinch,counter_chain,18
+LIVE,arnis,arnis_disarm_chain,Block-Counter-Disarm Chain,sequence,4,disarms,adaptation,weapon_standing|weapon_clinch,disarm,17
+LIVE,arnis,arnis_abanico,Abaniko Fanning Strike,move,2,single_stick,damage,weapon_standing,combo_speed,5
+LIVE,arnis,arnis_abanico,Abaniko Fanning Strike,move,2,single_stick,damage,weapon_standing,damage,8
+LIVE,arnis,arnis_redonda,Redonda Continuous,move,3,double_weapon,damage,weapon_standing,combo_speed,9
+LIVE,arnis,arnis_redonda,Redonda Continuous,move,3,double_weapon,damage,weapon_standing,weapon_control,6
+LIVE,arnis,arnis_empty_hand_trap,Empty-Hand Trap,move,3,empty_hand,control,pocket,clinch_control,8
+LIVE,arnis,arnis_empty_hand_trap,Empty-Hand Trap,move,3,empty_hand,control,pocket,disarm_open,6
+LIVE,arnis,arnis_empty_hand_strike,Panuntukan Straight,move,2,empty_hand,damage,pocket,combo_open,5
+LIVE,arnis,arnis_empty_hand_strike,Panuntukan Straight,move,2,empty_hand,damage,pocket,damage,8
+LIVE,arnis,arnis_witik_snap,Witik Snap Counter,move,3,defense_counters,counter,weapon_standing,counter_damage,8
+LIVE,arnis,arnis_witik_snap,Witik Snap Counter,move,3,defense_counters,counter,weapon_standing,stop_hit,6
+LIVE,arnis,arnis_thrust_disarm,Thrust to Disarm,move,3,disarms,control,weapon_clinch,disarm,9
+LIVE,arnis,arnis_thrust_disarm,Thrust to Disarm,move,3,disarms,control,weapon_clinch,weapon_control,6
+LIVE,arnis,arnis_gunting_limb,Gunting Limb Destruction,move,3,defense_counters,counter,weapon_standing,counter_damage,9
+LIVE,arnis,arnis_gunting_limb,Gunting Limb Destruction,move,3,defense_counters,counter,weapon_standing,disarm_open,6
+LIVE,arnis,arnis_weapon_flow_chain,Weapon Flow Chain,move,4,double_weapon,damage,weapon_standing,combo_speed,10
+LIVE,arnis,arnis_weapon_flow_chain,Weapon Flow Chain,move,4,double_weapon,damage,weapon_standing,weapon_control,8
+LIVE,pencak_silat,silat_pasang,Pasang (Guard Position),skill,1,pasang_langkah,defense,standing,counter_ready,5
+LIVE,pencak_silat,silat_pasang,Pasang (Guard Position),skill,1,pasang_langkah,defense,standing,guard,7
+LIVE,pencak_silat,silat_langkah,Langkah (Stepping Pattern),skill,1,pasang_langkah,setup,standing,angle_entry,8
+LIVE,pencak_silat,silat_langkah,Langkah (Stepping Pattern),skill,1,pasang_langkah,setup,standing,evasion,5
+LIVE,pencak_silat,silat_front_kick,Front Kick,move,1,striking,damage,standing,body_damage,8
+LIVE,pencak_silat,silat_front_kick,Front Kick,move,1,striking,damage,standing,range_control,6
+LIVE,pencak_silat,silat_side_kick,Side Kick,move,2,striking,counter,standing,pushback,8
+LIVE,pencak_silat,silat_side_kick,Side Kick,move,2,striking,counter,standing,stop_hit,11
+LIVE,pencak_silat,silat_sapuan,Sapuan (Sweep),move,2,sweeps,takedown,standing,balance_break,9
+LIVE,pencak_silat,silat_sapuan,Sapuan (Sweep),move,2,sweeps,takedown,standing,sweep,12
+LIVE,pencak_silat,silat_catch_dump,Kick Catch and Jatuhan,sequence,2,catches_takedowns,counter,standing,control_score,8
+LIVE,pencak_silat,silat_catch_dump,Kick Catch and Jatuhan,sequence,2,catches_takedowns,counter,standing,counter_takedown,12
+LIVE,pencak_silat,silat_guntingan,Guntingan (Scissor Takedown),move,3,sweeps,takedown,standing|scramble,surprise,9
+LIVE,pencak_silat,silat_guntingan,Guntingan (Scissor Takedown),move,3,sweeps,takedown,standing|scramble,takedown,15
+LIVE,pencak_silat,silat_elbow_counter,Parry to Elbow Counter,sequence,3,striking,counter,pocket,counter_damage,13
+LIVE,pencak_silat,silat_elbow_counter,Parry to Elbow Counter,sequence,3,striking,counter,pocket,cut_chance,9
+LIVE,pencak_silat,silat_offbalance_chain,Langkah Entry-Sapuan-Jatuhan Chain,sequence,3,catches_takedowns,control,standing|clinch,balance_break,15
+LIVE,pencak_silat,silat_offbalance_chain,Langkah Entry-Sapuan-Jatuhan Chain,sequence,3,catches_takedowns,control,standing|clinch,takedown,14
+LIVE,pencak_silat,silat_complete_response,Pasang-Parry-Strike-Guntingan Response,sequence,4,pasang_langkah,adaptation,standing|pocket|scramble,counter_chain,18
+LIVE,pencak_silat,silat_complete_response,Pasang-Parry-Strike-Guntingan Response,sequence,4,pasang_langkah,adaptation,standing|pocket|scramble,phase_transition,16
+LIVE,pencak_silat,pencak_silat_sapuan_low,Sapuan Low Sweep,move,2,sweeps,takedown,standing,balance_break,8
+LIVE,pencak_silat,pencak_silat_sapuan_low,Sapuan Low Sweep,move,2,sweeps,takedown,standing,counter_takedown,5
+LIVE,pencak_silat,pencak_silat_elbow_destruction,Sikut Elbow Counter,move,3,striking,counter,pocket,counter_damage,9
+LIVE,pencak_silat,pencak_silat_elbow_destruction,Sikut Elbow Counter,move,3,striking,counter,pocket,cut_chance,6
+LIVE,pencak_silat,pencak_silat_kuncian_lock,Kuncian Standing Lock,move,3,locks_counters,control,clinch,clinch_control,8
+LIVE,pencak_silat,pencak_silat_kuncian_lock,Kuncian Standing Lock,move,3,locks_counters,control,clinch,submission_setup,6
+LIVE,pencak_silat,pencak_silat_langkah_angle,Langkah Angle Step,skill,2,pasang_langkah,adaptation,standing,angle_entry,8
+LIVE,pencak_silat,pencak_silat_langkah_angle,Langkah Angle Step,skill,2,pasang_langkah,adaptation,standing,first_step,5
+LIVE,pencak_silat,pencak_silat_guntingan_scissor,Guntingan Takedown,move,3,sweeps,takedown,standing,balance_break,6
+LIVE,pencak_silat,pencak_silat_guntingan_scissor,Guntingan Takedown,move,3,sweeps,takedown,standing,counter_takedown,9
+LIVE,pencak_silat,pencak_silat_harimau_low,Harimau Ground Base,skill,3,locks_counters,defense,ground_bottom,guard_control,8
+LIVE,pencak_silat,pencak_silat_harimau_low,Harimau Ground Base,skill,3,locks_counters,defense,ground_bottom,sweep_threat,6
+LIVE,pencak_silat,pencak_silat_catch_kick_takedown,Catch Kick to Takedown,move,3,catches_takedowns,counter,standing,counter_takedown,9
+LIVE,pencak_silat,pencak_silat_catch_kick_takedown,Catch Kick to Takedown,move,3,catches_takedowns,counter,standing,score_or_damage,5
+LIVE,pencak_silat,pencak_silat_total_response_chain,Total Response Chain,move,4,locks_counters,counter,clinch,counter_damage,10
+LIVE,pencak_silat,pencak_silat_total_response_chain,Total Response Chain,move,4,locks_counters,counter,clinch,submission_chain,7
+LIVE,mma,mma_stance_switch,MMA Stance Switching,skill,1,range_linking,adaptation,standing,style_switch,7
+LIVE,mma,mma_stance_switch,MMA Stance Switching,skill,1,range_linking,adaptation,standing,takedown_ready,5
+LIVE,mma,mma_jab_levelchange,Jab to Level-Change Feint,sequence,1,range_linking,setup,standing,entry_open,7
+LIVE,mma,mma_jab_levelchange,Jab to Level-Change Feint,sequence,1,range_linking,setup,standing,feint,9
+LIVE,mma,mma_sprawl_fronthead,Sprawl to Front Headlock,sequence,1,scrambles_finishes,counter,standing|scramble,control,6
+LIVE,mma,mma_sprawl_fronthead,Sprawl to Front Headlock,sequence,1,scrambles_finishes,counter,standing|scramble,takedown_defense,10
+LIVE,mma,mma_underhook_cage,Cage Underhook and Turn,skill,2,cage_work,control,cage_clinch,cage_control,12
+LIVE,mma,mma_underhook_cage,Cage Underhook and Turn,skill,2,cage_work,control,cage_clinch,escape_or_takedown,7
+LIVE,mma,mma_wall_walk,Wall Walk,move,2,cage_work,escape,ground_cage,control_escape,9
+LIVE,mma,mma_wall_walk,Wall Walk,move,2,cage_work,escape,ground_cage,standup,12
+LIVE,mma,mma_guard_gnp,Posture and Ground-and-Pound from Guard,skill,2,ground_striking,damage,ground_top,ground_damage,12
+LIVE,mma,mma_guard_gnp,Posture and Ground-and-Pound from Guard,skill,2,ground_striking,damage,ground_top,submission_safety,7
+LIVE,mma,mma_doubleleg_mount,Strike Entry-Double Leg-Mount,sequence,3,range_linking,transition,standing|ground_top,phase_transition,15
+LIVE,mma,mma_doubleleg_mount,Strike Entry-Double Leg-Mount,sequence,3,range_linking,transition,standing|ground_top,top_control,11
+LIVE,mma,mma_clinch_knee_trip,Cage Clinch Knee to Outside Trip,sequence,3,cage_work,adaptation,cage_clinch,clinch_damage,11
+LIVE,mma,mma_clinch_knee_trip,Cage Clinch Knee to Outside Trip,sequence,3,cage_work,adaptation,cage_clinch,takedown,13
+LIVE,mma,mma_mount_finish,Mount Strikes to Armbar,sequence,3,ground_striking,submission,ground_top,damage_to_submission,16
+LIVE,mma,mma_mount_finish,Mount Strikes to Armbar,sequence,3,ground_striking,submission,ground_top,finish_chance,10
+LIVE,mma,mma_complete_chain,Strike-Wrestle-Pass-Finish Chain,sequence,4,scrambles_finishes,adaptation,standing|clinch|ground_top|scramble,decision_quality,17
+LIVE,mma,mma_complete_chain,Strike-Wrestle-Pass-Finish Chain,sequence,4,scrambles_finishes,adaptation,standing|clinch|ground_top|scramble,finish_chance,12
+LIVE,mma,mma_complete_chain,Strike-Wrestle-Pass-Finish Chain,sequence,4,scrambles_finishes,adaptation,standing|clinch|ground_top|scramble,phase_transition,20
+LIVE,mma,mma_dirty_boxing,Dirty Boxing in Clinch,move,2,cage_work,damage,cage_clinch,clinch_damage,8
+LIVE,mma,mma_dirty_boxing,Dirty Boxing in Clinch,move,2,cage_work,damage,cage_clinch,knee_setup,5
+LIVE,mma,mma_elbow_gnp,Ground Elbows,move,3,ground_striking,damage,ground_top,cut_chance,6
+LIVE,mma,mma_elbow_gnp,Ground Elbows,move,3,ground_striking,damage,ground_top,ground_damage,9
+LIVE,mma,mma_sprawl_to_back,Sprawl to Back Take,move,3,scrambles_finishes,transition,scramble,back_control,9
+LIVE,mma,mma_sprawl_to_back,Sprawl to Back Take,move,3,scrambles_finishes,transition,scramble,scramble_attack,6
+LIVE,mma,mma_kick_catch_slam,Kick Catch to Slam,move,3,range_linking,counter,standing,counter_takedown,8
+LIVE,mma,mma_kick_catch_slam,Kick Catch to Slam,move,3,range_linking,counter,standing,impact,6
+LIVE,mma,mma_cage_wrestling,Cage Wrestling Control,skill,3,cage_work,control,cage_clinch,cage_control,9
+LIVE,mma,mma_cage_wrestling,Cage Wrestling Control,skill,3,cage_work,control,cage_clinch,opponent_stamina,-5
+LIVE,mma,mma_switch_hit,Southpaw-Orthodox Switch,skill,3,fight_iq,adaptation,standing,rhythm_control,6
+LIVE,mma,mma_switch_hit,Southpaw-Orthodox Switch,skill,3,fight_iq,adaptation,standing,style_switch,9
+LIVE,mma,mma_submission_threat_gnp,Submission-Strike Threat,move,4,scrambles_finishes,submission,ground_top,damage_to_submission,10
+LIVE,mma,mma_submission_threat_gnp,Submission-Strike Threat,move,4,scrambles_finishes,submission,ground_top,finish_chance,7
+LIVE,mma,mma_finish_iq,Finishing Instinct,skill,4,fight_iq,adaptation,standing,decision_quality,10
+LIVE,mma,mma_finish_iq,Finishing Instinct,skill,4,fight_iq,adaptation,standing,finish_chance,7
+C95_karate,karate,karate_kamae,Kamae and Maai,skill,1,stances,defense,standing,distance_read,5
+C95_karate,karate,karate_kamae,Kamae and Maai,skill,1,stances,defense,standing,mobility,4
+C95_karate,karate,karate_shizentai,Shizen-tai,skill,1,stances,defense,standing,distance_read,5
+C95_karate,karate,karate_shizentai,Shizen-tai,skill,1,stances,defense,standing,mobility,4
+C95_karate,karate,karate_heisokudachi,Heisoku-dachi,skill,1,stances,defense,standing,distance_read,5
+C95_karate,karate,karate_heisokudachi,Heisoku-dachi,skill,1,stances,defense,standing,mobility,4
+C95_karate,karate,karate_musubidachi,Musubi-dachi,skill,1,stances,defense,standing,distance_read,5
+C95_karate,karate,karate_musubidachi,Musubi-dachi,skill,1,stances,defense,standing,mobility,4
+C95_karate,karate,karate_heikodachi,Heiko-dachi,skill,1,stances,defense,standing,distance_read,5
+C95_karate,karate,karate_heikodachi,Heiko-dachi,skill,1,stances,defense,standing,mobility,4
+C95_karate,karate,karate_hachijidachi,Hachiji-dachi,skill,1,stances,defense,standing,distance_read,5
+C95_karate,karate,karate_hachijidachi,Hachiji-dachi,skill,1,stances,defense,standing,mobility,4
+C95_karate,karate,karate_uchihachijidachi,Uchi-hachiji-dachi,skill,2,stances,defense,standing,distance_read,5
+C95_karate,karate,karate_uchihachijidachi,Uchi-hachiji-dachi,skill,2,stances,defense,standing,mobility,4
+C95_karate,karate,karate_zenkutsudachi,Zenkutsu-dachi,skill,1,stances,defense,standing,distance_read,5
+C95_karate,karate,karate_zenkutsudachi,Zenkutsu-dachi,skill,1,stances,defense,standing,mobility,4
+C95_karate,karate,karate_kokutsudachi,Kokutsu-dachi,skill,1,stances,defense,standing,distance_read,5
+C95_karate,karate,karate_kokutsudachi,Kokutsu-dachi,skill,1,stances,defense,standing,mobility,4
+C95_karate,karate,karate_kibadachi,Kiba-dachi,skill,1,stances,defense,standing,distance_read,5
+C95_karate,karate,karate_kibadachi,Kiba-dachi,skill,1,stances,defense,standing,mobility,4
+C95_karate,karate,karate_fudodachi,Fudo-dachi,skill,3,stances,defense,standing,distance_read,5
+C95_karate,karate,karate_fudodachi,Fudo-dachi,skill,3,stances,defense,standing,mobility,4
+C95_karate,karate,karate_sochindachi,Sochin-dachi,skill,4,stances,defense,standing,distance_read,5
+C95_karate,karate,karate_sochindachi,Sochin-dachi,skill,4,stances,defense,standing,mobility,4
+C95_karate,karate,karate_sanchindachi,Sanchin-dachi,skill,3,stances,defense,standing,distance_read,5
+C95_karate,karate,karate_sanchindachi,Sanchin-dachi,skill,3,stances,defense,standing,mobility,4
+C95_karate,karate,karate_hangetsudachi,Hangetsu-dachi,skill,3,stances,defense,standing,distance_read,5
+C95_karate,karate,karate_hangetsudachi,Hangetsu-dachi,skill,3,stances,defense,standing,mobility,4
+C95_karate,karate,karate_kosadachi,Kosa-dachi,skill,2,stances,defense,standing,distance_read,5
+C95_karate,karate,karate_kosadachi,Kosa-dachi,skill,2,stances,defense,standing,mobility,4
+C95_karate,karate,karate_nekoashidachi,Neko-ashi-dachi,skill,3,stances,defense,standing,distance_read,5
+C95_karate,karate,karate_nekoashidachi,Neko-ashi-dachi,skill,3,stances,defense,standing,mobility,4
+C95_karate,karate,karate_renojidachi,Renoji-dachi,skill,2,stances,defense,standing,distance_read,5
+C95_karate,karate,karate_renojidachi,Renoji-dachi,skill,2,stances,defense,standing,mobility,4
+C95_karate,karate,karate_teijidachi,Teiji-dachi,skill,2,stances,defense,standing,distance_read,5
+C95_karate,karate,karate_teijidachi,Teiji-dachi,skill,2,stances,defense,standing,mobility,4
+C95_karate,karate,karate_tsuruashidachi,Tsuru-ashi-dachi,skill,3,stances,defense,standing,distance_read,5
+C95_karate,karate,karate_tsuruashidachi,Tsuru-ashi-dachi,skill,3,stances,defense,standing,mobility,4
+C95_karate,karate,karate_sagiashidachi,Sagi-ashi-dachi,skill,3,stances,defense,standing,distance_read,5
+C95_karate,karate,karate_sagiashidachi,Sagi-ashi-dachi,skill,3,stances,defense,standing,mobility,4
+C95_karate,karate,karate_gankakudachi,Gankaku-dachi,skill,4,stances,defense,standing,distance_read,5
+C95_karate,karate,karate_gankakudachi,Gankaku-dachi,skill,4,stances,defense,standing,mobility,4
+C95_karate,karate,karate_iaigoshidachi,Iaigoshi-dachi,skill,3,stances,defense,standing,distance_read,5
+C95_karate,karate,karate_iaigoshidachi,Iaigoshi-dachi,skill,3,stances,defense,standing,mobility,4
+C95_karate,karate,karate_ayumiashi,Ayumi-ashi,skill,1,tai_sabaki,defense,standing,distance_read,5
+C95_karate,karate,karate_ayumiashi,Ayumi-ashi,skill,1,tai_sabaki,defense,standing,mobility,4
+C95_karate,karate,karate_suriashi,Suri-ashi,skill,1,tai_sabaki,defense,standing,distance_read,5
+C95_karate,karate,karate_suriashi,Suri-ashi,skill,1,tai_sabaki,defense,standing,mobility,4
+C95_karate,karate,karate_tsugiashi,Tsugi-ashi,skill,2,tai_sabaki,defense,standing,distance_read,5
+C95_karate,karate,karate_tsugiashi,Tsugi-ashi,skill,2,tai_sabaki,defense,standing,mobility,4
+C95_karate,karate,karate_yoriashi,Yori-ashi,skill,2,tai_sabaki,defense,standing,distance_read,5
+C95_karate,karate,karate_yoriashi,Yori-ashi,skill,2,tai_sabaki,defense,standing,mobility,4
+C95_karate,karate,karate_okuriashi,Okuri-ashi,skill,2,tai_sabaki,defense,standing,distance_read,5
+C95_karate,karate,karate_okuriashi,Okuri-ashi,skill,2,tai_sabaki,defense,standing,mobility,4
+C95_karate,karate,karate_hikiashi,Hiki-ashi,skill,1,tai_sabaki,defense,standing,distance_read,5
+C95_karate,karate,karate_hikiashi,Hiki-ashi,skill,1,tai_sabaki,defense,standing,mobility,4
+C95_karate,karate,karate_mawariashi,Mawari-ashi,skill,2,tai_sabaki,defense,standing,distance_read,5
+C95_karate,karate,karate_mawariashi,Mawari-ashi,skill,2,tai_sabaki,defense,standing,mobility,4
+C95_karate,karate,karate_taisabaki,Tai-sabaki,skill,2,tai_sabaki,defense,standing,distance_read,5
+C95_karate,karate,karate_taisabaki,Tai-sabaki,skill,2,tai_sabaki,defense,standing,mobility,4
+C95_karate,karate,karate_tenshin,Tenshin,skill,3,tai_sabaki,defense,standing,distance_read,5
+C95_karate,karate,karate_tenshin,Tenshin,skill,3,tai_sabaki,defense,standing,mobility,4
+C95_karate,karate,karate_maai_control,Maai,skill,3,tai_sabaki,defense,standing,distance_read,5
+C95_karate,karate,karate_maai_control,Maai,skill,3,tai_sabaki,defense,standing,mobility,4
+C95_karate,karate,karate_chokuzuki,Choku-zuki,move,1,zuki,setup,standing,accuracy,4
+C95_karate,karate,karate_chokuzuki,Choku-zuki,move,1,zuki,setup,standing,straight_damage,7
+C95_karate,karate,karate_junzuki,Jun-zuki (Oi-zuki),move,1,zuki,setup,standing,accuracy,4
+C95_karate,karate,karate_junzuki,Jun-zuki (Oi-zuki),move,1,zuki,setup,standing,straight_damage,7
+C95_karate,karate,karate_gyakuzuki,Gyaku-zuki,move,2,zuki,damage,standing,accuracy,5
+C95_karate,karate,karate_gyakuzuki,Gyaku-zuki,move,2,zuki,damage,standing,straight_damage,9
+C95_karate,karate,karate_kizamizuki,Kizami-zuki,move,4,zuki,damage,standing,accuracy,7
+C95_karate,karate,karate_kizamizuki,Kizami-zuki,move,4,zuki,damage,standing,straight_damage,13
+C95_karate,karate,karate_tatezuki,Tate-zuki,move,2,zuki,damage,standing,accuracy,5
+C95_karate,karate,karate_tatezuki,Tate-zuki,move,2,zuki,damage,standing,straight_damage,9
+C95_karate,karate,karate_urazuki,Ura-zuki,move,2,zuki,damage,standing,accuracy,5
+C95_karate,karate,karate_urazuki,Ura-zuki,move,2,zuki,damage,standing,straight_damage,9
+C95_karate,karate,karate_kagizuki,Kagi-zuki,move,2,zuki,damage,standing,accuracy,5
+C95_karate,karate,karate_kagizuki,Kagi-zuki,move,2,zuki,damage,standing,straight_damage,9
+C95_karate,karate,karate_agezuki,Age-zuki,move,3,zuki,damage,standing,accuracy,6
+C95_karate,karate,karate_agezuki,Age-zuki,move,3,zuki,damage,standing,straight_damage,11
+C95_karate,karate,karate_gyakuagezuki,Gyaku-age-zuki,move,3,zuki,damage,standing,accuracy,6
+C95_karate,karate,karate_gyakuagezuki,Gyaku-age-zuki,move,3,zuki,damage,standing,straight_damage,11
+C95_karate,karate,karate_heikozuki,Heiko-zuki,move,3,zuki,damage,standing,accuracy,6
+C95_karate,karate,karate_heikozuki,Heiko-zuki,move,3,zuki,damage,standing,straight_damage,11
+C95_karate,karate,karate_awasezuki,Awase-zuki,move,3,zuki,damage,standing,accuracy,6
+C95_karate,karate,karate_awasezuki,Awase-zuki,move,3,zuki,damage,standing,straight_damage,11
+C95_karate,karate,karate_yamazuki,Yama-zuki,move,4,zuki,damage,standing,accuracy,7
+C95_karate,karate,karate_yamazuki,Yama-zuki,move,4,zuki,damage,standing,straight_damage,13
+C95_karate,karate,karate_hasamizuki,Hasami-zuki,move,3,zuki,damage,standing,accuracy,6
+C95_karate,karate,karate_hasamizuki,Hasami-zuki,move,3,zuki,damage,standing,straight_damage,11
+C95_karate,karate,karate_morotezuki,Morote-zuki,move,3,zuki,damage,standing,accuracy,6
+C95_karate,karate,karate_morotezuki,Morote-zuki,move,3,zuki,damage,standing,straight_damage,11
+C95_karate,karate,karate_sanbon_chain,Sanbon-renzuki,sequence,3,combinations,damage,standing,accuracy,6
+C95_karate,karate,karate_sanbon_chain,Sanbon-renzuki,sequence,3,combinations,damage,standing,straight_damage,11
+C95_karate,karate,karate_renzuki,Ren-zuki,move,2,zuki,damage,standing,accuracy,5
+C95_karate,karate,karate_renzuki,Ren-zuki,move,2,zuki,damage,standing,straight_damage,9
+C95_karate,karate,karate_nukite,Nukite,move,2,zuki,damage,standing,accuracy,5
+C95_karate,karate,karate_nukite,Nukite,move,2,zuki,damage,standing,straight_damage,9
+C95_karate,karate,karate_ipponnukite,Ippon-nukite,move,4,zuki,damage,standing,accuracy,7
+C95_karate,karate,karate_ipponnukite,Ippon-nukite,move,4,zuki,damage,standing,straight_damage,13
+C95_karate,karate,karate_nihonnukite,Nihon-nukite,move,4,zuki,damage,standing,accuracy,7
+C95_karate,karate,karate_nihonnukite,Nihon-nukite,move,4,zuki,damage,standing,straight_damage,13
+C95_karate,karate,karate_shihonnukite,Shihon-nukite,move,3,zuki,damage,standing,accuracy,6
+C95_karate,karate,karate_shihonnukite,Shihon-nukite,move,3,zuki,damage,standing,straight_damage,11
+C95_karate,karate,karate_ipponken,Ippon-ken,move,3,zuki,damage,standing,accuracy,6
+C95_karate,karate,karate_ipponken,Ippon-ken,move,3,zuki,damage,standing,straight_damage,11
+C95_karate,karate,karate_nakadakaken,Nakadaka-ken,move,4,zuki,damage,standing,accuracy,7
+C95_karate,karate,karate_nakadakaken,Nakadaka-ken,move,4,zuki,damage,standing,straight_damage,13
+C95_karate,karate,karate_hiraken,Hiraken,move,3,zuki,damage,standing,accuracy,6
+C95_karate,karate,karate_hiraken,Hiraken,move,3,zuki,damage,standing,straight_damage,11
+C95_karate,karate,karate_kizami_gyaku,"Kizami-zuki, Gyaku-zuki",sequence,4,combinations,damage,standing,accuracy,7
+C95_karate,karate,karate_kizami_gyaku,"Kizami-zuki, Gyaku-zuki",sequence,4,combinations,damage,standing,straight_damage,13
+C95_karate,karate,karate_urakenuchi,Uraken-uchi,move,3,uchi,damage,standing,head_damage,5
+C95_karate,karate,karate_urakenuchi,Uraken-uchi,move,3,uchi,damage,standing,impact,11
+C95_karate,karate,karate_tettsuiuchi,Tettsui-uchi,move,2,uchi,damage,standing,head_damage,4
+C95_karate,karate,karate_tettsuiuchi,Tettsui-uchi,move,2,uchi,damage,standing,impact,9
+C95_karate,karate,karate_shutouchi,Shuto-uchi,move,2,uchi,damage,standing,head_damage,4
+C95_karate,karate,karate_shutouchi,Shuto-uchi,move,2,uchi,damage,standing,impact,9
+C95_karate,karate,karate_haitouchi,Haito-uchi,move,3,uchi,damage,standing,head_damage,5
+C95_karate,karate,karate_haitouchi,Haito-uchi,move,3,uchi,damage,standing,impact,11
+C95_karate,karate,karate_haishuuchi,Haishu-uchi,move,2,uchi,damage,standing,head_damage,4
+C95_karate,karate,karate_haishuuchi,Haishu-uchi,move,2,uchi,damage,standing,impact,9
+C95_karate,karate,karate_teishouchi,Teisho-uchi,move,2,uchi,damage,standing,head_damage,4
+C95_karate,karate,karate_teishouchi,Teisho-uchi,move,2,uchi,damage,standing,impact,9
+C95_karate,karate,karate_seiryutouchi,Seiryuto-uchi,move,4,uchi,damage,standing,head_damage,6
+C95_karate,karate,karate_seiryutouchi,Seiryuto-uchi,move,4,uchi,damage,standing,impact,13
+C95_karate,karate,karate_keitouchi,Keito-uchi,move,4,uchi,damage,standing,head_damage,6
+C95_karate,karate,karate_keitouchi,Keito-uchi,move,4,uchi,damage,standing,impact,13
+C95_karate,karate,karate_kokutouchi,Kokuto-uchi,move,4,uchi,damage,standing,head_damage,6
+C95_karate,karate,karate_kokutouchi,Kokuto-uchi,move,4,uchi,damage,standing,impact,13
+C95_karate,karate,karate_washideuchi,Washide-uchi,move,4,uchi,damage,standing,head_damage,6
+C95_karate,karate,karate_washideuchi,Washide-uchi,move,4,uchi,damage,standing,impact,13
+C95_karate,karate,karate_kumadeuchi,Kumade-uchi,move,3,uchi,damage,standing,head_damage,5
+C95_karate,karate,karate_kumadeuchi,Kumade-uchi,move,3,uchi,damage,standing,impact,11
+C95_karate,karate,karate_empiuchi,Empi-uchi,move,2,uchi,damage,standing,head_damage,4
+C95_karate,karate,karate_empiuchi,Empi-uchi,move,2,uchi,damage,standing,impact,9
+C95_karate,karate,karate_ageempiuchi,Age-empi-uchi,move,3,uchi,damage,standing,head_damage,5
+C95_karate,karate,karate_ageempiuchi,Age-empi-uchi,move,3,uchi,damage,standing,impact,11
+C95_karate,karate,karate_yokoempiuchi,Yoko-empi-uchi,move,3,uchi,damage,standing,head_damage,5
+C95_karate,karate,karate_yokoempiuchi,Yoko-empi-uchi,move,3,uchi,damage,standing,impact,11
+C95_karate,karate,karate_ushiroempiuchi,Ushiro-empi-uchi,move,3,uchi,damage,standing,head_damage,5
+C95_karate,karate,karate_ushiroempiuchi,Ushiro-empi-uchi,move,3,uchi,damage,standing,impact,11
+C95_karate,karate,karate_otoshiempiuchi,Otoshi-empi-uchi,move,3,uchi,damage,standing,head_damage,5
+C95_karate,karate,karate_otoshiempiuchi,Otoshi-empi-uchi,move,3,uchi,damage,standing,impact,11
+C95_karate,karate,karate_mawashiempiuchi,Mawashi-empi-uchi,move,3,uchi,damage,standing,head_damage,5
+C95_karate,karate,karate_mawashiempiuchi,Mawashi-empi-uchi,move,3,uchi,damage,standing,impact,11
+C95_karate,karate,karate_maemawashiempiuchi,Mae-mawashi-empi-uchi,move,3,uchi,damage,standing,head_damage,5
+C95_karate,karate,karate_maemawashiempiuchi,Mae-mawashi-empi-uchi,move,3,uchi,damage,standing,impact,11
+C95_karate,karate,karate_shutosakotsuuchi,Shuto-sakotsu-uchi,move,3,uchi,damage,standing,head_damage,5
+C95_karate,karate,karate_shutosakotsuuchi,Shuto-sakotsu-uchi,move,3,uchi,damage,standing,impact,11
+C95_karate,karate,karate_shutosakotsuuchikomi,Shuto-sakotsu-uchikomi,move,4,uchi,damage,standing,head_damage,6
+C95_karate,karate,karate_shutosakotsuuchikomi,Shuto-sakotsu-uchikomi,move,4,uchi,damage,standing,impact,13
+C95_karate,karate,karate_shutohizouchi,Shuto-hizo-uchi,move,3,uchi,damage,standing,head_damage,5
+C95_karate,karate,karate_shutohizouchi,Shuto-hizo-uchi,move,3,uchi,damage,standing,impact,11
+C95_karate,karate,karate_shutojodanuchi,Shuto-jodan-uchi,move,3,uchi,damage,standing,head_damage,5
+C95_karate,karate,karate_shutojodanuchi,Shuto-jodan-uchi,move,3,uchi,damage,standing,impact,11
+C95_karate,karate,karate_shutoyokoganmenuchi,Shuto-yoko-ganmen-uchi,move,3,uchi,damage,standing,head_damage,5
+C95_karate,karate,karate_shutoyokoganmenuchi,Shuto-yoko-ganmen-uchi,move,3,uchi,damage,standing,impact,11
+C95_karate,karate,karate_yokourakenuchi,Yoko-uraken-uchi,move,3,uchi,damage,standing,head_damage,5
+C95_karate,karate,karate_yokourakenuchi,Yoko-uraken-uchi,move,3,uchi,damage,standing,impact,11
+C95_karate,karate,karate_otoshiurakenuchi,Otoshi-uraken-uchi,move,3,uchi,damage,standing,head_damage,5
+C95_karate,karate,karate_otoshiurakenuchi,Otoshi-uraken-uchi,move,3,uchi,damage,standing,impact,11
+C95_karate,karate,karate_urakenmawashiuchi,Uraken-mawashi-uchi,move,3,uchi,damage,standing,head_damage,5
+C95_karate,karate,karate_urakenmawashiuchi,Uraken-mawashi-uchi,move,3,uchi,damage,standing,impact,11
+C95_karate,karate,karate_teishofuriuchi,Teisho-furi-uchi,move,3,uchi,damage,standing,head_damage,5
+C95_karate,karate,karate_teishofuriuchi,Teisho-furi-uchi,move,3,uchi,damage,standing,impact,11
+C95_karate,karate,karate_tateteishouchi,Tate-teisho-uchi,move,3,uchi,damage,standing,head_damage,5
+C95_karate,karate,karate_tateteishouchi,Tate-teisho-uchi,move,3,uchi,damage,standing,impact,11
+C95_karate,karate,karate_tsukiage,Tsuki-age,move,3,uchi,damage,standing,head_damage,5
+C95_karate,karate,karate_tsukiage,Tsuki-age,move,3,uchi,damage,standing,impact,11
+C95_karate,karate,karate_tettsuihasamiuchi,Tettsui-hasami-uchi,move,4,uchi,damage,standing,head_damage,6
+C95_karate,karate,karate_tettsuihasamiuchi,Tettsui-hasami-uchi,move,4,uchi,damage,standing,impact,13
+C95_karate,karate,karate_ageuke,Age-uke,skill,1,uke,defense,standing,counter_open,3
+C95_karate,karate,karate_ageuke,Age-uke,skill,1,uke,defense,standing,coverage,7
+C95_karate,karate,karate_gedanbarai,Gedan-barai,skill,1,uke,defense,standing,counter_open,3
+C95_karate,karate,karate_gedanbarai,Gedan-barai,skill,1,uke,defense,standing,coverage,7
+C95_karate,karate,karate_sotouke,Soto-uke,skill,1,uke,defense,standing,counter_open,3
+C95_karate,karate,karate_sotouke,Soto-uke,skill,1,uke,defense,standing,coverage,7
+C95_karate,karate,karate_uchiuke,Uchi-uke,skill,1,uke,defense,standing,counter_open,3
+C95_karate,karate,karate_uchiuke,Uchi-uke,skill,1,uke,defense,standing,coverage,7
+C95_karate,karate,karate_shutouke,Shuto-uke,skill,1,uke,defense,standing,counter_open,3
+C95_karate,karate,karate_shutouke,Shuto-uke,skill,1,uke,defense,standing,coverage,7
+C95_karate,karate,karate_empiuke,Empi-uke,skill,2,uke,defense,standing,counter_open,4
+C95_karate,karate,karate_empiuke,Empi-uke,skill,2,uke,defense,standing,coverage,9
+C95_karate,karate,karate_gedanmorotebarai,Gedan-morote-barai,skill,2,uke,defense,standing,counter_open,4
+C95_karate,karate,karate_gedanmorotebarai,Gedan-morote-barai,skill,2,uke,defense,standing,coverage,9
+C95_karate,karate,karate_haiwanuke,Haiwan-uke,skill,2,uke,defense,standing,counter_open,4
+C95_karate,karate,karate_haiwanuke,Haiwan-uke,skill,2,uke,defense,standing,coverage,9
+C95_karate,karate,karate_gedanjujiuke,Gedan-juji-uke,skill,2,uke,defense,standing,counter_open,4
+C95_karate,karate,karate_gedanjujiuke,Gedan-juji-uke,skill,2,uke,defense,standing,coverage,9
+C95_karate,karate,karate_jodanjujiuke,Jodan-juji-uke,skill,2,uke,defense,standing,counter_open,4
+C95_karate,karate,karate_jodanjujiuke,Jodan-juji-uke,skill,2,uke,defense,standing,coverage,9
+C95_karate,karate,karate_kaishoageuke,Kaisho-age-uke,skill,3,uke,defense,standing,counter_open,5
+C95_karate,karate,karate_kaishoageuke,Kaisho-age-uke,skill,3,uke,defense,standing,coverage,11
+C95_karate,karate,karate_kaishohaiwanuke,Kaisho-haiwan-uke,skill,2,uke,defense,standing,counter_open,4
+C95_karate,karate,karate_kaishohaiwanuke,Kaisho-haiwan-uke,skill,2,uke,defense,standing,coverage,9
+C95_karate,karate,karate_kaishojujiuke,Kaisho-juji-uke,skill,2,uke,defense,standing,counter_open,4
+C95_karate,karate,karate_kaishojujiuke,Kaisho-juji-uke,skill,2,uke,defense,standing,coverage,9
+C95_karate,karate,karate_kakiwakeuke,Kakiwake-uke,skill,2,uke,defense,standing,counter_open,4
+C95_karate,karate,karate_kakiwakeuke,Kakiwake-uke,skill,2,uke,defense,standing,coverage,9
+C95_karate,karate,karate_moroteuke,Morote-uke,skill,2,uke,defense,standing,counter_open,4
+C95_karate,karate,karate_moroteuke,Morote-uke,skill,2,uke,defense,standing,coverage,9
+C95_karate,karate,karate_nagashiuke,Nagashi-uke,skill,3,uke,defense,standing,counter_open,5
+C95_karate,karate,karate_nagashiuke,Nagashi-uke,skill,3,uke,defense,standing,coverage,11
+C95_karate,karate,karate_osaeuke,Osae-uke,skill,2,uke,defense,standing,counter_open,4
+C95_karate,karate,karate_osaeuke,Osae-uke,skill,2,uke,defense,standing,coverage,9
+C95_karate,karate,karate_otoshiuke,Otoshi-uke,skill,2,uke,defense,standing,counter_open,4
+C95_karate,karate,karate_otoshiuke,Otoshi-uke,skill,2,uke,defense,standing,coverage,9
+C95_karate,karate,karate_shutoageuke,Shuto-age-uke,skill,3,uke,defense,standing,counter_open,5
+C95_karate,karate,karate_shutoageuke,Shuto-age-uke,skill,3,uke,defense,standing,coverage,11
+C95_karate,karate,karate_shutogedanbarai,Shuto-gedan-barai,skill,3,uke,defense,standing,counter_open,5
+C95_karate,karate,karate_shutogedanbarai,Shuto-gedan-barai,skill,3,uke,defense,standing,coverage,11
+C95_karate,karate,karate_shutomawashiuke,Shuto-mawashi-uke,skill,4,uke,defense,standing,counter_open,6
+C95_karate,karate,karate_shutomawashiuke,Shuto-mawashi-uke,skill,4,uke,defense,standing,coverage,13
+C95_karate,karate,karate_sukuiuke,Sukui-uke,skill,3,uke,defense,standing,counter_open,5
+C95_karate,karate,karate_sukuiuke,Sukui-uke,skill,3,uke,defense,standing,coverage,11
+C95_karate,karate,karate_tateshutouke,Tate-shuto-uke,skill,3,uke,defense,standing,counter_open,5
+C95_karate,karate,karate_tateshutouke,Tate-shuto-uke,skill,3,uke,defense,standing,coverage,11
+C95_karate,karate,karate_teosaeuke,Te-osae-uke,skill,2,uke,defense,standing,counter_open,4
+C95_karate,karate,karate_teosaeuke,Te-osae-uke,skill,2,uke,defense,standing,coverage,9
+C95_karate,karate,karate_udebarai,Ude-barai,skill,2,uke,defense,standing,counter_open,4
+C95_karate,karate,karate_udebarai,Ude-barai,skill,2,uke,defense,standing,coverage,9
+C95_karate,karate,karate_ushirogedanbarai,Ushiro-gedan-barai,skill,3,uke,defense,standing,counter_open,5
+C95_karate,karate,karate_ushirogedanbarai,Ushiro-gedan-barai,skill,3,uke,defense,standing,coverage,11
+C95_karate,karate,karate_teishouke,Teisho-uke,skill,3,uke,defense,standing,counter_open,5
+C95_karate,karate,karate_teishouke,Teisho-uke,skill,3,uke,defense,standing,coverage,11
+C95_karate,karate,karate_chudansoeteuke,Chudan-soete-uke,skill,3,uke,defense,standing,counter_open,5
+C95_karate,karate,karate_chudansoeteuke,Chudan-soete-uke,skill,3,uke,defense,standing,coverage,11
+C95_karate,karate,karate_tsukiuke,Tsuki-uke,skill,3,uke,defense,standing,counter_open,5
+C95_karate,karate,karate_tsukiuke,Tsuki-uke,skill,3,uke,defense,standing,coverage,11
+C95_karate,karate,karate_morotetsukamiuke,Morote-tsukami-uke,skill,4,uke,defense,standing,counter_open,6
+C95_karate,karate,karate_morotetsukamiuke,Morote-tsukami-uke,skill,4,uke,defense,standing,coverage,13
+C95_karate,karate,karate_mawashiuke,Mawashi-uke,skill,4,uke,defense,standing,counter_open,6
+C95_karate,karate,karate_mawashiuke,Mawashi-uke,skill,4,uke,defense,standing,coverage,13
+C95_karate,karate,karate_haishuuke,Haishu-uke,skill,2,uke,defense,standing,counter_open,4
+C95_karate,karate,karate_haishuuke,Haishu-uke,skill,2,uke,defense,standing,coverage,9
+C95_karate,karate,karate_kosauke,Kosa-uke (Joge-uke),skill,2,uke,defense,standing,counter_open,4
+C95_karate,karate,karate_kosauke,Kosa-uke (Joge-uke),skill,2,uke,defense,standing,coverage,9
+C95_karate,karate,karate_teishoawaseuke,Teisho-awase-uke,skill,4,uke,defense,standing,counter_open,6
+C95_karate,karate,karate_teishoawaseuke,Teisho-awase-uke,skill,4,uke,defense,standing,coverage,13
+C95_karate,karate,karate_manjiuke,Manji-uke,skill,3,uke,defense,standing,counter_open,5
+C95_karate,karate,karate_manjiuke,Manji-uke,skill,3,uke,defense,standing,coverage,11
+C95_karate,karate,karate_maegeri,Mae-geri,move,1,geri,damage,standing,kick_accuracy,4
+C95_karate,karate,karate_maegeri,Mae-geri,move,1,geri,damage,standing,kick_damage,7
+C95_karate,karate,karate_maegerikeage,Mae-geri-keage,move,1,geri,damage,standing,kick_accuracy,4
+C95_karate,karate,karate_maegerikeage,Mae-geri-keage,move,1,geri,damage,standing,kick_damage,7
+C95_karate,karate,karate_maegerikekomi,Mae-geri-kekomi,move,2,geri,damage,standing,kick_accuracy,5
+C95_karate,karate,karate_maegerikekomi,Mae-geri-kekomi,move,2,geri,damage,standing,kick_damage,9
+C95_karate,karate,karate_maeashigeri,Mae-ashi-geri,move,2,geri,damage,standing,kick_accuracy,5
+C95_karate,karate,karate_maeashigeri,Mae-ashi-geri,move,2,geri,damage,standing,kick_damage,9
+C95_karate,karate,karate_oimaegeri,Oi-mae-geri,move,2,geri,damage,standing,kick_accuracy,5
+C95_karate,karate,karate_oimaegeri,Oi-mae-geri,move,2,geri,damage,standing,kick_damage,9
+C95_karate,karate,karate_rengeri,Ren-geri,move,3,geri,damage,standing,kick_accuracy,6
+C95_karate,karate,karate_rengeri,Ren-geri,move,3,geri,damage,standing,kick_damage,11
+C95_karate,karate,karate_nidan_geri,Nidan-geri,move,3,geri,damage,standing,kick_accuracy,6
+C95_karate,karate,karate_nidan_geri,Nidan-geri,move,3,geri,damage,standing,kick_damage,11
+C95_karate,karate,karate_mawashigeri,Mawashi-geri,move,3,geri,damage,standing,kick_accuracy,6
+C95_karate,karate,karate_mawashigeri,Mawashi-geri,move,3,geri,damage,standing,kick_damage,11
+C95_karate,karate,karate_maeashimawashigeri,Mae-ashi-mawashi-geri,move,3,geri,damage,standing,kick_accuracy,6
+C95_karate,karate,karate_maeashimawashigeri,Mae-ashi-mawashi-geri,move,3,geri,damage,standing,kick_damage,11
+C95_karate,karate,karate_ushiro_geri,Ushiro-geri,move,4,geri,damage,standing,kick_accuracy,7
+C95_karate,karate,karate_ushiro_geri,Ushiro-geri,move,4,geri,damage,standing,kick_damage,13
+C95_karate,karate,karate_ushiromawashigeri,Ushiro-mawashi-geri,move,4,geri,damage,standing,kick_accuracy,7
+C95_karate,karate,karate_ushiromawashigeri,Ushiro-mawashi-geri,move,4,geri,damage,standing,kick_damage,13
+C95_karate,karate,karate_uramawashi,Ura-mawashi-geri,move,4,geri,damage,standing,kick_accuracy,7
+C95_karate,karate,karate_uramawashi,Ura-mawashi-geri,move,4,geri,damage,standing,kick_damage,13
+C95_karate,karate,karate_yokogeri,Yoko-geri,move,1,geri,damage,standing,kick_accuracy,4
+C95_karate,karate,karate_yokogeri,Yoko-geri,move,1,geri,damage,standing,kick_damage,7
+C95_karate,karate,karate_yokogerikeage,Yoko-geri-keage,move,1,geri,damage,standing,kick_accuracy,4
+C95_karate,karate,karate_yokogerikeage,Yoko-geri-keage,move,1,geri,damage,standing,kick_damage,7
+C95_karate,karate,karate_yokogerikekomi,Yoko-geri-kekomi,move,2,geri,damage,standing,kick_accuracy,5
+C95_karate,karate,karate_yokogerikekomi,Yoko-geri-kekomi,move,2,geri,damage,standing,kick_damage,9
+C95_karate,karate,karate_fumikomigeri,Fumikomi-geri,move,2,geri,damage,standing,kick_accuracy,5
+C95_karate,karate,karate_fumikomigeri,Fumikomi-geri,move,2,geri,damage,standing,kick_damage,9
+C95_karate,karate,karate_hizageri,Hiza-geri,move,2,geri,damage,standing,kick_accuracy,5
+C95_karate,karate,karate_hizageri,Hiza-geri,move,2,geri,damage,standing,kick_damage,9
+C95_karate,karate,karate_maehizageri,Mae-hiza-geri,move,2,geri,damage,standing,kick_accuracy,5
+C95_karate,karate,karate_maehizageri,Mae-hiza-geri,move,2,geri,damage,standing,kick_damage,9
+C95_karate,karate,karate_mawashihizageri,Mawashi-hiza-geri,move,3,geri,damage,standing,kick_accuracy,6
+C95_karate,karate,karate_mawashihizageri,Mawashi-hiza-geri,move,3,geri,damage,standing,kick_damage,11
+C95_karate,karate,karate_kingeri,Kin-geri,move,1,geri,damage,standing,kick_accuracy,4
+C95_karate,karate,karate_kingeri,Kin-geri,move,1,geri,damage,standing,kick_damage,7
+C95_karate,karate,karate_mikazukigeri,Mikazuki-geri,move,2,geri,damage,standing,kick_accuracy,5
+C95_karate,karate,karate_mikazukigeri,Mikazuki-geri,move,2,geri,damage,standing,kick_damage,9
+C95_karate,karate,karate_gyakumikazukigeri,Gyaku-mikazuki-geri,move,3,geri,damage,standing,kick_accuracy,6
+C95_karate,karate,karate_gyakumikazukigeri,Gyaku-mikazuki-geri,move,3,geri,damage,standing,kick_damage,11
+C95_karate,karate,karate_kakatogeri,Kakato-geri,move,3,geri,damage,standing,kick_accuracy,6
+C95_karate,karate,karate_kakatogeri,Kakato-geri,move,3,geri,damage,standing,kick_damage,11
+C95_karate,karate,karate_otoshikakatogeri,Otoshi-kakato-geri,move,4,geri,damage,standing,kick_accuracy,7
+C95_karate,karate,karate_otoshikakatogeri,Otoshi-kakato-geri,move,4,geri,damage,standing,kick_damage,13
+C95_karate,karate,karate_urakakatogeri,Ura-kakato-geri,move,4,geri,damage,standing,kick_accuracy,7
+C95_karate,karate,karate_urakakatogeri,Ura-kakato-geri,move,4,geri,damage,standing,kick_damage,13
+C95_karate,karate,karate_tobimaegeri,Tobi-mae-geri,move,3,geri,damage,standing,kick_accuracy,6
+C95_karate,karate,karate_tobimaegeri,Tobi-mae-geri,move,3,geri,damage,standing,kick_damage,11
+C95_karate,karate,karate_tobiyokogeri,Tobi-yoko-geri,move,4,geri,damage,standing,kick_accuracy,7
+C95_karate,karate,karate_tobiyokogeri,Tobi-yoko-geri,move,4,geri,damage,standing,kick_damage,13
+C95_karate,karate,karate_tobimawashigeri,Tobi-mawashi-geri,move,4,geri,damage,standing,kick_accuracy,7
+C95_karate,karate,karate_tobimawashigeri,Tobi-mawashi-geri,move,4,geri,damage,standing,kick_damage,13
+C95_karate,karate,karate_tobiushirogeri,Tobi-ushiro-geri,move,4,geri,damage,standing,kick_accuracy,7
+C95_karate,karate,karate_tobiushirogeri,Tobi-ushiro-geri,move,4,geri,damage,standing,kick_damage,13
+C95_karate,karate,karate_ashibarai,Ashi-barai,move,3,geri,damage,standing,kick_accuracy,6
+C95_karate,karate,karate_ashibarai,Ashi-barai,move,3,geri,damage,standing,kick_damage,11
+C95_karate,karate,karate_byobudaoshi,Byobu-daoshi,move,4,nage_kansetsu,takedown,standing|clinch,balance_break,12
+C95_karate,karate,karate_byobudaoshi,Byobu-daoshi,move,4,nage_kansetsu,takedown,standing|clinch,takedown,11
+C95_karate,karate,karate_katawaguruma,Katawa-guruma,move,4,nage_kansetsu,takedown,standing|clinch,balance_break,12
+C95_karate,karate,karate_katawaguruma,Katawa-guruma,move,4,nage_kansetsu,takedown,standing|clinch,takedown,11
+C95_karate,karate,karate_komanage,Koma-nage,move,4,nage_kansetsu,control,standing|clinch,arm_isolation,12
+C95_karate,karate,karate_komanage,Koma-nage,move,4,nage_kansetsu,control,standing|clinch,takedown,10
+C95_karate,karate,karate_kubiwa,Kubi-wa,move,4,nage_kansetsu,takedown,standing|clinch,balance_break,12
+C95_karate,karate,karate_kubiwa,Kubi-wa,move,4,nage_kansetsu,takedown,standing|clinch,takedown,11
+C95_karate,karate,karate_sakazuchi,Saka-zuchi,move,4,nage_kansetsu,takedown,standing|clinch,balance_break,12
+C95_karate,karate,karate_sakazuchi,Saka-zuchi,move,4,nage_kansetsu,takedown,standing|clinch,takedown,11
+C95_karate,karate,karate_taniotoshi,Tani-otoshi,move,4,nage_kansetsu,takedown,standing|clinch,balance_break,12
+C95_karate,karate,karate_taniotoshi,Tani-otoshi,move,4,nage_kansetsu,takedown,standing|clinch,takedown,11
+C95_karate,karate,karate_tsubamegaeshi,Tsubame-gaeshi,move,4,nage_kansetsu,takedown,standing|clinch,balance_break,12
+C95_karate,karate,karate_tsubamegaeshi,Tsubame-gaeshi,move,4,nage_kansetsu,takedown,standing|clinch,takedown,11
+C95_karate,karate,karate_udewa,Ude-wa,move,4,nage_kansetsu,control,standing|clinch,arm_isolation,12
+C95_karate,karate,karate_udewa,Ude-wa,move,4,nage_kansetsu,control,standing|clinch,takedown,10
+C95_karate,karate,karate_yaridama,Yari-dama,move,4,nage_kansetsu,takedown,standing|clinch,balance_break,12
+C95_karate,karate,karate_yaridama,Yari-dama,move,4,nage_kansetsu,takedown,standing|clinch,takedown,11
+C95_karate,karate,karate_blitz_combo,Kizami-zuki - Gyaku-zuki - Mawashi-geri (Blitz),sequence,4,combinations,damage,standing,kick_damage,11
+C95_karate,karate,karate_blitz_combo,Kizami-zuki - Gyaku-zuki - Mawashi-geri (Blitz),sequence,4,combinations,damage,standing,straight_damage,13
+C95_karate,karate,karate_ageuke_gyakuzuki_combo,Age-uke - Gyaku-zuki,sequence,2,combinations,damage,standing,counter_open,3
+C95_karate,karate,karate_ageuke_gyakuzuki_combo,Age-uke - Gyaku-zuki,sequence,2,combinations,damage,standing,straight_damage,9
+C95_karate,karate,karate_sotouke_empi_uraken_gyaku_combo,Soto-uke - Yoko-empi-uchi - Uraken-uchi - Gyaku-zuki,sequence,3,combinations,damage,standing,impact,11
+C95_karate,karate,karate_sotouke_empi_uraken_gyaku_combo,Soto-uke - Yoko-empi-uchi - Uraken-uchi - Gyaku-zuki,sequence,3,combinations,damage,standing,straight_damage,11
+C95_karate,karate,karate_shutouke_nukite_combo,Shuto-uke - Nukite,sequence,2,combinations,damage,standing,counter_open,3
+C95_karate,karate,karate_shutouke_nukite_combo,Shuto-uke - Nukite,sequence,2,combinations,damage,standing,straight_damage,9
+C95_karate,karate,karate_maegeri_junzuki_combo,Mae-geri - Jun-zuki,sequence,1,combinations,damage,standing,kick_damage,7
+C95_karate,karate,karate_maegeri_junzuki_combo,Mae-geri - Jun-zuki,sequence,1,combinations,damage,standing,straight_damage,7
+C95_karate,karate,karate_mawashi_gyaku_combo,Mawashi-geri - Gyaku-zuki,sequence,3,combinations,damage,standing,kick_damage,11
+C95_karate,karate,karate_mawashi_gyaku_combo,Mawashi-geri - Gyaku-zuki,sequence,3,combinations,damage,standing,straight_damage,11
+C95_karate,karate,karate_yokogeri_gyaku_combo,Yoko-geri-kekomi - Gyaku-zuki,sequence,2,combinations,damage,standing,kick_damage,9
+C95_karate,karate,karate_yokogeri_gyaku_combo,Yoko-geri-kekomi - Gyaku-zuki,sequence,2,combinations,damage,standing,straight_damage,9
+C95_karate,karate,karate_ashibarai_gyaku_combo,Ashi-barai - Gyaku-zuki,sequence,3,combinations,damage,standing,balance_break,8
+C95_karate,karate,karate_ashibarai_gyaku_combo,Ashi-barai - Gyaku-zuki,sequence,3,combinations,damage,standing,straight_damage,11
+Q65_muay_thai,muay_thai,muay_thai_stance,Muay Thai Stance,skill,1,eight_limbs,defense,standing,check_readiness,6
+Q65_muay_thai,muay_thai,muay_thai_stance,Muay Thai Stance,skill,1,eight_limbs,defense,standing,guard,7
+Q65_muay_thai,muay_thai,muay_thai_teep,Teep (Push Kick),move,1,kicks_knees,setup,standing,balance_break,5
+Q65_muay_thai,muay_thai,muay_thai_teep,Teep (Push Kick),move,1,kicks_knees,setup,standing,range_control,9
+Q65_muay_thai,muay_thai,muay_thai_round_kick,Round Kick,move,1,kicks_knees,damage,standing,body_damage,7
+Q65_muay_thai,muay_thai,muay_thai_round_kick,Round Kick,move,1,kicks_knees,damage,standing,kick_damage,9
+Q65_muay_thai,muay_thai,muay_thai_straight_knee,Straight Knee,move,2,kicks_knees,damage,standing|clinch,body_damage,10
+Q65_muay_thai,muay_thai,muay_thai_straight_knee,Straight Knee,move,2,kicks_knees,damage,standing|clinch,damage,7
+Q65_muay_thai,muay_thai,muay_thai_horizontal_elbow,Horizontal Elbow,move,2,elbows,damage,standing,cut_threat,10
+Q65_muay_thai,muay_thai,muay_thai_horizontal_elbow,Horizontal Elbow,move,2,elbows,damage,standing,damage,9
+Q65_muay_thai,muay_thai,muay_thai_plum,Double-Collar Clinch,skill,2,clinch,control,clinch,clinch_control,12
+Q65_muay_thai,muay_thai,muay_thai_plum,Double-Collar Clinch,skill,2,clinch,control,clinch,setup,9
+Q65_muay_thai,muay_thai,muay_thai_clinch_knees,Clinch Knee Series,sequence,3,combinations,damage,clinch,body_damage,13
+Q65_muay_thai,muay_thai,muay_thai_clinch_knees,Clinch Knee Series,sequence,3,combinations,damage,clinch,stamina_drain,-10
+Q65_muay_thai,muay_thai,muay_thai_up_elbow,Upward Elbow,move,3,elbows,damage,standing|clinch,cut_threat,13
+Q65_muay_thai,muay_thai,muay_thai_up_elbow,Upward Elbow,move,3,elbows,damage,standing|clinch,damage,11
+Q65_muay_thai,muay_thai,muay_thai_clinch_dump,Clinch Turn and Dump,move,3,clinch,control,clinch,balance_break,14
+Q65_muay_thai,muay_thai,muay_thai_clinch_dump,Clinch Turn and Dump,move,3,clinch,control,clinch,control_score,9
+Q65_muay_thai,muay_thai,muay_thai_eight_limb_chain,Teep-Round Kick-Clinch Knee-Elbow Chain,sequence,4,combinations,setup,standing|clinch,damage,13
+Q65_muay_thai,muay_thai,muay_thai_eight_limb_chain,Teep-Round Kick-Clinch Knee-Elbow Chain,sequence,4,combinations,setup,standing|clinch,finish_chance,8
+Q65_muay_thai,muay_thai,muay_thai_eight_limb_chain,Teep-Round Kick-Clinch Knee-Elbow Chain,sequence,4,combinations,setup,standing|clinch,phase_transition,15
+Q65_muay_thai,muay_thai,muay_thai_switch_kick_body,Switch Body Kick,move,2,kicks_knees,damage,standing,body_damage,9
+Q65_muay_thai,muay_thai,muay_thai_switch_kick_body,Switch Body Kick,move,2,kicks_knees,damage,standing,damage,5
+Q65_muay_thai,muay_thai,muay_thai_teep_defense,Long Guard & Teep,skill,2,defense_ringcraft,defense,standing,guard,6
+Q65_muay_thai,muay_thai,muay_thai_teep_defense,Long Guard & Teep,skill,2,defense_ringcraft,defense,standing,range_control,8
+Q65_muay_thai,muay_thai,muay_thai_catch_sweep,Catch & Sweep,move,3,clinch,control,clinch,balance_break,6
+Q65_muay_thai,muay_thai,muay_thai_catch_sweep,Catch & Sweep,move,3,clinch,control,clinch,sweep,8
+Q65_muay_thai,muay_thai,muay_thai_diagonal_elbow,Diagonal Slashing Elbow,move,3,elbows,damage,standing,cut_threat,7
+Q65_muay_thai,muay_thai,muay_thai_diagonal_elbow,Diagonal Slashing Elbow,move,3,elbows,damage,standing,head_damage,10
+Q65_muay_thai,muay_thai,muay_thai_spinning_elbow,Spinning Back Elbow,move,4,elbows,damage,standing,head_damage,12
+Q65_muay_thai,muay_thai,muay_thai_spinning_elbow,Spinning Back Elbow,move,4,elbows,damage,standing,surprise,8
+Q65_muay_thai,muay_thai,muay_thai_knee_curfew,Clinch Knee Curfew,move,3,clinch,control,clinch,clinch_damage,9
+Q65_muay_thai,muay_thai,muay_thai_knee_curfew,Clinch Knee Curfew,move,3,clinch,control,clinch,stamina_drain,-6
+Q65_muay_thai,muay_thai,muay_thai_dumps_offbalance,Off-Balance Dump,move,3,clinch,control,clinch,balance_break,8
+Q65_muay_thai,muay_thai,muay_thai_dumps_offbalance,Off-Balance Dump,move,3,clinch,control,clinch,score_or_damage,6
+Q65_muay_thai,muay_thai,muay_thai_ringcraft_walk,Ring Generalship,skill,3,defense_ringcraft,control,standing,boundary_control,9
+Q65_muay_thai,muay_thai,muay_thai_ringcraft_walk,Ring Generalship,skill,3,defense_ringcraft,control,standing,tempo,6
+Q65_muay_thai,muay_thai,muay_thai_low_kick,Low Kick,move,1,kicking,damage,standing,leg_damage,8
+Q65_muay_thai,muay_thai,muay_thai_low_kick,Low Kick,move,1,kicking,damage,standing,off_balance_threat,5
+Q65_muay_thai,muay_thai,muay_thai_mat_yaep,Mat Yaep (Jab),move,1,punching,setup,standing,accuracy,7
+Q65_muay_thai,muay_thai,muay_thai_mat_yaep,Mat Yaep (Jab),move,1,punching,setup,standing,damage,5
+Q65_muay_thai,muay_thai,muay_thai_mat_trong,Mat Trong (Cross),move,1,punching,damage,standing,damage,7
+Q65_muay_thai,muay_thai,muay_thai_mat_trong,Mat Trong (Cross),move,1,punching,damage,standing,head_damage,5
+Q65_muay_thai,muay_thai,muay_thai_shin_check,Shin Check,skill,1,defense,defense,standing,block,6
+Q65_muay_thai,muay_thai,muay_thai_shin_check,Shin Check,skill,1,defense,defense,standing,guard,7
+Q65_muay_thai,muay_thai,muay_thai_head_block,Head Block,skill,1,defense,defense,standing,block,5
+Q65_muay_thai,muay_thai,muay_thai_head_block,Head Block,skill,1,defense,defense,standing,guard,8
+Q65_muay_thai,muay_thai,muay_thai_mat_wiang_san,Mat Wiang San (Hook),move,2,punching,damage,standing,damage,6
+Q65_muay_thai,muay_thai,muay_thai_mat_wiang_san,Mat Wiang San (Hook),move,2,punching,damage,standing,head_damage,8
+Q65_muay_thai,muay_thai,muay_thai_mat_wiang_yao,Mat Wiang Yao (Overhand),move,2,punching,damage,standing,damage,8
+Q65_muay_thai,muay_thai,muay_thai_mat_wiang_yao,Mat Wiang Yao (Overhand),move,2,punching,damage,standing,knockdown_power,6
+Q65_muay_thai,muay_thai,muay_thai_mat_soei,Mat Soei (Uppercut),move,2,punching,damage,standing,damage,6
+Q65_muay_thai,muay_thai,muay_thai_mat_soei,Mat Soei (Uppercut),move,2,punching,damage,standing,head_damage,7
+Q65_muay_thai,muay_thai,muay_thai_sok_phung,Sok Phung (Forward Thrust Elbow),move,2,elbows,damage,standing,cut_threat,7
+Q65_muay_thai,muay_thai,muay_thai_sok_phung,Sok Phung (Forward Thrust Elbow),move,2,elbows,damage,standing,damage,8
+Q65_muay_thai,muay_thai,muay_thai_te_chiang,Te Chiang (Diagonal Kick),move,2,kicking,damage,standing,damage,5
+Q65_muay_thai,muay_thai,muay_thai_te_chiang,Te Chiang (Diagonal Kick),move,2,kicking,damage,standing,kick_damage,8
+Q65_muay_thai,muay_thai,muay_thai_te_kot,Te Kot (Down Roundhouse),move,2,kicking,damage,standing,leg_damage,8
+Q65_muay_thai,muay_thai,muay_thai_te_kot,Te Kot (Down Roundhouse),move,2,kicking,damage,standing,off_balance_threat,6
+Q65_muay_thai,muay_thai,muay_thai_te_khao,Te Khao (Axe Heel Kick),move,2,kicking,damage,standing,head_damage,7
+Q65_muay_thai,muay_thai,muay_thai_te_khao,Te Khao (Axe Heel Kick),move,2,kicking,damage,standing,kick_damage,6
+Q65_muay_thai,muay_thai,muay_thai_body_kick,Body Kick,move,2,kicking,damage,standing,body_damage,9
+Q65_muay_thai,muay_thai,muay_thai_body_kick,Body Kick,move,2,kicking,damage,standing,kick_damage,6
+Q65_muay_thai,muay_thai,muay_thai_khao_chiang,Khao Chiang (Diagonal Knee),move,2,knees,damage,standing|clinch,body_damage,8
+Q65_muay_thai,muay_thai,muay_thai_khao_chiang,Khao Chiang (Diagonal Knee),move,2,knees,damage,standing|clinch,damage,5
+Q65_muay_thai,muay_thai,muay_thai_khao_khong,Khao Khong (Curving Knee),move,2,knees,damage,standing|clinch,body_damage,8
+Q65_muay_thai,muay_thai,muay_thai_khao_khong,Khao Khong (Curving Knee),move,2,knees,damage,standing|clinch,damage,5
+Q65_muay_thai,muay_thai,muay_thai_khao_tat,Khao Tat (Horizontal Knee),move,2,knees,damage,standing|clinch,body_damage,7
+Q65_muay_thai,muay_thai,muay_thai_khao_tat,Khao Tat (Horizontal Knee),move,2,knees,damage,standing|clinch,damage,5
+Q65_muay_thai,muay_thai,muay_thai_khao_ti,Khao Ti (Knee Slap),move,2,knees,setup,standing|clinch,balance_break,6
+Q65_muay_thai,muay_thai,muay_thai_khao_ti,Khao Ti (Knee Slap),move,2,knees,setup,standing|clinch,damage,5
+Q65_muay_thai,muay_thai,muay_thai_thip_khang,Thip Khang (Sideways Foot-Thrust),move,2,teeps,setup,standing,balance_break,5
+Q65_muay_thai,muay_thai,muay_thai_thip_khang,Thip Khang (Sideways Foot-Thrust),move,2,teeps,setup,standing,range_control,8
+Q65_muay_thai,muay_thai,muay_thai_thip_top,Thip Top (Slapping Foot-Thrust),move,2,teeps,setup,standing,damage,5
+Q65_muay_thai,muay_thai,muay_thai_thip_top,Thip Top (Slapping Foot-Thrust),move,2,teeps,setup,standing,range_control,7
+Q65_muay_thai,muay_thai,muay_thai_chapko_khaeng,Chap Ko Khaeng (Arm Clinch),skill,2,clinch,control,clinch,clinch_control,8
+Q65_muay_thai,muay_thai,muay_thai_chapko_khaeng,Chap Ko Khaeng (Arm Clinch),skill,2,clinch,control,clinch,damage,5
+Q65_muay_thai,muay_thai,muay_thai_chapko_khang,Chap Ko Khang (Side Clinch),skill,2,clinch,control,clinch,balance_break,6
+Q65_muay_thai,muay_thai,muay_thai_chapko_khang,Chap Ko Khang (Side Clinch),skill,2,clinch,control,clinch,clinch_control,7
+Q65_muay_thai,muay_thai,muay_thai_catch_kick,Catch Kick,skill,2,defense,defense,standing,guard,7
+Q65_muay_thai,muay_thai,muay_thai_catch_kick,Catch Kick,skill,2,defense,defense,standing,sweep,5
+Q65_muay_thai,muay_thai,muay_thai_slip,Slip,skill,2,defense,defense,standing,angle_exit,5
+Q65_muay_thai,muay_thai,muay_thai_slip,Slip,skill,2,defense,defense,standing,evasion,8
+Q65_muay_thai,muay_thai,muay_thai_pull_back,Pull Back,skill,2,defense,defense,standing,evasion,7
+Q65_muay_thai,muay_thai,muay_thai_pull_back,Pull Back,skill,2,defense,defense,standing,range_control,5
+Q65_muay_thai,muay_thai,muay_thai_cross_arm_block,Cross-Arm Block,skill,2,defense,defense,standing,body_damage,4
+Q65_muay_thai,muay_thai,muay_thai_cross_arm_block,Cross-Arm Block,skill,2,defense,defense,standing,guard,9
+Q65_muay_thai,muay_thai,muay_thai_switch_kick,Switch Kick,move,2,kicking,damage,standing,combo_continuity,5
+Q65_muay_thai,muay_thai,muay_thai_switch_kick,Switch Kick,move,2,kicking,damage,standing,kick_damage,8
+Q65_muay_thai,muay_thai,muay_thai_mat_wiang_klap,Mat Wiang Klap (Spinning Backfist),move,3,punching,damage,standing,head_damage,10
+Q65_muay_thai,muay_thai,muay_thai_mat_wiang_klap,Mat Wiang Klap (Spinning Backfist),move,3,punching,damage,standing,surprise,7
+Q65_muay_thai,muay_thai,muay_thai_kradot_chok,Kradot Chok (Superman Punch),move,3,punching,damage,standing,damage,10
+Q65_muay_thai,muay_thai,muay_thai_kradot_chok,Kradot Chok (Superman Punch),move,3,punching,damage,standing,knockdown_power,8
+Q65_muay_thai,muay_thai,muay_thai_jab_cross_hook,Jab-Cross-Hook,sequence,3,combinations,damage,standing,combo_continuity,8
+Q65_muay_thai,muay_thai,muay_thai_jab_cross_hook,Jab-Cross-Hook,sequence,3,combinations,damage,standing,damage,9
+Q65_muay_thai,muay_thai,muay_thai_jab_cross_body_kick,Jab-Cross-Body Kick,sequence,3,combinations,damage,standing,body_damage,9
+Q65_muay_thai,muay_thai,muay_thai_jab_cross_body_kick,Jab-Cross-Body Kick,sequence,3,combinations,damage,standing,combo_continuity,7
+Q65_muay_thai,muay_thai,muay_thai_slip_counter_punch,Slip Counter (Punch),move,3,punching,damage,standing,counter_strike,8
+Q65_muay_thai,muay_thai,muay_thai_slip_counter_punch,Slip Counter (Punch),move,3,punching,damage,standing,damage,7
+Q65_muay_thai,muay_thai,muay_thai_sok_wiang_klap,Sok Wiang Klap (Reverse Horizontal Elbow),move,3,elbows,damage,standing,cut_threat,9
+Q65_muay_thai,muay_thai,muay_thai_sok_wiang_klap,Sok Wiang Klap (Reverse Horizontal Elbow),move,3,elbows,damage,standing,damage,7
+Q65_muay_thai,muay_thai,muay_thai_te_klap_lang,Te Klap Lang (Reverse Roundhouse),move,3,kicking,damage,standing,kick_damage,10
+Q65_muay_thai,muay_thai,muay_thai_te_klap_lang,Te Klap Lang (Reverse Roundhouse),move,3,kicking,damage,standing,surprise,7
+Q65_muay_thai,muay_thai,muay_thai_te_khrueng_khaeng,Te Khrueng Khaeng (Half-Shin Half-Knee),move,3,kicking,damage,standing,body_damage,7
+Q65_muay_thai,muay_thai,muay_thai_te_khrueng_khaeng,Te Khrueng Khaeng (Half-Shin Half-Knee),move,3,kicking,damage,standing,kick_damage,8
+Q65_muay_thai,muay_thai,muay_thai_kradot_te,Kradot Te (Jump Kick),move,3,kicking,damage,standing,kick_damage,11
+Q65_muay_thai,muay_thai,muay_thai_kradot_te,Kradot Te (Jump Kick),move,3,kicking,damage,standing,knockdown_power,7
+Q65_muay_thai,muay_thai,muay_thai_khayoep_te,Khayoep Te (Step-Up Kick),move,3,kicking,damage,standing,accuracy,7
+Q65_muay_thai,muay_thai,muay_thai_khayoep_te,Khayoep Te (Step-Up Kick),move,3,kicking,damage,standing,kick_damage,8
+Q65_muay_thai,muay_thai,muay_thai_fake_teep_kick,Fake Teep to Kick,move,3,kicking,setup,standing,combo_continuity,7
+Q65_muay_thai,muay_thai,muay_thai_fake_teep_kick,Fake Teep to Kick,move,3,kicking,setup,standing,kick_damage,8
+Q65_muay_thai,muay_thai,muay_thai_khao_yao,Khao Yao (Knee Bomb),move,3,knees,damage,standing|clinch,body_damage,11
+Q65_muay_thai,muay_thai,muay_thai_khao_yao,Khao Yao (Knee Bomb),move,3,knees,damage,standing|clinch,knockdown_power,7
+Q65_muay_thai,muay_thai,muay_thai_khao_yiap,Khao Yiap (Step-Up Knee),move,3,knees,damage,standing|clinch,body_damage,9
+Q65_muay_thai,muay_thai,muay_thai_khao_yiap,Khao Yiap (Step-Up Knee),move,3,knees,damage,standing|clinch,damage,6
+Q65_muay_thai,muay_thai,muay_thai_khao_thon,Khao Thon (Thrusting Knee),move,3,knees,damage,standing|clinch,body_damage,10
+Q65_muay_thai,muay_thai,muay_thai_khao_thon,Khao Thon (Thrusting Knee),move,3,knees,damage,standing|clinch,damage,6
+Q65_muay_thai,muay_thai,muay_thai_fake_jab_knee,Fake Jab to Knee,move,3,knees,setup,standing|clinch,body_damage,8
+Q65_muay_thai,muay_thai,muay_thai_fake_jab_knee,Fake Jab to Knee,move,3,knees,setup,standing|clinch,combo_continuity,7
+Q65_muay_thai,muay_thai,muay_thai_thip_klap_lang,Thip Klap Lang (Reverse Foot-Thrust),move,3,teeps,setup,standing,range_control,8
+Q65_muay_thai,muay_thai,muay_thai_thip_klap_lang,Thip Klap Lang (Reverse Foot-Thrust),move,3,teeps,setup,standing,surprise,6
+Q65_muay_thai,muay_thai,muay_thai_kradot_thip,Kradot Thip (Jumping Foot-Thrust),move,3,teeps,damage,standing,knockdown_power,8
+Q65_muay_thai,muay_thai,muay_thai_kradot_thip,Kradot Thip (Jumping Foot-Thrust),move,3,teeps,damage,standing,range_control,7
+Q65_muay_thai,muay_thai,muay_thai_counter_teep,Counter Teep,move,3,teeps,damage,standing,counter_strike,8
+Q65_muay_thai,muay_thai,muay_thai_counter_teep,Counter Teep,move,3,teeps,damage,standing,range_control,7
+Q65_muay_thai,muay_thai,muay_thai_chapko_lang,Chap Ko Lang (Low Clinch),skill,3,clinch,control,clinch,clinch_control,9
+Q65_muay_thai,muay_thai,muay_thai_chapko_lang,Chap Ko Lang (Low Clinch),skill,3,clinch,control,clinch,takedown,6
+Q65_muay_thai,muay_thai,muay_thai_saphan_kha,Saphan Kha (Swan-Neck),skill,3,clinch,control,clinch,clinch_control,8
+Q65_muay_thai,muay_thai,muay_thai_saphan_kha,Saphan Kha (Swan-Neck),skill,3,clinch,control,clinch,cut_threat,6
+Q65_muay_thai,muay_thai,muay_thai_chapko_head_sweep,Chap Ko Head Sweep,move,3,clinch,control,clinch,balance_break,7
+Q65_muay_thai,muay_thai,muay_thai_chapko_head_sweep,Chap Ko Head Sweep,move,3,clinch,control,clinch,sweep,8
+Q65_muay_thai,muay_thai,muay_thai_catch_strike,Catch and Strike,move,3,defense,damage,standing,counter_strike,8
+Q65_muay_thai,muay_thai,muay_thai_catch_strike,Catch and Strike,move,3,defense,damage,standing,sweep,6
+Q65_muay_thai,muay_thai,muay_thai_double_kick,Double Kick,move,3,kicking,damage,standing,combo_continuity,7
+Q65_muay_thai,muay_thai,muay_thai_double_kick,Double Kick,move,3,kicking,damage,standing,kick_damage,10
+Q65_muay_thai,muay_thai,muay_thai_check_counter_kick,Check-Counter Kick,move,3,kicking,damage,standing,counter_strike,8
+Q65_muay_thai,muay_thai,muay_thai_check_counter_kick,Check-Counter Kick,move,3,kicking,damage,standing,kick_damage,9
+Q65_muay_thai,muay_thai,muay_thai_kick_knee_combo,Kick-Knee Combo,sequence,3,combinations,damage,standing|clinch,body_damage,9
+Q65_muay_thai,muay_thai,muay_thai_kick_knee_combo,Kick-Knee Combo,sequence,3,combinations,damage,standing|clinch,combo_continuity,8
+Q65_muay_thai,muay_thai,muay_thai_khao_counter,Knee Counter,move,3,knees,damage,standing,body_damage,7
+Q65_muay_thai,muay_thai,muay_thai_khao_counter,Knee Counter,move,3,knees,damage,standing,counter_strike,8
+Q65_muay_thai,muay_thai,muay_thai_pull_counter,Pull Counter,move,3,defense,damage,standing,counter_strike,8
+Q65_muay_thai,muay_thai,muay_thai_pull_counter,Pull Counter,move,3,defense,damage,standing,kick_damage,7
+Q65_muay_thai,muay_thai,muay_thai_sok_long_guard_counter,Long Guard Elbow Counter,move,3,elbows,damage,standing,counter_strike,8
+Q65_muay_thai,muay_thai,muay_thai_sok_long_guard_counter,Long Guard Elbow Counter,move,3,elbows,damage,standing,cut_threat,7
+Q65_muay_thai,muay_thai,muay_thai_sok_klap_khu,Sok Klap Khu (Double Elbow Chop),move,4,elbows,damage,standing,cut_threat,10
+Q65_muay_thai,muay_thai,muay_thai_sok_klap_khu,Sok Klap Khu (Double Elbow Chop),move,4,elbows,damage,standing,head_damage,13
+Q65_muay_thai,muay_thai,muay_thai_sok_klap_khu,Sok Klap Khu (Double Elbow Chop),move,4,elbows,damage,standing,knockdown_power,8
+Q65_muay_thai,muay_thai,muay_thai_kradot_sok,Kradot Sok (Jumping Elbow),move,4,elbows,damage,standing,head_damage,14
+Q65_muay_thai,muay_thai,muay_thai_kradot_sok,Kradot Sok (Jumping Elbow),move,4,elbows,damage,standing,knockdown_power,9
+Q65_muay_thai,muay_thai,muay_thai_kradot_sok,Kradot Sok (Jumping Elbow),move,4,elbows,damage,standing,surprise,7
+Q65_muay_thai,muay_thai,muay_thai_counter_sok_klap,Counter Spinning Elbow,move,4,elbows,damage,standing,counter_strike,10
+Q65_muay_thai,muay_thai,muay_thai_counter_sok_klap,Counter Spinning Elbow,move,4,elbows,damage,standing,cut_threat,8
+Q65_muay_thai,muay_thai,muay_thai_counter_sok_klap,Counter Spinning Elbow,move,4,elbows,damage,standing,head_damage,12
+Q65_muay_thai,muay_thai,muay_thai_sok_clinch_combo,Clinch Elbow Combo,sequence,4,combinations,damage,clinch|standing,clinch_offense,10
+Q65_muay_thai,muay_thai,muay_thai_sok_clinch_combo,Clinch Elbow Combo,sequence,4,combinations,damage,clinch|standing,cut_threat,9
+Q65_muay_thai,muay_thai,muay_thai_jorakhe_faad_hang,Jorakhe Faad Hang (Crocodile Sweeps Tail),move,4,kicking,damage,standing,kick_damage,14
+Q65_muay_thai,muay_thai,muay_thai_jorakhe_faad_hang,Jorakhe Faad Hang (Crocodile Sweeps Tail),move,4,kicking,damage,standing,knockdown_power,10
+Q65_muay_thai,muay_thai,muay_thai_jorakhe_faad_hang,Jorakhe Faad Hang (Crocodile Sweeps Tail),move,4,kicking,damage,standing,surprise,8
+Q65_muay_thai,muay_thai,muay_thai_spinning_back_kick,Spinning Back Kick,move,4,kicking,damage,standing,kick_damage,13
+Q65_muay_thai,muay_thai,muay_thai_spinning_back_kick,Spinning Back Kick,move,4,kicking,damage,standing,knockdown_power,9
+Q65_muay_thai,muay_thai,muay_thai_spinning_back_kick,Spinning Back Kick,move,4,kicking,damage,standing,surprise,8
+Q65_muay_thai,muay_thai,muay_thai_khao_loi,Khao Loi (Flying Knee),move,4,knees,damage,standing,damage,10
+Q65_muay_thai,muay_thai,muay_thai_khao_loi,Khao Loi (Flying Knee),move,4,knees,damage,standing,knockdown_power,12
+Q65_muay_thai,muay_thai,muay_thai_khao_loi,Khao Loi (Flying Knee),move,4,knees,damage,standing,surprise,8
+Q65_muay_thai,muay_thai,muay_thai_khao_dot,Khao Dot (Jumping Knee),move,4,knees,damage,standing,damage,9
+Q65_muay_thai,muay_thai,muay_thai_khao_dot,Khao Dot (Jumping Knee),move,4,knees,damage,standing,knockdown_power,11
+Q65_muay_thai,muay_thai,muay_thai_superman_knee,Superman Knee,move,4,knees,damage,standing,damage,10
+Q65_muay_thai,muay_thai,muay_thai_superman_knee,Superman Knee,move,4,knees,damage,standing,knockdown_power,12
+Q65_muay_thai,muay_thai,muay_thai_superman_knee,Superman Knee,move,4,knees,damage,standing,surprise,8
+Q65_muay_thai,muay_thai,muay_thai_khao_clinch_entry,Knee Clinch Entry,move,4,knees,damage,standing|clinch,body_damage,11
+Q65_muay_thai,muay_thai,muay_thai_khao_clinch_entry,Knee Clinch Entry,move,4,knees,damage,standing|clinch,clinch_offense,10
+Q65_muay_thai,muay_thai,muay_thai_teep_knee_chain,Teep-Knee Chain,sequence,4,combinations,setup,standing|clinch,combo_continuity,10
+Q65_muay_thai,muay_thai,muay_thai_teep_knee_chain,Teep-Knee Chain,sequence,4,combinations,setup,standing|clinch,phase_transition,9
+Q65_muay_thai,muay_thai,muay_thai_superman_knee_punch,Superman Knee-Punch,sequence,4,combinations,damage,standing,combo_continuity,9
+Q65_muay_thai,muay_thai,muay_thai_superman_knee_punch,Superman Knee-Punch,sequence,4,combinations,damage,standing,knockdown_power,11
+Q65_muay_thai,muay_thai,muay_thai_jab_cross_sok_klap,Jab-Cross-Spinning Elbow,sequence,4,combinations,damage,standing,combo_continuity,9
+Q65_muay_thai,muay_thai,muay_thai_jab_cross_sok_klap,Jab-Cross-Spinning Elbow,sequence,4,combinations,damage,standing,cut_threat,10
+Q65_muay_thai,muay_thai,muay_thai_chapko_sweep_throw,Chap Ko Sweep Throw,move,4,clinch,control,clinch,balance_break,10
+Q65_muay_thai,muay_thai,muay_thai_chapko_sweep_throw,Chap Ko Sweep Throw,move,4,clinch,control,clinch,knockdown_power,8
+Q65_muay_thai,muay_thai,muay_thai_chapko_sweep_throw,Chap Ko Sweep Throw,move,4,clinch,control,clinch,takedown,12
+Q65_muay_thai,muay_thai,muay_thai_full_spectacle,Full Spectacle,move,4,eight_limbs,damage,standing|clinch,combo_continuity,10
+Q65_muay_thai,muay_thai,muay_thai_full_spectacle,Full Spectacle,move,4,eight_limbs,damage,standing|clinch,damage,12
+Q65_muay_thai,muay_thai,muay_thai_full_spectacle,Full Spectacle,move,4,eight_limbs,damage,standing|clinch,phase_transition,14
+Q65_muay_thai,muay_thai,muay_thai_thip_mat_te_combo,Thip - Mat Trong - Te Tat (Classic Chain),sequence,3,combinations,damage,standing,combo_continuity,7
+Q65_muay_thai,muay_thai,muay_thai_thip_mat_te_combo,Thip - Mat Trong - Te Tat (Classic Chain),sequence,3,combinations,damage,standing,damage,12
+Q65_muay_thai,muay_thai,muay_thai_low_cross_hook,Low Kick - Cross - Hook,sequence,2,combinations,damage,standing,damage,10
+Q65_muay_thai,muay_thai,muay_thai_low_cross_hook,Low Kick - Cross - Hook,sequence,2,combinations,damage,standing,leg_damage,6
+Q65_muay_thai,muay_thai,muay_thai_switch_cross,Switch Kick - Cross,sequence,2,combinations,damage,standing,body_damage,6
+Q65_muay_thai,muay_thai,muay_thai_switch_cross,Switch Kick - Cross,sequence,2,combinations,damage,standing,damage,9
+Q65_muay_thai,muay_thai,muay_thai_thip_clinch_knee,Thip - Clinch Entry - Khao Trong,sequence,3,combinations,damage,standing|clinch,clinch_control,8
+Q65_muay_thai,muay_thai,muay_thai_thip_clinch_knee,Thip - Clinch Entry - Khao Trong,sequence,3,combinations,damage,standing|clinch,damage,11
+Q65_muay_thai,muay_thai,muay_thai_cross_body_low,Cross - Body Kick - Low Kick,sequence,3,combinations,damage,standing,body_damage,6
+Q65_muay_thai,muay_thai,muay_thai_cross_body_low,Cross - Body Kick - Low Kick,sequence,3,combinations,damage,standing,damage,11
+Q65_muay_thai,muay_thai,muay_thai_cross_body_low,Cross - Body Kick - Low Kick,sequence,3,combinations,damage,standing,leg_damage,7
+Q65_muay_thai,muay_thai,muay_thai_jab_teep_switch,Mat Yaep - Thip - Switch Kick,sequence,2,combinations,setup,standing,damage,6
+Q65_muay_thai,muay_thai,muay_thai_jab_teep_switch,Mat Yaep - Thip - Switch Kick,sequence,2,combinations,setup,standing,range_control,9
+Q65_muay_thai,muay_thai,muay_thai_slip_sok_klap,Slip - Sok Klap (Slip-Spinning Elbow),sequence,4,combinations,damage,standing,cut_threat,9
+Q65_muay_thai,muay_thai,muay_thai_slip_sok_klap,Slip - Sok Klap (Slip-Spinning Elbow),sequence,4,combinations,damage,standing,damage,13
+Q65_muay_thai,muay_thai,muay_thai_slip_sok_klap,Slip - Sok Klap (Slip-Spinning Elbow),sequence,4,combinations,damage,standing,surprise,7
+Q65_muay_thai,muay_thai,muay_thai_check_kick_counter,Shin Check - Te Tat (Check-Counter Kick),sequence,3,combinations,damage,standing,damage,9
+Q65_muay_thai,muay_thai,muay_thai_check_kick_counter,Shin Check - Te Tat (Check-Counter Kick),sequence,3,combinations,damage,standing,guard,6
+Q65_muay_thai,muay_thai,muay_thai_check_kick_counter,Shin Check - Te Tat (Check-Counter Kick),sequence,3,combinations,damage,standing,kick_damage,7
+R128_boxing_kickboxing,boxing,boxing_stance_guard,Stance and High Guard,skill,1,fundamentals,defense,standing,coverage,6
+R128_boxing_kickboxing,boxing,boxing_stance_guard,Stance and High Guard,skill,1,fundamentals,defense,standing,guard,8
+R128_boxing_kickboxing,boxing,boxing_distance_read,Finding the Range,skill,1,fundamentals,setup,standing,distance_read,7
+R128_boxing_kickboxing,boxing,boxing_distance_read,Finding the Range,skill,1,fundamentals,setup,standing,range_control,5
+R128_boxing_kickboxing,boxing,boxing_breathing_rhythm,Breathing and Rhythm,skill,1,fundamentals,defense,standing,rhythm,6
+R128_boxing_kickboxing,boxing,boxing_breathing_rhythm,Breathing and Rhythm,skill,1,fundamentals,defense,standing,timing,5
+R128_boxing_kickboxing,boxing,boxing_jab,Jab,move,1,straight_punching,setup,standing,accuracy,8
+R128_boxing_kickboxing,boxing,boxing_jab,Jab,move,1,straight_punching,setup,standing,combo_open,6
+R128_boxing_kickboxing,boxing,boxing_jab,Jab,move,1,straight_punching,setup,standing,range_control,7
+R128_boxing_kickboxing,boxing,boxing_cross,Rear Cross,move,1,straight_punching,damage,standing,accuracy,6
+R128_boxing_kickboxing,boxing,boxing_cross,Rear Cross,move,1,straight_punching,damage,standing,damage,9
+R128_boxing_kickboxing,boxing,boxing_one_two,One-Two,sequence,1,combinations,damage,standing,accuracy,6
+R128_boxing_kickboxing,boxing,boxing_one_two,One-Two,sequence,1,combinations,damage,standing,combo_open,8
+R128_boxing_kickboxing,boxing,boxing_one_two,One-Two,sequence,1,combinations,damage,standing,damage,8
+R128_boxing_kickboxing,boxing,boxing_double_jab,Double Jab,move,2,straight_punching,setup,standing,combo_open,7
+R128_boxing_kickboxing,boxing,boxing_double_jab,Double Jab,move,2,straight_punching,setup,standing,entry_open,6
+R128_boxing_kickboxing,boxing,boxing_double_jab,Double Jab,move,2,straight_punching,setup,standing,range_control,8
+R128_boxing_kickboxing,boxing,boxing_jab_body,Jab to the Body,move,2,straight_punching,setup,standing,body_damage,6
+R128_boxing_kickboxing,boxing,boxing_jab_body,Jab to the Body,move,2,straight_punching,setup,standing,combo_open,6
+R128_boxing_kickboxing,boxing,boxing_jab_body,Jab to the Body,move,2,straight_punching,setup,standing,entry_open,5
+R128_boxing_kickboxing,boxing,boxing_cross_body,Cross to the Body,move,2,straight_punching,damage,standing,body_damage,9
+R128_boxing_kickboxing,boxing,boxing_cross_body,Cross to the Body,move,2,straight_punching,damage,standing,damage,5
+R128_boxing_kickboxing,boxing,boxing_up_jab,Up Jab,move,3,straight_punching,setup,standing,accuracy,7
+R128_boxing_kickboxing,boxing,boxing_up_jab,Up Jab,move,3,straight_punching,setup,standing,combo_open,6
+R128_boxing_kickboxing,boxing,boxing_up_jab,Up Jab,move,3,straight_punching,setup,standing,guard,5
+R128_boxing_kickboxing,boxing,boxing_overhand,Overhand Right,move,3,straight_punching,damage,standing,angle_attack,7
+R128_boxing_kickboxing,boxing,boxing_overhand,Overhand Right,move,3,straight_punching,damage,standing,damage,11
+R128_boxing_kickboxing,boxing,boxing_lead_hook,Lead Hook,move,2,hooks_bodywork,damage,standing,angle_attack,7
+R128_boxing_kickboxing,boxing,boxing_lead_hook,Lead Hook,move,2,hooks_bodywork,damage,standing,damage,9
+R128_boxing_kickboxing,boxing,boxing_rear_hook,Rear Hook,move,2,hooks_bodywork,damage,standing,angle_attack,6
+R128_boxing_kickboxing,boxing,boxing_rear_hook,Rear Hook,move,2,hooks_bodywork,damage,standing,damage,10
+R128_boxing_kickboxing,boxing,boxing_lead_uppercut,Lead Uppercut,move,2,hooks_bodywork,damage,standing,combo_open,6
+R128_boxing_kickboxing,boxing,boxing_lead_uppercut,Lead Uppercut,move,2,hooks_bodywork,damage,standing,damage,8
+R128_boxing_kickboxing,boxing,boxing_rear_uppercut,Rear Uppercut,move,2,hooks_bodywork,damage,standing,chain_open,6
+R128_boxing_kickboxing,boxing,boxing_rear_uppercut,Rear Uppercut,move,2,hooks_bodywork,damage,standing,damage,10
+R128_boxing_kickboxing,boxing,boxing_body_hook,Lead Hook to the Body,move,3,hooks_bodywork,damage,standing,body_damage,11
+R128_boxing_kickboxing,boxing,boxing_body_hook,Lead Hook to the Body,move,3,hooks_bodywork,damage,standing,damage,5
+R128_boxing_kickboxing,boxing,boxing_rear_hook_body,Rear Hook to the Body,move,3,hooks_bodywork,damage,standing,body_damage,12
+R128_boxing_kickboxing,boxing,boxing_rear_hook_body,Rear Hook to the Body,move,3,hooks_bodywork,damage,standing,damage,5
+R128_boxing_kickboxing,boxing,boxing_shovel_hook,Shovel Hook,move,3,hooks_bodywork,damage,standing,angle_attack,6
+R128_boxing_kickboxing,boxing,boxing_shovel_hook,Shovel Hook,move,3,hooks_bodywork,damage,standing,body_damage,10
+R128_boxing_kickboxing,boxing,boxing_parry,Parry,skill,1,defense_counters,defense,standing,block,7
+R128_boxing_kickboxing,boxing,boxing_parry,Parry,skill,1,defense_counters,defense,standing,counter_open,5
+R128_boxing_kickboxing,boxing,boxing_catch,Catch the Jab,skill,1,defense_counters,defense,standing,block,6
+R128_boxing_kickboxing,boxing,boxing_catch,Catch the Jab,skill,1,defense_counters,defense,standing,guard,5
+R128_boxing_kickboxing,boxing,boxing_slip,Slip,skill,1,defense_counters,defense,standing,counter_open,5
+R128_boxing_kickboxing,boxing,boxing_slip,Slip,skill,1,defense_counters,defense,standing,evasion,8
+R128_boxing_kickboxing,boxing,boxing_block_elbow,Elbow and Forearm Block,skill,2,defense_counters,defense,standing,block,8
+R128_boxing_kickboxing,boxing,boxing_block_elbow,Elbow and Forearm Block,skill,2,defense_counters,defense,standing,coverage,6
+R128_boxing_kickboxing,boxing,boxing_roll,Roll Under,skill,2,defense_counters,defense,standing,angle_exit,6
+R128_boxing_kickboxing,boxing,boxing_roll,Roll Under,skill,2,defense_counters,defense,standing,evasion,8
+R128_boxing_kickboxing,boxing,boxing_bob_weave,Bob and Weave,skill,2,defense_counters,defense,standing,entry_open,6
+R128_boxing_kickboxing,boxing,boxing_bob_weave,Bob and Weave,skill,2,defense_counters,defense,standing,evasion,9
+R128_boxing_kickboxing,boxing,boxing_pull,Pull,skill,2,defense_counters,defense,standing,counter_open,6
+R128_boxing_kickboxing,boxing,boxing_pull,Pull,skill,2,defense_counters,defense,standing,evasion,7
+R128_boxing_kickboxing,boxing,boxing_clinch_tieup,Tie Up,skill,2,infighting,control,clinch,clinch_control,8
+R128_boxing_kickboxing,boxing,boxing_clinch_tieup,Tie Up,skill,2,infighting,control,clinch,phase_transition,5
+R128_boxing_kickboxing,boxing,boxing_long_guard,Long Guard,skill,3,defense_counters,defense,standing,guard,8
+R128_boxing_kickboxing,boxing,boxing_long_guard,Long Guard,skill,3,defense_counters,defense,standing,range_control,7
+R128_boxing_kickboxing,boxing,boxing_shoulder_roll,Shoulder Roll,skill,3,defense_counters,defense,standing,counter_open,7
+R128_boxing_kickboxing,boxing,boxing_shoulder_roll,Shoulder Roll,skill,3,defense_counters,defense,standing,evasion,9
+R128_boxing_kickboxing,boxing,boxing_slip_counter,Slip-Cross Counter,move,2,defense_counters,damage,standing,counter_open,8
+R128_boxing_kickboxing,boxing,boxing_slip_counter,Slip-Cross Counter,move,2,defense_counters,damage,standing,damage,6
+R128_boxing_kickboxing,boxing,boxing_slip_counter,Slip-Cross Counter,move,2,defense_counters,damage,standing,evasion,7
+R128_boxing_kickboxing,boxing,boxing_catch_counter,Catch and Return,move,2,defense_counters,damage,standing,counter_open,7
+R128_boxing_kickboxing,boxing,boxing_catch_counter,Catch and Return,move,2,defense_counters,damage,standing,damage,6
+R128_boxing_kickboxing,boxing,boxing_pull_counter,Pull-Cross Counter,move,3,defense_counters,damage,standing,counter_open,9
+R128_boxing_kickboxing,boxing,boxing_pull_counter,Pull-Cross Counter,move,3,defense_counters,damage,standing,damage,8
+R128_boxing_kickboxing,boxing,boxing_pull_counter,Pull-Cross Counter,move,3,defense_counters,damage,standing,evasion,8
+R128_boxing_kickboxing,boxing,boxing_check_hook,Check Hook,move,3,defense_counters,damage,standing,angle_exit,7
+R128_boxing_kickboxing,boxing,boxing_check_hook,Check Hook,move,3,defense_counters,damage,standing,counter_open,9
+R128_boxing_kickboxing,boxing,boxing_counter_over_jab,Counter Over the Jab,move,3,defense_counters,damage,standing,counter_open,8
+R128_boxing_kickboxing,boxing,boxing_counter_over_jab,Counter Over the Jab,move,3,defense_counters,damage,standing,damage,9
+R128_boxing_kickboxing,boxing,boxing_counter_over_jab,Counter Over the Jab,move,3,defense_counters,damage,standing,timing,7
+R128_boxing_kickboxing,boxing,boxing_check_hook_pivot,Check Hook and Pivot,move,3,defense_counters,damage,standing,angle_exit,8
+R128_boxing_kickboxing,boxing,boxing_check_hook_pivot,Check Hook and Pivot,move,3,defense_counters,damage,standing,counter_open,8
+R128_boxing_kickboxing,boxing,boxing_check_hook_pivot,Check Hook and Pivot,move,3,defense_counters,damage,standing,mobility,6
+R128_boxing_kickboxing,boxing,boxing_step_in_out,"Step In, Step Out",move,1,footwork_ring,setup,standing,first_step,6
+R128_boxing_kickboxing,boxing,boxing_step_in_out,"Step In, Step Out",move,1,footwork_ring,setup,standing,mobility,7
+R128_boxing_kickboxing,boxing,boxing_step_in_out,"Step In, Step Out",move,1,footwork_ring,setup,standing,range_control,6
+R128_boxing_kickboxing,boxing,boxing_circle_lead,Circle to the Lead Side,move,2,footwork_ring,setup,standing,angle_entry,6
+R128_boxing_kickboxing,boxing,boxing_circle_lead,Circle to the Lead Side,move,2,footwork_ring,setup,standing,mobility,7
+R128_boxing_kickboxing,boxing,boxing_circle_rear,Circle to the Rear Side,move,2,footwork_ring,setup,standing,angle_entry,6
+R128_boxing_kickboxing,boxing,boxing_circle_rear,Circle to the Rear Side,move,2,footwork_ring,setup,standing,mobility,7
+R128_boxing_kickboxing,boxing,boxing_circle_rear,Circle to the Rear Side,move,2,footwork_ring,setup,standing,risk,4
+R128_boxing_kickboxing,boxing,boxing_pivot_footwork,Ring Pivot,move,2,footwork_ring,setup,standing,angle_attack,7
+R128_boxing_kickboxing,boxing,boxing_pivot_footwork,Ring Pivot,move,2,footwork_ring,setup,standing,mobility,8
+R128_boxing_kickboxing,boxing,boxing_feint,Feint,move,2,footwork_ring,setup,standing,distance_read,6
+R128_boxing_kickboxing,boxing,boxing_feint,Feint,move,2,footwork_ring,setup,standing,entry_open,8
+R128_boxing_kickboxing,boxing,boxing_cutoff_ring,Cut Off the Ring,skill,3,footwork_ring,control,standing,boundary_control,9
+R128_boxing_kickboxing,boxing,boxing_cutoff_ring,Cut Off the Ring,skill,3,footwork_ring,control,standing,opponent_mobility,-7
+R128_boxing_kickboxing,boxing,boxing_angle_step,L-Step Angle,move,3,footwork_ring,setup,standing,angle_attack,9
+R128_boxing_kickboxing,boxing,boxing_angle_step,L-Step Angle,move,3,footwork_ring,setup,standing,mobility,7
+R128_boxing_kickboxing,boxing,boxing_rope_work,Working Off the Ropes,skill,3,footwork_ring,defense,standing,boundary_control,6
+R128_boxing_kickboxing,boxing,boxing_rope_work,Working Off the Ropes,skill,3,footwork_ring,defense,standing,evasion,7
+R128_boxing_kickboxing,boxing,boxing_rope_work,Working Off the Ropes,skill,3,footwork_ring,defense,standing,guard,6
+R128_boxing_kickboxing,boxing,boxing_rhythm_change,Breaking the Rhythm,move,3,footwork_ring,setup,standing,entry_open,6
+R128_boxing_kickboxing,boxing,boxing_rhythm_change,Breaking the Rhythm,move,3,footwork_ring,setup,standing,rhythm,9
+R128_boxing_kickboxing,boxing,boxing_rhythm_change,Breaking the Rhythm,move,3,footwork_ring,setup,standing,timing,7
+R128_boxing_kickboxing,boxing,boxing_switch_stance,Switching Stance,move,4,footwork_ring,setup,standing,angle_attack,8
+R128_boxing_kickboxing,boxing,boxing_switch_stance,Switching Stance,move,4,footwork_ring,setup,standing,mobility,8
+R128_boxing_kickboxing,boxing,boxing_switch_stance,Switching Stance,move,4,footwork_ring,setup,standing,rhythm,7
+R128_boxing_kickboxing,boxing,boxing_drawing,Drawing the Lead,move,4,footwork_ring,setup,standing,counter_open,10
+R128_boxing_kickboxing,boxing,boxing_drawing,Drawing the Lead,move,4,footwork_ring,setup,standing,distance_read,9
+R128_boxing_kickboxing,boxing,boxing_drawing,Drawing the Lead,move,4,footwork_ring,setup,standing,timing,8
+R128_boxing_kickboxing,boxing,boxing_inside_uppercut,Uppercut on the Inside,move,3,infighting,damage,clinch,clinch_damage,7
+R128_boxing_kickboxing,boxing,boxing_inside_uppercut,Uppercut on the Inside,move,3,infighting,damage,clinch,damage,9
+R128_boxing_kickboxing,boxing,boxing_shoulder_bump,Shoulder Bump,skill,3,infighting,control,clinch,clinch_control,7
+R128_boxing_kickboxing,boxing,boxing_shoulder_bump,Shoulder Bump,skill,3,infighting,control,clinch,entry_open,6
+R128_boxing_kickboxing,boxing,boxing_shoulder_bump,Shoulder Bump,skill,3,infighting,control,clinch,impact,5
+R128_boxing_kickboxing,boxing,boxing_pivot_out,Pivot Out of the Clinch,skill,3,infighting,defense,clinch,angle_exit,8
+R128_boxing_kickboxing,boxing,boxing_pivot_out,Pivot Out of the Clinch,skill,3,infighting,defense,clinch,clinch_control,6
+R128_boxing_kickboxing,boxing,boxing_pivot_out,Pivot Out of the Clinch,skill,3,infighting,defense,clinch,mobility,6
+R128_boxing_kickboxing,boxing,boxing_forearm_frame,Forearm Frame,skill,3,infighting,defense,clinch,block,6
+R128_boxing_kickboxing,boxing,boxing_forearm_frame,Forearm Frame,skill,3,infighting,defense,clinch,clinch_control,8
+R128_boxing_kickboxing,boxing,boxing_one_two_hook,One-Two-Hook,sequence,2,combinations,damage,standing,combo_open,7
+R128_boxing_kickboxing,boxing,boxing_one_two_hook,One-Two-Hook,sequence,2,combinations,damage,standing,damage,10
+R128_boxing_kickboxing,boxing,boxing_jab_body_head,"Jab Body, Jab Head",sequence,3,combinations,damage,standing,body_damage,8
+R128_boxing_kickboxing,boxing,boxing_jab_body_head,"Jab Body, Jab Head",sequence,3,combinations,damage,standing,combo_open,6
+R128_boxing_kickboxing,boxing,boxing_jab_body_head,"Jab Body, Jab Head",sequence,3,combinations,damage,standing,head_damage,7
+R128_boxing_kickboxing,boxing,boxing_liver_combo,Jab-Cross-Lead Hook to the Body,sequence,4,combinations,damage,standing,body_damage,13
+R128_boxing_kickboxing,boxing,boxing_liver_combo,Jab-Cross-Lead Hook to the Body,sequence,4,combinations,damage,standing,combo_open,7
+R128_boxing_kickboxing,boxing,boxing_liver_combo,Jab-Cross-Lead Hook to the Body,sequence,4,combinations,damage,standing,damage,8
+R128_boxing_kickboxing,boxing,boxing_six_punch_combo,Six-Punch Combination,sequence,4,combinations,damage,standing,body_damage,8
+R128_boxing_kickboxing,boxing,boxing_six_punch_combo,Six-Punch Combination,sequence,4,combinations,damage,standing,combo_open,8
+R128_boxing_kickboxing,boxing,boxing_six_punch_combo,Six-Punch Combination,sequence,4,combinations,damage,standing,damage,12
+R128_boxing_kickboxing,boxing,boxing_counter_combination,Counter Combination,sequence,4,combinations,damage,standing,counter_open,10
+R128_boxing_kickboxing,boxing,boxing_counter_combination,Counter Combination,sequence,4,combinations,damage,standing,damage,11
+R128_boxing_kickboxing,boxing,boxing_counter_combination,Counter Combination,sequence,4,combinations,damage,standing,timing,8
+R128_boxing_kickboxing,kickboxing,kickboxing_guard,Kickboxing Stance and Guard,skill,1,fundamentals,defense,standing,check_readiness,6
+R128_boxing_kickboxing,kickboxing,kickboxing_guard,Kickboxing Stance and Guard,skill,1,fundamentals,defense,standing,guard,8
+R128_boxing_kickboxing,kickboxing,kickboxing_switch_step_read,Switch-Step Read,skill,2,fundamentals,setup,standing,distance_read,7
+R128_boxing_kickboxing,kickboxing,kickboxing_switch_step_read,Switch-Step Read,skill,2,fundamentals,setup,standing,rhythm,7
+R128_boxing_kickboxing,kickboxing,kickboxing_teep,Teep / Front Kick,move,1,kicks,setup,standing,opponent_mobility,-5
+R128_boxing_kickboxing,kickboxing,kickboxing_teep,Teep / Front Kick,move,1,kicks,setup,standing,range_control,8
+R128_boxing_kickboxing,kickboxing,kickboxing_roundhouse,Roundhouse Kick,move,1,kicks,damage,standing,kick_damage,9
+R128_boxing_kickboxing,kickboxing,kickboxing_roundhouse,Roundhouse Kick,move,1,kicks,damage,standing,range,6
+R128_boxing_kickboxing,kickboxing,kickboxing_low_kick,Low Kick,move,2,kicks,damage,standing,leg_damage,9
+R128_boxing_kickboxing,kickboxing,kickboxing_low_kick,Low Kick,move,2,kicks,damage,standing,opponent_mobility,-6
+R128_boxing_kickboxing,kickboxing,kickboxing_body_kick,Body Roundhouse,move,2,kicks,damage,standing,body_damage,10
+R128_boxing_kickboxing,kickboxing,kickboxing_body_kick,Body Roundhouse,move,2,kicks,damage,standing,kick_damage,6
+R128_boxing_kickboxing,kickboxing,kickboxing_side_kick,Side Kick,move,2,kicks,setup,standing,impact,6
+R128_boxing_kickboxing,kickboxing,kickboxing_side_kick,Side Kick,move,2,kicks,setup,standing,range_control,8
+R128_boxing_kickboxing,kickboxing,kickboxing_kick_check,Shin Check,skill,2,counters,defense,standing,block,6
+R128_boxing_kickboxing,kickboxing,kickboxing_kick_check,Shin Check,skill,2,counters,defense,standing,low_kick_defense,9
+R128_boxing_kickboxing,kickboxing,kickboxing_teep_stop,Push Kick Stop,skill,2,counters,defense,standing,opponent_mobility,-6
+R128_boxing_kickboxing,kickboxing,kickboxing_teep_stop,Push Kick Stop,skill,2,counters,defense,standing,range_control,8
+R128_boxing_kickboxing,kickboxing,kickboxing_high_kick,High Roundhouse Kick,move,2,kicks,damage,standing,head_damage,12
+R128_boxing_kickboxing,kickboxing,kickboxing_high_kick,High Roundhouse Kick,move,2,kicks,damage,standing,kick_damage,8
+R128_boxing_kickboxing,kickboxing,kickboxing_switch_kick,Switch Roundhouse Kick,move,2,kicks,damage,standing,body_damage,7
+R128_boxing_kickboxing,kickboxing,kickboxing_switch_kick,Switch Roundhouse Kick,move,2,kicks,damage,standing,entry_speed,6
+R128_boxing_kickboxing,kickboxing,kickboxing_switch_kick,Switch Roundhouse Kick,move,2,kicks,damage,standing,kick_damage,10
+R128_boxing_kickboxing,kickboxing,kickboxing_question_mark,Question Mark Kick,move,3,kicks,damage,standing,entry_open,7
+R128_boxing_kickboxing,kickboxing,kickboxing_question_mark,Question Mark Kick,move,3,kicks,damage,standing,head_damage,10
+R128_boxing_kickboxing,kickboxing,kickboxing_hook_kick,Hook Kick,move,2,kicks,damage,standing,angle_attack,7
+R128_boxing_kickboxing,kickboxing,kickboxing_hook_kick,Hook Kick,move,2,kicks,damage,standing,head_damage,9
+R128_boxing_kickboxing,kickboxing,kickboxing_axe_kick,Axe Kick,move,2,kicks,damage,standing,guard,-5
+R128_boxing_kickboxing,kickboxing,kickboxing_axe_kick,Axe Kick,move,2,kicks,damage,standing,head_damage,9
+R128_boxing_kickboxing,kickboxing,kickboxing_spinning_back,Spinning Back Kick,move,3,counters,damage,standing,body_damage,11
+R128_boxing_kickboxing,kickboxing,kickboxing_spinning_back,Spinning Back Kick,move,3,counters,damage,standing,risk,7
+R128_boxing_kickboxing,kickboxing,kickboxing_spinning_hook,Spinning Hook Kick,move,4,counters,counter,standing,head_damage,13
+R128_boxing_kickboxing,kickboxing,kickboxing_spinning_hook,Spinning Hook Kick,move,4,counters,counter,standing,risk,9
+R128_boxing_kickboxing,kickboxing,kickboxing_catch_kick_return,Catch and Return,move,3,counters,damage,standing,counter_open,9
+R128_boxing_kickboxing,kickboxing,kickboxing_catch_kick_return,Catch and Return,move,3,counters,damage,standing,counter_takedown,6
+R128_boxing_kickboxing,kickboxing,kickboxing_clinch_knee,Knee in the Clinch,move,3,clinch_sweeps,damage,clinch,body_damage,7
+R128_boxing_kickboxing,kickboxing,kickboxing_clinch_knee,Knee in the Clinch,move,3,clinch_sweeps,damage,clinch,clinch_damage,10
+R128_boxing_kickboxing,kickboxing,kickboxing_clinch_knee_sweep,Clinch Knee to Sweep,skill,3,clinch_sweeps,control,clinch,clinch_damage,8
+R128_boxing_kickboxing,kickboxing,kickboxing_clinch_knee_sweep,Clinch Knee to Sweep,skill,3,clinch_sweeps,control,clinch,sweep,7
+R128_boxing_kickboxing,kickboxing,kickboxing_jab_lowkick,Jab to Low Kick,sequence,2,combinations,damage,standing,combo_open,6
+R128_boxing_kickboxing,kickboxing,kickboxing_jab_lowkick,Jab to Low Kick,sequence,2,combinations,damage,standing,leg_damage,8
+R128_boxing_kickboxing,kickboxing,kickboxing_jab_cross_lowkick,Jab-Cross-Low Kick,sequence,2,combinations,damage,standing,combo_open,7
+R128_boxing_kickboxing,kickboxing,kickboxing_jab_cross_lowkick,Jab-Cross-Low Kick,sequence,2,combinations,damage,standing,leg_damage,9
+R128_boxing_kickboxing,kickboxing,kickboxing_dutch_combination,Dutch Combination,sequence,3,combinations,damage,standing,combo_open,8
+R128_boxing_kickboxing,kickboxing,kickboxing_dutch_combination,Dutch Combination,sequence,3,combinations,damage,standing,damage,10
+R128_boxing_kickboxing,kickboxing,kickboxing_dutch_combination,Dutch Combination,sequence,3,combinations,damage,standing,leg_damage,8
+R128_boxing_kickboxing,kickboxing,kickboxing_blitz_four_kick,Blitz to High Kick,sequence,4,combinations,damage,standing,damage,11
+R128_boxing_kickboxing,kickboxing,kickboxing_blitz_four_kick,Blitz to High Kick,sequence,4,combinations,damage,standing,entry_speed,8
+R128_boxing_kickboxing,kickboxing,kickboxing_blitz_four_kick,Blitz to High Kick,sequence,4,combinations,damage,standing,head_damage,9
+R128_boxing_kickboxing,kickboxing,kickboxing_four_strike,Cross-Hook-Low Kick-High Kick Chain,sequence,4,combinations,damage,standing,damage,12
+R128_boxing_kickboxing,kickboxing,kickboxing_four_strike,Cross-Hook-Low Kick-High Kick Chain,sequence,4,combinations,damage,standing,head_damage,9
+R128_boxing_kickboxing,kickboxing,kickboxing_four_strike,Cross-Hook-Low Kick-High Kick Chain,sequence,4,combinations,damage,standing,leg_damage,8
+U60_judo_bjj,judo,judo_ukemi,Ukemi,skill,1,ukemi_grips,defense,standing|clinch,scramble,4
+U60_judo_bjj,judo,judo_ukemi,Ukemi,skill,1,ukemi_grips,defense,standing|clinch,throw_damage_reduction,9
+U60_judo_bjj,judo,judo_kumikata,Kumi-kata,skill,1,ukemi_grips,control,clinch,grip_control,8
+U60_judo_bjj,judo,judo_kumikata,Kumi-kata,skill,1,ukemi_grips,control,clinch,throw_setup,6
+U60_judo_bjj,judo,judo_seoinage_twohand,Seoi-nage,move,1,te_waza,damage,standing|clinch,takedown,9
+U60_judo_bjj,judo,judo_seoinage_twohand,Seoi-nage,move,1,te_waza,damage,standing|clinch,throw_setup,7
+U60_judo_bjj,judo,judo_seoinage,Ippon-seoi-nage,move,4,te_waza,damage,standing|clinch,takedown,15
+U60_judo_bjj,judo,judo_seoinage,Ippon-seoi-nage,move,4,te_waza,damage,standing|clinch,throw_setup,10
+U60_judo_bjj,judo,judo_seoiotoshi,Seoi-otoshi,move,4,te_waza,damage,standing|clinch,takedown,15
+U60_judo_bjj,judo,judo_seoiotoshi,Seoi-otoshi,move,4,te_waza,damage,standing|clinch,throw_setup,10
+U60_judo_bjj,judo,judo_taiotoshi,Tai-otoshi,move,2,te_waza,damage,standing|clinch,takedown,11
+U60_judo_bjj,judo,judo_taiotoshi,Tai-otoshi,move,2,te_waza,damage,standing|clinch,throw_setup,8
+U60_judo_bjj,judo,judo_kataguruma,Kata-guruma,move,3,te_waza,damage,standing|clinch,takedown,13
+U60_judo_bjj,judo,judo_kataguruma,Kata-guruma,move,3,te_waza,damage,standing|clinch,throw_setup,9
+U60_judo_bjj,judo,judo_sukuinage,Sukui-nage,move,3,te_waza,damage,standing|clinch,takedown,13
+U60_judo_bjj,judo,judo_sukuinage,Sukui-nage,move,3,te_waza,damage,standing|clinch,throw_setup,9
+U60_judo_bjj,judo,judo_obiotoshi,Obi-otoshi,move,4,te_waza,damage,standing|clinch,takedown,15
+U60_judo_bjj,judo,judo_obiotoshi,Obi-otoshi,move,4,te_waza,damage,standing|clinch,throw_setup,10
+U60_judo_bjj,judo,judo_ukiotoshi,Uki-otoshi,move,3,te_waza,damage,standing|clinch,takedown,13
+U60_judo_bjj,judo,judo_ukiotoshi,Uki-otoshi,move,3,te_waza,damage,standing|clinch,throw_setup,9
+U60_judo_bjj,judo,judo_sumiotoshi,Sumi-otoshi,move,4,te_waza,damage,standing|clinch,takedown,15
+U60_judo_bjj,judo,judo_sumiotoshi,Sumi-otoshi,move,4,te_waza,damage,standing|clinch,throw_setup,10
+U60_judo_bjj,judo,judo_yamaarashi,Yama-arashi,move,4,te_waza,damage,standing|clinch,takedown,15
+U60_judo_bjj,judo,judo_yamaarashi,Yama-arashi,move,4,te_waza,damage,standing|clinch,throw_setup,10
+U60_judo_bjj,judo,judo_obitorigaeshi,Obi-tori-gaeshi,move,4,te_waza,damage,standing|clinch,takedown,15
+U60_judo_bjj,judo,judo_obitorigaeshi,Obi-tori-gaeshi,move,4,te_waza,damage,standing|clinch,throw_setup,10
+U60_judo_bjj,judo,judo_morotegari,Morote-gari,move,4,te_waza,damage,standing|clinch,takedown,15
+U60_judo_bjj,judo,judo_morotegari,Morote-gari,move,4,te_waza,damage,standing|clinch,throw_setup,10
+U60_judo_bjj,judo,judo_kuchikitaoshi,Kuchiki-taoshi,move,4,te_waza,damage,standing|clinch,takedown,15
+U60_judo_bjj,judo,judo_kuchikitaoshi,Kuchiki-taoshi,move,4,te_waza,damage,standing|clinch,throw_setup,10
+U60_judo_bjj,judo,judo_kibisugaeshi,Kibisu-gaeshi,move,4,te_waza,damage,standing|clinch,takedown,15
+U60_judo_bjj,judo,judo_kibisugaeshi,Kibisu-gaeshi,move,4,te_waza,damage,standing|clinch,throw_setup,10
+U60_judo_bjj,judo,judo_uchimatasukashi,Uchi-mata-sukashi,move,4,te_waza,damage,standing|clinch,takedown,15
+U60_judo_bjj,judo,judo_uchimatasukashi,Uchi-mata-sukashi,move,4,te_waza,damage,standing|clinch,throw_setup,10
+U60_judo_bjj,judo,judo_kouchigaeshi,Ko-uchi-gaeshi,move,4,te_waza,damage,standing|clinch,takedown,15
+U60_judo_bjj,judo,judo_kouchigaeshi,Ko-uchi-gaeshi,move,4,te_waza,damage,standing|clinch,throw_setup,10
+U60_judo_bjj,judo,judo_ukigoshi,Uki-goshi,move,1,koshi_waza,damage,standing|clinch,takedown,9
+U60_judo_bjj,judo,judo_ukigoshi,Uki-goshi,move,1,koshi_waza,damage,standing|clinch,throw_setup,7
+U60_judo_bjj,judo,judo_ogoshi,O-goshi,move,1,koshi_waza,damage,standing|clinch,takedown,9
+U60_judo_bjj,judo,judo_ogoshi,O-goshi,move,1,koshi_waza,damage,standing|clinch,throw_setup,7
+U60_judo_bjj,judo,judo_koshiguruma,Koshi-guruma,move,2,koshi_waza,damage,standing|clinch,takedown,11
+U60_judo_bjj,judo,judo_koshiguruma,Koshi-guruma,move,2,koshi_waza,damage,standing|clinch,throw_setup,8
+U60_judo_bjj,judo,judo_tsurikomigoshi,Tsurikomi-goshi,move,2,koshi_waza,damage,standing|clinch,takedown,11
+U60_judo_bjj,judo,judo_tsurikomigoshi,Tsurikomi-goshi,move,2,koshi_waza,damage,standing|clinch,throw_setup,8
+U60_judo_bjj,judo,judo_sodetsurikomigoshi,Sode-tsurikomi-goshi,move,4,koshi_waza,damage,standing|clinch,takedown,15
+U60_judo_bjj,judo,judo_sodetsurikomigoshi,Sode-tsurikomi-goshi,move,4,koshi_waza,damage,standing|clinch,throw_setup,10
+U60_judo_bjj,judo,judo_haraigoshi,Harai-goshi,move,2,koshi_waza,damage,standing|clinch,takedown,11
+U60_judo_bjj,judo,judo_haraigoshi,Harai-goshi,move,2,koshi_waza,damage,standing|clinch,throw_setup,8
+U60_judo_bjj,judo,judo_tsurigoshi,Tsuri-goshi,move,3,koshi_waza,damage,standing|clinch,takedown,13
+U60_judo_bjj,judo,judo_tsurigoshi,Tsuri-goshi,move,3,koshi_waza,damage,standing|clinch,throw_setup,9
+U60_judo_bjj,judo,judo_hanegoshi,Hane-goshi,move,3,koshi_waza,damage,standing|clinch,takedown,13
+U60_judo_bjj,judo,judo_hanegoshi,Hane-goshi,move,3,koshi_waza,damage,standing|clinch,throw_setup,9
+U60_judo_bjj,judo,judo_utsurigoshi,Utsuri-goshi,move,3,koshi_waza,damage,standing|clinch,takedown,13
+U60_judo_bjj,judo,judo_utsurigoshi,Utsuri-goshi,move,3,koshi_waza,damage,standing|clinch,throw_setup,9
+U60_judo_bjj,judo,judo_ushirogoshi,Ushiro-goshi,move,4,koshi_waza,damage,standing|clinch,takedown,15
+U60_judo_bjj,judo,judo_ushirogoshi,Ushiro-goshi,move,4,koshi_waza,damage,standing|clinch,throw_setup,10
+U60_judo_bjj,judo,judo_deashi,De-ashi-harai,move,1,ashi_waza,damage,standing|clinch,takedown,9
+U60_judo_bjj,judo,judo_deashi,De-ashi-harai,move,1,ashi_waza,damage,standing|clinch,throw_setup,7
+U60_judo_bjj,judo,judo_hizaguruma,Hiza-guruma,move,1,ashi_waza,damage,standing|clinch,takedown,9
+U60_judo_bjj,judo,judo_hizaguruma,Hiza-guruma,move,1,ashi_waza,damage,standing|clinch,throw_setup,7
+U60_judo_bjj,judo,judo_sasaetsurikomiashi,Sasae-tsurikomi-ashi,move,1,ashi_waza,damage,standing|clinch,takedown,9
+U60_judo_bjj,judo,judo_sasaetsurikomiashi,Sasae-tsurikomi-ashi,move,1,ashi_waza,damage,standing|clinch,throw_setup,7
+U60_judo_bjj,judo,judo_osotogari,O-soto-gari,move,1,ashi_waza,damage,standing|clinch,takedown,9
+U60_judo_bjj,judo,judo_osotogari,O-soto-gari,move,1,ashi_waza,damage,standing|clinch,throw_setup,7
+U60_judo_bjj,judo,judo_ouchigari,O-uchi-gari,move,1,ashi_waza,damage,standing|clinch,takedown,9
+U60_judo_bjj,judo,judo_ouchigari,O-uchi-gari,move,1,ashi_waza,damage,standing|clinch,throw_setup,7
+U60_judo_bjj,judo,judo_kosotogari,Ko-soto-gari,move,2,ashi_waza,damage,standing|clinch,takedown,11
+U60_judo_bjj,judo,judo_kosotogari,Ko-soto-gari,move,2,ashi_waza,damage,standing|clinch,throw_setup,8
+U60_judo_bjj,judo,judo_kouchigari,Ko-uchi-gari,move,2,ashi_waza,damage,standing|clinch,takedown,11
+U60_judo_bjj,judo,judo_kouchigari,Ko-uchi-gari,move,2,ashi_waza,damage,standing|clinch,throw_setup,8
+U60_judo_bjj,judo,judo_okuriashiharai,Okuri-ashi-harai,move,2,ashi_waza,damage,standing|clinch,takedown,11
+U60_judo_bjj,judo,judo_okuriashiharai,Okuri-ashi-harai,move,2,ashi_waza,damage,standing|clinch,throw_setup,8
+U60_judo_bjj,judo,judo_uchimata,Uchi-mata,move,2,ashi_waza,damage,standing|clinch,takedown,11
+U60_judo_bjj,judo,judo_uchimata,Uchi-mata,move,2,ashi_waza,damage,standing|clinch,throw_setup,8
+U60_judo_bjj,judo,judo_kosotogake,Ko-soto-gake,move,3,ashi_waza,damage,standing|clinch,takedown,13
+U60_judo_bjj,judo,judo_kosotogake,Ko-soto-gake,move,3,ashi_waza,damage,standing|clinch,throw_setup,9
+U60_judo_bjj,judo,judo_ashiguruma,Ashi-guruma,move,3,ashi_waza,damage,standing|clinch,takedown,13
+U60_judo_bjj,judo,judo_ashiguruma,Ashi-guruma,move,3,ashi_waza,damage,standing|clinch,throw_setup,9
+U60_judo_bjj,judo,judo_haraitsurikomiashi,Harai-tsurikomi-ashi,move,3,ashi_waza,damage,standing|clinch,takedown,13
+U60_judo_bjj,judo,judo_haraitsurikomiashi,Harai-tsurikomi-ashi,move,3,ashi_waza,damage,standing|clinch,throw_setup,9
+U60_judo_bjj,judo,judo_oguruma,O-guruma,move,3,ashi_waza,damage,standing|clinch,takedown,13
+U60_judo_bjj,judo,judo_oguruma,O-guruma,move,3,ashi_waza,damage,standing|clinch,throw_setup,9
+U60_judo_bjj,judo,judo_osotoguruma,O-soto-guruma,move,4,ashi_waza,damage,standing|clinch,takedown,15
+U60_judo_bjj,judo,judo_osotoguruma,O-soto-guruma,move,4,ashi_waza,damage,standing|clinch,throw_setup,10
+U60_judo_bjj,judo,judo_osotootoshi,O-soto-otoshi,move,4,ashi_waza,damage,standing|clinch,takedown,15
+U60_judo_bjj,judo,judo_osotootoshi,O-soto-otoshi,move,4,ashi_waza,damage,standing|clinch,throw_setup,10
+U60_judo_bjj,judo,judo_tsubamegaeshi,Tsubame-gaeshi,move,4,ashi_waza,damage,standing|clinch,takedown,15
+U60_judo_bjj,judo,judo_tsubamegaeshi,Tsubame-gaeshi,move,4,ashi_waza,damage,standing|clinch,throw_setup,10
+U60_judo_bjj,judo,judo_osotogaeshi,O-soto-gaeshi,move,4,ashi_waza,damage,standing|clinch,takedown,15
+U60_judo_bjj,judo,judo_osotogaeshi,O-soto-gaeshi,move,4,ashi_waza,damage,standing|clinch,throw_setup,10
+U60_judo_bjj,judo,judo_ouchigaeshi,O-uchi-gaeshi,move,4,ashi_waza,damage,standing|clinch,takedown,15
+U60_judo_bjj,judo,judo_ouchigaeshi,O-uchi-gaeshi,move,4,ashi_waza,damage,standing|clinch,throw_setup,10
+U60_judo_bjj,judo,judo_hanegoshigaeshi,Hane-goshi-gaeshi,move,4,ashi_waza,damage,standing|clinch,takedown,15
+U60_judo_bjj,judo,judo_hanegoshigaeshi,Hane-goshi-gaeshi,move,4,ashi_waza,damage,standing|clinch,throw_setup,10
+U60_judo_bjj,judo,judo_haraigoshigaeshi,Harai-goshi-gaeshi,move,4,ashi_waza,damage,standing|clinch,takedown,15
+U60_judo_bjj,judo,judo_haraigoshigaeshi,Harai-goshi-gaeshi,move,4,ashi_waza,damage,standing|clinch,throw_setup,10
+U60_judo_bjj,judo,judo_uchimatagaeshi,Uchi-mata-gaeshi,move,4,ashi_waza,damage,standing|clinch,takedown,15
+U60_judo_bjj,judo,judo_uchimatagaeshi,Uchi-mata-gaeshi,move,4,ashi_waza,damage,standing|clinch,throw_setup,10
+U60_judo_bjj,judo,judo_tomoenage,Tomoe-nage,move,3,ma_sutemi_waza,damage,clinch|ground,sacrifice_throw,9
+U60_judo_bjj,judo,judo_tomoenage,Tomoe-nage,move,3,ma_sutemi_waza,damage,clinch|ground,takedown,14
+U60_judo_bjj,judo,judo_sumigaeshi,Sumi-gaeshi,move,3,ma_sutemi_waza,damage,clinch|ground,sacrifice_throw,9
+U60_judo_bjj,judo,judo_sumigaeshi,Sumi-gaeshi,move,3,ma_sutemi_waza,damage,clinch|ground,takedown,14
+U60_judo_bjj,judo,judo_hikikomigaeshi,Hikikomi-gaeshi,move,4,ma_sutemi_waza,damage,clinch|ground,sacrifice_throw,10
+U60_judo_bjj,judo,judo_hikikomigaeshi,Hikikomi-gaeshi,move,4,ma_sutemi_waza,damage,clinch|ground,takedown,16
+U60_judo_bjj,judo,judo_tawaragaeshi,Tawara-gaeshi,move,4,ma_sutemi_waza,damage,clinch|ground,sacrifice_throw,10
+U60_judo_bjj,judo,judo_tawaragaeshi,Tawara-gaeshi,move,4,ma_sutemi_waza,damage,clinch|ground,takedown,16
+U60_judo_bjj,judo,judo_uranage,Ura-nage,move,4,ma_sutemi_waza,damage,clinch|ground,sacrifice_throw,10
+U60_judo_bjj,judo,judo_uranage,Ura-nage,move,4,ma_sutemi_waza,damage,clinch|ground,takedown,16
+U60_judo_bjj,judo,judo_yokootoshi,Yoko-otoshi,move,3,yoko_sutemi_waza,damage,clinch|ground,sacrifice_throw,9
+U60_judo_bjj,judo,judo_yokootoshi,Yoko-otoshi,move,3,yoko_sutemi_waza,damage,clinch|ground,takedown,14
+U60_judo_bjj,judo,judo_taniotoshi,Tani-otoshi,move,3,yoko_sutemi_waza,damage,clinch|ground,sacrifice_throw,9
+U60_judo_bjj,judo,judo_taniotoshi,Tani-otoshi,move,3,yoko_sutemi_waza,damage,clinch|ground,takedown,14
+U60_judo_bjj,judo,judo_hanemakikomi,Hane-makikomi,move,3,yoko_sutemi_waza,damage,clinch|ground,sacrifice_throw,9
+U60_judo_bjj,judo,judo_hanemakikomi,Hane-makikomi,move,3,yoko_sutemi_waza,damage,clinch|ground,takedown,14
+U60_judo_bjj,judo,judo_sotomakikomi,Soto-makikomi,move,3,yoko_sutemi_waza,damage,clinch|ground,sacrifice_throw,9
+U60_judo_bjj,judo,judo_sotomakikomi,Soto-makikomi,move,3,yoko_sutemi_waza,damage,clinch|ground,takedown,14
+U60_judo_bjj,judo,judo_uchimakikomi,Uchi-makikomi,move,4,yoko_sutemi_waza,damage,clinch|ground,sacrifice_throw,10
+U60_judo_bjj,judo,judo_uchimakikomi,Uchi-makikomi,move,4,yoko_sutemi_waza,damage,clinch|ground,takedown,16
+U60_judo_bjj,judo,judo_ukiwaza,Uki-waza,move,4,yoko_sutemi_waza,damage,clinch|ground,sacrifice_throw,10
+U60_judo_bjj,judo,judo_ukiwaza,Uki-waza,move,4,yoko_sutemi_waza,damage,clinch|ground,takedown,16
+U60_judo_bjj,judo,judo_yokowakare,Yoko-wakare,move,4,yoko_sutemi_waza,damage,clinch|ground,sacrifice_throw,10
+U60_judo_bjj,judo,judo_yokowakare,Yoko-wakare,move,4,yoko_sutemi_waza,damage,clinch|ground,takedown,16
+U60_judo_bjj,judo,judo_yokoguruma,Yoko-guruma,move,4,yoko_sutemi_waza,damage,clinch|ground,sacrifice_throw,10
+U60_judo_bjj,judo,judo_yokoguruma,Yoko-guruma,move,4,yoko_sutemi_waza,damage,clinch|ground,takedown,16
+U60_judo_bjj,judo,judo_yokogake,Yoko-gake,move,4,yoko_sutemi_waza,damage,clinch|ground,sacrifice_throw,10
+U60_judo_bjj,judo,judo_yokogake,Yoko-gake,move,4,yoko_sutemi_waza,damage,clinch|ground,takedown,16
+U60_judo_bjj,judo,judo_dakiwakare,Daki-wakare,move,4,yoko_sutemi_waza,damage,clinch|ground,sacrifice_throw,10
+U60_judo_bjj,judo,judo_dakiwakare,Daki-wakare,move,4,yoko_sutemi_waza,damage,clinch|ground,takedown,16
+U60_judo_bjj,judo,judo_osotomakikomi,O-soto-makikomi,move,4,yoko_sutemi_waza,damage,clinch|ground,sacrifice_throw,10
+U60_judo_bjj,judo,judo_osotomakikomi,O-soto-makikomi,move,4,yoko_sutemi_waza,damage,clinch|ground,takedown,16
+U60_judo_bjj,judo,judo_uchimatamakikomi,Uchi-mata-makikomi,move,4,yoko_sutemi_waza,damage,clinch|ground,sacrifice_throw,10
+U60_judo_bjj,judo,judo_uchimatamakikomi,Uchi-mata-makikomi,move,4,yoko_sutemi_waza,damage,clinch|ground,takedown,16
+U60_judo_bjj,judo,judo_haraimakikomi,Harai-makikomi,move,4,yoko_sutemi_waza,damage,clinch|ground,sacrifice_throw,10
+U60_judo_bjj,judo,judo_haraimakikomi,Harai-makikomi,move,4,yoko_sutemi_waza,damage,clinch|ground,takedown,16
+U60_judo_bjj,judo,judo_kouchimakikomi,Ko-uchi-makikomi,move,4,yoko_sutemi_waza,damage,clinch|ground,sacrifice_throw,10
+U60_judo_bjj,judo,judo_kouchimakikomi,Ko-uchi-makikomi,move,4,yoko_sutemi_waza,damage,clinch|ground,takedown,16
+U60_judo_bjj,judo,judo_kanibasami,Kani-basami,move,4,yoko_sutemi_waza,damage,clinch|ground,sacrifice_throw,10
+U60_judo_bjj,judo,judo_kanibasami,Kani-basami,move,4,yoko_sutemi_waza,damage,clinch|ground,takedown,16
+U60_judo_bjj,judo,judo_kawazugake,Kawazu-gake,move,4,yoko_sutemi_waza,damage,clinch|ground,sacrifice_throw,10
+U60_judo_bjj,judo,judo_kawazugake,Kawazu-gake,move,4,yoko_sutemi_waza,damage,clinch|ground,takedown,16
+U60_judo_bjj,judo,judo_kesagatame,Kesa-gatame,move,1,osaekomi_waza,control,ground,pin_control,8
+U60_judo_bjj,judo,judo_kuzurekesagatame,Kuzure-kesa-gatame,move,1,osaekomi_waza,control,ground,pin_control,9
+U60_judo_bjj,judo,judo_ushirokesagatame,Ushiro-kesa-gatame,move,1,osaekomi_waza,control,ground,pin_control,10
+U60_judo_bjj,judo,judo_katagatame,Kata-gatame,move,1,osaekomi_waza,control,ground,pin_control,11
+U60_judo_bjj,judo,judo_kamishihogatame,Kami-shiho-gatame,move,2,osaekomi_waza,control,ground,pin_control,12
+U60_judo_bjj,judo,judo_kuzurekamishihogatame,Kuzure-kami-shiho-gatame,move,2,osaekomi_waza,control,ground,pin_control,12
+U60_judo_bjj,judo,judo_yokoshihogatame,Yoko-shiho-gatame,move,2,osaekomi_waza,control,ground,pin_control,12
+U60_judo_bjj,judo,judo_tateshihogatame,Tate-shiho-gatame,move,2,osaekomi_waza,control,ground,pin_control,12
+U60_judo_bjj,judo,judo_ukigatame,Uki-gatame,move,2,osaekomi_waza,control,ground,pin_control,12
+U60_judo_bjj,judo,judo_uragatame,Ura-gatame,move,2,osaekomi_waza,control,ground,pin_control,12
+U60_judo_bjj,judo,judo_namijujijime,Nami-juji-jime,move,2,shime_waza,submission,ground,submission,9
+U60_judo_bjj,judo,judo_namijujijime,Nami-juji-jime,move,2,shime_waza,submission,ground,submission_setup,5
+U60_judo_bjj,judo,judo_gyakujujijime,Gyaku-juji-jime,move,2,shime_waza,submission,ground,submission,9
+U60_judo_bjj,judo,judo_gyakujujijime,Gyaku-juji-jime,move,2,shime_waza,submission,ground,submission_setup,5
+U60_judo_bjj,judo,judo_katajujijime,Kata-juji-jime,move,2,shime_waza,submission,ground,submission,9
+U60_judo_bjj,judo,judo_katajujijime,Kata-juji-jime,move,2,shime_waza,submission,ground,submission_setup,5
+U60_judo_bjj,judo,judo_hadakajime,Hadaka-jime,move,2,shime_waza,submission,ground,submission,9
+U60_judo_bjj,judo,judo_hadakajime,Hadaka-jime,move,2,shime_waza,submission,ground,submission_setup,5
+U60_judo_bjj,judo,judo_okurierijime,Okuri-eri-jime,move,2,shime_waza,submission,ground,submission,9
+U60_judo_bjj,judo,judo_okurierijime,Okuri-eri-jime,move,2,shime_waza,submission,ground,submission_setup,5
+U60_judo_bjj,judo,judo_katahajime,Kataha-jime,move,2,shime_waza,submission,ground,submission,9
+U60_judo_bjj,judo,judo_katahajime,Kataha-jime,move,2,shime_waza,submission,ground,submission_setup,5
+U60_judo_bjj,judo,judo_katatejime,Katate-jime,move,3,shime_waza,submission,ground,submission,10
+U60_judo_bjj,judo,judo_katatejime,Katate-jime,move,3,shime_waza,submission,ground,submission_setup,5
+U60_judo_bjj,judo,judo_ryotejime,Ryote-jime,move,3,shime_waza,submission,ground,submission,10
+U60_judo_bjj,judo,judo_ryotejime,Ryote-jime,move,3,shime_waza,submission,ground,submission_setup,5
+U60_judo_bjj,judo,judo_sodegurumajime,Sode-guruma-jime,move,3,shime_waza,submission,ground,submission,10
+U60_judo_bjj,judo,judo_sodegurumajime,Sode-guruma-jime,move,3,shime_waza,submission,ground,submission_setup,5
+U60_judo_bjj,judo,judo_tsukkomijime,Tsukkomi-jime,move,3,shime_waza,submission,ground,submission,10
+U60_judo_bjj,judo,judo_tsukkomijime,Tsukkomi-jime,move,3,shime_waza,submission,ground,submission_setup,5
+U60_judo_bjj,judo,judo_sankaku,Sankaku-jime,move,3,shime_waza,submission,ground,submission,10
+U60_judo_bjj,judo,judo_sankaku,Sankaku-jime,move,3,shime_waza,submission,ground,submission_setup,5
+U60_judo_bjj,judo,judo_dojime,Do-jime,move,4,shime_waza,submission,ground,submission,10
+U60_judo_bjj,judo,judo_dojime,Do-jime,move,4,shime_waza,submission,ground,submission_setup,5
+U60_judo_bjj,judo,judo_udegarami,Ude-garami,move,2,kansetsu_waza,submission,ground,arm_isolation,6
+U60_judo_bjj,judo,judo_udegarami,Ude-garami,move,2,kansetsu_waza,submission,ground,submission,10
+U60_judo_bjj,judo,judo_jujigatame,Ude-hishigi-juji-gatame,move,2,kansetsu_waza,submission,ground,arm_isolation,6
+U60_judo_bjj,judo,judo_jujigatame,Ude-hishigi-juji-gatame,move,2,kansetsu_waza,submission,ground,submission,10
+U60_judo_bjj,judo,judo_udehishigiudegatame,Ude-hishigi-ude-gatame,move,2,kansetsu_waza,submission,ground,arm_isolation,6
+U60_judo_bjj,judo,judo_udehishigiudegatame,Ude-hishigi-ude-gatame,move,2,kansetsu_waza,submission,ground,submission,10
+U60_judo_bjj,judo,judo_udehishigihizagatame,Ude-hishigi-hiza-gatame,move,2,kansetsu_waza,submission,ground,arm_isolation,6
+U60_judo_bjj,judo,judo_udehishigihizagatame,Ude-hishigi-hiza-gatame,move,2,kansetsu_waza,submission,ground,submission,10
+U60_judo_bjj,judo,judo_udehishigiwakigatame,Ude-hishigi-waki-gatame,move,3,kansetsu_waza,submission,ground,arm_isolation,6
+U60_judo_bjj,judo,judo_udehishigiwakigatame,Ude-hishigi-waki-gatame,move,3,kansetsu_waza,submission,ground,submission,11
+U60_judo_bjj,judo,judo_udehishigiharagatame,Ude-hishigi-hara-gatame,move,3,kansetsu_waza,submission,ground,arm_isolation,6
+U60_judo_bjj,judo,judo_udehishigiharagatame,Ude-hishigi-hara-gatame,move,3,kansetsu_waza,submission,ground,submission,11
+U60_judo_bjj,judo,judo_udehishigiashigatame,Ude-hishigi-ashi-gatame,move,3,kansetsu_waza,submission,ground,arm_isolation,6
+U60_judo_bjj,judo,judo_udehishigiashigatame,Ude-hishigi-ashi-gatame,move,3,kansetsu_waza,submission,ground,submission,11
+U60_judo_bjj,judo,judo_udehishigitegatame,Ude-hishigi-te-gatame,move,3,kansetsu_waza,submission,ground,arm_isolation,6
+U60_judo_bjj,judo,judo_udehishigitegatame,Ude-hishigi-te-gatame,move,3,kansetsu_waza,submission,ground,submission,11
+U60_judo_bjj,judo,judo_udehishigisankakugatame,Ude-hishigi-sankaku-gatame,move,3,kansetsu_waza,submission,ground,arm_isolation,6
+U60_judo_bjj,judo,judo_udehishigisankakugatame,Ude-hishigi-sankaku-gatame,move,3,kansetsu_waza,submission,ground,submission,11
+U60_judo_bjj,judo,judo_ashigarami,Ashi-garami,move,4,kansetsu_waza,submission,ground,arm_isolation,6
+U60_judo_bjj,judo,judo_ashigarami,Ashi-garami,move,4,kansetsu_waza,submission,ground,submission,11
+U60_judo_bjj,judo,judo_osaekomi_chain,Osaekomi Transitions,skill,3,osaekomi_waza,control,ground,pin_control,9
+U60_judo_bjj,judo,judo_osaekomi_chain,Osaekomi Transitions,skill,3,osaekomi_waza,control,ground,transition,6
+U60_judo_bjj,judo,judo_grip_break_counter,Grip Break to Counter,skill,3,ukemi_grips,setup,clinch,grip_control,9
+U60_judo_bjj,judo,judo_grip_break_counter,Grip Break to Counter,skill,3,ukemi_grips,setup,clinch,takedown_ready,6
+U60_judo_bjj,judo,judo_tomoe_chain,Tomoe-nage to Juji-gatame,sequence,4,combinations,setup,clinch|ground,sacrifice_throw,17
+U60_judo_bjj,judo,judo_tomoe_chain,Tomoe-nage to Juji-gatame,sequence,4,combinations,setup,clinch|ground,submission_chain,15
+U60_judo_bjj,judo,judo_uranage_counter,Ura-nage Counter,move,4,ma_sutemi_waza,damage,clinch,counter_throw,11
+U60_judo_bjj,judo,judo_uranage_counter,Ura-nage Counter,move,4,ma_sutemi_waza,damage,clinch,throw_damage,7
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_guard,Closed Guard,skill,1,positions,control,ground,guard_control,7
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_guard,Closed Guard,skill,1,positions,control,ground,submission_setup,4
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_open_guard,Open Guard,skill,1,positions,control,ground,guard_control,6
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_open_guard,Open Guard,skill,1,positions,control,ground,sweep_threat,4
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_half_guard,Half Guard,skill,2,positions,control,ground,guard_control,7
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_half_guard,Half Guard,skill,2,positions,control,ground,sweep_threat,5
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_side_control,Side Control,skill,1,positions,control,ground,control,8
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_side_control,Side Control,skill,1,positions,control,ground,submission_setup,4
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_mount,Mount Control,skill,2,positions,control,ground,control,12
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_mount,Mount Control,skill,2,positions,control,ground,submission_setup,7
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_knee_on_belly,Knee-on-Belly,skill,2,positions,control,ground,control,9
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_knee_on_belly,Knee-on-Belly,skill,2,positions,control,ground,top_control,6
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_north_south,North-South,skill,2,positions,control,ground,control,8
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_north_south,North-South,skill,2,positions,control,ground,submission_setup,5
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_back_control,Back Control,skill,2,positions,control,ground,back_control,12
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_back_control,Back Control,skill,2,positions,control,ground,submission_setup,8
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_turtle,Turtle,skill,2,positions,defense,ground,control_escape,6
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_turtle,Turtle,skill,2,positions,defense,ground,scramble,5
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_5050,50/50 Guard,skill,3,positions,control,ground,guard_control,5
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_5050,50/50 Guard,skill,3,positions,control,ground,leg_attack,7
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_shrimp_escape,Hip Escape (Shrimp),move,1,escapes,defense,ground,escape,8
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_shrimp_escape,Hip Escape (Shrimp),move,1,escapes,defense,ground,guard_recovery,7
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_bridge_escape,Bridge Escape (Upa),move,1,escapes,defense,ground,escape,8
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_bridge_escape,Bridge Escape (Upa),move,1,escapes,defense,ground,scramble,4
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_frame_escape,Frame Escape (Side Control),move,1,escapes,defense,ground,escape,7
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_frame_escape,Frame Escape (Side Control),move,1,escapes,defense,ground,guard_recovery,6
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_back_escape,Back Escape (Hand Fighting),move,2,escapes,defense,ground,control_escape,6
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_back_escape,Back Escape (Hand Fighting),move,2,escapes,defense,ground,escape,8
+U60_judo_bjj,brazilian_jiu_jitsu,brazilian_jiu_jitsu_guard_retention,Guard Retention Frames,skill,2,guard_retention,defense,ground,guard_control,5
+U60_judo_bjj,brazilian_jiu_jitsu,brazilian_jiu_jitsu_guard_retention,Guard Retention Frames,skill,2,guard_retention,defense,ground,guard_recovery,9
+U60_judo_bjj,brazilian_jiu_jitsu,brazilian_jiu_jitsu_knee_shield,Knee Shield Guard,skill,3,guard_retention,defense,ground,guard_control,8
+U60_judo_bjj,brazilian_jiu_jitsu,brazilian_jiu_jitsu_knee_shield,Knee Shield Guard,skill,3,guard_retention,defense,ground,sweep_threat,6
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_dela_riva,De La Riva Guard,skill,2,guard,control,ground,guard_control,8
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_dela_riva,De La Riva Guard,skill,2,guard,control,ground,sweep_threat,7
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_x_guard,X-Guard / Single-Leg X,skill,2,guard,control,ground,guard_control,6
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_x_guard,X-Guard / Single-Leg X,skill,2,guard,control,ground,sweep_threat,9
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_butterfly_guard,Butterfly Guard,skill,2,guard,control,ground,guard_control,6
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_butterfly_guard,Butterfly Guard,skill,2,guard,control,ground,sweep_threat,8
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_spider_guard,Spider Guard,skill,3,guard,control,ground,guard_control,9
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_spider_guard,Spider Guard,skill,3,guard,control,ground,sweep_threat,7
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_worm_guard,Worm Guard,skill,4,guard,control,ground,guard_control,10
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_worm_guard,Worm Guard,skill,4,guard,control,ground,sweep_threat,8
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_lasso_guard,Lasso Guard,skill,3,guard,control,ground,guard_control,8
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_lasso_guard,Lasso Guard,skill,3,guard,control,ground,sweep_threat,6
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_deep_half,Deep Half Guard,skill,3,guard,control,ground,guard_control,6
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_deep_half,Deep Half Guard,skill,3,guard,control,ground,sweep_threat,9
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_posture_break,Closed-Guard Posture Break,skill,1,guard,setup,ground,guard_control,5
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_posture_break,Closed-Guard Posture Break,skill,1,guard,setup,ground,submission_setup,6
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_guard_pass,Torreando Pass,move,1,passing,control,ground,pass_guard,9
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_guard_pass,Torreando Pass,move,1,passing,control,ground,side_control,6
+U60_judo_bjj,brazilian_jiu_jitsu,brazilian_jiu_jitsu_knee_cut_pass,Knee Cut Pass,move,2,passing,control,ground,pass_guard,9
+U60_judo_bjj,brazilian_jiu_jitsu,brazilian_jiu_jitsu_knee_cut_pass,Knee Cut Pass,move,2,passing,control,ground,top_control,5
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_stack_pass,Stack Pass,move,2,passing,control,ground,control,5
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_stack_pass,Stack Pass,move,2,passing,control,ground,pass_guard,8
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_leg_drag_pass,Leg Drag Pass,move,2,passing,control,ground,back_control,5
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_leg_drag_pass,Leg Drag Pass,move,2,passing,control,ground,pass_guard,9
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_over_under_pass,Over-Under Pass,move,2,passing,control,ground,control,6
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_over_under_pass,Over-Under Pass,move,2,passing,control,ground,pass_guard,9
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_body_lock_pass,Body Lock Pass,move,3,passing,control,ground,pass_guard,10
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_body_lock_pass,Body Lock Pass,move,3,passing,control,ground,top_control,7
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_smash_pass,Smash Pass,move,3,passing,control,ground,control,7
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_smash_pass,Smash Pass,move,3,passing,control,ground,pass_guard,9
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_scissor_sweep,Scissor Sweep,move,1,sweeps,control,ground,sweep,11
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_scissor_sweep,Scissor Sweep,move,1,sweeps,control,ground,top_position,7
+U60_judo_bjj,brazilian_jiu_jitsu,brazilian_jiu_jitsu_hip_bump_sweep,Hip Bump Sweep,move,2,sweeps,control,ground,chain_open,5
+U60_judo_bjj,brazilian_jiu_jitsu,brazilian_jiu_jitsu_hip_bump_sweep,Hip Bump Sweep,move,2,sweeps,control,ground,sweep,8
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_flower_sweep,Flower / Pendulum Sweep,move,2,sweeps,control,ground,submission_setup,4
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_flower_sweep,Flower / Pendulum Sweep,move,2,sweeps,control,ground,sweep,10
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_butterfly_sweep,Butterfly Sweep,move,2,sweeps,control,ground,sweep,10
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_butterfly_sweep,Butterfly Sweep,move,2,sweeps,control,ground,top_position,6
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_x_guard_sweep,X-Guard Sweep Family,move,3,sweeps,control,ground,sweep,11
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_x_guard_sweep,X-Guard Sweep Family,move,3,sweeps,control,ground,top_position,7
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_tripod_sweep,Tripod / Sickle Sweep,move,2,sweeps,control,ground,sweep,8
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_tripod_sweep,Tripod / Sickle Sweep,move,2,sweeps,control,ground,throw_setup,6
+U60_judo_bjj,brazilian_jiu_jitsu,brazilian_jiu_jitsu_berimbolo,Berimbolo,move,4,sweeps,control,ground,back_control,10
+U60_judo_bjj,brazilian_jiu_jitsu,brazilian_jiu_jitsu_berimbolo,Berimbolo,move,4,sweeps,control,ground,sweep,6
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_guard_pull,Guard Pull,move,1,takedowns,control,clinch|ground,guard_control,6
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_guard_pull,Guard Pull,move,1,takedowns,control,clinch|ground,phase_transition,7
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_arm_drag,Arm Drag to Back,move,2,takedowns,control,standing|clinch,back_control,8
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_arm_drag,Arm Drag to Back,move,2,takedowns,control,standing|clinch,takedown,5
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_ankle_pick,Ankle Pick,move,2,takedowns,damage,standing,takedown,8
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_ankle_pick,Ankle Pick,move,2,takedowns,damage,standing,throw_setup,6
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_rnc,Rear Naked Choke,move,1,submissions,submission,ground,back_control,6
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_rnc,Rear Naked Choke,move,1,submissions,submission,ground,submission,12
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_armbar,Armbar (Juji-gatame Family),move,1,submissions,submission,ground,arm_isolation,8
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_armbar,Armbar (Juji-gatame Family),move,1,submissions,submission,ground,submission,11
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_kimura,Kimura (Ude-garami Family),move,2,submissions,submission,ground,shoulder_isolation,8
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_kimura,Kimura (Ude-garami Family),move,2,submissions,submission,ground,submission,11
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_americana,Americana (Ude-garami Top Variation),move,2,submissions,submission,ground,shoulder_isolation,7
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_americana,Americana (Ude-garami Top Variation),move,2,submissions,submission,ground,submission,10
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_omoplata,Omoplata,move,2,submissions,submission,ground,submission,11
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_omoplata,Omoplata,move,2,submissions,submission,ground,sweep_threat,6
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_triangle,Triangle Choke,move,2,submissions,submission,ground,counter_to_pass,7
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_triangle,Triangle Choke,move,2,submissions,submission,ground,submission,14
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_guillotine,Guillotine Choke,move,2,submissions,submission,clinch|ground,front_headlock_open,6
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_guillotine,Guillotine Choke,move,2,submissions,submission,clinch|ground,submission,12
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_front_headlock,Front Headlock Control,skill,2,positions,control,clinch|ground,control,8
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_front_headlock,Front Headlock Control,skill,2,positions,control,clinch|ground,submission_setup,7
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_arm_triangle,Arm Triangle (Kata-gatame Choke),move,2,submissions,submission,ground,control,6
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_arm_triangle,Arm Triangle (Kata-gatame Choke),move,2,submissions,submission,ground,submission,12
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_darce,D'Arce Choke,move,3,submissions,submission,ground,submission,13
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_darce,D'Arce Choke,move,3,submissions,submission,ground,submission_setup,6
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_anaconda,Anaconda Choke,move,3,submissions,submission,ground,submission,13
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_anaconda,Anaconda Choke,move,3,submissions,submission,ground,submission_setup,6
+U60_judo_bjj,brazilian_jiu_jitsu,brazilian_jiu_jitsu_darce_chain,D'Arce & Anaconda Chain,sequence,4,combinations,submission,ground,damage_to_submission,6
+U60_judo_bjj,brazilian_jiu_jitsu,brazilian_jiu_jitsu_darce_chain,D'Arce & Anaconda Chain,sequence,4,combinations,submission,ground,submission_chain,10
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_bow_and_arrow,Bow-and-Arrow Choke,move,3,submissions,submission,ground,back_control,5
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_bow_and_arrow,Bow-and-Arrow Choke,move,3,submissions,submission,ground,submission,13
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_cross_collar,Cross-Collar Choke,move,2,submissions,submission,ground,submission,11
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_cross_collar,Cross-Collar Choke,move,2,submissions,submission,ground,submission_setup,5
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_ezekiel,Ezekiel Choke (Sode-guruma-jime),move,2,submissions,submission,ground,submission,10
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_ezekiel,Ezekiel Choke (Sode-guruma-jime),move,2,submissions,submission,ground,submission_setup,4
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_clock_choke,Clock Choke,move,3,submissions,submission,ground,control,5
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_clock_choke,Clock Choke,move,3,submissions,submission,ground,submission,11
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_baseball_bat_choke,Baseball Bat Choke,move,3,submissions,submission,ground,submission,11
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_baseball_bat_choke,Baseball Bat Choke,move,3,submissions,submission,ground,submission_setup,5
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_north_south_choke,North-South Choke,move,3,submissions,submission,ground,control,5
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_north_south_choke,North-South Choke,move,3,submissions,submission,ground,submission,12
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_gogoplata,Gogoplata,move,4,submissions,submission,ground,submission,12
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_gogoplata,Gogoplata,move,4,submissions,submission,ground,submission_setup,6
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_wrist_lock,Wrist Lock Family,move,3,submissions,submission,ground,submission,8
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_wrist_lock,Wrist Lock Family,move,3,submissions,submission,ground,submission_setup,4
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_bicep_slicer,Bicep Slicer,move,4,submissions,submission,ground,arm_isolation,6
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_bicep_slicer,Bicep Slicer,move,4,submissions,submission,ground,submission,11
+U60_judo_bjj,brazilian_jiu_jitsu,brazilian_jiu_jitsu_straight_ankle,Straight Ankle Lock,move,2,leg_locks,submission,ground,leg_attack,8
+U60_judo_bjj,brazilian_jiu_jitsu,brazilian_jiu_jitsu_straight_ankle,Straight Ankle Lock,move,2,leg_locks,submission,ground,submission_setup,6
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_kneebar,Kneebar,move,3,leg_locks,submission,ground,leg_attack,8
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_kneebar,Kneebar,move,3,leg_locks,submission,ground,submission,12
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_toe_hold,Toe Hold,move,3,leg_locks,submission,ground,leg_attack,7
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_toe_hold,Toe Hold,move,3,leg_locks,submission,ground,submission,11
+U60_judo_bjj,brazilian_jiu_jitsu,brazilian_jiu_jitsu_heel_hook,Heel Hook (Inside/Outside Family),move,4,leg_locks,submission,ground,leg_attack,8
+U60_judo_bjj,brazilian_jiu_jitsu,brazilian_jiu_jitsu_heel_hook,Heel Hook (Inside/Outside Family),move,4,leg_locks,submission,ground,submission,12
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_calf_slicer,Calf Slicer,move,4,leg_locks,submission,ground,leg_attack,7
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_calf_slicer,Calf Slicer,move,4,leg_locks,submission,ground,submission,11
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_back_take_rnc,Back Take to Rear Naked Choke,sequence,3,combinations,submission,ground,back_control,13
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_back_take_rnc,Back Take to Rear Naked Choke,sequence,3,combinations,submission,ground,submission,15
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_kimura_chain,Kimura Control Chain,sequence,3,combinations,control,ground,control,12
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_kimura_chain,Kimura Control Chain,sequence,3,combinations,control,ground,submission,11
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_kimura_chain,Kimura Control Chain,sequence,3,combinations,control,ground,sweep,9
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_submission_chain,Armbar-Triangle-Omoplata Chain,sequence,4,combinations,setup,ground,submission_chain,18
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_submission_chain,Armbar-Triangle-Omoplata Chain,sequence,4,combinations,setup,ground,submission_setup,15
+U60_judo_bjj,judo,judo_renraku_osoto_ouchi,Osoto-gari → Ouchi-gari (Renraku-waza),sequence,2,combinations,damage,clinch,takedown,12
+U60_judo_bjj,judo,judo_renraku_osoto_ouchi,Osoto-gari → Ouchi-gari (Renraku-waza),sequence,2,combinations,damage,clinch,throw_setup,8
+U60_judo_bjj,judo,judo_renraku_seoi_kouchi,Seoi-nage → Kouchi-gari (Renraku-waza),sequence,2,combinations,damage,clinch,takedown,12
+U60_judo_bjj,judo,judo_renraku_seoi_kouchi,Seoi-nage → Kouchi-gari (Renraku-waza),sequence,2,combinations,damage,clinch,throw_setup,8
+U60_judo_bjj,judo,judo_renraku_ouchi_osoto,Ouchi-gari → Osoto-gari (Renraku-waza),sequence,2,combinations,damage,clinch,takedown,12
+U60_judo_bjj,judo,judo_renraku_ouchi_osoto,Ouchi-gari → Osoto-gari (Renraku-waza),sequence,2,combinations,damage,clinch,throw_setup,8
+U60_judo_bjj,judo,judo_renraku_deashi_osoto,Deashi-harai → Osoto-gari (Renraku-waza),sequence,2,combinations,damage,clinch,takedown,11
+U60_judo_bjj,judo,judo_renraku_deashi_osoto,Deashi-harai → Osoto-gari (Renraku-waza),sequence,2,combinations,damage,clinch,throw_setup,7
+U60_judo_bjj,judo,judo_renraku_harai_osoto,Harai-goshi → Osoto-gari (Renraku-waza),sequence,3,combinations,damage,clinch,takedown,13
+U60_judo_bjj,judo,judo_renraku_harai_osoto,Harai-goshi → Osoto-gari (Renraku-waza),sequence,3,combinations,damage,clinch,throw_setup,8
+U60_judo_bjj,judo,judo_renraku_sasae_taiotoshi,Sasae-tsurikomi-ashi → Tai-otoshi (Renraku-waza),sequence,3,combinations,damage,clinch,takedown,13
+U60_judo_bjj,judo,judo_renraku_sasae_taiotoshi,Sasae-tsurikomi-ashi → Tai-otoshi (Renraku-waza),sequence,3,combinations,damage,clinch,throw_setup,8
+U60_judo_bjj,judo,judo_renraku_kouchi_seoi,Kouchi-gari → Seoi-nage (Renraku-waza),sequence,2,combinations,damage,clinch,takedown,12
+U60_judo_bjj,judo,judo_renraku_kouchi_seoi,Kouchi-gari → Seoi-nage (Renraku-waza),sequence,2,combinations,damage,clinch,throw_setup,8
+U60_judo_bjj,judo,judo_renraku_uchimata_ouchi,Uchi-mata → Ouchi-gari (Renraku-waza),sequence,3,combinations,damage,clinch,takedown,14
+U60_judo_bjj,judo,judo_renraku_uchimata_ouchi,Uchi-mata → Ouchi-gari (Renraku-waza),sequence,3,combinations,damage,clinch,throw_setup,9
+U60_judo_bjj,judo,judo_renzoku_osoto,Osoto-gari Renzoku (Continuous Attack),sequence,4,combinations,damage,clinch,takedown,15
+U60_judo_bjj,judo,judo_renzoku_osoto,Osoto-gari Renzoku (Continuous Attack),sequence,4,combinations,damage,clinch,throw_setup,10
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_chain_kimura_sweep_back,Kimura → Sweep → Back Take,sequence,3,combinations,control,ground,back_control,12
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_chain_kimura_sweep_back,Kimura → Sweep → Back Take,sequence,3,combinations,control,ground,submission_setup,12
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_chain_kimura_sweep_back,Kimura → Sweep → Back Take,sequence,3,combinations,control,ground,sweep,10
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_chain_guillotine_mount,Guillotine → Mount Finish,sequence,3,combinations,submission,ground|clinch,submission,14
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_chain_guillotine_mount,Guillotine → Mount Finish,sequence,3,combinations,submission,ground|clinch,submission_setup,10
+U60_judo_bjj,brazilian_jiu_jitsu,bjj_chain_guillotine_mount,Guillotine → Mount Finish,sequence,3,combinations,submission,ground|clinch,top_control,8

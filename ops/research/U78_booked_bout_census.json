@@ -1,0 +1,377 @@
+{
+  "hardcodes": [
+    {
+      "file": "Godot/scripts/FightWorldLiveScreen.gd",
+      "line": 27,
+      "token": "f01_m_box_welter_rigged.glb",
+      "what": "Fighter A mesh path",
+      "replace_with": "Career athlete A body file chosen from sex, discipline and weight class"
+    },
+    {
+      "file": "Godot/scripts/FightWorldLiveScreen.gd",
+      "line": 28,
+      "token": "f02_m_box_heavy_rigged.glb",
+      "what": "Fighter B mesh path",
+      "replace_with": "Career athlete B body file chosen from sex, discipline and weight class"
+    },
+    {
+      "file": "Godot/scripts/FightWorldLiveScreen.gd",
+      "line": 29,
+      "token": "KG_A",
+      "what": "Fighter A competition mass (66.7 kg)",
+      "replace_with": "athlete_a competition_weight_kg from fight-ready snapshot"
+    },
+    {
+      "file": "Godot/scripts/FightWorldLiveScreen.gd",
+      "line": 30,
+      "token": "KG_B",
+      "what": "Fighter B competition mass (120.0 kg)",
+      "replace_with": "athlete_b competition_weight_kg from fight-ready snapshot"
+    },
+    {
+      "file": "Godot/scripts/FightWorldLiveScreen.gd",
+      "line": 32,
+      "token": "\"boxing\"",
+      "what": "Discipline literal passed to arena lookup and ruleset filter",
+      "replace_with": "contract.discipline or ruleset primary discipline from booked bout"
+    },
+    {
+      "file": "Godot/scripts/FightWorldLiveScreen.gd",
+      "line": 33,
+      "token": "94301",
+      "what": "Simulation seed",
+      "replace_with": "contract.simulation_seed from get_world_bout_contract"
+    },
+    {
+      "file": "Godot/scripts/FightWorldLiveScreen.gd",
+      "line": 34,
+      "token": "ROUNDS",
+      "what": "Round count (3)",
+      "replace_with": "ruleset.rounds from booked bout ruleset dictionary"
+    },
+    {
+      "file": "Godot/scripts/FightWorldLiveScreen.gd",
+      "line": 137,
+      "token": "\"male\"",
+      "what": "Sex passed to Stage.mount for fighter A",
+      "replace_with": "athlete_a sex from career snapshot"
+    },
+    {
+      "file": "Godot/scripts/FightWorldLiveScreen.gd",
+      "line": 138,
+      "token": "\"male\"",
+      "what": "Sex passed to Stage.mount for fighter B",
+      "replace_with": "athlete_b sex from career snapshot"
+    },
+    {
+      "file": "Godot/scripts/FightWorldLiveScreen.gd",
+      "line": 173,
+      "token": "SEED",
+      "what": "Seed handed to FightBeatAdapter.begin",
+      "replace_with": "contract.simulation_seed"
+    },
+    {
+      "file": "Godot/scripts/FightWorldLiveScreen.gd",
+      "line": 176,
+      "token": "DISCIPLINE",
+      "what": "Ruleset id filter for _ruleset()",
+      "replace_with": "contract.ruleset_id"
+    },
+    {
+      "file": "Godot/scripts/FightWorldLiveScreen.gd",
+      "line": 452,
+      "token": "\"male\"",
+      "what": "demo_fighter sex for both sides",
+      "replace_with": "each athlete sex from career snapshot"
+    },
+    {
+      "file": "Godot/scripts/FightWorldLiveScreen.gd",
+      "line": 462,
+      "token": "175.0",
+      "what": "demo_fighter height_cm for both men",
+      "replace_with": "athlete height_cm with FighterPhysique.height_scale for chosen mesh"
+    },
+    {
+      "file": "Godot/scripts/FightWorldLiveScreen.gd",
+      "line": 464,
+      "token": "boxing_jab",
+      "what": "Fixed boxing-only learned_techniques palette",
+      "replace_with": "each athlete learned_techniques / technique_progress for the bout ruleset"
+    },
+    {
+      "file": "Godot/scripts/FightWorldLiveScreen.gd",
+      "line": 475,
+      "token": "\"stats\"",
+      "what": "Identical 60-stat block for both demo fighters",
+      "replace_with": "each athlete stats dict from fight-ready snapshot"
+    },
+    {
+      "file": "Godot/scripts/FightWorldLiveScreen.gd",
+      "line": 130,
+      "token": "DISCIPLINE",
+      "what": "Arena spec resolved only for boxing discipline",
+      "replace_with": "ArenaSurface.for_discipline(contract.discipline) or ruleset arena_profile mapping"
+    }
+  ],
+  "route": [
+    {
+      "file": "Godot/scripts/GameState.gd",
+      "line": 10631,
+      "token": "book_fight",
+      "what": "Booking write: player accepts an offer",
+      "replace_with": "Entry point — stores offer_id on athlete"
+    },
+    {
+      "file": "Godot/scripts/GameState.gd",
+      "line": 10781,
+      "token": "booked_fight",
+      "what": "Offer id persisted on the athlete record",
+      "replace_with": "Source of truth for which bout is booked"
+    },
+    {
+      "file": "Godot/scripts/GameState.gd",
+      "line": 2727,
+      "token": "get_booked_fight_due_day",
+      "what": "Fight-day offset for a booked offer",
+      "replace_with": "Day gate before fight_week / fight_night"
+    },
+    {
+      "file": "Godot/scripts/GameState.gd",
+      "line": 14445,
+      "token": "get_fight_week_card",
+      "what": "Fight-week projection (opponent, venue, ruleset_id, stakes)",
+      "replace_with": "UI read for the set-piece chain"
+    },
+    {
+      "file": "Godot/scripts/GameState.gd",
+      "line": 805,
+      "token": "get_world_bout_contract",
+      "what": "Full bout contract: athletes, ruleset_id, seed, discipline, weight_class",
+      "replace_with": "Handover payload source for live fight and the 3D room"
+    },
+    {
+      "file": "Godot/scripts/DayFeedPanel.gd",
+      "line": 364,
+      "token": "fight_week",
+      "what": "Day strip enters set-piece chain with athlete_id",
+      "replace_with": "Player path — not the dev fight_world_live route"
+    },
+    {
+      "file": "Godot/scripts/ScheduleHubPanel.gd",
+      "line": 2322,
+      "token": "fight_week",
+      "what": "Schedule seam enters set-piece with event_id and mode live",
+      "replace_with": "Alternate player path from the event card"
+    },
+    {
+      "file": "Godot/scripts/SetpieceRoot.gd",
+      "line": 40,
+      "token": "fight_week",
+      "what": "Set-piece phase 1: FightWeekPanel",
+      "replace_with": "First set-piece body after booking"
+    },
+    {
+      "file": "Godot/scripts/FightWeekPanel.gd",
+      "line": 398,
+      "token": "weigh_in",
+      "what": "Phase step to weigh-in",
+      "replace_with": "Walks route_args forward unchanged"
+    },
+    {
+      "file": "Godot/scripts/WeighInPanel.gd",
+      "line": 180,
+      "token": "fight_night",
+      "what": "Phase step to fight night",
+      "replace_with": "Mounts FightNight.tscn — still no 3D room"
+    },
+    {
+      "file": "Godot/scripts/SetpieceRoot.gd",
+      "line": 242,
+      "token": "bout_id",
+      "what": "SetpieceRoot calls FightNightScreen.setup when route_args carry mode",
+      "replace_with": "Must inject mode live and bout_id live_bout_id(event_id, bout_index)"
+    },
+    {
+      "file": "Godot/scripts/FightNightScreen.gd",
+      "line": 124,
+      "token": "setup",
+      "what": "Fight screen entry: bout_id + mode",
+      "replace_with": "Current 2D fight host — handover point before/at realtime begin"
+    },
+    {
+      "file": "Godot/scripts/FightNightScreen.gd",
+      "line": 322,
+      "token": "FightBeatAdapter.begin",
+      "what": "Realtime engine start for boxing/mma/kickboxing/muay_thai",
+      "replace_with": "Same adapter call the 3D room must share for byte-exact beats"
+    },
+    {
+      "file": "Godot/scripts/FightNightScreen.gd",
+      "line": 42,
+      "token": "REALTIME_RULESET_IDS",
+      "what": "Rulesets that use FightBeatAdapter vs FightSimulation",
+      "replace_with": "Gate for whether the 3D room is relevant"
+    },
+    {
+      "file": "Godot/scripts/SceneRouter.gd",
+      "line": 121,
+      "token": "fight_world_live",
+      "what": "Dev-tier route to FightWorldLive — no rail, no booking",
+      "replace_with": "Not the player path; do not wire booking here"
+    }
+  ],
+  "arenas": [
+    {
+      "ruleset": "mma",
+      "arena_profile": "mma_cage",
+      "built_today": true,
+      "evidence": "ArenaSurface.for_discipline('mma') -> mma_cage_gym_6m in arena_specs.json; ArenaRig.build validates. FightWorldLiveScreen hardcodes boxing and never reaches this."
+    },
+    {
+      "ruleset": "boxing",
+      "arena_profile": "boxing_ring",
+      "built_today": true,
+      "evidence": "ArenaSurface.for_discipline('boxing') -> boxing_ring_fl_min; ArenaRig.build — the only profile FightWorldLiveScreen actually mounts today."
+    },
+    {
+      "ruleset": "kickboxing",
+      "arena_profile": "boxing_ring",
+      "built_today": true,
+      "evidence": "ArenaSurface.for_discipline('kickboxing') -> boxing_ring_fl_min via ArenaRig. Screen hardcodes DISCIPLINE boxing so it would render the same ring without a ruleset-driven swap."
+    },
+    {
+      "ruleset": "muay_thai",
+      "arena_profile": "boxing_ring",
+      "built_today": true,
+      "evidence": "ArenaSurface.for_discipline('muay_thai') -> muaythai_ring_ifma via ArenaRig. Screen never calls for_discipline('muay_thai')."
+    },
+    {
+      "ruleset": "judo",
+      "arena_profile": "judo_tatami",
+      "built_today": true,
+      "evidence": "ArenaSurface routes judo to MatRig + judo_ijf in mat_specs.json. FightWorldLiveScreen loads ArenaRig only and never MatRig."
+    },
+    {
+      "ruleset": "freestyle_wrestling",
+      "arena_profile": "wrestling_mat",
+      "built_today": true,
+      "evidence": "ArenaSurface.for_discipline('wrestling') -> wrestling_uww via MatRig. Not reachable from FightWorldLiveScreen today."
+    },
+    {
+      "ruleset": "greco_roman",
+      "arena_profile": "wrestling_mat",
+      "built_today": true,
+      "evidence": "Greco shares wrestling_uww mat spec through ArenaSurface discipline 'wrestling' (ruleset discipline greco_roman maps at bout time). MatRig only."
+    },
+    {
+      "ruleset": "karate",
+      "arena_profile": "karate_tatami",
+      "built_today": true,
+      "evidence": "ArenaSurface.for_discipline('karate') -> karate_wkf via MatRig. FightWorldLiveScreen never invokes MatRig."
+    },
+    {
+      "ruleset": "bjj",
+      "arena_profile": "grappling_mat",
+      "built_today": true,
+      "evidence": "ArenaSurface.for_discipline('bjj') -> bjj_ibjjf via MatRig. Profile label grappling_mat differs from spec id bjj_ibjjf."
+    },
+    {
+      "ruleset": "sambo",
+      "arena_profile": "sambo_mat",
+      "built_today": true,
+      "evidence": "ArenaSurface.for_discipline('sambo') INHERITED -> wrestling_uww via MatRig; no literal sambo_mat spec id."
+    },
+    {
+      "ruleset": "taekwondo",
+      "arena_profile": "taekwondo_tatami",
+      "built_today": true,
+      "evidence": "ArenaSurface.for_discipline('taekwondo') -> taekwondo_wt via MatRig."
+    }
+  ],
+  "bodies": [
+    {
+      "file": "f01_m_box_welter_rigged.glb",
+      "sex": "m",
+      "discipline": "box",
+      "weight": "welter",
+      "height_note": "C98 MEASURED mesh height 1.85 m"
+    },
+    {
+      "file": "f02_m_box_heavy_rigged.glb",
+      "sex": "m",
+      "discipline": "box",
+      "weight": "heavy",
+      "height_note": "C98 MEASURED mesh height 1.85 m"
+    },
+    {
+      "file": "f03_f_box_fly_rigged.glb",
+      "sex": "f",
+      "discipline": "box",
+      "weight": "fly",
+      "height_note": "C98 MEASURED mesh height 1.75 m"
+    },
+    {
+      "file": "f04_f_box_middle_rigged.glb",
+      "sex": "f",
+      "discipline": "box",
+      "weight": "middle",
+      "height_note": "C98 MEASURED mesh height 1.75 m"
+    },
+    {
+      "file": "f05_m_mma_light_rigged.glb",
+      "sex": "m",
+      "discipline": "mma",
+      "weight": "light",
+      "height_note": "C98 MEASURED mesh height 1.85 m"
+    },
+    {
+      "file": "f06_m_mma_lhw_rigged.glb",
+      "sex": "m",
+      "discipline": "mma",
+      "weight": "lhw",
+      "height_note": "C98 MEASURED mesh height 1.00 m — needs FighterPhysique.height_scale"
+    },
+    {
+      "file": "f07_f_mma_straw_rigged.glb",
+      "sex": "f",
+      "discipline": "mma",
+      "weight": "straw",
+      "height_note": "C98 MEASURED mesh height 1.75 m"
+    },
+    {
+      "file": "f08_f_mma_bantam_rigged.glb",
+      "sex": "f",
+      "discipline": "mma",
+      "weight": "bantam",
+      "height_note": "C98 MEASURED mesh height 1.00 m — needs FighterPhysique.height_scale"
+    },
+    {
+      "file": "f09_m_bare_welter_rigged.glb",
+      "sex": "m",
+      "discipline": "bare",
+      "weight": "welter",
+      "height_note": "C98 MEASURED mesh height 1.85 m"
+    },
+    {
+      "file": "f10_m_bare_heavy_rigged.glb",
+      "sex": "m",
+      "discipline": "bare",
+      "weight": "heavy",
+      "height_note": "C98 MEASURED mesh height 1.85 m"
+    },
+    {
+      "file": "f11_f_bare_feather_rigged.glb",
+      "sex": "f",
+      "discipline": "bare",
+      "weight": "feather",
+      "height_note": "C98 MEASURED mesh height 1.75 m"
+    },
+    {
+      "file": "f12_f_bare_welter_rigged.glb",
+      "sex": "f",
+      "discipline": "bare",
+      "weight": "welter",
+      "height_note": "C98 MEASURED mesh height 1.75 m"
+    }
+  ]
+}

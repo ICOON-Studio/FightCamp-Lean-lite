@@ -1,0 +1,23 @@
+You own TASK_Q217 (STANDING). Worktree D:/FightCamp/wt/Q217, branch qwen/q217-close-range. PART 3 - Claude read your part-2 stills (S126).
+FIRST: git fetch origin && git merge origin/master (S126 changed c223_production_gate.gd: the fist band now measures the STRIKE peak up to impact,
+not the whole clip - re-run any certificate you made before the merge).
+
+VERDICT ON WHAT YOU DELIVERED (Claude opened the PNGs - this is the primary source, not your commit message):
+1. boxing_lead_uppercut (cba223a0): the game-camera sheet reads as a lead uppercut. NOT YET CERTIFIED: (a) there is NO side still (yaw=90) - the gate
+   needs both; (b) at contact (front_..._welter_a.png, 0.500 s) the REAR glove has dropped to the hip. A boxer keeps the rear glove at the chin while the lead
+   hand digs. Fix it with a rear-arm pose layer SOLVED BY TARGET (copy tools/s124_catch_solve.gd: rear wrist held in front of the chin through the
+   strike window) - not by guessed Euler angles.
+2. boxing_inside_uppercut (a6492c64): HELD. iu_side_..._welter_a.png at 0.367 s: the rear arm is flung BEHIND the hip and the torso turns its back to the
+   opponent - a wind-mill, not SHOT_LIST_STRIKING's "short uppercut at clinch range, compact". Same rear-glove-at-chin layer, and a smaller hip yaw if the
+   turn-away comes from your 28 deg Hips layer (measure it: print the rear wrist - chin distance per frame with and without the Hips layer).
+   The spacing (0.83-0.91 m) is fine - inside the game's POCKET 1.07 m.
+3. THE HOOKS (your part-2 report: "all hooks fail G147 on all 4 rigs"). S126 changed the GAME's pin, which the gates measure:
+   FightContactSolve.PUSH_SKIN_M 6 cm (arm-against-arm pairs give way BEFORE they meet - a push box) and HEAD_CLEAR_M 3 mm
+   (the head pass). On one_two this took the receiver's guard-arm contact from 3.07 cm x 6 f + pin pops to 0 cm on 3 of 4 rigs.
+   So FIRST re-run each hook UNCHANGED on the merged tree and report per rig which G147 class still fails (ARM / LEG / TORSO /
+   HEAD, depth, frames). Only then add layers - and only for the class that is still red. A LEG fail at close range is the
+   spacing: keep the men inside POCKET (1.07 m root gap), never move them apart to pass.
+   Then the rest in TASK order (rear_hook, rear_hook_body, shovel_hook, lead_hook). Same bar each time: 4/4 production rows incl. g147 + pin pops,
+   Q213 pin=1 PASS, game AND side stills that you describe plainly in Q217_DIGEST.md, including the REAR glove at contact.
+Launch Godot only through Tools\godot_hidden.ps1. Commit + push the branch after each move; do not merge to master. Send one line with
+python Tools/agent_comms.py send when a move is done.

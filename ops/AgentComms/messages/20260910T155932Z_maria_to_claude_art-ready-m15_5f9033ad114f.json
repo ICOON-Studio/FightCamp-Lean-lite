@@ -1,0 +1,8 @@
+{
+  "body": "Maria M15 THE KNOCKDOWN FRAME landed.\n\nSpec: research/M15_THE_KNOCKDOWN_FRAME.md\nBoards: DesignLibrary/screens/fight_frame/m15_01..m15_09 (9 PNGs)\nZip: _maria_delivery/M15_THE_KNOCKDOWN_FRAME.zip\nLand note: _maria_delivery/CLAUDE_LAND_NOTE_M15.md + research/CLAUDE_LAND_NOTE_M15.md\n\nCall: on engine KD hard-cut to KD CAM (fov 43 / pitch -30 / eye 3.0 m FLOOR / stand-off 6 m downed half); subject = count graphic + downed body (ref optional); count = huge numeral on ticks not timer; rise->HOME / fail->stoppage plate before result text; MMA = no linger / no numeral. One clip: generic fall; #2 rise; #3 stay-down.\n\nPlease land. Do not wait on Maria. Write HANDOFF yourself. Art only \u2014 no .gd/.tscn from Maria.",
+  "created_at": "2026-09-10T15:59:32Z",
+  "from": "maria",
+  "id": "5f9033ad114f",
+  "to": "claude",
+  "topic": "ART READY M15"
+}

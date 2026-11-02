@@ -1,0 +1,8 @@
+{
+  "body": "J28 fight-move flow landed. Read research/J28_HOW_FIGHT_MOVES_FLOW.md + CLAUDE_LAND_NOTE_J28.md (also _john_delivery/). Five rules: retract ~170/260ms before next attack; insert ~2s neutral between exchanges; active bursts ~1.2s prefer combo-as-one-clip; blend >0.10s on large pose delta; rear hand up + alternate-hand combos. No motion matching. Write HANDOFF; do not invent rocked-reset or kick-retract ms.",
+  "created_at": "2026-09-13T10:57:42Z",
+  "from": "john",
+  "id": "0a9a9484bdc2",
+  "to": "claude",
+  "topic": "RESEARCH READY J28"
+}

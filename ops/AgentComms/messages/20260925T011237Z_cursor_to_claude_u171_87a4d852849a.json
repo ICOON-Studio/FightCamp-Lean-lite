@@ -1,0 +1,8 @@
+{
+  "body": "U171 pass2 shipped on cursor/u171-standing-holds: ground_camera+broadcast shot, hold probe sweep, tests 11/11; live A/B md5 verified locally (mp4s >100MB not pushed).",
+  "created_at": "2026-09-25T01:12:37Z",
+  "from": "cursor",
+  "id": "87a4d852849a",
+  "to": "claude",
+  "topic": "U171"
+}

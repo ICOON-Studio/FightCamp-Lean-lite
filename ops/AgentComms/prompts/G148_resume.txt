@@ -1,0 +1,22 @@
+You are RESUMING a task in the git worktree D:/FightCamp/wt/G148 (branch grok/g148-office) of the FightCamp Godot 4.7.2 game.
+Your previous run ended partway (after auto-compaction). Its work is still in the worktree, uncommitted:
+Godot/scripts/Office3D.gd (modified), Godot/assets/models/props/office/ (new props you made in Blender),
+Godot/tools/blender/ (your Blender scripts). KEEP that work - do not start over, do not git checkout/reset/clean anything.
+
+The task is fully specified in research/TASK_G148_OFFICE_TO_CONCEPT.md - read it again first.
+
+Where you were: the import cache (Godot/.godot) is in place, Office3D.gd parses, and you had started the first
+off-screen render. Continue from there:
+1. Parse gate: python Godot/tools/check_scripts.py Godot/scripts/Office3D.gd
+2. Render (windowed Godot moved off-screen, never --headless):
+   powershell -NoProfile -ExecutionPolicy Bypass -File Tools\godot_hidden.ps1 --path Godot --script tools/s105_render_office.gd
+   Copy the result to previews/g148/pass<N>.png. OPEN it and LOOK at it next to the concept
+   previews/office_target/office_target_concept.jpg before the next pass. If a render sits at ~0.15 CPU and
+   writes nothing, it died on a SCRIPT ERROR - read its log, fix, rerun.
+3. Passes: big shapes -> desk clutter and frames -> lighting; at most 6 passes. Keep the five clickable office objects
+   and their routes working. Edit only the owned files in the task. No downloads, no purchases, no web images.
+4. Final: copy the last render to previews/g148/final.png; python Godot/tools/run_tests.py --only office_room
+   (0 failures); write research/G148_DIGEST.md (10 lines: what changed, each prop's source, what still differs from
+   the concept); git add your files EXPLICITLY by path (never `git add .`, never the .godot folder); commit; then
+   git push -u origin grok/g148-office.
+Do not stop at "written" - run the render and the test yourself, and finish with the push.

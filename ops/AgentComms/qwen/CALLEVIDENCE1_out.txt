@@ -1,0 +1,8 @@
+Warning: running headless with --yolo / approval-mode=yolo and no sandbox. All tool calls (shell, write, edit) auto-execute at this process's privilege level. Enable a sandbox via --sandbox / QWEN_SANDBOX, or set QWEN_CODE_SUPPRESS_YOLO_WARNING=1 to silence this notice.
+Warning: MCP server(s) failed to start: higgsfield. Continuing with built-in tools and any servers that did connect. Re-run with QWEN_CODE_DEBUG=1 to see per-server reasons.
+Done. Commit `7472403` on `qwen/callevidence1`:
+
+- **`scripts/rules/CallEvidence.gd`** — `extends RefCounted`, static-only, zero preloads. `lines()` returns all 8 call keys + `"open"`, each ≤70 chars with a digit, naming both fighters (no bare she/her). `open_line()` picks b's most-fired habit (ties → earliest t). Band constants copied (fine >55, hurt ≤55, critical ≤35, doctor ≤15).
+- **`tests/call_evidence_test.gd`** — 6 tests, all pass. Covers structure, numbers, lowest-place picks, band edges (56/55/35/15), open_line variants (multi fire, once, ties, no-b-fire), zero-tally and empty-map safety.
+- Parse clean on both. `CALL_EVIDENCE failures=0`. `BODY_MAP failures=0` (regression).
+- `TASK_CALLEVIDENCE1.md` left untracked as instructed.

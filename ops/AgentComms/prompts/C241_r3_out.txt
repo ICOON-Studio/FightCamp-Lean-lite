@@ -1,0 +1,7 @@
+Pushed `1e83b5b5` to `codex/c241-glove-asset`.
+
+- Exported, imported, rendered and opened the boxing stills. Thumb protrusion remains; stopped after two refinements. **Not merge-ready.**
+- Digest recommends **Incg5764’s Boxing Glove**, CC-BY 4.0, **4,064 faces**. No model downloaded.
+- Parse passed. Focused results remain **14 tests, 3 failures**.
+
+Details: [C241_DIGEST.md](E:/FightCamp/wt/C241/research/C241_DIGEST.md).

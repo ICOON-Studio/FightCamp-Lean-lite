@@ -1,0 +1,243 @@
+FIGHTCAMP — THE CORNER MINUTE CARD (REVISION r118)
+
+Target: PC Deep Boxing Management Sim (Steam Early Access / Godot 4.7)
+
+Display Canvas: $1920 \times 1080$
+
+Component: Corner Stool Minute Card ($860 \times 600\text{ px}$ centered at $X = 530, Y = 240$)
+
+Architecture Principle: Temporal Phase-Gated Stool Layout (Eliminates vertical spatial bankruptcy)
+
+CRITICAL ARCHITECTURAL DECISION: TWO-PHASE STOOL CARD
+Why the 600 px Vertical Space Cannot Hold Everything Simultaneously
+
+A 600 px tall card attempting to stack:
+
+Header + Clock ($48\text{ px}$)
+Fighter Vitals / Meters / Scores ($40\text{ px}$)
+Four Cutman Job Cards ($4 \times 44\text{ px} + \text{gaps} = 196\text{ px}$)
+Three Chief Second Speech Lines with Inline Action Anchors ($3 \times 42\text{ px} + \text{gaps} = 144\text{ px}$)
+8 Order Buttons ($2\text{ rows} \times 28\text{ px} + \text{gap} = 62\text{ px}$)
+3 Composure Word Buttons ($32\text{ px}$)
+Towel & Send-Out Actions ($36\text{ px}$)
+Internal margins & padding ($60\text{ px}$)
+
+Total required vertical height: $618\text{ px}$ without damage lines, meters, or margin breathability. This is why the screenshot suffered catastrophic text-clipping, button stacking ("THROW THE TOWEL" and "THE TRUTH" overlapping "SEND HIM OUT"), and meter collisions over the text.
+
+The Solution: Real Boxing Phase Gating
+
+In a real boxing corner, the 60 seconds is strictly structured:
+
+T = 60s to 40s (PHASE 1: THE CUTMAN & RECOVERY): The fighter sits down on the stool. The cutman works on bleeding and swelling; the second rinses the mouthpiece and manages water/ice.
+T = 40s to 10s (PHASE 2: THE CHIEF SECOND): The cutman steps down. The trainer grabs the fighter’s chin, locks eyes, and delivers three concise tactical reads (HIM, YOU, TANK) and assigns tactical orders.
+T = 10s to 0s (PHASE 3: SECONDS OUT): "Seconds Out!" is called. Final composure word chosen, mouthpiece in, send him out.
+
+Therefore, the card’s lower-right interactive payload ($572 \times 320\text{ px}$) dynamically swaps between Phase 1 (Job Cards) and Phase 2 (The Three Chief Second Lines + Tactical Orders), with a manual toggle tab so the player can switch between them at will at any second.
+
+A. FULL PIXEL LAYOUT (860 x 600 CARD AT 1920x1080)
+Card Origin (Outer Bounds): $X = 530$, $Y = 240$, Width = $860$, Height = $600$.
+Card Background: Solid #0B0E13 (Dark Slate/Obsidian), Border: $1\text{ px}$ #242C38.
++---------------------------------------------------------------------------------------------------+ [Y: 240]
+| HEADER & TIME STRIP (w: 860, h: 46)                                                               |
+| "BETWEEN ROUNDS - THE CORNER - R2"       [PHASE: CHIEF SECOND]       0:38     HR: 156 bpm  TOWEL  |
++---------------------------------------------------------------------------------------------------+ [Y: 286]
+| LEFT COLUMN (w: 240, h: 506)              | RIGHT COLUMN (w: 596, h: 506)                         |
+|                                           |                                                       |
+| [BODY MANNEQUIN]                          | [TOP VITALS BAR] (w: 580, h: 48)                      |
+| x: 550, y: 296, w: 200, h: 330            | TANK: 64% | SEC: 78 | CHI: 82 | CARDS: UP 2-0       |
+|                                           +-------------------------------------------------------+ [Y: 344]
+|                                           | [PHASE WORKSPACE] (w: 580, h: 324)                    |
+|                                           |                                                       |
+|                                           |   IF PHASE 1 (60s-40s): CUTMAN & RECOVERY WORK        |
+|                                           |   - 4 Cutman Job Cards with timers & risk values      |
+|                                           |                                                       |
+| [DAMAGE PIN LEGEND]                       |   IF PHASE 2 (40s-10s): THE CHIEF SECOND SPEAKS       |
+| x: 550, y: 636, w: 200, h: 100            |   - Line 1: [OPPONENT] (HIM) + Target Order Button    |
+| [1] CLOSE: Left Eye Swelling (Stage 2)    |   - Line 2: [DEFENSE]  (YOU) + Target Order Button    |
+| [2] BLEED: Right Brow Cut (1.2mm, Clean)  |   - Line 3: [STAMINA]  (GAS) + Target Order Button    |
+|                                           |   - 8-Order Macro Grid (2 rows x 4 buttons)           |
+|                                           +-------------------------------------------------------+ [Y: 668]
+|                                           | [BOTTOM CONTROL STRIP] (w: 580, h: 72)                |
+|                                           | [ CALM HIM DOWN ] [ FIRE HIM UP ] [ TELL THE TRUTH ]  |
+|                                           | [ SEND HIM OUT (SPACE) ] [TOGGLE: JOBS / TALK (TAB)]  |
++---------------------------------------------------------------------------------------------------+ [Y: 740]
+| OUTER BASELINE                                                                                    | [Y: 840]
++---------------------------------------------------------------------------------------------------+
+
+Exact Coordinates and Geometry ($X, Y, W, H$)
+1. Header & Clock Strip
+Container: $X = 530, Y = 240, W = 860, H = 46$
+Title: $X = 546, Y = 254$, Font: $13\text{ pt}$ Bold Mono #8E9AA8, text: "BETWEEN ROUNDS — CORNER — R2/10"
+Phase Badge: $X = 800, Y = 251, W = 160, H = 24$, Background: #161B22, Border: $1\text{ px}$ #30363D, Text: "CHIEF SECOND", $11\text{ pt}$ Bold #E8B04B
+Corner Clock: $X = 970, Y = 248, W = 70, H = 30$, Font: $22\text{ pt}$ Heavy Monospace, #FFFFFF (flashing red #C8102E at $<10\text{ s}$)
+Heart Rate: $X = 1045, Y = 255$, Font: $12\text{ pt}$ Mono #9CA3AF, text: "HR 158 BPM"
+Towel Button: $X = 1270, Y = 248, W = 105, H = 28$, Background: #2A080C, Border: $1\text{ px}$ #C8102E, Text: "TOWEL", $11\text{ pt}$ Bold #EF4444. Relocated permanently here to prevent interference with bottom confirmation flows and ensure intentionality.
+2. Left Column — Fighter Body & Trauma Tracking
+Mannequin Diagram Viewport: $X = 546, Y = 296, W = 208, H = 320$. Vector anatomical wireframe centered inside.
+Damage Pins: Overlay circles $16 \times 16\text{ px}$ with $10\text{ pt}$ black digits on red (#C8102E) or amber (#E8B04B) badges.
+Damage Pin Diagnostics Table: $X = 546, Y = 624, W = 208, H = 96$.
+Line 1 ($Y = 626$): "[1] CLOSE: Left Eye (Stage 2 - 40% Vision)" ($10\text{ pt}$ #E8B04B).
+Line 2 ($Y = 650$): "[2] BLEED: Right Brow (Doctor Risk: 15%)" ($10\text{ pt}$ #EF4444).
+Status ($Y = 674$): "SWELLING: SPREADING (+8%/rd)" ($10\text{ pt}$ #8E9AA8).
+3. Right Column Top — Vitals, Scores & Stool State
+Container: $X = 766, Y = 296, W = 610, H = 46$, Background: #11161F, Border: $1\text{ px}$ #1F2733.
+Tank Meter: $X = 776, Y = 303, W = 120, H = 14$. Bar fill #E8B04B ($64%$). Sub-label: "GAS: 64%" ($10\text{ pt}$ #D1D5DB).
+Scorecard Tally: $X = 906, Y = 303$, Font: $11\text{ pt}$ Mono #9CA3AF, text: "CARDS: 19-19 (EVEN)" or "UP 2-0".
+Fighter Mindset Word: $X = 1040, Y = 301, W = 95, H = 20$, Background: #1E2530, Text: "RATTLED", $10\text{ pt}$ Bold #F59E0B.
+Corner Resources (Action Points): $X = 1145, Y = 301, W = 95, H = 20$, Text: "CREW AP: [■][■] 2/2", $10\text{ pt}$ Mono #10B981.
+4. Right Column Middle — Dynamic Phase Workspace
+Container Bounds: $X = 766, Y = 348, W = 610, H = 320$.
+IF PHASE 1 (T = 60s to 40s) — Cutman & Second Jobs
+4 Cutman Job Rows: Height = $68\text{ px}$ each, vertical gap = $8\text{ px}$.
+Card 1: $X = 766, Y = 348, W = 610, H = 68$
+Card 2: $X = 766, Y = 424, W = 610, H = 68$
+Card 3: $X = 766, Y = 500, W = 610, H = 68$
+Card 4: $X = 766, Y = 576, W = 610, H = 68$
+Each row contains: Action Name + Assigned Specialist ([CUTMAN]), Duration (15s), AP Cost (1 AP), Benefit (+Swelling frozen), and Risk (-Risk of eye jelly). Includes an explicit right-aligned button ($W = 90, H = 32$): [APPLY].
+IF PHASE 2 (T = 40s to 10s) — The Chief Second Speaks & Tactical Orders
+The 3 Chief Second Speech Rows: Height = $58\text{ px}$ each, vertical gap = $6\text{ px}$.
+Line 1 (HIM): $X = 766, Y = 348, W = 610, H = 58$
+Line 2 (YOU): $X = 766, Y = 412, W = 610, H = 58$
+Line 3 (TANK): $X = 766, Y = 476, W = 610, H = 58$
+The 8 Tactical Macro Orders Grid: Height = $70\text{ px}$ ($2\text{ rows} \times 4\text{ buttons}$).
+Container: $X = 766, Y = 540, W = 610, H = 70$.
+Row 1 ($Y = 542$, Button $W = 146, H = 30$, Gap = $8\text{ px}$):
+Button 1 (PLAN): $X = 766$
+Button 2 (BOX AND MOVE): $X = 920$
+Button 3 (PRESSURE): $X = 1074$
+Button 4 (THE BODY): $X = 1228$
+Row 2 ($Y = 578$, Button $W = 146, H = 30$, Gap = $8\text{ px}$):
+Button 5 (BREATHER): $X = 766$
+Button 6 (FINISH): $X = 920$
+Button 7 (HOLD CENTRE): $X = 1074$
+Button 8 (GET INSIDE): $X = 1228$
+Active Order Status Line: $X = 766, Y = 616, W = 610, H = 18$. Font: $10\text{ pt}$ Mono #8E9AA8, text: "CURRENT ACTIVE INSTRUCTION: [THE BODY] (Primary) + [BOX AND MOVE] (Secondary)".
+5. Right Column Bottom — Composure Words & Round Confirmation
+Container Bounds: $X = 766, Y = 638, W = 610, H = 84$.
+The Three Tone Words: Height = $32\text{ px}$, $Y = 640$.
+[CALM HIM DOWN] — $X = 766, W = 196, H = 32$. Background: #121820, Border: $1\text{ px}$ #253342, Text: $11\text{ pt}$ Bold #9CA3AF.
+[FIRE HIM UP] — $X = 972, W = 196, H = 32$. Background: #1F1416, Border: $1\text{ px}$ #441F23, Text: $11\text{ pt}$ Bold #E05A47.
+[TELL THE TRUTH] — $X = 1178, W = 198, H = 32$. Background: #1C180A, Border: $1\text{ px}$ #423714, Text: $11\text{ pt}$ Bold #E8B04B.
+The Primary Action Button (SEND HIM OUT):
+$X = 766, Y = 680, W = 450, H = 38$.
+Background: Solid Gold #E8B04B, Hover: #F5BE5E.
+Typography: $13\text{ pt}$ Bold #0B0E13 (High Contrast Black), Centered: "SEND HIM OUT (CONFIRM)".
+Phase Manual Switcher Tab:
+$X = 1224, Y = 680, W = 152, H = 38$.
+Background: #1A202C, Border: $1\text{ px}$ #374151, Text: $11\text{ pt}$ Mono #9CA3AF, text: "VIEW JOBS (TAB)".
+B. THE THREE CHIEF SECOND LINES: VISUAL SPECIFICATION & LOGIC
++---------------------------------------------------------------------------------------------------------+
+| [HIM] | "His jab is finding pure air — slipped 6 of 14. Make him pay on the miss."      | [BOX & MOVE]  |
+| GOLD  | Wrap: 2 lines max | 11pt Regular Mono #D1D5DB                                    | W: 110 H: 44  |
++---------------------------------------------------------------------------------------------------------+
+| [YOU] | "His right hand is finding your jaw every exchange (5/9 landed). Tuck chin!"    | [HOLD CENTRE] |
+| OXBLD | Wrap: 2 lines max | 11pt Regular Mono #D1D5DB                                    | W: 110 H: 44  |
++---------------------------------------------------------------------------------------------------------+
+| [GAS] | "You're running on fumes (28% tank). Tie him up, breathe, survive the first min."| [BREATHER]    |
+| BLUE  | Wrap: 2 lines max | 11pt Regular Mono #D1D5DB                                    | W: 110 H: 44  |
++---------------------------------------------------------------------------------------------------------+
+
+Visual Styling of Speech Blocks ($W = 610\text{ px}, H = 58\text{ px}$)
+
+Each row is divided into three fixed horizontal zones:
+
+Slot Identification Pip ($W = 54\text{ px}, H = 58\text{ px}$):
+Slot 1 (HIM — Tactical Opening): Background: #1F1A0E, Border-Left: $3\text{ px}$ solid Gold #E8B04B. Text: HIM in $11\text{ pt}$ Bold #E8B04B.
+Slot 2 (YOU — Defensive Leak): Background: #200D11, Border-Left: $3\text{ px}$ solid Oxblood #C8102E. Text: YOU in $11\text{ pt}$ Bold #EF4444.
+Slot 3 (GAS — Condition & Pacing): Background: #0C1824, Border-Left: $3\text{ px}$ solid Cyan/Blue #38BDF8. Text: GAS in $11\text{ pt}$ Bold #38BDF8.
+Telemetry Speech Text ($W = 436\text{ px}, H = 58\text{ px}$):
+Font: JetBrains Mono or Roboto Mono, $11\text{ pt}$ (Height: $15\text{ px}$, Line Spacing: $3\text{ px}$).
+Color: #D1D5DB (Off-white). Numbers and percentages dynamically highlighted in #FFFFFF Bold.
+Maximum 140 characters, cleanly wrapping across exactly 2 lines.
+Inline Recommendation Button ($W = 112\text{ px}, H = 46\text{ px}$, centered vertically at $Y + 6$):
+Background: #18202C, Border: $1\text{ px}$ solid #374151.
+Header text: "ADOPT" ($9\text{ pt}$ #9CA3AF).
+Main label: order_label (e.g., "BREATHER" or "BOX & MOVE") in $10\text{ pt}$ Bold #F3F4F6.
+Click Handling and Synchronization with the 8-Order Grid
+Single Click Action: Clicking either the inline recommendation button OR the speech row itself automatically selects that order in the 8-order grid below.
+Dual Highlight Synchronization:
+The inline button gains an Emerald border: $2\text{ px}$ #10B981 with background #064E3B.
+The corresponding button in the 8-order grid lights up identically with an active white outline and emerald checkmark pip.
+Maximum Tactical Load: A player may select up to 2 concurrent tactical orders per minute (e.g., 1 Primary, 1 Secondary):
+Primary Order (1st click): $100%$ weight implementation.
+Secondary Order (2nd click): Splits engine bias $60% / 40%$.
+Third Click: Unseats the oldest selected order (FIFO queue) or clicking an active order toggles it OFF.
+C. CHRONOLOGY, REVEAL TIMING & AUTO-PICK IN THE 60 SECONDS
+
+The corner clock runs in real-time ($1.0\times$) or accelerated sim time. The minute unfolds with precise cadence:
+
+T = 60s                   T = 40s                   T = 15s         T = 10s       T = 0s
++-------------------------+-------------------------+---------------+-------------+-------+
+| PHASE 1: CUTMAN/RECOVERY| PHASE 2: CHIEF SECOND   | CORNER SATELLITE| PHASE 3:  | BELL  |
+| 4 Job Cards active      | Line 1 -> Line 2 -> L3  | WARNING: "15s"| SECONDS OUT | FIGHT |
+| Player queues AP actions| Tactical Orders Open    | Auto-Picks Set| Locked UI   |       |
++-------------------------+-------------------------+---------------+-------------+-------+
+
+1. Phase 1: Walking to the Stool (T = 60s to 40s)
+Fighter sits down. Heart rate drops dynamically (e.g., $175 \to 158\text{ bpm}$).
+Cutman workspace is active by default. The player spends their 2 Action Points on ice, grease, swab, or adrenaline.
+The Chief Second slot shows: "[LISTENING TO CUTMAN REPORT...]".
+2. Phase 2: The Chief Second Speaks (T = 40s to 10s)
+At $T = 40\text{ s}$, the workspace automatically flips to the Chief Second lines (unless manually overridden by the player).
+Reveal Cadence (Audio-Synced Fast Typewriter):
+$T = 40.0\text{ s}$: Slot 1 (HIM) snaps in with typewriter reveal over $0.4\text{ s}$. Audio: Dry punch-mitt clack.
+$T = 38.5\text{ s}$: Slot 2 (YOU) snaps in over $0.4\text{ s}$.
+$T = 37.0\text{ s}$: Slot 3 (GAS) snaps in over $0.4\text{ s}$.
+All three lines remain fixed on screen until $T = 0\text{ s}$.
+3. Phase 3: Seconds Out & Confirmation (T = 10s to 0s)
+At $T = 10\text{ s}$, a sharp whistle sample plays (referee_whistle_double.wav).
+Header text changes to: "[PHASE: SECONDS OUT — CLEAR THE RING]".
+If the player has not touched the composure words, the system flashes [TELL THE TRUTH] in amber as the recommended baseline.
+4. The Auto-Pick Protocol (Zero-Click Fallback)
+
+If the player takes no action before the timer expires or presses SEND HIM OUT instantly:
+
+Cutman Auto-Pick: The cutman applies standard Vaseline/Grease and cold water rinse (costs 0 AP, avoids cut escalation).
+Tactical Auto-Pick: The system looks at Slot 3 (GAS). If Stamina $< 30%$, it auto-assigns BREATHER. If Stamina $\ge 30%$, it preserves the fighter's existing baseline PLAN.
+Composure Auto-Pick: If the fighter is Rattled/Broken, it defaults to CALM HIM DOWN; if Complacent, it defaults to FIRE HIM UP; otherwise TELL THE TRUTH.
+Design Guarantee: A player who lets the clock run out is never penalized with a game-breaking blunder; they receive a conservative, baseline maintenance round.
+D. THE FIX FOR DEFECTS 1 AND 2 (ELIMINATING OVERLAPS)
+Defect 1 Fix: The Meter Collision
+The Root Bug: The previous layout placed CUT / SEC / CHI text labels directly across $Y$-coordinates occupied by the dynamic multi-line coach string, causing them to render on top of each other.
+The Structural Fix:
+The legacy CUT / SEC / CHI vertical meters are removed from the center text area.
+CUT risk is moved to its correct home: the Damage Legend beneath the Body Diagram ($X = 546, Y = 650$), expressed in plain medical terms: "DOCTOR RISK: 15%".
+SEC (Second / Crew Action Points) is moved to the Top Vitals Bar ($X = 1145, Y = 301$) as discrete UI pips: "CREW AP: [■][■]".
+CHI (Chin / Brain Trauma) is integrated directly as a status underline beneath the Tank bar.
+The entire center area from $X = 766$ to $X = 1376$ ($610\text{ px}$ wide) is now dedicated strictly to text and buttons with zero background meters behind them.
+Defect 2 Fix: Button Stacking and Stray Glyph Bleed-Through
+The Root Bug: THROW THE TOWEL and THE TRUTH were positioned in the same bounding rect as SEND HIM OUT, while hidden template buttons from Godot's visual tree were leaking characters ("8", "U") through transparent button backgrounds.
+The Structural Fix:
+Relocate THROW THE TOWEL: Moved to the top-right of the header ($X = 1270, Y = 248, W = 105, H = 28$). It is completely isolated from the bottom action row. Throwing the towel now requires a two-step click confirmation, eliminating accidental forfeiture.
+Isolate SEND HIM OUT: Occupies its own dedicated horizontal row at the bottom ($X = 766, Y = 680, W = 450, H = 38$), entirely separated from the tone buttons.
+Position Tone Words: The three tone options (CALM, FIRE, TRUTH) form a dedicated 3-column row cleanly stacked above the exit button at $Y = 640$ ($H = 32\text{ px}$).
+Stray Glyph Elimination: Set Godot container nodes to clip_contents = true, set all inactive button nodes to visible = false (rather than modulating alpha to 0), and enforce solid #11161F opaque backgrounds on all order button containers.
+E. THE REAL BOXING CORNER: WHY EACH DECISION IS MADE
+
+Why separate the Cutman and Trainer into two distinct phases?
+
+In a real corner, the trainer does not shout tactical instructions into a fighter's ear while the cutman is actively jamming an adrenaline Q-tip into an open arterial bleed; the fighter can only process one stimulus at a time.
+
+Why limit the trainer to exactly three lines (HIM, YOU, GAS)?
+
+A concussed athlete with an elevated heart rate ($170\text{ bpm}$) cannot digest an essay; real championship trainers communicate with a rigid structure: what the opponent is giving away, what error the fighter must correct immediately, and how to manage the remaining gas tank.
+
+Why provide inline order shortcuts directly next to each speech line?
+
+When a coach identifies that the opponent's jab is falling short, the immediate next action is selecting the counter strategy; tying the diagnostic read directly to the solution eliminates UI hunting and respects the manager's mental model.
+
+Why isolate "Throw the Towel" to the top header rather than the bottom action area?
+
+Surrendering a bout is a rare, grave managerial failure that should never share screen space or risk misclicks with the routine flow of sending a fighter back out for the next round.
+
+Why display the opponent's scorecard tally on our corner card?
+
+Corners constantly track round math; knowing whether you are up on the cards or desperately need a finish fundamentally dictates whether the next instruction is BREATHER or FINISH.
+
+Why allow a maximum of two simultaneous tactical orders?
+
+Telling a fighter to simultaneously box, pressure, go to the body, and maintain range leads to cognitive overload; real boxing corners assign one primary objective and at most one secondary modifier.
+
+Why implement an automated zero-click fallback system?
+
+FightCamp is a simulation of competence; an experienced corner team does not freeze and watch their athlete bleed out simply because the manager stepped away from the mouse.

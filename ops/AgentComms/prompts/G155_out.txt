@@ -1,0 +1,22 @@
+﻿=== grok_task 2026-10-01T22:19:13 rc=0 ws=D:\FightCamp\wt\G155
+I'll read the prompt file and follow it from start to finish.The task is to show every camp choice's effect before you commit. I'll start by reading the camp panel, the camp math, and how existing UI and tests are structured.The projection stays blank until both a focus and a protocol are chosen, and the focus cards only describe flavour. I'll import the project, then show each focus's real effect before you commit.The camp panel changes are in place. I'll check whether the Godot import finished, then run the parse gate, tests, stills, and the commit.Import is still reimporting assets, around 76 percent. I'll review the panel, test, and stills scripts while that finishes so the parse gate can start the moment the cache is ready.The stills script now stamps the open-slot opponent, so the scouting line matches the fighter the camp is actually preparing for. The import is still running; I'll wait for it to finish before starting any other Godot process.Parse gate passed. Next is the new camp consequences test.The new test passed with 0 failures. I'll re-check the machine, then run the camp, fight camp, and UI suite.The suite was 12 tests, including the camp panel and both fatigue tip checks, and it failed none. I'll parse the stills script again, then capture the windowed shots.Camp focus cards now show what they change before you commit, and the projection is filled from the first frame.
+
+The empty projection was a validation gate, not missing math. Start Camp still requires a focus and a protocol, so the board projection stayed blank and the panel drew "nothing to project yet." An empty focus is a real balanced camp in `FightCamp.projection` (gain defaults to 1, no focus edges, film and the taper still apply). That baseline is what the column shows now, with Start Camp left disabled until both picks are made.
+
+Each focus card carries an icon and the signed camp total versus no focus, using the same other choices. The tooltip quotes the FightCamp source line, the opponent's scouting read, and the recommended adjustment. Against a pressure fighter the gold mark sits on The Human Shield. Picking the Striking Shark moved strike success by `+0.03` and tightness by `+18`, matching the tiles. Camp rules were not changed. `FightCamp.gd` and `GameState.gd` were not edited.
+
+Proof:
+
+- Parse gate: `CHECK total=3 fails=0`, then `CHECK total=1 fails=0` after the detail-line trim.
+- `camp_consequences_test: 0 failure(s)`.
+- Watchdog `2026-10-01 22:12:50` GREEN, then `SUITE total=12 fails=0` (`camp`, `fight_camp`, `gf1`, `smoke`, `ui_kit`).
+- Watchdog `2026-10-01 22:14:26` GREEN, then the three stills. They were opened: `previews/g155/balanced.png`, `striking_shark.png`, `human_shield.png`.
+
+This is a Godot desktop panel. It was checked with the scene-tree test, that suite, and those stills. It was not checked in a browser.
+
+Committed as `c9b94002` and pushed to `origin/grok/g155-camp-consequences`. The write-up is `research/G155_DIGEST.md`.
+
+--- stderr ---
+Auto-compacting conversation (82% full)...
+Conversation compacted.
+

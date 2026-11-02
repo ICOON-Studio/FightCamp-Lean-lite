@@ -1,0 +1,90 @@
+FightCamp is a PC deep management simulation (Football Manager / Motorsport Manager class), NOT a mobile or casual game: no energy timers, gacha, daily-login rewards, tap-to-collect, ads or monetisation loops; mechanics and loops must reward long-term planning, readable systems and consequences.
+
+ROUND 45 - MECHANICS + LAYOUT: HOW THE GYM GROWS WHEN THE OWNER BUYS EQUIPMENT (you are our lead game designer; the owner approves your verdict after you)
+
+The owner asked: "Is there a set number of each equipment that can be built in the gym? I am worried that later, when buying more equipment, where will it be shown - it seems packed. Is this balanced on the floor?"
+
+Attached: (1) our floor plan (top-down, metres) and (2) the game-camera still of the same floor. The LAYOUT and zones are approved and stay.
+
+FACTS (from our files - use these, do not invent):
+- Starting hall T1: 30 x 18 m (540 m2) training floor, rooms (office, reception, physio, equipment store, lockers) off the front. Bigger tiers later: T2 40 x 25 m, T3 60 x 31 m. Data today says station capacity T1 20 / T2 36 / T3 64 and member capacity 60 / 150 / 360.
+- Zones (x0, z0, x1, z1 in metres; z = 0 is the back wall): bag_line_west [0,0,11.4,2.7] (wood), bag_line_east [22.1,0,30,2.7], boxing_floor [0,3.5,11.6,10.4] (open wood floor for shadow boxing, pads, slip rope - deliberately EMPTY), cardio [22.1,3.5,27.2,10.4], bag_wall_east [27.3,3.5,30.4,10.4], timing [0,11.6,6.6,16.4] (double-end/speed bags), footwork [6.8,11.6,13.8,16.4], stretch [14,11.6,17.8,16.4], strength [18,11.6,30,16.4]. Ring (18 ft) at the back centre [12.7,1.2,21.1,9.6]. Bag beams (steel, 3.5 m high): back-west 2.9-10.6 m, back-east 22.9-28.8 m, east wall 3.8-9.4 m, west wall 12.3-15.8 m.
+- Placed today (the starting kit): 4 heavy bags (west beam), 2 speed bags (wall platforms), focus-mitt area, slip rope, ring, water bench, 1 treadmill, 1 exercise bike, stretch mats, agility ladder, power rack, olympic platform, compact weights, glove rack, mirror strip (+ small decor: kettlebells, dumbbells, reflex bags, wall bars, pull-up bars, step boxes, ab bench).
+- Real clubs (our sourced research, Gleason's, Kronk, Mayweather Boxing Club, Wild Card, England Boxing club guide): 150-250 m2 = ring + 8-12 heavy bags + open floor; a 540 m2 club holds ring, ~8 heavy bags, 2 speed bags, 2 double-end balls, open boxing floor, cardio corner, stretch corner, footwork turf, one strength corner - with clear aisles. Bags hang from beams on the walls, never mid-floor.
+- THE SHOP sells ~90 items today: bags (heavy, speed, double-end, safety locker), cardio (~16: treadmills, bikes, rowers, ski erg, stair climber, elliptical, air bike, jump-rope station, ladders, plyo rig, reaction grid), recovery (~10: physio table, stretch station, cold tub, rehab pool 6x4.5 m, sports-medicine room, foam rollers, yoga mats, BOSU), combat mats (modular mat, judo tatami, grappling dummy, capoeira kit, arnis kit), and ~50 STRENGTH machines/benches (lat pulldown, chest presses, leg press, hack squat, smith machine, cable crossover, pec deck, preacher curl, 10 bench types, dumbbell/plate/kettlebell sets, battle ropes, sled lane...). Footprints are 1x1 to 5x2 tiles, prices $280 - $28,000.
+- THE BUG we found: buying puts the item on an invisible abstract grid; the 3D floor only draws the hand-placed starting kit, so a bought bag costs money and never appears. We will fix this with whatever you design.
+
+GIVE ME THE LONGEST, MOST COMPLETE ANSWER YOU CAN - never shorten; if you run out of room, stop and I will say "continue". Build-ready, numbers everywhere:
+
+A. THE SLOT MODEL: should every zone have a fixed number of authored SLOTS (visible empty outlines/hooks the player fills), and how should an empty slot look from our high camera so the floor never looks unfinished? What happens when a zone is full (refuse? suggest replacing? point to the next tier?). Can the player re-assign a slot between item types inside a zone?
+B. SLOTS PER ZONE PER TIER: a table - for each zone above: T1 slots, how many are filled at the start, and what T2/T3 add (new zones too). Keep the open boxing floor open. Respect real-gym densities (bags 1.8-2 m apart on a beam; cardio 2 x 1 m each + 0.6 m between; strength stations 2 x 2 m + 1 m aisles). Check every number fits our zone rectangles.
+C. THE CATALOG: a boxing club does not sell 50 strength machines. Which shop items belong to a BOXING club at T1, which unlock at T2/T3 (or with MMA/other disciplines later), and which should be cut or merged (e.g. 10 bench types -> 2)? Give the final list per zone with the reason.
+D. WHY BUY: what each extra item does for the business and the fighters (more members trained at once, less queueing at peak hours, better gains for a discipline, member satisfaction), and the diminishing returns so the player never buys 30 treadmills. How the floor shows crowding (members queueing at a full station) so the player SEES he needs more.
+E. THE SHOP SCREEN (UI): how the player buys and places from the gym view - pick an item, the valid empty slots glow in its zone, click a slot to place; move/sell/repair; what the panel shows (cost, upkeep, effect, slots left in the zone). Keep it a deep-sim screen, not a mobile store.
+F. TRAPS: what makes a gym-builder look packed or ugly from the high camera, and what breaks readability.
+
+==== GAME FACTS (from our data files - use these names) ====
+FIGHTCAMP - GAME FACTS (generated from the game's data files by Tools/ludo_facts.py; use THESE names, never invent)
+
+1. SIMULATION ATTRIBUTES (the fight sim's stat keys, 0-100): power, technique, speed, defense, conditioning, fight_iq, grapple_offense, grapple_defence, top_control
+2. PLAYER-FACING READOUT (the 9 bars on the profile): POWER=power, TECHNIQUE=technique, SPEED=speed, STAMINA=stamina, CHIN=chin, DEFENCE=defense, FOOTWORK=footwork, RING IQ=ring_iq, COMPOSURE=composure
+3. TECHNIQUE REQUIREMENTS use these attribute names: power, technique, speed, defense, conditioning, fight_iq, grapple; tiers: 1=Foundation, 2=Core, 3=Advanced, 4=Signature
+4. THE REAL BOXING TECHNIQUE TREE (54 nodes; id | name | tier | branch | needs attributes | needs techniques):
+   boxing_one_two | One-Two | T1 | combinations | speed 26, technique 26 | boxing_jab, boxing_cross
+   boxing_one_two_hook | One-Two-Hook | T2 | combinations | speed 30, technique 30 | boxing_one_two, boxing_lead_hook
+   boxing_jab_body_head | Jab Body, Jab Head | T3 | combinations | technique 36, speed 34 | boxing_jab, boxing_jab_body
+   boxing_counter_combination | Counter Combination | T4 | combinations | fight_iq 46, speed 44 | boxing_pull_counter, boxing_one_two_hook
+   boxing_liver_combo | Jab-Cross-Lead Hook to the Body | T4 | combinations | power 44, technique 44 | boxing_one_two_hook, boxing_body_hook, boxing_jab, boxing_cross
+   boxing_six_punch_combo | Six-Punch Combination | T4 | combinations | conditioning 46, speed 44 | boxing_one_two_hook, boxing_rear_uppercut
+   boxing_catch | Catch the Jab | T1 | defense_counters | defense 24 | boxing_stance_guard
+   boxing_parry | Parry | T1 | defense_counters | defense 24, fight_iq 22 | boxing_stance_guard
+   boxing_slip | Slip | T1 | defense_counters | speed 26, defense 24 | boxing_stance_guard
+   boxing_block_elbow | Elbow and Forearm Block | T2 | defense_counters | defense 30 | boxing_catch
+   boxing_bob_weave | Bob and Weave | T2 | defense_counters | speed 32, conditioning 30 | boxing_roll
+   boxing_catch_counter | Catch and Return | T2 | defense_counters | fight_iq 30 | boxing_catch, boxing_cross
+   boxing_pull | Pull | T2 | defense_counters | speed 30, fight_iq 28 | boxing_slip
+   boxing_roll | Roll Under | T2 | defense_counters | speed 30, defense 30 | boxing_slip
+   boxing_slip_counter | Slip-Cross Counter | T2 | defense_counters | speed 30, fight_iq 30 | boxing_slip, boxing_cross
+   boxing_check_hook | Check Hook | T3 | defense_counters | speed 36, fight_iq 36 | boxing_lead_hook, boxing_pivot_footwork
+   boxing_check_hook_pivot | Check Hook and Pivot | T3 | defense_counters | speed 38, fight_iq 36 | boxing_check_hook
+   boxing_counter_over_jab | Counter Over the Jab | T3 | defense_counters | fight_iq 38, technique 34 | boxing_slip_counter
+   boxing_long_guard | Long Guard | T3 | defense_counters | defense 36 | boxing_block_elbow
+   boxing_pull_counter | Pull-Cross Counter | T3 | defense_counters | speed 36, fight_iq 36 | boxing_pull, boxing_cross
+   boxing_shoulder_roll | Shoulder Roll | T3 | defense_counters | defense 38, fight_iq 34 | boxing_roll
+   boxing_step_in_out | Step In, Step Out | T1 | footwork_ring | speed 24 | boxing_stance_guard
+   boxing_circle_lead | Circle to the Lead Side | T2 | footwork_ring | speed 28, conditioning 28 | boxing_step_in_out
+   boxing_circle_rear | Circle to the Rear Side | T2 | footwork_ring | speed 28, fight_iq 28 | boxing_step_in_out
+   boxing_feint | Feint | T2 | footwork_ring | fight_iq 30, technique 28 | boxing_distance_read, boxing_jab
+   boxing_pivot_footwork | Ring Pivot | T2 | footwork_ring | speed 30 | boxing_step_in_out
+   boxing_angle_step | L-Step Angle | T3 | footwork_ring | speed 36, technique 34 | boxing_pivot_footwork
+   boxing_cutoff_ring | Cut Off the Ring | T3 | footwork_ring | fight_iq 36 | boxing_circle_lead, boxing_circle_rear
+   boxing_rhythm_change | Breaking the Rhythm | T3 | footwork_ring | fight_iq 38 | boxing_feint, boxing_breathing_rhythm
+   boxing_rope_work | Working Off the Ropes | T3 | footwork_ring | defense 38, fight_iq 36 | boxing_shoulder_roll
+   boxing_drawing | Drawing the Lead | T4 | footwork_ring | fight_iq 46 | boxing_rhythm_change, boxing_pull_counter
+   boxing_switch_stance | Switching Stance | T4 | footwork_ring | technique 44, fight_iq 44 | boxing_angle_step, boxing_rhythm_change
+   boxing_breathing_rhythm | Breathing and Rhythm | T1 | fundamentals | conditioning 24 | boxing_stance_guard
+   boxing_distance_read | Finding the Range | T1 | fundamentals | fight_iq 24 | boxing_stance_guard
+   boxing_stance_guard | Stance and High Guard | T1 | fundamentals | defense 22 | -
+   boxing_lead_hook | Lead Hook | T2 | hooks_bodywork | power 30, technique 30 | boxing_one_two
+   boxing_lead_uppercut | Lead Uppercut | T2 | hooks_bodywork | power 30, technique 32 | boxing_lead_hook
+   boxing_rear_hook | Rear Hook | T2 | hooks_bodywork | power 32, technique 30 | boxing_lead_hook
+   boxing_rear_uppercut | Rear Uppercut | T2 | hooks_bodywork | power 32, technique 32 | boxing_lead_uppercut
+   boxing_body_hook | Lead Hook to the Body | T3 | hooks_bodywork | power 34, conditioning 32 | boxing_lead_hook
+   boxing_rear_hook_body | Rear Hook to the Body | T3 | hooks_bodywork | power 36, conditioning 32 | boxing_body_hook
+   boxing_shovel_hook | Shovel Hook | T3 | hooks_bodywork | power 34, technique 36 | boxing_rear_uppercut
+   boxing_clinch_tieup | Tie Up | T2 | infighting | technique 30, conditioning 30 | boxing_block_elbow
+   boxing_forearm_frame | Forearm Frame | T3 | infighting | defense 36, power 32 | boxing_clinch_tieup
+   boxing_inside_uppercut | Uppercut on the Inside | T3 | infighting | power 36, technique 34 | boxing_clinch_tieup, boxing_rear_uppercut
+   boxing_pivot_out | Pivot Out of the Clinch | T3 | infighting | speed 36, technique 34 | boxing_clinch_tieup, boxing_pivot_footwork
+   boxing_shoulder_bump | Shoulder Bump | T3 | infighting | power 34, conditioning 34 | boxing_clinch_tieup
+   boxing_cross | Rear Cross | T1 | straight_punching | power 26, technique 24 | boxing_jab
+   boxing_jab | Jab | T1 | straight_punching | speed 24 | boxing_stance_guard
+   boxing_cross_body | Cross to the Body | T2 | straight_punching | power 30, technique 28 | boxing_cross
+   boxing_double_jab | Double Jab | T2 | straight_punching | speed 30 | boxing_jab
+   boxing_jab_body | Jab to the Body | T2 | straight_punching | speed 28, technique 28 | boxing_jab
+   boxing_overhand | Overhand Right | T3 | straight_punching | power 36, technique 32 | boxing_cross
+   boxing_up_jab | Up Jab | T3 | straight_punching | speed 34, technique 34 | boxing_jab_body
+5. CERTIFIED BOXING MOVES (the only ones the demo animates and lets a player train): strikes boxing_jab, boxing_cross, boxing_rear_uppercut, boxing_jab_body, boxing_body_hook, boxing_up_jab, boxing_overhand, boxing_cross_body, boxing_double_jab, boxing_one_two, boxing_slip_counter, boxing_pull_counter, boxing_counter_over_jab, boxing_catch_counter, boxing_lead_uppercut, boxing_check_hook, boxing_lead_hook, boxing_rear_hook, boxing_rear_hook_body, boxing_one_two_hook, boxing_liver_combo, boxing_six_punch_combo; defence boxing_slip, boxing_pull, boxing_catch
+6. BODY REGIONS (wear 0-100%): head_neck, torso_core, left_arm, right_arm, left_leg, right_leg
+7. GYM TIERS: T1 30.0x18.0 m; T2 40.0x25.0 m; T3 60.0x31.0 m (club -> commercial -> elite; no garage)
+8. SCREEN: 1920x1080, Godot 4.7.2 GDScript; boxing first (demo), MMA later; PC deep management sim (FM / Motorsport Manager class).

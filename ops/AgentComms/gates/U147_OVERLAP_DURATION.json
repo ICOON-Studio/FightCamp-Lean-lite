@@ -1,0 +1,10 @@
+{
+  "checked_at": "2026-09-23T15:21:32Z",
+  "files": [
+    "Godot/tools/u145_transition_probe.gd",
+    "Godot/scripts/FightWorldLiveScreen.gd"
+  ],
+  "output": "CHECK total=2 fails=0 autoload_refs=0 autoload_warnings=0 time=1s\n",
+  "passed": true,
+  "task": "U147_OVERLAP_DURATION"
+}

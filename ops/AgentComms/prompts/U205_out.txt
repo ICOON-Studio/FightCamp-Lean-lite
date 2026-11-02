@@ -1,0 +1,3 @@
+The **723914** failure was from the **first** headless run (missing `.godot` font imports and a few bugs fixed before commit). Exit code `4294967295` is Windows’s way of reporting that aborted run.
+
+On the pushed branch, **`week_review_test.gd` exits 0** — just re-checked: **0 failures**. No action needed on your side for that notification.

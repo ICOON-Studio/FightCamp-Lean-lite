@@ -1,0 +1,15 @@
+﻿=== grok_task 2026-10-02T03:13:43 rc=0 ws=E:\FightCamp\wt\G157
+I'll read the prompt file and follow its instructions from start to finish.The prompt says the previous run left the seated pose and import settings unfinished. I'll read the task and check the worktree so I can pick up from there.The status dump is mostly import churn. I'll isolate the crowd files and see where the seated pose and import settings stopped.The crowd code is in place. Next IΓÇÖll inspect the bake stills and import settings, since those were the open items.The idle bake is a wide straddle, and the mesh import still generates LODs. I'll probe the skeleton axes, then correct the sit and the import settings.The bake landed a real chair sit: knees forward, almost no spread, and the mesh matches frame 0. I'll look at the four pose stills before importing.The import finished cleanly. Next IΓÇÖll run the crowd test, force the lockstep failure once, then the venue suite and the after-pass stills.Watchdog is green. IΓÇÖll force the lockstep failure first, and gather the bake numbers while that test runs.The lockstep run failed as intended on identical phases, and it also failed colour variety, speed range, and the cheer clip. IΓÇÖll read the crowd builder before treating those as real bugs.Headless Godot drops per-instance colour writes, so the crowd and the test have to use the MultiMesh buffer, which is the copy that actually round-trips.The crowd is seated people now, committed as `a6e7c19a` on `grok/g157-crowd-people` and pushed to origin.
+
+The sitter is a clothed 1874-vert chair pose, not the earlier straddle. Four loops live in one vertex-animation texture (idle, clap, cheer, watch). Mesh plus texture are 341 KB. Each venue builds one crowd at the end; benches stay, and about 5ΓÇô15% of seats are left empty. Paper hall filled 37 of 39 seats, Limehouse 2500 of 2640.
+
+Headless Godot drops per-instance colour writes, so the crowd and the test use the MultiMesh buffer. Forcing every phase to 0 with `G157_LOCKSTEP=1` failed the offset check on purpose (`fails=2`). The real run passed. The venue, arena, fight-night, and smoke subset was `SUITE total=10 fails=0`.
+
+The after stills replace the box spectators with people in different shirts. Neighbours are not in the same pose, and frame-to-frame change stays continuous. The same body is obvious up close, and a cheer in the near Limehouse row fills the foreground with an arm. Over 300 frames the room stayed on the 60 Hz refresh with or without the crowd, including Limehouse at about 16.6 ms.
+
+Details are in `research/G157_DIGEST.md`.
+
+--- stderr ---
+Auto-compacting conversation (81% full)...
+Conversation compacted.
+

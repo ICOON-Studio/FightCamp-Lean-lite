@@ -1,0 +1,60 @@
+FightCamp round 64 - ANIMATION AUDIT. One picture attached: today's fight guard on the game camera (two MetaHuman boxers, purple Adebayo and yellow Perez). The operator asks: why do our boxing animations keep failing on the MetaHuman boxers, is something wrong with the MetaHuman models, where is the issue? As our lead animation and art designer: (A) list every defect you see in the picture (feet, ankles, knees, stance width, weight, guard, wrists, head) against a real boxing guard, with the correct values (foot angles, heel up/down per foot, stance width in shoulder widths, knee bend, weight split); (B) answer the audit below from the animation side; (C) the production pipeline you would use for a PC boxing sim with 12 MetaHuman bodies (mocap source, cleanup tool, retarget, in-engine layers) and what to delete from ours; (D) a build-this-first list with one acceptance test each. Longest complete answer, no length cap; score your parts out of 10.
+
+# AUDIT_ANIM_S224 - why do the boxing animations keep failing on the MetaHuman boxers?
+
+Operator S224: "audit why codex is failing on the animations ? is anything wrong with the MH models where is the issue ?"
+Same pack to: Codex (code audit, read-only), John (xAI, research), Dola (fresh eyes), Ludo (animation design lead), Claude (own audit).
+Answer format for every auditor: (1) the ROOT CAUSE you think it is, ranked, each with the evidence that would prove/disprove it;
+(2) what is NOT the cause; (3) the ONE fix you would do first and how to prove it worked; (4) whether our pipeline should be
+simplified/replaced (name the tool or method a real studio would use). Longest complete answer.
+
+## The game and the symptom
+FightCamp: Godot 4.7.2 PC boxing management sim; the fight is a 3D bout on a TV camera, two MetaHuman boxers (Epic MetaHuman
+bodies exported to GLB, 341-joint MetaHuman skeleton, 12 bodies of different sizes, male + female). Since ~S212 (about 10 work
+sessions) Codex has been fixing the fight animations in rounds and every round ends RED or half-fixed:
+- FLYFOOT1/FLYFOOT2: "feet point like a ballet dancer's" (operator crops). Latest full-duration gate (2 seeds x 4 bodies, 60 s each):
+  LEFT sole tilt max 31-38 deg, 1.5-12% of frames outside the band; RIGHT sole tilt max 55-88 deg, 94-97% of frames outside the
+  band - on EVERY body. Gait (sliding, crossing, airborne) is green.
+- PAIRLIVE1: the jab exchange between the two boxers (timing, contact, late hits) - in progress, 3 WIP commits.
+- ANIMSOURCE1D: the lead body hook (guard roll, face clearance, spacing) - 2 fix rounds, one hung run.
+- PROFILE2: the profile screen camera shows the boxer side-on; 12 rounds of camera tuning; the test said "face OK" on a side profile.
+- Earlier: gloves/hands (8 sessions), neck buried in the thorax capsule (fixed S223), wrists bent.
+Still: `previews/flyfoot2/s223/guard.png` on branch codex/flyfoot1 (both boxers' REAR = RIGHT foot up on the toes and
+pointed; left feet roughly flat; deep crouch; wrists bent).
+
+## The pipeline (what plays a punch)
+- TWO sources coexist: (a) "native" MetaHuman clips - only 5: mh_guard_pose, mh_jab, mh_cross, mh_lead_hook, mh_inside_uppercut
+  (`Godot/assets/anim/metahuman/`, authored in Cascadeur on the MH skeleton, played without retarget: MetaHumanRig maps tracks by
+  name, switch `mh_native_clips`); (b) ~500 bought/library clips (UE4 Mannequin / Mixamo / UAL / mocap: `Godot/assets/anim/
+  {mixamo_s215,ual,c207,c209,c223,pairs,...}`) RETARGETED at runtime by `Godot/scripts/FightClipRetarget.gd` (1,511 lines; header:
+  22-bone UE4_TO_OURS name map + a rest-pose correction because "the right hip lands 137 degrees wrong" without it).
+- `Godot/scripts/FightStagePlayer.gd` = 6,499 lines, 259 functions, 13 GameSwitches, 49 places that write bone poses directly
+  (set_bone_pose / global pose / "hand writers") ON TOP of the clip: foot planting (`FightClipFootPlant.gd`, 302 lines), hand/glove
+  writers, guard holds, contact IK, capsules (FighterCapsules.gd). 23 commits to these three files in 14 days.
+- The S223 FLYFOOT2 fix added another switch `sole_rest_retarget`: in FightClipRetarget, for LeftFoot/RightFoot only, it throws away
+  the source foot's rest slope and yaws the target rest basis instead; in FightClipFootPlant it zeroes forward.y.
+
+## Claude's own finding (S224, read from the GLB files, not the game)
+Bone world axes in rest, mh_boxer_05 / mh_boxer_08 / the native mh_jab.glb (identical on all three):
+  foot_l X=(0.00, 1.00, 0.03)  Y=(-0.15, 0.03,-0.99)  Z=(-0.99,-0.00, 0.15)
+  foot_r X=(0.00,-1.00,-0.03)  Y=(-0.15,-0.03, 0.99)  Z=(-0.99, 0.00,-0.15)
+  thigh/calf/ball and hand show the same pattern: the RIGHT side's X and Y axes are the LEFT side's negated (Unreal convention:
+  right-side bones are rotated 180 deg about the bone's Z; X runs child->parent on the left, parent->child on the right).
+  Mixamo / most library rigs do NOT flip the right side (both legs share one axis convention).
+HYPOTHESIS 1: somewhere in the chain a LOCAL rotation (or a local-axis delta / axis map) is applied the same way to both sides -
+  correct on the left, inverted on the right (pitch/roll sign flips) -> right foot points, right wrist bends the wrong way,
+  right hip folds. The measurement code (`Godot/tools/foot_orientation_probe.gd`) works in world space from skinned sole vertices,
+  so it is probably NOT the gate that is wrong.
+HYPOTHESIS 2: 49 direct bone writers fight each other and the clip; every round adds one more corrective layer (switches) instead
+  of removing one - the fix surface keeps growing.
+HYPOTHESIS 3: the clips themselves (library mocap on a different body, retargeted to 12 different MH proportions) are the wrong
+  source for a broadcast-quality boxing bout; native MH clips exist for only 5 moves.
+Other suspects to rule in/out: Godot's GLB import of the MH skeleton (bone rests, "Fix Silhouette"/rest fixer import options),
+  scale (cm vs m), the 341 helper/corrective joints (twist, corrective roots) being animated or not, the A-pose rest vs the clip's
+  T-pose rest, root motion.
+
+## Files (read-only for the audit)
+Godot/scripts/FightClipRetarget.gd, FightClipFootPlant.gd, FightStagePlayer.gd (never whole - grep, sed -n windows),
+Godot/scripts/MetaHumanRig.gd (or grep "MetaHumanRig"), Godot/tools/foot_orientation_probe.gd (on codex/flyfoot1),
+research/FLYFOOT2_CHAIN_DIGEST.md + PAIRLIVE1_CHAIN_DIGEST.md + ANIMSOURCE1D_CHAIN_DIGEST.md (codex/flyfoot1),
+MHNATIVE1_DIGEST.md, ANIMSOURCE1A_DIGEST.md, Q82_GODOT_RETARGET_VS_OURS.md, C87_THE_RETARGET_LADDER.md.

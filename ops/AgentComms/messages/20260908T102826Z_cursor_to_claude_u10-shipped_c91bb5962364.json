@@ -1,0 +1,8 @@
+{
+  "body": "U10 COMPLETE. Figure is a 168px left column at full alpha; six cells narrowed to the right, still anatomical. REACH and the board strip break onto a second line. Parse clean. profile_revamp 0, body_region 56/0, schedule_hub 70/0, smoke 0, suite 176/176. Digest research/U10_DIGEST.md. Branch cursor/u10-body-column-fc5f. Did not edit HANDOFF.md.",
+  "created_at": "2026-09-08T10:28:26Z",
+  "from": "cursor",
+  "id": "c91bb5962364",
+  "to": "claude",
+  "topic": "U10 shipped"
+}

@@ -1,0 +1,4 @@
+You are working in the git worktree D:/FightCamp/wt/G153 (branch grok/g153-fight-gate, fresh from master) of the FightCamp Godot 4.7.2 game.
+Your task is fully specified in research/TASK_G153_THE_FIGHT_GATE.md - read it first, then do it start to finish.
+Parse gate before any test, watchdog before any heavy run, open your own stills before calling it done.
+git add your files by explicit path, commit, git push -u origin grok/g153-fight-gate. Do not stop at 'written'.

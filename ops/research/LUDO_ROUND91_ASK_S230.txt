@@ -1,0 +1,12 @@
+LUDO ROUND 91 (FightCamp, S230) - DESIGN + CODE ASK: paid fights for a boxer whose country has no professional promoter. TEXT AND CODE ONLY - do NOT generate any image. Longest complete answer you can, full code, no placeholders; if you run out, end with CONTINUE.
+
+THE FACTS (our world data, house rule: organisations are REAL, never invented):
+- A boxer earns PAID fights on a PROMOTER's card (the open slot). A national federation (amateur, or a pro commission like the BBBofC) runs a calendar with no bookable paid slot - it sanctions, it does not promote.
+- We are adding the real promoters per market (Matchroom, Queensberry, Top Rank verified; more researched). But some launch markets have NO active domestic pro promoter we can source: Cyprus (the default/test market), Georgia, South Korea, China, Poland per our research - their pros fight abroad (Cypriots: Greece/UK; Georgians: Russia/Turkey/Ukraine; Koreans: Japan/Philippines/Thailand).
+- Today a Cyprus boxing gym gets amateur federation cards only - no paid fight anywhere -> the career stalls.
+
+QUESTION (design first, then code): how does the game hand a boxer from such a market paid fights, in a way a 40-year veteran player finds real and readable? Consider: a short list of "fights abroad" from the neighbouring markets' promoters (travel days, costs, the away-corner disadvantage), a debut pathway, how often offers come, what the offer card says. Give your verdict with the reasons, then:
+
+DELIVER (same contract as rounds 86-90: PURE rules file, extends RefCounted, static funcs, zero preloads, no class_name, deterministic - roll floats come in; a test with a CONTROL case; a HOOK paragraph):
+1. AwayCircuit.gd: static func offers(ctx: Dictionary, rolls: Array) -> Array - ctx = {"home_market": String, "has_home_promoter": bool, "fighter": {"record_w", "record_l", "weight_class", "ranking_points"}, "neighbours": {market: [promoter names]}, "week": int}. Returns [] when the home market has its own promoter (CONTROL). Else 0-3 offers {"market", "promoter", "weeks_out", "travel_days", "purse_band": "debut|prospect|contender" (words, NOT money - the engine prices purses), "away": true, "line": one plain sentence}.
+2. tests/away_circuit_test.gd (extends SceneTree, func _initialize, preload by res://scripts/rules/AwayCircuit.gd, print "AWAY_CIRCUIT failures=N", quit(0/1)).

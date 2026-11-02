@@ -1,0 +1,712 @@
+{
+  "bouts": [
+    {
+      "actions_a": 183,
+      "actions_b": 284,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 900,
+      "variant": "baseline",
+      "winner": "b"
+    },
+    {
+      "actions_a": 245,
+      "actions_b": 318,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 901,
+      "variant": "baseline",
+      "winner": "b"
+    },
+    {
+      "actions_a": 231,
+      "actions_b": 313,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 902,
+      "variant": "baseline",
+      "winner": "b"
+    },
+    {
+      "actions_a": 251,
+      "actions_b": 313,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 903,
+      "variant": "baseline",
+      "winner": "b"
+    },
+    {
+      "actions_a": 227,
+      "actions_b": 305,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 904,
+      "variant": "baseline",
+      "winner": "b"
+    },
+    {
+      "actions_a": 248,
+      "actions_b": 309,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 905,
+      "variant": "baseline",
+      "winner": "b"
+    },
+    {
+      "actions_a": 217,
+      "actions_b": 286,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 906,
+      "variant": "baseline",
+      "winner": "b"
+    },
+    {
+      "actions_a": 224,
+      "actions_b": 277,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 907,
+      "variant": "baseline",
+      "winner": "b"
+    },
+    {
+      "actions_a": 246,
+      "actions_b": 314,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 908,
+      "variant": "baseline",
+      "winner": "b"
+    },
+    {
+      "actions_a": 259,
+      "actions_b": 317,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 909,
+      "variant": "baseline",
+      "winner": "a"
+    },
+    {
+      "actions_a": 226,
+      "actions_b": 283,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 910,
+      "variant": "baseline",
+      "winner": "b"
+    },
+    {
+      "actions_a": 218,
+      "actions_b": 269,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 911,
+      "variant": "baseline",
+      "winner": "b"
+    },
+    {
+      "actions_a": 230,
+      "actions_b": 263,
+      "method": "KO",
+      "round_seconds_counted": 470.55,
+      "seed": 912,
+      "variant": "baseline",
+      "winner": "a"
+    },
+    {
+      "actions_a": 225,
+      "actions_b": 268,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 913,
+      "variant": "baseline",
+      "winner": "b"
+    },
+    {
+      "actions_a": 264,
+      "actions_b": 308,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 914,
+      "variant": "baseline",
+      "winner": "b"
+    },
+    {
+      "actions_a": 159,
+      "actions_b": 268,
+      "method": "KO",
+      "round_seconds_counted": 388.15,
+      "seed": 915,
+      "variant": "baseline",
+      "winner": "b"
+    },
+    {
+      "actions_a": 203,
+      "actions_b": 324,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 916,
+      "variant": "baseline",
+      "winner": "b"
+    },
+    {
+      "actions_a": 221,
+      "actions_b": 277,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 917,
+      "variant": "baseline",
+      "winner": "b"
+    },
+    {
+      "actions_a": 231,
+      "actions_b": 309,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 918,
+      "variant": "baseline",
+      "winner": "b"
+    },
+    {
+      "actions_a": 102,
+      "actions_b": 127,
+      "method": "KO",
+      "round_seconds_counted": 259.9,
+      "seed": 919,
+      "variant": "baseline",
+      "winner": "a"
+    },
+    {
+      "actions_a": 232,
+      "actions_b": 277,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 920,
+      "variant": "baseline",
+      "winner": "b"
+    },
+    {
+      "actions_a": 240,
+      "actions_b": 313,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 921,
+      "variant": "baseline",
+      "winner": "b"
+    },
+    {
+      "actions_a": 199,
+      "actions_b": 319,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 922,
+      "variant": "baseline",
+      "winner": "b"
+    },
+    {
+      "actions_a": 218,
+      "actions_b": 284,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 923,
+      "variant": "baseline",
+      "winner": "b"
+    },
+    {
+      "actions_a": 214,
+      "actions_b": 311,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 924,
+      "variant": "baseline",
+      "winner": "b"
+    },
+    {
+      "actions_a": 240,
+      "actions_b": 358,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 925,
+      "variant": "baseline",
+      "winner": "b"
+    },
+    {
+      "actions_a": 223,
+      "actions_b": 309,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 926,
+      "variant": "baseline",
+      "winner": "b"
+    },
+    {
+      "actions_a": 145,
+      "actions_b": 187,
+      "method": "KO",
+      "round_seconds_counted": 340.5,
+      "seed": 927,
+      "variant": "baseline",
+      "winner": "b"
+    },
+    {
+      "actions_a": 231,
+      "actions_b": 298,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 928,
+      "variant": "baseline",
+      "winner": "b"
+    },
+    {
+      "actions_a": 267,
+      "actions_b": 317,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 929,
+      "variant": "baseline",
+      "winner": "b"
+    },
+    {
+      "actions_a": 224,
+      "actions_b": 331,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 900,
+      "variant": "no_setups",
+      "winner": "b"
+    },
+    {
+      "actions_a": 245,
+      "actions_b": 318,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 901,
+      "variant": "no_setups",
+      "winner": "b"
+    },
+    {
+      "actions_a": 231,
+      "actions_b": 313,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 902,
+      "variant": "no_setups",
+      "winner": "b"
+    },
+    {
+      "actions_a": 251,
+      "actions_b": 313,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 903,
+      "variant": "no_setups",
+      "winner": "b"
+    },
+    {
+      "actions_a": 224,
+      "actions_b": 304,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 904,
+      "variant": "no_setups",
+      "winner": "b"
+    },
+    {
+      "actions_a": 247,
+      "actions_b": 320,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 905,
+      "variant": "no_setups",
+      "winner": "b"
+    },
+    {
+      "actions_a": 223,
+      "actions_b": 301,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 906,
+      "variant": "no_setups",
+      "winner": "b"
+    },
+    {
+      "actions_a": 171,
+      "actions_b": 227,
+      "method": "KO",
+      "round_seconds_counted": 376.95,
+      "seed": 907,
+      "variant": "no_setups",
+      "winner": "a"
+    },
+    {
+      "actions_a": 246,
+      "actions_b": 314,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 908,
+      "variant": "no_setups",
+      "winner": "b"
+    },
+    {
+      "actions_a": 209,
+      "actions_b": 294,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 909,
+      "variant": "no_setups",
+      "winner": "a"
+    },
+    {
+      "actions_a": 226,
+      "actions_b": 283,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 910,
+      "variant": "no_setups",
+      "winner": "b"
+    },
+    {
+      "actions_a": 204,
+      "actions_b": 265,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 911,
+      "variant": "no_setups",
+      "winner": "b"
+    },
+    {
+      "actions_a": 238,
+      "actions_b": 255,
+      "method": "KO",
+      "round_seconds_counted": 539.9,
+      "seed": 912,
+      "variant": "no_setups",
+      "winner": "a"
+    },
+    {
+      "actions_a": 225,
+      "actions_b": 268,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 913,
+      "variant": "no_setups",
+      "winner": "b"
+    },
+    {
+      "actions_a": 264,
+      "actions_b": 308,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 914,
+      "variant": "no_setups",
+      "winner": "b"
+    },
+    {
+      "actions_a": 159,
+      "actions_b": 268,
+      "method": "KO",
+      "round_seconds_counted": 388.15,
+      "seed": 915,
+      "variant": "no_setups",
+      "winner": "b"
+    },
+    {
+      "actions_a": 203,
+      "actions_b": 324,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 916,
+      "variant": "no_setups",
+      "winner": "b"
+    },
+    {
+      "actions_a": 221,
+      "actions_b": 277,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 917,
+      "variant": "no_setups",
+      "winner": "b"
+    },
+    {
+      "actions_a": 231,
+      "actions_b": 309,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 918,
+      "variant": "no_setups",
+      "winner": "b"
+    },
+    {
+      "actions_a": 214,
+      "actions_b": 268,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 919,
+      "variant": "no_setups",
+      "winner": "b"
+    },
+    {
+      "actions_a": 232,
+      "actions_b": 277,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 920,
+      "variant": "no_setups",
+      "winner": "b"
+    },
+    {
+      "actions_a": 240,
+      "actions_b": 313,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 921,
+      "variant": "no_setups",
+      "winner": "b"
+    },
+    {
+      "actions_a": 199,
+      "actions_b": 319,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 922,
+      "variant": "no_setups",
+      "winner": "b"
+    },
+    {
+      "actions_a": 218,
+      "actions_b": 284,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 923,
+      "variant": "no_setups",
+      "winner": "b"
+    },
+    {
+      "actions_a": 214,
+      "actions_b": 311,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 924,
+      "variant": "no_setups",
+      "winner": "b"
+    },
+    {
+      "actions_a": 82,
+      "actions_b": 139,
+      "method": "KO",
+      "round_seconds_counted": 187.3,
+      "seed": 925,
+      "variant": "no_setups",
+      "winner": "b"
+    },
+    {
+      "actions_a": 214,
+      "actions_b": 310,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 926,
+      "variant": "no_setups",
+      "winner": "b"
+    },
+    {
+      "actions_a": 145,
+      "actions_b": 187,
+      "method": "KO",
+      "round_seconds_counted": 340.5,
+      "seed": 927,
+      "variant": "no_setups",
+      "winner": "b"
+    },
+    {
+      "actions_a": 220,
+      "actions_b": 275,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 928,
+      "variant": "no_setups",
+      "winner": "b"
+    },
+    {
+      "actions_a": 280,
+      "actions_b": 324,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 929,
+      "variant": "no_setups",
+      "winner": "draw"
+    }
+  ],
+  "population": {
+    "blow_census": "res://research/U79_admitted_strikes.json",
+    "fighters": [
+      {
+        "name": "out-boxer (A)",
+        "side": "a",
+        "style": "boxing_out_boxer"
+      },
+      {
+        "name": "pressure puncher (B)",
+        "side": "b",
+        "style": "boxing_pressure"
+      }
+    ],
+    "round_seconds": 180.0,
+    "rounds": 8,
+    "ruleset": "boxing",
+    "seeds": [
+      900,
+      901,
+      902,
+      903,
+      904,
+      905,
+      906,
+      907,
+      908,
+      909,
+      910,
+      911,
+      912,
+      913,
+      914,
+      915,
+      916,
+      917,
+      918,
+      919,
+      920,
+      921,
+      922,
+      923,
+      924,
+      925,
+      926,
+      927,
+      928,
+      929
+    ]
+  },
+  "variants": {
+    "baseline": {
+      "a": {
+        "actions": 6619,
+        "setups": 2655,
+        "setups_landed": 1480,
+        "strikes_landed": 2172,
+        "strikes_landed_per_min": 3.35020604589823,
+        "strikes_thrown": 3964,
+        "strikes_thrown_per_min": 6.11428027897818
+      },
+      "b": {
+        "actions": 8705,
+        "setups": 514,
+        "setups_landed": 261,
+        "strikes_landed": 4032,
+        "strikes_landed_per_min": 6.21916702442987,
+        "strikes_thrown": 8191,
+        "strikes_thrown_per_min": 12.6342254705122
+      },
+      "by_kind": {
+        "a": {
+          "boxing_catch_counter": 654,
+          "boxing_circle_lead": 665,
+          "boxing_circle_rear": 665,
+          "boxing_cross": 232,
+          "boxing_cross_body": 105,
+          "boxing_distance_read": 666,
+          "boxing_jab": 636,
+          "boxing_lead_hook": 587,
+          "boxing_lead_uppercut": 462,
+          "boxing_one_two": 219,
+          "boxing_one_two_hook": 136,
+          "boxing_rear_hook": 522,
+          "boxing_slip_counter": 411,
+          "boxing_step_in_out": 659
+        },
+        "b": {
+          "boxing_catch_counter": 230,
+          "boxing_cross": 1547,
+          "boxing_cross_body": 682,
+          "boxing_distance_read": 514,
+          "boxing_jab": 463,
+          "boxing_lead_hook": 1135,
+          "boxing_lead_uppercut": 751,
+          "boxing_one_two": 1547,
+          "boxing_one_two_hook": 543,
+          "boxing_rear_hook": 1202,
+          "boxing_slip_counter": 91
+        }
+      },
+      "methods": {
+        "DECISION": 26,
+        "KO": 4
+      },
+      "round_minutes": 648.318333333333,
+      "winners": {
+        "a": 3,
+        "b": 27
+      }
+    },
+    "no_setups": {
+      "a": {
+        "actions": 6500,
+        "setups": 0,
+        "setups_landed": 0,
+        "strikes_landed": 3600,
+        "strikes_landed_per_min": 5.70933158529107,
+        "strikes_thrown": 6500,
+        "strikes_thrown_per_min": 10.3085153623311
+      },
+      "b": {
+        "actions": 8599,
+        "setups": 0,
+        "setups_landed": 0,
+        "strikes_landed": 4231,
+        "strikes_landed_per_min": 6.71005053815737,
+        "strikes_thrown": 8599,
+        "strikes_thrown_per_min": 13.6373728616439
+      },
+      "by_kind": {
+        "a": {
+          "boxing_catch_counter": 1285,
+          "boxing_cross": 473,
+          "boxing_cross_body": 190,
+          "boxing_jab": 1286,
+          "boxing_lead_hook": 734,
+          "boxing_lead_uppercut": 549,
+          "boxing_one_two": 395,
+          "boxing_one_two_hook": 222,
+          "boxing_rear_hook": 732,
+          "boxing_slip_counter": 634
+        },
+        "b": {
+          "boxing_catch_counter": 257,
+          "boxing_cross": 1638,
+          "boxing_cross_body": 694,
+          "boxing_jab": 500,
+          "boxing_lead_hook": 1158,
+          "boxing_lead_uppercut": 758,
+          "boxing_one_two": 1680,
+          "boxing_one_two_hook": 551,
+          "boxing_rear_hook": 1250,
+          "boxing_slip_counter": 113
+        }
+      },
+      "methods": {
+        "DECISION": 25,
+        "KO": 5
+      },
+      "round_minutes": 630.546666666667,
+      "winners": {
+        "a": 3,
+        "b": 26,
+        "draw": 1
+      }
+    }
+  }
+}

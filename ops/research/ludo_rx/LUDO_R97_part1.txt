@@ -1,0 +1,459 @@
+Round 97 (S234). Thank you for r96 - the operator read it and wants the new mechanics built NOW, with you writing the full code so we go faster. Two parts. Give the longest complete answer you can; if you stop, I will say continue.
+
+PART A - EVALUATE EVERY IDEA. Score each 1-10 for FUN GAINED, 1-10 for BUILD COST (10 = cheap), and give KEEP / MERGE INTO  / CUT with one line why. Then the build ORDER of the keepers.
+Your own: L1 Form Breakdown & Audible; L2 sparring flash moments; L3 coach bandwidth; L4 gameplan readiness vs the booked opponent; your cuts (walk-ins mid-camp -> policy; BEST/GOOD tags -> show deltas + prerequisites; station upgrade off the floor).
+Claude's: C2 BREAKTHROUGH BEAT - once a day max, when a move card turns usable or a stat crosses a tier, the floor stops on "IT CLICKED": LOCK IT IN (repeat the drill 20 min, +card progress, -stamina) or BANK IT (move on fresh). C3 MEMBER CHALLENGE - a gym member asks your boxer for rounds (bags race / light spar): accept = +ring IQ, +morale, fatigue, member stays (income); decline = member mood drops; 0-1/day. C7 MORNING DAY PLAN - FM-style schedule of the day's blocks (station + cue per block, stamina/strain budget shown) so the floor becomes reacting to events, not re-clicking. C8 NIGGLE -> PHYSIO - a body part over its soreness line becomes a niggle: send him to the physio room (lose the block, clear it) or push through (real injury risk); makes the physio room playable. C9 FLOOR EVENT DECK - 1-2 small two-choice events a day (bag chain snaps, journalist visits, rival gym scout watches, sponsor photo shoot) moving money / morale / reputation / time.
+(Kalli and Dola are sending more ideas; I will bring them in round 98.)
+
+PART B - FULL CODE for L1 FORM BREAKDOWN, written against what ALREADY EXISTS (do not rebuild it):
+
+rules/BlockStopCheck.gd exists: at minutes 200/400 the coach reads the block; bands FRESH >=45, WINDED <45, HEAVY_LEGS <35, EXHAUSTED <25; returns {state, quote, badge, advice, warning}. WORDS ONLY.
+CueStrain exists: POWER THROUGH under 45 stamina warns once per band. Cues: "", power_through {gain 1.30, drain 1.25, card 1.0}, crisp_form {gain 1.0, drain 1.0, card 1.35}, pace_yourself {gain 0.75, drain 0.60, card 1.0}.
+DayLapSplice (the day engine) runs every game minute on the played plan; each station order may carry optional keys (coach: true, card: move_id, cue: id). Soreness per body part 0-100: head_neck, torso_core, left_arm, right_arm, left_leg, right_leg. Gains keys: power, technique, speed, defense, conditioning, fight_iq. The ENGINE owns every number: your module returns multipliers and words; Claude adds an optional per-order "form" key to the engine that multiplies that order's gains and its wear.
+Stations: heavy_bag, speed_bag, ring_sparring, pads, defence_drill, move_cards, treadmill, bike, recovery, agility_ladder, power_rack, olympic_platform, weights.
+
+Write ONE pure GDScript 4 file, scripts/rules/FormBreakdown.gd, in the BlockStopCheck style: extends RefCounted, static funcs only, ZERO preloads, NO class_name, deterministic (any randomness comes in as a pick: float 0..1 argument), typed (no Variant := from a Dictionary get - write var x: float = float(ctx.get("k", 0.0))), never %%. API:
+
+static func worked_parts(station_id: String) -&gt; Array - the body parts a station loads (heavy bag: arms + torso_core; treadmill: legs; power_rack: legs + torso_core; ...all 13).
+static func check(ctx: Dictionary, pick: float) -&gt; Dictionary - called every game minute while he trains. ctx: minute:int, station_id, stamina:float, soreness:{part: float}, cue, coach_present:bool, form_state:String ("CLEAN"/"SLOPPY"/"CORRECTED"), last_change_minute:int, breakdowns_today:int. Returns {} for nothing new, else {"state": "SLOPPY", "part": , "cause": "stamina"|"soreness", "gain_mult": , "wear_mult": , "window_minutes": , "toast": , "quote": }. Triggers: stamina crossing into a lower band during the block, OR a worked part's soreness past a line; POWER THROUGH breaks form sooner, PACE YOURSELF later, coach present later; never twice within N minutes; cap per day so it fires 2-4 times on a normal day. YOU choose and justify every threshold and multiplier.
+static func respond(action: String, ctx: Dictionary) -&gt; Dictionary - action "correct_form" | "call_rep" | "ignore" (window ran out). Returns {"state": new state, "gain_mult", "wear_mult", "coach_minutes": int the coach must spend at his station, "end_block": bool, "niggle_chance": float 0..1 (only for ignore), "toast", "quote"}. CORRECT FORM needs the coach (if he is elsewhere, he walks over: say the cost); CALL THE REP ends the block (he goes to rest).
+static func bubble_color(form_state: String) -&gt; String - hex for the gain bubbles (clean gold #f0c233, sloppy yellow, ignored red). Then a headless test tests/form_breakdown_test.gd (extends SceneTree; _initialize(); preload the module by path; checks with a counter; prints FORM_BREAKDOWN failures=N; quit(0 if failures == 0 else 1)): fresh boxer never breaks; POWER THROUGH breaks before PACE YOURSELF at the same stamina; coach present delays it; no second breakdown inside the cooldown; day cap holds; correct_form restores clean; call_rep ends the block; ignore gives a niggle chance > 0; every station has worked parts. Finally, a short INTEGRATION note: where in a per-minute floor loop to call check(), how the floor shows the two answers (hotkeys + ring buttons), and what the player sees in the 10 seconds after it fires.
+PART A: EVALUATION, SCORING & BUILD ORDER
+Evaluation Matrix
+
+| ID | Feature / Cut | Fun Gained (1–10) | Build Cost (10=Cheap, 1=Heavy) | Decision | Reason |
+| :--- | :--- | :---: | :---: | :---: | :--- |
+| L1 | Form Breakdown & Audible | 8 | 8 | KEEP | Directly fixes the 90-minute dead zone during workouts with real-time tactical observation and tangible risk/reward. |
+| L2 | Sparring Flash Moments | 8 | 5 | KEEP | Transforms the ring from a sterile stat generator into high-stakes sparring where technique interactions actually matter. |
+| L3 | Coach Bandwidth / Capacity | 7 | 7 | MERGE INTO L1 & C7 | Coach attention is the exact resource spent when choosing "Correct Form" (L1) and scheduling station supervision in the Morning Plan (C7). |
+| L4 | Gameplan Readiness vs Opponent | 9 | 6 | KEEP | Connects the gym floor directly to the fight sim; gives every single station rep and technique drill an existential purpose. |
+| Cut 1 | Walk-Ins -> Policy Setting | 6 | 9 | KEEP (CUT) | Removes high-friction casual click interruptions while preserving gym revenue economy via a simple passive policy toggle in the office. |
+| Cut 2 | BEST/GOOD -> Prerequisites/Deltas | 8 | 9 | KEEP (CUT) | Strips the brainless "click the highlighted button" autopilot; forces players to read their prospect’s gaps against the technique tree. |
+| Cut 3 | Station Upgrades Off Floor | 5 | 10 | KEEP (CUT) | Clean separation of long-term capital expenditure (Office) from the tactical day execution loop (Gym Floor). |
+| C2 | Breakthrough Beat ("It Clicked") | 8 | 8 | KEEP | Provides celebratory pacing peaks and dopamine hits when grinding through 54 technique nodes; clean two-choice dilemma. |
+| C3 | Member Challenge | 6 | 6 | MERGE INTO C9 | Can be handled cleanly as an interactive card in the C9 Floor Event Deck rather than standalone bespoke floor architecture. |
+| C7 | Morning Day Plan | 9 | 4 | KEEP | Foundational management architecture. Shifts the floor gameplay from tedious micro-clicking to strategic plan execution and tactical audible-calling. |
+| C8 | Niggle -> Physio Room | 8 | 7 | KEEP | Bridges body-region soreness wear directly to facility gameplay, giving the physio room an essential function. |
+| C9 | Floor Event Deck | 7 | 6 | KEEP | Injects organic gym life, narrative flavor, and financial/morale dilemmas without breaking the core training loop. |
+
+Recommended Build Order
+Phase 1: The Tactical Floor Core (Immediate)
+L1: Form Breakdown & Audible: Solves the minute-to-minute dead zone instantly with zero UI redesign.
+C8: Niggle -> Physio Room: Natural extension of L1; ties form breakdown wear penalties directly into medical recovery.
+The 3 UI Cuts: (Kill BEST/GOOD tags, move Station Upgrades to Office, set Walk-ins to policy). Immediate reduction in noise and autopilot.
+Phase 2: Camp Macro Structure & Dopamine
+C7: Morning Day Plan: Establishes the daily itinerary so players execute, observe, and intervene rather than babysitting the queue.
+C2: Breakthrough Beat: Rewards the plan with dynamic milestones when technique nodes unlock.
+Phase 3: Strategic Purpose & Narrative Life
+L4: Gameplan Readiness vs Opponent: Binds the daily training choices to scouting reports for the upcoming bout.
+L2: Sparring Flash Moments: Delivers tactical fight preview rounds inside the ring.
+C9: Floor Event Deck (incorporating C3 Member Challenges): Fills the world with organic gym flavor.
+PART B: FULL IMPLEMENTATION OF L1 (FORM BREAKDOWN)
+Design Thresholds & Multipliers Justification
+Stamina Thresholds: Aligned with rules/BlockStopCheck.gd:
+< 45.0 (WINDED): Baseline entry point where fatigue can trigger sloppy form.
+< 35.0 (HEAVY_LEGS): Heightened chance.
+< 25.0 (EXHAUSTED): Severe breakdown probability.
+Cue Sensitivities:
+power_through: Multiplies breakdown vulnerability by 1.45 (pushes past limits; breaks down much sooner).
+pace_yourself: Multiplies breakdown vulnerability by 0.60 (protects stamina; breaks down much later).
+crisp_form: Strict form focus provides a 0.80 breakdown multiplier.
+Coach Presence: Having a coach on the station acts as an immediate deterrent (breaks down at a 0.65 modifier due to hands-on verbal cueing).
+Soreness Threshold: Worked body regions reaching >= 65.0 enter the danger threshold for muscular compensation breakdown.
+Cooldown & Daily Cap: MIN_INTERVAL_MINUTES = 60 ensures breakdowns do not stack rapidly. DAILY_CAP = 3 (max 4 on heavy 2-session days) keeps interventions focused (2–4 per day).
+Multipliers:
+SLOPPY (unaddressed): 0.50x stat gains, 1.60x body wear.
+CORRECTED: 1.05x gains (clean focused work), 0.85x wear.
+IGNORED: 0.30x gains, 2.00x wear, plus a 15%–35% chance of generating a persistent niggle on the affected part.
+scripts/rules/FormBreakdown.gd
+# scripts/rules/FormBreakdown.gd
+# Deterministic rule engine for Form Breakdown & Audibles on the gym floor.
+# Pure GDScript 4: RefCounted, static funcs only, zero preloads, no class_name.
+extends RefCounted
+
+const COOLDOWN_MINUTES: int = 60
+const DAILY_CAP: int = 4
+const DECISION_WINDOW_MINUTES: int = 10
+
+const SORENESS_BREAKDOWN_THRESHOLD: float = 65.0
+
+# Base breakdown chance modifiers
+const MOD_POWER_THROUGH: float = 1.45
+const MOD_PACE_YOURSELF: float = 0.60
+const MOD_CRISP_FORM: float = 0.80
+const MOD_COACH_PRESENT: float = 0.65
+
+# Station mapping to worked body parts (head_neck, torso_core, left_arm, right_arm, left_leg, right_leg)
+static func worked_parts(station_id: String) -> Array:
+	match station_id:
+		"heavy_bag":
+			return ["left_arm", "right_arm", "torso_core"]
+		"speed_bag":
+			return ["left_arm", "right_arm"]
+		"ring_sparring":
+			return ["head_neck", "torso_core", "left_arm", "right_arm", "left_leg", "right_leg"]
+		"pads":
+			return ["left_arm", "right_arm", "torso_core"]
+		"defence_drill":
+			return ["head_neck", "torso_core", "left_leg", "right_leg"]
+		"move_cards":
+			return ["torso_core", "left_arm", "right_arm"]
+		"treadmill":
+			return ["left_leg", "right_leg", "torso_core"]
+		"bike":
+			return ["left_leg", "right_leg"]
+		"recovery":
+			return []
+		"agility_ladder":
+			return ["left_leg", "right_leg"]
+		"power_rack":
+			return ["left_leg", "right_leg", "torso_core"]
+		"olympic_platform":
+			return ["left_leg", "right_leg", "torso_core", "right_arm", "left_arm"]
+		"weights":
+			return ["left_arm", "right_arm", "torso_core"]
+		_:
+			return ["torso_core"]
+
+
+static func check(ctx: Dictionary, pick: float) -> Dictionary:
+	var minute: int = int(ctx.get("minute", 0))
+	var last_change_minute: int = int(ctx.get("last_change_minute", -999))
+	var breakdowns_today: int = int(ctx.get("breakdowns_today", 0))
+	var form_state: String = String(ctx.get("form_state", "CLEAN"))
+	
+	if form_state != "CLEAN":
+		return {}
+	
+	if breakdowns_today >= DAILY_CAP:
+		return {}
+		
+	if (minute - last_change_minute) < COOLDOWN_MINUTES:
+		return {}
+
+	var station_id: String = String(ctx.get("station_id", ""))
+	var parts: Array = worked_parts(station_id)
+	if parts.is_empty():
+		return {}
+
+	var stamina: float = float(ctx.get("stamina", 100.0))
+	var cue: String = String(ctx.get("cue", ""))
+	var coach_present: bool = bool(ctx.get("coach_present", false))
+	var soreness: Dictionary = Dictionary(ctx.get("soreness", {}))
+
+	# Compute breakdown susceptibility
+	var susceptibility: float = 1.0
+	if cue == "power_through":
+		susceptibility *= MOD_POWER_THROUGH
+	elif cue == "pace_yourself":
+		susceptibility *= MOD_PACE_YOURSELF
+	elif cue == "crisp_form":
+		susceptibility *= MOD_CRISP_FORM
+
+	if coach_present:
+		susceptibility *= MOD_COACH_PRESENT
+
+	# 1. Soreness Check on primary worked parts
+	var worst_part: String = ""
+	var max_soreness: float = 0.0
+	for p in parts:
+		var part_name: String = String(p)
+		var val: float = float(soreness.get(part_name, 0.0))
+		if val > max_soreness:
+			max_soreness = val
+			worst_part = part_name
+
+	if max_soreness >= SORENESS_BREAKDOWN_THRESHOLD:
+		var soreness_risk: float = ((max_soreness - SORENESS_BREAKDOWN_THRESHOLD) / 35.0) * susceptibility
+		if pick < clamp(soreness_risk, 0.15, 0.95):
+			return {
+				"state": "SLOPPY",
+				"part": worst_part,
+				"cause": "soreness",
+				"gain_mult": 0.50,
+				"wear_mult": 1.60,
+				"window_minutes": DECISION_WINDOW_MINUTES,
+				"toast": "Form Breakdown: %s overloaded!" % worst_part.replace("_", " ").capitalize(),
+				"quote": "He's grimacing and favoring the %s. Reps are getting ugly." % worst_part.replace("_", " ")
+			}
+
+	# 2. Stamina Band Breakdown Check
+	# Bands: FRESH >= 45, WINDED < 45, HEAVY_LEGS < 35, EXHAUSTED < 25
+	if stamina < 45.0:
+		var stamina_risk: float = 0.0
+		if stamina < 25.0:
+			stamina_risk = 0.85 * susceptibility
+		elif stamina < 35.0:
+			stamina_risk = 0.55 * susceptibility
+		else:
+			stamina_risk = 0.30 * susceptibility
+
+		if pick < clamp(stamina_risk, 0.05, 0.98):
+			var active_part: String = String(parts[0]) if parts.size() > 0 else "torso_core"
+			return {
+				"state": "SLOPPY",
+				"part": active_part,
+				"cause": "stamina",
+				"gain_mult": 0.50,
+				"wear_mult": 1.60,
+				"window_minutes": DECISION_WINDOW_MINUTES,
+				"toast": "Form Breakdown: Exhaustion dragging mechanics down!",
+				"quote": "His hips are dragging and his chin is up in the air. Punch mechanics are failing."
+			}
+
+	return {}
+
+
+static func respond(action: String, ctx: Dictionary) -> Dictionary:
+	var coach_present: bool = bool(ctx.get("coach_present", false))
+	var part: String = String(ctx.get("part", "torso_core"))
+	var clean_part_name: String = part.replace("_", " ")
+
+	match action:
+		"correct_form":
+			var coach_walk_and_drill_time: int = 5 if coach_present else 12
+			return {
+				"state": "CORRECTED",
+				"gain_mult": 1.05,
+				"wear_mult": 0.85,
+				"coach_minutes": coach_walk_and_drill_time,
+				"end_block": false,
+				"niggle_chance": 0.0,
+				"toast": "Coach Audibles: Form Reset",
+				"quote": "Coach steps in, resets the stance, and cues the hips. Clean reps restored."
+			}
+
+		"call_rep":
+			return {
+				"state": "CLEAN",
+				"gain_mult": 1.0,
+				"wear_mult": 1.0,
+				"coach_minutes": 0,
+				"end_block": true,
+				"niggle_chance": 0.0,
+				"toast": "Session Halted Early",
+				"quote": "That's enough before bad habits stick. Take off the gloves and head to the mats."
+			}
+
+		"ignore":
+			return {
+				"state": "SLOPPY",
+				"gain_mult": 0.30,
+				"wear_mult": 2.00,
+				"coach_minutes": 0,
+				"end_block": false,
+				"niggle_chance": 0.25,
+				"toast": "Form Ignored: Dirty Reps Accruing!",
+				"quote": "Boxer is grinding through severe technical breakdown. Severe injury risk!"
+			}
+
+		_:
+			return {
+				"state": "CLEAN",
+				"gain_mult": 1.0,
+				"wear_mult": 1.0,
+				"coach_minutes": 0,
+				"end_block": false,
+				"niggle_chance": 0.0,
+				"toast": "",
+				"quote": ""
+			}
+
+
+static func bubble_color(form_state: String) -> String:
+	match form_state:
+		"CLEAN", "CORRECTED":
+			return "#f0c233" # Clean Gold
+		"SLOPPY":
+			return "#e6912c" # Warning Amber
+		"IGNORED":
+			return "#d93829" # Danger Red
+		_:
+			return "#f0c233"
+
+tests/form_breakdown_test.gd
+# tests/form_breakdown_test.gd
+# Headless test runner for FormBreakdown rule engine.
+extends SceneTree
+
+func _initialize() -> void:
+	var FormBreakdown = load("res://scripts/rules/FormBreakdown.gd")
+	var failures: int = 0
+	print("--- BEGIN FORM BREAKDOWN TESTS ---")
+
+	# Test 1: Fresh boxer never breaks
+	var ctx_fresh: Dictionary = {
+		"minute": 100,
+		"station_id": "heavy_bag",
+		"stamina": 90.0,
+		"soreness": {"left_arm": 10.0, "right_arm": 10.0, "torso_core": 5.0},
+		"cue": "",
+		"coach_present": false,
+		"form_state": "CLEAN",
+		"last_change_minute": -999,
+		"breakdowns_today": 0
+	}
+	var res1: Dictionary = FormBreakdown.check(ctx_fresh, 0.01)
+	if not res1.is_empty():
+		print("FAIL: Fresh boxer triggered breakdown.")
+		failures += 1
+
+	# Test 2: POWER THROUGH breaks before PACE YOURSELF at identical stamina (38.0)
+	var ctx_pw: Dictionary = {
+		"minute": 120,
+		"station_id": "heavy_bag",
+		"stamina": 38.0,
+		"soreness": {},
+		"cue": "power_through",
+		"coach_present": false,
+		"form_state": "CLEAN",
+		"last_change_minute": -999,
+		"breakdowns_today": 0
+	}
+	var ctx_pace: Dictionary = {
+		"minute": 120,
+		"station_id": "heavy_bag",
+		"stamina": 38.0,
+		"soreness": {},
+		"cue": "pace_yourself",
+		"coach_present": false,
+		"form_state": "CLEAN",
+		"last_change_minute": -999,
+		"breakdowns_today": 0
+	}
+	# At pick 0.35: power_through risk is 0.30 * 1.45 = 0.435 -> triggers.
+	# pace_yourself risk is 0.30 * 0.60 = 0.18 -> does NOT trigger.
+	var res_pw: Dictionary = FormBreakdown.check(ctx_pw, 0.35)
+	var res_pace: Dictionary = FormBreakdown.check(ctx_pace, 0.35)
+	if res_pw.is_empty() or not res_pace.is_empty():
+		print("FAIL: Cue susceptibility threshold test failed (PW vs PACE).")
+		failures += 1
+
+	# Test 3: Coach present delays/suppresses breakdown
+	var ctx_coach: Dictionary = {
+		"minute": 120,
+		"station_id": "heavy_bag",
+		"stamina": 38.0,
+		"soreness": {},
+		"cue": "power_through",
+		"coach_present": true,
+		"form_state": "CLEAN",
+		"last_change_minute": -999,
+		"breakdowns_today": 0
+	}
+	# Risk is 0.30 * 1.45 * 0.65 = 0.28275. At pick 0.35, coach presence prevents breakdown.
+	var res_coach: Dictionary = FormBreakdown.check(ctx_coach, 0.35)
+	if not res_coach.is_empty():
+		print("FAIL: Coach presence did not suppress breakdown.")
+		failures += 1
+
+	# Test 4: Cooldown prevents second breakdown inside COOLDOWN_MINUTES (60 min)
+	var ctx_cd: Dictionary = {
+		"minute": 150,
+		"station_id": "heavy_bag",
+		"stamina": 20.0,
+		"soreness": {},
+		"cue": "",
+		"coach_present": false,
+		"form_state": "CLEAN",
+		"last_change_minute": 120, # 30 min ago
+		"breakdowns_today": 1
+	}
+	var res_cd: Dictionary = FormBreakdown.check(ctx_cd, 0.01)
+	if not res_cd.is_empty():
+		print("FAIL: Breakdown occurred inside the 60-minute cooldown window.")
+		failures += 1
+
+	# Test 5: Daily cap holds (max 4 per day)
+	var ctx_cap: Dictionary = {
+		"minute": 500,
+		"station_id": "heavy_bag",
+		"stamina": 15.0,
+		"soreness": {},
+		"cue": "",
+		"coach_present": false,
+		"form_state": "CLEAN",
+		"last_change_minute": 300,
+		"breakdowns_today": 4
+	}
+	var res_cap: Dictionary = FormBreakdown.check(ctx_cap, 0.01)
+	if not res_cap.is_empty():
+		print("FAIL: Daily cap of 4 was exceeded.")
+		failures += 1
+
+	# Test 6: correct_form restores clean/corrected state and requires coach minutes
+	var res_correct: Dictionary = FormBreakdown.respond("correct_form", {"coach_present": false, "part": "left_arm"})
+	if res_correct.get("state") != "CORRECTED" or int(res_correct.get("coach_minutes", 0)) != 12:
+		print("FAIL: correct_form response invalid.")
+		failures += 1
+
+	# Test 7: call_rep ends the block immediately
+	var res_call: Dictionary = FormBreakdown.respond("call_rep", {})
+	if not bool(res_call.get("end_block", false)):
+		print("FAIL: call_rep did not flag end_block.")
+		failures += 1
+
+	# Test 8: ignore generates a non-zero niggle chance and cuts gains to 0.30
+	var res_ignore: Dictionary = FormBreakdown.respond("ignore", {})
+	if float(res_ignore.get("niggle_chance", 0.0)) <= 0.0 or float(res_ignore.get("gain_mult", 1.0)) > 0.30:
+		print("FAIL: ignore response missing penalty or niggle chance.")
+		failures += 1
+
+	# Test 9: Every single one of the 13 stations has worked parts defined
+	var all_stations: Array = [
+		"heavy_bag", "speed_bag", "ring_sparring", "pads", "defence_drill",
+		"move_cards", "treadmill", "bike", "recovery", "agility_ladder",
+		"power_rack", "olympic_platform", "weights"
+	]
+	for st in all_stations:
+		var parts: Array = FormBreakdown.worked_parts(st)
+		if st != "recovery" and parts.is_empty():
+			print("FAIL: Station %s has no worked parts assigned." % st)
+			failures += 1
+
+	print("FORM_BREAKDOWN failures=%d" % failures)
+	quit(0 if failures == 0 else 1)
+
+INTEGRATION NOTE: GYM FLOOR RUNTIME & UX
+1. Per-Minute Floor Loop Integration (DayLapSplice.gd)
+
+Inside the per-minute update block:
+
+# When training at an active station:
+if current_order.is_training:
+    var check_ctx = {
+        "minute": current_game_minute,
+        "station_id": current_order.station_id,
+        "stamina": boxer.stamina,
+        "soreness": boxer.soreness_dict,
+        "cue": active_cue_id,
+        "coach_present": (coach.station_id == current_order.station_id),
+        "form_state": current_order.get("form_state", "CLEAN"),
+        "last_change_minute": last_breakdown_minute,
+        "breakdowns_today": daily_breakdown_count
+    }
+    
+    var breakdown = FormBreakdown.check(check_ctx, randf())
+    if not breakdown.is_empty():
+        daily_breakdown_count += 1
+        last_breakdown_minute = current_game_minute
+        floor_ui.trigger_audible_alert(breakdown)
+
+2. Player Controls & Ring UI
+
+When FormBreakdown.check() fires:
+
+Audio Stinger: A blunt wooden double-tap bell sound plays.
+Game Speed: Slows smoothly from 3x to 1x (never hard pauses, maintaining sim momentum).
+Two Hotkeys / Radial Ring Buttons Appear Over the Fighter:
+[F] - "CORRECT FORM": Displays coach cost tooltip: 5 min if coach is ringside; 12 min if coach must walk across from the office. Restores clean reps (1.05x gains).
+[X] - "CALL THE REP": Boxer wipes brow, immediately terminates station block, and heads to the recovery zone, preserving remaining stamina.
+Countdown Ring: A circular 10-second timer depletes around the fighter's base. If neither is clicked within 10 seconds, respond("ignore") triggers automatically.
+3. What the Player Sees in the 10 Seconds After It Fires
+Visual Feedback: The boxer’s workout animation immediately shifts to a labored loop: dropped guard, sluggish punch extension, or sagging posture.
+Gain Bubbles: The floating text immediately shifts from clean gold (#f0c233) to warning amber (#e6912c) reading "+0.4 Tech (Sloppy)".
+Floor Line & Banner: A brief toast banner slides in under the clock: "Form Breakdown: Left Arm Overloaded - Reps Degraded".
+Resolution:
+If [F] is hit: Coach barks out audio ("Keep those hands up!"), walks to the fighter, and the bubbles pop back to gold.
+If ignored: Floating bubbles shift to blood red (#d93829) with an audible joint-strain crack sound; a warning badge appears over the fighter’s paper doll indicating heightened niggle risk.
+Copyright ©2026 Ludo.ai. All Rights Reserved.

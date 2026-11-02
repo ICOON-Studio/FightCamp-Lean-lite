@@ -1,0 +1,316 @@
+PART 1 — DESIGN: THE "AWAY CIRCUIT" SYSTEM
+1. The Real-World Boxing Reality
+
+In boxing, domestic commissions sanction fights and license athletes, but they do not write purse checks. In boxing markets without an established, active commercial promoter base (e.g., Cyprus, Georgia, South Korea, small European or Central Asian circuits), professional boxers follow one of two real-world archetypes:
+
+The Away Prospect / "B-Side Import": A prospect with an unblemished amateur pedigree or regional hype gets brought into an established hub (London, Manchester, Tokyo, Istanbul) to test a local promoter's house fighter.
+The Traveling Journeyman: Fighters travel on short notice to provide rounds for a domestic A-side.
+
+For a management simulation targeting fans of Football Manager or Motorsport Manager, artificial game loops (like magically spawning a fake domestic arena or an invented promoter) break simulation trust. The game must simulate the exact physical and contractual frictions that real non-hub gyms experience: travel costs, itinerary drag (lost training days), shorter camp notices, and away-corner scoring pressure.
+
+2. Mechanics & Balance
+Gating (has_home_promoter): If a market has verified domestic promoters (e.g., UK with Matchroom/Queensberry, USA with Top Rank/PBC), the player operates within the domestic market ladder first. The foreign circuit offers only trigger when has_home_promoter == false (or if explicitly scouting abroad, but domestically starved gyms rely on it as their primary paid lifeline).
+Offer Pacing: Promoters abroad do not scout empty records every single week. Offers evaluate on a structured cadence (every 3–4 calendar weeks, or seeded by gym prestige and fight IQ/ranking). An offer pipeline surfaces between 0 and 3 foreign bouts at a time.
+Contract Friction (The Away Penalty):
+Travel Days: 1 to 4 days lost from the training camp schedule directly entering fight week, eating into pad drilling or weight-cutting recovery.
+Away Corner Bias (away: true): Decisions in foreign rings carry real judging splits. Split-decision RNG margins or close rounds heavily favor the house fighter unless secured via clear round dominance or stoppage.
+Purse Bands (Words, Not Hardcoded Dollars):
+"debut": 4 rounds. Covers travel stipends plus baseline purse. Usually against another debuting international or domestic gatekeeper.
+"prospect": 6–8 rounds. Matched against a promoter's protected talent. High purse modifier, severe away judging risk.
+"contender": 10–12 rounds. Continental ranking eliminators or regional belt challenges.
+One-Sentence Scouting Readout (line): In keeping with FightCamp UI rules, provide zero hidden dice: state the exact match profile clearly (e.g., "Queensberry wants an away opponent for a televised 6-rounder at York Hall in 4 weeks; requires 2 days travel.").
+PART 2 — IMPLEMENTATION: AwayCircuit.gd
+# res://scripts/rules/AwayCircuit.gd
+# Pure rules script for foreign card procurement when domestic promotion is absent.
+# Deterministic: depends solely on inputs and injected pseudo-random rolls.
+extends RefCounted
+
+
+# Main generator for foreign fight offers.
+# ctx = {
+#   "home_market": String,
+#   "has_home_promoter": bool,
+#   "fighter": {
+#       "record_w": int,
+#       "record_l": int,
+#       "weight_class": String,
+#       "ranking_points": int
+#   },
+#   "neighbours": Dictionary, # { "market_name": ["Promoter A", "Promoter B"] }
+#   "week": int
+# }
+# rolls = Array of floats [0.0, 1.0)
+static func offers(ctx: Dictionary, rolls: Array) -> Array:
+	# CONTROL: If the home market has an active domestic promoter,
+	# the boxer fights on the domestic calendar. No away circuit needed.
+	if ctx.get("has_home_promoter", false):
+		return []
+
+	var neighbours: Dictionary = ctx.get("neighbours", {})
+	if neighbours.is_empty():
+		return []
+
+	var fighter: Dictionary = ctx.get("fighter", {})
+	var wins: int = fighter.get("record_w", 0)
+	var losses: int = fighter.get("record_l", 0)
+	var total_fights: int = wins + losses
+	var ranking: int = fighter.get("ranking_points", 0)
+
+	# Determine eligible purse band based on fighter stage
+	var purse_band: String = "debut"
+	if total_fights == 0:
+		purse_band = "debut"
+	elif total_fights < 6 and losses <= 1:
+		purse_band = "prospect"
+	elif ranking >= 100 or wins >= 8:
+		purse_band = "contender"
+	else:
+		purse_band = "prospect"
+
+	# Stable sort neighbour market keys to maintain absolute determinism across platforms
+	var market_keys: Array = neighbours.keys()
+	market_keys.sort()
+
+	# Flatten available foreign promoter slots: [{ "market": m, "promoter": p }]
+	var pool: Array = []
+	for m in market_keys:
+		var proms: Array = neighbours[m]
+		for p in proms:
+			pool.append({"market": str(m), "promoter": str(p)})
+
+	if pool.is_empty():
+		return []
+
+	# We consume up to 4 rolls per offer evaluated:
+	# roll 0: offer count selector [0..3]
+	# roll 1: pool index
+	# roll 2: lead time / weeks out [3..6]
+	# roll 3: travel days penalty [1..3]
+	if rolls.is_empty():
+		return []
+
+	var roll_idx: int = 0
+	var count_roll: float = rolls[roll_idx]
+	roll_idx += 1
+
+	var target_offers: int = 0
+	if count_roll < 0.20:
+		target_offers = 0
+	elif count_roll < 0.60:
+		target_offers = 1
+	elif count_roll < 0.85:
+		target_offers = 2
+	else:
+		target_offers = 3
+
+	var results: Array = []
+	var used_promoters: Dictionary = {}
+
+	for _i in range(target_offers):
+		if roll_idx + 2 >= rolls.size():
+			break
+
+		var pick_roll: float = rolls[roll_idx]
+		var weeks_roll: float = rolls[roll_idx + 1]
+		var travel_roll: float = rolls[roll_idx + 2]
+		roll_idx += 3
+
+		# Select a promoter from the available candidate pool
+		var pool_idx: int = int(floor(pick_roll * pool.size()))
+		pool_idx = clampi(pool_idx, 0, pool.size() - 1)
+		var candidate: Dictionary = pool[pool_idx]
+
+		# Prevent duplicate offers from the exact same promoter in the same window
+		var key: String = candidate["market"] + "::" + candidate["promoter"]
+		if used_promoters.has(key):
+			continue
+		used_promoters[key] = true
+
+		# Determine lead camp time (3 to 6 weeks out)
+		var weeks_out: int = 3 + int(floor(weeks_roll * 4.0))
+		weeks_out = clampi(weeks_out, 3, 6)
+
+		# Determine travel friction (1 to 3 travel days lost from camp schedule)
+		var travel_days: int = 1 + int(floor(travel_roll * 3.0))
+		travel_days = clampi(travel_days, 1, 3)
+
+		var summary_line: String = _format_line(
+			candidate["promoter"],
+			candidate["market"],
+			purse_band,
+			weeks_out,
+			travel_days
+		)
+
+		results.append({
+			"market": candidate["market"],
+			"promoter": candidate["promoter"],
+			"weeks_out": weeks_out,
+			"travel_days": travel_days,
+			"purse_band": purse_band,
+			"away": true,
+			"line": summary_line
+		})
+
+	return results
+
+
+static func _format_line(promoter: String, market: String, band: String, weeks: int, travel: int) -> String:
+	var round_desc: String = "4-round"
+	if band == "prospect":
+		round_desc = "6-round"
+	elif band == "contender":
+		round_desc = "10-round"
+
+	var travel_str: String = str(travel) + " travel day" + ("s" if travel > 1 else "")
+	return (
+		promoter + " (" + market + ") offers an away " + round_desc +
+		" " + band + " slot in " + str(weeks) + " weeks (" + travel_str + ")."
+	)
+
+PART 3 — TEST SUITE: tests/away_circuit_test.gd
+# res://tests/away_circuit_test.gd
+extends SceneTree
+
+const AwayCircuit = preload("res://scripts/rules/AwayCircuit.gd")
+
+func _initialize() -> void:
+	var failures: int = 0
+
+	# -------------------------------------------------------------
+	# TEST 1: CONTROL CASE - Home market HAS domestic promoters
+	# Should return empty array regardless of other inputs or rolls.
+	# -------------------------------------------------------------
+	var control_ctx: Dictionary = {
+		"home_market": "United Kingdom",
+		"has_home_promoter": true,
+		"fighter": {
+			"record_w": 2,
+			"record_l": 0,
+			"weight_class": "super_welterweight",
+			"ranking_points": 15
+		},
+		"neighbours": {
+			"United States": ["Top Rank"],
+			"Germany": ["Wasserman Boxing"]
+		},
+		"week": 12
+	}
+	var control_res: Array = AwayCircuit.offers(control_ctx, [0.99, 0.1, 0.5, 0.5])
+	if control_res.size() != 0:
+		print("FAIL: Control case expected empty array, got size ", control_res.size())
+		failures += 1
+
+	# -------------------------------------------------------------
+	# TEST 2: Active Away Market (e.g., Cyprus gym, no domestic promoter)
+	# 0-offer roll threshold (< 0.20)
+	# -------------------------------------------------------------
+	var cyprus_ctx: Dictionary = {
+		"home_market": "Cyprus",
+		"has_home_promoter": false,
+		"fighter": {
+			"record_w": 0,
+			"record_l": 0,
+			"weight_class": "super_welterweight",
+			"ranking_points": 0
+		},
+		"neighbours": {
+			"Greece": ["Spartan Ring Promotions"],
+			"United Kingdom": ["Matchroom Boxing", "Queensberry Promotions"]
+		},
+		"week": 4
+	}
+	var zero_offer_rolls: Array = [0.10, 0.2, 0.5, 0.5]
+	var zero_res: Array = AwayCircuit.offers(cyprus_ctx, zero_offer_rolls)
+	if zero_res.size() != 0:
+		print("FAIL: Expected 0 offers on low roll, got ", zero_res.size())
+		failures += 1
+
+	# -------------------------------------------------------------
+	# TEST 3: Debut Fighter Abroad (Generates 1 valid offer)
+	# Verify structure, purse_band = 'debut', away = true, and line readability.
+	# -------------------------------------------------------------
+	# Roll 0: 0.50 -> 1 offer
+	# Roll 1: 0.00 -> Picks first in sorted pool ("Greece", "Spartan Ring Promotions")
+	# Roll 2: 0.25 -> weeks_out: 3 + floor(0.25 * 4) = 4 weeks
+	# Roll 3: 0.60 -> travel_days: 1 + floor(0.60 * 3) = 2 days
+	var single_offer_rolls: Array = [0.50, 0.00, 0.25, 0.60]
+	var single_res: Array = AwayCircuit.offers(cyprus_ctx, single_offer_rolls)
+	if single_res.size() != 1:
+		print("FAIL: Expected 1 offer, got ", single_res.size())
+		failures += 1
+	else:
+		var o: Dictionary = single_res[0]
+		if o.get("market") != "Greece":
+			print("FAIL: Expected market Greece, got ", o.get("market"))
+			failures += 1
+		if o.get("promoter") != "Spartan Ring Promotions":
+			print("FAIL: Expected promoter Spartan Ring Promotions, got ", o.get("promoter"))
+			failures += 1
+		if o.get("weeks_out") != 4:
+			print("FAIL: Expected 4 weeks_out, got ", o.get("weeks_out"))
+			failures += 1
+		if o.get("travel_days") != 2:
+			print("FAIL: Expected 2 travel_days, got ", o.get("travel_days"))
+			failures += 1
+		if o.get("purse_band") != "debut":
+			print("FAIL: Expected debut purse_band, got ", o.get("purse_band"))
+			failures += 1
+		if o.get("away") != true:
+			print("FAIL: Expected away == true")
+			failures += 1
+		if not o.get("line", "").begins_with("Spartan Ring Promotions (Greece) offers an away 4-round debut slot"):
+			print("FAIL: Line formatting mismatch: ", o.get("line"))
+			failures += 1
+
+	# -------------------------------------------------------------
+	# TEST 4: Contender Progression & Multi-Offer Deduplication
+	# High wins/ranking -> contender band; rolls requesting 3 offers.
+	# -------------------------------------------------------------
+	var contender_ctx: Dictionary = {
+		"home_market": "Georgia",
+		"has_home_promoter": false,
+		"fighter": {
+			"record_w": 11,
+			"record_l": 1,
+			"weight_class": "middleweight",
+			"ranking_points": 145
+		},
+		"neighbours": {
+			"Turkey": ["Bosphorus Combat"],
+			"Germany": ["Agon Sports", "Universum"]
+		},
+		"week": 28
+	}
+	# Rolls:
+	# count: 0.95 (requests 3 offers)
+	# offer 1: pick 0.0 (Agon Sports), weeks 0.0 (3), travel 0.0 (1)
+	# offer 2: pick 0.0 (duplicate Agon Sports -> skipped)
+	# offer 3: pick 0.99 (Bosphorus Combat), weeks 0.99 (6), travel 0.99 (3)
+	var multi_rolls: Array = [
+		0.95,
+		0.00, 0.00, 0.00,
+		0.00, 0.50, 0.50,
+		0.99, 0.99, 0.99
+	]
+	var multi_res: Array = AwayCircuit.offers(contender_ctx, multi_rolls)
+	if multi_res.size() != 2: # 3 requested, 1 deduplicated -> 2 distinct
+		print("FAIL: Expected 2 deduplicated offers, got ", multi_res.size())
+		failures += 1
+	else:
+		if multi_res[0].get("purse_band") != "contender":
+			print("FAIL: Expected contender purse_band, got ", multi_res[0].get("purse_band"))
+			failures += 1
+		if multi_res[0].get("promoter") == multi_res[1].get("promoter"):
+			print("FAIL: Promoters were not deduplicated: ", multi_res[0].get("promoter"))
+			failures += 1
+
+	print("AWAY_CIRCUIT failures=", failures)
+	if failures > 0:
+		quit(1)
+	else:
+		quit(0)
+
+PART 4 — HOOK & INTEGRATION
+
+To integrate with FightCamp's weekly simulation pipeline, AwayCircuit.offers() is queried during the Monday fight calendar poll whenever a boxer is ready for matchmaking. If the fighter accepts an away offer, weeks_out schedules the bout on Saturday of the target week, while travel_days (1–3 days) is applied as a camp penalty during Fight Week: instead of a full Monday–Friday prep sequence, the travel days convert active training slots into recovery-only transit slots, preventing pad chain drilling or sparring lockouts on those days. Furthermore, the away: true flag passes directly to the ringside judging engine on Saturday night, applying standard domestic split-decision weight where drawn rounds edge toward the local house fighter unless won decisively by clean effective damage or a knockdown.

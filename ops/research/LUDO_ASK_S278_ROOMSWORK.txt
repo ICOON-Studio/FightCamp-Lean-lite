@@ -1,0 +1,23 @@
+LUDO - S278 ROOMS THAT WORK (FightCamp, PC deep management sim, boxing demo). Please give the LONGEST complete answer you can - do not cut it short; I will say "continue" if it stops.
+
+WHERE WE ARE (built and playable today, on top of your S277 blank-start numbers):
+- New career = an empty building on its own lot, $25,000. BUILD is in the top bar on every screen and opens a Mad-Games-Tycoon-2-style window: ROOMS (drag a rectangle; your per-type permit + floor price) and OBJECTS (the ring $18,000, whole training zones, and since today single pieces of training equipment one at a time - R turns, drag moves, Delete sells).
+- Rooms are drawn EMPTY (MGT2) and work once their KEY ITEM stands in them. Only one key item does something today: the reception's Front Desk Counter ($800) opens member sign-ups. The other key items are bought and placed but DO NOTHING:
+  Office -> Management PC Desk ($750); Locker Room -> 4-Tier Metal Locker ($620); Physio -> Treatment Table ($1,400, room unlocks at 2 fighters signed); Equipment Storage -> Heavy Duty Shelving ($380, unlocks at the first broken machine).
+- Income/members come only from what is built (empty gym = $0/wk); rent grows during the year (your proposal, approved).
+
+QUESTIONS (answer each with exact numbers and the reason; benchmark real gyms, Two Point Museum/Hospital and Mad Games Tycoon 2 - say which game a rule comes from):
+
+1. WHAT EACH KEY ITEM SWITCHES ON. For the Office PC, the Lockers, the Treatment Table and the Shelving: what does the player LOSE until it stands, and what does it switch on the moment it does? (Example of the shape we want: "no PC = no fight offers reach you; PC = offers + mail + the booking screen".) Keep each to one clear rule a player can learn in one click. Should any of them gate something the player already uses at minute 0 (fight booking, hiring staff, scouting)? If yes, how do we stop a brand-new player from being stuck?
+
+2. EACH ROOM'S OTHER ITEMS (beyond the key item). For Reception, Office, Locker Room, Physio, Storage: list 3-6 more buyable items each - name, price, footprint in metres (w x d), and the ONE number it changes (member pull, comfort/gym score, member cap, injury recovery %, staff efficiency, upkeep). Include comfort/decor items (plants, posters, vending machine, water cooler, trophy cabinet, benches) and where each may stand (which room, or the training floor).
+
+3. MORE OF THE SAME ITEM. Does a second locker bank / second treatment table / second PC do anything (capacity per item), and where does it stop paying (diminishing returns)?
+
+4. ROOM SIZE. Does a bigger room do more (MGT2: bigger room = more workers fit; Two Point: room size sets item slots)? Give the rule per room type, or say size only matters for fitting items.
+
+5. THE HEAVY BAG MOUNT. A single heavy bag bought on its own now stands mid-floor hanging from nothing. Real gyms hang bags from a ceiling beam, a wall bracket or a free-standing frame. Which do we sell: (a) the bag comes with its own free-standing frame (price + footprint), (b) bags need a beam/wall bracket you buy first, (c) bags may only go along a wall? Same question for the speed bag and double-end bag.
+
+6. ORDER OF THE FIRST HOUR with these rules: what does a good first 10 minutes of building look like on $25,000 (which rooms, which items, what is left in the bank), and what is the most common mistake a new player will make?
+
+Please end with a table: item | room | price | footprint | effect (number) | source game/real gym.

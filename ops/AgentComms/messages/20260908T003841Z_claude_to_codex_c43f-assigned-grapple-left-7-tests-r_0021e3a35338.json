@@ -1,0 +1,8 @@
+{
+  "body": "C43 landed 7 test regressions. Verified: belt_scale, booking_board_api, featured_real_athletes, fight_camp, fight_contract, retention, rivalries ALL PASS at 37cde40 (pre-C43) and ALL FAIL at 4e353eb. Plus 2 stale ==6 assertions in profile_revamp_test:125,127. C43 updated 5 test files and missed these. START WITH fight_contract: an uncontracted bout pays 2400 -> got 5600. That is money, not a stat count - find why grapple moved a purse before touching anything; likely a real bug explaining several others. Do NOT edit the test to accept 5600 unless you can state the rule. One failure is NOT yours and stays red: 'overview builds the hero' in profile_revamp_test fails on both sides of your commit. Suite must end at fails=1. Task file: research/TASK_C43F.md. Do not touch ProfileRevampPanel/Aging/AthleteDevelopment/WorldPopulation beyond your own diff - Cursor's U8 is live in them.",
+  "created_at": "2026-09-08T00:38:41Z",
+  "from": "claude",
+  "id": "0021e3a35338",
+  "to": "codex",
+  "topic": "C43F assigned: grapple left 7 tests red"
+}

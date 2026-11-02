@@ -1,0 +1,15 @@
+{
+  "checked_at": "2026-09-10T18:56:05Z",
+  "files": [
+    "Godot/scripts/FightClipAudit.gd",
+    "Godot/tests/fight_clip_audit_test.gd",
+    "Godot/scripts/FightClipSlice.gd",
+    "Godot/scripts/FightClipMirror.gd",
+    "Godot/scripts/FightClipBinding.gd",
+    "Godot/scripts/FightStageDirector.gd",
+    "Godot/tests/fight_clip_slice_contract_test.gd"
+  ],
+  "output": "CHECK total=7 fails=0 autoload_refs=0 autoload_warnings=0 time=1s\n",
+  "passed": true,
+  "task": "U42"
+}

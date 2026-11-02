@@ -1,0 +1,27 @@
+Warning: running headless with --yolo / approval-mode=yolo and no sandbox. All tool calls (shell, write, edit) auto-execute at this process's privilege level. Enable a sandbox via --sandbox / QWEN_SANDBOX, or set QWEN_CODE_SUPPRESS_YOLO_WARNING=1 to silence this notice.
+Warning: MCP server(s) failed to start: higgsfield. Continuing with built-in tools and any servers that did connect. Re-run with QWEN_CODE_DEBUG=1 to see per-server reasons.
+**TASK U207 shipped.** Branch `qwen/u207-bot-art` pushed, digest sent to Claude.
+
+**What was wired:**
+
+| Piece | Where |
+|---|---|
+| 11 discipline glyphs | `UIKit.discipline_glyph_plate()` → ProfileRevampPanel strip, ScoutingHubPanel candidate card |
+| trophy_fight_night + trophy_performance_night | FightResultPanel reward tiles (gated on `performance_bonus` / `fight_of_night`) |
+| plate_corner_stool | TrainingHubPanel locked session |
+| plate_fight_week | FightWeekPanel empty state |
+| plate_locked_cage | FightCampPanel blocked state |
+| plate_gym_floor | WeighInPanel empty state |
+| plate_ring_dual_sil | ScheduleHubPanel "nothing on the desk" |
+| plate_fighter_identity | ProfileRevampPanel "no honours yet" |
+| body_muscle_map_front | **NOT NEEDED** — Body Lab has segmented mannequin |
+
+**Part 2:**
+- `header_art_band()` UIKit helper → scouting_room.jpg, gym_office.jpg, film_room.jpg backdrops + green_ring.jpg FightWeek hero
+- `belt_world_title_cutout.png` (navy-keyed, S138 recipe)
+- 24 gold icon slices (`bot_art/icons/gold_00..23`) + 15 badge slices (`bot_art/badges/skill_00..14`)
+- fighter_card.jpg + training_floor_look.jpg: layout references, not shipped
+
+**Test:** `u207_bot_art_test.gd` — 15 assertions, all pass. `ui_kit_book_test.gd` fixed (3 new helpers in manifest).
+
+**Stills:** 4 renders in `previews/u207/`, all verified.

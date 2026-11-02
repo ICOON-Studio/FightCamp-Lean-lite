@@ -1,0 +1,19 @@
+		## S153: a door's sign board reads whole - the physio and the staff room cut "THE TRAINING FLOOR" at the
+		## view's left edge ("AINING / OOR") before and after ROOMS2. All 8 corners of each board project inside.
+		var room_cam: Camera3D = room3d.get("camera")
+		var doors_root: Node = room3d.get_node_or_null("Doors")
+		if room_cam != null and doors_root != null and room_id != "floor":
+			var view: Vector2 = room_cam.get_viewport().get_visible_rect().size
+			for door in doors_root.get_children():
+				var board := door.get_node_or_null("SignBoard") as MeshInstance3D
+				if board == null:
+					continue
+				var aabb: AABB = board.global_transform * board.get_aabb()
+				var cut: Array = []
+				for corner_i in 8:
+					var corner: Vector3 = aabb.get_endpoint(corner_i)
+					var at: Vector2 = room_cam.unproject_position(corner)
+					if room_cam.is_position_behind(corner) or at.x < 0.0 or at.y < 0.0 or at.x > view.x or at.y > view.y:
+						cut.append(str(at.round()))
+				_check(cut.is_empty(), "%s: the '%s' door sign is whole inside the %s view (%d corners out: %s)"
+					% [room_id, door.name, str(view), cut.size(), ", ".join(cut)])

@@ -1,0 +1,4 @@
+Warning: running headless with --yolo / approval-mode=yolo and no sandbox. All tool calls (shell, write, edit) auto-execute at this process's privilege level. Enable a sandbox via --sandbox / QWEN_SANDBOX, or set QWEN_CODE_SUPPRESS_YOLO_WARNING=1 to silence this notice.
+Hunt 2 completed. It found a pattern I didn't cover: **tautological determinism tests** — `cardio_test.gd:279-285`, `coach_rapport_test.gd:60`, `arena_fit_test.gd:133-141` all call the same pure function twice with identical arguments and assert the results match. These cannot fail for pure static functions and provide zero coverage beyond proving the function has no hidden mutable state.
+
+All low-severity, and the census already captures the worst gates (U124's overlap test, weight-cut fixture). The full census is committed and pushed on `qwen/q127-census`.

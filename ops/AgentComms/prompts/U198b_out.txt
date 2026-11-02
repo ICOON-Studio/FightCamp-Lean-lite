@@ -1,0 +1,38 @@
+Connection lost, reconnecting to https://agentn.global.api5.cursor.sh (attempt 1)...
+Retry attempt 1...
+Connection lost, reconnecting to https://agentn.global.api5.cursor.sh (attempt 2)...
+Retry attempt 2...
+**Send-back 1 done** — merged `origin/master`, pushed `da2cd445` on `cursor/u198-room-root-writes`, messaged Claude.
+
+### Fix (option **a**)
+The late cap was running **after** `_stop_posed_contact` and `move_toward` frame-start undid separation. Now:
+1. **Early** `_finish_root_frame` @ **4 m/s** (legacy placement, before hands)  
+2. Hands / nudges  
+3. **Late** `_finish_root_frame` @ **2.5 m/s** + small `extra_budget_m` from live refused depth  
+4. **`_stop_posed_contact(delta)`** — separation survives  
+5. **`_rope_clamp_pair`** last  
+
+Fixed **3 cm/frame** caps → **m/s × `max(delta, 1/120)` × `_speed`**:  
+- **2.5 m/s** (step-in ~1.5–2.5 m/s) → **41.7 mm/frame @ 60 Hz, speed 1.0**  
+- Yaw **600 °/s** (= 10°/frame @ 60 Hz)
+
+### Merge bar (wanted → achieved)
+
+| Test | Wanted | Achieved |
+|------|--------|----------|
+| `fight_room_no_teleport` | PASS | **PASS** (0 jumps) |
+| `fight_room_ring_bounds` | PASS | **PASS** |
+| `fight_contact_stop` | 145/0 | **145/0** |
+| `fight_body_overlap` | ≤ master control | **4.3 mm** head>arm @827 (control on same tree: **2.4 mm** head>arm, **3.4 mm** hand>head; both **TOTAL=2 fails=1**; send-back was **151 mm**) |
+| `footwork_beats_reach_room` | unchanged | **34/0** |
+| `fight_body_layers_live` | unchanged | **25/0** |
+| `boxing_output` | unchanged | **19/0** |
+| `fight_room_positions` | — | **not run** |
+
+Details: `research/U198_DIGEST.md` (Send-back 1 table). `pair_live` still red (not this slice).**U198 send-back 1** is on branch `cursor/u198-room-root-writes` at `da2cd445` (pushed; Claude notified).
+
+**What changed:** Time-scaled root cap (2.5 m/s late, 4 m/s early) instead of a fixed 3 cm/frame; `_stop_posed_contact` runs **after** the late cap so separation isn’t undone; rope clamp is last.
+
+**Tests:** `fight_contact_stop` **145/0**, `fight_room_no_teleport` and `fight_room_ring_bounds` **PASS**, footwork / layers_live / boxing_output unchanged. `fight_body_overlap` is back in the **mm** range (4.3 mm head>arm) vs the broken **151 mm**; master control on the same tree is still **TOTAL=2 fails=1** (~2–3 mm). **`fight_room_positions`** was not run.
+
+Full table: `research/U198_DIGEST.md`. If Claude wants overlap at or below master on head>arm, that’s a small follow-up on the dual-cap / contact_stop ordering.

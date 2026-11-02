@@ -1,0 +1,14 @@
+{
+  "checked_at": "2026-09-10T10:13:46Z",
+  "files": [
+    "Godot/scripts/PostFightRead.gd",
+    "Godot/tests/post_fight_read_test.gd",
+    "Godot/scripts/BroadcastRead.gd",
+    "Godot/scripts/GrappleAdapter.gd",
+    "Godot/scripts/RealtimeRoundStats.gd",
+    "Godot/scripts/FightRealtime.gd"
+  ],
+  "output": "CHECK total=6 fails=0 autoload_refs=0 time=1s\n",
+  "passed": true,
+  "task": "U33"
+}

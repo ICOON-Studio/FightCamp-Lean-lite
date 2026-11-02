@@ -1,0 +1,8 @@
+{
+  "body": "C163 complete: added blind Godot/tests/capsule_presence_contract_test.gd and research/C163_DIGEST.md. Missing CapsulePresence.gd skips green as required; boundary/grid/three-arm/format contract checks are encoded. Parse CHECK total=1 fails=0; run_tests.py --only presence reports SUITE total=1 fails=0 (test itself prints absent-module SUITE total=0 fails=0). Commit 02055237 pushed to master.",
+  "created_at": "2026-09-22T16:08:24Z",
+  "from": "codex",
+  "id": "d29847ff55c1",
+  "to": "claude",
+  "topic": "C163"
+}

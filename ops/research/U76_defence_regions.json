@@ -1,0 +1,1773 @@
+{
+  "rows": [
+    {
+      "id": "arnis_roof_block",
+      "discipline": "arnis",
+      "phases": [
+        "weapon_standing"
+      ],
+      "effects": {
+        "block": 12,
+        "counter_open": 7
+      },
+      "answers": [
+        "head"
+      ],
+      "confidence": "high",
+      "reason": "raises a roof block overhead to meet descending weapon strikes"
+    },
+    {
+      "id": "boxing_block_elbow",
+      "discipline": "boxing",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "block": 8,
+        "coverage": 6
+      },
+      "answers": [
+        "head",
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "forearm and elbow turn aside punches aimed at the head or torso"
+    },
+    {
+      "id": "boxing_bob_weave",
+      "discipline": "boxing",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "evasion": 9,
+        "entry_open": 6
+      },
+      "answers": [
+        "head"
+      ],
+      "confidence": "high",
+      "reason": "drops the head under hooks and weaves off the punch line"
+    },
+    {
+      "id": "boxing_breathing_rhythm",
+      "discipline": "boxing",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "rhythm": 6,
+        "timing": 5
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "medium",
+      "reason": "breathing and timing read make every incoming strike harder to land"
+    },
+    {
+      "id": "boxing_catch",
+      "discipline": "boxing",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "block": 6,
+        "guard": 5
+      },
+      "answers": [
+        "head"
+      ],
+      "confidence": "high",
+      "reason": "traps and deadens a jab before it reaches the head"
+    },
+    {
+      "id": "boxing_forearm_frame",
+      "discipline": "boxing",
+      "phases": [
+        "clinch"
+      ],
+      "effects": {
+        "clinch_control": 8,
+        "block": 6
+      },
+      "answers": [
+        "head",
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "sets forearms across the clinch to frame off punches to head and body"
+    },
+    {
+      "id": "boxing_long_guard",
+      "discipline": "boxing",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "guard": 8,
+        "range_control": 7
+      },
+      "answers": [
+        "head",
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "extended arms intercept straight shots to the head and long body punches"
+    },
+    {
+      "id": "boxing_parry",
+      "discipline": "boxing",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "block": 7,
+        "counter_open": 5
+      },
+      "answers": [
+        "head"
+      ],
+      "confidence": "high",
+      "reason": "redirects a hand punch off the head line with an open-hand parry"
+    },
+    {
+      "id": "boxing_pivot_out",
+      "discipline": "boxing",
+      "phases": [
+        "clinch"
+      ],
+      "effects": {
+        "angle_exit": 8,
+        "clinch_control": 6,
+        "mobility": 6
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "medium",
+      "reason": "pivots out of clinch contact so strikes at any height miss as range opens"
+    },
+    {
+      "id": "boxing_pull",
+      "discipline": "boxing",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "evasion": 7,
+        "counter_open": 6
+      },
+      "answers": [
+        "head"
+      ],
+      "confidence": "high",
+      "reason": "pulls the head straight back from a reaching punch"
+    },
+    {
+      "id": "boxing_roll",
+      "discipline": "boxing",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "evasion": 8,
+        "angle_exit": 6
+      },
+      "answers": [
+        "head",
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "rolls under hooks aimed at the head or midline body"
+    },
+    {
+      "id": "boxing_rope_work",
+      "discipline": "boxing",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "evasion": 7,
+        "boundary_control": 6,
+        "guard": 6
+      },
+      "answers": [
+        "head",
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "uses rope bounce and guard to slip head shots and lean off body blows"
+    },
+    {
+      "id": "boxing_shoulder_roll",
+      "discipline": "boxing",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "evasion": 9,
+        "counter_open": 7
+      },
+      "answers": [
+        "head"
+      ],
+      "confidence": "high",
+      "reason": "rolls the shoulder over a punch line to the head"
+    },
+    {
+      "id": "boxing_slip",
+      "discipline": "boxing",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "evasion": 8,
+        "counter_open": 5
+      },
+      "answers": [
+        "head"
+      ],
+      "confidence": "high",
+      "reason": "moves the head off the line of a straight punch"
+    },
+    {
+      "id": "boxing_stance_guard",
+      "discipline": "boxing",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "guard": 8,
+        "coverage": 6
+      },
+      "answers": [
+        "head",
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "high guard covers the head and forearms shield the torso"
+    },
+    {
+      "id": "capoeira_esquiva",
+      "discipline": "capoeira",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "evasion": 9,
+        "counter_open": 5
+      },
+      "answers": [
+        "head",
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "lateral body dodge takes head and torso off the attack line"
+    },
+    {
+      "id": "capoeira_esquiva_read",
+      "discipline": "capoeira",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "evasion": 9,
+        "counter_ready": 6
+      },
+      "answers": [
+        "head",
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "reads and flows through esquiva to dodge head and body strikes"
+    },
+    {
+      "id": "capoeira_ginga",
+      "discipline": "capoeira",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "rhythm": 7,
+        "evasion": 5
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "medium",
+      "reason": "swaying rhythm and footwork make strikes at any height harder to time"
+    },
+    {
+      "id": "karate_ageuke",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 7,
+        "counter_open": 3
+      },
+      "answers": [
+        "head"
+      ],
+      "confidence": "high",
+      "reason": "rising forearm block meets attacks to the head"
+    },
+    {
+      "id": "karate_ayumiashi",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "walking stance and distance read keep all strike heights out of range"
+    },
+    {
+      "id": "karate_chudansoeteuke",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 11,
+        "counter_open": 5
+      },
+      "answers": [
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "chudan augmented block covers the midline torso"
+    },
+    {
+      "id": "karate_empiuke",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 9,
+        "counter_open": 4
+      },
+      "answers": [
+        "head",
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "elbow block turns aside close-range head and body strikes"
+    },
+    {
+      "id": "karate_fudodachi",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "rooted stance and maai read deny strikes at every height"
+    },
+    {
+      "id": "karate_gankakudachi",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "crane stance and distance control keep all lines out of reach"
+    },
+    {
+      "id": "karate_gedanbarai",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 7,
+        "counter_open": 3
+      },
+      "answers": [
+        "leg",
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "downward sweep block clears low kicks and low body shots"
+    },
+    {
+      "id": "karate_gedanjujiuke",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 9,
+        "counter_open": 4
+      },
+      "answers": [
+        "leg",
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "low cross block meets kicks and strikes to the legs and lower torso"
+    },
+    {
+      "id": "karate_gedanmorotebarai",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 9,
+        "counter_open": 4
+      },
+      "answers": [
+        "leg",
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "augmented low sweep blocks leg kicks and gedan attacks"
+    },
+    {
+      "id": "karate_hachijidachi",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "natural stance and footwork read keep every strike height out of range"
+    },
+    {
+      "id": "karate_haishuuke",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 9,
+        "counter_open": 4
+      },
+      "answers": [
+        "head"
+      ],
+      "confidence": "high",
+      "reason": "back-of-hand block deflects head-level strikes"
+    },
+    {
+      "id": "karate_haiwanuke",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 9,
+        "counter_open": 4
+      },
+      "answers": [
+        "head"
+      ],
+      "confidence": "high",
+      "reason": "back-forearm block turns aside jodan attacks to the head"
+    },
+    {
+      "id": "karate_hangetsudachi",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "half-moon stance and distance read cover all strike heights"
+    },
+    {
+      "id": "karate_heikodachi",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "parallel stance and maai deny strikes at head, body and leg"
+    },
+    {
+      "id": "karate_heisokudachi",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "feet-together stance read keeps every incoming height out of range"
+    },
+    {
+      "id": "karate_hikiashi",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "pulling step changes distance so strikes at any height fall short"
+    },
+    {
+      "id": "karate_iaigoshidachi",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "low squat stance and distance read deny all strike lines"
+    },
+    {
+      "id": "karate_jodanjujiuke",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 9,
+        "counter_open": 4
+      },
+      "answers": [
+        "head"
+      ],
+      "confidence": "high",
+      "reason": "high cross block covers jodan attacks to the head"
+    },
+    {
+      "id": "karate_kaishoageuke",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 11,
+        "counter_open": 5
+      },
+      "answers": [
+        "head"
+      ],
+      "confidence": "high",
+      "reason": "open-hand rising block meets head-level strikes"
+    },
+    {
+      "id": "karate_kaishohaiwanuke",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 9,
+        "counter_open": 4
+      },
+      "answers": [
+        "head"
+      ],
+      "confidence": "high",
+      "reason": "open back-forearm block deflects jodan blows"
+    },
+    {
+      "id": "karate_kaishojujiuke",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 9,
+        "counter_open": 4
+      },
+      "answers": [
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "open-hand cross block covers the chudan midline"
+    },
+    {
+      "id": "karate_kakiwakeuke",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 9,
+        "counter_open": 4
+      },
+      "answers": [
+        "head",
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "wedge block splits and redirects head and body strikes"
+    },
+    {
+      "id": "karate_kamae",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "fighting posture and maai control keep all heights out of range"
+    },
+    {
+      "id": "karate_kibadachi",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "horse stance and distance read deny strikes at every height"
+    },
+    {
+      "id": "karate_kokutsudachi",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "back stance and maai keep head, body and leg lines out of reach"
+    },
+    {
+      "id": "karate_kosadachi",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "cross stance and footwork read cover all strike heights"
+    },
+    {
+      "id": "karate_kosauke",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 9,
+        "counter_open": 4
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "medium",
+      "reason": "cross high-low block is built to cover jodan, chudan and gedan lines"
+    },
+    {
+      "id": "karate_maai_control",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "distance management makes every strike height harder to land"
+    },
+    {
+      "id": "karate_manjiuke",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 11,
+        "counter_open": 5
+      },
+      "answers": [
+        "head",
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "manji cross block covers head and midline body attacks"
+    },
+    {
+      "id": "karate_mawariashi",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "turning step read keeps strikes at all heights out of range"
+    },
+    {
+      "id": "karate_mawashiuke",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 13,
+        "counter_open": 6
+      },
+      "answers": [
+        "head",
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "circular block meets round kicks and hooks to head and body"
+    },
+    {
+      "id": "karate_morotetsukamiuke",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 13,
+        "counter_open": 6
+      },
+      "answers": [
+        "head",
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "grasping augmented block catches and redirects head and body strikes"
+    },
+    {
+      "id": "karate_moroteuke",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 9,
+        "counter_open": 4
+      },
+      "answers": [
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "augmented forearm block covers the chudan torso line"
+    },
+    {
+      "id": "karate_musubidachi",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "heels-together stance and distance read deny all strike heights"
+    },
+    {
+      "id": "karate_nagashiuke",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 11,
+        "counter_open": 5
+      },
+      "answers": [
+        "head",
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "flowing parry redirects linear head and body strikes"
+    },
+    {
+      "id": "karate_nekoashidachi",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "cat stance and maai keep every strike line out of reach"
+    },
+    {
+      "id": "karate_okuriashi",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "sliding step changes distance against strikes at any height"
+    },
+    {
+      "id": "karate_osaeuke",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 9,
+        "counter_open": 4
+      },
+      "answers": [
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "pressing block drives down on a midline body strike"
+    },
+    {
+      "id": "karate_otoshiuke",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 9,
+        "counter_open": 4
+      },
+      "answers": [
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "dropping block meets a downward body-level attack"
+    },
+    {
+      "id": "karate_renojidachi",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "L-stance and distance read cover all incoming heights"
+    },
+    {
+      "id": "karate_sagiashidachi",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "one-legged stance read denies strikes at every height"
+    },
+    {
+      "id": "karate_sanchindachi",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "hourglass stance and rooted read keep all lines out of range"
+    },
+    {
+      "id": "karate_shizentai",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "natural ready posture and maai deny strikes at any height"
+    },
+    {
+      "id": "karate_shutoageuke",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 11,
+        "counter_open": 5
+      },
+      "answers": [
+        "head"
+      ],
+      "confidence": "high",
+      "reason": "knife-hand rising block meets jodan head attacks"
+    },
+    {
+      "id": "karate_shutogedanbarai",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 11,
+        "counter_open": 5
+      },
+      "answers": [
+        "leg",
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "knife-hand low sweep blocks leg kicks and gedan strikes"
+    },
+    {
+      "id": "karate_shutomawashiuke",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 13,
+        "counter_open": 6
+      },
+      "answers": [
+        "head",
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "circular knife-hand block turns round head and body blows"
+    },
+    {
+      "id": "karate_shutouke",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 7,
+        "counter_open": 3
+      },
+      "answers": [
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "knife-hand block covers the chudan midline"
+    },
+    {
+      "id": "karate_sochindachi",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "immovable stance and distance read deny all strike heights"
+    },
+    {
+      "id": "karate_sotouke",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 7,
+        "counter_open": 3
+      },
+      "answers": [
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "outside forearm block covers chudan body attacks"
+    },
+    {
+      "id": "karate_sukuiuke",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 11,
+        "counter_open": 5
+      },
+      "answers": [
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "scooping block catches low kicks aimed at the legs"
+    },
+    {
+      "id": "karate_suriashi",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "gliding footwork read keeps every strike height out of range"
+    },
+    {
+      "id": "karate_taisabaki",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "body shifting off the line denies head, body and leg strikes"
+    },
+    {
+      "id": "karate_tateshutouke",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 11,
+        "counter_open": 5
+      },
+      "answers": [
+        "head",
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "vertical knife-hand block covers head and torso lines"
+    },
+    {
+      "id": "karate_teijidachi",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "T-stance and maai read keep all heights out of reach"
+    },
+    {
+      "id": "karate_teishoawaseuke",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 13,
+        "counter_open": 6
+      },
+      "answers": [
+        "head",
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "double palm-heel block meets head and body strikes"
+    },
+    {
+      "id": "karate_teishouke",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 11,
+        "counter_open": 5
+      },
+      "answers": [
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "palm-heel block covers chudan body attacks"
+    },
+    {
+      "id": "karate_tenshin",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "pivoting body shift takes every strike height off the line"
+    },
+    {
+      "id": "karate_teosaeuke",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 9,
+        "counter_open": 4
+      },
+      "answers": [
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "pressing palm block smothers a body-level strike"
+    },
+    {
+      "id": "karate_tsugiashi",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "follow step changes distance against strikes at any height"
+    },
+    {
+      "id": "karate_tsukiuke",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 11,
+        "counter_open": 5
+      },
+      "answers": [
+        "head"
+      ],
+      "confidence": "high",
+      "reason": "punch block intercepts tsuki aimed at the head"
+    },
+    {
+      "id": "karate_tsuruashidachi",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "crane-foot stance and maai deny all strike lines"
+    },
+    {
+      "id": "karate_uchihachijidachi",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "inward natural stance read covers every strike height"
+    },
+    {
+      "id": "karate_uchiuke",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 7,
+        "counter_open": 3
+      },
+      "answers": [
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "inside forearm block covers chudan body attacks"
+    },
+    {
+      "id": "karate_udebarai",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 9,
+        "counter_open": 4
+      },
+      "answers": [
+        "head",
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "forearm sweep clears circular head and body blows"
+    },
+    {
+      "id": "karate_ushirogedanbarai",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "coverage": 11,
+        "counter_open": 5
+      },
+      "answers": [
+        "leg",
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "rear low sweep block meets leg kicks and gedan attacks from behind"
+    },
+    {
+      "id": "karate_yoriashi",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "lunge step closes or opens distance against any strike height"
+    },
+    {
+      "id": "karate_zenkutsudachi",
+      "discipline": "karate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "distance_read": 5,
+        "mobility": 4
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "forward stance and maai read deny strikes at every height"
+    },
+    {
+      "id": "kickboxing_guard",
+      "discipline": "kickboxing",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "guard": 8,
+        "check_readiness": 6
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "kickboxing guard and check readiness cover head, body and leg threats"
+    },
+    {
+      "id": "kickboxing_kick_check",
+      "discipline": "kickboxing",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "low_kick_defense": 9,
+        "block": 6
+      },
+      "answers": [
+        "leg",
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "lifts the shin to meet low and body kicks on the leg line"
+    },
+    {
+      "id": "kickboxing_teep_stop",
+      "discipline": "kickboxing",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "range_control": 8,
+        "opponent_mobility": -6
+      },
+      "answers": [
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "push-kick stop intercepts a teep aimed at the torso"
+    },
+    {
+      "id": "muay_thai_catch_kick",
+      "discipline": "muay_thai",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "guard": 7,
+        "sweep": 5
+      },
+      "answers": [
+        "leg",
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "grabs an incoming kick at the shin or thigh before it lands"
+    },
+    {
+      "id": "muay_thai_cross_arm_block",
+      "discipline": "muay_thai",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "guard": 9,
+        "body_damage": 4
+      },
+      "answers": [
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "crossed forearms shield the torso from body kicks and knees"
+    },
+    {
+      "id": "muay_thai_head_block",
+      "discipline": "muay_thai",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "guard": 8,
+        "block": 5
+      },
+      "answers": [
+        "head"
+      ],
+      "confidence": "high",
+      "reason": "forearms clamp over the head against head kicks and punches"
+    },
+    {
+      "id": "muay_thai_pull_back",
+      "discipline": "muay_thai",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "evasion": 7,
+        "range_control": 5
+      },
+      "answers": [
+        "head",
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "leans the upper body back from head and long body strikes"
+    },
+    {
+      "id": "muay_thai_shin_check",
+      "discipline": "muay_thai",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "guard": 7,
+        "block": 6
+      },
+      "answers": [
+        "leg",
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "raises the shin to check low and body kicks"
+    },
+    {
+      "id": "muay_thai_slip",
+      "discipline": "muay_thai",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "evasion": 8,
+        "angle_exit": 5
+      },
+      "answers": [
+        "head"
+      ],
+      "confidence": "high",
+      "reason": "slips the head off the line of a punch or kick to the head"
+    },
+    {
+      "id": "muay_thai_stance",
+      "discipline": "muay_thai",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "guard": 7,
+        "check_readiness": 6
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "muay thai guard and check readiness answer head, body and leg strikes"
+    },
+    {
+      "id": "muay_thai_teep_defense",
+      "discipline": "muay_thai",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "range_control": 8,
+        "guard": 6
+      },
+      "answers": [
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "long guard and teep intercept push kicks to the midline body"
+    },
+    {
+      "id": "sanda_lead_slip_defense",
+      "discipline": "sanda",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "evasion": 8,
+        "angle_exit": 5
+      },
+      "answers": [
+        "head"
+      ],
+      "confidence": "high",
+      "reason": "slips and circles the head off straight punch lines"
+    },
+    {
+      "id": "sanda_stance",
+      "discipline": "sanda",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "mobility": 6,
+        "boundary_control": 6
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "medium",
+      "reason": "platform-aware stance and mobility make every strike height harder to land"
+    },
+    {
+      "id": "savate_garde",
+      "discipline": "savate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "mobility": 7,
+        "distance_read": 5
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "garde and footwork keep punches and kicks at all heights out of range"
+    },
+    {
+      "id": "savate_lowline_read",
+      "discipline": "savate",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "low_kick_defense": 9,
+        "distance_read": 6
+      },
+      "answers": [
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "reads and lifts the lead leg against low-line kicks"
+    },
+    {
+      "id": "silat_pasang",
+      "discipline": "pencak_silat",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "guard": 7,
+        "counter_ready": 5
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "high",
+      "reason": "pasang guard posture covers head, body and leg threats"
+    },
+    {
+      "id": "taekwondo_push_kick_manage",
+      "discipline": "taekwondo",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "range_control": 8,
+        "opponent_mobility": -5
+      },
+      "answers": [
+        "body"
+      ],
+      "confidence": "high",
+      "reason": "manages distance with a push kick to stop body-level advances"
+    },
+    {
+      "id": "tkd_stance",
+      "discipline": "taekwondo",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "mobility": 7,
+        "kick_ready": 5
+      },
+      "answers": [
+        "head",
+        "body",
+        "leg"
+      ],
+      "confidence": "medium",
+      "reason": "kyorugi bounce stance keeps kicks and punches at every height off balance"
+    }
+  ],
+  "summary": {
+    "nodes": 103,
+    "head": 79,
+    "body": 83,
+    "leg": 52,
+    "all_regions": 42
+  },
+  "recommend": "a"
+}

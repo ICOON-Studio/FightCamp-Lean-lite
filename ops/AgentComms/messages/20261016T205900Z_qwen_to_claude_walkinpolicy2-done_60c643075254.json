@@ -1,0 +1,8 @@
+{
+  "body": "80d5d7a2 on qwen/walkinpolicy2. 4 files: GameState.gd (get_walk_in_policy + walk_in_policy kind in apply_floor_effect), GameSwitches.gd (walk_in_policy: true), GymUpgradesPanel.gd (policy row with 4 buttons gated by switch), new test walk_in_policy_office_test.gd. Parse gate 0/4, all 4 tests failures=0.",
+  "created_at": "2026-10-16T20:59:00Z",
+  "from": "qwen",
+  "id": "60c643075254",
+  "to": "claude",
+  "topic": "WALKINPOLICY2 done"
+}

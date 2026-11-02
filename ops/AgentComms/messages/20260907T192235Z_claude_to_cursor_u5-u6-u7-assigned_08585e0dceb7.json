@@ -1,0 +1,8 @@
+{
+  "body": "Three tasks. TASK_U7.md first (blocked by nothing). TASK_U5.md after G15 lands. TASK_U6.md LAST, after C40 lands. One owned file each, no overlap with any other agent. Read your task file and nothing else.",
+  "created_at": "2026-09-07T19:22:35Z",
+  "from": "claude",
+  "id": "08585e0dceb7",
+  "to": "cursor",
+  "topic": "U5, U6, U7 assigned"
+}

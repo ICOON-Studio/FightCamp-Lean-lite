@@ -1,0 +1,272 @@
+
+FIGHTCAMP — BOXER PROFILE OVERVIEW TAB SPECIFICATION
+
+Document ID: SPEC-UI-PROF-11ATTR-R01
+
+Target Canvas: $1920 \times 1080$
+
+Scope: Left Attributes Panel ($540\text{ px}$), Center Radar Panel ($420\text{ px}$), and Global Derived Tokens
+
+Reference Asset: Boxer Profile Screen — Kian Sterling ("IRONSIDE", Middleweight $2\text{-}2\text{-}0$)
+
+1. GROUPS, ROW ORDER & GROUP HEADER SPECIFICATION
+
+The 11 attributes are organized into three thematic, biomechanically cohesive groups: PHYSICAL (4), TECHNICAL (4), and MENTAL / RESILIENCE (3).
+
++-----------------------------------------------------------------------------+
+| ATTRIBUTES - BASE / FIGHT-READY / CEILING                     [INFO ICON (?)]|
++-----------------------------------------------------------------------------+
+| -- PHYSICAL --------------------------------------------------------------- |
+| HAND SPEED                                                                  |
+| FOOTWORK                                                                    |
+| POWER                                                                       |
+| CONDITIONING                                                                |
+| -- TECHNICAL -------------------------------------------------------------- |
+| TECHNIQUE                                                                   |
+| GUARD                                                                       |
+| HEAD MOVEMENT                                                               |
+| FIGHT IQ                                                                    |
+| -- MENTAL & RESILIENCE ---------------------------------------------------- |
+| COMPOSURE                                                                   |
+| RECOVERY                                                                    |
+| CHIN (INNATE)                                                               |
++-----------------------------------------------------------------------------+
+
+Ordering Justification
+PHYSICAL: The raw kinetic engine of the athlete (fist speed, ring mobility, force production, fuel tank).
+TECHNICAL: The pugilistic craft (offensive precision, arm defense, cervical slips, tactical chess).
+MENTAL & RESILIENCE: Neurological and biological survivability (emotional stability, aerobic/lactic reset velocity, structural skull trauma tolerance).
+Group Header Visual Style
+Container Bounds: Width = $508\text{ px}$ (inset $16\text{ px}$ on left/right of the $540\text{ px}$ card), Height = $16\text{ px}$.
+Background: Transparent (no fill).
+Typography:
+Font: JetBrains Mono or Roboto Mono Semi-Bold.
+Size: $9\text{ pt}$ ($12\text{ px}$ line height).
+Letter Spacing: $+1.5\text{ px}$ (all-caps tracking).
+Color: #6B7280 (Muted Warm Gray).
+Decorative Geometry: A $1\text{ px}$ horizontal line in #1F2937 extending from the right margin of the category text to the right border ($X = 524$).
+Left text offset: $X = 16\text{ px}$.
+Rule line starts at: $X = \text{TextWidth} + 24\text{ px}$, ends at $X = 524\text{ px}$, $Y = 8\text{ px}$ relative to header container.
+2. ATTRIBUTE LABELS & CODE ENUM MAPPING
+
+All labels are all-caps, concise, strictly $\le 13$ characters, with zero ambiguous abbreviations.
+
+$$\begin{array}{|l|l|c|l|}
+\hline
+\textbf{Attribute Internal Key} & \textbf{UI Label Display} & \textbf{Char Count} & \textbf{Category Group} \
+\hline
+\text{hand_speed} & \text{HAND SPEED} & 10 & \text{PHYSICAL} \
+\text{footwork} & \text{FOOTWORK} & 8 & \text{PHYSICAL} \
+\text{power} & \text{POWER} & 5 & \text{PHYSICAL} \
+\text{conditioning} & \text{CONDITIONING} & 12 & \text{PHYSICAL} \
+\hline
+\text{technique} & \text{TECHNIQUE} & 9 & \text{TECHNICAL} \
+\text{guard} & \text{GUARD} & 5 & \text{TECHNICAL} \
+\text{head_movement} & \text{HEAD MOVEMENT} & 13 & \text{TECHNICAL} \
+\text{fight_iq} & \text{FIGHT IQ} & 8 & \text{TECHNICAL} \
+\hline
+\text{composure} & \text{COMPOSURE} & 9 & \text{MENTAL & RESILIENCE} \
+\text{recovery} & \text{RECOVERY} & 8 & \text{MENTAL & RESILIENCE} \
+\text{chin} & \text{CHIN} & 4 & \text{MENTAL & RESILIENCE} \
+\hline
+\end{array}$$
+
+3. VERTICAL PIXEL BUDGET & ROW HEIGHT BUDGETING
+Today's Problem: Vertical Bankruptcy
+
+In the current screenshot, the panel displays 9 stat rows using:
+$$\text{STAT_ROW_HEIGHT} = 28\text{ px}, \quad \text{Vertical Gap} = 4\text{ px}$$
+Total allocated vertical block:
+$$9 \times 28\text{ px} + 8 \times 4\text{ px} = 284\text{ px}$$
+If we attempted to place 11 rows plus 3 group headers using the old dimensions:
+$$11 \times 28\text{ px} + 3 \times 16\text{ px} + 13 \times 4\text{ px} = 408\text{ px}$$
+This causes an overshoot of $+124\text{ px}$, pushing the DISCIPLINES - PROFICIENCY block and the GROWTH footer completely off the bottom edge of the panel ($Y > 840$).
+
+The Precise Pixel-Fitted Solution
++=============================================================================+ [Y = 328]
+| PANEL HEADER: "ATTRIBUTES - BASE / FIGHT-READY / CEILING"          (H: 26px)|
++-----------------------------------------------------------------------------+ [Y = 354]
+| PADDING-TOP                                                        (H:  6px)|
++-----------------------------------------------------------------------------+ [Y = 360]
+| GROUP HEADER 1: PHYSICAL                                           (H: 14px)| [Y: 360 - 374]
+| GAP                                                                (H:  2px)|
+| Row 01: HAND SPEED                                                 (H: 20px)| [Y: 376 - 396]
+| Row 02: FOOTWORK                                                   (H: 20px)| [Y: 398 - 418]
+| Row 03: POWER                                                      (H: 20px)| [Y: 420 - 440]
+| Row 04: CONDITIONING                                               (H: 20px)| [Y: 442 - 462]
++-----------------------------------------------------------------------------+ [Y = 464]
+| GROUP HEADER 2: TECHNICAL                                          (H: 14px)| [Y: 464 - 478]
+| GAP                                                                (H:  2px)|
+| Row 05: TECHNIQUE                                                  (H: 20px)| [Y: 480 - 500]
+| Row 06: GUARD                                                      (H: 20px)| [Y: 502 - 522]
+| Row 07: HEAD MOVEMENT                                              (H: 20px)| [Y: 524 - 544]
+| Row 08: FIGHT IQ                                                   (H: 20px)| [Y: 546 - 566]
++-----------------------------------------------------------------------------+ [Y = 568]
+| GROUP HEADER 3: MENTAL & RESILIENCE                                (H: 14px)| [Y: 568 - 582]
+| GAP                                                                (H:  2px)|
+| Row 09: COMPOSURE                                                  (H: 20px)| [Y: 584 - 604]
+| Row 10: RECOVERY                                                   (H: 20px)| [Y: 606 - 626]
+| Row 11: CHIN                                                       (H: 20px)| [Y: 628 - 648]
++-----------------------------------------------------------------------------+ [Y = 650]
+| INNER MARGIN TO DISCIPLINES SECTION                                (H:  6px)|
++=============================================================================+ [Y = 656]
+| DISCIPLINES - PROFICIENCY SECTION STARTS EXACTLY AT ORIGINAL Y = 656        |
++=============================================================================+
+
+Geometry & Dimensional Constants
+Row Height: $\mathbf{20\text{ px}}$ (reduced from $28\text{ px}$).
+Vertical Gap Between Rows: $\mathbf{2\text{ px}}$.
+Group Header Height: $\mathbf{14\text{ px}}$.
+Vertical Gap Above Group Header: $\mathbf{4\text{ px}}$.
+Vertical Budget Total: $$\text{Headers: } 3 \times 14\text{ px} = 42\text{ px}$$ $$\text{Rows: } 11 \times 20\text{ px} = 220\text{ px}$$ $$\text{Inter-Row Gaps: } 8 \times 2\text{ px} = 16\text{ px}$$ $$\text{Category Gaps: } 3 \times 4\text{ px} = 12\text{ px}$$ $$\text{Top/Bottom Inset Padding: } 6\text{ px} + 6\text{ px} = 12\text{ px}$$ $$\mathbf{\text{Grand Total Vertical Height}} = 42 + 220 + 16 + 12 + 12 = \mathbf{302\text{ px}}$$
+Verification: Today's 9 rows consumed $284\text{ px} + 18\text{ px}$ padding $= 302\text{ px}$. The layout fits into the existing container with zero displacement of the disciplines block.
+Horizontal Column Grid ($W = 508\text{ px}$ inside card)
+Col 1 (Label): $X = 16\text{ px} \dots 148\text{ px}$ ($W = 132\text{ px}$). Font: $10\text{ pt}$ Bold Mono (#D1D5DB). Text left-aligned.
+Col 2 (Triple-State Bar): $X = 152\text{ px} \dots 352\text{ px}$ ($W = 200\text{ px}$, Height $= 8\text{ px}$, vertically centered at $Y = 6\text{ px}$).
+Background / Track: Solid #1F242D ($W = 200\text{ px}$).
+Ceiling Track: #374151 from $0 \dots \text{CeilingVal} \times 2.0\text{ px}$.
+Base Bar: #38BDF8 (Sky Blue) from $0 \dots \text{BaseVal} \times 2.0\text{ px}$.
+Fight-Ready Delta Cap: #F59E0B (Amber) extending from $\text{BaseVal} \dots \text{FightReadyVal} \times 2.0\text{ px}$.
+Col 3 (Numeric Value): $X = 360\text{ px} \dots 388\text{ px}$ ($W = 28\text{ px}$). Font: $11\text{ pt}$ Heavy Monospace (#FFFFFF), right-aligned.
+Col 4 (Grade Badge): $X = 398\text{ px} \dots 418\text{ px}$ ($W = 20\text{ px}$, Height $= 16\text{ px}$, centered). Background: #1F2937, Border: $1\text{ px}$ #374151. Text: Letter grade (A+ to E), $9\text{ pt}$ Bold (#9CA3AF).
+Col 5 (Trend / Camp Delta Arrow): $X = 424\text{ px} \dots 436\text{ px}$ ($W = 12\text{ px}$). Glyph: ▲ (#10B981), ▼ (#EF4444), or — (#4B5563).
+4. CHIN VISUAL SPECIFICATION: INNATE & CONCUSSION WEAR
+
+The chin is an un-trainable biological constant that only degrades through concussive trauma.
+
+NORMAL ATTRIBUTE ROW (e.g. POWER):
+[ POWER        ] [======BASE======|==CAMP==|....CEILING....] [ 58 ] [ C+ ] [ ▲ ]
+
+CHIN ROW (PRISTINE / NO WEAR):
+[ CHIN (LOCK)  ] [=================PERMANENT INNATE========] [ 82 ] [ A- ] [ — ]
+
+CHIN ROW (POST-CONCUSSION WEAR):
+[ CHIN (LOCK)  ] [============REMAINING===|XX-5.5 LOST-XX|] [ 76 ] [ B+ ] [ ▼ ]
+
+Visual Rules for the Chin Row
+Lock Icon & Label:
+Text label: "CHIN". Directly adjacent at $X = 54\text{ px}$, render a $10 \times 10\text{ px}$ padlock glyph locked.svg in #9CA3AF.
+Tooltip suffix: "(Innate Genetic Trait)".
+Ceiling Bar Suppression:
+Chin has no future ceiling. It is biologically capped at its starting rolled value.
+Do not render the #374151 ceiling lead track.
+Pristine State Representation:
+The bar fill uses a distinct structural bone/silver color: #94A3B8 (Matte Silver/Bone Slate).
+Trend arrow column: Render a static dash — in #4B5563.
+Post-Concussion / Knockdown Loss State:
+When a fighter sustains a knockdown ($-1.5\text{ pts}$) or KO ($-4.0\text{ pts}$), the bar visually communicates the irreversible deficit:
+Remaining Chin Bar: Rendered in #94A3B8 from $0 \dots \text{CurrentChin} \times 2.0\text{ px}$.
+The Trauma Gap (Lost Chin): Rendered from $\text{CurrentChin} \times 2.0\text{ px} \dots \text{OriginalChin} \times 2.0\text{ px}$ using an oxblood crosshatch pattern (#7F1D1D background with $45^\circ$ diagonal stripes in #DC2626).
+Trend Indicator: Flashes a red down-arrow ▼ (#EF4444) with the delta float text (e.g., "-1.5" or "-5.5") for 14 in-game calendar days following the bout.
+5. SHAPE & FORM RADAR SPECIFICATION
+The Architecture Decision: The 5 Derived Fight Dimensions
+
+The radar must not attempt to display all 11 attributes. An 11-axis polygon produces an unreadable visual "starfish" where adjacent data points (such as technique and power) bleed together.
+
+Instead, the central radar is repurposed to display the 5 Canonical Derived Combat Pillars. This bridges the gap between gym attributes and in-ring fight mechanics:
+
+                         [ ACCURACY ] (Top: 90 deg)
+                             / \
+                            /   \
+                           /     \
+  [ EVASION ]             /       \             [ DAMAGE MITIGATION ]
+  (Upper Left: 162 deg)   \       /             (Upper Right: 18 deg)
+                           \     /
+                            \   /
+      [ TRAUMA THRESHOLD ]   \ /   [ KO LEVERAGE ]
+      (Lower Left: 234 deg)   V    (Lower Right: 306 deg)
+
+The 5 Axes & Underlying Engine Formulas
+
+$$\begin{array}{|l|c|l|l|}
+\hline
+\textbf{Radar Axis Label} & \textbf{Angle} & \textbf{Exact Math Formulation (0--100)} & \textbf{Tactical Meaning in Fight} \
+\hline
+\textbf{ACCURACY} & 90^\circ\text{ (Top)} & \text{technique} \times 0.60 + \text{fight_iq} \times 0.25 + \text{hand_speed} \times 0.15 & \text{Hit probability on targeted zones} \
+\textbf{DAMAGE MIT} & 18^\circ\text{ (Up-R)} & \text{guard} \times 0.65 + \text{composure} \times 0.20 + \text{technique} \times 0.15 & \text{Force reduction through arms/shell} \
+\textbf{KO LEVERAGE} & 306^\circ\text{ (Dn-R)} & \text{power} \times 0.70 + \text{technique} \times 0.30 & \text{Tissue damage and knockdown shock} \
+\textbf{TRAUMA THRESH} & 234^\circ\text{ (Dn-L)} & \text{chin} \times 0.60 + \text{composure} \times 0.25 + \text{conditioning} \times 0.15 & \text{Resistance to being rocked/stunned} \
+\textbf{EVASION} & 162^\circ\text{ (Up-L)} & \text{head_movement} \times 0.50 + \text{footwork} \times 0.35 + \text{fight_iq} \times 0.15 & \text{Clean-miss slip and pull rate} \
+\hline
+\end{array}$$
+
+Visual Styling of the Radar
+Center Coordinate: $X = 210\text{ px}, Y = 160\text{ px}$ relative to Radar Card.
+Radius: $R = 105\text{ px}$.
+Web Rings: 4 concentric pentagons at $25, 50, 75, 100$ value thresholds. Color: #262F3D ($1\text{ px}$ stroke).
+Polygon Fill: #E8B04B with alpha 0.22. Perimeter stroke: $2\text{ px}$ solid #E8B04B.
+Opponent / Division Average Overlay (Toggle): Ghosted polygon in #4B5563 (alpha 0.10) showing division top-10 median.
+6. COMPLETE TOOLTIP TEXT TABLE
+
+When hovering over any attribute row in the left panel, display a 2-line dark tooltip container ($W = 340\text{ px}$, Padding $= 10\text{ px}$, Background: #0B0E14, Border: $1\text{ px}$ #374151).
+
+$$\begin{array}{|l|l|l|}
+\hline
+\textbf{Attribute} & \textbf{Line 1: In-Fight Impact} & \textbf{Line 2: Gym Training Sources} \
+\hline
+\textbf{HAND SPEED} & \text{Reduces punch extension and retraction frames; snaps combinations.} & \text{Trained at: Speed Bag, Focus Mitts.} \
+\hline
+\textbf{FOOTWORK} & \text{Increases step velocity, pivot snap, and ring repositioning frequency.} & \text{Trained at: Agility Ladder, Jump Rope.} \
+\hline
+\textbf{POWER} & \text{Increases kinetic shock, hit-stun duration, and tissue trauma.} & \text{Trained at: Heavy Bag, Weights Station.} \
+\hline
+\textbf{CONDITIONING} & \text{Expands stamina pool; delays guard drop and footwork drag.} & \text{Trained at: Treadmill/Track, Stationary Bike.} \
+\hline
+\textbf{TECHNIQUE} & \text{Tightens punch trajectory, turns over knuckles, raises accuracy.} & \text{Trained at: Heavy Bag, Mirror Shadowbox.} \
+\hline
+\textbf{GUARD} & \text{Tightens forearm shell, seals elbow gaps, absorbs incoming force.} & \text{Trained at: Ring Sparring, Defence Drill.} \
+\hline
+\textbf{HEAD MOVEMENT} & \text{Drives slips, rolls, and duck angles to force clean whiffs.} & \text{Trained at: Slip Bag, Focus Mitts, Defence Drill.} \
+\hline
+\textbf{FIGHT IQ} & \text{Accelerates opponent habit reads; maintains optimal engagement range.} & \text{Trained at: Film Study, Ring Sparring.} \
+\hline
+\textbf{COMPOSURE} & \text{Suppresses trauma flinching; prevents panic when hurt or cornered.} & \text{Trained at: Ring Sparring, Recovery Station.} \
+\hline
+\textbf{RECOVERY} & \text{Accelerates heart rate and stamina reset between rounds on the stool.} & \text{Trained at: Recovery Station, Sports Physio.} \
+\hline
+\textbf{CHIN} & \text{Structural resistance to flash knockdowns and concussive KOs.} & \textbf{Innate: Cannot be trained. Degrades on KD/KO.} \
+\hline
+\end{array}$$
+
+7. PROFILE SCREEN REFACTOR & SECONDARY ELEMENTS
+
+To maintain visual cohesion across the entire Overview screen, update the following components:
+
++---------------------------------------------------------------------------------------------------+
+| PROFILE SCREEN REFACTOR AUDIT (1920x1080)                                                         |
+|                                                                                                   |
+| [1] REMOVE ALL MMA ARTIFACTS:                                                                     |
+|     - Delete "SUB", "O/D SUB", "TAKEDOWN DEF", "TOP CONTROL" tokens across all cards.             |
+|     - Replace record badge "0 SUB" with "0 PTS" (Decision wins/losses).                          |
+|                                                                                                   |
+| [2] RADAR FOOTER SUMMARY STRING:                                                                  |
+|     - OLD: "SPEED 45 - CLUB-LEVEL | DEFENSE 46 - CLUB-LEVEL"                                      |
+|     - NEW: "PHYSICAL: C+ (48) | TECHNICAL: C (44) | RESILIENCE: B- (62)"                          |
+|                                                                                                   |
+| [3] FIGHT PLAN SYNC:                                                                              |
+|     - Replace the "FIGHT PLAN" header stat-check with derived ACCURACY vs EVASION deltas.         |
++---------------------------------------------------------------------------------------------------+
+
+1. Radar Footer Text Replacement
+Current UI (Below Radar): "POWER 42 - CLUB-LEVEL | TECHNIQUE 45 - CLUB-LEVEL | SPEED 45 - CLUB-LEVEL | DEFENSE 46 - CLUB-LEVEL"
+Replaced With (Category Tier Summary): "PHYSICAL: 48 (C+)  |  TECHNICAL: 44 (C)  |  RESILIENCE: 62 (B-)"
+Each group score is the unweighted mean of its constituent attributes.
+2. Elimination of Grappling Data from Record Summary
+Location: Directly beneath the 2-2-0 record badge ($X = 640\text{ px}, Y = 244\text{ px}$).
+Old Text: "1 KO/TKO | 0 SUB | 1 DEC" and "LAST: 5R SUB LOSS".
+New Text: "1 KO/TKO | 0 DQ | 1 DEC" and "LAST: 5R UD LOSS". (All MMA submission references replaced with boxing outcomes: UD Unanimous Decision, MD Majority Decision, SD Split Decision).
+3. Growth Footer Metric Recalibration
+Location: Left panel bottom footer ($X = 16\text{ px}, Y = 712\text{ px}$).
+Old Text: "GROWTH - RATING 44 OF POTENTIAL 71 | HEADROOM 27"
+New Formula: Rating is now the composite mean of the 10 trained attributes (excluding chin, which is invariant to growth headroom): $$\text{FighterRating} = \frac{1}{10} \sum_{i=1}^{10} \text{TrainedAttribute}_i$$ $$\text{GrowthHeadroom} = \text{GeneticPotentialCeiling} - \text{FighterRating}$$
+PROGRAMMER IMPLEMENTATION CHECKLIST
+[ ] Instantiate AttributeRow.tscn 11 times within AttributesContainer (VBoxContainer).
+[ ] Set custom_minimum_size = Vector2(508, 20) on each row.
+[ ] Insert category separator nodes at indices 0, 5, and 10 with height 14px.
+[ ] In ChinRowController.gd, hide the CeilingBar node and hook up TraumaDeficitRect to the concussion_loss signal.
+[ ] Rebuild PentagonRadar.gd to sample the 5 derived engine attributes instead of legacy raw stats.
+[ ] Replace radar bottom label string formatting in OverviewTab.gd with the new 3-category average parser.
+Can you provide the exact Godot scene tree and GDScript for implementing the 11-row attribute panel?
+Can you create a wireframe image of the redesigned boxer profile Overview tab at 1920×1080?
+How should the five derived radar metrics be calculated from the 11 attributes and displayed numerically?
+Can you generate a polished UI mockup showing innate Chin, post-knockdown Chin Loss, tooltips, and updated radar labels?

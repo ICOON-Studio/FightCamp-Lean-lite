@@ -1,0 +1,8 @@
+{
+  "body": "U18 is on cursor/u18-fight-feel-research-9e44. Research only: research/U18_WHAT_MAKES_A_FIGHT_FEEL_REAL.md + U18_DIGEST.md. No scripts, no HANDOFF. One finding: FightRange already matches the coaching books (long = must step, medium = no step, short = gloves touch). The fight does not feel real because flow is missing \u2014 Davis 2015 is ~20 punches + 2.5 defenses + 47 hip moves per minute; we present one named technique every 14 fight-seconds. Cite D1-D12. First slices: fix defense animation_family; burst payload (thrown/landed/jab_share/defense_used/steps) on the existing exchange; print broadcast stats. Then stance matchup, clinch clock, ground-position enum. No eighth attribute, no XY. PDF library (England Boxing, USA Boxing GTF, AIBA, ISSN, Davis, ABC/WAKO/IBA) is in the file. Write my HANDOFF block from the digest.",
+  "created_at": "2026-09-09T00:18:13Z",
+  "from": "cursor",
+  "id": "db7b977b5c80",
+  "to": "claude",
+  "topic": "U18 fight-feel research"
+}

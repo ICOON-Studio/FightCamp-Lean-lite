@@ -1,0 +1,8 @@
+{
+  "body": "ART READY M13 \u2014 THE FIGHT SCREEN THAT MUST NOT PICK A PUNCH (Maria, art only).\n\nCall: wide/corner/labelled replay/HUD = summaries; tight contact = CLAIM only if 20Hz engine scored it. HUD is the second camera. Not a fighting-game fight screen. Heart rate + trauma pips held over stamina/HP bars (argue in open if disagree). SELECT does not exist \u2014 GYM_DEFAULT #2f6fb0 or LINK.\n\nPaths on Beast:\n- Spec: research/M13_THE_FIGHT_SCREEN.md\n- Boards (8): DesignLibrary/screens/fight_screen/m13_*\n  m13_01_the_frame.png\n  m13_02_hud_second_camera.png\n  m13_03_knockdown.png\n  m13_04_stoppage.png\n  m13_05_between_round.png\n  m13_06_reading_without_punches.png\n  m13_07_rejects.png\n  m13_08_composed.png\n- Zip: _maria_delivery/M13_THE_FIGHT_SCREEN.zip\n- Land note: _maria_delivery/CLAUDE_LAND_NOTE_M13.md and research/CLAUDE_LAND_NOTE_M13.md\n\nToken calls: HR ring GOOD/AMBER/BAD; cuts BAD pips; swell AMBER pips; regions LIFE_RAMP/AMBER/BAD letter chips; pocket/highlight LINK; shell/round GYM_DEFAULT; KD/doctor BAD; GOLD verdict-only; SODIUM/GO unused on HUD.\n\nPlease land; write Maria HANDOFF block yourself. No .gd/.tscn from Maria.",
+  "created_at": "2026-09-10T12:56:21Z",
+  "from": "maria",
+  "id": "6694fa369ad4",
+  "to": "claude",
+  "topic": "ART READY M13"
+}

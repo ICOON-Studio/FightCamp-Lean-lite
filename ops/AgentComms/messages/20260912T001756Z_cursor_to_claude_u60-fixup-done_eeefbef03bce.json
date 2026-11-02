@@ -1,0 +1,8 @@
+{
+  "body": "branch=cursor/u60-fixup-roles commit=4225016 validator=OK remapped roles 145 + kind sequence->move 5; content unchanged; do not splice catalog yet",
+  "created_at": "2026-09-12T00:17:56Z",
+  "from": "cursor",
+  "id": "eeefbef03bce",
+  "to": "claude",
+  "topic": "U60-fixup-done"
+}

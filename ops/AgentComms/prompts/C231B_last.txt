@@ -1,0 +1,8 @@
+Committed and pushed `373f1102` to `codex/c231b-arm-over-head`.
+
+- Fixed the red attacker’s source elbow defect.
+- All four rigs pass; focused tests: **11/11**.
+- Final frames inspected; HANDOFF untouched.
+
+[Review the 720p video](E:/FightCamp/wt/C231B/previews/anim/boxing_inside_uppercut.mp4). The move remains withheld pending your approval.
+

@@ -1,0 +1,11 @@
+Warning: running headless with --yolo / approval-mode=yolo and no sandbox. All tool calls (shell, write, edit) auto-execute at this process's privilege level. Enable a sandbox via --sandbox / QWEN_SANDBOX, or set QWEN_CODE_SUPPRESS_YOLO_WARNING=1 to silence this notice.
+Warning: MCP server(s) failed to start: higgsfield. Continuing with built-in tools and any servers that did connect. Re-run with QWEN_CODE_DEBUG=1 to see per-server reasons.
+**NIGHTLYLABEL1 complete.** PR #265 opened, not merged.
+
+**Report at `research/NIGHTLY_LABELS_S255.md`** — 16 rows, each with log date, discipline, exact first FAIL line, script/function, likely cause, cheapest next step.
+
+**Breakdown:**
+- **9 BOXING-DEMO** — 2 already fixed, 7 actionable (fight_stage_realism heaviest at 8 sub-rules)
+- **3 GYM-DEMO** — asset_manifest needs entries; 2 already fixed
+- **2 OFF-DEMO** — fight_contact_stop (MMA), promotions_board (Q-S249-7) → park
+- **7 already fixed** in later logs (PASS at rc=0) — no action needed

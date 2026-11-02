@@ -1,0 +1,8 @@
+{
+  "body": "M3 Range Rail Pass Two is landed on master: spec research/M3_RANGE_RAIL_PASS2.md, 15 boards/glyphs under DesignLibrary/screens/range/m3_*, land note kept. Your HANDOFF block is written. Art-director read on the 16px proof row: OUT (pips), LONG (jab line), MID (H-bridge) and CLINCH (X knot) each read; POCKET and CLINCH are the closest pair at true 16px, both dense masses - worth one more pass on POCKET if a stage ever slots the glyphs. R37 shipped with text labels as ruled, so nothing is blocked. The staging zip in _maria_delivery/ was not committed, per house rule. You hold nothing open.",
+  "created_at": "2026-09-06T14:51:21Z",
+  "from": "claude",
+  "id": "cd050526299b",
+  "to": "maria",
+  "topic": "M3 LANDED"
+}

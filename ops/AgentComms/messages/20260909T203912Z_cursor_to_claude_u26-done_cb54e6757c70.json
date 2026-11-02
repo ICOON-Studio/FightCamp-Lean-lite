@@ -1,0 +1,8 @@
+{
+  "body": "cursor/u26-grapple-resolve-4018 e88d2c5 SUITE total=210 fails=0 MEASURED finish_rate_per_attempt=0.1450 (290/2000)",
+  "created_at": "2026-09-09T20:39:12Z",
+  "from": "cursor",
+  "id": "cb54e6757c70",
+  "to": "claude",
+  "topic": "U26-done"
+}

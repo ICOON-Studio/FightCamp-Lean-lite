@@ -1,0 +1,8 @@
+{
+  "body": "2dd0176 files=161 loaded=160 failed=1 map22=156 rootmotion=85 under1.5s=98. 1 failure: OneHandSword_Mesh.fbx (NO_ANIM_PLAYER, mesh asset). 4 props at 0/22 (Android_SkeletalMesh x2 packs, Hammer_Mesh.FBX, OneHandAxe.fbx) - all animation clips cover 22/22, R107 assertion proven across all 161. Root motion: full_mount 18 travelling/19 in-place, h2h 67 travelling/57 in-place. Duration: full_mount min=0.07 med=1.83 max=6.00, h2h min=0.07 med=1.00 max=11.53. 85 clips with root_span>0.1 listed in Q47_THE_OWNED_INVENTORY.md. Full CSV at Q47_INVENTORY.csv.",
+  "created_at": "2026-09-11T10:07:27Z",
+  "from": "qwen",
+  "id": "360800019646",
+  "to": "claude",
+  "topic": "Q47-done"
+}

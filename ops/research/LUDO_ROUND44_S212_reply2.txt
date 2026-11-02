@@ -1,0 +1,138 @@
+LIGHTING ARCHITECTURE DECISION: HYBRID BAKED LIGHTMAP VS. REALTIME SDFGI
+Verdict: Hybrid Baked Lightmap (Static Lamps Baked + Dynamic Sun DirectionalLight3D)
+
+Do not use SDFGI for the entire room in this build. Use Baked LightmapGI for all static interior fixtures combined with a dynamic DirectionalLight3D for the moving sun.
+
+The Architectural Reasons:
+Light Leaks and Cascade Wall Bleed:
+In Godot 4.7, SDFGI relies on signed distance field voxel cascades. At a room height of 6.2m and camera distance of 22m–28m, cascade resolution is typically 0.25m to 0.5m per cell. Thin geometry (such as our 200mm brick walls, ring ropes, and steel bag tracks) suffers from severe light leaking. Sunlight and bounced light will bleed under the floor and through wall corners when the camera pans or the sun angle drops.
+Dynamic Sun Separation in LightmapGI:
+Godot’s LightmapGI supports hybrid baking: set all interior architectural spots, industrial high-bays, and the backlit gym sign to Bake Mode: Static (or Lightmapped). Set the single DirectionalLight3D (the sun) to Bake Mode: Dynamic (shadows on, realtime direct light only, with bounce supplemented via SSIL and a subtle ambient probe gradient).
+Because the gym is an enclosed industrial hall with relatively small high clerestory windows, over 80% of the room's bounce radiance originates from fixed interior fixtures (the ring floodlights and ceiling bays). These static sources remain fixed during the 2-minute day loop.
+Framerate Stability at High Camera Elevations:
+SDFGI cost scales directly with screen resolution and cascade update frequency. At 1080p/60 FPS on baseline target hardware (GTX 1660 / RTX 3050), SDFGI consumes between 3.8ms and 5.2ms of GPU frame time alone.
+Baked lightmaps consume under 0.4ms of GPU compute at runtime, freeing critical performance headroom for real-time MetaHuman skeletal animation, volumetric fog raymarching, and high-quality SSAO.
+SECTION F: THE 5 HIGHEST-IMPACT CHANGES (RANKED BY VISUAL GAIN PER HOUR)
+
+Deliver these five changes sequentially to present a distinct, professional before/after transformation to the owner within a single working day.
+
++--------------------------------------------------------------------------------------------------------------------+
+| RANK | IMPLEMENTATION STEP             | DEV TIME | CORE CHANGE MECHANIC                 | VISUAL IMPACT TO OWNER  |
++--------------------------------------------------------------------------------------------------------------------+
+| 01   | Tonemapping + ACES + Shadow Fix | 0.5 Hrs  | AgX/ACES Tonemap, PCF5 Soft Shadows  | Kills flat blown-out    |
+|      |                                 |          | Contact Shadows on all fixtures      | "white cardboard" look  |
+| 02   | Main Floor PBR Material Swap    | 1.0 Hrs  | Clean Polyurethane Wood + Roughness  | Unifies 65% of screen;  |
+|      |                                 |          | Map (0.38) + 75mm Plank Normal Map   | crisp light reflections |
+| 03   | Ring Rigging & Dramatic Lighting| 1.5 Hrs  | 4 Focused Spotlights (Warm 4800K),   | Establishes instant     |
+|      |                                 |          | 2K Tight Canvas Weave, Decal Emblem  | broadcast hero focal-point|
+| 04   | SSAO + SSIL Activation Tuning   | 1.0 Hrs  | Screen-Space AO (Radius 1.8m) +      | Creases pop; grounds    |
+|      |                                 |          | Screen-Space Indirect Light bounces  | equipment to the floor  |
+| 05   | Volumetric Fog + God-Ray Shafts | 1.0 Hrs  | Mie-anisotropy (0.65) through high   | Replaces empty air with |
+|      |                                 |          | windows; Dust density 0.008          | authentic training hall |
++--------------------------------------------------------------------------------------------------------------------+
+
+Detailed Breakdown of the Changes
+Step 1: Tonemapping & Shadow Foundation (30 Minutes)
+What changes in the engine:
+Switch WorldEnvironment.tonemap_mode from Linear to TonemapMode.TONEMAP_ACES. Set exposure to 1.05, white point to 1.0.
+On the DirectionalLight3D and overhead spots, switch shadow filters to PCF5 (or Soft Low/Medium) and enable shadow_blur = 1.2. Set shadow_bias = 0.03 and turn on directional_shadow_split_1/2/3.
+What the owner sees:
+The flat, chalky, overexposed aesthetic vanishes instantly. Colors saturate naturally without blowing out into pure white. Harsh razor-blade edges on shadows soften into realistic photographic contact shadows.
+Step 2: Main Hall Polyurethane Wood Floor Swap (1 Hour)
+What changes in the engine:
+Replace the untextured tan vertex color on the floor mesh with an ORMMaterial3D using wood_cabinet_worn_long or clean sports maple planks. Set base color tint #C48E56, Roughness uniform 0.38, Normal map strength 0.85, UV scale set to 1.0m repeating.
+What the owner sees:
+Because the floor covers over 60% of the camera frame, this single change completely transforms the scene. The floor transforms from flat beige paint into an expensive sports court that captures clear specular highlights and reflections from the overhead ceiling lights.
+Step 3: Ring Rework & Spotlight Array (1.5 Hours)
+What changes in the engine:
+Place 4 angled SpotLight3D nodes (Energy: 3.8, ColorTemp: 4800K, SpotAngle: 42°) centered on the ring platform.
+Assign the 2K fabric_pattern_07 textile material (Roughness: 0.88, Normal: 1.20) to the canvas mesh.
+Project the gym emblem decal onto the center canvas.
+What the owner sees:
+The boxing ring immediately commands the room as the primary hero asset. The canvas exhibits visible, tactile cloth weave, while the quad-spot array creates bright highlights across the top vinyl ropes and dark, dramatic falloff across the skirt.
+Step 4: Contact Occlusion & Light Bounce via SSAO/SSIL (1 Hour)
+What changes in the engine:
+In WorldEnvironment, calibrate SSAO: radius = 1.8m, intensity = 2.4, detail = 0.6, horizon = 0.06.
+Calibrate SSIL: radius = 3.5m, intensity = 1.2, sharpness = 0.9.
+What the owner sees:
+Equipment no longer looks like it is floating in air. Deep ambient contact shadows anchor the heavy bags, power racks, treadmills, and bench legs firmly to the floor. The bright blue and amber mats bounce subtle, realistic color bleed onto adjacent equipment bases.
+Step 5: Atmospheric Volumetric Light Shafts (1 Hour)
+What changes in the engine:
+Enable volumetric_fog in WorldEnvironment. Set density = 0.008, anisotropy = 0.65, length = 28.0m, albedo = Color(0.95, 0.92, 0.88).
+Ensure the high clerestory windows have geometry cuts that break incoming sun rays.
+What the owner sees:
+Visible morning and afternoon light rays slice down from the upper windows across the gym floor. The empty air between the camera and the back wall gains physical depth, giving the space an authentic, cinematic atmosphere.
+SECTION G: THE TRAPS (AVOIDING CHEAP ASSET-FLIP VISUALS & READABILITY FAILS)
+1. What Makes This Look Cheap, Amorphous, or "Asset-Flippy"
+Trap 1: The "Abandoned Warehouse Grime" Cliche.
+The Mistake: Using default grunge/concrete materials full of water leaks, peeling wall paint, oil slicks, rust stains, and debris piles.
+Why it fails: Real professional boxing gyms are clean, sanitized athletic environments. Excessive procedural dirt makes the scene look like an unoptimized post-apocalyptic shooter asset flip.
+The Rule: Surfaces must look factory-fresh and well-maintained. Character and history come from posters, ring banners, and equipment branding—not broken plaster or dirty floors.
+Trap 2: Uniform Roughness Values Across Diverse Materials.
+The Mistake: Leaving roughness at 0.5 across wood, rubber mats, vinyl ropes, and painted brick.
+Why it fails: Materials become indistinguishable from one another, producing a flat, plasticky appearance.
+The Rule: Maintain strict surface contrast: rubber mats are matte (Roughness 0.75–0.85), varnished wood floor is reflective (Roughness 0.38), vinyl ropes are glossy (Roughness 0.30), and painted steel posts are metallic (Roughness 0.22, Metallic 0.85).
+Trap 3: Oversaturated Emissive Glow / Neon Hazing.
+The Mistake: Cranking up bloom/glow thresholds so white walls, signage, and equipment outlines bleed into neon smudges.
+Why it fails: Destroys contrast and gives the impression of cheap post-processing hiding poor geometry.
+The Rule: Keep glow_hdr_threshold strictly at 1.15 or higher. Only light bulbs, digital clock LEDs, and focused specular pings should catch bloom.
+Trap 4: Incorrect Normal Map Strengths and Tile Repeating.
+The Mistake: Using intense normal maps on brick or wood that look harsh and noisy from 25 meters away, or using small UV tiles (e.g. 0.2m) that cause visible tiling repetition across the 30-meter floor.
+The Rule: Tile wood floor UVs at 1.0m minimum. Use smooth roughness variation rather than extreme normal extrusion to convey detail from distance.
+2. What Breaks Visual Readability from the High Three-Quarter View
+Trap 5: Cluttered Floor Equipment Outside Designated Station Mats.
+The Mistake: Scattering loose kettlebells, jump ropes, water bottles, or gym bags across walkways.
+Why it fails: In a management simulation, players scan the floor to track boxer assignments and station occupancy. Floor debris creates visual noise that obscures boxers' feet and pathfinding vectors.
+The Rule: Keep all open floor space completely clear. Clutter items must sit on wall-mounted racks or designated perimeter benches.
+Trap 6: Color Palette Confusion Between Zones.
+The Mistake: Using blue heavy bags in front of blue cardio mats, or amber agility ladders on top of amber floor mats.
+Why it fails: Equipment silhouettes blend into the background mat, making stations hard to identify at a glance.
+The Rule: Ensure equipment and station mats maintain high visual contrast:
+Red / Black heavy bags against a Dark Slate floor runner (#374151).
+Black / Silver cardio equipment against a Deep Royal Blue mat (#1E3A8A).
+Steel / Black power racks against an Obsidian drop-tile mat (#18181B).
+White agility lines against an Amber Ochre mat (#D97706).
+Trap 7: Unrestricted Depth of Field / Aggressive Tilt-Shift.
+The Mistake: Applying shallow DoF or toy-town tilt-shift blur across the active training floor during regular gameplay.
+Why it fails: Blurring interactive stations frustrates players trying to monitor fighters across the facility.
+The Rule: Keep DoF disabled (dof_blur_far_enabled = false) during normal management play. Reserve subtle DoF blur exclusively for close-up inspection cards (e.g., Medical face zooms or reception check-in dialogues).
+SECTION H: THE ENGINEER'S AFTER-STILL REVIEW CHECKLIST
+
+Before submitting new viewport renders to Art Direction, the engineer must verify each check in this protocol at 1920×1080 resolution:
+
+[ ] 01. EXPOSURE & TONEMAP VERIFICATION
+        - Load render into image viewer. Check histogram: zero clipping at RGB 255,255,255 
+          except direct light filament sources and sun specular pings.
+        - ACES / AgX tonemapper confirmed active in the WorldEnvironment node.
+
+[ ] 02. ONE-SECOND ZONE READABILITY TEST
+        - Stand 2 meters back from the 1080p monitor. 
+        - Can you identify all 6 functional zones (Ring, Bags, Cardio, Strength, 
+          Stretch, Footwork) within one second purely by mat footprint and contrast?
+        - Are zone boundary borders clearly visible against the maple floor?
+
+[ ] 03. MATERIAL ROUGHNESS SEPARATION
+        - Move the camera slightly to evaluate specular reflections.
+        - Does the main maple floor show soft reflections of the overhead lights?
+        - Do rubber mats remain diffuse without glossy plastic sheen?
+        - Are steel posts and aluminum steps visibly metallic compared to vinyl turnbuckles?
+
+[ ] 04. CONTACT SHADOWS & GEOMETRY GROUNDING
+        - Zoom in to 100% on the heavy bag frames, power rack feet, and ring apron edge.
+        - Are contact shadow lines (SSAO + contact shadows) grounding legs to the floor?
+        - Ensure equipment does not appear to float above the surface.
+
+[ ] 05. NO LIGHT LEAKS OR CASCADE ARTIFACTS
+        - Inspect corners where walls meet the ceiling and floor.
+        - Ensure zero exterior sunlight bleeds through corner seams.
+        - Check that door frames and window sills cast crisp, clean shadows.
+
+[ ] 06. VOLUMETRIC FOG DENSITY AUDIT
+        - Verify sun light shafts are clearly visible coming through high windows.
+        - Confirm fog does not create an unreadable milky haze over the back brick wall.
+        - Contrast on back wall posters and the gym sign must remain sharp and legible.
+
+[ ] 07. PERFORMANCE & FRAMERATE BENCHMARK
+        - Open the Godot Performance Monitor overlay (F3 or Engine Profiler).
+        - Confirm frame time is <= 16.6ms (>= 60.0 FPS) at 1920x1080 Forward+ renderer.
+        - Draw calls must remain under 600 total through MultiMeshInstance3D batching.

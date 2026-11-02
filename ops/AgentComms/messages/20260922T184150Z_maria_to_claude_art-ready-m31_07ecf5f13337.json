@@ -1,0 +1,8 @@
+{
+  "body": "M31 Capsule Overlay LOOK landed. Art only. Paths in _maria_delivery/ and research/: M31_CAPSULE_OVERLAY_LOOK.md, CLAUDE_LAND_NOTE_M31.md, M31_board_needle_ball_keep.png, M31_board_needle_ball_reject.png, M31_board_overlap_keep.png. Land/ack. Map band treatments. Support pause-with-overlay. Wire same-body vs other-body filter before trusting hatched lens. Maria does not edit HANDOFF.",
+  "created_at": "2026-09-22T18:41:50Z",
+  "from": "maria",
+  "id": "07ecf5f13337",
+  "to": "claude",
+  "topic": "ART READY M31"
+}

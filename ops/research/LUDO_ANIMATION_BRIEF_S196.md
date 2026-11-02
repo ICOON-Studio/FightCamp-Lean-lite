@@ -1,0 +1,378 @@
+# LUDO ROUND 26 BRIEF (S196, 2026-10-10) - animation code + the whole move tree, text only
+
+Operator S196: "give access to ludo to evaluate and improve the code for the animation and complete the whole tree (kickboxing, judo, karate, bjj) even missing animations"; "the animation needs to be like real human-like fight, I want to know what the cost will be if we need to produce more animations".
+
+## The prompt sent (one ask, text only)
+
+FightCamp is a PC deep management simulation (Football Manager / Motorsport Manager class), NOT a mobile or casual game: no energy timers, gacha, daily-login rewards, tap-to-collect, ads or monetisation loops; mechanics and loops must reward long-term planning, readable systems and consequences. TEXT ONLY, no images. Do not anchor on our numbers; if a number is wrong, say so. Stop at a section boundary and write CONTINUE FROM SECTION n if you run out of room.
+
+You are our lead game and animation designer. Goal: the fights must look like a REAL HUMAN fight (weight transfer, hip and shoulder chain, guard discipline, hits that move the head and body, fatigue, believable grappling), in Godot 4.7 GDScript, 3D, fixed game camera, two fighters, 20 Hz simulation driving clip playback. Boxing is the demo; the full tree is kickboxing, karate, judo, BJJ (then muay thai etc).
+
+STATE OF OUR ANIMATION CODE (names + roles, you cannot see the files; judge from this):
+- FightClipBinding.gd (3,162 lines): data table technique-id -> clip, provenance exact/near/family; roles for punches, locomotion by heading, paired clips for two-fighter moves.
+- FightClipRetarget.gd (1,511): whole-clip retarget onto our 22-bone humanoid rig (no BoneMap needed); FightClipFootPlant.gd (302): foot lock; FightClipMirror.gd (86): left/right mirror; FightClipSlice.gd (376): cut a clip into windup/strike/recovery; FightClipPoseLayer.gd (107).
+- FightStagePlayer.gd (6,132): state graph per fighter, cross-fades, inertialisation, picks the clip per sim event.
+- FightBeatAdapter.gd (1,440): turns sim beats (strike, block, hit) into clip requests and timing.
+- FightPoseSolver.gd (732): contact solver, hand-to-face surface gaps in three phases.
+- FightAliveStance.gd (210): procedural layer: additive hit-react spring on spine/neck/head, glove look-at, breathing, fatigue sway.
+- The 9-step overhaul you specified in rounds 11-13 (additive hit reaction, push/pull locomotion, proximity flinch, kinetic chain, look-at IK, punch S-curves, centre-of-mass balance, fatigue posture, glove secondary) is partly built; the checks are Tools/smooth_metrics.py thresholds.
+- Known weakness: a technique with provenance FAMILY plays a SIMILAR technique's clip, so it does not look like the named move. 
+
+COVERAGE TODAY (measured 2026-10-10, 536 motion techniques): exact 47, near 115, family 311, gap 14, none 49.
+- kickboxing 20 moves: exact 9, near 6, family 5 (front_kick, question_mark, catch_kick_return, teep, hook_kick).
+- karate 106 moves: near 28, family 77, none 1 (kizami_maegeri). Families are shared across e.g. maegeri/uramawashi/nidan_geri, the zuki set (tate, ura, age, gyaku_age, heiko, awase, yama, hasami, morote, ren, nukite).
+- judo 111 moves: ZERO dedicated clips; 101 family; none 10 (tomoe chain, the 8 renraku combinations: osoto-ouchi, seoi-kouchi, ouchi-osoto, deashi-osoto, harai-osoto, sasae-taiotoshi, kouchi-seoi, uchimata-ouchi, renzoku osoto). Groups: ashi_waza 21, koshi_waza 10, ma_sutemi 6, nage_kansetsu 9, osaekomi 10, kansetsu 10.
+- BJJ 51 moves: ZERO dedicated clips; 43 family; none 6 (back_take_rnc, kimura_chain, submission_chain, darce_chain, chain_kimura_sweep_back, chain_guillotine_mount); gap 2 (guard_pull, arm_drag). Groups: passing 7, leg_locks 11, escapes 4, sweeps/subs.
+
+OUR MOTION SOURCES AND MEASURED COSTS: (a) Ludo's own preset clip library, 0.2 credit per retargeted clip, but only ONE grappling clip in 97 combat clips; (b) QuickMagic text-to-motion, single performer, 12 credits per 4-8 s take with foot-slide fix (Basic plan $14.9 = 200 credits, about 16 takes/month); two-person video-to-motion 16 credits per 8 s but it merged the bodies in tangled ground positions; (c) generated suited-performer video (Seedance) -> tracking -> Blender cleanup, cost per clip not yet measured, labour heavy; (d) Mixamo/CMU free singles; (e) hand-authored procedural poses with our contact solver.
+
+ANSWER THESE, IN ORDER:
+1. CODE REVIEW. From the architecture above, name the ten most likely reasons our fights still read as animation clips instead of a human fight, and for each give the concrete GDScript 4.x change (typed code, file to touch, signature, test threshold). Include what to do about family-provenance clips: which families can honestly be fixed by procedural variation (stance, hip rotation, chamber height, target height, speed, arm path offsets) and which cannot.
+2. KICKBOXING and KARATE: for every FAMILY or NONE move listed, either (a) a procedural variation recipe on a named base clip (parameters in numbers) or (b) a new clip spec: start pose, 5-8 key poses with timings in ms, weight shift, hip/shoulder rotation degrees, glove/foot path, recovery. Batch by shared base clip. Mark which ones are the minimum for a believable demo.
+3. JUDO and BJJ: a two-fighter authoring spec per move GROUP (not per move): contact keys (which hand on which grip point, hip position relative to the partner in cm, timeline in ms), uke reaction timeline, what the game camera must show, what the 20 Hz sim needs to expose (events, grip state, balance state). Give the order that gives the most believable result for the least new capture. Include the 10 judo renraku chains and 6 BJJ chains as sequences of base techniques with transitions rather than new clips.
+4. MISSING ANIMATION COST PLAN: for each of the four disciplines list how many NEW clips are truly needed after procedural variation and chaining, which source (QuickMagic single, suited video, Blender hand-authoring) each would use, and an estimated cost range per clip in dollars and in hours, with the assumptions. Put a total for: demo-minimum, full kickboxing+karate, full judo+BJJ.
+5. QUALITY GATES: how do we prove a clip or throw looks human without a person watching every one? Metrics and thresholds (foot sliding, joint velocity and jerk limits, centre-of-mass over base of support, contact distance error, timing against real fight footage), in a form our Python harness can compute from a per-frame CSV of joint positions.
+6. A staged Codex/Cursor task list with an acceptance test per task, ordered, each independent.
+
+## Ludo's answer
+(verbatim, 28.7k chars; Ludo's reply was cut inside section 3, sections 4-6 are asked in the follow-up in LUDO_ANIMATION_R27_S196.md)
+
+FIGHTCAMP: REAL-HUMAN COMBAT ANIMATION ARCHITECTURE SPECIFICATION
+
+Engine Target: Godot 4.7 GDScript (Core Animation Subsystem)
+
+Simulation Rate: 20 Hz Discrete Simulation Tick $\to$ Animation Blending / Procedural Solver Update (Variable Sub-step Display Frame)
+
+Skeleton Standard: 22-Bone Humanoid Rig
+
+Target Class: Hardcore PC Sports Strategy & Management Simulation
+
+1. CODE REVIEW & ARCHITECTURAL OVERHAUL
+1.1 The 10 Failure Modes Making Fights Look Like "Clips"
+
+The current codebase suffers from decoupling the simulation's mathematical state from physical kinematic continuity. The table below lists the 10 failure points, concrete GDScript 4.7 solutions, and automated verification thresholds.
+
++----------------------------------------------------------------------------------------------------+
+|                                    10 ARCHITECTURAL FAILURE MODES                                  |
++----+----------------------------------+-----------------------------+------------------------------+
+| #  | Symptom / Cause                  | Subsystem File              | Concrete Physical Failure   |
++----+----------------------------------+-----------------------------+------------------------------+
+| 1  | Root-Motion Translation Snapping | FightClipRetarget.gd        | Foot skating during strikes  |
+| 2  | Hit Stun Interrupts Momentum     | FightStagePlayer.gd         | Absorbing mass vanishes      |
+| 3  | Zero COM Tracking on Lead Hip    | FightAliveStance.gd         | Off-balance throws & lunges  |
+| 4  | Head Fixation Ignores Neck Rig   | FightAliveStance.gd         | "Googly-eye" turret neck     |
+| 5  | Instant Linear Block Transitions | FightStagePlayer.gd         | 0-inertia telepathic guards  |
+| 6  | Missing Strike Pelvis Recoil     | FightPoseSolver.gd          | Punch lands, hips keep going |
+| 7  | Discrete Foot Plating Pops       | FightClipFootPlant.gd       | Binary snap on terrain       |
+| 8  | Identical Limb Speed Trajectory  | FightBeatAdapter.gd         | Constant linear arm pacing   |
+| 9  | Two-Fighter Spatial Drift        | FightBeatAdapter.gd         | Distance desyncs paired hits |
+| 10 | Static Breathing Base Under Beat | FightAliveStance.gd         | Robotic additive looping     |
++----+----------------------------------+-----------------------------+------------------------------+
+
+1. Root Motion Disconnect During Strike Execution
+Physical Failure: FightClipRetarget.gd decouples horizontal root bone displacement from FightClipFootPlant.gd. The animation system translates the skeleton via an averaged linear delta, resulting in foot skating during lunging punches.
+Target File: FightClipRetarget.gd
+GDScript 4.x Implementation:
+# File: FightClipRetarget.gd
+func extract_planar_root_motion(source_anim: Animation, root_bone_name: StringName) -> Transform3D:
+	var track_idx: int = source_anim.find_track(NodePath(root_bone_name), Animation.TYPE_POSITION_3D)
+	if track_idx == -1:
+		return Transform3D.IDENTITY
+	var start_pos: Vector3 = source_anim.track_get_key_value(track_idx, 0)
+	var end_pos: Vector3 = source_anim.track_get_key_value(track_idx, source_anim.track_get_key_count(track_idx) - 1)
+	var delta: Vector3 = end_pos - start_pos
+	delta.y = 0.0 # Lock vertical displacement to physics motor
+	return Transform3D(Basis(), delta)
+
+Test Threshold: Peak foot contact horizontal slide $< 1.8\text{ cm/s}$ throughout the contact window ($[t_{\text{impact}} - 60\text{ ms}, t_{\text{impact}} + 40\text{ ms}]$).
+2. Inertial Hit-Reaction Canceling Active Momentum
+Physical Failure: When FightStagePlayer.gd triggers a hit-stun clip, it cross-fades from the attacker's inbound strike or forward step. This abruptly zeroes the kinetic energy of the torso rather than transferring the impulse through the kinetic chain.
+Target File: FightStagePlayer.gd
+GDScript 4.x Implementation:
+# File: FightStagePlayer.gd
+func inject_inertial_hit_impulse(skeleton: Skeleton3D, impulse_vec: Vector3, contact_bone: StringName, mass_kg: float) -> void:
+	var bone_idx: int = skeleton.find_bone(contact_bone)
+	if bone_idx == -1:
+		return
+	var current_vel: Vector3 = skeleton.get_bone_pose_position(bone_idx)
+	var delta_v: Vector3 = (impulse_vec / maxf(mass_kg, 40.0)) * 0.05 # 20 Hz simulation delta
+	var target_offset: Vector3 = current_vel + delta_v
+	skeleton.set_bone_pose_position(bone_idx, target_offset)
+
+Test Threshold: Thorax jerk ($\frac{d^3x}{dt^3}$) must not invert signs in $< 45\text{ ms}$; acceleration must ramp smoothly without single-frame velocity spikes.
+3. Centre-of-Mass (COM) Tracking Failure on the Lead Hip
+Physical Failure: FightAliveStance.gd applies hip sway independently of the base of support (BOS). In real fights, shifting weight forward to throw a right cross shifts the ground reaction force onto the ball of the lead foot. The current implementation lets the pelvis move outside the BOS polygon without compensating via rear leg counter-extension.
+Target File: FightAliveStance.gd
+GDScript 4.x Implementation:
+# File: FightAliveStance.gd
+func enforce_com_support_polygon(pelvis_transform: Transform3D, lead_foot: Vector3, rear_foot: Vector3, max_lean_ratio: float = 0.85) -> Transform3D:
+	var mid_support: Vector3 = (lead_foot + rear_foot) * 0.5
+	var support_vec: Vector3 = lead_foot - rear_foot
+	var support_len: float = support_vec.length()
+	var ground_com: Vector3 = Vector3(pelvis_transform.origin.x, 0.0, pelvis_transform.origin.z)
+	var proj_dist: float = (ground_com - mid_support).dot(support_vec.normalized())
+	if absf(proj_dist) > (support_len * 0.5 * max_lean_ratio):
+		var clamped_proj: float = signf(proj_dist) * (support_len * 0.5 * max_lean_ratio)
+		var corrected_ground: Vector3 = mid_support + support_vec.normalized() * clamped_proj
+		pelvis_transform.origin.x = corrected_ground.x
+		pelvis_transform.origin.z = corrected_ground.z
+	return pelvis_transform
+
+Test Threshold: The projected ground Center of Mass ($COM_{xz}$) must remain within $[0.05 \cdot BOS, 0.95 \cdot BOS]$ throughout idle and preparation phases. It can only leave the polygon during ballistic delivery ($t_{\text{strike}} \pm 80\text{ ms}$).
+4. Head Fixation Ignores the Cervical Kinematic Chain
+Physical Failure: Look-at solvers directly rotate the head bone toward the opponent's head or chest, producing a "googly-eye" turret effect. A human fighter maintains chin-tuck discipline (chin-to-sternum offset) and rotates the cervical vertebrae ($C_1 - C_7$) in coordination with the thoracic spine ($T_1 - T_12$).
+Target File: FightAliveStance.gd
+GDScript 4.x Implementation:
+# File: FightAliveStance.gd
+func solve_cervical_chain(skeleton: Skeleton3D, target_world_pos: Vector3, guard_chin_tuck: float) -> void:
+	var head_idx: int = skeleton.find_bone("Head")
+	var neck_idx: int = skeleton.find_bone("Neck")
+	var spine2_idx: int = skeleton.find_bone("Spine2")
+	var head_trans: Transform3D = skeleton.get_bone_global_pose(head_idx)
+	var to_target: Vector3 = (target_world_pos - head_trans.origin).normalized()
+	# Split rotation: 30% Thoracic, 40% Cervical (Neck), 30% Cranial (Head)
+	var base_quat: Quaternion = Quaternion(head_trans.basis.z, to_target)
+	var clamped_quat: Quaternion = base_quat.slerp(Quaternion.IDENTITY, 0.3)
+	skeleton.set_bone_pose_rotation(spine2_idx, skeleton.get_bone_pose_rotation(spine2_idx).slerp(clamped_quat, 0.3))
+	skeleton.set_bone_pose_rotation(neck_idx, skeleton.get_bone_pose_rotation(neck_idx).slerp(clamped_quat, 0.4))
+	# Pitch offset locks the chin down toward the chest clavicle notch
+	var chin_tuck_rot: Quaternion = Quaternion(Vector3.RIGHT, deg_to_rad(-12.0 * guard_chin_tuck))
+	skeleton.set_bone_pose_rotation(head_idx, (clamped_quat * chin_tuck_rot).normalized())
+
+Test Threshold: Angular offset between Neck forward vector and Head forward vector must not exceed $22^\circ$. Chin-to-sternum distance during high guard must stay within $[14\text{ cm}, 19\text{ cm}]$.
+5. Instant Linear Guard State Transitions
+Physical Failure: In FightStagePlayer.gd, changing guard stance from low to high uses a linear quaternion slerp over a fixed duration (e.g., $150\text{ ms}$). Real guard transitions accelerate: the elbows pinch inward first to protect the liver and solar plexus, then the hands travel up along the chest in an S-curve, preserving defensive coverage.
+Target File: FightStagePlayer.gd
+GDScript 4.x Implementation:
+# File: FightStagePlayer.gd
+func sample_guard_transition_curve(elapsed_norm: float) -> float:
+	# Asymmetric Hermite curve: rapid acceleration in early frames, settle into the block pocket
+	var t: float = clampf(elapsed_norm, 0.0, 1.0)
+	return 3.0 * t * t - 2.0 * t * t * t # Ease-in-out Cubic
+
+Test Threshold: The lateral gap between left and right elbows during transitions from relaxed to shell guard must not exceed $24\text{ cm}$ at any point in the transition window.
+6. Missing Impact Recoil on Striking Hip
+Physical Failure: In FightPoseSolver.gd, when a punch connects, the target reacts, but the attacker's pelvic rotation continues along its unobstructed trajectory. When a strike hits a guard, skull, or heavy bag, the attacker's hip experiences deceleration feedback within $15\text{ ms}$, compressing the rear leg joints.
+Target File: FightPoseSolver.gd
+GDScript 4.x Implementation:
+# File: FightPoseSolver.gd
+func apply_strike_recoil_feedback(skeleton: Skeleton3D, strike_side_right: bool, resistance_coeff: float) -> void:
+	var hip_bone_name: StringName = &"RightUpLeg" if strike_side_right else &"LeftUpLeg"
+	var hip_idx: int = skeleton.find_bone(hip_bone_name)
+	var cur_rot: Quaternion = skeleton.get_bone_pose_rotation(hip_idx)
+	# Deflect hip angle backward along the transverse plane
+	var recoil_axis: Vector3 = Vector3.UP
+	var recoil_angle: float = deg_to_rad(-8.5 * clampf(resistance_coeff, 0.0, 1.0))
+	var recoil_quat: Quaternion = Quaternion(recoil_axis, recoil_angle)
+	skeleton.set_bone_pose_rotation(hip_idx, cur_rot * recoil_quat)
+
+Test Threshold: Hip angular velocity ($\omega_{\text{pelvis}}$) must drop by $\ge 40%$ within $30\text{ ms}$ of impact detection.
+7. Binary Foot-Plant Snapping
+Physical Failure: FightClipFootPlant.gd uses a binary threshold: when foot height is below $0.03\text{ m}$, the foot locks completely to the floor plane. This causes visual popping during pivot turns and lunges, as heel-toe weight roll is flattened into an instant plant.
+Target File: FightClipFootPlant.gd
+GDScript 4.x Implementation:
+# File: FightClipFootPlant.gd
+func solve_progressive_foot_plant(skeleton: Skeleton3D, foot_bone: StringName, toe_bone: StringName, floor_y: float, delta: float) -> void:
+	var f_idx: int = skeleton.find_bone(foot_bone)
+	var t_idx: int = skeleton.find_bone(toe_bone)
+	var f_trans: Transform3D = skeleton.get_bone_global_pose(f_idx)
+	var t_trans: Transform3D = skeleton.get_bone_global_pose(t_idx)
+	
+	# Progressive spring-damper to floor contact
+	var foot_err: float = floor_y - f_trans.origin.y
+	if foot_err > 0.0:
+		f_trans.origin.y = move_toward(f_trans.origin.y, floor_y, 4.0 * delta)
+		skeleton.set_bone_global_pose_override(f_idx, f_trans, 0.85, true)
+	if t_trans.origin.y < floor_y:
+		t_trans.origin.y = floor_y
+		skeleton.set_bone_global_pose_override(t_idx, t_trans, 0.95, true)
+
+Test Threshold: Pitch angular acceleration ($\alpha_{\text{foot}}$) must remain below $2,500^\circ/\text{s}^2$ during ground transitions; hard pops show up as $> 8,000^\circ/\text{s}^2$.
+8. Constant Linear Limb Velocity
+Physical Failure: FightBeatAdapter.gd maps simulation frames directly to animation tracks. This scales the whole clip uniformly, which strips out real-world punch mechanics: slow muscle recruitment during chamber, ballistic acceleration down the kinetic chain, and rapid deceleration/whip at lock-out.
+Target File: FightBeatAdapter.gd
+GDScript 4.x Implementation:
+# File: FightBeatAdapter.gd
+func calculate_asymmetric_phase_warp(current_phase_time: float, phase_dur: float, phase_type: int) -> float:
+	var u: float = clampf(current_phase_time / phase_dur, 0.0, 1.0)
+	match phase_type:
+		0: # Windup: Cubic slow-in
+			return u * u * u
+		1: # Ballistic Strike: Quintic explosive out
+			return 1.0 - pow(1.0 - u, 5.0)
+		2: # Recovery: Linear to ease-out quadratic
+			return 0.5 * (u * u + u)
+	return u
+
+Test Threshold: Hand velocity must conform to a bell curve where peak acceleration occurs within the final $25%$ of the extension trajectory, reaching $\ge 8.5\text{ m/s}$ on linear punches.
+9. Two-Fighter Spatial Drift During Paired Exchanges
+Physical Failure: FightBeatAdapter.gd schedules animations locally on each fighter. Even tiny variations in retargeted root translations cause paired moves (such as an overhand counter or body lock) to drift apart, resulting in punches landing in empty air or fighters clipping into each other.
+Target File: FightBeatAdapter.gd
+GDScript 4.x Implementation:
+# File: FightBeatAdapter.gd
+func enforce_paired_distance_constraint(attacker_node: Node3D, defender_node: Node3D, target_range_m: float) -> void:
+	var delta_pos: Vector3 = defender_node.global_position - attacker_node.global_position
+	delta_pos.y = 0.0
+	var current_dist: float = delta_pos.length()
+	var error: float = current_dist - target_range_m
+	if absf(error) > 0.02: # 2 cm error threshold
+		var correction: Vector3 = delta_pos.normalized() * (error * 0.5)
+		attacker_node.global_position += correction
+		defender_node.global_position -= correction
+
+Test Threshold: Contact point variance between the punch surface and target hurtbox must stay within $[0.5\text{ cm}, 2.5\text{ cm}]$ across all paired exchanges.
+10. Cyclic Fatigue Sway That Ignores Exertion
+Physical Failure: FightAliveStance.gd layers a uniform sine wave on top of idle and movement poses. In a real fight, a tired fighter's breathing changes fundamentally: the chest drops, breathing becomes diaphragmatic, the shoulders roll forward, and their guard drifts downward away from their cheekbones.
+Target File: FightAliveStance.gd
+GDScript 4.x Implementation:
+# File: FightAliveStance.gd
+func apply_fatigue_posture_degradation(skeleton: Skeleton3D, fatigue_norm: float, heart_rate_bpm: float, delta: float) -> void:
+	var clav_l: int = skeleton.find_bone("LeftShoulder")
+	var clav_r: int = skeleton.find_bone("RightShoulder")
+	var spine_idx: int = skeleton.find_bone("Spine1")
+	# Slump thoracic spine forward
+	var slump_angle: float = deg_to_rad(14.0 * fatigue_norm)
+	skeleton.set_bone_pose_rotation(spine_idx, skeleton.get_bone_pose_rotation(spine_idx) * Quaternion(Vector3.RIGHT, slump_angle))
+	# Clavicles droop downward and roll forward
+	var shoulder_sag: float = deg_to_rad(9.0 * fatigue_norm)
+	skeleton.set_bone_pose_rotation(clav_l, skeleton.get_bone_pose_rotation(clav_l) * Quaternion(Vector3.FORWARD, shoulder_sag))
+	skeleton.set_bone_pose_rotation(clav_r, skeleton.get_bone_pose_rotation(clav_r) * Quaternion(Vector3.FORWARD, -shoulder_sag))
+
+Test Threshold: Guard height (the vertical distance from the center of the wrist to the eye line) must droop linearly by $8\text{ cm} \pm 1.5\text{ cm}$ as stamina drops from $100%$ down to $0%$.
+1.2 The FAMILY Clip Classification: Procedural Fixes vs. Mandatory New Motion
+
+Playing a similar move's clip for a technique with provenance FAMILY looks unconvincing when the move relies on different biomechanics—like its chamber path, pivot points, or how the kinetic chain fires. Below is the technical breakdown of which moves can be adjusted procedurally and which require dedicated motion data.
+
++---------------------------------------------------------------------------------------------------------+
+|                                    FAMILY CLIP FEASIBILITY MATRIX                                       |
++--------------------------+-------------+----------------------+-----------------------------------------+
+| Move Technique Name      | Feasibility | Base Clip To Warp    | Required Kinematic Transformations     |
++--------------------------+-------------+----------------------+-----------------------------------------+
+| Teep Kick (Push Kick)    | PROCEDURAL  | kb_front_kick        | +Chamber elevation, flat foot, hip push|
+| Tate Zuki (Vertical Fist)| PROCEDURAL  | karate_gyaku_zuki    | Zero pronation, tuck elbow +4.5 cm     |
+| Ura Zuki (Short Uppercut)| PROCEDURAL  | karate_seiken_zuki   | Supinate wrist 180 deg, drop drop elbow |
+| Heiko Zuki (Parallel)    | PROCEDURAL  | karate_gyaku_zuki    | Dual-arm mirror clone, zero hip bias   |
+| Mawashi Geri Target Offs | PROCEDURAL  | kb_roundhouse_mid    | IK target offset via spine roll +14 deg|
+| Question Mark Kick       | MUST CAPTURE| NONE                 | Two-plane vector split (sagittal->trans)|
+| Hook Kick (Ura Mawashi)  | MUST CAPTURE| NONE                 | Decelerating chamber, heel hook snap   |
+| Nidan Geri (Double Jump) | MUST CAPTURE| NONE                 | Airborne COM ballistic momentum        |
+| Yama Zuki (U-Punch)      | MUST CAPTURE| NONE                 | Dual-level head/body simultaneous curve |
+| Osoto Gari Throw         | MUST CAPTURE| NONE                 | Two-body coupled mass dynamic balance   |
++--------------------------+-------------+----------------------+-----------------------------------------+
+
+2. KICKBOXING & KARATE SPECIFICATIONS
+2.1 Procedural Variation Recipes (Warping Existing Base Clips)
+
+These recipes modify base clips at runtime via FightPoseSolver.gd and FightClipPoseLayer.gd. They run as post-pass transforms on the retargeted pose stream.
+
++------------------------------------------------------------------------------------------------------------------+
+|                                        PROCEDURAL VARIATION RECIPES                                              |
++--------------------+-------------------+-------------------------------------------------------------------------+
+| Technique          | Base Clip         | Procedural Parameter Offsets                                            |
++--------------------+-------------------+-------------------------------------------------------------------------+
+| kb_teep            | kb_front_kick     | Pelvis linear push: +18 cm forward at t_strike.                         |
+|                    |                   | Lead hip flexion: +22 deg in chamber phase.                             |
+|                    |                   | Ankle dorsiflexion: +25 deg (force heel/ball contact, not pointed toes).|
+|                    |                   | Spine1 extension: -12 deg backward lean to balance forward hip push.    |
++--------------------+-------------------+-------------------------------------------------------------------------+
+| karate_tate_zuki   | karate_gyaku_zuki | Forearm twist: -90 deg roll (removes full pronation).                   |
+|                    |                   | Clavicle depression: -6 deg downward.                                   |
+|                    |                   | Elbow adduction: +8 deg inward toward ribs.                             |
+|                    |                   | Strike trajectory: 0 deg vertical fist alignment on contact.           |
++--------------------+-------------------+-------------------------------------------------------------------------+
+| karate_ura_zuki    | karate_seiken_zuki| Forearm twist: -180 deg roll (full supination, palm facing fighter).    |
+|                    |                   | Elbow flexion: +40 deg forward bend.                                    |
+|                    |                   | Target height offset: -25 cm (reroutes line from jaw to solar plexus).  |
+|                    |                   | Pelvis forward pitch: +8 deg.                                           |
++--------------------+-------------------+-------------------------------------------------------------------------+
+| karate_heiko_zuki  | karate_gyaku_zuki | Mirror arm track onto lead side (dual simultaneous linear extension).  |
+|                    |                   | Pelvis transverse rotation: clamped to 0 deg (neutral, no hip torque).  |
+|                    |                   | Stance width: widened +12 cm laterally into parallel dachi.             |
++--------------------+-------------------+-------------------------------------------------------------------------+
+| karate_age_zuki    | karate_seiken_zuki| Elbow elevation: +35 deg upward.                                        |
+|                    |                   | Forearm supination: -120 deg.                                           |
+|                    |                   | Target height offset: +18 cm (angled upward toward jaw/chin shelf).     |
+|                    |                   | Head pitch offset: -8 deg tucked back behind the guard shoulder.        |
++--------------------+-------------------+-------------------------------------------------------------------------+
+
+2.2 New Clip Specifications (Mandatory New Motion Data)
+                 QUESTION MARK KICK (KB_QUESTION_MARK)
+  Chamber (Sagittal)             Trajectory Warp            Heel Extension (Transverse)
+       [T: 140 ms]                 [T: 280 ms]                     [T: 340 ms]
+          O                           O                                 O
+         /|\                         / \_                             --|--/
+         / \                         \   \                             /
+        /   |                         \   v                           /
+     (Knee High)                 (Hip Rolls Over)               (Roundhouse Snap)
+
+Clip 1: kb_question_mark (Question Mark Kick)
+Base Stance: Orthodox (LeftUpLeg forward, distance between feet: $65\text{ cm}$).
+Biomechanical Logic: Fakes a direct front snap kick along the sagittal plane, then rapidly shifts into a high roundhouse kick across the transverse plane.
++--------------------------------------------------------------------------------------------------------------------+
+|                                      KEY POSE SPECIFICATION: KB_QUESTION_MARK                                      |
++-----+----------+------+--------------+----------------+----------------+--------------------+----------------------+
+| Key | Pose     | Time | Weight Split | Pelvis Rot     | Torso Lean     | Striking Foot Pos  | Hand Placement       |
++-----+----------+------+--------------+----------------+----------------+--------------------+----------------------+
+| 1   | Initiate | 0ms  | 50L / 50R    | 0 deg          | 0 deg          | (0, 0, 0)          | High Shell Guard     |
+| 2   | Chamber  | 140ms| 10L / 90R    | +5 deg Yaw     | -4 deg Pitch   | (+5, +65, -15) cm  | Guard Stable         |
+| 3   | Pivot    | 220ms| 0L / 100R    | -65 deg Yaw    | -25 deg Roll   | (+10, +85, -5) cm  | Lead Hand Drops 20cm |
+| 4   | Snap     | 340ms| 0L / 100R    | -105 deg Yaw   | -42 deg Roll   | (+15, +162, +40) cm| Rear Hand Pins Chin  |
+| 5   | Retract  | 440ms| 0L / 100R    | -75 deg Yaw    | -20 deg Roll   | (+10, +70, -10) cm | Hands Reguard        |
+| 6   | Plant    | 620ms| 55L / 45R    | -10 deg Yaw    | 0 deg          | (-5, 0, -55) cm    | Stance Reset         |
++-----+----------+------+--------------+----------------+----------------+--------------------+----------------------+
+
+Clip 2: kb_hook_kick (Spinning/Lead Hook Kick)
+Base Stance: Orthodox (LeftUpLeg forward, bladed stance: $45^\circ$).
++--------------------------------------------------------------------------------------------------------------------+
+|                                        KEY POSE SPECIFICATION: KB_HOOK_KICK                                        |
++-----+----------+------+--------------+----------------+----------------+--------------------+----------------------+
+| Key | Pose     | Time | Weight Split | Pelvis Rot     | Torso Lean     | Striking Foot Pos  | Hand Placement       |
++-----+----------+------+--------------+----------------+----------------+--------------------+----------------------+
+| 1   | Step     | 0ms  | 50L / 50R    | 0 deg          | 0 deg          | (0, 0, 0)          | High Guard           |
+| 2   | Chamber  | 160ms| 0L / 100R    | -90 deg Yaw    | -30 deg Roll   | (+12, +80, +20) cm | Lead Arm Counter-bal |
+| 3   | Extend   | 280ms| 0L / 100R    | -120 deg Yaw   | -45 deg Roll   | (+25, +155, +35) cm| Rear Hand at Temple  |
+| 4   | Hook     | 360ms| 0L / 100R    | -135 deg Yaw   | -45 deg Roll   | (-35, +150, +30) cm| Lead Arm Pulled Back |
+| 5   | Retract  | 480ms| 0L / 100R    | -80 deg Yaw    | -15 deg Roll   | (0, +60, -10) cm   | Reguarding           |
+| 6   | Recovery | 660ms| 50L / 50R    | 0 deg          | 0 deg          | (0, 0, 0)          | Stance Reset         |
++-----+----------+------+--------------+----------------+----------------+--------------------+----------------------+
+
+Clip 3: karate_nidan_geri (Jumping Double Front Kick)
+Base Stance: Zenkutsu-dachi (Long front stance, $70%$ weight on lead foot).
++--------------------------------------------------------------------------------------------------------------------+
+|                                      KEY POSE SPECIFICATION: KARATE_NIDAN_GERI                                     |
++-----+----------+------+--------------+----------------+----------------+--------------------+----------------------+
+| Key | Pose     | Time | Weight Split | Pelvis Rot     | Torso Lean     | Airborne Y Off     | Active Foot / Strike |
++-----+----------+------+--------------+----------------+----------------+--------------------+----------------------+
+| 1   | Compress | 0ms  | 60L / 40R    | 0 deg          | +8 deg Pitch   | 0 cm               | Both Feet Grounded   |
+| 2   | Launch   | 110ms| 0 / 0 (Air)  | +10 deg Yaw    | 0 deg          | +22 cm             | Rear Foot Snap Kick  |
+| 3   | Mid-Air  | 210ms| 0 / 0 (Air)  | -15 deg Yaw    | -10 deg Pitch  | +48 cm             | Rear Scissor Retract |
+| 4   | Second   | 310ms| 0 / 0 (Air)  | +25 deg Yaw    | -5 deg Pitch   | +42 cm             | Lead Foot High Snap  |
+| 5   | Land     | 490ms| 80L / 20R    | +10 deg Yaw    | +12 deg Pitch  | 0 cm               | Lead Ball Absorption |
+| 6   | Settle   | 650ms| 60L / 40R    | 0 deg          | 0 deg          | 0 cm               | Complete Zenkutsu    |
++-----+----------+------+--------------+----------------+----------------+--------------------+----------------------+
+
+Clip 4: karate_yama_zuki (Wide U-Punch)
+Base Stance: Fudo-dachi (Rooted diagonal stance). Dual-hand simultaneous strike: upper hand hits the jaw with a vertical fist, while the lower hand hits the solar plexus with a palm-up punch.
++--------------------------------------------------------------------------------------------------------------------+
+|                                       KEY POSE SPECIFICATION: KARATE_YAMA_ZUKI                                     |
++-----+----------+------+--------------+----------------+----------------+--------------------+----------------------+
+| Key | Pose     | Time | Weight Split | Upper Hand Pos | Lower Hand Pos | Pelvis Dip/Drop    | Spine Flexion        |
++-----+----------+------+--------------+----------------+----------------+--------------------+----------------------+
+| 1   | Set      | 0ms  | 50L / 50R    | (-18, 110, -25)| (+18, 100, -25)| 0 cm               | Neutral              |
+| 2   | Drive    | 120ms| 30L / 70R    | (-10, 115, -45)| (+10, 85, -45) | -8 cm              | Forward Arc (+12 deg)|
+| 3   | Impact   | 240ms| 65L / 35R    | (0, +145, +45) | (0, +95, +40)  | -6 cm              | C-Curve Compaction   |
+| 4   | Hold     | 310ms| 65L / 35R    | Iso Tension    | Iso Tension    | -6 cm              | Firm Core Lock       |
+| 5   | Retract  | 480ms| 50L / 50R    | Recovering     | Recovering     | 0 cm               | Return to Stance     |
++-----+----------+------+--------------+----------------+----------------+--------------------+----------------------+
+
+3. JUDO & BJJ SPECIFICATIONS (TWO-FIGHTER COUPLED SYSTEMS)
+3.1 Kinematic Interaction Architecture
+
+Simulating two independent fighters playing uncoupled clips side-by-side breaks down during grappling, leading to intersecting meshes and floaty impacts. Grappling must be treated as a single, dual-skeleton interaction system driven by 3 mechanical elements:
+
+Grip Anchors (Point Constraints): Rigid transforms established between Tori’s hand bones and Uke’s gi/anatomical sockets.
+Coupled Center of Mass: Tori cannot lift Uke without first pulling Uke’s $COM$ over Tori’s own base of support.
+Paired Kinetic Timelines: Uke does not play an independent "getting thrown" animation. Uke's skeleton position is solved directly from Tori’s throw phase, blending into an uncoupled breakfall only after physical release.
+                  COUPLED KINEMATIC THROW PIPELINE
+[20 Hz Sim Engine] 
+   └──

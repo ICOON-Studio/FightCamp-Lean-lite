@@ -1,0 +1,620 @@
+{
+	"caveats": {
+		"1": "Caveat 1: T_pose hierarchy pelvis_y=0.9675 m; Q83 wrongly reused idle 0.9130 m as tpose_pelvis_y_m; idle mid-pelvis ~0.9057 m.",
+		"2": "Caveat 2: KnockDown01 pelvis position track equals local at five samples (1 mm); raw track matches animated node space, not a separate world formula.",
+		"3": "Caveat 3: KnockDown01 xz net 0.7626 m path 1.5702 m; KnockDown02 xz net 1.0129 m path 1.2647 m — Q83 reported ~0 m horizontal for both."
+	},
+	"floor": {
+		"idle_lowest_toe_y_m": 0.0273851454257965
+	},
+	"idle": {
+		"pelvis_y_max_m": 0.921009540557861,
+		"pelvis_y_min_m": 0.89030909538269
+	},
+	"method": "scene tree global_position after AnimationPlayer.seek(t, true)",
+	"rows": [
+		{
+			"end_s": 3.03,
+			"frames": 18,
+			"lowest_toe_y_min_m": 0.0275285989046097,
+			"path": "res://assets/anim/audition/ramsterz_h2h/H2H_HitReaction01.FBX",
+			"pelvis_xz_net_m": 0.00605065282434225,
+			"pelvis_xz_path_m": 0.483508642762899,
+			"pelvis_y_final_m": 0.91290009021759,
+			"pelvis_y_max_m": 0.93012523651123,
+			"pelvis_y_min_m": 0.889927387237549,
+			"q83": {
+				"pelvis_xz_net_m": 0.00000000335744587,
+				"pelvis_y_max_m": 0.93012523651123,
+				"pelvis_y_min_m": 0.889927387237549
+			},
+			"root_xz_net_m": 0.00605065003037453,
+			"start_s": 2.47
+		},
+		{
+			"end_s": 4.0,
+			"frames": 29,
+			"lowest_toe_y_min_m": 0.0269949585199356,
+			"path": "res://assets/anim/audition/ramsterz_h2h/H2H_HitReaction02.FBX",
+			"pelvis_xz_net_m": 0.003094193758443,
+			"pelvis_xz_path_m": 0.596780040999874,
+			"pelvis_y_final_m": 0.912997901439667,
+			"pelvis_y_max_m": 0.912997901439667,
+			"pelvis_y_min_m": 0.885059475898743,
+			"q83": {
+				"pelvis_xz_net_m": 0.00000000098084684,
+				"pelvis_y_max_m": 0.912997901439667,
+				"pelvis_y_min_m": 0.885059475898743
+			},
+			"root_xz_net_m": 0.00309419445693493,
+			"start_s": 3.07
+		},
+		{
+			"end_s": 4.87,
+			"frames": 27,
+			"lowest_toe_y_min_m": 0.0264078080654144,
+			"path": "res://assets/anim/audition/ramsterz_h2h/H2H_HitReaction03.FBX",
+			"pelvis_xz_net_m": 0.00000000119325704872608,
+			"pelvis_xz_path_m": 0.621660191565752,
+			"pelvis_y_final_m": 0.912997901439667,
+			"pelvis_y_max_m": 0.912997901439667,
+			"pelvis_y_min_m": 0.819828689098358,
+			"q83": {
+				"pelvis_xz_net_m": 0.00000000039108272,
+				"pelvis_y_max_m": 0.912997901439667,
+				"pelvis_y_min_m": 0.819828689098358
+			},
+			"root_xz_net_m": 0.000000000800355337560177,
+			"start_s": 4.03
+		},
+		{
+			"end_s": 5.8,
+			"frames": 28,
+			"lowest_toe_y_min_m": 0.0277242809534073,
+			"path": "res://assets/anim/audition/ramsterz_h2h/H2H_HitReaction04.FBX",
+			"pelvis_xz_net_m": 0.000000052647095571956,
+			"pelvis_xz_path_m": 0.750709869433194,
+			"pelvis_y_final_m": 0.912997901439667,
+			"pelvis_y_max_m": 0.931859970092773,
+			"pelvis_y_min_m": 0.860922992229462,
+			"q83": {
+				"pelvis_xz_net_m": 0.000000001200533,
+				"pelvis_y_max_m": 0.931859970092773,
+				"pelvis_y_min_m": 0.860922992229462
+			},
+			"root_xz_net_m": 0.0000000514908187199126,
+			"start_s": 4.9
+		},
+		{
+			"end_s": 1.0,
+			"frames": 31,
+			"lowest_toe_y_min_m": 0.0275530964136124,
+			"path": "res://assets/anim/audition/ramsterz_h2h/H2H_StaggerSmall01.FBX",
+			"pelvis_xz_net_m": 0.698115408420563,
+			"pelvis_xz_path_m": 0.879302391782403,
+			"pelvis_y_final_m": 0.912997901439667,
+			"pelvis_y_max_m": 0.916923999786377,
+			"pelvis_y_min_m": 0.864504039287567,
+			"q83": {
+				"pelvis_xz_net_m": 0.00000017168653698,
+				"pelvis_y_max_m": 0.916923999786377,
+				"pelvis_y_min_m": 0.864504039287567
+			},
+			"root_xz_net_m": 0.698115408420563,
+			"start_s": 0.0
+		},
+		{
+			"end_s": 2.43,
+			"frames": 44,
+			"lowest_toe_y_min_m": 0.0262651890516281,
+			"path": "res://assets/anim/audition/ramsterz_h2h/H2H_StaggerSmall02.FBX",
+			"pelvis_xz_net_m": 0.709192931652069,
+			"pelvis_xz_path_m": 1.34482901531737,
+			"pelvis_y_final_m": 0.912955760955811,
+			"pelvis_y_max_m": 0.951032519340515,
+			"pelvis_y_min_m": 0.837361991405487,
+			"q83": {
+				"pelvis_xz_net_m": 0.00075845944229513,
+				"pelvis_y_max_m": 0.951032519340515,
+				"pelvis_y_min_m": 0.837361991405487
+			},
+			"root_xz_net_m": 0.708972036838531,
+			"start_s": 1.03
+		},
+		{
+			"end_s": 7.03,
+			"frames": 38,
+			"lowest_toe_y_min_m": 0.0260155573487282,
+			"path": "res://assets/anim/audition/ramsterz_h2h/H2H_StaggerSmall03.FBX",
+			"pelvis_xz_net_m": 0.352842152118683,
+			"pelvis_xz_path_m": 0.701796466251835,
+			"pelvis_y_final_m": 0.912586510181427,
+			"pelvis_y_max_m": 0.915481328964233,
+			"pelvis_y_min_m": 0.80983567237854,
+			"q83": {
+				"pelvis_xz_net_m": 0.00000008600917311,
+				"pelvis_y_max_m": 0.915481328964233,
+				"pelvis_y_min_m": 0.80983567237854
+			},
+			"root_xz_net_m": 0.352842181921005,
+			"start_s": 5.83
+		},
+		{
+			"end_s": 1.77,
+			"frames": 55,
+			"lowest_toe_y_min_m": 0.0261310487985611,
+			"path": "res://assets/anim/audition/ramsterz_h2h/H2H_StaggerMedium01.FBX",
+			"pelvis_xz_net_m": 1.06611728668213,
+			"pelvis_xz_path_m": 1.54075437108986,
+			"pelvis_y_final_m": 0.913004994392395,
+			"pelvis_y_max_m": 0.949638485908508,
+			"pelvis_y_min_m": 0.824545979499817,
+			"q83": {
+				"pelvis_xz_net_m": 0.00001080541733244,
+				"pelvis_y_max_m": 0.949638485908508,
+				"pelvis_y_min_m": 0.824545979499817
+			},
+			"root_xz_net_m": 1.06611740589142,
+			"start_s": 0.0
+		},
+		{
+			"end_s": 3.63,
+			"frames": 53,
+			"lowest_toe_y_min_m": 0.0272649377584457,
+			"path": "res://assets/anim/audition/ramsterz_h2h/H2H_StaggerMedium02.FBX",
+			"pelvis_xz_net_m": 1.13790369033813,
+			"pelvis_xz_path_m": 1.71638858318329,
+			"pelvis_y_final_m": 0.913179218769073,
+			"pelvis_y_max_m": 0.917581140995026,
+			"pelvis_y_min_m": 0.83416873216629,
+			"q83": {
+				"pelvis_xz_net_m": 0.00001154094570665,
+				"pelvis_y_max_m": 0.917581140995026,
+				"pelvis_y_min_m": 0.83416873216629
+			},
+			"root_xz_net_m": 1.13790380954742,
+			"start_s": 1.9
+		},
+		{
+			"end_s": 5.27,
+			"frames": 49,
+			"lowest_toe_y_min_m": 0.0265616327524185,
+			"path": "res://assets/anim/audition/ramsterz_h2h/H2H_StaggerMedium03.FBX",
+			"pelvis_xz_net_m": 1.37736833095551,
+			"pelvis_xz_path_m": 1.86575747374445,
+			"pelvis_y_final_m": 0.912997901439667,
+			"pelvis_y_max_m": 0.93836110830307,
+			"pelvis_y_min_m": 0.851185441017151,
+			"q83": {
+				"pelvis_xz_net_m": 0.00001397713458572,
+				"pelvis_y_max_m": 0.93836110830307,
+				"pelvis_y_min_m": 0.851185441017151
+			},
+			"root_xz_net_m": 1.37736809253693,
+			"start_s": 3.67
+		},
+		{
+			"end_s": 6.8,
+			"frames": 46,
+			"lowest_toe_y_min_m": 0.0279155671596527,
+			"path": "res://assets/anim/audition/ramsterz_h2h/H2H_StaggerMedium04.FBX",
+			"pelvis_xz_net_m": 1.31480753421783,
+			"pelvis_xz_path_m": 1.58780904184096,
+			"pelvis_y_final_m": 0.912997901439667,
+			"pelvis_y_max_m": 0.927970588207245,
+			"pelvis_y_min_m": 0.83683180809021,
+			"q83": {
+				"pelvis_xz_net_m": 0.00001332290230493,
+				"pelvis_y_max_m": 0.927970588207245,
+				"pelvis_y_min_m": 0.83683180809021
+			},
+			"root_xz_net_m": 1.31480741500854,
+			"start_s": 5.3
+		},
+		{
+			"end_s": 11.53,
+			"frames": 82,
+			"lowest_toe_y_min_m": 0.0228657573461533,
+			"path": "res://assets/anim/audition/ramsterz_h2h/H2H_StaggerLarge04_LowHit.FBX",
+			"pelvis_xz_net_m": 0.835688650608063,
+			"pelvis_xz_path_m": 1.54368065125891,
+			"pelvis_y_final_m": 0.912838399410248,
+			"pelvis_y_max_m": 0.940195620059967,
+			"pelvis_y_min_m": 0.496349602937698,
+			"q83": {
+				"pelvis_xz_net_m": 0.00001333042837359,
+				"pelvis_y_max_m": 0.940195620059967,
+				"pelvis_y_min_m": 0.496349602937698
+			},
+			"root_xz_net_m": 0.835687458515167,
+			"start_s": 8.83
+		},
+		{
+			"end_s": 1.93,
+			"frames": 59,
+			"lowest_toe_y_min_m": 0.0125038772821426,
+			"path": "res://assets/anim/audition/ramsterz_h2h/H2H_KnockDown01.FBX",
+			"pelvis_xz_net_m": 0.762568950653076,
+			"pelvis_xz_path_m": 1.57015176140703,
+			"pelvis_y_final_m": 0.150702685117722,
+			"pelvis_y_max_m": 0.913525581359863,
+			"pelvis_y_min_m": 0.133562117815018,
+			"q83": {
+				"pelvis_xz_net_m": 0.00000003494787392,
+				"pelvis_y_max_m": 0.913525581359863,
+				"pelvis_y_min_m": 0.133562117815018
+			},
+			"root_xz_net_m": 0.762568950653076,
+			"start_s": 0.0
+		},
+		{
+			"end_s": 2.0,
+			"frames": 61,
+			"lowest_toe_y_min_m": 0.0228066071867943,
+			"path": "res://assets/anim/audition/ramsterz_h2h/H2H_KnockDown02.FBX",
+			"pelvis_xz_net_m": 1.01290452480316,
+			"pelvis_xz_path_m": 1.2646814417094,
+			"pelvis_y_final_m": 0.14887572824955,
+			"pelvis_y_max_m": 0.912997901439667,
+			"pelvis_y_min_m": 0.14887572824955,
+			"q83": {
+				"pelvis_xz_net_m": 0.00000005179514772,
+				"pelvis_y_max_m": 0.912997901439667,
+				"pelvis_y_min_m": 0.14887572824955
+			},
+			"root_xz_net_m": 1.01290452480316,
+			"start_s": 0.0
+		},
+		{
+			"end_s": 4.67,
+			"frames": 142,
+			"lowest_toe_y_min_m": 0.0273851454257965,
+			"path": "res://assets/anim/audition/ramsterz_h2h/H2H_Idle.FBX",
+			"pelvis_xz_net_m": 0.0000263035017269431,
+			"pelvis_xz_path_m": 0.0421653517719278,
+			"pelvis_y_final_m": 0.91298896074295,
+			"pelvis_y_max_m": 0.920852959156036,
+			"pelvis_y_min_m": 0.890352427959442,
+			"q83": {
+				"pelvis_xz_net_m": 0.00002630350172694,
+				"pelvis_y_max_m": 0.920852959156036,
+				"pelvis_y_min_m": 0.890352427959442
+			},
+			"root_xz_net_m": 0.0,
+			"start_s": 0.0
+		},
+		{
+			"end_s": 1.0,
+			"frames": 31,
+			"lowest_toe_y_min_m": 0.0256936401128769,
+			"path": "res://assets/anim/audition/ramsterz_h2h/H2H_WalkForward.FBX",
+			"pelvis_xz_net_m": 0.000010786055099743,
+			"pelvis_xz_path_m": 0.0920325197366765,
+			"pelvis_y_final_m": 0.888462007045746,
+			"pelvis_y_max_m": 0.901543259620667,
+			"pelvis_y_min_m": 0.839086353778839,
+			"q83": {
+				"pelvis_xz_net_m": 0.00001078605782822,
+				"pelvis_y_max_m": 0.901543259620667,
+				"pelvis_y_min_m": 0.839086353778839
+			},
+			"root_xz_net_m": 0.0,
+			"start_s": 0.0
+		},
+		{
+			"end_s": 1.0,
+			"frames": 31,
+			"lowest_toe_y_min_m": 0.0256405472755432,
+			"path": "res://assets/anim/audition/ramsterz_h2h/H2H_WalkBack.FBX",
+			"pelvis_xz_net_m": 0.00673230085521936,
+			"pelvis_xz_path_m": 0.0949033664655872,
+			"pelvis_y_final_m": 0.888465940952301,
+			"pelvis_y_max_m": 0.901543140411377,
+			"pelvis_y_min_m": 0.839086353778839,
+			"q83": {
+				"pelvis_xz_net_m": 0.00673230085521936,
+				"pelvis_y_max_m": 0.901543140411377,
+				"pelvis_y_min_m": 0.839086353778839
+			},
+			"root_xz_net_m": 0.0,
+			"start_s": 0.0
+		},
+		{
+			"end_s": 0.67,
+			"frames": 22,
+			"lowest_toe_y_min_m": 0.0256478935480118,
+			"path": "res://assets/anim/audition/ramsterz_h2h/H2H_SlipLeft.FBX",
+			"pelvis_xz_net_m": 0.0,
+			"pelvis_xz_path_m": 0.428965852130204,
+			"pelvis_y_final_m": 0.912997901439667,
+			"pelvis_y_max_m": 0.912997901439667,
+			"pelvis_y_min_m": 0.701876819133759,
+			"q83": {
+				"pelvis_xz_net_m": 0.0,
+				"pelvis_y_max_m": 0.912997901439667,
+				"pelvis_y_min_m": 0.701876819133759
+			},
+			"root_xz_net_m": 0.0,
+			"start_s": 0.0
+		},
+		{
+			"end_s": 0.67,
+			"frames": 22,
+			"lowest_toe_y_min_m": 0.0273992791771889,
+			"path": "res://assets/anim/audition/ramsterz_h2h/H2H_SlipRight.FBX",
+			"pelvis_xz_net_m": 0.0,
+			"pelvis_xz_path_m": 0.216651490307413,
+			"pelvis_y_final_m": 0.912997901439667,
+			"pelvis_y_max_m": 0.912997901439667,
+			"pelvis_y_min_m": 0.765245199203491,
+			"q83": {
+				"pelvis_xz_net_m": 0.0,
+				"pelvis_y_max_m": 0.912997901439667,
+				"pelvis_y_min_m": 0.765245199203491
+			},
+			"root_xz_net_m": 0.0,
+			"start_s": 0.0
+		},
+		{
+			"end_s": 0.67,
+			"frames": 22,
+			"lowest_toe_y_min_m": 0.027435339987278,
+			"path": "res://assets/anim/audition/ramsterz_h2h/H2H_FadeBack.FBX",
+			"pelvis_xz_net_m": 0.000000000300524355401066,
+			"pelvis_xz_path_m": 0.410852503962815,
+			"pelvis_y_final_m": 0.912997901439667,
+			"pelvis_y_max_m": 0.912997901439667,
+			"pelvis_y_min_m": 0.73320597410202,
+			"q83": {
+				"pelvis_xz_net_m": 0.0989933758974075,
+				"pelvis_y_max_m": 0.912997901439667,
+				"pelvis_y_min_m": 0.73320597410202
+			},
+			"root_xz_net_m": 0.0989933758974075,
+			"start_s": 0.0
+		},
+		{
+			"end_s": 0.33,
+			"frames": 11,
+			"lowest_toe_y_min_m": 0.0273434221744537,
+			"path": "res://assets/anim/audition/ramsterz_h2h/H2H_BlockStart.FBX",
+			"pelvis_xz_net_m": 0.173026636242867,
+			"pelvis_xz_path_m": 0.186038657499012,
+			"pelvis_y_final_m": 0.791819036006927,
+			"pelvis_y_max_m": 0.912997901439667,
+			"pelvis_y_min_m": 0.777929961681366,
+			"q83": {
+				"pelvis_xz_net_m": 0.0000000110195133,
+				"pelvis_y_max_m": 0.912997901439667,
+				"pelvis_y_min_m": 0.777929961681366
+			},
+			"root_xz_net_m": 0.173026651144028,
+			"start_s": 0.0
+		},
+		{
+			"end_s": 0.833,
+			"frames": 26,
+			"lowest_toe_y_min_m": 0.0237429663538933,
+			"path": "res://assets/anim/audition/ramsterz_h2h/H2H_JabInPlace.FBX",
+			"pelvis_xz_net_m": 0.00126181542873383,
+			"pelvis_xz_path_m": 0.487549082550686,
+			"pelvis_y_final_m": 0.912954866886139,
+			"pelvis_y_max_m": 0.912994027137756,
+			"pelvis_y_min_m": 0.814609348773956,
+			"q83": {
+				"pelvis_xz_net_m": 0.00000572886892769,
+				"pelvis_y_max_m": 0.912994027137756,
+				"pelvis_y_min_m": 0.814609348773956
+			},
+			"root_xz_net_m": 0.00125608674716204,
+			"start_s": 0.0
+		},
+		{
+			"end_s": 1.0,
+			"frames": 31,
+			"lowest_toe_y_min_m": 0.0273237526416779,
+			"path": "res://assets/anim/audition/ramsterz_h2h/H2H_Haymaker_InPlace.FBX",
+			"pelvis_xz_net_m": 0.00000000000363797880709171,
+			"pelvis_xz_path_m": 0.66709114308469,
+			"pelvis_y_final_m": 0.912997901439667,
+			"pelvis_y_max_m": 0.912997901439667,
+			"pelvis_y_min_m": 0.715268015861511,
+			"q83": {
+				"pelvis_xz_net_m": 0.00000000001864464,
+				"pelvis_y_max_m": 0.912997901439667,
+				"pelvis_y_min_m": 0.715268015861511
+			},
+			"root_xz_net_m": 0.0000000000181898940354586,
+			"start_s": 0.0
+		},
+		{
+			"end_s": 0.7,
+			"frames": 22,
+			"lowest_toe_y_min_m": 0.0280323252081871,
+			"path": "res://assets/anim/audition/ramsterz_h2h/H2H_RoundhouseKick_InPlace.FBX",
+			"pelvis_xz_net_m": 0.00000609039852861315,
+			"pelvis_xz_path_m": 1.14715667441487,
+			"pelvis_y_final_m": 0.912997901439667,
+			"pelvis_y_max_m": 1.03875005245209,
+			"pelvis_y_min_m": 0.912997901439667,
+			"q83": {
+				"pelvis_xz_net_m": 0.00000000009822542,
+				"pelvis_y_max_m": 1.03875005245209,
+				"pelvis_y_min_m": 0.912997901439667
+			},
+			"root_xz_net_m": 0.00000609050039201975,
+			"start_s": 0.0
+		},
+		{
+			"end_s": 0.9,
+			"frames": 28,
+			"lowest_toe_y_min_m": 0.0223536342382431,
+			"path": "res://assets/anim/audition/ramsterz_h2h/H2H_KneeStrike_Forward.FBX",
+			"pelvis_xz_net_m": 1.97890245914459,
+			"pelvis_xz_path_m": 2.05756718665361,
+			"pelvis_y_final_m": 0.912983953952789,
+			"pelvis_y_max_m": 0.946710407733917,
+			"pelvis_y_min_m": 0.809337019920349,
+			"q83": {
+				"pelvis_xz_net_m": 0.00000572204771742,
+				"pelvis_y_max_m": 0.946710407733917,
+				"pelvis_y_min_m": 0.809337019920349
+			},
+			"root_xz_net_m": 1.97890245914459,
+			"start_s": 0.0
+		},
+		{
+			"end_s": 1.0,
+			"frames": 31,
+			"lowest_toe_y_min_m": 0.0276316702365875,
+			"path": "res://assets/anim/audition/ramsterz_h2h/H2H_RightCutKick_InPlace.FBX",
+			"pelvis_xz_net_m": 0.00000925898348214105,
+			"pelvis_xz_path_m": 1.76018678955734,
+			"pelvis_y_final_m": 0.912997901439667,
+			"pelvis_y_max_m": 1.04660332202911,
+			"pelvis_y_min_m": 0.810414373874664,
+			"q83": {
+				"pelvis_xz_net_m": 0.00000021715186449,
+				"pelvis_y_max_m": 1.04660332202911,
+				"pelvis_y_min_m": 0.810414373874664
+			},
+			"root_xz_net_m": 0.00000947613807511516,
+			"start_s": 0.0
+		},
+		{
+			"end_s": 0.833,
+			"frames": 26,
+			"lowest_toe_y_min_m": 0.0270414128899574,
+			"path": "res://assets/anim/audition/ramsterz_h2h/H2H_StraightPunchInPlace.FBX",
+			"pelvis_xz_net_m": 0.00118529715109617,
+			"pelvis_xz_path_m": 0.235925938006403,
+			"pelvis_y_final_m": 0.912927389144897,
+			"pelvis_y_max_m": 0.912994027137756,
+			"pelvis_y_min_m": 0.770232737064362,
+			"q83": {
+				"pelvis_xz_net_m": 0.00000015125398533,
+				"pelvis_y_max_m": 0.912994027137756,
+				"pelvis_y_min_m": 0.770232737064362
+			},
+			"root_xz_net_m": 0.00118538294918835,
+			"start_s": 0.0
+		},
+		{
+			"end_s": 1.0,
+			"frames": 31,
+			"lowest_toe_y_min_m": -0.000275105237960815,
+			"path": "res://assets/anim/audition/ramsterz_h2h/H2H_LeftCutKick_InPlace.FBX",
+			"pelvis_xz_net_m": 0.0,
+			"pelvis_xz_path_m": 1.47854306874797,
+			"pelvis_y_final_m": 0.912997901439667,
+			"pelvis_y_max_m": 1.04208981990814,
+			"pelvis_y_min_m": 0.906300902366638,
+			"q83": {
+				"pelvis_xz_net_m": 0.00000000022816948,
+				"pelvis_y_max_m": 1.04208981990814,
+				"pelvis_y_min_m": 0.906300902366638
+			},
+			"root_xz_net_m": 0.000000000229192664846778,
+			"start_s": 0.0
+		}
+	],
+	"tpose": {
+		"pelvis_y_m": 0.967506051063538
+	},
+	"track_space": {
+		"clip": "H2H_KnockDown01.FBX",
+		"raw_track_equals": "local",
+		"samples": [
+			{
+				"global": [
+					-0.0000860023501445539,
+					0.912997901439667,
+					0.0000533330457983539
+				],
+				"local": [
+					0.0,
+					0.000000346521858318738,
+					0.912997901439667
+				],
+				"raw_track": [
+					0.0,
+					0.000000346521858318738,
+					0.912997901439667
+				],
+				"t_s": 0.0
+			},
+			{
+				"global": [
+					-0.13121423125267,
+					0.744085490703583,
+					0.0763805657625198
+				],
+				"local": [
+					0.0,
+					0.000000350475318100507,
+					0.744085490703583
+				],
+				"raw_track": [
+					0.0,
+					0.000000350475318100507,
+					0.744085490703583
+				],
+				"t_s": 0.483333333333333
+			},
+			{
+				"global": [
+					-0.33075737953186,
+					0.687238931655884,
+					-0.0858912020921707
+				],
+				"local": [
+					0.0,
+					0.000000343322767548671,
+					0.687238931655884
+				],
+				"raw_track": [
+					0.0,
+					0.000000343322767548671,
+					0.687238931655884
+				],
+				"t_s": 0.966666666666667
+			},
+			{
+				"global": [
+					-0.0443224608898163,
+					0.184013977646828,
+					-0.752942621707916
+				],
+				"local": [
+					0.0,
+					0.000000343322767548671,
+					0.184013977646828
+				],
+				"raw_track": [
+					0.0,
+					0.000000343322767548671,
+					0.184013977646828
+				],
+				"t_s": 1.45
+			},
+			{
+				"global": [
+					-0.0863325521349907,
+					0.150634005665779,
+					-0.757524013519287
+				],
+				"local": [
+					0.0,
+					0.000000381469732246842,
+					0.150634005665779
+				],
+				"raw_track": [
+					0.0,
+					0.000000381469732246842,
+					0.150634005665779
+				],
+				"t_s": 1.93333333333333
+			}
+		]
+	}
+}

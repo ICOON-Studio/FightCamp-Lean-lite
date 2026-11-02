@@ -1,0 +1,472 @@
+
+...ember 1976)
+│ │ • Ranked #4 WBC, #7 WBA              │ │ - Gate Share: 12.5% Domestic Net Gate • Pay-Per-View Points: Nil          │ │
+│ ├──────────────────────────────────────┤ │ - Morale Impact: Content (Demands Top-5 Contender next)                  │ │
+│ │ PROMOTIONAL MARKETABILITY            │ │ ├─────────────────────────────────────────────────────────────────────────┤ │
+│ │ Star Power: 81/100 [GRADE A]         │ │ MANAGEMENT ACTIONS:                                                       │ │
+│ │ - Domestic Broadcast Value: High     │ │ [ EXTEND 3 BOUTS ($180K) ]   [ RENEGOTIATE TERMS ]   [ RELEASE FIGHTER ]   │ │
+│ │ - Ticketing Pull: 14,000 Capacity    │ ├─────────────────────────────────────────────────────────────────────────┤ │
+│ │ - Fan Sentiment: "Devastating KO     │ │ OFFICIAL BOUT RECORD & FIGHT TAPE ARCHIVE (SCROLLABLE TACTICAL LEDGER)    │ │
+│ │   Artist with Granite Chin"          │ │ [W] KO R4  vs. Tomasz Varga       • 214 lbs • York Hall, London           │ │
+│ └──────────────────────────────────────┘ │ │ [W] UD R10 vs. Michael O'Connor    • 219 lbs • G-Mex, Manchester          │ │
+│                                          │ │ [W] TKO R2 vs. Anton Petrov        • 226 lbs • Cirque d'Hiver, Paris       │ │
+│                                          │ └─────────────────────────────────────────────────────────────────────────┘ │
+└──────────────────────────────────────────┴─────────────────────────────────────────────────────────────────────────────┘
+
+
+### Column 1 Detailed Specification: The Trophy Room & Marketability
+* **Box 1: Sanctioned Championship Belts ($X: 40, Y: 130, W: 540, H: 440$)**:
+  * Background: Dark Recessed Leatherette (`#181716`) with an inset dark border (`#2b2823`, $1.5\text{ px}$) and $4\text{ px}$ brass corner brackets (`#8c6f2d`).
+  * **Header**: `"TITLE HONORS & SANCTIONED BELTS"`, Oswald Bold, $13\text{ pt}$, Ochre Brass (`#d4af37`), letter spacing $+1.2\text{ px}$.
+  * **Belt Display Case**:
+    * Rendered as physical velvet-backed alcoves ($W: 508\text{ px}, H: 100\text{ px}$ each).
+    * If holding a title: Displays a die-cast brass championship belt icon ($64\text{ px} \times 40\text{ px}$) in embossed gold (`#f0c233`), belt title in League Gothic Bold $20\text{ pt}$ Cream (`#f3e6c8`), defense tally in Oswald Medium $11\text{ pt}$ Gold (`"2 SUCCESSFUL DEFENCES • REIGN: 412 DAYS"`).
+    * If vacant: Displays an etched empty velvet slot with dashed border (`#332f27`) and italic text: `"No World Titles Currently Held"`.
+  * **World Rankings Ledger**:
+    * Clean tabular strip showing WBC, WBA, IBF, and Domestic ranking numbers.
+    * Values $> 10$ in Muted Steel (`#8c877d`), values $\le 10$ in Bright Gold (`#f0c233`) with a green delta arrow.
+
+* **Box 2: Commercial Star Power & Draw ($X: 40, Y: 590, W: 540, H: 420$)**:
+  * Background: Deep Charcoal (`#1a1814`), $1\text{ px}$ steel border (`#2b2f36`).
+  * **Star Power Meter**: Heavy segmented dial or bar ($H: 14\text{ px}$), Fill: Championship Gold (`#f0c233`), Grade badge: `"TIER A ATTRACTION"`.
+  * **Fan Archetype Chip**: Dark plate showing fanbase bias: `"HARDCORE COMBAT PURISTS & DOMESTIC KO ENTHUSIASTS"`.
+  * **Sponsor Appeal Breakdown**: 3 micro-meters showing:
+    * *Apparel & Gear Appeal:* $84\%$ (`#f0c233`)
+    * *Broadcast TV Rating Draw:* $76\%$ (`#d4af37`)
+    * *International Market Pull:* $48\%$ (`#8c877d`)
+
+### Column 2 Detailed Specification: The Contract Desk & Bout Tape
+* **Section 1: The Contract Docket ($X: 620, Y: 130, W: 1260, H: 380$)**:
+  * Designed to look like a crisp legal boxing contract resting on a dark desk.
+  * Background: Aged Bond Paper / Parchment Tone (`#24211c`) with an engraved brass header plate reading `"STANDARD PROFESSIONAL BOXING CONTRACT — PROMOTIONAL BINDING"`.
+  * **Two-Column Terms Grid**:
+    * *Col A (Guaranteed Financials):*
+      * Base Purse: League Gothic $28\text{ pt}$, Gold (`#f0c233`), `"$45,000 PER SANCTIONED BOUT"`.
+      * Win Bonus: Oswald Bold $14\text{ pt}$, Cream (`#f3e6c8`), `"$25,000"`.
+      * Knockout Incentive: Oswald Bold $14\text{ pt}$, Cream (`#f3e6c8`), `"$10,000"`.
+    * *Col B (Term Duration & Royalties):*
+      * Term Remaining: Oswald Bold $16\text{ pt}$, Oxblood (`#c62f2a`), `"4 BOUTS REMAINING (EXP: DEC 1976)"`.
+      * Gate Cut: Oswald Bold $14\text{ pt}$, Cream (`#f3e6c8`), `"12.5% NET LIVE GATE"`.
+      * Cut-Off Penalty Clause: Oswald Regular $11\text{ pt}$, Muted Steel (`#8c877d`), `"Gym retains matching rights on foreign promotional bids."`
+  * **Contract Action Button Bar ($H: 64\text{ px}$)**:
+    * The neon-green buttons are completely removed.
+    * Button 1: `"EXTEND CONTRACT (3 BOUTS)"` — Heavy Chamfered Gold Plate (`#f0c233`), Dark Charcoal text, $6\text{ px}$ bevel.
+    * Button 2: `"RESTRUCTURE TERMS"` — Steel Plate (`#2b2f36`), Cream text, Brass border (`#d4af37`).
+    * Button 3: `"RELEASE TO FREE AGENCY"` — Dark Oxblood Rim (`#7a1e22`), Muted Cream text.
+
+* **Section 2: The Official Bout History Tape ($X: 620, Y: 530, W: 1260, H: 480$)**:
+  * Complete tactical log of every professional fight on the boxer’s record.
+  * **Table Column Headers ($H: 32\text{ px}$, Oswald Bold $11\text{ pt}$, Ochre `#d4af37`)**:
+    * `RESULT` | `OPPONENT` | `RECORD AT BOUT` | `METHOD` | `ROUND / TIME` | `WEIGHT` | `LOCATION & VENUE` | `PURSE EARNED`
+  * **Row Style ($H: 44\text{ px}$ each, zebra striped `#1c1b18` and `#181715`)**:
+    * `[W]` Badge: $28\text{ px} \times 24\text{ px}$ solid Gold plate (`#f0c233`) with dark charcoal `"W"`.
+    * `[L]` Badge: $28\text{ px} \times 24\text{ px}$ solid Oxblood plate (`#7a1e22`) with white `"L"`.
+    * `[D]` Badge: $28\text{ px} \times 24\text{ px}$ solid Slate plate (`#3a3834`) with cream `"D"`.
+    * Method Text: KO/TKO highlighted in Gold, UD/SD in Cream.
+    * Hovering a row highlights it with a $1.5\text{ px}$ brass outline and reveals a floating scorecard tooltip showing judge tallies round-by-round.
+
+---
+
+## 8. TAB TRANSITION MOTION ARCHITECTURE (TIMINGS & EASING)
+
+Tabs must **never hard-cut** or clear the screen to black. The transition between any two profile tabs adheres to an authored **$240\text{ ms}$ slide-and-settle choreography**:
+
+
+========================================================================================================================
+TAB TRANSITION TIMELINE (TOTAL DURATION: 240 ms)
+TIMESTAMP     ELEMENT                      ACTION / EASING PROPERTY              DETAILS
+t = 0 ms      Current Tab Content          Fade Out + Micro Slide Left           Alpha: 1.0 -> 0.0, Position X: 0 -> -24px.
+(Tween.TRANS_QUAD, Tween.EASE_OUT)    Duration: 80 ms.
+t = 40 ms     Tab Host Underline Strip     Slide & Stretch to New Tab Header     X-offset and width lerp with spring curve.
+(Tween.TRANS_BACK, Tween.EASE_OUT)    Duration: 160 ms.
+t = 80 ms     Outgoing Content Freed       queue_free() / set_visible(false)     Zero memory leak, zero overlap artifacts.
+t = 80 ms     Incoming Tab Content         Mounts at X: +30px, Alpha: 0.0        Instantly constructed in code.
+t = 80-240 ms Incoming Tab Content         Fade In + Slide to Home (X: 0px)      Alpha: 0.0 -> 1.0, Position X: +30 -> 0px.
+(Tween.TRANS_CUBIC, Tween.EASE_OUT)   Duration: 160 ms.
+t = 120 ms    Stat Bars & Numeric Meters   Fill Rollout (Only on Overview/Bio)   Bars wipe from 0% -> Target over 120 ms.
+t = 240 ms    Transition Complete          Input Focus Snapped                   Ready for keyboard/controller navigation.
+
+---
+
+# PART C: WHAT SHIPPED MANAGEMENT GAMES DO (AND WHAT FIGHTCAMP ADOPTS)
+
+We systematically harvest proven architectural strengths from the benchmark titles in the genre:
+
+
+
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                   GENRE BENCHMARK HARVESTING                                     │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                                  │
+│   FOOTBALL MANAGER 2024 / 2026       MOTORSPORT MANAGER              FIGHT NIGHT CHAMPION /      │
+│   (Sports Interactive)               (Playsport Games)               UNDISPUTED (Steel City)     │
+│   ────────────────────────────       ──────────────────              ───────────────────────     │
+│   • 3-Tier Categorized Attributes    • Persistent Top Telemetry Bar  • 3D Turntable Plinth Stage │
+│   • Grade Badges (S/A/B/C)           • Immediate Visual Hierarchy    • Physical Cut/Damage Decals│
+│   • Contextual Tooltips on Labels    • Compact Component Framing     • Dynamic Tale of the Tape  │
+│   • Visual Density Without Clutter   • Zero Dead Canvas Policy       • Authentic Equipment Wear  │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+### 1. From *Football Manager* (Sports Interactive)
+* **The 3-Pillar Attribute Grouping:** *FM* never throws 20 numbers onto a screen unorganized. They are strictly divided into **Physical**, **Technical**, and **Mental**. *FightCamp* implements this exact division on `ProfileOverview`:
+  * *Physical:* Power, Speed, Stamina.
+  * *Technical:* Accuracy, Defence, Footwork.
+  * *Mental:* Chin, Heart, Ring IQ.
+* **Octagonal / Hexagonal Radar Silhouette:** In addition to bars, elite managers need instant visual recognition of player profile archetype (e.g. "Slugger" vs. "Out-Boxer" vs. "Counter-Puncher").
+* **Zero Dead Space Doctrine:** *FM* never leaves a panel half-empty. If data is sparse, the system renders historical trend sparklines, scouting notes, or domestic comparison percentiles.
+
+### 2. From *Motorsport Manager* (Playsport Games)
+* **The High-Density Driver Header:** *Motorsport Manager* anchors driver nationality, age, contract expiry, and marketability in a persistent top ribbon that stays locked while you flip between Car Setup, Telemetry, and Contract. We adopt this directly for `ProfileTabHost.gd`.
+* **Crisp Material Skeuomorphism within Flat UI:** Clean geometric container cards, but layered with mechanical depth: chamfered corners, subtle inset panel borders, and tactile metallic accent stripes.
+
+### 3. From *Fight Night Champion* & *Undisputed* (EA / Steel City Interactive)
+* **Interactive 3D Stage with Lighting Rims:** The 3D fighter is not a floating head or an ungrounded doll. He stands on an illuminated, brushed-metal ring plinth with a key directional light, a rim backlight catching his shoulders, and real-time breathing idle cycles.
+* **Technique Tree with Kinetic Feedback:** When selecting a boxing move (e.g., Left Hook), the 3D model immediately plays the motion in loop with authentic weight, weight transfer, and recovery frames, while the right panel displays kinetic stats (Frame startup, recovery, stamina tax, cut potential).
+
+---
+
+# PART D: THE AGENT BUILD ORDER & MEASURABLE ACCEPTANCE GATES
+
+The implementing engineer/agent must build and commit these components in strict chronological order. No step may begin until the preceding acceptance gate passes completely.
+
+
+
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                    SEQUENTIAL BUILD PIPELINE                                     │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                                  │
+│   [STEP 1: ProfileTabHost] ───────► [STEP 2: QuickLookCard] ──────► [STEP 3: ProfileOverview]    │
+│   Header, Vitals, Tab Bar           Gym-Floor World Anchor          Stage, 9 Tiles, Damage Map   │
+│             │                                                                                    │
+│             ▼                                                                                    │
+│   [STEP 4: ProfileTechniques] ────► [STEP 5: ProfilePerfCamp] ────► [STEP 6: ProfileMedicalBio]  │
+│   3D Dojo, Combo Tree, Playback     8-Wk Graph, Sparring Grid       Anatomy Ward, Bio Ledger     │
+│             │                                                                                    │
+│             ▼                                                                                    │
+│   [STEP 7: ProfileCareer]                                                                       │
+│   Title Belts, Contract, Bout Tape                                                               │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+### STEP 1: `ProfileTabHost.gd` (Persistent Header & Navigation)
+* **Deliverable:** The top header container ($X: 40, Y: 24, W: 1840, H: 96$) and the tab switcher strip ($H: 36\text{ px}$).
+* **Acceptance Gate 1.1:** Header displays Boxer Name, Flag, Division, Record, Vitals, and Morale/Composure gauges with zero label clipping at $1920 \times 1080$ and $1280 \times 720$.
+* **Acceptance Gate 1.2:** Clicking any of the 5 tabs smoothly moves the gold underline indicator to the target tab using a $160\text{ ms}$ tween, emitting `tab_changed(new_tab_index)`.
+
+### STEP 2: `QuickLookCard.gd` (Gym Floor Tactical Popup)
+* **Deliverable:** Floating inspect card ($380 \times 440\text{ px}$) projected from 3D world space coordinates to 2D screen space.
+* **Acceptance Gate 2.1:** Card is anchored by an antique brass leader needle to the clicked boxer’s floor position; panning the gym camera clamps the card within screen margins ($20\text{ px}$ buffer) without visual glitching.
+* **Acceptance Gate 2.2:** Displays current drill, supervising coach, Stamina/Fatigue bars, and upcoming bout banner.
+* **Acceptance Gate 2.3:** Pressing `Space` or clicking `"OPEN FULL PROFILE"` triggers the clean opening of `ProfileTabHost`.
+
+### STEP 3: `ProfileOverview.gd` (Overview Tab)
+* **Deliverable:** The 3-column overview layout.
+* **Acceptance Gate 3.1:** The crude orange/teal block-man vector is **$100\%$ deleted** from the codebase.
+* **Acceptance Gate 3.2:** The 9 attribute tiles render in 3 distinct pillars (Physical, Technical, Mental) with segmented gold bars and grade badges.
+* **Acceptance Gate 3.3:** The 3D boxer model stands on a grounded, metallic plinth facing the camera with active idle animation and directional rim lighting.
+* **Acceptance Gate 3.4:** No more than $40\text{ px}$ of unallocated vertical space exists between the bottom of the lowest card and the screen boundary.
+
+### STEP 4: `ProfileTechniques.gd` (Techniques & 3D Dojo)
+* **Deliverable:** 3-column arsenal browser, 3D playback stage, and move detail inspector.
+* **Acceptance Gate 4.1:** The purple placeholder shorts on the 3D model are replaced with styled Gleason charcoal/gold gym trunks.
+* **Acceptance Gate 4.2:** Techniques list shows 5-star mastery ratings and locked prerequisites instead of raw debug tables.
+* **Acceptance Gate 4.3:** Playback transport bar (`LOOP`, `SLOW-MO`, `SCRUB`) correctly controls animation playback on the 3D boxer node.
+
+### STEP 5: `ProfilePerformanceCamp.gd` (Performance & Camp Console)
+* **Deliverable:** 8-week camp progression curve graph and 3-column execution console.
+* **Acceptance Gate 5.1:** The 75% black void is completely populated with the camp progression curve, sparring partner roster, drill schedule, and weekly log archive.
+* **Acceptance Gate 5.2:** Graph correctly plots Conditioning Peak, Fatigue Load, and Weight Cut across 8 weeks.
+
+### STEP 6: `ProfileMedicalBio.gd` (Medical Ward & Bio Dossier)
+* **Deliverable:** Biological measurements dossier and sports medicine clinical rehabilitation ledger.
+* **Acceptance Gate 6.1:** Displays biographical stats (Reach, Ape Index, Hometown, Personality Traits).
+* **Acceptance Gate 6.2:** Injuries render as interactive clinical cards with days remaining, rehabilitation meters, and medical intervention options.
+
+### STEP 7: `ProfileCareerContract.gd` (Trophy Case, Contract Desk & Bout Tape)
+* **Deliverable:** Championship belt display, parchment promotional contract, and zebra-striped fight ledger.
+* **Acceptance Gate 7.1:** The raw code/JSON string terminal is **$100\%$ eliminated**.
+* **Acceptance Gate 7.2:** The neon-green buttons are replaced with chamfered gold/steel industrial buttons.
+* **Acceptance Gate 7.3:** Bout history renders all past fights with [W]/[L]/[D] badges, method, opponent, venue, and purse earned.
+
+---
+
+# PART E: PRODUCTION GDSCRIPT IMPLEMENTATION
+
+The following pure GDScript code provides the structural backbone for **`UIKit.gd`**, **`ProfileTabHost.gd`**, and **`AttributeTile.gd`** in full Godot 4.7 syntax.
+
+### 1. `UIKit.gd` (Core Theme Constants & Helpers)
+```gdscript
+# res://scripts/ui/UIKit.gd
+class_name UIKit
+extends RefCounted
+
+# MASTER PALETTE: MARIA'S GLEASON GYM SPEC
+const COLOR_GOLD_BRIGHT     := Color("#f0c233")
+const COLOR_GOLD_MUTED      := Color("#c8931b")
+const COLOR_BRASS_ANTIQUE   := Color("#d4af37")
+const COLOR_BRASS_DARK      := Color("#8c6f2d")
+const COLOR_OXBLOOD         := Color("#7a1e22")
+const COLOR_OXBLOOD_BRIGHT  := Color("#c62f2a")
+const COLOR_CREAM_PAPER     := Color("#f3e6c8")
+const COLOR_CHARCOAL_DARK   := Color("#1a1814")
+const COLOR_CHARCOAL_MID    := Color("#22201e")
+const COLOR_STEEL_BORDER    := Color("#36332e")
+const COLOR_TRACK_DARK      := Color("#100f0e")
+const COLOR_TEXT_MUTED      := Color("#8c877d")
+
+# TYPOGRAPHY SIZES
+const FONT_SIZE_HERO        := 34
+const FONT_SIZE_TITLE       := 22
+const FONT_SIZE_SUBTITLE    := 14
+const FONT_SIZE_BODY        := 12
+const FONT_SIZE_MICRO       := 10
+
+static func create_panel_style(bg_color: Color, border_color: Color, border_width: int = 1, corner_radius: int = 4) -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color = bg_color
+	style.border_color = border_color
+	style.set_border_width_all(border_width)
+	style.set_corner_radius_all(corner_radius)
+	style.content_margin_left = 8
+	style.content_margin_right = 8
+	style.content_margin_top = 6
+	style.content_margin_bottom = 6
+	return style
+
+static func create_chamfer_button(text: String, is_primary: bool = false) -> Button:
+	var btn := Button.new()
+	btn.text = text
+	btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	
+	var normal_box: StyleBoxFlat
+	if is_primary:
+		normal_box = create_panel_style(COLOR_GOLD_BRIGHT, COLOR_BRASS_DARK, 2, 4)
+		btn.add_theme_color_override("font_color", COLOR_CHARCOAL_DARK)
+		btn.add_theme_color_override("font_hover_color", Color.WHITE)
+	else:
+		normal_box = create_panel_style(COLOR_CHARCOAL_MID, COLOR_STEEL_BORDER, 1, 4)
+		btn.add_theme_color_override("font_color", COLOR_CREAM_PAPER)
+		btn.add_theme_color_override("font_hover_color", COLOR_GOLD_BRIGHT)
+		
+	btn.add_theme_stylebox_override("normal", normal_box)
+	btn.add_theme_stylebox_override("hover", normal_box)
+	btn.add_theme_stylebox_override("pressed", normal_box)
+	btn.custom_minimum_size = Vector2(0, 44 if is_primary else 36)
+	return btn
+
+2. ProfileTabHost.gd (Master Profile Window & Header Strip)
+# res://scripts/ui/profile/ProfileTabHost.gd
+class_name ProfileTabHost
+extends Control
+
+signal back_requested
+signal tab_changed(tab_idx: int)
+
+enum Tab { OVERVIEW, TECHNIQUES, PERFORMANCE_CAMP, MEDICAL_BIO, CAREER_CONTRACT }
+
+const TAB_TITLES := [
+	"OVERVIEW",
+	"TECHNIQUES (54)",
+	"PERFORMANCE & CAMP",
+	"MEDICAL & BIO",
+	"CAREER & CONTRACT"
+]
+
+var current_tab: Tab = Tab.OVERVIEW
+var boxer_data: Dictionary = {}
+
+# Node References
+var header_panel: Panel
+var tab_bar_container: HBoxContainer
+var tab_buttons: Array[Button] = []
+var tab_indicator_bar: ColorRect
+var content_container: Control
+var current_content_node: Control
+
+func _init() -> void:
+	anchor_right = 1.0
+	anchor_bottom = 1.0
+
+func _ready() -> void:
+	_build_base_shell()
+	_build_header_strip()
+	_build_tab_bar()
+	_build_content_viewport()
+	switch_to_tab(Tab.OVERVIEW, false)
+
+func setup_boxer(data: Dictionary) -> void:
+	boxer_data = data
+	_update_header_data()
+	if current_content_node and current_content_node.has_method("populate_data"):
+		current_content_node.call("populate_data", boxer_data)
+
+func _build_base_shell() -> void:
+	# Full-screen dark background canvas with leather tone
+	var bg := ColorRect.new()
+	bg.set_anchors_preset(PRESET_FULL_RECT)
+	bg.color = UIKit.COLOR_CHARCOAL_DARK
+	add_child(bg)
+
+func _build_header_strip() -> void:
+	header_panel = Panel.new()
+	header_panel.position = Vector2(40, 24)
+	header_panel.size = Vector2(1840, 72)
+	header_panel.add_theme_stylebox_override("panel", 
+		UIKit.create_panel_style(UIKit.COLOR_CHARCOAL_MID, UIKit.COLOR_BRASS_DARK, 1, 4))
+	add_child(header_panel)
+
+	# 1. Back Button
+	var back_btn := UIKit.create_chamfer_button("<--", false)
+	back_btn.position = Vector2(12, 14)
+	back_btn.size = Vector2(44, 44)
+	back_btn.pressed.connect(func(): back_requested.emit())
+	header_panel.add_child(back_btn)
+
+	# 2. Fighter Identity (Name & Nickname)
+	var name_box := VBoxContainer.new()
+	name_box.position = Vector2(72, 10)
+	name_box.size = Vector2(480, 52)
+	
+	var name_lbl := Label.new()
+	name_lbl.name = "NameLabel"
+	name_lbl.text = "BRUNO MOREAU"
+	name_lbl.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_HERO)
+	name_lbl.add_theme_color_override("font_color", UIKit.COLOR_CREAM_PAPER)
+	name_box.add_child(name_lbl)
+	
+	var sub_lbl := Label.new()
+	sub_lbl.name = "SubLabel"
+	sub_lbl.text = "\"THE LYON HAMMER\"  ★  8-0-0 (6 KOs)"
+	sub_lbl.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_SUBTITLE)
+	sub_lbl.add_theme_color_override("font_color", UIKit.COLOR_GOLD_BRIGHT)
+	name_box.add_child(sub_lbl)
+	
+	header_panel.add_child(name_box)
+
+	# 3. Vitals Strip (Age, Division, Reach, Stance)
+	var vitals_box := HBoxContainer.new()
+	vitals_box.position = Vector2(580, 16)
+	vitals_box.size = Vector2(680, 40)
+	vitals_box.add_theme_constant_override("separation", 24)
+	
+	vitals_box.add_child(_create_vital_chip("AGE", "24"))
+	vitals_box.add_child(_create_vital_chip("DIVISION", "HEAVYWEIGHT (218.4 LBS)"))
+	vitals_box.add_child(_create_vital_chip("REACH", "78.5\""))
+	vitals_box.add_child(_create_vital_chip("STANCE", "ORTHODOX"))
+	header_panel.add_child(vitals_box)
+
+	# 4. Psychological State Gauges (Morale & Composure)
+	var psych_box := HBoxContainer.new()
+	psych_box.position = Vector2(1300, 14)
+	psych_box.size = Vector2(500, 44)
+	psych_box.add_theme_constant_override("separation", 32)
+	
+	psych_box.add_child(_create_micro_meter("MORALE", 0.88, UIKit.COLOR_GOLD_BRIGHT, "FOCUSED"))
+	psych_box.add_child(_create_micro_meter("COMPOSURE", 0.74, Color("#5588aa"), "ICE COLD"))
+	header_panel.add_child(psych_box)
+
+func _create_vital_chip(label_text: String, value_text: String) -> VBoxContainer:
+	var box := VBoxContainer.new()
+	box.add_theme_constant_override("separation", 0)
+	
+	var l := Label.new()
+	l.text = label_text
+	l.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_MICRO)
+	l.add_theme_color_override("font_color", UIKit.COLOR_TEXT_MUTED)
+	box.add_child(l)
+	
+	var v := Label.new()
+	v.name = "Value"
+	v.text = value_text
+	v.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_SUBTITLE)
+	v.add_theme_color_override("font_color", UIKit.COLOR_CREAM_PAPER)
+	box.add_child(v)
+	
+	return box
+
+func _create_micro_meter(title: String, ratio: float, fill_color: Color, tag: String) -> VBoxContainer:
+	var box := VBoxContainer.new()
+	box.custom_minimum_size = Vector2(220, 44)
+	
+	var h := HBoxContainer.new()
+	var t_lbl := Label.new()
+	t_lbl.text = title
+	t_lbl.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_MICRO)
+	t_lbl.add_theme_color_override("font_color", UIKit.COLOR_TEXT_MUTED)
+	h.add_child(t_lbl)
+	
+	var tag_lbl := Label.new()
+	tag_lbl.text = "[%s]" % tag
+	tag_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	tag_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	tag_lbl.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_MICRO)
+	tag_lbl.add_theme_color_override("font_color", fill_color)
+	h.add_child(tag_lbl)
+	box.add_child(h)
+	
+	var progress := ProgressBar.new()
+	progress.custom_minimum_size = Vector2(220, 8)
+	progress.max_value = 1.0
+	progress.value = ratio
+	progress.show_percentage = false
+	
+	var track := UIKit.create_panel_style(UIKit.COLOR_TRACK_DARK, Color.TRANSPARENT, 0, 2)
+	var fill := UIKit.create_panel_style(fill_color, Color.TRANSPARENT, 0, 2)
+	progress.add_theme_stylebox_override("background", track)
+	progress.add_theme_stylebox_override("fill", fill)
+	box.add_child(progress)
+	
+	return box
+
+func _build_tab_bar() -> void:
+	tab_bar_container = HBoxContainer.new()
+	tab_bar_container.position = Vector2(40, 102)
+	tab_bar_container.size = Vector2(1840, 36)
+	tab_bar_container.add_theme_constant_override("separation", 8)
+	add_child(tab_bar_container)
+
+	for i in range(TAB_TITLES.size()):
+		var btn := Button.new()
+		btn.text = TAB_TITLES[i]
+		btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+		btn.add_theme_font_size_override("font_size", UIKit.FONT_SIZE_BODY)
+		
+		var idx := i
+		btn.pressed.connect(func(): switch_to_tab(idx as Tab))
+		tab_bar_container.add_child(btn)
+		tab_buttons.append(btn)
+
+	# Active Tab Moving Gold Indicator Strip
+	tab_indicator_bar = ColorRect.new()
+	tab_indicator_bar.size = Vector2(360, 3)
+	tab_indicator_bar.position = Vector2(40, 138)
+	tab_indicator_bar.color = UIKit.COLOR_GOLD_BRIGHT
+	add_child(tab_indicator_bar)
+
+func _build_content_viewport() -> void:
+	content_container = Control.new()
+	content_container.position = Vector2(40, 148)
+	content_container.size = Vector2(1840, 908)
+	add_child(content_container)
+
+func switch_to_tab(target_tab: Tab, animate: bool = true) -> void:
+	current_tab = target_tab
+	tab_changed.emit(target_tab)
+
+	# 1. Update Tab Button Styles & Animate Gold Indicator
+	var target_btn: Button = tab_buttons[target_tab]
+	var target_x: float = tab_bar_container.position.x + target_btn.position.x
+	var target_w: float = target_btn.size.x
+
+	for i in range(tab_buttons.size()):
+		var b := tab_buttons[i]
+		var is_sel := (i == target
+
+Can you continue from the truncated GDScript and finish the complete Godot 4 implementation for every profile tab?
+Can you provide the full 1920×1080 block-by-block specification for all six screens, including responsive behavior at 1280×720?
+Can you generate a polished visual mockup showing the completed Career & Contract tab with its trophy room and contract desk?
+Can you define the full build sequence with measurable acceptance checks for every UI component and interaction?

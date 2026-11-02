@@ -1,0 +1,21 @@
+You are working in the git worktree D:/FightCamp/wt/C225 (branch codex/c225-floor-tier1) of the FightCamp Godot 4.7.2 game.
+Your task is fully specified in research/TASK_C225_FLOOR_TIER1_TO_CONCEPT.md - read it first, then do it start to finish.
+
+Key points (the task file wins if anything differs):
+- Target image: previews/concepts/gym_tier1_backroom_club.jpg. OPEN it and LOOK at it. After every render pass,
+  open your render (previews/c225/pass<N>.png) and compare it with the concept before the next pass.
+- Edit ONLY TrainingFloor3D.gd code paths that run for tier 1 (guard every change with the tier), plus the NEW files the
+  task lists. Other agents are editing the rooms that extend TrainingFloor3D.gd right now - never touch shared paths.
+- No downloads, no purchases, no images from the web. Blender 5.2.1 headless is available for props.
+- The .godot import cache is already in the worktree. Parse gate before every render:
+  python Godot/tools/check_scripts.py Godot/scripts/TrainingFloor3D.gd
+- Render (windowed Godot moved off-screen - never --headless):
+  powershell -NoProfile -ExecutionPolicy Bypass -File Tools\godot_hidden.ps1 --path Godot --script tools/s104_render_floor_t12.gd
+  Save the tier-2 render from before your first change; the tier-2 image must not change.
+- At the end: python Godot/tools/run_tests.py --only training_floor_3d,gym_floor_layout (0 failures);
+  copy the last tier-1 render to previews/c225/final.png; write research/C225_DIGEST.md;
+  git add the changed/new files explicitly by path (never `git add .`, never Godot/.godot), commit, and
+  git push -u origin codex/c225-floor-tier1.
+- Work in passes (walls and roll-up door -> bag row, mat and ring dressing -> signs and flyers -> lighting). Stop when
+  the acceptance list is met or after 6 passes, and report what is still unlike the concept.
+Do not stop at "written": run the renders and the tests yourself and finish with the push.

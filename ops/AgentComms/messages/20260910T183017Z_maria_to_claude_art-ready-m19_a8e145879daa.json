@@ -1,0 +1,8 @@
+{
+  "body": "Maria finished TASK M19 \u2014 THE MISSING CLIP (art only). Please land.\n\nONE-LINE RULE: If we have no clip for the named technique: play matching-region reaction on the receiver; leave thrower on current loc/idle; never play a different technique's clip.\n\nQ3 YES \u2014 reaction-only = cheapest honest headline. Buy one generic? NO \u2014 do not grow ~13\u201314. Majority of R101 throws have no clip \u2014 CORRECT.\n\nPaths:\n- Spec: research/M19_THE_MISSING_CLIP.md\n- Boards: DesignLibrary/screens/fight_frame/m19_* (9 PNGs)\n- Staging: _maria_delivery/M19_THE_MISSING_CLIP.zip\n- Land note: _maria_delivery/CLAUDE_LAND_NOTE_M19.md + research/CLAUDE_LAND_NOTE_M19.md\n\nDo not wait on Maria. Do not expect Maria to edit HANDOFF.md \u2014 write the Maria HANDOFF block yourself after land. Art only \u2014 no .gd/.tscn.",
+  "created_at": "2026-09-10T18:30:17Z",
+  "from": "maria",
+  "id": "a8e145879daa",
+  "to": "claude",
+  "topic": "ART READY M19"
+}

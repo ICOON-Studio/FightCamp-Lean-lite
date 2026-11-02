@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<!--
+  K1 merge by Kalli 2026-09-04.
+  IA recommendation: keep Claude hierarchy (Broadcast-style fewer subtabs /
+  game five tabs) until operator picks IA from PROFILE_IA_THREE_VERSIONS —
+  recommend Version B spirit inside five tabs (Athlete Lab = decide now /
+  what wins / long game; other tabs hold deep surfaces without renaming
+  Pulse/Body/Craft). Claude shell + instruments + type; Kalli art surfaces
+  dropped in. Neon HUD dropped.
+-->
+<title>FightCamp · K1 Merged Profile · Kian Sterling</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@500;600;700&display=swap">
+<style>
+  :root {
+    --ground:#1c2230; --panel:#2a3347; --panel-hi:#34405a; --panel-lo:#222a3b;
+    --edge:#121722; --edge-hi:rgba(255,255,255,.14); --line:#4a5a78;
+    --gym:#2f6fb0; --gym-hi:#3f86cc; --gym-lo:#24558a; --gym-deep:#1a3d63; --gym-tint:rgba(47,111,176,.22);
+    --gold:#f0c233; --gold-hi:#f7d65a; --gold-lo:#c99a1a;
+    --good:#4fc46a; --amber:#f0a020; --bad:#e5433a;
+    --text:#f3f5fa; --text-2:#c9d1e0; --muted:#94a1b8; --link:#7fb6ee;
+    --v1:#7a2a22; --v2:#b34a1e; --v3:#d07a1a; --v4:#e6a41c; --v5:#f0c233;
+    --display:"Bebas Neue","Haettenschweiler","Arial Narrow",sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(130% 90% at 50% 0%,#2a3346 0%,#171c27 55%,#0f131b 100%);color:var(--text);font-family:var(--mono);font-size:14px;font-weight:500;line-height:1.45;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1600px;margin:0 auto;padding:28px 22px 72px;display:flex;flex-direction:column;gap:24px}
+  .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:700}
+  .masthead h1{font-family:var(--display);font-size:clamp(36px,5vw,56px);letter-spacing:.02em;line-height:.94;margin:6px 0 8px}
+  .masthead p{margin:0;max-width:78ch;color:var(--text-2)}
+  .pair{display:grid;grid-template-columns:1fr auto;height:44px;border:1px solid var(--edge);border-radius:3px;overflow:hidden;box-shadow:0 1px 0 var(--edge-hi) inset,0 2px 4px rgba(0,0,0,.35)}
+  .pair .lab{display:flex;align-items:center;padding:0 10px;background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));font-family:var(--display);font-size:16px;letter-spacing:.08em;color:#fff;text-shadow:0 1px 0 rgba(0,0,0,.4);border-right:1px solid var(--edge);white-space:nowrap}
+  .pair .lab.q{background:linear-gradient(180deg,#4a5670,#333d52)}
+  .pair .val{display:flex;align-items:center;justify-content:center;gap:6px;min-width:66px;padding:0 10px;font-family:var(--display);font-size:24px;line-height:1;background:linear-gradient(180deg,var(--panel-hi),var(--panel-lo));font-variant-numeric:tabular-nums;white-space:nowrap}
+  .pair .val.g1{background:linear-gradient(180deg,#8f352b,var(--v1))}.pair .val.g2{background:linear-gradient(180deg,#c95a26,var(--v2))}
+  .pair .val.g3{background:linear-gradient(180deg,#e08c22,var(--v3));color:#1b1207}.pair .val.g4{background:linear-gradient(180deg,#f0b52a,var(--v4));color:#1b1207}
+  .pair .val.g5{background:linear-gradient(180deg,var(--gold-hi),var(--v5));color:#1b1207}
+  .pair .val.txt{font-size:16px;letter-spacing:.06em}
+  .pair .val .t{font-family:var(--mono);font-size:12px;font-weight:700}
+  .pair .val.g4 .t,.pair .val.g5 .t,.pair .val.g3 .t{color:#3a2a06}.pair .val.g1 .t,.pair .val.g2 .t{color:#ffd6d1}
+  .vc{display:inline-grid;place-items:center;min-width:46px;height:36px;padding:0 6px;border:1px solid var(--edge);border-radius:3px;box-shadow:0 1px 0 rgba(255,255,255,.16) inset,0 2px 3px rgba(0,0,0,.35);font-family:var(--display);font-size:22px;line-height:1;color:var(--text);font-variant-numeric:tabular-nums}
+  .vc.g1{background:linear-gradient(180deg,#8f352b,var(--v1))}.vc.g2{background:linear-gradient(180deg,#c95a26,var(--v2))}
+  .vc.g3{background:linear-gradient(180deg,#e08c22,var(--v3));color:#1b1207}.vc.g4{background:linear-gradient(180deg,#f0b52a,var(--v4));color:#1b1207}.vc.g5{background:linear-gradient(180deg,var(--gold-hi),var(--v5));color:#1b1207}
+  .gb{display:flex;align-items:center;gap:8px}
+  .gb .track{position:relative;flex:1;height:14px;min-width:70px;background:#111621;border:1px solid var(--edge);border-radius:2px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.5) inset}
+  .gb .fill{display:block;height:100%;background:linear-gradient(90deg,#c8281f 0%,#e8781c 50%,#f4c62e 100%);box-shadow:0 1px 0 rgba(255,255,255,.25) inset}
+  .gb .fill.cool{background:linear-gradient(90deg,#24486f,#3f86cc 60%,#8cc4f4)}.gb .fill.life{background:linear-gradient(90deg,#2b5c33,#4fc46a 60%,#9ae8a6)}
+  .gb .read{font-family:var(--display);font-size:18px;line-height:1;min-width:58px;text-align:right;font-variant-numeric:tabular-nums}.gb .read i{font-style:normal;color:var(--muted)}
+  .dot{width:13px;height:13px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.5);flex:none}
+  .dot.g{background:var(--good);box-shadow:0 0 10px rgba(79,196,106,.9)}.dot.a{background:var(--amber);box-shadow:0 0 10px rgba(240,160,32,.9)}.dot.r{background:var(--bad);box-shadow:0 0 10px rgba(229,67,58,.9)}
+  .badge{min-width:21px;height:21px;padding:0 6px;border-radius:11px;background:linear-gradient(180deg,#ff6259,#c72c24);color:#fff;font-size:12px;font-weight:700;display:grid;place-items:center;border:1px solid #5a120e;box-shadow:0 0 0 2px var(--ground),0 0 10px rgba(229,67,58,.6)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:36px;padding:0 14px;border-radius:3px;cursor:pointer;font-family:var(--display);font-size:17px;letter-spacing:.08em;color:var(--text);background:linear-gradient(180deg,#445273,#303a52);border:1px solid var(--edge);box-shadow:0 1px 0 rgba(255,255,255,.16) inset,0 2px 4px rgba(0,0,0,.35);white-space:nowrap}
+  .btn:hover{background:linear-gradient(180deg,#4e5e83,#37425e)}.btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .btn.gold{background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:#1a1508;border-color:#7a5c0c;box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 0 18px rgba(240,194,51,.45)}
+  .btn.gym{background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff}.btn.sm{height:30px;padding:0 10px;font-size:15px}
+  .btn.bad{background:linear-gradient(180deg,#ef5a50,#b62e26);color:#fff}
+  .seg{display:inline-flex;border:1px solid var(--edge);border-radius:3px;overflow:hidden;box-shadow:0 2px 4px rgba(0,0,0,.35)}
+  .seg button{height:38px;padding:0 16px;background:linear-gradient(180deg,#3a4560,#2b3449);color:var(--text-2);border:none;cursor:pointer;font-family:var(--display);font-size:17px;letter-spacing:.1em}
+  .seg button+button{border-left:1px solid var(--edge)}.seg button.on{background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff;box-shadow:0 1px 0 rgba(255,255,255,.2) inset}
+  .stars{display:inline-flex;gap:3px;align-items:center}.stars svg{width:18px;height:18px}.stars svg path{fill:#3c475e}.stars svg.on path{fill:var(--gold)}
+  .stars.big svg{width:24px;height:24px}
+  .chip{display:inline-flex;align-items:center;gap:8px;height:30px;padding:0 10px;border-radius:3px;border:1px solid var(--edge);background:linear-gradient(180deg,#3a4560,#2b3449);font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--text);white-space:nowrap;box-shadow:0 1px 0 var(--edge-hi) inset}
+  .chip.gold{background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:#1a1508;border-color:#7a5c0c}
+  .chip.gym{background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff}
+  .chip.amber{background:linear-gradient(180deg,#f6b22e,#c77c12);color:#1b1207;border-color:#7a4c08}
+  a.ent{color:var(--link);font-weight:700;text-decoration:none;border-bottom:2px solid rgba(127,182,238,.45)}
+  .frame{border:1px solid var(--edge);border-radius:4px;background:rgba(34,42,59,.94);box-shadow:0 1px 0 var(--edge-hi) inset,0 6px 16px rgba(0,0,0,.35);overflow:hidden;display:flex;flex-direction:column;min-width:0}
+  .frame>.hbar{display:flex;align-items:center;gap:10px;padding:0 12px;height:34px;flex:none;background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));border-bottom:1px solid var(--edge);box-shadow:0 1px 0 rgba(255,255,255,.18) inset;font-family:var(--display);font-size:18px;letter-spacing:.08em;color:#fff;text-shadow:0 1px 0 rgba(0,0,0,.4);white-space:nowrap}
+  .frame>.hbar .r{margin-left:auto;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.08em;opacity:.95}
+  .frame>.hbar.gold{background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:#1a1508;text-shadow:none}
+  .frame>.hbar.bad{background:linear-gradient(180deg,#ef5a50,#b62e26)}
+  .frame>.hbar.slate{background:linear-gradient(180deg,#4a5670,#333d52)}
+  .frame .in{padding:8px;display:flex;flex-direction:column;gap:6px;flex:1}
+  .row{display:flex;align-items:center;gap:8px}
+  .k{font-size:12px;letter-spacing:.12em;font-weight:700;color:var(--muted)}
+  .line{font-size:13px;color:var(--text-2)}.line b{color:var(--text)}
+  .tierbar{display:flex;align-items:center;gap:12px;height:30px;padding:0 4px;font-family:var(--display);font-size:20px;letter-spacing:.12em;color:var(--gold)}
+  .tierbar .sub{font-family:var(--mono);font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--muted)}
+  .tierbar::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--gold),rgba(240,194,51,0))}
+  .monitor{width:100%;background:linear-gradient(#3a3f4a 0%,#262a33 4%,#1b1e25 100%);border-radius:14px;padding:9px 9px 0;box-shadow:0 1px 0 rgba(255,255,255,.12) inset,0 40px 90px -30px rgba(0,0,0,.95),0 0 0 1px #0c0e13}
+  .screen{position:relative;background:var(--ground);border-radius:5px;overflow:hidden;box-shadow:0 0 0 1px #05060a}
+  .screen::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(108deg,rgba(255,255,255,.05) 0%,rgba(255,255,255,0) 30%);z-index:5}
+  .chin{height:30px;display:flex;align-items:center;justify-content:center;position:relative}.chin .wordmark{font-family:var(--display);font-size:13px;letter-spacing:.3em;color:#565c69}.chin .pwr{position:absolute;right:14px;width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px 1px rgba(240,194,51,.75)}
+  .rig{display:flex;flex-direction:column;align-items:center}.stand-neck{width:118px;height:44px;background:linear-gradient(#262a33,#1a1d24);box-shadow:0 0 0 1px #0c0e13}.stand-foot{width:320px;height:12px;border-radius:0 0 8px 8px;background:linear-gradient(#2a2e38,#171a21);box-shadow:0 18px 30px -14px rgba(0,0,0,.9),0 0 0 1px #0c0e13}
+  .backdrop{position:absolute;inset:0;overflow:hidden;z-index:0}
+  .backdrop .pool{position:absolute;inset:-12%;background:radial-gradient(48% 60% at 62% 22%,rgba(63,134,204,.28),rgba(0,0,0,0) 70%),radial-gradient(40% 50% at 16% 80%,rgba(240,194,51,.14),rgba(0,0,0,0) 72%)}
+  .shell{position:relative;z-index:1;display:grid;grid-template-columns:196px 1fr;grid-template-rows:64px 1fr 44px;min-height:980px}
+  .header{grid-column:1/3;display:grid;grid-template-columns:auto 1fr auto;align-items:center;height:64px;background:linear-gradient(180deg,rgba(52,64,90,.96),rgba(38,46,66,.96));border-bottom:1px solid var(--edge);box-shadow:0 1px 0 rgba(255,255,255,.14) inset,0 4px 12px rgba(0,0,0,.35)}
+  .header .crest{display:flex;align-items:center;gap:11px;padding:0 16px;height:100%;border-right:1px solid var(--edge);background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));width:196px}
+  .header .crest .mark{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 40% 35%,#fff,#cfd8e6 70%);color:var(--gym-deep);font-family:var(--display);font-size:18px;border:2px solid rgba(0,0,0,.35);flex:none}
+  .header .crest .name{font-family:var(--display);font-size:20px;letter-spacing:.05em;line-height:1;color:#fff;text-shadow:0 1px 0 rgba(0,0,0,.4)}.header .crest .sub{font-size:12px;letter-spacing:.12em;color:rgba(255,255,255,.85);font-weight:700;margin-top:3px}
+  .header .headline{display:flex;align-items:center;gap:14px;padding:0 18px;height:100%;border-right:1px solid var(--edge);min-width:0}
+  .header .headline .glyph{width:44px;height:44px;flex:none;filter:drop-shadow(0 2px 3px rgba(0,0,0,.5))}
+  .header .headline h2{font-family:var(--display);font-size:38px;letter-spacing:.04em;margin:0;line-height:1;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.45);white-space:nowrap}
+  .header .idline{display:flex;align-items:center;gap:8px;margin-left:6px}
+  .header .idline .disc{height:30px;padding:0 12px;display:flex;align-items:center;background:linear-gradient(180deg,#ef5a50,#b62e26);color:#fff;font-family:var(--display);font-size:18px;letter-spacing:.1em;border:1px solid #5a120e;border-radius:3px;box-shadow:0 1px 0 rgba(255,255,255,.25) inset}
+  .header .idline .div{height:30px;padding:0 12px;display:flex;align-items:center;background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:#1a1508;font-family:var(--display);font-size:18px;letter-spacing:.1em;border:1px solid #7a5c0c;border-radius:3px;box-shadow:0 1px 0 rgba(255,255,255,.4) inset}
+  .header .idline .flag{font-size:24px;line-height:1}
+  .header .right{display:flex;align-items:stretch;height:100%;margin-left:auto}
+  .bell{position:relative;width:60px;display:grid;place-items:center;border-left:1px solid var(--edge);border-right:1px solid var(--edge);background:rgba(0,0,0,.15)}.bell svg{width:22px;height:22px;fill:var(--gold)}.bell .badge{position:absolute;top:9px;right:8px}
+  .datecont{display:flex;align-items:stretch}.datecont .date{padding:0 16px;display:flex;flex-direction:column;justify-content:center;text-align:right;background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff}.datecont .date .w{font-size:12px;letter-spacing:.16em;font-weight:700;opacity:.9}.datecont .date .d{font-family:var(--display);font-size:22px;line-height:1;margin-top:2px}
+  .datecont .continue{display:flex;flex-direction:column;justify-content:center;padding:0 22px;background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:#1a1508;border:none;cursor:pointer;font-family:var(--mono);text-align:left;box-shadow:0 1px 0 rgba(255,255,255,.45) inset}.datecont .continue .t{font-family:var(--display);font-size:26px;letter-spacing:.06em;line-height:1}.datecont .continue .s{font-size:12px;letter-spacing:.12em;font-weight:700;margin-top:2px}
+  .rail{background:rgba(28,34,48,.94);border-right:1px solid var(--edge);display:flex;flex-direction:column}
+  .rail .collapse{height:34px;display:flex;align-items:center;gap:8px;padding:0 12px;background:linear-gradient(180deg,#3d4a66,#2c3549);border-bottom:1px solid var(--edge);font-family:var(--display);font-size:16px;letter-spacing:.1em;color:var(--text-2);cursor:pointer}
+  .rail .collapse .ch{margin-left:auto;font-size:18px;color:var(--gold)}
+  .rail a{display:flex;align-items:center;gap:11px;height:44px;padding:0 12px 0 10px;color:var(--text-2);text-decoration:none;font-size:13px;font-weight:700;letter-spacing:.06em;border-bottom:1px solid rgba(0,0,0,.35);border-left:4px solid transparent}
+  .rail a .ic{width:22px;text-align:center;font-family:var(--display);font-size:20px;color:var(--muted)}
+  .rail a .n{margin-left:auto}
+  .rail a.on{background:linear-gradient(90deg,var(--gym-tint),rgba(0,0,0,0));color:#fff;border-left-color:var(--gym-hi)}.rail a.on .ic{color:var(--gold)}
+  .rail .sub{display:flex;align-items:center;gap:8px;height:36px;padding:0 12px 0 26px;font-size:12px;font-weight:700;letter-spacing:.08em;color:#fff;background:rgba(0,0,0,.25);border-bottom:1px solid rgba(0,0,0,.35)}
+  .rail .sub .tick{width:4px;height:18px;border-radius:2px;background:var(--gold)}
+  .rail .counterwrap{margin-top:auto;padding:22px 0 30px;display:grid;place-items:center}
+  .counter{position:relative;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 40% 35%,#3c4864,#1f2636 75%);border:2px solid var(--gym-hi);box-shadow:0 0 14px rgba(63,134,204,.5),0 1px 0 rgba(255,255,255,.2) inset;font-family:var(--display);font-size:30px;line-height:1}
+  .counter .lab{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:12px;letter-spacing:.14em;color:var(--muted);white-space:nowrap;font-weight:700}
+  .main{display:flex;flex-direction:column;gap:8px;padding:8px;min-width:0;min-height:0}
+  .view{display:none;flex-direction:column;gap:8px}.view.on{display:flex}
+  .idcard{display:grid;grid-template-columns:118px 1fr;grid-template-rows:auto auto;gap:10px 14px;align-items:stretch;padding:10px 12px;background:linear-gradient(180deg,rgba(52,64,90,.96),rgba(38,46,66,.96));border:1px solid var(--edge);border-radius:4px;box-shadow:0 1px 0 var(--edge-hi) inset,0 6px 16px rgba(0,0,0,.35)}
+  .idcard .por{grid-row:1/3;width:118px;height:148px;border-radius:4px;border:3px solid var(--gym-hi);box-shadow:0 0 22px rgba(63,134,204,.45),0 4px 10px rgba(0,0,0,.5);position:relative;overflow:hidden;background:#121722}
+  .idcard .por img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top}
+  .idcard .por .st{position:absolute;right:6px;bottom:8px;width:16px;height:16px;border-radius:50%;border:3px solid var(--ground);z-index:2}
+  .shelf-art{position:relative;min-height:132px;border-radius:3px;overflow:hidden;border:1px solid var(--edge);background:#0e1320}
+  .shelf-art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
+  .shelf-art .veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(28,34,48,.15),rgba(28,34,48,.55) 55%,rgba(28,34,48,.75));pointer-events:none}
+  .shelf-art .leader{position:absolute;z-index:2;display:flex;align-items:center;gap:6px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--text-2);padding:5px 8px;border-radius:3px;background:rgba(18,23,34,.78);border:1px solid rgba(240,194,51,.35);max-width:46%}
+  .shelf-art .leader b{font-family:var(--display);font-size:15px;letter-spacing:.06em;color:var(--gold);font-weight:400;display:block;line-height:1.1}
+  .shelf-art .leader .pipe{width:18px;height:2px;background:linear-gradient(90deg,var(--gold),transparent);flex:none}
+  .shelf-art .l1{left:3%;top:10%}.shelf-art .l2{right:3%;top:18%;flex-direction:row-reverse;text-align:right}.shelf-art .l2 .pipe{background:linear-gradient(270deg,var(--gold),transparent)}
+  .shelf-art .l3{left:4%;bottom:12%}.shelf-art .l4{right:4%;bottom:10%;flex-direction:row-reverse;text-align:right}.shelf-art .l4 .pipe{background:linear-gradient(270deg,var(--gold),transparent)}
+  .idcard .tags{grid-column:2;display:flex;gap:6px;flex-wrap:wrap}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .attr{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+  .medal{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 50% 38%,#4a2a1a,#1f2636 72%);border:3px solid var(--amber);box-shadow:0 0 16px rgba(240,160,32,.6);font-family:var(--display);font-size:24px;color:var(--amber);flex:none}
+  .medal .k{font-size:12px;letter-spacing:.12em;color:var(--text-2);font-family:var(--mono);font-weight:700}
+  .quote{margin:0;padding:8px 10px;font-size:13px;line-height:1.5;color:var(--text);background:rgba(0,0,0,.2);border-left:3px solid var(--gym-hi);border-radius:2px}
+  .quote .who{display:block;margin-top:4px;font-size:12px;letter-spacing:.12em;font-weight:700;color:var(--link)}
+  .milestones{display:flex;flex-direction:column;gap:4px}
+  .ms{display:grid;grid-template-columns:28px 1fr auto;align-items:center;height:32px;border:1px solid var(--edge);border-radius:3px;background:linear-gradient(180deg,#3a4560,#2b3449);font-size:13px;font-weight:600}
+  .ms .box{height:100%;display:grid;place-items:center;border-right:1px solid var(--edge);font-weight:700}
+  .ms.done .box{background:linear-gradient(180deg,#5fd27a,#2f9a48);color:#062a10}.ms.next .box{background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:#1a1508}.ms.todo .box{background:rgba(0,0,0,.25);color:var(--muted)}
+  .ms .t{padding:0 10px;color:var(--text)}.ms .w{padding:0 10px;color:var(--muted);font-size:12px;letter-spacing:.1em}
+  .body-panel{display:grid;grid-template-columns:1.35fr .85fr;gap:0;min-height:280px}
+  .bodymap{position:relative;min-height:280px;background:#0e1320;border-right:1px solid var(--edge)}
+  .bodymap img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center top;filter:saturate(1.02) contrast(1.04)}
+  .bodymap .veil{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 35%,transparent 40%,rgba(28,34,48,.45) 100%);pointer-events:none}
+  .bodymap .hot{position:absolute;border-radius:50%;cursor:pointer;border:2px solid transparent;background:rgba(79,196,106,.14);transition:box-shadow .15s,border-color .15s,background .15s}
+  .bodymap .hot:hover,.bodymap .hot.on{border-color:rgba(255,255,255,.55);box-shadow:0 0 0 2px rgba(240,194,51,.4),0 0 16px rgba(63,134,204,.35);background:rgba(240,194,51,.18)}
+  .bodymap .hot.warn{background:rgba(240,160,32,.22)}
+  .bodymap .hot.warn.on,.bodymap .hot.warn:hover{background:rgba(240,160,32,.32)}
+  .hot.hn{left:41%;top:3%;width:18%;height:13%}.hot.tc{left:34%;top:16%;width:32%;height:27%}
+  .hot.la{left:14%;top:17%;width:20%;height:30%}.hot.ra{left:66%;top:17%;width:20%;height:30%}
+  .hot.ll{left:30%;top:46%;width:18%;height:42%}.hot.rl{left:52%;top:46%;width:18%;height:42%}
+  .callouts{position:absolute;inset:0;pointer-events:none}
+  .callout{position:absolute;display:flex;align-items:center;gap:5px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+  .callout b{font-family:var(--display);font-size:18px;color:var(--good);letter-spacing:.04em;font-weight:400}
+  .callout.warn b{color:var(--amber)}
+  .callout .pipe{width:16px;height:2px;background:linear-gradient(90deg,rgba(127,182,238,.7),transparent)}
+  .callout.left .pipe{order:-1;background:linear-gradient(270deg,rgba(127,182,238,.7),transparent)}
+  .c-hn{left:2%;top:5%}.c-tc{right:2%;top:26%;justify-content:flex-end}.c-la{left:1%;top:30%}.c-ra{right:1%;top:30%;justify-content:flex-end}.c-ll{left:1%;top:66%}.c-rl{right:1%;top:66%;justify-content:flex-end}
+  .region-focus .rf-title{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:700;margin:0 0 4px}
+  .region-focus .rf-val{font-family:var(--display);font-size:36px;margin:0;letter-spacing:.04em;color:var(--good);line-height:1}
+  .region-focus .rf-val.warn{color:var(--amber)}
+  .region-focus .rf-meta{color:var(--muted);font-size:12px;line-height:1.4;margin-top:6px}
+  .region-focus .rf-meta code{color:var(--text-2);font-size:12px}
+  .bond-rings{display:grid;place-items:center;padding:4px 0}
+  .bond-rings svg{width:min(200px,100%);height:auto}
+  .constellation{position:relative;min-height:340px;height:100%;border-radius:0 0 3px 3px;overflow:hidden;background:#0e1320}
+  .constellation img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(1.05) contrast(1.04)}
+  .constellation .veil{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,rgba(28,34,48,.1),rgba(28,34,48,.72)),linear-gradient(180deg,rgba(28,34,48,.1),rgba(28,34,48,.8));pointer-events:none}
+  .node-hot{position:absolute;z-index:2;min-width:88px;padding:8px 12px;border-radius:3px;cursor:pointer;border:1px solid rgba(240,194,51,.55);background:rgba(28,34,48,.85);box-shadow:0 2px 10px rgba(0,0,0,.45),0 1px 0 var(--edge-hi) inset;text-align:center;transition:transform .12s,border-color .12s;font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;font-weight:700;font-size:12px;color:var(--muted)}
+  .node-hot b{display:block;font-family:var(--display);font-size:22px;color:var(--gold);letter-spacing:.04em;font-weight:400;line-height:1.1}
+  .node-hot:hover,.node-hot.on{transform:translateY(-1px);border-color:var(--gym-hi);color:var(--text);box-shadow:0 0 0 2px rgba(63,134,204,.35),0 4px 12px rgba(0,0,0,.4)}
+  .node-hot.n1{left:14%;top:24%}.node-hot.n2{left:52%;top:18%}.node-hot.n3{left:38%;top:54%}.node-hot.n4{left:68%;top:48%}
+  .craft-focus{position:absolute;left:10px;right:10px;bottom:10px;z-index:3;padding:8px 12px;border-radius:3px;background:rgba(18,23,34,.88);border:1px solid var(--edge);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);pointer-events:none}
+  .craft-focus strong{color:var(--gold);font-family:var(--display);letter-spacing:.06em;font-size:18px;font-weight:400}
+  .fight-cards{display:flex;flex-direction:column;gap:6px}
+  .fight-card{position:relative;display:grid;grid-template-columns:52px 1fr auto;gap:10px;align-items:center;padding:10px 12px;border-radius:3px;border:1px solid var(--edge);background:linear-gradient(120deg,rgba(52,64,90,.95),rgba(34,42,59,.92));overflow:hidden}
+  .fight-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px}
+  .fight-card.win::before{background:var(--good)}.fight-card.loss::before{background:var(--bad)}
+  .fight-card .stamp{font-family:var(--display);font-size:22px;letter-spacing:.06em;text-align:center;border:2px solid currentColor;border-radius:3px;padding:6px 0;transform:rotate(-9deg);opacity:.95}
+  .fight-card.win .stamp{color:var(--good)}.fight-card.loss .stamp{color:#ff9b94}
+  .fight-card .opp{font-family:var(--display);font-size:21px;letter-spacing:.04em;line-height:1}
+  .fight-card .meta{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-top:4px}
+  .fight-card .method{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--link);text-align:right}
+  .camp-hero{position:relative;min-height:320px;border-radius:3px;overflow:hidden;border:1px solid var(--edge);background:#0e1320}
+  .camp-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .camp-hero .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(28,34,48,.2),rgba(28,34,48,.82) 70%,rgba(28,34,48,.92));pointer-events:none}
+  .camp-hero .live-overlay{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:flex-end;padding:14px;gap:8px}
+  .camp-hero .live-badge{align-self:flex-start;height:28px;padding:0 12px;display:inline-flex;align-items:center;background:linear-gradient(180deg,var(--good),#2f9a48);color:#062a10;font-family:var(--display);font-size:16px;letter-spacing:.12em;border-radius:3px;border:1px solid #1a5a28}
+  .lock-glass{position:absolute;inset:0;display:grid;place-items:center;z-index:3;background:rgba(18,23,34,.55);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
+  .lock-glass .lock-card{text-align:center;padding:16px 20px;border-radius:4px;border:1px solid rgba(240,194,51,.5);background:rgba(28,34,48,.88);box-shadow:0 8px 24px rgba(0,0,0,.45);max-width:360px}
+  .lock-glass .lock-card .stamp{font-family:var(--display);font-size:32px;letter-spacing:.16em;color:var(--gold);margin:0 0 6px}
+  .camp-alt{margin-top:8px}
+  .camp-alt summary{cursor:pointer;font-size:12px;letter-spacing:.12em;font-weight:700;color:var(--muted);text-transform:uppercase;padding:6px 0}
+  .camp-alt[open] summary{color:var(--gold)}
+  .bottom{grid-column:1/3;display:flex;align-items:center;gap:0;height:44px;background:linear-gradient(180deg,rgba(52,64,90,.96),rgba(38,46,66,.96));border-top:1px solid var(--edge);box-shadow:0 1px 0 rgba(255,255,255,.14) inset}
+  .bottom .nav{display:flex;height:100%}.bottom .nav button{width:46px;height:100%;background:rgba(0,0,0,.2);border:none;border-right:1px solid var(--edge);color:var(--text);font-family:var(--display);font-size:22px;cursor:pointer}
+  .bottom .crumb{display:flex;align-items:center;gap:10px;padding:0 16px;font-size:12px;letter-spacing:.12em;font-weight:700;color:var(--muted)}.bottom .crumb b{color:#fff}.bottom .crumb span{color:var(--gold)}
+  .bottom .acts{margin-left:auto;display:flex;gap:6px;padding:0 10px}
+  .notes{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:6px}
+  .note{display:grid;grid-template-columns:150px 1fr;align-items:center;min-height:44px;border:1px solid var(--edge);border-radius:3px;background:rgba(34,42,59,.94)}
+  .note b{height:100%;display:flex;align-items:center;padding:0 10px;background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));font-family:var(--display);font-size:15px;letter-spacing:.08em;font-weight:400;color:#fff;border-right:1px solid var(--edge)}
+  .note span{padding:6px 10px;font-size:13px;color:var(--text-2)}
+  footer{color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:14px}
+  .empty-ex{display:inline-flex;align-items:center;gap:4px;padding:4px 8px;border-radius:3px;border:1px dashed var(--line);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important}}
+  @media (max-width:1200px){.shell{grid-template-columns:1fr}.rail{display:none}.header{grid-template-columns:1fr}.header .right{display:none}.grid3,.grid4,.body-panel{grid-template-columns:1fr}.bottom{grid-column:1}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="masthead">
+    <div class="eyebrow">FightCamp · K1 merged profile · Claude shell + Kalli surfaces · 4 September 2026</div>
+    <h1>Kian Sterling</h1>
+    <p>Merged deliverable: Claude monitor/rail/breadcrumb/five tabs/three tiers and arena instruments kept; Kalli photoreal surfaces dropped in (hero plate, muscle map, hardware shelf, skill constellation, camp plate, W/L stamps, double-ring loyalty). Mid-career with bout booked — every system live.</p>
+  </header>
+
+  <div class="rig">
+    <div class="monitor">
+      <div class="screen">
+        <div class="backdrop" aria-hidden="true"><div class="pool"></div></div>
+        <div class="shell">
+
+          <div class="header">
+            <div class="crest"><div class="mark">NI</div><div><div class="name">Nicosia Ironworks</div><div class="sub">CYPRUS · TIER 2</div></div></div>
+            <div class="headline">
+              <svg class="glyph" viewBox="0 0 48 48" aria-label="Boxing"><path d="M14 8h14a9 9 0 0 1 9 9v7a11 11 0 0 1-11 11H16a8 8 0 0 1-8-8V14a6 6 0 0 1 6-6z" fill="#e5433a" stroke="#0e1320" stroke-width="2"/><path d="M8 20h6v15a4 4 0 0 1-4 4H8z" fill="#b62e26" stroke="#0e1320" stroke-width="2"/><path d="M16 30h9" stroke="#0e1320" stroke-width="2" stroke-linecap="round"/></svg>
+              <h2>Kian Sterling</h2>
+              <div class="idline"><span class="disc">BOXER</span><span class="div">BANTAMWEIGHT</span><span class="flag">🇨🇾</span></div>
+            </div>
+            <div class="right">
+              <div class="bell"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22a2.2 2.2 0 0 0 2.2-2.2H9.8A2.2 2.2 0 0 0 12 22zm7-5.4v-5.2c0-3.3-1.8-6-4.8-6.7v-.7a2.2 2.2 0 1 0-4.4 0v.7C6.8 5.4 5 8.1 5 11.4v5.2l-1.8 1.8v.9h17.6v-.9L19 16.6z"/></svg><span class="badge">6</span></div>
+              <div class="datecont"><div class="date"><div class="w">WEEK 11 · WED</div><div class="d">18 MAR 2026</div></div><button type="button" class="continue"><span class="t">CONTINUE →</span><span class="s">2 MUST ANSWER FIRST</span></button></div>
+            </div>
+          </div>
+
+          <nav class="rail" id="rail">
+            <div class="collapse" id="railToggle">MENU <span class="ch">‹</span></div>
+            <a href="#"><span class="ic">◆</span>OFFICE</a>
+            <a href="#"><span class="ic">■</span>THE DAY<span class="n badge">6</span></a>
+            <a href="#" class="on"><span class="ic">▲</span>FIGHTERS</a>
+            <div class="sub"><span class="tick"></span>KIAN STERLING</div>
+            <a href="#"><span class="ic">▤</span>GYM</a>
+            <a href="#"><span class="ic">✦</span>TRAINING</a>
+            <a href="#"><span class="ic">▦</span>SCHEDULE</a>
+            <a href="#"><span class="ic">◈</span>EVENTS<span class="n badge">1</span></a>
+            <a href="#"><span class="ic">☰</span>RANKINGS</a>
+            <a href="#"><span class="ic">$</span>FINANCES</a>
+            <a href="#"><span class="ic">✎</span>CONTRACTS</a>
+            <div class="counterwrap"><div class="counter">3<span class="lab">DAYS TO FIGHT</span></div></div>
+          </nav>
+
+          <main class="main">
+
+            <div class="idcard">
+              <div class="por">
+                <img src="fighter-hero-plate.png" alt="Kian Sterling portrait"/>
+                <span class="st dot g"></span>
+              </div>
+              <div class="shelf-art" aria-label="Accomplishments hardware shelf">
+                <img src="legacy-hardware-shelf.png" alt="Hardware shelf"/>
+                <div class="veil"></div>
+                <div class="leader l1"><span class="pipe"></span><span><b>#3 WORLD · 14–2–0</b>Bantam · 9 KO · 2 straight</span></div>
+                <div class="leader l2"><span class="pipe"></span><span><b>REGIONAL CHAMP</b>World title next</span></div>
+                <div class="leader l3"><span class="pipe"></span><span><b>NIGHT AWARDS ×3</b>Perf ×2 · Fight ×1</span></div>
+                <div class="leader l4"><span class="pipe"></span><span><b>FAME 132 · B+</b>Eastern Ring ★★★</span></div>
+              </div>
+              <div class="tags">
+                <span class="chip gold">TITLE SHOT GUARANTEED · 9 WKS</span>
+                <span class="chip amber">GRUDGE MATCH ON THE BOARD</span>
+                <span class="chip gym">IN CAMP · WEEK 4 OF 6</span>
+                <span class="chip">FEATHER → BANTAM · SETTLING 1 WK</span>
+                <span class="chip">AMBITIOUS</span>
+                <span class="chip">AGE 26</span>
+              </div>
+            </div>
+
+            <div class="row" style="justify-content:space-between;flex-wrap:wrap">
+              <div class="seg" id="tabs" role="tablist">
+                <button type="button" class="on" data-tab="lab" role="tab">ATHLETE LAB</button>
+                <button type="button" data-tab="dev" role="tab">DEVELOPMENT</button>
+                <button type="button" data-tab="skills" role="tab">SKILLS &amp; MOVES</button>
+                <button type="button" data-tab="record" role="tab">FIGHT RECORD</button>
+                <button type="button" data-tab="camp" role="tab">FIGHT CAMP</button>
+              </div>
+              <div class="row"><button type="button" class="btn">COMPARE</button><button type="button" class="btn">TALE OF THE TAPE</button><button type="button" class="btn gym">TRAINING PLAN</button></div>
+            </div>
+            <div class="view on" id="lab" role="tabpanel">
+              <div class="tierbar">DECIDE NOW <span class="sub">THINGS ON THIS FIGHTER THAT NEED AN ANSWER</span></div>
+              <div class="grid3">
+                <div class="frame">
+                  <div class="hbar bad">HE IS ASKING <span class="r">DEADLINE IF PROMISED · 2 WKS</span></div>
+                  <div class="in">
+                    <p class="quote">"I'm ranked third and I've won two straight. I want the champion next, not another tune-up."<span class="who">TITLE SHOT · RAISED MONDAY</span></p>
+                    <div class="row"><button type="button" class="btn gold" style="flex:1">PROMISE</button><button type="button" class="btn" style="flex:1">DEFER</button><button type="button" class="btn" style="flex:1">DECLINE</button></div>
+                    <div class="line">Kept by booking <a class="ent" href="#">Ilya Brandt</a>, the champion. Broken: morale −10, grudge +10.</div>
+                  </div>
+                </div>
+                <div class="frame">
+                  <div class="hbar gold">NEXT FIGHT · SATURDAY <span class="r">GRUDGE MATCH · HEATED</span></div>
+                  <div class="in">
+                    <div class="row" style="gap:10px"><div class="medal">42<span class="k">HEAT</span></div><div><div style="font-family:var(--display);font-size:22px;line-height:1">vs <a class="ent" href="#">Dmitri Vasa</a> · #4</div><div class="line"><a class="ent" href="#">Nicosia Fight Night</a> · Featured card · purse <b>$9,680</b> (heat ×1.21)</div></div></div>
+                    <div class="attr" style="margin-top:2px"><div class="pair"><span class="lab q">HYPE</span><span class="val g3">58</span></div><div class="pair"><span class="lab q">PLAN</span><span class="val txt">PRESSURE</span></div></div>
+                    <div class="line">2 press questions waiting · answered ones earned <b>+18 hype</b> so far.</div>
+                  </div>
+                </div>
+                <div class="frame">
+                  <div class="hbar">CAMP &amp; WEIGHT <span class="r">WEIGH-IN FRIDAY</span></div>
+                  <div class="in">
+                    <div class="row" style="gap:10px"><span class="k" style="width:64px">WEIGHT</span><div class="gb" style="flex:1"><span class="track"><i class="fill cool" style="width:70%"></i></span><span class="read">55.1<i>/53.5</i></span></div></div>
+                    <div class="line">2.9% to cut · <b>on track</b> · standard cut, no cost on the night.</div>
+                    <div class="attr"><div class="pair"><span class="lab q">TRACK</span><span class="val txt">STRIKING SHARK</span></div><div class="pair"><span class="lab q">PROTOCOL</span><span class="val txt">HARD SPARRING</span></div><div class="pair"><span class="lab q">INJURY RISK</span><span class="val g4">6%</span></div><div class="pair"><span class="lab q">FILM</span><span class="val g5">3/3</span></div></div>
+                  </div>
+                </div>
+              </div>
+              <div class="tierbar">WHAT WINS <span class="sub">THE FIGHTER TONIGHT</span></div>
+              <div class="grid4">
+                <div class="frame">
+                  <div class="hbar">ATTRIBUTES <span class="r">B+ OVERALL</span></div>
+                  <div class="in">
+                    <div class="attr">
+                      <div class="pair"><span class="lab">POWER</span><span class="val g4">78</span></div>
+                      <div class="pair"><span class="lab">TECHNIQUE</span><span class="val g5">86<span class="t">▲2</span></span></div>
+                      <div class="pair"><span class="lab">SPEED</span><span class="val g4">74</span></div>
+                      <div class="pair"><span class="lab">DEFENSE</span><span class="val g3">61</span></div>
+                      <div class="pair"><span class="lab">CONDITION</span><span class="val g3">66<span class="t">▼3</span></span></div>
+                      <div class="pair"><span class="lab">FIGHT IQ</span><span class="val g4">72</span></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="frame" style="grid-column:span 2">
+                  <div class="hbar">BODY <span class="r">MIN 77 · RIGHT LEG</span></div>
+                  <div class="body-panel">
+                    <div class="bodymap" id="bodymap">
+                      <img src="fighter-muscle-map-front.png" alt="Muscle map front"/>
+                      <div class="veil"></div>
+                      <button type="button" class="hot hn" data-region="head_neck" data-label="Head / neck" data-val="92" data-note="No flags. Sparring load normal." aria-label="Head neck 92"></button>
+                      <button type="button" class="hot tc" data-region="torso_core" data-label="Torso / core" data-val="90" data-note="Core clear. Conditioning feeds recovery." aria-label="Torso 90"></button>
+                      <button type="button" class="hot la" data-region="left_arm" data-label="Left arm" data-val="95" data-note="Strike volume green. No soft-tissue hold." aria-label="Left arm 95"></button>
+                      <button type="button" class="hot ra" data-region="right_arm" data-label="Right arm" data-val="94" data-note="Power side clear. Clinch load fine." aria-label="Right arm 94"></button>
+                      <button type="button" class="hot ll" data-region="left_leg" data-label="Left leg" data-val="88" data-note="Kick / base clear." aria-label="Left leg 88"></button>
+                      <button type="button" class="hot warn rl on" data-region="right_leg" data-label="Right leg" data-val="77" data-note="Soft tissue niggle from hard sparring. Monitor — no medical hold yet." aria-label="Right leg 77"></button>
+                      <div class="callouts">
+                        <div class="callout c-hn"><b>92</b> Head<span class="pipe"></span></div>
+                        <div class="callout c-tc"><span class="pipe"></span><b>90</b> Torso</div>
+                        <div class="callout left c-la"><b>95</b> L arm<span class="pipe"></span></div>
+                        <div class="callout c-ra"><span class="pipe"></span><b>94</b> R arm</div>
+                        <div class="callout left c-ll"><b>88</b> L leg<span class="pipe"></span></div>
+                        <div class="callout warn c-rl"><span class="pipe"></span><b>77</b> R leg</div>
+                      </div>
+                    </div>
+                    <div class="in" style="justify-content:flex-start">
+                      <div class="region-focus" id="regionFocus">
+                        <div class="rf-title">Right leg</div>
+                        <p class="rf-val warn">77</p>
+                        <div class="rf-meta">Soft tissue niggle from hard sparring. Monitor — no medical hold yet. · <code>right_leg</code></div>
+                      </div>
+                      <div class="line" style="margin-top:8px">Fatigue <b>31</b> · medical <b>CLEAR</b>. Click a region.</div>
+                      <div class="attr" style="margin-top:6px">
+                        <div class="pair"><span class="lab q">MEDICAL</span><span class="val txt" style="color:#8ff0a2">CLEAR</span></div>
+                        <div class="pair"><span class="lab q">STATUS</span><span class="val txt">AVAILABLE</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="frame">
+                  <div class="hbar">STYLE &amp; FORM <span class="r">SWARMER</span></div>
+                  <div class="in">
+                    <div class="attr">
+                      <div class="pair"><span class="lab q">PLAN</span><span class="val txt">PRESSURE</span></div>
+                      <div class="pair"><span class="lab q">TIGHTNESS</span><span class="val g4">78<span class="t">▲4</span></span></div>
+                      <div class="pair"><span class="lab q">MOVES</span><span class="val">18</span></div>
+                      <div class="pair"><span class="lab q">CHAINS</span><span class="val">2</span></div>
+                    </div>
+                    <div class="row"><span class="dot g"></span><span class="line">Form: won 2 straight · <b>sharp</b></span></div>
+                    <div class="row"><span class="k" style="width:72px">STAMINA</span><div class="gb" style="flex:1"><span class="track"><i class="fill" style="width:88%"></i></span><span class="read">88</span></div></div>
+                    <div class="row"><span class="k" style="width:72px">MORALE</span><div class="gb" style="flex:1"><span class="track"><i class="fill life" style="width:74%"></i></span><span class="read">74</span></div></div>
+                    <div class="line">Corner <a class="ent" href="#">Marco Reyes</a> · listens 71%.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="tierbar">THE LONG GAME <span class="sub">CAREER, RELATIONSHIPS, MONEY</span></div>
+              <div class="grid4">
+                <div class="frame">
+                  <div class="hbar">AMBITION <span class="r">WIN A WORLD TITLE</span></div>
+                  <div class="in">
+                    <div class="milestones">
+                      <div class="ms done"><span class="box">✓</span><span class="t">Break into the top ten</span><span class="w">WK 3</span></div>
+                      <div class="ms done"><span class="box">✓</span><span class="t">Reach the top five</span><span class="w">WK 8</span></div>
+                      <div class="ms next"><span class="box">›</span><span class="t">Fight for the belt</span><span class="w">GUARANTEED</span></div>
+                      <div class="ms todo"><span class="box">·</span><span class="t">Win the world title</span><span class="w"></span></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="frame">
+                  <div class="hbar">LOYALTY / RAPPORT <span class="r">STRONG</span></div>
+                  <div class="in">
+                    <div class="bond-rings">
+                      <svg viewBox="0 0 260 240" aria-label="Loyalty 61 Rapport 72">
+                        <circle cx="130" cy="115" r="95" fill="none" stroke="#1a2030" stroke-width="12"/>
+                        <circle cx="130" cy="115" r="95" fill="none" stroke="#4fc46a" stroke-width="12" stroke-linecap="round" stroke-dasharray="364 597" transform="rotate(-90 130 115)"/>
+                        <circle cx="130" cy="115" r="68" fill="none" stroke="#1a2030" stroke-width="10"/>
+                        <circle cx="130" cy="115" r="68" fill="none" stroke="#f0c233" stroke-width="10" stroke-linecap="round" stroke-dasharray="307 427" transform="rotate(-90 130 115)"/>
+                        <text x="130" y="108" text-anchor="middle" fill="#4fc46a" font-family="Bebas Neue,sans-serif" font-size="32">61</text>
+                        <text x="130" y="126" text-anchor="middle" fill="#94a1b8" font-family="IBM Plex Mono,monospace" font-size="12" letter-spacing="2" font-weight="700">LOYALTY</text>
+                        <text x="130" y="150" text-anchor="middle" fill="#f0c233" font-family="Bebas Neue,sans-serif" font-size="20">72</text>
+                        <text x="130" y="166" text-anchor="middle" fill="#94a1b8" font-family="IBM Plex Mono,monospace" font-size="11" letter-spacing="2" font-weight="700">RAPPORT</text>
+                      </svg>
+                    </div>
+                    <div class="line">Grudge <b>0</b> · tenure <b>1Y 8M</b> · pay 82% market · promises kept <b>2</b> / broken <b>0</b>.</div>
+                  </div>
+                </div>
+                <div class="frame">
+                  <div class="hbar">CONTRACT <span class="r">31 WEEKS LEFT</span></div>
+                  <div class="in">
+                    <div class="attr">
+                      <div class="pair"><span class="lab q">SALARY</span><span class="val txt">$1,150/WK</span></div>
+                      <div class="pair"><span class="lab q">MARKET</span><span class="val txt">$1,400/WK</span></div>
+                      <div class="pair"><span class="lab q">PROMOTION</span><span class="val txt">EXCLUSIVE</span></div>
+                      <div class="pair"><span class="lab q">STANDING</span><span class="val"><span class="stars"><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.6 7.2.8-5.3 4.9 1.4 7.1L12 17.9 5.7 21.4l1.4-7.1L1.8 9.4 9 8.6z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.6 7.2.8-5.3 4.9 1.4 7.1L12 17.9 5.7 21.4l1.4-7.1L1.8 9.4 9 8.6z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.6 7.2.8-5.3 4.9 1.4 7.1L12 17.9 5.7 21.4l1.4-7.1L1.8 9.4 9 8.6z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7.2.8-5.3 4.9 1.4 7.1L12 17.9 5.7 21.4l1.4-7.1L1.8 9.4 9 8.6z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7.2.8-5.3 4.9 1.4 7.1L12 17.9 5.7 21.4l1.4-7.1L1.8 9.4 9 8.6z"/></svg></span></span></div>
+                    </div>
+                    <div class="line">Clauses: <b>gate 2 pts · title shot</b>.</div>
+                    <div class="row"><button type="button" class="btn sm" style="flex:1">RENEGOTIATE</button><button type="button" class="btn sm" style="flex:1">RELEASE</button></div>
+                  </div>
+                </div>
+                <div class="frame">
+                  <div class="hbar">MEDIA &amp; AWARDS <span class="r">2 QUESTIONS WAITING</span></div>
+                  <div class="in">
+                    <p class="quote">"Vasa talks. I don't. Saturday he finds out why."<span class="who">LAST ANSWER · +12 HYPE · HEAT +10</span></p>
+                    <div class="attr"><div class="pair"><span class="lab q">PERFORMANCE</span><span class="val g5">2</span></div><div class="pair"><span class="lab q">FIGHT OF NIGHT</span><span class="val g4">1</span></div></div>
+                    <div class="line">Latest: Performance of the Night at <a class="ent" href="#">Larnaca Showdown</a> · $2,900.</div>
+                    <div style="margin-top:4px"><span class="empty-ex">Empty example · Contender Series N/A (boxer)</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="view" id="dev" role="tabpanel">
+              <div class="grid2">
+                <div class="frame">
+                  <div class="hbar">CAREER ARC <span class="r">WORLD TITLE PATH</span></div>
+                  <div class="in">
+                    <div class="milestones">
+                      <div class="ms done"><span class="box">✓</span><span class="t">Break into the top ten</span><span class="w">WK 3</span></div>
+                      <div class="ms done"><span class="box">✓</span><span class="t">Reach the top five</span><span class="w">WK 8</span></div>
+                      <div class="ms done"><span class="box">✓</span><span class="t">Win regional belt</span><span class="w">WK 10</span></div>
+                      <div class="ms next"><span class="box">›</span><span class="t">Fight for the world belt</span><span class="w">GUARANTEED · 9 WKS</span></div>
+                      <div class="ms todo"><span class="box">·</span><span class="t">Defend / unify</span><span class="w"></span></div>
+                    </div>
+                    <div class="line">Ambition trait: <b>AMBITIOUS</b>. Title shot clause is live on the Eastern Ring deal.</div>
+                  </div>
+                </div>
+                <div class="frame">
+                  <div class="hbar">GROWTH &amp; CEILING <span class="r">POTENTIAL A−</span></div>
+                  <div class="in">
+                    <div class="attr">
+                      <div class="pair"><span class="lab">OVERALL</span><span class="val g4">B+</span></div>
+                      <div class="pair"><span class="lab">CEILING</span><span class="val g5">A−</span></div>
+                      <div class="pair"><span class="lab">AGE</span><span class="val txt">26</span></div>
+                      <div class="pair"><span class="lab">PEAK WINDOW</span><span class="val txt">3–5 YR</span></div>
+                    </div>
+                    <div class="row"><span class="k" style="width:90px">TECH GAIN</span><div class="gb" style="flex:1"><span class="track"><i class="fill cool" style="width:72%"></i></span><span class="read">▲2</span></div></div>
+                    <div class="row"><span class="k" style="width:90px">COND DROP</span><div class="gb" style="flex:1"><span class="track"><i class="fill" style="width:40%"></i></span><span class="read">▼3</span></div></div>
+                    <div class="line">Division move Feather→Bantam settling · <b>1 week</b> left on the window.</div>
+                    <div style="margin-top:4px"><span class="empty-ex">Empty example · No loan / academy slot</span></div>
+                  </div>
+                </div>
+              </div>
+              <div class="grid3">
+                <div class="frame">
+                  <div class="hbar slate">PERSONALITY</div>
+                  <div class="in">
+                    <div style="display:flex;gap:6px;flex-wrap:wrap">
+                      <span class="chip">AMBITIOUS</span><span class="chip">PROUD</span><span class="chip gym">TRAINABLE</span>
+                    </div>
+                    <div class="line">Raises asks when ranked top five. Listens better when rapport &gt; 65.</div>
+                  </div>
+                </div>
+                <div class="frame">
+                  <div class="hbar slate">STANDING</div>
+                  <div class="in">
+                    <span class="stars big"><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.6 7.2.8-5.3 4.9 1.4 7.1L12 17.9 5.7 21.4l1.4-7.1L1.8 9.4 9 8.6z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.6 7.2.8-5.3 4.9 1.4 7.1L12 17.9 5.7 21.4l1.4-7.1L1.8 9.4 9 8.6z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.6 7.2.8-5.3 4.9 1.4 7.1L12 17.9 5.7 21.4l1.4-7.1L1.8 9.4 9 8.6z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7.2.8-5.3 4.9 1.4 7.1L12 17.9 5.7 21.4l1.4-7.1L1.8 9.4 9 8.6z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7.2.8-5.3 4.9 1.4 7.1L12 17.9 5.7 21.4l1.4-7.1L1.8 9.4 9 8.6z"/></svg></span>
+                    <div class="line"><a class="ent" href="#">Eastern Ring</a> exclusive · declining a slate costs standing.</div>
+                  </div>
+                </div>
+                <div class="frame">
+                  <div class="hbar slate">POACH RISK</div>
+                  <div class="in">
+                    <div class="pair"><span class="lab">RISK</span><span class="val g4">LOW</span></div>
+                    <div class="line">Loyalty 61 + exclusive clause. Raise ask likely before title fight.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="view" id="skills" role="tabpanel">
+              <div class="grid3" style="grid-template-columns:1.6fr .7fr .7fr">
+                <div class="frame" style="padding:0">
+                  <div class="hbar">SKILL CONSTELLATION <span class="r">CLICK A NODE</span></div>
+                  <div class="constellation" id="constellation">
+                    <img src="craft-skill-constellation.png" alt="Skill constellation"/>
+                    <div class="veil"></div>
+                    <button type="button" class="node-hot n1 on" data-skill="Boxing" data-val="86" data-note="Primary discipline. Technique leads the radar." aria-label="Boxing 86"><b>86</b> Boxing</button>
+                    <button type="button" class="node-hot n2" data-skill="Clinch" data-val="71" data-note="Pressure entry. Feeds the swarmer plan." aria-label="Clinch 71"><b>71</b> Clinch</button>
+                    <button type="button" class="node-hot n3" data-skill="Defense" data-val="61" data-note="Growth target. Camp film locked on Vasa entries." aria-label="Defense 61"><b>61</b> Defense</button>
+                    <button type="button" class="node-hot n4" data-skill="Conditioning" data-val="66" data-note="Dip from hard sparring week. Recovering." aria-label="Conditioning 66"><b>66</b> Cond</button>
+                    <div class="craft-focus" id="craftFocus">Focus · <strong>Boxing 86</strong> · Primary discipline. Technique leads the radar.</div>
+                  </div>
+                </div>
+                <div class="frame">
+                  <div class="hbar">COMBOS <span class="r">TIGHTNESS 78</span></div>
+                  <div class="in">
+                    <div class="pair"><span class="lab">TIGHTNESS</span><span class="val g4">78<span class="t">▲4</span></span></div>
+                    <div class="line">Signature: <b>Jab · Cross · Lead Hook</b></div>
+                    <div class="line">Game-plan chains: <b>2</b></div>
+                    <div class="line">In training: <b>Shovel Hook</b> 62%</div>
+                    <div class="line">Moves learned: <b>18</b></div>
+                  </div>
+                </div>
+                <div class="frame">
+                  <div class="hbar">PLAN DUEL <span class="r">CAREER</span></div>
+                  <div class="in">
+                    <div class="attr">
+                      <div class="pair"><span class="lab q">NATURAL</span><span class="val txt">SWARMER</span></div>
+                      <div class="pair"><span class="lab q">BOOKED</span><span class="val txt">PRESSURE</span></div>
+                      <div class="pair"><span class="lab">JAB/DIST</span><span class="val txt">7–3</span></div>
+                      <div class="pair"><span class="lab">LISTEN</span><span class="val g4">71%</span></div>
+                    </div>
+                    <div class="line">Corner coach <a class="ent" href="#">Marco Reyes</a> · rapport <b>72</b>.</div>
+                    <div style="margin-top:4px"><span class="empty-ex">Empty example · No BJJ tree (boxer)</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="view" id="record" role="tabpanel">
+              <div class="grid2">
+                <div class="frame">
+                  <div class="hbar">FIGHT LOG <span class="r">ROTATED W / L STAMPS</span></div>
+                  <div class="in">
+                    <div class="fight-cards">
+                      <div class="fight-card win">
+                        <div class="stamp">W</div>
+                        <div>
+                          <div class="opp">Teo Marsh</div>
+                          <div class="meta">Larnaca Showdown · Regional · Performance of the Night</div>
+                        </div>
+                        <div class="method">KO · Rd 3<br/>$6,100 · Hype 44</div>
+                      </div>
+                      <div class="fight-card win">
+                        <div class="stamp">W</div>
+                        <div>
+                          <div class="opp">Ilya Brandt</div>
+                          <div class="meta">Eastern Ring 14 · Promotion · Title shot clause earned</div>
+                        </div>
+                        <div class="method">UD · Rd 10<br/>$8,400 · Hype 51</div>
+                      </div>
+                      <div class="fight-card loss">
+                        <div class="stamp">L</div>
+                        <div>
+                          <div class="opp">Dmitri Vasa</div>
+                          <div class="meta">Eastern Ring 12 · Promotion · Feud started · rematch ask</div>
+                        </div>
+                        <div class="method">SD · Rd 10<br/>$7,200 · Hype 39</div>
+                      </div>
+                      <div class="fight-card win">
+                        <div class="stamp">W</div>
+                        <div>
+                          <div class="opp">Sam Achebe</div>
+                          <div class="meta">Nicosia Fight Night · Featured · Move learned in fight</div>
+                        </div>
+                        <div class="method">TKO · Rd 2<br/>$4,900 · Hype 30</div>
+                      </div>
+                      <div class="fight-card win">
+                        <div class="stamp">W</div>
+                        <div>
+                          <div class="opp">Rafael Cunha</div>
+                          <div class="meta">Paphos Open Card · Local · Step-up promise kept</div>
+                        </div>
+                        <div class="method">UD · Rd 6<br/>$2,300 · Hype 18</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="frame">
+                  <div class="hbar">RECORD BOARD <span class="r">14–2–0 · 9 KO</span></div>
+                  <div class="in">
+                    <div class="attr">
+                      <div class="pair"><span class="lab">WINS</span><span class="val g5">14</span></div>
+                      <div class="pair"><span class="lab">LOSSES</span><span class="val g2">2</span></div>
+                      <div class="pair"><span class="lab">KO / TKO</span><span class="val g4">9</span></div>
+                      <div class="pair"><span class="lab">DECISIONS</span><span class="val g3">5</span></div>
+                      <div class="pair"><span class="lab">STREAK</span><span class="val g5">W2</span></div>
+                      <div class="pair"><span class="lab">RANK</span><span class="val g4">#3</span></div>
+                    </div>
+                    <div class="line">Next: rematch vs <a class="ent" href="#">Dmitri Vasa</a> · Saturday · heat <b>42</b>.</div>
+                    <div class="line">Rivalries live: <b>1</b> (Vasa). Hardware shelf under the header tracks belts and night awards.</div>
+                    <div style="margin-top:6px"><span class="empty-ex">Empty example · No Contender Series (boxer)</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="view" id="camp" role="tabpanel">
+              <div class="grid2" style="grid-template-columns:1.45fr .9fr">
+                <div class="camp-hero">
+                  <img src="camp-locked-cage.png" alt="Fight camp cage"/>
+                  <div class="veil"></div>
+                  <div class="live-overlay">
+                    <span class="live-badge">● CAMP LIVE · WEEK 4 OF 6</span>
+                    <div style="font-family:var(--display);font-size:28px;letter-spacing:.04em;line-height:1">vs Dmitri Vasa · #4 · Saturday</div>
+                    <div class="line" style="color:var(--text)">Track <b>Striking Shark</b> · Protocol <b>Hard Sparring</b> · Film <b>3/3</b> · Injury risk <b>6%</b></div>
+                    <div class="row">
+                      <button type="button" class="btn gold">OPEN CAMP BOARD</button>
+                      <button type="button" class="btn">ADJUST PROTOCOL</button>
+                      <button type="button" class="btn">FILM STUDY</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="frame">
+                  <div class="hbar gold">CAMP METERS <span class="r">WEIGH-IN FRIDAY</span></div>
+                  <div class="in">
+                    <div class="row"><span class="k" style="width:88px">WEIGHT</span><div class="gb" style="flex:1"><span class="track"><i class="fill cool" style="width:70%"></i></span><span class="read">55.1<i>/53.5</i></span></div></div>
+                    <div class="row"><span class="k" style="width:88px">FILM</span><div class="gb" style="flex:1"><span class="track"><i class="fill cool" style="width:100%"></i></span><span class="read">3/3</span></div></div>
+                    <div class="row"><span class="k" style="width:88px">EDGES</span><div class="gb" style="flex:1"><span class="track"><i class="fill" style="width:66%"></i></span><span class="read">2</span></div></div>
+                    <div class="row"><span class="k" style="width:88px">INJURY</span><div class="gb" style="flex:1"><span class="track"><i class="fill" style="width:6%"></i></span><span class="read">6%</span></div></div>
+                    <div class="attr">
+                      <div class="pair"><span class="lab q">PHASE</span><span class="val txt">PROGRESS</span></div>
+                      <div class="pair"><span class="lab q">DAYS LEFT</span><span class="val g4">3</span></div>
+                    </div>
+                    <div class="line">Right-leg niggle flagged on body map — protocol stays hard but volume watched.</div>
+                  </div>
+                </div>
+              </div>
+              <!-- Alternate locked state (no bout): lock-glass treatment kept for empty-camp UX -->
+              <details class="camp-alt frame" style="padding:0">
+                <summary class="hbar slate" style="list-style:none;cursor:pointer">ALTERNATE · LOCK-GLASS (NO BOUT BOOKED) <span class="r">HONEST EMPTY EXAMPLE</span></summary>
+                <div class="camp-hero" style="min-height:260px;border:0;border-radius:0">
+                  <img src="camp-locked-cage.png" alt="Locked fight camp"/>
+                  <div class="veil"></div>
+                  <div class="lock-glass">
+                    <div class="lock-card">
+                      <p class="stamp">LOCKED</p>
+                      <p class="line" style="margin:0;color:var(--text-2)">Requires booked fight · Setup → Progress → Report</p>
+                    </div>
+                  </div>
+                </div>
+              </details>
+            </div>
+
+          </main>
+          <div class="bottom">
+            <div class="nav"><button type="button" aria-label="Back">‹</button><button type="button" aria-label="Forward">›</button></div>
+            <div class="crumb" id="crumb">OFFICE <span>›</span> FIGHTERS <span>›</span> <b>KIAN STERLING</b> <span>›</span> ATHLETE LAB</div>
+            <div class="acts"><button type="button" class="btn sm">OPEN IN RANKINGS</button><button type="button" class="btn sm">SCHEDULE</button><button type="button" class="btn sm gold">SEND TO FIGHT CAMP</button></div>
+          </div>
+        </div>
+      </div>
+      <div class="chin"><span class="wordmark">FIGHTCAMP</span><span class="pwr"></span></div>
+    </div>
+    <div class="stand-neck"></div><div class="stand-foot"></div>
+  </div>
+
+  <section>
+    <div class="eyebrow" style="margin-bottom:8px">K1 merge map · where each surface lives</div>
+    <div class="notes">
+      <div class="note"><b>SHELL</b><span>Claude monitor, collapsible rail, headline NAME+discipline+division, bottom back/forward + breadcrumb. No finance chips.</span></div>
+      <div class="note"><b>HERO PLATE</b><span>Portrait in idcard — fighter-hero-plate.png.</span></div>
+      <div class="note"><b>HARDWARE SHELF</b><span>legacy-hardware-shelf.png + leader lines under header accomplishments.</span></div>
+      <div class="note"><b>MUSCLE MAP</b><span>WHAT WINS / Body — photoreal + hotspots + region-focus card.</span></div>
+      <div class="note"><b>CONSTELLATION</b><span>SKILLS &amp; MOVES tab — craft-skill-constellation.png + node buttons.</span></div>
+      <div class="note"><b>W/L STAMPS</b><span>FIGHT RECORD — rotated stamps on fight cards.</span></div>
+      <div class="note"><b>CAMP</b><span>FIGHT CAMP live (bout booked). Lock-glass alternate under details.</span></div>
+      <div class="note"><b>DOUBLE RING</b><span>THE LONG GAME — loyalty outer / rapport inner gauge.</span></div>
+      <div class="note"><b>NEON DROPPED</b><span>No Orbitron/Rajdhani, no cyan/magenta, no scanlines/grid/particles/8px bars.</span></div>
+      <div class="note"><b>IA NOTE</b><span>Recommend Claude five-tab hierarchy (Version B spirit) until operator picks PROFILE_IA_THREE_VERSIONS.</span></div>
+    </div>
+  </section>
+
+  <footer>FightCamp · K1 merged by Kalli 2026-09-04 · research only · parent will commit.</footer>
+</div>
+<script>
+(function(){
+  const labels={lab:'ATHLETE LAB',dev:'DEVELOPMENT',skills:'SKILLS & MOVES',record:'FIGHT RECORD',camp:'FIGHT CAMP'};
+  const crumb=document.getElementById('crumb');
+  document.getElementById('tabs').addEventListener('click',e=>{
+    const b=e.target.closest('button[data-tab]'); if(!b) return;
+    document.querySelectorAll('#tabs button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+    document.getElementById(b.dataset.tab).classList.add('on');
+    crumb.innerHTML='OFFICE <span>›</span> FIGHTERS <span>›</span> <b>KIAN STERLING</b> <span>›</span> '+labels[b.dataset.tab];
+  });
+})();
+(function(){
+  const focus=document.getElementById('regionFocus');
+  const map=document.getElementById('bodymap');
+  if(!focus||!map) return;
+  map.querySelectorAll('.hot').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      map.querySelectorAll('.hot').forEach(b=>b.classList.remove('on'));
+      btn.classList.add('on');
+      const warn=btn.classList.contains('warn');
+      focus.innerHTML='<div class="rf-title">'+btn.dataset.label+'</div>'
+        +'<p class="rf-val'+(warn?' warn':'')+'">'+btn.dataset.val+'</p>'
+        +'<div class="rf-meta">'+btn.dataset.note+' · <code>'+btn.dataset.region+'</code></div>';
+    });
+  });
+})();
+(function(){
+  const focus=document.getElementById('craftFocus');
+  const root=document.getElementById('constellation');
+  if(!focus||!root) return;
+  root.querySelectorAll('.node-hot').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      root.querySelectorAll('.node-hot').forEach(b=>b.classList.remove('on'));
+      btn.classList.add('on');
+      focus.innerHTML='Focus · <strong>'+btn.dataset.skill+' '+btn.dataset.val+'</strong> · '+(btn.dataset.note||'');
+    });
+  });
+})();
+(function(){
+  const shell=document.querySelector('.shell');
+  const toggle=document.getElementById('railToggle');
+  const rail=document.getElementById('rail');
+  if(!toggle||!shell||!rail) return;
+  let collapsed=false;
+  toggle.addEventListener('click',()=>{
+    collapsed=!collapsed;
+    if(collapsed){
+      shell.style.gridTemplateColumns='52px 1fr';
+      rail.querySelectorAll('a').forEach(a=>{
+        a.dataset.full=a.innerHTML;
+        const ic=a.querySelector('.ic');
+        a.innerHTML=ic?ic.outerHTML:'';
+        a.style.justifyContent='center';
+        a.style.padding='0';
+      });
+      const sub=rail.querySelector('.sub'); if(sub){sub.dataset.show='1';sub.style.display='none';}
+      const cw=rail.querySelector('.counterwrap'); if(cw){cw.dataset.show='1';cw.style.display='none';}
+      toggle.innerHTML='☰ <span class="ch">›</span>';
+    } else {
+      shell.style.gridTemplateColumns='196px 1fr';
+      rail.querySelectorAll('a').forEach(a=>{
+        if(a.dataset.full){a.innerHTML=a.dataset.full; delete a.dataset.full;}
+        a.style.justifyContent='';
+        a.style.padding='';
+      });
+      const sub=rail.querySelector('.sub'); if(sub) sub.style.display='';
+      const cw=rail.querySelector('.counterwrap'); if(cw) cw.style.display='';
+      toggle.innerHTML='MENU <span class="ch">‹</span>';
+    }
+  });
+})();
+</script>
+</body>
+</html>

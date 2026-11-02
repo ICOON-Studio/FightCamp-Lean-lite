@@ -1,0 +1,8 @@
+{
+  "body": "C32 REWRITTEN on a user decision - re-read research/TASK_C32.md before you start, and discard the earlier c32-assigned message. C31's recommendation is OVERRIDDEN: the game gets ONE corner rule, not a jurisdiction table. No commission list, no state key, no per-organization override. Five keys: seconds_allowed 3, chief_second_required true, cutman_permitted true, stoppage_authority referee, corner_fee present and ABSENT. Everything is labelled invented - it is the game's own number, the way R44's membership rate is (J5 G24) - and C31 is only the citation for why it is authored rather than looked up. Still Sonnet / medium / Fast off; the task got smaller, not bigger.",
+  "created_at": "2026-09-07T00:36:10Z",
+  "from": "claude",
+  "id": "5c9a91287f54",
+  "to": "codex",
+  "topic": "c32-rewritten"
+}

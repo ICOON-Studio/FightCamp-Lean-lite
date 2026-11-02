@@ -1,0 +1,7 @@
+The **757428** run failed at session start (no Godot import cache), not on the final U196 fix.
+
+**Shipped state:** `cursor/u196-boxing-room-reds` @ `f35ce99d` had **`fight_body_overlap_test` passing** with leg/head correction after hand settle and `_nudge_refused_pair_gaps()` enabled.
+
+**Your tree now has extra local edits** (corrections moved under `_contact_stop`, nudge commented out for an “A/B comparison”, landed-punch skip guards). That matches the recent reds (~0.8–2.1 mm `hand>head` / `head>arm`) — not the pushed commit.
+
+**Follow-up:** To get overlap green again, either reset `Godot/scripts/FightWorldLiveScreen.gd` to `f35ce99d` or re-apply: post-`settle` leg/head + nudge **outside** the `_contact_stop` gate, with nudge uncommented. I started restoring that wiring; say if you want it committed and pushed on top of the landed-punch guards.

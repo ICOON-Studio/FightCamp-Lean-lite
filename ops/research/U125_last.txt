@@ -1,0 +1,24 @@
+## Verification (Q127)
+
+Confirmed on this branch before the fix:
+
+| Source | Entries |
+|--------|---------|
+| `GameState.gd` `WEIGHT_CLASSES` | **4** — Featherweight, Lightweight, Welterweight, Middleweight |
+| `WorldPopulation.gd` / `RankingsHubPanel.gd` | **8** — full ladder |
+| `weight_classes.json` `move.ladder` | **8** — same names as WP/Rankings |
+
+Same shape Q127 reported; the mismatch was real.
+
+## Fix
+
+Single ladder via `WeightCut.division_ladder()` from `weight_classes.json`. Removed duplicate const lists from `GameState`, `WorldPopulation`, and `RankingsHubPanel`; `WeightMove`, `PromotionsBoard`, `FightContract`, and `TaleOfTape` now read limits/ladder from JSON (FightContract/TaleOfTape dropped hardcoded kg/lbs tables). Added `GameState.get_division_weight_classes()` and `Godot/tests/weight_class_unification_test.gd` (expected list parsed only from the JSON file, not from GameState).
+
+After a new career the test prints **`world_athletes_per_ladder_class=8 of 8`** and **`ranked_division_tabs_with_fighters=8 of 8`** (boxing/male).
+
+## Tests
+
+- Focused `--only weight|rank|booking|athlete`: unification passes; `weight_cut` still fails (unchanged, as expected).
+- Full suite `--jobs 6`: **`total=326 fails=7`** — the six known ceiling tests plus **`rankings_api_test.gd`** (C13 movement; not part of U125). `weight_cut` still in the fail set; U125 did not move it.
+
+Pushed **`cursor/u125-weight-classes`** (`ac228cee`), digest at `research/U125_DIGEST.md`, mail sent to Claude (`u125-ready`). `HANDOFF.md` not edited.

@@ -1,0 +1,20 @@
+TEXT ANSWER ONLY - no images. Hi Ludo - FightCamp (PC deep boxing manager sim, Steam EA, Godot 4). FIGHTLINK steps 1-2 are live in the fight engine: evasion/accuracy/chin (your r114) and per-punch MOVE MASTERY (your r115: Raw <30 / Usable <60 / Sharp <85 / Signature; pads/bag/sparring hours grow it; a Sharp jab now lands 44% vs 38% Raw and is slipped 5% vs 8% in 20-bout tests).
+
+THE OPERATOR'S IDEA (verbatim): "idea : during the corner at a fight you can shout a command every 25s (stay behind the jab e.g) these things you complete for your during the trainiing bars feeling in real time as the fighter learns them , also being able to see(hear) what the opponent does and prepare your next command(shout) options that are not fully learned by the fighter might be risky etc"
+
+WHAT EXISTS TODAY (do not redesign from zero, extend it):
+- Apron shouts in the fight: 5 shouts (OFF_THE_ROPES "Off the Ropes!" for TRAPPED_ON_ROPES, GO_TO_THE_BODY for HIGH_GUARD_OPPONENT, TIE_HIM_UP for ROCKED_OR_LOW_STAMINA, BOX_AND_MOVE for SWARMED_INSIDE, STEP_ON_THE_GAS for OPPONENT_HURT). Each has a trust threshold (25-50) and an IQ weight; cooldown 22 s, max 3 per round; effects last 2 s (lateral move) to 20 s (body bias).
+- The fight log now writes plain why-lines the corner can "hear": "Reyes slips Perez's double jab (evasion 70 vs accuracy 56)", "Reyes fires Sharp Jab (M80) - lands clean".
+- Move mastery per punch, 0-100, gained per station hour (pads 2.1/h, heavy bag 1.05/h, sparring 1.5/h, speed bag 0.9/h, double-end 1.2/h), capped by technique + ring IQ, decays 0.75/week undrilled (floor 30).
+
+PLEASE DESIGN, with exact numbers:
+1. THE SHOUT LIST for the boxing demo: 10-14 shouts (keep or rename the 5 above), each with: the call as the coach yells it ("Stay behind the jab!"), the tactical need it answers, what it changes in the engine for how long (only levers we have: target choice head/body, punch selection weights per punch family, guard height, distance/lateral movement, pace/output, clinch, counter commitment, evasion/accuracy modifiers), and its counter-risk.
+2. HOW A SHOUT IS LEARNED in the gym: a shout = a learned tactic with its own 0-100 bar like move mastery. Which station or session teaches each shout (pads with the coach, sparring, film study in the office...), points per hour, cap, decay, and the tiers (Raw / Usable / Sharp / Drilled-in).
+3. THE RISK OF AN UNLEARNED CALL: execution chance per tier, what a failed execution looks like in the fight (he ignores it, does it late, does it badly and opens up - with numbers), and how trust between coach and fighter interacts with the tier.
+4. THE RHYTHM: the operator says every 25 s - versus today's 22 s cooldown and max 3 per round. Give the rule (cooldown, per-round cap, whether the cap scales with the coach or the fighter).
+5. WHAT THE PLAYER SEES/HEARS of the opponent to choose the next shout: which 3-4 live reads (from the why-lines and stats above) appear, how often they refresh, and how each read points to 1-2 shouts. Also: does the OPPONENT's corner shout too, and can we hear it?
+6. THE HUD for 1920x1080 during the bout: where the shout bar sits, how the learned bars show on each shout button (tier colour + %), the cooldown, the "read" ticker; sizes in px, square corners, our dark broadcast style, number-led.
+7. THE TRAINING SCREEN: how the player sees a shout bar fill "in real time as the fighter learns" during a gym session (what moves, how fast, what text).
+8. Traps to avoid and a balance target (e.g. what share of fights a well-drilled corner should swing vs a silent corner).
+
+Please give the longest complete answer you can - every formula, constant, threshold and template - and do not shorten it; I will ask you to continue if it is cut.

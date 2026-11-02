@@ -1,0 +1,330 @@
+LUDO ROUND 77: UI CENSUS ROW 7 — SCOUTING HUB (S229)
+A. Defects Identified in Current Screenshot (1920x1080)
+Background Bleed & Contrast Failure: The 3D gym view/underlying scene bleeds through behind the top bar and center workspace with dirty amber lens flares. The background lacks the required deep void tint (#0d0c0b at 96% opacity or full coverage), muddying the tab borders and panel contrasts.
+Missing Scout Operations Lane: The screen jumps directly from global breadcrumbs into the candidate table. There is no active scout assignment panel (e.g., Scout Head / regional scouts, ongoing assignments, fog-of-war coverage percentage, trip progress days, scouting budget burn).
+Flawed "Pick a Row" Detail Inspector: The right column (x: 1440, w: 450) is a placeholder box with faint, unstyled grey placeholder copy ("THE CANDIDATE OPENS HERE: WHAT THEY ARE..."). It fails to show a prospect comparison radar, base attribute estimates, scout confidence level, medical history, or the canonical primary CTA block.
+Illegal Gold Potential Pill as Single Source of Truth: The POTENTIAL column displays a bright flat numeric score pill (89, 86, 83, etc.) with 100% certainty. Per the management sim design (and R70 Bible), un-scouted or partially scouted fighters must display attribute fog-of-war (e.g., letter grade ranges like B- to A, or bar ranges 62-78, scout confidence pip rings), not flat God-mode numbers.
+Missing Multi-Tier Tab Architecture: The top sub-header mixes pill toggles (ALL 6, SHORTLIST, CAN SIGN 3, etc.) with random inline stats text (UNITED KINGDOM 6 AVAILABLE, CASH $25,000). It lacks standard 36 px R70 tabs (SCOUTING POOL, ASSIGNED MISSIONS, SHORTLIST (0), SCOUT STAFF) with the mandated #f0c233 2 px baseline marker.
+Inconsistent Table Typography & Row Rhythms:
+Prospect names are crushed against placeholder silhouette chips.
+Text colors switch between stark white and dim olive gray without clear semantic hierarchy (Name: #f5eedc, Subtext: #9e9484, Stat Values: #d8cebc).
+The green CAN SIGN pill violates the R70 badge palette (should use deep moss #1b2a1a background, #7ac774 border/text; or standard #f0c233 if actionable).
+Guide/Tutorial Overlay Disconnect: The bottom-right floating pill (GUIDE - Sign your first boxer) is floating loose over the canvas, disconnected from the primary inspector card action button where the actual SIGN PROSPECT conversion happens.
+Broken Table Pagination / Status Footnote: SHOWING 6 OF 6 · A CANDIDATE IS A WORLD REFERENCE UNTIL THEY SIGN uses raw, tiny, centered gray serif/sans text with poor vertical breathing room against the bottom boundary.
+Missing Attribute Detail Breakdowns: The table only shows high-level meta (RECORD, AGE, DIVISION, POTENTIAL, ASK, FEE). A PC sports management title (Football Manager / OOTP class) requires scouted ranges for core pillars: Power, Speed, Defense, Conditioning, Fight IQ, Chin, and Style.
+B. Target 1920x1080 Layout & Design Specification
+
+All coordinates assume a 1920x1080 fixed canvas with standard UI tokens:
+
+Colors: Canvas Void (#0d0c0b), Base Panel (#141311), Card Panel (#1a1816), Elevated Panel (#22201d), Surface High (#282521), Brass Border Subdued (#3d372e), Brass Border Active (#6e624f), Championship Gold (#f0c233), Cream Main Text (#f5eedc), Muted Cream (#9e9484), Danger Red (#b83a34), Positive Green (#4e8a4a).
+Typography: Header font Heavy Sans / Display; Data tabular monospace/clean grotesk.
+Corners: Exactly 4 px radius on cards, panels, and buttons.
++---------------------------------------------------------------------------------------------------+ [1920x64 Top Bar]
+| [FC LOGO] | CASH: $25,000 (+$441/wk) | DATE: Mon 5 Jan W1 | FIGHT NIGHT: 26d | [NOTIFICATIONS] [OPTS] |
++---------------------------------------------------------------------------------------------------+
+| SCOUTING HUB   [POOL DIRECTORY]  [SCOUT ASSIGNMENTS (2)]  [SHORTLIST (3)]  [STAFF & BUDGET]        | [Sub-Nav: h=48]
++----------------------------------------------------+----------------------------------------------+
+| REGIONAL SCOUT DESK (x=32, y=128, w=1380, h=112)    | PROSPECT DOSSIER INSPECTOR                   |
+| [Scout 1: Sal Vance - North Am (88% done)]          | (x=1432, y=128, w=456, h=916)                |
+| [Scout 2: Unassigned - "+ Assign Target Region"]   |                                              |
++----------------------------------------------------+                                              |
+| FILTERS & SEARCH (x=32, y=252, w=1380, h=40)       | [Avatar/Stance/Bio Header]                   |
+| [Division v] [Age Range v] [Style v] [Report Acc v]| [Scout Confidence Meter: 68%]                |
++----------------------------------------------------+                                              |
+| PROSPECT LIST VIEW (x=32, y=304, w=1380, h=700)    | CORE ATTRIBUTE RANGES (Fog-of-War)           |
+| Headings: STAR | NAME/AGE | DIV | STYLE | REC | ... | Power:        [=======??    ] 65-78          |
+| Row 1 (Selected)                                   | Speed:        [========     ] 74-76          |
+| Row 2                                              | Chin:         [====????     ] 45-68 (Unsure) |
+| Row 3                                              | Fight IQ:     [======       ] 60-64          |
+| ...                                                |                                              |
+| Row 10                                             | TRAITS & INTEL                               |
+|                                                    | [Heavy Hands (Confirmed)]                    |
+|                                                    | [? Possible Cut-Prone - Low confidence]     |
+|                                                    |                                              |
+|                                                    | FINANCIAL REQUIREMENTS                       |
+|                                                    | Signing Bonus: $4,500 | Wage Ask: $1,250/wk  |
+|                                                    | Gym Roster Cap: 2/4 Fighters                 |
+|                                                    |                                              |
+|                                                    | [SHORTLIST] [REQUEST DEEP SCOUT]             |
+|                                                    | [PRIMARY CTA: OFFER PROMOTIONAL CONTRACT]    |
++----------------------------------------------------+----------------------------------------------+
+| FOOTER STATUS BAR (x=32, y=1016, w=1380, h=28)                                                    |
++---------------------------------------------------------------------------------------------------+
+
+Detailed Coordinate Blocks
+Top Nav Breadcrumb & Sub-Bar:
+x: 32, y: 72, w: 1856, h: 48
+Tab strip: 4 tabs, height 36 px, padding x=16 px. Selected tab (POOL DIRECTORY) features bottom 2 px rule in #f0c233. Inactive text in #9e9484, hover text #f5eedc.
+Active Operations Banner (Regional Scouts):
+x: 32, y: 128, w: 1380, h: 108
+Background: #1a1816, border 1 px #3d372e, radius 4 px.
+Divides into 3 scout cards (w: 440, h: 84). Each displays scout portrait, region name, active task ("Searching Welterweight Amateurs"), progress bar (h: 6, fill: #f0c233), and days remaining.
+Filter & Query Bar:
+x: 32, y: 248, w: 1380, h: 44
+Inline drop-downs: Division (All), Stance (All), Style (All), Status (Unsigned / Free Agent), Age (18–28). Search input on right (w: 240, h: 32).
+Prospect Table:
+x: 32, y: 300, w: 1380, h: 696
+Header (h: 36): #141311, text #9e9484, size 11 px uppercase tracking +1.
+Row Dimensions: 10 visible rows, h: 62, gutter y: 4.
+Row Columns:
+w: 40: Shortlist star button (#3d372e, toggles to #f0c233).
+w: 260: Fighter Name (14 px #f5eedc Bold), Nationality pill, Age, Stance.
+w: 140: Weight Class & Official Division.
+w: 120: Boxing Style (e.g., Counter-Puncher, Swarmer).
+w: 100: Pro/Am Record (6-1-0, 4 KO).
+w: 220: Estimated Potential (Range bar + Letter Grade, e.g., B+ ~ A, bar range 72-88).
+w: 120: Scout Confidence (Rings: 25%, 50%, 75%, 100%).
+w: 140: Wage Ask ($1,250/wk).
+w: 140: Upfront Fee ($4,500).
+w: 100: Action Quick Pill (REVIEW).
+Prospect Dossier Inspector (Right Sidebar):
+x: 1428, y: 128, w: 460, h: 916
+Background: #1a1816, border 1 px #3d372e, inner cards #22201d.
+Header Sub-panel (h: 120): Mugshot chip (80x80 px), Name (18 px #f5eedc), Hometown, Age, Reach, Current Camp/Gym affiliation.
+Scouting Accuracy Header (h: 32): Displays scout report tier (e.g., "Report by Sal Vance — 3 weeks observed — 75% accuracy").
+Fog-of-War Attribute Matrix (h: 300): 7 attribute bars. Each attribute bar displays a solid confirmed fill plus a hatched/semi-transparent uncertainty range cap.
+Known & Suspected Traits (h: 96): Trait badges (#282521, border #3d372e). Suspected traits show a ? icon with lower opacity.
+Contract & Roster Evaluation (h: 180):
+Roster slot check: Active Roster: 2/3 (1 Slot Open).
+Financial viability check: Bankroll check against signing fee + 4 weeks guaranteed wage reserve.
+Inspector Actions (h: 110, bottom-pinned):
+Secondary button (w: 200, h: 42): DISCARD / PASS.
+Secondary button (w: 200, h: 42): COMMISSION SCOUT ($250).
+Primary Action Button (w: 412, h: 48, gold #f0c233, text #0d0c0b Bold): OFFER CONTRACT ($4,500).
+Disabled State: If unaffordable or roster full, background #282521, border #3d372e, text #9e9484, with red warning text underneath (e.g., "Insufficient runway: Requires $5,000 liquid cash reserves").
+C. Management Sim Benchmark & FightCamp Adaptations
+
+| Title | Scouting Mechanic / Strength | Pitfall to Avoid | FightCamp Implementation |
+| :--- | :--- | :--- | :--- |
+| Football Manager | Extensive scouting network; dynamic scouting knowledge percentage per nation; fog-of-war ranges (e.g., Passing 13-16). | Hyper-dense spreadsheet UI; hundreds of obscure menus; decision paralysis for newcomers. | Focused 7-attribute matrix; regional assignments; visual range bars (min-max) tightening as weeks are spent observing. |
+| Out of the Park Baseball | Scout bias system (Scout favors tools vs. favors ability); scouting director accuracy ratings; differing subjective reports. | Raw numbers detached from visual 3D simulation context. | Scout personality affects ratings: an old-school scout over-indexes on Power/Chin, under-indexes on Technique/Defense. |
+| Motorsport Manager | Streamlined driver market; clear contract negotiation stages; direct replacement comparison UI. | Shallow contract mechanics; instant global knowledge with minimal cost. | Tight multi-car/roster constraints: signing boxer B requires confirming gym roster capacity or cutting/releasing boxer A. |
+| Punch Club 2 | Direct visual charm, clear micro-stats, immediate onboarding drive. | Linear progression tree; lacks legitimate emergent simulation depth. | Rich trait engine (Cut-Prone scar histories, Fragile Confidence, Iron Will) layered under clean visual cards. |
+| Fight Night Champion | Cinematic legacy mode feel, tangible boxer degradation and aging. | Barebones management layer; binary AI contract accepts/refuses. | Authentic purse cut splits, coach/corner training chemistry, and weight class drain profiles. |
+
+D. Single-Agent Step-by-Step Build Plan
+Step 1: Layout Scaffold & R70 Void Canvas Setup
+Action: Clear background artifacts; enforce root container ColorRect (#0d0c0b) with base padding and modular 2-column split (Left: 1380 px workspace, Right: 460 px inspector).
+Acceptance Check: In Godot debug overlay, the background color strictly samples #0d0c0b across all margins, with zero bleed-through from the 3D scene below.
+Step 2: Sub-Nav Tab Bar & Regional Operations Banner
+Action: Build ScoutingHeader.tscn containing 4 tabs with 36 px height and 2 px gold underline active state, plus the 3 scout operation cards with progress bars.
+Acceptance Check: Clicking between tabs switches sub-panels with a 120 ms crossfade; active tab underline slides or snaps with #f0c233 tinting.
+Step 3: Table Construction & Monospace Alignment
+Action: Instantiate ProspectRow.tscn inside a virtualized VBoxContainer with custom column widths matching section B.
+Acceptance Check: 10 rows render smoothly at 60 FPS; hovering any row triggers background interpolation from #1a1816 to #22201d in exactly 80 ms.
+Step 4: Fog-of-War Attribute Component Integration
+Action: Build FogAttributeBar.tscn featuring custom _draw() rendering: confirmed value bar (#f0c233), uncertain range bar (#6e624f with diagonal hatch lines), and numeric range text (64-78).
+Acceptance Check: A fighter with 40% scout accuracy displays a wide hatched range; a fighter with 100% scout accuracy renders an exact solid bar with a single number.
+Step 5: Inspector Dossier & Contract Affordability Pipeline
+Action: Bind selection signal from table rows to the right inspector panel. Calculate gym bankroll against sign_fee + (wage * 4) and roster limits.
+Acceptance Check: Selecting an unaffordable fighter disables the primary CTA button, renders button background in #282521, and prints the exact red error label below.
+Step 6: Star Shortlist & Quick Filter Logic
+Action: Wire up Star button toggles to local persistent shortlist array and implement division filter drop-down.
+Acceptance Check: Toggling the star updates the Shortlist tab counter badge instantly and saves ID to the shortlist filter model.
+E. Godot 4.7 Production GDScript
+1. Fog-of-War Attribute Bar Component (fog_attribute_bar.gd)
+class_name FogAttributeBar
+extends Control
+
+@export var attribute_name: String = "Power"
+@export var min_val: int = 50:
+	set(v):
+		min_val = clampi(v, 0, 100)
+		queue_redraw()
+@export var max_val: int = 75:
+	set(v):
+		max_val = clampi(v, min_val, 100)
+		queue_redraw()
+@export var is_revealed: bool = false:
+	set(v):
+		is_revealed = v
+		queue_redraw()
+
+# Round-70 Color Tokens
+const COLOR_VOID: Color = Color("#0d0c0b")
+const COLOR_TRACK: Color = Color("#22201d")
+const COLOR_BORDER: Color = Color("#3d372e")
+const COLOR_SOLID: Color = Color("#f0c233")
+const COLOR_UNCERTAIN: Color = Color("#6e624f")
+const COLOR_TEXT_CREAM: Color = Color("#f5eedc")
+const COLOR_TEXT_MUTED: Color = Color("#9e9484")
+
+func _draw() -> void:
+	var total_w: float = size.x
+	var total_h: float = size.y
+	var bar_h: float = 12.0
+	var bar_y: float = (total_h - bar_h) * 0.5
+	var label_w: float = 110.0
+	var bar_w: float = total_w - label_w - 70.0
+	var bar_x: float = label_w
+	
+	# 1. Attribute Label
+	draw_string(
+		ThemeDB.fallback_font,
+		Vector2(0, bar_y + 10.0),
+		attribute_name.to_upper(),
+		HORIZONTAL_ALIGNMENT_LEFT,
+		label_w - 8.0,
+		11,
+		COLOR_TEXT_MUTED
+	)
+	
+	# 2. Track Background
+	var track_rect: Rect2 = Rect2(bar_x, bar_y, bar_w, bar_h)
+	draw_rect(track_rect, COLOR_TRACK, true)
+	draw_rect(track_rect, COLOR_BORDER, false, 1.0)
+	
+	# 3. Bar Fills
+	var px_per_pt: float = bar_w / 100.0
+	if is_revealed or min_val == max_val:
+		var solid_w: float = float(min_val) * px_per_pt
+		draw_rect(Rect2(bar_x, bar_y, solid_w, bar_h), COLOR_SOLID, true)
+	else:
+		var solid_w: float = float(min_val) * px_per_pt
+		var range_w: float = float(max_val - min_val) * px_per_pt
+		
+		# Solid minimum confirmed capability
+		if solid_w > 0.0:
+			draw_rect(Rect2(bar_x, bar_y, solid_w, bar_h), COLOR_SOLID, true)
+		
+		# Uncertain potential zone
+		var uncertain_rect: Rect2 = Rect2(bar_x + solid_w, bar_y, range_w, bar_h)
+		draw_rect(uncertain_rect, COLOR_UNCERTAIN, true)
+		
+		# Diagonal Hatching over uncertain zone
+		var hatch_spacing: float = 4.0
+		var hatch_x: float = bar_x + solid_w
+		while hatch_x < (bar_x + solid_w + range_w):
+			draw_line(
+				Vector2(hatch_x, bar_y + bar_h),
+				Vector2(minf(hatch_x + 4.0, bar_x + solid_w + range_w), bar_y),
+				COLOR_VOID,
+				1.0
+			)
+			hatch_x += hatch_spacing
+
+	# 4. Monospace Value Readout
+	var text_val: String = str(min_val) if (is_revealed or min_val == max_val) else "%d-%d" % [min_val, max_val]
+	draw_string(
+		ThemeDB.fallback_font,
+		Vector2(total_w - 60.0, bar_y + 10.0),
+		text_val,
+		HORIZONTAL_ALIGNMENT_RIGHT,
+		60.0,
+		11,
+		COLOR_TEXT_CREAM
+	)
+
+2. Prospect List Row Component (prospect_row.gd)
+class_name ProspectRow
+extends PanelContainer
+
+signal selected(prospect_data: Dictionary)
+signal shortlist_toggled(prospect_id: String, is_shortlisted: bool)
+
+# Round-70 Color & Style Tokens
+const COLOR_BASE: Color = Color("#1a1816")
+const COLOR_HOVER: Color = Color("#22201d")
+const COLOR_SELECTED: Color = Color("#282521")
+const COLOR_BORDER_DEFAULT: Color = Color("#3d372e")
+const COLOR_BORDER_ACTIVE: Color = Color("#f0c233")
+const COLOR_GOLD: Color = Color("#f0c233")
+const COLOR_CREAM: Color = Color("#f5eedc")
+const COLOR_MUTED: Color = Color("#9e9484")
+
+var prospect_data: Dictionary = {}
+var is_active_selection: bool = false
+var is_shortlisted: bool = false
+
+@onready var star_btn: Button = $HBox/StarBtn
+@onready var name_lbl: Label = $HBox/IdentityBlock/NameLabel
+@onready var sub_lbl: Label = $HBox/IdentityBlock/SubLabel
+@onready var div_lbl: Label = $HBox/DivisionLabel
+@onready var style_lbl: Label = $HBox/StyleLabel
+@onready var record_lbl: Label = $HBox/RecordLabel
+@onready var potential_lbl: Label = $HBox/PotentialLabel
+@onready var wage_lbl: Label = $HBox/WageLabel
+@onready var fee_lbl: Label = $HBox/FeeLabel
+@onready var style_box: StyleBoxFlat = StyleBoxFlat.new()
+
+func _ready() -> void:
+	custom_minimum_size = Vector2(1380, 62)
+	focus_mode = FocusMode.FOCUS_ALL
+	
+	style_box.corner_radius_top_left = 4
+	style_box.corner_radius_top_right = 4
+	style_box.corner_radius_bottom_left = 4
+	style_box.corner_radius_bottom_right = 4
+	style_box.bg_color = COLOR_BASE
+	style_box.border_width_left = 1
+	style_box.border_width_top = 1
+	style_box.border_width_right = 1
+	style_box.border_width_bottom = 1
+	style_box.border_color = COLOR_BORDER_DEFAULT
+	add_theme_stylebox_override("panel", style_box)
+	
+	mouse_entered.connect(_on_mouse_enter)
+	mouse_exited.connect(_on_mouse_exit)
+	gui_input.connect(_on_gui_input)
+	if star_btn:
+		star_btn.pressed.connect(_on_star_pressed)
+
+func populate(data: Dictionary, selected_id: String) -> void:
+	prospect_data = data
+	is_active_selection = (data.get("id", "") == selected_id)
+	is_shortlisted = data.get("is_shortlisted", false)
+	
+	name_lbl.text = data.get("name", "Unknown Boxer")
+	sub_lbl.text = "%s · %d YO · %s" % [data.get("country", "UNK"), data.get("age", 18), data.get("stance", "Orthodox")]
+	div_lbl.text = data.get("division", "Welterweight")
+	style_lbl.text = data.get("style", "Boxer-Puncher")
+	record_lbl.text = "%d-%d-%d (%d KO)" % [data.get("wins", 0), data.get("losses", 0), data.get("draws", 0), data.get("kos", 0)]
+	
+	var conf: float = data.get("scout_confidence", 0.3)
+	if conf < 0.5:
+		potential_lbl.text = "GRADE: B- ~ A"
+		potential_lbl.modulate = COLOR_MUTED
+	else:
+		potential_lbl.text = "EST: %d - %d" % [data.get("pot_min", 70), data.get("pot_max", 85)]
+		potential_lbl.modulate = COLOR_GOLD
+		
+	wage_lbl.text = "$%s/wk" % [String.num(data.get("wage_ask", 800), 0)]
+	fee_lbl.text = "$%s" % [String.num(data.get("sign_fee", 2000), 0)]
+	
+	_update_star_visual()
+	_update_panel_visual()
+
+func _update_panel_visual() -> void:
+	var tween: Tween = create_tween().set_parallel(true)
+	if is_active_selection:
+		tween.tween_property(style_box, "bg_color", COLOR_SELECTED, 0.08)
+		tween.tween_property(style_box, "border_color", COLOR_BORDER_ACTIVE, 0.08)
+	else:
+		tween.tween_property(style_box, "border_color", COLOR_BORDER_DEFAULT, 0.08)
+		tween.tween_property(style_box, "bg_color", COLOR_BASE, 0.08)
+
+func _on_mouse_enter() -> void:
+	if not is_active_selection:
+		var tween: Tween = create_tween()
+		tween.tween_property(style_box, "bg_color", COLOR_HOVER, 0.08)
+
+func _on_mouse_exit() -> void:
+	if not is_active_selection:
+		var tween: Tween = create_tween()
+		tween.tween_property(style_box, "bg_color", COLOR_BASE, 0.08)
+
+func _on_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		selected.emit(prospect_data)
+
+func _on_star_pressed() -> void:
+	is_shortlisted = !is_shortlisted
+	_update_star_visual()
+	shortlist_toggled.emit(prospect_data.get("id", ""), is_shortlisted)
+
+func _update_star_visual() -> void:
+	if star_btn:
+		star_btn.modulate = COLOR_GOLD if is_shortlisted else COLOR_MUTED
+
+
+Now I will generate the updated, compliant visual representation of the Scouting Hub interface adhering strictly to these specifications and the Round-70 UI Bible.

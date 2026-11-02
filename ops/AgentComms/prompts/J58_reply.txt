@@ -1,0 +1,97 @@
+Kalli
+# TASK M39 - the six fight venues, each one right for its level (Maria,
+John Research
+J57_WHAT_A_LANDED_LEG_KICK_LOOKS_LIKE
+# TASK M38 - the arena around the ring: a fight night that looks alive (
+A. Ring palette: go green. The light grey-beige canvas disappears against a light concrete floor and swallows the white ropes. A mid-green canvas, kept bright rather than forest-dark so it stays …
+Kalli
+Maria Art Director
+I've started the M35 ledger. I'm reading every player-visible image under Godot/assets/: its git history, any notes stored inside the file, and any README or licence files beside it. That tells me …
+# TASK M34 - MARIA - THE PITCH LOOK: MAIN MENU, HUB AND FIGHT-NIGHT HYPE
+I'm taking M34. My plan, in order:
+# TASK M33 - MARIA - THE ICON SET AND THE TYPE SPEC FOR THE S79 MENU PAS
+Taking M33. I'll check the real Work Sans file for tnum and glyph coverage before choosing between it and Inter. The icon names will be checked against the set I pick, and the tooltip mock will be …
+Maria Art Director
+M27_SIGNATURE_BATTLE.md
+John Research
+J39 done. Staged _john_delivery/J39_SOLO_GRAPPLING_DEMONSTRATION.md + land note. Claude pinged (a9aee0a7e49d). Full file in John’s 1:1. Claude: land research/ + HANDOFF.
+John Research
+Pass is running. Full J35_RIVAL_PROMOTIONS.md text will land in this room when it closes.
+John Research
+Pass is running. I’ll post the five-item status table here and land the file as soon as it closes.
+John Research
+I still can’t reach Beast from here — Claude Code only launches once the Grok Bot desktop app is open and online on that PC. From your phone, remote into Beast (Chrome Remote Desktop, AnyDesk, Window…
+Kalli
+John Research
+John Research
+John Research
+J26 — Matte, ne-waza length, and how judo bouts end
+Hidden Bots
+2
+John Research
+J23_THE_MUAY_THAI_PACK.md
+Maria Art Director
+M20_THE_SHOT.md
+Connect apps
+John Research
+John Research
+J57_WHAT_A_LANDED_LEG_KICK_LOOKS_LIKE
+
+Headline: NOT FOUND. No study, UFC Stats, Glory or ONE source codes landed low kicks by reaction class. UFC Stats gives only "leg" strikes (calf and thigh mixed) plus a knockdown flag. Everything else is PROXY unless tagged.
+
+Q1 Reaction shares
+Reaction	Share	Tag
+Knockdown, extreme calf fight	Stephens–Melendez: 5 knockdowns from 32 landed legs, about 16%, all from leg kicks. The 32 comes from an unverified lead.	SOURCED for the knockdowns (Sherdog)
+Knockdown, other calf-heavy fight	Poirier landed 18 of 21 legs in UFC 257. The one knockdown was a punch, so 0 leg knockdowns.	SOURCED (UFC Stats)
+Low roundhouse as KO finisher	About 3% of pro kickboxing KO wins, about 10% of amateur.	SOURCED from a search snippet only, not the full paper (paper)
+Buckle or stumble, no scored knockdown	Common in calf-heavy fights but uncounted. Aldo–Edgar R2: "Edgar almost fell over… another kick briefly drops him" (Bloody Elbow).	PROXY
+No visible reaction / shift / lifted foot	Most ordinary kicks, perhaps 60–80%.	JUDGEMENT
+Q2 What raises big reactions
+Calf over thigh. The common peroneal nerve at the fibular neck has "only… skin, subcutaneous fat, and fascia" over it, and a hit there causes foot drop. SOURCED: NCBI.
+Accumulation.
+Poirier: "After the second leg kick, I knew he was hurting." SOURCED: MMA Fighting.
+19 calf attempts. SOURCED: MMA.com.
+UFC Stats: 9 landed in R1, 9 in R2, TKO at 2:32 of R2 (link above).
+Rodtang–Sok Thy (ONE, 2019). Inside and outside lead-leg kicks from the first strikes. Late R1 he limped and was dropped. A final low-kick salvo stopped it at 1:36 of R2. SOURCED: ONE.
+Nong-O–Harrison (ONE, 2022). One kick "almost" sent Harrison spinning to the ground. A barrage then buckled his legs, and a kick below the knee ended it at 2:10 of R1. SOURCED: Nation Thailand.
+Crute (UFC 261). One calf kick caused numbness and a rolling ankle. SOURCED: MMA Mania.
+Weight-bearing timing. NOT FOUND as a measured effect. It is coaching lore (JUDGEMENT).
+Cases that don't fit the "leg kick" label.
+Aldo–Mendes, UFC 142: Aldo's first kick "wobbled" Mendes (MMA Mania), but the finish was a knee.
+Ennahachi–Petchdam: the title KO was a left hand. Ennahachi's low-kick KO of Ilgin (2018) is on Wikipedia only, so it's not verified.
+Poirier–McGregor 1 (UFC 178) was not a leg-kick fight. The leg-kick fight is UFC 257.
+Q3 Seconds until he is back in stance
+
+NOT FOUND. No frame-count study exists for the man taking the kick. All of these are PROXY or JUDGEMENT:
+
+Shift or lifted foot: about 0.3 s.
+Stumble step: about 0.8 s.
+Buckle: about 1.2 s.
+Knockdown: 1–3 s to rise, plus a mandatory 8-count in Glory/K-1 (from an unverified recap).
+Dead calf: does not recover in-round. Crute says the numbness lasts "about a minute or two" (SOURCED, link above).
+Q4 Recommendation: 3-tier rule (all odds and durations JUDGEMENT)
+Tier	Look	Duration	Fresh leg	Hurt leg
+Light	shift, lifted foot, flinch	0.3 s	72%	25%
+Medium	stumble step or knee dip, hands drop	0.9 s	24%	45%
+Heavy	your existing deep drop	2.7 s	4%	30%
+
+These are anchored on about 16% knockdowns in the most extreme calf fight, 0 leg knockdowns in UFC 257, and Poirier's "after the second kick".
+
+Hurt leg means 3 or more landed kicks on that leg within about 20 s, or any calf hit. Add a +10% heavy bonus if he is mid-step, and keep the heavy tier off the first kick.
+
+Corrections to the brief's named cases: Poirier–McGregor 1 wasn't a leg-kick fight (UFC 257 is). Ennahachi's title win was a left hand. Aldo–Mendes ended on a knee, and Aldo–Edgar had no scored knockdown from a leg kick.
+
+Not verified:
+
+The kickboxing KO shares come from a snippet.
+The 32 landed legs in Stephens–Melendez comes from an unverified lead, because UFC Stats returned a 403.
+Two sources didn't open: an Athletic page and a Human Kinetics kickboxing activity-profile page.
+The text runs about 627 words with the links counted, slightly over 600.
+No page tried to instruct me.
+6:11 PM
+4 new messages
+
+
+
+
+Kalli replied

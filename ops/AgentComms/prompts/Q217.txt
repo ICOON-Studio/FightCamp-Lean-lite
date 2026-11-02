@@ -1,0 +1,8 @@
+You own TASK_Q217 (a STANDING animation task). You are in the worktree D:/FightCamp/wt/Q217 on branch qwen/q217-close-range.
+Run: git fetch origin && git merge origin/master, then cat research/TASK_Q217_CLOSE_RANGE_UNDER_G147.md and do exactly that task, one move at a time in its order.
+Do NOT read HANDOFF.md, CURRENT_STATUS.md or HANDOFF_ARCHIVE.md. All research is open: RESEARCH_INDEX.md.
+FightClipBinding.gd is 3,110 lines and c223_production_gate.gd 759 - never open them whole; read sed -n windows at the anchors the task names.
+Before EVERY Godot run: powershell -NoProfile -ExecutionPolicy Bypass -File Tools\pc_watchdog.ps1 -Once (exit 1 = RED = wait, do not start).
+Parse gate before any test; focused tests only; never the full suite. Every windowed Godot run through Tools\godot_hidden.ps1.
+Commit per certified move, push your branch (never master), then python Tools/agent_comms.py send --from qwen --to claude --topic Q217 "<one line>".
+Trap: a row that passes because the men were moved APART is a miss that looks clean - print gap, offset and target-line reach beside every G147 number.

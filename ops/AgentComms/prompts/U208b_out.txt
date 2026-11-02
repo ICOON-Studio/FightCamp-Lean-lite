@@ -1,0 +1,22 @@
+**SEND-BACK 1 is addressed** on `cursor/u208-tott-previews` (pushed at `e0ff79f9`).
+
+### Fixes (all five gates)
+1. **Framing** — Cameras use `FighterPortrait.head_position` + feet from body AABB (local space); full-height and face-off layouts tuned separately.
+2. **Pose** — `Bouncing_Boxing_Idle` retargeted to `guard_idle`, warm-up + per-frame `seek`, head turn on all variants.
+3. **Two fighters** — Root cause was blue `SubViewportContainer` with `PRESET_TOP_RIGHT` collapsing to **2 px** wide; both corners now use explicit `_place_host` pixel rects (~20k skin pixels per side verified).
+4. **Stats** — Full column (record, age, height, reach, weight, stance, rank, KO %, last-5 pips + camp rows on v3) and **`queue_redraw()`** each frame so rows animate in.
+5. **Light** — Key + **red/blue rim** per corner.
+
+Fighters are built via **`FighterPortrait.build_studio`** so both corners get proper skin in SubViewports.
+
+### Evidence
+- Re-rendered 3×300 frames + MP4s + contact sheet; opened contact sheet and sample frames (0/1/2/5/9 s).
+- Tests: `SUITE total=4 fails=0`.
+- Digest: `research/U208_DIGEST.md` (SEND-BACK section).
+
+### Deliverables
+`previews/u208/` — MP4s, stills, `u208_contact_sheet.png`, `variant_*_frames/`.**U208 SEND-BACK 1** is done on `cursor/u208-tott-previews` at **`e0ff79f9`** (rebased and pushed successfully).
+
+All five review points are covered: head-based framing, guard idle + head turn, both fighters visible (blue corner layout fix), full sliding stat column, and corner-colored rim lights. Previews were re-rendered; `U208_DIGEST.md` is updated; parse + focused tests are green.
+
+Operator review: `previews/u208/u208_contact_sheet.png` and the three MP4s.

@@ -1,0 +1,34 @@
+﻿=== grok_task 2026-09-30T15:12:23 rc=0 ws=D:\FightCamp\wt\G148
+I'll read the prompt file and follow it from start to finish.The task is to make the three judges disagree on close rounds, with a before-and-after census. I'll read the scorer, tests, and prior research first.The census is running on the current scorer. Judges only jitter secondary weights, so damage-led rounds stay identical. I'll add a close-round margin read that leaves a clear round unanimous.The judge-margin change is already in the tree. I'll confirm the files, then run the parse gate while the before-census finishes.The before-census finished: 120 bouts, zero split or majority decisions. Next IΓÇÖll parse the four scripts and read the census math so the after-run uses the same counts.Parse is clean. Next IΓÇÖll run the judge-panel test and read it for failures, not just the exit code.Judge and result suites both passed. The after-census is the same 40-week booked card, now with the margin lean.The after-census is in band: 14 of 61 decisions (23%) are split or majority, and the finish rate and the draw rate did not move. IΓÇÖll write the digest with those counts and the sources, then commit.The three judges now split close rounds and still agree on a clear one. That is on `grok/g152-judges` as `9d37aa2c`, pushed to `origin/grok/g152-judges`.
+
+Each judge still sees the same facts. After the existing secondary-weight draw, the judge leans the round margin by `judge_sigma * margin_wide * MARGIN_READ_WIDTH`. `MARGIN_READ_WIDTH` is **4.0, AUTHORED**. On shipped boxing that is `0.06 * 15 * 4 = 3.6` points. The median lean is subtracted, so the middle judge scores the true card and the two wings lean opposite ways. Knockdowns, the 10-8 rule, and one-judge rulesets are unchanged. `RoundScoring.gd` was not edited.
+
+Same booked census both times: Iron Fist Gym, 40 weeks, 120 boxing bouts, the same seeds.
+
+| | Before | After |
+| --- | --- | --- |
+| Decisions | 61 | 61 |
+| Split | 0 | 9 |
+| Majority | 0 | 5 |
+| Split + majority, of decisions | **0%** | **23.0% (14/61)** |
+| Split + majority, of all bouts | 0% | 11.7% (14/120) |
+| KO+TKO | 44.2% | 44.2% |
+| Draws | 5.8% (7) | 5.8% (7) |
+
+23% of decisions is inside the **SECONDARY 10ΓÇô30%** window. The census table's old `split%` and `maj%` are still shares of all bouts. `smDec%` is the share of decisions. Both are printed.
+
+Labels on the anchors:
+
+- **NO STUDY** for the share of professional boxing decisions that are split or majority. No population rate turned up.
+- **SECONDARY, 10ΓÇô30% of decisions.** The centre is FightMatrix UFC 2023ΓÇô2025: 170 of 836 judged outcomes (20.3%) were split or majority. That is MMA, not boxing.
+- **DOCUMENTED, 70ΓÇô80% of rounds unanimous on the winner.** Benjamin Bohr, Paper ID 145 (PDF dated 27 January 2026; the title page prints no author), BoxRec cards on 7,864 rounds: 73.1% unanimous on the winner, 26.9% not. The booked board after the change agrees on the winner in 81.9% of 685 rounds. Local shows (rating gap 5.2) disagree on 27.8% of cards, next to that 26.9%. Featured mismatches disagree on 9.8%. A knockdown round stays identical because the knockdown rule still overwrites the lean.
+- KO+TKO stayed at 44.2%, inside the printed **40ΓÇô55** band. Draws stayed at the printed **5.8%**.
+
+A clear boxing round (margin 38.5) is 10-8 on all three cards. The same round at `judge_sigma` 1.0 is 9-10 / 10-8 / 10-8. A one-point round at the shipped sigma is 9-10 / 10-9 / 10-9. Consensus rows on the pinned bouts did not move. Four decision types did, and they were re-pinned exactly: `boxing_11` split draw, `boxing_9` majority draw, `boxing_20` split, `muay_thai_17` majority.
+
+Parse was clean. `judge_panel_test` had 0 failures and no script error. The judge suite was 1/1 and the result suite was 6/6. The write-up is `research/G152_JUDGES_DIGEST.md`.
+
+--- stderr ---
+Auto-compacting conversation (81% full)...
+Conversation compacted.
+

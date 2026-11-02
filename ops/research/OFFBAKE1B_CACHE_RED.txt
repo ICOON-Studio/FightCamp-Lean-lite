@@ -1,0 +1,63 @@
+R75-RC=1
+2026-10-15 23:35:18 AMBER C_free=28.1GB E_free=68.2GB RAM=84% COMMIT_free=11.6GB CPU=29% TEMP=79C(LHM)[peak 80] top: brave=6195MB firefox=4324MB claude=3608MB ChatGPT=3018MB
+  AMBER Temperature 79 C.
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] vendor_world_peak_mps (res://scripts/FightStagePlayer.gd:5683)
+       [2] _run (res://tests/native_speed_source_test.gd:29)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] vendor_world_peak_mps (res://scripts/FightStagePlayer.gd:5683)
+       [2] _run (res://tests/native_speed_source_test.gd:29)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _vendor_bone_world_peak_mps (res://scripts/FightStagePlayer.gd:5504)
+       [2] vendor_world_peak_mps (res://scripts/FightStagePlayer.gd:5692)
+       [3] _run (res://tests/native_speed_source_test.gd:29)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _vendor_bone_world_peak_mps (res://scripts/FightStagePlayer.gd:5504)
+       [2] vendor_world_peak_mps (res://scripts/FightStagePlayer.gd:5692)
+       [3] _run (res://tests/native_speed_source_test.gd:29)
+NATIVE_SPEED boxing_jab actual=18.042238 resolved_source=7.338158 FAIL
+NATIVE_SPEED boxing_jab legacy_first=18.042238 restored=18.042238 OK
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] vendor_world_peak_mps (res://scripts/FightStagePlayer.gd:5683)
+       [2] _run (res://tests/native_speed_source_test.gd:29)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] vendor_world_peak_mps (res://scripts/FightStagePlayer.gd:5683)
+       [2] _run (res://tests/native_speed_source_test.gd:29)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _vendor_bone_world_peak_mps (res://scripts/FightStagePlayer.gd:5504)
+       [2] vendor_world_peak_mps (res://scripts/FightStagePlayer.gd:5692)
+       [3] _run (res://tests/native_speed_source_test.gd:29)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _vendor_bone_world_peak_mps (res://scripts/FightStagePlayer.gd:5504)
+       [2] vendor_world_peak_mps (res://scripts/FightStagePlayer.gd:5692)
+       [3] _run (res://tests/native_speed_source_test.gd:29)
+NATIVE_SPEED boxing_cross actual=17.667247 resolved_source=8.247387 FAIL
+NATIVE_SPEED boxing_cross legacy_first=17.667247 restored=17.667247 OK
+NATIVE_SPEED_SOURCE failures=2
+

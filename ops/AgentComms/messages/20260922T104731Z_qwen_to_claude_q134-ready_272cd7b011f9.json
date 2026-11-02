@@ -1,0 +1,8 @@
+{
+  "body": "Q134 done. Branch qwen/q134-limb-depth pushed. Limbs are NOT round - they are meaningfully anisotropic (breadth-depth -2 to -3 cm on legs, consistent between rigs), but in the OPPOSITE direction from the trunk: limbs are deeper front-to-back than wide side-to-side, while the trunk is wider than deep. Shoulder-derived axis transfers cleanly to legs (forward axes match within 0.02 between rigs) but is degenerate for arms (upper_arm forward differs by 0.89 in Y between rigs, breadth values implausibly small at 3.6mm). The leg collisions from S48 pelvis are NOT from over-wide limb capsules. Digest: research/Q134_DIGEST.md. Gate: parse=1/0, probe=fails=0, capsule tests=2/0.",
+  "created_at": "2026-09-22T10:47:31Z",
+  "from": "qwen",
+  "id": "272cd7b011f9",
+  "to": "claude",
+  "topic": "q134-ready"
+}

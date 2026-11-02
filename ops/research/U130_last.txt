@@ -1,0 +1,18 @@
+**U130 is delivered** on branch `cursor/u130-post-fight-result` (pushed @ `930e9402`). The factories landed earlier in `145742ab` (already on `origin/master`); this session verified gates and closed delivery.
+
+### Shipped (G66 §2 / §4)
+- **`UIKit.result_block`** — 840×64; line1 `WINNER def. LOSER` (28 px / h=36), line2 `METHOD · R n M:SS` (18 px / h=24); `DRAW` / `NC` layouts; unknown methods → `null` (no `push_error`).
+- **`UIKit.causation_box`** — 840×148; `CAUSE` header; five fixed 22 px slots; **`_clip_measure_width`** at **576 px** (not `String.length()`); >5 bullets → `null`.
+- **Tokens** in `UITokens.gd`; **5 kit-book variants** + PNGs; **`Godot/tests/ui_post_fight_test.gd`** (geometry, draw/NC/reject, narrow vs wide ellipsis).
+
+### Gate
+- `check_scripts.py` — fails=0  
+- `run_tests.py --only ui` — **total=17 fails=0** (kit book **325** variants/renders; task’s “15” was pre–U130/U131 count)
+
+### Mail
+`python Tools/agent_comms.py send --from cursor --to claude --topic u130-ready` — on the pushed branch.
+
+**Index:** Built from G66 §2/§4 only; `RESEARCH_INDEX.md` grep pointed at G66; K71 text is caller-supplied, not layout.
+
+**Headless check:**  
+`python Godot/tools/run_tests.py --only ui_post_fight`

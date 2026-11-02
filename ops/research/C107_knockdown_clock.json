@@ -1,0 +1,769 @@
+{
+	"bouts": [
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 540.0,
+			"knockdowns": [],
+			"method": "DECISION",
+			"seed": 810000,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 1,
+			"fight_seconds": 540.0,
+			"knockdowns": [
+				[
+					32.505,
+					3,
+					"b",
+					true
+				]
+			],
+			"method": "DECISION",
+			"seed": 810001,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 540.0,
+			"knockdowns": [],
+			"method": "DECISION",
+			"seed": 810002,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 540.0,
+			"knockdowns": [],
+			"method": "DECISION",
+			"seed": 810003,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 1,
+			"fight_seconds": 540.0,
+			"knockdowns": [
+				[
+					7.815,
+					1,
+					"a",
+					true
+				]
+			],
+			"method": "DECISION",
+			"seed": 810004,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 1,
+			"fight_seconds": 540.0,
+			"knockdowns": [
+				[
+					3.685,
+					1,
+					"b",
+					true
+				]
+			],
+			"method": "DECISION",
+			"seed": 810005,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 1,
+			"fight_seconds": 540.0,
+			"knockdowns": [
+				[
+					4.335,
+					1,
+					"a",
+					true
+				]
+			],
+			"method": "DECISION",
+			"seed": 810006,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 540.0,
+			"knockdowns": [],
+			"method": "DECISION",
+			"seed": 810007,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 540.0,
+			"knockdowns": [],
+			"method": "DECISION",
+			"seed": 810008,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 1,
+			"fight_seconds": 540.0,
+			"knockdowns": [
+				[
+					19.555,
+					2,
+					"a",
+					true
+				]
+			],
+			"method": "DECISION",
+			"seed": 810009,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 540.0,
+			"knockdowns": [],
+			"method": "DECISION",
+			"seed": 810010,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 540.0,
+			"knockdowns": [],
+			"method": "DECISION",
+			"seed": 810011,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 540.0,
+			"knockdowns": [],
+			"method": "DECISION",
+			"seed": 810012,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 540.0,
+			"knockdowns": [],
+			"method": "DECISION",
+			"seed": 810013,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 1,
+			"fight_seconds": 540.0,
+			"knockdowns": [
+				[
+					16.415,
+					2,
+					"b",
+					true
+				]
+			],
+			"method": "DECISION",
+			"seed": 810014,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 1,
+			"fight_seconds": 540.0,
+			"knockdowns": [
+				[
+					19.775,
+					2,
+					"a",
+					true
+				]
+			],
+			"method": "DECISION",
+			"seed": 810015,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 540.0,
+			"knockdowns": [],
+			"method": "DECISION",
+			"seed": 810016,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 540.0,
+			"knockdowns": [],
+			"method": "DECISION",
+			"seed": 810017,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 540.0,
+			"knockdowns": [],
+			"method": "DECISION",
+			"seed": 810018,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 1,
+			"fight_seconds": 540.0,
+			"knockdowns": [
+				[
+					15.84,
+					2,
+					"a",
+					true
+				]
+			],
+			"method": "DECISION",
+			"seed": 810019,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 540.0,
+			"knockdowns": [],
+			"method": "DECISION",
+			"seed": 810020,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 540.0,
+			"knockdowns": [],
+			"method": "DECISION",
+			"seed": 810021,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 1,
+			"fight_seconds": 540.0,
+			"knockdowns": [
+				[
+					7.125,
+					1,
+					"b",
+					true
+				]
+			],
+			"method": "DECISION",
+			"seed": 810022,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 1,
+			"fight_seconds": 540.0,
+			"knockdowns": [
+				[
+					12.335,
+					2,
+					"a",
+					true
+				]
+			],
+			"method": "DECISION",
+			"seed": 810023,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 540.0,
+			"knockdowns": [],
+			"method": "DECISION",
+			"seed": 810024,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 100.2,
+			"knockdowns": [],
+			"method": "KO",
+			"seed": 810025,
+			"stoppage_s": 5.01
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 540.0,
+			"knockdowns": [],
+			"method": "DECISION",
+			"seed": 810026,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 540.0,
+			"knockdowns": [],
+			"method": "DECISION",
+			"seed": 810027,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 540.0,
+			"knockdowns": [],
+			"method": "DECISION",
+			"seed": 810028,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 540.0,
+			"knockdowns": [],
+			"method": "DECISION",
+			"seed": 810029,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 540.0,
+			"knockdowns": [],
+			"method": "DECISION",
+			"seed": 810030,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 540.0,
+			"knockdowns": [],
+			"method": "DECISION",
+			"seed": 810031,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 22.3,
+			"knockdowns": [
+				[
+					1.115,
+					1,
+					"b",
+					false
+				]
+			],
+			"method": "KO",
+			"seed": 810032,
+			"stoppage_s": 1.115
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 540.0,
+			"knockdowns": [],
+			"method": "DECISION",
+			"seed": 810033,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 540.0,
+			"knockdowns": [],
+			"method": "DECISION",
+			"seed": 810034,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 1,
+			"fight_seconds": 540.0,
+			"knockdowns": [
+				[
+					27.125,
+					3,
+					"b",
+					true
+				]
+			],
+			"method": "DECISION",
+			"seed": 810035,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 540.0,
+			"knockdowns": [],
+			"method": "DECISION",
+			"seed": 810036,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 540.0,
+			"knockdowns": [],
+			"method": "DECISION",
+			"seed": 810037,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 266.9,
+			"knockdowns": [
+				[
+					16.345,
+					2,
+					"a",
+					false
+				]
+			],
+			"method": "KO",
+			"seed": 810038,
+			"stoppage_s": 16.345
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 391.7,
+			"knockdowns": [],
+			"method": "KO",
+			"seed": 810039,
+			"stoppage_s": 25.585
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 540.0,
+			"knockdowns": [],
+			"method": "DECISION",
+			"seed": 810040,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 540.0,
+			"knockdowns": [],
+			"method": "DECISION",
+			"seed": 810041,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 1,
+			"fight_seconds": 540.0,
+			"knockdowns": [
+				[
+					26.605,
+					3,
+					"b",
+					true
+				]
+			],
+			"method": "DECISION",
+			"seed": 810042,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 540.0,
+			"knockdowns": [],
+			"method": "DECISION",
+			"seed": 810043,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 1,
+			"fight_seconds": 100.5,
+			"knockdowns": [
+				[
+					1.735,
+					1,
+					"b",
+					true
+				]
+			],
+			"method": "KO",
+			"seed": 810044,
+			"stoppage_s": 5.025
+		},
+		{
+			"continuing_knockdowns": 1,
+			"fight_seconds": 540.0,
+			"knockdowns": [
+				[
+					6.72,
+					1,
+					"a",
+					true
+				]
+			],
+			"method": "DECISION",
+			"seed": 810045,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 540.0,
+			"knockdowns": [],
+			"method": "DECISION",
+			"seed": 810046,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 3,
+			"fight_seconds": 540.0,
+			"knockdowns": [
+				[
+					14.58,
+					2,
+					"a",
+					true
+				],
+				[
+					31.54,
+					3,
+					"a",
+					true
+				],
+				[
+					31.645,
+					3,
+					"b",
+					true
+				]
+			],
+			"method": "DECISION",
+			"seed": 810047,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 1,
+			"fight_seconds": 540.0,
+			"knockdowns": [
+				[
+					32.945,
+					3,
+					"a",
+					true
+				]
+			],
+			"method": "DECISION",
+			"seed": 810048,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 540.0,
+			"knockdowns": [],
+			"method": "DECISION",
+			"seed": 810049,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 1,
+			"fight_seconds": 540.0,
+			"knockdowns": [
+				[
+					6.395,
+					1,
+					"b",
+					true
+				]
+			],
+			"method": "DECISION",
+			"seed": 810050,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 1,
+			"fight_seconds": 540.0,
+			"knockdowns": [
+				[
+					0.045,
+					1,
+					"b",
+					true
+				]
+			],
+			"method": "DECISION",
+			"seed": 810051,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 540.0,
+			"knockdowns": [],
+			"method": "DECISION",
+			"seed": 810052,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 1,
+			"fight_seconds": 540.0,
+			"knockdowns": [
+				[
+					32.87,
+					3,
+					"b",
+					true
+				]
+			],
+			"method": "DECISION",
+			"seed": 810053,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 540.0,
+			"knockdowns": [],
+			"method": "DECISION",
+			"seed": 810054,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 540.0,
+			"knockdowns": [],
+			"method": "DECISION",
+			"seed": 810055,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 1,
+			"fight_seconds": 540.0,
+			"knockdowns": [
+				[
+					18.25,
+					2,
+					"a",
+					true
+				]
+			],
+			"method": "DECISION",
+			"seed": 810056,
+			"stoppage_s": 0.0
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 437.9,
+			"knockdowns": [],
+			"method": "KO",
+			"seed": 810057,
+			"stoppage_s": 27.895
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 40.8,
+			"knockdowns": [],
+			"method": "KO",
+			"seed": 810058,
+			"stoppage_s": 2.04
+		},
+		{
+			"continuing_knockdowns": 0,
+			"fight_seconds": 540.0,
+			"knockdowns": [],
+			"method": "DECISION",
+			"seed": 810059,
+			"stoppage_s": 0.0
+		}
+	],
+	"derived": {
+		"bouts_with_knockdown_pct": 36.6666666666667,
+		"continuing_per_bout": 0.366666666666667,
+		"knockdowns_per_bout": 0.4,
+		"longest": {
+			"count_seconds_per_bout": 8.25,
+			"share_of_fight_pct": 1.65108421196586
+		},
+		"shortest": {
+			"count_seconds_per_bout": 4.03333333333333,
+			"share_of_fight_pct": 0.807196725849975
+		},
+		"typical": {
+			"count_seconds_per_bout": 5.5,
+			"share_of_fight_pct": 1.10072280797724
+		}
+	},
+	"population": {
+		"fighters": [
+			{
+				"competition_weight_kg": 66.0,
+				"height_cm": 180.0,
+				"name": "out-boxer (A)",
+				"reach_cm": 186.0,
+				"stats": {
+					"aggression": 40,
+					"chin": 58,
+					"conditioning": 66,
+					"defense": 68,
+					"fight_iq": 70,
+					"grapple": 30,
+					"power": 55,
+					"speed": 70,
+					"technique": 72
+				}
+			},
+			{
+				"competition_weight_kg": 66.5,
+				"height_cm": 172.0,
+				"name": "pressure puncher (B)",
+				"reach_cm": 172.0,
+				"stats": {
+					"aggression": 78,
+					"chin": 72,
+					"conditioning": 72,
+					"defense": 54,
+					"fight_iq": 55,
+					"grapple": 35,
+					"power": 74,
+					"speed": 58,
+					"technique": 58
+				}
+			}
+		],
+		"rounds": 3,
+		"ruleset": "boxing",
+		"seeds": [
+			810000,
+			810001,
+			810002,
+			810003,
+			810004,
+			810005,
+			810006,
+			810007,
+			810008,
+			810009,
+			810010,
+			810011,
+			810012,
+			810013,
+			810014,
+			810015,
+			810016,
+			810017,
+			810018,
+			810019,
+			810020,
+			810021,
+			810022,
+			810023,
+			810024,
+			810025,
+			810026,
+			810027,
+			810028,
+			810029,
+			810030,
+			810031,
+			810032,
+			810033,
+			810034,
+			810035,
+			810036,
+			810037,
+			810038,
+			810039,
+			810040,
+			810041,
+			810042,
+			810043,
+			810044,
+			810045,
+			810046,
+			810047,
+			810048,
+			810049,
+			810050,
+			810051,
+			810052,
+			810053,
+			810054,
+			810055,
+			810056,
+			810057,
+			810058,
+			810059
+		]
+	}
+}

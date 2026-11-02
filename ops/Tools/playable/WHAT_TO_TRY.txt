@@ -1,0 +1,37 @@
+FIGHTCAMP - PLAYTEST BUILD S293 (2026-10-23) - THE FIGHTER'S PATH (D48)
+=====================================================================
+
+START: double-click FightCamp.exe in this folder.
+(FightCamp_console.exe is the same game with a console window - use it if the game
+crashes, the console shows why. Keep the "assets" folder and FightCamp.pck beside the exe.)
+
+WHAT TO TRY - quick start to fight night (about 20 minutes at 3x)
+ 1. QUICK START on the title board: a built gym in London, straight onto the floor.
+ 2. A fighter walks in: APPLICANT in the top bar -> the interview -> pick 3 cards -> SIGN.
+ 3. Her goal sits on the floor with its countdown.
+ 4. OFFICE > Staff > HIRE A COACH.
+ 5. Let the days run (3x). At the week's end WEEK in the top bar opens the week review:
+    each stat's bar fills toward the NEXT WHOLE POINT and turns gold when it ticks over.
+ 6. WORLD > Schedule > FIND A BOUT -> pick a legal offer -> ENTER THE CARD.
+ 7. Back on the floor, SET CAMP waits in the top bar -> START A CAMP -> pick a focus and a
+    protocol -> START CAMP.
+ 8. Run the weeks: fight night calls itself -> fight week -> weigh-in -> BEGIN FIGHT (watch it,
+    or SIM TO RESULT).
+ 9. The result says why. Back home, NEW GOAL waits in the top bar -> it walks you into the
+    office where she picks her next goal.
+
+NEW TODAY
+ - Training moves faster (Ludo's pace) and her goals are reachable (e.g. Southpaw Answer =
+   technique +2.5 in three weeks).
+ - The money holds: the first coach is sessional ($450/week), dues $22, the gym opens with 30
+   members, evening classes bring $350/week, her amateur bout pays the club a $450 ticket cut,
+   and an amateur signs on the club stipend ($250/week). This morning the bank had halved
+   by her first fight; now it holds about level ($22,700 of $25,000 on fight night).
+ - SET CAMP after a booking and NEW GOAL after a fight (both used to be unreachable).
+
+KNOWN - not fixed yet (don't spend time reporting these)
+ - Gym building is parked for the demo (D48): BUILD works but is not being polished now.
+
+HOW TO REPORT WHAT FEELS WRONG
+ The ops board (127.0.0.1:8787) or chat: the screen, what you did, what you expected,
+ what happened. "It felt wrong" is a valid report - say where.

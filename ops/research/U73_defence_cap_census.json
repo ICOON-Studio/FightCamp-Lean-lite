@@ -1,0 +1,2051 @@
+{
+  "census": {
+    "boxing": {
+      "30": {
+        "learned": 9,
+        "defence_nodes": [
+          "boxing_breathing_rhythm",
+          "boxing_catch",
+          "boxing_parry",
+          "boxing_slip",
+          "boxing_stance_guard"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.35,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "50": {
+        "learned": 27,
+        "defence_nodes": [
+          "boxing_block_elbow",
+          "boxing_bob_weave",
+          "boxing_breathing_rhythm",
+          "boxing_catch",
+          "boxing_parry",
+          "boxing_pull",
+          "boxing_roll",
+          "boxing_slip",
+          "boxing_stance_guard"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.35,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "70": {
+        "learned": 45,
+        "defence_nodes": [
+          "boxing_block_elbow",
+          "boxing_bob_weave",
+          "boxing_breathing_rhythm",
+          "boxing_catch",
+          "boxing_forearm_frame",
+          "boxing_long_guard",
+          "boxing_parry",
+          "boxing_pivot_out",
+          "boxing_pull",
+          "boxing_roll",
+          "boxing_shoulder_roll",
+          "boxing_slip",
+          "boxing_stance_guard"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.35,
+            "takedown": 0.0,
+            "control": 0.35,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "90": {
+        "learned": 46,
+        "defence_nodes": [
+          "boxing_block_elbow",
+          "boxing_bob_weave",
+          "boxing_breathing_rhythm",
+          "boxing_catch",
+          "boxing_forearm_frame",
+          "boxing_long_guard",
+          "boxing_parry",
+          "boxing_pivot_out",
+          "boxing_pull",
+          "boxing_roll",
+          "boxing_shoulder_roll",
+          "boxing_slip",
+          "boxing_stance_guard"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.35,
+            "takedown": 0.0,
+            "control": 0.35,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      }
+    },
+    "kickboxing": {
+      "30": {
+        "learned": 4,
+        "defence_nodes": [
+          "kickboxing_guard"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.35,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "50": {
+        "learned": 13,
+        "defence_nodes": [
+          "kickboxing_guard",
+          "kickboxing_kick_check",
+          "kickboxing_teep_stop"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.35,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "70": {
+        "learned": 21,
+        "defence_nodes": [
+          "kickboxing_guard",
+          "kickboxing_kick_check",
+          "kickboxing_teep_stop"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.35,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "90": {
+        "learned": 21,
+        "defence_nodes": [
+          "kickboxing_guard",
+          "kickboxing_kick_check",
+          "kickboxing_teep_stop"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.35,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      }
+    },
+    "muay_thai": {
+      "30": {
+        "learned": 16,
+        "defence_nodes": [
+          "muay_thai_catch_kick",
+          "muay_thai_cross_arm_block",
+          "muay_thai_head_block",
+          "muay_thai_shin_check",
+          "muay_thai_stance"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.35,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "50": {
+        "learned": 48,
+        "defence_nodes": [
+          "muay_thai_catch_kick",
+          "muay_thai_cross_arm_block",
+          "muay_thai_head_block",
+          "muay_thai_pull_back",
+          "muay_thai_shin_check",
+          "muay_thai_slip",
+          "muay_thai_stance",
+          "muay_thai_teep_defense"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.35,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "70": {
+        "learned": 79,
+        "defence_nodes": [
+          "muay_thai_catch_kick",
+          "muay_thai_cross_arm_block",
+          "muay_thai_head_block",
+          "muay_thai_pull_back",
+          "muay_thai_shin_check",
+          "muay_thai_slip",
+          "muay_thai_stance",
+          "muay_thai_teep_defense"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.35,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "90": {
+        "learned": 81,
+        "defence_nodes": [
+          "muay_thai_catch_kick",
+          "muay_thai_cross_arm_block",
+          "muay_thai_head_block",
+          "muay_thai_pull_back",
+          "muay_thai_shin_check",
+          "muay_thai_slip",
+          "muay_thai_stance",
+          "muay_thai_teep_defense"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.35,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      }
+    },
+    "wrestling": {
+      "30": {
+        "learned": 3,
+        "defence_nodes": [
+          "wrestling_stance"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.0,
+            "takedown": 0.275,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "50": {
+        "learned": 9,
+        "defence_nodes": [
+          "wrestling_sprawl",
+          "wrestling_stance",
+          "wrestling_whizzer_defense"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.0,
+            "takedown": 0.35,
+            "control": 0.35,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.35,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.35,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "70": {
+        "learned": 15,
+        "defence_nodes": [
+          "wrestling_sprawl",
+          "wrestling_stance",
+          "wrestling_whizzer_defense"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.0,
+            "takedown": 0.35,
+            "control": 0.35,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.35,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.35,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "90": {
+        "learned": 15,
+        "defence_nodes": [
+          "wrestling_sprawl",
+          "wrestling_stance",
+          "wrestling_whizzer_defense"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.0,
+            "takedown": 0.35,
+            "control": 0.35,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.35,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.35,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      }
+    },
+    "brazilian_jiu_jitsu": {
+      "30": {
+        "learned": 12,
+        "defence_nodes": [],
+        "bonus": {
+          "standing": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "50": {
+        "learned": 36,
+        "defence_nodes": [
+          "brazilian_jiu_jitsu_guard_retention"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.35,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "70": {
+        "learned": 60,
+        "defence_nodes": [
+          "bjj_turtle",
+          "brazilian_jiu_jitsu_guard_retention",
+          "brazilian_jiu_jitsu_knee_shield"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.275,
+            "control": 0.35,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "90": {
+        "learned": 61,
+        "defence_nodes": [
+          "bjj_turtle",
+          "brazilian_jiu_jitsu_guard_retention",
+          "brazilian_jiu_jitsu_knee_shield"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.275,
+            "control": 0.35,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      }
+    },
+    "judo": {
+      "30": {
+        "learned": 19,
+        "defence_nodes": [
+          "judo_ukemi"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.0,
+            "takedown": 0.325,
+            "control": 0.325,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "50": {
+        "learned": 58,
+        "defence_nodes": [
+          "judo_ukemi"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.0,
+            "takedown": 0.325,
+            "control": 0.325,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "70": {
+        "learned": 96,
+        "defence_nodes": [
+          "judo_ukemi"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.0,
+            "takedown": 0.325,
+            "control": 0.325,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "90": {
+        "learned": 98,
+        "defence_nodes": [
+          "judo_ukemi"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.0,
+            "takedown": 0.325,
+            "control": 0.325,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      }
+    },
+    "karate": {
+      "30": {
+        "learned": 29,
+        "defence_nodes": [
+          "karate_ageuke",
+          "karate_ayumiashi",
+          "karate_empiuke",
+          "karate_gedanbarai",
+          "karate_hachijidachi",
+          "karate_heikodachi",
+          "karate_heisokudachi",
+          "karate_hikiashi",
+          "karate_kamae",
+          "karate_kibadachi",
+          "karate_kokutsudachi",
+          "karate_musubidachi",
+          "karate_shizentai",
+          "karate_shutouke",
+          "karate_sotouke",
+          "karate_suriashi",
+          "karate_uchiuke",
+          "karate_zenkutsudachi"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.35,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "50": {
+        "learned": 87,
+        "defence_nodes": [
+          "karate_ageuke",
+          "karate_ayumiashi",
+          "karate_chudansoeteuke",
+          "karate_empiuke",
+          "karate_fudodachi",
+          "karate_gedanbarai",
+          "karate_gedanjujiuke",
+          "karate_gedanmorotebarai",
+          "karate_hachijidachi",
+          "karate_haishuuke",
+          "karate_haiwanuke",
+          "karate_hangetsudachi",
+          "karate_heikodachi",
+          "karate_heisokudachi",
+          "karate_hikiashi",
+          "karate_jodanjujiuke",
+          "karate_kaishohaiwanuke",
+          "karate_kaishojujiuke",
+          "karate_kakiwakeuke",
+          "karate_kamae",
+          "karate_kibadachi",
+          "karate_kokutsudachi",
+          "karate_kosadachi",
+          "karate_kosauke",
+          "karate_mawariashi",
+          "karate_moroteuke",
+          "karate_musubidachi",
+          "karate_okuriashi",
+          "karate_osaeuke",
+          "karate_otoshiuke",
+          "karate_renojidachi",
+          "karate_shizentai",
+          "karate_shutouke",
+          "karate_sotouke",
+          "karate_suriashi",
+          "karate_taisabaki",
+          "karate_teijidachi",
+          "karate_teosaeuke",
+          "karate_tsugiashi",
+          "karate_uchihachijidachi",
+          "karate_uchiuke",
+          "karate_udebarai",
+          "karate_yoriashi",
+          "karate_zenkutsudachi"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.35,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "70": {
+        "learned": 144,
+        "defence_nodes": [
+          "karate_ageuke",
+          "karate_ayumiashi",
+          "karate_chudansoeteuke",
+          "karate_empiuke",
+          "karate_fudodachi",
+          "karate_gankakudachi",
+          "karate_gedanbarai",
+          "karate_gedanjujiuke",
+          "karate_gedanmorotebarai",
+          "karate_hachijidachi",
+          "karate_haishuuke",
+          "karate_haiwanuke",
+          "karate_hangetsudachi",
+          "karate_heikodachi",
+          "karate_heisokudachi",
+          "karate_hikiashi",
+          "karate_iaigoshidachi",
+          "karate_jodanjujiuke",
+          "karate_kaishoageuke",
+          "karate_kaishohaiwanuke",
+          "karate_kaishojujiuke",
+          "karate_kakiwakeuke",
+          "karate_kamae",
+          "karate_kibadachi",
+          "karate_kokutsudachi",
+          "karate_kosadachi",
+          "karate_kosauke",
+          "karate_maai_control",
+          "karate_manjiuke",
+          "karate_mawariashi",
+          "karate_moroteuke",
+          "karate_musubidachi",
+          "karate_nagashiuke",
+          "karate_nekoashidachi",
+          "karate_okuriashi",
+          "karate_osaeuke",
+          "karate_otoshiuke",
+          "karate_renojidachi",
+          "karate_sagiashidachi",
+          "karate_sanchindachi",
+          "karate_shizentai",
+          "karate_shutoageuke",
+          "karate_shutogedanbarai",
+          "karate_shutouke",
+          "karate_sotouke",
+          "karate_sukuiuke",
+          "karate_suriashi",
+          "karate_taisabaki",
+          "karate_tateshutouke",
+          "karate_teijidachi",
+          "karate_teishouke",
+          "karate_tenshin",
+          "karate_teosaeuke",
+          "karate_tsugiashi",
+          "karate_tsukiuke",
+          "karate_tsuruashidachi",
+          "karate_uchihachijidachi",
+          "karate_uchiuke",
+          "karate_udebarai",
+          "karate_ushirogedanbarai",
+          "karate_yoriashi",
+          "karate_zenkutsudachi"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.35,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "90": {
+        "learned": 147,
+        "defence_nodes": [
+          "karate_ageuke",
+          "karate_ayumiashi",
+          "karate_chudansoeteuke",
+          "karate_empiuke",
+          "karate_fudodachi",
+          "karate_gankakudachi",
+          "karate_gedanbarai",
+          "karate_gedanjujiuke",
+          "karate_gedanmorotebarai",
+          "karate_hachijidachi",
+          "karate_haishuuke",
+          "karate_haiwanuke",
+          "karate_hangetsudachi",
+          "karate_heikodachi",
+          "karate_heisokudachi",
+          "karate_hikiashi",
+          "karate_iaigoshidachi",
+          "karate_jodanjujiuke",
+          "karate_kaishoageuke",
+          "karate_kaishohaiwanuke",
+          "karate_kaishojujiuke",
+          "karate_kakiwakeuke",
+          "karate_kamae",
+          "karate_kibadachi",
+          "karate_kokutsudachi",
+          "karate_kosadachi",
+          "karate_kosauke",
+          "karate_maai_control",
+          "karate_manjiuke",
+          "karate_mawariashi",
+          "karate_moroteuke",
+          "karate_musubidachi",
+          "karate_nagashiuke",
+          "karate_nekoashidachi",
+          "karate_okuriashi",
+          "karate_osaeuke",
+          "karate_otoshiuke",
+          "karate_renojidachi",
+          "karate_sagiashidachi",
+          "karate_sanchindachi",
+          "karate_shizentai",
+          "karate_shutoageuke",
+          "karate_shutogedanbarai",
+          "karate_shutouke",
+          "karate_sotouke",
+          "karate_sukuiuke",
+          "karate_suriashi",
+          "karate_taisabaki",
+          "karate_tateshutouke",
+          "karate_teijidachi",
+          "karate_teishouke",
+          "karate_tenshin",
+          "karate_teosaeuke",
+          "karate_tsugiashi",
+          "karate_tsukiuke",
+          "karate_tsuruashidachi",
+          "karate_uchihachijidachi",
+          "karate_uchiuke",
+          "karate_udebarai",
+          "karate_ushirogedanbarai",
+          "karate_yoriashi",
+          "karate_zenkutsudachi"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.35,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      }
+    },
+    "taekwondo": {
+      "30": {
+        "learned": 3,
+        "defence_nodes": [
+          "tkd_stance"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.3,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "50": {
+        "learned": 9,
+        "defence_nodes": [
+          "taekwondo_push_kick_manage",
+          "tkd_stance"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.35,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "70": {
+        "learned": 15,
+        "defence_nodes": [
+          "taekwondo_push_kick_manage",
+          "tkd_stance"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.35,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "90": {
+        "learned": 15,
+        "defence_nodes": [
+          "taekwondo_push_kick_manage",
+          "tkd_stance"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.35,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      }
+    },
+    "sanda": {
+      "30": {
+        "learned": 3,
+        "defence_nodes": [
+          "sanda_stance"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.3,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "50": {
+        "learned": 9,
+        "defence_nodes": [
+          "sanda_lead_slip_defense",
+          "sanda_stance"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.35,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "70": {
+        "learned": 15,
+        "defence_nodes": [
+          "sanda_lead_slip_defense",
+          "sanda_stance"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.35,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "90": {
+        "learned": 15,
+        "defence_nodes": [
+          "sanda_lead_slip_defense",
+          "sanda_stance"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.35,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      }
+    },
+    "sambo": {
+      "30": {
+        "learned": 3,
+        "defence_nodes": [],
+        "bonus": {
+          "standing": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "50": {
+        "learned": 9,
+        "defence_nodes": [],
+        "bonus": {
+          "standing": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "70": {
+        "learned": 15,
+        "defence_nodes": [],
+        "bonus": {
+          "standing": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "90": {
+        "learned": 15,
+        "defence_nodes": [],
+        "bonus": {
+          "standing": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      }
+    },
+    "savate": {
+      "30": {
+        "learned": 3,
+        "defence_nodes": [
+          "savate_garde"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.3,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "50": {
+        "learned": 9,
+        "defence_nodes": [
+          "savate_garde"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.3,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "70": {
+        "learned": 15,
+        "defence_nodes": [
+          "savate_garde",
+          "savate_lowline_read"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.35,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "90": {
+        "learned": 15,
+        "defence_nodes": [
+          "savate_garde",
+          "savate_lowline_read"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.35,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      }
+    },
+    "capoeira": {
+      "30": {
+        "learned": 3,
+        "defence_nodes": [
+          "capoeira_esquiva",
+          "capoeira_ginga"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.35,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "50": {
+        "learned": 9,
+        "defence_nodes": [
+          "capoeira_esquiva",
+          "capoeira_ginga"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.35,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "70": {
+        "learned": 15,
+        "defence_nodes": [
+          "capoeira_esquiva",
+          "capoeira_esquiva_read",
+          "capoeira_ginga"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.35,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "90": {
+        "learned": 15,
+        "defence_nodes": [
+          "capoeira_esquiva",
+          "capoeira_esquiva_read",
+          "capoeira_ginga"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.35,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      }
+    },
+    "arnis": {
+      "30": {
+        "learned": 3,
+        "defence_nodes": [],
+        "bonus": {
+          "standing": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "50": {
+        "learned": 9,
+        "defence_nodes": [
+          "arnis_roof_block"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "70": {
+        "learned": 15,
+        "defence_nodes": [
+          "arnis_roof_block"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "90": {
+        "learned": 15,
+        "defence_nodes": [
+          "arnis_roof_block"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      }
+    },
+    "pencak_silat": {
+      "30": {
+        "learned": 3,
+        "defence_nodes": [
+          "silat_pasang"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.3,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "50": {
+        "learned": 9,
+        "defence_nodes": [
+          "silat_pasang"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.3,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "70": {
+        "learned": 15,
+        "defence_nodes": [
+          "pencak_silat_harimau_low",
+          "silat_pasang"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.3,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.35,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "90": {
+        "learned": 15,
+        "defence_nodes": [
+          "pencak_silat_harimau_low",
+          "silat_pasang"
+        ],
+        "bonus": {
+          "standing": {
+            "strike": 0.3,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.35,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      }
+    },
+    "mma": {
+      "30": {
+        "learned": 3,
+        "defence_nodes": [],
+        "bonus": {
+          "standing": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "50": {
+        "learned": 9,
+        "defence_nodes": [],
+        "bonus": {
+          "standing": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "70": {
+        "learned": 15,
+        "defence_nodes": [],
+        "bonus": {
+          "standing": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      },
+      "90": {
+        "learned": 15,
+        "defence_nodes": [],
+        "bonus": {
+          "standing": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_top": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          },
+          "ground_bottom": {
+            "strike": 0.0,
+            "takedown": 0.0,
+            "control": 0.0,
+            "submission": 0.0,
+            "escape": 0.0
+          }
+        }
+      }
+    }
+  },
+  "anchors": [
+    {
+      "metric": "Significant-strike accuracy by division",
+      "value": "HW 48.6% (highest); W. Flyweight and Lightweight 43.2% (lowest listed)",
+      "population": "8,375 fights, 1993-2025, 12 divisions",
+      "file": "research/J20_THE_VALIDATION_CORPUS.md",
+      "line": 97,
+      "quote": "| Significant-strike accuracy by division | HW **48.6%** (highest); W. Flyweight and Lightweight **43.2%** (lowest listed) | **~43\u201349%** across 12 divisions | 8,375 fights, 1993\u20132025 | Significant landed \u00f7 attempted | Per-fight / per-round aggregate as stated by author | Fight Algorithm, *Division Meta* | INHERITED |"
+    },
+    {
+      "metric": "CompuBox punches thrown / landed / connect, male pro sample",
+      "value": "34.6% landed; 37.6 thrown per round",
+      "population": "322 boxers, 320 fights, male professional boxing, CompuBox logs",
+      "file": "research/J20_THE_VALIDATION_CORPUS.md",
+      "line": 202,
+      "quote": "| Punches thrown / landed / connect, male pro sample | **37.6** thrown per round; **34.6%** landed; **172.4** jabs thrown per fight at **27.29%** connect; **147.8** power thrown per fight at **42.4%** connect; **320.1** punches per fight | 322 boxers, 320 fights, by weight category in the paper | Male professional boxing, CompuBox logs | CompuBox definitions | Per round and per fight | *Professional male modern boxing: activity profile by category*, 2023, https://www.researchgate.net/publication/373724629_Professional_male_modern_boxing_An_analysis_of_activity_profile_by_category | INHERITED (CompuBox primary data, academic aggregate) |"
+    }
+  ],
+  "recommend": {
+    "option": "c",
+    "constant": 60.0
+  }
+}

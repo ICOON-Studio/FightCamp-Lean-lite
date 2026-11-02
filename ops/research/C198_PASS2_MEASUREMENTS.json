@@ -1,0 +1,819 @@
+{
+  "baseline": {
+    "overlap_frames": 372,
+    "frames": 3600,
+    "share": 0.103333333333333,
+    "worst_depth_m": 0.261201135187047,
+    "longest_s": 0.433333333333333,
+    "contacts": [
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "a",
+        "surface_depth": 3.8678525215996e-08,
+        "take": "hook_lead",
+        "tick": 103
+      },
+      {
+        "effector": "RightHand",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.357607223095247,
+        "take": "hook_rear",
+        "tick": 236
+      },
+      {
+        "effector": "LeftHand",
+        "region": "torso_core",
+        "side": "a",
+        "surface_depth": -0.495839374003245,
+        "take": "hook_lead",
+        "tick": 535
+      },
+      {
+        "effector": "RightLowerLeg-RightFoot",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.232517249966159,
+        "take": "muay_thai_straight_knee",
+        "tick": 760
+      },
+      {
+        "effector": "RightFoot-RightToes",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.374067200258207,
+        "take": "kickboxing_body_kick",
+        "tick": 969
+      },
+      {
+        "effector": "LeftHand",
+        "region": "torso_core",
+        "side": "a",
+        "surface_depth": 1.88225672381748e-07,
+        "take": "boxing_one_two",
+        "tick": 1441
+      },
+      {
+        "effector": "LeftHand",
+        "region": "torso_core",
+        "side": "a",
+        "surface_depth": -7.99952291075101e-08,
+        "take": "boxing_one_two",
+        "tick": 1442
+      },
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.00090250188604829,
+        "take": "hook_lead",
+        "tick": 1568
+      },
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "a",
+        "surface_depth": -1.51728569153242e-08,
+        "take": "hook_lead",
+        "tick": 2168
+      },
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -4.15389695140878e-07,
+        "take": "boxing_one_two",
+        "tick": 2179
+      },
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -5.94203629467049e-07,
+        "take": "boxing_one_two",
+        "tick": 2180
+      },
+      {
+        "effector": "LeftHand",
+        "region": "torso_core",
+        "side": "b",
+        "surface_depth": -1.98383913296851e-07,
+        "take": "hook_lead",
+        "tick": 3302
+      },
+      {
+        "effector": "RightFoot-RightToes",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.384005449804483,
+        "take": "kickboxing_axe_kick",
+        "tick": 3464
+      },
+      {
+        "effector": "RightFoot-RightToes",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.410367278143396,
+        "take": "kickboxing_axe_kick",
+        "tick": 3465
+      }
+    ],
+    "event_hash": "c69594a7fdf028beee661c28308f542d1706d4149826885edf8c2b2fea7de279"
+  },
+  "ownership": {
+    "overlap_frames": 372,
+    "frames": 3600,
+    "share": 0.103333333333333,
+    "worst_depth_m": 0.261201135187047,
+    "longest_s": 0.433333333333333,
+    "contacts": [
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "a",
+        "surface_depth": 3.8678525215996e-08,
+        "take": "hook_lead",
+        "tick": 103
+      },
+      {
+        "effector": "RightHand",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.357607223095247,
+        "take": "hook_rear",
+        "tick": 236
+      },
+      {
+        "effector": "LeftHand",
+        "region": "torso_core",
+        "side": "a",
+        "surface_depth": -0.495839374003245,
+        "take": "hook_lead",
+        "tick": 535
+      },
+      {
+        "effector": "RightLowerLeg-RightFoot",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.232517249966159,
+        "take": "muay_thai_straight_knee",
+        "tick": 760
+      },
+      {
+        "effector": "RightFoot-RightToes",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.374067200258207,
+        "take": "kickboxing_body_kick",
+        "tick": 969
+      },
+      {
+        "effector": "LeftHand",
+        "region": "torso_core",
+        "side": "a",
+        "surface_depth": 1.88225672381748e-07,
+        "take": "boxing_one_two",
+        "tick": 1441
+      },
+      {
+        "effector": "LeftHand",
+        "region": "torso_core",
+        "side": "a",
+        "surface_depth": -7.99952291075101e-08,
+        "take": "boxing_one_two",
+        "tick": 1442
+      },
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.00090250188604829,
+        "take": "hook_lead",
+        "tick": 1568
+      },
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "a",
+        "surface_depth": -1.51728569153242e-08,
+        "take": "hook_lead",
+        "tick": 2168
+      },
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -4.15389695140878e-07,
+        "take": "boxing_one_two",
+        "tick": 2179
+      },
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -5.94203629467049e-07,
+        "take": "boxing_one_two",
+        "tick": 2180
+      },
+      {
+        "effector": "LeftHand",
+        "region": "torso_core",
+        "side": "b",
+        "surface_depth": -1.98383913296851e-07,
+        "take": "hook_lead",
+        "tick": 3302
+      },
+      {
+        "effector": "RightFoot-RightToes",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.384005449804483,
+        "take": "kickboxing_axe_kick",
+        "tick": 3464
+      },
+      {
+        "effector": "RightFoot-RightToes",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.410367278143396,
+        "take": "kickboxing_axe_kick",
+        "tick": 3465
+      }
+    ],
+    "event_hash": "c69594a7fdf028beee661c28308f542d1706d4149826885edf8c2b2fea7de279"
+  },
+  "effector": {
+    "overlap_frames": 372,
+    "frames": 3600,
+    "share": 0.103333333333333,
+    "worst_depth_m": 0.261201135187047,
+    "longest_s": 0.433333333333333,
+    "contacts": [
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "a",
+        "surface_depth": 3.8678525215996e-08,
+        "take": "hook_lead",
+        "tick": 103
+      },
+      {
+        "effector": "RightHand",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.357607223095247,
+        "take": "hook_rear",
+        "tick": 236
+      },
+      {
+        "effector": "LeftHand",
+        "region": "torso_core",
+        "side": "a",
+        "surface_depth": -0.495839374003245,
+        "take": "hook_lead",
+        "tick": 535
+      },
+      {
+        "effector": "RightLowerLeg-RightFoot",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.232517249966159,
+        "take": "muay_thai_straight_knee",
+        "tick": 760
+      },
+      {
+        "effector": "RightFoot-RightToes",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.374067200258207,
+        "take": "kickboxing_body_kick",
+        "tick": 969
+      },
+      {
+        "effector": "LeftHand",
+        "region": "torso_core",
+        "side": "a",
+        "surface_depth": 1.88225672381748e-07,
+        "take": "boxing_one_two",
+        "tick": 1441
+      },
+      {
+        "effector": "LeftHand",
+        "region": "torso_core",
+        "side": "a",
+        "surface_depth": -7.99952291075101e-08,
+        "take": "boxing_one_two",
+        "tick": 1442
+      },
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.00090250188604829,
+        "take": "hook_lead",
+        "tick": 1568
+      },
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "a",
+        "surface_depth": -1.51728569153242e-08,
+        "take": "hook_lead",
+        "tick": 2168
+      },
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -4.15389695140878e-07,
+        "take": "boxing_one_two",
+        "tick": 2179
+      },
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -5.94203629467049e-07,
+        "take": "boxing_one_two",
+        "tick": 2180
+      },
+      {
+        "effector": "LeftHand",
+        "region": "torso_core",
+        "side": "b",
+        "surface_depth": -1.98383913296851e-07,
+        "take": "hook_lead",
+        "tick": 3302
+      },
+      {
+        "effector": "RightFoot-RightToes",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.384005449804483,
+        "take": "kickboxing_axe_kick",
+        "tick": 3464
+      },
+      {
+        "effector": "RightFoot-RightToes",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.410367278143396,
+        "take": "kickboxing_axe_kick",
+        "tick": 3465
+      }
+    ],
+    "event_hash": "c69594a7fdf028beee661c28308f542d1706d4149826885edf8c2b2fea7de279"
+  },
+  "upperarm": {
+    "overlap_frames": 322,
+    "frames": 3600,
+    "share": 0.0894444444444444,
+    "worst_depth_m": 0.261201135187047,
+    "longest_s": 0.4,
+    "contacts": [
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "a",
+        "surface_depth": -6.02495836554695e-09,
+        "take": "hook_lead",
+        "tick": 103
+      },
+      {
+        "effector": "RightHand",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.357607223095247,
+        "take": "hook_rear",
+        "tick": 236
+      },
+      {
+        "effector": "LeftHand",
+        "region": "torso_core",
+        "side": "a",
+        "surface_depth": -0.495839374003245,
+        "take": "hook_lead",
+        "tick": 535
+      },
+      {
+        "effector": "RightLowerLeg-RightFoot",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.232517249966159,
+        "take": "muay_thai_straight_knee",
+        "tick": 760
+      },
+      {
+        "effector": "RightFoot-RightToes",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.374067200258207,
+        "take": "kickboxing_body_kick",
+        "tick": 969
+      },
+      {
+        "effector": "LeftHand",
+        "region": "torso_core",
+        "side": "a",
+        "surface_depth": 1.88225672381748e-07,
+        "take": "boxing_one_two",
+        "tick": 1441
+      },
+      {
+        "effector": "LeftHand",
+        "region": "torso_core",
+        "side": "a",
+        "surface_depth": -7.99952291075101e-08,
+        "take": "boxing_one_two",
+        "tick": 1442
+      },
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.00965317899481294,
+        "take": "hook_lead",
+        "tick": 1568
+      },
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "a",
+        "surface_depth": -1.51728569153242e-08,
+        "take": "hook_lead",
+        "tick": 2168
+      },
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": 0.00425791924699309,
+        "take": "boxing_one_two",
+        "tick": 2179
+      },
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": 2.20257590627937e-05,
+        "take": "boxing_one_two",
+        "tick": 2180
+      },
+      {
+        "effector": "LeftHand",
+        "region": "torso_core",
+        "side": "b",
+        "surface_depth": -1.98383913296851e-07,
+        "take": "hook_lead",
+        "tick": 3302
+      },
+      {
+        "effector": "RightFoot-RightToes",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.384005449804483,
+        "take": "kickboxing_axe_kick",
+        "tick": 3464
+      },
+      {
+        "effector": "RightFoot-RightToes",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.410367278143396,
+        "take": "kickboxing_axe_kick",
+        "tick": 3465
+      }
+    ],
+    "event_hash": "c69594a7fdf028beee661c28308f542d1706d4149826885edf8c2b2fea7de279"
+  },
+  "same_animation_clocks_and_events": true,
+  "off_proof": {
+    "identical_pose_frames": 3600,
+    "event_hash": "89c1ea39d1cdeae92765d45cb0de243a8b83ea359a55ca8e07355d8a70561f60",
+    "poses_sha256": "330ad935ff1becc3bf8e9e1df8493e933a20fd575ce17bafc53078598368eee5"
+  },
+  "pass2_framing_before": {
+    "both_inside": 1434,
+    "fps": 30,
+    "frames": 1800,
+    "method": "conservative skinned vertex influence envelopes",
+    "percent": 79.6666666666667,
+    "seconds": 60
+  },
+  "pass2_framing_live_before": {
+    "both_inside": 0,
+    "fps": 30,
+    "frames": 1800,
+    "method": "conservative skinned vertex influence envelopes",
+    "percent": 0.0,
+    "seconds": 60
+  },
+  "final": {
+    "overlap_frames": 322,
+    "share": 0.0894444444444444,
+    "longest_s": 0.4,
+    "contacts": [
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "a",
+        "surface_depth": -6.02495836554695e-09,
+        "take": "hook_lead",
+        "tick": 103
+      },
+      {
+        "effector": "RightHand",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.357607223095247,
+        "take": "hook_rear",
+        "tick": 236
+      },
+      {
+        "effector": "LeftHand",
+        "region": "torso_core",
+        "side": "a",
+        "surface_depth": -0.495839374003245,
+        "take": "hook_lead",
+        "tick": 535
+      },
+      {
+        "effector": "RightLowerLeg-RightFoot",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.232517249966159,
+        "take": "muay_thai_straight_knee",
+        "tick": 760
+      },
+      {
+        "effector": "RightFoot-RightToes",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.374067200258207,
+        "take": "kickboxing_body_kick",
+        "tick": 969
+      },
+      {
+        "effector": "LeftHand",
+        "region": "torso_core",
+        "side": "a",
+        "surface_depth": 1.88225672381748e-07,
+        "take": "boxing_one_two",
+        "tick": 1441
+      },
+      {
+        "effector": "LeftHand",
+        "region": "torso_core",
+        "side": "a",
+        "surface_depth": -7.99952291075101e-08,
+        "take": "boxing_one_two",
+        "tick": 1442
+      },
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.00965317899481294,
+        "take": "hook_lead",
+        "tick": 1568
+      },
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "a",
+        "surface_depth": -1.51728569153242e-08,
+        "take": "hook_lead",
+        "tick": 2168
+      },
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": 0.00425791924699309,
+        "take": "boxing_one_two",
+        "tick": 2179
+      },
+      {
+        "effector": "LeftHand",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": 2.20257590627937e-05,
+        "take": "boxing_one_two",
+        "tick": 2180
+      },
+      {
+        "effector": "LeftHand",
+        "region": "torso_core",
+        "side": "b",
+        "surface_depth": -1.98383913296851e-07,
+        "take": "hook_lead",
+        "tick": 3302
+      },
+      {
+        "effector": "RightFoot-RightToes",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.384005449804483,
+        "take": "kickboxing_axe_kick",
+        "tick": 3464
+      },
+      {
+        "effector": "RightFoot-RightToes",
+        "region": "head_neck",
+        "side": "b",
+        "surface_depth": -0.410367278143396,
+        "take": "kickboxing_axe_kick",
+        "tick": 3465
+      }
+    ],
+    "event_hash": "c69594a7fdf028beee661c28308f542d1706d4149826885edf8c2b2fea7de279",
+    "owner_frames": {
+      "legacy_strike": 33,
+      "unowned_locomotion_guard": 26,
+      "unowned_reaction": 30,
+      "whole_strike": 233
+    },
+    "pair_frames": {
+      "Chest-UpperChest / Chest-UpperChest": 1,
+      "Chest-UpperChest / Hips-Spine": 7,
+      "Chest-UpperChest / LeftHand": 3,
+      "Chest-UpperChest / LeftLowerArm-LeftHand": 3,
+      "Chest-UpperChest / RightFoot-RightToes": 3,
+      "Chest-UpperChest / RightLowerLeg-RightFoot": 19,
+      "Chest-UpperChest / RightUpperLeg-RightLowerLeg": 32,
+      "Head / Chest-UpperChest": 15,
+      "Head / Hips-Spine": 18,
+      "Head / LeftFoot-LeftToes": 4,
+      "Head / LeftHand": 5,
+      "Head / LeftLowerArm-LeftHand": 7,
+      "Head / LeftLowerLeg-LeftFoot": 5,
+      "Head / LeftShoulder-LeftUpperArm": 18,
+      "Head / LeftUpperArm-LeftLowerArm": 9,
+      "Head / LeftUpperLeg-LeftLowerLeg": 7,
+      "Head / RightLowerLeg-RightFoot": 6,
+      "Head / RightUpperLeg-RightLowerLeg": 13,
+      "Head / Spine-Chest": 14,
+      "Head / UpperChest-Neck": 10,
+      "Hips-Spine / RightFoot-RightToes": 8,
+      "Hips-Spine / RightLowerLeg-RightFoot": 17,
+      "Hips-Spine / RightUpperLeg-RightLowerLeg": 10,
+      "LeftFoot-LeftToes / LeftFoot-LeftToes": 72,
+      "LeftFoot-LeftToes / LeftLowerLeg-LeftFoot": 25,
+      "LeftFoot-LeftToes / RightFoot-RightToes": 30,
+      "LeftFoot-LeftToes / RightLowerLeg-RightFoot": 5,
+      "LeftHand / Chest-UpperChest": 5,
+      "LeftHand / LeftHand": 12,
+      "LeftHand / LeftLowerArm-LeftHand": 9,
+      "LeftHand / LeftShoulder-LeftUpperArm": 6,
+      "LeftHand / LeftUpperArm-LeftLowerArm": 4,
+      "LeftHand / RightHand": 10,
+      "LeftHand / UpperChest-Neck": 2,
+      "LeftLowerArm-LeftHand / Chest-UpperChest": 2,
+      "LeftLowerArm-LeftHand / Head": 5,
+      "LeftLowerArm-LeftHand / Hips-Spine": 3,
+      "LeftLowerArm-LeftHand / LeftHand": 4,
+      "LeftLowerArm-LeftHand / LeftLowerArm-LeftHand": 4,
+      "LeftLowerArm-LeftHand / LeftShoulder-LeftUpperArm": 10,
+      "LeftLowerArm-LeftHand / LeftUpperArm-LeftLowerArm": 6,
+      "LeftLowerArm-LeftHand / Neck-Head": 1,
+      "LeftLowerArm-LeftHand / RightHand": 10,
+      "LeftLowerArm-LeftHand / RightLowerArm-RightHand": 1,
+      "LeftLowerArm-LeftHand / RightShoulder-RightUpperArm": 1,
+      "LeftLowerArm-LeftHand / RightUpperArm-RightLowerArm": 1,
+      "LeftLowerArm-LeftHand / RightUpperLeg-RightLowerLeg": 3,
+      "LeftLowerArm-LeftHand / UpperChest-Neck": 7,
+      "LeftLowerLeg-LeftFoot / LeftFoot-LeftToes": 4,
+      "LeftLowerLeg-LeftFoot / LeftLowerLeg-LeftFoot": 7,
+      "LeftLowerLeg-LeftFoot / LeftUpperLeg-LeftLowerLeg": 8,
+      "LeftLowerLeg-LeftFoot / RightFoot-RightToes": 24,
+      "LeftShoulder-LeftUpperArm / Chest-UpperChest": 6,
+      "LeftShoulder-LeftUpperArm / Hips-Spine": 25,
+      "LeftShoulder-LeftUpperArm / LeftHand": 2,
+      "LeftShoulder-LeftUpperArm / LeftLowerArm-LeftHand": 10,
+      "LeftShoulder-LeftUpperArm / LeftShoulder-LeftUpperArm": 1,
+      "LeftShoulder-LeftUpperArm / LeftUpperArm-LeftLowerArm": 7,
+      "LeftShoulder-LeftUpperArm / RightHand": 1,
+      "LeftShoulder-LeftUpperArm / RightLowerLeg-RightFoot": 9,
+      "LeftShoulder-LeftUpperArm / RightUpperLeg-RightLowerLeg": 34,
+      "LeftShoulder-LeftUpperArm / Spine-Chest": 15,
+      "LeftShoulder-LeftUpperArm / UpperChest-Neck": 1,
+      "LeftUpperArm-LeftLowerArm / Chest-UpperChest": 3,
+      "LeftUpperArm-LeftLowerArm / Head": 1,
+      "LeftUpperArm-LeftLowerArm / Hips-Spine": 10,
+      "LeftUpperArm-LeftLowerArm / LeftHand": 2,
+      "LeftUpperArm-LeftLowerArm / LeftLowerArm-LeftHand": 2,
+      "LeftUpperArm-LeftLowerArm / LeftShoulder-LeftUpperArm": 3,
+      "LeftUpperArm-LeftLowerArm / LeftUpperArm-LeftLowerArm": 1,
+      "LeftUpperArm-LeftLowerArm / LeftUpperLeg-LeftLowerLeg": 2,
+      "LeftUpperArm-LeftLowerArm / RightHand": 6,
+      "LeftUpperArm-LeftLowerArm / RightLowerLeg-RightFoot": 5,
+      "LeftUpperArm-LeftLowerArm / RightUpperArm-RightLowerArm": 1,
+      "LeftUpperArm-LeftLowerArm / RightUpperLeg-RightLowerLeg": 37,
+      "LeftUpperArm-LeftLowerArm / Spine-Chest": 3,
+      "LeftUpperArm-LeftLowerArm / UpperChest-Neck": 4,
+      "LeftUpperLeg-LeftLowerLeg / LeftLowerLeg-LeftFoot": 11,
+      "LeftUpperLeg-LeftLowerLeg / LeftUpperLeg-LeftLowerLeg": 18,
+      "LeftUpperLeg-LeftLowerLeg / RightFoot-RightToes": 7,
+      "LeftUpperLeg-LeftLowerLeg / RightLowerLeg-RightFoot": 11,
+      "LeftUpperLeg-LeftLowerLeg / RightUpperLeg-RightLowerLeg": 10,
+      "Neck-Head / RightLowerLeg-RightFoot": 1,
+      "Neck-Head / RightUpperLeg-RightLowerLeg": 14,
+      "RightFoot-RightToes / LeftFoot-LeftToes": 28,
+      "RightFoot-RightToes / RightFoot-RightToes": 6,
+      "RightHand / LeftHand": 7,
+      "RightHand / LeftLowerArm-LeftHand": 7,
+      "RightHand / LeftUpperArm-LeftLowerArm": 2,
+      "RightLowerArm-RightHand / Head": 1,
+      "RightLowerArm-RightHand / LeftHand": 2,
+      "RightLowerArm-RightHand / LeftLowerArm-LeftHand": 1,
+      "RightLowerArm-RightHand / LeftUpperLeg-LeftLowerLeg": 1,
+      "RightLowerArm-RightHand / RightUpperLeg-RightLowerLeg": 1,
+      "RightLowerLeg-RightFoot / RightFoot-RightToes": 5,
+      "RightShoulder-RightUpperArm / Head": 9,
+      "RightShoulder-RightUpperArm / LeftHand": 2,
+      "RightShoulder-RightUpperArm / LeftLowerArm-LeftHand": 2,
+      "RightShoulder-RightUpperArm / LeftLowerLeg-LeftFoot": 8,
+      "RightShoulder-RightUpperArm / LeftUpperLeg-LeftLowerLeg": 11,
+      "RightShoulder-RightUpperArm / RightLowerLeg-RightFoot": 6,
+      "RightShoulder-RightUpperArm / RightUpperArm-RightLowerArm": 1,
+      "RightShoulder-RightUpperArm / RightUpperLeg-RightLowerLeg": 13,
+      "RightUpperArm-RightLowerArm / Head": 1,
+      "RightUpperArm-RightLowerArm / LeftHand": 3,
+      "RightUpperArm-RightLowerArm / LeftLowerArm-LeftHand": 1,
+      "RightUpperArm-RightLowerArm / LeftLowerLeg-LeftFoot": 8,
+      "RightUpperArm-RightLowerArm / LeftUpperLeg-LeftLowerLeg": 10,
+      "RightUpperArm-RightLowerArm / RightLowerLeg-RightFoot": 3,
+      "RightUpperArm-RightLowerArm / RightUpperLeg-RightLowerLeg": 10,
+      "RightUpperLeg-RightLowerLeg / RightFoot-RightToes": 8,
+      "RightUpperLeg-RightLowerLeg / RightLowerLeg-RightFoot": 8,
+      "Spine-Chest / LeftHand": 1,
+      "Spine-Chest / LeftLowerArm-LeftHand": 2,
+      "Spine-Chest / RightFoot-RightToes": 6,
+      "Spine-Chest / RightLowerLeg-RightFoot": 16,
+      "Spine-Chest / RightUpperLeg-RightLowerLeg": 15,
+      "UpperChest-Neck / Chest-UpperChest": 5,
+      "UpperChest-Neck / Hips-Spine": 14,
+      "UpperChest-Neck / LeftHand": 7,
+      "UpperChest-Neck / LeftLowerArm-LeftHand": 11,
+      "UpperChest-Neck / LeftShoulder-LeftUpperArm": 9,
+      "UpperChest-Neck / LeftUpperArm-LeftLowerArm": 12,
+      "UpperChest-Neck / LeftUpperLeg-LeftLowerLeg": 2,
+      "UpperChest-Neck / RightFoot-RightToes": 1,
+      "UpperChest-Neck / RightLowerLeg-RightFoot": 17,
+      "UpperChest-Neck / RightUpperLeg-RightLowerLeg": 34,
+      "UpperChest-Neck / Spine-Chest": 10,
+      "UpperChest-Neck / UpperChest-Neck": 1
+    },
+    "worst_depth_m": 0.261201135187047,
+    "poses_sha256": "27fc55f6bb737560d0e7ab29b6885cfccbaec0ff311c42581f15e3b90a8d7209"
+  },
+  "camera_on_vs_off_same_body_poses": 3600,
+  "framing_headless_after": {
+    "both_inside": 1800,
+    "fps": 30,
+    "frames": 1800,
+    "method": "conservative skinned vertex influence envelopes",
+    "percent": 100.0,
+    "seconds": 60
+  },
+  "reproduction": {
+    "note": "Uncommitted helpers embedded here because the lead restricted committed paths to room, digest, measurements, and two MP4s. Extract into res://.godot/c198 then parse before use. Baseline room can be recovered from the parent commit of the Pass 2 commit.",
+    "framing_gd": "extends SceneTree\n## Headless full-bout framing witness. Each box conservatively contains the\n## skinned mesh: every positive-weight vertex lies in its influences' convex hull.\nvar room: Node\nvar camera: Camera3D\nvar envelopes: Array = []\nvar args: Dictionary = {}\n\nfunc _initialize() -> void:\n\tfor arg in OS.get_cmdline_user_args():\n\t\tvar bits: PackedStringArray = arg.split(\"=\", true, 1)\n\t\tif bits.size() == 2:\n\t\t\targs[bits[0]] = bits[1]\n\tcall_deferred(\"run\")\n\nfunc collect(node: Node, player: RefCounted, bins: Array) -> void:\n\tif node is MeshInstance3D and node.mesh != null and node.is_visible_in_tree():\n\t\tvar mesh: Mesh = node.mesh\n\t\tvar skin: Skin = node.skin\n\t\tif skin == null:\n\t\t\tskin = player.skeleton().create_skin_from_rest_transforms()\n\t\tfor surface in mesh.get_surface_count():\n\t\t\tvar arrays: Array = mesh.surface_get_arrays(surface)\n\t\t\tvar vertices: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]\n\t\t\tvar bones: PackedInt32Array = arrays[Mesh.ARRAY_BONES]\n\t\t\tvar weights: PackedFloat32Array = arrays[Mesh.ARRAY_WEIGHTS]\n\t\t\tif bones.is_empty():\n\t\t\t\tcontinue\n\t\t\tvar stride: int = bones.size() / vertices.size()\n\t\t\tvar bounds: Dictionary = {}\n\t\t\tfor v in vertices.size():\n\t\t\t\tfor w in stride:\n\t\t\t\t\tvar at: int = v * stride + w\n\t\t\t\t\tif weights[at] <= 0.0:\n\t\t\t\t\t\tcontinue\n\t\t\t\t\tvar bind: int = bones[at]\n\t\t\t\t\tvar point: Vector3 = skin.get_bind_pose(bind) * vertices[v]\n\t\t\t\t\tbounds[bind] = (bounds[bind] as AABB).expand(point) if bounds.has(bind) else AABB(point, Vector3.ZERO)\n\t\t\tfor bind in bounds:\n\t\t\t\tvar bone: int = skin.get_bind_bone(bind)\n\t\t\t\tif not skin.get_bind_name(bind).is_empty():\n\t\t\t\t\tbone = player.skeleton().find_bone(skin.get_bind_name(bind))\n\t\t\t\tassert(bone >= 0)\n\t\t\t\tbins.append({\"bone\": bone, \"box\": bounds[bind]})\n\tfor child in node.get_children():\n\t\tcollect(child, player, bins)\n\nfunc screen_box(player: RefCounted, bins: Array) -> Dictionary:\n\tvar lo := Vector2(INF, INF)\n\tvar hi := Vector2(-INF, -INF)\n\tvar front: bool = true\n\tfor bin in bins:\n\t\tvar transform: Transform3D = player.skeleton_world() * player._pose_global(int(bin.bone))\n\t\tfor corner in 8:\n\t\t\tvar point: Vector3 = transform * (bin.box as AABB).get_endpoint(corner)\n\t\t\tfront = front and not camera.is_position_behind(point)\n\t\t\tvar pixel: Vector2 = camera.unproject_position(point)\n\t\t\tlo = lo.min(pixel)\n\t\t\thi = hi.max(pixel)\n\tvar size: Vector2 = camera.get_viewport().get_visible_rect().size\n\treturn {\"min\": [lo.x, lo.y], \"max\": [hi.x, hi.y], \"inside\": front and lo.x >= 0.0 and lo.y >= 0.0 and hi.x <= size.x and hi.y <= size.y}\n\nfunc run() -> void:\n\troom = load(\"res://scenes/FightWorldLive.tscn\").instantiate()\n\tif args.has(\"room_script\"):\n\t\troom.set_script(load(str(args.room_script)))\n\tassert(room.configure({\"seed\": 92012, \"discipline\": \"mma\", \"strikes_play_whole\": true,\n\t\t\"reactions_play_whole\": true, \"contact_stop\": true, \"readable_onset\": true,\n\t\t\"human_speed_tempo\": true, \"walkout\": false, \"hit_cam\": false,\n\t\t\"camera_keep_pair\": str(args.get(\"fit\", \"false\")) == \"true\", \"camera_shot\": \"establishing\",\n\t\t\"camera_follow\": str(args.get(\"camera\", \"live\")) != \"pass1\"}))\n\troot.add_child(room)\n\tassert(room.setup())\n\troom.set_process(false)\n\tcamera = room._find_camera(room)\n\tif str(args.get(\"camera\", \"live\")) == \"pass1\":\n\t\tcamera.position = Vector3(3.4, 5.0, 6.0)\n\t\tcamera.transform = Transform3D(Basis.looking_at(Vector3(0.0, 2.1, 0.0) - camera.position, Vector3.UP), camera.position)\n\t\tcamera.fov = 48.0\n\tfor pair in [[room._node_a, room._player_a], [room._node_b, room._player_b]]:\n\t\tvar bins: Array = []\n\t\tcollect(pair[0], pair[1], bins)\n\t\tassert(not bins.is_empty(), \"No skinned mesh bounds; cannot claim framing\")\n\t\tenvelopes.append(bins)\n\tprint(\"C198 FRAMING pair=grappler175cm/striker185cm viewport=\", camera.get_viewport().get_visible_rect().size)\n\tvar rows: Array = []\n\tvar inside: int = 0\n\tfor tick in 1800:\n\t\troom._process(1.0 / 30.0)\n\t\tvar a: Dictionary = screen_box(room._player_a, envelopes[0])\n\t\tvar b: Dictionary = screen_box(room._player_b, envelopes[1])\n\t\tif a.inside and b.inside:\n\t\t\tinside += 1\n\t\trows.append({\"tick\": tick + 1, \"a\": a, \"b\": b})\n\tvar result: Dictionary = {\"frames\": 1800, \"fps\": 30, \"seconds\": 60, \"both_inside\": inside,\n\t\t\"percent\": inside / 18.0, \"method\": \"conservative skinned vertex influence envelopes\", \"rows\": rows}\n\tFileAccess.open(\"res://.godot/c198/\" + str(args.get(\"out\", \"framing\")) + \".json\", FileAccess.WRITE).store_string(JSON.stringify(result))\n\tprint(\"C198 FRAMING both_inside=\", inside, \"/1800 percent=\", result.percent)\n\tquit()\n",
+    "recorder_gd": "extends SceneTree\n## S4e - RECORD THE LIVE ROOM, FROM A CONTAINER WITH NO SCREEN.\n##\n## THE BLOCKER THIS EXISTS TO CLEAR. Two engine stages landed that the operator\n## has never seen move, and the roadmap recorded the reason as \"a cloud container\n## cannot record it (measured: --write-movie aborts under --headless)\". The\n## measurement was right and the conclusion was one step too wide: `--headless`\n## has no display, and a display is something you can supply.\n##\n##   xvfb-run -a -s \"-screen 0 854x480x24\" godot --path Godot \\\n##     --script tools/record_room.gd --rendering-driver opengl3 \\\n##     --write-movie out.avi --fixed-fps 30 --resolution 854x480 \\\n##     --quit-after 450 -- seed=810039 discipline=mma shot=tight\n##\n## `--quit-after` is FRAMES, so at `--fixed-fps 30` it is thirty per second of\n## finished video, and movie mode runs the room on that fixed clock rather than\n## on wall time - the recording is the same fight however slowly the container\n## renders it. Software GL manages roughly 10% of real time; budget for it.\n##\n## WHY A TOOL AND NOT THE SCENE. Booting `FightWorldLive.tscn` directly records\n## the room's own defaults and nothing else: `configure()` refuses once `setup()`\n## has run, and `_ready` runs it. This mounts the scene the way\n## `tools/probe_grapple_seam.gd` does - instantiate, configure, THEN set up - so a\n## recording can name its seed, its discipline and its A/B.\n##\n## ARGS, after `--`, all optional:\n##   seed=<int>            which bout (the room's own default otherwise)\n##   discipline=<name>     boxing | mma | ... (must resolve an arena spec)\n##   rounds=<int>\n##   shot=<name>           establishing | tight | low_mat (FightCameraRig.SHOTS)\n##   speed=<0.1..4.0>      presentation pace; the engine is pumped the same\n##   before=1              the OLD room, for the A/B: `engine_positions` and\n##                         `body_layers` both off, which is what S4 (2) and\n##                         S4 (3) each turned on\n##   bare=1                no authored pair exchanges (`pair_moves` off), so the\n##                         picture is the engine's own and not a scripted one\n##   skin=cc               S61: fighter A wears the Character Creator body\n##   hide_arena=<names>    comma-separated `ArenaRig` child names to hide (art\n##                         diagnosis only; default recording unchanged)\n\nvar rec_room: Node\nvar camera: Camera3D\nvar envelopes: Array = []\nvar frame_rows: Array = []\nvar frame_inside: int = 0\nvar output_label: String = \"render_framing\"\n\nconst SCENE := \"res://scenes/FightWorldLive.tscn\"\n\n\nfunc _initialize() -> void:\n\tvar args: Dictionary = _args()\n\tvar scene: PackedScene = load(SCENE) as PackedScene\n\tif scene == null:\n\t\tprint(\"RECORD cannot load %s\" % SCENE)\n\t\tquit(1)\n\t\treturn\n\tvar live: Node3D = scene.instantiate() as Node3D\n\tif args.has(\"room_script\"):\n\t\tlive.set_script(load(str(args.room_script)))\n\tif live == null:\n\t\tprint(\"RECORD scene did not instantiate\")\n\t\tquit(1)\n\t\treturn\n\t## CONFIGURE BEFORE `add_child`, AND CHECK THAT IT TOOK.\n\t##\n\t## S58, 2026-09-23: this tool asked for `discipline=mma seed=810039` and\n\t## photographed a BOXING RING at seed 94301, three times, while printing the\n\t## options dict it had intended - a perfect false witness.\n\t##\n\t## `add_child` fires `_ready`, `_ready` calls `setup()`, and `setup()` sets\n\t## `_setup_ran`. `configure()` refuses outright once that is true\n\t## (`FightWorldLiveScreen.gd:575` - `if _setup_ran: return false`). So every\n\t## option was silently discarded and nobody checked the return value.\n\t##\n\t## `record_room.gd`'s own header has described the correct order since the\n\t## day it was written - *\"instantiate, configure, THEN set up\"* - and both\n\t## tools implemented the opposite. The order below is that header, and the\n\t## refusal check below it is what makes the header enforceable rather than\n\t## advisory.\n\n\tvar options: Dictionary = {\"walkout\": false, \"hit_cam\": false, \"camera_follow\": true, \"camera_shot\": \"establishing\", \"camera_keep_pair\": str(args.get(\"fit\", \"false\")) == \"true\", \"strikes_play_whole\": true, \"reactions_play_whole\": true, \"contact_stop\": true, \"readable_onset\": true, \"human_speed_tempo\": true}\n\tif args.has(\"seed\"):\n\t\toptions[\"seed\"] = int(str(args[\"seed\"]).to_int())\n\tif args.has(\"discipline\"):\n\t\toptions[\"discipline\"] = str(args[\"discipline\"])\n\tif args.has(\"rounds\"):\n\t\toptions[\"rounds\"] = int(str(args[\"rounds\"]).to_int())\n\tif args.has(\"shot\"):\n\t\toptions[\"camera_shot\"] = str(args[\"shot\"])\n\t## THE A/B, AND IT IS TWO SWITCHES BECAUSE TWO STAGES LANDED. `engine_positions`\n\t## off restores the band-table walk along the spawn line (S4 (2)); `body_layers`\n\t## off restores the one-clip body, where a man throwing cannot also step\n\t## (S4 (3)). Both off IS the room the operator last saw.\n\tif str(args.get(\"before\", \"\")) == \"1\":\n\t\toptions[\"engine_positions\"] = false\n\t\toptions[\"body_layers\"] = false\n\tif str(args.get(\"bare\", \"\")) == \"1\":\n\t\toptions[\"pair_moves\"] = false\n\tif str(args.get(\"reactions_play_whole\", \"\")) in [\"1\", \"true\", \"on\"]:\n\t\toptions[\"reactions_play_whole\"] = true\n\tif str(args.get(\"strike_speed_caps\", \"\")) in [\"1\", \"true\", \"on\"]:\n\t\toptions[\"strike_speed_caps\"] = true\n\t\toptions[\"skip_hand_continuity_while_stepping\"] = true\n\tif str(args.get(\"strikes_play_whole\", \"\")) in [\"1\", \"true\", \"on\"]:\n\t\toptions[\"strikes_play_whole\"] = true\n\tif str(args.get(\"reactions_play_whole\", \"\")) in [\"1\", \"true\", \"on\"]:\n\t\toptions[\"reactions_play_whole\"] = true\n\tif str(args.get(\"human_speed_tempo\", \"\")) in [\"1\", \"true\", \"on\"]:\n\t\toptions[\"human_speed_tempo\"] = true\n\t## S68: take four needs C191 contact_stop ON; C188 hit_physics for its A/B.\n\tfor sw in [\"contact_stop\", \"hit_physics\"]:\n\t\tif str(args.get(sw, \"\")) in [\"1\", \"true\", \"on\"]:\n\t\t\toptions[sw] = true\n\tif str(args.get(\"readable_onset\", \"\")) in [\"1\", \"true\", \"on\"]:\n\t\toptions[\"readable_onset\"] = true\n\tif args.has(\"skin\"):\n\t\toptions[\"fighter_skin\"] = str(args[\"skin\"])\n\tif args.has(\"hide_arena\"):\n\t\tvar hide_names: Array = []\n\t\tfor part in str(args[\"hide_arena\"]).split(\",\"):\n\t\t\tvar name: String = str(part).strip_edges()\n\t\t\tif not name.is_empty():\n\t\t\t\thide_names.append(name)\n\t\tif not hide_names.is_empty():\n\t\t\toptions[\"hide_arena\"] = hide_names\n\tif not options.is_empty():\n\t\tif not bool(live.call(\"configure\", options)):\n\t\t\tprint(\"%s BAD: configure() REFUSED - the room was already set up, so\"\n\t\t\t\t% \"RECORD\" + \" every option would be silently discarded. Nothing\"\n\t\t\t\t+ \" rendered. This is the defect that photographed a boxing ring\"\n\t\t\t\t+ \" when asked for mma, three times.\")\n\t\t\tquit(1)\n\t\t\treturn\n\tget_root().add_child(live)\n\tif not bool(live.call(\"setup\")):\n\t\tprint(\"RECORD room did not assemble\")\n\t\tquit(1)\n\t\treturn\n\trec_room = live\n\tcamera = live._find_camera(live)\n\toutput_label = str(args.get(\"out\", \"render_framing\"))\n\tif live.has_method(\"_fit_camera_pair\"):\n\t\tlive._fit_camera_pair(0.0)\n\tfor pair in [[live._node_a, live._player_a], [live._node_b, live._player_b]]:\n\t\tvar bins: Array = []\n\t\tcollect(pair[0], pair[1], bins)\n\t\tassert(not bins.is_empty())\n\t\tenvelopes.append(bins)\n\tRenderingServer.frame_pre_draw.connect(_record_probe)\n\tprint(\"RECORD options %s\" % str(options))\n\t## NOTHING ELSE TO DO, AND THAT IS THE POINT. The room drives itself from\n\t## `_process`; movie mode supplies the fixed clock and `--quit-after` ends it.\n\t## A `_pump_to` here would advance the fight with no frames drawn - the probe's\n\t## job, not this one's.\n\n\nfunc _args() -> Dictionary:\n\tvar out: Dictionary = {}\n\tfor arg in OS.get_cmdline_user_args():\n\t\tvar a: String = str(arg).strip_edges()\n\t\tvar eq: int = a.find(\"=\")\n\t\tif eq <= 0:\n\t\t\tcontinue\n\t\tout[a.substr(0, eq)] = a.substr(eq + 1)\n\treturn out\n\n\nfunc collect(node: Node, player: RefCounted, bins: Array) -> void:\n\tif node is MeshInstance3D and node.mesh != null and node.is_visible_in_tree():\n\t\tvar mesh: Mesh = node.mesh\n\t\tvar skin: Skin = node.skin\n\t\tif skin == null:\n\t\t\tskin = player.skeleton().create_skin_from_rest_transforms()\n\t\tfor surface in mesh.get_surface_count():\n\t\t\tvar arrays: Array = mesh.surface_get_arrays(surface)\n\t\t\tvar vertices: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]\n\t\t\tvar bones: PackedInt32Array = arrays[Mesh.ARRAY_BONES]\n\t\t\tvar weights: PackedFloat32Array = arrays[Mesh.ARRAY_WEIGHTS]\n\t\t\tif bones.is_empty():\n\t\t\t\tcontinue\n\t\t\tvar stride: int = bones.size() / vertices.size()\n\t\t\tvar bounds: Dictionary = {}\n\t\t\tfor v in vertices.size():\n\t\t\t\tfor w in stride:\n\t\t\t\t\tvar at: int = v * stride + w\n\t\t\t\t\tif weights[at] <= 0.0:\n\t\t\t\t\t\tcontinue\n\t\t\t\t\tvar bind: int = bones[at]\n\t\t\t\t\tvar point: Vector3 = skin.get_bind_pose(bind) * vertices[v]\n\t\t\t\t\tbounds[bind] = (bounds[bind] as AABB).expand(point) if bounds.has(bind) else AABB(point, Vector3.ZERO)\n\t\t\tfor bind in bounds:\n\t\t\t\tvar bone: int = skin.get_bind_bone(bind)\n\t\t\t\tif not skin.get_bind_name(bind).is_empty():\n\t\t\t\t\tbone = player.skeleton().find_bone(skin.get_bind_name(bind))\n\t\t\t\tassert(bone >= 0)\n\t\t\t\tbins.append({\"bone\": bone, \"box\": bounds[bind]})\n\tfor child in node.get_children():\n\t\tcollect(child, player, bins)\n\nfunc screen_box(player: RefCounted, bins: Array) -> Dictionary:\n\tvar lo := Vector2(INF, INF)\n\tvar hi := Vector2(-INF, -INF)\n\tvar front: bool = true\n\tfor bin in bins:\n\t\tvar transform: Transform3D = player.skeleton_world() * player._pose_global(int(bin.bone))\n\t\tfor corner in 8:\n\t\t\tvar point: Vector3 = transform * (bin.box as AABB).get_endpoint(corner)\n\t\t\tfront = front and not camera.is_position_behind(point)\n\t\t\tvar pixel: Vector2 = camera.unproject_position(point)\n\t\t\tlo = lo.min(pixel)\n\t\t\thi = hi.max(pixel)\n\tvar size: Vector2 = camera.get_viewport().get_visible_rect().size\n\treturn {\"min\": [lo.x, lo.y], \"max\": [hi.x, hi.y], \"inside\": front and lo.x >= 0.0 and lo.y >= 0.0 and hi.x <= size.x and hi.y <= size.y}\n\n\nfunc _record_probe() -> void:\n\tvar a: Dictionary = screen_box(rec_room._player_a, envelopes[0])\n\tvar b: Dictionary = screen_box(rec_room._player_b, envelopes[1])\n\tif a.inside and b.inside:\n\t\tframe_inside += 1\n\tframe_rows.append({\"frame\": frame_rows.size() + 1, \"a\": a, \"b\": b})\n\t# Persist every frame, including a final quit-before-next-process frame.\n\tvar result: Dictionary = {\"frames\": frame_rows.size(), \"both_inside\": frame_inside,\n\t\t\"percent\": 100.0 * frame_inside / frame_rows.size(), \"rows\": frame_rows}\n\tFileAccess.open(\"res://.godot/c198/\" + output_label + \".json\", FileAccess.WRITE).store_string(JSON.stringify(result))\n\tif frame_rows.size() == 1800:\n\t\tprint(\"C198 RENDER FRAMING \", frame_inside, \"/1800 percent=\", result.percent)\n",
+    "census_gd": "extends SceneTree\n## Posed skin-calibrated capsule census. Every frame, including unowned grapples.\nconst Caps = preload(\"res://scripts/FightBodyCapsules.gd\")\nvar args: Dictionary = {}\n\nfunc _initialize() -> void:\n\tfor arg in OS.get_cmdline_user_args():\n\t\tvar bits: PackedStringArray = arg.split(\"=\", true, 1)\n\t\tif bits.size() == 2:\n\t\t\targs[bits[0]] = bits[1]\n\tif str(args.get(\"mode\", \"\")) == \"prepare_record\":\n\t\tprepare_record()\n\t\treturn\n\tcall_deferred(\"run\")\n\n## Keep record_room.gd as the recorder, without editing its unowned source.\n## Generate a scratch derivative adding the options it does not yet expose and\n## a deterministic pre-roll. Parse it, then launch via Tools/godot_hidden.ps1.\nfunc prepare_record() -> void:\n\tvar source: String = FileAccess.get_file_as_string(\"res://tools/record_room.gd\")\n\tvar settings: String = '{\"strikes_play_whole\": true, \"reactions_play_whole\": true, \"contact_stop\": %s, \"walkout\": false, \"hit_cam\": false, \"camera_follow\": true, \"camera_keep_pair\": true, \"camera_shot\": \"establishing\"}' % str(args.get(\"stop\", \"false\"))\n\tsource = source.replace(\"var options: Dictionary = {}\", \"var options: Dictionary = \" + settings)\n\tvar preroll: String = \"\\tlive.set_process(false)\\n\\tfor frame in 2832:\\n\\t\\tlive._process(1.0 / 60.0)\\n\\tlive.set_process(true)\\n\\tvar camera: Camera3D = live._find_camera(live)\\n\\tcamera.position = Vector3(3.4, 5.0, 6.0)\\n\\tcamera.transform = Transform3D(Basis.looking_at(Vector3(0.0, 2.1, 0.0) - camera.position, Vector3.UP), camera.position)\\n\\tcamera.fov = 48.0\\n\"\n\tsource = source.replace('\\tprint(\"RECORD options %s\" % str(options))', preroll + '\\tprint(\"RECORD options %s\" % str(options))')\n\tDirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(\"res://.godot/c191\"))\n\tvar path: String = \"res://.godot/c191/record_\" + str(args.get(\"stop\", \"false\")) + \".gd\"\n\tFileAccess.open(path, FileAccess.WRITE).store_string(source)\n\tprint(\"C191 RECORD derivative of tools/record_room.gd: \", path)\n\tquit()\n\nfunc run() -> void:\n\tvar room: Node = load(\"res://scenes/FightWorldLive.tscn\").instantiate()\n\tif args.has(\"room_script\"):\n\t\troom.set_script(load(str(args.room_script)))\n\tvar whole: bool = str(args.get(\"whole\", \"true\")) == \"true\"\n\tassert(room.configure({\"seed\": 92012, \"discipline\": \"mma\", \"strikes_play_whole\": whole,\n\t\t\"reactions_play_whole\": whole, \"contact_stop\": str(args.get(\"stop\", \"false\")) == \"true\",\n\t\t\"readable_onset\": true, \"human_speed_tempo\": true, \"walkout\": false, \"hit_cam\": false, \"camera_follow\": true, \"camera_keep_pair\": true, \"camera_shot\": \"establishing\"}))\n\troot.add_child(room)\n\tassert(room.setup())\n\troom.set_process(false)\n\tprint(\"C191 PAIR grappler=\", room._height_a_m, \"m striker=\", room._height_b_m, \"m whole=\", whole)\n\tprint(\"C191 RADII \", room._body_a.capsules_out)\n\tvar rows: Array = []\n\tvar contacts: Array = []\n\tvar poses: Array = []\n\tvar gaps: Array = []\n\tvar owners: Dictionary = {}\n\tvar pairs: Dictionary = {}\n\tvar count: int = 0\n\tvar run_length: int = 0\n\tvar longest: int = 0\n\tvar clinch_proved: bool = false\n\tfor tick in 3600:\n\t\troom._process(1.0 / 60.0)\n\t\tvar hit: Dictionary = Caps.frame_overlap(room._player_a.skeleton(), room._player_b.skeleton(), room._body_a, room._body_b)\n\t\tvar owner: String = \"unowned_locomotion_guard\"\n\t\tif not room._grapple.is_empty():\n\t\t\towner = \"unowned_grapple\"\n\t\telif room._player_a.whole_active() or room._player_b.whole_active():\n\t\t\towner = \"whole_strike\"\n\t\telif not room._pair.is_empty():\n\t\t\towner = \"authored_pair\"\n\t\telif not room._player_a.strike_contact().is_empty() or not room._player_b.strike_contact().is_empty():\n\t\t\towner = \"legacy_strike\"\n\t\telif str(room._player_a.animation_player().current_animation).begins_with(\"react\") or str(room._player_b.animation_player().current_animation).begins_with(\"react\"):\n\t\t\towner = \"unowned_reaction\"\n\t\tvar a: AnimationPlayer = room._player_a.animation_player()\n\t\tvar b: AnimationPlayer = room._player_b.animation_player()\n\t\tvar row: Dictionary = {\"tick\": tick + 1, \"seconds\": (tick + 1) / 60.0, \"depth\": hit.depth,\n\t\t\t\"owner\": owner, \"a\": a.current_animation, \"b\": b.current_animation, \"pairs\": hit.pairs,\n\t\t\t\"a_clock\": a.current_animation_position, \"b_clock\": b.current_animation_position}\n\t\trows.append(row)\n\t\tgaps.append(room._player_a.bone_world(\"Hips\").distance_to(room._player_b.bone_world(\"Hips\")))\n\t\tvar pose: Array = []\n\t\tfor player in [room._player_a, room._player_b]:\n\t\t\tpose.append(player.skeleton_world())\n\t\t\tfor bone in player.skeleton().get_bone_count():\n\t\t\t\tpose.append(player.skeleton().get_bone_pose(bone))\n\t\tposes.append(var_to_bytes(pose).hex_encode().sha256_text())\n\t\tfor side in [\"a\", \"b\"]:\n\t\t\tvar player: RefCounted = room._player_a if side == \"a\" else room._player_b\n\t\t\tvar foe: RefCounted = room._player_b if side == \"a\" else room._player_a\n\t\t\tvar hold: Dictionary = room._whole_roots.get(side, {})\n\t\t\tvar info: Dictionary = player.strike_contact()\n\t\t\tif player.whole_active() and bool(hold.get(\"landed\", false)) and not info.is_empty():\n\t\t\t\tvar clock: float = float(info.position_s)\n\t\t\t\tif clock >= float(info.contact_s) and clock < float(info.contact_s) + 1.0 / 60.0:\n\t\t\t\t\tvar self_body: Dictionary = room._body_a if side == \"a\" else room._body_b\n\t\t\t\t\tvar foe_body: Dictionary = room._body_b if side == \"a\" else room._body_a\n\t\t\t\t\tvar self_parts: Array = Caps.posed_parts(player.skeleton(), self_body)\n\t\t\t\t\tvar foe_parts: Array = Caps.posed_parts(foe.skeleton(), foe_body)\n\t\t\t\t\tvar effector: String = str(info.hand)\n\t\t\t\t\tif player._is_kick_throw_role(str(info.take)) or str(info.take).contains(\"knee\"):\n\t\t\t\t\t\tvar names: Array = [\"LeftFoot\", \"RightFoot\"]\n\t\t\t\t\t\tif str(info.take).contains(\"knee\"):\n\t\t\t\t\t\t\tnames = [\"LeftLowerLeg\", \"RightLowerLeg\"]\n\t\t\t\t\t\tvar anim: Animation = player.animation_player().get_animation(str(info.take))\n\t\t\t\t\t\tvar tracks: Dictionary = player._bone_tracks(anim)\n\t\t\t\t\t\tvar travel: float = -1.0\n\t\t\t\t\t\tfor name in names:\n\t\t\t\t\t\t\tvar bone: int = player.skeleton().find_bone(name)\n\t\t\t\t\t\t\tvar start: Vector3 = player._sample_global(bone, anim, tracks, 0.0).origin\n\t\t\t\t\t\t\tvar end: Vector3 = player._sample_global(bone, anim, tracks, float(info.contact_s)).origin\n\t\t\t\t\t\t\tif start.distance_to(end) > travel:\n\t\t\t\t\t\t\t\ttravel = start.distance_to(end)\n\t\t\t\t\t\t\t\teffector = name + \"-\" + name.replace(\"Foot\", \"Toes\").replace(\"LowerLeg\", \"Foot\")\n\t\t\t\t\tvar closest: float = -100.0\n\t\t\t\t\tvar target_class: String = \"head\" if str(hold.region) == \"head_neck\" else (\"leg\" if str(hold.region).ends_with(\"leg\") else \"torso\")\n\t\t\t\t\tfor pa in self_parts:\n\t\t\t\t\t\tif str(pa.name) != effector:\n\t\t\t\t\t\t\tcontinue\n\t\t\t\t\t\tfor pb in foe_parts:\n\t\t\t\t\t\t\tif str(pb[\"class\"]) == target_class:\n\t\t\t\t\t\t\t\tclosest = maxf(closest, Caps.pair_depth(pa, pb))\n\t\t\t\t\tcontacts.append({\"tick\": tick + 1, \"side\": side, \"take\": info.take, \"region\": hold.region, \"surface_depth\": closest, \"effector\": effector})\n\t\tif float(hit.depth) > 0.03:\n\t\t\tcount += 1\n\t\t\trun_length += 1\n\t\t\tlongest = maxi(longest, run_length)\n\t\t\towners[owner] = int(owners.get(owner, 0)) + 1\n\t\t\tvar seen: Dictionary = {}\n\t\t\tfor pair in hit.pairs:\n\t\t\t\tif float(pair.depth) > 0.03:\n\t\t\t\t\tvar key: String = str(pair.a_name) + \" / \" + str(pair.b_name)\n\t\t\t\t\tseen[key] = true\n\t\t\tfor key in seen:\n\t\t\t\tpairs[key] = int(pairs.get(key, 0)) + 1\n\t\telse:\n\t\t\trun_length = 0\n\t\tif not clinch_proved and (str(a.current_animation).contains(\"clinch\") or str(b.current_animation).contains(\"clinch\")) and float(hit.depth) > 0.03:\n\t\t\tclinch_proved = true\n\t\t\tprint(\"C191 POSITIVE CLINCH \", JSON.stringify(row))\n\tvar worst: Array = rows.duplicate()\n\tworst.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return float(a.depth) > float(b.depth))\n\tvar result: Dictionary = {\"whole\": whole, \"frames\": rows, \"overlap_frames\": count,\n\t\t\"share\": count / 3600.0, \"longest_s\": longest / 60.0, \"owner_frames\": owners,\n\t\t\"pair_frames\": pairs, \"worst\": worst.slice(0, 10), \"clinch_proved\": clinch_proved, \"contacts\": contacts, \"pose_hashes\": poses, \"hip_gaps\": gaps,\n\t\t\"event_hash\": var_to_bytes(room._state[\"fight\"][\"log\"]).hex_encode().sha256_text(),\n\t\t\"calibration_a\": room._body_a.capsules_out, \"calibration_b\": room._body_b.capsules_out,\n\t\t\"scale_a\": room._body_a.scale, \"scale_b\": room._body_b.scale}\n\tDirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(\"res://.godot/c191\"))\n\tvar file: FileAccess = FileAccess.open(\"res://.godot/c191/\" + str(args.get(\"out\", \"on\")) + \".json\", FileAccess.WRITE)\n\tfile.store_string(JSON.stringify(result))\n\tprint(\"C191 CENSUS count=\", count, \" share=\", result.share, \" longest_s=\", result.longest_s, \" owners=\", owners, \" clinch_proved=\", clinch_proved)\n\tquit(0 if clinch_proved else 1)\n"
+  },
+  "framing_render_after": {
+    "both_inside": 1800,
+    "frames": 1800,
+    "percent": 100.0,
+    "rows_sha256": "c159e42a027a46e0b091c95a15a4496df95b80805b9786de28b2bfc69a9e127f"
+  },
+  "videos": {
+    "c198_pass2_before.mp4": {
+      "md5": "49953cb931128193484544d08b5cbf03",
+      "bytes": 12092304,
+      "width": 854,
+      "height": 480,
+      "fps": 30,
+      "seconds": 60
+    },
+    "c198_pass2.mp4": {
+      "md5": "b5167ac98f9b2d2c69b675e0756d8dd0",
+      "bytes": 15968564,
+      "width": 854,
+      "height": 480,
+      "fps": 30,
+      "seconds": 60
+    }
+  },
+  "validation": {
+    "parse": "CHECK total=1 fails=0",
+    "focused_suite": "SUITE total=13 fails=0",
+    "jobs": 4,
+    "full_suite_run": false,
+    "frozen_off_pose_frames_identical": 3600,
+    "mp4_decoded_frames_each": 1800,
+    "render_script_errors": 0
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "checked_at": "2026-10-10T02:11:16Z",
+  "files": [
+    "Godot/tools/record_room.gd",
+    "Godot/scripts/FightWorldLiveScreen.gd",
+    "Godot/scripts/FightAliveStance.gd",
+    "Godot/scripts/FightStagePlayer.gd",
+    "Godot/tests/anim_smooth1_test.gd"
+  ],
+  "output": "CHECK total=5 fails=0 autoload_refs=0 autoload_warnings=0 time=2s\n",
+  "passed": true,
+  "task": "ANIM_SMOOTH1"
+}

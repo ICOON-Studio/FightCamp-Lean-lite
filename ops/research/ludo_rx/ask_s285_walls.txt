@@ -1,0 +1,15 @@
+TEXT ANSWER ONLY. FightCamp design question from the studio owner (he approves the final verdict): ROOM WALLS AND DOORS for player-drawn rooms.
+
+THE GAME TODAY (facts): boxing gym management sim (Steam PC), Two Point Museum look (iso perspective camera FOV 17, 4 yaws 45/135/225/315, camera-facing walls drop to a 0.45 m stub) + Mad Games Tycoon 2 build flow (start in an empty shell, ROOMS tab: drag a rectangle, the room opens as a DRAFT, place its furniture, then FINISH pays and builds it). Building shell 30 x 22.5 m, hall wall height 3.2 m. Today a drawn room gets: walls 0.16 m thick, full height to the ceiling, off-white (#DBD4C2) outside; inside, the reception keeps an old hand-made skin (orange brick wainscot band ~1.2 m) meant for the old fixed rooms; the door is a brown wooden frame (0.08 m jambs, 2.3 m tall + lintel) and a panelled leaf that stands OPEN at ~100 deg; the door is pre-placed silently by the game.
+
+THE ATTACHED STILL (our game camera, a reception the owner drew against the street wall): A = yaw 225, the room's hall-facing wall is cut to the stub but the door frame and leaf stand full height, detached, and the leaf swings OUT into the aisle. B = yaw 45, inside: white walls + orange brick band. Owner's words: "this is such a bad design", "I do not have option to put door, how MGT2 do the walls, do the same".
+
+WHAT WE WILL BUILD (MGT2 rules, settled): thin uniform walls with a cap on top, one finish inside and out; neighbouring rooms share one wall; the DOOR is an explicit first step of the draft (a row at the top of the room's list, a green/red ghost on free wall edges, FINISH says "Place a door" until one is placed); everything on a camera-facing wall (door frame, leaf, windows, wall decor) cuts with that wall; doors closed or swung inward at rest.
+
+QUESTIONS - give exact numbers and hex colours, no ranges:
+1. Room wall height for drawn rooms (full 3.2 m to the hall ceiling, or a lower partition like MGT2 / Two Point, e.g. 2.6-2.8 m?) and thickness.
+2. The wall CAP: height, overhang, colour - and the wall's one finish (colour/material, inside = outside?). Should room TYPES differ by wall colour (reception vs office vs physio vs locker vs store) or only by floor?
+3. The door: frame colour, leaf colour, leaf at rest (closed / open inward how many degrees / double door for reception?), width (1.0 m now), frame depth vs a 0.16 m wall.
+4. On a camera-facing (cut) wall: does the door show as a low frame stub at the wall stub height, or hide fully and leave only a threshold strip on the floor? Same for wall decor.
+5. Anything else that would make the finished room read like a clean MGT2/Two Point room instead of "pasted together" (skirting? floor edge trim? a door threshold? the room name decal?). Keep it to what a small team can build in boxes and one shader.
+Text answer only.

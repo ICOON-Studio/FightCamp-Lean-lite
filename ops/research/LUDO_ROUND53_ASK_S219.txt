@@ -1,0 +1,91 @@
+GAME FACTS - use THESE names and numbers, never invent stats, techniques or systems:
+FIGHTCAMP - GAME FACTS (generated from the game's data files by Tools/ludo_facts.py; use THESE names, never invent)
+
+1. SIMULATION ATTRIBUTES (the fight sim's stat keys, 0-100): power, technique, speed, defense, conditioning, fight_iq, grapple_offense, grapple_defence, top_control
+2. PLAYER-FACING READOUT (the 9 bars on the profile): POWER=power, TECHNIQUE=technique, SPEED=speed, STAMINA=stamina, CHIN=chin, DEFENCE=defense, FOOTWORK=footwork, RING IQ=ring_iq, COMPOSURE=composure
+3. TECHNIQUE REQUIREMENTS use these attribute names: power, technique, speed, defense, conditioning, fight_iq, grapple; tiers: 1=Foundation, 2=Core, 3=Advanced, 4=Signature
+4. THE REAL BOXING TECHNIQUE TREE (54 nodes; id | name | tier | branch | needs attributes | needs techniques):
+   boxing_one_two | One-Two | T1 | combinations | speed 26, technique 26 | boxing_jab, boxing_cross
+   boxing_one_two_hook | One-Two-Hook | T2 | combinations | speed 30, technique 30 | boxing_one_two, boxing_lead_hook
+   boxing_jab_body_head | Jab Body, Jab Head | T3 | combinations | technique 36, speed 34 | boxing_jab, boxing_jab_body
+   boxing_counter_combination | Counter Combination | T4 | combinations | fight_iq 46, speed 44 | boxing_pull_counter, boxing_one_two_hook
+   boxing_liver_combo | Jab-Cross-Lead Hook to the Body | T4 | combinations | power 44, technique 44 | boxing_one_two_hook, boxing_body_hook, boxing_jab, boxing_cross
+   boxing_six_punch_combo | Six-Punch Combination | T4 | combinations | conditioning 46, speed 44 | boxing_one_two_hook, boxing_rear_uppercut
+   boxing_catch | Catch the Jab | T1 | defense_counters | defense 24 | boxing_stance_guard
+   boxing_parry | Parry | T1 | defense_counters | defense 24, fight_iq 22 | boxing_stance_guard
+   boxing_slip | Slip | T1 | defense_counters | speed 26, defense 24 | boxing_stance_guard
+   boxing_block_elbow | Elbow and Forearm Block | T2 | defense_counters | defense 30 | boxing_catch
+   boxing_bob_weave | Bob and Weave | T2 | defense_counters | speed 32, conditioning 30 | boxing_roll
+   boxing_catch_counter | Catch and Return | T2 | defense_counters | fight_iq 30 | boxing_catch, boxing_cross
+   boxing_pull | Pull | T2 | defense_counters | speed 30, fight_iq 28 | boxing_slip
+   boxing_roll | Roll Under | T2 | defense_counters | speed 30, defense 30 | boxing_slip
+   boxing_slip_counter | Slip-Cross Counter | T2 | defense_counters | speed 30, fight_iq 30 | boxing_slip, boxing_cross
+   boxing_check_hook | Check Hook | T3 | defense_counters | speed 36, fight_iq 36 | boxing_lead_hook, boxing_pivot_footwork
+   boxing_check_hook_pivot | Check Hook and Pivot | T3 | defense_counters | speed 38, fight_iq 36 | boxing_check_hook
+   boxing_counter_over_jab | Counter Over the Jab | T3 | defense_counters | fight_iq 38, technique 34 | boxing_slip_counter
+   boxing_long_guard | Long Guard | T3 | defense_counters | defense 36 | boxing_block_elbow
+   boxing_pull_counter | Pull-Cross Counter | T3 | defense_counters | speed 36, fight_iq 36 | boxing_pull, boxing_cross
+   boxing_shoulder_roll | Shoulder Roll | T3 | defense_counters | defense 38, fight_iq 34 | boxing_roll
+   boxing_step_in_out | Step In, Step Out | T1 | footwork_ring | speed 24 | boxing_stance_guard
+   boxing_circle_lead | Circle to the Lead Side | T2 | footwork_ring | speed 28, conditioning 28 | boxing_step_in_out
+   boxing_circle_rear | Circle to the Rear Side | T2 | footwork_ring | speed 28, fight_iq 28 | boxing_step_in_out
+   boxing_feint | Feint | T2 | footwork_ring | fight_iq 30, technique 28 | boxing_distance_read, boxing_jab
+   boxing_pivot_footwork | Ring Pivot | T2 | footwork_ring | speed 30 | boxing_step_in_out
+   boxing_angle_step | L-Step Angle | T3 | footwork_ring | speed 36, technique 34 | boxing_pivot_footwork
+   boxing_cutoff_ring | Cut Off the Ring | T3 | footwork_ring | fight_iq 36 | boxing_circle_lead, boxing_circle_rear
+   boxing_rhythm_change | Breaking the Rhythm | T3 | footwork_ring | fight_iq 38 | boxing_feint, boxing_breathing_rhythm
+   boxing_rope_work | Working Off the Ropes | T3 | footwork_ring | defense 38, fight_iq 36 | boxing_shoulder_roll
+   boxing_drawing | Drawing the Lead | T4 | footwork_ring | fight_iq 46 | boxing_rhythm_change, boxing_pull_counter
+   boxing_switch_stance | Switching Stance | T4 | footwork_ring | technique 44, fight_iq 44 | boxing_angle_step, boxing_rhythm_change
+   boxing_breathing_rhythm | Breathing and Rhythm | T1 | fundamentals | conditioning 24 | boxing_stance_guard
+   boxing_distance_read | Finding the Range | T1 | fundamentals | fight_iq 24 | boxing_stance_guard
+   boxing_stance_guard | Stance and High Guard | T1 | fundamentals | defense 22 | -
+   boxing_lead_hook | Lead Hook | T2 | hooks_bodywork | power 30, technique 30 | boxing_one_two
+   boxing_lead_uppercut | Lead Uppercut | T2 | hooks_bodywork | power 30, technique 32 | boxing_lead_hook
+   boxing_rear_hook | Rear Hook | T2 | hooks_bodywork | power 32, technique 30 | boxing_lead_hook
+   boxing_rear_uppercut | Rear Uppercut | T2 | hooks_bodywork | power 32, technique 32 | boxing_lead_uppercut
+   boxing_body_hook | Lead Hook to the Body | T3 | hooks_bodywork | power 34, conditioning 32 | boxing_lead_hook
+   boxing_rear_hook_body | Rear Hook to the Body | T3 | hooks_bodywork | power 36, conditioning 32 | boxing_body_hook
+   boxing_shovel_hook | Shovel Hook | T3 | hooks_bodywork | power 34, technique 36 | boxing_rear_uppercut
+   boxing_clinch_tieup | Tie Up | T2 | infighting | technique 30, conditioning 30 | boxing_block_elbow
+   boxing_forearm_frame | Forearm Frame | T3 | infighting | defense 36, power 32 | boxing_clinch_tieup
+   boxing_inside_uppercut | Uppercut on the Inside | T3 | infighting | power 36, technique 34 | boxing_clinch_tieup, boxing_rear_uppercut
+   boxing_pivot_out | Pivot Out of the Clinch | T3 | infighting | speed 36, technique 34 | boxing_clinch_tieup, boxing_pivot_footwork
+   boxing_shoulder_bump | Shoulder Bump | T3 | infighting | power 34, conditioning 34 | boxing_clinch_tieup
+   boxing_cross | Rear Cross | T1 | straight_punching | power 26, technique 24 | boxing_jab
+   boxing_jab | Jab | T1 | straight_punching | speed 24 | boxing_stance_guard
+   boxing_cross_body | Cross to the Body | T2 | straight_punching | power 30, technique 28 | boxing_cross
+   boxing_double_jab | Double Jab | T2 | straight_punching | speed 30 | boxing_jab
+   boxing_jab_body | Jab to the Body | T2 | straight_punching | speed 28, technique 28 | boxing_jab
+   boxing_overhand | Overhand Right | T3 | straight_punching | power 36, technique 32 | boxing_cross
+   boxing_up_jab | Up Jab | T3 | straight_punching | speed 34, technique 34 | boxing_jab_body
+5. CERTIFIED BOXING MOVES (the only ones the demo animates and lets a player train): strikes boxing_jab, boxing_cross, boxing_rear_uppercut, boxing_jab_body, boxing_body_hook, boxing_up_jab, boxing_overhand, boxing_cross_body, boxing_double_jab, boxing_one_two, boxing_slip_counter, boxing_pull_counter, boxing_counter_over_jab, boxing_catch_counter, boxing_lead_uppercut, boxing_check_hook, boxing_lead_hook, boxing_rear_hook, boxing_rear_hook_body, boxing_one_two_hook, boxing_liver_combo, boxing_six_punch_combo; defence boxing_slip, boxing_pull, boxing_catch
+6. BODY REGIONS (wear 0-100%): head_neck, torso_core, left_arm, right_arm, left_leg, right_leg
+7. GYM TIERS: T1 30.0x18.0 m; T2 40.0x25.0 m; T3 60.0x31.0 m (club -> commercial -> elite; no garage)
+8. SCREEN: 1920x1080, Godot 4.7.2 GDScript; boxing first (demo), MMA later; PC deep management sim (FM / Motorsport Manager class).
+
+==== ROUND 53 (FightCamp, S219) - THREE PARTS. Answer ALL of them in ONE reply, as long and complete as you can (tables, exact numbers, px sizes, colours, copy text). Do not shorten; if you run out, I will say "continue".
+
+The attached picture is our CURRENT New Career screen, step 3 "The Gym" (1920x1080). The operator (CEO, 40 years of games) wrote on it: "this doesnt look like finished, ask Ludo for ideas on in-game menu presentation" and he wants YOUR approval before it ships.
+
+PART A - FINISH THIS SCREEN (New Career, step 3 of 3: name the gym, pick the start, see what you inherit).
+What is on it now: gym name + your name fields; START chips: THE HOUSE THAT HOLDS (story, = the tutorial, Mara Solano / Calder House) / GUIDED SANDBOX / OPEN SANDBOX, an ADVANCED chip (raw Story and Guidance switches); 3 stat tiles ($25.0K starting cash, 36/40 floor space, $367/week upkeep); STARTER FLOOR as a tile grid of the inherited equipment (Old Club Boxing Ring cond 64% 4x4, 2 Basic Heavy Bags 1x2, Modular Combat Mat 2x2, Basic Cardio Floor 2x2, Compact Free-Weight Rack 2x2, First-Aid Cabinet, Focus-Mitt Locker, Worn Speed-Bag, Throwing & Grappling 1x1; 4 empty 1x1 slots); STARTER ROSTER of 3 (Nasir Larkin 21 BOX 0-1-0, Rico Vargas 20 MMA 1-0-0, Rafael Novak 19 WRES 0-1-0); a right column with the club name and a big yellow OPEN GYM button; footer "OPEN GYM SAVES THE CAREER".
+Problems we see: the right column is empty space; the tiles are flat grey with no art/icons; empty slots look broken; the three starts show no explanation of what each one means; the roster shows MMA and wrestling men although the demo is BOXING ONLY and the story start's hero is Mara Solano (a woman, women's boxing); nothing previews the gym itself.
+1. Give the finished layout: every block, its position and size on 1920x1080, what goes in the empty right column (a 3D/illustrated preview of the club? the start's pitch card?), what each START option shows when selected (title, 2-line pitch, what is on/off, difficulty), how ADVANCED is presented.
+2. Tile art: what each equipment tile shows (icon/illustration style, condition shown how, size labels), what an empty slot looks like, hover/selected states.
+3. Roster block: what it should show per fighter for a boxing demo, and how the roster changes per START (story = Mara's Calder House cast; sandboxes = ?).
+4. Copy: every label and the button text, final wording.
+5. Motion: what animates on entry, on START change, on OPEN GYM.
+6. A pass/fail checklist we can test this screen against (10-15 items).
+
+PART B - IN-GAME MENU PRESENTATION, ONE SYSTEM for the whole game. Our in-game screens: the 3D gym hub (top bar: cash + weekly burn + runway, date + pause/play/fast, club name, notifications, next-bout box with Continue; left icon dock: home, roster, training, scouting, staff, techniques, trophies, wallet, settings, info; bottom-left day/week goal tray; news ticker), the fighter profile (6 core stats + Recovery Rate + Cut & Swell Resistance readouts, STRESS bar, CAREER WEAR pill, technique tree of 54 nodes), schedule/fight-week (Tue-Sat grid), offers/booking, the live fight HUD (corner cards, heart-rate traces, round clock, THROW TOWEL), the post-fight result.
+1. The presentation rules for all of them: panel vs full-screen vs drawer, when the 3D gym stays visible behind, transitions, header pattern, typography scale (sizes in px at 1080p), colour roles (we use dark warm panels, gold/yellow primary action, teal selected, red danger), iconography style, density.
+2. For each screen above: the 3 most important fixes to make it look finished and premium (reference real games where it helps: Football Manager, Motorsport Manager, WWE 2K MyGM, Punch Club 2, Two Point Hospital, EA UFC career).
+3. One "menu kit" list: the 15-25 components we should build once and reuse (name, purpose, states).
+
+PART C - SANDBOX PARITY NUMBERS (your round 52 said: procedural predatory promoters in sandbox; cash < 0 for two weeks -> debt event: loan / short-notice fight / cut amenities). We need build-ready numbers.
+Our real values: story trap promoter Marcus Vance offers a $5,000 purse advance, unsanctioned, televised, after 2 bouts, vs an unbeaten 6-0 (6 KO) slugger far above the player's level; win +250 prestige, KO loss -40 chin. Short notice (already in game): 1-3 weeks out, 5% pull-out chance per bout per week, max 2 per week, purse premium x1.35, +10 fame on a win, goodwill +1 per accept (cap 5), +5% purse per goodwill point, out 6 weeks. Starting cash $25,000; starter upkeep $367/week; a typical running club in testing burns ~$1,971/week (runway 5 weeks).
+1. PREDATORY PROMOTER OFFERS in sandbox: how often (per week / per career stage), who gets one (record, fame, cash state), the offer's terms (purse advance range by tier, sanctioned/unsanctioned, opponent level gap, contract length or exclusivity, hidden clauses), what the player sees before accepting (tells), outcomes table (win / loss / KO loss / refuse), cooldowns, max active offers. Give formulas and ranges.
+2. DEBT EVENT: exact trigger (cash < 0 for 2 consecutive weeks - confirm or change), the three choices with numbers: LOAN (amount, interest/week, term, what happens on a missed payment), SHORT-NOTICE FIGHT (how it is generated, purse, risk), CUT AMENITIES (which costs drop, by how much, the training/morale/member penalty and its duration). What happens if debt persists after the event (second event? bankruptcy = career end? a final rescue?). Repeat limits.
+3. Test cases (5-8) with exact inputs and expected outputs, for a pure module, e.g. "cash -$500 week 1, -$800 week 2 -> event fires week 2 with options ...".
+Say plainly where you are unsure; never invent stats or techniques outside the facts sheet.

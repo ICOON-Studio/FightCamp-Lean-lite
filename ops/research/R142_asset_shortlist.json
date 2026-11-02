@@ -1,0 +1,918 @@
+{
+ "task": "R142",
+ "date": "2026-09-13",
+ "author": "claude",
+ "sale": "Unity Asset Store sale opens 2026-09-14: \"50% off 300+ best sellers\" (on record in R105 and TASK_J23). No package showed a discount on 2026-09-13 (finalPrice == originalPrice for all), so sale_price_eur is null until the sale opens; which packages are included is unknown.",
+ "animation_hold": "ANIMATION PURCHASES ARE ON HOLD until S4a diagnoses why the retargeted RamsterZ clips look bad (roadmap animation_purchases_ON_HOLD). Held rows read \"BUY AT SALE IF S4a CLEARS THE RETARGET\".",
+ "operator_direction_2026_09_13": "\"i am thinking of using some 3d scenes instead of heavily text-base menus\" - the gym, arena and workout-animation rows are judged as stages for 3D menu scenes, not only as fight art.",
+ "packages": [
+  {
+   "id": 107262,
+   "name": "Muay Thai Animset Pro",
+   "url": "https://assetstore.unity.com/packages/3d/animations/muay-thai-animset-pro-107262",
+   "category": "animation",
+   "publisher": "Mister Necturus",
+   "price_eur": 32.2,
+   "sale_price_eur": null,
+   "licence": "Standard Unity Asset Store EULA (product record customLicense=false, no extra licence text); the record has no AI clause - FAB and direct-publisher copies are not this licence",
+   "pipeline": "not declared (Unity 5.1.1; pre-SRP listing, Built-in)",
+   "rig": "Humanoid, 65 bones, character mesh included (17,198 polys, 4096 TIF diffuse/normal/specular) - store description",
+   "contents": "145 animations in 9 multi-take FBX (clips are frame ranges listed on the store page): 19 blocks/evasions, 9 combos, 7 elbows, 17 general (idles, taunts, win/lose), 14 blows, 33 hits, 23 kicks, 16 steps, 7 turns. Root motion. NO KNEES (\"We didn't include knee kicks\").",
+   "we_would_use": [
+    "muay_thai_teep <- Push_Kick (Muat Thai)_R, Push_Kik_High_L",
+    "muay_thai_round_kick / muay_thai_body_kick / muay_thai_low_kick <- Ful_High/Mid/Low_Kik_L, Kick_High_L, Kick_Mid_L, Low_Kick_R, Short_Low_Kick_L (GROUNDED - the kick R111 says we own none of)",
+    "muay_thai_horizontal_elbow <- Elbow_L/R; muay_thai_diagonal_elbow <- Diagonal_Elbow_L/R; muay_thai_up_elbow <- Upper_Elbow_L/R; downward elbow <- Downward_Elbow_R",
+    "boxing/muay thai hands <- Jab, Cross, Cross_Body, Hook_L/R, liver + spleen body hooks, UpperCut_L/R, Step_Jab, One_Two",
+    "karate_maegeri <- MaeGeri_Body/Head; karate_mikazukigeri <- MikazukiGeri; kickboxing_axe_kick <- Axe_Kick_R; kickboxing_side_kick <- Side_Kick_L/R",
+    "react_head <- Hit_Head_Left/Right/Stright x A/B/C (9); react_body <- Hit_Torso_* (9); react_leg <- Hit_L_leg_In/Out, Hit_R_Leg_Out x A/B/C (9) - graded by severity",
+    "block <- HookBlock, BodyBlock, HighKick_Block, FrontKickBlock, Side_Block, Low Block, Close_*_Block (kick blocks we own none of); slip <- Evade_L/R, HighKick_Evasion, Low_Kick_Avoid",
+    "locomotion (C94) <- 1- and 2-step moves in 8 directions, Turn_45..180 L/R",
+    "idle <- Idle_A/B, Idle_Combat, Combat_Mode_A"
+   ],
+   "godot_cost": "Slice 9 FBX into 145 clips from the store page frame table (import clip ranges); a NEW bone map (65-bone humanoid, not the UE4 Mannequin one); root motion must be carried or stripped per clip. Unity .controller/.mat/.unity do not port.",
+   "overlaps": [
+    311647,
+    76699,
+    206861
+   ],
+   "on_record": "TASK_J23 (John) asked exactly this pack's question - sent, never answered. This row answers it from the store's own content list.",
+   "verdict": "BUY AT SALE IF S4a CLEARS THE RETARGET",
+   "reason": "The best answer to J23 in the list: grounded round kicks, the teep, elbows from 3 angles, 33 severity-graded hits including legs, 19 blocks including kick checks, 8-direction steps. Missing knees - Martial Arts Master's paired clinch knees cover that. Animation hold applies (same rotation-only retarget).",
+   "priority": 2,
+   "size_mb": 173.4,
+   "file_count": 32,
+   "unity_version": [
+    "5.1.1"
+   ],
+   "last_update": "2018-09-18T10:51:13Z",
+   "first_published": "2018-01-17T17:36:28Z",
+   "read_from": "store product record (assetstore.unity.com/packages/package/<id>, server-rendered) + Package content file list (public GraphQL PreviewAssets), read 2026-09-13"
+  },
+  {
+   "id": 388942,
+   "name": "Taido Style Fight Animations",
+   "url": "https://assetstore.unity.com/packages/3d/animations/taido-style-fight-animations-388942",
+   "category": "animation",
+   "publisher": "Wolff's Studio",
+   "price_eur": 12.87,
+   "sale_price_eur": null,
+   "licence": "Standard Unity Asset Store EULA (product record customLicense=false, no extra licence text); the record has no AI clause - FAB and direct-publisher copies are not this licence",
+   "pipeline": "6000.1.17f1: Built-in/HDRP/URP",
+   "rig": "Animation-only, retarget to a humanoid (no mesh; publisher's sister pack ships a Mixamo Y Bot for its demo)",
+   "contents": "144 FBX, root motion + in place: Kick01-50, Punch01-32, Combo01-22, BackKick01-10, BackPunch01-08, HitReaction01-10, Guard01-04, Block01-04, Pose01-02, ChangePosition01-02. Clips are NUMBERED, not named.",
+   "we_would_use": [
+    "nothing bound today - no technique names; binding would mean watching all 144",
+    "react_head/react_body candidates <- HitReaction01-10 (unwatched)"
+   ],
+   "godot_cost": "144 FBX direct; new bone map; every clip needs a watch to be named against our catalogue.",
+   "overlaps": [
+    329672,
+    311647
+   ],
+   "on_record": "none",
+   "verdict": "SKIP",
+   "reason": "Taido is not one of our 15 disciplines, \"back attacks for opponents behind\" is a beat-em-up idiom a 1v1 bout never uses, and 144 numbered clips cost a full viewing session to name. Acrobatic idiom is R111's recorded problem.",
+   "priority": 9,
+   "size_mb": 96.7,
+   "file_count": 163,
+   "unity_version": [
+    "6000.1.17"
+   ],
+   "last_update": "2026-07-14T17:45:09Z",
+   "first_published": "2026-07-14T17:45:09Z",
+   "read_from": "store product record (assetstore.unity.com/packages/package/<id>, server-rendered) + Package content file list (public GraphQL PreviewAssets), read 2026-09-13"
+  },
+  {
+   "id": 291335,
+   "name": "Kung Fu Martial Arts Fighting Style Pack",
+   "url": "https://assetstore.unity.com/packages/3d/animations/kung-fu-martial-arts-fighting-style-pack-291335",
+   "category": "animation",
+   "publisher": "Raisecreation",
+   "price_eur": 16.56,
+   "sale_price_eur": null,
+   "licence": "Standard Unity Asset Store EULA (product record customLicense=false, no extra licence text); the record has no AI clause - FAB and direct-publisher copies are not this licence",
+   "pipeline": "2022.3.29f1: URP/HDRP/Built-in",
+   "rig": "CUSTOM skeleton rig (store description), in place only, 60 fps",
+   "contents": "40 animations: punches, kicks, 5 combos, elbows, jump kicks, slide kicks, sweep kick, reverse kick, paw push, push; reacts: block, deflect x2, dodge x2, fall down, get hit x3, knock out.",
+   "we_would_use": [
+    "sanda_round_kick / sanda_side_kick candidates (unwatched)",
+    "knockdown <- React_Get_Knock_Out (we already own knockdowns)"
+   ],
+   "godot_cost": "Custom rig = its own bone map with no standard names; in-place only, so no root motion to recover.",
+   "overlaps": [
+    311647,
+    206861
+   ],
+   "on_record": "named in Q50_GI_AND_KIT.md / C75 only in passing",
+   "verdict": "SKIP",
+   "reason": "Film wushu idiom (paw push, triple slide kick), a custom rig that needs a bespoke map, and nothing our catalogue lacks that a named pack does not cover better.",
+   "priority": 9,
+   "size_mb": 9.1,
+   "file_count": 47,
+   "unity_version": [
+    "2022.3.29"
+   ],
+   "last_update": "2024-08-06T14:42:12Z",
+   "first_published": "2024-08-06T14:42:12Z",
+   "read_from": "store product record (assetstore.unity.com/packages/package/<id>, server-rendered) + Package content file list (public GraphQL PreviewAssets), read 2026-09-13"
+  },
+  {
+   "id": 329672,
+   "name": "Acrobatic Kick Animations Part 1",
+   "url": "https://assetstore.unity.com/packages/3d/animations/acrobatic-kick-animations-part-1-329672",
+   "category": "animation",
+   "publisher": "Wolff's Studio",
+   "price_eur": 10.11,
+   "sale_price_eur": null,
+   "licence": "Standard Unity Asset Store EULA (product record customLicense=false, no extra licence text); the record has no AI clause - FAB and direct-publisher copies are not this licence",
+   "pipeline": "6000.1.11f1: Built-in/HDRP/URP",
+   "rig": "Animation-only, humanoid retarget; Mixamo Y Bot for demo only (store description)",
+   "contents": "82 animations, root motion + in place: Tornado x16, Capoeira x14, SpinningKick x12, JumpKick x10, Taekwondo x8, FrontKick x6, FrontSomersault x6, Backflip x4, Cartwheel x4, Kick x2.",
+   "we_would_use": [
+    "tkd_tornado_chain / tkd_spinning_hook <- Tornado, SpinningKick (legitimately airborne in taekwondo)",
+    "capoeira_armada / capoeira_meialua / capoeira_au_role <- Capoeira01-14 (capoeira has NO ruleset in combat_rulesets.json)"
+   ],
+   "godot_cost": "83 FBX direct; Mixamo-family map; numbered clips need a watch.",
+   "overlaps": [
+    388942,
+    311647
+   ],
+   "on_record": "none",
+   "verdict": "SKIP",
+   "reason": "Every clip is airborne - the exact defect R111 wrote down for the H2H kicks. The only honest users are taekwondo spinning kicks and capoeira, and capoeira has no ruleset. Revisit when taekwondo presentation is a stage.",
+   "priority": 8,
+   "size_mb": 16.0,
+   "file_count": 99,
+   "unity_version": [
+    "6000.1.11"
+   ],
+   "last_update": "2025-08-28T13:12:15Z",
+   "first_published": "2025-08-28T13:12:15Z",
+   "read_from": "store product record (assetstore.unity.com/packages/package/<id>, server-rendered) + Package content file list (public GraphQL PreviewAssets), read 2026-09-13"
+  },
+  {
+   "id": 311647,
+   "name": "Martial Arts Master",
+   "url": "https://assetstore.unity.com/packages/3d/animations/martial-arts-master-311647",
+   "category": "animation",
+   "publisher": "RamsterZ",
+   "price_eur": 45.99,
+   "sale_price_eur": null,
+   "licence": "Standard Unity Asset Store EULA (product record customLicense=false, no extra licence text); the record has no AI clause - FAB and direct-publisher copies are not this licence",
+   "pipeline": "2022.3.19f1: URP",
+   "rig": "UE4 Mannequin naming (RamsterZ) - the 22-row map from R105/R107 already covers it; store says humanoid + root motion ready",
+   "contents": "212 animations in three stance families (Fighter 105, HyperFocus 49, MasterStance 58): 46 attacks, 25 counters, 4 blocks, parries, redirects, 5 staggers, 8 evades, movement sets, 3 idles, knocked out. 62 PAIRED files = 30 two-sided attacker/victim or offender/defender pairs (+2 one-sided).",
+   "we_would_use": [
+    "muay_thai_clinch_knees / muay_thai_khao_* <- AttackGrab3KneesToRibs, AttackGrabKneeToFace, AttackGrabKneeStomachElbowFace (PAIRED - the plum knees J23 asked for and Muay Thai AnimSet Pro lacks)",
+    "mma_underhook_cage / mma_cage_wrestling <- AttackPushPinAgainstWall Start/Loop/End/BreakFree (paired offender/defender)",
+    "boxing_slip_counter / boxing_catch_counter / boxing_counter_over_jab <- CounterBlockJab01, CounterEvadeRUppercut01, CounterDuckEvade2PunchCombo01, CounterL/RBodyShot01 (paired)",
+    "boxing_parry / boxing_catch <- ParryJab01, ParryRPunch01",
+    "muay_thai_spinning_elbow candidate <- AttackElbow01; downward elbow <- AttackDownwardElbowToHead (paired)",
+    "idle <- 3 idles; react_body <- 5 staggers; knockdown <- KnockedOut"
+   ],
+   "godot_cost": "Lowest of the animation rows: same rig family as the two RamsterZ packs we own, map already written and measured 22/22 (R106/R107). Paired clips need the R106 two-root alignment.",
+   "overlaps": [
+    227372,
+    107262,
+    271650
+   ],
+   "on_record": "R105_MARTIAL_ARTS_MASTER.md: \"Do not buy today\" until (1) a RamsterZ rig measures (DONE: R106/R107 22/22) and (2) the sale. CORRECTION: R105 point 4 says \"NO PAIRED ANIMATION AND NO GRAPPLING\" - the package content list has 62 paired files (30 two-sided pairs) including clinch knees and a wall pin.",
+   "verdict": "BUY AT SALE IF S4a CLEARS THE RETARGET",
+   "reason": "By R105's own two conditions this was the buy; the later operator hold (retargeted RamsterZ clips look bad) supersedes it, and this is the SAME source through the SAME retarget, so it is exactly what S4a must clear first. If S4a clears, it is the defensive vocabulary plus the paired plum knees and cage pin nothing else in the list has.",
+   "priority": 2,
+   "size_mb": 20.9,
+   "file_count": 437,
+   "unity_version": [
+    "2022.3.19"
+   ],
+   "last_update": "2025-02-28T10:53:13Z",
+   "first_published": "2025-02-28T10:53:13Z",
+   "read_from": "store product record (assetstore.unity.com/packages/package/<id>, server-rendered) + Package content file list (public GraphQL PreviewAssets), read 2026-09-13"
+  },
+  {
+   "id": 76699,
+   "name": "Fighting Motions Vol.1",
+   "url": "https://assetstore.unity.com/packages/3d/animations/fighting-motions-vol-1-76699",
+   "category": "animation",
+   "publisher": "Magicpot Inc.",
+   "price_eur": 0.0,
+   "sale_price_eur": null,
+   "licence": "Standard Unity Asset Store EULA (product record customLicense=false, no extra licence text); the record has no AI clause - FAB and direct-publisher copies are not this licence",
+   "pipeline": "not declared (Unity 5.4.2; pre-SRP listing, Built-in)",
+   "rig": "READ FROM THE FILES (downloaded 2026-09-13 03:05, extracted without importing, FBXDocument): 21-bone humanoid named Hip, Body, Chest, Neck, Head, Collar_L/R, Shoulder_L/R, ForeArm_L/R, Hand_L/R, Thigh_L/R, Shin_L/R, Foot_L/R, Toe_L/R - fills 21 of the 22 SkeletonProfileHumanoid slots (no UpperChest). BlueGuy mesh = 913 vertices, 1.80 m tall: a mannequin, not a body.",
+   "contents": "ON DISK: 42 motion FBX + BlueGuy mesh + 3 prefabs + 3 materials + 1 PNG. 30 takes in FBX/ and 12 root-motion-free twins in FBX/nomove/ (the A2/B2 files - identical lengths; the store list hides the folder). EVERY CLIP IS KEYED FROM 0 TO ITS END, 0.20-1.00 s - no dead air (RamsterZ: 32.20 s of dead air in 45.63 s, R109): jab 0.20, cross 0.40, lead hook 0.50, rear uppercut 0.633, body hook 0.60, body uppercut 0.70, teep 0.50, body kick 0.75, high kick 0.80, side kick 0.70, low kicks 0.60/0.70, blocks and damage 0.30 (hd_front_B 0.60), knockdown 0.80 + loop 2.00, getup 1.00, idle 0.80, steps 0.80, win 1.00. Named head/body/leg x punch/kick/block/damage: named head/body/leg x punch/kick/block/damage: hp_straight_left/right, hp_hook_left, hp_upper_right, bp_hook_right, bp_upper_left, hk_rh_right, hk_side_left, bk_rh_right, bk_push_left, lk_rh_left/right, hb/bb/lb_front (blocks), hd/bd/ld_front (damage), knockdown A/A2/loop, getup, idle, move forward/backward, win. Unity 5.4.2 (2016).",
+   "we_would_use": [
+    "boxing_jab <- hp_straight_left; boxing_cross <- hp_straight_right; boxing_lead_hook <- hp_hook_left; boxing_rear_uppercut <- hp_upper_right; boxing_body_hook <- bp_hook_right",
+    "kickboxing_low_kick <- lk_rh_left/right (GROUNDED); kickboxing_body_kick <- bk_rh_right; kickboxing_high_kick <- hk_rh_right; kickboxing_side_kick <- hk_side_left; kickboxing_teep <- bk_push_left",
+    "react_head <- hd_front A/B; react_body <- bd_front; react_leg <- ld_front",
+    "block <- hb_front, bb_front, lb_front (a three-region block set)",
+    "knockdown <- knockdown_A/A2 + knockdown_loop_A + getup_A; idle <- idle_A; locomotion <- move_forward/backward_B"
+   ],
+   "godot_cost": "FBXDocument loads all 43 on the first try (one harmless ufbx \"duplicate connection\" warning each). A 21-row bone map. Tight clips mean no content-window trimming (the R109 problem) at all. 3.9 MB.",
+   "overlaps": [
+    107262,
+    271834
+   ],
+   "on_record": "roadmap now: FREE, in the operator's account, operator asked for the download",
+   "verdict": "FREE - DOWNLOADED",
+   "reason": "Costs nothing and does two jobs: it is S4a's SECOND SOURCE - a non-RamsterZ humanoid clip through the same retarget separates \"our retarget is wrong\" from \"that source is wrong\" - and it is a complete grounded kickboxing set with a three-region block/damage matrix that matches our receiver roles one to one. Downloaded by the operator 2026-09-13 and read from the files.",
+   "priority": 1,
+   "size_mb": 3.9,
+   "file_count": 52,
+   "unity_version": [
+    "5.4.2"
+   ],
+   "last_update": "2016-12-15T23:13:22Z",
+   "first_published": "2016-12-15T23:13:22Z",
+   "read_from": "store product record (assetstore.unity.com/packages/package/<id>, server-rendered) + Package content file list (public GraphQL PreviewAssets), read 2026-09-13"
+  },
+  {
+   "id": 266149,
+   "name": "\"Martial Arts - Karate\"-Sidekick Motion product",
+   "url": "https://assetstore.unity.com/packages/3d/characters/humanoids/humans/martial-arts-karate-sidekick-motion-product-266149",
+   "category": "animation",
+   "publisher": "sidekick animation studio",
+   "price_eur": 35.87,
+   "sale_price_eur": null,
+   "licence": "Standard Unity Asset Store EULA (product record customLicense=false, no extra licence text); the record has no AI clause - FAB and direct-publisher copies are not this licence",
+   "pipeline": "2022.3.4f1: Built-in",
+   "rig": "Reallusion Character Creator / Cartoon Animator motion (SK_male_demo); Built-in only",
+   "contents": "18 motions: debut, idle, light_attack x2, heavy_attack x2, skill1, attack_back, defense, hit_light, hit_heavy, hit_down, fail, Victory, move/step forward/back.",
+   "we_would_use": [
+    "2-4 attacks bindable to karate ids after watching (names are action-game verbs, not techniques)",
+    "react_head <- hit_light/hit_heavy; knockdown <- hit_down; walkout <- debut"
+   ],
+   "godot_cost": "19 FBX; Reallusion CC skeleton map; every attack must be watched to name it.",
+   "overlaps": [
+    206861,
+    276036
+   ],
+   "on_record": "none (the \"Sidekick\" hits in C87/Q47 are side kicks, not this publisher)",
+   "verdict": "SKIP",
+   "reason": "EUR 35.87 for 18 clips named like an action RPG (light_attack_1, skill1). Combat animations - Karate gives 78 NAMED karate clips for EUR 17.47.",
+   "priority": 9,
+   "size_mb": 4.2,
+   "file_count": 21,
+   "unity_version": [
+    "2022.3.4"
+   ],
+   "last_update": "2023-10-19T07:53:14Z",
+   "first_published": "2023-10-19T07:53:14Z",
+   "read_from": "store product record (assetstore.unity.com/packages/package/<id>, server-rendered) + Package content file list (public GraphQL PreviewAssets), read 2026-09-13"
+  },
+  {
+   "id": 276036,
+   "name": "\"Martial Arts - Wing Chun\"-Sidekick Motion product",
+   "url": "https://assetstore.unity.com/packages/3d/animations/martial-arts-wing-chun-sidekick-motion-product-276036",
+   "category": "animation",
+   "publisher": "sidekick animation studio",
+   "price_eur": 41.4,
+   "sale_price_eur": null,
+   "licence": "Standard Unity Asset Store EULA (product record customLicense=false, no extra licence text); the record has no AI clause - FAB and direct-publisher copies are not this licence",
+   "pipeline": "2022.3.4f1: Built-in",
+   "rig": "Reallusion Character Creator / Cartoon Animator motion (SK_male_demo); Built-in only",
+   "contents": "18 motions, the same template as 266149 with a WT_ prefix: debut, idle, light/heavy attacks, skill1, defense, hits, fail, victory, moves.",
+   "we_would_use": [
+    "nothing - Wing Chun is not in our catalogue"
+   ],
+   "godot_cost": "19 FBX; Reallusion CC map; watch to name.",
+   "overlaps": [
+    266149
+   ],
+   "on_record": "none",
+   "verdict": "SKIP",
+   "reason": "Not a discipline we simulate, and the same 18-verb template as the karate product at a higher price.",
+   "priority": 9,
+   "size_mb": 4.1,
+   "file_count": 21,
+   "unity_version": [
+    "2022.3.4"
+   ],
+   "last_update": "2024-03-22T15:26:13Z",
+   "first_published": "2024-03-22T15:26:13Z",
+   "read_from": "store product record (assetstore.unity.com/packages/package/<id>, server-rendered) + Package content file list (public GraphQL PreviewAssets), read 2026-09-13"
+  },
+  {
+   "id": 206861,
+   "name": "Combat animations - Karate",
+   "url": "https://assetstore.unity.com/packages/3d/animations/combat-animations-karate-206861",
+   "category": "animation",
+   "publisher": "Amine SAADI",
+   "price_eur": 17.47,
+   "sale_price_eur": null,
+   "licence": "Standard Unity Asset Store EULA (product record customLicense=false, no extra licence text); the record has no AI clause - FAB and direct-publisher copies are not this licence",
+   "pipeline": "2020.3.15f2: Built-in/HDRP/URP/custom SRP",
+   "rig": "Humanoid (store: \"Humanoid 3D animations ... for retargeting\"); Mannequin Amine SAADI 21,196 polys",
+   "contents": "78 animations (54 in place, 24 root motion), pose-matched start/end frames, two stances RP/LP with switch transitions: double punch V1-3, gedan barai, idle, kekomi (thrust kick), mae geri front/back leg, mawashi geri front/back leg, mountain punch, back-hand punch, punch to stomach, spinning back fist, sway, lunge punch, 8-direction moves (70 cm).",
+   "we_would_use": [
+    "karate_maegeri / karate_kizami_maegeri <- MAE GERI back/front leg (GROUNDED)",
+    "karate_mawashigeri / karate_maeashimawashigeri <- MAWASHI GERI back/front leg",
+    "karate_yokogerikekomi <- KEKOMI (THRUST KICK)",
+    "karate_junzuki <- LUNGE PUNCH; karate_gyakuzuki / karate_renzuki <- DUBLE PUNCH V1-3; karate_yamazuki <- MOUNTAIN PUNCH; karate_urakenuchi / karate_urakenmawashiuchi <- PUNCH BACK HAND, SPINNING BACK FIST",
+    "karate_gedanbarai (block role) <- GEDAN BARAI; slip <- SWAY",
+    "karate_suriashi / locomotion (C94) <- MOVE F/B/L/R/FL/FR/BL/BR x RP/LP, root motion 70 cm",
+    "stance switch (karate_kamae) <- RP TO LP / LP TO RP transitions"
+   ],
+   "godot_cost": "79 FBX direct; a humanoid map; pose-matched ends make blending cheap. Unity .controller/.cs demo does not port.",
+   "overlaps": [
+    266149,
+    107262
+   ],
+   "on_record": "Q50_GI_AND_KIT.md link only (EUR 17.47, \"animations only\")",
+   "verdict": "BUY AT SALE IF S4a CLEARS THE RETARGET",
+   "reason": "The only karate pack in the list with techniques NAMED in karate terms, grounded kicks, both stances and root-motion variants - sport kumite, the karateka R111 could not show. Cheapest held row. Animation hold applies.",
+   "priority": 3,
+   "size_mb": 9.0,
+   "file_count": 86,
+   "unity_version": [
+    "2020.3.15"
+   ],
+   "last_update": "2021-12-10T12:23:16Z",
+   "first_published": "2021-12-10T12:23:16Z",
+   "read_from": "store product record (assetstore.unity.com/packages/package/<id>, server-rendered) + Package content file list (public GraphQL PreviewAssets), read 2026-09-13"
+  },
+  {
+   "id": 227372,
+   "name": "Full Mount Attacks",
+   "url": "https://assetstore.unity.com/packages/3d/animations/full-mount-attacks-227372",
+   "category": "animation",
+   "publisher": "RamsterZ",
+   "price_eur": 10.11,
+   "sale_price_eur": null,
+   "licence": "Standard Unity Asset Store EULA (product record customLicense=false, no extra licence text); the record has no AI clause - FAB and direct-publisher copies are not this licence",
+   "pipeline": "2020.3.30f1: Built-in/HDRP/URP",
+   "rig": "UE4 Mannequin (RamsterZ), 22/22 via the map (R106)",
+   "contents": "32 paired clips: takedown body lock start/loop/end, double leg start, full mount punches/armbar/strangle/head smash, block, push off, reversal, victim attack, 4 melee-weapon pairs.",
+   "we_would_use": [
+    "already in assets/anim/audition/ramsterz (tracked at 2c71a72)"
+   ],
+   "godot_cost": "done (R106).",
+   "overlaps": [
+    311647
+   ],
+   "on_record": "OWNED - bought on Unity EUR 10.11, audited R106",
+   "verdict": "OWNED",
+   "reason": "Store price confirmed EUR 10.11.",
+   "priority": 0,
+   "size_mb": 6.3,
+   "file_count": 80,
+   "unity_version": [
+    "2020.3.30"
+   ],
+   "last_update": "2022-08-08T18:21:13Z",
+   "first_published": "2022-08-08T18:21:13Z",
+   "read_from": "store product record (assetstore.unity.com/packages/package/<id>, server-rendered) + Package content file list (public GraphQL PreviewAssets), read 2026-09-13"
+  },
+  {
+   "id": 271650,
+   "name": "MMA Fight Actions",
+   "url": "https://assetstore.unity.com/packages/3d/animations/mma-fight-actions-271650",
+   "category": "animation",
+   "publisher": "Sports-Actions",
+   "price_eur": 55.2,
+   "sale_price_eur": null,
+   "licence": "Standard Unity Asset Store EULA (product record customLicense=false, no extra licence text); the record has no AI clause - FAB and direct-publisher copies are not this licence",
+   "pipeline": "2021.3.11f1: Built-in",
+   "rig": "Humanoid + Generic, 70 joints; 4 low-poly avatars (~12k tris each, 2K textures), \"optimized for mobile\"",
+   "contents": "157 FBX: a G_ generic set (blocks by region incl. leg, get-hits incl. heavy impact, DEATHS, get-up, taunts, intro walks), a V_ beat-em-up set (V_01-08 light/heavy attacks A-C, special moves attacker/victim), 11 kicks, and pro-wrestling finishers named for WWE signature moves (Attitude Adjustment, Pedigree, Last Ride, Chokeslam, \"Baldo Bomb\", Skull Crushing, \"Bill Goldberg\") with @Boxer/@MMA variants. 115 of its 157 FBX names are ALSO in Boxing Actions.",
+   "we_would_use": [
+    "block by region <- G_BlockLeft/RightLeg, G_BlockLeft/RightBody/Face (already covered by owned H2H + the free pack)",
+    "nothing for MMA grappling - its \"grappling moves\" are pro-wrestling finishers"
+   ],
+   "godot_cost": "157 FBX; 70-joint map; the finisher clips are unusable in a sport sim.",
+   "overlaps": [
+    271834,
+    311647
+   ],
+   "on_record": "U46_MOTIFECT_AUDITION.md: \"Verdict on the $60 Unity pack: do not buy\"; roadmap purchased_assets: \"the ~US$60 MMA pack (auditioned, passed over)\" - CONFIRMED this is that pack (EUR 55.20)",
+   "verdict": "SKIP",
+   "reason": "U46 stands, and the file list adds two reasons: its grappling is WWE-style finishers and deaths, and 115 of 157 files ship again inside Boxing Actions.",
+   "priority": 9,
+   "size_mb": 224.5,
+   "file_count": 229,
+   "unity_version": [
+    "2021.3.11"
+   ],
+   "last_update": "2024-04-16T14:33:14Z",
+   "first_published": "2024-04-16T14:33:14Z",
+   "read_from": "store product record (assetstore.unity.com/packages/package/<id>, server-rendered) + Package content file list (public GraphQL PreviewAssets), read 2026-09-13"
+  },
+  {
+   "id": 271834,
+   "name": "Boxing Actions",
+   "url": "https://assetstore.unity.com/packages/3d/animations/boxing-actions-271834",
+   "category": "animation",
+   "publisher": "Sports-Actions",
+   "price_eur": 64.4,
+   "sale_price_eur": null,
+   "licence": "Standard Unity Asset Store EULA (product record customLicense=false, no extra licence text); the record has no AI clause - FAB and direct-publisher copies are not this licence",
+   "pipeline": "2021.3.11f1: Built-in",
+   "rig": "Humanoid + Generic, 70 joints; the same 4 mobile avatars as 271650",
+   "contents": "209 FBX: the same G_/V_ set as MMA Fight Actions (115 shared names) plus boxing-specific punches - L/R hook and uppercut to head/body x lead/rear leg x near/normal/far (about 45), strong hits head/body, falls B/F/L/R, 4 get-ups, entrances, ring enter, warmup, taunts, Idle_Fight_Tired, idle_stunned, Idle_Normal_Menu (x2), PreKnockOut_taker, finishing moves.",
+   "we_would_use": [
+    "boxing_lead_hook / boxing_rear_hook / boxing_body_hook / boxing_lead_uppercut / boxing_rear_uppercut <- the distance-banded Lhook/Rhook/LUppercut/RUppercut Head/Body x LLeg/RLeg x Near/Normal/Far set (the only DISTANCE-BANDED punches in the list - R102's range judgement, animated)",
+    "walkout / 3D menu idles <- Entry x2, RIngEnter x2, warmup, Idle_Normal_Menu, Idle_Fight_Tired",
+    "knockdown <- BFall/FFall/LFall/RFall + GetUp x4"
+   ],
+   "godot_cost": "209 FBX; 70-joint map; mobile avatars not usable as bodies.",
+   "overlaps": [
+    271650,
+    107262,
+    76699
+   ],
+   "on_record": "not evaluated before (the HANDOFF_ARCHIVE hit is the phrase \"Landed Boxing actions\", not this pack)",
+   "verdict": "SKIP",
+   "reason": "Most expensive animation row (EUR 64.40), same mobile template U46 passed over, and more than half its files duplicate MMA Fight Actions. Its one unique asset - hooks and uppercuts banded by distance - is noted for S4a's aftermath if boxing punch variety is still a measured gap.",
+   "priority": 7,
+   "size_mb": 236.3,
+   "file_count": 288,
+   "unity_version": [
+    "2021.3.11"
+   ],
+   "last_update": "2024-01-18T12:59:29Z",
+   "first_published": "2024-01-18T12:59:29Z",
+   "read_from": "store product record (assetstore.unity.com/packages/package/<id>, server-rendered) + Package content file list (public GraphQL PreviewAssets), read 2026-09-13"
+  },
+  {
+   "id": 396548,
+   "name": "Combat Arenas & Fighter Characters Pack",
+   "url": "https://assetstore.unity.com/packages/3d/environments/combat-arenas-fighter-characters-pack-396548",
+   "category": "arena",
+   "publisher": "Mixall",
+   "price_eur": 103.04,
+   "sale_price_eur": null,
+   "licence": "Standard Unity Asset Store EULA (product record customLicense=false, no extra licence text); the record has no AI clause - FAB and direct-publisher copies are not this licence",
+   "pipeline": "2022.3.62f3: Built-in/URP",
+   "rig": "20 Fighters: Mecanim-rigged single meshes (~6,000 faces, 4096 Color+Normal); environments static",
+   "contents": "A BUNDLE of five Mixall packs, verified by file name: 20 Fighters (107/107 files), Octagon (324/326), Boxing arena - fighting show (101/102), Boxing hall - interior and equipments (187/190), Japan Dojo - Fight arena (153/155), plus 384 extra baked-scene files (233 EXR lightmaps). 97 FBX, 181 prefabs, 188 materials, 537 PNG. No lighting or post-processing included (store).",
+   "we_would_use": [
+    "arena_profile mma_cage <- Octagon venue: arena_building (seats with LODs), lamps, cube LED display, commentator unit + headsets, production monitors, cameras on tripods, railings, belt, bell hammer, mic, blood decals",
+    "arena_profile boxing_ring (boxing, kickboxing, muay_thai) <- Boxing arena hall: building, round screen, ring with separated ropes, red/blue seating, spotlights, judges' desk + chairs, ring steps, queue barriers",
+    "tatami profiles (karate_tatami, judo_tatami, taekwondo_tatami, wrestling_mat, sambo_mat, grappling_mat) <- the Boxing arena HALL with an authored mat in place of the ring - no pack in the list sells a competition tatami hall",
+    "GymHubPanel FLOOR (the fight gym) <- Boxing hall: room, ring (club_ring), punching bags + stand (heavy_bag), platform speed ball (speed_bag), pear bag (nearest to double_end_bag), punching bag man / BOB (striking target), wrestling punchbag (grappling_dummy), wall pads, gloves + helmet + lockers (focus_mitts_locker, striking_safety_locker), benches, referee table",
+    "TitleBoardPanel / TitleHonours in 3D <- SM_Belt x3, SM_Medal x4, SM_Goblet x5, shelves, posters, flags",
+    "a dojo scene for karate/judo athletes <- Japan Dojo: building modules, tatami (judo_tatami_area), wooden dummy, target, pictures, lamps",
+    "BootStage3D FIGURES <- Karateka_1 (WHITE GI, BLACK BELT - seen in the store screenshots: the figure R111 could not show), Judoka_1 and BJJ_1 (blue gi), Kickboxer_1, Thai_boxer_1, MMA_fighter_1/2, Boxer_1-4, Wrestler_1/2, Sambo_wrestler_1",
+    "S4a control body <- any of the 20: a hand-rigged, hand-skinned body under the same RamsterZ clip separates S4a cause 4 (Tripo auto-rig skinning) from causes 1-3"
+   ],
+   "godot_cost": "FBX and PNG import directly. REBUILD: 188 Unity .mat -> StandardMaterial3D (one converter over the .mat YAML texture GUIDs serves every Mixall pack), 181 .prefab -> Godot scenes (mostly one mesh + one material + collider), prop layout from the .unity YAML transforms if wanted, 233 EXR lightmaps DISCARDED - we light in Forward+ as BootStage3D already does. The ring and cage meshes are optional: ArenaRig builds both to real dimensions from arena_specs.json; the VENUE is the value.",
+   "overlaps": [
+    209412,
+    213484,
+    283861,
+    127494,
+    264438,
+    375770
+   ],
+   "on_record": "Its part 20 Fighters is on record (Q50, R140, roadmap animation_purchases_ON_HOLD: \"the one exception worth considering separately - BODIES not animation, closes R111's gi gap\"). CORRECTION: HANDOFF.md says the Mixall pack has \"no Thai fighter in it\" - its file list has Thai_boxer_1 and Kickboxer_1.",
+   "verdict": "BUY AT SALE",
+   "reason": "One purchase is the arena set, the fight gym and the fighters, in one publisher's style, scale and material model: EUR 103.04 against EUR 147.15 for the five parts (saves EUR 44.11, 30% at list). Not under the animation hold - bodies and environments. CHECK AT CHECKOUT: if the sale discounts the parts and not the bundle, the parts at half price (EUR 73.58) win.",
+   "priority": 1,
+   "size_mb": 1140.4,
+   "file_count": 1264,
+   "unity_version": [
+    "2022.3.62"
+   ],
+   "last_update": "2026-07-29T20:00:16Z",
+   "first_published": "2026-07-29T20:00:16Z",
+   "read_from": "store product record (assetstore.unity.com/packages/package/<id>, server-rendered) + Package content file list (public GraphQL PreviewAssets), read 2026-09-13"
+  },
+  {
+   "id": 209412,
+   "name": "Octagon - fighting ring and show arena",
+   "url": "https://assetstore.unity.com/packages/3d/environments/octagon-fighting-ring-and-show-arena-209412",
+   "category": "arena",
+   "publisher": "Mixall",
+   "price_eur": 27.59,
+   "sale_price_eur": null,
+   "licence": "Standard Unity Asset Store EULA (product record customLicense=false, no extra licence text); the record has no AI clause - FAB and direct-publisher copies are not this licence",
+   "pipeline": "not declared (Unity 2019.4.0; pre-SRP listing, Built-in)",
+   "rig": "static",
+   "contents": "34 unique models / 48 prefabs, 116 PBR textures 512-4096 (Albedo/Normal/Metallic/AO), 19 to 32.6k tris; arena building, modular octagon ring (11k tris), seats/railings with LODs, commentator unit/headset, LED display, production monitor, cameras, tripods, belt, bell hammer, mic, blood decals. Unity 2019.4 Built-in. No lighting or post.",
+   "we_would_use": [
+    "see 396548 - identical files inside the bundle (324/326 by name)"
+   ],
+   "godot_cost": "as 396548: 91 .mat to convert, 48 prefabs, 3 EXR discarded.",
+   "overlaps": [
+    396548
+   ],
+   "on_record": "none as a package (\"Octagon\" hits in research are the fight venue, not this pack)",
+   "verdict": "COMBINE WITH 396548",
+   "reason": "It is inside the bundle; buying it separately pays for it twice.",
+   "priority": 0,
+   "size_mb": 244.4,
+   "file_count": 326,
+   "unity_version": [
+    "2019.4.0"
+   ],
+   "last_update": "2021-12-19T15:45:12Z",
+   "first_published": "2021-12-19T15:45:12Z",
+   "read_from": "store product record (assetstore.unity.com/packages/package/<id>, server-rendered) + Package content file list (public GraphQL PreviewAssets), read 2026-09-13"
+  },
+  {
+   "id": 213484,
+   "name": "Boxing arena - fighting show",
+   "url": "https://assetstore.unity.com/packages/3d/environments/boxing-arena-fighting-show-213484",
+   "category": "arena",
+   "publisher": "Mixall",
+   "price_eur": 27.59,
+   "sale_price_eur": null,
+   "licence": "Standard Unity Asset Store EULA (product record customLicense=false, no extra licence text); the record has no AI clause - FAB and direct-publisher copies are not this licence",
+   "pipeline": "not declared (Unity 2019.4.0; pre-SRP listing, Built-in)",
+   "rig": "static",
+   "contents": "10 unique models / 19 prefabs, 41 PBR textures 1024-4400x1024; building 142.8k tris, ring with separated ropes 14.3k tris, furniture 15.9k tris; round screen, spotlights, seats, desk/chairs, ring steps, barriers. Unity 2019.4 Built-in. No lighting or post.",
+   "we_would_use": [
+    "see 396548 - identical files inside the bundle (101/102 by name)"
+   ],
+   "godot_cost": "as 396548: 18 .mat, 19 prefabs, 10 EXR discarded.",
+   "overlaps": [
+    396548
+   ],
+   "on_record": "none",
+   "verdict": "COMBINE WITH 396548",
+   "reason": "It is inside the bundle; buying it separately pays for it twice.",
+   "priority": 0,
+   "size_mb": 98.0,
+   "file_count": 102,
+   "unity_version": [
+    "2019.4.0"
+   ],
+   "last_update": "2022-02-11T12:03:22Z",
+   "first_published": "2022-02-11T12:03:22Z",
+   "read_from": "store product record (assetstore.unity.com/packages/package/<id>, server-rendered) + Package content file list (public GraphQL PreviewAssets), read 2026-09-13"
+  },
+  {
+   "id": 283861,
+   "name": "Martial Arts Dojo",
+   "url": "https://assetstore.unity.com/packages/3d/props/interior/martial-arts-dojo-283861",
+   "category": "arena",
+   "publisher": "3D Everything",
+   "price_eur": 23.0,
+   "sale_price_eur": null,
+   "licence": "Standard Unity Asset Store EULA (product record customLicense=false, no extra licence text); the record has no AI clause - FAB and direct-publisher copies are not this licence",
+   "pipeline": "6000.0.56f1: Built-in/URP",
+   "rig": "static",
+   "contents": "34 low-poly models/prefabs (25-9,000 polys), 1024 PNG textures, real scale: walls/floor/ceiling, benches, boxing bag, 2 standing punching bags, wooden dummy, 2 kick shields, espalier (wall bars), flags x4, pictures x5, katana, logo, clock. A MODERN sport dojo with red/blue mats (screenshots). Unity 6000.0 Built-in/URP.",
+   "we_would_use": [
+    "karate_tatami / taekwondo_tatami LOOK <- the red/blue mat floor (a texture we can author)",
+    "heavy_bag <- Boxing bag; striking targets <- Punching Bag 1/2, Shield 1/2; mobility_stretch_station <- Espalier"
+   ],
+   "godot_cost": "34 FBX + 37 PNG direct; 32 .mat to rebuild; low texel density shows up close.",
+   "overlaps": [
+    396548,
+    264438,
+    127494
+   ],
+   "on_record": "none",
+   "verdict": "SKIP",
+   "reason": "Low-poly with 1K textures, below the Mixall set it would sit beside; the bundle's Boxing hall and Japan Dojo cover bags, dummies and a dojo. Its one distinctive idea - the red/blue sport-karate mat - is a floor texture we author ourselves.",
+   "priority": 6,
+   "size_mb": 41.5,
+   "file_count": 144,
+   "unity_version": [
+    "6000.0.56"
+   ],
+   "last_update": "2025-09-11T18:10:15Z",
+   "first_published": "2024-05-28T15:10:19Z",
+   "read_from": "store product record (assetstore.unity.com/packages/package/<id>, server-rendered) + Package content file list (public GraphQL PreviewAssets), read 2026-09-13"
+  },
+  {
+   "id": 142273,
+   "name": "Fitness hall - interior and props",
+   "url": "https://assetstore.unity.com/packages/3d/props/interior/fitness-hall-interior-and-props-142273",
+   "category": "gym",
+   "publisher": "Mixall",
+   "price_eur": 27.59,
+   "sale_price_eur": null,
+   "licence": "Standard Unity Asset Store EULA (product record customLicense=false, no extra licence text); the record has no AI clause - FAB and direct-publisher copies are not this licence",
+   "pipeline": "2021.3.15f1: Built-in/URP",
+   "rig": "static",
+   "contents": "11 unique models / 16 prefabs: a glass-walled fitness studio room, window, door, step platform, fitness ball (+ jump ball), 3 small weights, cover, balancer, mirrors, lattice, lamp. Unity 2021.3 Built-in/URP. (The store description repeats 127334's text; the FILE LIST is the aerobics studio.)",
+   "we_would_use": [
+    "mobility_stretch_station <- fit ball, step, mats (thin)"
+   ],
+   "godot_cost": "4 FBX; 18 .mat to rebuild.",
+   "overlaps": [
+    127334,
+    298461,
+    302207
+   ],
+   "on_record": "none",
+   "verdict": "SKIP",
+   "reason": "An aerobics studio, not a fight gym, and its store copy describes a different pack - the file list is the truth.",
+   "priority": 8,
+   "size_mb": 85.1,
+   "file_count": 74,
+   "unity_version": [
+    "2021.3.15"
+   ],
+   "last_update": "2023-11-16T15:38:15Z",
+   "first_published": "2019-03-22T10:06:09Z",
+   "read_from": "store product record (assetstore.unity.com/packages/package/<id>, server-rendered) + Package content file list (public GraphQL PreviewAssets), read 2026-09-13"
+  },
+  {
+   "id": 127334,
+   "name": "Fitness hall - sports equipment",
+   "url": "https://assetstore.unity.com/packages/3d/props/interior/fitness-hall-sports-equipment-127334",
+   "category": "equipment",
+   "publisher": "Mixall",
+   "price_eur": 27.59,
+   "sale_price_eur": null,
+   "licence": "Standard Unity Asset Store EULA (product record customLicense=false, no extra licence text); the record has no AI clause - FAB and direct-publisher copies are not this licence",
+   "pipeline": "2021.3.15f1: Built-in/URP",
+   "rig": "static",
+   "contents": "11 FBX / 34 prefabs, PBR up to 3840x2160: treadmill (6.2k tris), stationary bicycle (8.1k), barbell (10k), dumbbells 1-12 lb (15k) + 2 rack types (16k), bench, bench press (4k), power half rack, step platform, room with brick walls and neon strips. Unity 2021.3 Built-in/URP.",
+   "we_would_use": [
+    "compact_weights (strength) <- Dumbbells + Dumbbell_rack + Dumbbell_rack_vertical, Barbell, Bench, Bench_Press, Power_Half_Rack",
+    "cardio_floor <- Treadmill",
+    "exercise_bike <- Stationary_bicycle",
+    "not covered by any row: air_bike, rowing_ergometer, cold_water_tub, rehabilitation_pool, sports_medicine_room"
+   ],
+   "godot_cost": "11 FBX direct; 21 .mat through the same Mixall converter as the bundle; 9 EXR discarded.",
+   "overlaps": [
+    396548,
+    298461,
+    302207,
+    313032
+   ],
+   "on_record": "none",
+   "verdict": "BUY AT SALE (second priority)",
+   "reason": "The equipment set that matches the bundle's publisher, scale and materials, for the strength and cardio stations the Boxing hall does not have. Buy it once the 3D gym floor is greenlit, or at the sale if the operator wants the stations covered now; the free Low Poly pack stands in for blockout until then.",
+   "priority": 2,
+   "size_mb": 170.5,
+   "file_count": 130,
+   "unity_version": [
+    "2021.3.15"
+   ],
+   "last_update": "2023-09-28T13:47:11Z",
+   "first_published": "2018-09-12T21:44:08Z",
+   "read_from": "store product record (assetstore.unity.com/packages/package/<id>, server-rendered) + Package content file list (public GraphQL PreviewAssets), read 2026-09-13"
+  },
+  {
+   "id": 313032,
+   "name": "Low Poly Old-School Gym Equipment",
+   "url": "https://assetstore.unity.com/packages/3d/props/interior/low-poly-old-school-gym-equipment-313032",
+   "category": "equipment",
+   "publisher": "Poly Ronin",
+   "price_eur": 0.0,
+   "sale_price_eur": null,
+   "licence": "Standard Unity Asset Store EULA (product record customLicense=false, no extra licence text); the record has no AI clause - FAB and direct-publisher copies are not this licence",
+   "pipeline": "6000.0.26f1: Built-in/HDRP/URP",
+   "rig": "static",
+   "contents": "ON DISK (downloaded 2026-09-13 03:05, read with FBXDocument): ONE FBX holding 27 mesh nodes (Godot counts 31,862 split vertices; the store states 8,076 verts / 15,618 tris - flat shading splits vertices), laid out together in a 2.87 x 2.61 x 2.76 m block at real scale, ONE material on a 135-byte colour-palette PNG, 27 prefabs, a demo scene and a PDF: bench, plates rack, dumbbells rack, 2 barbells, 5 plates, 10 dumbbells, 3 kettlebells, bench press, squat rack, leg press, pull-up/dips/abs machine. Flat-shaded low poly (screenshots). Built-in default.",
+   "we_would_use": [
+    "GymHubPanel FLOOR blockout <- every prop as a placeholder for compact_weights while the 3D gym layout is designed"
+   ],
+   "godot_cost": "1 FBX + a palette PNG - loads directly; split the 27 nodes into props.",
+   "overlaps": [
+    127334,
+    298461
+   ],
+   "on_record": "roadmap now: FREE, in the operator's account, operator asked for the download",
+   "verdict": "FREE - DOWNLOADED",
+   "reason": "Free blockout geometry for laying out a 3D gym floor; the flat-shaded style is not a shipping art set against the R18 bar and must not sit beside the Mixall PBR set.",
+   "priority": 1,
+   "size_mb": 0.4,
+   "file_count": 32,
+   "unity_version": [
+    "6000.0.26"
+   ],
+   "last_update": "2025-03-07T13:21:16Z",
+   "first_published": "2025-03-07T13:21:16Z",
+   "read_from": "store product record (assetstore.unity.com/packages/package/<id>, server-rendered) + Package content file list (public GraphQL PreviewAssets), read 2026-09-13"
+  },
+  {
+   "id": 298461,
+   "name": "VIP Gym Bundle — 160+ Rigged Models & Complete Scene",
+   "url": "https://assetstore.unity.com/packages/3d/environments/vip-gym-bundle-160-rigged-models-complete-scene-298461",
+   "category": "gym",
+   "publisher": "MHK Art",
+   "price_eur": 33.12,
+   "sale_price_eur": null,
+   "licence": "Standard Unity Asset Store EULA (product record customLicense=false, no extra licence text); the record has no AI clause - FAB and direct-publisher copies are not this licence",
+   "pipeline": "6000.4.7f1: HDRP/URP; 2022.3.49f1: HDRP",
+   "rig": "machines rigged; 2 animations (exercise bicycle, fly machine)",
+   "contents": "141 FBX / 202 prefabs (avg ~634 verts per model), 391 textures 4K/2K/1K/512: dumbbells 5-50 kg, mini dumbbells, kettlebells x6, barbells, plates, racks, benches (flat/incline/decline), power smith, hack squat, lat pulldown, cable crossover, pulleys, leg raise/dip station, treadmill, AirRunner, bike, jump boxes, medicine balls, foam rollers, bosu, aerobic mats and ropes, one punching bag; lobby, locker-room sofa, WC, plants, speaker. Unity 6000.4 HDRP/URP and 2022.3 HDRP - no Built-in.",
+   "we_would_use": [
+    "compact_weights <- the deepest weights set in the list",
+    "cardio_floor <- tredmill, AirRunner; exercise_bike <- Bike",
+    "mobility_stretch_station <- foam rollers, aerobic mats, bosu, medicine balls",
+    "heavy_bag <- punching bag (1)"
+   ],
+   "godot_cost": "141 FBX + 385 PNG; HDRP/URP materials rebuilt (a different converter from Mixall's); 2 nested .unitypackage files for the pipelines.",
+   "overlaps": [
+    127334,
+    302207,
+    313032
+   ],
+   "on_record": "none",
+   "verdict": "SKIP",
+   "reason": "A premium commercial fitness club - machine-heavy, lobby and WC included - in a dark HDRP look that does not sit with the Mixall set. The best-looking gym renders in the list, but the fight gym is the Boxing hall and its weights corner is 127334 in matching style.",
+   "priority": 5,
+   "size_mb": 545.8,
+   "file_count": 736,
+   "unity_version": [
+    "2022.3.49",
+    "6000.4.7"
+   ],
+   "last_update": "2026-06-25T11:05:47Z",
+   "first_published": "2024-11-04T14:23:12Z",
+   "read_from": "store product record (assetstore.unity.com/packages/package/<id>, server-rendered) + Package content file list (public GraphQL PreviewAssets), read 2026-09-13"
+  },
+  {
+   "id": 302207,
+   "name": "HQ Gym Interior",
+   "url": "https://assetstore.unity.com/packages/3d/environments/hq-gym-interior-302207",
+   "category": "gym",
+   "publisher": "Bright Vision Game",
+   "price_eur": 27.59,
+   "sale_price_eur": null,
+   "licence": "Standard Unity Asset Store EULA (product record customLicense=false, no extra licence text); the record has no AI clause - FAB and direct-publisher copies are not this licence",
+   "pipeline": "2022.3.62f3: Built-in/HDRP/URP/custom SRP",
+   "rig": "static",
+   "contents": "38 FBX / 38 prefabs, PBR up to 2048: GymShell room + collider, leg/shoulder machines, cable crossover/row, dual pulley, chin-up dip, benches, 2 dumbbell racks, spin cycles, treadmill, elliptical, stepper, recumbent bike, mats + hanger, massage table, reception, sofa, plants, lights, fan. Baked lighting + post; separate URP and HDRP .unitypackage inside. 946 MB.",
+   "we_would_use": [
+    "physio_table <- MassageTable (the only one in the list)",
+    "mobility_stretch_station <- MatA/B/C + MatHanger, Ball",
+    "cardio_floor <- Treadmil, zEllipticalb, Stepper; exercise_bike <- SpinCycle, Recumbant Bike"
+   ],
+   "godot_cost": "38 FBX; materials rebuilt; baked lighting and post DISCARDED; 946 MB download for 38 props.",
+   "overlaps": [
+    298461,
+    127334,
+    142273
+   ],
+   "on_record": "none",
+   "verdict": "SKIP",
+   "reason": "A modern commercial gym with no combat equipment; its one unique item for our catalogue is a massage table.",
+   "priority": 6,
+   "size_mb": 946.5,
+   "file_count": 278,
+   "unity_version": [
+    "2022.3.62"
+   ],
+   "last_update": "2026-01-28T13:27:12Z",
+   "first_published": "2026-01-28T13:27:12Z",
+   "read_from": "store product record (assetstore.unity.com/packages/package/<id>, server-rendered) + Package content file list (public GraphQL PreviewAssets), read 2026-09-13"
+  },
+  {
+   "id": 303410,
+   "name": "GYM Workout Animation Pack",
+   "url": "https://assetstore.unity.com/packages/3d/animations/gym-workout-animation-pack-303410",
+   "category": "animation",
+   "publisher": "Voxel Vision",
+   "price_eur": 18.39,
+   "sale_price_eur": null,
+   "licence": "Standard Unity Asset Store EULA (product record customLicense=false, no extra licence text); the record has no AI clause - FAB and direct-publisher copies are not this licence",
+   "pipeline": "6000.2.13f1: Built-in/HDRP/URP",
+   "rig": "Humanoid (Unity .anim + FBX, VoxelVision default character); in place; equipment NOT included (store)",
+   "contents": "55 workout animations: barbell (bench press, curls, rows, squat, deadlifts, roll-outs), dumbbell (curls, rows, presses, flys, goblet squat), kettlebell (press, curls, goblet), push-ups (standard, decline, incline, medicine ball walkover), pull-up, dips, planks, lunges, jump squat, hanging knee raises, wood chopper. The URL carried no name - this is it.",
+   "we_would_use": [
+    "GymHubPanel FLOOR / TrainingHubPanel 3D scene <- fighters working the compact_weights station (bench press, squats, curls, rows) and bodyweight conditioning (push-ups, pull-ups, dips, planks)",
+    "NOT covered by anything in the list: heavy bag work, speed bag, double-end bag, skipping rope, pad work (paired coach + fighter), shadowboxing, sparring, stretching, cardio machines"
+   ],
+   "godot_cost": "56 FBX (the 55 .anim are Unity YAML and do not port - the FBX carry the takes); humanoid map; props (bars, dumbbells) must be attached to hands per clip.",
+   "overlaps": [
+    313032,
+    127334
+   ],
+   "on_record": "none",
+   "verdict": "BUY AT SALE IF S4a CLEARS THE RETARGET",
+   "reason": "Only needed if the operator's 3D gym scenes are greenlit, and even then it animates the strength corner, not the fight-gym work (bags, rope, pads) that makes the room read as a fight gym. Animation hold applies.",
+   "priority": 4,
+   "size_mb": 139.4,
+   "file_count": 172,
+   "unity_version": [
+    "6000.2.13"
+   ],
+   "last_update": "2026-02-05T14:28:16Z",
+   "first_published": "2024-12-17T02:34:13Z",
+   "read_from": "store product record (assetstore.unity.com/packages/package/<id>, server-rendered) + Package content file list (public GraphQL PreviewAssets), read 2026-09-13"
+  },
+  {
+   "id": 330607,
+   "name": "Gym & Fitness Club 3D Environment | Realistic Interior Pack for Unity",
+   "url": "https://assetstore.unity.com/packages/3d/environments/gym-fitness-club-3d-environment-realistic-interior-pack-for-unit-330607",
+   "category": "gym",
+   "publisher": "Enviable Game Studios",
+   "price_eur": 13.79,
+   "sale_price_eur": null,
+   "licence": "Standard Unity Asset Store EULA (product record customLicense=false, no extra licence text); the record has no AI clause - FAB and direct-publisher copies are not this licence",
+   "pipeline": "2022.3.62f3: Built-in/HDRP/URP/custom SRP",
+   "rig": "static",
+   "contents": "31 FBX / 32 prefabs: walls and ground, roof + frame, exterior ground, door, window, 2 barbells, cable cross, black and red punch bags, pads, 2 drums, 3 dumbbells + bench, gym ball, 3 benches, 2 posters, rack, rugs, treadmill, tyre, weight plate + stand. Unity 2022.3 Built-in/URP/HDRP.",
+   "we_would_use": [
+    "heavy_bag <- Black/RedPunchBag; focus mitts <- Pads; conditioning dressing <- Tyre, Drums"
+   ],
+   "godot_cost": "31 FBX; 18 .mat to rebuild.",
+   "overlaps": [
+    127494,
+    127334
+   ],
+   "on_record": "none",
+   "verdict": "SKIP",
+   "reason": "The cheapest paid gym and the only one with a fight-gym flavour (bags, tyre, pads), but its screenshots show a sparse room, flat light and poster slogans - below the bar next to the Mixall set.",
+   "priority": 7,
+   "size_mb": 238.8,
+   "file_count": 159,
+   "unity_version": [
+    "2022.3.62"
+   ],
+   "last_update": "2026-03-27T08:36:46Z",
+   "first_published": "2025-12-10T15:07:16Z",
+   "read_from": "store product record (assetstore.unity.com/packages/package/<id>, server-rendered) + Package content file list (public GraphQL PreviewAssets), read 2026-09-13"
+  },
+  {
+   "id": 116144,
+   "name": "3D Modern Menu UI",
+   "url": "https://assetstore.unity.com/packages/tools/gui/3d-modern-menu-ui-116144",
+   "category": "ui",
+   "publisher": "SlimUI",
+   "price_eur": 0.0,
+   "sale_price_eur": null,
+   "licence": "Standard Unity Asset Store EULA (product record customLicense=false, no extra licence text); the record has no AI clause - FAB and direct-publisher copies are not this licence",
+   "pipeline": "2020.3.48f1: Built-in/HDRP/URP",
+   "rig": "n/a",
+   "contents": "READ FROM THE FILES (operator downloaded 2026-09-13 03:14, extracted without importing): 75 files, 14.2 MB of which 13.9 MB is the PDF manual. THE \"3D\" IS THIN: two tilted world-space uGUI canvases (Canvas_DefaultTemplate1 / MobileTemplate1) and a camera Animator that blends between TWO poses - UIMenuManager.cs Position1()/Position2() set one float \"Animate\" to 0/1 over MenuCamPos1/MenuCamPos2, plus a MenuCamIdle drift. 10 C# scripts (UIMenuManager, UISettingsManager, theme editor), TextMeshPro SDF atlases for Lato/Poppins/Rubik, 3 click SFX + a music sample, panel/button/cursor PNGs. Depends on com.unity.postprocessing 2.3.0, textmeshpro 3.0.6, ugui.",
+   "we_would_use": [
+    "REFERENCE ONLY, and a thin one: a menu as panels placed in 3D with a camera that moves between stations. BootStage3D already drives a camera with two out-of-phase drift cycles (47 s orbit, 31 s rise), which is more than this pack does",
+    "the fonts are free Google Fonts (Lato, Poppins, Rubik) if ever wanted - the SDF atlases themselves are Unity TextMeshPro data and do not port"
+   ],
+   "godot_cost": "Nothing ports (uGUI, C#, TMP atlases, Unity post-processing).",
+   "overlaps": [
+    371178
+   ],
+   "on_record": "roadmap now: FREE, in the operator account, operator asked for the download",
+   "verdict": "FREE - DOWNLOADED",
+   "reason": "Free and on the operator theme (3D scenes instead of text-heavy menus), but reading the files shows the idea is two camera poses behind flat panels. The 3D menu we want - a live room with stations - is BootStage3D grown, not this pack.",
+   "priority": 1,
+   "size_mb": 14.2,
+   "file_count": 75,
+   "unity_version": [
+    "2020.3.48"
+   ],
+   "last_update": "2023-11-27T15:56:24Z",
+   "first_published": "2018-04-27T16:50:27Z",
+   "read_from": "store product record (assetstore.unity.com/packages/package/<id>, server-rendered) + Package content file list (public GraphQL PreviewAssets), read 2026-09-13"
+  },
+  {
+   "id": 371178,
+   "name": "Modern Menus - Synty INTERFACE - GUI",
+   "url": "https://assetstore.unity.com/packages/2d/gui/modern-menus-synty-interface-gui-371178",
+   "category": "ui",
+   "publisher": "Synty Studios",
+   "price_eur": 92.0,
+   "sale_price_eur": null,
+   "licence": "Standard Unity Asset Store EULA (product record customLicense=false, no extra licence text); the record has no AI clause - FAB and direct-publisher copies are not this licence",
+   "pipeline": "2022.3.56f1: Built-in/URP",
+   "rig": "n/a",
+   "contents": "2,601 files: 1,746 PNG sprites, 365 UGUI prefabs, 195 .anim, 139 icon FBX (coins, gems, chests, crowns, medals - free-to-play iconography), 31 C# scripts, fonts Barlow Condensed / Bungee / Saira Condensed (Google Fonts). Unity 2022.3 Built-in/URP.",
+   "we_would_use": [
+    "nothing - UIKit is the only source for screens and Lucide the function icons; the three fonts are free Google Fonts if ever wanted"
+   ],
+   "godot_cost": "Prefabs and scripts do not port; sprites would be re-cut into UIKit.",
+   "overlaps": [
+    116144
+   ],
+   "on_record": "none",
+   "verdict": "SKIP",
+   "reason": "EUR 92 for a 2D sprite kit styled for Synty POLYGON games, with loot-box iconography a sports sim does not use, duplicating UIKit and Lucide.",
+   "priority": 9,
+   "size_mb": 247.9,
+   "file_count": 2601,
+   "unity_version": [
+    "2022.3.56"
+   ],
+   "last_update": "2026-05-05T05:23:11Z",
+   "first_published": "2026-04-29T22:12:10Z",
+   "read_from": "store product record (assetstore.unity.com/packages/package/<id>, server-rendered) + Package content file list (public GraphQL PreviewAssets), read 2026-09-13"
+  }
+ ],
+ "related_not_in_list": [
+  {
+   "id": 375770,
+   "note": "part of 396548 - Mecanim-rigged 20-fighter body set, EUR 36.79; store screenshots show a white gi with black belt, blue gis, singlets, gloves and headgear",
+   "url": "https://assetstore.unity.com/packages/package/375770"
+  },
+  {
+   "id": 127494,
+   "note": "part of 396548 - the fight gym: ring, bags, speed ball, BOB, wall pads, lockers, trophies, EUR 27.59",
+   "url": "https://assetstore.unity.com/packages/package/127494"
+  },
+  {
+   "id": 264438,
+   "note": "part of 396548 - traditional Japanese dojo with tatami and exterior, URP, EUR 27.59",
+   "url": "https://assetstore.unity.com/packages/package/264438"
+  },
+  {
+   "id": 127631,
+   "note": "Mixall boxing gloves + helmet (3 colours), EUR 13.79 - checked and not needed: the Boxing hall already carries gloves (Mitt) and a helmet",
+   "url": "https://assetstore.unity.com/packages/package/127631"
+  },
+  {
+   "id": 380252,
+   "note": "Mixall \"Sports equipment - Full pack\", EUR 36.79 - checked and rejected: ball sports (baseball, hockey, golf, rugby), nothing for a fight gym",
+   "url": "https://assetstore.unity.com/packages/package/380252"
+  }
+ ]
+}

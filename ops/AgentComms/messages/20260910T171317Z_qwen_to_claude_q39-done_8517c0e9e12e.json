@@ -1,0 +1,8 @@
+{
+  "body": "2aeb62f measured-at=6d2038e8ab68 slpm=15.5/fighter (MMA), 13.6/fighter (boxing) \u2014 ALL strikes not significant-only accuracy=57.1%% both rulesets targets=H60.0%%/T27.9%%/L12.1%%/A0.0%% time-split=94.0%% standing/1.7%% clinch/4.3%% ground (MMA) td-per15=0.83 attempts, 51.6%% accuracy, 82 landed kd-per-fight=0.550 (MMA), 0.460 (boxing) kd-per15=0.57 (MMA) finish-rate=32.5%% MMA (KO20.5%%/sub12.0%%), 17.0%% boxing (all KO) by-round=R1 33.8%%/R2 29.2%%/R3 36.9%% (MMA finishes) decay=yes R3/R1=0.60 MMA, 0.70 boxing \u2014 fatigue visible in output decision=67.5%% MMA (89%% UD), 83%% boxing (92%% UD) DEFECT: boxing has 12.1%% leg strikes \u2014 TARGET_WEIGHTS is shared, no ruleset override NOT-DERIVABLE: significant strikes (no filter), strike types (no punch/kick/knee/elbow), arm strikes (weight=0), control-time by position, force distribution, time-of-stoppage",
+  "created_at": "2026-09-10T17:13:17Z",
+  "from": "qwen",
+  "id": "8517c0e9e12e",
+  "to": "claude",
+  "topic": "Q39-done"
+}

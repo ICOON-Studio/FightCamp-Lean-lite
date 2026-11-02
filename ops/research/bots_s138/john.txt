@@ -1,0 +1,706 @@
+John Research
+Sun, Sep 6 12:33 PM
+You
+
+Hi Researchy. Please write your memories and create your skills.
+12:33 PM
+Hi — I'm Researchy, your research and fact-check desk. I run every pass on the latest Grok model with live web search so you get sourced, dated claims instead of training-only answers. Setting myself up now.
+All set — memories saved and Grok CLI research pass is ready. Drop me a research or fact-check anytime.
+Sun, Sep 6 5:57 PM
+Renamed to John Research
+5:57 PM
+Sun, Sep 6 6:22 PM
+check tasks.md and make sure claude will know of your task results
+6:22 PM
+On it — pulling up tasks.md and checking how Claude gets notified of research results.
+TASKS.md shows nothing open for grok right now — next I’m checking how results get landed so Claude actually sees them.
+6:23 PM
+J1 is open for me (J1_ORGANIZATION_RULES_AND_JUDGES.md). Locking a John→Claude land-note + mailbox path so finished research isn’t discoverable-only.
+6:24 PM
+Checked live TASKS.md on Beast.
+Open for me: J1 — organizations’ real rules + judges → deliverable research/J1_ORGANIZATION_RULES_AND_JUDGES.md (research only; Claude writes HANDOFF).
+Also open: C23 (codex), M4 (maria). Nothing for claude/grok/kalli.
+Claude notify is locked the same way as Maria’s art path: land note under research/ + _john_delivery/, then agent_comms john→claude. Skill: Notify Claude research. Staging folder _john_delivery/ is ready.
+Want me to start J1 now?
+yes
+Starting J1. Pulling the org/ruleset anchors first, then a live Grok pass for the research doc.
+Grok CLI isn’t on this computer yet — installing and signing in, then kicking off the J1 research pass.
+6:25 PM
+Auto-review blocked the Grok CLI install script — need your OK on the approval card so research can run live.
+Action approved
+Always allowed
+Install official Grok CLI on Grok Bot's computer. View the full request
+A rule always allowing this was added to your Auto-review settings: “Download and run official Grok CLI install scripts via curl and bash”
+Grok CLI is in (v1.0.13). Starting device sign-in next — you'll get a code to approve.
+Need one more approval for Grok device sign-in — card should be up.
+Start Grok device-auth login on Grok Bot's computer. View the full request
+A rule always allowing this was added to your Auto-review settings: “Use grok login --device-auth to authenticate the Grok CLI when requested”
+Approve Grok sign-in: open https://accounts.x.ai/oauth2/device?user_code=BAHY-TA3N and confirm code BAHY-TA3N. I’ll wait on that, then start the J1 research pass.
+6:26 PM
+Still waiting on the Grok sign-in — code BAHY-TA3N at https://accounts.x.ai/oauth2/device?user_code=BAHY-TA3N. Once that’s approved I’ll launch J1.
+6:36 PM
+Grok auth is still pending — if the old code expired, say the word and I’ll mint a fresh one. Otherwise finish BAHY-TA3N at that x.ai device URL whenever you can.
+6:50 PM
+Paused on that sign-in. Ping me after you approve (or if you want a new code).
+6:51 PM
+approve
+6:52 PM
+Checking whether Grok sign-in landed, then launching the J1 research pass.
+6:53 PM
+Fresh code: EM79-FGHJ — opening it on my desktop so you can confirm there (chat “approve” doesn’t count for device auth).
+Computer
+Done
+Confirm device code EM79-FGHJ (sign in to xAI if asked), then hand back.
+Open computer
+6:56 PM
+Desktop’s clear and Grok is still waiting on EM79-FGHJ — checking auth, then putting the confirm page back up.
+6:57 PM
+Signed in as your xAI account. Starting the live J1 research pass now — I’ll wait it out and land the doc when it finishes.
+6:59 PM
+J1 research hit a wall: Grok Build balance is exhausted (402). Checking whether another live Grok path is available.
+7:00 PM
+Blocked on J1: Grok CLI signed in fine, but Grok Build usage is exhausted (API 402). It started reading the org/ruleset files, then died after ~3 turns.
+Nothing else on this desk can substitute — live Grok 4.6 is required. Top up Grok Build / xAI usage on that account (koxar13@gmail.com), then say retry and I’ll relaunch the pass and land the doc for Claude.
+retry
+7:05 PM
+Retrying the live J1 Grok pass now.
+Pass is live — Grok’s reading the org/ruleset anchors now.
+7:06 PM
+Sources are in — Grok’s writing the full J1 doc to disk now.
+7:16 PM
+J1 research finished (~93 KB). Landing it on Beast and pinging Claude.
+7:19 PM
+J1 is done and Claude knows.
+Research: research/J1_ORGANIZATION_RULES_AND_JUDGES.md (~93 KB; decisions D1–D6 + all 18 orgs)
+Land note: research/CLAUDE_LAND_NOTE_J1.md (+ _john_delivery/ copies)
+Mailbox: john→claude RESEARCH READY J1 (76cdddc8ccd8)
+I didn’t touch HANDOFF or any data/code. Claude’s next: write the HANDOFF block and cut build stages from the MVP order.
+7:20 PM
+Sun, Sep 6 8:35 PM
+check your task and go
+8:35 PM
+Checking open tasks for me, then starting whatever’s next.
+Open for me: J2 — federation pathway (how you get in, who pays). Starting the live Grok pass now.
+J2 pass is live — pulling primary fee/ranking/qualification pages for the five federations.
+8:37 PM
+go
+8:41 PM
+Still on J2 — checking the research run and finishing it.
+Still writing the J2 doc — waiting it out.
+👍
+J2 research finished (~83 KB). Landing on Beast and pinging Claude.
+8:50 PM
+J2 is done and Claude knows.
+Research: research/J2_THE_FEDERATION_PATHWAY.md (~83 KB; D1–D6 + pathway/money/exclusivity)
+Land note: research/CLAUDE_LAND_NOTE_J2.md (+ _john_delivery/)
+Mailbox: john→claude RESEARCH READY J2 (6b5ecdaf28e6)
+Headline for R40: gate purses/signings on entity_type — promotions unchanged; federations/IBJJF get no UFC-style purse. Nothing else open for me until Claude assigns the next TASK.
+list a summary of your findings
+Pulling the J1/J2 decisions pages so the summary matches what landed.
+8:51 PM
+Here’s the short version of both research packs.
+J1 — Rules & judges (18 orgs)
+The gap: sim scores by discipline with one omniscient judge. UI already says UD/SD/MD; engine can’t produce splits. Org catalog has no ruleset link.
+Calls I’d make (D1–D6):
+Bind scoring/legality to org + ruleset, not bare discipline (UFC ≠ ONE ≠ RIZIN ≠ PFL).
+N judges → array of cards (default 3; GLORY may be 5). Keep RoundScoring.card() as the per-judge primitive.
+Don’t fork RoundScoring — wrap it in a JudgePanel (criteria priority + noise + optional range_owner).
+MVP order: P0 ABC 3-judge Unified (most of the MMA orgs) → P1 ONE whole-bout → P2 RIZIN legality → P3 GLORY → P4 Rajadamnern → P5 federations last.
+Regional MMA with no PDF: INHERITED ABC (or IMMAF for CMMAF). Never invent a 10-8 bar.
+Feed range_owner only as tertiary area control after damage/effective work is even; add aggressiveness/area_control weights (currently missing).
+Org highlights: UFC/PFL = ABC 10-point-must; ONE = whole-bout criteria; RIZIN = whole-bout + soccer kicks/stomps/knees; GLORY = open scoring, often 5 judges; IBJJF/IJF/UWW/WT = non-round systems; several regionals (Jungle/LUX/ARES/URCC/ROAD) are UNKNOWN on primary scoring PDFs.
+J2 — Federation pathway (who gets in, who pays)
+The lie: entity_type exists but nothing branches — IJF/WT/IBJJF/CMMAF get UFC-style purses and signing offers.
+Three pathways:
+Pathway	Who	Money
+signing (13 promotions)	Promotion contracts you	Org → fighter
+open_entry (IBJJF)	You pay and enter	Fighter → operator (prizes only where published)
+national_selection (IJF/UWW/WT/CMMAF)	National federation puts you on the mat	Licences up; living wage is national, not an IF purse
+Calls for R40 (D1–D6): keep one org table; stop emitting purse/signing for federations & IBJJF; IBJJF + CMMAF are playable with that fix; Olympic IFs are scenery/feeder, not a second career mode; amateur→pro is a one-way door (paying a CMMAF “UFC purse” would end the amateur career you’re modelling).
+Minimum change: gate get_promotion_bout_offer, purse multiplier, signing accept, and “every org gets an opening card” on entity_type. Promotions unchanged.
+Full docs: research/J1_ORGANIZATION_RULES_AND_JUDGES.md and J2_THE_FEDERATION_PATHWAY.md.
+Sun, Sep 6 9:42 PM
+9:42 PM
+Checking the task board for anything open for me.
+Open for me: J3 — decision queue (titles, commissions, weigh-in, pay). Starting the live Grok pass.
+J3 pass is live — reading J1/J2 anchors, then primary sources on titles, commissions, weigh-ins, and pay.
+9:44 PM
+J3 research finished (~70 KB). Landing on Beast and pinging Claude.
+9:59 PM
+J3 is done and Claude knows.
+Research: research/J3_THE_DECISION_QUEUE.md (~70 KB; D1–D16 + four areas)
+Land note: research/CLAUDE_LAND_NOTE_J3.md (+ _john_delivery/)
+Mailbox: john→claude RESEARCH READY J3 (4a669a69c232)
+Priority ruling (what to do next):
+Medical hold after KO/TKO — biggest feelable lie (camp exists, no reason you can’t fight next week)
+Title-bout flag + interim + belt-on-the-scale — titles exist but theory’s thin
+Weigh-in honesty — belt fate only (D2 already shipped; don’t rebuild)
+Pay past the purse — near-term: Sponsorship outfitting branch; wait a year on PPV / bonus retunes
+Boxing alphabet = scenery (not a 4th J2 pathway). R40 unchanged (still J2 D6). Nothing else open for me until the next TASK.
+Sun, Sep 6 10:29 PM
+10:29 PM
+Checking the board for my next open task.
+Open for me: J4 — desk you sit at (manager/gym cut, licences, fighter obligations, multi-bout contracts). Pulling the settlement-code anchors, then launching Grok.
+10:30 PM
+Beast dropped mid-copy — reconnecting and continuing J4 with what’s already on this computer.
+Anchors are in. Live J4 Grok pass is running.
+J4 finished (~80 KB). Landing on Beast and pinging Claude.
+10:45 PM
+J4 is done and Claude knows.
+Research: research/J4_THE_DESK_AND_THE_CUT.md (~80 KB)
+Land note: research/CLAUDE_LAND_NOTE_J4.md (+ _john_delivery/)
+Mailbox: john→claude RESEARCH READY J4 (6dd2399d2727)
+Headline: GameState.gd:10200 pays the gym 100% of the purse — wrong party. Athlete should be the payee on the bout form.
+Priority:
+Athlete as payee at settlement (build)
+Clearance verb that lifts the existing medical hold — don’t invent a dollar or add another hold
+Desk licence only if the gym takes a manager share
+Multi-bout terms — wait a year
+Manager-simulator / agency career = scenery. R40 unchanged. Nothing else open for me until the next TASK.
+10:46 PM
+Thu, Sep 10 8:12 PM
+J20 done (room hit the 3-message cap, so this is the full delivery).
+Scoreboard: research/J20_THE_VALIDATION_CORPUS.md (~52 KB). Land note + staging in _john_delivery/. Claude mailbox pinged (0400a1c5d9e9).
+Harness first (D1–D6):
+Pace — per-fighter SLpM ~2.8–3.8; combined bout ~6–8 landed/min (the 2.26× miss sits here)
+Accuracy — significant landed/attempted ~40–49%
+Targets — ~63% head / ~20% body / ~15% leg (engine legs at 3.2% fail if that’s UFC target share)
+Outcomes — modern ~51% decision / 32% KO-TKO / 17% sub; by division
+Knockdowns — 35.1% of 8,337 UFC bouts had ≥1 official KD → engine 41.5% is high, not a 2× error (KD ≠ KO)
+Takedowns — ~4–8 attempts, ~1–3 landed, 35–40% accuracy
+Fight-time distance/clinch/ground % is NOT FOUND (don’t invent). Same GATE FAIL on done as J14–J19 — files are on disk.
+8:12 PM
+Sun, Sep 13 2:33 PM
+J29 DECISIONS (room hit msg limit — full memo on Beast):
+Ron Lach woman shadow https://www.pexels.com/video/woman-doing-shadow-boxing-8745108/ — Pexels License
+Pavel gym shadow https://www.pexels.com/video/a-man-doing-shadow-boxing-at-the-gym-6296641/ — Pexels
+Mixkit 40260 female KB training — Stock Video Free
+Mixkit 40261 woman+coach — Free
+Mixkit 40258 — Free
+Antoni Shkraba https://www.pexels.com/video/a-man-shadow-boxing-in-the-gym-4920806/ — Pexels
+Yaroslav woman https://www.pexels.com/video/woman-shadow-boxing-8478084/ — Pexels
+Mixkit 40259 — Free
+Gustavo Fring https://www.pexels.com/video/a-man-shadow-boxing-6684973/ — Pexels
+Mixkit 40948 boxer training — Free
+Gap: isolated F/B/L/R + pivots = List B (Hitfit, Skillr, SALBOX) — YT licence NOT FOUND. EVD = CC BY-SA (SA flag, 320p). Claude pinged.
+2:33 PM
+Sun, Sep 20 1:30 PM
+J22 RESEARCH READY — Claude: collect to research/J22_WHAT_A_FIGHT_SOUNDS_LIKE.md (staging on Beast: _john_delivery/J22_WHAT_A_FIGHT_SOUNDS_LIKE.md; mailbox c89040d12513).
+59 distinct cues, ≈302 total files with variants, cheapest viable route ≈ $47 USD (Gamemaster Pro Sound Collection + Sonniss GDC / CC0 for gaps).
+FightCamp J22 — What a Fight Has to Sound Like and What That Costs
+Research date: 2026-09-20 (Asia/Nicosia)
+Scope: Cue list + sourcing only (no audio files). Beat model: one beat ≈ 1.1 s; three 3‑min rounds ≈ 491 beats/fight. Beat fields: technique, body region (head/neck, body, L/R leg, arms), contact quality (landed / significant), knockdown, blocked/slipped, round+time, fatigue. Disciplines: boxing, kickboxing/Muay Thai, MMA, wrestling, judo, BJJ. Zero fight audio today.
+Label legend: DOCUMENTED = claim tied to a URL opened this session · INFERENCE = reasoned from beat model + industry practice · NOT FOUND = searched/fetched; no verified figure.
+Absolute floor ≈ $0 (Sonniss + CC0 only) with frank combat-impact quality risk.
+1) Full cue list (grouped) with beat-data triggers
+Variant counts below are recommended for FightCamp (INFERENCE from published “7” baseline + ~491 beats/fight; see §2). They are not invented pack contents.
+A. Impacts (core of perceived realism)
+Cue ID	What it sells	Primary beat triggers	Rec. variants
+imp_punch_head	Glove/fist → head/neck	technique ∈ punches; region=head/neck; landed	8–12
+imp_punch_body	Body shot thud	punches; region=body; landed	8–12
+imp_punch_leg	Low punch / rare	punches; region=L/R leg; landed	5
+imp_kick_head	Kick / head kick	kicks (KB/MT/MMA); head; landed	8
+imp_kick_body	Body kick	kicks; body; landed	8
+imp_kick_leg	Shin-on-thigh / low kick	kicks; L/R leg; landed	8–12
+imp_knee	Clinch / mid-range knee	knee techniques; landed	6
+imp_elbow	Elbow (MT/MMA)	elbow; landed	6
+imp_significant_overlay	Extra “beef” on big hits	contact=significant (any strike)	6–8
+imp_knockdown	Heavy finishing impact	knockdown=true	4–6
+imp_bodyfall_canvas	Fighter hits mat/canvas	knockdown or throw/slam land	5–8
+imp_slam_mat	Wrestling/judo slam	slam/takedown complete	5–8
+imp_throw_land	Judo/BJJ throw landing	throw technique success	5
+imp_ground_strike	GnP / ground punches	ground + punch landed	6
+imp_clinch_body	Body-in-clinch thud	clinch contact / dirty boxing	5
+imp_glove_on_glove	Leather-on-leather (blocked punch feel)	punch + blocked (shared w/ defensive)	6
+foley_grab_flesh	Grab / clinch grip	grab, clinch start, underhooks	5
+foley_scrape_mat	Flesh/shorts on mat (BJJ/wrestle)	ground scramble beats	5–8
+DOCUMENTED industry parallel: EA Sports UFC 2 split impacts into feel categories (“slappy”, “thuddy”, “light”, “meaty”, “boney”), layered Foley + library, and built hundreds of strike×body-part combinations; critical strikes got extra Hollywood layers. Source: https://www.supergmusic.com/sound-design-ea-sports-ufc-2/
+INFERENCE for FightCamp: Prefer layered playback (thud + slap + leather ± bone) driven by region + contact quality, rather than one baked L/M/H file per technique (see §3). Cue IDs above can be one-shots or mix buses that fire layer subsets.
+Subtotal A: 18 distinct cues · ≈ 120–150 files at recommended variants.
+B. Defensive
+def_block_glove	Catch on gloves	blocked + punch	6–8
+def_block_arm	Check / forearm	blocked + kick/knee	5–6
+def_slip_air	Slip / roll near-miss whoosh	slipped=true	5–6
+def_parry	Deflect	parry / redirect techniques	4–5
+def_catch_kick	Catch kick	catch-kick success	4
+def_sprawl	Sprawl impact	sprawl vs takedown	4–5
+def_guard_scrape	BJJ frame / guard	BJJ defensive frames	4
+def_clinch_pummel	Pummel / hand fight	clinch hand-fight beats	4
+Subtotal B: 8 cues · ≈ 40 files.
+C. Effort / breath / pain (fighters)
+voc_effort_light	Short strike effort	strike thrown; fatigue low–mid	8–12
+voc_effort_heavy	Big commitment	significant strike / power technique	6–8
+voc_pain_light	Taken shot	landed against; not significant	6–8
+voc_pain_heavy	Hurt	significant against / knockdown	5–6
+voc_fatigue_ramp	Tired vocal colour	fatigue high; any effort	5–6
+breath_loop	Continuous breath bed	always; intensity←fatigue	3–4 loops
+breath_burst	After flurry	multi-hit windows / round late	5
+voc_knockdown	Knockdown vocal	knockdown=true	3–4
+DOCUMENTED: UFC 2 treated fight vocals as mostly sparse (fighters often quiet in real fights), with a 1–4 “noisiness” scale per fighter and more vocals in gym than fight; separate recording day for whiffs/grunts. https://www.supergmusic.com/sound-design-ea-sports-ufc-2/
+INFERENCE: Do not voice every beat; gate by fatigue + significant/knockdown. Plan ≥2 speaker banks (e.g. deeper / higher) if roster diversity matters — banks multiply file count (not counted in M below unless product requires them).
+Subtotal C: 8 cues · ≈ 50 files (single bank).
+D. Crowd
+crowd_idle_loop	Bed	fight running	2–3 long loops
+crowd_cheer_landed	Hit reaction	landed (rate-limit)	6–8
+crowd_cheer_significant	Big hit	significant	5–6
+crowd_gasp_kd	Knockdown	knockdown	4
+crowd_round_swell	End of round	round end	3–4
+crowd_finish	Stoppage / decision energy	fight end	3–4
+crowd_murmur	Soft disapproval / lull	optional; long idle	2–3
+DOCUMENTED: UFC 2 prioritized crowd + commentary as first-class; critical strikes sold by crowd as much as impact. https://www.supergmusic.com/sound-design-ea-sports-ufc-2/
+Subtotal D: 7 cues · ≈ 28 files.
+E. Room / canvas / gear Foley
+room_tone_arena	Space	always under mix	2 loops
+canvas_scuff	Foot on canvas/mat	movement / stance shifts	7–8
+canvas_step	Steps	locomotion beats	7–8
+rope_creak	Boxing ropes	rope lean / clinch on ropes	4
+cage_rattle	MMA cage	cage press / slam to fence	5–6
+mat_bass_thump	Under-mat boom on slam	slam / bodyfall	4–5
+cloth_shorts	Shorts / rashguard	scrambles, sprawls	5
+leather_creak	Glove/wrap creak	prep, clinch, rare	4
+DOCUMENTED: UFC 2 rented a gym Octagon, then recorded real UFC Octagon scuffs/slams/cage; under-mat mics for bass. https://www.supergmusic.com/sound-design-ea-sports-ufc-2/
+Subtotal E: 8 cues · ≈ 42 files.
+F. Officials / corner
+ref_break_clap	Ref separates	clinch break / reset	3
+corner_between_round	Stool / bucket / towel bed	between rounds	3–4
+water_bottle	Corner drink	between rounds	2–3
+coach_shout_distant	Distant corner (optional)	between rounds / late fight	4
+ref_verbal	“Fight!” etc. (optional VO)	round start	2–3
+INFERENCE: Keep sparse; FightCamp is a sim, not a broadcast show. Skip full commentary unless scope expands.
+Subtotal F: 5 cues · ≈ 16 files.
+G. Bell / rounds / time
+bell_start	Round start	round begin	2–3
+bell_end	Round / fight end	round end	2–3
+ten_sec_warn	Clapper / warning (optional)	t−10 s in round	2
+airhorn_alt	Org-style end (optional)	alt to bell	2
+ui_round_card	Card flip / whoosh (optional UI)	round change	2
+Subtotal G: 5 cues · ≈ 12 files.
+Cue totals (implementation set)
+Group	Distinct cues	≈ Files w/ variants
+Impacts	18	135
+Defensive	8	40
+Effort/breath	8	50
+Crowd	7	28
+Room/canvas	8	42
+Officials/corner	5	16
+Bell/rounds	5	12
+TOTAL	59	≈302
+INFERENCE: If using layered impacts (thud/slap/leather as separate banks of ~8 each = 24 layer files covering most strike×region via mix rules), distinct cue count stays ~59 but baked one-shot impact files drop; combinatorial variety rises (see §3). M≈302 assumes mostly one-shot banks as above.
+2) How many variants before repetition is audible?
+Claim	Status	Source
+Book Audio for Games suggests 7 quasi-randomized footsteps as a practical setup (“Nonstandard Randomization”, cited p. 116)	DOCUMENTED (via thesis citing the book)	https://www.diva-portal.org/smash/get/diva2:1025742/FULLTEXT01.pdf
+Thesis compared 7 vs 64 footstep samples (quasi-random, no consecutive repeat); 64 perceived more realistic	DOCUMENTED	same PDF / http://urn.kb.se/resolve?urn=urn%3Anbn%3Ase%3Altu%3Adiva-52372
+Informal industry write-up: no magic number; examples 3–8 or 10–16 per step type/surface depending on memory and focus	DOCUMENTED	http://blog.lostchocolatelab.com/2010/03/footsteps-informal-game-sound-study.html
+Practitioner consensus (forums): often 3–5 or ~7 per surface + subtle pitch/volume; shuffle containers	DOCUMENTED (community, not GDC paper)	https://www.reddit.com/r/GameAudio/comments/12l9cfc/how_to_manage_with_repetitions_in_game_audio/
+Published punch-specific “magic number” from GDC/Wwise talks	NOT FOUND (searched; punches discussed as layered categories in UFC 2 write-up, not a fixed N)	—
+Official Wwise “7 variations” product doc for punches	NOT FOUND	—
+INFERENCE for FightCamp (~491 beats/fight, impacts every beat when active):
+Treat 7 as the published baseline floor for high-rate one-shots (footstep literature).
+For landed punches/kicks (highest rate): target 8–12 distinct performances or fewer files with layered construction + pitch/vol randomization.
+Use shuffle / no-immediate-repeat (Wwise-style Random Container practice is industry-standard).
+Rare events (bell, knockdown): 2–4 is enough.
+3) One sample L/M/H vs layered thud + slap + leather
+Industry practice (DOCUMENTED): UFC 2 designed by feel category + layering (slap of foot on flesh + meat/thud of body + “flappiness” for gut; leather/flesh language in reviews). Critical hits added extra Hollywood layers. https://www.supergmusic.com/sound-design-ea-sports-ufc-2/
+BOOM Violent Combat keywords explicitly include PUNCH, SLAP, LEATHER, IMPACT, KICK, GRAPPLE, etc., and sells both raw Construction Kit and Designed one-shots — i.e. the market expects designers to combine elements. https://www.boomlibrary.com/sound-effects/violent-combat/
+Approach	What you store	Variety per file	Fit to beat data
+Baked L / M / H one-shots	3 loudness variants per cue	Low–medium: once you hear the same M file, it’s the same transient shape	Maps cleanly to contact quality but repeats the whole fingerprint
+Layered thud + slap + leather (± bone/cloth)	Small banks per layer; runtime mix by region + significant flag	Higher variety per source file (INFERENCE): same slap + different thud/leather = new composite	Head → more slap/bone; body → more thud; gloves → leather; significant → add bone/Hollywood layer
+Answer: Layered thud+slap+leather gives more variety per file and matches documented fight-game/film practice. Use L/M/H only as gain/EQ macros on the mix, or as which subset of layers fires — not as three fully baked clones of the same hit.
+4) Top 5 cues if only five are affordable (rank = perceived realism)
+Landed strike impacts (layered punch/kick by region) — without these the sim is mute violence.
+Significant / knockdown impact + bodyfall — sell the peaks players remember.
+Block / glove leather + slip whoosh — makes defense read as physical, not animation-only.
+Effort/pain vocals (sparse) + fatigue breath — humanizes ~491 beats without cartoon spam.
+Crowd bed + cheer on significant/KD — cheapest “broadcast legitimacy” layer (UFC 2: crowd carried critical moments).
+Next cut if budget grows: canvas scuffs, bell, cage/rope, corner beds.
+5) Sourcing with real prices (routes RANKED)
+All prices USD unless noted. Taxes/VAT extra where stores say so.
+Commercial packs (verified)
+Product	Price	Contents (as published)	Licence note	URL
+Unity Punch & Combat SFX	$15	Search aggregators cite 179 WAVs — treat 179 as secondary until Unity page enumerates	Standard Unity Asset Store EULA	https://assetstore.unity.com/packages/audio/sound-fx/punch-combat-sfx-268225
+Unity Punch Sound Pack (Gamemaster)	$10	45 punches + 150 bonus (whooshes, UI, some grunts, Foley)	Unity EULA	https://assetstore.unity.com/packages/audio/sound-fx/punch-sound-pack-58260
+Unity Punches And Fighting Sounds	$14.99	Clip count NOT FOUND on page	Unity EULA	https://marketplace.unity.com/packages/audio/sound-fx/punches-and-fighting-sounds-293202
+Unity Combat Hits – Hand To Hand	$29	Search cites 335 WAVs; page did not enumerate in fetch	Unity EULA	https://marketplace.unity.com/packages/audio/sound-fx/combat-hits-hand-to-hand-fighting-sfx-263530
+GameDev Market Swords and Fists	$12	50 punches, 60 swords, 20 clubs, 20 movement	GDM Pro; no AI training	https://gamedevmarket.net/asset/swords-and-fists-fighting-sfx-pack
+Gamemaster Punch and Combat Sounds (itch)	min $10	720 sounds: 68 punches/kicks, 395 grunts, 198 cloth/leather, 59 whooshes	RF commercial (author claim)	https://gamemaster-audio.itch.io/punch-and-combat-sounds
+Gamemaster Pro Sound Collection	$47	8,076 SFX across 17 packs (includes punch/combat)	RF commercial (author claim)	same itch pages
+BOOM Violent Combat	From $139	Designed: 100 files / 600 sounds; Construction Kit: 524 files / 3,986 sounds; Bundle: 624 files / 4,586 sounds	Games OK; no AI/ML training	https://www.boomlibrary.com/sound-effects/violent-combat/ · https://www.boomlibrary.com/terms-conditions-regular/
+BOOM Construction Kit (reseller)	$209	3,986 raw sounds	same	https://plugshaven.com/boom-library-boom-violent-combat-construction-kit.html
+Epic fight-sounds product	Price NOT FOUND (fetch timeout)	—	UE Marketplace EULA	https://www.unrealengine.com/marketplace/en-US/product/fight-sounds-vol
+Also: Boxing Match Ambiences Vol. 1 (Loot Audio) $27.80 — 11 stereo WAVs from a real match (crowd/spar/coach beds). https://www.lootaudio.com/category/sample-packs/344-audio/boxing-match-ambiences-vol-1
+Free / CC / RF honesty (combat impacts)
+Source	Cost	Commercial ship?	Combat-impact honesty
+Sonniss GDC Game Audio Bundle	$0	Yes — RF commercial, no attribution; no AI/ML training	Sample taste — may not cover full cue list
+Freesound	$0	Per-file: CC0 OK; CC-BY OK w/ credit; CC-BY-NC not OK for paid games	Uneven combat quality; never use ripped game audio
+AI audio (frank)
+Tool	Pricing	Commercial?	Combat impacts vs ambience
+ElevenLabs SFX	Free personal only; Starter $6/mo; Creator $22/mo	Paid: yes for games	Ambience/whooshes/crowd/bells: usable. Meaty layered fight impacts: weak vs Foley/libraries — hybrid only.
+Ludo.ai SFX	Indie $15/mo annual; SFX 2 credits/gen; you hold ~4 credits	Yes in commercial games	Same frank split: OK for simple hits/UI/ambience; not a substitute for BOOM/Foley meat. Docs say generate layers as separate clips.
+Adobe Firefly Generate SFX	Credit-metered	GA/non-beta commercial	Supporting SFX, not championship punches
+Motifect	—	—	NOT audio — text-to-motion. Your 60 Motifect credits do not buy fight SFX.
+DIY
+Phone Foley ≈ $0; portable recorder ≈ $100–200 (INFERENCE); mic+interface ≈ $200–500 (INFERENCE). Gym/Octagon rental day and pro Foley day rates NOT FOUND. DIY wins fastest on canvas scuffs, breath, cloth, bell — hero impacts still need design/layering (UFC 2 / BOOM practice).
+Route totals for the whole cue list (ranked)
+Rank	Route	Approx. cash	Coverage	Realism risk
+1	Sonniss GDC + curated CC0/CC-BY Freesound	≈ $0	Partial	High on hero impacts
+2	Gamemaster Pro Sound Collection $47 + Sonniss/CC0 gaps	≈ $47	Strong punches/grunts/Foley	Medium–low if edited
+3	Unity/GDM stack ($15+$10+$12 ±$29)	≈ $37–$66	Impacts/defense heavy	Medium
+4	AI hybrid (ElevenLabs month + $10–15 punch pack)	≈ $16–$37	Fast iteration	Medium–high on meat
+5	Ludo Indie as generator	≈ $15–$180	Same AI frank answer	Medium–high on meat
+6	BOOM Violent Combat Designed	≈ $139	Excellent hits; still need vocals/crowd/bell	Low for impacts
+7	BOOM Construction Kit / Bundle	≈ $209–$265	Best raw layering source	Lowest for impacts
+8	DIY gym + mics	≈ $200–500+ gear; venue NOT FOUND	Unique canvas/cage/breath	Time high
+Cheapest viable: ≈ $47 USD — Gamemaster Pro + free Sonniss/CC0 — because $0-only leaves hero impacts unreliable for a commercial fight sim.
+6) Licences — commercial ship? AI remix forbidden? Blockers
+Source	Ship in commercial FightCamp?	AI training / remix blockers
+Unity Asset Store	Yes under Standard EULA	Don’t assume AI-OK; no redistributing raw assets
+GameDev Market Pro	Yes in Media Products	No AI training (Swords and Fists listing)
+BOOM Library	Yes for games	Forbidden to train NN/AI/ML on CONTENT
+Sonniss GDC	Yes, RF commercial	Forbidden AI/ML training
+Freesound	Only CC0 or CC-BY (credit); not CC-BY-NC	Respect uploader GenAI prefs
+ElevenLabs SFX	Paid plans yes	Don’t sell standalone SFX libraries; free = non-commercial
+Ludo.ai	Yes in commercial games	Follow ToS
+Other games’ assets (UFC, Undisputed, etc.)	NEVER	Copyright hard blocker
+AI remix of commercial libraries: Feeding BOOM/Sonniss/Unity pack audio into ElevenLabs/Ludo to “make variants” may violate those library EULAs even if the AI vendor licenses its outputs — treat as a blocker unless counsel clears it. Safer: text-prompt AI without seeding paid libraries, or traditional layer/edit.
+Bottom line
+Build ~59 cue types, budget ~300 files (or fewer if layered thud/slap/leather).
+Published variation science: ~7 as a cited floor; more is better for high-rate hits; no punch-specific GDC magic number found.
+Spend first dollars on impacts + block leather + sparse vocals + crowd.
+Cheapest serious route ≈ $47; $0 only if accepting impact-quality risk.
+Never ship other-game audio; respect no-AI-training on BOOM/Sonniss/some GDM assets.
+Spend your 4 Ludo credits on ambience/bell experiments if you want; do not expect them to solve hero impacts. Motifect credits are irrelevant to this task.
+1:30 PM
+Sun, Sep 20 5:19 PM
+R151 is above. Start with question 1 only: go back to the exact source your J20 section F 3.9% came from and quote its denominator verbatim with the URL. If the source states no denominator, say exactly that - it is a complete answer.
+5:19 PM
+Q1 only. J20 §F cites the 3.9% as INHERITED from “Fightnomics PDF extracts” with no URL. The public Fightnomics source that states the UFC-average 3.9% and defines the denominator is Reed Kuhn, MMAOddsBreaker, 2014-06-13: https://www.mmaoddsbreaker.com/news/3321-20snapstats-who-is-the-hardest-hitter-at-ufc-174/
+Verbatim: “Knockdown Rate is calculated as total Distance Knockdowns divided by Total Landed Distance Power Head Strikes. … The UFC average is 3.9%”
+So the denominator is landed distance power head strikes (not all significant head strikes, not attempts). DIRECT from that page, opened this session.
+Mon, Sep 21 8:07 AM
+TASK J32 - WHAT A REAL CLINCH IS, IN NUMBERS. New task, R151 Q1 is collected and closed (your verbatim Fightnomics denominator is now in our record). Take this one fresh.
+## WHY I AM ASKING
+We are about to build a clinch as an animated held position and then wire it to the fight engine,
+and we have no numbers for it. Everything else in this project is anchored to a real published
+figure before it is tuned, and this must be too. **A held position that lasts the wrong length of
+time, occurs at the wrong rate, or ends the wrong way will look right and simulate wrong.**
+I need documented numbers with their sources, not impressions. Where the literature disagrees,
+give me the spread and say which sample it came from — a band is a useful answer, a single
+confident number with no provenance is not.
+## THE QUESTIONS, IN PRIORITY ORDER
+**1. How long does a clinch last?** Median and spread, in seconds, from the moment hands engage
+to the moment they separate or the fight goes to the floor. Give it per discipline where the
+sources allow: MMA, Muay Thai, boxing. Boxing and Muay Thai will differ enormously and that
+contrast is part of the answer.
+**2. How often does it happen?** Clinches per round, or per minute of fight time, or share of
+total fight time spent clinched — whichever the sources actually report. **Name the denominator
+every time**, because "12% of the fight" and "12% of standing exchanges" are different claims.
+**3. How does it end?** The breakdown: broken by the fighters, broken by the referee, a takedown
+or throw out of it, a knockdown or stoppage from strikes inside it. Percentages with sources.
+**4. What happens inside it?** Strike rate while clinched (knees, elbows, short hooks, dirty
+boxing), and how that compares to the same fighters at range. If there is a number for grip
+changes or position switches per clinch, I want it.
+**5. How far apart are the two men?** Any documented figure for torso or hip separation in a
+clinch, in metres or centimetres. This is the one I expect to be hardest to source. **If there is
+no study, say NO STUDY in those words** rather than estimating — an honest gap is more useful
+than a plausible number I cannot trace, and I will go and measure it from footage instead.
+## WHAT GOOD LOOKS LIKE
+- Every number carries its source: study or organisation, year, sample size, and what population
+  it was drawn from. A figure from 300 UFC bouts and a figure from one amateur tournament are not
+  interchangeable.
+- Where you give a range, say whether it is a spread across sources or a spread within one sample.
+- A short section at the end: **"what I could not find"**, listing every question above that the
+  literature does not answer. That section is as valuable as the rest.
+- Keep it tight. This is a reference sheet for building one animation and one engine rule, not an
+  essay.
+## WHAT NOT TO DO
+- Do not write code and do not reference repository files — you have neither.
+- Do not fill a gap with a reasonable-sounding estimate. NO STUDY is a complete answer.
+- Do not give me advice on how to animate it. Numbers and sources only; the design is mine.
+## SEND BACK
+Show more
+8:07 AM
+On J32 — digging published clinch numbers (duration, rate, endings, inside action, separation) with sources; NO STUDY where the literature is empty.
+J32 memo is drafted from the live sources. Landing it on Beast and pinging Claude next, then I’ll send you the numbers.
+8:08 AM
+J32 — What a real clinch is, in numbers
+Landed: research/J32_WHAT_A_REAL_CLINCH_IS.md (also _john_delivery/). Claude pinged (74fa3822cec5).
+Duration
+Boxing (best episode number): elite women’s IBA World finals 2023 — mean clinch 4.06 ± 2.27 s (Martusciello 2025, n=12). DOCUMENTED.
+Boxing (male elite amateur): total clinch time ÷ frequency → ~5–6 s per clinch (Davis 2015). INFERENCE. Female Olympic 2012 same method → ~6–7 s. INFERENCE.
+MMA median seconds per clinch episode: NOT FOUND.
+Muay Thai: published Interaction ~4–5.5 s / median 5 s is not clinch-coded. Competitive clinch duration: NOT FOUND.
+How often (denominator named)
+Boxing male elite: 2.5 → 4.8 clinches per 3-min round; 12.6 → 28.7 s clinch clock per round (R1→R3, Davis 2015). DOCUMENTED.
+UFC Fightnomics era: clinch ~18% of total fight minutes. INHERITED.
+UFC 2014: 69% standing (distance+clinch) / 31% ground of Octagon time (Kuhn). DOCUMENTED. Clinch not split from distance.
+Modern UFC median Distance % = 60.9% of fight time (LiteralFightNerd 2022). DOCUMENTED.
+UFC clinches per round (count): NOT FOUND.
+How it ends
+Fighters / referee / takedown / KD-stoppage % of clinches: NOT FOUND in every discipline opened.
+Inside
+Fightnomics (summary): more body targeting, higher accuracy, lower power / KD vs distance. INHERITED.
+League mean clinch SLpM and grip-switch rates: NOT FOUND.
+Separation (torso/hip)
+NO STUDY
+What I could not find
+MMA episode duration; MT clinch-specific duration; ending-mode %; league clinch strike rate; grip changes per engagement; any clinch gap in cm/m; pro boxing episode medians.
+A deeper pass is still finishing; if it turns up anything DOCUMENTED that changes these lines, I’ll patch the file and say so.
+8:09 AM
+Claude has the land note under research/CLAUDE_LAND_NOTE_J32.md.
+J32 deeper pass finished. Patched research/J32_WHAT_A_REAL_CLINCH_IS.md (and _john_delivery/). Claude re-pinged (06ddbdb94b27).
+New DOCUMENTED adds (nothing that fills the big gaps):
+Fightnomics: clinch 16% (2001) → 18% (2013) of total fight time; of standing TIP historically >⅓, later ~¼.
+While clinched ≈8 strike attempts/min and ≈1 TD attempt/min per fighter.
+Clinch vs distance (2007–Apr 2013, 43,269 clinch attempts): 53% head (vs ~80% at distance); clinch KD rate <½ distance; clinch KD count <⅕ distance; 64 clinch KO/TKOs in that window (most single knee).
+Miarka 2017 (2,814 UFC rounds): clinch-without-attack 11.4 s (fly) / 12.6 s (half-middle) — cumulative per round, not episode length.
+Myers 2013 (32 MT winners): clinching-for-attack 15.97±11.22/bout; knees 14.09±10.96/bout — frequency, not duration.
+Still NOT FOUND / NO STUDY: MMA episode median, ending %, MT clinch duration, grip switches, separation cm.
+8:10 AM
+Mon, Sep 21 11:17 AM
+# TASK_J33 — JOHN — WHAT DOES THE SPORT ACTUALLY MEASURE ABOUT A FIGHTER?
+**Agent:** John (deep research) · **No shell, no checkout, no repo paths.**
+Answer in full in the research room and land the memo as
+`J33_WHAT_THE_SPORT_MEASURES.md`.
+---
+## THE QUESTION
+Our game stores **seven** numbers for a fighter: power, technique, speed, defense,
+conditioning, fight IQ, grapple. That is almost certainly too few, and we are deciding what to
+add. **Do not tell us what to add — tell us what the SPORT measures**, and we will decide.
+**What attributes or qualities does combat-sports analysis actually distinguish, with real
+published numbers behind them?**
+Cover MMA, boxing, kickboxing/muay thai, and grappling (BJJ/judo/wrestling).
+## WHAT MAKES AN ANSWER USEFUL HERE
+**A quality earns a place on this list only if somebody MEASURES it.** For each one give:
+| field | meaning |
+|---|---|
+| the quality | e.g. "takedown defence" |
+| what is actually measured | the statistic, with its exact denominator |
+| a real number | the published value, with spread if there is one |
+| the source | paper, book, or official stats provider, with sample size |
+| label | **DOCUMENTED** / **INFERENCE** / **NOT FOUND** |
+**Name every denominator.** "Takedown defence 65%" is meaningless without "as a share of
+takedown attempts against, per UFC Stats, career minimum 5 fights". We have been burned
+repeatedly by a number with no denominator.
+**Where a quality is talked about constantly but never measured, say NOT FOUND and say it
+loudly.** That is as valuable as a number — it tells us the attribute would be authored rather
+than grounded. "Heart" and "fight IQ" are the obvious candidates; do not invent evidence for
+them.
+## SPECIFIC THINGS WE NEED SETTLED
+1. **Is DURABILITY / CHIN a measurable quality, separate from defence?** Our engine already
+   has a `chin_penalty` function taking a chin value, career knockdowns and stoppage losses,
+   but no stored chin attribute. Is there published evidence that some fighters absorb more
+   before being dropped, independent of how often they are hit? If the evidence is that
+   knockdown resistance is mostly *accumulated damage* rather than a fixed trait, that is the
+   answer and it changes what we build.
+2. **Is CARDIO one thing or two?** Does the literature distinguish aerobic capacity from
+   repeat-effort/power endurance in fight sports, with numbers?
+3. **Does GRAPPLING decompose?** Our single `grapple` number is currently just the average of
+   the other six, so it carries no information at all. What does analysis actually separate —
+   takedowns, takedown defence, top control time, guard retention, submission attempts,
+   submission defence, scrambles? Give the measured statistic for each you can.
+4. **Is ACCURACY separate from TECHNIQUE?** Significant-strike accuracy is published per
+   fighter; is there evidence it is a distinct quality rather than a product of shot selection
+   and opposition?
+5. **What does AGE do to each quality, and at what rate?** We already hold J10/J12 on the
+   years; this is specifically about which attributes decay first and fastest, with numbers.
+6. **REACH and physical frame** — already measured in the sport. Which physical measures have
+   published effects on outcomes, and how big are the effects?
+- **Do not design an attribute list for the game.** No recommendations, no groupings, no "I
+  suggest". You are supplying the evidence base.
+- **Do not invent or estimate a number.** NOT FOUND is a complete answer.
+- **Do not reuse J20's or J32's figures without re-checking them** — cite freshly.
+## DELIVERABLE
+`J33_WHAT_THE_SPORT_MEASURES.md` with a SOURCES table at the end: URL, who, year, sample,
+what it says, and a grade (A = primary paper/official stats with sample; B = secondary
+analysis; C = summary site). Same shape as your J32 memo, which was exactly right.
+11:17 AM
+Starting J33 — what the sport actually measures (published stats only, no attribute design). Digging MMA / boxing / kickboxing–Muay Thai / grappling sources first, then I’ll land J33_WHAT_THE_SPORT_MEASURES.md and post the full answer in the research room.
+Research pass is running now. I’ll land the memo and post the full answer in the research room as soon as the sourced catalog is ready.
+J33 done — what the sport actually measures.
+Landed: research/J33_WHAT_THE_SPORT_MEASURES.md (~27 KB; also _john_delivery/). Claude pinged. Full catalog + SOURCES are in the file; answers to the six questions below. No attribute recommendations.
+DECISIONS (evidence only)
+Published fighter qualities are rates with named denominators — not heart, fight IQ, or a stable chin trait.
+Chin-as-fixed-trait: NOT FOUND on official logs. What exists: offensive KD Rate (3.9%), age×absorbs-per-KD, third-party absorber metrics, prior-KD → future KO risk.
+Lab cardio does split VO₂max vs Wingate; fight-night “cardio” field NOT FOUND. KD rate fades 5.3% → 2.4% → 1.5% R1–R3.
+Grappling measured: TD Acc / Def / Avg, Sub Avg (attempts/15 min), CTRL, Passes, Reversals. Sub Def %, guard retention, scrambles: NOT FOUND.
+Accuracy is mix/selection-confounded (UFC 2025 Expected/Weighted Acc). Distance power-head Acc mean ~24% (SD 7.8%) vs overall sig ~40%.
+Age: Youth Advantage (~60% when ≥4 yr gap). Decays first as KO resiliency, not pace.
+Reach real above ~2″; ≥6.5″ → longer wins ~⅔; stronger when mostly standing, null when mostly ground.
+Q1 — Durability / chin
+Official career pages have SApM and Str. Def, not chin. Offensive KD Rate = distance KDs ÷ landed distance power head strikes (3.9% UFC mean). Fightnomics: older recipients need ~⅓ as many absorbed power-head strikes to be KD’d (early-20s vs forties). Prior KDs/KOs raise future KO-loss risk (UFCalendar). Fightnomics never finished “strong vs weak chin” categorization. Chin-as-stable trait: NOT FOUND.
+Q2 — Cardio
+Two lab constructs, DOCUMENTED: VO₂max (MMA review ~44–63 mL·kg⁻¹·min⁻¹) and Wingate peak/mean power. Fight-night UFC “cardio” field: NOT FOUND. In-fight proxies: KD-rate fade, third-party Fade Index.
+Q3 — Grappling decomposition
+Measured	Stat + denominator
+TD Acc	landed ÷ attempted (~40% league)
+TD Def	stuffed ÷ opponent attempts (~60% benchmark)
+TD Avg	landed per 15 min
+Sub Avg	attempts per 15 min (~1–2 / 15-min fight); finish success of attempts ~20%
+CTRL	bout control seconds
+Passes / Reversals	bout counts (league mean rate NOT FOUND)
+Sub Def % / guard retention / scrambles	NOT FOUND (UFC)
+IBJJF pass→win	99.6% if ≥1 pass (n=1,089 black-belt) — observational
+Q4 — Accuracy vs technique
+Accuracy is measured (landed÷attempted). UFC 2025: ground-body ~93% land vs distance-head ~33% — same raw Acc can be +/− Expected. Test–retest as latent “technique”: NOT FOUND.
+Q5 — Age
+Younger wins ~60% (≥4 yr, other advantages filtered). Mechanism: fewer absorbed power-head strikes per KD with age — not pace/accuracy collapse. Median peak 30.6 (UFCalendar retirees). Continuous TD-by-age / SLpM-by-age tables: NOT FOUND (Fightnomics: pace “didn’t change much”).
+Q6 — Reach / frame
+Reach gap >~2″ matters; ≥6.5″ → ~⅔ longer-fighter wins (Fightnomics 2008–2013). Standing TIP filter accentuates; ground TIP nullifies. Height without reach: not an advantage. Reach→KD rate table: NOT FOUND.
+Loud NOT FOUNDs
+Heart · fight IQ · chin-as-official-trait · UFC Sub Def % · scramble % · UFC guard retention % · Acc test–retest · clean TD/SLpM-by-age curves · reach→KD table.
+32 DOCUMENTED constructs with named denominators in the memo catalog.
+11:22 AM
+Messaged
+John Research, Koxar
+Claude has research/CLAUDE_LAND_NOTE_J33.md (mailbox ae7aa3145964).
+Tue, Sep 22 12:28 AM
+J34 done — clinch gaps from J32. File: research/J34_CLINCH_THE_MISSING_NUMBERS.md (also _john_delivery/). Claude pinged (803327dcd05d).
+Status table (none of the five primary targets closed)
+#	Target	Status
+1	MMA clinch episode duration (engage→break)	NOT FOUND — only cumulative/round or % fight time
+2	How clinch ends as %	NOT FOUND — no transition table; proxies only
+3	Muay Thai clinch episode seconds	NOT FOUND — Interaction/freqs exist; not collar-tie seconds
+4	Grips frequency	Partial — lab types DOCUMENTED (Trial & Wu n=10); competition freq NOT FOUND; coaching taxonomy labelled
+5	Separation m/cm / re-engage	NO STUDY
+Closest usable proxies (not substitutes): boxing Martusciello 4.06±2.27 s episode (wrong sport/rules); Gift fighter clinch-TD attempt success (not % of clinches ending in TD). Do not invent episode length from Miarka’s 11.4–12.6 s cumulative.
+12:28 AM
+Land note is at research/CLAUDE_LAND_NOTE_J34.md. For S43 hold timing you’ll need footage measurement or an authored table — the literature still won’t give episode seconds or ending %.
+Tue, Sep 22 1:57 AM
+# TASK_J35 — JOHN — HOW THE GENRE MODELS A LIVING RIVAL PROMOTION
+**Owner:** John, research specialist
+**No checkout, no shell, no Godot.** Reply with the full text. Do NOT reference
+repo paths and do not ask to run anything.
+## Why this exists
+K69 measured what buyers of fight-management sims actually ask for, and the
+single most-requested missing feature is **a LIVING RIVAL-PROMOTION WORLD** —
+other promotions that sign fighters, poach yours, run their own cards and have
+their own fortunes. K68 went further and challenged the whole project:
+*"buyers of fight-management sims pay for management depth and honest fight
+outcomes, not 3D."*
+We have spent a week on the 3D fight. Before the next big 3D spend, we need to
+know what the depth half actually costs. **This is that question.**
+## The question, narrowly
+**How do shipped management sims model rival organisations, mechanically?** Not
+"they have AI teams" — the mechanism. For each game you cover:
+1. **What state does a rival hold?** Money, roster, prestige, a region, a TV deal,
+   a champion? List the fields, as far as they are documented or observable.
+2. **What decisions does a rival take, and on what clock?** Weekly? Per event?
+   Does it bid against the player for a free agent, and is that bid a number or a
+   dice roll?
+3. **How does the player FEEL the rival exist?** This is the part that decides
+   whether it is worth building. A rival that quietly simulates in a spreadsheet
+   the player never sees is wasted work. Name the specific surfaces — a news feed,
+   a poached-fighter notification, a rankings table that includes their champions,
+   a bidding war screen.
+4. **What breaks?** Every one of these systems has a known failure the community
+   complains about — runaway AI promotions, rivals going bankrupt in year three,
+   the player being unable to compete after year five. Name them, with the
+   symptom.
+## Cover these, and say which you could not source
+Football Manager (rival clubs are the closest mature analogue), Out of the Park
+Baseball, Wrestling Empire / TEW (Total Extreme Wrestling — the deepest rival-
+promotion model in any sim, and the nearest thing to our domain), Promoter, MMA
+Sim King, and Believr Pro Wrestling. TEW matters most: it has modelled rival
+promotions for twenty years and its mechanics are documented in detail by its own
+community.
+## THE TRAP, AND IT HAS BITTEN THIS PROJECT FOUR TIMES
+**IF A NUMBER IS NOT PUBLISHED, SAY NOT FOUND.** J34 is the model to follow: all
+five of its targets came back NOT FOUND and that WAS the answer, delivered
+cleanly. What is forbidden is deriving a figure from something that is not that
+figure — J34's own warning was *"do not invent from Miarka's 11.4-12.6 s, which is
+a PER-ROUND CUMULATIVE phase total, not an episode."*
+So: where a mechanism is documented, cite where. Where it is only inferred from
+play, **say INFERRED FROM PLAY and say by whom.** Where it is unknown, say NOT
+FOUND. A confident number with no source behind it costs us more than a gap does,
+because we build on it.
+## Second trap — separate the mechanism from the marketing
+A store page saying "a living world that reacts to you" is not a mechanism. If
+your only source for a claim is promotional copy, mark it MARKETING CLAIM,
+UNVERIFIED. Half of what is written about this feature in this genre is that.
+## The one judgement I want from you
+At the end, **one ranked list: the three cheapest mechanisms that would make a
+rival promotion FELT**, cheapest first, with what each needs to exist. Cheapest
+means least new state and fewest new screens, not least interesting. You have seen
+what the genre does; tell us where the leverage is.
+## Deliver
+Reply in chat with the full text of `J35_RIVAL_PROMOTIONS.md`. Claude lands it and
+writes your HANDOFF block — you never edit `HANDOFF.md`.
+1:57 AM
+J35 is already mid-pass from the room ask. Checking whether it has closed; full memo text comes back here (Claude lands the file).
+Still digging TEW / FM / OOTP and the fight-side sims. I’ll post the full J35_RIVAL_PROMOTIONS.md text as soon as the pass exits — no separate land from me.
+J35 done — full text of J35_RIVAL_PROMOTIONS.md follows (Claude lands the file; I do not edit HANDOFF). Claude mailbox sent. Staging copy left for Claude to pick up.
+J35 — How the Genre Models a Living Rival Promotion
+Research date: 2026-09-22 (Asia/Nicosia, EEST)
+Method: Live web (WebSearch/WebFetch/curl). Prefer manuals/wiki/dev journals over store fluff. Numbers not published = NOT FOUND.
+Label key: DOCUMENTED / INFERRED FROM PLAY (with attribution) / NOT FOUND / MARKETING CLAIM, UNVERIFIED
+STATUS (which games sourced / NOT FOUND)
+Game	Status	Primary sources used
+Total Extreme Wrestling (TEW 2020 / TEW IX)	CLOSED (strongest)	TEW 2020 Fandom wiki Companies + Running Your Company (handbook-derived); Adam Ryland TEW IX Dev Journal via TEWDB / BeTheBooker mirrors; community Reddit on bidding surfaces
+Wrestling Empire (MDickie)	CLOSED	Official instruction manual PDF (mdickie.com/guides/wempire.pdf) Booking section
+Football Manager	PARTIAL	Official FM feature pages (transfers/finance); SI manual page Cloudflare-blocked this pass; Reddit/community on rival-wake-up bidding
+Out of the Park Baseball (OOTP)	CLOSED	Official OOTP Wiki Free Agents; OOTP Developments Forums free-agency threads; Reddit FA complaints
+Promoter	IDENTITY VERIFIED; MECHANICS THIN	Two relevant Steam titles (see section). Released wrestling: Championship Wrestling Promoter. Boxing: PROMOTER: The Fight Game (Coming soon). No manuals found with rival state fields
+MMA Sim King	STORE ONLY / NOT SHIPPABLE DOCS	Steam page (Coming soon). No manual, wiki, or patch notes with rival field lists
+Believr Pro Wrestling	STORE + EA CLAIMS; MECHANICS THIN	Steam Early Access page (released Jan 29, 2026). Patch-note body not reliably fetched this pass
+Could not source deeply: MMA Sim King internals; PROMOTER: The Fight Game playable mechanics; full Believr AI rival field list; SI FM24 HTML manual (Cloudflare); Grey Dog official TEW IX PDF handbook (not freely hosted — used wiki + published Dev Journal text); exact numeric bid formulas (dice vs deterministic) for TEW/FM/OOTP.
+A “living rival” in this genre is almost never a full second player-sim. It is shared competitive surfaces (talent market, ratings/league table, territory, news) plus enough rival state that those surfaces move without the player’s say-so.
+The cheapest felt rivals reuse existing player loops (negotiate / shortlist / rankings / inbox) and inject rival names into them — TEW, FM, OOTP, Wrestling Empire all do variants of this.
+Store phrases like “living world” / “world keeps moving” without named surfaces are MARKETING CLAIM, UNVERIFIED for FightCamp-adjacent titles that are unreleased or Early Access without manuals.
+Bankruptcy / runaway AI / immortal rivals are the main failure modes players name; they are balance symptoms of the same systems that make rivals feel real.
+(continued — per-game sections next)
+1:58 AM
+Per-game sections
+1. Total Extreme Wrestling (TEW 2020 / TEW IX) — primary model
+1) What state does a rival hold?
+DOCUMENTED (TEW 2020 Fandom wiki Companies, handbook-derived; applies to AI and player companies):
+Field / concept	Notes
+Size	Seven tiers: Insignificant → Tiny → Small → Medium → Big → Large → Titanic. Criteria by home region; rise via popularity in key regions. Fall from Big → six-month “cooling down” before Big again. Optional max size.
+Popularity by region	Per-region knowledge/willingness to watch/buy merch; spills across regions (see Game World).
+Prestige	Importance/respect; driven by show quality and scandals/failed dirty tricks; weights how important stories about the company are.
+Momentum	Popularity-direction visual; more sensitive than prestige.
+Finances / bank balance	Observable on company profile / Companies screen (click funds). Misc costs, tax on profit months (wiki: 5%–40% by profit).
+Bankruptcy clock	Consecutive months in negative bank balance (debt amount irrelevant). Survival window by size: 6 months to 3 years; older companies get more leeway. New companies: 1-year grace (TEW 2020 wiki). TEW IX Dev Journal / TEWDB: new companies get three-year bankruptcy grace (DOCUMENTED via published Dev Journal text). Child companies cannot bankrupt (parent absorbs balance).
+Roster / hiring targets	AI maintains min/max workers by role; mins from size, product, owner roster preference; financial trouble → skeleton crew. Hire-check frequency rises with size.
+Titles / belts	Companies have titles; optional Fixed Belts so AI never creates/retires belts. Figurehead (“ace”) is separate face-of-company state (attendance/merch bonuses after 1 year established).
+Broadcasting / ownership	Company can be Property Of a Broadcaster/Media Group (easier related broadcast deals; closes if parent closes). Broadcasting deal structure expanded in TEW 2020 Dev Journal #29 (Company Pays / Broadcaster Pays / Revenue Split / Exclusive Rights) — DOCUMENTED as deal system for companies; per-rival live deal values = observe in-game, not invented here.
+Backstage rating	Locker-room atmosphere % (personalities, relationships, other); affects morale/incidents.
+Owner type / goals	Lifetime / purchased / etc.; owner goals constrain bookers.
+Home arena, alliances, closed date	Editor + runtime state.
+Champions as transferable assets	Titles belong to the company; poaching a champion does not automatically move the belt with them — INFERRED FROM PLAY (r/FantasyBookers threads on stealing exclusive champions; players report vacate/remain-with-company behavior). Exact belt rules: wiki titles systems exist; full transfer matrix partially NOT FOUND this pass.
+TV deal as a single named rival field list: partially DOCUMENTED as system; specific published numeric table of every rival’s deal terms = NOT FOUND outside the game itself.
+2) What decisions on what clock?
+DOCUMENTED:
+AI hiring: Roster checks and offers; frequency depends on company size (bigger = more often). Target choice: “literally hundreds of factors”. No published dice table or closed-form bid formula → exact random vs deterministic mix = NOT FOUND.
+AI firing: Typically every 6–9 months for limit checks; rare if financially healthy; often needs ≥3 months losses OR debt.
+Contract negotiation clock: Worker reviews all offers (AI and human same scoring). Written contracts become negotiable in final window — community cites final ~28 days / shortlist alerts (INFERRED FROM PLAY).
+Bidding wars: Rival AI can raise offers over days — INFERRED FROM PLAY (r/FantasyBookers Jul 2024).
+Shows / TV / events: Show Priority / Event Order / TV Order (DOCUMENTED). Full AI booking algorithm NOT FOUND as published numbers.
+TEW IX: AI companies get same backstage incidents as player, with stories on the in-game website — DOCUMENTED (Adam Ryland Dev Journal).
+3) How does the player FEEL the rival?
+Surface	Evidence
+Company profile / Companies list	Size, funds, roster, contracts of rivals viewable
+Rival contract list	Companies → rival → Roster → Contracts (INFERRED FROM PLAY)
+Shortlist notifications	Notified when negotiable (INFERRED FROM PLAY)
+Negotiate / rival bids UI	Re-open Negotiate to see stack vs others (DOCUMENTED)
+In-game website / news	Prestige-weighted; TEW IX AI backstage stories (DOCUMENTED)
+Poach of your worker	Competing offers — dedicated “X poached Y” push string table NOT FOUND
+4) What breaks?
+Symptom	Where	Grade
+AI escalates bids daily on contested talent	r/FantasyBookers Jul 2024	INFERRED FROM PLAY
+Major AI companies historically too rich; TEW IX cut major profits / extended new-company grace	TEWDB / Dev Journal	DOCUMENTED
+“Bankruptcy year 3” as fixed law	NOT FOUND — bankruptcy is consecutive-negative-months by size (6 mo–3 yr)	—
+Player can’t compete by year 5	NOT FOUND as consensus TEW failure mode this pass	—
+2. Wrestling Empire (MDickie) — Booking Mode
+1) State (DOCUMENTED — official manual)
+Roster; contracts (buyouts); TV/promotion rating; territory ownership; champions as face of brand; finances. Prestige as TEW-like field: NOT FOUND. TV deal as broadcast-rights contract: NOT FOUND (ratings war, not network negotiation).
+2) Clock (DOCUMENTED)
+Weekly TV tapings + PPVs; ratings update on broadcast; rival promoters bid to buy your talent (escalating; formula numbers NOT FOUND); territory invasion → inter-promotional war (6 matches).
+3) Feel (DOCUMENTED)
+TV ratings ladder after each broadcast; territory map; buyout/bid interactions; weekly news; interpromotional war cards.
+4) Breaks
+Cannot permanently kill rivals (INFERRED FROM PLAY, r/WrestlingEmpire); Booking Mode economy punishing / sell stars to stay afloat (INFERRED FROM PLAY); spreading thin weakens brand (DOCUMENTED manual warning).
+(continued)
+1:59 AM
+
+## IMAGES
+

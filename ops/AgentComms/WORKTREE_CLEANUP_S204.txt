@@ -1,0 +1,14 @@
+E: (agent SSD) has 6.7 GB free. Agents fail when it fills up.
+45 agent worktrees sit in E:\FightCamp\wt, about 190 GB in total (3-7 GB each). Each is a full copy of the game that one finished agent task used.
+Every one of their branches is pushed to GitHub (ICOON-Studio/FightCamp), so the code stays safe. Removing a worktree deletes only that
+folder's scratch files (logs, regenerated imports, unsaved stills).
+
+KEEP (in use or held): PROFILE2B (Codex running), PROFILETECH1 (Qwen running), NIGHTLY3 (Cursor running), HUMAN2 (just merged, kept 1 day),
+BAGRIG1 (held for the Ludo zone plan).
+
+REMOVE (finished tasks, about 175 GB): ANIMSMOOTH1, ANIMSMOOTH2, BENCH1B, CLUBROUTES1, CLUBROUTES1B, EQUIP2, FLOORGAIN2B, G158B, GARAGEOUT1,
+GYMART1A, GYMCAP1, GYMCAP1B, GYMCAP2, GYMFILL1, GYMLOOK1, GYMLOOK2B, GYMVIEW1, HALLSIZE1, HUMAN1, JUDOPROOF1, LUDOCORNER1,
+LUDOCORNER2A, LUDODOC2, LUDOGYMUI1, LUDOHUD1, LUDOPAD1, LUDOTRAP1, LUDOWEEK2A, NIGHTLY2, PLAYABLE1, PLAYUI1, R17MATH2, ROOMSPLIT1,
+STATIONINFO1, STATIONS4, TICKER1, WIRELASTSPAR.
+Before removing each, Claude copies its untracked non-import files (stills, outputs) to E:\FightCamp\wt_salvage\<name> first.
+After that, new agent tasks reuse one worktree per seat instead of making a new 4.7 GB copy per task.

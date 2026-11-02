@@ -1,0 +1,17 @@
+RESUME as Q213F (S151, 2026-10-03), AFTER your Q213E lands. Worktree E:/FightCamp/wt/Q213C, branch codex/q213c (rebase onto origin/master first).
+
+WHY: operator on the Q213D pose sheet: "hand goes through the body" - an UPPER ARM / elbow sits inside the other man's chest or neck. He asked how studios keep bodies apart; the answer we gave him: arm IK at contact where the ELBOW (IK pole) is steered away from the opponent's body, so the whole arm, not just the glove, stays outside.
+
+WHAT CLAUDE ALREADY MEASURED (S151, tools/s151_trunk_arm_probe.gd, live room, game switches, seed 92012, 30 s, boxing f01 vs f09):
+- Glove and forearm already leave every body part: ContactSolve.hand_pushes (MOVABLE = hands + LowerArm-Hand).
+- The upper arm is only turned out of a HEAD (FightWorldLiveScreen._correct_refused_head_contact_passes -> FightStagePlayer.stop_head_contact_upper_arm).
+- Naive extension (same shoulder turn for upper arm vs foe TORSO, incl. the landed striker's upper arm) made it WORSE and was reverted: upper arm >2 cm in torso 10 -> 16 frames of 900, worst 6.1 -> 11.2 cm, glove moves 129 -> 201 (0 pops either arm). Cause (code read): _stop_posed_contact runs AFTER and re-solves each arm from the wrist (FightStagePlayer._bend_arm, two-bone IK), overwriting the shoulder turn.
+
+TASK: put the elbow constraint INSIDE the arm IK. In FightStagePlayer._bend_arm (and whatever two-bone solve it calls), choose the elbow pole so the UpperArm-LowerArm capsule clears the other man's torso/neck capsules (and, after Q213E, whatever skin-calibrated volume your gate uses), keeping the wrist target. Behind a switch `elbow_clear` in FightWorldLiveScreen (game ON via demo_switches_on(), tools OFF; the q213 gate's pin arm mirrors the room - add it there too so the gate measures what the game plays). No root moves, no change to wrist targets, per-frame turn capped (no pops).
+ACCEPTANCE (all, printed achieved beside wanted):
+1. s151_trunk_arm_probe: trunk... replace its `trunk_arm_stop` option with `elbow_clear` and run OFF vs ON on seeds 92012, 4417, 77 - upper arm >2 cm frames and worst cm DOWN on every seed, big glove moves (>15 m/s) not up.
+2. Q213 pinned gate (your Q213E honest version) on all 26 moves x 4 rigs: no move worse than before; report which improved.
+3. Re-render the pose review sheet (3 combos, baseline vs elbow_clear) through Tools\godot_hidden.ps1, OPEN it with your file tool, and say in the digest what you see at the arms. The operator judges the picture.
+4. Focused tests: run_tests.py --jobs 2 --only fight_contact_stop,fight_body_overlap,fight_world,fight_stage_playback.
+Owned files: Godot/scripts/FightStagePlayer.gd (arm IK only), Godot/scripts/FightWorldLiveScreen.gd (the switch + its plumbing only; the file is 5,911 lines - never read it whole, use sed -n windows around _stop_posed_contact ~4350 and the switches ~756/946), Godot/tools/q213_clip_gate.gd (pin arm mirror), Godot/tools/s151_trunk_arm_probe.gd, new Godot/tools/q213f_*.gd, research/Q213C_DIGEST.md (append Q213F).
+Rules as before: watchdog before every heavy step chained with && (AMBER fine, RED waits), one Godot process of yours at a time, run_tests --jobs 2, parse gate first, never commit *.import, no windows on the operator's screens (file tool only; renders via godot_hidden.ps1), never edit HANDOFF.md. Commit + git push origin codex/q213c. Do not stop at written.

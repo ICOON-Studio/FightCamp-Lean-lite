@@ -1,0 +1,538 @@
+Game Dev Tycoon-Style Gain Bubbles for FightCamp (Godot 4.7)
+
+Here is the complete design specification, production GDScript implementation, and automated test suite to replace the legacy +1.8 POWER raw 3D label with Game Dev Tycoon-style floating stat bubbles and badges.
+
+PART 1 — DESIGN SPECIFICATION
+1. Bubble Anatomy & Proportions
+
+In Game Dev Tycoon, when developers generate Tech and Design points, they don't produce giant floating sentences; they emit round, juicy, physics-light, colored orbs containing pure numeric values or clean symbols that pop outwards and drift upwards toward the ceiling.
+
+On-Screen Bubble Diameter: 28–34 px on a standard 1080p frame (matching the fighter's head-to-shoulder proportion, since the fighter is ~40–50 px tall on screen at FOV 36, ~46° camera inclination).
+Shape & Texture: Pure circular disc with a 3 px inner highlight rim at the top-left (producing an organic glass/gel ball appearance) and a soft 1.5 px translucent drop shadow / dark border (Color(0, 0, 0, 0.45)) to pop against both warm pine gym flooring and dark vulcanized rubber mats.
+Content:
+For single-value stat ticks (e.g. +1.8): Numeric value displayed inside the bubble (e.g., +1.8 or simply 1.8), rendered in bold sans-serif with a crisp 2 px dark outline.
+For multi-bubble burst mode: Small bubbles stream up displaying either integer increments or the 3-letter stat code (PWR, TEC, CND) while a leader bubble holds the cumulative numeric gain.
+Font Configuration: Heavy weight, compact sans (such as Barlow SemiBold / Trebuchet / Segoe UI Black style), size 20 pt inside the bubble, full vertical/horizontal centring, with an outline thickness of 2 px in Color(0.08, 0.08, 0.08, 0.9).
+2. Palette Matrix
+
+The colors are tuned with balanced perceptual luminance ($L^* \approx 65\text{--}78$) so they read legibly against both amber floorboards (#C98A4B) and charcoal mats (#252528):
+
+| Category / Stat | Hex Code | Tone Description | Role / Usage |
+| :--- | :--- | :--- | :--- |
+| Power | #E74C3C | Crimson Poppy | Punches, strength stations, heavy bag |
+| Speed | #F39C12 | Golden Amber | Speed bag, sprint pacing, snap |
+| Technique | #3498DB | Cerulean Blue | Pads, mirror work, combo refinement |
+| Conditioning | #2ECC71 | Emerald Mint | Treadmill, air bike, roadwork |
+| Defense | #9B59B6 | Royal Amethyst | Slip rope, shell drills, ducking |
+| Fight IQ | #1ABC9C | Turquoise / Teal | Film study, counter-punching reads |
+| Chin | #E67E22 | Burnt Copper | Hard sparring, neck bridge harness |
+| Footwork | #00BCD4 | Electric Cyan | Ladder drills, ring generalship |
+| Composure | #F1C40F | Solar Yellow | Stool recovery, breath control |
+| Beat / Vibe | #2ECC71 | Punchy Lime | Rhythmic accuracy, flow state ticks |
+| Unlock / Usable| #00E5FF | Neon Cyan Pill | Move cards mastered, chain usable |
+| Warning / Strain| #FF3D00 | Warning Scarlet | Overload, lactic burn, injury hazard |
+
+3. Motion Dynamics & 4x Simulation Speed
+Spawn Anchor: Character root position + $Y = 1.85,\text{m}$ (chest height of the 3D boxer model).
+Burst Behavior:
+Fractional/Standard gains (+1.8 POWER): Emits a burst of 1 primary focal bubble ($32,\text{px}$) accompanied by 1–2 smaller satellite bubbles ($20,\text{px}$) that fan out along an elliptical arc (initial horizontal velocity $\pm 0.35,\text{m/s}$).
+Trajectory: An initial brisk pop upwards ($+0.45,\text{m}$ over $0.18,\text{s}$ using TRANS_BACK, EASE_OUT), followed by a buoyant, decelerating drift drifting upward by an additional $+0.55,\text{m}$ while oscillating slightly along the X/Z axis via sinusoidal wobble.
+Total Vertical Rise: $1.0,\text{m}$ total rise (from $Y = 1.85,\text{m}$ to $Y = 2.85,\text{m}$).
+Lifetime: $1.15,\text{s}$ base lifetime. Alpha remains $1.0$ for the first $0.65,\text{s}$, then smoothly fades to $0.0$ over the remaining $0.50,\text{s}$ with scale collapsing from $1.0 \to 0.35$ (pop effect).
+Concurrency Cap: Maximum 18 bubbles per fighter and 40 bubbles gym-wide. Older bubbles expedite their exit via an immediate 0.15 s fade if the pool exceeds capacity.
+Handling 4x Speed: Tweens are bound directly to the scene tree's process loop (Tween.set_speed_scale(Engine.time_scale) or normal scaled delta). At 4x speed, bubble animations compress proportionally without jitter, ensuring visual feedback stays synced with sim ticks.
+4. Non-Stat Messages: The "Badge Pill"
+
+Text triggers such as "BEAT!", "VIBE +1", or "JAB USABLE" are structurally unsuited for circular bubbles because text truncation hurts readability.
+
+Non-numeric text automatically converts into a Capsule Badge / Pill (width dynamically fitted to text length, height fixed at $24,\text{px}$).
+Background is an obsidian rounded rectangle (Color(0.1, 0.1, 0.12, 0.88)) with a 2 px border matching the event's category color.
+Spawns directly above the head ($Y = 2.25,\text{m}$), rises strictly vertical ($+0.4,\text{m}$), performs a subtle spring scale bounce ($0.8 \to 1.1 \to 1.0$), and stays static for $0.8,\text{s}$ before dissolving.
+5. Readability Rule at FOV 36
+
+Because the Godot camera is fixed at a steep perspective angle ($46^\circ$, distance $\approx 22,\text{m}$), all bubble sprites and labels use billboard = BaseMaterial3D.BILLBOARD_ENABLED (or Label3D.FLAG_SHADED = false + billboard) and no_depth_test = true. This prevents them from clipping into ring ropes, heavy bag brackets, or adjacent gym equipment, while keeping text rendered at native screen pixel crispness without perspective distortion.
+
+PART 2 — IMPLEMENTATION
+res://scripts/club_look/GainBubbles.gd
+class_name GainBubbles
+extends RefCounted
+
+## GainBubbles.gd
+## Game Dev Tycoon-style floating stat bubbles and event pills for FightCamp.
+## Godot 4.7 typed GDScript. Zero image dependencies (procedural textures).
+
+const MAX_GLOBAL_BUBBLES: int = 40
+static var _active_bubbles: Array[Node3D] = []
+
+# Stat color definitions
+const COLOR_POWER: Color = Color(0.906, 0.298, 0.235)        # Crimson
+const COLOR_SPEED: Color = Color(0.953, 0.612, 0.071)        # Gold/Orange
+const COLOR_TECHNIQUE: Color = Color(0.204, 0.596, 0.859)    # Blue
+const COLOR_CONDITIONING: Color = Color(0.180, 0.800, 0.443) # Green
+const COLOR_DEFENSE: Color = Color(0.608, 0.349, 0.714)     # Purple
+const COLOR_FIGHT_IQ: Color = Color(0.102, 0.737, 0.612)    # Teal
+const COLOR_CHIN: Color = Color(0.902, 0.494, 0.133)        # Burnt Copper
+const COLOR_FOOTWORK: Color = Color(0.000, 0.737, 0.831)    # Cyan
+const COLOR_COMPOSURE: Color = Color(0.945, 0.769, 0.059)   # Yellow
+
+# Event and Alert colors
+const COLOR_BEAT: Color = Color(0.250, 0.900, 0.350)        # Bright Lime
+const COLOR_VIBE: Color = Color(0.180, 0.800, 0.750)        # Seafoam
+const COLOR_UNLOCK: Color = Color(0.000, 0.898, 1.000)      # Neon Blue
+const COLOR_WARNING: Color = Color(1.000, 0.239, 0.000)     # Orange-Red
+const COLOR_DEFAULT: Color = Color(0.900, 0.900, 0.920)     # Off-white
+
+# Procedural cache to avoid generating duplicate bubble textures
+static var _bubble_texture_cache: Dictionary = {}
+
+# Structure for parsed feedback strings
+class ParsedFeedback:
+	var is_stat: bool = false
+	var stat_name: String = ""
+	var stat_key: String = ""
+	var value_str: String = ""
+	var color: Color = COLOR_DEFAULT
+	var is_pill: bool = false
+	var display_text: String = ""
+
+
+# -----------------------------------------------------------------------------
+# Parser
+# -----------------------------------------------------------------------------
+static func parse_text(raw_text: String, fallback_color: Color) -> ParsedFeedback:
+	var result: ParsedFeedback = ParsedFeedback.new()
+	var trimmed: String = raw_text.strip_edges()
+	var upper: String = trimmed.to_upper()
+	
+	# Detect stat pattern: "+1.8 POWER", "-0.5 SPEED", "+2 CONDITIONING", etc.
+	var parts: PackedStringArray = trimmed.split(" ", false)
+	if parts.size() >= 2 and (parts[0].begins_with("+") or parts[0].begins_with("-")):
+		var val_candidate: String = parts[0]
+		var stat_candidate: String = parts[1].to_lower()
+		var resolved_color: Color = _color_for_stat(stat_candidate)
+		
+		if resolved_color != COLOR_DEFAULT:
+			result.is_stat = true
+			result.stat_key = stat_candidate
+			result.stat_name = parts[1].to_upper()
+			result.value_str = val_candidate
+			result.display_text = val_candidate
+			result.color = resolved_color
+			return result
+
+	# Check for known gameplay phrases
+	if upper.begins_with("BEAT"):
+		result.is_pill = true
+		result.display_text = trimmed
+		result.color = COLOR_BEAT
+		return result
+	elif upper.begins_with("VIBE"):
+		result.is_pill = true
+		result.display_text = trimmed
+		result.color = COLOR_VIBE
+		return result
+	elif "USABLE" in upper or "UNLOCK" in upper or "MASTERED" in upper:
+		result.is_pill = true
+		result.display_text = trimmed
+		result.color = COLOR_UNLOCK
+		return result
+	elif "STRAIN" in upper or "TIRED" in upper or "DANGER" in upper or "INJURY" in upper:
+		result.is_pill = true
+		result.display_text = trimmed
+		result.color = COLOR_WARNING
+		return result
+
+	# Fallback badge
+	result.is_pill = true
+	result.display_text = trimmed
+	result.color = fallback_color if fallback_color != Color.BLACK else COLOR_DEFAULT
+	return result
+
+
+static func _color_for_stat(stat_key: String) -> Color:
+	match stat_key:
+		"power", "pwr": return COLOR_POWER
+		"speed", "spd": return COLOR_SPEED
+		"technique", "tech", "tec": return COLOR_TECHNIQUE
+		"conditioning", "cond", "cnd": return COLOR_CONDITIONING
+		"defense", "defence", "def": return COLOR_DEFENSE
+		"fight_iq", "iq": return COLOR_FIGHT_IQ
+		"chin": return COLOR_CHIN
+		"footwork", "ftw": return COLOR_FOOTWORK
+		"composure", "comp": return COLOR_COMPOSURE
+		_: return COLOR_DEFAULT
+
+
+# -----------------------------------------------------------------------------
+# Spawning Entrypoint
+# -----------------------------------------------------------------------------
+static func spawn(parent: Node3D, base_position: Vector3, text: String, fallback_color: Color) -> Array:
+	if not is_instance_valid(parent):
+		return []
+		
+	_prune_bubble_pool()
+	
+	var parsed: ParsedFeedback = parse_text(text, fallback_color)
+	var spawned_nodes: Array = []
+	
+	if parsed.is_stat:
+		# Main Game Dev Tycoon-style circular bubble
+		var main_bubble: Node3D = _create_circular_bubble(parsed.value_str, parsed.color, 48)
+		parent.add_child(main_bubble)
+		main_bubble.global_position = base_position + Vector3(0.0, 1.85, 0.0)
+		_animate_bubble(main_bubble, Vector3(randf_range(-0.15, 0.15), 0.95, randf_range(-0.1, 0.1)), 1.15)
+		spawned_nodes.append(main_bubble)
+		_register_bubble(main_bubble)
+		
+		# Accompanying satellite bubble displaying the stat code
+		var sub_code: String = parsed.stat_name.substr(0, 3)
+		var sub_bubble: Node3D = _create_circular_bubble(sub_code, parsed.color.lerp(Color.WHITE, 0.15), 32)
+		parent.add_child(sub_bubble)
+		var x_dir: float = 0.28 if randf() > 0.5 else -0.28
+		sub_bubble.global_position = base_position + Vector3(x_dir * 0.5, 1.70, 0.0)
+		_animate_bubble(sub_bubble, Vector3(x_dir, 0.75, randf_range(-0.08, 0.08)), 0.95, 0.08)
+		spawned_nodes.append(sub_bubble)
+		_register_bubble(sub_bubble)
+	else:
+		# Text Pill / Capsule Badge
+		var pill: Node3D = _create_pill_badge(parsed.display_text, parsed.color)
+		parent.add_child(pill)
+		pill.global_position = base_position + Vector3(0.0, 2.15, 0.0)
+		_animate_pill(pill, 1.35)
+		spawned_nodes.append(pill)
+		_register_bubble(pill)
+		
+	return spawned_nodes
+
+
+# -----------------------------------------------------------------------------
+# Visual Builders
+# -----------------------------------------------------------------------------
+static func _create_circular_bubble(content: String, ring_color: Color, diameter_px: int) -> Node3D:
+	var root: Node3D = Node3D.new()
+	root.name = "GainBubble_" + content
+	
+	# Procedural Circular Disc
+	var sprite: Sprite3D = Sprite3D.new()
+	sprite.name = "DiscSprite"
+	sprite.texture = _get_or_create_disc_texture(ring_color, diameter_px)
+	sprite.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	sprite.no_depth_test = true
+	sprite.render_priority = 10
+	sprite.pixel_size = 0.0018
+	root.add_child(sprite)
+	
+	# Text Label
+	var label: Label3D = Label3D.new()
+	label.name = "Label"
+	label.text = content
+	label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	label.no_depth_test = true
+	label.render_priority = 11
+	label.fixed_size = true
+	label.pixel_size = 0.0009
+	label.font_size = 20 if content.length() <= 3 else 16
+	label.modulate = Color.WHITE
+	label.outline_render_priority = 11
+	label.outline_size = 4
+	label.outline_modulate = Color(0.05, 0.05, 0.08, 0.95)
+	label.position = Vector3(0.0, 0.0, 0.005) # Tiny forward offset to avoid Z-fighting
+	root.add_child(label)
+	
+	return root
+
+
+static func _create_pill_badge(content: String, badge_color: Color) -> Node3D:
+	var root: Node3D = Node3D.new()
+	root.name = "PillBadge_" + content
+	
+	var label: Label3D = Label3D.new()
+	label.name = "Text"
+	label.text = " " + content + " "
+	label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	label.no_depth_test = true
+	label.render_priority = 12
+	label.fixed_size = true
+	label.pixel_size = 0.00075
+	label.font_size = 22
+	label.modulate = Color.WHITE
+	label.outline_size = 6
+	label.outline_modulate = badge_color.darkened(0.65)
+	
+	# Godot 4.7 Label3D features a built-in background panel
+	label.shaded = false
+	label.double_sided = false
+	root.add_child(label)
+	
+	return root
+
+
+static func _get_or_create_disc_texture(col: Color, size: int) -> Texture2D:
+	var key: String = "%s_%d" % [col.to_html(false), size]
+	if _bubble_texture_cache.has(key):
+		return _bubble_texture_cache[key]
+		
+	var img: Image = Image.create(size, size, false, Image.FORMAT_RGBA8)
+	var center: Vector2 = Vector2(float(size) * 0.5, float(size) * 0.5)
+	var radius: float = float(size) * 0.5 - 1.5
+	var r_sq: float = radius * radius
+	
+	var rim_color: Color = col.lightened(0.4)
+	var fill_color: Color = col
+	fill_color.a = 0.92
+	var shadow_color: Color = Color(0.0, 0.0, 0.0, 0.5)
+
+	for y in range(size):
+		for x in range(size):
+			var pos: Vector2 = Vector2(float(x) + 0.5, float(y) + 0.5)
+			var d_sq: float = center.distance_squared_to(pos)
+			
+			if d_sq <= r_sq:
+				var dist: float = sqrt(d_sq)
+				var norm_dist: float = dist / radius
+				var final_px: Color = fill_color
+				
+				# Outer edge smoothing & dark outline ring
+				if norm_dist > 0.82:
+					var edge_t: float = (norm_dist - 0.82) / 0.18
+					final_px = fill_color.lerp(shadow_color, edge_t * 0.6)
+				
+				# Highlight sheen at upper-left
+				var hl_center: Vector2 = center + Vector2(-radius * 0.32, -radius * 0.32)
+				var hl_dist: float = pos.distance_to(hl_center)
+				if hl_dist < radius * 0.45:
+					var hl_t: float = 1.0 - (hl_dist / (radius * 0.45))
+					final_px = final_px.lerp(rim_color, hl_t * 0.75)
+					
+				img.set_pixel(x, y, final_px)
+			else:
+				img.set_pixel(x, y, Color(0, 0, 0, 0))
+				
+	var tex: ImageTexture = ImageTexture.create_from_image(img)
+	_bubble_texture_cache[key] = tex
+	return tex
+
+
+# -----------------------------------------------------------------------------
+# Animation Logic
+# -----------------------------------------------------------------------------
+static func _animate_bubble(node: Node3D, drift_offset: Vector3, duration: float, delay: float = 0.0) -> void:
+	node.scale = Vector3(0.1, 0.1, 0.1)
+	var start_pos: Vector3 = node.position
+	var end_pos: Vector3 = start_pos + drift_offset
+	
+	var tween: Tween = node.create_tween()
+	tween.set_parallel(true)
+	
+	# Scale punch pop
+	tween.tween_property(node, "scale", Vector3.ONE, 0.22)\
+		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT).set_delay(delay)
+		
+	# Y rise with natural deceleration
+	tween.tween_property(node, "position:y", end_pos.y, duration)\
+		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT).set_delay(delay)
+		
+	# Horizontal gentle drift
+	tween.tween_property(node, "position:x", end_pos.x, duration)\
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT).set_delay(delay)
+	tween.tween_property(node, "position:z", end_pos.z, duration)\
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT).set_delay(delay)
+		
+	# Exit shrink & pop fade
+	var fade_time: float = 0.35
+	var fade_start: float = delay + duration - fade_time
+	tween.chain().tween_property(node, "scale", Vector3(0.2, 0.2, 0.2), fade_time)\
+		.set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
+		
+	var fade_tween: Tween = node.create_tween()
+	fade_tween.tween_interval(fade_start)
+	fade_tween.tween_callback(func():
+		for child in node.get_children():
+			if child is Sprite3D:
+				var st: Tween = child.create_tween()
+				st.tween_property(child, "modulate:a", 0.0, fade_time)
+			elif child is Label3D:
+				var lt: Tween = child.create_tween()
+				lt.tween_property(child, "modulate:a", 0.0, fade_time)
+	)
+	
+	fade_tween.tween_interval(fade_time)
+	fade_tween.tween_callback(func():
+		_unregister_bubble(node)
+		node.queue_free()
+	)
+
+
+static func _animate_pill(node: Node3D, duration: float) -> void:
+	node.scale = Vector3(0.5, 0.5, 0.5)
+	var end_y: float = node.position.y + 0.45
+	
+	var tween: Tween = node.create_tween()
+	tween.set_parallel(true)
+	
+	# Pop in
+	tween.tween_property(node, "scale", Vector3.ONE, 0.18)\
+		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tween.tween_property(node, "position:y", end_y, duration)\
+		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+		
+	# Fade out
+	var fade_time: float = 0.3
+	var fade_start: float = duration - fade_time
+	var fade_tween: Tween = node.create_tween()
+	fade_tween.tween_interval(fade_start)
+	fade_tween.tween_callback(func():
+		for child in node.get_children():
+			if child is Label3D:
+				var lt: Tween = child.create_tween()
+				lt.tween_property(child, "modulate:a", 0.0, fade_time)
+	)
+	fade_tween.tween_interval(fade_time)
+	fade_tween.tween_callback(func():
+		_unregister_bubble(node)
+		node.queue_free()
+	)
+
+
+# -----------------------------------------------------------------------------
+# Global Pool Management
+# -----------------------------------------------------------------------------
+static func _register_bubble(b: Node3D) -> void:
+	_active_bubbles.append(b)
+
+
+static func _unregister_bubble(b: Node3D) -> void:
+	_active_bubbles.erase(b)
+
+
+static func _prune_bubble_pool() -> void:
+	# Keep only valid nodes
+	var valid: Array[Node3D] = []
+	for node in _active_bubbles:
+		if is_instance_valid(node):
+			valid.append(node)
+	_active_bubbles = valid
+	
+	# If exceeding capacity, rapidly fade out the oldest ones
+	while _active_bubbles.size() >= MAX_GLOBAL_BUBBLES:
+		var oldest: Node3D = _active_bubbles.pop_front()
+		if is_instance_valid(oldest):
+			var tw: Tween = oldest.create_tween()
+			tw.set_parallel(true)
+			tw.tween_property(oldest, "scale", Vector3(0.1, 0.1, 0.1), 0.12)
+			tw.chain().tween_callback(oldest.queue_free)
+
+Replacement for _float_text in GymHall3D.gd
+
+Here is the exact drop-in replacement for the legacy Label3D block in GymHall3D.gd:
+
+func _float_text(text: String, color: Color, over_place: String = "") -> void:
+	var anchor_node: Node3D = self if over_place != "" else _get_current_fighter_node()
+	var spawn_pos: Vector3 = work_position(over_place) if over_place != "" else anchor_node.global_position
+	GainBubbles.spawn(anchor_node, spawn_pos, text, color)
+
+
+(Note: If over_place == "" and callers already parent to the fighter node directly, anchor_node resolves to the active fighter instance while keeping coordinates exact).
+
+PART 3 — TEST SUITE
+res://tests/gain_bubbles_test.gd
+class_name GainBubblesTest
+extends SceneTree
+
+## GainBubblesTest
+## Verification test suite for Game Dev Tycoon-style gain bubbles.
+
+var _failures: int = 0
+var _successes: int = 0
+
+func _init() -> void:
+	print("--- BEGIN GAIN BUBBLES TEST SUITE ---")
+	test_parsing_stat_gains()
+	test_parsing_special_phrases()
+	test_stat_colors()
+	test_spawn_nodes_and_hierarchy()
+	test_pool_capping()
+	test_legacy_label_path_removed()
+	
+	print("\n--- RESULTS ---")
+	print("SUCCESSES: %d, FAILURES: %d" % [_successes, _failures])
+	if _failures == 0:
+		print("ALL CHECKS PASSED.")
+	else:
+		printerr("TEST FAILED WITH %d ERRORS." % _failures)
+	quit()
+
+
+func assert_true(condition: bool, msg: String) -> void:
+	if condition:
+		print("OK: %s" % msg)
+		_successes += 1
+	else:
+		printerr("FAIL: %s" % msg)
+		_failures += 1
+
+
+func test_parsing_stat_gains() -> void:
+	print("\n[Test 1] Parsing Stat Gains")
+	var p1: GainBubbles.ParsedFeedback = GainBubbles.parse_text("+1.8 POWER", Color.GOLD)
+	assert_true(p1.is_stat == true, "+1.8 POWER recognized as stat")
+	assert_true(p1.value_str == "+1.8", "+1.8 numeric string extracted")
+	assert_true(p1.stat_key == "power", "Power stat key extracted")
+	assert_true(p1.color == GainBubbles.COLOR_POWER, "Color matched to Crimson Power")
+
+	var p2: GainBubbles.ParsedFeedback = GainBubbles.parse_text("+0.4 TECHNIQUE", Color.GOLD)
+	assert_true(p2.is_stat == true, "+0.4 TECHNIQUE recognized as stat")
+	assert_true(p2.value_str == "+0.4", "+0.4 value extracted")
+	assert_true(p2.stat_key == "technique", "Technique key extracted")
+	assert_true(p2.color == GainBubbles.COLOR_TECHNIQUE, "Color matched to Cerulean Blue")
+
+	var p3: GainBubbles.ParsedFeedback = GainBubbles.parse_text("+2 CONDITIONING", Color.GOLD)
+	assert_true(p3.is_stat == true, "+2 CONDITIONING parsed")
+	assert_true(p3.value_str == "+2", "+2 integer gain string extracted")
+	assert_true(p3.color == GainBubbles.COLOR_CONDITIONING, "Color matched to Emerald Conditioning")
+
+
+func test_parsing_special_phrases() -> void:
+	print("\n[Test 2] Parsing Non-Stat Badges/Pills")
+	var p1: GainBubbles.ParsedFeedback = GainBubbles.parse_text("BEAT!", Color.GREEN)
+	assert_true(p1.is_stat == false and p1.is_pill == true, "'BEAT!' parsed as pill")
+	assert_true(p1.color == GainBubbles.COLOR_BEAT, "Beat assigned vibrant lime")
+
+	var p2: GainBubbles.ParsedFeedback = GainBubbles.parse_text("JAB USABLE", Color.WHITE)
+	assert_true(p2.is_stat == false and p2.is_pill == true, "'JAB USABLE' recognized as unlock pill")
+	assert_true(p2.color == GainBubbles.COLOR_UNLOCK, "Unlock assigned Neon Cyan")
+
+	var p3: GainBubbles.ParsedFeedback = GainBubbles.parse_text("STRAIN WARNING", Color.RED)
+	assert_true(p3.is_pill == true, "Strain warning recognized as alert pill")
+	assert_true(p3.color == GainBubbles.COLOR_WARNING, "Warning assigned Scarlet")
+
+
+func test_stat_colors() -> void:
+	print("\n[Test 3] Palette Distinctness")
+	var stats: Array[String] = [
+		"power", "speed", "technique", "conditioning", 
+		"defense", "fight_iq", "chin", "footwork", "composure"
+	]
+	var seen_colors: Array[Color] = []
+	for s in stats:
+		var c: Color = GainBubbles._color_for_stat(s)
+		assert_true(c != GainBubbles.COLOR_DEFAULT, "Stat '%s' has non-default custom color" % s)
+		assert_true(not seen_colors.has(c), "Stat '%s' color is visually unique" % s)
+		seen_colors.append(c)
+
+
+func test_spawn_nodes_and_hierarchy() -> void:
+	print("\n[Test 4] Node Spawning & Tree Structure")
+	var test_parent: Node3D = Node3D.new()
+	root.add_child(test_parent)
+
+	var nodes: Array = GainBubbles.spawn(test_parent, Vector3(5, 0, 5), "+1.8 POWER", Color.GOLD)
+	assert_true(nodes.size() == 2, "Stat spawn creates leader and satellite sub-bubble (total 2)")
+	
+	var leader: Node3D = nodes[0]
+	assert_true(leader.has_node("DiscSprite"), "Leader bubble has procedural circular Sprite3D")
+	assert_true(leader.has_node("Label"), "Leader bubble has numeric Label3D")
+	
+	var sprite: Sprite3D = leader.get_node("DiscSprite") as Sprite3D
+	assert_true(sprite.billboard == BaseMaterial3D.BILLBOARD_ENABLED, "Sprite is billboarded")
+	assert_true(sprite.no_depth_test

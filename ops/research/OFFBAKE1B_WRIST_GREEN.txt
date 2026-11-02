@@ -1,0 +1,52 @@
+R75-RC=0
+2026-10-15 22:52:29 AMBER C_free=22.3GB E_free=68.4GB RAM=77% COMMIT_free=17.8GB CPU=13% TEMP=74C(LHM)[peak 82] top: brave=6073MB firefox=3930MB claude=3582MB ChatGPT=2859MB
+  AMBER Temperature 74 C.
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WRIST_STAGE {"Left":0.0000597934802571079,"Right":0.00026116901446099,"body":"source","file":"res://assets/anim/metahuman/baked/mh_guard_pose.glb","role":"guard_pose","stage":"native_guard_start","time":0.0}
+WRIST_GATE native guard_pose native_guard_start Left value=0.000060 limit=10.000000 OK
+WRIST_GATE native guard_pose native_guard_start Right value=0.000261 limit=10.000000 OK
+WRIST_STAGE {"Left":0.0000597934802571079,"Right":0.000262178284967619,"body":"source","file":"res://assets/anim/metahuman/baked/mh_guard_pose.glb","role":"guard_pose","stage":"native_guard_end","time":0.666666666666667}
+WRIST_GATE native guard_pose native_guard_end Left value=0.000060 limit=10.000000 OK
+WRIST_GATE native guard_pose native_guard_end Right value=0.000262 limit=10.000000 OK
+WRIST_STAGE {"Left":0.0000597934802571079,"Right":0.00026116901446099,"body":"source","file":"res://assets/anim/metahuman/baked/mh_guard_pose.glb","role":"guard_pose","stage":"native_guard_hold","time":0.6}
+WRIST_GATE native guard_pose native_guard_hold Left value=0.000060 limit=10.000000 OK
+WRIST_GATE native guard_pose native_guard_hold Right value=0.000261 limit=10.000000 OK
+WRIST_STAGE {"Left":0.0000715853037897678,"Right":0.000205495536598719,"body":"source","file":"res://assets/anim/metahuman/baked/mh_jab.glb","role":"jab","stage":"native_guard_start","time":0.0}
+WRIST_GATE native jab native_guard_start Left value=0.000072 limit=10.000000 OK
+WRIST_GATE native jab native_guard_start Right value=0.000205 limit=10.000000 OK
+WRIST_STAGE {"Left":0.0000715853037897678,"Right":0.000205495536598719,"body":"source","file":"res://assets/anim/metahuman/baked/mh_jab.glb","role":"jab","stage":"native_guard_end","time":0.666666666666667}
+WRIST_GATE native jab native_guard_end Left value=0.000072 limit=10.000000 OK
+WRIST_GATE native jab native_guard_end Right value=0.000205 limit=10.000000 OK
+WRIST_STAGE {"Left":0.0000837682535153814,"Right":0.000304164625898108,"body":"source","file":"res://assets/anim/metahuman/baked/mh_jab.glb","role":"jab","stage":"native_contact","time":0.266666666666667}
+WRIST_GATE native jab native_contact Left value=0.000084 limit=10.000000 OK
+WRIST_GATE native jab native_contact Right value=0.000304 limit=10.000000 OK
+WRIST_STAGE {"Left":0.0000715853037897678,"Right":0.000205495536598719,"body":"source","file":"res://assets/anim/metahuman/baked/mh_cross.glb","role":"cross","stage":"native_guard_start","time":0.0}
+WRIST_GATE native cross native_guard_start Left value=0.000072 limit=10.000000 OK
+WRIST_GATE native cross native_guard_start Right value=0.000205 limit=10.000000 OK
+WRIST_STAGE {"Left":0.0000715853037897678,"Right":0.000205495536598719,"body":"source","file":"res://assets/anim/metahuman/baked/mh_cross.glb","role":"cross","stage":"native_guard_end","time":0.666666666666667}
+WRIST_GATE native cross native_guard_end Left value=0.000072 limit=10.000000 OK
+WRIST_GATE native cross native_guard_end Right value=0.000205 limit=10.000000 OK
+WRIST_STAGE {"Left":0.0000657972731813451,"Right":0.000251787796118283,"body":"source","file":"res://assets/anim/metahuman/baked/mh_cross.glb","role":"cross","stage":"native_contact","time":0.266666666666667}
+WRIST_GATE native cross native_contact Left value=0.000066 limit=10.000000 OK
+WRIST_GATE native cross native_contact Right value=0.000252 limit=10.000000 OK
+WRIST_STAGE {"Left":0.0000715853037897678,"Right":0.000205495536598719,"body":"source","file":"res://assets/anim/metahuman/baked/mh_lead_hook.glb","role":"lead_hook","stage":"native_guard_start","time":0.0}
+WRIST_GATE native lead_hook native_guard_start Left value=0.000072 limit=10.000000 OK
+WRIST_GATE native lead_hook native_guard_start Right value=0.000205 limit=10.000000 OK
+WRIST_STAGE {"Left":0.0000715853037897678,"Right":0.000205495536598719,"body":"source","file":"res://assets/anim/metahuman/baked/mh_lead_hook.glb","role":"lead_hook","stage":"native_guard_end","time":0.666666666666667}
+WRIST_GATE native lead_hook native_guard_end Left value=0.000072 limit=10.000000 OK
+WRIST_GATE native lead_hook native_guard_end Right value=0.000205 limit=10.000000 OK
+WRIST_STAGE {"Left":0.0000422581184629089,"Right":0.000351100185934211,"body":"source","file":"res://assets/anim/metahuman/baked/mh_lead_hook.glb","role":"lead_hook","stage":"native_contact","time":0.266666666666667}
+WRIST_GATE native lead_hook native_contact Left value=0.000042 limit=10.000000 OK
+WRIST_GATE native lead_hook native_contact Right value=0.000351 limit=10.000000 OK
+WRIST_STAGE {"Left":0.0000715853037897678,"Right":0.000204148096897916,"body":"source","file":"res://assets/anim/metahuman/baked/mh_inside_uppercut.glb","role":"inside_uppercut","stage":"native_guard_start","time":0.0}
+WRIST_GATE native inside_uppercut native_guard_start Left value=0.000072 limit=10.000000 OK
+WRIST_GATE native inside_uppercut native_guard_start Right value=0.000204 limit=10.000000 OK
+WRIST_STAGE {"Left":0.0000715853037897678,"Right":0.000205495536598719,"body":"source","file":"res://assets/anim/metahuman/baked/mh_inside_uppercut.glb","role":"inside_uppercut","stage":"native_guard_end","time":0.666666666666667}
+WRIST_GATE native inside_uppercut native_guard_end Left value=0.000072 limit=10.000000 OK
+WRIST_GATE native inside_uppercut native_guard_end Right value=0.000205 limit=10.000000 OK
+WRIST_STAGE {"Left":0.0000499215954536921,"Right":0.000172364283296864,"body":"source","file":"res://assets/anim/metahuman/baked/mh_inside_uppercut.glb","role":"inside_uppercut","stage":"native_contact","time":0.266666666666667}
+WRIST_GATE native inside_uppercut native_contact Left value=0.000050 limit=10.000000 OK
+WRIST_GATE native inside_uppercut native_contact Right value=0.000172 limit=10.000000 OK
+GUARD_WRIST_LINE failures=0
+

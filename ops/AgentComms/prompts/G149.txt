@@ -1,0 +1,8 @@
+You are working in the git worktree D:/FightCamp/wt/G148 (branch grok/g149-week-presets) of the FightCamp Godot 4.7.2 game.
+Your task is fully specified in research/TASK_G149_TR1_WEEK_PRESETS.md - read it first, then do it start to finish.
+Key points (the task file wins): one-click week presets on the training screen through the EXISTING write
+(GameState.set_week_program_day); only focus ids the game already offers; edit ONLY TrainingHubPanel.gd plus the new
+files listed; parse gate python Godot/tools/check_scripts.py Godot/scripts/TrainingHubPanel.gd before any test; run
+your new test and python Godot/tools/run_tests.py --jobs 2 --only training_hub,week_program,discipline_program,week_presets
+(wait on its exit); git add by explicit path (never `git add .`, never Godot/.godot), commit, git push -u origin grok/g149-week-presets.
+Do not stop at "written": run the tests yourself and finish with the push.

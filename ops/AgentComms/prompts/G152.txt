@@ -1,0 +1,4 @@
+﻿You are working in the git worktree D:/FightCamp/wt/G148 (branch grok/g152-judges, fresh from master) of the FightCamp game.
+Your task is fully specified in research/TASK_G152_JD1_JUDGES_DISAGREE.md - read it first, then do it start to finish.
+Run the parse gate, the test, the census before AND after on the same seeds. Label every number DOCUMENTED / SECONDARY / NO STUDY.
+git add your files by path, commit, git push -u origin grok/g152-judges. Do not stop at "written".

@@ -1,0 +1,131 @@
+{
+  "selection": [
+    {
+      "file": "Godot/scripts/FightMoves.gd",
+      "line": 452,
+      "token": "static func select",
+      "what": "Joint weighted draw over (technique, region) pairs: P(technique) x P(region|technique), one randf() walk",
+      "varies_by": "role, range band, plan region bias, fight_iq (fit)"
+    },
+    {
+      "file": "Godot/scripts/FightRealtime.gd",
+      "line": 1184,
+      "token": "static func _role_weights",
+      "what": "Maps each striking role to a weight via FightPlans.FIT_WEIGHTS; AVOID becomes 0.1 not zero",
+      "varies_by": "plan role_priority (PRIMARY/SECONDARY/OPPORTUNISTIC/AVOID per role category)"
+    },
+    {
+      "file": "Godot/scripts/FightMoves.gd",
+      "line": 376,
+      "token": "static func throw_share",
+      "what": "Which of two candidate techniques fires first, from per-technique volume and combo_boost",
+      "varies_by": "volume (per technique), since_s (combo window 0.35 s, boost 3x)"
+    },
+    {
+      "file": "Godot/scripts/FightMoves.gd",
+      "line": 401,
+      "token": "static func volume_weight",
+      "what": "Overall output scale from conditioning, speed and plan pace; does NOT distinguish techniques",
+      "varies_by": "stats (conditioning, speed), plan pace (cautious 0.80 / balanced 1.0 / aggressive 1.25)"
+    },
+    {
+      "file": "Godot/scripts/FightPlans.gd",
+      "line": 129,
+      "token": "static func role_map",
+      "what": "Maps each role in the plan's role_priority to a category (PRIMARY/SECONDARY/OPPORTUNISTIC/AVOID)",
+      "varies_by": "plan role_priority"
+    },
+    {
+      "file": "Godot/scripts/FightPlans.gd",
+      "line": 29,
+      "token": "const FIT_WEIGHTS",
+      "what": "Prices the four role categories: PRIMARY=3.0, SECONDARY=1.0, OPPORTUNISTIC=0.5, AVOID=-2.0 (clamped to 0.1 in _role_weights)",
+      "varies_by": "role category (same weight for every technique of that category)"
+    },
+    {
+      "file": "Godot/scripts/FightMoves.gd",
+      "line": 1163,
+      "token": "static func live_set_with_reach",
+      "what": "Filters the arsenal by stance and range band; each returned move carries fit=1.0 if the gap suits, mismatch_weight if not",
+      "varies_by": "range band, stance, fight_iq (MISMATCH_MAX 0.30 at iq=0, 0.0 at iq=100)"
+    },
+    {
+      "file": "Godot/scripts/FightMoves.gd",
+      "line": 312,
+      "token": "const DEFAULT_ARSENAL_MAX_TIER",
+      "what": "Tier ceiling for the default arsenal; a fighter with no technique_progress knows tier 1 and 2",
+      "varies_by": "nothing per technique (constant = 2)"
+    }
+  ],
+  "palette": [
+    {
+      "ruleset": "boxing",
+      "nodes": 14,
+      "names_leg": 0,
+      "only_leg": 0,
+      "unnamed": 14
+    },
+    {
+      "ruleset": "kickboxing",
+      "nodes": 26,
+      "names_leg": 4,
+      "only_leg": 3,
+      "unnamed": 15
+    },
+    {
+      "ruleset": "muay_thai",
+      "nodes": 40,
+      "names_leg": 6,
+      "only_leg": 3,
+      "unnamed": 19
+    },
+    {
+      "ruleset": "mma",
+      "nodes": 54,
+      "names_leg": 10,
+      "only_leg": 6,
+      "unnamed": 22
+    }
+  ],
+  "frequency_evidence": [
+    {
+      "file": "research/J20_THE_VALIDATION_CORPUS.md",
+      "quote": "League **~61–65% head / 19–23% body / 14–18% leg**",
+      "what": "UFC significant-strike target mix (landed), 8,555 fights, Fight Algorithm Volume Machine"
+    },
+    {
+      "file": "research/J20_THE_VALIDATION_CORPUS.md",
+      "quote": "63% head / 23% body / 14% leg",
+      "what": "UFC league target mix mirroring the league average, 8,555 fights, Fight Algorithm Volume Machine"
+    },
+    {
+      "file": "research/J20_THE_VALIDATION_CORPUS.md",
+      "quote": "landed per fighter per minute",
+      "what": "UFC significant-strike pace by division: 2.8-3.8 landed per fighter per minute; combined bout ~6-8 landed/min"
+    },
+    {
+      "file": "research/G45_SEVEN_PERCENT_OF_A_FIGHT.md",
+      "quote": "four keys: jab thrown/landed, power thrown/landed",
+      "what": "CompuBox scoring keys since 1985; does not break down by punch type beyond jab vs power"
+    },
+    {
+      "file": "research/G53_THE_COMBINATION_INTERVAL.md",
+      "quote": "modal type was jab-straight (jab-jab in middleweights); 12 types covered 43–64%",
+      "what": "Thomson 2012 pro combination types; 12 types cover 43-64% depending on weight class"
+    },
+    {
+      "file": "research/J21_THE_MOVE_PALETTE.md",
+      "quote": "Jab | 64 (60–68) | ~35%",
+      "what": "Amateur boxing punch type frequencies, Thomson & Lamb 2016, 92 English amateurs, 183 punches/bout"
+    }
+  ],
+  "not_on_disk": [
+    "Share of UFC significant strikes TARGETING the leg that are THROWN (not landed); J20 gives landed 14-18%, thrown share may differ",
+    "Per-technique frequency distribution in MMA bouts: how much more often a jab is thrown than a spinning elbow, a low kick than a head kick, across all rulesets",
+    "Jab share of punches thrown in professional MMA (J21 gives 35% in amateur boxing; MMA figure not on disk)",
+    "Share of all kicks in UFC/MMA that target the leg vs head vs body (leg-kick frequency as a fraction of kick output, not of all strikes)",
+    "Whether the flat per-technique distribution the sweep measured in muay thai (200-270 landings each) holds in MMA or kickboxing bouts",
+    "CompuBox-style per-technique breakdown for kickboxing and muay thai (not just jab vs power)"
+  ],
+  "recommend": "a"
+}

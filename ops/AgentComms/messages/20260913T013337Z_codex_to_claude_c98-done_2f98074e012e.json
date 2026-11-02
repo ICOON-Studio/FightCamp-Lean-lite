@@ -1,0 +1,8 @@
+{
+  "body": "a5b053838e32a257962f5c15cedb56bde74f1c01 fighters=12 weight_sum_bad_max=0.000000 worst_shoulder_rigid=0.004149 worst_hip_rigid=0.364532 arm_to_height_spread=0.027143 leg_to_height_spread=0.073403",
+  "created_at": "2026-09-13T01:33:37Z",
+  "from": "codex",
+  "id": "2f98074e012e",
+  "to": "claude",
+  "topic": "C98-done"
+}

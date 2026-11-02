@@ -1,0 +1,258 @@
+ROUND 56 (FightCamp, S220) — STATION WEAR MECHANICS & STATION CARD AUDIT
+1. MECHANICS VERDICT: APPROVED WITH FIXES
+Evaluation Against Real Boxing Gyms & Deep Management Sim Standards
+
+The core design of having athlete-hours directly drive wear with tiered integrity bands affecting training efficiency multiplier and injury risk is mechanically solid and completely in line with Motorsport Manager (part wear per lap) and Two Point Hospital (machine degradation per use).
+
+However, several specific wear rates and edge rules are mathematically uncalibrated for a 1-to-3 boxer roster training 20 to 30 hours a week across a standard 52-week operating calendar. Furthermore, leaving recovery/analysis at 0.0 creates a dead mechanic for late-tier apparatus.
+
+========================================================================================================================
+CURRENT VS. CALIBRATED WEAR RATES (PERCENTAGE POINTS PER ATHLETE-HOUR)
+========================================================================================================================
+STATION TYPE                  CURRENT   PROPOSED   HOURS TO 50% (WORN)  HOURS TO 20% (FAIL) REAL-WORLD ANALOGUE LIFESPAN
+------------------------------------------------------------------------------------------------------------------------
+Speed-bag swivel              0.40      0.45       111 hrs (~4-5 mos)   177 hrs (~7 mos)    High-friction mechanical bearing; grease dries, pins shear.
+Slat treadmill                0.55      0.35       142 hrs (~5-6 mos)   228 hrs (~9 mos)    0.55 was far too fast. Slat belts outlast rubber belts.
+Power rack / Squat stand      0.05      0.04       1250 hrs (~4-5 yrs)  2000 hrs (~8 yrs)   Heavy gauge structural steel; J-cups and safeties wear.
+Grappling mats (Boxing Demo)  0.30      0.10       500 hrs (~2 yrs)     800 hrs (~3 yrs)    Boxing calisthenics/stretching only; zero friction throws.
+Heavy bags (Leather / Foam)   0.25      0.20       250 hrs (~10 mos)    400 hrs (~16 mos)   D-rings, strap webbing & foam settling at the strike zone.
+Other cardio (Air Bike)       0.60      0.40       125 hrs (~5 mos)     200 hrs (~8 mos)    Fan belt tension, crank bearings, pedal threads.
+Strength (Barbell / Plates)   0.15      0.08       625 hrs (~2.5 yrs)   1000 hrs (~4 yrs)   Bushing spin, knurling flattening, sleeve collar drops.
+Ring canvas + ropes           0.20      0.15       333 hrs (~13 mos)    533 hrs (~21 mos)   Canvas duck cloth tension, turnbuckle slack, rope wraps.
+Recovery / Analysis items     0.00      0.06       833 hrs (~3 yrs)     1333 hrs (~5 yrs)   First-aid cabinet / ice-tub seal / sensor calibration wear.
+========================================================================================================================
+
+Justification for Calibrated Rates
+Slat Treadmill (Reduced from 0.55 $\rightarrow$ 0.35):
+Problem: At $0.55$ points/hr, a single boxer running 5 hours a week burns $2.75%$ integrity weekly. In just 18 weeks (4.5 months), a brand new $$4,500$ Woodway-style slat treadmill degrades into DAMAGED ($50%$), and hits FAILING ($20%$) in 29 weeks. Slat treadmills are selected by commercial gyms precisely because they use vulcanized rubber slats and ball bearings that outlast conventional belt-over-deck treadmills by $5\times$. At $0.35$, it requires ~142 hours of foot-pounding to hit $50%$, which matches realistic belt adjustments and lubrication cycles.
+Heavy Bags (Reduced from 0.25 $\rightarrow$ 0.20):
+Problem: At $0.25$, two fighters sharing a bag line degrade bags to WORN in 12 weeks. In a boxing gym, commercial heavy bags (Title, Cleto Reyes, Ringside) take continuous club abuse for 9 to 12 months before sand settling makes the bottom rock-hard or hanging D-rings saw through their straps. At $0.20$, 250 athlete-hours takes a bag to $50%$ integrity.
+Grappling Mats in a Boxing-Only Demo (Reduced from 0.30 $\rightarrow$ 0.10):
+Problem: $0.30$ represents aggressive wrestling and judo takedowns with abrasive canvas shoe friction and gi scraping. In our boxing sim, this mat is strictly utilized for abdominal core work, calisthenics, neck bridges, and mobility stretching. A rate of $0.10$ reflects foam compaction and vinyl seam wear without false MMA friction.
+Ring Canvas + Ropes (Reduced from 0.20 $\rightarrow$ 0.15):
+Problem: Ring canvas degradation occurs during sparring and ring craft work. At $0.15$, it hits $50%$ after 333 athlete-hours. For a gym running 6 hours of ring work a week, this requires ~55 weeks (roughly 1 game year), aligning with an annual canvas flip/replacement schedule common in regional boxing facilities.
+Recovery / Analysis Items (Fixed from 0.00 $\rightarrow$ 0.06):
+Problem: Zero wear makes these assets static "install and forget" stat boosters. A rate of $0.06$ per athlete-hour simulates consumable exhaustion (restocking ice, gauze, tape, sanitizing solutions, recalibrating scales/sensors).
+Band Thresholds & Penalty Rules Calibration
+
+The four integrity bands are conceptually clear, but the injury jump from $0.35%$ to $2.0%$ at $49%$ is too steep a cliff, and the identical efficiency multiplier ($x0.65$) between DAMAGED and FAILING removes tactical granularity.
+
+========================================================================================================================
+INTEGRITY BANDS & OPERATIONAL EFFECTS (CALIBRATED)
+========================================================================================================================
+BAND NAME   INTEGRITY RANGE  TRAINING GAIN  INJURY RISK / SESSION   BREAKDOWN RISK  SYSTEMIC STATUS
+------------------------------------------------------------------------------------------------------------------------
+PRISTINE    90% – 100%       x1.05          0.00%                   0.0%            Optimal condition; small bonus
+GOOD        75% – 89%        x1.00          0.05%                   0.0%            Standard working order
+WORN        45% – 74%        x0.85          0.40% (Minor blister/strain) 0.0%       Noticeable wear; training drag
+DAMAGED     20% – 44%        x0.65          1.25% (Wrist/joint sprain)   0.0%       Severe degradation; audible squeaks
+FAILING     01% – 19%        x0.40          3.50% (Tear / structural)   5.0% / session Breakdown risk; hazard
+OUT OF USE  00%              x0.00          LOCKED (Cannot train)   100.0%          Station broken down; training halted
+========================================================================================================================
+
+The "Pristine" Band ($90\text{--}100%$): Adds an incentive for managers to keep top-tier equipment fresh by awarding a modest $+5%$ training gain bonus (x1.05).
+The "Failing" Gain Multiplier ($x0.40$ vs $x0.65$): A bag with collapsed filling or a treadmill shuddering at $15%$ integrity severely impairs workout cadence. Lowering the training gain from $0.65$ to $0.40$ gives a real operational reason not to leave machines in the red.
+Breakdown Resolution: When a 5% breakdown roll triggers on a FAILING station during an active training tick:
+Training session terminates immediately for the athlete on that station.
+Station integrity drops to $0%$ (OUT OF USE).
+Athlete suffers a non-trivial trauma roll: $60%$ minor joint sprain ($7\text{ days}$ recovery), $35%$ moderate ligament strain ($21\text{ days}$ recovery), $5%$ severe tear ($45\text{ days}$ recovery).
+Station can no longer be serviced via routine maintenance; it requires a mandatory Emergency Overhaul costing $1.5\times$ base service cost or a full REPLACE.
+Service & Replace Economics Rule
+SERVICE Mechanics:
+Restores integrity by $+50$ percentage points, capped at a maximum ceiling of 95%.
+Formula: $\text{New Integrity} = \min(95, \text{Current Integrity} + 50)$.
+Why: Routine servicing does not make worn equipment factory-new; it tightens bolts, restuffs or flips bags, greases chains, and replaces tape. A heavily degraded station at $22%$ serviced once reaches $72%$ (WORN), requiring a second service or a full replacement to hit pristine levels.
+REPLACE Mechanics:
+Destroys existing asset and spawns a brand new unit: 100% Integrity.
+Purchase price equals base catalogue cost ($1.0\times$).
+Any accumulated fatigue or wear history on the station is purged.
+2. CARD VERDICT: APPROVED WITH FIXES
+Evaluation of the Identified Problems (a, b, c)
+Problem (a) [OVERRULE THE 640px HEIGHT & OFF-GENRE TEXT]: Completely agree with Claude. A $640\text{ px}$ tall card on a $1080\text{ p}$ canvas consumes almost $60%$ of the screen height, blocking crucial contextual viewports of adjacent stations and fighters. Listing Kickboxing, Muay Thai, and Karate in a certified pure boxing demo breaks world-building and makes the UI feel like an unfinished multi-sport template. A 6-line prose block for YOUR FIT is visual fluff in a high-density management sim.
+Problem (b) [OVERRULE FLOATING X TAB]: Completely agree. Floating close buttons detached from the parent modal look like web-browser popups or disconnected collision bounds. The X close trigger belongs inside the card's header bar, aligned to the top-right corner.
+Problem (c) [OVERRULE ACTIVE SERVICE AT 95%]: Completely agree. Offering a $$220$ action that produces zero numerical change ($95% \rightarrow 95%$) is a player-hostile money trap that invites misclicks.
+The 10 Specific Card Fixes (Ranked by Priority)
+┌──────────────────────────────────────────────────────────────────────────────────┐
+│                   REVISED COMPACT STATION CARD (360 x 390 px)                    │
+├──────────────────────────────────────────────────────────────────────────────────┤
+│ [ICON] HEAVY BAG (LEATHER #02)              [WORN] [46%]         [ X ] (32x32px) │
+├──────────────────────────────────────────────────────────────────────────────────┤
+│ INTEGRITY: 46% (DAMAGED)                                                         │
+│ [▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░░░░░░░] (Amber Bar #E5A93C, 10-step, 320x12px)         │
+│ EST. LIFESPAN: ~22 ATHLETE-HOURS REMAINING BEFORE FAILING                        │
+├──────────────────────────────────────────────────────────────────────────────────┤
+│ TRAINING IMPACT:                                                                 │
+│ • Gains: x0.65 (-35% penalty)       • Injury Risk: 1.25% / session (Sprain)      │
+├──────────────────────────────────────────────────────────────────────────────────┤
+│ ATTRIBUTES TRAINED:                                                              │
+│ [ POWER ]      [ COMBINATIONS ]      [ STAMINA ]                                 │
+├──────────────────────────────────────────────────────────────────────────────────┤
+│ FINANCIAL OVERHEAD:                                                              │
+│ Base Upkeep: $42 / wk                Service Cost: $220.00                       │
+├──────────────────────────────────────────────────────────────────────────────────┤
+│ [ SERVICE ($220) ]                   [ REPLACE ($850) ]                          │
+│ (+49% -> 95% Cap)                    (Factory New 100%)                          │
+└──────────────────────────────────────────────────────────────────────────────────┘
+
+Fix 1: Restructure Section Hierarchy & Enforce Max Height
+Change: Move the integrity bar and financial action buttons to the upper half of the card. Cap the maximum card height at $390\text{ px}$ (down from $640\text{ px}$). Card width fixed at $360\text{ px}$.
+Order:
+Header Bar: Station Name, Footprint, Status Pill, Close Button (H=44px).
+Integrity & Condition Block (H=82px).
+Operational Impact & Attributes (H=94px).
+Cost & Maintenance Actions (H=110px).
+Pinned Status Footer (H=60px).
+Fix 2: Purge Off-Genre Martial Arts Text & Condense "Fit"
+Change: Completely cut the BEST FOR (kickboxing, muay thai, karate fits) line and the 6-line YOUR FIT text block.
+Replacement: If an apparatus has specialized division or training synergy, express it as a single compact badge tag: FIT: TRADITIONAL BOXING (x1.0) in neutral grey #9E9284 (11px, regular).
+Fix 3: Integrate Close 'X' Directly into Header Bar
+Change: Remove the floating external top tab.
+Coordinates & Styling: Place an embedded button at X = 320, Y = 6 relative to the card's top-left origin.
+Size: $32\text{ px} \times 32\text{ px}$.
+Icon: Clean vector cross, stroke width $2\text{ px}$.
+Color: Normal #9E9284, Hover #FFF3E0 with background fill #3D2E1E.
+Fix 4: Hard Disable Rules for SERVICE Button & Tooltip
+Change: When station integrity is $\ge 90%$, disable the SERVICE button.
+Styling When Disabled:
+Background Fill: #251E19 (Dark chocolate brown, $40%$ opacity).
+Border: $1\text{ px}$ solid #3D3126.
+Text: #6E6255.
+Cursor: not_allowed.
+Tooltip On Disabled Hover: "Station is currently in optimal working order ($\ge 90%$). Maintenance cannot be performed until condition drops below 90%."
+Fix 5: Color Palette Tokens (Warm Brown + Yellow Theme)
+
+Ensure all UI elements strictly utilize the game's established palette:
+
+Card Background Surface: Dark Rich Walnut #181310 ($94%$ opacity with background blur).
+Card Outer Border: $1.5\text{ px}$ solid Aged Bronze #3D3126.
+Header Surface: Deep Espresso #221B16.
+Text Primary: Warm Cream #F5EEDB.
+Text Secondary: Muted Tan #9E9284.
+Accent Gold / Yellow: Warm Industrial Gold #E5B842.
+Integrity Green Band ($75\text{--}100%$): Olive Leaf #7E9F4A.
+Integrity Amber Band ($45\text{--}74%$): Warm Ochre #E5A93C.
+Integrity Red Band ($1\text{--}44%$): Brick Crimson #D15341.
+Fix 6: Dynamic Service Button Labeling (Showing Delta)
+Change: The service button must explicitly display the condition restoration benefit.
+Text Format:
+If Integrity $= 46%$: SERVICE ($220) [ +49% → 95% ]
+If Integrity $= 82%$: SERVICE ($220) [ +13% → 95% ]
+Button Dimensions: $W = 160\text{ px}, H = 42\text{ px}$, Fill #2D2319, Border $1.5\text{ px}$ #E5B842, Text #E5B842 (12px, Semi-Bold).
+Fix 7: Replace Button Styling & Affirmation
+Change: Give the REPLACE button clear visual distinction so players do not confuse a routine maintenance fee with a capital equipment purchase.
+Button Dimensions: $W = 160\text{ px}, H = 42\text{ px}$.
+Styling: Fill #E5B842 (Solid Gold), Text #181310 (Dark Walnut Bold, 12px).
+Hover State: Fill #F5C862, cursor pointing_hand.
+Confirmation Guard: If purchase price $\ge $1,000$ (e.g., Ring Canvas or Slat Treadmill), require a 0.5-second hold or a confirmation tooltip: "Replace with factory-new model for $850?"
+Fix 8: Segmented 10-Step Integrity Bar Polish
+Change: Replace smooth continuous sliders with a 10-step segmented bar ($W = 320\text{ px}, H = 14\text{ px}$).
+Segments: 10 individual pill blocks ($28\text{ px} \times 14\text{ px}$ each, $4\text{ px}$ spacing).
+$0\text{--}40%$ filled: Red #D15341.
+$50\text{--}70%$ filled: Ochre #E5A93C.
+$80\text{--}100%$ filled: Olive #7E9F4A.
+Empty Segments: Dark background #2A221C with $1\text{ px}$ border #3D3126.
+Fix 9: Training Attribute Tag Chips
+Change: Instead of raw plain-text sentences for what the station trains, render clean, compact chips.
+Tag Chip Dimensions: Auto-width, $H = 22\text{ px}$, padding $8\text{ px}$.
+Background Fill: #251E19, border $1\text{ px}$ #4A3C2F, text #D2C8BA (10px, bold uppercase).
+Example: [ POWER ], [ COMBINATIONS ], [ STAMINA ].
+Fix 10: Pinned State Footer & Visual Anchor
+Change: When pinned, show a bottom micro-strip ($H = 24\text{ px}$) indicating keyboard shortcut handling.
+Copy: "PINNED • PRESS ESC OR CLICK FLOOR TO DISMISS" (9px, #6E6255, center-aligned).
+In the 3D world, render an anchor line (1px dashed line, #E5B842, $40%$ alpha) connecting the card's bottom corner to the base of the 3D equipment on the floor.
+3. FLOOR SIGNAL & TOP-BAR TELEMETRY
+
+A manager in a sports simulation must never be forced to click or hover across 12 individual pieces of equipment just to determine if a heavy bag is about to tear its straps. Situational awareness must exist directly in the 3D viewport and across the global telemetry header.
+
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                             TOP-BAR TELEMETRY STRIP (GLOBAL HUD)                                 │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ [$25,000]    [$367/WK]    [9 WKS RUNWAY]    │ ⚠ 3 STATIONS NEED SERVICE ($580) │    [CONTINUE]   │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+A. The 3D Floor Signal System (Without Hovering)
+
+We implement a three-tiered spatial indicator system:
+
+========================================================================================================================
+3D SPATIAL DEGRADATION CUES
+========================================================================================================================
+INTEGRITY BAND  FLOOR DECAL / MARKER             SPATIAL BILLBOARD BADGE          AUDIO CUE (ON INTERACTION)
+------------------------------------------------------------------------------------------------------------------------
+GOOD (75-100%)  None (Clean floor footprint)     None (Zero UI clutter)           Clean, crisp impact sound
+WORN (45-74%)   Subtle footprint contact ring    None                             Normal operation
+DAMAGED (20-44%) Amber dashed floor boundary     Floating Amber Wrench Pill (32px)Creaking spring / dull thud
+FAILING (1-19%) Red hazard hatched boundary      Flashing Red Warning Pill (36px) Grinding bearing / loose chain
+OUT OF USE (0%) Solid red floor cross + caution  Solid Red "OUT OF SERVICE" Badge Metallic clatter / silence
+========================================================================================================================
+
+Exact Spatial Visuals:
+Floor Footprint Projection (Decal):
+Projected onto the floor mesh beneath the station.
+DAMAGED (20-44%): A subtle $1.5\text{ px}$ dashed border following the equipment's floor footprint ($1\text{ m} \times 1\text{ m}$ for single bag, $4\text{ m} \times 4\text{ m}$ for ring). Color: Warm Amber #E5A93C ($60%$ opacity).
+FAILING (1-19%): A high-contrast yellow/black hazard perimeter strip around the boundary, with subtle pulsing alpha ($0.4 \leftrightarrow 0.8$ at $1.5\text{ Hz}$).
+Floating World-Space Billboard Badges:
+Anchored $+0.4\text{ m}$ directly above the top of the apparatus in 3D world-space.
+Scaled dynamically by camera distance ($32\text{ px} \times 32\text{ px}$ at standard zoom).
+For DAMAGED: Amber circular pill #E5A93C with dark wrench icon #181310.
+For FAILING: Hexagonal crimson badge #D15341 with white exclamation mark #FFF3E0.
+Clicking the floating world-space badge instantly opens and pins that station's inspection card.
+B. The Top-Bar "Maintenance" Ledger Widget
+
+Yes, an aggregate Maintenance indicator absolutely belongs in the demo build.
+
+Placement: Centered in the top telemetry shell, positioned immediately adjacent to the Runway metric.
+Component Dimensions: $W = 240\text{ px}, H = 36\text{ px}$.
+Visual States:
+All Equipment Healthy ($\ge 75%$): Widget is hidden or displays a muted green status dot: EQUIPMENT: OPTIMAL (Text: 11px, #7E9F4A).
+Wear Detected ($1$ or more stations $\le 44%$): Displays an active amber button widget:
+⚠ 3 STATIONS NEED SERVICE ($580)
+(Background #2D2214, Border $1\text{ px}$ #E5A93C, Text #E5A93C).
+Interaction:
+Left Click: Opens an All-Facilities Maintenance Drawer (slide-out panel from the right, $W = 420\text{ px}$) listing all installed equipment sorted by lowest integrity first.
+Action Button in Drawer: [ SERVICE ALL APPARATUS ($580) ] — Allows the manager to execute full gym maintenance in one click, matching the bulk repair mechanics of Motorsport Manager and Two Point Hospital.
+4. BENCHMARK SCORECARD: THE STATION CARD
+========================================================================================================================
+BENCHMARK EVALUATION (STATION WEAR & REPAIR UI)
+========================================================================================================================
+TARGET COMPARISON                        SCORE     CRITICAL ANALYSIS
+------------------------------------------------------------------------------------------------------------------------
+Two Point Hospital (Machinery Repair)    8.8 / 10  Two Point uses janitor task dispatch rather than direct purchase, 
+                                                   but its wrench icon, smoke VFX, and 1-click upgrade flow are 
+                                                   flawless. FightCamp's revised card matches its clarity.
+
+Motorsport Manager (Car Part Wear & TSD) 9.1 / 10  Motorsport Manager is the gold standard for part condition vs. 
+                                                   performance drop. The revised FightCamp card with exact failure 
+                                                   thresholds and training penalty multipliers reaches this standard.
+
+Current Build (Pre-Fix Built State)      4.2 / 10  Bloated (640px), off-genre text (Kickboxing/Karate), zero floor 
+                                                   readability, missing maintenance total, button money trap at 95%.
+
+Revised Spec (With Fixes 1–10 Applied)   8.9 / 10  Tight (390px), contextually pure, disabled at 95%, clear 10-step 
+                                                   integrity bar, full spatial 3D floor signage, top-bar bulk total.
+========================================================================================================================
+
+5. PASS/FAIL ACCEPTANCE VERIFICATION HARNESS (ROUND 56)
+
+Run this checklist to validate the station wear engine and card redraw:
+
++----+-----------------------------+---------------------------------------------------------------------------------+
+| #  | TEST IDENTIFIER             | PASS / FAIL ACCEPTANCE CRITERIA                                                 |
++----+-----------------------------+---------------------------------------------------------------------------------+
+| 1  | `card_max_height_check`     | Pinned station card height does not exceed 390px on 1080p canvas.               |
+| 2  | `no_martial_arts_leak`      | Zero references to Kickboxing, Muay Thai, or Karate anywhere on the card.       |
+| 3  | `service_disable_at_90`     | At integrity >= 90%, SERVICE button is disabled with tooltip displayed.        |
+| 4  | `service_delta_preview`     | SERVICE button label displays exact delta: "+X% -> 95% Cap".                    |
+| 5  | `header_close_x_embedded`   | Close 'X' button sits inside header bounds at X=320, Y=6; floating tab removed.|
+| 6  | `floor_damaged_billboard`   | Any station with integrity <= 44% displays floating amber wrench billboard.    |
+| 7  | `top_bar_maintenance_sum`   | Top telemetry bar displays accurate count and total dollar sum of worn items.   |
+| 8  | `slat_treadmill_rate_check` | Slat treadmill wear verified at 0.35 points/athlete-hour (not 0.55).            |
+| 9  | `heavy_bag_rate_check`      | Heavy bag wear verified at 0.20 points/athlete-hour (not 0.25).                 |
+| 10 | `failing_breakdown_trigger` | Stations under 20% integrity roll 5% breakdown risk on active training tick.    |
++----+-----------------------------+---------------------------------------------------------------------------------+
+
+Can you define the exact station wear thresholds, training penalties, and breakdown rules for the heavy bag?
+Can you specify the complete heavy bag card layout with exact section order, dimensions, positions, colours, and button states?
+Can you design a 1920x1080 visual mockup showing the damaged heavy bag card and its corresponding floor signal?
+Should the floor signal change between worn, damaged, and failing states, and what exact icons, tints, and decals should each use?
+Copyright ©2026 Ludo.ai. All Rights Reserved

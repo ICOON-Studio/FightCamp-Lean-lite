@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>FightCamp · K21 THE FIGHT CAMP · Kalli</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@500;600;700&display=swap">
+<style>
+:root{
+  --ground:#1c2230;--ground-2:#242c3d;--panel:#2a3347;--panel-hi:#34405a;--panel-lo:#222a3b;
+  --track:#111621;--edge:#121722;--line:#4a5a78;--line-soft:#2b3340;
+  --text:#f3f5fa;--text-2:#c9d1e0;--muted:#94a1b8;--dim:#6d7688;--ink:#1b1207;--link:#7fb6ee;
+  --gold:#f0c233;--gold-hi:#f7d65a;--gold-lo:#c99a1a;--gold-edge:#7a5c0c;
+  --gym:#2f6fb0;--gym-hi:#3f86cc;--gym-lo:#24558a;--gym-deep:#1a3d63;--gym-tint:rgba(47,111,176,.22);
+  --go:#22c55e;--go-hi:#4ade80;--go-lo:#15803d;--go-edge:#0b4a23;
+  --slate:#3f4a62;--control:#303a52;--chip:#333d52;--avatar:#3b4557;
+  --good:#4fc46a;--amber:#f0a020;--bad:#e5433a;--bad-edge:#5a120e;
+  --day:#171a22;--day-today:#1e2836;
+  --display:"Bebas Neue","Haettenschweiler","Arial Narrow",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --edge-hi:rgba(255,255,255,.14);
+  --paper:#e8e2d4;--paper-ink:#1b1207;--paper-line:#c9c0aa;--paper-muted:#6a6356;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#0f131b;color:var(--text);font-family:var(--mono);font-size:13px;font-weight:500;line-height:1.35;-webkit-font-smoothing:antialiased}
+.doc{padding:28px 24px 80px;max-width:1960px;margin:0 auto}
+.eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.mast h1{font-family:var(--display);font-size:52px;letter-spacing:.02em;line-height:.94;margin:6px 0 10px}
+.mast p{max-width:96ch;color:var(--text-2);margin:0 0 8px}
+.rules{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 28px}
+.rules span{font-size:12px;letter-spacing:.08em;font-weight:700;padding:6px 10px;border:1px solid var(--edge);border-radius:3px;background:var(--panel-lo);color:var(--muted)}
+.sec{margin:36px 0 18px}
+.sec h2{font-family:var(--display);font-size:32px;letter-spacing:.06em;margin:0 0 6px}
+.sec p{margin:0;color:var(--text-2);max-width:92ch}
+.note{margin-top:8px;font-size:12px;letter-spacing:.04em;color:var(--muted)}
+.board{width:1920px;height:1080px;position:relative;overflow:hidden;background:var(--ground);margin:16px 0 40px;box-shadow:0 24px 60px rgba(0,0,0,.55)}
+.kstrip{position:absolute;left:0;top:0;z-index:20;background:linear-gradient(90deg,#0c1018,#1a2233);border-bottom:1px solid var(--edge);border-right:1px solid var(--edge);padding:6px 14px;font-size:12px;letter-spacing:.16em;font-weight:700;color:var(--muted)}
+.kstrip b{color:var(--text);font-weight:700}
+
+/* shell */
+.shell{width:100%;height:100%;position:relative;background:var(--ground)}
+.top{position:absolute;left:402px;top:16px;width:1494px;height:92px;background:linear-gradient(180deg,rgba(52,64,90,.98),rgba(38,46,66,.98));border:1px solid var(--edge);border-radius:3px;box-shadow:0 1px 0 var(--edge-hi) inset;display:grid;grid-template-columns:1fr auto;overflow:hidden}
+.top .left{padding:8px 14px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.crumb{font-size:12px;letter-spacing:.12em;font-weight:700;color:var(--muted)}
+.pills{display:flex;gap:8px;align-items:center}
+.pill{height:28px;padding:0 12px;border-radius:3px;border:1px solid var(--edge);display:inline-flex;align-items:center;font-size:12px;letter-spacing:.1em;font-weight:700;background:linear-gradient(180deg,#3a4560,#2b3449)}
+.daystrip{display:flex;gap:4px;margin-left:10px}
+.daycell{width:46px;height:28px;border-radius:2px;background:var(--day);border:1px solid var(--edge);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--dim);line-height:1.05}
+.daycell .n{font-family:var(--display);font-size:14px;color:var(--text-2)}
+.daycell.on{background:var(--day-today);border-color:var(--gym-lo);box-shadow:0 0 0 1px rgba(47,111,176,.35)}
+.daycell.on .n{color:#fff}
+.top .right{display:flex;align-items:stretch}
+.dateblk{padding:0 16px;display:flex;flex-direction:column;justify-content:center;text-align:right;background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff;min-width:168px}
+.dateblk .w{font-size:12px;letter-spacing:.14em;font-weight:700;opacity:.92}
+.dateblk .d{font-family:var(--display);font-size:22px;line-height:1;margin-top:2px}
+.continue{display:flex;flex-direction:column;justify-content:center;padding:0 22px;min-width:220px;background:linear-gradient(180deg,var(--go-hi),var(--go-lo));color:#062a10;border-left:1px solid var(--go-edge);box-shadow:0 1px 0 rgba(255,255,255,.35) inset}
+.continue .t{font-family:var(--display);font-size:26px;letter-spacing:.06em;line-height:1}
+.continue .s{font-size:12px;letter-spacing:.1em;font-weight:700;margin-top:2px}
+.rail{position:absolute;left:16px;top:122px;width:370px;height:900px;background:linear-gradient(180deg,#243049,#1c2436);border:1px solid var(--edge);border-radius:3px;box-shadow:0 1px 0 var(--edge-hi) inset;display:flex;flex-direction:column;overflow:hidden}
+.crest{display:flex;align-items:center;gap:12px;padding:14px 14px 10px;border-bottom:1px solid var(--edge)}
+.crest .mark{width:44px;height:44px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#fff,#cfd8e6 70%);color:var(--gym-deep);font-family:var(--display);font-size:18px;display:grid;place-items:center;border:2px solid rgba(0,0,0,.35);flex:none}
+.crest .nm{font-family:var(--display);font-size:22px;letter-spacing:.04em;line-height:1;color:#fff}
+.crest .sub{font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--muted);margin-top:3px}
+.menucap{font-size:12px;letter-spacing:.16em;font-weight:700;color:var(--dim);padding:10px 18px 4px}
+.nav{display:flex;flex-direction:column;gap:2px;padding:4px 8px 12px;flex:1}
+.nav a{display:flex;align-items:center;height:40px;padding:0 12px 0 14px;border-radius:3px;color:var(--text-2);text-decoration:none;font-family:var(--display);font-size:18px;letter-spacing:.06em;position:relative}
+.nav a.on{background:linear-gradient(90deg,var(--gym),var(--gym-lo));color:#fff}
+.nav a.on::before{content:"";position:absolute;left:4px;top:8px;width:4px;height:24px;border-radius:2px;background:#fff}
+.body{position:absolute;left:402px;top:122px;width:1494px;height:900px;display:flex;flex-direction:column;gap:10px;min-height:0}
+.hubhead{height:44px;display:flex;align-items:center;gap:14px;padding:0 2px;flex:none}
+.hubhead h2{font-family:var(--display);font-size:32px;letter-spacing:.04em;margin:0;line-height:1}
+.hubhead .meta{font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--muted)}
+.tabs{display:flex;gap:4px;margin-left:auto}
+.tab{height:32px;padding:0 16px;border-radius:3px;border:1px solid var(--edge);background:linear-gradient(180deg,#3a4560,#2b3449);font-family:var(--display);font-size:16px;letter-spacing:.08em;color:var(--text-2);display:inline-flex;align-items:center}
+.tab.on{background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff;border-color:var(--gym-deep)}
+.panel{background:var(--panel);border:1px solid var(--edge);border-radius:3px;box-shadow:0 1px 0 var(--edge-hi) inset;min-height:0;flex:1;display:flex;flex-direction:column;overflow:hidden}
+.hint{padding:8px 12px;border-top:1px solid var(--line-soft);font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--muted);display:flex;gap:18px;flex:none;flex-wrap:wrap}
+.hint b{color:var(--text-2)}
+.pair{display:grid;grid-template-columns:1fr auto;height:34px;border:1px solid var(--edge);border-radius:3px;overflow:hidden}
+.pair .lab{display:flex;align-items:center;padding:0 10px;background:linear-gradient(180deg,#4a5670,#333d52);font-family:var(--display);font-size:15px;letter-spacing:.08em}
+.pair .val{display:flex;align-items:center;justify-content:center;min-width:72px;padding:0 10px;font-family:var(--display);font-size:20px;background:linear-gradient(180deg,var(--panel-hi),var(--panel-lo))}
+.btn{height:40px;border-radius:3px;border:1px solid var(--edge);background:linear-gradient(180deg,#445273,#303a52);font-family:var(--display);font-size:17px;letter-spacing:.08em;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 0 var(--edge-hi) inset;padding:0 16px}
+.btn.gold{background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:var(--ink);border-color:var(--gold-edge);box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 0 16px rgba(240,194,51,.35)}
+.btn.dim{opacity:.45}
+.btn.sm{height:32px;font-size:15px;padding:0 12px}
+.btn.ghost{background:transparent;color:var(--text-2)}
+.sil{width:40px;height:72px;background:linear-gradient(180deg,#3b4557 0%,#2a3347 55%,#1c2230 100%);border-radius:20px 20px 5px 5px;position:relative;flex:none;box-shadow:0 6px 14px rgba(0,0,0,.4)}
+.sil::before{content:"";position:absolute;top:-18px;left:50%;transform:translateX(-50%);width:24px;height:24px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#4a556c,#2b3447 70%);border:2px solid var(--edge)}
+.sil.sm{width:28px;height:50px;border-radius:14px 14px 4px 4px}
+.sil.sm::before{width:18px;height:18px;top:-14px}
+.sil.xs{width:22px;height:40px;border-radius:11px 11px 3px 3px}
+.sil.xs::before{width:14px;height:14px;top:-11px}
+
+.verdict{display:inline-flex;align-items:center;height:26px;padding:0 10px;border-radius:2px;font-family:var(--display);font-size:16px;letter-spacing:.08em;border:1px solid var(--edge);white-space:nowrap}
+.verdict.grade{background:linear-gradient(180deg,#4a5670,#333d52);color:#fff;border-color:var(--edge)}
+.reason{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:2px;font-size:12px;letter-spacing:.08em;font-weight:700;border:1px solid var(--edge);background:var(--chip);color:var(--text-2)}
+.reason.good{background:linear-gradient(180deg,rgba(79,196,106,.28),rgba(79,196,106,.08));color:#9ae8a6;border-color:#2a6a40}
+.reason.warn{background:linear-gradient(180deg,rgba(240,160,32,.28),rgba(240,160,32,.08));color:#ffd08a;border-color:#7a4c08}
+.reason.bad{background:linear-gradient(180deg,rgba(229,67,58,.28),rgba(229,67,58,.08));color:#ff9a94;border-color:#7a221c}
+.reason.flat{background:var(--chip);color:var(--muted)}
+
+/* set-piece */
+.sp{width:100%;height:100%;display:flex;flex-direction:column;padding:28px 32px 22px;background:
+  radial-gradient(ellipse at 50% 0%,rgba(47,111,176,.18),transparent 55%),
+  linear-gradient(180deg,#161c28,#0f131b 40%,#121722);
+  position:relative}
+.sp-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;padding-top:18px}
+.sp-top .lab{font-size:12px;letter-spacing:.18em;font-weight:700;color:var(--muted)}
+.sp-top h1{font-family:var(--display);font-size:48px;letter-spacing:.04em;margin:4px 0 0;line-height:1}
+.sp-top .vs{font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--text-2);margin-top:6px}
+.sp-top .vs b{color:#fff}
+.sp-meta{display:flex;gap:10px;align-items:center}
+.sp-foot{display:flex;align-items:center;gap:12px;margin-top:auto;padding-top:12px;border-top:1px solid var(--line-soft)}
+.sp-foot .hint{border:0;padding:0;margin:0;background:transparent}
+
+/* option chips */
+.ochip{height:30px;padding:0 12px;border-radius:3px;border:1px solid var(--edge);background:var(--chip);font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--text-2);display:inline-flex;align-items:center;gap:6px}
+.ochip.on{background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff;border-color:var(--gym-deep);box-shadow:0 0 0 1px rgba(63,134,204,.35)}
+.ochip .id{color:var(--dim);font-size:11px;letter-spacing:.06em}
+.ochip.on .id{color:rgba(255,255,255,.7)}
+
+/* person card */
+.pcard{display:flex;gap:12px;align-items:center;padding:10px 12px;border:1px solid var(--edge);border-radius:3px;background:linear-gradient(180deg,rgba(52,64,90,.55),rgba(34,42,59,.85));min-height:78px}
+.pcard.on{border-color:var(--gym-deep);box-shadow:0 0 0 1px rgba(63,134,204,.4), inset 0 0 0 1px rgba(63,134,204,.15)}
+.pcard .who{flex:1;min-width:0}
+.pcard .nm{font-family:var(--display);font-size:18px;letter-spacing:.05em;line-height:1}
+.pcard .role{font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--muted);margin-top:3px}
+.pcard .fee{font-size:12px;letter-spacing:.08em;font-weight:700;margin-top:4px}
+.pcard .fee.free{color:var(--good)}
+.pcard .fee.world{color:var(--amber)}
+.pcard .fee.slot{color:var(--link)}
+.pcard.locked{opacity:.55}
+.pcard .slot-tag{font-size:11px;letter-spacing:.12em;font-weight:700;color:var(--dim);border:1px solid var(--edge);padding:3px 6px;border-radius:2px}
+
+/* projection dock */
+.pdock{background:linear-gradient(180deg,#243049,#1a2233);border:1px solid var(--edge);border-radius:3px;padding:12px 14px;display:flex;flex-direction:column;gap:10px;box-shadow:0 1px 0 var(--edge-hi) inset,0 12px 28px rgba(0,0,0,.35);min-height:0}
+.pdock .phd{display:flex;align-items:center;gap:10px}
+.pdock .phd h3{font-family:var(--display);font-size:22px;letter-spacing:.08em;margin:0;line-height:1}
+.pdock .phd .sub{font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--muted);margin-left:auto}
+.pdock.empty{opacity:.72}
+.pdock.empty .ph-empty{font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--dim);padding:28px 8px;text-align:center;border:1px dashed var(--line-soft);border-radius:3px}
+.edge-lines{display:flex;flex-direction:column;gap:4px;min-height:52px}
+.edge-lines .el{font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--text-2);padding:4px 8px;background:rgba(0,0,0,.22);border-radius:2px;border-left:3px solid var(--gym)}
+.edge-lines .el.muted{color:var(--dim);border-left-color:var(--line-soft);font-style:normal}
+.abs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.abs{display:grid;grid-template-columns:1fr auto;height:36px;border:1px solid var(--edge);border-radius:2px;overflow:hidden}
+.abs .lab{display:flex;align-items:center;padding:0 8px;background:linear-gradient(180deg,#4a5670,#333d52);font-family:var(--display);font-size:13px;letter-spacing:.06em}
+.abs .val{display:flex;align-items:center;justify-content:center;min-width:64px;padding:0 8px;font-family:var(--display);font-size:18px;background:linear-gradient(180deg,var(--panel-hi),var(--panel-lo))}
+.delta-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;min-height:28px}
+.delta-row .cap{font-size:12px;letter-spacing:.12em;font-weight:700;color:var(--muted);margin-right:4px}
+.dchip{display:inline-flex;align-items:center;height:24px;padding:0 9px;border-radius:2px;font-size:12px;letter-spacing:.06em;font-weight:700;border:1px solid var(--edge)}
+.dchip.good{background:linear-gradient(180deg,rgba(79,196,106,.3),rgba(79,196,106,.1));color:#9ae8a6;border-color:#2a6a40}
+.dchip.warn{background:linear-gradient(180deg,rgba(240,160,32,.3),rgba(240,160,32,.1));color:#ffd08a;border-color:#7a4c08}
+.dchip.bad{background:linear-gradient(180deg,rgba(229,67,58,.3),rgba(229,67,58,.1));color:#ff9a94;border-color:#7a221c}
+.dchip.flat{background:var(--chip);color:var(--muted)}
+.dchip.goldish{background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:var(--ink);border-color:var(--gold-edge);box-shadow:0 0 12px rgba(240,194,51,.3)}
+
+/* risk band — separate from edge column */
+.risk{border:1px solid #7a221c;border-radius:3px;padding:8px 10px;background:linear-gradient(90deg,rgba(229,67,58,.18),rgba(229,67,58,.04));display:flex;flex-direction:column;gap:6px}
+.risk .rt{display:flex;align-items:center;gap:8px}
+.risk .rt .tag{font-family:var(--display);font-size:15px;letter-spacing:.12em;color:#ff9a94}
+.risk .rt .note{font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--text-2);margin-left:auto}
+.risk .meter{height:10px;background:#1a1010;border-radius:2px;border:1px solid #5a120e;overflow:hidden}
+.risk .meter > i{display:block;height:100%;background:linear-gradient(90deg,#7a221c,var(--bad));width:42%}
+.risk.warn-loud{box-shadow:0 0 18px rgba(229,67,58,.25)}
+.risk.quiet{border-color:var(--edge);background:linear-gradient(90deg,rgba(74,90,120,.2),transparent)}
+.risk.quiet .rt .tag{color:var(--muted)}
+.risk.quiet .meter{border-color:var(--edge);background:var(--track)}
+.risk.quiet .meter > i{background:var(--slate);width:8%}
+
+/* SETUP layout */
+.setup-grid{flex:1;display:grid;grid-template-columns:1.15fr .85fr;gap:12px;min-height:0}
+.setup-left{display:flex;flex-direction:column;gap:10px;min-height:0;overflow:hidden}
+.setup-right{display:flex;flex-direction:column;gap:10px;min-height:0}
+.zone{background:var(--panel);border:1px solid var(--edge);border-radius:3px;padding:12px 14px;box-shadow:0 1px 0 var(--edge-hi) inset}
+.zone h4{font-family:var(--display);font-size:18px;letter-spacing:.1em;margin:0 0 8px;color:var(--text-2)}
+.zone .zsub{font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--dim);margin:-4px 0 8px}
+.row-opts{display:flex;flex-wrap:wrap;gap:6px}
+.block-label{font-size:12px;letter-spacing:.14em;font-weight:700;color:var(--muted);margin:8px 0 6px}
+.people-col{display:flex;flex-direction:column;gap:8px;flex:1;min-height:0}
+.role-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+
+/* PROJECTION board — 3 states */
+.proj-board{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;min-height:0;padding:4px 0}
+.proj-card{background:var(--panel);border:1px solid var(--edge);border-radius:3px;padding:14px;display:flex;flex-direction:column;gap:10px;box-shadow:0 1px 0 var(--edge-hi) inset;min-height:0;overflow:hidden}
+.proj-card .stag{font-size:12px;letter-spacing:.14em;font-weight:700;color:var(--muted)}
+.proj-card h4{font-family:var(--display);font-size:26px;margin:0;letter-spacing:.05em;line-height:1}
+.proj-card.loud{outline:1px solid rgba(63,134,204,.55);box-shadow:0 0 18px rgba(47,111,176,.25)}
+.proj-card .blurb{font-size:12px;letter-spacing:.05em;font-weight:700;color:var(--text-2);line-height:1.4}
+
+/* PROGRESS week log */
+.weeklog{flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+.weekhead{display:flex;gap:10px;align-items:center;padding:10px 12px;border-bottom:1px solid var(--line-soft);flex:none;flex-wrap:wrap}
+.weekrows{flex:1;overflow:hidden;display:flex;flex-direction:column;padding:8px 10px;gap:6px}
+.wrow{display:grid;grid-template-columns:70px 90px 1fr 100px 90px;gap:10px;align-items:center;padding:10px 12px;background:linear-gradient(180deg,rgba(52,64,90,.4),rgba(34,42,59,.7));border:1px solid var(--edge);border-radius:3px}
+.wrow .wk{font-family:var(--display);font-size:20px;letter-spacing:.06em}
+.wrow .taper{font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--amber)}
+.wrow .line{font-size:12px;letter-spacing:.05em;font-weight:700;color:var(--text-2)}
+.wrow .cost{font-family:var(--display);font-size:18px;text-align:right}
+.wrow .tick{font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--bad);text-align:right}
+.wrow .tick.ok{color:var(--dim)}
+.counter-open{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid #24558a;border-radius:3px;background:linear-gradient(90deg,rgba(47,111,176,.28),rgba(47,111,176,.06));margin:0 10px 10px}
+.counter-open .tag{font-family:var(--display);font-size:16px;letter-spacing:.1em;color:#9ec9f0;flex:none}
+.counter-open .why{font-size:12px;letter-spacing:.05em;font-weight:700;color:var(--text-2);flex:1}
+
+/* REPORT */
+.report-grid{flex:1;display:grid;grid-template-columns:1.1fr .9fr;gap:14px;min-height:0}
+.grade-hero{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:18px;background:linear-gradient(180deg,#243049,#1a2233);border:1px solid var(--edge);border-radius:3px}
+.grade-hero .glab{font-size:12px;letter-spacing:.18em;font-weight:700;color:var(--muted)}
+.grade-hero .gmark{font-family:var(--display);font-size:120px;line-height:.85;letter-spacing:.02em;color:var(--gold);text-shadow:0 0 40px rgba(240,194,51,.35)}
+.grade-hero .gline{font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--text-2);max-width:42ch}
+.lines-table{display:flex;flex-direction:column;gap:6px}
+.line-row{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:8px;align-items:center;padding:8px 10px;border:1px solid var(--edge);border-radius:2px;background:rgba(0,0,0,.18)}
+.line-row .k{font-family:var(--display);font-size:15px;letter-spacing:.06em}
+.line-row .a,.line-row .b{font-size:12px;letter-spacing:.05em;font-weight:700;color:var(--text-2)}
+.line-row .cap{font-size:11px;letter-spacing:.1em;font-weight:700;color:var(--dim);display:block;margin-bottom:2px}
+.inj-dock{padding:10px 12px;border:1px solid var(--edge);border-radius:3px;background:var(--panel-lo)}
+.inj-dock .cap{font-size:12px;letter-spacing:.14em;font-weight:700;color:var(--muted);margin-bottom:6px}
+.cost-foot{font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--muted);padding:8px 0 0;border-top:1px solid var(--line-soft);margin-top:10px}
+
+/* SEAM profile camp tab */
+.profile-body{flex:1;display:grid;grid-template-columns:280px 1fr;gap:10px;min-height:0}
+.prof-side{background:var(--panel);border:1px solid var(--edge);border-radius:3px;padding:14px;display:flex;flex-direction:column;align-items:center;gap:10px}
+.prof-side .bigsil{width:72px;height:130px;border-radius:36px 36px 8px 8px;background:linear-gradient(180deg,#3b4557 0%,#2a3347 55%,#1c2230 100%);position:relative;box-shadow:0 8px 20px rgba(0,0,0,.45)}
+.prof-side .bigsil::before{content:"";position:absolute;top:-28px;left:50%;transform:translateX(-50%);width:40px;height:40px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#4a556c,#2b3447 70%);border:2px solid var(--edge)}
+.prof-side .pn{font-family:var(--display);font-size:26px;letter-spacing:.04em;text-align:center;line-height:1}
+.prof-side .ps{font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--muted);text-align:center}
+.prof-main{display:flex;flex-direction:column;gap:10px;min-height:0}
+.camp-sum{flex:1;background:var(--panel);border:1px solid var(--edge);border-radius:3px;padding:16px 18px;display:flex;flex-direction:column;gap:12px;box-shadow:0 1px 0 var(--edge-hi) inset;position:relative}
+.camp-sum h3{font-family:var(--display);font-size:28px;margin:0;letter-spacing:.06em}
+.camp-sum .sum-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seam-overlay{position:absolute;inset:0;background:rgba(8,10,16,.55);z-index:2;border-radius:3px;pointer-events:none}
+.seam-card{position:absolute;right:28px;top:36px;width:560px;z-index:3;background:linear-gradient(180deg,#1e2638,#161c28);border:1px solid var(--line);border-radius:3px;padding:16px 18px;box-shadow:0 18px 40px rgba(0,0,0,.55);display:flex;flex-direction:column;gap:10px}
+.seam-card .slab{font-size:12px;letter-spacing:.16em;font-weight:700;color:var(--muted)}
+.seam-card h4{font-family:var(--display);font-size:28px;margin:0;letter-spacing:.05em;line-height:1}
+.seam-card .vs{font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--text-2)}
+.seam-arrow{position:absolute;left:52%;top:48%;z-index:4;font-family:var(--display);font-size:18px;letter-spacing:.12em;color:var(--text-2);background:rgba(12,16,24,.85);padding:6px 12px;border:1px solid var(--edge);border-radius:2px;transform:translate(-50%,-50%)}
+
+.col{display:flex;flex-direction:column;gap:8px}
+.row{display:flex;align-items:center;gap:8px}
+.muted{color:var(--muted)}
+.dim{color:var(--dim)}
+.fill{flex:1}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="mast">
+    <div class="eyebrow">K21 · KALLI STUDY · FIGHT CAMP</div>
+    <h1>THE FIGHT CAMP, HOW IT READS</h1>
+    <p>Design study only. Five 1920×1080 boards. SETUP is a booking-shaped set-piece over the profile CAMP seam. Projection = one moving dock + last-pick delta chips (C20). Injury risk is its own RISK band — never edge-like. People are cards, not dropdowns. Gold ×1 per board. Green = CONTINUE only.</p>
+  </div>
+  <div class="rules">
+    <span>BEBAS + PLEX · SIZE_MIN 12</span>
+    <span>GOLD ×1 / BOARD</span>
+    <span>GREEN = CONTINUE</span>
+    <span>PAIR = SLATE</span>
+    <span>FACILITY = GYM</span>
+    <span>SILHOUETTES ONLY</span>
+    <span>♀ ≠ ♂</span>
+    <span>NO INVENTED MATHS</span>
+  </div>
+
+  <div class="sec">
+    <h2>1 · SETUP</h2>
+    <p>Set-piece commit weeks ahead. SETTINGS (left) + PEOPLE (right) + live PROJECTION DOCK. Gold = START CAMP.</p>
+    <p class="note">state: setup · opponent named · blocked_reason empty when ready · ids from fight_camp.json / WeightCut diet</p>
+  </div>
+
+  <div class="board" id="board-setup">
+    <div class="kstrip">K21 · <b>SETUP</b></div>
+    <div class="sp">
+      <div class="sp-top">
+        <div>
+          <div class="lab">FIGHT CAMP · SET-PIECE · STATE SETUP</div>
+          <h1>CAMP SETUP</h1>
+          <div class="vs">PREP FOR <b>NAMED OPPONENT</b> · WEEKS FROM <b>weeks_available</b> · GYM CASH WEEKLY</div>
+        </div>
+        <div class="sp-meta">
+          <div class="pair" style="min-width:160px"><div class="lab">WEEKS</div><div class="val">…</div></div>
+          <div class="pair" style="min-width:180px"><div class="lab">RULESET</div><div class="val" style="font-size:14px;min-width:100px">from bout</div></div>
+        </div>
+      </div>
+      <div class="setup-grid">
+        <div class="setup-left">
+          <div class="zone" style="flex:1">
+            <h4>SETTINGS</h4>
+            <div class="zsub">CHIP / OPTION ROWS · IDS FROM DATA · NOT PEOPLE</div>
+            <div class="block-label">FOCUS TRACK</div>
+            <div class="row-opts">
+              <div class="ochip on">THE STRIKING SHARK <span class="id">striking_shark</span></div>
+              <div class="ochip">THE MAT MECHANIC <span class="id">mat_mechanic</span></div>
+              <div class="ochip">THE MARATHON MAN <span class="id">marathon_man</span></div>
+              <div class="ochip">THE HUMAN SHIELD <span class="id">human_shield</span></div>
+            </div>
+            <div class="block-label">PROTOCOL</div>
+            <div class="row-opts">
+              <div class="ochip on">HARD SPARRING <span class="id">hard_sparring</span></div>
+              <div class="ochip">TECHNICAL FLOW <span class="id">technical_flow</span></div>
+              <div class="ochip">SCIENTIFIC RECOVERY <span class="id">scientific_recovery</span></div>
+            </div>
+            <div class="block-label">CUT PLAN · WeightCut.diet</div>
+            <div class="row-opts">
+              <div class="ochip">NO CUT <span class="id">none</span></div>
+              <div class="ochip on">MODERATE CUT <span class="id">moderate</span></div>
+              <div class="ochip">AGGRESSIVE CUT <span class="id">aggressive</span></div>
+            </div>
+            <div class="block-label">COUNTER · LOCKED UNTIL FILM DEPTH 3</div>
+            <div class="row-opts">
+              <div class="ochip" style="opacity:.45">ANTI-WRESTLER <span class="id">anti_wrestler</span></div>
+              <div class="ochip" style="opacity:.45">COUNTER-PUNCHER <span class="id">counter_puncher</span></div>
+              <div class="ochip" style="opacity:.45">THE BLITZ <span class="id">blitz</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="setup-right">
+          <div class="zone people-col">
+            <h4>PEOPLE</h4>
+            <div class="zsub">CARDS · SILHOUETTE + NAME + ROLE/FEE · NEVER DROPDOWN</div>
+            <div class="block-label">PARTNER ROLE → PARTNER</div>
+            <div class="role-row">
+              <div class="ochip on">THE MIRROR <span class="id">mirror</span></div>
+              <div class="ochip">THE CLONE <span class="id">clone</span></div>
+              <div class="ochip">THE IRON CHIN <span class="id">iron_chin</span></div>
+            </div>
+            <div class="pcard on">
+              <div class="sil sm"></div>
+              <div class="who">
+                <div class="nm">ROSTER PARTNER</div>
+                <div class="role">MIRROR · STYLE MATCH</div>
+                <div class="fee free">ROSTER · FREE · LOSES THEIR WEEK</div>
+              </div>
+            </div>
+            <div class="pcard">
+              <div class="sil sm"></div>
+              <div class="who">
+                <div class="nm">WORLD PARTNER</div>
+                <div class="role">MIRROR · FEE FROM world_partner_fee</div>
+                <div class="fee world">WORLD · BASE + PER POTENTIAL</div>
+              </div>
+            </div>
+            <div class="block-label">VISITING COACH · EARNED SPECIALIST SLOT</div>
+            <div class="pcard">
+              <div class="sil sm"></div>
+              <div class="who">
+                <div class="nm">SPECIALIST COACH</div>
+                <div class="role">SLOT FROM slots_for_gym</div>
+                <div class="fee slot">FEE × specialist_coach.fee_multiplier</div>
+              </div>
+              <div class="slot-tag">SLOT</div>
+            </div>
+            <div class="pcard locked">
+              <div class="sil sm"></div>
+              <div class="who">
+                <div class="nm">SECOND SLOT</div>
+                <div class="role">OPENS AT GYM TIER 2</div>
+                <div class="fee">slots.second_slot_gym_tier</div>
+              </div>
+              <div class="slot-tag">LOCKED</div>
+            </div>
+          </div>
+          <div class="pdock">
+            <div class="phd">
+              <h3>PROJECTION DOCK</h3>
+              <div class="sub">ABSOLUTES · LIVE ON PICK</div>
+            </div>
+            <div class="edge-lines">
+              <div class="el">edge_lines · from FightCamp.edge_lines(edges)</div>
+              <div class="el">track banks shown as human lines — not raw keys</div>
+            </div>
+            <div class="abs-grid">
+              <div class="abs"><div class="lab">TIGHTNESS</div><div class="val">…</div></div>
+              <div class="abs"><div class="lab">FATIGUE NIGHT</div><div class="val">…</div></div>
+              <div class="abs"><div class="lab">FILM DEPTH</div><div class="val">0–3</div></div>
+              <div class="abs"><div class="lab">CASH / COST</div><div class="val">…</div></div>
+              <div class="abs"><div class="lab">FIGHT IQ</div><div class="val">0/1</div></div>
+              <div class="abs"><div class="lab">WEEKS</div><div class="val">…</div></div>
+            </div>
+            <div class="delta-row">
+              <span class="cap">DELTAS</span>
+              <span class="dchip good">tightness</span>
+              <span class="dchip warn">fatigue_on_the_night</span>
+              <span class="dchip flat">film_depth</span>
+              <span class="dim" style="font-size:12px;font-weight:700;letter-spacing:.06em">CHANGED KEYS ONLY · C20</span>
+            </div>
+            <div class="risk quiet">
+              <div class="rt"><span class="tag">INJURY RISK</span><span class="note">OWN BAND · NEVER EDGE %</span></div>
+              <div class="meter"><i></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sp-foot">
+        <div class="btn ghost sm">BACK · PROFILE CAMP</div>
+        <div class="hint"><b>blocked_reason</b> empty when valid · agrees with _validate_fight_camp_choices</div>
+        <div class="fill"></div>
+        <div class="btn gold">START CAMP</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>2 · THE PROJECTION</h2>
+    <p>Instrument alone in three C20-shaped states. Gold on the last-pick chip in the delta state (one per board).</p>
+  </div>
+
+  <div class="board" id="board-projection">
+    <div class="kstrip">K21 · <b>PROJECTION</b></div>
+    <div class="sp">
+      <div class="sp-top">
+        <div>
+          <div class="lab">INSTRUMENT STUDY · get_camp_board.setup.projection + deltas</div>
+          <h1>THE PROJECTION</h1>
+          <div class="vs">ONE MOVING DOCK · LAST-PICK DELTA CHIPS · RISK BAND SEPARATE</div>
+        </div>
+      </div>
+      <div class="proj-board">
+        <div class="proj-card">
+          <div class="stag">STATE A · EMPTY CHOICES</div>
+          <h4>EMPTY</h4>
+          <div class="blurb">choices {} → projection {} · deltas {} · per C20. No wall of zeros.</div>
+          <div class="pdock empty" style="flex:1">
+            <div class="phd"><h3>PROJECTION DOCK</h3><div class="sub">WAITING</div></div>
+            <div class="ph-empty">NO PICKS YET · DOCK QUIET · NO DELTAS</div>
+            <div class="risk quiet">
+              <div class="rt"><span class="tag">INJURY RISK</span><span class="note">IDLE</span></div>
+              <div class="meter"><i style="width:0%"></i></div>
+            </div>
+          </div>
+        </div>
+        <div class="proj-card loud">
+          <div class="stag">STATE B · AFTER PROTOCOL PICK</div>
+          <h4>DELTAS</h4>
+          <div class="blurb">_compare_against prior · only CHANGED keys · tone from API.</div>
+          <div class="pdock" style="flex:1">
+            <div class="phd"><h3>PROJECTION DOCK</h3><div class="sub">LIVE</div></div>
+            <div class="edge-lines">
+              <div class="el">edge_lines update with protocol gain_mult</div>
+            </div>
+            <div class="abs-grid">
+              <div class="abs"><div class="lab">TIGHTNESS</div><div class="val">↑</div></div>
+              <div class="abs"><div class="lab">FATIGUE NIGHT</div><div class="val">↑</div></div>
+              <div class="abs"><div class="lab">FILM DEPTH</div><div class="val">…</div></div>
+              <div class="abs"><div class="lab">CASH / COST</div><div class="val">…</div></div>
+              <div class="abs"><div class="lab">FIGHT IQ</div><div class="val">…</div></div>
+              <div class="abs"><div class="lab">EDGES</div><div class="val">…</div></div>
+            </div>
+            <div class="delta-row">
+              <span class="cap">LAST PICK</span>
+              <span class="dchip goldish">protocol · hard_sparring</span>
+              <span class="dchip good">edges</span>
+              <span class="dchip warn">fatigue_on_the_night</span>
+              <span class="dchip bad">injury_risk</span>
+            </div>
+            <div class="risk">
+              <div class="rt"><span class="tag">INJURY RISK</span><span class="note">RISING = BAD TONE</span></div>
+              <div class="meter"><i style="width:28%"></i></div>
+            </div>
+          </div>
+        </div>
+        <div class="proj-card">
+          <div class="stag">STATE C · INJURY WARN</div>
+          <h4>RISK BAND</h4>
+          <div class="blurb">Injury never shares the edge column. Own meter · bad dress from API tone.</div>
+          <div class="pdock" style="flex:1">
+            <div class="phd"><h3>PROJECTION DOCK</h3><div class="sub">WARN</div></div>
+            <div class="edge-lines">
+              <div class="el">absolutes still shown</div>
+              <div class="el muted">injury is not an edge_line</div>
+            </div>
+            <div class="abs-grid">
+              <div class="abs"><div class="lab">TIGHTNESS</div><div class="val">…</div></div>
+              <div class="abs"><div class="lab">FATIGUE NIGHT</div><div class="val">…</div></div>
+              <div class="abs"><div class="lab">FILM DEPTH</div><div class="val">…</div></div>
+            </div>
+            <div class="delta-row">
+              <span class="cap">DELTAS</span>
+              <span class="dchip bad">injury_risk</span>
+              <span class="dchip warn">fatigue_on_the_night</span>
+            </div>
+            <div class="risk warn-loud">
+              <div class="rt"><span class="tag">INJURY RISK</span><span class="note">HARD SPARRING · injury_base</span></div>
+              <div class="meter"><i style="width:55%"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sp-foot">
+        <div class="hint">C20 tones: good / warn / bad / flat · screen never decides direction</div>
+        <div class="fill"></div>
+        <div class="btn ghost sm">INSTRUMENT ONLY · NO COMMIT</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>3 · PROGRESS</h2>
+    <p>Mid-camp week log. One row per completed week. Gold = SET COUNTER when film depth 3 opens it.</p>
+  </div>
+
+  <div class="board" id="board-progress">
+    <div class="kstrip">K21 · <b>PROGRESS</b></div>
+    <div class="sp">
+      <div class="sp-top">
+        <div>
+          <div class="lab">FIGHT CAMP · STATE PROGRESS · get_camp_board.progress</div>
+          <h1>CAMP PROGRESS</h1>
+          <div class="vs">WEEK LOG · SHAPE BUILT · FILM · BODY · NO FULL PROJECTION RE-DUMP</div>
+        </div>
+        <div class="sp-meta">
+          <div class="pair" style="min-width:150px"><div class="lab">WEEKS LEFT</div><div class="val">…</div></div>
+          <div class="pair" style="min-width:150px"><div class="lab">FILM</div><div class="val">2/3</div></div>
+        </div>
+      </div>
+      <div class="panel weeklog" style="flex:1">
+        <div class="weekhead">
+          <span class="reason flat">state · progress</span>
+          <span class="reason">focus · striking_shark</span>
+          <span class="reason">protocol · hard_sparring</span>
+          <span class="reason warn">cut · moderate</span>
+          <span class="fill"></span>
+          <span class="muted" style="font-size:12px;font-weight:700;letter-spacing:.1em">HEADER: weeks_left · film_depth · counter when depth 3</span>
+        </div>
+        <div class="weekrows">
+          <div class="wrow">
+            <div class="wk">WK 1</div>
+            <div class="dim" style="font-size:12px;font-weight:700;letter-spacing:.08em">—</div>
+            <div class="line">built line from edge / film · short</div>
+            <div class="cost">cost</div>
+            <div class="tick ok">—</div>
+          </div>
+          <div class="wrow">
+            <div class="wk">WK 2</div>
+            <div class="dim" style="font-size:12px;font-weight:700;letter-spacing:.08em">—</div>
+            <div class="line">built line · film depth tick</div>
+            <div class="cost">cost</div>
+            <div class="tick">INJURY</div>
+          </div>
+          <div class="wrow">
+            <div class="wk">WK 3</div>
+            <div class="dim" style="font-size:12px;font-weight:700;letter-spacing:.08em">—</div>
+            <div class="line">built line · no projection dump</div>
+            <div class="cost">cost</div>
+            <div class="tick ok">—</div>
+          </div>
+          <div class="wrow">
+            <div class="wk">WK 4</div>
+            <div class="taper">TAPER</div>
+            <div class="line">final week · taper flag from data</div>
+            <div class="cost">cost</div>
+            <div class="tick ok">—</div>
+          </div>
+        </div>
+        <div class="counter-open">
+          <div class="tag">COUNTER OPEN</div>
+          <div class="why">film_depth 3 · available_counters for opponent plan · set via set_fight_camp_counter</div>
+          <div class="btn gold sm">SET COUNTER</div>
+        </div>
+        <div class="hint">
+          <span>ROW = week # · taper? · short built line · cost · injury tick</span>
+          <span><b>NOT</b> a full projection re-dump each row</span>
+          <span>PULL OUT = slate · never gold</span>
+        </div>
+      </div>
+      <div class="sp-foot">
+        <div class="btn ghost sm">PULL OUT · end_fight_camp</div>
+        <div class="fill"></div>
+        <div class="btn dim sm">BACK</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>4 · REPORT</h2>
+    <p>Fight-day card. Grade as gold×1 verdict. Projected vs built as paired lines. Verdict on decisions — not a receipt.</p>
+  </div>
+
+  <div class="board" id="board-report">
+    <div class="kstrip">K21 · <b>REPORT</b></div>
+    <div class="sp">
+      <div class="sp-top">
+        <div>
+          <div class="lab">FIGHT CAMP · STATE REPORT · get_camp_board.report</div>
+          <h1>CAMP REPORT</h1>
+          <div class="vs">GRADE · PROJECTED VS BUILT · INJURIES · COST FOOTNOTE</div>
+        </div>
+      </div>
+      <div class="report-grid">
+        <div class="col" style="gap:12px">
+          <div class="grade-hero">
+            <div class="glab">CAMP GRADE · FightCamp.grade BANDS</div>
+            <div class="gmark">A</div>
+            <div class="verdict grade">VERDICT</div>
+            <div class="gline">How much of the projected shape was actually built — docked for injury. Letter from grades[] bands (A–F). This is camp data voice, not booking TAKE IT vocabulary.</div>
+          </div>
+          <div class="inj-dock">
+            <div class="cap">INJURIES DOCK</div>
+            <div class="row" style="gap:10px;flex-wrap:wrap">
+              <span class="reason bad">injured during camp</span>
+              <span class="reason flat">or clear</span>
+              <span class="muted" style="font-size:12px;font-weight:700">from report payload — not recomputed</span>
+            </div>
+          </div>
+          <div class="cost-foot">COST FOOTNOTE · cash spent across weeks · scientific_recovery cash_per_week and world fees when used · not a ledger page</div>
+        </div>
+        <div class="zone" style="flex:1;display:flex;flex-direction:column">
+          <h4>PROJECTED VS BUILT</h4>
+          <div class="zsub">report.lines · PAIRED ROWS · VERDICT ON DECISIONS</div>
+          <div class="lines-table" style="flex:1">
+            <div class="line-row">
+              <div class="k">EDGE LINE</div>
+              <div class="a"><span class="cap">PROJECTED</span>from projection.edges</div>
+              <div class="b"><span class="cap">BUILT</span>from actual camp edges</div>
+            </div>
+            <div class="line-row">
+              <div class="k">TIGHTNESS</div>
+              <div class="a"><span class="cap">PROJECTED</span>projection.tightness</div>
+              <div class="b"><span class="cap">BUILT</span>settled value</div>
+            </div>
+            <div class="line-row">
+              <div class="k">FILM DEPTH</div>
+              <div class="a"><span class="cap">PROJECTED</span>0–3</div>
+              <div class="b"><span class="cap">BUILT</span>reached depth</div>
+            </div>
+            <div class="line-row">
+              <div class="k">FIGHT IQ</div>
+              <div class="a"><span class="cap">PROJECTED</span>fight_iq_gain</div>
+              <div class="b"><span class="cap">BUILT</span>earned or not</div>
+            </div>
+            <div class="line-row">
+              <div class="k">FATIGUE NIGHT</div>
+              <div class="a"><span class="cap">PROJECTED</span>fatigue_on_the_night</div>
+              <div class="b"><span class="cap">BUILT</span>on the night</div>
+            </div>
+          </div>
+          <div class="hint" style="border:0;padding:8px 0 0">Reads as a verdict on the player's picks — not a receipt of fees.</div>
+        </div>
+      </div>
+      <div class="sp-foot">
+        <div class="btn ghost sm">CLOSE</div>
+        <div class="fill"></div>
+        <div class="hint">Gold is the grade mark only · actions stay slate</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>5 · THE SEAM</h2>
+    <p>Profile CAMP tab = read-only summary + START/OPEN into the set-piece. ShellChrome-adjacent. Gold = START CAMP.</p>
+  </div>
+
+  <div class="board" id="board-seam">
+    <div class="kstrip">K21 · <b>SEAM</b></div>
+    <div class="shell">
+      <div class="top">
+        <div class="left">
+          <div class="crumb">GYM · ATHLETE · CAMP TAB</div>
+          <div class="pills">
+            <div class="pill">PROFILE</div>
+            <div class="daystrip">
+              <div class="daycell"><span>M</span><span class="n">1</span></div>
+              <div class="daycell on"><span>T</span><span class="n">2</span></div>
+              <div class="daycell"><span>W</span><span class="n">3</span></div>
+              <div class="daycell"><span>T</span><span class="n">4</span></div>
+              <div class="daycell"><span>F</span><span class="n">5</span></div>
+              <div class="daycell"><span>S</span><span class="n">6</span></div>
+              <div class="daycell"><span>S</span><span class="n">7</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="right">
+          <div class="dateblk"><div class="w">CAREER WK</div><div class="d">…</div></div>
+          <div class="continue"><div class="t">CONTINUE</div><div class="s">WAY OUT · GREEN ONLY</div></div>
+        </div>
+      </div>
+      <div class="rail">
+        <div class="crest">
+          <div class="mark">FC</div>
+          <div><div class="nm">THE GYM</div><div class="sub">SHELLCHROME</div></div>
+        </div>
+        <div class="menucap">MODES</div>
+        <div class="nav">
+          <a>THE DAY</a>
+          <a>GYM</a>
+          <a>TRAINING</a>
+          <a>SCHEDULE</a>
+          <a class="on">ATHLETES</a>
+          <a>OFFICE</a>
+          <a>SCOUTING</a>
+        </div>
+      </div>
+      <div class="body">
+        <div class="hubhead">
+          <h2>ATHLETE</h2>
+          <div class="meta">PROFILE · CAMP IS THE SEAM</div>
+          <div class="tabs">
+            <div class="tab">BODY</div>
+            <div class="tab">WORK</div>
+            <div class="tab on">CAMP</div>
+            <div class="tab">RECORD</div>
+          </div>
+        </div>
+        <div class="profile-body">
+          <div class="prof-side">
+            <div class="bigsil"></div>
+            <div class="pn">ATHLETE</div>
+            <div class="ps">ROSTER · BOUT BOOKED</div>
+            <div class="pair" style="width:100%"><div class="lab">STATE</div><div class="val" style="font-size:14px">setup</div></div>
+          </div>
+          <div class="prof-main" style="position:relative">
+            <div class="camp-sum">
+              <h3>CAMP SUMMARY</h3>
+              <div class="muted" style="font-size:12px;font-weight:700;letter-spacing:.08em">READ-ONLY ON THE TAB · COMMIT LIVES IN THE SET-PIECE</div>
+              <div class="sum-grid">
+                <div class="pair"><div class="lab">OPPONENT</div><div class="val" style="font-size:14px;min-width:90px">booked</div></div>
+                <div class="pair"><div class="lab">WEEKS</div><div class="val">…</div></div>
+                <div class="pair"><div class="lab">FOCUS</div><div class="val" style="font-size:13px;min-width:90px">—</div></div>
+                <div class="pair"><div class="lab">PROTOCOL</div><div class="val" style="font-size:13px;min-width:90px">—</div></div>
+                <div class="pair"><div class="lab">FILM</div><div class="val">—</div></div>
+                <div class="pair"><div class="lab">GRADE</div><div class="val">—</div></div>
+              </div>
+              <div class="row" style="margin-top:auto;gap:10px">
+                <div class="btn gold">START CAMP</div>
+                <div class="btn ghost sm">OPEN CAMP</div>
+                <div class="muted" style="font-size:12px;font-weight:700;letter-spacing:.08em">progress / report when running or settled</div>
+              </div>
+              <div class="hint">Today START A CAMP only set_meta wants — dead end. R34 wires this to the set-piece.</div>
+            </div>
+            <div class="seam-overlay" style="opacity:.35"></div>
+            <div class="seam-card">
+              <div class="slab">SET-PIECE OPENS OVER SEAM</div>
+              <h4>CAMP SETUP</h4>
+              <div class="vs">Same booking-shaped isolation as R33 BOUT AGREEMENT · back returns to CAMP tab summary</div>
+              <div class="pdock" style="margin-top:4px">
+                <div class="phd"><h3>PROJECTION</h3><div class="sub">DOCK RIDES INSIDE</div></div>
+                <div class="edge-lines"><div class="el muted">summary stays on tab · decisions inside set-piece</div></div>
+              </div>
+              <div class="row" style="margin-top:6px">
+                <div class="btn ghost sm">BACK TO CAMP TAB</div>
+                <div class="fill"></div>
+                <div class="btn dim sm">START CAMP</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>Kit rulings obeyed</h2>
+    <p>Bebas / Plex; SIZE_MIN 12; gold ×1; green CONTINUE only; pair = slate; facility GYM; silhouettes; ♀≠♂; reuse verdict_chip / reason_chip / counter_strip spirit; no invented projection maths — boards show key names and data ids.</p>
+  </div>
+</div>
+</body>
+</html>

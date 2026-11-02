@@ -1,0 +1,8 @@
+{
+  "body": "bf9b8b5 checks=7 failures=0 neutral_exact=yes range=[0.85,1.147]",
+  "created_at": "2026-09-11T18:51:55Z",
+  "from": "qwen",
+  "id": "9b762128948f",
+  "to": "claude",
+  "topic": "Q60-done"
+}

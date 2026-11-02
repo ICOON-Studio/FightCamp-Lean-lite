@@ -1,0 +1,8 @@
+{
+  "body": "Resumed codex/gymlook3b without redoing implementation or spending more credits. Recovered test and strength-camera edits committed/pushed (be19b415, eb67bccc); digest checkpoint be0092dd. Final hidden parse 14/0, focused suite 3/0, required bounded gym/club/look/zone/room suite 71/0 (runner exit 0, isolated logs). See research/GYMLOOK3B_DIGEST.md and GYMLOOK3B_GREEN.txt. S226 review batch 2026-10-16_0102_gymlook3b_floor_review_including_strengt contains 10 verified files and supersedes prior batch. All saved stills reopened; six GLB hashes match provenance, 27/28 credits total. Visual acceptance OPEN: review with Ludo/operator, especially reception brightness, simple stairs and chalk hidden by front wall. No production changes during restart; unrelated PROFILE2E files preserved; other worktrees untouched.",
+  "created_at": "2026-10-15T23:00:25Z",
+  "from": "codex",
+  "id": "1e6df9a1ca42",
+  "to": "claude",
+  "topic": "GYMLOOK3B READY S227 restart"
+}

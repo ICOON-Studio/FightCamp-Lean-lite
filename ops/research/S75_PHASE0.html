@@ -1,0 +1,204 @@
+<title>FightCamp Phase 0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#F2F4F6; --surface:#FFFFFF; --ink:#15191E; --muted:#56606B; --line:#D4DAE1;
+  --red:#B8302A; --blue:#23508F; --ok:#2E7D4F; --warn:#A86A00; --bad:#B8302A;
+  --chip-ok:#E3F1E8; --chip-warn:#FBF0DC; --chip-bad:#F8E3E1; --chip-info:#E2EAF5;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --ground:#0F1215; --surface:#171B20; --ink:#E6E9ED; --muted:#98A2AD; --line:#2A3139;
+    --red:#E0564D; --blue:#6E9BE0; --ok:#5DBB82; --warn:#E0A33C; --bad:#E0564D;
+    --chip-ok:#16301F; --chip-warn:#352812; --chip-bad:#3A1917; --chip-info:#172538;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --ground:#0F1215; --surface:#171B20; --ink:#E6E9ED; --muted:#98A2AD; --line:#2A3139;
+  --red:#E0564D; --blue:#6E9BE0; --ok:#5DBB82; --warn:#E0A33C; --bad:#E0564D;
+  --chip-ok:#16301F; --chip-warn:#352812; --chip-bad:#3A1917; --chip-info:#172538;
+}
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font:15px/1.6 var(--body);padding-inline:16px;padding-block:0 64px}
+.wrap{max-width:880px;margin:0 auto}
+header.top{padding-block:40px 20px;border-bottom:3px solid var(--ink)}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font:700 clamp(40px,7vw,64px)/.95 var(--display);letter-spacing:.01em;margin:10px 0 12px;text-transform:uppercase;text-wrap:balance}
+h1 .r{color:var(--red)} h1 .b{color:var(--blue)}
+.lede{max-width:64ch;color:var(--muted);margin:0}
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);background:var(--ground);display:flex;gap:4px;flex-wrap:wrap;padding-block:10px;border-bottom:1px solid var(--line);z-index:5}
+nav.tabs a{font:600 16px/1 var(--display);letter-spacing:.05em;text-transform:uppercase;color:var(--ink);text-decoration:none;padding:9px 14px;border:1px solid var(--line);background:var(--surface)}
+nav.tabs a:hover,nav.tabs a:focus-visible{border-color:var(--ink);outline:none}
+section{padding-block:36px 8px}
+h2{font:700 34px/1 var(--display);text-transform:uppercase;margin:0 0 6px;letter-spacing:.02em}
+h3{font:600 20px/1.2 var(--display);text-transform:uppercase;letter-spacing:.04em;margin:28px 0 10px}
+p{max-width:68ch}
+.gate{border-left:4px solid var(--red);background:var(--surface);padding:12px 16px;margin:14px 0 4px}
+.gate b{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--red)}
+.pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.pillar{background:var(--surface);border-top:3px solid var(--ink);padding:14px 16px}
+.pillar h4{font:700 22px/1.05 var(--display);text-transform:uppercase;margin:0 0 6px}
+.pillar p{margin:0;color:var(--muted);font-size:14px}
+dl.sheet{display:grid;grid-template-columns:170px 1fr;gap:0;border-top:1px solid var(--line);margin:0}
+dl.sheet dt,dl.sheet dd{padding:11px 0;border-bottom:1px solid var(--line);margin:0}
+dl.sheet dt{font:500 12px/1.5 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding-right:14px}
+dl.sheet dd p{margin:0 0 4px}
+@media (max-width:560px){dl.sheet{grid-template-columns:1fr} dl.sheet dt{border-bottom:0;padding-bottom:0}}
+.chip{display:inline-block;font:500 11px/1 var(--mono);letter-spacing:.05em;text-transform:uppercase;padding:4px 7px;border-radius:2px;white-space:nowrap;vertical-align:1px}
+.ok{background:var(--chip-ok);color:var(--ok)} .warn{background:var(--chip-warn);color:var(--warn)}
+.bad{background:var(--chip-bad);color:var(--bad)} .info{background:var(--chip-info);color:var(--blue)}
+.tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:14px}
+th{font:500 11px/1.3 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-align:left;padding:10px 12px;border-bottom:2px solid var(--line);background:var(--surface)}
+td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--mono);white-space:nowrap}
+code{font:13px var(--mono);background:var(--ground);padding:1px 4px}
+.totals{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:14px 0}
+.total{background:var(--surface);padding:14px 16px;border:1px solid var(--line)}
+.total .v{font:700 34px/1 var(--display);font-variant-numeric:tabular-nums}
+.total .k{font:500 11px/1.4 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-top:6px}
+.asks{background:var(--surface);border:1px solid var(--line);padding:6px 18px}
+.asks li{margin:8px 0}
+footer{margin-top:40px;padding-top:14px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+</style>
+
+<div class="wrap">
+<header class="top">
+  <div class="eyebrow">FightCamp · Phase 0 · S75 · 2026-09-25 · prepared by Claude (CEO + lead developer)</div>
+  <h1>Decide the <span class="r">product</span>, clear the <span class="b">rights</span>, count the money</h1>
+  <p class="lede">Phase 0 of the S73 product plan: the one-page product sheet, the legal inventory of everything real in the build, and the budget sheet. Tags: MEASURED (read off the repo), SOURCED (cited), ESTIMATE (my judgement). Nothing here is legal advice.</p>
+</header>
+
+<nav class="tabs" aria-label="Sections">
+  <a href="#product">Product sheet</a>
+  <a href="#legal">Legal inventory</a>
+  <a href="#budget">Budget</a>
+  <a href="#asks">Your calls</a>
+</nav>
+
+<section id="product">
+  <div class="eyebrow">1 of 3</div>
+  <h2>Product sheet</h2>
+  <p>Recommended by Claude; <b>it becomes the product when you sign it off</b>. Until then every stage is judged against it anyway, so scope stops growing by default.</p>
+
+  <h3>Three pillars</h3>
+  <div class="pillars">
+    <div class="pillar"><h4>The fight is real</h4><p>Every bout is simulated from sourced fight statistics (J20, &gt;7,000 UFC bouts; CompuBox). Watch it in the 3D arena or sim it to the bell - same engine, same result.</p></div>
+    <div class="pillar"><h4>You run the gym</h4><p>You are the coach and manager, not the fighter: sign, train, pick the fight, run the camp, call the corner, split the purse.</p></div>
+    <div class="pillar"><h4>It tells you why</h4><p>A win or loss is explained on screen - the corner's read between rounds, the result's "why", the stats that back it.</p></div>
+  </div>
+
+  <h3>The sheet</h3>
+  <dl class="sheet">
+    <dt>One line</dt><dd><p>The most authentic fight-night management sim: run a combat-sports gym from a debutant's first club show to a title.</p></dd>
+    <dt>Target player</dt><dd><p>Management-sim players who follow combat sports: Football Manager, OOTP, Motorsport Manager, Punch Club, World Championship Boxing Manager. PC, plays in long sessions, reads menus, wants the numbers to be true. <span class="chip info">ESTIMATE</span></p></dd>
+    <dt>Platform</dt><dd><p>Steam, Windows 10/11, keyboard and mouse, 1080p. Godot 4.7.2, Forward+ (Vulkan). Minimum spec set in phase 4 from a low-end test machine.</p></dd>
+    <dt>Price</dt><dd><p>Early Access <b>$19.99</b>; 1.0 at <b>$24.99</b>. Sim buyers pay for depth; the comparables sit at $15-30. <span class="chip info">ESTIMATE</span></p></dd>
+    <dt>v1 scope</dt><dd><p><b>Stand-up sports: boxing, kickboxing, Muay Thai.</b> Amateur club shows through pro titles; the career loop, the 3D arena, SIM THE FIGHT, corner calls between rounds.</p><p><b>First major update:</b> MMA and grappling, once paired ground motion passes its own gate judged from the game camera.</p><p><b>Frozen behind a switch:</b> the other rulesets (BJJ, judo, wrestling, sambo, karate, taekwondo, ...). No new rulesets, techniques or research topics outside the current phase.</p></dd>
+    <dt>Roster</dt><dd><p>Fictional athletes, gyms, promotions and belts by default - built in S74. Real names only through a player-installed swap file; the studio never publishes one.</p></dd>
+    <dt>Options</dt><dd><p>Mic corner calls with crowd noise: a settings option, off by default, keyboard fallback always there (D18). A selling point only if it works perfectly - it ships when it does.</p></dd>
+    <dt>Wishlist target</dt><dd><p><b>10,000 wishlists</b> before the Early Access date is fixed. Tracked weekly from the Steam page. <span class="chip info">ESTIMATE - revisit with phase 3 data</span></p></dd>
+    <dt>Not in v1</dt><dd><p>Licensed athletes or leagues, multiplayer, consoles, a fighter-controlled action mode, localisation beyond English hooks.</p></dd>
+  </dl>
+  <div class="gate"><b>Phase 0 gate</b><br>You sign off this sheet and the v1 scope. Changing any line is your call; say which in chat.</div>
+</section>
+
+<section id="legal">
+  <div class="eyebrow">2 of 3</div>
+  <h2>Legal inventory</h2>
+  <p>Everything real, licensed or of unknown origin that is in the game data or the shipped build, what state it is in, and who acts. Scanned on 2026-09-25 from <code>Godot/assets/data</code> (37 JSON files), <code>asset_manifest.json</code> and the export filters. MEASURED.</p>
+
+  <h3>Names, organisations, trademarks</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Item</th><th>Where</th><th>State</th><th>Action</th></tr></thead>
+    <tbody>
+      <tr><td>100 real athletes, histories, 12 photos</td><td><code>research/names_real/</code> (never exported)</td><td><span class="chip ok">Fixed S74</span></td><td>Athletes fictional by default; swap file for real names. (Organisations: see the next rows - real names kept by your ruling.)</td></tr>
+      <tr><td>Governing-body names in rules data: WAKO 24, IFMA 8, IBJJF 8, "Olympic" 7, UWW 4, K-1 1</td><td><code>competition_rulesets_v2.json</code>, <code>technique_legality_matrix.json</code>, technique catalogs, <code>discipline_development_profiles.json</code>, <code>mat_specs.json</code></td><td><span class="chip ok">Your ruling: keep</span></td><td>Real names and initials stay (operator 2026-09-25: "only name"). No logos, belt art or "official"/endorsement wording.</td></tr>
+      <tr><td>League and tournament names: UFC, WBA, Bellator, WBC, IBF, GLORY, USA Boxing, Lumpinee, ISKA</td><td><code>arena_specs.json</code>, <code>ui_kit_manifest.json</code>, <code>championship_rules.json</code>, <code>combat_rulesets.json</code> ...</td><td><span class="chip ok">Your ruling: keep</span></td><td>Names only. S76 restores the 18 organisation names S74 made fictional. Real athletes stay fictional by default.</td></tr>
+      <tr><td>Logos, brand marks on kit (gloves, shorts, mats)</td><td>fighter textures, UI</td><td><span class="chip warn">Not audited</span></td><td>Visual pass on the twelve fighters and the arena at release candidate.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Assets and tools</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Asset</th><th>Licence</th><th>State</th><th>Action</th></tr></thead>
+    <tbody>
+      <tr><td>Character Creator fighter (<code>cc_welter_01</code>)</td><td>Reallusion - does not cover shipping this export</td><td><span class="chip bad">Was in the build</span> <span class="chip ok">Fixed S75</span></td><td>The private playable copied <code>assets/_local</code>. Now excluded from the build script and the export; the game already falls back to the Tripo bodies.</td></tr>
+      <tr><td>Twelve fighters f01-f12 (generated by Claude)</td><td>CORRECTED S92 (row fixed S123): generated with the <code>tripo_3d</code> model THROUGH Higgsfield on the paid Higgsfield Plus plan (Higgsfield terms s4.4: commercial use unrestricted), rigged on Ludo (Jet Play EULA 26 Aug 2026: commercial licence). Never Tripo's free plan. Record: <code>assets/asset_manifest.json</code> <code>tripo_fighters</code>.</td><td><span class="chip ok">Can ship</span></td><td>No regeneration needed. The men in the game are now MPFB generator bodies (S117); the twelve remain the women and the control arm.</td></tr>
+      <tr><td>Ludo rig (the twelve fighters)</td><td>Ludo / Jet Play EULA 26 Aug 2026: commercial licence to Materials (recorded S92, asset_manifest tripo_fighters)</td><td><span class="chip ok">Can ship</span></td><td>Row corrected S123 - it was "not recorded".</td></tr>
+      <tr><td>RamsterZ Hand to Hand Set, Full Mount Attacks</td><td>Standard Unity Asset Store EULA</td><td><span class="chip ok">Approved</span></td><td>Ship inside the game only; never the raw files. Repo stays private.</td></tr>
+      <tr><td>Motifect martial arts pack</td><td>Pack README: commercial game use allowed</td><td><span class="chip ok">Approved</span></td><td>-</td></tr>
+      <tr><td>Cascadeur-authored clips</td><td>Cascadeur Pro (subscribed)</td><td><span class="chip ok">Approved</span></td><td>Keep the subscription active on the dates clips are exported.</td></tr>
+      <tr><td>CMU paired mocap</td><td>"may be copied, modified, or redistributed without permission"</td><td><span class="chip info">Candidate</span></td><td>-</td></tr>
+      <tr><td>Magicpot motions, Polyronin gym</td><td>Unity Asset Store EULA</td><td><span class="chip info">Candidate / placeholder</span></td><td>Not referenced by shipped code (manifest test).</td></tr>
+      <tr><td>SMPL / SMPL-X / MANO / BUDDI</td><td>Non-commercial research only</td><td><span class="chip ok">Not in the build</span></td><td>Banned from the pipeline pending your ruling; C199 split verified clean S75.</td></tr>
+      <tr><td>Fonts: Oswald (file named BebasNeue), IBM Plex Mono, Work Sans</td><td>SIL OFL 1.1</td><td><span class="chip ok">OK</span></td><td>Ship the OFL text in the credits.</td></tr>
+      <tr><td>Flag icons, Lucide icons, venue textures</td><td>MIT, ISC, CC0</td><td><span class="chip ok">OK</span></td><td>MIT/ISC notices in the credits.</td></tr>
+      <tr><td>Godot engine</td><td>MIT</td><td><span class="chip warn">Notice missing</span></td><td>Add the Godot copyright notice to a credits screen.</td></tr>
+      <tr><td>Menu music <code>unbreakable_noise_menu.mp3</code></td><td>Taken from a YouTube video (operator, 2026-09-25) - no licence to ship it</td><td><span class="chip bad">Cannot ship</span></td><td>Fine in private builds. Before any public build: replace with a licensed or commissioned track (or a royalty-free library track with a commercial licence).</td></tr>
+      <tr><td>Intro video <code>game_intro.ogv</code></td><td>Made by the operator (2026-09-25) - project-owned</td><td><span class="chip ok">OK</span></td><td>Check it contains no third-party music or footage.</td></tr>
+      <tr><td>Splash fighter, gym background, world map, generated portraits</td><td>From <code>ContentSource/</code> concepts; tool and terms not recorded</td><td><span class="chip warn">Unknown</span></td><td>Claude traces the tool from the commit history before asking you.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="gate"><b>Before any public release</b><br>One paid consultation with a games lawyer on the sheet above (S73 plan). Not needed for your private playtests.</div>
+</section>
+
+<section id="budget">
+  <div class="eyebrow">3 of 3</div>
+  <h2>Budget and runway</h2>
+  <p>Subscription prices from you (2026-09-25) plus the project record. Dollar lines are converted at about €0.86 per $ (ESTIMATE). Your own time is not costed.</p>
+  <div class="totals">
+    <div class="total"><div class="v">≈ €343</div><div class="k">Monthly, today (all subscriptions incl. Higgsfield renewal)</div></div>
+    <div class="total"><div class="v">≈ €294</div><div class="k">Monthly once Higgsfield is cancelled</div></div>
+    <div class="total"><div class="v">€46.90</div><div class="k">One-off spent on assets (two RamsterZ packs)</div></div>
+  </div>
+
+  <h3>Recurring</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Item</th><th class="num">Cost</th><th>Next date</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td>Cascadeur Pro</td><td class="num">€37.66 / mo</td><td>2026-09-27/28 first charge</td><td>Kept (your ruling 2026-09-21): the only route to authored two-body holds.</td></tr>
+      <tr><td>Higgsfield Plus</td><td class="num">€49 / 1,000 cr</td><td>~2026-10-14 renewal</td><td>~370 credits left; Codex may spend up to 150 (ledger: 0 spent). Cancel after the bank is spent - your hands.</td></tr>
+      <tr><td>Cursor Pro</td><td class="num">$20 / mo</td><td>-</td><td>Composer pool carries the build tasks.</td></tr>
+      <tr><td>Claude</td><td class="num">€90 / mo</td><td>-</td><td>Lead developer; the largest daily cost after Codex.</td></tr>
+      <tr><td>Codex (ChatGPT plan)</td><td class="num">€114 / mo</td><td>-</td><td>The 3D-animation lane (C201 running).</td></tr>
+      <tr><td>Grok</td><td class="num">€20 / mo</td><td>paid until 2026-09-30</td><td>G-series research; Kalli, John and Maria run in its bot environment.</td></tr>
+      <tr><td>Qwen</td><td class="num">$18 / mo</td><td>-</td><td>Engine build tasks (Q175 running).</td></tr>
+      <tr><td>Dola (Cici)</td><td class="num">€0</td><td>-</td><td>No subscription on record.</td></tr>
+      <tr><td>Tripo (free plan)</td><td class="num">€0</td><td>200 credits expire 2026-10-01</td><td>Made the twelve fighters - see the legal row.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>One-off and planned</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Item</th><th class="num">Cost</th><th>State</th></tr></thead>
+    <tbody>
+      <tr><td>RamsterZ Hand to Hand Set</td><td class="num">€36.79</td><td><span class="chip ok">Spent 2026-09-11</span></td></tr>
+      <tr><td>RamsterZ Full Mount Attacks</td><td class="num">€10.11</td><td><span class="chip ok">Spent 2026-09-11</span></td></tr>
+      <tr><td>Steam Direct fee</td><td class="num">$100</td><td><span class="chip info">Phase 3</span> SOURCED</td></tr>
+      <tr><td>Games lawyer, one consultation</td><td class="num">quote needed</td><td><span class="chip info">Before public release</span></td></tr>
+      <tr><td>Tripo Pro, one month, to regenerate the fighters for commercial use</td><td class="num">$20+</td><td><span class="chip info">Before public release</span></td></tr>
+      <tr><td>Unity animation bundle</td><td class="num">€103</td><td><span class="chip warn">On hold</span> - no clip purchases until the game shows the preview quality (your ruling 2026-09-24)</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Burn</b> is about €294-343 a month, ≈ €3,500-4,100 a year. At about $8.50 (≈ €7.30) net per copy that is ~480-560 copies a year to cover the tools - well inside the S73 floor band of 3k-6.5k lifetime copies. <b>Runway</b> is how many months you choose to fund that; there are no salaries. <span class="chip info">ESTIMATE</span></p>
+</section>
+
+<section id="asks">
+  <div class="eyebrow">What only you can answer</div>
+  <h2>Your calls</h2>
+  <ol class="asks">
+    <li><b>Sign off the product sheet</b> - or name the line to change (price, scope, the wishlist target).</li>
+    <li><b>Intro video:</b> does it use any music or footage you did not make? (The menu music is settled: YouTube, so it gets replaced before release.)</li>
+  </ol>
+</section>
+
+<footer>Sources in the repo: <code>research/S73_PRODUCT_AUDIT_AND_PLAN.pdf</code>, <code>S74_READINESS_AUDIT.md</code>, <code>Godot/assets/asset_manifest.json</code>, <code>AgentComms/roadmap.json</code> settings. Page written S75.</footer>
+</div>

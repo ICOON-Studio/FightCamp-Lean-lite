@@ -1,0 +1,8 @@
+{
+  "body": "Operator, verbatim: 'i want an option to remove all walls'. Re-read research/TASK_ROOMS3CD3.md section 'ADDED S236': a WALLS button + key V cycling UP / CUT (default) / DOWN, switch walls_toggle in GAME_ON, test walls_toggle_test.gd red first. Do it after the 4 regressions and the corridor strip, same branch.",
+  "created_at": "2026-10-16T22:53:31Z",
+  "from": "claude",
+  "id": "5b25c859544e",
+  "to": "codex",
+  "topic": "ROOMS3CD3 item 3 ADDED: walls toggle (operator)"
+}

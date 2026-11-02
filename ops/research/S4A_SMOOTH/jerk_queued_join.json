@@ -1,0 +1,672 @@
+{
+	"by_cause": {
+		"contact_push": {
+			"frames": 43985,
+			"jerk_p95": 10625.7299194336,
+			"share_of_top1pct": 0.833613445378151
+		},
+		"gap_walk": {
+			"frames": 23986,
+			"jerk_p95": 12534.1161346436,
+			"share_of_top1pct": 0.512605042016807
+		},
+		"join_active": {
+			"frames": 28736,
+			"jerk_p95": 11807.6042175293,
+			"share_of_top1pct": 0.628571428571429
+		},
+		"lock_release": {
+			"frames": 518,
+			"jerk_p95": 14097.7058258057,
+			"share_of_top1pct": 0.0126050420168067
+		},
+		"none": {
+			"frames": 46364,
+			"jerk_p95": 878.577198028564,
+			"share_of_top1pct": 0.00588235294117647
+		},
+		"take_changed": {
+			"frames": 3634,
+			"jerk_p95": 11560.1009216309,
+			"share_of_top1pct": 0.0697478991596639
+		},
+		"warp": {
+			"frames": 15464,
+			"jerk_p95": 14881.7311706543,
+			"share_of_top1pct": 0.572268907563025
+		}
+	},
+	"by_point": {
+		"Chest": {
+			"max": 8666.52740478516,
+			"p50": 8.30115795135498,
+			"p95": 916.163320541382,
+			"p99": 1898.30680847169
+		},
+		"Head": {
+			"max": 16539.8712158203,
+			"p50": 8.91044497489929,
+			"p95": 1320.34684181213,
+			"p99": 2775.37693405152
+		},
+		"Hip": {
+			"max": 8313.89099121094,
+			"p50": 8.17005068063736,
+			"p95": 916.136827468872,
+			"p99": 2050.98617935181
+		},
+		"LeftFoot": {
+			"max": 13571.9458007813,
+			"p50": 12.5080463290215,
+			"p95": 1725.13961791992,
+			"p99": 4012.97479248047
+		},
+		"LeftHand": {
+			"max": 41109.3530273438,
+			"p50": 13.2426242530346,
+			"p95": 5126.33777618408,
+			"p99": 12927.4359741212
+		},
+		"RightFoot": {
+			"max": 30158.8092041016,
+			"p50": 9.17690992355347,
+			"p95": 1099.31528091431,
+			"p99": 3067.33938217163
+		},
+		"RightHand": {
+			"max": 43648.6303710938,
+			"p50": 8.57519209384918,
+			"p95": 3191.71216964722,
+			"p99": 10664.3203582764
+		}
+	},
+	"frames": {
+		"51227": 19802,
+		"77003": 19866,
+		"94301": 19802
+	},
+	"points": [
+		"Head",
+		"Chest",
+		"LeftHand",
+		"RightHand",
+		"LeftFoot",
+		"RightFoot",
+		"Hip"
+	],
+	"population": {
+		"defaults": "production",
+		"fighters": "f01_m_box_welter v f09_m_bare_welter",
+		"fps": 30,
+		"rounds": 3,
+		"seeds": [
+			94301,
+			51227,
+			77003
+		]
+	},
+	"top": [
+		{
+			"flags": [
+				"join_active",
+				"gap_walk",
+				"contact_push"
+			],
+			"frame": 3093,
+			"jerk": 43648.6303710938,
+			"point": "RightHand",
+			"prev_take": "cross",
+			"seed": 51227,
+			"side": "a",
+			"take": "cross"
+		},
+		{
+			"flags": [
+				"join_active",
+				"warp",
+				"contact_push"
+			],
+			"frame": 18400,
+			"jerk": 42325.4919433594,
+			"point": "RightHand",
+			"prev_take": "cross",
+			"seed": 94301,
+			"side": "b",
+			"take": "cross"
+		},
+		{
+			"flags": [
+				"take_changed",
+				"join_active",
+				"warp",
+				"contact_push"
+			],
+			"frame": 19094,
+			"jerk": 41685.6372070313,
+			"point": "RightHand",
+			"prev_take": "cross",
+			"seed": 77003,
+			"side": "b",
+			"take": "cross"
+		},
+		{
+			"flags": [
+				"take_changed",
+				"join_active",
+				"warp",
+				"gap_walk",
+				"contact_push"
+			],
+			"frame": 7787,
+			"jerk": 41192.8674316406,
+			"point": "RightHand",
+			"prev_take": "strike_body",
+			"seed": 51227,
+			"side": "a",
+			"take": "react_head"
+		},
+		{
+			"flags": [
+				"join_active",
+				"gap_walk",
+				"contact_push"
+			],
+			"frame": 16793,
+			"jerk": 41109.3530273438,
+			"point": "LeftHand",
+			"prev_take": "react_head#2",
+			"seed": 51227,
+			"side": "a",
+			"take": "react_head#2"
+		},
+		{
+			"flags": [
+				"take_changed",
+				"join_active",
+				"warp",
+				"gap_walk",
+				"contact_push"
+			],
+			"frame": 7788,
+			"jerk": 40935.9375,
+			"point": "RightHand",
+			"prev_take": "react_head",
+			"seed": 51227,
+			"side": "a",
+			"take": "cross"
+		},
+		{
+			"flags": [
+				"join_active",
+				"contact_push"
+			],
+			"frame": 17267,
+			"jerk": 40837.8479003906,
+			"point": "LeftHand",
+			"prev_take": "block",
+			"seed": 51227,
+			"side": "a",
+			"take": "block"
+		},
+		{
+			"flags": [
+				"join_active",
+				"gap_walk",
+				"contact_push"
+			],
+			"frame": 20,
+			"jerk": 40165.1293945313,
+			"point": "RightHand",
+			"prev_take": "slip",
+			"seed": 77003,
+			"side": "a",
+			"take": "slip"
+		},
+		{
+			"flags": [
+				"contact_push"
+			],
+			"frame": 4105,
+			"jerk": 38896.8640136719,
+			"point": "LeftHand",
+			"prev_take": "idle",
+			"seed": 77003,
+			"side": "a",
+			"take": "idle"
+		},
+		{
+			"flags": [
+				"join_active",
+				"gap_walk",
+				"contact_push"
+			],
+			"frame": 16794,
+			"jerk": 38887.2143554688,
+			"point": "LeftHand",
+			"prev_take": "react_head#2",
+			"seed": 51227,
+			"side": "a",
+			"take": "react_head#2"
+		},
+		{
+			"flags": [
+				"take_changed",
+				"join_active",
+				"warp",
+				"gap_walk",
+				"contact_push"
+			],
+			"frame": 2117,
+			"jerk": 38075.6066894531,
+			"point": "RightHand",
+			"prev_take": "cross",
+			"seed": 51227,
+			"side": "b",
+			"take": "react_head#1"
+		},
+		{
+			"flags": [
+				"join_active",
+				"warp",
+				"gap_walk",
+				"contact_push"
+			],
+			"frame": 16890,
+			"jerk": 37088.173828125,
+			"point": "RightHand",
+			"prev_take": "cross",
+			"seed": 51227,
+			"side": "a",
+			"take": "cross"
+		},
+		{
+			"flags": [
+				"join_active",
+				"warp",
+				"gap_walk",
+				"contact_push"
+			],
+			"frame": 18071,
+			"jerk": 36717.9748535156,
+			"point": "RightHand",
+			"prev_take": "strike_body",
+			"seed": 77003,
+			"side": "b",
+			"take": "strike_body"
+		},
+		{
+			"flags": [
+				"join_active",
+				"warp",
+				"gap_walk",
+				"contact_push"
+			],
+			"frame": 10074,
+			"jerk": 36307.9907226563,
+			"point": "RightHand",
+			"prev_take": "cross",
+			"seed": 77003,
+			"side": "a",
+			"take": "cross"
+		},
+		{
+			"flags": [
+				"join_active",
+				"gap_walk",
+				"contact_push"
+			],
+			"frame": 18,
+			"jerk": 35812.3901367188,
+			"point": "RightHand",
+			"prev_take": "slip",
+			"seed": 77003,
+			"side": "a",
+			"take": "slip"
+		},
+		{
+			"flags": [
+				"join_active",
+				"warp",
+				"contact_push"
+			],
+			"frame": 2116,
+			"jerk": 35740.7263183594,
+			"point": "RightHand",
+			"prev_take": "cross",
+			"seed": 51227,
+			"side": "b",
+			"take": "cross"
+		},
+		{
+			"flags": [
+				"join_active",
+				"warp",
+				"gap_walk",
+				"contact_push"
+			],
+			"frame": 16889,
+			"jerk": 35171.9311523438,
+			"point": "RightHand",
+			"prev_take": "cross",
+			"seed": 51227,
+			"side": "a",
+			"take": "cross"
+		},
+		{
+			"flags": [
+				"join_active",
+				"contact_push"
+			],
+			"frame": 1081,
+			"jerk": 35052.6123046875,
+			"point": "LeftHand",
+			"prev_take": "slip",
+			"seed": 77003,
+			"side": "a",
+			"take": "slip"
+		},
+		{
+			"flags": [
+				"join_active",
+				"gap_walk",
+				"contact_push"
+			],
+			"frame": 9867,
+			"jerk": 34958.8806152344,
+			"point": "RightHand",
+			"prev_take": "react_head#3",
+			"seed": 77003,
+			"side": "b",
+			"take": "react_head#3"
+		},
+		{
+			"flags": [
+				"gap_walk",
+				"contact_push"
+			],
+			"frame": 4104,
+			"jerk": 34829.0734863281,
+			"point": "LeftHand",
+			"prev_take": "idle",
+			"seed": 77003,
+			"side": "a",
+			"take": "idle"
+		},
+		{
+			"flags": [
+				"join_active",
+				"gap_walk",
+				"contact_push"
+			],
+			"frame": 8127,
+			"jerk": 34287.0080566406,
+			"point": "RightHand",
+			"prev_take": "react_body#3",
+			"seed": 94301,
+			"side": "a",
+			"take": "react_body#3"
+		},
+		{
+			"flags": [
+				"join_active",
+				"gap_walk",
+				"contact_push"
+			],
+			"frame": 10993,
+			"jerk": 34228.1066894531,
+			"point": "LeftHand",
+			"prev_take": "slip",
+			"seed": 94301,
+			"side": "a",
+			"take": "slip"
+		},
+		{
+			"flags": [
+				"warp",
+				"contact_push"
+			],
+			"frame": 19093,
+			"jerk": 33597.9895019531,
+			"point": "RightHand",
+			"prev_take": "cross",
+			"seed": 77003,
+			"side": "b",
+			"take": "cross"
+		},
+		{
+			"flags": [
+				"join_active",
+				"contact_push"
+			],
+			"frame": 17268,
+			"jerk": 33524.9084472656,
+			"point": "LeftHand",
+			"prev_take": "block",
+			"seed": 51227,
+			"side": "a",
+			"take": "block"
+		},
+		{
+			"flags": [
+				"join_active",
+				"contact_push"
+			],
+			"frame": 12042,
+			"jerk": 33290.5480957031,
+			"point": "LeftHand",
+			"prev_take": "jab",
+			"seed": 94301,
+			"side": "a",
+			"take": "jab"
+		},
+		{
+			"flags": [
+				"warp",
+				"contact_push"
+			],
+			"frame": 15898,
+			"jerk": 32200.0158691406,
+			"point": "LeftHand",
+			"prev_take": "hook_lead",
+			"seed": 77003,
+			"side": "a",
+			"take": "hook_lead"
+		},
+		{
+			"flags": [
+				"join_active",
+				"gap_walk",
+				"contact_push"
+			],
+			"frame": 3876,
+			"jerk": 32068.0883789063,
+			"point": "LeftHand",
+			"prev_take": "block",
+			"seed": 94301,
+			"side": "a",
+			"take": "block"
+		},
+		{
+			"flags": [
+				"join_active",
+				"contact_push"
+			],
+			"frame": 1914,
+			"jerk": 31970.0390625,
+			"point": "RightHand",
+			"prev_take": "hook_rear",
+			"seed": 77003,
+			"side": "b",
+			"take": "hook_rear"
+		},
+		{
+			"flags": [
+				"join_active",
+				"contact_push"
+			],
+			"frame": 318,
+			"jerk": 31877.3657226563,
+			"point": "LeftHand",
+			"prev_take": "react_head",
+			"seed": 77003,
+			"side": "a",
+			"take": "react_head"
+		},
+		{
+			"flags": [
+				"join_active",
+				"gap_walk",
+				"contact_push"
+			],
+			"frame": 14876,
+			"jerk": 31847.8051757813,
+			"point": "RightHand",
+			"prev_take": "slip",
+			"seed": 94301,
+			"side": "b",
+			"take": "slip"
+		},
+		{
+			"flags": [
+				"join_active",
+				"gap_walk",
+				"contact_push"
+			],
+			"frame": 15903,
+			"jerk": 31788.7280273438,
+			"point": "LeftHand",
+			"prev_take": "jab",
+			"seed": 51227,
+			"side": "a",
+			"take": "jab"
+		},
+		{
+			"flags": [
+				"join_active",
+				"gap_walk",
+				"contact_push"
+			],
+			"frame": 11568,
+			"jerk": 31478.14453125,
+			"point": "LeftHand",
+			"prev_take": "jab",
+			"seed": 51227,
+			"side": "b",
+			"take": "jab"
+		},
+		{
+			"flags": [
+				"join_active",
+				"contact_push",
+				"lock_release"
+			],
+			"frame": 12043,
+			"jerk": 31105.7153320313,
+			"point": "LeftHand",
+			"prev_take": "jab",
+			"seed": 94301,
+			"side": "a",
+			"take": "jab"
+		},
+		{
+			"flags": [
+				"join_active",
+				"warp",
+				"gap_walk",
+				"contact_push"
+			],
+			"frame": 16285,
+			"jerk": 30885.5126953125,
+			"point": "RightHand",
+			"prev_take": "react_body#1",
+			"seed": 51227,
+			"side": "a",
+			"take": "react_body#1"
+		},
+		{
+			"flags": [
+				"join_active",
+				"warp",
+				"gap_walk",
+				"contact_push"
+			],
+			"frame": 3080,
+			"jerk": 30843.603515625,
+			"point": "RightHand",
+			"prev_take": "cross",
+			"seed": 77003,
+			"side": "b",
+			"take": "cross"
+		},
+		{
+			"flags": [
+				"take_changed",
+				"join_active",
+				"gap_walk",
+				"contact_push"
+			],
+			"frame": 8596,
+			"jerk": 30842.0874023438,
+			"point": "LeftHand",
+			"prev_take": "cross",
+			"seed": 94301,
+			"side": "a",
+			"take": "react_head"
+		},
+		{
+			"flags": [
+				"join_active",
+				"warp",
+				"contact_push"
+			],
+			"frame": 15542,
+			"jerk": 30590.0885009766,
+			"point": "RightHand",
+			"prev_take": "cross",
+			"seed": 77003,
+			"side": "a",
+			"take": "cross"
+		},
+		{
+			"flags": [
+				"join_active",
+				"gap_walk"
+			],
+			"frame": 15808,
+			"jerk": 30589.3524169922,
+			"point": "LeftHand",
+			"prev_take": "cross",
+			"seed": 51227,
+			"side": "b",
+			"take": "cross"
+		},
+		{
+			"flags": [
+				"join_active",
+				"gap_walk",
+				"contact_push"
+			],
+			"frame": 3877,
+			"jerk": 30486.2713623047,
+			"point": "LeftHand",
+			"prev_take": "block",
+			"seed": 94301,
+			"side": "a",
+			"take": "block"
+		},
+		{
+			"flags": [
+				"join_active",
+				"gap_walk",
+				"contact_push"
+			],
+			"frame": 16875,
+			"jerk": 30446.8450927734,
+			"point": "RightHand",
+			"prev_take": "react_head#1",
+			"seed": 77003,
+			"side": "a",
+			"take": "react_head#1"
+		}
+	]
+}

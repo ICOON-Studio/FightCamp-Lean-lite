@@ -1,0 +1,46 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+CENSUS mma bouts=40 rounds=3 population=wrestle-grappler (mma) v striker (mma)
+CENSUS mma  hz=20  scoring cadence=20 ticks = 1.00 s per control event
+CENSUS mma  fight time=26518 s over 40 bouts (663 s a bout)
+CENSUS mma  ON THE FLOOR   1940 s (7.3% of fight time, 48.5 s a bout) - of which GUARD 583 s (30.1%)
+CENSUS mma  IN THE CLINCH  618 s (2.3% of fight time)
+CENSUS mma  SCORED CONTROL 1775 s - the subset that earns a control unit; guard and an
+CENSUS mma                 un-topped clinch earn NONE, so this is always the smaller number.
+CENSUS mma  bouts that reached the floor at all: 35 of 40
+CENSUS mma  --- events by kind. `per min floor` is over FLOOR time above ---
+kind                      count       per bout  per min floor
+control                    1775          44.38          54.91
+position_change              64           1.60           1.98
+seat                        346           8.65          10.70
+stall                        19           0.47           0.59
+submission_attempt           29           0.72           0.90
+submission_finish            15           0.38           0.46
+takedown                     27           0.68           0.84
+takedown_attempt             19           0.47           0.59
+throw                        16           0.40           0.49
+throw_attempt                11           0.28           0.34
+CENSUS mma  --- by `via` (how a seat was reached) ---
+clinch_break                 72           1.80           2.23
+clinch_engage                89           2.23           2.75
+escape                       35           0.88           1.08
+mount                        67           1.68           2.07
+pass                         66           1.65           2.04
+stall                         2           0.05           0.06
+stand_up                     22           0.55           0.68
+sweep                        12           0.30           0.37
+takedown                     55           1.38           1.70
+throw                        33           0.82           1.02
+CENSUS mma  --- seats by SCORED CONTROL seconds (guard cannot appear here) ---
+half                        138 s          7.8%
+mount                       787 s         44.3%
+over_under                  364 s         20.5%
+side                        486 s         27.4%
+CENSUS mma  --- the gate ---
+  decision rate      2.0/s, GROUND_WORK_P 0.050, both men
+  expected openings  387.9 over 1940 s on the floor
+  observed outcomes  121 (position_change + stand_up + escape)
+  implied success    31.2%  <- openings that produced a seat change
+  NOTE: openings is an EXPECTATION, not a count - the engine does not log a
+  gate that opened and failed. A low implied success rate and a low gate rate
+  are different defects with different fixes; this separates them.

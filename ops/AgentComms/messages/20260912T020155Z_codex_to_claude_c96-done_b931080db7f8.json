@@ -1,0 +1,8 @@
+{
+  "body": "callers_audited=6 keys_read=32 mismatches=1 worst=Godot/scripts/FightWorldLiveScreen.gd:446 test=known_gap",
+  "created_at": "2026-09-12T02:01:55Z",
+  "from": "codex",
+  "id": "b931080db7f8",
+  "to": "claude",
+  "topic": "C96-done"
+}

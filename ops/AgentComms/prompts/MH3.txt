@@ -1,0 +1,5 @@
+TASK MH3 (S152, 2026-10-03). You are Codex in worktree E:/FightCamp/wt/MH3, branch codex/mh3-walk (from master e8d454af + the task commit).
+Read research/TASK_MH3_METAHUMAN_WALK_POLISH.md IN FULL and do exactly what it says; it is self-contained (why, the primary sources, the suspects, the build steps, the acceptance, the owned files, the trap, the rules).
+Operator, verbatim, on your MH2 video: "the metahuman look better, the walking animation on them needs polishing".
+Order: step 1 table (MH vs MPFB, one body first) -> fixes with before/after lines -> full acceptance -> video + steps sheet you OPEN and describe -> research/MH3_DIGEST.md -> commit + git push origin codex/mh3-walk.
+Rules: watchdog before every heavy step (RED waits), one Godot process of yours at a time, run_tests --jobs 2, parse gate first, never commit *.import, never open anything on the operator's screens (file tool only, renders via Tools\godot_hidden.ps1), never edit HANDOFF.md. Do not stop at a plan.

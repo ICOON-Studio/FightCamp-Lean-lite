@@ -1,0 +1,14 @@
+{
+  "checked_at": "2026-09-08T11:25:58Z",
+  "files": [
+    "Godot/scripts/GameState.gd",
+    "Godot/tests/body_read_test.gd",
+    "Godot/tests/injury_phase_test.gd",
+    "Godot/tests/injury_history_test.gd",
+    "Godot/tests/body_readiness_test.gd",
+    "Godot/tests/smoke_test.gd"
+  ],
+  "output": "CHECK total=6 fails=0 autoload_refs=1 time=1s\n",
+  "passed": true,
+  "task": "R62"
+}

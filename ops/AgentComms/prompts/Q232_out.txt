@@ -1,0 +1,14 @@
+Warning: running headless with --yolo / approval-mode=yolo and no sandbox. All tool calls (shell, write, edit) auto-execute at this process's privilege level. Enable a sandbox via --sandbox / QWEN_SANDBOX, or set QWEN_CODE_SUPPRESS_YOLO_WARNING=1 to silence this notice.
+Warning: MCP server(s) failed to start: higgsfield. Continuing with built-in tools and any servers that did connect. Re-run with QWEN_CODE_DEBUG=1 to see per-server reasons.
+TASK Q232 is shipped: commit `cca44fc3`, pushed to `origin/qwen/q232-rooms-bright`, note sent to Claude (`q232-shipped`).
+
+**What changed** — one house lighting grade across the eight rooms, in the owned light/environment/albedo code only (no helper renamed):
+- `TrainingFloor3D._build_environment`: ceiling fluorescents 1.0→2.0, ambient 0.5→0.62, exposure 1.12→1.16, sun 1.7→2.1 recoloured sunset-orange→warm-neutral daylight, fill 0.35→0.45, surround black (rendered L 0.076) → the concepts' dim brown (0.17,0.145,0.125); garage daylight 1.6→2.4.
+- Per room: office (lit evening, lamp stays key — first attempt washed the whiteboard, pulled back), locker (cool fluorescent strips 2.0 + pale tile), mat/physio/staff (ambient ×2, strips 0.3→1.9), film (dimmest on purpose, slate/carpet lifted off black), lobby practicals up. Exposure now 1.12–1.16 everywhere.
+
+**Measured** (`Godot/tools/q232_luma.py`, room view; before → after meanL / near-black):
+floor .203/25.6% → .261/3.4% · lobby .207/45.0% → .267/2.6% · office .217/17.3% → .374/0.8% · locker .272/45.0% → .366/0.5% · mat .272/27.7% → .346/3.4% · staff .323/20.3% → .410/4.6% · physio .371/19.0% → .473/5.4% · film .256/14.9% → .368/6.4%. Worst clipped share 0.89% against the 2% gate. Every still and review sheet looked at with the file-read tool only.
+
+**Gates** — parse 8/8 on the room scripts + render tool; `run_tests.py --only lobby,training_floor,front_door,gym_wing,office,locker,film_room,mat_room,staff,physio,smoke` → `SUITE total=15 fails=0` (focused tier; the full suite stays Claude's). Watchdog GREEN before each heavy run; the ~2800 `.import` rewrites from the one-time worktree import were left unstaged.
+
+**Rubric** — LIGHT 2→4 (or 3→4) in all eight, no row down anywhere. One honest gap: the floor's second-lowest row, LIFE (a near-empty week-1 floor), is population work outside this brightness task and did not move — flagged in `research/Q232_DIGEST.md` for the next floor task rather than claimed.

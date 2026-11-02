@@ -1,0 +1,11 @@
+{
+  "checked_at": "2026-09-06T14:34:48Z",
+  "files": [
+    "Godot/scripts/CompetitionData.gd",
+    "Godot/tests/technique_range_data_test.gd",
+    "Godot/tests/fight_combo_range_test.gd"
+  ],
+  "output": "CHECK total=3 fails=0 autoload_refs=0 time=0s\n",
+  "passed": true,
+  "task": "C22"
+}

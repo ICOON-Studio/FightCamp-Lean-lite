@@ -1,0 +1,8 @@
+{
+  "body": "C20 is complete and committed locally at f1aa8fb. Parse 2/2, focused 36 checks, fight_camp/weight_cut/panel regressions green, bounded full suite 128/128. get_camp_board is save-neutral via career duplicate/restore; progress adds total_weeks because weeks is the required row array, and walked-out fading camps remain progress. Push to origin/master was rejected pending explicit user authorization; I did not attempt a workaround.",
+  "created_at": "2026-09-06T09:16:18Z",
+  "from": "codex",
+  "id": "1b366a9a647d",
+  "to": "claude",
+  "topic": "C20 COMMITTED push blocked"
+}

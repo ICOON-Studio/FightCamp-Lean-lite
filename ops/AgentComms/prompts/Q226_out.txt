@@ -1,0 +1,27 @@
+Warning: running headless with --yolo / approval-mode=yolo and no sandbox. All tool calls (shell, write, edit) auto-execute at this process's privilege level. Enable a sandbox via --sandbox / QWEN_SANDBOX, or set QWEN_CODE_SUPPRESS_YOLO_WARNING=1 to silence this notice.
+Warning: MCP server(s) failed to start: higgsfield. Continuing with built-in tools and any servers that did connect. Re-run with QWEN_CODE_DEBUG=1 to see per-server reasons.
+## Q226 Complete — All three switches landed
+
+**Commit:** `45b5e800` on `qwen/q226-fight-inputs`
+
+### What was built
+
+| Switch | Mechanism | Test |
+|---|---|---|
+| `speed_in_decision` (E5) | FightIntent reads speed stat; fast man closes +4% circles +3% | `q226_speed_test.gd` 6/0 |
+| `training_strands` (E3) | TrainingStrands share → small edge (footwork→range, conditioning→stamina, technique→contact) bounded ±6% | `q226_strands_test.gd` 5/0 |
+| `technique_effects` (E4) | 4 of 47 catalogue effect keys wired (finish_chance, cut_chance, stop_hit, pushback) via new `TechniqueEffects.gd` | `q226_effects_test.gd` 4/0 |
+
+### Pattern
+All three follow C230: one key in `DEMO_SWITCHES` each, OFF = byte-identical (no state key, no draw), `no_q226` control arm in the census tool.
+
+### Files changed
+- **5 modified:** `FightRealtime.gd`, `FightIntent.gd`, `FightMoves.gd`, `q212_booked_census.gd`, `Q226_DIGEST.md`
+- **4 new:** `TechniqueEffects.gd`, `q226_speed_test.gd`, `q226_strands_test.gd`, `q226_effects_test.gd`
+
+### Gates
+- Parse: 7/0 (4 scripts + 3 tests)
+- Q226 tests: 15/0
+- Existing: `fight_identity` 1/0, `fight_intent` 1/0, `fight_pace` 1/0
+- Heavy tests (`fight_realtime`, `boxing_output`, `fight_strike_whole`) timed out (known-slow, same as C230's environment)
+- Census not run (requires full career sim); `no_q226` arm infrastructure ready

@@ -1,0 +1,8 @@
+RESUME TRAIN1B (S154, 2026-10-03). You are Cline in worktree E:/FightCamp/wt/CLINE, branch cline/train1b. Your previous run died at 12:25 on "Hub connection closed" while you were opening the stills - nothing was lost: the worktree holds your UNCOMMITTED work (TrainingFloor3D.gd, TrainingFloorLayout.gd, TrainingFloorPanel.gd, tests/train1b_floor_drill_test.gd, tools/render_train1b_drill.gd, docs/previews/train1b/). Do NOT redo it and do NOT git checkout/reset/stash anything.
+Read research/TASK_TRAIN1B_FLOOR_DRILL_LOOP.md IN FULL again (self-contained), then finish in this order, checking each against the task's acceptance:
+1. `git status -s` and `git diff --stat` to see where you are; re-run the parse gate on the three touched scripts + the test.
+2. Run tests/train1b_floor_drill_test.gd; confirm it is green and that the mutant (revert the key line) turns it RED; print both lines.
+3. Re-render the train1b stills with "-- as_game" through Tools\godot_hidden.ps1 only if the existing ones are stale; OPEN every still with your file tool and describe what you see in the digest (clip at the station, reps bar, +gain float).
+4. python Godot/tools/run_tests.py --only <the touched systems per the task> --jobs 2.
+5. Write research/TRAIN1B_DIGEST.md, `git add` explicit paths only (never *.import, never rt1.err), commit, `git push origin cline/train1b`.
+Keep each command short and run one at a time. If the Hub connection drops again, just continue - state is on disk. Do not stop at a plan.

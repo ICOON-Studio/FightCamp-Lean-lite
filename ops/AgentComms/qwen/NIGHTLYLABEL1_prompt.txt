@@ -1,0 +1,20 @@
+You are working in the git worktree E:\FightCamp\wt\PUNCHTIMING1. First run:
+  git fetch origin ; git checkout qwen/nightlylabel1 ; git merge --ff-only origin/master
+TASK NIGHTLYLABEL1 (a REPORT, no code fixes). Operator rule: the demo is BOXING only; "do not test mechanics we do not use".
+The logs are NOT in git and NOT in your worktree - read them by these ABSOLUTE Windows paths:
+- the suite summary: E:\FightCamp\Game\AgentComms\nightly\latest.txt  (2026-10-17, 885 tests, 16 FAIL)
+- one log per test: C:\Users\user\AppData\Local\Temp\fightcamp_test_logs\<name>_test.gd.log  (each file's date may be 2026-10-17
+  or later - write the file's modified date in your row; a missing log = say "no log")
+The 16 failing tests: asset_manifest, camp_pays, corner_instruction_contract, default_build_shows_no_real_name, decision_pacing (hang),
+fight_clip_slice, fight_contact_stop, fight_identity, fight_pair_live, fight_realtime (hang), fight_stage_realism, playable_loop,
+promotions_board, staff_pose, station_move_picker, switch_gate_hands_smooth_in_whole (each file is Godot/tests/<name>_test.gd).
+For EACH one: open the test file in your worktree and its log, then write one row:
+  test | log date | discipline (BOXING-DEMO / GYM-DEMO / OFF-DEMO: MMA, kickboxing, promotions, placement, story, or a switched-off
+  mechanic) | the first FAIL / SCRIPT ERROR line quoted exactly | the script + function the failing assert exercises | likely cause in
+  one line | cheapest next step (fix test / fix code / park as OFF-DEMO).
+Demo scope (operator S255, Q-S249-7 "Yes to all"): fixed equipment slots (no Two Point placement), no promotions. Q-S249-6: weigh-in,
+visible cut + cutman, mitt pop sound ARE in.
+Write the table + a 5-line summary to research/NIGHTLY_LABELS_S255.md. Do NOT run Godot or any test (read only). Never open a
+window, image or browser. Then: git add -- research/NIGHTLY_LABELS_S255.md ; git commit ; git push -u origin qwen/nightlylabel1 ;
+gh pr create --repo ICOON-Studio/FightCamp --base master --head qwen/nightlylabel1 --title "NIGHTLYLABEL1: 16 nightly reds labelled by discipline"
+with the summary as the body. Never merge.

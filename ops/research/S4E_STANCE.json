@@ -1,0 +1,246 @@
+{
+  "anchor_documented": {
+    "broad_pro_percent": [
+      26.88,
+      32.0
+    ],
+    "elite_percent": [
+      32.0,
+      37.5
+    ],
+    "from": "southpaw prevalence 16-20%% broad pro boxing/MMA, 20-25%% elite",
+    "label": "DOCUMENTED (prevalence, not an effect size)",
+    "quantity": "share of BOUTS that are an open-stance matchup, = 2p(1-p) at southpaw share p",
+    "source": "K27 (Kalli, 2026-09-10; Loffing & Hagemann 2015, Loffing/Solter/Hagemann 2014, Baker & Schorer 2013, BetMMA, and six more)"
+  },
+  "bouts": 30,
+  "no_study": "how big the open-stance edge is on what a man reaches for - FightStance.EDGE/DRAG/JAB_SHARE_SHIFT are U18 D3's authored numbers, reused unchanged; TASK_K63 Q4 is the assigned research",
+  "populations": [
+    {
+      "body_kick_share_of_named": 0.0,
+      "body_share_of_kicks": 0.0,
+      "built_impacts": 30877,
+      "connect_share_of_built": 0.460925608057778,
+      "families": {
+        "body_kick": 0,
+        "jab": 2322,
+        "other": 23671,
+        "rear_hand": 4884
+      },
+      "hands": {
+        "lead": 2322,
+        "rear": 4884,
+        "unnamed": 23671
+      },
+      "jab_share_of_named": 0.0752016063736762,
+      "kicks": 0,
+      "lead_share_of_hands": 0.322231473771857,
+      "methods": {
+        "DECISION": 19,
+        "KO": 11
+      },
+      "named_throws": 30877,
+      "population": "BOXING ring 6.0 m - out-boxer v pressure fighter (non-identical, both legal for boxing)",
+      "rear_hand_share_of_named": 0.158175988599929,
+      "round_minutes": 582.044166666667,
+      "ruleset": "boxing",
+      "sha256": "96ec0eb0bcf5eb38c52cef409ba50fc6d88cb859c633b3b55d2e33c94b7d1bb9",
+      "stamped_matchup": {
+        "closed": 30877
+      },
+      "stance_a": "ORTHODOX",
+      "stance_b": "ORTHODOX",
+      "variant": "closed"
+    },
+    {
+      "body_kick_share_of_named": 0.0,
+      "body_share_of_kicks": 0.0,
+      "built_impacts": 30877,
+      "connect_share_of_built": 0.460925608057778,
+      "families": {
+        "body_kick": 0,
+        "jab": 2322,
+        "other": 23671,
+        "rear_hand": 4884
+      },
+      "hands": {
+        "lead": 2322,
+        "rear": 4884,
+        "unnamed": 23671
+      },
+      "jab_share_of_named": 0.0752016063736762,
+      "kicks": 0,
+      "lead_share_of_hands": 0.322231473771857,
+      "methods": {
+        "DECISION": 19,
+        "KO": 11
+      },
+      "named_throws": 30877,
+      "population": "BOXING ring 6.0 m - out-boxer v pressure fighter (non-identical, both legal for boxing)",
+      "rear_hand_share_of_named": 0.158175988599929,
+      "round_minutes": 582.044166666667,
+      "ruleset": "boxing",
+      "sha256": "96ec0eb0bcf5eb38c52cef409ba50fc6d88cb859c633b3b55d2e33c94b7d1bb9",
+      "stamped_matchup": {
+        "closed": 30877
+      },
+      "stance_a": "SOUTHPAW",
+      "stance_b": "SOUTHPAW",
+      "variant": "closed_southpaw"
+    },
+    {
+      "body_kick_share_of_named": 0.0,
+      "body_share_of_kicks": 0.0,
+      "built_impacts": 31536,
+      "connect_share_of_built": 0.46150431253171,
+      "families": {
+        "body_kick": 0,
+        "jab": 2208,
+        "other": 23997,
+        "rear_hand": 5331
+      },
+      "hands": {
+        "lead": 2208,
+        "rear": 5331,
+        "unnamed": 23997
+      },
+      "jab_share_of_named": 0.0700152207001522,
+      "kicks": 0,
+      "lead_share_of_hands": 0.292877039395145,
+      "methods": {
+        "DECISION": 19,
+        "KO": 11
+      },
+      "named_throws": 31536,
+      "population": "BOXING ring 6.0 m - out-boxer v pressure fighter (non-identical, both legal for boxing)",
+      "rear_hand_share_of_named": 0.169044901065449,
+      "round_minutes": 598.168333333333,
+      "ruleset": "boxing",
+      "sha256": "6db8dce604067de970eecccc2fbb0a30f40b1c02d22f090b40d6485b7d0bb54c",
+      "stamped_matchup": {
+        "open": 31536
+      },
+      "stance_a": "ORTHODOX",
+      "stance_b": "SOUTHPAW",
+      "variant": "open"
+    },
+    {
+      "body_kick_share_of_named": 0.122312301727177,
+      "body_share_of_kicks": 0.486420185736814,
+      "built_impacts": 22696,
+      "connect_share_of_built": 0.464002467395136,
+      "families": {
+        "body_kick": 2776,
+        "jab": 1463,
+        "other": 15978,
+        "rear_hand": 2479
+      },
+      "hands": {
+        "lead": 1463,
+        "rear": 2479,
+        "unnamed": 18754
+      },
+      "jab_share_of_named": 0.0644606979203384,
+      "kicks": 5707,
+      "lead_share_of_hands": 0.371131405377981,
+      "methods": {
+        "DECISION": 23,
+        "KO": 5,
+        "SUBMISSION": 2
+      },
+      "named_throws": 22696,
+      "population": "MMA cage 9.1 m - striker v grappler (non-identical, both legal for MMA)",
+      "rear_hand_share_of_named": 0.109226295382446,
+      "round_minutes": 401.789166666667,
+      "ruleset": "mma",
+      "sha256": "3c6a64eaf0d2aff5598e6a45d8c2c8c99eddef0ca8ffa6d728248ac040aa84ca",
+      "stamped_matchup": {
+        "closed": 22696
+      },
+      "stance_a": "ORTHODOX",
+      "stance_b": "ORTHODOX",
+      "variant": "closed"
+    },
+    {
+      "body_kick_share_of_named": 0.122312301727177,
+      "body_share_of_kicks": 0.486420185736814,
+      "built_impacts": 22696,
+      "connect_share_of_built": 0.464002467395136,
+      "families": {
+        "body_kick": 2776,
+        "jab": 1463,
+        "other": 15978,
+        "rear_hand": 2479
+      },
+      "hands": {
+        "lead": 1463,
+        "rear": 2479,
+        "unnamed": 18754
+      },
+      "jab_share_of_named": 0.0644606979203384,
+      "kicks": 5707,
+      "lead_share_of_hands": 0.371131405377981,
+      "methods": {
+        "DECISION": 23,
+        "KO": 5,
+        "SUBMISSION": 2
+      },
+      "named_throws": 22696,
+      "population": "MMA cage 9.1 m - striker v grappler (non-identical, both legal for MMA)",
+      "rear_hand_share_of_named": 0.109226295382446,
+      "round_minutes": 401.789166666667,
+      "ruleset": "mma",
+      "sha256": "3c6a64eaf0d2aff5598e6a45d8c2c8c99eddef0ca8ffa6d728248ac040aa84ca",
+      "stamped_matchup": {
+        "closed": 22696
+      },
+      "stance_a": "SOUTHPAW",
+      "stance_b": "SOUTHPAW",
+      "variant": "closed_southpaw"
+    },
+    {
+      "body_kick_share_of_named": 0.121257206620792,
+      "body_share_of_kicks": 0.490594431903687,
+      "built_impacts": 21508,
+      "connect_share_of_built": 0.464943276920216,
+      "families": {
+        "body_kick": 2608,
+        "jab": 1295,
+        "other": 15202,
+        "rear_hand": 2403
+      },
+      "hands": {
+        "lead": 1295,
+        "rear": 2403,
+        "unnamed": 17810
+      },
+      "jab_share_of_named": 0.0602101543611679,
+      "kicks": 5316,
+      "lead_share_of_hands": 0.350189291508924,
+      "methods": {
+        "DECISION": 20,
+        "KO": 4,
+        "SUBMISSION": 6
+      },
+      "named_throws": 21508,
+      "population": "MMA cage 9.1 m - striker v grappler (non-identical, both legal for MMA)",
+      "rear_hand_share_of_named": 0.111725869443928,
+      "round_minutes": 374.63,
+      "ruleset": "mma",
+      "sha256": "a25ab7ea87ee9aa52b205379d008a39c394dce37f5b996ba67b320940fb44be8",
+      "stamped_matchup": {
+        "open": 21508
+      },
+      "stance_a": "ORTHODOX",
+      "stance_b": "SOUTHPAW",
+      "variant": "open"
+    }
+  ],
+  "roster": {
+    "ids": 2000,
+    "open_matchup_share": 0.3673875,
+    "southpaw_share": 0.2425,
+    "southpaws": 485
+  },
+  "task": "S4e (3) stance in the real-time engine"
+}

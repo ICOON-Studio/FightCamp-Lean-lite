@@ -1,0 +1,232 @@
+{
+  "disciplines": {
+    "boxing": {
+      "attempts": {
+        "by_position": {
+          "distance": 21183
+        },
+        "by_region": {
+          "head_neck": 13776,
+          "torso_core": 7407
+        },
+        "by_role": {
+          "counter": 2272,
+          "damage": 11542,
+          "empty": 0,
+          "setup": 7369
+        },
+        "jab_total": 3790,
+        "total": 21183
+      },
+      "land_dist_head_power": 4346,
+      "land_dist_head_total": 6692,
+      "landed": {
+        "by_position": {
+          "distance": 10307
+        },
+        "by_region": {
+          "head_neck": 6692,
+          "torso_core": 3615
+        },
+        "by_role": {
+          "counter": 1171,
+          "damage": 5562,
+          "empty": 0,
+          "setup": 3574
+        },
+        "jab_total": 1806,
+        "total": 10307
+      },
+      "pairings": [
+        {
+          "attempts": 11000,
+          "bouts": 15,
+          "landed": 5361,
+          "name": "out_boxer vs pressure"
+        },
+        {
+          "attempts": 10183,
+          "bouts": 15,
+          "landed": 4946,
+          "name": "boxer_puncher vs counter"
+        }
+      ]
+    },
+    "kickboxing": {
+      "attempts": {
+        "by_position": {
+          "distance": 19726
+        },
+        "by_region": {
+          "head_neck": 10131,
+          "left_leg": 1067,
+          "right_leg": 1055,
+          "torso_core": 7473
+        },
+        "by_role": {
+          "counter": 1009,
+          "damage": 14050,
+          "empty": 0,
+          "setup": 4667
+        },
+        "jab_total": 3083,
+        "total": 19726
+      },
+      "land_dist_head_power": 3963,
+      "land_dist_head_total": 5003,
+      "landed": {
+        "by_position": {
+          "distance": 9900
+        },
+        "by_region": {
+          "head_neck": 5003,
+          "left_leg": 541,
+          "right_leg": 529,
+          "torso_core": 3827
+        },
+        "by_role": {
+          "counter": 549,
+          "damage": 7004,
+          "empty": 0,
+          "setup": 2347
+        },
+        "jab_total": 1503,
+        "total": 9900
+      },
+      "pairings": [
+        {
+          "attempts": 8613,
+          "bouts": 15,
+          "landed": 4396,
+          "name": "dutch vs thai_kicker"
+        },
+        {
+          "attempts": 11113,
+          "bouts": 15,
+          "landed": 5504,
+          "name": "kb_counter vs kb_pressure"
+        }
+      ]
+    },
+    "mma": {
+      "attempts": {
+        "by_position": {
+          "clinch": 2227,
+          "distance": 24407,
+          "ground": 4138
+        },
+        "by_region": {
+          "head_neck": 15858,
+          "left_leg": 830,
+          "right_leg": 860,
+          "torso_core": 13224
+        },
+        "by_role": {
+          "counter": 916,
+          "damage": 22748,
+          "empty": 0,
+          "setup": 7108
+        },
+        "jab_total": 2263,
+        "total": 30772
+      },
+      "land_dist_head_power": 4344,
+      "land_dist_head_total": 5668,
+      "landed": {
+        "by_position": {
+          "clinch": 1147,
+          "distance": 12181,
+          "ground": 2135
+        },
+        "by_region": {
+          "head_neck": 7866,
+          "left_leg": 401,
+          "right_leg": 450,
+          "torso_core": 6746
+        },
+        "by_role": {
+          "counter": 449,
+          "damage": 11395,
+          "empty": 0,
+          "setup": 3619
+        },
+        "jab_total": 1113,
+        "total": 15463
+      },
+      "pairings": [
+        {
+          "attempts": 15611,
+          "bouts": 15,
+          "landed": 7755,
+          "name": "wrestler vs out_striker"
+        },
+        {
+          "attempts": 15161,
+          "bouts": 15,
+          "landed": 7708,
+          "name": "sub_grappler vs clinch_boxer"
+        }
+      ]
+    },
+    "muay_thai": {
+      "attempts": {
+        "by_position": {
+          "clinch": 1694,
+          "distance": 20298,
+          "ground": 2504
+        },
+        "by_region": {
+          "head_neck": 11472,
+          "left_leg": 864,
+          "right_leg": 865,
+          "torso_core": 11295
+        },
+        "by_role": {
+          "counter": 458,
+          "damage": 14118,
+          "empty": 4198,
+          "setup": 5722
+        },
+        "jab_total": 1810,
+        "total": 24496
+      },
+      "land_dist_head_power": 3400,
+      "land_dist_head_total": 4402,
+      "landed": {
+        "by_position": {
+          "clinch": 856,
+          "distance": 10189,
+          "ground": 1275
+        },
+        "by_region": {
+          "head_neck": 5663,
+          "left_leg": 465,
+          "right_leg": 439,
+          "torso_core": 5753
+        },
+        "by_role": {
+          "counter": 225,
+          "damage": 7067,
+          "empty": 2131,
+          "setup": 2897
+        },
+        "jab_total": 895,
+        "total": 12320
+      },
+      "pairings": [
+        {
+          "attempts": 11865,
+          "bouts": 15,
+          "landed": 6070,
+          "name": "khao vs tae"
+        },
+        {
+          "attempts": 12631,
+          "bouts": 15,
+          "landed": 6250,
+          "name": "femur vs mat"
+        }
+      ]
+    }
+  }
+}

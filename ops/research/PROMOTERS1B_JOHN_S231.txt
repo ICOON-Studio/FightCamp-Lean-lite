@@ -1,0 +1,49 @@
+PROMOTERS1b is done: 24 markets, 32 lines, checked 16 Oct 2026. The file is attached.
+
+```
+Japan | Ohashi Promotions | https://www.ohashi-gym.com | 14 Sep 2025, IG Arena, Nagoya; Naoya Inoue def. Murodjon Akhmadaliev UD12 | https://wbcboxing.com/en/inoue-defeats-akhmadaliev/
+Japan | Teiken Promotions | https://www.teiken.com | 24 Feb 2025 (article date; event date not stated), Ariake Arena, Tokyo; Junto Nakatani KO3 David Cuellar | https://boxepunch.com/en/flashnews-en/results-from-japan-nakatani-crushes-cuellar-draw-between-tsutsumi-and-higa/
+Mexico | Promociones Zanfer | https://zanferpromotions.com | 6 Sep 2025, Nogales, Sonora (venue UNKNOWN); Oscar Valdez def. Ricky Medina UD10 (with Top Rank) | https://www.tapology.com/fightcenter/events/131985-el-orgullo-de-nogales-en-casa
+Philippines | Sanman Promotions | NONE | 11 Mar 2025, Bula Gymnasium, General Santos City; Sem Jopet Enano def. Bryan James Wild UD8 | https://philboxing.com/story-173345
+Thailand | Petchyindee Promotions | NONE | ANNOUNCED 4 Dec 2025, Bangkok (venue UNKNOWN); Carlos Cañizales vs Thammanoon Niyomtrong; result UNKNOWN | https://wbcboxing.com/en/carlos-canizales-vs-thammanoon-niyomtrong-at-the-wbc-convention/
+South Africa | Golden Gloves Promotions | https://goldengloves.co.za | 1 Mar 2025, Emperors Palace, Kempton Park; Ricardo Malajika TKO2 Jackson Chauke | https://www.ringmagazine.com/news/ricardo-malajika-blitzes-jackson-chauke-in-two-rounds-6PvqTfFUW9YGbeOMcQAqmi
+Australia | No Limit Boxing | https://nolimitboxing.com.au | 14 May 2025, Hordern Pavilion, Sydney; Sam Goodman def. Cesar Vaca Espinoza UD10 | https://nolimitboxing.com.au/events/goodman-v-vaca
+Argentina | Chino Maidana Promotions | NONE | 18 Jul 2025 (pre-fight article), Boxing Club, Río Gallegos; Marcelo Sánchez vs Nicolás Jara | https://laopinionaustral.com.ar/argentina/es-el-evento-mas-importante-que-hicimos-en-seis-anos-el-chino-maidana-llega-a-rio-gallegos-con-todo-555581.html
+Argentina | Arano Box | NONE | 3 May 2025, Polideportivo Lavalle, Mendoza; Yerni Betancourt def. Jose Velasquez UD10 | https://www.tapology.com/fightcenter/events/127727-boxeo-profesional
+Germany | SES Boxing | https://www.sesboxing.de | 17 May 2025, Magdeburg (venue UNKNOWN); Roman Fress def. Michael Seitz UD | https://www.sesboxing.de/aktuell/news/erfolgreiche-jubilaeums-box-gala-fress-und-reis-mit-klaren-siegen-neue-titeltraeger-u-steinforth.html
+Italy | OPI Since 82 | NONE | 8 Jun 2025, Piazza Santa Croce, Florence; Fabio Turchi def. Milans Volkovs UD | https://www.fpi.it/pro-boxe/news/firenze-boxing-night-opi82-leone-piazza-santa-croce-agg-risultati-live.html
+Spain | The Boxer Club | https://theboxerclub.es | 17 Jul 2025, Teatro Las Vegas, Madrid; Moussa Gholam vs Maximiliano Verón | https://www.wbaboxing.com/boxing-news/wba-europe-convention-closes-with-a-successful-fight-night-in-madrid
+France | 100% Fight | NONE | 4 Oct 2025, Adidas Arena, Paris; Franck Petitjean vs Salahdine Parnasse | https://lesadeptesdelaboxe.com/salahdine-parnasse-vs-franck-petitjean-un-combat-historique-au-coeur-de-paris/
+Canada | Eye of the Tiger Management | NONE | 10 Apr 2025, Montreal (venue UNKNOWN); Dzmitry Asanau def. Francesco Patera UD | https://www.fightmag.com/boxing-dzmitry-asanau-vs-francesco-patera-results/
+Brazil | Sampa Boxe | NONE | 22 Mar 2025, Club Cassasp, São Paulo; Eduardo Costa def. Carlos Rodrigues UD10 | https://www.tapology.com/fightcenter/events/125664-sampa-boxe-5
+Brazil | Spaten Fight Night | NONE | 27 Sep 2025, São Paulo (venue UNKNOWN); Acelino Freitas def. Wanderlei Silva DQ4 | https://www.espn.com.br/mma/artigo/_/id/15739093/wanderlei-silva-x-popo-freitas-todos-resultados-spaten-fight-night-2-confusao-generalizada
+Kazakhstan | Nomad Promotions | NONE | 5 Apr 2025, Barys Arena, Astana; Janibek Alimkhanuly TKO5 Anauel Ngamissengue | https://bigfightweekend.com/2025/04/05/janibek-alimkhanuly-brutal-tko/
+Russia | RCC Boxing Promotions | NONE | 9 Aug 2025, Yekaterinburg (venue UNKNOWN); Meysam Gheshlaghi TKO3 Denis Savitsky | https://www.nextknockout.com/events/rcc-boxing-night-503940
+Poland | Knockout Promotions | https://knockout.pl | 25 May 2025, Kalisz (venue UNKNOWN); Krzysztof Włodarczyk TKO10 Adam Balski | https://knockout.pl/aktualnosci/kbn39-diablo-mistrzem-swiata/
+Poland | Tymex Boxing Promotion | https://tymex.pl | UNKNOWN | UNKNOWN
+Netherlands | Angelo Rosalia (with GBM) | NONE | 29 Nov 2025, De Wilgenring, Rotterdam; Gradus Kraus KO2 Rostam Ibrahim | https://fightsatw.com/gradus-kraus-storms-through-rostam-ibrahim-in-rotterdam/
+Netherlands | Foxbury Management | NONE | 20 Oct 2025, Theater Carré, Amsterdam; headliner UNKNOWN | https://www.tapology.com/fightcenter/events/134608-ben-bril-memorial-boxing-gala-2025
+Cyprus | NONE | UNKNOWN | https://kokfights.com/kok-fight-night-summer-edition-for-june-28-in-cyprus/
+Georgia | World Boxing Promotion | NONE | 24 May 2025, Arena Tbilisi; Irakli Melikishvili def. Mahdi Sarbaz UD10 | https://www.tapology.com/fightcenter/events/128993-melikishvili-vs-sarbaz
+Georgia | Boxing Group Promotion | NONE | Dec 2025, Tbilisi (date/venue UNKNOWN); Bigvava vs Silverman | https://www.tapology.com/fightcenter/events/137336-bigvava-vs-silverman
+Uzbekistan | AAA Promotion | NONE | 3 Aug 2025, Sport Palace Jar, Tashkent; Olimjon Nazarov def. Mirlan Turkbay Uulu UD10 | https://www.tapology.com/forum/threads/90546
+South Korea | The Won Promotions | NONE | 14 Sep 2025, Gwanakgu Hall, Seoul; Tae Dong Lee def. Dong Woo Kim UD10 | https://www.tapology.com/fightcenter/events/133232-phoenix-battle-seoul
+China | Max Power Promotions | NONE | 21 Jun 2025, Yantai (venue UNKNOWN); Yeerlan Nuerlanbieke KO2 Young Bin Song | https://www.tapology.com/fightcenter/events/129626-max-boxing-carnival
+United States | Premier Boxing Champions | https://www.premierboxingchampions.com | 1 Mar 2025, Barclays Center, Brooklyn; Gervonta Davis vs Lamont Roach Jr., majority draw | https://www.premierboxingchampions.com/news/tank-and-roach-battle-draw
+United States | Golden Boy Promotions | https://www.goldenboy.com | 28 Jun 2025, Honda Center, Anaheim; Jake Paul def. Julio César Chávez Jr. UD10 | https://www.tapology.com/fightcenter/events/125067-zurdo-vs-dorticos
+United States | Most Valuable Promotions | https://www.mostvaluablepromotions.com | UNKNOWN | UNKNOWN
+United Kingdom | BOXXER | https://www.boxxer.com | 26 Apr 2025, Tottenham Hotspur Stadium, London; Chris Eubank Jr def. Conor Benn UD12 | https://www.boxxer.com/events/fatal-fury-chris-eubank-jr-vs-conor-benn-26-apr-2025-tottenham-hotspur-stadium-london/
+```
+
+**What couldn't be sourced:**
+- **Sites:** I found no working official site for Sanman, Petchyindee, Chino Maidana, Arano Box, OPI Since 82, Eye of the Tiger, Nomad or RCC, or for any promoter in Brazil, France, the Netherlands, Georgia, Uzbekistan, South Korea or China. Groupe Yvon Michel and Agon are left out because I couldn't source a show for either.
+- **Venues:** these are UNKNOWN for the Nogales, Magdeburg, Montreal, Kalisz, Yekaterinburg, Yantai and Spaten shows.
+- **Dates:** Teiken's date is an article date and Chino Maidana's comes from a pre-fight article. Petchyindee's show was only announced, and its result wasn't checked.
+- **No show sourced:** Tymex and Most Valuable Promotions have working sites, but neither has a show of its own here.
+- **Cyprus:** no domestic pro promoter turned up, and where Cypriot pros fight is UNKNOWN. The Cyprus link is a kickboxing event, and it wasn't checked to see if it loads.
+- **Blocked pages:** the FPI page and the BOXXER pages blocked my checks, and the PBC homepage blocked the automated check while its news page loaded.
+- **Thin markets:** no market has more than two promoters.
+
+Two lines need checking before use:
+- **Golden Boy:** Most Valuable Promotions led the Paul vs Chávez Jr. show, with Golden Boy only co-promoting. The source URL's slug reads "zurdo-vs-dorticos", which may point to a different event, so treat that line as unverified until someone opens it.
+- **Unopened sources:** for about half the show lines, the details come from search-result text because the source page itself wasn't opened.

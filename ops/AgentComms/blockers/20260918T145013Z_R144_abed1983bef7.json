@@ -1,0 +1,8 @@
+{
+  "agent": "claude",
+  "created_at": "2026-09-18T14:50:13Z",
+  "id": "abed1983bef7",
+  "resolved_at": null,
+  "task": "R144",
+  "why": "PC ONLY. Measured 2026-09-18 from the cloud container: assetstore.unity.com, huggingface.co, jyuntins.github.io and api.github.com all return connect_rejected at CONNECT; only raw.githubusercontent.com answers. Line 1 (RamsterZ catalogue) and line 2 (Unity store) need the store; line 4's decisive question is the Hugging Face DATA licence card. None of them are reachable here at any effort. Unblocks on any PC session - no credits, no purchase needed to DO the task, only to act on it."
+}

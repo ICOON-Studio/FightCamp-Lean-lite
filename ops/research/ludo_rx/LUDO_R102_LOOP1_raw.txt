@@ -1,0 +1,215 @@
+FIGHTCAMP — CORE LOOP RE-SCOPE SPECIFICATION
+A) LOOP EVALUATION & CRITICAL CUTS
+
+The operator’s instinct is correct: by stripping the narrative scaffolding, the 11-step hand-holding tutorial, and peripheral management clutter, the game reveals its authentic mechanical spine.
+
+       [ Intake & Goal ]  --->  [ Matchmaking / Opponent ]
+              │                               │
+              ▼                               ▼
+       [ Weekly/Daily Plan ] <---> [ Camp Prep (Film/Tech) ]
+              │
+              ▼
+    [ Watch 3D Training Lap ] (Gains vs. Attrition / Coach Pairing)
+              │
+              ▼
+         [ The Fight ]  --->  [ Outcome & Next Goal Cycle ]
+
+What is Missing from the Draft Loop?
+The Opponent as the Baseline for the Goal: In boxing, you cannot design a targeted camp without an opponent. Having Matchmaking at Step 9 (after weeks of training) disconnects the training design from the tactical preparation.
+Fix: The Fighter brings a Mandate/Goal at Step 2 (e.g., "Book my debut within 4 weeks" or "I want revenge on a southpaw slugger"). The player picks the opponent early or agrees to a target bout date, which then establishes the tactical target (e.g., slipping rights, building gas tank to 6 rounds).
+A "Rest / Active Recovery" Station on the Floor: If the player watches the fighter train and notices Attrition spiking, they need an immediate operational fix on the floor (swapping a heavy bag block for the physio mat, hydration, or a light walk) rather than waiting for a separate sub-menu.
+What Must Be Cut Further (To Protect the Loop)
+CUT Step 8 (Light side duties: members + equipment wear):
+Rationale: Paying members walking in the background and hitting bags should remain purely ambient visual dressing (using the four NPC loops from Round 94). Do not force the player to click on broken speed-bag swivels, mop sweat, or collect member subscription dues right now. It dilutes the coach-athlete relationship.
+CUT Step 10's "Spying":
+Rationale: Keep it strictly to Tape/Film Study at your desk. "Spying" on opponent gyms requires dedicated systems and narrative assets. Studying a 10-second tape loop to reveal a known tell ("Drops his right hand when throwing the hook") is lean, focused, and immediately actionable in the pad-chain builder.
+B) GAINS & ATTRITION METERS: FULL DESIGN SPECIFICATION
+
+The heart of the operator’s vision is making training efficiency intuitively readable on the 3D floor: the player must clearly see the tipping point where training stops building the fighter up and starts tearing him down.
+
++------------------------------------------------------------------------------------+
+| [FIGHTER HUD - TOP LEFT]  LEO VANCE  |  CAMP: Tommy Perez (Day 11 / 28)            |
+|------------------------------------------------------------------------------------|
+|  GAINS (Weekly Rate)                           ATTRITION (Risk Accumulation)       |
+|  [■■■■■■■■■□□□□□□] +2.4 pts/wk                [■■■■■■■■■■■■□□□] 62% DANGER        |
+|  * Power: +0.4  * Ring IQ: +0.8                * Acute Fatigue: 74% (Red Zone)     |
+|  * Stamina: +1.2                               * Tissue Wear:   42% (Shin Splint)  |
+|                                                * CNS Stress:    58%                |
+|  EFFICIENCY: [ 0.72 ] Diminishing Returns      STATUS: >>> OVERTRAINED <<<         |
+|  WARNING: "Gains have flattened. Attrition climbing. SWAP CURRENT DRILL TO REST!" |
++------------------------------------------------------------------------------------+
+
+1. The Core Metrics
+GAINS (The Adaptations)
+Skill Adaptation ($\Delta S$): Rate of technical progression on the current move card/station (e.g., jab mastery, head movement). Scale: $0.0$ to $+5.0\text{ points/day}$.
+Conditioning / Engine ($VO_2\text{ max}$ & Work Capacity): Aerobic and anaerobic capacity threshold. Scale: $0$ to $100$.
+Fight Form ($\Phi$): Readiness multiplier ($0.5\text{x}$ to $1.25\text{x}$) dictating how much of their base attributes the fighter can actually access on fight night.
+ATTRITION (The Physiological Cost)
+Acute Fatigue ($F_{acute}$): Daily muscular exhaustion ($0$ to $100%$). Clears rapidly overnight with sleep/nutrition.
+Tissue Structural Wear ($W_{tissue}$): Joint, tendon, and micro-trauma accumulation ($0$ to $100%$). Builds slowly under high-impact stations (heavy bag, hard sparring).
+CNS Stress ($S_{CNS}$): Central Nervous System burnout ($0$ to $100%$). Driven by high-intensity speed drills, reactive pad work, and hard sparring.
+Niggle Risk ($P_{injury}$): Direct probability ($0.0%$ to $100.0%$) of sustaining a camp-disrupting injury (e.g., hyper-extended elbow, bruised knuckles, shin splints).
+2. Daily vs. Weekly Aggregation
+The Daily Meter (Live During the 3D Lap):
+Displays Instantaneous Rate of Adaptation vs. Instantaneous Strain Accumulation.
+Updates in real-time as the fighter moves from the heavy bag to the treadmill.
+The Weekly Dashboard (Camp Macrocycle):
+Displays Net Structural Form vs. Systemic Fatigue Debt.
+Shows rolling 7-day sparklines to communicate trendlines (e.g., "Conditioning peaked 4 days ago; you are now grinding down joint integrity").
+3. Visual Representation & Screen Placement
+Location: Top-left corner of the screen, pinned directly under the Fighter Identity Badge, leaving the center ring and central floor completely unobscured.
+The Gains Display:
+Visual: An emerald-green segment bar ($240\text{ px} \times 16\text{ px}$) alongside a dynamic green upward arrow ticker (▲ +1.8/day).
+Sub-readout: Tiny sparkline showing the last 5 days of adaptation slope.
+The Attrition Display:
+Visual: A segmented health-bar-style meter divided into three chromatic zones:
+0% – 45% (Cool Cyan/White): Optimal Load — full adaptation occurs.
+46% – 70% (Vibrant Amber): Functional Overreaching — gains continue, but injury risk starts to compound.
+71% – 100% (Pulsing Hazard Crimson): Non-Functional Overreaching / Overtraining — adaptation drops to near zero while injury probability spikes exponentially.
+Sub-readout: Two micro-bars: TENDON/JOINT (yellow) and CNS (purple).
+4. The Mathematical Rule for the "CHANGE THE PLAN" Signal
+
+The "Change the Plan" state occurs when the fighter enters Diminishing Marginal Adaptation while Marginal Attrition accelerates.
+
+$$\text{Efficiency Ratio } (E) = \frac{\Delta\text{Gains Rate}}{\Delta\text{Attrition Rate}}$$
+
+Exact Numerical Thresholds
+The Green Band (Productive Work):
+$\text{Acute Fatigue} < 60%$, $\text{CNS Stress} < 50%$.
+Efficiency $E \ge 1.0$.
+Visual: Clean green pulse on the fighter’s HUD icon. Floating $+0.1$ floating text over the station.
+The Amber Band (Diminishing Returns):
+$\text{Acute Fatigue} \in [61%, 75%]$ OR $\text{Tissue Wear} > 55%$.
+Efficiency $E$ drops to between $0.35$ and $0.99$.
+Adaptation rate drops by $50%$ per additional minute spent on the station.
+Visual: Amber text alert under the bar: "Plateau Approaching".
+The Red Signal: "CHANGE THE PLAN" (Hard Trigger):
+Trigger Conditions:
+$\text{Acute Fatigue} > 75%$ AND Daily Skill Gains have flattened ($\Delta S < 0.05\text{ pts/min}$).
+OR $\text{CNS Stress} > 80%$ (where punch reaction times slow by $>15%$).
+OR $\text{Niggle Risk} \ge 25%$.
+HUD Alert:
+The Attrition bar flashes crimson with high-contrast diagonal hazard striping.
+An amber warning chime sounds once.
+A bold status pill appears below the fighter's name:
+[ ! ] CHANGE PLAN: GAINS FLATTENED — SWAP TO ACTIVE RECOVERY
+In-World 3D Visual:
+The fighter visibly drops their guard, bends over, hands on knees, breathing heavily, and strike speed drops by $40%$.
+C) THE GOAL + DEADLINE SYSTEM
+
+The Goal is the contract between the coach and the athlete. It provides the pacing structure that replaces the cut narrative campaign.
+
++------------------------------------------------------------------------------------+
+|  ACTIVE CONTRACT / MANDATE                                    COUNTDOWN: 18 DAYS   |
+|  GOAL: "Prepare for 6-Round Pro Debut vs. Swarmer"            [ ON TRACK: +12% ]   |
+|  Target Readiness: Conditioning 70+ | Guard Mastery 600m                           |
+|  Status: Conditioning: 68/70 (Green) | Guard: 480/600m (Amber)                     |
+|  Failure Penalty: Fighter morale collapses, walks out to rival gym.               |
++------------------------------------------------------------------------------------+
+
+1. Goal Archetypes
+
+| Goal Title | Timeline / Deadline | Primary Targets / Win Conditions | Fighter Source / Persona |
+| :--- | :--- | :--- | :--- |
+| "Pro Debut Bloodline" | 28 Days (4 Weeks) | Conditioning $\ge 65$; Master 1 Pad-Chain; Win Bout. | Raw amateur recruit (e.g., Leo Vance). |
+| "The Weight Cut Crisis" | 14 Days (2 Weeks) | Shed $3.5\text{ kg}$ to make Welterweight ($66.7\text{ kg}$); maintain Chin $\ge 75$. | Undisciplined, overweight slugger. |
+| "Southpaw Antidote" | 21 Days (3 Weeks) | Drill lead-foot outside pivot 400 mins; Lead Hook Mastery Level 3. | Technical orthodox fighter preparing for an awkward stylistic match. |
+| "Gatekeeper Upset" | 35 Days (5 Weeks) | Upset a ranked regional opponent (Top 15) with an explosive finish. | Veteran on his last contractual push. |
+
+2. On-Track / Off-Track Visual Readout
+
+The Goal Card sits anchored at the top center of the UI, always visible:
+
+The Countdown Clock: Digital flip-card typography: WEEKS: 02 | DAYS: 04.
+The Diagnostic Status Bar:
+ON TRACK (Vibrant Cyan / Green): The projected trajectory of the target attribute will hit $100%$ of the target at least 48 hours prior to fight night.
+MARGINAL / AT RISK (Amber): Trajectory misses the target by $10–20%$, or current attrition forces mandatory rest that derails the schedule.
+OFF TRACK (Flashing Crimson): Projected target cannot be achieved without triggering a critical niggle/injury event.
+3. Consequences of Success & Failure
+On Success (Goal Met + Win):
+Fighter Trust / Loyalty +25: Unlocks coach intervention slots (fighter accepts harder corner advice without pushing back).
+Gym Prestige Bonus: Attracts higher-tier prospects with higher base stats.
+Purse Retention: Full purse payout + sponsor performance bonus.
+On Failure (Deadline Missed, Weight Missed, or Crushing Loss):
+Fighter Walkout Risk: If Trust drops to $0$, the fighter packs their kit bag and signs with a rival gym (e.g., Marcus Vance's stable).
+Permanent Attrition Scar: Missing weight cuts or fighting exhausted permanently docks $5$ to $10$ points of Chin or Gas Tank capacity.
+D) THE COACH: PAIRING & WORKING TOGETHER
+
+Assigning a coach is not merely a passive $+15%$ spreadsheet bonus; it transforms the environment on the 3D gym floor.
+
+[ UNCOACHED STATION: Fighter working alone ]
+- Basal Adaptation Rate: 1.0x
+- Attrition Accumulation: 1.0x
+- Technical Blunder Risk: 12% (Reinforcing bad habits)
+
+[ COACH ASSIGNED: Coach stands 1.5m away with focus pads / clipboard ]
+- Basal Adaptation Rate: 1.65x (High verbal feedback)
+- Attrition Accumulation: 0.75x (Coach enforces correct biomechanics)
+- Technical Blunder Risk: 0%
+- Visual: Live audio cues, animated pad catches, dynamic encouragement gestures.
+
+1. How the Coach Modifies the Meters Visibly
+Gains Multiplier Bracket: The emerald Gains Bar receives an immediate visual "Coach Boost" cap extension shown in bright cobalt blue: $$\text{Actual Gain Rate} = \text{Base Station Rate} \times (1.0 + \text{Coach Teaching Skill} \times 0.01)$$
+Attrition Dampening: A competent coach reduces Tissue Wear by enforcing proper technique (e.g., wrapping wrists correctly, stopping a drill before form breaks down): $$\text{Wear Rate} = \text{Base Wear} \times (1.0 - \text{Coach Discipline Skill} \times 0.005)$$
+The "Spotter Effect" on the Change-the-Plan Threshold:
+When a coach is assigned to the station, the "CHANGE PLAN" warning triggers 20% earlier in the fatigue cycle. The coach acts as the player's diagnostic early-warning system: a coach speech bubble pops up over the station: "His jab is dragging, Coach. Pull him off the bags!"
+2. What "Watching Them Work Together" Shows in 3D
+
+When the player selects a coach and clicks "Assign to Station":
+
+Physical Relocation: The coach walks smoothly from their idle/office node along the designated aisles to station workpoint $(x, z)$.
+Interactive Animation Pairs:
+At the Pad Station: Coach holds leather mitts in high-guard stance. Fighter throws 1-2 combos; the coach absorbs the impacts with realistic micro-recoil, offering immediate audio feedback ("Snap it! Pop it!").
+At the Heavy Bag: Coach holds the rear of the heavy bag with both palms to stabilize swing momentum, gesturing toward the fighter’s foot placement between combinations.
+At the Slip Line: Coach points a foam training noodle at the fighter’s temple if they fail to tuck their chin during the under-weave.
+The Chemistry Meter: A circular ring over the coach's head fills over consecutive training weeks. At $100%$ Chemistry, the coach unlocks an exclusive corner shout during fight night.
+E) MINIMAL PLAYABLE BUILD ORDER (STEP-BY-STEP)
+
+Every step must yield a runnable, testable Godot build:
+
+  [ STEP 1: The Lap ]          --> Build the floor, pathing, and manual station loop.
+          │
+  [ STEP 2: The Meters ]       --> Add live Gains vs. Attrition bars & "Change Plan" alert.
+          │
+  [ STEP 3: The Coach ]        --> Add coach assignment, station boost, and visual pairing.
+          │
+  [ STEP 4: The Goal ]         --> Add intake contract, countdown, and pass/fail states.
+          │
+  [ STEP 5: The Match & Fight] --> Connect training output directly to the 3D bout result.
+
+Step 1: The Training Floor Core (Playable Sandbox)
+What it builds: The 3D gym floor with working pathfinding.
+Gameplay: One fighter spawns. Player clicks stations (Pads, Heavy Bag, Treadmill, Physio Mat). The fighter walks to the workpoint, executes the animation loop for 30 seconds, and steps off.
+Success criteria: Player can manually guide a boxer through a training circuit without hitching or navigation failures.
+Step 2: The Live Gains & Attrition System
+What it builds: The data engine and top-left HUD meters.
+Gameplay: As the fighter hits the heavy bag, the Gains Bar ticks up, but Attrition climbs. If left on the bag for $>60\text{ seconds}$, the Attrition meter hits Crimson ($>75%$), the "CHANGE PLAN" alert triggers, and the fighter visibly bends over gasping for air. Clicking the Physio Mat clears the fatigue.
+Success criteria: The core trade-off (push for gains vs. manage exhaustion) is mechanically clear and engaging.
+Step 3: Coach Hiring & Floor Pairing
+What it builds: The Assistant Coach entity and assignment mechanic.
+Gameplay: Player hires one coach from a 3-candidate shortlist. Drag-and-drop or assign the coach to the Pad Station. Coach walks over, holds mitts, and the station's Gains rate jumps $+40%$ while Attrition slows down.
+Success criteria: The player immediately feels the tangible mechanical benefit of investing in staff.
+Step 4: The Goal Contract & Pacing Clock
+What it builds: The intake contract and always-visible countdown timer.
+Gameplay: Fighter arrives with an explicit mandate: "Reach Conditioning 70 within 21 Days". The calendar advances day-by-day. Player balances hard training laps against rest days to hit the target before time expires.
+Success criteria: Meaningful tension is introduced: will the fighter peak in time without breaking down?
+Step 5: The Matchmaking Booking & The Bout
+What it builds: A 2-opponent selection panel and a simplified 3D fight-night resolve screen.
+Gameplay: Player books a debut match. The fighter's end-of-camp attributes (Stamina, Power, Form) determine their performance in the ring. The fight plays out under the existing tactical corner mechanics. The outcome evaluates the goal, awards purse money, and spawns the next prospect.
+Success criteria: The entire loop closes: Intake $\to$ Camp $\to$ Fight $\to$ Progression.
+F) DRAFT "KEEP / OFF" CORRECTIONS MATRIX
+
+| Feature Name | Draft Status | Corrected Status | Justification & Architectural Impact |
+| :--- | :--- | :--- | :--- |
+| Story Campaign / Inbox / Wall | OFF | OFF | Eliminates extensive dialogue trees, complex UI states, and branching narrative scripts. |
+| 11-Step Tutorial Guide | OFF | OFF | Replaced by the Goal Contract Card. The goal itself serves as the player's natural tutorial. |
+| Ambient Gym Members | OFF | MODIFIED (VISUAL ONLY) | Keep purely as animated visual dressing (4 background NPCs running loops). Cut all interactive member management, fees, and subscriptions. |
+| Equipment Wear & Maintenance | ON | OFF | Mending broken bags adds administrative friction without deepening the core tactical loop. |
+| Matchmaking & Opponent Selection | Step 9 (Late) | MOVE TO STEP 2/3 (EARLY) | Boxing camps require a specific target opponent. You cannot build a tactical pad-chain for an unknown fighter. |
+| Tape / Film Study | ON | KEEP (LEAN) | Keep strictly as a 1-click video review at the coach’s desk to reveal one key tell (e.g., "Drops hand on hook"). |
+| Opponent Gym Spying | ON | OFF | Spying requires extraneous simulation tracking outside the player's gym. Tape study is sufficient. |
+| Gym Zone Editor / Wall Moving | OFF | OFF | Lock the gym layout to the approved $20\text{ m} \times 18\text{ m}$ hall floor. No in-game architectural construction. |
+| Random Disruption Events | OFF | OFF | Keep simulation outcomes transparent and deterministic. No random plumbing leaks or flu outbreaks. |
+| Promoter Traps & Away Circuit | OFF | OFF | Defer to the post-launch milestone expansion. Keep matchmaking grounded in regional bouts. |
+| MMA / Kicking Modules | OFF | OFF | FightCamp is strictly a pure sweet-science boxing simulation. |
+| Side Rooms (Street, Office, Physio) | OFF | LOCKED / BACKGROUND VISUAL | All gameplay remains focused on the primary training floor. The physio table functions as a station on the main floor perimeter. |

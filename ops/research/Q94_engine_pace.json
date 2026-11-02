@@ -1,0 +1,493 @@
+{
+  "bouts": [
+    {
+      "actions_a": 183,
+      "actions_b": 284,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 900
+    },
+    {
+      "actions_a": 245,
+      "actions_b": 318,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 901
+    },
+    {
+      "actions_a": 231,
+      "actions_b": 313,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 902
+    },
+    {
+      "actions_a": 251,
+      "actions_b": 313,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 903
+    },
+    {
+      "actions_a": 227,
+      "actions_b": 305,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 904
+    },
+    {
+      "actions_a": 248,
+      "actions_b": 309,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 905
+    },
+    {
+      "actions_a": 217,
+      "actions_b": 286,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 906
+    },
+    {
+      "actions_a": 224,
+      "actions_b": 277,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 907
+    },
+    {
+      "actions_a": 246,
+      "actions_b": 314,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 908
+    },
+    {
+      "actions_a": 259,
+      "actions_b": 317,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 909
+    },
+    {
+      "actions_a": 226,
+      "actions_b": 283,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 910
+    },
+    {
+      "actions_a": 218,
+      "actions_b": 269,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 911
+    },
+    {
+      "actions_a": 230,
+      "actions_b": 263,
+      "method": "KO",
+      "round_seconds_counted": 470.55,
+      "seed": 912
+    },
+    {
+      "actions_a": 225,
+      "actions_b": 268,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 913
+    },
+    {
+      "actions_a": 264,
+      "actions_b": 308,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 914
+    },
+    {
+      "actions_a": 159,
+      "actions_b": 268,
+      "method": "KO",
+      "round_seconds_counted": 388.15,
+      "seed": 915
+    },
+    {
+      "actions_a": 203,
+      "actions_b": 324,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 916
+    },
+    {
+      "actions_a": 221,
+      "actions_b": 277,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 917
+    },
+    {
+      "actions_a": 231,
+      "actions_b": 309,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 918
+    },
+    {
+      "actions_a": 102,
+      "actions_b": 127,
+      "method": "KO",
+      "round_seconds_counted": 259.9,
+      "seed": 919
+    },
+    {
+      "actions_a": 232,
+      "actions_b": 277,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 920
+    },
+    {
+      "actions_a": 240,
+      "actions_b": 313,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 921
+    },
+    {
+      "actions_a": 199,
+      "actions_b": 319,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 922
+    },
+    {
+      "actions_a": 218,
+      "actions_b": 284,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 923
+    },
+    {
+      "actions_a": 214,
+      "actions_b": 311,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 924
+    },
+    {
+      "actions_a": 240,
+      "actions_b": 358,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 925
+    },
+    {
+      "actions_a": 223,
+      "actions_b": 309,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 926
+    },
+    {
+      "actions_a": 145,
+      "actions_b": 187,
+      "method": "KO",
+      "round_seconds_counted": 340.5,
+      "seed": 927
+    },
+    {
+      "actions_a": 231,
+      "actions_b": 298,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 928
+    },
+    {
+      "actions_a": 267,
+      "actions_b": 317,
+      "method": "DECISION",
+      "round_seconds_counted": 1440.0,
+      "seed": 929
+    }
+  ],
+  "cadence": {
+    "drivers": [
+      {
+        "row": 3,
+        "why": "The 0.35 output gate is the largest throttle: at most 35% of in-range impact checks become a throw, further cut by fatigue."
+      },
+      {
+        "row": 0,
+        "why": "Impact every 2 ticks at 20 Hz is 600 checks a minute; only a fraction pass the gate and range."
+      },
+      {
+        "row": 2,
+        "why": "Strike range of 1.1 m decides whether the impact check fires at all; men outside it produce no actions."
+      }
+    ],
+    "model": {
+      "hz": 20,
+      "impact_cadence_ticks": 2,
+      "impact_checks_per_min": 600.0,
+      "impact_period_s": 0.1,
+      "share_of_checks_that_throw": {
+        "a": 0.0101904671316303,
+        "b": 0.0210570424508536
+      },
+      "strike_actions_per_min": {
+        "a": 6.11428027897818,
+        "b": 12.6342254705122
+      }
+    },
+    "rows": [
+      {
+        "const": "",
+        "file": "Godot/scripts/TickBudget.gd",
+        "line": 12,
+        "quote": "\"impact\": 2",
+        "value": "",
+        "what": "Impact subsystem runs every 2 ticks (0.1 s at 20 Hz); one strike attempt per check."
+      },
+      {
+        "const": "DEFAULT_HZ",
+        "file": "Godot/scripts/FightRealtime.gd",
+        "line": 74,
+        "quote": "DEFAULT_HZ := 20",
+        "value": "20",
+        "what": "Engine tick rate: 20 Hz, so each tick is 0.05 s and impact every 2 ticks is 0.1 s."
+      },
+      {
+        "const": "STRIKE_RANGE",
+        "file": "Godot/scripts/FightRealtime.gd",
+        "line": 213,
+        "quote": "STRIKE_RANGE := 1.1",
+        "value": "1.1",
+        "what": "Men must be within 1.1 m for a strike attempt; beyond this the impact returns empty."
+      },
+      {
+        "const": "",
+        "file": "Godot/scripts/FightRealtime.gd",
+        "line": 1612,
+        "quote": "rng.randf() > 0.35",
+        "value": "",
+        "what": "Output gate: only 35% of in-range impact ticks produce a throw (scaled by fatigue)."
+      }
+    ]
+  },
+  "pooled": {
+    "a": {
+      "actions": 6619,
+      "actions_per_min": 10.2094907080112,
+      "by_kind": {
+        "boxing_catch_counter": 654,
+        "boxing_circle_lead": 665,
+        "boxing_circle_rear": 665,
+        "boxing_cross": 232,
+        "boxing_cross_body": 105,
+        "boxing_distance_read": 666,
+        "boxing_jab": 636,
+        "boxing_lead_hook": 587,
+        "boxing_lead_uppercut": 462,
+        "boxing_one_two": 219,
+        "boxing_one_two_hook": 136,
+        "boxing_rear_hook": 522,
+        "boxing_slip_counter": 411,
+        "boxing_step_in_out": 659
+      },
+      "by_role": {
+        "counter": 1065,
+        "damage": 2263,
+        "setup": 3291
+      },
+      "intervals_s": {
+        "mean": 2.28655642321243,
+        "n": 6619,
+        "p10": 0.100000000000009,
+        "p50": 0.700000000000017,
+        "p90": 6.19999999999999,
+        "share_below_0_35": 0.426121574031542,
+        "share_below_0_45": 0.457816567141326
+      },
+      "punches_per_min_lower_bound": 6.66185078832158,
+      "sequence_actions": 355,
+      "setups": 2655,
+      "setups_landed": 1480,
+      "strike_intervals_s": {
+        "mean": 3.78405572755421,
+        "n": 3964,
+        "p10": 0.100000000000023,
+        "p50": 2.0,
+        "p90": 9.85000000000002,
+        "share_below_0_35": 0.31062951496388,
+        "share_below_0_45": 0.34391124871001
+      },
+      "strikes_by_contact": {
+        "absorbed": 211,
+        "blocked": 139,
+        "clean": 1192,
+        "glancing": 769,
+        "missed": 1210,
+        "slipped": 443
+      },
+      "strikes_landed": 2172,
+      "strikes_landed_per_min": 3.35020604589823,
+      "strikes_thrown": 3964,
+      "strikes_thrown_per_min": 6.11428027897818
+    },
+    "b": {
+      "actions": 8705,
+      "actions_per_min": 13.4270458699559,
+      "by_kind": {
+        "boxing_catch_counter": 230,
+        "boxing_cross": 1547,
+        "boxing_cross_body": 682,
+        "boxing_distance_read": 514,
+        "boxing_jab": 463,
+        "boxing_lead_hook": 1135,
+        "boxing_lead_uppercut": 751,
+        "boxing_one_two": 1547,
+        "boxing_one_two_hook": 543,
+        "boxing_rear_hook": 1202,
+        "boxing_slip_counter": 91
+      },
+      "by_role": {
+        "counter": 321,
+        "damage": 7407,
+        "setup": 977
+      },
+      "intervals_s": {
+        "mean": 1.74422652895446,
+        "n": 8705,
+        "p10": 0.1,
+        "p50": 0.400000000000034,
+        "p90": 4.80000000000001,
+        "share_below_0_35": 0.466519670418939,
+        "share_below_0_45": 0.505048160612742
+      },
+      "punches_per_min_lower_bound": 15.8579504410128,
+      "sequence_actions": 2090,
+      "setups": 514,
+      "setups_landed": 261,
+      "strike_intervals_s": {
+        "mean": 1.85375786745656,
+        "n": 8191,
+        "p10": 0.100000000000001,
+        "p50": 0.5,
+        "p90": 5.09999999999996,
+        "share_below_0_35": 0.450080217203505,
+        "share_below_0_45": 0.486856719733432
+      },
+      "strikes_by_contact": {
+        "absorbed": 459,
+        "blocked": 360,
+        "clean": 2039,
+        "glancing": 1534,
+        "missed": 2780,
+        "slipped": 1019
+      },
+      "strikes_landed": 4032,
+      "strikes_landed_per_min": 6.21916702442987,
+      "strikes_thrown": 8191,
+      "strikes_thrown_per_min": 12.6342254705122
+    },
+    "pair": {
+      "actions": 15324,
+      "actions_per_min": 23.6365365779671,
+      "by_kind": {
+        "boxing_catch_counter": 884,
+        "boxing_circle_lead": 665,
+        "boxing_circle_rear": 665,
+        "boxing_cross": 1779,
+        "boxing_cross_body": 787,
+        "boxing_distance_read": 1180,
+        "boxing_jab": 1099,
+        "boxing_lead_hook": 1722,
+        "boxing_lead_uppercut": 1213,
+        "boxing_one_two": 1766,
+        "boxing_one_two_hook": 679,
+        "boxing_rear_hook": 1724,
+        "boxing_slip_counter": 502,
+        "boxing_step_in_out": 659
+      },
+      "intervals_s": {
+        "mean": 0.998254134943642,
+        "n": 15324,
+        "p10": 0.0999999999999943,
+        "p50": 0.299999999999983,
+        "p90": 2.59999999999999,
+        "share_below_0_35": 0.56904699396167,
+        "share_below_0_45": 0.624048306642163
+      },
+      "strike_intervals_s": {
+        "mean": 1.25641004392151,
+        "n": 12155,
+        "p10": 0.0999999999999943,
+        "p50": 0.300000000000068,
+        "p90": 3.30000000000001,
+        "share_below_0_35": 0.505759509405817,
+        "share_below_0_45": 0.560039777906688
+      },
+      "strikes_thrown": 12155,
+      "strikes_thrown_per_min": 18.7485057494903,
+      "unattributed": 0
+    },
+    "round_minutes": 648.318333333333
+  },
+  "population": {
+    "blow_census": "res://research/U79_admitted_strikes.json",
+    "catalogue": "res://assets/data/technique_catalog.json",
+    "fighters": [
+      {
+        "name": "out-boxer (A)",
+        "side": "a",
+        "style": "boxing_out_boxer"
+      },
+      {
+        "name": "pressure puncher (B)",
+        "side": "b",
+        "style": "boxing_pressure"
+      }
+    ],
+    "landed_contacts": [
+      "clean",
+      "glancing",
+      "absorbed"
+    ],
+    "round_seconds": 180.0,
+    "rounds": 8,
+    "ruleset": "boxing",
+    "seeds": [
+      900,
+      901,
+      902,
+      903,
+      904,
+      905,
+      906,
+      907,
+      908,
+      909,
+      910,
+      911,
+      912,
+      913,
+      914,
+      915,
+      916,
+      917,
+      918,
+      919,
+      920,
+      921,
+      922,
+      923,
+      924,
+      925,
+      926,
+      927,
+      928,
+      929
+    ]
+  }
+}

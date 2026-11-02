@@ -1,0 +1,451 @@
+{
+  "rulesets": [
+    {
+      "engine_ruleset": "mma",
+      "disciplines": [
+        "boxing",
+        "kickboxing",
+        "muay_thai",
+        "wrestling",
+        "judo",
+        "brazilian_jiu_jitsu",
+        "sambo",
+        "mma"
+      ],
+      "competition_rulesets": [
+        "mma_abc_professional",
+        "mma_abc_amateur_novice",
+        "mma_abc_amateur_advanced",
+        "mma_immaf_amateur"
+      ],
+      "punch": {
+        "head_neck": "legal_by_exclusion",
+        "torso_core": "legal_by_exclusion",
+        "legs": "legal_by_exclusion"
+      },
+      "kick": {
+        "head_neck": "legal_by_exclusion",
+        "torso_core": "legal_by_exclusion",
+        "legs": "legal_by_exclusion"
+      },
+      "evidence": [
+        {
+          "competition_ruleset": "mma_abc_professional",
+          "field": "fouls",
+          "quote": "groin_strike"
+        }
+      ],
+      "engine_realtime": {
+        "head_neck": 0.6,
+        "torso_core": 0.28,
+        "left_leg": 0.06,
+        "right_leg": 0.06,
+        "left_arm": 0.0,
+        "right_arm": 0.0
+      },
+      "engine_realtime_source": "TARGET_WEIGHTS_BY_RULESET",
+      "mismatches": []
+    },
+    {
+      "engine_ruleset": "boxing",
+      "disciplines": [
+        "boxing"
+      ],
+      "competition_rulesets": [
+        "boxing_abc_professional_male",
+        "boxing_abc_professional_female",
+        "boxing_worldboxing_amateur"
+      ],
+      "punch": {
+        "head_neck": "legal_by_exclusion",
+        "torso_core": "legal_by_exclusion",
+        "legs": "illegal"
+      },
+      "kick": {
+        "head_neck": "not_applicable",
+        "torso_core": "not_applicable",
+        "legs": "not_applicable"
+      },
+      "evidence": [
+        {
+          "competition_ruleset": "boxing_abc_professional_male",
+          "field": "fouls",
+          "quote": "below_navel_or_behind_ear"
+        },
+        {
+          "competition_ruleset": "boxing_abc_professional_male",
+          "field": "fouls",
+          "quote": "rabbit_punch"
+        }
+      ],
+      "engine_realtime": {
+        "head_neck": 0.6818,
+        "torso_core": 0.3182,
+        "left_leg": 0.0,
+        "right_leg": 0.0,
+        "left_arm": 0.0,
+        "right_arm": 0.0
+      },
+      "engine_realtime_source": "TARGET_WEIGHTS_BY_RULESET",
+      "mismatches": []
+    },
+    {
+      "engine_ruleset": "kickboxing",
+      "disciplines": [
+        "boxing",
+        "kickboxing"
+      ],
+      "competition_rulesets": [
+        "kickboxing_wako_full_contact",
+        "kickboxing_wako_low_kick",
+        "kickboxing_wako_k1",
+        "kickboxing_wako_point_fighting",
+        "kickboxing_wako_kick_light"
+      ],
+      "punch": {
+        "head_neck": "legal",
+        "torso_core": "legal",
+        "legs": "not_on_disk"
+      },
+      "kick": {
+        "head_neck": "legal",
+        "torso_core": "legal",
+        "legs": "legal"
+      },
+      "evidence": [
+        {
+          "competition_ruleset": "kickboxing_wako_k1",
+          "field": "legal_targets",
+          "quote": "head_front_side_top"
+        },
+        {
+          "competition_ruleset": "kickboxing_wako_k1",
+          "field": "legal_targets",
+          "quote": "torso_front_side"
+        },
+        {
+          "competition_ruleset": "kickboxing_wako_k1",
+          "field": "legal_targets",
+          "quote": "legs_any_part_broadest_of_three_styles"
+        }
+      ],
+      "engine_realtime": {
+        "head_neck": 0.6,
+        "torso_core": 0.28,
+        "left_leg": 0.06,
+        "right_leg": 0.06,
+        "left_arm": 0.0,
+        "right_arm": 0.0
+      },
+      "engine_realtime_source": "TARGET_WEIGHTS_BY_RULESET",
+      "mismatches": []
+    },
+    {
+      "engine_ruleset": "muay_thai",
+      "disciplines": [
+        "muay_thai",
+        "boxing"
+      ],
+      "competition_rulesets": [
+        "muay_thai_ifma_combat",
+        "muay_thai_ifma_technical",
+        "muay_thai_wmc_professional"
+      ],
+      "punch": {
+        "head_neck": "legal",
+        "torso_core": "legal",
+        "legs": "legal"
+      },
+      "kick": {
+        "head_neck": "legal",
+        "torso_core": "legal",
+        "legs": "legal"
+      },
+      "evidence": [
+        {
+          "competition_ruleset": "muay_thai_ifma_combat",
+          "field": "legal_targets",
+          "quote": "any part of body except groin and cervical spine C1-C7"
+        }
+      ],
+      "engine_realtime": {
+        "head_neck": 0.6,
+        "torso_core": 0.28,
+        "left_leg": 0.06,
+        "right_leg": 0.06,
+        "left_arm": 0.0,
+        "right_arm": 0.0
+      },
+      "engine_realtime_source": "TARGET_WEIGHTS_BY_RULESET",
+      "mismatches": []
+    },
+    {
+      "engine_ruleset": "judo",
+      "disciplines": [
+        "judo"
+      ],
+      "competition_rulesets": [
+        "judo_ijf"
+      ],
+      "punch": {
+        "head_neck": "not_applicable",
+        "torso_core": "not_applicable",
+        "legs": "not_applicable"
+      },
+      "kick": {
+        "head_neck": "not_applicable",
+        "torso_core": "not_applicable",
+        "legs": "not_applicable"
+      },
+      "evidence": [],
+      "engine_realtime": {
+        "head_neck": 0.6,
+        "torso_core": 0.28,
+        "left_leg": 0.06,
+        "right_leg": 0.06,
+        "left_arm": 0.0,
+        "right_arm": 0.0
+      },
+      "engine_realtime_source": "TARGET_WEIGHTS default",
+      "mismatches": [
+        "FightRealtime default weights assign 60% head / 28% torso / 12% leg strike probability to judo; judo_ijf carries no standing strike rules"
+      ]
+    },
+    {
+      "engine_ruleset": "freestyle_wrestling",
+      "disciplines": [
+        "wrestling"
+      ],
+      "competition_rulesets": [
+        "wrestling_uww_freestyle",
+        "wrestling_uww_greco_roman"
+      ],
+      "punch": {
+        "head_neck": "not_applicable",
+        "torso_core": "not_applicable",
+        "legs": "not_applicable"
+      },
+      "kick": {
+        "head_neck": "not_applicable",
+        "torso_core": "not_applicable",
+        "legs": "not_applicable"
+      },
+      "evidence": [],
+      "engine_realtime": {
+        "head_neck": 0.6,
+        "torso_core": 0.28,
+        "left_leg": 0.06,
+        "right_leg": 0.06,
+        "left_arm": 0.0,
+        "right_arm": 0.0
+      },
+      "engine_realtime_source": "TARGET_WEIGHTS default",
+      "mismatches": [
+        "FightRealtime default weights allow standing strike regions for freestyle_wrestling; wrestling_uww_freestyle names no punch or kick targets"
+      ]
+    },
+    {
+      "engine_ruleset": "greco_roman",
+      "disciplines": [
+        "wrestling"
+      ],
+      "competition_rulesets": [
+        "wrestling_uww_freestyle",
+        "wrestling_uww_greco_roman"
+      ],
+      "punch": {
+        "head_neck": "not_applicable",
+        "torso_core": "not_applicable",
+        "legs": "not_applicable"
+      },
+      "kick": {
+        "head_neck": "not_applicable",
+        "torso_core": "not_applicable",
+        "legs": "not_applicable"
+      },
+      "evidence": [],
+      "engine_realtime": {
+        "head_neck": 0.6,
+        "torso_core": 0.28,
+        "left_leg": 0.06,
+        "right_leg": 0.06,
+        "left_arm": 0.0,
+        "right_arm": 0.0
+      },
+      "engine_realtime_source": "TARGET_WEIGHTS default",
+      "mismatches": [
+        "FightRealtime default weights allow standing strike regions for greco_roman; wrestling_uww_greco_roman names no punch or kick targets"
+      ]
+    },
+    {
+      "engine_ruleset": "karate",
+      "disciplines": [
+        "karate"
+      ],
+      "competition_rulesets": [
+        "karate_wkf_kumite"
+      ],
+      "punch": {
+        "head_neck": "legal_by_exclusion",
+        "torso_core": "legal_by_exclusion",
+        "legs": "illegal"
+      },
+      "kick": {
+        "head_neck": "legal_by_exclusion",
+        "torso_core": "legal_by_exclusion",
+        "legs": "illegal"
+      },
+      "evidence": [
+        {
+          "competition_ruleset": "karate_wkf_kumite",
+          "field": "fouls",
+          "quote": "attacks_to_arms_legs_groin_joints_instep"
+        }
+      ],
+      "engine_realtime": {
+        "head_neck": 0.6,
+        "torso_core": 0.28,
+        "left_leg": 0.06,
+        "right_leg": 0.06,
+        "left_arm": 0.0,
+        "right_arm": 0.0
+      },
+      "engine_realtime_source": "TARGET_WEIGHTS default",
+      "mismatches": [
+        "FightRealtime assigns 6% weight each to left_leg and right_leg for karate; WKF fouls attacks_to_arms_legs_groin_joints_instep"
+      ]
+    },
+    {
+      "engine_ruleset": "bjj",
+      "disciplines": [
+        "brazilian_jiu_jitsu"
+      ],
+      "competition_rulesets": [
+        "bjj_ibjjf_gi",
+        "bjj_ibjjf_nogi"
+      ],
+      "punch": {
+        "head_neck": "not_applicable",
+        "torso_core": "not_applicable",
+        "legs": "not_applicable"
+      },
+      "kick": {
+        "head_neck": "not_applicable",
+        "torso_core": "not_applicable",
+        "legs": "not_applicable"
+      },
+      "evidence": [],
+      "engine_realtime": {
+        "head_neck": 0.6,
+        "torso_core": 0.28,
+        "left_leg": 0.06,
+        "right_leg": 0.06,
+        "left_arm": 0.0,
+        "right_arm": 0.0
+      },
+      "engine_realtime_source": "TARGET_WEIGHTS default",
+      "mismatches": [
+        "FightRealtime default weights assign strike regions to bjj; bjj_ibjjf_gi and bjj_ibjjf_nogi carry no standing strike rules"
+      ]
+    },
+    {
+      "engine_ruleset": "sambo",
+      "disciplines": [
+        "sambo"
+      ],
+      "competition_rulesets": [
+        "sambo_fias_sport",
+        "sambo_fias_combat"
+      ],
+      "punch": {
+        "head_neck": "not_on_disk",
+        "torso_core": "not_on_disk",
+        "legs": "not_on_disk"
+      },
+      "kick": {
+        "head_neck": "not_on_disk",
+        "torso_core": "not_on_disk",
+        "legs": "not_on_disk"
+      },
+      "evidence": [],
+      "engine_realtime": {
+        "head_neck": 0.6,
+        "torso_core": 0.28,
+        "left_leg": 0.06,
+        "right_leg": 0.06,
+        "left_arm": 0.0,
+        "right_arm": 0.0
+      },
+      "engine_realtime_source": "TARGET_WEIGHTS default",
+      "mismatches": [
+        "FightRealtime default weights assign all six strike regions to sambo; sambo_fias_sport and sambo_fias_combat carry no legal_targets, illegal_targets or fouls on disk"
+      ]
+    },
+    {
+      "engine_ruleset": "taekwondo",
+      "disciplines": [
+        "taekwondo"
+      ],
+      "competition_rulesets": [
+        "taekwondo_wt"
+      ],
+      "punch": {
+        "head_neck": "illegal",
+        "torso_core": "legal",
+        "legs": "not_on_disk"
+      },
+      "kick": {
+        "head_neck": "legal",
+        "torso_core": "legal",
+        "legs": "illegal"
+      },
+      "evidence": [
+        {
+          "competition_ruleset": "taekwondo_wt",
+          "field": "legal_targets",
+          "quote": "head (above collarbone): FOOT TECHNIQUES ONLY - punches to the head are explicitly illegal"
+        },
+        {
+          "competition_ruleset": "taekwondo_wt",
+          "field": "legal_targets",
+          "quote": "trunk: fist and foot techniques legal"
+        },
+        {
+          "competition_ruleset": "taekwondo_wt",
+          "field": "fouls",
+          "quote": "kicking_below_waist"
+        },
+        {
+          "competition_ruleset": "taekwondo_wt",
+          "field": "fouls",
+          "quote": "hitting_head_with_hand"
+        }
+      ],
+      "engine_realtime": {
+        "head_neck": 0.6,
+        "torso_core": 0.28,
+        "left_leg": 0.06,
+        "right_leg": 0.06,
+        "left_arm": 0.0,
+        "right_arm": 0.0
+      },
+      "engine_realtime_source": "TARGET_WEIGHTS default",
+      "mismatches": [
+        "FightRealtime assigns 6% weight each to left_leg and right_leg for taekwondo; WT fouls kicking_below_waist"
+      ]
+    }
+  ],
+  "illegal_leg_targets": [
+    {
+      "id": "karate_ashibarai",
+      "discipline": "karate",
+      "engine_ruleset": "karate"
+    },
+    {
+      "id": "tkd_cut_kick",
+      "discipline": "taekwondo",
+      "engine_ruleset": "taekwondo"
+    }
+  ],
+  "recommend": "a"
+}

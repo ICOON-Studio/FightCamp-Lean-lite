@@ -1,0 +1,20 @@
+To: Ludo.ai support (in-app help "?" bottom-right on app.ludo.ai, or the contact link on ludo.ai)
+Subject: Credit restore request - prompts sent by mistake into the wrong Ask Ludo chat
+
+Hello,
+
+On 2026-10-10 and 2026-10-11 an automated assistant working on my behalf sent several very long design prompts for my
+project "FightCamp" into the wrong Ask Ludo chat ("Multi-Hub Space Strategy", which belongs to a different game of mine).
+The answers are unusable in that chat and they have polluted its context. The last one alone took my balance from 342
+to 140 credits.
+
+Could you please:
+1. Restore the credits spent on those mistaken requests (the FightCamp prompts in the "Multi-Hub Space Strategy" chat,
+   from the message starting "FightCamp is a PC deep management simulation" to the end of that chat), and
+2. Tell me whether those messages can be removed from that chat, or how to start a clean chat that keeps my
+   Nullspace context.
+
+Account e-mail: [your Ludo login e-mail]
+Plan: [your plan]
+
+Thank you.

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>FightCamp · ALT B · Command Desk · Kian Sterling</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@500;600;700&display=swap">
+<style>
+:root{
+  --ground:#1c2230;--panel:#2a3347;--panel-hi:#34405a;--panel-lo:#222a3b;
+  --edge:#121722;--edge-hi:rgba(255,255,255,.14);
+  --gym:#2f6fb0;--gym-hi:#3f86cc;--gym-lo:#24558a;--gym-tint:rgba(47,111,176,.22);
+  --gold:#f0c233;--gold-hi:#f7d65a;--gold-lo:#c99a1a;
+  --good:#4fc46a;--amber:#f0a020;--bad:#e5433a;
+  --text:#f3f5fa;--text-2:#c9d1e0;--muted:#94a1b8;--link:#7fb6ee;
+  --v3:#d07a1a;--v4:#e6a41c;--v5:#f0c233;
+  --display:"Bebas Neue","Haettenschweiler","Arial Narrow",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#0a0d14;color:var(--text);font-family:var(--mono);font-size:12px;font-weight:500}
+.stage{width:1920px;height:1080px;display:grid;grid-template-columns:168px 1fr;grid-template-rows:48px 1fr;background:radial-gradient(90% 70% at 60% 10%,#2a3346 0%,#171c27 55%,#0c1018 100%)}
+.topbar{grid-column:1/3;display:grid;grid-template-columns:168px 1fr auto;align-items:center;background:linear-gradient(180deg,rgba(52,64,90,.96),rgba(38,46,66,.96));border-bottom:1px solid var(--edge);box-shadow:0 1px 0 rgba(255,255,255,.12) inset}
+.crest{display:flex;align-items:center;gap:8px;height:100%;padding:0 12px;background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));border-right:1px solid var(--edge)}
+.crest .mark{width:28px;height:28px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#fff,#cfd8e6);color:#1a3d63;font-family:var(--display);font-size:13px;display:grid;place-items:center;border:2px solid rgba(0,0,0,.35)}
+.crest .nm{font-family:var(--display);font-size:16px;letter-spacing:.05em;color:#fff;line-height:1}
+.crest .sb{font-size:9px;letter-spacing:.12em;color:rgba(255,255,255,.85);font-weight:700}
+.crumb{padding:0 14px;font-size:11px;letter-spacing:.12em;font-weight:700;color:var(--muted)}.crumb b{color:var(--gold)}
+.top-right{display:flex;height:100%}
+.bell{width:46px;display:grid;place-items:center;border-left:1px solid var(--edge);position:relative;background:rgba(0,0,0,.15)}
+.bell svg{width:16px;height:16px;fill:var(--gold)}
+.bell .badge{position:absolute;top:6px;right:6px;min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:linear-gradient(180deg,#ff6259,#c72c24);color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;border:1px solid #5a120e}
+.date{padding:0 12px;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff;text-align:right}
+.date .w{font-size:9px;letter-spacing:.14em;font-weight:700}.date .d{font-family:var(--display);font-size:16px;line-height:1}
+.cont{padding:0 14px;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:#1a1508}
+.cont .t{font-family:var(--display);font-size:18px;letter-spacing:.06em;line-height:1}.cont .s{font-size:9px;letter-spacing:.1em;font-weight:700}
+.rail{background:rgba(28,34,48,.94);border-right:1px solid var(--edge);display:flex;flex-direction:column}
+.rail .collapse{height:30px;display:flex;align-items:center;gap:6px;padding:0 10px;background:linear-gradient(180deg,#3d4a66,#2c3549);border-bottom:1px solid var(--edge);font-family:var(--display);font-size:14px;letter-spacing:.1em;color:var(--text-2)}
+.rail .collapse .ch{margin-left:auto;color:var(--gold)}
+.rail a{display:flex;align-items:center;gap:8px;height:38px;padding:0 10px;color:var(--text-2);text-decoration:none;font-size:11px;font-weight:700;letter-spacing:.06em;border-bottom:1px solid rgba(0,0,0,.35);border-left:3px solid transparent}
+.rail a .ic{width:18px;text-align:center;font-family:var(--display);font-size:16px;color:var(--muted)}
+.rail a.on{background:linear-gradient(90deg,var(--gym-tint),transparent);color:#fff;border-left-color:var(--gym-hi)}.rail a.on .ic{color:var(--gold)}
+.rail .counterwrap{margin-top:auto;padding:18px 0 24px;display:grid;place-items:center}
+.counter{position:relative;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 40% 35%,#3c4864,#1f2636 75%);border:2px solid var(--gym-hi);box-shadow:0 0 12px rgba(63,134,204,.45);font-family:var(--display);font-size:26px}
+.counter .lab{position:absolute;bottom:-16px;left:50%;transform:translateX(-50%);font-size:9px;letter-spacing:.12em;color:var(--muted);white-space:nowrap;font-weight:700}
+.desk{display:flex;flex-direction:column;min-width:0;min-height:0;padding:8px;gap:8px;position:relative}
+.head{flex:none;display:grid;grid-template-columns:88px 1fr auto;gap:12px;align-items:center;padding:8px 12px;background:linear-gradient(180deg,rgba(52,64,90,.96),rgba(38,46,66,.96));border:1px solid var(--edge);border-radius:4px;box-shadow:0 1px 0 var(--edge-hi) inset,0 4px 12px rgba(0,0,0,.3)}
+.head .por{width:88px;height:88px;border-radius:4px;border:3px solid var(--gym-hi);overflow:hidden;box-shadow:0 0 16px rgba(63,134,204,.4);position:relative;background:#121722}
+.head .por img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top}
+.head .por .st{position:absolute;right:4px;bottom:4px;width:12px;height:12px;border-radius:50%;background:var(--good);border:2px solid var(--ground);box-shadow:0 0 8px var(--good)}
+.head .who h1{font-family:var(--display);font-size:36px;letter-spacing:.03em;line-height:1;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.4)}
+.head .who .age{font-size:12px;letter-spacing:.16em;font-weight:700;color:var(--muted);margin-top:2px}
+.head .who .chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.chip{display:inline-flex;align-items:center;height:26px;padding:0 10px;border-radius:3px;border:1px solid var(--edge);background:linear-gradient(180deg,#3a4560,#2b3449);font-family:var(--display);font-size:15px;letter-spacing:.08em;color:#fff;box-shadow:0 1px 0 var(--edge-hi) inset}
+.chip.disc{background:linear-gradient(180deg,#ef5a50,#b62e26);border-color:#5a120e}
+.chip.div{background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:#1a1508;border-color:#7a5c0c}
+.chip.amber{background:linear-gradient(180deg,#f6b22e,#c77c12);color:#1b1207;border-color:#7a4c08}
+.chip.gym{background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo))}
+.head .metrics{display:flex;gap:8px;align-items:center}
+.pair{display:grid;grid-template-columns:1fr auto;height:40px;border:1px solid var(--edge);border-radius:3px;overflow:hidden;box-shadow:0 1px 0 var(--edge-hi) inset,0 2px 4px rgba(0,0,0,.35);min-width:110px}
+.pair .lab{display:flex;align-items:center;padding:0 8px;background:linear-gradient(180deg,#4a5670,#333d52);font-family:var(--display);font-size:14px;letter-spacing:.08em;color:#fff;border-right:1px solid var(--edge);white-space:nowrap}
+.pair .val{display:flex;align-items:center;justify-content:center;min-width:48px;padding:0 8px;font-family:var(--display);font-size:22px;background:linear-gradient(180deg,var(--panel-hi),var(--panel-lo))}
+.pair .val.g5{background:linear-gradient(180deg,var(--gold-hi),var(--v5));color:#1b1207}
+.pair .val.g4{background:linear-gradient(180deg,#f0b52a,var(--v4));color:#1b1207}
+.pair .val.g3{background:linear-gradient(180deg,#e08c22,var(--v3));color:#1b1207}
+.stars{display:inline-flex;gap:2px}.stars svg{width:16px;height:16px}.stars svg path{fill:#3c475e}.stars svg.on path{fill:var(--gold)}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:34px;padding:0 12px;border-radius:3px;font-family:var(--display);font-size:15px;letter-spacing:.08em;color:var(--text);background:linear-gradient(180deg,#445273,#303a52);border:1px solid var(--edge);box-shadow:0 1px 0 rgba(255,255,255,.16) inset;cursor:pointer;white-space:nowrap}
+.btn.gold{background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:#1a1508;border-color:#7a5c0c;box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 0 12px rgba(240,194,51,.3)}
+.grid{flex:1;min-height:0;display:grid;grid-template-columns:1.1fr 1fr 1fr 1.05fr;grid-template-rows:1fr 1fr;gap:8px}
+.frame{border:1px solid var(--edge);border-radius:4px;background:rgba(34,42,59,.94);box-shadow:0 1px 0 var(--edge-hi) inset,0 6px 14px rgba(0,0,0,.3);overflow:hidden;display:flex;flex-direction:column;min-width:0;min-height:0}
+.frame>.hbar{display:flex;align-items:center;gap:8px;padding:0 10px;height:30px;flex:none;background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));border-bottom:1px solid var(--edge);box-shadow:0 1px 0 rgba(255,255,255,.18) inset;font-family:var(--display);font-size:16px;letter-spacing:.08em;color:#fff;text-shadow:0 1px 0 rgba(0,0,0,.4);white-space:nowrap}
+.frame>.hbar .r{margin-left:auto;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.08em;opacity:.95}
+.frame>.hbar.gold{background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:#1a1508;text-shadow:none}
+.frame>.hbar.bad{background:linear-gradient(180deg,#ef5a50,#b62e26)}
+.frame>.hbar.slate{background:linear-gradient(180deg,#4a5670,#333d52)}
+.frame .in{padding:8px;display:flex;flex-direction:column;gap:6px;flex:1;min-height:0;overflow:hidden}
+.k{font-size:10px;letter-spacing:.12em;font-weight:700;color:var(--muted)}
+.line{font-size:12px;color:var(--text-2)}.line b{color:var(--text)}
+a.ent{color:var(--link);font-weight:700;text-decoration:none;border-bottom:1px solid rgba(127,182,238,.4)}
+.quote{margin:0;padding:6px 8px;font-size:12px;line-height:1.45;color:var(--text);background:rgba(0,0,0,.22);border-left:3px solid var(--gym-hi);border-radius:2px}
+.quote .who{display:block;margin-top:3px;font-size:10px;letter-spacing:.1em;font-weight:700;color:var(--link)}
+.attr{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.gb{display:flex;align-items:center;gap:6px}
+.gb .track{position:relative;flex:1;height:12px;background:#111621;border:1px solid var(--edge);border-radius:2px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.5) inset}
+.gb .fill{display:block;height:100%;background:linear-gradient(90deg,#c8281f,#e8781c 50%,#f4c62e);box-shadow:0 1px 0 rgba(255,255,255,.25) inset}
+.gb .fill.cool{background:linear-gradient(90deg,#24486f,#3f86cc 60%,#8cc4f4)}
+.gb .fill.life{background:linear-gradient(90deg,#2b5c33,#4fc46a 60%,#9ae8a6)}
+.gb .read{font-family:var(--display);font-size:16px;line-height:1;min-width:48px;text-align:right}.gb .read i{font-style:normal;color:var(--muted)}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.5);flex:none}
+.dot.g{background:var(--good);box-shadow:0 0 8px rgba(79,196,106,.8)}
+.row{display:flex;align-items:center;gap:6px}
+.medal{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 50% 38%,#4a2a1a,#1f2636 72%);border:3px solid var(--amber);box-shadow:0 0 12px rgba(240,160,32,.5);font-family:var(--display);font-size:18px;color:var(--amber);flex:none}
+.medal .k{font-size:8px;letter-spacing:.1em;color:var(--text-2);font-family:var(--mono);font-weight:700}
+.ms{display:grid;grid-template-columns:24px 1fr auto;align-items:center;height:28px;border:1px solid var(--edge);border-radius:3px;background:linear-gradient(180deg,#3a4560,#2b3449);font-size:11px;font-weight:600}
+.ms .box{height:100%;display:grid;place-items:center;border-right:1px solid var(--edge);font-weight:700}
+.ms.done .box{background:linear-gradient(180deg,#5fd27a,#2f9a48);color:#062a10}
+.ms.next .box{background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:#1a1508}
+.ms.todo .box{background:rgba(0,0,0,.25);color:var(--muted)}
+.ms .t{padding:0 8px;color:var(--text)}.ms .w{padding:0 8px;color:var(--muted);font-size:10px;letter-spacing:.08em}
+.tree{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;flex:1}
+.tn{aspect-ratio:1;border-radius:4px;border:2px solid #3c475e;background:linear-gradient(180deg,#2a3347,#1a2030);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;box-shadow:0 2px 4px rgba(0,0,0,.35);position:relative}
+.tn.on{border-color:var(--gym-hi);box-shadow:0 0 10px rgba(63,134,204,.35)}
+.tn.gold{border-color:var(--gold);box-shadow:0 0 12px rgba(240,194,51,.35)}
+.tn.lock{opacity:.55}.tn .ic{font-family:var(--display);font-size:18px;color:var(--gold)}
+.tn .lb{font-size:8px;letter-spacing:.08em;font-weight:700;color:var(--muted);text-align:center;padding:0 2px}
+.tn .pip{position:absolute;bottom:3px;left:3px;right:3px;height:3px;background:#111;border-radius:1px;overflow:hidden}
+.tn .pip i{display:block;height:100%;background:var(--gold)}
+.form-row{display:flex;gap:4px}
+.form-pip{width:28px;height:28px;border-radius:3px;display:grid;place-items:center;font-family:var(--display);font-size:14px;border:1px solid var(--edge);box-shadow:0 1px 0 rgba(255,255,255,.12) inset}
+.form-pip.w{background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff}
+.form-pip.l{background:linear-gradient(180deg,#ef5a50,#b62e26);color:#fff}
+.body-mini{display:grid;grid-template-columns:1fr 1fr;gap:4px;flex:1}
+.region{display:flex;align-items:center;justify-content:space-between;height:28px;padding:0 8px;border:1px solid var(--edge);border-radius:3px;background:linear-gradient(180deg,#3a4560,#2b3449);font-size:11px;font-weight:700}
+.region .v{font-family:var(--display);font-size:16px}
+.region.warn{border-color:var(--amber);background:linear-gradient(180deg,#5a4020,#3a2a14)}
+.region.warn .v{color:var(--amber)}
+.stamp{display:inline-block;padding:2px 8px;font-family:var(--display);font-size:14px;letter-spacing:.08em;transform:rotate(-6deg);border:2px solid;border-radius:2px}
+.stamp.w{color:var(--good);border-color:var(--good);background:rgba(79,196,106,.12)}
+.stamp.l{color:var(--bad);border-color:var(--bad);background:rgba(229,67,58,.12)}
+.log{display:flex;flex-direction:column;gap:4px;flex:1}
+.log-row{display:grid;grid-template-columns:42px 1fr auto;align-items:center;gap:8px;height:36px;padding:0 8px;border:1px solid var(--edge);border-radius:3px;background:linear-gradient(180deg,#3a4560,#2b3449)}
+.log-row .opp{font-size:12px;font-weight:700}.log-row .m{font-size:10px;color:var(--muted);letter-spacing:.06em}
+.ia-tag{position:absolute;right:16px;bottom:10px;font-size:10px;letter-spacing:.14em;font-weight:700;color:var(--muted);pointer-events:none}
+.ia-tag b{color:var(--gold)}
+</style>
+</head>
+<body>
+<div class="stage">
+  <header class="topbar">
+    <div class="crest"><div class="mark">ER</div><div><div class="nm">EASTERN RING</div><div class="sb">NICOSIA</div></div></div>
+    <div class="crumb">OFFICE › FIGHTERS › <b>KIAN STERLING</b> › COMMAND DESK</div>
+    <div class="top-right">
+      <div class="bell"><svg viewBox="0 0 24 24"><path d="M12 3a5 5 0 0 0-5 5v2.5c0 .8-.3 1.6-.9 2.2L5 14h14l-1.1-1.3c-.6-.6-.9-1.4-.9-2.2V8a5 5 0 0 0-5-5zm-1 16h2a1 1 0 0 1-2 0z"/></svg><span class="badge">2</span></div>
+      <div class="date"><div class="w">WEEK 11 · WED</div><div class="d">18 MAR 2026</div></div>
+      <div class="cont"><span class="t">CONTINUE →</span><span class="s">2 MUST ANSWER FIRST</span></div>
+    </div>
+  </header>
+  <nav class="rail">
+    <div class="collapse">NAV <span class="ch">«</span></div>
+    <a href="#"><span class="ic">◆</span>DAY FEED</a>
+    <a href="#"><span class="ic">◎</span>ROSTER</a>
+    <a class="on" href="#"><span class="ic">★</span>FIGHTERS</a>
+    <a href="#"><span class="ic">⚔</span>SCHEDULE</a>
+    <a href="#"><span class="ic">⌂</span>GYM</a>
+    <a href="#"><span class="ic">$</span>FINANCES</a>
+    <div class="counterwrap"><div class="counter">3<span class="lab">DAYS TO FIGHT</span></div></div>
+  </nav>
+  <main class="desk">
+    <div class="head">
+      <div class="por"><img src="fighter-hero-plate.png" alt=""/><span class="st"></span></div>
+      <div class="who">
+        <h1>KIAN STERLING</h1>
+        <div class="age">AGE 26 · ORTHODOX · 14–2–0 (9 KO) · #3 WORLD</div>
+        <div class="chips">
+          <span class="chip disc">BOXING → MMA</span>
+          <span class="chip div">BANTAMWEIGHT</span>
+          <span class="chip gym">IN CAMP · WK 4/6</span>
+          <span class="chip amber">GRUDGE ON BOARD</span>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="pair"><span class="lab">OVERALL</span><span class="val g5">B+</span></div>
+        <div class="pair"><span class="lab">FAME</span><span class="val g3">132</span></div>
+        <div class="pair"><span class="lab">CEILING</span><span class="val g4">86</span></div>
+        <div class="stars">
+          <svg class="on" viewBox="0 0 24 24"><path d="M12 2l2.9 6.4L22 9.3l-5 4.7 1.4 7L12 17.8 5.6 21l1.4-7-5-4.7 7.1-.9z"/></svg>
+          <svg class="on" viewBox="0 0 24 24"><path d="M12 2l2.9 6.4L22 9.3l-5 4.7 1.4 7L12 17.8 5.6 21l1.4-7-5-4.7 7.1-.9z"/></svg>
+          <svg class="on" viewBox="0 0 24 24"><path d="M12 2l2.9 6.4L22 9.3l-5 4.7 1.4 7L12 17.8 5.6 21l1.4-7-5-4.7 7.1-.9z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.4L22 9.3l-5 4.7 1.4 7L12 17.8 5.6 21l1.4-7-5-4.7 7.1-.9z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.4L22 9.3l-5 4.7 1.4 7L12 17.8 5.6 21l1.4-7-5-4.7 7.1-.9z"/></svg>
+        </div>
+        <button class="btn">COMPARE</button>
+        <button class="btn gold">SEND TO CAMP</button>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="frame">
+        <div class="hbar bad">HE IS ASKING <span class="r">DEADLINE · 2 WKS</span></div>
+        <div class="in">
+          <p class="quote">"Ranked third, two straight. Champion next — not another tune-up."<span class="who">TITLE SHOT · RAISED MONDAY</span></p>
+          <div class="row"><button class="btn gold" style="flex:1">PROMISE</button><button class="btn" style="flex:1">DEFER</button><button class="btn" style="flex:1">DECLINE</button></div>
+          <div class="line">Kept by booking <a class="ent" href="#">Ilya Brandt</a>. Broken: morale −10.</div>
+          <div class="k" style="margin-top:4px">AMBITION LADDER</div>
+          <div class="ms done"><span class="box">✓</span><span class="t">Regional belt</span><span class="w">DONE</span></div>
+          <div class="ms next"><span class="box">→</span><span class="t">World top-5 win</span><span class="w">NOW</span></div>
+          <div class="ms todo"><span class="box">·</span><span class="t">Title shot</span><span class="w">LOCKED</span></div>
+        </div>
+      </div>
+      <div class="frame">
+        <div class="hbar gold">NEXT BOUT · SAT <span class="r">GRUDGE · HEATED</span></div>
+        <div class="in">
+          <div class="row" style="gap:10px">
+            <div class="medal">42<span class="k">HEAT</span></div>
+            <div>
+              <div style="font-family:var(--display);font-size:22px;line-height:1">vs <a class="ent" href="#">Dmitri Vasa</a> · #4</div>
+              <div class="line"><a class="ent" href="#">Nicosia Fight Night</a> · Featured · <b>$9,680</b></div>
+            </div>
+          </div>
+          <div class="attr">
+            <div class="pair"><span class="lab">HYPE</span><span class="val g3">58</span></div>
+            <div class="pair"><span class="lab">PLAN</span><span class="val" style="font-size:13px;letter-spacing:.06em">PRESSURE</span></div>
+            <div class="pair"><span class="lab">POWER</span><span class="val g4">78</span></div>
+            <div class="pair"><span class="lab">TECH</span><span class="val g5">86</span></div>
+            <div class="pair"><span class="lab">SPEED</span><span class="val g4">74</span></div>
+            <div class="pair"><span class="lab">DEF</span><span class="val g3">61</span></div>
+            <div class="pair"><span class="lab">COND</span><span class="val g3">66</span></div>
+            <div class="pair"><span class="lab">IQ</span><span class="val g4">72</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="frame">
+        <div class="hbar">SKILL TREE · TEASER <span class="r">12 LEARNED</span></div>
+        <div class="in">
+          <div class="tree">
+            <div class="tn gold"><span class="ic">⚔</span><span class="lb">JAB LANE</span><div class="pip"><i style="width:100%"></i></div></div>
+            <div class="tn on"><span class="ic">◎</span><span class="lb">CROSS</span><div class="pip"><i style="width:80%"></i></div></div>
+            <div class="tn on"><span class="ic">↗</span><span class="lb">HOOK</span><div class="pip"><i style="width:55%"></i></div></div>
+            <div class="tn lock"><span class="ic">?</span><span class="lb">LOCKED</span></div>
+            <div class="tn on"><span class="ic">◉</span><span class="lb">CLINCH</span><div class="pip"><i style="width:40%"></i></div></div>
+            <div class="tn"><span class="ic">⬡</span><span class="lb">TD DEF</span><div class="pip"><i style="width:25%"></i></div></div>
+            <div class="tn lock"><span class="ic">?</span><span class="lb">LOCKED</span></div>
+            <div class="tn lock"><span class="ic">?</span><span class="lb">BELT NODE</span></div>
+          </div>
+          <div class="line">Signature: <b>Sterling Pressure</b> · tightness 74</div>
+        </div>
+      </div>
+      <div class="frame">
+        <div class="hbar slate">FORM &amp; READINESS <span class="r">2 STRAIGHT</span></div>
+        <div class="in">
+          <div class="k">LAST FIVE</div>
+          <div class="form-row">
+            <div class="form-pip w">W</div><div class="form-pip w">W</div><div class="form-pip l">L</div><div class="form-pip w">W</div><div class="form-pip w">W</div>
+          </div>
+          <div class="attr" style="margin-top:4px">
+            <div class="pair"><span class="lab">MORALE</span><span class="val g4">78</span></div>
+            <div class="pair"><span class="lab">FATIGUE</span><span class="val g3">31</span></div>
+            <div class="pair"><span class="lab">READY</span><span class="val g5">88</span></div>
+            <div class="pair"><span class="lab">LISTEN</span><span class="val g4">71%</span></div>
+          </div>
+          <div class="row" style="margin-top:4px"><span class="dot g"></span><span class="line">Medical <b>CLEAR</b> · competition clearance green</span></div>
+          <div class="row"><span class="k" style="width:56px">WEIGHT</span><div class="gb" style="flex:1"><span class="track"><i class="fill cool" style="width:70%"></i></span><span class="read">55.1<i>/53.5</i></span></div></div>
+          <div class="line">2.9% to cut · <b>on track</b> · weigh-in Friday</div>
+        </div>
+      </div>
+      <div class="frame">
+        <div class="hbar">CONDITION · BODY <span class="r">MIN 77 · R LEG</span></div>
+        <div class="in">
+          <div class="body-mini">
+            <div class="region"><span>Head / neck</span><span class="v">92</span></div>
+            <div class="region"><span>Torso / core</span><span class="v">90</span></div>
+            <div class="region"><span>Left arm</span><span class="v">95</span></div>
+            <div class="region"><span>Right arm</span><span class="v">94</span></div>
+            <div class="region"><span>Left leg</span><span class="v">88</span></div>
+            <div class="region warn"><span>Right leg</span><span class="v">77</span></div>
+          </div>
+          <div class="line">Soft-tissue niggle from hard sparring. Monitor — no hold.</div>
+          <div class="attr">
+            <div class="pair"><span class="lab">TRACK</span><span class="val" style="font-size:11px">STRIKING</span></div>
+            <div class="pair"><span class="lab">INJURY</span><span class="val g4">6%</span></div>
+            <div class="pair"><span class="lab">FILM</span><span class="val g5">3/3</span></div>
+            <div class="pair"><span class="lab">PROTO</span><span class="val" style="font-size:11px">HARD SPAR</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="frame" style="grid-column:span 2">
+        <div class="hbar">RECORD WALL <span class="r">STAMPS · RUNE-STYLE CARDS</span></div>
+        <div class="in">
+          <div class="log">
+            <div class="log-row"><span class="stamp w">W</span><div><div class="opp"><a class="ent" href="#">Marco Reyes</a></div><div class="m">KO R2 · Eastern Ring 18 · purse $6,200</div></div><span class="line"><b>HYPE 44</b></span></div>
+            <div class="log-row"><span class="stamp w">W</span><div><div class="opp"><a class="ent" href="#">Luis Okada</a></div><div class="m">DEC R3 · Nicosia Contender · purse $5,400</div></div><span class="line"><b>HYPE 38</b></span></div>
+            <div class="log-row"><span class="stamp l">L</span><div><div class="opp"><a class="ent" href="#">Dmitri Vasa</a></div><div class="m">DEC R3 · Rivalry spark · purse $4,800</div></div><span class="line"><b>HEAT +12</b></span></div>
+            <div class="log-row"><span class="stamp w">W</span><div><div class="opp"><a class="ent" href="#">Paolo Varga</a></div><div class="m">TKO R1 · Regional title night</div></div><span class="line" style="color:var(--gold)"><b>BELT</b></span></div>
+            <div class="log-row"><span class="stamp w">W</span><div><div class="opp"><a class="ent" href="#">Samir Kole</a></div><div class="m">KO R2 · Performance of the Night</div></div><span class="line" style="color:var(--gold)"><b>AWARD</b></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="frame">
+        <div class="hbar">CAMP &amp; CORNER <span class="r">WK 4 OF 6</span></div>
+        <div class="in">
+          <div class="attr">
+            <div class="pair"><span class="lab">LOYALTY</span><span class="val g4">74</span></div>
+            <div class="pair"><span class="lab">RAPPORT</span><span class="val g5">81</span></div>
+            <div class="pair"><span class="lab">PAY</span><span class="val g3">68</span></div>
+            <div class="pair"><span class="lab">TENURE</span><span class="val g4">72</span></div>
+          </div>
+          <div class="row"><span class="k" style="width:56px">EDGE</span><div class="gb" style="flex:1"><span class="track"><i class="fill life" style="width:62%"></i></span><span class="read">+6</span></div></div>
+          <div class="line">Coach <a class="ent" href="#">Elena Maris</a> · striking shark track</div>
+          <div class="row" style="margin-top:auto"><button class="btn" style="flex:1">OPEN CAMP</button><button class="btn gold" style="flex:1">WEIGH-IN</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="ia-tag">IA · <b>COMMAND DESK</b> — no tabs; one desk of instruments</div>
+  </main>
+</div>
+</body>
+</html>

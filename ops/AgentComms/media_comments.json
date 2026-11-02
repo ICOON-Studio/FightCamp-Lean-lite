@@ -1,0 +1,1624 @@
+{
+  "_doc": "Operator comments on stills/videos (ops board /review). start prints unseen ones.",
+  "comments": [
+    {
+      "path": "_sent/2026-10-10_0532_the_fight_with_everything_on_90_s/fight_all_s192.mp4",
+      "text": "in all videos i have seen so far only one bpm changes during thevideo , why ?",
+      "at": "2026-10-10T08:30:39Z",
+      "seen_by_claude": true,
+      "at_s": 90.0,
+      "id": "C1",
+      "addressed": "cited by 5f94814 2026-11-01"
+    },
+    {
+      "path": "_sent/2026-10-10_0532_the_fight_with_everything_on_90_s/g_50.png",
+      "text": "fine",
+      "at": "2026-10-10T08:30:45Z",
+      "seen_by_claude": true,
+      "id": "C2"
+    },
+    {
+      "path": "_sent/2026-10-10_0515_smooth_animation_part_1_ludo_steadier_ca/side_by_side.mp4",
+      "text": "very nice",
+      "at": "2026-10-10T08:31:40Z",
+      "seen_by_claude": true,
+      "id": "C3"
+    },
+    {
+      "path": "_sent/2026-10-10_0709_fight_week_day_cards_mon_sat_in_the_gym_/01_monday.png",
+      "text": "remove the other rooms from the gymfloor",
+      "at": "2026-10-10T08:32:05Z",
+      "seen_by_claude": true,
+      "id": "C4"
+    },
+    {
+      "path": "_sent/2026-10-10_0709_fight_week_day_cards_mon_sat_in_the_gym_/02_tuesday_locked.png",
+      "text": "remove the other rooms from the gymfloor",
+      "at": "2026-10-10T08:32:05Z",
+      "seen_by_claude": true,
+      "id": "C5"
+    },
+    {
+      "path": "_sent/2026-10-10_0426_s191_fight_with_the_ludo_hud_doctor_and_/fight_s191.mp4",
+      "text": "red's bpm is not moving again on this video",
+      "at": "2026-10-10T08:35:16Z",
+      "seen_by_claude": true,
+      "id": "C6"
+    },
+    {
+      "path": "_sent/2026-10-10_0426_s191_fight_with_the_ludo_hud_doctor_and_/frame_0090.png",
+      "text": "fine",
+      "at": "2026-10-10T08:35:27Z",
+      "seen_by_claude": true,
+      "id": "C7"
+    },
+    {
+      "path": "_sent/2026-10-10_0426_s191_fight_with_the_ludo_hud_doctor_and_/frame_1200.png",
+      "text": "fine",
+      "at": "2026-10-10T08:35:29Z",
+      "seen_by_claude": true,
+      "id": "C8"
+    },
+    {
+      "path": "_sent/2026-10-10_0426_s191_fight_with_the_ludo_hud_doctor_and_/frame_0450.png",
+      "text": "fine",
+      "at": "2026-10-10T08:35:30Z",
+      "seen_by_claude": true,
+      "id": "C9"
+    },
+    {
+      "path": "_sent/2026-10-10_0426_s191_fight_with_the_ludo_hud_doctor_and_/01_doctor_overlay.png",
+      "text": "fine",
+      "at": "2026-10-10T08:35:32Z",
+      "seen_by_claude": true,
+      "id": "C10"
+    },
+    {
+      "path": "_sent/2026-10-10_0426_s191_fight_with_the_ludo_hud_doctor_and_/02_scar_sheet.png",
+      "text": "fine",
+      "at": "2026-10-10T08:35:33Z",
+      "seen_by_claude": true,
+      "id": "C11"
+    },
+    {
+      "path": "_sent/2026-10-10_1403_clear_gym_floor_switch_off_floor_view_ro/01_floor_1920.jpg",
+      "text": "NICE",
+      "at": "2026-10-10T11:19:24Z",
+      "seen_by_claude": true,
+      "id": "C12"
+    },
+    {
+      "path": "_sent/2026-10-10_1403_clear_gym_floor_switch_off_floor_view_ro/04_office_open.jpg",
+      "text": "NICE",
+      "at": "2026-10-10T11:19:25Z",
+      "seen_by_claude": true,
+      "id": "C13"
+    },
+    {
+      "path": "_sent/2026-10-10_1403_clear_gym_floor_switch_off_floor_view_ro/07_reception_open.jpg",
+      "text": "NICE",
+      "at": "2026-10-10T11:19:26Z",
+      "seen_by_claude": true,
+      "id": "C14",
+      "addressed": "cited by 57e726b2 2026-10-13"
+    },
+    {
+      "path": "_sent/2026-10-10_0709_fight_week_day_cards_mon_sat_in_the_gym_/01_monday.png",
+      "text": "REMOVE ALL STILLLS THAT HAVE ROOMS+GYM IN ONE SCENE",
+      "at": "2026-10-10T11:19:29Z",
+      "seen_by_claude": true,
+      "id": "C15"
+    },
+    {
+      "path": "_sent/2026-10-10_0455_ludo_s_gym_screen_v12_switch_off_until_y/02_mid_day.png",
+      "text": "IS THIS DESIGN ACCORDING TO LUDO PLAN ?",
+      "at": "2026-10-10T11:20:27Z",
+      "seen_by_claude": true,
+      "id": "C16"
+    },
+    {
+      "path": "_sent/2026-10-10_1506_gym_floor_without_chairs_floor_view_on_l/05_back_on_floor.png",
+      "text": "Maybe ask ludo to generate this ?",
+      "at": "2026-10-10T13:50:32Z",
+      "seen_by_claude": true,
+      "id": "C17"
+    },
+    {
+      "id": "C18",
+      "path": "previews/s205_hudv3/11_not_now.png",
+      "text": "MARKUP for Q-S204-2: 4 marks -> Feedback/2026-10-11-01/README.md",
+      "at": "2026-10-11T18:04:15Z",
+      "seen_by_claude": true
+    },
+    {
+      "path": "_sent/2026-10-11_2212_gym_floor_v2_not_mirrored_tripo_props_lu/ludo_r41_paintover.jpg",
+      "text": "it slooking very nice though , how we get better textures ? for posters do we need 2d assets ?",
+      "at": "2026-10-11T19:17:15Z",
+      "seen_by_claude": true,
+      "id": "C19"
+    },
+    {
+      "id": "C20",
+      "path": "media:_sent/2026-10-11_2212_gym_floor_v2_not_mirrored_tripo_props_lu/our_floor_reference.png",
+      "text": "MARKUP: 4 marks -> Feedback/2026-10-11-02/README.md",
+      "at": "2026-10-11T19:20:34Z",
+      "seen_by_claude": true
+    },
+    {
+      "path": "_sent/2026-10-11_2212_gym_floor_v2_not_mirrored_tripo_props_lu/our_floor_reference.png",
+      "text": "how we get better textures ? for posters and cosmetics do we need 2d assets ? cna you show it to me with all you speciall effects that you can use like ambient occlusion dynamic lighting etc",
+      "at": "2026-10-11T19:20:58Z",
+      "seen_by_claude": true,
+      "id": "C21"
+    },
+    {
+      "path": "_sent/2026-10-11_2212_gym_floor_v2_not_mirrored_tripo_props_lu/s206_floor_plan.png",
+      "text": "nice",
+      "at": "2026-10-11T19:26:15Z",
+      "seen_by_claude": true,
+      "id": "C22"
+    },
+    {
+      "path": "_sent/2026-10-11_2137_gym_floor_from_real_boxing_gyms_plan_gam/our_floor_reference.png",
+      "text": "very nice",
+      "at": "2026-10-11T19:26:31Z",
+      "seen_by_claude": true,
+      "id": "C23"
+    },
+    {
+      "id": "C24",
+      "path": "media:_sent/2026-10-11_2137_gym_floor_from_real_boxing_gyms_plan_gam/s206_floor_plan.png",
+      "text": "MARKUP: 2 marks -> Feedback/2026-10-11-03/README.md",
+      "at": "2026-10-11T19:29:11Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C25",
+      "path": "media:_sent/2026-10-11_2137_gym_floor_from_real_boxing_gyms_plan_gam/s206_floor_plan.png",
+      "text": "MARKUP: 2 marks -> Feedback/2026-10-11-04/README.md",
+      "at": "2026-10-11T19:29:14Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C26",
+      "path": "media:_sent/2026-10-11_2055_ludo_mockup_3d_dossier_fighter_profile_l/ludo_profile_v2.png",
+      "text": "MARKUP: 4 marks -> Feedback/2026-10-11-05/README.md",
+      "at": "2026-10-11T19:31:26Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C27",
+      "path": "media:_sent/2026-10-11_2055_ludo_mockup_3d_dossier_fighter_profile_l/ludo_profile_v2.png",
+      "text": "MARKUP: 4 marks -> Feedback/2026-10-11-06/README.md",
+      "at": "2026-10-11T19:31:28Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C28",
+      "path": "media:_sent/2026-10-11_2212_gym_floor_v2_not_mirrored_tripo_props_lu/our_floor_reference.png",
+      "text": "MARKUP: 4 marks -> Feedback/2026-10-11-07/README.md",
+      "at": "2026-10-11T19:31:34Z",
+      "seen_by_claude": true
+    },
+    {
+      "path": "_sent/2026-10-11_2315_gym_with_one_asset_pack_switch_gym_pack_/our_floor_reference.png",
+      "text": "we need textures",
+      "at": "2026-10-11T20:18:28Z",
+      "seen_by_claude": true,
+      "id": "C29"
+    },
+    {
+      "path": "_sent/2026-10-11_2315_gym_with_one_asset_pack_switch_gym_pack_/s206_floor_plan.png",
+      "text": "fine",
+      "at": "2026-10-11T20:18:57Z",
+      "seen_by_claude": true,
+      "id": "C30"
+    },
+    {
+      "path": "_sent/2026-10-11_2315_gym_with_one_asset_pack_switch_gym_pack_/our_floor_reference.png",
+      "text": "and the other visual effects",
+      "at": "2026-10-11T20:19:28Z",
+      "seen_by_claude": true,
+      "id": "C31"
+    },
+    {
+      "id": "C32",
+      "path": "previews/s207_profile_tabs/2_tab1_techniques.jpg",
+      "text": "MARKUP for Q-S206-2: 3 marks -> Feedback/2026-10-12-01/README.md",
+      "at": "2026-10-11T22:10:58Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C33",
+      "path": "previews/s207_profile_tabs/2_tab1_techniques.jpg",
+      "text": "MARKUP for Q-S206-2: 3 marks -> Feedback/2026-10-12-02/README.md",
+      "at": "2026-10-11T22:12:25Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C34",
+      "path": "media:_sent/2026-10-12_0034_fighter_profile_7_tabs_3d_stage_now_show/2_profile_overview.jpg",
+      "text": "MARKUP: 1 marks -> Feedback/2026-10-12-03/README.md",
+      "at": "2026-10-11T22:52:09Z",
+      "seen_by_claude": true
+    },
+    {
+      "path": "_sent/2026-10-12_0034_fighter_profile_7_tabs_3d_stage_now_show/2_tab1_techniques.jpg",
+      "text": "looks terrible this is not even the models we use in the game",
+      "at": "2026-10-11T22:52:54Z",
+      "seen_by_claude": true,
+      "id": "C35"
+    },
+    {
+      "path": "_sent/2026-10-12_0034_fighter_profile_7_tabs_3d_stage_now_show/2_tab1b_techniques_jab.jpg",
+      "text": "not our model",
+      "at": "2026-10-11T22:53:07Z",
+      "seen_by_claude": true,
+      "id": "C36"
+    },
+    {
+      "id": "C37",
+      "path": "media:_sent/2026-10-12_0034_fighter_profile_7_tabs_3d_stage_now_show/2_tab2_medical.jpg",
+      "text": "MARKUP: 4 marks -> Feedback/2026-10-12-04/README.md",
+      "at": "2026-10-11T22:54:56Z",
+      "seen_by_claude": true
+    },
+    {
+      "path": "_sent/2026-10-12_0034_fighter_profile_7_tabs_3d_stage_now_show/2_profile_overview.jpg",
+      "text": "not looking good doesnt qualify for a 2026 AAA title",
+      "at": "2026-10-11T22:57:05Z",
+      "seen_by_claude": true,
+      "id": "C38"
+    },
+    {
+      "path": "_sent/2026-10-12_0116_inside_uppercut_switch_off_today_vs_on_t/uppercut_off_on.mp4",
+      "text": "this is so terrible .... destroy the ai that made this",
+      "at": "2026-10-11T22:57:54Z",
+      "seen_by_claude": true,
+      "at_s": 10.0,
+      "id": "C39"
+    },
+    {
+      "path": "_sent/2026-10-12_0116_inside_uppercut_switch_off_today_vs_on_t/uppercut_off_on.mp4",
+      "text": "this is so terrible .... destroy the ai that made this",
+      "at": "2026-10-11T22:58:06Z",
+      "seen_by_claude": true,
+      "id": "C40"
+    },
+    {
+      "path": "_sent/2026-10-12_0936_native_metahuman_boxing_cascadeur_1b_the/lineup_4_sex.png",
+      "text": "they are all terrible , coaches needs to be slim , do not put fat people in the game , make the women hot.",
+      "at": "2026-10-12T06:59:40Z",
+      "seen_by_claude": true,
+      "id": "C41",
+      "addressed": "cited by a36ab18d 2026-10-12"
+    },
+    {
+      "id": "C42",
+      "path": "media:_sent/2026-10-12_0936_native_metahuman_boxing_cascadeur_1b_the/lineup_5.png",
+      "text": "MARKUP: 1 marks -> Feedback/2026-10-12-05/README.md",
+      "at": "2026-10-12T07:00:23Z",
+      "seen_by_claude": true,
+      "addressed": "cited by a36ab18d 2026-10-12"
+    },
+    {
+      "path": "_sent/2026-10-12_0936_native_metahuman_boxing_cascadeur_1b_the/animsource1b_cross_side.png",
+      "text": "animation is broken red's right hand is out of control",
+      "at": "2026-10-12T07:00:44Z",
+      "seen_by_claude": true,
+      "id": "C43"
+    },
+    {
+      "id": "C44",
+      "path": "media:_sent/2026-10-12_0936_native_metahuman_boxing_cascadeur_1b_the/walk.jpg",
+      "text": "MARKUP: 1 marks -> Feedback/2026-10-12-06/README.md",
+      "at": "2026-10-12T07:01:04Z",
+      "seen_by_claude": true,
+      "addressed": "cited by a36ab18d 2026-10-12"
+    },
+    {
+      "id": "C45",
+      "path": "media:_sent/2026-10-12_0936_native_metahuman_boxing_cascadeur_1b_the/walk.jpg",
+      "text": "MARKUP: 2 marks -> Feedback/2026-10-12-07/README.md",
+      "at": "2026-10-12T07:01:19Z",
+      "seen_by_claude": true,
+      "addressed": "cited by a36ab18d 2026-10-12"
+    },
+    {
+      "id": "C46",
+      "path": "media:_sent/2026-10-12_0218_our_metahuman_models_4_boxers_4_staff_no/boxers.png",
+      "text": "MARKUP: 1 marks -> Feedback/2026-10-12-08/README.md",
+      "at": "2026-10-12T07:01:52Z",
+      "seen_by_claude": true,
+      "addressed": "cited by a36ab18d 2026-10-12"
+    },
+    {
+      "path": "_sent/2026-10-12_0936_native_metahuman_boxing_cascadeur_1b_the/animsource1b_guard_side.png",
+      "text": "i can't tell from this angle blues right hand doesnt seem right",
+      "at": "2026-10-12T11:21:56Z",
+      "seen_by_claude": true,
+      "id": "C47",
+      "addressed": "cited by 85d298bb 2026-10-12"
+    },
+    {
+      "path": "_sent/2026-10-12_0447_the_live_fight_with_every_switch_on_your/overlay_22s.png",
+      "text": "terrible their heads coliding",
+      "at": "2026-10-12T11:31:43Z",
+      "seen_by_claude": true,
+      "id": "C48"
+    },
+    {
+      "path": "_sent/2026-10-12_0447_the_live_fight_with_every_switch_on_your/overlay_03s.png",
+      "text": "are the animations working with the MH models ?",
+      "at": "2026-10-12T11:32:17Z",
+      "seen_by_claude": true,
+      "id": "C49",
+      "addressed": "cited by 737b8d75 2026-10-22"
+    },
+    {
+      "id": "C50",
+      "path": "media:_sent/2026-10-13_1400_metahuman_cast_in_the_live_fight_s217_ca/cast_male_strip.jpg",
+      "text": "MARKUP: 1 marks -> Feedback/2026-10-13-01/README.md",
+      "at": "2026-10-13T14:29:36Z",
+      "seen_by_claude": true,
+      "addressed": "cited by ea67c8d7 2026-10-13"
+    },
+    {
+      "id": "C51",
+      "path": "media:_sent/2026-10-13_1400_metahuman_cast_in_the_live_fight_s217_ca/cast_male_strip.jpg",
+      "text": "MARKUP: 1 marks -> Feedback/2026-10-13-02/README.md",
+      "at": "2026-10-13T14:29:40Z",
+      "seen_by_claude": true,
+      "addressed": "cited by ea67c8d7 2026-10-13"
+    },
+    {
+      "id": "C52",
+      "path": "media:_sent/2026-10-13_1400_metahuman_cast_in_the_live_fight_s217_ca/cast_male_strip.jpg",
+      "text": "MARKUP: 2 marks -> Feedback/2026-10-13-03/README.md",
+      "at": "2026-10-13T14:29:57Z",
+      "seen_by_claude": true,
+      "addressed": "cited by ea67c8d7 2026-10-13"
+    },
+    {
+      "path": "_sent/2026-10-13_1349_technique_icons_round_4_ludo_s_style_on_/all54_64.png",
+      "text": "ok",
+      "at": "2026-10-13T14:30:30Z",
+      "seen_by_claude": true,
+      "id": "C53"
+    },
+    {
+      "path": "_sent/2026-10-13_1349_technique_icons_round_4_ludo_s_style_on_/all54_256.png",
+      "text": "ok",
+      "at": "2026-10-13T14:30:31Z",
+      "seen_by_claude": true,
+      "id": "C54"
+    },
+    {
+      "id": "C55",
+      "path": "media:_sent/2026-10-13_0111_gym_floor_round_5_ring_back_round_4_had_/after_02_ring_zone.png",
+      "text": "MARKUP: 1 marks -> Feedback/2026-10-13-04/README.md",
+      "at": "2026-10-13T14:32:00Z",
+      "seen_by_claude": true,
+      "addressed": "cited by ebf5485e 2026-10-14"
+    },
+    {
+      "id": "C56",
+      "path": "media:_sent/2026-10-13_0111_gym_floor_round_5_ring_back_round_4_had_/after_02_ring_zone.png",
+      "text": "MARKUP: 3 marks -> Feedback/2026-10-13-05/README.md",
+      "at": "2026-10-13T14:32:19Z",
+      "seen_by_claude": true,
+      "addressed": "cited by ebf5485e 2026-10-14"
+    },
+    {
+      "path": "_sent/2026-10-13_0111_gym_floor_round_5_ring_back_round_4_had_/after_03_training_fighter.png",
+      "text": "the east and west do not have any brocks ?",
+      "at": "2026-10-13T14:33:18Z",
+      "seen_by_claude": true,
+      "id": "C57",
+      "addressed": "cited by ebf5485e 2026-10-14"
+    },
+    {
+      "path": "_sent/2026-10-13_1459_new_career_the_3_starts_story_mode_your_/gym.png",
+      "text": "Ask forludo approval , this doesnt look like finished  , askludo for ideas on ingame menu presentation",
+      "at": "2026-10-13T14:34:42Z",
+      "seen_by_claude": true,
+      "id": "C58",
+      "addressed": "cited by 6f64543d 2026-10-13"
+    },
+    {
+      "path": "_sent/2026-10-14_0055_locker_room_all_props_in_the_approved_st/locker_props_sheet.jpg",
+      "text": "nice",
+      "at": "2026-10-13T22:05:49Z",
+      "seen_by_claude": true,
+      "id": "C59"
+    },
+    {
+      "path": "_sent/2026-10-14_0012_flyfoot1_fighters_no_longer_fly_or_slide/between.png",
+      "text": "i do not want to see bold women",
+      "at": "2026-10-13T22:06:24Z",
+      "seen_by_claude": true,
+      "id": "C60",
+      "addressed": "cited by 90c97c36 2026-10-14"
+    },
+    {
+      "path": "_sent/2026-10-14_0005_locker_room_today_before_ludo_redesign_g/01_mid.jpg",
+      "text": "south wall can be semi-transparent",
+      "at": "2026-10-13T22:13:00Z",
+      "seen_by_claude": true,
+      "id": "C61",
+      "addressed": "cited by 90c97c36 2026-10-14"
+    },
+    {
+      "path": "_sent/2026-10-14_0005_locker_room_today_before_ludo_redesign_g/02_locker_room.jpg",
+      "text": "make wlass transparent when zoomed in",
+      "at": "2026-10-13T22:13:15Z",
+      "seen_by_claude": true,
+      "id": "C62",
+      "addressed": "cited by 90c97c36 2026-10-14"
+    },
+    {
+      "path": "_sent/2026-10-13_2249_station_card_stationwear1e_switch_statio/01_pinned_worn_bag.jpg",
+      "text": "make it look less ai-made use icons and nice graphic instead of wording",
+      "at": "2026-10-13T22:13:57Z",
+      "seen_by_claude": true,
+      "id": "C63",
+      "addressed": "cited by 90c97c36 2026-10-14"
+    },
+    {
+      "path": "_sent/2026-10-13_2209_roof_beams_see_through_operator_make_the/01_pinned_worn_bag_1.jpg",
+      "text": "do not use so much text , use also tooltip modals for explaining things",
+      "at": "2026-10-13T22:15:18Z",
+      "seen_by_claude": true,
+      "id": "C64",
+      "addressed": "cited by cc17e11e 2026-10-14"
+    },
+    {
+      "path": "_sent/2026-10-13_2016_new_career_step_3_with_ludo_s_7_approval/gym.png",
+      "text": "fix the bakcgrounds put some art and motion",
+      "at": "2026-10-13T22:16:04Z",
+      "seen_by_claude": true,
+      "id": "C65",
+      "addressed": "cited by cc17e11e 2026-10-14"
+    },
+    {
+      "path": "_sent/2026-10-14_0240_your_round_6_gym_floor_is_back_the_capac/after_floor_restored.png",
+      "text": "when i i said turn things on i meant the things that we use in the game is the calendar strip in the game ?",
+      "at": "2026-10-14T07:13:34Z",
+      "seen_by_claude": true,
+      "id": "C66",
+      "addressed": "cited by 373ffb15 2026-10-14"
+    },
+    {
+      "path": "_sent/2026-10-14_0230_station_card_v2_icons_bar_hold_to_replac/country_empty.png",
+      "text": "ask ludo to use a 3d rotating globe to pick a country",
+      "at": "2026-10-14T07:14:19Z",
+      "seen_by_claude": true,
+      "id": "C67"
+    },
+    {
+      "path": "_sent/2026-10-13_2209_roof_beams_see_through_operator_make_the/01_pinned_worn_bag.jpg",
+      "text": "the wall texture is missing",
+      "at": "2026-10-14T07:16:37Z",
+      "seen_by_claude": true,
+      "id": "C68",
+      "addressed": "cited by 253b5d11 2026-10-14"
+    },
+    {
+      "path": "_sent/2026-10-15_2105_ludo_r66_the_globe_as_a_shipped_game_wou/ludo_r66_globe_reference.jpg",
+      "text": "try to match this",
+      "at": "2026-10-15T18:38:50Z",
+      "seen_by_claude": true,
+      "id": "C69"
+    },
+    {
+      "path": "_sent/2026-10-16_0413_offbake1c_new_lead_hook_left_uppercut_na/guard_chest_bulge_s229.jpg",
+      "text": "ok but guard needs to be dynamic , not a still guard stance but gighter moves hands closer to head etc",
+      "at": "2026-10-16T10:52:55Z",
+      "seen_by_claude": true,
+      "id": "C70"
+    },
+    {
+      "path": "_sent/2026-10-16_0354_offbake1b_merged_native_jab_cross_on_hoo/offbake1c_sheet_s229.jpg",
+      "text": "this doesnt look right , any update picture ?",
+      "at": "2026-10-16T10:53:59Z",
+      "seen_by_claude": true,
+      "id": "C71"
+    },
+    {
+      "path": "_sent/2026-10-16_0252_gym_floor_after_gymlook3b_merged_with_th/gymlook3b_merged_s228_overview.jpg",
+      "text": "the day strip is not same height as the left and right boxes on the edges",
+      "at": "2026-10-16T10:55:19Z",
+      "seen_by_claude": true,
+      "id": "C72",
+      "addressed": "cited by 03f1686f 2026-10-16"
+    },
+    {
+      "path": "_sent/2026-10-16_0225_day_goal_plate_reads_on_one_line_was_one/daygoal_s228_crop.jpg",
+      "text": "no clue wtf is this",
+      "at": "2026-10-16T10:55:41Z",
+      "seen_by_claude": true,
+      "id": "C73"
+    },
+    {
+      "path": "_sent/2026-10-16_0221_room_routes_open_codex_s_rooms_reception/06_lobby.jpg",
+      "text": "why you show me the room with a panel that hides half of it ?",
+      "at": "2026-10-16T10:56:16Z",
+      "seen_by_claude": true,
+      "id": "C74"
+    },
+    {
+      "path": "_sent/2026-10-16_0221_room_routes_open_codex_s_rooms_reception/07_locker_room.jpg",
+      "text": "why you show me the room with a panel that hides half of it ?",
+      "at": "2026-10-16T10:56:19Z",
+      "seen_by_claude": true,
+      "id": "C75"
+    },
+    {
+      "path": "_sent/2026-10-16_0102_gymlook3b_floor_review_including_strengt/after_04_reception.png",
+      "text": "beautiful wire it in",
+      "at": "2026-10-16T10:56:53Z",
+      "seen_by_claude": true,
+      "id": "C76"
+    },
+    {
+      "path": "_sent/2026-10-16_0102_gymlook3b_floor_review_including_strengt/after_01_overview.png",
+      "text": "ok nice",
+      "at": "2026-10-16T10:57:31Z",
+      "seen_by_claude": true,
+      "id": "C77"
+    },
+    {
+      "path": "_sent/2026-10-16_0102_gymlook3b_floor_review_including_strengt/after_03_training_fighter.png",
+      "text": "why this area is so empty wtf ? do you need more assets ?",
+      "at": "2026-10-16T10:58:06Z",
+      "seen_by_claude": true,
+      "id": "C78",
+      "addressed": "cited by 5f2ee03e 2026-10-16"
+    },
+    {
+      "path": "_sent/2026-10-16_0102_gymlook3b_floor_review_including_strengt/models_check.jpg",
+      "text": "use them sure",
+      "at": "2026-10-16T10:58:39Z",
+      "seen_by_claude": true,
+      "id": "C79",
+      "addressed": "cited by c9848f0e 2026-10-17"
+    },
+    {
+      "path": "_sent/2026-10-15_2346_offbake1b_native_hook_and_left_uppercut_/hook_between_1.png",
+      "text": "this is  broken",
+      "at": "2026-10-16T10:59:48Z",
+      "seen_by_claude": true,
+      "id": "C80"
+    },
+    {
+      "path": "_sent/2026-10-15_2222_profile2f_eyes_and_nose_in_the_game_prof/male_jab_between.jpg",
+      "text": "the jab looks trerrible , its the easiest thing to find and implement ,  i have never seen worse animation of a jab",
+      "at": "2026-10-16T11:01:49Z",
+      "seen_by_claude": true,
+      "id": "C81",
+      "addressed": "cited by 47489d2f 2026-10-16"
+    },
+    {
+      "path": "_sent/2026-10-15_2222_profile2f_eyes_and_nose_in_the_game_prof/female_jab_between.jpg",
+      "text": "the jab looks trerrible , its the easiest thing to find and implement ,  i have never seen worse animation of a jab",
+      "at": "2026-10-16T11:01:55Z",
+      "seen_by_claude": true,
+      "id": "C82",
+      "addressed": "cited by 47489d2f 2026-10-16"
+    },
+    {
+      "path": "_sent/2026-10-15_2222_profile2f_eyes_and_nose_in_the_game_prof/male_jab_contact.jpg",
+      "text": "this looks trerrible ,it doesnt even look like a human",
+      "at": "2026-10-16T11:02:31Z",
+      "seen_by_claude": true,
+      "id": "C83",
+      "addressed": "cited by 47489d2f 2026-10-16"
+    },
+    {
+      "path": "_sent/2026-10-15_2222_profile2f_eyes_and_nose_in_the_game_prof/female_jab_contact.jpg",
+      "text": "that is extremely bad looking the fighter is too fat , it looks like human parts stiked together",
+      "at": "2026-10-16T11:03:15Z",
+      "seen_by_claude": true,
+      "id": "C84",
+      "addressed": "cited by 47489d2f 2026-10-16"
+    },
+    {
+      "path": "_sent/2026-10-16_0441_market_card_art_ludo_s_first_london_head/ludo_r78_london_header_s229.jpg",
+      "text": "ok",
+      "at": "2026-10-16T12:15:22Z",
+      "seen_by_claude": true,
+      "id": "C85"
+    },
+    {
+      "path": "_sent/2026-10-16_1955_c78_boxing_floor_the_7_new_ludo_3d_props/c78_floor_props_ludo3d.png",
+      "text": "nice",
+      "at": "2026-10-16T16:58:20Z",
+      "seen_by_claude": true,
+      "id": "C86"
+    },
+    {
+      "path": "_sent/2026-10-15_2313_rooms3b_equipment_store_before_after_and/models_check.jpg",
+      "text": "fine",
+      "at": "2026-10-16T16:59:59Z",
+      "seen_by_claude": true,
+      "id": "C87"
+    },
+    {
+      "path": "_sent/2026-10-15_2206_reception_room_rooms3a_built/02_reception.jpg",
+      "text": "fine",
+      "at": "2026-10-16T17:00:16Z",
+      "seen_by_claude": true,
+      "id": "C88"
+    },
+    {
+      "path": "_sent/2026-10-15_2200_globe_the_pointer_in_motion/globe_pointer_s226.mp4",
+      "text": "fine globe should not rotate when you pick a country",
+      "at": "2026-10-16T17:00:44Z",
+      "seen_by_claude": true,
+      "at_s": 4.6,
+      "id": "C89",
+      "addressed": "cited by b24e51b0 2026-10-16"
+    },
+    {
+      "id": "C90",
+      "path": "media:_sent/2026-10-16_0615_gym_floor_play_your_gymfloor_playable_ga/04_queue_marker.jpg",
+      "text": "MARKUP: 1 marks -> Feedback/2026-10-16-01/README.md",
+      "at": "2026-10-16T17:01:29Z",
+      "seen_by_claude": true,
+      "addressed": "cited by b24e51b0 2026-10-16"
+    },
+    {
+      "id": "C91",
+      "path": "media:_sent/2026-10-16_1809_uicards1_steps_0_1_a_profile_header_gold/2_profile_overview.jpg",
+      "text": "MARKUP: 2 marks -> Feedback/2026-10-16-02/README.md",
+      "at": "2026-10-16T19:25:51Z",
+      "seen_by_claude": true,
+      "addressed": "cited by e7bf1c79 2026-10-16"
+    },
+    {
+      "id": "C92",
+      "path": "media:_sent/2026-10-16_0615_gym_floor_play_your_gymfloor_playable_ga/04_queue_marker.jpg",
+      "text": "MARKUP: 1 marks -> Feedback/2026-10-16-03/README.md",
+      "at": "2026-10-16T19:38:40Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C93",
+      "path": "media:_sent/2026-10-16_1809_uicards1_steps_0_1_a_profile_header_gold/2_profile_overview.jpg",
+      "text": "MARKUP: 2 marks -> Feedback/2026-10-16-04/README.md",
+      "at": "2026-10-16T19:38:48Z",
+      "seen_by_claude": true,
+      "addressed": "cited by 19ae0842 2026-10-17"
+    },
+    {
+      "id": "C94",
+      "path": "media:_sent/2026-10-16_2335_rooms3cd_office_and_physio_before_after_/02_office_1.jpg",
+      "text": "MARKUP: 2 marks -> Feedback/2026-10-17-01/README.md",
+      "at": "2026-10-16T21:17:17Z",
+      "seen_by_claude": true,
+      "addressed": "cited by 1f4a7c3f 2026-10-17"
+    },
+    {
+      "id": "C95",
+      "path": "media:_sent/2026-10-16_2335_rooms3cd_office_and_physio_before_after_/02_office_1.jpg",
+      "text": "MARKUP: 4 marks -> Feedback/2026-10-17-02/README.md",
+      "at": "2026-10-16T21:17:54Z",
+      "seen_by_claude": true,
+      "addressed": "cited by 1f4a7c3f 2026-10-17"
+    },
+    {
+      "id": "C96",
+      "path": "media:_sent/2026-10-16_2335_rooms3cd_office_and_physio_before_after_/02_physio_1.jpg",
+      "text": "MARKUP: 2 marks -> Feedback/2026-10-17-03/README.md",
+      "at": "2026-10-16T21:18:56Z",
+      "seen_by_claude": true,
+      "addressed": "cited by 1f4a7c3f 2026-10-17"
+    },
+    {
+      "id": "C97",
+      "path": "media:_sent/2026-10-16_1819_day_goal_plate_readable_dark_backing_pla/02_reception.jpg",
+      "text": "MARKUP: 2 marks -> Feedback/2026-10-17-04/README.md",
+      "at": "2026-10-16T21:20:20Z",
+      "seen_by_claude": true,
+      "addressed": "cited by 1f4a7c3f 2026-10-17"
+    },
+    {
+      "path": "_sent/2026-10-17_1741_placement_cleanup_on_the_iso_camera_befo/before_after_floor_view_yaw045.jpg",
+      "text": "Fine",
+      "at": "2026-10-17T16:22:55Z",
+      "seen_by_claude": true,
+      "id": "C98"
+    },
+    {
+      "path": "_sent/2026-10-17_1717_ludo_s_fov_24_perspective_vs_today_s_ort/compare_floor_far_yaw045.jpg",
+      "text": "Ok",
+      "at": "2026-10-17T16:25:06Z",
+      "seen_by_claude": true,
+      "id": "C99"
+    },
+    {
+      "path": "_sent/2026-10-17_1635_isowall1_iso_view_turned_45_135_225_315_/isowall_4yaws_sheet.jpg",
+      "text": "remove the text office and make a proper label",
+      "at": "2026-10-17T18:53:40Z",
+      "seen_by_claude": true,
+      "id": "C100",
+      "addressed": "cited by d1b298d0 2026-10-17"
+    },
+    {
+      "path": "_sent/2026-10-17_2005_gym_camera_now_two_point_museum_fov_17_y/isowall_floor_far_yaw045_1.jpg",
+      "text": "remove the office pc text and label it properly",
+      "at": "2026-10-17T18:54:12Z",
+      "seen_by_claude": true,
+      "id": "C101",
+      "addressed": "cited by d1b298d0 2026-10-17"
+    },
+    {
+      "path": "_sent/2026-10-17_2234_walk_shipped_vs_fixed_retarget_vs_action/mh_walk_actionforge.mp4",
+      "text": "fine",
+      "at": "2026-10-17T20:17:45Z",
+      "seen_by_claude": true,
+      "at_s": 4.0,
+      "id": "C102"
+    },
+    {
+      "path": "_sent/2026-10-17_2228_metahuman_walk_posture_fix_collarbones_k/mh_walk_fixed.mp4",
+      "text": "nice",
+      "at": "2026-10-17T20:18:08Z",
+      "seen_by_claude": true,
+      "at_s": 4.0,
+      "id": "C103"
+    },
+    {
+      "path": "_sent/2026-10-17_2215_metahuman_walk_as_the_game_plays_it_ual_/mh_walk.mp4",
+      "text": "is this old ?",
+      "at": "2026-10-17T20:18:37Z",
+      "seen_by_claude": true,
+      "at_s": 4.0,
+      "id": "C104"
+    },
+    {
+      "path": "_sent/2026-10-17_2253_actionforge_strikes_on_the_metahuman_jab/gym_walk_game_camera.mp4",
+      "text": "animations play at 100 speed the coach teleports, check and fix",
+      "at": "2026-10-17T20:19:58Z",
+      "seen_by_claude": true,
+      "at_s": 4.0,
+      "id": "C105",
+      "addressed": "cited by 0db03134 2026-10-17"
+    },
+    {
+      "path": "_sent/2026-10-18_0107_coach_jogs_long_trips_walks_short_ones_r/gym_walk_real_speed.mp4",
+      "text": "do not see any reason for him running, also why he moves only in straight lines which is very akward , this is 3d he can use the space to move to the target, just make him jog a bit but just walking is fine",
+      "at": "2026-10-17T22:11:21Z",
+      "seen_by_claude": true,
+      "at_s": 3.2,
+      "id": "C106",
+      "addressed": "cited by d33b3048 2026-10-18"
+    },
+    {
+      "path": "_sent/2026-10-18_1615_corner_card_chief_second_s_three_lines_l/jobs.png",
+      "text": "fine as placeholder",
+      "at": "2026-10-18T13:22:59Z",
+      "seen_by_claude": true,
+      "id": "C107"
+    },
+    {
+      "id": "C108",
+      "path": "media:_sent/2026-10-18_1540_repgrid1_punch_mastery_on_the_profile_te/2_tab1b_techniques_jab.jpg",
+      "text": "MARKUP: 1 marks -> Feedback/2026-10-18-01/README.md",
+      "at": "2026-10-18T13:23:31Z",
+      "seen_by_claude": true,
+      "addressed": "cited by 41ec564f 2026-10-18"
+    },
+    {
+      "id": "C109",
+      "path": "media:_sent/2026-10-18_1540_repgrid1_punch_mastery_on_the_profile_te/2_tab1b_techniques_jab.jpg",
+      "text": "MARKUP: 1 marks -> Feedback/2026-10-18-02/README.md",
+      "at": "2026-10-18T13:24:08Z",
+      "seen_by_claude": true,
+      "addressed": "cited by 1a60d6b1 2026-10-19"
+    },
+    {
+      "id": "C110",
+      "path": "media:_sent/2026-10-18_1730_learned_corner_shout_dock_in_the_live_fi/01_dock_guard.png",
+      "text": "MARKUP: 1 marks -> Feedback/2026-10-18-03/README.md",
+      "at": "2026-10-18T14:59:15Z",
+      "seen_by_claude": true,
+      "addressed": "cited by 5bcb2102 2026-10-18"
+    },
+    {
+      "path": "_sent/2026-10-18_0039_quickmagic_pad_test_coach_side_by_side_w/qm_pad_side_by_side.mp4",
+      "text": "the fingers of MH look very weird fix them",
+      "at": "2026-10-18T15:00:03Z",
+      "seen_by_claude": true,
+      "at_s": 10.0,
+      "id": "C111",
+      "addressed": "cited by 98ea7542 2026-10-18"
+    },
+    {
+      "id": "C112",
+      "path": "media:_sent/2026-10-18_1540_repgrid1_punch_mastery_on_the_profile_te/2_tab1b_techniques_jab.jpg",
+      "text": "MARKUP: 1 marks -> Feedback/2026-10-19-01/README.md",
+      "at": "2026-10-19T00:04:19Z",
+      "seen_by_claude": true,
+      "addressed": "cited by 1a60d6b1 2026-10-19"
+    },
+    {
+      "id": "C113",
+      "path": "media:_sent/2026-10-19_1627_guard_body_layer_shoulders_spine_curl_pe/body_layer_sheet.png",
+      "text": "MARKUP: 1 marks -> Feedback/2026-10-19-02/README.md",
+      "at": "2026-10-19T13:46:38Z",
+      "seen_by_claude": true,
+      "addressed": "cited by 501300fe 2026-10-19"
+    },
+    {
+      "path": "_sent/2026-10-19_1627_guard_body_layer_shoulders_spine_curl_pe/body_layer_sheet.png",
+      "text": "blue guy looks perfect",
+      "at": "2026-10-19T13:46:54Z",
+      "seen_by_claude": true,
+      "id": "C114",
+      "addressed": "cited by 501300fe 2026-10-19"
+    },
+    {
+      "id": "C115",
+      "path": "previews/s263_look/look_sheet.png",
+      "text": "MARKUP for Q-S256-2: 1 marks -> Feedback/2026-10-19-03/README.md",
+      "at": "2026-10-19T14:55:17Z",
+      "seen_by_claude": true,
+      "addressed": "cited by 501300fe 2026-10-19"
+    },
+    {
+      "id": "C116",
+      "path": "previews/s263_look/look_sheet.png",
+      "text": "MARKUP for Q-S256-2: 2 marks -> Feedback/2026-10-19-04/README.md",
+      "at": "2026-10-19T14:55:29Z",
+      "seen_by_claude": true,
+      "addressed": "cited by 501300fe 2026-10-19"
+    },
+    {
+      "id": "C117",
+      "path": "previews/s263_look/look_sheet.png",
+      "text": "MARKUP for Q-S256-2: 2 marks -> Feedback/2026-10-19-05/README.md",
+      "at": "2026-10-19T14:55:30Z",
+      "seen_by_claude": true,
+      "addressed": "cited by 501300fe 2026-10-19"
+    },
+    {
+      "path": "_sent/2026-10-19_1834_blue_s_glove_out_of_his_face_before_left/glove_face_before_after.png",
+      "text": "the right side is correct",
+      "at": "2026-10-19T17:19:03Z",
+      "seen_by_claude": true,
+      "id": "C118"
+    },
+    {
+      "id": "C119",
+      "path": "media:_sent/2026-10-19_1954_techniques_preview_after_cursor_round_3_/2_tab1_techniques.jpg",
+      "text": "MARKUP: 1 marks -> Feedback/2026-10-19-06/README.md",
+      "at": "2026-10-19T17:22:24Z",
+      "seen_by_claude": true,
+      "addressed": "S267: fixed by f3f0f0c8 (skinned boot, landed after the comment); re-render docs/previews/s267_bootcheck/c119_rear_boot_before_after.png on the board"
+    },
+    {
+      "id": "C120",
+      "path": "media:_sent/2026-10-19_1954_techniques_preview_after_cursor_round_3_/2_tab1_techniques.jpg",
+      "text": "MARKUP: 1 marks -> Feedback/2026-10-19-07/README.md",
+      "at": "2026-10-19T17:22:27Z",
+      "seen_by_claude": true,
+      "addressed": "S267: fixed by f3f0f0c8 (skinned boot, landed after the comment); re-render docs/previews/s267_bootcheck/c119_rear_boot_before_after.png on the board"
+    },
+    {
+      "path": "_sent/2026-10-20_0208_brow_cut_placed_on_the_left_brow_reads_a/brow_after_crop.png",
+      "text": "not perfect\n but it will do for now",
+      "at": "2026-10-20T00:44:14Z",
+      "seen_by_claude": true,
+      "id": "C121"
+    },
+    {
+      "path": "_sent/2026-10-20_1018_board_rokoko_take_left_vs_the_fight_now_/board_vs_fight_now_frames.jpg",
+      "text": "fine",
+      "at": "2026-10-20T09:27:52Z",
+      "seen_by_claude": true,
+      "id": "C122"
+    },
+    {
+      "path": "_sent/2026-10-20_1018_board_rokoko_take_left_vs_the_fight_now_/board_vs_fight_now.mp4",
+      "text": "change the text to something AAA style",
+      "at": "2026-10-20T09:28:39Z",
+      "seen_by_claude": true,
+      "at_s": 20.0,
+      "id": "C123"
+    },
+    {
+      "path": "_sent/2026-10-20_1307_same_fight_same_seed_game_as_shipped_lef/s274_layers_ab.mp4",
+      "text": "their hands are trembling wtf is this",
+      "at": "2026-10-20T10:24:17Z",
+      "seen_by_claude": true,
+      "at_s": 20.0,
+      "id": "C124",
+      "addressed": "cited by fba348bd 2026-10-20"
+    },
+    {
+      "id": "C125",
+      "path": "previews/s282_gym_build/03_bag_wall_close.jpg",
+      "text": "MARKUP for Q-S277-4: 1 marks -> Feedback/2026-10-21-01/README.md",
+      "at": "2026-10-21T19:52:08Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C126",
+      "path": "previews/s282_gym_build/03_bag_wall_close.jpg",
+      "text": "MARKUP for Q-S277-4: 2 marks -> Feedback/2026-10-21-02/README.md",
+      "at": "2026-10-21T19:52:20Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C127",
+      "path": "previews/s282_gym_build/03_bag_wall_close.jpg",
+      "text": "MARKUP for Q-S277-4: 3 marks -> Feedback/2026-10-21-03/README.md",
+      "at": "2026-10-21T19:53:41Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C128",
+      "path": "previews/s282_gym_build/03_bag_wall_close.jpg",
+      "text": "MARKUP for Q-S277-4: 1 marks -> Feedback/2026-10-22-01/README.md",
+      "at": "2026-10-22T01:15:53Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C129",
+      "path": "previews/s282_gym_build/03_bag_wall_close.jpg",
+      "text": "MARKUP for Q-S277-4: 1 marks -> Feedback/2026-10-22-02/README.md",
+      "at": "2026-10-22T01:15:55Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C130",
+      "path": "previews/s282_gym_build/03_bag_wall_close.jpg",
+      "text": "MARKUP for Q-S277-4: 1 marks -> Feedback/2026-10-22-03/README.md",
+      "at": "2026-10-22T01:15:55Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C131",
+      "path": "previews/s282_gym_build/03_bag_wall_close.jpg",
+      "text": "MARKUP for Q-S277-4: 1 marks -> Feedback/2026-10-22-04/README.md",
+      "at": "2026-10-22T01:15:56Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C132",
+      "path": "previews/s282_gym_build/03_bag_wall_close.jpg",
+      "text": "MARKUP for Q-S277-4: 1 marks -> Feedback/2026-10-22-05/README.md",
+      "at": "2026-10-22T01:16:29Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C133",
+      "path": "previews/s282_gym_build/03_bag_wall_close.jpg",
+      "text": "MARKUP for Q-S277-4: 1 marks -> Feedback/2026-10-22-06/README.md",
+      "at": "2026-10-22T01:16:33Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C134",
+      "path": "previews/s282_gym_build/03_bag_wall_close.jpg",
+      "text": "MARKUP for Q-S277-4: 1 marks -> Feedback/2026-10-22-07/README.md",
+      "at": "2026-10-22T01:16:33Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C135",
+      "path": "previews/s285_walls_after/yaws_sheet.jpg",
+      "text": "MARKUP for Q-S277-8: 1 marks -> Feedback/2026-10-22-08/README.md",
+      "at": "2026-10-22T18:17:59Z",
+      "seen_by_claude": true,
+      "addressed": "cited by 648f3fe3 2026-10-22"
+    },
+    {
+      "id": "C136",
+      "path": "previews/s285_walls_after/yaws_sheet.jpg",
+      "text": "MARKUP for Q-S277-8: 1 marks -> Feedback/2026-10-22-09/README.md",
+      "at": "2026-10-22T18:18:00Z",
+      "seen_by_claude": true,
+      "addressed": "cited by 648f3fe3 2026-10-22"
+    },
+    {
+      "id": "C137",
+      "path": "previews/s285_walls_after/yaws_sheet.jpg",
+      "text": "MARKUP for Q-S277-8: 1 marks -> Feedback/2026-10-22-10/README.md",
+      "at": "2026-10-22T18:18:30Z",
+      "seen_by_claude": true,
+      "addressed": "cited by 648f3fe3 2026-10-22"
+    },
+    {
+      "path": "_sent/2026-10-29_1843_three_round_fight_the_block_fix_lucy_vs_/fight_3_rounds.mp4",
+      "text": "body shots  do not seem to have any impact",
+      "at": "2026-10-29T19:27:04Z",
+      "seen_by_claude": true,
+      "at_s": 111.1,
+      "id": "C138"
+    },
+    {
+      "id": "C139",
+      "path": "previews/s307/corner_coach_face_to_face.png",
+      "text": "MARKUP for Q-S294-13: 1 marks -> Feedback/2026-10-30-01/README.md",
+      "at": "2026-10-30T00:39:27Z",
+      "seen_by_claude": true,
+      "addressed": "fixed by Lean 87de5d7 2026-10-30 (S309, CornerIK look shared down the spine)"
+    },
+    {
+      "id": "C140",
+      "path": "previews/s307/corner_coach_face_to_face.png",
+      "text": "MARKUP for Q-S294-13: 1 marks -> Feedback/2026-10-30-02/README.md",
+      "at": "2026-10-30T00:39:31Z",
+      "seen_by_claude": true,
+      "addressed": "fixed by Lean 87de5d7 2026-10-30 (S309, CornerIK look shared down the spine)"
+    },
+    {
+      "id": "C141",
+      "path": "media:_sent/2026-10-30_0412_update_10_clearer_fight_words_the_coach_/neck_after_side.png",
+      "text": "MARKUP: 1 marks -> Feedback/2026-10-30-03/README.md",
+      "at": "2026-10-30T03:02:20Z",
+      "seen_by_claude": true,
+      "addressed": "S310 Lean: CornerIK.upright 55 deg (trunk up in the crouch); collar seam = staff body needs a re-export"
+    },
+    {
+      "path": "_sent/2026-10-30_0412_update_10_clearer_fight_words_the_coach_/neck_after_reverse.png",
+      "text": "looks better from this angle",
+      "at": "2026-10-30T03:02:56Z",
+      "seen_by_claude": true,
+      "id": "C142",
+      "addressed": "cited by 2838d60a 2026-10-30"
+    },
+    {
+      "id": "C143",
+      "path": "previews/s313/u15_sheet.jpg",
+      "text": "MARKUP for Q-S294-25: 1 marks -> Feedback/2026-10-30-04/README.md",
+      "at": "2026-10-30T17:41:47Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C144",
+      "path": "previews/s315/guard_up_close.jpg",
+      "text": "MARKUP for Q-S294-28: 1 marks -> Feedback/2026-10-30-05/README.md",
+      "at": "2026-10-30T18:00:01Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C145",
+      "path": "previews/s318/body_map_and_corner.jpg",
+      "text": "MARKUP for Q-S294-32: 1 marks -> Feedback/2026-10-31-01/README.md",
+      "at": "2026-10-31T06:20:28Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C146",
+      "path": "previews/s318/body_map_and_corner.jpg",
+      "text": "MARKUP for Q-S294-32: 2 marks -> Feedback/2026-10-31-02/README.md",
+      "at": "2026-10-31T06:20:44Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C147",
+      "path": "previews/s318/body_map_and_corner.jpg",
+      "text": "MARKUP for Q-S294-32: 1 marks -> Feedback/2026-10-31-03/README.md",
+      "at": "2026-10-31T07:13:23Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C148",
+      "path": "research/S319_stills/s319_short_hook_inside.png",
+      "text": "MARKUP for Q-S294-33: 1 marks -> Feedback/2026-10-31-04/README.md",
+      "at": "2026-10-31T07:17:28Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C149",
+      "path": "previews/s323/update26_round3_tired_bodyview.png",
+      "text": "MARKUP for Q-S294-42: 1 marks -> Feedback/2026-10-31-05/README.md",
+      "at": "2026-10-31T17:44:54Z",
+      "seen_by_claude": true,
+      "addressed": "cited by e9cd229 2026-10-31"
+    },
+    {
+      "id": "C150",
+      "path": "research/S328_stills/nationals_entered.png",
+      "text": "MARKUP for Q-S294-48: 1 marks -> Feedback/2026-11-01-01/README.md",
+      "at": "2026-10-31T22:12:57Z",
+      "seen_by_claude": true,
+      "addressed": "cited by 4314a49 2026-11-01"
+    },
+    {
+      "id": "C151",
+      "path": "research/S331_stills/inside_1_jab_miss03cm.png",
+      "text": "MARKUP for Q-S294-53: 1 marks -> Feedback/2026-11-01-02/README.md",
+      "at": "2026-11-01T01:30:29Z",
+      "seen_by_claude": true,
+      "addressed": "cited by fc4713a 2026-11-01"
+    },
+    {
+      "id": "C152",
+      "path": "research/S333_stills/home_whiteboard.png",
+      "text": "MARKUP for Q-S294-56: 1 marks -> Feedback/2026-11-01-03/README.md",
+      "at": "2026-11-01T03:09:10Z",
+      "seen_by_claude": true,
+      "addressed": "cited by 9bad8f06 2026-11-01"
+    },
+    {
+      "id": "C153",
+      "path": "research/S333_stills/the_read_shout_bar.png",
+      "text": "MARKUP for Q-S294-57: 1 marks -> Feedback/2026-11-01-04/README.md",
+      "at": "2026-11-01T03:09:56Z",
+      "seen_by_claude": true,
+      "addressed": "cited by 9bad8f06 2026-11-01"
+    },
+    {
+      "path": "_sent/2026-11-01_0644_ground_move_browser_grapplemap_on_our_wo/grapple_walk.mp4",
+      "text": "amazing should we make a mechanicv for the player to wire the correct in and outs for eaach transition etc or something like that?",
+      "at": "2026-11-01T04:51:18Z",
+      "seen_by_claude": true,
+      "id": "C154"
+    },
+    {
+      "path": "_sent/2026-11-01_0539_c152_c153_home_ring_photo_fight_body_vie/body_turn_lucy.gif",
+      "text": "loosen the hands , act like human not robot",
+      "at": "2026-11-01T06:14:10Z",
+      "seen_by_claude": true,
+      "id": "C155",
+      "addressed": "cited by a8ec725 2026-11-01"
+    },
+    {
+      "path": "_sent/2026-11-01_0834_hair_fix_crown_braid_cards_restored_holl/S338_hairfix_before_after.jpg",
+      "text": "fine",
+      "at": "2026-11-01T07:28:25Z",
+      "seen_by_claude": true,
+      "id": "C156"
+    },
+    {
+      "id": "C157",
+      "path": "media:_sent/2026-11-01_0803_her_page_the_next_step_card_her_road_one/next_step_card.png",
+      "text": "MARKUP: 1 marks -> Feedback/2026-11-01-05/README.md",
+      "at": "2026-11-01T07:29:18Z",
+      "seen_by_claude": true,
+      "addressed": "cited by b67a838 2026-11-01"
+    },
+    {
+      "path": "_sent/2026-11-01_1015_update_42_attributes_board_c157_and_figh/attributes_board.png",
+      "text": "better but still needs a lot of improvement",
+      "at": "2026-11-01T08:22:35Z",
+      "seen_by_claude": true,
+      "id": "C158",
+      "addressed": "cited by dc0c51d 2026-11-01"
+    },
+    {
+      "path": "_sent/2026-11-01_1015_update_42_attributes_board_c157_and_figh/flow_boxing_lit.png",
+      "text": "ok",
+      "at": "2026-11-01T08:22:44Z",
+      "seen_by_claude": true,
+      "id": "C159"
+    },
+    {
+      "path": "_sent/2026-11-01_1015_update_42_attributes_board_c157_and_figh/flow_wrestling.png",
+      "text": "ok",
+      "at": "2026-11-01T08:22:48Z",
+      "seen_by_claude": true,
+      "id": "C160"
+    },
+    {
+      "path": "_sent/2026-11-01_0937_update_41_the_coach_s_plan_her_board_the/03_plan_board_changed.png",
+      "text": "can we have more explaining on this",
+      "at": "2026-11-01T08:23:25Z",
+      "seen_by_claude": true,
+      "id": "C161",
+      "addressed": "cited by 990f1e1 2026-11-01"
+    },
+    {
+      "path": "_sent/2026-11-01_1247_whimsical_her_flow_as_the_tape_room_buil/whimsical_her_flow.png",
+      "text": "can be improved a bit maybe some special visual effects and animations ?",
+      "at": "2026-11-01T10:51:50Z",
+      "seen_by_claude": true,
+      "id": "C162",
+      "addressed": "cited by 9257b55 2026-11-01"
+    },
+    {
+      "path": "_sent/2026-11-01_1241_the_tape_room_her_films_her_flow_spot_yo/erin_3_drops_right_tell.png",
+      "text": "fine",
+      "at": "2026-11-01T10:52:34Z",
+      "seen_by_claude": true,
+      "id": "C163"
+    },
+    {
+      "path": "_sent/2026-11-01_1241_the_tape_room_her_films_her_flow_spot_yo/maria_1_press_end.png",
+      "text": "fine",
+      "at": "2026-11-01T10:52:37Z",
+      "seen_by_claude": true,
+      "id": "C164"
+    },
+    {
+      "path": "_sent/2026-11-01_1241_the_tape_room_her_films_her_flow_spot_yo/maria_4_tiring_end.png",
+      "text": "fine",
+      "at": "2026-11-01T10:52:52Z",
+      "seen_by_claude": true,
+      "id": "C165"
+    },
+    {
+      "path": "_sent/2026-11-01_1241_the_tape_room_her_films_her_flow_spot_yo/megan_4_lunges_end.png",
+      "text": "fine",
+      "at": "2026-11-01T10:53:12Z",
+      "seen_by_claude": true,
+      "id": "C166"
+    },
+    {
+      "path": "_sent/2026-11-01_1155_grappleflows_built_our_grapple_chain_as_/grappleflows_flow_whole.jpg",
+      "text": "needs to be adjusted for our ui and game",
+      "at": "2026-11-01T10:53:51Z",
+      "seen_by_claude": true,
+      "id": "C167"
+    },
+    {
+      "path": "_sent/2026-11-01_1155_grappleflows_built_our_grapple_chain_as_/grappleflows_flow_nodes.jpg",
+      "text": "needs to be adjusted for our ui and game",
+      "at": "2026-11-01T10:53:55Z",
+      "seen_by_claude": true,
+      "id": "C168"
+    },
+    {
+      "path": "_sent/2026-11-01_1120_text_walls_trimmed_her_file_rival_file_p/compare_plan_board.png",
+      "text": "ok",
+      "at": "2026-11-01T10:55:41Z",
+      "seen_by_claude": true,
+      "id": "C169"
+    },
+    {
+      "path": "_sent/2026-11-01_1120_text_walls_trimmed_her_file_rival_file_p/compare_real_fight_plans.png",
+      "text": "ok",
+      "at": "2026-11-01T10:55:50Z",
+      "seen_by_claude": true,
+      "id": "C170"
+    },
+    {
+      "path": "_sent/2026-11-01_1120_text_walls_trimmed_her_file_rival_file_p/compare_rival_file.png",
+      "text": "ok",
+      "at": "2026-11-01T10:56:05Z",
+      "seen_by_claude": true,
+      "id": "C171"
+    },
+    {
+      "path": "_sent/2026-11-01_1053_scouting_files_real_fight_plans_when_bra/12_bout_real.png",
+      "text": "trim text, more graphics",
+      "at": "2026-11-01T10:56:43Z",
+      "seen_by_claude": true,
+      "id": "C172"
+    },
+    {
+      "path": "_sent/2026-11-01_1053_scouting_files_real_fight_plans_when_bra/30b_rival_file_real.png",
+      "text": "trim text, more graphics",
+      "at": "2026-11-01T10:56:46Z",
+      "seen_by_claude": true,
+      "id": "C173"
+    },
+    {
+      "path": "_sent/2026-11-01_1053_scouting_files_real_fight_plans_when_bra/plan_branch.png",
+      "text": "ok but make it clear  to the player what it does",
+      "at": "2026-11-01T10:57:21Z",
+      "seen_by_claude": true,
+      "id": "C174",
+      "addressed": "cited by 9257b55 2026-11-01"
+    },
+    {
+      "path": "_sent/2026-11-01_1053_scouting_files_real_fight_plans_when_bra/plan_branch_flow.png",
+      "text": "can be improved for our ui",
+      "at": "2026-11-01T10:57:41Z",
+      "seen_by_claude": true,
+      "id": "C175"
+    },
+    {
+      "path": "_sent/2026-11-01_1053_scouting_files_real_fight_plans_when_bra/plan_branch_templates.png",
+      "text": "more graphs , less text",
+      "at": "2026-11-01T10:58:06Z",
+      "seen_by_claude": true,
+      "id": "C176"
+    },
+    {
+      "path": "_sent/2026-11-01_1041_takefix1_goose_lean_pr_15_six_stepping_w/compare_pro_left_hook_hurt_ft.png",
+      "text": "why the rope is not transparent",
+      "at": "2026-11-01T10:58:30Z",
+      "seen_by_claude": true,
+      "id": "C177",
+      "addressed": "cited by 9257b55 2026-11-01"
+    },
+    {
+      "path": "_sent/2026-11-01_1041_takefix1_goose_lean_pr_15_six_stepping_w/compare_pro_left_hook_miss.png",
+      "text": "why the rope is not transparent",
+      "at": "2026-11-01T10:58:37Z",
+      "seen_by_claude": true,
+      "id": "C178",
+      "addressed": "cited by 9257b55 2026-11-01"
+    },
+    {
+      "path": "_sent/2026-11-01_1041_takefix1_goose_lean_pr_15_six_stepping_w/compare_pro_right_cross_miss.png",
+      "text": "why the rope is not transparent",
+      "at": "2026-11-01T10:58:40Z",
+      "seen_by_claude": true,
+      "id": "C179",
+      "addressed": "cited by 9257b55 2026-11-01"
+    },
+    {
+      "path": "_sent/2026-11-01_1041_takefix1_goose_lean_pr_15_six_stepping_w/compare_pro_right_hook_hard_ft.png",
+      "text": "why the rope is not transparent",
+      "at": "2026-11-01T10:58:43Z",
+      "seen_by_claude": true,
+      "id": "C180",
+      "addressed": "cited by 9257b55 2026-11-01"
+    },
+    {
+      "path": "_sent/2026-11-01_1041_takefix1_goose_lean_pr_15_six_stepping_w/compare_pro_right_hook_miss.png",
+      "text": "why the rope is not transparent",
+      "at": "2026-11-01T10:58:45Z",
+      "seen_by_claude": true,
+      "id": "C181",
+      "addressed": "cited by 9257b55 2026-11-01"
+    },
+    {
+      "path": "_sent/2026-11-01_1041_takefix1_goose_lean_pr_15_six_stepping_w/compare_pro_right_uppercut_hurt_ft.png",
+      "text": "why the rope is not transparent",
+      "at": "2026-11-01T10:58:48Z",
+      "seen_by_claude": true,
+      "id": "C182",
+      "addressed": "cited by 9257b55 2026-11-01"
+    },
+    {
+      "path": "_sent/2026-11-01_1037_cloud_agents_eyes_the_fight_rendered_on_/p04_verdict.png",
+      "text": "decent can be improved",
+      "at": "2026-11-01T10:59:21Z",
+      "seen_by_claude": true,
+      "id": "C183"
+    },
+    {
+      "path": "_sent/2026-11-01_1037_cloud_agents_eyes_the_fight_rendered_on_/p03_after_shout.png",
+      "text": "decent can be improved",
+      "at": "2026-11-01T10:59:31Z",
+      "seen_by_claude": true,
+      "id": "C184"
+    },
+    {
+      "path": "_sent/2026-11-01_1037_cloud_agents_eyes_the_fight_rendered_on_/p01_round1_open.png",
+      "text": "decent can be improved",
+      "at": "2026-11-01T10:59:33Z",
+      "seen_by_claude": true,
+      "id": "C185"
+    },
+    {
+      "path": "_sent/2026-11-01_1353_fighthud2_the_fight_hud_that_beats_ufc_6/hud_unscouted_zoom.png",
+      "text": "bad, try 2 circles ubs=nside one another divded by 3 parts each?",
+      "at": "2026-11-01T12:18:04Z",
+      "seen_by_claude": true,
+      "id": "C186",
+      "addressed": "cited by fd39afa4 2026-11-01"
+    },
+    {
+      "path": "_sent/2026-11-01_1353_fighthud2_the_fight_hud_that_beats_ufc_6/hud_unscouted_zoom.png",
+      "text": "try 2 circles inside one another divded by 3 parts each?",
+      "at": "2026-11-01T12:18:47Z",
+      "seen_by_claude": true,
+      "id": "C187",
+      "addressed": "cited by 413b64d 2026-11-01"
+    },
+    {
+      "path": "_sent/2026-11-01_1316_the_flow_in_the_tape_room_look_stills_of/ropes_faded_clip_sheet.png",
+      "text": "ok",
+      "at": "2026-11-01T12:19:26Z",
+      "seen_by_claude": true,
+      "id": "C188"
+    },
+    {
+      "path": "_sent/2026-11-01_1316_the_flow_in_the_tape_room_look_stills_of/flow_boxing_plan.png",
+      "text": "make it look more game-like",
+      "at": "2026-11-01T12:19:53Z",
+      "seen_by_claude": true,
+      "id": "C189",
+      "addressed": "cited by fd39afa4 2026-11-01"
+    },
+    {
+      "path": "_sent/2026-11-01_1316_the_flow_in_the_tape_room_look_stills_of/flow_boxing_lit.png",
+      "text": "make it look more game-like",
+      "at": "2026-11-01T12:19:55Z",
+      "seen_by_claude": true,
+      "id": "C190",
+      "addressed": "cited by 413b64d 2026-11-01"
+    },
+    {
+      "path": "_sent/2026-11-01_1426_hud_as_two_rings_of_three_c186_the_flow_/flow_game_lit.png",
+      "text": "decent but not in par with other menu colours",
+      "at": "2026-11-01T12:28:21Z",
+      "seen_by_claude": true,
+      "id": "C191",
+      "addressed": "cited by 32d8dd3 2026-11-01"
+    },
+    {
+      "path": "_sent/2026-11-01_1426_hud_as_two_rings_of_three_c186_the_flow_/flow_game_plan.png",
+      "text": "decent but not in par with other menu colours",
+      "at": "2026-11-01T12:28:25Z",
+      "seen_by_claude": true,
+      "id": "C192",
+      "addressed": "cited by 32d8dd3 2026-11-01"
+    },
+    {
+      "path": "_sent/2026-11-01_1426_hud_as_two_rings_of_three_c186_the_flow_/hud_rings_zoom.png",
+      "text": "decent it reminds ufc6 too much though ?",
+      "at": "2026-11-01T12:29:20Z",
+      "seen_by_claude": true,
+      "id": "C193",
+      "addressed": "cited by 1c7d2e0 2026-11-01"
+    },
+    {
+      "id": "C194",
+      "path": "media:_sent/2026-11-01_1426_hud_as_two_rings_of_three_c186_the_flow_/hud_rings_scouted.png",
+      "text": "MARKUP: 1 marks -> Feedback/2026-11-01-06/README.md",
+      "at": "2026-11-01T12:29:41Z",
+      "seen_by_claude": true,
+      "addressed": "cited by 1c7d2e0 2026-11-01"
+    },
+    {
+      "id": "C195",
+      "path": "media:_sent/2026-11-01_1426_hud_as_two_rings_of_three_c186_the_flow_/hud_rings_scouted.png",
+      "text": "MARKUP: 1 marks -> Feedback/2026-11-01-07/README.md",
+      "at": "2026-11-01T12:29:42Z",
+      "seen_by_claude": true,
+      "addressed": "cited by 1c7d2e0 2026-11-01"
+    },
+    {
+      "path": "_sent/2026-11-01_1353_move_player_each_punch_at_its_contact_gp/moveplayer_contacts.png",
+      "text": "needs to see video of it",
+      "at": "2026-11-01T12:40:06Z",
+      "seen_by_claude": true,
+      "id": "C196"
+    },
+    {
+      "path": "_sent/2026-11-01_0937_update_41_the_coach_s_plan_her_board_the/p05_corner_card.png",
+      "text": "doesnt look good , needs a lof of refining",
+      "at": "2026-11-01T12:40:38Z",
+      "seen_by_claude": true,
+      "id": "C197",
+      "addressed": "cited by dd68c1dc 2026-11-01"
+    },
+    {
+      "path": "_sent/2026-11-01_1446_ground_moves_now_the_s342_re_film_grips_/our_grapple_chain.mp4",
+      "text": "looks fine ,needs speed up for a fight , butt looks good for training clip",
+      "at": "2026-11-01T13:22:45Z",
+      "seen_by_claude": true,
+      "id": "C198"
+    },
+    {
+      "path": "_sent/2026-11-01_1515_lighter_hud_in_our_colours_clay_body_vie/hud_light.png",
+      "text": "still not great , the holo need to link to tooltips when mouse over head or liver to show stats like damage taken etc",
+      "at": "2026-11-01T13:24:33Z",
+      "seen_by_claude": true,
+      "id": "C199",
+      "addressed": "cited by 32d8dd3 2026-11-01"
+    },
+    {
+      "path": "_sent/2026-11-01_1515_lighter_hud_in_our_colours_clay_body_vie/hud_light_round1.png",
+      "text": "the right holo has nothing to do with the actual fighter wtf",
+      "at": "2026-11-01T13:25:34Z",
+      "seen_by_claude": true,
+      "id": "C200",
+      "addressed": "cited by 32d8dd3 2026-11-01"
+    },
+    {
+      "path": "_sent/2026-11-01_1426_hud_as_two_rings_of_three_c186_the_flow_/flow_game_plan.png",
+      "text": "also make it look like a game, give the players a list with optional moves etc to try things like combos",
+      "at": "2026-11-01T13:45:22Z",
+      "seen_by_claude": true,
+      "id": "C201",
+      "addressed": "cited by d64eb8a 2026-11-01"
+    },
+    {
+      "id": "C202",
+      "path": "media:_sent/2026-11-02_0143_the_muscle_holo_in_the_game_bought_ecorc/holo_fight_panel.png",
+      "text": "MARKUP: 2 marks -> Feedback/2026-11-02-01/README.md",
+      "at": "2026-11-01T23:51:25Z",
+      "seen_by_claude": true,
+      "addressed": "cited by 1971c3c 2026-11-02"
+    },
+    {
+      "path": "_sent/2026-11-02_0143_the_muscle_holo_in_the_game_bought_ecorc/holo_tired_and_hurt.png",
+      "text": "nice",
+      "at": "2026-11-01T23:52:06Z",
+      "seen_by_claude": true,
+      "id": "C203"
+    },
+    {
+      "path": "_sent/2026-11-02_0143_the_muscle_holo_in_the_game_bought_ecorc/holo_training_board.png",
+      "text": "this should be like a sub tab in the players profile , to see an an overview of the training",
+      "at": "2026-11-01T23:53:10Z",
+      "seen_by_claude": true,
+      "id": "C204",
+      "addressed": "cited by 1971c3c 2026-11-02"
+    },
+    {
+      "id": "C205",
+      "path": "media:_sent/2026-11-02_0143_the_muscle_holo_in_the_game_bought_ecorc/holo_corner_card.png",
+      "text": "MARKUP: 1 marks -> Feedback/2026-11-02-02/README.md",
+      "at": "2026-11-01T23:54:45Z",
+      "seen_by_claude": true,
+      "addressed": "cited by 1971c3c 2026-11-02"
+    },
+    {
+      "id": "C206",
+      "path": "media:_sent/2026-11-02_0143_mockups_gym_training_week_bjj_belt_road/bjj_belt_road_mockup.png",
+      "text": "MARKUP: 1 marks -> Feedback/2026-11-02-03/README.md",
+      "at": "2026-11-01T23:57:28Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C207",
+      "path": "media:_sent/2026-11-02_0143_mockups_gym_training_week_bjj_belt_road/bjj_belt_road_mockup.png",
+      "text": "MARKUP: 1 marks -> Feedback/2026-11-02-04/README.md",
+      "at": "2026-11-02T00:01:37Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C208",
+      "path": "AgentComms/board_attach/Q-S294-78_0_S354_week.png",
+      "text": "MARKUP for Q-S294-78: 1 marks -> Feedback/2026-11-02-05/README.md",
+      "at": "2026-11-02T00:45:37Z",
+      "seen_by_claude": true,
+      "addressed": "cited by 1918d74 2026-11-02"
+    },
+    {
+      "id": "C209",
+      "path": "AgentComms/board_attach/Q-S294-78_1_S354_beltroad.png",
+      "text": "MARKUP for Q-S294-78: 1 marks -> Feedback/2026-11-02-06/README.md",
+      "at": "2026-11-02T00:47:09Z",
+      "seen_by_claude": true,
+      "addressed": "cited by 1918d74 2026-11-02"
+    },
+    {
+      "id": "C210",
+      "path": "AgentComms/board_attach/Q-S294-79_0_S354_core_loop.png",
+      "text": "MARKUP for Q-S294-79: 1 marks -> Feedback/2026-11-02-07/README.md",
+      "at": "2026-11-02T00:56:37Z",
+      "seen_by_claude": true,
+      "addressed": "cited by a216706 2026-11-02"
+    },
+    {
+      "id": "C211",
+      "path": "AgentComms/board_attach/Q-S294-79_0_S354_core_loop.png",
+      "text": "MARKUP for Q-S294-79: 1 marks -> Feedback/2026-11-02-08/README.md",
+      "at": "2026-11-02T00:57:06Z",
+      "seen_by_claude": true,
+      "addressed": "cited by a216706 2026-11-02"
+    },
+    {
+      "id": "C212",
+      "path": "AgentComms/board_attach/Q-S294-79_0_S354_core_loop.png",
+      "text": "MARKUP for Q-S294-79: 1 marks -> Feedback/2026-11-02-09/README.md",
+      "at": "2026-11-02T00:57:59Z",
+      "seen_by_claude": true,
+      "addressed": "cited by a216706 2026-11-02"
+    },
+    {
+      "id": "C213",
+      "path": "AgentComms/board_attach/Q-S294-79_0_S354_core_loop.png",
+      "text": "MARKUP for Q-S294-79: 1 marks -> Feedback/2026-11-02-10/README.md",
+      "at": "2026-11-02T01:03:58Z",
+      "seen_by_claude": true,
+      "addressed": "cited by a216706 2026-11-02"
+    },
+    {
+      "id": "C214",
+      "path": "AgentComms/board_attach/Q-S294-78_1_S354_beltroad.png",
+      "text": "MARKUP for Q-S294-78: 1 marks -> Feedback/2026-11-02-11/README.md",
+      "at": "2026-11-02T02:55:27Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C215",
+      "path": "AgentComms/board_attach/Q-S294-78_1_S354_beltroad.png",
+      "text": "MARKUP for Q-S294-78: 1 marks -> Feedback/2026-11-02-12/README.md",
+      "at": "2026-11-02T02:55:28Z",
+      "seen_by_claude": true
+    }
+  ]
+}

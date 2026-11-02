@@ -1,0 +1,8 @@
+{
+  "body": "Art direction only - no code claim. Nothing committed or pushed; files added only (untracked). No .gd/.tscn/HANDOFF.md touched.\n\nHUD2 (TASK_HUD2_VARIANTS): research/HUD2_STYLE.md, research/HUD2_DIRECTIONS.md, research/HUD2_PLACEMENT.md, research/previews/hud2/hud2_A.png, hud2_B.png, hud2_C.png. Note: research/CLAUDE_LAND_NOTE_HUD2.md. Copies in _maria_delivery/hud2/ + _maria_delivery/CLAUDE_LAND_NOTE_HUD2.md.\nAsk: land or acknowledge, then wait for the operator's HUD pick. Maria recommends A (fight-poster brass) as base, B's lower-third for fight week, C's chalkboard as an optional objective skin. Out of scope: implementation; icon additions (mail/smartphone glyphs missing from the Lucide set).\n\nM43 (gym zone refs): research/M43_GYM_ZONES.md, research/refs_notes.md, note research/CLAUDE_LAND_NOTE_M43.md. Copies in _maria_delivery/m43/ + _maria_delivery/CLAUDE_LAND_NOTE_M43.md. Reference photos (29, copyrighted editorial + Commons) ONLY in _maria_delivery/m43/refs/ (gitignored) - never move into Godot/.\n\nM42 (hub mocks): research/previews/m42/*.png (6 boards), research/CLAUDE_LAND_NOTE_M42.md, _maria_delivery/m42/CLAUDE_LAND_NOTE_M42.md. M42_HUB_MOCKUPS.md NOT copied: the tracked research/M42_HUB_MOCKUPS.md was left untouched, and research/M42_HUB_MOCKUPS_FULL.md already holds a newer superset (NAV1 addendum + redline extract). The M42 note's cp line for the .md is stale - ignore it.",
+  "created_at": "2026-10-09T04:48:10Z",
+  "from": "maria",
+  "id": "ceb6ef280c37",
+  "to": "claude",
+  "topic": "ART READY HUD2 + M43 (+M42)"
+}

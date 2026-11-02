@@ -1,0 +1,247 @@
+FIGHTCAMP — GYM EXPANSION & CAPACITY ARCHITECTURE (ROUND 45)
+
+Role: Lead Game Designer
+
+Scope: T1 Hall (30.0m × 18.0m), Progression to T2/T3, Equipment Slot Systems, Catalog Rationalisation, Crowd Flow, and Placement UI.
+
+Simulation Baseline: Deep Management Sim (FM / Motorsport Manager class) — Zero freeform clutter, zero invisible phantom equipment, strict spatial truth.
+
+SECTION A: THE AUTHORED SLOT MODEL
+1. Architectural Ruling: Freeform Grid vs. Authored Slots
+
+Freeform tile grids are rejected. In a high-angle 3D simulation with dynamic MetaHuman pathfinding, freeform placement leads to broken navmeshes, clipping fighters, blocked ring aprons, and an amateurish, unreadable mess.
+
+The Solution: An Authored Slot System (GymSlot3D).
+
+Every zone has a pre-determined, architecturally certified set of mounting points and floor footprints.
+Each slot possesses an explicit 3D transform, navmesh boundary, clearance radius, and category filter (e.g., HEAVY_BAG_HOOK, CARDIO_STATION, STRENGTH_CELL).
+When an item is purchased, it instantiates directly into an assigned slot. No invisible abstract math: if it is simulated, it exists physically on the floor.
+2. The Visual Representation of Empty Slots
+
+An empty slot must never look like an untextured grey box or a broken CAD wireframe. The gym must look complete and functional even on day one:
+
+Ceiling & Wall Bag Lines (HEAVY_BAG_HOOK):
+Empty State: A high-detail, powder-coated steel eye-bolt welded to the overhead I-beam with a heavy industrial swivel shackle hanging downward. No dangling empty chains (which look messy). Just a clean, structural hook awaiting equipment.
+Floor Stations (Cardio, Strength, Stretch, Footwork):
+Empty State: Seamless rubber or maple flooring marked only by subtle, clean station demarcations—a thin, recessed brass floor trim or a semi-gloss painted floor number (e.g., small stencil "03" in #64748B at the back-left corner of the footprint).
+From the high three-quarter camera, an empty slot simply looks like clean, open, well-maintained floor space. It does not read as a missing asset.
+Shop / Build Mode Overlay:
+When the player opens the Facility / Equipment panel, Godot displays a screen-space projection overlay:
+Empty valid slots project an unshaded cyan boundary footprint (rect or projected circle) pulsating subtly (alpha 0.25 -> 0.45 at 1.0 Hz) with an overhead floating glyph icon.
+Occupied slots show a muted slate border.
+Invalid slots are invisible.
+       [CEILING BEAM: Y = 3.5m]
+            |             |
+      [EMPTY SHACKLE]  [HEAVY BAG INSTANTIATED]
+         (Eye-bolt)     (4-strand chain + leather bag)
+            |                     |
+     [EMPTY FLOOR RUNNER]   [FIGHTER STRIKING BAG]
+      (Clear dark rubber)    (Footwork navmesh clear)
+
+3. Slot Capacity, Replacement, and Upgrades
+When a Zone is Full:
+The catalog UI grays out the "Purchase" button for items targeting that zone and displays an explicit management blocker: "ZONE CAPACITY REACHED (CARDIO: 4/4) — Upgrade to Commercial Facility (Tier 2) or Replace Existing Station."
+Hot-Swapping / Replacement:
+The player can click an occupied slot and select "REPLACE".
+The existing item is liquidated (refund value = Base Cost * (Condition / 100) * 0.50), and the new item drops into the exact same slot transform.
+Re-assignment Within a Zone:
+Slots within the same zone share universal dimensional footprints. For example, any slot in the Cardio Zone (2.0m × 1.0m + 0.6m clearance) can house a Treadmill, an Exercise Bike, a Rowing Ergometer, or an Air Bike. The player can move items between compatible empty slots within the zone without incurring financial penalties.
+SECTION B: SLOTS PER ZONE PER TIER (GEOMETRIC & STATISTICAL AUDIT)
+
+All slot dimensions and clearances are verified against the physical bounding boxes from the official floor plan facts.
+
++-------------------------------------------------------------------------------------------------------------------------+
+| ZONE IDENTIFIER       | BOUNDS (METRES) [X0, Z0, X1, Z1] | T1 TOTAL SLOTS | T1 START FILLED | T2 SLOTS | T3 SLOTS       |
++-------------------------------------------------------------------------------------------------------------------------+
+| `bag_line_west`       | [0.0,  0.0, 11.4,  2.7]         | 5 Hooks        | 4 Bags          | 8 Hooks  | 14 Hooks       |
+| `bag_line_east`       | [22.1, 0.0, 30.0,  2.7]         | 3 Hooks        | 0 Bags (Empty)  | 6 Hooks  | 10 Hooks       |
+| `bag_wall_east`       | [27.3, 3.5, 30.4, 10.4]         | 3 Hooks        | 0 Bags (Empty)  | 5 Hooks  | 8 Hooks        |
+| `boxing_floor`        | [0.0,  3.5, 11.6, 10.4]         | OPEN FLOOR     | 1 Mitt, 1 Slip  | +Spacious| Multi-Ring/Matted|
+| `cardio`              | [22.1, 3.5, 27.2, 10.4]         | 4 Stations     | 2 (Tread., Bike)| 8 Stat.  | 14 Stations    |
+| `timing`              | [0.0, 11.6,  6.6, 16.4]         | 4 Mounts       | 2 Speed Bags    | 6 Mounts | 10 Mounts      |
+| `footwork`            | [6.8, 11.6, 13.8, 16.4]         | 2 Turf Lanes   | 1 Agility Ladder| 4 Lanes  | 6 Lanes        |
+| `stretch`             | [14.0, 11.6, 17.8, 16.4]        | 3 Mat Cells    | 2 Mats          | 6 Cells  | 10 Cells       |
+| `strength`            | [18.0, 11.6, 30.0, 16.4]        | 5 Platforms    | 3 (Rack,Plat,Wt)| 8 Plat.  | 14 Platforms   |
+| `ring` (back centre)  | [12.7, 1.2, 21.1,  9.6]         | 1 Ring (18ft)  | 1 Ring (Active) | 1 (+Spar)| 2 Rings        |
++-------------------------------------------------------------------------------------------------------------------------+
+| TOTAL ACTIVE STATIONS |                                 | 27 Capacity    | 16 Placed       | 48 Stat. | 88 Stations    |
+| SIMULTANEOUS FIGHTERS |                                 | 20 Max Load    | 12 Start Load   | 36 Load  | 64 Max Load    |
++-------------------------------------------------------------------------------------------------------------------------+
+
+Geometric Validation Proof
+West Heavy Bag Beam (X: 2.9 to 10.6m, Length = 7.7m):
+Real-world spacing rule: 1.8m to 2.0m between heavy bag centers to prevent clash during full extension.
+Math: 7.7m / 1.8m = 4.27.
+T1 Allocation: Exactly 4 hanging bags at start (spaced at X = 3.5m, 5.4m, 7.3m, 9.2m), with 1 extra expansion hook on the wall offset (5 total).
+East Bag Line + Wall Beam (Length = 6.0m + 6.9m):
+T1 Allocation: 3 overhead beam hooks on the north-east run; 3 wall-mounted bracket hooks on the far east wall. Starting gym leaves these empty to avoid overwhelming early operating budgets.
+Cardio Zone (Width = 5.1m, Depth = 6.9m):
+Station footprint: 2.0m × 1.0m per machine + 0.6m walking gap.
+2 rows of 2 machines = 4 machines total.
+Footprint consumes 4.6m × 2.6m, leaving a wide 1.5m perimeter walk aisle to the ring apron.
+Strength Zone (Width = 12.0m, Depth = 4.8m):
+Power racks and Olympic lifting platforms require 2.5m × 2.5m minimum (including barbell whip and drop zone) + 1.2m walkway.
+Math: Along 12.0m, 4 large platforms consume 4 × 2.5m = 10.0m + 2.0m total clearance.
+T1 Allocation: 1 Power Rack, 1 Olympic Deadlift Platform, 1 Compact Dumbbell Run, 2 empty future cells (e.g., Cable Cross / Incline Bench).
+Open Boxing Floor (11.6m × 6.9m = 80.0 m²):
+Deliberately kept free of fixed machinery. Holds 1 dedicated coach focus-mitt dynamic node, 1 slip rope station, and open shadow-boxing space for up to 4 unassigned boxers.
+SECTION C: THE RATIONALISED CATALOG (BOXING TIERED PROGRESSION)
+
+The raw engine catalog of ~90 mixed items is rationalized into an authentic boxing-specific progression. Strength machines are streamlined from 50 redundant variations into essential athletic compound gear.
+
++-------------------------------------------------------------------------------------------------------------------------+
+| ITEM NAME                 | CAT. | TIER | COST   | UPKEEP/WK | TRAINS / STAT GAIN          | BUSINESS / DRILL IMPACT    |
++-------------------------------------------------------------------------------------------------------------------------+
+| Classic Leather Heavy Bag | BAGS | T1   | $650   | $15       | power (+0.4), technique (+0.2)| Core punch volume station  |
+| Teardrop Heavy Bag        | BAGS | T1   | $720   | $18       | hooks_bodywork, power (+0.3) | Hooks/uppercuts drill node |
+| Angle Body Snatcher Bag   | BAGS | T2   | $950   | $22       | boxing_liver_combo, power   | Body-punching mastery rate |
+| Hydro Water Bag (Aqua)    | BAGS | T2   | $1,100 | $25       | power (+0.5), Joint Wear -30%| Lowers arm/wrist wear rate |
+| Wall-Mount Uppercut Block | BAGS | T1   | $580   | $12       | inside_uppercut, technique  | Compact wall mount footprint|
+| Speed Bag Platform        | TIM  | T1   | $420   | $10       | speed (+0.4), rhythm (+0.3)  | Hand-eye coordination      |
+| Double-End Bag (Floor-Ceil)|TIM  | T1   | $380   | $12       | fight_iq (+0.3), defense (+0.3)| Timing, slip-counter reads |
+| Precision Reflex Ball     | TIM  | T2   | $850   | $20       | defense (+0.5), speed (+0.3) | Advanced head movement node|
+| Commercial Treadmill      | CARD | T1   | $2,400 | $45       | conditioning (+0.4)         | Aerobic base conditioning  |
+| Curved Manual Slat Mill   | CARD | T2   | $4,800 | $60       | conditioning (+0.6), STAMINA| Zero motor wear; sprint HIIT|
+| Air Bike (Dual-Action)    | CARD | T1   | $1,250 | $28       | conditioning (+0.5), TORSO  | Full-body fatigue resistance|
+| Concept2 Rowing Ergometer | CARD | T1   | $1,400 | $30       | conditioning (+0.4), power  | Posterior chain aerobic work|
+| SkiErg Platform           | CARD | T2   | $1,650 | $35       | conditioning (+0.4), L-Arm/R| Tricep/core punching endurance|
+| Stair Climber (Endless)   | CARD | T2   | $3,800 | $75       | conditioning (+0.5), Legs   | Lower-body lactic tolerance |
+| Agility Ladder Turf Lane  | FOOT | T1   | $350   | $8        | footwork (+0.5), speed (+0.2)| Foundation pivot / circle   |
+| Plyometric Hurdle / Box Run|FOOT | T1   | $620   | $12       | footwork (+0.4), power (+0.3)| Explosive angle-stepping    |
+| Reaction Light Pods (Floor)|FOOT | T2   | $1,800 | $40       | footwork (+0.6), fight_iq    | Visual cognitive reaction   |
+| Heavy Rubber Stretch Mat  | STRT | T1   | $180   | $5        | Recovery Rate +15%           | Reduces muscle stiffness    |
+| Multi-Station Stretch Cage| STRT | T2   | $1,400 | $25       | Recovery Rate +35%, Wear -20%| Full-body traction / fascia |
+| Foam Roller / Band Caddy  | STRT | T1   | $290   | $8        | Localised Wear Deload +10%   | Reduces post-spar strain    |
+| Half-Rack w/ Pull-up Bar  | STRE | T1   | $1,800 | $30       | power (+0.4), TORSO, ARMS    | Compound overhead/squat base|
+| Olympic Deadlift Platform | STRE | T1   | $2,200 | $35       | power (+0.6), LEGS, CORE     | Ground force production     |
+| Commercial Dumbbell Saddle| STRE | T1   | $2,800 | $25       | power (+0.3), technique      | Rotational/shoulder presses |
+| Dual Adjustable Pulley    | STRE | T2   | $4,500 | $65       | technique (+0.4), power      | Sport-specific punch cable  |
+| Glute-Ham Developer (GHD) | STRE | T2   | $1,200 | $20       | CORE, LEGS, CHIN (+0.2)      | Posterior chain whip power  |
+| Trap Bar (Hex) Station    | STRE | T1   | $850   | $15       | power (+0.5), Low Back Wear- | Safe heavy overload lifting |
++-------------------------------------------------------------------------------------------------------------------------+
+
+Merged and Cut Items (Cleaning the Engine)
+Cut (40+ Commercial Gym Machines): Pec Deck, Preacher Curl Bench, Leg Extension/Curl Pin-Loaded, Seated Calf Machine, Smith Machine, Hack Squat, Ab Crunch Machine, Incline/Decline isolated benches.
+Design Reason: Real combat sports gyms do not waste floor space on bodybuilder isolation machines. Boxers lift free weights, cables, and barbells.
+Merged (10 Bench Types -> 2 Universal Benches):
+All flat, incline, and decline utility benches are merged into one asset: Commercial Adjustable Utility Bench (Flat to 90° incline).
+Reserved for Tier 2/Tier 3 & MMA Expansion:
+MMA Expansion: Judo Tatami Mats, Grappling Dummy Cages, Octagon Ring Platform.
+Tier 2/3 Medical: Cryotherapy Chamber ($18,000), Hydropool Rehab Suite ($28,000), Full Sports Medicine Physician Office.
+SECTION D: WHY BUY — SIMULATION MECHANICS, BOTTLENECK LOOPS & DIMINISHING RETURNS
+
+Equipment purchases serve two coupled simulation systems: The Professional Roster (Camp Performance) and The Commercial Membership (Gym Revenue & Cashflow).
+
+       [DAILY TIME SCHEDULE: 17:00 PEAK GENERAL MEMBER ARRIVAL]
+                                  |
+              +-------------------+-------------------+
+              |                                       |
+    [ENOUGH CARDIO STATIONS]                [CARDIO BOTTLENECK]
+              |                                       |
+    - Members train on time                 - Members queue at station
+    - Satisfaction remains 100%             - Frustration rises (+25%/day)
+    - Monthly membership retained           - Member churn (+12%/month)
+    - Pro fighter training uninterrupted   - Pro fighter kicked out to wait
+
+1. The Commercial Membership Bottleneck Loop
+In FightCamp, general paying members (the 60 members in T1) provide stable monthly cash flow to pay coach salaries and gym rent.
+Members follow an authentic hourly arrival curve. Peak demand occurs at 07:00–09:00 and 17:00–20:00.
+The Queueing Formula: $$\text{Station Demand} = \frac{\text{Active Members at Hour } t \times \text{Cardio Preference Pct}}{\text{Operational Cardio Stations}}$$
+If $\text{Station Demand} > 1.0$, a visible physical queue forms.
+Members wait up to 20 in-game minutes.
+If a station is not open, the member leaves without working out, causing satisfaction -= 2.5 and gym_reputation -= 0.1.
+Chronic queueing over 14 days causes members to cancel contracts, directly degrading recurring revenue.
+2. Pro Fighter Skill Development & Training Velocity
+A single heavy bag can only train one boxer at a time.
+If an assigned coach schedules a morning drill for Leo Vance (boxing_one_two_hook at a Heavy Bag), but all 4 bags are occupied by general members or stablemates, Leo suffers a Drill Interruption:
+Training efficiency drops by 45%.
+Camp progression stalls.
+Frustration and stress increase: {boxer.stress} += 4.
+Buying an extra bag guarantees station availability, allowing simultaneous drills without compromise.
+3. Equipment Specialization & Injury Wear Mitigation
+Standard heavy bags impart high impact shock to the metacarpals and wrists (right_arm / left_arm wear increases by 0.35% per round).
+Buying advanced equipment, such as Hydro Water Bags, absorbs kinetic shock while retaining power output:
+Arm wear drops from 0.35% to 0.22% per drill.
+Boxers can log 30% more training rounds per week before entering dangerous wear thresholds.
+4. Mathematical Diminishing Returns (Anti-Spam Rules)
+
+To prevent players from building 10 treadmills to hyper-inflate conditioning gains:
+$$\text{Attribute Gain Multiplier} = 1.0 + \sum_{k=1}^{N} \frac{\text{BaseBonus}_k}{\sqrt{k}}$$
+
+Station 1: 100% full efficiency.
+Station 2: 70.7% marginal efficiency.
+Station 3: 57.7% marginal efficiency.
+Station 4+: Reaches a hard ceiling for pro training gains. Further units serve exclusively as commercial queue throughput to sustain higher membership caps, while still accruing full maintenance costs.
+SECTION E: THE SHOP & PLACEMENT UI SPECIFICATION
+
+The shop uses a dedicated, non-modal management interface. It does not pause the world into a casual storefront. It switches the high camera into an authoritative Architectural Facilities Mode.
+
+0,0                                                                                                            1920,0
++-------------------------------------------------------------------------------------------------------------------+
+| 1. FACILITY HEADER STRIP: rect(16, 16, 1888, 54)                                                                   |
+| [FACILITY MANAGEMENT] | TIER 1 CLUB (540 m²) | STATIONS: 16/27 | MEMBERS: 52/60 | FUNDS: ${gym.balance}           |
++-------------------------------------------------------------------------------------------------------------------+
+| 2. CATALOG DRAWER (LEFT DOCK)        | 3. 3D GYM FLOOR VIEWPORT (INTERACTIVE PLACEMENT RAYCAST)                    |
+| rect(16, 78, 440, 986)               | rect(472, 78, 1432, 986)                                                    |
+|                                      |                                                                            |
+| [CATEGORIES: ALL | BAGS | CARDIO ...] | [ACTIVE CAMERA VIEW: 3D SLOTS HIGHLIGHTED IN REALTIME]                     |
+| ------------------------------------ |                                                                            |
+| ITEM CARD: SELECTED                  |  Empty Beam Hook #5: [CYAN PULSE PIN: rect(x, y, w, h)]                    |
+| Hydro Water Bag                      |  Occupied Bag #1:    [MUTED SLATE RING]                                    |
+| Cost: $1,100 | Upkeep: $25/wk        |                                                                            |
+| Trains: power (+0.5), hooks          |  Placement Ghost:                                                          |
+| Special: Joint Wear -30%             |  Semi-transparent green PBR silhouette tracks cursor over valid slots.    |
+| Target: bag_line_west / east         |                                                                            |
+|                                      |                                                                            |
+| [PURCHASE & ASSIGN TO SLOT]          |                                                                            |
+| rect(32, 420, 408, 48)               |                                                                            |
+|                                      |                                                                            |
+| ------------------------------------ |                                                                            |
+| SELECTED SLOT INSPECTOR (IF CLICKED) |                                                                            |
+| Slot: East Beam Hook #02             |                                                                            |
+| Current: [EMPTY]                     |                                                                            |
+| Capacity: 1 Heavy Bag Asset          |                                                                            |
++-------------------------------------------------------------------------------------------------------------------+
+
+Operational Interaction Loop
+Selection:
+The player selects an item in the Catalog Drawer (e.g., Hydro Water Bag).
+The camera glides subtly toward the compatible zones (bag_line_west and bag_line_east).
+Visual Affordance (Godot 3D Shader):
+Incompatible zones fade slightly via an unshaded darkening pass (CanvasItem dark tint alpha 0.3).
+Compatible empty slots light up with an animated Cyan Target Ring projected onto the floor or overhead beam.
+Ghost Hover:
+Moving the mouse across the floor snaps a semi-transparent ghost mesh of the equipment to the nearest valid slot within a 1.5m cursor radius.
+Placement Confirmation:
+Left-clicking a valid slot completes the purchase:
+Deducts {item.cost} from gym funds.
+Spawns the physical PBR asset via GymSlot3D.mount_item(item_id).
+Automatically updates the Godot NavigationRegion3D.
+Displays an authoritative mechanical audio click (industrial steel bolt sound).
+Item Context Menu (Existing Equipment):
+Clicking any placed equipment on the floor opens a compact in-world radial dock:
+[INSPECT / CONDITION]: Shows durability (92/100), accumulated training hours, and active user.
+[MAINTAIN / SERVICE]: Costs $80, restores durability to 100%, and prevents equipment breakdown.
+[RELOCATE]: Picks up the item to move it to any other compatible empty slot.
+[LIQUIDATE / SELL]: Immediately sells the item for scrap/resale value.
+SECTION F: THE TRAPS (AVOIDING PACKED, UGLY & UNREADABLE GYMS)
+1. What Makes an Expanded Gym Look Cluttered or "Asset-Flippy"
+Trap 1: Placing Bags Mid-Floor on Free-Standing Tripod Racks.
+Why it fails: In real gyms, free-standing bag stands are flimsy consumer products. Professional gyms hang bags exclusively from structural ceiling beams or heavy perimeter wall tracks. Mid-floor stands block line-of-sight and look cheap.
+The Rule: Every bag must hang from an overhead structural beam. Keep the center floor open.
+Trap 2: Ignoring Natural Movement Aisles.
+Why it fails: Packing equipment wall-to-wall without 1.2m–1.5m clearance aisles makes the space look like a warehouse junkyard and causes character models to slide or clip through meshes.
+The Rule: Respect permanent clearance corridors between all stations. The ring apron perimeter must remain strictly unobstructed on all four sides.
+Trap 3: Inconsistent Asset Scaling and Material Finishes.
+Why it fails: Mixing random 3D assets leads to mismatched proportions—a giant treadmill next to a tiny power rack—and clashing art styles (e.g., weathered, rusted benches mixed with glossy modern machines).
+The Rule: Enforce unified real-world dimensions and strict material guidelines: all gym metal frames must use industrial black powder-coat (#1E293B, Roughness 0.30, Metallic 0.75).
+2. What Breaks Visual Readability from the High Management Camera
+Trap 4: Tall Equipment Obscuring Short Stations.
+Why it fails: Placing a tall cable crossover (2.4m high) or power rack in front of a flat stretch mat blocks the player's view of fighters using the floor mat.
+The Rule: Height-to-Front Layout Hierarchy:
+Deepest/Tallest items (heavy bag racks, power cages, cable columns) go along the perimeter walls.
+Medium-height items (treadmills, rowers, benches) sit in mid-depth bands.
+Low-profile items (stretch mats, agility ladders, open canvas) remain closest to the front cutaway wall.
+Trap 5: Visual Saturation Overload.
+Why it fails: If every newly purchased machine introduces a unique, bright neon hue, the gym floor turns into visual noise, breaking zone readability.
+The Rule: Machinery must use neutral, industrial colorways (charcoal steel, black vinyl, brushed aluminum). Zone identity comes strictly from the floor mat base color, preserving clear 1-second zone recognition from above.

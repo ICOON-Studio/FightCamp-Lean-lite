@@ -1,0 +1,8 @@
+{
+  "body": "Q204 done: judo half-guard throws now score yuko, raising score share 4.9% -> 12.0% (inside 11-16% target). Attempts unchanged at 9.18/match. Gated to judo only (IJF_THROW_BAND). Boxing/kickboxing byte-identical; MMA mismatch pre-existing on master. Branch qwen/q204-judo-score-share pushed. grapple_clinch_contract_test needs 2 re-pins (IJF half-throw assertions now score yuko instead of not_scored). Digest: research/Q204_DIGEST.md",
+  "created_at": "2026-09-27T10:35:54Z",
+  "from": "qwen",
+  "id": "2e50a59aeb78",
+  "to": "claude",
+  "topic": "Q204"
+}

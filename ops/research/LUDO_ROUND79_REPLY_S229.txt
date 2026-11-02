@@ -1,0 +1,713 @@
+Here is the complete implementation wiring all 13 dead rows to the deep management simulation, with full pure-function logic, UI/state integration in GymClub3D, unit test suite, and the playtest script.
+
+1. FloorActions.gd
+# FloorActions.gd
+# Pure data resolution for gym floor interactions. Zero scene/engine dependencies.
+class_name FloorActions
+extends RefCounted
+
+const UPGRADE_COSTS: Dictionary = {
+	1: 350,   # Level 1 -> 2: local amateur tier, entry-level commercial gear ($350)
+	2: 950    # Level 2 -> 3: professional grade, competition standard gear ($950)
+}
+
+const TALK_COACH_BONUS_COST: int = 150 # $150 signing/loyalty sweetener for contract morale
+
+static func resolve(kind: String, action_id: String, ctx: Dictionary) -> Dictionary:
+	var f: Dictionary = ctx.get("fighter", {})
+	var c: Dictionary = ctx.get("coach", {})
+	var s: Dictionary = ctx.get("station", {})
+	var v: Dictionary = ctx.get("visitor", {})
+	var money: int = ctx.get("money", 0)
+	var rng: float = ctx.get("rng", 0.5)
+
+	match kind:
+		"fighter":
+			match action_id:
+				"talk":
+					return _resolve_fighter_talk(f, rng)
+
+		"coach":
+			match action_id:
+				"drill_focus":
+					return _resolve_coach_drill_focus(c)
+				"send_to_station":
+					return _resolve_coach_send_to_station(c, s)
+				"week_hours":
+					return _resolve_coach_week_hours(c)
+				"talk_contract":
+					return _resolve_coach_talk_contract(c, money)
+
+		"station":
+			match action_id:
+				"queue_next":
+					return _resolve_station_queue_next(f, s)
+				"what_it_trains":
+					return _resolve_station_what_it_trains(s)
+				"upgrade":
+					return _resolve_station_upgrade(s, money)
+
+		"office_window":
+			match action_id:
+				"upgrades":
+					return _resolve_office_upgrades()
+
+		"walk_in":
+			match action_id:
+				"greet":
+					return _resolve_walk_in_greet(v)
+				"trial_session":
+					return _resolve_walk_in_trial(v, s)
+				"come_back_later":
+					return _resolve_walk_in_later(v)
+				"send_away":
+					return _resolve_walk_in_send_away(v)
+
+	return {
+		"ok": false,
+		"reason": "Unknown action %s for target %s" % [action_id, kind],
+		"toast": "Action not recognized.",
+		"effects": []
+	}
+
+
+# --- FIGHTER ACTIONS ---
+
+static func _resolve_fighter_talk(f: Dictionary, rng: float) -> Dictionary:
+	if f.is_empty():
+		return {"ok": false, "reason": "No active fighter on floor.", "toast": "No fighter selected.", "effects": []}
+	
+	var fatigue: int = int(f.get("fatigue", 0))
+	var trust: int = int(f.get("trust_coach", 50))
+	var name: String = f.get("name", "Fighter")
+
+	# Real gym dynamic: check in on tired fighters. High fatigue = coach notice gives comfort (+trust, +morale).
+	# Low fatigue + over-talking = minor annoyance or steady encouragement.
+	if fatigue > 70:
+		# Grinding through extreme fatigue: coach validation matters deeply.
+		return {
+			"ok": true,
+			"reason": "",
+			"toast": "%s sighs: 'Body hurts, coach, but I'm locked in.'" % name,
+			"effects": [
+				{"type": "morale", "delta": 4, "target_id": f.get("id", "")},
+				{"type": "trust", "delta": 3, "target_id": f.get("id", "")}
+			]
+		}
+	elif trust < 30:
+		# Low trust: coach reaches out, breaking initial friction.
+		return {
+			"ok": true,
+			"reason": "",
+			"toast": "%s listens tensely: 'Show me the plan works, coach.'" % name,
+			"effects": [
+				{"type": "trust", "delta": 4, "target_id": f.get("id", "")}
+			]
+		}
+	else:
+		# Routine check-in: gives small focus/morale boost.
+		var boost: int = 2 if rng > 0.3 else 1
+		return {
+			"ok": true,
+			"reason": "",
+			"toast": "%s nods: 'Ready for whatever station is next.'" % name,
+			"effects": [
+				{"type": "morale", "delta": boost, "target_id": f.get("id", "")}
+			]
+		}
+
+
+# --- COACH ACTIONS ---
+
+static func _resolve_coach_drill_focus(c: Dictionary) -> Dictionary:
+	if c.is_empty():
+		return {"ok": false, "reason": "No active coach assigned.", "toast": "No coach selected.", "effects": []}
+
+	# Cycles focus: balanced (all stations standard) -> technique (+15% card drill xp, -10% physio) -> conditioning (+15% stamina burn/gains)
+	var current_focus: String = c.get("drill_focus", "balanced")
+	var next_focus: String = "technique"
+	var desc: String = "Focus shifted: Technique (faster move drills)."
+	if current_focus == "technique":
+		next_focus = "conditioning"
+		desc = "Focus shifted: Conditioning (engine & volume focus)."
+	elif current_focus == "conditioning":
+		next_focus = "balanced"
+		desc = "Focus shifted: Balanced (standard distribution)."
+
+	return {
+		"ok": true,
+		"reason": "",
+		"toast": "%s: %s" % [c.get("name", "Coach"), desc],
+		"effects": [
+			{"type": "coach_focus", "focus": next_focus, "target_id": c.get("id", "")}
+		]
+	}
+
+static func _resolve_coach_send_to_station(c: Dictionary, s: Dictionary) -> Dictionary:
+	if c.is_empty():
+		return {"ok": false, "reason": "No active coach selected.", "toast": "No coach selected.", "effects": []}
+	var target_station: String = s.get("id", "")
+	if target_station.is_empty():
+		# Instructs player to select station on floor
+		return {
+			"ok": true,
+			"reason": "",
+			"toast": "Select station for %s to supervise." % c.get("name", "Coach"),
+			"effects": [
+				{"type": "open_panel", "route": "pick_station_for_coach", "payload": {"coach_id": c.get("id", "")}}
+			]
+		}
+
+	return {
+		"ok": true,
+		"reason": "",
+		"toast": "%s heading to %s." % [c.get("name", "Coach"), target_station.replace("_", " ")],
+		"effects": [
+			{"type": "send_coach", "station_id": target_station, "coach_id": c.get("id", "")}
+		]
+	}
+
+static func _resolve_coach_week_hours(c: Dictionary) -> Dictionary:
+	if c.is_empty():
+		return {"ok": false, "reason": "No active coach selected.", "toast": "No coach selected.", "effects": []}
+
+	# Standard camp load: 30h standard -> 45h crunch (risks friction/burnout) -> 20h recovery load
+	var current_hours: int = int(c.get("hours_per_week", 30))
+	var next_hours: int = 40
+	if current_hours == 30:
+		next_hours = 45
+	elif current_hours == 45:
+		next_hours = 20
+	else:
+		next_hours = 30
+
+	return {
+		"ok": true,
+		"reason": "",
+		"toast": "%s weekly hours set to %d hrs/wk." % [c.get("name", "Coach"), next_hours],
+		"effects": [
+			{"type": "coach_hours", "hours": next_hours, "target_id": c.get("id", "")}
+		]
+	}
+
+static func _resolve_coach_talk_contract(c: Dictionary, money: int) -> Dictionary:
+	if c.is_empty():
+		return {"ok": false, "reason": "No active coach selected.", "toast": "No coach selected.", "effects": []}
+
+	var weeks_left: int = int(c.get("contract_weeks_left", 4))
+	var wage: int = int(c.get("wage", 100))
+
+	# Player can sweeten contract when under 4 weeks to lock loyalty without renegotiation inflation
+	if weeks_left > 4:
+		return {
+			"ok": true,
+			"reason": "",
+			"toast": "%s: '%d weeks on contract. We are solid for now.'" % [c.get("name", "Coach"), weeks_left],
+			"effects": []
+		}
+
+	if money < TALK_COACH_BONUS_COST:
+		return {
+			"ok": false,
+			"reason": "Need $%d for contract extension deposit." % TALK_COACH_BONUS_COST,
+			"toast": "Insufficient gym funds ($%d needed)." % TALK_COACH_BONUS_COST,
+			"effects": []
+		}
+
+	return {
+		"ok": true,
+		"reason": "",
+		"toast": "%s signed a 4-week extension ($%d bonus paid)." % [c.get("name", "Coach"), TALK_COACH_BONUS_COST],
+		"effects": [
+			{"type": "money", "delta": -TALK_COACH_BONUS_COST},
+			{"type": "coach_contract", "weeks_added": 4, "target_id": c.get("id", "")}
+		]
+	}
+
+
+# --- STATION ACTIONS ---
+
+static func _resolve_station_queue_next(f: Dictionary, s: Dictionary) -> Dictionary:
+	if s.is_empty():
+		return {"ok": false, "reason": "No station selected.", "toast": "No station selected.", "effects": []}
+	if f.is_empty():
+		return {"ok": false, "reason": "No active fighter to queue.", "toast": "No active fighter.", "effects": []}
+
+	var station_id: String = s.get("id", "")
+	return {
+		"ok": true,
+		"reason": "",
+		"toast": "%s queued next for %s." % [station_id.replace("_", " "), f.get("name", "Fighter")],
+		"effects": [
+			{"type": "queue", "station_id": station_id, "fighter_id": f.get("id", "")}
+		]
+	}
+
+static func _resolve_station_what_it_trains(s: Dictionary) -> Dictionary:
+	if s.is_empty():
+		return {"ok": false, "reason": "No station selected.", "toast": "No station selected.", "effects": []}
+
+	var trains: Array = s.get("trains", [])
+	var list_str: String = "General conditioning"
+	if trains.size() > 0:
+		list_str = ", ".join(PackedStringArray(trains)).capitalize()
+	var level: int = int(s.get("level", 1))
+	var wear: int = int(s.get("wear", 0))
+
+	return {
+		"ok": true,
+		"reason": "",
+		"toast": "%s (Tier %d, %d%% wear): Trains %s." % [s.get("id", "Station").replace("_", " ").capitalize(), level, wear, list_str],
+		"effects": [
+			{"type": "open_panel", "route": "station_specs", "payload": {"station": s}}
+		]
+	}
+
+static func _resolve_station_upgrade(s: Dictionary, money: int) -> Dictionary:
+	if s.is_empty():
+		return {"ok": false, "reason": "No station selected.", "toast": "No station selected.", "effects": []}
+
+	var current_lvl: int = int(s.get("level", 1))
+	if current_lvl >= 3:
+		return {
+			"ok": false,
+			"reason": "Station already at max tier (Level 3).",
+			"toast": "Equipment already pro-tier max.",
+			"effects": []
+		}
+
+	var cost: int = int(UPGRADE_COSTS.get(current_lvl, 9999))
+	if money < cost:
+		return {
+			"ok": false,
+			"reason": "Need $%d for upgrade to Tier %d (have $%d)." % [cost, current_lvl + 1, money],
+			"toast": "Cannot afford upgrade ($%d required)." % cost,
+			"effects": []
+		}
+
+	return {
+		"ok": true,
+		"reason": "",
+		"toast": "%s upgraded to Tier %d (-$%d)." % [s.get("id", "Station").replace("_", " ").capitalize(), current_lvl + 1, cost],
+		"effects": [
+			{"type": "money", "delta": -cost},
+			{"type": "station_level", "station_id": s.get("id", ""), "new_level": current_lvl + 1}
+		]
+	}
+
+
+# --- OFFICE WINDOW ---
+
+static func _resolve_office_upgrades() -> Dictionary:
+	# Opens the gym refurbishment and construction overview ledger
+	return {
+		"ok": true,
+		"reason": "",
+		"toast": "Opening facility ledgers and blueprints...",
+		"effects": [
+			{"type": "open_panel", "route": "gym_upgrades_ledger", "payload": {}}
+		]
+	}
+
+
+# --- WALK-IN CANDIDATES ---
+
+static func _resolve_walk_in_greet(v: Dictionary) -> Dictionary:
+	if v.is_empty():
+		return {"ok": false, "reason": "No visitor at the door.", "toast": "No one waiting.", "effects": []}
+
+	var name: String = v.get("name", "A stranger")
+	var kind: String = v.get("kind", "local")
+	var msg: String = ""
+
+	match kind:
+		"fighter_candidate":
+			msg = "%s: 'Looking for a real camp to lace up. Got time for a trial?'" % name
+		"coach_candidate":
+			msg = "%s: 'Heard you had an open stall. My resume speaks for itself.'" % name
+		"sponsor":
+			msg = "%s: 'Checking out the local stable for banner space.'" % name
+		"press":
+			msg = "%s: 'Covering Anvil Street prospects for the regional sheet.'" % name
+		_:
+			msg = "%s: 'Just looking around the gym.'" % name
+
+	return {
+		"ok": true,
+		"reason": "",
+		"toast": msg,
+		"effects": [
+			{"type": "visitor_state", "visitor_id": v.get("id", ""), "state": "greeted"}
+		]
+	}
+
+static func _resolve_walk_in_trial(v: Dictionary, s: Dictionary) -> Dictionary:
+	if v.is_empty():
+		return {"ok": false, "reason": "No visitor present.", "toast": "No visitor at gym.", "effects": []}
+
+	var kind: String = v.get("kind", "")
+	if kind != "fighter_candidate":
+		return {
+			"ok": false,
+			"reason": "Only fighter candidates can be put through a trial session.",
+			"toast": "Not an amateur fighter prospect.",
+			"effects": []
+		}
+
+	# Trials happen in the ring or on pads; tests their raw chin and heart
+	return {
+		"ok": true,
+		"reason": "",
+		"toast": "Gloving up %s for a 3-round trial assessment..." % v.get("name", "Prospect"),
+		"effects": [
+			{"type": "visitor_state", "visitor_id": v.get("id", ""), "state": "trial_scheduled"},
+			{"type": "open_panel", "route": "trial_sparring_modal", "payload": {"candidate": v}}
+		]
+	}
+
+static func _resolve_walk_in_later(v: Dictionary) -> Dictionary:
+	if v.is_empty():
+		return {"ok": false, "reason": "No visitor present.", "toast": "No visitor at gym.", "effects": []}
+
+	return {
+		"ok": true,
+		"reason": "",
+		"toast": "%s will come back tomorrow morning." % v.get("name", "Visitor"),
+		"effects": [
+			{"type": "visitor_state", "visitor_id": v.get("id", ""), "state": "deferred_tomorrow"}
+		]
+	}
+
+static func _resolve_walk_in_send_away(v: Dictionary) -> Dictionary:
+	if v.is_empty():
+		return {"ok": false, "reason": "No visitor present.", "toast": "No visitor at gym.", "effects": []}
+
+	return {
+		"ok": true,
+		"reason": "",
+		"toast": "%s turned away from Anvil Street." % v.get("name", "Visitor"),
+		"effects": [
+			{"type": "visitor_state", "visitor_id": v.get("id", ""), "state": "dismissed"}
+		]
+	}
+
+2. Integration into _on_ring_action in GymClub3D.gd
+
+Insert this implementation directly into your GymClub3D.gd. It builds ctx cleanly from current game state, hands execution to FloorActions.resolve, dispatches engine commands (send_to, coach_to, action_requested.emit), and delegates domain modifications to apply_floor_effect.
+
+# Add to GymClub3D.gd
+
+func _on_ring_action(kind: String, action_id: String) -> void:
+	var thing_id: String = str(_ring_thing.get("id", ""))
+	
+	# Handle existing wired actions first if already handled
+	match kind:
+		"station":
+			if action_id == "train_here":
+				send_to(thing_id)
+				return
+			elif action_id == "coach_here":
+				coach_to(thing_id)
+				return
+		"fighter":
+			if action_id == "train_at":
+				begin_station_pick()
+				return
+			elif action_id == "rest":
+				take_break(["water", "ice"])
+				return
+			elif action_id == "call_coach":
+				coach_to(_place)
+				return
+		"coach":
+			if action_id == "coach_fighter":
+				coach_to(_place)
+				return
+
+	# Handle the 13 playable floor rows
+	var is_floor_action: bool = false
+	match kind:
+		"fighter":
+			is_floor_action = (action_id == "talk")
+		"coach":
+			is_floor_action = action_id in ["drill_focus", "send_to_station", "week_hours", "talk_contract"]
+		"station":
+			is_floor_action = action_id in ["queue_next", "what_it_trains", "upgrade"]
+		"office_window":
+			is_floor_action = (action_id == "upgrades")
+		"walk_in":
+			is_floor_action = action_id in ["greet", "trial_session", "come_back_later", "send_away"]
+
+	if not is_floor_action:
+		action_requested.emit(kind, thing_id, action_id)
+		return
+
+	# 1. Build context
+	var ctx: Dictionary = _build_floor_context(kind, thing_id)
+
+	# 2. Resolve via pure module
+	var res: Dictionary = FloorActions.resolve(kind, action_id, ctx)
+
+	# 3. Present readable feedback
+	if res.get("toast", "") != "":
+		show_floor_toast(res.toast)
+
+	if not res.get("ok", false):
+		return
+
+	# 4. Dispatch effects
+	var effects: Array = res.get("effects", [])
+	for eff in effects:
+		var type: String = eff.get("type", "")
+		match type:
+			"send_fighter":
+				send_to(eff.get("station_id", ""))
+			"send_coach":
+				coach_to(eff.get("station_id", ""))
+			"open_panel":
+				action_requested.emit(kind, thing_id, eff.get("route", ""))
+			_:
+				# Delegate state updates (money, morale, stats, queues) to host/GameState
+				apply_floor_effect(eff)
+
+
+func _build_floor_context(kind: String, thing_id: String) -> Dictionary:
+	var ctx: Dictionary = {
+		"fighter": _fighter_row,
+		"coach": _get_active_coach_dict(),
+		"station": _get_station_dict(thing_id),
+		"visitor": _plans.get(thing_id, {}),
+		"money": GameState.get_money() if has_node("/root/GameState") else 1000,
+		"day": GameState.get_day() if has_node("/root/GameState") else 1,
+		"rng": randf()
+	}
+	return ctx
+
+func _get_active_coach_dict() -> Dictionary:
+	if has_node("/root/GameState") and GameState.has_method("get_active_coach"):
+		return GameState.get_active_coach()
+	return {
+		"id": "coach_sal",
+		"name": "Sal Barone",
+		"specialty": "conditioning",
+		"hours_per_week": 30,
+		"contract_weeks_left": 6,
+		"wage": 50,
+		"drill_focus": "balanced"
+	}
+
+func _get_station_dict(id: String) -> Dictionary:
+	# Fallback/default station catalog matching layout
+	var trains_map: Dictionary = {
+		"speed_bag_1": ["hand_speed", "rhythm"],
+		"speed_bag_2": ["hand_speed", "rhythm"],
+		"heavy_bag_1": ["power", "stamina"],
+		"heavy_bag_2": ["power", "stamina"],
+		"heavy_bag_3": ["power", "stamina"],
+		"heavy_bag_4": ["power", "stamina"],
+		"mirror_strip": ["technique", "footwork"],
+		"pads": ["technique", "counter_timing"],
+		"defence_drill": ["defense", "head_movement"],
+		"ring": ["fight_iq", "sparring"],
+		"treadmill": ["conditioning", "stamina"],
+		"bike": ["conditioning"],
+		"recovery": ["chin", "active_rest"],
+		"weights": ["power", "core"]
+	}
+	var st_level: int = 1
+	var st_wear: int = 15
+	if has_node("/root/GameState") and GameState.has_method("get_station_data"):
+		var live_data: Dictionary = GameState.get_station_data(id)
+		if not live_data.is_empty():
+			return live_data
+
+	return {
+		"id": id,
+		"kind": id.split("_")[0],
+		"level": st_level,
+		"wear": st_wear,
+		"trains": trains_map.get(id, ["conditioning"])
+	}
+
+func apply_floor_effect(effect: Dictionary) -> void:
+	if has_node("/root/GameState") and GameState.has_method("apply_effect"):
+		GameState.apply_effect(effect)
+	else:
+		# Fallback debug hook
+		print("[GymClub3D] Effect applied: ", effect)
+
+func show_floor_toast(text: String) -> void:
+	if has_node("UI/ToastLabel"):
+		var toast: Label = $UI/ToastLabel
+		toast.text = text
+		toast.visible = true
+		var tween = create_tween()
+		tween.tween_interval(2.5)
+		tween.tween_property(toast, "modulate:a", 0.0, 0.4)
+		tween.tween_callback(func(): toast.visible = false; toast.modulate.a = 1.0)
+	else:
+		print("[TOAST] ", text)
+
+3. Test Suite: tests/floor_actions_test.gd
+# tests/floor_actions_test.gd
+extends SceneTree
+
+func _init() -> void:
+	var failures: int = 0
+
+	var dummy_fighter = {
+		"id": "f_leo",
+		"name": "Leo Vance",
+		"morale": 60,
+		"fatigue": 75,
+		"trust_coach": 45
+	}
+	var dummy_coach = {
+		"id": "c_sal",
+		"name": "Sal Barone",
+		"hours_per_week": 30,
+		"contract_weeks_left": 2,
+		"wage": 50,
+		"drill_focus": "balanced"
+	}
+	var dummy_station = {
+		"id": "heavy_bag_1",
+		"kind": "heavy_bag",
+		"level": 1,
+		"wear": 20,
+		"trains": ["power", "stamina"]
+	}
+	var dummy_visitor = {
+		"id": "v_tommy",
+		"name": "Tommy Perez",
+		"kind": "fighter_candidate",
+		"potential": 70,
+		"asking_wage": 0
+	}
+
+	var base_ctx = {
+		"fighter": dummy_fighter,
+		"coach": dummy_coach,
+		"station": dummy_station,
+		"visitor": dummy_visitor,
+		"money": 1000,
+		"day": 4,
+		"rng": 0.5
+	}
+
+	# 1. Fighter: talk
+	var r = FloorActions.resolve("fighter", "talk", base_ctx)
+	if not r.ok or r.effects.is_empty():
+		print("FAIL: fighter:talk failed")
+		failures += 1
+
+	# 2. Coach: drill_focus
+	r = FloorActions.resolve("coach", "drill_focus", base_ctx)
+	if not r.ok or r.effects[0].focus != "technique":
+		print("FAIL: coach:drill_focus failed")
+		failures += 1
+
+	# 3. Coach: send_to_station
+	r = FloorActions.resolve("coach", "send_to_station", base_ctx)
+	if not r.ok or r.effects[0].type != "send_coach":
+		print("FAIL: coach:send_to_station failed")
+		failures += 1
+
+	# 4. Coach: week_hours
+	r = FloorActions.resolve("coach", "week_hours", base_ctx)
+	if not r.ok or r.effects[0].hours != 45:
+		print("FAIL: coach:week_hours failed")
+		failures += 1
+
+	# 5. Coach: talk_contract (success with money)
+	r = FloorActions.resolve("coach", "talk_contract", base_ctx)
+	if not r.ok or r.effects.size() < 2 or r.effects[0].delta != -150:
+		print("FAIL: coach:talk_contract with money failed")
+		failures += 1
+
+	# 5b. Coach: talk_contract (reject without money)
+	var poor_ctx = base_ctx.duplicate()
+	poor_ctx["money"] = 50
+	r = FloorActions.resolve("coach", "talk_contract", poor_ctx)
+	if r.ok:
+		print("FAIL: coach:talk_contract succeeded without money")
+		failures += 1
+
+	# 6. Station: queue_next
+	r = FloorActions.resolve("station", "queue_next", base_ctx)
+	if not r.ok or r.effects[0].type != "queue":
+		print("FAIL: station:queue_next failed")
+		failures += 1
+
+	# 7. Station: what_it_trains
+	r = FloorActions.resolve("station", "what_it_trains", base_ctx)
+	if not r.ok or r.effects[0].type != "open_panel":
+		print("FAIL: station:what_it_trains failed")
+		failures += 1
+
+	# 8. Station: upgrade (success)
+	r = FloorActions.resolve("station", "upgrade", base_ctx)
+	if not r.ok or r.effects[0].delta != -350 or r.effects[1].new_level != 2:
+		print("FAIL: station:upgrade success check failed")
+		failures += 1
+
+	# 8b. Station: upgrade (refuse without money)
+	r = FloorActions.resolve("station", "upgrade", poor_ctx)
+	if r.ok:
+		print("FAIL: station:upgrade allowed without sufficient money")
+		failures += 1
+
+	# 9. Office Window: upgrades
+	r = FloorActions.resolve("office_window", "upgrades", base_ctx)
+	if not r.ok or r.effects[0].route != "gym_upgrades_ledger":
+		print("FAIL: office_window:upgrades failed")
+		failures += 1
+
+	# 10. Walk In: greet
+	r = FloorActions.resolve("walk_in", "greet", base_ctx)
+	if not r.ok or r.effects[0].state != "greeted":
+		print("FAIL: walk_in:greet failed")
+		failures += 1
+
+	# 11. Walk In: trial_session (valid prospect)
+	r = FloorActions.resolve("walk_in", "trial_session", base_ctx)
+	if not r.ok or r.effects[0].state != "trial_scheduled":
+		print("FAIL: walk_in:trial_session valid prospect failed")
+		failures += 1
+
+	# 11b. Walk In: trial_session (invalid visitor type)
+	var sponsor_ctx = base_ctx.duplicate()
+	sponsor_ctx["visitor"] = {"id": "v_spons", "name": "Local Brewery", "kind": "sponsor"}
+	r = FloorActions.resolve("walk_in", "trial_session", sponsor_ctx)
+	if r.ok:
+		print("FAIL: walk_in:trial_session allowed non-fighter candidate")
+		failures += 1
+
+	# 12. Walk In: come_back_later
+	r = FloorActions.resolve("walk_in", "come_back_later", base_ctx)
+	if not r.ok or r.effects[0].state != "deferred_tomorrow":
+		print("FAIL: walk_in:come_back_later failed")
+		failures += 1
+
+	# 13. Walk In: send_away
+	r = FloorActions.resolve("walk_in", "send_away", base_ctx)
+	if not r.ok or r.effects[0].state != "dismissed":
+		print("FAIL: walk_in:send_away failed")
+		failures += 1
+
+	print("FLOOR_ACTIONS failures=%d" % failures)
+	quit(0 if failures == 0 else 1)
+
+4. Ten-Minute Playtest Script
+
+
+
+Scenario: Tuesday Morning on Anvil Street
+
+
+
+Morning Inspection (Min 0–2): The gym clock starts ticking. Leo Vance walks in at 72 fatigue after Monday’s brutal pad chain sessions. Right-click Leo and click Talk. Leo drops his shoulders: "Body hurts, coach, but I'm locked in"—trust and morale tick up immediately.
+Supervising the Stations (Min 2–4): Click Sal "The Anvil" Barone. Click Drill Focus to cycle him from Balanced to Technique so Leo’s cross drill accelerates. Then click Send to Station and click Heavy Bag 1; Sal immediately walks across the middle aisle to stand guard and boost Leo’s heavy bag work.
+Equipment Assessment (Min 4–6): Click Heavy Bag 1 while Leo is drilling. Select What It Trains to confirm it trains Power & Stamina at 15% wear. Check the purse ($1,050). Select Upgrade; $350 is debited, the bag model updates to Tier 2 commercial grade, and Leo gains an immediate attribute progression rate buff. Right-click Heavy Bag 2 and select Queue Next so Leo traverses without waiting for coach intervention when the bag cycle rings.
+Handling the Door (Min 6–8): A knock echoes at the reception door (z 18.0). Click the walk-in stranger and hit Greet; amateur prospect Tommy Perez asks for a trial. Click Trial Session to immediately slate a 3-round glove test in the 16 ft ring. A second walk-in appears (a local business sponsor); click Come Back Later to defer them to Thursday film day without hurting gym reputation
+

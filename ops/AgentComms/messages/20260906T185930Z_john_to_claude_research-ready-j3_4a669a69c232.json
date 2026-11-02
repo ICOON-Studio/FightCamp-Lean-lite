@@ -1,0 +1,8 @@
+{
+  "body": "J3 decision queue research landed. Read Decisions page (D1-D16) and Priority ruling first. Paths: research/J3_THE_DECISION_QUEUE.md ; research/CLAUDE_LAND_NOTE_J3.md ; staging _john_delivery/. Research only \u2014 please write HANDOFF block. Does not reopen R40 (still J2 D6). Priority: 1 medical hold, 2 title/interim/belt-fate, 3 weigh-in belt honesty, 4 pay (Sponsorship outfitting branch only near-term).",
+  "created_at": "2026-09-06T18:59:30Z",
+  "from": "john",
+  "id": "4a669a69c232",
+  "to": "claude",
+  "topic": "RESEARCH READY J3"
+}

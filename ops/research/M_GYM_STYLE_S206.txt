@@ -1,0 +1,12 @@
+TASK M_GYM_STYLE (Maria, art direction) - FightCamp S206
+FightCamp: PC boxing-gym management sim, Godot 4.7.2, top-down 3D club the player watches (bright and alive gym - our product rule).
+The CEO looked at our gym floor today and said (verbatim): "what is that ? i can't understand wtf am i wtaching right now , how are
+these assets made in the game ? why we cannot have beautiful graphics and assets like 2point hospital ?" - our props are a mix of
+realistic models and plain coloured boxes (a striped rubber ladder mat read as nonsense; a stack of small crates read as nothing a gym
+has; half the hall was empty floor).
+Deliver an ART DIRECTION BRIEF for the gym view: (1) the target look in words a modeller can follow (stylised vs realistic, shape
+language, proportions, palette with hex values for floor / walls / equipment / accents, lighting mood, outline or not), using Two Point
+Hospital as the bar but for a boxing gym; (2) a readability checklist - every prop must be recognisable from the top-down camera at
+1920x1080 in under one second (silhouette, colour coding per station type: bags, ring, conditioning, weights, recovery); (3) what to
+cut: props that confuse; (4) the 10 hero props of a real boxing gym in priority order with one line each on how they must look;
+(5) the characters: should fighters in the gym view be stylised too? Longest complete answer you can.

@@ -1,0 +1,15 @@
+# Q156 separation A/B digest
+
+Q156 POPULATION ruleset=boxing A=Realtime A reach=183 B=Realtime B reach=176 seeds=[94301, 810039, 93002, 51227, 77003, 12001, 12002, 12003, 12004, 12005, 12006, 12007, 12008, 12009, 12010, 12011, 12012, 12013, 12014, 12015] rounds=3 catalogue=combat_rulesets.json
+Q156 TABLE ruleset=boxing arm=OFF landed/round=24.9667 (delta=+0.00%) landed_share=0.5075 (delta=+0.00%) leg_share=0.0000 (delta=+0.00%) kd/100_landed=0.0000 (delta=+0.00%) clinches/round=0.0000 (delta=+0.00%) engage_share=0.5241 (delta=+0.00%) pushes/round=0.0000 (delta=+0.00%) push_max=0.0000 (delta=+0.00%)
+Q156 TABLE ruleset=boxing arm=ON landed/round=27.2667 (delta=+9.21%) landed_share=0.5097 (delta=+0.43%) leg_share=0.0000 (delta=+0.00%) kd/100_landed=0.0000 (delta=+0.00%) clinches/round=0.0000 (delta=+0.00%) engage_share=0.5533 (delta=+5.58%) pushes/round=254.7833 (delta=+0.00%) push_max=0.1250 (delta=+0.00%)
+Q156 TABLE ruleset=boxing arm=ON+STRIP landed/round=29.8167 (delta=+19.43%) landed_share=0.5154 (delta=+1.57%) leg_share=0.0000 (delta=+0.00%) kd/100_landed=0.0000 (delta=+0.00%) clinches/round=0.0000 (delta=+0.00%) engage_share=0.6118 (delta=+16.73%) pushes/round=140.2000 (delta=+0.00%) push_max=0.1250 (delta=+0.00%)
+Q156 POPULATION ruleset=mma A=Realtime A reach=183 B=Realtime B reach=176 seeds=[94301, 810039, 93002, 51227, 77003, 12001, 12002, 12003, 12004, 12005, 12006, 12007, 12008, 12009, 12010, 12011, 12012, 12013, 12014, 12015] rounds=3 catalogue=combat_rulesets.json
+Q156 TABLE ruleset=mma arm=OFF landed/round=37.9500 (delta=+0.00%) landed_share=0.5313 (delta=+0.00%) leg_share=0.0619 (delta=+0.00%) kd/100_landed=0.0000 (delta=+0.00%) clinches/round=0.9667 (delta=+0.00%) engage_share=0.5705 (delta=+0.00%) pushes/round=0.0000 (delta=+0.00%) push_max=0.0000 (delta=+0.00%)
+Q156 TABLE ruleset=mma arm=ON landed/round=41.2167 (delta=+8.61%) landed_share=0.5274 (delta=-0.73%) leg_share=0.0797 (delta=+28.64%) kd/100_landed=0.0000 (delta=+0.00%) clinches/round=1.0667 (delta=+10.34%) engage_share=0.5882 (delta=+3.12%) pushes/round=294.9333 (delta=+0.00%) push_max=0.1250 (delta=+0.00%)
+Q156 TABLE ruleset=mma arm=ON+STRIP landed/round=42.1833 (delta=+11.16%) landed_share=0.5298 (delta=-0.27%) leg_share=0.0743 (delta=+19.95%) kd/100_landed=0.0000 (delta=+0.00%) clinches/round=0.9833 (delta=+1.72%) engage_share=0.6588 (delta=+15.48%) pushes/round=137.2167 (delta=+0.00%) push_max=0.1250 (delta=+0.00%)
+
+Q156 VERDICT boxing anchors=MOVED landed_on=27.2667 vs_off=24.9667 leg_share_on=0.0000 kd100_on=0.0000
+Q156 VERDICT mma anchors=MOVED landed_on=41.2167 vs_off=37.9500 leg_share_on=0.0797 kd100_on=0.0000
+
+The floor pushes occur primarily during engage ticks: engage-share rises from 0.5241 OFF to 0.5533 ON in boxing and from 0.5705 OFF to 0.5882 ON in MMA. That indicates the floor is acting during exchanges rather than merely holding fighters apart between them; ON+STRIP raises engage share further to 0.6118 and 0.6588 respectively. The ON arms recorded 254.7833 boxing and 294.9333 MMA pushes per round, with 0.1250 m maximum push, while OFF recorded none.

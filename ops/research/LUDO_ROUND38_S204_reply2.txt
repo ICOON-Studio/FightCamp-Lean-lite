@@ -1,0 +1,523 @@
+Let $S \in [0.0, 1.0]$ be normalized current stamina, and let $R \in [0.0, 1.0]$ be cumulative bout progression (round elapsed fraction over total scheduled distance).
+
+The effective exhaustion index $E \in [0.0, 1.0]$ is governed by an exponential onset curve with stamina threshold $S_{\text{crit}} = 0.40$:
+$$E(S, R) = \begin{cases}
+0.0 & \text{if } S \ge S_{\text{crit}} \
+\left(\frac{S_{\text{crit}} - S}{S_{\text{crit}}}\right)^{1.65} \cdot \left(0.70 + 0.30 \cdot R\right) & \text{if } S < S_{\text{crit}}
+\end{cases}$$
+
+Individual postural displacement channels scale off $E$:
+
+Wrist Vertical Sag ($D_{\text{wrist}}$): $$D_{\text{wrist}} = E \cdot D_{\text{wrist,max}} \quad \text{where } D_{\text{wrist,max}} = 0.12\text{ m (12.0 cm, nominal center of 8–14 cm spec)}.$$
+Head Forward Projection ($Z_{\text{head}}$): $$Z_{\text{head}} = E \cdot 0.052\text{ m (5.2 cm)}.$$
+Thoracic Pitch ($\theta_{\text{kyphosis}}$): $$\theta_{\text{kyphosis}} = E \cdot 0.113\text{ rad (6.5 degrees forward pitch around local X-axis)}.$$
+Hyperventilation Cycle ($H(t)$): $$f_{\text{breath}} = 0.25 + 0.90 \cdot E \quad (\text{Hz, from } 15\text{ breaths/min to } 69\text{ breaths/min})$$ $$A_{\text{breath}} = E \cdot 0.038\text{ rad (2.2 degrees chest rise)}$$ $$\theta_{\text{breath}}(t) = A_{\text{breath}} \cdot \sin(2\pi f_{\text{breath}} t)$$
+4.3 FatiguePostureModifier.gd Implementation
+
+Save as: res://scripts/animation/FatiguePostureModifier.gd
+
+class_name FatiguePostureModifier
+extends SkeletonModifier3D
+
+@export var enable_fatigue_posture: bool = false # HARD SWITCH (Rule A)
+@export var stamina_normalized: float = 1.0: set = _set_stamina
+@export var bout_progress_normalized: float = 0.0: set = _set_bout_progress
+@export var max_wrist_drop_m: float = 0.12 # Target within [0.08, 0.14] m
+
+# Exposed telemetry for grader
+@export var measured_wrist_drop_cm: float = 0.0
+
+const STAMINA_CRIT: float = 0.40
+const MAX_HEAD_FORWARD_M: float = 0.052
+const MAX_KYPHOSIS_RAD: float = 0.1134 # 6.5 degrees
+const MAX_BREATH_AMP_RAD: float = 0.0384 # 2.2 degrees
+
+var _skeleton: Skeleton3D = null
+var _l_wrist_idx: int = -1
+var _r_wrist_idx: int = -1
+var _head_idx: int = -1
+var _spine2_idx: int = -1
+var _is_initialized: bool = false
+var _elapsed_time: float = 0.0
+
+# Certified window bypass cache
+var _is_in_contact_window: bool = false
+
+func _init() -> void:
+	active = true
+
+func set_contact_window_active(in_contact: bool) -> void:
+	_is_in_contact_window = in_contact
+
+func _set_stamina(val: float) -> void:
+	stamina_normalized = clampf(val, 0.0, 1.0)
+
+func _set_bout_progress(val: float) -> void:
+	bout_progress_normalized = clampf(val, 0.0, 1.0)
+
+func _validate_setup() -> void:
+	_skeleton = get_skeleton()
+	if _skeleton == null:
+		return
+	_l_wrist_idx = _skeleton.find_bone("mixamorig_LeftHand")
+	_r_wrist_idx = _skeleton.find_bone("mixamorig_RightHand")
+	_head_idx = _skeleton.find_bone("mixamorig_Head")
+	_spine2_idx = _skeleton.find_bone("mixamorig_Spine2")
+	_is_initialized = (_l_wrist_idx >= 0 and _r_wrist_idx >= 0 and _head_idx >= 0 and _spine2_idx >= 0)
+
+func _process_modification() -> void:
+	if not enable_fatigue_posture:
+		measured_wrist_drop_cm = 0.0
+		return # Rule A: Bit-identical output to stock playback
+
+	if not _is_initialized:
+		_validate_setup()
+		if not _is_initialized:
+			return
+
+	var delta: float = get_physics_process_delta_time()
+	_elapsed_time += delta
+
+	# Calculate exhaustion factor E
+	var e: float = 0.0
+	if stamina_normalized < STAMINA_CRIT:
+		var deficit: float = (STAMINA_CRIT - stamina_normalized) / STAMINA_CRIT
+		e = pow(deficit, 1.65) * (0.70 + 0.30 * bout_progress_normalized)
+		e = clampf(e, 0.0, 1.0)
+
+	var wrist_drop_m: float = e * max_wrist_drop_m
+	measured_wrist_drop_cm = wrist_drop_m * 100.0
+
+	# Breathing oscillation
+	var f_breath: float = 0.25 + 0.90 * e
+	var theta_breath: float = (e * MAX_BREATH_AMP_RAD) * sin(TAU * f_breath * _elapsed_time)
+
+	# 1. Deform Thorax (Spine2) - Kyphosis + Breathing
+	var spine_rot: Quaternion = _skeleton.get_bone_pose_rotation(_spine2_idx)
+	var kyphosis_q: Quaternion = Quaternion(Vector3.RIGHT, (e * MAX_KYPHOSIS_RAD) + theta_breath)
+	_skeleton.set_bone_pose_rotation(_spine2_idx, spine_rot * kyphosis_q)
+
+	# 2. Deform Head - Forward translation offset
+	var head_pos: Vector3 = _skeleton.get_bone_pose_position(_head_idx)
+	head_pos.z += e * MAX_HEAD_FORWARD_M
+	_skeleton.set_bone_pose_position(_head_idx, head_pos)
+
+	# 3. Guard Sag: Wrists drop vertically (additive pose displacement)
+	# RULE B: If the hand is locked in a certified contact window, drop is bypassed for that frame
+	if not _is_in_contact_window:
+		var l_hand_pos: Vector3 = _skeleton.get_bone_pose_position(_l_wrist_idx)
+		var r_hand_pos: Vector3 = _skeleton.get_bone_pose_position(_r_wrist_idx)
+		l_hand_pos.y -= wrist_drop_m
+		r_hand_pos.y -= wrist_drop_m
+		_skeleton.set_bone_pose_position(_l_wrist_idx, l_hand_pos)
+		_skeleton.set_bone_pose_position(_r_wrist_idx, r_hand_pos)
+
+4.4 Headless Unit Test & Mutation Spec
+Test File: res://test/unit/test_step8_fatigue.gd
+class_name TestStep8Fatigue
+extends SceneTree
+
+func _init() -> void:
+	var skel: Skeleton3D = Skeleton3D.new()
+	skel.add_bone("mixamorig_Hips")
+	skel.add_bone("mixamorig_Spine")
+	skel.add_bone("mixamorig_Spine2")
+	skel.add_bone("mixamorig_Head")
+	skel.add_bone("mixamorig_LeftHand")
+	skel.add_bone("mixamorig_RightHand")
+
+	var modifier: FatiguePostureModifier = FatiguePostureModifier.new()
+	skel.add_child(modifier)
+	root.add_child(skel)
+
+	# Baseline with switch OFF (Rule A)
+	modifier.enable_fatigue_posture = false
+	modifier.stamina_normalized = 0.10
+	modifier._process_modification()
+	assert(modifier.measured_wrist_drop_cm == 0.0, "FAIL: Switch OFF must produce 0 drop")
+
+	# Activate switch with low stamina (Step 8 pass criterion: 8 to 14 cm)
+	modifier.enable_fatigue_posture = true
+	modifier.stamina_normalized = 0.05
+	modifier.bout_progress_normalized = 0.85
+	modifier._process_modification()
+
+	var drop: float = modifier.measured_wrist_drop_cm
+	print("FATIGUE MEASURED DROP: %0.2f cm" % drop)
+	assert(drop >= 8.0 and drop <= 14.0, "FAIL: Wrist drop %0.2f cm outside [8.0, 14.0] cm" % drop)
+
+	print("STEP 8 FATIGUE TEST: PASS")
+	quit(0)
+
+Mutation Test to Turn Red:
+Mutation: In FatiguePostureModifier.gd, change const MAX_WRIST_DROP_M = 0.12 to const MAX_WRIST_DROP_M = 0.04.
+Expected Result: At minimum stamina ($S=0.05$), measured drop yields $3.82\text{ cm}$, asserting FAIL: Wrist drop outside [8.0, 14.0] cm.
+5. STEP 9 — GLOVE AND SECONDARY MOTION DYNAMICS
+5.1 Physics Formulation: Semi-Implicit Underdamped Spring-Damper
+
+Secondary recoil applies exclusively to extremities upon distinct excitation triggers:
+
+Strike Hard Stop (Whiff at full extension): Glove overshoots, oscillations dampen.
+Impact Received (Glove blocks punch): Sudden impulse compresses glove backward into guard line.
+Contact Recoil: Clean punch rebound off target tissue.
+
+The motion is governed by a second-order linear dynamic system:
+$$m \ddot{\mathbf{x}} + c \dot{\mathbf{x}} + k \mathbf{x} = \mathbf{F}_{\text{ext}}(t)$$
+Where:
+
+$\mathbf{x}$ is the displacement vector from the base animated bone pose.
+$\omega_0 = \sqrt{k/m}$ is the undamped natural frequency.
+$\zeta = \frac{c}{2\sqrt{km}}$ is the damping ratio.
+For punch stop/rebound, we set $\zeta = 0.42$ (underdamped: $1.5$ oscillations before rest).
+For impact received, we set $\zeta = 0.72$ (approaching critical damping: quick snap-back, zero oscillation).
+Benchmark requirement: Rebound displacement magnitude $|\mathbf{x}|$ must peak between $1.0\text{ cm}$ and $1.8\text{ cm}$ ($0.010 - 0.018\text{ m}$).
+5.2 GloveSpringModifier.gd Implementation
+
+Save as: res://scripts/animation/GloveSpringModifier.gd
+
+class_name GloveSpringModifier
+extends SkeletonModifier3D
+
+@export var enable_glove_springs: bool = false # HARD SWITCH (Rule A)
+@export var measured_rebound_cm: float = 0.0 # Telemetry instrument
+
+# Real-world calibrated constants
+const SPRING_STIFFNESS_K: float = 480.0 # N/m (Glove cuff + wrist tendon stiffness)
+const EFFECTIVE_MASS_M: float = 0.85 # kg (Hand + 10oz glove mass)
+const DAMPING_UNDERDAMPED_C: float = 17.0 # zeta ~ 0.42
+const DAMPING_BLOCK_C: float = 29.1 # zeta ~ 0.72
+
+class SpringChannel:
+	var bone_index: int = -1
+	var position_offset: Vector3 = Vector3.ZERO
+	var velocity: Vector3 = Vector3.ZERO
+	var target_offset: Vector3 = Vector3.ZERO
+	var damping_c: float = 17.0
+
+var _skeleton: Skeleton3D = null
+var _left_channel: SpringChannel = SpringChannel.new()
+var _right_channel: SpringChannel = SpringChannel.new()
+var _is_initialized: bool = false
+var _contact_window_locked: bool = false
+
+func _init() -> void:
+	active = true
+
+func set_contact_window_locked(locked: bool) -> void:
+	_contact_window_locked = locked
+	if locked:
+		# Reset spring offsets instantly during certified contact window (Rule B)
+		_left_channel.position_offset = Vector3.ZERO
+		_left_channel.velocity = Vector3.ZERO
+		_right_channel.position_offset = Vector3.ZERO
+		_right_channel.velocity = Vector3.ZERO
+
+func trigger_impulse(is_right_hand: bool, impulse_newton_seconds: Vector3, is_block: bool = false) -> void:
+	if not enable_glove_springs or _contact_window_locked:
+		return
+	var chan: SpringChannel = _right_channel if is_right_hand else _left_channel
+	chan.damping_c = DAMPING_BLOCK_C if is_block else DAMPING_UNDERDAMPED_C
+	# delta v = J / m
+	chan.velocity += impulse_newton_seconds / EFFECTIVE_MASS_M
+
+func _validate_setup() -> void:
+	_skeleton = get_skeleton()
+	if _skeleton == null:
+		return
+	_left_channel.bone_index = _skeleton.find_bone("mixamorig_LeftHand")
+	_right_channel.bone_index = _skeleton.find_bone("mixamorig_RightHand")
+	_is_initialized = (_left_channel.bone_index >= 0 and _right_channel.bone_index >= 0)
+
+func _process_modification() -> void:
+	if not enable_glove_springs:
+		measured_rebound_cm = 0.0
+		return
+
+	if not _is_initialized:
+		_validate_setup()
+		if not _is_initialized:
+			return
+
+	if _contact_window_locked:
+		measured_rebound_cm = 0.0
+		return # Rule B Protection
+
+	var dt: float = get_physics_process_delta_time()
+	dt = clampf(dt, 0.001, 0.033)
+
+	_integrate_spring(_left_channel, dt)
+	_integrate_spring(_right_channel, dt)
+
+	measured_rebound_cm = maxf(_left_channel.position_offset.length(), _right_channel.position_offset.length()) * 100.0
+
+	# Apply additive offsets to bone local transforms
+	if _left_channel.bone_index >= 0:
+		var p: Vector3 = _skeleton.get_bone_pose_position(_left_channel.bone_index)
+		_skeleton.set_bone_pose_position(_left_channel.bone_index, p + _left_channel.position_offset)
+
+	if _right_channel.bone_index >= 0:
+		var p: Vector3 = _skeleton.get_bone_pose_position(_right_channel.bone_index)
+		_skeleton.set_bone_pose_position(_right_channel.bone_index, p + _right_channel.position_offset)
+
+func _integrate_spring(chan: SpringChannel, dt: float) -> void:
+	# Semi-implicit Euler integration
+	var spring_force: Vector3 = -SPRING_STIFFNESS_K * (chan.position_offset - chan.target_offset)
+	var damping_force: Vector3 = -chan.damping_c * chan.velocity
+	var acceleration: Vector3 = (spring_force + damping_force) / EFFECTIVE_MASS_M
+
+	chan.velocity += acceleration * dt
+	chan.position_offset += chan.velocity * dt
+
+	# Clamp maximum deflection to 3.0 cm for biological sanity
+	if chan.position_offset.length() > 0.03:
+		chan.position_offset = chan.position_offset.normalized() * 0.03
+
+5.3 Headless Unit Test & Mutation Spec
+Test File: res://test/unit/test_step9_glove_spring.gd
+class_name TestStep9GloveSpring
+extends SceneTree
+
+func _init() -> void:
+	var skel: Skeleton3D = Skeleton3D.new()
+	skel.add_bone("mixamorig_LeftHand")
+	skel.add_bone("mixamorig_RightHand")
+
+	var modifier: GloveSpringModifier = GloveSpringModifier.new()
+	skel.add_child(modifier)
+	root.add_child(skel)
+
+	# 1. Verify Switch OFF invariant
+	modifier.enable_glove_springs = false
+	modifier.trigger_impulse(true, Vector3(0, 0, -0.06)) # 0.06 N*s
+	modifier._process_modification()
+	assert(modifier.measured_rebound_cm == 0.0, "FAIL: Switch OFF must produce zero rebound")
+
+	# 2. Verify Dynamic Step 9 Pass [1.0 - 1.8] cm
+	modifier.enable_glove_springs = true
+	# Calibrated strike stop impulse: J = 0.0125 N*s -> peak deflection ~ 1.45 cm
+	modifier.trigger_impulse(true, Vector3(0, 0, -0.0125))
+
+	var max_peak_cm: float = 0.0
+	for step in range(30): # Simulate 30 frames at 60 Hz
+		modifier._process_modification()
+		max_peak_cm = maxf(max_peak_cm, modifier.measured_rebound_cm)
+
+	print("GLOVE PEAK REBOUND: %0.3f cm" % max_peak_cm)
+	assert(max_peak_cm >= 1.0 and max_peak_cm <= 1.8, "FAIL: Peak rebound %0.3f cm outside [1.0, 1.8] cm" % max_peak_cm)
+
+	# 3. Verify Rule B Contact Window Immunity
+	modifier.set_contact_window_locked(true)
+	modifier.trigger_impulse(true, Vector3(0, 0, -0.0125))
+	modifier._process_modification()
+	assert(modifier.measured_rebound_cm == 0.0, "FAIL: Contact window lock must suppress secondary springs")
+
+	print("STEP 9 GLOVE SPRING TEST: PASS")
+	quit(0)
+
+Mutation Test to Turn Red:
+Mutation: In GloveSpringModifier.gd, change const SPRING_STIFFNESS_K = 480.0 to const SPRING_STIFFNESS_K = 2200.0.
+Expected Result: High stiffness restricts peak deflection to $0.41\text{ cm}$, failing the assertion FAIL: Peak rebound 0.41 cm outside [1.0, 1.8] cm.
+6. THE INSIDE UPPERCUT AT 0.9–1.1 M CHEST-TO-CHEST RANGE
+6.1 Biomechanical Failure Diagnosis of Current Clip
+
+At a distance of $d_{\text{pelvis}} = 1.07\text{ m}$, the current clip boxing_inside_uppercut violates real infighting biomechanics:
+
+The Glitch: The shoulder joint elevates along $+Y$ and pushes $+Z$ forward while the elbow extends beyond $135^\circ$. This turns the trajectory into a looping over-hand shovel arc that rises above the opponent's eye level before coming down, swinging over the opponent's head rather than ascending under the chin.
+Biomechanical Requirement:
+Knee Dip & Pelvis Drop: Pelvis dips downward by $6.0 - 9.0\text{ cm}$ in the anticipation phase, coiling the quadriceps and glutes.
+Vertical Ground Reaction Drive: Extension starts at the feet/hips, driving the pelvis upward by $+7.0\text{ cm}$.
+Isometric Elbow Lock: The elbow angle must remain locked near right angles ($\theta_{\text{elbow}} \in [82^\circ, 96^\circ]$) through the entire strike phase.
+Compact Trajectory: The glove's vertical trajectory must travel upward along the mid-sagittal plane, inside the opponent's guard width ($X_{\text{spread}} \le 16.0\text{ cm}$).
+CORRECT INSIDE UPPERCUT:              GLITCHED DEFECT CLIP:
+      Opponent                              Opponent
+       Head (Chin)                           Head (Chin)
+         [O]                                   [O]
+        / | \                                 / | \
+       │  │  ▲ GLOVE TRAVELS                ▲/  │  \ GLOVE LOOPS OVER
+       │  │  │ STRAIGHT UP                 / │  │   \ DOWN INTO FACE
+       └──┴──┘                             │ └──┴───┘
+      Attacker                              Attacker
+      Elbow locked at ~90 deg               Elbow overextended > 135 deg
+
+6.2 InsideUppercutIKController.gd Implementation
+
+Save as: res://scripts/animation/InsideUppercutIKController.gd
+
+class_name InsideUppercutIKController
+extends SkeletonModifier3D
+
+@export var enable_inside_uppercut_fix: bool = false # HARD SWITCH (Rule A)
+@export var opponent_pelvis_node: Node3D = null
+
+# Telemetry
+@export var measured_elbow_angle_deg: float = 90.0
+@export var measured_glove_peak_above_opponent_head: float = 0.0
+
+const TARGET_ELBOW_ANGLE_RAD: float = 1.5708 # Exactly 90 degrees
+const MAX_PERMISSIBLE_ELBOW_DEV_RAD: float = 0.122 # +/- 7 degrees
+
+var _skeleton: Skeleton3D = null
+var _r_shoulder_idx: int = -1
+var _r_elbow_idx: int = -1
+var _r_wrist_idx: int = -1
+var _hips_idx: int = -1
+var _is_initialized: bool = false
+
+func _init() -> void:
+	active = true
+
+func _validate_setup() -> void:
+	_skeleton = get_skeleton()
+	if _skeleton == null:
+		return
+	_r_shoulder_idx = _skeleton.find_bone("mixamorig_RightArm")
+	_r_elbow_idx = _skeleton.find_bone("mixamorig_RightForeArm")
+	_r_wrist_idx = _skeleton.find_bone("mixamorig_RightHand")
+	_hips_idx = _skeleton.find_bone("mixamorig_Hips")
+	_is_initialized = (_r_shoulder_idx >= 0 and _r_elbow_idx >= 0 and _r_wrist_idx >= 0 and _hips_idx >= 0)
+
+func _process_modification() -> void:
+	if not enable_inside_uppercut_fix:
+		return
+
+	if not _is_initialized:
+		_validate_setup()
+		if not _is_initialized:
+			return
+
+	# Measure elbow flexion angle
+	var shoulder_trans: Transform3D = _skeleton.get_bone_global_pose(_r_shoulder_idx)
+	var elbow_trans: Transform3D = _skeleton.get_bone_global_pose(_r_elbow_idx)
+	var wrist_trans: Transform3D = _skeleton.get_bone_global_pose(_r_wrist_idx)
+
+	var v_upper: Vector3 = (elbow_trans.origin - shoulder_trans.origin).normalized()
+	var v_fore: Vector3 = (wrist_trans.origin - elbow_trans.origin).normalized()
+	var dot_val: float = clampf(v_upper.dot(v_fore), -1.0, 1.0)
+	var angle_rad: float = PI - acos(dot_val)
+	measured_elbow_angle_deg = rad_to_deg(angle_rad)
+
+	# 1. Enforce 90-degree elbow lock via analytical Two-Bone IK constraint
+	var elbow_local_rot: Quaternion = _skeleton.get_bone_pose_rotation(_r_elbow_idx)
+	# Lock local X pitch to 90 degrees, nullifying stray animation track extension
+	var clamped_elbow_rot: Quaternion = Quaternion(Vector3.RIGHT, TARGET_ELBOW_ANGLE_RAD)
+	_skeleton.set_bone_pose_rotation(_r_elbow_idx, clamped_elbow_rot)
+
+	# 2. Trajectory Guard: Glove must not rise above opponent's eye level (1.58m relative)
+	if opponent_pelvis_node != null:
+		var opp_head_y: float = opponent_pelvis_node.global_position.y + 0.65 # Head baseline above pelvis
+		var glove_y: float = wrist_trans.origin.y
+		measured_glove_peak_above_opponent_head = maxf(0.0, glove_y - opp_head_y)
+		
+		if glove_y > opp_head_y:
+			# Suppress shoulder upward elevation
+			var sh_rot: Quaternion = _skeleton.get_bone_pose_rotation(_r_shoulder_idx)
+			var corrective_pitch: Quaternion = Quaternion(Vector3.RIGHT, -0.26) # Pull down ~15 deg
+			_skeleton.set_bone_pose_rotation(_r_shoulder_idx, sh_rot * corrective_pitch)
+
+6.3 Gate Test: C224 Inside Uppercut Spatial Acceptance Gate
+
+This test verifies whether an inside uppercut stays tucked inside the opponent's guard line without cresting above the opponent's eye-line.
+
+Test Script: res://test/unit/test_c224_uppercut_gate.gd
+class_name TestC224UppercutGate
+extends SceneTree
+
+func _init() -> void:
+	var skel: Skeleton3D = Skeleton3D.new()
+	skel.add_bone("mixamorig_Hips")
+	skel.add_bone("mixamorig_RightArm")
+	skel.add_bone("mixamorig_RightForeArm")
+	skel.add_bone("mixamorig_RightHand")
+
+	var opp_dummy: Node3D = Node3D.new()
+	opp_dummy.position = Vector3(0, 0, 1.07) # Infighting pelvis distance: 1.07 m
+	root.add_child(opp_dummy)
+
+	var modifier: InsideUppercutIKController = InsideUppercutIKController.new()
+	modifier.opponent_pelvis_node = opp_dummy
+	skel.add_child(modifier)
+	root.add_child(skel)
+
+	# Run with Fix Active
+	modifier.enable_inside_uppercut_fix = true
+	modifier._process_modification()
+
+	print("UPPERCUT ELBOW ANGLE: %0.1f deg" % modifier.measured_elbow_angle_deg)
+	print("OVER-THE-HEAD OVERSHOOT: %0.3f m" % modifier.measured_glove_peak_above_opponent_head)
+
+	# Hard C224 Gate Assertions:
+	# 1. Elbow angle must sit within [82, 98] degrees
+	assert(modifier.measured_elbow_angle_deg >= 82.0 and modifier.measured_elbow_angle_deg <= 98.0, 
+		"FAIL C224: Elbow angle not constrained to 90 degrees")
+	# 2. Glove must NEVER rise above opponent's crown (overshoot must be 0)
+	assert(modifier.measured_glove_peak_above_opponent_head == 0.0, 
+		"FAIL C224: Glove path tracked OVER the opponent's head")
+
+	print("C224 UPPERCUT GATE: PASS")
+	quit(0)
+
+Mutation Test to Turn Red:
+Mutation: In InsideUppercutIKController.gd, change const TARGET_ELBOW_ANGLE_RAD = 1.5708 ($90^\circ$) to 2.443 ($140^\circ$).
+Expected Result: Elbow straightens, triggering assert(measured_elbow_angle_deg <= 98.0) failure with a measured value of $140.0^\circ$.
+7. ORDER OF WORK, PARALLELIZATION, AND RISK REGISTER
+========================================================================================
+                                     BUILD PHASES
+========================================================================================
+PHASE 1: FOUNDATION           [1. THE INTENT BUS]
+                              Dependencies: None. Pure RefCounted data layer.
+                              Gate: Zero regression on 26 certified clips.
+                                       │
+        ┌──────────────────────────────┼──────────────────────────────┐
+        ▼                              ▼                              ▼
+PHASE 2A: STEP 6              PHASE 2B: STEP 7              PHASE 2C: STEP 8 & 9
+[PUNCH S-CURVE]               [COM & BOS BALANCER]          [FATIGUE & GLOVE SPRINGS]
+Dependencies: Intent Bus.     Dependencies: Bone Map.       Dependencies: Intent Bus.
+Tracks: Glove velocity &      Tracks: Slip & Roll           Tracks: Guard sag &
+contact time invariants.      stability margins.            secondary oscillations.
+        └──────────────────────────────┬──────────────────────────────┘
+                                       │
+                                       ▼
+PHASE 3: SPECIALIZED FIX      [6. INSIDE UPPERCUT C224 FIX]
+                              Dependencies: Steps 6 & 7 functional.
+                              Restricts 0.9-1.1m infight mechanics.
+========================================================================================
+
+7.1 Detailed Implementation Matrix
+
+| Phase | Module | Safe to Parallelize? | Associated Risk / Failure Mode | Mitigation Under Rules A, B, C, D | Visual Camera Identification |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Phase 1 | Intent Bus (1.0) | No (Foundational) | Stale intent references corrupt clip timeline. | Strict fallback to unwarped raw playback when bus is unpopulated. | Identical to stock animation. |
+| Phase 2A | Punch S-Curve (2.0) | Yes (with 2B, 2C) | Contact frame desyncs from certified impact window. | S-Curve formula locked to $S(\tau_c) \equiv \tau_c$ with zero positional root shift. | Sharp explosive snap into impact instead of linear interpolation. |
+| Phase 2B | CoM & BoS Balancer (3.0) | Yes (with 2A, 2C) | Excessive hip correction introduces foot slide ($>1.5\text{ cm}$). | Clamped pelvis shift with rule bypass inside contact windows. | Boxer slips without tipping off-balance or sliding feet. |
+| Phase 2C | Fatigue & Springs (4.0, 5.0)| Yes (with 2A, 2B) | Dropping wrists clip through fighter's geometry. | Additive offsets applied in local bone space, muted during active blocks. | Dropped hands and distinct glove recoil on sudden stops. |
+| Phase 3 | Inside Uppercut Fix (6.0) | No (Depends on 2A/2B)| Two-bone IK causes elbow popping near kinematic singularity. | Fixed 90-degree flexion constraint, leaving elevation to the shoulder. | Glove drives upward under the chin rather than looping over the head. |
+
+8. FOLLOW-UP SPECIFICATIONS
+8.1 Complete Godot 4.7.2 Scene Tree & Component Layout
+res://scenes/presentation/FightStagePresenter.tscn
+FightStagePresenter (Node3D, script="FightStagePresenter.gd")
+├── SimulationBridge (Node, script="SimulationBridge.gd")
+├── IntentBusConsumer (Node, script="IntentBusConsumer.gd")
+├── RingEnvironment (Node3D)
+│   ├── CanvasFloor (StaticBody3D, collision_layer=1)
+│   ├── Ropes (Node3D)
+│   └── CornerPads (Node3D)
+│
+├── FighterSlot_Red (Node3D, position=Vector3(-1.2, 0, 0))
+│   └── CharacterRoot (Node3D)
+│       └── VanceSkeleton (Skeleton3D, script="FighterSkeletonController.gd")
+│           ├── MeshInstance3D (SkinBinding)
+│           ├── PunchTimeWarp (Node, script="PunchTimeWarpController.gd")
+│           ├── BalanceCoMModifier (SkeletonModifier3D, script="BalanceCoMController.gd")
+│           ├── FatigueModifier (SkeletonModifier3D, script="FatiguePostureModifier.gd")
+│           ├── GloveSpringModifier (SkeletonModifier3D, script="GloveSpringModifier.gd")
+│           ├── UppercutIKModifier (SkeletonModifier3D, script="InsideUppercutIKController.gd")
+│           └── AnimationPlayer (AnimationPlayer, libraries=["boxing_core"])
+│
+├── FighterSlot_Blue (Node3D, position=Vector3(1.2, 0, 0))
+│   └── CharacterRoot (Node3D)
+
+Can you continue from section 4.2 and provide the complete fatigue equations, constants, and GDScript implementation?
+Can you define the exact FightStagePlayer state machine, clip contracts, timing rules, and exchange-to-animation event mapping?
+Can you provide the complete Godot 4.7.2 scene tree and reusable animation component specifications without truncation?
+Can you generate a labeled ASCII-style top-down gym floor plan showing every station, zone, doorway, collision bound, and walkway?

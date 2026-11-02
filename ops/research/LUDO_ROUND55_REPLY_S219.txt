@@ -1,0 +1,110 @@
+﻿# ROUND 55 (S219) — FINAL UI/UX APPROVAL: NEW CAREER SCREEN (STEP 3)
+
+---
+
+## 1. VERDICT: **APPROVED WITH FIXES**
+
+The screen has undergone an immense transformation. The warm dark brown palette fits the gritty, grounded boxing club tone far better than generic sci-fi blue, the asymmetric dead space on the right is completely cured by the blueprint minimap and pitch card, the runway calculation now reflects real simulation burn (9 weeks instead of a naive mathematical division), and the floor grid cleanly handles the unassigned 4 m² allocation. 
+
+It is structurally sound, mechanically aligned with the Godot sim, and ready to ship once **7 specific polish fixes** are applied.
+
+---
+
+## 2. BENCHMARK SCORE
+
+### **Score: 8.2 / 10**
+* **vs. Motorsport Manager (New Team Setup): 8.5/10.** *Motorsport Manager* uses clean blueprint cards, clear overhead financial metrics, and strong call-to-action buttons. Your new right-hand blueprint panel and ledger strip match that level of mechanical clarity.
+* **vs. Football Manager (Club Selection & Profile Setup): 8.0/10.** *FM* excels at deep, dense statistical legibility without eye strain. Your equipment cards and Mara Solano’s stat bars hit that target; only minor contrast issues and typographic overlaps hold it back from an 9+.
+
+---
+
+## 3. THE 7 REQUIRED FIXES (PRIORITIZED)
+
+```
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                    NEW CAREER SCREEN: FIX MAP                                    │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ [FIX 1: GYM NAME CLASH] ──────────> "Nicosia Boxing Club" vs Pitch Card "Calder Boxing Club"     │
+│ [FIX 2: RUNWAY BADGE CONTRAST] ───> 9 WKS tile needs amber warning treatment (urgent runway)     │
+│ [FIX 3: STAT BAR OVERFLOW] ───────> Numerical values (e.g. 52/100) are colliding with bar ends   │
+│ [FIX 4: BLUEPRINT GRID ACCENT] ───> Active occupied zones on minimap need subtle border tint     │
+│ [FIX 5: CANONICAL PILL COLOR] ────> Cyan "CANONICAL" conflicts with the warm gold UI hierarchy   │
+│ [FIX 6: "+ INSTALL" CARD BORDER] ─> Needs distinct dashed stroke to immediately read as vacant  │
+│ [FIX 7: FOOTER RESIDUAL TEXT] ────> Redundant "OPEN GYM SAVES THE CAREER" string cleanup         │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+### Fix 1: Resolve Gym Name Discrepancy (Story Mode Pre-fill)
+* **What & Where:** Top-left input field (`X=48, Y=112`) reads `"Nicosia Boxing Club"`, but the pitch card on the right (`X=1456, Y=560`) states `"NICOSIA BOXING CLUB / INHERIT CALDER HOUSE"`. 
+* **Why it hurts:** In *The House That Holds*, the narrative explicitly states the player inherits *Calder House*. Having the text input default to the city name breaks narrative cohesion before day one starts.
+* **Exact Fix:**
+  * When `THE HOUSE THAT HOLDS` is selected, pre-fill `GYM NAME` with `"Calder House Boxing Club"` (Editable if the player overrides).
+  * On the Pitch Card header (`X=1456, Y=580`), display:  
+    Line 1: `CALDER HOUSE` (Bold, 16px, `#E5B842`)  
+    Line 2: `Nicosia, Cyprus` (Regular, 12px, `#9E9284`).
+
+---
+
+### Fix 2: Runway Alert Metric Styling
+* **What & Where:** Ledger metric tile 3 (`X=510, Y=216`, `W=180, H=56`): `"9 WKS / RUNWAY"`.
+* **Why it hurts:** 9 weeks of runway is dangerously tight. Rendering it in the same muted light-brown/white as starting cash masks its urgency.
+* **Exact Fix:**
+  * Change value text color of `"9 WKS"` from `#D2C8BA` to urgent amber `#E5A93C`.
+  * Add a subtle warning sub-label beneath it: `BURN: $2,777/WK` in 10px `#9E9284` so the player immediately understands why $25.0K yields 9 weeks rather than 68 weeks.
+
+---
+
+### Fix 3: Fighter Attribute Bar & Number Spacing
+* **What & Where:** Mara Solano’s stat block (`X=848, Y=380` to `Y=580`). The numbers (e.g., `52/100`, `56/100`, `60/100`) touch or overlap the trailing ends of the horizontal gradient bars.
+* **Why it hurts:** Visual crowding. On certain monitor scalings, the `/100` suffix collides directly with the final pixels of the bar graphic.
+* **Exact Fix:**
+  * Shorten bar width from `180px` to `150px`.
+  * Anchor the stat readout text block at `X=1340`, right-aligned.
+  * Drop the redundant `/100` denominator (the progress bar already visually communicates out-of-100). Display bold standalone figures: **52**, **56**, **40**, **44**, **64**, **58** (13px bold, `#FFF3E0`).
+
+---
+
+### Fix 4: Floor Blueprint Card Zone Contrast
+* **What & Where:** Minimap Blueprint viewport in the upper right (`X=1456, Y=216`, `W=416, H=320`).
+* **Why it hurts:** The blueprint blocks are flat dark teal on darker teal. They look like unrendered bounding boxes rather than an architectural CAD floorplan.
+* **Exact Fix:**
+  * Increase blueprint line contrast: grid lines `#1D3335`, active apparatus bounding outlines `#38767A` (1.5px solid stroke).
+  * Tint the 4 m² unassigned slot in hatched line-work using `#E5B842` at 30% alpha so it visually connects with the `+ INSTALL EQUIPMENT` card on the left.
+
+---
+
+### Fix 5: Unify the `CANONICAL` Badge Palette
+* **What & Where:** Pitch Card Badge (`X=1456, Y=544`): Cyan pill labeled `"CANONICAL"`.
+* **Why it hurts:** The bright cool cyan `#28B5B5` clashes with the warm chocolate brown and gold palette of the rest of the UI.
+* **Exact Fix:**
+  * Change background fill to dark warm amber: `#3D2E12`.
+  * Change border to 1px `#A87C28`.
+  * Change text to warm gold: `#F5C862` (11px, Bold, letter-spacing `+0.8px`).
+
+---
+
+### Fix 6: "+ INSTALL EQUIPMENT" Card Visual Treatment
+* **What & Where:** Vacant equipment tile (`X=206, Y=612`, `W=190, H=90`): `+ INSTALL EQUIPMENT 4 M² AVAILABLE`.
+* **Why it hurts:** It currently shares almost the identical solid dark fill as the installed equipment tiles, making it look like a piece of gear named "Install Equipment."
+* **Exact Fix:**
+  * Change background fill from solid `#1C1815` to semi-transparent `#14110F` (60% alpha).
+  * Change border from solid brown to **dashed border** (4px dash, 4px gap, 1.5px width) in muted gold `#8C733E`.
+  * Hover state: border transitions to bright solid gold `#E5B842` with cursor changing to `pointing_hand`.
+
+---
+
+### Fix 7: Clean Duplicate/Residual Footer Copy
+* **What & Where:** Bottom right edge (`X=1680, Y=1048`): faint grey text `"OPEN GYM SAVES THE CAREER"`.
+* **Why it hurts:** It directly duplicates the micro-label already positioned cleanly beneath the yellow `OPEN GYM` button (`X=1456, Y=940`).
+* **Exact Fix:**
+  * Delete the text string at `X=1680, Y=1048`.
+  * Keep the footer bar clean, reserving it purely for:  
+    Left: `SLOT 01: AUTOSAVE_PREP` | Right: `BUILD v0.9.4-S219 (GODOT 4.7.2)`.
+
+---
+
+## 4. SIGN-OFF SUMMARY
+
+Once Fixes 1 through 7 are applied, this screen is **READY FOR PRODUCTION SHIPPING** in the demo slice. It cleanly expresses the game's mechanics, respects the financial runway realities, enforces boxing purity, and honors the director's warm industrial aesthetic.

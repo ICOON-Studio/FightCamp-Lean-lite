@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>FightCamp · K9 TRAINING Hub · Kalli</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@500;600;700&display=swap">
+<style>
+
+:root{
+  --ground:#1c2230;--ground-2:#242c3d;--panel:#2a3347;--panel-hi:#34405a;--panel-lo:#222a3b;
+  --track:#111621;--edge:#121722;--line:#4a5a78;--line-soft:#2b3340;
+  --text:#f3f5fa;--text-2:#c9d1e0;--muted:#94a1b8;--dim:#6d7688;--ink:#1b1207;--link:#7fb6ee;
+  --gold:#f0c233;--gold-hi:#f7d65a;--gold-lo:#c99a1a;--gold-edge:#7a5c0c;
+  --gym:#2f6fb0;--gym-hi:#3f86cc;--gym-lo:#24558a;--gym-deep:#1a3d63;--gym-tint:rgba(47,111,176,.22);
+  --go:#22c55e;--go-hi:#4ade80;--go-lo:#15803d;--go-edge:#0b4a23;
+  --slate:#3f4a62;--control:#303a52;--chip:#333d52;--avatar:#3b4557;
+  --good:#4fc46a;--amber:#f0a020;--bad:#e5433a;--bad-edge:#5a120e;
+  --day:#171a22;--day-today:#1e2836;
+  --str:#d07a1a;--car:#3f86cc;--rec:#4fc46a;--fgt:#e06a3a;--off:#4a5568;
+  --display:"Bebas Neue","Haettenschweiler","Arial Narrow",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --edge-hi:rgba(255,255,255,.14);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#0f131b;color:var(--text);font-family:var(--mono);font-size:13px;font-weight:500;line-height:1.35;-webkit-font-smoothing:antialiased}
+.doc{padding:28px 24px 80px;max-width:1960px;margin:0 auto}
+.eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.mast h1{font-family:var(--display);font-size:52px;letter-spacing:.02em;line-height:.94;margin:6px 0 10px}
+.mast p{max-width:96ch;color:var(--text-2);margin:0 0 8px}
+.rules{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 28px}
+.rules span{font-size:12px;letter-spacing:.08em;font-weight:700;padding:6px 10px;border:1px solid var(--edge);border-radius:3px;background:var(--panel-lo);color:var(--muted)}
+.sec{margin:36px 0 18px}
+.sec h2{font-family:var(--display);font-size:32px;letter-spacing:.06em;margin:0 0 6px}
+.sec p{margin:0;color:var(--text-2);max-width:92ch}
+.note{margin-top:8px;font-size:12px;letter-spacing:.04em;color:var(--muted)}
+.board{width:1920px;height:1080px;position:relative;overflow:hidden;background:var(--ground);margin:16px 0 40px;box-shadow:0 24px 60px rgba(0,0,0,.55)}
+.shell{width:100%;height:100%;position:relative;background:var(--ground)}
+.top{position:absolute;left:402px;top:16px;width:1494px;height:92px;background:linear-gradient(180deg,rgba(52,64,90,.98),rgba(38,46,66,.98));border:1px solid var(--edge);border-radius:3px;box-shadow:0 1px 0 var(--edge-hi) inset;display:grid;grid-template-columns:1fr auto;overflow:hidden}
+.top .left{padding:8px 14px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.crumb{font-size:12px;letter-spacing:.12em;font-weight:700;color:var(--muted)}
+.pills{display:flex;gap:8px;align-items:center}
+.pill{height:28px;padding:0 12px;border-radius:3px;border:1px solid var(--edge);display:inline-flex;align-items:center;font-size:12px;letter-spacing:.1em;font-weight:700;background:linear-gradient(180deg,#3a4560,#2b3449)}
+.pill.gold{background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:var(--ink);border-color:var(--gold-edge);box-shadow:0 1px 0 rgba(255,255,255,.35) inset}
+.daystrip{display:flex;gap:4px;margin-left:10px}
+.daycell{width:46px;height:28px;border-radius:2px;background:var(--day);border:1px solid var(--edge);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--dim);line-height:1.05}
+.daycell .n{font-family:var(--display);font-size:14px;color:var(--text-2)}
+.daycell.on{background:var(--day-today);border-color:var(--gold-lo);box-shadow:0 0 0 1px rgba(240,194,51,.35)}
+.daycell.on .n{color:var(--gold)}
+.top .right{display:flex;align-items:stretch}
+.dateblk{padding:0 16px;display:flex;flex-direction:column;justify-content:center;text-align:right;background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff;min-width:168px}
+.dateblk .w{font-size:12px;letter-spacing:.14em;font-weight:700;opacity:.92}
+.dateblk .d{font-family:var(--display);font-size:22px;line-height:1;margin-top:2px}
+.continue{display:flex;flex-direction:column;justify-content:center;padding:0 22px;min-width:220px;background:linear-gradient(180deg,var(--go-hi),var(--go-lo));color:#062a10;border-left:1px solid var(--go-edge);box-shadow:0 1px 0 rgba(255,255,255,.35) inset}
+.continue .t{font-family:var(--display);font-size:26px;letter-spacing:.06em;line-height:1}
+.continue .s{font-size:12px;letter-spacing:.1em;font-weight:700;margin-top:2px}
+.rail{position:absolute;left:16px;top:122px;width:370px;height:900px;background:linear-gradient(180deg,#243049,#1c2436);border:1px solid var(--edge);border-radius:3px;box-shadow:0 1px 0 var(--edge-hi) inset;display:flex;flex-direction:column;overflow:hidden}
+.crest{display:flex;align-items:center;gap:12px;padding:14px 14px 10px;border-bottom:1px solid var(--edge)}
+.crest .mark{width:44px;height:44px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#fff,#cfd8e6 70%);color:var(--gym-deep);font-family:var(--display);font-size:18px;display:grid;place-items:center;border:2px solid rgba(0,0,0,.35);flex:none}
+.crest .nm{font-family:var(--display);font-size:22px;letter-spacing:.04em;line-height:1;color:#fff}
+.crest .sub{font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--muted);margin-top:3px}
+.menucap{font-size:12px;letter-spacing:.16em;font-weight:700;color:var(--dim);padding:10px 18px 4px}
+.nav{display:flex;flex-direction:column;gap:2px;padding:4px 8px 12px;flex:1}
+.nav a{display:flex;align-items:center;height:40px;padding:0 12px 0 14px;border-radius:3px;color:var(--text-2);text-decoration:none;font-family:var(--display);font-size:18px;letter-spacing:.06em;position:relative}
+.nav a .badge{margin-left:auto;min-width:22px;height:20px;padding:0 6px;border-radius:10px;background:var(--bad);color:#fff;font-family:var(--mono);font-size:11px;font-weight:700;display:grid;place-items:center}
+.nav a.on{background:linear-gradient(90deg,var(--gym),var(--gym-lo));color:#fff}
+.nav a.on::before{content:"";position:absolute;left:4px;top:8px;width:4px;height:24px;border-radius:2px;background:var(--gold)}
+.body{position:absolute;left:402px;top:122px;width:1494px;height:900px;display:flex;flex-direction:column;gap:10px;min-height:0}
+.hubhead{height:44px;display:flex;align-items:center;gap:14px;padding:0 2px;flex:none}
+.hubhead h2{font-family:var(--display);font-size:32px;letter-spacing:.04em;margin:0;line-height:1}
+.hubhead .meta{font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--muted)}
+.tabs{display:flex;gap:4px;margin-left:auto}
+.tab{height:32px;padding:0 16px;border-radius:3px;border:1px solid var(--edge);background:linear-gradient(180deg,#3a4560,#2b3449);font-family:var(--display);font-size:16px;letter-spacing:.08em;color:var(--text-2);display:inline-flex;align-items:center}
+.tab.on{background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff;border-color:var(--gym-deep)}
+.tab.soft{opacity:.7}
+.filters{display:flex;gap:6px;align-items:center;padding:0 2px;flex:none}
+.chip{height:26px;padding:0 10px;border-radius:3px;border:1px solid var(--edge);background:var(--chip);font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--text-2);display:inline-flex;align-items:center}
+.chip.on{background:linear-gradient(180deg,#4a5670,#333d52);color:#fff;border-color:var(--line)}
+.sort{margin-left:auto;font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--muted)}
+.panel{background:var(--panel);border:1px solid var(--edge);border-radius:3px;box-shadow:0 1px 0 var(--edge-hi) inset;min-height:0;flex:1;display:flex;flex-direction:column;overflow:hidden}
+.hint{padding:8px 12px;border-top:1px solid var(--line-soft);font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--muted);display:flex;gap:18px;flex:none}
+.hint b{color:var(--text-2)}
+.av{width:28px;height:28px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#5a6578,var(--avatar));border:1px solid var(--edge);display:grid;place-items:center;font-family:var(--display);font-size:12px;color:var(--text);flex:none}
+.pair{display:grid;grid-template-columns:1fr auto;height:34px;border:1px solid var(--edge);border-radius:3px;overflow:hidden}
+.pair .lab{display:flex;align-items:center;padding:0 10px;background:linear-gradient(180deg,#4a5670,#333d52);font-family:var(--display);font-size:15px;letter-spacing:.08em}
+.pair .val{display:flex;align-items:center;justify-content:center;min-width:64px;padding:0 10px;font-family:var(--display);font-size:20px;background:linear-gradient(180deg,var(--panel-hi),var(--panel-lo))}
+.btn{height:40px;border-radius:3px;border:1px solid var(--edge);background:linear-gradient(180deg,#445273,#303a52);font-family:var(--display);font-size:17px;letter-spacing:.08em;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 0 var(--edge-hi) inset}
+.btn.gold{background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:var(--ink);border-color:var(--gold-edge);box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 0 16px rgba(240,194,51,.35)}
+.btn.dim{opacity:.45}
+.alert{height:28px;display:flex;align-items:center;padding:0 10px;background:linear-gradient(90deg,rgba(229,67,58,.35),rgba(229,67,58,.08));border:1px solid var(--bad-edge);border-radius:2px;font-size:12px;letter-spacing:.1em;font-weight:700;color:#ffb0aa}
+.alert.amber{background:linear-gradient(90deg,rgba(240,160,32,.3),rgba(240,160,32,.06));border-color:#7a4c08;color:#ffd08a}
+.sil{width:48px;height:86px;background:linear-gradient(180deg,#3b4557 0%,#2a3347 55%,#1c2230 100%);border-radius:24px 24px 6px 6px;position:relative;flex:none;box-shadow:0 8px 18px rgba(0,0,0,.4)}
+.sil::before{content:"";position:absolute;top:-22px;left:50%;transform:translateX(-50%);width:28px;height:28px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#4a556c,#2b3447 70%);border:2px solid var(--edge)}
+.flag{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:2px;font-size:11px;letter-spacing:.08em;font-weight:700;border:1px solid var(--edge);white-space:nowrap}
+.flag.med{background:rgba(229,67,58,.18);color:#ff8f87;border-color:var(--bad-edge)}
+.flag.camp{background:rgba(47,111,176,.2);color:var(--link)}
+.flag.ask{background:rgba(240,160,32,.16);color:var(--amber)}
+.flag.book{background:rgba(148,161,184,.12);color:var(--muted)}
+.flag.train{background:rgba(240,160,32,.18);color:var(--amber)}
+.flag.unsafe{background:rgba(229,67,58,.2);color:#ff8f87;border-color:var(--bad-edge)}
+
+/* WEEK bands */
+.whead{display:grid;grid-template-columns:220px repeat(7,1fr) 110px 100px;gap:6px;align-items:center;padding:0 12px;height:34px;background:var(--panel-lo);border-bottom:1px solid var(--line-soft);font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--dim);flex:none}
+.wrow{display:grid;grid-template-columns:220px repeat(7,1fr) 110px 100px;gap:6px;align-items:center;padding:8px 12px;border-bottom:1px solid var(--line-soft);min-height:72px}
+.wrow:nth-child(even){background:rgba(0,0,0,.12)}
+.wrow.sel{background:linear-gradient(90deg,var(--gym-tint),rgba(47,111,176,.05));box-shadow:inset 4px 0 0 var(--gym-hi)}
+.wrow .who{display:flex;align-items:center;gap:10px;min-width:0}
+.wrow .nm{font-family:var(--display);font-size:18px;letter-spacing:.03em;color:#fff;line-height:1.05}
+.wrow .sub{font-size:12px;letter-spacing:.05em;font-weight:700;color:var(--muted);margin-top:2px}
+.dchip{height:52px;border-radius:3px;border:1px solid var(--edge);background:var(--control);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:4px 2px}
+.dchip .dl{font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--dim)}
+.dchip .df{font-family:var(--display);font-size:14px;letter-spacing:.04em;line-height:1}
+.dchip.str{background:linear-gradient(180deg,#5a3a1a,#3a2818);border-color:#8a5a20;color:#ffd08a}
+.dchip.str .df{color:#ffd08a}
+.dchip.car{background:linear-gradient(180deg,#1a3a5a,#142838);border-color:#2a5a8a;color:#8cc4f4}
+.dchip.car .df{color:#8cc4f4}
+.dchip.rec{background:linear-gradient(180deg,#1a3a28,#142820);border-color:#2a6a40;color:#9ae8a6}
+.dchip.rec .df{color:#9ae8a6}
+.dchip.fgt{background:linear-gradient(180deg,#5a2a22,#3a1c18);border-color:#8a3a28;color:#ffb0aa}
+.dchip.fgt .df{color:#ffb0aa}
+.dchip.off{background:linear-gradient(180deg,#2a3140,#1c2230);border-color:var(--edge);color:var(--dim)}
+.dchip.off .df{color:var(--dim)}
+.dchip.evt{box-shadow:inset 0 -3px 0 var(--amber)}
+.dchip.selday{outline:2px solid var(--gym-hi);box-shadow:0 0 12px rgba(47,111,176,.4)}
+.dchip.armed{outline:2px solid var(--gold);box-shadow:0 0 12px rgba(240,194,51,.45)}
+.load{font-family:var(--display);font-size:22px;letter-spacing:.02em}
+.load.hi{color:var(--amber)}
+.load.ok{color:var(--text)}
+.load.lo{color:var(--muted)}
+.evtmark{font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--amber)}
+
+/* SESSION layout */
+.sess{flex:1;display:grid;grid-template-columns:1fr 420px;gap:10px;min-height:0}
+.sess-main{display:flex;flex-direction:column;gap:10px;min-height:0}
+.sess-side{display:flex;flex-direction:column;gap:10px;min-height:0}
+.focusrow{display:flex;gap:6px;flex-wrap:wrap}
+.fchip{height:36px;padding:0 14px;border-radius:3px;border:1px solid var(--edge);background:var(--control);font-family:var(--display);font-size:16px;letter-spacing:.08em;color:var(--text-2);display:inline-flex;align-items:center}
+.fchip.on{background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff;border-color:var(--gym-deep)}
+.equip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.eq{border:1px solid var(--edge);border-radius:3px;background:linear-gradient(180deg,#34405a,#222a3b);padding:10px;display:flex;flex-direction:column;gap:4px;box-shadow:0 1px 0 var(--edge-hi) inset;min-height:72px}
+.eq .en{font-family:var(--display);font-size:16px;letter-spacing:.04em}
+.eq .em{font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--muted)}
+.eq.sel{outline:2px solid var(--gym-hi)}
+.eq.bad{border-color:#8a2a24;opacity:.85}
+.eq.illegal{border-color:var(--bad-edge);background:linear-gradient(180deg,#4a2a28,#2a1a1c)}
+.bodymap{flex:1;display:grid;grid-template-columns:140px 1fr;gap:14px;padding:14px;background:var(--panel);border:1px solid var(--edge);border-radius:3px;min-height:0}
+.bodysil{width:110px;height:220px;margin:10px auto 0;background:linear-gradient(180deg,#3b4557 0%,#2a3347 50%,#1c2230 100%);border-radius:40px 40px 12px 12px;position:relative;box-shadow:0 12px 28px rgba(0,0,0,.45)}
+.bodysil::before{content:"";position:absolute;top:-30px;left:50%;transform:translateX(-50%);width:42px;height:42px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#4a556c,#2b3447 70%);border:2px solid var(--edge)}
+.regions{display:flex;flex-direction:column;gap:8px;justify-content:center}
+.reg{display:grid;grid-template-columns:110px 1fr 52px;gap:8px;align-items:center}
+.reg .rn{font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--muted)}
+.regtrack{height:14px;background:var(--track);border-radius:2px;border:1px solid var(--edge);position:relative;overflow:hidden}
+.regtrack .before{position:absolute;left:0;top:0;bottom:0;background:rgba(74,90,120,.55)}
+.regtrack .after{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,var(--gym-lo),var(--gym-hi));opacity:.95}
+.regtrack.fat .after{background:linear-gradient(90deg,#7a2a22,#e5433a)}
+.reg .delta{font-family:var(--display);font-size:18px;text-align:right}
+.reg .delta.up{color:var(--amber)}
+.reg .delta.dn{color:var(--good)}
+.reg .delta.flat{color:var(--muted)}
+.sess-actions{display:flex;gap:8px}
+.sess-actions .btn{flex:1}
+.legend{display:flex;gap:14px;font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--muted);padding:0 2px}
+.legend i{display:inline-block;width:18px;height:8px;border-radius:1px;vertical-align:middle;margin-right:6px}
+.legend .b{background:rgba(74,90,120,.55)}
+.legend .a{background:linear-gradient(90deg,var(--gym-lo),var(--gym-hi))}
+
+/* CAMP */
+.camp{flex:1;display:grid;grid-template-columns:1fr 380px;gap:10px;min-height:0}
+.camp-main{display:flex;flex-direction:column;gap:10px;min-height:0}
+.opp{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;padding:14px 16px;background:var(--panel);border:1px solid var(--edge);border-radius:3px}
+.opp .vs{font-family:var(--display);font-size:28px;color:var(--gold);letter-spacing:.06em}
+.opp .oname{font-family:var(--display);font-size:26px;letter-spacing:.03em;line-height:1}
+.opp .ometa{font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--muted);margin-top:4px}
+.weeks{display:flex;gap:6px}
+.wk{flex:1;height:64px;border-radius:3px;border:1px solid var(--edge);background:var(--control);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.wk .wn{font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--dim)}
+.wk .wv{font-family:var(--display);font-size:18px}
+.wk.on{background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));border-color:var(--gym-deep);color:#fff}
+.wk.on .wn{color:rgba(255,255,255,.75)}
+.wk.fight{background:linear-gradient(180deg,#c95a26,#7a2a22);color:#fff;border-color:#5a120e}
+.wk.fight .wn{color:rgba(255,255,255,.8)}
+.wk.done{opacity:.45}
+.camp-grid{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:10px;min-height:0}
+.card{background:var(--panel);border:1px solid var(--edge);border-radius:3px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;box-shadow:0 1px 0 var(--edge-hi) inset}
+.card .ch{font-size:12px;letter-spacing:.14em;font-weight:700;color:var(--muted)}
+.card h3{font-family:var(--display);font-size:22px;margin:0;letter-spacing:.04em;line-height:1}
+.card .cm{font-size:12px;letter-spacing:.05em;font-weight:700;color:var(--text-2);line-height:1.45}
+.camp-side{display:flex;flex-direction:column;gap:10px}
+.diff{padding:12px;background:var(--panel-lo);border:1px solid var(--edge);border-radius:3px;font-size:12px;letter-spacing:.05em;font-weight:700;color:var(--text-2);line-height:1.5}
+.diff b{color:var(--gold)}
+
+/* STATES */
+.states{display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:10px;padding:2px;height:100%;flex:1;min-height:0}
+.scell{border:1px solid var(--edge);border-radius:3px;background:#151a24;overflow:hidden;position:relative;padding:36px 10px 10px;display:flex;flex-direction:column;min-height:0}
+.scell .stag{position:absolute;top:8px;left:8px;z-index:3;font-size:12px;letter-spacing:.12em;font-weight:700;padding:4px 8px;background:rgba(18,23,34,.92);border:1px solid var(--line-soft);border-radius:2px;color:var(--text-2)}
+.mini-body{height:100%;display:flex;flex-direction:column;gap:8px;min-height:0}
+.mini-band{display:flex;gap:3px}
+.mini-band .dchip{height:36px;flex:1;padding:2px}
+.mini-band .dchip .df{font-size:12px}
+.mini-band .dchip .dl{font-size:12px}
+.emptyfloor{flex:1;display:flex;align-items:center;justify-content:center;gap:14px;border:1px dashed var(--line);border-radius:3px;background:rgba(0,0,0,.2)}
+.emptyfloor .msg{font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--muted);max-width:28ch;line-height:1.45}
+.scell.wide{grid-column:span 1}
+
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="eyebrow">K9 · KALLI STUDY · NO CODE SHIPS</div>
+  <div class="mast">
+    <h1>TRAINING HUB</h1>
+    <p>Answers what each fighter does with their week. Ordinary week and fight camp are the same act at two intensities.
+    Pattern matches K8 GYM hub rhythm (title / line / tabs in free band, body ~210). Legacy TrainingScreen discarded, not migrated.
+    Sample: Eastern Ring / Mira Lopez in camp.</p>
+  </div>
+  <div class="rules">
+    <span>BEBAS + PLEX</span><span>SIZE_MIN 12</span><span>GOLD ×1 / BOARD</span><span>GREEN = CONTINUE ONLY</span>
+    <span>PAIR = SLATE</span><span>GYM ≠ CAMP</span><span>SAME-SEX SPAR</span><span>NO DRAG · CLICK-ARM-CLICK</span>
+    <span>ONE SILHOUETTE</span><span>REUSE R21 GYM FAMILY</span>
+  </div>
+
+  <div class="sec"><h2>01 · THE WEEK</h2><p>Home board. Every fighter's seven-day band, focus chips, load, event nights. Sort / filter. One selected. Click a day opens SESSION.</p></div>
+</div>
+
+<div class="board" id="board-week">
+<div class="shell">
+  <div class="top"><div class="left"><div class="crumb">EASTERN RING  /  TRAINING</div>
+  <div class="pills"><span class="pill gold">$ 27,600</span><span class="pill">ROSTER 4</span><div class="daystrip"><div class="daycell on"><span>MON</span><span class="n">26</span></div><div class="daycell"><span>TUE</span><span class="n">27</span></div><div class="daycell"><span>WED</span><span class="n">28</span></div><div class="daycell"><span>THU</span><span class="n">29</span></div><div class="daycell"><span>FRI</span><span class="n">30</span></div><div class="daycell"><span>SAT</span><span class="n">31</span></div><div class="daycell"><span>SUN</span><span class="n">1</span></div></div></div></div>
+  <div class="right"><div class="dateblk"><div class="w">WEEK 4</div><div class="d">MON 26 JAN 2026</div></div>
+  <div class="continue"><div class="t">CONTINUE</div><div class="s">1 MUST ANSWER FIRST</div></div></div></div>
+  <div class="rail"><div class="crest"><div class="mark">ER</div><div><div class="nm">EASTERN RING</div><div class="sub">NICOSIA  ·  TIER 1</div></div></div>
+  <div class="menucap">MENU</div><div class="nav"><a href="#">OFFICE</a><a href="#">THE DAY</a><a href="#">GYM<span class="badge">1</span></a><a href="#">STAFF</a><a class="on" href="#">TRAINING</a><a href="#">SCHEDULE</a><a href="#">EVENTS<span class="badge">6</span></a><a href="#">SCOUTING</a></div></div>
+  <div class="body">
+<div class="hubhead"><h2>TRAINING</h2><span class="meta">EASTERN RING · WHAT EACH FIGHTER DOES THIS WEEK</span>
+    <div class="tabs"><span class="tab on">THE WEEK</span><span class="tab soft">FIGHT CAMP</span></div></div>
+
+<div class="filters">
+  <span class="chip on">ALL</span><span class="chip">BOOKED</span><span class="chip">OPEN BOOK</span><span class="chip">OVERLOAD</span>
+  <span class="chip">BOXING</span><span class="chip">MMA</span><span class="chip">BJJ</span>
+  <span class="sort">SORT · LOAD ↓ · EVENT NIGHT</span>
+</div>
+<div class="panel">
+  <div class="whead"><div>FIGHTER</div><div>MON</div><div>TUE</div><div>WED</div><div>THU</div><div>FRI</div><div>SAT</div><div>SUN</div><div>LOAD</div><div>FLAG</div></div>
+  <div class="wrow">
+    <div class="who"><div class="av">KS</div><div><div class="nm">KIAN STERLING</div><div class="sub">AGE 25 · M · BOXING · LW</div></div></div>
+    <div class="dchip rec "><span class="dl">26</span><span class="df">REC</span></div><div class="dchip rec "><span class="dl">27</span><span class="df">REC</span></div><div class="dchip off "><span class="dl">28</span><span class="df">OFF</span></div><div class="dchip str "><span class="dl">29</span><span class="df">STR</span></div><div class="dchip car "><span class="dl">30</span><span class="df">CAR</span></div><div class="dchip off "><span class="dl">31</span><span class="df">OFF</span></div><div class="dchip off "><span class="dl">1</span><span class="df">OFF</span></div>
+    <div class="load lo">38</div><div><span class="flag med">MEDICAL HOLD</span></div>
+  </div>
+  <div class="wrow sel">
+    <div class="who"><div class="av">ML</div><div><div class="nm">MIRA LOPEZ</div><div class="sub">AGE 23 · F · MMA · FLY</div></div></div>
+    <div class="dchip fgt selday"><span class="dl">26</span><span class="df">FIGHT</span></div><div class="dchip str "><span class="dl">27</span><span class="df">STR</span></div><div class="dchip car "><span class="dl">28</span><span class="df">CAR</span></div><div class="dchip fgt "><span class="dl">29</span><span class="df">FIGHT</span></div><div class="dchip rec "><span class="dl">30</span><span class="df">REC</span></div><div class="dchip fgt evt"><span class="dl">31</span><span class="df">FIGHT</span></div><div class="dchip off "><span class="dl">1</span><span class="df">OFF</span></div>
+    <div class="load hi">74</div><div><span class="flag camp">IN CAMP · 3W</span></div>
+  </div>
+  <div class="wrow">
+    <div class="who"><div class="av">DH</div><div><div class="nm">DEVON HALE</div><div class="sub">AGE 28 · M · BOXING · WW</div></div></div>
+    <div class="dchip car "><span class="dl">26</span><span class="df">CAR</span></div><div class="dchip str "><span class="dl">27</span><span class="df">STR</span></div><div class="dchip str "><span class="dl">28</span><span class="df">STR</span></div><div class="dchip car "><span class="dl">29</span><span class="df">CAR</span></div><div class="dchip fgt "><span class="dl">30</span><span class="df">FIGHT</span></div><div class="dchip rec "><span class="dl">31</span><span class="df">REC</span></div><div class="dchip off "><span class="dl">1</span><span class="df">OFF</span></div>
+    <div class="load ok">61</div><div><span class="flag book">OPEN BOOK</span></div>
+  </div>
+  <div class="wrow">
+    <div class="who"><div class="av">AN</div><div><div class="nm">ARIA NOVA</div><div class="sub">AGE 21 · F · BJJ · SW</div></div></div>
+    <div class="dchip str "><span class="dl">26</span><span class="df">STR</span></div><div class="dchip fgt "><span class="dl">27</span><span class="df">FIGHT</span></div><div class="dchip rec "><span class="dl">28</span><span class="df">REC</span></div><div class="dchip str "><span class="dl">29</span><span class="df">STR</span></div><div class="dchip fgt "><span class="dl">30</span><span class="df">FIGHT</span></div><div class="dchip car "><span class="dl">31</span><span class="df">CAR</span></div><div class="dchip off "><span class="dl">1</span><span class="df">OFF</span></div>
+    <div class="load ok">58</div><div><span class="flag ask">OPEN ASK</span></div>
+  </div>
+  <div class="hint"><span>CLICK DAY → OPENS SESSION</span><span><b>CLICK-ARM-CLICK</b> COPY · NO DRAG</span><span>EVENT NIGHT = AMBER UNDERLINE</span><span>SELECTED · MIRA LOPEZ</span></div>
+</div>
+
+</div></div>
+</div>
+
+<div class="doc"><div class="sec"><h2>02 · THE SESSION</h2><p>One day open. Focus, equipment from owned stations, six body regions before/after + fatigue as a graphic, illegal-for-discipline refusal, PASTE / CLEAR. Gold on PASTE (primary).</p>
+<p class="note">Body map is glanceable bars — not a dense table. BEFORE wash under AFTER fill.</p></div></div>
+
+<div class="board" id="board-session">
+<div class="shell">
+  <div class="top"><div class="left"><div class="crumb">EASTERN RING  /  TRAINING  /  SESSION</div>
+  <div class="pills"><span class="pill">$ 27,600</span><span class="pill">ROSTER 4</span><div class="daystrip"><div class="daycell on"><span>MON</span><span class="n">26</span></div><div class="daycell"><span>TUE</span><span class="n">27</span></div><div class="daycell"><span>WED</span><span class="n">28</span></div><div class="daycell"><span>THU</span><span class="n">29</span></div><div class="daycell"><span>FRI</span><span class="n">30</span></div><div class="daycell"><span>SAT</span><span class="n">31</span></div><div class="daycell"><span>SUN</span><span class="n">1</span></div></div></div></div>
+  <div class="right"><div class="dateblk"><div class="w">WEEK 4</div><div class="d">MON 26 JAN 2026</div></div>
+  <div class="continue"><div class="t">CONTINUE</div><div class="s">1 MUST ANSWER FIRST</div></div></div></div>
+  <div class="rail"><div class="crest"><div class="mark">ER</div><div><div class="nm">EASTERN RING</div><div class="sub">NICOSIA  ·  TIER 1</div></div></div>
+  <div class="menucap">MENU</div><div class="nav"><a href="#">OFFICE</a><a href="#">THE DAY</a><a href="#">GYM<span class="badge">1</span></a><a href="#">STAFF</a><a class="on" href="#">TRAINING</a><a href="#">SCHEDULE</a><a href="#">EVENTS<span class="badge">6</span></a><a href="#">SCOUTING</a></div></div>
+  <div class="body">
+<div class="hubhead"><h2>TRAINING</h2><span class="meta">EASTERN RING · DAY EDITOR · BODY MODEL</span>
+    <div class="tabs"><span class="tab on">THE WEEK</span><span class="tab soft">FIGHT CAMP</span></div></div>
+
+<div class="filters">
+  <span class="chip on">MIRA LOPEZ</span><span class="chip">MON 26 · FIGHT</span><span class="chip">ARM COPY READY</span>
+  <span class="sort">SESSION EDITOR · ONE DAY OPEN</span>
+</div>
+<div class="sess">
+  <div class="sess-main">
+    <div class="panel" style="flex:none;padding:12px 14px;display:flex;flex-direction:column;gap:10px">
+      <div style="font-size:12px;letter-spacing:.14em;font-weight:700;color:var(--muted)">FOCUS</div>
+      <div class="focusrow">
+        <span class="fchip">STRENGTH</span><span class="fchip">CARDIO</span><span class="fchip">RECOVERY</span>
+        <span class="fchip on">FIGHT</span><span class="fchip">OFF DAY</span>
+      </div>
+      <div style="font-size:12px;letter-spacing:.14em;font-weight:700;color:var(--muted);margin-top:4px">EQUIPMENT · OWNED STATIONS</div>
+      <div class="equip">
+        <div class="eq sel"><div class="en">BOXING RING</div><div class="em">COND 88% · SPAR SAFE</div></div>
+        <div class="eq"><div class="en">FOCUS PADS</div><div class="em">COND 80% · STRIKE</div></div>
+        <div class="eq illegal"><div class="en">BJJ MATS</div><div class="em">ILLEGAL FOR MMA STRIKE DAY</div></div>
+        <div class="eq"><div class="en">HEAVY BAG</div><div class="em">COND 62% · POWER</div></div>
+        <div class="eq bad"><div class="en">POWER RACK</div><div class="em">COND 55% · BELOW SAFETY</div></div>
+        <div class="eq"><div class="en">ICE BATH</div><div class="em">RECOVERY ONLY</div></div>
+      </div>
+      <div class="alert">ILLEGAL FOR THIS DISCIPLINE · BJJ MATS ON AN MMA FIGHT FOCUS</div>
+    </div>
+    <div class="bodymap">
+      <div>
+        <div style="font-size:12px;letter-spacing:.14em;font-weight:700;color:var(--muted);text-align:center">BODY · BEFORE / AFTER</div>
+        <div class="bodysil"></div>
+        <div class="legend" style="justify-content:center;margin-top:28px"><span><i class="b"></i>BEFORE</span><span><i class="a"></i>AFTER</span></div>
+      </div>
+      <div class="regions">
+        <div class="reg"><div class="rn">HEAD / NECK</div><div class="regtrack"><i class="before" style="width:42%"></i><i class="after" style="width:58%"></i></div><div class="delta up">+16</div></div>
+        <div class="reg"><div class="rn">TORSO / CORE</div><div class="regtrack"><i class="before" style="width:55%"></i><i class="after" style="width:68%"></i></div><div class="delta up">+13</div></div>
+        <div class="reg"><div class="rn">LEFT ARM</div><div class="regtrack"><i class="before" style="width:48%"></i><i class="after" style="width:61%"></i></div><div class="delta up">+13</div></div>
+        <div class="reg"><div class="rn">RIGHT ARM</div><div class="regtrack"><i class="before" style="width:50%"></i><i class="after" style="width:66%"></i></div><div class="delta up">+16</div></div>
+        <div class="reg"><div class="rn">LEFT LEG</div><div class="regtrack"><i class="before" style="width:44%"></i><i class="after" style="width:52%"></i></div><div class="delta up">+8</div></div>
+        <div class="reg"><div class="rn">RIGHT LEG</div><div class="regtrack"><i class="before" style="width:46%"></i><i class="after" style="width:54%"></i></div><div class="delta up">+8</div></div>
+        <div class="reg"><div class="rn">FATIGUE</div><div class="regtrack fat"><i class="before" style="width:28%"></i><i class="after" style="width:47%"></i></div><div class="delta up">+19</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="sess-side">
+    <div class="panel" style="padding:14px;display:flex;flex-direction:column;gap:10px">
+      <div style="font-size:12px;letter-spacing:.14em;font-weight:700;color:var(--muted)">OPEN DAY</div>
+      <h3 style="font-family:var(--display);font-size:28px;margin:0;letter-spacing:.04em">MON 26 · FIGHT</h3>
+      <div style="font-size:12px;letter-spacing:.05em;font-weight:700;color:var(--text-2);line-height:1.5">MIRA LOPEZ · AGE 23 · F · MMA · FLY<br>STATION PICK FROM OWNED FLOOR<br>FLOOR SHOWS WHO · THIS SHOWS WHAT</div>
+      <div class="pair"><div class="lab">LOAD DELTA</div><div class="val">+19</div></div>
+      <div class="pair"><div class="lab">SAFETY</div><div class="val">88%</div></div>
+      <div class="pair"><div class="lab">COPY BUFFER</div><div class="val">ARMED</div></div>
+      <div class="sess-actions" style="margin-top:auto;flex-direction:column">
+        <div class="btn gold">PASTE TO DAY</div>
+        <div class="btn">CLEAR DAY</div>
+        <div class="btn dim">ARM COPY · CLICK TARGET</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div></div>
+</div>
+
+<div class="doc"><div class="sec"><h2>03 · FIGHT CAMP</h2><p>Booked-fighter mode: opponent, weeks out, same-sex sparring, visiting coach, film, fatigue/injury, pull out. How the hub differs from an ordinary week. Gold ×1 on PULL OUT OF CAMP.</p></div></div>
+
+<div class="board" id="board-camp">
+<div class="shell">
+  <div class="top"><div class="left"><div class="crumb">EASTERN RING  /  TRAINING  /  FIGHT CAMP</div>
+  <div class="pills"><span class="pill">$ 27,600</span><span class="pill">CAMP · MIRA</span><div class="daystrip"><div class="daycell on"><span>MON</span><span class="n">26</span></div><div class="daycell"><span>TUE</span><span class="n">27</span></div><div class="daycell"><span>WED</span><span class="n">28</span></div><div class="daycell"><span>THU</span><span class="n">29</span></div><div class="daycell"><span>FRI</span><span class="n">30</span></div><div class="daycell"><span>SAT</span><span class="n">31</span></div><div class="daycell"><span>SUN</span><span class="n">1</span></div></div></div></div>
+  <div class="right"><div class="dateblk"><div class="w">WEEK 4</div><div class="d">MON 26 JAN 2026</div></div>
+  <div class="continue"><div class="t">CONTINUE</div><div class="s">1 MUST ANSWER FIRST</div></div></div></div>
+  <div class="rail"><div class="crest"><div class="mark">ER</div><div><div class="nm">EASTERN RING</div><div class="sub">NICOSIA  ·  TIER 1</div></div></div>
+  <div class="menucap">MENU</div><div class="nav"><a href="#">OFFICE</a><a href="#">THE DAY</a><a href="#">GYM<span class="badge">1</span></a><a href="#">STAFF</a><a class="on" href="#">TRAINING</a><a href="#">SCHEDULE</a><a href="#">EVENTS<span class="badge">6</span></a><a href="#">SCOUTING</a></div></div>
+  <div class="body">
+<div class="hubhead"><h2>TRAINING</h2><span class="meta">BOOKED MODE · PRE-BOUT INTENSITY · NOT A SECOND RAIL</span>
+    <div class="tabs"><span class="tab">THE WEEK</span><span class="tab on">FIGHT CAMP</span></div></div>
+
+<div class="filters">
+  <span class="chip on">MIRA LOPEZ</span><span class="chip">VS J. PARK</span><span class="chip">3 WEEKS OUT</span>
+  <span class="sort">BOOKED FIGHTER MODE · SAME SEX SPAR ONLY</span>
+</div>
+<div class="camp">
+  <div class="camp-main">
+    <div class="opp">
+      <div class="who" style="display:flex;align-items:center;gap:12px"><div class="av" style="width:48px;height:48px;font-size:16px">ML</div><div><div class="oname">MIRA LOPEZ</div><div class="ometa">AGE 23 · F · MMA · FLY · 4-1-0</div></div></div>
+      <div class="vs" style="color:var(--text-2)">VS</div>
+      <div style="text-align:right"><div class="oname">J. PARK</div><div class="ometa">AGE 24 · F · MMA · FLY · APEX · 21D</div></div>
+    </div>
+    <div class="weeks">
+      <div class="wk done"><span class="wn">WK 8</span><span class="wv">BASE</span></div>
+      <div class="wk done"><span class="wn">WK 7</span><span class="wv">BASE</span></div>
+      <div class="wk done"><span class="wn">WK 6</span><span class="wv">BUILD</span></div>
+      <div class="wk done"><span class="wn">WK 5</span><span class="wv">BUILD</span></div>
+      <div class="wk done"><span class="wn">WK 4</span><span class="wv">SPARRING</span></div>
+      <div class="wk on"><span class="wn">WK 3</span><span class="wv">NOW</span></div>
+      <div class="wk"><span class="wn">WK 2</span><span class="wv">TAPER</span></div>
+      <div class="wk fight"><span class="wn">WK 1</span><span class="wv">FIGHT</span></div>
+    </div>
+    <div class="camp-grid">
+      <div class="card">
+        <div class="ch">SPARRING PARTNER</div>
+        <h3>ARIA NOVA</h3>
+        <div class="cm">AGE 21 · F · BJJ · SAME SEX ONLY<br>REFUSES MALE PARTNERS · RULE</div>
+        <div class="pair"><div class="lab">SESSIONS / WK</div><div class="val">3</div></div>
+      </div>
+      <div class="card">
+        <div class="ch">VISITING COACH</div>
+        <h3>COACH RUIZ</h3>
+        <div class="cm">STRIKING SPECIALIST · 2 WEEKS<br>FILM + PAD WORK</div>
+        <div class="pair"><div class="lab">COST / WK</div><div class="val">$900</div></div>
+      </div>
+      <div class="card">
+        <div class="ch">FILM STUDY</div>
+        <h3>12 / 20</h3>
+        <div class="cm">PARK TAPE · SOUTHPAW ENTRIES<br>COUNTER TO LEAD HOOK</div>
+        <div class="pair"><div class="lab">REMAINING</div><div class="val">8</div></div>
+      </div>
+      <div class="card">
+        <div class="ch">BODY &amp; FATIGUE</div>
+        <h3>FATIGUE 61</h3>
+        <div class="cm">NO ACTIVE INJURY<br>RIGHT SHOULDER · WATCH</div>
+        <div class="pair"><div class="lab">INJURY RISK</div><div class="val">LOW</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="camp-side">
+    <div class="panel" style="padding:14px;display:flex;flex-direction:column;gap:10px;flex:1">
+      <div style="font-size:12px;letter-spacing:.14em;font-weight:700;color:var(--muted)">HOW CAMP DIFFERS</div>
+      <div class="diff">Ordinary WEEK plans focus chips.<br><br>CAMP adds <b>opponent</b>, <b>weeks-out rail</b>, <b>sparring</b>, <b>visiting coach</b>, <b>film</b>, <b>injury pull-out</b>.<br><br>Same TRAINING rail — intensity mode, not a second destination.</div>
+      <div class="pair"><div class="lab">WEEKS OUT</div><div class="val">3</div></div>
+      <div class="pair"><div class="lab">EVENT</div><div class="val">APEX</div></div>
+      <div class="btn gold" style="margin-top:auto">PULL OUT OF CAMP</div>
+      <div class="btn">BACK TO WEEK</div>
+    </div>
+  </div>
+</div>
+
+</div></div>
+</div>
+
+<div class="doc"><div class="sec"><h2>04 · STATES</h2><p>Contact sheet: nobody booked / overtrained-injured / camp wk1 vs fight week / unsafe equipment / empty gym.</p></div></div>
+
+<div class="board" id="board-states">
+<div class="shell">
+  <div class="top"><div class="left"><div class="crumb">EASTERN RING  /  TRAINING  /  STATES</div>
+  <div class="pills"><span class="pill gold">$ 27,600</span><span class="pill">ROSTER 4</span><div class="daystrip"><div class="daycell on"><span>MON</span><span class="n">26</span></div><div class="daycell"><span>TUE</span><span class="n">27</span></div><div class="daycell"><span>WED</span><span class="n">28</span></div><div class="daycell"><span>THU</span><span class="n">29</span></div><div class="daycell"><span>FRI</span><span class="n">30</span></div><div class="daycell"><span>SAT</span><span class="n">31</span></div><div class="daycell"><span>SUN</span><span class="n">1</span></div></div></div></div>
+  <div class="right"><div class="dateblk"><div class="w">WEEK 4</div><div class="d">MON 26 JAN 2026</div></div>
+  <div class="continue"><div class="t">CONTINUE</div><div class="s">1 MUST ANSWER FIRST</div></div></div></div>
+  <div class="rail"><div class="crest"><div class="mark">ER</div><div><div class="nm">EASTERN RING</div><div class="sub">NICOSIA  ·  TIER 1</div></div></div>
+  <div class="menucap">MENU</div><div class="nav"><a href="#">OFFICE</a><a href="#">THE DAY</a><a href="#">GYM<span class="badge">1</span></a><a href="#">STAFF</a><a class="on" href="#">TRAINING</a><a href="#">SCHEDULE</a><a href="#">EVENTS<span class="badge">6</span></a><a href="#">SCOUTING</a></div></div>
+  <div class="body">
+<div class="hubhead"><h2>TRAINING STATES</h2><span class="meta">CONTACT SHEET · SAME SHELL · BODY ONLY CHANGES</span>
+    </div>
+
+<div class="states">
+  <div class="scell"><div class="stag">NOBODY BOOKED</div><div class="mini-body">
+    <div class="alert amber">OPEN BOOK · NO FIGHT CAMP MODE</div>
+    <div class="mini-band"><div class="dchip car"><span class="dl">M</span><span class="df">CAR</span></div><div class="dchip str"><span class="dl">T</span><span class="df">STR</span></div><div class="dchip str"><span class="dl">W</span><span class="df">STR</span></div><div class="dchip car"><span class="dl">T</span><span class="df">CAR</span></div><div class="dchip fgt"><span class="dl">F</span><span class="df">FGT</span></div><div class="dchip rec"><span class="dl">S</span><span class="df">REC</span></div><div class="dchip off"><span class="dl">S</span><span class="df">OFF</span></div></div>
+    <div style="font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--muted);line-height:1.4">DEVON HALE · WEEK PLAN ONLY<br>FIGHT CAMP TAB SOFT · EMPTY STATE</div>
+    <div><span class="flag book">OPEN BOOK</span></div>
+  </div></div>
+  <div class="scell"><div class="stag">OVERTRAINED / INJURED</div><div class="mini-body">
+    <div class="alert">OVERTRAINED · KIAN · MEDICAL HOLD</div>
+    <div class="mini-band"><div class="dchip rec"><span class="dl">M</span><span class="df">REC</span></div><div class="dchip rec"><span class="dl">T</span><span class="df">REC</span></div><div class="dchip off"><span class="dl">W</span><span class="df">OFF</span></div><div class="dchip off"><span class="dl">T</span><span class="df">OFF</span></div><div class="dchip off"><span class="dl">F</span><span class="df">OFF</span></div><div class="dchip off"><span class="dl">S</span><span class="df">OFF</span></div><div class="dchip off"><span class="dl">S</span><span class="df">OFF</span></div></div>
+    <div style="font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--muted)">LOAD CAP LOCKED · RECOVERY ONLY<br>SESSION REFUSES FIGHT / STRENGTH</div>
+    <div><span class="flag med">MEDICAL HOLD</span></div>
+  </div></div>
+  <div class="scell"><div class="stag">CAMP WK1 VS FIGHT WEEK</div><div class="mini-body">
+    <div class="alert amber">FIGHT WEEK · MIRA · APEX · 3 DAYS</div>
+    <div class="weeks" style="gap:4px">
+      <div class="wk" style="height:44px"><span class="wn">WK8</span></div>
+      <div class="wk on" style="height:44px"><span class="wn">WK1</span><span class="wv" style="font-size:12px">CAMP</span></div>
+      <div class="wk fight" style="height:44px"><span class="wn">NOW</span><span class="wv" style="font-size:12px">FIGHT</span></div>
+    </div>
+    <div style="font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--muted);line-height:1.4">WK1 = BUILD · FIGHT WEEK = TAPER + WEIGH<br>FIGHT WEEK = HEAT CHIP · NOT SHELL GOLD</div>
+  </div></div>
+  <div class="scell"><div class="stag">UNSAFE EQUIPMENT</div><div class="mini-body">
+    <div class="alert">UNSAFE · POWER RACK COND 55%</div>
+    <div class="eq bad" style="min-height:56px"><div class="en">POWER RACK</div><div class="em">BELOW SAFETY FLOOR · SESSION BLOCKED</div></div>
+    <div style="font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--muted)">AFFORDABILITY-STYLE REASON<br>NOT A SILENT DISABLE · REPAIR ON FLOOR</div>
+    <div><span class="flag unsafe">UNSAFE PLAN</span></div>
+  </div></div>
+  <div class="scell" style="grid-column:span 2"><div class="stag">EMPTY GYM</div><div class="mini-body">
+    <div class="alert amber">DAY ONE · ROSTER 1 · NO WEEK TO PLAN YET</div>
+    <div class="emptyfloor"><div class="sil"></div><div class="msg">KIAN STERLING · AGE 25 · EMPTY BOOK<br>TRAINING HUB WAITS ON FIRST FOCUS CHIP<br>ONE SILHOUETTE · NO INVENTED SQUAD</div></div>
+  </div></div>
+</div>
+
+</div></div>
+</div>
+
+<div class="doc">
+  <div class="sec"><h2>RECOMMENDATION</h2>
+    <p><b>ONE rail item: TRAINING</b> holds ordinary week + fight camp. Home tab <b>THE WEEK</b>. <b>SESSION</b> is a day-opened editor panel (STORE-drawer pattern), not a tab.
+    <b>FIGHT CAMP</b> is a mode the hub enters when the selected fighter is booked (surfaced as a soft tab that hardens when someone is in camp). Reason: same act at two intensities — splitting rail items would recreate the SCHEDULE orphan K8 erased for GYM.</p>
+  </div>
+  <div class="sec"><h2>FLOOR ÷ TRAINING</h2>
+    <p><b>FLOOR shows who occupies stations; TRAINING shows what each fighter does with their week — TRAINING never restates station occupancy.</b></p>
+  </div>
+  <div class="sec"><h2>KIT GAPS</h2>
+    <p>Reuse R21 gym family first. Genuine new gaps only: week_band, focus_chip, body_delta, session_panel, camp_week_rail, illegal_refusal. No drag primitive — click-arm-click for copy/paste.</p>
+  </div>
+</div>
+</body></html>

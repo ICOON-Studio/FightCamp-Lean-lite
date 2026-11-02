@@ -1,0 +1,4 @@
+You are working in the git worktree D:/FightCamp/wt/G148 (branch grok/g151-weight-cut-spec) of the FightCamp game.
+Your task is fully specified in research/TASK_G151_WC1_WEIGHT_CUT_SPEC.md - read it first, then do it start to finish.
+Research and spec only - edit no code. Label every number DOCUMENTED / SECONDARY / NO STUDY with its source.
+git add the one file, commit, git push -u origin grok/g151-weight-cut-spec.

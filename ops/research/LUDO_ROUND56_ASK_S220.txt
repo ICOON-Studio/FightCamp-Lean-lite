@@ -1,0 +1,21 @@
+==== ROUND 56 (FightCamp, S220) - APPROVAL of STATION WEAR (mechanics + the station card) as BUILT. TEXT ONLY answer. No picture this round (the upload is blocked); the build is: the game's 3D club at 1920x1080 with the HEAVY BAG card PINNED open (the player left-clicked the bag), integrity 34% = DAMAGED, buttons SERVICE $220 / REPLACE $850. After SERVICE the same card redraws: bar tweens to 95% green, "GOOD - 95%", "ABOUT 60 TRAINING HOURS BEFORE IT IS WORN", both buttons still shown. The game is a BOXING-ONLY demo (PC deep management sim, Football Manager / Motorsport Manager tier), warm dark brown + yellow palette (operator's choice).
+
+WHAT IS BUILT FROM YOUR ROUND 25 (switch station_wear, OFF until you and the operator approve):
+- Wear per athlete-hour (percentage points): speed-bag swivel 0.40, slat treadmill 0.55, power rack/squat stand/smith 0.05, grappling mats 0.30, heavy bags 0.25, other cardio (air bike) 0.60, strength (barbell/plates) 0.15, ring canvas+ropes 0.20, recovery/analysis items 0.0 (you gave no number).
+- Integrity bands: 80-100 GOOD gain x1.0, injury 0.05%/session; 50-79 WORN x0.85, minor strain 0.35%; 20-49 DAMAGED x0.65, wrist sprain 2.0%; under 20 FAILING x0.65, wrist sprain 2.0% + 5% breakdown per session (a breakdown injures moderate/severe and the station is out of use).
+- SERVICE = the item's maintenance cost, integrity to 95. REPLACE = the item's purchase price, integrity to 100.
+- The station card: HOVER shows it (closes on mouse exit); LEFT CLICK PINS it (stays open, small X above its top-right corner, closes on X, Escape or a click on empty floor; one pinned card at a time). Card sections top to bottom: name, description, TRAINS, COSTS, BEST FOR (kickboxing, muay thai, karate fits), YOUR FIT (boxing x1.0 with a long sentence), INTEGRITY bar + band + percent, a hours-left line, SERVICE / REPLACE buttons.
+
+WHAT I (CLAUDE) SEE AS PROBLEMS - judge each, agree or overrule:
+a) The card is ~640 px tall; BEST FOR lists three martial arts the boxing demo does not have, and YOUR FIT is a 6-line sentence. The money decision (integrity + buttons) is at the very bottom.
+b) The close X floats as a separate tab above the card instead of sitting inside the header.
+c) SERVICE stays offered at 95% (it would take 95 -> 95 for $220).
+d) No sign on the FLOOR itself that a bag is worn - the player only learns it by hovering every station.
+e) No total: the player cannot see "3 stations need service, $640" anywhere.
+
+ANSWER IN ONE REPLY, as long and complete as you need (do not summarise, do not cap the length; if you run out, stop at a section boundary and write CONTINUE FROM SECTION n):
+1. MECHANICS VERDICT: APPROVED / APPROVED WITH FIXES / NOT APPROVED for the wear numbers, bands, service/replace rules above, for a boxing gym sim. Any number you would change, give the new number and why (real gym equipment lifespans: a commercial heavy bag, treadmill belt, ring canvas, speed-bag swivel).
+2. CARD VERDICT: APPROVED / APPROVED WITH FIXES / NOT APPROVED. At most 10 fixes, most important first, each exact: section order, what to cut, max height px, the X position, when SERVICE is disabled (and its disabled tooltip text), copy text, colours as hex inside the warm brown + yellow palette.
+3. FLOOR SIGNAL: how a worn / damaged / failing station shows on the 3D floor without hovering (icon, tint, decal, size px, colours hex), and whether a top-bar "MAINTENANCE" item with the total cost belongs in the demo.
+4. Score the card 1-10 against Two Point Hospital's machine-repair UI and Motorsport Manager's part-condition UI.
+Keep everything to station wear and the station card.

@@ -1,0 +1,15 @@
+LUDO ROUND 66 - THE NEW CAREER GLOBE: make it look like a shipped PC game, not AI-made.
+
+The operator (CEO, verbatim, on the attached picture = our globe TODAY in the game, United Kingdom picked): "the outliner and pin still looks very amateur ai made . also what about colours ?"
+
+What it is (your round 61 design, built and shipped): New Career step 1. A slowly spinning 3D globe (Godot 4.7, one sphere mesh, a 2048x1024 equirectangular LOOK texture + an ID texture where each country is one exact colour; a spatial shader picks the chosen country by its ID colour and tints it). Drag to spin, wheel to zoom, search box top-left flies to a country, a 480 px panel on the right shows the country's numbers (economy, talent, combat popularity, cities, gyms) and CHOOSE MARKET. The pin is a 3D mesh: a red sphere head on a tan cylinder stuck in the picked country. Borders: drawn in the shader one screen pixel wide from the ID map (cream #CCB899 at 55%), the picked country gets a 3 px near-white rim and a gold fill (#E5B842). Ocean dark charcoal, land dark grey, a warm orange rim light on the sphere edge.
+
+Our look (Maria's style sheet): chunky stylised real boxing gym, warm brass/gold #f0c233 accents, leather red #c62f2a, steel #2b2f36, cream paper #f6f0e0, poster blue #2a5f9e; NO teal on assets (teal = UI selection only). The menus around it are dark warm panels with gold.
+
+WHAT I NEED - the longest, most complete answer you can give (no length cap; I will say "continue"):
+A. What exactly reads as "amateur / AI-made" in the picture - outline, pin, colours, lighting, edges, typography - each with the reason a player sees it that way.
+B. How shipped games do a world/country picker (name real ones: Football Manager, Hearts of Iron IV, Civilization VI, Plague Inc, Motorsport Manager, EA FC career start, Punch Club 2...) - what their borders, selection highlight, marker and palette do; what we should copy.
+C. THE SPEC for ours, as numbers I can put in a shader and a mesh: ocean colour + depth gradient, land colour(s) (one colour, or tinted by our "combat popularity" 0-100?), border colour/width/softness for normal countries and coastlines, the selected country (fill, outline width/colour/glow, any animation and its timing), hover state, the marker (replace the pin? a flag, a glove, a brass medallion, a pulsing ring - shape, size in screen px, colours, animation), atmosphere/rim, lighting, background behind the globe, and how the right panel ties in.
+D. ONE picture prompt for a reference image of the finished screen in our style (so we can compare) - optional.
+E. Rejection rules (what makes our next screenshot still look amateur).
+F. Your score for the spec and the one risk.

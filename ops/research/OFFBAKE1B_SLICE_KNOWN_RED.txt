@@ -1,0 +1,904 @@
+R75-RC=1
+2026-10-15 23:46:23 GREEN C_free=17.9GB E_free=68.1GB RAM=75% COMMIT_free=16.1GB CPU=16% TEMP=72C(LHM)[peak 78] top: brave=6661MB firefox=4111MB claude=3635MB ChatGPT=2969MB
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== fight clip slice ==
+  ok    combo_jab_cross_hook loads
+  source length : 2.467 s  tracks=23
+  windows found : 3
+    jab  [0.000, 0.640]  reach_m=0.744  hand=RightHand  peak_t=0.540
+    cross  [0.640, 1.040]  reach_m=0.926  hand=RightHand  peak_t=0.860
+    hook_rear  [1.040, 1.680]  reach_m=0.772  hand=RightHand  peak_t=1.300
+  ok    punch_windows returns at least two (got 3)
+  ok    every window has end>start and lies inside the clip
+  ok    have a window to slice
+  ok    sliced track count matches source (23 vs 23)
+  ok    sliced length non-zero (0.640)
+  ok    boxing resolves a spec
+  ok    FightWorldPreview loads
+  population: ruleset=boxing A=out-boxer (A) (66.0 kg) B=pressure puncher (B) (66.5 kg) stats_differ=true
+  ok    both fighters mount
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _graft_retargeted (res://scripts/FightStagePlayer.gd:2315)
+       [3] bind (res://scripts/FightStagePlayer.gd:1510)
+       [4] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _graft_retargeted (res://scripts/FightStagePlayer.gd:2315)
+       [3] bind (res://scripts/FightStagePlayer.gd:1510)
+       [4] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] source_rest_hips_height (res://scripts/FightClipRetarget.gd:557)
+       [2] hip_carry (res://scripts/FightClipRetarget.gd:581)
+       [3] retarget_clip (res://scripts/FightClipRetarget.gd:451)
+       [4] _graft_retargeted (res://scripts/FightStagePlayer.gd:2359)
+       [5] bind (res://scripts/FightStagePlayer.gd:1510)
+       [6] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] source_rest_hips_height (res://scripts/FightClipRetarget.gd:557)
+       [2] hip_carry (res://scripts/FightClipRetarget.gd:581)
+       [3] retarget_clip (res://scripts/FightClipRetarget.gd:451)
+       [4] _graft_retargeted (res://scripts/FightStagePlayer.gd:2359)
+       [5] bind (res://scripts/FightStagePlayer.gd:1510)
+       [6] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] _source_frames (res://scripts/FightClipRetarget.gd:828)
+       [2] sway_of (res://scripts/FightClipRetarget.gd:778)
+       [3] _graft_retargeted (res://scripts/FightStagePlayer.gd:2347)
+       [4] bind (res://scripts/FightStagePlayer.gd:1510)
+       [5] _initialize (res://tests/fight_clip_slice_test.gd:252)
+  ok    player A binds (incl. typed punches)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _graft_retargeted (res://scripts/FightStagePlayer.gd:2315)
+       [3] bind (res://scripts/FightStagePlayer.gd:1510)
+       [4] _initialize (res://tests/fight_clip_slice_test.gd:253)
+WARNING: Reading less data than requested
+   at: get_buffer (core/io/file_access_memory.cpp:137)
+   GDScript backtrace (most recent call first):
+       [0] _load_fbx (res://scripts/FightClipRetarget.gd:1003)
+       [1] build_silhouette_corrections (res://scripts/FightClipRetarget.gd:285)
+       [2] _graft_retargeted (res://scripts/FightStagePlayer.gd:2315)
+       [3] bind (res://scripts/FightStagePlayer.gd:1510)
+       [4] _initialize (res://tests/fight_clip_slice_test.gd:253)
+  ok    player B binds
+  ok    jab grafted
+  ok    strike_head still grafted (U39)
+  ok    jab binding length_s=0.833 < 1.2
+  ok    play_role(jab)
+  ok    grafted jab length=0.833 s (under 1.2, combo trap closed for typed punch)
+  ok    LeftHand resolves
+  ok    retargeted jab bones move (LeftHand delta=0.3893 m)
+  jab hand delta: 0.3893 m
+  beat strike    : anim='boxing_rear_hook' length=1.724 s
+  FAIL  head-strike beat plays clip shorter than 1.2 s (got 1.724, name=boxing_rear_hook)
+  ok    same seed �+' identical played sequences (89 vs 89)
+  deterministic  : yes
+  ok    bound_roles is director-only; punches via punch_roles() (leaked: )
+  ok    strike_head still bound
+  ok    punch_roles has at least two typed punches (jab, jab_lead, cross, cross_lead, hook_lead, hook_rear)
+TOTAL=23 fails=1
+FAIL
+WARNING: 3051 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+

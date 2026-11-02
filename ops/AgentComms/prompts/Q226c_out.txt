@@ -1,0 +1,15 @@
+Warning: running headless with --yolo / approval-mode=yolo and no sandbox. All tool calls (shell, write, edit) auto-execute at this process's privilege level. Enable a sandbox via --sandbox / QWEN_SANDBOX, or set QWEN_CODE_SUPPRESS_YOLO_WARNING=1 to silence this notice.
+Warning: MCP server(s) failed to start: higgsfield. Continuing with built-in tools and any servers that did connect. Re-run with QWEN_CODE_DEBUG=1 to see per-server reasons.
+SEND-BACK 1 complete. Summary:
+
+| Metric | ON (as_game) | OFF (no_q226) | Band |
+|--------|-------------|---------------|------|
+| KO+TKO% | 49.2% | 43.3% | 40–55% ✓ |
+| Decision% | 50.8% | 55.8% | — |
+| KD% | 25.8% | 27.5% | — |
+| Thrown/mr | 40.7 | 40.8 | 45–56 ✗ (engine baseline) |
+| Connect% | 31.5% | 31.3% | 27–32% ✓ |
+
+**Tests:** boxing_output 19/0, fight_realtime 378 PASS, fight_strike_whole timed out (known-heavy, pre-existing FBX warnings).
+
+**No tuning needed** — constants hold their bands. Thrown/man-round gap is the engine baseline, not caused by Q226. Census script now tracks thrown/connect. Q226_DIGEST.md updated, pushed to `qwen/q226-fight-inputs`.

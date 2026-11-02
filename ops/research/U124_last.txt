@@ -1,0 +1,7 @@
+**Yes — at least one gate matches the DolA defect class.** The worst is `Godot/tests/fight_body_overlap_test.gd`: it claims “no refused head/hand penetration” but only scores three class-pair keys, including `arm>head`, which `class_pair_key` never emits (real key is `head>arm`). **Fix first:** align that test with `FightWorldLiveScreen.OVERLAP_ALLOWANCE_M` or full capsule overlap like R7. **Direction is right:** `FightPoseSolver` already computes `pen_max` over every A×B capsule, not declared contacts only.
+
+Full ranked census: `research/U124_DECLARED_ONLY_GATES.md` (125 lines).
+
+Also documented: live-room `_refused_overlap_from_parts` only refuses keys in the allowance table (intentional but partial); hip-only `PAIRGAP` / `s41_pairgap_diff` as misleading regression controls; `s31_contact_probe` as narrow-by-purpose. Cleared after hard read: `FightPoseSolver` + `fight_pose_solver_test.gd`, R7 in `fight_stage_realism_test.gd`, `pair_gap_report` (TASK worked example).
+
+**Ship:** commit `4bf36692` on `cursor/u124-declared-gates` (pushed; `master` is checked out in another worktree so merge there is for you/Claude). Mail sent to Claude (`u124-ready`). No HANDOFF block (research task). No tests run (markdown-only tier).

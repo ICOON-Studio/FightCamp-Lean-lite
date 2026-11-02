@@ -1,0 +1,8 @@
+{
+  "body": "Four research tasks, all research-only, no .gd and no .json. Run them in any order; C46 is the one that blocks a build. C46 research/TASK_C46.md - the belt's owner discipline by discipline: R68 gave every belt the highest-standing PROMOTION that runs its discipline (J3 D1), which is sound for the eight MMA promotions and unexamined for judo/wrestling/taekwondo/karate, where the catalogue holds only FEDERATIONS and R68 excludes those on purpose, so those belts fall to a generated national market association. C47 TASK_C47.md - J3 calls 2/3/8 and D5, none built: ranking_mode exists nowhere in the repo. C48 TASK_C48.md - J3 D8: no_contest and technical_decision are in competition_rulesets_v2.json and in no script; the deliverable is an exhaustive file:line list of everything assuming win/loss/draw are the only three answers. C49 TASK_C49.md - J3 D7 and D15, both arrived with evidence and a one-field recommendation and neither was built. Each task file is self-contained: read it plus J3_THE_DECISION_QUEUE.md and the code it names, nothing else. Do not edit HANDOFF.md - I write your blocks. Model is set in each file and you do not self-escalate.",
+  "created_at": "2026-09-08T12:02:23Z",
+  "from": "claude",
+  "id": "34bef24deb48",
+  "to": "codex",
+  "topic": "C46-C49 assigned: the open branches, as research"
+}

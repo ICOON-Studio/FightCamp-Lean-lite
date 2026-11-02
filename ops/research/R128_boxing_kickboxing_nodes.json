@@ -1,0 +1,3058 @@
+{
+  "generated_by": "Godot/tools/build_boxing_kickboxing_nodes.py",
+  "note": "Boxing and kickboxing technique trees, expanded from the 18-node template. Kickboxing deliberately carries NO hand-strike nodes: its hands ARE boxing's hands, cross-referenced by id per section 9 of TECHNIQUE_CATALOGUE_CONTRACT.md.",
+  "kickboxing_shared_from_boxing": [
+    "boxing_stance_guard",
+    "boxing_jab",
+    "boxing_cross",
+    "boxing_one_two",
+    "boxing_lead_hook",
+    "boxing_rear_hook",
+    "boxing_lead_uppercut",
+    "boxing_rear_uppercut",
+    "boxing_parry",
+    "boxing_catch",
+    "boxing_slip",
+    "boxing_block_elbow",
+    "boxing_step_in_out",
+    "boxing_pivot_footwork",
+    "boxing_feint",
+    "boxing_clinch_tieup"
+  ],
+  "new_field": {
+    "shared_with": "NEW. A technique taught by several disciplines is owned by none of them. `shared_with` lists the other disciplines whose trees it also belongs to, so a kickboxer is not gated behind training BOXING to learn his own jab.",
+    "rulesets": "NEW. Kickboxing is not one sport. K-1, Glory and Dutch allow low kicks and clinch knees; American Full Contact bans both. A technique scored under a ruleset that forbids it is a correctness bug."
+  },
+  "boxing": [
+    {
+      "id": "boxing_stance_guard",
+      "name": "Stance and High Guard",
+      "kind": "skill",
+      "tier": 1,
+      "branch": "fundamentals",
+      "requires": {
+        "discipline": 6,
+        "attributes": {
+          "defense": 22
+        },
+        "prerequisites": [],
+        "reps": 45
+      },
+      "match": {
+        "role": "defense",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "guard": 8,
+          "coverage": 6
+        },
+        "range_band": [
+          "LONG",
+          "MID",
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "shared_with": [
+        "kickboxing",
+        "muay_thai",
+        "mma"
+      ],
+      "grade_rank": 1,
+      "grade": "novice"
+    },
+    {
+      "id": "boxing_distance_read",
+      "name": "Finding the Range",
+      "kind": "skill",
+      "tier": 1,
+      "branch": "fundamentals",
+      "requires": {
+        "discipline": 6,
+        "attributes": {
+          "fight_iq": 24
+        },
+        "prerequisites": [
+          "boxing_stance_guard"
+        ],
+        "reps": 45
+      },
+      "match": {
+        "role": "setup",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "distance_read": 7,
+          "range_control": 5
+        },
+        "range_band": [
+          "LONG",
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "grade_rank": 2,
+      "grade": "novice"
+    },
+    {
+      "id": "boxing_breathing_rhythm",
+      "name": "Breathing and Rhythm",
+      "kind": "skill",
+      "tier": 1,
+      "branch": "fundamentals",
+      "requires": {
+        "discipline": 6,
+        "attributes": {
+          "conditioning": 24
+        },
+        "prerequisites": [
+          "boxing_stance_guard"
+        ],
+        "reps": 45
+      },
+      "match": {
+        "role": "defense",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "rhythm": 6,
+          "timing": 5
+        },
+        "range_band": [
+          "LONG",
+          "MID",
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "grade_rank": 2,
+      "grade": "novice"
+    },
+    {
+      "id": "boxing_jab",
+      "name": "Jab",
+      "kind": "move",
+      "tier": 1,
+      "branch": "straight_punching",
+      "requires": {
+        "discipline": 6,
+        "attributes": {
+          "speed": 24
+        },
+        "prerequisites": [
+          "boxing_stance_guard"
+        ],
+        "reps": 45
+      },
+      "match": {
+        "role": "setup",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "accuracy": 8,
+          "range_control": 7,
+          "combo_open": 6
+        },
+        "range_band": [
+          "LONG",
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "shared_with": [
+        "kickboxing",
+        "muay_thai",
+        "mma"
+      ],
+      "grade_rank": 2,
+      "grade": "novice"
+    },
+    {
+      "id": "boxing_cross",
+      "name": "Rear Cross",
+      "kind": "move",
+      "tier": 1,
+      "branch": "straight_punching",
+      "requires": {
+        "discipline": 6,
+        "attributes": {
+          "power": 26,
+          "technique": 24
+        },
+        "prerequisites": [
+          "boxing_jab"
+        ],
+        "reps": 45
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "damage": 9,
+          "accuracy": 6
+        },
+        "range_band": [
+          "LONG",
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "shared_with": [
+        "kickboxing",
+        "muay_thai",
+        "mma"
+      ],
+      "grade_rank": 3,
+      "grade": "novice"
+    },
+    {
+      "id": "boxing_one_two",
+      "name": "One-Two",
+      "kind": "sequence",
+      "tier": 1,
+      "branch": "combinations",
+      "requires": {
+        "discipline": 6,
+        "attributes": {
+          "speed": 26,
+          "technique": 26
+        },
+        "prerequisites": [
+          "boxing_jab",
+          "boxing_cross"
+        ],
+        "reps": 45
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "damage": 8,
+          "combo_open": 8,
+          "accuracy": 6
+        },
+        "range_band": [
+          "LONG",
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "shared_with": [
+        "kickboxing",
+        "muay_thai",
+        "mma"
+      ],
+      "grade_rank": 4,
+      "grade": "novice"
+    },
+    {
+      "id": "boxing_double_jab",
+      "name": "Double Jab",
+      "kind": "move",
+      "tier": 2,
+      "branch": "straight_punching",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "speed": 30
+        },
+        "prerequisites": [
+          "boxing_jab"
+        ],
+        "reps": 110
+      },
+      "match": {
+        "role": "setup",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "range_control": 8,
+          "combo_open": 7,
+          "entry_open": 6
+        },
+        "range_band": [
+          "LONG"
+        ],
+        "range_delta": -1
+      },
+      "_discipline": "boxing",
+      "grade_rank": 3,
+      "grade": "intermediate"
+    },
+    {
+      "id": "boxing_jab_body",
+      "name": "Jab to the Body",
+      "kind": "move",
+      "tier": 2,
+      "branch": "straight_punching",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "speed": 28,
+          "technique": 28
+        },
+        "prerequisites": [
+          "boxing_jab"
+        ],
+        "reps": 110
+      },
+      "match": {
+        "role": "setup",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "body_damage": 6,
+          "combo_open": 6,
+          "entry_open": 5
+        },
+        "range_band": [
+          "MID"
+        ],
+        "range_delta": -1
+      },
+      "_discipline": "boxing",
+      "grade_rank": 3,
+      "grade": "intermediate"
+    },
+    {
+      "id": "boxing_cross_body",
+      "name": "Cross to the Body",
+      "kind": "move",
+      "tier": 2,
+      "branch": "straight_punching",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "power": 30,
+          "technique": 28
+        },
+        "prerequisites": [
+          "boxing_cross"
+        ],
+        "reps": 110
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "body_damage": 9,
+          "damage": 5
+        },
+        "range_band": [
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "grade_rank": 4,
+      "grade": "intermediate"
+    },
+    {
+      "id": "boxing_up_jab",
+      "name": "Up Jab",
+      "kind": "move",
+      "tier": 3,
+      "branch": "straight_punching",
+      "requires": {
+        "discipline": 34,
+        "attributes": {
+          "speed": 34,
+          "technique": 34
+        },
+        "prerequisites": [
+          "boxing_jab_body"
+        ],
+        "reps": 200
+      },
+      "match": {
+        "role": "setup",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "accuracy": 7,
+          "guard": 5,
+          "combo_open": 6
+        },
+        "range_band": [
+          "MID",
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "grade_rank": 4,
+      "grade": "advanced"
+    },
+    {
+      "id": "boxing_overhand",
+      "name": "Overhand Right",
+      "kind": "move",
+      "tier": 3,
+      "branch": "straight_punching",
+      "requires": {
+        "discipline": 34,
+        "attributes": {
+          "power": 36,
+          "technique": 32
+        },
+        "prerequisites": [
+          "boxing_cross"
+        ],
+        "reps": 200
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "damage": 11,
+          "angle_attack": 7
+        },
+        "range_band": [
+          "MID"
+        ],
+        "range_delta": -1
+      },
+      "_discipline": "boxing",
+      "grade_rank": 4,
+      "grade": "advanced"
+    },
+    {
+      "id": "boxing_lead_hook",
+      "name": "Lead Hook",
+      "kind": "move",
+      "tier": 2,
+      "branch": "hooks_bodywork",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "power": 30,
+          "technique": 30
+        },
+        "prerequisites": [
+          "boxing_one_two"
+        ],
+        "reps": 110
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "damage": 9,
+          "angle_attack": 7
+        },
+        "range_band": [
+          "MID",
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "shared_with": [
+        "kickboxing",
+        "muay_thai",
+        "mma"
+      ],
+      "grade_rank": 5,
+      "grade": "intermediate"
+    },
+    {
+      "id": "boxing_rear_hook",
+      "name": "Rear Hook",
+      "kind": "move",
+      "tier": 2,
+      "branch": "hooks_bodywork",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "power": 32,
+          "technique": 30
+        },
+        "prerequisites": [
+          "boxing_lead_hook"
+        ],
+        "reps": 110
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "damage": 10,
+          "angle_attack": 6
+        },
+        "range_band": [
+          "MID",
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "shared_with": [
+        "kickboxing",
+        "muay_thai",
+        "mma"
+      ],
+      "grade_rank": 6,
+      "grade": "intermediate"
+    },
+    {
+      "id": "boxing_lead_uppercut",
+      "name": "Lead Uppercut",
+      "kind": "move",
+      "tier": 2,
+      "branch": "hooks_bodywork",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "power": 30,
+          "technique": 32
+        },
+        "prerequisites": [
+          "boxing_lead_hook"
+        ],
+        "reps": 110
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "damage": 8,
+          "combo_open": 6
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "shared_with": [
+        "kickboxing",
+        "muay_thai",
+        "mma"
+      ],
+      "grade_rank": 6,
+      "grade": "intermediate"
+    },
+    {
+      "id": "boxing_rear_uppercut",
+      "name": "Rear Uppercut",
+      "kind": "move",
+      "tier": 2,
+      "branch": "hooks_bodywork",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "power": 32,
+          "technique": 32
+        },
+        "prerequisites": [
+          "boxing_lead_uppercut"
+        ],
+        "reps": 110
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "damage": 10,
+          "chain_open": 6
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "shared_with": [
+        "kickboxing",
+        "muay_thai",
+        "mma"
+      ],
+      "grade_rank": 7,
+      "grade": "intermediate"
+    },
+    {
+      "id": "boxing_body_hook",
+      "name": "Lead Hook to the Body",
+      "kind": "move",
+      "tier": 3,
+      "branch": "hooks_bodywork",
+      "requires": {
+        "discipline": 34,
+        "attributes": {
+          "power": 34,
+          "conditioning": 32
+        },
+        "prerequisites": [
+          "boxing_lead_hook"
+        ],
+        "reps": 200
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "body_damage": 11,
+          "damage": 5
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "grade_rank": 6,
+      "grade": "advanced"
+    },
+    {
+      "id": "boxing_rear_hook_body",
+      "name": "Rear Hook to the Body",
+      "kind": "move",
+      "tier": 3,
+      "branch": "hooks_bodywork",
+      "requires": {
+        "discipline": 34,
+        "attributes": {
+          "power": 36,
+          "conditioning": 32
+        },
+        "prerequisites": [
+          "boxing_body_hook"
+        ],
+        "reps": 200
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "body_damage": 12,
+          "damage": 5
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "grade_rank": 7,
+      "grade": "advanced"
+    },
+    {
+      "id": "boxing_shovel_hook",
+      "name": "Shovel Hook",
+      "kind": "move",
+      "tier": 3,
+      "branch": "hooks_bodywork",
+      "requires": {
+        "discipline": 34,
+        "attributes": {
+          "power": 34,
+          "technique": 36
+        },
+        "prerequisites": [
+          "boxing_rear_uppercut"
+        ],
+        "reps": 200
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "body_damage": 10,
+          "angle_attack": 6
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "grade_rank": 8,
+      "grade": "advanced"
+    },
+    {
+      "id": "boxing_parry",
+      "name": "Parry",
+      "kind": "skill",
+      "tier": 1,
+      "branch": "defense_counters",
+      "requires": {
+        "discipline": 6,
+        "attributes": {
+          "defense": 24,
+          "fight_iq": 22
+        },
+        "prerequisites": [
+          "boxing_stance_guard"
+        ],
+        "reps": 45
+      },
+      "match": {
+        "role": "defense",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "block": 7,
+          "counter_open": 5
+        },
+        "range_band": [
+          "LONG",
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "shared_with": [
+        "kickboxing",
+        "muay_thai",
+        "mma"
+      ],
+      "grade_rank": 2,
+      "grade": "novice"
+    },
+    {
+      "id": "boxing_catch",
+      "name": "Catch the Jab",
+      "kind": "skill",
+      "tier": 1,
+      "branch": "defense_counters",
+      "requires": {
+        "discipline": 6,
+        "attributes": {
+          "defense": 24
+        },
+        "prerequisites": [
+          "boxing_stance_guard"
+        ],
+        "reps": 45
+      },
+      "match": {
+        "role": "defense",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "block": 6,
+          "guard": 5
+        },
+        "range_band": [
+          "LONG",
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "shared_with": [
+        "kickboxing",
+        "muay_thai",
+        "mma"
+      ],
+      "grade_rank": 2,
+      "grade": "novice"
+    },
+    {
+      "id": "boxing_slip",
+      "name": "Slip",
+      "kind": "skill",
+      "tier": 1,
+      "branch": "defense_counters",
+      "requires": {
+        "discipline": 6,
+        "attributes": {
+          "speed": 26,
+          "defense": 24
+        },
+        "prerequisites": [
+          "boxing_stance_guard"
+        ],
+        "reps": 45
+      },
+      "match": {
+        "role": "defense",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "evasion": 8,
+          "counter_open": 5
+        },
+        "range_band": [
+          "LONG",
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "shared_with": [
+        "kickboxing",
+        "muay_thai",
+        "mma"
+      ],
+      "grade_rank": 2,
+      "grade": "novice"
+    },
+    {
+      "id": "boxing_block_elbow",
+      "name": "Elbow and Forearm Block",
+      "kind": "skill",
+      "tier": 2,
+      "branch": "defense_counters",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "defense": 30
+        },
+        "prerequisites": [
+          "boxing_catch"
+        ],
+        "reps": 110
+      },
+      "match": {
+        "role": "defense",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "block": 8,
+          "coverage": 6
+        },
+        "range_band": [
+          "MID",
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "shared_with": [
+        "kickboxing",
+        "muay_thai",
+        "mma"
+      ],
+      "grade_rank": 3,
+      "grade": "intermediate"
+    },
+    {
+      "id": "boxing_roll",
+      "name": "Roll Under",
+      "kind": "skill",
+      "tier": 2,
+      "branch": "defense_counters",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "speed": 30,
+          "defense": 30
+        },
+        "prerequisites": [
+          "boxing_slip"
+        ],
+        "reps": 110
+      },
+      "match": {
+        "role": "defense",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "evasion": 8,
+          "angle_exit": 6
+        },
+        "range_band": [
+          "MID",
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "grade_rank": 3,
+      "grade": "intermediate"
+    },
+    {
+      "id": "boxing_bob_weave",
+      "name": "Bob and Weave",
+      "kind": "skill",
+      "tier": 2,
+      "branch": "defense_counters",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "speed": 32,
+          "conditioning": 30
+        },
+        "prerequisites": [
+          "boxing_roll"
+        ],
+        "reps": 110
+      },
+      "match": {
+        "role": "defense",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "evasion": 9,
+          "entry_open": 6
+        },
+        "range_band": [
+          "MID",
+          "POCKET"
+        ],
+        "range_delta": -1
+      },
+      "_discipline": "boxing",
+      "grade_rank": 4,
+      "grade": "intermediate"
+    },
+    {
+      "id": "boxing_pull",
+      "name": "Pull",
+      "kind": "skill",
+      "tier": 2,
+      "branch": "defense_counters",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "speed": 30,
+          "fight_iq": 28
+        },
+        "prerequisites": [
+          "boxing_slip"
+        ],
+        "reps": 110
+      },
+      "match": {
+        "role": "defense",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "evasion": 7,
+          "counter_open": 6
+        },
+        "range_band": [
+          "LONG",
+          "MID"
+        ],
+        "range_delta": 1
+      },
+      "_discipline": "boxing",
+      "grade_rank": 3,
+      "grade": "intermediate"
+    },
+    {
+      "id": "boxing_clinch_tieup",
+      "name": "Tie Up",
+      "kind": "skill",
+      "tier": 2,
+      "branch": "infighting",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "technique": 30,
+          "conditioning": 30
+        },
+        "prerequisites": [
+          "boxing_block_elbow"
+        ],
+        "reps": 110
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "clinch"
+        ],
+        "effects": {
+          "clinch_control": 8,
+          "phase_transition": 5
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": -1
+      },
+      "_discipline": "boxing",
+      "shared_with": [
+        "kickboxing",
+        "muay_thai",
+        "mma"
+      ],
+      "grade_rank": 4,
+      "grade": "intermediate"
+    },
+    {
+      "id": "boxing_long_guard",
+      "name": "Long Guard",
+      "kind": "skill",
+      "tier": 3,
+      "branch": "defense_counters",
+      "requires": {
+        "discipline": 34,
+        "attributes": {
+          "defense": 36
+        },
+        "prerequisites": [
+          "boxing_block_elbow"
+        ],
+        "reps": 200
+      },
+      "match": {
+        "role": "defense",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "guard": 8,
+          "range_control": 7
+        },
+        "range_band": [
+          "MID"
+        ],
+        "range_delta": 1
+      },
+      "_discipline": "boxing",
+      "grade_rank": 4,
+      "grade": "advanced"
+    },
+    {
+      "id": "boxing_shoulder_roll",
+      "name": "Shoulder Roll",
+      "kind": "skill",
+      "tier": 3,
+      "branch": "defense_counters",
+      "requires": {
+        "discipline": 34,
+        "attributes": {
+          "defense": 38,
+          "fight_iq": 34
+        },
+        "prerequisites": [
+          "boxing_roll"
+        ],
+        "reps": 200
+      },
+      "match": {
+        "role": "defense",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "evasion": 9,
+          "counter_open": 7
+        },
+        "range_band": [
+          "MID",
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "grade_rank": 4,
+      "grade": "advanced"
+    },
+    {
+      "id": "boxing_slip_counter",
+      "name": "Slip-Cross Counter",
+      "kind": "move",
+      "tier": 2,
+      "branch": "defense_counters",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "speed": 30,
+          "fight_iq": 30
+        },
+        "prerequisites": [
+          "boxing_slip",
+          "boxing_cross"
+        ],
+        "reps": 110
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "evasion": 7,
+          "counter_open": 8,
+          "damage": 6
+        },
+        "range_band": [
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "grade_rank": 4,
+      "grade": "intermediate"
+    },
+    {
+      "id": "boxing_catch_counter",
+      "name": "Catch and Return",
+      "kind": "move",
+      "tier": 2,
+      "branch": "defense_counters",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "fight_iq": 30
+        },
+        "prerequisites": [
+          "boxing_catch",
+          "boxing_cross"
+        ],
+        "reps": 110
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "counter_open": 7,
+          "damage": 6
+        },
+        "range_band": [
+          "LONG",
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "grade_rank": 4,
+      "grade": "intermediate"
+    },
+    {
+      "id": "boxing_pull_counter",
+      "name": "Pull-Cross Counter",
+      "kind": "move",
+      "tier": 3,
+      "branch": "defense_counters",
+      "requires": {
+        "discipline": 34,
+        "attributes": {
+          "speed": 36,
+          "fight_iq": 36
+        },
+        "prerequisites": [
+          "boxing_pull",
+          "boxing_cross"
+        ],
+        "reps": 200
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "evasion": 8,
+          "counter_open": 9,
+          "damage": 8
+        },
+        "range_band": [
+          "LONG",
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "grade_rank": 4,
+      "grade": "advanced"
+    },
+    {
+      "id": "boxing_check_hook",
+      "name": "Check Hook",
+      "kind": "move",
+      "tier": 3,
+      "branch": "defense_counters",
+      "requires": {
+        "discipline": 34,
+        "attributes": {
+          "speed": 36,
+          "fight_iq": 36
+        },
+        "prerequisites": [
+          "boxing_lead_hook",
+          "boxing_pivot_footwork"
+        ],
+        "reps": 200
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "counter_open": 9,
+          "angle_exit": 7
+        },
+        "range_band": [
+          "MID"
+        ],
+        "range_delta": 1
+      },
+      "_discipline": "boxing",
+      "grade_rank": 6,
+      "grade": "advanced"
+    },
+    {
+      "id": "boxing_counter_over_jab",
+      "name": "Counter Over the Jab",
+      "kind": "move",
+      "tier": 3,
+      "branch": "defense_counters",
+      "requires": {
+        "discipline": 34,
+        "attributes": {
+          "fight_iq": 38,
+          "technique": 34
+        },
+        "prerequisites": [
+          "boxing_slip_counter"
+        ],
+        "reps": 200
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "counter_open": 8,
+          "damage": 9,
+          "timing": 7
+        },
+        "range_band": [
+          "LONG",
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "grade_rank": 5,
+      "grade": "advanced"
+    },
+    {
+      "id": "boxing_check_hook_pivot",
+      "name": "Check Hook and Pivot",
+      "kind": "move",
+      "tier": 3,
+      "branch": "defense_counters",
+      "requires": {
+        "discipline": 34,
+        "attributes": {
+          "speed": 38,
+          "fight_iq": 36
+        },
+        "prerequisites": [
+          "boxing_check_hook"
+        ],
+        "reps": 200
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "counter_open": 8,
+          "angle_exit": 8,
+          "mobility": 6
+        },
+        "range_band": [
+          "MID"
+        ],
+        "range_delta": 1
+      },
+      "_discipline": "boxing",
+      "grade_rank": 7,
+      "grade": "advanced"
+    },
+    {
+      "id": "boxing_step_in_out",
+      "name": "Step In, Step Out",
+      "kind": "move",
+      "tier": 1,
+      "branch": "footwork_ring",
+      "requires": {
+        "discipline": 6,
+        "attributes": {
+          "speed": 24
+        },
+        "prerequisites": [
+          "boxing_stance_guard"
+        ],
+        "reps": 45
+      },
+      "match": {
+        "role": "setup",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "mobility": 7,
+          "range_control": 6,
+          "first_step": 6
+        },
+        "range_band": [
+          "LONG",
+          "MID"
+        ],
+        "range_delta": 1
+      },
+      "_discipline": "boxing",
+      "shared_with": [
+        "kickboxing",
+        "muay_thai",
+        "mma"
+      ],
+      "grade_rank": 2,
+      "grade": "novice"
+    },
+    {
+      "id": "boxing_circle_lead",
+      "name": "Circle to the Lead Side",
+      "kind": "move",
+      "tier": 2,
+      "branch": "footwork_ring",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "speed": 28,
+          "conditioning": 28
+        },
+        "prerequisites": [
+          "boxing_step_in_out"
+        ],
+        "reps": 110
+      },
+      "match": {
+        "role": "setup",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "mobility": 7,
+          "angle_entry": 6
+        },
+        "range_band": [
+          "LONG",
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "grade_rank": 3,
+      "grade": "intermediate"
+    },
+    {
+      "id": "boxing_circle_rear",
+      "name": "Circle to the Rear Side",
+      "kind": "move",
+      "tier": 2,
+      "branch": "footwork_ring",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "speed": 28,
+          "fight_iq": 28
+        },
+        "prerequisites": [
+          "boxing_step_in_out"
+        ],
+        "reps": 110
+      },
+      "match": {
+        "role": "setup",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "mobility": 7,
+          "angle_entry": 6,
+          "risk": 4
+        },
+        "range_band": [
+          "LONG",
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "grade_rank": 3,
+      "grade": "intermediate"
+    },
+    {
+      "id": "boxing_pivot_footwork",
+      "name": "Ring Pivot",
+      "kind": "move",
+      "tier": 2,
+      "branch": "footwork_ring",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "speed": 30
+        },
+        "prerequisites": [
+          "boxing_step_in_out"
+        ],
+        "reps": 110
+      },
+      "match": {
+        "role": "adaptation",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "mobility": 8,
+          "angle_attack": 7
+        },
+        "range_band": [
+          "MID",
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "shared_with": [
+        "kickboxing",
+        "muay_thai",
+        "mma"
+      ],
+      "grade_rank": 3,
+      "grade": "intermediate"
+    },
+    {
+      "id": "boxing_feint",
+      "name": "Feint",
+      "kind": "move",
+      "tier": 2,
+      "branch": "footwork_ring",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "fight_iq": 30,
+          "technique": 28
+        },
+        "prerequisites": [
+          "boxing_distance_read",
+          "boxing_jab"
+        ],
+        "reps": 110
+      },
+      "match": {
+        "role": "setup",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "entry_open": 8,
+          "distance_read": 6
+        },
+        "range_band": [
+          "LONG",
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "shared_with": [
+        "kickboxing",
+        "muay_thai",
+        "mma"
+      ],
+      "grade_rank": 3,
+      "grade": "intermediate"
+    },
+    {
+      "id": "boxing_cutoff_ring",
+      "name": "Cut Off the Ring",
+      "kind": "skill",
+      "tier": 3,
+      "branch": "footwork_ring",
+      "requires": {
+        "discipline": 34,
+        "attributes": {
+          "fight_iq": 36
+        },
+        "prerequisites": [
+          "boxing_circle_lead",
+          "boxing_circle_rear"
+        ],
+        "reps": 200
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "boundary_control": 9,
+          "opponent_mobility": -7
+        },
+        "range_band": [
+          "LONG",
+          "MID"
+        ],
+        "range_delta": -1
+      },
+      "_discipline": "boxing",
+      "grade_rank": 4,
+      "grade": "advanced"
+    },
+    {
+      "id": "boxing_angle_step",
+      "name": "L-Step Angle",
+      "kind": "move",
+      "tier": 3,
+      "branch": "footwork_ring",
+      "requires": {
+        "discipline": 34,
+        "attributes": {
+          "speed": 36,
+          "technique": 34
+        },
+        "prerequisites": [
+          "boxing_pivot_footwork"
+        ],
+        "reps": 200
+      },
+      "match": {
+        "role": "setup",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "angle_attack": 9,
+          "mobility": 7
+        },
+        "range_band": [
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "grade_rank": 4,
+      "grade": "advanced"
+    },
+    {
+      "id": "boxing_rope_work",
+      "name": "Working Off the Ropes",
+      "kind": "skill",
+      "tier": 3,
+      "branch": "footwork_ring",
+      "requires": {
+        "discipline": 34,
+        "attributes": {
+          "defense": 38,
+          "fight_iq": 36
+        },
+        "prerequisites": [
+          "boxing_shoulder_roll"
+        ],
+        "reps": 200
+      },
+      "match": {
+        "role": "defense",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "evasion": 7,
+          "boundary_control": 6,
+          "guard": 6
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "grade_rank": 5,
+      "grade": "advanced"
+    },
+    {
+      "id": "boxing_rhythm_change",
+      "name": "Breaking the Rhythm",
+      "kind": "move",
+      "tier": 3,
+      "branch": "footwork_ring",
+      "requires": {
+        "discipline": 34,
+        "attributes": {
+          "fight_iq": 38
+        },
+        "prerequisites": [
+          "boxing_feint",
+          "boxing_breathing_rhythm"
+        ],
+        "reps": 200
+      },
+      "match": {
+        "role": "setup",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "rhythm": 9,
+          "timing": 7,
+          "entry_open": 6
+        },
+        "range_band": [
+          "LONG",
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "grade_rank": 4,
+      "grade": "advanced"
+    },
+    {
+      "id": "boxing_switch_stance",
+      "name": "Switching Stance",
+      "kind": "move",
+      "tier": 4,
+      "branch": "footwork_ring",
+      "requires": {
+        "discipline": 55,
+        "attributes": {
+          "technique": 44,
+          "fight_iq": 44
+        },
+        "prerequisites": [
+          "boxing_angle_step",
+          "boxing_rhythm_change"
+        ],
+        "reps": 320
+      },
+      "match": {
+        "role": "setup",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "angle_attack": 8,
+          "mobility": 8,
+          "rhythm": 7
+        },
+        "range_band": [
+          "LONG",
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "grade_rank": 5,
+      "grade": "elite"
+    },
+    {
+      "id": "boxing_drawing",
+      "name": "Drawing the Lead",
+      "kind": "move",
+      "tier": 4,
+      "branch": "footwork_ring",
+      "requires": {
+        "discipline": 55,
+        "attributes": {
+          "fight_iq": 46
+        },
+        "prerequisites": [
+          "boxing_rhythm_change",
+          "boxing_pull_counter"
+        ],
+        "reps": 320
+      },
+      "match": {
+        "role": "setup",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "counter_open": 10,
+          "distance_read": 9,
+          "timing": 8
+        },
+        "range_band": [
+          "LONG",
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "grade_rank": 5,
+      "grade": "elite"
+    },
+    {
+      "id": "boxing_inside_uppercut",
+      "name": "Uppercut on the Inside",
+      "kind": "move",
+      "tier": 3,
+      "branch": "infighting",
+      "requires": {
+        "discipline": 34,
+        "attributes": {
+          "power": 36,
+          "technique": 34
+        },
+        "prerequisites": [
+          "boxing_clinch_tieup",
+          "boxing_rear_uppercut"
+        ],
+        "reps": 200
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "clinch"
+        ],
+        "effects": {
+          "damage": 9,
+          "clinch_damage": 7
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "grade_rank": 8,
+      "grade": "advanced"
+    },
+    {
+      "id": "boxing_shoulder_bump",
+      "name": "Shoulder Bump",
+      "kind": "skill",
+      "tier": 3,
+      "branch": "infighting",
+      "requires": {
+        "discipline": 34,
+        "attributes": {
+          "power": 34,
+          "conditioning": 34
+        },
+        "prerequisites": [
+          "boxing_clinch_tieup"
+        ],
+        "reps": 200
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "clinch"
+        ],
+        "effects": {
+          "clinch_control": 7,
+          "entry_open": 6,
+          "impact": 5
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "grade_rank": 5,
+      "grade": "advanced"
+    },
+    {
+      "id": "boxing_pivot_out",
+      "name": "Pivot Out of the Clinch",
+      "kind": "skill",
+      "tier": 3,
+      "branch": "infighting",
+      "requires": {
+        "discipline": 34,
+        "attributes": {
+          "speed": 36,
+          "technique": 34
+        },
+        "prerequisites": [
+          "boxing_clinch_tieup",
+          "boxing_pivot_footwork"
+        ],
+        "reps": 200
+      },
+      "match": {
+        "role": "defense",
+        "phases": [
+          "clinch"
+        ],
+        "effects": {
+          "angle_exit": 8,
+          "clinch_control": 6,
+          "mobility": 6
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 1
+      },
+      "_discipline": "boxing",
+      "grade_rank": 5,
+      "grade": "advanced"
+    },
+    {
+      "id": "boxing_forearm_frame",
+      "name": "Forearm Frame",
+      "kind": "skill",
+      "tier": 3,
+      "branch": "infighting",
+      "requires": {
+        "discipline": 34,
+        "attributes": {
+          "defense": 36,
+          "power": 32
+        },
+        "prerequisites": [
+          "boxing_clinch_tieup"
+        ],
+        "reps": 200
+      },
+      "match": {
+        "role": "defense",
+        "phases": [
+          "clinch"
+        ],
+        "effects": {
+          "clinch_control": 8,
+          "block": 6
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "grade_rank": 5,
+      "grade": "advanced"
+    },
+    {
+      "id": "boxing_one_two_hook",
+      "name": "One-Two-Hook",
+      "kind": "sequence",
+      "tier": 2,
+      "branch": "combinations",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "speed": 30,
+          "technique": 30
+        },
+        "prerequisites": [
+          "boxing_one_two",
+          "boxing_lead_hook"
+        ],
+        "reps": 110
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "damage": 10,
+          "combo_open": 7
+        },
+        "range_band": [
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "grade_rank": 6,
+      "grade": "intermediate"
+    },
+    {
+      "id": "boxing_jab_body_head",
+      "name": "Jab Body, Jab Head",
+      "kind": "sequence",
+      "tier": 3,
+      "branch": "combinations",
+      "requires": {
+        "discipline": 34,
+        "attributes": {
+          "technique": 36,
+          "speed": 34
+        },
+        "prerequisites": [
+          "boxing_jab",
+          "boxing_jab_body"
+        ],
+        "reps": 200
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "body_damage": 8,
+          "head_damage": 7,
+          "combo_open": 6
+        },
+        "range_band": [
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "grade_rank": 4,
+      "grade": "advanced"
+    },
+    {
+      "id": "boxing_liver_combo",
+      "name": "Jab-Cross-Lead Hook to the Body",
+      "kind": "sequence",
+      "tier": 4,
+      "branch": "combinations",
+      "requires": {
+        "discipline": 55,
+        "attributes": {
+          "power": 44,
+          "technique": 44
+        },
+        "prerequisites": [
+          "boxing_one_two_hook",
+          "boxing_body_hook",
+          "boxing_jab",
+          "boxing_cross"
+        ],
+        "reps": 320
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "body_damage": 13,
+          "damage": 8,
+          "combo_open": 7
+        },
+        "range_band": [
+          "MID",
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "grade_rank": 7,
+      "grade": "elite",
+      "finishes_fight": true
+    },
+    {
+      "id": "boxing_six_punch_combo",
+      "name": "Six-Punch Combination",
+      "kind": "sequence",
+      "tier": 4,
+      "branch": "combinations",
+      "requires": {
+        "discipline": 55,
+        "attributes": {
+          "conditioning": 46,
+          "speed": 44
+        },
+        "prerequisites": [
+          "boxing_one_two_hook",
+          "boxing_rear_uppercut"
+        ],
+        "reps": 320
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "damage": 12,
+          "body_damage": 8,
+          "combo_open": 8
+        },
+        "range_band": [
+          "MID",
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "grade_rank": 8,
+      "grade": "elite"
+    },
+    {
+      "id": "boxing_counter_combination",
+      "name": "Counter Combination",
+      "kind": "sequence",
+      "tier": 4,
+      "branch": "combinations",
+      "requires": {
+        "discipline": 55,
+        "attributes": {
+          "fight_iq": 46,
+          "speed": 44
+        },
+        "prerequisites": [
+          "boxing_pull_counter",
+          "boxing_one_two_hook"
+        ],
+        "reps": 320
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "counter_open": 10,
+          "damage": 11,
+          "timing": 8
+        },
+        "range_band": [
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "boxing",
+      "grade_rank": 7,
+      "grade": "elite",
+      "finishes_fight": true
+    }
+  ],
+  "kickboxing": [
+    {
+      "id": "kickboxing_guard",
+      "name": "Kickboxing Stance and Guard",
+      "kind": "skill",
+      "tier": 1,
+      "branch": "fundamentals",
+      "requires": {
+        "discipline": 6,
+        "attributes": {
+          "defense": 24
+        },
+        "prerequisites": [
+          "boxing_stance_guard"
+        ],
+        "reps": 45
+      },
+      "match": {
+        "role": "defense",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "guard": 8,
+          "check_readiness": 6
+        },
+        "range_band": [
+          "LONG",
+          "MID",
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "kickboxing",
+      "rulesets": [
+        "k1",
+        "glory",
+        "dutch",
+        "american_full_contact"
+      ],
+      "grade_rank": 2,
+      "grade": "novice"
+    },
+    {
+      "id": "kickboxing_switch_step_read",
+      "name": "Switch-Step Read",
+      "kind": "skill",
+      "tier": 2,
+      "branch": "fundamentals",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "fight_iq": 30
+        },
+        "prerequisites": [
+          "kickboxing_guard",
+          "boxing_step_in_out"
+        ],
+        "reps": 110
+      },
+      "match": {
+        "role": "setup",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "rhythm": 7,
+          "distance_read": 7
+        },
+        "range_band": [
+          "LONG",
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "kickboxing",
+      "rulesets": [
+        "k1",
+        "glory",
+        "dutch",
+        "american_full_contact"
+      ],
+      "grade_rank": 3,
+      "grade": "intermediate"
+    },
+    {
+      "id": "kickboxing_teep",
+      "name": "Teep / Front Kick",
+      "kind": "move",
+      "tier": 1,
+      "branch": "kicks",
+      "requires": {
+        "discipline": 6,
+        "attributes": {
+          "technique": 26
+        },
+        "prerequisites": [
+          "kickboxing_guard"
+        ],
+        "reps": 45
+      },
+      "match": {
+        "role": "setup",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "range_control": 8,
+          "opponent_mobility": -5
+        },
+        "range_band": [
+          "LONG",
+          "MID"
+        ],
+        "range_delta": 1
+      },
+      "_discipline": "kickboxing",
+      "rulesets": [
+        "k1",
+        "glory",
+        "dutch",
+        "american_full_contact"
+      ],
+      "grade_rank": 3,
+      "grade": "novice"
+    },
+    {
+      "id": "kickboxing_roundhouse",
+      "name": "Roundhouse Kick",
+      "kind": "move",
+      "tier": 1,
+      "branch": "kicks",
+      "requires": {
+        "discipline": 6,
+        "attributes": {
+          "technique": 28,
+          "power": 26
+        },
+        "prerequisites": [
+          "kickboxing_guard"
+        ],
+        "reps": 45
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "kick_damage": 9,
+          "range": 6
+        },
+        "range_band": [
+          "LONG",
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "kickboxing",
+      "rulesets": [
+        "k1",
+        "glory",
+        "dutch",
+        "american_full_contact"
+      ],
+      "grade_rank": 3,
+      "grade": "novice"
+    },
+    {
+      "id": "kickboxing_low_kick",
+      "name": "Low Kick",
+      "kind": "move",
+      "tier": 2,
+      "branch": "kicks",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "power": 30,
+          "technique": 30
+        },
+        "prerequisites": [
+          "kickboxing_roundhouse"
+        ],
+        "reps": 110
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "leg_damage": 9,
+          "opponent_mobility": -6
+        },
+        "range_band": [
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "kickboxing",
+      "rulesets": [
+        "k1",
+        "glory",
+        "dutch"
+      ],
+      "grade_rank": 4,
+      "grade": "intermediate"
+    },
+    {
+      "id": "kickboxing_body_kick",
+      "name": "Body Roundhouse",
+      "kind": "move",
+      "tier": 2,
+      "branch": "kicks",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "power": 32,
+          "technique": 30
+        },
+        "prerequisites": [
+          "kickboxing_roundhouse"
+        ],
+        "reps": 110
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "body_damage": 10,
+          "kick_damage": 6
+        },
+        "range_band": [
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "kickboxing",
+      "rulesets": [
+        "k1",
+        "glory",
+        "dutch",
+        "american_full_contact"
+      ],
+      "grade_rank": 4,
+      "grade": "intermediate"
+    },
+    {
+      "id": "kickboxing_side_kick",
+      "name": "Side Kick",
+      "kind": "move",
+      "tier": 2,
+      "branch": "kicks",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "technique": 32
+        },
+        "prerequisites": [
+          "kickboxing_teep"
+        ],
+        "reps": 110
+      },
+      "match": {
+        "role": "setup",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "range_control": 8,
+          "impact": 6
+        },
+        "range_band": [
+          "LONG"
+        ],
+        "range_delta": 1
+      },
+      "_discipline": "kickboxing",
+      "rulesets": [
+        "k1",
+        "glory",
+        "dutch",
+        "american_full_contact"
+      ],
+      "grade_rank": 4,
+      "grade": "intermediate"
+    },
+    {
+      "id": "kickboxing_kick_check",
+      "name": "Shin Check",
+      "kind": "skill",
+      "tier": 2,
+      "branch": "counters",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "defense": 30,
+          "conditioning": 30
+        },
+        "prerequisites": [
+          "kickboxing_low_kick"
+        ],
+        "reps": 110
+      },
+      "match": {
+        "role": "defense",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "low_kick_defense": 9,
+          "block": 6
+        },
+        "range_band": [
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "kickboxing",
+      "rulesets": [
+        "k1",
+        "glory",
+        "dutch"
+      ],
+      "grade_rank": 5,
+      "grade": "intermediate"
+    },
+    {
+      "id": "kickboxing_teep_stop",
+      "name": "Push Kick Stop",
+      "kind": "skill",
+      "tier": 2,
+      "branch": "counters",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "technique": 30,
+          "fight_iq": 28
+        },
+        "prerequisites": [
+          "kickboxing_teep"
+        ],
+        "reps": 110
+      },
+      "match": {
+        "role": "defense",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "range_control": 8,
+          "opponent_mobility": -6
+        },
+        "range_band": [
+          "LONG",
+          "MID"
+        ],
+        "range_delta": 1
+      },
+      "_discipline": "kickboxing",
+      "rulesets": [
+        "k1",
+        "glory",
+        "dutch",
+        "american_full_contact"
+      ],
+      "grade_rank": 4,
+      "grade": "intermediate"
+    },
+    {
+      "id": "kickboxing_high_kick",
+      "name": "High Roundhouse Kick",
+      "kind": "move",
+      "tier": 2,
+      "branch": "kicks",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "technique": 38,
+          "power": 36
+        },
+        "prerequisites": [
+          "kickboxing_body_kick"
+        ],
+        "reps": 110
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "head_damage": 12,
+          "kick_damage": 8
+        },
+        "range_band": [
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "kickboxing",
+      "rulesets": [
+        "k1",
+        "glory",
+        "dutch",
+        "american_full_contact"
+      ],
+      "grade_rank": 5,
+      "grade": "intermediate",
+      "finishes_fight": true
+    },
+    {
+      "id": "kickboxing_switch_kick",
+      "name": "Switch Roundhouse Kick",
+      "kind": "move",
+      "tier": 2,
+      "branch": "kicks",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "speed": 36,
+          "technique": 36
+        },
+        "prerequisites": [
+          "kickboxing_body_kick"
+        ],
+        "reps": 110
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "kick_damage": 10,
+          "body_damage": 7,
+          "entry_speed": 6
+        },
+        "range_band": [
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "kickboxing",
+      "rulesets": [
+        "k1",
+        "glory",
+        "dutch",
+        "american_full_contact"
+      ],
+      "grade_rank": 5,
+      "grade": "intermediate"
+    },
+    {
+      "id": "kickboxing_question_mark",
+      "name": "Question Mark Kick",
+      "kind": "move",
+      "tier": 3,
+      "branch": "kicks",
+      "requires": {
+        "discipline": 34,
+        "attributes": {
+          "technique": 38,
+          "speed": 36
+        },
+        "prerequisites": [
+          "kickboxing_high_kick",
+          "boxing_feint"
+        ],
+        "reps": 200
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "head_damage": 10,
+          "entry_open": 7
+        },
+        "range_band": [
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "kickboxing",
+      "rulesets": [
+        "k1",
+        "glory",
+        "dutch",
+        "american_full_contact"
+      ],
+      "grade_rank": 6,
+      "grade": "advanced"
+    },
+    {
+      "id": "kickboxing_hook_kick",
+      "name": "Hook Kick",
+      "kind": "move",
+      "tier": 2,
+      "branch": "kicks",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "technique": 38,
+          "speed": 36
+        },
+        "prerequisites": [
+          "kickboxing_side_kick"
+        ],
+        "reps": 110
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "head_damage": 9,
+          "angle_attack": 7
+        },
+        "range_band": [
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "kickboxing",
+      "rulesets": [
+        "k1",
+        "glory",
+        "dutch",
+        "american_full_contact"
+      ],
+      "grade_rank": 5,
+      "grade": "intermediate"
+    },
+    {
+      "id": "kickboxing_axe_kick",
+      "name": "Axe Kick",
+      "kind": "move",
+      "tier": 2,
+      "branch": "kicks",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "technique": 36
+        },
+        "prerequisites": [
+          "kickboxing_high_kick"
+        ],
+        "reps": 110
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "head_damage": 9,
+          "guard": -5
+        },
+        "range_band": [
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "kickboxing",
+      "rulesets": [
+        "k1",
+        "glory",
+        "dutch",
+        "american_full_contact"
+      ],
+      "grade_rank": 6,
+      "grade": "intermediate"
+    },
+    {
+      "id": "kickboxing_spinning_back",
+      "name": "Spinning Back Kick",
+      "kind": "move",
+      "tier": 3,
+      "branch": "counters",
+      "requires": {
+        "discipline": 34,
+        "attributes": {
+          "technique": 38,
+          "power": 36
+        },
+        "prerequisites": [
+          "kickboxing_side_kick",
+          "boxing_pivot_footwork"
+        ],
+        "reps": 200
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "body_damage": 11,
+          "risk": 7
+        },
+        "range_band": [
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "kickboxing",
+      "rulesets": [
+        "k1",
+        "glory",
+        "dutch",
+        "american_full_contact"
+      ],
+      "grade_rank": 5,
+      "grade": "advanced"
+    },
+    {
+      "id": "kickboxing_spinning_hook",
+      "name": "Spinning Hook Kick",
+      "kind": "move",
+      "tier": 4,
+      "branch": "counters",
+      "requires": {
+        "discipline": 55,
+        "attributes": {
+          "technique": 46,
+          "speed": 44
+        },
+        "prerequisites": [
+          "kickboxing_spinning_back",
+          "kickboxing_hook_kick"
+        ],
+        "reps": 320
+      },
+      "match": {
+        "role": "counter",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "head_damage": 13,
+          "risk": 9
+        },
+        "range_band": [
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "kickboxing",
+      "rulesets": [
+        "k1",
+        "glory",
+        "dutch",
+        "american_full_contact"
+      ],
+      "grade_rank": 6,
+      "grade": "elite",
+      "finishes_fight": true
+    },
+    {
+      "id": "kickboxing_catch_kick_return",
+      "name": "Catch and Return",
+      "kind": "move",
+      "tier": 3,
+      "branch": "counters",
+      "requires": {
+        "discipline": 34,
+        "attributes": {
+          "fight_iq": 36,
+          "technique": 34
+        },
+        "prerequisites": [
+          "kickboxing_kick_check",
+          "boxing_catch"
+        ],
+        "reps": 200
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "counter_open": 9,
+          "counter_takedown": 6
+        },
+        "range_band": [
+          "MID"
+        ],
+        "range_delta": -1
+      },
+      "_discipline": "kickboxing",
+      "rulesets": [
+        "k1",
+        "glory",
+        "dutch",
+        "american_full_contact"
+      ],
+      "grade_rank": 6,
+      "grade": "advanced"
+    },
+    {
+      "id": "kickboxing_clinch_knee",
+      "name": "Knee in the Clinch",
+      "kind": "move",
+      "tier": 3,
+      "branch": "clinch_sweeps",
+      "requires": {
+        "discipline": 34,
+        "attributes": {
+          "power": 36,
+          "conditioning": 34
+        },
+        "prerequisites": [
+          "boxing_clinch_tieup"
+        ],
+        "reps": 200
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "clinch"
+        ],
+        "effects": {
+          "clinch_damage": 10,
+          "body_damage": 7
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "kickboxing",
+      "rulesets": [
+        "k1",
+        "glory",
+        "dutch"
+      ],
+      "grade_rank": 5,
+      "grade": "advanced"
+    },
+    {
+      "id": "kickboxing_clinch_knee_sweep",
+      "name": "Clinch Knee to Sweep",
+      "kind": "skill",
+      "tier": 3,
+      "branch": "clinch_sweeps",
+      "requires": {
+        "discipline": 34,
+        "attributes": {
+          "technique": 38,
+          "power": 34
+        },
+        "prerequisites": [
+          "kickboxing_clinch_knee"
+        ],
+        "reps": 200
+      },
+      "match": {
+        "role": "control",
+        "phases": [
+          "clinch"
+        ],
+        "effects": {
+          "clinch_damage": 8,
+          "sweep": 7
+        },
+        "range_band": [
+          "POCKET"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "kickboxing",
+      "rulesets": [
+        "k1",
+        "glory",
+        "dutch"
+      ],
+      "grade_rank": 6,
+      "grade": "advanced"
+    },
+    {
+      "id": "kickboxing_jab_lowkick",
+      "name": "Jab to Low Kick",
+      "kind": "sequence",
+      "tier": 2,
+      "branch": "combinations",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "speed": 30,
+          "technique": 30
+        },
+        "prerequisites": [
+          "kickboxing_low_kick",
+          "boxing_jab",
+          "kickboxing_jab_cross_lowkick"
+        ],
+        "reps": 110
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "leg_damage": 8,
+          "combo_open": 6
+        },
+        "range_band": [
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "kickboxing",
+      "rulesets": [
+        "k1",
+        "glory",
+        "dutch"
+      ],
+      "grade_rank": 5,
+      "grade": "intermediate"
+    },
+    {
+      "id": "kickboxing_jab_cross_lowkick",
+      "name": "Jab-Cross-Low Kick",
+      "kind": "move",
+      "tier": 2,
+      "branch": "combinations",
+      "requires": {
+        "discipline": 18,
+        "attributes": {
+          "speed": 32,
+          "technique": 32
+        },
+        "prerequisites": [
+          "kickboxing_jab_lowkick",
+          "boxing_one_two"
+        ],
+        "reps": 110
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "leg_damage": 9,
+          "combo_open": 7
+        },
+        "range_band": [
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "kickboxing",
+      "rulesets": [
+        "k1",
+        "glory",
+        "dutch"
+      ],
+      "grade_rank": 6,
+      "grade": "intermediate"
+    },
+    {
+      "id": "kickboxing_dutch_combination",
+      "name": "Dutch Combination",
+      "kind": "sequence",
+      "tier": 3,
+      "branch": "combinations",
+      "requires": {
+        "discipline": 34,
+        "attributes": {
+          "conditioning": 38,
+          "speed": 36
+        },
+        "prerequisites": [
+          "kickboxing_jab_cross_lowkick",
+          "boxing_lead_hook"
+        ],
+        "reps": 200
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "damage": 10,
+          "leg_damage": 8,
+          "combo_open": 8
+        },
+        "range_band": [
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "kickboxing",
+      "rulesets": [
+        "k1",
+        "glory",
+        "dutch"
+      ],
+      "grade_rank": 7,
+      "grade": "advanced"
+    },
+    {
+      "id": "kickboxing_blitz_four_kick",
+      "name": "Blitz to High Kick",
+      "kind": "sequence",
+      "tier": 4,
+      "branch": "combinations",
+      "requires": {
+        "discipline": 55,
+        "attributes": {
+          "speed": 46,
+          "conditioning": 44
+        },
+        "prerequisites": [
+          "kickboxing_dutch_combination",
+          "kickboxing_high_kick"
+        ],
+        "reps": 320
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "damage": 11,
+          "head_damage": 9,
+          "entry_speed": 8
+        },
+        "range_band": [
+          "LONG",
+          "MID"
+        ],
+        "range_delta": -1
+      },
+      "_discipline": "kickboxing",
+      "rulesets": [
+        "k1",
+        "glory",
+        "dutch",
+        "american_full_contact"
+      ],
+      "grade_rank": 8,
+      "grade": "elite",
+      "finishes_fight": true
+    },
+    {
+      "id": "kickboxing_four_strike",
+      "name": "Cross-Hook-Low Kick-High Kick Chain",
+      "kind": "sequence",
+      "tier": 4,
+      "branch": "combinations",
+      "requires": {
+        "discipline": 55,
+        "attributes": {
+          "technique": 46,
+          "conditioning": 46
+        },
+        "prerequisites": [
+          "kickboxing_dutch_combination",
+          "kickboxing_high_kick",
+          "kickboxing_jab_cross_lowkick",
+          "kickboxing_low_kick"
+        ],
+        "reps": 320
+      },
+      "match": {
+        "role": "damage",
+        "phases": [
+          "standing"
+        ],
+        "effects": {
+          "damage": 12,
+          "leg_damage": 8,
+          "head_damage": 9
+        },
+        "range_band": [
+          "MID"
+        ],
+        "range_delta": 0
+      },
+      "_discipline": "kickboxing",
+      "rulesets": [
+        "k1",
+        "glory",
+        "dutch"
+      ],
+      "grade_rank": 8,
+      "grade": "elite",
+      "finishes_fight": true
+    }
+  ]
+}

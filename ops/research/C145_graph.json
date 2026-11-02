@@ -1,0 +1,1778 @@
+{
+  "boot": "Godot/scripts/BootRoot.gd",
+  "surface_count": 31,
+  "counts": {
+    "REACHABLE": 29,
+    "ORPHANED": 0,
+    "TEST-ONLY": 2
+  },
+  "surfaces": [
+    {
+      "name": "AthleteProfileShellScreen",
+      "file": "Godot/scripts/AthleteProfileShellScreen.gd",
+      "lines": 128,
+      "mounters": [
+        {
+          "file": "Godot/scripts/CareerRoot.gd",
+          "line": 36,
+          "evidence": "\"fighter_card\": {\"panel\": \"res://scripts/AthleteProfileShellScreen.gd\", \"nav\": \"gym\"},"
+        },
+        {
+          "file": "Godot/scripts/SceneRouter.gd",
+          "line": 72,
+          "evidence": "\"fighter_card\": {\"tier\": \"career\", \"scene\": CAREER_ROOT_SCENE, \"panel\": \"res://scripts/AthleteProfileShellScreen.gd\", \"nav\": \"gym\", \"label\": \"FIGHTER CARD\"},"
+        },
+        {
+          "file": "Godot/scenes/AthleteProfileShellScreen.tscn",
+          "line": 3,
+          "evidence": "[ext_resource type=\"Script\" path=\"res://scripts/AthleteProfileShellScreen.gd\" id=\"1_profileshell\"]"
+        }
+      ],
+      "test_callers": [
+        {
+          "file": "Godot/tests/scene_router_test.gd",
+          "line": 258,
+          "evidence": "_check(str(second.get(\"content\", \"\")) == \"AthleteProfileShellScreen\", \"the fighter card replaces THE DAY in the stack\")"
+        }
+      ],
+      "role": "ROOT",
+      "parents": [
+        "CareerRoot"
+      ],
+      "children": [
+        "ProfileRevampPanel"
+      ],
+      "status": "REACHABLE",
+      "path": [
+        "Boot",
+        "CareerRoot",
+        "AthleteProfileShellScreen"
+      ],
+      "mounting_files": [
+        "Godot/scenes/AthleteProfileShellScreen.tscn",
+        "Godot/scripts/CareerRoot.gd",
+        "Godot/scripts/SceneRouter.gd"
+      ]
+    },
+    {
+      "name": "CreationFlowPanel",
+      "file": "Godot/scripts/CreationFlowPanel.gd",
+      "lines": 562,
+      "mounters": [
+        {
+          "file": "Godot/scripts/CreationRoot.gd",
+          "line": 38,
+          "evidence": "const PANEL_PATH := \"res://scripts/CreationFlowPanel.gd\""
+        }
+      ],
+      "test_callers": [],
+      "role": "ROOT",
+      "parents": [
+        "CreationRoot"
+      ],
+      "children": [],
+      "status": "REACHABLE",
+      "path": [
+        "Boot",
+        "CreationRoot",
+        "CreationFlowPanel"
+      ],
+      "mounting_files": [
+        "Godot/scripts/CreationRoot.gd"
+      ]
+    },
+    {
+      "name": "CrowningPanel",
+      "file": "Godot/scripts/CrowningPanel.gd",
+      "lines": 182,
+      "mounters": [
+        {
+          "file": "Godot/scripts/SetpieceRoot.gd",
+          "line": 44,
+          "evidence": "\"crowning\": {\"panel\": \"res://scripts/CrowningPanel.gd\", \"next\": \"\"},"
+        }
+      ],
+      "test_callers": [
+        {
+          "file": "Godot/tests/setpiece_panels_test.gd",
+          "line": 332,
+          "evidence": "var script: Script = load(\"res://scripts/CrowningPanel.gd\")"
+        },
+        {
+          "file": "Godot/tests/titles_rankings_test.gd",
+          "line": 308,
+          "evidence": "var CrowningScript = load(\"res://scripts/CrowningPanel.gd\")"
+        }
+      ],
+      "role": "ROOT",
+      "parents": [
+        "SetpieceRoot"
+      ],
+      "children": [],
+      "status": "REACHABLE",
+      "path": [
+        "Boot",
+        "SetpieceRoot",
+        "CrowningPanel"
+      ],
+      "mounting_files": [
+        "Godot/scripts/SetpieceRoot.gd"
+      ]
+    },
+    {
+      "name": "DayFeedPanel",
+      "file": "Godot/scripts/DayFeedPanel.gd",
+      "lines": 388,
+      "mounters": [
+        {
+          "file": "Godot/scripts/DayFeedScreen.gd",
+          "line": 15,
+          "evidence": "const PANEL_PATH := \"res://scripts/DayFeedPanel.gd\""
+        }
+      ],
+      "test_callers": [
+        {
+          "file": "Godot/tests/day_feed_screen_test.gd",
+          "line": 65,
+          "evidence": "var panel: Control = screen.get_node_or_null(\"DayFeedPanel\")"
+        },
+        {
+          "file": "Godot/tests/day_feed_screen_test.gd",
+          "line": 133,
+          "evidence": "_check(screen.get_node_or_null(\"DayFeedPanel\") != null and screen.get_node_or_null(\"TopBar/ContinueUnit\") != null, \"the screen rebuilds after Continue\")"
+        },
+        {
+          "file": "Godot/tests/day_feed_screen_test.gd",
+          "line": 134,
+          "evidence": "_check(screen.get_node(\"DayFeedPanel\").find_child(\"Continue\", true, false) == null, \"and the rebuilt body still draws no Continue\")"
+        },
+        {
+          "file": "Godot/tests/news_morale_sanctioning_test.gd",
+          "line": 182,
+          "evidence": "_check(office.get_node_or_null(\"DayFeedPanel\") != null, \"the briefing builds its board\")"
+        }
+      ],
+      "role": "CHILD",
+      "parents": [
+        "DayFeedScreen"
+      ],
+      "children": [],
+      "status": "REACHABLE",
+      "path": [
+        "Boot",
+        "DayFeedScreen",
+        "DayFeedPanel"
+      ],
+      "mounting_files": [
+        "Godot/scripts/DayFeedScreen.gd"
+      ]
+    },
+    {
+      "name": "DayFeedScreen",
+      "file": "Godot/scripts/DayFeedScreen.gd",
+      "lines": 55,
+      "mounters": [
+        {
+          "file": "Godot/scripts/CareerRoot.gd",
+          "line": 35,
+          "evidence": "\"day_feed\": {\"panel\": \"res://scripts/DayFeedScreen.gd\", \"nav\": \"day_feed\"},"
+        },
+        {
+          "file": "Godot/scripts/CareerRoot.gd",
+          "line": 52,
+          "evidence": "\"today\": {\"panel\": \"res://scripts/DayFeedScreen.gd\", \"nav\": \"day_feed\"},"
+        },
+        {
+          "file": "Godot/scripts/SceneRouter.gd",
+          "line": 65,
+          "evidence": "\"day_feed\": {\"tier\": \"career\", \"scene\": CAREER_ROOT_SCENE, \"panel\": \"res://scripts/DayFeedScreen.gd\", \"nav\": \"day_feed\", \"label\": \"THE DAY\"},"
+        },
+        {
+          "file": "Godot/scripts/SceneRouter.gd",
+          "line": 105,
+          "evidence": "\"today\": {\"tier\": \"career\", \"scene\": CAREER_ROOT_SCENE, \"panel\": \"res://scripts/DayFeedScreen.gd\", \"nav\": \"day_feed\", \"label\": \"TODAY'S BRIEFING\"},"
+        },
+        {
+          "file": "Godot/scenes/DayFeedScreen.tscn",
+          "line": 3,
+          "evidence": "[ext_resource type=\"Script\" path=\"res://scripts/DayFeedScreen.gd\" id=\"1_dayfeed\"]"
+        }
+      ],
+      "test_callers": [
+        {
+          "file": "Godot/tests/day_feed_screen_test.gd",
+          "line": 34,
+          "evidence": "var scene: PackedScene = load(\"res://scenes/DayFeedScreen.tscn\")"
+        },
+        {
+          "file": "Godot/tests/news_morale_sanctioning_test.gd",
+          "line": 177,
+          "evidence": "var panel_script: Script = load(\"res://scripts/DayFeedScreen.gd\")"
+        },
+        {
+          "file": "Godot/tests/office_hub_panel_test.gd",
+          "line": 474,
+          "evidence": "_check(str(today.get(\"nav\", \"\")) == \"day_feed\" and str(today.get(\"panel\", \"\")).contains(\"DayFeedScreen\"), \"TODAY'S BRIEFING is THE DAY's, not the desk's\")"
+        },
+        {
+          "file": "Godot/tests/scene_router_test.gd",
+          "line": 246,
+          "evidence": "_check(str(first.get(\"content\", \"\")) == \"DayFeedScreen\", \"THE DAY mounts as the content child\")"
+        },
+        {
+          "file": "Godot/tests/scene_router_test.gd",
+          "line": 267,
+          "evidence": "_check(str(career_root.contract_for_test().get(\"content\", \"\")) == \"DayFeedScreen\", \"THE DAY is mounted again\")"
+        },
+        {
+          "file": "Godot/tests/world_management_ui_test.gd",
+          "line": 68,
+          "evidence": "# THE DAY, which is CareerRoot hosting DayFeedScreen."
+        },
+        {
+          "file": "Godot/tests/world_management_ui_test.gd",
+          "line": 73,
+          "evidence": "_check(str(day.get(\"scene\", \"\")) == \"res://scenes/CareerRoot.tscn\" and str(day.get(\"panel\", \"\")) == \"res://scripts/DayFeedScreen.gd\", \"the creation handoff lands on the CareerRoot-hosted DAY panel\")"
+        }
+      ],
+      "role": "ROOT",
+      "parents": [
+        "CareerRoot"
+      ],
+      "children": [
+        "DayFeedPanel"
+      ],
+      "status": "REACHABLE",
+      "path": [
+        "Boot",
+        "CareerRoot",
+        "DayFeedScreen"
+      ],
+      "mounting_files": [
+        "Godot/scenes/DayFeedScreen.tscn",
+        "Godot/scripts/CareerRoot.gd",
+        "Godot/scripts/SceneRouter.gd"
+      ]
+    },
+    {
+      "name": "DevelopmentPanel",
+      "file": "Godot/scripts/DevelopmentPanel.gd",
+      "lines": 583,
+      "mounters": [
+        {
+          "file": "Godot/scripts/ProfileRevampPanel.gd",
+          "line": 144,
+          "evidence": "_mount_panel(body, \"res://scripts/DevelopmentPanel.gd\", \"DevelopmentPanel\")"
+        }
+      ],
+      "test_callers": [
+        {
+          "file": "Godot/tests/development_panel_test.gd",
+          "line": 2,
+          "evidence": "## U13: DevelopmentPanel draws get_athlete_honours() through TitleHonours.summary()"
+        },
+        {
+          "file": "Godot/tests/development_panel_test.gd",
+          "line": 7,
+          "evidence": "const PANEL_PATH := \"res://scripts/DevelopmentPanel.gd\""
+        },
+        {
+          "file": "Godot/tests/development_screen_test.gd",
+          "line": 30,
+          "evidence": "var P = load(\"res://scripts/DevelopmentPanel.gd\")"
+        },
+        {
+          "file": "Godot/tests/development_screen_test.gd",
+          "line": 86,
+          "evidence": "_check(profile_source.contains(\"res://scripts/DevelopmentPanel.gd\") and profile_source.contains(\"func _mount_panel(\"), \"the fighter card's DEVELOPMENT tab mounts the panel by path\")"
+        },
+        {
+          "file": "Godot/tests/discipline_program_integration_test.gd",
+          "line": 77,
+          "evidence": "# profile's DEVELOPMENT tab (DevelopmentPanel.gd), covered by"
+        },
+        {
+          "file": "Godot/tests/profile_revamp_test.gd",
+          "line": 611,
+          "evidence": "_check(panel.get_node_or_null(\"TabBody/DevelopmentPanel\") != null, \"the Development panel mounts under the strip\")"
+        }
+      ],
+      "role": "CHILD",
+      "parents": [
+        "ProfileRevampPanel"
+      ],
+      "children": [],
+      "status": "REACHABLE",
+      "path": [
+        "Boot",
+        "AthleteProfileShellScreen",
+        "ProfileRevampPanel",
+        "DevelopmentPanel"
+      ],
+      "mounting_files": [
+        "Godot/scripts/ProfileRevampPanel.gd"
+      ]
+    },
+    {
+      "name": "FightAnimLabScreen",
+      "file": "Godot/scripts/FightAnimLabScreen.gd",
+      "lines": 253,
+      "mounters": [
+        {
+          "file": "Godot/scenes/FightAnimLab.tscn",
+          "line": 15,
+          "evidence": "[ext_resource type=\"Script\" path=\"res://scripts/FightAnimLabScreen.gd\" id=\"1\"]"
+        }
+      ],
+      "test_callers": [],
+      "role": "ROOT",
+      "parents": [],
+      "children": [],
+      "status": "REACHABLE",
+      "path": [
+        "Boot",
+        "FightAnimLabScreen"
+      ],
+      "mounting_files": [
+        "Godot/scenes/FightAnimLab.tscn"
+      ]
+    },
+    {
+      "name": "FightCampPanel",
+      "file": "Godot/scripts/FightCampPanel.gd",
+      "lines": 1026,
+      "mounters": [
+        {
+          "file": "Godot/scripts/ProfileRevampPanel.gd",
+          "line": 3047,
+          "evidence": "var script: Script = load(\"res://scripts/FightCampPanel.gd\")"
+        }
+      ],
+      "test_callers": [
+        {
+          "file": "Godot/tests/fight_camp_panel_test.gd",
+          "line": 39,
+          "evidence": "var CampPanel: Script = load(\"res://scripts/FightCampPanel.gd\")"
+        },
+        {
+          "file": "Godot/tests/fight_camp_panel_test.gd",
+          "line": 41,
+          "evidence": "panel.name = \"FightCampPanel\""
+        }
+      ],
+      "role": "CHILD",
+      "parents": [
+        "ProfileRevampPanel"
+      ],
+      "children": [],
+      "status": "REACHABLE",
+      "path": [
+        "Boot",
+        "AthleteProfileShellScreen",
+        "ProfileRevampPanel",
+        "FightCampPanel"
+      ],
+      "mounting_files": [
+        "Godot/scripts/ProfileRevampPanel.gd"
+      ]
+    },
+    {
+      "name": "FightContractScreen",
+      "file": "Godot/scripts/FightContractScreen.gd",
+      "lines": 958,
+      "mounters": [
+        {
+          "file": "Godot/scenes/FightContractScreen.tscn",
+          "line": 3,
+          "evidence": "[ext_resource type=\"Script\" path=\"res://scripts/FightContractScreen.gd\" id=\"1_script\"]"
+        }
+      ],
+      "test_callers": [
+        {
+          "file": "Godot/tests/fight_contract_screen_test.gd",
+          "line": 8,
+          "evidence": "const SCENE := \"res://scenes/FightContractScreen.tscn\""
+        },
+        {
+          "file": "Godot/tests/fight_contract_screen_test.gd",
+          "line": 26,
+          "evidence": "_check(ResourceLoader.exists(SCENE), \"FightContractScreen.tscn exists\")"
+        },
+        {
+          "file": "Godot/tests/organization_fight_offer_test.gd",
+          "line": 280,
+          "evidence": "var agreement: Control = load(\"res://scenes/FightContractScreen.tscn\").instantiate()"
+        }
+      ],
+      "role": "ROOT",
+      "parents": [],
+      "children": [],
+      "status": "REACHABLE",
+      "path": [
+        "Boot",
+        "FightContractScreen"
+      ],
+      "mounting_files": [
+        "Godot/scenes/FightContractScreen.tscn"
+      ]
+    },
+    {
+      "name": "FightHudPanel",
+      "file": "Godot/scripts/FightHudPanel.gd",
+      "lines": 533,
+      "mounters": [
+        {
+          "file": "Godot/scripts/FightStageDirector.gd",
+          "line": 6,
+          "evidence": "FightHudPanel as the live stage instrument"
+        }
+      ],
+      "test_callers": [
+        {
+          "file": "Godot/tests/fight_hud_panel_test.gd",
+          "line": 2,
+          "evidence": "## U25: FightHudPanel renders a FightHudRead fold. Assert CONTENT \u2014"
+        },
+        {
+          "file": "Godot/tests/fight_hud_panel_test.gd",
+          "line": 260,
+          "evidence": "var panel: Control = load(\"res://scripts/FightHudPanel.gd\").new()"
+        }
+      ],
+      "role": "ROOT",
+      "parents": [],
+      "children": [],
+      "status": "REACHABLE",
+      "path": [
+        "Boot",
+        "FightWorldLiveScreen",
+        "FightHudPanel"
+      ],
+      "mounting_files": [
+        "Godot/scripts/FightStageDirector.gd"
+      ]
+    },
+    {
+      "name": "FightNightScreen",
+      "file": "Godot/scripts/FightNightScreen.gd",
+      "lines": 1048,
+      "mounters": [
+        {
+          "file": "Godot/scripts/MatchSimulatorPanel.gd",
+          "line": 205,
+          "evidence": "var night: Script = load(\"res://scripts/FightNightScreen.gd\")"
+        },
+        {
+          "file": "Godot/scenes/FightNight.tscn",
+          "line": 3,
+          "evidence": "[ext_resource type=\"Script\" path=\"res://scripts/FightNightScreen.gd\" id=\"1_fightnight\"]"
+        }
+      ],
+      "test_callers": [
+        {
+          "file": "Godot/tests/booking_eligibility_visibility_test.gd",
+          "line": 190,
+          "evidence": "## R24: EventDetailScreen applied this gate first and FightNightScreen"
+        },
+        {
+          "file": "Godot/tests/booking_eligibility_visibility_test.gd",
+          "line": 205,
+          "evidence": "var screen: Control = load(\"res://scripts/FightNightScreen.gd\").new()"
+        },
+        {
+          "file": "Godot/tests/combo_show_test.gd",
+          "line": 130,
+          "evidence": "var night_script: Script = load(\"res://scripts/FightNightScreen.gd\")"
+        },
+        {
+          "file": "Godot/tests/event_night_backend_test.gd",
+          "line": 160,
+          "evidence": "# which is what FightNightScreen keys `_player_side` off."
+        },
+        {
+          "file": "Godot/tests/event_night_ui_test.gd",
+          "line": 63,
+          "evidence": "# gate lives on FightNightScreen now (R20) and is asserted in"
+        },
+        {
+          "file": "Godot/tests/fight_night_realtime_test.gd",
+          "line": 2,
+          "evidence": "## U36 \u2014 FightNightScreen drives FightBeatAdapter for the four damage-"
+        },
+        {
+          "file": "Godot/tests/fight_night_realtime_test.gd",
+          "line": 45,
+          "evidence": "var night_script: Script = load(\"res://scripts/FightNightScreen.gd\")"
+        },
+        {
+          "file": "Godot/tests/fight_night_realtime_test.gd",
+          "line": 59,
+          "evidence": "var night_script: Script = load(\"res://scripts/FightNightScreen.gd\")"
+        },
+        {
+          "file": "Godot/tests/fight_night_realtime_test.gd",
+          "line": 103,
+          "evidence": "var night_script: Script = load(\"res://scripts/FightNightScreen.gd\")"
+        },
+        {
+          "file": "Godot/tests/ring_night_command_bar_test.gd",
+          "line": 51,
+          "evidence": "var night_script: Script = load(\"res://scripts/FightNightScreen.gd\")"
+        },
+        {
+          "file": "Godot/tests/ring_stage_panel_test.gd",
+          "line": 263,
+          "evidence": "var night_script: Script = load(\"res://scripts/FightNightScreen.gd\")"
+        },
+        {
+          "file": "Godot/tests/scene_router_test.gd",
+          "line": 299,
+          "evidence": "var night_script: Script = load(\"res://scripts/FightNightScreen.gd\")"
+        },
+        {
+          "file": "Godot/tests/setpiece_root_test.gd",
+          "line": 200,
+          "evidence": "var night: Script = load(\"res://scripts/FightNightScreen.gd\")"
+        },
+        {
+          "file": "Godot/tests/smoke_test.gd",
+          "line": 823,
+          "evidence": "var night_script: Script = load(\"res://scripts/FightNightScreen.gd\")"
+        }
+      ],
+      "role": "ROOT",
+      "parents": [
+        "MatchSimulatorPanel"
+      ],
+      "children": [
+        "FightResultPanel",
+        "RingStagePanel"
+      ],
+      "status": "REACHABLE",
+      "path": [
+        "Boot",
+        "FightNightScreen"
+      ],
+      "mounting_files": [
+        "Godot/scenes/FightNight.tscn",
+        "Godot/scripts/MatchSimulatorPanel.gd"
+      ]
+    },
+    {
+      "name": "FightResultPanel",
+      "file": "Godot/scripts/FightResultPanel.gd",
+      "lines": 1035,
+      "mounters": [
+        {
+          "file": "Godot/scripts/SetpieceRoot.gd",
+          "line": 43,
+          "evidence": "\"fight_result\": {\"panel\": \"res://scripts/FightResultPanel.gd\", \"next\": \"\"},"
+        }
+      ],
+      "test_callers": [
+        {
+          "file": "Godot/tests/fifth_method_reaches_the_record_test.gd",
+          "line": 9,
+          "evidence": "const FightResultPanel := preload(\"res://scripts/FightResultPanel.gd\")"
+        },
+        {
+          "file": "Godot/tests/fifth_method_reaches_the_record_test.gd",
+          "line": 50,
+          "evidence": "var legacy_words := FightResultPanel.describe({\"winner_name\": \"A\", \"loser_name\": \"B\", \"winner_side\": \"a\", \"method\": \"SUB\", \"rounds\": 2})"
+        },
+        {
+          "file": "Godot/tests/fifth_method_reaches_the_record_test.gd",
+          "line": 51,
+          "evidence": "var canonical_words := FightResultPanel.describe({\"winner_name\": \"A\", \"loser_name\": \"B\", \"winner_side\": \"a\", \"method\": \"SUBMISSION\", \"rounds\": 2})"
+        },
+        {
+          "file": "Godot/tests/setpiece_panels_test.gd",
+          "line": 34,
+          "evidence": "ResultPanel = load(\"res://scripts/FightResultPanel.gd\")"
+        }
+      ],
+      "role": "CHILD",
+      "parents": [
+        "FightNightScreen",
+        "SetpieceRoot"
+      ],
+      "children": [],
+      "status": "REACHABLE",
+      "path": [
+        "Boot",
+        "SetpieceRoot",
+        "FightResultPanel"
+      ],
+      "mounting_files": [
+        "Godot/scripts/SetpieceRoot.gd"
+      ]
+    },
+    {
+      "name": "FightWeekPanel",
+      "file": "Godot/scripts/FightWeekPanel.gd",
+      "lines": 454,
+      "mounters": [
+        {
+          "file": "Godot/scripts/SetpieceRoot.gd",
+          "line": 40,
+          "evidence": "\"fight_week\": {\"panel\": \"res://scripts/FightWeekPanel.gd\", \"next\": \"weigh_in\"},"
+        }
+      ],
+      "test_callers": [
+        {
+          "file": "Godot/tests/setpiece_panels_test.gd",
+          "line": 279,
+          "evidence": "var script: Script = load(\"res://scripts/FightWeekPanel.gd\")"
+        }
+      ],
+      "role": "ROOT",
+      "parents": [
+        "SetpieceRoot"
+      ],
+      "children": [],
+      "status": "REACHABLE",
+      "path": [
+        "Boot",
+        "SetpieceRoot",
+        "FightWeekPanel"
+      ],
+      "mounting_files": [
+        "Godot/scripts/SetpieceRoot.gd"
+      ]
+    },
+    {
+      "name": "FightWorldLiveScreen",
+      "file": "Godot/scripts/FightWorldLiveScreen.gd",
+      "lines": 2228,
+      "mounters": [
+        {
+          "file": "Godot/scenes/FightWorldLive.tscn",
+          "line": 11,
+          "evidence": "[ext_resource type=\"Script\" path=\"res://scripts/FightWorldLiveScreen.gd\" id=\"1\"]"
+        }
+      ],
+      "test_callers": [
+        {
+          "file": "Godot/tests/fight_clip_slice_test.gd",
+          "line": 216,
+          "evidence": "var LiveScreen: GDScript = load(\"res://scripts/FightWorldLiveScreen.gd\")"
+        },
+        {
+          "file": "Godot/tests/fight_knockdown_count_test.gd",
+          "line": 6,
+          "evidence": "## POPULATION: FightWorldLiveScreen.demo_fighter a / b - an out-boxer against a pressure"
+        },
+        {
+          "file": "Godot/tests/fight_knockdown_count_test.gd",
+          "line": 32,
+          "evidence": "Live = load(\"res://scripts/FightWorldLiveScreen.gd\")"
+        },
+        {
+          "file": "Godot/tests/fight_room_positions_test.gd",
+          "line": 4,
+          "evidence": "## `FightWorldLiveScreen` turned each beat's `range_band` WORD into one of three"
+        },
+        {
+          "file": "Godot/tests/fight_room_positions_test.gd",
+          "line": 230,
+          "evidence": "##    of reach (`FightWorldLiveScreen.DEMO_STYLES`). Their OWN model standoff"
+        },
+        {
+          "file": "Godot/tests/fight_stage_playback_test.gd",
+          "line": 164,
+          "evidence": "var LiveScreen: GDScript = load(\"res://scripts/FightWorldLiveScreen.gd\")"
+        },
+        {
+          "file": "Godot/tests/fight_stage_presenter_contract_test.gd",
+          "line": 382,
+          "evidence": "var LiveScreen: GDScript = load(\"res://scripts/FightWorldLiveScreen.gd\")"
+        },
+        {
+          "file": "Godot/tests/fight_stage_realism_test.gd",
+          "line": 21,
+          "evidence": "## out-boxer and a pressure puncher - `FightWorldLiveScreen.demo_fighter`)."
+        },
+        {
+          "file": "Godot/tests/fight_stage_realism_test.gd",
+          "line": 55,
+          "evidence": "const LiveScreen := preload(\"res://scripts/FightWorldLiveScreen.gd\")"
+        },
+        {
+          "file": "Godot/tests/fight_stage_realism_test.gd",
+          "line": 456,
+          "evidence": "var screen: GDScript = load(\"res://scripts/FightWorldLiveScreen.gd\")"
+        },
+        {
+          "file": "Godot/tests/fight_stage_technique_fidelity_test.gd",
+          "line": 339,
+          "evidence": "var LiveScreen: GDScript = load(\"res://scripts/FightWorldLiveScreen.gd\")"
+        },
+        {
+          "file": "Godot/tests/test_engine_input_contract.gd",
+          "line": 24,
+          "evidence": "## C96 FIX-UP (Claude, integration): this DID mirror FightWorldLiveScreen's"
+        },
+        {
+          "file": "Godot/tests/test_engine_input_contract.gd",
+          "line": 33,
+          "evidence": "var screen: GDScript = load(\"res://scripts/FightWorldLiveScreen.gd\")"
+        }
+      ],
+      "role": "ROOT",
+      "parents": [],
+      "children": [],
+      "status": "REACHABLE",
+      "path": [
+        "Boot",
+        "FightWorldLiveScreen"
+      ],
+      "mounting_files": [
+        "Godot/scenes/FightWorldLive.tscn"
+      ]
+    },
+    {
+      "name": "GymHubPanel",
+      "file": "Godot/scripts/GymHubPanel.gd",
+      "lines": 821,
+      "mounters": [
+        {
+          "file": "Godot/scripts/CareerRoot.gd",
+          "line": 37,
+          "evidence": "\"gym\": {\"panel\": \"res://scripts/GymHubPanel.gd\", \"nav\": \"gym\"},"
+        },
+        {
+          "file": "Godot/scripts/CareerRoot.gd",
+          "line": 38,
+          "evidence": "\"roster\": {\"panel\": \"res://scripts/GymHubPanel.gd\", \"nav\": \"gym\", \"tab\": \"roster\"},"
+        },
+        {
+          "file": "Godot/scripts/CareerRoot.gd",
+          "line": 39,
+          "evidence": "\"gym_floor\": {\"panel\": \"res://scripts/GymHubPanel.gd\", \"nav\": \"gym\", \"tab\": \"floor\"},"
+        },
+        {
+          "file": "Godot/scripts/SceneRouter.gd",
+          "line": 69,
+          "evidence": "\"gym\": {\"tier\": \"career\", \"scene\": CAREER_ROOT_SCENE, \"panel\": \"res://scripts/GymHubPanel.gd\", \"nav\": \"gym\", \"label\": \"GYM\"},"
+        },
+        {
+          "file": "Godot/scripts/SceneRouter.gd",
+          "line": 70,
+          "evidence": "\"gym_floor\": {\"tier\": \"career\", \"scene\": CAREER_ROOT_SCENE, \"panel\": \"res://scripts/GymHubPanel.gd\", \"nav\": \"gym\", \"tab\": \"floor\", \"label\": \"MY GYM\"},"
+        },
+        {
+          "file": "Godot/scripts/SceneRouter.gd",
+          "line": 71,
+          "evidence": "\"roster\": {\"tier\": \"career\", \"scene\": CAREER_ROOT_SCENE, \"panel\": \"res://scripts/GymHubPanel.gd\", \"nav\": \"gym\", \"tab\": \"roster\", \"label\": \"FIGHTERS\"},"
+        }
+      ],
+      "test_callers": [
+        {
+          "file": "Godot/tests/equipment_market_filter_test.gd",
+          "line": 30,
+          "evidence": "var hub: Control = load(\"res://scripts/GymHubPanel.gd\").new()"
+        },
+        {
+          "file": "Godot/tests/gym_floor_layout_test.gd",
+          "line": 84,
+          "evidence": "var hub: Control = load(\"res://scripts/GymHubPanel.gd\").new()"
+        },
+        {
+          "file": "Godot/tests/gym_hub_panel_test.gd",
+          "line": 12,
+          "evidence": "const PANEL_PATH := \"res://scripts/GymHubPanel.gd\""
+        },
+        {
+          "file": "Godot/tests/gym_hub_panel_test.gd",
+          "line": 253,
+          "evidence": "_check(str(c.get(\"content\", \"\")) == \"GymHubPanel\" and str(c.get(\"rail_lights\", \"\")) == \"gym\", \"CareerRoot hosts the hub on gym and lights GYM\")"
+        },
+        {
+          "file": "Godot/tests/menu_modernization_test.gd",
+          "line": 67,
+          "evidence": "var gym_hub: Control = load(\"res://scripts/GymHubPanel.gd\").new()"
+        },
+        {
+          "file": "Godot/tests/office_nav_and_profile_overlay_test.gd",
+          "line": 59,
+          "evidence": "var hub: Control = load(\"res://scripts/GymHubPanel.gd\").new()"
+        },
+        {
+          "file": "Godot/tests/smoke_test.gd",
+          "line": 502,
+          "evidence": "var hub_floor_script: Script = load(\"res://scripts/GymHubPanel.gd\")"
+        },
+        {
+          "file": "Godot/tests/smoke_test.gd",
+          "line": 534,
+          "evidence": "var hub_roster_script: Script = load(\"res://scripts/GymHubPanel.gd\")"
+        }
+      ],
+      "role": "ROOT",
+      "parents": [
+        "CareerRoot"
+      ],
+      "children": [],
+      "status": "REACHABLE",
+      "path": [
+        "Boot",
+        "CareerRoot",
+        "GymHubPanel"
+      ],
+      "mounting_files": [
+        "Godot/scripts/CareerRoot.gd",
+        "Godot/scripts/SceneRouter.gd"
+      ]
+    },
+    {
+      "name": "JudgePanel",
+      "file": "Godot/scripts/JudgePanel.gd",
+      "lines": 175,
+      "mounters": [],
+      "test_callers": [
+        {
+          "file": "Godot/tests/fight_realtime_test.gd",
+          "line": 841,
+          "evidence": "## A CARD IS ACTUALLY PRODUCED. Asserting that `JudgePanel.score_round`"
+        },
+        {
+          "file": "Godot/tests/judge_panel_test.gd",
+          "line": 389,
+          "evidence": "var JP = load(\"res://scripts/JudgePanel.gd\")"
+        }
+      ],
+      "role": "ROOT",
+      "parents": [],
+      "children": [],
+      "status": "TEST-ONLY",
+      "path": [],
+      "mounting_files": []
+    },
+    {
+      "name": "MatchSimulatorPanel",
+      "file": "Godot/scripts/MatchSimulatorPanel.gd",
+      "lines": 230,
+      "mounters": [
+        {
+          "file": "Godot/scripts/CareerRoot.gd",
+          "line": 53,
+          "evidence": "\"fight_test\": {\"panel\": \"res://scripts/MatchSimulatorPanel.gd\", \"nav\": \"\"},"
+        },
+        {
+          "file": "Godot/scripts/SceneRouter.gd",
+          "line": 111,
+          "evidence": "\"fight_test\": {\"tier\": \"career\", \"scene\": CAREER_ROOT_SCENE, \"panel\": \"res://scripts/MatchSimulatorPanel.gd\", \"nav\": \"\", \"label\": \"MATCH SIMULATOR\"},"
+        }
+      ],
+      "test_callers": [
+        {
+          "file": "Godot/tests/office_hub_panel_test.gd",
+          "line": 477,
+          "evidence": "_check(str(simulator.get(\"panel\", \"\")).contains(\"MatchSimulatorPanel\"), \"the match simulator kept its own small panel\")"
+        },
+        {
+          "file": "Godot/tests/smoke_test.gd",
+          "line": 556,
+          "evidence": "var fight_desk_script: Script = load(\"res://scripts/MatchSimulatorPanel.gd\")"
+        },
+        {
+          "file": "Godot/tests/smoke_test.gd",
+          "line": 947,
+          "evidence": "var simulator_inst: Control = load(\"res://scripts/MatchSimulatorPanel.gd\").new()"
+        },
+        {
+          "file": "Godot/tests/smoke_test.gd",
+          "line": 948,
+          "evidence": "simulator_inst.name = \"MatchSimulatorPanel\""
+        }
+      ],
+      "role": "ROOT",
+      "parents": [
+        "CareerRoot"
+      ],
+      "children": [
+        "FightNightScreen"
+      ],
+      "status": "REACHABLE",
+      "path": [
+        "Boot",
+        "CareerRoot",
+        "MatchSimulatorPanel"
+      ],
+      "mounting_files": [
+        "Godot/scripts/CareerRoot.gd",
+        "Godot/scripts/SceneRouter.gd"
+      ]
+    },
+    {
+      "name": "OfficeHubPanel",
+      "file": "Godot/scripts/OfficeHubPanel.gd",
+      "lines": 1669,
+      "mounters": [
+        {
+          "file": "Godot/scripts/CareerRoot.gd",
+          "line": 46,
+          "evidence": "\"office_menu\": {\"panel\": \"res://scripts/OfficeHubPanel.gd\", \"nav\": \"office_menu\"},"
+        },
+        {
+          "file": "Godot/scripts/CareerRoot.gd",
+          "line": 47,
+          "evidence": "\"finances\": {\"panel\": \"res://scripts/OfficeHubPanel.gd\", \"nav\": \"office_menu\", \"tab\": \"desk\"},"
+        },
+        {
+          "file": "Godot/scripts/CareerRoot.gd",
+          "line": 48,
+          "evidence": "\"contracts\": {\"panel\": \"res://scripts/OfficeHubPanel.gd\", \"nav\": \"office_menu\", \"tab\": \"books\"},"
+        },
+        {
+          "file": "Godot/scripts/CareerRoot.gd",
+          "line": 49,
+          "evidence": "\"objectives\": {\"panel\": \"res://scripts/OfficeHubPanel.gd\", \"nav\": \"office_menu\", \"tab\": \"books\"},"
+        },
+        {
+          "file": "Godot/scripts/CareerRoot.gd",
+          "line": 50,
+          "evidence": "\"weight_class\": {\"panel\": \"res://scripts/OfficeHubPanel.gd\", \"nav\": \"office_menu\", \"tab\": \"books\"},"
+        },
+        {
+          "file": "Godot/scripts/SceneRouter.gd",
+          "line": 99,
+          "evidence": "\"office_menu\": {\"tier\": \"career\", \"scene\": CAREER_ROOT_SCENE, \"panel\": \"res://scripts/OfficeHubPanel.gd\", \"nav\": \"office_menu\", \"label\": \"OFFICE\"},"
+        },
+        {
+          "file": "Godot/scripts/SceneRouter.gd",
+          "line": 101,
+          "evidence": "\"contracts\": {\"tier\": \"career\", \"scene\": CAREER_ROOT_SCENE, \"panel\": \"res://scripts/OfficeHubPanel.gd\", \"nav\": \"office_menu\", \"tab\": \"books\", \"label\": \"CONTRACTS\"},"
+        },
+        {
+          "file": "Godot/scripts/SceneRouter.gd",
+          "line": 102,
+          "evidence": "\"finances\": {\"tier\": \"career\", \"scene\": CAREER_ROOT_SCENE, \"panel\": \"res://scripts/OfficeHubPanel.gd\", \"nav\": \"office_menu\", \"tab\": \"desk\", \"label\": \"FINANCES\"},"
+        },
+        {
+          "file": "Godot/scripts/SceneRouter.gd",
+          "line": 103,
+          "evidence": "\"objectives\": {\"tier\": \"career\", \"scene\": CAREER_ROOT_SCENE, \"panel\": \"res://scripts/OfficeHubPanel.gd\", \"nav\": \"office_menu\", \"tab\": \"books\", \"label\": \"OBJECTIVES\"},"
+        },
+        {
+          "file": "Godot/scripts/SceneRouter.gd",
+          "line": 104,
+          "evidence": "\"weight_class\": {\"tier\": \"career\", \"scene\": CAREER_ROOT_SCENE, \"panel\": \"res://scripts/OfficeHubPanel.gd\", \"nav\": \"office_menu\", \"tab\": \"books\", \"label\": \"WEIGHT CLASS\"},"
+        }
+      ],
+      "test_callers": [
+        {
+          "file": "Godot/tests/live_refresh_test.gd",
+          "line": 36,
+          "evidence": "var panel_script: Script = load(\"res://scripts/OfficeHubPanel.gd\")"
+        },
+        {
+          "file": "Godot/tests/objectives_board_test.gd",
+          "line": 190,
+          "evidence": "var panel_script: Script = load(\"res://scripts/OfficeHubPanel.gd\")"
+        },
+        {
+          "file": "Godot/tests/office_former_test.gd",
+          "line": 8,
+          "evidence": "const PANEL_PATH := \"res://scripts/OfficeHubPanel.gd\""
+        },
+        {
+          "file": "Godot/tests/office_hub_panel_test.gd",
+          "line": 16,
+          "evidence": "const PANEL_PATH := \"res://scripts/OfficeHubPanel.gd\""
+        },
+        {
+          "file": "Godot/tests/office_hub_panel_test.gd",
+          "line": 486,
+          "evidence": "_check(str(hosted.get(\"content\", \"\")) == \"OfficeHubPanel\", \"the OFFICE panel is what it mounts\")"
+        },
+        {
+          "file": "Godot/tests/promotions_board_test.gd",
+          "line": 14,
+          "evidence": "const OFFICE_PATH := \"res://scripts/OfficeHubPanel.gd\""
+        },
+        {
+          "file": "Godot/tests/smoke_test.gd",
+          "line": 933,
+          "evidence": "var office_inst: Control = load(\"res://scripts/OfficeHubPanel.gd\").new()"
+        },
+        {
+          "file": "Godot/tests/smoke_test.gd",
+          "line": 934,
+          "evidence": "office_inst.name = \"OfficeHubPanel\""
+        },
+        {
+          "file": "Godot/tests/sponsorship_test.gd",
+          "line": 92,
+          "evidence": "var panel_script: Script = load(\"res://scripts/OfficeHubPanel.gd\")"
+        },
+        {
+          "file": "Godot/tests/sponsorship_test.gd",
+          "line": 159,
+          "evidence": "var panel_script: Script = load(\"res://scripts/OfficeHubPanel.gd\")"
+        },
+        {
+          "file": "Godot/tests/weight_move_test.gd",
+          "line": 152,
+          "evidence": "var panel_script: Script = load(\"res://scripts/OfficeHubPanel.gd\")"
+        }
+      ],
+      "role": "ROOT",
+      "parents": [
+        "CareerRoot"
+      ],
+      "children": [],
+      "status": "REACHABLE",
+      "path": [
+        "Boot",
+        "CareerRoot",
+        "OfficeHubPanel"
+      ],
+      "mounting_files": [
+        "Godot/scripts/CareerRoot.gd",
+        "Godot/scripts/SceneRouter.gd"
+      ]
+    },
+    {
+      "name": "ProfileRevampPanel",
+      "file": "Godot/scripts/ProfileRevampPanel.gd",
+      "lines": 3399,
+      "mounters": [
+        {
+          "file": "Godot/scripts/AthleteProfileShellScreen.gd",
+          "line": 19,
+          "evidence": "const PANEL_PATH := \"res://scripts/ProfileRevampPanel.gd\""
+        }
+      ],
+      "test_callers": [
+        {
+          "file": "Godot/tests/amateur_board_test.gd",
+          "line": 186,
+          "evidence": "var P: Script = load(\"res://scripts/ProfileRevampPanel.gd\")"
+        },
+        {
+          "file": "Godot/tests/body_region_screen_test.gd",
+          "line": 38,
+          "evidence": "var P: Script = load(\"res://scripts/ProfileRevampPanel.gd\")"
+        },
+        {
+          "file": "Godot/tests/development_screen_test.gd",
+          "line": 85,
+          "evidence": "var profile_source := FileAccess.get_file_as_string(\"res://scripts/ProfileRevampPanel.gd\")"
+        },
+        {
+          "file": "Godot/tests/fifth_method_reaches_the_record_test.gd",
+          "line": 11,
+          "evidence": "const ProfileRevampPanel := preload(\"res://scripts/ProfileRevampPanel.gd\")"
+        },
+        {
+          "file": "Godot/tests/fifth_method_reaches_the_record_test.gd",
+          "line": 56,
+          "evidence": "_check(str(ProfileRevampPanel.METHOD_WORDS.get(\"SUB\", \"\")) == \"SUBMISSION\", \"profile expands legacy SUB\")"
+        },
+        {
+          "file": "Godot/tests/fifth_method_reaches_the_record_test.gd",
+          "line": 57,
+          "evidence": "_check(str(ProfileRevampPanel.METHOD_WORDS.get(\"SUBMISSION\", \"\")) == \"SUBMISSION\", \"profile prints canonical submission\")"
+        },
+        {
+          "file": "Godot/tests/profile_revamp_test.gd",
+          "line": 2,
+          "evidence": "## R18: the fighter profile revamp (ProfileRevampPanel) against a real"
+        },
+        {
+          "file": "Godot/tests/profile_revamp_test.gd",
+          "line": 39,
+          "evidence": "var P: Script = load(\"res://scripts/ProfileRevampPanel.gd\")"
+        },
+        {
+          "file": "Godot/tests/skills_moves_screen_test.gd",
+          "line": 112,
+          "evidence": "var profile_source := FileAccess.get_file_as_string(\"res://scripts/ProfileRevampPanel.gd\")"
+        }
+      ],
+      "role": "CHILD",
+      "parents": [
+        "AthleteProfileShellScreen"
+      ],
+      "children": [
+        "DevelopmentPanel",
+        "FightCampPanel",
+        "SkillsMovesPanel"
+      ],
+      "status": "REACHABLE",
+      "path": [
+        "Boot",
+        "AthleteProfileShellScreen",
+        "ProfileRevampPanel"
+      ],
+      "mounting_files": [
+        "Godot/scripts/AthleteProfileShellScreen.gd"
+      ]
+    },
+    {
+      "name": "RankingsHubPanel",
+      "file": "Godot/scripts/RankingsHubPanel.gd",
+      "lines": 1260,
+      "mounters": [
+        {
+          "file": "Godot/scripts/CareerRoot.gd",
+          "line": 45,
+          "evidence": "\"rankings\": {\"panel\": \"res://scripts/RankingsHubPanel.gd\", \"nav\": \"rankings\"},"
+        },
+        {
+          "file": "Godot/scripts/SceneRouter.gd",
+          "line": 88,
+          "evidence": "\"rankings\": {\"tier\": \"career\", \"scene\": CAREER_ROOT_SCENE, \"panel\": \"res://scripts/RankingsHubPanel.gd\", \"nav\": \"rankings\", \"label\": \"RANKINGS\"},"
+        }
+      ],
+      "test_callers": [
+        {
+          "file": "Godot/tests/championship_read_test.gd",
+          "line": 432,
+          "evidence": "## RankingsHubPanel._champ_disciplines() folds the keys down to."
+        },
+        {
+          "file": "Godot/tests/rankings_hub_panel_test.gd",
+          "line": 18,
+          "evidence": "const PANEL_PATH := \"res://scripts/RankingsHubPanel.gd\""
+        },
+        {
+          "file": "Godot/tests/rankings_hub_panel_test.gd",
+          "line": 731,
+          "evidence": "_check(str(c.get(\"content\", \"\")) == \"RankingsHubPanel\", \"CareerRoot mounts the RANKINGS hub\")"
+        },
+        {
+          "file": "Godot/tests/scene_router_test.gd",
+          "line": 276,
+          "evidence": "_check(str(career_root.contract_for_test().get(\"content\", \"\")) == \"RankingsHubPanel\", \"RANKINGS mounts as the content child\")"
+        }
+      ],
+      "role": "ROOT",
+      "parents": [
+        "CareerRoot"
+      ],
+      "children": [],
+      "status": "REACHABLE",
+      "path": [
+        "Boot",
+        "CareerRoot",
+        "RankingsHubPanel"
+      ],
+      "mounting_files": [
+        "Godot/scripts/CareerRoot.gd",
+        "Godot/scripts/SceneRouter.gd"
+      ]
+    },
+    {
+      "name": "RingStagePanel",
+      "file": "Godot/scripts/RingStagePanel.gd",
+      "lines": 1414,
+      "mounters": [
+        {
+          "file": "Godot/scripts/FightNightScreen.gd",
+          "line": 378,
+          "evidence": "_view = RingStagePanel.new()"
+        }
+      ],
+      "test_callers": [
+        {
+          "file": "Godot/tests/combo_show_test.gd",
+          "line": 25,
+          "evidence": "var RingStagePanel = load(\"res://scripts/RingStagePanel.gd\")"
+        },
+        {
+          "file": "Godot/tests/combo_show_test.gd",
+          "line": 35,
+          "evidence": "var view: Control = RingStagePanel.new()"
+        },
+        {
+          "file": "Godot/tests/combo_show_test.gd",
+          "line": 127,
+          "evidence": "# combo pause is covered by the RingStagePanel half of this file"
+        },
+        {
+          "file": "Godot/tests/range_rail_test.gd",
+          "line": 185,
+          "evidence": "var panel_script: Script = load(\"res://scripts/RingStagePanel.gd\")"
+        },
+        {
+          "file": "Godot/tests/ring_stage_panel_test.gd",
+          "line": 37,
+          "evidence": "var panel_script: Script = load(\"res://scripts/RingStagePanel.gd\")"
+        },
+        {
+          "file": "Godot/tests/smoke_test.gd",
+          "line": 819,
+          "evidence": "# publishes the presentation itself (RingStagePanel.presentation)"
+        },
+        {
+          "file": "Godot/tests/technique_target_region_test.gd",
+          "line": 23,
+          "evidence": "## \"LEFT ARM\" four times in five (RingStagePanel prints the event's region, which"
+        }
+      ],
+      "role": "CHILD",
+      "parents": [
+        "FightNightScreen"
+      ],
+      "children": [],
+      "status": "REACHABLE",
+      "path": [
+        "Boot",
+        "FightNightScreen",
+        "RingStagePanel"
+      ],
+      "mounting_files": [
+        "Godot/scripts/FightNightScreen.gd"
+      ]
+    },
+    {
+      "name": "ScheduleHubPanel",
+      "file": "Godot/scripts/ScheduleHubPanel.gd",
+      "lines": 2536,
+      "mounters": [
+        {
+          "file": "Godot/scripts/CareerRoot.gd",
+          "line": 41,
+          "evidence": "\"calendar\": {\"panel\": \"res://scripts/ScheduleHubPanel.gd\", \"nav\": \"calendar\"},"
+        },
+        {
+          "file": "Godot/scripts/CareerRoot.gd",
+          "line": 42,
+          "evidence": "\"events\": {\"panel\": \"res://scripts/ScheduleHubPanel.gd\", \"nav\": \"calendar\", \"tab\": \"cards\"},"
+        },
+        {
+          "file": "Godot/scripts/CareerRoot.gd",
+          "line": 43,
+          "evidence": "\"event_detail\": {\"panel\": \"res://scripts/ScheduleHubPanel.gd\", \"nav\": \"calendar\", \"tab\": \"cards\"},"
+        },
+        {
+          "file": "Godot/scripts/SceneRouter.gd",
+          "line": 78,
+          "evidence": "\"calendar\": {\"tier\": \"career\", \"scene\": CAREER_ROOT_SCENE, \"panel\": \"res://scripts/ScheduleHubPanel.gd\", \"nav\": \"calendar\", \"label\": \"SCHEDULE\"},"
+        },
+        {
+          "file": "Godot/scripts/SceneRouter.gd",
+          "line": 79,
+          "evidence": "\"events\": {\"tier\": \"career\", \"scene\": CAREER_ROOT_SCENE, \"panel\": \"res://scripts/ScheduleHubPanel.gd\", \"nav\": \"calendar\", \"tab\": \"cards\", \"label\": \"EVENTS\"},"
+        },
+        {
+          "file": "Godot/scripts/SceneRouter.gd",
+          "line": 80,
+          "evidence": "\"event_detail\": {\"tier\": \"career\", \"scene\": CAREER_ROOT_SCENE, \"panel\": \"res://scripts/ScheduleHubPanel.gd\", \"nav\": \"calendar\", \"tab\": \"cards\", \"label\": \"EVENT\"},"
+        }
+      ],
+      "test_callers": [
+        {
+          "file": "Godot/tests/amateur_board_test.gd",
+          "line": 38,
+          "evidence": "var P: Script = load(\"res://scripts/ScheduleHubPanel.gd\")"
+        },
+        {
+          "file": "Godot/tests/corner_rules_panel_test.gd",
+          "line": 6,
+          "evidence": "const PANEL_PATH := \"res://scripts/ScheduleHubPanel.gd\""
+        },
+        {
+          "file": "Godot/tests/promotions_board_test.gd",
+          "line": 13,
+          "evidence": "const SCHEDULE_PATH := \"res://scripts/ScheduleHubPanel.gd\""
+        },
+        {
+          "file": "Godot/tests/schedule_hub_panel_test.gd",
+          "line": 16,
+          "evidence": "const PANEL_PATH := \"res://scripts/ScheduleHubPanel.gd\""
+        },
+        {
+          "file": "Godot/tests/schedule_hub_panel_test.gd",
+          "line": 313,
+          "evidence": "_check(str(c.get(\"content\", \"\")) == \"ScheduleHubPanel\", \"CareerRoot mounts the SCHEDULE hub for %s\" % route_id)"
+        },
+        {
+          "file": "Godot/tests/smoke_test.gd",
+          "line": 234,
+          "evidence": "# (ScheduleHubPanel); the two boards are deleted and the panel is"
+        },
+        {
+          "file": "Godot/tests/smoke_test.gd",
+          "line": 953,
+          "evidence": "var schedule_inst: Control = load(\"res://scripts/ScheduleHubPanel.gd\").new()"
+        },
+        {
+          "file": "Godot/tests/smoke_test.gd",
+          "line": 954,
+          "evidence": "schedule_inst.name = \"ScheduleHubPanel\""
+        }
+      ],
+      "role": "ROOT",
+      "parents": [
+        "CareerRoot"
+      ],
+      "children": [],
+      "status": "REACHABLE",
+      "path": [
+        "Boot",
+        "CareerRoot",
+        "ScheduleHubPanel"
+      ],
+      "mounting_files": [
+        "Godot/scripts/CareerRoot.gd",
+        "Godot/scripts/SceneRouter.gd"
+      ]
+    },
+    {
+      "name": "ScorecardPanel",
+      "file": "Godot/scripts/ScorecardPanel.gd",
+      "lines": 408,
+      "mounters": [],
+      "test_callers": [
+        {
+          "file": "Godot/tests/scorecard_panel_test.gd",
+          "line": 2,
+          "evidence": "## U24: ScorecardPanel renders ScorecardRead.build(result). Assert CONTENT,"
+        },
+        {
+          "file": "Godot/tests/scorecard_panel_test.gd",
+          "line": 133,
+          "evidence": "var panel: Control = load(\"res://scripts/ScorecardPanel.gd\").new()"
+        }
+      ],
+      "role": "ROOT",
+      "parents": [],
+      "children": [],
+      "status": "TEST-ONLY",
+      "path": [],
+      "mounting_files": []
+    },
+    {
+      "name": "ScoutingHubPanel",
+      "file": "Godot/scripts/ScoutingHubPanel.gd",
+      "lines": 1105,
+      "mounters": [
+        {
+          "file": "Godot/scripts/CareerRoot.gd",
+          "line": 44,
+          "evidence": "\"scouting\": {\"panel\": \"res://scripts/ScoutingHubPanel.gd\", \"nav\": \"scouting\"},"
+        },
+        {
+          "file": "Godot/scripts/SceneRouter.gd",
+          "line": 84,
+          "evidence": "\"scouting\": {\"tier\": \"career\", \"scene\": CAREER_ROOT_SCENE, \"panel\": \"res://scripts/ScoutingHubPanel.gd\", \"nav\": \"scouting\", \"label\": \"SCOUTING\"},"
+        }
+      ],
+      "test_callers": [
+        {
+          "file": "Godot/tests/scouting_hub_panel_test.gd",
+          "line": 15,
+          "evidence": "const PANEL_PATH := \"res://scripts/ScoutingHubPanel.gd\""
+        },
+        {
+          "file": "Godot/tests/scouting_hub_panel_test.gd",
+          "line": 334,
+          "evidence": "_check(str(c.get(\"content\", \"\")) == \"ScoutingHubPanel\", \"CareerRoot mounts the SCOUTING hub for %s\" % route_id)"
+        }
+      ],
+      "role": "ROOT",
+      "parents": [
+        "CareerRoot"
+      ],
+      "children": [],
+      "status": "REACHABLE",
+      "path": [
+        "Boot",
+        "CareerRoot",
+        "ScoutingHubPanel"
+      ],
+      "mounting_files": [
+        "Godot/scripts/CareerRoot.gd",
+        "Godot/scripts/SceneRouter.gd"
+      ]
+    },
+    {
+      "name": "SettingsBoardPanel",
+      "file": "Godot/scripts/SettingsBoardPanel.gd",
+      "lines": 282,
+      "mounters": [
+        {
+          "file": "Godot/scripts/BootRoot.gd",
+          "line": 44,
+          "evidence": "\"settings\": {\"panel\": \"res://scripts/SettingsBoardPanel.gd\"},"
+        }
+      ],
+      "test_callers": [
+        {
+          "file": "Godot/tests/boot_panels_test.gd",
+          "line": 22,
+          "evidence": "const SETTINGS_PANEL := preload(\"res://scripts/SettingsBoardPanel.gd\")"
+        },
+        {
+          "file": "Godot/tests/boot_root_test.gd",
+          "line": 125,
+          "evidence": "_check(bodies[0] == \"TitleBoardPanel\" and bodies[1] == \"SlotsBoardPanel\" and bodies[2] == \"SettingsBoardPanel\", \"the three boards are K14's three: %s\" % str(bodies))"
+        }
+      ],
+      "role": "ROOT",
+      "parents": [
+        "BootRoot"
+      ],
+      "children": [],
+      "status": "REACHABLE",
+      "path": [
+        "Boot",
+        "SettingsBoardPanel"
+      ],
+      "mounting_files": [
+        "Godot/scripts/BootRoot.gd"
+      ]
+    },
+    {
+      "name": "SkillsMovesPanel",
+      "file": "Godot/scripts/SkillsMovesPanel.gd",
+      "lines": 596,
+      "mounters": [
+        {
+          "file": "Godot/scripts/ProfileRevampPanel.gd",
+          "line": 142,
+          "evidence": "_mount_panel(body, \"res://scripts/SkillsMovesPanel.gd\", \"SkillsMovesPanel\")"
+        }
+      ],
+      "test_callers": [
+        {
+          "file": "Godot/tests/profile_revamp_test.gd",
+          "line": 608,
+          "evidence": "var mounted: Control = panel.get_node_or_null(\"TabBody/SkillsMovesPanel\")"
+        },
+        {
+          "file": "Godot/tests/skills_moves_screen_test.gd",
+          "line": 32,
+          "evidence": "var P = load(\"res://scripts/SkillsMovesPanel.gd\")"
+        },
+        {
+          "file": "Godot/tests/skills_moves_screen_test.gd",
+          "line": 113,
+          "evidence": "_check(profile_source.contains(\"res://scripts/SkillsMovesPanel.gd\") and profile_source.contains(\"func _mount_panel(\"), \"the fighter card's SKILLS & MOVES tab mounts the panel by path\")"
+        }
+      ],
+      "role": "CHILD",
+      "parents": [
+        "ProfileRevampPanel"
+      ],
+      "children": [],
+      "status": "REACHABLE",
+      "path": [
+        "Boot",
+        "AthleteProfileShellScreen",
+        "ProfileRevampPanel",
+        "SkillsMovesPanel"
+      ],
+      "mounting_files": [
+        "Godot/scripts/ProfileRevampPanel.gd"
+      ]
+    },
+    {
+      "name": "SlotsBoardPanel",
+      "file": "Godot/scripts/SlotsBoardPanel.gd",
+      "lines": 314,
+      "mounters": [
+        {
+          "file": "Godot/scripts/BootRoot.gd",
+          "line": 43,
+          "evidence": "\"slots\": {\"panel\": \"res://scripts/SlotsBoardPanel.gd\"},"
+        }
+      ],
+      "test_callers": [
+        {
+          "file": "Godot/tests/boot_panels_test.gd",
+          "line": 21,
+          "evidence": "const SLOTS_PANEL := preload(\"res://scripts/SlotsBoardPanel.gd\")"
+        },
+        {
+          "file": "Godot/tests/boot_root_test.gd",
+          "line": 125,
+          "evidence": "_check(bodies[0] == \"TitleBoardPanel\" and bodies[1] == \"SlotsBoardPanel\" and bodies[2] == \"SettingsBoardPanel\", \"the three boards are K14's three: %s\" % str(bodies))"
+        }
+      ],
+      "role": "ROOT",
+      "parents": [
+        "BootRoot"
+      ],
+      "children": [],
+      "status": "REACHABLE",
+      "path": [
+        "Boot",
+        "SlotsBoardPanel"
+      ],
+      "mounting_files": [
+        "Godot/scripts/BootRoot.gd"
+      ]
+    },
+    {
+      "name": "StaffHubPanel",
+      "file": "Godot/scripts/StaffHubPanel.gd",
+      "lines": 590,
+      "mounters": [
+        {
+          "file": "Godot/scripts/CareerRoot.gd",
+          "line": 51,
+          "evidence": "\"staff\": {\"panel\": \"res://scripts/StaffHubPanel.gd\", \"nav\": \"staff\"},"
+        },
+        {
+          "file": "Godot/scripts/SceneRouter.gd",
+          "line": 100,
+          "evidence": "\"staff\": {\"tier\": \"career\", \"scene\": CAREER_ROOT_SCENE, \"panel\": \"res://scripts/StaffHubPanel.gd\", \"nav\": \"staff\", \"label\": \"STAFF\"},"
+        }
+      ],
+      "test_callers": [
+        {
+          "file": "Godot/tests/office_hub_panel_test.gd",
+          "line": 490,
+          "evidence": "_check(str((host.contract_for_test() as Dictionary).get(\"content\", \"\")) == \"StaffHubPanel\", \"STAFF is its own panel, not a tab of OFFICE\")"
+        },
+        {
+          "file": "Godot/tests/smoke_test.gd",
+          "line": 941,
+          "evidence": "var staff_inst: Control = load(\"res://scripts/StaffHubPanel.gd\").new()"
+        },
+        {
+          "file": "Godot/tests/smoke_test.gd",
+          "line": 942,
+          "evidence": "staff_inst.name = \"StaffHubPanel\""
+        },
+        {
+          "file": "Godot/tests/staff_hub_panel_test.gd",
+          "line": 13,
+          "evidence": "const PANEL_PATH := \"res://scripts/StaffHubPanel.gd\""
+        }
+      ],
+      "role": "ROOT",
+      "parents": [
+        "CareerRoot"
+      ],
+      "children": [],
+      "status": "REACHABLE",
+      "path": [
+        "Boot",
+        "CareerRoot",
+        "StaffHubPanel"
+      ],
+      "mounting_files": [
+        "Godot/scripts/CareerRoot.gd",
+        "Godot/scripts/SceneRouter.gd"
+      ]
+    },
+    {
+      "name": "TitleBoardPanel",
+      "file": "Godot/scripts/TitleBoardPanel.gd",
+      "lines": 223,
+      "mounters": [
+        {
+          "file": "Godot/scripts/BootRoot.gd",
+          "line": 42,
+          "evidence": "\"title\": {\"panel\": \"res://scripts/TitleBoardPanel.gd\"},"
+        }
+      ],
+      "test_callers": [
+        {
+          "file": "Godot/tests/boot_panels_test.gd",
+          "line": 20,
+          "evidence": "const TITLE_PANEL := preload(\"res://scripts/TitleBoardPanel.gd\")"
+        },
+        {
+          "file": "Godot/tests/boot_root_test.gd",
+          "line": 125,
+          "evidence": "_check(bodies[0] == \"TitleBoardPanel\" and bodies[1] == \"SlotsBoardPanel\" and bodies[2] == \"SettingsBoardPanel\", \"the three boards are K14's three: %s\" % str(bodies))"
+        }
+      ],
+      "role": "ROOT",
+      "parents": [
+        "BootRoot"
+      ],
+      "children": [],
+      "status": "REACHABLE",
+      "path": [
+        "Boot",
+        "TitleBoardPanel"
+      ],
+      "mounting_files": [
+        "Godot/scripts/BootRoot.gd"
+      ]
+    },
+    {
+      "name": "TrainingHubPanel",
+      "file": "Godot/scripts/TrainingHubPanel.gd",
+      "lines": 986,
+      "mounters": [
+        {
+          "file": "Godot/scripts/CareerRoot.gd",
+          "line": 40,
+          "evidence": "\"training\": {\"panel\": \"res://scripts/TrainingHubPanel.gd\", \"nav\": \"training\"},"
+        },
+        {
+          "file": "Godot/scripts/SceneRouter.gd",
+          "line": 73,
+          "evidence": "\"training\": {\"tier\": \"career\", \"scene\": CAREER_ROOT_SCENE, \"panel\": \"res://scripts/TrainingHubPanel.gd\", \"nav\": \"training\", \"label\": \"TRAINING\"},"
+        }
+      ],
+      "test_callers": [
+        {
+          "file": "Godot/tests/training_hub_panel_test.gd",
+          "line": 14,
+          "evidence": "const PANEL_PATH := \"res://scripts/TrainingHubPanel.gd\""
+        },
+        {
+          "file": "Godot/tests/training_hub_panel_test.gd",
+          "line": 313,
+          "evidence": "_check(str(c.get(\"content\", \"\")) == \"TrainingHubPanel\", \"CareerRoot mounts the TRAINING hub panel\")"
+        }
+      ],
+      "role": "ROOT",
+      "parents": [
+        "CareerRoot"
+      ],
+      "children": [],
+      "status": "REACHABLE",
+      "path": [
+        "Boot",
+        "CareerRoot",
+        "TrainingHubPanel"
+      ],
+      "mounting_files": [
+        "Godot/scripts/CareerRoot.gd",
+        "Godot/scripts/SceneRouter.gd"
+      ]
+    },
+    {
+      "name": "WeighInPanel",
+      "file": "Godot/scripts/WeighInPanel.gd",
+      "lines": 226,
+      "mounters": [
+        {
+          "file": "Godot/scripts/SetpieceRoot.gd",
+          "line": 41,
+          "evidence": "\"weigh_in\": {\"panel\": \"res://scripts/WeighInPanel.gd\", \"next\": \"fight_night\"},"
+        }
+      ],
+      "test_callers": [
+        {
+          "file": "Godot/tests/setpiece_panels_test.gd",
+          "line": 307,
+          "evidence": "var script: Script = load(\"res://scripts/WeighInPanel.gd\")"
+        },
+        {
+          "file": "Godot/tests/setpiece_root_test.gd",
+          "line": 190,
+          "evidence": "_check(str(frame.contract_for_test().get(\"body\", \"\")) == \"WeighInPanel\", \"the weigh-in body replaced the fight-week body\")"
+        }
+      ],
+      "role": "ROOT",
+      "parents": [
+        "SetpieceRoot"
+      ],
+      "children": [],
+      "status": "REACHABLE",
+      "path": [
+        "Boot",
+        "SetpieceRoot",
+        "WeighInPanel"
+      ],
+      "mounting_files": [
+        "Godot/scripts/SetpieceRoot.gd"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "AthleteProfileShellScreen",
+      "to": "ProfileRevampPanel",
+      "file": "Godot/scripts/AthleteProfileShellScreen.gd",
+      "line": 19,
+      "evidence": "const PANEL_PATH := \"res://scripts/ProfileRevampPanel.gd\""
+    },
+    {
+      "from": "DayFeedScreen",
+      "to": "DayFeedPanel",
+      "file": "Godot/scripts/DayFeedScreen.gd",
+      "line": 15,
+      "evidence": "const PANEL_PATH := \"res://scripts/DayFeedPanel.gd\""
+    },
+    {
+      "from": "FightNightScreen",
+      "to": "RingStagePanel",
+      "file": "Godot/scripts/FightNightScreen.gd",
+      "line": 22,
+      "evidence": "const RingStagePanel := preload(\"res://scripts/RingStagePanel.gd\")"
+    },
+    {
+      "from": "FightNightScreen",
+      "to": "FightResultPanel",
+      "file": "Godot/scripts/FightNightScreen.gd",
+      "line": 30,
+      "evidence": "const FightResultPanel := preload(\"res://scripts/FightResultPanel.gd\")"
+    },
+    {
+      "from": "FightNightScreen",
+      "to": "RingStagePanel",
+      "file": "Godot/scripts/FightNightScreen.gd",
+      "line": 378,
+      "evidence": "_view = RingStagePanel.new()"
+    },
+    {
+      "from": "MatchSimulatorPanel",
+      "to": "FightNightScreen",
+      "file": "Godot/scripts/MatchSimulatorPanel.gd",
+      "line": 205,
+      "evidence": "var night: Script = load(\"res://scripts/FightNightScreen.gd\")"
+    },
+    {
+      "from": "ProfileRevampPanel",
+      "to": "SkillsMovesPanel",
+      "file": "Godot/scripts/ProfileRevampPanel.gd",
+      "line": 142,
+      "evidence": "_mount_panel(body, \"res://scripts/SkillsMovesPanel.gd\", \"SkillsMovesPanel\")"
+    },
+    {
+      "from": "ProfileRevampPanel",
+      "to": "DevelopmentPanel",
+      "file": "Godot/scripts/ProfileRevampPanel.gd",
+      "line": 144,
+      "evidence": "_mount_panel(body, \"res://scripts/DevelopmentPanel.gd\", \"DevelopmentPanel\")"
+    },
+    {
+      "from": "ProfileRevampPanel",
+      "to": "FightCampPanel",
+      "file": "Godot/scripts/ProfileRevampPanel.gd",
+      "line": 3047,
+      "evidence": "var script: Script = load(\"res://scripts/FightCampPanel.gd\")"
+    }
+  ],
+  "exclusions": [
+    "defining file",
+    "*.uid",
+    "Godot/tests/"
+  ],
+  "boot_refs": [
+    "AthleteProfileShellScreen",
+    "CreationFlowPanel",
+    "CrowningPanel",
+    "DayFeedScreen",
+    "FightAnimLabScreen",
+    "FightContractScreen",
+    "FightNightScreen",
+    "FightResultPanel",
+    "FightWeekPanel",
+    "FightWorldLiveScreen",
+    "GymHubPanel",
+    "MatchSimulatorPanel",
+    "OfficeHubPanel",
+    "RankingsHubPanel",
+    "ScheduleHubPanel",
+    "ScoutingHubPanel",
+    "SettingsBoardPanel",
+    "SlotsBoardPanel",
+    "StaffHubPanel",
+    "TitleBoardPanel",
+    "TrainingHubPanel",
+    "WeighInPanel"
+  ]
+}

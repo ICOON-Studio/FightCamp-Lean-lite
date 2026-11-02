@@ -1,0 +1,329 @@
+<!-- Ludo round 65 reply verbatim, S226 2026-10-15, 30523 chars, chat 'Gym Management Screen', rooms sheet uploaded -->
+FIGHTCAMP (S226) — ROUND 65: THE FOUR CLUB ROOMS
+
+Document Reference: FC-ART-S226-FOUR-ROOMS-PROP-SPEC
+
+Author: Lead 3D Artist & Environment Architect
+
+Visual Benchmark: Sheet View 01_locker_room (Approved S58 standard: chunky stylised realism, chamfered silhouettes, 1.2× scale, CC0 PBR material sets, unified palette).
+
+Target Platform: PC / Steam Deck (Godot 4.7.2 Forward+ Clustered, real-time lighting).
+
+0. GLOBAL PRODUCTION RULES & MATERIAL DEFINITIONS
+
+To ensure every generated 3D prop transitions seamlessly into Godot without manual mesh reconstruction, the following rules apply to all assets in this specification:
+
+1. The Proportions Rule
+Base Asset Scale: Authored at real-world metric dimensions ($1.0\times$), scaled in Godot scene trees by exactly $1.2\times$ against the MetaHuman boxer rigs.
+The "Hero Feature" (+25%): Every prop identifies one functional component (the telephone handset, the ice tub valves, the bell dome, the safe combination wheel) that is intentionally exaggerated by $+25%$ in scale. This delivers the Two Point Hospital / Gleason's chunky legibility from high camera angles.
+Bevel & Chamfer Standard: No razor-sharp polygon edges. Every visible hard edge receives a 2-segment bevel/chamfer equal to $4%$ of the component’s smallest dimension ($2\text{ cm}$ to $8\text{ cm}$). Minimum wall/tube thickness is $3\times$ real-world thickness ($25\text{ mm}$ minimum diameter on pipes and legs).
+2. The Palette & PBR Material Table
+
+Every prop prompt and texture set strictly adheres to Maria's approved style sheet:
+
+========================================================================================================================
+FIGHTCAMP MASTER PALETTE & PBR MAPPING
+========================================================================================================================
+SURFACE TYPE           COLOR / PALETTE CODE           HEX VALUE    ROUGHNESS  METALLIC  PBR TEXTURE BASIS (CC0)
+------------------------------------------------------------------------------------------------------------------------
+Primary Leather Red    Oxblood Red                    #c62f2a      0.45       0.00      Worn Couch Leather
+Deep Leather Black     Charcoal Boxing Black          #22201f      0.50       0.00      Vintage Punchbag Leather
+Oiled Leather Brown    Classic Heritage Brown         #8a5232      0.40       0.00      Heavy Saddle Leather
+Championship Leather   Chalk White Leather            #ecebe6      0.55       0.00      Tumbled Calfskin
+Gym Heavy Steel        Gunmetal Structural Steel      #2b2f36      0.35       0.85      Galvanized / Cast Iron
+Steel Highlight Edge   Chipped Edge / Wear Lip        #4a515c      0.30       0.90      Machined Steel
+Championship Gold      Polished Cast Brass / Gold     #f0c233      0.25       0.90      Brushed Antique Brass
+Cabinet & Table Wood   Warm Oiled Ash / Oak           #c48a4a      0.55       0.00      Semi-Gloss Gym Hardwood
+Wall Base Dado         Glazed Ceramic Tile Orange     #d98039      0.20       0.00      Subway Ceramic Tile
+Lower Wall Brick       Old Kiln Red Brick             #b8402e      0.85       0.00      Industrial Red Brick
+Brick Mortar           Weathered Clay Mortar          #8e2f22      0.95       0.00      Rough Sand Mortar
+Upper Plaster          Aged Cream Lime Plaster        #efe4cf      0.80       0.00      Stucco / Rough Plaster
+Paper / Documents      Manila / Aged Canvas Paper     #f6f0e0      0.90       0.00      Matte Parchment
+Poster Blue            Heritage Printed Ink Cyan      #2a5f9e      0.85       0.00      Matte Litho Ink
+Physio Sanitary Enamel Medical White Ceramic Enamel   #e8ecef      0.15       0.05      Hospital Porcelain
+Rubber Floor Mat       Vulcanized Gym Flooring        #1e1f21      0.75       0.00      Recycled Tire Speckle
+========================================================================================================================
+*STRICT ENGINE CONSTRAINT: Cyan / Pure Teal is prohibited on all physical asset textures; it is hard-reserved for UI click-selection outlines.*
+
+ROOM 1: RECEPTION (FRONT DESK & LOBBY)
+ROOM BOUNDS: 7.2m Wide (X: 0.0 -> 7.2) x 4.5m Deep (Z: 0.0 -> 4.5), Height: 3.6m.
+DOORS:
+- Hall Door: Z = 0.0, X: 4.0 to 5.8 (1.8m wide opening).
+- Street Door: Z = 4.5, X: 4.2 to 5.6 (1.4m wide opening).
+- Office Door: X = 0.0, Z: 0.8 to 1.8 (1.0m wide opening).
+FLOOR: Linoleum / Hard Composition Tile (#cbbfa8).
+CAMERA ANGLE: Looking North-East from Gym Hall through cut Z=0 wall.
+
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│ [X=0, Z=4.5]                 NORTH WALL (Z = 4.5m)                   [X=7.2, Z=4.5]    │
+│ ┌──────────────┐                 [STREET DOOR]                  ┌────────────────────┐ │
+│ │ PROP 05:     │                 (X: 4.2 - 5.6)                 │ PROP 04:           │ │
+│ │ NOTICE BOARD │                                                │ TROPHY DISPLAY     │ │
+│ └──────────────┘                                                │ CABINET            │ │
+│                                                                 │ (Glass/Brass)      │ │
+│                                                                 └────────────────────┘ │
+│                                                                                        │
+│                                  ┌──────────────────────────┐                          │
+│                                  │ PROP 01:                 │                          │
+│                                  │ RECEPTION COUNTER        │                          │
+│                                  │ (Oak/Brass Front)        │                          │
+│                                  │                          │                          │
+│                                  │ [PROP 02: ROTARY PHONE]  │                          │
+│                                  │ [PROP 03: BRASS BELL]    │                          │
+│                                  └──────────────────────────┘                          │
+│                                                                                        │
+│ [OFFICE DOOR]                                                                          │
+│ (Z: 0.8 - 1.8)                                                                         │
+│                                                                 ┌────────────────────┐ │
+│ ┌──────────────┐                                                │ PROP 06:           │ │
+│ │ PROP 07:     │                                                │ WAITING BENCH      │ │
+│ │ UMBRELLA/    │                                                │ (Reused Locker)    │ │
+│ │ COAT STAND   │                                                └────────────────────┘ │
+│ └──────────────┘                                                                       │
+│ [X=0, Z=0.0]                  CUT HALL WALL (Z = 0.0m)               [X=7.2, Z=0.0]    │
+│                                  [HALL DOORWAY]                                        │
+│                                  (X: 4.0 - 5.8)                                        │
+└────────────────────────────────────────────────────────────────────────────────────────┘
+
+A. Reception Prop List
+Prop 01: Heritage Oak Reception Counter (Hero)
+Screen Route: THE FRONT DESK (Lobby route / walk-in signups & staff interviews).
+Dimensions (Real W×D×H): $2.40\text{ m} \times 0.85\text{ m} \times 1.10\text{ m}$.
+Attachment: Floor-standing. Front faces South ($+Z$, toward Street entrance).
+Source: Brand-New Hero Model.
+Materials: Warm Oiled Oak (#c48a4a), Cast Brass Trim (#f0c233), Dark Leather Front Padding (#8a5232), Steel Toe Kick (#2b2f36).
+Poly Budget: $\le 7,500$ triangles.
++25% Feature: The raised brass registration ledge / check-in lip on the front client edge.
+Prop 02: Heavy Bakelite Desk Phone (Hero)
+Screen Route: INBOX (story_inbox / fight offers & promoter calls).
+Dimensions (Real W×D×H): $0.32\text{ m} \times 0.28\text{ m} \times 0.22\text{ m}$.
+Attachment: Rests on Prop 01 Countertop (West side, clerk position). Front faces North (toward clerk).
+Source: Brand-New Hero Model.
+Materials: Gloss Charcoal Bakelite (#22201f), Polished Brass Dial (#f0c233), Braided Black Cloth Cord.
+Poly Budget: $\le 3,200$ triangles.
++25% Feature: The oversized rotary number dial and chunky curved telephone receiver handset.
+Prop 03: Polished Brass Service Bell (Hero)
+Screen Route: THE FRONT DESK (Audio clicker / candidate interview trigger).
+Dimensions (Real W×D×H): $0.16\text{ m} \times 0.16\text{ m} \times 0.14\text{ m}$.
+Attachment: Rests on Prop 01 Countertop (Center-East, client-accessible).
+Source: Brand-New Hero Model.
+Materials: Chamfered Brass Dome (#f0c233), Dark Cast Iron Base (#2b2f36).
+Poly Budget: $\le 1,200$ triangles.
++25% Feature: The top mushroom striker button.
+Prop 04: Glass & Oak Trophy Display Cabinet (Hero)
+Screen Route: OBJECTIVES (Gym Titles, belts, regional awards).
+Dimensions (Real W×D×H): $1.60\text{ m} \times 0.55\text{ m} \times 2.20\text{ m}$.
+Attachment: Back against East Wall ($X = 7.2\text{ m}$). Front faces West ($-X$).
+Source: Brand-New Hero Model.
+Materials: Oiled Oak Frame (#c48a4a), Thick Plate Glass Panels, Brass Shelf Brackets (#f0c233), Velvet Base Cloth (#c62f2a). Inside: 4 chunky golden cups and 1 boxed championship belt.
+Poly Budget: $\le 6,800$ triangles.
++25% Feature: The oversized brass crown molding pediment at the top of the cabinet.
+Prop 05: Cork Club Notice Board & Weekly Schedule (Hero)
+Screen Route: CALENDAR (Schedule, upcoming fight nights, sparring rotations).
+Dimensions (Real W×D×H): $1.80\text{ m} \times 0.08\text{ m} \times 1.10\text{ m}$.
+Attachment: Wall-mounted on North Wall ($Z = 4.5\text{ m}$). Bottom edge at $1.40\text{ m}$ above floor.
+Source: Brand-New Hero Model.
+Materials: Chamfered Pine/Oak Frame (#c48a4a), Warm Tan Cork (#d98039), Paper Notices & Manila Cards (#f6f0e0), Brass Thumb Tacks (#f0c233).
+Poly Budget: $\le 2,500$ triangles.
++25% Feature: Chunky pinned title placard reading "TRAINING SCHEDULE" across the top.
+Prop 06: Club Waiting Bench (Reused Locker Room Asset)
+Screen Route: DECOR (Seat for visiting fighters, interviewees, scouts).
+Dimensions (Real W×D×H): $1.80\text{ m} \times 0.45\text{ m} \times 0.48\text{ m}$.
+Attachment: Floor-standing against East Wall ($X = 7.2\text{ m}$).
+Source: Exact reuse of Locker Room wooden changing bench (01_locker_room).
+Materials: Thick Varnished Ash Slats (#c48a4a), Black Cast Steel Legs (#2b2f36).
+Poly Budget: $\le 2,100$ triangles.
++25% Feature: The chunky industrial arched steel leg brackets.
+Prop 07: Cast Iron Umbrella & Coat Stand (Hero)
+Screen Route: DECOR (Grounds the street entrance).
+Dimensions (Real W×D×H): $0.55\text{ m} \times 0.55\text{ m} \times 1.85\text{ m}$.
+Attachment: Floor-standing in South-West corner near Office door.
+Source: Brand-New Hero Model.
+Materials: Heavy Cast Iron (#2b2f36), Worn Brass Hooks (#f0c233), Drip Pan Rim (#4a515c).
+Poly Budget: $\le 3,400$ triangles.
++25% Feature: Four massive curved Victorian coat hooks at the crown.
+B. Reception Layout & Walking Clearances
+========================================================================================================================
+RECEPTION PROP POSITIONING TABLE (ORIGIN: SOUTH-WEST CORNER X=0, Z=0)
+========================================================================================================================
+PROP ID   PROP NAME              CENTER X   CENTER Z   BASE Y   YAW ROTATION    CLEARANCE & MOUNTING NOTES
+------------------------------------------------------------------------------------------------------------------------
+PROP 01   Reception Counter      4.80 m     2.50 m     0.00 m   180° (S)        Facing street door. 1.2m aisle behind counter.
+PROP 02   Rotary Desk Phone      4.30 m     2.45 m     1.10 m   0° (N)          Resting on West counter shelf.
+PROP 03   Brass Service Bell     5.20 m     2.55 m     1.10 m   180° (S)        Resting on East counter client ledge.
+PROP 04   Trophy Cabinet         6.85 m     3.20 m     0.00 m   270° (W)        Against East wall. Clear of street swing.
+PROP 05   Notice Board           2.10 m     4.45 m     1.40 m   180° (S)        Flush on North wall, West of street door.
+PROP 06   Waiting Bench          6.85 m     1.30 m     0.00 m   270° (W)        Against East wall, South of trophy case.
+PROP 07   Umbrella/Coat Stand    0.60 m     0.60 m     0.00 m   0°              Corner nook beside Office door.
+========================================================================================================================
+*Walking Paths: Direct line from Street Door (X:4.9, Z:4.5) to Hall Door (X:4.9, Z:0.0) provides an unobstructed 1.4m thoroughfare past the East counter flank. Office entry path from Hall has a 1.6m clear turning radius.*
+
+C. Reference-Picture Prompts for Image-to-3D Generation
+Prop 01 (Reception Counter):
+
+3D asset, vintage boxing gym reception counter desk, chunky stylized realism, warm oiled oak wood paneling with rounded 2-segment chamfered edges, dark oxblood leather padded front insert, heavy cast iron black steel base kick, polished brass customer shelf ledge, two shelves and cash drawer visible on the open back, isometric three-quarter view from slightly above, isolated on plain light-grey background, soft even studio lighting, Gleason gym aesthetic, no people, no text.
+
+Prop 02 (Rotary Desk Phone):
+
+3D asset, vintage 1950s heavy rotary telephone, chunky stylized realism, polished charcoal black bakelite body with thick rounded bevels, oversized antique brass rotary dial with finger holes, thick curved handset resting on dual brass cradle prongs, coiled braided cord, isometric three-quarter view from slightly above, isolated on plain light-grey background, clean rim lighting, no text, game ready prop.
+
+Prop 03 (Brass Service Bell):
+
+3D asset, vintage hotel front desk service bell, chunky stylized realism, gleaming antique gold brass domed bell with heavy chamfered lip, oversized knurled top push button striker, heavy stepped circular cast iron base painted matte dark grey, isometric three-quarter view, isolated on plain neutral grey background, crisp clean reflections, no logos.
+
+Prop 04 (Trophy Cabinet):
+
+3D asset, vintage boxing club trophy display cabinet, chunky stylized realism, dark oiled oak frame with heavy chamfered corners, clear glass front doors and side panels, three thick glass shelves holding stylized gold boxing trophies and a championship leather belt on red velvet base, prominent brass crown pediment trim, isometric three-quarter view from slightly above, isolated on plain light-grey background, soft clean lighting, no text.
+
+Prop 05 (Cork Notice Board):
+
+3D asset, vintage boxing gym bulletin notice board, chunky stylized realism, thick beveled oak wood frame with rounded corners, warm textured cork board surface pinned with several overlapping stylized manila training schedules, fight flyers, and golden brass pushpins, prominent chunky wood header strip across top, isometric three-quarter view, isolated on plain light-grey background, no readable text.
+
+Prop 07 (Umbrella/Coat Stand):
+
+3D asset, Victorian industrial freestanding coat rack and umbrella stand, chunky stylized realism, heavy matte black cast iron central fluted column, four oversized sweeping brass coat hooks at the top, circular lower umbrella retainer ring with deep removable drip pan base, isometric three-quarter view, isolated on solid light-grey background, soft studio shadows, no garments.
+
+D. Rejection Rules
+Counter: Reject if the front has razor 90-degree edges; reject if modern white laminate appears; reject if cash register is fused to top.
+Phone: Reject if handset is detached or off the cradle; reject if plastic has modern glossy reflections; reject if phone cord is a flat texture plane.
+Trophy Cabinet: Reject if glass is opaque grey; reject if trophies inside are blurred indistinct blobs; reject if modern recessed LED strip lighting is visible.
+Notice Board: Reject if flyers feature modern crisp digital fonts; reject if cork has noisy photographic noise; reject if frame is razor thin.
+E. Room Shell & Atmosphere
+Walls:
+Base Dado ($0.0\text{ m} - 1.1\text{ m}$): Glazed Ceramic Tile in Rich Amber Orange (#d98039) with dark grey grout lines.
+Upper Wall ($1.1\text{ m} - 3.6\text{ m}$): Warm Lime Plaster Cream (#efe4cf) with subtle historic water-stain maps around the ceiling seam.
+Floor: Heavy Commercial Linoleum Tiles in Muted Tan (#cbbfa8) arranged in an alternating $60\times 60\text{ cm}$ subtle tone check, worn down to black underlayment along the street-to-hall footway.
+Lighting:
+$2\times$ Industrial Prismatic Glass Pendant Lights suspended from ceiling at $Y = 3.0\text{ m}$, positioned at $(X: 4.8, Z: 2.5)$ and $(X: 2.0, Z: 2.2)$.
+Bulbs: $2700\text{ K}$ Warm Tungsten, $850\text{ lumens}$ each, casting wide conical pools over the counter and waiting area.
+Flat Wall Graphics:
+North Wall (East of door): Framed vintage lithograph fight poster (#2a5f9e blue and #f6f0e0 cream) in a chamfered black oak frame ($0.7\text{ m} \times 1.0\text{ m}$).
+West Wall (North of Office door): Painted gold leaf sign directly on plaster: "REPUTATION IS WON ROUND BY ROUND".
+ROOM 2: YOUR OFFICE (THE MANAGER'S SANCTUM)
+ROOM BOUNDS: 6.4m Wide (X: 0.0 -> 6.4) x 4.5m Deep (Z: 0.0 -> 4.5), Height: 3.6m.
+DOORS & WINDOWS:
+- Gym Window: Z = 0.0, from X: 0.4 to 5.2 (4.8m wide opening, Sill: 1.0m, Head: 2.3m).
+- Office Entry Door: Z = 0.0, X: 5.6 to 6.4 (0.8m wide door from Hall).
+- Reception Connecting Door: West Wall (X = 0.0), Z: 3.2 to 4.2 (1.0m wide door to Reception).
+FLOOR: Oiled Ash Parquet Hardwood (#b98e5e).
+CAMERA ANGLE: Looking North-East through cut Z=0 wall, window sill frames bottom-left.
+
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│ [X=0, Z=4.5]                 NORTH WALL (Z = 4.5m)                   [X=6.4, Z=4.5]    │
+│ ┌──────────────────────────┐   ┌──────────────────────────┐   ┌──────────────────────┐ │
+│ │ PROP 04:                 │   │ PROP 05:                 │   │ PROP 03:             │ │
+│ │ PHOTO & BELT             │   │ TUBE TV & CASSETTE DECK  │   │ HEAVY FLOOR SAFE     │ │
+│ │ CREDENZA                 │   │ (Film Room)              │   │ (Finances)           │ │
+│ └──────────────────────────┘   └──────────────────────────┘   └──────────────────────┘ │
+│                                                                                        │
+│ [RECEPTION DOOR]                                              ┌──────────────────────┐ │
+│ (Z: 3.2 - 4.2)                                                │ PROP 02:             │ │
+│                                                               │ STEEL FILING         │ │
+│                                                               │ CABINET              │ │
+│                                                               │ (Contracts)          │ │
+│                                                               └──────────────────────┘ │
+│ ┌──────────────────────────┐                                                           │
+│ │ PROP 01:                 │                                  ┌──────────────────────┐ │
+│ │ MANAGER'S EXECUTIVE DESK │                                  │ PROP 06:             │ │
+│ │ (Leather Top / Ledger)   │                                  │ HEAD COACH DESK      │ │
+│ │                          │                                  │ (Staff/Tactics)      │ │
+│ └──────────────────────────┘                                  └──────────────────────┘ │
+│                                                                                        │
+│ [X=0, Z=0.0]                  CUT HALL WALL (Z = 0.0m)               [X=6.4, Z=0.0]    │
+│ [=========== OBSERVATION WINDOW (X: 0.4 - 5.2) ============]  [ENTRY DOOR]             │
+│ (Clear window overlooking the gym floor, sill at 1.0m)        (X: 5.6 - 6.4)           │
+└────────────────────────────────────────────────────────────────────────────────────────┘
+
+A. Your Office Prop List
+Prop 01: Manager's Executive Leather-Inlay Desk (Hero)
+Screen Route: OFFICE (office_menu / fight offers, promoter negotiations, manager balance).
+Dimensions (Real W×D×H): $1.90\text{ m} \times 0.95\text{ m} \times 0.78\text{ m}$.
+Attachment: Floor-standing. Positioned facing South-East so the manager can look up through the observation window at the gym floor.
+Source: Brand-New Hero Model.
+Materials: Warm Oiled Oak (#c48a4a), Dark Oxblood Leather Desktop Inlay (#c62f2a), Cast Brass Drawer Pulls (#f0c233), Heavy Steel Base Ferrules (#2b2f36). Desk features a desktop brass gooseneck lamp and open ledger.
+Poly Budget: $\le 7,800$ triangles.
++25% Feature: The thick padded oxblood leather writing blotter and heavy brass corner protectors.
+Prop 02: Four-Drawer Industrial Steel Filing Cabinet (Hero)
+Screen Route: CONTRACTS (Fighter roster agreements, trainer contracts, medical releases).
+Dimensions (Real W×D×H): $0.55\text{ m} \times 0.65\text{ m} \times 1.40\text{ m}$.
+Attachment: Back against East Wall ($X = 6.4\text{ m}$). Front faces West ($-X$).
+Source: Brand-New Hero Model.
+Materials: Gunmetal Olive Steel (#2b2f36), Chipped Steel Handle Lips (#4a515c), Polished Brass Label Holders with Manila Card Inserts (#f6f0e0).
+Poly Budget: $\le 3,200$ triangles.
++25% Feature: Massive, chunky brass index-card label brackets on each drawer face.
+Prop 03: Cast Iron Floor Safe (Hero)
+Screen Route: FINANCES (Gym treasury, prize money purse, weekly payroll, emergency cash).
+Dimensions (Real W×D×H): $0.75\text{ m} \times 0.75\text{ m} \times 1.10\text{ m}$.
+Attachment: Tucked in North-East corner ($X = 5.8\text{ m}, Z = 4.0\text{ m}$). Front faces South.
+Source: Brand-New Hero Model.
+Materials: Heavy Textured Charcoal Cast Iron (#22201f), Polished Championship Brass Dial & Spoke Handle (#f0c233), Gold Pinstriping accents.
+Poly Budget: $\le 4,500$ triangles.
++25% Feature: The oversized 3-spoke ship-wheel vault door handle.
+Prop 04: Champion Photo Wall & Trophy Credenza (Hero)
+Screen Route: ROSTER / RANKINGS (Historical champion lineage, world rankings board).
+Dimensions (Real W×D×H): $1.60\text{ m} \times 0.45\text{ m} \times 0.90\text{ m}$ (Credenza) + Wall array above.
+Attachment: Back against North Wall ($Z = 4.5\text{ m}$). Credenza on floor, framed photos on wall from $Y = 1.1\text{ m}$ to $2.6\text{ m}$.
+Source: Brand-New Hero Model.
+Materials: Chamfered Ash Wood Credenza (#c48a4a), 5 chunky black wood picture frames (#22201f) with sepia fighter portraits, one miniature replica WBC belt resting on credenza top.
+Poly Budget: $\le 5,200$ triangles.
++25% Feature: The chunky center portrait frame with an embossed brass dedication plate.
+Prop 05: Rolling Fight-Tape CRT Monitor & VCR Console (Hero)
+Screen Route: THE FILM ROOM (Scouting opponent tendencies, reviewing fight tape).
+Dimensions (Real W×D×H): $0.90\text{ m} \times 0.60\text{ m} \times 1.45\text{ m}$.
+Attachment: Floor-standing against North Wall ($Z = 4.5\text{ m}$). Front faces South.
+Source: Brand-New Hero Model.
+Materials: Tubular Black Painted Steel Cart (#2b2f36), Heavy 21-inch Beige/Grey CRT Housing (#efe4cf), Black Front-Loading VHS Player, Stack of 3 labelled tape cassettes.
+Poly Budget: $\le 5,800$ triangles.
++25% Feature: The bulbous, convex curved glass CRT screen face and oversized rubber rolling cart casters.
+Prop 06: Head Coach Secondary Tactical Desk (Hero)
+Screen Route: STAFF (Hiring/assigning coaches, cutmen, corner seconds).
+Dimensions (Real W×D×H): $1.20\text{ m} \times 0.65\text{ m} \times 0.75\text{ m}$.
+Attachment: East Wall ($X = 6.4\text{ m}, Z = 1.2\text{ m}$). Front faces West.
+Source: Brand-New Hero Model.
+Materials: Matching Ash Wood (#c48a4a), Steel Pipe Frame (#2b2f36), Clipboards with fighter stats, red stopwatch resting on desk pad.
+Poly Budget: $\le 3,800$ triangles.
++25% Feature: Massive vintage mechanical chrome stopwatch with thick red cloth lanyard.
+Prop 07: Manager's Swivel Armchair (Hero)
+Screen Route: DECOR (Completes the manager workspace).
+Dimensions (Real W×D×H): $0.70\text{ m} \times 0.70\text{ m} \times 1.05\text{ m}$.
+Attachment: Floor-standing behind Prop 01 Desk ($X = 1.8\text{ m}, Z = 2.4\text{ m}$).
+Source: Brand-New Hero Model.
+Materials: Button-tufted Oxblood Red Leather (#c62f2a), Polished Brass Studs (#f0c233), Heavy Cast Iron 4-Star Base (#2b2f36).
+Poly Budget: $\le 4,200$ triangles.
++25% Feature: Chunky rounded leather armrest rolls and deep button tufting.
+B. Your Office Layout & Walking Clearances
+========================================================================================================================
+YOUR OFFICE PROP POSITIONING TABLE (ORIGIN: SOUTH-WEST CORNER X=0, Z=0)
+========================================================================================================================
+PROP ID   PROP NAME              CENTER X   CENTER Z   BASE Y   YAW ROTATION    CLEARANCE & MOUNTING NOTES
+------------------------------------------------------------------------------------------------------------------------
+PROP 01   Manager's Desk         2.00 m     1.60 m     0.00 m   320° (SE)       Angled toward window and door. 1.1m walkway.
+PROP 02   Steel Filing Cabinet   5.90 m     2.60 m     0.00 m   270° (W)        Against East wall. Clear drawer stroke.
+PROP 03   Cast Iron Floor Safe   5.70 m     4.00 m     0.00 m   180° (S)        In North-East corner. Heavy anchor.
+PROP 04   Credenza & Photos      1.20 m     4.15 m     0.00 m   180° (S)        North wall, West flank. Frames mount above.
+PROP 05   Fight-Tape CRT Cart    3.40 m     4.10 m     0.00 m   180° (S)        North wall, center viewing position.
+PROP 06   Head Coach Desk        5.70 m     1.20 m     0.00 m   270° (W)        Against East wall, near entry door.
+PROP 07   Manager's Swivel Chair 1.60 m     2.20 m     0.00 m   140° (SE)       Tucked behind Manager desk.
+========================================================================================================================
+*Observation Window Note: Wall Z=0 is glass/open from X:0.4 to 5.2. No high props placed along the window sill; the manager line-of-sight directly oversees the gym floor ring and heavy bag rows.*
+
+C. Reference-Picture Prompts for Image-to-3D Generation
+Prop 01 (Manager's Executive Desk):
+
+3D asset, vintage boxing manager executive desk, chunky stylized realism, warm oiled oak wood frame with deep chamfered edges, dark oxblood red padded leather inlaid top with gold perimeter tooling, three stacked drawers on each pedestal with cast brass cup handles, open paper ledger and classic green banker lamp on corner, isometric three-quarter view from slightly above, isolated on plain light-grey background, soft studio lighting, no people.
+
+Prop 02 (Steel Filing Cabinet):
+
+3D asset, vintage 4-drawer industrial office filing cabinet, chunky stylized realism, heavy gauge steel painted dark olive-grey with chipped paint edges, four pull-out drawers with chunky polished brass label holders and curved brass handles, slightly rounded corners, isometric three-quarter view from slightly above, isolated on plain neutral grey background, clean studio rim light, no text.
+
+Prop 03 (Cast Iron Floor Safe):
+
+3D asset, antique heavy floor standing cash safe, chunky stylized realism, thick textured charcoal black cast iron body with rounded chamfered corners, heavy front door with ornate gold pinstripe detailing, large three-spoke polished brass vault handle and oversized central combination dial, heavy square foot blocks, isometric three-quarter view, isolated on solid light-grey background, no logos.
+
+Prop 04 (Credenza & Photo Array):
+
+3D asset, mid-century low office credenza with framed boxing pictures, chunky stylized realism, warm ash wood cabinet with two sliding louvered doors, sitting on top are two vintage trophy cups and one green championship boxing belt, hanging closely above are three chunky black wood picture frames showing sepia portraits, isometric three-quarter view, isolated on plain light-grey background, soft clean shadows.
+
+Prop 05 (Fight-Tape CRT Cart):
+
+`3D asset, 1980s mobile audiovisual TV cart, chunky stylized realism, black tubular steel two-tier utility rolling cart with four oversized rubber caster wheels, top shelf holds a bulky 20-inch beige CRT television with

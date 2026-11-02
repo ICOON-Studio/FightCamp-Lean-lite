@@ -1,0 +1,2641 @@
+{
+ "population": "batch 2 (operator-approved 2026-09-14): two men tracked with MediaPipe Pose (num_poses 2), identity by hip-midpoint continuity; only segments with both men's shoulders, hips, ankles and nose visible; T = each man's shoulder-mid to hip-mid image length; side-on footage, so a three-quarter camera shortens every gap.",
+ "videos": {
+  "HL261oRyURE": {
+   "label": "ExpertBoxing - How to Parry Punches 1 of 3 (50 fps, partner drill)",
+   "fps": 50.0,
+   "segments": 6,
+   "both_tracked_s": 103.6,
+   "gap_T_p50_by_segment": [
+    2.21,
+    2.05,
+    2.21,
+    1.91,
+    2.79,
+    2.4
+   ]
+  },
+  "-vPZqptk8jo": {
+   "label": "ExpertBoxing - How to Parry Punches 3 of 3 (50 fps, partner drill)",
+   "fps": 50.0,
+   "segments": 9,
+   "both_tracked_s": 115.1,
+   "gap_T_p50_by_segment": [
+    2.75,
+    1.98,
+    2.11,
+    2.93,
+    1.94,
+    3.27,
+    2.28,
+    2.15,
+    2.66
+   ]
+  },
+  "FCM7m6TJWUQ": {
+   "label": "ExpertBoxing - How to Slip Punches 1 of 3 (50 fps, partner drill)",
+   "fps": 50.0,
+   "segments": 10,
+   "both_tracked_s": 45.7,
+   "gap_T_p50_by_segment": [
+    2.0,
+    1.87,
+    2.24,
+    2.25,
+    2.23,
+    2.45,
+    2.24,
+    1.85,
+    2.06,
+    1.95
+   ]
+  },
+  "yg_N42n_Jdk": {
+   "label": "PXB - Inoue sparring session (30 fps, gym sparring)",
+   "fps": 29.97002997002997,
+   "segments": 11,
+   "both_tracked_s": 23.2,
+   "gap_T_p50_by_segment": [
+    2.69,
+    2.75,
+    2.62,
+    2.56,
+    1.66,
+    1.82,
+    2.53,
+    3.12,
+    2.74,
+    2.45,
+    2.88
+   ]
+  }
+ },
+ "jabs_head_height": {
+  "definition": "lead-hand punch, wrist within 0.4 T of the receiver's nose height at the peak",
+  "gap_T_before": {
+   "n": 31,
+   "p10": 1.77,
+   "p50": 2.23,
+   "p90": 2.68
+  },
+  "gap_T_peak": {
+   "n": 31,
+   "p10": 1.8,
+   "p50": 2.06,
+   "p90": 2.63
+  },
+  "gap_T_after": {
+   "n": 31,
+   "p10": 1.55,
+   "p50": 1.99,
+   "p90": 2.53
+  },
+  "thrower_hips_out_T": {
+   "n": 31,
+   "p10": -0.01,
+   "p50": 0.04,
+   "p90": 0.14
+  },
+  "thrower_lead_ankle_out_T": {
+   "n": 31,
+   "p10": -0.01,
+   "p50": 0.02,
+   "p90": 0.23
+  },
+  "thrower_rear_ankle_out_T": {
+   "n": 31,
+   "p10": -0.04,
+   "p50": 0.0,
+   "p90": 0.15
+  },
+  "extension_s": {
+   "n": 31,
+   "p10": 0.06,
+   "p50": 0.1,
+   "p90": 0.2
+  },
+  "receiver_nose_away_T_peak_plus_0.2s": {
+   "n": 31,
+   "p10": -0.14,
+   "p50": -0.02,
+   "p90": 0.27
+  }
+ },
+ "all_punches": {
+  "definition": "every arm extension of >= 0.35 T toward the other man (includes parries in the drills)",
+  "gap_T_before": {
+   "n": 56,
+   "p10": 1.88,
+   "p50": 2.24,
+   "p90": 2.73
+  },
+  "gap_T_peak": {
+   "n": 56,
+   "p10": 1.83,
+   "p50": 2.09,
+   "p90": 2.69
+  },
+  "gap_T_after": {
+   "n": 56,
+   "p10": 1.72,
+   "p50": 2.07,
+   "p90": 2.71
+  },
+  "thrower_hips_out_T": {
+   "n": 56,
+   "p10": -0.02,
+   "p50": 0.03,
+   "p90": 0.14
+  },
+  "thrower_lead_ankle_out_T": {
+   "n": 56,
+   "p10": -0.01,
+   "p50": 0.01,
+   "p90": 0.09
+  },
+  "thrower_rear_ankle_out_T": {
+   "n": 56,
+   "p10": -0.02,
+   "p50": 0.01,
+   "p90": 0.07
+  },
+  "extension_s": {
+   "n": 56,
+   "p10": 0.06,
+   "p50": 0.14,
+   "p90": 0.22
+  },
+  "receiver_nose_away_T_peak_plus_0.2s": {
+   "n": 56,
+   "p10": -0.14,
+   "p50": -0.02,
+   "p90": 0.25
+  }
+ },
+ "punches": [
+  {
+   "video": "HL261oRyURE",
+   "t_peak_s": 8.680000305175781,
+   "thrower": "A",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 16,
+   "return_frames": 20,
+   "gap_T_before": 2.3787384033203125,
+   "gap_T_peak": 2.6192214488983154,
+   "gap_T_after": 2.740318775177002,
+   "thrower_T": {
+    "hips_out": -0.10365746915340424,
+    "hips_back": -0.059879571199417114,
+    "nose_out": -0.19576404988765717,
+    "lead_ankle_out": 0.01129149179905653,
+    "rear_ankle_out": -0.008647858165204525
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": 0.05872099846601486,
+     "hips": 0.06721789389848709,
+     "ankles": 0.02894931100308895
+    },
+    "peak+0.1s": {
+     "nose": 0.07858873903751373,
+     "hips": 0.06633798032999039,
+     "ankles": 0.03749822452664375
+    },
+    "peak+0.2s": {
+     "nose": 0.09758993983268738,
+     "hips": 0.08037646114826202,
+     "ankles": 0.04567692428827286
+    },
+    "peak+0.3s": {
+     "nose": 0.10766242444515228,
+     "hips": 0.0849091112613678,
+     "ankles": 0.0486551970243454
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": null,
+   "wrist_vs_receiver_nose_T": -0.9007084369659424,
+   "fps": 50.0
+  },
+  {
+   "video": "HL261oRyURE",
+   "t_peak_s": 9.460000038146973,
+   "thrower": "A",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 7,
+   "return_frames": 118,
+   "gap_T_before": 2.729876756668091,
+   "gap_T_peak": 2.733175754547119,
+   "gap_T_after": 2.206155776977539,
+   "thrower_T": {
+    "hips_out": 0.002147619379684329,
+    "hips_back": -0.09513767808675766,
+    "nose_out": -0.011888956651091576,
+    "lead_ankle_out": -0.004117478616535664,
+    "rear_ankle_out": 0.005256210919469595
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": 0.0030320321675390005,
+     "hips": 0.009761551395058632,
+     "ankles": -0.0020463457331061363
+    },
+    "peak+0.1s": {
+     "nose": 0.01183346938341856,
+     "hips": 0.025105947628617287,
+     "ankles": -0.010430202819406986
+    },
+    "peak+0.2s": {
+     "nose": 0.00900194514542818,
+     "hips": 0.0040985033847391605,
+     "ankles": -0.007803254760801792
+    },
+    "peak+0.3s": {
+     "nose": 0.015865135937929153,
+     "hips": 0.014234337024390697,
+     "ankles": -0.013830704614520073
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": null,
+   "wrist_vs_receiver_nose_T": -0.9515910148620605,
+   "fps": 50.0
+  },
+  {
+   "video": "HL261oRyURE",
+   "t_peak_s": 18.899999618530273,
+   "thrower": "A",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 7,
+   "return_frames": 74,
+   "gap_T_before": 2.1876752376556396,
+   "gap_T_peak": 2.178882598876953,
+   "gap_T_after": 2.3824946880340576,
+   "thrower_T": {
+    "hips_out": -0.00528756296262145,
+    "hips_back": 0.08132855594158173,
+    "nose_out": -0.021491870284080505,
+    "lead_ankle_out": 0.004056253004819155,
+    "rear_ankle_out": -0.0055494713596999645
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": -0.022958185523748398,
+     "hips": -0.009646477177739143,
+     "ankles": -0.004340566229075193
+    },
+    "peak+0.1s": {
+     "nose": -0.021804537624120712,
+     "hips": -0.013359074480831623,
+     "ankles": 0.0038272361271083355
+    },
+    "peak+0.2s": {
+     "nose": -0.009744987823069096,
+     "hips": 0.008939177729189396,
+     "ankles": 0.030206119641661644
+    },
+    "peak+0.3s": {
+     "nose": -7.72973507991992e-05,
+     "hips": 0.01962190493941307,
+     "ankles": 0.04668629541993141
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": null,
+   "wrist_vs_receiver_nose_T": -0.5636530518531799,
+   "fps": 50.0
+  },
+  {
+   "video": "HL261oRyURE",
+   "t_peak_s": 37.900001525878906,
+   "thrower": "A",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 6,
+   "return_frames": 51,
+   "gap_T_before": 1.9372317790985107,
+   "gap_T_peak": 1.9625989198684692,
+   "gap_T_after": 1.9158560037612915,
+   "thrower_T": {
+    "hips_out": 0.005838294979184866,
+    "hips_back": 0.011256590485572815,
+    "nose_out": -0.005694252904504538,
+    "lead_ankle_out": 0.0044848304241895676,
+    "rear_ankle_out": -0.00376373203471303
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": 0.05486571788787842,
+     "hips": 0.011065726168453693,
+     "ankles": 0.00294136768206954
+    },
+    "peak+0.1s": {
+     "nose": 0.08923107385635376,
+     "hips": 0.04932501167058945,
+     "ankles": 0.017328409478068352
+    },
+    "peak+0.2s": {
+     "nose": 0.12410525977611542,
+     "hips": 0.09466775506734848,
+     "ankles": 0.02705218456685543
+    },
+    "peak+0.3s": {
+     "nose": 0.1548672765493393,
+     "hips": 0.12163464725017548,
+     "ankles": 0.030937539413571358
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": 12,
+   "wrist_vs_receiver_nose_T": -0.6427576541900635,
+   "fps": 50.0
+  },
+  {
+   "video": "HL261oRyURE",
+   "t_peak_s": 42.36000061035156,
+   "thrower": "A",
+   "hand": "R",
+   "lead": false,
+   "extension_frames": 7,
+   "return_frames": 23,
+   "gap_T_before": 1.8800464868545532,
+   "gap_T_peak": 1.817384123802185,
+   "gap_T_after": 1.8927898406982422,
+   "thrower_T": {
+    "hips_out": 0.004935295321047306,
+    "hips_back": 0.0006524787750095129,
+    "nose_out": 0.07523352652788162,
+    "lead_ankle_out": 0.010780984535813332,
+    "rear_ankle_out": 0.01575990580022335
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": 0.03849059343338013,
+     "hips": 0.012219084426760674,
+     "ankles": -0.0010910260025411844
+    },
+    "peak+0.1s": {
+     "nose": 0.012676475569605827,
+     "hips": 0.017641812562942505,
+     "ankles": 0.0018365386640653014
+    },
+    "peak+0.2s": {
+     "nose": 0.03110753558576107,
+     "hips": 0.025864973664283752,
+     "ankles": 0.018890630453824997
+    },
+    "peak+0.3s": {
+     "nose": 0.02704709954559803,
+     "hips": 0.03178083524107933,
+     "ankles": 0.023093456402420998
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": null,
+   "wrist_vs_receiver_nose_T": -0.11602823436260223,
+   "fps": 50.0
+  },
+  {
+   "video": "HL261oRyURE",
+   "t_peak_s": 22.079999923706055,
+   "thrower": "B",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 10,
+   "return_frames": 583,
+   "gap_T_before": 2.2332053184509277,
+   "gap_T_peak": 2.0603954792022705,
+   "gap_T_after": 2.0665664672851562,
+   "thrower_T": {
+    "hips_out": 0.03953411057591438,
+    "hips_back": 0.010404921136796474,
+    "nose_out": 0.10344449430704117,
+    "lead_ankle_out": 0.007530970498919487,
+    "rear_ankle_out": -0.00012204845552332699
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": -0.0077362810261547565,
+     "hips": -0.024311786517500877,
+     "ankles": -0.015477959997951984
+    },
+    "peak+0.1s": {
+     "nose": -0.046811655163764954,
+     "hips": -0.032078828662633896,
+     "ankles": -0.01751488633453846
+    },
+    "peak+0.2s": {
+     "nose": -0.10043293237686157,
+     "hips": -0.02803795412182808,
+     "ankles": -0.017138807103037834
+    },
+    "peak+0.3s": {
+     "nose": -0.12018121033906937,
+     "hips": -0.03778964281082153,
+     "ankles": -0.011412537656724453
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": null,
+   "wrist_vs_receiver_nose_T": -0.3389391005039215,
+   "fps": 50.0
+  },
+  {
+   "video": "HL261oRyURE",
+   "t_peak_s": 34.91999816894531,
+   "thrower": "B",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 10,
+   "return_frames": 9,
+   "gap_T_before": 2.0586202144622803,
+   "gap_T_peak": 1.9255727529525757,
+   "gap_T_after": 1.9045746326446533,
+   "thrower_T": {
+    "hips_out": 0.08027765899896622,
+    "hips_back": 0.014286352321505547,
+    "nose_out": 0.10122349858283997,
+    "lead_ankle_out": 0.013492747209966183,
+    "rear_ankle_out": 0.0037840832956135273
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": -0.011602942831814289,
+     "hips": -0.025685658678412437,
+     "ankles": -0.006509185768663883
+    },
+    "peak+0.1s": {
+     "nose": -0.06928195059299469,
+     "hips": -0.02862980030477047,
+     "ankles": -0.008326943032443523
+    },
+    "peak+0.2s": {
+     "nose": -0.09299006313085556,
+     "hips": -0.031429897993803024,
+     "ankles": -0.012256160378456116
+    },
+    "peak+0.3s": {
+     "nose": -0.09433198720216751,
+     "hips": -0.022480646148324013,
+     "ankles": -0.005753260105848312
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": null,
+   "wrist_vs_receiver_nose_T": -0.354235976934433,
+   "fps": 50.0
+  },
+  {
+   "video": "HL261oRyURE",
+   "t_peak_s": 37.02000045776367,
+   "thrower": "B",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 8,
+   "return_frames": 48,
+   "gap_T_before": 2.071899175643921,
+   "gap_T_peak": 1.9614447355270386,
+   "gap_T_after": 2.0884194374084473,
+   "thrower_T": {
+    "hips_out": 0.07415344566106796,
+    "hips_back": 0.006039364263415337,
+    "nose_out": 0.09313110262155533,
+    "lead_ankle_out": 0.032109495252370834,
+    "rear_ankle_out": 0.010635650716722012
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": -0.028694869950413704,
+     "hips": -0.00019876053556799889,
+     "ankles": 0.01097449567168951
+    },
+    "peak+0.1s": {
+     "nose": -0.08229751139879227,
+     "hips": 0.004506717901676893,
+     "ankles": 0.019221652299165726
+    },
+    "peak+0.2s": {
+     "nose": -0.08851410448551178,
+     "hips": 0.013040702790021896,
+     "ankles": 0.035438235849142075
+    },
+    "peak+0.3s": {
+     "nose": -0.0860467478632927,
+     "hips": 0.03782602399587631,
+     "ankles": 0.042388346046209335
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": null,
+   "wrist_vs_receiver_nose_T": -0.2459573745727539,
+   "fps": 50.0
+  },
+  {
+   "video": "HL261oRyURE",
+   "t_peak_s": 39.29999923706055,
+   "thrower": "B",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 7,
+   "return_frames": 42,
+   "gap_T_before": 1.9642503261566162,
+   "gap_T_peak": 1.900869369506836,
+   "gap_T_after": 1.906602382659912,
+   "thrower_T": {
+    "hips_out": 0.027618402615189552,
+    "hips_back": -0.008911280892789364,
+    "nose_out": 0.03519586846232414,
+    "lead_ankle_out": 0.014162851497530937,
+    "rear_ankle_out": -0.006683024577796459
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": 0.009676857851445675,
+     "hips": 0.008080562576651573,
+     "ankles": 0.0016296441899612546
+    },
+    "peak+0.1s": {
+     "nose": -0.024837378412485123,
+     "hips": -0.011840153485536575,
+     "ankles": 0.0011606935877352953
+    },
+    "peak+0.2s": {
+     "nose": -0.018802393227815628,
+     "hips": 0.008525407873094082,
+     "ankles": 0.007547428831458092
+    },
+    "peak+0.3s": {
+     "nose": -0.03708067163825035,
+     "hips": 0.005763759836554527,
+     "ankles": 0.007490344345569611
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": null,
+   "wrist_vs_receiver_nose_T": -0.27435335516929626,
+   "fps": 50.0
+  },
+  {
+   "video": "HL261oRyURE",
+   "t_peak_s": 42.7599983215332,
+   "thrower": "B",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 6,
+   "return_frames": 51,
+   "gap_T_before": 1.827314019203186,
+   "gap_T_peak": 1.801621437072754,
+   "gap_T_after": 1.794594645500183,
+   "thrower_T": {
+    "hips_out": -0.002488916739821434,
+    "hips_back": 0.13577425479888916,
+    "nose_out": 0.006331699434667826,
+    "lead_ankle_out": 0.000755538058001548,
+    "rear_ankle_out": 0.0035882245283573866
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": 0.044716980308294296,
+     "hips": -0.018730519339442253,
+     "ankles": -0.0038280629087239504
+    },
+    "peak+0.1s": {
+     "nose": 0.1285853534936905,
+     "hips": 0.024203237146139145,
+     "ankles": 0.01820862479507923
+    },
+    "peak+0.2s": {
+     "nose": 0.23617957532405853,
+     "hips": 0.07472479343414307,
+     "ankles": 0.02869242988526821
+    },
+    "peak+0.3s": {
+     "nose": 0.3632141947746277,
+     "hips": 0.1131201833486557,
+     "ankles": 0.059306953102350235
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": 6,
+   "wrist_vs_receiver_nose_T": -0.5286091566085815,
+   "fps": 50.0
+  },
+  {
+   "video": "HL261oRyURE",
+   "t_peak_s": 52.2599983215332,
+   "thrower": "A",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 13,
+   "return_frames": 13,
+   "gap_T_before": 2.0659122467041016,
+   "gap_T_peak": 2.1984119415283203,
+   "gap_T_after": 2.2133753299713135,
+   "thrower_T": {
+    "hips_out": 0.015716005116701126,
+    "hips_back": -8.013537444639951e-05,
+    "nose_out": -0.0014191328082233667,
+    "lead_ankle_out": 0.016378888860344887,
+    "rear_ankle_out": 0.013474470004439354
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": 0.15395252406597137,
+     "hips": 0.11964907497167587,
+     "ankles": 0.03479844331741333
+    },
+    "peak+0.1s": {
+     "nose": 0.20180261135101318,
+     "hips": 0.1165224090218544,
+     "ankles": 0.028763320297002792
+    },
+    "peak+0.2s": {
+     "nose": 0.26517727971076965,
+     "hips": 0.14226925373077393,
+     "ankles": 0.03164953738451004
+    },
+    "peak+0.3s": {
+     "nose": 0.30150750279426575,
+     "hips": 0.12009100615978241,
+     "ankles": 0.04918286204338074
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": 0,
+   "wrist_vs_receiver_nose_T": -0.007687675300985575,
+   "fps": 50.0
+  },
+  {
+   "video": "HL261oRyURE",
+   "t_peak_s": 54.18000030517578,
+   "thrower": "A",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 7,
+   "return_frames": 62,
+   "gap_T_before": 2.0487215518951416,
+   "gap_T_peak": 2.080026865005493,
+   "gap_T_after": 2.2281315326690674,
+   "thrower_T": {
+    "hips_out": -0.016798660159111023,
+    "hips_back": -0.04759078845381737,
+    "nose_out": -0.03706659376621246,
+    "lead_ankle_out": -0.0013362911995500326,
+    "rear_ankle_out": 0.00201526191085577
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": 0.017189085483551025,
+     "hips": 0.0008620564476586878,
+     "ankles": -0.0012539795134216547
+    },
+    "peak+0.1s": {
+     "nose": 0.03747168928384781,
+     "hips": 0.004349241964519024,
+     "ankles": -0.0036287778057157993
+    },
+    "peak+0.2s": {
+     "nose": 0.0273066908121109,
+     "hips": 0.020763494074344635,
+     "ankles": -0.000318219477776438
+    },
+    "peak+0.3s": {
+     "nose": 0.02135079726576805,
+     "hips": 0.01645931787788868,
+     "ankles": -0.0076406109146773815
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": null,
+   "wrist_vs_receiver_nose_T": -0.03472735360264778,
+   "fps": 50.0
+  },
+  {
+   "video": "HL261oRyURE",
+   "t_peak_s": 58.2599983215332,
+   "thrower": "A",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 2,
+   "return_frames": 5,
+   "gap_T_before": 2.0927205085754395,
+   "gap_T_peak": 1.9846969842910767,
+   "gap_T_after": 1.871726632118225,
+   "thrower_T": {
+    "hips_out": 0.03437582030892372,
+    "hips_back": 0.02121647819876671,
+    "nose_out": 0.015627149492502213,
+    "lead_ankle_out": -0.0026590509805828333,
+    "rear_ankle_out": 0.005884913261979818
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": -0.0023968948516994715,
+     "hips": 0.00078966113505885,
+     "ankles": 0.0006166683742776513
+    },
+    "peak+0.1s": {
+     "nose": -0.04951779916882515,
+     "hips": -0.0043236562050879,
+     "ankles": 0.020881827920675278
+    },
+    "peak+0.2s": {
+     "nose": -0.0568576380610466,
+     "hips": 0.011352977715432644,
+     "ankles": 0.0012579045724123716
+    },
+    "peak+0.3s": {
+     "nose": -0.07851313799619675,
+     "hips": 0.0014746544184163213,
+     "ankles": 0.030134033411741257
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": null,
+   "wrist_vs_receiver_nose_T": -0.03081103041768074,
+   "fps": 50.0
+  },
+  {
+   "video": "HL261oRyURE",
+   "t_peak_s": 59.15999984741211,
+   "thrower": "A",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 6,
+   "return_frames": 5,
+   "gap_T_before": 1.8719449043273926,
+   "gap_T_peak": 1.9635449647903442,
+   "gap_T_after": 1.9344277381896973,
+   "thrower_T": {
+    "hips_out": -0.0574142150580883,
+    "hips_back": -0.008989444933831692,
+    "nose_out": -0.09145385771989822,
+    "lead_ankle_out": 0.000643187842797488,
+    "rear_ankle_out": -0.014303036034107208
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": 0.0243704654276371,
+     "hips": -0.010063527151942253,
+     "ankles": 0.00558606768026948
+    },
+    "peak+0.1s": {
+     "nose": 0.021445289254188538,
+     "hips": -0.01806655153632164,
+     "ankles": -0.009845033288002014
+    },
+    "peak+0.2s": {
+     "nose": 0.011778918094933033,
+     "hips": -0.015582432970404625,
+     "ankles": -0.012587186880409718
+    },
+    "peak+0.3s": {
+     "nose": 0.009087208658456802,
+     "hips": -0.014216226525604725,
+     "ankles": -0.0053962115198373795
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": null,
+   "wrist_vs_receiver_nose_T": -0.17992636561393738,
+   "fps": 50.0
+  },
+  {
+   "video": "HL261oRyURE",
+   "t_peak_s": 58.70000076293945,
+   "thrower": "A",
+   "hand": "R",
+   "lead": false,
+   "extension_frames": 6,
+   "return_frames": 10,
+   "gap_T_before": 1.9346704483032227,
+   "gap_T_peak": 1.8777164220809937,
+   "gap_T_after": 1.9781132936477661,
+   "thrower_T": {
+    "hips_out": 0.01563466712832451,
+    "hips_back": 0.015540248714387417,
+    "nose_out": 0.04754869267344475,
+    "lead_ankle_out": 0.008435413241386414,
+    "rear_ankle_out": 0.0202317014336586
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": 0.04810071364045143,
+     "hips": 0.007344779092818499,
+     "ankles": 0.016358865424990654
+    },
+    "peak+0.1s": {
+     "nose": 0.08496329188346863,
+     "hips": 0.0006745264399796724,
+     "ankles": 0.016433442011475563
+    },
+    "peak+0.2s": {
+     "nose": 0.08660715818405151,
+     "hips": 0.018591634929180145,
+     "ankles": 0.024558141827583313
+    },
+    "peak+0.3s": {
+     "nose": 0.09574292600154877,
+     "hips": 0.0437142550945282,
+     "ankles": 0.02872028946876526
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": null,
+   "wrist_vs_receiver_nose_T": -0.15377022325992584,
+   "fps": 50.0
+  },
+  {
+   "video": "HL261oRyURE",
+   "t_peak_s": 59.540000915527344,
+   "thrower": "A",
+   "hand": "R",
+   "lead": false,
+   "extension_frames": 6,
+   "return_frames": 12,
+   "gap_T_before": 1.964736819267273,
+   "gap_T_peak": 1.9302911758422852,
+   "gap_T_after": 1.9526395797729492,
+   "thrower_T": {
+    "hips_out": 0.036468662321567535,
+    "hips_back": 0.035060204565525055,
+    "nose_out": 0.04961477220058441,
+    "lead_ankle_out": 0.009904912672936916,
+    "rear_ankle_out": 0.007934754714369774
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": -0.02107051946222782,
+     "hips": -0.0006588262622244656,
+     "ankles": 0.0048987483605742455
+    },
+    "peak+0.1s": {
+     "nose": -0.008476645685732365,
+     "hips": -0.004132056143134832,
+     "ankles": 0.0061521464958786964
+    },
+    "peak+0.2s": {
+     "nose": 0.02241317741572857,
+     "hips": 0.007053453475236893,
+     "ankles": 0.0014881739625707269
+    },
+    "peak+0.3s": {
+     "nose": 0.013119539245963097,
+     "hips": 0.0026867666747421026,
+     "ankles": 0.005335445981472731
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": null,
+   "wrist_vs_receiver_nose_T": -0.13360007107257843,
+   "fps": 50.0
+  },
+  {
+   "video": "HL261oRyURE",
+   "t_peak_s": 57.65999984741211,
+   "thrower": "B",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 8,
+   "return_frames": 16,
+   "gap_T_before": 2.4467222690582275,
+   "gap_T_peak": 2.1642775535583496,
+   "gap_T_after": 1.9695320129394531,
+   "thrower_T": {
+    "hips_out": 0.1272779107093811,
+    "hips_back": 0.06899998337030411,
+    "nose_out": 0.11916643381118774,
+    "lead_ankle_out": 0.021411852911114693,
+    "rear_ankle_out": 0.03333410993218422
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": -0.03215743973851204,
+     "hips": -0.04424118995666504,
+     "ankles": -0.00566397700458765
+    },
+    "peak+0.1s": {
+     "nose": -0.12603549659252167,
+     "hips": -0.051524337381124496,
+     "ankles": -0.0016083455411717296
+    },
+    "peak+0.2s": {
+     "nose": -0.13688203692436218,
+     "hips": -0.05128002166748047,
+     "ankles": -0.007251875475049019
+    },
+    "peak+0.3s": {
+     "nose": -0.12795409560203552,
+     "hips": -0.0422850176692009,
+     "ankles": -0.004676117096096277
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": null,
+   "wrist_vs_receiver_nose_T": -0.19844084978103638,
+   "fps": 50.0
+  },
+  {
+   "video": "HL261oRyURE",
+   "t_peak_s": 61.15999984741211,
+   "thrower": "B",
+   "hand": "L",
+   "lead": false,
+   "extension_frames": 3,
+   "return_frames": 213,
+   "gap_T_before": 2.3259847164154053,
+   "gap_T_peak": 2.3448379039764404,
+   "gap_T_after": 2.0137953758239746,
+   "thrower_T": {
+    "hips_out": -0.018256697803735733,
+    "hips_back": -0.15261858701705933,
+    "nose_out": -0.013567285612225533,
+    "lead_ankle_out": -0.011741121299564838,
+    "rear_ankle_out": 0.01481690350919962
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": -0.02611856907606125,
+     "hips": -0.003070252249017358,
+     "ankles": -0.014326641336083412
+    },
+    "peak+0.1s": {
+     "nose": -0.06583639234304428,
+     "hips": -0.02174810878932476,
+     "ankles": -0.01830950379371643
+    },
+    "peak+0.2s": {
+     "nose": -0.09541536867618561,
+     "hips": -0.04057075083255768,
+     "ankles": 0.004797147121280432
+    },
+    "peak+0.3s": {
+     "nose": -0.12961994111537933,
+     "hips": -0.08871482312679291,
+     "ankles": -0.0005565123283304274
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": 19,
+   "wrist_vs_receiver_nose_T": -1.046889066696167,
+   "fps": 50.0
+  },
+  {
+   "video": "HL261oRyURE",
+   "t_peak_s": 55.540000915527344,
+   "thrower": "B",
+   "hand": "R",
+   "lead": true,
+   "extension_frames": 4,
+   "return_frames": 17,
+   "gap_T_before": 2.105135679244995,
+   "gap_T_peak": 2.140826463699341,
+   "gap_T_after": 2.243137836456299,
+   "thrower_T": {
+    "hips_out": -0.001218799501657486,
+    "hips_back": 0.07557545602321625,
+    "nose_out": 0.009821047075092793,
+    "lead_ankle_out": 0.0003869804786518216,
+    "rear_ankle_out": 0.0013804532354697585
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": 0.04911501705646515,
+     "hips": 0.026001598685979843,
+     "ankles": 0.0034685235004872084
+    },
+    "peak+0.1s": {
+     "nose": 0.08550399541854858,
+     "hips": 0.07538077235221863,
+     "ankles": 0.007025075610727072
+    },
+    "peak+0.2s": {
+     "nose": 0.15483026206493378,
+     "hips": 0.14790403842926025,
+     "ankles": 0.02845444716513157
+    },
+    "peak+0.3s": {
+     "nose": 0.1571832001209259,
+     "hips": 0.17059393227100372,
+     "ankles": 0.09170772135257721
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": 10,
+   "wrist_vs_receiver_nose_T": -0.5254555940628052,
+   "fps": 50.0
+  },
+  {
+   "video": "HL261oRyURE",
+   "t_peak_s": 77.05999755859375,
+   "thrower": "A",
+   "hand": "R",
+   "lead": true,
+   "extension_frames": 8,
+   "return_frames": 633,
+   "gap_T_before": 2.3086342811584473,
+   "gap_T_peak": 2.0896971225738525,
+   "gap_T_after": 2.190680980682373,
+   "thrower_T": {
+    "hips_out": -0.058333661407232285,
+    "hips_back": -0.29448944330215454,
+    "nose_out": -0.0533057264983654,
+    "lead_ankle_out": -0.07220304757356644,
+    "rear_ankle_out": -0.12467844039201736
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": -0.1618330031633377,
+     "hips": -0.11741721630096436,
+     "ankles": -0.11622752994298935
+    },
+    "peak+0.1s": {
+     "nose": -0.2265547662973404,
+     "hips": -0.20436795055866241,
+     "ankles": -0.19578108191490173
+    },
+    "peak+0.2s": {
+     "nose": -0.2699686288833618,
+     "hips": -0.26933276653289795,
+     "ankles": -0.23979033529758453
+    },
+    "peak+0.3s": {
+     "nose": -0.36388930678367615,
+     "hips": -0.34927669167518616,
+     "ankles": -0.3069765269756317
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": -1,
+   "wrist_vs_receiver_nose_T": -0.18058818578720093,
+   "fps": 50.0
+  },
+  {
+   "video": "HL261oRyURE",
+   "t_peak_s": 92.66000366210938,
+   "thrower": "A",
+   "hand": "R",
+   "lead": true,
+   "extension_frames": 8,
+   "return_frames": 155,
+   "gap_T_before": 2.1585617065429688,
+   "gap_T_peak": 1.9047285318374634,
+   "gap_T_after": 2.0274038314819336,
+   "thrower_T": {
+    "hips_out": 0.059960056096315384,
+    "hips_back": 0.10580026358366013,
+    "nose_out": 0.04755592346191406,
+    "lead_ankle_out": 0.024184469133615494,
+    "rear_ankle_out": -0.049875203520059586
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": -0.04971332848072052,
+     "hips": -0.06829271465539932,
+     "ankles": 0.0031487992964684963
+    },
+    "peak+0.1s": {
+     "nose": -0.05743313580751419,
+     "hips": -0.11245265603065491,
+     "ankles": 0.00228682067245245
+    },
+    "peak+0.2s": {
+     "nose": -0.11848650872707367,
+     "hips": -0.1184808611869812,
+     "ankles": 0.004174821078777313
+    },
+    "peak+0.3s": {
+     "nose": -0.14058077335357666,
+     "hips": -0.10024236142635345,
+     "ankles": 0.027329161763191223
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": 6,
+   "wrist_vs_receiver_nose_T": -0.30132925510406494,
+   "fps": 50.0
+  },
+  {
+   "video": "HL261oRyURE",
+   "t_peak_s": 96.69999694824219,
+   "thrower": "A",
+   "hand": "R",
+   "lead": true,
+   "extension_frames": 6,
+   "return_frames": 7,
+   "gap_T_before": 2.1661698818206787,
+   "gap_T_peak": 1.9194624423980713,
+   "gap_T_after": 1.7239598035812378,
+   "thrower_T": {
+    "hips_out": 0.07775852829217911,
+    "hips_back": 0.013127826154232025,
+    "nose_out": 0.07198648154735565,
+    "lead_ankle_out": 0.05349421501159668,
+    "rear_ankle_out": 0.025016259402036667
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": 0.009155184030532837,
+     "hips": -0.048513107001781464,
+     "ankles": 0.01809120364487171
+    },
+    "peak+0.1s": {
+     "nose": -0.021464809775352478,
+     "hips": -0.12986493110656738,
+     "ankles": -0.008901406079530716
+    },
+    "peak+0.2s": {
+     "nose": -0.06077005714178085,
+     "hips": -0.189578115940094,
+     "ankles": -0.03838777169585228
+    },
+    "peak+0.3s": {
+     "nose": -0.14815083146095276,
+     "hips": -0.22014805674552917,
+     "ankles": -0.031500786542892456
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": 10,
+   "wrist_vs_receiver_nose_T": -0.33015692234039307,
+   "fps": 50.0
+  },
+  {
+   "video": "HL261oRyURE",
+   "t_peak_s": 94.41999816894531,
+   "thrower": "B",
+   "hand": "R",
+   "lead": true,
+   "extension_frames": 5,
+   "return_frames": 4,
+   "gap_T_before": 1.7653428316116333,
+   "gap_T_peak": 1.8018473386764526,
+   "gap_T_after": 1.8882310390472412,
+   "thrower_T": {
+    "hips_out": -0.01348351314663887,
+    "hips_back": -0.014489217661321163,
+    "nose_out": 0.0011806586990132928,
+    "lead_ankle_out": -0.009030270390212536,
+    "rear_ankle_out": -0.0013273943914100528
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": -0.0014754586154595017,
+     "hips": -0.00013854070857632905,
+     "ankles": -0.00632702698931098
+    },
+    "peak+0.1s": {
+     "nose": -0.010441230610013008,
+     "hips": 0.0004458823532331735,
+     "ankles": -0.008297859691083431
+    },
+    "peak+0.2s": {
+     "nose": -0.0013288970803841949,
+     "hips": -0.007538437843322754,
+     "ankles": -0.009881233796477318
+    },
+    "peak+0.3s": {
+     "nose": -0.01840258203446865,
+     "hips": -0.018241802230477333,
+     "ankles": -0.015130377374589443
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": null,
+   "wrist_vs_receiver_nose_T": -0.11758880317211151,
+   "fps": 50.0
+  },
+  {
+   "video": "HL261oRyURE",
+   "t_peak_s": 100.33999633789062,
+   "thrower": "B",
+   "hand": "R",
+   "lead": true,
+   "extension_frames": 3,
+   "return_frames": 3,
+   "gap_T_before": 1.7219115495681763,
+   "gap_T_peak": 1.7213568687438965,
+   "gap_T_after": 1.7234814167022705,
+   "thrower_T": {
+    "hips_out": -0.0014154359232634306,
+    "hips_back": 0.005400252994149923,
+    "nose_out": -0.017234304919838905,
+    "lead_ankle_out": -0.008542279712855816,
+    "rear_ankle_out": 0.004770793952047825
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": -0.0030497186817228794,
+     "hips": 0.0003168207476846874,
+     "ankles": 0.005132933612912893
+    },
+    "peak+0.1s": {
+     "nose": 0.019681895151734352,
+     "hips": 0.0016493636649101973,
+     "ankles": 0.007043610326945782
+    },
+    "peak+0.2s": {
+     "nose": 0.012412883341312408,
+     "hips": -0.0015585829969495535,
+     "ankles": 0.0055808210745453835
+    },
+    "peak+0.3s": {
+     "nose": 0.012412883341312408,
+     "hips": -0.0015585829969495535,
+     "ankles": 0.0055808210745453835
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": null,
+   "wrist_vs_receiver_nose_T": -0.12008946388959885,
+   "fps": 50.0
+  },
+  {
+   "video": "-vPZqptk8jo",
+   "t_peak_s": 14.300000190734863,
+   "thrower": "A",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 11,
+   "return_frames": 56,
+   "gap_T_before": 2.759488105773926,
+   "gap_T_peak": 2.7397751808166504,
+   "gap_T_after": 2.775096893310547,
+   "thrower_T": {
+    "hips_out": -0.003259628778323531,
+    "hips_back": -0.033384378999471664,
+    "nose_out": -0.027837686240673065,
+    "lead_ankle_out": -0.010277529247105122,
+    "rear_ankle_out": -0.02381887100636959
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": -0.013793897815048695,
+     "hips": -0.015932820737361908,
+     "ankles": -0.015837764367461205
+    },
+    "peak+0.1s": {
+     "nose": -0.01650054380297661,
+     "hips": -0.034520022571086884,
+     "ankles": -0.01829354092478752
+    },
+    "peak+0.2s": {
+     "nose": -0.027012232691049576,
+     "hips": -0.009118188172578812,
+     "ankles": -0.017506634816527367
+    },
+    "peak+0.3s": {
+     "nose": -0.039059191942214966,
+     "hips": -0.017274711281061172,
+     "ankles": -0.016459710896015167
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": null,
+   "wrist_vs_receiver_nose_T": -0.5379586815834045,
+   "fps": 50.0
+  },
+  {
+   "video": "-vPZqptk8jo",
+   "t_peak_s": 31.34000015258789,
+   "thrower": "A",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 3,
+   "return_frames": 2,
+   "gap_T_before": 1.639426350593567,
+   "gap_T_peak": 1.6703870296478271,
+   "gap_T_after": 1.7410815954208374,
+   "thrower_T": {
+    "hips_out": -0.011163484305143356,
+    "hips_back": 0.00319466320797801,
+    "nose_out": -0.030257664620876312,
+    "lead_ankle_out": 0.023531874641776085,
+    "rear_ankle_out": -0.0027050061617046595
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": 0.01563570648431778,
+     "hips": -0.0011838393984362483,
+     "ankles": -0.002442467026412487
+    },
+    "peak+0.1s": {
+     "nose": 0.009153113700449467,
+     "hips": 0.006460453849285841,
+     "ankles": 0.0009584813378751278
+    },
+    "peak+0.2s": {
+     "nose": 0.01578585058450699,
+     "hips": 0.02480471320450306,
+     "ankles": 0.007301714736968279
+    },
+    "peak+0.3s": {
+     "nose": 0.0299626886844635,
+     "hips": 0.027689239010214806,
+     "ankles": 0.010077252052724361
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": null,
+   "wrist_vs_receiver_nose_T": -0.1329985111951828,
+   "fps": 50.0
+  },
+  {
+   "video": "-vPZqptk8jo",
+   "t_peak_s": 27.739999771118164,
+   "thrower": "B",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 8,
+   "return_frames": 42,
+   "gap_T_before": 2.044172763824463,
+   "gap_T_peak": 1.8544647693634033,
+   "gap_T_after": 1.755974531173706,
+   "thrower_T": {
+    "hips_out": 0.07091399282217026,
+    "hips_back": 0.10879912227392197,
+    "nose_out": 0.059986114501953125,
+    "lead_ankle_out": 0.040521878749132156,
+    "rear_ankle_out": 0.012391855008900166
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": -0.059656158089637756,
+     "hips": -0.023644670844078064,
+     "ankles": 0.01675274595618248
+    },
+    "peak+0.1s": {
+     "nose": -0.09276747703552246,
+     "hips": -0.03580373153090477,
+     "ankles": 0.016291769221425056
+    },
+    "peak+0.2s": {
+     "nose": -0.14752548933029175,
+     "hips": -0.03732097148895264,
+     "ankles": 0.018283624202013016
+    },
+    "peak+0.3s": {
+     "nose": -0.1848030835390091,
+     "hips": -0.049225062131881714,
+     "ankles": 0.020907137542963028
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": 10,
+   "wrist_vs_receiver_nose_T": -0.4925006330013275,
+   "fps": 50.0
+  },
+  {
+   "video": "-vPZqptk8jo",
+   "t_peak_s": 30.68000030517578,
+   "thrower": "B",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 10,
+   "return_frames": 26,
+   "gap_T_before": 2.1173393726348877,
+   "gap_T_peak": 1.8348703384399414,
+   "gap_T_after": 1.6980445384979248,
+   "thrower_T": {
+    "hips_out": 0.13530907034873962,
+    "hips_back": 0.130764439702034,
+    "nose_out": 0.1598021388053894,
+    "lead_ankle_out": 0.022579798474907875,
+    "rear_ankle_out": 0.010522007942199707
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": -0.06645172834396362,
+     "hips": -0.04768823832273483,
+     "ankles": -0.018812978640198708
+    },
+    "peak+0.1s": {
+     "nose": -0.14011609554290771,
+     "hips": -0.06812197715044022,
+     "ankles": -0.010534537024796009
+    },
+    "peak+0.2s": {
+     "nose": -0.1854184865951538,
+     "hips": -0.08024729043245316,
+     "ankles": -0.019679320976138115
+    },
+    "peak+0.3s": {
+     "nose": -0.22736147046089172,
+     "hips": -0.08223740011453629,
+     "ankles": -0.0181904137134552
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": 7,
+   "wrist_vs_receiver_nose_T": -0.5383082628250122,
+   "fps": 50.0
+  },
+  {
+   "video": "-vPZqptk8jo",
+   "t_peak_s": 36.63999938964844,
+   "thrower": "A",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 3,
+   "return_frames": 14,
+   "gap_T_before": 2.2424449920654297,
+   "gap_T_peak": 2.051353693008423,
+   "gap_T_after": 2.1726839542388916,
+   "thrower_T": {
+    "hips_out": 0.027678227052092552,
+    "hips_back": 0.07322501391172409,
+    "nose_out": 0.03268468752503395,
+    "lead_ankle_out": -0.009099081158638,
+    "rear_ankle_out": -0.012961775064468384
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": -0.003862644312903285,
+     "hips": -0.022715110331773758,
+     "ankles": 0.0012603549985215068
+    },
+    "peak+0.1s": {
+     "nose": -0.018822522833943367,
+     "hips": -0.025064412504434586,
+     "ankles": -7.027433457551524e-05
+    },
+    "peak+0.2s": {
+     "nose": 0.023410826921463013,
+     "hips": -0.008693241514265537,
+     "ankles": 0.0011772479629144073
+    },
+    "peak+0.3s": {
+     "nose": 0.0629129484295845,
+     "hips": -0.0034779685083776712,
+     "ankles": 0.006779793184250593
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": 22,
+   "wrist_vs_receiver_nose_T": -0.21405303478240967,
+   "fps": 50.0
+  },
+  {
+   "video": "-vPZqptk8jo",
+   "t_peak_s": 39.31999969482422,
+   "thrower": "A",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 2,
+   "return_frames": 6,
+   "gap_T_before": 2.026585578918457,
+   "gap_T_peak": 1.9424325227737427,
+   "gap_T_after": 1.963350534439087,
+   "thrower_T": {
+    "hips_out": 0.004962558392435312,
+    "hips_back": 0.0005460294196382165,
+    "nose_out": -0.010596352629363537,
+    "lead_ankle_out": -0.00018244341481477022,
+    "rear_ankle_out": -0.009251604788005352
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": -0.0061431992799043655,
+     "hips": -0.034386150538921356,
+     "ankles": -0.0054835369810462
+    },
+    "peak+0.1s": {
+     "nose": -0.005428845528513193,
+     "hips": -0.06108061969280243,
+     "ankles": -0.02094847522675991
+    },
+    "peak+0.2s": {
+     "nose": -0.02430422604084015,
+     "hips": -0.05835336446762085,
+     "ankles": -0.016971558332443237
+    },
+    "peak+0.3s": {
+     "nose": -0.008772375993430614,
+     "hips": -0.05139651149511337,
+     "ankles": -0.015061776153743267
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": null,
+   "wrist_vs_receiver_nose_T": 0.053544461727142334,
+   "fps": 50.0
+  },
+  {
+   "video": "-vPZqptk8jo",
+   "t_peak_s": 42.52000045776367,
+   "thrower": "A",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 2,
+   "return_frames": 10,
+   "gap_T_before": 2.4887311458587646,
+   "gap_T_peak": 2.200791597366333,
+   "gap_T_after": 2.074427604675293,
+   "thrower_T": {
+    "hips_out": 0.021240998059511185,
+    "hips_back": 0.03656153008341789,
+    "nose_out": 0.015492242760956287,
+    "lead_ankle_out": -0.006550726946443319,
+    "rear_ankle_out": 0.0008613215177319944
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": -0.06025230139493942,
+     "hips": -0.007959332317113876,
+     "ankles": -0.006556595675647259
+    },
+    "peak+0.1s": {
+     "nose": -0.08638488501310349,
+     "hips": -0.04628634452819824,
+     "ankles": -0.016084574162960052
+    },
+    "peak+0.2s": {
+     "nose": -0.1077030599117279,
+     "hips": -0.05781866982579231,
+     "ankles": -0.018313797190785408
+    },
+    "peak+0.3s": {
+     "nose": -0.14544068276882172,
+     "hips": -0.06740103662014008,
+     "ankles": -0.030897028744220734
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": 11,
+   "wrist_vs_receiver_nose_T": -0.09001459181308746,
+   "fps": 50.0
+  },
+  {
+   "video": "-vPZqptk8jo",
+   "t_peak_s": 46.58000183105469,
+   "thrower": "A",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 4,
+   "return_frames": 48,
+   "gap_T_before": 2.0725648403167725,
+   "gap_T_peak": 1.9817512035369873,
+   "gap_T_after": 2.3365321159362793,
+   "thrower_T": {
+    "hips_out": 0.0263967327773571,
+    "hips_back": -0.1293696165084839,
+    "nose_out": 0.03248078003525734,
+    "lead_ankle_out": 0.003805945161730051,
+    "rear_ankle_out": 0.022148989140987396
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": -0.030958594754338264,
+     "hips": -0.01644541695713997,
+     "ankles": -0.0011279031168669462
+    },
+    "peak+0.1s": {
+     "nose": -0.027562512084841728,
+     "hips": -0.026271602138876915,
+     "ankles": -0.007211980409920216
+    },
+    "peak+0.2s": {
+     "nose": -0.03714396059513092,
+     "hips": -0.0227105263620615,
+     "ankles": -0.007468176074326038
+    },
+    "peak+0.3s": {
+     "nose": -0.036996688693761826,
+     "hips": -0.01915861666202545,
+     "ankles": -0.001686278497800231
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": null,
+   "wrist_vs_receiver_nose_T": -0.15402881801128387,
+   "fps": 50.0
+  },
+  {
+   "video": "-vPZqptk8jo",
+   "t_peak_s": 46.720001220703125,
+   "thrower": "A",
+   "hand": "R",
+   "lead": false,
+   "extension_frames": 13,
+   "return_frames": 36,
+   "gap_T_before": 2.078193426132202,
+   "gap_T_peak": 1.9632172584533691,
+   "gap_T_after": 2.2749717235565186,
+   "thrower_T": {
+    "hips_out": 0.045738011598587036,
+    "hips_back": -0.08336135745048523,
+    "nose_out": 0.11271815747022629,
+    "lead_ankle_out": -0.013603579252958298,
+    "rear_ankle_out": 0.01832987181842327
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": -0.017926372587680817,
+     "hips": -0.031201500445604324,
+     "ankles": -0.006119061727076769
+    },
+    "peak+0.1s": {
+     "nose": 0.009687470272183418,
+     "hips": -0.01657954975962639,
+     "ankles": 0.0002099063858622685
+    },
+    "peak+0.2s": {
+     "nose": -0.051747579127550125,
+     "hips": -0.027705200016498566,
+     "ankles": -0.008133337832987309
+    },
+    "peak+0.3s": {
+     "nose": -0.03703885152935982,
+     "hips": -0.008356841281056404,
+     "ankles": -0.012297551147639751
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": null,
+   "wrist_vs_receiver_nose_T": -0.10853207111358643,
+   "fps": 50.0
+  },
+  {
+   "video": "-vPZqptk8jo",
+   "t_peak_s": 38.52000045776367,
+   "thrower": "B",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 10,
+   "return_frames": 27,
+   "gap_T_before": 2.3116166591644287,
+   "gap_T_peak": 2.1971986293792725,
+   "gap_T_after": 1.9301133155822754,
+   "thrower_T": {
+    "hips_out": 0.13683055341243744,
+    "hips_back": 0.17685270309448242,
+    "nose_out": 0.15898743271827698,
+    "lead_ankle_out": 0.003919169306755066,
+    "rear_ankle_out": 0.024421554058790207
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": -0.019300302490592003,
+     "hips": -0.0017291472759097815,
+     "ankles": -0.005249963607639074
+    },
+    "peak+0.1s": {
+     "nose": -0.035784926265478134,
+     "hips": -0.02243354730308056,
+     "ankles": -0.011409217491745949
+    },
+    "peak+0.2s": {
+     "nose": -0.045929886400699615,
+     "hips": -0.013425689190626144,
+     "ankles": -0.013903993181884289
+    },
+    "peak+0.3s": {
+     "nose": -0.052182067185640335,
+     "hips": -0.017363345250487328,
+     "ankles": -0.0025600616354495287
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": null,
+   "wrist_vs_receiver_nose_T": -0.49585193395614624,
+   "fps": 50.0
+  },
+  {
+   "video": "-vPZqptk8jo",
+   "t_peak_s": 50.29999923706055,
+   "thrower": "B",
+   "hand": "L",
+   "lead": false,
+   "extension_frames": 2,
+   "return_frames": 9,
+   "gap_T_before": 2.5741872787475586,
+   "gap_T_peak": 2.292853355407715,
+   "gap_T_after": 2.0661380290985107,
+   "thrower_T": {
+    "hips_out": 0.05470643192529678,
+    "hips_back": 0.08676008880138397,
+    "nose_out": 0.011730008758604527,
+    "lead_ankle_out": -0.010465070605278015,
+    "rear_ankle_out": 0.048635341227054596
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": -0.018738174811005592,
+     "hips": -0.004855076316744089,
+     "ankles": -0.006037299986928701
+    },
+    "peak+0.1s": {
+     "nose": -0.06186457723379135,
+     "hips": -0.03571760654449463,
+     "ankles": -0.007127976510673761
+    },
+    "peak+0.2s": {
+     "nose": -0.11813519895076752,
+     "hips": -0.07193928956985474,
+     "ankles": 0.01835702732205391
+    },
+    "peak+0.3s": {
+     "nose": -0.18093329668045044,
+     "hips": -0.14283791184425354,
+     "ankles": 0.0007397739100269973
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": 13,
+   "wrist_vs_receiver_nose_T": -0.8826866149902344,
+   "fps": 50.0
+  },
+  {
+   "video": "-vPZqptk8jo",
+   "t_peak_s": 56.36000061035156,
+   "thrower": "A",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 12,
+   "return_frames": 37,
+   "gap_T_before": 2.439572811126709,
+   "gap_T_peak": 2.0670385360717773,
+   "gap_T_after": 1.9553892612457275,
+   "thrower_T": {
+    "hips_out": 0.1709173619747162,
+    "hips_back": 0.03570845350623131,
+    "nose_out": 0.18783347308635712,
+    "lead_ankle_out": 0.049444153904914856,
+    "rear_ankle_out": 0.04035137593746185
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": -0.06271014362573624,
+     "hips": -0.02441568858921528,
+     "ankles": -0.0016009332612156868
+    },
+    "peak+0.1s": {
+     "nose": -0.09324245899915695,
+     "hips": -0.04625491052865982,
+     "ankles": -0.009169100783765316
+    },
+    "peak+0.2s": {
+     "nose": -0.1487417221069336,
+     "hips": -0.08099453896284103,
+     "ankles": -0.008871830068528652
+    },
+    "peak+0.3s": {
+     "nose": -0.1674325168132782,
+     "hips": -0.12508614361286163,
+     "ankles": -0.0040276385843753815
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": 10,
+   "wrist_vs_receiver_nose_T": -0.3528728485107422,
+   "fps": 50.0
+  },
+  {
+   "video": "-vPZqptk8jo",
+   "t_peak_s": 74.86000061035156,
+   "thrower": "A",
+   "hand": "R",
+   "lead": false,
+   "extension_frames": 5,
+   "return_frames": 7,
+   "gap_T_before": 2.3330044746398926,
+   "gap_T_peak": 2.513573408126831,
+   "gap_T_after": 3.2155587673187256,
+   "thrower_T": {
+    "hips_out": -0.046735506504774094,
+    "hips_back": -0.14306682348251343,
+    "nose_out": -0.061443403363227844,
+    "lead_ankle_out": -0.00308916880749166,
+    "rear_ankle_out": -0.007279559038579464
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": 0.08508498966693878,
+     "hips": 0.06152554601430893,
+     "ankles": 0.01250905729830265
+    },
+    "peak+0.1s": {
+     "nose": 0.1855923980474472,
+     "hips": 0.15208587050437927,
+     "ankles": 0.04389803484082222
+    },
+    "peak+0.2s": {
+     "nose": 0.25483447313308716,
+     "hips": 0.23332209885120392,
+     "ankles": 0.04498596116900444
+    },
+    "peak+0.3s": {
+     "nose": 0.33319398760795593,
+     "hips": 0.2930011451244354,
+     "ankles": 0.04417400434613228
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": 4,
+   "wrist_vs_receiver_nose_T": -0.8710567951202393,
+   "fps": 50.0
+  },
+  {
+   "video": "-vPZqptk8jo",
+   "t_peak_s": 88.16000366210938,
+   "thrower": "A",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 11,
+   "return_frames": 113,
+   "gap_T_before": 2.458406925201416,
+   "gap_T_peak": 2.1150062084198,
+   "gap_T_after": 2.35087513923645,
+   "thrower_T": {
+    "hips_out": 0.25727877020835876,
+    "hips_back": -0.3433077931404114,
+    "nose_out": 0.2127702534198761,
+    "lead_ankle_out": 0.029270261526107788,
+    "rear_ankle_out": 0.015042162500321865
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": 0.003521077102050185,
+     "hips": 0.007518067955970764,
+     "ankles": 0.020304584875702858
+    },
+    "peak+0.1s": {
+     "nose": -0.007655842695385218,
+     "hips": -0.012339798733592033,
+     "ankles": 0.02510761469602585
+    },
+    "peak+0.2s": {
+     "nose": -0.020835265517234802,
+     "hips": -0.022883184254169464,
+     "ankles": 0.014990529045462608
+    },
+    "peak+0.3s": {
+     "nose": -0.037551794201135635,
+     "hips": -0.05093272775411606,
+     "ankles": 0.013207855634391308
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": null,
+   "wrist_vs_receiver_nose_T": -0.7066582441329956,
+   "fps": 50.0
+  },
+  {
+   "video": "-vPZqptk8jo",
+   "t_peak_s": 92.08000183105469,
+   "thrower": "A",
+   "hand": "R",
+   "lead": true,
+   "extension_frames": 16,
+   "return_frames": 89,
+   "gap_T_before": 2.2179930210113525,
+   "gap_T_peak": 2.054508686065674,
+   "gap_T_after": 2.305025577545166,
+   "thrower_T": {
+    "hips_out": 0.040936704725027084,
+    "hips_back": -0.0019339198479428887,
+    "nose_out": 0.05714379996061325,
+    "lead_ankle_out": 0.0008001649985089898,
+    "rear_ankle_out": -0.031785521656274796
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": 0.013333989307284355,
+     "hips": 0.051639918237924576,
+     "ankles": -0.019094953313469887
+    },
+    "peak+0.1s": {
+     "nose": -0.01101662777364254,
+     "hips": 0.04542097821831703,
+     "ankles": -0.009981409646570683
+    },
+    "peak+0.2s": {
+     "nose": -0.022408796474337578,
+     "hips": 0.02372089959681034,
+     "ankles": -0.007731981575489044
+    },
+    "peak+0.3s": {
+     "nose": -0.02427924983203411,
+     "hips": 0.03129506856203079,
+     "ankles": -0.01684476248919964
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": null,
+   "wrist_vs_receiver_nose_T": -0.8674879670143127,
+   "fps": 50.0
+  },
+  {
+   "video": "-vPZqptk8jo",
+   "t_peak_s": 99.86000061035156,
+   "thrower": "A",
+   "hand": "R",
+   "lead": true,
+   "extension_frames": 11,
+   "return_frames": 296,
+   "gap_T_before": 2.248782157897949,
+   "gap_T_peak": 2.063154935836792,
+   "gap_T_after": 2.4873526096343994,
+   "thrower_T": {
+    "hips_out": 0.033059775829315186,
+    "hips_back": -0.3654017150402069,
+    "nose_out": 0.0008463716949336231,
+    "lead_ankle_out": -0.05311480164527893,
+    "rear_ankle_out": -0.007618847768753767
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": 0.036806054413318634,
+     "hips": -0.008977868594229221,
+     "ankles": 0.0022085923701524734
+    },
+    "peak+0.1s": {
+     "nose": 0.04306278005242348,
+     "hips": 0.0019746425095945597,
+     "ankles": 0.00453282380476594
+    },
+    "peak+0.2s": {
+     "nose": 0.06225199997425079,
+     "hips": 0.007931391708552837,
+     "ankles": -0.0036741176154464483
+    },
+    "peak+0.3s": {
+     "nose": 0.08659498393535614,
+     "hips": 0.015829961746931076,
+     "ankles": -0.0001547579449834302
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": null,
+   "wrist_vs_receiver_nose_T": -0.8334547877311707,
+   "fps": 50.0
+  },
+  {
+   "video": "-vPZqptk8jo",
+   "t_peak_s": 79.69999694824219,
+   "thrower": "B",
+   "hand": "L",
+   "lead": false,
+   "extension_frames": 7,
+   "return_frames": 63,
+   "gap_T_before": 2.5587244033813477,
+   "gap_T_peak": 2.4017763137817383,
+   "gap_T_after": 2.5220110416412354,
+   "thrower_T": {
+    "hips_out": 0.01776186004281044,
+    "hips_back": 0.06344426423311234,
+    "nose_out": 0.00553464749827981,
+    "lead_ankle_out": 0.01404805202037096,
+    "rear_ankle_out": 0.015009420923888683
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": -0.06550534069538116,
+     "hips": -0.047739043831825256,
+     "ankles": 0.0012259804643690586
+    },
+    "peak+0.1s": {
+     "nose": -0.10613099485635757,
+     "hips": -0.03927852213382721,
+     "ankles": -0.007207777351140976
+    },
+    "peak+0.2s": {
+     "nose": -0.13143198192119598,
+     "hips": -0.0703008845448494,
+     "ankles": -0.019010117277503014
+    },
+    "peak+0.3s": {
+     "nose": -0.13908858597278595,
+     "hips": -0.06773602962493896,
+     "ankles": -0.01103964727371931
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": 18,
+   "wrist_vs_receiver_nose_T": -1.0427255630493164,
+   "fps": 50.0
+  },
+  {
+   "video": "-vPZqptk8jo",
+   "t_peak_s": 96.45999908447266,
+   "thrower": "B",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 6,
+   "return_frames": 19,
+   "gap_T_before": 2.3846092224121094,
+   "gap_T_peak": 2.383606195449829,
+   "gap_T_after": 2.3519835472106934,
+   "thrower_T": {
+    "hips_out": -0.008771779015660286,
+    "hips_back": 0.022066840901970863,
+    "nose_out": 0.026889335364103317,
+    "lead_ankle_out": 0.013153851963579655,
+    "rear_ankle_out": -0.019870080053806305
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": 0.002826498355716467,
+     "hips": 0.00905388593673706,
+     "ankles": -0.0011602392187342048
+    },
+    "peak+0.1s": {
+     "nose": -0.0053971693851053715,
+     "hips": -0.0010678258258849382,
+     "ankles": -0.0010342039167881012
+    },
+    "peak+0.2s": {
+     "nose": -0.027799347415566444,
+     "hips": -0.008828487247228622,
+     "ankles": -0.0010364578338339925
+    },
+    "peak+0.3s": {
+     "nose": -0.0650956779718399,
+     "hips": -0.028024181723594666,
+     "ankles": 8.471230103168637e-05
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": null,
+   "wrist_vs_receiver_nose_T": -0.7871099710464478,
+   "fps": 50.0
+  },
+  {
+   "video": "-vPZqptk8jo",
+   "t_peak_s": 120.12000274658203,
+   "thrower": "B",
+   "hand": "R",
+   "lead": true,
+   "extension_frames": 11,
+   "return_frames": 9,
+   "gap_T_before": 2.241321086883545,
+   "gap_T_peak": 2.6126132011413574,
+   "gap_T_after": 2.7051851749420166,
+   "thrower_T": {
+    "hips_out": -0.10322601348161697,
+    "hips_back": -0.029376642778515816,
+    "nose_out": -0.12744806706905365,
+    "lead_ankle_out": -0.011327817104756832,
+    "rear_ankle_out": 0.004812279716134071
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": 0.09287787228822708,
+     "hips": 0.11617952585220337,
+     "ankles": 0.24688482284545898
+    },
+    "peak+0.1s": {
+     "nose": 0.12900106608867645,
+     "hips": 0.13020148873329163,
+     "ankles": 0.31987711787223816
+    },
+    "peak+0.2s": {
+     "nose": 0.15274889767169952,
+     "hips": 0.17624782025814056,
+     "ankles": 0.3392474055290222
+    },
+    "peak+0.3s": {
+     "nose": 0.15274889767169952,
+     "hips": 0.17624782025814056,
+     "ankles": 0.3392474055290222
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": 10,
+   "wrist_vs_receiver_nose_T": -0.7722249627113342,
+   "fps": 50.0
+  },
+  {
+   "video": "FCM7m6TJWUQ",
+   "t_peak_s": 83.68000030517578,
+   "thrower": "B",
+   "hand": "L",
+   "lead": false,
+   "extension_frames": 11,
+   "return_frames": 34,
+   "gap_T_before": 2.214799404144287,
+   "gap_T_peak": 2.2069103717803955,
+   "gap_T_after": 2.3415369987487793,
+   "thrower_T": {
+    "hips_out": 0.04046855494379997,
+    "hips_back": -0.09174991399049759,
+    "nose_out": 0.0887572318315506,
+    "lead_ankle_out": 0.033738669008016586,
+    "rear_ankle_out": 0.028344543650746346
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": 0.05714479088783264,
+     "hips": 0.042672619223594666,
+     "ankles": 0.02953757904469967
+    },
+    "peak+0.1s": {
+     "nose": 0.07402106374502182,
+     "hips": 0.05607014521956444,
+     "ankles": 0.03895524516701698
+    },
+    "peak+0.2s": {
+     "nose": 0.09785083681344986,
+     "hips": 0.07264174520969391,
+     "ankles": 0.04201924428343773
+    },
+    "peak+0.3s": {
+     "nose": 0.12371636927127838,
+     "hips": 0.08839228749275208,
+     "ankles": 0.04846012219786644
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": 22,
+   "wrist_vs_receiver_nose_T": -1.162757396697998,
+   "fps": 50.0
+  },
+  {
+   "video": "yg_N42n_Jdk",
+   "t_peak_s": 46.37966537475586,
+   "thrower": "A",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 3,
+   "return_frames": 8,
+   "gap_T_before": 2.7645132541656494,
+   "gap_T_peak": 3.015570640563965,
+   "gap_T_after": 2.8597285747528076,
+   "thrower_T": {
+    "hips_out": 0.009528599679470062,
+    "hips_back": 0.19164825975894928,
+    "nose_out": 0.11998164653778076,
+    "lead_ankle_out": 0.30505451560020447,
+    "rear_ankle_out": -0.09512559324502945
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": 0.14217959344387054,
+     "hips": 0.06431668251752853,
+     "ankles": 0.12679359316825867
+    },
+    "peak+0.1s": {
+     "nose": 0.17090581357479095,
+     "hips": 0.18269787728786469,
+     "ankles": 0.13778240978717804
+    },
+    "peak+0.2s": {
+     "nose": 0.21783019602298737,
+     "hips": 0.26181718707084656,
+     "ankles": 0.18008893728256226
+    },
+    "peak+0.3s": {
+     "nose": 0.18724466860294342,
+     "hips": 0.25906023383140564,
+     "ankles": 0.19451892375946045
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": 0,
+   "wrist_vs_receiver_nose_T": -0.06359761208295822,
+   "fps": 29.97002997002997
+  },
+  {
+   "video": "yg_N42n_Jdk",
+   "t_peak_s": 46.746700286865234,
+   "thrower": "A",
+   "hand": "R",
+   "lead": false,
+   "extension_frames": 3,
+   "return_frames": 122,
+   "gap_T_before": 3.0587520599365234,
+   "gap_T_peak": 2.9449520111083984,
+   "gap_T_after": 1.788683533668518,
+   "thrower_T": {
+    "hips_out": 0.051850125193595886,
+    "hips_back": 0.16842256486415863,
+    "nose_out": 0.11424443870782852,
+    "lead_ankle_out": -0.12619034945964813,
+    "rear_ankle_out": 0.17048379778862
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": -0.06426817178726196,
+     "hips": -0.039809707552194595,
+     "ankles": -0.01951437257230282
+    },
+    "peak+0.1s": {
+     "nose": -0.04323514178395271,
+     "hips": -0.07513032108545303,
+     "ankles": -0.09755468368530273
+    },
+    "peak+0.2s": {
+     "nose": -0.16582824289798737,
+     "hips": -0.12092705816030502,
+     "ankles": -0.21758395433425903
+    },
+    "peak+0.3s": {
+     "nose": -0.28085193037986755,
+     "hips": -0.19754745066165924,
+     "ankles": -0.30341672897338867
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": 5,
+   "wrist_vs_receiver_nose_T": -0.8284180164337158,
+   "fps": 29.97002997002997
+  },
+  {
+   "video": "yg_N42n_Jdk",
+   "t_peak_s": 50.41703414916992,
+   "thrower": "B",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 3,
+   "return_frames": 2,
+   "gap_T_before": 2.4599835872650146,
+   "gap_T_peak": 2.689688205718994,
+   "gap_T_after": 1.9947916269302368,
+   "thrower_T": {
+    "hips_out": 0.07354505360126495,
+    "hips_back": 0.15799368917942047,
+    "nose_out": 0.28510499000549316,
+    "lead_ankle_out": 0.019677750766277313,
+    "rear_ankle_out": 0.1913275420665741
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": 0.23308858275413513,
+     "hips": 0.17450498044490814,
+     "ankles": 0.1696849912405014
+    },
+    "peak+0.1s": {
+     "nose": 0.32972440123558044,
+     "hips": 0.22605812549591064,
+     "ankles": 0.20226848125457764
+    },
+    "peak+0.2s": {
+     "nose": 0.38424089550971985,
+     "hips": 0.22993306815624237,
+     "ankles": 0.20150692760944366
+    },
+    "peak+0.3s": {
+     "nose": 0.21398906409740448,
+     "hips": 0.15300360321998596,
+     "ankles": 0.07042117416858673
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": -1,
+   "wrist_vs_receiver_nose_T": 0.1223834902048111,
+   "fps": 29.97002997002997
+  },
+  {
+   "video": "yg_N42n_Jdk",
+   "t_peak_s": 65.69896697998047,
+   "thrower": "A",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 3,
+   "return_frames": 4,
+   "gap_T_before": 2.2854256629943848,
+   "gap_T_peak": 2.222477436065674,
+   "gap_T_after": 2.51284122467041,
+   "thrower_T": {
+    "hips_out": 0.0905189961194992,
+    "hips_back": -0.22848929464817047,
+    "nose_out": 0.08081404119729996,
+    "lead_ankle_out": 0.05776378884911537,
+    "rear_ankle_out": 0.07063522189855576
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": 0.1072005107998848,
+     "hips": 0.13508547842502594,
+     "ankles": 0.02301459014415741
+    },
+    "peak+0.1s": {
+     "nose": 0.16740284860134125,
+     "hips": 0.1454014629125595,
+     "ankles": 0.097881019115448
+    },
+    "peak+0.2s": {
+     "nose": 0.12663164734840393,
+     "hips": 0.11345111578702927,
+     "ankles": 0.10211332887411118
+    },
+    "peak+0.3s": {
+     "nose": 0.020784892141819,
+     "hips": 0.07732333242893219,
+     "ankles": 0.046553511172533035
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": 1,
+   "wrist_vs_receiver_nose_T": -0.09176721423864365,
+   "fps": 29.97002997002997
+  },
+  {
+   "video": "yg_N42n_Jdk",
+   "t_peak_s": 66.63323211669922,
+   "thrower": "A",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 2,
+   "return_frames": 20,
+   "gap_T_before": 2.47450852394104,
+   "gap_T_peak": 2.627798318862915,
+   "gap_T_after": 2.534403085708618,
+   "thrower_T": {
+    "hips_out": 0.03848898410797119,
+    "hips_back": 0.263384073972702,
+    "nose_out": -0.04837804660201073,
+    "lead_ankle_out": 0.04605278745293617,
+    "rear_ankle_out": -0.00028721150010824203
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": 0.11925423890352249,
+     "hips": 0.05184352770447731,
+     "ankles": 0.021353522315621376
+    },
+    "peak+0.1s": {
+     "nose": 0.23184719681739807,
+     "hips": 0.08421334624290466,
+     "ankles": 0.028317470103502274
+    },
+    "peak+0.2s": {
+     "nose": 0.23950447142124176,
+     "hips": 0.03853658586740494,
+     "ankles": 0.01147689949721098
+    },
+    "peak+0.3s": {
+     "nose": 0.258342981338501,
+     "hips": 0.017795410007238388,
+     "ankles": -0.018714196979999542
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": 1,
+   "wrist_vs_receiver_nose_T": 0.10563439875841141,
+   "fps": 29.97002997002997
+  },
+  {
+   "video": "yg_N42n_Jdk",
+   "t_peak_s": 67.53413391113281,
+   "thrower": "A",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 5,
+   "return_frames": 2,
+   "gap_T_before": 2.6284098625183105,
+   "gap_T_peak": 2.550161123275757,
+   "gap_T_after": 2.605289936065674,
+   "thrower_T": {
+    "hips_out": 0.1333141028881073,
+    "hips_back": 0.019344571977853775,
+    "nose_out": 0.09828638285398483,
+    "lead_ankle_out": 0.09464345872402191,
+    "rear_ankle_out": 0.0014577730325981975
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": -0.14812755584716797,
+     "hips": -0.033808667212724686,
+     "ankles": -0.023069892078638077
+    },
+    "peak+0.1s": {
+     "nose": -0.25028830766677856,
+     "hips": -0.02140195108950138,
+     "ankles": 0.021246980875730515
+    },
+    "peak+0.2s": {
+     "nose": -0.12471260875463486,
+     "hips": 0.026049962267279625,
+     "ankles": 0.059647027403116226
+    },
+    "peak+0.3s": {
+     "nose": -0.02363932505249977,
+     "hips": 0.12384817004203796,
+     "ankles": 0.05724567174911499
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": 0,
+   "wrist_vs_receiver_nose_T": 0.04082581773400307,
+   "fps": 29.97002997002997
+  },
+  {
+   "video": "yg_N42n_Jdk",
+   "t_peak_s": 99.1990966796875,
+   "thrower": "A",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 5,
+   "return_frames": 2,
+   "gap_T_before": 1.5663517713546753,
+   "gap_T_peak": 1.6874967813491821,
+   "gap_T_after": 1.3103055953979492,
+   "thrower_T": {
+    "hips_out": -0.010135655291378498,
+    "hips_back": 0.039535459131002426,
+    "nose_out": 0.036834586411714554,
+    "lead_ankle_out": -0.0907331183552742,
+    "rear_ankle_out": -0.04295386001467705
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": 0.05108587071299553,
+     "hips": -0.016186106950044632,
+     "ankles": -0.050131555646657944
+    },
+    "peak+0.1s": {
+     "nose": 0.002457490423694253,
+     "hips": -0.05091056972742081,
+     "ankles": -0.0754087045788765
+    },
+    "peak+0.2s": {
+     "nose": -0.09636683762073517,
+     "hips": -0.12190619856119156,
+     "ankles": -0.09055686742067337
+    },
+    "peak+0.3s": {
+     "nose": -0.21241268515586853,
+     "hips": -0.1991923749446869,
+     "ankles": -0.12913601100444794
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": 7,
+   "wrist_vs_receiver_nose_T": -0.06417819857597351,
+   "fps": 29.97002997002997
+  },
+  {
+   "video": "yg_N42n_Jdk",
+   "t_peak_s": 111.47803497314453,
+   "thrower": "B",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 2,
+   "return_frames": 3,
+   "gap_T_before": 2.2601144313812256,
+   "gap_T_peak": 1.9093445539474487,
+   "gap_T_after": 1.3663033246994019,
+   "thrower_T": {
+    "hips_out": 0.09092360734939575,
+    "hips_back": 0.1716896891593933,
+    "nose_out": 0.15803156793117523,
+    "lead_ankle_out": 0.38667750358581543,
+    "rear_ankle_out": 0.1675417572259903
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": 0.05926881730556488,
+     "hips": 0.011132464744150639,
+     "ankles": -0.043758317828178406
+    },
+    "peak+0.1s": {
+     "nose": 0.2113417088985443,
+     "hips": -0.021121134981513023,
+     "ankles": -0.0710396096110344
+    },
+    "peak+0.2s": {
+     "nose": 0.33684855699539185,
+     "hips": 0.004997392650693655,
+     "ankles": -0.06077367812395096
+    },
+    "peak+0.3s": {
+     "nose": 0.33684855699539185,
+     "hips": 0.004997392650693655,
+     "ankles": -0.06077367812395096
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": 1,
+   "wrist_vs_receiver_nose_T": -0.04468829184770584,
+   "fps": 29.97002997002997
+  },
+  {
+   "video": "yg_N42n_Jdk",
+   "t_peak_s": 126.42630004882812,
+   "thrower": "B",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 2,
+   "return_frames": 1,
+   "gap_T_before": 2.6552295684814453,
+   "gap_T_peak": 2.1219916343688965,
+   "gap_T_after": 1.4960823059082031,
+   "thrower_T": {
+    "hips_out": 0.15288279950618744,
+    "hips_back": 0.10881802439689636,
+    "nose_out": 0.1268497109413147,
+    "lead_ankle_out": 0.2522205710411072,
+    "rear_ankle_out": 0.3133907616138458
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": 0.1290535181760788,
+     "hips": 0.025553448125720024,
+     "ankles": 0.014826099388301373
+    },
+    "peak+0.1s": {
+     "nose": 0.20225362479686737,
+     "hips": 0.04957164078950882,
+     "ankles": 0.04969283938407898
+    },
+    "peak+0.2s": {
+     "nose": 0.3258562684059143,
+     "hips": 0.07233339548110962,
+     "ankles": 0.010378362610936165
+    },
+    "peak+0.3s": {
+     "nose": 0.194662943482399,
+     "hips": -0.008118278346955776,
+     "ankles": 0.19436076283454895
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": -3,
+   "wrist_vs_receiver_nose_T": -0.09350690990686417,
+   "fps": 29.97002997002997
+  },
+  {
+   "video": "yg_N42n_Jdk",
+   "t_peak_s": 148.51502990722656,
+   "thrower": "A",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 5,
+   "return_frames": 6,
+   "gap_T_before": 3.7521867752075195,
+   "gap_T_peak": 2.918372869491577,
+   "gap_T_after": 2.9123289585113525,
+   "thrower_T": {
+    "hips_out": 0.16596728563308716,
+    "hips_back": -0.16960196197032928,
+    "nose_out": 0.023910699412226677,
+    "lead_ankle_out": 0.08759941160678864,
+    "rear_ankle_out": 0.1521339863538742
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": -0.4706245958805084,
+     "hips": -0.47266826033592224,
+     "ankles": -0.4918133318424225
+    },
+    "peak+0.1s": {
+     "nose": -0.6375503540039062,
+     "hips": -0.622022807598114,
+     "ankles": -0.7105525135993958
+    },
+    "peak+0.2s": {
+     "nose": -0.6455913782119751,
+     "hips": -0.6676345467567444,
+     "ankles": -0.7558028101921082
+    },
+    "peak+0.3s": {
+     "nose": -0.6229248642921448,
+     "hips": -0.6732495427131653,
+     "ankles": -0.7642101049423218
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": -3,
+   "wrist_vs_receiver_nose_T": -0.13262233138084412,
+   "fps": 29.97002997002997
+  },
+  {
+   "video": "yg_N42n_Jdk",
+   "t_peak_s": 149.182373046875,
+   "thrower": "A",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 2,
+   "return_frames": 3,
+   "gap_T_before": 2.966402769088745,
+   "gap_T_peak": 2.603337526321411,
+   "gap_T_after": 2.1278493404388428,
+   "thrower_T": {
+    "hips_out": 0.09747589379549026,
+    "hips_back": 0.16929443180561066,
+    "nose_out": 0.3288458585739136,
+    "lead_ankle_out": 0.23265013098716736,
+    "rear_ankle_out": 0.06681610643863678
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": -0.05995400622487068,
+     "hips": -0.06035739555954933,
+     "ankles": 0.001043118885718286
+    },
+    "peak+0.1s": {
+     "nose": -0.1426490992307663,
+     "hips": -0.07049894332885742,
+     "ankles": 0.008007854223251343
+    },
+    "peak+0.2s": {
+     "nose": -0.10570020228624344,
+     "hips": -0.02331584505736828,
+     "ankles": -0.030222952365875244
+    },
+    "peak+0.3s": {
+     "nose": 0.024851050227880478,
+     "hips": 0.08913911879062653,
+     "ankles": 0.04700588807463646
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": 11,
+   "wrist_vs_receiver_nose_T": -0.02338288724422455,
+   "fps": 29.97002997002997
+  },
+  {
+   "video": "yg_N42n_Jdk",
+   "t_peak_s": 149.4159393310547,
+   "thrower": "A",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 2,
+   "return_frames": 6,
+   "gap_T_before": 2.676593542098999,
+   "gap_T_peak": 2.2792680263519287,
+   "gap_T_after": 1.5459188222885132,
+   "thrower_T": {
+    "hips_out": 0.14418283104896545,
+    "hips_back": 0.3503211736679077,
+    "nose_out": 0.18585535883903503,
+    "lead_ankle_out": 0.05284654721617699,
+    "rear_ankle_out": 0.06217426061630249
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": 0.04305054619908333,
+     "hips": 0.05319812148809433,
+     "ankles": 0.0009086565696634352
+    },
+    "peak+0.1s": {
+     "nose": 0.18396972119808197,
+     "hips": 0.14124007523059845,
+     "ankles": 0.08995888382196426
+    },
+    "peak+0.2s": {
+     "nose": 0.26037371158599854,
+     "hips": 0.17361460626125336,
+     "ankles": 0.1172112375497818
+    },
+    "peak+0.3s": {
+     "nose": 0.31679025292396545,
+     "hips": 0.17781496047973633,
+     "ankles": 0.08828243613243103
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": 2,
+   "wrist_vs_receiver_nose_T": -0.044904112815856934,
+   "fps": 29.97002997002997
+  }
+ ]
+}

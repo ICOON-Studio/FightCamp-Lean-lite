@@ -1,0 +1,17 @@
+{
+  "folders": [
+    {"name": "AGENT OUTPUTS (prompts + *_out.txt)", "path": "prompts"},
+    {"name": "CODEX C226 - stamina (ST1)", "path": "D:/FightCamp/wt/C226"},
+    {"name": "CURSOR U202 - finance + floor hovers", "path": "D:/FightCamp/wt/U201"},
+    {"name": "QWEN Q220 - neck capsule (KM3)", "path": "D:/FightCamp/wt/Q219"},
+    {"name": "GROK G150 - Body Lab + fatigue hovers", "path": "D:/FightCamp/wt/G148"}
+  ],
+  "settings": {
+    "files.exclude": {"**/.godot": true, "**/*.import": true, "**/*.uid": true},
+    "search.exclude": {"**/.godot": true, "**/assets": true},
+    "git.autoRepositoryDetection": true,
+    "git.openRepositoryInParentFolders": "always",
+    "scm.alwaysShowRepositories": true,
+    "files.autoSave": "off"
+  }
+}

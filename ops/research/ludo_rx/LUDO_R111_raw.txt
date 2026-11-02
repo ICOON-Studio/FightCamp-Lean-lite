@@ -1,0 +1,489 @@
+1. World Labels & Screen-Space Interactive Tags
+(a) Architectural Choice: Screen-Space Overlay vs. World-Space Billboard
+
+Two Point Studios titles (Two Point Hospital, Two Point Campus, Two Point Museum) deliberately avoid free-floating 3D text billboards (Label3D) for actionable gameplay entities.
+
+The rationale is clear:
+
+Geometric Scale Invariance: A 3D billboard scaled for floor_close (FOV 17 close framing) becomes either a pinprick or an illegible, overlapping blurry slab when projected back through a 17° telephoto frustum at floor_far (distance ~42m vs ~14m).
+Subpixel Aliasing & Font Rendering: FreeType glyph rasterization at runtime directly in 2D viewport space preserves pixel-crisp kerning against our high-contrast UI tokens (#f6eddc on PANEL_GLASS). World-space textured quad quads undergo bilinear downsampling or mip-swapping that turns text muddy under slow isometric camera pans.
+Z-Ordering & Draw Order: 2D viewport UI controls live in their own CanvasLayer (layer 10), guaranteeing deterministic z-index layering over 3D geometry without depth-test fighting or requiring transparent depth-write passes.
+
+Decision: The tag system is built entirely in Screen-Space Viewport 2D (CanvasLayer), updated per frame by calculating camera.unproject_position(target_node3d.global_position + Vector3(0, y_offset, 0)).
+
+Layout, Framing, Clickables & Visual Mockup Description
+
+To address layout and room framing:
+
+Footprint: The overall Anvil Street Gym is a 48m × 32m enclosed warehouse structure with exposed brick north/east walls and cutaway low partition half-walls (1.1m high) dividing interior zones.
+Camera Framing:
+Camera FOV: 17° perspective (telephoto isometric look).
+Pitch: -35.264° (true isometric angle $\arctan(1/\sqrt{2})$).
+Yaw steps: 45°, 135°, 225°, 315°.
+Camera focus target: Center of the main ring at Vector3(0, 0, 0).
+Six Zoned Rooms:
+Office (South-West Corner, 8m × 6m): Private wood-plank flooring, glass-paneled partition. Contains Manager's Desk (x: -18.0, z: 10.0), Filing Cabinets, Leather Couch, Whiteboard.
+Physio & Recovery (South-East Corner, 10m × 8m): Ceramic blue-grey tiled floor. Contains 2× Treatment Tables, Cryo Tank, Foam Roller Mats.
+Locker Room & Showers (North-West, 12m × 8m): Sealed concrete, row of 8 lockers, benches, water cooler.
+Reception & Pro Shop (South Center / Entrance, 8m × 6m): Turnstiles, front counter, merchandise rack.
+Strength & Conditioning Zone (North-East, 16m × 14m): Black vulcanized rubber flooring, power cages, deadlift platforms, pull-up rigs.
+Cardio & Bag Floor (Central / Ring Surrounds, 24m × 18m): Maple sprung hardwood. Houses the elevated 6.1m competition boxing ring at center, 6 heavy bags, speedbags, slip bags, double-end bags along the north wall.
+Clickable Primary Objects:
+Office Desk / PC: Vector3(-18.0, 0.75, 10.0)
+Fight Ring: Vector3(0.0, 1.0, 0.0)
+Physio Station: Vector3(16.0, 0.85, 9.0)
+Roster Board (Locker Room): Vector3(-16.0, 1.5, -10.0)
+Front Register: Vector3(-2.0, 1.0, 12.0)
+Visual Mockup Overview (Orthographic Representation)
++---------------------------------------------------------------------------------------------------+
+|  [LOCKER ROOM / SHOWERS: 12x8m]           [CARDIO & BAG FLOOR: 24x18m]    [STRENGTH ZONE: 16x14m] |
+|  - 8x Lockers (Row)                       - North Wall Speed Bag Racks     - 2x Power Cages       |
+|  - Ice Bath Tubs                          - 6x Hanging Heavy Bags          - Deadlift Mats        |
+|  - Water Station                          - 2x Double-End Bags             - Pull-up Rig (2.3m)   |
+|                                                                                                   |
+|                                                +----------------+                                 |
+|                                                |   BOXING RING  |                                 |
+|                                                |    (Elevated   |                                 |
+|                                                |     6.1x6.1m)  |                                 |
+|                                                +----------------+                                 |
+|                                                                                                   |
+|  [OFFICE: 8x6m]                         [RECEPTION: 8x6m]                 [PHYSIO ROOM: 10x8m]    |
+|  - [!] OFFICE PC (DESK)                 - Check-in Counter                - Treatment Bed A       |
+|  - Strategy Whiteboard                  - Turnstile Entry                 - Treatment Bed B       |
+|  - Armchair & Trophy Case               - Merchandise Display             - Cryo Chamber          |
++---------------------------------------------------------------------------------------------------+
+
+Inactive / Locked Room Objects
+
+Before mechanics unlock (e.g. Cryo Chamber unlocked at Gym Rep Lvl 4, Pro Sparring Ring unlocked at Tier 2):
+
+Visual Dimming & Desaturation: The 3D mesh instances have their base albedo tinted to Color(0.45, 0.42, 0.40) via a custom shader parameter unlocked_ratio: float = 0.0 that mixes albedo with a low-saturation monochrome base and ramps roughness to 0.85.
+Lock Indicator: Rather than a noisy screen label, a single round 32×32 screen-space badge sits over the center: PANEL background, a 16×16 padlock glyph in MUTED (#b5a68c), and a subtle tooltip on hover: "Unlocks at Gym Level X".
+Interaction: Inactive objects produce an audible dull click (ui_deny, 440Hz saw blip down to 220Hz) and a small horizontal shake of the screen-space lock badge ($\pm 4\text{px}$ over 180ms).
+Office Goal-Conversation Trigger & Fighter Movement
+
+When a major fight contract or career goal requires coach-fighter dialogue:
+
+Trigger Condition: Generated fight offers or career milestone events fire a signal OfficeManager.dialogue_pending(fighter_id, contract_id).
+Badge State: The Office tag transitions its badge to "TALK" or an exclamation icon ! rendered in GOLD_HI (#f7d65a) with a pulse cycle.
+Fighter Movement (AI Routing):
+The fighter's state machine enters FighterState.VISITING_OFFICE.
+NavigationAgent3D computes path from their current station to target marker Vector3(-16.8, 0.0, 10.2) (visitor chair facing desk).
+Locomotion speed: Standard walk 1.35 m/s.
+On arrival: Plays sit_chair or lean_desk idle loop; sends signal fighter_ready_to_talk.
+Transition to Dialogue:
+Clicking the Office Tag / Desk transitions the game state from SimState.GYM_FLOOR to SimState.INTERACTIVE_DIALOGUE.
+The camera smooth-lerps using a dual-quaternion cubic ease (0.45s) down to floor_close focused on Vector3(-17.5, 1.2, 10.0), yaw snapping to the nearest 45° angle that keeps the desk unobstructed.
+Gym audio ducks by -8.0 dB with a low-pass filter at 1200 Hz. The full Dialogue UI panel slides up from the screen bottom.
+(b) Exact Pixel Spec Per Zoom Level
+
+The gym operates across three distinct camera zoom steps:
+
+floor_far: Macro-management mode. Full warehouse visible. High visual density.
+floor_view: Standard operational mode. Individual fighters and equipment stations clearly readable.
+floor_close: Close inspection / detail mode. Micro facial expressions, fight planning, direct interactions.
++-------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ZOOM LEVEL  | DIMENSIONS (WxH) | FONT SIZE | ICON SHAPE & SIZE  | PADDING (L,R,T,B) | CORNER RAD | BORDER      | BACKGROUND   | DROP SHADOW             |
++-------------------------------------------------------------------------------------------------------------------------------------------------------+
+| floor_far   | 34 x 34 px (Icon)| N/A (none)| 18x18px Monitor    | 8, 8, 8, 8 px     | 17 px (Cir)| 2px LINE    | PANEL_GLASS  | 0, 4px, blr 6px, a:0.40 |
+| floor_view  | Auto x 32 px     | 12 px Bld | 16x16px PC Desktop | 10, 12, 6, 6 px   | 6 px       | 1.5px LINE  | PANEL_GLASS  | 0, 3px, blr 5px, a:0.35 |
+| floor_close | Auto x 40 px     | 14 px Bld | 20x20px PC Desktop | 12, 16, 8, 8 px   | 8 px       | 2px LINE    | PANEL_GLASS  | 0, 4px, blr 8px, a:0.45 |
++-------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+Color Token Mapping
+Background: PANEL_GLASS = Color(0.165, 0.125, 0.098, 0.94)
+Borders: LINE = Color("#6b5638") (Normal), GOLD = Color("#f0c233") (Hover / Highlighted), GOLD_HI = Color("#f7d65a") (Active)
+Text: TEXT = Color("#f6eddc"), MUTED = Color("#b5a68c")
+Notification Badges: BAD = Color("#e5433a") (Pill fill), TEXT = Color("#f6eddc") (Pill label)
+Icon Shape Specifications
+floor_far Icon (34×34 Pin Mode): A pure vector silhouette of a CRT/flat office monitor with a angled desk base:
+Display rect: 18 px wide × 13 px tall, centered horizontally, rounded corners (radius 1 px).
+Stand: 4 px wide × 3 px tall vertical stem; 10 px wide horizontal foot bar.
+Color: MUTED (#b5a68c).
+floor_view & floor_close Icon: Monitor silhouette embedded in the tag prefix slot, left-aligned, followed by a 6 px horizontal spacer, then the label text "OFFICE PC".
+Vertical Anchor Offsets
+Base object height: Office desk surface sits at Y = 0.76m world coordinates.
+3D Anchor Point: Vector3(-18.0, 0.76, 10.0).
+Applied screen-space vertical offset:
+floor_far: -22 px (avoids occluding desk accessories).
+floor_view: -36 px (clears monitors and desktop peripherals).
+floor_close: -48 px (positions comfortably above desk clutter).
+(c) Visibility, Occlusion & Transition Rules
+Always Shown vs. Hover:
+Interactive tags are always visible if they possess active, unread notifications (e.g. "2 NEW BOUTS", "CRACKED PIPE").
+When no notifications exist:
+floor_far: Tags collapse to a compact round 34×34 station pin.
+floor_view: Tags show as compact pill labels.
+floor_close: Full horizontal tag with status string.
+Culling & Distance:
+Screen border padding: Tags clamp smoothly or fade out within 32 px of any viewport edge.
+Behind Camera: Evaluated via camera.is_position_behind(target_pos). If true, visible = false immediately.
+Raycast Occlusion: Optional low-frequency (every 6 frames) sphere-cast from camera to object anchor; if fully occluded by solid partition walls, tag opacity lerps to alpha = 0.2 rather than popping off.
+(d) Notification Badge Specification
+
+The notification pill represents urgency without causing cognitive fatigue.
+
+             +-----------------------+
+             |  OFFICE PC            |
++------------+                       +--+
+| ( ! ) 2 NEW BOUTS                     |  <-- Attached Badge
++---------------------------------------+
+
+Geometry: Pill capsule (CornerRadius = Height / 2).
+floor_far: 18 px circle, mounted at top-right corner (x: +12px, y: -8px) relative to pin center. Shows only the number "2".
+floor_view: 20 px tall pill, horizontal padding 6 px. Anchored to top-right of tag: offset_x = +6px, offset_y = -10px. Displays text: "2 NEW BOUTS", font size 10 px bold.
+floor_close: 22 px tall pill, horizontal padding 8 px. Anchored top-right: offset_x = +8px, offset_y = -12px. Displays text: "2 NEW BOUTS", font size 11 px bold.
+Colors:
+Background: BAD (#e5433a).
+Border: 1.5 px solid #ffffff with 0.3 alpha or LINE (#6b5638).
+Text: #ffffff bold.
+Pulse Animation (Two-Phase Sinusoidal Breathing):
+Time Period: $T = 2.4\text{ seconds}$ loop.
+Scale curve: $S(t) = 1.0 + 0.08 \cdot \sin(2\pi t / 2.4)$ for $t \in [0, 1.2\text{s}]$, then rest at $1.0$ for $1.2\text{s}$.
+Glow/Alpha modulation: Outline color modulates from BAD to BAD_TEXT (#f2766f).
+(e) Hover and Click States
++-----------------------------------------------------------------------------------------------------------------------------------+
+| STATE       | BG COLOR                 | BORDER               | SCALE  | DROP SHADOW                     | CURSOR                |
++-----------------------------------------------------------------------------------------------------------------------------------+
+| Normal      | PANEL_GLASS (0.94 alpha) | 1.5px LINE (#6b5638) | 1.0    | 0px, 3px, blur 5px, a: 0.35     | Standard Arrow        |
+| Hover       | Color(0.22, 0.17, 0.13)  | 2.0px GOLD (#f0c233) | 1.04   | 0px, 6px, blur 10px, GOLD a:0.3 | Pointing Hand (Click) |
+| Pressed     | Color(0.12, 0.09, 0.07)  | 2.0px GOLD_HI        | 0.97   | 0px, 1px, blur 2px, a: 0.5      | Pointing Hand (Click) |
+| Active Modal| Color(0.25, 0.19, 0.14)  | 2.5px GOLD_HI        | 1.0    | 0px, 0px, blur 12px, GOLD a:0.5 | Standard Arrow        |
++-----------------------------------------------------------------------------------------------------------------------------------+
+
+
+Transitions use a Tween with TRANS_CUBIC and EASE_OUT over 0.12 seconds.
+
+(f) Room Name Labels vs. Interactable Labels
+
+Rooms must not compete with interactable equipment pins. They provide spatial orientation at floor_far, fading out as the player zooms into granular operational view.
+
++--------------------------------------------------------------------------------------------------------------------+
+| FEATURE            | ROOM LABELS (e.g., "PHYSIO", "OFFICE")         | INTERACTABLE LABELS ("OFFICE PC")            |
++--------------------------------------------------------------------------------------------------------------------+
+| Visual Hierarchy   | Recessive, architectural, floor-plane anchored | Dominant, UI-plane, high-contrast foreground |
+| Spatial Plane      | Projected flat onto floor plane or low-alpha   | Floating screen-space billboard              |
+| Font Styling       | Inter Bold, All-Caps, Tracking +3px, 11-13px   | Inter Bold, Sentence/Title Case, 12-14px     |
+| Colors             | MUTED (#b5a68c) with no heavy background box   | TEXT (#f6eddc) on PANEL_GLASS container      |
+| Background         | None, or ultra-thin semi-transparent wash      | 94% opaque PANEL_GLASS with LINE border      |
+| Zoom Visibility    | High at floor_far; fades out at floor_close    | Icon at floor_far; prominent at floor_close  |
+| Click Behavior     | Non-clickable (or opens Room Budget overview)  | Clickable: opens workstation/equipment UI   |
++--------------------------------------------------------------------------------------------------------------------+
+
+(g) Full GDScript: Screen-Space WorldTag and WorldTagManager
+res://scripts/ui/UITokens.gd
+class_name UITokens
+extends RefCounted
+
+const PANEL_GLASS: Color = Color(0.165, 0.125, 0.098, 0.94)
+const PANEL: Color       = Color("#2a2019")
+const LINE: Color        = Color("#6b5638")
+const TEXT: Color        = Color("#f6eddc")
+const MUTED: Color       = Color("#b5a68c")
+const GOLD: Color        = Color("#f0c233")
+const GOLD_HI: Color     = Color("#f7d65a")
+const GO: Color          = Color("#22c55e")
+const BAD: Color         = Color("#e5433a")
+const BAD_TEXT: Color    = Color("#f2766f")
+
+res://scripts/ui/WorldTag.gd
+class_name WorldTag
+extends Control
+
+signal tag_clicked(tag_id: StringName)
+
+enum ZoomTier { FAR, VIEW, CLOSE }
+
+@export var target_node: Node3D
+@export var anchor_offset_3d: Vector3 = Vector3(0.0, 0.8, 0.0)
+@export var tag_id: StringName = &"office_pc"
+
+var current_zoom_tier: ZoomTier = ZoomTier.VIEW
+var label_title: String = "OFFICE PC"
+var badge_count: int = 0
+var badge_text_override: String = ""
+
+# Node references
+var _container: PanelContainer
+var _h_box: HBoxContainer
+var _icon_rect: TextureRect
+var _label: Label
+var _badge_panel: PanelContainer
+var _badge_label: Label
+var _camera: Camera3D
+var _tween: Tween
+var _pulse_tween: Tween
+var _is_hovered: bool = false
+
+func _ready() -> void:
+	mouse_filter = Control.MOUSE_FILTER_PASS
+	_setup_ui_structure()
+	_apply_styling()
+	_update_presentation()
+
+func setup(p_target: Node3D, p_title: String, p_tag_id: StringName, p_icon: Texture2D) -> void:
+	target_node = p_target
+	label_title = p_title
+	tag_id = p_tag_id
+	if _icon_rect:
+		_icon_rect.texture = p_icon
+	if _label:
+		_label.text = label_title
+
+func set_badge(count: int, override_text: String = "") -> void:
+	badge_count = count
+	badge_text_override = override_text
+	_update_badge()
+
+func set_zoom_tier(tier: ZoomTier) -> void:
+	if current_zoom_tier == tier:
+		return
+	current_zoom_tier = tier
+	_update_presentation()
+
+func _setup_ui_structure() -> void:
+	custom_minimum_size = Vector2(34, 34)
+	
+	_container = PanelContainer.new()
+	_container.name = "Container"
+	_container.mouse_filter = Control.MOUSE_FILTER_PASS
+	add_child(_container)
+
+	_h_box = HBoxContainer.new()
+	_h_box.name = "HBox"
+	_h_box.alignment = BoxContainer.ALIGNMENT_CENTER
+	_h_box.add_theme_constant_override("separation", 6)
+	_container.add_child(_h_box)
+
+	_icon_rect = TextureRect.new()
+	_icon_rect.name = "Icon"
+	_icon_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	_icon_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	_h_box.add_child(_icon_rect)
+
+	_label = Label.new()
+	_label.name = "Title"
+	_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	_h_box.add_child(_label)
+
+	# Notification Badge
+	_badge_panel = PanelContainer.new()
+	_badge_panel.name = "Badge"
+	_badge_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_badge_panel.visible = false
+	add_child(_badge_panel)
+
+	_badge_label = Label.new()
+	_badge_label.name = "BadgeLabel"
+	_badge_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_badge_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	_badge_panel.add_child(_badge_label)
+
+	# Signals
+	gui_input.connect(_on_gui_input)
+	mouse_entered.connect(_on_mouse_entered)
+	mouse_exited.connect(_on_mouse_exited)
+
+func _apply_styling() -> void:
+	var style_box := StyleBoxFlat.new()
+	style_box.bg_color = UITokens.PANEL_GLASS
+	style_box.border_color = UITokens.LINE
+	style_box.set_border_width_all(2)
+	style_box.corner_radius_top_left = 6
+	style_box.corner_radius_top_right = 6
+	style_box.corner_radius_bottom_left = 6
+	style_box.corner_radius_bottom_right = 6
+	style_box.shadow_color = Color(0, 0, 0, 0.35)
+	style_box.shadow_size = 5
+	style_box.shadow_offset = Vector2(0, 3)
+	_container.add_theme_stylebox_override("panel", style_box)
+
+	_label.add_theme_color_override("font_color", UITokens.TEXT)
+	_label.add_theme_font_size_override("font_size", 12)
+
+	# Badge styling
+	var badge_style := StyleBoxFlat.new()
+	badge_style.bg_color = UITokens.BAD
+	badge_style.border_color = Color(1, 1, 1, 0.4)
+	badge_style.set_border_width_all(1)
+	badge_style.corner_radius_top_left = 10
+	badge_style.corner_radius_top_right = 10
+	badge_style.corner_radius_bottom_left = 10
+	badge_style.corner_radius_bottom_right = 10
+	_badge_panel.add_theme_stylebox_override("panel", badge_style)
+	_badge_label.add_theme_color_override("font_color", Color.WHITE)
+	_badge_label.add_theme_font_size_override("font_size", 10)
+
+func _update_presentation() -> void:
+	var style: StyleBoxFlat = _container.get_theme_stylebox("panel")
+	match current_zoom_tier:
+		ZoomTier.FAR:
+			_label.visible = false
+			_icon_rect.custom_minimum_size = Vector2(18, 18)
+			style.corner_radius_top_left = 17
+			style.corner_radius_top_right = 17
+			style.corner_radius_bottom_left = 17
+			style.corner_radius_bottom_right = 17
+			style.content_margin_left = 8
+			style.content_margin_right = 8
+			style.content_margin_top = 8
+			style.content_margin_bottom = 8
+		ZoomTier.VIEW:
+			_label.visible = true
+			_label.text = label_title
+			_label.add_theme_font_size_override("font_size", 12)
+			_icon_rect.custom_minimum_size = Vector2(16, 16)
+			style.corner_radius_top_left = 6
+			style.corner_radius_top_right = 6
+			style.corner_radius_bottom_left = 6
+			style.corner_radius_bottom_right = 6
+			style.content_margin_left = 10
+			style.content_margin_right = 12
+			style.content_margin_top = 6
+			style.content_margin_bottom = 6
+		ZoomTier.CLOSE:
+			_label.visible = true
+			_label.text = label_title
+			_label.add_theme_font_size_override("font_size", 14)
+			_icon_rect.custom_minimum_size = Vector2(20, 20)
+			style.corner_radius_top_left = 8
+			style.corner_radius_top_right = 8
+			style.corner_radius_bottom_left = 8
+			style.corner_radius_bottom_right = 8
+			style.content_margin_left = 12
+			style.content_margin_right = 16
+			style.content_margin_top = 8
+			style.content_margin_bottom = 8
+
+	_update_badge()
+
+func _update_badge() -> void:
+	if badge_count <= 0 and badge_text_override.is_empty():
+		_badge_panel.visible = false
+		if _pulse_tween:
+			_pulse_tween.kill()
+		return
+
+	_badge_panel.visible = true
+	if not badge_text_override.is_empty():
+		_badge_label.text = badge_text_override
+	else:
+		_badge_label.text = str(badge_count) if current_zoom_tier == ZoomTier.FAR else "%d NEW" % badge_count
+
+	# Position badge on top right of the primary container
+	_badge_panel.reset_size()
+	var offset_x: float = _container.size.x - 8.0
+	var offset_y: float = -8.0
+	_badge_panel.position = Vector2(offset_x, offset_y)
+	_start_badge_pulse()
+
+func _start_badge_pulse() -> void:
+	if _pulse_tween and _pulse_tween.is_valid():
+		return
+	_pulse_tween = create_tween().set_loops()
+	_pulse_tween.tween_property(_badge_panel, "scale", Vector2(1.12, 1.12), 0.6)\
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	_pulse_tween.tween_property(_badge_panel, "scale", Vector2(1.0, 1.0), 0.6)\
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	_pulse_tween.tween_interval(1.2)
+
+func update_transform_from_camera(cam: Camera3D) -> void:
+	if not is_instance_valid(target_node) or not is_instance_valid(cam):
+		visible = false
+		return
+
+	var world_pos: Vector3 = target_node.global_position + anchor_offset_3d
+	if cam.is_position_behind(world_pos):
+		visible = false
+		return
+
+	var screen_pos: Vector2 = cam.unproject_position(world_pos)
+	var viewport_rect: Rect2 = get_viewport_rect()
+
+	# Culling against screen edges with 32px padding
+	if not viewport_rect.grow(-32.0).has_point(screen_pos):
+		visible = false
+		return
+
+	visible = true
+	# Center anchor horizontally, sit directly above anchor point vertically
+	position = screen_pos - Vector2(size.x * 0.5, size.y)
+
+func _on_mouse_entered() -> void:
+	_is_hovered = true
+	mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	var style: StyleBoxFlat = _container.get_theme_stylebox("panel")
+	if _tween and _tween.is_valid():
+		_tween.kill()
+	_tween = create_tween().set_parallel(true)
+	_tween.tween_property(style, "border_color", UITokens.GOLD, 0.12)
+	_tween.tween_property(self, "scale", Vector2(1.04, 1.04), 0.12)
+
+func _on_mouse_exited() -> void:
+	_is_hovered = false
+	mouse_default_cursor_shape = Control.CURSOR_ARROW
+	var style: StyleBoxFlat = _container.get_theme_stylebox("panel")
+	if _tween and _tween.is_valid():
+		_tween.kill()
+	_tween = create_tween().set_parallel(true)
+	_tween.tween_property(style, "border_color", UITokens.LINE, 0.18)
+	_tween.tween_property(self, "scale", Vector2(1.0, 1.0), 0.18)
+
+func _on_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.is_pressed():
+			scale = Vector2(0.97, 0.97)
+		else:
+			scale = Vector2(1.04, 1.04) if _is_hovered else Vector2(1.0, 1.0)
+			tag_clicked.emit(tag_id)
+			accept_event()
+
+res://scripts/ui/WorldTagManager.gd
+class_name WorldTagManager
+extends Control
+
+signal interactable_selected(tag_id: StringName)
+
+@export var camera: Camera3D
+
+var _tags: Array[WorldTag] = []
+var _current_tier: WorldTag.ZoomTier = WorldTag.ZoomTier.VIEW
+
+func _ready() -> void:
+	set_process(true)
+
+func register_interactable(node: Node3D, title: String, id: StringName, icon: Texture2D, offset: Vector3) -> WorldTag:
+	var tag := WorldTag.new()
+	tag.setup(node, title, id, icon)
+	tag.anchor_offset_3d = offset
+	tag.tag_clicked.connect(_on_tag_clicked)
+	add_child(tag)
+	_tags.append(tag)
+	return tag
+
+func set_camera_zoom_tier(tier: WorldTag.ZoomTier) -> void:
+	_current_tier = tier
+	for tag in _tags:
+		tag.set_zoom_tier(_current_tier)
+
+func _process(_delta: float) -> void:
+	if not camera:
+		camera = get_viewport().get_camera_3d()
+		if not camera:
+			return
+
+	for tag in _tags:
+		tag.update_transform_from_camera(camera)
+
+func _on_tag_clicked(id: StringName) -> void:
+	interactable_selected.emit(id)
+
+
+[SECTION 1: WORLD LABELS COMPLETED]
+
+2. Key Light, Shadows & Modern Gym Aesthetics
+Physical Basis & The Long-Shadow Problem
+
+In the user's reference image 2, a single directional light tilted at 52° creates an elongation ratio of:
+$$\cot(52^\circ) \approx 0.781$$
+A $2.3\text{m}$ high chin-up rig casts a shadow spanning nearly $1.8\text{m}$ across the active play area. Under isometric projection (telephoto FOV 17° with pitch $-35.264^\circ$), horizontal shadows aligned against camera perspective stretch diagonally across navigation corridors, occluding the floor grid and visually obscuring

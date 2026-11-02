@@ -1,0 +1,391 @@
+<!-- Ludo round 42 (S207), reply part 2 verbatim (after 'continue'; B4 end .. mid C3), 26,277 chars -->
+
+
+Profile Tab 6: CAMP (Fight-Week Grid):
+
+Weight Cut Stress Projection Column (rect(1308, 220, 580, 180)):
+Projected daily water-loss strain mapped to expected stress accumulation.
+Table line example:
+Day -3 (Depletion):  Mass: 68.8 kg -> 67.9 kg (-0.9 kg) | Daily Stress Cost: +4
+Day -2 (Sauna/Flush): Mass: 67.9 kg -> 67.1 kg (-0.8 kg) | Daily Stress Cost: +6
+Day -1 (Weigh-in):    Mass: 67.1 kg -> 66.7 kg (-0.4 kg) | Weigh-In Check: Cleared (Stress: -8)
+If the projected cut exceeds 5% of walking mass, a high-contrast warning banner appears: [WARNING: SEVERE WEIGHT CUT DETECTED. PROJECTED STRESS PEAK: 92/100 -> HIGH RISK OF STARVING AFFLICTION ON FIGHT NIGHT].
+
+The Corner View Between Rounds (Fight Night Engine):
+
+Fighter Corner Card Overlay (rect(48, 860, 420, 180)):
+Directly beside the fighter portrait, the active affliction chip renders in high-contrast block lettering:
+[AFFLICTION: GUN-SHY] in #EF4444 (Ruby Red).
+Subtext prompt from Head Coach:
+For GUN-SHY: "He's second-guessing the exchange. Keep him behind the double jab and circle to the lead side."
+For OVERCOOKED: "Lungs are burning. Shell up in the high guard, take round 6 off, conserve for the championship rounds."
+For STARVING: "Legs look hollow from the scale. Don't chase him; make him come into your counter-cross."
+For FRAGILE: "Right elbow is flinching on impact. Stop throwing the rear hook; use straight shots only."
+For STEELED (Virtue): "He's locked in the zone. Keep the pressure up, work the liver combo, he won't break."
+B5. What the Coach/Player Can Do About It (Decisions with Real Costs)
+
+Stress management in FightCamp is an economic and sporting trade-off. Relieving stress always requires sacrificing another vital asset: time, money, technical progress, or competitive momentum.
+
++-----------------------------+-------------------------------+-----------------------------------+-------------------------------------------------------------+
+| PLAYER DECISION             | DIRECT STRESS RELIEF          | IMMEDIATE COST                    | LONG-TERM SIMULATION CONSEQUENCE                            |
++-----------------------------+-------------------------------+-----------------------------------+-------------------------------------------------------------+
+| Schedule Full Rest Week     | -18 Stress (Entire stable: -4)| Zero attribute progression;       | Opponent pulls ahead in camp readiness;                     |
+| (Deload Protocol)           | Clears OVERCOOKED progression | Sparring rounds canceled          | conditioning decays by -1.2 points if idle >10 days         |
++-----------------------------+-------------------------------+-----------------------------------+-------------------------------------------------------------+
+| One-on-One Office Talk      | -8 Stress (Immediate)         | Coach 2-week talk cooldown;       | Fails/backfires if coach Composure < 40                     |
+| (Emotional Decompression)   | Halves GUN-SHY duration       | Consumes 1 afternoon slot         | (adds +4 stress instead if dialogue choices mishandled)     |
++-----------------------------+-------------------------------+-----------------------------------+-------------------------------------------------------------+
+| Book Tune-Up Bout           | -12 Stress (Upon victory);    | Purse share is negligible;        | Delays world title ranking trajectory by 16-24 weeks;       |
+| (Confidence Rebuild)        | Completely cures GUN-SHY      | Risk of upset loss (+16 stress)   | Sanctioning body ranking points stagnant (+24 pts vs +180)  |
++-----------------------------+-------------------------------+-----------------------------------+-------------------------------------------------------------+
+| Step Up a Weight Division   | Completely cures STARVING;    | Fighter enters new division at    | Must face naturally larger athletes (+4 to +8 Power delta); |
+| (Permanent Rehydration)     | Eliminates camp cut stress    | lower boundary of mass scale      | Reach disadvantage increases by 2 to 5 cm on average        |
++-----------------------------+-------------------------------+-----------------------------------+-------------------------------------------------------------+
+| Private Clinic Physio Block | -5 Stress; accelerates        | $450 out of gym treasury          | Drains working capital; weekly facility maintenance         |
+| (Sports Massage / Rehab)    | FRAGILE wear clearance by 50% | per session (2 sessions required) | budget compromised during tight early club-tier months      |
++-----------------------------+-------------------------------+-----------------------------------+-------------------------------------------------------------+
+| Push Through Uncured        | 0 Stress relief; maintains    | High risk of in-ring collapse,    | Fight night loss triggers +22 stress, long medical hold,    |
+| (Gambler's Bet)             | technical training schedule   | DQ, or early stoppage defeat      | and risks permanent chin attribute degradation              |
++-----------------------------+-------------------------------+-----------------------------------+-------------------------------------------------------------+
+
+B6. How It Must NOT Feel (Anti-Frustration & Sensitivity Mandates)
+Zero Unexplained RNG Spikes (Readable Causality):
+A fighter must never break without an unambiguous paper trail.
+Every point of stress gained or lost is logged into fighter.stress_log with an explicit causative string (e.g., [WEEK 4, DAY 2] +5 Stress: Sustained heavy knockdown in sparring against D. Cole).
+When the resolve check triggers at 100, the resulting affliction is not a random dice roll across the entire database; it is tied directly to the dominant stress category over the past 28 days.
+No Arbitrary Stat Decay (Punch Club Anti-Pattern):
+Stress and afflictions never decay permanent baseline stats (power, technique, speed, defense, conditioning, fight_iq).
+Afflictions act as dynamic multipliers and behavioral overrides that throttle current training efficiency or alter fight-night tactical behavior. Once cured, the fighter returns to their full athletic capability.
+No Clinical Psychiatric Depictions (Mental Health Sensitivity):
+The UI strictly forbids clinical psychiatric terminology: no "Depressed", "Manic", "Neurotic", or "Bipolar" labels.
+Terminology is anchored purely in professional boxing vernacular: OVERCOOKED (overtraining syndrome/NFOR), GUN-SHY (post-concussion/hesitation syndrome), STARVING (acute dehydration/glycogen depletion), FRAGILE (structural tissue overload), STEELED (flow state/fortitude).
+No depictions of substance abuse, self-harm, or existential breakdown. The struggle is purely that of a dedicated combat athlete managing physical exhaustion, ring fear, and the physical toll of weight management.
+B7. Pure-Module API & Headless Test Suite
+Pure GDScript Module API: StressAfflictionEngine.gd
+# StressAfflictionEngine.gd
+# Pure functional calculation module for stress, afflictions, and virtues.
+# Zero scene tree dependencies. Operates strictly on plain dictionaries and typed primitives.
+class_name StressAfflictionEngine
+
+enum AfflictionType {
+    NONE,
+    OVERCOOKED,
+    GUN_SHY,
+    STARVING,
+    FRAGILE
+}
+
+enum VirtueType {
+    NONE,
+    STEELED
+}
+
+# Evaluates composure modifier on raw stress gains
+static func calculate_effective_stress_gain(base_gain: float, composure: int) -> float:
+    var clamped_composure: float = clampf(float(composure), 0.0, 100.0)
+    var multiplier: float = 1.6 - (clamped_composure / 100.0)
+    return maxf(0.0, base_gain * multiplier)
+
+# Appends stress event, caps at 100, tracks dominant category
+static func apply_stress_event(fighter: Dictionary, base_gain: float, category: String, reason: String) -> Dictionary:
+    var effective_gain: float = calculate_effective_stress_gain(base_gain, fighter.get("composure", 50))
+    fighter["stress"] = clampf(fighter.get("stress", 0.0) + effective_gain, 0.0, 100.0)
+    
+    # Track category history for deterministic resolve check
+    if not fighter.has("stress_history"):
+        fighter["stress_history"] = {"training": 0.0, "trauma": 0.0, "weight_cut": 0.0, "wear": 0.0}
+    fighter["stress_history"][category] = fighter["stress_history"].get(category, 0.0) + effective_gain
+    
+    # Append to human-readable log
+    if not fighter.has("stress_log"):
+        fighter["stress_log"] = []
+    fighter["stress_log"].push_front({
+        "delta": effective_gain,
+        "reason": reason,
+        "total": fighter["stress"]
+    })
+    if fighter["stress_log"].size() > 20:
+        fighter["stress_log"].pop_back()
+        
+    return fighter
+
+# Executes the resolve check when stress hits 100
+static func evaluate_resolve_check(fighter: Dictionary, deterministic_roll: float = -1.0) -> Dictionary:
+    if fighter.get("stress", 0.0) < 100.0:
+        return fighter # Threshold not reached
+        
+    var composure: int = fighter.get("composure", 50)
+    var virtue_chance: float = 15.0 + (float(composure) / 5.0) # 15% to 35%
+    var roll: float = deterministic_roll if deterministic_roll >= 0.0 else randf_range(0.0, 100.0)
+    
+    if roll <= virtue_chance:
+        fighter["active_virtue"] = VirtueType.STEELED
+        fighter["active_affliction"] = AfflictionType.NONE
+        fighter["virtue_weeks_remaining"] = 4
+        fighter["stress"] = 50.0 # Relief reset
+    else:
+        fighter["active_virtue"] = VirtueType.NONE
+        fighter["virtue_weeks_remaining"] = 0
+        fighter["stress"] = 60.0 # Catharsis reset
+        
+        # Pick dominant stress source
+        var history: Dictionary = fighter.get("stress_history", {})
+        var dominant_cat: String = "training"
+        var max_val: float = -1.0
+        for cat in history.keys():
+            if history[cat] > max_val:
+                max_val = history[cat]
+                dominant_cat = cat
+                
+        match dominant_cat:
+            "training":
+                fighter["active_affliction"] = AfflictionType.OVERCOOKED
+                fighter["affliction_duration_weeks"] = 4
+            "trauma":
+                fighter["active_affliction"] = AfflictionType.GUN_SHY
+                fighter["affliction_duration_weeks"] = 6
+            "weight_cut":
+                fighter["active_affliction"] = AfflictionType.STARVING
+                fighter["affliction_duration_weeks"] = 2
+            "wear":
+                fighter["active_affliction"] = AfflictionType.FRAGILE
+                fighter["affliction_duration_weeks"] = 5
+            _:
+                fighter["active_affliction"] = AfflictionType.OVERCOOKED
+                fighter["affliction_duration_weeks"] = 4
+                
+    return fighter
+
+# Modifies in-fight attributes based on active mental state
+static func apply_fight_night_stat_modifiers(fighter: Dictionary, raw_stats: Dictionary) -> Dictionary:
+    var modded_stats: Dictionary = raw_stats.duplicate()
+    var affliction = fighter.get("active_affliction", AfflictionType.NONE)
+    var virtue = fighter.get("active_virtue", VirtueType.NONE)
+    
+    if virtue == VirtueType.STEELED:
+        modded_stats["composure"] = 99
+        return modded_stats
+        
+    match affliction:
+        AfflictionType.OVERCOOKED:
+            # Stamina decay accelerated, defense eroded in late rounds
+            modded_stats["conditioning"] = max(1, int(modded_stats.get("conditioning", 50) * 0.85))
+        AfflictionType.GUN_SHY:
+            # Reluctant to commit power shots
+            modded_stats["power"] = max(1, modded_stats.get("power", 50) - 10)
+            modded_stats["fight_iq"] = max(1, modded_stats.get("fight_iq", 50) - 5)
+        AfflictionType.STARVING:
+            # Drained by cut: baseline conditioning drops, chin drops
+            modded_stats["conditioning"] = max(1, modded_stats.get("conditioning", 50) - 15)
+            modded_stats["defense"] = max(1, modded_stats.get("defense", 50) - 8)
+        AfflictionType.FRAGILE:
+            # Protecting an injured zone compromises general defense
+            modded_stats["defense"] = max(1, modded_stats.get("defense", 50) - 12)
+            
+    return modded_stats
+
+Headless Acceptance Test Suite: test_stress_afflictions.gd
+# test_stress_afflictions.gd
+extends GutTest
+
+func test_composure_correctly_scales_stress_accumulation():
+    var high_comp_gain = StressAfflictionEngine.calculate_effective_stress_gain(10.0, 90) # 1.6 - 0.9 = 0.7x
+    var low_comp_gain = StressAfflictionEngine.calculate_effective_stress_gain(10.0, 20)  # 1.6 - 0.2 = 1.4x
+    
+    assert_almost_eq(high_comp_gain, 7.0, 0.01, "90 Composure must reduce stress gain to 70%")
+    assert_almost_eq(low_comp_gain, 14.0, 0.01, "20 Composure must amplify stress gain to 140%")
+
+func test_stress_caps_at_100_and_does_not_overflow():
+    var fighter = {"composure": 50, "stress": 95.0}
+    fighter = StressAfflictionEngine.apply_stress_event(fighter, 20.0, "training", "Extreme sparring")
+    assert_eq(fighter["stress"], 100.0, "Stress meter must clamp at 100")
+
+func test_resolve_check_triggers_steeled_virtue_on_success():
+    var fighter = {"composure": 50, "stress": 100.0} # 15 + (50/5) = 25% virtue chance
+    # Deterministic roll of 15.0% <= 25.0% -> Virtue fires
+    fighter = StressAfflictionEngine.evaluate_resolve_check(fighter, 15.0)
+    
+    assert_eq(fighter["active_virtue"], StressAfflictionEngine.VirtueType.STEELED)
+    assert_eq(fighter["active_affliction"], StressAfflictionEngine.AfflictionType.NONE)
+    assert_eq(fighter["stress"], 50.0, "Stress must reset to 50 on virtue")
+
+func test_resolve_check_picks_dominant_stress_affliction():
+    var fighter = {
+        "composure": 20, # 19% virtue chance
+        "stress": 100.0,
+        "stress_history": {
+            "training": 10.0,
+            "trauma": 45.0, # DOMINANT (e.g. KO loss + knockdown)
+            "weight_cut": 0.0,
+            "wear": 5.0
+        }
+    }
+    # Deterministic roll of 50.0% > 19% -> Affliction fires
+    fighter = StressAfflictionEngine.evaluate_resolve_check(fighter, 50.0)
+    
+    assert_eq(fighter["active_virtue"], StressAfflictionEngine.VirtueType.NONE)
+    assert_eq(fighter["active_affliction"], StressAfflictionEngine.AfflictionType.GUN_SHY, "Trauma must cause GUN-SHY")
+    assert_eq(fighter["stress"], 60.0, "Stress must reset to 60 on cathartic break")
+
+func test_gun_shy_reduces_power_and_fight_iq_in_bout():
+    var fighter = {"active_affliction": StressAfflictionEngine.AfflictionType.GUN_SHY}
+    var base_stats = {"power": 75, "fight_iq": 60, "defense": 70, "conditioning": 80}
+    var modded = StressAfflictionEngine.apply_fight_night_stat_modifiers(fighter, base_stats)
+    
+    assert_eq(modded["power"], 65, "GUN-SHY must subtract 10 power")
+    assert_eq(modded["fight_iq"], 55, "GUN-SHY must subtract 5 fight_iq")
+    assert_eq(modded["defense"], 70, "Unaffected stats must remain unchanged")
+
+SECTION C — FIGHTER PROFILE REDESIGN (OPERATOR AUDIT FIXES)
+
+The operator rejected the text-heavy layout: Column 1 had "mixed up text", Column 3 was "mixed up text maybe i would like to see icons of the moves", and the Header Strip "needs improvement". The 3D fighter plinth in Column 2 is kept.
+
+Below is the production-ready layout specification for the Techniques Tab at native 1920x1080.
+
+C1. The Redesigned Header Strip
+Dimensions: rect(16, 40, 1888, 72) (Expanded from 28px to a 72px master command strip).
+Styling: Fill #0B0F17, Border 1px solid #1E293B, Corner radius 4px.
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+| LEO VANCE                      | 24 YRS | WELTERWEIGHT (-66.7 kg) | 9-2-0 (6 KO) | ORTHODOX  | MORALE: HIGH     | STRESS: 42/100 | [STATUS: HEALTHY] |
+| Chakra Petch 22px Bold, #F8FAFC| Inter 12px Medium, #94A3B8, segmented by vertical rules #334155 | Pill #22C55E     | Bar 80px Wide  | Badge #38BDF8     |
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+
+Component Layout (Left-to-Right Hierarchy)
+Fighter Identity Block (rect(32, 52, 280, 48)):
+Name (rect(32, 52, 280, 26)): Chakra Petch 22px Bold, #F8FAFC, uppercase: "LEO VANCE".
+Sub-Badge (rect(32, 80, 280, 18)): Inter 11px Medium, #D69E2E (Gold): "PROSPECT // TIER 1 CLUB STABLE".
+Vertical Divider 1: Line(328, 52, 328, 98), 1px solid #334155.
+Bio-Data Metrics Group (rect(344, 52, 640, 48)):
+Ordered horizontal data pills (Inter 11px SemiBold, Value in #F8FAFC, Label in #64748B):
+AGE: 24 (rect(344, 64, 70, 24))
+DIV: WELTERWEIGHT (-66.7 kg) (rect(424, 64, 180, 24))
+REC: 9-2-0 (6 KO) (rect(614, 64, 120, 24))
+STANCE: ORTHODOX (rect(744, 64, 130, 24))
+REACH: 182 cm (rect(884, 64, 90, 24))
+Vertical Divider 2: Line(994, 52, 994, 98), 1px solid #334155.
+Psychological & Physical State Cluster (rect(1010, 52, 560, 48)):
+Morale Pill (rect(1010, 64, 120, 24)):
+Background #14532D, Border 1px solid #22C55E. Text: Inter 11px Bold, #22C55E: "MORALE: HIGH".
+Stress Gauge Mini (rect(1146, 60, 180, 32)):
+Label: Inter 10px Medium, #94A3B8: "STRESS: 42/100".
+Progress Track (rect(1146, 78, 180, 6)): Background #1E293B, Fill #38BDF8 (Blue, relaxed status).
+Physical Integrity Pill (rect(1342, 64, 140, 24)):
+Background #0F172A, Border 1px solid #38BDF8. Text: Inter 11px Medium, #38BDF8: "WEAR: 8% (NOMINAL)".
+Action / Fast-Booking Button (rect(1620, 56, 260, 40)):
+Background #D69E2E, Hover #B7791F. Text: Inter 12px Bold, #0B0F17.
+Label: "[PROPOSE BOUT / MATCHMAKER]"
+C2. The Left Column Redesign (Eliminating Mixed-Up Text)
+Dimensions: rect(16, 124, 380, 940).
+Styling: Background #0B0F17, Border 1px solid #1E293B, Corner radius 4px.
+Fix Applied: Eliminated the cluttered "raw sim attributes" debug box. Grouped the 9 player-facing profile attributes into 3 logical clusters (Striking, Physical, Mental) with clear 0–100 progress bars and numerical values.
++-------------------------------------------------------------------+
+| COLUMN 1: ATHLETIC PROFILE                                        |
+| rect(16, 124, 380, 940)                                           |
+|                                                                   |
+| [GROUP A: STRIKING & DEFENCE]                                     |
+| POWER             76 [====================----]                   |
+| TECHNIQUE         68 [=================-------]                   |
+| SPEED             72 [===================-----]                   |
+| DEFENCE           64 [================--------]                   |
+|                                                                   |
+| [GROUP B: PHYSICAL CONDITIONING]                                  |
+| STAMINA           80 [=====================---]                   |
+| CHIN              70 [==================------]                   |
+| FOOTWORK          65 [=================-------]                   |
+|                                                                   |
+| [GROUP C: COGNITIVE & RING IQ]                                    |
+| RING IQ           74 [====================----]                   |
+| COMPOSURE         78 [====================----]                   |
+|                                                                   |
+| ----------------------------------------------------------------- |
+| GRAPPLING FOUNDATION (BASELINE READOUT)                           |
+| Grapple Offense: 22 | Grapple Defence: 28 | Top Control: 18       |
+|                                                                   |
+| ----------------------------------------------------------------- |
+| ACTIVE LOADOUT SUMMARY                                            |
+| Techniques Learned: 14 / 54                                       |
+| Primary Weapon: 1-2 Hook Combo | Signature: Check Hook            |
++-------------------------------------------------------------------+
+
+Detailed Element Specifications
+Panel Header (rect(32, 140, 348, 28)):
+Chakra Petch 14px Bold, #F8FAFC, uppercase: "ATHLETIC ATTRIBUTES".
+Cluster 1: Striking & Defense (rect(32, 176, 348, 170)):
+Group Title: Inter 10px Bold, #D69E2E, uppercase: "STRIKING & DEFENSE".
+Each stat row (h: 32px):
+Label (e.g., POWER): Inter 11px SemiBold, #94A3B8, width 90px.
+Value (e.g., 76): JetBrains Mono 11px Bold, #F8FAFC, width 30px, right-aligned.
+Progress Bar: rect(130, y+4, 180, 8), Track #1E293B, Fill #E2E8F0.
+Rows: POWER, TECHNIQUE, SPEED, DEFENCE.
+Cluster 2: Physicality & Engine (rect(32, 356, 348, 134)):
+Group Title: Inter 10px Bold, #D69E2E, uppercase: "PHYSICAL FOUNDATION".
+Rows: STAMINA, CHIN, FOOTWORK.
+Cluster 3: Cognitive & Temperament (rect(32, 500, 348, 100)):
+Group Title: Inter 10px Bold, #D69E2E, uppercase: "FIGHT COGNITION".
+Rows: RING IQ, COMPOSURE.
+Grappling Baseline Card (rect(32, 620, 348, 90)):
+Background #0F172A, Border 1px solid #1E293B, radius 4px.
+Label: Inter 10px Bold, #64748B, uppercase: "GRAPPLING SIM ENGINE BASELINE".
+Compact 3-column data readouts:
+G-OFF: 22 | G-DEF: 28 | CONTROL: 18 (JetBrains Mono 11px Medium, #94A3B8).
+Subtext: "Latent stats simulated for future unified rule sets."
+Active Repertoire Summary (rect(32, 730, 348, 170)):
+Background #0F172A, Border 1px solid #1E293B, radius 4px.
+Header: Inter 11px Bold, #F8FAFC: "REPERTOIRE PROFILE".
+Data Lines:
+Learned Moves: 14 / 54 (25.9%)
+Trained Demo Strikes: 11 / 22
+Trained Demo Defence: 3 / 3
+Tactical Bias: Orthodox Mid-Range Counter-Puncher
+C3. The Right Column as Move Icons (Pictogram Grid System)
+Dimensions: rect(1220, 124, 684, 940).
+Styling: Background #0B0F17, Border 1px solid #1E293B, Corner radius 4px.
+Operator Request Addressed: Replaced the dense text list with a clean Visual Icon Grid.
+Grid Architecture
+Branch Navigation Tabs (rect(1232, 136, 660, 34)):
+7 horizontal filter buttons: FUND | STRAIGHT | HOOKS | DEFENCE | FOOTWORK | COMBOS | INSIDE.
+Active Tab: Background #D69E2E, Text #0B0F17. Inactive: Background #1E293B, Text #94A3B8.
+The Icon Grid Canvas (rect(1232, 180, 660, 560)):
+Layout: 4 Columns $\times$ 4 Rows of square move tiles.
+Tile Size: $144\text{px} \times 120\text{px}$ (includes icon slot and move title).
+Spacing: Horizontal gap 16px, Vertical gap 14px.
++---------------------------------------------------------------------------------------------------------+
+| [FUNDAMENTALS] [STRAIGHT] [HOOKS & BODY] [DEFENCE] [FOOTWORK] [COMBOS] [INSIDE]                         |
++---------------------------------------------------------------------------------------------------------+
+| +---------------+   +---------------+   +---------------+   +---------------+                           |
+| |  [PICTOGRAM]  |   |  [PICTOGRAM]  |   |  [PICTOGRAM]  |   |  [PICTOGRAM]  |                           |
+| |     JAB       |   |  REAR CROSS   |   |   DBL JAB     |   |  CROSS BODY   |                           |
+| | [T1: LEARNED] |   | [T1: LEARNED] |   | [T2: TRAIN]   |   |  [T2: LOCKED] |                           |
+| +---------------+   +---------------+   +---------------+   +---------------+                           |
+| +---------------+   +---------------+   +---------------+   +---------------+                           |
+| |  [PICTOGRAM]  |   |  [PICTOGRAM]  |   |  [PICTOGRAM]  |   |  [PICTOGRAM]  |                           |
+| |   JAB BODY    |   |   OVERHAND    |   |    UP JAB     |   | (EMPTY SLOT)  |                           |
+| | [T2: LEARNED] |   | [T3: LOCKED]  |   | [T3: LOCKED]  |   |               |                           |
+| +---------------+   +---------------+   +---------------+   +---------------+                           |
++---------------------------------------------------------------------------------------------------------+
+| SELECTED TECHNIQUE INSPECTOR CARD                                                                       |
+| rect(1232, 750, 660, 290)                                                                               |
+| [LARGE ICON 64x64]  ONE-TWO-HOOK (T2 Core Combination)                                                  |
+| Requirements: Speed 30, Technique 30 | Prerequisites: One-Two, Lead Hook                                |
+| Biomechanics: Fast 3-strike flow disrupting guard; impact frame 18; stamina cost 14                     |
+| [ASSIGN TO HEAVY BAG]   [ASSIGN TO PADS]   [TACTICAL PRIORITY: PRIMARY / SITUATIONAL / SUPPRESSED]       |
++---------------------------------------------------------------------------------------------------------+
+
+Pictogram Design Language (Art / AI Drawing Specification)
+
+Every technique icon uses a high-contrast vector silhouette style:
+
+Art Style: Matte dark slate background (#1E293B), stark white/cyan minimalist anatomical figure line art, high-energy impact trajectory vectors drawn in vivid gold (#D69E2E).
+Visual Motifs by Branch:
+Straight Punching (boxing_jab, boxing_cross, etc.): Side profile silhouette of boxer with a bold linear thrust vector arrow projecting straight from the fist toward an opposing head silhouette.
+Hooks & Bodywork (boxing_lead_hook, boxing_body_hook, etc.): 3/4 angled torso silhouette showing rotational torque arrows around the core, with an arcing curved trajectory terminating at the opponent's jaw or liver zone.
+Defense & Counters (boxing_slip, boxing_pull_counter, etc.): Twin silhouettes: an incoming red dashed punch line passing harmlessly over the dipped shoulder, with a solid green reactive counter arrow striking back.
+Footwork & Ring Craft (boxing_pivot_footwork, boxing_angle_step, etc.): Top-down ring canvas grid view showing footprint decals with directional arc arrows demonstrating angle cuts ($45^\circ$ / $90^\circ$ pivot).
+Combinations (boxing_one_two_hook, boxing_liver_combo, etc.): Sequential layered fist silhouettes numbered 1 -> 2 -> 3 connected by flowing energy ribbons.
+Infighting (boxing_clinch_tieup, boxing_inside_uppercut, etc.): Collar-and-elbow close-contact chest silhouettes with forearm wedge lines and short-range vertical uppercut arrows.
+The 4 Visual Tile States
+LEARNED (#22C55E Accent):
+Tile border: 1.5px solid #22C55E. Pictogram rendered in bright white (#F8FAFC).
+Sub-badge: Green pill [LEARNED]. Fully selectable; loads immediate animation into 3D Viewport.
+LEARNABLE / IN TRAINING (#38BDF8 Accent):
+Tile border: 1.5px dashed #38BDF8. Pictogram rendered in bright cyan (#38BDF8).

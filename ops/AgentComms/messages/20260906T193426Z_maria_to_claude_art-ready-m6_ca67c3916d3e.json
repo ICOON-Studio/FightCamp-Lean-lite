@@ -1,0 +1,8 @@
+{
+  "body": "Maria Art Director finished TASK M6 \u2014 THE HOLD: A BODY THAT CANNOT BE BOOKED. Art only. Please land. Do not wait on Maria; Maria does not edit HANDOFF.md \u2014 write the Maria HANDOFF block yourself after land.\n\nPaths:\n- Spec: research/M6_THE_HOLD.md\n- Boards: DesignLibrary/screens/medical/m6_* (8 PNGs, new folder)\n- Staging zip: _maria_delivery/M6_THE_HOLD.zip\n- Land note: _maria_delivery/CLAUDE_LAND_NOTE_M6.md and research/CLAUDE_LAND_NOTE_M6.md\n\nToken calls: Hold/HELD = BAD (not amber). NOT CLEARED = AMBER. CLEARED = GOOD (never GO). Hold-lift warmth = CONDITION/LINK #3DB8D4. No gold in pack.\n\nDo not import board PNGs as runtime bitmaps \u2014 code-draw from UITokens + BodyReadiness. Pending: M4/M5 may still await land.",
+  "created_at": "2026-09-06T19:34:26Z",
+  "from": "maria",
+  "id": "ca67c3916d3e",
+  "to": "claude",
+  "topic": "ART READY M6"
+}

@@ -1,0 +1,297 @@
+FightCamp · UI Census Row 6: The Schedule & The Cards (Screen Audit & Spec)
+
+In accordance with the Round 70 UI Bible design tokens (Deep Void #0d0c0b, Panel #1a1816, Surface Raised #22201d, Surface High #282521, Brass Border #4a3e2c, Championship Gold #f0c233, Cream Text #f5ebd7, Muted Sand #9e9484, 4 px corner radii, 36 px header tabs), here is the complete audit, layout architecture, comparative study, task build list, and Godot 4.7 GDScript implementation.
+
+A. Visual & UX Defect Catalog
+Picture 1: Tab "MY GYM" (Calendar & Agenda View)
+Tab Active State Violation: The active tab MY GYM uses a teal/cyan highlight color (#22a699 / #00b4d8) instead of the Round-70 primary brand token Championship Gold (#f0c233) with a 2 px gold bottom indicator.
+Cavernous Void / Empty Space Pathology: Below the lone monthly bill row (SUN 1 FEB), over 650 vertical pixels are dead empty space. There is no multi-week planner strip, no projected cash burn trajectory, no camp timeline bar, and no upcoming sparring milestones.
+Floating "NEXT UP" Hero Card Misplacement: The banner "Sign your first fighter" floats awkwardly with disproportionate margins (y: 96 to y: 172), taking up 76 vertical pixels without integrating into the calendar time axis.
+Isolated Right Rail ("YOUR FIGHTERS"): The right sidebar reads "NO FIGHTERS YET - SIGN ONE IN SCOUTING" in a massive panel (w: ~440px, h: ~780px) with zero utility, missing onboarding shortcuts, prospect previews, or roster stat summaries.
+Clipped & Overlapping Guide Pill: The yellow/gold banner in the bottom-right corner ("GUIDE · Sign your first boxer") overlaps the border frame edge and interferes with primary navigation anchors.
+Orphaned Row Action: The REVIEW button on the SUN 1 FEB bill item lacks cost breakdown hierarchy, projected balance impact, or tooltip expansion.
+Missing Date Progression Granularity: No day-of-week calendar grid, 14-day rolling view, or visual demarcation between Camp Weeks, Fight Weeks, and Purse Settlement dates.
+Picture 2: Tab "THE CARDS" (World Event Browser)
+Hardcoded Disciplines ("DISC. = HYBRID"): Every single card row displays HYBRID as its discipline, including boxing, taekwondo, wrestling, and judo federations.
+Severe Pill Label Truncation (Red Flag Pill): The right status pill cuts off text abruptly: "NO ROSTER FIGHTER MATCHES THIS DIVIS...". It exceeds its pill bounding box without ellipsis or wrapping, breaking container bounds.
+Completely Empty "LEVEL" Column: The LEVEL data column has zero rendered content across all 11 visible rows. It should display tournament/card tier indicators (Regional C, National B, Continental A, World Title).
+Truncated Organization Names: ORG entries like UNITED KINGDOM COMBAT ASSOCIATION 1 and UNIVERSAL REALITY COMBAT CHAMPIONSHIP 1 run into the adjacent DISC. column due to static column bounds without proper text clipping (TextServer autowrap or clip margin).
+Dead Footer Buttons: OPEN EVENT and CANNOT BOOK are rendered in disabled slate grey (#282521 with #524c42 text) with zero tooltips explaining why they are locked (e.g., "Requires an active licensed boxer in Welterweight (147 lbs)").
+Sub-Navigation Filter Tag Inconsistency: Filter pills (ALL (11), MY FIGHTER DISC., MY REGION, MY ORG, BOOKABLE) lack active visual states, badge counts, and clear toggle cues.
+Row Density & Visual Hierarchy Breakdown: Rows use flat zebra striping with washed-out borders; there is no hover elevation (#22201d -> #282521), no left accent pip indicating urgency, and no weight-class callout.
+B. 1920×1080 Layout Specification (Both Tabs)
+Global Screen Shell (Standard across all sub-views)
+Canvas: 1920 × 1080, Base Void #0d0c0b.
+Top Global Nav Header: x: 0, y: 0, w: 1920, h: 56.
+Gym Cash & Runway: x: 24, y: 10, w: 220, h: 36.
+Date/Time Controller (Play/Pause/1x/2x/4x): x: 260, y: 10, w: 320, h: 36.
+Calendar Header Tabs: x: 1240, y: 10, w: 656, h: 36.
+Tabs: MY GYM (w: 96), LADDER (w: 90), MY MONTH (w: 110), THE CARDS (w: 110), OFFERS (w: 90), THE CORNER (w: 110).
+Active Tab Style: Text #f5ebd7, bottom underline 2px solid #f0c233, background rgba(240, 194, 51, 0.08).
+Inactive Tab Style: Text #9e9484, background transparent.
+Tab 1: "MY GYM" Agenda & Planner (1920×1080)
++--------------------------------------------------------------------------------------------------+
+| Top Global Header (Cash, Runway, Time Control, Global Navigation Tabs)                   [h: 56] |
++-------------------------------------------------------------+------------------------------------+
+| 14-DAY HORIZONTAL ROLLING STRIP (x:24, y:68, w:1380, h:116)  | ROSTER MINI-DECK                   |
+| [MON 5] [TUE 6] [WED 7] ... [SAT 17 (FIGHT NIGHT)]          | (x:1428, y:68, w:468, h:450)       |
++-------------------------------------------------------------+ - Active fighter card              |
+| MAIN SPLIT: UPCOMING AGENDA FEED (x:24, y:200, w:880, h:856)| - Stamina / Composure gauges       |
+| - Week groups (Fight Week vs Camp Week)                     | - Camp progress bar                |
+| - Event items: Sparring, Move Card Drilling, Purse, Bills   +------------------------------------+
+|                                                             | FINANCIAL PROJECTION PANEL         |
++-------------------------------------------------------------+ (x:1428, y:534, w:468, h:522)      |
+| SELECTED DAY DETAIL / QUICK ORDER (x:920, y:200,w:484,h:856)| - Rent & Wages breakdown           |
+| - Day training schedule (Station assignments)               | - 30-day runway graph              |
+| - Action buttons: [RUN DAY (SPACE)], [SIMULATE TO BOUT]     | - Pending Purse payouts            |
++-------------------------------------------------------------+------------------------------------+
+
+Exact Coordinates & Dimensions (MY GYM)
+14-Day Rolling Horizon Strip:
+Rect: x: 24, y: 68, w: 1380, h: 116.
+Background: Panel #1a1816, Border 1px #4a3e2c, Radius 4px.
+Contains 14 Day Nodes (w: 92, h: 100, 6px gap):
+Day Title (MON 5), Type Pip (Red = Fight, Blue = Sparring, Amber = Weigh-in, Grey = Conditioning).
+Current Day indicator: 2px Brass Border #f0c233, Background #282521.
+Agenda Feed:
+Rect: x: 24, y: 196, w: 880, h: 860.
+Background: Panel #1a1816, Border 1px #4a3e2c, Radius 4px.
+Group Headers: Height 32px, #22201d, Text #9e9484 (e.g., WEEK 1 · CAMP FOCUS: TECHNIQUE).
+Agenda Item Rows: Height 56px, zebra alternating #1a1816 / #161413.
+Row Layout: Date Badge (70px) | Event Icon (36px) | Title & Context (480px) | Financial Impact (120px) | Status/Action (140px).
+Selected Day Inspector / Quick Actions:
+Rect: x: 920, y: 196, w: 484, h: 860.
+Background: Surface Raised #22201d, Border 1px #4a3e2c, Radius 4px.
+Content: Focus fighter training assignment, Pad Chain drill slot completion (Mastery: 240/600 min), Head Coach station assignment boost, and primary execution button EXECUTE DAY (h: 44px, Gold #f0c233, Label #0d0c0b).
+Roster Rail & Financial Runways (Right Column):
+Upper Roster Card: x: 1424, y: 68, w: 472, h: 460.
+Empty State (when 0 fighters): Direct Scouting recruitment widget with one-click prospect shortlist (Leo Vance, Malik Adebayo, Damian Cross).
+Lower Ledger Card: x: 1424, y: 544, w: 472, h: 512.
+Monthly fixed expenses breakdown: Rent ($1,200), Staff ($268), Sanctioning fees ($0). Projected Runway: 21.4 Weeks.
+Tab 2: "THE CARDS" Global Event Browser (1920×1080)
++--------------------------------------------------------------------------------------------------+
+| Top Global Header (1920x56)                                                                      |
++--------------------------------------------------------------------------------------------------+
+| FILTER & SEARCH BAR (x:24, y:68, w:1872, h:44)                                                   |
+| [ALL] [BOXING ONLY] [ELIGIBLE WEIGHT] [LICENSED LEVEL] | Search: [ Q Enter org/city... ]         |
++-------------------------------------------------------------------+------------------------------+
+| WORLD EVENT CARD TABLE (x:24, y:124, w:1380, h:876)               | BOUT INSPECTOR & MATCHMAKER  |
+| Cols: DATE(80) | TIME(60) | PROMOTER(240) | DISCIPLINE(100) |     | (x:1424, y:124, w:472, h:876)|
+|       TIER(90) | VENUE(280)| PURSE POOL(110)| STATUS PILL(240)    | - Card Poster & Sanctioning  |
+|                                                                   | - Matchup Eligibility Matrix |
+| [Row 1: 16 JAN | ROAD FIGHTING CH. | BOXING | REG-B | $4,500 ... ]| - Opponent Scouting Teaser   |
+| [Row 2: 17 JAN | ANVIL REGIONAL 4  | BOXING | AM-A  | $800   ... ]| - Weight Cut Risk Estimator  |
+| ... (12 rows visible per page, fixed row height 54px)             +------------------------------+
++-------------------------------------------------------------------| BOTTOM CTA FOOTER            |
+| TABLE PAGING & AGGREGATE SUMMARY (x:24, y:1008, w:1380, h:48)      | [BOOK BOUT SLOT ($350 REG)]  |
+| Total: 118 Cards | Eligible: 3 | Filtered: Boxing Regional        | Disabled Reason: Below reqs  |
++-------------------------------------------------------------------+------------------------------+
+
+Exact Table Column Hierarchy (w: 1380)
+DATE: w: 72px, Text #f5ebd7, Tabular figures (e.g. 16 JAN).
+DAY/TIME: w: 54px, Text #9e9484 (e.g. SAT).
+PROMOTER / EVENT NAME: w: 270px, Bold #f5ebd7 with tier badge prefix.
+DISCIPLINE: w: 100px, Tag style (BOXING in #3a6073, MMA in #5a3d28).
+LEVEL/TIER: w: 100px, (AM-C, AM-B, REG-A, NAT-TITLE, WORLD).
+LOCATION & VENUE: w: 280px, Subdued #9e9484 (e.g. London Convention Centre).
+BASE PURSE: w: 110px, Green-tinted #78b159 (e.g. $1,200 min).
+STATUS PILL: w: 240px, Right-aligned. Max width container with ellipsis handling.
+Standard pill types:
+ELIGIBLE: Background #1f3821, Border #3e7b44, Text #7bd685.
+NO FIT - WEIGHT: Background #38201f, Border #7b3e3e, Text #e58282 (replaces overlong text).
+CARD FULL: Background #262422, Border #4a3e2c, Text #9e9484.
+RANK TOO LOW: Background #382e18, Border #7b6326, Text #f0c233.
+Transitions & Interaction States
+Row Hover: 100ms ease-out, background interpolates from #1a1816 to #22201d.
+Row Selected: Left border 3px solid #f0c233, background #282521.
+Detail Inspector Slide-in: 180ms ease-out cubic(0.2, 0.0, 0.2, 1.0).
+C. Management Sim Calendar Deconstruction & Adaptations
+
+| Title | Mechanism & Screen Design | FightCamp Adoption |
+| :--- | :--- | :--- |
+| Football Manager | Linear diary strip with tick-rate bar. Multi-month list with fixture difficulty indicators and match status tags. | 14-day rolling window with visible tick progress and Camp Focus headers. |
+| Motorsport Manager | Race calendar with travel windows, part design lead times, and sponsor payout deadlines. | Camp Week timeline mapped against fight date; weight-cut deadlines and sponsor purse payouts. |
+| Punch Club 2 | Day cycle divided into morning, afternoon, night with strict stamina/hunger drains and job shifts. | Training lap clock with station time slots and coach assignment pips. |
+| EA UFC / Undisputed | Contract offer inbox + fight card builder with hype metrics and training camp weekly budgets. | World Event Card Inspector with purse split, opponent style preview, and tell discovery chances. |
+
+D. Agent Build Steps & Acceptance Checks
+Step 1: Color Token & Tab Component Alignment
+Action: Refactor calendar header tabs to use Championship Gold (#f0c233) active underline and remove all cyan/teal overrides.
+Check: Assert tabs.get_tab_theme_color("font_selected_color") == Color("#f0c233").
+Step 2: World Card Table Column Layout & Data Parser
+Action: Implement strict column sizing on the event table. Replace all generic HYBRID discipline strings with their data-model types (Boxing, Kickboxing, etc.).
+Check: Ingest test dataset of 20 mixed promotions; assert column 3 correctly outputs Boxing for Anvil Street events.
+Step 3: Status Pill System & Word-Length Clamping
+Action: Replace raw condition strings with short enumerated tags (ELIGIBLE, NO FIT: DIV, LOW RANK, FULL). Set pill rect_min_size.x = 210 with internal label autowrap disabled and clip text enabled.
+Check: Render 50 longest status labels; zero pills exceed 210px boundary or cause text overlap.
+Step 4: Right Rail Event Detail & Contextual Footer
+Action: Wire table row selection signal to the Right Inspector Panel. If selected event cannot be booked, display the exact blocker inside a tooltip on CANNOT BOOK.
+Check: Clicking a card with weight mismatch updates inspector and shows tooltip: "Leo Vance (154 lbs) outside Light Welter limit (140 lbs)".
+Step 5: Empty-State Roster Fallback for "MY GYM"
+Action: Populate empty schedule with 14-day horizon strip, gym fixed cost ledger, and prospect scout callout.
+Check: Loading a new save file with 0 fighters renders the prospect recruit card instead of blank black screen space.
+E. Godot 4.7 GDScript Implementation
+1. Status Pill Component (ui/components/StatusPill.gd)
+class_name StatusPill
+extends PanelContainer
+
+enum StatusType {
+	ELIGIBLE,
+	NO_WEIGHT_MATCH,
+	NO_RANK_MATCH,
+	CARD_FULL,
+	CONTRACT_EXPIRED
+}
+
+@onready var label: Label = $Label
+
+const STYLE_MAP := {
+	StatusType.ELIGIBLE: {
+		"bg": Color("#1f3821"),
+		"border": Color("#3e7b44"),
+		"text": Color("#7bd685"),
+		"label": "ELIGIBLE FOR BOUT"
+	},
+	StatusType.NO_WEIGHT_MATCH: {
+		"bg": Color("#38201f"),
+		"border": Color("#7b3e3e"),
+		"text": Color("#e58282"),
+		"label": "NO ROSTER FIT (WEIGHT)"
+	},
+	StatusType.NO_RANK_MATCH: {
+		"bg": Color("#382e18"),
+		"border": Color("#7b6326"),
+		"text": Color("#f0c233"),
+		"label": "RANK REQUIREMENT UNMET"
+	},
+	StatusType.CARD_FULL: {
+		"bg": Color("#201e1c"),
+		"border": Color("#4a3e2c"),
+		"text": Color("#9e9484"),
+		"label": "NO SLOTS REMAINING"
+	},
+	StatusType.CONTRACT_EXPIRED: {
+		"bg": Color("#2b1d1d"),
+		"border": Color("#542828"),
+		"text": Color("#c47878"),
+		"label": "PROMOTER RESTRICTED"
+	}
+}
+
+func _ready() -> void:
+	custom_minimum_size = Vector2(210, 26)
+	size_flags_horizontal = Control.SIZE_SHRINK_END
+	size_flags_vertical = Control.SIZE_SHRINK_CENTER
+
+func setup(status: StatusType, custom_override: String = "") -> void:
+	var cfg = STYLE_MAP.get(status, STYLE_MAP[StatusType.CARD_FULL])
+	
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = cfg["bg"]
+	sb.border_color = cfg["border"]
+	sb.set_border_width_all(1)
+	sb.set_corner_radius_all(4)
+	sb.content_margin_left = 8
+	sb.content_margin_right = 8
+	sb.content_margin_top = 2
+	sb.content_margin_bottom = 2
+	add_theme_stylebox_override("panel", sb)
+	
+	label.text = custom_override if custom_override != "" else cfg["label"]
+	label.add_theme_color_override("font_color", cfg["text"])
+	label.add_theme_font_size_override("font_size", 11)
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+
+2. World Card Table Row (ui/calendar/WorldCardRow.gd)
+class_name WorldCardRow
+extends PanelContainer
+
+signal card_selected(card_data: Dictionary)
+signal booking_requested(card_data: Dictionary)
+
+@export var token_normal_bg := Color("#1a1816")
+@export var token_hover_bg := Color("#22201d")
+@export var token_selected_bg := Color("#282521")
+@export var token_border := Color("#4a3e2c")
+@export var token_gold := Color("#f0c233")
+@export var token_cream := Color("#f5ebd7")
+@export var token_sand := Color("#9e9484")
+
+var _card_data: Dictionary = {}
+var _is_selected: bool = false
+var _style_box: StyleBoxFlat
+
+@onready var lbl_date: Label = %LblDate
+@onready var lbl_day: Label = %LblDay
+@onready var lbl_event: Label = %LblEvent
+@onready var lbl_disc: Label = %LblDiscipline
+@onready var lbl_level: Label = %LblLevel
+@onready var lbl_venue: Label = %LblVenue
+@onready var lbl_purse: Label = %LblPurse
+@onready var status_pill: StatusPill = %StatusPill
+
+func _ready() -> void:
+	custom_minimum_size = Vector2(1380, 52)
+	mouse_entered.connect(_on_mouse_enter)
+	mouse_exited.connect(_on_mouse_exit)
+	gui_input.connect(_on_gui_input)
+	_setup_base_style()
+
+func populate(data: Dictionary) -> void:
+	_card_data = data
+	lbl_date.text = data.get("date_short", "01 JAN")
+	lbl_day.text = data.get("day_name", "SAT")
+	lbl_event.text = data.get("name", "Unknown Promotion")
+	lbl_disc.text = data.get("discipline", "BOXING").to_upper()
+	lbl_level.text = data.get("tier", "REG-B")
+	lbl_venue.text = "%s, %s" % [data.get("venue", "Arena"), data.get("city", "Local")]
+	
+	var purse_val: int = data.get("base_purse", 0)
+	lbl_purse.text = "$%s" % String.num(purse_val, 0)
+	
+	# Determine Status
+	var status: StatusPill.StatusType = data.get("status_code", StatusPill.StatusType.CARD_FULL)
+	status_pill.setup(status)
+	_update_style()
+
+func set_selected(selected: bool) -> void:
+	_is_selected = selected
+	_update_style()
+
+func _setup_base_style() -> void:
+	_style_box = StyleBoxFlat.new()
+	_style_box.set_corner_radius_all(4)
+	_style_box.set_border_width_all(1)
+	add_theme_stylebox_override("panel", _style_box)
+	_update_style()
+
+func _update_style() -> void:
+	if _is_selected:
+		_style_box.bg_color = token_selected_bg
+		_style_box.border_color = token_gold
+		_style_box.border_width_left = 4
+	else:
+		_style_box.bg_color = token_normal_bg
+		_style_box.border_color = token_border
+		_style_box.border_width_left = 1
+
+func _on_mouse_enter() -> void:
+	if not _is_selected:
+		var tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+		tween.tween_property(_style_box, "bg_color", token_hover_bg, 0.1)
+
+func _on_mouse_exit() -> void:
+	if not _is_selected:
+		var tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+		tween.tween_property(_style_box, "bg_color", token_normal_bg, 0.1)
+
+func _on_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		card_selected.emit(_card_data)
+
+
+Now let's generate the visual mockups showing the UI Bible overhaul applied to both screens.
+
+ 

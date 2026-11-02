@@ -1,0 +1,22 @@
+Warning: running headless with --yolo / approval-mode=yolo and no sandbox. All tool calls (shell, write, edit) auto-execute at this process's privilege level. Enable a sandbox via --sandbox / QWEN_SANDBOX, or set QWEN_CODE_SUPPRESS_YOLO_WARNING=1 to silence this notice.
+Warning: MCP server(s) failed to start: higgsfield. Continuing with built-in tools and any servers that did connect. Re-run with QWEN_CODE_DEBUG=1 to see per-server reasons.
+TASK Q229 is done, shipped and pushed: commit `474d22c5` on `origin/qwen/q229-rooms-pass2` (86 files), one-line digest sent to Claude, HANDOFF untouched.
+
+**What changed** — all three rooms went from flat-colour boxes under one ambient wash to textured, lit, alive rooms, judged on opened review sheets (`previews/q229/review_*_before/after.png`):
+
+| room | SIL | LIGHT | MATERIAL | LIFE | CLARITY | BAR |
+|---|---|---|---|---|---|---|
+| mat | 3→4 | 1→4 | 1→4 | 2→4 | 2→4 | 1→3 |
+| staff | 3→4 | 1→4 | 1→4 | 2→4 | 2→4 | 1→3 |
+| physio | 2→4 | 1→4 | 1→4 | 2→4 | 2→4 | 1→3 |
+
+No row went down; each room's two lowest rows (MATERIAL, LIGHT) rose by 3.
+
+- **Material**: 30 of our own seeded PIL maps (`Tools/blender_rooms/{mat,staff,physio}_textures.py` — tatami, pad vinyl, polished concrete, plaster, cork, leather, wood, vinyl tile, rubber, photo cards; colour+rough+GL normal) plus the repo's Bricks085/Concrete031, all world-scale triplanar.
+- **Light**: AgX over the base filmic wash, ambient down, a shadowed sun motivated by a real window added per room (mat clerestory, staff/physio left-wall windows), visible pendant/treatment fittings; the house `RoomFx` shaft re-aimed at those windows instead of floating as a slab.
+- **Life**: mat class works in pairs (pad pair, ground pair, stretchers); staff coach sits on his chair, sofa coach and CV candidate sit correctly; physio gains the cold plunge with a bather, compression recliner, roller rack, bands, stools, slate body charts with on-board tags.
+- **Clarity**: every floating tag and airborne club blade became a board/fascia/locker plate; ROTA BOARD header moved inside the board so the page plate no longer covers it.
+
+**Gates**: parse 0 fails on the three builders + harness; `run_tests.py --jobs 2 --only mat_room,staff,physio,smoke` → SUITE total=5 fails=0; watchdog GREEN before renders and the suite; renders only through `Tools\godot_hidden.ps1`.
+
+**Deviations worth knowing**: the task file says Q225 is merged — it is not on master, so the PBR/AgX helpers live in my three room scripts (base scripts untouched); the worktree had no `.godot` cache, so one headless `--import` built it (~2.7k unrelated `.import` rewrites left unstaged); `CHART_PITCH` 1.15→1.0 so six charts fit the 8 m wall (layout and build move together, click boxes included); the render harness injures one fighter and assigns coaches (same calls the room tests use) so the stills show each room's story.

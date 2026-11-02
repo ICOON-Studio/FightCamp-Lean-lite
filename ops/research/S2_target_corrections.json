@@ -1,0 +1,76 @@
+{
+  "_note": "S2, 2026-09-13. Every place tools/apply_technique_targets.py overrules Qwen's adjudication tables (Q70 kicks, Q77 other standing strikes, Q74 submissions). A value in `targets` replaces the tables' value for that node; null skips the node. Each entry's reason is in `why`. Add to this file, never to the tables - the tables stay what the agent delivered so a later reader can see both.",
+  "skip_strike_kinds": [
+    "punch"
+  ],
+  "_skip_strike_kinds_why": "Q77 names most punches head (86 of 104). FightMoves._regions_for records what reading a hand strike as a head shot did last time: boxing went from C85's 68% head to 88% and 16 of 16 bouts were stopped. A cross goes where the opening is, not where its name points, so an unnamed punch keeps the ruleset's own head/torso split. Naming punches is a measured experiment of its own, not part of this apply.",
+  "spread_without_legs": [
+    "karate",
+    "taekwondo"
+  ],
+  "_spread_without_legs_why": "U75 (Cursor, 6f72ad0): the only engine rulesets that draw on these trees foul a kick to the legs - WT taekwondo `kicking_below_waist`, WKF kumite `attacks_to_arms_legs_groin_joints_instep`. A kick from these trees that genuinely varies goes head or body, never leg.",
+  "targets": {
+    "tkd_cut_kick": [
+      "body"
+    ],
+    "taekwondo_back_kick_counter": [
+      "body"
+    ],
+    "taekwondo_cut_counter": [
+      "body"
+    ],
+    "karate_kizami_maegeri": [
+      "head",
+      "body"
+    ],
+    "muay_thai_round_kick": [
+      "head",
+      "body",
+      "leg"
+    ],
+    "muay_thai_te_chiang": [
+      "body"
+    ],
+    "muay_thai_thip_khang": [
+      "body",
+      "leg"
+    ],
+    "muay_thai_khayoep_te": [
+      "body",
+      "leg"
+    ],
+    "muay_thai_check_kick_counter": [
+      "body",
+      "leg"
+    ],
+    "mma_guard_gnp": [
+      "head",
+      "body"
+    ],
+    "mma_elbow_gnp": [
+      "head"
+    ],
+    "mma_dirty_boxing": [
+      "head",
+      "body"
+    ]
+  },
+  "why": {
+    "tkd_cut_kick": "Q70 said leg. U75 lists it as an illegal leg target: WT fouls kicking below the waist. The cut kick jams the trunk; body.",
+    "taekwondo_back_kick_counter": "Q77 said leg (the kicking leg). Under WT a turning back kick scores to the trunk protector and below the waist is a foul; body.",
+    "taekwondo_cut_counter": "Q77 said leg (the kicking leg). Same WT foul; the cut counter meets the trunk; body.",
+    "karate_kizami_maegeri": "Q70's census missed this kick; Q77 said head. Under WKF a lead front snap kick scores jodan or chudan and a kick to the legs is a foul; head or body.",
+    "muay_thai_round_kick": "Q70 said body ('Thai round kick default', high). The tier-1 Thai round kick is the kick that goes everywhere - thigh, ribs and head - and is the one kick every fighter in the MMA and muay thai palettes knows. A single body target would make the most-thrown kick in both rulesets unable to reach a leg, which is the exact defect S2 exists to remove. The ruleset's own spread over all three.",
+    "muay_thai_te_chiang": "Q70 said leg ('oblique teep aimed at the thigh'). Te chiang is the diagonal, upward round kick driven under the arm into the ribs; body.",
+    "muay_thai_thip_khang": "Q70 said leg (medium). A sideways foot-thrust meets the hip or the thigh as often as the midsection; body or leg.",
+    "muay_thai_khayoep_te": "Q70's own reason says 'aimed at the thigh or body' and its target says leg; body or leg, as the reason says.",
+    "muay_thai_check_kick_counter": "Q70 said leg at LOW confidence ('target varies'). The te tat returned off a check goes to the body or the leg; body or leg.",
+    "mma_guard_gnp": "Not in any table (Q70 and Q77 judged standing strikes only). S2's sweep: 2,162 landed in 24 MMA bouts, 85% on the torso, because `ground_damage` reads as body - the single largest cause of MMA's 53% body share against J20's 19-23%. Ground-and-pound from guard is punches and elbows to the head and body; head or body, which for a punch is exactly the ruleset's own head/torso split an unnamed punch already takes.",
+    "mma_elbow_gnp": "Not in any table. Elbows from top position are thrown at the head (the cut the node's own `cut_chance` names); head.",
+    "mma_dirty_boxing": "Q77 said head, and a punch is skipped by skip_strike_kinds - but this node is NOT unnamed today: `clinch_damage` sends it to the torso 85% of the time (529 landed, 84% torso in S2's sweep). Short punches in the clinch go to the head and body; head or body is the unnamed-punch split, which is the skip rule's own intent, applied by removing the misleading key's effect rather than by naming a head shot."
+  },
+  "reviewed_not_changed": {
+    "karate_ashibarai": "U75 lists it as an illegal leg target under WKF. Kept leg: ashi-barai is a foot sweep, and WKF fouls ATTACKS to the legs while permitting the sweep that takes the ankle - the contact is the leg. Its catalogue role (damage, kick_damage 11) is the real error: a sweep is not a damaging kick. Not an S2 change.",
+    "muay_thai_te_khao": "Q70's reason calls it a knee (te khao) but the node is 'Te Khao (Axe Heel Kick)'. An axe heel kick comes down on the head or collarbone, so Q70's TARGET (head) is right for the wrong reason. Kept."
+  }
+}

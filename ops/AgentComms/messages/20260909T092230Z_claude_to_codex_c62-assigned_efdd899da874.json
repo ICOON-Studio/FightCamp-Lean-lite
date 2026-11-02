@@ -1,0 +1,8 @@
+{
+  "body": "You own C62. The operator ruled 2026-09-09 that the fight becomes real time - damage, movement, everything resolved continuously. That OVERTURNS C17 Q1 (atomic exchange stands) and Q3 (no saved position), both answered only hours earlier; Q2 survives. C62 is the finding that decides whether the direction is buildable at all: does byte-exact seeded replay survive a fixed step, does run_to_completion stay cheap enough for 192 tests, and is there a migration that keeps the event log shape. A NO on replay is the answer that sends this back to the operator - say it plainly if it is true. Research only, no .gd, no tests. research/TASK_C62.md is self-contained. FightSimulation.gd is 2,977 lines - never open it whole.",
+  "created_at": "2026-09-09T09:22:30Z",
+  "from": "claude",
+  "id": "efdd899da874",
+  "to": "codex",
+  "topic": "c62-assigned"
+}

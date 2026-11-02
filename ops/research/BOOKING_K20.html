@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>FightCamp · K20 THE BOOKING · Kalli</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@500;600;700&display=swap">
+<style>
+:root{
+  --ground:#1c2230;--ground-2:#242c3d;--panel:#2a3347;--panel-hi:#34405a;--panel-lo:#222a3b;
+  --track:#111621;--edge:#121722;--line:#4a5a78;--line-soft:#2b3340;
+  --text:#f3f5fa;--text-2:#c9d1e0;--muted:#94a1b8;--dim:#6d7688;--ink:#1b1207;--link:#7fb6ee;
+  --gold:#f0c233;--gold-hi:#f7d65a;--gold-lo:#c99a1a;--gold-edge:#7a5c0c;
+  --gym:#2f6fb0;--gym-hi:#3f86cc;--gym-lo:#24558a;--gym-deep:#1a3d63;--gym-tint:rgba(47,111,176,.22);
+  --go:#22c55e;--go-hi:#4ade80;--go-lo:#15803d;--go-edge:#0b4a23;
+  --slate:#3f4a62;--control:#303a52;--chip:#333d52;--avatar:#3b4557;
+  --good:#4fc46a;--amber:#f0a020;--bad:#e5433a;--bad-edge:#5a120e;
+  --day:#171a22;--day-today:#1e2836;
+  --display:"Bebas Neue","Haettenschweiler","Arial Narrow",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --edge-hi:rgba(255,255,255,.14);
+  --paper:#e8e2d4;--paper-ink:#1b1207;--paper-line:#c9c0aa;--paper-muted:#6a6356;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#0f131b;color:var(--text);font-family:var(--mono);font-size:13px;font-weight:500;line-height:1.35;-webkit-font-smoothing:antialiased}
+.doc{padding:28px 24px 80px;max-width:1960px;margin:0 auto}
+.eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.mast h1{font-family:var(--display);font-size:52px;letter-spacing:.02em;line-height:.94;margin:6px 0 10px}
+.mast p{max-width:96ch;color:var(--text-2);margin:0 0 8px}
+.rules{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 28px}
+.rules span{font-size:12px;letter-spacing:.08em;font-weight:700;padding:6px 10px;border:1px solid var(--edge);border-radius:3px;background:var(--panel-lo);color:var(--muted)}
+.sec{margin:36px 0 18px}
+.sec h2{font-family:var(--display);font-size:32px;letter-spacing:.06em;margin:0 0 6px}
+.sec p{margin:0;color:var(--text-2);max-width:92ch}
+.note{margin-top:8px;font-size:12px;letter-spacing:.04em;color:var(--muted)}
+.board{width:1920px;height:1080px;position:relative;overflow:hidden;background:var(--ground);margin:16px 0 40px;box-shadow:0 24px 60px rgba(0,0,0,.55)}
+.shell{width:100%;height:100%;position:relative;background:var(--ground)}
+.top{position:absolute;left:402px;top:16px;width:1494px;height:92px;background:linear-gradient(180deg,rgba(52,64,90,.98),rgba(38,46,66,.98));border:1px solid var(--edge);border-radius:3px;box-shadow:0 1px 0 var(--edge-hi) inset;display:grid;grid-template-columns:1fr auto;overflow:hidden}
+.top .left{padding:8px 14px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.crumb{font-size:12px;letter-spacing:.12em;font-weight:700;color:var(--muted)}
+.pills{display:flex;gap:8px;align-items:center}
+.pill{height:28px;padding:0 12px;border-radius:3px;border:1px solid var(--edge);display:inline-flex;align-items:center;font-size:12px;letter-spacing:.1em;font-weight:700;background:linear-gradient(180deg,#3a4560,#2b3449)}
+.daystrip{display:flex;gap:4px;margin-left:10px}
+.daycell{width:46px;height:28px;border-radius:2px;background:var(--day);border:1px solid var(--edge);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--dim);line-height:1.05}
+.daycell .n{font-family:var(--display);font-size:14px;color:var(--text-2)}
+.daycell.on{background:var(--day-today);border-color:var(--gold-lo);box-shadow:0 0 0 1px rgba(240,194,51,.35)}
+.daycell.on .n{color:var(--gold)}
+.top .right{display:flex;align-items:stretch}
+.dateblk{padding:0 16px;display:flex;flex-direction:column;justify-content:center;text-align:right;background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff;min-width:168px}
+.dateblk .w{font-size:12px;letter-spacing:.14em;font-weight:700;opacity:.92}
+.dateblk .d{font-family:var(--display);font-size:22px;line-height:1;margin-top:2px}
+.continue{display:flex;flex-direction:column;justify-content:center;padding:0 22px;min-width:220px;background:linear-gradient(180deg,var(--go-hi),var(--go-lo));color:#062a10;border-left:1px solid var(--go-edge);box-shadow:0 1px 0 rgba(255,255,255,.35) inset}
+.continue .t{font-family:var(--display);font-size:26px;letter-spacing:.06em;line-height:1}
+.continue .s{font-size:12px;letter-spacing:.1em;font-weight:700;margin-top:2px}
+.rail{position:absolute;left:16px;top:122px;width:370px;height:900px;background:linear-gradient(180deg,#243049,#1c2436);border:1px solid var(--edge);border-radius:3px;box-shadow:0 1px 0 var(--edge-hi) inset;display:flex;flex-direction:column;overflow:hidden}
+.crest{display:flex;align-items:center;gap:12px;padding:14px 14px 10px;border-bottom:1px solid var(--edge)}
+.crest .mark{width:44px;height:44px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#fff,#cfd8e6 70%);color:var(--gym-deep);font-family:var(--display);font-size:18px;display:grid;place-items:center;border:2px solid rgba(0,0,0,.35);flex:none}
+.crest .nm{font-family:var(--display);font-size:22px;letter-spacing:.04em;line-height:1;color:#fff}
+.crest .sub{font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--muted);margin-top:3px}
+.menucap{font-size:12px;letter-spacing:.16em;font-weight:700;color:var(--dim);padding:10px 18px 4px}
+.nav{display:flex;flex-direction:column;gap:2px;padding:4px 8px 12px;flex:1}
+.nav a{display:flex;align-items:center;height:40px;padding:0 12px 0 14px;border-radius:3px;color:var(--text-2);text-decoration:none;font-family:var(--display);font-size:18px;letter-spacing:.06em;position:relative}
+.nav a .badge{margin-left:auto;min-width:22px;height:20px;padding:0 6px;border-radius:10px;background:var(--bad);color:#fff;font-family:var(--mono);font-size:11px;font-weight:700;display:grid;place-items:center}
+.nav a.on{background:linear-gradient(90deg,var(--gym),var(--gym-lo));color:#fff}
+.nav a.on::before{content:"";position:absolute;left:4px;top:8px;width:4px;height:24px;border-radius:2px;background:var(--gold)}
+.body{position:absolute;left:402px;top:122px;width:1494px;height:900px;display:flex;flex-direction:column;gap:10px;min-height:0}
+.hubhead{height:44px;display:flex;align-items:center;gap:14px;padding:0 2px;flex:none}
+.hubhead h2{font-family:var(--display);font-size:32px;letter-spacing:.04em;margin:0;line-height:1}
+.hubhead .meta{font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--muted)}
+.tabs{display:flex;gap:4px;margin-left:auto}
+.tab{height:32px;padding:0 16px;border-radius:3px;border:1px solid var(--edge);background:linear-gradient(180deg,#3a4560,#2b3449);font-family:var(--display);font-size:16px;letter-spacing:.08em;color:var(--text-2);display:inline-flex;align-items:center}
+.tab.on{background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff;border-color:var(--gym-deep)}
+.tab.soft{opacity:.7}
+.filters{display:flex;gap:6px;align-items:center;padding:0 2px;flex:none;flex-wrap:wrap}
+.chip{height:26px;padding:0 10px;border-radius:3px;border:1px solid var(--edge);background:var(--chip);font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--text-2);display:inline-flex;align-items:center}
+.chip.on{background:linear-gradient(180deg,#4a5670,#333d52);color:#fff;border-color:var(--line)}
+.sort{margin-left:auto;font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--muted)}
+.panel{background:var(--panel);border:1px solid var(--edge);border-radius:3px;box-shadow:0 1px 0 var(--edge-hi) inset;min-height:0;flex:1;display:flex;flex-direction:column;overflow:hidden}
+.hint{padding:8px 12px;border-top:1px solid var(--line-soft);font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--muted);display:flex;gap:18px;flex:none;flex-wrap:wrap}
+.hint b{color:var(--text-2)}
+.pair{display:grid;grid-template-columns:1fr auto;height:34px;border:1px solid var(--edge);border-radius:3px;overflow:hidden}
+.pair .lab{display:flex;align-items:center;padding:0 10px;background:linear-gradient(180deg,#4a5670,#333d52);font-family:var(--display);font-size:15px;letter-spacing:.08em}
+.pair .val{display:flex;align-items:center;justify-content:center;min-width:72px;padding:0 10px;font-family:var(--display);font-size:20px;background:linear-gradient(180deg,var(--panel-hi),var(--panel-lo))}
+.btn{height:40px;border-radius:3px;border:1px solid var(--edge);background:linear-gradient(180deg,#445273,#303a52);font-family:var(--display);font-size:17px;letter-spacing:.08em;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 0 var(--edge-hi) inset;padding:0 16px}
+.btn.gold{background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:var(--ink);border-color:var(--gold-edge);box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 0 16px rgba(240,194,51,.35)}
+.btn.dim{opacity:.45}
+.btn.sm{height:32px;font-size:15px;padding:0 12px}
+.sil{width:40px;height:72px;background:linear-gradient(180deg,#3b4557 0%,#2a3347 55%,#1c2230 100%);border-radius:20px 20px 5px 5px;position:relative;flex:none;box-shadow:0 6px 14px rgba(0,0,0,.4)}
+.sil::before{content:"";position:absolute;top:-18px;left:50%;transform:translateX(-50%);width:24px;height:24px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#4a556c,#2b3447 70%);border:2px solid var(--edge)}
+.sil.sm{width:28px;height:50px;border-radius:14px 14px 4px 4px}
+.sil.sm::before{width:18px;height:18px;top:-14px}
+
+/* verdict + reason instruments */
+.verdict{display:inline-flex;align-items:center;height:26px;padding:0 10px;border-radius:2px;font-family:var(--display);font-size:16px;letter-spacing:.08em;border:1px solid var(--edge);white-space:nowrap}
+.verdict.take{background:linear-gradient(180deg,rgba(79,196,106,.35),rgba(79,196,106,.12));color:#9ae8a6;border-color:#2a6a40}
+.verdict.worth{background:linear-gradient(180deg,rgba(127,182,238,.3),rgba(127,182,238,.1));color:var(--link);border-color:#2a5a8a}
+.verdict.risky{background:linear-gradient(180deg,rgba(240,160,32,.32),rgba(240,160,32,.1));color:#ffd08a;border-color:#7a4c08}
+.verdict.trap{background:linear-gradient(180deg,rgba(229,67,58,.32),rgba(229,67,58,.1));color:#ff8f87;border-color:var(--bad-edge)}
+.verdict.locked{background:linear-gradient(180deg,rgba(109,118,136,.35),rgba(109,118,136,.12));color:var(--muted);border-color:#3a4254}
+.reason{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:2px;font-size:12px;letter-spacing:.06em;font-weight:700;border:1px solid var(--edge);white-space:nowrap;max-width:220px;overflow:hidden;text-overflow:ellipsis}
+.reason.good{background:rgba(79,196,106,.14);color:#9ae8a6;border-color:#2a6a40}
+.reason.warn{background:rgba(240,160,32,.14);color:#ffd08a;border-color:#7a4c08}
+.reason.bad{background:rgba(229,67,58,.16);color:#ff8f87;border-color:var(--bad-edge)}
+.reason.flat{background:rgba(148,161,184,.12);color:var(--muted);border-color:#3a4254}
+.reason.more{background:transparent;color:var(--dim);border-color:transparent}
+.gate-est{font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--link);white-space:nowrap}
+.gate-est b{font-family:var(--display);font-size:16px;font-weight:400;letter-spacing:.04em;color:var(--text)}
+
+/* offer rows */
+.offer-head,.offer-row{display:grid;grid-template-columns:110px 56px 1.35fr 160px 1.4fr 110px 90px 120px;align-items:center;gap:10px;padding:0 14px;border-bottom:1px solid var(--line-soft)}
+.offer-head{height:34px;background:var(--panel-lo);font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--dim);flex:none}
+.offer-row{min-height:78px;padding-top:10px;padding-bottom:10px}
+.offer-row.sel{background:linear-gradient(90deg,rgba(47,111,176,.18),rgba(47,111,176,.04));outline:1px solid rgba(63,134,204,.45);outline-offset:-1px}
+.offer-row.take-hi{background:linear-gradient(90deg,rgba(79,196,106,.12),transparent)}
+.offer-row.blocked{opacity:.55}
+.offer-row .who{display:flex;align-items:center;gap:12px;min-width:0}
+.offer-row .who .nm{font-family:var(--display);font-size:20px;letter-spacing:.04em;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.offer-row .who .sub{font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--muted);margin-top:3px}
+.offer-row .money{display:flex;flex-direction:column;gap:2px}
+.offer-row .money .pkg{font-family:var(--display);font-size:22px;letter-spacing:.04em;line-height:1}
+.offer-row .money .brk{font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--muted)}
+.offer-row .reasons{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.offer-row .wk{font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--text-2)}
+.offer-row .wk .badline{color:#ff8f87;display:block;margin-top:2px}
+.sidepanel{width:340px;display:flex;flex-direction:column;gap:10px;flex:none}
+.sidepanel .panel{padding:14px;flex:1}
+.sidepanel h3{font-family:var(--display);font-size:26px;margin:0;letter-spacing:.04em;line-height:1}
+.sidepanel .ph{font-size:12px;letter-spacing:.14em;font-weight:700;color:var(--muted)}
+.sidepanel .vline{font-size:12px;letter-spacing:.05em;font-weight:700;color:var(--text-2);line-height:1.45;margin:8px 0}
+.board-split{flex:1;display:grid;grid-template-columns:1fr 340px;gap:10px;min-height:0}
+
+/* set-piece agreement */
+.sp{width:100%;height:100%;display:grid;grid-template-columns:72px 1fr;grid-template-rows:72px 1fr 48px;background:var(--ground);position:relative}
+.sp::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(55% 45% at 70% 18%,rgba(63,134,204,.18),transparent 70%),radial-gradient(40% 40% at 20% 85%,rgba(240,194,51,.06),transparent 70%);z-index:0}
+.sp > *{position:relative;z-index:1}
+.sp-out{grid-row:1/4;display:flex;flex-direction:column;align-items:center;padding:14px 0;gap:12px;background:linear-gradient(180deg,#1a2030,#141924);border-right:1px solid var(--edge);box-shadow:4px 0 18px rgba(0,0,0,.25)}
+.sp-out .exit{width:44px;height:44px;border-radius:3px;border:1px solid var(--edge);background:linear-gradient(180deg,#445273,#303a52);display:grid;place-items:center;box-shadow:0 1px 0 var(--edge-hi) inset}
+.sp-out .exit svg{width:20px;height:20px;fill:var(--text-2)}
+.sp-out .lab{writing-mode:vertical-rl;transform:rotate(180deg);font-size:12px;letter-spacing:.2em;font-weight:700;color:var(--muted);margin-top:8px}
+.sp-head{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 22px;border-bottom:1px solid var(--edge);background:linear-gradient(180deg,rgba(42,51,71,.98),rgba(28,34,48,.98));box-shadow:0 1px 0 var(--edge-hi) inset}
+.sp-head .stakes{display:flex;flex-direction:column;gap:2px;min-width:0}
+.sp-head .stakes .eye{font-size:12px;letter-spacing:.16em;font-weight:700;color:var(--muted)}
+.sp-head .stakes .title{font-family:var(--display);font-size:28px;letter-spacing:.04em;line-height:1}
+.sp-head .clock{justify-self:center;display:flex;align-items:center;border:1px solid var(--edge);border-radius:3px;overflow:hidden}
+.sp-head .clock .seg{padding:8px 14px;font-family:var(--display);font-size:22px;letter-spacing:.06em;background:linear-gradient(180deg,var(--panel-hi),var(--panel-lo));border-right:1px solid var(--edge);line-height:1}
+.sp-head .clock .seg:last-child{border-right:none}
+.sp-head .clock .seg.on{background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff;border-color:var(--gym-deep)}
+.sp-head .clock .seg.soft{font-family:var(--mono);font-size:12px;letter-spacing:.12em;font-weight:700;color:var(--muted);padding:8px 12px}
+.sp-head .names{justify-self:end;text-align:right}
+.sp-head .names .who{font-family:var(--display);font-size:24px;letter-spacing:.04em;line-height:1}
+.sp-head .names .vs{font-size:12px;letter-spacing:.14em;font-weight:700;color:var(--muted)}
+.sp-stage{padding:16px 22px;overflow:hidden;min-height:0;display:flex;flex-direction:column;gap:12px}
+.sp-foot{display:flex;align-items:center;gap:14px;padding:0 24px;border-top:1px solid var(--edge);background:rgba(18,23,34,.7)}
+.sp-foot .phase{font-family:var(--display);font-size:18px;letter-spacing:.12em;color:var(--text-2)}
+.sp-foot .hint{margin-left:auto;font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--dim)}
+
+.doc-chrome{flex:1;display:grid;grid-template-columns:1.15fr .85fr;gap:14px;min-height:0}
+.paper{background:linear-gradient(180deg,#efe9db,#e2d9c6);border:1px solid #b8ae96;border-radius:3px;color:var(--paper-ink);padding:18px 22px;box-shadow:0 12px 28px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.55);display:flex;flex-direction:column;min-height:0;overflow:hidden;position:relative}
+.paper .ptop{display:flex;align-items:flex-start;justify-content:space-between;border-bottom:2px solid #1b1207;padding-bottom:10px;margin-bottom:12px}
+.paper .ptop .doclab{font-size:12px;letter-spacing:.18em;font-weight:700;color:var(--paper-muted)}
+.paper .ptop h3{font-family:var(--display);font-size:36px;letter-spacing:.06em;margin:2px 0 0;line-height:1;color:#1b1207}
+.paper .stamp{font-family:var(--display);font-size:18px;letter-spacing:.1em;padding:6px 12px;border:2px solid #1b1207;transform:rotate(-6deg);opacity:.7}
+.paper .stamp.bad{border-color:var(--bad);color:var(--bad);opacity:.9}
+.paper .meta-row{display:flex;gap:18px;font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--paper-muted);margin-bottom:12px;flex-wrap:wrap}
+.paper .meta-row b{color:#1b1207}
+.slate-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.slate{display:grid;grid-template-columns:1fr auto;height:38px;border:1px solid #9a917c;border-radius:2px;overflow:hidden}
+.slate .lab{display:flex;align-items:center;padding:0 10px;background:linear-gradient(180deg,#4a5670,#333d52);font-family:var(--display);font-size:15px;letter-spacing:.08em;color:#fff}
+.slate .val{display:flex;align-items:center;justify-content:center;min-width:88px;padding:0 12px;font-family:var(--display);font-size:22px;background:linear-gradient(180deg,#f7f2e6,#ebe3d2);color:#1b1207}
+.clause{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;padding:8px 10px;border:1px solid #b8ae96;border-radius:2px;background:rgba(255,255,255,.35);margin-bottom:6px}
+.clause .cn{font-family:var(--display);font-size:18px;letter-spacing:.06em;line-height:1}
+.clause .cs{font-size:12px;letter-spacing:.05em;font-weight:700;color:var(--paper-muted);margin-top:2px}
+.clause .tog{height:26px;padding:0 10px;border:1px solid #9a917c;border-radius:2px;background:#fff;font-size:12px;letter-spacing:.1em;font-weight:700;display:inline-flex;align-items:center}
+.clause .tog.on{background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff;border-color:var(--gym-deep)}
+.clause .gatev{font-size:12px;letter-spacing:.06em;font-weight:700;color:#24558a;text-align:right;min-width:120px}
+.nego-col{display:flex;flex-direction:column;gap:10px;min-height:0}
+.nego-col .panel{padding:14px}
+.counter-strip{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid #7a4c08;border-radius:3px;background:linear-gradient(90deg,rgba(240,160,32,.28),rgba(240,160,32,.08))}
+.counter-strip .tag{font-family:var(--display);font-size:16px;letter-spacing:.1em;color:#ffd08a;flex:none}
+.counter-strip .delta{font-family:var(--display);font-size:22px;letter-spacing:.04em;color:#fff;line-height:1}
+.counter-strip .why{font-size:12px;letter-spacing:.05em;font-weight:700;color:var(--text-2);line-height:1.35}
+.round-pips{display:flex;gap:6px;align-items:center}
+.round-pips .pip{height:28px;padding:0 12px;border-radius:2px;border:1px solid var(--edge);background:var(--control);font-family:var(--display);font-size:16px;letter-spacing:.08em;color:var(--muted);display:inline-flex;align-items:center}
+.round-pips .pip.on{background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff;border-color:var(--gym-deep)}
+.round-pips .pip.final{letter-spacing:.12em}
+.actions{display:flex;gap:8px;margin-top:auto}
+.walk-stamp{position:absolute;right:28px;top:48%;transform:rotate(-12deg);font-family:var(--display);font-size:42px;letter-spacing:.12em;color:var(--bad);border:3px solid var(--bad);padding:8px 18px;opacity:.92;background:rgba(232,226,212,.85);box-shadow:0 8px 20px rgba(0,0,0,.25)}
+
+/* states grid */
+.states-grid{flex:1;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr);gap:10px;min-height:0;padding:4px}
+.state-card{background:var(--panel);border:1px solid var(--edge);border-radius:3px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;box-shadow:0 1px 0 var(--edge-hi) inset;min-height:0;overflow:hidden;position:relative}
+.state-card .stag{font-size:12px;letter-spacing:.14em;font-weight:700;color:var(--muted)}
+.state-card h4{font-family:var(--display);font-size:22px;margin:0;letter-spacing:.05em;line-height:1}
+.state-card .mini-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.state-card .blurb{font-size:12px;letter-spacing:.05em;font-weight:700;color:var(--text-2);line-height:1.4}
+.state-card.loud{outline:1px solid rgba(240,194,51,.55);box-shadow:0 0 18px rgba(240,194,51,.2)}
+
+/* seam overlay */
+.seam-wrap{position:relative;flex:1;min-height:0}
+.seam-dim{position:absolute;inset:0;background:rgba(8,10,16,.62);z-index:2;border-radius:3px}
+.seam-card{position:absolute;right:24px;top:40px;width:520px;z-index:3;background:linear-gradient(180deg,#efe9db,#e2d9c6);border:1px solid #b8ae96;border-radius:3px;color:var(--paper-ink);padding:16px 18px;box-shadow:0 18px 40px rgba(0,0,0,.5)}
+.seam-card .eye{font-size:12px;letter-spacing:.16em;font-weight:700;color:var(--paper-muted)}
+.seam-card h3{font-family:var(--display);font-size:28px;margin:4px 0 8px;letter-spacing:.05em;line-height:1;color:#1b1207}
+.seam-card .line{font-size:12px;letter-spacing:.05em;font-weight:700;color:#3a3428;line-height:1.45;margin-bottom:10px}
+.seam-arrow{position:absolute;left:58%;top:28%;z-index:4;font-family:var(--display);font-size:18px;letter-spacing:.1em;color:var(--gold);background:rgba(18,23,34,.85);border:1px solid var(--gold-edge);padding:8px 12px;border-radius:3px;box-shadow:0 0 18px rgba(240,194,51,.35)}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="eyebrow">KALLI · STUDY ONLY · K20</div>
+  <div class="mast">
+    <h1>THE BOOKING — HOW IT READS</h1>
+    <p>Graded offer board lives on SCHEDULE · OFFERS. Agreement is a set-piece document over it. Verdict vocabulary stays C19 five words. Gate projection on board row and clause row. Sample athlete: Kian Sterling. Money from FIGHT_TIERS / GATE_BY_TIER only.</p>
+  </div>
+  <div class="rules">
+    <span>BEBAS / PLEX</span><span>SIZE_MIN 12</span><span>GOLD ×1 / BOARD</span><span>GREEN = CONTINUE ONLY</span><span>PAIR = SLATE</span><span>GYM NOT CAMP</span><span>♀ ≠ ♂</span><span>SILHOUETTES</span>
+    <span>NO NEW BOOKING RAIL</span><span>NO LETTER GRADES</span>
+  </div>
+</div>
+
+<!-- ========== BOARD 1: OFFERS ========== -->
+<div class="doc"><div class="sec"><h2>01 · THE BOARD</h2><p>SCHEDULE tab OFFERS — graded list from <b>get_booking_board</b>. Priority: verdict → opponent+tier → package money → ≤3 reason chips → gate estimate → weeks out / blocked. Gold on TAKE IT primary OPEN.</p>
+<p class="note">Tabs: MY MONTH · THE CARDS · OFFERS. Rail unchanged. No BOOKING rail item.</p></div></div>
+
+<div class="board" id="board-offers">
+<div class="shell">
+  <div class="top"><div class="left"><div class="crumb">EASTERN RING  /  SCHEDULE  /  OFFERS</div>
+  <div class="pills"><span class="pill">$ 27,600</span><span class="pill">BOARD 5</span><div class="daystrip"><div class="daycell on"><span>MON</span><span class="n">26</span></div><div class="daycell"><span>TUE</span><span class="n">27</span></div><div class="daycell"><span>WED</span><span class="n">28</span></div><div class="daycell"><span>THU</span><span class="n">29</span></div><div class="daycell"><span>FRI</span><span class="n">30</span></div><div class="daycell"><span>SAT</span><span class="n">31</span></div><div class="daycell"><span>SUN</span><span class="n">1</span></div></div></div></div>
+  <div class="right"><div class="dateblk"><div class="w">WEEK 4</div><div class="d">MON 26 JAN 2026</div></div>
+  <div class="continue"><div class="t">CONTINUE</div><div class="s">WEEK ADVANCES</div></div></div></div>
+  <div class="rail"><div class="crest"><div class="mark">ER</div><div><div class="nm">EASTERN RING</div><div class="sub">NICOSIA  ·  TIER 1</div></div></div>
+  <div class="menucap">MENU</div><div class="nav"><a href="#">OFFICE</a><a href="#">THE DAY</a><a href="#">GYM</a><a href="#">STAFF</a><a href="#">TRAINING</a><a class="on" href="#">SCHEDULE<span class="badge">5</span></a><a href="#">SCOUTING</a></div></div>
+  <div class="body">
+    <div class="hubhead"><h2>SCHEDULE</h2><span class="meta">GET_BOOKING_BOARD · BEST VERDICT FIRST</span>
+      <div class="tabs"><span class="tab soft">MY MONTH</span><span class="tab soft">THE CARDS</span><span class="tab on">OFFERS</span></div></div>
+    <div class="filters">
+      <span class="chip on">KIAN STERLING</span><span class="chip">ALL ROSTER</span><span class="chip">OPEN ONLY</span>
+      <span class="sort">SORT · VERDICT ↑ · PACKAGE</span>
+    </div>
+    <div class="board-split">
+      <div class="panel">
+        <div class="offer-head"><div>VERDICT</div><div></div><div>OPPONENT · TIER</div><div>PACKAGE</div><div>REASONS · MAX 3</div><div>GATE</div><div>WEEKS</div><div>ACTION</div></div>
+
+        <!-- TAKE IT — regional FIGHT_TIERS 1400+1000, gate 40000 -->
+        <div class="offer-row take-hi sel">
+          <div><span class="verdict take">TAKE IT</span></div>
+          <div><div class="sil sm"></div></div>
+          <div class="who"><div><div class="nm">MARCO VEGA</div><div class="sub">REGIONAL CARD · LW · 12-4 · RATING 48</div></div></div>
+          <div class="money"><div class="pkg">$2,400</div><div class="brk">SHOW $1,400 · WIN $1,000</div></div>
+          <div class="reasons">
+            <span class="reason good">RATING EDGE +6</span>
+            <span class="reason good">MONEY AT TIER NORM</span>
+            <span class="reason flat">3-ROUND BOUT</span>
+          </div>
+          <div class="gate-est">GATE<br><b>~$40K</b></div>
+          <div class="wk">6 OUT</div>
+          <div><div class="btn sm gold">OPEN</div></div>
+        </div>
+
+        <!-- WORTH IT — featured 3200+2400, gate 120000 -->
+        <div class="offer-row">
+          <div><span class="verdict worth">WORTH IT</span></div>
+          <div><div class="sil sm"></div></div>
+          <div class="who"><div><div class="nm">JONAS REED</div><div class="sub">FEATURED BOUT · LW · 18-3 · RATING 61 · 5 RDS</div></div></div>
+          <div class="money"><div class="pkg">$5,600</div><div class="brk">SHOW $3,200 · WIN $2,400</div></div>
+          <div class="reasons">
+            <span class="reason good">MAIN EVENT · 5 RDS</span>
+            <span class="reason warn">RATING GAP −7</span>
+            <span class="reason flat">RANK MOVE ON WIN</span>
+            <span class="reason more">+1</span>
+          </div>
+          <div class="gate-est">GATE<br><b>~$120K</b></div>
+          <div class="wk">8 OUT</div>
+          <div><div class="btn sm">OPEN</div></div>
+        </div>
+
+        <!-- RISKY — short notice local 600+400 -->
+        <div class="offer-row">
+          <div><span class="verdict risky">RISKY</span></div>
+          <div><div class="sil sm"></div></div>
+          <div class="who"><div><div class="nm">LEO DRAKE</div><div class="sub">LOCAL SHOW · LW · 9-6 · RATING 41</div></div></div>
+          <div class="money"><div class="pkg">$1,000</div><div class="brk">SHOW $600 · WIN $400</div></div>
+          <div class="reasons">
+            <span class="reason warn">SHORT NOTICE · 2 WKS</span>
+            <span class="reason good">RATING EDGE +13</span>
+            <span class="reason flat">PREP WINDOW SHORT</span>
+          </div>
+          <div class="gate-est">GATE<br><b>~$15K</b></div>
+          <div class="wk">2 OUT</div>
+          <div><div class="btn sm">OPEN</div></div>
+        </div>
+
+        <!-- TRAP -->
+        <div class="offer-row">
+          <div><span class="verdict trap">TRAP</span></div>
+          <div><div class="sil sm"></div></div>
+          <div class="who"><div><div class="nm">DANTE CROSS</div><div class="sub">REGIONAL CARD · LW · 16-2 · RATING 58</div></div></div>
+          <div class="money"><div class="pkg">$2,400</div><div class="brk">SHOW $1,400 · WIN $1,000</div></div>
+          <div class="reasons">
+            <span class="reason bad">RATING GAP −4</span>
+            <span class="reason bad">HEAT · RIVAL BAND HOT</span>
+            <span class="reason warn">MONEY ONLY TIER NORM</span>
+          </div>
+          <div class="gate-est">GATE<br><b>~$40K</b></div>
+          <div class="wk">5 OUT</div>
+          <div><div class="btn sm">OPEN</div></div>
+        </div>
+
+        <!-- LOCKED -->
+        <div class="offer-row blocked">
+          <div><span class="verdict locked">LOCKED</span></div>
+          <div><div class="sil sm"></div></div>
+          <div class="who"><div><div class="nm">TITLE SLOT</div><div class="sub">FEATURED BOUT · CHAMPION SUPERFIGHT · PLACEHOLDER</div></div></div>
+          <div class="money"><div class="pkg">$5,600</div><div class="brk">SHOW $3,200 · WIN $2,400</div></div>
+          <div class="reasons">
+            <span class="reason bad">FAME GATE NOT MET</span>
+            <span class="reason flat">TITLE / SUPERFIGHT</span>
+          </div>
+          <div class="gate-est">GATE<br><b>~$120K</b></div>
+          <div class="wk">12 OUT<span class="badline">BLOCKED</span></div>
+          <div><div class="btn sm dim">LOCKED</div></div>
+        </div>
+
+        <div class="hint"><span>VERDICT FIRST · <b>TAKE IT · WORTH IT · RISKY · TRAP · LOCKED</b></span><span>REASONS CAP 3 + “+1”</span><span>WEIGHT / SEX NEVER CHIPS</span><span>GOLD ×1 ON TAKE IT OPEN</span></div>
+      </div>
+      <div class="sidepanel">
+        <div class="panel">
+          <div class="ph">SELECTED OFFER</div>
+          <h3>MARCO VEGA</h3>
+          <div class="mini-row" style="margin-top:6px"><span class="verdict take">TAKE IT</span><span class="chip on">REGIONAL</span></div>
+          <div class="vline">Clean step-up. Rating edge, money at tier norm, six weeks to prepare. Gate estimate $40,000 — one gate point ≈ $400.</div>
+          <div class="pair"><div class="lab">SHOW + WIN</div><div class="val">$2.4K</div></div>
+          <div class="pair"><div class="lab">GATE EST.</div><div class="val">$40K</div></div>
+          <div class="pair"><div class="lab">WEEKS OUT</div><div class="val">6</div></div>
+          <div class="btn" style="margin-top:12px">OPEN AGREEMENT</div>
+          <div class="btn" style="margin-top:6px">FIND BEST</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ========== BOARD 2: AGREEMENT ========== -->
+<div class="doc"><div class="sec"><h2>02 · THE AGREEMENT</h2><p>Set-piece document chrome — <b>BOUT AGREEMENT</b>. Slate pairs for money. Clause rows show gate estimate + what N points take. Round pips from evaluate_proposal. Counter strip, not a paragraph. Fight plan picker stays after accept — not a second agreement page. Gold on PROPOSE.</p></div></div>
+
+<div class="board" id="board-agreement">
+<div class="sp">
+  <div class="sp-out">
+    <div class="exit"><svg viewBox="0 0 24 24"><path d="M14 7l-5 5 5 5V7z"/></svg></div>
+    <div class="lab">WALK BACK</div>
+  </div>
+  <div class="sp-head">
+    <div class="stakes"><div class="eye">NEGOTIATION · ROUND 2 OF 4</div><div class="title">BOUT AGREEMENT</div></div>
+    <div class="clock">
+      <div class="seg soft">ROUND</div>
+      <div class="seg">1/4</div>
+      <div class="seg on">2/4</div>
+      <div class="seg">3/4</div>
+      <div class="seg final">FINAL</div>
+    </div>
+    <div class="names"><div class="who">KIAN STERLING</div><div class="vs">VS MARCO VEGA · REGIONAL · LW</div></div>
+  </div>
+  <div class="sp-stage">
+    <div class="doc-chrome">
+      <div class="paper">
+        <div class="ptop">
+          <div><div class="doclab">EASTERN RING · PROMOTER OPENING</div><h3>BOUT AGREEMENT</h3></div>
+          <div class="stamp">DRAFT</div>
+        </div>
+        <div class="meta-row"><span>OPPONENT <b>MARCO VEGA</b></span><span>CLASS <b>LIGHTWEIGHT</b></span><span>ROUNDS <b>3</b></span><span>WEEK <b>+6</b></span><span>VENUE <b>NICOSIA HALL</b></span></div>
+        <div class="slate-grid">
+          <div class="slate"><div class="lab">SHOW PURSE</div><div class="val">$1,400</div></div>
+          <div class="slate"><div class="lab">WIN BONUS</div><div class="val">$1,000</div></div>
+          <div class="slate"><div class="lab">PERF. BONUS</div><div class="val">$0</div></div>
+          <div class="slate"><div class="lab">PACKAGE</div><div class="val">$2,400</div></div>
+          <div class="slate"><div class="lab">TRAVEL</div><div class="val">COVERED</div></div>
+          <div class="slate"><div class="lab">HOTEL</div><div class="val">COVERED</div></div>
+        </div>
+        <div class="clause">
+          <div><div class="cn">GATE POINTS · 2 / 5</div><div class="cs">PLAYER ASKS 2% OF VISIBLE GATE</div></div>
+          <div class="gatev">GATE ~$40K<br>2 PTS ≈ $800</div>
+          <div class="tog on">ON</div>
+        </div>
+        <div class="clause">
+          <div><div class="cn">TITLE-SHOT GUARANTEE</div><div class="cs">NOT AVAILABLE ON THIS CARD</div></div>
+          <div class="gatev">—</div>
+          <div class="tog">OFF</div>
+        </div>
+        <div class="clause">
+          <div><div class="cn">REMATCH CLAUSE</div><div class="cs">LOSS EARNS REMATCH WINDOW</div></div>
+          <div class="gatev">+10% PKG</div>
+          <div class="tog">OFF</div>
+        </div>
+        <div class="clause">
+          <div><div class="cn">WEIGHT-MISS PENALTY</div><div class="cs">STANDARD 20% · STEPS 10–40%</div></div>
+          <div class="gatev">20%</div>
+          <div class="tog on">STD</div>
+        </div>
+      </div>
+      <div class="nego-col">
+        <div class="panel">
+          <div class="ph">NEGOTIATION</div>
+          <div class="round-pips" style="margin:8px 0 12px">
+            <span class="pip">1/4</span><span class="pip on">2/4</span><span class="pip">3/4</span><span class="pip final">FINAL</span>
+          </div>
+          <div class="counter-strip">
+            <div class="tag">PROMOTER COUNTER</div>
+            <div>
+              <div class="delta">+$200 SHOW</div>
+              <div class="why">PROMOTER COUNTER: $1,600 SHOW + $1,000 WIN + $0 PERFORMANCE; TRAVEL + ACCOMMODATION COVERED ($750) — TOTAL PACKAGE $3,350</div>
+            </div>
+          </div>
+          <div class="vline" style="margin-top:12px;font-size:12px;letter-spacing:.05em;font-weight:700;color:var(--text-2);line-height:1.45">Non-money terms are gates, not haggling. Gate points priced against the visible $40K estimate so the player chooses a % of a number, not a blind toggle.</div>
+          <div class="pair" style="margin-top:10px"><div class="lab">YOUR ASK</div><div class="val">$3.8K</div></div>
+          <div class="pair"><div class="lab">THEIR NOW</div><div class="val">$3.35K</div></div>
+          <div class="pair"><div class="lab">CEILING · 1.35×</div><div class="val">$4.25K</div></div>
+          <div class="note" style="margin-top:6px">Opening package $3,150 = show+win+covered logistics (FIGHT_TIERS regional + TRAVEL/ACCOMMODATION). Ceiling = opening × CEILING_RATIO. Counter line from counter_reason shape.</div>
+          <div class="actions">
+            <div class="btn gold" style="flex:1">PROPOSE</div>
+            <div class="btn" style="flex:1">ACCEPT AS OFFERED</div>
+          </div>
+          <div class="btn dim" style="margin-top:8px">WALK AWAY</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sp-foot"><div class="phase">DOCUMENT · KIT-DRESSED</div><div class="hint">NO SECOND PLAN PAGE · PLAN PICKER AFTER ACCEPT · GOLD ×1 ON PROPOSE</div></div>
+</div>
+</div>
+
+<!-- ========== BOARD 3: STATES ========== -->
+<div class="doc"><div class="sec"><h2>03 · STATES</h2><p>Locked / blocked, countered, walked away, short notice, grudge, title. Gold once on loudest recoverable — reopen countered.</p></div></div>
+
+<div class="board" id="board-states">
+<div class="shell">
+  <div class="top"><div class="left"><div class="crumb">EASTERN RING  /  SCHEDULE  /  OFFERS  /  STATES</div>
+  <div class="pills"><span class="pill">STATE BOARD</span><div class="daystrip"><div class="daycell on"><span>MON</span><span class="n">26</span></div><div class="daycell"><span>TUE</span><span class="n">27</span></div><div class="daycell"><span>WED</span><span class="n">28</span></div><div class="daycell"><span>THU</span><span class="n">29</span></div><div class="daycell"><span>FRI</span><span class="n">30</span></div><div class="daycell"><span>SAT</span><span class="n">31</span></div><div class="daycell"><span>SUN</span><span class="n">1</span></div></div></div></div>
+  <div class="right"><div class="dateblk"><div class="w">WEEK 4</div><div class="d">MON 26 JAN 2026</div></div>
+  <div class="continue"><div class="t">CONTINUE</div><div class="s">WEEK ADVANCES</div></div></div></div>
+  <div class="rail"><div class="crest"><div class="mark">ER</div><div><div class="nm">EASTERN RING</div><div class="sub">NICOSIA  ·  TIER 1</div></div></div>
+  <div class="menucap">MENU</div><div class="nav"><a href="#">OFFICE</a><a href="#">THE DAY</a><a href="#">GYM</a><a href="#">STAFF</a><a href="#">TRAINING</a><a class="on" href="#">SCHEDULE</a><a href="#">SCOUTING</a></div></div>
+  <div class="body">
+    <div class="hubhead"><h2>BOOKING STATES</h2><span class="meta">SEMANTIC DRESSES · ONE GOLD ON RECOVERABLE</span>
+      <div class="tabs"><span class="tab soft">MY MONTH</span><span class="tab soft">THE CARDS</span><span class="tab on">OFFERS</span></div></div>
+    <div class="states-grid">
+      <div class="state-card">
+        <div class="stag">BOARD ROW</div>
+        <h4>LOCKED</h4>
+        <div class="mini-row"><span class="verdict locked">LOCKED</span><span class="reason bad">FAME GATE NOT MET</span></div>
+        <div class="blurb">Offer visible, action dim. blocked_reason named. Not advice — a closed door.</div>
+        <div class="btn sm dim" style="margin-top:auto;align-self:flex-start">LOCKED</div>
+      </div>
+      <div class="state-card">
+        <div class="stag">BOARD ROW</div>
+        <h4>SHORT NOTICE</h4>
+        <div class="mini-row"><span class="verdict risky">RISKY</span><span class="reason warn">SHORT NOTICE · 2 WKS</span></div>
+        <div class="blurb">weeks_out in ShortNotice window. Premium purse if API sends it — chip tone warn, not gold.</div>
+        <div class="gate-est" style="margin-top:auto">GATE <b>~$15K</b> · 2 OUT</div>
+      </div>
+      <div class="state-card loud">
+        <div class="stag">AGREEMENT · RECOVERABLE</div>
+        <h4>COUNTERED</h4>
+        <div class="mini-row"><span class="pip on" style="height:24px;padding:0 10px;border-radius:2px;border:1px solid var(--gym-deep);background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));font-family:var(--display);font-size:14px;color:#fff">2/4</span></div>
+        <div class="counter-strip" style="margin-top:4px">
+          <div class="tag">PROMOTER COUNTER</div>
+          <div><div class="delta">+$200 SHOW</div><div class="why">One-line reason · reopen talks</div></div>
+        </div>
+        <div class="btn sm gold" style="margin-top:auto;align-self:flex-start">REOPEN</div>
+      </div>
+      <div class="state-card" style="position:relative">
+        <div class="stag">AGREEMENT · END</div>
+        <h4>WALKED AWAY</h4>
+        <div class="blurb">BAD semantic end. Short line only — never gold. evaluate_proposal status walked_away.</div>
+        <div class="walk-stamp" style="position:relative;right:auto;top:auto;transform:rotate(-8deg);font-size:28px;margin:8px 0;display:inline-block;align-self:flex-start">WALKED AWAY</div>
+        <div class="blurb" style="color:#ff8f87">THE PROMOTER WILL NOT GO NEAR THAT NUMBER</div>
+      </div>
+      <div class="state-card">
+        <div class="stag">BOARD ROW</div>
+        <h4>GRUDGE MATCH</h4>
+        <div class="mini-row"><span class="verdict risky">RISKY</span><span class="reason bad">HEAT · RIVAL BAND HOT</span></div>
+        <div class="blurb">From get_rivalry_fight_offers. Heat band as reason chip — not a portrait stare-down.</div>
+        <div class="mini-row" style="margin-top:auto"><div class="sil sm"></div><div class="sil sm" style="opacity:.85"></div><span class="chip">GRUDGE</span></div>
+      </div>
+      <div class="state-card">
+        <div class="stag">BOARD ROW</div>
+        <h4>TITLE / SUPERFIGHT</h4>
+        <div class="mini-row"><span class="verdict worth">WORTH IT</span><span class="reason good">TITLE STAKES</span></div>
+        <div class="blurb">Champion superfight offer. Title-guarantee clause available when card allows — still a document, not a spreadsheet.</div>
+        <div class="gate-est" style="margin-top:auto">GATE <b>~$120K</b> · FEATURED</div>
+      </div>
+    </div>
+    <div class="hint"><span>GOLD ×1 ON <b>REOPEN</b> COUNTERED</span><span>WALK-AWAY = BAD · NEVER GOLD</span><span>LOCKED STAYS DIM</span></div>
+  </div>
+</div>
+</div>
+
+<!-- ========== BOARD 4: SEAM ========== -->
+<div class="doc"><div class="sec"><h2>04 · THE SEAM</h2><p>Board owns the glance. Row OPEN lifts the agreement set-piece over SCHEDULE — not a tab, not a new rail. Gold on OPEN AGREEMENT from the highlighted offer.</p></div></div>
+
+<div class="board" id="board-seam">
+<div class="shell">
+  <div class="top"><div class="left"><div class="crumb">EASTERN RING  /  SCHEDULE  /  OFFERS  →  AGREEMENT</div>
+  <div class="pills"><span class="pill">SEAM</span><div class="daystrip"><div class="daycell on"><span>MON</span><span class="n">26</span></div><div class="daycell"><span>TUE</span><span class="n">27</span></div><div class="daycell"><span>WED</span><span class="n">28</span></div><div class="daycell"><span>THU</span><span class="n">29</span></div><div class="daycell"><span>FRI</span><span class="n">30</span></div><div class="daycell"><span>SAT</span><span class="n">31</span></div><div class="daycell"><span>SUN</span><span class="n">1</span></div></div></div></div>
+  <div class="right"><div class="dateblk"><div class="w">WEEK 4</div><div class="d">MON 26 JAN 2026</div></div>
+  <div class="continue"><div class="t">CONTINUE</div><div class="s">WEEK ADVANCES</div></div></div></div>
+  <div class="rail"><div class="crest"><div class="mark">ER</div><div><div class="nm">EASTERN RING</div><div class="sub">NICOSIA  ·  TIER 1</div></div></div>
+  <div class="menucap">MENU</div><div class="nav"><a href="#">OFFICE</a><a href="#">THE DAY</a><a href="#">GYM</a><a href="#">STAFF</a><a href="#">TRAINING</a><a class="on" href="#">SCHEDULE<span class="badge">5</span></a><a href="#">SCOUTING</a></div></div>
+  <div class="body">
+    <div class="hubhead"><h2>SCHEDULE</h2><span class="meta">BOARD UNDER · AGREEMENT OVER</span>
+      <div class="tabs"><span class="tab soft">MY MONTH</span><span class="tab soft">THE CARDS</span><span class="tab on">OFFERS</span></div></div>
+    <div class="seam-wrap panel" style="padding:0;position:relative">
+      <div class="offer-head"><div>VERDICT</div><div></div><div>OPPONENT · TIER</div><div>PACKAGE</div><div>REASONS</div><div>GATE</div><div>WEEKS</div><div>ACTION</div></div>
+      <div class="offer-row take-hi sel" style="opacity:.45">
+        <div><span class="verdict take">TAKE IT</span></div>
+        <div><div class="sil sm"></div></div>
+        <div class="who"><div><div class="nm">MARCO VEGA</div><div class="sub">REGIONAL CARD · LW</div></div></div>
+        <div class="money"><div class="pkg">$2,400</div><div class="brk">SHOW $1,400 · WIN $1,000</div></div>
+        <div class="reasons"><span class="reason good">RATING EDGE +6</span><span class="reason good">MONEY AT TIER NORM</span><span class="reason flat">3-ROUND BOUT</span></div>
+        <div class="gate-est">GATE<br><b>~$40K</b></div>
+        <div class="wk">6 OUT</div>
+        <div><div class="btn sm">OPEN</div></div>
+      </div>
+      <div class="offer-row" style="opacity:.3">
+        <div><span class="verdict worth">WORTH IT</span></div>
+        <div><div class="sil sm"></div></div>
+        <div class="who"><div><div class="nm">JONAS REED</div><div class="sub">FEATURED BOUT · LW</div></div></div>
+        <div class="money"><div class="pkg">$5,600</div><div class="brk">SHOW $3,200 · WIN $2,400</div></div>
+        <div class="reasons"><span class="reason good">MAIN EVENT · 5 RDS</span><span class="reason warn">RATING GAP −7</span></div>
+        <div class="gate-est">GATE<br><b>~$120K</b></div>
+        <div class="wk">8 OUT</div>
+        <div><div class="btn sm">OPEN</div></div>
+      </div>
+      <div class="offer-row" style="opacity:.25">
+        <div><span class="verdict risky">RISKY</span></div>
+        <div><div class="sil sm"></div></div>
+        <div class="who"><div><div class="nm">LEO DRAKE</div><div class="sub">LOCAL SHOW · LW</div></div></div>
+        <div class="money"><div class="pkg">$1,000</div><div class="brk">SHOW $600 · WIN $400</div></div>
+        <div class="reasons"><span class="reason warn">SHORT NOTICE · 2 WKS</span></div>
+        <div class="gate-est">GATE<br><b>~$15K</b></div>
+        <div class="wk">2 OUT</div>
+        <div><div class="btn sm">OPEN</div></div>
+      </div>
+      <div class="seam-dim"></div>
+      <div class="seam-arrow">ROW OPEN → SET-PIECE</div>
+      <div class="seam-card">
+        <div class="eye">FROM HIGHLIGHTED OFFER</div>
+        <h3>BOUT AGREEMENT</h3>
+        <div class="line">KIAN STERLING vs MARCO VEGA · REGIONAL CARD · SHOW $1,400 · WIN $1,000 · GATE ~$40K. Negotiation isolates here — counters and walk-away feel like a deal, not a SCHEDULE tab.</div>
+        <div class="slate" style="margin-bottom:8px"><div class="lab">SHOW PURSE</div><div class="val">$1,400</div></div>
+        <div class="slate" style="margin-bottom:12px"><div class="lab">WIN BONUS</div><div class="val">$1,000</div></div>
+        <div class="btn gold">OPEN AGREEMENT</div>
+        <div class="line" style="margin-top:10px;color:var(--paper-muted)">Reject: new BOOKING rail · agreement-as-tab · board dissolved into month cards only.</div>
+      </div>
+    </div>
+    <div class="hint"><span>SCHEDULE OWNS THE BOARD</span><span>AGREEMENT = SET-PIECE OVER IT</span><span>GOLD ×1 ON <b>OPEN AGREEMENT</b></span></div>
+  </div>
+</div>
+</div>
+
+<div class="doc">
+  <div class="sec"><h2>END · K20</h2>
+  <p class="note">Study only. Reads: get_booking_board (C19), FightContract (gate_for / evaluate_proposal / counter_reason), get_fight_offers / FIGHT_TIERS. No .gd/.tscn. No HANDOFF edit.</p>
+  </div>
+</div>
+</body>
+</html>

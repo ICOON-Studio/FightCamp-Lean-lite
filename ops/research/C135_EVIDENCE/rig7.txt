@@ -1,0 +1,8 @@
+Observed OS process exit: -1073740940
+2026-09-20 22:14:11,500 GLB/GLTF: Import: Success
+2026-09-20 22:14:13,841 C135_RIG_GENERATED f05_m_mma_light_rigged
+2026-09-20 22:14:13,862 GLB/GLTF: Export: Success
+2026-09-20 22:14:13,914 GLB/GLTF: Import: Success
+2026-09-20 22:14:15,836 C135_RIG_GENERATED f06_m_mma_lhw_rigged
+2026-09-20 22:14:15,857 GLB/GLTF: Export: Success
+2026-09-20 22:14:15,862 Application finished with exit code 0

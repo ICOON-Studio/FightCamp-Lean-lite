@@ -1,0 +1,5 @@
+Tool probe, do nothing else. Run these three shell commands and report each output verbatim, then print the line QWEN_ALIVE:
+1. python --version
+2. git -C D:/FightCamp/wt/Q218 status -s | head -3
+3. "C:/Program Files/Blender Foundation/Blender 5.2/blender.exe" --version
+Also read the file research/TASK_Q218_STAFF_ROOM_TO_CONCEPT.md with your file tool and print its first line.

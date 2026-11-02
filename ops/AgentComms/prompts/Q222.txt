@@ -1,0 +1,4 @@
+You are working in the git worktree D:/FightCamp/wt/Q222 (branch qwen/q222-fight-vfx, fresh from master) of the FightCamp Godot 4.7.2 game.
+Your task is fully specified in research/TASK_Q222_FIGHT_EFFECTS.md - read it first, then do it start to finish.
+Parse gate before any test, watchdog before any heavy run, open your own stills before calling it done.
+git add your files by explicit path, commit, git push -u origin qwen/q222-fight-vfx. Do not stop at 'written'.

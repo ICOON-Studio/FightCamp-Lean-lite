@@ -1,0 +1,1074 @@
+{
+  "messages": [
+    {
+      "id": "P1",
+      "from": "operator",
+      "at": "2026-10-16 15:22",
+      "text": "Claude here (S231 wiring test): confirm you can see this message and give your top priority for the next 2 hours, given that the operator approved the away circuit (Q-S225-12) and Codex is off limits.",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P2",
+      "from": "operator",
+      "at": "2026-10-16 15:26",
+      "text": "organize thr project progress and structure to speed up production , automate processes to lower claudes workload and keep costs low , plan ahead to meet all projects needs",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P3",
+      "from": "operator",
+      "at": "2026-10-16 17:18",
+      "text": "can you evaluate and update the release roadmap at the bottom of this board",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P4",
+      "from": "operator",
+      "at": "2026-10-16 18:04",
+      "text": "can i have real numbers on the release roadmap , how animation is progressing in the gymfloor ?",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P5",
+      "from": "operator",
+      "at": "2026-10-16 18:05",
+      "text": "keep working with ludo to organize and deliver the demo",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P6",
+      "from": "board",
+      "at": "2026-10-16 18:35",
+      "text": "BOARD ANSWER Q-S231-3 - question: Fill the empty boxing floor (C78) with Ludo's design: 7 new models in one batch (double-end bags, slip ropes, footwork grids, kit bags, medicine balls, water crate, fan), about 32 Ludo credits of 679, plus 4 members training. Build it? | answer: Yes, build it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P7",
+      "from": "board",
+      "at": "2026-10-16 19:27",
+      "text": "BOARD ANSWER Q-S231-4 - question: Ludo r93 jab/hook/guard code: the extension blocks me reading it. In Brave, open Ask Ludo (chat 'Gym Management Screen'), click Copy on the r93 code reply, then tell me here - I read your clipboard and restore it. | answer: sorry i do not understand what i have to do | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P8",
+      "from": "operator",
+      "at": "2026-10-16 19:35",
+      "text": "can you communicate directly with ludo ?",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P9",
+      "from": "operator",
+      "at": "2026-10-16 21:39",
+      "text": "Operator S234 (verbatim): 'use paul to get ahead of the work needed and ask dola to deliver big bunches of code'. Paul: plan the NEXT 2-3 sessions of work ahead now, in order, so no seat waits. Split the demo-path work into BIG self-contained code batches for Dola (pure GDScript modules + their headless tests, no preloads of big files, each batch a full feature: spec, owned files, acceptance test). Also name what Ludo should design next for the gym floor (the operator thinks it may be a boring act - Kalli and Ludo are rating it now, research/GYMFLOOR_PLAYTEST_S234.md). S234 so far: C89 globe holds still on pick, C90 queue marker text removed, GYMLIFE station workouts wired (14 clips), OFFERREDS1 collected.",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P10",
+      "from": "board",
+      "at": "2026-10-17 01:54",
+      "text": "BOARD ANSWER Q-S235-1 - question: Floor decisions per day (Kalli K87): max 6 cards a day, 2 an hour, the coach decides the rest and logs it; injury always first; quiet days shown as pips. Approve? | answer: Approve | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P11",
+      "from": "board",
+      "at": "2026-10-17 02:38",
+      "text": "BOARD ANSWER Q-S235-2 - question: Ziva: its Playtest Agent needs the Pro/Ultra plan (price not public, above $20/mo). I recommend the FREE Hobby plugin driven by our Claude Code first. Which? | answer: Free Hobby plugin first | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P12",
+      "from": "operator",
+      "at": "2026-10-17 03:22",
+      "text": "OPERATOR S237 SCOPE CALL - read research/LOOP1_SCOPE_S237.md (on master). He wants ONE simple core loop and everything else switched off: fighter walks in -> goal with a deadline (e.g. a fight within a month) -> set training -> watch him train -> hire/assign a coach and watch them work -> gains and attrition meters (his BIG emphasis: the player must see when to change the plan) -> check progress vs the goal, small fixes for fatigue/stress -> light customers + equipment -> find the right opponent -> scouting/film/move learning -> the fight. No story for now. Paul: review the draft keep/off table, say what is wrong or missing, order the build into the smallest playable steps, name which seat builds each, and write the FOR LUDO section as the exact question for Ludo.",
+      "status": "thinking"
+    },
+    {
+      "id": "P13",
+      "from": "board",
+      "at": "2026-10-17 03:57",
+      "text": "BOARD ANSWER Q-S237-1 - question: LOOP1 verdict (Ludo + Paul + me): one boxing loop, meters first, story/cards/rooms/boots off. Build it in this order? | answer: build it, the equipment wear is not what matters on this , the loop , animations,workout,feeling of progrsession and improvement from training these are what matters for now | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P14",
+      "from": "board",
+      "at": "2026-10-17 12:01",
+      "text": "BOARD ANSWER Q-S237-2 - question: Goal deadline (Ludo r105 C): show a result card and let YOU pick his next goal from two, plus a walk-out warning when his trust drops under 30? | answer: Yes, build both | note: no donot invent new cards, this should bedone in the office | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P15",
+      "from": "operator",
+      "at": "2026-10-17 12:24",
+      "text": "Operator (S240): how about instead of the FIND A FIGHT button on the floor, for now the office gets a desk with a PC on it - click the PC and get options: Dashboard, Finances, Leaderboards, Tournaments (book a fight here). Do you agree? Claude's read: yes - matches the operator's Q-S237-2 ruling ('this should be done in the office'), the office desk already routes to finances, the FindFightPanel (Cursor FINDFIGHT1, collected 7a955e34) becomes the Tournaments tab unchanged, the countdown pill stays on the floor. Paul: agree/disagree, risks, and what to cut for the demo.",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P16",
+      "from": "operator",
+      "at": "2026-10-17 12:27",
+      "text": "Operator (S240), second question: would it be better to switch to 2.5D isometric for the whole gym and keep 3D only for the fight? Claude's read: NO to a 2D/sprite pipeline (none exists - U177; it would invalidate the 3D club, rooms, MetaHuman station clips, pads pair and the 3D progression signs), YES to the 2.5D LOOK via a fixed orthographic isometric Camera3D on the gym (Two Point Hospital is 3D with an iso camera) - hours, not weeks. Paul: agree/disagree, demo risk, cost.",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P17",
+      "from": "board",
+      "at": "2026-10-17 12:38",
+      "text": "BOARD ANSWER Q-S239-1 - question: Office PC + gym camera (Ludo r106/r107, attached): build the desk PC with 4 tabs (fights booked under BOUT CONTRACTS, floor FIND A FIGHT button dropped) AND lock the 3D gym to an isometric camera (no 2D sprite switch)? | answer: 3D World + Orthographic Isometric Projection): STRONGLY RECOMMEND. Keep every single 3D asset, mocap clip, MetaHuman rig, and material as-is. Simply swap the camera projection to PROJECTION_ORTHOGONAL at standard isometric angles ($35.264^\\circ$ pitch, $45^\\circ$ yaw). This gives the clean, readable, architectural precision of Two Point Hospital while preserving your 3D animation progression. Add all the rooms we have rdy so their opjects )desk PC in Office) can be accessed with unzooming gym floor a bit and and clicking it. we switch on other objects on rooms (rooms should still render as designed only objects can't be interacted yet)  1 at a time when mechanics enforce it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P18",
+      "from": "board",
+      "at": "2026-10-17 17:01",
+      "text": "BOARD ANSWER Q-S242-1 - question: PLACEMENT1 (your 'placement similar to 2point games'): Ludo + measured Two Point Museum values agree. Demo = build mode on the iso camera: move/turn/buy stations on a 0.5 m grid, green/red ghost with the reason, clearance + aisle check, 100% refund while building, rooms fixed. Room drawing in Early Access. Approve? (a focus row leaves when it enters) | answer: Approve and also I want to see the kudos doc 24 perspective | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P19",
+      "from": "board",
+      "at": "2026-10-17 17:02",
+      "text": "BOARD ANSWER Q-S242-2 - question: ISOWALL1 done (your 'render the end wall depending on the view and rotation'): Q/E turn the iso view in 90-degree steps, far walls stand with sign/posters/rails, near walls drop to a stub. OK to close? | answer: It looks ok for now | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P20",
+      "from": "board",
+      "at": "2026-10-17 19:15",
+      "text": "BOARD ANSWER Q-S242-3 - question: Gym camera, side by side (same morning, same spot): today's orthographic iso, Two Point Museum's own camera (perspective FOV 17, measured from your install), or Ludo's FOV 24. Which one? | answer: Two Point Museum FOV 17 | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P21",
+      "from": "board",
+      "at": "2026-10-17 21:54",
+      "text": "BOARD ANSWER Q-S242-4 - question: Gym camera is now Two Point Museum FOV 17 (your pick). Whole club + floor view at all 4 turns attached. OK to close CAMFOV17? | answer: OK, close it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P22",
+      "from": "board",
+      "at": "2026-10-17 22:35",
+      "text": "BOARD ANSWER Q-S242-6 - question: MetaHuman walk: shoulders fixed (sheet: shipped / our fixed retarget / ActionForge clip). Which walk goes in the game? | answer: ActionForge clip | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P23",
+      "from": "board",
+      "at": "2026-10-17 22:36",
+      "text": "BOARD ANSWER Q-S242-5 - question: Animation route. Our clips are motion typed in as numbers, and they fail against real footage (attached). Proposal: one month of QuickMagic Basic ($14.90; commercial, 2-person) - real pad footage -> mocap -> our MetaHumans in Cascadeur. ONE pad clip judged side by side with the video. If it fails your eye, we stop. | answer: 2-person) - real pad footage : what do you mean by that ? we pay actors? | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P24",
+      "from": "board",
+      "at": "2026-10-17 23:27",
+      "text": "BOARD ANSWER Q-S246-1 - question: QuickMagic follow-up to your question. No actors. '2-person' means one video can hold up to two people (coach + boxer on pads); we use free stock pad videos (Pexels). One month Basic $14.90, test ONE pad clip side by side with the video, stop if it fails your eye. | answer: haven't we tried quickmagic , what was the result ? | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P25",
+      "from": "board",
+      "at": "2026-10-17 23:32",
+      "text": "BOARD ANSWER Q-S246-2 - question: Floor HUD art direction (Ludo mockup): portrait card for the fighter, leather + gold frames, round gauges on the goal card. The numbers in the picture are AI scribbles - judge the LOOK. Build the whole floor HUD in this style? | answer: nope .ludo keeps considering that this is a mobile game .... thats not how sim/manager games look , its very simplestic no actual stats to make the player understand how good the fighter is , terrible design | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P26",
+      "from": "board",
+      "at": "2026-10-17 23:51",
+      "text": "BOARD ANSWER Q-S246-3 - question: QuickMagic: yes, we used it in S128-S131. Text-to-Motion made the check hook and the rear hooks (both certified, in the demo). The 2-person video test tracked both bodies (17% of frames overlapped). Only the footage licence was rejected later. Pay one Basic month ($14.90) for ONE pad clip from a free Pexels video? | answer: i already have paid , the susbcription is active since the last timeyou used it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P27",
+      "from": "board",
+      "at": "2026-10-18 00:48",
+      "text": "BOARD ANSWER Q-S246-4 - question: Ludo's new floor HUD (r113, text spec): a Football Manager-style left dock with all 8 ratings (current / today's gain / ceiling), stamina and strain with live rates, a coach-on-station chip, a 40 px top bar (clock, speed, money, OFFICE PC / PLAN / BUILD), number-led goal cards, and a hover breakdown per rating. Build it? | answer: build it only if everything is shown to the player in a comprehensive way and too complicated , my main concern is how all the training is translated to the fight | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P28",
+      "from": "operator",
+      "at": "2026-10-18 01:13",
+      "text": "where should we point the direction of the project ? how can we make the training result show inthe fight, how fast he moves , how well conditioned hes is, where fighter his land and how much damage they do and why , i am considering if this project can actually materialize to a boxing simulator fun game",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P29",
+      "from": "operator",
+      "at": "2026-10-18 01:20",
+      "text": "Operator S248 (verbatim): should we focus on the training floor mechanics ( or let that just be animation without player interference) or on mechanics and presentation (more meaningful actions for the player to focus ) that really simulate the training and its results to a fight (without silly mobile mechanics of course) , give the player understand where the fighter lacks how strong he is , i do not even know how damage is calculated,how the fighter chooses where to hit etc , how these can be regulated through training? what players of boxing expect from such a game , and whats your opinion. -- Facts for you: research/FIGHT_SIM_MAP_S248.md (damage, targeting, training->fight path, gaps: chin does nothing, defence only downgrades hits, result screen links nothing to training). Give your verdict and a 4-week order.",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P30",
+      "from": "board",
+      "at": "2026-10-18 01:38",
+      "text": "BOARD ANSWER Q-S246-5 - question: Direction (Ludo r114+r115, Paul agrees): the floor runs your plan on its own and you step in only on exceptions. The depth goes into training -> fight. First: punches can miss (evasion), chin counts, accuracy. Every punch gets a mastery tier (Raw/Usable/Sharp/Signature) from pad/bag/sparring hours that makes it faster, cleaner, harder to read. Then a profile, in-fight notes, a corner report and a post-fight 'why'. Go? | answer: Go, build it in that order | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P31",
+      "from": "board",
+      "at": "2026-10-18 02:07",
+      "text": "BOARD ANSWER Q-S248-1 - question: Ziva Pro for one month, $50: unlocks its Playtest Agent (plays the whole game and reports what breaks) plus stronger models. On the free plan its design answer read our fight engine correctly and found two gaps we had missed. Subscribe? | answer: i will be able to afford the pro around 26-27 Oct keep the free for now and use to see what it can really do | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P32",
+      "from": "board",
+      "at": "2026-10-18 02:54",
+      "text": "BOARD ANSWER Q-S249-1 - question: 333 agent branches are fully on master - delete them? | answer: Delete them | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P33",
+      "from": "board",
+      "at": "2026-10-18 03:08",
+      "text": "BOARD ANSWER Q-S248-2 - question: GitHub Actions is at $37.08 of the $40 monthly hard stop. The new CI regression runs (code PRs tested in the cloud instead of on your PC) cost ~4 min each. Raise the cap or keep it until the month resets? | answer: i raised to 50 | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P34",
+      "from": "board",
+      "at": "2026-10-18 06:13",
+      "text": "BOARD ANSWER Q-S249-2 - question: FIGHTLINK 1b: should training wear and readiness carry into the bout? Worst case is about -12% evasion, -9% chin and -7.5% accuracy, and a 2-day taper clears it (Ludo r116) | answer: build it  and add that : Ludo's \"+10% execution speed from camp sharpness\" | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P35",
+      "from": "board",
+      "at": "2026-10-18 06:17",
+      "text": "BOARD ANSWER Q-S249-3 - question: Corner shouts the fighter learns (your idea, Ludo r117): 12 shouts, each learned in the gym like a punch, unlearned calls risky, 25 s rhythm. Build it? | answer: Build it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P36",
+      "from": "operator",
+      "at": "2026-10-18 17:25",
+      "text": "Operator S254: make a PRODUCTION ROADMAP for the boxing demo .exe and on to Steam EA - every open defect and feature on one timeline: what gets fixed/built in which stage (S254, S255, ...), which seat owns it (Claude/Ludo/Arena/Cursor/...), its dependency, and the acceptance evidence that closes it. Order by 'does this put a watchable boxer career in his hands sooner'. Group into milestones with an exit test each. Flag what needs the operator (money/taste/scope). Put it as a table in section 1 so Claude and Ludo can approve or push back. Longest complete answer.",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P37",
+      "from": "board",
+      "at": "2026-10-18 17:55",
+      "text": "BOARD ANSWER Q-S249-7 - question: Demo scope (Paul): fixed equipment slots (no Two Point placement), no promotions, Steam spend waits until the .exe is in your hands? | answer: Yes to all | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P38",
+      "from": "board",
+      "at": "2026-10-18 17:56",
+      "text": "BOARD ANSWER Q-S249-6 - question: Ludo says the first playable must have: weigh-in on the scale, a visible cut + cutman, a mitt pop sound. Which go in? | answer: All three | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P39",
+      "from": "board",
+      "at": "2026-10-18 17:56",
+      "text": "BOARD ANSWER Q-S249-5 - question: Ludo wants a counter window: a boxer is easier to hit while he punches (longer when tired or less skilled). Build it? | answer: Build it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P40",
+      "from": "board",
+      "at": "2026-10-18 17:58",
+      "text": "BOARD ANSWER Q-S249-4 - question: Approve the production roadmap (Paul + Ludo + Claude): meters + punch timing, then the jab, training day, the fight, the .exe, Steam EA? | answer: Approve | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P41",
+      "from": "board",
+      "at": "2026-10-19 05:30",
+      "text": "BOARD ANSWER Q-S256-1 - question: Approve Ludo's 11 trained attributes (speed split into hand speed + footwork, defense into guard + head movement, composure + recovery trained, chin innate)? Build order: footwork, guard, composure, hand speed. | answer: add  them all , wire them properly to training and fight | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P42",
+      "from": "board",
+      "at": "2026-10-19 22:06",
+      "text": "BOARD ANSWER Q-S264-1 - question: Station focus plan (your idea, written up): each station gets 2-3 focus options with +/- (heavy bag: POWER SHOTS / COMBINATIONS / BAG ROUNDS), harder focus = faster gains AND faster fatigue, gains as bubbles, the ring ends with a RING REPORT vs the last spar that names tomorrow's station. Plus every attribute wired to training, fight and body (table inside). Build it? | answer: Build it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P43",
+      "from": "board",
+      "at": "2026-10-20 03:00",
+      "text": "BOARD ANSWER Q-S264-3 - question: UltraTex (your video): trial it on 3 gym props on a rented cloud GPU (~1-2 USD)? Shipping its output later needs a paid FLUX licence - separate call. | answer: no, skip it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "thinking"
+    },
+    {
+      "id": "P44",
+      "from": "board",
+      "at": "2026-10-20 03:01",
+      "text": "BOARD ANSWER Q-S264-4 - question: Ludo's 10/10 plan (verdict attached): the BUILD NOW list is with Ziva/Cursor. Approve Ludo's GUIDED FIRST CAREER (quest chips: meet fighter -> station -> first gain -> hire first coach day 1 -> book debut -> fight)? | answer: no guided yet unitl the loop is proven fun keep it simple but what if 2 or 3 boxers come into the gym thep player  will have to profam each fighter on different stations that might be a good puzzle if you cna show it to the player good enough to understand his options | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P45",
+      "from": "board",
+      "at": "2026-10-20 03:04",
+      "text": "BOARD ANSWER Q-S264-5 - question: Ludo's NEEDS-OPERATOR items for 10/10: which go on the list? (club vs pro venue dressing; manager-licence gym cut for the $0 result line; knockdown floor cam) | answer: do whatever you think is better | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P46",
+      "from": "board",
+      "at": "2026-10-20 04:10",
+      "text": "BOARD ANSWER Q-S264-7 - question: Punches look bad because none of our clips are real boxing mocap (details attached). Buy ONE boxing mocap pack on Fab (EUR 27-117)? You pick it from the sellers' preview reels; I test it in the game before anything switches. | answer: we have tripo3d and ludo3d they can rig why you do not use those ? should we spent money ? | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P47",
+      "from": "board",
+      "at": "2026-10-20 10:47",
+      "text": "BOARD ANSWER Q-S272-1 - question: Buy the Fab Ailive Boxing Animation Pack, Personal licence EUR 8.47? It has the lead hook, lead uppercut, slips and footwork we have no capture for. | answer: bought it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P48",
+      "from": "board",
+      "at": "2026-10-20 12:17",
+      "text": "BOARD ANSWER Q-S273-1 - question: Fight motion sources: Rokoko + ActionForge only (Meshy is already off). The Ailive pack you bought: its hooks are off (your 'that animation is wrong'). Keep Ailive for its 9 s footwork take (step library), or drop Ailive entirely? | answer: need to see animations from it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P49",
+      "from": "board",
+      "at": "2026-10-20 15:17",
+      "text": "BOARD ANSWER Q-S273-4 - question: Fight sounds (you: 'pretty bad'): our research J22/J40 says the cheapest good set is ~$47 (Gamemaster Pro Sound Collection) + the free Sonniss GDC bundle / CC0 for gaps. Buy the $47 pack, or try free-only first? | answer: free only but high quality | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P50",
+      "from": "board",
+      "at": "2026-10-21 02:23",
+      "text": "BOARD ANSWER Q-S273-7 - question: Approve the rest of the new-start numbers as in the attached comparison (mostly Ludo's)? | answer: no need for rent build the rest | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P51",
+      "from": "board",
+      "at": "2026-10-21 03:19",
+      "text": "BOARD ANSWER Q-S277-1 - question: Rooms that work (Ludo S278): lockers needed for members, office PC for full purses, physio table and shelving rules, 9 room items, bags need a wall arm or a stand. Approve the attached verdict? | answer: Approve all | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P52",
+      "from": "board",
+      "at": "2026-10-22 04:17",
+      "text": "BOARD ANSWER Q-S277-4 - question: BAGMOUNT2: wall-arm bag now hangs from an arm on the wall, the frame bag has a joined top, and the sparring pit tape shows (stills from the game camera). Close it? | answer: Needs another round | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P53",
+      "from": "board",
+      "at": "2026-10-22 04:27",
+      "text": "BOARD ANSWER Q-S277-5 - question: BAGMOUNT3 (new still attached): your latest markups on the old bag still say 'dont like how it looks, maybe make the bags attached near a wall only?'. The new still already has the 4-bag cage. Which way? | answer: remove the item for now make the bags mountable only near a wall | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P54",
+      "from": "board",
+      "at": "2026-10-22 18:30",
+      "text": "BOARD ANSWER Q-S277-6 - question: TIME: Ludo says ADAPT MGT2 - a day takes ~3.5 s (a week ~25 s, today 14 min), Space/1/2/3 + skip-to-next-event, and the game auto-pauses ONLY for: fight offer with deadline, fight night, major injury, cash below zero, contract ending in 7 days; everything else stays an icon. This reverses S276 'nothing interrupts' for those 5. Approve? | answer: Approve, but slower days | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P55",
+      "from": "board",
+      "at": "2026-10-22 18:34",
+      "text": "BOARD ANSWER Q-S277-7 - question: TIME (your Q-S277-6 'slower days'): how long should one gym day take at 1x? Ludo's was 3.5 s (week ~25 s). 2x and 3x scale from it; I'll build it as one number you can change later. | answer: 15 s a day (week ~105 s) | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P56",
+      "from": "board",
+      "at": "2026-10-22 21:22",
+      "text": "BOARD ANSWER Q-S277-8 - question: S285 drawn rooms now build like MGT2 (Ludo's walls + door spec): the door is step 1 of the draft, 2.6 m partitions with a cap, one finish, the door closed in its wall and cut with it. OK as the room look? | answer: OK, keep it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P57",
+      "from": "board",
+      "at": "2026-10-23 06:06",
+      "text": "BOARD ANSWER Q-S277-10 - question: Bike workout clip: AssetLoom 'Bicycle Ride Loop' (US$3, licence OK for a sold game, new vendor, no reviews). Buy it? You make the AssetLoom account (new accounts get 500 credits = free). | answer: Hand-key it in Cascadeur instead | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "answered",
+      "review": "AgentComms/pm/latest.md"
+    },
+    {
+      "id": "P58",
+      "from": "board",
+      "at": "2026-10-23 06:06",
+      "text": "BOARD ANSWER Q-S277-11 - question: ROOMSMGT1 built (all four steps): walls 1.8/2.2 m, a floor colour per room, pieces x1.3 flush on the walls. Does the front-room look pass? (Next would be Ludo's new hero pieces: L-counter, vending block, solid racks.) | answer: Passes - go on to hero pieces | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P59",
+      "from": "board",
+      "at": "2026-10-28 09:04",
+      "text": "BOARD ANSWER Q-S294-1 - question: Lean restart fonts: download the real Bebas Neue + Barlow (free, Google Fonts) instead of the stand-ins Oswald + Inter? | answer: Yes, download them | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P60",
+      "from": "board",
+      "at": "2026-10-28 09:05",
+      "text": "BOARD ANSWER Q-S294-2 - question: Workflow is back: which agents and cloud jobs should run again for the lean restart? They use quota/money, and cloud agents need the lean repo on GitHub. | answer: All seats as before + a GitHub repo for Lean | note: arena,qwen,cursor,grok,grokbots,ziva,dola, | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P61",
+      "from": "board",
+      "at": "2026-10-28 21:38",
+      "text": "BOARD ANSWER Q-S294-3 - question: Weeks 1-4 are built (Lean exe). After you play them: what is next? | answer: Week 5: watch the fight in 3D | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P62",
+      "from": "board",
+      "at": "2026-10-29 01:00",
+      "text": "BOARD ANSWER Q-S294-4 - question: Buy a boxing animation pack? Plan: try MoCap Online's free Punch Starter through our pipeline first; if it plays clean, buy Punch Pro (145 punches, hit reactions, knockouts; seen at 15 USD). Grappling and UI: buy nothing now. | answer: Yes - try free, then buy Punch Pro | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P63",
+      "from": "board",
+      "at": "2026-10-29 03:08",
+      "text": "BOARD ANSWER Q-S294-5 - question: The fight model you agreed in chat (about 34 numbers per fighter, personality, morale, knockdowns decided by the simulation, the ring shows training). Build it in this order? | answer: Yes, build it in this order | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P64",
+      "from": "board",
+      "at": "2026-10-29 08:23",
+      "text": "BOARD ANSWER Q-S294-6 - question: Cloud seats for the new game: may I set the Qwen key on the Lean repo from this PC (Goose), and make a public code-only mirror (Arena)? | answer: you fix both | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P65",
+      "from": "board",
+      "at": "2026-10-29 21:20",
+      "text": "BOARD ANSWER Q-S294-8 - question: Balance: make fights less certain (an underdog can win ~1 in 5) and make round 3 tire an unfit boxer? Numbers in the attached page. | answer: Yes, both | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P66",
+      "from": "board",
+      "at": "2026-10-30 01:12",
+      "text": "BOARD ANSWER Q-S294-9 - question: Update 7 is ready (restart FightCamp.exe). Play one fight on Full: do slips move her, do the feet stay put, do body shots land? | answer: Looks right | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P67",
+      "from": "board",
+      "at": "2026-10-30 01:14",
+      "text": "BOARD ANSWER Q-S294-12 - question: Fight night script v2 (replaces Q-S294-11): a real-time corner minute shot like a film - stool through the ropes, water, ice, coach face to face while you pick the call, cutman, seconds out; plus the intro. Build it in this order? | answer: Yes, build it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P68",
+      "from": "board",
+      "at": "2026-10-30 01:14",
+      "text": "BOARD ANSWER Q-S294-10 - question: After your verdict: build the gym floor next? | answer: Keep polishing the fight first | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P69",
+      "from": "board",
+      "at": "2026-10-30 02:39",
+      "text": "BOARD ANSWER Q-S294-13 - question: Update 8 is ready (restart FightCamp.exe): fight night now has an intro and a real-time corner minute like a film, and you pick your call on the card while it runs. Does it feel right? | answer: Needs changes (I'll comment) | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P70",
+      "from": "board",
+      "at": "2026-10-30 03:40",
+      "text": "BOARD ANSWER Q-S294-15 - question: Update 9 is ready (restart FightCamp.exe): 3:00 rounds with a clock, a shout every 30 s (clue + three calls + Say nothing), the verdict after each exchange, eight calls in the corner. Do your calls feel like they change the fight? | answer: fix the wording | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P71",
+      "from": "board",
+      "at": "2026-10-30 03:41",
+      "text": "BOARD ANSWER Q-S294-14 - question: Deeper fight plan (Miro frames 6-11): 3:00 clock, a shout every 30 s, clues that point to the best call, 8 real corner calls. Build it, and at what round speed? | answer: Build it, full 3:00 rounds | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P72",
+      "from": "board",
+      "at": "2026-10-30 04:39",
+      "text": "BOARD ANSWER Q-S294-17 - question: Update 10 is ready (restart FightCamp.exe): fight lines say Lucy/Maria instead of her/she, the coach's neck is fixed, and the corner card can fix ONE habit she paid for (it holds for the next round). Does it feel right? | answer: Yes, it works | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P73",
+      "from": "board",
+      "at": "2026-10-30 05:57",
+      "text": "BOARD ANSWER Q-S294-18 - question: Update 11 is ready (restart FightCamp.exe): the shout bar no longer marks the answer. With no film study you read the clue yourself; with film study the coach marks his pick from her tapes (wrong when she switches). The bar waits 10 s. Does it feel right? | answer: for now is ok as i said needs more features/mechanics for the player during the fight but these need to be wired also with the other aspects (training,etc) | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P74",
+      "from": "board",
+      "at": "2026-10-30 05:59",
+      "text": "BOARD ANSWER Q-S294-20 - question: Corner minute plan: four jobs instead of one pick - Recover (3 points: water, ice on the ribs, clear her head), the Plan, a combination Set-up that fires a gold NOW button when the gap shows (knockdown chance; combos come from the gym), and the Talk (calm / fire up / truth). Build it in this order? | answer: Yes, build it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P75",
+      "from": "board",
+      "at": "2026-10-30 07:04",
+      "text": "BOARD ANSWER Q-S294-21 - question: Update 13 is ready (board: Test: the corner minute): each corner now has Recover (3 points), a combination Set-up that lights a gold NOW button when the gap shows, the Talk, and the plan. Does the corner minute feel like enough to do now? | answer: ask ziva for playtest and review | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P76",
+      "from": "board",
+      "at": "2026-10-30 07:04",
+      "text": "BOARD ANSWER Q-S294-19 - question: Update 12 is ready (board: Test fight night WITH film study): a fight display (energy, body hits, hurt), body shots that drain energy and fold her, green no longer a safe pick, muscle shading on the singlet. Does it feel right? | answer: ask ziva for playtest and review | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P77",
+      "from": "board",
+      "at": "2026-10-30 08:02",
+      "text": "BOARD ANSWER Q-S294-22 - question: Clinch (real-fight fix 4, after fixes 1-3): no two-boxer clinch animation is sold anywhere (Fab, MoCap Online, Reallusion checked). Build it free from our own clips (lean in, arms over, heads side by side, a referee steps in and parts them), or pay a mocap freelancer for 3-4 real clinch takes (my estimate roughly 150-400 dollars, not a quote)? | answer: Build it free | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P78",
+      "from": "board",
+      "at": "2026-10-30 12:48",
+      "text": "BOARD ANSWER Q-S294-23 - question: Ziva played updates 12 and 13 (review attached). Its top defects: 1 'Go to the body' never offered in round 1 vs a pressure fighter, 2 BODY HITS reads as hits landed but counts hits taken, 3 the coach's plan can leave her hurt so the set-up's NOW never comes in round 2, 4 round 1 is the same decision five times, 5 a 3-5 s freeze when Begin fight is clicked. Fix these in this order after the PC is back? | answer: Yes, fix in this order | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P79",
+      "from": "board",
+      "at": "2026-10-30 19:42",
+      "text": "BOARD ANSWER Q-S294-29 - question: Body map + round data (your ask): six places on each boxer (head, both eyes, nose, both rib sides) light up live where punches land; the corner minute shows her figure and you pick one cutman job (enswell an eye, close a cut) and one second job (ice the ribs, water, clear her head); the corner card shows the round's numbers (landed by punch, what she leaves open) behind each call. Build it as written? | answer: Yes, build it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P80",
+      "from": "board",
+      "at": "2026-10-30 19:58",
+      "text": "BOARD ANSWER Q-S294-24 - question: Update 14 is built: the range breathes, feet keep moving, a head shot no longer freezes her, springy see-through ropes, no Begin-fight freeze. Board: Play, then 'Test: fight night WITH film study', watch round 1 at 1x. Does the ring feel more like a real fight? | answer: About the same | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P81",
+      "from": "board",
+      "at": "2026-10-30 19:59",
+      "text": "BOARD ANSWER Q-S294-26 - question: Update 16 is built: the boxers now fight up close 20 % of each round (hooks and uppercuts, heads past the shoulder - real bouts 17-31 %), a slightly longer stance, and the referee no longer stands in front of them on the ropes. Board: Play, then 'Test: fight night WITH film study', watch round 1 at 1x. Does the inside fighting look right? | answer: Yes, looks right | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P82",
+      "from": "board",
+      "at": "2026-10-30 19:59",
+      "text": "BOARD ANSWER Q-S294-30 - question: Update 19 is built: one real guard at every range (gloves at the face, elbows down), gloves in line with the forearm, smoother footwork (41 % fewer clip cuts), heads never through each other, clinch arms over arms. Play fight night - does the guard and the footwork look right now? | answer: Yes, keep going | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P83",
+      "from": "board",
+      "at": "2026-10-30 20:00",
+      "text": "BOARD ANSWER Q-S294-28 - question: Update 18 is built: up close the boxers now hold their gloves at the cheeks with the elbows tight on the ribs (before: the long-range guard, gloves far out in front), and a glove no longer goes through the other boxer's head. Board: Play, then 'Test: fight night WITH film study', watch round 1 at 1x. Does the guard up close look right? | answer: Not yet (say what) | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P84",
+      "from": "board",
+      "at": "2026-10-30 21:10",
+      "text": "BOARD ANSWER Q-S294-25 - question: Update 15 is built: boxers now clinch (2-3 times in round 1, more as they tire) and a referee in a white shirt breaks them apart; the guard drops at long range and comes up to attack; Ziva's fixes (Go to the body vs a presser, the opponent changes her game, the set-up's NOW also fires when she is hurt). Board: Play, then 'Test: fight night WITH film study', watch round 1 at 1x. Does the clinch and the referee look right? | answer: Clinch looks wrong | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P85",
+      "from": "board",
+      "at": "2026-10-30 21:11",
+      "text": "BOARD ANSWER Q-S294-27 - question: Update 17 is built: close-range spells now end three ways - the pressed boxer often pivots out to her side behind a short hook (the pair turns 40-85 degrees), or they tie up for the referee, or one steps back; up close their heads now sway a little side to side. Board: Play, then 'Test: fight night WITH film study', watch round 1 at 1x. Does getting out of the inside look right? | answer: Looks right | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P86",
+      "from": "board",
+      "at": "2026-10-31 08:22",
+      "text": "BOARD ANSWER Q-S294-31 - question: Update 20 is built: TV-style ringside camera that cuts and drifts, new lighting, motion blur on punches, both boxers duck in through the ropes, and a real two-person clinch. Board: Play, then 'Test: fight night WITH film study', watch the intro and round 1 at 1x. Closer to the game you showed me? | answer: upload a short videoto judge | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P87",
+      "from": "board",
+      "at": "2026-10-31 09:13",
+      "text": "BOARD ANSWER Q-S294-32 - question: Update 21 is built: a body map under the score (each boxer's head, eyes, nose and ribs light up where punches land), the corner card shows her figure, one cutman job and the round's number behind every call, and the clinch no longer has a glove on top of a head. Board: Play, then 'Test: fight night WITH film study', watch round 1 and the corner. Does the body map help you pick the call? | answer: Not yet (say what) | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P88",
+      "from": "board",
+      "at": "2026-10-31 09:16",
+      "text": "BOARD ANSWER Q-S294-34 - question: More to do in the round (plan attached): 1 live punch stats (CompuBox style) with the opening they show, 2 tap the opponent's body map to aim the shout, 3 Push/Steady/Save pace buttons; next the towel; later 'mark it for the gym'. Build 1-3 now? | answer: Build 1-3 now | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P89",
+      "from": "board",
+      "at": "2026-10-31 09:16",
+      "text": "BOARD ANSWER Q-S294-35 - question: Update 23 is built: the feet no longer play cut-up walking clips (smoother), punches from too far now step in, each body map is the boxer's own body on her own side with live punch stats, and the round and result pages are pictures. Board: Play, 'Test: fight night WITH film study', watch round 1 and the result. Better? | answer: Pages need work | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P90",
+      "from": "board",
+      "at": "2026-10-31 09:36",
+      "text": "BOARD ANSWER Q-S294-33 - question: Update 22 is built: up close the hooks, uppercuts and body shots are now short (about 20 cm of glove travel instead of the long-range 85 cm swing), and motion blur now really works in your build (updates 20-21 could not load it). Board: Play, then 'Test: fight night WITH film study', watch the chest-to-chest spells in round 1 at 1x. Do the short punches look right? | answer: needs fine tuning i think | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P91",
+      "from": "board",
+      "at": "2026-10-31 10:16",
+      "text": "BOARD ANSWER Q-S294-38 - question: Core mechanic 'the body is the track': both boxers' bodies outlined part by part (your colour reference), Burn colour + Hurt outline per part; you choose Pace, Aim (tap her body) and the corner pit stop; gym training lowers each part's Burn. Replaces the ice-only plan. Plan + mockup attached. Build it? | answer: Build it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P92",
+      "from": "board",
+      "at": "2026-10-31 10:17",
+      "text": "BOARD ANSWER Q-S294-36 - question: Corner ice + cut work on her figure: tap where the cutman and second work, blood runs on open cuts, neck ice calms her (no stamina refill - not real), amateur coach who works the cut gives one instruction. Plan attached. Build it? | answer: Change it (say what) | note: the cut should be handled by the cutman  , nothing to do for the player here. | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P93",
+      "from": "board",
+      "at": "2026-10-31 18:28",
+      "text": "BOARD ANSWER Q-S294-39 - question: Update 24 is built: close-range jabs and hooks now land ON the face (your C148 'clipping ?' - they stopped 15-25 cm short and to the side), and a punch that never arrived no longer shows a hit. Board: Play, then 'Test: fight night WITH film study', watch the chest-to-chest spells in round 1 at 1x. Do the close punches look right now? | answer: Yes | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P94",
+      "from": "board",
+      "at": "2026-10-31 18:28",
+      "text": "BOARD ANSWER Q-S294-40 - question: Q-S294-35 follow-up: you said 'Pages need work' on the round page and the result page (both attached). What bothers you most? | answer: Layout looks cheap / like a spreadsheet | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P95",
+      "from": "board",
+      "at": "2026-10-31 18:29",
+      "text": "BOARD ANSWER Q-S294-41 - question: Update 25 is built: the body now burns part by part. Tired boxers drop the jab hand late in round 3 (the hand that works most), steps get shorter, tired arms hit with less snap. Board: Play, 'Test: fight night WITH film study', Skip round twice, watch round 3's last minute at 1x. Does the tired guard look right? | answer: Too little / can't see it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P96",
+      "from": "board",
+      "at": "2026-10-31 19:43",
+      "text": "BOARD ANSWER Q-S294-43 - question: Ziva on the free 'Ziva Baby' model faked its playtest twice (its screenshots were AI-generated, not our game). Its paid model was usable before. Keep Ziva for playtests? | answer: Keep free, Claude checks | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P97",
+      "from": "board",
+      "at": "2026-10-31 19:45",
+      "text": "BOARD ANSWER Q-S294-42 - question: Update 26 is built: tired boxers now fold, sink both gloves and heave (your 'too little'); each body is coloured part by part like tyre temps (side panels, corner, pages); PACE Push/Steady/Save + AIM on the shout bar; round/result pages redone as TV graphics (your 'spreadsheet'). Board: Play, 'Test: fight night WITH film study'. Better? | answer: Body view unclear | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P98",
+      "from": "board",
+      "at": "2026-10-31 20:12",
+      "text": "BOARD ANSWER Q-S294-44 - question: Make-it-a-game plan (attached): money that can close the gym (real club fees and rent, start cash ~3 months), injuries and the 30-day KO rule, a weekly train-hard-or-rest choice shown on the body, losses cost ranking and members, a body report after each fight, then the road to the National Championships. 4 updates (27-30). It changes settled numbers (dues, start cash, debut purse). Build it? | answer: Build it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P99",
+      "from": "board",
+      "at": "2026-10-31 22:58",
+      "text": "BOARD ANSWER Q-S294-45 - question: Update 27 is built: the body view is now her own body coloured part by part (no capsules, 40% bigger; fresh = her own skin) and money bites (real club dues/rent, start $14,600, the gym closes after 4 weeks below $0, losses cost members). Board: Play latest (new career) + 'Test: fight night WITH film study'. Better? | answer: Money too harsh | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P100",
+      "from": "board",
+      "at": "2026-10-31 23:00",
+      "text": "BOARD ANSWER Q-S294-46 - question: Update 28 is built: fights and training can hurt her (real rates: about 6 in 100 bouts, about 1 in 75 normal training weeks, a hard camp up to 3x), a stoppage loss suspends her 30 days, an injury past a booked bout pulls her out ($300 empty slot), no offers while she is out. Board: 'Test: an injury pulls her out'. Right? | answer: optiononplayer if he pulls out. needs to be clear to theplayer about how serious,how many weeks it the injury will heal ,to judge | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P101",
+      "from": "board",
+      "at": "2026-11-01 00:58",
+      "text": "BOARD ANSWER Q-S294-48 - question: Update 30 is built: the road to the National Championships. Lucy needs 5 bouts + 13 weeks with the club, then you Enter her (HOME or WORLD > Nationals); the London regional (2 bouts), then the nationals (up to 4). Each round is a normal bout with your camp and corner. Board: 'Test: the road to the nationals'. Does the season goal give the first months a direction? | answer: Too long to reach | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P102",
+      "from": "board",
+      "at": "2026-11-01 00:59",
+      "text": "BOARD ANSWER Q-S294-49 - question: Update 31 is built. 1) The pro debut costs money (real British numbers): signing, the gym pays her licence + brain scans + your trainer's licence ($1,245); she sells tickets (100 at $50 - family, your members, her wins, titles); the first 60 pay the promoter, she gets half of the rest, the gym keeps 25%. A quick-start debut sells ~55-62: nearly nothing back. 2) Your note on the Nationals page: it is now a road, rings and a bracket. Board: 'Test: the pro offer and her debut'. Right? | answer: Yes, both right | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P103",
+      "from": "board",
+      "at": "2026-11-01 01:00",
+      "text": "BOARD ANSWER Q-S294-50 - question: Update 32: HOME and FIGHTERS are pictures now (your C150 idea on the pages you open most). Each fighter is a card: record big, rank and mood badges, rings for weight to the limit, condition, her goal and days to her bout. HOME has THE NEXT 4 WEEKS as a timeline (bout, weigh-in, championship dates, bills) and a cash chart. Is this the look for every page (GYM, MONEY, FIGHTS, her page next)? | answer: Change the look first | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P104",
+      "from": "board",
+      "at": "2026-11-01 02:52",
+      "text": "BOARD ANSWER Q-S294-51 - question: Update 33 answers your 'Too long to reach': the 3 months now count from her England Boxing registration (the real rule - we had counted 3 months with YOUR club), so Lucy (3-1) needs one more bout; the championships come earlier (entries close week 10, nationals 3 weeks after the regional). She can enter in week 5 (was 14); the national final is week 18 (was 29). Board: 'Test: the road to the nationals'. Soon enough now? | answer: Yes, soon enough | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P105",
+      "from": "board",
+      "at": "2026-11-01 02:52",
+      "text": "BOARD ANSWER Q-S294-52 - question: Your 'Change the look first' on HOME: three new looks, same content, mockups (not in the game yet). A FIGHT BILL - red/navy poster: her next bout is the hero, the two boxers' faces, ticket-stub to-dos. B GYM WHITEBOARD - bright: her polaroid, the coach's marker notes, sticky notes, a magnet week planner. C BROADCAST - TV fight graphics: tale of the tape, angled slabs, news ticker. Which look do I build for every page? | answer: B Gym whiteboard | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P106",
+      "from": "board",
+      "at": "2026-11-01 02:54",
+      "text": "BOARD ANSWER Q-S294-47 - question: Update 29 is built from your answers: money softer (gym closes after 8 weeks below $0, a loss costs 1 member, a waiting sponsor shows on HOME); hurt before a bout you choose - pull her out ($300) or fight hurt - with how serious + weeks to heal; Rest/Light/Normal/Hard each week; a body report after each bout with one-click focus. Board: Play latest + 'Test: an injury before her bout'. Right? | answer: Right | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P107",
+      "from": "board",
+      "at": "2026-11-01 03:30",
+      "text": "BOARD ANSWER Q-S294-53 - question: Update 34: punches up close land on the face. When the heads came together, her lean carried the landing glove 15-25 cm to the side; now it lands again after the lean. Measured over 150 s of a fight: 2 of 26 landed punches far off -> 0 of 26. Board: 'Test: fight night WITH film study', watch the exchanges up close. Do they land now? | answer: Still off - I'll mark it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P108",
+      "from": "board",
+      "at": "2026-11-01 05:08",
+      "text": "BOARD ANSWER Q-S294-55 - question: Faces: Erin, Dana and a new Sophie are now blends of the best faces (Maria/Chloe/Erin). Top row before, bottom after. Hotter? | answer: these are okbut make some younger too 16-18 yo | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P109",
+      "from": "board",
+      "at": "2026-11-01 05:09",
+      "text": "BOARD ANSWER Q-S294-56 - question: Look B is on: HOME is the gym whiteboard (her polaroid, marker notes, the next 4 weeks, needs as sticky notes, the cash tin); every menu page is in its colours. Right? | answer: Change something - I'll mark it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P110",
+      "from": "board",
+      "at": "2026-11-01 05:10",
+      "text": "BOARD ANSWER Q-S294-57 - question: THE READ is in the fight: a meter per opponent habit (fills faster with Ring IQ and film study), a white tick where she pulls the trigger (patient waits, gambler goes early), WAIT FOR IT / TAKE IT NOW. A read counter shows in the ring as READ IT. Like this? | answer: Change the look - I'll mark it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P111",
+      "from": "board",
+      "at": "2026-11-01 05:34",
+      "text": "BOARD ANSWER Q-S294-58 - question: BJJ links: GrappleMap is public domain (601 positions, 1485 moves, can ship); the Sekai zip has no licence, so it is reference only. Ground moves are MMA, and the demo is boxing-only. Build a GrappleMap ground prototype now (about 3-4 agent-days, outside the boxing game), or park it for the MMA update? | answer: Build the prototype now | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P112",
+      "from": "board",
+      "at": "2026-11-01 06:29",
+      "text": "BOARD ANSWER Q-S294-59 - question: Ideas from Dojo Legacy (boxing versions, nothing copied). I'd build two small ones first: a NEXT STEP card on her page (her road from now to the Nationals and pro, one step lit) and a reason on every greyed button (why you can't yet + when). Then her rival, milestone moments, the build-up week before big bouts. OK? | answer: Yes, those two first | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P113",
+      "from": "board",
+      "at": "2026-11-01 06:29",
+      "text": "BOARD ANSWER Q-S294-60 - question: Younger faces: Kira and Samira (scouting prospects) are now 18 with new faces, but they don't look clearly younger - every MetaHuman preset is an adult face, and blending them stays adult. Shape them younger by hand (rounder cheeks, softer jaw, about an hour a face), or keep them? | answer: less shaved heads, hotter and younger please | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P114",
+      "from": "board",
+      "at": "2026-11-01 06:30",
+      "text": "BOARD ANSWER Q-S294-61 - question: Boxing version of the move map (STRIKEMAP_S335.md): 8 position cards (outside, long, mid, inside, clinch, ropes...), every combo a move FROM one card TO another, the clips on the Training page (coach with pads + boxer), and the coach's game: draw the fight plan as arrows on the whiteboard (more arrows for a better coach), she follows it, the corner changes one arrow a round. Build it in that order? | answer: Yes, in that order | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P115",
+      "from": "board",
+      "at": "2026-11-01 07:22",
+      "text": "BOARD ANSWER Q-S294-62 - question: Wrestling plan (WRESTLE_S336.md, from your 4 links): 1) standing tie-up chains (collar tie, underhook, Russian tie...) on our 3D women, as a Standing tab in the ground browser; 2) ONE plan board for boxing and wrestling - the coach links cards with arrows (your 'wire the in and outs' idea), the opponent's reaction picks the branch; 3) a wrestler's 6 coach numbers + match log. Build in that order? | answer: Yes, in that order | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P116",
+      "from": "board",
+      "at": "2026-11-01 08:56",
+      "text": "BOARD ANSWER Q-S294-63 - question: Add Holly Price, Ellie Ward and Jade Cooper (3 new white lightweights, top row) to the game's cast? Picture attached. | answer: Yes, all three | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P117",
+      "from": "board",
+      "at": "2026-11-01 09:40",
+      "text": "BOARD ANSWER Q-S294-64 - question: Fight flows (your GrappleFlows link): draw her plan as a flowchart on the whiteboard - cards with key ideas, arrows labelled 'if she presses: step back', branches by the opponent's game, lit up after the fight. Boxing first, wrestling with the MMA update. Build it in that order? | answer: Yes, boxing and wrestling now | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P118",
+      "from": "board",
+      "at": "2026-11-01 10:15",
+      "text": "BOARD ANSWER Q-S294-65 - question: Scouting in stages (your idea): each opponent has a hidden file of 6-8 tells (best punch, weakness, habits, her corner); you open it by tape study in camp, a scout trip, a sparring partner, then the fight itself; each tell found unlocks a counter (plan branch, camp drill, corner call). Build it in that order? | answer: Yes, build it in that order | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P119",
+      "from": "board",
+      "at": "2026-11-01 10:58",
+      "text": "BOARD ANSWER Q-S294-66 - question: Goose cleaned six punches that kicked a foot up or flung the back glove behind her (they were switched off). Top = before, bottom = after; all six are on the review page. Put them back in the fight? | answer: Yes, put them back | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P120",
+      "from": "board",
+      "at": "2026-11-01 10:58",
+      "text": "BOARD ANSWER Q-S294-67 - question: Real fight plans disagree with our fight rules in 5 places (REALPLANS_S341.md section 3): vs a loader, stepping IN works (Fury-Wilder II, Holyfield-Tyson); vs a range boxer the jab is right, not wrong; vs a presser, holding and pushing back works too (Holyfield); a hurt opponent who still hits back must not be chased with wide hooks (Joshua-Ruiz I); vs a waiter, body combinations work (Lopez). Change our rules to match? | answer: Yes, apply all 5 | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P121",
+      "from": "board",
+      "at": "2026-11-01 12:03",
+      "text": "BOARD ANSWER Q-S294-68 - question: Tape room: an optional camp screen where you watch 3-4 short clips of your next opponent's past fights (played by our fight engine), hit SPOT when she shows a habit, and each one you find opens her file at once and suggests a plan arrow. First a prototype on one opponent to check the tells read on screen. Build it? | answer: the player watches the films and it unflods like in grappleflows , player has appropriate counters for each clip to make his plan . put grappleflows in the game as core mechanic | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P122",
+      "from": "board",
+      "at": "2026-11-01 13:24",
+      "text": "BOARD ANSWER Q-S294-69 - question: Fight HUD to beat UFC 6: six bars a boxer (head, body, legs, stamina, guard, heart) with icons, a round-edge meter in the middle, and her guard and heart show '?' until you scouted them. Build it? | answer: Yes, build it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P123",
+      "from": "board",
+      "at": "2026-11-01 14:50",
+      "text": "BOARD ANSWER Q-S294-70 - question: Ground moves (your grapple film): put them into the career now (MMA ahead of the boxing demo), or after the boxing career is playable, as the MMA update agreed? | answer: After boxing, as the MMA update (recommended) | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P124",
+      "from": "board",
+      "at": "2026-11-01 15:17",
+      "text": "BOARD ANSWER Q-S294-71 - question: Playbook page (your idea): a menu page per fighter - her move map, a player that plays any move, build your own combos, escapes, her plans, and 'Drill this' into training. Build it in that order? | answer: Yes, build it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P125",
+      "from": "board",
+      "at": "2026-11-01 16:12",
+      "text": "BOARD ANSWER Q-S294-72 - question: Training screen like your MMA home-training picture: her in the middle, 8 numbered cards around her (load, focus, weight, learning, combo, pads, rounds, roadwork), each pointing at the body part it trains. Build it? | answer: the text has nothing to do with the picture, combo and learning like wtf ? everythingis wrong in the boxes | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P126",
+      "from": "board",
+      "at": "2026-11-01 23:43",
+      "text": "BOARD ANSWER Q-S294-73 - question: Training redone from your MMA picture: 8 real gym sessions round her body (sparring, neck, shadow boxing, heavy bag, speed bag, pads, slip rope, roadwork), each line on the part it trains, hours + what it builds this week. Load and weight moved to the top. Pads card holds the new move + combo. Click a card = her main session. Keep it? | answer: not that good for training, | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P127",
+      "from": "operator",
+      "at": "2026-11-02 00:29",
+      "text": "MIRO BOARD REVIEW REQUEST (Claude relays the operator, S351; PART 1 of 2 - part 2 is the next message P-number). The operator asked: 'have the miro board reviewed by you, paul and other agents. rate it on design, ergonomic, makes sense?, what is missing, what can be improved'. Put your answer in section 0 under the title 'MIRO BOARD REVIEW', with exactly these five headings: 1 DESIGN - score 1-10 and why; 2 ERGONOMICS - how easy the board is for the operator to use, score 1-10 and why; 3 MAKES SENSE - does the loop read right for what a player will experience, score 1-10 and why; 4 WHAT IS MISSING - a list; 5 WHAT TO IMPROVE - a concrete list, most valuable first. Plain words, he reads it. You cannot open the board; this walkthrough describes it in full (layout, every screen, captions, capture limits).\r\n\r\nWALKTHROUGH PART 1 of 2:\r\n# The Miro loop board - review input (S351, 2026-11-02)\r\n\r\nBoard: https://miro.com/app/board/uXjVETf7la4=/ (private; this file describes it in full).\r\nPurpose (operator): 'a real miro board with the ingame screens from menus/submenus/modals/tooltips, it should help us\r\nsee the big picture loop of what the player should expect.' The game: FightCamp, a boxing gym management sim (Godot,\r\nWindows). The player runs a small boxing gym, trains a female amateur boxer week by week, books fights, watches them\r\nin 3D, works the corner, grows the gym to a pro.\r\n\r\n## Layout\r\n- Title + one-line subtitle at the top.\r\n- Frame 'The loop at a glance' (3400 x 1060): yellow nodes 1 Start a career -> 2 The week -(CONTINUE)-> Week review\r\n  -(next week, curved back)-> 2 The week; 2 The week -(an offer arrives)-> 4 Booking and camp -(fight day)->\r\n  5 Fight night -> Result and goal -(back to the week)-> 2 The week. Right column 'Any day, from the left menu':\r\n  3 Playbook, 6 Run the gym, 7 The world, 8 Grow the gym, 9 Save, mail, settings (blue cards, no arrows).\r\n- Beside it a frame 'PROPOSAL: your training blueprint in the game' (camp phases BUILD / SHARPEN / PEAK + BASE; a\r\n  week of HARD / SKILL / ENGINE / REST day cards; effort and weight logs).\r\n- Below, one frame per chapter, stacked top to bottom, each one row: a strip image of real 1920x1080 game screens\r\n  shrunk to 640x360 each, 64 px apart, a caption card under each screen ('N. name' + one line), straight arrows\r\n  caption to caption left to right. Frames are 764 px tall and 2,176 to 7,104 px wide (one row each).\r\n- Style: white frames, black headline text, pale blue caption cards, yellow loop nodes, dark arrows.\r\n- Known capture limits: screens rendered on an invisible desktop, so the Gear menu and the hover tooltip draw left of\r\n  their control; three 3D fight stills come from the previous build (S350); the 2D corner screen and the 3D corner card\r\n  both appear.",
+      "status": "waiting"
+    },
+    {
+      "id": "P128",
+      "from": "operator",
+      "at": "2026-11-02 00:29",
+      "text": "MIRO BOARD REVIEW REQUEST, PART 2 of 2 (continues the previous message; answer both together in 'MIRO BOARD REVIEW').\r\n\r\nWALKTHROUGH PART 2 of 2:\r\n## The chapters and every screen (in order)\r\n### 1  START A CAREER  (5 screens) - From the title to your first fighter and coach. Played once.\r\n1. Title - New career, load, settings\r\n2. New career - Pick a start: quick start opens a built gym\r\n3. Home, day one - The gym is open; one thing needs you\r\n4. Interview (modal) - Meet the boxer, pick her three week cards\r\n5. Gym > Staff - Hire a coach: training runs at 60% without one\r\n\r\n### 2  THE WEEK - THE CORE LOOP  (9 screens) - Plan her week, press CONTINUE, read the week review, plan again.\r\n1. Home - What needs you this week; CONTINUE runs the days\r\n2. Fighters > Training (NEW) - Her week as 8 sessions round her body; - / + sets each session's rounds\r\n3. Tooltip: load - Harder = faster gains, more injury risk\r\n4. Tooltip: more time - One more block on a session\r\n5. Fighter page - Her stats, goal, record, next fight\r\n6. Fighter > Coach notes - What the coach saw in her last fight\r\n7. Fighter > Moves and combos - What she can throw, how sharp\r\n8. Fighter > Record - Every bout, how it was won or lost\r\n9. Week review (modal) - What training built; then the next week\r\n\r\n### 3  PLAYBOOK  (4 screens) - Her moves, fight plans and combos, played on her own body.\r\n1. Playbook > Moves - Walk her move map; a click plays the move\r\n2. Playbook > Plans - Her fight plan as arrows on the map\r\n3. Playbook > Combos - Build a combination, see if it flows\r\n4. Playbook > Escapes - Ways out of the ropes and the corner\r\n\r\n### 4  A FIGHT: BOOKING AND CAMP  (7 screens) - An offer arrives; accept, run a camp, make weight.\r\n1. Fights > Offers - Offers for her; a mismatch is flagged\r\n2. Bout page: unsafe - Why this one is a bad idea\r\n3. Bout page - The opponent, the purse, accept or decline\r\n4. Home, booked - The fight date on the plan\r\n5. Fight camp (modal) - Camp focus, protocol, film study\r\n6. Fighters > Fight camps - The camp running, days to the fight\r\n7. Weigh-in (modal) - Make weight or pay for it\r\n\r\n### 5  FIGHT NIGHT  (10 screens) - Watch the rounds, work the corner, live with the result.\r\n1. Home, fight night - GO to the fight\r\n2. Tale of the tape - The two fighters side by side\r\n3. Round 1 (3D) - The settled round, watched\r\n4. Shout bar - Call one change during the round\r\n5. Tooltip: her body - Mouse on her liver: what landed there\r\n6. Corner card - The minute: recover, talk, fix, the plan\r\n7. Corner (2D) - Energy at the bell, the corner line\r\n8. Round 3 - The last round\r\n9. Result - The verdict, what it did to her\r\n10. Goal talk (modal) - Set her next goal\r\n\r\n### 6  RUN THE GYM  (5 screens) - Money in, money out, the place itself, the members.\r\n1. Money > Deals - Sponsors and their terms\r\n2. Money - Cash, this week in and out\r\n3. Money > Bills - Rent, fees, staff\r\n4. Gym > Facilities - Equipment and its condition\r\n5. Gym > Members - Dues-paying members, who stays\r\n\r\n### 7  THE WORLD  (5 screens) - The boxing world around the gym.\r\n1. World > News - Results and stories\r\n2. World > Rankings - Where she stands\r\n3. Rival file (modal) - Any rival's file, any time\r\n4. World > Events - Shows and championships\r\n5. World > Search - Find anyone\r\n\r\n### 8  GROW THE GYM  (8 screens) - Scout and sign a second fighter; turn the first one pro.\r\n1. Fighters > Scouting - Prospects to invite\r\n2. Trial (modal) - A week's trial, then sign\r\n3. Fighters > Roster - Two fighters now\r\n4. Training, two fighters - Each one's own week\r\n5. Fighter > Moves - The new fighter's moves\r\n6. Week review, two - Both fighters' week\r\n7. Pro offer (modal) - Seven wins: the pro debut offer\r\n8. Home, a pro - The gym with a pro fighter\r\n\r\n### 9  SAVE, MAIL, SETTINGS  (3 screens) - The top bar's helpers.\r\n1. Title: resume - Load the saved career\r\n2. Mail - Messages for the gym\r\n3. Gear menu - Save, load, settings, handbook, quit",
+      "status": "waiting"
+    },
+    {
+      "id": "P129",
+      "from": "board",
+      "at": "2026-11-02 01:12",
+      "text": "BOARD ANSWER Q-S294-74 - question: Training: you said 'not that good for training'. What would make it good? (I am building both meanwhile: a picture of her doing each session, and rounds you set per session that decide her gains.) | answer: this is ok for a training overview screen , but how do you set the training up for the week , where do you teach the moves ? use the planner as the main player mechanism to train ? | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P130",
+      "from": "board",
+      "at": "2026-11-02 01:15",
+      "text": "BOARD ANSWER Q-S294-75 - question: Your Fighter Training Blueprint as the training game: camp in phases (build, sharpen, peak), the week as hard/skill/engine/rest days (never two hard in a row), effort + weight logs. Build it in that order? | answer: Yes, build it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P131",
+      "from": "board",
+      "at": "2026-11-02 02:01",
+      "text": "BOARD ANSWER Q-S294-76 - question: Real muscular holo: buy the $35 female muscle model (CGTrader, royalty-free, every muscle group separate)? No free one allows a sold game. | answer: Yes, I buy it and drop it in Downloads | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P132",
+      "from": "board",
+      "at": "2026-11-02 02:03",
+      "text": "BOARD ANSWER Q-S294-77 - question: Build the gym Training week (all fighters Mon-Sun, AM body, PM move with progress) and the BJJ belt road as in these mockups? | answer: i do not quite understand the picture , what is \" (live) \" ?? | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P133",
+      "from": "board",
+      "at": "2026-11-02 03:00",
+      "text": "BOARD ANSWER Q-S294-79 - question: Core loop design (mornings summed to the camp goal with intensity, evening move/combo lab, fight plan you test in 20 bouts). Build it in this order? | answer: build playtest get other testers too ... review etc | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P134",
+      "from": "board",
+      "at": "2026-11-02 05:34",
+      "text": "BOARD ANSWER Q-S294-82 - question: Miro AI and Kalli both say the training week has too many picks. Change it so the camp phase writes the default week, each day is one card with its intensity, and you only edit the days you want (14 picks become 0-3)? | answer: Yes, build it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P135",
+      "from": "board",
+      "at": "2026-11-02 05:53",
+      "text": "BOARD ANSWER Q-S294-83 - question: Twist cards draft on Miro: rebuild the weekly twist as a choice with a visible price (8 of the 10 cards now; trash talk with an amateur price; short-notice swap later)? | answer: Yes, build it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P136",
+      "from": "board",
+      "at": "2026-11-02 13:40",
+      "text": "BOARD ANSWER Q-S294-78 - question: Training week + BJJ belt road, v2 (\"vs a partner\" replaces \"(live)\": real rounds against someone who fights back). Build them as drawn? | answer: Change something first | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P137",
+      "from": "board",
+      "at": "2026-11-02 13:40",
+      "text": "BOARD ANSWER Q-S294-80 - question: Training week + BJJ belt road, v3 (evenings panel removed; the belt road now lives in the Record tab, no holo). Build them as drawn? | answer: Yes, build both | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P138",
+      "from": "board",
+      "at": "2026-11-02 13:43",
+      "text": "BOARD ANSWER Q-S294-85 - question: Arts feed MMA: kickboxing + wrestling join with the MMA update (not Early Access), judo later as an add-on (gi sport). Agree? | answer: Yes, that order | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P139",
+      "from": "board",
+      "at": "2026-11-02 13:45",
+      "text": "BOARD ANSWER Q-S294-86 - question: Miro 'Early Access top 5': build the week-review reveal, then she-pushes-back (her morale is the trust score, no new meter), then a fight poster per bout - and skip the corner-minute cap (the S310 corner already does it)? | answer: Yes, build them | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P140",
+      "from": "board",
+      "at": "2026-11-02 13:45",
+      "text": "BOARD ANSWER Q-S294-88 - question: E: disk has 12 GB free (you want ~100). Delete our 4 old folders listed in the attachment (about 26 GB: old Ziva worktree, MetaHuman pilot, gloves2 scratch, old tmp)? | answer: Yes, delete all 4 | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P141",
+      "from": "board",
+      "at": "2026-11-02 14:33",
+      "text": "BOARD ANSWER Q-S294-84 - question: Miro 'Whiteboard planner' mockup: rebuild the fighter's Training tab as that whiteboard (date circled, magnets I/II/III, colour only for risk, twist as a sticky, numbers on hover)? The mechanics underneath are the ones built today. | answer: Yes, build it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P142",
+      "from": "board",
+      "at": "2026-11-02 14:42",
+      "text": "BOARD ANSWER Q-S294-89 - question: SMOOTH3: watch the A/B video on /review (S358, left = the fight now, right = punch reach + glove push off, same fight). Is the left visibly less smooth? | answer: no clue, need to see video | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P143",
+      "from": "board",
+      "at": "2026-11-02 14:43",
+      "text": "BOARD ANSWER Q-S294-90 - question: Week whiteboard (Kalli review): approve two changes? (1) the coach's week starts one goal line amber each week because it ignores the opponent - you fix it with 1-2 edits ('coach plans the camp, you plan the fight'); (2) cut the evening magnet - evenings show as text, one weekly 'Sparring nights 2/3' toggle. | answer: Both | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P144",
+      "from": "board",
+      "at": "2026-11-02 14:45",
+      "text": "BOARD ANSWER Q-S294-91 - question: Playbook: turn Moves into a move book (like the new Escapes tab) and Plans into a game plan written as lines ('At long range -> One-two', 'On the ropes -> Pivot off the ropes'), the map kept behind See the flow? Same plan data, only the screen changes. | answer: build it make it interactive for player, with meaningful options and not chores and visually and progressively rewarding | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P145",
+      "from": "board",
+      "at": "2026-11-02 14:45",
+      "text": "BOARD ANSWER Q-S294-87 - question: Outside playtesters for the camp loop (update 59): invite 3-5 people (friends or a small Discord/itch closed test) to play a 4-week camp in the .exe and tell us where they got lost? | answer: Not yet | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+﻿You work in E:\FightCamp\wt\LEAN_KNOCKDOWN1 (a git worktree of the Lean game repo, branch qwen/knockdown1). Read TASK_KNOCKDOWN1.md in that folder and do exactly what it says: create scripts/rules/Knockdowns.gd and tests/knockdowns_test.gd, run the one headless test it names, commit on qwen/knockdown1. Do not touch any other file. Do not open any window. Do not push.

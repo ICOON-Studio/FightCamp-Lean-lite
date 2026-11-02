@@ -1,0 +1,346 @@
+PART A — GYM FLOOR AUDIT 3 (Day Loop at S230)
+
+Ranked from highest felt impact to lowest.
+
+1. The Block-Stop Blind Transition (Minutes 200 & 400)
+The Moment: The clock hits minute 200 or 400. The camera locks. A menu pops up: "Send him on / Rest / Change plan." The fighter abruptly freezes mid-animation (e.g., fists frozen inside the heavy bag or mid-skip).
+Why it hurts: It feels like an engine pause breakpoint, not a coach stepping in. You don’t see why you stopped beyond the arbitrary clock number, and there is zero immediate physical verdict on the 200 minutes just completed (Did he lock the rhythm? Is he stiffening up? Did he hit target output?). The choice feels like selecting spreadsheet rows under an interrupted game loop.
+Smallest Fix: "Corner Check" Micro-Handoff. On minute 200/400, trigger an instantaneous 3-second stool/towel transition right at the station: the fighter drops hands, wipes brow, and the coach gives a one-line tactile appraisal derived from the completed block ("Snap was crisp, but shoulders are hitching." / "Engine looks deep, lungs are clear.") accompanied by a net block stat delta badge right above his head before showing the decision tray.
+2. Form Cue Mismatch / Static Lock-In (Keys 1–3)
+The Moment: The player presses 2 (CRISP FORM) during a heavy bag session. The cue bar lights up and sits there for the next 45 minutes until stamina dips into WINDED.
+Why it hurts: Form cues are currently fire-and-forget stat multipliers. If the fighter's stamina degrades from FRESH into HEAVY LEGS while POWER THROUGH is active, he simply keeps taking amplified fatigue drain without any visual resistance or feedback that the cue has turned counterproductive until the rest toast fires. It turns an active management button into a chore toggle.
+Smallest Fix: Fighter Cue Compliance & Strain Pop. If a high-intensity cue (POWER THROUGH) runs while fatigue drops below 40%, the fighter's head pops an orange warning ("Gagging for air — form slipping") and automatically degrades drill efficiency by 25% until the player dials it down to PACE YOURSELF or clears it, rewarding active observational coaching.
+3. The Empty Ring Ghost-Sparring Disconnect
+The Moment: You send the fighter to station: ring for ring work or solo shadow/footwork drills when house partner Sal "The Anvil" isn't booked, or during technical ring position work.
+Why it hurts: In a management sim where ring mastery is the ultimate test, having the fighter dance alone between four ropes with sporadic "RingBeats" floating overhead feels hollow. When Sal is there, it works; when it’s solo ring drills, the ring feels like an oversized, empty void compared to the cramped, active bag strip.
+Smallest Fix: Ring Boundary Tension Indicators. When in the ring for solo tactical work, render ring-rope boundary pings and floor zone markers (e.g. corner trap zones, center ring circle) showing his ring-craft bias (Cutting ring: +0.4 Fight IQ/min vs Backing to ropes: -Composure) as he moves between the 4 quadrants, anchoring the spatial value of the ring canvas.
+4. Member Station Lockout Frustration (FloorVibe Collision)
+The Moment: FloorVibe rolls an event where an NPC gym member claims heavy_bag_2 for 15 minutes. The player opens the menu to route their fighter to heavy_bag_2, only to find it disabled/locked.
+Why it hurts: Real coaches don't get locked out of equipment by paying hobbyists without recourse. In a tight 600-minute camp schedule where every 15-minute block counts toward pad chains and weight cuts, losing your planned station to an invisible/uncontrolled member feels like artificial friction rather than living gym atmosphere.
+Smallest Fix: "Coach Priority Bump". If the player routes their fighter or walks their coach to an occupied station, give an instant option: "Yield station to member (+1 Rep, +$15 sub)" OR "Wave him off (Free station immediately, -1 Rep if member is regular)". Turns an annoyance into an authentic coach decision.
+5. Visitor Ambience with Zero Tactical Consequence
+The Moment: A local reporter or promoter scout walks along the perimeter path, pauses for 30 day-minutes, and leaves.
+Why it hurts: It's pure eye candy. The player notices the visitor icon/walker, but the fighter's behavior and the coach's choices remain 100% identical. In real boxing gyms, having Marcus Vance or a regional press reporter lean against the apron alters fighter composure, ego, and effort instantly.
+Smallest Fix: Visitor Observation Pressure. While a visitor is adjacent to the active station zone, the fighter gains a passive trait modifier for those minutes: raw power/speed drills gain +10% execution output, but composure drain doubles if the fighter hits WINDED or misses a pad chain beat under their gaze.
+6. Audit-2 Item #6: Assistant Coach Shadow Assignment
+Does it still rank? Yes, but it settles at #6.
+The Moment: The player hires an assistant coach after the first $350 purse. When you skip part of a day, the assistant auto-runs drills at 80% efficiency. But while watching the live floor, the assistant is invisible and functionally absent until you hit skip.
+Why it hurts: Having an assistant on the payroll who only exists in a skip calculation breaks the fantasy of delegating secondary fighters or running simultaneous pad stations in the expanded gym hall.
+Smallest Fix: Give the assistant a permanent work post (e.g. holding mitts at station: pads or running the station: treadmill pacer), boosting that single secondary station passively by +10% while the head coach trains the main prospect.
+PART B — FULL CODE: FIX #1 (CORNER CHECK MICRO-HANDOFF)
+
+This ruleset powers the minute 200/400 Block Stop Evaluation. When the clock reaches a block stop (minute 200 or 400), the engine passes the fighter's block telemetry (minutes spent, primary station, current stamina, accumulated fatigue, starting stats vs current delta, and the active coach presence). It calculates the fighter's Corner State, a tactile appraisal quote (verbal coach readout), recovery recommendation, and the exact composure/stamina adjustments for the upcoming decision.
+
+1. Pure Rules File: res://scripts/gym/gym_block_stop_rules.gd
+# res://scripts/gym/gym_block_stop_rules.gd
+# PURE RULES EVALUATOR FOR BLOCK STOP TRANSITIONS (MINUTES 200 & 400).
+# Deterministic. No randf(), no preloads, no state, no class_name.
+#
+# CONTEXT DICTIONARY SPECIFICATION:
+# {
+#   "minute": int,                  # 200 or 400
+#   "station_id": String,           # e.g. "heavy_bag_1", "pads", "ring", "treadmill"
+#   "stamina": float,               # 0.0 - 100.0 (current stamina)
+#   "stamina_max": float,           # e.g. 100.0
+#   "fatigue_band": String,         # "FRESH", "WINDED", "HEAVY_LEGS", "EXHAUSTED"
+#   "coach_present": bool,          # true if head coach stood at this station this block
+#   "active_cue": String,           # "NONE", "POWER_THROUGH", "CRISP_FORM", "PACE_YOURSELF"
+#   "stat_gained_key": String,      # "power", "technique", "speed", "defense", "conditioning", "fight_iq"
+#   "stat_gained_amount": float,    # raw stat points added during this block (e.g. 0.45)
+#   "current_composure": float,     # 0.0 - 100.0
+#   "drilled_minutes": int,         # minutes continuously drilled at this station this block
+#   "weight_target_delta": float    # kg relative to target (positive = overweight, negative = under)
+# }
+#
+# ROLL INPUT DICTIONARY SPECIFICATION:
+# {
+#   "quote_pick": float             # 0.0 - 0.9999 (deterministic roll for text variety)
+# }
+
+extends RefCounted
+
+static func evaluate_block_stop(ctx: Dictionary, rolls: Dictionary) -> Dictionary:
+	var minute: int = ctx.get("minute", 200)
+	var station_id: String = ctx.get("station_id", "")
+	var stamina: float = clampf(float(ctx.get("stamina", 100.0)), 0.0, 100.0)
+	var stamina_max: float = maxf(float(ctx.get("stamina_max", 100.0)), 1.0)
+	var fatigue_band: String = ctx.get("fatigue_band", "FRESH")
+	var coach_present: bool = bool(ctx.get("coach_present", false))
+	var active_cue: String = ctx.get("active_cue", "NONE")
+	var stat_key: String = ctx.get("stat_gained_key", "conditioning")
+	var stat_gain: float = maxf(float(ctx.get("stat_gained_amount", 0.0)), 0.0)
+	var composure: float = clampf(float(ctx.get("current_composure", 50.0)), 0.0, 100.0)
+	var drilled_mins: int = maxi(int(ctx.get("drilled_minutes", 0)), 0)
+	var weight_delta: float = float(ctx.get("weight_target_delta", 0.0))
+
+	var roll_pick: float = clampf(float(rolls.get("quote_pick", 0.0)), 0.0, 0.9999)
+
+	# Control / Guard: If fighter didn't drill or invalid minute, return neutral no-op
+	if drilled_mins <= 0 or (minute != 200 and minute != 400):
+		return {
+			"valid": false,
+			"handoff_state": "IDLE",
+			"coach_quote": "",
+			"floating_badge": "",
+			"composure_delta": 0.0,
+			"rest_recommendation": "NONE",
+			"risk_warning": ""
+		}
+
+	var stamina_pct: float = (stamina / stamina_max) * 100.0
+	var handoff_state: String = "LOCKED_IN"
+	var comp_delta: float = 0.0
+	var recommendation: String = "PUSH"
+	var warning: String = ""
+
+	# 1. Determine Physiological Handoff State
+	if fatigue_band == "EXHAUSTED" or stamina_pct < 20.0:
+		handoff_state = "REDLINED"
+		comp_delta -= 6.0
+		recommendation = "BENCH_REST"
+		warning = "INJURY RISK SPIKE: 40% ON NEXT BLOCK"
+	elif fatigue_band == "HEAVY_LEGS" or stamina_pct < 45.0:
+		handoff_state = "WOBBLY"
+		comp_delta -= 2.0
+		recommendation = "LIGHT_STATION_OR_HYDRATE"
+		if active_cue == "POWER_THROUGH":
+			warning = "OVERTRAINED: CUE MUST DROP"
+			comp_delta -= 3.0
+	elif coach_present and stat_gain >= 0.35:
+		handoff_state = "SURGING"
+		comp_delta += 5.0
+		recommendation = "MAINTAIN_LOAD"
+	elif stamina_pct >= 70.0:
+		handoff_state = "CRUISING"
+		comp_delta += 2.0
+		recommendation = "INTENSIFY"
+	else:
+		handoff_state = "STEADY"
+		comp_delta += 0.0
+		recommendation = "ROTATE_STATION"
+
+	# Weight warning check
+	if weight_delta > 1.5 and minute == 400:
+		warning = "WEIGHT BEHIND: NEED SWEAT STRIP"
+
+	# 2. Derive Tactical Coach Verbal Readout
+	var coach_quote: String = _resolve_quote(handoff_state, station_id, stat_key, coach_present, roll_pick)
+
+	# 3. Create Short Head Badge (Max 40 chars for camera readability)
+	var badge: String = _build_badge(handoff_state, stat_key, stat_gain)
+
+	return {
+		"valid": true,
+		"handoff_state": handoff_state,
+		"coach_quote": coach_quote,
+		"floating_badge": badge,
+		"composure_delta": comp_delta,
+		"rest_recommendation": recommendation,
+		"risk_warning": warning
+	}
+
+static func _resolve_quote(state: String, station: String, stat: String, coach_there: bool, roll: float) -> String:
+	var pool: Array[String] = []
+
+	match state:
+		"REDLINED":
+			if coach_there:
+				pool = [
+					"Breathe through the nose. Your legs are rubber.",
+					"Spit the bit and sit down. Don't throw away the week.",
+					"Hands down, chest up. You're working on fumes."
+				]
+			else:
+				pool = [
+					"Fighter is panting against the ropes with blank eyes.",
+					"Shoulders sagging heavily. Form has broken down.",
+					"Gasping hard, leaning on equipment frame."
+				]
+		"WOBBLY":
+			if station.begins_with("heavy_bag") or station == "power_rack":
+				pool = [
+					"Punch snap is gone. You're pushing instead of popping.",
+					"Hips are late. Dial back the force and find rhythm."
+				]
+			elif station == "pads":
+				pool = [
+					"Slapping the leather now. Shake the tension out.",
+					"Eyes up. You're reacting a half-beat slow."
+				]
+			else:
+				pool = [
+					"Lungs burning. Time to ease off the throttle.",
+					"Footwork getting heavy. Mind the ankles."
+				]
+		"SURGING":
+			pool = [
+				"Sharp work. That hook is turning over clean.",
+				"Now we've got rhythm! Keep that guard glued.",
+				"Pad chains snapping clean. That's money on Saturday."
+			]
+		"CRUISING":
+			pool = [
+				"Moving smooth. Engine barely broke a sweat.",
+				"Clean baseline work. We can dial up the friction.",
+				"Solid output. Pulse is sitting right in the pocket."
+			]
+		_: # STEADY
+			pool = [
+				"Decent round of work. Let's towel off and assess.",
+				"Ticking the boxes. Stay honest with the hands.",
+				"Banked those rounds. Grab water before the next bell."
+			]
+
+	var idx: int = int(floor(roll * float(pool.size())))
+	idx = clampi(idx, 0, pool.size() - 1)
+	return pool[idx]
+
+static func _build_badge(state: String, stat: String, gain: float) -> String:
+	var stat_tag: String = stat.substr(0, 3).to_upper()
+	var gain_str: String = "+%0.2f" % gain
+
+	match state:
+		"REDLINED":
+			return "REDLINED! " + stat_tag + " " + gain_str + " (GASSED)"
+		"WOBBLY":
+			return "FATIGUED: " + stat_tag + " " + gain_str
+		"SURGING":
+			return "PRIME FORM: " + stat_tag + " " + gain_str
+		"CRUISING":
+			return "FRESH: " + stat_tag + " " + gain_str
+		_:
+			return "BLOCK COMPLETE: " + stat_tag + " " + gain_str
+
+2. Verification Test Suite: res://tests/_test.gd
+# res://tests/_test.gd
+# Headless test runner for gym_block_stop_rules.gd.
+# Run via: godot --headless -s res://tests/_test.gd
+
+extends SceneTree
+
+const RulesScript = preload("res://scripts/gym/gym_block_stop_rules.gd")
+
+func _initialize() -> void:
+	var failures: int = 0
+
+	# -------------------------------------------------------------
+	# CASE 0: CONTROL (Must produce invalid no-op result)
+	# -------------------------------------------------------------
+	var control_ctx: Dictionary = {
+		"minute": 150, # Not a block stop (only 200 and 400 allowed)
+		"station_id": "heavy_bag_1",
+		"drilled_minutes": 0,
+		"stamina": 100.0
+	}
+	var control_res: Dictionary = RulesScript.evaluate_block_stop(control_ctx, {"quote_pick": 0.1})
+	if control_res.get("valid", true) != false:
+		print("FAIL: Control case expected valid=false, got: ", control_res.get("valid"))
+		failures += 1
+	if control_res.get("floating_badge", "") != "":
+		print("FAIL: Control case emitted badge: ", control_res.get("floating_badge"))
+		failures += 1
+
+	# -------------------------------------------------------------
+	# CASE 1: REDLINED COLLAPSE (Stamina gassed, exhausted)
+	# -------------------------------------------------------------
+	var redline_ctx: Dictionary = {
+		"minute": 200,
+		"station_id": "pads",
+		"stamina": 12.0,
+		"stamina_max": 100.0,
+		"fatigue_band": "EXHAUSTED",
+		"coach_present": true,
+		"active_cue": "POWER_THROUGH",
+		"stat_gained_key": "power",
+		"stat_gained_amount": 0.52,
+		"current_composure": 60.0,
+		"drilled_minutes": 180,
+		"weight_target_delta": 0.2
+	}
+	var redline_res: Dictionary = RulesScript.evaluate_block_stop(redline_ctx, {"quote_pick": 0.0})
+	if not redline_res.get("valid", false):
+		print("FAIL: Case 1 expected valid=true")
+		failures += 1
+	if redline_res.get("handoff_state") != "REDLINED":
+		print("FAIL: Case 1 expected handoff_state REDLINED, got: ", redline_res.get("handoff_state"))
+		failures += 1
+	if redline_res.get("rest_recommendation") != "BENCH_REST":
+		print("FAIL: Case 1 expected recommendation BENCH_REST, got: ", redline_res.get("rest_recommendation"))
+		failures += 1
+	if float(redline_res.get("composure_delta", 0.0)) >= 0.0:
+		print("FAIL: Case 1 expected negative composure delta, got: ", redline_res.get("composure_delta"))
+		failures += 1
+	var badge1: String = redline_res.get("floating_badge", "")
+	if not badge1.begins_with("REDLINED! POW +0.52"):
+		print("FAIL: Case 1 badge mismatch: ", badge1)
+		failures += 1
+	if badge1.length() > 40:
+		print("FAIL: Case 1 badge exceeds 40 chars: ", badge1.length())
+		failures += 1
+
+	# -------------------------------------------------------------
+	# CASE 2: SURGING MOMENTUM (Coach with him, good gains, fresh)
+	# -------------------------------------------------------------
+	var surge_ctx: Dictionary = {
+		"minute": 400,
+		"station_id": "heavy_bag_3",
+		"stamina": 85.0,
+		"stamina_max": 100.0,
+		"fatigue_band": "FRESH",
+		"coach_present": true,
+		"active_cue": "CRISP_FORM",
+		"stat_gained_key": "technique",
+		"stat_gained_amount": 0.40,
+		"current_composure": 70.0,
+		"drilled_minutes": 190,
+		"weight_target_delta": -0.4
+	}
+	var surge_res: Dictionary = RulesScript.evaluate_block_stop(surge_ctx, {"quote_pick": 0.95})
+	if surge_res.get("handoff_state") != "SURGING":
+		print("FAIL: Case 2 expected handoff_state SURGING, got: ", surge_res.get("handoff_state"))
+		failures += 1
+	if float(surge_res.get("composure_delta", 0.0)) != 5.0:
+		print("FAIL: Case 2 expected composure delta +5.0, got: ", surge_res.get("composure_delta"))
+		failures += 1
+	if surge_res.get("rest_recommendation") != "MAINTAIN_LOAD":
+		print("FAIL: Case 2 recommendation mismatch: ", surge_res.get("rest_recommendation"))
+		failures += 1
+	var badge2: String = surge_res.get("floating_badge", "")
+	if not badge2.begins_with("PRIME FORM: TEC +0.40"):
+		print("FAIL: Case 2 badge mismatch: ", badge2)
+		failures += 1
+	if badge2.length() > 40:
+		print("FAIL: Case 2 badge exceeds 40 chars: ", badge2.length())
+		failures += 1
+
+	# -------------------------------------------------------------
+	# CASE 3: WEIGHT WARNING AT MINUTE 400
+	# -------------------------------------------------------------
+	var weight_ctx: Dictionary = {
+		"minute": 400,
+		"station_id": "weights",
+		"stamina": 50.0,
+		"stamina_max": 100.0,
+		"fatigue_band": "WINDED",
+		"coach_present": false,
+		"active_cue": "NONE",
+		"stat_gained_key": "power",
+		"stat_gained_amount": 0.20,
+		"current_composure": 50.0,
+		"drilled_minutes": 150,
+		"weight_target_delta": 2.1 # Critical overweight for Saturday
+	}
+	var weight_res: Dictionary = RulesScript.evaluate_block_stop(weight_ctx, {"quote_pick": 0.5})
+	if not String(weight_res.get("risk_warning", "")).begins_with("WEIGHT BEHIND"):
+		print("FAIL: Case 3 expected weight warning, got: ", weight_res.get("risk_warning"))
+		failures += 1
+
+	print(" failures=" + str(failures))
+	quit(0 if failures == 0 else 1)
+
+3. THE HOOK
+Where it plugs in: In the gym floor manager (gym_floor_controller.gd), inside the advance_minutes(delta_mins) loop precisely when current_day_minute hits 200 or 400.
+What it reads: The active fighter’s current station telemetry, stamina, fatigue_band, current_composure, the coach's coordinates relative to that station (coach_present), and the station’s accumulated block stat output (stat_gained_amount, stat_gained_key).
+What it shows:
+Floating text above fighter: Pops result.floating_badge (e.g. "PRIME FORM: TEC +0.40", max 32 chars, crisp bold gold/red depending on state) for 3.5 seconds.
+Toast message / Corner tray header: Displays one bottom-docked coach observation line: result.coach_quote (e.g. "Breathe through the nose. Your legs are rubber.") alongside the interactive decision tray ("Bench & Water", "Hold Station", "Rotate Station"). If result.risk_warning is non-empty, it renders an amber hazard tag on the tray header.

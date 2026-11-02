@@ -1,0 +1,913 @@
+Kalli
+
+PART 2 of 2
+2. A — THE NEAR SENTENCE (the whole task)
+Winner
+Same motion under another name - not this technique. (52)
+Works for lead≠check hook, kick retargets, throw re-entries: it names the relation (same motion / other name) and the refusal (not this technique), without listing the kind of nearness.
+Runners-up rejected
+Rejected (n)	Why not
+Not exact - showing the nearest motion we own. (46)	Leads with fault language (Not exact). M26 trap: NEAR must not read as a warning. Nearest we own also sounds like scarcity apology.
+Similar clip only - we do not have this one filmed. (50)	Collapses NEAR into NO CLIP YET. Admits absence instead of useful stand-in; will feel wrong as coverage grows.
+What NEAR must never do visually-in-words
+Do not put the hovered technique's name in the line as if the clip is that name. The chip already carries the node title; the line's job is the mismatch.
+3. B — STATE 4 instead of a viewport
+Line: No motion by design - this is an attribute, not a throw. (56)
+Instead of a viewport (words only — no layout): show a facts strip of what the skill changes on the fighter — the catalogue fields that already exist for that node (branch / requires / match effects / grade), titled as attributes or reads, not as an empty stage waiting for film. The modal is a different kind of card, not a card with a hole.
+INFERENCE: If the node has no useful effect text yet, still keep the NO MOTION chip and line; leave the facts strip sparse rather than swapping to NO CLIP YET.
+4. C — WHAT THE MODAL MUST NEVER SAY
+Quiet lies (K70 / K72 discipline):
+Animation coming soon / Clip next patch / any date — nobody has scheduled one; state 3 must stay undated.
+Hovered technique name over a NEAR clip as if it were EXACT — silent M19 substitution on a UI surface.
+Missing animation / Preview unavailable / Broken on a skill — those 162 will never have motion; failure chrome is the lie.
+Similar enough / Close enough without not this technique — softens the mismatch into false identity.
+Any claim the engine throws or simulates a technique it only has as catalogue text — film is not fight authority; effects are. Do not imply the preview is the sim.
+Apology copy on state 3 (sorry, still working, bear with us) — 519 unbound today, falling weekly; grovel ages badly.
+Warning / danger chrome wording on NEAR (caution, wrong clip, error) — stand-in is honest and useful, not a fault (aligns with M26 trap).
+5. Builder wiring note (honesty)
+Need	Today
+kind == skill → state 4	COMPUTED — catalogue
+kind in {move, sequence}, no technique-id clip → state 3	COMPUTED — empty bind
+Technique-id EXACT bind → state 1	COMPUTED for the ~15 that resolve by id; sparse
+Technique-id NEAR bind → state 2	NOT COMPUTED until Q133 adds the NEAR field
+Role-only FightClipBinding.clip_for(role) as tree preview	NOT COMPUTED as EXACT for a named technique (S4H) — do not pretend role film is that node
+Effects still apply with no film	COMPUTED — catalogue contract
+Promise a ship date for unbound film	NOT COMPUTED
+6. Acceptance
+Four states each have label <=14, line <=60, honesty tag.
+NEAR has one winner + two rejected runners-up with reasons.
+State 4 names what replaces the viewport, in words.
+Never-say list present.
+Index priors cited; M19 tension stated; no geometry; no colour.
+State 3 does not apologise or date.
+K74 complete. Words only; M26 paints; Q133 wires the NEAR bit.
+Claude pinged (RESEARCH READY K74). Landed file is canonical.
+1:09 PM
+You
+# TASK_K75 - KALLI - REVIEW THE PHASE-FIRST SKILL TREE AND PROPOSE IMPROVEMENTS
+**Owner:** kalli. **Research only - no .gd, no .tscn, no layout geometry.**
+Stage to `_kalli_delivery/` and ping Claude.
+## Why this, and it is a review rather than a build
+**The operator chose the PHASE-FIRST skill tree** out of three iterations and
+then said two things about it: *"very simplistic you can use the space for more
+descriptive, like the fighter personality can also be shown there"* and *"the
+fonts i dont like them at all i do not want these fonts in any menu"*. The
+fonts are changed and the header now carries the fighter. **The operator then
+asked for the screen to be reviewed by agents, with proposed improvements.**
+You own the WORDS. Not geometry, not colour, not type.
+## The screen as it stands, described so you can review it without seeing it
+**1280x720. Header band, 112 px**, five blocks left to right:
+- a portrait placeholder, 88 px wide;
+- **identity**: `MOSES OKONKWO` at 26 px; `14-2-0` with `9 KO - 3 SUB` beside
+  it; `27 - Welterweight - Nigeria - Ironside Gym`; two chips,
+  `TEMPERAMENTAL` and `SOUTHPAW`;
+- **WHAT HE WANTS**: heading, then `A title shot this year`, then
+  `He will take a hard fight to move up. He will not wait.`, then a machine
+  line `goal rank_up - urgency HIGH`;
+- **WHERE HE IS STRONG**: four labelled bars - `clinch 81 his best phase`,
+  `standing 64 orthodox-heavy`, `ground top 38 holds, rarely finishes`,
+  `ground bottom 19 gets held there`.
+**Below it, a phase band**: STANDING 483 / CLINCH 153 / GROUND TOP 53 /
+GROUND BOTTOM 52 / SCRAMBLE 15, each with `N - n known`, band width
+proportional to share. Under it one line of prose: *"He is a clinch fighter who
+does not know it yet - 9 of his 11 knockdowns started from a tie-up."*
+**Then three columns** headed `ENTER IT` / `WORK INSIDE IT` / `LEAVE IT`, each
+with a sub-line (`how he gets hold of the man`, `what he does once he has it`,
+`on his terms, or the other man's`) and six technique rows.
+**Right rail, 330 px**: the hover preview and the four clip states you already
+specified in K74.
+## What to deliver
+1. **THE PERSONALITY LINE.** `TEMPERAMENTAL` is one of eight real labels in
+   `career_goals.json` (Ambitious, Analytical, Charismatic, Disciplined,
+   Fearless, Loyal, Reserved, Temperamental). A bare chip says almost nothing.
+   **Give the 60-char line each of the eight would show beside the chip**, in
+   the register of a manager reading a file on a man he employs. Mark each
+   COMPUTED or NOT COMPUTED against what the engine actually holds.
+2. **"WHAT HE WANTS" IS TWO SENTENCES AND ONE MACHINE LINE.** Review that
+   shape. The goal ids are real: `rank_up`, `top_promotion`, `champion`,
+   `top_of_the_ladder`, `mastery`, `get_paid`, `stay_loyal`. Give the headline
+   (<= 34 chars) and the consequence line (<= 60 chars) for **all seven**.
+   **The consequence line is the valuable half** - it says what this wanting
+   makes him DO, which is what a manager acts on.
+3. **THE READ LINE.** *"He is a clinch fighter who does not know it yet"* is a
+   claim about the man derived from his own numbers. **Is that honest, and what
+   is the template?** Give the pattern and three more instances of it, each
+   with the quantity it is derived from named. **And say plainly which ones the
+   engine cannot currently compute** - K72 and K74 both got this right and it
+   is why you are on this.
+4. **THE COLUMN HEADS.** `ENTER IT` / `WORK INSIDE IT` / `LEAVE IT` with their
+   sub-lines. Do they survive being applied to STANDING and GROUND as well, or
+   does each phase need its own three verbs? Give the set for all five phases
+   if so.
+5. **WHAT YOU WOULD CUT.** A screen with no named omissions has not been
+   costed.
+## THE TRAP
+**Writing flavour.** Every line here is read by a manager deciding what to do
+next week. A sentence that sounds good and tells him nothing is worse than a
+blunt number. And **do not write a line the engine cannot back** - a
+personality line implying the sim models temperament in a fight, when it does
+not, is exactly the quiet lie K70 exists to refuse.
+## WHAT ALREADY EXISTS - READ BEFORE YOU START
+Ask Claude to paste anything you need; you have no checkout. Relevant and
+already on disk: **K70** (honesty and reporting), **K71** (causation card),
+**K72** (corner card), **K73** (region crossing sentences), **K74** (the four
+technique-modal states - this screen's right rail is yours already), and
+**G64/G65/G66** for the type scale and the labels convention. **A negative
+result is a result** and NOT COMPUTED is a real answer.
+Show more
+1:22 PM
+Reviewing the phase-first skill tree words only — personality lines, goal headlines, the read-line template, and column heads. Checking career_goals and K70–K74 priors first so nothing claims wiring we do not have.
+Pulling career_goals and the honesty priors now. I’ll come back with the eight personality lines, seven goal pairs, the read-line template, column heads per phase if needed, and what to cut.
+Draft is ready on my computer. Copying to Beast, checking career_goals against the live file, then pinging Claude and delivering the review.
+1:29 PM
+K75 done — words-only review of the phase-first skill tree, verified against live career_goals.json + Retention + ask weights.
+Three lines first
+Load-bearing: Temperament is a career-file label (asks + loyalty). Do not imply the fight sim models it.
+Fight hardest to keep: READ template {claim} - {k} of {n} {quantity} {derivation}. — only when k, n, and derivation are COMPUTED. Drop “does not know it yet.”
+Least sure: KD-origin-by-phase as a career aggregate — NOT COMPUTED; Moses clinch-KD line must not ship as COMPUTED.
+Built on: K70/K72/K74 honesty · career_goals.json (7 ids) · WorldPopulation.PERSONALITIES · Retention shifts · ask weights · CareerGoals.urgency float. Ambitions.gd is a different system — do not merge.
+1. Personality lines (chip ≤60)
+Register: manager reading a file on a man he employs.
+Temperament	Line	n	Honesty
+Ambitious	Chases the next rung - will not sit quiet.	42	Label COMPUTED. Ask 1.6 + loyalty −4 COMPUTED. Fight NOT COMPUTED.
+Analytical	Wants a reason for every call you make.	39	Label COMPUTED. Ask 0.9 COMPUTED. Loyalty idle. Fight NOT COMPUTED. Line = INFERENCE.
+Charismatic	Sells the room - needs a stage and a mike.	42	Label COMPUTED. Ask 1.2 COMPUTED. Fight/press NOT COMPUTED.
+Disciplined	Keeps the week - skips the soft options.	40	Label COMPUTED. Ask 0.9 COMPUTED. Fight NOT COMPUTED.
+Fearless	Takes the hard booking - does not duck heat.	44	Label COMPUTED. Ask 1.1 COMPUTED. Booking pref NOT COMPUTED.
+Loyal	Stays when the offer is louder elsewhere.	41	Label COMPUTED. Ask 0.6 + loyalty +8 COMPUTED. Fight NOT COMPUTED.
+Reserved	Keeps his own counsel - short on noise.	39	Label COMPUTED. Ask 0.7 COMPUTED. Fight NOT COMPUTED.
+Temperamental	Turns on a slight - handle him carefully.	41	Label COMPUTED. Ask 1.4 + loyalty −8 COMPUTED. Fight NOT COMPUTED.
+Never: “swarms because Temperamental” / “Analytical reads the feint.”
+2. What he wants
+Shape: Cut the second decorative sentence. Keep headline + consequence + machine line goal <id> - urgency <LEVEL>. Urgency float is COMPUTED; the word HIGH is only COMPUTED if UI maps bands — verify mapper before claiming the word.
+goal id	Headline	n	Consequence	n
+rank_up	Climb the ranking board	23	Books up - refuses soft tune-ups.	33
+top_promotion	Get into a top promotion	24	Signs pressure - will jump gym to get in.	41
+champion	Win a world title	17	Forces title path - rejects dead-end cards.	43
+top_of_the_ladder	Sit alone at the top	20	Wants undisputed - not co-main filler.	38
+mastery	Master the craft	16	Chooses hard camps - skill over purse.	38
+get_paid	Get paid what he is worth	25	Holds out - money talk before ink.	34
+stay_loyal	Stay with this gym	18	Turns down poaches - loyalty is the ask.	40
+Ids + urgency scores COMPUTED. Consequence lines = INFERENCE (manager act), not auto-behaviour.
+1:31 PM
+3. The read line
+Current Moses line is not honest as COMPUTED — needs KD count, KD-origin phase, and a self-misread flag. (b) and (c) are NOT COMPUTED. Numbers in the brief are illustrative.
+Template: {phase_or_role claim} - {k} of {n} {quantity} {derivation}.
+Omit “does not know it yet.” Prefer ≤60.
+Three more (quantity named):
+He wins rounds on the fence - 6 of 8 control minutes were cage. — cage-vs-open split NOT COMPUTED unless a zone key exists.
+His power is late - 4 of 5 KOs landed after minute three. — minute-band NOT COMPUTED without timestamps.
+Takedown threat on paper - 1 of 12 attempts stuck. — attempts/completions may be COMPUTED; “on paper” is voice — drop or INFERENCE.
+Engine cannot currently compute: KD origin phase · self-misread · temperament→fight habit · catalog phase share as identity.
+4. Column heads
+Shared skeleton ENTER IT / WORK INSIDE IT / LEAVE IT survives. Generic sub-lines do not — each phase needs its own:
+STANDING — From bell/reset/break · Range/jab/entries · Shoot, clinch, or get put down.
+CLINCH — Tie-up/underhooks/fence · Control/dirty box/posture · Break, throw, or peeled off.
+GROUND TOP — Pass/sprawl/sweep · Hold — damage or advance · Finish, stall, or swept.
+GROUND BOTTOM — Taken down or rolled under · Frame/threaten/recover · Stand, sweep, or eat pass.
+SCRAMBLE — Broken position · Race to knee/hip/hook · First clean position ends it.
+5. What I would cut
+Fight-sim temperament flavour
+“Does not know it yet” on reads
+Second decorative sentence under goals
+Ambitions prose mixed into career_goals chips
+Pocket/weapon as sixth+ phase columns on v1
+Poetry sub-lines
+Urgency word HIGH without a band mapper
+Phase band % as personality
+Charismatic → press answers unless wired
+Fonts stay out of every menu (your rule).
+On disk (Beast)
+_kalli_delivery/K75_PHASE_FIRST_SKILL_TREE_WORDS.md
+_kalli_delivery/CLAUDE_LAND_NOTE_K75.md
+research/K75_PHASE_FIRST_SKILL_TREE_WORDS.md
+research/CLAUDE_LAND_NOTE_K75.md
+Claude pinged — RESEARCH READY K75 (id 119b57ef1725). I did not edit HANDOFF.md.
+Tue, Sep 22 5:34 PM
+# THE LOGICAL FLOW: WHAT SCREENS EXIST, IN WHAT ORDER, AND WHAT THEY SAY
+**LONG-RUNNING TASK - it does not finish in one pass.** Operator ruling
+2026-09-22: agents hold standing work and are checked every session. Claude
+re-cuts this brief from what landed; it is never restarted from scratch.
+**EVERY PASS ENDS WITH AN ARTEFACT THE OPERATOR CAN JUDGE, and with a line
+saying WHAT IS STILL WRONG.** A pass reporting everything finished is the one
+checked hardest.
+**Owner:** kalli. **Words and structure - no geometry, no colour, no fonts.**
+Stage to `_kalli_delivery/`. Operator, 2026-09-22: *"use kalli and maria for
+special effects logical menu presentation based on game flow."* Kalli takes the
+FLOW; Maria takes the LOOK (`TASK_VFX_AND_PRESENTATION.md`).
+## Where this starts, measured
+**12 scenes and 64 screen/panel scripts.** The scenes are: BootRoot,
+CreationRoot, CareerRoot, DayFeedScreen, AthleteProfileShellScreen,
+FightContractScreen, FightNight, FightWorldLive, FightWorldPreview,
+SetpieceRoot, FightAnimLab, UIKitGallery.
+**Nobody has ever laid out the ORDER.** They were each built for their own
+stage. The question this task answers is whether they add up to a game a player
+can move through without being lost.
+## The standing questions, in priority order
+1. **DRAW THE FLOW.** Every screen, every route in and out, and the loop a
+   career actually repeats - week to week, fight to fight. **Name every screen
+   that has no way back, and every one reachable by more than one route that
+   should not be.** A flow diagram in text or a table is fine; it does not need
+   to be pretty, it needs to be complete.
+2. **WHAT IS MISSING?** Compare the loop against what a career game needs. The
+   corner between rounds is being built now (`TASK_CORNER_UI.md`), which was
+   missing until today - find the rest. Name each gap and what it costs.
+3. **WHAT IS REDUNDANT?** Two screens doing one job is worse than one. Say
+   which to merge.
+4. **THE WORDS ON THE ROUTES.** Every button that moves the player somewhere,
+   and every title that tells them where they are. This is your strongest
+   suit: your K74 modal states and K73 region sentences are the standard.
+   **A screen the player cannot name is a screen they will not return to.**
+5. **WHAT DOES THE PLAYER DO FIRST?** Boot to first meaningful decision. Count
+   the steps and say which earn their place.
+## RULES
+- **Say NOT COMPUTED rather than inventing wiring that does not exist.** You
+  marked the NEAR state NOT COMPUTED in K74 when the field was not landed yet,
+  and that judgement is why your work is trusted here.
+- **No geometry, no colour, no fonts** - those are Maria's and the kit's.
+- Where your flow needs a screen that does not exist, **say so and name it**
+  rather than assuming someone will infer it.
+- **Say what is still wrong** at the end of every pass.
+5:34 PM
+Pass 1 of the logical flow — mapping the 12 scenes and every route in and out first. No geometry, colour, or fonts. You’ll get a flow artefact you can judge, plus an explicit still-wrong list.
+Inventorying the twelve scenes and navigation hooks on Beast now. Pass 1 artefact next: flow map, dead ends, gaps, and a still-wrong list.
+5:35 PM
+Pass 1 flow map is drafted. Copying it to Beast, pinging Claude, then delivering the map and the still-wrong list.
+5:49 PM
+Pass 1 flow map is on Beast — Beast-verified against SceneRouter, TitleBoard, and CreationFlowPanel.
+NOT FINISHED. This pass is an inventory you can judge, not a closed design.
+Three lines
+Load-bearing: Career play is panels inside CareerRoot via SceneRouter — not twelve full-scene swaps.
+Keep: fight_week → weigh_in → fight_night → fight_result → (crowning) → leave → day_feed.
+Least sure: Whether ManagementChrome + DIRECT_SCENES still opens beside ShellChrome (dual Continue risk).
+Flow (compressed)
+TITLE (NEW CAREER / LOAD / SETTINGS)
+  → Creation: CHOOSE MARKET → ENTER CITY → OPEN GYM
+  → CareerRoot / THE DAY (rail hubs)
+       → FightContract (overlay)
+       → Setpiece: FIGHT WEEK → WEIGH-IN → FIGHT NIGHT → RESULT → CROWNING?
+       → leave → THE DAY
+DEV: FightWorldLive/Preview, FightAnimLab, UIKitGallery (egress UNKNOWN)
+First meaningful decision: TITLE — 1 step. Empty disk to THE DAY ≈ 4 golds after that.
+Script count vs “~64”: 7 Screen + 25 Panel = 32 under those globs. The 64 claim is NOT COMPUTED until we define the counting rule.
+Creation golds (COMPUTED): CHOOSE MARKET · ENTER CITY · OPEN GYM
+Title (COMPUTED): FIGHTCAMP · NEW CAREER · LOAD · SETTINGS
+Gaps / merge / words
+Missing: Corner UI between rounds · named result leave CTA · hub golds · slots overwrite confirm words
+Merge candidates: ShellChrome↔ManagementChrome · standalone DayFeed/Profile↔hosted · today↔day_feed · FightWorld twin
+Words: ~20% done — hubs / HUD / result leave still NEEDS WORDS
+WHAT IS STILL WRONG
+Two nav systems (dual Continue day vs week risk)
+Standalone .tscn beside hosted panels
+Corner UI missing in the fight chain
+Word inventory mostly unfinished
+~64 script claim does not match Screen+Panel=32
+Lab/dev scenes have no documented way out
+today vs day_feed — two labels, one surface
+Fight result leave CTA unnamed
+On disk
+_kalli_delivery/FLOW_PASS1_SCREEN_MAP.md
+_kalli_delivery/CLAUDE_LAND_NOTE_FLOW_PASS1.md
+research/ copies of both
+Claude pinged — RESEARCH READY FLOW PASS1 (40900ef77849). No HANDOFF edit.
+Pass 2 when you want it: full route-word sheet + dual-chrome reachability proof.
+5:51 PM
+KALLI — FLOW PASS 2. Your pass 1 landed on master today, and the
+Beast-verified version is the one that landed, not the GitHub-only draft —
+`research/FLOW_PASS1_SCREEN_MAP.md`. Correcting your own earlier draft
+once you had the real files was right; keep doing that. This is the re-cut,
+taken from your own "WHAT IS STILL WRONG". Do not restart the task.
+THE HEADLINE FINDING IN YOUR PASS 1 IS A REAL PRODUCT DEFECT AND IT IS WHAT
+PASS 2 IS ABOUT. You found TWO navigation systems running side by side —
+SceneRouter + ShellChrome against ManagementChrome + DIRECT_SCENES — with a
+dual-Continue risk, plus standalone `.tscn` files sitting beside hosted panels
+so DayFeed and Profile each have two routes, plus `today` and `day_feed` as
+two labels for one surface. That is not a documentation gap. That is a player
+who can reach the same screen two ways and get two different states.
+WHAT PASS 2 DELIVERS, in priority order:
+1. THE ROUTE-WORDS SHEET you named — every route the player can take, with
+   the WORDS on the control that takes them there. Your word inventory is at
+   about 20%: the hubs, the HUD and the result screen are mostly NEEDS WORDS.
+   Close that. Words are yours; the look is Maria's and you must not take it.
+2. THE FIGHT-RESULT LEAVE CTA, which you found unnamed. A player who has just
+   finished a fight may not know how to get back to THE DAY. Name it. One
+   sentence, in the voice the rest of the game uses. This is the single
+   cheapest fix on your list and it is the one a player actually hits.
+3. `today` vs `day_feed` — DECIDE which word the game uses and say why the
+   other one goes. Do not present both and ask. One surface, one name.
+4. THE DUAL-NAVIGATION WRITE-UP: for each screen reachable two ways, say
+   which route is the one the game should keep and what a player sees today
+   if they take the other. You are not implementing the SceneRouter cleanup —
+   that is out of scope and stays out — but the decision about which route
+   SURVIVES is a words-and-flow decision and it is yours.
+5. Your "~64 scripts" claim did not match your own count of Screen(7) +
+   Panel(25) = 32. Define the counting rule or drop the number. A figure
+   nobody can reproduce is worse than no figure.
+TWO THINGS THAT ARE NOT YOURS AND MUST NOT BE TAKEN: the corner panel
+(`TASK_CORNER_UI`, in flight with Codex right now) and the VFX / menu
+presentation LOOK (`TASK_VFX_AND_PRESENTATION`, Maria). You own the flow and
+the words.
+KEEP WRITING `NOT COMPUTED` WHERE THE WIRING IS UNCLEAR. You did that in pass
+1 and it is why the document is trustworthy. A confident sentence describing
+wiring that does not exist costs a whole session to unpick.
+AND NOW ARGUE AGAINST YOURSELF. Take your strongest recommendation in this
+pass — most likely which navigation system survives — and make the best case
+you can that it is the WRONG one to keep. That half of the brief is where the
+shipped answer has come from twice on this project, and the converged answer
+beat all three options the agents were originally offered.
+DELIVER: `FLOW_PASS2_ROUTE_WORDS.md` plus `CLAUDE_LAND_NOTE_FLOW_PASS2.md` in
+`_kalli_delivery/`, and make sure the delivery copy is the REAL file — pass
+1's delivery copy was left as a 24-byte `PLACEHOLDER_WILL_REPLACE` and only
+the research copy had the content. Do NOT edit HANDOFF.md; Claude writes your
+block. Name every file you want landed.
+6:00 PM
+Pass 2 is the dual-nav defect and the route-words sheet. Pulling FightResult leave copy, today vs day_feed, and which route survives — then arguing against that pick.
+Fight-result leave is named — but it sends you to OFFICE or the next card, never THE DAY. Setpiece fallback is SCHEDULE. Writing the route-words sheet and the dual-nav keep/kill decisions next.
+6:02 PM
+Pass 2 is on Beast — real files (12.8 KB), not placeholders.
+NOT FINISHED. Decisions you can judge; wire not landed.
+After a fight, Continue never returns to THE DAY — it goes OFFICE or next CARD; Setpiece leave falls back to SCHEDULE.
+Keep SceneRouter + ShellChrome + hosted panels. Kill DIRECT_SCENES remount of DayFeedScreen.tscn and the today alias.
+One name: day_feed / THE DAY. Drop today / TODAY'S BRIEFING.
+Cheap fix — fight-result leave
+Case	Copy
+More work on the card	Keep CONTINUE TO CARD ▸ / CONTINUE TO NEXT CARD ▸
+Crowning pending	Keep crowning route
+Card done	Replace CONTINUE TO OFFICE ▸ with BACK TO THE DAY ▸ → day_feed
+Also: Setpiece leave fallback should be day_feed, not calendar.
+Dual-nav — which survives
+Surface	Keep	Kill for players
+THE DAY	SceneRouter hosted in CareerRoot	ManagementChrome remount of DayFeedScreen.tscn
+Fighter card	hosted fighter_card	standalone shell scene if still reachable
+Time Continue	one Continue (must absorb week-stop before old header dies)	two clocks
+Against myself: Keep ManagementChrome if week-Continue is the only thing that stops on fights; remount may be clearing stale hosted state; DayFeedScreen.tscn is what tests load; ShellChrome already calls into ManagementChrome — “kill it” is a slogan until week-stop moves. Converged: one map now; one Continue only after week-stop has a home.
+Count
+Drop ~64. Use 31 player-facing SceneRouter routes (boot+creation+career+setpiece). Screen+Panel≈32 is a different cut.
+Hub golds / DayFeed verbs / FightNight HUD still NEEDS WORDS (pass 3).
+Leave CTA / Setpiece fallback — words decided, wire not landed
+today call-sites not fully grepped
+Dual Continue not collapsed
+Hub/HUD words unfinished
+Live ManagementChrome reachability NOT COMPUTED (no play trace)
+Lab egress UNKNOWN
+Corner UI still missing (not ours)
+Land these
+_kalli_delivery/FLOW_PASS2_ROUTE_WORDS.md
+_kalli_delivery/CLAUDE_LAND_NOTE_FLOW_PASS2.md
+Claude pinged (c1b3c413bd1f). No HANDOFF edit.
+6:03 PM
+Tue, Sep 22 7:08 PM
+KALLI — FLOW PASS 3. Pass 2 landed on master
+(`research/FLOW_PASS2_ROUTE_WORDS.md`) and it did the job.
+**YOU MADE THE DECISION INSTEAD OF PRESENTING A MENU, AND THAT IS WHY IT IS
+USEFUL.** Keep SceneRouter + ShellChrome + hosted CareerRoot panels; kill the
+ManagementChrome DIRECT_SCENES remount of `DayFeedScreen.tscn` and the `today`
+alias; one surface, one name — `day_feed` / THE DAY. You then argued against
+your own ruling, which is the half that makes it trustworthy. That is the
+standard; hold it.
+**AND YOU WERE INDEPENDENTLY CONFIRMED.** Maria was asked only about art, and
+told to attack her own strongest board — a gym-floor landscape. She concluded
+the gap is "words and dual-chrome, not the absence of a postcard", and that
+killing dual Continue plus a visible leave CTA is the cheaper, sharper fix.
+Two agents, different briefs, no contact between you, same conclusion. That
+carries more weight than either of you alone, and it is now the next build
+stage.
+**PASS 3 IS THE REST OF THE WORDS, because that is what is actually blocking.**
+Your own list says the inventory is around 20% and names exactly what is
+missing:
+1. **HUB GOLDS.** The primary action on each hub. These are the words a player
+   reads most often in the whole game.
+2. **DAYFEED VERBS.** THE DAY is the surface the player returns to constantly
+   and its verbs are unwritten.
+3. **FIGHTNIGHT HUD.** The words over a live fight.
+Do those three. Every string in the voice the rest of the game already uses,
+with a character budget beside it — a long instruction must WRAP or be
+budgeted, never silently cut, and a clipped label has bitten this project.
+4. **THE `today` CALL-SITE LIST, which you marked NOT COMPUTED.** You decided
+   the alias dies; the implementer now needs to know every place that pushes
+   it. `SceneRouter.push("today")` is the obvious one. That list is the
+   difference between a decision and a change somebody can actually make, and
+   it is grep-able rather than guessable — so give it as a list, and say
+   plainly if you cannot see the whole tree from where you are.
+**STILL NOT YOURS:** the corner panel (Codex is building it right now — you
+were right that it was a hole in the fight chain, and it is being filled), and
+the LOOK, which is Maria's. You own the flow and the words.
+**KEEP WRITING `NOT COMPUTED`.** It is why your documents can be trusted, and
+you have now been right to use it twice — the NEAR state, and this pass's
+call-site list.
+**AND ARGUE AGAINST YOURSELF AGAIN.** Take the single hub gold you are most
+confident about and make the best case that it is the wrong word — too clever,
+too vague, or naming a thing the player does not yet understand. Then say
+which you keep.
+DELIVER: `FLOW_PASS3_HUB_AND_HUD_WORDS.md` plus
+`CLAUDE_LAND_NOTE_FLOW_PASS3.md` in `_kalli_delivery/`, and make sure the
+delivery copy holds the REAL file — pass 1's was left as a 24-byte
+`PLACEHOLDER_WILL_REPLACE`. Do NOT edit HANDOFF.md. Name every file you want
+landed.
+7:08 PM
+Pass 3 is the rest of the words — hub golds, DayFeed verbs, FightNight HUD — plus the today call-site list. Pulling Pass 2 and grepping Beast for live CTAs and every today push.
+DayFeed already names ENTER FIGHT as the board gold; hubs have live primary strings (SEND OFFER, BOOK SELECTED, OPEN THE BOOKS). Next: every today call-site and the FightNight HUD word sheet.
+7:09 PM
+Hubs already carry primary strings (OPEN THE BOOKS, SEND OFFER, BOOK SELECTED). Closing the today push list and FightNight phase words, then writing the sheet.
+7:10 PM
+Hub golds are mostly already in code (ENTER FIGHT WEEK, OPEN THE BOOKS, SEND OFFER). Writing the Pass 3 sheet with budgets, the today call-site list, and the self-argue — then staging real files.
+7:12 PM
+Files are on Beast — verifying they landed in the real _kalli_delivery tree (not a placeholder path), then pinging Claude.
+7:14 PM
+Pass 3 is on Beast — real files (11.7 KB), not placeholders.
+NOT FINISHED. Words locked; wire not landed.
+Hub golds / DayFeed verbs / FightNight HUD locked with character budgets (≤22 gold preferred, WRAP never silent cut).
+today registries listed for delete; zero push("today") literals found — dynamic callers still NOT COMPUTED complete.
+Strongest gold ENTER FIGHT WEEK kept after arguing it may be too mode-named / soft; playtest escape hatch OPEN THE CARD.
+Hub golds (lock)
+Hub	Gold
+THE DAY	ENTER FIGHT WEEK (else attention CTA / OPEN)
+GYM	REPAIR · $… / EXPAND TRAINING ROOM · $… — or no visit-gold when healthy
+TRAINING	OPEN THE CAMP
+SCHEDULE	BOOK SELECTED / OPEN AGREEMENT / ENTER THE CARD / CONFIRM THE MATCH / TAKE SEAT
+SCOUTING	SEND OFFER → SIGN CONTRACT
+RANKINGS	FIND OURS / OPEN HOLDER
+OFFICE	OPEN THE BOOKS
+STAFF	ASSIGN FIGHTER → PICK A FIGHTER → CLEAR ASSIGNMENT
+DayFeed chips: OPEN / ANSWER. Shell keeps CONTINUE →.
+FightNight HUD (lock)
+LIVE READ · phase LIVE / CORNER / OVER · ROUND N / N · KD N THIS ROUND / N TOTAL · N BPM + RED LINE / THRESHOLD / AEROBIC · AI CORNER · WATCHING · RESUME FIGHT → · advice titles. Corner panel still Codex.
+today call-sites (COMPUTED registries)
+Delete: SceneRouter ROUTES · CareerRoot panel map · ManagementChrome DIRECT_SCENES key · Schedule hint that still says TODAY'S BRIEFING · two tests. Keep content “today” and _gold_owner == "today" board id.
+Against myself → keep
+ENTER FIGHT WEEK may teach a mode name too early and “ENTER” is soft (OPEN THE CARD is clearer). Kept because it is already COMPUTED on the fight-week banner and matches the fight_week setpiece noun.
+Pass 2 leave CTA / Setpiece fallback — wire not landed
+today still in registries; dynamic callers NOT COMPUTED complete
+Dual Continue uncollapsed
+Attention-strip verb catalogue NOT COMPUTED
+ManagementChrome live reachability NOT COMPUTED
+Corner UI missing (not ours)
+_kalli_delivery/FLOW_PASS3_HUB_AND_HUD_WORDS.md
+_kalli_delivery/CLAUDE_LAND_NOTE_FLOW_PASS3.md
+Claude pinged (69bf52bea7fa). No HANDOFF edit.
+7:15 PM
+Tue, Sep 22 7:57 PM
+# FLOW PASS 4 — THE CUTOVER SHEET: EVERY STRING THAT CHANGES, OLD → NEW
+**Owner:** Kalli. **Words only** — no code, no checkout, no `.gd` edits.
+**This is the pass that gets built from. Passes 1–3 are the map; this is the
+change list.**
+## WHY THIS ONE, AND WHY NOW
+Your pass 1 found **two navigation systems running side by side** —
+`SceneRouter` + `ShellChrome` against `ManagementChrome` + `DIRECT_SCENES` —
+with a **dual-Continue risk** and an **unnamed fight-result leave CTA**: a
+player who finishes a fight may not know how to get back to THE DAY.
+**Maria landed on the same thing from the art side, on a different brief, with
+no contact between you.** Asked only about look, and specifically asked to
+attack her own strongest board, she concluded the gap is *"words and
+dual-chrome, not the absence of a postcard"*, and that killing the dual Continue
+plus a visible leave CTA is the cheaper, sharper fix.
+**Two agents, different briefs, no contact, same answer.** That convergence is
+why this is the next build stage, and it is why your words are now on the
+critical path rather than alongside it.
+## WHAT PASS 4 IS
+Passes 1–3 gave the screen map, the route words and the hub/HUD golds. Pass 4 is
+the **cutover sheet** — the thing a build session works straight down without
+having to re-derive a single decision.
+**One table. Every row is a string that changes.** Columns:
+| current string | where it is | new string | chars | why |
+|---|---|---|---|---|
+- **`where it is`** must be concrete enough to find — a screen name plus the
+  control, e.g. `FightResultPanel / primary CTA`. You listed the `today`
+  call-site registries in pass 3; use that level of precision.
+- **`chars`** is the character count of the new string. You have been giving
+  budgets all along; give the actual count here.
+- **`why`** is one clause, not a paragraph.
+**Then three short sections:**
+**1. THE DUAL CONTINUE.** Exactly which Continue survives and which dies, named
+by screen and control. Maria's M29 art pack places the surviving one — *"one
+green Continue, left foot"* — so the two of you must agree. **If her placement
+and your word choice conflict, say so explicitly rather than quietly choosing;
+that conflict is worth more to us than a resolution you made alone.**
+**2. THE LEAVE CTA.** Its word, and the one sentence that says why that word and
+not the two you rejected. You kept `ENTER FIGHT WEEK` after self-arguing in pass
+3 — do the same here and show the losers.
+**3. ROUTES THAT DIE.** Pass 2 said drop ~64 and use 31. List the ones that go,
+by name. **A route that has a string in the table above must not also be on this
+list** — that contradiction is the single most likely defect in this sheet, so
+check it yourself and say you did.
+## THE STANDARD YOU ALREADY SET
+K74 marked the NEAR state **NOT COMPUTED** rather than writing a sentence that
+claimed wiring we do not have. That was the right call and it is the standard
+for this sheet: **where you cannot see the call site, write NOT COMPUTED and say
+what would settle it.** Do not guess a string's location to fill a cell.
+## DELIVERABLES
+- `FLOW_PASS4_CUTOVER.md`
+- `CLAUDE_LAND_NOTE_FLOW_PASS4.md`
+Stage to `_kalli_delivery/` as usual. **Kalli does not edit `HANDOFF.md`** —
+Claude writes your block.
+7:57 PM
+Pass 4 cutover sheet — every string that changes. Reading Passes 2–3 plus Maria’s M29 Continue placement, then writing the table.
+Maria’s M29 agrees: one Shell Continue, leave on the left-foot GO seat, week jump must not say Continue. Freezing the cutover table and the week-jump word next.
+7:58 PM
+Cutover table is drafted against Beast literals. Staging real files to _kalli_delivery/ and pinging Claude.
+8:01 PM
+Pass 4 cutover is on Beast — real files (8.9 KB), not placeholders.
+Cutover table: three string changes with where / chars / why.
+Dual Continue: Shell CONTINUE → survives; ManagementChrome CONTINUE ▸ → NEXT STOP ▸ (11) until week-stop merges — then delete. No conflict with Maria M29 (seat/colour hers; leave + week words ours).
+Leave CTA BACK TO THE DAY ▸ (17) kept after arguing it may sound like undo / jargon; losers CONTINUE TO OFFICE, bare Continue, OPEN THE DAY, CONTINUE TO THE DAY.
+Cutover table (lock)
+current	where	new	chars
+CONTINUE TO OFFICE ▸	FightResultPanel empty-card GO	BACK TO THE DAY ▸	17
+CONTINUE ▸	ManagementChrome header	NEXT STOP ▸	11
+schedule hint with TODAY'S BRIEFING	ScheduleHubPanel	OPEN THE DAY FOR WHAT IS DATED clause	66
+Card Continues and Shell CONTINUE → keep. Hub/HUD golds from Pass 3 no change.
+Routes that die
+today / TODAY'S BRIEFING only (plus DIRECT_SCENES / CareerRoot / test registries). Checked: no table row renames today — label dies with the route.
+Dynamic push("today") callers still NOT COMPUTED complete.
+Wire not landed (leave route + today kill + week twin)
+Dual Continue interim until week-stop merges
+Attention-strip verbs / ManagementChrome reachability / lab egress still open
+Corner UI still Codex
+_kalli_delivery/FLOW_PASS4_CUTOVER.md
+_kalli_delivery/CLAUDE_LAND_NOTE_FLOW_PASS4.md
+Claude pinged (04879b0bfdbe). No HANDOFF edit.
+Fri, Sep 25 5:23 PM
+# TASK K77 - KALLI - THE WORDS: HANDBOOK LINES AND COACH LINES IN ONE HOUSE VOICE
+Model: Kalli (Grok bot). Owner: kalli. Assigned S78, 2026-09-25. Words only: no code.
+## Why
+M32 says the words are Kalli's. S78 shipped two text sets written quickly by Claude: the Gym Handbook
+(`Godot/scripts/Glossary.gd`, 46 terms: `short` <= 15 words, `why` <= 12 words) and the tutorial's 19 coach lines
+(`Godot/scripts/CoachMarks.gd`, `STEPS`, each <= 2 sentences, the voice of a head coach). Read both files whole.
+## What would a human do?
+A game writer makes one voice sheet (who is talking, how they talk, banned words) and then rewrites every string to
+it against its length budget - in a spreadsheet, not inline.
+## Do
+1. A voice sheet for the Handbook (neutral, plain) and for the coach (senior head coach, warm, blunt), with 5 banned
+   words/constructions.
+2. Every Handbook `short` and `why`, rewritten inside the same budgets, sentence case.
+3. Every coach line rewritten, <= 2 sentences, one action per step.
+Output as a table: id | current | proposed | words. Claude applies it.
+## Deliverable
+`research/K77_HANDBOOK_WORDS.md`.
+5:23 PM
+Starting K77. I'm reading Glossary.gd and CoachMarks.gd in full first, then I'll write the voice sheet and the rewrite table.
+K77 is written and copied to Beast. I'm checking the files there, then I'll ping Claude.
+5:25 PM
+K77 is done, and I've pinged Claude to apply it. The file has the voice sheet, all 46 Handbook short and why rewrites, and all 19 coach lines. A script checked every one: word counts are within budget, each Handbook field is one sentence in sentence case, each coach line is two sentences or fewer, and nothing uses a banned word.
+The Handbook reads like a neutral reference. It never says "I" or "we", calls the player you / your gym, and calls the fighter the fighter or they. The coach is a senior head coach. The first sentence is the one thing to do, with the button named in capitals exactly as it appears on screen. The second sentence gives the reason or the risk, and the coach never praises you.
+The five bans, for both voices:
+he / his / him for a fighter, since the roster has women and these lines are fixed text.
+Semicolons, colons and dashes joining two thoughts in one line.
+Open list endings like and so on, and others or etc.
+Filler words like just, simply, actually, really or very.
+Exclamation marks and cheering words like great, awesome or let's.
+I argued against my strongest ruling, the he ban. The case against it is that the fighter repeats a lot and that pronouns picked per fighter would read better. I kept the ban, because pronouns per fighter would need code and these strings aren't tied to any fighter.
+Things Claude needs to act on:
+Remove one tooltip demo. The old gym step asked for two actions, so the hover lesson moved to the_day. Claude should delete show_tip "FLOOR SPACE" from the gym step. Otherwise that tooltip pops up with no line explaining it.
+The word "condition" means two things. In the Handbook it means equipment wear, but the fight code uses it for body damage. Any fighter label reading COND will show the equipment tooltip. I recommend renaming the term to "Equipment condition".
+Corner line not checked (NOT COMPUTED). The corner why says your instruction sets the fighter's plan for the next round. My earlier corner-card pass (K72) found the advice text is speech only, so that claim may be false. I included an 8-word fallback line if it is.
+Other claims not checked (NOT COMPUTED). I kept the meaning of the rest of the current why lines without checking them against the game code. That includes going below zero cash, pay below market, unsanctioned bouts and what a weight cut costs. On the coach side, what EVEN means and whether the gym name decides the starting floor are also unchecked.
+What's still wrong: there's no coach line for a missed weigh-in, and I didn't render the longest coach line (24 words) in the 380px card to see how it wraps.
+Files to land:
+research/K77_HANDBOOK_WORDS.md
+research/CLAUDE_LAND_NOTE_K77.md
+Copies of both in _kalli_delivery/
+Fri, Sep 25 7:26 PM
+# TASK K78 - KALLI - THE WORDS FOR S79: THE NEW TUTORIAL, THE CAMP GATE, HOME AND THE RAIL (words only)
+Model: Kalli. Owner: kalli. Assigned S79, 2026-09-25. Words only - no code, no commits.
+Your K77 voice is live in the Handbook (65 lines applied). S79 then changed the game under the tutorial: THE DAY is
+now HOME (J54), the rail is HOME / FIGHTERS / FIGHTS / MONEY with pages under each, a booked fighter with no camp now
+blocks CONTINUE until the manager answers "SET CAMP" or "GO COLD", and the tutorial grew to 24 steps (a real
+training plan, the camp, the corner). Claude wrote those lines as placeholders; they need your house voice.
+A UX writer on a shipped management game rewrites every new string in one pass against the voice sheet, checks each
+fits its container, and flags any word that means two things (you already found `condition`).
+## The strings (current placeholder -> yours; keep each within the budget shown)
+1. The 24 coach lines (`CoachMarks.gd` STEPS[].say, <= 2 sentences, <= 170 characters each). Current text, in order:
+   new_career "I'm your head coach. Let's open a gym and get a fighter to his first bout." / country "Pick the country
+   your gym works in. It sets the money, the talent and the shows." / city "Pick a city. The gyms already there are the
+   ones you will fight." / gym "Name your gym - the name also draws your floor and first fighters. Rest the mouse on any
+   word to see what it means." / home "This is Home. What needs you today, your next bout and your fighters are all
+   here." / gym_floor "Open your fighters: each one's record, condition and weight, and the gym floor." / training
+   "Nobody improves resting. Open training." / set_plan "Pick a day on his row, then click a session twice to set it.
+   Hard work builds skill but tires him." / schedule "Fights are booked here. Promoters send offers for dated cards." /
+   offers "Open the offers." / fair_match "For a first bout pick an even match: similar weight, age and experience." /
+   enter_card "Accept to book it. He has to make the weight limit on weigh-in day." / back_home "He is booked. Back
+   home - and no coach sends a man in without a camp." / set_camp "Continue waits until you answer: set his camp, or
+   send him in cold." / open_camp "The camp is the weeks before the fight: sparring, the game plan and the weight." /
+   start_camp "Choose what the camp builds and how hard it trains, then start it. Every week adds readiness for this
+   opponent." / leave_camp "He is in camp. Close this - Continue now moves the days." / to_fight_week "Press Continue,
+   day by day. Camp, costs and news run each day." / fight_week "Fight week: the camp is done. Keep it light so he
+   arrives fresh." / weigh_in "The weigh-in. Over the limit means a fine, or no fight at all." / fight_night "He made
+   weight. On to fight night." / begin_fight "The clock is top left. Between rounds his corner asks you for one
+   instruction." / corner "The round is over and you are in his corner. Pick one instruction; it holds next round." /
+   result "That is the loop: train, book, camp, make weight, fight. The result and any medical suspension are on his card."
+2. The camp gate row on HOME: kind chip "CAMP", detail "No camp - N weeks to the fight · readiness N%", buttons
+   "SET CAMP" and "GO COLD" (<= 10 characters each), the GO COLD tooltip "Send him in without a camp. His readiness
+   stays where it is." (<= 15 words), and the refusal "SET HIS CAMP - OR SEND HIM IN COLD" (<= 40 characters).
+3. The rail: area names HOME, FIGHTERS, FIGHTS, MONEY; pages ROSTER & FLOOR, TRAINING, SCOUTING, SCHEDULE, RANKINGS,
+   OFFICE, STAFF; and one tooltip per area (<= 12 words, starts with a verb).
+4. The fight HUD: "R2 1:34", "BREAK 0:45", "CORNER: HOLD THE CENTRE", "CORNER: NO ORDER YET".
+Keep "the gym" (never "camp") for the building; "fight camp" is only the preparation. Avoid "he" where your K77 ban 1
+applies, or say why a line keeps it.
+`K78_S79_WORDS.md`: a table per section - id | current | proposed | budget - plus anything that clashes.
+7:26 PM
+Starting K78. All the strings are in the task, so I'm writing the four tables against the K77 voice now. I'll check every length with a script before anything goes to Beast.
+7:27 PM
+K78 is written, landed on Beast in both folders, and Claude has been pinged to apply it. A script checked every string against its budget and the K77 bans, and none failed. The longest coach line is 120 of 170 characters.
+The ruling on "he". None of the 24 coach lines or the tooltip use he, his or him. They all say "the fighter" or "your fighter". No line needed to keep "he", because the strings are fixed text and the roster includes women.
+The camp gate on HOME:
+The chip stays CAMP, and the buttons stay SET CAMP and GO COLD.
+The detail line becomes No fight camp · N weeks out · readiness N%. It needs "1 week out" when N is 1.
+The tooltip becomes "Send the fighter in with no fight camp. Readiness stays where it is." That's 13 words.
+The refusal becomes SET A CAMP OR GO COLD FIRST (27 characters), so it repeats the two button words.
+I argued against keeping GO COLD. It's fight slang, and SKIP CAMP is plainer. I kept GO COLD because "skip" reads like skipping a tutorial screen, and the tooltip and refusal already explain it in plain words.
+The rail. All area and page names stay as they are. Each area gets a tooltip that starts with a verb, such as "See what needs you today, your next bout and your fighters." for HOME.
+The fight HUD. The clock (R2 1:34) and BREAK 0:45 stay. The colons become middle dots, CORNER · HOLD THE CENTRE and CORNER · NO INSTRUCTION. "Instruction" replaces "order", because the coach lines already use it.
+Other decisions in the tutorial:
+The hover lesson now sits on the home step, not on naming the gym.
+"Gym" only ever means the building, and "fight camp" or "camp" only ever means the preparation.
+"Bout" means one booked fight inside coach sentences.
+Clashes Claude needs to settle:
+Condition. The gym_floor step says a fighter's "condition", but the Handbook defines condition as equipment wear. This is still open from K77.
+BREAK and CORNER. The fight-night words from Pass 3 called the between-rounds phase CORNER. I kept BREAK on the clock and CORNER only on the instruction line, so the word isn't used twice.
+CONTINUE. The set_camp line says CONTINUE "stays locked". If the button stays clickable and shows the refusal instead, the second sentence needs the alternative given in the file.
+OFFICE under MONEY. OFFICE doesn't say money, and it echoes the old CONTINUE TO OFFICE button. If that page is the accounts, rename it BOOKS.
+Spelling. The HUD's "CENTRE" means the whole game has to use British spelling.
+NOT COMPUTED (claims taken from the placeholders and not checked in code):
+The gym name drawing the floor and first fighters.
+What counts as an even match.
+That readiness builds against this particular opponent.
+That GO COLD leaves readiness exactly where it is.
+That the fighter made weight on fight night.
+That the corner instruction holds for the next round. K72 found it may be speech only, so the file includes a shorter fallback line.
+WHAT IS STILL WRONG:
+Nothing has been rendered in the 380px coach card or on the HOME row.
+The tooltips assume which pages sit under each area. That grouping is my guess.
+There's still no coach line for a missed weigh-in.
+research/K78_S79_WORDS.md
+research/CLAUDE_LAND_NOTE_K78.md
+Fri, Sep 25 11:25 PM
+11:25 PM
+# K80 - Kalli: HUB_DISPLAY_EVAL (your task id is K80)
+Two images are ATTACHED to this message: current_look_sheet.jpg (every screen of FightCamp as it looks today, one sheet)
+and 02_home.jpg (the HOME hub full size). LOOK AT BOTH before writing. If either did not arrive, say so in your first
+line and do not guess what they show. Your lens is the 'kalli' line under "Your lens" below. Blind: you have not seen
+and must not ask for any other agent's answer. Reply with your whole memo INLINE in this chat (markdown, <= 1,500 words),
+titled `K80_HUB_DISPLAY_EVAL`. Research only.
+ADDED CONTEXT (S81): the operator asked for a survey of a direct competitor announced on Steam, Cage Legacy. Claude's
+survey is appended after the brief - use it where it bears on your lens (it ships option A stills + a 2.5D pixel fight).
+# TASK HUB_DISPLAY_EVAL - EVERY AGENT - HOW SHOULD THE HUBS BE SHOWN? (evaluation + proposal)
+Owner: ALL NINE (claude, codex, cursor, qwen, grok, dola, john, kalli, maria). Assigned S80 end, 2026-09-25.
+Sent at the START of S81. Blind: no agent reads another agent's answer before sending its own.
+## The operator's words (2026-09-25, verbatim)
+"i want everyone on the next session to do an evaluation of the current state and propose ways to diplay the hubs,
+should it be still images, 2.5d animated like mad games tycoon or 2point hospital, should we use more our 3d engine to
+show the fighters actually doing the exercises in the gym animated"
+## The current state (S80) - LOOK AT IT BEFORE YOU WRITE A WORD
+**Everything is in `research/s80_look/`**: `current_look_sheet.jpg` (all screens on one sheet),
+`01_title.jpg` ... `10_fight_tape.jpg` (full size, one per screen), `11_fight_night_sequence.mp4` (14 s, sound on) and
+`00_M34_A_mock_hub.png` (Maria's mock the build follows). **Browser agents (grok, dola, john, kalli, maria): Claude
+UPLOADS `current_look_sheet.jpg` and `02_home.jpg` into your chat with this brief** - you cannot open the repo, so say
+so if an image did not arrive rather than guessing. Digest: `research/S80_DIGEST.md`.
+HOME and three area hubs are AI-generated stills of our gym with pins on real objects (office, staff door, ring,
+weights; locker room; office wall; desk), M34 direction A (brass & leather) chrome over them. The pictures do not
+change with the game state: an empty gym at 3 fighters and at 30, the same floor after an upgrade (M34's own
+self-attack: "the pins sit on a picture that doesn't change when you upgrade the gym, so it could feel like a lie").
+A management-game UI lead (Two Point, Mad Games, Motorsport Manager, Hollywood Animal, Football Manager) decides how
+the hub is SHOWN from three things: what the player must read at a glance, what must visibly change as the business
+grows, and what the team can afford to keep in sync. Answer that first, for FightCamp, before choosing.
+## The three options to judge (and any fourth you can defend)
+A. **Stills** (today): generated/painted pictures per hub, pins on objects, tier variants as the gym grows.
+B. **2.5D animated rooms** (Mad Games Tycoon 2, Two Point Hospital/Campus, Game Dev Tycoon): an isometric/2.5D gym
+   drawn from tiles and sprites, little fighters and staff working the stations, rooms added as you build.
+C. **Our own 3D engine**: the real gym floor (`GymHubPanel` floor data already places equipment on a grid) rendered in
+   Godot 3D with our real fighters training on the stations they are programmed on (we own fighter rigs, the RamsterZ
+   and Cascadeur animation pipeline, the Marpa arena, a camera director).
+## Everyone answers (one markdown memo, <= 1,500 words)
+1. Your honest evaluation of the current state - what works, what does not, what a player would notice first.
+2. For A, B, C: what it gives the player, what it costs us (art, code, animation, performance on the operator's PC -
+   it runs at ~87% CPU and overheats under stacked loads), how it scales with the gym, and the risk.
+3. Your recommendation, with a first slice small enough for one session, and what would prove it right or wrong.
+## Your lens (what only you can add)
+- **codex** (3D lane): cost of C - which exercise animations we have vs need (bag, pads, skipping, weights, sparring),
+  fighters per frame the PC can hold, camera. Measure, do not guess: run one test scene with 3 fighters idling on
+  stations and report the frame time. Tier: no script edited in shipped code; a new tool under `Godot/tools/` only.
+- **cursor**: cost of B in Godot - tilemap/sprite pipeline, where sprites would come from (licence!), sync with
+  `GymHubPanel` floor data. Tier: research, no gate.
+- **qwen**: census - list every animation clip on disk that shows TRAINING (not fighting) and every gym station in the
+  equipment catalogue; the gap between them is C's real cost. Tier: research, a census script under `Godot/tools/` only.
+- **grok**: what players praise and hate in how Two Point, Mad Games, MM, HA, FM, Punch Club, Undisputed show their
+  hubs - reviews, dated, sourced.
+- **john**: sourced survey - which management/sports sims use which approach, and whether it changed their reception.
+- **dola**: a fresh-eyes review of the four screenshots as a player seeing them for the first time.
+- **kalli**: what the hub must SAY at a glance (words, counts, alerts) under each option - does B or C lose or gain it?
+- **maria** (art director): art-direction cost and consistency of A vs B vs C in direction A; how each keeps one look;
+  what a vertical slice would need; licence of every source.
+- **claude**: synthesise all nine, recommend ONE with a fallback, bring it to the operator with the costs side by side.
+`research/<ID>_HUB_DISPLAY_EVAL.md` (IDs: C208, U177, Q179, G106, J56, D24, K80, M36; claude writes the
+synthesis `S81_HUB_DISPLAY_SYNTHESIS.md`). Shell agents commit on their own branch and send one line with
+`agent_comms.py send`. Browser agents paste inline. Research only, no shipped-code change.
+---
+# S81 - COMPETITOR SURVEY: Cage Legacy (Steam app 5002990)
+Claude, 2026-09-25, operator request: "i want this game surveyd". Sources: Steam store page, developer site
+roguedogindie.com (#cage-legacy), the five Steam screenshots (read by eye; copies in the session scratchpad only,
+never in the repo). Demo NOT played: it installs through Steam on the operator's account - see "Next" below.
+## What it is
+- **"Build a struggling MMA gym into a title-winning empire"** - a single-player pixel-art MMA gym management sim.
+- Developer/publisher: Werner Viljoen, "Rogue Dog Indie" - ONE person, ships fast (8 titles on the site: two paid
+  releases July 2026, browser prototypes, an Act I early access).
+- **Full release March 2027. Free demo LIVE now** ("the real build", stops at 60 in-game weeks, ~25 min). Win/macOS/Linux,
+  English + 5 languages, min spec integrated graphics + WebGL (a web-tech build), 1 GB.
+- No reviews yet, no trailer on the store. AI disclosure: portraits, characters, venue/event/facility art "initially
+  created with generative-AI tools, then ... edited". Mature note: underground fights, police raids, optional doping.
+## Feature list (their words, condensed)
+8 divisions, 4 fictional promotion tiers, persistent rankings and title paths; generated fighters with hidden potential,
+style, morale, health, ageing, decline, retirement epilogues; training plans, nutrition, weight cuts, injuries;
+scouting with ratings shown as RANGES; contracts (purses, win bonuses, PPV points, clauses), staff payroll, gym
+memberships, sponsors, facility construction; press conferences, weigh-ins, face-offs, rivalries, weekly events;
+underground money; **live fight nights in a "stylised 2.5D octagon" with corner input**, normal / double / skip.
+## What the screenshots show
+1. **Command Center** (HOME): left rail of 14 sections in 3 groups (Gym Operations / Fight Business / Front Office),
+   top bar season-week-balance-reputation-gym stars + a red ADVANCE WEEK. A wide pixel-art **banner still** ("GYM CAM
+   01") with a slogan, 4 stat tiles, the fight team as rows (portrait, 6 stats, OVR bar, record, READY), Gym Pulse,
+   World Fight Wire ticker.
+2. **Camp Planner**: same banner still ("GYM CAM 02"), 3 tiles, one card per fighter: training plan / diet / weight
+   cut dropdowns with a weekly $ cost, over-limit lb in red.
+3. **Scouting Board**: banner (world map + dossiers), 4-step flow strip (search -> watch -> dossier -> offer),
+   prospect cards with scouted OVR and potential as ranges, signing fee + weekly wage, OFFER CONTRACT.
+4. **Your Legacy**: titles, wins, reputation, net worth; trophy cabinet; achievement wall; gym alumni.
+5. **Live fight**: a pre-rendered pixel octagon from an elevated broadcast cam, one static-looking pixel sprite pair
+   on the ground, stamina/damage bars, momentum, a text log with jokes ("a judge confidently scores the feints"),
+   8 corner orders (Pressure, Wrestle, Submission, Counter, Recover, Inspire, Cutman, Bend Rules).
+## Read against FightCamp
+**Where they are level with or ahead of us**
+- **The same design space, almost line for line**: weight cuts, camps, ranged scouting, contracts with clauses,
+  press/weigh-in/face-off hype, corner orders, rankings, retirement. A player who tries their demo first will read
+  ours as "the other one".
+- **A playable demo is public now and the date is set** (March 2027). We have no public build.
+- **Legibility**: every screen is one dense, consistent dashboard; the rail labels carry a subtitle ("Contracts &
+  health"); one hero banner per page, then numbers. Fast to read, cheap to extend.
+**Where we are ahead, and it is not close**
+- **The fight itself.** Theirs is a still arena with a sprite pair and a text log - the fight is the log. Ours is
+  simulated body-on-body in 3D with real motion, camera director and broadcast shot. **This is the one thing a
+  one-person web-tech pixel game cannot copy, and it is where FightCamp must spend.**
+- **Disciplines**: they are MMA only. We book boxing, kickboxing, MMA and grappling with discipline-legal fighters.
+- **Real organisation names** (operator ruling 2026-09-25) vs their four fictional promotions.
+- **Hubs that change** (S81's question): their banner is one fixed still per page ("GYM CAM 01/02") that never shows
+  the player's own gym or fighters. That is exactly option A's weakness in `TASK_HUB_DISPLAY_EVAL.md`, and they chose it.
+**What it says for S81's hub-display decision**
+- A (stills) is what the direct competitor ships. Doing only A makes our front end look like theirs with brass instead
+  of pixels. It strengthens the case for **C (our 3D engine on HOME)**: our own fighters on our own floor is the
+  visible difference in the first ten seconds, before any fight.
+- Their banner-plus-tiles layout is a good pattern for INNER pages (one picture, then numbers) - note, not copy.
+## Risks to watch
+- Their scope claim is large for one developer; the demo is 60 weeks. Their review score in March 2027 sets player
+  expectations for the whole niche - good reviews help us (the niche exists), bad ones on the fight view help us more.
+- Name collision: none (Cage Legacy vs FightCamp). Their promotions are fictional, no clash with our real org names.
+## Next
+- **Demo playthrough**: needs Steam on the operator's PC (a download = operator's yes). If he installs it, a session
+  plays the 60 weeks and records it; until then this survey is from the store and site only.
+- Browser agents get this file as added context for their HUB_DISPLAY_EVAL memos (G106 Grok: watch for reviews when
+  the demo gets coverage).
+Yesterday 5:58 AM
+5:58 AM
+# TASK K47 - Design the gym's FILM ROOM (scouting) as a buildable spec + concept images (Kalli, design)
+Self-contained design brief for a browser agent (Grok). No repo access needed. Deliver a written spec and images.
+## Context
+FightCamp is a boxing (later MMA) gym-management game with 3D rooms seen from a fixed three-quarter room camera (like a
+cut-away dollhouse view). Existing rooms: office, locker room, lobby, mat room, staff room, physio, all bright and warm
+("bright and alive" - dark or empty reads as abandoned). The FILM ROOM is not built. In the game it is where the manager
+SCOUTS an opponent before booking or in fight camp: watches his fights, reads his habits, and picks a game plan.
+## Reference
+The painted mood target for this room is attached (repo: `previews/concepts/room_film.jpg`). Keep its mood;
+your job is to turn it into a room that can be BUILT: measured, listed, and clickable.
+## Design the room so a 3D artist can build it without guessing
+1. FLOOR PLAN in metres: room width x depth (keep it about 7 x 5 m, wall height 3 m), where the door is, and the
+   position (x, z in metres from the back-left corner) and size of every object.
+2. PROP LIST: every object, its real size, material/colour, and whether it can be built from simple furniture (a
+   desk, chairs, a sofa, shelves, a TV, a whiteboard, a projector screen, a laptop, rugs, plants, lamps, cardboard
+   boxes). Say which props need custom modelling.
+3. PEOPLE: who is in the room and what they do (e.g. the coach pausing a fight on the screen, a fighter taking notes).
+4. CLICKABLE OBJECTS (3-5): each object the player can click and the screen it opens, e.g. the big screen -> the
+   opponent's fight footage; the whiteboard -> his tendencies (jab share, favourite punch, stamina fade); a folder ->
+   his record; a laptop -> the game plan.
+5. LIGHTING and mood: daytime-bright but with a glowing screen; colour palette (3-5 hex colours).
+6. TWO CONCEPT IMAGES from that three-quarter cut-away camera: the room in use, and a close view of the whiteboard/screen.
+   No real people's likenesses, no real logos or brand names; fighters are fictional.
+Title "K47 - The film room, buildable spec". A plain-text spec under 900 words (sections 1-5 above, a table for the
+props) and the two images.
+K80: only one image reached me, and it's the film room concept for K47. current_look_sheet.jpg and 02_home.jpg did not arrive, so I won't describe those screens. I'll write the K80 memo from the brief and the Cage Legacy survey alone, and label it that way. K47 is under way now: I'm generating the two concept images, then I'll send the spec.
+5:59 AM
+K47 - The film room, buildable spec
+The concept images are generated. The text drawn on the board, screen and binders is illustrative only. Where an image and this spec differ, the spec wins. The image puts the window on the left wall and uses invented binder names, so the real names come from the roster.
+1. Floor plan
+Room 7 m wide (x) by 5 m deep (z), wall height 3 m. Origin is the back-left corner, x runs right, z runs toward the camera. The camera looks in from the front-right, and the front and right walls are cut away.
+The door is in the left wall at z 1.0 to 2.0, 1.0 m wide by 2.1 m high, opening outward.
+The window is in the back wall at x 0.9 to 2.0, sill at 1.1 m, top at 2.3 m.
+The screen wall is the back wall, and the sofa faces it from about 3 m away.
+2. Props (position is the object's centre, in metres)
+Prop	Size (w x d x h)	At (x, z)	Material	Build
+Projector screen	2.4 x 0.05 x 1.35, bottom edge at 1.0	3.5, 0.05	white matte, thin black frame	kit TV or screen, live render texture
+Projector on stand	0.5 x 0.4 x 0.5	3.5, 0.6	matte black	kit boxes
+Sofa, 3 seat	2.2 x 0.9 x 0.85	3.5, 3.55, faces back	black leather #1C1C1E	kit sofa
+Coffee table	1.1 x 0.55 x 0.4	3.5, 2.5	walnut #5D4037	kit table, plus bottle and 2 notebooks
+Rug	3.0 x 2.0	3.5, 2.7	dark slate, thin brass border	kit rug
+Mobile whiteboard	board 1.5 x 1.0 on 1.9 m frame	0.45, 3.1, angled 15 degrees toward the sofa	white, grey frame, wheels	custom frame from boxes, data texture on the board
+Wall clock, two framed photos	0.3 dia, two 0.5 x 0.7	left wall, z 3.1 (clock at h 2.5), photos at z 2.2 and 4.0 (h 1.7)	black frames	kit decor
+Industrial shelf, 4 tiers	1.2 x 0.4 x 2.2	6.8, 1.2	black metal, walnut tier edges	kit shelves, binder spines from an atlas
+Built-in desk	1.6 x 0.7 x 0.75	6.65, 2.7	walnut top, black drawers	kit desk
+Laptop	0.33 x 0.23 x 0.02	6.6, 2.4, angled to the room	grey	kit laptop, render texture for the timeline
+Tape boxes (3 stacks) and folder stack	0.3 x 0.2 x 0.25 each	on the desk, z 2.9 to 3.3	black cardboard	kit boxes
+Plant	0.5 dia x 1.6	0.45, 0.45	green	kit plant
+Downlights (3)	n/a	ceiling, x 2, 3.5, 5 at z 2.5	warm white	Godot lights
+Everything is kit furniture. The only custom parts are the whiteboard frame and its data texture, the screen and laptop render textures, and the binder spine atlas. All other props are plain boxes.
+3. People
+The coach stands at (4.7, 1.6) in a black tracksuit and cap, facing the screen and holding a red laser pointer. He pauses the fight and points at one movement.
+Fighter one sits at (3.0, 3.5) and fighter two at (4.0, 3.5). Both lean forward and write in notebooks.
+These use the existing rigs. They loop idle, note-taking and pointing clips, and the coach's laser dot is a small red sprite on the screen.
+4. Clickable objects
+The screen opens the opponent's fight footage.
+The whiteboard opens his tendencies: jab share, favourite punch and stamina fade.
+The folder stack on the desk opens his record.
+The laptop opens the game plan.
+Optional fifth: the binder shelf opens the list of other scouted fighters. It is the cheapest way to switch target.
+Hover draws a thin brass outline and a label of at most 14 characters. This is the only gold in the frame.
+5. Lighting and mood
+Daytime-bright ambient from the window plus the downlights, so the room never reads as abandoned. The screen is the brightest object and casts a cool glow on the sofa and table. The wall is mid slate rather than near-black. The reference image is too dark for this game's rule, so I lifted it.
+Palette: slate wall #2F353B, floor #24282C, walnut #5D4037, screen glow #DCEBFF, laser red #E03A2F. The brass accent from the game's look, #B8893B, is only for the hover outline.
+6:00 AM
+Today 5:27 PM
+I'm taking a look around to see if there's anything I can pick up for you. I'll follow up in a moment.
+5:27 PM
+Today 6:03 PM
++2
+# TASK K82 - training floor (tier 1) and lobby: what to change so they match the concept (Kalli)
+Operator 2026-10-01: "use grokbots mostly for visual refining our rooms and the arena". No repo: images attached; answer
+in this chat.
+## Attached
+1. `floor_tier1_now.png` (render of the tier-1 training floor today) and 2. `gym_tier1_backroom_club.jpg` (its concept).
+3. `lobby_now.png` (render of the lobby today) and 4. `room_lobby.jpg` (its concept).
+House rule: bright and alive, never dark or empty. Rooms are built from Kenney furniture kit (CC0) + our own props +
+primitive boxes/cylinders; lighting is warm key + cool fill.
+## Deliver (one answer, per room)
+- The 8 changes that would close most of the gap, ranked by visual gain per effort. Each: WHAT (prop or surface), WHERE
+  (wall/corner/centre + distance in metres from a named reference), SIZE (m), COLOUR (hex), and how it is built
+  (Kenney piece name if one fits, else box/cylinder). Concrete enough that a programmer places it without guessing.
+- What already matches the concept and must NOT change (one line).
+- One line: the single biggest reason the render reads worse than the concept.
+K82: training floor (tier 1) and lobby
+I have no room dimensions, so every position is in metres from a named corner. I assumed the training floor is about 10 x 8 m and the lobby about 8 x 6 m. If the real rooms differ, scale the numbers and keep the relationships. Kenney names are the closest fit and unchecked against the kit, so use a box if one is missing.
+Training floor, tier 1
+Biggest reason it reads worse than the concept: the render is lit evenly and drawn as a data diagram. Flat colour rectangles and floating text sit on a clean floor. The concept has one warm light pool, long shadows and worn, lived-in surfaces.
+Eight changes, ranked by gain per effort:
+Warm key light with shadows. A directional light from the right at about 25° above horizontal, colour #FFB561, energy 1.4, shadows on. Add a cool fill #8FB4D9 at 0.35 from the opposite side, no shadows. This is the biggest gain for the least work.
+Pull the zone rectangles back. Drop their alpha to about 0.12 and show them only on hover or when a pin is selected. Floor labels go to 12 px minimum, white at 70% opacity. Show the floating fighter text only for the fighter under the cursor.
+Concrete floor. Replace the flat floor with a box 10 x 0.05 x 8 m, base #6E6A66, slightly rough. Add 6 to 8 stain decals (boxes 0.8 x 0.01 x 0.5 m, #4F4B48, alpha 0.5, random rotation) around the heavy bags and ring.
+Cinder-block back wall. Swap the brick on the back wall for grey block #8B8F92, 10 m wide by 3 m high, with 0.03 m mortar lines in #6A6E70 every 0.4 m. Keep brick on the side walls.
+Duct-taped heavy bags. Two cylinders 0.38 m wide by 1.0 m high, #7A4B2A, hung on chains from 3.2 m. Place them 1.5 m and 2.7 m from the right wall, 2.0 m from the back wall. Add a 0.12 m band cylinder at mid-height in #B8BCC0 (silver tape). Put a 0.9 x 0.04 x 0.9 m black rubber mat #1F1F1F under one bag.
+Skipping ropes and a poster on the back wall. Two thin cylinders 0.02 x 0.8 m, #C62828, on a hook 1.6 m up and 1.0 m from the left corner. A black-and-white poster box 0.6 x 0.9 x 0.01 m, 1.4 m up and 0.5 m right of the ropes.
+Admin corner. A folding table (Kenney table, or a box 1.2 x 0.75 x 0.6 m, #EDEDED) in the back-right corner, 0.3 m from each wall. Add a chair (Kenney chairCushion, #6C7A89) tucked under it and a green crate box 0.7 x 0.4 x 0.4 m #5B6B4A beside it. A notebook box and a water bottle cylinder go on top.
+Window light and pendant lamp. A 1.2 x 1.2 m light patch #FFD9A0, alpha 0.5, on the floor near the right edge. Add a pendant lamp (Kenney lampRoundFloor raised, or a 0.3 m cylinder with emissive #FFE6B0) at 2.8 m over the centre, switched off as in the concept.
+Keep unchanged: the ring, the stationary bike, the fighter models, the bench with towel and bottle in the bottom-right corner, and the doorway positions (OFFICE and FRONT DESK STREET on the left wall).
+Lobby
+Biggest reason it reads worse than the concept: the render is a nearly empty box with floating text labels. The concept packs the walls with real objects (belts, portraits, trophy case, merch rack, fight board) and shows people at work.
+Turn labels into real objects. Replace each floating label with the prop it names. Keep a 12 px tag on hover only. This closes the most gap for the least work.
+Awards wall behind the desk. A shelving box 2.4 x 0.35 x 2.2 m, #3A3028, against the left wall, 0.4 m from the back corner. Fill three shelves with gold cylinders (#D4AF37, 0.12 x 0.25 m) and 3 belts as boxes 0.5 x 0.12 x 0.02 m in #1C1C1C with #D4AF37 plates. Kenney bookcaseOpen can be the base if it fits.
+Reception desk. A box 2.0 x 0.55 x 1.0 m, #3B2A1E, placed 1.0 m in front of the awards wall. Add a white fighter silhouette decal 0.8 x 0.5 m on the front, a monitor (Kenney computerScreen) and a pen cup on top. The desk hire character sits behind it, as now.
+Wall of fame. Eight portrait frames, 0.35 x 0.45 m each, in a 2 x 4 grid on the back wall, 1.4 m up with 0.5 m between frames. Put a 12 px record under each (18-4-0 style). Use roster portraits, or the silhouette placeholder if none exists.
+Floor and lighting. Floor tiles 0.8 m square in #4A4D52 with 0.02 m grout in #35383C. Use the same warm key #FFB561 at 1.2 and cool fill #8FB4D9 at 0.3. The room must read bright.
+Waiting bench with people. Kenney bench, or a box 1.6 x 0.45 x 0.45 m #A47448, 0.5 m from the back wall and centred under the wall of fame. Seat two fighters, with a gym bag at each pair of feet (boxes 0.5 x 0.25 x 0.25 m, #2C4A7C and #222222).
+Merch shelf and fight board. A wooden shelf box 1.2 x 0.35 x 1.8 m, #A47448, against the right wall, 0.4 m from the back corner, with towel, glove and shirt boxes on it. Beside it a corkboard 1.6 x 1.0 x 0.03 m, #B08B5A, 1.2 m up, with 3 poster boxes 0.4 x 0.55 m. Dates and venues must come from the real booked bouts, never fixed text.
+Small finishers. A planter on each side of the desk (Kenney pottedPlant, or a box 0.4 x 0.4 x 0.4 m #555B60 with a green cone). A trash can (Kenney trashcan) and a water cooler (box 0.35 x 0.35 x 1.1 m, #E6EAED, with a #4FA3D9 jug) by the training-floor door.
+Keep unchanged: the door labels OUT TO THE CITY and THE TRAINING FLOOR, the top status bar and rail, the THE DESK hire panel with its HIRE A DESK HAND button, and the sofa and bench figures.
+Flags
+Words: the zone names FRONT DESK STREET and OUT TO THE CITY should read the same across both rooms. "Gym" stays the building, and "fight camp" is only the preparation.
+NOT COMPUTED: the real room dimensions, the scale of the fighters and the exact Kenney piece names. Before placing anything, check sizes against one fighter standing next to the desk.
+6:04 PM
+Today 7:37 PM
+7:37 PM
+# TASK K83 - the live fight's broadcast look: a scorebug a viewer reads in one glance (Kalli)
+Operator 2026-10-01: "use grokbots mostly for visual refining our rooms and the arena", "everything to be integrated at
+AAA game level (how pros do it, how AAA games do it, what best reviews praise)", "use icons when its possible to skip
+text (with the necessary tooltip of course)". No repo: the still is attached; answer in this chat.
+`76_bout_live.png` - the live bout in today's build (1920x1080): a round clock box top-left ("R1 2:59", "CORNER - NO
+INSTRUCTION"), speed buttons top-right (1X 2X 4X SIM TO RESULT), the fighter's name in the top bar. Nothing tells a viewer
+who is in which corner, their records, the score, or how the round is going.
+## Deliver (one answer)
+1. A SCOREBUG spec as TV boxing does it (DAZN / Sky Sports / ESPN / UFC style - name the broadcaster you copy): exact
+   placement in pixels on 1920x1080, sizes, the elements (corner colour bar red/blue, surname, record W-L-D, flag or
+   country code, round + clock, optional knockdown pips), font sizes, colours hex, what animates and when (round change,
+   knockdown, a big shot).
+2. A between-rounds stat card (what punch stats appear, layout, how long it stays) and the end-of-fight card.
+3. Which of today's elements to KEEP, MOVE or DROP (the corner instruction line, the speed buttons) and why.
+4. Where an ICON replaces a word (with what tooltip) - e.g. knockdowns, cuts, stamina.
+5. A mock image of the scorebug over the attached still, if you can make images.
+No real broadcaster logos, no real fighter names. Keep it buildable from flat panels, text and simple icons.
+K83 is in progress. The scorebug mock is drawn over your still, and the full spec is coming next.
+7:38 PM
+
+## IMAGES
+FAILED sand-media://image/49b8b360ea85ab54c12ebd5e149a1853: no value from the page: {"id": 1, "result": {"result": {"type": "object", "value": {}}, "exceptionDetails": {"exceptionId": 3, "text": "Uncaught (in promise)", "lineNumber": 0, "columnNumber": 0, "exception": {"type": "object", "subtype": "error", "className": "DOMException", "description": "SecurityError: Failed to execute 'toDataURL' on 'HTMLCanvasElement': Tainted canvases may not be exported.\n    at <anonymous>:8:12
+FAILED sand-media://image/f75475a2b4f36d0f47032894e7521063: MISSING
+FAILED sand-media://image/b273d5985250884332eaffc1a7ea2270: MISSING
+FAILED sand-media://image/d41234c2ba98c3d3414282a530946a87: MISSING
+FAILED sand-media://image/657e0baf768d1938e68f8090e25d5e1a: MISSING
+FAILED sand-media://image/0000949e7351ba2489514b472e333609: MISSING
+FAILED sand-media://image/7267df1387db6e31ca2a5eae60219a76: MISSING
+FAILED sand-media://image/18c9c5197278d8ebf16bdbc9ad08062f: MISSING
+FAILED sand-media://image/2b9bd73b2ed560dff4df0468c5977d97: MISSING

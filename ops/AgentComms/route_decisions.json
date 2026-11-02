@@ -1,0 +1,381 @@
+{
+  "_note": "Every task a digest marks parked / stopped / incomplete / not accepted / not proven needs an entry here: RESUMED (with the task that carries it and an owner) or STOPPED (with the reason and who decided). agent_comms.py start prints DROPPED-ROUTE DEFECT for any such task without one. Operator 2026-09-27 (S114): 'we agreed on a procedure, what does it mean to drop, who dropped it and why' - the colour-suit route was dropped by Claude in S75 with no decision.",
+  "routes": {
+    "C199": {
+      "status": "RESUMED",
+      "carried_by": "TASK_C222_GRAPPLING_FROM_SUIT_VIDEO",
+      "owner": "codex",
+      "decided": "2026-09-27 S114 Claude",
+      "why": "Suit route (operator idea): tracking passed 09-24 (C180); 3D step not yet run as of 09-25; G95's legal solve (SAM 3D Body / MHR) never applied. Dropped by Claude in S75 with no decision. S114 CORRECTION (operator): the Blender-MCP AUTHORING method WORKED (C199_Hold built, contacts fixed, exported) - only its game integration was never done; C222 step 1 integrates it. The video-to-3D solve is optional research.",
+      "name": "THE SUIT ROUTE (operator's idea): generated video of performers in mocap-style suits -> track -> 3D -> game",
+      "proven": "suit video generates (Seedance, _captures/ground_video); per-segment tracking PASSED on suited video (C180_DIGEST); a Blender-MCP authored closed guard built from the suit video as reference, exported, plays from the game angle (C199_DIGEST).",
+      "open": "calibration take, synced views, joint point markers (C199 rows 1-3); the video->3D bone solve (SAM 3D Body per G95 - never tried); game binding of C199's hold (TASK_C222 step 1). S115 pilot: one suited boxer, lead uppercut (S115_BYTEPLUS_SEEDANCE_TERMS.md)."
+    },
+    "C170": {
+      "status": "STOPPED",
+      "decided": "2026-09-27 S114 Claude",
+      "why": "Closed-guard revision rejected; superseded by C199's authored MMA closed guard (reads right from the game angle) and by C222 for the video route."
+    },
+    "C182": {
+      "status": "RESUMED",
+      "carried_by": "TASK_C222_GRAPPLING_FROM_SUIT_VIDEO (step 5: holds still missing, turtle included)",
+      "owner": "codex",
+      "decided": "2026-09-27 S114 Claude",
+      "why": "Turtle contact gate failed twice on hand authoring; the suit-video route is the next way in.",
+      "name": "turtle hold (grappling clip)",
+      "proven": "nothing accepted - C182_DIGEST: \"checkpoint, not an accepted turtle delivery\"; 0/3 credits spent, no reference accepted.",
+      "open": "the turtle hold itself; now a C222 step-5 hold (suit route)."
+    },
+    "C190": {
+      "status": "RESUMED",
+      "carried_by": "TASK_Q209_THE_REST_OF_THE_GROUND (fight-level census incl. KO/TKO given KD)",
+      "owner": "qwen",
+      "decided": "2026-09-27 S114 Claude",
+      "why": "MMA KO/TKO share calibration incomplete; Q209's census re-measures it on the full ground graph.",
+      "name": "strikes play whole, bounded placement",
+      "proven": "timing, interruption protection, queue occurrence and bounded placement are TESTED (C190_DIGEST); switch strikes_play_whole ON in the game since S115.",
+      "open": "\"the full visual/contact and J20 acceptance target is NOT met\" - nearest-clip target-height mismatches; census in Q209."
+    },
+    "C202": {
+      "status": "RESUMED",
+      "carried_by": "S115 watch-loop take two + the OFF-switch census",
+      "owner": "claude",
+      "decided": "2026-09-27 S114 Claude",
+      "why": "Strike-motion diagnosis delivered no fix; the fixes that exist (C203/C204/contact_stop) are OFF and get decided by the switch census and the operator's eye.",
+      "name": "hook/reaction join diagnosis",
+      "proven": "DIAGNOSIS ONLY - C202_DIGEST: \"NOT complete ... contains no [animation fix]\"; the room's last-event text is not the AnimationPlayer clip.",
+      "open": "the source-level correction with a positive control; rejected the floating-pelvis workaround."
+    },
+    "C209": {
+      "status": "STOPPED",
+      "decided": "2026-09-27 S114 Claude",
+      "why": "Generated drill takes failed the drill gate; superseded by C212 (Mixamo drills usable with edit). Training floor works with its current clips; more drill motion waits until after alpha."
+    },
+    "C211": {
+      "status": "STOPPED",
+      "decided": "2026-09-27 S114 Claude",
+      "why": "Fixed surface anchors conflict with the retarget (fourth run STOP). Reopen only if C222's holds need a neck grip the solver cannot reach; branch tagged retired/c211-neck-reach."
+    },
+    "C134": {
+      "status": "STOPPED",
+      "decided": "2026-09-27 S114 Claude",
+      "why": "BJJ presentation line (C134/C137/C138/C139) not visually acceptable in its own digests; superseded by the C222 suit-video route. Branches tagged retired/*."
+    },
+    "C137": {
+      "status": "STOPPED",
+      "decided": "2026-09-27 S114 Claude",
+      "why": "See C134."
+    },
+    "C138": {
+      "status": "STOPPED",
+      "decided": "2026-09-27 S114 Claude",
+      "why": "See C134."
+    },
+    "U187": {
+      "status": "RESUMED",
+      "carried_by": "the OFF-switch census stage (planted-foot skate measured with Q198's audited instrument)",
+      "owner": "cursor",
+      "decided": "2026-09-27 S114 Claude",
+      "why": "Planted-foot gate (p95 <= 0.287 m/s) missed in U185-U188; the visible foot slide is part of the motion quality the operator judges.",
+      "name": "planted feet stay planted (slide)",
+      "proven": "U187_DIGEST: AFTER p95 0.638 m/s vs baseline 0.573 - gate (<=0.287) MISSED; better than U186's 0.981.",
+      "open": "planted-foot slide; C223's skate gate now measures clips; Q198 audited the instrument."
+    },
+    "U188": {
+      "status": "RESUMED",
+      "carried_by": "see U187",
+      "owner": "cursor",
+      "decided": "2026-09-27 S114 Claude",
+      "why": "See U187.",
+      "name": "planted feet - second pass",
+      "proven": "U188_DIGEST: AFTER p95 1.179 m/s - WORSE than planner-off baseline 0.573; gate missed.",
+      "open": "same as U187."
+    },
+    "C221": {
+      "status": "RESUMED",
+      "carried_by": "TASK_C221 (after TASK_C223)",
+      "owner": "codex",
+      "decided": "2026-09-27 S115 Claude, on the operator's ruling",
+      "why": "C221 stopped INCOMPLETE 09-27 19:28 (Blender disconnected; 47 Kimodo takes rejected). Blender now connected. Queued BEHIND C223 because the operator ruled boxing+kickboxing clips first ('do not produce exe or clips until all boxing and kickboxing animation clips are completed and checked they work smooth and perfect'). Not dropped.",
+      "name": "the 47 moves that play nothing - suited human video to clips",
+      "proven": "pass 3 studio table (C221_DIGEST): tracker rerun on suited video COMPLETE (97 frames x 2 panels, actor A isolated); pass 2: 47 Kimodo takes all rejected on two rigs.",
+      "open": "calibration (row 3), synced views (row 4), the 3D solve - \"WEAKEST LINK: no validated 3D solve\" (row 6), clean, retarget. Queued behind C223."
+    },
+    "C188": {
+      "status": "STOPPED",
+      "decided": "2026-09-24 C188 digest; confirmed S114 Claude",
+      "why": "Struck-segment hit_physics experiment failed the no-worsening contact gate; kept OFF. Physics reactions continue as the active ragdoll (C217/C218)."
+    },
+    "C217": {
+      "status": "RESUMED",
+      "carried_by": "the OFF-switch census stage (active_ragdoll ON or deleted, with a recording for the operator)",
+      "owner": "cursor+claude",
+      "decided": "2026-09-27 S114 Claude",
+      "why": "Kickback active ragdoll built and merged, defaults OFF; never decided.",
+      "name": "active ragdoll hit reactions (Kickback, MIT)",
+      "proven": "prototype delivered (C217_DIGEST) and merged with C218 live motion (17cb20a3, S112); active_ragdoll ON in the game since S115 (80ddd79a).",
+      "open": "\"live integration NOT accepted\" in C217's own digest - no census or operator eye on it yet; U195 numbers owed."
+    },
+    "C172": {
+      "status": "NOT_A_ROUTE",
+      "decided": "2026-09-27 S114 Claude",
+      "why": "'parked' refers to the parked fight_pair_live test in its results line; C172 itself landed."
+    },
+    "C79": {
+      "status": "NOT_A_ROUTE",
+      "decided": "2026-09-27 S114 Claude",
+      "why": "'paused' describes a freestyle wrestling bout state, not the task."
+    },
+    "Q19": {
+      "status": "NOT_A_ROUTE",
+      "decided": "2026-09-27 S114 Claude",
+      "why": "A full-suite timeout on 09-10; GrappleSeat.gd landed."
+    },
+    "C223": {
+      "status": "RESUMED",
+      "carried_by": "TASK_C223 (Claude owns it since S120; Codex locked to 2026-10-03 21:50)",
+      "owner": "claude",
+      "decided": "2026-09-29 S124 Claude, on the operator's ruling (G147 over every certified move)",
+      "why": "Operator S115 top priority (no boxing .exe until 36/36 pass). Digest says batch 1 INCOMPLETE, not stopped: the run is live and the roadmap next_action relaunches it on the contact-slip gate.",
+      "name": "Every boxing (36) and kickboxing (20) move plays its own clip gated smooth on both rigs",
+      "proven": "S126 (G147 + pin-pop rows inside both C223 gates, the game's glove pin incl. the S126 arm push box, 4 generated legal pairs): 14/36 pass every row - jab, cross, rear_uppercut, jab_body, body_hook, up_jab, overhand, cross_body, double_jab, one_two, slip_counter, pull_counter, counter_over_jab, catch_counter (s126_final_bound.json, s126_final_chains.json); pieces slip, pull, catch. The fist band measures the strike up to impact.",
+      "open": "Boxing: jab_body_head (its FIRST part is thrown inside its range - needs a step before part 0), shovel_hook, inside_uppercut, check_hook_pivot, counter_combination, footwork 7, feint, drawing. Kickboxing 0/20 (off the demo road, D27).",
+      "s129": "Palette 17: boxing_check_hook (QuickMagic text-to-motion, adapter bind-pose fix) + boxing_lead_hook (FightClipFootPlant.lock_foot + root hold) certified bound 4/4 (s129_final_bound.json); rear_hook / rear_hook_body / shovel_hook with Qwen (Q217d).",
+      "s131": "Palette 19 under the off-line stance (STANCE_OFFSET_U 0.16, room + fixture one constant): s131_offset_bound 14 singles + 3 defences 4/4, s131_offset_chains 6 chains 4/4, s131_rear_ball rear_hook + rear_hook_body 4/4 (rear foot on its ball). Certificates must carry fixture_lateral_m (certified_palette_test).",
+      "s135": "Palette 22: one_two_hook, liver_combo, six_punch_combo certified bound 4/4 through the production splice WITH the between-part step (FightStagePlayer._plan_sequence_step; game room switch sequence_steps). The six chains already in the palette re-measured with the step, all 4/4: s135_chains.json replaces s131_offset_chains.json. Control no_step 25/40 vs 36/40 (s135_chains_nostep.json).",
+      "s136": "The cross's post-contact bob solved: boxing_cross carries a Spine+Chest lean-back pose layer solved by target (head sink after contact 15.9 -> 3.1 cm) with contact_before_layer (contact 0.300 and the chain cut read off the unlayered take). Re-certified: s136_bound.json (every single, 68 rows, replaces s131_offset_bound.json) and s136_chains.json (9 chains 4/4, replaces s135_chains.json). Palette stays 22.",
+      "s155": "Q213E's honest skin gate FAILS 3 certified palette moves (boxing_lead_uppercut 3.85, boxing_rear_hook 1.56, boxing_rear_hook_body 3.63 cm: the defender's guard hand in the attacker's head; Q213F elbow IK cleared none). OPERATOR S155: 'Fix their clips first' - they stay in the palette while Q213G (TASK_Q213G_GLOVE_SIZED_CONTACT.md) measures the DRAWN glove against the head and sizes the push to the glove. Gloves fixed S155 (ff134b75, operator 'Yes, gloves are right')."
+    },
+    "C229": {
+      "status": "RUNNING",
+      "carried_by": "TASK_C231_CASCY_STRIKE_GRAFT",
+      "owner": "codex",
+      "decided": "2026-10-01 S137 operator",
+      "name": "CASCADEUR FOR TWO BOXING MOVES (shovel hook, inside uppercut) - operator: 'cascadeur for those two moves, go ahead then proceed according to roadmap'",
+      "why": "The C223 route (owned clip + warp + pose layer) failed on the source motion of these two. C229 (Codex astra) re-authored both in Cascadeur: BOTH REJECTED (shovel turns his back; inside uppercut cleared G147 on 4 rigs, 1.0-1.2 cm overlap left). Finding: the single-strike graft has no Cascy bone map (paired route has). C231 fixes the graft and finishes the inside uppercut. Every other boxing move stays on the C223 route."
+    },
+    "VENUES": {
+      "status": "DONE",
+      "carried_by": "VenueLadder.gd",
+      "owner": "claude",
+      "decided": "2026-10-01 S137 operator",
+      "name": "ARENAS BY LEVEL - operator: 'one for regional fights, one for national fights, and one for international fights'",
+      "why": "Six G74 venues existed but no booked bout reached one (no venue passed). VenueLadder: regional R1 iron_parish / R2 north_dock_leisure, national R3 the_cut_glass / R4 limehouse_bowl, international (title or abroad) R5 northlight / R6 the_quarry. Refinement M39 (Maria) in flight."
+    },
+    "C237": {
+      "status": "DONE",
+      "owner": "claude",
+      "decided": "2026-10-02 S140 (merged S139, S139_DIGEST s2)",
+      "carried_by": "FightStagePlayer receiver reactions + moving guard (master)",
+      "name": "C237 receiver reactions + moving guard",
+      "why": "Operator 'ok merge it'; merged S139 as a diff, stale test fixed b12aa212. Its digest's parked notes are superseded by the merge."
+    },
+    "G156": {
+      "status": "DONE",
+      "owner": "claude",
+      "decided": "2026-10-02 S140 (merged S139, S139_DIGEST s2)",
+      "carried_by": "G156 decision/word modules (master)",
+      "name": "G156 remaining decision/word modules (wiring audit rows)",
+      "why": "Merged S139; fight-week captions moved into THE TAPE. Any audit row still unwired is carried by the wiring audit S137_WIRING_AUDIT.md."
+    },
+    "Q228": {
+      "status": "DONE",
+      "owner": "claude",
+      "decided": "2026-10-02 S140 (merged S139, S139_DIGEST s2)",
+      "carried_by": "FilmRoom3D (master; WATCH FILM from camp)",
+      "name": "Q228 FILM ROOM",
+      "why": "Merged S139 with Q225/Q227/Q229 rooms pass 2; 6 parse errors from three _pbr helpers fixed at merge."
+    },
+    "C240": {
+      "status": "RESUMED",
+      "carried_by": "TASK_C240C_CLINCH_OVERLAP_WINDOWED_REMEASURE.md - next free Codex/engine seat",
+      "owner": "codex",
+      "decided": "2026-10-02 S142 Claude",
+      "why": "C240b (the real-event integration) landed honest, real work: Q233's hold_engage/hold_break/inside_work/foul_on_break events are now routed through FightWorldLiveScreen into FightStagePlayer (walks the authoritative fight.log with a cursor), a real 10-bout paired booked census ran both arms (Q233 on/off), and the pre-existing fight_stage_realism_test.gd 600s timeout was confirmed to reproduce on the unmodified baseline too (not caused by this work). BUT the core acceptance gate FAILED: head-overlap frames went from 1,897 (off) to 1,923 (on) - UP, not halved. Hold-rate-per-round (R1 2.0, R2 2.0, R3 1.5) also undershoots Davis et al. 2015's amateur reference (2.5/3.2/4.8). The torso-overlap counter has a known bug (undercounts the first 3 frames of each qualifying run) and needs a corrected rerun before it can be trusted either way. Parking rather than a third immediate attempt: two rounds (C240, C240b) both missed the halving target by a real, measured margin, not a near-miss - the clinch pairing geometry (fit_boxing_hold_pair) likely needs rethinking, not another tuning pass, before a third round is worth an agent's time. Resume when a seat is free AND either (a) someone proposes a different geometric approach to the paired hold (not more parameter tuning), or (b) the operator reviews c240b_live_room.mp4 and gives a taste verdict that changes the bar. S142 (Claude, reading c240_overlap_census.gd directly): the census counts head/torso overlap over the WHOLE bout, with no reference anywhere to FightStagePlayer.boxing_hold_active() - it never isolates frames where a hold is actually active. C240 itself already measured near-zero penetration (0.002m head, 0 torso) during the settled hold window (5.5-10s) in its single-bout excerpt; the whole-bout failure may be unrelated ordinary-exchange crowding that a single engine-option flip (boxing_clinch on/off) causes to diverge via RNG from the first hold_engage event onward - a shared-bug control-arm problem, not necessarily a geometry defect. TASK_C240C asks for a WINDOWED re-measurement (during-hold vs outside-hold shares) on the SAME 10-bout population before any further geometry tuning. If during-hold overlap is low on the full population too, the geometry was never the problem and this can go to the operator for a taste verdict (condition b) without further engine work."
+    },
+    "U210": {
+      "status": "RESUMED",
+      "carried_by": "TASK_U211_FOOTLOCK2_SLIDE_BY_CAUSE.md - CODEX (moved off Cursor S143, operator: cursor out of credits), wt E:/FightCamp/wt/U211, branch cursor/u211-footlock-by-cause cut FROM cursor/u210-footlock-planner (planner underneath; U210 merges only through U211)",
+      "owner": "codex",
+      "decided": "2026-10-02 S143 Claude",
+      "why": "U210 planner-only cut pooled planted slide 22% (5599->4343 cm/fighter-min) but s139 p95 2.649->2.586 m/s vs gate 1.32; its own digest: s139 counts every low-foot frame in the bout, not footwork beats. Next slice = bucket the slide by root owner at point of write, fix the top bucket. Branch also carries a 0-byte tools/u188_kneel_probe.gd (pops a native dialog) - U211 deletes it; never merge U210 alone. S143 close-out: branch final at 31217b12; worker processes stopped; slide logs are gitignored (numbers live in U210_DIGEST.md). S146: U211 (carrying U210) REFUSED - C223 production gate, 32/32 certified move x welter-rig pairs regress vs master (lead hook contact slip 0.005 -> 13.9 cm); research/U211_C223_VERDICT.md. Not merged; a send-back must keep root/feet untouched inside a certified clip's contact window."
+    },
+    "FOOTLOCK_U210": {
+      "status": "SUPERSEDED",
+      "carried_by": "needs a fresh angle, not another agent pass - 5 straight misses on the same underlying problem (U185, U186, U187, U188, U210)",
+      "owner": "codex/cursor (pending reassignment)",
+      "decided": "2026-10-02 S141 Claude",
+      "why": "U210 (branch cursor/u210-footlock-planner, 31217b12, NOT merged) took the deliberately untried planner-only path (fix the step planner's plant/swing decision instead of another IK lock) and still missed the gate: s139 p95 planted speed 2.649 -> 2.586 m/s, only ~2.4% down against a required 50%. Honest diagnosis in U210_DIGEST.md: the planner only re-routes root travel on BOXING FOOTWORK beats; s139 counts every low-foot frame in the whole bout (strikes, clinches, guard), so footwork-only re-routing structurally cannot halve a bout-wide average no matter how well it works. Two live options for whoever resumes this: (a) reduce non-footwork planted slide (joins, whole-strike roots, room-root finish order) - the actual majority contributor per this digest's own math; (b) question whether s139's bout-wide average is even the right acceptance instrument for a footwork-scoped fix, and propose a footwork-only instrument instead (U186 already passed on one). This is the 5th attempt (U185, U186, U187, U188, U210) at the same sliding-feet complaint with no gate pass - per the operator's own session discussion, this is the kind of multi-attempt pattern that may warrant a harder-reasoning pass (Opus) rather than another same-shaped agent task. || S143 Claude reconciliation: this entry was written at 14:17 by another (idle) session after U211 had already launched at 13:52 on Codex. U211 IS the \"fresh angle\" both options name: it buckets the slide by root owner at the point of write (option b, the instrument question) and fixes the top non-footwork bucket (option a). Read U210, not this key.",
+      "superseded_by": "U210 (RESUMED as U211) - one route, one decision"
+    },
+    "C232": {
+      "status": "DONE",
+      "owner": "claude",
+      "decided": "2026-10-02 S143 Claude",
+      "carried_by": "master (merged as a diff S143)",
+      "why": "Walkout half is fine (walks through crowd to ring steps). The live bout half is NOT: a fighter folds into a kneeling split and floats horizontal ~2:57-2:55 (C232's own digest flagged it, also in its bout_only baseline). Not a taste question. S143 s143_fold_probe re-measures the same room on today's master; if master is clean, rebase C232 and re-record, else fix the fold first. || S143 fixed + merged: the fold was the Tripo control arm a --script run uses (s143_fold_probe: off arm folds, as_game arm min hip-above-foot 0.6 m, no fold). Second defect found on the as_game re-record: the walkout mounted the Tripo roster body while the ring mounted MPFB - WalkoutShot now mounts model_for_skin('generator') + apply_identity when demo switches are on. walkout_venue_test 31/0; as_game video E:/FightCamp/s143_c232b/northlight_as_game.mp4 opened (same red-corner MPFB man walks out and fights). OWED after restart: run_tests --only walkout,fight_night,venue (interrupted by the session break)."
+    },
+    "C231B": {
+      "status": "SEND-BACK",
+      "owner": "codex",
+      "decided": "2026-10-02 S143 Claude (video opened frame by frame - operator: \"check the other videos yourself too before sending them\")",
+      "carried_by": "origin/codex/c231b-arm-over-head (not on master)",
+      "why": "boxing_inside_uppercut.mp4 (3.9 s): still chest to chest, the glove arrives at the SIDE of the head, not up under the chin; reads as a hook into the face, the operator's S138 complaint. Stays WITHHELD; not sent."
+    },
+    "U208": {
+      "status": "DONE",
+      "owner": "claude",
+      "decided": "2026-10-02 S143 operator pick",
+      "carried_by": "master (tool + encoder + FighterPortrait skin fix + previews merged as a diff S143)",
+      "why": "Three layouts opened. V1 broadcast: heads now in frame, but stat text unreadable at 720p and a mostly empty black panel. V2 face-off: BROKEN - names cropped ('MARCUS S', '...RA'), the sphere glove fills the frame over the face, heavy red/blue cast. V3 FightCamp: best - full bodies, readable bars - text still small. All three: corner trunks wrong (red-corner Marcus Stone in BLUE trunks, blue-corner Deon Rivera in GREEN), sphere gloves (C241 replaces them). Fix trunks to corner colours + text size before the operator picks; drop V2 or reframe it. || S143: fixed by Claude (corner trunks, readable text, face-off band/framing, FightCamp bar inset), all three re-checked frame by frame and sent. OPERATOR PICKED OPTION 3 (FightCamp: full-height fighters + camp rows). Next: build the in-game tale of the tape to layout 3 (TASK_U212)."
+    },
+    "S140_POPUP": {
+      "status": "SEND-BACK",
+      "owner": "claude",
+      "decided": "2026-10-02 S143 Claude (video opened frame by frame - operator: \"check the other videos yourself too before sending them\")",
+      "carried_by": "previews/s140_popup/hit_popup.mp4",
+      "why": "Pop-ups readable (JAB TO THE BODY -1.7 BODY, SLIP-CROSS COUNTER -2.9 HEAD). Defects: a developer debug line runs across the top of every frame ('LIVE ROOM (game switches) A: idle B: boxing rear hook (not certified)'), and the pair crowds chest to chest at 1:50 and 1:45. Re-record from master with the debug strip off once Q213B/U211 land."
+    },
+    "C243": {
+      "status": "DONE",
+      "carried_by": "Claude S145 (Grok 402 mid-run, Codex seats full)",
+      "owner": "claude",
+      "decided": "2026-10-02 S145",
+      "why": "PLAYTEST S144 P32: the loop did not start. Measured causes: signed fighters had no country -> no amateur body; empty novice buckets (men too); pro fame gate on amateur bouts; male-only generated board; counts not bookable. Fixed with _athlete_home_country, club-show novices (career.club_show_novices, game ON), amateur fame_required 0, women's board from its own seed, get_bookable_offer_count. Evidence S145_DIGEST.md s1."
+    },
+    "Q213C": {
+      "status": "RESUMED",
+      "carried_by": "AgentComms/prompts/Q213D.txt (Codex, branch codex/q213c, wt E:/FightCamp/wt/Q213C)",
+      "owner": "codex",
+      "decided": "2026-10-03 S149 Claude",
+      "why": "Q213C landed 5e613215 (26/26 measured, empty tracker = FAIL, selections byte-identical) but 3 combinations still fail; Q213D (opt-in sequence corrections in FightStagePlayer.gd, approved) runs on the same branch - merge both together when Q213D delivers the 26-move table."
+    },
+    "TRAINING_LOOP": {
+      "status": "SETTLED S172 (D38)",
+      "decision": "Training = the day lap in ONE big 3D gym (stamina across stations, real time, coach pool, pit-stop rest, move cards). The table planner (TRAIN2) is superseded; the other rooms stay as expansions of the gym scene.",
+      "source": "research/DAYLAP1_DESIGN.md"
+    },
+    "GRAPPLE-LUDO": {
+      "status": "APPROVED",
+      "carried_by": "GRAPPLE-MATH1 (cloud Qwen #88) -> GRAPPLE-POSE1 (Codex, after boxing HUMAN1-3)",
+      "owner": "codex",
+      "decided": "2026-10-10 S193 operator board Q-S192-1 (D44)",
+      "why": "Ludo rounds 14-15 grappling plan, verbatim operator answer 'Approve - Codex after boxing HUMAN1-3 (recommended)': ground seats and submissions as SOLVED 1-frame basis poses from contact specs (FightPoseSolver in Godot) + procedural life; clinch on the owned paired clips; attacker-master root for throws; ballistic fall. Sits beside C199/C222 (the suit-video route stays the source for real two-body motion if the solved poses fail the operator's stills). LUDO_GRAPPLING_R14_S193.md VERDICT."
+    },
+    "ROOMSPLIT1B": {
+      "status": "RESUMED",
+      "carried_by": "TASK ROOMSPLIT1B (queued; TASK file written when launched)",
+      "owner": "codex",
+      "decided": "2026-10-10 S195 Claude",
+      "why": "ROOMSPLIT1 merged as step 1; room modules are stubs, room code still in ClubRoomBase."
+    },
+    "FILMCONSOLE-FLOOR": {
+      "status": "STOPPED",
+      "decided": "2026-10-10 S195 Claude",
+      "why": "Ludo R24 film console on the hall floor breaks GYM4 5 (no monitors on the floor; film study is in the office). Mobility mat duplicates the stretch corner."
+    },
+    "WEIGHTCUT-ROULETTE": {
+      "status": "STOPPED",
+      "decided": "2026-10-10 S195 operator (Q-S194-3 agree with Claude)",
+      "why": "Friday roulette replaced by a multi-week weight-management protocol; protocol still to be specified by Ludo (LUDO-R26)."
+    },
+    "ANIMSOURCE1": {
+      "status": "SUPERSEDED",
+      "owner": "codex",
+      "decided": "2026-10-11 S207 (operator: 'focus on animation'; 'cascadeur expires on Oct 27 we must have finished all jobs involving it')",
+      "name": "NATIVE METAHUMAN BOXING CLIPS AUTHORED IN CASCADEUR, PLAYED WITHOUT RETARGET",
+      "why": "Mixed retargeted source clips + stacked corrective layers scrambled the hands (S207). One skeleton, one source, shape gates.",
+      "evidence": "S209: 1B merged bcdfe028 - guard + jab/cross/lead_hook/inside_uppercut, MOVE_SHAPE 4/0, 1A witness 4/4 FAIL, sheets opened by Claude.",
+      "next": "1C (rest of the palette, Codex sol) + MHNATIVE1 (play them natively in the live fight, Codex sol). C229 superseded for MetaHuman bodies once MHNATIVE1 lands.",
+      "carried_by": "TASK_ANIMSOURCE1C, TASK_MHNATIVE1",
+      "superseded_by": "ROKOKO1 (S270)"
+    },
+    "LUDOANIM1": {
+      "status": "QUEUED",
+      "carried_by": "TASK_LUDOANIM1",
+      "owner": "codex",
+      "decided": "2026-10-13 S219 Claude",
+      "why": "Operator S219: 'can you ask from codex to communicate directly with ludo for the animation work ? also can ludo doanimation work for us ?' - Ludo's CLI (model animate 0.2 cr, 4 candidates, rot_only for retarget) is a new single-fighter animation source; a 4-clip audition on mh_boxer_01 scored by the ANIMSOURCE1D FIX2 gates, 20-credit cap. Two-body moves stay on our pose solver (D44).",
+      "name": "Ludo text-to-motion audition (Codex drives Ludo)"
+    },
+    "ANIM_OFFLINE_BAKE": {
+      "id": "ANIM_OFFLINE_BAKE",
+      "status": "APPROVED",
+      "decided": "2026-10-14 S224",
+      "by": "operator Q-S221-7 'Approve the direction'",
+      "decision": "Fight clips are retargeted and cleaned OFFLINE once onto one MetaHuman master skeleton, baked, played natively; runtime = blend + one foot-lock/hand-contact solve; the 49 writer sites retire as the new stack owns their job. Runtime retarget (FightClipRetarget.gd) becomes the offline bake tool.",
+      "evidence": "research/ANIM_AUDIT_VERDICT_S224.md (5 audits incl. Codex code audit AUDIT_ANIM_S224_CODEX.md)",
+      "order": "ANIMFIX1 mirror -> ANIMFIX2 pose layers -> ANIMFIX3 native wiring + A/B -> OFFBAKE1 -> ANIMSTACK1; Cascadeur work before 2026-10-27",
+      "reopen_if": "the baked native clips look worse than runtime-retargeted ones on the game camera A/B (ANIMFIX3)",
+      "s226": "OFFBAKE1 A/B (Claude opened all 12): wrists 0.19/0.32 deg; guard/jab/cross natively BETTER -> taken; hook (head away) + uppercut (crouch) WORSE -> re-authored in Cascadeur (TASK_OFFBAKE1B) before 10-27. Route stays APPROVED (reopen_if met for 2 of 5 roles only)."
+    },
+    "PADPAIR1": {
+      "status": "ACTIVE",
+      "carried_by": "TASK_PADPAIR1W (Cursor #250 wiring) + Claude visual gate",
+      "owner": "claude+cursor",
+      "decided": "2026-10-17 S244 Claude",
+      "why": "Paired pad round authored in Cascadeur on the native MetaHuman rig: two runs in one world frame (coach origin +Z, fighter 1.15 m facing), fighter AutoPhysics, coach keyed from the fighter post-physics fists, then corrected from the GAME playback (tools/padpair_contact_probe.gd, coach_corrections.json). Contacts <= 1 mm, taps <= 2.5 cm. Loaded in game only via FightClipNativeMH.load_animation (never the Mixamo retarget route)."
+    },
+    "CAMFOV17": {
+      "status": "CLOSED S247 - operator Q-S242-4: \"OK, close it\"",
+      "carried_by": "TASK_CAMFOV17",
+      "owner": "claude",
+      "decided": "2026-10-17 S244 operator Q-S242-3",
+      "why": "Operator: 'Two Point Museum FOV 17' - the gym camera is Two Point Museum's measured perspective lens (FOV 17), superseding Q-S239-1's orthographic iso. 90-degree steps and the roofless cutaway stay.",
+      "evidence": "iso_camera_test / iso_wall_rotation_test / room_camera_flow_test green on the FOV 17 contract; stills docs/previews/s245_fov17b"
+    },
+    "MH_ACTIONFORGE": {
+      "name": "MetaHuman single-body motion = ActionForge takes one-to-one (AFMotion)",
+      "status": "ACTIVE",
+      "since": "S246",
+      "why": "Operator S246: 'Use the ActionForge walk in the game, and use ActionForge clips for the other MetaHuman moves too'. The UE4->MetaHuman re-aim pulled the shoulders back (clavicles) and the MetaHuman's twist bones were folded; ActionForge exports the same UAL takes on the UE5 skeleton = MetaHuman layout, played rest-relative with no re-aim.",
+      "carried_by": "assets/anim/actionforge/AFMotion.gd, UALMotion.build (MetaHumans), tests/af_motion_test.gd",
+      "reopen": "a MetaHuman clip that reads wrong against real footage on the game camera"
+    },
+    "MHCORR": {
+      "name": "MetaHuman body correctives from the body DNA",
+      "status": "LIVE",
+      "carried_by": "claude (wiring) + arena (MHRBF2 exact solver)",
+      "owner": "claude",
+      "decided": "S263",
+      "why": "John S262 route A: the body DNA holds Unreal's RBF solvers + twist/swing layer; read exactly (UE ExportDNA -> Tools/riglogic_dump -> Tools/mh_corrective_table.py -> MetaHumanCorrectiveRBF, switch mh_dna_correctives). Replaces S261's guessed 4-helper MetaHumanCorrective; no UE grid sampling.",
+      "proven": "mh_dna_correctives_test green; neutral vs GLB <= 0.14 deg / 3 um (01/02); before|after stills docs/previews/s263_mhcorr | S264: exact RigLogic solver eec39fb0 (MHRBF2: interpolative, UE kernels; CORRECTIVE_RBF_UE=0, mutants red; rest bound 2 mm); stills docs/previews/s264_mhrbf2. | S265: twist layer from the same DNA (twsw1.0) e7527e14 - RigLogic merged setups = inverse twist (upper arm/thigh), twist-only = follow (forearm/shin); MH_DNA_TWIST=0, stills docs/previews/s265_dnatwist.",
+      "open": "Arena MHRBF2 exact interpolative mode (rest drift 1.9 cm until then); MH4 UE project gone -> bodies 03-12 use deltas on own rest (05-12 borrow boxer01)",
+      "next": "S265 DONE: MHTWIST1 collected + wired (mh_dna_twist ON). Next: operator OK on the before|after still; bodies 05-12 still borrow boxer01 tables."
+    },
+    "ROKOKO1": {
+      "status": "RUNNING",
+      "owner": "claude",
+      "decided": "2026-10-20 S270",
+      "name": "REAL BOXING MOCAP: Rokoko free fight takes cut into single moves, Mixamo->MetaHuman path",
+      "why": "Every owned/free source tested is not boxing (H2H flares, Mixamo, ActionForge melee, Ludo animate 4/4 fail); Rokoko renders approved by the operator ('videos are perfect'); no money for a pack ('i dont have money now')."
+    },
+    "FOOTWORK_MOCAP": {
+      "status": "OPEN",
+      "carried_by": "research/FOOTWORK_PLAN_S273.md",
+      "owner": "ziva+arena+claude",
+      "decided": "2026-10-20 S273 Claude",
+      "name": "Fight footwork from captured steps: the clip's root motion moves the body, the engine asks for steps (blend-space + motion warping; motion matching later)",
+      "why": "Operator S273: 'whats the right fix'. Measured: the HUMAN2 procedural planner closed the guard's feet (0.12 m) and skates 13-15 %; the board's Rokoko takes look right because the actor's root motion and plants are the movement. HUMAN2 stays for old non-captured clips.",
+      "proven": "5eabbe63 stance band on the procedural planner (stopgap, measured); mocap_pure (Ziva 74a036ab) plays captured takes untouched."
+    },
+    "MOCAP_PURE": {
+      "status": "LIVE",
+      "carried_by": "switch mocap_pure (GAME_ON)",
+      "owner": "ziva",
+      "decided": "2026-10-20 S272 Claude, collected S273",
+      "name": "A captured take (meta rokoko_clip) plays as captured: synthetic re-bend layers fade while it plays; root placement and spacing stay",
+      "why": "Operator S272: 'this has nothing to do with the animations i see on the board'. Measured by Ziva: heads under 0.80 m 45% -> 20% of frames.",
+      "proven": "tests/mocap_pure_test.gd 12/0; the board renders are at the fight's scale (S273 pelvis_log: body 04 0.900 both paths) - P1 needs no change."
+    },
+    "GYMBUILD": {
+      "status": "ACTIVE",
+      "owner": "claude",
+      "decided": "2026-10-21 S277 Claude",
+      "name": "GYMBUILD - the gym as a Mad Games / Two Point game",
+      "why": "Operator S276/S277: 'the starting gym should be an emptu building , no room no nothing, player draws the limmits of each room'; 'this is not how MGT2 builds its rooms'; 'members and income come only from what is built'. LIVE on master: empty shell on its lot (3013afbd), ring bought, rooms drawn EMPTY + key item placed, money from what is built (42710b57), rent grows (3791ce96). NEXT: sidebar palette + item-by-item placement (C), rooms that work, Ludo's first hour after Q-S273-7, decor raises gym score (D). Plan: research/GYMBUILD_PLAN_S276.md; digest S277_DIGEST.md.",
+      "s278": "S278: build = draw the room/zone, then put suitable single items (operator: 'you do not put the zones'); BUILD window in the top bar on every screen (ui/BuildWindow.gd); training floors drawn as zones; zone packages removed from the shell shop. Next: sparring pit + taped ring."
+    }
+  },
+  "_s208": "S208: the OFF-switch census these routes were 'carried_by' is DONE (SWITCHALL1, 174f3a23): every shipped switch ON in the game through Godot/scripts/GameSwitches.gd (bench1 + debug overlays stay OFF). Strike-motion routes are now carried by ANIMSOURCE1 (Cascadeur authoring on the MetaHuman skeleton; 1A motion rejected on the sheets, 1B running with shape gates)."
+}

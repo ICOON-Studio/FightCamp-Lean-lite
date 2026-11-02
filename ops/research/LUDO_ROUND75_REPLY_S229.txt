@@ -1,0 +1,149 @@
+1. Boxing Anatomy & Geometric Guard Targets
+
+The visual ballooning in the screenshot stems directly from two mechanical errors in Cascadeur:
+
+Vertical Clavicle Shrugging ($+5.5\text{ cm}$): Rather than tucking the chin behind the shoulder via cervical flexion and thoracic rounding, the shoulder girdle was hoisted upward into the trapezius/deltoid bundle, pinching the pectoral-deltoid groove against the chest.
+Excessive Horizontal Adduction & Scapular Squeeze: Crushing both humeri onto the centerline causes standard Linear Blend Skinning (LBS) to volume-collapse and fold vertices over each other like dough.
+
+In a sound orthodox stance:
+
+Lead shoulder roll & jaw tuck: Chin lowers toward the sternal notch; the lead shoulder projects forward (protraction) and rolls inward by thoracic rotation ($\approx 15^\circ$–$20^\circ$) rather than pure clavicular elevation. Clavicle elevation should not exceed $+0.8\text{ cm}$ to $+1.2\text{ cm}$ relative to root.
+Shoulder drop: Shoulder roots (upperarm_MainPoint) sit $\ge 12.5\text{ cm}$ below neck_01_MainPoint ($Y \approx 135.5$ to $136.0$).
+Glove placement: Lead glove floats out along the lead cheek line ($\approx 24\text{ cm}$ to $28\text{ cm}$ forward, $Z \approx 35.0$ to $36.0$), rear glove shields the right chin/zygomatic arch ($\approx 16\text{ cm}$ forward, $Z \approx 23.5$ to $25.0$).
+Elbow tuck: Elbows stay planted over the floating ribs ($X \approx +10.5$ lead, $X \approx -14.0$ rear) rather than crossing inward across the sternum.
+Target Controller Coordinates (cm, Godot/Cascadeur coordinate space: $+X$ = Fighter Left, $+Y$ = Up, $+Z$ = Forward):
+
+| Controller | Target $[X, Y, Z]$ | Functional Rationale |
+| :--- | :--- | :--- |
+| neck_01_MainPoint | [-5.3, 148.6, 11.2] | Unchanged base neck anchor |
+| head_MainPoint | [-8.9, 156.5, 17.5] | Chin tucked slightly deeper ($Y -1.5$, $Z +1.6$) |
+| clavicle_MainPoint_l | [-1.8, 141.0, 9.4] | Lead clavicle root relaxed down |
+| clavicle_AdditionalPoint_l | [10.8, 142.1, 19.5] | Lead clavicle tip: elevated only $+1.1\text{ cm}$ above root, protracted forward ($Z +1.2$) |
+| clavicle_MainPoint_r | [-4.4, 140.8, 7.4] | Rear clavicle root relaxed down |
+| clavicle_AdditionalPoint_r | [-15.2, 141.5, -1.2] | Rear clavicle tip: elevated $+0.7\text{ cm}$ above root, settled |
+| upperarm_MainPoint_l | [12.4, 135.8, 19.8] | Lead shoulder socket: $12.8\text{ cm}$ below neck, clearing the deltoid fold |
+| upperarm_MainPoint_r | [-16.5, 135.5, -2.5] | Rear shoulder socket: $13.1\text{ cm}$ below neck |
+| hand_MainPoint_l | [-3.2, 149.0, 36.2] | Lead glove out in front of eye/cheek line, clear of sternum |
+| hand_MainPoint_r | [-14.5, 146.5, 24.0] | Rear glove resting at right cheek/jaw, not over-tucked |
+| lowerarm_LimbDir_l | [15.8, 102.0, 16.5] | Lead elbow pole vector: drops elbow directly over left ribs |
+| lowerarm_LimbDir_r | [-13.5, 104.5, 8.0] | Rear elbow pole vector: drops elbow over right flank |
+
+2. Cascadeur Python Batch Guard Re-key Script
+import json
+import math
+import sys
+import cascadeur_api as csc
+
+# ==============================================================================
+# S229 NATIVE GUARD FIX: shared_guard_v2.json re-targeter & keyer
+# ==============================================================================
+
+TARGET_GUARD_POSITIONS = {
+    "clavicle_MainPoint_l": [-1.8, 141.0, 9.4],
+    "clavicle_AdditionalPoint_l": [10.8, 142.1, 19.5],
+    "clavicle_MainPoint_r": [-4.4, 140.8, 7.4],
+    "clavicle_AdditionalPoint_r": [-15.2, 141.5, -1.2],
+    "upperarm_MainPoint_l": [12.4, 135.8, 19.8],
+    "upperarm_MainPoint_r": [-16.5, 135.5, -2.5],
+    "hand_MainPoint_l": [-3.2, 149.0, 36.2],
+    "hand_MainPoint_r": [-14.5, 146.5, 24.0],
+    "lowerarm_LimbDir_l": [15.8, 102.0, 16.5],
+    "lowerarm_LimbDir_r": [-13.5, 104.5, 8.0],
+    "head_MainPoint": [-8.9, 156.5, 17.5]
+}
+
+def validate_guard_rules(data):
+    """Rigorous assertion of boxing anatomy and anti-ballooning thresholds."""
+    # Rule 1: Clavicle elevation <= 1.5 cm above its root
+    elev_l = data["clavicle_AdditionalPoint_l"][1] - data["clavicle_MainPoint_l"][1]
+    elev_r = data["clavicle_AdditionalPoint_r"][1] - data["clavicle_MainPoint_r"][1]
+    assert elev_l <= 1.5, f"Left clavicle shrug failed! Elevation: {elev_l:.2f} cm (max 1.5 cm)"
+    assert elev_r <= 1.5, f"Right clavicle shrug failed! Elevation: {elev_r:.2f} cm (max 1.5 cm)"
+
+    # Rule 2: Shoulder drop >= 12.0 cm below neck_01
+    neck_y = data.get("neck_01_MainPoint", [-5.3, 148.6, 11.2])[1]
+    drop_l = neck_y - data["upperarm_MainPoint_l"][1]
+    drop_r = neck_y - data["upperarm_MainPoint_r"][1]
+    assert drop_l >= 12.0, f"Left shoulder too high below neck! Drop: {drop_l:.2f} cm (min 12.0 cm)"
+    assert drop_r >= 12.0, f"Right shoulder too high below neck! Drop: {drop_r:.2f} cm (min 12.0 cm)"
+
+    # Rule 3: Elbows tucked <= 12.0 cm from lateral rib planes (X reference: +9.5 left, -9.5 right)
+    dist_elbow_l = abs(data["lowerarm_LimbDir_l"][0] - 9.5)
+    dist_elbow_r = abs(data["lowerarm_LimbDir_r"][0] - (-9.5))
+    assert dist_elbow_l <= 12.0, f"Left elbow flared outside rib envelope! Offset: {dist_elbow_l:.2f} cm"
+    assert dist_elbow_r <= 12.0, f"Right elbow flared outside rib envelope! Offset: {dist_elbow_r:.2f} cm"
+
+    # Rule 4: Glove height >= chin level - 8.0 cm (chin Y ~ 152.0 cm; threshold = 144.0 cm)
+    chin_ref_y = data.get("head_MainPoint", [0, 156.5, 0])[1] - 4.5
+    min_glove_y = chin_ref_y - 8.0
+    assert data["hand_MainPoint_l"][1] >= min_glove_y, f"Lead glove dropped below guard! Y: {data['hand_MainPoint_l'][1]}"
+    assert data["hand_MainPoint_r"][1] >= min_glove_y, f"Rear glove dropped below guard! Y: {data['hand_MainPoint_r'][1]}"
+
+def apply_guard_v2(input_path="shared_guard.json", output_path="shared_guard_v2.json"):
+    # 1. Load base data
+    with open(input_path, "r") as f:
+        full_guard_data = json.load(f)
+
+    # 2. Update with corrected guard transforms
+    for ctrl, pos in TARGET_GUARD_POSITIONS.items():
+        full_guard_data[ctrl] = pos
+
+    # 3. Assert guard constraints
+    validate_guard_rules(full_guard_data)
+
+    # 4. Save clean data
+    with open(output_path, "w") as f:
+        json.dump(full_guard_data, f, indent=4)
+    print(f"[GuardFix] Verified and wrote: {output_path}")
+
+    # 5. Apply into Cascadeur scene across frames 0..20
+    sc = csc.scene()
+    mv = sc.model_viewer()
+    de = sc.data_editor()
+    
+    # Run modification context
+    with sc.modify_update():
+        for frame in range(0, 21):
+            sc.set_current_frame(frame)
+            for ctrl_name, coords in TARGET_GUARD_POSITIONS.items():
+                obj = mv.get_object_by_name(ctrl_name)
+                if not obj:
+                    continue
+                # Push global translation
+                de.set_data_value(obj, "Transform", "global_position", coords)
+                de.set_key(obj, "Transform", frame)
+                
+    print("[GuardFix] Re-keyed frames 0..20 to target guard v2.")
+
+if __name__ == "__main__":
+    apply_guard_v2()
+
+3. Dedicated Verification Assert Block
+# Standalone validator runnable directly in any animation ingest pipeline
+def assert_guard_metrics(data_map):
+    # Rule 1: Clavicle elevation limit (tip vs root <= 1.5 cm)
+    elev_l = data_map["clavicle_AdditionalPoint_l"][1] - data_map["clavicle_MainPoint_l"][1]
+    elev_r = data_map["clavicle_AdditionalPoint_r"][1] - data_map["clavicle_MainPoint_r"][1]
+    assert elev_l <= 1.5, f"Left clavicle tip elevated {elev_l:.2f} cm (exceeds 1.5 cm threshold)"
+    assert elev_r <= 1.5, f"Right clavicle tip elevated {elev_r:.2f} cm (exceeds 1.5 cm threshold)"
+
+    # Rule 2: Shoulder socket depth (>= 12.0 cm below neck_01)
+    neck_y = data_map["neck_01_MainPoint"][1]
+    assert (neck_y - data_map["upperarm_MainPoint_l"][1]) >= 12.0, "Left shoulder socket too close to neck (<12cm)"
+    assert (neck_y - data_map["upperarm_MainPoint_r"][1]) >= 12.0, "Right shoulder socket too close to neck (<12cm)"
+
+    # Rule 3: Elbow distance from rib line (<= 12.0 cm lateral offset from +/- 9.5 rib plane)
+    assert abs(data_map["lowerarm_LimbDir_l"][0] - 9.5) <= 12.0, "Lead elbow flared > 12cm off rib plane"
+    assert abs(data_map["lowerarm_LimbDir_r"][0] - (-9.5)) <= 12.0, "Rear elbow flared > 12cm off rib plane"
+
+    # Rule 4: Glove elevation vs chin (no lower than chin Y - 8.0 cm)
+    chin_y = data_map["head_MainPoint"][1] - 4.5
+    assert data_map["hand_MainPoint_l"][1] >= (chin_y - 8.0), "Lead hand dropped below guard chin envelope"
+    assert data_map["hand_MainPoint_r"][1] >= (chin_y - 8.0), "Rear hand dropped below guard chin envelope"
+
+4. Godot Post-Import Mitigation (No Corrective Blendshapes)
+Enable and configure MetaHuman twist bones (clavicle_out_twist_l/r, upperarm_twist_01/02) via a Godot SkeletonModifier3D script to distribute humerus axial roll before skinning.
+In the import profile for the mesh, set Bone Influence to 8 bones per vertex (Advanced settings) rather than the default 4, preventing single-bone hard-edge pinching along the pectoral border.
+Apply a procedural PhysicalBoneSimulator3D or SkeletonModifier3D post-pass that clamps the clavicle bone pitch to an upper limit of $+6^\circ$.
+Scale down normal map intensity slightly ($0.85\times$) on deltoid/pectoral UDIM materials in standard stance to eliminate shadowed crease exaggeration caused by tangent compression.
+In Godot 4.3+, utilize the BoneConstraint3D / IK solver with a rotation spring toward neutral rest to soften extreme shoulder pop.

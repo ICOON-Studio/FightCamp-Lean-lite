@@ -1,0 +1,267 @@
+LUDO REPLY S270 (Ask Ludo, chat "Gym Management Screen", 2026-10-20) to LUDO_ASK_S270_MULTIBOXER.txt. 22,085 chars, complete in one message. Saved verbatim (ASCII table spacing collapsed by the page text).
+================================================================================
+
+1. THE PUZZLE IN ONE SENTENCE
+
+The player is managing a shared morning clock where one coach's hands, one ring, and limited high-impact stations must be divided between athletes on completely different fight clocks without running anyone into the red.
+
+Why it stays fun on Day 30 instead of becoming a chore:
+
+In a 1-boxer setup, training is an optimization problem with a single answer (find the weakest stat, put him on that station, rest when tired).
+
+With 2–3 boxers, it becomes an asymmetric packing puzzle:
+
+Boxer A is 6 days out from a bout (Camp Peak): he needs the coach's undivided attention on pads and tactical ring time, but his systemic fatigue is dangerously high—every minute of overwork risks fight night disaster.
+Boxer B is 24 days out: he is in the heavy volume phase and needs raw station throughput (heavy bag, strength, roadwork) where he can train self-directed at $0.40\times$ without coach supervision.
+Boxer C is a raw prospect with zero card discipline who needs defensive fundamentals and can either be used as a moving target partner for Boxer A in the ring or left on technique drills.
+
+On Day 1, the puzzle is simply: "Who gets the coach on pads while the other works the bag?"
+By Day 30, it is: "If Boxer A spars Boxer C at 09:00, Boxer A gets his tactical guard work and Boxer C gets ring experience, freeing Coach Tariq to drill Boxer B on power combinations—but Boxer C will be too battered to do his strength block at 11:00."
+
+The puzzle stays alive because the fight calendar staggers the athletes: they are never at the same point in their camps at the same time.
+
+2. THE CONSTRAINTS THAT MAKE IT A PUZZLE
+
+To keep it "simple but deep," we avoid hundreds of minor variables and lean on five hard, physical constraints derived from real small-hall boxing gyms.
+
++-----------------------------------------------------------------------------------+
+| REAL-WORLD GYM BLUEPRINT: THE CALDER HOUSE BASEMENT |
+| |
+| [ RING: 1 ] [ PADS / MAT: 1 Coach ] [ SPEED BAG: 1 ] |
+| Capacity: 2 (Sparring) Capacity: 1 (Coach Held) Capacity: 1 |
+| 1 (Solo) |
+| |
+| [ HEAVY BAGS: 2 ] [ DOUBLE-END: 1 ] [ STRENGTH/CARDIO: 2 ] |
+| Capacity: 2 (1 per bag)Capacity: 1 (1 Bench, 1 Bike) |
+| |
+| [ FLOOR / SHADOW: 3 ] [ RECOVERY / BENCH: 3 ] |
+| (Unlimited / Buffer) (Rest area) |
++-----------------------------------------------------------------------------------+
+
+Real Small-Gym Realism & Calibration
+
+Sources & References: Gleason's Gym (Brooklyn) floor layouts; Ingle Gym (Sheffield) rotation routines; Freddie Roach's Wild Card training structure (4-minute rounds, 30-second turnaround, coach runs 1-on-1 mitt rotations while uncoached fighters work heavy bags and double-end).
+
+The Coach is a Unique, Monopolized Resource (Capacity: 1 Fighter at a Time)
+
+In a real gym, a trainer like Enzo Calzaghe or Ingle doesn't "watch the whole gym equally." A coach holds mitts for one man, conducts ring strategy for one bout, or runs a 1-on-1 drill.
+Constraint: The coach can only attach to one station in any given time block. The station he attends runs at $1.0\times$ to $1.35\times$ efficiency (depending on his specialty). All other stations occupied by fighters without the coach operate in Self-Directed Mode ($0.40\times$ efficiency).
+
+Station Physical Bottlenecks (Calder House Baseline):
+
+The Ring (Capacity: 1 Solo or 2 Sparring): There is only one ring. If Boxer A is doing solo Ring Movement at 08:00, Boxer B cannot use it. Except for Sparring: if two of your fighters have Ring Spar scheduled at the same block, they pair up! Both occupy the ring, sparring each other without hiring outside sparring partners (saving money and fatigue cost).
+Coach Pads / Open Mat (Capacity: 1 Fighter + Coach): Cannot be used without the coach.
+Heavy Bag Line (Capacity: 2 Fighters): Calder House has 2 heavy bags. If all 3 boxers want Heavy Bag at 10:00, one is locked out.
+Precision Bags (Double-End: 1, Speed Bag: 1): Capacity: 1 each.
+Conditioning Zone (Bike: 1, Weights: 1): Capacity: 2 total.
+Floor / Shadowboxing & Skipping (Capacity: 3 - Buffer Station): Never blocks. If you mismanage your schedule, the displaced fighter defaults here.
+
+Fatigue & The "Spillover" Rule:
+
+Acute fatigue burns per block. If a fighter hits >70 acute fatigue during the morning, any further high-intensity work leaks 45% into Systemic Wear (which takes days, not overnight sleep, to clear).
+A tired boxer at a heavy station risks injury or regression.
+
+The Staggered Fight Date:
+
+Every fighter has a target bout date. Fight date dictates priority:
+Fight in < 7 Days (Camp Peak): Requires tactical ring work, low systemic fatigue, high coach attention.
+Fight in 14–28 Days (Base Building): Needs raw volume, heavy bag, strength; can tolerate $0.40\times$ self-directed grind.
+No Fight Booked (Development): Fills the gaps, spars as a warm body for the contender.
+
+Focus Multiplier Decay (The S268 Rule):
+
+Sticking a boxer on the same station with the same focus for 3 consecutive days degrades his return to $0.85\times$ ("CHANGE THE PLAN"). You are forced to rotate them through different equipment.
+3. WHAT THE PLAYER SEES TO UNDERSTAND HIS OPTIONS
+
+The morning screen must never be three separate modal popups. It must be one unified visual schedule: The Morning Floor Board.
+
+The Morning Screen: "The 3-Boxer Flight Board"
+
+Reference Games: Two Point Hospital's Staff Rota + Motorsport Manager's Garage View + Football Manager's Training Planner.
+
++-----------------------------------------------------------------------------------------------------------------------------+
+| SCHEDULE: WEDNESDAY, 14 JAN 2026 [AUTO-PLAN: OPTIMIZE] [CLEAR ALL] [START DAY (SPACE)] |
++-----------------------------------------------------------------------------------------------------------------------------+
+| TIME BLOCKS: | 08:00 (60m) | 09:00 (45m) | 09:45 (45m) | 10:30 (60m) | 11:30 (30m) |
++--------------------------+-------------------+-------------------+-------------------+-------------------+------------------+
+| DANNY REYES | [ PADS ] | [ HEAVY BAG ] | [ RING SPAR ] <== | [ CONDITION ] | [ RECOVER ] |
+| Fight: 5 Days | Rdy: 88% | Coach Tariq [★] | Focus: Power | Partner: Vance | Focus: Cardio | Hydrate / Cold |
+| Need: Polish Right Hand | Proj: +0.62 POW | Proj: +0.28 POW | Proj: +0.55 IQ | Proj: -18 Acute | Acute -> 0 |
++--------------------------+-------------------+-------------------+-------------------+-------------------+------------------+
+| LEO VANCE | [ HEAVY BAG ] | [ DOUBLE-END ] | [ RING SPAR ] <== | [ PADS ] | [ STRETCH ] |
+| Fight: 18 Days | Rdy: 95%| Focus: Combos | Focus: Timing | Partner: Reyes | Coach Tariq [★] | Foam Roller |
+| Need: Build Gas Tank | Proj: +0.22 TEC | Proj: +0.18 SPD | Proj: +0.40 DEF | Proj: +0.70 TEC | Acute -> 12 |
++--------------------------+-------------------+-------------------+-------------------+-------------------+------------------+
+| MARA SOLANO | [ SPEED BAG ] | [ PADS ] | [ HEAVY BAG ] | [ WEIGHTS ] | [ RECOVER ] |
+| No Bout | Rdy: 65% (TIRED)| Focus: Rhythm | Coach Tariq [★] | Focus: Heavy Hook | Focus: Core | Hydrate |
+| Need: Guard Work | Proj: +0.19 SPD | Proj: +0.65 DEF | Proj: +0.24 POW | Proj: +0.15 STR | Acute -> 25 |
++-----------------------------------------------------------------------------------------------------------------------------+
+| COACH TARIQ (Pad Man) | -> WITH REYES | -> WITH SOLANO | -> WATCHING SPAR | -> WITH VANCE | -> REST / LOGS |
++-----------------------------------------------------------------------------------------------------------------------------+
+| [!] CONFLICT DETECTED: 10:30 - Heavy Bag capacity exceeded (3 fighters assigned, max 2). Reyes dropped to Shadowboxing. |
++-----------------------------------------------------------------------------------------------------------------------------+
+
+How Conflicts Show BEFORE the Day Starts (Instant Pre-Flight Validation)
+Red Strobe on the Cell: If two fighters are assigned to the Single-Use Speed Bag at 09:00, both cells outline in pulsing red warning borders with an icon: [!] SPEED BAG FULL (1/1).
+Coach Collision: The Coach row at the bottom is the anchor. If you assign Coach Pads to Reyes and Solano at the exact same hour, Solano's cell shows a slash through the Coach icon: UNSUPERVISED (0.40x) - Coach with Reyes.
+Sparring Auto-Link: When two fighters both have RING SPAR at 09:45, a gold double-arrow <==> snaps between their rows, lighting up INTERNAL SPAR: NO SPARRING FEE (-$150 SAVED). If only one fighter has Ring Spar scheduled, his cell turns amber: NO PARTNER - WILL USE SPARRING DUMMY (0.50x IQ).
+Boxer Needs at a Glance (The Left Card Strip)
+
+Beside each boxer's schedule row sits a compact 160 px dossier pill:
+
+Fight Countdown Chip: Color-coded (Red: <7d, Amber: <14d, Blue: >21d, Grey: Unbooked).
+Urgent Need Label: A one-line synthesis generated by the engine: "Needs Guard Polish", "Gas Tank Low", "Overcooked (Rest Needed)".
+Readiness Meter: A horizontal battery icon showing readiness percentage (100% minus systemic fatigue).
+Real-Time Projection Strip (Under Each Cell)
+
+As the player changes a block from Heavy Bag to Rest, the cell updates its projection text instantly:
+Proj: +0.35 POWER | Fatigue: +22 | Coach: NO.
+
+4. SIMPLE BY DEFAULT: AUTOMATION & THE FIRST-TIME EXPERIENCE
+
+The player should never face an empty spreadsheet and a blinking cursor.
+
+1. The AUTO-PLAN Button (The Coach's Advice)
+
+At the top right of the board sits [AUTO-PLAN: COACH RECOMMENDATION].
+
+Clicking this fills all 3 timelines based on coach logic:
+Gives the fighter closest to fight night the coach's prime pad hours.
+Links available fighters of similar weight into the ring for sparring.
+Slots tired fighters into the recovery zone.
+Resolves all station bottlenecks.
+The Gameplay Loop: The player doesn't have to build the plan from scratch. They hit AUTO-PLAN, see what the coach suggests, and make 1 or 2 deliberate tweaks (e.g., "No, I want Solano to get the coach today because I need her ready for a contract offer").
+2. The First Time with 2 Boxers (The "Aha!" Moment)
+The demo begins with Boxer 1 (Danny Reyes). The player learns how a single day runs.
+On Day 3, Boxer 2 (Leo Vance) joins the gym.
+When the morning plan opens, Vance is on the board. The game triggers one clean tooltip banner across the top:
+
+"Two fighters on the floor. Coach Tariq can only hold pads for one man at a time. The other must work the bags or condition. Balance their time."
+
+Both are assigned Heavy Bag at 08:00 by default (which works, because Heavy Bag capacity = 2).
+At 09:00, Tariq is on pads with Reyes. Vance is on the double-end bag. The player watches both work simultaneously.
+3. When the 3rd Boxer Joins
+The 3rd boxer introduces station scarcity (3 boxers vs. 2 heavy bags, 1 speed bag, 1 ring).
+Now, the player cannot put everyone on bag work at once. Someone must lift, someone must shadowbox, or two must spar.
+5. WHAT HAPPENS ON THE FLOOR DURING THE DAY
+
+Once START DAY is pressed, the flight board slides away into a slim top banner. The 3D gym floor comes alive.
+
++-----------------------------------------------------------------------------------+
+| 09:15 AM [ 1X | 2X | 5X ] GYM CASH: $24,120 DAY PROGRESS: [=====> ] |
++-----------------------------------------------------------------------------------+
+| [REYES: Heavy Bag - Power] [VANCE: Speed Bag - Rhythm] [SOLANO: Pads w/ Coach]|
+| Gains: +0.28 POW (0.40x) Gains: +0.18 SPD (0.40x) Gains: +0.65 DEF (1.15x)|
++-----------------------------------------------------------------------------------+
+| |
+| (RING) (PAD AREA) (BAG LINE) |
+| Empty [Coach Tariq + Solano] [Reyes punching] |
+| "Keep hands high!" Gain: +0.12 POW |
+| |
+| (SPEED BAG) |
+| [Vance drilling] |
++-----------------------------------------------------------------------------------+
+
+Walking & Waiting Rules (Zero Ambiguity)
+Station Collision Priority: If a planning conflict slips through (or an emergency manual override occurs mid-day), the fighter who arrived first keeps the station.
+The Displaced Fighter: If Boxer C walks to the Heavy Bag line and finds both bags taken, he does not freeze or break. He steps to the adjacent open mat and enters Shadowboxing / Waiting State.
+A small floating amber icon appears above his head: BAG BUSY -> SHADOWBOXING (0.25x GAIN).
+He loses peak efficiency for that block, teaching the player visually: Do not overbook stations.
+The Coach Moving Between Fighters
+When the clock turns from 09:00 to 09:45 and the coach's assignment shifts from Solano to Vance:
+Tariq slaps Solano's glove: "Good round, take a breather."
+Tariq walks across the floor to the double-end bag where Vance is working.
+A subtle gold ring appears around Vance's station: COACH ONSITE (+15% BOOST ACTIVATED).
+Gain Bubbles Without Clutter (The 3-Boxer Filter)
+Showing floating text for 3 fighters every 2 seconds would look like visual noise.
+The Rule: Normal station gain increments tick silently into the top athlete strips.
+Floating bubbles over fighters' heads are reserved only for significant events:
+★ IT CLICKED! +0.80 POWER (Breakthrough ding).
+! HEAVY FATIGUE (Condition warning).
+COACH TIP: GUARD UP (Tactical feedback).
+At any time, hovering the cursor over any boxer reveals his live mini-radial card showing his exact drill progress and current gain accumulation for that block.
+The End-of-Day Receipt for 3 Boxers
+
+At 18:00, the day closes and the Daily Gym Ledger slides in. It is one clear 3-column scorecard:
+
++-----------------------------------------------------------------------------------+
+| END OF DAY REPORT: WEDNESDAY, 14 JAN 2026 |
++-----------------------------------------------------------------------------------+
+| DANNY REYES | LEO VANCE | MARA SOLANO |
+| Target: 5 Days to Bout | Target: 18 Days to Bout | Target: Unbooked |
++-----------------------------+---------------------------+-------------------------+
+| GAINS TODAY: | GAINS TODAY: | GAINS TODAY: |
+| Power: +0.58 | Hand Speed: +0.32 | Guard: +0.64 |
+| Technique: +0.22 | Technique: +0.28 | Footwork: +0.20 |
+| | | |
+| ATTRITION: | ATTRITION: | ATTRITION: |
+| Acute Fatigue: 42 (Safe) | Acute Fatigue: 68 (High) | Acute Fatigue: 25 (Low)|
+| Systemic Strain: +0 | Systemic Strain: +2 | Systemic Strain: +0 |
+| | | |
+| COACH VERDICT: | COACH VERDICT: | COACH VERDICT: |
+| "Right hook is crisp. | "Vance pushed too hard | "Great pad discipline. |
+| Ready for Friday weigh-in." | on the bike. Ease off." | Ready for ring work." |
++-----------------------------+---------------------------+-------------------------+
+| GYM RUNWAY: -$112 (Daily Upkeep + Coach Wage) | TOMORROW'S PLAN: [CONFIRM / KEEP] |
++-----------------------------------------------------------------------------------+
+
+6. HOW THE 2nd AND 3rd BOXER ARRIVE IN THE DEMO
+How They Arrive in the First 30 Minutes
+
+We do not use complex recruitment menus. We use The Reception Walk-In:
+
+Minute 00:00: You start with Danny Reyes (inherited pro, 4-round club fighter).
+Minute 15:00 (After Day 1 completes): A notification pings at the front desk: WALK-IN AT RECEPTION: LEO VANCE.
+Vance is a regional amateur looking for a gym. He brings a small signing bonus ($500) and modest talent.
+You sign him with one click. Now the puzzle has 2 fighters.
+Minute 30:00 (After Day 2 completes): Reception pings again: FREE AGENT: MARA SOLANO.
+Solano is an aggressive brawler coming off a layoff with low conditioning.
+Signing her brings the roster to 3, locking in the full station puzzle.
+How a Bigger Roster (5+ Boxers) is Handled Later Without Spreadsheet Bloat
+
+Reference: Football Manager's "Training Units" (Defensive Unit / Attacking Unit) & Two Point's Room Queues.
+
+When a gym expands to 5–8 fighters in the full game, programming individual 45-minute blocks for 8 athletes would become tedious.
+The "Shift / Squad" Mechanic:
+The gym unlocks Training Squads (e.g., Morning Shift: Fight Camp Squad, Afternoon Shift: Development Squad).
+You assign fighters to a Squad with a single role template ("Fight Prep - Heavy", "Skill Builder", "Conditioning Cycle").
+You only manually tweak the headliners; the secondary squad follows their automated station rotation.
+You hire a Second Coach (e.g., an Assistant Trainer), which introduces a second roving coach token onto the board.
+7. BUILD ORDER: THE SMALLEST PROVABLE SLICE
+
+We can build and prove the fun of this puzzle in three distinct iterations, leveraging what is already live.
+
+SLICE 1: THE 2-BOXER BENCH TEST (PROVE THE CORE PUZZLE)
+Goal: Player schedules Reyes & Vance across 1 Coach and 1 Ring.
+Check: Does solving station contention feel satisfying?
+  -> SLICE 2: THE 3-BOXER FLIGHT BOARD + AUTO-PLAN
+Goal: Add Boxer 3 (Solano), station bottlenecks, and 1-click Auto-Plan.
+Check: Can a player program 3 men in under 20 seconds?
+  -> SLICE 3: VISUAL RESOLUTION (FLOOR MIGRATION & RECEIPTS)
+Goal: 3D floor walking, coach movement, 3-column receipt card.
+Check: Is watchability 10/10 while 3 men train?
+
+Slice 1: The 2-Boxer Multi-Row Day Plan (BUILD NOW)
+Enable a second fighter (Vance) to pull into the existing DayPlanPanel.gd.
+Stack the schedule rows vertically: Row 1 = Reyes, Row 2 = Vance.
+Add coach assignment pill toggle: clicking the coach icon flips Coach Tariq between Fighter 1 and Fighter 2 for that block.
+Enforce the S266 rule: the unselected fighter's block runs at $0.40\times$.
+Test: Let the player run a 2-boxer day. Does deciding who gets the coach on pads vs bag feel like a real decision?
+Slice 2: Station Contention & The Sparring Snapping (BUILD NOW)
+Add station capacity limits to the schedule builder:
+Ring: 1 solo or 2 sparring.
+Heavy Bags: max 2.
+Speed Bag: max 1.
+If two boxers are assigned to Ring Spar at the same block, auto-link them as sparring partners (disable sparring partner fee, split gain between both).
+Add the [AUTO-PLAN] button that fills a valid, zero-conflict schedule with one click.
+Test: Verify that resolving schedule collisions is clear and painless.
+Slice 3: Floor Multi-Tracking & 3-Column Receipt (BUILD NOW)
+Update GymHall3D.gd to steer 2–3 active boxers to their designated stations simultaneously instead of leaving ambient members idling.
+Implement the 3-column End-of-Day Receipt card summarizing all three boxers' daily development and recovery state.
+Suppress low-level gain floaters; fire only major breakthrough floaters (★ IT CLICKED!) over the fighters' heads.
+Items Tagged NEEDS OPERATOR (Design / Economy Approvals)
+Roster Expansion Cap for the Demo: Confirm whether the boxing demo hard-caps at 3 fighters maximum (recommended: Yes, Calder House should not permit more than 3 until the player buys a larger gym).
+Internal Sparring Injury Risk: Operator sign-off on whether sparring your own fighters carries a small chance of cuts/bruises before a fight (adds high strategic tension to sparring your contender with your prospect).
+Walk-in Contract Economics: Approval of Vance and Solano's signing purse and cut percentages at reception arrival.
+
+Suggestion chips under the reply (Ludo's own): "Turn the three-boxer station puzzle into a concrete playable morning plan with exact station slots, coach assignments, and fatigue outcomes." / "Create a clear top-down gym mockup showing three boxers, occupied stations, the coach, and readable assignment options." / "Write the smallest playtest scenario and success criteria to prove managing two or three boxers is fun rather than tedious." / "Design a roster-growth flow that introduces walk-ins and signing while keeping five or more boxers manageable without spreadsheets."

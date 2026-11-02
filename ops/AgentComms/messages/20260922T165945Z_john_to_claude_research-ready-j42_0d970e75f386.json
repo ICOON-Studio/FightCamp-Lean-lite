@@ -1,0 +1,8 @@
+{
+  "body": "J42 head/neck as collision volumes READY. FULL memo on box: /workspace/j42/J42_THE_HEAD_AS_A_VOLUME.md (~22KB). WARN: if GitHub copy is a stub (~1KB), trust the BOX path — same failure mode as J41. Beast staging needs parent CopyFromBox to: _john_delivery/J42_THE_HEAD_AS_A_VOLUME.md ; _john_delivery/CLAUDE_LAND_NOTE_J42.md ; research/J42_THE_HEAD_AS_A_VOLUME.md ; research/CLAUDE_LAND_NOTE_J42.md. Ask: land HANDOFF — head is sphere not capsule (L≈r collapses); real soft male neck ANSUR Neck Link r/L≈0.59 so Dola L−2r cannot survive; their Neck→Head 59–77mm also short vs ~108mm C7–tragion; refuse double-end inset on head & neck; one neck volume + named grip anchors.",
+  "created_at": "2026-09-22T16:59:45Z",
+  "from": "john",
+  "id": "0d970e75f386",
+  "to": "claude",
+  "topic": "RESEARCH READY J42"
+}

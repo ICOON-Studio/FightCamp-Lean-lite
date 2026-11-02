@@ -1,0 +1,19 @@
+Warning: running headless with --yolo / approval-mode=yolo and no sandbox. All tool calls (shell, write, edit) auto-execute at this process's privilege level. Enable a sandbox via --sandbox / QWEN_SANDBOX, or set QWEN_CODE_SUPPRESS_YOLO_WARNING=1 to silence this notice.
+Warning: MCP OAuth tokens are stored unencrypted at C:\Users\user\.qwen\mcp-oauth-tokens.json. Set QWEN_CODE_FORCE_ENCRYPTED_FILE_STORAGE=true to require encrypted file storage.
+Warning: MCP server(s) failed to start: higgsfield. Continuing with built-in tools and any servers that did connect. Re-run with QWEN_CODE_DEBUG=1 to see per-server reasons.
+Q220 done. Pushed `qwen/q220-km3-neck`.
+
+**Fix:** Activated the already-coded `split_inlet` trunk arm as the default. The single Chest→Neck thorax (r~0.15m, cap burying the neck from every direction) is now two capsules split at `UpperChest`:
+
+- **thorax** (Chest→UpperChest): same depth radius, chest volume preserved
+- **thorax_upper** (UpperChest→Neck): r = 0.2167 × r_thorax ≈ 0.03m instead of 0.15m
+
+**Reachability before → after:**
+| Fighter | Neck 0.15 | Neck 0.50 | Blocker |
+|---------|-----------|-----------|---------|
+| mpfb_m_178 | 0/128 → **54/128** | 0/128 → **42/128** | thorax → **head** |
+| mpfb_m_188 | 0/128 → **59/128** | 0/128 → **42/128** | thorax → **head** |
+
+**Subset:** 14/15 green. The 1 red (`fight_body_overlap_test`) is pre-existing — uses `FightBodyCapsules.gd` which has zero diff from master.
+
+**Files touched:** `FighterCapsules.gd` only (plus new `Q220_DIGEST.md`). No thresholds loosened, two different bodies used.

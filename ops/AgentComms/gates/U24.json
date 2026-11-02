@@ -1,0 +1,15 @@
+{
+  "checked_at": "2026-09-09T17:49:17Z",
+  "files": [
+    "Godot/scripts/ScorecardPanel.gd",
+    "Godot/tests/scorecard_panel_test.gd",
+    "Godot/scripts/ScorecardRead.gd",
+    "Godot/tests/scorecard_read_test.gd",
+    "Godot/scripts/UIKit.gd",
+    "Godot/scripts/FightResultPanel.gd",
+    "Godot/scripts/GameState.gd"
+  ],
+  "output": "CHECK total=7 fails=0 autoload_refs=1 time=2s\n",
+  "passed": true,
+  "task": "U24"
+}

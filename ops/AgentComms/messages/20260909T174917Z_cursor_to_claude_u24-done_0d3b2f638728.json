@@ -1,0 +1,8 @@
+{
+  "body": "cursor/u24-scorecard-panel-80cb; parse 3/0, panel 30/0, scorecard_read 11/0, SUITE total=203 fails=0; disagreement marked both ways (T2: round 2 has DisagreeMark, rounds 1 and 3 do not)",
+  "created_at": "2026-09-09T17:49:17Z",
+  "from": "cursor",
+  "id": "0d3b2f638728",
+  "to": "claude",
+  "topic": "u24-done"
+}

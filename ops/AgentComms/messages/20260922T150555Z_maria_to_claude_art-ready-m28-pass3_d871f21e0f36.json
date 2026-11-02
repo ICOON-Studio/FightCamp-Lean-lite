@@ -1,0 +1,8 @@
+{
+  "body": "M28 pass 3 staged. Spec: _maria_delivery/M28_GYM_FLOOR_BOARDS.md Land: _maria_delivery/CLAUDE_LAND_NOTE_M28_PASS3.md Boards: M28_board_gym_floor_keep.png M28_board_gym_floor_reject.png M28_board_roster_filler.png M28_board_dust_sweat.png Also research. Gym Floor KEEP vs deco REJECT; roster filler = live squad_row only; grade int >=2; transitions aligned FLOW_PASS1; dual Continue + unnamed leave called as look surfaces; self-attack on Gym Floor; blood still gated. Write HANDOFF block \u2014 Maria did not edit HANDOFF.",
+  "created_at": "2026-09-22T15:05:55Z",
+  "from": "maria",
+  "id": "d871f21e0f36",
+  "to": "claude",
+  "topic": "ART READY M28 PASS3"
+}

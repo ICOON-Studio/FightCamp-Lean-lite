@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>FightCamp · K19 LIVE FIGHT SCENE · Kalli</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@500;600;700&display=swap">
+<style>
+:root{
+  --ground:#1c2230; --ground-2:#242c3d; --panel:#2a3347; --panel-hi:#34405a; --panel-lo:#222a3b;
+  --panel-glass:rgba(34,42,59,.94); --track:#111621; --edge:#121722; --line:#4a5a78; --line-soft:#2b3340;
+  --text:#f3f5fa; --text-2:#c9d1e0; --muted:#94a1b8; --dim:#6d7688; --ink:#1b1207; --link:#7fb6ee;
+  --gold:#f0c233; --gold-hi:#f7d65a; --gold-lo:#c99a1a; --gold-edge:#7a5c0c;
+  --gym:#2f6fb0; --gym-hi:#3f86cc; --gym-lo:#24558a; --gym-deep:#1a3d63; --gym-tint:rgba(47,111,176,.22);
+  --go:#22c55e; --go-hi:#4ade80; --go-lo:#15803d; --go-edge:#0b4a23;
+  --slate:#3f4a62; --control:#303a52; --chip:#333d52; --avatar:#3b4557; --ring:#2b3447;
+  --good:#4fc46a; --amber:#f0a020; --bad:#e5433a; --bad-edge:#5a120e;
+  --display:"Bebas Neue","Haettenschweiler","Arial Narrow",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --edge-hi:rgba(255,255,255,.14);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#0f131b;color:var(--text);font-family:var(--mono);font-size:13px;font-weight:500;line-height:1.4;-webkit-font-smoothing:antialiased}
+.doc{padding:28px 24px 40px;max-width:1960px;margin:0 auto}
+.eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.mast h1{font-family:var(--display);font-size:52px;letter-spacing:.02em;line-height:.94;margin:6px 0 10px}
+.mast p{max-width:96ch;color:var(--text-2);margin:0 0 8px}
+.rules{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 28px}
+.rules span{font-size:12px;letter-spacing:.08em;font-weight:700;padding:6px 10px;border:1px solid var(--edge);border-radius:3px;background:var(--panel-lo);color:var(--muted)}
+.sec{margin:28px 0 12px}
+.sec h2{font-family:var(--display);font-size:32px;letter-spacing:.06em;margin:0 0 6px}
+.sec p{margin:0;color:var(--text-2);max-width:92ch}
+.note{margin-top:8px;font-size:12px;color:var(--muted);letter-spacing:.04em}
+.board{width:1920px;height:1080px;position:relative;overflow:hidden;background:var(--ground);border:none;margin:16px 0 40px;box-shadow:0 24px 60px rgba(0,0,0,.55)}
+.sp{width:100%;height:100%;display:grid;grid-template-columns:72px 1fr;grid-template-rows:72px 1fr 48px;background:var(--ground);position:relative}
+.sp::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(55% 45% at 70% 18%,rgba(63,134,204,.18),transparent 70%),radial-gradient(40% 40% at 20% 85%,rgba(240,194,51,.06),transparent 70%);z-index:0}
+.sp > *{position:relative;z-index:1}
+.sp-out{grid-row:1/4;display:flex;flex-direction:column;align-items:center;padding:14px 0;gap:12px;background:linear-gradient(180deg,#1a2030,#141924);border-right:1px solid var(--edge);box-shadow:4px 0 18px rgba(0,0,0,.25)}
+.sp-out .exit{width:44px;height:44px;border-radius:3px;border:1px solid var(--edge);background:linear-gradient(180deg,#445273,#303a52);display:grid;place-items:center;box-shadow:0 1px 0 var(--edge-hi) inset}
+.sp-out .exit svg{width:20px;height:20px;fill:var(--text-2)}
+.sp-out .lab{writing-mode:vertical-rl;transform:rotate(180deg);font-size:12px;letter-spacing:.2em;font-weight:700;color:var(--muted);margin-top:8px}
+.sp-out .gear{margin-top:auto;width:8px;height:8px;border-radius:50%;background:var(--amber);box-shadow:0 0 10px rgba(240,160,32,.8)}
+.sp-head{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 22px;border-bottom:1px solid var(--edge);background:linear-gradient(180deg,rgba(42,51,71,.98),rgba(28,34,48,.98));box-shadow:0 1px 0 var(--edge-hi) inset}
+.sp-head .stakes{display:flex;flex-direction:column;gap:2px;min-width:0}
+.sp-head .stakes .eye{font-size:12px;letter-spacing:.16em;font-weight:700;color:var(--muted)}
+.sp-head .stakes .title{font-family:var(--display);font-size:28px;letter-spacing:.04em;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sp-head .clock{justify-self:center;display:flex;align-items:center;gap:0;border:1px solid var(--edge);border-radius:3px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.35)}
+.sp-head .clock .seg{padding:8px 16px;font-family:var(--display);font-size:26px;letter-spacing:.06em;background:linear-gradient(180deg,var(--panel-hi),var(--panel-lo));border-right:1px solid var(--edge);line-height:1}
+.sp-head .clock .seg:last-child{border-right:none}
+.sp-head .clock .seg.soft{font-family:var(--mono);font-size:12px;letter-spacing:.14em;font-weight:700;color:var(--muted);padding:8px 12px;display:flex;align-items:center}
+.sp-head .clock .seg.round{background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:var(--ink)}
+.sp-head .names{justify-self:end;text-align:right;display:flex;flex-direction:column;gap:2px}
+.sp-head .names .who{font-family:var(--display);font-size:24px;letter-spacing:.04em;line-height:1}
+.sp-head .names .vs{font-size:12px;letter-spacing:.14em;font-weight:700;color:var(--muted)}
+.sp-stage{padding:14px 18px;overflow:hidden;min-height:0;display:flex;flex-direction:column;gap:10px}
+.sp-foot{display:flex;align-items:center;gap:14px;padding:0 24px;border-top:1px solid var(--edge);background:rgba(18,23,34,.7)}
+.sp-foot .phase{font-family:var(--display);font-size:18px;letter-spacing:.12em;color:var(--text-2)}
+.sp-foot .hint{margin-left:auto;font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--dim)}
+.sp-foot .labchip{height:24px;padding:0 10px;border-radius:3px;border:1px solid var(--line);background:var(--chip);font-size:12px;letter-spacing:.14em;font-weight:700;color:var(--amber);display:inline-flex;align-items:center}
+
+.ring-row{display:grid;grid-template-columns:220px 1fr 200px;gap:12px;flex:1;min-height:0}
+.condition-rail{background:var(--panel);border:1px solid var(--edge);border-radius:3px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;box-shadow:0 1px 0 var(--edge-hi) inset;min-height:0}
+.condition-rail .ph{font-family:var(--display);font-size:16px;letter-spacing:.12em;color:var(--text-2);border-bottom:1px solid var(--line-soft);padding-bottom:6px}
+.fighter-tag{display:flex;align-items:center;gap:8px}
+.fighter-tag .dot{width:8px;height:8px;border-radius:50%;background:var(--gym-hi)}
+.fighter-tag .nm{font-family:var(--display);font-size:18px;letter-spacing:.04em}
+.fighter-tag .rec{font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--muted);margin-left:auto}
+.region{display:flex;flex-direction:column;gap:3px}
+.region .rl{display:flex;justify-content:space-between;font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--muted)}
+.region .rl b{color:var(--text);font-family:var(--display);font-size:16px;font-weight:400;letter-spacing:.04em}
+.bar{height:10px;border-radius:2px;background:var(--track);border:1px solid var(--edge);overflow:hidden}
+.bar > i{display:block;height:100%;border-radius:2px}
+.bar.good > i{background:linear-gradient(90deg,#2f9a48,var(--good))}
+.bar.warn > i{background:linear-gradient(90deg,#c77c12,var(--amber))}
+.bar.bad > i{background:linear-gradient(90deg,#b62e26,var(--bad))}
+.hurt-chip{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:2px;font-size:12px;letter-spacing:.1em;font-weight:700;border:1px solid #7a4c08;background:linear-gradient(180deg,rgba(240,160,32,.25),rgba(240,160,32,.08));color:var(--amber)}
+.opp-rail .fighter-tag .dot{background:var(--bad)}
+
+/* ISO RING STAGE */
+.ring-stage{position:relative;background:radial-gradient(70% 55% at 50% 28%,#3a2a18 0%,#1a2030 55%,#121722 100%);border:1px solid var(--edge);border-radius:3px;overflow:hidden;min-height:0;box-shadow:0 1px 0 var(--edge-hi) inset, inset 0 0 80px rgba(0,0,0,.45)}
+.iso-lights{position:absolute;left:10%;right:10%;top:6%;height:18px;background:radial-gradient(circle,#f7e7a0 0%,transparent 60%),radial-gradient(circle,#f7e7a0 0%,transparent 60%),radial-gradient(circle,#f7e7a0 0%,transparent 60%),radial-gradient(circle,#f7e7a0 0%,transparent 60%),radial-gradient(circle,#f7e7a0 0%,transparent 60%);background-size:14px 14px;background-repeat:no-repeat;background-position:0 0,25% 2px,50% 0,75% 2px,100% 0;opacity:.55;filter:blur(1px)}
+.iso-floor{position:absolute;left:50%;top:52%;width:62%;height:52%;transform:translate(-50%,-50%) rotateX(58deg) rotateZ(-32deg);transform-style:preserve-3d;border:2px solid rgba(180,190,210,.35);background:linear-gradient(135deg,rgba(55,64,86,.85),rgba(32,38,54,.92));box-shadow:0 30px 40px rgba(0,0,0,.55), inset 0 0 40px rgba(0,0,0,.35)}
+.iso-floor .grid{position:absolute;inset:8%;border:1px solid rgba(148,161,184,.18);background:
+  linear-gradient(rgba(148,161,184,.12) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(148,161,184,.12) 1px,transparent 1px);
+  background-size:18% 18%}
+.iso-rope{position:absolute;left:50%;top:38%;width:58%;height:34%;transform:translate(-50%,-50%);pointer-events:none}
+.iso-rope::before,.iso-rope::after{content:"";position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(220,80,70,.85),transparent)}
+.iso-rope::before{top:28%}
+.iso-rope::after{top:52%;background:linear-gradient(90deg,transparent,rgba(220,220,230,.55),transparent)}
+.sil{width:92px;height:160px;background:linear-gradient(180deg,#4a556c 0%,#2a3347 55%,#1c2230 100%);border-radius:46px 46px 10px 10px;position:absolute;box-shadow:0 18px 28px rgba(0,0,0,.55)}
+.sil::before{content:"";position:absolute;top:-28px;left:50%;transform:translateX(-50%);width:48px;height:48px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#5a657c,#2b3447 70%);border:2px solid var(--edge)}
+.sil.ours{left:34%;bottom:22%;z-index:4;transform:rotate(-8deg)}
+.sil.opp{left:52%;bottom:28%;z-index:3;width:86px;height:148px;opacity:.92;transform:rotate(10deg) scaleX(-1)}
+.sil.opp::before{width:44px;height:44px;top:-26px}
+.sil.facing-away{transform:rotate(6deg);filter:brightness(.75)}
+.sil.facing-away::after{content:"";position:absolute;inset:20% 28% 40%;border-radius:40%;background:rgba(18,23,34,.35)}
+.sil.hurt{filter:saturate(.7) brightness(.9);transform:rotate(-14deg) translateX(-6px)}
+.sil.clinch-l{left:42%;bottom:24%;transform:rotate(-4deg);z-index:4}
+.sil.clinch-r{left:48%;bottom:26%;width:86px;height:148px;transform:rotate(6deg) scaleX(-1);z-index:3;opacity:.95}
+.impact{position:absolute;left:48%;top:46%;width:48px;height:48px;border-radius:50%;border:2px solid rgba(240,194,51,.4);box-shadow:0 0 24px rgba(63,134,204,.4);background:radial-gradient(circle,rgba(127,182,238,.4),transparent 70%);z-index:5;opacity:.85}
+.fx-tag{position:absolute;z-index:6;font-size:12px;letter-spacing:.12em;font-weight:700;padding:3px 8px;border-radius:2px;background:rgba(18,23,34,.85);border:1px solid var(--line-soft);color:var(--text-2)}
+.cam-label{position:absolute;left:12px;bottom:10px;z-index:6;font-size:12px;letter-spacing:.14em;font-weight:700;color:var(--dim);padding:4px 8px;border:1px solid var(--line-soft);border-radius:2px;background:rgba(18,23,34,.75)}
+
+.move-strips{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex:none}
+.strip{background:var(--panel-lo);border:1px solid var(--edge);border-radius:3px;padding:8px 10px;display:flex;flex-direction:column;gap:6px;min-height:0}
+.strip .sh{font-size:12px;letter-spacing:.14em;font-weight:700;color:var(--muted);display:flex;justify-content:space-between}
+.strip .moves{display:flex;gap:6px;flex-wrap:wrap}
+.mv{height:26px;padding:0 10px;border-radius:2px;border:1px solid var(--edge);background:linear-gradient(180deg,#3a4560,#2b3449);font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--text);display:inline-flex;align-items:center}
+.mv.ghost{opacity:.45;border-style:dashed}
+.mv.hit{background:linear-gradient(180deg,rgba(79,196,106,.25),rgba(79,196,106,.08));border-color:#2f9a48;color:var(--good)}
+.mv.warn{background:linear-gradient(180deg,rgba(229,67,58,.22),rgba(229,67,58,.08));border-color:var(--bad-edge);color:#ff8f87}
+
+.corner-dock{flex:none;height:72px;border:1px solid var(--edge);border-radius:3px;background:linear-gradient(180deg,rgba(42,51,71,.98),rgba(28,34,48,.98));display:flex;align-items:center;gap:12px;padding:0 14px;box-shadow:0 1px 0 var(--edge-hi) inset}
+.corner-dock .cd-lab{font-size:12px;letter-spacing:.16em;font-weight:700;color:var(--muted);min-width:88px}
+.pace{display:flex;gap:8px;align-items:center;flex:1}
+.pace .chip{height:36px;padding:0 14px;border-radius:3px;border:1px solid var(--edge);background:linear-gradient(180deg,#445273,#303a52);font-family:var(--display);font-size:18px;letter-spacing:.08em;color:var(--text);display:inline-flex;align-items:center;gap:8px;box-shadow:0 1px 0 var(--edge-hi) inset;position:relative}
+.pace .chip.gold{background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:var(--ink);border-color:var(--gold-edge);box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 0 16px rgba(240,194,51,.35)}
+.pace .chip.soft{opacity:.55}
+.pace .chip.heard{box-shadow:0 0 0 2px var(--good),0 1px 0 var(--edge-hi) inset}
+.pace .chip.half{background:linear-gradient(180deg,rgba(240,160,32,.45),rgba(240,160,32,.18));border-color:#7a4c08;color:var(--ink)}
+.pace .chip.waved{animation:none;box-shadow:0 0 0 2px var(--bad),0 0 14px rgba(229,67,58,.35);border-color:var(--bad-edge)}
+.ack{font-family:var(--mono);font-size:11px;letter-spacing:.1em;font-weight:700;padding:2px 6px;border-radius:2px}
+.ack.good{background:rgba(79,196,106,.2);color:var(--good);border:1px solid #2f9a48}
+.ack.amber{background:rgba(240,160,32,.2);color:var(--amber);border:1px solid #7a4c08}
+.ack.bad{background:rgba(229,67,58,.2);color:#ff8f87;border:1px solid var(--bad-edge)}
+.combo-dock{background:linear-gradient(180deg,rgba(58,52,28,.98),rgba(34,30,18,.98));border-color:var(--gold-edge)}
+.combo-dock .cd-lab{color:var(--gold)}
+.decision{flex:1;display:flex;flex-direction:column;gap:6px;min-width:0}
+.decision .top{display:flex;align-items:center;gap:12px}
+.decision .top .call{font-family:var(--display);font-size:22px;letter-spacing:.06em}
+.decision .top .chain{font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--text-2)}
+.timer-track{height:10px;border-radius:2px;background:var(--track);border:1px solid var(--edge);overflow:hidden}
+.timer-track > i{display:block;height:100%;width:62%;background:linear-gradient(90deg,var(--gold-lo),var(--gold-hi))}
+.letgo{height:40px;padding:0 18px;border-radius:3px;border:1px solid var(--gold-edge);background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:var(--ink);font-family:var(--display);font-size:18px;letter-spacing:.1em;display:inline-flex;align-items:center;box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 0 18px rgba(240,194,51,.4);flex:none}
+
+/* WORLD VS SCREEN split */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:12px;flex:1;min-height:0}
+.pane{border:1px solid var(--edge);border-radius:3px;background:#151a24;overflow:hidden;display:flex;flex-direction:column;min-height:0;position:relative}
+.pane .ptag{position:absolute;top:10px;left:10px;z-index:8;font-size:12px;letter-spacing:.12em;font-weight:700;padding:4px 10px;border-radius:2px;background:rgba(18,23,34,.92);border:1px solid var(--line-soft);color:var(--text-2)}
+.pane.reject .ptag{border-color:var(--bad-edge);color:#ff8f87}
+.pane.pick .ptag{border-color:var(--gold-edge);color:var(--gold)}
+.pane .pbody{flex:1;position:relative;min-height:0;background:radial-gradient(70% 55% at 50% 28%,#3a2a18 0%,#1a2030 55%,#121722 100%)}
+.pane .pfoot{flex:none;padding:10px 12px;border-top:1px solid var(--edge);background:rgba(18,23,34,.85);display:flex;align-items:center;gap:10px}
+.pane .pfoot .why{font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--muted);flex:1}
+.pick-chip{height:32px;padding:0 14px;border-radius:3px;border:1px solid var(--gold-edge);background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:var(--ink);font-family:var(--display);font-size:16px;letter-spacing:.1em;display:inline-flex;align-items:center;box-shadow:0 1px 0 rgba(255,255,255,.35) inset,0 0 14px rgba(240,194,51,.35)}
+.reject-chip{height:32px;padding:0 14px;border-radius:3px;border:1px solid var(--bad-edge);background:linear-gradient(180deg,#5a3030,#3a1a1a);color:#ff8f87;font-family:var(--display);font-size:16px;letter-spacing:.1em;display:inline-flex;align-items:center}
+.billboard{position:absolute;z-index:7;width:110px;padding:6px 8px;border-radius:2px;background:rgba(34,42,59,.92);border:1px solid var(--edge);box-shadow:0 8px 18px rgba(0,0,0,.45)}
+.billboard .bn{font-family:var(--display);font-size:14px;letter-spacing:.06em;margin-bottom:4px}
+.billboard .bb{height:6px;background:var(--track);border-radius:1px;margin:2px 0;overflow:hidden}
+.billboard .bb > i{display:block;height:100%;background:var(--amber)}
+.billboard.collide{outline:2px solid var(--bad);box-shadow:0 0 16px rgba(229,67,58,.5)}
+.xmark{position:absolute;z-index:9;font-family:var(--display);font-size:42px;color:var(--bad);text-shadow:0 0 12px rgba(229,67,58,.6);pointer-events:none}
+.mini-rail{position:absolute;top:12px;width:120px;padding:6px 8px;border-radius:2px;background:rgba(42,51,71,.94);border:1px solid var(--edge);z-index:7}
+.mini-rail.left{left:12px}
+.mini-rail.right{right:12px}
+.mini-rail .bn{font-family:var(--display);font-size:14px;letter-spacing:.06em;margin-bottom:4px}
+.mini-rail .bb{height:6px;background:var(--track);border-radius:1px;margin:2px 0;overflow:hidden}
+.mini-rail .bb > i{display:block;height:100%}
+.mini-rail .bb.g > i{background:var(--good)}
+.mini-rail .bb.w > i{background:var(--amber)}
+.mini-rail .bb.b > i{background:var(--bad)}
+
+/* CALL board listen row */
+.listen-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;flex:none}
+.listen-card{border:1px solid var(--edge);border-radius:3px;background:var(--panel-lo);padding:10px 12px;display:flex;flex-direction:column;gap:8px;min-height:0}
+.listen-card .lh{font-size:12px;letter-spacing:.14em;font-weight:700;color:var(--muted)}
+.listen-card .demo{display:flex;align-items:center;gap:8px}
+.listen-card .note{font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--dim)}
+
+/* STATES */
+.states{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:1fr 1fr;gap:10px;height:100%;padding:2px}
+.scell{border:1px solid var(--edge);border-radius:3px;background:#151a24;overflow:hidden;position:relative;display:flex;flex-direction:column;min-height:0}
+.scell .ctag{position:absolute;top:8px;left:8px;z-index:3;font-size:12px;letter-spacing:.12em;font-weight:700;padding:3px 8px;background:rgba(18,23,34,.92);border:1px solid var(--line-soft);border-radius:2px;color:var(--text-2)}
+.scell .body{flex:1;padding:36px 12px 12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;position:relative}
+.scell .big{font-family:var(--display);font-size:26px;letter-spacing:.06em;line-height:1}
+.scell .m{font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--muted);max-width:30ch}
+.scell .mini-stage{width:100%;height:90px;border:1px solid var(--edge);border-radius:2px;background:radial-gradient(70% 55% at 50% 30%,#3a2a18,#151a24);position:relative;overflow:hidden}
+.scell .mini-stage .msil{position:absolute;width:28px;height:48px;background:linear-gradient(180deg,#4a556c,#1c2230);border-radius:14px 14px 4px 4px;bottom:12px}
+.scell .mini-stage .msil::before{content:"";position:absolute;top:-12px;left:50%;transform:translateX(-50%);width:16px;height:16px;border-radius:50%;background:#3b4557}
+.scell .mini-dock{width:100%;height:36px;border:1px solid var(--edge);border-radius:2px;background:var(--panel-lo);display:flex;align-items:center;justify-content:center;gap:6px;padding:0 8px;margin-top:4px}
+.scell .mini-dock span{font-size:11px;letter-spacing:.08em;font-weight:700;color:var(--dim);padding:3px 8px;border:1px solid var(--line-soft);border-radius:2px}
+.scell .mini-dock.dimmed{opacity:.35}
+.scell .mini-dock.combo{border-color:var(--gold-edge);background:linear-gradient(180deg,rgba(58,52,28,.98),rgba(34,30,18,.98))}
+.chip{display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:3px;border:1px solid var(--edge);background:linear-gradient(180deg,#3a4560,#2b3449);font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--text)}
+.chip.bad{background:linear-gradient(180deg,#ef5a50,#b62e26);color:#fff;border-color:var(--bad-edge)}
+.chip.amber{background:linear-gradient(180deg,#f6b22e,#c77c12);color:var(--ink);border-color:#7a4c08}
+.chip.good{background:linear-gradient(180deg,rgba(79,196,106,.35),rgba(79,196,106,.12));color:var(--good);border-color:#2f9a48}
+.annot{font-size:12px;color:var(--muted);padding:6px 10px;border-left:3px solid var(--gym-hi);background:rgba(0,0,0,.2);margin:0}
+.stamp{font-family:var(--display);font-size:42px;letter-spacing:.06em;line-height:.95}
+.stamp.bad{color:var(--bad);text-shadow:0 0 24px rgba(229,67,58,.45)}
+.stamp.ippon{color:var(--text);border-bottom:3px solid var(--gym-hi);padding-bottom:2px}
+.floating-bar{position:absolute;left:50%;bottom:18%;transform:translateX(-50%);display:flex;gap:6px;padding:8px 10px;border-radius:3px;border:1px dashed var(--bad-edge);background:rgba(58,26,26,.75);z-index:8}
+.floating-bar span{font-size:11px;letter-spacing:.08em;font-weight:700;color:#ff8f87;padding:4px 8px;border:1px solid var(--bad-edge);border-radius:2px}
+</style>
+</head>
+<body>
+
+<div class="doc" id="doc">
+  <div class="mast">
+    <div class="eyebrow">Kalli · FightCamp K19 · Study only — no .gd / .tscn · no HANDOFF edit</div>
+    <h1>THE LIVE FIGHT SCENE</h1>
+    <p>How an isometric camera changes the ring read — and what it must <b>not</b> change. North star: live iso camera + sprite motion on <code>ring_stage</code>. Instruments stay frame-pinned (R31 survives). One morphing corner dock keeps the call grammar; listen-roll feedback lands on the pressed chip. Gold ×1 per board. Green = Continue only on result way-out. Body 1920×912 inside K7 set-piece chrome.</p>
+  </div>
+  <div class="rules">
+    <span>BEBAS DISPLAY · IBM PLEX MONO</span>
+    <span>SIZE_MIN 12</span>
+    <span>1920×1080 BOARDS</span>
+    <span>K7 SET-PIECE CHROME</span>
+    <span>GOLD ×1 / BOARD</span>
+    <span>FRAME-PINNED RAILS</span>
+    <span>KEEP CORNER DOCK</span>
+    <span>ISO STAGE SPECTACLE</span>
+    <span>♀ ≠ ♂</span>
+  </div>
+  <div class="sec">
+    <h2>PICKS LOCKED</h2>
+    <p><b>Rails:</b> KEEP FRAME PINNED (reject world-space HP billboards) · <b>Call:</b> KEEP CORNER DOCK + listen_ack on chip · <b>Stage:</b> REPLACE presentation → iso floor + animated silhouettes · <b>Priority:</b> rails → sprite action → strips → dock/8s.</p>
+    <p class="note">Sample: Kian Sterling (ours) vs Marco Vega. Boxing silhouette language only. Capture ids: board-camera · board-world-vs-screen · board-call · board-states. Invent no spatial state — choreography from discrete ~14 fight-second exchanges.</p>
+  </div>
+</div>
+
+<!-- ===== 01 CAMERA ===== -->
+<div class="doc"><div class="sec"><h2>01 · THE CAMERA</h2><p>Iso camera frames both fighters on the floor; sprites execute moves. Frame-pinned rails always visible. Camera never crops both fighters off. Facing-away still readable via silhouette + rail heat. Gold ×1 on primary live pace press.</p></div></div>
+<div class="board" id="board-camera">
+  <div class="sp">
+    <div class="sp-out"><div class="exit"><svg viewBox="0 0 24 24"><path d="M14 6l-6 6 6 6"/></svg></div><div class="lab">WAY OUT</div><div class="gear"></div></div>
+    <div class="sp-head">
+      <div class="stakes"><div class="eye">MAIN EVENT · WELTERWEIGHT · PURSE 42K</div><div class="title">FIGHT NIGHT</div></div>
+      <div class="clock"><div class="seg soft">R</div><div class="seg">4</div><div class="seg">1:42</div></div>
+      <div class="names"><div class="who">KIAN STERLING</div><div class="vs">VS MARCO VEGA</div></div>
+    </div>
+    <div class="sp-stage">
+      <div class="ring-row">
+        <div class="condition-rail">
+          <div class="ph">CONDITION</div>
+          <div class="fighter-tag"><span class="dot"></span><span class="nm">STERLING</span><span class="rec">OURS</span></div>
+          <div class="region"><div class="rl"><span>HEAD</span><b>78</b></div><div class="bar good"><i style="width:78%"></i></div></div>
+          <div class="region"><div class="rl"><span>BODY</span><b>64</b></div><div class="bar warn"><i style="width:64%"></i></div></div>
+          <div class="region"><div class="rl"><span>LEGS</span><b>81</b></div><div class="bar good"><i style="width:81%"></i></div></div>
+          <div class="region"><div class="rl"><span>GAS</span><b>71</b></div><div class="bar warn"><i style="width:71%"></i></div></div>
+          <div class="annot" style="margin-top:4px">Frame-pinned · top-left · always on screen</div>
+        </div>
+        <div class="ring-stage">
+          <div class="iso-lights"></div>
+          <div class="iso-floor"><div class="grid"></div></div>
+          <div class="iso-rope"></div>
+          <div class="sil ours"></div>
+          <div class="impact"></div>
+          <div class="sil opp"></div>
+          <div class="fx-tag" style="left:46%;top:40%">IMPACT FX</div>
+          <div class="cam-label">ISO CAMERA · BOTH ON FLOOR · NO CROP</div>
+        </div>
+        <div class="condition-rail opp-rail">
+          <div class="ph">OPPONENT</div>
+          <div class="fighter-tag"><span class="dot"></span><span class="nm">VEGA</span><span class="rec">WORLD</span></div>
+          <div class="region"><div class="rl"><span>HEAD</span><b>55</b></div><div class="bar warn"><i style="width:55%"></i></div></div>
+          <div class="region"><div class="rl"><span>BODY</span><b>72</b></div><div class="bar good"><i style="width:72%"></i></div></div>
+          <div class="region"><div class="rl"><span>LEGS</span><b>68</b></div><div class="bar warn"><i style="width:68%"></i></div></div>
+          <div class="region"><div class="rl"><span>GAS</span><b>60</b></div><div class="bar warn"><i style="width:60%"></i></div></div>
+          <div style="margin-top:auto;font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--dim)">TOP-RIGHT · RAIL HEAT</div>
+        </div>
+      </div>
+      <div class="move-strips">
+        <div class="strip">
+          <div class="sh"><span>OURS · MOVE STRIP</span><span>LIVE</span></div>
+          <div class="moves"><span class="mv hit">JAB</span><span class="mv hit">CROSS</span><span class="mv">HOOK</span><span class="mv ghost">JAB</span></div>
+        </div>
+        <div class="strip">
+          <div class="sh"><span>THEIRS · INCOMING</span><span>GHOST</span></div>
+          <div class="moves"><span class="mv ghost">JAB</span><span class="mv warn">HOOK</span><span class="mv ghost">CROSS</span></div>
+        </div>
+      </div>
+      <div class="corner-dock">
+        <div class="cd-lab">CORNER</div>
+        <div class="pace">
+          <span class="chip gold">PRESS</span>
+          <span class="chip soft">BOX</span>
+          <span class="chip soft">CLINCH</span>
+          <span class="chip soft">COUNTER</span>
+        </div>
+      </div>
+    </div>
+    <div class="sp-foot"><div class="phase">LIVE · ISO CAMERA</div><div class="hint">GOLD ×1 ON PACE PRESS · INSTRUMENTS FRAME-PINNED · STAGE = SPECTACLE</div></div>
+  </div>
+</div>
+
+<!-- ===== 02 WORLD VS SCREEN ===== -->
+<div class="doc"><div class="sec"><h2>02 · WORLD vs SCREEN</h2><p>Same clinch moment twice. Left: world-space HP billboards over heads — REJECT (clinch collision; sim has no spatial state). Right: frame-pinned rails as R31 ships — PICK. Gold ×1 on KEEP FRAME PINNED.</p></div></div>
+<div class="board" id="board-world-vs-screen">
+  <div class="sp">
+    <div class="sp-out"><div class="exit"><svg viewBox="0 0 24 24"><path d="M14 6l-6 6 6 6"/></svg></div><div class="lab">WAY OUT</div><div class="gear"></div></div>
+    <div class="sp-head">
+      <div class="stakes"><div class="eye">SAME MOMENT · CLINCH OVERLAP · R4 1:18</div><div class="title">WORLD vs SCREEN</div></div>
+      <div class="clock"><div class="seg soft">R</div><div class="seg">4</div><div class="seg">1:18</div></div>
+      <div class="names"><div class="who">KIAN STERLING</div><div class="vs">VS MARCO VEGA</div></div>
+    </div>
+    <div class="sp-stage">
+      <div class="split">
+        <div class="pane reject">
+          <div class="ptag">REJECT · WORLD BILLBOARDS</div>
+          <div class="pbody">
+            <div class="iso-lights"></div>
+            <div class="iso-floor" style="width:70%;height:58%"><div class="grid"></div></div>
+            <div class="iso-rope" style="width:66%"></div>
+            <div class="sil clinch-l"></div>
+            <div class="sil clinch-r"></div>
+            <div class="billboard collide" style="left:38%;top:22%">
+              <div class="bn">STERLING</div>
+              <div class="bb"><i style="width:64%"></i></div>
+              <div class="bb"><i style="width:71%"></i></div>
+            </div>
+            <div class="billboard collide" style="left:48%;top:18%">
+              <div class="bn">VEGA</div>
+              <div class="bb"><i style="width:55%"></i></div>
+              <div class="bb"><i style="width:60%"></i></div>
+            </div>
+            <div class="xmark" style="left:44%;top:28%">×</div>
+            <div class="fx-tag" style="left:12px;bottom:12px;color:#ff8f87;border-color:var(--bad-edge)">CLINCH COLLISION · NO SPATIAL STATE</div>
+          </div>
+          <div class="pfoot">
+            <span class="reject-chip">REJECT</span>
+            <div class="why">Occlusion + invented choreography · durable condition cannot ride heads</div>
+          </div>
+        </div>
+        <div class="pane pick">
+          <div class="ptag">PICK · FRAME PINNED</div>
+          <div class="pbody">
+            <div class="iso-lights"></div>
+            <div class="iso-floor" style="width:70%;height:58%"><div class="grid"></div></div>
+            <div class="iso-rope" style="width:66%"></div>
+            <div class="sil clinch-l"></div>
+            <div class="sil clinch-r"></div>
+            <div class="impact" style="left:46%;top:44%;opacity:.5"></div>
+            <div class="mini-rail left">
+              <div class="bn">OURS</div>
+              <div class="bb w"><i style="width:64%"></i></div>
+              <div class="bb g"><i style="width:78%"></i></div>
+              <div class="bb w"><i style="width:71%"></i></div>
+            </div>
+            <div class="mini-rail right">
+              <div class="bn">THEIRS</div>
+              <div class="bb w"><i style="width:55%"></i></div>
+              <div class="bb g"><i style="width:72%"></i></div>
+              <div class="bb w"><i style="width:60%"></i></div>
+            </div>
+            <div class="fx-tag" style="left:42%;top:36%">EPHEMERAL FX OK</div>
+            <div class="cam-label">RAILS STAY SCREEN-SPACE · CLINCH READABLE</div>
+          </div>
+          <div class="pfoot">
+            <span class="pick-chip">FRAME PINNED</span>
+            <div class="why">R31 survives · world may carry impact flash / stagger only</div>
+          </div>
+        </div>
+      </div>
+      <div class="corner-dock" style="opacity:.55">
+        <div class="cd-lab">CORNER</div>
+        <div class="pace">
+          <span class="chip soft">PRESS</span>
+          <span class="chip soft">BOX</span>
+          <span class="chip soft">CLINCH</span>
+          <span class="chip soft">COUNTER</span>
+        </div>
+      </div>
+    </div>
+    <div class="sp-foot"><div class="phase">WORLD vs SCREEN</div><div class="hint">GOLD ×1 ON FRAME PINNED · BILLBOARDS DIE IN CLINCH</div></div>
+  </div>
+</div>
+
+<!-- ===== 03 THE CALL ===== -->
+<div class="doc"><div class="sec"><h2>03 · THE CALL</h2><p>Keep R31’s one morphing corner dock. Reject floating arcade hotbar that tracks the camera. Operator verbs map onto pace/emphasis/plan. Listen roll feedback on the pressed chip: HEARD (GOOD edge) · HALF-HEARD (amber) · WAVED OFF (BAD pulse). Gold ×1 on the command being issued.</p></div></div>
+<div class="board" id="board-call">
+  <div class="sp">
+    <div class="sp-out"><div class="exit"><svg viewBox="0 0 24 24"><path d="M14 6l-6 6 6 6"/></svg></div><div class="lab">WAY OUT</div><div class="gear"></div></div>
+    <div class="sp-head">
+      <div class="stakes"><div class="eye">MAIN EVENT · WELTERWEIGHT · PURSE 42K</div><div class="title">THE CALL</div></div>
+      <div class="clock"><div class="seg soft">R</div><div class="seg">5</div><div class="seg">2:04</div></div>
+      <div class="names"><div class="who">KIAN STERLING</div><div class="vs">VS MARCO VEGA</div></div>
+    </div>
+    <div class="sp-stage">
+      <div class="ring-row" style="flex:1">
+        <div class="condition-rail">
+          <div class="ph">CONDITION</div>
+          <div class="fighter-tag"><span class="dot"></span><span class="nm">STERLING</span><span class="rec">OURS</span></div>
+          <div class="region"><div class="rl"><span>HEAD</span><b>74</b></div><div class="bar good"><i style="width:74%"></i></div></div>
+          <div class="region"><div class="rl"><span>BODY</span><b>58</b></div><div class="bar warn"><i style="width:58%"></i></div></div>
+          <div class="region"><div class="rl"><span>GAS</span><b>62</b></div><div class="bar warn"><i style="width:62%"></i></div></div>
+          <div class="annot" style="margin-top:6px">No floating “Press Forward / Takedown” bar over stage</div>
+        </div>
+        <div class="ring-stage">
+          <div class="iso-lights"></div>
+          <div class="iso-floor"><div class="grid"></div></div>
+          <div class="iso-rope"></div>
+          <div class="sil ours"></div>
+          <div class="sil opp facing-away" style="left:54%;bottom:30%"></div>
+          <div class="cam-label">STAGE STAYS CLEAR · DOCK HOLDS THE CALL</div>
+          <div class="floating-bar" style="opacity:.35;bottom:12%">
+            <span>PRESS FORWARD</span><span>TAKEDOWN</span><span>PROTECT CUT</span>
+          </div>
+          <div class="fx-tag" style="right:12px;bottom:12px;color:#ff8f87;border-color:var(--bad-edge)">REJECT FLOATING HOTBAR</div>
+        </div>
+        <div class="condition-rail opp-rail">
+          <div class="ph">FACING AWAY</div>
+          <div style="font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--muted);margin-top:4px">SILHOUETTE + RAIL HEAT</div>
+          <div style="font-family:var(--display);font-size:20px;letter-spacing:.04em;margin-top:8px">STILL READABLE</div>
+          <div class="annot" style="margin-top:10px">Glance guarantee: rails never leave the frame</div>
+        </div>
+      </div>
+      <div class="listen-row">
+        <div class="listen-card">
+          <div class="lh">HEARD</div>
+          <div class="demo"><span class="chip heard" style="height:34px;font-family:var(--display);font-size:16px;letter-spacing:.08em;padding:0 12px;background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:var(--ink);border-color:var(--gold-edge)">PRESS <span class="ack good">✓ HEARD</span></span></div>
+          <div class="note">Gold already on press · ack uses GOOD semantic · not a second gold spend</div>
+        </div>
+        <div class="listen-card">
+          <div class="lh">HALF-HEARD</div>
+          <div class="demo"><span class="chip half" style="height:34px;font-family:var(--display);font-size:16px;letter-spacing:.08em;padding:0 12px">PRESS <span class="ack amber">HALF</span></span></div>
+          <div class="note">Amber wash on chip · call partially applied</div>
+        </div>
+        <div class="listen-card">
+          <div class="lh">WAVED OFF</div>
+          <div class="demo"><span class="chip waved" style="height:34px;font-family:var(--display);font-size:16px;letter-spacing:.08em;padding:0 12px">PRESS <span class="ack bad">WAVED</span></span></div>
+          <div class="note">BAD pulse · call stays unapplied · dock keeps ownership</div>
+        </div>
+      </div>
+      <div class="corner-dock">
+        <div class="cd-lab">CORNER</div>
+        <div class="pace">
+          <span class="chip gold">PRESS <span class="ack good">✓ HEARD</span></span>
+          <span class="chip soft">BOX</span>
+          <span class="chip soft">CLINCH</span>
+          <span class="chip soft">COUNTER</span>
+        </div>
+      </div>
+    </div>
+    <div class="sp-foot"><div class="phase">KEEP CORNER DOCK · LISTEN ACK</div><div class="hint">GOLD ×1 ON ISSUED COMMAND · LISTEN = GOOD / AMBER / BAD</div></div>
+  </div>
+</div>
+
+<!-- ===== 04 STATES ===== -->
+<div class="doc"><div class="sec"><h2>04 · STATES</h2><p>Contact sheet over the live camera: ground-phase spectacle, hurt fighter, 8s combo window, LAB dress, AI CORNER watch, finish stamp. Gold ×1 on LET THE CHAIN GO in the 8s cell only.</p></div></div>
+<div class="board" id="board-states">
+  <div class="sp">
+    <div class="sp-out"><div class="exit"><svg viewBox="0 0 24 24"><path d="M14 6l-6 6 6 6"/></svg></div><div class="lab">WAY OUT</div><div class="gear"></div></div>
+    <div class="sp-head">
+      <div class="stakes"><div class="eye">CONTACT · LIVE CAMERA STATES</div><div class="title">FIGHT SCENE STATES</div></div>
+      <div class="clock"><div class="seg soft">SHEET</div><div class="seg">6</div><div class="seg soft">CELLS</div></div>
+      <div class="names"><div class="who">KIAN STERLING</div><div class="vs">SAMPLE STATES</div></div>
+    </div>
+    <div class="sp-stage">
+      <div class="states">
+        <div class="scell">
+          <div class="ctag">GROUND / ISO LIVE</div>
+          <div class="body">
+            <div class="mini-stage">
+              <div class="msil" style="left:28%"></div>
+              <div class="msil" style="left:52%;transform:scaleX(-1);opacity:.9"></div>
+            </div>
+            <div class="m">Iso floor · both sils · frame rails off-cell</div>
+          </div>
+        </div>
+        <div class="scell">
+          <div class="ctag">HURT FIGHTER</div>
+          <div class="body">
+            <div class="mini-stage">
+              <div class="msil" style="left:30%;transform:rotate(-12deg);filter:brightness(.8)"></div>
+              <div class="msil" style="left:54%;transform:scaleX(-1)"></div>
+            </div>
+            <div class="hurt-chip">BODY WORKED</div>
+            <div class="m">Stagger FX on sprite · rail carries durable heat</div>
+          </div>
+        </div>
+        <div class="scell">
+          <div class="ctag">8S COMBO WINDOW</div>
+          <div class="body">
+            <div class="mini-dock combo">
+              <span style="color:var(--gold)">CHAIN</span>
+              <span style="color:var(--ink);background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));border-color:var(--gold-edge)">LET THE CHAIN GO</span>
+            </div>
+            <div class="m">Same dock morph · gold ×1 this cell only</div>
+          </div>
+        </div>
+        <div class="scell">
+          <div class="ctag">TEST · LAB</div>
+          <div class="body">
+            <div class="chip amber">LAB</div>
+            <div class="m">No purse / career stakes · corner still works</div>
+            <div class="mini-dock"><span>PRESS</span><span>BOX</span><span>CLINCH</span></div>
+          </div>
+        </div>
+        <div class="scell">
+          <div class="ctag">WATCH · AI CORNER</div>
+          <div class="body">
+            <div class="big" style="font-size:22px">AI CORNER</div>
+            <div class="mini-dock dimmed"><span>PRESS</span><span>BOX</span><span>CLINCH</span></div>
+            <div class="m">Dock dimmed · no player pace calls</div>
+          </div>
+        </div>
+        <div class="scell">
+          <div class="ctag">FINISH STAMP</div>
+          <div class="body">
+            <div class="stamp bad" style="font-size:36px">DOCTOR</div>
+            <div class="chip bad">BAD RED</div>
+            <div class="m">IPPON / TECH ≠ KO · green Continue on result only</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sp-foot"><div class="phase">STATES</div><div class="labchip">LAB</div><div class="hint">GOLD ×1 ON LET THE CHAIN GO · ISO STAGE DRESSES ALL CELLS</div></div>
+  </div>
+</div>
+
+<div class="doc" style="padding-bottom:80px">
+  <div class="sec">
+    <h2>CAPTURE IDS</h2>
+    <p class="note">board-camera · board-world-vs-screen · board-call · board-states — each .board is 1920×1080. See K19_DIGEST.md for pick/rejects, KEEP/REPLACE vs R31, kit gaps, blockers.</p>
+  </div>
+</div>
+
+</body>
+</html>

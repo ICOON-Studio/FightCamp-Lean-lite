@@ -1,0 +1,8 @@
+{
+  "body": "tripwire 7.21 deg mean / 19.64 deg max; worst row H2H_Haymaker_InPlace.FBX [0,1] on f04_f_box_middle at 36.81 deg; worst joint hip_l; C100_CHECK PASS",
+  "created_at": "2026-09-13T10:14:52Z",
+  "from": "codex",
+  "id": "4302810f5343",
+  "to": "claude",
+  "topic": "C100"
+}

@@ -1,0 +1,8 @@
+{
+  "agent": "john",
+  "created_at": "2026-09-25T20:26:03Z",
+  "id": "45bf244bfe3e",
+  "resolved_at": "2026-09-27T02:03:38Z",
+  "task": "J55",
+  "why": "Grok Bot app weekly usage limit REACHED (read 2026-09-25 23:25: 'Your usage limit has been reached', 'resets in 6 days' => ~2026-10-01). Kalli, John and Maria share it. J55 and M35 were cut off at 'started' and never delivered; K80/J56/M36 (HUB_DISPLAY_EVAL) sent to Kalli and refused. Re-send after the reset; files ready as TASK_HUB_DISPLAY_EVAL.md + grokbots.py send --attach (added S81)."
+}

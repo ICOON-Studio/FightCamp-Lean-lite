@@ -1,0 +1,32 @@
+TEXT ANSWER ONLY (no image). FightCamp round 105 - boxing only (no kicks, knees, clinch, MMA). Please give the LONGEST COMPLETE answer you can, all four parts, numbered; if you run out, stop at a part boundary and I will say "continue".
+
+WHERE WE ARE (all of this is live in the game today, Godot 4.7.2, MetaHuman bodies, 3D training floor seen from the broadcast-style camera in the attached still):
+- Your r102 loop is approved by the operator: "the loop, animations, workout, feeling of progression and improvement from training these are what matters for now". Equipment wear, story, decision deck, rooms, boots are OFF.
+- Slice 1 live: GAINS / ATTRITION meters top-left (your r103 review applied), CHANGE THE PLAN pill + one-click recovery swap.
+- Slice 2 started: the coach WALKS to the fighter's station and stands beside him (attached still: Danny Reyes on PADS, the grey-haired coach beside him). Station switches cost 5 game minutes (your r104).
+- Slice 3 live: walk-in goal with a deadline, GoalCard top centre (ON TRACK / AT RISK / OFF TRACK / MET / MISSED). TODAY we wired the end: at the day's end a MET goal pays trust +25 / morale +10, a MISSED goal trust -25 / morale -20 (your r102 C3 values), the floor says one line, the goal is filed and the next goal is picked.
+- Existing systems we can reuse: GameState.book_fight(athlete, offer_id) books a bout from an offer list; the film corner's TV lights with the booked opponent's name; GameplanReadiness makes the gameplan stations glow once an opponent is booked; FilmRoomPanel and a "tell" read exist from older builds; the live 3D fight exists (jab pair still fails the operator's eye - separate task).
+
+PART A - THE COACH'S PAD WORK AS A PAIRED CLIP (highest priority).
+Today the fighter shadow-punches at the pads station and the coach just idles next to him. The operator wants the coach HOLDING the mitts and the fighter HITTING them, in sync. Our sources: (1) Cascadeur on this PC (licence ends 2026-10-27), (2) your web Rig & Animate inside the FightCamp project (12 coach takes we made there were unusable: T-pose arm swings), (3) Mixamo (we have a fighter "pads" punching clip, no mitt-holder), (4) free mocap datasets. Please give:
+ A1. which source you would use and why, step by step, for a 6-10 second loopable two-person pad round;
+ A2. the round's content (which punches the coach calls, in what order, the coach's mitt positions per punch, the contact frame timing, the coach's "catch" recoil and footwork) as a timing table in frames at 30 fps;
+ A3. how to keep the two bodies in sync in the engine (one paired clip with a shared root vs two clips started on the same frame, distance between them in metres, facing);
+ A4. what changes when the fighter is better (faster cadence, crisper snap, fewer misses) so the pads SHOW progress - concrete numbers per stat band.
+
+PART B - SLICE 4 ON THE FLOOR: FIND A FIGHT -> BOOK -> FILM TELL -> FIGHT.
+The approved order: the goal sets the deadline, base training builds him, the opponent list shows from day 1 so he can book early, booking opens the camp (film, one tell). Please design, for the 1920x1080 floor HUD that already holds the boxer card top-left, the meters under it, the goal card top centre and the cue strip:
+ B1. where the FIND A FIGHT entry sits on the floor HUD and how it opens (panel, size, position);
+ B2. the opponent list: how many rows, what each row shows (record, style, one-line read, purse, date, "fits your goal" tag), sort order, how a row books (one click + confirm?);
+ B3. what changes on the floor the moment he is booked (goal card target ticks, film corner lights, gameplan stations glow, a fight countdown - where);
+ B4. FILM STUDY in one click: where he clicks, how long it takes in game minutes, which ONE tell it reveals, how the tell is phrased, and what the tell does to training (which station glows, what gain);
+ B5. the walk from the floor to fight night: which button, what the player sees between "fight day" and the bell, and what he sees after the result (back on the floor, goal settled, next goal).
+Give exact sizes, positions, colours from our dark-panel style (the attached still) and every label text.
+
+PART C - THE GOAL OUTCOME MOMENT.
+Today the day ends and the floor says one line ("Sharpen Up met: fighter trust +25, morale +10."). Is that enough? If not, design the moment: a card or banner, its text, what the player can do from it (accept the next goal, choose between two next goals?), how a MISSED goal with a walk-out warning reads, and how long it stays.
+
+PART D - THE FEELING OF PROGRESSION (the operator's main point).
+Give the 5 cheapest VISIBLE signs on the 3D fighter and the floor that he is improving from training (animation speed / snap per stat band, sounds off - the operator wants no sounds, small floating gain numbers, a weekly before/after, a "personal best" moment...). For each: what exactly changes, the numbers, where it shows, and how we know it reads on the game camera. Rank them by value per hour of work.
+
+If you write GDScript for any pure part (no scene, static functions), keep each file under 300 lines and name it.

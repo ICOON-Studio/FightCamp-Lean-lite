@@ -1,0 +1,221 @@
+﻿# ROUND 54 (S219) — ART REVIEW: GYM HUB (3D VIEWPORT)
+
+---
+
+## 1. VERDICT & BENCHMARK SCORING
+
+### **VERDICT: YES WITH FIXES (Conditional Approval for Demo Slice)**
+
+This is a massive leap forward from the early whitebox prototype: removing the floating placeholder whiteboards, red apron cubes, and ambiguous grey cylinders has immediately restored baseline structural believability. The architectural zoning (maple boxing wood $\rightarrow$ grey transit concrete $\rightarrow$ navy cardio matting $\rightarrow$ black strength rubber) is functional and matches the real-world equipment footprint.
+
+However, **it cannot ship in its current state as a premium PC management title**. It reads right now like an architectural CAD floorplan or a clean indie tech-demo asset arrangement rather than a sweat-stained, working urban fight sanctuary.
+
+### Benchmark Scorecard (Target: 1080p PC Sim):
+* **Score: 5.8 / 10**
+  * **vs. Real Gyms (Gleason's Brooklyn, Wild Card Hollywood, Kronk Detroit): 4.5/10.** Real boxing gyms are characterized by visual density, patina, framed fight posters layered on brick, duct-taped bag seams, spit buckets, corner stools, water jugs, and light hanging through particulate dust. The current space is sanitized, clinical, and empty.
+  * **vs. Two Point Hospital: 6.5/10.** *Two Point* excels at readability, ambient bounce lighting, personality, and expressive floor edge transitions. Your floor boundaries here are sharp, razor-cut textures with zero trim, baseboards, or edge bevels.
+  * **vs. Punch Club 2: 6.5/10.** *Punch Club 2* nails grimy athletic personality, neon accents, and atmospheric grit. This scene's color palette is fighting between warm brick, cold industrial black beams, and flat yellow maple with harsh spot pools.
+
+---
+
+## 2. THE 10 MOST VISIBLE PROBLEMS ON THIS PICTURE (PRIORITIZED)
+
+```
+┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                   GYM HUB SPATIAL PROBLEM MAP (TOP-DOWN VIEW)                                  │
+├─────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ [1. DEV TEXT & BARE BACK WALL] ────> Massive flat brick void with debug text; lacks posters / timer / banners   │
+│ [6. OVERHEAD TRUSS EXTRUSIONS] ───> Three massive black beams slice the camera view diagonally                 │
+│ [2. RING APRON & POSTS] ───────────> Oversized black steps; ring looks like an isolated island on cold concrete │
+│ [3. FLOOR EDGE CONTRASTS] ─────────> Razor-sharp 90° texture cuts between maple, concrete, and rubber          │
+│ [4. DESERTED BAG RUN (LEFT)] ──────> Vast empty floor expanse with solitary idle character                     │
+│ [5. SCALE DISCONNECTS] ────────────> Agility ladder painted huge; speed bag posts look like thin wire sticks   │
+│ [7. LIGHT POOLS / SHADOW GAPS] ────> Unnatural spotlight circles; dead unlit zones along East/West walls       │
+│ [8. PLASTIC MATERIALS] ────────────> Rubber and canvas lack roughness/normal map tooth (look shiny/flat)       │
+│ [9. FLOATING APPARATUS SYNDROME] ──> Power rack, benches, and bags lack ambient occlusion contact shadows      │
+│ [10. STERILE AIR / LACK OF LIFE] ──> Zero gym gear: no water bottles, jump ropes, towel piles, or chalk trays │
+└─────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+### Problem 1: The Massive Naked Back Wall & "DEV JUMP 303" Billboard
+* **Where:** Center back brick wall ($30\text{ m}$ wall span), directly behind the boxing ring.
+* **Why it hurts:** It is the dead center of the player’s visual focal point. The oversized debug string `"DEV JUMP 303"` and the bare, uniform brick texture scream "unfinished development build." Real boxing gyms cover their main walls with large laminated round-timers, historic fight banners, state athletic commission sanctioning placards, and framed yellowed newspaper clippings.
+* **Exact Fix:**
+  * Remove the debug text overlay from the 3D world geometry (move debug strings to a collapsible 2D top-right UI tray).
+  * Center a **Digital Sparring Round Timer** ($1.2\text{ m} \times 0.6\text{ m}$) on the back brick wall above the ring: dark casing `#1A1D24` with glowing red LED 7-segment digits (`#FF3333`) displaying `02:47` and green round indicator `R: 04`.
+  * Flank the timer with 4–6 weathered paper fight posters ($0.9\text{ m} \times 1.2\text{ m}$ each): desaturated vintage paper `#E2DAC2`, faded typography `#2C221E`, slightly peeling corners.
+* **Asset Source:** Free texture planes; posters from Poly Haven paper decals or Kenney UI/Art pack.
+
+---
+
+### Problem 2: The Ring Staging & Giant Industrial Staircase
+* **Where:** Center $6.0\text{ m} \times 6.0\text{ m}$ Boxing Ring apron and front steps.
+* **Why it hurts:** The 4-step steel/black staircase leading onto the ring apron looks like heavy warehouse loading-dock equipment rather than a club ring access stool. Furthermore, the ring sits on a bare grey concrete slab like a raised monument rather than the beating heart of the gym.
+* **Exact Fix:**
+  * Shrink the ring steps: replace the massive four-step warehouse unit with a compact 2-step welded steel gym corner stool ($0.8\text{ m}$ wide $\times 0.6\text{ m}$ high), painted textured hammerite grey `#3A3F47` with non-slip tread `#202328`.
+  * Add two red vinyl corner stools (folded or tucked under the apron corners: $0.4\text{ m}$ diameter, height $0.65\text{ m}$, red vinyl `#A82828`).
+  * Add a steel corner spit bucket ($0.3\text{ m}$ diameter, zinc galvanized steel `#7A8288`) tucked under the blue and red corner ring aprons.
+* **Asset Source:** Kenney Furniture Kit (stools) / Quaternius Generic Props (metal bucket).
+
+---
+
+### Problem 3: Razor-Sharp, Unfinished Floor Texture Boundaries
+* **Where:** Transitions between maple hardwood, grey transit concrete, navy cardio rubber, and black strength flooring.
+* **Why it hurts:** The different materials meet in razor-sharp, zero-pixel transition seams. In real construction (and in polished games like *Two Point Hospital*), transitions between wood, concrete, and rubber utilize transition strips, aluminum thresholds, or rubber beveled edging. Currently, it looks like unblended tiling splats.
+* **Exact Fix:**
+  * Add an aluminum/rubber transition trim mesh ($0.08\text{ m}$ wide, $0.015\text{ m}$ high) along every material boundary.
+  * Color: Anodized dark charcoal rubber `#22252A` or brushed aluminum `#8C929B`.
+  * Apply a subtle dirty corner decal / ambient occlusion pass where rubber floor tiles meet the brick walls (soft contact shadow, darkening multiplier $0.4$).
+* **Asset Source:** Procedural border strip mesh inside Godot or Poly Haven trim texture.
+
+---
+
+### Problem 4: The Deserted Left-Hand "Bag Desert" Expanse
+* **Where:** Left half of the gym floor (West Wing), between the bag rack and the agility ladder.
+* **Why it hurts:** A vast $12\text{ m} \times 10\text{ m}$ desert of flat yellow maple with a single green-shirted character standing lost in space. It looks abandoned and accentuates the lack of systemic scale.
+* **Exact Fix:**
+  * Shift the Agility Ladder closer to the west bag line.
+  * Add **Floor Marking Decals** for footwork drills: white and faded yellow spray-painted ring-craft circles and cross-grids ($2.5\text{ m} \times 2.5\text{ m}$ drill quadrants, paint hex `#F4E8C1` at $65\%$ opacity).
+  * Place a mobile equipment rack: a steel wire ball-bin ($1.0\text{ m} \times 0.8\text{ m} \times 0.9\text{ m}$) holding medicine balls (leather brown `#5C3A21`, textured black `#1E1E1E`) and jump ropes draped over the lip.
+* **Asset Source:** Quaternius Gym/Sports Pack or Kenney Sports Kit.
+
+---
+
+### Problem 5: Agility Ladder & Speed-Bag Scale Disconnects
+* **Where:** Bottom-left foreground (yellow agility ladder) and bottom-left wall/posts (speed-bag units).
+* **Why it hurts:** The yellow agility ladder on the floor has rungs that look nearly $1.2\text{ m}$ wide—wide enough for a person to lie down across them. Meanwhile, the freestanding speed-bag and double-end bag posts look like razor-thin toothpicks that would snap under punch impact.
+* **Exact Fix:**
+  * **Agility Ladder:** Rescale to real athletic dimensions: length $4.5\text{ m}$, rung width exactly $0.45\text{ m}$, rung spacing $0.40\text{ m}$. Material: flat black nylon straps with high-vis yellow plastic rungs (`#D4AF37`).
+  * **Speed-Bag Mounting:** Increase post diameter from the current wire-gauge to a sturdy $75\text{ mm}$ structural steel pipe (`#2B303A`). Add a wooden rebound platform drum: circle diameter $0.60\text{ m}$, thickness $0.05\text{ m}$, dark varnished plywood (`#4A2E1B`).
+* **Asset Source:** Free Kenney or custom primitive shapes in Godot.
+
+---
+
+### Problem 6: Diagonal Black Overhead Truss Beams Slicing Camera Sightlines
+* **Where:** Three massive black structural beams spanning the ceiling from top to bottom.
+* **Why it hurts:** These thick, pitch-black trusses cut across the 3D space, creating aggressive visual bars that bisect the ring, cast distracting diagonal geometric shadows, and clip the top of the gym view.
+* **Exact Fix:**
+  * Raise the ceiling truss assembly by $+1.8\text{ m}$ in $Y$-space so it sits entirely above the camera's near-clipping plane.
+  * Reduce truss chord thickness: change from solid heavy black slabs to open steel webbing/truss framework (angle-iron open lattice, painted off-white or industrial primer grey `#4B535E` instead of pure pitch black `#000000`).
+  * Disable direct shadow casting on these high ceiling beams (`cast_shadow = SHADOW_CASTING_SETTING_OFF`) so they don't slice up the floor lighting.
+
+---
+
+### Problem 7: Harsh Circular Spotlight Pools & Black Wall Gaps
+* **Where:** Floor surface underneath the lights and the unlit perimeter corners of the East/West brick walls.
+* **Why it hurts:** The floor lighting consists of harsh circular cones separated by murky, low-light valleys. In a commercial building, fluorescent industrial light strips create continuous, overlapping linear bars of diffuse light rather than distinct theater spotlights.
+* **Exact Fix:**
+  * Replace the circular point/spotlights with **Linear Strip RectLights** ($3.0\text{ m} \times 0.4\text{ m}$ fixtures).
+  * Light temperature: shift from harsh cold white to warm industrial athletic fluorescent ($4200\text{ K}$, color hex `#F4EFE6`, Energy: $2.4\text{ lux}$).
+  * Add a global indirect ambient light bounce or HDRI fill pass: raise ambient sky light energy to prevent walls and corners from falling below $0.35$ luminosity.
+
+---
+
+### Problem 8: "Plastic" Material Finishes on Rubber Mats and Ring Canvas
+* **Where:** Navy cardio floor, black strength platform, and ring canvas.
+* **Why it hurts:** High specular sheen makes the rubber flooring look like slick polished plastic or water puddles. A gym rubber mat has an ultra-rough, matte, vulcanized texture ($Roughness \ge 0.85$), and ring canvas is heavy woven cotton duck cloth ($Roughness \ge 0.92$).
+* **Exact Fix:**
+  * **Navy Cardio Rubber:** Color `#1B263B`, Roughness $0.88$, Specular $0.15$. Add a micro-stippling normal map (speckled recycled rubber crumb).
+  * **Black Strength Mats:** Color `#16191F`, Roughness $0.90$, Specular $0.10$.
+  * **Ring Canvas:** Base color off-white canvas `#DCD5C6`, Roughness $0.94$, Specular $0.05$. Add subtle, low-opacity foot-scuff decals around the center club logo.
+* **Asset Source:** Poly Haven (Free PBR Textures: Rubber, Fabric/Canvas).
+
+---
+
+### Problem 9: Lack of Contact Ambient Occlusion (Floating Apparatus Syndrome)
+* **Where:** Base of the power rack, cardio benches, weight plates, and heavy bag mount bases.
+* **Why it hurts:** Objects look like they are floating millimeters above the floor plane because there are no tight contact shadows grounding them to the rubber and wood.
+* **Exact Fix:**
+  * Enable **SSAO (Screen Space Ambient Occlusion)** in Godot 4.7.2's `WorldEnvironment`:
+    * `ao_radius: 1.2`
+    * `ao_intensity: 2.0`
+    * `ao_power: 1.5`
+    * `ao_detail_scale: 0.5`
+  * Add baked contact shadow quad decals ($0.15\text{ m}$ radius, alpha $0.6$) under static machinery feet (treadmills, power rack uprights).
+
+---
+
+### Problem 10: Sterile Environment / Zero Athletic Clutter
+* **Where:** Everywhere across the perimeter benches and mat edges.
+* **Why it hurts:** A real gym has gear: water bottles on the floor, rolled hand-wraps, boxing gloves resting on top of bags, a mop and bucket in the corner. Without this, the gym looks like a 3D architectural staging render rather than a living fight camp.
+* **Exact Fix:**
+  * Add a **Hydration & Glove Bench Station** along the East brick wall: a simple pine bench ($2.0\text{ m} \times 0.4\text{ m}$, `#6D4C3D`) holding two plastic water bottles (translucent blue `#4A90E2`, white cap) and a pair of red $16\text{ oz}$ sparring gloves (`#B22222`).
+  * Add a chalk stand near the weight lifting platform: black metal pedestal bowl ($0.4\text{ m}$ diameter, height $0.9\text{ m}$, white chalk dust dusting the rim `#EAEAEA`).
+* **Asset Source:** Quaternius (Gym Pack) / Kenney (Sports/Furniture Kits).
+
+---
+
+## 3. LIGHTING SPECIFICATION (EXACT VALUES)
+
+```
++------------------------------------+--------------------------+--------------------------+
+| LIGHTING PARAMETER                 | CURRENT (PICTURE)        | PROPOSED (FINISHED FIX)  |
++------------------------------------+--------------------------+--------------------------+
+| Ceiling Light Fixture Type         | Hard Point / Spot Cones  | Linear RectLights        |
+| Color Temperature                  | ~5500 K (Cold / Stark)   | 4200 K (Industrial Warm) |
+| Light Color Hex                    | `#FFFFFF`                | `#F5EEDB`                |
+| Floor Spot Intensity               | 4.2 lux (Harsh hot spots)| 2.2 lux (Diffuse, wide)  |
+| Ambient / HDRI Fill Energy         | 0.12 (Murky dark zones)  | 0.42 (Legible bounce)    |
+| Wall Glancing Light (Grazing)      | Non-existent             | Spot/Wall Wash (1.2 lux) |
+| Shadow Softness (Filter Quality)   | Sharp (PCF5)             | Soft Penumbra (PCF13)    |
+| SSAO Status                        | Disabled or Weak         | Enabled (Intensity: 2.0) |
++------------------------------------+--------------------------+--------------------------+
+```
+
+### The Rule for Ceiling Beams and Light Pools:
+* **Ceiling Beams:** Raise them $+1.8\text{ m}$ into the ceiling pocket. Change material from pitch black (`#000000`) to industrial steel truss (`#3E444C`). Turn off direct floor shadow casting on those specific structural beams to prevent geometric dark slicing across the ring.
+* **Light Pools:** Replace individual circular spotlights with dual continuous linear light rows run down the length of the hall. The ring should receive dedicated, balanced 4-corner key lighting ($5000\text{ K}$, crisp high-CRI white `#FAF8F5`) so the canvas acts as the natural stage and primary visual anchor of the facility.
+
+---
+
+## 4. LIFE & AMBIENT ACTIVITY ON THE FLOOR (MAX 5 ITEMS, CHEAPEST FIRST)
+
+When nobody is actively training in the sim, the gym must still feel like a living, breathing space. These 5 lightweight additions will create an immediate sense of activity:
+
+```
+┌─────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                   5 CHEAPEST AMBIENT LIFE ENHANCERS                             │
+├─────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ 1. DIGITAL ROUND-TIMER TICKING ──> Simple 2D sprite LED clock cycling 3:00 / 0:60 on back wall  │
+│ 2. MICRO-PENDULUM BAG SWAY ──────> Idle sine-wave wobble (0.8° angle) on 2 heavy bags           │
+│ 3. ROTATING INDUSTRIAL CEILING FAN> Casts slow, rhythmic shadow passes across the maple floor    │
+│ 4. WATER COOLER / RADIO CASSETTE ─> Boombox on shelf with subtle musical note/soundwave VFX bar │
+│ 5. CORNER AMBIENT CAT / DOG ─────> Idle sleeping animal or stretching club mascot by the office │
+└─────────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+1. **Digital LED Round-Timer Cycling (Code cost: minimal; GPU cost: 0):**
+   * A digital clock on the back wall continuously counting down a standard boxing cycle: $3\text{ minutes}$ green (`ROUND TIME`) $\rightarrow 60\text{ seconds}$ yellow/red (`REST PERIOD`). Audio bell dings quietly in the ambient mix when it flips.
+2. **Subtle Heavy Bag Micro-Sway (Code cost: 4 lines of GDScript; GPU cost: 0):**
+   * Apply an asynchronous sine-wave rotational offset to 2 of the 5 heavy bags (`sin(time * 1.4) * 0.75 degrees`). It implies someone hit the bag 20 seconds ago and walked away to grab water.
+3. **Slow-Moving Ceiling Fan Blade Shadows (Shader/Light cost: very low):**
+   * An industrial high-volume, low-speed (HVLS) 4-blade gym ceiling fan spinning slowly ($20\text{ RPM}$) above the main floor, casting a gentle, rhythmic shadow across the maple wood.
+4. **Boombox / FM Radio on the Wall Shelf:**
+   * A vintage, paint-spattered portable cassette stereo sitting on the equipment locker bench. Displays an animated 3-bar green equalizer decal flickering softly on its front panel, visually communicating the presence of gym background music.
+5. **A Gym Mascot / Stray Cat Resting by the Office Steps:**
+   * A resting gym cat or sleeping terrier curled up on an old gym towel near the ring corner or office doorway, playing a simple 2-frame breathing animation loop. A classic staple of legendary real-world urban boxing gyms.
+
+---
+
+## 5. PASS/FAIL ART ACCEPTANCE CHECKLIST (FOR NEXT BUILD)
+
+Run this automated and visual inspection checklist against the next 1080p render pass:
+
+```
++----+-----------------------------+---------------------------------------------------------------------------------+
+| #  | INSPECTION CRITERIA         | PASS / FAIL VALIDATION RULE                                                     |
++----+-----------------------------+---------------------------------------------------------------------------------+
+| 1  | `no_dev_text_in_world`      | Zero debug strings ("DEV JUMP", coordinates) rendered on 3D geometry/walls.    |
+| 2  | `back_wall_visual_density`  | Back brick wall contains digital round timer + minimum 3 framed fight posters.  |
+| 3  | `floor_boundary_trim`       | All transitions (wood-to-rubber, wood-to-concrete) feature physical trim strips.|
+| 4  | `ring_stair_scale`          | Ring steps width ≤ 0.85m; height matches apron exactly. Giant steps removed.   |
+| 5  | `agility_ladder_dimensions` | Agility ladder rung width verified at 0.45m; rung spacing verified at 0.40m.   |
+| 6  | `overhead_beam_clipping`    | Ceiling trusses raised; zero black structural beams slicing camera sightlines.  |
+| 7  | `specular_roughness_audit`  | Rubber floor roughness ≥ 0.85; ring canvas roughness ≥ 0.90. No plastic gloss.  |
+| 8  | `ssao_contact_shadows`      | Visible ambient occlusion shadows present under rack feet, bag bases, benches. |
+| 9  | `diffuse_lighting_coverage` | No floor zone drops below 0.35 lux; harsh spotlight circles replaced with strips|
+| 10 | `athletic_props_present`    | Minimum 3 realistic athletic props visible (water bottles, gloves, chalk bowl). |
++----+-----------------------------+---------------------------------------------------------------------------------+
+```

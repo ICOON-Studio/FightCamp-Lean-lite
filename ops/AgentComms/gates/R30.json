@@ -1,0 +1,17 @@
+{
+  "checked_at": "2026-09-08T11:25:55Z",
+  "files": [
+    "Godot/scripts/RankingsHubPanel.gd",
+    "Godot/tests/rankings_hub_panel_test.gd",
+    "Godot/scripts/UIKit.gd",
+    "Godot/scripts/SceneRouter.gd",
+    "Godot/scripts/CareerRoot.gd",
+    "Godot/scripts/ManagementChrome.gd",
+    "Godot/tests/scene_router_test.gd",
+    "Godot/tools/CaptureArenaStylePreviews.gd",
+    "Godot/tools/text_overflow_audit.gd"
+  ],
+  "output": "CHECK total=9 fails=0 autoload_refs=1 time=2s\n",
+  "passed": true,
+  "task": "R30"
+}

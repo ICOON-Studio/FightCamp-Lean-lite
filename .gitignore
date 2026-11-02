@@ -3,3 +3,24 @@
 /Builds/
 *.tmp
 .DS_Store
+
+# ops/ = the workflow, moved in from the old repo in S366. Runtime files stay local.
+ops/previews/
+ops/AgentComms/nightly/
+ops/AgentComms/.session
+ops/AgentComms/.shipped
+ops/AgentComms/.stop_ok
+ops/AgentComms/.idle_guard_blocks
+ops/AgentComms/roadmap.json.*bak
+ops/**/*.log
+ops/**/__pycache__/
+ops/Tools/opsboard/dist/
+ops/Tools/opsboard/build/
+# machine state the watchdog / 30-min reconcile rewrite (never commit: it dirtied every checkout and conflicts across branches)
+ops/AgentComms/pc_health.txt
+ops/AgentComms/board_reconcile.json
+ops/AgentComms/collect_ready.json
+ops/AgentComms/last_suite.json
+ops/AgentComms/retire_state.json
+ops/AgentComms/lite_relay.json
+ops/AgentComms/lite_relay_lean.json

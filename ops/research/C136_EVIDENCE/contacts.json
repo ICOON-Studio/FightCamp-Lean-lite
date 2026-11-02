@@ -1,0 +1,102 @@
+[
+  {
+    "clip": "H2H_ArmBar",
+    "attacker": "f05",
+    "victim": "f06",
+    "frames": 135,
+    "window_s": [
+      1.4,
+      2.4
+    ],
+    "local_residual": {
+      "rms_m": 0.059309845413366945,
+      "peak_m": 0.15261253653804516,
+      "distance_min_m": 0.06367766719128609,
+      "distance_max_m": 0.20335190277499082
+    },
+    "best_constant_world_offset_residual": {
+      "rms_m": 0.060166127901372,
+      "peak_m": 0.1243498069684711,
+      "distance_min_m": 0.06367766545592717,
+      "distance_max_m": 0.2033518558314542
+    },
+    "intersecting_frames": 94,
+    "interpenetration_frame_share": 0.6962962962962963,
+    "method": "actual skinned mesh crossing triangles at 30Hz; excludes containment without surface crossings; fixed first-hip origins; no contact placement optimization; joint grip proxy"
+  },
+  {
+    "clip": "H2H_ArmBar",
+    "attacker": "f06",
+    "victim": "f05",
+    "frames": 135,
+    "window_s": [
+      1.4,
+      2.4
+    ],
+    "local_residual": {
+      "rms_m": 0.059128400929039954,
+      "peak_m": 0.15821983402222908,
+      "distance_min_m": 0.11077833444845912,
+      "distance_max_m": 0.21779092902342845
+    },
+    "best_constant_world_offset_residual": {
+      "rms_m": 0.0671054982576231,
+      "peak_m": 0.1535965327442664,
+      "distance_min_m": 0.11077832466208945,
+      "distance_max_m": 0.21779096797714365
+    },
+    "intersecting_frames": 93,
+    "interpenetration_frame_share": 0.6888888888888889,
+    "method": "actual skinned mesh crossing triangles at 30Hz; excludes containment without surface crossings; fixed first-hip origins; no contact placement optimization; joint grip proxy"
+  },
+  {
+    "clip": "H2H_Strangle",
+    "attacker": "f05",
+    "victim": "f06",
+    "frames": 181,
+    "window_s": [
+      1,
+      5
+    ],
+    "local_residual": {
+      "rms_m": 0.0524664881416395,
+      "peak_m": 0.12074419212367882,
+      "distance_min_m": 0.3009182627292144,
+      "distance_max_m": 0.3489432837650111
+    },
+    "best_constant_world_offset_residual": {
+      "rms_m": 0.029556188188222424,
+      "peak_m": 0.05373135153032859,
+      "distance_min_m": 0.30091823017194336,
+      "distance_max_m": 0.3489432698154211
+    },
+    "intersecting_frames": 181,
+    "interpenetration_frame_share": 1.0,
+    "method": "actual skinned mesh crossing triangles at 30Hz; excludes containment without surface crossings; fixed first-hip origins; no contact placement optimization; joint grip proxy"
+  },
+  {
+    "clip": "H2H_Strangle",
+    "attacker": "f06",
+    "victim": "f05",
+    "frames": 181,
+    "window_s": [
+      1,
+      5
+    ],
+    "local_residual": {
+      "rms_m": 0.06233493372564517,
+      "peak_m": 0.13496760925137305,
+      "distance_min_m": 0.3317207389514798,
+      "distance_max_m": 0.37518426152751366
+    },
+    "best_constant_world_offset_residual": {
+      "rms_m": 0.03806185527036448,
+      "peak_m": 0.07103099070997274,
+      "distance_min_m": 0.33172071727350516,
+      "distance_max_m": 0.37518425834705765
+    },
+    "intersecting_frames": 181,
+    "interpenetration_frame_share": 1.0,
+    "method": "actual skinned mesh crossing triangles at 30Hz; excludes containment without surface crossings; fixed first-hip origins; no contact placement optimization; joint grip proxy"
+  }
+]

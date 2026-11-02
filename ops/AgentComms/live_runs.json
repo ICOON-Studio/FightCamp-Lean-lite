@@ -1,0 +1,11 @@
+{
+ "_doc": "Claude writes one entry per agent run at launch (operator S144: 'make it more clear, who is working on what, ETA'). The ops board /agents page joins it to the live processes. eta = Claude's estimate at launch, local time; status running|waiting|done.",
+ "seats": 3,
+ "runs": {},
+ "codex_budget": {
+  "used_percent": 65,
+  "resets": "2026-10-07T04:42",
+  "read_at": "2026-10-02T18:10",
+  "rule": "max 2 Codex seats, luna/medium, stop new launches at 85%"
+ }
+}

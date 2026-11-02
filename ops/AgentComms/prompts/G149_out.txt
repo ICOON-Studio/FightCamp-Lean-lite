@@ -1,0 +1,11 @@
+﻿=== grok_task 2026-09-30T13:42:33 rc=0 ws=D:\FightCamp\wt\G148
+The task is one-click week presets on the training screen, written through the existing week-program path. I'll read the prior research and the panel's current write path before changing anything.The week already saves through `set_week_program_day`, and the foci the gym actually offers are ring, bags, strength, cardio, recovery, and rest. I'll add the preset row on that path.One click on the training screen now fills the selected fighter's week.
+
+The week view has a preset row under the filters: **Balanced**, **Power**, **Conditioning**, **Technique**, and **Recovery**. Each button sets all seven days through the existing `set_week_program_day` write, using the same station the day drawer would pick. Every preset uses only ring, bags, strength, cardio, recovery, and rest, and each one includes at least one rest day. A focus that day does not offer is skipped and named. Move Lab and a discipline program still refuse the whole week, and the days stay as they were.
+
+`week_presets_test.gd` passed 21 checks. The training-hub, week-program, discipline-program, and week-presets subset was 5 tests and 0 failures. The career walk finished with 0 failures. `previews/g149/21_program.png` shows the preset row on one line, clear of the filters, the day chips, and the session drawer.
+
+Pushed as `fdbfc81a` on `grok/g149-week-presets`.
+
+--- stderr ---
+

@@ -1,0 +1,15 @@
+TASK J_TPH_LOOK (John, deep research) - FightCamp S206
+FightCamp is a PC boxing-gym management sim (Godot 4.7.2, tiny studio, Football Manager / Motorsport Manager depth) whose gym is a
+3D top-down club the player watches. The CEO, looking at our current gym floor, asked (verbatim): "how are these assets made in
+the game ? why we cannot have beautiful graphics and assets like 2point hospital ?"
+Research and answer in depth (the longest complete answer you can, with sources/links):
+1. How Two Point Hospital / Two Point Campus / Two Point Museum get their look: team size, art pipeline (modelling, texturing,
+   hand-painted vs PBR, shaders, lighting, outlines, colour scripts), the style rules that make rooms readable from the camera.
+2. Which other management sims hit a similar charm on small teams (e.g. Prison Architect, Jail/Gym Tycoon-style games, Rimworld-
+   era sims, Parkitect, Planet Coaster vs smaller titles) and how they did it.
+3. What a 1-2 person Godot team can realistically use to reach that look in weeks, not years: asset packs with their LICENCE and
+   price (Synty POLYGON, Kenney, Quaternius, KayKit, Itch packs) that include gym / fitness / boxing equipment (heavy bags, rings,
+   racks, treadmills, mats), stylised character packs that could replace realistic MPFB bodies in the gym view, Godot shader
+   approaches (toon / stylised PBR / outlines), and AI 3D generation (Meshy, Tripo, Hunyuan3D) quality for props.
+4. A concrete recommendation: the 5 changes with the biggest visual gain per hour for a top-down 3D gym, in order.
+Plain words, numbers where they exist, every claim with its source. No code needed.

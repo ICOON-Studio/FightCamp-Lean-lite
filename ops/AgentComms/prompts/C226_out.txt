@@ -1,0 +1,5 @@
+Committed and pushed as **`28f7733e`** on `codex/c226-st1-stamina`. The worktree is clean and tracking `origin/codex/c226-st1-stamina`.
+
+The corrected 20-bout census used the same seeds and legal, distinct matchups for both arms. OFF matched the pre-change baseline. ON raised hold time, but the anchors remain unmet: pooled output was **39.56 thrown per man** versus G99’s 45–56 band, and hold time was **46.65–50.59%** versus D65’s 75–85% low-intensity range. Finish rate was 5/20 ON versus 4/20 OFF.
+
+The parse gate passed (`4/4`), and the requested two-job suite passed (`SUITE total=7 fails=0`). The 15-line digest records the results and shortfalls in [C226_DIGEST.md](/D:/FightCamp/wt/C226/research/C226_DIGEST.md).

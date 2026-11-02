@@ -1,0 +1,250 @@
+FIGHTCAMP — ART DIRECTION & RENDERING PIPELINE SPECIFICATION
+
+Engine Target: Godot 4.7.2 Forward+ Renderer (Vulkan Desktop)
+
+Resolution / Refresh: 1920×1080 Native @ 60.0 FPS locked
+
+Scene Target: Tier 1 Gym Hall (30.0m × 18.0m × 6.2m internal volume)
+
+Style Pillar: Factory-Fresh Photoreal / Realistic-Clean High-Performance Training Facility (Zero grime, zero rust, zero procedural stains; pure material integrity, sharp specular separation, readable functional zones).
+
+SECTION A: SURFACE-BY-SURFACE PBR MATERIAL MATRIX
+
+All textures are 1K resolution (Ring Canvas 2K), CC0 licensed from Poly Haven or ambientCG, calibrated for Godot's StandardMaterial3D or ORMMaterial3D (Occlusion, Roughness, Metallic packed into RGB channels).
+
++-----------------------------------------------------------------------------------------------------------------------+
+| SURFACE COMPONENT     | PBR SOURCE SEARCH      | BASE TINT HEX  | ROUGH | MET  | NORM | UV SCALE | SEAM / DETAIL SPEC |
++-----------------------------------------------------------------------------------------------------------------------+
+| 01. Main Hall Floor   | wood_cabinet_worn_long | #C48E56        | 0.38  | 0.00 | 0.85 | 1.0m/tile| Maple plank 75mm   |
+| 02. Ring Canvas (2K)  | fabric_pattern_07      | #E5E7EB        | 0.88  | 0.00 | 1.20 | 5.5m/full| Stitched seams     |
+| 03. Ring Apron/Skirt  | tarp_pvc_clean         | #111827        | 0.42  | 0.05 | 0.60 | 2.0m/tile| Brass eyelets      |
+| 04. Corner Posts (4)  | metal_painted_glossy   | #1F2937/#DC2626| 0.22  | 0.85 | 0.40 | Triplanar| 100mm steel tube   |
+| 05. Ring Ropes (4×4)  | leather_vinyl_smooth   | #DC2626/#FFFFFF| 0.30  | 0.00 | 0.70 | 0.25m/rot| 28mm vinyl cover   |
+| 06. Turnbuckles (12)  | vinyl_padded_heavy     | Post-match     | 0.35  | 0.00 | 0.50 | 0.5m/pad | Cylindrical wrap   |
+| 07. Ring Steps (2)    | diamond_plate_clean    | #4B5563        | 0.32  | 0.90 | 1.30 | 0.5m/tile| Anti-slip tread    |
+| 08. Cardio Zone Mat   | rubber_gym_mat         | #1E3A8A (Blue) | 0.72  | 0.00 | 0.90 | 1.0m/tile| Beveled interlock  |
+| 09. Strength Zone     | rubber_high_density    | #18181B (Charc)| 0.82  | 0.00 | 0.95 | 1.0m/tile| 20mm drop-tile line|
+| 10. Stretch Zone Mat  | eva_foam_mat_clean     | #0284C7 (Cyan) | 0.65  | 0.00 | 0.40 | 2.0m/tile| Edge bevel line     |
+| 11. Footwork Agility  | sports_court_poly      | #D97706 (Amber)| 0.45  | 0.00 | 0.50 | 1.0m/tile| Painted white grid  |
+| 12. Timing-Bag Floor  | rubber_interlock_fine  | #374151 (Grey) | 0.75  | 0.00 | 0.80 | 1.0m/tile| Fine-grain crumb    |
+| 13. Boxing Floor Area | wood_plank_sport_poly  | #B45309        | 0.32  | 0.00 | 0.60 | 1.0m/tile| White boundary line |
+| 14. Brick Back Wall   | red_brick_02 / clean   | #8B4513        | 0.78  | 0.00 | 1.40 | 1.2m/tile| White mortar line   |
+| 15. Side Plaster Walls| plaster_grey_painted   | #E2E8F0        | 0.85  | 0.00 | 0.35 | 2.5m/tile| High-spec eggshell  |
+| 16. Ceiling Trusses   | steel_i_beam_industrial| #334155        | 0.40  | 0.80 | 0.70 | Triplanar| Gusset plates/bolts |
+| 17. Window/Door Trim  | aluminum_anodized      | #0F172A        | 0.25  | 0.92 | 0.20 | Triplanar| Satin anodized seal |
+| 18. Heavy Bag Racks   | tubular_steel_powder   | #1E293B        | 0.30  | 0.75 | 0.40 | Triplanar| Welded box section  |
+| 19. Club Name Sign     | acrylic_frosted_glow   | #F8FAFC / Emiss| 0.15  | 0.10 | 0.10 | 1-to-1   | CNC laser cut edge  |
+| 20. Digital Wall Clock | polycarbonate_black    | #090D14 / LED  | 0.18  | 0.20 | 0.05 | 1-to-1   | 7-segment green LED |
++-----------------------------------------------------------------------------------------------------------------------+
+
+Detailed Specification of Critical Surfaces
+1. Main Hall Floor (wood_cabinet_worn_long or parquet_clean_wood)
+Visual Goal: High-density, professional tongue-and-groove maple sports court with a fresh commercial polyurethane gloss coating.
+Base Color: #C48E56 tint over base albedo.
+Roughness: Uniform 0.38. Clear-coat specular response highlights the long light streaks from the high windows and ring lighting without showing muddy diffuse scattering.
+Normal Map: Strength 0.85. Individual 75mm plank seams are razor sharp; zero wood rot, zero gouges.
+UV Layout: Vector2(1.0, 1.0) meters per tile repeat. UV aligned parallel to the 30.0m front cutaway wall to maximize longitudinal perspective depth.
+2. 18-Foot Boxing Ring Canvas (fabric_pattern_07 / canvas_tight_weave)
+Visual Goal: High-tension 24-ounce cotton duck combat canvas, clean factory finish.
+Resolution: 2048×2048 (single dedicated 2K texture for crisp close-ups and ring camera orbit).
+Base Color: #E5E7EB (Subtle warm combat grey-white). Center ring printed insignia with real-time screen-space decal blending.
+Roughness: 0.88 diffuse cloth scattering.
+Normal Map: Strength 1.20. Clear tight orthogonal textile weave with double-needle flat-felled seam lines running parallel at 1.8m intervals.
+Decal Sub-layer: Center club roundel emblem (1024×1024 PNG) applied via Decal node (albedo_mix = 0.95, normal blend 0.4).
+3. Ring Skirt & Apron (tarp_pvc_clean)
+Base Color: #111827 (Matte Obsidian).
+Roughness: 0.42 (Glossy synthetic vinyl tarp).
+Normal Map: Vertical drape tension creases every 0.6m; reinforced perimeter hem with brass eyelet ring grommets at 0.45m spacing.
+4. Corner Posts, Turnbuckles & Ropes
+Posts (4): Heavy-duty 100mm diameter schedule-40 steel tubing. Red corner post #DC2626, Blue corner post #2563EB, Two neutral posts #1F2937. Metallic 0.85, Roughness 0.22.
+Ropes (4 tiers): 28mm steel aircraft cable sheathed in high-gloss hygienic vinyl covers. Top rope #DC2626, Middle ropes #FFFFFF, Bottom rope #2563EB. Normal map reproduces longitudinal extrusion seam.
+Turnbuckle Pads (12): High-density impact foam sheathed in heavy vinyl wrap. Padded wedge design, corner matched colors, high-contrast strap tie-downs.
+5. Station Mats (The 1-Second Visual Read Zones)
+
+To satisfy the 1-second zone identification rule from the high camera angle, each zone features distinct, high-contrast floor boundary mats:
+
+Cardio Zone Mat: Hex #1E3A8A (Deep Royal Blue). Rubber gym matting. 1.0m interlock tile pattern with a 25mm safety bevel edge in #F59E0B (Safety Amber).
+Strength Zone (Rack & Platform): Hex #18181B (Charcoal Black) 20mm vulcanized rubber deadlift drop tiles with an inset Olympic lifting wood core (#D97706).
+Stretch Zone: Hex #0284C7 (Cyan Blue) EVA foam closed-cell mats. Smooth micro-stippling normal map.
+Footwork Zone: Hex #D97706 (Amber Ochre) polyurethane court mat with screen-printed white agility ladder grids (500mm × 400mm rungs).
+Heavy Bag Track Floor: Continuous 2.0m-wide #374151 dark grey textured rubber runner along the left wall under the heavy bags.
+6. Back Brick Wall & Branding Elements
+Brick Masonry: Running bond structural red brick (#8B4513), clean grey-white lime mortar seams (#CBD5E1). Zero efflorescence, zero cracking.
+Club Sign ("ANVIL STREET GYM"): CNC cutout acrylic letterforms pinned 40mm off the brick surface on steel standoffs. Face color #F8FAFC, edge depth 15mm #334155. Integrated backwards cast shadow and localized emissive edge backlight.
+Commercial Wall Clock: 600mm industrial circular chronometer. Black spun-aluminum housing (#090D14), matte white face (#F8FAFC), green high-luminescence digital split seconds display (#22C55E, Emission Energy 2.5).
+SECTION B: LIGHT RIGGING & TIME-OF-DAY CYCLE (2-MINUTE LOOP)
+
+The lighting rig balances functional readability from the high three-quarter management camera with dramatic high-contrast boxing ambiance.
+
+                    [CEILING TRUSS LEVEL: Y = 5.8m]
+      +-------------------------------------------------------+
+      |  [SPOT: RING 1-4]    [SPOT: BAG LINE]   [SPOT: CARDIO]|
+      |     (Warm White)       (Neutral Cold)     (Neutral)   |
+      +-------------------------------------------------------+
+        \        |        /          |                |
+         \       |       /           |                |
+   [WINDOW LIGHT: EAST]             |                |
+   (Directional Light3D)            v                v
+       ======>               [HEAVY BAGS]       [CARDIO ZONE]
+                             (Y = 1.8m)         (Y = 0.0m)
+                                     
+                        v
+                 +--------------+
+                 | 18 FT RING   |
+                 | (Y = 1.0m)   |
+                 +--------------+
+
+1. Light Hierarchy & Rig Nodes
++-----------------------------------------------------------------------------------------------------------------------+
+| LIGHT NODE ID         | TYPE          | WORLD POSITION (X, Y, Z)      | COLOR TEMP | ENERGY  | SHADOW | CONE / RANGE  |
++-----------------------------------------------------------------------------------------------------------------------+
+| `SunDirectional`      | Directional   | `Vector3(12.0, 18.0, 8.0)`    | Dynamic    | Dynamic | ON (4K)| Ortho Split   |
+| `RingSpot_FL`         | SpotLight3D   | `Vector3(13.2, 5.6, 7.2)`     | 4800 K     | 3.8     | ON     | 42° / Att 1.0 |
+| `RingSpot_FR`         | SpotLight3D   | `Vector3(16.8, 5.6, 7.2)`     | 4800 K     | 3.8     | ON     | 42° / Att 1.0 |
+| `RingSpot_BL`         | SpotLight3D   | `Vector3(13.2, 5.6, 10.8)`    | 4800 K     | 3.8     | ON     | 42° / Att 1.0 |
+| `RingSpot_BR`         | SpotLight3D   | `Vector3(16.8, 5.6, 10.8)`    | 4800 K     | 3.8     | ON     | 42° / Att 1.0 |
+| `BagLine_Strip_01-05` | SpotLight3D   | Line: `X=3.2, Y=5.2, Z=2..16` | 4200 K     | 2.2     | ON     | 55° Elliptical|
+| `Cardio_HighBay_01-02`| OmniLight3D   | `Vector3(22.0, 5.4, 4.5)`     | 4500 K     | 1.8     | ON     | Radius 6.5m   |
+| `Strength_HighBay`    | OmniLight3D   | `Vector3(22.0, 5.4, 12.5)`    | 4500 K     | 1.8     | ON     | Radius 6.5m   |
+| `SignBacklight`       | OmniLight3D   | `Vector3(15.0, 4.2, 17.7)`    | 5500 K     | 1.4     | OFF    | Radius 2.2m   |
+| `AmbientFillSky`      | WorldEnv / GI | Sky Radiance Return           | 6500 K     | 0.45    | OFF    | Global Probe  |
++-----------------------------------------------------------------------------------------------------------------------+
+
+2. Time-of-Day Keyframes (2-Minute In-Game Realtime Cycle)
+
+The simulation runs a 120-second day loop representing Morning (08:00) to Evening (20:00). Lighting parameters interpolate via Godot Tween or AnimationPlayer:
+
++-----------------------------------------------------------------------------------------------------------------------+
+| PARAMETER             | MORNING (T = 0s / 08:00)    | MIDDAY (T = 60s / 13:00)    | EVENING (T = 110s / 19:30)        |
++-----------------------------------------------------------------------------------------------------------------------+
+| Sun Angle (Pitch/Yaw) | Pitch: 22°, Yaw: 65° (East) | Pitch: 68°, Yaw: 175° (High)| Pitch: 9°, Yaw: 285° (Golden Low) |
+| Sun Color Temp        | 3400 K (Soft Warm Gold)     | 5800 K (Clean White daylight| 2400 K (Deep Amber / Tungsten)    |
+| Sun Energy            | 2.6                         | 4.2                         | 3.4 (Horizontal Raking Rims)      |
+| Sky Ambient Color     | `#93C5FD` (Sky Pale Blue)   | `#E0F2FE` (Pure Clear Azure)| `#475569` (Dusk Indigo)           |
+| High-Bay Industrial   | Energy: 1.0 (50% Dimmed)    | Energy: 0.6 (Power Save)    | Energy: 2.2 (Full Night Illum)    |
+| Ring Spotlights       | Energy: 2.5                 | Energy: 2.0                 | Energy: 4.8 (High-Contrast Arena) |
+| Volumetric Fog Density| 0.012 (Soft early mist)     | 0.004 (Crystal crisp)       | 0.022 (Gym heat / dense shafts)   |
+| Sky Exposure Value    | +0.2 EV                     | 0.0 EV                      | -0.4 EV (Interior glow pops)      |
++-----------------------------------------------------------------------------------------------------------------------+
+
+SECTION C: POST-PROCESSING & GODOT 4.7 RENDER PIPELINE
+
+To achieve the 2026 AAA management look (crisp sports-broadcast quality with photographic depth), configure the WorldEnvironment node with the following exact parameters:
+
+# FightCamp Gym Floor Camera WorldEnvironment Settings
+# Target: 60 FPS on GTX 1660 / RTX 3050 Class Hardware
+
+[environment]
+tonemap_mode = 3 # ACES Filmic Tonemapping
+tonemap_exposure = 1.05
+tonemap_white = 1.0
+
+# 1. Screen-Space Ambient Occlusion (SSAO)
+ssao_enabled = true
+ssao_radius = 1.8
+ssao_intensity = 2.4
+ssao_power = 1.5
+ssao_detail = 0.6
+ssao_horizon = 0.06
+ssao_sharpness = 0.98
+
+# 2. Screen-Space Indirect Lighting (SSIL)
+ssil_enabled = true
+ssil_radius = 3.5
+ssil_intensity = 1.2
+ssil_sharpness = 0.9
+
+# 3. Screen-Space Reflections (SSR)
+ssr_enabled = true
+ssr_max_steps = 48
+ssr_fade_in = 0.15
+ssr_fade_out = 0.8
+ssr_depth_tolerance = 0.2
+
+# 4. Glow / Bloom (Photoreal Thresholding - No 80s Neon Hazing)
+glow_enabled = true
+glow_normalized = true
+glow_intensity = 0.45
+glow_strength = 0.85
+glow_bloom = 0.0
+glow_blend_mode = 0 # Additive
+glow_hdr_threshold = 1.15 # Only unclipped specular and emissive fixtures pop
+glow_hdr_scale = 1.8
+
+# 5. Volumetric Fog (Atmospheric God-Rays from High Clerestory Windows)
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.008
+volumetric_fog_albedo = Color(0.95, 0.92, 0.88, 1.0)
+volumetric_fog_emission = Color(0.0, 0.0, 0.0, 1.0)
+volumetric_fog_emission_energy = 0.0
+volumetric_fog_anisotropy = 0.65 # Forward Mie-scattering concentrates shafts toward camera
+volumetric_fog_length = 28.0
+volumetric_fog_ambient_inject = 0.15
+
+# 6. Global Illumination (Baking Strategy)
+# Production Recommendation: Baked LightmapGI with high-density LightmapProbes (1.5m grid)
+# Realtime Override (RTX/High): SDFGI Enabled (Cascades: 4, Cell Size: 0.25m, Y-Scale: 75%)
+
+SECTION D: 2D COSMETICS, POSTERS & SPONSOR WALL ASSETS
+
+To eliminate the sterile "empty box" look, flat 2D assets are placed as textured quad meshes and decals across the perimeter walls at exact eye-level heights:
+
++-----------------------------------------------------------------------------------------------------------------------+
+| ASSET ID            | DIMENSIONS    | WORLD LOCATION / MOUNT        | GRAPHIC CONTENT / TYPOGRAPHY                    |
++-----------------------------------------------------------------------------------------------------------------------+
+| `Poster_Bout_01`    | 0.8m × 1.2m   | Back Wall Left (Y = 2.4m)     | Vintage Boxing Fight Bill: "WORLD SERIES 1998"  |
+| `Poster_Bout_02`    | 0.8m × 1.2m   | Back Wall Centre-Left         | Modern Championship Bout: Contender vs Champion |
+| `Poster_Safety_01`  | 0.6m × 0.9m   | Strength Zone Wall            | Weight Training Safety: "RACK YOUR WEIGHTS"     |
+| `Poster_Anatomy_01` | 0.9m × 1.3m   | Stretch Zone Wall             | Human Musculoskeletal Chart: Primary Movers     |
+| `ChampionshipBanners| 1.2m × 3.5m   | Suspended from Steel Trusses  | Vertical Heavy Felt Banners: "REGIONAL GOLD"    |
+| `FloorDecal_Trophy` | 2.0m × 2.0m   | Main Entryway Floor Mat       | Gym Crest Monogram Decal (High-Friction Rubber) |
+| `EmergencyBoard`    | 1.0m × 0.8m   | Beside Front Office Door      | First Aid Station, Defibrillator (AED) Cabinet  |
++-----------------------------------------------------------------------------------------------------------------------+
+
+2D Poster Graphic Assembly Pipeline
+Material Definition: Unshaded or subtle diffuse-lit StandardMaterial3D.
+Roughness Map: Subtle paper-curl specular (0.65 paper core, 0.15 glossy acrylic protective frame cover).
+Framing Mesh: Thin extruded 20mm anodized black aluminum frame with corner brackets.
+Lighting Response: Low-angle raking light catches subtle paper wrinkle normal maps without turning the poster into an unreadable mirror.
+SECTION E: GODOT 4.7 SCENE TREE IMPLEMENTATION
+GymFloor_Tier1 (Node3D)
+├── Environment
+│   ├── WorldEnvironment (ACES, SSAO, SSIL, SSR, Glow, Volumetric Fog)
+│   ├── DirectionalLight3D_Sun (Dynamic Day/Night Controller)
+│   └── LightmapGI / LightmapProbes (Bake density: 1.5m spacing)
+├── Architecture
+│   ├── Floor_MainWood (MeshInstance3D, StaticBody3D)
+│   ├── Walls_Brick_Back (MeshInstance3D)
+│   ├── Walls_Plaster_Side (MeshInstance3D)
+│   ├── Roof_TrussSystem (MultiMeshInstance3D - I-Beams & Bracing)
+│   └── ClerestoryWindows (MeshInstance3D - Glass Alpha & Frame)
+├── Stations
+│   ├── Ring_18ft (Node3D)
+│   │   ├── Canvas_Platform (MeshInstance3D, 2K Canvas Material)
+│   │   ├── Posts_Turnbuckles (MeshInstance3D)
+│   │   ├── Ropes_Vinyl (MeshInstance3D)
+│   │   ├── RingSpots (Node3D - 4x SpotLight3D Focused Array)
+│   │   └── Decal_ClubEmblem (Decal)
+│   ├── Zone_HeavyBags (Node3D)
+│   │   ├── FloorRunner_Rubber (MeshInstance3D)
+│   │   ├── WallRacks_Steel (MultiMeshInstance3D)
+│   │   ├── HangingBags (Node3D - Procedural Sway Physics Bones)
+│   │   └── OverheadSpotTrack (Node3D - 5x Downlights)
+│   ├── Zone_Cardio (Node3D)
+│   │   ├── Mat_InterlockBlue (MeshInstance3D)
+│   │   └── EquipmentProps (Treadmills, Ergometers, Rowers)
+│   ├── Zone_Strength (Node3D)
+│   │   ├── Platform_WoodRubber (MeshInstance3D)
+│   │   └── PowerRacks_Benches (MeshInstance3D)
+│   ├── Zone_Stretch (Node3D)
+│   └── Zone_Footwork (Node3D)
+├── Cosmetics_Posters
+│   ├── BackWallPosters (MultiMeshInstance3D)
+│   ├── Sign_AnvilStreetGym (MeshInstance3D, Acrylic Backlight)
+│   └── WallClock_Digital (MeshInstance3D, Scripted Realtime Engine)
+└── CameraRig
+    ├── HighThreeQuarterCamera (Camera3D - 35mm Equivalent, FOV 48.0)
+    └── CameraDollyRail (Path3D - Smooth Pan & Inspect Interpolation)
+
+
+This specification transforms the current flat, unlit geometry into a rich, material-dense PC simulation environment while maintaining strict 60 FPS engine performance and pristine visual readability.

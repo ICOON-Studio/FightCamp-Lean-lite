@@ -1,0 +1,14 @@
+{
+  "checked_at": "2026-09-12T16:16:14Z",
+  "files": [
+    "Godot/scripts/BalanceState.gd",
+    "Godot/tests/balance_state_test.gd",
+    "Godot/scripts/GrappleResolve.gd",
+    "Godot/scripts/FightSimulation.gd",
+    "Godot/scripts/FightRealtime.gd",
+    "Godot/scripts/GameState.gd"
+  ],
+  "output": "CHECK total=6 fails=0 autoload_refs=1 autoload_warnings=0 time=1s\n",
+  "passed": true,
+  "task": "U66"
+}

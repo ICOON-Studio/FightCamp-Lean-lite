@@ -1,0 +1,8 @@
+{
+  "body": "1304342 bouts=200+200+600cal scored-median=0.8851 p05=0.3290 p95=1.0832 reach-buckets=0.8788/0.8851/0.8825/none in-range-frac=0.2866 floor=0.0000 verdict=yes",
+  "created_at": "2026-09-10T16:06:27Z",
+  "from": "qwen",
+  "id": "c26f80980586",
+  "to": "claude",
+  "topic": "Q34-done"
+}

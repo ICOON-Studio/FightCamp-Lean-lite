@@ -1,0 +1,128 @@
+round 103 - your LOOP1 meters are BUILT and on the floor; the attached still is the game camera: a stale veteran after six identical heavy days (week load 110/100). Top-left under his card: GAINS bar + 7-day line (DROPPING), ATTRITION 3-zone bar (OVERDONE, red), FATIGUE / WEAR micro bars, and the CHANGE PLAN pill with a SWAP TO RECOVERY button (one click sends him to the stretch mats; there the red bar stays and the pill goes). Thresholds come from real load research (Foster monotony 2.0, session-RPE week budget); a red week now halves what training pays, so gains really flatten. Please judge it as our lead designer, longest complete answer: (1) THE CONTRADICTION: the boxer card still says FRESH (today's stamina band) while the meters say OVERDONE (his week). What should the card word be with the meters on - remove it, rename it (e.g. TODAY: FRESH), or show the attrition word there? One clear rule. (2) Panel review: layout, sizes, colours, order, wording (BUILDING / FLATTENING / DROPPING; OPTIMAL / PUSHING IT / OVERDONE), what a first-time player would misread, and the 3 most important fixes in order. (3) The first moment the player meets the meters: what tooltip or one-line explanation on day 1? (4) What should change on the 3D floor itself when he is OVERDONE (body language, slower punches) - list the cheapest readable cues. Keep or change - one line each, then detail.
+
+FIGHTCAMP — LEAD DESIGN AUDIT: ROUND 103 LOOP 1 METERS
+1. THE CONTRADICTION: CARD "FRESH" VS. METERS "OVERDONE"
+Summary Verdict
+
+CHANGE IT. Showing "FRESH" next to "OVERDONE" breaks simulation credibility within 10 seconds of play.
+
+The Problem
+
+The legacy top-left fighter card reports acute session stamina (he just woke up, ate breakfast, and walked into the gym at 08:50 with a full green stamina tank). The new Loop 1 load panel below it reports chronic systemic attrition (six consecutive hard days without variation, Foster monotony index $> 2.0$, weekly load 110/100). To an uninitiated player, this is an irreconcilable contradiction: "Is my guy fresh or is he overdone?"
+
+The One Clear Rule
+
+
+
+The upper card status word must reflect the same time horizon as its meters, or it must be explicitly prefixed by its time horizon.
+
+
+
+The Fix
+
+Rename the upper card status to:
+$$\text{"SESSION: FRESH"}$$
+Or, better yet, unify the hierarchy so that the card only shows live vitals and leaves all state-of-body descriptors to the load panel:
+
+Top Card Line 4: Replace the naked word FRESH with:
+STAMINA: [████████████████] 100% (READY)
+
+Load Panel State Pill: Keep the diagnostic word here:
+WEEK LOAD: OVERDONE (110/100)
+
+
+Strict Rule: Never show an unqualified physiological state adjective (FRESH, TIRED, GROGGY) on the identity card when a systemic load panel is docked directly beneath it. If qualified, use TODAY: READY vs. WEEK: OVERDONE.
+
+2. PANEL REVIEW: LAYOUT, VISUALS, READABILITY & THE 3 FIXES
+Evaluation of Current State
+Layout & Order: Logical top-down flow: Identity Card $\to$ Goal Tracker $\to$ Load Panel $\to$ Swap Action Button.
+Colors: Green (#2ECC71), Amber (#F39C12), Red (#E74C3C) follow standard sports-science load conventions.
+Wording Gradients:
+Gains Slope: BUILDING $\to$ FLATTENING $\to$ DROPPING (Clear, actionable, intuitive).
+Attrition Zone: OPTIMAL $\to$ PUSHING IT $\to$ OVERDONE (Hits the right gritty, blue-collar boxing tone without turning into an academic lab monitor).
+What a First-Time Player Will Misread
+The Double Name Header: The boxer's name (MARCO VELA) is printed twice within 150 vertical pixels (once at the very top of the identity card, once at the top of the load panel). The player will wonder if the bottom panel belongs to a different fighter or a sparring partner.
+"DROPPING" vs. "+35.8 TODAY": The gains bar shows a bright green fill with text reading +35.8 today, but the right-hand label says DROPPING in red/amber. The player thinks: "It says plus 35, why is it dropping?" They will not understand that DROPPING refers to the rate of adaptation slope over 7 days, not today's absolute numerical yield.
+The Attrition Hazard Stripes: The diagonal hazard stripes on the red bar look like a missing texture or an active clickable button rather than a status state.
+The POWER +10.0 Sub-label: Having a specific attribute gain (POWER +10.0) floating above the Attrition label makes it look like the attrition bar is measuring power cost.
+The 3 Most Important Fixes (In Order of Priority)
++-------------------------------------------------------------------------+
+| [MARCO VELA]  08:50 MORNING  |  HEAVY BAG 1                             |
+| Stamina: [████████████████████████] 100%   Strain: [░░░░░░░░] 0%        |
+|-------------------------------------------------------------------------|
+| [GOAL: Win Debut vs. Tommy Perez]  Countdown: 18 Days  (ON TRACK)       |
+|-------------------------------------------------------------------------|
+| TRAINING ADAPTATION (7-DAY RATE)                     TREND: DROPPING    |
+| Gains:     [████████████░░░░░░░░] +12 pts/wk                            |
+|                                                                         |
+| CHRONIC LOAD (WEEK BUDGET: 110/100)                  STATE: OVERDONE    |
+| Attrition: [████████████████████] 100% (CRITICAL)                       |
+|   - Acute Fatigue:  [████████████████░░░░] 74%                          |
+|   - Structural Wear:[████████████░░░░░░░░] 52%                          |
+|-------------------------------------------------------------------------|
+| [ ! ] GAINS HALVED DUE TO OVERTRAINING                                  |
+| [ >>> ONE-CLICK SWAP: SEND TO STRETCH MATS <<< ]                        |
++-------------------------------------------------------------------------+
+
+FIX 1: Kill the duplicate name and visually bind the two cards into ONE unified column. Remove MARCO VELA from the load panel. Connect the load panel directly to the base of the fighter card with a single $1\text{ px}$ dark border (#2A2A2A). It is one athlete; it must be one visual stack.
+FIX 2: Disambiguate Rate vs. Value on the Gains Bar. Change +35.8 today to +35.8 pts and change the slope label from DROPPING to ADAPTATION: DROPPING (RATE -40%). This makes it immediately obvious that he is still learning, but the efficiency of his training has collapsed.
+FIX 3: Visual separation between the Action Button and the Warning Pill. Right now, the red warning pill and the SWAP TO RECOVERY button are stacked as an awkward red-on-black sandwich. Turn the warning into a clean, single-line alert banner ([ ! ] Gains halved — monotony limit hit) with a wide, high-contrast, pulsating amber button directly underneath: [ SWAP TO RECOVERY (STRETCH MATS) ].
+3. FIRST-TIME INTRODUCTION: DAY 1 TOOLTIP / EXPLANATION
+
+On Day 1, when the player first opens the gym floor, do not show a multi-paragraph tutorial window. Use one contextual callout banner anchored between the load panel and the center ring that disappears on the first click:
+
+
+
+
+"Training builds skills, but repeating the same heavy drills piles on Attrition. When the bar turns red, your fighter stops learning—swap him to recovery or change the drill."
+
+
+
+Hover Tooltips (Micro-copy for inspection)
+Hovering on GAINS:
+"How fast your boxer is absorbing attributes. High fatigue or monotonous routines drop this adaptation rate down to zero."
+Hovering on ATTRITION:
+"Systemic strain on joints, tendons, and central nervous system. When OVERDONE ($>100$), all skill gains are cut by 50% and injury risk triples."
+4. 3D FLOOR READABILITY: CHEAPEST VISUAL CUES FOR "OVERDONE"
+
+The simulation should be readable from the high camera without looking at the 2D UI. When a fighter is OVERDONE (week load $> 100$, monotony $> 2.0$), the following low-cost visual cues must trigger on the 3D floor:
+
+Visual Cues Checklist (Keep / Change)
+
+| Cue Candidate | Decision | Implementation Details (Cheapest & Most Readable) |
+| :--- | :--- | :--- |
+| Punch Animation Speed Scale | KEEP | Scale animation playback speed to 0.75x. The punches visibly drag, have less snap, and hang on the bag longer. Zero asset cost: anim_player.speed_scale = 0.75. |
+| Idle Stance Pose (Rest Cycle) | KEEP | Inject a breathing hunch. Instead of an active bounce on the balls of the feet, switch the station idle to a heavy-chested posture with shoulders slumped forward $8^\circ$. |
+| Sweat / Steam Particle System | KEEP | Dense sweat droplet particle emitter. A lightweight particle burst from the forehead/chest (small translucent droplets flying off on bag impacts). High readability from a $46^\circ$ down-camera. |
+| Facial Texture Swaps | CHANGE (DROP) | Too small to read from a $22\text{ m}$ camera distance. Do not waste texture memory or shader passes on grimaces or closed eyes that are $3\text{ px}$ wide on screen. |
+| Dynamic Audio Snap Pitch | KEEP | Drop bag strike SFX pitch by $-3\text{ semitones}$ and volume by $-4\text{ dB}$. Instead of a crisp, sharp leather crack, the heavy bag makes a dull, flat thud. Immediate subconscious feedback that the fighter has no pop. |
+| Ground Projection Contact Ring | KEEP | Tint the player's ground selection ring from neutral white/gold to a pulsing dark amber/crimson. Instant floor-level confirmation that this station is currently burning bad fuel. |
+
+Summary of 3D Floor Scripting
+# FighterController.gd (Simplified 3D Floor Hook)
+func update_fighter_visual_load_state(attrition_state: int) -> void:
+    match attrition_state:
+        AttritionZone.OPTIMAL:
+            anim_player.speed_scale = 1.0
+            impact_audio.pitch_scale = 1.0
+            sweat_particles.emitting = false
+            selection_ring.modulate = Color(0.9, 0.7, 0.2, 0.4) # Warm Gold
+        AttritionZone.PUSHING_IT:
+            anim_player.speed_scale = 0.9
+            impact_audio.pitch_scale = 0.95
+            sweat_particles.emitting = true
+            sweat_particles.amount = 8
+            selection_ring.modulate = Color(0.9, 0.5, 0.1, 0.6) # Amber
+        AttritionZone.OVERDONE:
+            anim_player.speed_scale = 0.75                      # Sluggish hits
+            impact_audio.pitch_scale = 0.82                     # Dull thud
+            sweat_particles.emitting = true
+            sweat_particles.amount = 24                         # Heavy dripping
+            selection_ring.modulate = Color(0.85, 0.15, 0.15, 0.8)# Crimson Hazard
+
+
+This ensures that even if the player completely ignores the top-left corner of the screen, the boxer sounds dull, moves slow, sweats excessively, and stands inside a red floor ring, prompting an immediate, intuitive decision to hit SWAP TO RECOVERY.
+
+How should the redesigned fighter card and meter panel look as a precise wireframe, including hierarchy, dimensions, and final labels?
+Can you define the exact day-by-day and weekly formulas for gains, fatigue, wear, niggles, stress, monotony, and the Change Plan trigger?
+Can you create a visual concept for the OVERDONE floor state showing body language, slower punches, sweat, audio cues, and the red recovery indicator?

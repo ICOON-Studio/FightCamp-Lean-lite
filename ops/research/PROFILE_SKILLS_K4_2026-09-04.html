@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<!--
+  Kalli K4 2026-09-04 — Skills tab research mock.
+  Feedback fixes: (1) Combos = instruments not text lines;
+  (2) Game plan duel honest — no fake NATURAL/SWARMER style row;
+  (3) constellation → real boxing skill tree with icons.
+  Sample athlete: Kian Sterling, BOXER. Icons: icons/moves/<id>.png
+-->
+<title>FightCamp · K4 Skills · Kian Sterling</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@500;600;700&display=swap">
+<style>
+  :root {
+    --ground:#1c2230; --panel:#2a3347; --panel-hi:#34405a; --panel-lo:#222a3b;
+    --edge:#121722; --edge-hi:rgba(255,255,255,.14); --line:#4a5a78;
+    --gym:#2f6fb0; --gym-hi:#3f86cc; --gym-lo:#24558a; --gym-deep:#1a3d63; --gym-tint:rgba(47,111,176,.22);
+    --gold:#f0c233; --gold-hi:#f7d65a; --gold-lo:#c99a1a;
+    --good:#4fc46a; --amber:#f0a020; --bad:#e5433a;
+    --text:#f3f5fa; --text-2:#c9d1e0; --muted:#94a1b8; --link:#7fb6ee;
+    --v1:#7a2a22; --v2:#b34a1e; --v3:#d07a1a; --v4:#e6a41c; --v5:#f0c233;
+    --display:"Bebas Neue","Haettenschweiler","Arial Narrow",sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#0f131b;color:var(--text);font-family:var(--mono);font-size:13px;font-weight:500;line-height:1.4;-webkit-font-smoothing:antialiased}
+  .pair{display:grid;grid-template-columns:1fr auto;height:40px;border:1px solid var(--edge);border-radius:3px;overflow:hidden;box-shadow:0 1px 0 var(--edge-hi) inset,0 2px 4px rgba(0,0,0,.35)}
+  .pair .lab{display:flex;align-items:center;padding:0 10px;background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));font-family:var(--display);font-size:15px;letter-spacing:.08em;color:#fff;text-shadow:0 1px 0 rgba(0,0,0,.4);border-right:1px solid var(--edge);white-space:nowrap}
+  .pair .lab.q{background:linear-gradient(180deg,#4a5670,#333d52)}
+  .pair .val{display:flex;align-items:center;justify-content:center;gap:4px;min-width:58px;padding:0 10px;font-family:var(--display);font-size:22px;line-height:1;background:linear-gradient(180deg,var(--panel-hi),var(--panel-lo));font-variant-numeric:tabular-nums;white-space:nowrap}
+  .pair .val.g3{background:linear-gradient(180deg,#e08c22,var(--v3));color:#1b1207}
+  .pair .val.g4{background:linear-gradient(180deg,#f0b52a,var(--v4));color:#1b1207}
+  .pair .val.g5{background:linear-gradient(180deg,var(--gold-hi),var(--v5));color:#1b1207}
+  .pair .val .t{font-family:var(--mono);font-size:11px;font-weight:700}
+  .pair .val.g4 .t,.pair .val.g5 .t,.pair .val.g3 .t{color:#3a2a06}
+  .gb{display:flex;align-items:center;gap:8px}
+  .gb .track{position:relative;flex:1;height:14px;min-width:60px;background:#111621;border:1px solid var(--edge);border-radius:2px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.5) inset}
+  .gb .fill{display:block;height:100%;background:linear-gradient(90deg,#c8281f 0%,#e8781c 50%,#f4c62e 100%);box-shadow:0 1px 0 rgba(255,255,255,.25) inset}
+  .gb .fill.cool{background:linear-gradient(90deg,#24486f,#3f86cc 60%,#8cc4f4)}
+  .gb .fill.amber{background:linear-gradient(90deg,#8a5a10,#f0a020 55%,#f7d65a)}
+  .gb .read{font-family:var(--display);font-size:17px;line-height:1;min-width:52px;text-align:right;font-variant-numeric:tabular-nums}
+  .gb .read i{font-style:normal;color:var(--muted)}
+  .chip{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 8px 0 4px;border-radius:3px;border:1px solid var(--edge);background:linear-gradient(180deg,#3a4560,#2b3449);font-size:11px;letter-spacing:.08em;font-weight:700;color:var(--text);white-space:nowrap;box-shadow:0 1px 0 var(--edge-hi) inset}
+  .chip img{width:20px;height:20px;flex:none}
+  .chip.gold{background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:#1a1508;border-color:#7a5c0c}
+  .chip.gym{background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff}
+  a.ent{color:var(--link);font-weight:700;text-decoration:none;border-bottom:2px solid rgba(127,182,238,.45)}
+  .frame{border:1px solid var(--edge);border-radius:4px;background:rgba(34,42,59,.94);box-shadow:0 1px 0 var(--edge-hi) inset,0 6px 16px rgba(0,0,0,.35);overflow:hidden;display:flex;flex-direction:column;min-width:0}
+  .frame>.hbar{display:flex;align-items:center;gap:10px;padding:0 12px;height:34px;flex:none;background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));border-bottom:1px solid var(--edge);box-shadow:0 1px 0 rgba(255,255,255,.18) inset;font-family:var(--display);font-size:17px;letter-spacing:.08em;color:#fff;text-shadow:0 1px 0 rgba(0,0,0,.4);white-space:nowrap}
+  .frame>.hbar .r{margin-left:auto;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.08em;opacity:.95}
+  .frame>.hbar.slate{background:linear-gradient(180deg,#4a5670,#333d52)}
+  .frame>.hbar.gold{background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:#1a1508;text-shadow:none}
+  .frame .in{padding:8px;display:flex;flex-direction:column;gap:7px;flex:1}
+  .k{font-size:11px;letter-spacing:.12em;font-weight:700;color:var(--muted)}
+  .line{font-size:12px;color:var(--text-2)}.line b{color:var(--text)}
+  .monitor{width:1600px;height:1000px;margin:0 auto;background:linear-gradient(#3a3f4a 0%,#262a33 4%,#1b1e25 100%);border-radius:14px;padding:8px 8px 0;box-shadow:0 1px 0 rgba(255,255,255,.12) inset,0 40px 90px -30px rgba(0,0,0,.95),0 0 0 1px #0c0e13;overflow:hidden}
+  .screen{position:relative;background:var(--ground);border-radius:5px;overflow:hidden;height:calc(1000px - 38px);box-shadow:0 0 0 1px #05060a}
+  .chin{height:28px;display:flex;align-items:center;justify-content:center;position:relative}
+  .chin .wordmark{font-family:var(--display);font-size:12px;letter-spacing:.3em;color:#565c69}
+  .chin .pwr{position:absolute;right:14px;width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px 1px rgba(240,194,51,.75)}
+  .shell{position:relative;z-index:1;display:grid;grid-template-columns:176px 1fr;grid-template-rows:56px 1fr 40px;height:100%}
+  .header{grid-column:1/3;display:grid;grid-template-columns:auto 1fr auto;align-items:center;height:56px;background:linear-gradient(180deg,rgba(52,64,90,.96),rgba(38,46,66,.96));border-bottom:1px solid var(--edge);box-shadow:0 1px 0 rgba(255,255,255,.14) inset}
+  .header .crest{display:flex;align-items:center;gap:10px;padding:0 14px;height:100%;border-right:1px solid var(--edge);background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));width:176px}
+  .header .crest .mark{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 40% 35%,#fff,#cfd8e6 70%);color:var(--gym-deep);font-family:var(--display);font-size:16px;border:2px solid rgba(0,0,0,.35);flex:none}
+  .header .crest .name{font-family:var(--display);font-size:18px;letter-spacing:.05em;line-height:1;color:#fff}
+  .header .crest .sub{font-size:11px;letter-spacing:.12em;color:rgba(255,255,255,.85);font-weight:700;margin-top:2px}
+  .header .headline{display:flex;align-items:center;gap:12px;padding:0 16px;height:100%;border-right:1px solid var(--edge);min-width:0}
+  .header .headline h2{font-family:var(--display);font-size:32px;letter-spacing:.04em;margin:0;line-height:1;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.45);white-space:nowrap}
+  .header .idline{display:flex;align-items:center;gap:8px;margin-left:6px}
+  .header .idline .disc{height:26px;padding:0 10px;display:flex;align-items:center;background:linear-gradient(180deg,#ef5a50,#b62e26);color:#fff;font-family:var(--display);font-size:16px;letter-spacing:.1em;border:1px solid #5a120e;border-radius:3px}
+  .header .idline .div{height:26px;padding:0 10px;display:flex;align-items:center;background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:#1a1508;font-family:var(--display);font-size:16px;letter-spacing:.1em;border:1px solid #7a5c0c;border-radius:3px}
+  .header .right{display:flex;align-items:stretch;height:100%;margin-left:auto}
+  .datecont{display:flex;align-items:stretch}
+  .datecont .date{padding:0 14px;display:flex;flex-direction:column;justify-content:center;text-align:right;background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff}
+  .datecont .date .w{font-size:11px;letter-spacing:.16em;font-weight:700;opacity:.9}
+  .datecont .date .d{font-family:var(--display);font-size:18px;line-height:1;margin-top:2px}
+  .datecont .continue{display:flex;flex-direction:column;justify-content:center;padding:0 18px;background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:#1a1508;border:none;font-family:var(--mono);text-align:left}
+  .datecont .continue .t{font-family:var(--display);font-size:22px;letter-spacing:.06em;line-height:1}
+  .datecont .continue .s{font-size:11px;letter-spacing:.12em;font-weight:700;margin-top:2px}
+  .rail{background:rgba(28,34,48,.94);border-right:1px solid var(--edge);display:flex;flex-direction:column}
+  .rail .collapse{height:30px;display:flex;align-items:center;gap:8px;padding:0 10px;background:linear-gradient(180deg,#3d4a66,#2c3549);border-bottom:1px solid var(--edge);font-family:var(--display);font-size:15px;letter-spacing:.1em;color:var(--text-2)}
+  .rail .collapse .ch{margin-left:auto;font-size:16px;color:var(--gold)}
+  .rail a{display:flex;align-items:center;gap:10px;height:40px;padding:0 10px 0 8px;color:var(--text-2);text-decoration:none;font-size:12px;font-weight:700;letter-spacing:.06em;border-bottom:1px solid rgba(0,0,0,.35);border-left:4px solid transparent}
+  .rail a .ic{width:20px;text-align:center;font-family:var(--display);font-size:18px;color:var(--muted)}
+  .rail a.on{background:linear-gradient(90deg,var(--gym-tint),rgba(0,0,0,0));color:#fff;border-left-color:var(--gym-hi)}.rail a.on .ic{color:var(--gold)}
+  .rail .sub{display:flex;align-items:center;gap:8px;height:32px;padding:0 10px 0 24px;font-size:11px;font-weight:700;letter-spacing:.08em;color:#fff;background:rgba(0,0,0,.25);border-bottom:1px solid rgba(0,0,0,.35)}
+  .rail .sub .tick{width:4px;height:16px;border-radius:2px;background:var(--gold)}
+  .main{display:flex;flex-direction:column;gap:6px;padding:6px;min-width:0;min-height:0;overflow:hidden}
+  .tabs{display:flex;height:36px;border:1px solid var(--edge);border-radius:3px;overflow:hidden;flex:none;box-shadow:0 2px 4px rgba(0,0,0,.35)}
+  .tabs button{flex:1;background:linear-gradient(180deg,#3a4560,#2b3449);color:var(--text-2);border:none;border-right:1px solid var(--edge);cursor:pointer;font-family:var(--display);font-size:16px;letter-spacing:.1em}
+  .tabs button:last-child{border-right:none}
+  .tabs button.on{background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff;box-shadow:0 1px 0 rgba(255,255,255,.2) inset}
+  .skills-grid{display:grid;grid-template-columns:1.55fr .72fr .72fr;gap:6px;flex:1;min-height:0}
+  .bottom{grid-column:1/3;display:flex;align-items:center;height:40px;background:linear-gradient(180deg,rgba(52,64,90,.96),rgba(38,46,66,.96));border-top:1px solid var(--edge)}
+  .bottom .crumb{display:flex;align-items:center;gap:8px;padding:0 14px;font-size:11px;letter-spacing:.12em;font-weight:700;color:var(--muted)}
+  .bottom .crumb b{color:#fff}.bottom .crumb span{color:var(--gold)}
+
+  /* Skill tree */
+  .tree-wrap{position:relative;flex:1;min-height:0;background:#0e1320;border-radius:0 0 3px 3px;overflow:hidden}
+  .tree-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
+  .tree-cols{position:relative;z-index:2;display:grid;grid-template-columns:repeat(7,1fr);gap:6px;padding:10px 8px 36px;height:100%;align-content:start}
+  .tcol{display:flex;flex-direction:column;gap:8px;align-items:center;min-width:0}
+  .tcol .col-lab{font-size:10px;letter-spacing:.14em;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:2px}
+  .tnode{position:relative;width:100%;max-width:108px;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 4px 5px;border-radius:4px;border:1px solid var(--edge);background:linear-gradient(180deg,rgba(52,64,90,.92),rgba(28,34,48,.95));box-shadow:0 1px 0 var(--edge-hi) inset,0 3px 8px rgba(0,0,0,.4);cursor:default}
+  .tnode .ring{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;border:2px solid transparent;background:rgba(0,0,0,.35);position:relative}
+  .tnode .ring img{width:32px;height:32px;display:block}
+  .tnode .nm{font-family:var(--display);font-size:13px;letter-spacing:.04em;line-height:1.05;text-align:center;color:var(--text);max-width:100%}
+  .tnode .meta{font-size:9px;letter-spacing:.1em;font-weight:700;color:var(--muted);text-transform:uppercase}
+  .tnode.learned{border-color:rgba(63,134,204,.65);box-shadow:0 0 0 1px rgba(63,134,204,.25),0 3px 8px rgba(0,0,0,.4)}
+  .tnode.learned .ring{border-color:var(--gym-hi);box-shadow:0 0 10px rgba(63,134,204,.55);background:rgba(47,111,176,.25)}
+  .tnode.training{border-color:rgba(240,160,32,.7)}
+  .tnode.training .ring{border-color:var(--amber);box-shadow:0 0 12px rgba(240,160,32,.55);background:rgba(240,160,32,.18)}
+  .tnode.training .prog{position:absolute;left:4px;right:4px;bottom:3px;height:3px;background:#111621;border-radius:2px;overflow:hidden}
+  .tnode.training .prog i{display:block;height:100%;width:62%;background:linear-gradient(90deg,#f0a020,var(--gold))}
+  .tnode.eligible{border-color:rgba(240,194,51,.55)}
+  .tnode.eligible .ring{border-color:var(--gold);box-shadow:0 0 10px rgba(240,194,51,.4)}
+  .tnode.locked{opacity:.42;filter:grayscale(.35)}
+  .tnode.locked .ring{border-color:#3a4560}
+  .legend{position:absolute;left:8px;bottom:6px;z-index:3;display:flex;gap:10px;align-items:center;padding:4px 8px;border-radius:3px;background:rgba(18,23,34,.88);border:1px solid var(--edge);font-size:10px;letter-spacing:.1em;font-weight:700;color:var(--muted)}
+  .legend .lg{display:inline-flex;align-items:center;gap:4px}
+  .legend .sw{width:10px;height:10px;border-radius:50%;border:2px solid}
+  .legend .sw.l{border-color:var(--gym-hi);background:rgba(47,111,176,.4)}
+  .legend .sw.t{border-color:var(--amber);background:rgba(240,160,32,.4)}
+  .legend .sw.e{border-color:var(--gold);background:rgba(240,194,51,.35)}
+  .legend .sw.k{border-color:#3a4560;background:#222a3b}
+
+  /* Instruments */
+  .inst-block{display:flex;flex-direction:column;gap:6px}
+  .gauge-card{padding:8px;border:1px solid var(--edge);border-radius:3px;background:linear-gradient(180deg,#2f3a52,#232b3d);box-shadow:0 1px 0 var(--edge-hi) inset}
+  .gauge-card .gt{font-family:var(--display);font-size:15px;letter-spacing:.08em;color:var(--text);margin-bottom:4px;display:flex;align-items:center;justify-content:space-between}
+  .gauge-card .gt span{font-family:var(--mono);font-size:10px;letter-spacing:.1em;font-weight:700;color:var(--muted)}
+  .dual{display:flex;justify-content:space-between;align-items:baseline;margin-top:4px}
+  .dual .big{font-family:var(--display);font-size:28px;line-height:1;color:var(--gold)}
+  .dual .sub{font-size:11px;letter-spacing:.1em;font-weight:700;color:var(--muted)}
+  .sig-row{display:flex;flex-wrap:wrap;gap:4px}
+  .counter-big{display:flex;align-items:center;gap:10px;padding:8px;border:1px solid var(--edge);border-radius:3px;background:linear-gradient(180deg,#2f3a52,#232b3d)}
+  .counter-big .num{font-family:var(--display);font-size:36px;line-height:1;color:var(--gold);min-width:48px;text-align:center}
+  .counter-big .lab{font-size:11px;letter-spacing:.12em;font-weight:700;color:var(--muted);text-transform:uppercase}
+  .counter-big .lab b{display:block;font-family:var(--display);font-size:18px;letter-spacing:.06em;color:var(--text);font-weight:400;text-transform:none;margin-top:2px}
+
+  .mech{display:grid;grid-template-columns:1fr;gap:6px}
+  .proposed{margin-top:2px;padding:4px 8px;border:1px dashed rgba(240,194,51,.35);border-radius:3px;font-size:10px;letter-spacing:.12em;font-weight:700;color:var(--gold);opacity:.75;text-align:center}
+</style>
+</head>
+<body>
+<div class="monitor">
+  <div class="screen">
+    <div class="shell">
+      <header class="header">
+        <div class="crest">
+          <div class="mark">FC</div>
+          <div><div class="name">FIGHTCAMP</div><div class="sub">EASTERN RING</div></div>
+        </div>
+        <div class="headline">
+          <h2>KIAN STERLING</h2>
+          <div class="idline">
+            <span class="disc">BOXER</span>
+            <span class="div">MW</span>
+          </div>
+        </div>
+        <div class="right">
+          <div class="datecont">
+            <div class="date"><span class="w">FRI</span><span class="d">04 SEP 26</span></div>
+            <div class="continue"><span class="t">CONTINUE</span><span class="s">CAMP DAY 12</span></div>
+          </div>
+        </div>
+      </header>
+
+      <nav class="rail" aria-label="Primary">
+        <div class="collapse">MENU <span class="ch">‹</span></div>
+        <a href="#"><span class="ic">⌂</span> HOME</a>
+        <a href="#"><span class="ic">◈</span> GYM</a>
+        <a class="on" href="#"><span class="ic">★</span> ROSTER</a>
+        <div class="sub"><span class="tick"></span> PROFILE · SKILLS & MOVES</div>
+        <a href="#"><span class="ic">◎</span> CARD</a>
+        <a href="#"><span class="ic">☰</span> OFFICE</a>
+      </nav>
+
+      <main class="main">
+        <div class="tabs" role="tablist">
+          <button type="button">ATHLETE LAB</button>
+          <button type="button">DEVELOPMENT</button>
+          <button type="button" class="on" role="tab" aria-selected="true">SKILLS &amp; MOVES</button>
+          <button type="button">FIGHT RECORD</button>
+          <button type="button">FIGHT CAMP</button>
+        </div>
+
+        <div class="skills-grid">
+          <!-- A) Skill tree -->
+          <div class="frame" style="padding:0;min-height:0">
+            <div class="hbar">BOXING TREE <span class="r">18 NODES · DEPTH COLS</span></div>
+            <div class="tree-wrap" id="treeWrap">
+              <svg class="tree-svg" id="treeEdges" xmlns="http://www.w3.org/2000/svg"></svg>
+              <div class="tree-cols" id="treeCols"></div>
+              <div class="legend">
+                <span class="lg"><i class="sw l"></i> LEARNED</span>
+                <span class="lg"><i class="sw t"></i> TRAINING</span>
+                <span class="lg"><i class="sw e"></i> ELIGIBLE</span>
+                <span class="lg"><i class="sw k"></i> LOCKED</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- B) Combos instruments -->
+          <div class="frame">
+            <div class="hbar">COMBOS <span class="r">INSTRUMENTS</span></div>
+            <div class="in inst-block">
+              <div class="pair"><span class="lab">TIGHTNESS</span><span class="val g4">78<span class="t">▲4</span></span></div>
+
+              <div class="gauge-card">
+                <div class="gt">CHAIN GAUGE <span>COMBO MASTERY</span></div>
+                <div class="gb"><div class="track"><i class="fill cool" style="width:71%"></i></div><div class="read">71<i>%</i></div></div>
+                <div class="dual"><span class="big">2</span><span class="sub">PLAN CHAINS LIVE</span></div>
+              </div>
+
+              <div class="gauge-card">
+                <div class="gt">IN TRAINING <span>BODY HOOK</span></div>
+                <div class="gb"><div class="track"><i class="fill amber" style="width:62%"></i></div><div class="read">62<i>%</i></div></div>
+                <div class="line" style="margin-top:4px">Reps under coach · <b>boxing_body_hook</b></div>
+              </div>
+
+              <div class="counter-big">
+                <div class="num">8</div>
+                <div class="lab">Moves learned<b>Boxing arsenal</b></div>
+              </div>
+
+              <div>
+                <div class="k" style="margin-bottom:4px">SIGNATURE CHAIN</div>
+                <div class="sig-row">
+                  <span class="chip gym"><img src="icons/moves/boxing_jab.png" alt=""/> JAB</span>
+                  <span class="chip gym"><img src="icons/moves/boxing_cross.png" alt=""/> CROSS</span>
+                  <span class="chip gold"><img src="icons/moves/boxing_lead_hook.png" alt=""/> LEAD HOOK</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- C) Game plan / duel — real mechanics only -->
+          <div class="frame">
+            <div class="hbar">PLAN DUEL <span class="r">SAVE-FED</span></div>
+            <div class="in mech">
+              <div class="pair"><span class="lab">CORNER LISTEN</span><span class="val g4">71%</span></div>
+              <div class="gauge-card">
+                <div class="gt">PLAN EDGE <span>FIGHT PLANS</span></div>
+                <div class="gb"><div class="track"><i class="fill cool" style="width:64%"></i></div><div class="read">64<i>%</i></div></div>
+                <div class="line" style="margin-top:4px">Booked bout plan adherence vs Vasa tape.</div>
+              </div>
+              <div class="gauge-card">
+                <div class="gt">COMBO READY <span>COMBO MASTERY</span></div>
+                <div class="gb"><div class="track"><i class="fill" style="width:78%"></i></div><div class="read">78<i>%</i></div></div>
+                <div class="dual"><span class="big" style="font-size:22px;color:var(--text)">2 / 3</span><span class="sub">CHAINS FOR PLAN</span></div>
+              </div>
+              <div class="line">Corner <a class="ent" href="#">Marco Reyes</a> · CoachRapport <b>72</b></div>
+              <div class="line">Discipline tree: <b>Boxing</b> only · no cross-art nodes.</div>
+              <!-- Aesthetic style labels intentionally omitted (NATURAL/SWARMER were fake). Thin strip kept as PROPOSED if wanted later. -->
+              <div class="proposed">PROPOSED · STYLE TAG STRIP OMITTED</div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer class="bottom">
+        <div class="crumb"><b>ROSTER</b> / <b>KIAN STERLING</b> / <span>SKILLS</span> · K4 TREE</div>
+      </footer>
+    </div>
+  </div>
+  <div class="chin"><span class="wordmark">FIGHTCAMP · KALLI K4</span><span class="pwr"></span></div>
+</div>
+
+<script>
+/* Boxing catalog subset + sample athlete states (Kian Sterling) */
+const NODES = [
+  {id:"boxing_stance_guard", name:"Stance & Guard", kind:"skill", depth:0, prereq:[]},
+  {id:"boxing_jab", name:"Jab", kind:"move", depth:1, prereq:["boxing_stance_guard"]},
+  {id:"boxing_pivot_footwork", name:"Ring Pivot", kind:"skill", depth:1, prereq:["boxing_stance_guard"]},
+  {id:"boxing_cross", name:"Rear Cross", kind:"move", depth:2, prereq:["boxing_jab"]},
+  {id:"boxing_double_jab", name:"Double Jab", kind:"move", depth:2, prereq:["boxing_jab"]},
+  {id:"boxing_cutoff_ring", name:"Cut Off Ring", kind:"skill", depth:2, prereq:["boxing_pivot_footwork"]},
+  {id:"boxing_lead_hook", name:"Lead Hook", kind:"move", depth:3, prereq:["boxing_cross"]},
+  {id:"boxing_slip_counter", name:"Slip-Cross", kind:"move", depth:3, prereq:["boxing_cross"]},
+  {id:"boxing_overhand", name:"Overhand", kind:"move", depth:3, prereq:["boxing_cross"]},
+  {id:"boxing_rear_uppercut", name:"Rear Upper", kind:"move", depth:4, prereq:["boxing_lead_hook"]},
+  {id:"boxing_body_hook", name:"Body Hook", kind:"move", depth:4, prereq:["boxing_lead_hook"]},
+  {id:"boxing_check_hook", name:"Check Hook", kind:"move", depth:4, prereq:["boxing_lead_hook","boxing_slip_counter"]},
+  {id:"boxing_pull_counter", name:"Pull-Cross", kind:"move", depth:4, prereq:["boxing_slip_counter"]},
+  {id:"boxing_lead_uppercut", name:"Lead Upper", kind:"move", depth:4, prereq:["boxing_lead_hook"]},
+  {id:"boxing_shoulder_roll", name:"Shoulder Roll", kind:"skill", depth:4, prereq:["boxing_slip_counter"]},
+  {id:"boxing_liver_combo", name:"Liver Combo", kind:"sequence", depth:5, prereq:["boxing_body_hook","boxing_pull_counter","boxing_jab","boxing_cross"]},
+  {id:"boxing_check_hook_pivot", name:"Hook & Pivot", kind:"move", depth:5, prereq:["boxing_check_hook","boxing_pivot_footwork"]},
+  {id:"boxing_six_punch_combo", name:"Six-Punch", kind:"move", depth:6, prereq:["boxing_liver_combo","boxing_overhand"]}
+];
+const STATE = {
+  boxing_stance_guard:"learned", boxing_jab:"learned", boxing_cross:"learned",
+  boxing_lead_hook:"learned", boxing_pivot_footwork:"learned", boxing_double_jab:"learned",
+  boxing_slip_counter:"learned", boxing_overhand:"learned",
+  boxing_body_hook:"training",
+  boxing_rear_uppercut:"eligible", boxing_lead_uppercut:"eligible",
+  boxing_check_hook:"eligible", boxing_pull_counter:"eligible",
+  boxing_cutoff_ring:"eligible", boxing_shoulder_roll:"eligible",
+  boxing_liver_combo:"locked", boxing_check_hook_pivot:"locked", boxing_six_punch_combo:"locked"
+};
+const SHORT = {
+  boxing_stance_guard:"Stance", boxing_jab:"Jab", boxing_pivot_footwork:"Pivot",
+  boxing_cross:"Cross", boxing_double_jab:"Dbl Jab", boxing_cutoff_ring:"Cutoff",
+  boxing_lead_hook:"Lead Hk", boxing_slip_counter:"Slip", boxing_overhand:"Over",
+  boxing_rear_uppercut:"R Upper", boxing_body_hook:"Body Hk", boxing_check_hook:"Check",
+  boxing_pull_counter:"Pull", boxing_lead_uppercut:"L Upper", boxing_shoulder_roll:"Roll",
+  boxing_liver_combo:"Liver", boxing_check_hook_pivot:"Hk+Piv", boxing_six_punch_combo:"Six"
+};
+
+const colsEl = document.getElementById('treeCols');
+const byDepth = {};
+NODES.forEach(n => { (byDepth[n.depth] ||= []).push(n); });
+for (let d = 0; d <= 6; d++) {
+  const col = document.createElement('div');
+  col.className = 'tcol';
+  col.innerHTML = `<div class="col-lab">D${d}</div>`;
+  (byDepth[d] || []).forEach(n => {
+    const st = STATE[n.id] || 'locked';
+    const el = document.createElement('div');
+    el.className = 'tnode ' + st;
+    el.dataset.id = n.id;
+    el.innerHTML = `
+      <div class="ring"><img src="icons/moves/${n.id}.png" alt=""/></div>
+      <div class="nm">${SHORT[n.id] || n.name}</div>
+      <div class="meta">${n.kind}</div>
+      ${st === 'training' ? '<div class="prog"><i></i></div>' : ''}`;
+    col.appendChild(el);
+  });
+  colsEl.appendChild(col);
+}
+
+function drawEdges() {
+  const wrap = document.getElementById('treeWrap');
+  const svg = document.getElementById('treeEdges');
+  const wr = wrap.getBoundingClientRect();
+  svg.setAttribute('viewBox', `0 0 ${wr.width} ${wr.height}`);
+  svg.innerHTML = '';
+  const map = {};
+  wrap.querySelectorAll('.tnode').forEach(el => {
+    const r = el.getBoundingClientRect();
+    map[el.dataset.id] = {
+      x: r.left - wr.left + r.width / 2,
+      y: r.top - wr.top + 28
+    };
+  });
+  NODES.forEach(n => {
+    n.prereq.forEach(p => {
+      if (!map[p] || !map[n.id]) return;
+      const a = map[p], b = map[n.id];
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', a.x); line.setAttribute('y1', a.y);
+      line.setAttribute('x2', b.x); line.setAttribute('y2', b.y);
+      const st = STATE[n.id];
+      const color = st === 'locked' ? 'rgba(74,90,120,.35)' :
+        st === 'learned' ? 'rgba(63,134,204,.55)' :
+        st === 'training' ? 'rgba(240,160,32,.65)' : 'rgba(240,194,51,.45)';
+      line.setAttribute('stroke', color);
+      line.setAttribute('stroke-width', '2');
+      svg.appendChild(line);
+    });
+  });
+}
+window.addEventListener('load', () => { drawEdges(); setTimeout(drawEdges, 80); });
+window.addEventListener('resize', drawEdges);
+</script>
+</body>
+</html>

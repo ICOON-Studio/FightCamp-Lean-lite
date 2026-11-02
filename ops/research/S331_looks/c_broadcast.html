@@ -1,0 +1,78 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Look C - Broadcast</title>
+<style>
+@font-face{font-family:Bebas;src:url(file:///E:/FightCamp/Lean/assets/fonts/BebasNeue-Regular.ttf)}
+@font-face{font-family:Barlow;src:url(file:///E:/FightCamp/Lean/assets/fonts/Barlow-Medium.ttf)}
+@font-face{font-family:BarlowB;src:url(file:///E:/FightCamp/Lean/assets/fonts/Barlow-Bold.ttf)}
+:root{--deep:#0F1B2D;--mid:#18294A;--slab:#F2F4F7;--red:#D7263D;--blue:#2B6CE0;--gold:#F2B134;--steel:#8A9BB3;--green:#3CCB7F}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;background:radial-gradient(1200px 700px at 70% 30%,#20345C,var(--deep));font-family:Barlow;color:#fff;overflow:hidden}
+.top{height:76px;display:flex;align-items:center;gap:16px;padding:0 24px;background:rgba(0,0,0,.25)}
+.gym{font-family:Bebas;font-size:36px;background:var(--slab);color:var(--deep);padding:4px 26px 0 18px;clip-path:polygon(0 0,100% 0,92% 100%,0 100%)}
+.chip{font-family:BarlowB;font-size:14px;background:var(--gold);color:var(--deep);padding:5px 14px;clip-path:polygon(8% 0,100% 0,92% 100%,0 100%)}
+.sp{flex:1}.date{text-align:right;font-family:BarlowB;font-size:20px}.date small{display:block;font-size:13px;color:var(--steel)}
+.go{background:var(--red);font-family:Bebas;font-size:30px;padding:6px 30px 2px;clip-path:polygon(6% 0,100% 0,94% 100%,0 100%);line-height:1}.go small{display:block;font-family:Barlow;font-size:13px;padding-bottom:6px}
+.cash{font-family:Bebas;font-size:36px;color:var(--gold)}
+.wrap{display:flex;height:1004px}
+nav{width:200px;padding:20px 0}
+nav a{display:block;padding:12px 24px;font-family:Bebas;font-size:30px;line-height:1;color:var(--steel)}
+nav a small{display:block;font-family:Barlow;font-size:13px;margin-top:3px;opacity:.8}
+nav a.on{color:var(--deep);background:var(--slab);clip-path:polygon(0 0,100% 0,90% 100%,0 100%)}
+main{flex:1;padding:24px 30px 70px;display:grid;grid-template-columns:1fr 470px;grid-template-rows:560px 1fr;gap:26px}
+.tape{grid-column:1/2;display:grid;grid-template-columns:270px 1fr 270px;align-items:end;height:560px;position:relative;overflow:hidden}
+.tape img{width:270px;height:auto;align-self:end}
+.mid{align-self:stretch;display:flex;flex-direction:column;justify-content:center;gap:6px}
+.names{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.names div{font-family:Bebas;font-size:60px;line-height:.9;padding:8px 22px 2px}
+.names .r{background:var(--red);clip-path:polygon(0 0,100% 0,94% 100%,0 100%)}
+.names .b{background:var(--blue);clip-path:polygon(6% 0,100% 0,100% 100%,0 100%);text-align:right}
+.names i{font-style:normal;font-family:Bebas;font-size:40px;color:var(--gold)}
+.trow{display:grid;grid-template-columns:1fr 150px 1fr;align-items:center;background:rgba(255,255,255,.07);padding:8px 16px;font-family:BarlowB;font-size:22px}
+.trow span:nth-child(2){text-align:center;font-family:Barlow;font-size:15px;color:var(--steel);letter-spacing:1px}
+.trow span:last-child{text-align:right}
+.trow .ok{color:var(--green)}
+.when{text-align:center;font-family:Bebas;font-size:34px;margin-top:10px}.when b{color:var(--gold);font-weight:400}
+.side{grid-row:1/3;grid-column:2;display:flex;flex-direction:column;gap:18px}
+.panel{background:var(--slab);color:var(--deep);padding:16px 20px}
+.panel h2{font-family:Bebas;font-size:34px;font-weight:400;line-height:1;margin-bottom:8px;color:var(--deep)}
+.need{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:2px solid #DDE2EA}
+.need .bar{width:6px;align-self:stretch;background:var(--gold)}
+.need div{flex:1;font-family:BarlowB;font-size:18px}.need small{display:block;font-family:Barlow;font-size:15px;color:#5A6780}
+.need button{background:var(--deep);color:#fff;border:0;font-family:Bebas;font-size:22px;padding:6px 16px 2px;clip-path:polygon(10% 0,100% 0,90% 100%,0 100%)}
+.score{display:flex;justify-content:space-between;align-items:baseline}.score .big{font-family:Bebas;font-size:72px;line-height:1}
+.mrow{display:flex;justify-content:space-between;font-size:18px;padding:5px 0;border-top:1px solid #DDE2EA}
+.fixtures{grid-column:1/2;display:grid;grid-template-columns:repeat(5,1fr);gap:8px;align-self:start}
+.fx{background:rgba(255,255,255,.08);padding:20px 16px;border-top:4px solid var(--steel)}
+.fx em{display:block;font-style:normal;font-family:Bebas;font-size:36px}
+.fx span{font-size:15px;color:#C9D3E3}
+.fx.fight{border-top-color:var(--red);background:rgba(215,38,61,.22)}.fx.bill{border-top-color:var(--gold)}
+.ticker{position:absolute;left:200px;right:0;bottom:0;height:50px;display:flex;align-items:center;background:var(--slab);color:var(--deep);font-family:BarlowB;font-size:18px;gap:46px}
+.ticker b{background:var(--red);color:#fff;font-family:Bebas;font-size:30px;height:100%;display:flex;align-items:center;padding:4px 26px 0;clip-path:polygon(0 0,100% 0,88% 100%,0 100%)}
+</style></head><body>
+<div class="top"><span class="gym">Anvil Street Gym</span><span class="chip">Week review</span><span class="sp"></span>
+<div class="date">Mon 6 Apr 2026<small>Week 14</small></div><div class="go">Continue<small>to Mon 13 Apr, week review</small></div><div class="cash">$9,867</div></div>
+<div class="wrap"><nav><a class="on">Home</a><a>Fighters</a><a>Fights</a><a>Gym</a><a>Money</a><a>World</a></nav>
+<main>
+<section class="tape"><img src="lucy.png">
+ <div class="mid"><div class="names"><div class="r">Lucy Jackson</div><i>vs</i><div class="b">Erin Doyle</div></div>
+  <div class="trow"><span>5-1</span><span>record</span><span>7-2</span></div>
+  <div class="trow"><span>Out-boxer</span><span>style</span><span>Volume puncher</span></div>
+  <div class="trow"><span class="ok">61.1 kg</span><span>weight, limit 61.2</span><span>-</span></div>
+  <div class="trow"><span class="ok">92, fresh</span><span>condition</span><span>-</span></div>
+  <div class="trow"><span>21</span><span>age</span><span>24</span></div>
+  <div class="trow"><span>No. 4, fired up</span><span>rank / film</span><span>chin open</span></div>
+  <div class="when">Sat 25 Apr, club show <b>- 19 days</b></div></div>
+ <img src="erin.png"></section>
+<section class="fixtures"><div class="fx"><em>Mon 6 Apr</em><span>today</span></div><div class="fx"><em>Mon 13 Apr</em><span>week review</span></div><div class="fx"><em>Fri 24 Apr</em><span>weigh-in</span></div><div class="fx fight"><em>Sat 25 Apr</em><span>Lucy vs Erin Doyle</span></div><div class="fx bill"><em>Mon 27 Apr</em><span>bills, about $4,492</span></div></section>
+<section class="side">
+ <div class="panel"><h2>Needs you</h2>
+  <div class="need"><i class="bar"></i><div>Ironclad Supplements<small>$250 a week for a banner on the wall</small></div><button>Deals</button></div>
+  <div class="need"><i class="bar"></i><div>Bow Road Physio<small>$150 a week for a logo on her shorts</small></div><button>Deals</button></div>
+  <div class="need"><i class="bar"></i><div>Enter Lucy for the nationals<small>entries close Mon 25 May</small></div><button>Enter</button></div>
+  <div class="need"><i class="bar"></i><div>Week 13 review is ready<small>gains, moves, rankings, money</small></div><button>Open</button></div></div>
+ <div class="panel"><h2>Money</h2><div class="score"><span>Cash</span><span class="big">$9,867</span></div>
+  <div class="mrow"><span>In this week</span><b style="color:#1E9E5E">+$843</b></div><div class="mrow"><span>Costs this week</span><b>-$1,123</b></div><div class="mrow"><span>Owed, billed Mon 27 Apr</span><b>$1,123</b></div>
+  <div class="mrow"><span>Goal: five-round engine</span><b>12 days left</b></div></div>
+</section>
+</main></div>
+<div class="ticker"><b>News</b><span>Film on Erin: "Drops the right after she jabs. Every time."</span><span>Booked: Lucy Jackson vs Erin Doyle, Sat 25 Apr</span></div>
+</body></html>

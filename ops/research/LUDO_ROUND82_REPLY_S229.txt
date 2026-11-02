@@ -1,0 +1,563 @@
+Here are the two files completing Audit Item #8: the compact end-of-day summary drawer adhering strictly to the Round-70 UI palette, complete with test coverage and deterministic pure helpers.
+
+1. res://scenes/ui/DayWrapDrawer.gd
+class_name DayWrapDrawer
+extends Control
+
+signal next_morning
+signal full_review
+
+# UI Design Tokens (Round-70 Bible)
+const COLOR_VOID: Color = Color("#0d0c0b")
+const COLOR_PANEL_BG: Color = Color("#1a1816")
+const COLOR_PANEL_ALT: Color = Color("#22201d")
+const COLOR_PANEL_BORDER: Color = Color("#282521")
+const COLOR_GOLD: Color = Color("#f0c233")
+const COLOR_CREAM: Color = Color("#f6f0e0")
+const COLOR_MUTED: Color = Color("#8a8479")
+const COLOR_MUTED_BG: Color = Color("#151413")
+const COLOR_ACCENT_RED: Color = Color("#a6382e")
+
+# Display formatting dictionary for stat names
+const STAT_NAMES: Dictionary = {
+	"power": "POWER",
+	"speed": "SPEED",
+	"defense": "DEFENSE",
+	"conditioning": "CONDITIONING",
+	"fight_iq": "FIGHT IQ",
+	"technique": "TECHNIQUE",
+	"chin": "CHIN"
+}
+
+# Prettified labels for station chips
+const STATION_LABELS: Dictionary = {
+	"speed_bag": "Speed Bag",
+	"heavy_bag": "Heavy Bag",
+	"mirror_strip": "Mirrors",
+	"pads": "Pads",
+	"defence_drill": "Slip Rope",
+	"ring": "Sparring",
+	"treadmill": "Treadmill",
+	"bike": "Air Bike",
+	"recovery": "Stretch",
+	"agility_ladder": "Agility",
+	"power_rack": "Power Rack",
+	"olympic_platform": "Oly Platform",
+	"weights": "Weights"
+}
+
+var _drawer_panel: PanelContainer
+var _title_label: Label
+var _coach_line_label: Label
+var _gains_box: HBoxContainer
+var _stats_summary_label: Label
+var _station_chips_box: HBoxContainer
+var _btn_full_review: Button
+var _btn_next_morning: Button
+var _anim_tween: Tween
+
+func _init() -> void:
+	name = "DayWrapDrawer"
+	anchor_left = 0.0
+	anchor_top = 0.0
+	anchor_right = 1.0
+	anchor_bottom = 1.0
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_build_ui()
+
+func _build_ui() -> void:
+	_drawer_panel = PanelContainer.new()
+	_drawer_panel.name = "DrawerPanel"
+	_drawer_panel.anchor_left = 0.12
+	_drawer_panel.anchor_right = 0.88
+	_drawer_panel.anchor_top = 1.0
+	_drawer_panel.anchor_bottom = 1.0
+	_drawer_panel.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	_drawer_panel.grow_vertical = Control.GROW_DIRECTION_BEGIN
+	_drawer_panel.custom_minimum_size = Vector2(0, 184)
+	
+	var style_box: StyleBoxFlat = StyleBoxFlat.new()
+	style_box.bg_color = COLOR_PANEL_BG
+	style_box.border_color = COLOR_PANEL_BORDER
+	style_box.border_width_left = 2
+	style_box.border_width_right = 2
+	style_box.border_width_top = 2
+	style_box.border_width_bottom = 0
+	style_box.corner_radius_top_left = 4
+	style_box.corner_radius_top_right = 4
+	style_box.corner_radius_bottom_left = 0
+	style_box.corner_radius_bottom_right = 0
+	style_box.content_margin_left = 20
+	style_box.content_margin_right = 20
+	style_box.content_margin_top = 14
+	style_box.content_margin_bottom = 14
+	_drawer_panel.add_theme_stylebox_override("panel", style_box)
+	add_child(_drawer_panel)
+
+	var root_vbox: VBoxContainer = VBoxContainer.new()
+	root_vbox.name = "RootVBox"
+	root_vbox.add_theme_constant_override("separation", 10)
+	_drawer_panel.add_child(root_vbox)
+
+	# --- Header Row: Title & Actions ---
+	var top_bar: HBoxContainer = HBoxContainer.new()
+	top_bar.name = "TopBar"
+	root_vbox.add_child(top_bar)
+
+	_title_label = Label.new()
+	_title_label.name = "TitleLabel"
+	_title_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_title_label.add_theme_color_override("font_color", COLOR_GOLD)
+	_title_label.text = "DAY 1 WRAP - FIGHTER"
+	top_bar.add_child(_title_label)
+
+	var action_box: HBoxContainer = HBoxContainer.new()
+	action_box.name = "ActionButtons"
+	action_box.add_theme_constant_override("separation", 10)
+	top_bar.add_child(action_box)
+
+	_btn_full_review = _create_action_button("FULL REVIEW", false)
+	_btn_full_review.name = "FullReviewBtn"
+	_btn_full_review.pressed.connect(func(): full_review.emit())
+	action_box.add_child(_btn_full_review)
+
+	_btn_next_morning = _create_action_button("NEXT MORNING", true)
+	_btn_next_morning.name = "NextMorningBtn"
+	_btn_next_morning.pressed.connect(func(): next_morning.emit())
+	action_box.add_child(_btn_next_morning)
+
+	# --- Coach One-Liner Box ---
+	var coach_bar: PanelContainer = PanelContainer.new()
+	coach_bar.name = "CoachLinePanel"
+	var coach_box_style: StyleBoxFlat = StyleBoxFlat.new()
+	coach_box_style.bg_color = COLOR_PANEL_ALT
+	coach_box_style.border_color = COLOR_PANEL_BORDER
+	coach_box_style.border_width_left = 1
+	coach_box_style.border_width_top = 1
+	coach_box_style.border_width_right = 1
+	coach_box_style.border_width_bottom = 1
+	coach_box_style.corner_radius_top_left = 4
+	coach_box_style.corner_radius_top_right = 4
+	coach_box_style.corner_radius_bottom_left = 4
+	coach_box_style.corner_radius_bottom_right = 4
+	coach_box_style.content_margin_left = 12
+	coach_box_style.content_margin_right = 12
+	coach_box_style.content_margin_top = 6
+	coach_box_style.content_margin_bottom = 6
+	coach_bar.add_theme_stylebox_override("panel", coach_box_style)
+
+	_coach_line_label = Label.new()
+	_coach_line_label.name = "CoachLineLabel"
+	_coach_line_label.add_theme_color_override("font_color", COLOR_CREAM)
+	_coach_line_label.text = "Solid shift today."
+	coach_bar.add_child(_coach_line_label)
+	root_vbox.add_child(coach_bar)
+
+	# --- Content Row: Top Gains (Left) & Metrics/Chips (Right) ---
+	var metrics_row: HBoxContainer = HBoxContainer.new()
+	metrics_row.name = "MetricsRow"
+	metrics_row.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	metrics_row.add_theme_constant_override("separation", 24)
+	root_vbox.add_child(metrics_row)
+
+	# Top 3 Gains Box
+	var gains_wrapper: VBoxContainer = VBoxContainer.new()
+	gains_wrapper.name = "GainsWrapper"
+	gains_wrapper.custom_minimum_size = Vector2(230, 0)
+	var gains_title: Label = Label.new()
+	gains_title.text = "KEY GAINS"
+	gains_title.add_theme_color_override("font_color", COLOR_MUTED)
+	gains_wrapper.add_child(gains_title)
+
+	_gains_box = HBoxContainer.new()
+	_gains_box.name = "GainsHBox"
+	_gains_box.add_theme_constant_override("separation", 8)
+	gains_wrapper.add_child(_gains_box)
+	metrics_row.add_child(gains_wrapper)
+
+	# Workload & Stations Column
+	var workload_col: VBoxContainer = VBoxContainer.new()
+	workload_col.name = "WorkloadCol"
+	workload_col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	workload_col.add_theme_constant_override("separation", 4)
+	metrics_row.add_child(workload_col)
+
+	_stats_summary_label = Label.new()
+	_stats_summary_label.name = "StatsSummaryLabel"
+	_stats_summary_label.add_theme_color_override("font_color", COLOR_CREAM)
+	_stats_summary_label.text = "Trained: 0m | Idle: 0m | Coach: 0m | Stamina Left: 100%"
+	workload_col.add_child(_stats_summary_label)
+
+	var chips_scroll: ScrollContainer = ScrollContainer.new()
+	chips_scroll.name = "ChipsScroll"
+	chips_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	chips_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+	chips_scroll.custom_minimum_size = Vector2(0, 32)
+	workload_col.add_child(chips_scroll)
+
+	_station_chips_box = HBoxContainer.new()
+	_station_chips_box.name = "StationChipsBox"
+	_station_chips_box.add_theme_constant_override("separation", 6)
+	chips_scroll.add_child(_station_chips_box)
+
+	# Hide until invoked
+	_drawer_panel.visible = false
+
+func _create_action_button(text: String, is_primary: bool) -> Button:
+	var btn: Button = Button.new()
+	btn.text = text
+	btn.custom_minimum_size = Vector2(130, 30)
+
+	var style: StyleBoxFlat = StyleBoxFlat.new()
+	style.corner_radius_top_left = 4
+	style.corner_radius_top_right = 4
+	style.corner_radius_bottom_left = 4
+	style.corner_radius_bottom_right = 4
+
+	if is_primary:
+		style.bg_color = COLOR_GOLD
+		btn.add_theme_color_override("font_color", COLOR_VOID)
+		btn.add_theme_color_override("font_hover_color", COLOR_VOID)
+		btn.add_theme_color_override("font_pressed_color", COLOR_VOID)
+	else:
+		style.bg_color = COLOR_PANEL_ALT
+		style.border_color = COLOR_PANEL_BORDER
+		style.border_width_left = 1
+		style.border_width_top = 1
+		style.border_width_right = 1
+		style.border_width_bottom = 1
+		btn.add_theme_color_override("font_color", COLOR_CREAM)
+		btn.add_theme_color_override("font_hover_color", COLOR_GOLD)
+
+	btn.add_theme_stylebox_override("normal", style)
+	var hover_style: StyleBoxFlat = style.duplicate()
+	if is_primary:
+		hover_style.bg_color = COLOR_GOLD.lightened(0.12)
+	else:
+		hover_style.bg_color = COLOR_PANEL_BORDER
+	btn.add_theme_stylebox_override("hover", hover_style)
+	btn.add_theme_stylebox_override("pressed", hover_style)
+	return btn
+
+# --- Public API ---
+
+func show_day(day_number: int, fighter_name: String, lived: Dictionary) -> void:
+	# Parse lived dictionary via static helpers
+	var top_gains: Array = compute_top_gains(lived.get("gains", {}), 3)
+	var time_stats: Dictionary = compute_training_stats(lived)
+	var coach_line: String = evaluate_coach_line(lived, time_stats)
+	var chip_data: Array = compute_station_chips(lived.get("plan", []))
+
+	# Update Display
+	_title_label.text = "DAY %d WRAP - %s" % [day_number, fighter_name.to_upper()]
+	_coach_line_label.text = coach_line
+
+	var cur_stamina: float = float(lived.get("stamina", 100.0))
+	_stats_summary_label.text = "Trained: %dm  |  Idle: %dm  |  With Coach: %dm  |  Stamina: %d%%" % [
+		time_stats.trained_minutes,
+		time_stats.idle_minutes,
+		time_stats.coach_minutes,
+		int(round(cur_stamina))
+	]
+
+	# Build gains badges
+	for child in _gains_box.get_children():
+		child.queue_free()
+
+	if top_gains.is_empty():
+		var none_label: Label = Label.new()
+		none_label.text = "No gains recorded"
+		none_label.add_theme_color_override("font_color", COLOR_MUTED)
+		_gains_box.add_child(none_label)
+	else:
+		for gain in top_gains:
+			var tag_panel: PanelContainer = PanelContainer.new()
+			var tag_style: StyleBoxFlat = StyleBoxFlat.new()
+			tag_style.bg_color = COLOR_MUTED_BG
+			tag_style.border_color = COLOR_GOLD
+			tag_style.border_width_left = 1
+			tag_style.border_width_top = 1
+			tag_style.border_width_right = 1
+			tag_style.border_width_bottom = 1
+			tag_style.corner_radius_top_left = 3
+			tag_style.corner_radius_top_right = 3
+			tag_style.corner_radius_bottom_left = 3
+			tag_style.corner_radius_bottom_right = 3
+			tag_style.content_margin_left = 6
+			tag_style.content_margin_right = 6
+			tag_style.content_margin_top = 3
+			tag_style.content_margin_bottom = 3
+			tag_panel.add_theme_stylebox_override("panel", tag_style)
+
+			var tag_label: Label = Label.new()
+			var stat_key: String = gain.stat
+			var disp_name: String = STAT_NAMES.get(stat_key, stat_key.to_upper())
+			tag_label.text = "+%.1f %s" % [gain.amount, disp_name]
+			tag_label.add_theme_color_override("font_color", COLOR_GOLD)
+			tag_panel.add_child(tag_label)
+			_gains_box.add_child(tag_panel)
+
+	# Build station chips
+	for child in _station_chips_box.get_children():
+		child.queue_free()
+
+	for c in chip_data:
+		var chip: PanelContainer = PanelContainer.new()
+		var c_style: StyleBoxFlat = StyleBoxFlat.new()
+		c_style.bg_color = COLOR_PANEL_ALT
+		c_style.border_color = COLOR_PANEL_BORDER
+		c_style.border_width_left = 1
+		c_style.border_width_top = 1
+		c_style.border_width_right = 1
+		c_style.border_width_bottom = 1
+		c_style.corner_radius_top_left = 4
+		c_style.corner_radius_top_right = 4
+		c_style.corner_radius_bottom_left = 4
+		c_style.corner_radius_bottom_right = 4
+		c_style.content_margin_left = 8
+		c_style.content_margin_right = 8
+		c_style.content_margin_top = 2
+		c_style.content_margin_bottom = 2
+		chip.add_theme_stylebox_override("panel", c_style)
+
+		var chip_label: Label = Label.new()
+		chip_label.text = "%s: %dm" % [c.name, c.minutes]
+		chip_label.add_theme_color_override("font_color", COLOR_CREAM)
+		chip.add_child(chip_label)
+		_station_chips_box.add_child(chip)
+
+	# Delayed entrance: slide up 2.5 seconds after day ends
+	if _anim_tween and _anim_tween.is_valid():
+		_anim_tween.kill()
+
+	_anim_tween = create_tween()
+	_anim_tween.tween_interval(2.5)
+	_anim_tween.tween_callback(Callable(self, "_animate_slide_up"))
+
+func _animate_slide_up() -> void:
+	_drawer_panel.visible = true
+	var h: float = _drawer_panel.size.y
+	if h <= 0:
+		h = _drawer_panel.custom_minimum_size.y
+	_drawer_panel.offset_top = 0
+	_drawer_panel.offset_bottom = h
+
+	var tween: Tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_property(_drawer_panel, "offset_top", -h, 0.35)
+	tween.parallel().tween_property(_drawer_panel, "offset_bottom", 0.0, 0.35)
+
+# --- Pure Testable Calculation Helpers ---
+
+static func compute_top_gains(gains: Dictionary, count: int = 3) -> Array:
+	var list: Array = []
+	for stat in gains.keys():
+		var amt: float = float(gains[stat])
+		if amt > 0.0001:
+			list.append({"stat": str(stat), "amount": amt})
+
+	list.sort_custom(func(a, b): return a.amount > b.amount)
+
+	if list.size() > count:
+		return list.slice(0, count)
+	return list
+
+static func compute_training_stats(lived: Dictionary) -> Dictionary:
+	var plan: Array = lived.get("plan", [])
+	var trained: int = 0
+	var idle: int = 0
+	var coach_mins: int = lived.get("coach_minutes", 0)
+
+	for block in plan:
+		if block.has("idle"):
+			idle += int(block.get("idle", 0))
+		elif block.has("station"):
+			var m: int = int(block.get("minutes", 0))
+			trained += m
+			# Fallback if coach_minutes was not explicitly summarized at root
+			if not lived.has("coach_minutes") and block.get("coach", false):
+				coach_mins += m
+
+	return {
+		"trained_minutes": trained,
+		"idle_minutes": idle,
+		"total_minutes": trained + idle,
+		"coach_minutes": coach_mins
+	}
+
+static func compute_station_chips(plan: Array) -> Array:
+	var chips: Array = []
+	var visited_order: Array = []
+	var duration_by_kind: Dictionary = {}
+
+	for block in plan:
+		if block.has("station"):
+			var kind: String = str(block.station)
+			var minutes: int = int(block.get("minutes", 0))
+			if not duration_by_kind.has(kind):
+				visited_order.append(kind)
+				duration_by_kind[kind] = 0
+			duration_by_kind[kind] += minutes
+
+	for kind in visited_order:
+		var raw_name: String = STATION_LABELS.get(kind, kind.capitalize())
+		chips.append({
+			"kind": kind,
+			"name": raw_name,
+			"minutes": duration_by_kind[kind]
+		})
+
+	return chips
+
+static func evaluate_coach_line(lived: Dictionary, stats: Dictionary) -> String:
+	var strain: float = float(lived.get("strain", 0.0))
+	var stamina: float = float(lived.get("stamina", 100.0))
+	var idle_mins: int = stats.get("idle_minutes", 0)
+	var trained_mins: int = stats.get("trained_minutes", 0)
+	var coach_mins: int = stats.get("coach_minutes", 0)
+
+	if strain >= 85.0 or stamina <= 15.0:
+		return "He's running on fumes. Take it easy tomorrow or we break him."
+	if idle_mins >= 40 or (trained_mins > 0 and float(idle_mins) / float(trained_mins + idle_mins) >= 0.40):
+		return "Too much standing around today. We need tighter discipline."
+	if coach_mins >= 45:
+		return "Good day on the pads together. The technique is sharpening up."
+	if stats.get("total_minutes", 0) == 0:
+		return "No work put in today."
+	if coach_mins == 0 and trained_mins > 30:
+		return "He put the work in alone today, but he needs corner eyes on his mechanics."
+	return "Solid shift today. Tomorrow we keep pushing."
+
+2. tests/day_wrap_drawer_test.gd
+extends SceneTree
+
+var _failures: int = 0
+
+func _assert(cond: bool, msg: String) -> void:
+	if not cond:
+		_failures += 1
+		printerr("FAIL: ", msg)
+
+func _initialize() -> void:
+	print("Running DayWrapDrawer unit & UI tests...")
+	_test_top_gains_sorting()
+	_test_stats_calculation()
+	_test_coach_evaluations()
+	_test_station_chips_consolidation()
+	_test_ui_drawer_and_signals()
+
+	print("DAY_WRAP failures=", _failures)
+	if _failures == 0:
+		quit(0)
+	else:
+		quit(1)
+
+func _test_top_gains_sorting() -> void:
+	var gains: Dictionary = {
+		"speed": 0.4,
+		"power": 1.45,
+		"technique": 0.1,
+		"defense": 0.9,
+		"chin": 0.0
+	}
+	var top3: Array = DayWrapDrawer.compute_top_gains(gains, 3)
+	_assert(top3.size() == 3, "Top gains should be clamped to 3")
+	_assert(top3[0].stat == "power" and is_equal_approx(top3[0].amount, 1.45), "Top 1 should be power")
+	_assert(top3[1].stat == "defense" and is_equal_approx(top3[1].amount, 0.9), "Top 2 should be defense")
+	_assert(top3[2].stat == "speed" and is_equal_approx(top3[2].amount, 0.4), "Top 3 should be speed")
+
+func _test_stats_calculation() -> void:
+	var lived: Dictionary = {
+		"plan": [
+			{"station": "pads", "minutes": 30, "coach": true},
+			{"idle": 15, "why": "resting"},
+			{"station": "heavy_bag", "minutes": 45, "coach": false},
+			{"idle": 10, "why": "chatting"}
+		],
+		"coach_minutes": 30
+	}
+	var stats: Dictionary = DayWrapDrawer.compute_training_stats(lived)
+	_assert(stats.trained_minutes == 75, "Trained minutes should sum station blocks (30+45=75)")
+	_assert(stats.idle_minutes == 25, "Idle minutes should sum idle blocks (15+10=25)")
+	_assert(stats.total_minutes == 100, "Total minutes should be 100")
+	_assert(stats.coach_minutes == 30, "Coach minutes should equal 30")
+
+func _test_coach_evaluations() -> void:
+	# High idle day
+	var idle_day: Dictionary = {
+		"plan": [
+			{"station": "mirror_strip", "minutes": 20},
+			{"idle": 45, "why": "loafing"}
+		],
+		"stamina": 80.0,
+		"strain": 20.0
+	}
+	var idle_stats: Dictionary = DayWrapDrawer.compute_training_stats(idle_day)
+	var line1: String = DayWrapDrawer.evaluate_coach_line(idle_day, idle_stats)
+	_assert(line1 == "Too much standing around today. We need tighter discipline.", "Should trigger idle coach line")
+
+	# Heavy strain/exhaustion day
+	var exhausted_day: Dictionary = {
+		"plan": [{"station": "pads", "minutes": 60}],
+		"stamina": 12.0,
+		"strain": 88.0,
+		"coach_minutes": 60
+	}
+	var ex_stats: Dictionary = DayWrapDrawer.compute_training_stats(exhausted_day)
+	var line2: String = DayWrapDrawer.evaluate_coach_line(exhausted_day, ex_stats)
+	_assert(line2 == "He's running on fumes. Take it easy tomorrow or we break him.", "Should trigger exhaustion coach line")
+
+	# High coach pad day
+	var coach_day: Dictionary = {
+		"plan": [{"station": "pads", "minutes": 50, "coach": true}],
+		"stamina": 60.0,
+		"strain": 40.0,
+		"coach_minutes": 50
+	}
+	var c_stats: Dictionary = DayWrapDrawer.compute_training_stats(coach_day)
+	var line3: String = DayWrapDrawer.evaluate_coach_line(coach_day, c_stats)
+	_assert(line3 == "Good day on the pads together. The technique is sharpening up.", "Should trigger pads coach line")
+
+func _test_station_chips_consolidation() -> void:
+	var plan: Array = [
+		{"station": "speed_bag", "minutes": 15},
+		{"station": "heavy_bag", "minutes": 30},
+		{"station": "speed_bag", "minutes": 15}
+	]
+	var chips: Array = DayWrapDrawer.compute_station_chips(plan)
+	_assert(chips.size() == 2, "Duplicate stations must consolidate into distinct chips")
+	_assert(chips[0].name == "Speed Bag" and chips[0].minutes == 30, "Speed bag total should be 30m")
+	_assert(chips[1].name == "Heavy Bag" and chips[1].minutes == 30, "Heavy bag total should be 30m")
+
+func _test_ui_drawer_and_signals() -> void:
+	var drawer: DayWrapDrawer = DayWrapDrawer.new()
+	root.add_child(drawer)
+
+	var received_next: bool = false
+	var received_review: bool = false
+	drawer.next_morning.connect(func(): received_next = true)
+	drawer.full_review.connect(func(): received_review = true)
+
+	var lived: Dictionary = {
+		"plan": [{"station": "ring", "minutes": 30}],
+		"gains": {"defense": 0.8},
+		"stamina": 75.0,
+		"strain": 30.0,
+		"coach_minutes": 0
+	}
+	drawer.show_day(3, "Leo Vance", lived)
+
+	# Verify labels were populated directly
+	var title_lbl: Label = drawer.get_node("DrawerPanel/RootVBox/TopBar/TitleLabel") as Label
+	_assert(title_lbl != null and title_lbl.text == "DAY 3 WRAP - LEO VANCE", "Drawer title must reflect day & fighter")
+
+	# Trigger buttons directly
+	var btn_review: Button = drawer.get_node("DrawerPanel/RootVBox/TopBar/ActionButtons/FullReviewBtn") as Button
+	var btn_next: Button = drawer.get_node("DrawerPanel/RootVBox/TopBar/ActionButtons/NextMorningBtn") as Button
+	
+	btn_review.pressed.emit()
+	_assert(received_review, "FULL REVIEW button must emit full_review signal")
+
+	btn_next.pressed.emit()
+	_assert(received_next, "NEXT MORNING button must emit next_morning signal")
+
+	drawer.queue_free()

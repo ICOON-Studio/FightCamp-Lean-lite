@@ -1,0 +1,1586 @@
+{
+ "population": "BOX_JAB_HEAD_LAND_F01_F09_MESHY: Higgsfield/Meshy Left_Jab_from_Guard on f01 through glb_clip_to_bridge.py, authored with the v1 spec",
+ "videos": {
+  "pair_BOX_JAB_HEAD_LAND_F01_F09_MESHY_events": {
+   "label": "BOX_JAB_HEAD_LAND_F01_F09_MESHY (authored pair, 60 fps)",
+   "batch": 0,
+   "fps": 60.0,
+   "frames": 167,
+   "segments": 1,
+   "both_tracked_s": 2.8,
+   "punches": 1,
+   "slow_motion": false
+  }
+ },
+ "jabs_head_height": {
+  "definition": "lead-hand punch, wrist within 0.4 T of the receiver's nose height at the peak",
+  "punches": 1,
+  "gap_T_before": {
+   "n": 1,
+   "p10": 2.24,
+   "p50": 2.24,
+   "p90": 2.24
+  },
+  "gap_T_peak": {
+   "n": 1,
+   "p10": 2.08,
+   "p50": 2.08,
+   "p90": 2.08
+  },
+  "gap_T_after": {
+   "n": 1,
+   "p10": 2.15,
+   "p50": 2.15,
+   "p90": 2.15
+  },
+  "feet_T_before": {
+   "n": 1,
+   "p10": 1.46,
+   "p50": 1.46,
+   "p90": 1.46
+  },
+  "feet_T_peak": {
+   "n": 1,
+   "p10": 1.19,
+   "p50": 1.19,
+   "p90": 1.19
+  },
+  "feet_T_after": {
+   "n": 1,
+   "p10": 1.45,
+   "p50": 1.45,
+   "p90": 1.45
+  },
+  "thrower_hips_out_T": {
+   "n": 1,
+   "p10": 0.07,
+   "p50": 0.07,
+   "p90": 0.07
+  },
+  "thrower_lead_ankle_out_T": {
+   "n": 1,
+   "p10": 0.02,
+   "p50": 0.02,
+   "p90": 0.02
+  },
+  "thrower_rear_ankle_out_T": {
+   "n": 1,
+   "p10": 0.02,
+   "p50": 0.02,
+   "p90": 0.02
+  },
+  "extension_s": {
+   "n": 1,
+   "p10": 0.17,
+   "p50": 0.17,
+   "p90": 0.17
+  },
+  "return_s": {
+   "n": 1,
+   "p10": 0.38,
+   "p50": 0.38,
+   "p90": 0.38
+  },
+  "receiver_nose_away_T_peak_plus_0.1s": {
+   "n": 1,
+   "p10": 0.01,
+   "p50": 0.01,
+   "p90": 0.01
+  },
+  "receiver_nose_away_T_peak_plus_0.2s": {
+   "n": 1,
+   "p10": 0.01,
+   "p50": 0.01,
+   "p90": 0.01
+  },
+  "receiver_nose_away_T_peak_plus_0.3s": {
+   "n": 1,
+   "p10": 0.1,
+   "p50": 0.1,
+   "p90": 0.1
+  },
+  "receiver_hips_away_T_peak_plus_0.2s": {
+   "n": 1,
+   "p10": -0.0,
+   "p50": -0.0,
+   "p90": -0.0
+  },
+  "receiver_nose_moves_s_from_peak": {
+   "n": 1,
+   "p10": 0.32,
+   "p50": 0.32,
+   "p90": 0.32
+  },
+  "thrower_hips_drop_T": {
+   "n": 1,
+   "p10": 0.02,
+   "p50": 0.02,
+   "p90": 0.02
+  },
+  "thrower_hips_drop_s_from_peak": {
+   "n": 1,
+   "p10": 0.07,
+   "p50": 0.07,
+   "p90": 0.07
+  },
+  "thrower_nose_drop_T": {
+   "n": 1,
+   "p10": 0.08,
+   "p50": 0.08,
+   "p90": 0.08
+  },
+  "thrower_hips_dips_05T": {
+   "n": 1,
+   "p10": 0.0,
+   "p50": 0.0,
+   "p90": 0.0
+  },
+  "thrower_hips_dips_10T": {
+   "n": 1,
+   "p10": 0.0,
+   "p50": 0.0,
+   "p90": 0.0
+  },
+  "thrower_pitch_onset_deg": {
+   "n": 1,
+   "p10": 9.22,
+   "p50": 9.22,
+   "p90": 9.22
+  },
+  "thrower_pitch_peak_deg": {
+   "n": 1,
+   "p10": 12.74,
+   "p50": 12.74,
+   "p90": 12.74
+  },
+  "thrower_pitch_max_deg": {
+   "n": 1,
+   "p10": 13.27,
+   "p50": 13.27,
+   "p90": 13.27
+  },
+  "thrower_pitch_forward_change_deg": {
+   "n": 1,
+   "p10": 4.05,
+   "p50": 4.05,
+   "p90": 4.05
+  },
+  "thrower_lead_knee_onset_deg": {
+   "n": 1,
+   "p10": 126.13,
+   "p50": 126.13,
+   "p90": 126.13
+  },
+  "thrower_lead_knee_min_deg": {
+   "n": 1,
+   "p10": 111.67,
+   "p50": 111.67,
+   "p90": 111.67
+  },
+  "thrower_lead_knee_bend_deg": {
+   "n": 1,
+   "p10": 14.46,
+   "p50": 14.46,
+   "p90": 14.46
+  },
+  "thrower_rear_knee_onset_deg": {
+   "n": 1,
+   "p10": 178.99,
+   "p50": 178.99,
+   "p90": 178.99
+  },
+  "thrower_rear_knee_min_deg": {
+   "n": 1,
+   "p10": 174.75,
+   "p50": 174.75,
+   "p90": 174.75
+  },
+  "thrower_rear_knee_bend_deg": {
+   "n": 1,
+   "p10": 4.24,
+   "p50": 4.24,
+   "p90": 4.24
+  },
+  "receiver_pitch_onset_deg": {
+   "n": 1,
+   "p10": 12.47,
+   "p50": 12.47,
+   "p90": 12.47
+  },
+  "receiver_pitch_back_change_deg": {
+   "n": 1,
+   "p10": 19.72,
+   "p50": 19.72,
+   "p90": 19.72
+  },
+  "receiver_hips_dips_05T": {
+   "n": 1,
+   "p10": 0.0,
+   "p50": 0.0,
+   "p90": 0.0
+  },
+  "thrower_hips_dips_05T_counts": {
+   "0": 1,
+   "1": 0,
+   "2": 0,
+   "3+": 0
+  }
+ },
+ "rear_head_height": {
+  "definition": "rear-hand punch, wrist within 0.4 T of the receiver's nose height at the peak",
+  "punches": 0,
+  "gap_T_before": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "gap_T_peak": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "gap_T_after": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "feet_T_before": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "feet_T_peak": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "feet_T_after": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_hips_out_T": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_lead_ankle_out_T": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_rear_ankle_out_T": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "extension_s": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "return_s": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "receiver_nose_away_T_peak_plus_0.1s": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "receiver_nose_away_T_peak_plus_0.2s": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "receiver_nose_away_T_peak_plus_0.3s": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "receiver_hips_away_T_peak_plus_0.2s": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "receiver_nose_moves_s_from_peak": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_hips_drop_T": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_hips_drop_s_from_peak": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_nose_drop_T": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_hips_dips_05T": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_hips_dips_10T": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_pitch_onset_deg": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_pitch_peak_deg": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_pitch_max_deg": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_pitch_forward_change_deg": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_lead_knee_onset_deg": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_lead_knee_min_deg": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_lead_knee_bend_deg": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_rear_knee_onset_deg": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_rear_knee_min_deg": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_rear_knee_bend_deg": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "receiver_pitch_onset_deg": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "receiver_pitch_back_change_deg": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "receiver_hips_dips_05T": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_hips_dips_05T_counts": {
+   "0": 0,
+   "1": 0,
+   "2": 0,
+   "3+": 0
+  }
+ },
+ "lead_body": {
+  "definition": "lead-hand punch, wrist at least 0.8 T below the receiver's nose at the peak (below his shoulders)",
+  "punches": 0,
+  "gap_T_before": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "gap_T_peak": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "gap_T_after": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "feet_T_before": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "feet_T_peak": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "feet_T_after": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_hips_out_T": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_lead_ankle_out_T": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_rear_ankle_out_T": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "extension_s": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "return_s": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "receiver_nose_away_T_peak_plus_0.1s": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "receiver_nose_away_T_peak_plus_0.2s": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "receiver_nose_away_T_peak_plus_0.3s": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "receiver_hips_away_T_peak_plus_0.2s": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "receiver_nose_moves_s_from_peak": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_hips_drop_T": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_hips_drop_s_from_peak": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_nose_drop_T": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_hips_dips_05T": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_hips_dips_10T": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_pitch_onset_deg": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_pitch_peak_deg": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_pitch_max_deg": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_pitch_forward_change_deg": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_lead_knee_onset_deg": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_lead_knee_min_deg": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_lead_knee_bend_deg": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_rear_knee_onset_deg": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_rear_knee_min_deg": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_rear_knee_bend_deg": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "receiver_pitch_onset_deg": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "receiver_pitch_back_change_deg": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "receiver_hips_dips_05T": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_hips_dips_05T_counts": {
+   "0": 0,
+   "1": 0,
+   "2": 0,
+   "3+": 0
+  }
+ },
+ "rear_body": {
+  "definition": "rear-hand punch, wrist at least 0.8 T below the receiver's nose at the peak (below his shoulders)",
+  "punches": 0,
+  "gap_T_before": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "gap_T_peak": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "gap_T_after": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "feet_T_before": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "feet_T_peak": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "feet_T_after": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_hips_out_T": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_lead_ankle_out_T": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_rear_ankle_out_T": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "extension_s": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "return_s": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "receiver_nose_away_T_peak_plus_0.1s": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "receiver_nose_away_T_peak_plus_0.2s": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "receiver_nose_away_T_peak_plus_0.3s": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "receiver_hips_away_T_peak_plus_0.2s": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "receiver_nose_moves_s_from_peak": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_hips_drop_T": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_hips_drop_s_from_peak": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_nose_drop_T": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_hips_dips_05T": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_hips_dips_10T": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_pitch_onset_deg": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_pitch_peak_deg": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_pitch_max_deg": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_pitch_forward_change_deg": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_lead_knee_onset_deg": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_lead_knee_min_deg": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_lead_knee_bend_deg": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_rear_knee_onset_deg": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_rear_knee_min_deg": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_rear_knee_bend_deg": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "receiver_pitch_onset_deg": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "receiver_pitch_back_change_deg": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "receiver_hips_dips_05T": {
+   "n": 0,
+   "p10": null,
+   "p50": null,
+   "p90": null
+  },
+  "thrower_hips_dips_05T_counts": {
+   "0": 0,
+   "1": 0,
+   "2": 0,
+   "3+": 0
+  }
+ },
+ "all_punches": {
+  "definition": "every arm extension of >= 0.35 T toward the other man (includes parries in the drills)",
+  "punches": 1,
+  "gap_T_before": {
+   "n": 1,
+   "p10": 2.24,
+   "p50": 2.24,
+   "p90": 2.24
+  },
+  "gap_T_peak": {
+   "n": 1,
+   "p10": 2.08,
+   "p50": 2.08,
+   "p90": 2.08
+  },
+  "gap_T_after": {
+   "n": 1,
+   "p10": 2.15,
+   "p50": 2.15,
+   "p90": 2.15
+  },
+  "feet_T_before": {
+   "n": 1,
+   "p10": 1.46,
+   "p50": 1.46,
+   "p90": 1.46
+  },
+  "feet_T_peak": {
+   "n": 1,
+   "p10": 1.19,
+   "p50": 1.19,
+   "p90": 1.19
+  },
+  "feet_T_after": {
+   "n": 1,
+   "p10": 1.45,
+   "p50": 1.45,
+   "p90": 1.45
+  },
+  "thrower_hips_out_T": {
+   "n": 1,
+   "p10": 0.07,
+   "p50": 0.07,
+   "p90": 0.07
+  },
+  "thrower_lead_ankle_out_T": {
+   "n": 1,
+   "p10": 0.02,
+   "p50": 0.02,
+   "p90": 0.02
+  },
+  "thrower_rear_ankle_out_T": {
+   "n": 1,
+   "p10": 0.02,
+   "p50": 0.02,
+   "p90": 0.02
+  },
+  "extension_s": {
+   "n": 1,
+   "p10": 0.17,
+   "p50": 0.17,
+   "p90": 0.17
+  },
+  "return_s": {
+   "n": 1,
+   "p10": 0.38,
+   "p50": 0.38,
+   "p90": 0.38
+  },
+  "receiver_nose_away_T_peak_plus_0.1s": {
+   "n": 1,
+   "p10": 0.01,
+   "p50": 0.01,
+   "p90": 0.01
+  },
+  "receiver_nose_away_T_peak_plus_0.2s": {
+   "n": 1,
+   "p10": 0.01,
+   "p50": 0.01,
+   "p90": 0.01
+  },
+  "receiver_nose_away_T_peak_plus_0.3s": {
+   "n": 1,
+   "p10": 0.1,
+   "p50": 0.1,
+   "p90": 0.1
+  },
+  "receiver_hips_away_T_peak_plus_0.2s": {
+   "n": 1,
+   "p10": -0.0,
+   "p50": -0.0,
+   "p90": -0.0
+  },
+  "receiver_nose_moves_s_from_peak": {
+   "n": 1,
+   "p10": 0.32,
+   "p50": 0.32,
+   "p90": 0.32
+  },
+  "thrower_hips_drop_T": {
+   "n": 1,
+   "p10": 0.02,
+   "p50": 0.02,
+   "p90": 0.02
+  },
+  "thrower_hips_drop_s_from_peak": {
+   "n": 1,
+   "p10": 0.07,
+   "p50": 0.07,
+   "p90": 0.07
+  },
+  "thrower_nose_drop_T": {
+   "n": 1,
+   "p10": 0.08,
+   "p50": 0.08,
+   "p90": 0.08
+  },
+  "thrower_hips_dips_05T": {
+   "n": 1,
+   "p10": 0.0,
+   "p50": 0.0,
+   "p90": 0.0
+  },
+  "thrower_hips_dips_10T": {
+   "n": 1,
+   "p10": 0.0,
+   "p50": 0.0,
+   "p90": 0.0
+  },
+  "thrower_pitch_onset_deg": {
+   "n": 1,
+   "p10": 9.22,
+   "p50": 9.22,
+   "p90": 9.22
+  },
+  "thrower_pitch_peak_deg": {
+   "n": 1,
+   "p10": 12.74,
+   "p50": 12.74,
+   "p90": 12.74
+  },
+  "thrower_pitch_max_deg": {
+   "n": 1,
+   "p10": 13.27,
+   "p50": 13.27,
+   "p90": 13.27
+  },
+  "thrower_pitch_forward_change_deg": {
+   "n": 1,
+   "p10": 4.05,
+   "p50": 4.05,
+   "p90": 4.05
+  },
+  "thrower_lead_knee_onset_deg": {
+   "n": 1,
+   "p10": 126.13,
+   "p50": 126.13,
+   "p90": 126.13
+  },
+  "thrower_lead_knee_min_deg": {
+   "n": 1,
+   "p10": 111.67,
+   "p50": 111.67,
+   "p90": 111.67
+  },
+  "thrower_lead_knee_bend_deg": {
+   "n": 1,
+   "p10": 14.46,
+   "p50": 14.46,
+   "p90": 14.46
+  },
+  "thrower_rear_knee_onset_deg": {
+   "n": 1,
+   "p10": 178.99,
+   "p50": 178.99,
+   "p90": 178.99
+  },
+  "thrower_rear_knee_min_deg": {
+   "n": 1,
+   "p10": 174.75,
+   "p50": 174.75,
+   "p90": 174.75
+  },
+  "thrower_rear_knee_bend_deg": {
+   "n": 1,
+   "p10": 4.24,
+   "p50": 4.24,
+   "p90": 4.24
+  },
+  "receiver_pitch_onset_deg": {
+   "n": 1,
+   "p10": 12.47,
+   "p50": 12.47,
+   "p90": 12.47
+  },
+  "receiver_pitch_back_change_deg": {
+   "n": 1,
+   "p10": 19.72,
+   "p50": 19.72,
+   "p90": 19.72
+  },
+  "receiver_hips_dips_05T": {
+   "n": 1,
+   "p10": 0.0,
+   "p50": 0.0,
+   "p90": 0.0
+  },
+  "thrower_hips_dips_05T_counts": {
+   "0": 1,
+   "1": 0,
+   "2": 0,
+   "3+": 0
+  }
+ },
+ "combinations": {
+  "definition": "consecutive punches by ONE thrower (sorted by peak) where the next punch's onset comes 0 to 1.0 s after the previous punch's peak; peak_to_onset_s and peak_to_peak_s at the file's frame rate; returned = the previous punch's wrist was back under half its rise (its back frame) by the next onset",
+  "all": {
+   "n": 0,
+   "peak_to_onset_s": {
+    "n": 0,
+    "p10": null,
+    "p50": null,
+    "p90": null
+   },
+   "peak_to_peak_s": {
+    "n": 0,
+    "p10": null,
+    "p50": null,
+    "p90": null
+   },
+   "returned_share": null
+  },
+  "by_transition": {
+   "lead->lead": {
+    "n": 0,
+    "peak_to_onset_s": {
+     "n": 0,
+     "p10": null,
+     "p50": null,
+     "p90": null
+    },
+    "peak_to_peak_s": {
+     "n": 0,
+     "p10": null,
+     "p50": null,
+     "p90": null
+    },
+    "returned_share": null
+   },
+   "lead->rear": {
+    "n": 0,
+    "peak_to_onset_s": {
+     "n": 0,
+     "p10": null,
+     "p50": null,
+     "p90": null
+    },
+    "peak_to_peak_s": {
+     "n": 0,
+     "p10": null,
+     "p50": null,
+     "p90": null
+    },
+    "returned_share": null
+   },
+   "rear->lead": {
+    "n": 0,
+    "peak_to_onset_s": {
+     "n": 0,
+     "p10": null,
+     "p50": null,
+     "p90": null
+    },
+    "peak_to_peak_s": {
+     "n": 0,
+     "p10": null,
+     "p50": null,
+     "p90": null
+    },
+    "returned_share": null
+   },
+   "rear->rear": {
+    "n": 0,
+    "peak_to_onset_s": {
+     "n": 0,
+     "p10": null,
+     "p50": null,
+     "p90": null
+    },
+    "peak_to_peak_s": {
+     "n": 0,
+     "p10": null,
+     "p50": null,
+     "p90": null
+    },
+    "returned_share": null
+   }
+  },
+  "rows": []
+ },
+ "punches": [
+  {
+   "t_peak_s": 1.0,
+   "thrower": "A",
+   "hand": "L",
+   "lead": true,
+   "extension_frames": 10,
+   "return_frames": 23,
+   "gap_T_before": 2.2371394634246826,
+   "gap_T_peak": 2.0769639015197754,
+   "gap_T_after": 2.1458160877227783,
+   "feet_T_before": 1.4603767395019531,
+   "feet_T_peak": 1.190179467201233,
+   "feet_T_after": 1.4521641731262207,
+   "thrower_T": {
+    "hips_out": 0.06808529794216156,
+    "hips_back": -0.06423015892505646,
+    "nose_out": 0.14213311672210693,
+    "lead_ankle_out": 0.023869169875979424,
+    "rear_ankle_out": 0.016535475850105286
+   },
+   "receiver_T_away": {
+    "peak": {
+     "nose": 0.01000223495066166,
+     "hips": -0.0007538044010289013,
+     "ankles": 0.002243668306618929
+    },
+    "peak+0.1s": {
+     "nose": 0.012621011584997177,
+     "hips": -0.0007858573226258159,
+     "ankles": 0.005277825985103846
+    },
+    "peak+0.2s": {
+     "nose": 0.014388705603778362,
+     "hips": -0.0008049097377806902,
+     "ankles": 0.007993584498763084
+    },
+    "peak+0.3s": {
+     "nose": 0.1013643890619278,
+     "hips": -0.12179122120141983,
+     "ankles": 0.004361889325082302
+    }
+   },
+   "receiver_nose_moves_frames_from_peak": 19,
+   "receiver_nose_moves_s_from_peak": 0.31666666666666665,
+   "wrist_vs_receiver_nose_T": -0.09584321081638336,
+   "frame": 60,
+   "onset_frame": 50,
+   "back_frame": 83,
+   "thrower_T_vertical": {
+    "hips_drop_max": 0.02373349666595459,
+    "hips_drop_s_from_peak": 0.06666666666666667,
+    "nose_drop_max": 0.08097529411315918
+   },
+   "posture": {
+    "w0_frame": 38,
+    "w1_frame": 101,
+    "thrower_slot": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "receiver_slot": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "hips_dips_05T": 0,
+    "hips_dips_10T": 0,
+    "dip_s_from_peak_05T": [],
+    "pitch_onset_deg": 9.21752,
+    "pitch_peak_deg": 12.74461,
+    "pitch_max_deg": 13.26931,
+    "pitch_max_s_from_peak": 0.05,
+    "pitch_min_deg": 2.9577,
+    "pitch_forward_change_deg": 4.05179,
+    "lead_knee_onset_deg": 126.13378,
+    "lead_knee_min_deg": 111.67381,
+    "lead_knee_bend_deg": 14.45997,
+    "rear_knee_onset_deg": 178.98798,
+    "rear_knee_min_deg": 174.74792,
+    "rear_knee_bend_deg": 4.24005,
+    "receiver_pitch_onset_deg": 12.47382,
+    "receiver_pitch_min_after_peak_deg": -7.24781,
+    "receiver_pitch_back_change_deg": 19.72163,
+    "receiver_hips_dips_05T": 0,
+    "series": {
+     "thrower_hip_h": [
+      1.4409,
+      1.4275,
+      1.41403,
+      1.40815,
+      1.40435,
+      1.40233,
+      1.4031,
+      1.40556,
+      1.40931,
+      1.41384,
+      1.42097,
+      1.4258,
+      1.4336,
+      1.43862,
+      1.44208,
+      1.44232,
+      1.43903,
+      1.43709,
+      1.43167,
+      1.42535,
+      1.41907,
+      1.41598,
+      1.41362,
+      1.41241,
+      1.41103,
+      1.41047,
+      1.40987,
+      1.41025,
+      1.41052,
+      1.41199,
+      1.41341,
+      1.41635,
+      1.41891,
+      1.42431,
+      1.42971,
+      1.43769,
+      1.44509,
+      1.45315,
+      1.46012,
+      1.46824,
+      1.47547,
+      1.48119,
+      1.48428,
+      1.48358,
+      1.48834,
+      1.49703,
+      1.50556,
+      1.51356,
+      1.52312,
+      1.52973,
+      1.53587,
+      1.53904,
+      1.54191,
+      1.54143,
+      1.54122,
+      1.53958,
+      1.53952,
+      1.53874,
+      1.53857,
+      1.53812,
+      1.5376,
+      1.53687,
+      1.53519,
+      1.53312
+     ],
+     "thrower_pitch": [
+      2.95209,
+      2.96312,
+      2.96914,
+      3.33608,
+      3.69486,
+      4.37166,
+      5.02252,
+      5.8936,
+      6.71189,
+      7.51623,
+      8.26799,
+      8.83468,
+      9.39304,
+      9.66131,
+      9.93057,
+      10.19115,
+      10.44635,
+      10.80118,
+      11.14536,
+      11.56818,
+      11.98373,
+      12.42626,
+      12.87531,
+      13.10199,
+      13.33577,
+      13.34989,
+      13.36543,
+      13.19348,
+      13.02253,
+      12.68404,
+      12.34771,
+      11.86481,
+      11.3842,
+      10.76687,
+      10.14975,
+      9.55519,
+      8.95928,
+      8.46901,
+      7.97,
+      7.61342,
+      7.23764,
+      6.97749,
+      6.69801,
+      6.52541,
+      6.34464,
+      6.26768,
+      6.18964,
+      6.18311,
+      6.17656,
+      6.2354,
+      6.29338,
+      6.41209,
+      6.53041,
+      6.64867,
+      6.76886,
+      6.85241,
+      6.93668,
+      6.92332,
+      6.90714,
+      6.76906,
+      6.62346,
+      6.3721,
+      6.10966,
+      5.82186
+     ],
+     "receiver_pitch": [
+      12.90597,
+      12.88792,
+      12.86986,
+      12.8474,
+      12.82494,
+      12.79828,
+      12.77163,
+      12.74101,
+      12.71038,
+      12.66417,
+      12.61794,
+      12.54855,
+      12.47912,
+      12.40091,
+      12.32259,
+      12.24878,
+      12.17483,
+      12.12102,
+      12.06713,
+      12.04564,
+      12.02415,
+      12.00954,
+      11.99493,
+      11.97719,
+      11.95945,
+      11.94015,
+      11.92087,
+      11.90188,
+      11.88291,
+      11.86573,
+      11.84857,
+      11.8349,
+      11.82123,
+      11.81266,
+      11.80411,
+      11.8021,
+      11.68212,
+      10.19989,
+      8.67798,
+      5.58538,
+      2.50357,
+      -0.63058,
+      -3.61068,
+      -5.30108,
+      -6.86184,
+      -7.58718,
+      -8.1764,
+      -7.25598,
+      -6.35764,
+      -5.46159,
+      -4.53814,
+      -3.49917,
+      -2.41342,
+      -1.13933,
+      0.12852,
+      1.37249,
+      2.59017,
+      3.71146,
+      4.82175,
+      5.90543,
+      6.96048,
+      7.94525,
+      8.79268,
+      9.32901
+     ]
+    }
+   },
+   "video": "pair_BOX_JAB_HEAD_LAND_F01_F09_MESHY_events",
+   "fps": 60.0,
+   "batch": 0,
+   "slow_motion": false
+  }
+ ]
+}

@@ -1,0 +1,8 @@
+{
+  "body": "You own C68: research/TASK_C68.md, self-contained. The operator ruled the career flow on 2026-09-10 and one step is out of order - weight-cut options are offered AFTER the bout is accepted, but the class is fixed at acceptance, so a player can take a fight his man cannot make and only learn it at the weigh-in. You build get_weight_read() and hang it on book_fight (GameState.gd:10285). THREE TRAPS: (1) DoubleChamp.can_make_limit at DoubleChamp.gd:62 already composes limit_for + status + projection and is the ONLY place that happens - lift the shared part, do not fork a second copy, and DoubleChamp's superfight answers at GameState.gd:11116-11164 must not move by a gram; (2) DO NOT refuse the bout - that is R72's lesson, C51 refused on unknown-provenance holds, unknown was nearly every hold, and it repealed the commission model in one commit; (3) a missing walk weight is UNKNOWN, never 0.0. Gate is a CEILING: fails=1 or better, the one being your own C67 until GrappleSeat and GrappleResolve land - if it is better, say so and push. Stay out of FightContractScreen.gd and OfficeHubPanel.gd, both Cursor's under U27.",
+  "created_at": "2026-09-09T21:03:42Z",
+  "from": "claude",
+  "id": "5a55785b9610",
+  "to": "codex",
+  "topic": "C68-assigned"
+}

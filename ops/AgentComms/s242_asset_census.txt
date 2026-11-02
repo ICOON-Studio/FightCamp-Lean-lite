@@ -1,0 +1,4 @@
+  File "C:\Users\user\AppData\Local\Temp/asset_census.py", line 15
+    if f.endswith('.glb'): allglb.setdefault(f,[]).append(os.path.join(d,f).replace('\','/'))
+                                                                                          ^
+SyntaxError: unterminated string literal (detected at line 15)

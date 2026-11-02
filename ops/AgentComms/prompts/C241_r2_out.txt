@@ -1,0 +1,5 @@
+Pushed WIP checkpoint **260cc7ab** to `codex/c241-glove-asset`.
+
+Fixed glove trim transforms and opened new before/after renders. **Not complete:** thumb fit and remaining test gates still need work.
+
+Repeated **80–88°C** readings blocked further heavy work. No C241 engine is running. Progress is saved; cooling or pausing other jobs is needed to resume.

@@ -1,0 +1,5 @@
+You are working in the git worktree D:/FightCamp/wt/C229 (branch codex/c229-cascadeur-hooks) of the FightCamp Godot 4.7.2 game.
+Your task is fully specified in research/TASK_C229_CASCADEUR_SHOVEL_INSIDE_UPPERCUT.md - read it first, then do it start to finish.
+The Cascadeur script server is already running on 127.0.0.1:8765 (check with python Tools/cascadeur/csend.py -c "print(app.current_scene().name())").
+Baseline gate first, then one move at a time: author in Cascadeur, export, bind, gate on 4 rigs, open the stills, certify.
+git add by explicit path, commit and git push -u origin codex/c229-cascadeur-hooks after EACH move. Do not stop at 'written'.

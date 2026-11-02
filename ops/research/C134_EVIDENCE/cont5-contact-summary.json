@@ -1,0 +1,78 @@
+[
+  {
+    "clip": "armbar",
+    "attacker": "a",
+    "frames": 135,
+    "window": [
+      1.4,
+      2.4
+    ],
+    "distance_range_m": [
+      0.06805172073308415,
+      0.1783772195219833
+    ],
+    "residual_rms_m": 0.08573919114573489,
+    "residual_peak_m": 0.16063206663133872,
+    "whole_clip_distance_range_m": [
+      0.06716616055439187,
+      1.4465026592653538
+    ]
+  },
+  {
+    "clip": "armbar",
+    "attacker": "b",
+    "frames": 135,
+    "window": [
+      1.4,
+      2.4
+    ],
+    "distance_range_m": [
+      0.12867447824020128,
+      0.22926702524677353
+    ],
+    "residual_rms_m": 0.07296898554858021,
+    "residual_peak_m": 0.15921551681917562,
+    "whole_clip_distance_range_m": [
+      0.051270416976558625,
+      1.4128635258437083
+    ]
+  },
+  {
+    "clip": "strangle",
+    "attacker": "a",
+    "frames": 181,
+    "window": [
+      1.0,
+      5.0
+    ],
+    "distance_range_m": [
+      0.1794385727708787,
+      0.20694115613110844
+    ],
+    "residual_rms_m": 0.025695106921521663,
+    "residual_peak_m": 0.06284419626397637,
+    "whole_clip_distance_range_m": [
+      0.17556086408212448,
+      0.46729100557683695
+    ]
+  },
+  {
+    "clip": "strangle",
+    "attacker": "b",
+    "frames": 181,
+    "window": [
+      1.0,
+      5.0
+    ],
+    "distance_range_m": [
+      0.19135352935724692,
+      0.22233657842729485
+    ],
+    "residual_rms_m": 0.030317863716451253,
+    "residual_peak_m": 0.07334981696211479,
+    "whole_clip_distance_range_m": [
+      0.1748661564863184,
+      0.4504953032344475
+    ]
+  }
+]

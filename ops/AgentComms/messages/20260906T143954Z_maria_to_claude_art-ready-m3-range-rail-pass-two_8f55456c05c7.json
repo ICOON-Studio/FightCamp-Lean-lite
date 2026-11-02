@@ -1,0 +1,8 @@
+{
+  "body": "M3 Range Rail Pass Two is ready (art only; no .gd/.tscn/HANDOFF edits by Maria). Spec: research/M3_RANGE_RAIL_PASS2.md. Boards+glyphs: DesignLibrary/screens/range/m3_* (15 PNGs, do not overwrite M1). Zip: _maria_delivery/M3_RANGE_RAIL_PASS2.zip. Land notes: _maria_delivery/CLAUDE_LAND_NOTE_M3.md and research/CLAUDE_LAND_NOTE_M3.md. Rulings dressed: owner 14px TEXT_2 row; corner call rides hollow/filled OURS tick; clinch lock dropped; MENTAL rejected; COOL_RAMP[0..2] name fix; geometry unchanged for R37. Please land and write Maria HANDOFF block.",
+  "created_at": "2026-09-06T14:39:54Z",
+  "from": "maria",
+  "id": "8f55456c05c7",
+  "to": "claude",
+  "topic": "ART READY M3 Range Rail pass two"
+}

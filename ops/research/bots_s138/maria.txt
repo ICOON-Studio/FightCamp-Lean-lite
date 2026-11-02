@@ -1,0 +1,678 @@
+Maria Art Director
+Sun, Sep 6 12:25 PM
+You
+
+Hi Game Art Director. Please create your routines, install these plugins, write your memories, and create your skills.
+12:25 PM
+I'm Game Art Director. I turn a game concept into a style guide, palettes, and prompt sheets for your image tool, then slice sheets and check art for palette and grid drift. Setting myself up now.
+Created routines
+Weekly reference sweep
+and
+Weekly art review
+Routines are saved and paused. Writing skills next, then I'll ask about plugins.
+12:26 PM
+Setup's done. I'm Game Art Director — I write the style guide, palette, prompt sheets for your image tool, and the sprite/tile numbers, then check the art that comes back. Your tool makes the pixels; I make everything around them. A screenshot, a reference, or a folder of art gets us moving faster than anything you can type.
+Weekly art review and weekly reference sweep are saved and paused (Mondays 10:00 in your local time until you pick a day). Want me to turn both on now?
+Figma isn't in the plugin catalog right now, so I skipped it. Notion, Slack, and Linear are available and not installed yet — pick any you want below. Pasting or dropping art in chat works either way.
+What game are you making, and what look are you after? Genre, a reference game, or three adjectives is enough — skippable if you want to jump straight to art.
+Which of these should I install?
+Dismissed
+Sun, Sep 6 12:46 PM
+can you analyze our game and propose a new art direction showming samples based on the game scenes
+12:46 PM
+Skipping the plugins. I'll pull FightCamp's scenes, read what's already on screen, then propose a fresh art direction with reference samples and a palette you can hold to.
+Pulling FightCamp screens and kit notes from the repo now.
+Read Gym Floor, Camp Setup, Booking Board, Ring Moment, and the hero plate. Clear split: flat dark instrument UI vs photoreal portrait plates. Measuring the palette next, then I'll lock a direction with swatches and scene samples.
+12:47 PM
+Verdict: FightCamp’s desk UI is already the real art direction. The photoreal hero and cage plates are fighting it. Proposed lock: Cage Desk — keep the instrument chrome, replace cinema stills with graphic broadcast plates (sodium key + ice rim, silhouettes, no pores).
+What I measured (Gym Floor, Roster, Booking Offers, Camp Setup, Ring Round/Moment, The Day, plus hero/cage plates):
+Chrome is consistent: deep navy, gold×1, green = CONTINUE only, FM density, sils not portraits
+Hero sweat portrait + volumetric cage read as a different game
+Belts/glyphs/muscle map are soft first-pass and sit between the two
+Three pillars
+Desk first, drama second
+Silhouette is the figure language
+Sodium + ice (warm gold decision light, cool cyan instruments)
+Palette (proposed hex lock):
+12:49 PM
+Scene samples in the new direction (direction only — your image tool / artists ship finals):
+Gym floor plate — empty gym, one sodium spot, isometric graphic, no athletes on the plate:
+Ring / fight night — dual sils, ice vs sodium. Dial any neon glow down in finals; rim colours stay, tron outlines go:
+Fighter identity plate — graphic poster sil for profile hero, not the photoreal sweat close-up:
+Keep: ShellChrome, gold×1, CONTINUE green, verdict chips, silhouette rows, discipline glyphs (recolour).
+Replace: photoreal hero/cage plates, soft prop lighting, any private camp palette.
+References (direction only, never ship):
+FM dark desk density — https://www.fmscout.com/a-andromeda-fm24-skin.html
+Fight Night Champion UI gallery — http://douvilleart.com/ea-mobile-fight-night-champion-gallery
+Fight Night art notes (mood, not fidelity target) — https://www.ea.com/news/fight-night-champion-art-blog
+Undisputed press (HUD spareness) — https://press.plaion.com/en/UNDISPUTED-SET-FOR-FULL-LAUNCH-ON-11-OCTOBER-2024
+Want me to lock Cage Desk as the style guide and recolour the existing belts, glyphs, and plates to this palette?
+what is cage desk?
+12:54 PM
+Cage Desk is just the name I gave the proposed look — not something already in the game.
+Cage = the fight world (octagon, ring, gym plates).
+Desk = the management UI you actually live in (Gym Floor, Booking, Camp Setup, roster tables).
+Put together: the game should feel like a coaching desk that opens onto the cage, not like a photoreal fight sim with a spreadsheet glued on. Same dark navy chrome you already have, plus graphic plates lit with warm sodium and cool ice, silhouettes instead of pore-level portraits.
+It’s a proposal label until you lock it. Want a different name?
+name it whatever you want and proceed
+12:59 PM
+Locking Cage Desk. Writing the style guide, then recolouring belts, glyphs, and plates to the hex roles.
+1:00 PM
+Style guide is locked. Recolouring belts, glyphs, and plates to the palette now — originals stay untouched.
+I'll ping you with before/after as soon as the recolour pass finishes.
+1:01 PM
+Cage Desk recolour is in. Checking the contact sheet, then I'll show you the keepers.
+1:03 PM
+Cage Desk is locked, and 33 assets are recoloured (originals untouched).
+What landed
+Belts / trophies / medals → gold & sodium warmer, straps toward mat/panel
+Glyphs → amber line on desk dark, ice rim accents
+Plates / muscle map → ice cast toward the locked cool side
+Honest take: this is a palette snap, not a redraw. Belts and glyphs are usable now. Photoreal plates (cage, stool, hero) still read as graded stills — they need the graphic plate treatment from the samples when you want them fully on-style.
+Before | after contact sheet:
+Close-ups of a few afters:
+Next useful move: prompt sheets so you can regenerate the cage/stool/hero plates as true graphic Cage Desk art, or a sprite/UI asset spec (canvas sizes, naming, import) so Kalli and Godot stay aligned. Which one?
+Renamed to Maria Art Director
+1:12 PM
+Got it — I'm Maria Art Director now. Still waiting on whether you want prompt sheets for the plates or the UI asset spec.
+both
+1:14 PM
+Both. Writing the Cage Desk prompt sheet for the plates first, then the UI asset spec (canvases, naming, Godot import).
+Two deliverables. This is wording and numbers — your tool makes the pixels.
+1. Prompt sheet — style block (paste in front of every subject):
+Graphic broadcast sports plate for a combat-gym management game, flat stylized illustration not photoreal, hard silhouette shapes, limited palette deep navy #0B1220 and mat #1A1F28, warm sodium key light #F2C14E from upper right, cool ice rim #5EC8E0 opposite, gold accent #E8B84A sparingly, no neon glow, no pore-level skin, no text, no logos, no watermark, readable at small UI size, slight film grain only.
+Negatives: no photoreal, no pores, no sweat cinema close-up, no volumetric god-ray dust storm, no neon tron outlines, no text, no watermark, no brand marks, no real fighter likeness
+Tool not set yet — this works in Grok Imagine (fast) or local SD/ComfyUI (fixed seed). Midjourney: plates --ar 16:9 --stylize 80, glyphs --ar 1:1 --stylize 50.
+1:15 PM
+Subjects (P1 plates first)
+plate_locked_cage — empty cage corner, linework fence, flat gold mat mark, sodium above-right, ice on posts, no people
+plate_corner_stool — stool + towel as graphic props only, hard shapes, dark void
+plate_fighter_identity — shoulders-up silhouette poster, sodium near edge, ice rim, no pores / no real likeness
+plate_gym_floor — empty gym, bags as sils, ring under one sodium spot, high 3/4 or isometric
+plate_ring_dual_sil — two sils face-off; left ice, right sodium; no faces
+Variation grid (one change each): A cooler ice cage · B warmer sodium cage · C stricter fighter sil · D stricter isometric gym · E thicker boxing glyph line for 64px
+Paste what comes back and I’ll pick keepers.
+2. Asset spec (Godot 4.7.2)
+Class	Canvas
+Scene plates	1920×1080 master → runtime 1280×720 or 960×540
+Fighter identity	768×1024 → 384×512
+Belts / trophies / medals	512×288 transparent
+Glyphs	256×256 (must read at 64 and 32)
+Body map	1024×1024 → 512×512
+Naming: subject_state_variant — e.g. plate_locked_cage, glyph_boxing, belt_world.
+Pivots: centre (keep identical across a set).
+Glyph padding: 8–12 px inside canvas.
+Godot: Texture2D; glyphs prefer filter off if edges blur at 64; mipmaps off on icons; Fix Alpha Border on; plates filter on.
+Shot list priority: P1 five plates above → P2 belts/trophies → P3 glyphs → P4 body map + fight week plate.
+Recoloured set is the interim stand-in until P1 regenerations land. Which plate do you want to generate first?
+p1
+1:23 PM
+Generating all five P1 plates now — locked cage, corner stool, fighter identity, gym floor, dual-sil ring.
+P1 batch is in. Quick audit against Cage Desk:
+Likely keepers
+plate_locked_cage — sodium + navy, graphic cage, clean
+plate_fighter_identity — hard sil poster, sodium/ice split works
+plate_gym_floor — empty gym, one spot, bags as sils
+Needs a second pass
+plate_corner_stool — reads as a chair more than a corner stool; towel OK, prop language soft
+plate_ring_dual_sil — ice/sodium split is right but outline glow drifts neon (out of bounds)
+Here they are:
+1:24 PM
+Gym floor and dual-sil ring:
+1:25 PM
+Which P1 plates should I keep?
+I can reroll the ones you skip with tighter prompts.
+A
+Locked cage
+B
+Corner stool
+C
+Fighter identity
+D
+Gym floor
+E
+Ring dual sil
+F
+Reroll stool + ring only
+these look nice , continue
+1:26 PM
+Keeping all five P1. Next is P2: world belt, regional belt, empty outline, three trophies, rank medal — graphic metal, Cage Desk gold/sodium, no real promo marks.
+1:27 PM
+P2 props are in. Belts and medal look on-palette; trophies are clean graphic metal:
++2
+1:28 PM
+Trophies:
+nice keep going
+1:29 PM
+Saving the eleven discipline glyphs, then rolling P4 — body map and fight-week plate.
+1:30 PM
+Eleven glyphs saved. Fight-week plate landed; body map hit a generation error — retrying that one.
+More glyphs + P4:
+1:31 PM
+Shot list P1–P4 is filled. Cutting the six body-region masks from the map next.
+Six body-region masks cut (first-pass ellipses — tighten later if hit tests feel loose):
+Shot list is closed for this pass.
+Done: P1 plates · P2 belts/trophies/medal · P3 eleven glyphs · P4 fight week + body map + six region masks · runtime-sized pack (32 files) + glyph sheet.
+Soft notes: ring dual-sil still has mild neon rim; region masks are first-pass ellipses.
+Glyph sheet:
+1:32 PM
+fightcamp_cage_desk_runtime
+.zip
+Godot-ready zip attached (runtime canvases per the asset spec). Next useful move: tighten body-region hit masks, or a consistency check of the whole pack against Cage Desk at UI size. Say which.
+tighten body-region hit masks
+1:33 PM
+Tightening the six body-region masks to the figure silhouette — less ellipse, more painted hit shapes.
+1:34 PM
+Masks tightened to the figure silhouette (not loose ellipses). Preview overlay + crops:
+1:35 PM
+What changed: each mask hugs the figure pixels now — head/neck, torso, arms, legs partitioned with no big empty ellipse padding. Crops are much smaller (e.g. head ~97×121 vs the old bloated ellipse). Runtime zip refreshed.
+If a shoulder or hip feels short in-game, say which region and I’ll nudge the split. Otherwise I can run the pack consistency check next.
+check handoff
+Checking the FightCamp handoff for art claims and what's owed next.
+Handoff check (local copy, dated ~2026-09-04):
+Art claims — all COMPLETE
+K0 research + renders (a40642e)
+K1 merged profile preview, neon HUD dropped (2743989)
+K2 asset pass under Godot/assets/ui/ — body map + 6 masks, belts/trophies/medal, 11 glyphs, stool + locked-cage plates. Smoke clean. Commit still listed as K2_HASH (placeholder — not filled in)
+Still open in Active claims (code, not art)
+G1 Grand Prix bracket panel → then G2 awards/hype/asks/presser → G3/G4. Operator cue for those is “check handoff and go” for the coding Grok, not for me.
+Status file says next big product beat: AAA profile redesign (hierarchy + real homes for camp/weight/combos/etc.), then other scenes. Shell is already Bebas/Plex, charcoal-blue, championship gold — same desk grammar we locked as Cage Desk.
+Gap vs our work: K2 shipped the older photoreal-leaning GenerateImage set. Our Cage Desk pack (P1–P4 + tight masks + runtime zip) is the replacement set, but it is not claimed in HANDOFF and not on master from this machine (no gh / no cloud agents here).
+I won’t touch G1 code. Want me to draft a Maria — Cage Desk asset replace handoff block (files to swap under Godot/assets/ui/, licence line, K2 supersede note) so Claude can land it?
+1:36 PM
+7.1MB
+7MB
+check handoff for task
+1:42 PM
+Checking handoff for an assigned art task.
+No open art task in Active claims.
+Kalli K0–K2 are all COMPLETE (K2 still has placeholder K2_HASH).
+Next assigned claim is G1 — Grand Prix bracket panel for the coding Grok (“check handoff and go”), then G2–G4. That’s .gd work, not art.
+Handoff on disk is stale as of 2026-09-04. Nothing names Maria or a Cage Desk replace pass.
+So: nothing for me to pull from the file yet. The real art follow-up is still the unclaimed Cage Desk swap under Godot/assets/ui/. I can draft that Active-claims block into the local handoff now (IN PROGRESS → ready for Claude to land), or leave it until you assign it upstream. Which?
+TASKS.md
+1:46 PM
+Looking up TASKS.md.
+Found TASKS.md on Beast. Two open Maria tasks: M1 (Range visual language) and M2 (Cage Desk asset replace). Reading both briefs.
+1:47 PM
+TASKS.md — open for Maria
+M1 — The Range, the visual language (TASK_M1.md)
+Spec + PNGs for the OUT/LONG/MID/POCKET/CLINCH indicator. Kit tokens only, no gold claim, code-drawable glyphs. Deliverable: M1_RANGE_VISUAL.md + DesignLibrary/screens/range/. Parallel with Kalli K22 (copy), don’t wait on her.
+M2 — Cage Desk: the asset replace (TASK_M2.md)
+Land the pack we already built: keep K2 filenames, write M2_CAGE_DESK_MANIFEST.md, one contact sheet, hand you the complete delivery (operator relay → Claude commits). K2 root set has no code consumers; tight masks are the invited upgrade. Don’t touch icons/moves/ or HANDOFF.md.
+Also open (not me): C21 Codex, K22 Kalli. Nothing for Claude/Grok.
+M2 is almost done on my side — I’ll finish the manifest + contact sheet and hand you the delivery pack next. M1 after that unless you want Range first.
+continue
+1:48 PM
+Finishing M2: matching K2 filenames on Beast, then writing the manifest and contact sheet for one delivery.
+M2 delivery is ready — 32 PNGs, manifest, contact sheet. Handing you the pack now.
+1:49 PM
+M2_CAGE_DESK_DELIVERY
+M2 complete — one delivery
+On Beast: _maria_delivery\M2_CAGE_DESK_DELIVERY.zip + M2_CAGE_DESK_MANIFEST.md (same zip attached here).
+Inside the zip
+Godot/assets/ui/ — 32 PNGs (K2 names overwritten; 4 new plates: gym floor, fighter identity, ring dual sil, fight week)
+research/M2_CAGE_DESK_MANIFEST.md
+DesignLibrary/screens/cage_desk/cage_desk_pack_contact.png
+Your relay
+Unzip into the FightCamp checkout (paths already match)
+Claude verifies vs manifest, runs technique_glyphs + smoke, commits, updates README licence table, writes my HANDOFF block, pushes
+Leaves standing: icons/moves/ (and disciplines if any). Soft note: ring dual-sil mild neon rim.
+Starting M1 Range visual next unless you want to wait on K22.
+Sun, Sep 6 2:57 PM
+Start
+2:57 PM
+7.5MB
+Starting M1 Range visual. Reading FightRange, UITokens, and the fight-surface anchors first.
+2:58 PM
+Anchors read. Designing the Range Rail — not a progress bar: one shared band mark plus two desire ticks (ours / theirs). Drawing boards and 16px glyphs from UITokens only. No gold.
+Finishing M1 now — writing the Range Rail visual spec and packing the boards for delivery.
+3:00 PM
+Boards look solid. Writing M1_RANGE_VISUAL.md and dropping the pack on Beast next.
+Range Rail is locked as a 5-cell ladder (not a bar): CURRENT = cool, ours want = green tick above, theirs = amber below. Gold stays off this mark.
+3:01 PM
+Placement under the clock, motion timings, and tale-of-the-tape overlay are in the pack too. Shipping the zip + M1_RANGE_VISUAL.md onto Beast now.
+M1 is on Beast.
+Spec: research/M1_RANGE_VISUAL.md
+Boards + glyphs: DesignLibrary/screens/range/ (15 PNGs)
+Relay zip: _maria_delivery/M1_RANGE_VISUAL_DELIVERY.zip (~1.1 MB)
+Claude draws the live Range Rail from the spec (no bitmap import into the instrument). K22 still owns the words. M2 is still waiting on your land of the Cage Desk pack.
+Want me to ping Claude with the M1 land notes, or park art until AAA profile?
+3:03 PM
+Tale-of-the-tape overlay uses the same geometry — reach chip stays cool, never gold.
+Ping Claude and proceed with the next
+3:08 PM
+Pinging Claude with the M1 land notes, then checking what’s next on the art queue.
+No Claude bot in this chat — dropping a land note on Beast for the relay, then moving into the AAA profile beat.
+3:09 PM
+Claude land note is writing to _maria_delivery/ + research. Starting the AAA profile pass against Cage Desk.
+Claude’s land note is on Beast:
+_maria_delivery/CLAUDE_LAND_NOTE.md
+research/CLAUDE_LAND_NOTE_MARIA_2026-09-06.md
+Covers M2 unzip + tests + HANDOFF, and M1 as boards/spec only (Range Rail stays code-drawn). Paste either into Claude’s chat to kick the land.
+Next beat is AAA profile — drafting the Cage Desk art brief + identity/overview boards now.
+3:10 PM
+How was this result?
+Also sent Claude a mailbox ping via agent_comms (LAND M1+M2 art packs ready) pointing at those same land notes. AAA profile boards still cooking.
+AAA profile kickoff is ready. Recommending Version A — Command Deck for Cage Desk (desk first; not product-locked until you pick).
+3:15 PM
+Three boards + brief:
+Identity strip (graphic sil hero, chips not gold, dial may take gold accent)
+Overview Command Deck wire (Alerts decide-first, gold ×1 on Promise, CONTINUE green in shell)
+Profile token map (condition cyan on bars; body condition→warn→danger)
+3:16 PM
+Lock the profile IA for art?
+Maria’s rec is A. Boards already target A; B/C reuse the identity strip with a different landing surface.
+Lock A — Command Deck
+Switch to B — Broadcast
+Switch to C — Athlete OS
+Keep exploring — don’t lock yet
+Proceeding with Command Deck as the working target — you skipped the lock, so I’m not re-asking. Deepening the next profile boards now.
+Next up: shelf + chips, alert/empty variants, and next-bout live vs empty with the condition cluster.
+Profile deepen pack is in — shelf/chips, alerts/empties, and next-bout + condition.
+3:19 PM
+Still open on art: hero in-strip crop, body-map region heat, Career Desk Deal packing, camp empty/locked. Want me to knock those out next, or pause profile here?
+Go on
+3:34 PM
+Knocking out the last four profile boards — strip crop, body heat, Deal packing, camp empty/locked.
+Working through 07–10 now; I’ll drop the boards here when they’re on Beast.
+Profile art kickoff is complete — boards 01–10 on Beast (DesignLibrary/screens/profile_aaa/ + _maria_delivery/AAA_PROFILE_KICKOFF.zip).
+3:40 PM
+Art queue for Maria is clear unless you want a Claude ping for “implement profile when go,” or a polish pass on anything in 01–10.
+Sun, Sep 6 3:59 PM
+Claude knows where to find your work ?
+3:59 PM
+Checking what Claude was actually pointed at versus what’s only sitting on Beast.
+Partly.
+Yes for M1 + M2 — Claude got a mailbox ping (LAND M1+M2…) and the land note at research/CLAUDE_LAND_NOTE_MARIA_2026-09-06.md (same in _maria_delivery/).
+Not yet for AAA profile — the pack is on disk (research/AAA_PROFILE_ART_BRIEF.md, DesignLibrary/screens/profile_aaa/ ×10, _maria_delivery/AAA_PROFILE_KICKOFF.zip), but that land note explicitly left profile out of scope, and there’s no mailbox ping for it.
+Want me to send Claude an AAA “art ready when you say go” note the same way?
+4:00 PM
+Always make sure Claude knows of your work and where to find it
+Got it — pinging Claude on the AAA pack now, and locking that as standing practice.
+4:01 PM
+Locked as standing practice. Writing Claude’s AAA land note + mailbox ping now, and saved Notify Claude art so every future pack gets the same treatment.
+Claude’s been pinged on AAA profile (ART READY AAA profile kickoff, id 3ebd89068fa7) with paths to the brief, boards, and zip — plus a reminder that M1/M2 are still waiting to land.
+From here on, every pack gets that notify automatically.
+Sun, Sep 6 5:25 PM
+should i clear memory , open new chat to avoid token waste?
+5:25 PM
+New chat: fine, if this thread feels heavy. Durable memory (Cage Desk lock, Claude-notify rule, pack paths) carries over — you don’t lose the art direction.
+Clear memory: don’t. That’s the cheap, useful stuff. Wiping it just makes me re-ask and re-lock what we already settled.
+Best move: leave memory alone, open a fresh chat when you start the next beat (e.g. Claude land follow-up or a new art pass).
+Sun, Sep 6 5:40 PM
+M3 Range Rail pass two is shipped.
+Glyphs now read by silhouette (OUT pips · LONG jab · MID bar · POCKET blob · CLINCH X), not spacing. Spec + m3_* boards on Beast; Claude pinged (8f55456c05c7).
++3
+5:40 PM
+Also posted into the Maria/Koxar room. Art side of M3 is clear.
+Sun, Sep 6 7:14 PM
+M4 Post-Fight Read is shipped — three card styles, decision stamps, composed screen + empties. Spec on Beast; Claude pinged (5eeaf51b8d8a).
++4
+7:14 PM
+Posted into the room too. Art queue clear until the next TASK_M*.
+Sun, Sep 6 9:48 PM
+M5 Scorecard is shipped — M4 grid extended (median primary, Judge 1/2/3 secondary), disagreement + swing, R38 stamps, one-judge layout. Claude pinged (f86589e6baf3).
+9:48 PM
+Posted in the room too. Art queue clear until the next TASK_M*.
+Sun, Sep 6 10:35 PM
+M6 The Hold is shipped — HELD=BAD, NOT CLEARED=amber, CLEARED=GOOD (not CONTINUE green). Dual-threshold body proved on head_neck 84. Claude pinged (ca67c3916d3e).
+10:35 PM
+M6 previews (1/2) — badge, dual-threshold body, refusal stack, roster.
+M6 previews (2/2) — hold lifts, empties, rejected medical-chart anti-pattern, composed.
+Sun, Sep 6 11:23 PM
+M7 The Belt is shipped — CHAMPION=sodium, INTERIM=ice outline (≠ hold), VACANT=muted. Gold stays on M5 verdict. Claude pinged (004bbbbc8406). Boards in your DM:
+11:23 PM
+Art queue clear until the next TASK_M*.
+Mon, Sep 7 12:01 AM
+M8 The Books is shipped — evidenced=TEXT, invented=LINK (AUTHORED), absent=MUTED $0. Falling balance=DIM (not BAD). Claude pinged (68fd1d7fd781). Boards here (rooms can’t show them):
+12:01 AM
+Mon, Sep 7 12:41 AM
+M9 The Scale on the Belt is shipped — BELT NOT ON THE LINE = LINK (M8 candour); VACANT ON THE SCALE = muted + LINK sub-chip. Claude pinged (63645c73f540). Boards:
+12:41 AM
+Mon, Sep 7 2:15 AM
+M10 The Books screen is shipped — falling runway = DIM (not BAD/AMBER). Two wallets, no total. Claude pinged (34f499ea771c). Boards:
+2:15 AM
+Mon, Sep 7 2:16 PM
+check your mailbox and go
+2:16 PM
+Checking the mailbox and picking up whatever’s open.
+Open for me: M11 — The Long Career (age, wear, the last walk). Starting now.
+Age ≠ medical red — likely ink-weight over hue (R50 style). Also open on the board: C34, G9, J10, K24, R51.
+M11 The Long Career is shipped — age by ink weight (MUTED→TEXT_2→DIM), wear ≠ medical BAD. Claude pinged (45e94a8a0787). Boards:
+2:23 PM
+Mon, Sep 7 4:00 PM
+M12 The Beat is shipped — YES = full-bleed room + MUTED RETIRED; NO = “one more run” mark, ask returns. Claude pinged (f15fc2ef3962). Boards:
+Thu, Sep 10 3:49 PM
+# TASK M13 — MARIA — THE FIGHT SCREEN THAT MUST NOT PICK A PUNCH
+**Model: Maria, Expert. Art direction only — no code, no test, no engine work.**
+Owner: Maria. Assigned 2026-09-10 by Claude.
+You have no checkout and no Godot. Everything you need is in this file. Do not
+ask for the repository and do not write GDScript. Return the direction as plain
+markdown in your reply, with any boards or images attached; Claude commits the
+document as `research/M13_THE_FIGHT_SCREEN.md`.
+## The constraint you are designing inside, and it is unusual
+Our fight is a simulation running twenty times a second. It is authoritative:
+the judges score what it did, and a picture that shows a different fight is a
+bug even if it looks better.
+Two studies landed today that fence this in hard:
+- **We will not draw most punches.** A bought animation clip runs about 0.82 s
+  per punch; the engine can land two 0.35 s apart. The live animation unit is
+  short single punches and hit-reactions, cut and layered — not combinations.
+- **Tight contact is a CLAIM.** A wide shot during an exchange is honest,
+  because distance and stance are still true. A trunks-up close-up of a clean
+  hook the engine scored as a *glance* is a lie. So is a face insert of a cut we
+  have no data for, and so is a stun cam when no stun was applied.
+The rule that came out of it: *wide, corner, labelled replay and the HUD are
+summaries; tight contact is a claim, and we may only make the claims the engine
+already made.*
+**So this is a fight screen that is forbidden the shot every fight game leans
+on.** That is the design problem, and it is a real one, not a limitation to
+apologise for.
+## What we have to work with
+The engine can tell the screen, truthfully, at any moment: distance and whether
+they are in the pocket; six body regions of accumulated damage; a heart rate
+(not a stamina bar — that was a first-hand finding from driving a competitor);
+discrete pips for cuts and swelling; the ground seat when there is one;
+knockdowns; the round and the clock; the three judges' per-round scores; and the
+stoppage reason when it comes.
+Twelve rigged 3D fighters exist and one animation clip has been proven to play
+on all of them.
+## What to deliver
+### §1 — The frame
+How the screen is composed when the default state is a wide shot that does not
+pick a punch and the truth lives on the HUD. Where does the eye go? A previous
+study found that in every comparable management game the player looks at *what
+they can still act on*, not at the fighters — and that the 3D confirms a
+sentence the HUD already wrote. Design for that honestly rather than fighting it.
+### §2 — The HUD as the second camera
+This is the load-bearing half. A heart rate and discrete trauma pips are unusual
+instruments and we chose them deliberately over two bars. Show how they read at
+a glance, how they change under pressure, and how six body regions become
+something a person understands in a fifth of a second without becoming a medical
+diagram. Say which of our facts deserve permanent screen presence and which
+should appear only when they change.
+### §3 — The three moments that ARE allowed to be big
+The screen is quiet by rule, which makes its few permitted crescendos matter
+enormously: the **knockdown**, the **stoppage**, and the **between-round
+minute** (the one interval the sport itself gives us, and where a labelled
+replay is honest). Direct those three. They carry the whole emotional load.
+### §4 — Reading the fight without seeing every punch
+The hardest question and the most valuable answer. What tells a player their
+fighter is losing, right now, when they are watching a wide shot and a HUD? Not
+a damage number — a *read*. Posture, position in the ring, the corner, the
+instruments, pacing, colour. Give us the vocabulary.
+### §5 — What you would NOT do
+Hold this to the commercial bar you always do — but say plainly which of that
+bar is unreachable here and should not be attempted. A cinematic fight camera,
+a per-punch impact language, a broadcast package: those are budgets we have
+already refused on evidence. Name what to spend instead of them.
+## The traps
+**Do not design a fighting game's fight screen.** The temptation is a
+health-bar-and-impact-flash layout, and it would be wrong twice: wrong for a
+management game, and wrong because it would assert per-punch facts we have ruled
+we may not assert.
+**Second: do not put a stamina bar back.** We looked at a competitor first-hand
+and concluded cardio should read as a heart rate and damage should be continuous
+bars for attrition plus **discrete pips** for trauma. That was a finding, not a
+preference. If you think it is wrong, argue it explicitly rather than quietly
+redesigning it.
+## Deliverable
+One markdown document plus boards, in your reply. No files to push, no git — you
+have no checkout, and none of that applies to you. **Name every image you send
+back**, so Claude can file them.
+Show more
+3:49 PM
+Starting M13 — fight screen that stays wide and truthful; HUD as second camera. No punch-picking, no stamina bar.
+3:50 PM
+Boarding the frame, HUD-as-second-camera, three crescendos (KD / stoppage / between-round), and the “how you know you’re losing” vocabulary. Spec + named boards back when ready — Claude can file M13_THE_FIGHT_SCREEN.md.
+M13 just landed — pulling the spec and boards for you now.
+3:56 PM
+M13 is ready for Claude to file as research/M13_THE_FIGHT_SCREEN.md (already on Beast + pinged 6694fa369ad4).
+Call: HUD is the second camera. Wide is home. Tight is a claim — only what the engine scored. Not a fighting-game screen.
+Named boards:
+m13_01_the_frame.png — §1
+m13_02_hud_second_camera.png — §2 HR + pips + regions
+m13_03_knockdown.png — crescendo 1
+m13_04_stoppage.png — crescendo 2
+m13_05_between_round.png — crescendo 3
+m13_06_reading_without_punches.png — §4
+m13_07_rejects.png — §5
+m13_08_composed.png
+Full markdown attached.
+M13_THE_FIGHT_SCREEN
+.md
+Boards 1–4:
+14kB
+Boards 5–8:
+Tokens held: HR = GOOD/AMBER/BAD ring (not a stamina bar). Trauma pips CUTS=BAD / SWELL=AMBER. Six regions letter-chips. Shell = GYM_DEFAULT (no SELECT). GOLD only on verdict exit. SODIUM off this HUD.
+Losing-right-now (HUD writes; 3D confirms): “Ours: HR 176 · HN 54 · cuts×2 · pocket lost · folded on ropes.” Wide only needs folded + ropes — glove optional.
+Claude has the land note. Want me to pull the next open art claim from tasks, or hold here?
+Thu, Sep 10 4:50 PM
+# TASK M14 — MARIA — THE FRAME WHEN THE FIGHTERS ARE ACTUALLY THERE
+Art direction only. Boards + spec. No code, no `.gd`, no `.tscn`.
+Owner: maria. Task id: M14.
+Deliverable: `M14_THE_3D_FRAME.md` + boards.
+## What changed since M13, and why you are being asked again
+M13 gave us the fight screen and we accepted its rulings whole: **the wide frame
+and the HUD carry the fight**, the HUD is the second camera, a tight contact shot
+may only CLAIM what the engine scored, and this is not a fighting-game fight
+screen. None of that is reopened here.
+What changed is that the bodies are now **real**. We have twelve rigged 3D
+fighters, a ring built at its true deck height (a boxing canvas stands at
+**1.27 m**), and we are about to stand two men on it and animate them off the
+fight's own beat stream.
+M13 designed the frame as a composition. **M14 designs it as a camera in a real
+room**, where the ring has a physical size and the bodies have a physical height,
+and where the answers are numbers a camera can be set to.
+## What is already built, so you design against it and not around it
+- The ring is real geometry built from a spec — a boxing ring, and a cage, at
+  their true dimensions. Nothing is baked or fudged.
+- Two fighters stand on the canvas at their own division's stature.
+- The preview camera today is a **single fixed isometric camera at 38° field of
+  view**, with one key light and one fill. That is a placeholder, not a decision.
+- The bodies play **in-place clips only**. The simulation moves them; animation
+  never does. So a body can slide, and the camera has to live with that.
+- **Known and NOT yours to fix:** the twelve fighters' faces and skin tones are a
+  known defect queued for regeneration. Design the frame; do not design around
+  the faces, and do not propose a fix for them.
+## The questions
+**1. THE WIDE FRAME AS A CAMERA.** M13 says wide is home. Now make it a lens:
+where does the camera stand relative to the ring, at what height, at what angle,
+and at what field of view? Is 38° right, or does it flatten two men into a
+diorama? **Give numbers we can type in**, and say what each one is protecting —
+what goes wrong at half that FOV and at twice it.
+**2. HEADROOM AND THE ROPES.** A boxing ring has ropes at chest height and a deck
+1.27 m off the floor. From a wide camera, the near ropes cut across the fighters.
+What do we do — shoot over them, through them, hide them, accept them? Every
+broadcast has an answer to this and it is the single thing that will make our
+frame read as a fight or as a toy.
+**3. WHEN DOES THE CAMERA MOVE, AND DOES IT MOVE AT ALL?** One fixed camera is
+the cheapest thing we can ship and might be the right thing. If it should move,
+say what drives it — the fighters' positions, the round, an event — and what it
+must never do. M13 already ruled the HUD is the second camera; if that means the
+first camera can stay still, say so, because that is a large saving.
+**4. THE SECOND ANGLE, IF THERE IS ONE.** M13 permits a tight contact shot only
+where the engine scored the contact. If we build exactly ONE more camera than the
+wide, which is it, where does it live, and what triggers it? Name one; do not
+give us a set.
+**5. THE KNOCKDOWN.** It is the one moment the frame must change or it will read
+as a bug — a man is on the floor and the camera is still showing a wide two-shot.
+What does the frame do, for how long, and what does it show while he is down?
+(We are separately researching how long a knockdown actually lasts in seconds;
+design the shape, and we will fit it to the clock.)
+**6. THE BODIES WILL SLIDE, AND YOU SHOULD SEE IT FIRST.** Because the simulation
+owns position and clips are in-place, a fighter closing distance will glide
+rather than step, at least at first. **What does the frame do to make that least
+visible** — camera distance, angle, cut length, motion in the frame? This is the
+one place where art direction can buy us a whole category of animation we
+otherwise have to purchase.
+**7. LIGHTING.** One key and one fill is what exists. What does a fight actually
+need — how many sources, from where, how hard, and what is the ring's own
+environment doing? Say what a viewer should be able to read off the bodies that
+the current setup does not give them.
+## What we need back
+**Boards.** As many as the answer needs — M13's eight was right for M13. At
+minimum: the wide frame as you would shoot it, the rope problem solved, the
+knockdown, and the rejects. **The rejects board has been the most useful one you
+send**, because it tells us what not to try.
+**And a spec with numbers in it.** Camera position, height, angle, FOV, light
+count and placement, and the cut rules. M13's token calls stand and are not
+reopened; if you need a colour here, use the ones M13 already named.
+## Format
+One markdown document, `M14_THE_3D_FRAME.md`, opening with a **DECISIONS** block
+of at most ten lines — the camera numbers and the rules — then the boards and the
+reasoning. **Argue in the open if you disagree with any of this brief**, the way
+you did on the heart rate and the trauma pips; you were right then and we
+adopted it.
+**Send back the spec and every board.** Name the boards `m14_01_*` onward.
+4:50 PM
+M14’s on — camera numbers for a real ring. Pulling M13 + ring geometry first, then locking decisions and boards.
+Working M14 now. Lean I’m locking unless the ring docs force a rewrite: ~50° FOV elevated front-of-ring (38° is the diorama), shoot over the near ropes, fixed home (HUD stays the second camera), one claim-tight only, KD reframes to ref+count. Boards + typed numbers next.
+4:51 PM
+M14 just landed — pulling the spec and boards for you.
+4:59 PM
+M14 is ready for Claude (M14_THE_3D_FRAME.md on Beast · ping be3d1eb3d6b9).
+DECISIONS: Cam-1 @ fov=50°, pitch −20…−22°, eye 3.8–4.2 m / FLOOR, stand-off 9–11 m. Shoot over near ropes. Fixed home — only KD + CLAIM-TIGHT leave. CLAIM-TIGHT: 1.6–1.8 m / canvas, 35–40° FOV, engine claim only. Lights: OH key cluster + 2 fills + canvas bounce.
+Open: type 50 on the same dial as preview 38 (Godot fov is vertical under KEEP_HEIGHT). K19 iso replaced for real bodies.
+Spec attached. Boards next.
+M14_THE_3D_FRAME
+Boards 1–5:
+11kB
+Boards 6–10 (rejects is the hard one):
+5:00 PM
+Claude has the land note. Want the next open art claim from tasks, or hold?
+Thu, Sep 10 7:00 PM
+M15 just landed — delivering boards + spec here; short land note to the room.
+7:00 PM
+M15 ready — Claude pinged 5f9033ad114f. Spec on Beast: research/M15_THE_KNOCKDOWN_FRAME.md.
+DECISIONS: hard CUT to KD CAM (fov=43°, pitch −30°, eye 3.0 m, stand-off 6 m). Subject = count graphic + downed body. Count = huge numeral on ticks, not a timer. Rise → HOME before resume text; stay-down → still + 10 before KO text. MMA: no linger, no numeral. One clip = fall; buy #2 rise, #3 stay-down. Ref optional (graphic count).
+Open: refused TASK “41.5%” (J15 not found). Spec attached. Boards next.
+M15_THE_KNOCKDOWN_FRAME
+Boards 6–9:
+Room got the short land. Want the next open Maria claim from tasks, or hold?
+Thu, Sep 10 7:16 PM
+M16 just landed — the spend check. Delivering boards here and a short land note to the room.
+7:16 PM
+M16 ready — Claude d58653a0446f. Spec: research/M16_READ_AT_DISTANCE.md.
+Verdict: buy 3 — hook_lead, hook_rear, uppercut. Jab vs cross collapse at HOME → ≤1 optional straight, not both. Reactions out-read the arm. No third exit. MMA kicks still worth buying.
+7:17 PM
+M16_READ_AT_DISTANCE
+Boards 6–10:
+Room got the short land. Hold for next Maria claim, or want me to pull tasks?
+M17 just landed — reaction buy locked at 2. Delivering boards here and a short land to the room.
+7:25 PM
+M17 ready — Claude b68f66cde402. Spec: research/M17_THE_REACTION.md.
+Buy 2: react_head_clean, react_body_clean (~86.6% of presented). Glancing = smaller clean. Severity = amp/procedural. Type partly in reaction — not jab≠cross.
+7:26 PM
+12kB
+M17_THE_REACTION
+Room got the short land. Hold for next Maria claim, or pull tasks?
+M18 just landed — circle claim settled. Delivering boards here and a short land to the room.
+7:38 PM
+M18 ready — Claude 20fe233d1d7e. Spec: research/M18_THE_FOOTWORK.md.
+Circle: J18 mostly right. Fix = authoring + bounce; optional −22° / 11 m within bands; ≤15 cm skate OK. Plant: YES cheap (bake into punch). Buy 4 loc + idle.
+M18_THE_FOOTWORK
+7:39 PM
+Thu, Sep 10 9:31 PM
+M19 just landed — missing-clip rule locked. Delivering frames here and a short land to the room.
+9:31 PM
+M19 ready — Claude a8e145879daa. Spec: research/M19_THE_MISSING_CLIP.md.
+Rule: no clip → matching-region reaction on receiver; thrower stays loc/idle; never wrong-technique. Q3 YES. Buy generic: NO.
+Spec attached. Frames next.
+M19_THE_MISSING_CLIP
+Frames 1–5:
+Frames 6–9:
+Fri, Sep 11 2:18 AM
+can you the game i run in the backgroun ?
+2:18 AM
+can you see
+Checking Beast for what’s running — I can’t see your screen live, but I can look for the game process.
+I can’t see your screen — only processes on Beast.
+What’s up right now:
+Godot 4.7.2 Project Manager (PID 62756) — window title says Project Manager, status Not Responding
+FightCampOpsBoard.exe — two instances (one with a window path, one background)
+No FightCamp editor/game window title showed up as running. If you’ve got a fight preview open, it’s not advertising itself that way — or it’s hung with the Project Manager.
+Want me to dig further, or drop a screenshot here and I’ll read it?
+2:19 AM
+Fri, Sep 11 11:56 PM
+M20 boards (room can’t show these — full M20_THE_SHOT.md is in the group):
+11:56 PM
+Tue, Sep 22 12:26 AM
+# TASK_M21 — Evaluate what the fight actually LOOKS like
+**Owner:** maria
+**Deliverable:** `M21_WHAT_IT_LOOKS_LIKE.md`, sent back as a file.
+**No checkout, no Godot, no repo test commands.**
+## What "evaluate the project" means here
+The operator asked for this directly (2026-09-22): *"whoever doesnt have a task
+assign him to evaluate the project progress and give you suggestions or
+corrections etc"*. So this is not busywork and it is not a status report — I can
+read the status myself. **What I cannot do is see my own blind spots.** You are
+being asked to disagree with me.
+**Be specific or be silent.** "Consider improving test coverage" is worthless.
+"`X` is gated by `Y`, which cannot fail because it learns its allowed values
+from the thing it is grading — here is the line" is worth the whole task.
+**Rank your findings.** Put the one you would bet money on first, and say what
+would prove you wrong. If you think the project's direction is right, say that
+plainly and name the strongest evidence for it — a review that finds nothing is
+a legitimate result, and much better than an invented list.
+**You will be wrong about some of it and that is fine.** I will check every
+claim. What costs me is a confident claim with no file:line behind it.
+## What the project is, in six lines
+FightCamp is a Godot 4.7.2 GDScript fight-management game: you run a gym, sign
+and develop fighters, and bouts are simulated by an engine and presented in 3D.
+The simulation layer is mature — 323 tests, a real damage/balance/grapple model
+calibrated against published MMA statistics. **The 3D PRESENTATION is the weak
+half**, and the operator's own verdict (2026-09-13) was that the 3D fight is
+"painful to watch". The current stage, S43, is about making two fighters
+actually touch each other: a contact solver that takes a two-body pose from
+interpenetration to clean contact.
+## Your angle: art direction, and one standing complaint
+You are the only reviewer being asked about how it looks, and there is a
+specific verdict to answer.
+**The operator watched the 3D fight on 2026-09-13 and called it "painful to
+watch." On 2026-09-14, after a foot-lock fix landed, the verdict was "no visible
+difference," and the two things named on screen were: BODIES OVERLAP, and JERKY
+MOVES.**
+That is a year-old-sounding problem with a very short list of causes, and I want
+your read on which one it is. I will attach whatever current stills I have; if I
+have not attached any, **say so and answer from the description rather than
+inventing what you did not see.**
+1. **Overlap.** Two bodies interpenetrating reads as "wrong" instantly, even to
+   someone who cannot say why. Is that the dominant defect, or is it a symptom
+   that stops mattering once something else is fixed?
+2. **Jerk.** Name the likely causes in order: pose-to-pose popping with no
+   transition, a blend that is too short, foot sliding, camera cuts, or frame
+   pacing. Which reads as "jerky" most strongly to an ordinary viewer?
+3. **The cheap wins.** In your experience, what are the three highest
+   ratio-of-impact-to-effort changes for a 3D fight that looks stiff — camera
+   distance and lensing, contact shadows, motion blur, anticipation and
+   follow-through, silhouette readability, lighting? **Rank them and say why.**
+4. **What is good?** If something already reads well, say so — I get told what
+   is broken constantly and it makes it hard to know what not to touch.
+## The constraint you must design within
+Two-person grappling animation **cannot be bought** — a paired positional pack
+is not a product on any store checked, AI generation returns one body every
+time, and composing two solo clips failed 36 of 36. Every grappling pose is
+solved procedurally or authored by hand. **So do not recommend buying a mocap
+pack for grappling.** Striking clips are a different matter and can be bought.
+## Scope
+Out of scope: `HANDOFF.md`, any `.gd`, any `.tscn`, `Godot/assets/data/`.
+Do not write git commands and do not try to clone anything.
+Under 400 lines. Lead with three lines: the most important visual defect, the
+one change you would make first, and one thing that already works.
+12:26 AM
+M21 — evaluating from the operator’s “painful / overlap / jerky” verdict. No stills attached, so I’ll say that up front and write from that plus the art packs we already locked.
+12:27 AM
+M21_WHAT_IT_LOOKS_LIKE.md — no stills were attached; answered from your named defects + M13–M20.
+Three lines: overlap is the dominant defect; fix contact volume before any polish (explains “no visible difference”); management fight grammar already works — don’t throw it out.
+File attached.
+M21_WHAT_IT_LOOKS_LIKE
+Staging on Beast and pinging Claude with the land note.
+12:28 AM
+Claude pinged a215b58eb32c. Also on Beast: research/M21_WHAT_IT_LOOKS_LIKE.md + land note.
+Cheapest next proof for your eye: one clean-contact take under M14 HOME with Decal — if that still feels painful, we re-rank jerk next.
+7.4kB
+
+## IMAGES
+

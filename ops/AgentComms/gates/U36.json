@@ -1,0 +1,14 @@
+{
+  "checked_at": "2026-09-10T12:58:39Z",
+  "files": [
+    "Godot/scripts/FightNightScreen.gd",
+    "Godot/tests/fight_night_realtime_test.gd",
+    "Godot/scripts/FightBeatAdapter.gd",
+    "Godot/scripts/RingStagePanel.gd",
+    "Godot/scripts/FightRealtime.gd",
+    "Godot/scripts/FightSimulation.gd"
+  ],
+  "output": "CHECK total=6 fails=0 autoload_refs=0 autoload_warnings=0 time=2s\n",
+  "passed": true,
+  "task": "U36"
+}

@@ -1,0 +1,11 @@
+{
+  "checked_at": "2026-09-06T21:42:54Z",
+  "files": [
+    "Godot/scripts/AthletePurseRead.gd",
+    "Godot/scripts/GameState.gd",
+    "Godot/tests/athlete_purse_read_test.gd"
+  ],
+  "output": "CHECK total=3 fails=0 autoload_refs=1 time=1s\n",
+  "passed": true,
+  "task": "C28"
+}

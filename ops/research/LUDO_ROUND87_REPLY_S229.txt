@@ -1,0 +1,450 @@
+1. FormCueBar.gd
+# res://src/ui/FormCueBar.gd
+# FightCamp — Round 87 (S229)
+# FORM CUE bar: compact 3-way toggle (Power Through / Crisp Form / Pace Yourself)
+# Built pure GDScript / Godot 4.7. Obeying Round 70 design tokens.
+
+class_name FormCueBar
+extends Control
+
+signal cue_chosen(cue_id: String)
+
+# --- Round-70 Visual Tokens ---
+const COLOR_VOID: Color = Color("#0d0c0b")
+const COLOR_PANEL_BG: Color = Color("#1a1816")
+const COLOR_CARD_DEFAULT: Color = Color("#22201d")
+const COLOR_CARD_HOVER: Color = Color("#282521")
+const COLOR_GOLD: Color = Color("#f0c233")
+const COLOR_GOLD_MUTED: Color = Color(0.941, 0.761, 0.200, 0.35)
+const COLOR_CREAM: Color = Color("#f6f0e0")
+const COLOR_MUTED: Color = Color(0.70, 0.67, 0.62)
+const COLOR_BORDER_DEFAULT: Color = Color(0.24, 0.22, 0.20, 0.7)
+
+const RADIUS: int = 4
+const HOVER_DURATION: float = 0.18  # 180 ms tween
+
+# Cue configuration dictionary
+const CUE_DEFS: Array[Dictionary] = [
+	{
+		"id": "power_through",
+		"key": "1",
+		"title": "POWER THROUGH",
+		"effect": "+30% gains, burns 25% more",
+		"icon": "⚡"
+	},
+	{
+		"id": "crisp_form",
+		"key": "2",
+		"title": "CRISP FORM",
+		"effect": "+35% card drill, normal drain",
+		"icon": "🎯"
+	},
+	{
+		"id": "pace_yourself",
+		"key": "3",
+		"title": "PACE YOURSELF",
+		"effect": "-25% gains, saves 40% drain",
+		"icon": "🛡"
+	}
+]
+
+var _floor_node: Node = null
+var _cards_by_id: Dictionary = {}
+
+var _container: PanelContainer
+var _h_box: HBoxContainer
+
+
+func _init() -> void:
+	name = "FormCueBar"
+	visible = false
+	_build_ui()
+
+
+func _ready() -> void:
+	set_process_unhandled_key_input(true)
+	refresh()
+
+
+func setup(floor_node: Node) -> void:
+	_floor_node = floor_node
+	refresh()
+
+
+func refresh() -> void:
+	if not is_instance_valid(_floor_node):
+		visible = false
+		return
+
+	# Station check: hide if fighter is walking or idle
+	var station_id: String = ""
+	if _floor_node.has_method("current_station"):
+		station_id = str(_floor_node.call("current_station"))
+
+	if station_id.is_empty():
+		visible = false
+		return
+
+	visible = true
+
+	var active_cue: String = ""
+	if _floor_node.has_method("current_cue"):
+		active_cue = str(_floor_node.call("current_cue"))
+
+	for cue_id: String in _cards_by_id:
+		var card_ctrl: Control = _cards_by_id[cue_id]
+		var is_active: bool = (cue_id == active_cue)
+		_apply_card_state(card_ctrl, is_active)
+
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if not visible:
+		return
+	if not (event is InputEventKey):
+		return
+	var key_event := event as InputEventKey
+	if not key_event.pressed or key_event.is_echo():
+		return
+
+	match key_event.keycode:
+		KEY_1:
+			_handle_card_click("power_through")
+			get_viewport().set_input_as_handled()
+		KEY_2:
+			_handle_card_click("crisp_form")
+			get_viewport().set_input_as_handled()
+		KEY_3:
+			_handle_card_click("pace_yourself")
+			get_viewport().set_input_as_handled()
+
+
+func _handle_card_click(cue_id: String) -> void:
+	if not is_instance_valid(_floor_node):
+		return
+
+	var current: String = ""
+	if _floor_node.has_method("current_cue"):
+		current = str(_floor_node.call("current_cue"))
+
+	var target_cue: String = ""
+	if current != cue_id:
+		target_cue = cue_id
+	else:
+		target_cue = "" # Toggling current cue returns to normal
+
+	if _floor_node.has_method("set_cue"):
+		_floor_node.call("set_cue", target_cue)
+
+	cue_chosen.emit(target_cue)
+	refresh()
+
+
+func _build_ui() -> void:
+	custom_minimum_size = Vector2(560.0, 72.0)
+	mouse_filter = MOUSE_FILTER_PASS
+
+	_container = PanelContainer.new()
+	_container.name = "RootPanel"
+	_container.set_anchors_and_offsets_preset(PRESET_FULL_RECT)
+
+	var panel_style := StyleBoxFlat.new()
+	panel_style.bg_color = COLOR_PANEL_BG
+	panel_style.corner_radius_top_left = RADIUS
+	panel_style.corner_radius_top_right = RADIUS
+	panel_style.corner_radius_bottom_left = RADIUS
+	panel_style.corner_radius_bottom_right = RADIUS
+	panel_style.border_width_left = 1
+	panel_style.border_width_top = 1
+	panel_style.border_width_right = 1
+	panel_style.border_width_bottom = 1
+	panel_style.border_color = COLOR_BORDER_DEFAULT
+	panel_style.content_margin_left = 8.0
+	panel_style.content_margin_right = 8.0
+	panel_style.content_margin_top = 8.0
+	panel_style.content_margin_bottom = 8.0
+	_container.add_theme_stylebox_override("panel", panel_style)
+	add_child(_container)
+
+	_h_box = HBoxContainer.new()
+	_h_box.name = "CardsRow"
+	_h_box.alignment = BoxContainer.ALIGNMENT_CENTER
+	_h_box.add_theme_constant_override("separation", 8)
+	_container.add_child(_h_box)
+
+	for def: Dictionary in CUE_DEFS:
+		var card := _create_cue_card(def)
+		_h_box.add_child(card)
+		_cards_by_id[def["id"]] = card
+
+
+func _create_cue_card(def: Dictionary) -> Control:
+	var btn := Button.new()
+	btn.name = "CueCard_" + def["id"]
+	btn.size_flags_horizontal = SIZE_EXPAND_FILL
+	btn.size_flags_vertical = SIZE_EXPAND_FILL
+	btn.focus_mode = FOCUS_NONE
+	btn.mouse_default_cursor_shape = CURSOR_POINTING_HAND
+
+	var style_normal := StyleBoxFlat.new()
+	style_normal.bg_color = COLOR_CARD_DEFAULT
+	style_normal.corner_radius_top_left = RADIUS
+	style_normal.corner_radius_top_right = RADIUS
+	style_normal.corner_radius_bottom_left = RADIUS
+	style_normal.corner_radius_bottom_right = RADIUS
+	style_normal.border_width_left = 1
+	style_normal.border_width_top = 1
+	style_normal.border_width_right = 1
+	style_normal.border_width_bottom = 1
+	style_normal.border_color = COLOR_BORDER_DEFAULT
+	style_normal.content_margin_left = 6.0
+	style_normal.content_margin_right = 6.0
+	style_normal.content_margin_top = 6.0
+	style_normal.content_margin_bottom = 6.0
+
+	btn.add_theme_stylebox_override("normal", style_normal)
+	btn.add_theme_stylebox_override("hover", style_normal.duplicate())
+	btn.add_theme_stylebox_override("pressed", style_normal.duplicate())
+	btn.add_theme_stylebox_override("focus", style_normal.duplicate())
+
+	var inner_box := VBoxContainer.new()
+	inner_box.name = "Inner"
+	inner_box.mouse_filter = MOUSE_FILTER_IGNORE
+	inner_box.alignment = BoxContainer.ALIGNMENT_CENTER
+	inner_box.set_anchors_and_offsets_preset(PRESET_FULL_RECT)
+	btn.add_child(inner_box)
+
+	var header_box := HBoxContainer.new()
+	header_box.name = "Header"
+	header_box.mouse_filter = MOUSE_FILTER_IGNORE
+	header_box.alignment = BoxContainer.ALIGNMENT_CENTER
+	header_box.add_theme_constant_override("separation", 6)
+	inner_box.add_child(header_box)
+
+	var badge := Label.new()
+	badge.name = "Badge"
+	badge.text = "[" + def["key"] + "]"
+	badge.add_theme_color_override("font_color", COLOR_GOLD)
+	badge.add_theme_font_size_override("font_size", 11)
+	header_box.add_child(badge)
+
+	var icon_label := Label.new()
+	icon_label.name = "Icon"
+	icon_label.text = def["icon"]
+	icon_label.add_theme_font_size_override("font_size", 13)
+	header_box.add_child(icon_label)
+
+	var title_lbl := Label.new()
+	title_lbl.name = "Title"
+	title_lbl.text = def["title"]
+	title_lbl.add_theme_color_override("font_color", COLOR_CREAM)
+	title_lbl.add_theme_font_size_override("font_size", 12)
+	header_box.add_child(title_lbl)
+
+	var effect_lbl := Label.new()
+	effect_lbl.name = "Effect"
+	effect_lbl.text = def["effect"]
+	effect_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	effect_lbl.add_theme_color_override("font_color", COLOR_MUTED)
+	effect_lbl.add_theme_font_size_override("font_size", 10)
+	inner_box.add_child(effect_lbl)
+
+	btn.set_meta("active", false)
+	btn.set_meta("tween", null)
+
+	btn.pressed.connect(_handle_card_click.bind(def["id"]))
+	btn.mouse_entered.connect(_on_card_mouse_entered.bind(btn))
+	btn.mouse_exited.connect(_on_card_mouse_exited.bind(btn))
+
+	return btn
+
+
+func _apply_card_state(btn: Button, is_active: bool) -> void:
+	btn.set_meta("active", is_active)
+
+	var style: StyleBoxFlat = btn.get_theme_stylebox("normal") as StyleBoxFlat
+	if not style:
+		return
+
+	var inner := btn.get_node_or_null("Inner")
+	var title_lbl: Label = inner.get_node_or_null("Header/Title") if inner else null
+	var effect_lbl: Label = inner.get_node_or_null("Effect") if inner else null
+
+	if is_active:
+		style.border_width_left = 2
+		style.border_width_top = 2
+		style.border_width_right = 2
+		style.border_width_bottom = 2
+		style.border_color = COLOR_GOLD
+		style.bg_color = COLOR_CARD_HOVER
+		if title_lbl:
+			title_lbl.add_theme_color_override("font_color", COLOR_GOLD)
+		if effect_lbl:
+			effect_lbl.add_theme_color_override("font_color", COLOR_CREAM)
+	else:
+		style.border_width_left = 1
+		style.border_width_top = 1
+		style.border_width_right = 1
+		style.border_width_bottom = 1
+		style.border_color = COLOR_BORDER_DEFAULT
+		style.bg_color = COLOR_CARD_DEFAULT
+		if title_lbl:
+			title_lbl.add_theme_color_override("font_color", COLOR_CREAM)
+		if effect_lbl:
+			effect_lbl.add_theme_color_override("font_color", COLOR_MUTED)
+
+	btn.queue_redraw()
+
+
+func _on_card_mouse_entered(btn: Button) -> void:
+	var is_active: bool = btn.get_meta("active", false)
+	var style: StyleBoxFlat = btn.get_theme_stylebox("normal") as StyleBoxFlat
+	if not style:
+		return
+
+	var tw: Tween = btn.get_meta("tween")
+	if tw and tw.is_valid():
+		tw.kill()
+
+	tw = create_tween()
+	btn.set_meta("tween", tw)
+	var target_bg := COLOR_CARD_HOVER if not is_active else COLOR_CARD_HOVER.lightened(0.04)
+	tw.tween_property(style, "bg_color", target_bg, HOVER_DURATION).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+
+
+func _on_card_mouse_exited(btn: Button) -> void:
+	var is_active: bool = btn.get_meta("active", false)
+	var style: StyleBoxFlat = btn.get_theme_stylebox("normal") as StyleBoxFlat
+	if not style:
+		return
+
+	var tw: Tween = btn.get_meta("tween")
+	if tw and tw.is_valid():
+		tw.kill()
+
+	tw = create_tween()
+	btn.set_meta("tween", tw)
+	var target_bg := COLOR_CARD_HOVER if is_active else COLOR_CARD_DEFAULT
+	tw.tween_property(style, "bg_color", target_bg, HOVER_DURATION).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+
+2. tests/form_cue_bar_test.gd
+# res://tests/form_cue_bar_test.gd
+# Headless unit test for FormCueBar.
+# Run via: godot --headless -s tests/form_cue_bar_test.gd
+
+extends SceneTree
+
+# Mock floor simulating Godot 4.7 training floor station & cue API
+class MockFloor extends Node:
+	var _station: String = "heavy_bag_1"
+	var _cue: String = ""
+
+	func current_station() -> String:
+		return _station
+
+	func set_station(s_id: String) -> void:
+		_station = s_id
+
+	func current_cue() -> String:
+		return _cue
+
+	func set_cue(cue_id: String) -> Dictionary:
+		_cue = cue_id
+		return {
+			"status": "ok",
+			"active_cue": _cue
+		}
+
+
+func _initialize() -> void:
+	var failures: int = 0
+
+	var mock_floor := MockFloor.new()
+	root.add_child(mock_floor)
+
+	var bar := FormCueBar.new()
+	root.add_child(bar)
+	bar.setup(mock_floor)
+
+	# --- TEST 1: Visibility when at a valid station ---
+	if not bar.visible:
+		print("FAIL: Bar should be visible when fighter is at station.")
+		failures += 1
+
+	# --- TEST 2: Setting cue directly via button click ---
+	var btn_power: Button = bar.get_node("RootPanel/CardsRow/CueCard_power_through") as Button
+	if btn_power == null:
+		print("FAIL: CueCard_power_through not found in scene tree.")
+		failures += 1
+	else:
+		btn_power.emit_signal("pressed")
+		if mock_floor.current_cue() != "power_through":
+			print("FAIL: Expected cue 'power_through', got: ", mock_floor.current_cue())
+			failures += 1
+
+	# --- TEST 3: Active outline styling check ---
+	var style_power: StyleBoxFlat = btn_power.get_theme_stylebox("normal") as StyleBoxFlat
+	if style_power.border_color != FormCueBar.COLOR_GOLD or style_power.border_width_left != 2:
+		print("FAIL: Active cue card does not have gold border outline.")
+		failures += 1
+
+	# --- TEST 4: Toggling the active button clears it back to normal ("") ---
+	btn_power.emit_signal("pressed")
+	if mock_floor.current_cue() != "":
+		print("FAIL: Re-clicking active cue should clear to empty string, got: ", mock_floor.current_cue())
+		failures += 1
+
+	# --- TEST 5: Switching to another cue ---
+	var btn_crisp: Button = bar.get_node("RootPanel/CardsRow/CueCard_crisp_form") as Button
+	btn_crisp.emit_signal("pressed")
+	if mock_floor.current_cue() != "crisp_form":
+		print("FAIL: Expected cue 'crisp_form', got: ", mock_floor.current_cue())
+		failures += 1
+
+	# --- TEST 6: Bar hides when fighter is walking or idle (station == "") ---
+	mock_floor.set_station("")
+	bar.refresh()
+	if bar.visible:
+		print("FAIL: Bar should be hidden when current_station is empty.")
+		failures += 1
+
+	# Restore station
+	mock_floor.set_station("pads")
+	bar.refresh()
+	if not bar.visible:
+		print("FAIL: Bar should be visible after returning to station.")
+		failures += 1
+
+	# --- TEST 7: Keyboard shortcuts (1, 2, 3) ---
+	# Key 3 -> pace_yourself
+	var key_event := InputEventKey.new()
+	key_event.pressed = true
+	key_event.keycode = KEY_3
+	bar._unhandled_key_input(key_event)
+
+	if mock_floor.current_cue() != "pace_yourself":
+		print("FAIL: Key 3 did not set 'pace_yourself', got: ", mock_floor.current_cue())
+		failures += 1
+
+	# Key 3 again -> toggles off to ""
+	bar._unhandled_key_input(key_event)
+	if mock_floor.current_cue() != "":
+		print("FAIL: Key 3 again did not clear cue, got: ", mock_floor.current_cue())
+		failures += 1
+
+	# Key 1 -> power_through
+	key_event.keycode = KEY_1
+	bar._unhandled_key_input(key_event)
+	if mock_floor.current_cue() != "power_through":
+		print("FAIL: Key 1 did not set 'power_through', got: ", mock_floor.current_cue())
+		failures += 1
+
+	# --- TEARDOWN ---
+	bar.queue_free()
+	mock_floor.queue_free()
+
+	# Report
+	print("FORM_CUE_BAR failures=", failures)
+	if failures > 0:
+		quit(1)
+	else:
+		quit(0)

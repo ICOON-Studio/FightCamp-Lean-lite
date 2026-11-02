@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>FightCamp · Profile IA — three AAA versions</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#10141c; --panel:#1c2433; --line:#2f3b52; --text:#eef2f8; --muted:#93a0b8;
+  --gold:#f0c233; --gym:#3f86cc; --bad:#e5433a; --good:#4fc46a; --amber:#f0a020;
+  --display:"Bebas Neue",sans-serif; --mono:"IBM Plex Mono",monospace; --sans:"IBM Plex Sans",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(100% 80% at 50% -10%,#243049,#0b0e14 60%);color:var(--text);font-family:var(--sans);line-height:1.5}
+.wrap{max-width:1280px;margin:0 auto;padding:36px 22px 80px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:700}
+h1{font-family:var(--display);font-size:clamp(40px,6vw,64px);letter-spacing:.02em;line-height:.92;margin:8px 0}
+.lede{color:var(--muted);max-width:70ch;font-size:16px}
+.pick{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 10px}
+.pick button{font-family:var(--display);font-size:18px;letter-spacing:.08em;padding:10px 16px;border-radius:3px;border:1px solid var(--line);background:#2a3347;color:var(--text);cursor:pointer}
+.pick button.on{background:linear-gradient(180deg,#f7d65a,#c99a1a);color:#1a1508;border-color:#7a5c0c;box-shadow:0 0 18px rgba(240,194,51,.35)}
+.meta{font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:18px}
+.meta b{color:var(--gold)}
+.card{display:none;border:1px solid var(--line);border-radius:6px;background:rgba(28,36,51,.95);box-shadow:0 20px 50px rgba(0,0,0,.45);overflow:hidden}
+.card.on{display:block;animation:in .35s ease}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.head{display:flex;justify-content:space-between;gap:12px;padding:16px 18px;background:linear-gradient(180deg,#34405a,#243049);border-bottom:1px solid var(--line)}
+.head h2{font-family:var(--display);font-size:32px;margin:0;letter-spacing:.04em}
+.head .tag{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--gold);font-weight:700}
+.body{padding:16px 18px 22px}
+.phil{color:var(--muted);margin:0 0 14px;max-width:75ch}
+.tabs{display:grid;gap:10px}
+.tab{border:1px solid var(--line);border-radius:4px;overflow:hidden;background:#161d2a}
+.tab > .h{display:flex;align-items:center;gap:10px;padding:8px 12px;background:linear-gradient(180deg,#3f86cc,#24558a);font-family:var(--display);font-size:20px;letter-spacing:.08em}
+.tab > .h span{margin-left:auto;font-family:var(--mono);font-size:11px;opacity:.9}
+.subs{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1px;background:var(--line)}
+.sub{background:#1a2230;padding:10px 12px;min-height:96px}
+.sub h3{margin:0 0 6px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.sub ul{margin:0;padding-left:1.05em;color:#c5d0e4;font-size:13px}
+.sub li{margin:2px 0}
+.verdict{margin-top:16px;padding:12px 14px;border-left:3px solid var(--gold);background:rgba(0,0,0,.25);font-size:14px;color:#c5d0e4}
+.verdict b{color:var(--text)}
+.compare{margin-top:28px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.compare .c{border:1px solid var(--line);border-radius:4px;padding:12px;background:rgba(28,36,51,.7)}
+.compare h4{font-family:var(--display);font-size:22px;margin:0 0 6px}
+.compare p{margin:0;font-size:13px;color:var(--muted)}
+@media (max-width:900px){.compare{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">FightCamp · profile information architecture · AAA bake-off</div>
+  <h1>Three ways to run the fighter screen</h1>
+  <p class="lede">Same live stats. Different subtab counts. Built to the standard of FM desks, broadcast packages, and console franchise menus — then tuned for FightCamp’s actual systems.</p>
+
+  <div class="pick" id="pick">
+    <button type="button" class="on" data-v="a">A · Command Deck · 18 subtabs</button>
+    <button type="button" data-v="b">B · Fight Week Broadcast · 11</button>
+    <button type="button" data-v="c">C · Athlete OS · 4</button>
+  </div>
+
+  <div id="a" class="card on">
+    <div class="head"><div><h2>Command Deck</h2><div class="tag">5 PRIMARY · 18 SUBTABS · FM DENSITY</div></div></div>
+    <div class="body">
+      <p class="phil">One athlete, many ledgers. The player stays here for minutes. Alerts first, then physical truth, then weapons, then camp, then the career desk.</p>
+      <div class="tabs">
+        <div class="tab"><div class="h">OVERVIEW <span>4 SUBTABS</span></div><div class="subs">
+          <div class="sub"><h3>Alerts</h3><ul><li>Ask + deadlines + answers</li><li>Presser questions</li><li>Poach / renewal</li><li>Medical hold</li></ul></div>
+          <div class="sub"><h3>Next Bout</h3><ul><li>Opponent · event · purse</li><li>Heat · hype · plan</li><li>Weeks out · short notice</li></ul></div>
+          <div class="sub"><h3>Form</h3><ul><li>Streak · last five</li><li>Readiness · fatigue · morale</li><li>Clearances</li></ul></div>
+          <div class="sub"><h3>Attributes</h3><ul><li>Six stats → ceiling</li><li>Overall · potential</li><li>Specialties</li></ul></div>
+        </div></div>
+        <div class="tab"><div class="h">PHYSICAL <span>3 SUBTABS</span></div><div class="subs">
+          <div class="sub"><h3>Body Map</h3><ul><li>Six regions</li><li>Region detail · recovery</li></ul></div>
+          <div class="sub"><h3>Weight</h3><ul><li>Cut · weigh-in · penalties</li><li>Weight-move program</li></ul></div>
+          <div class="sub"><h3>Medical</h3><ul><li>Clearances · holds · injuries</li></ul></div>
+        </div></div>
+        <div class="tab"><div class="h">PERFORMANCE <span>4 SUBTABS</span></div><div class="subs">
+          <div class="sub"><h3>Plan &amp; Duel</h3><ul><li>Natural + booked plan</li><li>Signature battle W-L</li></ul></div>
+          <div class="sub"><h3>Combos</h3><ul><li>Tightness · signature</li><li>Game-plan chains · use</li></ul></div>
+          <div class="sub"><h3>Skills</h3><ul><li>Tree · gates · progress</li></ul></div>
+          <div class="sub"><h3>Development</h3><ul><li>Proficiency · belts</li><li>MMA transition · Fight IQ</li></ul></div>
+        </div></div>
+        <div class="tab"><div class="h">CAMP <span>2 SUBTABS</span></div><div class="subs">
+          <div class="sub"><h3>Board</h3><ul><li>Setup / Progress / Report</li><li>Full projection</li></ul></div>
+          <div class="sub"><h3>Shape</h3><ul><li>Bout-only edges</li><li>Partner · protocol</li></ul></div>
+        </div></div>
+        <div class="tab"><div class="h">CAREER DESK <span>4 SUBTABS</span></div><div class="subs">
+          <div class="sub"><h3>Log</h3><ul><li>Filterable fight history</li></ul></div>
+          <div class="sub"><h3>Rivalries</h3><ul><li>Heat · band · grudge</li></ul></div>
+          <div class="sub"><h3>Ambition &amp; Fame</h3><ul><li>Milestones · rank · earnings</li></ul></div>
+          <div class="sub"><h3>Deal</h3><ul><li>Loyalty · rapport · contract</li><li>Clauses · promo · awards</li></ul></div>
+        </div></div>
+      </div>
+      <div class="verdict"><b>Best for:</b> managers who want FM-grade depth. <b>Watch-out:</b> Alerts must visually outrank everything or it becomes a spreadsheet.</div>
+    </div>
+  </div>
+
+  <div id="b" class="card">
+    <div class="head"><div><h2>Fight Week Broadcast</h2><div class="tag">6 PRIMARY · 11 SUBTABS · RECOMMENDED</div></div></div>
+    <div class="body">
+      <p class="phil">The profile is a broadcast package. <b>Tonight</b> is the poster. Other tabs hold the sport’s modes. Depth without drowning the screenshot.</p>
+      <div class="tabs">
+        <div class="tab"><div class="h">TONIGHT <span>0 SUBTABS · COMPOSED SURFACE</span></div><div class="subs">
+          <div class="sub" style="grid-column:1/-1"><h3>Single composed page</h3><ul><li>Ask / presser strip</li><li>Next bout hero (opponent · heat · hype · purse · plan)</li><li>Camp &amp; weight instruments</li><li>Form lights + six attribute pairs</li><li>Weapons HUD: duel record + tightness</li><li>No booking → becomes “This Week” gym focus</li></ul></div>
+        </div></div>
+        <div class="tab"><div class="h">ATHLETE <span>3 SUBTABS</span></div><div class="subs">
+          <div class="sub"><h3>Lab</h3><ul><li>Body map · clearances · vitals</li></ul></div>
+          <div class="sub"><h3>Attributes</h3><ul><li>STAT_ORDER → potential · specialties</li></ul></div>
+          <div class="sub"><h3>Weight</h3><ul><li>Cut · weigh-in · class move</li></ul></div>
+        </div></div>
+        <div class="tab"><div class="h">CORNER <span>3 SUBTABS</span></div><div class="subs">
+          <div class="sub"><h3>Plan</h3><ul><li>Plans · duel</li></ul></div>
+          <div class="sub"><h3>Combos &amp; Skills</h3><ul><li>Combos API · tree summary</li></ul></div>
+          <div class="sub"><h3>Camp</h3><ul><li>Full camp board</li></ul></div>
+        </div></div>
+        <div class="tab"><div class="h">STORY <span>3 SUBTABS</span></div><div class="subs">
+          <div class="sub"><h3>Record</h3><ul><li>Log · rivalries</li></ul></div>
+          <div class="sub"><h3>Ambition</h3><ul><li>Ladder · awards shelf</li></ul></div>
+          <div class="sub"><h3>Media</h3><ul><li>Questions · hype history</li></ul></div>
+        </div></div>
+        <div class="tab"><div class="h">BUSINESS <span>2 SUBTABS</span></div><div class="subs">
+          <div class="sub"><h3>Loyalty &amp; Pay</h3><ul><li>Loyalty parts · rapport · contract · clauses</li></ul></div>
+          <div class="sub"><h3>Promotion</h3><ul><li>Signing · DWCS goals · standing · slate</li></ul></div>
+        </div></div>
+        <div class="tab"><div class="h">COMPARE <span>TOOL</span></div><div class="subs">
+          <div class="sub"><h3>Tale of the Tape</h3><ul><li>Vs booked or scouted opponent</li></ul></div>
+        </div></div>
+      </div>
+      <div class="verdict"><b>Best for:</b> a game that wants to look like premium fight media and still run a sim. <b>Recommended ship target.</b></div>
+    </div>
+  </div>
+
+  <div id="c" class="card">
+    <div class="head"><div><h2>Athlete OS</h2><div class="tag">10 PRIMARY · 4 SUBTABS · CONSOLE FRANCHISE</div></div></div>
+    <div class="body">
+      <p class="phil">Many doors, shallow rooms. Each system gets a poster tab. Streamer says “open Weight” and everyone knows where.</p>
+      <div class="tabs">
+        <div class="tab"><div class="h">HOME · STATS · BODY · WEIGHT · STYLE · CAMP · RECORD · FAME · LOCKER · PRESS</div><div class="subs">
+          <div class="sub"><h3>Home</h3><ul><li>Shelf · alerts · next bout · 3 vitals · dial</li></ul></div>
+          <div class="sub"><h3>Stats</h3><ul><li>Six attrs · specialties · ratings</li></ul></div>
+          <div class="sub"><h3>Body</h3><ul><li>Subtabs: Regions · Medical</li></ul></div>
+          <div class="sub"><h3>Weight</h3><ul><li>Full cut + move</li></ul></div>
+          <div class="sub"><h3>Style</h3><ul><li>Subtabs: Plan · Arsenal</li></ul></div>
+          <div class="sub"><h3>Camp</h3><ul><li>Setup / Progress / Report</li></ul></div>
+          <div class="sub"><h3>Record</h3><ul><li>Log · rivalries toggle</li></ul></div>
+          <div class="sub"><h3>Fame</h3><ul><li>Ambition · awards · rank · $</li></ul></div>
+          <div class="sub"><h3>Locker</h3><ul><li>Rapport · loyalty · contract · promo</li></ul></div>
+          <div class="sub"><h3>Press</h3><ul><li>Media Qs · hype timeline</li></ul></div>
+        </div></div>
+      </div>
+      <div class="verdict"><b>Best for:</b> instant literacy and console energy. <b>Watch-out:</b> more hopping — cross-links from Home are mandatory.</div>
+    </div>
+  </div>
+
+  <div class="compare">
+    <div class="c"><h4>A · 18</h4><p>Deepest. Manager fantasy. Highest panel count.</p></div>
+    <div class="c"><h4>B · 11</h4><p>Best screenshot + complete coverage. Recommended.</p></div>
+    <div class="c"><h4>C · 4</h4><p>Clearest labels. Most tabs, least nesting.</p></div>
+  </div>
+  <p class="meta" style="margin-top:18px">Full write-up: <b>research/PROFILE_IA_THREE_VERSIONS.md</b> · coverage checklist included · no <b>.gd</b> changes</p>
+</div>
+<script>
+document.querySelectorAll('#pick button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('#pick button').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+    document.querySelectorAll('.card').forEach(c=>c.classList.remove('on'));
+    document.getElementById(btn.dataset.v).classList.add('on');
+  });
+});
+</script>
+</body>
+</html>

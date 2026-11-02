@@ -1,0 +1,726 @@
+et Ludo help turn your game idea into a complete Project Document
+FightCamp
+All Projects
+Edit
+Tutorial
+PLATFORM
+Desktop
+​
+ART STYLE
+Stylized 3D
+▾
+PERSPECTIVE
+Any perspective
+▾
+ASPECT RATIO
+Auto Aspect Ratio
+​
+GENRES
+Simulation
+Sports
+Strategy
+Fighting
++
+​
+FightCamp
+Block type
+
+FightCamp is a deep boxing gym management simulation for PC where you assume the role of the head coach and gym owner. Unlike traditional fighting games, you never throw the punches yourself; instead, you are responsible for the strategic decisions that shape a fighter's career. You manage a small gym, scouting ordinary kids and transforming them into professional athletes through rigorous training camps. The core experience focuses on the weight of leadership, where every victory on a fighter's record is a direct result of your preparation and corner-side guidance. The game aims to provide a realistic portrayal of the sport, blending management depth with high-stakes tactical decision-making during 3D-rendered fight nights.
+
+PDF
+🔒 Asset Vault
+Permanent container
+
+This section gathers all the assets you sent to this project but have not placed into a content section.
+
+It will not appear in the project PDF at export and the AI ignores it.
+
+Unused Assets
+Select
+IMAGES
+7
+UI & UX Design
+Mechanics
+Objectives
+Progression Systems
+Section Header
+More
+UI & UX Design
+Sim-Focused Combat Fans
+Add Image, Video, 3D Asset & More...
+Block type
+
+The game is designed specifically for fans of deep management titles like Football Manager, Motorsport Manager, and Out of the Park Baseball. These players value granular control and readable data over flashy arcade action. It also targets fans of boxing and management sims like Punch Club who desire a more sophisticated, realistic representation of the sport. Our audience appreciates complex systems and transparent logic; they are willing to navigate simple menus as long as the simulation outcomes are honest and explainable. They want to see the tangible results of their training regimens and tactical adjustments reflected in the 3D performance of their fighters in the ring.
+
+UI & UX Design
+Mechanics
+Accessibility Features
+Controls
+Section Header
+More
+Mechanics
+The Corner and Tactical Control
+Add Image, Video, 3D Asset & More...
+Block type
+
+The 3-minute 3D rounds play at 1x, 2x or 4x on one fight-night screen: each fighter's card top-left/top-right (head and stamina bars, a live pulse in BPM that turns green, amber or flashing red), round, clock and speed top-centre, up to 3 named opponent tells, and a THROW TOWEL tray bottom-right. There are no mid-round shouts. Between rounds the corner is one drawer read in under 10 seconds. STOOL: the fighter's state word (Focused, Complacent, Panicked, Groggy) from his pulse and pupils; you pick one of three tones (Calm, Fire Him Up, Tell Him the Truth) - the right tone restores composure, the wrong one backfires. Every crew lane has 2 action points; a rushed 3rd action risks a 35 percent blunder. CUTMAN: ice the swelling, swab the bleed (doctor risk minus 20 points), grease, or the deep coagulant pack (2 AP, doctor risk minus 45 points). Composure (0-100) drives plan adherence and guard: Focused 70+, Rattled 45-69, Shaken 20-44, Broken under 20 (a Broken fighter cannot fire his pad chains). Cuts run 0-5 pips per brow; at 3+ pips the referee can call the ringside doctor, who may stop it (35, 70 or 100 percent at 3, 4 or 5 pips, minus the cutman). If he lets it go on you choose: the towel (a loss, the eye heals clean) or wave him on (a win pays more, but finishing at 3+ pips leaves a permanent Cut-Prone scar).
+
+Mechanics
+Objectives
+Progression Systems
+Rules
+Section Header
+More
+Mechanics
+The Training Lap
+Add Image, Video, 3D Asset & More...
+Block type
+
+Training days are a lap on the top-down 3D gym floor: the clock runs (about 2 real minutes a day) and you send your fighter between stations - pads, heavy bag, speed bag, treadmill, bike, weights, the ring for sparring, defence drills and recovery. Each station targets attributes and costs stamina; training tired raises injury risk. The head coach stands at one station and boosts it. If you skip the rest of a day, your assistant coach runs it at 80 percent, shown in a one-second confirm drawer (amber warning if the weight plan is off). Move cards: you pick 3 techniques to drill; a card is usable after 120 drilled minutes and mastered at 600. A mastered card can be a 3-step PAD CHAIN (trigger -> evasion -> counter, e.g. opponent's lead jab -> slip outside -> right cross): in the live fight it fires on its own when the opponent gives the trigger (chance = mastery x ring IQ / 70, from 25 percent mastery, 4-second cooldown) with a banner, and the stool reports 'executed 2 of 3'. You build the script during the week and watch the boxer execute it on Saturday.
+
+Mechanics
+Progression Systems
+Objectives
+Rules
+Section Header
+More
+Progression Systems
+Camp Preparation and Strategy
+Add Image, Video, 3D Asset & More...
+Block type
+
+A camp prepares one bout against a named opponent. Weeks 1-3: camp focus, a training protocol (hard sparring to scientific recovery), a sparring partner cast to look like the opponent, a visiting coach, film study depth 0-3 and a diet. The last week is the FIGHT WEEK, one decision a day: MONDAY pads and routes (program the pad chain; burns 35 percent of the week's stamina); TUESDAY hard sparring, 'lock one, sacrifice one' - permanently lock one weapon (+15 percent speed/crit for that drill) and sacrifice one defence (-10 percent guard against his secondary weapon); WEDNESDAY active recovery (rest to regenerate chin and snap, or light conditioning for the weight); THURSDAY film: 3 coach hours lock up to 3 NAMED tells (e.g. 'Drops his right hand when throwing the lead hook'); FRIDAY the weigh-in roulette: Safe Sweat (never misses, stamina x0.95), Sauna Push (10 percent miss, chin capped at 85 percent) or Extreme Drain (30 percent miss, +10 percent power, chin capped at 75 percent and flashing red); a miss forfeits 20 percent of the purse; SATURDAY fight night. A tell comes from sparring (TELL: counter window +15 percent) or from film (EXIT: trap defence +20 percent, clinch break +25 percent); the corner spends 1 action point to switch one on for the rest of the bout.
+
+Progression Systems
+Playable Characters
+Mechanics
+Objectives
+Section Header
+More
+Playable Characters
+Fighter Attributes and Traits
+Add Image, Video, 3D Asset & More...
+Block type
+
+Every fighter has power, speed, defense, conditioning, fight IQ, technique and chin on a 0-100 scale, a style (out_boxer, swarmer, counter_puncher, slugger, boxer_puncher), height, reach, stance and weight class, hidden potential and a limited career. Traits change how he fights (Iron Will, Heavy Hands, Stiff Neck, Track Legs, Point Scorer, Fragile Confidence, Touch of Sleep, Early Gasser, Glass Jaw). In the fight he has COMPOSURE 0-100: it starts at 30 + fight IQ x 0.35 + chin x 0.20 + traits (Iron Will +15, Fragile Confidence -15; clamped 20-90), falls with clean head shots, being rocked, knockdowns, cuts and time trapped on the ropes, and rises with fired pad chains, knockdowns scored and counters. Wear is permanent. Pushing through a bad cut leaves a Cut-Prone SCAR: Level 1 (cuts that eye 1.35x as easily, fades after 6 months with no cuts), Level 2 (1.75x; surgery for 1,200 dollars takes it back to Level 1), Level 3 'Torn Grasp' (2.5x, and he starts every fight already bleeding 1 pip).
+
+Playable Characters
+Enemies
+Companions
+NPCs
+Section Header
+More
+Difficulty Progression
+Gym Development and Career Growth
+Add Image, Video, 3D Asset & More...
+Block type
+
+You start alone, as the player-coach, in a fixed garage gym with ONE fighter and one house sparring partner (Sal 'The Anvil' Barone, 50 dollars a week, never booked to fight). Hiring an assistant coach unlocks after your first 350-dollar purse. Expansion (more fighters, rooms, upgrades) is locked in the first hour. As your reputation grows, better prospects come to you. Money is member dues, purses and sponsors against rent, wages and equipment; staff (assistant coaches, cutmen, scouts, conditioning coaches) and each facility upgrade give a clear, visible benefit. Paying members and sparring partners train in the background so the gym feels alive. The mid-game milestone is the promoter's trap: after his second bout, promoter Marcus Vance offers a 5,000-dollar advance for an unsanctioned TV debut against Hector 'El Carnicero' Bravo (6-0, 6 KOs, power 88) - a win is +250 gym prestige, a KO loss costs 40 chin points for good; or you refuse and grind the amateur circuit.
+
+Levels
+Multiplayer
+Rewards
+Loot & Equipment
+Section Header
+More
+Storyline
+Anvil Street Campaign
+Add Image, Video, 3D Asset & More...
+Block type
+
+The narrative structure of the game is framed by the 'Anvil Street' story campaign. This campaign guides the player through the early stages of their career, establishing the stakes of running a local boxing gym. It serves to ground the simulation in a specific setting, providing a backdrop for the journey from training raw amateurs in local bouts to managing professional debuts on the regional stage. The story elements focus on the personal connections between the coach and the fighters, emphasizing the weight of the decisions made in the corner and how they affect the lives and careers of the athletes training under the Anvil Street banner.
+
+UI & UX Design
+Lore & Systems
+Universe & Setting
+Environments & Biomes
+Section Header
+More
+UI & UX Design
+Honest and Readable Outcomes
+Add Image, Video, 3D Asset & More...
+Block type
+
+A core pillar of the game design is transparency through data. The user interface provides clear, readable outcomes for every fight to ensure the player never feels cheated by hidden mechanics. Post-fight summaries explicitly name the three pivotal moments that decided the match, accompanied by official scorecards and detailed punch statistics. During training, live stats panels and warnings from assistant coaches keep the player informed about camp progress and health risks. By eliminating 'dice you cannot see,' the UI reinforces the simulation's integrity, ensuring that every win or loss can be traced back to specific choices made during the training week or in the corner.
+
+UI & UX Design
+Technical Specifications
+Accessibility Features
+Controls
+Section Header
+More
+Technical Specifications
+Godot 4 and 3D Visuals
+Add Image, Video, 3D Asset & More...
+Block type
+
+FightCamp is developed using the Godot 4 engine, leveraging 3D character models and motion-captured boxing animations to provide a realistic visual representation of the sport. While the management aspects utilize a clean, functional UI, the fight sequences and gym floor interactions are rendered in full 3D to ensure the player can see the physical results of their training programs. The technical focus is on creating a believable simulation of movement and impact, allowing for clear visual feedback on things like fighter fatigue, damage, and stylistic execution, ensuring the 3D action matches the deep statistical backend of the game. GAME DATA BRIEF FOR LUDO (generated from our real layout data gym_club.json, 2026-10-10; replaces guesses).   PLATFORM AND GENRE: FightCamp is a PC deep management simulation (Football Manager / Motorsport Manager class). NOT arcade, NOT mobile. Boxing first; the player is gym owner and head coach and never throws punches.   ENGINE: Godot 4.7, GDScript, 3D. The gym is one walkable 3D club seen from a fixed top-down game camera (about 44-48 degrees, field of view 36). Layouts are DATA in metres: x runs left to right (0 = left wall), z runs from the BACK wall (0) toward the street. Every station is a zone rectangle [x0, z0, x1, z1] with a work point where the fighter stands and an approach point on an aisle. Aisles are bands of z. No code change is needed to move or add a station.   CURRENT HALL (after the S195 enlargement): 20 m wide x 18 m deep = 360 square metres, wall height 3.6 m. The front block (locker room, physio, reception, your office) sits behind it at z 18-22.5, the street beyond. Aisles (z bands): bag strip [2.4, 3.0], middle aisle [7.6, 8.4], open strip [10.6, 12.0], front aisle [16.4, 18.0]. Door clear width 1.2 m.   STATIONS TODAY, each as: label = kind, zone [x0,z0,x1,z1] in metres, size WxD: Heavy bag 1 = station [3.0,0.2,4.8,2.2] 1.8x2.0 ; Heavy bag 2 = station [4.9,0.2,6.7,2.2] 1.8x2.0 ; Heavy bag 3 = station [6.8,0.2,8.6,2.2] 1.8x2.0 ; Heavy bag 4 = station [8.7,0.2,10.5,2.2] 1.8x2.0 ; Speed bag 1 = station [0.3,0.1,1.5,1.5] 1.2x1.4 ; Speed bag 2 = station [1.5,0.1,2.7,1.5] 1.2x1.4 ; Mirror + skipping = station [0.2,3.0,3.0,6.6] 2.8x3.6 ; Pads = station [3.6,3.2,6.6,6.6] 3.0x3.4 ; Slip rope = station [7.0,3.2,10.2,6.6] 3.2x3.4 ; Weights = station [0.4,12.2,4.6,15.6] 4.2x3.4 ; Treadmill = station [4.1,8.6,6.1,10.2] 2.0x1.6 ; Air bike = station [6.3,8.6,8.1,10.2] 1.8x1.6 ; Ring 16 ft = station [10.6,0.1,18.4,7.9] 7.8x7.8 ; Stretch corner = station [13.6,8.4,19.8,10.3] 6.2x1.9 ; Bench + water = decor [19.0,2.4,19.8,7.6] 0.8x5.2 ; Glove rack = decor [8.6,9.6,9.9,10.2] 1.3x0.6.   FREE FLOOR: the strip between the treadmill/bike row (z up to 10.2) and the front aisle (z 16.4-18) is open, about 20 m wide x 6 m deep (the weights occupy its west end), held for new stations.   HARD RULES: (1) No chairs, sofas, baths, fridges, TVs or whiteboards on the training floor; the ice tub and treatment table live in the PHYSIO room. (2) Gym art is bright and alive, a lived-in working boxing gym, warm light, brick walls, blue accent stripe. (3) Female and male fighters never fight each other. (4) Everything must be buildable from assets with a clear licence; generated 3D models must be under about 25,000 triangles in total for the floor and use PBR materials. (5) Every design is approved by the operator before it is built.   WHAT LUDO SHOULD OUTPUT: (a) layouts as TEXT in this same zone format (metres, [x0,z0,x1,z1]) that we can load directly, never only a picture; (b) concept images for LOOK ONLY and they must obey the layout; (c) individual props as 3D models you can really generate, one prop per request, with real dimensions in metres. Never propose mobile or arcade mechanics.
+
+Technical Specifications
+Accessibility Features
+UI & UX Design
+Controls
+Section Header
+More
+Onboarding & Tutorial
+The First Hour Experience
+Add Image, Video, 3D Asset & More...
+Block type
+
+The first hour is the demo. You name your gym and pick your first fighter from a 3-prospect shortlist that always leads with Leo Vance (19, super welter, orthodox, chin 82, head movement 14, Iron Will), with Malik 'Flash' Adebayo and Damian 'Dime' Cross as the alternatives. You pick 3 move cards; the third is locked to a pad chain. Fight 1 comes after a 3-week mini-camp against Tommy 'The Hook' Perez, a swarmer whose tells you learn in sparring and on film. Fight 2 runs the full Monday-Saturday fight week against Ray 'Meat-Axe' Miller, a slugger who cuts Leo in a clinch clash; the ringside doctor inspects the cut in round 3 and you choose the towel (a loss, the eye heals clean) or to wave him on (risking a permanent Cut-Prone scar). After fight 2 promoter Marcus Vance arrives with the trap: the 5,000-dollar TV debut against Hector Bravo, or the slow amateur road. Sal is your house sparring partner throughout; the assistant coach unlocks after your first purse.
+
+Accessibility Features
+UI & UX Design
+Controls
+Technical Specifications
+Section Header
+More
+Ludo AI Chat Assistant
+What would you like to know or do about FightCamp?
+Gym Floor UX Fixes
+
+LUDO ROUND 81 (FightCamp, S229) - GYM FLOOR PLAYABLE, next piece. TEXT AND CODE ONLY - do NOT generate any image. Longest complete answer you can, full code with no placeholders; if you run out, end with CONTINUE.
+
+THE OPERATOR (verbatim): "we need to have the gymfloor playable soon".
+
+WHAT THE FLOOR DOES NOW (after your round 79 + 80 code landed today): a 3D boxing club, roofless, broadcast camera with 3 zooms; a 2:00-minute day clock with pause/play/fast; ONE active fighter at a time walks between 17 stations and trains (minutes accrue per station; gains are computed per station kind at day end); the coach can be sent to his station (coach present = better gains); click anything -> a ring of up to 6 actions: fighter (call coach, train at, rest, talk, day plan, profile), coach (coach fighter, drill focus, send to station, week hours, contract, profile), station (train here, coach here, queue next, what it trains, upgrade), office window (week review, hire, money, offers, upgrades, messages), walk-in visitors (greet, interview, trial, later, send away); floor events (a broken bag chain with one choice), sparring days, a day goal + week goal plate, a morning ticker (STEP IN / SKIP THE DAY), a floor toast line for every action, station levels 1-3.
+
+ASK:
+A. As the lead designer, play that floor in your head for 10 minutes as a new player who signed his first boxer. List the 8 moments where he would be bored, lost, or feel nothing happened - most important first - and for each the smallest fix (what he sees, what changes, the number).
+B. For the top 3 fixes, write the complete GDScript (Godot 4.7). Rules: pure rules modules = extends RefCounted, static funcs, ZERO preloads, plain dicts in/out; any UI = extends Control built in code, setup(game_state: Node) pattern, round-70 UI bible tokens (void #0d0c0b, panels #1a1816/#22201d/#282521, gold #f0c233, cream #f6f0e0, 4 px radius). Tell me the exact function in the floor each hooks into (names from the list above: run_floor_action, send_to, coach_to, show_floor_toast, apply_floor_effect, the day clock tick, day end).
+C. For each, a SceneTree test (func _initialize, prints " failures=N", quit(0/1)) that fails on today's floor and passes with your code.
+
+FightCamp — Round 81: Making the Gym Floor Playable
+Part A: 10-Minute Playthrough Audit — 8 Failure Moments & Smallest Fixes
+
+Playing as a first-time player running Leo Vance on Day 1 with the current floor build:
+
+1. The 120-Second Void (Silent Accrual)
+The Moment: You tap "Train at Heavy Bag" on Leo. He walks over, starts punching. The 2-minute timer ticks down. No numbers change on screen. His attributes look identical. You watch an animation loop for 90 seconds wondering if your inputs did anything or if the game is hung up until the day summary screen suddenly fires at 0:00.
+Smallest Fix: A floating micro-tick pip directly over the station head every 15 game-seconds: +0.2 Power (Station) in cream text fading up, with an amber stamina burn pip -3 Stamina.
+Number: Accrual pulse interval = 15.0 game seconds. Float delta = +0.1 to +0.4 stat points visually previewed, deducted from the station's daily cap pool.
+2. Blind Station Queuing (No Planned Route)
+The Moment: You queue "Speed Bag" while Leo is on the "Heavy Bag", but there is no breadcrumb, target marker, or queue pathline. You don't know if the queue registered or if clicking it cancelled his current workout, leading to anxious re-clicking that spam-resets his walk state.
+Smallest Fix: A high-contrast dotted route spline / ground decal linking his current station anchor to the queued station anchor, with a tiny badge "NEXT: SPEED BAG (45s)" anchored over the destination station.
+Number: Max queue depth = 2 stations. Ground route marker alpha = 0.75, pulse cycle = 1.2s.
+3. Coach Proximity Feels Decorative
+The Moment: You send Coach to stand at Heavy Bag 1 with Leo. A toast pops up saying "Coach assigned", but the fighter's animation and feedback remain 100% identical. You can't tell if the coach's bonus is 5% or 50%, or if the coach is actively talking or correcting form.
+Smallest Fix: When Coach shares a station with the fighter, an active coach aura ring appears at their feet with a gold tag: "FORM COACHING: +35% GAINS, -20% FATIGUE", and Leo's floating stat tick changes color from cream #f6f0e0 to gold #f0c233.
+Number: Coach bonus multiplier = 1.35x stat gain rate, fatigue drain multiplier = 0.80x.
+4. Zero Warning On Exhaustion Death Spiral
+The Moment: Leo runs his stamina down to 8% while hitting the bags. The stamina bar on his status card turns red, but there is no auditory or physical stall. You leave him there; at day end he suffers an unpreventable hamstring strain or exhaustion debuff that feels like a random penalty rather than an avoidable player mistake.
+Smallest Fix: At stamina < 25%, an urgent flashing amber caution badge pops up over the fighter: "EXHAUSTED: INJURY RISK 4x". The fighter's idle/punch cadence slows by 40%, and a one-click floating action prompt appears right on him: [CALL TO BENCH].
+Number: Warning trigger = 25.0 stamina. Risk escalation = base 0.5% per minute jumps to 2.0% per minute.
+5. Pad Chains Feel Completely Disconnected From Floor Work
+The Moment: The GDD promises pad chains drill techniques into muscle memory (e.g., slip-counter), but the Pads station just shows generic time ticking. You have no idea which chain is being drilled or how close you are to unlocking a real weapon for Saturday.
+Smallest Fix: Station card on Pads displays active chain progress: "SLIP-CROSS: 142/600m [MASTERED IN 4 SESSIONS]". Each drill cycle shows an execution prompt pip: "CHAIN SYNC +1".
+Number: Drill tick adds +15 drilled minutes to card every 15 game-seconds of active pad work with coach present.
+6. The Day Goal Is Passive Text Nobody Reads
+The Moment: Top header says "Day Goal: Build Conditioning". The player trains Leo on Weights, but nothing tracks toward the goal until 0:00. The player feels no positive reinforcement during the actual two-minute live loop.
+Smallest Fix: A progress bar embedded directly inside the top goal plate: Conditioning: 6.4 / 10.0 mins [64%]. Filling it flashes the plate gold with an instant morale sound and float text: "GOAL MET: +5 MORALE".
+Number: Goal target threshold = 10.0 station-minutes. Reward = +5 fighter composure/morale pool for Saturday.
+7. Action Ring Target Blindness
+The Moment: You click Leo to open the 6-action ring. The ring covers the station behind him, and clicking "Train At" opens a giant sub-list of 17 stations with no indication of which ones are occupied, broken, or optimal for his archetype (e.g., swarmer vs. out-boxer).
+Smallest Fix: Stations in the "Train At" radial menu display tiny archetype affinity tags (BEST, OK, OFF-PLAN) and current travel walking time (e.g., "Heavy Bag 2 (3s walk)").
+Number: Up to 3 stations tagged RECOMMENDED based on fighter primary gap attribute (e.g. Chin or Stamina).
+8. Sudden Day End Jarring Cut
+The Moment: Day clock hits 0:00. The screen abruptly freezes, floor fades to black instantly, and an overwhelming full-page multi-tab ledger opens with 40 numbers. You lose the physical sense of the gym club you were just standing in.
+Smallest Fix: A 5-second end-of-day bell sound ("10-second wood clacker" at 0:10, triple bell at 0:00). Fighters naturally walk toward the locker room aisle (z: 16.4-18.0). A compact bottom-drawer slide-up card summarizes: "DAY 1 WRAP: +1.2 PWR, -38 STA, 0 INJURIES" with a clear [REVIEW FULL LEDGER] or [NEXT MORNING] button.
+Number: Bell warning at T - 10s. Transition walk delay = 2.5s before UI overlay drawer appears.
+Part B: Godot 4.7 Production GDScript Implementations
+
+We implement the top 3 critical fixes:
+
+Fix 1: Micro-Tick Stat Accrual & Floating Feedback Engine (GymStatAccrualEngine)
+Hooks into: the day clock tick and apply_floor_effect.
+Fix 2: Fatigue & Exhaustion Hazard Safety Interlock (GymFatigueHazardEngine)
+Hooks into: the day clock tick and run_floor_action.
+Fix 3: Station Route Pathline & Visual Target Drawer (GymRouteDrawerUI)
+Hooks into: send_to and _process.
+Fix 1: Micro-Tick Stat Accrual & Floating Feedback Engine
+# gym_stat_accrual_engine.gd
+# Pure rules engine: extends RefCounted, zero preloads, plain dicts in/out.
+class_name GymStatAccrualEngine
+extends RefCounted
+
+const TICK_INTERVAL_GAME_SEC: float = 15.0
+const COACH_BOOST_MULT: float = 1.35
+const COACH_FATIGUE_MULT: float = 0.80
+
+# Station attribute targets and base yields per 60 game-seconds
+const STATION_PROFILES: Dictionary = {
+	"heavy_bag": {"stat": "power", "rate_per_min": 0.8, "sta_drain_per_min": 12.0},
+	"speed_bag": {"stat": "speed", "rate_per_min": 0.9, "sta_drain_per_min": 8.0},
+	"pads": {"stat": "technique", "rate_per_min": 1.1, "sta_drain_per_min": 14.0},
+	"weights": {"stat": "power", "rate_per_min": 1.0, "sta_drain_per_min": 16.0},
+	"treadmill": {"stat": "conditioning", "rate_per_min": 1.2, "sta_drain_per_min": 10.0},
+	"air_bike": {"stat": "conditioning", "rate_per_min": 1.4, "sta_drain_per_min": 15.0},
+	"slip_rope": {"stat": "defense", "rate_per_min": 0.9, "sta_drain_per_min": 9.0},
+	"mirror_skipping": {"stat": "fight_iq", "rate_per_min": 0.7, "sta_drain_per_min": 7.0},
+	"stretch_corner": {"stat": "recovery", "rate_per_min": 0.5, "sta_drain_per_min": -10.0} # Restores stamina
+}
+
+# Evaluates elapsed frame delta and yields an event if an accrual boundary is crossed.
+# state: {
+#   "station_id": String,
+#   "station_kind": String,
+#   "elapsed_at_station": float,
+#   "fighter_stamina": float,
+#   "coach_present": bool,
+#   "fighter_attributes": Dictionary
+# }
+static func process_station_tick(state: Dictionary, delta_game_sec: float) -> Dictionary:
+	var out: Dictionary = {
+		"tick_occurred": false,
+		"elapsed_at_station": state.get("elapsed_at_station", 0.0) + delta_game_sec,
+		"stat_gained_key": "",
+		"stat_delta": 0.0,
+		"stamina_delta": 0.0,
+		"new_stamina": state.get("fighter_stamina", 100.0),
+		"new_stat_val": 0.0,
+		"is_coach_boosted": state.get("coach_present", false),
+		"toast_message": ""
+	}
+
+	var prev_intervals: int = int(state.get("elapsed_at_station", 0.0) / TICK_INTERVAL_GAME_SEC)
+	var next_intervals: int = int(out["elapsed_at_station"] / TICK_INTERVAL_GAME_SEC)
+
+	if next_intervals <= prev_intervals:
+		return out
+
+	out["tick_occurred"] = true
+	var kind: String = state.get("station_kind", "heavy_bag")
+	var profile: Dictionary = STATION_PROFILES.get(kind, {"stat": "conditioning", "rate_per_min": 0.5, "sta_drain_per_min": 10.0})
+
+	var fraction_of_min: float = TICK_INTERVAL_GAME_SEC / 60.0
+	var coach_mult: float = COACH_BOOST_MULT if out["is_coach_boosted"] else 1.0
+	var coach_sta_mult: float = COACH_FATIGUE_MULT if out["is_coach_boosted"] else 1.0
+
+	var stat_gain: float = profile["rate_per_min"] * fraction_of_min * coach_mult
+	var sta_drain: float = profile["sta_drain_per_min"] * fraction_of_min * coach_sta_mult
+
+	# Clamp if fighter is completely tapped out
+	var cur_sta: float = state.get("fighter_stamina", 100.0)
+	if cur_sta <= 0.0 and sta_drain > 0.0:
+		stat_gain *= 0.20 # Exhaustion penalty: 80% loss of gain efficiency
+
+	var stat_name: String = profile["stat"]
+	var cur_val: float = 0.0
+	var attrs: Dictionary = state.get("fighter_attributes", {})
+	if attrs.has(stat_name):
+		cur_val = float(attrs[stat_name])
+
+	out["stat_gained_key"] = stat_name
+	out["stat_delta"] = snappedf(stat_gain, 0.01)
+	out["stamina_delta"] = snappedf(-sta_drain, 0.01)
+	out["new_stamina"] = maxf(0.0, snappedf(cur_sta - sta_drain, 0.01))
+	out["new_stat_val"] = snappedf(cur_val + stat_gain, 0.01)
+
+	var boost_str: String = " (Coach +35%)" if out["is_coach_boosted"] else ""
+	out["toast_message"] = "+%0.2f %s%s" % [out["stat_delta"], stat_name.capitalize(), boost_str]
+
+	return out
+
+# gym_floating_pip_spawner.gd
+# UI Micro-display: Spawns floating 3D-to-2D screen pips matching Round 70 design tokens.
+class_name GymFloatingPipSpawner
+extends Control
+
+const COLOR_VOID: Color = Color("#0d0c0b")
+const COLOR_GOLD: Color = Color("#f0c233")
+const COLOR_CREAM: Color = Color("#f6f0e0")
+const COLOR_RED: Color = Color("#df4035")
+
+func _init() -> void:
+	name = "GymFloatingPipSpawner"
+	set_anchors_preset(PRESET_FULL_RECT)
+	mouse_filter = MOUSE_FILTER_IGNORE
+
+func spawn_pip(screen_pos: Vector2, text: String, is_gold: bool = false, is_negative: bool = false) -> void:
+	var label: Label = Label.new()
+	label.text = text
+	label.top_level = true
+	label.position = screen_pos + Vector2(randf_range(-12.0, 12.0), -10.0)
+	
+	var col: Color = COLOR_CREAM
+	if is_gold:
+		col = COLOR_GOLD
+	elif is_negative:
+		col = COLOR_RED
+		
+	label.add_theme_color_override("font_color", col)
+	label.add_theme_color_override("font_shadow_color", COLOR_VOID)
+	label.add_theme_constant_override("shadow_offset_x", 1)
+	label.add_theme_constant_override("shadow_offset_y", 1)
+	label.add_theme_font_size_override("font_size", 13)
+	
+	add_child(label)
+	
+	var tween: Tween = create_tween().set_parallel(true)
+	tween.tween_property(label, "position:y", label.position.y - 36.0, 1.2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_property(label, "modulate:a", 0.0, 1.2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	tween.finished.connect(label.queue_free)
+
+Fix 2: Fatigue & Exhaustion Hazard Safety Interlock
+# gym_fatigue_hazard_engine.gd
+# Extends RefCounted: Pure logic for handling exhaustion triggers, slow debuff, and emergency rests.
+class_name GymFatigueHazardEngine
+extends RefCounted
+
+const CRITICAL_STAMINA_THRESHOLD: float = 25.0
+const BASE_INJURY_ODDS_PER_MIN: float = 0.005 # 0.5%
+const EXHAUSTED_INJURY_ODDS_PER_MIN: float = 0.020 # 2.0%
+
+# Evaluates whether the fighter is currently in an exhaustion state.
+static func evaluate_fatigue_hazard(fighter_state: Dictionary, delta_game_sec: float) -> Dictionary:
+	var stamina: float = fighter_state.get("stamina", 100.0)
+	var is_critical: bool = stamina <= CRITICAL_STAMINA_THRESHOLD
+	var was_critical: bool = fighter_state.get("was_fatigue_critical", false)
+	
+	var out: Dictionary = {
+		"is_critical": is_critical,
+		"entered_critical": is_critical and not was_critical,
+		"exit_critical": not is_critical and was_critical,
+		"speed_penalty_factor": 0.60 if is_critical else 1.0,
+		"injury_triggered": false,
+		"injury_type": "",
+		"warning_text": ""
+	}
+
+	if is_critical:
+		out["warning_text"] = "EXHAUSTED (Stamina < 25%). High Injury Risk!"
+		var fraction_of_min: float = delta_game_sec / 60.0
+		var check_roll: float = randf()
+		if check_roll < (EXHAUSTED_INJURY_ODDS_PER_MIN * fraction_of_min):
+			out["injury_triggered"] = true
+			out["injury_type"] = select_exhaustion_injury(fighter_state.get("current_station_kind", "heavy_bag"))
+			out["warning_text"] = "INJURY! Sustained %s due to overwork!" % out["injury_type"]
+
+	return out
+
+static func select_exhaustion_injury(station_kind: String) -> String:
+	match station_kind:
+		"heavy_bag", "weights":
+			return "Wrist Sprain"
+		"treadmill", "air_bike":
+			return "Hamstring Strain"
+		"pads", "slip_rope":
+			return "Ankle Tweak"
+		_:
+			return "Muscle Tear"
+
+# Resolves emergency intervention: send to bench or stretch corner
+static func execute_emergency_rest(fighter: Dictionary) -> Dictionary:
+	var updated: Dictionary = fighter.duplicate(true)
+	updated["target_station"] = "stretch_corner"
+	updated["is_recovering"] = true
+	updated["status_tag"] = "FORCED RECOVERY"
+	return updated
+
+# gym_exhaustion_banner_ui.gd
+# UI Component: Pops an interactive danger banner when stamina is critically low.
+class_name GymExhaustionBannerUI
+extends Control
+
+signal emergency_rest_requested
+
+const COLOR_VOID: Color = Color("#0d0c0b")
+const COLOR_PANEL: Color = Color("#1a1816")
+const COLOR_BORDER: Color = Color("#df4035")
+const COLOR_GOLD: Color = Color("#f0c233")
+const COLOR_CREAM: Color = Color("#f6f0e0")
+
+var _panel: PanelContainer
+var _label: Label
+var _bench_btn: Button
+
+func _init() -> void:
+	name = "GymExhaustionBannerUI"
+	set_anchors_preset(PRESET_TOP_WIDE)
+	offset_left = 300.0
+	offset_right = -300.0
+	offset_top = 10.0
+	offset_bottom = 54.0
+	visible = false
+	_build_ui()
+
+func _build_ui() -> void:
+	_panel = PanelContainer.new()
+	var style: StyleBoxFlat = StyleBoxFlat.new()
+	style.bg_color = COLOR_PANEL
+	style.border_color = COLOR_BORDER
+	style.set_border_width_all(2)
+	style.corner_radius_top_left = 4
+	style.corner_radius_top_right = 4
+	style.corner_radius_bottom_left = 4
+	style.corner_radius_bottom_right = 4
+	style.content_margin_left = 12.0
+	style.content_margin_right = 12.0
+	_panel.add_theme_stylebox_override("panel", style)
+	_panel.set_anchors_preset(PRESET_FULL_RECT)
+	add_child(_panel)
+
+	var hbox: HBoxContainer = HBoxContainer.new()
+	hbox.alignment = BoxContainer.ALIGNMENT_CENTER
+	hbox.add_theme_constant_override("separation", 16)
+	_panel.add_child(hbox)
+
+	_label = Label.new()
+	_label.text = "EXHAUSTION WARNING: Leo is below 25% stamina!"
+	_label.add_theme_color_override("font_color", COLOR_BORDER)
+	_label.add_theme_font_size_override("font_size", 12)
+	hbox.add_child(_label)
+
+	_bench_btn = Button.new()
+	_bench_btn.text = "SEND TO RECOVERY"
+	var btn_style: StyleBoxFlat = StyleBoxFlat.new()
+	btn_style.bg_color = COLOR_GOLD
+	btn_style.corner_radius_top_left = 4
+	btn_style.corner_radius_top_right = 4
+	btn_style.corner_radius_bottom_left = 4
+	btn_style.corner_radius_bottom_right = 4
+	btn_style.content_margin_left = 8.0
+	btn_style.content_margin_right = 8.0
+	_bench_btn.add_theme_stylebox_override("normal", btn_style)
+	_bench_btn.add_theme_color_override("font_color", COLOR_VOID)
+	_bench_btn.add_theme_font_size_override("font_size", 11)
+	_bench_btn.pressed.connect(func(): emergency_rest_requested.emit())
+	hbox.add_child(_bench_btn)
+
+func set_hazard_active(active: bool, warning_text: String = "") -> void:
+	visible = active
+	if active and not warning_text.is_empty():
+		_label.text = warning_text
+
+Fix 3: Station Route Pathline & Visual Target Drawer
+# gym_route_drawer_ui.gd
+# Extends Control: Custom 2D HUD overlay that projects 3D station coords to 2D lines and breadcrumbs.
+class_name GymRouteDrawerUI
+extends Control
+
+const COLOR_VOID: Color = Color("#0d0c0b")
+const COLOR_GOLD: Color = Color("#f0c233")
+const COLOR_PANEL: Color = Color("#22201d")
+const COLOR_CREAM: Color = Color("#f6f0e0")
+
+var _game_camera: Camera3D = null
+var _source_station_pos: Vector3 = Vector3.ZERO
+var _target_station_pos: Vector3 = Vector3.ZERO
+var _target_station_name: String = ""
+var _is_routing: bool = false
+var _pulse_time: float = 0.0
+
+func _init() -> void:
+	name = "GymRouteDrawerUI"
+	set_anchors_preset(PRESET_FULL_RECT)
+	mouse_filter = MOUSE_FILTER_IGNORE
+
+func setup(camera: Camera3D) -> void:
+	_game_camera = camera
+
+func set_route(origin_3d: Vector3, dest_3d: Vector3, dest_name: String) -> void:
+	_source_station_pos = origin_3d
+	_target_station_pos = dest_3d
+	_target_station_name = dest_name
+	_is_routing = true
+	queue_redraw()
+
+func clear_route() -> void:
+	_is_routing = false
+	queue_redraw()
+
+func _process(delta: float) -> void:
+	if _is_routing:
+		_pulse_time += delta * 4.0
+		queue_redraw()
+
+func _draw() -> void:
+	if not _is_routing or _game_camera == null:
+		return
+
+	if _game_camera.is_position_behind(_source_station_pos) or _game_camera.is_position_behind(_target_station_pos):
+		return
+
+	var p1: Vector2 = _game_camera.unproject_position(_source_station_pos)
+	var p2: Vector2 = _game_camera.unproject_position(_target_station_pos)
+
+	# Draw dashed pathline
+	var line_color: Color = COLOR_GOLD
+	line_color.a = 0.6 + sin(_pulse_time) * 0.25
+	draw_dashed_line(p1, p2, line_color, 3.0, 6.0)
+
+	# Draw origin circle
+	draw_circle(p1, 5.0, COLOR_GOLD)
+	draw_arc(p1, 9.0, 0, TAU, 16, COLOR_GOLD, 1.5)
+
+	# Draw destination anchor circle
+	draw_circle(p2, 6.0, COLOR_GOLD)
+	draw_arc(p2, 12.0 + sin(_pulse_time) * 2.0, 0, TAU, 24, COLOR_GOLD, 2.0)
+
+	# Destination Tooltip Tag
+	var tag_rect: Rect2 = Rect2(p2.x - 60.0, p2.y - 32.0, 120.0, 22.0)
+	draw_rect(tag_rect, COLOR_PANEL, true)
+	draw_rect(tag_rect, COLOR_GOLD, false, 1.0)
+	
+	var font: Font = ThemeDB.fallback_font
+	var text: String = "NEXT: " + _target_station_name.to_upper()
+	draw_string(font, Vector2(tag_rect.position.x + 8, tag_rect.position.y + 15), text, HORIZONTAL_ALIGNMENT_LEFT, 104, 10, COLOR_CREAM)
+
+Part C: SceneTree Self-Contained Tests
+
+Run directly in headless mode (godot --headless --script test_*.gd).
+
+Test 1: Stat Accrual Engine (test_stat_accrual.gd)
+# test_stat_accrual.gd
+extends SceneTree
+
+func _initialize() -> void:
+	var failures: int = 0
+	
+	# Initial state: 0 sec on heavy bag, Leo has 50.0 power, 100 stamina, no coach
+	var state: Dictionary = {
+		"station_id": "heavy_bag_1",
+		"station_kind": "heavy_bag",
+		"elapsed_at_station": 0.0,
+		"fighter_stamina": 100.0,
+		"coach_present": false,
+		"fighter_attributes": {"power": 50.0}
+	}
+	
+	# Sub-interval tick (10 seconds) - should NOT trigger an accrual pip
+	var res1: Dictionary = GymStatAccrualEngine.process_station_tick(state, 10.0)
+	if res1["tick_occurred"] != false:
+		failures += 1
+		print("FAIL: Micro-tick fired before crossing TICK_INTERVAL_GAME_SEC boundary")
+
+	# Update elapsed and push across 15-second boundary (another 6 seconds, total 16s)
+	state["elapsed_at_station"] = res1["elapsed_at_station"]
+	var res2: Dictionary = GymStatAccrualEngine.process_station_tick(state, 6.0)
+	if res2["tick_occurred"] != true:
+		failures += 1
+		print("FAIL: Expected tick to occur at >= 15 seconds")
+	
+	if res2["stat_gained_key"] != "power":
+		failures += 1
+		print("FAIL: Incorrect stat picked for heavy bag")
+
+	# Heavy bag rate per min is 0.8. In 15s (0.25 min) -> 0.20 power gain
+	if not is_equal_approx(res2["stat_delta"], 0.20):
+		failures += 1
+		print("FAIL: Stat delta calculation wrong. Expected 0.20, got: ", res2["stat_delta"])
+
+	# Test coach boost
+	state["coach_present"] = true
+	state["elapsed_at_station"] = 15.0
+	var res3: Dictionary = GymStatAccrualEngine.process_station_tick(state, 15.0)
+	# 0.20 * 1.35 = 0.27
+	if not is_equal_approx(res3["stat_delta"], 0.27):
+		failures += 1
+		print("FAIL: Coach boost multiplier failed. Expected 0.27, got: ", res3["stat_delta"])
+
+	prints(" failures=" + str(failures))
+	quit(1 if failures > 0 else 0)
+
+Test 2: Fatigue Hazard Interlock Engine (test_fatigue_hazard.gd)
+# test_fatigue_hazard.gd
+extends SceneTree
+
+func _initialize() -> void:
+	var failures: int = 0
+	
+	var healthy_fighter: Dictionary = {
+		"stamina": 80.0,
+		"was_fatigue_critical": false,
+		"current_station_kind": "heavy_bag"
+	}
+	
+	var res1: Dictionary = GymFatigueHazardEngine.evaluate_fatigue_hazard(healthy_fighter, 1.0)
+	if res1["is_critical"] == true or res1["entered_critical"] == true:
+		failures += 1
+		print("FAIL: Healthy fighter falsely reported as exhausted")
+
+	var tired_fighter: Dictionary = {
+		"stamina": 22.0,
+		"was_fatigue_critical": false,
+		"current_station_kind": "treadmill"
+	}
+	
+	var res2: Dictionary = GymFatigueHazardEngine.evaluate_fatigue_hazard(tired_fighter, 1.0)
+	if res2["is_critical"] != true or res2["entered_critical"] != true:
+		failures += 1
+		print("FAIL: Fighter below 25.0 stamina must trigger critical hazard")
+
+	if not is_equal_approx(res2["speed_penalty_factor"], 0.60):
+		failures += 1
+		print("FAIL: Expected 0.60 speed penalty during exhaustion")
+
+	# Test emergency rest execution
+	var updated_fighter: Dictionary = GymFatigueHazardEngine.execute_emergency_rest(tired_fighter)
+	if updated_fighter.get("target_station") != "stretch_corner" or updated_fighter.get("is_recovering") != true:
+		failures += 1
+		print("FAIL: Emergency rest did not redirect fighter to recovery")
+
+	prints(" failures=" + str(failures))
+	quit(1 if failures > 0 else 0)
+
+Test 3: Route Drawer UI (test_route_drawer_ui.gd)
+# test_route_drawer_ui.gd
+extends SceneTree
+
+func _initialize() -> void:
+	var failures: int = 0
+	
+	var route_ui: GymRouteDrawerUI = GymRouteDrawerUI.new()
+	root.add_child(route_ui)
+	
+	var camera: Camera3D = Camera3D.new()
+	root.add_child(camera)
+	camera.position = Vector3(0.0, 10.0, 15.0)
+	camera.look_at(Vector3.ZERO, Vector3.UP)
+	
+	route_ui.setup(camera)
+	
+	# Initial state: not routing
+	if route_ui._is_routing != false:
+		failures += 1
+		print("FAIL: RouteUI should default to idle")
+		
+	# Set active route
+	route_ui.set_route(Vector3(3.9, 0.0, 1.2), Vector3(1.0, 0.0, 0.8), "Speed Bag 1")
+	if route_ui._is_routing != true:
+		failures += 1
+		print("FAIL: RouteUI did not activate after set_route")
+
+	if route_ui._target_station_name != "Speed Bag 1":
+		failures += 1
+		print("FAIL: Station destination name was not retained")
+
+	# Test clear
+	route_ui.clear_route()
+	if route_ui._is_routing != false:
+		failures += 1
+		print("FAIL: Clear route failed to deactivate routing state")
+
+	route_ui.queue_free()
+	camera.queue_free()
+
+	prints(" failures=" + str(failures))
+	quit(1 if failures > 0 else 0)
+
+Part D: Exact Integration Wiring Diagram
+
+Here is the exact method-level binding into your current floor controller:
+
+Inside the day clock tick (_physics_process or timer callback):
+# 1. Update station accruals and spawn micro-pips
+var accrual_res = GymStatAccrualEngine.process_station_tick({
+    "station_id": current_station.id,
+    "station_kind": current_station.kind,
+    "elapsed_at_station": fighter.current_station_time,
+    "fighter_stamina": fighter.stamina,
+    "coach_present": (coach.current_station == fighter.current_station),
+    "fighter_attributes": fighter.attributes
+}, delta_game_sec)
+
+if accrual_res["tick_occurred"]:
+    fighter.current_station_time = accrual_res["elapsed_at_

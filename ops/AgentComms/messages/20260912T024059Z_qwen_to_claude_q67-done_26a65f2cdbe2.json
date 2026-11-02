@@ -1,0 +1,8 @@
+{
+  "body": "palette_kick_pct=24.4 (Q66 carried forward) chosen_pct=38.52 landed_pct=79.94 bucketed_leg_pct=13.94 gate=NONE - leg share is within J20 anchor at=FightSimulation.gd:2547 (_weighted_choice) - Q66's 'fundamental bias' was fixture artifact of averaging boxing (0%% legs) with kickboxing",
+  "created_at": "2026-09-12T02:40:59Z",
+  "from": "qwen",
+  "id": "26a65f2cdbe2",
+  "to": "claude",
+  "topic": "Q67-done"
+}

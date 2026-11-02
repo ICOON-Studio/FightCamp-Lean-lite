@@ -1,0 +1,346 @@
+﻿# FIGHTCAMP (S219) — TECHNICAL DESIGN SPECIFICATION
+
+---
+
+## PART A — FINISH THE NEW CAREER SCREEN (STEP 3 OF 3: "THE GYM")
+
+### 1. Finished Screen Layout (1920×1080)
+
+The current layout suffers from asymmetric dead space on the right, generic low-contrast rectangular cards, confusing empty equipment slots, and a disconnect between the story prompt and the starter roster. 
+
+We structure the screen using a **4-Column Management Canvas Grid** (Left Margins: $48\text{ px}$, Right Margins: $48\text{ px}$, Top Bar: $72\text{ px}$, Bottom Bar: $64\text{ px}$, Usable Height: $896\text{ px}$).
+
+```
+┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ [FC LOGO] FIGHTCAMP       Step 1: Country  ✓     Step 2: City  ✓     [Step 3: THE GYM]                             [BACK] [RESET] [EXIT]   │
+├────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ ┌─ BLOCK 1: IDENTITY & MODE SELECTION ───────────────────────────────────────────┐ ┌─ BLOCK 4: PREVIEW & MANIFESTO ───────────────────┐ │
+│ │ GYM NAME: [ Calder House Boxing Club       ]  YOUR NAME: [ Coach Calder     ]  │ │ ┌───────────────────────────────────────────────┐ │ │
+│ │ START ARCHETYPE:                                                               │ │ │                                               │ │ │
+│ │ [★ THE HOUSE THAT HOLDS]  [ GUIDED SANDBOX ]  [ OPEN SANDBOX ]  [⚙ ADVANCED]   │ │ │       3D FACILITY VIEWPORT / HERO ART         │ │ │
+│ └────────────────────────────────────────────────────────────────────────────────┘ │ │        (Tier 1 Club Gym: 30.0m x 18.0m)       │ │ │
+│ ┌─ BLOCK 2: FINANCIAL & LEDGER STRIP ────────────────────────────────────────────┐ │ │                                               │ │ │
+│ │ [ CASH: $25,000 ]    [ UPKEEP: $367 / wk ]    [ RUNWAY: 68.1 wks ]    [ TIER 1 ]│ │ └───────────────────────────────────────────────┘ │ │
+│ └────────────────────────────────────────────────────────────────────────────────┘ │ │ CALDER HOUSE BOXING GYM                       │ │ │
+│ ┌─ BLOCK 3A: FACILITY FLOOR INVENTORY (480x560) ─┐ ┌─ BLOCK 3B: ROSTER (400x560) ┐ │ │ "Inherited from Vince Calder. The ring canv-  │ │ │
+│ │ TILES IN USE: 36 / 40 m²      EXPANSION: TIER 2│ │ BOXING ROSTER (1 ACTIVE)    │ │ │  as is worn, the rent is paid for 14 days,    │ │ │
+│ │ ┌───────────────┬──────────────┬─────────────┐ │ │ ┌─────────────────────────┐  │ │ │  and Mara Solano is taping her wrists."       │ │ │
+│ │ │ CLUB RING 4x4 │ MAT 2x2      │ BAGS (x2)   │ │ │ │ MARA "WIRE" SOLANO     │  │ │ ├───────────────────────────────────────────────┤ │ │
+│ │ │ Cond: 64%     │ Cond: 57%    │ Cond: 82%   │ │ │ │ Welterweight (147 lbs) │  │ │ MODE SETTINGS SUMMARY:                          │ │ │
+│ │ ├───────────────┼──────────────┼─────────────┤ │ │ │ Orth | 0-0-0 (Amateur) │  │ │ • Story Narrative: ACTIVE (Interrupt)           │ │ │
+│ │ │ CARDIO 2x2    │ WEIGHTS 2x2  │ SPEED-BAG   │ │ │ │ PWR:38 TEC:44 SPD:42   │  │ │ • Guidance Marks: ACTIVE (Interactive)          │ │ │
+│ │ │ Cond: 61%     │ Cond: 60%    │ Cond: 70%   │ │ │ └─────────────────────────┘  │ │ • Demo Rules: Pure Boxing Simulation            │ │ │
+│ │ ├───────────────┴──────────────┴─────────────┤ │ │ [ + SIGN LOCAL PROSPECT ]    │ │ ├───────────────────────────────────────────────┤ │ │
+│ │ │ [ADD APPARATUS: 4 m² UNASSIGNED]           │ │ │ (Locked during Prologue)     │ │ │ [ OPEN GYM ]  (Gold Primary, 360x64 px)       │ │ │
+│ │ └────────────────────────────────────────────┘ │ └─────────────────────────────┘ │ └───────────────────────────────────────────────┘ │ │
+├────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ FOOTER: Autosave Slot: Career_01 | Ready to initialize Godot 4.7.2 Simulation Engine                                    v0.9.4-S219    │
+└────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+#### Exact Coordinate & Sizing Layout (1920×1080)
+* **Screen Header:** $X=0, Y=0, W=1920, H=72\text{ px}$. Progress step tabs (`Country`, `City`, `The Gym`), back button at $X=1760, Y=16$.
+* **Block 1 (Header Inputs & Start Archetypes):** $X=48, Y=88, W=1384, H=112\text{ px}$.
+  * Gym Name Input: $X=48, Y=112, W=340, H=44\text{ px}$.
+  * Your Name Input: $X=404, Y=112, W=260, H=44\text{ px}$.
+  * Archetype Chip Group: $X=680, Y=112, W=752, H=44\text{ px}$.
+* **Block 2 (Financial & Facility Ledger Strip):** $X=48, Y=216, W=1384, H=56\text{ px}$.
+  * 4 metric panels ($W=334, H=56\text{ px}$ each):
+    1. Starting Cash: `$25,000` (Gold text `#E5B842`).
+    2. Weekly Upkeep: `$367 / wk` (Muted red `#E06C75`).
+    3. Projected Runway: `68.1 Weeks` (Neutral grey `#ABB2BF`).
+    4. Facility Tier: `Tier 1 Club (30.0 x 18.0 m)` (Teal `#4EC9B0`).
+* **Block 3A (Facility Floor Inventory Grid):** $X=48, Y=288, W=780, H=680\text{ px}$.
+  * Floor capacity bar: $H=24\text{ px}$ across top ($36/40\text{ m}^2$ used).
+  * Equipment tile area: $W=780, H=640\text{ px}$ container displaying active installed modules.
+* **Block 3B (Starter Roster Column):** $X=848, Y=288, W=584, H=680\text{ px}$.
+  * Header showing active weight class and certified division rules.
+  * Fighter profile card(s) displaying starting statistics.
+* **Block 4 (Right Column — Preview, Manifesto & Confirmation):** $X=1456, Y=88, W=416, H=880\text{ px}$.
+  * **3D Viewport / Render Panel:** $X=1456, Y=88, W=416, H=320\text{ px}$. Live camera feed of the Tier 1 gym interior (showing the weathered ring canvas, heavy bags, exposed brick walls, and fluorescent overhead strips).
+  * **Manifesto & Archetype Pitch Card:** $X=1456, Y=424, W=416, H=320\text{ px}$. Detailed breakdown of the selected mode, lore description, and systemic flags.
+  * **Primary Action Button (`OPEN GYM`):** $X=1456, Y=784, W=416, H=64\text{ px}$. Solid gold `#D19A66` / `#E5B842`, black bold typography.
+  * **Save Slot Notice:** $X=1456, Y=856, W=416, H=24\text{ px}$.
+* **Screen Footer:** $X=0, Y=1016, W=1920, H=64\text{ px}$. System build notes, engine status, and legal copyright.
+
+---
+
+### 2. START Archetypes Specification & Advanced Modal
+
+#### Chip 1: `THE HOUSE THAT HOLDS` (Default / Canonical)
+* **Title:** The House That Holds (Story Campaign & Tutorial)
+* **Badge:** `CANONICAL` (Gold `#E5B842`)
+* **Pitch Line 1:** Inherit Calder House from Vince Calder; train Mara "Wire" Solano from raw amateur to regional title contender.
+* **Pitch Line 2:** The calendar and promotional debt are your adversaries. Rook Hale's gym competes across town for your belts.
+* **Rules & Toggles:** `story_mode = INTERRUPT`, `tutorial_hints = ON`, `starter_roster = MARA_SOLANO`, `gym_name = "Calder House Boxing Club"`.
+* **Target Audience:** First-time players, simulation narrative fans.
+
+#### Chip 2: `GUIDED SANDBOX`
+* **Title:** Guided Sandbox (Open Management + Procedural System Guidance)
+* **Badge:** `ONBOARDING` (Teal `#4EC9B0`)
+* **Pitch Line 1:** Full sandbox freedom with non-intrusive procedural objectives and system onboarding cards.
+* **Pitch Line 2:** No hardcoded narrative, no scripted characters. Build your own gym identity from the ground up.
+* **Rules & Toggles:** `story_mode = OFF`, `tutorial_hints = ON`, `starter_roster = PROCEDURAL_BOXER_MALE_OR_FEMALE`, `gym_name = User Defined`.
+* **Target Audience:** Players new to combat sports sims who prefer an unscripted career.
+
+#### Chip 3: `OPEN SANDBOX`
+* **Title:** Open Sandbox (Expert Simulator)
+* **Badge:** `SIM PURIST` (Steel Blue `#61AFEF`)
+* **Pitch Line 1:** Zero narrative, zero hand-holding. Unrestricted control of gym finances, facilities, and contracts from Day 1.
+* **Pitch Line 2:** All certified techniques, scouting networks, and management menus unlocked according to cash and tier rules.
+* **Rules & Toggles:** `story_mode = OFF`, `tutorial_hints = OFF`, `starter_roster = PROCEDURAL_GENERIC_ROSTER_X2`, `gym_name = User Defined`.
+* **Target Audience:** Experienced managers (*Football Manager* / *Motorsport Manager* veterans).
+
+#### Chip 4: `⚙ ADVANCED CONFIGURATION` (Modal Window: 640×520 px)
+When clicked, opens an override dialog permitting granular configuration:
+* `Story Delivery Mode`: `[x] Direct Interruption (Modal)` | `[ ] Inbox Dispatch (BESIDE)` | `[ ] Disabled (OFF)`
+* `System Coach Guidance`: `[x] Enabled` | `[ ] Disabled`
+* `Starting Economy Modifier`: `Tight ($15.0K)` | `Standard ($25.0K)` | `Endowed ($50.0K)`
+* `Promoter Aggression`: `Conservative` | `Realistic (Default)` | `Predatory`
+* `Medical Trauma Severity`: `Simulation Standard (100%)` | `Strict Stoppages (125%)`
+
+---
+
+### 3. Equipment Tile Art & Floor Inventory Block
+
+The current generic grey rectangles must be replaced with a **Blueprint Equipment Card** aesthetic matching an industrial technical drawing.
+
+```
+┌────────────────────────────────────────────────────────┐
+│ [ICON: RING]  OLD CLUB BOXING RING             [4x4 m] │
+├────────────────────────────────────────────────────────┤
+│ TIER 1 FOUNDATION APPARATUS                            │
+│ Condition: 64% ▓▓▓▓▓▓▓▓▓▓░░░░░░ [WEAR: MODERATE]       │
+│ Base Upkeep: $140 / wk                                 │
+│ Attributes Trained: Ring Craft, Footwork, Sparring     │
+│ Status: Certified Safe (Inspection due in 12 weeks)    │
+└────────────────────────────────────────────────────────┘
+```
+
+#### Equipment Specification Table:
+```
++---------------------------+----------+-----------+------------+-------------------------------------------------------------+
+| APPARATUS NAME            | FOOTPRINT| CONDITION | UPKEEP/WK  | FUNCTIONAL SIMULATION IMPACT                                |
++---------------------------+----------+-----------+------------+-------------------------------------------------------------+
+| Old Club Boxing Ring      | 4x4 (16m²| 64%       | $140.00    | Enables full technical sparring, footwork, and corner drills|
+| Modular Combat Mat        | 2x2 (4m²)│ 57%       | $35.00     | Calisthenics, stance work, dynamic balance conditioning     |
+| Basic Heavy Bag (Twin)    | 1x2 (2m²)│ 82%       | $42.00     | Kinetic power development, hook/cross repetition            |
+| Basic Cardio Floor        | 2x2 (4m²)│ 61%       | $50.00     | Aerobic conditioning, recovery flushes, roadwork prep       |
+| Compact Free-Weight Rack  | 2x2 (4m²)│ 60%       | $45.00     | Muscular endurance, shoulder stability, frame strength     |
+| Worn Speed-Bag Platform   | 1x1 (1m²)│ 70%       | $18.00     | Hand-eye coordination, shoulder endurance, rhythm timing    |
+| Focus-Mitt Locker         | 1x1 (1m²)│ 85%       | $15.00     | Pad work, combination drilling (`boxing_one_two`)           |
+| First-Aid Cabinet         | 1x1 (1m²)│ 80%       | $12.00     | In-house swelling management, minor cut treatment           |
+| Throwing & Grappling Mat  | 1x1 (1m²)│ 70%       | $10.00     | Core stability (MMA foundation; boxed off in Boxing demo)   |
+| UNASSIGNED FLOOR SPACE    | 4x1 (4m²)│ 100%      | $0.00      | Open floor available for new equipment installations        |
++---------------------------+----------+-----------+------------+-------------------------------------------------------------+
+```
+
+#### Visual Polish & States:
+* **Condition Readout:** Rather than plain text ("cond 64%"), display a segmented 10-step progress bar:
+  * Green (`#98C379`): $80\text{--}100\%$
+  * Amber (`#E5B842`): $50\text{--}79\%$
+  * Crimson (`#E06C75`): $<50\%$ (Warning icon: *"Equipment wear increases minor injury hazard"*).
+* **Unassigned / Empty Space:** **Never display blank grey voids.** Render empty space as a hatched blueprint zone labeled:  
+  `[ + INSTALL EQUIPMENT: 4 m² AVAILABLE ]` (Border: $1.5\text{ px}$ dashed teal, fill: `$0E1726` with $45^\circ$ diagonal lines).
+* **Hover State:** Border highlights to bright teal (`#4EC9B0`), elevation drops a subtle $12\text{ px}$ drop-shadow, and a tooltip displays exact weekly maintenance, trained attributes, and replacement costs.
+
+---
+
+### 4. Roster Block: Boxing Demo & Start Differentiation
+
+#### THE CORE ERROR IN CURRENT BUILD:
+The existing screen lists three male fighters across three different sports: Nasir Larkin (21, Boxing, 0-1), Rico Vargas (20, MMA, 1-0), and Rafael Novak (19, Wrestling, 0-1). 
+* The demo is **certified boxing only**.
+* The canonical campaign is centered on **Mara "Wire" Solano**, an amateur female welterweight.
+* Listing MMA and wrestling athletes in a boxing-only slice breaks immersion and confuses testing.
+
+#### Revised Roster Layout:
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│ STARTER ROSTER — WOMEN'S AMATEUR WELTERWEIGHT (147 LBS)                │
+├────────────────────────────────────────────────────────────────────────┤
+│ ┌─ MARA "WIRE" SOLANO ───────────────────────────────────────────────┐ │
+│ │ Age: 22 | Orthodox | Record: 0-0-0 (Amateur Debut)                 │ │
+│ │ Contract: Calder House Retainer ($120/wk) | Morale: Resolute       │ │
+│ ├────────────────────────────────────────────────────────────────────┤ │
+│ │ ATTRIBUTE READOUT (PLAYER BARS 0-100):                             │ │
+│ │  POWER:      38 [▓▓▓▓░░░░░░]     DEFENCE:    44 [▓▓▓▓░░░░░░]       │ │
+│ │  TECHNIQUE:  44 [▓▓▓▓░░░░░░]     FOOTWORK:   41 [▓▓▓▓░░░░░░]       │ │
+│ │  SPEED:      42 [▓▓▓▓░░░░░░]     RING IQ:    46 [▓▓▓▓▓░░░░░]       │ │
+│ │  STAMINA:    48 [▓▓▓▓▓░░░░░]     COMPOSURE:  52 [▓▓▓▓▓░░░░░]       │ │
+│ │  CHIN:       45 [▓▓▓▓░░░░░░]                                       │ │
+│ ├────────────────────────────────────────────────────────────────────┤ │
+│ │ ACTIVE CERTIFIED ARSENAL:                                          │ │
+│ │  • boxing_stance_guard (Foundation)                                │ │
+│ │  • boxing_jab (Foundation)                                         │ │
+│ │  • boxing_cross (Foundation)                                       │ │
+│ │  • boxing_step_in_out (Foundation)                                 │ │
+│ └────────────────────────────────────────────────────────────────────┘ │
+│ ┌────────────────────────────────────────────────────────────────────┐ │
+│ │ [ + SCOUT FREE AGENTS ]  (Locked during Chapter 1 Prologue)        │ │
+│ └────────────────────────────────────────────────────────────────────┘ │
+└────────────────────────────────────────────────────────────────────────┘
+```
+
+#### Roster Behavior Across Start Archetypes:
+* **The House That Holds (Story):** Roster is locked to **Mara Solano**. Names, background, and stats are fixed to support the Chapter 1 narrative balance.
+* **Guided Sandbox:** Player selects division at Step 1 (Men's or Women's Welterweight). A single procedurally generated prospect is provided with balanced baseline Foundation stats (all attributes between 32 and 46).
+* **Open Sandbox:** Player starts with **two** procedural prospects (e.g., one raw 18-year-old amateur with high speed, one 26-year-old club fighter with high chin and power) to test multi-fighter gym scheduling.
+
+---
+
+### 5. Final Copywriting & Interface Text
+
+* **Screen Title:** `ESTABLISH YOUR FACILITY` (Subhead: `Step 3 of 3: Gym Identity, Archetype & Initial Assets`)
+* **Gym Name Label:** `FACILITY TRADING NAME`
+* **Your Name Label:** `HEAD COACH & PROPRIETOR`
+* **Mode Archetype Header:** `CHOOSE YOUR OPERATIONAL PATH`
+* **Financial Ledger Metrics:**
+  * `STARTING CAPITAL`: `$25,000.00`
+  * `FIXED OVERHEAD`: `$367.00 / Week`
+  * `ESTIMATED RUNWAY`: `68.1 Weeks`
+  * `FACILITY ENVELOPE`: `Tier 1 Club (30.0m × 18.0m)`
+* **Floor Plan Header:** `INSTALLED APPARATUS & FLOOR ALLOCATION`
+* **Roster Header:** `REGISTERED FIGHTER ROSTER`
+* **Right Column Card Title:** `FACILITY STATUS: READY TO INITIALIZE`
+* **Primary Confirmation Button:** `OPEN GYM & BEGIN CAREER`
+* **Button Subtext:** `Initializes simulation database, loads facilities, and registers active fighter.`
+
+---
+
+### 6. Animation, Motion & UI Transitions
+
+* **On Screen Entry (Duration: $450\text{ ms}$):**
+  * Top header bar and ledger strip slide down from $Y=-72\text{ px}$ with a smooth ease-out curve (`cubic-bezier(0.16, 1, 0.3, 1)`).
+  * Equipment grid and Roster cards stagger fade-in from $Y=+20\text{ px}$ ($30\text{ ms}$ delay per tile).
+  * Right column 3D viewport renders off-screen and fades in over $300\text{ ms}$ once shader pipelines warm up.
+* **On Archetype Switch (Duration: $200\text{ ms}$):**
+  * Selected chip transitions background color to dark teal/gold with a crisp $2\text{ px}$ border expansion.
+  * Right column pitch card cross-fades text content instantly.
+  * Roster card updates with a quick horizontal slide-and-replace animation ($150\text{ ms}$).
+* **On Clicking `OPEN GYM & BEGIN CAREER`:**
+  * Gold button flashes bright ivory `#FFF5EA`, then depresses $2\text{ px}$ downward.
+  * Audio cue: Heavy industrial metal deadbolt latch click followed by ambient gym bell ringing.
+  * Viewport expands to full screen via a fast iris wipe into the live 3D gym hub.
+
+---
+
+### 7. Pass/Fail Automated Acceptance Checklist (New Career Step 3)
+
+```
++----+----------------------------------+--------------------------------------------------------------------------------+
+| #  | TEST IDENTIFIER                  | ACCEPTANCE CRITERIA / TEST ASSERTION                                           |
++----+----------------------------------+--------------------------------------------------------------------------------+
+| 1  | `check_viewport_resolution`      | Root canvas fixed at 1920x1080 without responsive overflow or clipping.        |
+| 2  | `check_roster_boxing_purity`     | Assert all fighters displayed have `sport == "BOXING"`. Zero MMA/Wrestling.   |
+| 3  | `check_story_mode_default`       | "THE HOUSE THAT HOLDS" selected by default; Mara Solano present on roster.     |
+| 4  | `check_roster_gender_parity`     | Mara Solano correctly identified as Female Welterweight (147 lbs limit).      |
+| 5  | `check_empty_slot_styling`       | Assert no unstyled grey blocks. Unassigned floor space displays dashed border. |
+| 6  | `check_equipment_wear_visuals`   | All 9 starter apparatuses show segmented condition bars and numerical wear.   |
+| 7  | `check_financial_sum_integrity`  | Starting cash equals exactly $25,000; weekly upkeep sums exactly to $367.00.   |
+| 8  | `check_advanced_modal_flow`      | Clicking "ADVANCED" opens modal; toggling overrides updates system flags.      |
+| 9  | `check_3d_viewport_preview`      | 3D preview viewport renders active Tier 1 gym geometry without camera clips.   |
+| 10 | `check_open_gym_save_creation`   | Clicking "OPEN GYM" persists `Career_01.fc` and loads the Day 1 Office scene.  |
++----+----------------------------------+--------------------------------------------------------------------------------+
+```
+
+---
+
+## PART B — UNIFIED IN-GAME MENU PRESENTATION SYSTEM
+
+To elevate *FightCamp* to the visual standards of *Football Manager*, *Motorsport Manager*, and *Two Point Hospital*, the UI must abandon ad-hoc floating panels in favor of a cohesive **Design System**.
+
+### 1. Unified Architectural Presentation Rules
+
+```
+┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                       GLOBAL PRESENTATION ARCHITECTURE                                                 │
+├────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│  LAYER 0: 3D WORLD CANVAS     Real-time Godot 4.7.2 Gym Viewport (Maintains lighting, ambient lifecycles, and depth)   │
+│  LAYER 1: PERSISTENT SHELL    Top Telemetry Bar (64 px) + Left Modular App Dock (80 px)                                │
+│  LAYER 2: ACTIVE WORKSPACE    Full Canvas Panels OR Slide-Over Inspection Drawers (Blurred Backdrop)                  │
+│  LAYER 3: MODAL DIALOGS       Focused Decision Windows (Office Contracts, Towel Calls, Financial Overrides)            │
+│  LAYER 4: TOAST & TOOLTIPS    Non-blocking feedback, detailed telemetry inspectors, systemic notifications            │
+└────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+#### Screen Types:
+1. **The Full Management Canvas (Replaces 3D Viewport):** Used for deep tactical or operational work (`Roster Profile`, `Technique Tree`, `Financial Ledger`, `Schedule`). The 3D gym is occluded or blurred using a rapid Gaussian depth-of-field effect (`radius: 16px`, brightness: $-40\%$) to keep typography readable.
+2. **The Contextual Inspection Drawer (Slide-Over Panel: $640\text{ px}$ from right):** Used for quick inspections while maintaining situational awareness of the gym floor (`Equipment Detail`, `Single Fighter Status`, `Scouting Dossier`). The 3D gym stays live and animated in the background.
+3. **The Focus Modal Window (Centered: $800\text{×}540\text{ px}$ or $960\text{×}640\text{ px}$):** Reserved exclusively for high-impact crossroads decisions (`Story Event Cards`, `Contract Signing`, `Debt Restructuring`, `Corner Towel Stoppage`).
+
+#### Typography Scale (1080p Target):
+* **Display Titles (Screen Headers):** `24 px` | Bold (Weight 700) | Letter-spacing: $+0.5\text{ px}$ | Uppercase
+* **Section Headers / Card Titles:** `16 px` | Semi-Bold (Weight 600) | Letter-spacing: $+0.2\text{ px}$
+* **Standard Data & Readouts:** `13 px` | Medium (Weight 500) | Tabular Figures (Monospace numbers)
+* **Secondary Labels & Meta Tags:** `11 px` | Regular (Weight 400) | Uppercase | Letter-spacing: $+0.8\text{ px}$
+* **Micro Tooltips & Badges:** `10 px` | Bold (Weight 700) | Uppercase
+
+#### Color Roles:
+* **Base Canvas Surface:** Deep Navy Slate `#0B101D`
+* **Card / Panel Surface:** Industrial Midnight Navy `#121A2B`
+* **Card Surface Raised / Hover:** Steel Navy `#1B263E`
+* **Primary Interactive Accent (Gold):** `#D19A66` / `#E5B842` (Primary action, progress, cash)
+* **Secondary Selected Accent (Teal):** `#4EC9B0` (Active selection, positive technical traits)
+* **Danger / Warning Accent (Crimson):** `#E06C75` (Severe wear, negative cash flow, injury risk)
+* **Informational Muted Accent (Sky Blue):** `#61AFEF` (Scouting data, neutral indicators)
+* **Text High-Emphasis:** Pure Ivory `#E6EDF3`
+* **Text Medium-Emphasis:** Slate Grey `#8B949E`
+* **Text Disabled:** Muted Navy `#484F58`
+
+---
+
+### 2. High-Impact Refinements for Core In-Game Screens
+
+#### (1) The 3D Gym Hub (Main Operational Workspace)
+* **Fix 1: Integrated Telemetry Strip.** Drop the detached top floating tiles. Replace them with a flush, unified 64 px top bar containing an integrated cash runway gauge (`$25,000 | 68.1 wks remaining`) and live calendar engine controls matching *Motorsport Manager*.
+* **Fix 2: Spatial Floor HUD Overlays.** Display subtle, non-intrusive floor projection markers over apparatuses (e.g., ring, heavy bags) indicating who is currently training on them, their current exercise, and real-time wear progression.
+* **Fix 3: Floating Goal Drawer.** Anchor the daily/weekly objective tracker cleanly to the lower-left corner ($X=96, Y=860$) with an auto-collapsing drawer tab, ensuring the gym floor remains visually clear.
+
+#### (2) Fighter Profile & 54-Node Technique Tree
+* **Fix 1: Two-Column Split Architecture.** Place fighter vitals, the 9 player-facing attribute bars, and the biological wear mannequin on the left ($W=520\text{ px}$); dedicate the remaining space ($W=1320\text{ px}$) to an expansive, pan-and-zoom node canvas for the 54-node Technique Tree.
+* **Fix 2: Color-Coded Biological Wear Mannequin.** Replace raw text lists with an anatomical wireframe model showing wear levels across the 6 body regions (`head_neck`, `torso_core`, `left_arm`, `right_arm`, `left_leg`, `right_leg`) from green to deep red.
+* **Fix 3: Interactive Prerequisite Tracing.** Hovering over any technique node (e.g., `boxing_counter_combination`) instantly draws glowing vector traces back through its requirements (`boxing_pull_counter`, `boxing_one_two_hook`), highlighting missing stat thresholds in crimson.
+
+#### (3) Schedule & Fight-Week Hub (Tue–Sat Grid)
+* **Fix 1: Micro-Block Calendar View.** Build a 7-day tactical planner showing training intensity, sparring slots, weigh-in check-ins, and rest days, modeled after *Football Manager's* training calendar.
+* **Fix 2: Fatigue Accumulation Heatmap.** Display a projected fatigue graph beneath the week's schedule to show players how scheduled training sessions will affect recovery ahead of fight night.
+* **Fix 3: Opponent Scouting Split.** Position a persistent scouting dossier on the right side of the screen during fight week, displaying the opponent's style, key tendencies, and recommended tactical countermeasures.
+
+#### (4) Live Fight HUD & Corner Management
+* **Fix 1: Telemetry-Driven Vitals bug.** Place clean, broadcast-style telemetry strips in the upper corners showing real-time stamina bars, composure levels, and subtle cut/swelling badges.
+* **Fix 2: Tactical Corner Tray.** Replace cluttered button grids during the 60-second break with a 3-column tactical board: *Fighter Readout* | *Corner Adjustments* | *Cutman Resource Allocation*.
+* **Fix 3: High-Visibility Stoppage Control.** Place a large, high-contrast `THROW TOWEL` action in the lower-right corner ($W=220, H=52\text{ px}$), surrounded by hazard striping, allowing managers to step in and protect their fighter's career.
+
+#### (5) Post-Fight Analytics & Aftermath Screen
+* **Fix 1: Punch Distribution Heatmap.** Display an anatomical breakdown of punches landed vs. thrown by zone (head vs. body, lead vs. rear hand), matching pro fight broadcast analytics.
+* **Fix 2: Systemic Causal Ledger.** Provide clear, data-driven explanations for the fight outcome (e.g., *"Solano controlled range with the jab, landing 42 of 68 attempts to outscore Perez on all three cards"*).
+* **Fix 3: Biological Toll Breakdown.** Display a clear medical summary showing post-fight recovery timelines, cut heal times, and mandatory rest periods before training can resume.
+
+---
+
+### 3. The 20-Component Reusable "Menu Kit"
+
+```
++----+-----------------------------+------------------------------------------------------+-----------------------------------------------+
+| #  | COMPONENT NAME              | FUNCTIONAL PURPOSE                                   | SUPPORTED STATES                              |
++----+-----------------------------+------------------------------------------------------+-----------------------------------------------+
+| 1  | `BtnPrimary`                | Main action trigger (Gold fill, black text)          | Default, Hover, Pressed, Focused, Disabled    |
+| 2  | `BtnSecondary`              | Secondary utility action (Navy fill, white border)   | Default, Hover, Pressed, Focused, Disabled    |
+| 3  | `BtnDanger`                 | Irreversible/critical action (e.g., Throw Towel)     | Default, Hover, Armed, Active, Disabled       |
+| 4  | `CardSurface`               | Standard base container for data grouping            | Flat, Raised, Outlined, Active                |
+| 5  | `MetricTile`                | KPI display panel (label, large value, trend icon)   | Neutral, Positive, Warning, Critical          |
+| 6  | `AttributeBar`              | Horizontal segmented bar for 0-100 attributes        | Base Value, Training Delta, Preview, Max      |
+| 7  | `BodyWearMap`               | Anatomical vector silhouette showing 6 body zones    | Pristine (0%), Wear (1-49%), Critical (50%+)  |
+| 8  | `TechniqueNode`             | 54-node tree node (icon, tier badge, connector ports)| Locked, Available, In-Training, Mastered      |
+| 9  | `SegmentedControl`          | Horizontal tab switch for filtering / screen modes   | Selected, Unselected, Hover, Disabled         |
+| 10 | `SlideDrawer`               | Right-side slide-over panel for deep inspection      | Closed, Opening, Open, Closing                |
+| 11 | `ModalDialog`               | Centered blocking overlay for critical decisions     | Active, Closing, Background-Blocked           |
+| 12 | `DataTable`                 | High-density ledger table for finances and rankings  | Default, Row-Hover, Sorted, Filtered          |
+| 13 | `CalendarStrip`             | 7-day schedule strip showing training allocations    | Past, Today, Active Session, Fight Night      |
+| 14 | `ScoutingRadar`             | 8-axis radar chart comparing tactical profiles       | Static, Comparing Opponent, Projected Growth  |
+| 15 | `BadgePill`                 | Compact status tags (e.g., "Orthodox", "Tier 1")     | Neutral, Teal, Gold, Crimson, Navy Outline    |
+| 16 | `CornerTimer`               | Circular 60-second recovery clock for corner breaks  | Running, Final 10s Warning, Expired           |
+| 17 | `NotificationToast`         | Sliding message for system alerts and card delivery  | Slide-In, Persistent, Auto-Dismiss, Hovered   |
+| 18 | `Input

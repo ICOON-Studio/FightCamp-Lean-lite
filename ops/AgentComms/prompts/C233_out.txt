@@ -1,0 +1,25 @@
+Warning: running headless with --yolo / approval-mode=yolo and no sandbox. All tool calls (shell, write, edit) auto-execute at this process's privilege level. Enable a sandbox via --sandbox / QWEN_SANDBOX, or set QWEN_CODE_SUPPRESS_YOLO_WARNING=1 to silence this notice.
+Warning: MCP server(s) failed to start: higgsfield. Continuing with built-in tools and any servers that did connect. Re-run with QWEN_CODE_DEBUG=1 to see per-server reasons.
+C233 complete. Pushed to `qwen/c233-floor-lobby`, digest sent to Claude.
+
+**Training floor (tier 1) - 8/8 K82 items:**
+- Warm key #FFB561 at 1.4 with shadows, cool fill #8FB4D9 at 0.35
+- Zone rectangles alpha 0.12, labels 12px white at 70%
+- Cinder-block back wall shader (#8B8F92, mortar #6A6E70), brick on sides
+- Duct-taped heavy bags (2×, silver tape bands, rubber mat, chains)
+- Skipping ropes + B&W poster on back wall
+- Admin corner (table, chair, crate, notebook, bottle)
+- Window light patch + pendant lamp (switched off)
+
+**Lobby - 6/8 done, 2 adapted:**
+- Tile floor #4A4D52 with #35383C grout
+- Awards wall (shelving, gold trophies, belts)
+- Desk #3B2A1E with fighter silhouette decal
+- Wall of fame (8 frames, 2×4 grid, record plates)
+- Merch shelf + corkboard fight board
+- Planters by desk
+- *Adapted:* labels→objects (already real objects), bench position (kept existing)
+
+**Tests:** parse gate + training_floor_3d_test + gym_floor_layout_test + smoke_test all pass.
+
+**Stills:** `previews/c233/{floor,lobby}.png`

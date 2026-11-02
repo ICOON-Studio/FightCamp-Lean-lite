@@ -1,0 +1,770 @@
+Kalli
+
+PART 3 of 3
+
+5. Where FightCamp actually sits (concrete comps)
+Title	Role	Fight model depth (concrete)	Bout presentation	Commercial / community signal
+WMMA5	Closest peer for “run a promotion + deep fight world”	Attribute-driven text sim; styles, fatigue, cage work, decisions; huge mod databases	Text	Cult classic; still recommended in 2023+; complaints = UI/perf/license, not graphics
+Title Bout Championship Boxing	Historical boxing sandbox	Very deep rating/style model; decades of boxer data	Text + light pseudo-anim	Decades of forum life on OOTP boards; career mode thin; depth is the hook
+Boxing Manager (mobile)	Gym/manager loop	Commentary engine + corner tactics + stats	Text / Ringside UI	Live product with ongoing Ringside updates
+LEATHER	Tactical boxing management	Explicit between-round plan (range, intensity, targeting)	Managerial ringside, not arcade 3D	Mobile-first; Steam port still pending per community
+Pound for Pound	Modern Steam promotion tycoon	Attribute/style tendencies; Early Access deepening fight engine	Simulation watch (non-3D product)	~96% positive / ~138 reviews (this pass)
+Prey / FunRock MMA Manager line + MMA Team Manager	Mobile / light PC gym managers	Shallower; training + tactics layers; community disputes whether training “matters”	Animated / simplified fight view	Mixed; complaints include fight dullness despite animation
+Cage Empire / similar Steam newcomers	Promotion managers entering Steam	Varies; often booking + round-by-round cornering	Typically non-fighting-game	Early / thin review bases — do not over-weight
+
+FightCamp’s unusual position (INFERENCE): A stat-calibrated fight engine plus gym management plus Godot 3D bout theater aims at a stack almost nobody in the comps table has. The rare piece is the calibration. The expensive piece is the 3D. The comps say the rare piece is what the niche pays for; the expensive piece is optional theater.
+
+Disagreeing with the project’s current weight
+
+The operator’s own status read is correct: simulation is mature; 3D is weak; S43 is about contact.
+Where I disagree: treating “painful 3D” as the critical path for project progress relative to the market. Progress that matters to buyers of this genre is:
+
+Can I run a gym / book / develop and feel the world react?
+Do fight results and narratives feel honest given what I know about the fighters?
+Can I watch a bout without wanting to skip it?
+
+(3) is necessary. It does not require that (3) be solved as 3D contact before (1)–(2) are shippable. FM’s own architecture — same engine, multiple views — is the existence proof that presentation quality and sim quality can be decoupled. FightCamp already has the sim half. Gating the product on S43 is how a good management sim becomes a bad fighting game.
+
+Strongest evidence the direction is still right: Keeping a published-stats-calibrated bout model (vs mobile RNG managers) is exactly what separates WMMA5-class products from toys. Do not dilute that to make 3D look cooler.
+
+Strongest evidence the direction is wrong as currently sequenced: The operator’s “painful to watch” verdict + the entire comps table’s indifference to 3D.
+
+What would change my mind (summary)
+If this were true…	Then I would reverse…
+FightCamp’s intended players are primarily UFC/Undisputed players who bounce off text sims	The “3D is optional theater” conclusion
+Playtests show unfinished 3D retains better than good text for the same outcomes	The “ship a non-3D bout path” recommendation
+Review-topic mining shows “no 3D / bad visuals” as the #1 quit reason in WMMA/Boxing Manager/P4P	Finding #1–#2
+Sources (this pass)
+Pure Evil MMA — WMMA5 review, 2020-05-08
+gmgames.org — WMMA5 review
+r/WMMA5 — “Is the Game worth it in 2023?”, “Expectations for next game”, “Devs need to open their eyes”
+Steam — Pound for Pound: MMA Promotion Simulator (app 4289560); review sample + store copy
+Boxing Manager — App Store / Play Store feature copy; community Ringside update posts (2026)
+Title Bout — Wikipedia; GameSpot-era review descriptions of text fight presentation
+LEATHER — site / toolkit posts on style and between-round tactics; Steam listing still pending
+r/footballmanagergames — 2D vs 3D; pace/meta; “match engine placebo”; FM26 engine hate threads
+OOTP forums / r/OOTP — classic vs 3D viewing preferences
+EA forums + r/Madden + Operation Sports — Franchise sim-stat complaints
+r/NBA2k — MyNBA sim fidelity complaints
+r/MMAmanager — fight actions / RNG / training threads; Steam MMA Team Manager review themes
+Operator task brief — FightCamp six-line product definition; 2026-09-13 “painful to watch”; S43 contact solver
+
+K68 complete. Five claims, ranked. The project’s sim direction is the right one for this niche; the 3D-first sequencing is the blind spot.
+
+12:35 AM
+
+# TASK_K69 — The "+ more" half: what these games are asked for and do not have
+
+**Owner:** kalli
+
+**Deliverable: PASTE THE FULL TEXT IN CHAT. Do NOT attach a file.** Your K68
+
+arrived as a 15 kB attachment and could not be collected — attachments in this
+
+group never reach the repo and the tool cannot download them. If it will not fit
+
+in one message, split it and head each part `PART 1 of N`, then keep going
+
+without waiting.
+
+**No checkout, no Godot, no repo test commands. Research prose only.**
+
+## Why you, and how this differs from K68
+
+K68 was excellent and it is already in the repo. It surveyed the ESTABLISHED
+
+titles — WMMA5, Title Bout, Boxing Manager, LEATHER, Pound for Pound — and
+
+concluded that buyers of this genre reward management depth and believable
+
+outcomes over 3D presentation.
+
+**This task is the other half, and it is deliberately NOT a feature survey.**
+
+Another agent is building the feature matrix for five specific competitors. Your
+
+job is the demand side: **what do players of fight-management games ASK FOR and
+
+not get?**
+
+## The five titles, exactly as the operator's Steam wishlist shows them
+
+| # | title | release | reviews | price | Steam user tags |
+
+|---|---|---|---|---|---|
+
+| 1 | **MMA Sim King** | COMING SOON | — | — | Simulation, Immersive Sim, Sports, Martial Arts, **2D** |
+
+| 2 | **Believr Pro Wrestling** | 29 Jan 2026, **Early Access** | MOSTLY POSITIVE | €14.79 | Simulation, Wrestling, Sports, Management, Indie |
+
+| 3 | **PROMOTER: The Fight Game** | COMING SOON, **Early Access** | — | — | Sports, Simulation, Boxing, **Economy**, Management |
+
+| 4 | **THE FIGHT BUSINESS: BOXING MANAGER** | COMING SOON | — | — | Simulation, Sports, **Strategy**, Management, Boxing |
+
+| 5 | **Boxing Club Manager** | 7 Oct 2022 | **MIXED** | €34.99 | Sports, Strategy, Simulation, Boxing, Management |
+
+Four of five are unreleased or in Early Access. **That is the most important
+
+fact about this list**: it is a live competitive window, not a retrospective.
+
+The one shipped title (Boxing Club Manager, 2022) sits at MIXED and is the most
+
+expensive of the lot — find out why, because that is the failure mode to avoid.
+
+## The question
+
+Mine reviews, forum threads, subreddits, Discord requests and wishlist comments
+
+for **unmet demand** across this genre — including the five above and the K68
+
+titles you already know.
+
+1. **The most-requested missing features**, ranked by how often they recur.
+
+   Quote the actual request where you can.
+
+2. **The complaints that kill retention** — what makes people stop playing, as
+
+   opposed to what makes them grumble. These are different and the difference
+
+   matters.
+
+3. **What the MIXED reviews of Boxing Club Manager (2022, €34.99) say.** It is
+
+   the only shipped title in the operator's list and the most expensive; its
+
+   negative reviews are the cheapest product research available to us.
+
+4. **The thing nobody has built.** If there is a feature the audience keeps
+
+   asking for and no title in the genre provides, that is the single most
+
+   valuable paragraph you could write.
+
+## Method — keep K68's, it is why K68 was usable
+
+Label every claim **DOCUMENTED** (with source) or **INFERENCE**. A forum thread
+
+proves a complaint EXISTS, not how common it is — say which you have. Sample
+
+sizes and dates where they exist.
+
+**I would rather have five well-sourced claims than forty assertions.**
+
+## What FightCamp already has — compare against THIS, not a guess
+
+A Godot fight-management game: run a gym, sign and develop fighters, bouts
+
+simulated by a calibrated engine and presented in 3D. Shipped systems, read off
+
+the codebase rather than remembered:
+
+- **Roster & recruitment** — recruitment candidates and signing
+
+- **Development** — fight camps, combo training, grades/progression, aging
+
+- **Physical** — weight moves, weight cuts, injuries (with clearance flags)
+
+- **Career** — ambitions, career goals, retention, fighter requests, rivalries
+
+- **Booking** — matchmaking with weight class and sex enforcement, contracts,
+
+  short-notice bouts, tournaments
+
+- **World** — a media/news system, a day feed, weekly and daily advancement
+
+- **The fight itself** — a simulation engine calibrated against published MMA
+
+  statistics (knockdown incidence, takedown accuracy, leg-strike share, strike
+
+  rates), a balance model, a grappling model, and 3D presentation
+
+- 323 automated tests
+
+**The known weak half is the 3D presentation** — the operator's verdict is that
+
+it is "painful to watch". Treat that as given; it is not what this task is about.
+
+## Answer format
+
+Lead with three lines: the most-requested missing feature, the top retention
+
+killer, and the one thing nobody in the genre has built. Under 400 lines.
+
+Out of scope: `HANDOFF.md`, any `.gd`, any `.tscn`, `Godot/assets/data/`. Do not
+
+write git commands and do not try to clone anything.
+
+12:43 AM
+
+K69 started — unmet demand side: what fight-management players ask for and do not get. Mining Boxing Club Manager MIXED reviews first, then wishlist/EA titles and the K68 set. Full memo in chat, no attachment.
+
+12:43 AM
+
+Boxing Club Manager is Mixed at ~57% / ~87 reviews and priced at €34.99 — digging negative reviews and suggestion threads next, then Believr and the wishlist Coming Soon titles.
+
+12:44 AM
+
+PART 1 of 3
+
+K69_THE_PLUS_MORE_HALF.md
+
+Demand-side memo. Not a feature matrix. Research prose only.
+
+Lead (three lines).
+
+Most-requested missing feature: a living rival-promotion world — AI orgs that book, poach, and fight you for the same broadcast deals and talent (the thing four of five titles on the operator’s wishlist are selling).
+Top retention killer: fight outcomes the player cannot trust (styles/AI that feel pointless, results that feel random) — that ends saves; UI gripes and missing belts only end sessions.
+The thing nobody has built: gym-intimate fighter development + promoter-scale competitive economy + a fight engine people believe, in one product. WMMA5 owns promoter depth. FightCamp’s shipped surface owns gym + calibrated sim. The Coming Soon window is racing to own the economy layer. Nobody ships all three.
+Method note
+
+Every claim is DOCUMENTED (source) or INFERENCE. A forum thread proves a request exists, not how common it is — said explicitly. Sample sizes and dates where found. Prefer five solid claims over forty assertions.
+
+1. Ranked unmet demand (what players ask for and do not get)
+
+Ranked by how often the ask recurs across titles, not by how loud one thread is.
+
+Rank 1 — Living rival promotions / talent wars / broadcast competition
+
+DOCUMENTED (existence across multiple products’ marketing + community asks).
+
+MMA Sim King (Coming Soon, Steam app 4534230): store copy leads with “compete against rival promotions,” “other promotions will be running events, signing talent and negotiating for the same broadcasting deals,” and “risk a rival company poaching them.” Tags include Simulation, Immersive Sim, Sports, Martial Arts, 2D.
+PROMOTER: The Fight Game (Coming Soon / EA-tagged, app 4448300): tags include Sports, Simulation, Boxing, Economy, Management. Store sells rival promoters, broadcast/sponsor relationships, debt, PPV.
+THE FIGHT BUSINESS: BOXING MANAGER (Coming Soon, app 5249680): sells building a promotion from small halls to stadiums, broadcasting/streaming/PPV, rival promoters; Trainer + Promoter dual mode is the explicit pitch.
+Pound for Pound (EA, ~96% positive / ~138 reviews this pass): Steam feedback and roadmap talk call out international expansion, rival promotions, richer world simulation as still-growing systems; Rivals-style updates add competing orgs and gym relationships (DOCUMENTED as stated gaps/roadmap, not as review-frequency census).
+WMMA5 community: r/WMMA5 wishlist threads for a hypothetical WMMA6 repeatedly ask for more promotions, child-promotion card control, and a world that keeps moving (DOCUMENTED existence — e.g. “What’s the 1 biggest feature or change for wmma6?” and related feature threads).
+
+Vs FightCamp shipped surface: roster, booking, contracts, short-notice, tournaments, media/news, day feed — yes. Explicit AI rival promotions fighting you for broadcast deals and poaching talent — not listed among the shipped systems in the task brief. That is the gap the operator’s own wishlist is pointing at.
+
+Rank 2 — Fighter-facing interaction (talk, praise/criticise, agents, career politics)
+
+DOCUMENTED (existence; WMMA5 hardcore).
+
+Quote shape from r/WMMA5 WMMA6 ask threads (paraphrase kept tight to source sense):
+
+“The biggest feature I want is more interaction with fighters. Maybe even agents.”
+Want to discuss opponents, suggest weight-class moves, praise or criticise boring performances.
+Separate threads: “anyone else wish there is more to press conferences in WMMA5?”
+
+MMA Sim King markets this as product: “Hold press conferences and field questions… some reporters… aim to instigate… classic press conference brawl.” (DOCUMENTED store copy.)
+
+Vs FightCamp: ambitions, career goals, retention, fighter requests, rivalries — present. Interactive press conferences / agent negotiation theater / praise-criticise loops that change behaviour — not listed. FightCamp has the data of career politics; the ask is for agency inside it.
+
+Rank 3 — Media spectacle that is playable, not wallpaper
+
+DOCUMENTED (existence).
+
+Recurring WMMA5 asks: weigh-in shows, deeper press conferences, social media, unique post-fight interviews, “revamped media” so the world feels lived-in (r/WMMA5 feature threads). MMA Sim King sell-sheet puts pre-fight hype and pressers in the bullet list. Believr players complain when finishes/commentary/interference don’t sync with the match type — presentation that lies kills immersion (DOCUMENTED Steam community feedback existence, ~24–27 Mostly Positive reviews, Early Access Jan 2026).
+
+Vs FightCamp: media/news system + day feed — present. Interactive presser / weigh-in / interview gameplay — not listed.
+
+Rank 4 — Economy as strategy (TV deals, PPV, sponsors, debt), not just club bills
+
+DOCUMENTED (existence via wishlist composition + store tags).
+
+Four of five titles on the operator’s Steam wishlist are promotion-business games. PROMOTER’s Steam tags literally include Economy. THE FIGHT BUSINESS and MMA Sim King lead with broadcasting, venues, PPV, rival deal competition. Boxing Club Manager (the only shipped title on the list) is a gym game — and its Mixed score is the warning about shipping gym depth without enough world.
+
+Vs FightCamp: gym/facility economy is implied by the gym fantasy; broadcast-deal / PPV / rival-promoter commercial war is not in the shipped-systems list.
+
+Rank 5 — Believable fight outcomes and styles that matter
+
+DOCUMENTED (existence; retention-adjacent).
+
+Boxing Club Manager review-theme analysis (Niklas Notes aggregate of ~93 Steam reviews, updated ~2026-09-05): “Unrealistic Fight Outcomes” listed under Strongly negative (~6% of themed mentions in that tool’s breakdown). Early players said styles felt pointless; later forum posts praise AI/style fixes — which itself proves the complaint mattered (DOCUMENTED Steam discussion “Just WOW,” Jan 2023 / updated Feb 2023).
+Genre-wide: r/MMAmanager “Too few actions in fights”; WMMA5 fight-feel threads; mobile RNG threads (existence only — see K68).
+
+Vs FightCamp: calibrated sim against published MMA stats is a strength, not a gap — if the player can feel it. The demand is trust, not more attributes.
+
+Rank 6 — Titles, rankings, belts that feel consequential
+
+DOCUMENTED (existence).
+
+Boxing Club Manager Steam discussions include a thread literally titled “Belts?” (Dec 2023). Believr Early Access feedback flags missing/broken tag-team titles and finish rules that don’t match match type (Steam community, ~2026). Pound for Pound feedback asks for record books, weight-class changes, hall-of-fame style history.
+
+Rank 7 — QoL: UI, fonts, processing speed, less menu grinding
+
+DOCUMENTED (existence).
+
+Boxing Club Manager: “How do you increase the font size”; review themes include Poor Interface Experience. WMMA5: no scaling, slow large saves, e-license friction (r/WMMA5). Believr: tutorial/UI confusion, white-screen / display issues (Steam discussions). WCBM2-adjacent boxing-manager frustration threads: weekly menu grinding as the thing that stops “playing endlessly” (existence; different title, same genre pain).
+
+PART 2 of 3 — continues
+12:45 AM
+
+PART 2 of 3
+
+2. Retention killers vs grumbles
+
+These are different. Grumbles leave a 1-star review and keep playing. Killers trigger refunds or abandoned saves.
+
+Killer (stop playing)	Grumble (keep playing, complain)	Label
+Fight results you cannot believe — styles don’t matter, outcomes feel random, “why did that fighter win?”	Wish the 3D looked better; want more belt designs	DOCUMENTED existence for outcomes (BCM review themes; early BCM “styles pointless”); INFERENCE that presentation is grumble-tier matches K68
+Price/content mismatch at purchase — pay €35 for a shallow build, refund or never return	“I’ll wait for a sale”	DOCUMENTED: BCM Steam Mixed; Niklas Notes themes include Overpriced for Current Content (~6%); Steam discussions thread “Price” (Dec 2022); store price ~€34.99 / US ~$39.99
+Bugs that block a session (soft-locks, can’t assign training, white screen)	Occasional crash you can relaunch past	DOCUMENTED: BCM Bugs and Technical Issues top complaint theme (~7% in Niklas Notes breakdown); Believr display/white-screen threads
+Feeling the game is abandoned — “Is this the final state of the game?” with no roadmap	Missing one feature on a live roadmap	DOCUMENTED: BCM thread title “Is this the final state of the game?” (Feb 2023); sparse post-2023 update signal in forum index
+Progression you cannot see — train for months, numbers don’t move, loop feels fake	Progression is slow but visible	DOCUMENTED: BCM Amateur Training thread (players report months with no amateur attribute gains; “not seeing numbers go up… makes the game not fun”)
+Menu grinding with no autopilot across a full roster every week	Dense UI that experts learn	DOCUMENTED existence in sibling boxing-manager forums (WCBM2 “Bugs and suggestions/frustrations”: menu navigation “keeping me from playing this endlessly”); INFERENCE it applies to any gym-manager with no batch training
+
+INFERENCE (labelled): For FightCamp, the dangerous retention killers are (a) any moment the calibrated engine feels unfair or opaque, (b) shipping a €premium ask before the management loop is deep enough, (c) weekly chores without batch tools once the roster grows. 3D pain is real (operator verdict) but K68 + this pass both put it below “trusted outcomes” and “enough game for the price” as a quit reason in this niche.
+
+3. Boxing Club Manager — the failure mode on the wishlist
+
+Facts (DOCUMENTED).
+
+Steam app 1652490, Alternative Software Ltd.
+Released Early Access ~Jan 2022, 1.0 7 Oct 2022.
+Mixed: ~57% positive of ~87–93 reviews (Steam store / Niklas Notes; slight count drift by scrape date).
+Price band ~€34.99 / ~$39.99 — highest among the five wishlist titles; others are Coming Soon or Believr at ~€14.79 EA.
+Pitch: run a gym, 17 weight classes, 68 gyms/managers/trainers, 612 fighters, 3D fight view with mid-fight tactics, Steam Workshop editor.
+
+What Mixed reviews and forums actually say (DOCUMENTED themes + thread existence).
+
+From Niklas Notes Steam-review theme distill (n≈93 reviews, tool-assisted, updated ~5 Sep 2026) — treat percentages as that tool’s theme share, not a census of all players:
+
+Theme	Direction	Approx share in that analysis
+Bugs / technical issues	Strongly negative	~7%
+Unrealistic fight outcomes	Strongly negative	~6%
+Overpriced for current content	Strongly negative	~6%
+Poor interface experience	Strongly negative	~6%
+Lack of features / limited customisation	Negative	present
+Addictive management / potential	Positive	~9–11%
+
+From Steam discussions (titles/posts exist; not a vote count):
+
+“Price” (Dec 2022) — value argument at launch.
+“Is this the final state of the game?” (Feb 2023) — abandonment fear.
+“Amateur Training” — progression opacity; amateurs appear stuck until players stack coaches on one attribute.
+“Belts?” — title system unclear/insufficient.
+“Suggestions for the devs” / “This game has potential” — players still want more years later; “potential” language is itself a Mixed-score smell.
+Early: AI stupid, styles pointless → later praise after AI/style patches (“Just WOW”, Jan 2023) — proves fight-feel complaints were load-bearing.
+
+The failure mode to avoid (INFERENCE, grounded in the above):
+Ship a gym + 3D fight view at a premium price before (1) the fight model earns trust, (2) progression is legible week-to-week, (3) the world beyond your gym is deep enough to justify the price, and (4) UI stops fighting the player. Boxing Club Manager is the cautionary tale sitting on the same wishlist as four promoter-economy Coming Soon games: the one that shipped looks like FightCamp’s shape (gym + 3D) and it is the one with Mixed reviews.
+
+4. What the other four wishlist titles are being asked to be
+
+These are mostly unreleased — so “demand” here is store promise + genre precedent, not review mining.
+
+Title	Status	Demand signal they are answering	Label
+MMA Sim King	Coming Soon	Text promotion sim; rival orgs; broadcast competition; press conferences; drama (weight misses, arrests, PEDs); 60+ stats; database/editor	DOCUMENTED (store)
+Believr Pro Wrestling	EA since ~29 Jan 2026, Mostly Positive (~74–75% / ~24–27 reviews)	Booking sim with live show flow; complaints = missing fundamentals (tag titles, interference sync, staff/announcers), bugs, shallow defaults — depth and correctness, not 3D	DOCUMENTED (Steam + community)
+PROMOTER: The Fight Game	Coming Soon / EA-tagged	Promoter fantasy: amateurs→stars, venues, narrative selling, Economy tag, broadcast-caliber fight-night presentation, mod databases	DOCUMENTED (store)
+THE FIGHT BUSINESS: BOXING MANAGER	Coming Soon	Small halls→stadiums; broadcasting/streaming/PPV; rival promoters; Promoter-only OR Trainer+Promoter	DOCUMENTED (store)
+
+INFERENCE: The operator’s wishlist is not asking for a better gym trainer with prettier 3D. It is asking for the business of fighting as a competitive multi-org market. That is the “+ more” half relative to FightCamp’s shipped gym stack.
+
+PART 3 of 3 — continues
+12:45 AM
+
+PART 3 of 3
+
+5. The thing nobody has built
+
+Claim (INFERENCE, with DOCUMENTED legs): No shipped title gives players all three of:
+
+Gym-intimate development — this fighter, this camp, this cut, this injury clearance (FightCamp’s shipped centre of gravity; Boxing Club Manager’s failed attempt),
+Promoter-scale living market — rival orgs, broadcast deals, poaching, multi-promotion world (WMMA5’s centre; MMA Sim King / PROMOTER / THE FIGHT BUSINESS store promises),
+A fight engine the player trusts statistically — outcomes that match published sport shapes and visible styles (FightCamp’s calibration thesis; the thing BCM reviewers said was broken; the thing mobile animated managers also fail).
+
+Legs:
+
+WMMA5 has (2) deeply and (3) well enough for a cult audience, but not (1) as a gym-owner fantasy and not 3D — and its own fans still beg for richer fighter/agent/press interaction on top (DOCUMENTED asks).
+FightCamp’s shipped list has (1) and a serious attempt at (3), plus media-as-feed; it does not list (2) as rival-promotion/broadcast-war systems (DOCUMENTED from task brief vs store copy of wishlist titles).
+Boxing Club Manager attempted (1)+(3D presentation) without enough (2) or trusted (3) at a high price → Mixed (DOCUMENTED).
+THE FIGHT BUSINESS markets Trainer+Promoter dual mode — i.e. the gap is obvious enough to sell — but it is not shipped (DOCUMENTED store; absence of reviews).
+Pound for Pound is building (2) in EA with love for booking fantasy; it is not claiming FightCamp-grade statistical calibration (DOCUMENTED store/roadmap tone).
+
+Narrower “nobody has it” paragraph (the valuable one):
+
+Players keep asking to talk to fighters and the press in ways that change the save — criticise a boring champion, lean on an agent, survive a hostile presser, watch that ripple into negotiations and matchmaking. WMMA5’s hardcore asks for it every wishlist thread. MMA Sim King puts it on the Coming Soon page. No shipped fight-management game makes that loop deep. FightCamp already has ambitions, requests, rivalries, and a news feed — the missing product is turning those into playable conversations with consequences, sitting on top of the calibrated engine you already built.
+
+If forced to pick one white-space bet aligned to the operator’s actual Steam wishlist (not the gym fantasy alone), it is: rival promotions + broadcast/economy competition. If forced to pick the white-space bet aligned to the deepest existing audience (WMMA5), it is: interactive fighter/press politics. The dual-role Trainer+Promoter game with a trusted engine is the synthesis — marketed, not delivered.
+
+6. FightCamp gap check (against the shipped list, not a guess)
+Demand rank	FightCamp shipped?	Note
+Rival promotions / poaching / broadcast wars	Not listed	Biggest wishlist-shaped gap
+Talk/praise/agents/pressers with consequences	Partial — requests, ambitions, rivalries, news	Data yes; interactive theater no
+Media spectacle as gameplay	Partial — media/news + day feed	Feed ≠ presser/weigh-in game
+Economy as TV/PPV/sponsor strategy	Not listed at promoter scale	Gym bills ≠ promotional market
+Trusted fight outcomes	Listed strength — calibrated engine + 323 tests	Protect this; make it legible
+Belts/rankings prestige	Partial — booking/tournaments exist; lineage spectacle unclear from brief	Confirm belts/rankings UX
+QoL / batch management	Unknown from brief	Watch roster-size chore pain
+3D presentation	Listed weakness — “painful to watch”	Given; not this memo’s focus
+
+INFERENCE: FightCamp is over-built on the axis Boxing Club Manager under-built (sim honesty, gym systems) and under-built on the axis the 2026 wishlist is buying (promoter market). That is the strategic mismatch K68’s “text is fine” conclusion and this memo’s demand ranking agree on: do not spend the next year proving 3D contact while the audience is wishlisting rival orgs and broadcast deals.
+
+7. What would prove this memo wrong
+If this were true…	Then reverse…
+Review-topic mining of WMMA5 / Pound for Pound / Boxing Manager mobile shows 3D/presentation as the modal request	Rank 1–2 priority on economy/interaction
+Boxing Club Manager’s Mixed score is mostly “we wanted Undisputed-quality 3D” rather than bugs/outcomes/price/UI	The BCM failure-mode reading
+Playtests show FightCamp players quit because fighters don’t touch, more than because the world feels empty of rival orgs	The wishlist-shaped gap claim
+THE FIGHT BUSINESS or MMA Sim King ships, flops, and reviews say “I just wanted a gym game with good fights”	The dual-role white-space claim
+Sources (this pass)
+Steam — Boxing Club Manager (app 1652490): Mixed ~57% / ~87–93 reviews; price ~€34.99; store copy.
+Niklas Notes — Boxing Club Manager review-theme distill (~93 reviews; bugs, unrealistic outcomes, overpriced, poor UI).
+Steam discussions — Boxing Club Manager: “Price”; “Is this the final state of the game?”; “Amateur Training”; “Belts?”; “Suggestions for the devs”; “This game has potential”; “Just WOW” (AI/style patch praise).
+Steam — MMA Sim King (app 4534230): Coming Soon store copy (rival promotions, broadcast deals, press conferences, drama events, 60+ stats, editor).
+Steam — PROMOTER: The Fight Game (app 4448300): Coming Soon; Economy tag; promoter/broadcast pitch.
+Steam — THE FIGHT BUSINESS: BOXING MANAGER (app 5249680): Coming Soon; Trainer+Promoter mode; broadcasting/PPV.
+Steam — Believr Pro Wrestling (app 4174130): EA ~29 Jan 2026; Mostly Positive ~74–75% / ~24–27 reviews; community complaints on tag titles, interference sync, staff, bugs.
+Steam — Pound for Pound: MMA Promotion Simulator (app 4289560): EA; very high approval; roadmap/feedback on rivals, world depth, QoL.
+r/WMMA5 — WMMA6 feature threads (“1 biggest feature”, press conference depth, fighter/agent interaction, media, child-promotion booking).
+r/MMAmanager / prior K68 corpus — fight-action and RNG complaint existence.
+Task brief — FightCamp shipped systems list; operator “painful to watch”; 323 tests.
+
+K69 complete. Demand half only. The competitive window on the operator’s wishlist is a promoter-economy window; the shipped failure mode on that same list is a premium-priced gym+3D game whose players stopped trusting fights, feeling progress, and believing updates would come. FightCamp already owns the hard part of the sim. The “+ more” it does not own — and that nobody has finished — is rival-market politics plus fighter-facing conversations with consequences.
+
+12:46 AM
+Today 1:56 AM
+
+# TASK_K70 — KALLI — WHAT MAKES A SIMULATED FIGHT OUTCOME FEEL HONEST
+
+**Owner:** Kalli, research
+
+**No checkout, no shell, no Godot.** Reply with the full text. Do NOT reference
+
+repo paths and do not ask to run anything.
+
+## Why this exists — it is your own finding, followed up
+
+K69 identified the retention killer in this genre as **outcomes players cannot
+
+trust**, and K68 said buyers pay for *"management depth and honest fight
+
+outcomes, not 3D."* Both are about the same thing and neither says what it is
+
+MADE of. That is this task.
+
+The distinction that matters, and it is not fairness: **a player will accept
+
+losing to a huge underdog and will not accept an outcome they cannot explain.**
+
+Those are different properties. We need the second one specified.
+
+## The question
+
+**What mechanisms make a simulated combat result feel explicable, and what
+
+mechanisms make it feel arbitrary?** Answer at the level of a thing we could
+
+build, not a principle.
+
+Cover at least these, and add any you find:
+
+1. **VISIBLE CAUSATION.** Does the game show the player WHY? A round-by-round
+
+   breakdown, a damage log, a stat that moved? Which games do this and what
+
+   exactly do they surface?
+
+2. **PRE-FIGHT EXPECTATION.** Did the player know the odds going in? An upset is
+
+   only an upset against a stated expectation, and a game that never states one
+
+   makes every result feel random. How is this shown — odds, a prediction, a
+
+   confidence bar, scout reports?
+
+3. **CONSISTENCY UNDER REPETITION.** If the same two fighters met ten times, would
+
+   the spread feel right? Communities notice when a 70/30 favourite loses half the
+
+   time. Is there any documented handling of this?
+
+4. **THE ROLE OF RARE EVENTS.** A flash knockout is real and also the single most
+
+   trust-destroying outcome if it is not set up. How do games signal that a
+
+   fighter has that capability BEFORE it fires?
+
+5. **WHAT PLAYERS ACTUALLY COMPLAIN ABOUT.** Forum and review evidence. Quote the
+
+   complaint shape, not one angry post — the recurring pattern.
+
+## Sources to work from
+
+Football Manager's match engine (the most complained-about and most studied
+
+simulation in any management game), Out of the Park Baseball, TEW, UFC's own
+
+career mode, EA's Fight Night legacy, and any fight-sim community you can reach.
+
+Also worth having: the general literature on **procedural legibility** — why
+
+players forgive a system they understand.
+
+## THE TRAP
+
+**Do NOT answer the question "how do we make outcomes more realistic".** That is a
+
+different question and we already have an answer to it (a sourced anchor set of
+
+real MMA figures). Realism and legibility are not the same property, and a system
+
+can be perfectly calibrated to reality and still feel arbitrary to the person
+
+watching. **This task is about the second one only.** If you find yourself
+
+recommending a change to a probability, you have drifted.
+
+**Second trap: separate what a game DOES from what a player BELIEVES it does.**
+
+Several of these communities have elaborate folk theories about their match engine
+
+that the developers have denied. Both are useful — the folk theory tells you what
+
+the game failed to communicate — but they must be labelled differently. Mark each
+
+as MECHANISM or PERCEPTION.
+
+**Third trap, from J34:** if a figure is not published, say NOT FOUND rather than
+
+estimating it. A number we build on and cannot source costs more than a gap.
+
+## The one judgement I want
+
+At the end, **one ranked list of the three cheapest things that would make our
+
+fight outcomes feel honest**, cheapest first, each with what it needs to exist.
+
+Cheapest means fewest new systems. We already compute a great deal internally that
+
+the player never sees — if the leverage is in SURFACING what exists rather than
+
+building anything, say so plainly, because that would be the best news in this
+
+task.
+
+## Deliver
+
+Reply in chat with the full text of `K70_HONEST_OUTCOMES.md`. Claude lands it and
+
+writes your HANDOFF block — you never edit `HANDOFF.md`.
+
+1:56 AM
+NEW
+
+K70 started — what makes a simulated fight outcome feel honest (explicable), not more realistic. Mining FM/OOTP/TEW/fight-sim complaint patterns and surfacing mechanisms. Full text in chat, no attachment.
+
+1:56 AM
+
+Have FM xG/post-match attribution, Fight Night flash-KO signalling failures, and TEW’s booked-winner legibility. Pulling OOTP box-score and pre-fight odds patterns, then writing K70.
+
+1:56 AM
+
+PART 1 of 2
+
+K70_HONEST_OUTCOMES.md
+
+Task: What makes a simulated combat result feel explicable (honest), vs arbitrary.
+
+Not in scope: making outcomes more realistic / retuning probabilities. We already have a sourced MMA anchor set for that. Realism ≠ legibility.
+
+Lead.
+
+Players forgive losing to a huge underdog. They do not forgive a result they cannot narrate. The cheap path to “honest” outcomes is almost entirely surfacing causation and expectation that the sim already has, not building a new damage model.
+
+Definitions used here
+Term	Meaning
+Explicable	Player can state, in one sentence, why this fighter won (or how the underdog stole it) using game-visible facts
+Arbitrary	Player’s post-hoc story is “the dice hated me” / “the game wanted that”
+MECHANISM	A concrete system the game exposes or runs
+PERCEPTION	Folk theory or community belief about the engine; useful as a signal of failed communication, not as engine truth
+NOT FOUND	No published figure / official design doc located this pass
+1. Visible causation — show WHY
+What works (MECHANISM)
+
+Football Manager — post-match attribution stack
+
+xG / xGA and xG timeline: published in-game since FM21; SI built the model in-house with SciSports advisory input (Passion4FM; Get Goal Side / SciSports interviews). Surfaces chance quality, not just shot count — so “we had 20 shots and lost” can become “we had 0.9 xG from bad angles; they had 1.8 from three chances.”
+Analytical match report: shot maps, average positions, passing combinations, turnovers; half-time and full-time analyst views. Community practice is to read patterns, not one highlight (r/footballmanagergames “How do you analyse your last match?”).
+Important boundary: xG explains process, not destiny. Losing with higher xG is still painful, but it is narratable (“we finished poorly / they converted”) rather than mysterious.
+
+Out of the Park Baseball — atomic event log + WPA
+
+Play-by-play / box score as the unit of causation: each plate appearance is a named event with pitcher, batter, result.
+Win Probability Added (WPA) graphs in box scores (community docs / OOTP forums since ~OOTP 17): each play’s effect on win chance is graphed. An upset becomes “three high-leverage events,” not a blank L.
+Scouting reports separate expected talent from what happened tonight — another causation layer.
+
+TEW (booking sims) — different honesty model
+
+Winner is often an explicit booking input (or road-agent pick weighted by regional popularity — TEW2020 wiki). Causation is authorial, not athletic. Match rating is then explained via popularity × performance × product weights, aims, notes, penalties (wiki + Fantasy Bookers guides).
+Lesson for fight sims: when the game decides the winner silently, players invent scripts. When the game states the decision rule (booked / popularity / shoot), trust rises even if the rule is crude.
+
+Boxing Manager (mobile / Ringside) — scorecard hunger
+
+Community thread shape: players ask for round-by-round judging breakdown when a decision feels wrong (“I need answers with this judging” — Boxing Manager community forum). Final cards without per-round reasons = arbitrary.
+DOCUMENTED existence of the ask; NOT FOUND: a published design doc listing exactly which stats feed their judges.
+What fails (PERCEPTION ← failed surfacing)
+Complaint shape (recurring)	What it reveals
+“We dominated and still lost — scripted” (FM “got FM’d”)	Process stats were invisible or unread; highlight reel showed the goal, not the 89 minutes
+“Styles don’t matter / AI is stupid” (Boxing Club Manager early forums; MMA manager mobile)	No post-fight attribution tying style → strike mix → result
+“Judges are random” (boxing managers)	Decision without a readable scorecard narrative
+
+Buildable unit (not a principle): a Fight Causation Card after every bout:
+
+Method (KO/TKO/SUB/DEC) + time
+3–5 causal bullets drawn from already-computed internals (e.g. “A landed 38 significant head strikes to B’s 12”; “B’s takedown defence failed 4/5”; “Damage accumulated R2 after calf kicks slowed exits”)
+Optional round score line if decision
+If the engine already tracks landed strikes by region, KD events, control time, etc., this is UI over new math.
+2. Pre-fight expectation — an upset needs a stated favourite
+What works (MECHANISM)
+Stated odds / win probability / favourite flag before the contest. An upset is only legible against a number. Without it, every result is equally “random.”
+OOTP / baseball culture: projections and matchup context before first pitch; WPA then measures deviation from prior win expectancy during the game.
+FM: form, morale, fitness, and tactical familiarity visible pre-match; media/odds exist in-universe in many versions. Players who ignore them still had an expectation available.
+Scout / analyst one-liner: “B has a puncher’s chance; A should control range.” Expectation + rare-event warning in one sentence.
+What fails
+Sim runs cold with no published favourite → player’s private guess becomes the yardstick → any surprise feels like betrayal.
+Hidden difficulty spikes (UFC career “debut / title fight felt harder”) produce PERCEPTION of scripting even when MECHANISM is “difficulty modifier” (DOCUMENTED as player belief on r/EASportsUFC; NOT FOUND: EA published confirmation of scripted losses).
+
+Buildable unit: a Pre-Fight Strip on the bout screen:
+
+Favourite / slight favourite / pick’em / underdog (from existing rating differential — display only, no retune)
+One plain-language reason (“reach + volume” / “power + chin risk” / “grappling gap”)
+Optional “puncher’s chance” / “submission threat” flags when those traits already exist on the fighter
+3. Consistency under repetition — the 70/30 test communities run
+What communities do (PERCEPTION + informal MECHANISM testing)
+FM players rerun matches / watch league tables over seasons; folk claims of “scripting” persist despite SI denials that matches are pre-written (SI statements quoted in community threads: match is simulated from current factors, then re-simulated from change points when tactics change — MECHANISM per SI; “the game wants me to lose” — PERCEPTION).
+Pace-meta experiments (FM26 write-ups): attribute importance inferred from repeated outcomes, not from the manual. When results diverge from the player’s mental model of attributes, trust dies — even if the engine is internally consistent.
+Fight managers: “I rematched the same card and got nonsense.” NOT FOUND: a published study with N=10 identical FightCamp-style rematches and official spread targets.
+Legibility rule (design, not probability advice)
+
+Players do not need true RNG disclosure. They need:
+
+A stated pre-fight lean, and
+Across many fights of similar mismatch, a felt majority for the favourite — communicated via career records, media lines (“A is 8-1 against this archetype”), not via a developer essay.
+
+If the UI never shows that A is supposed to be favoured, the community cannot run the 70/30 test fairly and will invent one.
+
+Buildable unit: career/media lines that echo the pre-fight strip after the fact (“Huge upset — B was a +300-class underdog by our desk”). Same number the player saw going in. Closed loop.
+
+4. Rare events — flash KO / one-shot without setup destroys trust
+MECHANISM examples that signal before they fire
+
+EA Fight Night Champion
+
+Official/community-facing design: one-punch KO and stun tiers as intentional systems (Operation Sports FNC gameplay blog: one-punch KO + graded stun states).
+Skill-tree signalling: ranking up a punch unlocks small % chances for stun / bell-ring / one-punch power (GameFAQs Legacy discussions describing maxed punch → flash chance). Player can read the roster and fear Tyson’s hook before it lands.
+Still: community PERCEPTION that flash KOs are “too common” or “cheap” when chin/heart/stamina context isn’t felt — classic rare-event without felt setup mid-fight.
+
+UFC (EA) career / sim complaints
+
+Recurring shape: “I was outlanding him / he wasn’t hurt / one punch ended it” (r/EASportsUFC). Replies cite stamina, leaning into shots, clean counters — i.e. hidden state the UI didn’t scream.
+Separate PERCEPTION: “career fights are scripted.” NOT FOUND: official EA doc confirming forced career losses.
+What makes a rare event feel honest
+Before	During	After
+Trait/flag visible (“one-shot power,” “suspect chin”)	Visible danger state (rocked, low stamina, accumulated head damage)	Causation card names the rare path (“counter hook while A was leaning in at 20% stamina”)
+
+Without the middle column, a real-sport flash KO feels like a bug.
+
+Buildable unit: Danger Telegraph
+
+Pre-fight: threat tags from existing attributes
+In-fight (even text/2D): “B is hurt” / “A is fading” / “chin compromised” when internal thresholds already trip
+Post-fight: rare-event called out as such, not buried in a generic KO line
+PART 2 of 2 — continues
+1:57 AM
+
+PART 2 of 2
+
+5. What players actually complain about — recurring shapes
+
+Not one angry post: the pattern.
+
+Pattern	Where it shows up	MECHANISM vs PERCEPTION
+“Got FM’d” / dominated and lost	r/footballmanagergames; xG threads arguing whether high xG + loss is unlucky or low-quality chance spam	PERCEPTION of script; MECHANISM often variance + unread xG quality
+“The game is scripted / recalculating against me”	FM scripting megathreads; SI: not scripted, full-half sim then resim on changes	PERCEPTION; MECHANISM (resim on tactic change) feeds the perception when highlights feel predetermined
+“One punch / flash KO out of nowhere”	Fight Night Champion GameFAQs; UFC 5 career Reddit	MECHANISM exists (flash KO systems); PERCEPTION “cheap” when danger state wasn’t readable
+“Judges make no sense”	Boxing Manager forums asking for scorecard detail	MECHANISM opacity (cards without round narrative)
+“Styles / tactics don’t matter”	Early Boxing Club Manager Steam discussions; recovered partially after AI/style patches (“Just WOW” praise)	PERCEPTION until post-fight causation proves style → result
+“Training / prep didn’t show up in the fight”	MMA manager mobile / Steam themes (K69)	Causation gap between management action and fight story
+Career fight “rigged” difficulty	UFC career Reddit	Mostly PERCEPTION; NOT FOUND official scripting proof
+
+Complaint grammar that matters for us:
+
+Players rarely say “your Poisson draw is wrong.” They say “I cannot see why.” That sentence is the product bug.
+
+6. Procedural legibility (literature → buildable takeaway)
+Tynan Sylvester, “The Simulation Dream” (2013): complexity only pays when it projects into the player’s mental model; hair-detail that never becomes a story is wasted.
+→ Takeaway: Internal fight factors that never appear in a sentence might as well not exist for trust.
+Game Developer / design writing on transparency: players need to see state transitions (hurt → compromised → finished), not the full formula.
+CHI / “Inscrutable Games” (ACM, 2022): opacity can be intentional for mystery, but sports-management audiences treat unexplained losses as broken, not mysterious — different genre contract.
+
+Genre contract for fight management:
+
+Mystery before the bell (scout uncertainty) is good. Mystery after the bell (why did they win?) is a defect.
+
+7. Cross-title map (what they surface)
+Title	Pre-fight expectation	During	After
+Football Manager	Form, fitness, roles; media/odds layer	Highlights + live stats	xG, maps, analyst report
+OOTP	Projections / matchup context	Play-by-play	Box + WPA graph
+TEW	Booked aim / winner intent (when set)	Mostly abstract	Match rating + penalties explanation culture (wiki/guides)
+Fight Night Champion	Punch ratings / unlocks signal KO threat	Stun states on-screen	Replay/KO type; less “why judges”
+EA UFC career	Scout blurbs vary	On-screen damage/stamina (often misread)	Stat line; weak narrative WHY
+Boxing Manager (Ringside)	Corner plan	Live commentary/stats	Cards; players still ask for deeper judging WHY
+WMMA5	Text world + matchup feel	Text blow-by-blow	Text story of the fight (high narrative causation, low chart causation)
+Boxing Club Manager	Gym/matchup screens	3D + tactics	Weak post-fight explanation culture in Mixed reviews (K69)
+
+WMMA5’s text blow-by-blow is underrated legibility: each finish arrives with a sentence. 3D without sentences is the opposite risk (K68/K69).
+
+8. The one judgement — three cheapest honesty upgrades
+
+Cheapest = fewest new systems. Prefer surfacing what a calibrated engine already computes.
+
+1. Post-fight Causation Card (cheapest if internals already exist)
+
+What it is: A fixed panel after every bout: method, time, 3–5 bullets naming the decisive mechanisms (volume to head, control time, accumulated leg damage → slowed checks, failed TD defence, rock → finish chain), plus decision score line if needed.
+
+Needs to exist: Whatever the sim already logs (landed strikes by target, KD/rock flags, grappling control, damage bins). If those logs are not retained for the UI, retain them — still cheaper than a new model.
+
+Why it helps: Turns “L” into “lost because X.” Directly attacks K69’s retention killer.
+
+Not this: Changing finish rates.
+
+2. Pre-Fight Expectation Strip
+
+What it is: Favourite / pick’em / underdog + one reason sentence + rare-threat flags (power, sub threat, chin).
+
+Needs to exist: A display mapping from existing fighter differentials (already used by the engine). No new balance work — only a public lean.
+
+Why it helps: Creates the denominator for upsets. “B won as a dog” is a story; “B won” is noise.
+
+Not this: Publishing true RNG seeds or promising 70% hit rates in UI copy without data (NOT FOUND for our product’s empirical rematch spreads — do not invent).
+
+3. Danger Telegraph (pre + mid + post for rare paths)
+
+What it is: (a) Pre-fight threat tags from existing attributes; (b) mid-fight visible states when hurt/low stamina/compromised chin thresholds already fire; (c) post-fight rare-event callout on the Causation Card.
+
+Needs to exist: Thresholds the engine already uses for rock/KO/sub setups — expose them as player-facing state, even in text/2D.
+
+Why it helps: Flash finishes stop feeling like bugs; they feel like loaded guns the player saw on the table.
+
+Not this: Nerfing flash KOs to “feel fair.”
+
+If only one ships: #1. An unexplained win/loss is the trust failure; odds without a post-mortem still leave “but why this time?” unanswered.
+
+Best news in this task: All three are primarily surfacing and copy. They do not require retuning the calibrated MMA anchors. If the engine already knows why a fight ended, honesty is a reporting problem.
+
+9. Explicit non-recommendations (trap avoidance)
+Do not “fix honesty” by narrowing variance toward the favourite.
+Do not replace unexplained outcomes with forced cinematic finishes.
+Do not treat folk theories (“scripted career fights,” “FM always equalises”) as engine tickets — treat them as UI failure reports.
+Do not invent rematch percentages. NOT FOUND for a published N-run rematch table for our titles this pass.
+Sources
+Passion4FM / Get Goal Side — FM xG introduction; SciSports advisory role; in-house SI model notes.
+r/footballmanagergames — “Is the game scripted?”; “xG ≠ goals / got FM’d” threads; SI quotes on resim-after-changes.
+OOTP forums — WPA graphs in box scores (~OOTP 17+); manuals on game logs / box scores.
+TEW2020 wiki — Booking and running shows; winner selection / road agent; match rating factors.
+Operation Sports — Fight Night Champion gameplay blog (one-punch KO, stun states).
+GameFAQs Fight Night Champion — flash KO variables (maxed punch, stamina, chin/heart, counters) — community MECHANISM reconstruction; treat as PERCEPTION-grade unless EA-confirmed.
+r/EASportsUFC — one-punch career KO threads; “scripted career fight” PERCEPTION threads.
+Boxing Manager community — judging explanation / scorecard detail requests.
+Boxing Club Manager Steam — early style/AI distrust; later “Just WOW” after style/AI patches (K69).
+Tynan Sylvester — “The Simulation Dream” (2013).
+ACM CHI — “Inscrutable Games…” (2022) on opacity responses.
+K68 / K69 — genre buyers pay for honest outcomes; untrusted outcomes as retention killer.
+
+K70 complete. Honesty here is explicability: stated expectation before, readable danger during, named causation after. Cheapest path is report what the sim already knows.
+
+1:57 AM
+
+

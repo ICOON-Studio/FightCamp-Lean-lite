@@ -1,0 +1,24 @@
+LUDO ROUND 118 - THE CORNER MINUTE CARD: put the chief second's THREE LINES on screen (FightCamp, boxing demo, PC deep management sim)
+
+Attached: our live corner card right now (the between-rounds pit stop, 1920x1080, card 860x600 centred, game switches ON). Please judge it from the picture.
+
+What is on it today (top to bottom): header "BETWEEN ROUNDS - THE CORNER - R2", the 60 s corner clock + phase word ("WALKING TO THE STOOL") + heart rate; left: the body diagram with numbered damage pins (1 CLOSE, 2 BLEED); right: tank + scorecards line, the COACH line, the two damage problem lines, four cutman/second JOB cards (each: name, seconds, + good outcome, - risk), then 8 order buttons (PLAN, BOX AND MOVE, PRESSURE, THE BODY, BREATHER, FINISH, HOLD CENTRE, GET INSIDE), then the word buttons (CALM HIM DOWN / FIRE HIM UP / THE TRUTH), THROW THE TOWEL and SEND HIM OUT.
+
+DEFECTS you can see in the picture (they must be gone in your layout):
+1. The COACH line runs into the CUT / SEC / CHI meters (the meter labels sit on top of the text).
+2. THROW THE TOWEL and THE TRUTH sit on top of SEND HIM OUT; stray glyphs ("8", "U") of hidden buttons show through the order row.
+3. Our current "reads" slot is 570 x 44 px and holds only 2 lines.
+
+WHAT WE NEED ON THE CARD NOW (your design from round 116 Part B2, already built as data): the chief second speaks exactly THREE lines from the round just fought, each tied to ONE suggested order:
+ - Slot 1 = about HIM (what he left open), e.g. "His jab is finding pure air - slipped 6 of 14. Make him pay on the miss." -> suggested order e.g. COUNTER / BOX AND MOVE
+ - Slot 2 = about US (where we are leaking), e.g. "His right hand is finding your jaw every exchange (5/9 landed). Keep that opposite glove pinned to your ear." -> e.g. HOLD CENTRE / GET INSIDE
+ - Slot 3 = the gas tank and punch economy, e.g. "You're running on fumes (28% tank). Give away the first minute: tie him up, breathe, survive." -> e.g. BREATHER
+Each line object = {slot, rule_id, line text (up to ~140 chars), order_id, order_label}. A slot always has a line (fallback "solid / maintain" line).
+
+PLEASE GIVE ME (longest complete answer you can, numbers not adjectives; do not cut it short - I log your reply length):
+A. The full card layout in pixels for an 860 x 600 card at 1920x1080 (x, y, w, h for every block): header, clock, body diagram, tank/scores, the three chief-second lines, their order buttons, the job cards, the 8 order buttons, words, towel, send out. If it no longer fits, say what to cut, fold, or move to a second step of the minute (the clock has phases: walking to the stool, cutman, chief second, seconds out) - e.g. show the job cards during the cutman phase and the three lines during the chief-second phase.
+B. How each of the three lines looks: slot label wording (HIM / YOU / TANK or better), icon or colour per slot (from our palette: gold #E8B04B accent, oxblood #C8102E, emerald for good, muted text), font size, wrap to how many lines, and where its order button sits (inline at the end of the line, or a button under it). What happens when the player clicks a line's order: it picks that order in the 8-order row (highlight both)? Max how many orders per minute?
+C. Order of reveal and timing inside the 60 s: when each line appears (typewriter? one by one at the chief-second phase?), how long it stays, what the auto-pick does if the player picks nothing.
+D. The fix for defects 1 and 2 (where the CUT / SEC / CHI meters go; where towel / truth / send out go so nothing overlaps).
+E. One sentence per decision on WHY (what a real boxing corner does in that minute).
+Answer in TEXT (no image needed). Then I will build it exactly and send you a still of the result.

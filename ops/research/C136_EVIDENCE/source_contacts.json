@@ -1,0 +1,28 @@
+[
+  {
+    "clip": "H2H_ArmBar",
+    "window_s": [
+      1.4,
+      2.4
+    ],
+    "source_local_residual": {
+      "rms_m": 0.0652938430023074,
+      "peak_m": 0.1389929046601369,
+      "distance_min_m": 0.01384945326734905,
+      "distance_max_m": 0.19983789358214815
+    }
+  },
+  {
+    "clip": "H2H_Strangle",
+    "window_s": [
+      1,
+      5
+    ],
+    "source_local_residual": {
+      "rms_m": 0.01975826701685557,
+      "peak_m": 0.05271589965296018,
+      "distance_min_m": 0.14222908335911597,
+      "distance_max_m": 0.14695670020067067
+    }
+  }
+]

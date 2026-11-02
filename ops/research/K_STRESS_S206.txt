@@ -1,0 +1,8 @@
+TASK K_STRESS_S206 (Kalli, game design) - FightCamp S206
+The CEO approved a stress + afflictions layer (Darkest Dungeon idea) for our boxing gym sim. Our fighters already have: 9 stats
+0-100 (power, technique, speed, stamina, chin, defence, footwork, ring IQ, composure), morale, a composure state in fights
+(composed / pressured / rattled / panicked), body wear per region, weight cuts, contracts with requests and promises.
+Design the system as a game designer: (1) what raises and lowers stress (with rough numbers per event), (2) the threshold and the
+roll, (3) 6-10 states a fighter can enter - each with how it shows in the gym (the 3D floor), in training, in the fight, and how the
+manager cures it, (4) the manager's decisions it creates (and the ones it must NOT take away), (5) how it surfaces on the profile
+and the HUD without a new screen, (6) what goes in the boxing demo vs later. Design only, no research. Longest answer you can.

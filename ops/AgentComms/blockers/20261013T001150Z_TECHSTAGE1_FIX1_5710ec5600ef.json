@@ -1,0 +1,8 @@
+{
+  "agent": "codex",
+  "created_at": "2026-10-13T00:11:50Z",
+  "id": "5710ec5600ef",
+  "resolved_at": null,
+  "task": "TECHSTAGE1_FIX1",
+  "why": "Checkpoint4ba7e3ce pushed codex/techstage1. Scope request: one-line FightWorldLiveScreen._stop_posed_contact B-position +=push_b, outside owned files; proposal in branch validation. Carry6==6 red, geometry0.792<1.507 green. Q226 conditioning stagesON88.1<88.9 red; master437 control90.9>90.5 passes all6. Specialist200/arm+44.72%lands/-7.57%stamina,200OFF pairs same; OFF/master24 cases same; timing witnesses0 vs original27. No coefficient/assertion/switch changes. Full37 final pending."
+}

@@ -1,0 +1,18 @@
+FightCamp ROUND 75 (S229) - CODE ASK: fix the native boxing GUARD pose (Cascadeur) - the chest/shoulders balloon. Longest complete answer you can; full code, no placeholders; if you run out, stop and I will say "continue".
+
+THE PICTURE (attached): LEFT = our old guard clip on MetaHuman Vance (chest and shoulders look natural). RIGHT = our new native Cascadeur guard on the same body, same camera: the shoulders are shrugged up to the ears, both upper arms are squeezed across the chest, and the pecs/deltoids swell into a lumpy balloon. The operator spotted it at once. Godot skins the MetaHuman body with no corrective blendshapes, so an extreme shoulder pose deforms badly.
+
+THE GUARD DATA (Cascadeur controller points, centimetres, y up, z forward toward the opponent, +x = fighter's left, orthodox; frames 0 and 20 of every punch use this guard too):
+clavicle_MainPoint_l [-1.8, 141.9, 9.4]   clavicle_AdditionalPoint_l [10.2, 147.4, 18.3]
+clavicle_MainPoint_r [-4.4, 141.9, 7.4]   clavicle_AdditionalPoint_r [-15.9, 147.5, -2.1]
+upperarm_MainPoint_l [12.1, 139.6, 18.9]  upperarm_MainPoint_r [-17.0, 139.7, -3.8]
+neck_01_MainPoint [-5.3, 148.6, 11.2]     head_MainPoint [-8.9, 158.0, 15.9]   spine_05_MainPoint [-2.5, 130.0, 7.5]
+hand_MainPoint_l [-5.0, 148.0, 31.8]      hand_MainPoint_r [-16.5, 145.0, 28.5]
+lowerarm_LimbDir_l [24.2, 88.0, 10.1]     lowerarm_LimbDir_r [-8.2, 126.3, 67.0]   (IK pole points)
+My reading: the clavicle tips sit 5.5 cm ABOVE their roots (shrug), the shoulders are only ~9 cm below the neck root, and both hands sit on the centreline at chin height so the upper arms adduct across the chest.
+
+PLEASE:
+1) From boxing coaching and anatomy, give the target guard in these exact controller names and numbers: clavicle elevation (tip vs root), shoulder height below the neck, hand positions (lead glove at cheekbone height ~25-30 cm in front, rear glove at the chin), elbows tucked to the ribs, upper-arm adduction angle limits that keep the pec/deltoid from crushing, chin tucked, the lead-shoulder roll that protects the jaw without a shrug.
+2) A Cascadeur Python script (same API as before: sc.model_viewer(), behaviour 'Transform' 'global_position', dv.get_data_value / me.data_editor().set_data_value inside sc.modify_update, frames 0..20 all keyed to the guard) that loads shared_guard.json, moves ONLY the clavicle, upperarm, lowerarm pole and hand points to the new guard (keep pelvis, legs, spine, head), writes shared_guard_v2.json, and re-keys frames 0..20.
+3) An assert block that fails if any clavicle tip is more than 1.5 cm above its root, if a shoulder is less than 12 cm below neck_01, if an elbow is more than 12 cm from the rib line, or if a glove is lower than the chin minus 8 cm.
+4) What else (if anything) in Godot can soften the remaining shoulder deformation without corrective blendshapes (e.g. twist-bone distribution), in 5 lines.

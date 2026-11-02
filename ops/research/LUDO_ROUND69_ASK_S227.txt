@@ -1,0 +1,14 @@
+LUDO ROUND 69 (FightCamp, S227) - UICARDS2: THE TRAINING PLANNER, REDESIGNED COMPLETE. One screenshot attached: today's TRAINING screen, exactly as the operator saw it in the game.
+
+The operator (40 years of games, our CEO and playtester) looked at it and said: "this is so bad did ludo approved it ?" - it never went through you; agents built it before you were our lead designer. Now it goes through you. ONE agent (the UI owner) builds it from YOUR spec, after the fighter profile (round 68). This round is only the training planner.
+
+What the screen is for: the weekly training plan of every fighter in the gym. Per fighter, 7 days (Mon-Sun), each day a focus: REST, RECOVERY, BAGS, RING, STRENGTH, CARDIO (a coach assigns the station; a focus has an intensity). The week's load (WORK / REC / REST counts), READY (0-100, how fresh he is for the next session), COND (conditioning 0-100) and a fatigue carry-over to next week. Filters: ALL / NEEDS YOU / UNPLANNED / IN CAMP / BLOCKED. One-click week presets: BALANCED / POWER / CONDITIONING / TECHNIQUE / RECOVERY. Drag a focus tile onto a day; click a day to open the SESSION drawer (what the coach runs that day, its station, what it trains, the refusal reasons when it cannot run - no coach, station busy, injured). Tabs: THE WEEK and FIGHT CAMP (when a fighter is booked, the camp hardens the plan toward the fight date). WATCH THE FLOOR jumps to the 3D gym floor where the sessions happen. The data is real (Godot GameState.get_training_hub() / get_training_day()); nothing may be invented. A gym usually has 1-8 fighters; week 1 often has ONE fighter (as in the screenshot) - the screen must not be a big empty void then.
+
+Godot 4.7.2, GDScript, 1920x1080 base, Controls built in code (TrainingHubPanel.gd, 1,787 lines today), our palette: gold #f0c233, oxblood #7a1e22, cream #f3e6c8, charcoal #1a1814, the HUD top bar and left icon rail stay.
+
+GIVE THE LONGEST COMPLETE ANSWER YOU CAN (if you run out, end with CONTINUE):
+A. Every defect in the screenshot (hierarchy, empty space, what a player cannot understand, readability, the meters, the drag shelf, the presets, the filters, the hint line), numbered.
+B. The target design: layout grid in px at 1920x1080 for every block (x, y, w, h), what each shows, fonts, colours, states (one fighter / eight fighters / unplanned / injured / in camp / no coach), hover, drag-and-drop feedback, the session drawer, the FIGHT CAMP tab, transitions (ms).
+C. What shipped management games do for a weekly plan (Football Manager training schedule, Motorsport Manager, Two Point, any boxing/MMA manager) and what we take from each.
+D. The build, step by step for one agent, each step with a measurable acceptance check.
+E. GDScript for the concrete parts (layout constants, the week row, the day cell with drag-drop, the session drawer, the meters).

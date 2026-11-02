@@ -1,0 +1,253 @@
+LUDO S261 GUARD POSE ANSWER (Ask Ludo chat Boxing Shout System; question research/ASK_GUARDPOSE_S262.md; picture docs/previews/s261_guard/operator_not_an_arm.png), reply chars=18637
+
+
+
+FIGHTCAMP — S261 COMBAT GUARD RE-ENGINEERING & PROCEDURAL RIG SPECIFICATION
+
+Roles: Lead Animation Designer & Technical Character Director
+
+Platform: Godot Engine 4.7.2 (GDScript, MetaHuman Rig Hierarchy)
+
+Target Delivery: Steam Early Access Boxing Engine
+
+1. ARCHITECTURE: TWO-BONE IK ONTO HEAD TARGETS VS. AUTHORED POSES (INDUSTRY COMPARATIVE)
+The Architectural Verdict: A Hybrid Stack
+
+Pure Two-Bone IK directly onto head-relative coordinates without base authored poses will fail to look like an arm.
+
+If you apply analytical Two-Bone IK directly to a raw, un-sculpted, generic A-pose or basic ActionForge idle clip, the solver will solve the triangle mathematically, but it has no intrinsic understanding of:
+
+Clavicular shrugging and scapular protraction (which rotate the base of the arm by up to $15\text{ cm}$).
+Deltoid muscle roll and pectoral shelf collision (the forearm will slice right through the pectoralis major).
+The subtle twist of the radius around the ulna that squares the glove knuckle plane to the target.
+What Fight Night Champion and Undisputed Actually Do
+Fight Night Champion (EA Canada): Relied on Authored Base Layer + Procedural Inertial Additive Blend Shapes + World-Space Target Clamping. Fight Night never ran raw Two-Bone IK from scratch on guard hands. They authored dedicated, clean mocap loops for each guard family (e.g., Philly Shell, Loose/Low, High Earmuff, Peek-a-boo). On top of this base, an additive layer adjusted wrist height via localized IK based on the incoming threat trajectory (head or body block), while the clavicle and humerus roll came directly from the authored, anatomically correct animation asset.
+Undisputed (Steel City Interactive): Uses an Authored Pose Matrix with Multi-Target FABRIK/Two-Bone Solvers in Unity. Each fighter archetype uses a base hand-sculpted stance posture. IK is used only as an offset modifier ($\pm 10\text{ cm}$) to position gloves dynamically based on fatigue, head movement (slips), and reaching for intercepts. The non-striking hand uses a strict local-space lock relative to the cervical spine/head bone to avoid drift during lateral trunk movement.
+The Correct Implementation Stack for FightCamp (Godot 4.7.2)
+
+You must implement a 3-Tier Hierarchy:
+
+[TIER 1: AUTHORED POSE BASE]
+  Static, perfectly hand-sculpted 1-frame poses for each of the 5 guard styles.
+  Clavicles shrugged, scapulae protracted, thoracic spine curled, twist bones aligned.
+            |
+            v
+[TIER 2: PER-BOXER & IN-FIGHT PROCEDURAL OFFSETS]
+  Style Jitter + Guard Attribute Scale + Fatigue Morph + Threat Bias (Head/Body).
+  Offsets applied to virtual Target & Pole markers in Head-Local Coordinate Space.
+            |
+            v
+[TIER 3: TWO-BONE IK PASS (MICRO-CORRECTION & HEAD PIN)]
+  Two-Bone IK runs strictly to clamp the wrist to that final synthesized target,
+  with Pole Vector pinned down-and-in toward the rib cage margin.
+
+2. CANONICAL NUMERICAL SPECIFICATION FOR 5 BOXING GUARD STYLES
+
+(Orthodox Adult Male: $180\text{ cm}$ height, $183\text{ cm}$ reach, $75\text{ kg}$. Coordinates given in Head-Local Coordinate Frame: $+X = \text{Right}$, $+Y = \text{Up}$, $+Z = \text{Forward}$, origin at the center of the Head bone).
+
+                                GUARD STYLE SCHEMATICS
+                                
+  1. TRADITIONAL           2. HIGH GUARD (EARMUFF)     3. PEEK-A-BOO (CUS D'AMATO)
+       [Lead]    [Rear]         [Lead]  [Rear]                [Lead]  [Rear]
+         \         |              \       /                    \       /
+          \        |               \     /                      \     /
+       (Elbows 4cm off ribs)  (Parallel Forearms)       (Cheek-pinned, deep crouch)
+       
+  4. LONG GUARD            5. PHILLY SHELL (MAYWEATHER)
+       [Lead]                 [Rear Glove at Cheek]
+         \                           |
+          \----> (Extended)    [Lead Arm Wrapped Low Across Ribs]
+                   [Rear]            \========/ (Lead Elbow across Belly Button)
+
+
+$$\begin{array}{|l|c|c|c|c|c|}
+\hline
+\textbf{Metric / Parameter} & \textbf{Traditional} & \textbf{High Guard} & \textbf{Peek-a-Boo} & \textbf{Long Guard} & \textbf{Philly Shell} \
+\hline
+\textbf{Lead Glove Pos (X, Y, Z cm)} & (-14, -8, +28) & (-10, +2, +16) & (-7, +4, +14) & (-12, +6, +52) & (-8, -34, +22) \
+\textbf{Rear Glove Pos (X, Y, Z cm)} & (+14, -6, +18) & (+10, +2, +14) & (+7, +4, +14) & (+14, -4, +18) & (+12, -4, +16) \
+\textbf{Lead Elbow from Ribs (cm)} & 4.5\text{ cm} & 2.0\text{ cm} & 1.5\text{ cm} & 18.0\text{ cm} & 0.0\text{ cm (Welded)} \
+\textbf{Rear Elbow from Ribs (cm)} & 3.0\text{ cm} & 2.0\text{ cm} & 1.5\text{ cm} & 3.5\text{ cm} & 2.5\text{ cm} \
+\textbf{Lead Upper-Arm Front Pitch} & 14^\circ & 6^\circ & 4^\circ & 48^\circ & 62^\circ\text{ (Across belly)} \
+\textbf{Lead Upper-Arm Side Lean} & 18^\circ & 12^\circ & 10^\circ & 55^\circ & 8^\circ \
+\textbf{Rear Upper-Arm Front Pitch} & 10^\circ & 6^\circ & 4^\circ & 10^\circ & 10^\circ \
+\textbf{Rear Upper-Arm Side Lean} & 12^\circ & 8^\circ & 6^\circ & 12^\circ & 10^\circ \
+\textbf{Lead Elbow Interior Angle} & 62^\circ & 48^\circ & 42^\circ & 128^\circ & 78^\circ \
+\textbf{Rear Elbow Interior Angle} & 54^\circ & 46^\circ & 40^\circ & 54^\circ & 52^\circ \
+\textbf{Wrist Flexion / Knuckle Pitch} & 0^\circ\text{ neutral} & 15^\circ\text{ back} & 20^\circ\text{ back} & 10^\circ\text{ down} & 5^\circ\text{ neutral} \
+\textbf{Lead Clavicle Raise / Fwd} & +2.5\text{ cm} / +3.0\text{ cm} & +4.0\text{ cm} / +4.5\text{ cm} & +5.5\text{ cm} / +6.0\text{ cm} & +2.0\text{ cm} / +4.0\text{ cm} & +5.0\text{ cm} / +7.0\text{ cm} \
+\textbf{Rear Clavicle Raise / Fwd} & +1.5\text{ cm} / +1.0\text{ cm} & +4.0\text{ cm} / +4.0\text{ cm} & +5.5\text{ cm} / +6.0\text{ cm} & +1.5\text{ cm} / +1.0\text{ cm} & +2.0\text{ cm} / +1.0\text{ cm} \
+\textbf{Chin Tuck (Cervical Flexion)} & 14^\circ & 22^\circ & 28^\circ & 10^\circ & 24^\circ \
+\textbf{Thoracic Spine Kyphosis} & 8^\circ & 14^\circ & 22^\circ & 6^\circ & 18^\circ\text{ (Tilted right)} \
+\textbf{Pelvis / Knee Crouch (cm)} & 4.0\text{ cm} & 6.0\text{ cm} & 14.0\text{ cm} & 2.0\text{ cm} & 5.0\text{ cm} \
+\hline
+\end{array}$$
+
+3. FULL BIOMECHANICAL CHAIN: BEYOND THE TWO-BONE ARM
+
+An arm cannot look like an arm if the anchor points (spine, clavicle, neck) do not tense into a defensive frame. If you only manipulate UpperArm and LowerArm, the arm appears pasted onto a civilian mannequin.
+
+                  POSTURAL BIOMECHANICAL VECTOR PASS
+                  
+         [CHIN TUCK] ----> Cervical Spine: Flexion 18-28 deg (Tuck behind clavicle)
+              |
+      [CLAVICLE FRAME] --> Scapula: Elevation +4cm, Protraction (Roll fwd) +5cm
+              |
+      [THORACIC CURL] ---> UpperChest / Spine_03: Kyphotic curl 12-20 deg fwd
+              |
+       [WRIST ALIGN] ----> Hand bone: Adduction (ulnar deviation) to align 
+                           forearm line with knuckle face.
+
+Exact Bone Rotations (Euler Local Offsets from Neutral T-Pose)
+1. Clavicles (LeftShoulder / RightShoulder)
+Lead Clavicle (Left):
+Rotation_Y (Protraction/Forward Roll): $+14.0^\circ$ (pushes shoulder socket anteriorly).
+Rotation_Z (Elevation/Shrug): $+12.0^\circ$ (raises the shoulder to create a physical cheek shield).
+Rear Clavicle (Right):
+Rotation_Y: $+6.0^\circ$.
+Rotation_Z: $+8.0^\circ$.
+2. Thoracic Spine & Chest (Spine_03 / UpperChest)
+Spine_02: Flexion (forward pitch) $= +4.5^\circ$.
+Spine_03 (UpperChest): Flexion $= +9.0^\circ$. Lateral curl away from the lead side $= -3.0^\circ$.
+Biomechanical impact: Creates the convex "hollow body" athletic arch. This lowers the chest by $4\text{ cm}$ and places the ribs directly behind the descending forearms, removing the gap that previously showed empty air.
+3. Cervical Spine & Head (Neck / Head)
+Neck: Flexion forward $= +14.0^\circ$.
+Head: Pitch down (Chin Tuck) $= +12.0^\circ$. Rotation toward opponent $= +4.0^\circ$ (looking upward through eyebrow ridge).
+Biomechanical impact: Pulls the chin below the horizon of the clavicles. The chin is protected by bone rather than floating open.
+4. Wrists (LeftHand / RightHand)
+Lead Hand (Left): Ulnar deviation (adduction) $= +8.0^\circ$. Extension (dorsiflexion) $= +10.0^\circ$.
+Rear Hand (Right): Ulnar deviation $= +6.0^\circ$. Neutral extension $= 0.0^\circ$.
+Biomechanical impact: Aligns the large knuckles directly with the target vector, preventing the "limp wrist" or "bent glove" artifact.
+4. CREATING CONTROLLED PROCEDURAL VARIATIONS (SYSTEMIC ATTRIBUTE COUPLING)
+
+To generate distinct, highly readable silhouettes for dozens of boxers without breaking visual legality:
+
+[BOXER DNA SEED] + [STYLE PRESET] + [TRAINED ATTRIBUTES] + [FATIGUE STATE]
+                                  |
+                                  v
+    FINAL SYNTHESIZED GUARD OFFSETS (Target Vectors & Bone Weights)
+
+The Modulation Formula
+
+For any guard target vector $\vec{P}{\text{final}}$:
+$$\vec{P}{\text{final}} = \vec{P}{\text{style_base}} + \Delta\vec{P}{\text{seed}} + \Delta\vec{P}{\text{guard_stat}} + \Delta\vec{P}{\text{fatigue}}$$
+
+1. The Seeded Geometric Jitter ($\Delta\vec{P}_{\text{seed}}$)
+
+Sampled once at fighter generation from a deterministic hash of their fighter_id:
+
+Glove Forward Offset ($Z$): Range $[-2.5\text{ cm}, +3.5\text{ cm}]$.
+Glove Width Asymmetry ($X$): Range $[-2.0\text{ cm}, +2.0\text{ cm}]$.
+Shoulder Height Jitter ($Y$): Range $[-1.5\text{ cm}, +1.5\text{ cm}]$.
+Elbow Pole Yaw: Range $[-4.0^\circ, +4.0^\circ]$.
+2. Guard Attribute Influence ($\Delta\vec{P}_{\text{guard_stat}}$)
+
+Driven dynamically by the new canonical 0–100 guard attribute:
+
+Low Guard ($\text{Stat} = 20$):
+Hand height: drops down by $-6.0\text{ cm}$ on $Y$.
+Elbow flare: expands outward by $+8.0\text{ cm}$ away from ribs ($+14^\circ$ abduction).
+Clavicle shrug: drops by $-50%$ (chin fully exposed over the shoulder).
+Elite Guard ($\text{Stat} = 80$):
+Hand height: rises $+3.0\text{ cm}$ on $Y$ (tight against zygomatic cheekbone).
+Elbow flare: clamped tight to ribs ($2.0\text{ cm}$ clearance max).
+Clavicle shrug: $+100%$ engagement (cheek nestled inside the lead deltoid socket).
+3. Fatigue Degradation Vector ($\Delta\vec{P}_{\text{fatigue}}$)
+
+As stamina drops below $50%$:
+
+Vertical Drop: Hand targets drop $-1.8\text{ cm}$ per $10%$ stamina loss.
+Torso Unfurl: Thoracic spine straightens by $+2.5^\circ$ (fatigued core muscles fail to hold the athletic curl).
+Elbow Droop: Elbows drift backward behind the rib line by $-3.0\text{ cm}$.
+5. SEAMLESS TRANSITIONS: GUARD $\to$ STRIKE $\to$ GUARD & NON-STRIKING DISCIPLINE
+                  PUNCH EXECUTION: 3-TIER IK WEIGHT ENVELOPE
+                  
+     IK Weight
+       1.0 |-------------+                                     +------------
+           |              \                                   /
+           |               \                                 /
+       0.0 |                +-------------------------------+
+           +----------------+-------------------------------+----------------
+           0ms             120ms          Impact          Retract          Reset
+             [WINDUP/TELL]       [BALLISTIC STRIKE]       [RECOVERY]
+
+Punching Arm IK Blend Weights
+Phase 1: Release ($0\text{ ms} \dots 120\text{ ms}$): The striking hand’s Two-Bone IK weight blends linearly from $1.0 \to 0.0$ using a cubic ease-in curve (ease(t, 2.0)). The authored strike animation assumes full control.
+Phase 2: Ballistic Strike ($120\text{ ms} \dots \text{Impact}$): IK weight remains at $0.0$. The authored animation controls the punch apex.
+Phase 3: Recoil Capture ($\text{Impact} + 60\text{ ms} \dots \text{End}$): As the arm returns past $65%$ of its retraction trajectory, IK blends smoothly from $0.0 \to 1.0$ over $90\text{ ms}$ using a smooth-step curve (smoothstep(0.0, 1.0, t)). This completely prevents any pop or snapping discontinuity as the hand re-enters the guard target pocket.
+Non-Punching Hand Kinematic Behavior
+
+The off-hand must not drift or idle passively during a strike. It executes active defensive bracing:
+
+$$\begin{array}{|l|l|l|}
+\hline
+\textbf{Active Strike} & \textbf{Non-Striking Hand (Rear)} & \textbf{Non-Striking Hand (Lead)} \
+\hline
+\textbf{Lead Jab} & \text{Welded to cheek; thumb touches zygoma;} & \text{N/A (Striking arm)} \
+& \text{IK target locked to head-space at } (X: +11, Y: -2, Z: +13). & \
+\hline
+\textbf{Rear Cross} & \text{N/A (Striking arm)} & \text{Pulls to high ear frame or posts forward;} \
+& & \text{Lead shoulder internally rotates } +18^\circ. \
+\hline
+\textbf{Lead Hook} & \text{Rises to high earmuff; elbow rotates forward } +15^\circ & \text{N/A (Striking arm)} \
+& \text{to intercept counter right hands.} & \
+\hline
+\textbf{Rear Uppercut} & \text{N/A (Striking arm)} & \text{Tucks hard to left jaw; lead elbow clamps} \
+& & \text{flush against the spleen } (0\text{ cm clearance}). \
+\hline
+\end{array}$$
+
+6. GODOT 4.7.2 ARCHITECTURE & SKELETAL TRAPS
+Trap 1: The Manual Posture Pass vs. SkeletonModifier3D
+The Trap: The user notes they run an "AnimationPlayer in MANUAL mode, then a per-frame posture pass writes bone poses after the clip." If you write bone transforms via Skeleton3D.set_bone_pose_rotation() directly in _process() or _physics_process(), Godot’s internal transform cache gets dirty, causing one-frame latency jitter and bypassing skin bounding-box recalculation.
+The Production Fix: Subclass SkeletonModifier3D (native to Godot 4.3+ through 4.7.2). Implement the guard solver inside _process_modification(). This executes precisely inside the engine's internal skeletal update loop after the animation player evaluates, but before skinning matrices are dispatched to the Vulkan vertex shader.
+Trap 2: Bone Rest Axis & Roll Mismatch on MetaHumans
+The Trap: MetaHuman arm bones in FBX format use Maya-style joint orientations ($X$-axis down the bone, $Z$-axis bend). Godot’s TwoBoneIK3D natively expects the primary bone vector to align with the positive or negative $Y$-axis. If uncompensated, solving Two-Bone IK causes the elbow to violently snap $90^\circ$ outward or inward on the first frame.
+The Production Fix: Apply an explicit basis transform in your solver to handle the MetaHuman offset:
+var bone_roll_offset = Basis(Vector3.UP, deg_to_rad(90.0))
+
+Ensure all pole vectors are calculated in the coordinate space of the parent clavicle bone.
+Trap 3: Pole Vector Flipping / Inversion
+The Trap: When the glove moves directly in line between the shoulder and the head target, the plane defined by (Shoulder, Hand, Pole) collapses to collinearity. The IK solver experiences a gimbal flip, instantly snapping the elbow through the chest cavity.
+The Production Fix: Never place the pole vector in world space. Compute the pole target dynamically as an anterior-inferior projection from the ribcage: $$\vec{P}{\text{pole}} = \vec{P}{\text{Shoulder}} + (\text{TorsoBasis.Down} \times 0.6) + (\text{TorsoBasis.Forward} \times 0.2) + (\text{TorsoBasis.Inward} \times 0.15)$$ Because the pole is pinned relative to the ribcage, the elbow is geometrically prevented from ever rotating upward or flaring outward past the legal envelope.
+Trap 4: Skin Collapse at Deep Elbow Bend ($<60^\circ$)
+The Trap: The MetaHuman mesh uses corrective helper joints (lowerarm_correctiveRoot, bck, fwd, in, out). In Godot, these bones sit idle unless driven by script, producing severe "candy-wrapper" mesh collapse at acute angles.
+The Production Fix: Drive the helper bones procedurally inside your SkeletonModifier3D:
+# Drive olecranon bulge based on elbow acute bend
+var elbow_interior_angle = rad_to_deg(upper_arm_dir.angle_to(-lower_arm_dir))
+if elbow_interior_angle < 80.0:
+    var flex_ratio = clamp((80.0 - elbow_interior_angle) / 40.0, 0.0, 1.0)
+    # Translate the posterior helper bone outward to preserve the elbow point
+    skeleton.set_bone_pose_position(bck_bone_idx, Vector3(0, 0, -0.022 * flex_ratio))
+
+7. AUTOMATED ACCEPTANCE GATES (GAME CAMERA CI/CD)
+
+The implementation is verified by running an automated headless test suite with our live broadcast camera framing. Any build failing these explicit thresholds fails the gate.
+
++=====================================================================================================+
+| S261 AUTOMATED ACCEPTANCE TESTING MATRIX                                                            |
++-----------------------------+-----------------------+-------------------------+---------------------+
+| Test Identifier             | Measurement Target    | Fail Condition (Reject) | Pass Gate Threshold |
++-----------------------------+-----------------------+-------------------------+---------------------+
+| GATE_REAR_WRIST_HEAD_GAP    | Rear Hand to HeadBone | Dist < 0.20m OR > 0.24m | 0.21m <= D <= 0.23m |
+| GATE_LEAD_ELBOW_RIB_GAP     | Medial Elbow to Ribs  | Dist > 6.0 cm           | 2.0 cm <= D <= 4.5cm|
+| GATE_REAR_ELBOW_RIB_GAP     | Medial Elbow to Ribs  | Dist > 4.5 cm           | 1.5 cm <= D <= 3.5cm|
+| GATE_ELBOW_INTERIOR_ANGLE   | Humerus vs Forearm    | Angle > 65.0 deg        | 46.0 deg - 56.0 deg |
+| GATE_UPPERARM_LATERAL_FLARE | Humerus vs Spine Sag. | Flare > 16.0 deg        | 6.0 deg <= A <= 12.0|
+| GATE_CHEEK_PENETRATION_JAB  | Rear Glove to Face    | Glove Mesh Overlap > 0mm| Min Clearance >= 1cm|
+| GATE_OLECRANON_CROSS_WIDTH  | Folded Elbow Joint W. | Joint Cross-Sec < 10.0cm| Cross-Sec >= 11.2cm |
+| GATE_TRANSITION_POP_VEL     | Wrist IK Blend Speed  | Bone Ang Vel > 800 deg/s| Bone Ang Vel < 320  |
++-----------------------------+-----------------------+-------------------------+---------------------+
+
+Visual Pass Requirement on Camera
+
+When viewing the Red Boxer from the game’s standard $45^\circ$ isometric perspective:
+
+The rear arm must show a clean, crisp, angular bend with an anatomically defined elbow point (olecranon).
+The space between the right elbow and the body must be virtually zero: the inner arm visibly hugs the flank.
+The glove sits firmly below the eye line, anchored to the jaw like a natural anatomical guard, remaining completely stationary in head space while the lead arm fires.
+Can you provide the exact GDScript implementation for a stable guard-to-punch IK and posture pass in Godot 4.7.2?
+Can you define a bone-by-bone rotation table for orthodox and southpaw high guards, including MetaHuman rest-axis corrections?
+Can you generate a corrected live-camera guard reference image showing distinct elbow points, compact ribs, tucked chin, and forward-facing gloves?
+Can you specify an automated acceptance-test script that measures elbow gaps, glove-head distance, joint angles, and transition pops?
+Copyright ©2026 Ludo.ai. All Rights Reserved.

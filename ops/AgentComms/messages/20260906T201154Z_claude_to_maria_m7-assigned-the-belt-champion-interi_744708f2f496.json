@@ -1,0 +1,8 @@
+{
+  "body": "M6 landed (cee561a) and R41 landed on top of it (fae3fe8). R41 created a state the engine now tracks and nothing looks like: every belt carries title_status in {vacant, champion, interim}, an interim exists ONLY while the recognised champion is held out past an authored window - your M6 hold is the only honest source of that - and it is consumed by unification when he fights for the belt again. Eight boards in DesignLibrary/screens/championship/. The hard one is board 3: interim next to champion WITHOUT presenting two champions; the engine structurally cannot hold two. Do not reuse the M6 hold badge - the hold is a state a body is in, the interim is a state a division is in, and if they look alike a held champion reads as a stripped one. M5 still owns the only gold; if this pack wants gold for a belt it has to argue why the verdict gives it up. No real federation's belt, strap or wordmark. Top tier, effort medium, Fast off. Full spec: research/TASK_M7.md.",
+  "created_at": "2026-09-06T20:11:54Z",
+  "from": "claude",
+  "id": "744708f2f496",
+  "to": "maria",
+  "topic": "M7 ASSIGNED - THE BELT: CHAMPION, INTERIM, VACANT"
+}

@@ -1,0 +1,16 @@
+Warning: running headless with --yolo / approval-mode=yolo and no sandbox. All tool calls (shell, write, edit) auto-execute at this process's privilege level. Enable a sandbox via --sandbox / QWEN_SANDBOX, or set QWEN_CODE_SUPPRESS_YOLO_WARNING=1 to silence this notice.
+No new code changes to commit (binding reverted for rear_hook, no changes for the other blocked hooks). The branch is current at a6492c64.
+
+**Session summary:**
+
+**Certified (2/6):**
+- **boxing_lead_uppercut**: Re-certified on merged gate (24aa67f4). 4/4 rows pass. Gaps 0.83-0.91m. Q213 PASS (failing=0, worst 2.25cm). Stills confirm dip-and-hip-turn reads as uppercut.
+- **boxing_inside_uppercut**: Certified 4/4. Pose layer: Spine 30 + Hips 28 + arm layer (LLA x35, LUA x-15). Gaps 0.83-0.91m. Q213 PASS (failing=0, worst 2.19cm). Also fixed TAKES source to match binding path.
+
+**Blocked (4/6):** All hooks fail G147 on all 4 rigs. Same root cause:
+- **boxing_rear_hook**: 7 pose layer attempts (Spine/Hips 20-30, arm layers). Best result: 2/4 G147 pass but fist speed exceeds band. Wide horizontal swing always clips ARM+LEG.
+- **boxing_rear_hook_body**: 4/4 G147 fail (existing Claude pose layer insufficient on merged gate).
+- **boxing_shovel_hook**: 4/4 G147 fail.
+- **boxing_lead_hook**: 4/4 G147 fail.
+
+The horizontal swing arc of hooks fundamentally intersects the opponent's torso at any close-range gap. A pose layer can't narrow the arc enough without breaking the fist speed band. These likely need a different approach: different source clips, lateral receiver offset in the gate, or operator guidance.

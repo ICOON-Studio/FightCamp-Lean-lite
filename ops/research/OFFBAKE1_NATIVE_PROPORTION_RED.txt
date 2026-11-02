@@ -1,0 +1,94 @@
+R75-RC=1
+2026-10-15 21:18:39 AMBER C_free=24.9GB E_free=68.6GB RAM=83% COMMIT_free=17.7GB CPU=40% TEMP=80C(LHM)[peak 83] top: brave=5355MB firefox=5061MB ChatGPT=3253MB claude=3128MB
+  AMBER Temperature 80 C.
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+NATIVE_PATH native feature ships ON OK
+NATIVE_PATH body=08 enabled=false bind OK
+NATIVE_PATH MH08 has idle OK
+NATIVE_PATH MH08 enabled=false idle resolved=res://assets/anim/c223/c237/active_guard.glb OK
+NATIVE_PATH MH08 has boxing_jab OK
+NATIVE_PATH MH08 enabled=false boxing_jab resolved=res://assets/anim/audition/ramsterz_h2h/H2H_JabInPlace.FBX OK
+NATIVE_PATH MH08 has boxing_cross OK
+NATIVE_PATH MH08 enabled=false boxing_cross resolved=res://assets/anim/audition/ramsterz_h2h/H2H_StraightPunchInPlace.FBX OK
+NATIVE_PATH MH08 has boxing_lead_hook OK
+NATIVE_PATH MH08 enabled=false boxing_lead_hook resolved=res://assets/anim/audition/ramsterz_h2h/H2H_HookPunch_InPlace.FBX OK
+NATIVE_PATH MH08 has boxing_inside_uppercut OK
+NATIVE_PATH MH08 enabled=false boxing_inside_uppercut resolved=res://assets/anim/c223/cascadeur_c229/Cascy_C231_InsideUppercut.glb OK
+NATIVE_PATH other role retains source OK
+NATIVE_PATH body=02 enabled=true bind OK
+NATIVE_PATH MH02 has idle OK
+NATIVE_PATH MH02 enabled=true idle resolved=res://assets/anim/metahuman/baked/mh_guard_pose.glb OK
+NATIVE_PATH MH02 native preserves body bone lengths max_error_m=0.008876 FAIL
+NATIVE_PATH MH02 guard Left wrist=0.840250 limit=10 OK
+NATIVE_PATH MH02 guard Right wrist=1.468272 limit=10 OK
+NATIVE_PATH MH02 has boxing_jab OK
+NATIVE_PATH MH02 enabled=true boxing_jab resolved=res://assets/anim/metahuman/baked/mh_jab.glb OK
+NATIVE_PATH MH02 has boxing_cross OK
+NATIVE_PATH MH02 enabled=true boxing_cross resolved=res://assets/anim/metahuman/baked/mh_cross.glb OK
+NATIVE_PATH MH02 has boxing_lead_hook OK
+NATIVE_PATH MH02 enabled=true boxing_lead_hook resolved=res://assets/anim/metahuman/baked/mh_lead_hook.glb OK
+NATIVE_PATH MH02 has boxing_inside_uppercut OK
+NATIVE_PATH MH02 enabled=true boxing_inside_uppercut resolved=res://assets/anim/metahuman/baked/mh_inside_uppercut.glb OK
+NATIVE_PATH other role retains source OK
+NATIVE_PATH body=05 enabled=true bind OK
+NATIVE_PATH MH05 has idle OK
+NATIVE_PATH MH05 enabled=true idle resolved=res://assets/anim/metahuman/baked/mh_guard_pose.glb OK
+NATIVE_PATH MH05 native preserves body bone lengths max_error_m=0.007738 FAIL
+NATIVE_PATH MH05 guard Left wrist=4.837229 limit=10 OK
+NATIVE_PATH MH05 guard Right wrist=3.217380 limit=10 OK
+NATIVE_PATH MH05 has boxing_jab OK
+NATIVE_PATH MH05 enabled=true boxing_jab resolved=res://assets/anim/metahuman/baked/mh_jab.glb OK
+NATIVE_PATH MH05 has boxing_cross OK
+NATIVE_PATH MH05 enabled=true boxing_cross resolved=res://assets/anim/metahuman/baked/mh_cross.glb OK
+NATIVE_PATH MH05 has boxing_lead_hook OK
+NATIVE_PATH MH05 enabled=true boxing_lead_hook resolved=res://assets/anim/metahuman/baked/mh_lead_hook.glb OK
+NATIVE_PATH MH05 has boxing_inside_uppercut OK
+NATIVE_PATH MH05 enabled=true boxing_inside_uppercut resolved=res://assets/anim/metahuman/baked/mh_inside_uppercut.glb OK
+NATIVE_PATH other role retains source OK
+NATIVE_PATH body=08 enabled=true bind OK
+NATIVE_PATH MH08 has idle OK
+NATIVE_PATH MH08 enabled=true idle resolved=res://assets/anim/metahuman/baked/mh_guard_pose.glb OK
+NATIVE_PATH MH08 native preserves body bone lengths max_error_m=0.009964 FAIL
+NATIVE_PATH MH08 guard Left wrist=0.185818 limit=10 OK
+NATIVE_PATH MH08 guard Right wrist=0.321846 limit=10 OK
+NATIVE_PATH MH08 has boxing_jab OK
+NATIVE_PATH MH08 enabled=true boxing_jab resolved=res://assets/anim/metahuman/baked/mh_jab.glb OK
+NATIVE_PATH MH08 has boxing_cross OK
+NATIVE_PATH MH08 enabled=true boxing_cross resolved=res://assets/anim/metahuman/baked/mh_cross.glb OK
+NATIVE_PATH MH08 has boxing_lead_hook OK
+NATIVE_PATH MH08 enabled=true boxing_lead_hook resolved=res://assets/anim/metahuman/baked/mh_lead_hook.glb OK
+NATIVE_PATH MH08 has boxing_inside_uppercut OK
+NATIVE_PATH MH08 enabled=true boxing_inside_uppercut resolved=res://assets/anim/metahuman/baked/mh_inside_uppercut.glb OK
+NATIVE_PATH other role retains source OK
+NATIVE_PATH body=09 enabled=true bind OK
+NATIVE_PATH MH09 has idle OK
+NATIVE_PATH MH09 enabled=true idle resolved=res://assets/anim/metahuman/baked/mh_guard_pose.glb OK
+NATIVE_PATH MH09 native preserves body bone lengths max_error_m=0.008212 FAIL
+NATIVE_PATH MH09 guard Left wrist=0.523750 limit=10 OK
+NATIVE_PATH MH09 guard Right wrist=1.047614 limit=10 OK
+NATIVE_PATH MH09 has boxing_jab OK
+NATIVE_PATH MH09 enabled=true boxing_jab resolved=res://assets/anim/metahuman/baked/mh_jab.glb OK
+NATIVE_PATH MH09 has boxing_cross OK
+NATIVE_PATH MH09 enabled=true boxing_cross resolved=res://assets/anim/metahuman/baked/mh_cross.glb OK
+NATIVE_PATH MH09 has boxing_lead_hook OK
+NATIVE_PATH MH09 enabled=true boxing_lead_hook resolved=res://assets/anim/metahuman/baked/mh_lead_hook.glb OK
+NATIVE_PATH MH09 has boxing_inside_uppercut OK
+NATIVE_PATH MH09 enabled=true boxing_inside_uppercut resolved=res://assets/anim/metahuman/baked/mh_inside_uppercut.glb OK
+NATIVE_PATH other role retains source OK
+NATIVE_PATH body=generator enabled=true bind OK
+NATIVE_PATH MHgenerator has idle OK
+NATIVE_PATH MHgenerator enabled=true idle resolved=res://assets/anim/c223/c237/active_guard.glb OK
+NATIVE_PATH MHgenerator has boxing_jab OK
+NATIVE_PATH MHgenerator enabled=true boxing_jab resolved=res://assets/anim/audition/ramsterz_h2h/H2H_JabInPlace.FBX OK
+NATIVE_PATH MHgenerator has boxing_cross OK
+NATIVE_PATH MHgenerator enabled=true boxing_cross resolved=res://assets/anim/audition/ramsterz_h2h/H2H_StraightPunchInPlace.FBX OK
+NATIVE_PATH MHgenerator has boxing_lead_hook OK
+NATIVE_PATH MHgenerator enabled=true boxing_lead_hook resolved=res://assets/anim/audition/ramsterz_h2h/H2H_HookPunch_InPlace.FBX OK
+NATIVE_PATH MHgenerator has boxing_inside_uppercut OK
+NATIVE_PATH MHgenerator enabled=true boxing_inside_uppercut resolved=res://assets/anim/c223/cascadeur_c229/Cascy_C231_InsideUppercut.glb OK
+NATIVE_PATH other role retains source OK
+NATIVE_MH_CLIPS failures=4
+WARNING: 9072 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+

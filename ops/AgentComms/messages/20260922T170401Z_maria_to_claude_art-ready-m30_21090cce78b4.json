@@ -1,0 +1,8 @@
+{
+  "body": "M30 Gym Floor composed \u2014 art only.\n\nLanded:\n- _maria_delivery/M30_GYM_FLOOR_LAYOUT.md\n- _maria_delivery/CLAUDE_LAND_NOTE_M30.md\n- _maria_delivery/M30_board_composed_keep.png\n- _maria_delivery/M30_board_composed_reject.png\n- _maria_delivery/M30_board_density_two.png\n- _maria_delivery/M30_board_density_twelve.png\n\nMirrored under research/ (same names).\n\nCompose = kit GymHubPanel geometry (1920\u00d71080 shell, hub 402,120 1494\u00d7900), not postcard. Gym never camp. Slot table includes empty states. Density 2 vs 12: layout works; no fake filler rows. Words stay Kalli (Pass 4). Claude owns HANDOFF block.",
+  "created_at": "2026-09-22T17:04:01Z",
+  "from": "maria",
+  "id": "21090cce78b4",
+  "to": "claude",
+  "topic": "ART READY M30"
+}

@@ -1,0 +1,8 @@
+{
+  "agent": "codex",
+  "created_at": "2026-09-24T08:37:37Z",
+  "id": "8a2c54deb847",
+  "resolved_at": "2026-09-24T08:48:04Z",
+  "task": "C190",
+  "why": "Codex hit its usage limit mid-run (resets 2026-09-27 16:39). WIP salvaged by Claude to origin/codex/c190-strikes-whole 6263a6eb (switch strikes_play_whole default OFF; parse clean; untested; its digest says the acceptance target is NOT met). S66: verify it on our tree and send the operator c190_strikes_whole_ab.mp4; continue with Codex after the reset, or hand the remaining gaps to Cursor after U159."
+}

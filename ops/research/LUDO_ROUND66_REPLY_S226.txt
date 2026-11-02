@@ -1,0 +1,354 @@
+<!-- Ludo round 66 (globe look) text reply verbatim, S226 2026-10-15, 38867 chars (new high); first reply was the reference picture captures/globe1/ludo_r66_globe_reference.jpg -->
+FIGHTCAMP (S226) — ROUND 66: THE NEW CAREER GLOBE & WORLD MARKET SELECTOR
+
+Document Reference: FC-ART-S226-WORLD-GLOBE-SPEC
+
+Author: Lead UI/UX Architect & Principal Technical Shader Artist
+
+Visual Benchmark: Round 66 Generated Target Concept (Black lacquer celestial globe, raised brushed-brass vector coastlines, oxblood enamel glove medallion, warm cartographic astrolabe backdrop, Gleason’s boxing gym brass-and-charcoal visual hierarchy).
+
+Target Engine & Profile: Godot 4.7 Forward+ Clustered, GLSL Spatial & CanvasItem Shaders, 1080p authored baseline (scalable to 4K / Steam Deck native $1280\times 800$).
+
+PART A: THE POST-MORTEM — WHY TODAY’S SCREEN READS AS "AMATEUR / AI-MADE"
+
+The CEO’s critique is precise. When human players—particularly players of premium PC strategy and management simulations (Football Manager, Hearts of Iron IV, Crusader Kings III)—look at the current implementation (Round 61 screenshot), their visual processing immediately flags the screen as an unpolished tech-demo or low-grade procedural generation. This stems from seven distinct, measurable failures across geometry, rasterization, lighting, and typography:
+
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                             ANATOMY OF THE "AMATEUR / AI" ARTIFACTS                              │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                                  │
+│   [UNIFORM PIXEL BLEED]        [GOOGLE MAPS TOY PIN]         [FLAT PASTEL CHALK FILL]            │
+│   1px blurry cream line        Generic red sphere on tan     Solid flat #E5B842 with zero depth, │
+│   cuts arbitrarily through     stick; looks like a free      no landform shading, looking like a │
+│   coastlines & land borders    low-poly Unity asset store    clipping vector sticker slapped     │
+│   with no hierarchy.           throw-in with bad scaling.    onto a bowling ball.                │
+│             │                            │                            │                          │
+│             ▼                            ▼                            ▼                          │
+│        ───( O )────────────────────────( O )────────────────────────( O )───                     │
+│             ▲                            ▲                            ▲                          │
+│             │                            │                            │                          │
+│   [GREY VOID CUTOFF]           [DISCONNECTED HUD PANEL]      [UNIFORM WIREFRAME NOISE]           │
+│   Flat mid-grey #808080        Right panel floats on flat    Central Europe is an unreadable     │
+│   letterbox padding has no     grey without backing panel,   tangle of equal-weight lines;       │
+│   vignette, lighting, or       anchoring, or visual ties     coasts do not visually overpower    │
+│   stylistic integration.       to the selected market.       internal territorial borders.       │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+1. The 1-Pixel Screen-Space Border Without Linework Hierarchy
+The Symptom: In the current screenshot, every border—whether it is the coastline of Norway against the Atlantic Ocean or the internal border between Slovakia and Hungary—is rendered at an identical, unvarying, semi-transparent 1-pixel cream thickness (#CCB899 at 55%).
+Why It Reads Amateur: Real-world cartography and professional grand strategy titles never treat coastlines and political borders identically. Coastlines represent massive landform elevation and material changes (rock/earth meeting water); borders are human legal constructs. In the current build, the rasterizer produces aliased crawling sub-pixel noise across Western Europe. It creates a dense, vibrating wireframe cage that makes the land look like a wireframe sphere from a 1990s CGI demo rather than an authentic physical artifact.
+2. The Generic "Google Maps" Pushpin Asset
+The Symptom: The marker is a generic red ball atop a tan plastic toothpick shoved vertically into the United Kingdom.
+Why It Reads Amateur: It imports the modern digital UX language of a mobile delivery app or Google Maps directly into a period-authentic, gritty, brass-and-leather 1970s boxing gym simulation. It looks like an untextured placeholder asset grabbed from a free asset pack in five minutes. Because it is oriented strictly along the surface normal without a shadowed mounting collar, base bevel, or physical presence, it appears to clip arbitrarily through the terrain mesh.
+3. Flat Sticker Country Fill Without Shading or Material Depth
+The Symptom: The picked country (UK) is rendered as a flat, opaque, pastel yellow-gold shape (#E5B842) overlaid on the surface, completely obliterating any land relief, surface roughness, or spherical curvature underneath.
+Why It Reads Amateur: It ignores the spherical normal vector ($\vec{N} \cdot \vec{L}$) of the globe. Instead of looking like a illuminated territory or an embossed brass plate set into the sphere, it looks like a flat 2D sticker or MS Paint fill bucket application. The boundary outline is a blurry 3-pixel white fringe that exhibits visible bilinear interpolation blurring along the jagged raster edges of the equirectangular ID texture.
+4. The Disconnected Grey Void ("The Cutoff Letterbox")
+The Symptom: The 3D viewport is rendered inside a harsh, clipped rectangular letterbox surrounded by flat #7F7F7F window-clearing grey.
+Why It Reads Amateur: In a shipped PC game, UI and 3D scenes are composited as a unified visual canvas. Here, the viewport looks like an embedded developer debug sub-window (SubViewportContainer) that was never skinned with decorative framing, cartographic background elements, or vignette post-processing.
+5. Flat Incoherent Lighting and Rim Bleed
+The Symptom: A weak, omni-directional orange rim light bleeds indiscriminately along the silhouette edge of the sphere, glowing brightest where there is nothing to illuminate (the empty Atlantic Ocean and the Arctic).
+Why It Reads Amateur: Shipped 3D globe interfaces use a theatrical key-light that focuses visual drama on the player's active point of interaction (the selected market). In the current build, the sphere looks like a matte rubber ball under an uncalibrated default Godot DirectionalLight3D.
+6. Typographic Disconnect on the Right-Hand Data Panel
+The Symptom: The right-hand panel text "UNITED KINGDOM" floats ambiguously in empty space, set in a lightweight sans-serif font that lacks contrast, backing panels, or brass framing. Below it, "CHOOSE MARKET" is a bright yellow rounded rectangle with no chamfers, no metallic sheen, and no visual connection to Maria’s FightCamp aesthetic.
+Why It Reads Amateur: The UI does not look designed; it looks placed. Shipped games use established anchor plates, textured cards, and consistent typographic hierarchies (e.g., DIN Condensed, Oswald, or League Gothic) with drop shadows and metallic fasteners.
+PART B: BENCHMARKING SHIPPED TITLES — HOW THE PROS DO IT
+========================================================================================================================
+SHIPPED TITLE ARCHITECTURE & REFERENCE MATRIX
+========================================================================================================================
+GAME TITLE           BORDER RENDERING             SELECTION HIGHLIGHT        MARKER DESIGN             BACKGROUND / CONTEXT
+------------------------------------------------------------------------------------------------------------------------
+Hearts of Iron IV    3-tier hierarchy: coastlines  Inner vignette gradient    3D military counters with Parchment paper, desk
+(Paradox)            are thick engraved lines;     (bright at border, fading  drop shadows and nation   rulers, grease pencils,
+                     borders are subtle dots.      to translucent interior).  insignia shields.         warm tactical war room.
+
+Civilization VI      Hand-drawn ink contours       Embossed territory tile    Chunky 3D miniature brass Astrolabe brass rings,
+(Firaxis)            with varying stroke weight    pulse; subtle gold rim     banners with clean drop   aged velum paper, 
+                     based on zoom level.          light along hex edges.     shadows onto terrain.     nautical compass roses.
+
+Plague Inc: Evolved  High-contrast glowing vector  Crisp glowing neon fill    Pulsing circular sonar    Dark tactical command
+(Ndemic Creations)   boundaries against deep       with subtle animated scan  rings with high-contrast  center CRT screen with
+                     charcoal continental land.    line pulse waves.          target reticle overlay.   scanlines and world map.
+
+Motorsport Manager   Deep obsidian ocean; crisp    Sleek team-color outline   Die-cast enamel flag pin  Minimalist telemetry
+(Playsport Games)    vector borders with 50%       with 20% alpha tinted      with a weighted chrome    grid with depth blur and
+                     luminance land mass.          country interior fill.     base plinth.              clean carbon fiber UI.
+
+Punch Club 2         Chunky pixel-art chamfers     Vibrant saturated outline  Chunky extruded 16-bit    Retro-futuristic CRT
+(Lazy Bear Games)    with 2-tone contrast rims     with 150ms stepped flash   boxing glove pointer with with scanlines and warm
+                     and heavy shadow lips.        on click confirmation.     heavy black outline.      orange monitor bloom.
+========================================================================================================================
+
+What FightCamp Must Steal from These Titles:
+The Coastline vs. Border Dual-Pass System (from HOI4 & Civ VI): Coastlines must be thick, raised, and visually distinct (brushed antique brass), while internal political borders must be thin, dark, and subordinate (recessed hairline grooves).
+The Inner Falloff Fill (from Crusader Kings III): Never fill a selected country with solid opaque paint. Use an inner glow/falloff where the borders glow brightly with gold intensity, fading to a rich, semi-translucent oxblood/gold velvet in the geographic center. This preserves the underlying 3D landmass shading.
+The Weighted Heavy Enamel Medallion (from Motorsport Manager): Replace the plastic Google pin with a physical, collectible, die-cast boxing champion medallion: an antique brass bezel, a recessed oxblood red enamel face, and a stamped gold boxing glove in high relief, cast with a sharp contact drop shadow onto the globe surface.
+The Theatrical War-Room Backdrop (from Civ VI & Hearts of Iron): Encase the globe in a bespoke warm charcoal cartographic environment: concentric brass astrolabe orbital rings, etched navigation compass roses, and an aged parchment vignette that seamlessly anchors into the dark UI panels.
+PART C: COMPLETE TECHNICAL SPECIFICATION (NUMBERS, SHADERS & MESHES)
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                   THE GLOBE MATERIAL PIPELINE                                    │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                                  │
+│   [TEXTURE SLOT 0: ALBEDO / LOOK]        [TEXTURE SLOT 1: ID MAP]       [TEXTURE SLOT 2: POP]    │
+│   2048x1024 Equirectangular              2048x1024 24-bit RGB           2048x1024 8-bit Greyscale│
+│   R: Land/Ocean Mask                     Unique color per nation        R: Combat Popularity     │
+│   G: Coastal Distance Field              for click-picking shader       0 (Cold) to 255 (Elite)  │
+│   B: Topographic Elevation                                                                       │
+│                 │                                   │                               │            │
+│                 └───────────────────────────────────┼───────────────────────────────┘            │
+│                                                     ▼                                            │
+│                                  ┌─────────────────────────────────────┐                         │
+│                                  │   GODOT 4.7 SPATIAL SHADER GRAPH    │                         │
+│                                  │  - Dual-Pass Coastline Extrusion    │                         │
+│                                  │  - Dynamic Popularity Underlay      │                         │
+│                                  │  - Fresnel Astrolabe Rim Bleed      │                         │
+│                                  │  - Selected Country Velvet Pulse    │                         │
+│                                  └─────────────────────────────────────┘                         │
+│                                                     │                                            │
+│                                                     ▼                                            │
+│                                  ┌─────────────────────────────────────┐                         │
+│                                  │       FINAL RENDERED VIEWPORT       │                         │
+│                                  └─────────────────────────────────────┘                         │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+1. The Globe Mesh & Spatial Shader Parameters
+A. Base Sphere Geometry
+Mesh Primitive: SphereMesh (Godot 4.7 built-in, or imported Quad-Sphere for uniform pole UV density).
+Radius: $1.0\text{ m}$ in world space.
+Tessellation: Radial Segments: 128, Rings: 64 (budget: $16,384$ triangles; zero silhouette facetting at 1080p/4K).
+Transform: Position $(X: -0.22, Y: 0.0, Z: 0.0)$ in viewport space (shifted left by $22%$ of screen width to perfectly center the globe between the left screen edge and the $480\text{ px}$ right data panel).
+B. Ocean Surface Material Spec
+Visual Style: Deep, hand-rubbed black Japanese lacquer with deep oceanic bathymetric depth.
+Base Color (Deep Trenches): Obsidian Charcoal #121417 ($R: 0.071, G: 0.078, B: 0.090$).
+Shallow Water Color (Continental Shelves): Deep Indigo Slate #1b222c ($R: 0.106, G: 0.133, B: 0.173$).
+Bathymetric Gradient Formula: Linear blend based on coastline distance field texture: $$\text{OceanColor} = \text{mix}(\text{DeepColor}, \text{ShallowColor}, \text{clamp}(1.0 - \text{DistanceToCoast} \times 4.0, 0.0, 1.0))$$
+PBR Properties:
+Roughness: 0.18 (High-sheen polished lacquer; produces a crisp, tight specular highlight from the key light).
+Metallic: 0.10 (Subtle dielectric mineral depth).
+Specular: 0.65.
+C. Land Surface (Unselected Continents)
+Visual Style: Warm vulcanized graphite-matte finish with subtle topographical relief and combat popularity tinting.
+Base Land Color (Neutral): Dark Warm Graphite #242220 ($R: 0.141, G: 0.133, B: 0.125$).
+PBR Properties:
+Roughness: 0.78 (Ultra-matte chalk/leather feel; creates sharp material contrast against the glossy lacquer ocean).
+Metallic: 0.00.
+Combat Popularity Tinting ($0 - 100%$ Data Drive):
+Rather than coloring the whole globe like a rainbow, use a subtle, sophisticated heat underlay:
+Low Combat Popularity ($0 - 30$): Neutral Graphite #242220 (No tint).
+Medium Combat Popularity ($31 - 70$): Subtle infusion of Oiled Saddle Leather Brown (#3a281e, $+15%$ warmth).
+High Combat Popularity ($71 - 100$, e.g., UK, USA, Mexico, Japan): Infusion of Deep Burnished Bronze (#4d3319, $+25%$ warmth).
+This subtle tint communicates global boxing density organically without looking like an arcade heatmap.
+2. Borders, Coastlines & Outlines: The Dual-Hierarchy System
+========================================================================================================================
+VECTOR LINEWORK SPECIFICATION TABLE
+========================================================================================================================
+LINE TYPE               SCREEN WIDTH  BASE COLOR      HEX VALUE    ROUGHNESS  METALLIC  GLOW / EMISSION
+------------------------------------------------------------------------------------------------------------------------
+Primary Coastline       3.0 px        Brushed Brass   #d4af37      0.28       0.85      0.15 (Subtle metallic sheen)
+Internal Land Border    1.2 px        Aged Iron       #3d3a35      0.80       0.20      0.00 (Recessed hairline groove)
+Selected Outer Rim      4.0 px        Championship    #f0c233      0.20       0.95      0.65 (Active warm HDR bloom)
+Selected Inner Accent   1.5 px        Oxblood Red     #c62f2a      0.40       0.00      0.30 (Secondary registration)
+Hovered Border          2.5 px        Champagne Gold  #fae29c      0.25       0.80      0.40 (Instant visual pickup)
+========================================================================================================================
+
+Shader Implementation for Borders:
+Coastline Rendering (3.0 px):
+Extracted via distance-to-coast derivative fwidth() in fragment shader.
+Modulated by a metallic specular term so that as the globe spins, the brass coastlines catch the key light like real inlaid wire on an antique astrolabe.
+Internal Borders (1.2 px):
+Generated via Sobel edge-detection filter on the 24-bit nation ID texture.
+Rendered with negative normal-displacement mapping to appear as a physical stamped indentation into the continental land mass rather than a painted line.
+3. The Picked Country (Selection State)
+
+When a player selects the United Kingdom (or any country), the shader transitions from the neutral state into an illuminated velvet-and-brass display piece.
+
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                THE SELECTED COUNTRY SHADER STACK                                 │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                                  │
+│   1. EMBOSSED GOLD INNER-BORDER (4.0 px, #f0c233, Emission = 0.65)                              │
+│   2. OXBLOOD PIN-STRIPE ACCENT (1.5 px, #c62f2a, inset 2px from border)                          │
+│   3. VELVET SURFACE FILL:                                                                        │
+│      - Perimeter Edge: Rich Translucent Gold (#f0c233 at 65% opacity)                            │
+│      - Radial Center: Deep Oxblood / Burgundy Tint (#4a1412 at 40% opacity)                      │
+│   4. RHYTHMIC BREATHING PULSE:                                                                   │
+│      - Period: T = 2.40 seconds (Sine wave curve)                                                │
+│      - Opacity Swing: 40% -> 60% -> 40%                                                          │
+│      - Border Emission Swing: 0.50 -> 0.85 -> 0.50                                               │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+Complete GLSL Shader Code Snippet (Godot 4.7 Visual/Spatial Shader):
+// --- COUNTRY SELECTION HIGHLIGHT PASS ---
+uniform vec4 u_gold_rim_color : source_color = vec4(0.941, 0.761, 0.200, 1.0); // #f0c233
+uniform vec4 u_velvet_oxblood : source_color = vec4(0.290, 0.078, 0.071, 0.45); // Deep Oxblood
+uniform float u_selection_pulse_speed = 2.618; // 2.4 sec period (2*PI / 2.4)
+
+// Check if current fragment matches active country ID
+if (is_selected_country) {
+    // Calculate normalized distance from fragment to country border (0.0 = border, 1.0 = deep interior)
+    float border_dist = get_normalized_border_distance(uv); 
+    
+    // Rhythmic breathing timing (sine pulse)
+    float pulse = 0.5 + 0.5 * sin(TIME * u_selection_pulse_speed);
+    
+    // Dual border linework
+    if (border_dist < border_width_outer) {
+        // 4px Brass Outer Rim with active emission
+        ALBEDO = u_gold_rim_color.rgb;
+        ROUGHNESS = 0.20;
+        METALLIC = 0.95;
+        EMISSION = u_gold_rim_color.rgb * mix(0.50, 0.85, pulse);
+    } else if (border_dist < border_width_inner) {
+        // 1.5px Inset Oxblood Registration Pinstripe
+        ALBEDO = vec3(0.776, 0.184, 0.165); // #c62f2a
+        ROUGHNESS = 0.40;
+        METALLIC = 0.0;
+        EMISSION = vec3(0.776, 0.184, 0.165) * 0.3;
+    } else {
+        // Interior Velvet Gradient (Translucent gold fading into deep oxblood)
+        vec3 interior_color = mix(u_gold_rim_color.rgb * 0.7, u_velvet_oxblood.rgb, smoothstep(0.05, 0.6, border_dist));
+        float interior_alpha = mix(0.40, 0.60, pulse);
+        
+        ALBEDO = mix(base_land_color, interior_color, interior_alpha);
+        ROUGHNESS = 0.60;
+        METALLIC = 0.15;
+        EMISSION = interior_color * (0.15 * pulse);
+    }
+}
+
+4. The Hover State (Interactive Feedback)
+Trigger: Mouse pointer hovers over a valid nation polygon on the sphere.
+Transition Time: Exactly $80\text{ ms}$ linear ramp up, $120\text{ ms}$ ramp down on cursor exit.
+Visual Effect:
+Border: Snaps instantly to a $2.5\text{ px}$ Champagne Gold outline (#fae29c, Emission = 0.40).
+Fill: A subtle $+15%$ luminance lift (vec3(0.15)) across the hovered country polygon with 0.10 added metallic sheen.
+Cursor: Changes from default pointer to the bespoke brass glove hand cursor.
+5. The Marker: The Champion Brass & Enamel Medallion (Mesh & UI)
+
+Ditch the plastic pushpin completely. The new marker is authored as an authentic, heavy, 3D die-cast physical collectible medallion that projects proudly from the selected market’s capital/center.
+
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                             THE CHAMPION MEDALLION MARKER SPEC                                   │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                                  │
+│   DIMENSIONS AT 1080p: Width = 72 px, Height = 96 px (Includes Stem & Banner)                    │
+│                                                                                                  │
+│       ┌──────────────────────┐                                                                   │
+│      /    [ BRASS BEZEL ]     \          Outer Rim: Beveled Polished Brass (#f0c233)             │
+│     │   ┌──────────────────┐   │         Inner Disc: Recessed Oxblood Gloss Enamel (#c62f2a)     │
+│     │   │   CHAMPIONSHIP   │   │         Center Emblem: Stamped High-Relief Boxing Glove (#f0c233)│
+│     │   │    GOLD GLOVE    │   │                                                                 │
+│     │   └──────────────────┘   │                                                                 │
+│      \                        /                                                                  │
+│       └───┐              ┌───┘                                                                   │
+│           │ [BRASS STEM] │               Chunky tapered brass needle (Width: 6 px, Height: 24 px)│
+│           └───────┬──────┘                                                                       │
+│                   ▼                      Cast Drop Shadow: Oval soft shadow (#000000 at 75%)     │
+│               ● (Target)                                                                         │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+A. Marker Geometry & Materials
+Top Medallion Head: Octagonal beveled coin medallion ($38\text{ mm}$ real / $56\text{ px}$ screen diameter).
+Outer Bezel: Polished Cast Brass (#f0c233), Roughness 0.22, Metallic 0.95.
+Enamel Inlay: Deep Oxblood Red (#c62f2a), Roughness 0.08, Metallic 0.05 (Clearcoat enamel gloss).
+Center Icon: Extruded 3D Boxing Glove silhouette in Polished Gold (#f0c233), raised $0.8\text{ mm}$ above the enamel floor.
+Mounting Stem: Tapered fluted brass column ($6\text{ px}$ wide at top, tapering to $2\text{ px}$ at the ground point) anchored in a stepped circular brass collar on the globe surface.
+Surface Contact Shadow: An asymmetric soft projected shadow polygon rendered directly on the sphere surface:
+Color: Pure Black #000000 with Gaussian blur radius $8\text{ px}$, opacity 75%.
+Offset: $4\text{ px}$ East, $6\text{ px}$ South (matching Key Light vector).
+B. The Drop-In Animation (State Transition)
+Trigger: Fired immediately when a country is selected (via click or search list selection).
+Duration: Exactly $420\text{ ms}$ using a custom spring/overshoot damping curve.
+Animation Phases:
+$t = 0\text{ ms} - 240\text{ ms}$ (The Drop): Marker spawns $+120\text{ px}$ above the surface normal and drops vertically down with gravity acceleration ($y(t) = y_0 \cdot (1 - t^2)$).
+$t = 240\text{ ms}$ (The Impact): Marker contacts the brass collar. A $12\text{ px}$ circular golden shockwave ring (#f0c233) expands outward across the territory border and fades out over $180\text{ ms}$.
+$t = 240\text{ ms} - 420\text{ ms}$ (The Settle): Marker bounces vertically with damped harmonic oscillation:
+Bounce 1: $+14\text{ px}$ height at $t = 300\text{ ms}$.
+Bounce 2: $+3\text{ px}$ height at $t = 370\text{ ms}$.
+Settle: $0\text{ px}$ at $t = 420\text{ ms}$.
+Audio Hook: Play crisp, heavy mechanical brass latch sound effect (sfx_ui_metal_stamp_heavy.wav).
+C. The Name Tag Banner
+Attachment: Anchored to the right flank of the medallion head ($X\text{-offset} = +12\text{ px}$, $Y\text{-offset} = -4\text{ px}$).
+Dimensions: Width = Auto-fit ($140\text{ px} - 220\text{ px}$), Height = $32\text{ px}$.
+Background Frame: Antique Manila / Aged Parchment Cartouche (#f6f0e0), 2-segment chamfered corners ($4\text{ px}$ cut), bounded by a $1.5\text{ px}$ dark steel border (#2b2f36).
+Drop Shadow: $2\text{ px}$ offset, #000000 at $60%$ opacity.
+Typography:
+Font: League Gothic or DIN 1451 Condensed Bold.
+Text: All-Caps country name (e.g., "UNITED KINGDOM").
+Color: Deep Charcoal Steel (#22201f).
+Font Size: $18\text{ pt}$ ($24\text{ px}$ baseline).
+D. Edge-of-Globe Horizon Culling & Flipping Logic
+
+To prevent the marker from looking glitchy or clipping through the sphere silhouette when the selected country rotates toward the horizon:
+
+Normal Dot-Product Fade ($\vec{N} \cdot \vec{V}$):
+Compute the dot product between the country surface normal and the camera view vector: $$\alpha_{\text{vis}} = \text{clamp}\left(\frac{\vec{N} \cdot \vec{V} - 0.15}{0.30 - 0.15}, 0.0, 1.0\right)$$
+When $\vec{N} \cdot \vec{V} < 0.15$, the marker and name tag fade to $0%$ opacity smoothly.
+Screen-Edge Auto-Flip:
+If the marker’s screen $X$-position exceeds $X = 1380\text{ px}$ (approaching the right UI panel boundary), the Name Tag automatically mirrors its anchor to the left flank of the medallion ($X\text{-offset} = -(\text{Width} + 12\text{ px})$).
+6. Atmosphere & Theatrical Lighting Setup
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                   THREE-POINT LIGHTING SETUP                                     │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                                  │
+│                       [KEY LIGHT: Warm Tungsten Studio]                                          │
+│                       Position: (X: -2.5m, Y: 3.5m, Z: 4.0m)                                     │
+│                       Color: #fff4e0 (3200K), Energy: 2.20                                       │
+│                                      \                                                           │
+│                                       \                                                          │
+│                                        ▼                                                         │
+│   [FILL LIGHT: Deep Indigo]     ┌─────────────┐     [RIM LIGHT: Astrolabe Brass]                 │
+│   Position: (X: 4.0m, Y: -1.0m) │    GLOBE    │     Position: (X: 0.0m, Y: 2.0m, Z: -3.0m)       │
+│   Color: #141b24 (Indigo Slate) │   OBJECT    │     Color: #f0c233 (Antique Brass)               │
+│   Energy: 0.45                  └─────────────┘     Energy: 1.85, Direction: Pure Back-Rim       │
+│                                        ▲                                                         │
+│                                       /                                                          │
+│                                      /                                                           │
+│                       [FRESNEL ATMOSPHERE SHADER]                                                │
+│                       Inverted rim falloff: Power 4.2                                            │
+│                       Color: #f0c233 -> #c62f2a gradient                                        │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+The Key Light: Placed top-left-front. Illuminates the selected European/Atlantic theater with a rich, soft studio highlight that catches the glossy black ocean without blowing out the landmasses.
+The Back-Rim Light: Directly behind the sphere. Emphasizes the crisp spherical silhouette with an authentic brass edge line, separating the globe from the dark background.
+The Atmosphere Fresnel Shader: A custom rim pass applied inside the globe material: $$\text{Rim} = \text{pow}(1.0 - \max(\vec{N} \cdot \vec{V}, 0.0), 4.2) \times \text{mix}(\text{vec3}(#\text{c62f2a}), \text{vec3}(#\text{f0c233}), 0.75)$$ This creates an ultra-thin, luxurious antique gold aura that softens into oxblood leather red right at the grazing angle, eliminating the cheap flat orange line from the old build.
+7. The Backdrop: Vintage Cartographic Astrolabe Chamber
+
+The raw grey letterbox void is eliminated entirely. The globe floats in a bespoke, deeply textured fullscreen 2D/3D compositor layer:
+
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                    THE FULLSCREEN CANVAS STACK                                   │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                                  │
+│   LAYER 0: Base Backdrop Slate (#181716, Aged Warm Cast Iron)                                    │
+│   LAYER 1: Radial Vignette Mask (Center: #22201f at 0% -> Outer Rim: #0a0a09 at 90%)             │
+│   LAYER 2: Astrolabe Orbital Rings:                                                              │
+│            - 3 concentric circular rings centered behind the globe (Radii: 420px, 580px, 780px)   │
+│            - Linework: 1.5px Antique Brass (#d4af37 at 22% opacity)                             │
+│            - Degree ticks every 15° with fine Roman numerals                                     │
+│   LAYER 3: Topographic Compass Rose (Etched faintly at bottom-left X: 180, Y: 900)               │
+│   LAYER 4: Micro-Parchment Grain Overlay (Procedural simplex noise, 3% alpha, blend mode: OVERLAY│
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+8. The Right-Hand Market Panel (Data Hierarchy & Layout)
+
+The right panel is no longer a transparent floating text dump; it is a solid, weighted, chamfered tactical document card that docks flush to the right viewport border.
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ [X: 1440 to 1920, Width = 480 px, Full Height = 1080 px]                     │
+│ BACKGROUND: Deep Charcoal Card (#1d1c1a) with 2px Brass Inner Border (#f0c2) │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│   ┌──────────────────────────────────────────────────────────────────────┐   │
+│   │ REGION TITLE BAR (Height = 84 px)                                    │   │
+│   │ [FLAG ICON: 48x32 px]  UNITED KINGDOM                                │   │
+│   │ Subtitle: "TIER 1 GLOBAL COMBAT REGION" (Ochre #d4af37, 13 pt)       │   │
+│   └──────────────────────────────────────────────────────────────────────┘   │
+│                                                                              │
+│   ═══════════════════ ENGRAVED BRASS SEPARATOR

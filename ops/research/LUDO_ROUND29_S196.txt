@@ -1,0 +1,312 @@
+FIGHTCAMP: TECHNICAL DESIGN DOCUMENT (PART 2)
+SECTION D - WEEK PLANNER BLOCK DETAILS (CONCLUDED)
+4. Sample Schedule: Boxer 5 Weeks Out from Title Fight (Continued)
+
+Target: 5 weeks out (W-5). Phase: High-load strength, tactical installation, controlled aerobic deficit ($-0.75%\text{ BW/week}$). Starting Fatigue: 12/100.
+
++-------------------------------------------------------------------------------------------------------------------------+
+| DAY       | MORNING (08:30 - 11:00)         | AFTERNOON (14:00 - 16:30)       | EVENING (18:00 - 20:00)       | NET EOD FTG |
++-------------------------------------------------------------------------------------------------------------------------+
+| Monday    | Zone-2 Roadwork (Cardio Deck)   | Technical Pads (Pad Lane)       | S&C Maximum (Power Rack)      | 48 / 100    |
+| Tuesday   | Agility & Footwork (Ladder/Mir) | Hard Sparring (Training Ring)   | Active Recovery (Mats/Plunge) | 54 / 100    |
+| Wednesday | Heavy Bag Power (Bag Rail)      | Slip Line / Head Movement       | Tactical Film (Office)        | 62 / 100    |
+| Thursday  | Zone-2 Roadwork (Cardio Deck)   | Technical Pads (Pad Lane)       | Total Rest (Sleep / Nutrition)| 38 / 100    |
+| Friday    | Dynamic Warmup / Jump Rope      | Hard Sparring (Training Ring)   | S&C Hypertrophy (Weights)     | 68 / 100    |
+| Saturday  | Heavy Bag Conditioning          | Open Mat Flow / Clinch Spar     | Active Recovery (Mats/Sauna)  | 52 / 100    |
+| Sunday    | Total Rest                      | Total Rest                      | Tactical Film (Tape Study)    | 14 / 100    |
++-------------------------------------------------------------------------------------------------------------------------+
+
+
+Weekly Aggregates: Sparring: 2 sessions (16 total rounds) | Hard S&C: 2 sessions | Pads/Technical: 3 sessions | Net Fatigue Delta: $+2$ points week-over-week (fully sustainable).
+
+SECTION E - MEMBER ACCESS POLICY DEFAULTS
+
+Civilian gym members pay the facility's baseline operating overhead (lease, utilities, commercial insurance), but create physical congestion, equipment wear, and space contention for elite camp athletes.
+
+1. Policy Default Configurations & Strategic Trade-Offs
++--------------------------------------------------------------------------------------------------------------------------+
+| POLICY LEVER            | DEFAULT VALUE    | OPERATIONAL TRADE-OFF                 | FINANCIAL IMPACT | FIGHTER IMPACT    |
++-------------------------+------------------+---------------------------------------+------------------+-------------------+
+| Pro Fighter Ring Access | 13:00 - 16:30    | Civilians barred from ring during pro | -12% Member dues | +40% Sparring     |
+|                         | Protected Window | sparring blocks.                      | (Prime hours cut)| execution quality |
++-------------------------+------------------+---------------------------------------+------------------+-------------------+
+| Station Allocation Cap  | Max 65% civilian | 35% of all bags, racks, and cardio    | -18% Member cap  | Zero wait-states  |
+|                         | floor occupancy  | spots reserved for camp athletes.     | ceiling          | on station queues |
++-------------------------+------------------+---------------------------------------+------------------+-------------------+
+| Ring Commercial Rental  | Weekend Evenings | Rents training ring for corporate/am  | +$1,800 / month  | Cuts Saturday pm  |
+|                         | (Sat/Sun 18-22h) | bouts; blocks fighter weekend prep.   | non-dues revenue | ring access       |
++-------------------------+------------------+---------------------------------------+------------------+-------------------+
+| Civilian Drop-in Guests | Banned entirely  | Day-passes barred to maintain secure, | -$650 / month in | Prevents crowd    |
+|                         | (Members only)   | focused training environment.         | walk-in revenue  | distractions/leaks|
++-------------------------+------------------+---------------------------------------+------------------+-------------------+
+| S&C Bay Priority        | Camp First-Right | Fighters bump paying members off the  | -8 Net NPS churn | S&C workouts      |
+|                         | Over Racks/Plats | power rack with zero wait delay.      | per quarter      | run without delay |
++-------------------------+------------------+---------------------------------------+------------------+-------------------+
+
+2. Equipment Wear Degradation Bands & Maintenance Engine
+
+Every gym station tracks physical integrity from $100%$ down to $0%$. Wear is accelerated by both high-volume civilian usage and heavyweight pro fighters.
+
++-----------------------------------------------------------------------------------------------------------------------+
+| WEAR BAND       | STRUCTURAL CONDITION | PERFORMANCE PENALTY              | INJURY RISK MULTIPLIER | FINANCIAL ACTION |
++-----------------------------------------------------------------------------------------------------------------------+
+| 100% - 75%      | Pristine / Calibrated| None. Full baseline gains.       | 1.00x (Baseline)       | Routine inspect  |
+| 74% - 45%       | Worn / Padding Packed| -8% Skill acquisition velocity   | 1.25x Soft tissue risk | Field repair kit |
+| 44% - 15%       | Degraded / Structural| -25% Velocity; -15% Power output | 2.10x Sprain/tear risk | Professional refit|
+| 14% - 0%        | Broken / Condemned   | Station locked; zero usage       | 4.50x Catastrophic fail| Complete teardown|
++-----------------------------------------------------------------------------------------------------------------------+
+
+Equipment Repair vs. Replacement Decision Math
+Field Repair (In-House Maintenance):
+Cost: $15%$ of original equipment Capex. Restores $+30%$ condition up to a maximum ceiling of $75%$.
+Time: 4 hours floor downtime. Station blocked during maintenance.
+Factory Rebuild / Replacement:
+Cost: $100%$ of Capex. Resets condition to $100%$.
+Disposal Fee: $10%$ of Capex to remove scrap steel/matting.
+Decision Logic: When lifetime repair spend exceeds $60%$ of replacement cost, the engine automatically routes the asset for replacement.
+SECTION F - ANIMATION: REMAINING TECHNICAL DELIVERABLES
+1. Two-Fighter Grappling Specifications (Remaining Move Groups)
+GROUP 3: Ma-Sutemi-Waza (Sacrifice Throws: Tomoe-Nage, Sumi-Gaeshi)
+Contact Sockets:
+Tori Lead Hand $\to$ Uke Lapel Collar (Grip_Collar_L).
+Tori Rear Hand $\to$ Uke Tricep Sleeve (Grip_Sleeve_R).
+Tori Active Foot Instep $\to$ Uke Lower Abdominal Crease (Spine_Root anchor).
+Hip Relationship: Tori drops hips directly beneath Uke's $COM$: horizontal offset $\Delta Z = -15\text{ cm}$, vertical drop $\Delta Y = -65\text{ cm}$. Uke pulled forward directly over Tori’s supine torso.
+Timeline (ms):
+T+0 to 160 ms: Tori pulls down on collar, breaking Uke's posture forward (spine tilt $+18^\circ$).
+T+160 to 320 ms: Tori sits down beneath Uke's base, placing the foot into Uke's lower abdomen.
+T+320 to 500 ms: Tori straightens the placing leg upward like a piston. Uke rotates along the pitch axis.
+T+500 to 780 ms: Ballistic uncoupling. Uke completes the flip and hits the mat; Tori uses the momentum to roll backward into mount or disengages.
+Camera: Low-angle 3/4 perspective tracking Uke's vertical elevation apex.
+20 Hz Sim Events: EVENT_SACRIFICE_COMMIT, ELEVATION_IMPULSE_APPLIED, UKEMI_TRIGGERED.
+GROUP 4: Osaekomi-Waza (Pins: Kesa-Gatame, Kami-Shiho, Side Control, Mount)
+Contact Sockets:
+Tori Underhook $\to$ Uke Cervical Spine/Head wrap (Grip_Neck).
+Tori Far Underhook $\to$ Uke Tricep cup (Grip_Tricep_Far).
+Chest-to-Chest Plane: Symmetrical sternum alignment; normal vectors offset by $180^\circ \pm 15^\circ$.
+Hip Relationship: Tori's hips lowered within $5\text{ cm}$ of the mat; wide base of support ($>95\text{ cm}$ knee spread).
+Timeline (ms):
+Continuous loop ($1,200\text{ ms}$ micro-adjustment cycle) tracking Tori's chest pressure.
+T+0 to 350 ms: Uke initiates bridge/shrimp; hips elevate $+14\text{ cm}$, attempting to turn onto side.
+T+350 to 650 ms: Tori counters by dropping hip weight into the pocket, flattening Uke back out.
+Camera: High $60^\circ$ isometric overhead framing; reveals pinning wedges and prevents mat clipping.
+20 Hz Sim Events: PIN_ESTABLISHED, PRESSURE_INDEX_DELTA, PIN_ESCAPE_ATTEMPT.
+GROUP 5: Kansetsu & Nage-Kansetsu (Joint Locks & Throws into Lock: Juji-Gatame, Ude-Garami)
+Contact Sockets:
+Tori Thighs $\to$ Uke Upper Humerus clamp (dual inner thigh pinch).
+Tori Dual Hands $\to$ Uke Distal Forearm / Wrist joint.
+Hip Pivot $\to$ Uke Glenohumeral Joint capsule: separation distance $< 3\text{ cm}$.
+Hip Relationship: Tori sits tight against Uke's lateral ribs, perpendicular ($90^\circ \pm 10^\circ$) to Uke's torso.
+Timeline (ms):
+T+0 to 280 ms: Limb isolated and secured. Uke attempts to clasp defensive hands together.
+T+280 to 520 ms: Grip break. Tori extends spine backward, pulling Uke's arm straight.
+T+520 to 750 ms: Hyperextension phase. Tori lifts hips $+8\text{ cm}$, extending the elbow joint. Uke submits with a 3-tap sequence ($100\text{ ms}$ cadence).
+Camera: Close-in framing focused on the trapped joint and hyper-extension point.
+20 Hz Sim Events: SUB_ISOLATION_LOCKED, GRIP_BREAK_SUCCESS, JOINT_TAP_SUBMIT.
+GROUP 6: BJJ Guard Passing (Torreando, Knee-Slice, Over-Under)
+Contact Sockets:
+Tori Hands $\to$ Uke Pants Cuffs / Ankle collars (Grip_Ankle_L/R).
+Alternative (Knee-Slice): Tori Hand $\to$ Collar; Tori Knee $\to$ Uke Inner Thigh bisection.
+Hip Relationship: Tori stands or kneels above Uke; horizontal center offset: $\Delta Z = 45\text{ cm}$.
+Timeline (ms):
+T+0 to 240 ms: Tori pins Uke's feet or redirects knees laterally off-centerline.
+T+240 to 480 ms: Dynamic pass. Tori drives hip through Uke's guard line.
+T+480 to 700 ms: Settlement. Tori establishes chest-to-chest contact in side control.
+Camera: Medium 3/4 perspective tracking the lateral leg-drag path.
+20 Hz Sim Events: PASS_INITIATED, GUARD_CLEARED, SIDE_CONTROL_SECURED.
+GROUP 7: BJJ Leg Locks (Ashi Garami, Straight Ankle, Heel Hook)
+Contact Sockets:
+Tori Primary Arm Pit $\to$ Uke Achilles / Calcaneus shelf.
+Tori Legs $\to$ Uke Hip and far thigh clamp (Single Leg X / 50/50 configuration).
+Hip Relationship: Tori seated on the mat, hip-to-hip with Uke: lateral displacement $< 20\text{ cm}$.
+Timeline (ms):
+T+0 to 200 ms: Entanglement wrap (Ashi Garami). Foot pinned under armpit.
+T+200 to 450 ms: Heel exposed. Wrist hooks under the calcaneus; hips bridge into the lateral knee.
+T+450 to 650 ms: Breaking torque applied. Uke taps immediately to avoid ligament rupture.
+Camera: Low perspective focused on the ankle clamp and knee rotational line.
+20 Hz Sim Events: LEG_ENTANGLE_SECURED, HEEL_HOOK_THREADED, LEG_LOCK_TAP.
+GROUP 8: BJJ Escapes (Shrimping, Bridge & Roll, Guard Recovery)
+Contact Sockets:
+Uke Forearms $\to$ Tori Hip Bones and throat shelf (Defensive framing).
+Uke Planted Feet $\to$ Mat canvas (Pre-bridge loading point).
+Hip Relationship: Distance expands dynamically from $0\text{ cm}$ (pinned) to $35\text{ cm}$ (space created).
+Timeline (ms):
+T+0 to 180 ms: Uke drives feet into the mat, bridging hips upward by $+16\text{ cm}$.
+T+180 to 420 ms: Uke scoots hips away from Tori (shrimping), inserting the bottom knee as a shield.
+T+420 to 650 ms: Frame reset. Uke pulls Tori back into full closed guard.
+Camera: Overhead isometric $45^\circ$ angle tracking the expanding space between hips.
+20 Hz Sim Events: ESCAPE_BRIDGE_FIRE, FRAME_INSERTED, GUARD_RECOVERED.
+GROUP 9: BJJ Submission Chains (Transition Trees)
+Built as branch points off defensive counters rather than standalone animations:
+Armbar $\to$ Triangle: Uke pulls their elbow free of the armbar $\to$ Tori slips the leg over Uke's neck, locking ankles into a triangle choke.
+Kimura $\to$ Guillotine: Uke rolls their shoulder forward to defend the arm lock $\to$ Tori releases the wrist and wraps the neck into a high-elbow front guillotine.
+2. The 8 Observable Human Cues per Discipline (Quantitative Validation)
++--------------------------------------------------------------------------------------------------------------------------+
+| # | KICKBOXING                  | KARATE                      | JUDO                        | BJJ                        |
++---+-----------------------------+-----------------------------+-----------------------------+----------------------------+
+| 1 | **Phase Ratio: 1 : 0.8 : 2.2**| **Phase Ratio: 1 : 0.5 : 1**| **Kuzushi Pre-Entry Timing**| **Kinematic Frame Tension**|
+|   | Windup 160ms : Strike 120ms | Windup 100ms : Strike 60ms  | Uke COM pulled 15cm off-base| Elbow-to-knee space stays  |
+|   | : Recovery 350ms.           | : Recovery 120ms (Kime hold)| 140ms *before* hip contact. | < 18cm during guard recovery|
++---+-----------------------------+-----------------------------+-----------------------------+----------------------------+
+| 2 | **Hip-First Sequencing**    | **Zero-Telegraph Initiation**| **Fulcrum Pelvis Drop**    | **Active Head Framing**    |
+|   | Pelvis rotates 40ms before  | Front foot launches with <  | Tori hips drop 12cm below   | Head wedges under jaw to   |
+|   | the lead shoulder turns.    | 1cm backward weight shift.  | Uke's hip before hip throws.| control spine alignment.   |
++---+-----------------------------+-----------------------------+-----------------------------+----------------------------+
+| 3 | **Stance Ground Anchoring** | **Kime Deceleration Shock** | **Gi Sleeve Tension Arc**   | **Pelvic Mat Bridging**    |
+|   | Rear heel lifts, but ball of| Strike velocity stops in    | Pulling hand applies 450 N  | Hips clear mat by >= 12cm  |
+|   | foot stays planted on jab.  | < 25ms; no arm recoil float.| continuous tension line.    | to power sweeps/escapes.   |
++---+-----------------------------+-----------------------------+-----------------------------+----------------------------+
+| 4 | **Roundhouse Base Pivot**   | **Hikite Recoil Symmetry**  | **Reaping Leg Acceleration**| **Hip Shrimping Lateral**  |
+|   | Support foot pivots 90-135° | Non-striking hand retracts  | Sweeping leg hits >12 m/s   | Hips slide >= 25cm lateral |
+|   | before the kick lands.      | to hip at same speed as hit.| at impact; no linear drags. | before leg guard re-inserts.|
++---+-----------------------------+-----------------------------+-----------------------------+----------------------------+
+| 5 | **Impact Head Translation** | **Low Stance Base (Dachi)** | **Ukemi Arm Breakfall**     | **Adductor Thigh Clamp**   |
+|   | Head displaces 6-14cm along | Knee flexion holds at 110°  | Slapping hand hits mat 35ms | Inner thighs squeeze with  |
+|   | the strike line on hit.     | through delivery and reset. | before back impacts floor.  | < 8cm gap on armbars.      |
++---+-----------------------------+-----------------------------+-----------------------------+----------------------------+
+| 6 | **Dynamic Guard Recovery**  | **Chamber Height Tracking** | **Continuous Head Turn**   | **Overhook Clamping**      |
+|   | Hand recovers directly to   | Knee chambers to chest level| Tori head turns fully into  | Bicep clamps opponent's arm|
+|   | cheekbone; no looping drops.| before snapping forward.    | throw 60ms before impact.   | flush to chest (< 2cm gap).|
++---+-----------------------------+-----------------------------+-----------------------------+----------------------------+
+| 7 | **Slip/Weave Dip Timing**   | **Linear Torso Alignment**  | **Stance Widening Base**    | **Micro Grip Walking**     |
+|   | Head drops 15-22cm via knee | Torso/pelvis stay aligned;  | Uke widens base +20cm to    | Fingers adjust grip point  |
+|   | bend, not waist bending.    | zero slouch or lean on zuki.| resist entry attempts.      | in discrete 3-5cm steps.   |
++---+-----------------------------+-----------------------------+-----------------------------+----------------------------+
+| 8 | **Diaphragmatic Breathing** | **Crisp Snapping Recoil**   | **Mat Impact Deceleration** | **Heavy Hip Sprawl**       |
+|   | Shoulder roll drops 4cm on  | Kick snaps back to chamber  | Thrown body stops in < 30ms;| Hips drop within 4cm of    |
+|   | heavy exhales/strikes.      | before foot returns to floor| no unnatural physics bounce.| mat; knees elevated clear. |
++---+-----------------------------+-----------------------------+-----------------------------+----------------------------+
+
+3. Corrected Failure Modes 3 and 4 (Godot 4.7 Skeleton Updates)
+
+In Godot 4.7, modifying bone transforms during regular process loops causes transform jitter and breaks spatial caching. Bone modifications must be queued and written via deferred overrides during the post-evaluation pass.
+
+Corrected Failure Mode 3: Base-of-Support Balance via Deferred Skeleton Pass
+# File: FightAliveStance.gd
+extends Node
+
+func _process_skeleton_deferred_balance(skeleton: Skeleton3D, max_lean_ratio: float = 0.85) -> void:
+	if not skeleton:
+		return
+	var pelvis_idx: int = skeleton.find_bone("Hips")
+	var l_foot_idx: int = skeleton.find_bone("LeftFoot")
+	var r_foot_idx: int = skeleton.find_bone("RightFoot")
+	if pelvis_idx == -1 or l_foot_idx == -1 or r_foot_idx == -1:
+		return
+		
+	var lf_pos: Vector3 = skeleton.get_bone_global_pose(l_foot_idx).origin
+	var rf_pos: Vector3 = skeleton.get_bone_global_pose(r_foot_idx).origin
+	var p_trans: Transform3D = skeleton.get_bone_global_pose(pelvis_idx)
+	
+	var support_center: Vector3 = (lf_pos + rf_pos) * 0.5
+	var support_span: float = (lf_pos - rf_pos).length() * 0.5 * max_lean_ratio
+	
+	var com_horizontal: Vector3 = Vector3(p_trans.origin.x, 0.0, p_trans.origin.z)
+	var base_horizontal: Vector3 = Vector3(support_center.x, 0.0, support_center.z)
+	var offset: Vector3 = com_horizontal - base_horizontal
+	
+	if offset.length() > support_span:
+		var clamped_pos: Vector3 = base_horizontal + (offset.normalized() * support_span)
+		p_trans.origin.x = clamped_pos.x
+		p_trans.origin.z = clamped_pos.z
+		# Deferred override ensures proper engine skeleton batching
+		skeleton.set_bone_global_pose_override(pelvis_idx, p_trans, 0.90, true)
+
+Corrected Failure Mode 4: Cervical Spine Kinematic Chain with Chin-Tuck Clamp
+# File: FightAliveStance.gd
+extends Node
+
+func _process_skeleton_deferred_head_look(skeleton: Skeleton3D, target_aim_point: Vector3, chin_tuck_factor: float) -> void:
+	if not skeleton:
+		return
+	var head_idx: int = skeleton.find_bone("Head")
+	var neck_idx: int = skeleton.find_bone("Neck")
+	var spine2_idx: int = skeleton.find_bone("Spine2")
+	if head_idx == -1 or neck_idx == -1 or spine2_idx == -1:
+		return
+
+	var head_trans: Transform3D = skeleton.get_bone_global_pose(head_idx)
+	var forward_dir: Vector3 = -head_trans.basis.z.normalized()
+	var target_dir: Vector3 = (target_aim_point - head_trans.origin).normalized()
+	
+	# Clamp horizontal aim angle to biological limits (max 48 deg total cervical rotation)
+	var full_rotation: Quaternion = Quaternion(forward_dir, target_dir)
+	var clamped_rot: Quaternion = Quaternion.IDENTITY.slerp(full_rotation, 0.45)
+	
+	# Split rotation down the cervical-thoracic chain
+	var sp2_rot: Quaternion = skeleton.get_bone_pose_rotation(spine2_idx)
+	var neck_rot: Quaternion = skeleton.get_bone_pose_rotation(neck_idx)
+	var head_rot: Quaternion = skeleton.get_bone_pose_rotation(head_idx)
+	
+	skeleton.set_bone_pose_rotation(spine2_idx, sp2_rot * clamped_rot.slerp(Quaternion.IDENTITY, 0.70))
+	skeleton.set_bone_pose_rotation(neck_idx, neck_rot * clamped_rot.slerp(Quaternion.IDENTITY, 0.40))
+	
+	# Chin-tuck offset rotates head downward along local X-axis toward the sternum
+	var chin_pitch: Quaternion = Quaternion(Vector3.RIGHT, deg_to_rad(14.0 * clampf(chin_tuck_factor, 0.0, 1.0)))
+	skeleton.set_bone_pose_rotation(head_idx, (head_rot * clamped_rot * chin_pitch).normalized())
+
+4. Staged Codex/Cursor Task List
+Task 1: Head Translation & Recoil on Landed Punch (Cheapest Boxing Fix)
+Problem: Punches connect with the head, but the target's head stays rigid while their hips play a canned reaction animation.
+Owned Files: FightPoseSolver.gd, FightAliveStance.gd
+RED Acceptance Test: Run headless integration test. Assert head displacement along strike vector $\ge 6.0\text{ cm}$ within $30\text{ ms}$ of impact, and confirm chin-to-sternum distance stays $< 18.0\text{ cm}$.
+Test Command:
+godot --headless --path . -s test/test_strike_head_displacement.gd
+
+Task 2: Root-Motion Ground Slide Elimination
+Problem: Feet skate horizontally across the canvas during forward lunging jabs and hooks.
+Owned Files: FightClipRetarget.gd, FightClipFootPlant.gd
+RED Acceptance Test: Track ankle global velocity while foot_planted == true. Assert horizontal slide speed $< 2.5\text{ cm/s}$ throughout the animation.
+Test Command:
+godot --headless --path . -s test/test_foot_sliding_zero.gd
+
+Task 3: Asymmetric Kinetic Strike Trajectory (Punch S-Curves)
+Problem: Punches extend and retract at a constant linear speed, reading like machine pistons.
+Owned Files: FightBeatAdapter.gd, FightStagePlayer.gd
+RED Acceptance Test: Assert hand acceleration curve peaks within the final $25%$ of extension trajectory, and ensure retract velocity is $1.8\times$ faster than windup velocity.
+Test Command:
+godot --headless --path . -s test/test_punch_kinetic_velocity.gd
+
+Task 4: Two-Fighter Distance Anchor Solver
+Problem: Paired fighters slowly drift apart or clip into each other during strike-block trades.
+Owned Files: FightBeatAdapter.gd, FightPoseSolver.gd
+RED Acceptance Test: Assert impact distance between striking knuckle surface and defender guard/head hurtbox is within $[1.5\text{ cm}, 3.0\text{ cm}]$ across 100 consecutive strikes.
+Test Command:
+godot --headless --path . -s test/test_fighter_clash_distance.gd
+
+Task 5: Coupled Grapple Node & Breaking Mat Release
+Problem: Grappling fighters decouple during throws, leaving the thrown fighter floating or misaligned.
+Owned Files: FightStagePlayer.gd, FightClipBinding.gd
+RED Acceptance Test: Execute throw sequence. Assert Uke pelvis tracks Tori hip offset $\pm 4.0\text{ cm}$ until release apex, and confirm Uke vertical deceleration spikes $\ge 80\text{ m/s}^2$ on mat impact.
+Test Command:
+godot --headless --path . -s test/test_throw_kinematic_coupling.gd
+
+5. Automated Proof: Biomechanical Validation for Osoto-Gari
+
+A throw is confirmed as physically human when it meets four automated kinematic criteria extracted from joint position CSV data.
+
+                      OSOTO-GARI PASS CRITERIA
+     [Kuzushi: 0-180ms]           [Reap: 280-420ms]           [Impact: 520ms]
+     Uke COM pulled +18cm         Reap foot hits 11.2 m/s     Mat hit decel >85 m/s²
+     Uke spine tilts -14°         Leg passes partner knee     Breakfall slap at -42ms
+
+Pass Criteria Checklist
+Kuzushi Off-Balancing Lead: Uke’s ground center of mass ($COM_{xz}$) must displace by $\ge 16.0\text{ cm}$ toward their rear heel before Tori's reaping foot leaves the mat ($T < 180\text{ ms}$).
+Dynamic Reap Velocity: Tori’s sweeping ankle must accelerate along an arc reaching $\ge 9.5\text{ m/s}$ peak velocity, making contact behind Uke's knee joint.
+Continuous Kinetic Chain: Tori's chest must maintain direct contact with Uke's chest (separation distance $< 8.0\text{ cm}$) from $T = 200\text{ ms}$ through $T = 440\text{ ms}$.
+Ukemi Breakfall Cadence: Uke's slapping arm must strike the floor canvas between $30\text{ ms}$ and $50\text{ ms}$ before Uke's scapula/spine hits the mat, decelerating Uke's torso from an impact velocity $\ge 4.5\text{ m/s}$.
+SECTION G - 10 VALUABLE MANAGEMENT SIMULATION QUESTIONS
+Purse & Revenue Splits: What are the exact contractual revenue shares between promoter, gym, head coach, and athlete across low-tier regional cards vs. seven-figure championship pay-per-views?
+Cutman & Corner Directives: How deep should corner work between rounds be modeled? (e.g., managing cut severity, swelling over eyes, and tactical coaching instructions under a strict 60-second timer).
+Gym Prestige Economy: What specific gameplay systems feed gym reputation? (e.g., amateur tournament medals, high-profile championship knockouts, or producing reliable sparring partners for world-tier champions).
+Coach Trait Specializations: How are coaching staff structured? (e.g., unified skill ratings vs. distinct tactical mentalities like aggressive pressure, Cuban outside-footwork, or Eastern European high-guard volume).
+Career Aging & Degradation: What mathematical model drives fighter physical decline? (e.g., linear age-based decay vs. career trauma accumulation, historical concussions, and severe weight-cut damage).
+Amateur Scouting Pipeline: How do amateur talent pools work? (e.g., regional scouting networks, poaching prospects from rival gyms, or scouting Golden Gloves and Olympic qualifiers).
+Promotion Politics & Sanctioning Bodies: Are world belts unified or split across multiple competing sanctioning bodies (WBC/WBA/IBF/WBO equivalents), each with their own mandatory challengers, sanctioning fees, and promotional rivalries?
+Sparring Partner Market: Can gyms hire specialized external sparring partners to mimic an upcoming opponent's style (e.g., a tall southpaw mover), and do partners carry injury liability risks?
+Financial Insolvency Systems: What happens when cash runs out? (e.g., debt restructuring, selling fighter contracts, taking loans from shady promoters, or closing the gym doors in a game over state).
+Corner-to-Fighter Communication Friction: Does a fighter always follow strategic adjustments between rounds, or does low fighter ring-IQ, panic, fatigue, and ego cause them to ignore corner advice and fight on instinct?
+Can you continue from Section D and provide the complete worked Monday–Sunday schedule with real-world benchmark assumptions?
+Can you write Section E as terse implementation-ready tables for a PC deep management simulation?
+Can you finish Section F items 1–5, including measurable human-looking osoto-gari acceptance criteria and Godot 4.7 tests?
+Can you create a visual storyboard of the human-looking osoto-gari sequence with contact anchors, timing, camera, and release frames?

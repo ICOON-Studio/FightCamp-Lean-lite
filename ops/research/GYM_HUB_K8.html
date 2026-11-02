@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>FightCamp · K8 GYM Hub · Kalli</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@500;600;700&display=swap">
+<style>
+:root{
+  --ground:#1c2230;--ground-2:#242c3d;--panel:#2a3347;--panel-hi:#34405a;--panel-lo:#222a3b;
+  --track:#111621;--edge:#121722;--line:#4a5a78;--line-soft:#2b3340;
+  --text:#f3f5fa;--text-2:#c9d1e0;--muted:#94a1b8;--dim:#6d7688;--ink:#1b1207;--link:#7fb6ee;
+  --gold:#f0c233;--gold-hi:#f7d65a;--gold-lo:#c99a1a;--gold-edge:#7a5c0c;
+  --gym:#2f6fb0;--gym-hi:#3f86cc;--gym-lo:#24558a;--gym-deep:#1a3d63;--gym-tint:rgba(47,111,176,.22);
+  --go:#22c55e;--go-hi:#4ade80;--go-lo:#15803d;--go-edge:#0b4a23;
+  --slate:#3f4a62;--control:#303a52;--chip:#333d52;--avatar:#3b4557;
+  --good:#4fc46a;--amber:#f0a020;--bad:#e5433a;--bad-edge:#5a120e;
+  --day:#171a22;--day-today:#1e2836;
+  --display:"Bebas Neue","Haettenschweiler","Arial Narrow",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --edge-hi:rgba(255,255,255,.14);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#0f131b;color:var(--text);font-family:var(--mono);font-size:13px;font-weight:500;line-height:1.35;-webkit-font-smoothing:antialiased}
+.doc{padding:28px 24px 80px;max-width:1960px;margin:0 auto}
+.eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.mast h1{font-family:var(--display);font-size:52px;letter-spacing:.02em;line-height:.94;margin:6px 0 10px}
+.mast p{max-width:96ch;color:var(--text-2);margin:0 0 8px}
+.rules{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 28px}
+.rules span{font-size:12px;letter-spacing:.08em;font-weight:700;padding:6px 10px;border:1px solid var(--edge);border-radius:3px;background:var(--panel-lo);color:var(--muted)}
+.sec{margin:36px 0 18px}
+.sec h2{font-family:var(--display);font-size:32px;letter-spacing:.06em;margin:0 0 6px}
+.sec p{margin:0;color:var(--text-2);max-width:92ch}
+.note{margin-top:8px;font-size:12px;letter-spacing:.04em;color:var(--muted)}
+.board{width:1920px;height:1080px;position:relative;overflow:hidden;background:var(--ground);border:none;margin:16px 0 40px;box-shadow:0 24px 60px rgba(0,0,0,.55)}
+.shell{width:100%;height:100%;position:relative;background:var(--ground)}
+.top{position:absolute;left:402px;top:16px;width:1494px;height:92px;background:linear-gradient(180deg,rgba(52,64,90,.98),rgba(38,46,66,.98));border:1px solid var(--edge);border-radius:3px;box-shadow:0 1px 0 var(--edge-hi) inset;display:grid;grid-template-columns:1fr auto;overflow:hidden}
+.top .left{padding:8px 14px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.crumb{font-size:12px;letter-spacing:.12em;font-weight:700;color:var(--muted)}
+.pills{display:flex;gap:8px;align-items:center}
+.pill{height:28px;padding:0 12px;border-radius:3px;border:1px solid var(--edge);display:inline-flex;align-items:center;font-size:12px;letter-spacing:.1em;font-weight:700;background:linear-gradient(180deg,#3a4560,#2b3449)}
+.pill.gold{background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:var(--ink);border-color:var(--gold-edge);box-shadow:0 1px 0 rgba(255,255,255,.35) inset}
+.daystrip{display:flex;gap:4px;margin-left:10px}
+.daycell{width:46px;height:28px;border-radius:2px;background:var(--day);border:1px solid var(--edge);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10px;letter-spacing:.06em;font-weight:700;color:var(--dim);line-height:1.05}
+.daycell .n{font-family:var(--display);font-size:14px;color:var(--text-2)}
+.daycell.on{background:var(--day-today);border-color:var(--gold-lo);box-shadow:0 0 0 1px rgba(240,194,51,.35)}
+.daycell.on .n{color:var(--gold)}
+.top .right{display:flex;align-items:stretch}
+.dateblk{padding:0 16px;display:flex;flex-direction:column;justify-content:center;text-align:right;background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff;min-width:168px}
+.dateblk .w{font-size:12px;letter-spacing:.14em;font-weight:700;opacity:.92}
+.dateblk .d{font-family:var(--display);font-size:22px;line-height:1;margin-top:2px}
+.continue{display:flex;flex-direction:column;justify-content:center;padding:0 22px;min-width:220px;background:linear-gradient(180deg,var(--go-hi),var(--go-lo));color:#062a10;border-left:1px solid var(--go-edge);box-shadow:0 1px 0 rgba(255,255,255,.35) inset}
+.continue .t{font-family:var(--display);font-size:26px;letter-spacing:.06em;line-height:1}
+.continue .s{font-size:12px;letter-spacing:.1em;font-weight:700;margin-top:2px}
+.rail{position:absolute;left:16px;top:122px;width:370px;height:900px;background:linear-gradient(180deg,#243049,#1c2436);border:1px solid var(--edge);border-radius:3px;box-shadow:0 1px 0 var(--edge-hi) inset;display:flex;flex-direction:column;overflow:hidden}
+.crest{display:flex;align-items:center;gap:12px;padding:14px 14px 10px;border-bottom:1px solid var(--edge)}
+.crest .mark{width:44px;height:44px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#fff,#cfd8e6 70%);color:var(--gym-deep);font-family:var(--display);font-size:18px;display:grid;place-items:center;border:2px solid rgba(0,0,0,.35);flex:none}
+.crest .nm{font-family:var(--display);font-size:22px;letter-spacing:.04em;line-height:1;color:#fff}
+.crest .sub{font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--muted);margin-top:3px}
+.menucap{font-size:12px;letter-spacing:.16em;font-weight:700;color:var(--dim);padding:10px 18px 4px}
+.nav{display:flex;flex-direction:column;gap:2px;padding:4px 8px 12px;flex:1}
+.nav a{display:flex;align-items:center;height:40px;padding:0 12px 0 14px;border-radius:3px;color:var(--text-2);text-decoration:none;font-family:var(--display);font-size:18px;letter-spacing:.06em;position:relative}
+.nav a .badge{margin-left:auto;min-width:22px;height:20px;padding:0 6px;border-radius:10px;background:var(--bad);color:#fff;font-family:var(--mono);font-size:11px;font-weight:700;display:grid;place-items:center}
+.nav a.on{background:linear-gradient(90deg,var(--gym),var(--gym-lo));color:#fff}
+.nav a.on::before{content:"";position:absolute;left:4px;top:8px;width:4px;height:24px;border-radius:2px;background:var(--gold)}
+.body{position:absolute;left:402px;top:122px;width:1494px;height:900px;display:flex;flex-direction:column;gap:10px;min-height:0}
+.hubhead{height:44px;display:flex;align-items:center;gap:14px;padding:0 2px;flex:none}
+.hubhead h2{font-family:var(--display);font-size:32px;letter-spacing:.04em;margin:0;line-height:1}
+.hubhead .meta{font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--muted)}
+.tabs{display:flex;gap:4px;margin-left:auto}
+.tab{height:32px;padding:0 16px;border-radius:3px;border:1px solid var(--edge);background:linear-gradient(180deg,#3a4560,#2b3449);font-family:var(--display);font-size:16px;letter-spacing:.08em;color:var(--text-2);display:inline-flex;align-items:center}
+.tab.on{background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff;border-color:var(--gym-deep)}
+.filters{display:flex;gap:6px;align-items:center;padding:0 2px;flex:none}
+.chip{height:26px;padding:0 10px;border-radius:3px;border:1px solid var(--edge);background:var(--chip);font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--text-2);display:inline-flex;align-items:center}
+.chip.on{background:linear-gradient(180deg,#4a5670,#333d52);color:#fff;border-color:var(--line)}
+.sort{margin-left:auto;font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--muted)}
+.panel{background:var(--panel);border:1px solid var(--edge);border-radius:3px;box-shadow:0 1px 0 var(--edge-hi) inset;min-height:0;flex:1;display:flex;flex-direction:column;overflow:hidden}
+.thead,.trow{display:grid;grid-template-columns:32px 200px 86px 78px 70px 86px 108px 250px 120px;align-items:center;gap:8px;padding:0 12px;border-bottom:1px solid var(--line-soft)}
+.thead{height:34px;background:var(--panel-lo);font-size:11px;letter-spacing:.1em;font-weight:700;color:var(--dim);flex:none}
+.trow{height:56px;font-size:12px;color:var(--text-2)}
+.trow:nth-child(even){background:rgba(0,0,0,.12)}
+.trow.sel{background:linear-gradient(90deg,var(--gym-tint),rgba(47,111,176,.05));box-shadow:inset 4px 0 0 var(--gym-hi)}
+.trow .nm{font-family:var(--display);font-size:18px;letter-spacing:.03em;color:#fff;line-height:1.05}
+.trow .sub{font-size:11px;letter-spacing:.05em;font-weight:700;color:var(--muted);margin-top:2px}
+.av{width:28px;height:28px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#5a6578,var(--avatar));border:1px solid var(--edge);display:grid;place-items:center;font-family:var(--display);font-size:12px;color:var(--text)}
+.bar{height:8px;border-radius:2px;background:var(--track);overflow:hidden;width:58px;display:inline-block;vertical-align:middle}
+.bar>i{display:block;height:100%}
+.bar.good>i{background:linear-gradient(90deg,#2b5c33,#4fc46a)}
+.bar.lo>i{background:linear-gradient(90deg,#7a2a22,#e5433a)}
+.bar.mid>i{background:linear-gradient(90deg,#24486f,#3f86cc)}
+.flag{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:2px;font-size:11px;letter-spacing:.08em;font-weight:700;border:1px solid var(--edge);white-space:nowrap}
+.flag.med{background:rgba(229,67,58,.18);color:#ff8f87;border-color:var(--bad-edge)}
+.flag.ask{background:rgba(240,160,32,.16);color:var(--amber)}
+.flag.wt{background:rgba(240,160,32,.16);color:var(--amber)}
+.flag.contract{background:rgba(127,182,238,.14);color:var(--link)}
+.flag.book{background:rgba(148,161,184,.12);color:var(--muted)}
+.flag.train{background:rgba(240,160,32,.18);color:var(--amber)}
+.flag.empty{background:transparent;color:var(--dim);border-color:transparent}
+.wtok{color:var(--good);font-weight:700}
+.wtover{color:var(--amber);font-weight:700}
+.hint{padding:8px 12px;border-top:1px solid var(--line-soft);font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--muted);display:flex;gap:18px;flex:none}
+.hint b{color:var(--text-2)}
+.floorgrid{flex:1;display:grid;grid-template-columns:1fr 340px;gap:10px;min-height:0}
+.floorpic{padding:12px;display:flex;flex-direction:column;gap:8px;min-height:0}
+.caprow{display:flex;align-items:center;gap:12px;font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--muted)}
+.capmeter{flex:1;height:10px;background:var(--track);border-radius:2px;overflow:hidden;border:1px solid var(--edge)}
+.capmeter>i{display:block;height:100%;background:linear-gradient(90deg,var(--gym-lo),var(--gym-hi))}
+.capmeter.full>i{background:linear-gradient(90deg,#7a2a22,#e5433a)}
+.grid{flex:1;display:grid;grid-template-columns:repeat(8,1fr);grid-template-rows:repeat(5,1fr);gap:6px;min-height:0;padding:6px;background:rgba(0,0,0,.18);border:1px solid var(--edge);border-radius:3px}
+.cell{border:1px dashed rgba(74,90,120,.4);border-radius:3px;background:rgba(28,34,48,.45)}
+.station{border:1px solid var(--edge);border-radius:3px;background:linear-gradient(180deg,#34405a,#222a3b);padding:8px;display:flex;flex-direction:column;gap:3px;box-shadow:0 1px 0 var(--edge-hi) inset}
+.station .sn{font-family:var(--display);font-size:15px;letter-spacing:.04em;line-height:1}
+.station .sm{font-size:11px;letter-spacing:.06em;font-weight:700;color:var(--muted)}
+.station .who{font-size:11px;letter-spacing:.06em;font-weight:700;color:var(--link);margin-top:auto}
+.station.sel{outline:2px solid var(--gym-hi);box-shadow:0 0 16px rgba(47,111,176,.35)}
+.station.bad{border-color:#8a2a24}
+.station.s2{grid-column:span 2}
+.station.s3{grid-column:span 3}
+.station.r2{grid-row:span 2}
+.detail{padding:14px;display:flex;flex-direction:column;gap:10px}
+.detail .ph{font-size:12px;letter-spacing:.14em;font-weight:700;color:var(--muted)}
+.detail h3{font-family:var(--display);font-size:28px;margin:0;letter-spacing:.04em;line-height:1}
+.detail .meta{font-size:12px;letter-spacing:.05em;font-weight:700;color:var(--text-2);line-height:1.5}
+.pair{display:grid;grid-template-columns:1fr auto;height:34px;border:1px solid var(--edge);border-radius:3px;overflow:hidden}
+.pair .lab{display:flex;align-items:center;padding:0 10px;background:linear-gradient(180deg,#4a5670,#333d52);font-family:var(--display);font-size:15px;letter-spacing:.08em}
+.pair .val{display:flex;align-items:center;justify-content:center;min-width:64px;padding:0 10px;font-family:var(--display);font-size:20px;background:linear-gradient(180deg,var(--panel-hi),var(--panel-lo))}
+.actions{display:flex;flex-direction:column;gap:6px;margin-top:auto}
+.btn{height:40px;border-radius:3px;border:1px solid var(--edge);background:linear-gradient(180deg,#445273,#303a52);font-family:var(--display);font-size:17px;letter-spacing:.08em;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 0 var(--edge-hi) inset}
+.btn.gold{background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:var(--ink);border-color:var(--gold-edge);box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 0 16px rgba(240,194,51,.35)}
+.btn.dim{opacity:.5}
+.floor-store{flex:1;display:grid;grid-template-columns:1fr 420px;gap:10px;min-height:0}
+.drawer{display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--edge);border-radius:3px;box-shadow:-10px 0 30px rgba(0,0,0,.4);overflow:hidden}
+.drawer .dh{padding:12px 14px;border-bottom:1px solid var(--edge);display:flex;align-items:center;gap:10px;background:var(--panel-lo)}
+.drawer .dh h3{font-family:var(--display);font-size:24px;margin:0;letter-spacing:.06em}
+.drawer .dh .x{margin-left:auto;font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--muted)}
+.cats{display:flex;flex-wrap:wrap;gap:4px;padding:10px 12px;border-bottom:1px solid var(--line-soft)}
+.storelist{flex:1;overflow:hidden;display:flex;flex-direction:column}
+.srow{display:grid;grid-template-columns:1fr 70px 52px 90px;gap:8px;align-items:center;padding:10px 12px;border-bottom:1px solid var(--line-soft)}
+.srow .sn{font-family:var(--display);font-size:17px;letter-spacing:.03em}
+.srow .ss{font-size:11px;letter-spacing:.06em;font-weight:700;color:var(--muted);margin-top:2px}
+.srow .price{font-family:var(--display);font-size:18px;text-align:right}
+.srow .price.no{color:var(--bad)}
+.srow .fp{font-size:12px;font-weight:700;color:var(--muted);text-align:center}
+.srow .why{font-size:11px;letter-spacing:.05em;font-weight:700;color:var(--amber);text-align:right;line-height:1.2}
+.expand{margin:10px 12px;height:44px}
+.states{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:12px;padding:4px;height:100%}
+.scell{border:1px solid var(--edge);border-radius:3px;background:#151a24;overflow:hidden;position:relative;padding:40px 12px 12px}
+.scell .stag{position:absolute;top:8px;left:8px;z-index:3;font-size:12px;letter-spacing:.12em;font-weight:700;padding:4px 8px;background:rgba(18,23,34,.92);border:1px solid var(--line-soft);border-radius:2px;color:var(--text-2)}
+.mini-body{height:100%;display:flex;flex-direction:column;gap:8px}
+.alert{height:26px;display:flex;align-items:center;padding:0 10px;background:linear-gradient(90deg,rgba(229,67,58,.35),rgba(229,67,58,.08));border:1px solid var(--bad-edge);border-radius:2px;font-size:11px;letter-spacing:.1em;font-weight:700;color:#ffb0aa}
+.alert.amber{background:linear-gradient(90deg,rgba(240,160,32,.3),rgba(240,160,32,.06));border-color:#7a4c08;color:#ffd08a}
+.sil{width:48px;height:86px;background:linear-gradient(180deg,#3b4557 0%,#2a3347 55%,#1c2230 100%);border-radius:24px 24px 6px 6px;position:relative;flex:none;box-shadow:0 8px 18px rgba(0,0,0,.4)}
+.sil::before{content:"";position:absolute;top:-22px;left:50%;transform:translateX(-50%);width:28px;height:28px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#4a556c,#2b3447 70%);border:2px solid var(--edge)}
+.emptyfloor{flex:1;display:flex;align-items:center;justify-content:center;gap:18px;border:1px dashed var(--line);border-radius:3px;background:rgba(0,0,0,.2)}
+.emptyfloor .msg{font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--muted);max-width:26ch;line-height:1.45}
+.mini-table{flex:1;border:1px solid var(--edge);border-radius:3px;overflow:hidden;background:var(--panel)}
+.mini-table .mr{display:grid;grid-template-columns:24px 1fr 70px 90px;gap:6px;align-items:center;padding:6px 8px;border-bottom:1px solid var(--line-soft);font-size:11px}
+.mini-table .mr.sel{box-shadow:inset 3px 0 0 var(--gym-hi);background:var(--gym-tint)}
+.mini-grid{flex:1;display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(3,1fr);gap:4px;padding:6px;border:1px solid var(--edge);border-radius:3px;background:rgba(0,0,0,.2)}
+.ms{border:1px solid var(--edge);border-radius:2px;background:linear-gradient(180deg,#34405a,#222a3b);padding:4px;font-family:var(--display);font-size:12px}
+.ms.sel{outline:1px solid var(--gym-hi)}
+.ms.full{opacity:.95;border-color:#8a2a24}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="eyebrow">K8 · KALLI STUDY · NO CODE SHIPS</div>
+  <div class="mast">
+    <h1>GYM HUB</h1>
+    <p>Replaces legacy FIGHTERS (RosterScreen) and MY GYM (GymFloor + store) with one hub inside ShellChrome.
+    Bar is R18 profile density. Squad is FM-like rows, not a portrait wall. Store is a drawer off FLOOR.
+    Data only from GameState fields the profile already reads. Sample: Eastern Ring / Kian Sterling.</p>
+  </div>
+  <div class="rules">
+    <span>BEBAS + PLEX</span><span>SIZE_MIN 12</span><span>GOLD ×1 / SCREEN</span><span>GREEN = CONTINUE ONLY</span>
+    <span>PAIR = SLATE</span><span>GYM NOT CAMP</span><span>AGE IN HEADER</span><span>ONE SILHOUETTE</span>
+  </div>
+
+  <div class="sec"><h2>01 · ROSTER</h2><p>Home view. Dense sortable table. One selected row. ONE action flag. Click opens R18 profile.</p></div>
+</div>
+
+<div class="board" id="board-roster">
+<div class="shell">
+  <div class="top"><div class="left"><div class="crumb">EASTERN RING  /  GYM</div>
+  <div class="pills"><span class="pill gold">$ 27,600</span><span class="pill">ROSTER 4</span><div class="daystrip"><div class="daycell on"><span>MON</span><span class="n">26</span></div><div class="daycell"><span>TUE</span><span class="n">27</span></div><div class="daycell"><span>WED</span><span class="n">28</span></div><div class="daycell"><span>THU</span><span class="n">29</span></div><div class="daycell"><span>FRI</span><span class="n">30</span></div><div class="daycell"><span>SAT</span><span class="n">31</span></div><div class="daycell"><span>SUN</span><span class="n">1</span></div></div></div></div>
+  <div class="right"><div class="dateblk"><div class="w">WEEK 4</div><div class="d">MON 26 JAN 2026</div></div>
+  <div class="continue"><div class="t">CONTINUE</div><div class="s">1 MUST ANSWER FIRST</div></div></div></div>
+  <div class="rail"><div class="crest"><div class="mark">ER</div><div><div class="nm">EASTERN RING</div><div class="sub">NICOSIA  ·  TIER 1</div></div></div>
+  <div class="menucap">MENU</div><div class="nav"><a class="" href="#">OFFICE</a><a class="" href="#">THE DAY</a><a class="on" href="#">GYM<span class="badge">1</span></a><a class="" href="#">STAFF</a><a class="" href="#">TRAINING</a><a class="" href="#">SCHEDULE</a><a class="" href="#">EVENTS<span class="badge">6</span></a><a class="" href="#">SCOUTING</a></div></div>
+  <div class="body">
+<div class="hubhead"><h2>GYM</h2><span class="meta">EASTERN RING · NICOSIA · FAME 42 · AGE IN ROW HEADERS</span>
+    <div class="tabs"><span class="tab on">ROSTER</span><span class="tab">FLOOR</span><span class="tab" style="opacity:.7">STORE</span></div></div>
+<div class="filters">
+          <span class="chip on">ALL</span><span class="chip">STATE</span><span class="chip">DIVISION</span><span class="chip">NEXT BOUT</span>
+          <span class="sort">SORT · CONDITION ↓ · NEXT BOUT</span>
+        </div><div class="panel"><div class="thead">
+      <div></div><div>FIGHTER</div><div>RECORD</div><div>COND</div><div>MORALE</div><div>WEIGHT</div><div>PLAN</div><div>NEXT BOUT</div><div>FLAG</div>
+    </div><div class="trow sel">
+          <div class="av">KS</div>
+          <div><div class="nm">KIAN STERLING</div><div class="sub">AGE 25 · M · BOXING · LW</div></div>
+          <div>2-2-0 · 1KO</div>
+          <div><span class="bar lo"><i style="width:40%"></i></span> 40</div>
+          <div><span class="bar mid"><i style="width:79%"></i></span> 79</div>
+          <div class="wtok">68.4/70</div>
+          <div>CUT / REST</div>
+          <div>VS R. STERLING · UBO · 12D</div>
+          <div><span class="flag med">MEDICAL HOLD</span></div>
+        </div><div class="trow">
+          <div class="av">ML</div>
+          <div><div class="nm">MIRA LOPEZ</div><div class="sub">AGE 23 · F · MMA · FLY</div></div>
+          <div>4-1-0 · 2SUB</div>
+          <div><span class="bar good"><i style="width:88%"></i></span> 88</div>
+          <div><span class="bar mid"><i style="width:71%"></i></span> 71</div>
+          <div class="wtok">56.2/57</div>
+          <div>SPARRING</div>
+          <div>VS J. PARK · APEX · 21D</div>
+          <div><span class="flag ask">OPEN ASK</span></div>
+        </div><div class="trow">
+          <div class="av">DH</div>
+          <div><div class="nm">DEVON HALE</div><div class="sub">AGE 28 · M · BOXING · WW</div></div>
+          <div>6-3-0 · 3KO</div>
+          <div><span class="bar good"><i style="width:72%"></i></span> 72</div>
+          <div><span class="bar mid"><i style="width:54%"></i></span> 54</div>
+          <div class="wtover">69.1/67</div>
+          <div>ROADWORK</div>
+          <div>OPEN BOOK</div>
+          <div><span class="flag wt">WEIGHT</span></div>
+        </div><div class="trow">
+          <div class="av">AN</div>
+          <div><div class="nm">ARIA NOVA</div><div class="sub">AGE 21 · F · BJJ · SW</div></div>
+          <div>1-0-0 · 1SUB</div>
+          <div><span class="bar good"><i style="width:95%"></i></span> 95</div>
+          <div><span class="bar mid"><i style="width:90%"></i></span> 90</div>
+          <div class="wtok">52.0/52</div>
+          <div>TECH DRILL</div>
+          <div>VS K. ORTIZ · LOCAL · 35D</div>
+          <div><span class="flag empty">—</span></div>
+        </div>
+    <div class="hint"><span>SELECT ROW → OPENS R18 PROFILE</span><span><b>ONE FLAG</b> FROM ACTION SET</span><span>FM-LIKE DENSITY · NOT PORTRAIT WALL</span></div>
+    </div>
+</div></div></div>
+
+<div class="doc"><div class="sec"><h2>02 · FLOOR</h2><p>Equipment grid picture. Capacity. Who trains where. Selected station: REPAIR / ROTATE / MOVE.</p></div></div>
+<div class="board" id="board-floor">
+<div class="shell">
+  <div class="top"><div class="left"><div class="crumb">EASTERN RING  /  GYM  /  FLOOR</div>
+  <div class="pills"><span class="pill">$ 27,600</span><span class="pill">ROSTER 4</span><div class="daystrip"><div class="daycell on"><span>MON</span><span class="n">26</span></div><div class="daycell"><span>TUE</span><span class="n">27</span></div><div class="daycell"><span>WED</span><span class="n">28</span></div><div class="daycell"><span>THU</span><span class="n">29</span></div><div class="daycell"><span>FRI</span><span class="n">30</span></div><div class="daycell"><span>SAT</span><span class="n">31</span></div><div class="daycell"><span>SUN</span><span class="n">1</span></div></div></div></div>
+  <div class="right"><div class="dateblk"><div class="w">WEEK 4</div><div class="d">MON 26 JAN 2026</div></div>
+  <div class="continue"><div class="t">CONTINUE</div><div class="s">1 MUST ANSWER FIRST</div></div></div></div>
+  <div class="rail"><div class="crest"><div class="mark">ER</div><div><div class="nm">EASTERN RING</div><div class="sub">NICOSIA  ·  TIER 1</div></div></div>
+  <div class="menucap">MENU</div><div class="nav"><a class="" href="#">OFFICE</a><a class="" href="#">THE DAY</a><a class="on" href="#">GYM<span class="badge">1</span></a><a class="" href="#">STAFF</a><a class="" href="#">TRAINING</a><a class="" href="#">SCHEDULE</a><a class="" href="#">EVENTS<span class="badge">6</span></a><a class="" href="#">SCOUTING</a></div></div>
+  <div class="body">
+<div class="hubhead"><h2>GYM</h2><span class="meta">EASTERN RING · NICOSIA · FAME 42 · AGE IN ROW HEADERS</span>
+    <div class="tabs"><span class="tab">ROSTER</span><span class="tab on">FLOOR</span><span class="tab" style="opacity:.7">STORE</span></div></div>
+<div class="floorgrid"><div class="floorpic"><div class="caprow">SPACE 31 / 48 USED · 17 FREE · EXPAND $12,000
+      <div class="capmeter"><i style="width:65%"></i></div></div>
+      <div class="grid">
+        <div class="station s2 bad sel"><div class="sn">HEAVY BAG</div><div class="sm">COND 62% · 1×2</div><div class="who">KIAN STERLING</div></div>
+        <div class="station s3 r2"><div class="sn">BOXING RING</div><div class="sm">COND 88% · 3×3</div><div class="who">MIRA LOPEZ</div></div>
+        <div class="cell"></div><div class="cell"></div>
+        <div class="station s2"><div class="sn">BJJ MATS</div><div class="sm">COND 91% · 2×2</div><div class="who">ARIA NOVA</div></div>
+        <div class="station "><div class="sn">TREADMILL</div><div class="sm">COND 74% · 1×1</div><div class="who">DEVON HALE</div></div>
+        <div class="station s2"><div class="sn">POWER RACK</div><div class="sm">COND 55% · 2×1</div><div class="who">— OPEN</div></div>
+        <div class="cell"></div><div class="cell"></div><div class="cell"></div>
+        <div class="station s2"><div class="sn">ICE BATH</div><div class="sm">COND 97% · 1×2 · RECOVERY</div><div class="who">— OPEN</div></div>
+        <div class="station "><div class="sn">FOCUS PADS</div><div class="sm">COND 80% · 1×1</div><div class="who">COACH STATION</div></div>
+        <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+        <div class="cell"></div><div class="cell"></div>
+        <div class="cell"></div><div class="cell"></div><div class="cell"></div>
+      </div></div><div class="panel detail">
+      <div class="ph">SELECTED STATION</div>
+      <h3>HEAVY BAG</h3>
+      <div class="meta">QUALITY 2 · CONDITION 62%<br>SAFETY 78% · CAPACITY 1<br>SPACE 2 (1×2) · UPKEEP $40/WK<br>OCCUPANCY 1/1 · KIAN STERLING</div>
+      <div class="pair"><div class="lab">FOOTPRINT</div><div class="val">1×2</div></div>
+      <div class="pair"><div class="lab">REPAIR COST</div><div class="val">$480</div></div>
+      <div class="actions">
+        <div class="btn gold">REPAIR · $480</div>
+        <div class="btn">ROTATE</div>
+        <div class="btn">MOVE</div>
+      </div>
+    </div></div>
+</div></div></div>
+
+<div class="doc"><div class="sec"><h2>03 · STORE</h2><p>Drawer off FLOOR — never a separate screen. Categories, price, footprint, affordability.</p>
+<p class="note">Gold spent once on EXPAND / primary purchase affordance in the drawer footer context; cash pill stays slate on this board.</p></div></div>
+<div class="board" id="board-store">
+<div class="shell">
+  <div class="top"><div class="left"><div class="crumb">EASTERN RING  /  GYM  /  FLOOR  /  STORE</div>
+  <div class="pills"><span class="pill">$ 27,600</span><span class="pill">ROSTER 4</span><div class="daystrip"><div class="daycell on"><span>MON</span><span class="n">26</span></div><div class="daycell"><span>TUE</span><span class="n">27</span></div><div class="daycell"><span>WED</span><span class="n">28</span></div><div class="daycell"><span>THU</span><span class="n">29</span></div><div class="daycell"><span>FRI</span><span class="n">30</span></div><div class="daycell"><span>SAT</span><span class="n">31</span></div><div class="daycell"><span>SUN</span><span class="n">1</span></div></div></div></div>
+  <div class="right"><div class="dateblk"><div class="w">WEEK 4</div><div class="d">MON 26 JAN 2026</div></div>
+  <div class="continue"><div class="t">CONTINUE</div><div class="s">1 MUST ANSWER FIRST</div></div></div></div>
+  <div class="rail"><div class="crest"><div class="mark">ER</div><div><div class="nm">EASTERN RING</div><div class="sub">NICOSIA  ·  TIER 1</div></div></div>
+  <div class="menucap">MENU</div><div class="nav"><a class="" href="#">OFFICE</a><a class="" href="#">THE DAY</a><a class="on" href="#">GYM<span class="badge">1</span></a><a class="" href="#">STAFF</a><a class="" href="#">TRAINING</a><a class="" href="#">SCHEDULE</a><a class="" href="#">EVENTS<span class="badge">6</span></a><a class="" href="#">SCOUTING</a></div></div>
+  <div class="body">
+<div class="hubhead"><h2>GYM</h2><span class="meta">EASTERN RING · NICOSIA · FAME 42 · AGE IN ROW HEADERS</span>
+    <div class="tabs"><span class="tab">ROSTER</span><span class="tab">FLOOR</span><span class="tab on">STORE</span></div></div>
+<div class="floor-store"><div class="floorpic"><div class="caprow">SPACE 31 / 48 · STORE DRAWER OPEN<div class="capmeter"><i style="width:65%"></i></div></div>
+      <div class="grid" style="opacity:.85">
+        <div class="station s2"><div class="sn">HEAVY BAG</div><div class="sm">COND 62%</div><div class="who">KIAN</div></div>
+        <div class="station s3 r2"><div class="sn">BOXING RING</div><div class="sm">COND 88%</div><div class="who">MIRA</div></div>
+        <div class="cell"></div><div class="cell"></div>
+        <div class="station s2"><div class="sn">BJJ MATS</div><div class="sm">COND 91%</div><div class="who">ARIA</div></div>
+        <div class="station"><div class="sn">TREADMILL</div><div class="sm">COND 74%</div><div class="who">DEVON</div></div>
+        <div class="station s2"><div class="sn">POWER RACK</div><div class="sm">COND 55%</div><div class="who">—</div></div>
+        <div class="cell"></div><div class="cell"></div><div class="cell"></div>
+        <div class="station s2"><div class="sn">ICE BATH</div><div class="sm">RECOVERY</div><div class="who">—</div></div>
+        <div class="station"><div class="sn">FOCUS PADS</div><div class="sm">COND 80%</div><div class="who">COACH</div></div>
+        <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+        <div class="cell"></div><div class="cell"></div><div class="cell"></div>
+      </div></div>
+    <div class="drawer"><div class="dh"><h3>EQUIPMENT STORE</h3><span class="chip on">OFF FLOOR</span><span class="x">CLOSE</span></div>
+      <div class="cats">
+        <span class="chip on">ALL</span><span class="chip">BOXING</span><span class="chip">WRESTLING</span><span class="chip">BJJ</span>
+        <span class="chip">JUDO</span><span class="chip">STRIKING</span><span class="chip">MMA</span><span class="chip">FITNESS</span><span class="chip">RECOVERY</span>
+      </div>
+      <div class="storelist"><div class="srow"><div><div class="sn">HEAVY BAG PRO</div><div class="ss">BOXING · COND BASE 100</div></div>
+          <div class="price">$2,400</div><div class="fp">1×2</div><div class="why">BUY</div></div><div class="srow"><div><div class="sn">DOUBLE-END BAG</div><div class="ss">BOXING</div></div>
+          <div class="price">$1,100</div><div class="fp">1×1</div><div class="why">BUY</div></div><div class="srow"><div><div class="sn">CAGE OCTAGON</div><div class="ss">MMA</div></div>
+          <div class="price no">$18,500</div><div class="fp">4×4</div><div class="why">NO CASH</div></div><div class="srow"><div><div class="sn">WRESTLING MATS</div><div class="ss">WRESTLING</div></div>
+          <div class="price">$3,200</div><div class="fp">3×2</div><div class="why">BUY</div></div><div class="srow"><div><div class="sn">ASSAULT BIKE</div><div class="ss">FITNESS</div></div>
+          <div class="price">$900</div><div class="fp">1×1</div><div class="why">BUY</div></div><div class="srow"><div><div class="sn">CRYOTHERAPY</div><div class="ss">RECOVERY</div></div>
+          <div class="price no">$9,800</div><div class="fp">2×2</div><div class="why">NO CASH</div></div><div class="srow"><div><div class="sn">JUDO TATAMI</div><div class="ss">JUDO</div></div>
+          <div class="price">$2,750</div><div class="fp">2×2</div><div class="why">BUY</div></div></div>
+      <div class="btn gold expand">EXPAND TRAINING ROOM · $12,000</div>
+    </div></div>
+</div></div></div>
+
+<div class="doc"><div class="sec"><h2>04 · STATES</h2><p>Contact sheet: day one / medical hold / fight week / floor full.</p></div></div>
+<div class="board" id="board-states">
+<div class="shell">
+  <div class="top"><div class="left"><div class="crumb">EASTERN RING  /  GYM  /  STATES</div>
+  <div class="pills"><span class="pill gold">$ 27,600</span><span class="pill">ROSTER 4</span><div class="daystrip"><div class="daycell on"><span>MON</span><span class="n">26</span></div><div class="daycell"><span>TUE</span><span class="n">27</span></div><div class="daycell"><span>WED</span><span class="n">28</span></div><div class="daycell"><span>THU</span><span class="n">29</span></div><div class="daycell"><span>FRI</span><span class="n">30</span></div><div class="daycell"><span>SAT</span><span class="n">31</span></div><div class="daycell"><span>SUN</span><span class="n">1</span></div></div></div></div>
+  <div class="right"><div class="dateblk"><div class="w">WEEK 4</div><div class="d">MON 26 JAN 2026</div></div>
+  <div class="continue"><div class="t">CONTINUE</div><div class="s">1 MUST ANSWER FIRST</div></div></div></div>
+  <div class="rail"><div class="crest"><div class="mark">ER</div><div><div class="nm">EASTERN RING</div><div class="sub">NICOSIA  ·  TIER 1</div></div></div>
+  <div class="menucap">MENU</div><div class="nav"><a class="" href="#">OFFICE</a><a class="" href="#">THE DAY</a><a class="on" href="#">GYM<span class="badge">1</span></a><a class="" href="#">STAFF</a><a class="" href="#">TRAINING</a><a class="" href="#">SCHEDULE</a><a class="" href="#">EVENTS<span class="badge">6</span></a><a class="" href="#">SCOUTING</a></div></div>
+  <div class="body">
+<div class="hubhead"><h2>GYM STATES</h2><span class="meta">CONTACT SHEET · SAME SHELL · BODY ONLY CHANGES</span></div>
+<div class="states">
+  <div class="scell"><div class="stag">DAY ONE</div><div class="mini-body">
+      <div class="alert amber">DAY ONE · ROSTER 1 · FLOOR NEARLY EMPTY</div>
+      <div class="emptyfloor"><div class="sil"></div><div class="msg">KIAN STERLING · AGE 25 · EMPTY BOOK · ONE HEAVY BAG</div></div>
+      <div class="mini-table"><div class="mr sel"><div class="av" style="width:22px;height:22px;font-size:10px">KS</div><div><b>KIAN STERLING</b><div class="sub">AGE 25 · BOXING · LW</div></div><div>0-0-0</div><span class="flag book">EMPTY BOOK</span></div></div>
+    </div></div>
+  <div class="scell"><div class="stag">MEDICAL HOLD</div><div class="mini-body">
+      <div class="alert">MEDICAL HOLD · KIAN · HOLD TO WEEK 6</div>
+      <div class="mini-table">
+        <div class="mr sel"><div class="av" style="width:22px;height:22px;font-size:10px">KS</div><div><b>KIAN STERLING</b><div class="sub">AGE 25 · COND 40</div></div><div>2-2-0</div><span class="flag med">MEDICAL HOLD</span></div>
+        <div class="mr"><div class="av" style="width:22px;height:22px;font-size:10px">ML</div><div>MIRA LOPEZ<div class="sub">AGE 23</div></div><div>4-1-0</div><span class="flag ask">OPEN ASK</span></div>
+        <div class="mr"><div class="av" style="width:22px;height:22px;font-size:10px">DH</div><div>DEVON HALE<div class="sub">AGE 28</div></div><div>6-3-0</div><span class="flag wt">WEIGHT</span></div>
+      </div>
+    </div></div>
+  <div class="scell"><div class="stag">FIGHT WEEK</div><div class="mini-body">
+      <div class="alert amber">FIGHT WEEK · MIRA LOPEZ · APEX · 3 DAYS</div>
+      <div class="mini-table">
+        <div class="mr"><div class="av" style="width:22px;height:22px;font-size:10px">KS</div><div>KIAN STERLING<div class="sub">AGE 25</div></div><div>CUT/REST</div><span class="flag med">MEDICAL HOLD</span></div>
+        <div class="mr sel"><div class="av" style="width:22px;height:22px;font-size:10px">ML</div><div><b>MIRA LOPEZ</b><div class="sub">AGE 23 · FIGHT WEEK</div></div><div>VS PARK</div><span class="flag train">FIGHT WEEK</span></div>
+      </div>
+    </div></div>
+  <div class="scell"><div class="stag">FLOOR FULL</div><div class="mini-body">
+      <div class="alert">FLOOR FULL · 48 / 48 · EXPANSION BLOCKED OR BUY</div>
+      <div class="mini-grid">
+        <div class="ms full s2">HEAVY</div><div class="ms full">RING</div><div class="ms full">RING</div><div class="ms full">RING</div><div class="ms full">MATS</div>
+        <div class="ms full">BIKE</div><div class="ms full sel">BAG</div><div class="ms full">RACK</div><div class="ms full">RACK</div><div class="ms full">ICE</div><div class="ms full">PADS</div>
+        <div class="ms full">SAUNA</div><div class="ms full">SAUNA</div><div class="ms full">CAGE</div><div class="ms full">CAGE</div><div class="ms full">CAGE</div><div class="ms full">CAGE</div>
+      </div>
+    </div></div>
+</div>
+</div></div></div>
+
+<div class="doc">
+  <div class="sec"><h2>RAIL RECOMMENDATION</h2>
+    <p><b>ONE rail item: GYM</b> — replaces MY GYM + FIGHTERS. Hub tabs ROSTER / FLOOR; STORE is a drawer/tab off FLOOR.
+    Keeps the rail shorter, matches “home you return to every day,” and puts the profile one click from the squad row.
+    Keeping both rail items would duplicate entry points into the same hub and fight the kit’s single-active-rail pattern.</p>
+  </div>
+  <div class="sec"><h2>KIT GAPS</h2>
+    <p>Instruments the hub needs that the book lacks (Claude builds these first in R21):</p>
+    <p class="note">squad_row · action_flag · filter_strip · sort_header · floor_grid · station_tile · occupancy_chip · capacity_meter · store_drawer · catalog_row · affordability_reason</p>
+  </div>
+</div>
+</body></html>

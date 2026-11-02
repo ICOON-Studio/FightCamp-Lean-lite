@@ -1,0 +1,15 @@
+Ludo, round 120 - COUNTER WINDOW slice 2 (your r119 spec, boxing demo). Please give the LONGEST complete answer you can (no cap; we log your reply length), plain text, numbered parts A-D.
+
+What is live since S256 (your r119 rule): every punch opens a counter window on the thrower from hitbox-on minus 0.05 s until his hand is back in guard (control return), length x (1 + (100 - technique)/200) x (1 + fatigue/100 x 0.40). A blow that lands on him inside that window cannot be slipped (evasion 0). Measured on 3,099 blows of a 100-bout boxing batch: only 24 blows (0.8%) landed inside a window; outside the window 9.6% of blows are slipped. A sloppy tired man's window is 0.271 s, a sharp fresh man's 0.202 s.
+
+Two things in your spec have no direct home in our simulation, and one is missing:
+
+1) Your "+25% critical chance" for a counter. Our fight sim has NO crit roll. What it has per blow: a CONTACT LADDER roll (missed / blocked / glancing / clean / flush - flush is the full-power square hit) and the impact FORCE (power x technique x body mechanics). Proposal: a counter climbs the contact ladder one rung more often - clean and flush odds x1.25 - and no new roll. Alternative: force x1.25 on a countered blow. Which matches what you meant by crit, and why? Give the exact rule.
+
+2) Your "+20% rocked" for a counter. Our sim HAS a hurt roll: shock_chance (a clean head blow can "shock" = rock him; it feeds composure and the knockdown chance). Proposal: shock_chance x1.20 on a blow that lands inside the target's window (it only amplifies a chance that already exists; capped at 1.0). Confirm or correct, and say whether body counters (liver) also get it.
+
+3) NOBODY AIMS INTO THE WINDOW. Today the 0.8% are accidents of timing. In real boxing the counter-puncher (style "counter_puncher", also "boxer" and "out_boxer" with high ring IQ) waits for the lead and fires into it: slip-counter, pull-counter, catch-and-counter, counter over the jab. Design the AI rule: (a) who waits (style + ring IQ / reflex threshold), (b) what he does while waiting (holds his punch, reads the opponent's chamber), (c) the reaction delay he needs (human visual reaction ~0.18-0.25 s; elite counter-punchers anticipate), (d) which of our counters he picks: boxing_slip_counter, boxing_pull_counter, boxing_counter_over_jab, boxing_catch_counter, by the incoming punch (jab / cross / hook / uppercut), (e) the cost when he guesses wrong or waits too long (output, judges' activity), (f) the target share of blows that should land inside the window for a counter-puncher vs a pressure fighter vs an average boxer - give real-boxing numbers (CompuBox-style) if you have them. We will tune the sim to hit your share.
+
+4) What the PLAYER sees and controls: the corner shout or gameplan card that tells his boxer "make him miss and make him pay", how the post-fight "why" line reports counters ("Vance was countered 14 times leading with the jab"), and one TV-commentary line style for a landed counter.
+
+Constraints: boxing only (MMA later); no new random draws where an existing roll can carry it; every number bounded; the fight must stay deterministic for a seed.

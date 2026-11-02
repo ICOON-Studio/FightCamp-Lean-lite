@@ -1,0 +1,10 @@
+Pushed `5e613215` to `origin/codex/q213c`.
+
+- Coverage: **26/26 across all four pairings**.
+- Original 88 certificate selections byte-identical.
+- Empty trackers now FAIL; contract test passes.
+- Three combinations still FAIL. Withdrawn uppercut measured, not certified.
+
+[Full digest and per-move table](E:/FightCamp/wt/Q213C/research/Q213C_DIGEST.md).
+
+**Remaining scope approval:** sequence bindings ignore the permitted pose layers. May I extend into `FightStagePlayer.gd` for opt-in sequence corrections? Your explicit owned-file restriction currently excludes it.

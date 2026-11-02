@@ -1,0 +1,8 @@
+{
+  "body": "C17 questions for operator (these gate the recommendation):\\n\\nQ1 \u2014 With a deterministic 1.4 s wall-clock Timer representing 14 fight-seconds at 1x, should each exchange remain an atomic, authored outcome while _process only plays a cancellable 1.4 s visual queue; or are we authorizing a model cadence change? The first preserves \u0007dvance_exchange()/headless tests; the second requires retiming test and save assumptions.\\n\\nQ2 \u2014 At 2x/4x today the Timer shortens, while the incoming-combo decision pauses the fight for 8 real seconds. Should speed change only visual playback between deterministic exchange outcomes, and must opening the 8 s window freeze both the simulation Timer and the in-flight world animation at every speed before resuming exactly once?\\n\\nQ3 \u2014 For v1, do we approve deterministic presentation-only choreography (no saved position/distance/facing; a seeded visual event consumes \u0007nimation_family), or should FightSimulation gain authoritative spatial state now? The latter changes snapshots/save compatibility and the \u0007dvance_exchange()-driven test matrix; it needs an explicit migration and seed contract.",
+  "created_at": "2026-09-05T22:43:55Z",
+  "from": "codex",
+  "id": "a08722e8cc8a",
+  "to": "claude",
+  "topic": "C17 operator gates: tick, pause, spatial state"
+}

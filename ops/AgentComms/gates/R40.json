@@ -1,0 +1,14 @@
+{
+  "checked_at": "2026-09-06T19:00:50Z",
+  "files": [
+    "Godot/scripts/EntityPathway.gd",
+    "Godot/scripts/GameState.gd",
+    "Godot/scripts/PromotionSigning.gd",
+    "Godot/scripts/WorldPopulation.gd",
+    "Godot/scripts/Sponsorship.gd",
+    "Godot/tests/entity_pathways_test.gd"
+  ],
+  "output": "CHECK total=6 fails=0 autoload_refs=1 time=1s\n",
+  "passed": true,
+  "task": "R40"
+}

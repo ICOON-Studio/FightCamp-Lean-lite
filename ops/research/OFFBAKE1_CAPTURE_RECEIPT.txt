@@ -1,0 +1,22 @@
+BEFORE
+2026-10-15 21:48:52 GREEN C_free=22.4GB E_free=68.5GB RAM=81% COMMIT_free=17.8GB CPU=20% TEMP=67C(LHM)[peak 75] top: brave=6308MB firefox=5376MB claude=3221MB ChatGPT=3074MB
+STILL_FRAMING OK guard.png shot=broadcast err=0
+STILL_FRAMING OK jab_between.png shot=broadcast err=0
+STILL_FRAMING OK jab_contact.png shot=broadcast err=0
+STILL_FRAMING OK cross_contact.png shot=broadcast err=0
+STILL_FRAMING OK hook_contact.png shot=broadcast err=0
+STILL_FRAMING OK uppercut_contact.png shot=broadcast err=0
+WARNING: 3040 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+ERROR: 3 resources still in use at exit (run with --verbose for details).
+ERROR: Pages in use exist at exit in PagedAllocator: N12VariantPools12BucketMediumE
+AFTER
+2026-10-15 21:50:05 AMBER C_free=22.4GB E_free=68.5GB RAM=80% COMMIT_free=18.5GB CPU=26% TEMP=75C(LHM)[peak 84] top: brave=6949MB firefox=4855MB ChatGPT=3286MB claude=3214MB
+STILL_FRAMING OK guard.png shot=broadcast err=0
+STILL_FRAMING OK jab_between.png shot=broadcast err=0
+STILL_FRAMING OK jab_contact.png shot=broadcast err=0
+STILL_FRAMING OK cross_contact.png shot=broadcast err=0
+STILL_FRAMING OK hook_contact.png shot=broadcast err=0
+STILL_FRAMING OK uppercut_contact.png shot=broadcast err=0
+WARNING: 3040 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+ERROR: 3 resources still in use at exit (run with --verbose for details).
+ERROR: Pages in use exist at exit in PagedAllocator: N12VariantPools12BucketMediumE

@@ -1,0 +1,254 @@
+<!-- Ludo round 60 reply verbatim, S222 2026-10-14, 18578 chars; ask = LUDO_ROUND60_ASK_S222.txt + ludo_r60_pair.jpg uploaded -->
+
+FIGHTCAMP (S220) — PRODUCTION SPECIFICATION: STATION CARD DE-CLUTTER, TOOLTIP MODAL ENGINE, AND DYNAMIC 3D BACKGROUND PIPELINE
+SECTION A: IN-GAME PINNED STATION CARD SPECIFICATION (Godot 4 Control Node)
+
+The card shown in Screenshot 1 is an unparsed wall of debug text. The redesign strictly strips all narrative and analytical prose out of the chassis body, distributing explanation into an instant-read iconographic metric matrix and interactive tooltip modals.
+
+┌─────────────────────────────────────────────────────────────────┐
+│ [ICON] HEAVY BAG  [#1]                         [1x2m]   [ X ]   │ H: 38px
+├─────────────────────────────────────────────────────────────────┤
+│ [██████████░░░░░░░░░░] 38%            [ DAMAGED ]        (i)    │ H: 44px
+├─────────────────────────────────────────────────────────────────┤
+│  [▼ x0.65]           [+ 1.25%]             [⏱ 14h]              │ H: 54px
+│   OUTPUT              INJURY RISK           TO FAILING          │
+├─────────────────────────────────────────────────────────────────┤
+│  TRAINS: [POWER] [FITNESS x1.0]                                 │ H: 32px
+├─────────────────────────────────────────────────────────────────┤
+│  UPKEEP: $18 / wk                      [ 2 / 2 SLOTS OCCUPIED ] │ H: 26px
+├─────────────────────────────────────────────────────────────────┤
+│  ┌───────────────────────┐   ┌───────────────────────────────┐  │
+│  │ 🔧 SERVICE $220       │   │ 🔁 REPLACE $850               │  │ H: 48px
+│  │    +50% (CAP 88%)     │   │    100% BRAND NEW             │  │
+│  └───────────────────────┘   └───────────────────────────────┘  │
+└─────────────────────────────────────────────────────────────────┘
+W: 340px | H: 266px (Anchor: Floating 3D Billboard / Camera-Facing Screen Space)
+
+1. Dimension, Grid & Typography Specs
+Chassis Container: PanelContainer with custom StyleBoxFlat.
+Size: Fixed width 340px, height 266px. (Down from the unreadable 380x620px text slab).
+Background: Deep leather brown #1E1713 at 96% opacity (#F51E1713).
+Border: 1.5px solid warm amber-brown #3D3126 with an outer 1px soft highlight #544436 on top/left edges. Corner radius: 8px.
+Drop Shadow: Color #000000A6, Size: 18px, Offset: (0, 8px).
+Typography Palette (Godot DynamicFonts - Inter / Oswald):
+Headers: Oswald SemiBold uppercase, tracked +0.04em. Text color: Antique Cream #F6F0E0.
+Data Values: Inter Bold tabular figures. Monospaced numeric alignment. Color: Pure Cream #FFFFFF / Accent Gold #E5B842.
+Sub-labels / Footers: Inter Regular 10px uppercase, tracked +0.06em. Color: Muted Leather Tan #9E9082.
+2. Vertical Section Breakdown (Pixel by Pixel)
+Row 1: Header & Anchor Strip (H: 38px, Y: 0 to Y: 38)
+MarginContainer: Left 14px, Right 10px, Top 8px, Bottom 4px.
+Left Sub-Container (HBoxContainer, separation 8px):
+PropIcon: 20x20px vector silhouette of heavy bag in warm tan #C48A4A.
+TitleLabel: "HEAVY BAG" — Inter Bold 14px, Color #F6F0E0.
+IndexTag: "#01" — Inter Regular 11px, Color #706255.
+Right Sub-Container (HBoxContainer, separation 6px):
+FootprintBadge: 38x18px pill. Background #2A221C, border 1px #3D3126, radius 3px. Text "1x2m" — Inter SemiBold 10px, Color #9E9082.
+CloseButton: 20x20px tactile button. Icon X in #9E9082 (Hover: #F6F0E0).
+Row 2: Condition & Status Row (H: 44px, Y: 38 to Y: 82)
+MarginContainer: Left 14px, Right 14px, Top 6px, Bottom 6px.
+HBoxContainer (Separation 10px):
+Condition Bar (ProgressBar customized):
+Size: 150px width $\times$ 14px height. Radius: 4px.
+Background track: Dark recessed trough #140F0C with 1px inner stroke #292019.
+Progress Fill: 10 segmented LED blocks. Colors mapped to band logic:
+$85-100%$ (Pristine): Crisp Mint #38A169
+$60-84%$ (Good): Olive Green #68D391
+$35-59%$ (Worn): Amber Ochre #D69E2E
+$15-34%$ (Damaged): Rust Orange #DD6B20 (Current state: 38% fills 4 of 10 blocks in #DD6B20)
+$1-14%$ (Failing): Hazard Crimson #E53E3E
+$0%$ (Broken): Neutral Slate Charcoal #4A5568
+Condition Text: "38%" — Inter Bold 12px, tabular numbers, matching the band color #DD6B20.
+Status Badge Pill: Size 78x20px. Background #381E14, border 1px solid #DD6B20. Text: "DAMAGED" — Oswald Bold 10px centered, Color #DD6B20.
+Info Trigger (TextureButton): Size 16x16px. Circular icon (i) in #9E9082 (Hover: #E5B842). Binds directly to the Station Wear Tooltip.
+Row 3: Graphic Metric Matrix (H: 54px, Y: 82 to Y: 136)
+
+Replaces the wall of text with three distinct UI tiles.
+
+HBoxContainer with 3 equal child PanelContainer nodes (W: 98px, H: 48px, separation 9px).
+Tile 1 (Output / Efficiency):
+Background: #251E19, border 1px #33271F, radius 4px.
+Top Line: TextureRect (14x14px down-trend angle arrow #DD6B20) + Label "x0.65" (Inter Bold 13px, Color #DD6B20).
+Bottom Line: Label "EFFICIENCY" (Inter Regular 9px uppercase, Color #7A6C5D).
+Tile 2 (Hazard / Injury Rate):
+Background: #251E19, border 1px #33271F, radius 4px.
+Top Line: TextureRect (14x14px medical cross with alert badge #E53E3E) + Label "+1.25%" (Inter Bold 13px, Color #E53E3E).
+Bottom Line: Label "INJURY/HR" (Inter Regular 9px uppercase, Color #7A6C5D).
+Tile 3 (Wear Clocks):
+Background: #251E19, border 1px #33271F, radius 4px.
+Top Line: TextureRect (14x14px clock timer icon #D69E2E) + Label "14h" (Inter Bold 13px, Color #F6F0E0).
+Bottom Line: Label "TO FAILING" (Inter Regular 9px uppercase, Color #7A6C5D).
+Row 4: Training Target Strip (H: 32px, Y: 136 to Y: 168)
+HBoxContainer (Margin Left 14px, separation 8px, alignment centered vertically).
+Label: "TRAINS:" — Inter Bold 10px uppercase, Color #7A6C5D.
+Badge 1: PanelContainer with pill radius 10px, bg #2D1815, border 1px solid #9B2C2C. Text: "POWER" — Inter Bold 10px, Color #FC8181.
+Badge 2: PanelContainer with pill radius 10px, bg #282315, border 1px solid #B7791F. Text: "FIT: BOXING x1.0" — Inter Bold 10px, Color #F6E05E.
+Row 5: Operational Utility Strip (H: 26px, Y: 168 to Y: 194)
+Margin: Left 14px, Right 14px.
+HBoxContainer:
+Left: Icon (Coin stack, 12x12px #E5B842) + "UPKEEP: $18 / wk" (Inter Regular 11px, Color #C7B9A5).
+Right: Icon (Two boxer silhouettes, 14x12px #9E9082) + "2 / 2 IN USE" (Inter Regular 11px, Color #9E9082).
+Row 6: Tactical Action Buttons (H: 52px, Y: 194 to Y: 246)
+Margin: Left 14px, Right 14px, Bottom 14px.
+HBoxContainer (Two equal buttons, W: 151px, H: 42px, separation 10px):
+Button 1 (Service Action):
+Normal State: Background gradient #3D3019 to #2D2312, border 1.5px solid #E5B842, radius 6px.
+Content (VBoxContainer):
+Line 1: HBox centered: Wrench icon (12x12px #E5B842) + "SERVICE $220" (Oswald Bold 13px, #FFFFFF).
+Line 2: "+50% (MAX 88%)" (Inter Regular 9px, #E5B842).
+Hover State: Background #4D3C1F, border 1.5px solid #F6CF65. Audio trigger snd_ui_hover.
+Disabled State (If station condition $\ge 88%$): Background #1B1714, border 1px solid #29221D, text color #574D42. Tooltip triggers: "Apparatus exceeds maximum service threshold (88%)."
+Button 2 (Replace Action):
+Normal State: Background #261E1A, border 1px solid #544336, radius 6px.
+Content (VBoxContainer):
+Line 1: HBox centered: Recycle/Exchange icon (12x12px #C7B9A5) + "REPLACE $850" (Oswald Bold 13px, #F6F0E0).
+Line 2: "100% BRAND NEW" (Inter Regular 9px, #9E9082).
+Hover State: Background #332822, border 1px solid #8C6F58. Audio trigger snd_ui_hover.
+Pressed State: Background #1A1411, scale punch (0.98, 0.98). Emits confirmation dialog modal if cash $< $1,200$.
+SECTION B: GLOBAL TOOLTIP MODAL SYSTEM (Godot 4 Reusable Framework)
+
+A unified tooltip modal system replaces static text paragraphs across the entire game.
+
+┌──────────────────────────────────────────────────────────────────┐
+│ [ICON] WEAR STATUS: DAMAGED                                      │ H: 24px
+├──────────────────────────────────────────────────────────────────┤
+│ Structural integrity degraded. Power gains cut by 35% and        │
+│ wrist sprain risk increased by +1.25% per training session.      │
+├──────────────────────────────────────────────────────────────────┤
+│ CURRENT INTEGRITY:  38%   [████░░░░░░]                           │ H: 30px
+│ NEXT THRESHOLD:     14 training hours to FAILING (<15%)          │
+├──────────────────────────────────────────────────────────────────┤
+│ [PRESS F1 OR CLICK TO PIN MODAL]                                 │ H: 16px
+└──────────────────────────────────────────────────────────────────┘
+W: 280px - 320px | Auto-Layout Container | Global CanvasLayer 99
+
+1. Trigger, Delay, Placement & Dismissal Logic
+Hover Delay: Standard micro-interaction delay: 350ms on stationary mouse position. Instantly appears (0ms) if moving between adjacent elements within the same group.
+Glyph / Affordance: Inline clickable (i) circular icon (14x14px, stroke #7A6C5D, text #E5B842) or dashed underline on clickable financial/simulation metrics.
+Gamepad / Keyboard Navigation: Focus highlight with [D-Pad / Tab]. Pressing [X / Square / F1] toggles modal into a "Pinned / Inspectable" floating window.
+Screen Edge Clamping & Flipping:
+Auto-evaluates viewport boundaries (1920x1080).
+Default position: Top-Right of target with 8px offset.
+If mouse_x + tooltip_width > 1900px, flips horizontally to Top-Left.
+If mouse_y + tooltip_height > 1060px, flips vertically above the target.
+Dismiss Rules:
+Mouse exits boundary by $>24px$ (grace zone prevents jitter).
+Any primary input action (mouse_left_down, esc, pan_camera, spacebar_pause) instantly fades alpha to 0.0 over 80ms.
+2. First 10 Global Tooltip Copy Definitions (Strict $\le 14$ Words)
+========================================================================================================================
+GLOBAL TOOLTIP REGISTER (TITLE + EXACT PRODUCTION COPY <= 14 WORDS)
+========================================================================================================================
+01. HEAVY BAG WEAR
+    "Reduces power training efficiency and increases wrist sprain risk during high-intensity workouts."
+
+02. RUNWAY (WEEKS)
+    "Estimated weeks until bankruptcy at current weekly burn rate without prize money."
+
+03. WEEKLY UPKEEP
+    "Combined facilities rent, equipment maintenance contracts, staff salaries, and utility utility retainers."
+
+04. FIGHTER COMPOSURE
+    "Determines recovery speed from counterpunches and resistance to late-round ring panic."
+
+05. FIGHTER FOOTWORK
+    "Dictates ring positioning control, lateral evasion speed, and rope trap escape probability."
+
+06. ACUTE FATIGUE
+    "Session strain meter. Exceeding 85% causes exponential surge in soft-tissue injuries."
+
+07. CHIN INTEGRITY
+    "Hidden damage resilience threshold. Degrades permanently after severe concussions or knockouts."
+
+08. CONTRACT PURSE SPLIT
+    "Percentage of official sanctioning bout purse paid directly to your fighter."
+
+09. SERVICE CEILING (88%)
+    "Field repairs cannot restore factory tolerances. Full overhaul requires purchasing replacement equipment."
+
+10. SANCTIONING RANKING
+    "Official federation position required to unlock regional and world championship title challenges."
+========================================================================================================================
+
+SECTION C: MENU & CREATION BACKGROUNDS WITH REAL 3D ART AND MOTION
+
+The operator's critique on Screenshot 2 ("fix the backgrounds put some art and motion... no random generated pictures") is solved by pointing a dedicated cinematic camera at our actual Godot 4 3D gym environment. We do not render flat concept art. The creation flow uses a single lightweight 3D master scene loaded in the background (res://scenes/menus/creation_backdrop.tscn), filmed through three choreographed cinematic camera tracks.
+
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│ CINEMATIC LAYER COMPOSITION (1920x1080 COMPOSITE STACK)                                │
+├────────────────────────────────────────────────────────────────────────────────────────┤
+│ LAYER 5 (Z: 100) -> 2D UI Panels (Inputs, Cards, Action HUD) - Opacity: 100%           │
+│ LAYER 4 (Z:  50) -> Directional Vignette / Color Grade Quad (CanvasItem Material)      │
+│ LAYER 3 (Z:  10) -> Foreground Atmospheric Alpha (GPU Dust Motes, Raked Light Beams)   │
+│ LAYER 2 (Z:   0) -> SubViewport 3D Scene: Physical Gym Props, Swaying Bag, Ring       │
+│ LAYER 1 (Z: -10) -> Distant Window Quad: City Skyline Skyline HDRI / Matte Parallax    │
+└────────────────────────────────────────────────────────────────────────────────────────┘
+
+1. The Multi-Layer Scene Architecture
+Layer 1: Sky & External Horizon (Z-Index: -10)
+Asset: Low-poly exterior cityscape silhouette billboard or local HDRI cube map seen through the gym’s high frosted industrial clerestory windows.
+Motion: Static or extremely slow cloud drift ($0.2\text{ px/sec}$).
+Layer 2: Real 3D Gym Shell & Props (Z-Index: 0)
+Asset: The actual in-engine 3D gym environment featuring:
+Anvil Street boxing ring (canvas floor, braided corner ropes, steel turnbuckles).
+Heavy bags suspended from welded I-beam overhead gantries.
+Wooden locker banks and vintage wall-mounted speed-bag platforms.
+Physical Animated Elements:
+Hanging Heavy Bag Sway: Physics-driven pendulum hinge oscillating slowly ($X$-axis swing $\pm 1.8^\circ$, period $4.2\text{ seconds}$).
+Ceiling Fan Blade Rotation: 4-blade industrial iron fan spinning at a constant $28\text{ RPM}$, casting dynamic rotating shadow slats across the floor.
+Layer 3: Atmospheric Volumetric Layer (Z-Index: 10)
+Asset 1 (Dust Motes): GPUParticles3D emitting 120 unlit quad flakes within the camera frustum. Velocity: 0.04 m/s upward/swirling Brownian drift. Color #F6F0E020.
+Asset 2 (Sunlight Volumetric Shaft): Additive blending mesh cone (Blend Mode: Add, alpha 0.08) slicing down from high south-facing windows across the canvas apron.
+Asset 3 (Chalk Haze): Subtle localized particle emitter near the weight rack emitting faint rising chalk puffs every $8\text{ seconds}$.
+Layer 4: Screen-Space Readability & Color Grade (Z-Index: 50)
+Full-Screen Canvas Shader (ColorRect over SubViewport):
+Vignette: Elliptical falloff darkening the edges and left/right UI panel zones down to #100D0A with $65%$ opacity, preserving $4.5:1$ WCAG contrast behind UI cards.
+Depth of Field (DoF): Camera 3D DoF Blur enabled. Focal distance set to primary prop (3.8m), background elements blurred smoothly (DoF Far Blur: 0.18).
+Color Grading LUT: Warm cinematic grading: Shadows pushed toward cool charcoal #1E1F24, Midtones rich umber #8A6848, Highlights glowing antique gold #F0C233.
+2. Camera Choreography Across Creation Steps
+
+The menu uses one continuous 3D camera running smooth linear interpolations (Camera3D transform lerp via Tween) when the player advances through the creation wizard:
+
+========================================================================================================================
+CREATION WIZARD CAMERA CHOREOGRAPHY
+========================================================================================================================
+STEP                  CAMERA POSITION & ANGLE                FOCAL SUBJECT           ATMOSPHERIC EMPHASIS
+------------------------------------------------------------------------------------------------------------------------
+Step 1: The Country   X: 1.2, Y: 1.4, Z: 8.5 | Pitch: +4°    Wide gym silhouette     Heavy morning window light shaft,
+                      (Looking toward sunlit ring ropes)     through morning mist    dust motes, distant city skyline.
+
+Step 2: The City      X: 4.8, Y: 1.1, Z: 5.2 | Pitch: -2°    Equipment wall, bags,   Raked lateral light, swaying bag
+                      (Dolly right along heavy bag row)      vintage speed platform  pendulum, chalk particle haze.
+
+Step 3: The Gym       X: 0.0, Y: 4.8, Z: 7.2 | Pitch: -32°   Full floor plan & ring  High clarity, reduced DoF blur,
+(Screenshot 2 fix)    (Elevated isometric overview)          ready for zone layout   visible floor grid snap lines.
+========================================================================================================================
+
+3. Motion Rules & Accessibility
+Input-First Rule: Motion never crosses the player's foveal focus during input. When the user types into "Gym Name" or drags a zone card, camera motion dampens to zero ($0.0$).
+Reduce-Motion Accessibility Toggle: When Settings > Accessibility > Reduce Motion is active:
+Camera tween transitions convert to 150ms cross-fades.
+Pendulum bag sway, fan rotations, and GPU dust particles freeze to static positions.
+Performance Budget:
+Background SubViewport capped at 60 FPS even on 144Hz monitors.
+Particle count limited to $\le 180$ total sprites.
+Tri budget for background view: $< 45,000$ tris. Draw calls: $< 32$.
+SECTION D: PRODUCTION AUDIT & FIRST BUILD CUTS
+Spec Self-Evaluation Scores
+
+| Module | Score (1-10) | Evaluation Justification |
+| :--- | :---: | :--- |
+| A: Station Card | 9.6 / 10 | Fixes 100% of the CEO's complaints: replaces text slabs with 3 concise graphic tiles, preserves all mechanical simulation hooks, and drops card height by 57%. |
+| B: Tooltip Engine | 9.4 / 10 | Rock-solid, unified modal architecture. Resolves clutter permanently across the entire project with strict $\le 14$ word copy limits. |
+| C: 3D Backgrounds| 9.1 / 10 | Directly leverages existing Godot gym assets rather than placeholder images, eliminating the flat brown void while guaranteeing crisp UI contrast. |
+
+First Build Cuts (MVP Scope Reduction)
+
+To deliver this build to the CEO within 48 hours without engine bloat, cut the following:
+
+Cut Volumetric Sunlight Cone Meshes: Use standard directional light shadows instead of additive cone geometry. Saves shader overhead and lighting setup time.
+Cut Dynamic Chalk Puffs: Keep the ambient dust motes; drop the timed chalk puff particles near the racks.
+Cut Interactive Pinned Modals (Keyboard F1 Toggle): Build tooltips strictly as hover-triggered floating frames first. Add gamepad pin/freeze modal navigation in the subsequent pass.
+Cut Replace Confirmation Modal: Implement single-click replacement with a 1-second hold-to-confirm progress fill directly on the button face, bypassing modal window instancing.
+Can you turn the station-card redesign into a compact implementation-ready wireframe with exact dimensions, states, and tooltip copy?
+Can you generate a UI mockup showing the redesigned Heavy Bag card with icon-led metrics, condition gauge, and simplified buttons?
+Can you create a production asset list for the three career-screen backgrounds, including camera paths, parallax layers, and loop timings?
+Can you generate a cinematic “Name the Gym” menu background using our own 3D club, with a hanging bag, poster wall, dust motes, and readable UI space?

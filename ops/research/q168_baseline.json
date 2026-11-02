@@ -1,0 +1,6589 @@
+[
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 637.5,
+        "finish_technique": "",
+        "finish_tick": 12750,
+        "open_t_s": 583.5,
+        "open_tick": 11670,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780000,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {},
+    "seed": 780000
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 626.5,
+        "finish_technique": "",
+        "finish_tick": 12530,
+        "open_t_s": 607.0,
+        "open_tick": 12140,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780001,
+        "target": "b",
+        "technique": "bjj_armbar"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": -1.0,
+        "finish_technique": "",
+        "finish_tick": -1,
+        "open_t_s": 639.0,
+        "open_tick": 12780,
+        "outcome": "bell",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780001,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 2,
+    "bell_ended": 1,
+    "escape_next_actions": [
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 2
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {},
+    "seed": 780001
+  },
+  {
+    "arm": "current",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 886.25,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 780002
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 222.0,
+        "finish_technique": "",
+        "finish_tick": 4440,
+        "open_t_s": 221.0,
+        "open_tick": 4420,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780003,
+        "target": "b",
+        "technique": "bjj_armbar"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "TAP",
+        "finish_t_s": 291.0,
+        "finish_technique": "judo_gyakujujijime",
+        "finish_tick": 5820,
+        "open_t_s": 269.5,
+        "open_tick": 5390,
+        "outcome": "tap",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "back",
+        "seed": 780003,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 2,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 291.0,
+    "finishes": 1,
+    "finishes_with_prior_control": 1,
+    "method": "SUBMISSION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "back": 1,
+      "mount": 1
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {
+      "back": 1
+    },
+    "seed": 780003
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": -1.0,
+        "finish_technique": "",
+        "finish_tick": -1,
+        "open_t_s": 466.0,
+        "open_tick": 9320,
+        "outcome": "bell",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780004,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 1,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 752.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "TKO",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 780004
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 471.5,
+        "finish_technique": "",
+        "finish_tick": 9430,
+        "open_t_s": 276.5,
+        "open_tick": 5530,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780005,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {},
+    "seed": 780005
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 397.0,
+        "finish_technique": "",
+        "finish_tick": 7940,
+        "open_t_s": 76.0,
+        "open_tick": 1520,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780006,
+        "target": "b",
+        "technique": "bjj_armbar"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": -1.0,
+        "finish_technique": "",
+        "finish_tick": -1,
+        "open_t_s": 412.0,
+        "open_tick": 8240,
+        "outcome": "bell",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780006,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 2,
+    "bell_ended": 1,
+    "escape_next_actions": [
+      {
+        "action": "pass",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 2
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {},
+    "seed": 780006
+  },
+  {
+    "arm": "current",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 780007
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 629.0,
+        "finish_technique": "",
+        "finish_tick": 12580,
+        "open_t_s": 589.0,
+        "open_tick": 11780,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780008,
+        "target": "b",
+        "technique": "bjj_armbar"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 633.0,
+        "finish_technique": "",
+        "finish_tick": 12660,
+        "open_t_s": 631.5,
+        "open_tick": 12630,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "back",
+        "seed": 780008,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 2,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "pass",
+        "from_seat": "mount"
+      },
+      {
+        "action": "to_back",
+        "from_seat": "back"
+      }
+    ],
+    "escapes": 2,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "back": 1,
+      "mount": 1
+    },
+    "seat_escapes": {
+      "back": 1,
+      "mount": 1
+    },
+    "seat_finishes": {},
+    "seed": 780008
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": -1.0,
+        "finish_technique": "",
+        "finish_tick": -1,
+        "open_t_s": 885.5,
+        "open_tick": 17710,
+        "outcome": "bell",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780009,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 1,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 936.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 780009
+  },
+  {
+    "arm": "current",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 220.3,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 780010
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "TAP",
+        "finish_t_s": 281.0,
+        "finish_technique": "bjj_armbar",
+        "finish_tick": 5620,
+        "open_t_s": 243.0,
+        "open_tick": 4860,
+        "outcome": "tap",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "back",
+        "seed": 780011,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 281.0,
+    "finishes": 1,
+    "finishes_with_prior_control": 1,
+    "method": "SUBMISSION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "back": 1
+    },
+    "seat_escapes": {},
+    "seat_finishes": {
+      "back": 1
+    },
+    "seed": 780011
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": -1.0,
+        "finish_technique": "",
+        "finish_tick": -1,
+        "open_t_s": 262.0,
+        "open_tick": 5240,
+        "outcome": "bell",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780012,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 1,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 404.7,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 780012
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 539.0,
+        "finish_technique": "",
+        "finish_tick": 10780,
+        "open_t_s": 515.0,
+        "open_tick": 10300,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780013,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "pass",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 935.4,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {},
+    "seed": 780013
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 464.0,
+        "finish_technique": "",
+        "finish_tick": 9280,
+        "open_t_s": 463.0,
+        "open_tick": 9260,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780014,
+        "target": "b",
+        "technique": "bjj_armbar"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 530.0,
+        "finish_technique": "",
+        "finish_tick": 10600,
+        "open_t_s": 504.5,
+        "open_tick": 10090,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780014,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 613.0,
+        "finish_technique": "",
+        "finish_tick": 12260,
+        "open_t_s": 568.5,
+        "open_tick": 11370,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780014,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": -1.0,
+        "finish_technique": "",
+        "finish_tick": -1,
+        "open_t_s": 992.5,
+        "open_tick": 19850,
+        "outcome": "bell",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "back",
+        "seed": 780014,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 4,
+    "bell_ended": 1,
+    "escape_next_actions": [
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      },
+      {
+        "action": "pass",
+        "from_seat": "mount"
+      },
+      {
+        "action": "pass",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 3,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "back": 1,
+      "mount": 3
+    },
+    "seat_escapes": {
+      "mount": 3
+    },
+    "seat_finishes": {},
+    "seed": 780014
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 57.5,
+        "finish_technique": "",
+        "finish_tick": 1150,
+        "open_t_s": 50.5,
+        "open_tick": 1010,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780015,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 66.5,
+        "finish_technique": "",
+        "finish_tick": 1330,
+        "open_t_s": 65.0,
+        "open_tick": 1300,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780015,
+        "target": "b",
+        "technique": "bjj_armbar"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 455.0,
+        "finish_technique": "",
+        "finish_tick": 9100,
+        "open_t_s": 432.5,
+        "open_tick": 8650,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780015,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 466.5,
+        "finish_technique": "",
+        "finish_tick": 9330,
+        "open_t_s": 464.5,
+        "open_tick": 9290,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "back",
+        "seed": 780015,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "TAP",
+        "finish_t_s": 602.0,
+        "finish_technique": "bjj_armbar",
+        "finish_tick": 12040,
+        "open_t_s": 567.0,
+        "open_tick": 11340,
+        "outcome": "tap",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780015,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 5,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "pass",
+        "from_seat": "mount"
+      },
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      },
+      {
+        "action": "pass",
+        "from_seat": "mount"
+      },
+      {
+        "action": "to_back",
+        "from_seat": "back"
+      }
+    ],
+    "escapes": 4,
+    "finish_t_s": 602.0,
+    "finishes": 1,
+    "finishes_with_prior_control": 1,
+    "method": "SUBMISSION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "back": 1,
+      "mount": 4
+    },
+    "seat_escapes": {
+      "back": 1,
+      "mount": 3
+    },
+    "seat_finishes": {
+      "mount": 1
+    },
+    "seed": 780015
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "TAP",
+        "finish_t_s": 170.0,
+        "finish_technique": "judo_gyakujujijime",
+        "finish_tick": 3400,
+        "open_t_s": 83.5,
+        "open_tick": 1670,
+        "outcome": "tap",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "back",
+        "seed": 780016,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 170.0,
+    "finishes": 1,
+    "finishes_with_prior_control": 1,
+    "method": "SUBMISSION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "back": 1
+    },
+    "seat_escapes": {},
+    "seat_finishes": {
+      "back": 1
+    },
+    "seed": 780016
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 57.5,
+        "finish_technique": "",
+        "finish_tick": 1150,
+        "open_t_s": 47.0,
+        "open_tick": 940,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780017,
+        "target": "b",
+        "technique": "bjj_armbar"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "TAP",
+        "finish_t_s": 91.0,
+        "finish_technique": "judo_gyakujujijime",
+        "finish_tick": 1820,
+        "open_t_s": 70.5,
+        "open_tick": 1410,
+        "outcome": "tap",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "back",
+        "seed": 780017,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 2,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "pass",
+        "from_seat": "mount"
+      },
+      {
+        "action": "to_back",
+        "from_seat": "back"
+      }
+    ],
+    "escapes": 2,
+    "finish_t_s": 91.0,
+    "finishes": 1,
+    "finishes_with_prior_control": 1,
+    "method": "SUBMISSION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "back": 1,
+      "mount": 1
+    },
+    "seat_escapes": {
+      "back": 1,
+      "mount": 1
+    },
+    "seat_finishes": {
+      "back": 1
+    },
+    "seed": 780017
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 979.0,
+        "finish_technique": "",
+        "finish_tick": 19580,
+        "open_t_s": 965.0,
+        "open_tick": 19300,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780018,
+        "target": "b",
+        "technique": "bjj_armbar"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 1015.0,
+        "finish_technique": "",
+        "finish_tick": 20300,
+        "open_t_s": 1005.5,
+        "open_tick": 20110,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780018,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 2,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "pass",
+        "from_seat": "mount"
+      },
+      {
+        "action": "pass",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 2,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 2
+    },
+    "seat_escapes": {
+      "mount": 2
+    },
+    "seat_finishes": {},
+    "seed": 780018
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "TAP",
+        "finish_t_s": 139.0,
+        "finish_technique": "bjj_armbar",
+        "finish_tick": 2780,
+        "open_t_s": 109.0,
+        "open_tick": 2180,
+        "outcome": "tap",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "back",
+        "seed": 780019,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 139.0,
+    "finishes": 1,
+    "finishes_with_prior_control": 1,
+    "method": "SUBMISSION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "back": 1
+    },
+    "seat_escapes": {},
+    "seat_finishes": {
+      "back": 1
+    },
+    "seed": 780019
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "b",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": -1.0,
+        "finish_technique": "",
+        "finish_tick": -1,
+        "open_t_s": 295.0,
+        "open_tick": 5900,
+        "outcome": "bell",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780020,
+        "target": "a",
+        "technique": "judo_katajujijime"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 1,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 399.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "TKO",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 780020
+  },
+  {
+    "arm": "current",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 780021
+  },
+  {
+    "arm": "current",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 780022
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 768.0,
+        "finish_technique": "",
+        "finish_tick": 15360,
+        "open_t_s": 118.5,
+        "open_tick": 2370,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780023,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 807.5,
+        "finish_technique": "",
+        "finish_tick": 16150,
+        "open_t_s": 775.0,
+        "open_tick": 15500,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780023,
+        "target": "b",
+        "technique": "bjj_armbar"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 871.0,
+        "finish_technique": "",
+        "finish_tick": 17420,
+        "open_t_s": 810.0,
+        "open_tick": 16200,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780023,
+        "target": "b",
+        "technique": "bjj_armbar"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": -1.0,
+        "finish_technique": "",
+        "finish_tick": -1,
+        "open_t_s": 879.0,
+        "open_tick": 17580,
+        "outcome": "bell",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780023,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 4,
+    "bell_ended": 1,
+    "escape_next_actions": [
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      },
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      },
+      {
+        "action": "pass",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 3,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 4
+    },
+    "seat_escapes": {
+      "mount": 3
+    },
+    "seat_finishes": {},
+    "seed": 780023
+  },
+  {
+    "arm": "current",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 780024
+  },
+  {
+    "arm": "current",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 234.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "TKO",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 780025
+  },
+  {
+    "arm": "current",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 823.5,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 780026
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": -1.0,
+        "finish_technique": "",
+        "finish_tick": -1,
+        "open_t_s": 448.5,
+        "open_tick": 8970,
+        "outcome": "bell",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780027,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 1,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 477.3,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 780027
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 191.5,
+        "finish_technique": "",
+        "finish_tick": 3830,
+        "open_t_s": 123.5,
+        "open_tick": 2470,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780028,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 235.5,
+        "finish_technique": "",
+        "finish_tick": 4710,
+        "open_t_s": 196.5,
+        "open_tick": 3930,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780028,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 545.0,
+        "finish_technique": "",
+        "finish_tick": 10900,
+        "open_t_s": 263.5,
+        "open_tick": 5270,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780028,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "TAP",
+        "finish_t_s": 601.0,
+        "finish_technique": "bjj_armbar",
+        "finish_tick": 12020,
+        "open_t_s": 555.0,
+        "open_tick": 11100,
+        "outcome": "tap",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780028,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 4,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      },
+      {
+        "action": "pass",
+        "from_seat": "mount"
+      },
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 3,
+    "finish_t_s": 601.0,
+    "finishes": 1,
+    "finishes_with_prior_control": 1,
+    "method": "SUBMISSION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 4
+    },
+    "seat_escapes": {
+      "mount": 3
+    },
+    "seat_finishes": {
+      "mount": 1
+    },
+    "seed": 780028
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 469.5,
+        "finish_technique": "",
+        "finish_tick": 9390,
+        "open_t_s": 441.5,
+        "open_tick": 8830,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780029,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 484.5,
+        "finish_technique": "",
+        "finish_tick": 9690,
+        "open_t_s": 484.0,
+        "open_tick": 9680,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780029,
+        "target": "b",
+        "technique": "bjj_armbar"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 584.0,
+        "finish_technique": "",
+        "finish_tick": 11680,
+        "open_t_s": 516.0,
+        "open_tick": 10320,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780029,
+        "target": "b",
+        "technique": "bjj_armbar"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": -1.0,
+        "finish_technique": "",
+        "finish_tick": -1,
+        "open_t_s": 595.5,
+        "open_tick": 11910,
+        "outcome": "bell",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780029,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 4,
+    "bell_ended": 1,
+    "escape_next_actions": [
+      {
+        "action": "pass",
+        "from_seat": "mount"
+      },
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      },
+      {
+        "action": "pass",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 3,
+    "finish_t_s": 939.2,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 4
+    },
+    "seat_escapes": {
+      "mount": 3
+    },
+    "seat_finishes": {},
+    "seed": 780029
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 591.0,
+        "finish_technique": "",
+        "finish_tick": 11820,
+        "open_t_s": 562.0,
+        "open_tick": 11240,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "back",
+        "seed": 780030,
+        "target": "b",
+        "technique": "bjj_armbar"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 794.5,
+        "finish_technique": "",
+        "finish_tick": 15890,
+        "open_t_s": 639.5,
+        "open_tick": 12790,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780030,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 2,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "pass",
+        "from_seat": "back"
+      },
+      {
+        "action": "pass",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 2,
+    "finish_t_s": 829.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "back": 1,
+      "mount": 1
+    },
+    "seat_escapes": {
+      "back": 1,
+      "mount": 1
+    },
+    "seat_finishes": {},
+    "seed": 780030
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 1008.5,
+        "finish_technique": "",
+        "finish_tick": 20170,
+        "open_t_s": 980.5,
+        "open_tick": 19610,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780031,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "pass",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 1009.5,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {},
+    "seed": 780031
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 106.0,
+        "finish_technique": "",
+        "finish_tick": 2120,
+        "open_t_s": 70.5,
+        "open_tick": 1410,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780032,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 120.5,
+        "finish_technique": "",
+        "finish_tick": 2410,
+        "open_t_s": 119.5,
+        "open_tick": 2390,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780032,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "TAP",
+        "finish_t_s": 210.0,
+        "finish_technique": "judo_gyakujujijime",
+        "finish_tick": 4200,
+        "open_t_s": 176.5,
+        "open_tick": 3530,
+        "outcome": "tap",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780032,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 3,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "pass",
+        "from_seat": "mount"
+      },
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 2,
+    "finish_t_s": 210.0,
+    "finishes": 1,
+    "finishes_with_prior_control": 1,
+    "method": "SUBMISSION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 3
+    },
+    "seat_escapes": {
+      "mount": 2
+    },
+    "seat_finishes": {
+      "mount": 1
+    },
+    "seed": 780032
+  },
+  {
+    "arm": "current",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 780033
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 85.5,
+        "finish_technique": "",
+        "finish_tick": 1710,
+        "open_t_s": 85.0,
+        "open_tick": 1700,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780034,
+        "target": "b",
+        "technique": "bjj_armbar"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 366.0,
+        "finish_technique": "",
+        "finish_tick": 7320,
+        "open_t_s": 158.5,
+        "open_tick": 3170,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780034,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 378.5,
+        "finish_technique": "",
+        "finish_tick": 7570,
+        "open_t_s": 378.0,
+        "open_tick": 7560,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780034,
+        "target": "b",
+        "technique": "bjj_armbar"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 500.5,
+        "finish_technique": "",
+        "finish_tick": 10010,
+        "open_t_s": 489.0,
+        "open_tick": 9780,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780034,
+        "target": "b",
+        "technique": "bjj_armbar"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 562.0,
+        "finish_technique": "",
+        "finish_tick": 11240,
+        "open_t_s": 523.5,
+        "open_tick": 10470,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780034,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 619.0,
+        "finish_technique": "",
+        "finish_tick": 12380,
+        "open_t_s": 571.0,
+        "open_tick": 11420,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780034,
+        "target": "b",
+        "technique": "bjj_armbar"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 658.0,
+        "finish_technique": "",
+        "finish_tick": 13160,
+        "open_t_s": 625.5,
+        "open_tick": 12510,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780034,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 658.0,
+        "finish_technique": "",
+        "finish_tick": 13160,
+        "open_t_s": 657.0,
+        "open_tick": 13140,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780034,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 8,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      },
+      {
+        "action": "pass",
+        "from_seat": "mount"
+      },
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      },
+      {
+        "action": "pass",
+        "from_seat": "mount"
+      },
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      },
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      },
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      },
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 8,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 8
+    },
+    "seat_escapes": {
+      "mount": 8
+    },
+    "seat_finishes": {},
+    "seed": 780034
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 60.5,
+        "finish_technique": "",
+        "finish_tick": 1210,
+        "open_t_s": 59.0,
+        "open_tick": 1180,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780035,
+        "target": "b",
+        "technique": "bjj_armbar"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 130.5,
+        "finish_technique": "",
+        "finish_tick": 2610,
+        "open_t_s": 130.0,
+        "open_tick": 2600,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "back",
+        "seed": 780035,
+        "target": "b",
+        "technique": "bjj_armbar"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "TAP",
+        "finish_t_s": 214.0,
+        "finish_technique": "judo_gyakujujijime",
+        "finish_tick": 4280,
+        "open_t_s": 172.5,
+        "open_tick": 3450,
+        "outcome": "tap",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780035,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 3,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      },
+      {
+        "action": "to_back",
+        "from_seat": "back"
+      }
+    ],
+    "escapes": 2,
+    "finish_t_s": 214.0,
+    "finishes": 1,
+    "finishes_with_prior_control": 1,
+    "method": "SUBMISSION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "back": 1,
+      "mount": 2
+    },
+    "seat_escapes": {
+      "back": 1,
+      "mount": 1
+    },
+    "seat_finishes": {
+      "mount": 1
+    },
+    "seed": 780035
+  },
+  {
+    "arm": "current",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 780036
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": -1.0,
+        "finish_technique": "",
+        "finish_tick": -1,
+        "open_t_s": 827.5,
+        "open_tick": 16550,
+        "outcome": "bell",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 780037,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 1,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 780037
+  },
+  {
+    "arm": "current",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 780038
+  },
+  {
+    "arm": "current",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 126.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "TKO",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 780039
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 880000
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 880001
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "TAP",
+        "finish_t_s": 620.0,
+        "finish_technique": "bjj_armbar",
+        "finish_tick": 12400,
+        "open_t_s": 563.0,
+        "open_tick": 11260,
+        "outcome": "tap",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880002,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 620.0,
+    "finishes": 1,
+    "finishes_with_prior_control": 1,
+    "method": "SUBMISSION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {},
+    "seat_finishes": {
+      "mount": 1
+    },
+    "seed": 880002
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 490.0,
+        "finish_technique": "",
+        "finish_tick": 9800,
+        "open_t_s": 484.0,
+        "open_tick": 9680,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880003,
+        "target": "b",
+        "technique": "bjj_armbar"
+      },
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 582.0,
+        "finish_technique": "",
+        "finish_tick": 11640,
+        "open_t_s": 500.5,
+        "open_tick": 10010,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880003,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 2,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_guard",
+        "from_seat": "mount"
+      },
+      {
+        "action": "to_guard",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 2,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 2
+    },
+    "seat_escapes": {
+      "mount": 2
+    },
+    "seat_finishes": {},
+    "seed": 880003
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 258.5,
+        "finish_technique": "",
+        "finish_tick": 5170,
+        "open_t_s": 237.5,
+        "open_tick": 4750,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880004,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_guard",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {},
+    "seed": 880004
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "TAP",
+        "finish_t_s": 296.0,
+        "finish_technique": "judo_gyakujujijime",
+        "finish_tick": 5920,
+        "open_t_s": 264.5,
+        "open_tick": 5290,
+        "outcome": "tap",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880005,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 296.0,
+    "finishes": 1,
+    "finishes_with_prior_control": 1,
+    "method": "SUBMISSION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {},
+    "seat_finishes": {
+      "mount": 1
+    },
+    "seed": 880005
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 142.4,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 880006
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 116.5,
+        "finish_technique": "",
+        "finish_tick": 2330,
+        "open_t_s": 105.5,
+        "open_tick": 2110,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880007,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 134.5,
+        "finish_technique": "",
+        "finish_tick": 2690,
+        "open_t_s": 133.5,
+        "open_tick": 2670,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880007,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": -1.0,
+        "finish_technique": "",
+        "finish_tick": -1,
+        "open_t_s": 177.0,
+        "open_tick": 3540,
+        "outcome": "bell",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880007,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 3,
+    "bell_ended": 1,
+    "escape_next_actions": [
+      {
+        "action": "to_guard",
+        "from_seat": "mount"
+      },
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 2,
+    "finish_t_s": 474.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "TKO",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 3
+    },
+    "seat_escapes": {
+      "mount": 2
+    },
+    "seat_finishes": {},
+    "seed": 880007
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 802.0,
+        "finish_technique": "",
+        "finish_tick": 16040,
+        "open_t_s": 760.0,
+        "open_tick": 15200,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880008,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_guard",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 829.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "TKO",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {},
+    "seed": 880008
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 576.4,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 880009
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 825.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "TKO",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 880010
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "TAP",
+        "finish_t_s": 816.0,
+        "finish_technique": "judo_gyakujujijime",
+        "finish_tick": 16320,
+        "open_t_s": 794.5,
+        "open_tick": 15890,
+        "outcome": "tap",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880011,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 816.0,
+    "finishes": 1,
+    "finishes_with_prior_control": 1,
+    "method": "SUBMISSION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {
+      "mount": 1
+    },
+    "seed": 880011
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 880012
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 880013
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 792.5,
+        "finish_technique": "",
+        "finish_tick": 15850,
+        "open_t_s": 792.0,
+        "open_tick": 15840,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880014,
+        "target": "b",
+        "technique": "bjj_armbar"
+      },
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 874.0,
+        "finish_technique": "",
+        "finish_tick": 17480,
+        "open_t_s": 858.0,
+        "open_tick": 17160,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880014,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 2,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      },
+      {
+        "action": "to_guard",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 2,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 2
+    },
+    "seat_escapes": {
+      "mount": 2
+    },
+    "seat_finishes": {},
+    "seed": 880014
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 176.2,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 880015
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 837.5,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 880016
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 258.5,
+        "finish_technique": "",
+        "finish_tick": 5170,
+        "open_t_s": 220.0,
+        "open_tick": 4400,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880017,
+        "target": "b",
+        "technique": "bjj_armbar"
+      },
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 586.5,
+        "finish_technique": "",
+        "finish_tick": 11730,
+        "open_t_s": 577.0,
+        "open_tick": 11540,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880017,
+        "target": "b",
+        "technique": "bjj_armbar"
+      },
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "TAP",
+        "finish_t_s": 806.0,
+        "finish_technique": "bjj_armbar",
+        "finish_tick": 16120,
+        "open_t_s": 780.0,
+        "open_tick": 15600,
+        "outcome": "tap",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880017,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 3,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_guard",
+        "from_seat": "mount"
+      },
+      {
+        "action": "to_guard",
+        "from_seat": "mount"
+      },
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 3,
+    "finish_t_s": 806.0,
+    "finishes": 1,
+    "finishes_with_prior_control": 1,
+    "method": "SUBMISSION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 3
+    },
+    "seat_escapes": {
+      "mount": 3
+    },
+    "seat_finishes": {
+      "mount": 1
+    },
+    "seed": 880017
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 195.0,
+        "finish_technique": "",
+        "finish_tick": 3900,
+        "open_t_s": 181.5,
+        "open_tick": 3630,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880018,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "b",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 559.5,
+        "finish_technique": "",
+        "finish_tick": 11190,
+        "open_t_s": 444.0,
+        "open_tick": 8880,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880018,
+        "target": "a",
+        "technique": "judo_udegarami"
+      }
+    ],
+    "attempts": 2,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_guard",
+        "from_seat": "mount"
+      },
+      {
+        "action": "to_guard",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 2,
+    "finish_t_s": 560.1,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 2
+    },
+    "seat_escapes": {
+      "mount": 2
+    },
+    "seat_finishes": {},
+    "seed": 880018
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "TAP",
+        "finish_t_s": 935.0,
+        "finish_technique": "judo_gyakujujijime",
+        "finish_tick": 18700,
+        "open_t_s": 906.5,
+        "open_tick": 18130,
+        "outcome": "tap",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880019,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 935.0,
+    "finishes": 1,
+    "finishes_with_prior_control": 1,
+    "method": "SUBMISSION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {
+      "mount": 1
+    },
+    "seed": 880019
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 468.5,
+        "finish_technique": "",
+        "finish_tick": 9370,
+        "open_t_s": 460.5,
+        "open_tick": 9210,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880020,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 951.0,
+        "finish_technique": "",
+        "finish_tick": 19020,
+        "open_t_s": 915.0,
+        "open_tick": 18300,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880020,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 2,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_guard",
+        "from_seat": "mount"
+      },
+      {
+        "action": "to_guard",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 2,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 2
+    },
+    "seat_escapes": {
+      "mount": 2
+    },
+    "seat_finishes": {},
+    "seed": 880020
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": -1.0,
+        "finish_technique": "",
+        "finish_tick": -1,
+        "open_t_s": 157.5,
+        "open_tick": 3150,
+        "outcome": "bell",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880021,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 1,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 181.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "TKO",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 880021
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 899.5,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 880022
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 105.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "TKO",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 880023
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 835.5,
+        "finish_technique": "",
+        "finish_tick": 16710,
+        "open_t_s": 807.5,
+        "open_tick": 16150,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880024,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": -1.0,
+        "finish_technique": "",
+        "finish_tick": -1,
+        "open_t_s": 886.5,
+        "open_tick": 17730,
+        "outcome": "bell",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880024,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 2,
+    "bell_ended": 1,
+    "escape_next_actions": [
+      {
+        "action": "to_guard",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 899.5,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 2
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {},
+    "seed": 880024
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 160.0,
+        "finish_technique": "",
+        "finish_tick": 3200,
+        "open_t_s": 158.5,
+        "open_tick": 3170,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "back",
+        "seed": 880025,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 191.0,
+        "finish_technique": "",
+        "finish_tick": 3820,
+        "open_t_s": 189.0,
+        "open_tick": 3780,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880025,
+        "target": "b",
+        "technique": "bjj_armbar"
+      },
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "TAP",
+        "finish_t_s": 236.0,
+        "finish_technique": "bjj_armbar",
+        "finish_tick": 4720,
+        "open_t_s": 213.0,
+        "open_tick": 4260,
+        "outcome": "tap",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880025,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 3,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_back",
+        "from_seat": "back"
+      },
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 2,
+    "finish_t_s": 236.0,
+    "finishes": 1,
+    "finishes_with_prior_control": 1,
+    "method": "SUBMISSION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "back": 1,
+      "mount": 2
+    },
+    "seat_escapes": {
+      "back": 1,
+      "mount": 1
+    },
+    "seat_finishes": {
+      "mount": 1
+    },
+    "seed": 880025
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 858.5,
+        "finish_technique": "",
+        "finish_tick": 17170,
+        "open_t_s": 830.5,
+        "open_tick": 16610,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880026,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 896.5,
+        "finish_technique": "",
+        "finish_tick": 17930,
+        "open_t_s": 895.5,
+        "open_tick": 17910,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880026,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 2,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_guard",
+        "from_seat": "mount"
+      },
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 2,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 2
+    },
+    "seat_escapes": {
+      "mount": 2
+    },
+    "seat_finishes": {},
+    "seed": 880026
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 247.5,
+        "finish_technique": "",
+        "finish_tick": 4950,
+        "open_t_s": 231.0,
+        "open_tick": 4620,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880027,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_guard",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 586.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "TKO",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {},
+    "seed": 880027
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 64.0,
+        "finish_technique": "",
+        "finish_tick": 1280,
+        "open_t_s": 57.5,
+        "open_tick": 1150,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880028,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_guard",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 105.5,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {},
+    "seed": 880028
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 59.5,
+        "finish_technique": "",
+        "finish_tick": 1190,
+        "open_t_s": 30.0,
+        "open_tick": 600,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880029,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_guard",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 884.2,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {},
+    "seed": 880029
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 636.0,
+        "finish_technique": "",
+        "finish_tick": 12720,
+        "open_t_s": 635.0,
+        "open_tick": 12700,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "back",
+        "seed": 880030,
+        "target": "b",
+        "technique": "bjj_armbar"
+      },
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": -1.0,
+        "finish_technique": "",
+        "finish_tick": -1,
+        "open_t_s": 868.5,
+        "open_tick": 17370,
+        "outcome": "bell",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880030,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 2,
+    "bell_ended": 1,
+    "escape_next_actions": [
+      {
+        "action": "to_back",
+        "from_seat": "back"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 871.45,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "back": 1,
+      "mount": 1
+    },
+    "seat_escapes": {
+      "back": 1
+    },
+    "seat_finishes": {},
+    "seed": 880030
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 129.5,
+        "finish_technique": "",
+        "finish_tick": 2590,
+        "open_t_s": 107.5,
+        "open_tick": 2150,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880031,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 171.5,
+        "finish_technique": "",
+        "finish_tick": 3430,
+        "open_t_s": 170.0,
+        "open_tick": 3400,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880031,
+        "target": "b",
+        "technique": "bjj_armbar"
+      },
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": -1.0,
+        "finish_technique": "",
+        "finish_tick": -1,
+        "open_t_s": 256.0,
+        "open_tick": 5120,
+        "outcome": "bell",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880031,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 3,
+    "bell_ended": 1,
+    "escape_next_actions": [
+      {
+        "action": "to_guard",
+        "from_seat": "mount"
+      },
+      {
+        "action": "to_guard",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 2,
+    "finish_t_s": 280.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "TKO",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 3
+    },
+    "seat_escapes": {
+      "mount": 2
+    },
+    "seat_finishes": {},
+    "seed": 880031
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 143.0,
+        "finish_technique": "",
+        "finish_tick": 2860,
+        "open_t_s": 141.0,
+        "open_tick": 2820,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880032,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 854.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "TKO",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {},
+    "seed": 880032
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 284.5,
+        "finish_technique": "",
+        "finish_tick": 5690,
+        "open_t_s": 283.5,
+        "open_tick": 5670,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880033,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 900.5,
+        "finish_technique": "",
+        "finish_tick": 18010,
+        "open_t_s": 898.5,
+        "open_tick": 17970,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880033,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 1019.5,
+        "finish_technique": "",
+        "finish_tick": 20390,
+        "open_t_s": 962.5,
+        "open_tick": 19250,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880033,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 3,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      },
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      },
+      {
+        "action": "to_guard",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 3,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 3
+    },
+    "seat_escapes": {
+      "mount": 3
+    },
+    "seat_finishes": {},
+    "seed": 880033
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 828.0,
+        "finish_technique": "",
+        "finish_tick": 16560,
+        "open_t_s": 827.5,
+        "open_tick": 16550,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880034,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 921.5,
+        "finish_technique": "",
+        "finish_tick": 18430,
+        "open_t_s": 875.5,
+        "open_tick": 17510,
+        "outcome": "escape",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880034,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 2,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      },
+      {
+        "action": "to_guard",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 2,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 2
+    },
+    "seat_escapes": {
+      "mount": 2
+    },
+    "seat_finishes": {},
+    "seed": 880034
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "TAP",
+        "finish_t_s": 476.0,
+        "finish_technique": "bjj_armbar",
+        "finish_tick": 9520,
+        "open_t_s": 411.0,
+        "open_tick": 8220,
+        "outcome": "tap",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880035,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 476.0,
+    "finishes": 1,
+    "finishes_with_prior_control": 1,
+    "method": "SUBMISSION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {},
+    "seat_finishes": {
+      "mount": 1
+    },
+    "seed": 880035
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 415.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 880036
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 451.35,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 880037
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "TAP",
+        "finish_t_s": 467.0,
+        "finish_technique": "bjj_armbar",
+        "finish_tick": 9340,
+        "open_t_s": 446.0,
+        "open_tick": 8920,
+        "outcome": "tap",
+        "pop": "A: grappler(82) vs striker(34), 77 kg",
+        "seat": "mount",
+        "seed": 880038,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 467.0,
+    "finishes": 1,
+    "finishes_with_prior_control": 1,
+    "method": "SUBMISSION",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {},
+    "seat_finishes": {
+      "mount": 1
+    },
+    "seed": 880038
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 558.1,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "A: grappler(82) vs striker(34), 77 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 880039
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": -1.0,
+        "finish_technique": "",
+        "finish_tick": -1,
+        "open_t_s": 239.5,
+        "open_tick": 4790,
+        "outcome": "bell",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 780540,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 1,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 271.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "TKO",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 780540
+  },
+  {
+    "arm": "current",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 177.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "TKO",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 780541
+  },
+  {
+    "arm": "current",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 5.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 780542
+  },
+  {
+    "arm": "current",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 780543
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 604.5,
+        "finish_technique": "",
+        "finish_tick": 12090,
+        "open_t_s": 603.5,
+        "open_tick": 12070,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 780544,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 756.5,
+        "finish_technique": "",
+        "finish_tick": 15130,
+        "open_t_s": 637.0,
+        "open_tick": 12740,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 780544,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 2,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      },
+      {
+        "action": "sweep",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 2,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 2
+    },
+    "seat_escapes": {
+      "mount": 2
+    },
+    "seat_finishes": {},
+    "seed": 780544
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 480.5,
+        "finish_technique": "",
+        "finish_tick": 9610,
+        "open_t_s": 478.5,
+        "open_tick": 9570,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 780545,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 547.5,
+        "finish_technique": "",
+        "finish_tick": 10950,
+        "open_t_s": 497.5,
+        "open_tick": 9950,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 780545,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 2,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      },
+      {
+        "action": "pass",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 2,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 2
+    },
+    "seat_escapes": {
+      "mount": 2
+    },
+    "seat_finishes": {},
+    "seed": 780545
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 979.5,
+        "finish_technique": "",
+        "finish_tick": 19590,
+        "open_t_s": 978.0,
+        "open_tick": 19560,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "back",
+        "seed": 780546,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_back",
+        "from_seat": "back"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "back": 1
+    },
+    "seat_escapes": {
+      "back": 1
+    },
+    "seat_finishes": {},
+    "seed": 780546
+  },
+  {
+    "arm": "current",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 780547
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 1011.5,
+        "finish_technique": "",
+        "finish_tick": 20230,
+        "open_t_s": 1009.5,
+        "open_tick": 20190,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 780548,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {},
+    "seed": 780548
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "TAP",
+        "finish_t_s": 245.0,
+        "finish_technique": "judo_gyakujujijime",
+        "finish_tick": 4900,
+        "open_t_s": 214.5,
+        "open_tick": 4290,
+        "outcome": "tap",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "back",
+        "seed": 780549,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 245.0,
+    "finishes": 1,
+    "finishes_with_prior_control": 1,
+    "method": "SUBMISSION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "back": 1
+    },
+    "seat_escapes": {},
+    "seat_finishes": {
+      "back": 1
+    },
+    "seed": 780549
+  },
+  {
+    "arm": "current",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 780550
+  },
+  {
+    "arm": "current",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 232.75,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 780551
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "b",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 462.0,
+        "finish_technique": "",
+        "finish_tick": 9240,
+        "open_t_s": 82.5,
+        "open_tick": 1650,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 780552,
+        "target": "a",
+        "technique": "judo_namijujijime"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "pass",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 876.8,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {},
+    "seed": 780552
+  },
+  {
+    "arm": "current",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 658.4,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 780553
+  },
+  {
+    "arm": "current",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 780554
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 622.5,
+        "finish_technique": "",
+        "finish_tick": 12450,
+        "open_t_s": 621.5,
+        "open_tick": 12430,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 780555,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {},
+    "seed": 780555
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "TAP",
+        "finish_t_s": 826.0,
+        "finish_technique": "bjj_armbar",
+        "finish_tick": 16520,
+        "open_t_s": 795.0,
+        "open_tick": 15900,
+        "outcome": "tap",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 780556,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 826.0,
+    "finishes": 1,
+    "finishes_with_prior_control": 1,
+    "method": "SUBMISSION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {
+      "mount": 1
+    },
+    "seed": 780556
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 516.5,
+        "finish_technique": "",
+        "finish_tick": 10330,
+        "open_t_s": 235.5,
+        "open_tick": 4710,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 780557,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": -1.0,
+        "finish_technique": "",
+        "finish_tick": -1,
+        "open_t_s": 527.5,
+        "open_tick": 10550,
+        "outcome": "bell",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 780557,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 2,
+    "bell_ended": 1,
+    "escape_next_actions": [
+      {
+        "action": "pass",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 555.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "TKO",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 2
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {},
+    "seed": 780557
+  },
+  {
+    "arm": "current",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 264.95,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 780558
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 511.5,
+        "finish_technique": "",
+        "finish_tick": 10230,
+        "open_t_s": 478.5,
+        "open_tick": 9570,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 780559,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": -1.0,
+        "finish_technique": "",
+        "finish_tick": -1,
+        "open_t_s": 524.0,
+        "open_tick": 10480,
+        "outcome": "bell",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 780559,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 2,
+    "bell_ended": 1,
+    "escape_next_actions": [
+      {
+        "action": "pass",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 2
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {},
+    "seed": 780559
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 63.5,
+        "finish_technique": "",
+        "finish_tick": 1270,
+        "open_t_s": 62.5,
+        "open_tick": 1250,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 780560,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 893.5,
+        "finish_technique": "",
+        "finish_tick": 17870,
+        "open_t_s": 113.5,
+        "open_tick": 2270,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 780560,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": -1.0,
+        "finish_technique": "",
+        "finish_tick": -1,
+        "open_t_s": 917.5,
+        "open_tick": 18350,
+        "outcome": "bell",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 780560,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 3,
+    "bell_ended": 1,
+    "escape_next_actions": [
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      },
+      {
+        "action": "to_back",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 2,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 3
+    },
+    "seat_escapes": {
+      "mount": 2
+    },
+    "seat_finishes": {},
+    "seed": 780560
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "TAP",
+        "finish_t_s": 852.0,
+        "finish_technique": "judo_gyakujujijime",
+        "finish_tick": 17040,
+        "open_t_s": 822.5,
+        "open_tick": 16450,
+        "outcome": "tap",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 780561,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 852.0,
+    "finishes": 1,
+    "finishes_with_prior_control": 1,
+    "method": "SUBMISSION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {
+      "mount": 1
+    },
+    "seed": 780561
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 212.0,
+        "finish_technique": "",
+        "finish_tick": 4240,
+        "open_t_s": 123.5,
+        "open_tick": 2470,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 780562,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": -1.0,
+        "finish_technique": "",
+        "finish_tick": -1,
+        "open_t_s": 975.0,
+        "open_tick": 19500,
+        "outcome": "bell",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 780562,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 2,
+    "bell_ended": 1,
+    "escape_next_actions": [
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 2
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {},
+    "seed": 780562
+  },
+  {
+    "arm": "current",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 780563
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 187.0,
+        "finish_technique": "",
+        "finish_tick": 3740,
+        "open_t_s": 177.0,
+        "open_tick": 3540,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 780564,
+        "target": "b",
+        "technique": "bjj_armbar"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 201.0,
+        "finish_technique": "",
+        "finish_tick": 4020,
+        "open_t_s": 196.5,
+        "open_tick": 3930,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 780564,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "b",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 466.5,
+        "finish_technique": "",
+        "finish_tick": 9330,
+        "open_t_s": 465.0,
+        "open_tick": 9300,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 780564,
+        "target": "a",
+        "technique": "judo_udegarami"
+      }
+    ],
+    "attempts": 3,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "pass",
+        "from_seat": "mount"
+      },
+      {
+        "action": "pass",
+        "from_seat": "mount"
+      },
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 3,
+    "finish_t_s": 812.7,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 3
+    },
+    "seat_escapes": {
+      "mount": 3
+    },
+    "seat_finishes": {},
+    "seed": 780564
+  },
+  {
+    "arm": "current",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 780565
+  },
+  {
+    "arm": "current",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 459.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "TKO",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 780566
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 840.5,
+        "finish_technique": "",
+        "finish_tick": 16810,
+        "open_t_s": 827.0,
+        "open_tick": 16540,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 780567,
+        "target": "b",
+        "technique": "bjj_armbar"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 856.0,
+        "finish_technique": "",
+        "finish_tick": 17120,
+        "open_t_s": 846.0,
+        "open_tick": 16920,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 780567,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 2,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      },
+      {
+        "action": "pass",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 2,
+    "finish_t_s": 861.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "TKO",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 2
+    },
+    "seat_escapes": {
+      "mount": 2
+    },
+    "seat_finishes": {},
+    "seed": 780567
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 477.5,
+        "finish_technique": "",
+        "finish_tick": 9550,
+        "open_t_s": 475.5,
+        "open_tick": 9510,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "back",
+        "seed": 780568,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 630.0,
+        "finish_technique": "",
+        "finish_tick": 12600,
+        "open_t_s": 523.5,
+        "open_tick": 10470,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 780568,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 2,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_back",
+        "from_seat": "back"
+      },
+      {
+        "action": "sweep",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 2,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "back": 1,
+      "mount": 1
+    },
+    "seat_escapes": {
+      "back": 1,
+      "mount": 1
+    },
+    "seat_finishes": {},
+    "seed": 780568
+  },
+  {
+    "arm": "current",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 780569
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "b",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 408.5,
+        "finish_technique": "",
+        "finish_tick": 8170,
+        "open_t_s": 172.5,
+        "open_tick": 3450,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 780570,
+        "target": "a",
+        "technique": "judo_namijujijime"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "pass",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {},
+    "seed": 780570
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 283.0,
+        "finish_technique": "",
+        "finish_tick": 5660,
+        "open_t_s": 256.0,
+        "open_tick": 5120,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 780571,
+        "target": "b",
+        "technique": "bjj_armbar"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 299.0,
+        "finish_technique": "",
+        "finish_tick": 5980,
+        "open_t_s": 297.0,
+        "open_tick": 5940,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 780571,
+        "target": "b",
+        "technique": "bjj_armbar"
+      },
+      {
+        "actor": "b",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 984.5,
+        "finish_technique": "",
+        "finish_tick": 19690,
+        "open_t_s": 829.5,
+        "open_tick": 16590,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 780571,
+        "target": "a",
+        "technique": "judo_namijujijime"
+      },
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": -1.0,
+        "finish_technique": "",
+        "finish_tick": -1,
+        "open_t_s": 997.0,
+        "open_tick": 19940,
+        "outcome": "bell",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 780571,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 4,
+    "bell_ended": 1,
+    "escape_next_actions": [
+      {
+        "action": "pass",
+        "from_seat": "mount"
+      },
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      },
+      {
+        "action": "pass",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 3,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 4
+    },
+    "seat_escapes": {
+      "mount": 3
+    },
+    "seat_finishes": {},
+    "seed": 780571
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": -1.0,
+        "finish_technique": "",
+        "finish_tick": -1,
+        "open_t_s": 455.5,
+        "open_tick": 9110,
+        "outcome": "bell",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 780572,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 1,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 480.2,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 780572
+  },
+  {
+    "arm": "current",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 916.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "TKO",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 780573
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "b",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 476.5,
+        "finish_technique": "",
+        "finish_tick": 9530,
+        "open_t_s": 460.5,
+        "open_tick": 9210,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 780574,
+        "target": "a",
+        "technique": "judo_namijujijime"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "pass",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {},
+    "seed": 780574
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 165.5,
+        "finish_technique": "",
+        "finish_tick": 3310,
+        "open_t_s": 149.5,
+        "open_tick": 2990,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "back",
+        "seed": 780575,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "pass",
+        "from_seat": "back"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 166.5,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "back": 1
+    },
+    "seat_escapes": {
+      "back": 1
+    },
+    "seat_finishes": {},
+    "seed": 780575
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 236.5,
+        "finish_technique": "",
+        "finish_tick": 4730,
+        "open_t_s": 235.5,
+        "open_tick": 4710,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "back",
+        "seed": 780576,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "b",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": -1.0,
+        "finish_technique": "",
+        "finish_tick": -1,
+        "open_t_s": 648.0,
+        "open_tick": 12960,
+        "outcome": "bell",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 780576,
+        "target": "a",
+        "technique": "judo_udegarami"
+      }
+    ],
+    "attempts": 2,
+    "bell_ended": 1,
+    "escape_next_actions": [
+      {
+        "action": "to_back",
+        "from_seat": "back"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "back": 1,
+      "mount": 1
+    },
+    "seat_escapes": {
+      "back": 1
+    },
+    "seat_finishes": {},
+    "seed": 780576
+  },
+  {
+    "arm": "current",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 408.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "TKO",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 780577
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 91.5,
+        "finish_technique": "",
+        "finish_tick": 1830,
+        "open_t_s": 89.5,
+        "open_tick": 1790,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 780578,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {},
+    "seed": 780578
+  },
+  {
+    "arm": "current",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "current",
+        "finish_mode": "",
+        "finish_t_s": 643.0,
+        "finish_technique": "",
+        "finish_tick": 12860,
+        "open_t_s": 612.0,
+        "open_tick": 12240,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 780579,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {},
+    "seed": 780579
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 77.0,
+        "finish_technique": "",
+        "finish_tick": 1540,
+        "open_t_s": 57.0,
+        "open_tick": 1140,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 880540,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_guard",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {},
+    "seed": 880540
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 880541
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 880542
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 880543
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 556.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "TKO",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 880544
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 880545
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 629.0,
+        "finish_technique": "",
+        "finish_tick": 12580,
+        "open_t_s": 592.5,
+        "open_tick": 11850,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 880546,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 854.5,
+        "finish_technique": "",
+        "finish_tick": 17090,
+        "open_t_s": 656.5,
+        "open_tick": 13130,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 880546,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 2,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_guard",
+        "from_seat": "mount"
+      },
+      {
+        "action": "sweep",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 2,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 2
+    },
+    "seat_escapes": {
+      "mount": 2
+    },
+    "seat_finishes": {},
+    "seed": 880546
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "TAP",
+        "finish_t_s": 513.0,
+        "finish_technique": "bjj_armbar",
+        "finish_tick": 10260,
+        "open_t_s": 427.0,
+        "open_tick": 8540,
+        "outcome": "tap",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 880547,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 513.0,
+    "finishes": 1,
+    "finishes_with_prior_control": 1,
+    "method": "SUBMISSION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {
+      "mount": 1
+    },
+    "seed": 880547
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 172.5,
+        "finish_technique": "",
+        "finish_tick": 3450,
+        "open_t_s": 152.0,
+        "open_tick": 3040,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 880548,
+        "target": "b",
+        "technique": "bjj_armbar"
+      },
+      {
+        "actor": "b",
+        "arm": "graph",
+        "finish_mode": "TAP",
+        "finish_t_s": 912.0,
+        "finish_technique": "judo_udehishigihizagatame",
+        "finish_tick": 18240,
+        "open_t_s": 875.5,
+        "open_tick": 17510,
+        "outcome": "tap",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 880548,
+        "target": "a",
+        "technique": "judo_udehishigihizagatame"
+      }
+    ],
+    "attempts": 2,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_guard",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 912.0,
+    "finishes": 1,
+    "finishes_with_prior_control": 1,
+    "method": "SUBMISSION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 2
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {
+      "mount": 1
+    },
+    "seed": 880548
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "TAP",
+        "finish_t_s": 1015.0,
+        "finish_technique": "judo_gyakujujijime",
+        "finish_tick": 20300,
+        "open_t_s": 952.5,
+        "open_tick": 19050,
+        "outcome": "tap",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 880549,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 1015.0,
+    "finishes": 1,
+    "finishes_with_prior_control": 1,
+    "method": "SUBMISSION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {
+      "mount": 1
+    },
+    "seed": 880549
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 880550
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 880551
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 880552
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 525.5,
+        "finish_technique": "",
+        "finish_tick": 10510,
+        "open_t_s": 525.0,
+        "open_tick": 10500,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 880553,
+        "target": "b",
+        "technique": "bjj_armbar"
+      },
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 615.5,
+        "finish_technique": "",
+        "finish_tick": 12310,
+        "open_t_s": 611.0,
+        "open_tick": 12220,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 880553,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 2,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      },
+      {
+        "action": "to_guard",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 2,
+    "finish_t_s": 859.7,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 2
+    },
+    "seat_escapes": {
+      "mount": 2
+    },
+    "seat_finishes": {},
+    "seed": 880553
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 880554
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 880555
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 880556
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 257.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 880557
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 579.0,
+        "finish_technique": "",
+        "finish_tick": 11580,
+        "open_t_s": 577.0,
+        "open_tick": 11540,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 880558,
+        "target": "b",
+        "technique": "bjj_armbar"
+      },
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 904.5,
+        "finish_technique": "",
+        "finish_tick": 18090,
+        "open_t_s": 888.0,
+        "open_tick": 17760,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 880558,
+        "target": "b",
+        "technique": "bjj_armbar"
+      },
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 943.5,
+        "finish_technique": "",
+        "finish_tick": 18870,
+        "open_t_s": 943.0,
+        "open_tick": 18860,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 880558,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 3,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_guard",
+        "from_seat": "mount"
+      },
+      {
+        "action": "to_guard",
+        "from_seat": "mount"
+      },
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 3,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 3
+    },
+    "seat_escapes": {
+      "mount": 3
+    },
+    "seat_finishes": {},
+    "seed": 880558
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 891.5,
+        "finish_technique": "",
+        "finish_tick": 17830,
+        "open_t_s": 874.5,
+        "open_tick": 17490,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 880559,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "pass",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 906.1,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {},
+    "seed": 880559
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 574.4,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 880560
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 880561
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 771.7,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 880562
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 578.9,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 880563
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 143.5,
+        "finish_technique": "",
+        "finish_tick": 2870,
+        "open_t_s": 142.0,
+        "open_tick": 2840,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 880564,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {},
+    "seed": 880564
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 577.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "TKO",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 880565
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 831.9,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 880566
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 928.0,
+        "finish_technique": "",
+        "finish_tick": 18560,
+        "open_t_s": 845.0,
+        "open_tick": 16900,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 880567,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_guard",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {},
+    "seed": 880567
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 756.0,
+        "finish_technique": "",
+        "finish_tick": 15120,
+        "open_t_s": 755.5,
+        "open_tick": 15110,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 880568,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      },
+      {
+        "actor": "b",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 992.0,
+        "finish_technique": "",
+        "finish_tick": 19840,
+        "open_t_s": 943.5,
+        "open_tick": 18870,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 880568,
+        "target": "a",
+        "technique": "judo_namijujijime"
+      }
+    ],
+    "attempts": 2,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      },
+      {
+        "action": "to_guard",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 2,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 2
+    },
+    "seat_escapes": {
+      "mount": 2
+    },
+    "seat_finishes": {},
+    "seed": 880568
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 880569
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 249.5,
+        "finish_technique": "",
+        "finish_tick": 4990,
+        "open_t_s": 245.0,
+        "open_tick": 4900,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 880570,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_guard",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {},
+    "seed": 880570
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 880571
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 238.5,
+        "finish_technique": "",
+        "finish_tick": 4770,
+        "open_t_s": 210.5,
+        "open_tick": 4210,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 880572,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_guard",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 265.9,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {},
+    "seed": 880572
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 863.0,
+        "finish_technique": "",
+        "finish_tick": 17260,
+        "open_t_s": 835.5,
+        "open_tick": 16710,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 880573,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_guard",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {},
+    "seed": 880573
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 111.5,
+        "finish_technique": "",
+        "finish_tick": 2230,
+        "open_t_s": 110.5,
+        "open_tick": 2210,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 880574,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 439.3,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {},
+    "seed": 880574
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 173.5,
+        "finish_technique": "",
+        "finish_tick": 3470,
+        "open_t_s": 152.0,
+        "open_tick": 3040,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 880575,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_guard",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {},
+    "seed": 880575
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 166.5,
+        "finish_technique": "",
+        "finish_tick": 3330,
+        "open_t_s": 163.5,
+        "open_tick": 3270,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 880576,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_guard",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 172.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {},
+    "seed": 880576
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "",
+        "finish_t_s": 63.0,
+        "finish_technique": "",
+        "finish_tick": 1260,
+        "open_t_s": 51.0,
+        "open_tick": 1020,
+        "outcome": "escape",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 880577,
+        "target": "b",
+        "technique": "bjj_armbar"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_guard",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 1020.0,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "DECISION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {},
+    "seed": 880577
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [
+      {
+        "actor": "a",
+        "arm": "graph",
+        "finish_mode": "TAP",
+        "finish_t_s": 235.0,
+        "finish_technique": "judo_gyakujujijime",
+        "finish_tick": 4700,
+        "open_t_s": 187.5,
+        "open_tick": 3750,
+        "outcome": "tap",
+        "pop": "B: brawler(55) vs kicker(28), 70 kg",
+        "seat": "mount",
+        "seed": 880578,
+        "target": "b",
+        "technique": "judo_gyakujujijime"
+      }
+    ],
+    "attempts": 1,
+    "bell_ended": 0,
+    "escape_next_actions": [
+      {
+        "action": "to_mount",
+        "from_seat": "mount"
+      }
+    ],
+    "escapes": 1,
+    "finish_t_s": 235.0,
+    "finishes": 1,
+    "finishes_with_prior_control": 1,
+    "method": "SUBMISSION",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {
+      "mount": 1
+    },
+    "seat_escapes": {
+      "mount": 1
+    },
+    "seat_finishes": {
+      "mount": 1
+    },
+    "seed": 880578
+  },
+  {
+    "arm": "graph",
+    "attempt_details": [],
+    "attempts": 0,
+    "bell_ended": 0,
+    "escape_next_actions": [],
+    "escapes": 0,
+    "finish_t_s": 256.1,
+    "finishes": 0,
+    "finishes_with_prior_control": 0,
+    "method": "KO",
+    "pop": "B: brawler(55) vs kicker(28), 70 kg",
+    "seat_attempts": {},
+    "seat_escapes": {},
+    "seat_finishes": {},
+    "seed": 880579
+  }
+]

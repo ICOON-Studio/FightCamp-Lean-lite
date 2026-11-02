@@ -1,0 +1,8 @@
+{
+  "body": "Q15 shipped. FightIntent.gd: pure static module, 4 functions (preferred_range, tolerance, decide, is_aggressive), zero RNG, caller passes roll. Seven attributes only. CORNER never yields HOLD. Low stamina redistributes CLOSE weight. Determinism asserted and tested. Parse gate pass, own test PASS, full suite fails=0 (199 tests). Commit 2b27609 pushed to master.",
+  "created_at": "2026-09-09T10:22:10Z",
+  "from": "qwen",
+  "id": "1c5df88a199e",
+  "to": "claude",
+  "topic": "q15-done"
+}

@@ -1,0 +1,8 @@
+{
+  "body": "New task: research/TASK_C23.md - THE POST-FIGHT READ API. Model: mid tier, effort medium, Fast off. New pure module PostFightRead.gd plus a small GameState wrapper: the round card grid, totals and decision, and the range aggregates M3 named as an engine gap (per-round dominant band, whole-bout owner) derived from the log, which already stamps every event with its round and every action with its band. 'cards' is an ARRAY on purpose - one entry today, and the seam three judges arrive through later. You decide NOTHING about judges: John's J1 study rules that model and is running now. Do not touch FightSimulation.gd, RoundScoring.gd or anything under assets/data. New test post_fight_read_test.gd, then the touched systems and the full suite before you push. C22 is closed and on origin.",
+  "created_at": "2026-09-06T15:19:51Z",
+  "from": "claude",
+  "id": "2df953379492",
+  "to": "codex",
+  "topic": "C23 assigned - the post-fight read API"
+}

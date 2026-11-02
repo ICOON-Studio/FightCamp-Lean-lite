@@ -1,0 +1,1604 @@
+{
+  "rows": [
+    {
+      "id": "boxing_angle_step",
+      "discipline": "boxing",
+      "tier": 3,
+      "role": "setup",
+      "effects": {
+        "angle_attack": 9,
+        "mobility": 7
+      },
+      "delivers_blow": false,
+      "reason": "L-step footwork pattern that creates an angle without delivering a blow",
+      "source": "Q77"
+    },
+    {
+      "id": "boxing_body_hook",
+      "discipline": "boxing",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "body_damage": 11,
+        "damage": 5
+      },
+      "delivers_blow": true,
+      "reason": "lead hook explicitly aimed at the torso",
+      "source": "Q77"
+    },
+    {
+      "id": "boxing_catch_counter",
+      "discipline": "boxing",
+      "tier": 2,
+      "role": "counter",
+      "effects": {
+        "counter_open": 7,
+        "damage": 6
+      },
+      "delivers_blow": true,
+      "reason": "catch the incoming punch and return a straight counter to the head",
+      "source": "Q77"
+    },
+    {
+      "id": "boxing_check_hook",
+      "discipline": "boxing",
+      "tier": 3,
+      "role": "counter",
+      "effects": {
+        "counter_open": 9,
+        "angle_exit": 7
+      },
+      "delivers_blow": true,
+      "reason": "hook thrown while pivoting away from an advancing opponent lands on the head",
+      "source": "Q77"
+    },
+    {
+      "id": "boxing_check_hook_pivot",
+      "discipline": "boxing",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "counter_open": 8,
+        "angle_exit": 8,
+        "mobility": 6
+      },
+      "delivers_blow": true,
+      "reason": "check hook with a continued pivot the hook lands on the head",
+      "source": "Q77"
+    },
+    {
+      "id": "boxing_circle_lead",
+      "discipline": "boxing",
+      "tier": 2,
+      "role": "setup",
+      "effects": {
+        "mobility": 7,
+        "angle_entry": 6
+      },
+      "delivers_blow": false,
+      "reason": "circular footwork to the lead side without a blow",
+      "source": "Q77"
+    },
+    {
+      "id": "boxing_circle_rear",
+      "discipline": "boxing",
+      "tier": 2,
+      "role": "setup",
+      "effects": {
+        "mobility": 7,
+        "angle_entry": 6,
+        "risk": 4
+      },
+      "delivers_blow": false,
+      "reason": "circular footwork to the rear side without a blow",
+      "source": "Q77"
+    },
+    {
+      "id": "boxing_counter_combination",
+      "discipline": "boxing",
+      "tier": 4,
+      "role": "damage",
+      "effects": {
+        "counter_open": 10,
+        "damage": 11,
+        "timing": 8
+      },
+      "delivers_blow": true,
+      "reason": "counter combination of straight punches finishing at the head",
+      "source": "Q77"
+    },
+    {
+      "id": "boxing_counter_over_jab",
+      "discipline": "boxing",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "counter_open": 8,
+        "damage": 9,
+        "timing": 7
+      },
+      "delivers_blow": true,
+      "reason": "overhand punch thrown over the incoming jab lands on the head",
+      "source": "Q77"
+    },
+    {
+      "id": "boxing_cross",
+      "discipline": "boxing",
+      "tier": 1,
+      "role": "damage",
+      "effects": {
+        "damage": 9,
+        "accuracy": 6
+      },
+      "delivers_blow": true,
+      "reason": "rear straight punch that goes to both head and body in the sport",
+      "source": "Q77"
+    },
+    {
+      "id": "boxing_cross_body",
+      "discipline": "boxing",
+      "tier": 2,
+      "role": "damage",
+      "effects": {
+        "body_damage": 9,
+        "damage": 5
+      },
+      "delivers_blow": true,
+      "reason": "cross explicitly aimed at the torso",
+      "source": "Q77"
+    },
+    {
+      "id": "boxing_distance_read",
+      "discipline": "boxing",
+      "tier": 1,
+      "role": "setup",
+      "effects": {
+        "distance_read": 7,
+        "range_control": 5
+      },
+      "delivers_blow": false,
+      "reason": "range-finding skill that reads distance without striking",
+      "source": "Q77"
+    },
+    {
+      "id": "boxing_drawing",
+      "discipline": "boxing",
+      "tier": 4,
+      "role": "setup",
+      "effects": {
+        "counter_open": 10,
+        "distance_read": 9,
+        "timing": 8
+      },
+      "delivers_blow": false,
+      "reason": "provocation move that draws a reaction without delivering a blow",
+      "source": "Q77"
+    },
+    {
+      "id": "boxing_inside_uppercut",
+      "discipline": "boxing",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "damage": 9,
+        "clinch_damage": 7
+      },
+      "delivers_blow": true,
+      "reason": "uppercut on the inside lands primarily on the chin though the node carries clinch_damage",
+      "source": "Q77"
+    },
+    {
+      "id": "boxing_jab",
+      "discipline": "boxing",
+      "tier": 1,
+      "role": "setup",
+      "effects": {
+        "accuracy": 8,
+        "range_control": 7,
+        "combo_open": 6
+      },
+      "delivers_blow": true,
+      "reason": "lead-hand straight punch that goes to both head and body in the sport",
+      "source": "Q77"
+    },
+    {
+      "id": "boxing_jab_body_head",
+      "discipline": "boxing",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "body_damage": 8,
+        "head_damage": 7,
+        "combo_open": 6
+      },
+      "delivers_blow": true,
+      "reason": "sequence that explicitly alternates body and head targets",
+      "source": "Q77"
+    },
+    {
+      "id": "boxing_lead_hook",
+      "discipline": "boxing",
+      "tier": 2,
+      "role": "damage",
+      "effects": {
+        "damage": 9,
+        "angle_attack": 7
+      },
+      "delivers_blow": true,
+      "reason": "lead-hand hook aimed at the side of the head",
+      "source": "Q77"
+    },
+    {
+      "id": "boxing_lead_uppercut",
+      "discipline": "boxing",
+      "tier": 2,
+      "role": "damage",
+      "effects": {
+        "damage": 8,
+        "combo_open": 6
+      },
+      "delivers_blow": true,
+      "reason": "lead-hand rising punch aimed at the chin",
+      "source": "Q77"
+    },
+    {
+      "id": "boxing_liver_combo",
+      "discipline": "boxing",
+      "tier": 4,
+      "role": "damage",
+      "effects": {
+        "body_damage": 13,
+        "damage": 8,
+        "combo_open": 7
+      },
+      "delivers_blow": true,
+      "reason": "jab-cross-hook combination built entirely to attack the liver",
+      "source": "Q77"
+    },
+    {
+      "id": "boxing_one_two",
+      "discipline": "boxing",
+      "tier": 1,
+      "role": "damage",
+      "effects": {
+        "damage": 8,
+        "combo_open": 8,
+        "accuracy": 6
+      },
+      "delivers_blow": true,
+      "reason": "jab-cross combination that goes to head and body",
+      "source": "Q77"
+    },
+    {
+      "id": "boxing_one_two_hook",
+      "discipline": "boxing",
+      "tier": 2,
+      "role": "damage",
+      "effects": {
+        "damage": 10,
+        "combo_open": 7
+      },
+      "delivers_blow": true,
+      "reason": "jab-cross-hook sequence finishing with the hook at the head",
+      "source": "Q77"
+    },
+    {
+      "id": "boxing_overhand",
+      "discipline": "boxing",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "damage": 11,
+        "angle_attack": 7
+      },
+      "delivers_blow": true,
+      "reason": "looping overhand punch aimed at the head",
+      "source": "Q77"
+    },
+    {
+      "id": "boxing_pull_counter",
+      "discipline": "boxing",
+      "tier": 3,
+      "role": "counter",
+      "effects": {
+        "evasion": 8,
+        "counter_open": 9,
+        "damage": 8
+      },
+      "delivers_blow": true,
+      "reason": "pull back off the centre line then cross counter to the head",
+      "source": "Q77"
+    },
+    {
+      "id": "boxing_rear_hook",
+      "discipline": "boxing",
+      "tier": 2,
+      "role": "damage",
+      "effects": {
+        "damage": 10,
+        "angle_attack": 6
+      },
+      "delivers_blow": true,
+      "reason": "rear-hand hook aimed at the side of the head",
+      "source": "Q77"
+    },
+    {
+      "id": "boxing_rear_hook_body",
+      "discipline": "boxing",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "body_damage": 12,
+        "damage": 5
+      },
+      "delivers_blow": true,
+      "reason": "rear hook explicitly aimed at the torso",
+      "source": "Q77"
+    },
+    {
+      "id": "boxing_shovel_hook",
+      "discipline": "boxing",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "body_damage": 10,
+        "angle_attack": 6
+      },
+      "delivers_blow": true,
+      "reason": "short uppercut-hook hybrid primarily to the body but can reach the head",
+      "source": "Q77"
+    },
+    {
+      "id": "boxing_six_punch_combo",
+      "discipline": "boxing",
+      "tier": 4,
+      "role": "damage",
+      "effects": {
+        "damage": 12,
+        "body_damage": 8,
+        "combo_open": 8
+      },
+      "delivers_blow": true,
+      "reason": "long punch combination that attacks both body and head",
+      "source": "Q77"
+    },
+    {
+      "id": "boxing_slip_counter",
+      "discipline": "boxing",
+      "tier": 2,
+      "role": "counter",
+      "effects": {
+        "evasion": 7,
+        "counter_open": 8,
+        "damage": 6
+      },
+      "delivers_blow": true,
+      "reason": "slip off the centre line then cross counter to the head",
+      "source": "Q77"
+    },
+    {
+      "id": "boxing_step_in_out",
+      "discipline": "boxing",
+      "tier": 1,
+      "role": "setup",
+      "effects": {
+        "mobility": 7,
+        "range_control": 6,
+        "first_step": 6
+      },
+      "delivers_blow": false,
+      "reason": "step in and out footwork pattern without a blow",
+      "source": "Q77"
+    },
+    {
+      "id": "boxing_switch_stance",
+      "discipline": "boxing",
+      "tier": 4,
+      "role": "setup",
+      "effects": {
+        "angle_attack": 8,
+        "mobility": 8,
+        "rhythm": 7
+      },
+      "delivers_blow": false,
+      "reason": "stance switch that changes orientation without striking",
+      "source": "Q77"
+    },
+    {
+      "id": "boxing_up_jab",
+      "discipline": "boxing",
+      "tier": 3,
+      "role": "setup",
+      "effects": {
+        "accuracy": 7,
+        "guard": 5,
+        "combo_open": 6
+      },
+      "delivers_blow": true,
+      "reason": "rising lead-hand punch that can reach both head and body",
+      "source": "Q77"
+    },
+    {
+      "id": "kickboxing_axe_kick",
+      "discipline": "kickboxing",
+      "tier": 2,
+      "role": "damage",
+      "effects": {
+        "head_damage": 9,
+        "guard": -5
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "kickboxing_body_kick",
+      "discipline": "kickboxing",
+      "tier": 2,
+      "role": "damage",
+      "effects": {
+        "body_damage": 10,
+        "kick_damage": 6
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "kickboxing_clinch_knee",
+      "discipline": "kickboxing",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "clinch_damage": 10,
+        "body_damage": 7
+      },
+      "delivers_blow": true,
+      "reason": "knee strike in the clinch aimed at the torso",
+      "source": "Q77"
+    },
+    {
+      "id": "kickboxing_dutch_combination",
+      "discipline": "kickboxing",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "damage": 10,
+        "leg_damage": 8,
+        "combo_open": 8
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "kickboxing_four_strike",
+      "discipline": "kickboxing",
+      "tier": 4,
+      "role": "damage",
+      "effects": {
+        "damage": 12,
+        "leg_damage": 8,
+        "head_damage": 9
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "kickboxing_front_kick",
+      "discipline": "kickboxing",
+      "tier": 1,
+      "role": "setup",
+      "effects": {
+        "range_control": 8,
+        "pushback": 5
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "kickboxing_high_kick",
+      "discipline": "kickboxing",
+      "tier": 2,
+      "role": "damage",
+      "effects": {
+        "head_damage": 12,
+        "kick_damage": 8
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "kickboxing_hook_kick",
+      "discipline": "kickboxing",
+      "tier": 2,
+      "role": "damage",
+      "effects": {
+        "head_damage": 9,
+        "angle_attack": 7
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "kickboxing_jab_cross_lowkick",
+      "discipline": "kickboxing",
+      "tier": 2,
+      "role": "damage",
+      "effects": {
+        "leg_damage": 9,
+        "combo_open": 7
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "kickboxing_jab_lowkick",
+      "discipline": "kickboxing",
+      "tier": 2,
+      "role": "damage",
+      "effects": {
+        "leg_damage": 8,
+        "combo_open": 6
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "kickboxing_low_kick",
+      "discipline": "kickboxing",
+      "tier": 2,
+      "role": "damage",
+      "effects": {
+        "leg_damage": 9,
+        "opponent_mobility": -6
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "kickboxing_roundhouse",
+      "discipline": "kickboxing",
+      "tier": 1,
+      "role": "damage",
+      "effects": {
+        "kick_damage": 9,
+        "range": 6
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "kickboxing_side_kick",
+      "discipline": "kickboxing",
+      "tier": 2,
+      "role": "setup",
+      "effects": {
+        "range_control": 8,
+        "impact": 6
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "kickboxing_spinning_back",
+      "discipline": "kickboxing",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "body_damage": 11,
+        "risk": 7
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "kickboxing_spinning_hook",
+      "discipline": "kickboxing",
+      "tier": 4,
+      "role": "counter",
+      "effects": {
+        "head_damage": 13,
+        "risk": 9
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "kickboxing_switch_step_read",
+      "discipline": "kickboxing",
+      "tier": 2,
+      "role": "setup",
+      "effects": {
+        "rhythm": 7,
+        "distance_read": 7
+      },
+      "delivers_blow": false,
+      "reason": "switch-step read that judges distance without striking",
+      "source": "Q77"
+    },
+    {
+      "id": "kickboxing_teep",
+      "discipline": "kickboxing",
+      "tier": 1,
+      "role": "setup",
+      "effects": {
+        "range_control": 8,
+        "opponent_mobility": -5
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "mma_dirty_boxing",
+      "discipline": "mma",
+      "tier": 2,
+      "role": "damage",
+      "effects": {
+        "clinch_damage": 8,
+        "knee_setup": 5
+      },
+      "delivers_blow": true,
+      "reason": "short punches in the cage clinch aimed at the head though the node carries clinch_damage",
+      "source": "Q77"
+    },
+    {
+      "id": "mma_elbow_gnp",
+      "discipline": "mma",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "ground_damage": 9,
+        "cut_chance": 6
+      },
+      "delivers_blow": true,
+      "reason": "Ground elbows from top position deliver cutting contact blows",
+      "source": "U79"
+    },
+    {
+      "id": "mma_guard_gnp",
+      "discipline": "mma",
+      "tier": 2,
+      "role": "damage",
+      "effects": {
+        "ground_damage": 12,
+        "submission_safety": 7
+      },
+      "delivers_blow": true,
+      "reason": "Posture-up ground-and-pound from guard delivers punches to the head or body",
+      "source": "U79"
+    },
+    {
+      "id": "muay_thai_body_kick",
+      "discipline": "muay_thai",
+      "tier": 2,
+      "role": "damage",
+      "effects": {
+        "body_damage": 9,
+        "kick_damage": 6
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "muay_thai_check_counter_kick",
+      "discipline": "muay_thai",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "counter_strike": 8,
+        "kick_damage": 9
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "muay_thai_check_kick_counter",
+      "discipline": "muay_thai",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "damage": 9,
+        "guard": 6,
+        "kick_damage": 7
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "muay_thai_clinch_knees",
+      "discipline": "muay_thai",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "body_damage": 13,
+        "stamina_drain": -10
+      },
+      "delivers_blow": true,
+      "reason": "clinch knee series a chain of knees to the torso",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_counter_sok_klap",
+      "discipline": "muay_thai",
+      "tier": 4,
+      "role": "damage",
+      "effects": {
+        "counter_strike": 10,
+        "head_damage": 12,
+        "cut_threat": 8
+      },
+      "delivers_blow": true,
+      "reason": "counter spinning elbow aimed at the head",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_counter_teep",
+      "discipline": "muay_thai",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "counter_strike": 8,
+        "range_control": 7
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "muay_thai_cross_body_low",
+      "discipline": "muay_thai",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "damage": 11,
+        "leg_damage": 7,
+        "body_damage": 6
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "muay_thai_diagonal_elbow",
+      "discipline": "muay_thai",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "head_damage": 10,
+        "cut_threat": 7
+      },
+      "delivers_blow": true,
+      "reason": "diagonal slashing elbow aimed at the head",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_double_kick",
+      "discipline": "muay_thai",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "kick_damage": 10,
+        "combo_continuity": 7
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "muay_thai_fake_jab_knee",
+      "discipline": "muay_thai",
+      "tier": 3,
+      "role": "setup",
+      "effects": {
+        "combo_continuity": 7,
+        "body_damage": 8
+      },
+      "delivers_blow": true,
+      "reason": "fake jab then knee the knee is the blow aimed at the body",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_fake_teep_kick",
+      "discipline": "muay_thai",
+      "tier": 3,
+      "role": "setup",
+      "effects": {
+        "combo_continuity": 7,
+        "kick_damage": 8
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "muay_thai_horizontal_elbow",
+      "discipline": "muay_thai",
+      "tier": 2,
+      "role": "damage",
+      "effects": {
+        "cut_threat": 10,
+        "damage": 9
+      },
+      "delivers_blow": true,
+      "reason": "horizontal elbow slash across the head",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_jab_cross_body_kick",
+      "discipline": "muay_thai",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "combo_continuity": 7,
+        "body_damage": 9
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "muay_thai_jab_cross_hook",
+      "discipline": "muay_thai",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "combo_continuity": 8,
+        "damage": 9
+      },
+      "delivers_blow": true,
+      "reason": "jab-cross-hook punch combination finishing at the head",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_jab_cross_sok_klap",
+      "discipline": "muay_thai",
+      "tier": 4,
+      "role": "damage",
+      "effects": {
+        "combo_continuity": 9,
+        "cut_threat": 10
+      },
+      "delivers_blow": true,
+      "reason": "jab-cross-spinning elbow chain finishing with the elbow at the head",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_jab_teep_switch",
+      "discipline": "muay_thai",
+      "tier": 2,
+      "role": "setup",
+      "effects": {
+        "range_control": 9,
+        "damage": 6
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "muay_thai_jorakhe_faad_hang",
+      "discipline": "muay_thai",
+      "tier": 4,
+      "role": "damage",
+      "effects": {
+        "kick_damage": 14,
+        "knockdown_power": 10,
+        "surprise": 8
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "muay_thai_khao_chiang",
+      "discipline": "muay_thai",
+      "tier": 2,
+      "role": "damage",
+      "effects": {
+        "body_damage": 8,
+        "damage": 5
+      },
+      "delivers_blow": true,
+      "reason": "diagonal knee aimed at the torso",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_khao_clinch_entry",
+      "discipline": "muay_thai",
+      "tier": 4,
+      "role": "damage",
+      "effects": {
+        "clinch_offense": 10,
+        "body_damage": 11
+      },
+      "delivers_blow": true,
+      "reason": "knee used to enter the clinch aimed at the body",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_khao_counter",
+      "discipline": "muay_thai",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "counter_strike": 8,
+        "body_damage": 7
+      },
+      "delivers_blow": true,
+      "reason": "counter knee aimed at the torso",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_khao_dot",
+      "discipline": "muay_thai",
+      "tier": 4,
+      "role": "damage",
+      "effects": {
+        "knockdown_power": 11,
+        "damage": 9
+      },
+      "delivers_blow": true,
+      "reason": "jumping knee aimed at the head",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_khao_khong",
+      "discipline": "muay_thai",
+      "tier": 2,
+      "role": "damage",
+      "effects": {
+        "body_damage": 8,
+        "damage": 5
+      },
+      "delivers_blow": true,
+      "reason": "curving knee aimed at the torso",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_khao_loi",
+      "discipline": "muay_thai",
+      "tier": 4,
+      "role": "damage",
+      "effects": {
+        "knockdown_power": 12,
+        "damage": 10,
+        "surprise": 8
+      },
+      "delivers_blow": true,
+      "reason": "flying knee aimed at the head",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_khao_tat",
+      "discipline": "muay_thai",
+      "tier": 2,
+      "role": "damage",
+      "effects": {
+        "body_damage": 7,
+        "damage": 5
+      },
+      "delivers_blow": true,
+      "reason": "horizontal knee aimed at the torso",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_khao_thon",
+      "discipline": "muay_thai",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "body_damage": 10,
+        "damage": 6
+      },
+      "delivers_blow": true,
+      "reason": "thrusting knee aimed at the torso",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_khao_ti",
+      "discipline": "muay_thai",
+      "tier": 2,
+      "role": "setup",
+      "effects": {
+        "damage": 5,
+        "balance_break": 6
+      },
+      "delivers_blow": true,
+      "reason": "knee slap a lighter knee aimed at the body",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_khao_yao",
+      "discipline": "muay_thai",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "body_damage": 11,
+        "knockdown_power": 7
+      },
+      "delivers_blow": true,
+      "reason": "knee bomb aimed at the torso",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_khao_yiap",
+      "discipline": "muay_thai",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "body_damage": 9,
+        "damage": 6
+      },
+      "delivers_blow": true,
+      "reason": "step-up knee aimed at the torso",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_khayoep_te",
+      "discipline": "muay_thai",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "kick_damage": 8,
+        "accuracy": 7
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "muay_thai_kick_knee_combo",
+      "discipline": "muay_thai",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "combo_continuity": 8,
+        "body_damage": 9
+      },
+      "delivers_blow": true,
+      "reason": "kick then knee both aimed at the body",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_kradot_chok",
+      "discipline": "muay_thai",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "damage": 10,
+        "knockdown_power": 8
+      },
+      "delivers_blow": true,
+      "reason": "Superman punch a jumping cross aimed at the head",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_kradot_sok",
+      "discipline": "muay_thai",
+      "tier": 4,
+      "role": "damage",
+      "effects": {
+        "head_damage": 14,
+        "knockdown_power": 9,
+        "surprise": 7
+      },
+      "delivers_blow": true,
+      "reason": "jumping elbow aimed at the head",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_kradot_te",
+      "discipline": "muay_thai",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "kick_damage": 11,
+        "knockdown_power": 7
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "muay_thai_kradot_thip",
+      "discipline": "muay_thai",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "range_control": 7,
+        "knockdown_power": 8
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "muay_thai_low_cross_hook",
+      "discipline": "muay_thai",
+      "tier": 2,
+      "role": "damage",
+      "effects": {
+        "damage": 10,
+        "leg_damage": 6
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "muay_thai_low_kick",
+      "discipline": "muay_thai",
+      "tier": 1,
+      "role": "damage",
+      "effects": {
+        "leg_damage": 8,
+        "off_balance_threat": 5
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "muay_thai_mat_soei",
+      "discipline": "muay_thai",
+      "tier": 2,
+      "role": "damage",
+      "effects": {
+        "head_damage": 7,
+        "damage": 6
+      },
+      "delivers_blow": true,
+      "reason": "Mat Soei uppercut punch to the head",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_mat_trong",
+      "discipline": "muay_thai",
+      "tier": 1,
+      "role": "damage",
+      "effects": {
+        "damage": 7,
+        "head_damage": 5
+      },
+      "delivers_blow": true,
+      "reason": "Mat Trong cross punch to the head",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_mat_wiang_klap",
+      "discipline": "muay_thai",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "head_damage": 10,
+        "surprise": 7
+      },
+      "delivers_blow": true,
+      "reason": "Mat Wiang Klap spinning backfist to the head",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_mat_wiang_san",
+      "discipline": "muay_thai",
+      "tier": 2,
+      "role": "damage",
+      "effects": {
+        "head_damage": 8,
+        "damage": 6
+      },
+      "delivers_blow": true,
+      "reason": "Mat Wiang San hook punch to the head",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_mat_wiang_yao",
+      "discipline": "muay_thai",
+      "tier": 2,
+      "role": "damage",
+      "effects": {
+        "damage": 8,
+        "knockdown_power": 6
+      },
+      "delivers_blow": true,
+      "reason": "Mat Wiang Yao overhand punch to the head",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_mat_yaep",
+      "discipline": "muay_thai",
+      "tier": 1,
+      "role": "setup",
+      "effects": {
+        "damage": 5,
+        "accuracy": 7
+      },
+      "delivers_blow": true,
+      "reason": "Mat Yaep jab that goes to both head and body",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_pull_counter",
+      "discipline": "muay_thai",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "counter_strike": 8,
+        "kick_damage": 7
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "muay_thai_round_kick",
+      "discipline": "muay_thai",
+      "tier": 1,
+      "role": "damage",
+      "effects": {
+        "kick_damage": 9,
+        "body_damage": 7
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "muay_thai_slip_counter_punch",
+      "discipline": "muay_thai",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "counter_strike": 8,
+        "damage": 7
+      },
+      "delivers_blow": true,
+      "reason": "slip off the centre line then counter punch to the head",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_slip_sok_klap",
+      "discipline": "muay_thai",
+      "tier": 4,
+      "role": "damage",
+      "effects": {
+        "damage": 13,
+        "cut_threat": 9,
+        "surprise": 7
+      },
+      "delivers_blow": true,
+      "reason": "slip then spinning elbow finishing at the head",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_sok_clinch_combo",
+      "discipline": "muay_thai",
+      "tier": 4,
+      "role": "damage",
+      "effects": {
+        "clinch_offense": 10,
+        "cut_threat": 9
+      },
+      "delivers_blow": true,
+      "reason": "clinch elbow combination aimed at the head",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_sok_klap_khu",
+      "discipline": "muay_thai",
+      "tier": 4,
+      "role": "damage",
+      "effects": {
+        "head_damage": 13,
+        "cut_threat": 10,
+        "knockdown_power": 8
+      },
+      "delivers_blow": true,
+      "reason": "double spinning elbow chop aimed at the head",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_sok_long_guard_counter",
+      "discipline": "muay_thai",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "counter_strike": 8,
+        "cut_threat": 7
+      },
+      "delivers_blow": true,
+      "reason": "long guard elbow counter aimed at the head",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_sok_phung",
+      "discipline": "muay_thai",
+      "tier": 2,
+      "role": "damage",
+      "effects": {
+        "damage": 8,
+        "cut_threat": 7
+      },
+      "delivers_blow": true,
+      "reason": "forward thrust elbow aimed at the head",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_sok_wiang_klap",
+      "discipline": "muay_thai",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "cut_threat": 9,
+        "damage": 7
+      },
+      "delivers_blow": true,
+      "reason": "reverse horizontal elbow aimed at the head",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_spinning_back_kick",
+      "discipline": "muay_thai",
+      "tier": 4,
+      "role": "damage",
+      "effects": {
+        "kick_damage": 13,
+        "knockdown_power": 9,
+        "surprise": 8
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "muay_thai_spinning_elbow",
+      "discipline": "muay_thai",
+      "tier": 4,
+      "role": "damage",
+      "effects": {
+        "head_damage": 12,
+        "surprise": 8
+      },
+      "delivers_blow": true,
+      "reason": "spinning back elbow aimed at the head",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_straight_knee",
+      "discipline": "muay_thai",
+      "tier": 2,
+      "role": "damage",
+      "effects": {
+        "body_damage": 10,
+        "damage": 7
+      },
+      "delivers_blow": true,
+      "reason": "straight knee aimed at the torso",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_superman_knee",
+      "discipline": "muay_thai",
+      "tier": 4,
+      "role": "damage",
+      "effects": {
+        "knockdown_power": 12,
+        "damage": 10,
+        "surprise": 8
+      },
+      "delivers_blow": true,
+      "reason": "Superman knee aimed at the head",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_superman_knee_punch",
+      "discipline": "muay_thai",
+      "tier": 4,
+      "role": "damage",
+      "effects": {
+        "combo_continuity": 9,
+        "knockdown_power": 11
+      },
+      "delivers_blow": true,
+      "reason": "Superman knee then punch both aimed at the head",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_switch_cross",
+      "discipline": "muay_thai",
+      "tier": 2,
+      "role": "damage",
+      "effects": {
+        "damage": 9,
+        "body_damage": 6
+      },
+      "delivers_blow": true,
+      "reason": "switch kick then cross the kick goes to the body the cross to the head",
+      "source": "Q77"
+    },
+    {
+      "id": "muay_thai_switch_kick",
+      "discipline": "muay_thai",
+      "tier": 2,
+      "role": "damage",
+      "effects": {
+        "kick_damage": 8,
+        "combo_continuity": 5
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "muay_thai_switch_kick_body",
+      "discipline": "muay_thai",
+      "tier": 2,
+      "role": "damage",
+      "effects": {
+        "body_damage": 9,
+        "damage": 5
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "muay_thai_te_chiang",
+      "discipline": "muay_thai",
+      "tier": 2,
+      "role": "damage",
+      "effects": {
+        "kick_damage": 8,
+        "damage": 5
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "muay_thai_te_khao",
+      "discipline": "muay_thai",
+      "tier": 2,
+      "role": "damage",
+      "effects": {
+        "head_damage": 7,
+        "kick_damage": 6
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "muay_thai_te_khrueng_khaeng",
+      "discipline": "muay_thai",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "kick_damage": 8,
+        "body_damage": 7
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "muay_thai_te_klap_lang",
+      "discipline": "muay_thai",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "kick_damage": 10,
+        "surprise": 7
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "muay_thai_te_kot",
+      "discipline": "muay_thai",
+      "tier": 2,
+      "role": "damage",
+      "effects": {
+        "leg_damage": 8,
+        "off_balance_threat": 6
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "muay_thai_teep",
+      "discipline": "muay_thai",
+      "tier": 1,
+      "role": "setup",
+      "effects": {
+        "range_control": 9,
+        "balance_break": 5
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "muay_thai_thip_khang",
+      "discipline": "muay_thai",
+      "tier": 2,
+      "role": "setup",
+      "effects": {
+        "range_control": 8,
+        "balance_break": 5
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "muay_thai_thip_klap_lang",
+      "discipline": "muay_thai",
+      "tier": 3,
+      "role": "setup",
+      "effects": {
+        "range_control": 8,
+        "surprise": 6
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "muay_thai_thip_mat_te_combo",
+      "discipline": "muay_thai",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "damage": 12,
+        "combo_continuity": 7
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "muay_thai_thip_top",
+      "discipline": "muay_thai",
+      "tier": 2,
+      "role": "setup",
+      "effects": {
+        "range_control": 7,
+        "damage": 5
+      },
+      "delivers_blow": true,
+      "reason": "Kick technique (Q70 is_kick)",
+      "source": "Q70"
+    },
+    {
+      "id": "muay_thai_up_elbow",
+      "discipline": "muay_thai",
+      "tier": 3,
+      "role": "damage",
+      "effects": {
+        "cut_threat": 13,
+        "damage": 11
+      },
+      "delivers_blow": true,
+      "reason": "upward elbow through the chin",
+      "source": "Q77"
+    }
+  ]
+}

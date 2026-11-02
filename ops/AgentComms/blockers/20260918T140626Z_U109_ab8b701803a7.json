@@ -1,0 +1,8 @@
+{
+  "agent": "cursor",
+  "created_at": "2026-09-18T14:06:26Z",
+  "id": "ab8b701803a7",
+  "resolved_at": "2026-09-20T12:39:14Z",
+  "task": "U109",
+  "why": "Reads 17 MediaPipe tracks + events from C:/Users/user/AppData/Local/Temp/FightCamp-footage on the operator's PC. Tools/footage/events and Tools/footage/ufc_pilot are EMPTY in a cloud container and 'find . -name *.npz' over the repo returns nothing, so this cannot be done from the cloud at any effort. Needs a PC session. NOTE before launching: add the shoulder-line yaw rate (deg/s, p50/p90) to the same pass - the bearing ruling wants it and the 17 tracks already carry it."
+}

@@ -1,0 +1,18 @@
+Warning: running headless with --yolo / approval-mode=yolo and no sandbox. All tool calls (shell, write, edit) auto-execute at this process's privilege level. Enable a sandbox via --sandbox / QWEN_SANDBOX, or set QWEN_CODE_SUPPRESS_YOLO_WARNING=1 to silence this notice.
+Warning: MCP OAuth tokens are stored unencrypted at C:\Users\user\.qwen\mcp-oauth-tokens.json. Set QWEN_CODE_FORCE_ENCRYPTED_FILE_STORAGE=true to require encrypted file storage.
+**Q219 GF1 part B shipped.** Branch `qwen/q219-gf1-offers-camp` pushed.
+
+**What changed:**
+
+| File | Change |
+|---|---|
+| `AmateurMatchmaking.gd` | Added `grade_inputs()` - read-only helper returning fighter/candidate exp, gap, grade, honest sentence |
+| `ScheduleHubPanel.gd` | `_amateur_row`: opponent W-L-D beside org label; grade chip gets `UIKit.tip` hover naming the record gap. New `_amateur_grade_tip` helper |
+| `GameState.gd` | `_booking_grade_offer`: adds `athlete_record` to the offer dict |
+| `UIKit.gd` | `booking_offer_row`: verdict chip gets hover built from the board's own `reasons` + both records. New `_booking_verdict_tip` |
+| `FightCampPanel.gd` | Focus cards show per-week edges + cap from `fight_camp.json` (e.g. "STRIKE SUCCESS +1.0%/WK (CAP 3%)"). Hovering a card rebuilds the projection box with that focus's edges (`_hover_focus` / `_unhover_focus` / `_rebuild_projection` / `_build_projection_body`) |
+| `tests/gf1_offers_camp_tips_test.gd` | New test: 18 checks, all green |
+
+**Gates:** parse 5/5, focused test 18/18, suite 8/8, career-walk frames 47+60 clean.
+
+**One trap avoided:** the amateur grade uses the record gap and nothing else. The tooltip says "THEY HAVE 4 MORE FIGHTS THAN YOU" - never win %, style edge, or rating. Those would be lies about what the code computes.

@@ -1,0 +1,380 @@
+
+
+Part 1: Skill Training $\rightarrow$ Move Quality Architecture
+
+In real boxing, two fighters can throw identical biomechanical actions—such as a lead left hook—with drastically different outcomes. One throws a wide, looping arm punch that telegraphs early, lands on elbows, and leaves them exposed; the other throws a tight, compact strike that snaps off the hip, lands between the guard, and returns instantly to protect the jaw.
+
+In FightCamp, a move is not simply an unlocked binary flag. Every certified boxing punch in a fighter’s repertoire possesses an independent Move Mastery Level ($M \in [0, 100]$) that scales its mechanical execution independently of, and synergistically with, the fighter's base attributes.
+
+(a) What Move Quality Is Made Of & Exact Operational Formulas
+
+A move's live execution quality is driven by:
+
+Base Move Archetype Defaults: Static parameters inherent to the punch catalog (e.g., a Jab has a baseline faster windup than a Rear Overhand).
+Move Mastery ($M \in [0, 100]$): The specific drill depth invested into that individual punch.
+Underlying Fighter Attributes (0–100): Hand Speed ($HS$), Accuracy ($ACC$), Power ($POW$), Footwork ($FT$), Technique ($TECH$), and Ring IQ ($IQ$).
+                      MOVE EXECUTION PIPELINE
+ [Move Mastery M] + [Fighter Attributes] 
+        │
+        ├─► Hand Speed Mod  ──► Windup Frames (Reaction Window)
+        ├─► Accuracy Mod    ──► Hit Dispersion Cone (Clean vs Glance)
+        ├─► Power Transfer  ──► Kinetic Output (Base Force * Efficiency)
+        ├─► Recovery Mod    ──► Vulnerability Window (Post-Punch Frames)
+        ├─► Stamina Mod     ──► Caloric Efficiency (Cost per Throw)
+        ├─► Telegraph Mod   ──► Opponent Pre-Read Window (Defense Bonus)
+        └─► Selection Bias  ──► Contextual Trigger Probability
+
+1. Execution Speed & Windup Frames
+
+Windup frames represent the visual telegraph window before the punch reaches full extension. The game runs its combat engine at a fixed 60 ticks per second (TPS).
+
+$$\text{WindupTicks} = \text{round}\left( \text{BaseTicks} \times \left(1.0 - \left(0.18 \times \frac{HS}{100}\right) - \left(0.22 \times \frac{M}{100}\right)\right) \right)$$
+
+Example (Standard Lead Jab, $\text{BaseTicks} = 16$ frames / 266 ms):
+
+Raw Jab ($M = 10, HS = 50$): $16 \times (1.0 - 0.09 - 0.022) = 14.2$ ticks ($\approx 14$ frames / 233 ms).
+Signature Jab ($M = 95, HS = 85$): $16 \times (1.0 - 0.153 - 0.209) = 10.2$ ticks ($\approx 10$ frames / 166 ms). The opponent has $40%$ less time to react.
+2. Dynamic Accuracy & Dispersion Cone
+
+Accuracy dictates whether the punch lands on the intended target point or disperses into defensive buffers.
+
+$$\text{EffectiveAccuracy} = \left(\text{MoveBaseAcc} \times 0.40\right) + \left(ACC \times 0.35\right) + \left(M \times 0.25\right)$$
+
+Clean Landing Threshold ($CLT$): Punches that beat opponent evasion by $\ge 20$ points on a 100-scale land with 100% force.
+Mastery scales the punch's ability to locate anatomical weak points: each 10 points of $M$ increases critical target tracking (ear-hole, chin tip, solar plexus, floating liver rib) by $+2.5%$.
+3. Power Transfer Efficiency ($\eta_{p}$)
+
+Punches thrown without mastery leak energy through poor foot placement, flared elbows, or incomplete hip rotation.
+
+$$\eta_{p} = 0.50 + \left(0.25 \times \frac{TECH}{100}\right) + \left(0.25 \times \frac{M}{100}\right)$$
+$$\text{OutputDamage} = \text{BaseMoveForce} \times \left(\frac{POW}{100}\right) \times \eta_{p}$$
+
+Raw Move ($M = 10, TECH = 50$): $\eta_{p} = 0.50 + 0.125 + 0.025 = 0.65$ ($65%$ power transfer; $35%$ of punch force is lost to sloppy mechanics).
+Signature Move ($M = 90, TECH = 80$): $\eta_{p} = 0.50 + 0.20 + 0.225 = 0.925$ ($92.5%$ mechanical efficiency).
+4. Recovery Frames & Defensive Vulnerability Window
+
+The time taken to retract the punch back into guard position. During recovery frames, the fighter is classified as Vulnerable (incoming strikes receive $+40%$ counter-damage and $+25%$ critical chance).
+
+$$\text{RecoveryTicks} = \text{round}\left( \text{BaseRecovery} \times \left(1.0 - \left(0.15 \times \frac{TECH}{100}\right) - \left(0.30 \times \frac{M}{100}\right)\right) \right)$$
+
+A mastered punch snaps back along the identical geometric line it was thrown, cutting the vulnerability window by nearly a third.
+5. Stamina Expenditure
+
+Poorly drilled punches burn excess energy through muscle tension and inefficient deceleration.
+
+$$\text{StaminaCost} = \text{BaseCost} \times \left(1.30 - \left(0.20 \times \frac{TECH}{100}\right) - \left(0.40 \times \frac{M}{100}\right)\right)$$
+
+A Raw Hook costs $1.25\times$ base stamina.
+A Signature Hook costs $0.78\times$ base stamina ($37%$ lower physiological drain per punch thrown).
+6. Telegraph Index ($\Theta \in [0.0, 1.0]$)
+
+Measures the pre-punch body language (flaring the elbow, dropping the opposite hand, shifting weight prematurely) that tipped-off opponents exploit.
+
+$$\Theta = \text{BaseMoveTelegraph} \times \left(1.0 - \left(0.30 \times \frac{TECH}{100}\right) - \left(0.60 \times \frac{M}{100}\right)\right)$$
+
+$\Theta$ directly provides a flat bonus to the opponent's Evasion and Guard Read checks: $$\text{OpponentReadBonus} = \Theta \times 35.0$$
+A Raw cross ($\Theta \approx 0.82$) gives the opponent a $+28.7$ point defensive read advantage. A Signature cross ($\Theta \approx 0.15$) reduces that bonus to just $+5.2$ points.
+7. Contextual Selection Bias
+
+Governs whether the AI fighter selects the move in the correct situation during autonomous combat.
+
+$$P(\text{Select Correct Move}) = \left(\frac{IQ \times 0.60 + M \times 0.40}{100}\right) \times \text{DistanceFitModifier}$$
+
+High $M$ allows a fighter to execute the punch instinctively under heavy pressure, preventing "freezing" or throwing ill-fitted punches (such as lunging rear uppercuts from outside distance).
+(b) Mastery Progression, Tiers, Stations & Attribute Caps
+
+Mastery progresses along 5 discrete operational tiers:
+
++-------------------------------------------------------------------------------------------------------+
+| TIER          | MASTERY RANGE | TRAINING TIME   | OPERATIONAL COMBAT PROFILE                          |
++-------------------------------------------------------------------------------------------------------+
+| 0. Unlearned  | M = 0         | 0 hrs           | Cannot be deliberately assigned in tactical gameplan. |
+| 1. Raw        | M = 1 - 29    | 1 - 3 Gym Hrs   | Unlocked. Sloppy, high stamina cost, high telegraph.  |
+| 2. Usable     | M = 30 - 59   | 4 - 8 Gym Hrs   | Solid fundamental punch. Baseline metrics apply.      |
+| 3. Sharp      | M = 60 - 84   | 9 - 16 Gym Hrs  | Fast snap, tight guard recovery, low whiff cost.      |
+| 4. Signature  | M = 85 - 100  | 17 - 28 Gym Hrs | Lethal, muscle-memory weapon; triggers special tells. |
++-------------------------------------------------------------------------------------------------------+
+
+Station Allocation & Mastery Gain Formula
+
+Mastery is gained through dedicated gym floor drilling:
+
+Focus Pads (Primary): Trains execution, snap, accuracy, and combination links ($+1.8\text{ to }+2.4\text{ M/hr}$).
+Heavy Bag (Secondary): Trains power transfer and mechanical leverage ($+0.9\text{ to }+1.2\text{ M/hr}$).
+Mirror / Shadowboxing: Cements recovery and telegraph reduction ($+0.7\text{ to }+1.0\text{ M/hr}$).
+Sparring: Pressure-tests the move against live timing ($+1.5\text{ M/hr}$ directly to active tactical moves).
+
+$$\Delta M = \text{BaseGainPerHour} \times \left(\frac{\text{StationTier}}{2.0}\right) \times \left(1.0 + \text{CoachPadSkill} \times 0.40\right) \times \left(1.0 - \frac{M}{\text{Cap}}\right) \times \text{FatigueEfficiency}$$
+
+The Hard Attribute Ceiling ($\text{Cap}$)
+
+A fighter cannot develop a world-class Signature check-hook if their underlying mechanical technique and balance are lacking.
+
+$$\text{MasteryCeiling} = \text{clamp}\left(40.0 + \left(0.40 \times TECH\right) + \left(0.20 \times IQ\right), 50.0, 100.0\right)$$
+
+If a fighter has $TECH = 50$ and $IQ = 60$, their maximum achievable Mastery for any punch is capped at $72.0$ (Sharp). To attain a Signature Level (85+), the player must first raise the athlete's foundational technique through dedicated coaching.
+Mastery Decay
+
+Skills are perishable:
+
+If a move is not drilled during a calendar week, it loses $-0.75\text{ Mastery points per week}$, down to a floor of $30.0$ (Usable status is retained indefinitely once earned).
+Dedicated Fight Week prep freezes decay across all active gameplan moves.
+(c) Combinations & Pad Chains as Independent Mastery
+
+Combinations are not simply sequential single punches; they require shifting weight between feet, changing target levels (head-to-body), and using the recoil of one punch to load the hips for the next.
+
+       PAD CHAIN: 3-PIECE COUNTER ROUTE
+  [ Trigger: Opponent Lead Jab ]
+                │
+                ▼
+  [ Step 1: Slip Outside ] ────────► Evasion Check vs Opponent Accuracy
+                │
+                ▼
+  [ Step 2: Rear Cross to Body ] ──► Level Change; loads front hip
+                │
+                ▼
+  [ Step 3: Lead Hook to Head ] ───► Explodes off loaded front foot
+
+Chain Mastery ($CM \in [0, 100]$): Evaluated separately from individual punch masteries.
+Link Transition Window: $$\text{InterPunchDelay} = \text{max}\left(4\text{ ticks}, 12\text{ ticks} \times \left(1.0 - \frac{CM}{100}\right)\right)$$
+At $CM \ge 75$, the transition delay drops to just 4 ticks ($66\text{ ms}$). The defender’s guard cannot reset between the first and second strike, granting the second strike an automatic $+30%$ penetration bonus against high guard.
+Chain Execution Success Check: In live combat, a mastered chain triggers when the opponent presents the recognized trigger condition: $$P(\text{Chain Fires}) = \left(\frac{CM \times 0.50 + IQ \times 0.50}{100}\right) \times \text{ComposureModifier}$$
+(d) Move Quality vs. Opponent Defensive Attributes
+
+When Punch $A$ encounters Defender $B$, three sequential physical checks occur:
+
+                      INCOMING PUNCH RESOLUTION
+                                 │
+                                 ▼
+                     [ 1. EVASION CHECK (Whiff) ]
+                     /                         \
+            (Clean Miss)                     (Tracks Target)
+                 │                                  │
+                 ▼                                  ▼
+      Attacker Whiffs & Overextends      [ 2. GUARD RESOLUTION ]
+      - Full stamina loss               /                       \
+      - Counter window opens      (Clean Break)            (Deflected/Blocked)
+                                        │                           │
+                                        ▼                           ▼
+                           [ 3. ANATOMICAL IMPACT ]       Damage Reduced 70-85%
+                           - Clean Force vs Chin         Zero Concussive Shock
+                           - Stun / Cut / KD Check
+
+
+The Evasion Equation (Whiff vs Tracking):
+$$\text{TrackingScore} = \text{EffectiveAccuracy} + (100.0 - \Theta \times 100.0) \times 0.30$$
+$$\text{EvasionScore} = (B.\text{Evasion} \times 0.60) + (B.\text{Footwork} \times 0.40) \times \text{PositionModifier}$$
+$$\Delta_{\text{evade}} = \text{EvasionScore} - \text{TrackingScore}$$
+
+If $\Delta_{\text{evade}} > 15.0$: Clean Whiff. The punch hits empty air.
+If $-15.0 \le \Delta_{\text{evade}} \le 15.0$: Glancing Contact or contested tracking.
+If $\Delta_{\text{evade}} < -15.0$: Locked Tracking (Clean hit profile).
+
+The Guard Equation (Block vs Penetration):
+$$\text{PenetrationPower} = (\text{OutputDamage} \times 0.50) + (M \times 0.30) + (TECH \times 0.20)$$
+$$\text{GuardAbsorb} = (B.\text{Guard} \times 0.70) + (B.\text{Power} \times 0.30) \times \text{StaminaRatio}$$
+
+If $\text{PenetrationPower} > \text{GuardAbsorb} \times 1.25$: Guard Split. Punch penetrates directly to the face/ribs at $85%$ force.
+Otherwise: Blocked. Damage reduced by $70\text{ to }90%$, zero head shock applied, zero cut risk.
+
+Impact vs. Chin:
+$$\text{ConcussiveShock} = \frac{\text{NetDamageDelivered}}{\text{Max}(20.0, B.\text{Chin} \times (1.0 - B.\text{AccumulatedConcussiveWear}))}$$
+
+If $\text{ConcussiveShock} \ge 1.0$: Flash Stun (Fighter freezes, guard drops for 1.5 seconds).
+If $\text{ConcussiveShock} \ge 1.6$: Knockdown Roll triggered.
+Part 2: How Move Quality Shows in the Fight
+
+A deep simulation must manifest its numbers in visible ring action and clear textual diagnostics.
+
+1. In the 3D Ring (Animation & Visual Audio)
+A Raw Move ($M = 15$):
+The animation has an elongated windup; the fighter's non-punching glove dips down to chest level.
+The punch lands with a dull, flat thud (sfx_punch_arm).
+If evaded, the fighter visibly stumbles forward half a step, off-balance for 20 frames before their guard resets.
+A Sharp / Signature Move ($M = 90$):
+The punch snaps outward with a distinct whip motion; the non-punching hand remains glued to the cheekbone.
+Clean impacts produce a crisp, resonant leather crack (sfx_punch_clean_crack).
+If missed, the punch snaps back to guard without shifting the fighter's center of gravity.
+Drilled Combination:
+Fluid weight transfer: The hip pivot of the rear cross naturally winds the torso for an explosive follow-up lead hook. The strikes land with rapid, rhythmic impact cadence (crack-crack within 200 ms).
+2. Quiet In-Fight Textual Diagnostics (Contextual Toasts)
+
+Appears directly below the round clock in subtle monospace type during gameplay:
+
+Raw Jab:
+
+[01:14 R2] Reyes throws Raw Jab (M:22) -> Telegraphed (+22) -> Perez slips cleanly -> Reyes off-balance (0.4s)
+
+Sharp Jab:
+
+[02:05 R2] Reyes fires Sharp Jab (M:88) -> Windup 10 ticks -> Snaps head back -> Perez jab interrupted
+
+Drilled Pad Chain 1:
+
+[00:42 R4] TELL EXPLOITED: Perez dropped right hand -> Reyes Pad Chain #1 triggered [Slip -> Hook -> Cross] -> 2 of 2 Clean Landings (118 Dmg)
+
+3. The Stool Report Between Rounds (Trainer Corner Drawer)
++-------------------------------------------------------------------------------------------------------+
+| ROUND 4 CORNER DIAGNOSTIC: DANNY REYES                                                                |
++-------------------------------------------------------------------------------------------------------+
+| COACH OBSERVATION:                                                                                    |
+| "Danny, your Sharp Jab (M:88) is dominating the outside lane — landing 14 of 19.                      |
+| But your Raw Rear Uppercut (M:18) is a liability. You've thrown it twice from outside pocket distance; |
+| both whiffed, burning 24 stamina and giving him counter angles. Lock that punch away."               |
+|                                                                                                       |
+| WEAPON EFFICIENCY THIS ROUND:                                                                         |
+| - Lead Jab (Sharp | M:88):         74% Landed | 0 Whiffs | +18 Head Wear Inflicted                    |
+| - Rear Cross (Usable | M:52):      40% Landed | 3 Blocked| 1 Counter Absorbed                         |
+| - Pad Chain #2 [Slip-Counter]:     Fired 1 time | 100% Execution | Caused Flash Stun                  |
++-------------------------------------------------------------------------------------------------------+
+
+4. Post-Fight "Three Decisive Factors" Comparison
+Scenario A: Sharp Jab Dominance (The Prepared Camp)
+
+
+
+1. The Sharp Jab Controlled the Geometry (Move Mastery 88 vs Opponent Evasion 64)
+
+Reyes' lead jab operated at a 10-tick release, denying Perez's forward lunges before his strikes could start. Landing 48 of 82 jabs (58.5%) caused 210 points of cumulative facial wear, closed Perez's left eye by Round 6, and negated his power advantage entirely.
+
+
+
+Scenario B: Raw Jab Failure (The Neglected Weapon)
+
+
+
+1. Inefficient Lead Hand Created Deadly Openings (Move Mastery 24 vs Opponent Evasion 78)
+
+Reyes' lead jab was telegraphed (Telegraph Index 0.68), allowing Perez to slip outside with ease (24 clean whiffs). Each miss cost Reyes 1.35x baseline stamina and opened a 16-frame recovery window, ultimately leading to the decisive Round 5 counter overhand right that scored the winning knockdown.
+
+
+
+Part 3: Deep Management Engine Specifications
+1. Complete Fight Simulation Formulas
+                               COMBAT MATHEMATICAL PIPELINE
+ [Attacker Action]                                                        [Defender State]
+  BaseMove + Mastery                                                       Guard + Evasion
+         │                                                                        │
+         ├──► 1. INITIATIVE & DISTANCE CHECK ─────────────────────────────────────┤
+         │    (Footwork, Ring IQ, Distance Band Match)                            │
+         │                                                                        │
+         ├──► 2. ACCURACY vs EVASION (Whiff Check) ───────────────────────────────┤
+         │    (EffectiveAcc vs Defender Evasion & Footwork)                       │
+         │                                                                        │
+         ├──► 3. PENETRATION vs GUARD (Block Check) ──────────────────────────────┤
+         │    (Kinetic Force vs Active Arm Guard Absorption)                      │
+         │                                                                        │
+         └──► 4. DAMAGE, SHOCK & CHIN (Impact Check) ─────────────────────────────┘
+              (Net Force -> Concussive Shock, Cut Roll, KD Check)
+
+Constants & Clamps
+$TICK_RATE = 60\text{ Hz}$
+$\text{DAMAGE_DIVISOR} = 10.0$
+$\text{BASE_HEAD_HP} = 500.0$, $\text{BASE_BODY_HP} = 650.0$
+$\text{MIN_CHIN_THRESHOLD} = 20.0$
+$\text{STAMINA_REGEN_PER_SEC_STOOL} = 0.65$
+Formula 1: Distance & Initiative Gate
+
+A punch can only be initiated if the fighters occupy the move's viable distance band ($D \in {\text{Outside}, \text{Pocket}, \text{Inside}}$):
+
+$$\text{RangeScore} = 1.0 - \left(\frac{|\text{ActualDistance} - \text{OptimalDistance}|}{\text{Tolerance}}\right)$$
+If $\text{RangeScore} < 0.20$, the strike suffers a $-60%$ accuracy penalty and cannot land cleanly.
+
+Formula 2: Comprehensive Damage Equation
+
+$$\text{RawForce} = \text{BaseMoveDamage} \times \left(0.35 + 0.65 \times \frac{POW}{100}\right) \times \left(0.50 + 0.50 \times \frac{TECH}{100}\right) \times \left(0.70 + 0.30 \times \frac{M}{100}\right)$$
+
+$$\text{ImpactDamage} = \text{RawForce} \times \text{StanceModifier} \times \text{KinematicCounterMultiplier}$$
+
+$\text{KinematicCounterMultiplier} = 1.45$ if defender is in punch windup/recovery ticks; $1.0$ otherwise.
+Formula 3: Guard Penetration & Net Force
+
+$$\text{AbsorbFactor} = \text{clamp}\left(\frac{\text{Guard} \times 0.75 + POW \times 0.25}{100.0} \times \left(\frac{\text{Stamina}}{100.0}\right), 0.10, 0.88\right)$$
+
+$$\text{NetDamage} =
+\begin{cases}
+\text{ImpactDamage} & \text{if Evaded (Whiff) } \rightarrow 0.0 \
+\text{ImpactDamage} & \text{if Clean Penetration} \
+\text{ImpactDamage} \times (1.0 - \text{AbsorbFactor}) & \text{if Guard Held (Blocked)}
+\end{cases}$$
+
+Formula 4: Concussive Head Shock & Knockdown Mechanics
+
+$$\text{Shock} = \frac{\text{NetDamage}}{\text{Chin} \times (1.0 - \text{AccumulatedWear})}$$
+$$\text{AccumulatedWear} = 1.0 - \left(\frac{\text{CurrentHeadHP}}{\text{BASE_HEAD_HP}}\right) \times 0.40$$
+
+If $\text{Shock} \ge 1.40$, trigger Knockdown Check ($KD_{roll}$): $$P(KD) = \text{clamp}\left((\text{Shock} - 1.40) \times 0.65 + \left(1.0 - \frac{\text{Stamina}}{100}\right) \times 0.30, 0.05, 0.95\right)$$
+Formula 5: Beating the Count (Canvas Recovery)
+
+Fighter has 10 seconds (600 ticks) to clear shock below $0.40$:
+
+$$\Delta \text{ShockPerSecond} = \left(0.12 \times \frac{\text{Conditioning}}{100}\right) + \left(0.08 \times \frac{\text{Recovery}}{100}\right) + \left(0.05 \times \frac{\text{RingIQ}}{100}\right)$$
+$$\text{TimeOnCanvas} = \frac{\text{Shock} - 0.40}{\Delta \text{ShockPerSecond}}$$
+If $\text{TimeOnCanvas} > 10.0\text{ seconds}$, the result is ruled a Knockout (KO).
+
+Formula 6: In-Round Stamina Depletion
+
+$$\text{StaminaBurn} = \text{BasePunchCost} \times \left(1.0 - 0.35 \times \frac{M}{100}\right) \times \left(1.0 + \frac{100 - \text{Conditioning}}{200}\right)$$
+
+Whiffed power punches apply a flat $1.60\times$ multiplier to $\text{StaminaBurn}$.
+Body Damage Inflicted on Defender permanently lowers their maximum stamina ceiling for the remainder of the fight by $0.15\text{ points per damage unit}$.
+2. Fighter Profile Screen Specification (1920×1080)
+Layout: Full HD management dashboard. Zero border radiuses; sharp 1px #6b5638 dividers; high contrast dark background #1b140e.
++---------------------------------------------------------------------------------------------------------------------------------------------------+ [1920 x 1080]
+| [PHOTO]  DANNY 'EL RELAMPAGO' REYES                   | PRO RECORD: 14-1-0 (11 KOs) | STATUS: ACTIVE FIGHT CAMP (BOUT IN 14 DAYS)                 | TOP DOCK (72px)
+| Age: 23 | Ht: 5'10" | Reach: 72" | Stance: Orthodox   | Division: Super Welterweight| Next Opponent: Tommy Perez (12-2-0)                         |
++-------------------------------------------------------+-----------------------------+-------------------------------------------------------------+
+| SECTION A: CORE ATTRIBUTES (380px)                    | SECTION B: REPERTOIRE (840px)| SECTION C: TRAINING & PHYSIO AUDIT (668px)                  |
+|                                                       |                             |                                                             |
+| PHYSICAL              CURR   30D     CEIL   INDEX     | PUNCH CATALOG        LVL  M   SPD ACC POW REC| WORKLOAD & RECOVERY                          |
+|   Power                 74  (+1.2)    85    [====--]  |   Lead Jab           SHP  88  10t 84% 92%  8t|   Stamina Pool:     84 / 100                 |
+|   Conditioning          68  (+3.4)    75    [===---]  |   Rear Cross         USB  52  14t 68% 85% 12t|   Cumulative Strain:26 / 100 [NOMINAL]       |
+|   Footwork              79  (+0.8)    84    [=====-]  |   Lead Hook (Head)   RAW  24  18t 42% 65% 18t|   Resting Heart Rate:48 BPM                  |
+|                                                       |   Liver Hook (Body)  SHP  82  12t 80% 90% 10t|   Weight:           72.4 kg (Target: 69.8 kg)|
+| TECHNICAL                                             |   Rear Uppercut      RAW  18  20t 38% 60% 22t|                                             |
+|   Hand Speed            81  (+0.4)    88    [=====-]  |   Check Hook         USB  44  15t 62% 78% 14t| 30-DAY DRILL ALLOCATION                     |
+|   Accuracy              76  (+2.1)    82    [====--]  |                                             |   Focus Pads:       28.5 hrs (Mastery focus) |
+|   Evasion               72  (+1.5)    80    [====--]  | MASTERED PAD CHAINS                         |   Heavy Bag:        18.0 hrs (Power focus)   |
+|   Guard                 64  (+0.2)    74    [===---]  |   #1: Jab -> Cross -> Hook (CM: 84 | 4 ticks) |   Sparring:         12.0 hrs (IQ/Def focus)  |
+|   Technique             74  (+1.8)    82    [====--]  |   #2: Slip Inside -> Liver Hook(CM:76|4 tks)|   Recovery & Physio: 8.0 hrs (Strain flush)  |
+|                                                       |                                             |                                             |
+| MENTAL & DURABILITY                                   | COMBAT TENDENCIES (GAMEPLAN)                | MEDICAL & STRUCTURAL INTEGRITY              |
+|   Chin (Static)         76   (0.0)    76    [====--]  |   Preferred Range:   Outside (65%)          |   Chin Degradation:  0.0% (Pristine)        |
+|   Ring IQ               70  (+2.0)    86    [===---]  |   Target Bias:       70% Head / 30% Body    |   Scar Tissue (Left):L1 Cut-Prone (1.35x)    |
+|   Composure             68  (+0.5)    85    [===---]  |   Counter Aggression:Active Hunt            |   Right Hand:        Minor Bruising (-4% Pow)|
+|   Recovery              72  (+1.1)    80    [====--]  |   Clinch Trigger:    Stamina < 25%          |   Active Morale:     High (+6% Plan adherence)
++-------------------------------------------------------+---------------------------------------------+---------------------------------------------+
+
+Screen Structure Breakdown
+Section A (Width: 380 px): The 12 primary attributes. Each row shows: Stat Name, Current Value (#f6eddc), 30-day training progression delta (#4fc46a), Hard Career Ceiling (#b5a68c), and an 8-segment micro-bar.
+Section B (Width: 840 px): Repertoire grid. Lists all 22 boxing strikes with columns: Punch Name, Tier Badge (RAW, USB, SHP, SIG), Numerical Mastery ($M$), Windup in ticks, Base Accuracy %, Power Transfer %, and Recovery ticks. Below sits the Pad Chain deck and current AI tactical biases.
+Section C (Width: 668 px): Physiological diagnostics. Workload meters, strain risk metrics, caloric weight tracking, 30-day facility time log, and the permanent medical damage ledger.
+3. Training Regulation Matrix (Playable Demo Scope)
++-------------------+-----------------------+---------------------------+-----------------------+-----------------------------------------------+
+| STATION / ACTION  | PRIMARY ATTRIBUTES    | SECONDARY ATTRIBUTES      | TARGET MOVE MASTERY   | MECHANICAL ENGINE FUNCTION                    |
++-------------------+-----------------------+---------------------------+-----------------------+-----------------------------------------------+
+| Focus Pads        | Technique, Accuracy   | Hand Speed, Ring IQ       | Jabs, Crosses, Hooks  | Lowers windup ticks; links pad combinations.  |
+| Heavy Bag         | Power                 | Conditioning, Technique   | Straights, Hooks      | Increases power transfer efficiency (ηp).     |
+| Speed Bag         | Hand Speed            | Technique                 | Jabs, Short Hooks     | Cuts telegraph index (Θ); boosts rhythm speed.|
+| Slip Ropes / Bag  | Evasion, Footwork     | Ring IQ                   | Defensive Slips, Rolls| Expands Whiff window; cuts counter exposure.  |
+| Sparring (Live)   | Ring IQ, Composure    | Evasion, Guard, Defense   | All Active Moves      | Field-tests pad chains; uncovers tells.       |
+| Double-End Bag    | Accuracy, Hand Speed  | Technique                 | Counters, Jabs        | Refines target tracking against moving head.  |
+| Footwork Ladder   | Footwork              | Conditioning              | Movement / Exits      | Increases ring positioning velocity.          |
+| Treadmill / Bike  | Conditioning          | Recovery                  | N/A                   | Expands round stamina pool; cuts recovery cost|
+| Weights Rig       | Power                 | Durability (Body)         | Power Hooks           | Raw force ceiling; increases guard break power|
+| Physio & Cryo     | Recovery              | Strain Flush              | N/A                   | Flushes cumulative strain; cuts injury risk.  |
+| Office Film Study | Ring IQ               | Strategy Adherence        | N/A                   | Decodes upcoming opponent combat tells.       |
++-------------------+-----------------------+---------------------------+-----------------------+-----------------------------------------------+
+
+4. Dense 1920×1080 PC Management Screens
+Screen 1: Matchup Scouting & Tactical Tale of the Tape
++---------------------------------------------------------------------------------------------------------------------------------------------------+
+| BOUT SCOUTING REPORT: DANNY REYES (14-1-0) vs TOMMY PEREZ (12-2-0) | SCHEDULED: 10 ROUNDS | REGIONAL TITLE                                        |
++---------------------------------------------------------------------------------------------------------------------------------------------------+
+| DANNY REYES [OUT-BOXER]                               | TACTICAL COMPARISON DELTAS            | TOMMY PEREZ [SLUGGER / SWARMER]                           |
+| Height: 5'10" | Reach: 72.0" | Stance: Orthodox       | Reach Advantage:     +4.0" (REYES)    |
+
+Can you provide the complete numerical formulas and constants for accuracy, damage, defense, stamina, recovery, and targeting?
+Can you mock up the 1920×1080 fighter profile screen showing attributes, derived ratings, weaknesses, mastery, and training history?
+Can you map every station, drill, sparring partner, and coaching action to each attribute and move mastery in a complete demo table?
+Can you visualize the dense pre-fight, weekly training, and post-fight explanation screens with square-cornered PC management layouts?

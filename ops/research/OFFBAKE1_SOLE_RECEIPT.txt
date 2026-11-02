@@ -1,0 +1,24 @@
+94301_09_08
+2026-10-15 21:34:08 AMBER C_free=23.5GB E_free=68.6GB RAM=80% COMMIT_free=18.6GB CPU=28% TEMP=74C(LHM)[peak 83] top: brave=6095MB firefox=5706MB ChatGPT=3290MB claude=3073MB
+SOLE_GATE {"feet":{"mh_boxer_08.glb/Left":{"above":1802,"below":0,"frames":1802,"longest":4,"max_pitch":81.7831756499261,"outside":1802,"role":"lead","roll":1798,"run":0},"mh_boxer_08.glb/Right":{"above":12,"below":11,"frames":1802,"longest":6,"max_pitch":79.9650885758954,"outside":1798,"role":"rear","roll":1787,"run":0},"mh_boxer_09.glb/Left":{"above":1761,"below":0,"frames":1802,"longest":3,"max_pitch":60.1874767019906,"outside":1764,"role":"lead","roll":1757,"run":0},"mh_boxer_09.glb/Right":{"above":55,"below":21,"frames":1802,"longest":6,"max_pitch":63.9961814284865,"outside":1783,"role":"rear","roll":1761,"run":0}},"seconds":60.0333333333325,"seed":"94301"}
+WARNING: 3038 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+ERROR: 3 resources still in use at exit (run with --verbose for details).
+ERROR: Pages in use exist at exit in PagedAllocator: N12VariantPools12BucketMediumE
+94301_05_02
+2026-10-15 21:36:16 GREEN C_free=23.5GB E_free=68.6GB RAM=82% COMMIT_free=17.9GB CPU=28% TEMP=68C(LHM)[peak 83] top: brave=6042MB firefox=5750MB ChatGPT=3282MB claude=3098MB
+SOLE_GATE {"feet":{"mh_boxer_02.glb/Left":{"above":1775,"below":0,"frames":1802,"longest":2,"max_pitch":68.9617357852749,"outside":1781,"role":"lead","roll":1768,"run":0},"mh_boxer_02.glb/Right":{"above":77,"below":11,"frames":1802,"longest":6,"max_pitch":73.4924598089329,"outside":1765,"role":"rear","roll":1753,"run":0},"mh_boxer_05.glb/Left":{"above":1715,"below":0,"frames":1802,"longest":1,"max_pitch":55.6177181472261,"outside":1736,"role":"lead","roll":1722,"run":0},"mh_boxer_05.glb/Right":{"above":51,"below":8,"frames":1802,"longest":6,"max_pitch":63.0382132464464,"outside":1757,"role":"rear","roll":1749,"run":0}},"seconds":60.0333333333325,"seed":"94301"}
+WARNING: 3038 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+ERROR: 3 resources still in use at exit (run with --verbose for details).
+ERROR: Pages in use exist at exit in PagedAllocator: N12VariantPools12BucketMediumE
+930093_09_08
+2026-10-15 21:40:14 AMBER C_free=23.4GB E_free=68.6GB RAM=84% COMMIT_free=17.1GB CPU=33% TEMP=80C(LHM)[peak 83] top: brave=6089MB firefox=5621MB ChatGPT=3235MB claude=3127MB
+SOLE_GATE {"feet":{"mh_boxer_08.glb/Left":{"above":1800,"below":0,"frames":1802,"longest":4,"max_pitch":88.4447001285746,"outside":1800,"role":"lead","roll":1790,"run":0},"mh_boxer_08.glb/Right":{"above":41,"below":19,"frames":1802,"longest":6,"max_pitch":79.9650885758954,"outside":1790,"role":"rear","roll":1771,"run":0},"mh_boxer_09.glb/Left":{"above":1782,"below":0,"frames":1802,"longest":0,"max_pitch":40.817763725319,"outside":1794,"role":"lead","roll":1779,"run":0},"mh_boxer_09.glb/Right":{"above":38,"below":7,"frames":1802,"longest":6,"max_pitch":88.8268901937718,"outside":1790,"role":"rear","roll":1782,"run":0}},"seconds":60.0333333333325,"seed":"930093"}
+WARNING: 3038 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+ERROR: 3 resources still in use at exit (run with --verbose for details).
+ERROR: Pages in use exist at exit in PagedAllocator: N12VariantPools12BucketMediumE
+930093_05_02
+2026-10-15 21:46:12 AMBER C_free=22.9GB E_free=68.5GB RAM=83% COMMIT_free=17.8GB CPU=35% TEMP=75C(LHM)[peak 81] top: brave=6597MB firefox=5542MB claude=3288MB ChatGPT=3130MB
+SOLE_GATE {"feet":{"mh_boxer_02.glb/Left":{"above":1792,"below":0,"frames":1802,"longest":0,"max_pitch":54.0451251474386,"outside":1792,"role":"lead","roll":1780,"run":0},"mh_boxer_02.glb/Right":{"above":105,"below":26,"frames":1802,"longest":10,"max_pitch":81.0220535197657,"outside":1789,"role":"rear","roll":1762,"run":0},"mh_boxer_05.glb/Left":{"above":1770,"below":0,"frames":1802,"longest":2,"max_pitch":62.9948483754059,"outside":1792,"role":"lead","roll":1784,"run":0},"mh_boxer_05.glb/Right":{"above":27,"below":6,"frames":1802,"longest":6,"max_pitch":72.812029533627,"outside":1796,"role":"rear","roll":1789,"run":0}},"seconds":60.0333333333325,"seed":"930093"}
+WARNING: 3038 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+ERROR: 3 resources still in use at exit (run with --verbose for details).
+ERROR: Pages in use exist at exit in PagedAllocator: N12VariantPools12BucketMediumE

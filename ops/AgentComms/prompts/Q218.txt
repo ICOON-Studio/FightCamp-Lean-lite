@@ -1,0 +1,22 @@
+You are working in the git worktree D:/FightCamp/wt/Q218 (branch qwen/q218-staff-room) of the FightCamp Godot 4.7.2 game.
+Your task is fully specified in research/TASK_Q218_STAFF_ROOM_TO_CONCEPT.md - read it first, then do it start to finish.
+
+Key points (the task file wins if anything differs):
+- Target image: previews/concepts/room_staff.jpg. OPEN it and LOOK at it. After every render pass, open your
+  render (previews/q218/pass<N>.png) and compare it with the concept before the next pass.
+- Edit ONLY Godot/scripts/StaffRoom3D.gd and the NEW files the task lists. Keep build(), every public signature and every
+  clickable object id. Never edit TrainingFloor3D.gd, any test or any fight file.
+- No downloads, no purchases, no images from the web. Blender 5.2.1 headless is available for props:
+  "C:/Program Files/Blender Foundation/Blender 5.2/blender.exe" --background --python <script.py>
+- The .godot import cache is already in the worktree. Parse gate before every render:
+  python Godot/tools/check_scripts.py Godot/scripts/StaffRoom3D.gd
+- Render (windowed Godot moved off-screen - never --headless):
+  powershell -NoProfile -ExecutionPolicy Bypass -File Tools\godot_hidden.ps1 --path Godot --script tools/s109_render_staff_room.gd
+  If a render sits at ~0.15 CPU and writes nothing, it died on a SCRIPT ERROR - read its log, fix, rerun.
+- At the end: python Godot/tools/run_tests.py --only staff_room,staff_hub_panel (0 failures);
+  copy the last render to previews/q218/final.png; write research/Q218_DIGEST.md;
+  git add the changed/new files explicitly by path (never `git add .`, never Godot/.godot), commit, and
+  git push -u origin qwen/q218-staff-room.
+- Work in passes (rota board and lockers -> kitchenette, table, sofa with people -> candidate at the door and posters ->
+  lighting). At most 6 passes, then report what is still unlike the concept.
+Do not stop at "written": run the renders and the tests yourself and finish with the push.

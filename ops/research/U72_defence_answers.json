@@ -1,0 +1,1900 @@
+{
+  "keys": {
+    "angle_exit": {
+      "answers": [
+        "strike"
+      ],
+      "reason": "Roll-under, pivot-out and slip nodes (boxing_roll, boxing_pivot_out, muay_thai_slip, sanda_lead_slip_defense) evade incoming strikes; FightMoves.gd:892 lists angle_exit in GUARD_EVADE_EFFECTS."
+    },
+    "block": {
+      "answers": [
+        "strike"
+      ],
+      "reason": "Parry, catch, elbow/forearm block, shin/head block and roof block stop incoming blows; FightMoves.gd:894-896 lists block in GUARD_BLOCK_EFFECTS."
+    },
+    "body_damage": {
+      "answers": [
+        "strike"
+      ],
+      "reason": "muay_thai_cross_arm_block absorbs incoming body strikes (cross-arm guard against hooks/knees to the torso)."
+    },
+    "boundary_control": {
+      "answers": [
+        "strike"
+      ],
+      "reason": "boxing_rope_work and sanda_stance manage ring/platform position to avoid strikes; FightMoves.gd:899 lists boundary_control in GUARD_FOOTWORK_EFFECTS."
+    },
+    "check_readiness": {
+      "answers": [
+        "strike"
+      ],
+      "reason": "kickboxing_guard and muay_thai_stance hold a checked guard ready to block or check kicks; presenter lists check_readiness in GUARD_BLOCK_EFFECTS (FightMoves.gd:895)."
+    },
+    "clinch_control": {
+      "answers": [
+        "control"
+      ],
+      "reason": "boxing_pivot_out and boxing_forearm_frame defend clinch tie-ups and frames — opposing incoming clinch control, not punches at range."
+    },
+    "control_escape": {
+      "answers": [
+        "escape"
+      ],
+      "reason": "bjj_turtle uses the posture to escape bottom control and recover — only carrier is control_escape on that node."
+    },
+    "counter_open": {
+      "answers": [
+        "strike"
+      ],
+      "reason": "Parries, slips, pulls and karate uke open counters after defending a strike; paired on every carrier with evasion/coverage/block keys."
+    },
+    "counter_ready": {
+      "answers": [
+        "strike"
+      ],
+      "reason": "capoeira_esquiva_read and silat_pasang hold a guard that reads incoming strikes to counter."
+    },
+    "coverage": {
+      "answers": [
+        "strike"
+      ],
+      "reason": "High guard, elbow block and karate uke cover incoming strike lines; FightMoves.gd:895 lists coverage in GUARD_BLOCK_EFFECTS."
+    },
+    "distance_read": {
+      "answers": [
+        "strike"
+      ],
+      "reason": "Karate stances, maai and savate garde read range to stay outside or intercept strikes; FightMoves.gd:892 GUARD_EVADE_EFFECTS."
+    },
+    "entry_open": {
+      "answers": [
+        "strike"
+      ],
+      "reason": "boxing_bob_weave ducks under incoming strikes while creating angle — the only carrier pairs entry_open with evasion."
+    },
+    "entry_speed": {
+      "answers": [
+        "takedown"
+      ],
+      "reason": "wrestling_stance entry_speed is level-change readiness that helps stuff shots; defensive read rides with takedown_defense on the same node."
+    },
+    "evasion": {
+      "answers": [
+        "strike"
+      ],
+      "reason": "Slips, rolls, pulls and rope evasions avoid incoming strikes; FightMoves.gd:892 GUARD_EVADE_EFFECTS."
+    },
+    "front_headlock_open": {
+      "answers": [],
+      "reason": "Only on wrestling_sprawl: the sprawl opens the front-headlock window for the top man — it is an offensive transition key, not an incoming-action defence (U72 trap)."
+    },
+    "guard": {
+      "answers": [
+        "strike"
+      ],
+      "reason": "Stance guards, long guard, catch and head block cover incoming strikes; FightMoves.gd:895 GUARD_BLOCK_EFFECTS."
+    },
+    "guard_control": {
+      "answers": [
+        "control"
+      ],
+      "reason": "bjj guard retention, knee shield and silat harimau keep closed guard against passes — bottom-man guard maintenance, not a punch block despite presenter BLOCK list (U72 trap)."
+    },
+    "guard_recovery": {
+      "answers": [
+        "control"
+      ],
+      "reason": "brazilian_jiu_jitsu_guard_retention recovers guard frames against a pass; anchor excludes strike — same trap as guard_control (FightMoves.gd:895 vs technique intent)."
+    },
+    "kick_ready": {
+      "answers": [
+        "strike"
+      ],
+      "reason": "taekwondo tkd_stance bounce keeps the leg ready to check or intercept kicks — answers incoming leg strikes."
+    },
+    "low_kick_defense": {
+      "answers": [
+        "strike"
+      ],
+      "reason": "kickboxing_kick_check and savate_lowline_read defend low kicks; anchor key."
+    },
+    "mobility": {
+      "answers": [
+        "strike"
+      ],
+      "reason": "Stance footwork and pivots create angle against incoming strikes; FightMoves.gd:898-900 GUARD_FOOTWORK_EFFECTS."
+    },
+    "opponent_mobility": {
+      "answers": [
+        "strike"
+      ],
+      "reason": "kickboxing_teep_stop and taekwondo_push_kick_manage stop forward pressure and incoming teeps/kicks."
+    },
+    "range_control": {
+      "answers": [
+        "strike"
+      ],
+      "reason": "Long guard, teep defence and pull-back manage distance against incoming strikes; FightMoves.gd:892 GUARD_EVADE_EFFECTS."
+    },
+    "rhythm": {
+      "answers": [
+        "strike"
+      ],
+      "reason": "boxing_breathing_rhythm and capoeira_ginga time movement to incoming strike cadence."
+    },
+    "scramble": {
+      "answers": [
+        "takedown",
+        "control",
+        "escape"
+      ],
+      "reason": "wrestling_whizzer_defense scrambles off shots (takedown); bjj_turtle scrambles out of bottom control (escape/control); judo_ukemi scrambles after being thrown (takedown/escape)."
+    },
+    "sweep": {
+      "answers": [
+        "strike"
+      ],
+      "reason": "muay_thai_catch_kick catches an incoming kick to off-balance — defends a leg strike, not a pass."
+    },
+    "sweep_threat": {
+      "answers": [
+        "control"
+      ],
+      "reason": "bjj_knee_shield and silat harimau threaten sweeps to deter top control and guard passes from ground_bottom."
+    },
+    "takedown_defense": {
+      "answers": [
+        "takedown"
+      ],
+      "reason": "wrestling_stance, wrestling_sprawl and wrestling_whizzer_defense stuff level changes; FightMoves.gd:882-889 deliberately omits takedown_defense from strike guards."
+    },
+    "throw_damage_reduction": {
+      "answers": [
+        "takedown"
+      ],
+      "reason": "judo_ukemi breakfall reduces damage from throws — incoming takedown/throw role; anchor key."
+    },
+    "timing": {
+      "answers": [
+        "strike"
+      ],
+      "reason": "boxing_breathing_rhythm reads opponent strike timing on the only carrier."
+    }
+  },
+  "nodes": {
+    "arnis_roof_block": {
+      "discipline": "arnis",
+      "tier": 2,
+      "magnitude": 19.0,
+      "seats": [],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "bjj_turtle": {
+      "discipline": "brazilian_jiu_jitsu",
+      "tier": 2,
+      "magnitude": 11.0,
+      "seats": [
+        "ground_bottom"
+      ],
+      "answers": [
+        "escape",
+        "control"
+      ],
+      "override_reason": "Turtle already conceded the takedown; it escapes pins and blocks passes, not shots or level changes."
+    },
+    "boxing_block_elbow": {
+      "discipline": "boxing",
+      "tier": 2,
+      "magnitude": 14.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "boxing_bob_weave": {
+      "discipline": "boxing",
+      "tier": 2,
+      "magnitude": 15.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "boxing_breathing_rhythm": {
+      "discipline": "boxing",
+      "tier": 1,
+      "magnitude": 11.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "boxing_catch": {
+      "discipline": "boxing",
+      "tier": 1,
+      "magnitude": 11.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "boxing_forearm_frame": {
+      "discipline": "boxing",
+      "tier": 3,
+      "magnitude": 14.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "control",
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "boxing_long_guard": {
+      "discipline": "boxing",
+      "tier": 3,
+      "magnitude": 15.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "boxing_parry": {
+      "discipline": "boxing",
+      "tier": 1,
+      "magnitude": 12.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "boxing_pivot_out": {
+      "discipline": "boxing",
+      "tier": 3,
+      "magnitude": 20.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "control",
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "boxing_pull": {
+      "discipline": "boxing",
+      "tier": 2,
+      "magnitude": 13.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "boxing_roll": {
+      "discipline": "boxing",
+      "tier": 2,
+      "magnitude": 14.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "boxing_rope_work": {
+      "discipline": "boxing",
+      "tier": 3,
+      "magnitude": 19.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "boxing_shoulder_roll": {
+      "discipline": "boxing",
+      "tier": 3,
+      "magnitude": 16.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "boxing_slip": {
+      "discipline": "boxing",
+      "tier": 1,
+      "magnitude": 13.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "boxing_stance_guard": {
+      "discipline": "boxing",
+      "tier": 1,
+      "magnitude": 14.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "brazilian_jiu_jitsu_guard_retention": {
+      "discipline": "brazilian_jiu_jitsu",
+      "tier": 2,
+      "magnitude": 14.0,
+      "seats": [
+        "ground_bottom"
+      ],
+      "answers": [
+        "control"
+      ],
+      "override_reason": ""
+    },
+    "brazilian_jiu_jitsu_knee_shield": {
+      "discipline": "brazilian_jiu_jitsu",
+      "tier": 3,
+      "magnitude": 14.0,
+      "seats": [
+        "ground_bottom"
+      ],
+      "answers": [
+        "control"
+      ],
+      "override_reason": ""
+    },
+    "capoeira_esquiva": {
+      "discipline": "capoeira",
+      "tier": 1,
+      "magnitude": 14.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "capoeira_esquiva_read": {
+      "discipline": "capoeira",
+      "tier": 3,
+      "magnitude": 15.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "capoeira_ginga": {
+      "discipline": "capoeira",
+      "tier": 1,
+      "magnitude": 12.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "judo_ukemi": {
+      "discipline": "judo",
+      "tier": 1,
+      "magnitude": 13.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "takedown"
+      ],
+      "override_reason": "Ukemi answers being thrown (takedown role); scramble here is post-throw recovery, not bottom control escape."
+    },
+    "karate_ageuke": {
+      "discipline": "karate",
+      "tier": 1,
+      "magnitude": 10.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_ayumiashi": {
+      "discipline": "karate",
+      "tier": 1,
+      "magnitude": 9.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_chudansoeteuke": {
+      "discipline": "karate",
+      "tier": 3,
+      "magnitude": 16.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_empiuke": {
+      "discipline": "karate",
+      "tier": 2,
+      "magnitude": 13.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_fudodachi": {
+      "discipline": "karate",
+      "tier": 3,
+      "magnitude": 9.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_gankakudachi": {
+      "discipline": "karate",
+      "tier": 4,
+      "magnitude": 9.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_gedanbarai": {
+      "discipline": "karate",
+      "tier": 1,
+      "magnitude": 10.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_gedanjujiuke": {
+      "discipline": "karate",
+      "tier": 2,
+      "magnitude": 13.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_gedanmorotebarai": {
+      "discipline": "karate",
+      "tier": 2,
+      "magnitude": 13.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_hachijidachi": {
+      "discipline": "karate",
+      "tier": 1,
+      "magnitude": 9.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_haishuuke": {
+      "discipline": "karate",
+      "tier": 2,
+      "magnitude": 13.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_haiwanuke": {
+      "discipline": "karate",
+      "tier": 2,
+      "magnitude": 13.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_hangetsudachi": {
+      "discipline": "karate",
+      "tier": 3,
+      "magnitude": 9.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_heikodachi": {
+      "discipline": "karate",
+      "tier": 1,
+      "magnitude": 9.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_heisokudachi": {
+      "discipline": "karate",
+      "tier": 1,
+      "magnitude": 9.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_hikiashi": {
+      "discipline": "karate",
+      "tier": 1,
+      "magnitude": 9.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_iaigoshidachi": {
+      "discipline": "karate",
+      "tier": 3,
+      "magnitude": 9.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_jodanjujiuke": {
+      "discipline": "karate",
+      "tier": 2,
+      "magnitude": 13.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_kaishoageuke": {
+      "discipline": "karate",
+      "tier": 3,
+      "magnitude": 16.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_kaishohaiwanuke": {
+      "discipline": "karate",
+      "tier": 2,
+      "magnitude": 13.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_kaishojujiuke": {
+      "discipline": "karate",
+      "tier": 2,
+      "magnitude": 13.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_kakiwakeuke": {
+      "discipline": "karate",
+      "tier": 2,
+      "magnitude": 13.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_kamae": {
+      "discipline": "karate",
+      "tier": 1,
+      "magnitude": 9.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_kibadachi": {
+      "discipline": "karate",
+      "tier": 1,
+      "magnitude": 9.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_kokutsudachi": {
+      "discipline": "karate",
+      "tier": 1,
+      "magnitude": 9.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_kosadachi": {
+      "discipline": "karate",
+      "tier": 2,
+      "magnitude": 9.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_kosauke": {
+      "discipline": "karate",
+      "tier": 2,
+      "magnitude": 13.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_maai_control": {
+      "discipline": "karate",
+      "tier": 3,
+      "magnitude": 9.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_manjiuke": {
+      "discipline": "karate",
+      "tier": 3,
+      "magnitude": 16.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_mawariashi": {
+      "discipline": "karate",
+      "tier": 2,
+      "magnitude": 9.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_mawashiuke": {
+      "discipline": "karate",
+      "tier": 4,
+      "magnitude": 19.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_morotetsukamiuke": {
+      "discipline": "karate",
+      "tier": 4,
+      "magnitude": 19.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_moroteuke": {
+      "discipline": "karate",
+      "tier": 2,
+      "magnitude": 13.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_musubidachi": {
+      "discipline": "karate",
+      "tier": 1,
+      "magnitude": 9.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_nagashiuke": {
+      "discipline": "karate",
+      "tier": 3,
+      "magnitude": 16.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_nekoashidachi": {
+      "discipline": "karate",
+      "tier": 3,
+      "magnitude": 9.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_okuriashi": {
+      "discipline": "karate",
+      "tier": 2,
+      "magnitude": 9.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_osaeuke": {
+      "discipline": "karate",
+      "tier": 2,
+      "magnitude": 13.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_otoshiuke": {
+      "discipline": "karate",
+      "tier": 2,
+      "magnitude": 13.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_renojidachi": {
+      "discipline": "karate",
+      "tier": 2,
+      "magnitude": 9.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_sagiashidachi": {
+      "discipline": "karate",
+      "tier": 3,
+      "magnitude": 9.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_sanchindachi": {
+      "discipline": "karate",
+      "tier": 3,
+      "magnitude": 9.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_shizentai": {
+      "discipline": "karate",
+      "tier": 1,
+      "magnitude": 9.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_shutoageuke": {
+      "discipline": "karate",
+      "tier": 3,
+      "magnitude": 16.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_shutogedanbarai": {
+      "discipline": "karate",
+      "tier": 3,
+      "magnitude": 16.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_shutomawashiuke": {
+      "discipline": "karate",
+      "tier": 4,
+      "magnitude": 19.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_shutouke": {
+      "discipline": "karate",
+      "tier": 1,
+      "magnitude": 10.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_sochindachi": {
+      "discipline": "karate",
+      "tier": 4,
+      "magnitude": 9.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_sotouke": {
+      "discipline": "karate",
+      "tier": 1,
+      "magnitude": 10.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_sukuiuke": {
+      "discipline": "karate",
+      "tier": 3,
+      "magnitude": 16.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_suriashi": {
+      "discipline": "karate",
+      "tier": 1,
+      "magnitude": 9.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_taisabaki": {
+      "discipline": "karate",
+      "tier": 2,
+      "magnitude": 9.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_tateshutouke": {
+      "discipline": "karate",
+      "tier": 3,
+      "magnitude": 16.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_teijidachi": {
+      "discipline": "karate",
+      "tier": 2,
+      "magnitude": 9.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_teishoawaseuke": {
+      "discipline": "karate",
+      "tier": 4,
+      "magnitude": 19.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_teishouke": {
+      "discipline": "karate",
+      "tier": 3,
+      "magnitude": 16.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_tenshin": {
+      "discipline": "karate",
+      "tier": 3,
+      "magnitude": 9.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_teosaeuke": {
+      "discipline": "karate",
+      "tier": 2,
+      "magnitude": 13.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_tsugiashi": {
+      "discipline": "karate",
+      "tier": 2,
+      "magnitude": 9.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_tsukiuke": {
+      "discipline": "karate",
+      "tier": 3,
+      "magnitude": 16.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_tsuruashidachi": {
+      "discipline": "karate",
+      "tier": 3,
+      "magnitude": 9.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_uchihachijidachi": {
+      "discipline": "karate",
+      "tier": 2,
+      "magnitude": 9.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_uchiuke": {
+      "discipline": "karate",
+      "tier": 1,
+      "magnitude": 10.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_udebarai": {
+      "discipline": "karate",
+      "tier": 2,
+      "magnitude": 13.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_ushirogedanbarai": {
+      "discipline": "karate",
+      "tier": 3,
+      "magnitude": 16.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_yoriashi": {
+      "discipline": "karate",
+      "tier": 2,
+      "magnitude": 9.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "karate_zenkutsudachi": {
+      "discipline": "karate",
+      "tier": 1,
+      "magnitude": 9.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "kickboxing_guard": {
+      "discipline": "kickboxing",
+      "tier": 1,
+      "magnitude": 14.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "kickboxing_kick_check": {
+      "discipline": "kickboxing",
+      "tier": 2,
+      "magnitude": 15.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "kickboxing_teep_stop": {
+      "discipline": "kickboxing",
+      "tier": 2,
+      "magnitude": 14.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "muay_thai_catch_kick": {
+      "discipline": "muay_thai",
+      "tier": 2,
+      "magnitude": 12.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "muay_thai_cross_arm_block": {
+      "discipline": "muay_thai",
+      "tier": 2,
+      "magnitude": 13.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "muay_thai_head_block": {
+      "discipline": "muay_thai",
+      "tier": 1,
+      "magnitude": 13.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "muay_thai_pull_back": {
+      "discipline": "muay_thai",
+      "tier": 2,
+      "magnitude": 12.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "muay_thai_shin_check": {
+      "discipline": "muay_thai",
+      "tier": 1,
+      "magnitude": 13.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "muay_thai_slip": {
+      "discipline": "muay_thai",
+      "tier": 2,
+      "magnitude": 13.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "muay_thai_stance": {
+      "discipline": "muay_thai",
+      "tier": 1,
+      "magnitude": 13.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "muay_thai_teep_defense": {
+      "discipline": "muay_thai",
+      "tier": 2,
+      "magnitude": 14.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "pencak_silat_harimau_low": {
+      "discipline": "pencak_silat",
+      "tier": 3,
+      "magnitude": 14.0,
+      "seats": [
+        "ground_bottom"
+      ],
+      "answers": [
+        "control"
+      ],
+      "override_reason": ""
+    },
+    "sanda_lead_slip_defense": {
+      "discipline": "sanda",
+      "tier": 2,
+      "magnitude": 13.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "sanda_stance": {
+      "discipline": "sanda",
+      "tier": 1,
+      "magnitude": 12.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "savate_garde": {
+      "discipline": "savate",
+      "tier": 1,
+      "magnitude": 12.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "savate_lowline_read": {
+      "discipline": "savate",
+      "tier": 3,
+      "magnitude": 15.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "silat_pasang": {
+      "discipline": "pencak_silat",
+      "tier": 1,
+      "magnitude": 12.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "taekwondo_push_kick_manage": {
+      "discipline": "taekwondo",
+      "tier": 2,
+      "magnitude": 13.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "tkd_stance": {
+      "discipline": "taekwondo",
+      "tier": 1,
+      "magnitude": 12.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "strike"
+      ],
+      "override_reason": ""
+    },
+    "wrestling_sprawl": {
+      "discipline": "wrestling",
+      "tier": 2,
+      "magnitude": 19.0,
+      "seats": [
+        "ground_bottom",
+        "ground_top",
+        "standing"
+      ],
+      "answers": [
+        "takedown"
+      ],
+      "override_reason": ""
+    },
+    "wrestling_stance": {
+      "discipline": "wrestling",
+      "tier": 1,
+      "magnitude": 11.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "takedown"
+      ],
+      "override_reason": ""
+    },
+    "wrestling_whizzer_defense": {
+      "discipline": "wrestling",
+      "tier": 2,
+      "magnitude": 14.0,
+      "seats": [
+        "standing"
+      ],
+      "answers": [
+        "takedown"
+      ],
+      "override_reason": "scramble on whizzer is takedown-scramble only — the node does not escape bottom control."
+    }
+  },
+  "disciplines": {
+    "arnis": {
+      "nodes": 1,
+      "magnitude": 19.0,
+      "bonus_all": 0.35,
+      "bonus_tier12": 0.35,
+      "seat_answer_all": {
+        "standing": {
+          "strike": 0.0,
+          "takedown": 0.0,
+          "control": 0.0,
+          "submission": 0.0,
+          "escape": 0.0
+        },
+        "ground_top": {
+          "strike": 0.0,
+          "takedown": 0.0,
+          "control": 0.0,
+          "submission": 0.0,
+          "escape": 0.0
+        },
+        "ground_bottom": {
+          "strike": 0.0,
+          "takedown": 0.0,
+          "control": 0.0,
+          "submission": 0.0,
+          "escape": 0.0
+        }
+      }
+    },
+    "boxing": {
+      "nodes": 14,
+      "magnitude": 201.0,
+      "bonus_all": 0.35,
+      "bonus_tier12": 0.35,
+      "seat_answer_all": {
+        "standing": {
+          "strike": 0.35,
+          "takedown": 0.0,
+          "control": 0.35,
+          "submission": 0.0,
+          "escape": 0.0
+        },
+        "ground_top": {
+          "strike": 0.0,
+          "takedown": 0.0,
+          "control": 0.0,
+          "submission": 0.0,
+          "escape": 0.0
+        },
+        "ground_bottom": {
+          "strike": 0.0,
+          "takedown": 0.0,
+          "control": 0.0,
+          "submission": 0.0,
+          "escape": 0.0
+        }
+      }
+    },
+    "brazilian_jiu_jitsu": {
+      "nodes": 3,
+      "magnitude": 39.0,
+      "bonus_all": 0.35,
+      "bonus_tier12": 0.35,
+      "seat_answer_all": {
+        "standing": {
+          "strike": 0.0,
+          "takedown": 0.0,
+          "control": 0.0,
+          "submission": 0.0,
+          "escape": 0.0
+        },
+        "ground_top": {
+          "strike": 0.0,
+          "takedown": 0.0,
+          "control": 0.0,
+          "submission": 0.0,
+          "escape": 0.0
+        },
+        "ground_bottom": {
+          "strike": 0.0,
+          "takedown": 0.0,
+          "control": 0.35,
+          "submission": 0.0,
+          "escape": 0.275
+        }
+      }
+    },
+    "capoeira": {
+      "nodes": 3,
+      "magnitude": 41.0,
+      "bonus_all": 0.35,
+      "bonus_tier12": 0.35,
+      "seat_answer_all": {
+        "standing": {
+          "strike": 0.35,
+          "takedown": 0.0,
+          "control": 0.0,
+          "submission": 0.0,
+          "escape": 0.0
+        },
+        "ground_top": {
+          "strike": 0.0,
+          "takedown": 0.0,
+          "control": 0.0,
+          "submission": 0.0,
+          "escape": 0.0
+        },
+        "ground_bottom": {
+          "strike": 0.0,
+          "takedown": 0.0,
+          "control": 0.0,
+          "submission": 0.0,
+          "escape": 0.0
+        }
+      }
+    },
+    "judo": {
+      "nodes": 1,
+      "magnitude": 13.0,
+      "bonus_all": 0.325,
+      "bonus_tier12": 0.325,
+      "seat_answer_all": {
+        "standing": {
+          "strike": 0.0,
+          "takedown": 0.325,
+          "control": 0.0,
+          "submission": 0.0,
+          "escape": 0.0
+        },
+        "ground_top": {
+          "strike": 0.0,
+          "takedown": 0.0,
+          "control": 0.0,
+          "submission": 0.0,
+          "escape": 0.0
+        },
+        "ground_bottom": {
+          "strike": 0.0,
+          "takedown": 0.0,
+          "control": 0.0,
+          "submission": 0.0,
+          "escape": 0.0
+        }
+      }
+    },
+    "karate": {
+      "nodes": 67,
+      "magnitude": 785.0,
+      "bonus_all": 0.35,
+      "bonus_tier12": 0.35,
+      "seat_answer_all": {
+        "standing": {
+          "strike": 0.35,
+          "takedown": 0.0,
+          "control": 0.0,
+          "submission": 0.0,
+          "escape": 0.0
+        },
+        "ground_top": {
+          "strike": 0.0,
+          "takedown": 0.0,
+          "control": 0.0,
+          "submission": 0.0,
+          "escape": 0.0
+        },
+        "ground_bottom": {
+          "strike": 0.0,
+          "takedown": 0.0,
+          "control": 0.0,
+          "submission": 0.0,
+          "escape": 0.0
+        }
+      }
+    },
+    "kickboxing": {
+      "nodes": 3,
+      "magnitude": 43.0,
+      "bonus_all": 0.35,
+      "bonus_tier12": 0.35,
+      "seat_answer_all": {
+        "standing": {
+          "strike": 0.35,
+          "takedown": 0.0,
+          "control": 0.0,
+          "submission": 0.0,
+          "escape": 0.0
+        },
+        "ground_top": {
+          "strike": 0.0,
+          "takedown": 0.0,
+          "control": 0.0,
+          "submission": 0.0,
+          "escape": 0.0
+        },
+        "ground_bottom": {
+          "strike": 0.0,
+          "takedown": 0.0,
+          "control": 0.0,
+          "submission": 0.0,
+          "escape": 0.0
+        }
+      }
+    },
+    "muay_thai": {
+      "nodes": 8,
+      "magnitude": 103.0,
+      "bonus_all": 0.35,
+      "bonus_tier12": 0.35,
+      "seat_answer_all": {
+        "standing": {
+          "strike": 0.35,
+          "takedown": 0.0,
+          "control": 0.0,
+          "submission": 0.0,
+          "escape": 0.0
+        },
+        "ground_top": {
+          "strike": 0.0,
+          "takedown": 0.0,
+          "control": 0.0,
+          "submission": 0.0,
+          "escape": 0.0
+        },
+        "ground_bottom": {
+          "strike": 0.0,
+          "takedown": 0.0,
+          "control": 0.0,
+          "submission": 0.0,
+          "escape": 0.0
+        }
+      }
+    },
+    "pencak_silat": {
+      "nodes": 2,
+      "magnitude": 26.0,
+      "bonus_all": 0.35,
+      "bonus_tier12": 0.3,
+      "seat_answer_all": {
+        "standing": {
+          "strike": 0.3,
+          "takedown": 0.0,
+          "control": 0.0,
+          "submission": 0.0,
+          "escape": 0.0
+        },
+        "ground_top": {
+          "strike": 0.0,
+          "takedown": 0.0,
+          "control": 0.0,
+          "submission": 0.0,
+          "escape": 0.0
+        },
+        "ground_bottom": {
+          "strike": 0.0,
+          "takedown": 0.0,
+          "control": 0.35,
+          "submission": 0.0,
+          "escape": 0.0
+        }
+      }
+    },
+    "sanda": {
+      "nodes": 2,
+      "magnitude": 25.0,
+      "bonus_all": 0.35,
+      "bonus_tier12": 0.35,
+      "seat_answer_all": {
+        "standing": {
+          "strike": 0.35,
+          "takedown": 0.0,
+          "control": 0.0,
+          "submission": 0.0,
+          "escape": 0.0
+        },
+        "ground_top": {
+          "strike": 0.0,
+          "takedown": 0.0,
+          "control": 0.0,
+          "submission": 0.0,
+          "escape": 0.0
+        },
+        "ground_bottom": {
+          "strike": 0.0,
+          "takedown": 0.0,
+          "control": 0.0,
+          "submission": 0.0,
+          "escape": 0.0
+        }
+      }
+    },
+    "savate": {
+      "nodes": 2,
+      "magnitude": 27.0,
+      "bonus_all": 0.35,
+      "bonus_tier12": 0.3,
+      "seat_answer_all": {
+        "standing": {
+          "strike": 0.35,
+          "takedown": 0.0,
+          "control": 0.0,
+          "submission": 0.0,
+          "escape": 0.0
+        },
+        "ground_top": {
+          "strike": 0.0,
+          "takedown": 0.0,
+          "control": 0.0,
+          "submission": 0.0,
+          "escape": 0.0
+        },
+        "ground_bottom": {
+          "strike": 0.0,
+          "takedown": 0.0,
+          "control": 0.0,
+          "submission": 0.0,
+          "escape": 0.0
+        }
+      }
+    },
+    "taekwondo": {
+      "nodes": 2,
+      "magnitude": 25.0,
+      "bonus_all": 0.35,
+      "bonus_tier12": 0.35,
+      "seat_answer_all": {
+        "standing": {
+          "strike": 0.35,
+          "takedown": 0.0,
+          "control": 0.0,
+          "submission": 0.0,
+          "escape": 0.0
+        },
+        "ground_top": {
+          "strike": 0.0,
+          "takedown": 0.0,
+          "control": 0.0,
+          "submission": 0.0,
+          "escape": 0.0
+        },
+        "ground_bottom": {
+          "strike": 0.0,
+          "takedown": 0.0,
+          "control": 0.0,
+          "submission": 0.0,
+          "escape": 0.0
+        }
+      }
+    },
+    "wrestling": {
+      "nodes": 3,
+      "magnitude": 44.0,
+      "bonus_all": 0.35,
+      "bonus_tier12": 0.35,
+      "seat_answer_all": {
+        "standing": {
+          "strike": 0.0,
+          "takedown": 0.35,
+          "control": 0.0,
+          "submission": 0.0,
+          "escape": 0.0
+        },
+        "ground_top": {
+          "strike": 0.0,
+          "takedown": 0.35,
+          "control": 0.0,
+          "submission": 0.0,
+          "escape": 0.0
+        },
+        "ground_bottom": {
+          "strike": 0.0,
+          "takedown": 0.35,
+          "control": 0.0,
+          "submission": 0.0,
+          "escape": 0.0
+        }
+      }
+    }
+  }
+}

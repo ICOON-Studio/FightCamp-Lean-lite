@@ -1,0 +1,129 @@
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------+
+| BOUT SCOUTING REPORT: DANNY REYES (14-1-0) vs TOMMY PEREZ (12-2-0) | SCHEDULED: 10 ROUNDS | REGIONAL TITLE                                        |
++---------------------------------------------------------------------------------------------------------------------------------------------------+
+| DANNY REYES [OUT-BOXER]                               | TACTICAL COMPARISON DELTAS            | TOMMY PEREZ [SLUGGER / SWARMER]                           |
+| Height: 5'10" | Reach: 72.0" | Stance: Orthodox       | Reach Advantage:     +4.0" (REYES)    | Height: 5'7" | Reach: 68.0" | Stance: Orthodox          |
+| Weight: 154 lbs (On Target: 153.8 lbs)                | Hand Speed Delta:     +12  (REYES)    | Weight: 154 lbs (Est. Cut: Struggling, ~158 lbs)          |
+| Base Style Bias: 65% Outside / 25% Pocket / 10% In     | Raw Power Delta:      +14  (PEREZ)    | Base Style Bias: 10% Outside / 30% Pocket / 60% In        |
++-------------------------------------------------------+---------------------------------------+-----------------------------------------------------------+
+| TALE OF THE TAPE: CORE METRIC HEAD-TO-HEAD                                                                                                                |
+| METRIC                       REYES (BLUE CORNER)     ADVANTAGE / GAP                  PEREZ (RED CORNER)                                          |
+| Power                                         74     [======-------- | +14 PEREZ    ] 88                                                          |
+| Hand Speed                                    81     [+12 REYES      | ======-------] 69                                                          |
+| Accuracy                                      76     [+8 REYES       | =====--------] 68                                                          |
+| Footwork & Ring Velocity                      79     [+18 REYES      | ====---------] 61                                                          |
+| Evasion (Slip / Duck / Roll)                  72     [+15 REYES      | ====---------] 57                                                          |
+| Guard & Absorption                            64     [               | +12 PEREZ    ] 76                                                          |
+| Conditioning & Work Rate                      68     [+6 REYES       | ======-------] 62                                                          |
+| Chin Durability (Static Threshold)            76     [               | +10 PEREZ    ] 86                                                          |
+| Ring IQ & Generalship                         70     [+14 REYES      | =====--------] 56                                                          |
++-------------------------------------------------------+---------------------------------------+-----------------------------------------------------------+
+| SCOUTED COMBAT TELLS (OFFICE FILM: LEVEL 3 DECODED)                                                                                                       |
+| TELL #1: "Drops Lead Left when Cocking Rear Overhand" | Exploitable Window: 18 ticks (300 ms) | Drill Recommended: Slip Outside -> Lead Hook to Jaw       |
+| TELL #2: "Square Footing on Forward Lunges"          | Balance Penalty: -22% Evasion on lunge | Drill Recommended: Step-Around Pivot -> Straight Right    |
+| TELL #3: "Low Body Guard in Deep Pocket"              | Liver Vulnerability: +35% clean hit   | Drill Recommended: Jab Feint -> Left Shovel Hook to Ribs  |
++---------------------------------------------------------------------------------------------------------------------------------------------------+
+| TACTICAL MATCHUP SIMULATION RUN (1000 MONTE CARLO COMBAT RUNS BASED ON CURRENT METRICS)                                                                  |
+| Projected Outcomes: Reyes Dec: 48.2% | Reyes KO/TKO: 14.1% | Perez KO/TKO: 31.4% | Perez Dec: 4.8% | Draw: 1.5%                                    |
+| Primary Hazard: If Perez traps Reyes on ropes >= 2.5 min/fight, Perez KO probability rises from 31.4% to 78.6%. Maintain outside corridor at all costs.   |
++---------------------------------------------------------------------------------------------------------------------------------------------------+
+
+Matchup Scouting Screen: Data & Godot Node Layout
+Top Header (72 px): Match banner, sanctioned division, bout length, and fighter header bars (HBoxContainer).
+Upper Split-Dossier (140 px): Biometrics, verified reach, walk-around cut status, and natural distance preference.
+Comparative Metric Engine (320 px): Direct 9-attribute comparison grid (GridContainer, 4 columns). Each row has a center delta bar (ProgressBar with center-zero anchor) visually exposing gaps.
+Scouted Combat Tells Box (220 px): Displays up to 3 uncovered technical flaws unlocked via Office Film Study, detailing frame-vulnerability windows and specific counter-drill recommendations.
+Monte Carlo Tactical Run Tray (140 px): Pure sim readout showing project outcomes and key tactical hazards based on current camp form.
+Screen 2: Weekly Training Allocation & Attribute Velocity
++---------------------------------------------------------------------------------------------------------------------------------------------------+
+| WEEK 3 TRAINING AUDIT & BIOMECHANICAL GAINS: DANNY REYES | CAMP DAY 18 OF 28 | PRIMARY GOAL: MAKE 154 LBS & SHARPEN LEAD HAND                      |
++---------------------------------------------------------------------------------------------------------------------------------------------------+
+| SESSION LOG (LAST 7 DAYS)                             | ATTRIBUTE VELOCITY (NET DELTAS)       | MOVE MASTERY PROGRESSION (ACTIVE REPERTOIRE)      |
+| Mon: Focus Pads 2h / Bag 2h / Treadmill 1h            | ATTRIBUTE       BASE  DELTA  PROJECTED| PUNCH           START   DRILL   GAIN  CURR  TIER     |
+| Tue: Sparring (Southpaw) 3h / Film 1h / Ice Bath 1h   | Power             72   +0.4       74.1| Lead Jab           82   12.5h   +6.0    88  SHARP    |
+| Wed: Footwork Ladder 2h / Slip Rope 2h / Physio 1h    | Hand Speed        80   +0.2       81.2| Rear Cross         48    6.0h   +4.0    52  USABLE   |
+| Thu: Focus Pads 3h / Mirror 1h / Sauna Flush 1h       | Accuracy          73   +0.9       76.0| Lead Hook (Head)   20    2.0h   +4.0    24  RAW      |
+| Fri: Sparring (Pressure) 3h / Double-End 2h           | Footwork          77   +0.6       79.2| Liver Hook (Body)  74    8.0h   +8.0    82  SHARP    |
+| Sat: Focus Pads 2h / Weights 1h / Active Stretch 2h   | Evasion           69   +0.8       72.1| Rear Uppercut      16    0.5h   +2.0    18  RAW      |
+| Sun: Complete Rest / Nutrition Audit                  | Guard             63   +0.3       64.1| Check Hook         40    3.0h   +4.0    44  USABLE   |
+| TOTAL GYM HOURS LOGGED: 34.0 hrs (Strain: 52/100)     | Conditioning      63   +1.4       68.0| TOTAL DRILL TIME: 32.0 hrs | DECAY FLUSHED: 0.0   |
++-------------------------------------------------------+---------------------------------------+---------------------------------------------------+
+| PAD CHAINS & REACTION DRILLS STATUS                                                                                                               |
+| CHAIN #1: [Jab -> Rear Cross -> Lead Hook]            | Mastery: 84% | Transition: 4 ticks (66 ms)   | Execution Probability: 72% on Lead Opening        |
+| CHAIN #2: [Slip Outside -> Liver Hook]                | Mastery: 76% | Transition: 4 ticks (66 ms)   | Execution Probability: 68% on Telegraphed Right   |
++---------------------------------------------------------------------------------------------------------------------------------------------------+
+| PHYSIOLOGICAL LOAD AUDIT                                                                                                                          |
+| Caloric Deficit: -650 kcal/day | Weight: 156.2 lbs (-1.8 lbs this wk) | Target: 154.0 lbs | Risk: NORMAL                                          |
+| Fatigue Penalties Active: Left Shoulder Strain (-4% Accuracy on Hooks) | Recovery Facility Buff: Cryo Chamber (+12% Stamina Regen / Day)           |
++---------------------------------------------------------------------------------------------------------------------------------------------------+
+
+Weekly Training Screen: Data & Godot Node Layout
+Header Bar (56 px): Week number, calendar milestone, camp targets, active athlete identifier.
+3-Column Data Grid (560 px):
+Column 1 (VBoxContainer, 460 px): Day-by-day operational work log detailing exact station hours logged and net gym volume.
+Column 2 (GridContainer, 460 px): Attribute velocity table detailing starting base, net gain deltas, and projected fight-night ratings.
+Column 3 (TableContainer, 880 px): Granular Move Mastery ledger detailing hours invested, point increases, current score, and unlocked tier status.
+Pad Chain Status Drawer (140 px): Transition delay counters (ticks) and live combat execution triggers.
+Physiological Load Tray (140 px): Weight cut tracking, active physical injuries/strains, and equipment recovery buffs.
+Screen 3: The Post-Fight Audit & Decisive Factors Deconstruction
++---------------------------------------------------------------------------------------------------------------------------------------------------+
+| OFFICIAL BOUT AUDIT: DANNY REYES DEFEATS TOMMY PEREZ VIA UNANIMOUS DECISION (97-93, 98-92, 96-94)                                               |
+| Bout Sanction: 10 Rounds | Total Clean Blows: 184 to 98 | Knockdowns: Reyes 1 (Rd 8), Perez 0 | Ring Generalship Time: Reyes 74% / Perez 26%       |
++---------------------------------------------------------------------------------------------------------------------------------------------------+
+| THE THREE DECISIVE FACTORS (SIMULATION ENGINE CAUSALITY DECONSTRUCTION)                                                                           |
+|                                                                                                                                                   |
+| 1. THE SHARP JAB CONTROLLED THE GEOMETRY (Move Mastery 88 vs Opponent Evasion 57)                                                                 |
+|    - Reyes' 10-tick Jab speed consistently beat Perez's 16-tick step-in windup.                                                                  |
+|    - Perez lunged 72 times from outside range; Reyes' Jab intercepted 38 lunges cleanly, canceling Perez's power combinations before release.    |
+|    - Jabs Landed: 112 / 210 (53.3%) | Facial Wear Inflicted: 242 pts | Perez Left Eye Closed: Round 6 (imposing -30% Evasion penalty).            |
+|                                                                                                                                                   |
+| 2. DRILLED COUNTER CHAIN PUNISHED RECOGNISED TELL (Tell #1 Exploited via Pad Chain #2)                                                            |
+|    - Perez cocked his rear overhand 14 times during the bout.                                                                                     |
+|    - Reyes' drilled slip-counter fired successfully 9 times (64.2% trigger reliability driven by 70 Ring IQ + 76% Chain Mastery).                 |
+|    - Round 8 (02:14): Clean Slip Outside -> Left Shovel Hook to Liver delivered 142 net damage units past Perez's 76 Guard. Perez dropped for an  |
+|      8-count. Perez's conditioning dropped by -35% for the remaining two rounds.                                                                  |
+|                                                                                                                                                   |
+| 3. AEROBIC CONDITIONING PREVENTED THE ROUND 7-10 COLLAPSE (Conditioning 68 vs 62)                                                                |
+|    - Perez gassed in Round 6 after whiffing 54 power shots (each whiff burning 1.6x baseline stamina). Guard absorption dropped from 76% to 38%.  |
+|    - Reyes maintained >45% stamina pool through Round 10, preserving a 14-frame recovery speed and preventing Perez from landing inside flurries. |
++---------------------------------------------------------------------------------------------------------------------------------------------------+
+| ADVANCED COMPREHENSIVE COMBAT PUNCH AUDIT                                                                                                         |
+| METRIC                           DANNY REYES (WINNER)                    TOMMY PEREZ                                                              |
+| Total Punches Thrown / Landed    184 / 412 (44.6% Accuracy)              98 / 340 (28.8% Accuracy)                                                |
+| Jabs (Thrown / Landed / Whiffed) 112 / 210 / 24 (11.4% Whiff)            18 /  85 / 44 (51.7% Whiff)                                              |
+| Power Punches (Thrown / Landed)   72 / 202 (35.6% Accuracy)              80 / 255 (31.3% Accuracy)                                                |
+| Clean Punches (Bypassed Guard)   118 (64.1% of landed punches)           34 (34.6% of landed punches)                                             |
+| Punches Caught on Arm Guard       42 (Damage reduced 78%)                52 (Damage reduced 82%)                                                  |
+| Punches Cleanly Whiffed (Air)     48 Total Misses                        142 Total Misses (Heavy Caloric Drain)                                   |
+| Total Concussive Damage Delivered 1,480 Force Units                       820 Force Units                                                          |
+| Total Body Damage Delivered       620 Force Units (-18 Max Stamina)       240 Force Units (-6 Max Stamina)                                         |
++---------------------------------------------------------------------------------------------------------------------------------------------------+
+
+Post-Fight Audit Screen: Data & Godot Node Layout
+Match Banner & Official Verdict (64 px): Sanction details, judges' scorecards, victory classification, clean shot totals.
+The Three Decisive Factors Engine (380 px): A structured layout parsing the three primary simulation branches that determined the outcome:
+Factor 1: Range/Geometry controller (Move Mastery vs Opponent Defense).
+Factor 2: Tactical Counter execution (Scouted Tell exploitation and Pad Chain execution).
+Factor 3: Physiological/Stamina outcome (Conditioning, work rate, and missed punch wear).
+Comprehensive Punch Audit Ledger (380 px): Full 2-column comparative table (Tree or GridContainer) displaying landed, thrown, guard-deflected, clean-penetration, and whiff counts across all strike types.
+Part 4: In-Game Help Document
+HOW FIGHTS ARE DECIDED IN FIGHTCAMP
+1. Every punch starts with an Evasion check: if your Accuracy and Footwork beat his Evasion, the punch tracks; otherwise, it Whiffs completely, burning heavy stamina.
+2. If tracked, it hits the Guard: a high Guard absorbs 70% to 85% of the force onto the gloves and arms, preventing concussive damage and facial cuts.
+3. Punches that pierce the Guard land Cleanly, transferring raw kinetic power directly into the head or ribs.
+4. Power is scaled by Technique and Move Mastery: a poorly drilled Raw punch wastes over 35% of its kinetic energy through sloppy mechanics.
+5. Head impacts test the Chin: clean force is divided by your Chin rating and current concussive wear to calculate Head Shock.
+6. Shock above 1.0 stuns the fighter; Shock above 1.4 triggers a Knockdown check where low stamina makes falling more likely.
+7. Knocked-down fighters use Conditioning, Recovery, and Ring IQ to clear Shock below 0.4 before the referee counts to ten.
+8. Body shots do not knock fighters down easily, but permanently shrink their maximum Stamina pool for every round that follows.
+9. Fast Hands shorten your punch windup frames; high Move Mastery cuts your recovery frames so you cannot be easily countered.
+10. Low Stamina ruins everything: when exhausted, punching power drops by 20%, guard absorption drops by half, and evasion drops by 45%.
+11. Mastered Pad Chains fire automatically when your fighter recognizes the opponent's telegraphed combat tell.
+12. Fights are won in the gym: training stations increase the exact attributes and move masteries that drive every calculation above.
+
+Can you provide the complete numeric formulas and constants referenced in the matchup, training, and post-fight screens?
+Can you design a visual wireframe image of the 1920×1080 matchup scouting screen with every panel and metric labeled?
+How exactly does each training station change individual attributes, move mastery, fatigue, and recovery during one week?
+Can you create a visual mockup of the post-fight explanation screen showing why each major exchange succeeded or failed?

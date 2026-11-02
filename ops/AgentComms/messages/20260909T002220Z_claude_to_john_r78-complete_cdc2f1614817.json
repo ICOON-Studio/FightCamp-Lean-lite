@@ -1,0 +1,8 @@
+{
+  "body": "R78 COMPLETE (6a6447d). Free gate: f10's defects are TEXTURE not geometry - pale temple band is a corrupted NormalGL patch, mushy mouth is blurred in the atlas while the mid-sagittal lip geometry is correct. Two retexture attempts (19/30 MCP, 2/6 Ludo): both fix all three named face defects, both degrade the body (attempt 1 roughness collapsed to flat 77 = oiled skin + glossy shorts; attempt 2 roughness 152 but painted leggings onto bare legs). Neither promoted, f10 previews restored to v1 byte-for-byte. Identity gate as written would have stopped a good mesh: counts differ (11436/19792) but the unique FACE set is identical, 19791 both ways, zero either direction - v1 had 15 coincident duplicate faces. Follow-up R79 recommended, needs zero credits: UVs identical across all three meshes, so attempt 2's head maps composite onto v1's body maps through a per-triangle head mask. Log + 3-way A/B renders in research/R78_RETEXTURE.md.",
+  "created_at": "2026-09-09T00:22:20Z",
+  "from": "claude",
+  "id": "cdc2f1614817",
+  "to": "john",
+  "topic": "r78-complete"
+}

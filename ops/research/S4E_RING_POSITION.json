@@ -1,0 +1,644 @@
+{
+  "anchor_documented": {
+    "label": "DOCUMENTED (video-notational)",
+    "quantity": "cage/fence engagement share of match time",
+    "source": "Anne & Antoine 2026, DOI 10.62852/css/2026/243",
+    "sport": "MMA (UFC fly-featherweight 2014-15, 91 bouts)",
+    "value": 0.2091
+  },
+  "bouts": 30,
+  "no_study": "boxing share of round time at centre / ropes / corner - K31 section 5 reports NOT FOUND",
+  "populations": [
+    {
+      "centroid": {
+        "mean_offset_from_centre_m": 2.20163855312266,
+        "p90_offset_m": 3.28448534011841
+      },
+      "cut_off": {
+        "mean_gap_rate_mps": -0.399421181714244,
+        "note": "one man retreating while the other closes; positive = the runner escapes",
+        "samples": 15059
+      },
+      "fighters": {
+        "a": {
+          "circle_ccw_ticks": 227774,
+          "circle_cw_ticks": 530656,
+          "circle_handedness": 0.399353928510212,
+          "circle_reversals_per_min": 221.526036924326,
+          "circling_ccw_ticks": 10895,
+          "circling_cw_ticks": 231849,
+          "circling_handedness": 0.910234650495996,
+          "circling_reversals_per_min": 25.4386312177468,
+          "corner_visits": 1548,
+          "name": "Out-boxer",
+          "pinned_p50_s": 2.3,
+          "pinned_p90_s": 7.9,
+          "pinned_spells": 4691,
+          "pinned_spells_per_min": 7.18871199050904,
+          "share_boundary": 0.422614585581455,
+          "share_centre": 0.577385414418545,
+          "share_corner": 0.0626605079297781,
+          "share_ropes": 0.359954077651677
+        },
+        "b": {
+          "circle_ccw_ticks": 213808,
+          "circle_cw_ticks": 543065,
+          "circle_handedness": 0.435022784535847,
+          "circle_reversals_per_min": 268.788255321105,
+          "circling_ccw_ticks": 9148,
+          "circling_cw_ticks": 228457,
+          "circling_handedness": 0.922998253403758,
+          "circling_reversals_per_min": 24.2647763073375,
+          "corner_visits": 1397,
+          "name": "Pressure fighter",
+          "pinned_p50_s": 2.25,
+          "pinned_p90_s": 7.25,
+          "pinned_spells": 4718,
+          "pinned_spells_per_min": 7.23008807742947,
+          "share_boundary": 0.389318328967986,
+          "share_centre": 0.610681671032014,
+          "share_corner": 0.0685131809654676,
+          "share_ropes": 0.320805148002518
+        }
+      },
+      "half_width_m": 3.0,
+      "population": "BOXING ring 6.0 m - out-boxer v pressure fighter (non-identical, both legal for boxing)",
+      "round_seconds_measured": 39153.05,
+      "ruleset": "boxing",
+      "variant": "base",
+      "variant_on": {
+        "arena_shape_from_ruleset": false,
+        "circle_out": false,
+        "cut_off": false
+      }
+    },
+    {
+      "centroid": {
+        "mean_offset_from_centre_m": 2.20163855312266,
+        "p90_offset_m": 3.28448534011841
+      },
+      "cut_off": {
+        "mean_gap_rate_mps": -0.399421181714244,
+        "note": "one man retreating while the other closes; positive = the runner escapes",
+        "samples": 15059
+      },
+      "fighters": {
+        "a": {
+          "circle_ccw_ticks": 227774,
+          "circle_cw_ticks": 530656,
+          "circle_handedness": 0.399353928510212,
+          "circle_reversals_per_min": 221.526036924326,
+          "circling_ccw_ticks": 10895,
+          "circling_cw_ticks": 231849,
+          "circling_handedness": 0.910234650495996,
+          "circling_reversals_per_min": 25.4386312177468,
+          "corner_visits": 1548,
+          "name": "Out-boxer",
+          "pinned_p50_s": 2.3,
+          "pinned_p90_s": 7.9,
+          "pinned_spells": 4691,
+          "pinned_spells_per_min": 7.18871199050904,
+          "share_boundary": 0.422614585581455,
+          "share_centre": 0.577385414418545,
+          "share_corner": 0.0626605079297781,
+          "share_ropes": 0.359954077651677
+        },
+        "b": {
+          "circle_ccw_ticks": 213808,
+          "circle_cw_ticks": 543065,
+          "circle_handedness": 0.435022784535847,
+          "circle_reversals_per_min": 268.788255321105,
+          "circling_ccw_ticks": 9148,
+          "circling_cw_ticks": 228457,
+          "circling_handedness": 0.922998253403758,
+          "circling_reversals_per_min": 24.2647763073375,
+          "corner_visits": 1397,
+          "name": "Pressure fighter",
+          "pinned_p50_s": 2.25,
+          "pinned_p90_s": 7.25,
+          "pinned_spells": 4718,
+          "pinned_spells_per_min": 7.23008807742947,
+          "share_boundary": 0.389318328967986,
+          "share_centre": 0.610681671032014,
+          "share_corner": 0.0685131809654676,
+          "share_ropes": 0.320805148002518
+        }
+      },
+      "half_width_m": 3.0,
+      "population": "BOXING ring 6.0 m - out-boxer v pressure fighter (non-identical, both legal for boxing)",
+      "round_seconds_measured": 39153.05,
+      "ruleset": "boxing",
+      "variant": "shape",
+      "variant_on": {
+        "arena_shape_from_ruleset": true,
+        "circle_out": false,
+        "cut_off": false
+      }
+    },
+    {
+      "centroid": {
+        "mean_offset_from_centre_m": 2.20216762934789,
+        "p90_offset_m": 3.29702925682068
+      },
+      "cut_off": {
+        "mean_gap_rate_mps": -0.399103094617376,
+        "note": "one man retreating while the other closes; positive = the runner escapes",
+        "samples": 15260
+      },
+      "fighters": {
+        "a": {
+          "circle_ccw_ticks": 258619,
+          "circle_cw_ticks": 492129,
+          "circle_handedness": 0.311036459637588,
+          "circle_reversals_per_min": 210.608195821358,
+          "circling_ccw_ticks": 14763,
+          "circling_cw_ticks": 224411,
+          "circling_handedness": 0.876550126686011,
+          "circling_reversals_per_min": 28.0215713501469,
+          "corner_visits": 1470,
+          "name": "Out-boxer",
+          "pinned_p50_s": 2.45,
+          "pinned_p90_s": 8.5,
+          "pinned_spells": 4464,
+          "pinned_spells_per_min": 6.91936577647173,
+          "share_boundary": 0.426929311848096,
+          "share_centre": 0.573070688151904,
+          "share_corner": 0.063740110440146,
+          "share_ropes": 0.36318920140795
+        },
+        "b": {
+          "circle_ccw_ticks": 249178,
+          "circle_cw_ticks": 499965,
+          "circle_handedness": 0.334765191692374,
+          "circle_reversals_per_min": 240.626215003068,
+          "circling_ccw_ticks": 13716,
+          "circling_cw_ticks": 222254,
+          "circling_handedness": 0.883747934059414,
+          "circling_reversals_per_min": 26.1491264894888,
+          "corner_visits": 1364,
+          "name": "Pressure fighter",
+          "pinned_p50_s": 2.1,
+          "pinned_p90_s": 7.6,
+          "pinned_spells": 4574,
+          "pinned_spells_per_min": 7.08986986146543,
+          "share_boundary": 0.388786773016437,
+          "share_centre": 0.611213226983563,
+          "share_corner": 0.0709051571027223,
+          "share_ropes": 0.317881615913715
+        }
+      },
+      "half_width_m": 3.0,
+      "population": "BOXING ring 6.0 m - out-boxer v pressure fighter (non-identical, both legal for boxing)",
+      "round_seconds_measured": 38708.75,
+      "ruleset": "boxing",
+      "variant": "cut_off",
+      "variant_on": {
+        "arena_shape_from_ruleset": false,
+        "circle_out": false,
+        "cut_off": true
+      }
+    },
+    {
+      "centroid": {
+        "mean_offset_from_centre_m": 1.77822585362324,
+        "p90_offset_m": 3.29277658462524
+      },
+      "cut_off": {
+        "mean_gap_rate_mps": -0.461635267445032,
+        "note": "one man retreating while the other closes; positive = the runner escapes",
+        "samples": 16600
+      },
+      "fighters": {
+        "a": {
+          "circle_ccw_ticks": 329664,
+          "circle_cw_ticks": 402346,
+          "circle_handedness": 0.0992909932924414,
+          "circle_reversals_per_min": 231.356580486587,
+          "circling_ccw_ticks": 99120,
+          "circling_cw_ticks": 153568,
+          "circling_handedness": 0.215475210536314,
+          "circling_reversals_per_min": 39.6430120529436,
+          "corner_visits": 1897,
+          "name": "Out-boxer",
+          "pinned_p50_s": 1.5,
+          "pinned_p90_s": 11.6,
+          "pinned_spells": 3098,
+          "pinned_spells_per_min": 4.88637110448075,
+          "share_boundary": 0.341173223275194,
+          "share_centre": 0.658826776724806,
+          "share_corner": 0.138197447457315,
+          "share_ropes": 0.202975775817878
+        },
+        "b": {
+          "circle_ccw_ticks": 365340,
+          "circle_cw_ticks": 375541,
+          "circle_handedness": 0.0137687428885341,
+          "circle_reversals_per_min": 307.287759098855,
+          "circling_ccw_ticks": 109865,
+          "circling_cw_ticks": 118366,
+          "circling_handedness": 0.0372473502723118,
+          "circling_reversals_per_min": 43.8669312969072,
+          "corner_visits": 1038,
+          "name": "Pressure fighter",
+          "pinned_p50_s": 1.05,
+          "pinned_p90_s": 3.8,
+          "pinned_spells": 2427,
+          "pinned_spells_per_min": 3.82802539398799,
+          "share_boundary": 0.125566172894678,
+          "share_centre": 0.874433827105322,
+          "share_corner": 0.0480750778775253,
+          "share_ropes": 0.0774910950171528
+        }
+      },
+      "half_width_m": 3.0,
+      "population": "BOXING ring 6.0 m - out-boxer v pressure fighter (non-identical, both legal for boxing)",
+      "round_seconds_measured": 38040.5,
+      "ruleset": "boxing",
+      "variant": "circle_out",
+      "variant_on": {
+        "arena_shape_from_ruleset": false,
+        "circle_out": true,
+        "cut_off": false
+      }
+    },
+    {
+      "centroid": {
+        "mean_offset_from_centre_m": 2.00721147574078,
+        "p90_offset_m": 3.39616179466248
+      },
+      "cut_off": {
+        "mean_gap_rate_mps": -0.533339368570488,
+        "note": "one man retreating while the other closes; positive = the runner escapes",
+        "samples": 18910
+      },
+      "fighters": {
+        "a": {
+          "circle_ccw_ticks": 332220,
+          "circle_cw_ticks": 402178,
+          "circle_handedness": 0.0952589740168138,
+          "circle_reversals_per_min": 204.801730931735,
+          "circling_ccw_ticks": 107496,
+          "circling_cw_ticks": 162525,
+          "circling_handedness": 0.203795260368638,
+          "circling_reversals_per_min": 40.009679552463,
+          "corner_visits": 2433,
+          "name": "Out-boxer",
+          "pinned_p50_s": 1.6,
+          "pinned_p90_s": 14.7,
+          "pinned_spells": 3430,
+          "pinned_spells_per_min": 5.32634197030655,
+          "share_boundary": 0.453079404681642,
+          "share_centre": 0.546920595318358,
+          "share_corner": 0.208604708041146,
+          "share_ropes": 0.244474696640497
+        },
+        "b": {
+          "circle_ccw_ticks": 382067,
+          "circle_cw_ticks": 368891,
+          "circle_handedness": -0.017545588435039,
+          "circle_reversals_per_min": 281.269677766663,
+          "circling_ccw_ticks": 113998,
+          "circling_cw_ticks": 115027,
+          "circling_handedness": 0.00449295928392097,
+          "circling_reversals_per_min": 43.0998896168683,
+          "corner_visits": 1251,
+          "name": "Pressure fighter",
+          "pinned_p50_s": 1.0,
+          "pinned_p90_s": 3.25,
+          "pinned_spells": 2828,
+          "pinned_spells_per_min": 4.39151460408948,
+          "share_boundary": 0.127647157019681,
+          "share_centre": 0.872352842980319,
+          "share_corner": 0.0431516519295049,
+          "share_ropes": 0.0844955050901764
+        }
+      },
+      "half_width_m": 3.0,
+      "population": "BOXING ring 6.0 m - out-boxer v pressure fighter (non-identical, both legal for boxing)",
+      "round_seconds_measured": 38638.15,
+      "ruleset": "boxing",
+      "variant": "all",
+      "variant_on": {
+        "arena_shape_from_ruleset": true,
+        "circle_out": true,
+        "cut_off": true
+      }
+    },
+    {
+      "centroid": {
+        "mean_offset_from_centre_m": 3.33613397324306,
+        "p90_offset_m": 4.97683572769165
+      },
+      "cut_off": {
+        "mean_gap_rate_mps": -0.466150495094933,
+        "note": "one man retreating while the other closes; positive = the runner escapes",
+        "samples": 2488
+      },
+      "fighters": {
+        "a": {
+          "circle_ccw_ticks": 133286,
+          "circle_cw_ticks": 318714,
+          "circle_handedness": 0.410238938053097,
+          "circle_reversals_per_min": 233.60360193208,
+          "circling_ccw_ticks": 5609,
+          "circling_cw_ticks": 134388,
+          "circling_handedness": 0.919869711493818,
+          "circling_reversals_per_min": 23.8652738866109,
+          "corner_visits": 362,
+          "name": "Striker",
+          "pinned_p50_s": 2.1,
+          "pinned_p90_s": 7.25,
+          "pinned_spells": 1871,
+          "pinned_spells_per_min": 4.62858167739701,
+          "share_boundary": 0.255664611305927,
+          "share_centre": 0.744335388694073,
+          "share_corner": 0.0247509137799878,
+          "share_ropes": 0.230913697525939
+        },
+        "b": {
+          "circle_ccw_ticks": 131340,
+          "circle_cw_ticks": 320306,
+          "circle_handedness": 0.418394051978762,
+          "circle_reversals_per_min": 262.352264504518,
+          "circling_ccw_ticks": 5108,
+          "circling_cw_ticks": 132366,
+          "circling_handedness": 0.925687766414013,
+          "circling_reversals_per_min": 23.0761143168142,
+          "corner_visits": 330,
+          "name": "Grappler",
+          "pinned_p50_s": 1.95,
+          "pinned_p90_s": 7.05,
+          "pinned_spells": 1901,
+          "pinned_spells_per_min": 4.70279731092021,
+          "share_boundary": 0.245773316593585,
+          "share_centre": 0.754226683406415,
+          "share_corner": 0.0240870961690302,
+          "share_ropes": 0.221686220424555
+        }
+      },
+      "half_width_m": 4.55,
+      "population": "MMA cage 9.1 m - striker v grappler (non-identical, both legal for MMA)",
+      "round_seconds_measured": 24253.65,
+      "ruleset": "mma",
+      "variant": "base",
+      "variant_on": {
+        "arena_shape_from_ruleset": false,
+        "circle_out": false,
+        "cut_off": false
+      }
+    },
+    {
+      "centroid": {
+        "mean_offset_from_centre_m": 3.03189656903499,
+        "p90_offset_m": 4.21882629394531
+      },
+      "cut_off": {
+        "mean_gap_rate_mps": -0.416454038382601,
+        "note": "one man retreating while the other closes; positive = the runner escapes",
+        "samples": 6980
+      },
+      "fighters": {
+        "a": {
+          "circle_ccw_ticks": 125203,
+          "circle_cw_ticks": 309382,
+          "circle_handedness": 0.423804319063014,
+          "circle_reversals_per_min": 213.118176528971,
+          "circling_ccw_ticks": 6282,
+          "circling_cw_ticks": 137715,
+          "circling_handedness": 0.912748182253797,
+          "circling_reversals_per_min": 24.4720900783737,
+          "corner_visits": 1229,
+          "name": "Striker",
+          "pinned_p50_s": 2.7,
+          "pinned_p90_s": 7.1,
+          "pinned_spells": 1924,
+          "pinned_spells_per_min": 4.93856737054656,
+          "share_boundary": 0.27899012628769,
+          "share_centre": 0.721009873712311,
+          "share_corner": 0.0938430473322153,
+          "share_ropes": 0.185147078955474
+        },
+        "b": {
+          "circle_ccw_ticks": 121796,
+          "circle_cw_ticks": 312717,
+          "circle_handedness": 0.439390766214129,
+          "circle_reversals_per_min": 244.477052602758,
+          "circling_ccw_ticks": 5938,
+          "circling_cw_ticks": 136097,
+          "circling_handedness": 0.916386806068927,
+          "circling_reversals_per_min": 23.9561586638831,
+          "corner_visits": 1156,
+          "name": "Grappler",
+          "pinned_p50_s": 2.45,
+          "pinned_p90_s": 6.85,
+          "pinned_spells": 1948,
+          "pinned_spells_per_min": 5.00017112153051,
+          "share_boundary": 0.273385896163455,
+          "share_centre": 0.726614103836545,
+          "share_corner": 0.0930152469283685,
+          "share_ropes": 0.180370649235087
+        }
+      },
+      "half_width_m": 4.55,
+      "population": "MMA cage 9.1 m - striker v grappler (non-identical, both legal for MMA)",
+      "round_seconds_measured": 23375.2,
+      "ruleset": "mma",
+      "variant": "shape",
+      "variant_on": {
+        "arena_shape_from_ruleset": true,
+        "circle_out": false,
+        "cut_off": false
+      }
+    },
+    {
+      "centroid": {
+        "mean_offset_from_centre_m": 3.22196166677764,
+        "p90_offset_m": 4.85224771499634
+      },
+      "cut_off": {
+        "mean_gap_rate_mps": -0.436999502812178,
+        "note": "one man retreating while the other closes; positive = the runner escapes",
+        "samples": 2620
+      },
+      "fighters": {
+        "a": {
+          "circle_ccw_ticks": 159351,
+          "circle_cw_ticks": 305247,
+          "circle_handedness": 0.31402631952785,
+          "circle_reversals_per_min": 226.295798278363,
+          "circling_ccw_ticks": 8411,
+          "circling_cw_ticks": 134524,
+          "circling_handedness": 0.88231014097317,
+          "circling_reversals_per_min": 26.8360950759869,
+          "corner_visits": 282,
+          "name": "Striker",
+          "pinned_p50_s": 2.0,
+          "pinned_p90_s": 7.6,
+          "pinned_spells": 1805,
+          "pinned_spells_per_min": 4.39955963779803,
+          "share_boundary": 0.239708970958032,
+          "share_centre": 0.760291029041968,
+          "share_corner": 0.0194974021067513,
+          "share_ropes": 0.22021156885128
+        },
+        "b": {
+          "circle_ccw_ticks": 157177,
+          "circle_cw_ticks": 307617,
+          "circle_handedness": 0.323670271130867,
+          "circle_reversals_per_min": 242.282896153331,
+          "circling_ccw_ticks": 8068,
+          "circling_cw_ticks": 132940,
+          "circling_handedness": 0.885566776353115,
+          "circling_reversals_per_min": 25.7660636737745,
+          "corner_visits": 295,
+          "name": "Grappler",
+          "pinned_p50_s": 1.9,
+          "pinned_p90_s": 7.3,
+          "pinned_spells": 1765,
+          "pinned_spells_per_min": 4.30206247130943,
+          "share_boundary": 0.223991615243682,
+          "share_centre": 0.776008384756318,
+          "share_corner": 0.0211934465654592,
+          "share_ropes": 0.202798168678223
+        }
+      },
+      "half_width_m": 4.55,
+      "population": "MMA cage 9.1 m - striker v grappler (non-identical, both legal for MMA)",
+      "round_seconds_measured": 24616.1,
+      "ruleset": "mma",
+      "variant": "cut_off",
+      "variant_on": {
+        "arena_shape_from_ruleset": false,
+        "circle_out": false,
+        "cut_off": true
+      }
+    },
+    {
+      "centroid": {
+        "mean_offset_from_centre_m": 1.51269919742715,
+        "p90_offset_m": 3.32672691345215
+      },
+      "cut_off": {
+        "mean_gap_rate_mps": -0.366591229004429,
+        "note": "one man retreating while the other closes; positive = the runner escapes",
+        "samples": 1880
+      },
+      "fighters": {
+        "a": {
+          "circle_ccw_ticks": 218138,
+          "circle_cw_ticks": 255574,
+          "circle_handedness": 0.0790269193096227,
+          "circle_reversals_per_min": 274.670264392582,
+          "circling_ccw_ticks": 58950,
+          "circling_cw_ticks": 85933,
+          "circling_handedness": 0.186239931530959,
+          "circling_reversals_per_min": 40.6749763395824,
+          "corner_visits": 122,
+          "name": "Striker",
+          "pinned_p50_s": 1.2,
+          "pinned_p90_s": 8.05,
+          "pinned_spells": 289,
+          "pinned_spells_per_min": 0.698334709329252,
+          "share_boundary": 0.0331829806085258,
+          "share_centre": 0.966817019391474,
+          "share_corner": 0.012778639173597,
+          "share_ropes": 0.0204043414349288
+        },
+        "b": {
+          "circle_ccw_ticks": 225077,
+          "circle_cw_ticks": 248552,
+          "circle_handedness": 0.0495641103057456,
+          "circle_reversals_per_min": 307.830289361873,
+          "circling_ccw_ticks": 62260,
+          "circling_cw_ticks": 79012,
+          "circling_handedness": 0.118579761028371,
+          "circling_reversals_per_min": 44.106240309297,
+          "corner_visits": 84,
+          "name": "Grappler",
+          "pinned_p50_s": 1.05,
+          "pinned_p90_s": 4.55,
+          "pinned_spells": 207,
+          "pinned_spells_per_min": 0.500191296993617,
+          "share_boundary": 0.0212420209017136,
+          "share_centre": 0.978757979098286,
+          "share_corner": 0.00834256257425344,
+          "share_ropes": 0.0128994583274602
+        }
+      },
+      "half_width_m": 4.55,
+      "population": "MMA cage 9.1 m - striker v grappler (non-identical, both legal for MMA)",
+      "round_seconds_measured": 24830.5,
+      "ruleset": "mma",
+      "variant": "circle_out",
+      "variant_on": {
+        "arena_shape_from_ruleset": false,
+        "circle_out": true,
+        "cut_off": false
+      }
+    },
+    {
+      "centroid": {
+        "mean_offset_from_centre_m": 1.32431679433038,
+        "p90_offset_m": 2.81350040435791
+      },
+      "cut_off": {
+        "mean_gap_rate_mps": -0.503803374431145,
+        "note": "one man retreating while the other closes; positive = the runner escapes",
+        "samples": 2110
+      },
+      "fighters": {
+        "a": {
+          "circle_ccw_ticks": 194650,
+          "circle_cw_ticks": 267281,
+          "circle_handedness": 0.157233439626265,
+          "circle_reversals_per_min": 248.199124415711,
+          "circling_ccw_ticks": 43588,
+          "circling_cw_ticks": 97347,
+          "circling_handedness": 0.381445347145847,
+          "circling_reversals_per_min": 34.8628271863364,
+          "corner_visits": 186,
+          "name": "Striker",
+          "pinned_p50_s": 1.55,
+          "pinned_p90_s": 8.2,
+          "pinned_spells": 366,
+          "pinned_spells_per_min": 0.903988292610637,
+          "share_boundary": 0.0483732533081402,
+          "share_centre": 0.95162674669186,
+          "share_corner": 0.0146733436658043,
+          "share_ropes": 0.033699909642336
+        },
+        "b": {
+          "circle_ccw_ticks": 225461,
+          "circle_cw_ticks": 236194,
+          "circle_handedness": 0.0232489629701834,
+          "circle_reversals_per_min": 272.851329739609,
+          "circling_ccw_ticks": 58981,
+          "circling_cw_ticks": 77688,
+          "circling_handedness": 0.136878150860839,
+          "circling_reversals_per_min": 40.6251350733873,
+          "corner_visits": 59,
+          "name": "Grappler",
+          "pinned_p50_s": 1.15,
+          "pinned_p90_s": 6.7,
+          "pinned_spells": 117,
+          "pinned_spells_per_min": 0.288979864031269,
+          "share_boundary": 0.0122507703042316,
+          "share_centre": 0.987749229695768,
+          "share_corner": 0.00465167017600191,
+          "share_ropes": 0.00759910012822967
+        }
+      },
+      "half_width_m": 4.55,
+      "population": "MMA cage 9.1 m - striker v grappler (non-identical, both legal for MMA)",
+      "round_seconds_measured": 24292.35,
+      "ruleset": "mma",
+      "variant": "all",
+      "variant_on": {
+        "arena_shape_from_ruleset": true,
+        "circle_out": true,
+        "cut_off": true
+      }
+    }
+  ],
+  "task": "S4e (1) ring position, before"
+}

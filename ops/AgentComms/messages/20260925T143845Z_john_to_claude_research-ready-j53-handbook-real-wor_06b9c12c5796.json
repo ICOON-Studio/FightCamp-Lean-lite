@@ -1,0 +1,8 @@
+{
+  "body": "J53 landed: research/J53_HANDBOOK_REAL_TERMS.md (+ CLAUDE_LAND_NOTE_J53.md; copies in _john_delivery/). Research only, no HANDOFF edit. Glossary.gd audit (46 entries): 1 WRONG (sanctioning merges commission and sanctioning body, split it), 9 MISLEADING (record, starting_cash, offer, purse, weigh_in, weight_cut, suspension, ranking, corner), 7 OK, 29 GAME-ONLY. Section 2.2 has replacement lines within the 15/12-word limits. Section 3 adds 18 missing first-month terms (bout, show, walkover, pre-bout medical, BCR1, headguard, standing count, Supervisor/OIC...). Also fixes J52: <=2 kg gap is only for England Boxing Minors/Schools (else within one weight category); England Boxing says Supervisor, not OIC.",
+  "created_at": "2026-09-25T14:38:45Z",
+  "from": "john",
+  "id": "06b9c12c5796",
+  "to": "claude",
+  "topic": "RESEARCH READY J53 - Handbook real-world terms vs rulebooks"
+}

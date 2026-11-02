@@ -1,0 +1,504 @@
+occluding the floor grid and visually obscuring fighters' feet, combat footprints, and interactive station outlines.
+
+In high-end modern commercial boxing gyms and simulation titles like Two Point Museum, interior lighting is driven by overhead diffuse architectural fixtures: suspended continuous linear LED extrusions, high-bay troffers, and recessed flood panels. These fixtures produce short, steep, downward, soft-edged contact shadows rather than raking architectural dusk shadows.
+
+World-Fixed vs. Camera-Rigged Directional Light
+
+Two Point Studios titles decouple the visual key light from a single static world direction when using stepped 90-degree isometric views. If a directional light is purely world-fixed, rotating the camera by 90 degrees can flip the scene from front-quarter lighting into harsh silhouette back-lighting, turning gym equipment into flat dark outlines.
+
+Implementation Rule:
+
+Elevation: Fixed at 74.0° (elevation above horizon). At 74°, shadow projection length ratio is $\cot(74^\circ) \approx 0.287$. A $2.3\text{m}$ pull-up station casts a shadow of just $0.66\text{m}$ directly around its base footprint, acting as a grounded ambient contact shadow rather than a room-spanning barrier.
+Azimuth Coupling: The directional light's horizontal yaw slaves to the active camera yaw with a constant local offset of +30.0° (Key). When the player snaps the camera to 45°, 135°, 225°, or 315°, the light rotates synchronously along the ceiling plane, preserving the classic top-left-downward character rim without plunging faces into darkness.
+Godot 4.7 Key Light Parameters
++-----------------------------------+---------------------------------------------------------------------------------------+
+| PARAMETER                         | EXACT VALUE & CONFIGURATION                                                           |
++-----------------------------------+---------------------------------------------------------------------------------------+
+| Light Type                        | DirectionalLight3D                                                                    |
+| Light Mode                        | LightMode: Realistic / PBR                                                            |
+| Elevation Angle                   | 74.0° (Pitch: -74.0°)                                                                 |
+| Azimuth Angle                     | Camera Yaw + 30.0° (Dynamic step-lerp over 0.25s during camera rotation)              |
+| Light Color Mode                  | Color Temperature (Kelvin)                                                            |
+| Color Temperature                 | 5400 K (Crisp, clean commercial gym daylight LED, avoids yellowish warehouse decay)   |
+| Light Color Hex                   | #FAFAFC (Equivalent rendered white point)                                             |
+| Light Energy                      | 2.85 Lux / Standardized PBR Multiplier                                                |
+| Indirect Energy                   | 1.25 (PBR multi-bounce approximation)                                                 |
+| Volumetric Fog Energy             | 0.0 (Disabled to preserve UI clarity and prevent haze)                                |
+| Shadow Enabled                    | true                                                                                  |
+| Shadow Mode                       | SHADOW_PARALLEL_4_SPLITS (PSSM 4 splits for telephoto stability)                      |
+| Shadow Split 1 / 2 / 3 Distance   | 8.0m / 20.0m / 45.0m (Split 4 covers out to camera max distance 70.0m)               |
+| Shadow Blend Splits               | true                                                                                  |
+| Shadow Blur                       | 2.4 (PCSS soft-shadow penumbra simulation)                                            |
+| Shadow Bias                       | 0.03                                                                                  |
+| Shadow Normal Bias                | 1.8                                                                                   |
+| Shadow Opacity                    | 0.72 (Prevents pitch-black cavities; matches filled indoor bounce)                   |
+| Shadow Transmittance Bias         | 0.05                                                                                  |
++-----------------------------------+---------------------------------------------------------------------------------------+
+
+WorldEnvironment, Ambient & SSAO Specifications
+
+To make the gym look "bright and alive" rather than sterile, the ambient fill uses an HDRI studio bounce profile supplemented by horizon-biased ambient energy and high-frequency SSAO for contact creasing.
+
++-----------------------------------+---------------------------------------------------------------------------------------+
+| ENVIRONMENT SETTING               | VALUE & ARCHITECTURAL PURPOSE                                                         |
++-----------------------------------+---------------------------------------------------------------------------------------+
+| Background Mode                   | BG_COLOR (Background cleared to dark neutral tone #14100e outside gym walls)         |
+| Ambient Source                    | AMBIENT_COLOR                                                                         |
+| Ambient Color                     | Color("#e2d8cb") (Warm drywall / pine floor bounce)                                   |
+| Ambient Energy                    | 0.78                                                                                  |
+| Ambient Sky Contribution          | 0.0 (Explicitly controlled indoor lighting)                                           |
+| Reflected Light Source            | REFLECTION_SOURCE_DISABLED (Handled by interior ReflectionProbes per room)            |
+| Tonemap Mode                      | TONEMAPPER_FILMIC (Soft highlight roll-off on polished floors)                        |
+| Tonemap Exposure                  | 1.15                                                                                  |
+| Tonemap White                     | 6.0                                                                                   |
+| SSAO Enabled                      | true                                                                                  |
+| SSAO Radius                       | 0.65 m (Tight radius targeting baseboards, bag mounts, bench legs)                    |
+| SSAO Intensity                    | 1.8 (Provides defined grounding beneath mats and equipment)                          |
+| SSAO Power                        | 1.5                                                                                   |
+| SSAO Detail                       | 0.5                                                                                   |
+| SSAO Horizon                      | 0.06                                                                                  |
+| Glow Enabled                      | true                                                                                  |
+| Glow Normalized                   | true                                                                                  |
+| Glow Intensity                    | 0.28                                                                                  |
+| Glow Bloom                        | 0.12 (Adds subtle corona around overhead fluorescent tubes and office monitors)       |
+| Glow Blend Mode                   | GLOW_BLEND_MODE_SOFTLIGHT                                                             |
++-----------------------------------+---------------------------------------------------------------------------------------+
+
+Floor Material Specifications
+
+Floor surfaces must not exhibit specular blowout under high directional angles. Roughness values are calibrated to preserve wood grain and rubber mat texture without mirrored reflections:
+
+Cardio / Ring Maple Hardwood:
+Albedo: #d8a268 (Varnished light maple).
+Roughness: 0.38.
+Specular: 0.45.
+Clearcoat: 0.20 (Slight floor wax finish).
+Strength Rubber Matting:
+Albedo: #222022 (Vulcanized non-slip speckled crumb rubber).
+Roughness: 0.88.
+Specular: 0.10.
+Normal Map: High-frequency stipple noise at 0.4 strength.
+Office Hardwood:
+Albedo: #7d4e33 (Dark stained walnut).
+Roughness: 0.42.
+Specular: 0.35.
+GDScript: GymLightingController.gd
+class_name GymLightingController
+extends Node3D
+
+@export var camera_rig: Node3D
+@export var key_light: DirectionalLight3D
+@export var world_environment: WorldEnvironment
+
+@export var key_elevation_degrees: float = 74.0
+@export var key_azimuth_offset_degrees: float = 30.0
+@export var key_energy: float = 2.85
+@export var key_color_temperature: float = 5400.0
+
+var _target_yaw: float = 45.0
+var _current_yaw: float = 45.0
+
+func _ready() -> void:
+	_configure_light()
+	_configure_environment()
+
+func _configure_light() -> void:
+	if not key_light:
+		key_light = DirectionalLight3D.new()
+		key_light.name = "CeilingKeyLight"
+		add_child(key_light)
+
+	# Godot 4.7 PBR directional setup
+	key_light.light_color = Color("#fafafc")
+	key_light.light_temperature = key_color_temperature
+	key_light.light_energy = key_energy
+	key_light.light_indirect_energy = 1.25
+	key_light.light_volumetric_fog_energy = 0.0
+
+	key_light.shadow_enabled = true
+	key_light.directional_shadow_mode = DirectionalLight3D.SHADOW_PARALLEL_4_SPLITS
+	key_light.directional_shadow_split_1 = 0.12
+	key_light.directional_shadow_split_2 = 0.28
+	key_light.directional_shadow_split_3 = 0.60
+	key_light.directional_shadow_blend_splits = true
+	key_light.shadow_blur = 2.4
+	key_light.shadow_bias = 0.03
+	key_light.shadow_normal_bias = 1.8
+	key_light.shadow_opacity = 0.72
+
+	_apply_rotation(_current_yaw)
+
+func _configure_environment() -> void:
+	if not world_environment:
+		return
+
+	var env: Environment = world_environment.environment
+	if not env:
+		env = Environment.new()
+		world_environment.environment = env
+
+	env.background_mode = Environment.BG_COLOR
+	env.background_color = Color("#14100e")
+	env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
+	env.ambient_light_color = Color("#e2d8cb")
+	env.ambient_light_energy = 0.78
+	env.ambient_light_sky_contribution = 0.0
+
+	# Film tone mapping
+	env.tonemap_mode = Environment.TONE_MAPPER_FILMIC
+	env.tonemap_exposure = 1.15
+	env.tonemap_white = 6.0
+
+	# SSAO contact shadowing
+	env.ssao_enabled = true
+	env.ssao_radius = 0.65
+	env.ssao_intensity = 1.8
+	env.ssao_power = 1.5
+	env.ssao_detail = 0.5
+	env.ssao_horizon = 0.06
+
+	# Subtle bloom for high lights
+	env.glow_enabled = true
+	env.glow_normalized = true
+	env.glow_intensity = 0.28
+	env.glow_bloom = 0.12
+	env.glow_blend_mode = Environment.GLOW_BLEND_MODE_SOFTLIGHT
+
+func on_camera_yaw_changed(new_yaw_deg: float) -> void:
+	_target_yaw = new_yaw_deg
+
+func _process(delta: float) -> void:
+	if not is_equal_approx(_current_yaw, _target_yaw):
+		_current_yaw = rotate_toward(_current_yaw, _target_yaw, delta * 360.0)
+		_apply_rotation(_current_yaw)
+
+func _apply_rotation(yaw_deg: float) -> void:
+	if not key_light:
+		return
+	var total_yaw: float = deg_to_rad(yaw_deg + key_azimuth_offset_degrees)
+	var pitch: float = deg_to_rad(-key_elevation_degrees)
+
+	var basis := Basis()
+	basis = basis.rotated(Vector3.UP, total_yaw)
+	basis = basis.rotated(basis.x.normalized(), pitch)
+	key_light.global_transform.basis = basis
+
+
+[SECTION 2: KEY LIGHT, SHADOWS & MODERN GYM AESTHETICS COMPLETED]
+
+3. Build Mode Look & Spatial Placement Workflow
+(a) Hammer / Build Mode HUD Button
+Placement: Bottom-right primary utility bar, docked next to Time Controls and Ledger.
+Exact Dimensions: 56×56 px (CornerRadius: 28px perfect circle).
+Base Style: PANEL_GLASS = rgba(0.165, 0.125, 0.098, 0.94), border 2.0px LINE (#6b5638).
+Hover Style: GOLD (#f0c233) border, scale 1.06, drop shadow radius 10px at 35% alpha.
+Active / Mode-On Style: Background PANEL (#2a2019), border 2.5px GOLD_HI (#f7d65a), icon tinted GOLD_HI.
+Icon: 26×26 px vector silhouette of an angled cross-peen builder's hammer overlapping a blueprint grid square.
+Hotkey Badge: Attached bottom-left corner of button: 18×18 px rounded square (CornerRadius: 4px), background #120d0a, border 1px LINE, font Inter Bold 10 px, text "B", color MUTED (#b5a68c).
+(b) The Equipment Buy Panel
++-----------------------------------------------------------------------------------------------------------------------+
+|  [HAMMER ICON] GYM EXPANSION & FITOUT                                                    [X] CLOSE (ESC)             |
+|  +-----------------------------------------------------------------------------------------------------------------+  |
+|  | [ALL]  |  [STRENGTH]  |  [CARDIO]  |  [COMBAT/RINGS]  |  [RECOVERY]  |  [AMENITIES]  |  [DECOR & FLOORING]          |  |
+|  +-----------------------------------------------------------------------------------------------------------------+  |
+|                                                                                                                       |
+|  +----------------+  +----------------+  +----------------+  +----------------+  +----------------+  +----------------+   |
+|  | [ 3D THUMB ]   |  | [ 3D THUMB ]   |  | [ 3D THUMB ]   |  | [ 3D THUMB ]   |  | [ 3D THUMB ]   |  | [ 3D THUMB ]   |   |
+|  | Heavy Bag Pro  |  | Speed Bag Plat |  | Power Cage     |  | Iso Incline    |  | Cryo Chamber   |  | Ice Bath Tub   |   |
+|  | $1,450         |  | $820           |  | $2,600         |  | $1,150         |  | $8,500         |  | $1,900         |   |
+|  | +Power, +Comb  |  | +Hand Speed    |  | +Max Strength  |  | +Hypertrophy   |  | +Stamina Recov |  | +Soreness Cut  |   |
+|  +----------------+  +----------------+  +----------------+  +----------------+  +----------------+  +----------------+   |
+|                                                                                                                       |
+|  Selected: Power Cage Mk II | Size: 2.0m x 1.5m | Clearance Req: 1.0m front aisle | Unlocked at Gym Level 2            |
++-----------------------------------------------------------------------------------------------------------------------+
+
+Position & Anchor: Slides up from bottom center of the screen upon pressing B.
+Total Panel Dimensions: 1280 px wide × 340 px tall. Centered horizontally: x: 320px, y: 710px in a 1920×1080 canvas.
+Panel Style: PANEL_GLASS, border 2px LINE, corner radius 12px on top-left/top-right; bottom edge flat against screen boundary.
+Category Tabs: 7 horizontal tabs (All, Strength, Cardio, Combat/Rings, Recovery, Amenities, Decor & Flooring). Tab height: 32 px. Inactive tab: text MUTED. Active tab: underline 3px GOLD_HI, text TEXT, background tint Color(0.3, 0.2, 0.15, 0.4).
+Grid Scroll Area: 6 horizontal cards visible without scrolling; smooth horizontal scroll with mouse wheel. Card spacing: 14 px.
+Equipment Card Spec (180 px wide × 220 px tall):
+Card Background: PANEL (#2a2019) at 0.95 alpha, border 1.5px LINE.
+Hover: Border transitions to GOLD, card translates upward by 3 px.
+Top Half (180×110 px): Isometric 3D preview render of the item on a neutral dark floor pedestal with soft backlighting.
+Item Name: 13 px Inter Bold, text TEXT (#f6eddc), left-padded 8 px.
+Price Label: 14 px Inter Bold, text GOLD (#f0c233).
+Training Stat Tag: 10 px Inter Regular, text MUTED (#b5a68c) (e.g. "+PWR / +STAM").
+Affordability Check: If player funds < item price, price text turns BAD (#e5433a), thumbnail dims to 0.4 alpha, and an unclickable lock overlay appears.
+(c) Placement Ghost: Shaders, Footprints & Rotation Steps
+
+When an item is selected from the catalog, an active ghost follows the cursor snapped to the floor grid.
+
+                    1.0m Front Clearance Buffer
+                  [ - - - - - - - - - - - - - - ]  <-- Dashed Clearance Line
+                  |                             |
+    +-------------+=============================+-------------+
+    |             | # # # # # # # # # # # # # # |             |
+    |  0.5m Side  | #    SOLID FOOTPRINT      # |  0.5m Side  |
+    |  Clearance  | #     (Heavy Bag Base)    # |  Clearance  |
+    |             | # # # # # # # # # # # # # # |             |
+    +-------------+=============================+-------------+
+
+Grid Snap: Position snaps strictly to $0.5\text{m} \times 0.5\text{m}$ increments on the $XZ$ world plane: $$\text{snapped_pos.x} = \text{round}(\text{hit.x} / 0.5) \times 0.5$$ $$\text{snapped_pos.z} = \text{round}(\text{hit.z} / 0.5) \times 0.5$$
+Rotation Control: Pressing R or Middle Mouse Click steps the yaw by +90.0°. The ghost does not snap instantaneously; it uses a high-speed rotational spring tween (duration: 0.09s, TRANS_QUAD, EASE_OUT) to preserve kinetic feedback.
+Visual States (Shader Material):
+Valid Placement:
+Base mesh tint: GO = Color("#22c55e") at 0.45 alpha with additive Fresnel edge rim.
+Footprint boundary on floor: Solid bright green line (2.0 px line width).
+Dynamic Clearance buffer: Pulsing soft green dashed boundary ($0.5\text{m}$ to $1.0\text{m}$ perimeter depending on station needs).
+Invalid Placement:
+Base mesh tint: BAD = Color("#e5433a") at 0.55 alpha.
+Footprint boundary: Solid red outline with diagonal 45° hazard slashes running across the floor footprint quad.
+Grid Overlay: When Build Mode is active, an accent grid renders across the gym floor: thin lines at $0.5\text{m}$ intervals (Color(0.42, 0.34, 0.22, 0.15)), and thicker major room lines at $2.0\text{m}$ intervals (Color(0.94, 0.76, 0.20, 0.35)). The grid fades out via distance-attenuation $12\text{m}$ beyond the cursor.
+(d) Invalid Placement Reason Tooltip
+
+When PlacementRules.check() returns ok: false, the invalid reason must be immediately legible directly at the cursor, eliminating guesswork.
+
+       [ GHOST MESH: POWER CAGE ]
+                   |
+                   v
+       +------------------------------------+
+       | (X) Too close to the ring          |
+       +------------------------------------+
+
+Position: Anchored 28 px directly above the ghost bounding-box top center in screen-space.
+Panel Style: Background PANEL_GLASS, border 1.5px BAD (#e5433a), corner radius 6px.
+Padding: Left/Right 10 px, Top/Bottom 4 px.
+Drop Shadow: Blur 6px, offset (0, 2px), color Color(0, 0, 0, 0.5).
+Content:
+Icon: 14×14 px circular red exclamation badge.
+Reason String: 11 px Inter Bold, color BAD_TEXT (#f2766f).
+Verbatim Reason Codes: "Outside the gym", "Blocks the doorway", "Too close to the ring", "Overlaps the Speed Bag", "Too close to the Power Cage", "No aisle path", "Can't afford".
+(e) Room Slot Hints (Unfilled Mandatory Stations)
+
+For a room to function (e.g. Physio Room requires at least 1 Treatment Bed and 1 Sanitation Station; Locker Room requires 4 Lockers and 1 Bench), unplaced mandatory requirements render spatial ghost stencils.
+
+    + - - - - - - - - - - - - - - - - - - - +
+    '  [+] REQUIRED SLOT: TREATMENT BED     '  <-- Stencil Ghost Outline
+    '                                       '
+    '       [ Bed Silhouette Icon ]         '
+    '                                       '
+    + - - - - - - - - - - - - - - - - - - - +
+
+Visual Look: A flat 3D floor quad rendered in world space.
+Border: Animated marching dashes (ShaderMaterial scrolling dashed UV border, line width $3\text{px}$, color GOLD at $0.65$ alpha).
+Center Icon: A 2D projected icon of the required item type tinted GOLD_HI hovering $0.3\text{m}$ above the floor.
+Interaction: Clicking an empty required slot hint automatically selects that specific item in the Buy Panel catalog and attaches the ghost to the cursor.
+(f) Confirm, Cancel, Move, Sell & Refund Workflows
+Placement (New Item):
+Click card in Buy Panel $\rightarrow$ Ghost spawns at cursor, buy drawer drops down by 60 px to maximize floor visibility.
+Left Click (Valid location) $\rightarrow$ Instantiates item mesh, plays place_equipment.sfx (wooden thud + metallic clink), deducts cash, fires PlacementRules.commit(). Ghost stays active on cursor to allow multi-placement (hold Shift), or returns to cursor idle if single placement.
+Right Click or ESC $\rightarrow$ Cancels ghost, refunds cursor, restores full Buy Panel.
+Move Existing Item:
+Left-click placed station while in Build Mode $\rightarrow$ Station lifts $0.15\text{m}$ upward, entering ghost mode. Original footprint clears from PlacementRules cache.
+Relocate to valid cell $\rightarrow$ Left Click places down.
+Right Click $\rightarrow$ Aborts move, snaps item back to original position.
+Sell & Refund Flow:
+Hover placed equipment + Press Del or click the contextual floating "Sell" tag.
+Dialog / Prompt: "Sell Heavy Bag Pro for $1,085? (75% refund)".
+Grace Period Rule: If sold within 30 seconds of initial placement and before leaving build mode, 100% full refund ("Immediate undo: $1,450 returned"). After 30 seconds or gym resumption: 75% standard depreciation refund.
+(g) Full GDScript: Build Mode System
+res://shaders/placement_ghost.gdshader
+shader_type spatial;
+render_mode blend_mix, depth_draw_always, cull_back;
+
+uniform vec4 ghost_color : source_color = vec4(0.133, 0.773, 0.369, 0.45);
+uniform vec4 rim_color : source_color = vec4(1.0, 1.0, 1.0, 0.8);
+uniform float rim_power : hint_range(0.5, 8.0) = 3.0;
+uniform bool is_invalid = false;
+
+void fragment() {
+    vec4 base = ghost_color;
+    
+    // Invalid hazard stripes calculation
+    if (is_invalid) {
+        float stripe = sin((SCREEN_UV.x + SCREEN_UV.y) * 120.0);
+        if (stripe > 0.3) {
+            base.rgb = mix(base.rgb, vec3(0.1, 0.0, 0.0), 0.4);
+        }
+    }
+    
+    // Fresnel rim glow for distinct silhouette definition
+    float fresnel = pow(1.0 - clamp(dot(NORMAL, VIEW), 0.0, 1.0), rim_power);
+    
+    ALBEDO = base.rgb;
+    ALPHA = clamp(base.a + fresnel * rim_color.a, 0.0, 0.95);
+    EMISSION = (base.rgb * 0.4) + (rim_color.rgb * fresnel * 0.6);
+}
+
+res://scripts/build/PlacementGhost.gd
+class_name PlacementGhost
+extends Node3D
+
+@export var ghost_material: ShaderMaterial
+
+var current_yaw_deg: float = 0.0
+var _target_yaw_deg: float = 0.0
+var _is_valid: bool = true
+var _mesh_instances: Array[MeshInstance3D] = []
+
+func _ready() -> void:
+	if not ghost_material:
+		ghost_material = ShaderMaterial.new()
+		ghost_material.shader = preload("res://shaders/placement_ghost.gdshader")
+
+func set_item_model(model_scene: PackedScene) -> void:
+	# Clear existing models
+	for child in get_children():
+		child.queue_free()
+	_mesh_instances.clear()
+
+	var instance := model_scene.instantiate()
+	add_child(instance)
+	_gather_and_apply_shaders(instance)
+
+func _gather_and_apply_shaders(node: Node) -> void:
+	if node is MeshInstance3D:
+		var mi := node as MeshInstance3D
+		mi.material_override = ghost_material
+		_mesh_instances.append(mi)
+	for child in node.get_children():
+		_gather_and_apply_shaders(child)
+
+func set_valid_state(is_valid: bool) -> void:
+	_is_valid = is_valid
+	if not ghost_material:
+		return
+
+	if _is_valid:
+		ghost_material.set_shader_parameter("ghost_color", Color(0.133, 0.773, 0.369, 0.45)) # GO
+		ghost_material.set_shader_parameter("rim_color", Color(0.6, 1.0, 0.6, 0.7))
+		ghost_material.set_shader_parameter("is_invalid", false)
+	else:
+		ghost_material.set_shader_parameter("ghost_color", Color(0.898, 0.263, 0.227, 0.55)) # BAD
+		ghost_material.set_shader_parameter("rim_color", Color(1.0, 0.4, 0.4, 0.8))
+		ghost_material.set_shader_parameter("is_invalid", true)
+
+func rotate_step_90() -> void:
+	_target_yaw_deg += 90.0
+	if _target_yaw_deg >= 360.0:
+		_target_yaw_deg -= 360.0
+	
+	var tween := create_tween()
+	tween.tween_property(self, "rotation_degrees:y", _target_yaw_deg, 0.09)\
+		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	current_yaw_deg = _target_yaw_deg
+
+func snap_to_grid(world_pos: Vector3, grid_size: float = 0.5) -> void:
+	var snapped_x: float = round(world_pos.x / grid_size) * grid_size
+	var snapped_z: float = round(world_pos.z / grid_size) * grid_size
+	global_position = Vector3(snapped_x, world_pos.y, snapped_z)
+
+res://scripts/build/ReasonTooltip.gd
+class_name ReasonTooltip
+extends PanelContainer
+
+@export var camera: Camera3D
+
+var _label: Label
+var _icon: TextureRect
+
+func _ready() -> void:
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_build_ui()
+	visible = false
+
+func _build_ui() -> void:
+	var style := StyleBoxFlat.new()
+	style.bg_color = UITokens.PANEL_GLASS
+	style.border_color = UITokens.BAD
+	style.set_border_width_all(2)
+	style.corner_radius_top_left = 6
+	style.corner_radius_top_right = 6
+	style.corner_radius_bottom_left = 6
+	style.corner_radius_bottom_right = 6
+	style.shadow_color = Color(0, 0, 0, 0.45)
+	style.shadow_size = 6
+	style.shadow_offset = Vector2(0, 2)
+	style.content_margin_left = 10
+	style.content_margin_right = 10
+	style.content_margin_top = 4
+	style.content_margin_bottom = 4
+	add_theme_stylebox_override("panel", style)
+
+	var hbox := HBoxContainer.new()
+	hbox.add_theme_constant_override("separation", 6)
+	add_child(hbox)
+
+	_icon = TextureRect.new()
+	_icon.custom_minimum_size = Vector2(14, 14)
+	_icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	hbox.add_child(_icon)
+
+	_label = Label.new()
+	_label.add_theme_color_override("font_color", UITokens.BAD_TEXT)
+	_label.add_theme_font_size_override("font_size", 11)
+	hbox.add_child(_label)
+
+func show_reason(reason_text: String, world_pos: Vector3) -> void:
+	if reason_text.is_empty():
+		visible = false
+		return
+
+	_label.text = reason_text
+	visible = true
+
+	if not camera:
+		camera = get_viewport().get_camera_3d()
+	if camera and not camera.is_position_behind(world_pos):
+		var screen_pos: Vector2 = camera.unproject_position(world_pos + Vector3(0, 1.8, 0))
+		position = screen_pos - Vector2(size.x * 0.5, size.y + 12.0)
+
+func hide_reason() -> void:
+	visible = false
+
+res://scripts/build/EquipmentCard.gd
+class_name EquipmentCard
+extends PanelContainer
+
+signal card_clicked(item_id: StringName)
+
+var item_id: StringName
+var price: int = 0
+var is_affordable: bool = true
+
+var _container: VBoxContainer
+var _thumb_rect: TextureRect
+var _name_label: Label
+var _price_label: Label
+var _stat_label: Label
+var _tween: Tween
+
+func setup(p_id: StringName, p_name: String, p_price: int, p_stats: String, p_thumb: Texture2D) -> void:
+	item_id = p_id
+	price = p_price
+	_build_ui()
+	_name_label.text = p_name
+	_price_label.text = "$%s" % String.num_int64(price)
+	_stat_label.text = p_stats
+	_thumb_rect.texture = p_thumb
+	custom_minimum_size = Vector2(180, 220)
+
+func set_affordability(current_funds: int) -> void:
+	is_affordable = current_funds >= price
+	if is_affordable:
+		_price_label.add_theme_color_override("font_color", UITokens.GOLD)
+		modulate = Color(1, 1, 1, 1)
+	else:
+		_price_label.add_theme_color_override("font_color", UITokens.BAD)
+		modulate = Color(0.65, 0.65, 0.65, 0.8)
+
+func _build_ui() -> void:
+	mouse_filter = Control.MOUSE_FILTER_PASS
+
+	var style := StyleBoxFlat.new()
+	style.bg_color = UITokens.PANEL
+	style.border_color = UITokens.LINE
+	style.set_border_width_all(1)
+	style.corner_radius_top_left = 8
+	style.corner_radius_top_right = 8
+	style.corner_radius_bottom_left = 8
+	style.corner_radius_bottom_right = 8
+	style.content_margin_left = 8
+	style.content

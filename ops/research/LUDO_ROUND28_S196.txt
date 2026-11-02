@@ -1,0 +1,258 @@
+FIGHTCAMP: TECHNICAL DESIGN DOCUMENT (SYSTEMS, ARCHITECTURE & SIMULATION)
+
+Date: 10 October 2026
+
+Target Class: Hardcore PC Sports Strategy & Management Simulation
+
+Engine: Godot 4.7 (Forward+ Desktop), Core 20 Hz Discrete Simulation
+
+SECTION A - REAL-WORLD DIMENSIONS AUDIT
+1. Real-World Boxing & Combat Gym Dimensions Benchmark
+
+Primary Sources: AIBA/USA Boxing Technical & Competition Rules (Appx A–B), IBJJF Rule Book Art. 1.1–1.3, International Judo Federation (IJF) Sports and Organization Rules (SOR Sec. 4), NSCA Strength & Conditioning Facility Standards (4th Ed), UK Sport Design Guide for Combat Sports (2020).
+
+| Equipment / Station | Real Footprint (W × D m) | Safety Perimeter / Dynamic Clearance | Total Required (W × D m) | Standard Source & Benchmark |
+| :--- | :--- | :--- | :--- | :--- |
+| Competition Boxing Ring | 6.10 × 6.10 (20 ft ropes) | +0.61 m apron on all sides | 7.32 × 7.32 (Floor); 9.32 × 9.32 w/ 1.0 m run-off | AIBA Rule 4.1; USA Boxing Rule 105. 1.0 m walkway mandatory for judges/medics. |
+| Training Boxing Ring | 4.88 × 4.88 (16 ft ropes) | +0.45 m apron on all sides | 5.78 × 5.78; 7.38 × 7.38 with clearance | Standard UK/US club sparring ring. Fits 2 spar + 1 coach inside. |
+| Heavy Bag (Single) | 0.45 dia cylinder | 1.0 m lateral swing radius + 0.6 m buffer | 1.80 × 2.20 per bag station | NSCA Combat Hall Specs: Centerline-to-centerline distance $\ge 2.0\text{ m}$. |
+| Heavy Bag Rail (4-Bag) | 0.45 dia × 4 | 2.0 m center-to-center spacing | 7.50 × 2.40 (Total zone) | Commercial I-beam system (Title/Everlast Pro). Prevents multi-bag impact. |
+| Speed Bag Platform | 0.60 × 0.80 wall bracket | 0.80 m athlete stance box + 0.5 m rear | 1.20 × 1.60 | Wall-mount; stance depth requires clearance from adjacent walkways. |
+| Olympic Lifting Platform| 2.44 × 2.44 (8 × 8 ft oak) | 1.2 m perimeter around barbell drop zone | 3.60 × 3.60 | IWF Rule 3.3.2; NSCA Standard 12. Dropping bumpers requires safety buffer. |
+| Power Rack / Squat Cage| 1.30 × 1.40 steel cage | +1.1 m front step-out, +0.45 m lateral plate load| 2.20 × 2.50 | Fits standard 2.20 m (7.2 ft) Olympic barbell width + plate changing corridor. |
+| Cardio (Treadmill) | 0.90 × 2.10 footprint | +2.00 m rear emergency fall zone, +0.5 m sides | 1.90 × 4.10 | ASTM F2115-18 Standard Specification for Motorized Treadmills. |
+| Cardio (Air Bike) | 0.60 × 1.30 footprint | +0.50 m perimeter clearance around pedals | 1.60 × 2.30 | Dynamic elbow/leg lateral clearance. |
+| Mirror / Skipping Lane | 1.00 × 1.00 single spot | Rope arc radius 1.2 m $\to$ 2.4 m diameter | 2.40 × 2.40 per skipper | British Boxing Board of Control (BBBofC) training hall guidelines. |
+| Judo Contest Area | 8.00 × 8.00 contest tatami | +3.00 m safety border (3 m on all sides) | 14.00 × 14.00 | IJF SOR Section 4.1. Minimum club size: 6×6 contest + 2 m safety = 10×10 m. |
+| BJJ / Grappling Area | 6.00 × 6.00 match area | +1.50 m perimeter safety mat | 9.00 × 9.00 | IBJJF Article 1.1. Club roll space: 3.0 × 3.0 m minimum per paired roll. |
+| Karate / Kickboxing | 8.00 × 8.00 match tatami | +1.00 m perimeter border | 10.00 × 10.00 | WKF (World Karate Fed) Art 1.1 / WAKO Section 3. |
+
+2. Audit of Current Station Footprints
+Competition Ring (7.8 × 7.8 m): Incorrect. 7.8 m is too large for a 20 ft canvas training footprint without outer walkways, but too tight for an AIBA competition platform with judging lanes. Corrected: Split into two options: 7.4 × 7.4 m (Training Ring with 16 ft ropes + apron) or 9.4 × 9.4 m (Regulation Elevated Ring + referee/coach run-off).
+Treadmill (2.0 × 1.6 m): Dangerous / Incorrect. Real commercial units are 2.1 m long. ASTM F2115 requires a 2.0 m clear run-off behind the belt to prevent trapped-limb injuries during high-speed intervals. Corrected: 1.9 × 4.1 m.
+Weights Area (4.2 × 3.4 m): Undersized. Cannot fit a full dumbbell rack, adjustable bench, and a 2.2 m Olympic barbell safely without overlap. Corrected: 6.0 × 4.0 m.
+Mirror + Skipping (2.8 × 3.6 m): Sub-optimal. Fits 1 skipper comfortably, but wastes space for 2. Corrected: 4.8 × 2.4 m (dedicated 2-athlete skipping strip).
+Stretch Corner (6.2 × 1.9 m): Too narrow. 1.9 m barely fits a standard mat with leg extensions. Corrected: 5.0 × 3.0 m (fits 3 athletes simultaneously on 2.0 × 1.0 m mats).
+3. Full 30 × 18 m (540 m²) Floor Layout
+
+Origin [0, 0] is Back-Left corner; X traverses width (0 $\to$ 30 m, left-to-right); Z traverses depth (0 $\to$ 18 m, back-wall to front street entrance). Ceiling: 3.6 m.
+
++--------------------------------------------------------------------------------------------------+
+|                                  BACK WALL (Z = 0.0 m)                                           |
+| [ZONE 01: HEAVY BAG STRIP]      [ZONE 02: CONDITIONING]            [ZONE 03: BOXING RING]        |
+| [1.5, 1.0, 9.5, 3.4]            [11.5, 1.0, 18.5, 5.1]             [20.5, 1.0, 28.5, 9.0]        |
+| Bags x4 (Rail system)           Treadmills x2 + Air Bikes x2       Training Ring (16ft canvas)   |
+|                                                                                                  |
+| [ZONE 04: PADS / SLIP]          =================================                                |
+| [1.5, 4.6, 9.5, 8.0]            MAIN EAST-WEST ARTERY (Z: 8.0-9.4m)                              |
+| Pad work + Slip lines           =================================                                |
+|                                                                    [ZONE 05: S&C / WEIGHTS]      |
+| [ZONE 06: LOCKERS / AMENITIES]  [ZONE 07: AGILITY / SKIPPING]      [19.0, 10.0, 28.5, 14.0]      |
+| [1.5, 9.4, 7.5, 16.5]           [9.5, 10.0, 17.5, 13.6]            Power Rack + Oly Platform     |
+| Male/Female Showers + W/C       Mirrors + Skipping + Ladder        + Dumbbell DB Runs            |
+|                                                                                                  |
+| [ZONE 08: OFFICE / MEDICAL]     [ZONE 09: RECEPTION & ENTRY]       [ZONE 10: STRETCH / COOLDOWN] |
+| [1.5, 16.5, 7.5, 18.0]          [9.5, 14.5, 17.5, 18.0]            [19.0, 14.5, 28.5, 17.5]      |
+| Coach desk, Scales, Med-kit     Check-in turnstile, Pro-shop       Foam rollers, bands, mats     |
++--------------------------------------------------------------------------------------------------+
+                                 FRONT STREET ENTRANCE (Z = 18.0 m)
+
+Detailed Zone Node Coordinates [X0, Z0, X1, Z1]
+Zone 01: Heavy Bag Rail Strip [1.5, 1.0, 9.5, 3.4] | Work Point: (5.5, 2.2) | Approach: (5.5, 4.0)
+Zone 02: Cardio Deck [11.5, 1.0, 18.5, 5.1] | Work Point: (15.0, 3.0) | Approach: (15.0, 6.0)
+Zone 03: Primary Training Ring [20.5, 1.0, 28.5, 9.0] | Work Point: (24.5, 5.0) | Approach: (24.5, 9.5) (Corner steps)
+Zone 04: Dynamic Striking & Slip Lane [1.5, 4.6, 9.5, 8.0] | Work Point: (5.5, 6.3) | Approach: (5.5, 8.6)
+Zone 05: Strength & Conditioning Bay [19.0, 10.0, 28.5, 14.0] | Work Point: (23.7, 12.0) | Approach: (18.0, 12.0)
+Zone 06: Changing Rooms, Showers & Toilets [1.5, 9.4, 7.5, 16.5] | Door: (7.5, 13.0) | Interior wet facility.
+Zone 07: Agility & Skipping Line [9.5, 10.0, 17.5, 13.6] | Work Point: (13.5, 11.8) | Approach: (13.5, 9.5)
+Zone 08: Coach Office & Medical Exam [1.5, 16.5, 7.5, 18.0] | Door: (7.5, 17.2) | Official scale, first aid.
+Zone 09: Reception, Check-in & Retail [9.5, 14.5, 17.5, 18.0] | Door: (13.5, 18.0) | Turnstile point-of-sale.
+Zone 10: Mat Mobility & Stretch Corner [19.0, 14.5, 28.5, 17.5] | Work Point: (23.7, 16.0) | Approach: (18.5, 16.0)
+Primary Circulation Spine (Corridor): Clear width $\ge 1.60\text{ m}$ running East-West at Z = 8.0 to 9.4 m, connecting to North-South fire egress arteries along walls (X = 0.0 to 1.5 m and X = 28.5 to 30.0 m). Fire exit doors situated at (0.0, 8.7) and (30.0, 8.7).
+Critical Missing Facilities in Existing Layout
+
+A commercial 540 m² gym cannot operate legally without:
+
+Changing/Sanitary Infrastructure (Zone 06): Minimum 2 showers per gender, 2 W/Cs, lockers. Essential for retaining paying civilian members.
+Coach Office / Medical Room (Zone 08): Secure room for the official weigh-in beam scale, concussion protocol checks, fighter contracts, and private strategy talks.
+Fire / Circulation Clearance: The original design packed stations edge-to-edge with no dedicated aisles, violating building codes (IBC Chapter 10) requiring minimum 1.2 m clear paths.
+SECTION B - GYM TIER COSTS AND EXPANSION PATH
+1. Financial & Operational Tier Comparison
+
+| Financial / Operating Metric | T1: Converted Industrial Garage | T2: Established Combat Club (Start) | T3: Commercial Multi-Discipline | T4: Elite High-Performance Institute |
+| :--- | :--- | :--- | :--- | :--- |
+| Usable Floor Area | 150 m² (15 × 10 m) | 540 m² (30 × 18 m) | 1,000 m² (40 × 25 m) | 1,860 m² (60 × 31 m) |
+| Initial Fit-Out & Build Cost | $28,500 | $112,000 | $345,000 | $1,150,000 |
+| Monthly Base Lease / Debt | $1,800 / mo ($12/m²/yr) | $7,200 / mo ($16/m²/yr) | $18,300 / mo ($22/m²/yr) | $46,500 / mo ($30/m²/yr) |
+| Monthly Utilities & Waste | $450 / mo | $1,650 / mo | $3,800 / mo | $8,200 / mo |
+| Commercial Liability Insurance| $350 / mo | $1,100 / mo | $2,400 / mo | $5,500 / mo |
+| Monthly Staff Payroll | $2,200 (1 Coach/Janitor) | $8,500 (2 Coaches, 1 Desk, 1 Clean) | $22,000 (5 Coaches, 2 Desk, Mgr, S&C)| $58,000 (Multi-sport staff, PT, Admin) |
+| Base Operating Cost (OpEx) | $4,800 / month | $18,450 / month | $46,500 / month | $118,200 / month |
+| Member Dues (Monthly) | $65 / month | $95 / month | $125 / month | $165 / month |
+| Max Civilian Capacity (Cap) | 85 members | 320 members | 750 members | 1,500 members |
+| Break-Even Member Count | 74 members (87% cap) | 195 members (61% cap) | 372 members (50% cap) | 717 members (48% cap) |
+| Unlock / Relocation Prereq | None (Default basement) | Gym Prestige 15; $35,000 Reserve | Gym Prestige 45; 1 Reg Champ; $120k | Prestige 80; 1 World Champ; $400k |
+
+2. Equipment Station Cost Schedule (Real Commercial Capex)
+Boxing Ring: 16 ft Floor training ring: $4,800. 20 ft Elevated competition ring: $14,500.
+Bag Rail System: Commercial track + 6 Title 100 lb leather heavy bags: $5,200.
+S&C Infrastructure: Commercial half-rack + Texas barbell + 160 kg bumper plate set: $3,200 per bay.
+Cardio Pieces: Woodway/Concept2 Treadmill: $4,500. Rogue Echo Bike: $850. Concept2 Rower: $1,100.
+Tatami / Mat Surface: Dollamur Flexi-Connect 50 mm competition mats: $72 / m² installed.
+3. Expansion vs. Relocation Decision Framework
+       [CAPITAL DECISION POINT]
+                  │
+        Is Current Tier at Cap?
+        (Member Capacity >= 85%)
+        AND Stable Monthly Net Profit > $10,000?
+                  │
+         ┌────────┴────────┐
+        YES                NO
+         │                 │
+         │         [RENOVATE CURRENT]
+         │         - Buy high-density gear (Rail bags, half-racks)
+         │         - Boost civilian member dues by 15%
+         │         - Convert dead space to recovery/ice baths
+         ▼
+  [RELOCATION TRIGGER]
+  - Pay moving costs (2 months OpEx + Lease Deposit = 3x Base Rent).
+  - Face a 3-week gym downtime during setup (fighters lose access to sparring).
+  - Risk losing 15-25% of existing members due to location change.
+  - Unlock new sports (T3 adds Judo/BJJ; T4 adds Cryotherapy, Motion Lab).
+
+4. T3 and T4 Floor Zone Geometries [X0, Z0, X1, Z1]
+T3 Layout: Multi-Discipline Facility (40 × 25 m = 1,000 m²)
+
+Ceiling: 4.5 m. Adds a 12 × 12 m dedicated Grappling Tatami alongside the boxing zone.
+
+Zone 01 (Elevated Ring): [29.0, 1.5, 38.5, 11.0] | 20 ft Elevated ring + coach walkways.
+Zone 02 (Training Ring): [20.5, 1.5, 27.5, 8.5] | 16 ft Floor ring for sparring.
+Zone 03 (Grappling Tatami): [1.5, 1.5, 15.5, 15.5] | 14 × 14 m Mat (Judo contest area + BJJ rollout).
+Zone 04 (Heavy Bag Line): [17.0, 1.5, 19.5, 14.0] | Dual overhead rail (8 bags).
+Zone 05 (S&C Power Center): [29.0, 12.0, 38.5, 23.5]| 3 Olympic platforms, 3 racks, dumbbell strip.
+Zone 06 (Cardio Bank): [20.5, 10.0, 27.5, 16.0]| 5 Treadmills, 4 Air Bikes, 3 Rowers.
+Zone 07 (Locker Rooms & Saunas): [1.5, 17.0, 11.0, 23.5]| Full wet locker rooms, showers, 8-person dry sauna.
+Zone 08 (Admin/Medical): [12.0, 17.0, 18.5, 23.5]| Coach desk, physio bench, hydro-ice baths.
+Zone 09 (Reception/Shop): [19.5, 18.0, 27.5, 23.5]| Check-in desks, supplement bar, waiting lounge.
+T4 Layout: Elite High-Performance Institute (60 × 31 m = 1,860 m²)
+
+Ceiling: 6.0 m. Adds separate training bays, biomechanics capture lab, and an in-house sports hospital.
+
+Zone 01 (Championship Boxing Arena): [46.0, 2.0, 58.0, 14.0] | AIBA 20 ft Competition Ring on 1 m podium w/ spectator stands.
+Zone 02 (Sparring Rings x2): [32.0, 2.0, 44.0, 14.0] | Dual 16 ft training rings side-by-side.
+Zone 03 (Combat Mat Complex): [2.0, 2.0, 22.0, 18.0] | 20 × 16 m continuous tatami (2 Judo squares or 4 BJJ roll mats).
+Zone 04 (Elite Bag Gantry): [24.0, 2.0, 30.0, 16.0] | Motorized height-adjustable bag racks (12 heavy bags).
+Zone 05 (High-Performance S&C): [32.0, 16.0, 58.0, 29.0]| 6 Platforms, turf sprint track (25 m), cable arrays.
+Zone 06 (Sports Science & Recovery): [2.0, 20.0, 16.0, 29.0]| DEXA scanner, cold plunge pools, hyperbaric chambers.
+Zone 07 (Locker Rooms & Spa): [17.0, 20.0, 30.0, 29.0]| Pro athlete facilities, steam, infrared sauna.
+SECTION C - WEIGHT-MANAGEMENT PROTOCOL
+1. Physiological Foundations & Core Constraints
+
+Sources: British Journal of Sports Medicine (BJSM) Combat Sports Weight Cut Consensuses; UFC Performance Institute Nutrition Guidelines (2021).
+
+Safe Chronic Fat Loss: Capped at $1.0%$ of Total Body Weight (TBW) per week (via a $500\text{ to }750\text{ kcal/day}$ deficit). Exceeding this strips Lean Muscle Mass (LMM) and drops power output.
+Acute Water Cut (Hypohydration):
+Day-Before Weigh-In (30–36 hr rehydration window): Max safe limit is $8.0%$ of TBW through water manipulation (water loading, low sodium, sweat suits, sauna).
+Same-Day Weigh-In (2–4 hr rehydration window): Max safe limit is $3.0%$ of TBW. Dehydration above $3%$ directly reduces cerebral spinal fluid (CSF) padding around the brain, spiking knockout risk.
+Rehydration Rate: Human intestines can absorb a maximum of $1.0\text{ to }1.2\text{ liters of fluid per hour}$. Attempting to regain $>8\text{ kg}$ in 24 hours causes gastric distress and hyponatremia.
+       5-WEEK WEIGHT CUT TIMELINE (CAMP TO BOUT)
+   W-5            W-3            W-1         W-0 (WEIGH-IN)       BOUT
+───┼──────────────┼──────────────┼───────────────┼─────────────────┼───
+   │◄── CHRONIC FAT LOSS PHASE ─►│◄ ACUTE WATER ─►│◄─ REHYDRATION ─►│
+   │  (-0.8% to -1.0% BW / wk)   │  CUT (-5-8%)  │   (+8-10% BW)   │
+   │  Preserve LMM, High Protein │  Sauna / Sweat│   Electrolytes  │
+
+2. Multi-Week Coach Decision Engine
+
+At the Monday planning phase, the coach assigns 1 of 4 dietary protocols for the week:
+
+| Nutrition Strategy | Weekly Body Weight Delta | Stamina Recovery Penalty | Training Injury Modifier | Mental State / Stress |
+| :--- | :--- | :--- | :--- | :--- |
+| Surplus / Camp Base | $+0.25%\text{ to }+0.50%$ BW | $+10%$ recovery speed | $0.85\times$ base injury rate | Stress $-10$; Focus $+5$ |
+| Moderate Deficit | $-0.75%$ BW | $-5%$ recovery speed | $1.05\times$ base injury rate | Stress $+5$; Focus $0$ |
+| Aggressive Cut | $-1.50%$ BW | $-20%$ recovery speed | $1.40\times$ base injury rate | Stress $+25$; Focus $-10$ |
+| Fight Week Water Flush| $-4.0%\text{ to }-7.0%$ BW (Acute)| $-40%$ recovery speed | $2.20\times$ base injury rate | Stress $+50$; Irritable |
+
+3. Fighter Weight Display & Status Data
++------------------------------------------------------------------------------------------+
+| FIGHTER: MARCUS "THE HAMMER" VANCE                   FIGHT: 14 DAYS OUT (DAY-BEFORE)     |
+| Current Walk-Around: 75.8 kg  |  Target Division: Super Welterweight (69.85 kg)          |
+| Lean Mass: 66.2 kg | Body Fat: 9.6 kg (12.6%) | Max Safe Cut Floor (5% BF): 69.7 kg      |
++------------------------------------------------------------------------------------------+
+| PROJECTED WEIGH-IN WEIGHT (MONTE CARLO CONFIDENCE INTERVAL 90%):                         |
+| [======================== 69.4 kg ─── 70.1 kg ─── 70.9 kg ========================]      |
+|         Safe Target: 69.85 kg -> DANGER: 42% Probability of Weight Miss                  |
+| Planned Acute Water Extraction: 4.8 kg (6.4% TBW) - Stress Level: ELEVATED               |
++------------------------------------------------------------------------------------------+
+
+4. Mathematical Formulas for In-Engine Evaluation
+A. Final Weigh-In Weight Calculation
+
+$$W_{\text{scale}} = W_{\text{base}} - \Delta W_{\text{fat}} - \Delta W_{\text{glycogen}} - (TBW \times %{\text{water_cut}} \times K{\text{sweat}})$$
+Where $K_{\text{sweat}}$ is a fighter trait coefficient ($0.88\text{ to }1.08$, influenced by genetics, sauna level, and thermal gear).
+
+B. Weigh-In Failure States
+If $W_{\text{scale}} > W_{\text{limit}}$ by $< 1.0\text{ kg}$: 2-Hour Scale Grace Window. Athlete can run/sweat off the excess at the cost of $-25%$ base Stamina on fight night.
+If $W_{\text{scale}} > W_{\text{limit}}$ by $\ge 1.0\text{ kg}$: Purse Forfeit Fine (20–30%) paid to opponent. Fight switches to Catchweight status; cannot contest or defend title belts.
+If $W_{\text{scale}} > W_{\text{limit}}$ by $\ge 2.5\text{ kg}$: Bout Cancellation by Athletic Commission on health and safety grounds. Fighter loses purse, camp pays cancellation penalty, gym loses 10 Prestige.
+C. In-Fight Penalties from Severe Weight Cuts
+
+When acute water loss exceeds safe physiological limits:
+$$\text{Water_Deficit} = \max\left(0.0,, %{\text{water_cut}} - %{\text{safe_cap}}\right)$$
+$$\text{Chin_Penalty} = 1.0 - (4.5 \times \text{Water_Deficit}) \implies \text{Chance of KO knockdown increases}$$
+$$\text{Stamina_Max_Penalty} = 1.0 - (3.0 \times \text{Water_Deficit})$$
+$$\text{Punch_Power_Penalty} = 1.0 - (1.5 \times \text{Water_Deficit})$$
+
+Example: A fighter making a $9.5%$ water cut on a $7.0%$ safe limit runs a $2.5%$ ($0.025$) deficit:
+
+Chin durability drops by: $1.0 - (4.5 \times 0.025) = 0.8875$ ($-11.25%$ reduction in concussion resistance).
+Max stamina cap drops by: $1.0 - (3.0 \times 0.025) = 0.925$ ($-7.5%$ to maximum aerobic gas tank).
+SECTION D - WEEK PLANNER BLOCK DETAILS
+1. Structural Architecture: The 3-Block Day
+
+The calendar operates on 7 days/week, with 3 discrete training blocks per day:
+
+Morning (08:30 – 11:00): Conditioning, Aerobic Base, Roadwork, Dynamic Mobility.
+Afternoon (14:00 – 16:30): Primary Technical Skill, Padwork, Drilling, Sparring.
+Evening (18:00 – 20:00): S&C, Hypertrophy, Active Recovery, Tactical Tape Study.
+Total slots per week: 21 allocatable training blocks.
++--------------------------------------------------------------------------------------------------------------------------+
+|                                           TRAINING BLOCK SPECIFICATION MATRIX                                            |
++---------------------+-------------------+---------------------+------------------+-------------------+-------------------+
+| Block Name          | Primary Gain      | Secondary Gain      | Fatigue Induced  | Base Injury Risk  | Morale Modifier   |
++---------------------+-------------------+---------------------+------------------+-------------------+-------------------+
+| **Hard Sparring**   | Tactical Ring-IQ  | Chin/Poise & Reflex | $+35\text{ FTG}$ | $3.2\%$ per block | $-4$ (Grueling)   |
+| **Technical Pads**  | Accuracy & Combos | Punch Power Speed   | $+18\text{ FTG}$ | $0.4\%$ per block | $+3$ (Flow)       |
+| **Heavy Bag Power** | Punch Power       | Muscular Endurance  | $+20\text{ FTG}$ | $0.8\%$ per block | $0$ (Neutral)     |
+| **Slip / Defense**  | Head Movement     | Footwork/Distance   | $+12\text{ FTG}$ | $0.2\%$ per block | $+2$ (Mastery)    |
+| **S&C Maximum**     | Peak Strength     | Kinetic Force       | $+28\text{ FTG}$ | $1.8\%$ per block | $-2$ (Exhausting) |
+| **Zone-2 Roadwork** | Aerobic Capacity  | Weight Burn (Lipid) | $+14\text{ FTG}$ | $0.3\%$ per block | $+1$ (Clear Head) |
+| **Tactical Film**   | Gameplan Adapt    | Opponent Counters   | $+2\text{ FTG}$  | $0.0\%$ per block | $+2$ (Confidence) |
+| **Active Recovery** | Fatigue Clear -30 | Flexibility / Mob   | $-30\text{ FTG}$ | $0.05\%$ per block| $+5$ (Freshness)  |
+| **Total Rest**      | Fatigue Clear -50 | Systemic Hormone Rec| $-50\text{ FTG}$ | $0.0\%$ per block | $+6$ (Recharge)   |
++---------------------+-------------------+---------------------+------------------+-------------------+-------------------+
+
+2. Conflict Rules & Recovery Constraints
+Fatigue Compounding ($FTG$): Tracks from $0$ to $100$. If a fighter enters a block with $FTG > 60$, any newly gained fatigue is scaled by $1.4\times$. If $FTG > 80$, the athlete enters an Overtrained State (skill gains drop to $0$, injury chance spikes by $4.0\times$).
+Impact Consolidation Rule: High-impact blocks (Hard Sparring, S&C Maximum) cannot be scheduled back-to-back on the same calendar day. Doing so triggers an instant $+10%$ soft-tissue injury check.
+Minimum Recovery Rule: An athlete requires at least 3 complete Rest/Recovery blocks per week to keep their endocrine profile and morale from decaying.
+3. Simulation Handover & Auto-Pause Triggers
+
+When the player hits "Run Week", the game runs through the 2-minute real-time gym floor loop:
+
+Station Contention Check: Verifies whether the fighter’s assigned station is free or occupied by a civilian member (based on Member Access Policies).
+Auto-Pause Event Triggers:
+Medical Emergency: Fighter suffers an injury in sparring (Cut, Concussion, Ankle Sprain).
+Fatigue Spike: Fighter's $FTG$ hits $85$ due to bad weight-cut recovery, warning the player to pull them from the session.
+Sparring Knockdown: Either the fighter or their sparring partner gets dropped.
+4. Sample Schedule: Boxer 5 Weeks Out from Title Fight
+
+Goal: Build power, lock down the fight plan, and maintain a $-0.75%\text{ BW}$ cutting deficit without overtraining.
+
++--------------------------------------------------------------------------------------------------------------------------+
+| DAY       | MORNING (08:30 - 11:00)       | AFTERNOON (14:00 -
+
+Can you complete the measurable osoto-gari validation plan, including timelines, anchors, release logic, and pass/fail thresholds?
+Can you finish the detailed judo and BJJ specs for submissions, escapes, guard passing, leg locks, and submission chains?
+Can you provide the eight numeric realism cues for kickboxing, karate, judo, and BJJ, formatted as automated tests?
+Can you create a clear technical diagram showing the two-fighter contact-anchor, hip-relationship, and deferred-pose pipeline?

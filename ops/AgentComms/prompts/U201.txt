@@ -1,0 +1,20 @@
+You are working in the git worktree D:/FightCamp/wt/U201 (branch cursor/u201-gf1-card-skills-home) of the FightCamp Godot 4.7.2 game.
+Your task is fully specified in research/TASK_U201_GF1_CARD_SKILLS_HOME.md - read it first, then do it start to finish.
+
+Key points (the task file wins if anything differs):
+- Goal: every number on the fighter card (overview), the skill tree and the home fighter card gets a hover that says
+  what it is and what it controls - through the EXISTING tooltip system (UIKit.tip, TipLayer, Glossary). No new
+  on-screen text except a scale where a bar has none.
+- Edit ONLY the owned files and ONLY the named functions. ProfileRevampPanel.gd (3724 lines) and UIKit.gd (8308) are
+  huge and shared - read sed -n windows, never whole. Qwen is editing the offers/camp screens right now (Q219): do not
+  touch ScheduleHubPanel.gd, FightCampPanel.gd, AmateurMatchmaking.gd or GameState.gd.
+- Glossary entries: short <= 15 words, why <= 12 words (tests/menu_clarity_test.gd enforces it). A tooltip says only
+  what the CODE does - grep the engine for the stat before you word it.
+- The .godot import cache is already in the worktree. Parse gate before any test:
+  python Godot/tools/check_scripts.py Godot/scripts/ProfileRevampPanel.gd Godot/scripts/SkillsMovesPanel.gd Godot/scripts/DayFeedPanel.gd Godot/scripts/Glossary.gd Godot/scripts/UIKit.gd
+- One test: "%LOCALAPPDATA%\Programs\Godot\Godot_v4.7.2-stable_win64_console.exe" --headless --path Godot --script tests/gf1_card_skills_tips_test.gd
+- At the end: python Godot/tools/run_tests.py --jobs 2 --only menu_clarity,profile_revamp,fighter_card,skills_moves_screen,skill_tree,day_feed_screen,gf1_card
+  (wait on the runner's exit), then the career-walk stills (command in the task file) and look at 08, 13 and 14.
+- git add the changed/new files explicitly by path (never `git add .`, never Godot/.godot), commit, and
+  git push -u origin cursor/u201-gf1-card-skills-home.
+Do not stop at "written": run the tests yourself and finish with the push.

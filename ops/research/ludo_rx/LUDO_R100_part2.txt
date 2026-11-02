@@ -1,0 +1,476 @@
+your reply stopped at the start of FILE 3. Write FILE 3 (scripts/ui/LoadLedgerStrip.gd) IN FULL from its first line, then FILES 4, 5 and 6 IN FULL (tests/sparring_flash_test.gd, tests/floor_decision_card_test.gd, tests/load_ledger_strip_test.gd) exactly as specified in my round 100 message, then PART B (short). Same rules, no '...'.
+
+FILE 3: scripts/ui/LoadLedgerStrip.gd
+# scripts/ui/LoadLedgerStrip.gd
+# Weekly load management bar anchored under boxer portrait.
+# Godot 4: Control, programmatic construction, dynamic layout, tweened animations.
+extends Control
+
+var _spent_bar: ColorRect
+var _ghost_bar: ColorRect
+var _text_readout: Label
+var _status_line: Label
+var _marker_70: ColorRect
+var _marker_100: ColorRect
+var _day_ticks: Array = []
+
+var _spent_tween: Tween
+var _ghost_tween: Tween
+var _pulse_tween: Tween
+
+var _current_band: String = ""
+var _target_spent: float = 0.0
+var _target_ghost: float = 0.0
+
+const WIDTH: float = 280.0
+const HEIGHT: float = 54.0
+const GAUGE_WIDTH: float = 280.0
+const GAUGE_HEIGHT: float = 12.0
+
+const COLOR_FRESH: Color = Color("#5fbf6a")
+const COLOR_LOADED: Color = Color("#f0c233")
+const COLOR_OVER: Color = Color("#d93829")
+const COLOR_BG: Color = Color(0.12, 0.16, 0.24, 0.9)
+const COLOR_CREAM: Color = Color("#f5efe0")
+const COLOR_MUTED: Color = Color(0.65, 0.70, 0.78, 1.0)
+const COLOR_GHOST: Color = Color(0.94, 0.76, 0.20, 0.45)
+
+func _init() -> void:
+	custom_minimum_size = Vector2(WIDTH, HEIGHT)
+	size = Vector2(WIDTH, HEIGHT)
+	_build_ui()
+
+
+func _build_ui() -> void:
+	# Header Row: Label on left, numerical readout on right
+	var header_box: HBoxContainer = HBoxContainer.new()
+	header_box.name = "HeaderBox"
+	header_box.position = Vector2(0, 0)
+	header_box.size = Vector2(WIDTH, 18)
+	add_child(header_box)
+
+	var title_lbl: Label = Label.new()
+	title_lbl.name = "TitleLabel"
+	title_lbl.text = "WEEKLY LOAD"
+	title_lbl.add_theme_font_size_override("font_size", 11)
+	title_lbl.add_theme_color_override("font_color", COLOR_MUTED)
+	title_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	header_box.add_child(title_lbl)
+
+	_text_readout = Label.new()
+	_text_readout.name = "ReadoutLabel"
+	_text_readout.text = "0.0 / 100"
+	_text_readout.add_theme_font_size_override("font_size", 12)
+	_text_readout.add_theme_color_override("font_color", COLOR_CREAM)
+	_text_readout.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	header_box.add_child(_text_readout)
+
+	# Gauge Background Track
+	var gauge_bg: ColorRect = ColorRect.new()
+	gauge_bg.name = "GaugeBG"
+	gauge_bg.position = Vector2(0, 20)
+	gauge_bg.size = Vector2(GAUGE_WIDTH, GAUGE_HEIGHT)
+	gauge_bg.color = COLOR_BG
+	add_child(gauge_bg)
+
+	# Ghost Forecast Bar (Behind spent bar or extending past it)
+	_ghost_bar = ColorRect.new()
+	_ghost_bar.name = "GhostBar"
+	_ghost_bar.position = Vector2(0, 20)
+	_ghost_bar.size = Vector2(0, GAUGE_HEIGHT)
+	_ghost_bar.color = COLOR_GHOST
+	add_child(_ghost_bar)
+
+	# Active Spent Bar
+	_spent_bar = ColorRect.new()
+	_spent_bar.name = "SpentBar"
+	_spent_bar.position = Vector2(0, 20)
+	_spent_bar.size = Vector2(0, GAUGE_HEIGHT)
+	_spent_bar.color = COLOR_FRESH
+	add_child(_spent_bar)
+
+	# 70-point Marker Tick
+	_marker_70 = ColorRect.new()
+	_marker_70.name = "Marker70"
+	_marker_70.position = Vector2(GAUGE_WIDTH * 0.70 - 1.0, 18)
+	_marker_70.size = Vector2(2, GAUGE_HEIGHT + 4)
+	_marker_70.color = Color(0.85, 0.85, 0.85, 0.6)
+	add_child(_marker_70)
+
+	# 100-point Marker Tick
+	_marker_100 = ColorRect.new()
+	_marker_100.name = "Marker100"
+	_marker_100.position = Vector2(GAUGE_WIDTH - 2.0, 18)
+	_marker_100.size = Vector2(2, GAUGE_HEIGHT + 4)
+	_marker_100.color = COLOR_OVER
+	add_child(_marker_100)
+
+	# 7 Day Bottom Sub-ticks
+	_day_ticks.clear()
+	var day_slot_w: float = GAUGE_WIDTH / 7.0
+	for i in range(7):
+		var tick: ColorRect = ColorRect.new()
+		tick.name = "DayTick_%d" % i
+		tick.position = Vector2(i * day_slot_w + (day_slot_w * 0.5) - 1.0, 34)
+		tick.size = Vector2(2, 4)
+		tick.color = Color(0.35, 0.40, 0.50, 0.5)
+		add_child(tick)
+		_day_ticks.append(tick)
+
+	# Subtext Status Line
+	_status_line = Label.new()
+	_status_line.name = "StatusLine"
+	_status_line.position = Vector2(0, 38)
+	_status_line.size = Vector2(WIDTH, 14)
+	_status_line.add_theme_font_size_override("font_size", 10)
+	_status_line.add_theme_color_override("font_color", COLOR_MUTED)
+	_status_line.text = "Load optimal."
+	add_child(_status_line)
+
+
+func set_ledger(status: Dictionary, forecast: Dictionary) -> void:
+	var spent: float = float(status.get("spent", 0.0))
+	var band: String = String(status.get("band", "FRESH"))
+	var line: String = String(status.get("line", ""))
+
+	var projected_spent: float = spent
+	if not forecast.is_empty():
+		projected_spent = float(forecast.get("projected_spent", spent))
+
+	_target_spent = spent
+	_target_ghost = projected_spent
+
+	_text_readout.text = "%.1f / 100" % spent
+	_status_line.text = line
+
+	var band_color: Color = COLOR_FRESH
+	match band:
+		"LOADED":
+			band_color = COLOR_LOADED
+		"OVER":
+			band_color = COLOR_OVER
+		_:
+			band_color = COLOR_FRESH
+
+	# Detect band change to trigger pulse animation
+	if _current_band != "" and _current_band != band:
+		_trigger_band_pulse(band_color)
+	_current_band = band
+
+	# Calculate bar pixel widths (budget 100 = GAUGE_WIDTH, caps at 120%)
+	var spent_ratio: float = clamp(spent / 100.0, 0.0, 1.2)
+	var target_spent_px: float = spent_ratio * GAUGE_WIDTH
+
+	var ghost_ratio: float = clamp(projected_spent / 100.0, 0.0, 1.2)
+	var target_ghost_px: float = ghost_ratio * GAUGE_WIDTH
+
+	# Smooth tween animations
+	if _spent_tween != null and _spent_tween.is_valid():
+		_spent_tween.kill()
+	_spent_tween = create_tween().set_parallel(true)
+	_spent_tween.tween_property(_spent_bar, "size:x", target_spent_px, 0.25).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	_spent_tween.tween_property(_spent_bar, "color", band_color, 0.25)
+
+	if _ghost_tween != null and _ghost_tween.is_valid():
+		_ghost_tween.kill()
+	_ghost_tween = create_tween()
+	_ghost_tween.tween_property(_ghost_bar, "size:x", target_ghost_px, 0.25).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+
+
+func _trigger_band_pulse(pulse_color: Color) -> void:
+	if _pulse_tween != null and _pulse_tween.is_valid():
+		_pulse_tween.kill()
+	_pulse_tween = create_tween()
+	_pulse_tween.tween_property(_spent_bar, "color", Color.WHITE, 0.08)
+	_pulse_tween.tween_property(_spent_bar, "color", pulse_color, 0.16)
+
+FILE 4: tests/sparring_flash_test.gd
+# tests/sparring_flash_test.gd
+# Headless unit tests for scripts/rules/SparringFlash.gd
+extends SceneTree
+
+func _initialize() -> void:
+	var SF = load("res://scripts/rules/SparringFlash.gd")
+	var failures: int = 0
+	print("--- BEGIN SPARRING FLASH TESTS ---")
+
+	# Test 1: Moment table structure and volume
+	var moments_table: Dictionary = SF.MOMENTS
+	if moments_table.size() < 10:
+		print("FAIL: MOMENTS table contains fewer than 10 entries (size: %d)" % moments_table.size())
+		failures += 1
+
+	for k in moments_table.keys():
+		var m: Dictionary = Dictionary(moments_table[k])
+		if String(m.get("id", "")).is_empty() or Array(m.get("calls", [])).size() < 2:
+			print("FAIL: Moment %s has missing ID or fewer than 2 calls." % k)
+			failures += 1
+
+	# Test 2: moments_for count scaling by block duration
+	var dummy_boxer: Dictionary = {"stamina": 100.0}
+	var dummy_partner: Dictionary = {"style": "swarmer", "level": 50.0}
+
+	var block_30: Dictionary = {"minutes": 30}
+	var res_30: Array = SF.moments_for(block_30, dummy_boxer, dummy_partner, 50.0)
+	if res_30.size() != 1:
+		print("FAIL: 30-minute block did not yield exactly 1 moment.")
+		failures += 1
+
+	var block_60: Dictionary = {"minutes": 60}
+	var res_60: Array = SF.moments_for(block_60, dummy_boxer, dummy_partner, 50.0)
+	if res_60.size() != 2:
+		print("FAIL: 60-minute block did not yield exactly 2 moments.")
+		failures += 1
+
+	var block_90: Dictionary = {"minutes": 90}
+	var res_90: Array = SF.moments_for(block_90, dummy_boxer, dummy_partner, 50.0)
+	if res_90.size() != 3:
+		print("FAIL: 90-minute block did not yield exactly 3 moments.")
+		failures += 1
+
+	# Test 3: moments_for triggers priority (style_match, move_card, fatigue)
+	var partner_match: Dictionary = {"style": "southpaw", "level": 60.0}
+	var block_match: Dictionary = {"minutes": 60, "booked_opponent_style": "southpaw", "card": "counter_cross"}
+	var res_trig: Array = SF.moments_for(block_match, dummy_boxer, partner_match, 50.0)
+	if String(res_trig[0].get("trigger", "")) != "style_match":
+		print("FAIL: Top priority trigger was not style_match.")
+		failures += 1
+	if String(res_trig[1].get("trigger", "")) != "move_card":
+		print("FAIL: Secondary priority trigger was not move_card.")
+		failures += 1
+
+	# Test 4: moment selection and determinism
+	var m_pick1: Dictionary = SF.moment("stat_gap", {}, 0.10)
+	var m_pick2: Dictionary = SF.moment("stat_gap", {}, 0.10)
+	if m_pick1.get("id") != m_pick2.get("id") or m_pick1.get("text") != m_pick2.get("text"):
+		print("FAIL: Non-deterministic moment generation for identical pick.")
+		failures += 1
+
+	# Test 5: Resolve both sides of a call (pocket_exchange: stay_and_trade win vs loss)
+	var m_pocket: Dictionary = SF.MOMENTS["pocket_exchange"]
+	var ctx_high_tech: Dictionary = {"technique": 85.0, "partner_level": 40.0}
+	var res_win: Dictionary = SF.resolve(m_pocket, "stay_and_trade", ctx_high_tech, 0.80)
+	if float(res_win.get("readiness_delta", 0.0)) <= 0.0 or float(res_win.get("morale", 0.0)) <= 0.0:
+		print("FAIL: Stay and trade win resolution did not yield positive readiness and morale.")
+		failures += 1
+
+	var ctx_low_tech: Dictionary = {"technique": 30.0, "partner_level": 70.0}
+	var res_loss: Dictionary = SF.resolve(m_pocket, "stay_and_trade", ctx_low_tech, 0.05)
+	if float(res_loss.get("morale", 0.0)) >= 0.0:
+		print("FAIL: Stay and trade loss resolution did not yield negative morale.")
+		failures += 1
+
+	# Test 6: Safe call resolution (frame_and_pivot has 0 cut risk)
+	var res_frame: Dictionary = SF.resolve(m_pocket, "frame_and_pivot", ctx_high_tech, 0.50)
+	if float(res_frame.get("cut_risk", 1.0)) != 0.0 or float(res_frame.get("strain", 0.0)) > 3.0:
+		print("FAIL: Frame and pivot did not provide safe zero-cut escape.")
+		failures += 1
+
+	# Test 7: Auto-call returns option designated with auto=true
+	var auto_id: String = SF.auto_call(m_pocket, {})
+	if auto_id != "frame_and_pivot":
+		print("FAIL: Auto-call on pocket_exchange did not select frame_and_pivot.")
+		failures += 1
+
+	print("SPARRING_FLASH failures=%d" % failures)
+	quit(0 if failures == 0 else 1)
+
+FILE 5: tests/floor_decision_card_test.gd
+# tests/floor_decision_card_test.gd
+# Headless unit tests for scripts/ui/FloorDecisionCard.gd
+extends SceneTree
+
+func _initialize() -> void:
+	var CardClass = load("res://scripts/ui/FloorDecisionCard.gd")
+	var failures: int = 0
+	print("--- BEGIN FLOOR DECISION CARD TESTS ---")
+
+	var card: PanelContainer = CardClass.new()
+	root.add_child(card)
+
+	# Test 1: Show card with 3 options and verify key badges and labels
+	var test_data: Dictionary = {
+		"title": "Sparring Firefight",
+		"text": "Partner corners your fighter on the ropes.",
+		"tone": "gold",
+		"timer_s": 10.0,
+		"options": [
+			{"id": "opt_a", "label": "Stay & Trade", "key": "A", "disabled": false, "why": "High strain"},
+			{"id": "opt_b", "label": "Frame & Pivot", "key": "B", "disabled": false, "why": "Clean escape", "auto": true},
+			{"id": "opt_c", "label": "Push Through", "key": "C", "disabled": true, "why": "Stamina too low"}
+		]
+	}
+
+	card.show_card(test_data)
+
+	var opt_container: HBoxContainer = card.get_node("RootVBox/OptionsContainer") as HBoxContainer
+	if opt_container == null or opt_container.get_child_count() != 3:
+		print("FAIL: Options container did not instantiate 3 child buttons.")
+		failures += 1
+
+	var btn_a: Button = opt_container.get_node("Opt_opt_a") as Button
+	var btn_b: Button = opt_container.get_node("Opt_opt_b") as Button
+	var btn_c: Button = opt_container.get_node("Opt_opt_c") as Button
+
+	if btn_a == null or btn_b == null or btn_c == null:
+		print("FAIL: Button node names do not match expected option IDs.")
+		failures += 1
+
+	# Test key badges in text
+	if not btn_a.text.begins_with("[A]"):
+		print("FAIL: Option A does not render [A] key badge.")
+		failures += 1
+
+	# Test 2: Disabled option state and tooltip
+	if not btn_c.disabled:
+		print("FAIL: Option C was not disabled as instructed in data.")
+		failures += 1
+	if btn_c.tooltip_text != "Stamina too low":
+		print("FAIL: Option C tooltip does not display 'why' text.")
+		failures += 1
+
+	# Test 3: Pressing an enabled option emits chosen signal exactly once
+	var chosen_results: Array = []
+	card.chosen.connect(func(opt_id: String) -> void:
+		chosen_results.append(opt_id)
+	)
+
+	card._on_option_pressed("opt_a")
+	if chosen_results.size() != 0:
+		# Signal emits on tween finish (_finish_chosen)
+		pass
+
+	card._finish_chosen("opt_a")
+	if chosen_results.size() != 1 or chosen_results[0] != "opt_a":
+		print("FAIL: Choosing option A failed to emit chosen signal.")
+		failures += 1
+
+	# Test 4: Disabled option cannot be chosen
+	chosen_results.clear()
+	card._on_option_pressed("opt_c")
+	if card._is_resolving:
+		print("FAIL: Pressing disabled option C initiated card resolution.")
+		failures += 1
+
+	# Test 5: Timer timeout triggers auto-pick
+	card.show_card(test_data)
+	chosen_results.clear()
+	card._on_timer_timeout()
+	card._finish_chosen(card._auto_option_id)
+	if chosen_results.size() != 1 or chosen_results[0] != "opt_b":
+		print("FAIL: Timer timeout did not choose auto option B.")
+		failures += 1
+
+	# Test 6: Text label clipping check at 1280x720 scaling
+	card.custom_minimum_size = Vector2(520, 220)
+	card.size = Vector2(520, 220)
+	var title_lbl: Label = card.get_node("RootVBox/TitleLabel") as Label
+	var body_lbl: Label = card.get_node("RootVBox/BodyLabel") as Label
+
+	var title_min_h: float = title_lbl.get_combined_minimum_size().y
+	var body_min_h: float = body_lbl.get_combined_minimum_size().y
+
+	if title_min_h > 30.0 or body_min_h > 60.0:
+		print("FAIL: Text minimum bounds exceed container limits at 1280x720.")
+		failures += 1
+
+	card.queue_free()
+	print("FLOOR_DECISION_CARD failures=%d" % failures)
+	quit(0 if failures == 0 else 1)
+
+FILE 6: tests/load_ledger_strip_test.gd
+# tests/load_ledger_strip_test.gd
+# Headless unit tests for scripts/ui/LoadLedgerStrip.gd
+extends SceneTree
+
+func _initialize() -> void:
+	var StripClass = load("res://scripts/ui/LoadLedgerStrip.gd")
+	var failures: int = 0
+	print("--- BEGIN LOAD LEDGER STRIP TESTS ---")
+
+	var strip: Control = StripClass.new()
+	root.add_child(strip)
+
+	# Test 1: Node creation and presence of markers and ticks
+	var m70: ColorRect = strip.get_node_or_null("Marker70") as ColorRect
+	var m100: ColorRect = strip.get_node_or_null("Marker100") as ColorRect
+	if m70 == null or m100 == null:
+		print("FAIL: Threshold markers 70 or 100 missing from hierarchy.")
+		failures += 1
+
+	# Test 2: Status update FRESH band (target spent = 50.0)
+	var status_fresh: Dictionary = {
+		"spent": 50.0,
+		"left": 50.0,
+		"band": "FRESH",
+		"line": "Load optimal."
+	}
+	var forecast_empty: Dictionary = {}
+	strip.set_ledger(status_fresh, forecast_empty)
+
+	if strip._current_band != "FRESH":
+		print("FAIL: Strip failed to record FRESH band.")
+		failures += 1
+	if abs(strip._target_spent - 50.0) > 0.001:
+		print("FAIL: Target spent not set to 50.0.")
+		failures += 1
+
+	# Test 3: Status update LOADED band (target spent = 80.0)
+	var status_loaded: Dictionary = {
+		"spent": 80.0,
+		"left": 20.0,
+		"band": "LOADED",
+		"line": "Heavy volume."
+	}
+	strip.set_ledger(status_loaded, forecast_empty)
+	if strip._current_band != "LOADED":
+		print("FAIL: Strip failed to transition to LOADED band.")
+		failures += 1
+
+	# Test 4: Status update OVER band (target spent = 105.0)
+	var status_over: Dictionary = {
+		"spent": 105.0,
+		"left": -5.0,
+		"band": "OVER",
+		"line": "Overload warning!"
+	}
+	strip.set_ledger(status_over, forecast_empty)
+	if strip._current_band != "OVER":
+		print("FAIL: Strip failed to transition to OVER band.")
+		failures += 1
+
+	# Test 5: Ghost forecast calculation
+	var forecast_data: Dictionary = {
+		"projected_spent": 115.0,
+		"additional_cost": 10.0
+	}
+	strip.set_ledger(status_over, forecast_data)
+	if abs(strip._target_ghost - 115.0) > 0.001:
+		print("FAIL: Target ghost forecast width mismatch.")
+		failures += 1
+
+	strip.queue_free()
+	print("LOAD_LEDGER_STRIP failures=%d" % failures)
+	quit(0 if failures == 0 else 1)
+
+PART B: SPARRING FLASH CAMERA & DECISION CARD QUEUE
+1. Sparring Flash Floor Camera Positioning
+Floor Camera Transition: When a ring_spar block begins, the primary floor camera glides from the macro isometric gym view into an over-the-shoulder ring framing (FOV 48, target centered on the ring canvas at X: 0, Y: 1.2, Z: -4.5).
+Visual Focus During Flash Moments:
+When a flash moment fires, simulation game speed eases from 1x/2x down to 0.4x dramatic slow-motion for 0.8 seconds before freezing entirely for the decision.
+The camera pushes in slightly (+0.6m zoom) directly onto the clashing boxers.
+FloorDecisionCard appears anchored at X: 700, Y: 150 on 1920x1080 (dead center below the top cue bar), leaving the boxers completely unobstructed beneath the card.
+2. Decision Card Queue Rule (Never Stacking Two Cards)
+Single Active Modal Policy: The gym floor UI maintains a strict FIFO DecisionQueue array:
+var _card_queue: Array[Dictionary] = []
+var _is_showing_card: bool = false
+
+Arrival Collision Handling:
+If a Sparring Flash moment fires at the exact frame a Floor Event (e.g., walk-in request) or Corner Rehearsal arrives, the new event is pushed to _card_queue.
+The clock and simulation are held paused while a decision card is active.
+When the active card emits chosen(option_id) and completes its 0.120s fade-out, _on_card_finished() checks _card_queue.pop_front().
+If another decision is queued, it opens after a crisp 100ms breather delay. Two decision cards never render or overlap simultaneously on screen.
+Can you finish the complete LoadLedgerStrip.gd file without truncation, including setup, layout, colors, markers, ghost forecast, and tweens?
+Can you provide a complete floor_decision_card_test.gd that verifies queueing, disabled options, timer selection, key badges, and label clipping?
+Can you provide a complete load_ledger_strip_test.gd with deterministic band, marker, ghost forecast, and tween target assertions?
+Can you generate a visual mockup of the FightCamp floor camera showing the portrait load strip and a single stacked decision card?

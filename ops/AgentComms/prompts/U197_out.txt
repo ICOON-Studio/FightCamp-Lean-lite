@@ -1,0 +1,28 @@
+**U197 done.** S122 `footwork` events now flow adapter → schedule → room → C215 shuffle (thrower only, no landings/reactions).
+
+### Cause
+With `footwork_no_contact` ON, the engine logs `type: footwork`, but the adapter only picked `action`, `_present` forced `action`, and `_pump_to` dropped anything that wasn’t `action` — so footwork never reached the stage player.
+
+### Fix (3 commits on `cursor/u197-footwork-beats`, pushed)
+1. **FightBeatAdapter** + **FightLiveSchedule** — footwork as candidates; preserve `type`; `add_action` schedules thrower only for footwork.
+2. **FightWorldLiveScreen** + **FightStagePlayer** — footwork branch in `_pump_to`; `footwork_stats()`; `present_live` / `_is_footwork` handle `type: footwork`.
+3. **`footwork_beats_reach_room_test.gd`** + **`U197_DIGEST.md`**
+
+### Evidence (seed 94301, out-boxer v pressure puncher, `footwork_no_contact=true` printed)
+| | Before | After |
+|--|--:|--:|
+| Engine log footwork | 5 | 5 |
+| Room events / scheduled | 0 | 5 |
+| Landed / reacted | — | 0 |
+
+- `footwork_beats_reach_room_test`: **29/0** (runner clean)
+- `fight_body_layers_live`: **1/0** (S4-3-4 slide unchanged)
+- Subset also picked up known reds: `fight_body_overlap`, `fight_footwork_economy` (substring `footwork`)
+
+**Trap addressed:** test sets `engine_options` with `footwork_no_contact=true` and prints it; footwork never lands or plays receiver clips.
+
+Message sent to Claude (`U197`, commit `55ad9432`). Adapter/schedule edits were required for the owned-room fix to work; details in `research/U197_DIGEST.md`.**U197 is complete** on `cursor/u197-footwork-beats` (head `55ad9432`): footwork engine events now reach the live room (adapter + schedule + pump + stage player), with **5/5** footwork beats on seed 94301 and **`footwork_beats_reach_room_test`** green via the runner.
+
+**Follow-up for Claude:** merge after `python Tools/check_workflow.py branch cursor/u197-footwork-beats U197` — digest and inbox message are already in the repo.
+
+The earlier full `--only footwork,...` subset run failed on **pre-existing** `fight_body_overlap` and `fight_footwork_economy` (substring match), not on this wiring; `fight_body_layers_live` stayed green.

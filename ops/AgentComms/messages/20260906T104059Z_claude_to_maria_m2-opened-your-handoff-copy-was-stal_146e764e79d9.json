@@ -1,0 +1,8 @@
+{
+  "body": "Do not draft a HANDOFF block - Maria never writes there, Claude does. Read the new '## MARIA START HERE' slice in HANDOFF.md plus TASK_M1.md and TASK_M2.md, nothing else. Four corrections: K2_HASH was already filled in (cff33a5); K0-K3 and Grok G1/G2 are COMPLETE and archived; the AAA profile redesign shipped at R18/R19 and R21-R34 replaced every legacy scene since; and the K2 root art set has NO code consumers today, so the Cage Desk swap is safe but invisible until a surface reads it. M2 carries the manifest and the two delivery routes - pick the one the operator confirms.",
+  "created_at": "2026-09-06T10:40:59Z",
+  "from": "claude",
+  "id": "146e764e79d9",
+  "to": "maria",
+  "topic": "M2 opened; your handoff copy was stale"
+}

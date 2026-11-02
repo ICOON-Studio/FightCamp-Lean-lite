@@ -1,0 +1,225 @@
+FightCamp round 62 - two design answers from our team for YOUR review before the operator approves anything. One image attached: Maria's 12-kit board (trunks/boots/gloves swatches).
+
+PART 1 - MARIA (art director), M43: telling the two boxers apart on the broadcast camera - 12 kits for our MetaHuman boxers (men and women), Epic MetaHuman Hightops boots tinted per kit, colour-blind-safe pairs, a matchmaking clash rule. Her text (her computed contrast matrices and source list are left out for length; she computed dE2000 for normal, protan, deutan and warm-light vision):
+
+# FightCamp: Boxer kit art direction (M43)
+
+**From:** Maria, Art Director
+**Scope:** Art direction only. No game code.
+**View:** 3D bout, TV-style broadcast camera (wide, slightly high). 12 MetaHuman boxers (men and women). Warm-lit ring, dark crowd. Every boxer wears Epic's MetaHuman Hightops boxing boots, tinted per kit.
+**Goal:** the operator can tell the two boxers apart at a glance, in stills and in motion, at 1920x1080 and on a phone.
+
+Conventions in this document:
+- **EXAMPLE** marks an invented name, string or target value (all kit names, the environment target colours, and every hex in this doc are our own design choices, not real-world standards).
+- **NOT VERIFIED** marks any real-world claim I could not source.
+- Teal is reserved for the game UI. No kit uses teal or teal-adjacent cyan-green.
+- Gym walls are brick red `#b8402e`. They're shown for context only and aren't a kit constraint (see the note in §4).
+
+---
+
+## 1. Rule set
+
+### 1.1 What real promotions and federations do (sourced)
+
+| Claim | Source |
+|---|---|
+| Amateur (IBA, formerly AIBA): boxers wear a red or blue vest and shorts matching their corner allocation. Gloves (and headguard where worn) also match the corner. Allowed shades are Red Pantone 185, 199 or 485 and Blue Pantone 286, 293 or 661. The belt line of the shorts must be white and 6–10 cm wide. | AIBA Open Boxing Competition Rules 2015, §19.1, §20.2, §22.3–22.4: https://www.iba.sport/wp-content/uploads/2015/02/AOB-Competition-Rules-2015-09-11.pdf ; 2016 edition §20.1, §23.3–23.4: http://www.boxingscotland.org/version2/wp-content/uploads/2015/10/AIBA_AOB_RULES_2016-11-17.pdf |
+| The current IBA Technical & Competition Rules took effect on 15 April 2026 and have a section on athlete competition uniform (§49). | https://www.iba.sport/about-iba/boxing-rules/ and https://www.iba.sport/wp-content/uploads/2026/06/20260415-IBA-Technical-Competition-Rules.pdf. I only saw the table of contents. **NOT VERIFIED:** that the 2026 text keeps the exact Pantone list and white belt line from the 2015/2016 rules. |
+| Nevada (pro): "The unarmed combatants may not wear the same colors in the ring … without the approval of the Executive Director or the Executive Director's designee." (NRUC 4.020(2)) | https://www.boxing.nv.gov/siteassets/faq/sections/2024-11-20-NRUC-OFFICIAL-FINAL.pdf |
+| ABC (pro): the ring has red and blue corners ("buckets and stairs in red and blue corners"). The referee inspects trunks. | ABC Regulatory Guidelines: https://www.abcboxing.com/abc-regulatory-guidelines/ |
+| ABC judges are told to make sure they can identify the fighters, "especially if they have the same color trunks." So in pro boxing under ABC, matching trunks can happen and is handled by officials. | ABC Boxing Judge Manual 2024: https://www.abcboxing.com/wp-content/uploads/2024/09/abc-boxing-judge-manual-2024.pdf |
+| A.P.B.C. rule 1.18: boxers must bring two pairs of trunks in different colours, and the Inspector decides any colour clash. This is a real precedent for our alternate-kit rule. | https://apbcboxing.com/?page_id=28 |
+| WBC rules on trunk colour or corner colour. | **NOT VERIFIED.** I didn't find a source. |
+| Olympic boxing red/blue rules beyond the IBA/AIBA documents above (for example, the 2024 Paris rules under the IOC Boxing Unit). | **NOT VERIFIED** |
+| Pro broadcasts in general put the favourite or champion in the red corner. | **NOT VERIFIED.** It's a common belief, but I found no source. Don't present it as fact in-game. |
+
+### 1.2 FightCamp corner logic (our design decision)
+1. **Pro bouts (default):** boxers wear their **personal kit** (one of the 12 below). This matches the sourced pro practice: personal outfits, approved by the commission, with no same-colour clash (Nevada) and a second pair available (A.P.B.C.).
+2. The **red/blue corner is a UI and data concept**: the corner pad, the stool, the bucket, the scorecard header and the UI side colour. We don't put it on the boxer's body in pro bouts.
+3. **Amateur or tournament mode (optional EXAMPLE mode):** override every kit with a corner kit. Red corner = vest/trunks `#c8102e`, blue corner = `#1f45c8`, both with a white `#f4f4f2` waistband 6–10 cm tall in world scale, and gloves that match the corner. Our hexes are screen approximations of the sourced Pantone ranges, not official conversions.
+4. If two kits clash under §1.3, the **away boxer** switches to their alternate (§5).
+
+### 1.3 Minimum contrast (numbers)
+Everything below was computed in Python (colorspacious 1.1.2 plus my own CIEDE2000 implementation, which matches Sharma's published test pair: 2.0425). CVD simulation uses Machado 2009 at severity 100 (full dichromacy).
+
+**Environment targets (all EXAMPLE assumptions, not measured):**
+- Ring canvas: `#cfcac2` (warm light grey)
+- Ropes: `#e6e3de` (off-white)
+- Crowd, average under house lights down: `#1c1916`
+- Warm ring light: a multiply by `#ffb674` in linear light. That's the Tanner Helland approximation of 3200K, with no white-balance correction, so it's a deliberately harsh worst case.
+
+**Boxer vs boxer (trunk base colours). A pair is SAFE only if all three hold:**
+- **R1, colour:** CIEDE2000 ΔE00 ≥ **20** in the *worst* of six conditions: normal, protan, deutan, warm, warm+protan, warm+deutan. (Tritan is computed and reported, but because it's rare it doesn't gate a pair.)
+- **R2, luminance (greyscale and colour-blind proof):** WCAG relative-luminance contrast ratio ≥ **1.5:1** between the two trunk bases.
+- **R3, structure:** both waistbands are different. One is light (Y > 0.4) and one is dark (Y < 0.1), or they differ in hue by ΔE00 ≥ 30.
+
+**Boxer vs environment (base or waistband):**
+- **E1:** each trunk base must reach ΔE00 ≥ 20 **or** WCAG ≥ 3:1 against the canvas. The high camera puts the canvas behind the hips. If the base fails, the waistband *and* the trim must pass at WCAG ≥ 3:1.
+- **E2:** the same rule against the crowd, which sits behind the torso in tight shots and near the ropes.
+- **E3:** against the ropes, the base must reach ΔE00 ≥ 15 or have a dark trim (the ropes cross the trunks in corner shots).
+- Kits that fail a base-level rule (White, Silver and Gold on canvas; Black on crowd) are fixed by the waistband and trim colours in §2, as noted per kit.
+
+Why 20? ΔE00 ≈ 2 is a just-noticeable difference side by side. Mid-motion on a phone at about 40 px per boxer, we need about 10× that. 20 also matches where pairs *look* different in the swatch PNG (my judgement, not a standard).
+
+---
+
+## 2. The twelve kits (all names and hexes EXAMPLE)
+
+| Kit | Trunks base | Trim | Waistband | Boots (shoe) | Socks | Gloves | Hand-tape |
+|---|---|---|---|---|---|---|---|
+| K01 Crimson | `#c8102e` | `#f4f4f2` | `#f4f4f2` | `#c8102e` | `#f4f4f2` | `#c8102e` | `#f4f4f2` |
+| K02 Royal Blue | `#1f45c8` | `#f4f4f2` | `#f4f4f2` | `#1f45c8` | `#f4f4f2` | `#1f45c8` | `#f4f4f2` |
+| K03 White | `#f4f4f2` | `#121212` | `#121212` (fixes canvas) | `#f4f4f2` | `#121212` | `#121212` | `#f4f4f2` |
+| K04 Black | `#121212` | `#f5c400` | `#f5c400` (fixes crowd) | `#121212` | `#121212` | `#f5c400` | `#f4f4f2` |
+| K05 Gold | `#f5c400` | `#121212` | `#121212` (fixes canvas) | `#f5c400` | `#121212` | `#121212` | `#f4f4f2` |
+| K06 Purple | `#5b2a8c` | `#f5c400` | `#f5c400` (fixes crowd) | `#5b2a8c` | `#f4f4f2` | `#5b2a8c` | `#f4f4f2` |
+| K07 Kelly Green | `#1b8a2e` | `#f4f4f2` | `#f4f4f2` | `#1b8a2e` | `#f4f4f2` | `#121212` | `#f4f4f2` |
+| K08 Magenta | `#d6197f` | `#121212` | `#121212` | `#d6197f` | `#121212` | `#d6197f` | `#f4f4f2` |
+| K09 Orange | `#ff6a13` | `#121212` | `#121212` | `#121212` | `#121212` | `#ff6a13` | `#f4f4f2` |
+| K10 Silver | `#a7abb0` | `#121212` | `#121212` (fixes canvas) | `#a7abb0` | `#121212` | `#121212` | `#f4f4f2` |
+| K11 Sky Blue | `#6fb3ee` | `#1f45c8` | `#1f45c8` | `#6fb3ee` | `#f4f4f2` | `#1f45c8` | `#f4f4f2` |
+| K12 Maroon | `#6b0f22` | `#f4f4f2` | `#f4f4f2` (fixes crowd) | `#6b0f22` | `#f4f4f2` | `#f4f4f2` | `#f4f4f2` |
+
+Hand-tape is white on every kit because that's how real tape reads. It's an EXAMPLE choice, not sourced. Hand-tape is mostly hidden by the gloves and is not used to tell boxers apart.
+
+Swatch check: `/workspace/m43/m43_kits.png`. The rows are Normal, Deutan, Protan and Warm 3200K.
+
+## 3. Hightops boot tint rules
+MetaHuman Hightops are tinted per kit in three zones: **shoe**, **laces** and **sole**.
+
+| Kit | Shoe | Laces | Sole |
+|---|---|---|---|
+| K01 Crimson | `#c8102e` | `#f4f4f2` | `#121212` |
+| K02 Royal Blue | `#1f45c8` | `#f4f4f2` | `#121212` |
+| K03 White | `#f4f4f2` | `#121212` | `#121212` |
+| K04 Black | `#121212` | `#f5c400` | `#f4f4f2` |
+| K05 Gold | `#f5c400` | `#121212` | `#121212` |
+| K06 Purple | `#5b2a8c` | `#f5c400` | `#121212` |
+| K07 Kelly Green | `#1b8a2e` | `#f4f4f2` | `#121212` |
+| K08 Magenta | `#d6197f` | `#121212` | `#121212` |
+| K09 Orange | `#121212` | `#ff6a13` | `#121212` |
+| K10 Silver | `#a7abb0` | `#121212` | `#121212` |
+| K11 Sky Blue | `#6fb3ee` | `#1f45c8` | `#121212` |
+| K12 Maroon | `#6b0f22` | `#f4f4f2` | `#121212` |
+
+Rules:
+- **B1:** the sole contrasts with the canvas. A `#121212` sole on the `#cfcac2` canvas computes to WCAG 11.5:1. K04 Black uses a white sole so the black boot doesn't merge with the dark crowd at the apron edge. White on canvas is only 1.48:1, but the black shoe above it outlines it.
+- **B2:** the shoe matches the trunk base, or the trim when the base is too close to the canvas (Orange gets a black shoe, because otherwise the orange would wash out under the warm light).
+- **B3:** the laces use the trim colour so footwork reads as a two-tone shape.
+- **B4:** never use gum or tan soles, or skin-tone shoes (see §4).
+- **B5:** alternate kits re-tint the boots with the same rules. Shoe = alt base, laces = alt trim, sole = black. White soles go only on a black alternate.
+
+---
+
+## 4. What NOT to do
+- **Tan, beige, camel and skin-adjacent colours.** Under a ~3200K multiply, skin and tan converge, so the trunks read as bare skin and the silhouette breaks. This hits every skin tone across our 12 MetaHumans.
+- **Orange-on-orange, gold-on-orange, white-on-gold.** Computed under warm light: Gold vs Orange is ΔE00 18.7 (6.3 with warm+deutan), and White vs Gold is 10.9. Warm light pushes all three toward the same yellow-orange.
+- **Low-luminance navy, maroon, purple or black against the crowd.** Black vs crowd is 1.07:1 (ΔE00 3.4) and Purple vs crowd is 1.8:1. The trunk outline disappears. This is fixed only with a bright waistband and trim.
+- **White or silver on a light canvas without a dark waistband.** White vs canvas is 1.48:1 (ΔE00 9.9) and Silver vs canvas is 1.42:1.
+- **Red vs green or red vs magenta as the only difference between two boxers.** Crimson vs Kelly Green is 2.6 deutan, and Crimson vs Magenta is 8.7 under warm light.
+- **Brick-red and rust kits.** Crimson vs the gym wall `#b8402e` is ΔE00 7.3 (3.9 warm). It's context only, but in gym and training cutscenes a crimson kit melts into the wall. Give it a white trim there.
+- **Teal or cyan-green:** reserved for the UI.
+- **Patterns that shimmer at distance:** fine pinstripes, small checks, houndstooth, tight logo repeats and metallic micro-texture. At 1920x1080 a whole boxer is about 150–250 px tall in the wide shot, and on a phone it's about 40–80 px. Stripes narrower than about 2 px on screen alias against the pixel grid (moiré) and crawl in motion, more so with TAA and temporal upscaling. Rule: the smallest pattern element is ≥ 8 cm in world scale, at most 2 colours per panel, and trim bands ≥ 5 cm.
+- **Glossy satin with strong specular highlights in the base colour.** The highlights go white under the key light and erase the hue. Cap roughness at ≥ 0.45 (EXAMPLE value).
+- **Telling corners apart by glove colour alone.** Gloves are small and move fast. Trunks, waistband and boots are the identification shapes.
+
+---
+
+## 5. Matchmaking (clash) rule
+1. Before the bout, check the two kits against the §2.1 matrix. If the pair is SAFE, both wear their home kits.
+2. If it's a CLASH, the **away** boxer wears their alternate (table above). The alternate uses the same trim logic. A black alt gets a gold `#f5c400` waistband (crowd fix), and a white alt gets a black `#121212` waistband (canvas fix).
+3. If the away alternate *still* clashes (computed cases: Crimson, Kelly Green or Magenta at home vs Maroon or Purple away), the away boxer's alternate is White instead. Computed fallbacks: Crimson vs White alt ΔE00 26.6 / 5.34:1, Kelly Green vs White alt 34.2 / 4.04:1, Magenta vs White alt 22.9 / 4.43:1. All are SAFE.
+4. Never let both boxers wear the same alternate. If both resolve to Black or both to White, the home boxer keeps their home kit.
+5. Amateur/tournament mode skips all of this and uses red/blue corner kits (§1.2).
+
+---
+
+
+PART 2 - KALLI (game designer), K87: the design review's CRITICAL finding 2 - the first corner is played and the camp's plan is the default call:
+
+# K87 - Kalli - The first corner is played
+
+Answer first: the first fight always stops at the first bell. One corner card opens with the camp's plan already selected and a gold edge that says where it came from. The player can confirm it, change it, or let the clock run out, and the call goes in either way. No corner ever opens on NO INSTRUCTION again. Round 2 shows one line naming the call and the boxer visibly does it.
+
+## 1. The first corner, second by second (45 s clock)
+
+- 0.0 s, bell. Fight time freezes. The camera cuts to the corner stool (broadcast cut, 1.0 s). Mara sits; the chief second steps in.
+- 1.0 s. The corner card slides up from the bottom centre. The 3D view stays live behind it; the ring centre is never covered.
+- On the card, top to bottom:
+  - Round strip: "ROUND 1: EVEN" (read-the-round verdict) and her stamina and the worst region as two small bars.
+  - One line from the chief, under 60 characters, from the sim: "She's finding your left early."
+  - THE CALL: three call buttons. The camp's call is lit teal with a gold "FROM CAMP" tag (icon `tent`, tooltip "See the camp that set this call"). Two other calls sit beside it, unlit.
+  - Gold button: "SEND IT" (confirm). Small link: "Change call" is not needed; clicking another button changes it.
+- 1-10 s. Tutorial "how" line (first fight only): "Click a call, or press SEND IT to keep the camp's plan."
+- 10 s. If nothing is clicked, the lit call pulses once. No sound.
+- 30 s. The clock bar turns amber.
+- 45 s, or SEND IT. The call is sent. If the player waited, the card says "Camp's plan sent" for 1 s, so waiting is a choice, not a miss. The card slides down; round 2 bell.
+- Cutman and doctor lanes stay closed in fight 1 unless there is a cut, swelling over the first threshold, or a knockdown (K86 fix 7). If one opens, it gets its own small row under THE CALL with its own default (Ice for swelling, Swab for a cut), so it never adds a second required click.
+
+Why the default is the camp's plan: the player already decided what this fight is about when they set the camp focus. The corner repeats their own plan back to them, so the first corner teaches "your week shows up here" instead of "pick from a menu you have never seen".
+
+## 2. Camp focus to default call
+
+| Camp focus (training plan) | Default corner call | Why |
+|---|---|---|
+| Jab and distance | Keep her long | The camp built range |
+| Pressure and volume | Walk her down | The camp built the engine |
+| Body work | Go to the body | The camp drilled hooks to the body |
+| Counter punching (the drilled 1-2 chain) | Wait and counter | The pad chain fires on her lead |
+| Defence and head movement | Slip and score | The camp built the slip |
+| Conditioning | Bank the round | The camp built late-round gas |
+| No focus set (player skipped the plan) | Hold the centre | The neutral call; card tag reads "COACH'S CALL" in place of "FROM CAMP" |
+
+Scouting adds one thing: if the camp bought the opponent's tell (Elena Perez drops her right when she lunges with the hook), the default call's chief line names it: "Her right drops on the hook. Wait for it." The call is the same; the reason is the scout.
+
+How the player sees it came from the camp:
+- The gold "FROM CAMP" tag on the lit call, with a tooltip "Open the camp that chose this".
+- The same icon (`tent`) appears on the camp focus pin on the training plan wall in the gym, so the link is learned once.
+- On the result card, one line: "Corner calls: 2 of 3 from camp."
+
+## 3. Round 2 after the call
+
+- One line on screen for the first 8 seconds of round 2, under the scorebug: "CALL: WAIT AND COUNTER - from camp" (or "from you" if changed).
+- The boxer visibly does it: each call changes the fight AI's weights for that round only, and the change shows in movement.
+  - Keep her long: more jabs, steps back after each exchange, less time at close range.
+  - Walk her down: forward steps, more punches per minute, stamina drains faster.
+  - Go to the body: dips into hooks to the body; body region on the opponent wears faster.
+  - Wait and counter: stands her ground, fewer leads, the 1-2 chain fires when the opponent jabs.
+  - Slip and score: more head movement, fewer power shots.
+  - Bank the round: lower output, stamina recovers, she clinches when pressed.
+  - Hold the centre: plants in the middle, average output.
+- The read-the-round verdict at the next bell says whether the call worked ("ROUND 2: YOURS - the counter landed 4 times"). Results are never scripted; the call shifts odds, the sim decides.
+
+## 4. Corners 2+ and later fights
+
+First fight:
+- Corner 1: always a stop (as above).
+- Corners 2 and up: also stop, but the card opens with the PREVIOUS call lit (not the camp's) if the player changed it, so a changed plan sticks. Tag reads "FROM YOU".
+- The "how" line shows only in corner 1.
+
+Fights 2 to 4:
+- Every corner is a stop by default.
+- SIM TO RESULT on fight night asks once: "Skip the corner? The camp's plan will be sent every round." Two buttons: "Play the corners" (gold) and "Skip, send the camp's plan". The answer applies to that fight only.
+
+Fight 5 and later:
+- A setting in the corner card itself (small toggle `fast-forward`, tooltip "Auto-send the camp's plan every round"): auto-play the default. With it on, each corner shows the card for 3 seconds with the call that is being sent, then continues. The player can click during those 3 seconds to stop and play the corner.
+- Auto-play always stops anyway when: a knockdown happened in the round, a cut or swelling opens the cutman lane, the doctor is called, the round verdict is "THEIRS" two rounds in a row, or it is the last round of a close fight (scores within one round).
+
+## 5. Three ways it goes wrong, and the guard
+
+1. Too slow. 45 seconds of a frozen fight every round for 10 rounds is 7.5 minutes of waiting. Guard: SEND IT ends the corner at once; the camp default makes "one click" the normal corner; from fight 5 auto-play runs 3-second corners; the clock bar is visible so the player knows they can leave.
+2. Ignored. Players press SEND IT every time without reading. Guard: that is allowed (the camp plan was their decision), but the round 2 line and the next round verdict name the call, and the stop conditions force a real read when the fight turns (knockdown, two lost rounds, cut). The result card counts calls from camp vs from you, which teaches that changing a call is possible.
+3. Feels fake. The call changes nothing visible, or the fight seems scripted to reward it. Guard: every call has a visible movement change in round 2 (section 3); the outcome stays a sim result, and the verdict can say "ROUND 2: THEIRS - she was waiting, Perez wasn't jabbing", so the player sees why a call failed.
+
+Arguing against my own strongest ruling (the first fight always stops): forcing a stop on a player who just wants to see the fight can feel like a tutorial wall. It stays, because it is one stop of at most 45 seconds that SEND IT ends in one click, and the review's finding was that the heart of the game could be skipped without the player ever knowing it existed.
+
+NOT COMPUTED: whether the AI weight changes per call are strong enough to be seen in one round at the current fight sim tuning; whether 3-second auto corners read on the broadcast camera.
+
+
+Context you already have: PC deep management sim, boxing first; the fight is a 3D bout on a TV-style broadcast camera (wide, slightly high) at 1920x1080; the player is the manager in the corner between rounds (45 s corner clock); camps (5-week fight camps with a plan like striking_shark / technical_flow) bought measurable edges; warm dark leather/brown UI with gold #E5B842. Our rule: never test or show two identical fighters; real organisations, fictional fighters.
+
+Please give the LONGEST, most complete answer you can (no length cap - go past 30,000 characters if useful):
+A) Maria's kits: verdict per rule and per kit (keep / change / cut) - will the two boxers read apart at a glance on a wide broadcast shot, in motion, on a phone, for colour-blind players? Is the corner logic (red/blue corner vs own colours) right for boxing broadcasts? Fix every weak pair. Is 12 the right count for a demo? What a Godot programmer needs: the exact data per kit (trunks base, trim, waistband, boots tint, gloves, tape) and the clash rule as an algorithm.
+B) Kalli's first corner: verdict per section (keep / change / cut), second by second for the first corner as you would ship it, how the camp's plan shows as the default call (UI: card size, the gold edge, the timer), what a confirm / change / timeout does, how it teaches without a tutorial box, and the three failure guards - are they enough?
+C) One page "build this first" list across A and B, in order, with a one-line acceptance test each.
+Score your own answer per part out of 10.

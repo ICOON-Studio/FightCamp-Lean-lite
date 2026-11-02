@@ -1,0 +1,93 @@
+OFFBAKE1 bounded regression evidence
+Invocation: python Godot/tools/run_tests.py --jobs 1 --only anatomical_pose_layer,fight_clip,retarget,stage_player,guard_wrist,native,contact_stop --verbose
+GODOT_EXE: E:/FightCamp/tmp/offbake1/godot_checked.cmd (watchdog before every hidden-desktop launch)
+No full suite. No parallel engine runs. Native switch remains OFF for plain script controls.
+
+INITIAL RUN:
+[  1/17] PASS   anatomical_pose_layer_test.gd                
+[  2/17] FAIL   fight_cascy_retarget_test.gd                 rc=1
+[  3/17] FAIL   fight_clip_alias_test.gd                     rc=1
+[  4/17] FAIL   fight_clip_audit_test.gd                     rc=1
+[  5/17] PASS   fight_clip_bake_rate_test.gd                 
+[  6/17] PASS   fight_clip_load_test.gd                      
+[  7/17] PASS   fight_clip_mirror_test.gd                    
+[  8/17] PASS   fight_clip_retarget_test.gd                  
+[  9/17] PASS   fight_clip_slice_contract_test.gd            
+[ 10/17] FAIL   fight_clip_slice_test.gd                     rc=1
+[ 11/17] PASS   fight_clip_sway_test.gd                      
+[ 12/17] FAIL   fight_contact_stop_test.gd                   hang (timeout)
+[ 13/17] PASS   fight_retarget_speed_test.gd                 
+[ 14/17] PASS   guard_wrist_line_test.gd                     
+[ 15/17] PASS   native_mh_clips_test.gd                      
+[ 16/17] PASS   paired_stage_player_test.gd                  
+[ 17/17] PASS   stage_player_reset_test.gd                   
+
+SUITE total=17 fails=5
+
+FAILURE EVIDENCE:
+
+fight_cascy_retarget_test
+R75-RC=1
+2026-10-15 21:52:32 RED C_free=22.4GB E_free=68.5GB RAM=86% COMMIT_free=14.5GB CPU=40% TEMP=86C(LHM)[peak 87] top: brave=7292MB firefox=4518MB claude=3145MB ChatGPT=3113MB
+  RED   Temperature 86 C sustained over 10 s - stop heavy work now.
+
+fight_clip_alias_test
+R75-RC=1
+2026-10-15 21:52:48 RED C_free=22.2GB E_free=68.5GB RAM=88% COMMIT_free=14.1GB CPU=36% TEMP=86C(LHM)[peak 87] top: brave=7456MB firefox=4520MB claude=3130MB ChatGPT=3112MB
+  RED   Temperature 86 C sustained over 10 s - stop heavy work now.
+
+fight_clip_audit_test
+R75-RC=1
+2026-10-15 21:53:04 RED C_free=22.2GB E_free=68.5GB RAM=87% COMMIT_free=14.1GB CPU=22% TEMP=85C(LHM)[peak 87] top: brave=7465MB firefox=4546MB claude=3134MB ChatGPT=3116MB
+  RED   Temperature 85 C sustained over 10 s - stop heavy work now.
+
+fight_clip_slice_test
+R75-RC=1
+2026-10-15 21:54:57 GREEN C_free=21.7GB E_free=68.5GB RAM=78% COMMIT_free=19.1GB CPU=24% TEMP=73C(LHM)[peak 84] top: brave=6875MB firefox=4577MB claude=3213MB ChatGPT=3111MB
+  beat strike    : anim='boxing_rear_hook' length=1.724 s
+  FAIL  head-strike beat plays clip shorter than 1.2 s (got 1.724, name=boxing_rear_hook)
+FAIL
+
+fight_contact_stop_test
+R75-RC=124
+2026-10-15 21:58:15 GREEN C_free=21.1GB E_free=68.5GB RAM=80% COMMIT_free=18.2GB CPU=17% TEMP=68C(LHM)[peak 76] top: brave=6748MB firefox=4748MB ChatGPT=3253MB claude=3205MB
+
+Interpretation: first three failures are watchdog refusals before Godot launch.
+The slice failure is the task-exempt known rear-hook duration: 1.724 s against 1.2 s.
+Contact-stop reached runner timeout (600 s); no passing verdict, no baseline attribution.
+Its process remained CPU-active before termination; verified timed-out PID 12732 no longer exists.
+The live log observed existing FBX loader diagnostics, but did not establish a timeout cause.
+Hidden launcher buffers engine output until exit; timeout log retains only watchdog output.
+
+INITIAL RAW LOGS (local, retained separately from retry):
+anatomical_pose_layer_test.gd.log SHA256 d035f8a5e30871a78ffaef9b9e02bf14ae04577e1ec09ebaf529fd92d587092e
+fight_cascy_retarget_test.gd.log SHA256 8286e5d6cc595c15623fa4da87f75585e8e2f8ca6a320645a06f191b1e4c7d9a
+fight_clip_alias_test.gd.log SHA256 e1633628a6815dc27816aa5f445a4a3231629251e46bee4a7f60e14b2f20dc51
+fight_clip_audit_test.gd.log SHA256 b050bbc0373fe31032590b08a67f35c2859690ef25723b5859a1605a08607a0f
+fight_clip_bake_rate_test.gd.log SHA256 4370ea9d68ca2569ba53bcf7a18080d347f7b4f1f06520c5662539348813aa51
+fight_clip_load_test.gd.log SHA256 e882bde2d53109d3b9d350327519ce419b4918d2d5ab301a32b81d8b6346753f
+fight_clip_mirror_test.gd.log SHA256 06f386b7257fc11d60297f85ec49dfb307986451c6b741c901f36dceeec9fb48
+fight_clip_retarget_test.gd.log SHA256 96d8afc73070701610bdd5947c0095143849955606b67cffec77729ce4fa2037
+fight_clip_slice_contract_test.gd.log SHA256 1370a187d14891827f192e09470b2b35f68abdb5597a8f16ef15f76ddae6c0f6
+fight_clip_slice_test.gd.log SHA256 9f95e3b84aec58dae73c4faed08229a3ef0178ef31ddc652ed5d20b2fd6bb6d9
+fight_clip_sway_test.gd.log SHA256 24d055fc36356df43c72a68d38c92235e13ccaa8b3ae945da86ab51447495974
+fight_contact_stop_test.gd.log SHA256 58f94d53e02385d17a7c76bb5b191fc61dbe27b4063fe61bee7f40cbb4c80d92
+fight_retarget_speed_test.gd.log SHA256 6b183758c3d305ee4ab390b1e4abe55a9d91fc682da1b27d4f49446aeea2fd81
+guard_wrist_line_test.gd.log SHA256 2f284b5c194b91f28460832316d2a2fa33346cc532143e77db02e60dbf8de218
+native_mh_clips_test.gd.log SHA256 d542fdceadb25784e12ac96482e41f05d54152af952ef28f461fa727c08a76d1
+paired_stage_player_test.gd.log SHA256 46708ff3a359c9dd34afc835be6190828b70ecae0b852abef9e40054761f8504
+stage_player_reset_test.gd.log SHA256 6689635550469a7c101d31ff74b56310d0ffe8eb4278a34ad9e88ef5ed19db76
+
+RETRY ONLY THE THREE PRE-LAUNCH BLOCKS:
+[  1/3] PASS   fight_cascy_retarget_test.gd                 
+[  2/3] PASS   fight_clip_alias_test.gd                     
+[  3/3] PASS   fight_clip_audit_test.gd                     
+
+SUITE total=3 fails=0
+
+Consolidated result: 15 of 17 passed; known rear-hook slice failure; contact-stop timeout/unverified.
+This is NOT a wholly green subset. No retry of the known failure or timeout; no threshold, timeout or production-code changes.
+
+Raw initial and retry logs retained in E:\FightCamp\archives\OFFBAKE1\2026-10-15-regression-logs.zip
+SHA256 dd63237da567b11c56f32df3e6188ec252fcc49acc6ad8ec55ab0a07feb9c98a
+All 22 archive entries read back and verified.

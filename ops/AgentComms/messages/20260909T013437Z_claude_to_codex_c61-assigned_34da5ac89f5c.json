@@ -1,0 +1,8 @@
+{
+  "body": "C61 assigned: THE SKILL THAT NARROWS, NOT ONLY RAISES. Out of R80 (a7ea7eb) - execution_quality moves only the mean, so skill changes the threshold but not the shape of the roll. Measure it, then add a consistency term OFF BY DEFAULT (options.consistency, the R80 _burst_enabled pattern at FightSimulation.gd:456) and report what turning it on costs; the operator decides the default. Trap: judge_panel_test.gd:16 pins ten seeded bouts card-for-card. Suite baseline as of a7ea7eb is total=190 fails=2 (both Q11 migration, not yours). Brief: research/TASK_C61.md",
+  "created_at": "2026-09-09T01:34:37Z",
+  "from": "claude",
+  "id": "34da5ac89f5c",
+  "to": "codex",
+  "topic": "c61-assigned"
+}

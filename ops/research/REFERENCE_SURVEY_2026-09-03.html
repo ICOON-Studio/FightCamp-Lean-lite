@@ -1,0 +1,259 @@
+<title>Combat Manager Reference Survey</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+  :root{--bg:#0b0d13;--cell:#141926;--cell2:#1a2132;--line:#2b3549;--text:#eef2ea;--muted:#95a0b6;--dim:#66718a;--gold:#f5c23b;--red:#e2382d;--cyan:#2fd3ff;--green:#43d17a;--amber:#f2a23a;--violet:#a98bff;
+    --display:"Bebas Neue","Oswald","Impact",sans-serif;--mono:"IBM Plex Mono",Consolas,monospace;--sans:"IBM Plex Sans","Segoe UI",Arial,sans-serif}
+  html{color-scheme:dark} body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.55}
+  .wrap{max-width:1180px;margin:0 auto;padding:36px 22px 90px}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+  h1{font-family:var(--display);font-size:60px;line-height:.95;letter-spacing:.02em;margin:4px 0 8px;text-wrap:balance}
+  h2{font-family:var(--display);font-size:34px;letter-spacing:.02em;margin:46px 0 8px}
+  h3{font-family:var(--display);font-size:22px;letter-spacing:.03em;margin:22px 0 6px;color:var(--gold)}
+  p{max-width:78ch} p.lede{color:var(--muted);max-width:72ch}
+  table{border-collapse:collapse;width:100%;font-size:13px;font-family:var(--mono)} .tw{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+  th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top} th{color:var(--muted);font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:11px;background:var(--cell2)}
+  tr:last-child td{border-bottom:0} td.g{color:var(--green)} td.a{color:var(--amber)} td.r{color:var(--red)} td.c{color:var(--cyan)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px} .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .card{border:1px solid var(--line);border-radius:14px;padding:16px 18px;background:linear-gradient(180deg,rgba(26,33,50,.7),rgba(20,25,38,.9))}
+  .card h4{font-family:var(--display);font-size:22px;letter-spacing:.03em;margin:0 0 6px} .card p,.card li{color:var(--muted);font-size:14px;margin:0}
+  .card ul{margin:6px 0 0;padding-left:1.1em} .card li b{color:var(--text);font-weight:600}
+  .tag{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted);margin-right:6px}
+  .tag.g{border-color:var(--green);color:var(--green)} .tag.a{border-color:var(--amber);color:var(--amber)} .tag.r{border-color:var(--red);color:var(--red)} .tag.c{border-color:var(--cyan);color:var(--cyan)} .tag.v{border-color:var(--violet);color:var(--violet)}
+  pre{background:#0a0d14;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-family:var(--mono);font-size:12.5px;overflow-x:auto;color:#d7deea}
+  .verdict{border-left:4px solid var(--gold);padding:12px 16px;background:rgba(245,194,59,.07);border-radius:0 12px 12px 0;margin:18px 0}
+  .verdict b{color:var(--text)}
+  .body-demo{display:grid;grid-template-columns:260px 1fr;gap:22px;align-items:center;border:1px solid var(--line);border-radius:16px;padding:18px;background:radial-gradient(400px 260px at 30% 40%,rgba(47,211,255,.08),transparent 60%),var(--cell)}
+  .body-demo svg{width:100%;height:auto;display:block}
+  .legend{font-family:var(--mono);font-size:13px;line-height:2} .legend span{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:8px;vertical-align:middle}
+  small.lic{color:var(--dim)}
+  @media (max-width:800px){.grid2,.grid3{grid-template-columns:1fr}.body-demo{grid-template-columns:1fr}}
+</style>
+
+<div class="wrap">
+  <div class="eyebrow">FightCamp · research · every game on E: and D:</div>
+  <h1>Combat Manager Reference Survey</h1>
+  <p class="lede">Forty-nine installs across two drives were opened, not just listed. Where the engine allowed it, the interface assets, scene trees, shaders and menu strings were pulled out. This is what they can teach a combat-sport manager, what can be borrowed, what a six-region body diagram should look like, and whether any of those engines should host the fight-night simulator.</p>
+
+  <h2>1 · Inventory</h2>
+  <p>Engine detected from the install. "Readable" means the interface assets could actually be extracted with the tools on this machine: UnityPy for Unity, a pack reader for Godot, the asar format for Electron. Frostbite, 2K's engine and encrypted Unreal paks stay closed.</p>
+  <div class="tw"><table>
+    <tr><th>Title</th><th>Engine</th><th>Size</th><th>Readable</th><th>Relevance to a combat-sport manager</th></tr>
+    <tr><td>Corner King (E:)</td><td>Unity (IL2CPP)</td><td>1.3 GB</td><td class="g">yes</td><td class="c">Boxing manager. The closest comparable. See §3.</td></tr>
+    <tr><td>MMA Empire (E:)</td><td>Electron · React + Tailwind</td><td>0.5 GB</td><td class="g">yes, plain HTML/JS</td><td class="c">MMA promotion manager. Menu logic and a damage HUD readable in source.</td></tr>
+    <tr><td>MMA Arena (E:)</td><td>Unity</td><td>1.0 GB</td><td class="g">yes</td><td class="a">Mobile MMA game. Progression mechanics already mined earlier; art is mobile-grade.</td></tr>
+    <tr><td>Gladiator Command (D:)</td><td>Godot 4.7</td><td>0.3 GB</td><td class="g">yes, 215 scene trees</td><td class="c">Fighter-stable manager in our exact engine version. Best structural reference.</td></tr>
+    <tr><td>Your Football Life (E:)</td><td>Godot 4.5</td><td>0.6 GB</td><td class="g">yes</td><td class="a">Sports career sim in Godot: a 12-screen loop.</td></tr>
+    <tr><td>Slay the Spire 2 (D:)</td><td>Godot 4.5 (C#)</td><td>2.8 GB</td><td class="g">yes, 97 shaders in text</td><td class="c">Not a manager, but the best evidence of Godot UI polish: SDF frames, glow, ripple, dissolve.</td></tr>
+    <tr><td>Motorsport Manager (E:)</td><td>Unity</td><td>15 GB</td><td class="a">partly</td><td class="c">Your reference dial comes from here. Part grades S to C, HQ, staff, calendar.</td></tr>
+    <tr><td>Total Football (D:)</td><td>Unity (IL2CPP, anti-cheat)</td><td>—</td><td class="g">textures</td><td class="a">Football manager: squad and player screens.</td></tr>
+    <tr><td>Hollywood Animal (D:)</td><td>Unity</td><td>3.8 GB</td><td class="g">yes</td><td class="a">Talent management: moods, relationships, contracts.</td></tr>
+    <tr><td>FC 26 (E:)</td><td>Frostbite</td><td>60 GB</td><td class="r">no</td><td class="a">Reference by knowledge only: player bio, attribute hexagon, injury body map.</td></tr>
+    <tr><td>NBA 2K26 (E:)</td><td>2K proprietary</td><td>101 GB</td><td class="r">no</td><td class="a">Reference by knowledge only: badges, tendencies, injury regions.</td></tr>
+    <tr><td>Rise of a Legend (E:)</td><td>Unreal 5 (IoStore)</td><td>6.6 GB</td><td class="r">no</td><td class="a">Boxing career game; containers are packed, widget names not exposed.</td></tr>
+    <tr><td>Mad Television Tycoon (D:)</td><td>Unreal 5</td><td>0.9 GB</td><td class="r">no (compressed pak)</td><td>Tycoon layout, not extractable here.</td></tr>
+    <tr><td>Two Point Museum (D:)</td><td>Unity (IL2CPP)</td><td>—</td><td class="a">scanned, no hits</td><td>Staff panels are playful, not our register.</td></tr>
+    <tr><td>Big Ambitions, Hollywood Animal, Master of Command, KungFuCard, Nordhold, FATES, Breachway, Command Deck, Guildrun, Citizen Sleeper, Rogue Waters, Songs of Conquest, Trash Goblin, Deep Rock Survivor, Defender of the Crown, Flaregate, JumpSpace, RuneCollseum, SonicRumble</td><td>Unity</td><td>—</td><td class="g">yes</td><td>Not combat management; general UI only.</td></tr>
+    <tr><td>Clash, CorsairCove, Mortal Shell II, PAW Patrol Racing, Doomspire, Drop Duchy, Minos, Warhammer 40K Speed Freeks</td><td>Unreal</td><td>—</td><td class="r">no</td><td>Not relevant.</td></tr>
+    <tr><td>Stash (E:)</td><td>Godot 4.5</td><td>0.4 GB</td><td class="g">yes</td><td>Card looter: frames, glow textures, arena scenes.</td></tr>
+    <tr><td>The King is Watching (E:)</td><td>GameMaker</td><td>0.6 GB</td><td class="a">data.win</td><td>Not relevant.</td></tr>
+    <tr><td>Company of Heroes 2/3, Helldivers 2, Ghost Recon Breakpoint, GTA V, Field of Glory II, EA FC 25 stub, others</td><td>custom</td><td>—</td><td class="r">no</td><td>Not relevant.</td></tr>
+  </table></div>
+
+  <h2>2 · Could any of those engines host the fight-night simulator?</h2>
+  <div class="grid3">
+    <div class="card"><h4>Godot 4 <span class="tag g">keep</span></h4><p>Two shipped Godot managers sit on these drives, one on our exact version, and a Godot card game with 97 shaders shows the ceiling is high: SDF-based card frames, additive glow, ripple, dissolve, radial blur, Spine-animated characters. Our simulator is pure GDScript with no engine dependency, so nothing is gained by moving it.</p></div>
+    <div class="card"><h4>Unity <span class="tag a">no advantage</span></h4><p>Motorsport Manager, Corner King and MMA Arena prove the genre ships on Unity, but porting means rewriting every screen and the day loop. The sim's logic would port unchanged, which is exactly why it does not need to.</p></div>
+    <div class="card"><h4>Unreal 5 <span class="tag a">only for 3D</span></h4><p>The repo still carries a dormant Unreal project. Unreal earns its weight only if fight night becomes a 3D scene with real fighters. For a broadcast-style 2D presentation it is the heaviest possible choice.</p></div>
+    <div class="card"><h4>Electron / web <span class="tag a">no</span></h4><p>MMA Empire is a React app in a browser shell, which is why its glow and gradients are CSS. Godot has no web view; embedding a web UI would split the game in two runtimes.</p></div>
+    <div class="card"><h4>Frostbite, 2K, GameMaker <span class="tag r">no</span></h4><p>Closed or unsuitable. Their screens are references, not platforms.</p></div>
+    <div class="card"><h4>Verdict</h4><p><b>Stay in Godot.</b> Borrow techniques, not engines: SDF rounded frames and glow from the card game, a nine-patch bar and additive glow sprite pattern from the gladiator manager, and the CSS glow recipe from MMA Empire translated to a canvas shader.</p></div>
+  </div>
+
+  <h2>3 · What the comparables actually do</h2>
+  <div class="grid2">
+    <div class="card"><h4>MMA Empire <span class="tag c">promotion manager</span></h4>
+      <p>Its menu strings and components were read straight from the bundle.</p>
+      <ul>
+        <li><b>Menu logic:</b> Front Office, Training Center, Recovery Spa, scouting tiers from Gym Talent Scouts to Legendary Talent Brokers, TV Deals, Event Production, Arena, Upgrades &amp; Perks, World Hub &amp; News, weight classes, contracts with card roles (Main Event, Featured, Main Card).</li>
+        <li><b>Damage HUD:</b> a photo-real full-body fighter with four regions, head, torso, left leg, right leg. Each region gets a radial-gradient glow whose colour steps red, orange, amber, green by damage and whose alpha scales with it, plus a box-shadow past 65. That is a clean recipe and it maps to our six regions directly.</li>
+        <li><b>Effects:</b> backdrop blur on panels, a sheen sweep gradient, radial red washes behind headers.</li>
+      </ul></div>
+    <div class="card"><h4>Gladiator Command <span class="tag c">Godot 4.7 stable manager</span></h4>
+      <p>Two hundred and fifteen scene trees were read by node name.</p>
+      <ul>
+        <li><b>Hub:</b> training ground with clickable actors, a training HUD of stat icon columns with an intensity slider and four result cards: Progress, XP, Injury, ETA.</li>
+        <li><b>Arena:</b> tiers Local, Regional, Grand, Boss; a match preview panel with names, ratings, VS, reward summary, crowd expectation.</li>
+        <li><b>Detail scene:</b> a showcase column with the actor on a stage and an equipment rail; a record scene split into victory record, financial record and progression gains.</li>
+        <li><b>Reports:</b> status report cards with portrait frame, class badge, milestone badge and summary slots; injury alert panels; morale refusal rows; relationship cards; hall of fame inductions.</li>
+        <li><b>Art:</b> hand-painted Roman fantasy, not our register, but every button ships with a separate additive glow texture and every bar is a nine-patch.</li>
+      </ul></div>
+    <div class="card"><h4>Corner King <span class="tag c">boxing manager</span></h4>
+      <p id="corner-king">Everything lives in one 992 MB bundle. It is a 3D game underneath: UMA character bodies with albedo, normal and roughness maps, a boxing ring, arenas with lighting and LOD groups, crowd characters, commentators.</p>
+      <ul>
+        <li><b>No 2D body diagram:</b> its "body" assets are skin textures for 3D fighters. Its interface is drawn with text and vector shapes, so no chrome textures surfaced.</li>
+        <li><b>Portrait library:</b> 409 rendered 128-pixel heads on disk, coded by region, face type and variant (af, as, eu, la, na × t01 to t04 × v01 to v24). That naming scheme is worth copying for a generated roster: region-appropriate faces without art per fighter.</li>
+        <li><b>News as data:</b> media templates with an outlet, a title template, summary segments that link to entities, audience impact, preferred beats and journalist personalities. A cleaner model than free-text headlines.</li>
+        <li><b>Web inside Unity:</b> a character-creator page in HTML with Bebas Neue and DM Sans, a red and gold palette on near-black, hard offset shadows instead of glow, tabs and sliders. Its fonts match ours; its palette is the boxing-poster register.</li>
+        <li><b>Fight night:</b> a real 3D ring with a mesh crowd. The only combat manager on the drives that renders the bout in 3D, and it needed Unity, UMA and hundreds of assets to do it.</li>
+      </ul></div>
+    <div class="card"><h4>Hollywood Animal <span class="tag v">glow masks</span></h4>
+      <ul><li><b>The chrome technique:</b> every glow is a white blurred mask, a beveled square, an inner-glow hexagon, a rounded rectangle, a star burst, tinted at runtime by the accent colour. One texture per shape, any colour. That is how the rounded glowing cells should be built in Godot: a white glow mask behind a StyleBoxFlat panel, modulated gold, red or cyan.</li><li><b>Frames:</b> thin double-bevel frames, octagon borders, corner frames and wireframe grids as separate overlays, so a card is layered: mask, panel, frame, content.</li></ul></div>
+    <div class="card"><h4>Your Football Life <span class="tag a">Godot career sim</span></h4>
+      <ul><li><b>Loop:</b> start, main menu, daily screen, match screen, result screen, negotiation, transfer, purchase, skill tree, deck edit, detail. A twelve-screen game, which argues for fewer, denser screens.</li><li><b>Injury:</b> a physio image and an injury icon, no body diagram.</li></ul></div>
+    <div class="card"><h4>Motorsport Manager <span class="tag c">the dial</span></h4>
+      <ul><li><b>Your reference image</b> is its part dial: a letter grade in the centre, a red-to-amber arc for performance, a small letter at the corner for the part's class. Parts, drivers and staff all read the same way, which is why the game feels coherent.</li><li><b>Structure:</b> HQ buildings, staff with contracts, car parts by category, a season calendar with practice, qualifying and race, sponsors with objectives.</li></ul></div>
+    <div class="card"><h4>Slay the Spire 2 <span class="tag v">Godot effects</span></h4>
+      <ul><li><b>Shaders in text:</b> button_pulse (additive sine on the colour), card_ripple (SDF ripple, additive blend), outline_texturerect (neighbour-sampled outline), doom_bar (a health bar with two scrolling noise layers and a gradient texture), dissolve, radial_blur, power_flash, texture_transition, hsv, fade_transition, plus a vfx toolkit: flipbook, polar ring, ray, poof, smoke.</li><li><b>Cards:</b> an SDF card frame texture, glow textures per rarity, additive overlay scenes.</li></ul></div>
+    <div class="card"><h4>FC 26 and NBA 2K26 <span class="tag a">by knowledge</span></h4>
+      <ul><li><b>FC:</b> the player bio leads with the overall badge and position, an attribute hexagon, playstyle icons, form arrows, and an injury view on a body silhouette with regions.</li><li><b>2K MyGM:</b> badges by tier, tendencies, a body injury map, contract and morale panels. Both give the overall number the most gravity, then the next fixture.</li></ul></div>
+  </div>
+
+  <h2>3b · MMA Career Simulator Playtest <span class="tag c" style="font-size:12px;vertical-align:middle">Godot 4.4 · the one that matters most</span></h2>
+  <p class="lede">Installed on E: after the first pass. A Godot 4.4.1 build by MMADev, 1.2 GB, pack unencrypted, export presets shipped. It is a 3D MMA career game, and because it is Godot, our own 4.7 editor loads its pack directly: the fighter, the animation library and every scene instantiate headless, and the fighter wrote back out as a 33 MB glTF with all 23 clips.</p>
+  <div class="grid2">
+    <div class="card"><h4>The fighter <span class="tag g">rigged, animated, exportable</span></h4>
+      <ul>
+        <li><b>Mesh:</b> one skinned body, 15,882 vertices, 28,880 triangles, diffuse, glossiness and normal maps, plus a "Low Poly MMA Character" variant at 7,148 triangles in six meshes with hair, beard, moustache and tattoo parts on bone attachments and its own 32-clip library. Both exported from our editor as glTF (33 MB and 6 MB).</li>
+        <li><b>Rig:</b> a Mixamo auto-rig, 65 bones named mixamorig_Hips, Spine, Head, arms, hands down to the finger joints. That naming is the giveaway: the clips came from Mixamo.</li>
+        <li><b>Animation library, 23 clips:</b> idle fighting stance, walk forward, step backwards, jab, straight punch, hook, lead hook, uppercut, lead uppercut, elbow strike, knee strike, front kick, body kick, leg kick, roundhouse kick, spinning heel kick, hit to head, hit to body, takedown and strike, taken down and hit, knocked out, victory, T-pose. Clip lengths run 0.6 to 7.5 seconds.</li>
+        <li><b>Separate clip files, 33 more:</b> Body Block, High Block, Leg Block, Head Hit, Body Hit, Knocked Down, Knocked Out Body, Takedown Attacker, Takedown Victim, Dodge Counter, Jumping Knee, Spinning Backfist, Spinning Body Kick, Step Left, Step Right, Breathing Idle, Warming up, Sitting Angry, Sitting Cheering, Sitting Talking, and a grappling set: Clinch Idle, Clinch Hit, Top Idle, Bottom Idle, Top Movement Left and Right, Bottom Crawl, Standup Top, Standup Bottom, Reverse From Top, Ground Strikes Top.</li>
+        <li><b>State machine:</b> an AnimationTree with a state machine and blend trees per move family, Step trees, Block trees, Clinch, Takedown, Overhand, time-scaled by pace. Exactly the structure a fight-night scene in Godot wants.</li>
+      </ul></div>
+    <div class="card"><h4>The venues and the loop <span class="tag c">3D fight night in Godot</span></h4>
+      <ul>
+        <li><b>Octagon arena:</b> a 332 MB imported glTF of a cage inside a show arena: 12,016 mesh instances and 9.3 million triangles once instantiated, seats with LODs, railings, ceiling lamps, trash cans, ad boards, thirty spot and omni lights, a spring-arm camera rig, cage bounds as walls. It instantiates headless in our editor; it is archviz-grade and far heavier than a fight-night scene needs.</li>
+        <li><b>Boxing hall:</b> a training gym glTF, 64 meshes and 100,320 triangles, with ring, punchballs, mitts, paws, pear bag, cushions and helmets, used as the training-center scene. Exported from our editor at 114 MB.</li>
+        <li><b>Fight HUD:</b> a top HUD with both fighters' name, health and stamina bars and a round clock; a choice popup with a button row; a round popup with damage and score; game speed at pause, half, one and two times.</li>
+        <li><b>Pre-fight game plan:</b> tabs for fight state, pace, takedown anticipation, striking focus and defence, grappling focus and defence, clinch, and a stats grid. Their gameplan is our plan archetypes and contingencies, chosen live.</li>
+        <li><b>Career model, from the fighter screen labels:</b> striking skills, head movement, wrestling skills, chain wrestling, takedown defence, grappling top and bottom with their defences; stamina; workout and sparring cost; weight cut success chance and cost; off-camp diet; contract, league, rank, card placement; a twelve-week training camp; a character creator with skin, hair, beard, tattoos, kit and glove colours, weight class.</li>
+        <li><b>Interface art:</b> the Kenney UI pack and a synthwave loop. The polish is in the 3D, not the chrome.</li>
+      </ul></div>
+  </div>
+  <div class="verdict"><b>What this changes.</b> Fight night in 3D is proven in our engine at indie scale: one Mixamo-rigged body, a few dozen Mixamo clips, an AnimationTree state machine, a bought arena glTF. The legal path is the same one MMADev took: rig our own body on Mixamo, download the same stock clips under Mixamo's licence, buy or commission the cage and hall. The playtest's own mesh, clips and arena stay in the scratchpad as a reference and never ship.</div>
+
+  <h2>3c · Animation and 3D across both drives</h2>
+  <div class="tw"><table>
+    <tr><th>Title</th><th>Characters</th><th>Animation</th><th>Venue</th><th>Reusable here</th></tr>
+    <tr><td>MMA Career Simulator Playtest</td><td>Mixamo-rigged 3D fighter, low-poly variant with attachments</td><td>56 humanoid clips, strikes, blocks, hits, takedowns, ground game, AnimationTree state machine</td><td>Octagon show arena, boxing hall</td><td class="g">Loads in our Godot; exported as glTF for reference. Same clips available from Mixamo directly.</td></tr>
+    <tr><td>Corner King</td><td>UMA-built 3D boxers with skin, hair, clothing recipes</td><td>Unity animation clips, not exposed by name</td><td>Boxing ring, arenas with LOD crowd, commentators</td><td class="a">Textures only; Unity clips and UMA rigs do not convert here.</td></tr>
+    <tr><td>MMA Arena</td><td>3D fighters with clothing sets</td><td>Unity clips, not exposed</td><td>Cage</td><td class="a">Mobile-grade; textures only.</td></tr>
+    <tr><td>Rise of a Legend</td><td>Unreal 5 boxers</td><td>Packed in IoStore containers</td><td>Rings</td><td class="r">Closed.</td></tr>
+    <tr><td>Slay the Spire 2</td><td>Spine 2D characters (skeletons and atlases in the pack)</td><td>Spine skeletal 2D</td><td>—</td><td class="c">Spine is the 2D route if fight night stays 2D: skeletal characters, blended animations, cheap.</td></tr>
+    <tr><td>Gladiator Command</td><td>Painted 2D actors, frame-sequence sprites</td><td>Sprite frames</td><td>Arena backdrop</td><td class="a">Style mismatch.</td></tr>
+    <tr><td>Motorsport Manager</td><td>—</td><td>Car and pit animation</td><td>Tracks</td><td>Dial and menu language only.</td></tr>
+    <tr><td>NBA 2K26, FC 26</td><td>Full motion-captured 3D</td><td>Closed</td><td>Closed</td><td class="r">Reference by knowledge only.</td></tr>
+  </table></div>
+
+  <h2>3d · Pound for Pound demo <span class="tag c" style="font-size:12px;vertical-align:middle">Godot 4.5 · C# · the design bar</span></h2>
+  <p class="lede">Installed on E: after the playtest. Pound for Pound: MMA Promotion Simulator, Early Access since March 2026, 96% positive across 132 reviews. Godot 4.5.1 with the game logic in a 12 MB C# assembly, Sentry crash reporting, and a Godot MCP add-on in the pack, so it was built with an AI coding assistant at the keyboard. The pack is unencrypted; the C# is compiled, so the teardown reads its scene names, shaders, fonts, colour literals, data files and store screens.</p>
+  <div class="grid2">
+    <div class="card"><h4>What ships in the 2.1 GB</h4>
+      <ul>
+        <li><b>13,098 fighter portraits</b> in two packs, 512-pixel WebP at about 140 KB each, an ink-and-colour comic style, AI-generated. Every portrait carries a JSON prompt sheet: ethnicity, nationality, sex, weight class, personality, age band, physique archetype, torso shape, muscle definition, fat distribution, midsection. Folders run sex, then weight class, then ethnicity. That is a portrait library as data, the Corner King idea taken to its end.</li>
+        <li><b>269 scenes as a component kit:</b> Badge, Chevron, GlowButton, GlowLabel, GradeRow, GradeSection, HealthRing, HeroStatCard, HoverPanel, HypeMeterBar, StatBar, StatusLed, StreakLedRow, TrendIndicator, TokenAmount, RankBadge, ResultBadge, MethodBadge, StarRating, ScoreBug, RoundTimeBar, TaleOfTapePanel, ScorecardPanel, SkillTreeCanvas, WeekCalendarStrip, RivalryFlame, RivalryHeatMedallion, PromiseMedallion, OctagonSpinner, MediaOutcomeMeter, AttendanceGauge, PpvForecastPanel.</li>
+        <li><b>Screens:</b> promotion dashboard, roster, fighter profile with overview, abilities, career, fights, popularity and relationships tabs, matchmaking board, card builder and bout editor, event results wizard, fight viewer, press conference, weigh-in, TV deals, sponsors, territory expansion on a state map, skill tree, milestone and tier-up celebrations, hall of fame, record book, news, token history, gym browser and gym profile, champions, rankings, post-event fallout, media question, promise and rivalry dossiers.</li>
+        <li><b>Twelve shaders</b> that reproduce CSS effects in Godot: button glow with gradient, border, outer glow and inset highlight; panel bloom with exponential falloff outside the panel; an LED with a rounded-box distance field, glossy top and pulse; inset shadow for sunken bars; modal blur; portrait zoom anchored at the top with greyscale for retired fighters; vignette; gold vignette for celebrations; arena spotlight; cage light; bottom gradient.</li>
+        <li><b>Type and colour:</b> Barlow and Barlow Condensed in every weight, Inter for body. One accent, gold #FFD700, used eighteen times in code; an eight-step near-black scale from #08080A to #222230 with a faint blue cast; text at #F7F7FA, #E6E5EA, #CCD1D9, #999EA8; green #10B981, amber #F59E0B, purple #8B5CF6, a blue button gradient #60A5FA to #0D47A1, reds #EA3340 to #B2111D.</li>
+        <li><b>Data:</b> a 6 MB commentary template file, thirty fight-recap scenario files (striking, ground, clinch, mixed, danger), 343 KB of interview templates, 4.4 MB of names, milestone definitions, reaction voice lines.</li>
+        <li><b>Simulation vocabulary from the assembly:</b> scenario builders for standing, clinch and ground strikes, takedowns and submissions; injuries checked by head, body, leg and cut; judge scoring with disagreement; hype with receipts and backfire; booking consequences; negotiation with promises and objections; rivalries with heat, feuds and boiling incidents; media questions with fallout; TV deals with audience targets; sponsors with requirements; scouting freshness; gyms with coaches and sparring culture; career stages, retirement, popularity by city, state and nation.</li>
+      </ul></div>
+    <div class="card"><h4>How it looks, and where it stops</h4>
+      <ul>
+        <li><b>The shell.</b> A persistent left nav with expandable groups, a date block and an Advance Week button at the top, a status bar with roster, champions, prestige and key hints at the bottom. Content panels are flat near-black cards with a square yellow bullet before each section title. It reads like Football Manager for MMA and it is coherent everywhere.</li>
+        <li><b>The bout screen</b> is the best composition: two half-body portraits fill the sides, the centre column carries star power and matchup quality as coloured letters, then insights, tape and fallout tabs with side-by-side skill grades. Confirm Bout sits at the bottom of the column.</li>
+        <li><b>The fighter profile</b> is a modal: portrait left, name, record, flag, style tags, a recovering status, an overall A- badge beside a relationship ring, six tabs, and the relationship tab with trust, career and morale, active requests with a promise bar. Letter grades everywhere, numbers almost nowhere.</li>
+        <li><b>Results</b> are a reveal wizard: header with portraits and winner tag, strike and takedown comparison, a three-judge scorecard grid, then a performance grade.</li>
+        <li><b>Where it stops.</b> No body diagram, no dial, no gauge beyond bars, no motion in the fight itself: the fight is a stat reveal with commentary text. The portraits have the sameness of one AI style. Glow is present in the kit but used sparingly, so the screens are disciplined rather than exciting. Depth is its selling point, and reviews reward it.</li>
+      </ul></div>
+  </div>
+
+  <h2>3e · The competitors on Steam</h2>
+  <p class="lede">Five titles, read from their store pages, screenshots and trailers. Every one of them is MMA-only or MMA-first and every one resolves the fight as text. That is the field the profile and the fight night are measured against.</p>
+  <div class="tw"><table>
+    <tr><th>Title</th><th>Status</th><th>Angle</th><th>What the screens show</th><th>Visual level</th></tr>
+    <tr><td>Pound for Pound</td><td>Early Access, Mar 2026, €19.50, 96% of 132</td><td>Run a promotion; loyalty, promises, rivalries, media, TV, territory</td><td>Dark shell, gold accent, comic AI portraits, letter grades, bout comparison, scorecards, state map, skill tree, celebration screens</td><td class="g">The bar. Coherent, dense, calm. Flat panels, no body, no dial, no fight motion.</td></tr>
+    <tr><td>Cage Empire: MMA Manager</td><td>Early Access, Sep 2026, €15.49, no reviews</td><td>Run a promotion; live cornering between rounds; weigh-ins; sponsors</td><td>AI-illustrated arena and crowd backdrops, two fighter renders on the cage for the tale of the tape, corner talk with coach quotes, weigh-in cards, corner work with stool, bucket and swabs over three bars, facilities hub</td><td class="a">Atmosphere from key art, UI is thin black-and-gold text over it. The trailer shows a plain new-career form and lists. Mixed finished and placeholder assets by its own note.</td></tr>
+    <tr><td>Elite MMA Manager</td><td>Coming Q4 2026</td><td>Be the manager of fighters, not the promotion; politics, relationships, negotiation with promotions</td><td>Gold-on-black cage-mesh chrome, live fight as a text log between two body silhouettes with health and stamina, red and blue name bars and a tug bar, roster with champion belt card, manager profile with four stat bars</td><td class="r">Mid-2010s mobile manager. The nearest premise to ours, the weakest screens.</td></tr>
+    <tr><td>MMA Sim King</td><td>Coming soon</td><td>Run a promotion across MMA, boxing, bare knuckle, kickboxing, karate, grappling, wrestling; 60+ stats; database editor</td><td>Navy tables with a gold accent, left icon rail, event builder rows, edit-ranking modal, fight list with betting odds, small AI faces</td><td class="a">Spreadsheet with a theme. Its multi-discipline scope is the one that overlaps our fifteen rulesets.</td></tr>
+    <tr><td>World of Mixed Martial Arts 3</td><td>2015, €19.50, 80% of 77</td><td>The classic: 90 promotions, editor, in-game website, real-time commentary</td><td>Windows-forms lists and tables on a metal texture</td><td class="r">The depth benchmark, no design at all.</td></tr>
+  </table></div>
+  <div class="verdict"><b>What surpassing them takes.</b> The user's brief is that our previews must exceed these games. Against this field the AAA profile preview already holds four things none of them has: a grade dial, a six-region body with real readiness, glowing rounded cells with gauges, and fifteen disciplines with a ruleset-aware judge behind the numbers. Three things they do better today, and the build has to close them: a portrait pipeline at library scale with consistent art (Pound for Pound's 13,000 with prompt sheets, or renders from our own 3D fighter); a shell as calm and dense as Pound for Pound's, one accent, one type family, letter grades where numbers do not earn their place; and the moments, celebration screens, reveal wizards, a news feed as data. The fight night is where the whole field is beaten at once: all five resolve the fight as text, and a rigged fighter with Mixamo clips in our engine is proven above. Nothing from the demo's packs ships in our game; its shaders are reference for our own, written from scratch.</div>
+
+  <h2>4 · The six-region body</h2>
+  <p>No install holds a realistic six-part body ready to use. MMA Empire has a photo-real fighter with four code regions, FC and 2K keep theirs locked, the gladiator manager has crowd bodies only. The honest options:</p>
+  <div class="body-demo">
+    <svg viewBox="0 0 260 420" role="img" aria-label="six-region body diagram">
+      <defs>
+        <filter id="g"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a3348"/><stop offset="1" stop-color="#151a27"/></linearGradient>
+      </defs>
+      <!-- silhouette -->
+      <g fill="url(#skin)" stroke="#3d4b66" stroke-width="1.5">
+        <path d="M130 18 c-16 0 -26 12 -26 28 c0 14 8 26 18 30 l0 10 c-22 6 -40 14 -46 26 l-6 60 l-22 78 c-3 10 4 14 10 8 l26 -56 l10 -62 l6 60 l-12 110 c-1 12 -4 40 -2 60 c1 8 12 8 14 0 l6 -58 l14 -76 l6 0 l14 76 l6 58 c2 8 13 8 14 0 c2 -20 -1 -48 -2 -60 l-12 -110 l6 -60 l10 62 l26 56 c6 6 13 2 10 -8 l-22 -78 l-6 -60 c-6 -12 -24 -20 -46 -26 l0 -10 c10 -4 18 -16 18 -30 c0 -16 -10 -28 -26 -28 z"/>
+      </g>
+      <!-- regions as glow zones -->
+      <g filter="url(#g)" opacity=".85">
+        <ellipse cx="130" cy="44" rx="18" ry="24" fill="#43d17a"/>
+        <rect x="100" y="90" width="60" height="96" rx="18" fill="#43d17a"/>
+        <path d="M74 96 l-22 84 l14 6 l24 -72 z" fill="#43d17a"/>
+        <path d="M186 96 l22 84 l-14 6 l-24 -72 z" fill="#43d17a"/>
+        <path d="M108 196 l-8 112 l16 4 l16 -112 z" fill="#f2a23a"/>
+        <path d="M152 196 l8 112 l-16 4 l-16 -112 z" fill="#43d17a"/>
+      </g>
+      <!-- labels -->
+      <g font-family="IBM Plex Mono, monospace" font-size="11" fill="#95a0b6">
+        <text x="160" y="40">HEAD 100</text><text x="168" y="140">TORSO 96</text><text x="18" y="80">L ARM 98</text><text x="204" y="80">R ARM 94</text><text x="14" y="300" fill="#f2a23a">L LEG 71</text><text x="188" y="300">R LEG 92</text>
+      </g>
+    </svg>
+    <div>
+      <div class="legend"><span style="background:#43d17a"></span>green 80 and up · <span style="background:#f2a23a"></span>amber 60 to 79 · <span style="background:#e2382d"></span>red under 60</div>
+      <p><b>Option A, in-house vector body.</b> A single anatomical silhouette drawn as vector paths, with six polygons lit by readiness colour and a blur glow, exactly as above. In Godot this is one Polygon2D per region under a CanvasGroup with a glow shader, front view, optionally a back view toggle. No licence risk, crisp at any size, animates for free when a region takes damage on fight night.</p>
+      <p><b>Option B, rendered fighter with overlays.</b> MMA Empire's approach: a photo-real or rendered body with soft radial glows per region. Realistic, but it needs a body render we own; the extracted PNG is theirs. A commissioned or generated render would do.</p>
+      <p><b>Recommendation:</b> A now, using the six regions the game already tracks, with the glow recipe from MMA Empire translated to a canvas shader. B can replace the silhouette later without touching the logic.</p>
+    </div>
+  </div>
+
+  <h2>5 · HUD and effect recipes, mapped to Godot</h2>
+  <div class="grid2">
+    <div class="card"><h4>Region glow by damage</h4><pre>// MMA Empire's CSS, as a Godot canvas shader idea
+// colour steps: red >=75, orange >=50, amber >=25, green
+// alpha = min(0.72, 0.08 + damage / 120)
+shader_type canvas_item;
+uniform vec4 tint : source_color;
+uniform float strength = 0.0; // 0..1 damage
+void fragment() {
+    float d = distance(UV, vec2(0.5));
+    float a = smoothstep(0.72, 0.0, d) * (0.08 + strength * 0.64);
+    COLOR = vec4(tint.rgb, a);
+}</pre></div>
+    <div class="card"><h4>Button pulse and ripple</h4><pre>// Slay the Spire 2, verbatim
+shader_type canvas_item;
+uniform float pulse_strength;
+void fragment() {
+    COLOR.rgb += abs(sin(TIME * 2.0)) * 0.2 * pulse_strength;
+}
+// card_ripple: render_mode blend_add; an SDF alpha
+// modulo(TIME * speed) sweep with smoothstep easing</pre></div>
+    <div class="card"><h4>Living health bar</h4><p>doom_bar samples a noise texture twice at different scroll speeds, sums them and reads a gradient texture. Our stamina and readiness bars can carry a quieter version: one noise layer, gold gradient, only while the value is changing.</p></div>
+    <div class="card"><h4>Rounded glowing cells</h4><p>StyleBoxFlat with corner radius 16, a one-pixel steel border, and shadow_size 14 with the accent colour at low alpha gives the halo without a texture. For a stronger bloom, a CanvasGroup with the card game's canvas_group_mask_blur behind the cell.</p></div>
+    <div class="card"><h4>The grade dial</h4><p>A Control that draws two arcs with draw_arc: a dark track and a gradient arc from red through amber to gold, a letter grade in Bebas Neue at the centre, a small class letter at the corner, exactly the Motorsport Manager part dial. Animate the arc on open with a Tween.</p></div>
+    <div class="card"><h4>Fight night effects</h4><p>The card game's vfx include set covers what a broadcast fight scene needs: flipbook impact sprites, a polar ring for a knockdown flash, a ray burst for a finish, round smoke, and a screen-space radial blur for a hurt moment. All are canvas shaders that run on a Sprite2D.</p></div>
+  </div>
+
+  <h2>6 · The layout mix for FightCamp</h2>
+  <div class="verdict"><b>Logical menu for a combat-sport manager, assembled from the comparables:</b> Office (front office, finances, sponsors, TV, news), Fighters (roster cards → profile), Gym (floor, stations, training week, coaches and recovery), Events (cards, booking by class, the Contender Series), World (rankings, promotions, rival gyms, the map), and the day loop with the schedule board. FightCamp already has every one of those; the survey confirms the structure and argues for density over screen count.</div>
+  <div class="grid3">
+    <div class="card"><h4>From Motorsport Manager</h4><p>One dial language for fighters, coaches and stations. The grade letter is the first thing read everywhere.</p></div>
+    <div class="card"><h4>From Gladiator Command</h4><p>The training HUD: stat icon columns, one intensity slider, four result cards, Progress, XP, Injury, ETA. Our camp setup already projects the same four things; present them as cards.</p></div>
+    <div class="card"><h4>From MMA Empire</h4><p>Card roles as contract terms, main event, featured, main card, and the damage HUD as the fight-night body view.</p></div>
+    <div class="card"><h4>From FC and 2K</h4><p>Overall first, next fixture second, then attributes; injuries on a body silhouette; badges as small tier chips.</p></div>
+    <div class="card"><h4>From Slay the Spire 2</h4><p>Glow is a shader on a texture, not a bigger border. Motion is a pulse or a ripple, never a bounce.</p></div>
+    <div class="card"><h4>From Your Football Life</h4><p>A day screen that shows what changed since yesterday before anything else.</p></div>
+  </div>
+
+  <h2>7 · Borrowable assets and the licence line</h2>
+  <p>Pulled to the scratchpad for reference: 607 MMA Arena textures (rank badges, neon border strips, flat icons), 266 Gladiator Command interface textures (nine-patch bars, glow buttons, painted stat icons), 134 Slay the Spire 2 shaders and vfx scenes in text, 33 Hollywood Animal glow masks and frames, MMA Empire's bundle and its fighter image, Corner King's news templates and a sample of its portrait library, and Motorsport Manager's grade gradient strips. <small class="lic">Everything here belongs to its publisher. Shaders are code and can be re-implemented from the idea; textures and the fighter photo should not ship in a distributed game. For our own build the honest path is: draw the chrome in Godot, generate or commission the body render, and cite the techniques.</small></p>
+
+  <h2>8 · What to do next</h2>
+  <p>Build the profile as previewed, with three additions the survey earned: the six-region vector body with damage glow, the Motorsport-style dial as the shared grade language across fighter, coach and station screens, and the card game's pulse and ripple shaders for the buttons and the next-bout cell. Fight night gets the vfx set when its scene is redesigned.</p>
+</div>

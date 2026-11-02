@@ -1,0 +1,43 @@
+{
+  "defaults": {
+    "FAnimNode_TwoBoneIK.StartStretchRatio": 1.0,
+    "FAnimNode_TwoBoneIK.MaxStretchScale": 1.2,
+    "FAnimNode_TwoBoneIK.StretchLimits_DEPRECATED": "FVector2D::ZeroVector",
+    "FAnimNode_TwoBoneIK.bNoTwist_DEPRECATED": false,
+    "FAnimNode_TwoBoneIK.EffectorLocation": "FVector::ZeroVector",
+    "FAnimNode_TwoBoneIK.CachedUpperLimbIndex": "INDEX_NONE",
+    "FAnimNode_TwoBoneIK.JointTargetLocation": "FVector::ZeroVector",
+    "FAnimNode_TwoBoneIK.CachedLowerLimbIndex": "INDEX_NONE",
+    "FAnimNode_TwoBoneIK.EffectorLocationSpace": "BCS_ComponentSpace",
+    "FAnimNode_TwoBoneIK.JointTargetLocationSpace": "BCS_ComponentSpace",
+    "FAnimNode_TwoBoneIK.bAllowStretching": false,
+    "FAnimNode_TwoBoneIK.bTakeRotationFromEffectorSpace": false,
+    "FAnimNode_TwoBoneIK.bMaintainEffectorRelRot": false,
+    "FAnimNode_TwoBoneIK.bAllowTwist": true,
+    "FAnimNode_SkeletalControlBase.LODThreshold": "INDEX_NONE",
+    "FAnimNode_SkeletalControlBase.ActualAlpha": 0.0,
+    "FAnimNode_SkeletalControlBase.AlphaInputType": "EAnimAlphaInputType::Float",
+    "FAnimNode_SkeletalControlBase.bAlphaBoolEnabled": true,
+    "FAnimNode_SkeletalControlBase.Alpha": 1.0,
+    "FInputAlphaBoolBlend.BlendInTime": 0.0,
+    "FInputAlphaBoolBlend.BlendOutTime": 0.0,
+    "FInputAlphaBoolBlend.BlendOption": "UE::Anim::DefaultBlendOption",
+    "FInputAlphaBoolBlend.bInitialized": false,
+    "FInputAlphaBoolBlend.CustomCurve": "nullptr",
+    "UE::Anim::DefaultBlendOption": "EAlphaBlendOption::HermiteCubic"
+  },
+  "citations": [
+    {"id":"I1","claim":"The solver computes desired distance and direction from effector minus root.","file":"Engine/Source/Runtime/AnimationCore/Private/TwoBoneIK.cpp","line":75,"quote":"double DesiredLength = DesiredDelta.Size();"},
+    {"id":"I1","claim":"Beyond reach clamps end and joint onto the reach direction.","file":"Engine/Source/Runtime/AnimationCore/Private/TwoBoneIK.cpp","line":147,"quote":"if (DesiredLength >= MaxLimbLength)"},
+    {"id":"I1","claim":"Stretch scales both limb lengths and their maximum together.","file":"Engine/Source/Runtime/AnimationCore/Private/TwoBoneIK.cpp","line":136,"quote":"LowerLimbLength *= (1.0 + ScalingFactor);"},
+    {"id":"I1","claim":"The triangle solution places the joint using projected reach and bend distances.","file":"Engine/Source/Runtime/AnimationCore/Private/TwoBoneIK.cpp","line":183,"quote":"OutJointPos = RootPos + (ProjJointDist * DesiredDir) + (JointLineDist * JointBendDir);"},
+    {"id":"I2","claim":"Effector and joint target are converted to component space before solving.","file":"Engine/Source/Runtime/AnimGraphRuntime/Private/BoneControllers/AnimNode_TwoBoneIK.cpp","line":110,"quote":"EffectorTransform = GetTargetTransform(Output.AnimInstanceProxy->GetComponentTransform(), Output.Pose, EffectorTarget,"},
+    {"id":"I2","claim":"The node emits upper, lower, and end component-space bone transforms.","file":"Engine/Source/Runtime/AnimGraphRuntime/Private/BoneControllers/AnimNode_TwoBoneIK.cpp","line":169,"quote":"OutBoneTransforms.Add( FBoneTransform(CachedUpperLimbIndex, UpperLimbCSTransform) );"},
+    {"id":"I3","claim":"Float, bool, and curve input paths each produce ActualAlpha.","file":"Engine/Source/Runtime/AnimGraphRuntime/Private/BoneControllers/AnimNode_SkeletalControlBase.cpp","line":83,"quote":"switch (AlphaInputType)"},
+    {"id":"I3","claim":"Irrelevant alpha skips control evaluation.","file":"Engine/Source/Runtime/AnimGraphRuntime/Private/BoneControllers/AnimNode_SkeletalControlBase.cpp","line":102,"quote":"if (FAnimWeight::IsRelevant(ActualAlpha))"},
+    {"id":"I3","claim":"Solved component-space transforms are locally blended using ActualAlpha.","file":"Engine/Source/Runtime/AnimGraphRuntime/Private/BoneControllers/AnimNode_SkeletalControlBase.cpp","line":196,"quote":"Output.Pose.LocalBlendCSBoneTransforms(BoneTransforms, BlendWeight);"},
+    {"id":"I4","claim":"The implementation defines sinusoidal, cubic, and Hermite easing formulas.","file":"Engine/Source/Runtime/Engine/Private/AlphaBlend.cpp","line":243,"quote":"case EAlphaBlendOption::Sinusoidal: return FMath::Clamp<float>"},
+    {"id":"I4","claim":"The header sets HermiteCubic as the animation default.","file":"Engine/Source/Runtime/Engine/Public/AlphaBlend.h","line":33,"quote":"inline constexpr EAlphaBlendOption DefaultBlendOption = EAlphaBlendOption::HermiteCubic;"},
+    {"id":"I5","claim":"The node passes stretch settings into the analytic solver.","file":"Engine/Source/Runtime/AnimGraphRuntime/Private/BoneControllers/AnimNode_TwoBoneIK.cpp","line":125,"quote":"AnimationCore::SolveTwoBoneIK(UpperLimbCSTransform, LowerLimbCSTransform, EndBoneCSTransform,"}
+  ]
+}

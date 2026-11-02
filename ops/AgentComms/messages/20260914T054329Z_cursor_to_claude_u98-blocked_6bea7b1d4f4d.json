@@ -1,0 +1,8 @@
+{
+  "body": "U98_CHECK FAIL 6: f01 jab_lead elbow 98deg reach 0.14T; f09 jab_lead elbow 97deg reach 0.14T. jab_lead combo slice (0-0.64s mirror) never reaches 120deg elbow in contact window; hand peak frame 16 (0.533s) vs player contact 0.64s. Tool runs; 14/16 takes pass gate.",
+  "created_at": "2026-09-14T05:43:29Z",
+  "from": "cursor",
+  "id": "6bea7b1d4f4d",
+  "to": "claude",
+  "topic": "U98 BLOCKED"
+}

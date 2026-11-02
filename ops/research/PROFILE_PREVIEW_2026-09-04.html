@@ -1,0 +1,520 @@
+<title>FightCamp Fighter Profile</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@500;600;700&display=swap">
+<style>
+  /* FightCamp fighter profile preview, 2026-09-04. One screen, in the shell,
+     with the navigation rail always present (collapsible) and a breadcrumb.
+     Hierarchy is the approved one: decide now / what wins / the long game.
+     Every system shipped so far has a place. Palette and instruments are
+     the revision-3 kit: lit ground, gym-colour ladder, gold primary,
+     raised blocks, paired label-and-value units, readable type only. */
+  :root {
+    --ground:#1c2230; --panel:#2a3347; --panel-hi:#34405a; --panel-lo:#222a3b;
+    --edge:#121722; --edge-hi:rgba(255,255,255,.14); --line:#4a5a78;
+    --gym:#2f6fb0; --gym-hi:#3f86cc; --gym-lo:#24558a; --gym-deep:#1a3d63; --gym-tint:rgba(47,111,176,.22);
+    --gold:#f0c233; --gold-hi:#f7d65a; --gold-lo:#c99a1a;
+    --good:#4fc46a; --amber:#f0a020; --bad:#e5433a;
+    --text:#f3f5fa; --text-2:#c9d1e0; --muted:#94a1b8; --link:#7fb6ee;
+    --v1:#7a2a22; --v2:#b34a1e; --v3:#d07a1a; --v4:#e6a41c; --v5:#f0c233;
+    --display:"Bebas Neue","Haettenschweiler","Arial Narrow",sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(130% 90% at 50% 0%,#2a3346 0%,#171c27 55%,#0f131b 100%);color:var(--text);font-family:var(--mono);font-size:14px;font-weight:500;line-height:1.45;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1600px;margin:0 auto;padding:32px 22px 80px;display:flex;flex-direction:column;gap:30px}
+  .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:700}
+  .masthead h1{font-family:var(--display);font-size:clamp(38px,5.5vw,60px);letter-spacing:.02em;line-height:.94;margin:6px 0 8px}
+  .masthead p{margin:0;max-width:74ch;color:var(--text-2)}
+
+  /* instruments */
+  .pair{display:grid;grid-template-columns:1fr auto;height:44px;border:1px solid var(--edge);border-radius:3px;overflow:hidden;box-shadow:0 1px 0 var(--edge-hi) inset,0 2px 4px rgba(0,0,0,.35)}
+  .pair .lab{display:flex;align-items:center;padding:0 10px;background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));font-family:var(--display);font-size:16px;letter-spacing:.08em;color:#fff;text-shadow:0 1px 0 rgba(0,0,0,.4);border-right:1px solid var(--edge);white-space:nowrap}
+  .pair .lab.q{background:linear-gradient(180deg,#4a5670,#333d52)}
+  .pair .val{display:flex;align-items:center;justify-content:center;gap:6px;min-width:66px;padding:0 10px;font-family:var(--display);font-size:24px;line-height:1;background:linear-gradient(180deg,var(--panel-hi),var(--panel-lo));font-variant-numeric:tabular-nums;white-space:nowrap}
+  .pair .val.g1{background:linear-gradient(180deg,#8f352b,var(--v1))}.pair .val.g2{background:linear-gradient(180deg,#c95a26,var(--v2))}
+  .pair .val.g3{background:linear-gradient(180deg,#e08c22,var(--v3));color:#1b1207}.pair .val.g4{background:linear-gradient(180deg,#f0b52a,var(--v4));color:#1b1207}
+  .pair .val.g5{background:linear-gradient(180deg,var(--gold-hi),var(--v5));color:#1b1207}
+  .pair .val.txt{font-size:16px;letter-spacing:.06em}
+  .pair .val .t{font-family:var(--mono);font-size:11px;font-weight:700}
+  .pair .val.g4 .t,.pair .val.g5 .t,.pair .val.g3 .t{color:#3a2a06}.pair .val.g1 .t,.pair .val.g2 .t{color:#ffd6d1}
+  .vc{display:inline-grid;place-items:center;min-width:46px;height:36px;padding:0 6px;border:1px solid var(--edge);border-radius:3px;box-shadow:0 1px 0 rgba(255,255,255,.16) inset,0 2px 3px rgba(0,0,0,.35);font-family:var(--display);font-size:22px;line-height:1;color:var(--text);font-variant-numeric:tabular-nums}
+  .vc.g1{background:linear-gradient(180deg,#8f352b,var(--v1))}.vc.g2{background:linear-gradient(180deg,#c95a26,var(--v2))}
+  .vc.g3{background:linear-gradient(180deg,#e08c22,var(--v3));color:#1b1207}.vc.g4{background:linear-gradient(180deg,#f0b52a,var(--v4));color:#1b1207}.vc.g5{background:linear-gradient(180deg,var(--gold-hi),var(--v5));color:#1b1207}
+  .gb{display:flex;align-items:center;gap:8px}
+  .gb .track{position:relative;flex:1;height:14px;min-width:70px;background:#111621;border:1px solid var(--edge);border-radius:2px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.5) inset}
+  .gb .fill{display:block;height:100%;background:linear-gradient(90deg,#c8281f 0%,#e8781c 50%,#f4c62e 100%);box-shadow:0 1px 0 rgba(255,255,255,.25) inset}
+  .gb .fill.cool{background:linear-gradient(90deg,#24486f,#3f86cc 60%,#8cc4f4)}.gb .fill.life{background:linear-gradient(90deg,#2b5c33,#4fc46a 60%,#9ae8a6)}
+  .gb .read{font-family:var(--display);font-size:18px;line-height:1;min-width:58px;text-align:right;font-variant-numeric:tabular-nums}.gb .read i{font-style:normal;color:var(--muted)}
+  .dot{width:13px;height:13px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.5);flex:none}
+  .dot.g{background:var(--good);box-shadow:0 0 10px rgba(79,196,106,.9)}.dot.a{background:var(--amber);box-shadow:0 0 10px rgba(240,160,32,.9)}.dot.r{background:var(--bad);box-shadow:0 0 10px rgba(229,67,58,.9)}
+  .badge{min-width:21px;height:21px;padding:0 6px;border-radius:11px;background:linear-gradient(180deg,#ff6259,#c72c24);color:#fff;font-size:12px;font-weight:700;display:grid;place-items:center;border:1px solid #5a120e;box-shadow:0 0 0 2px var(--ground),0 0 10px rgba(229,67,58,.6)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:36px;padding:0 14px;border-radius:3px;cursor:pointer;font-family:var(--display);font-size:17px;letter-spacing:.08em;color:var(--text);background:linear-gradient(180deg,#445273,#303a52);border:1px solid var(--edge);box-shadow:0 1px 0 rgba(255,255,255,.16) inset,0 2px 4px rgba(0,0,0,.35);white-space:nowrap}
+  .btn:hover{background:linear-gradient(180deg,#4e5e83,#37425e)}.btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .btn.gold{background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:#1a1508;border-color:#7a5c0c;box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 0 18px rgba(240,194,51,.45)}
+  .btn.gym{background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff}.btn.sm{height:30px;padding:0 10px;font-size:15px}.btn.wide{width:100%}
+  .btn.bad{background:linear-gradient(180deg,#ef5a50,#b62e26);color:#fff}
+  .seg{display:inline-flex;border:1px solid var(--edge);border-radius:3px;overflow:hidden;box-shadow:0 2px 4px rgba(0,0,0,.35)}
+  .seg button{height:38px;padding:0 18px;background:linear-gradient(180deg,#3a4560,#2b3449);color:var(--text-2);border:none;cursor:pointer;font-family:var(--display);font-size:18px;letter-spacing:.1em}
+  .seg button+button{border-left:1px solid var(--edge)}.seg button.on{background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff;box-shadow:0 1px 0 rgba(255,255,255,.2) inset}
+  .stars{display:inline-flex;gap:3px;align-items:center}.stars svg{width:18px;height:18px}.stars svg path{fill:#3c475e}.stars svg.on path{fill:var(--gold)}
+  .chip{display:inline-flex;align-items:center;gap:8px;height:30px;padding:0 10px;border-radius:3px;border:1px solid var(--edge);background:linear-gradient(180deg,#3a4560,#2b3449);font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--text);white-space:nowrap;box-shadow:0 1px 0 var(--edge-hi) inset}
+  .chip.gold{background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:#1a1508;border-color:#7a5c0c}
+  .chip.gym{background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff}
+  .chip.bad{background:linear-gradient(180deg,#ef5a50,#b62e26);color:#fff;border-color:#5a120e}
+  .chip.amber{background:linear-gradient(180deg,#f6b22e,#c77c12);color:#1b1207;border-color:#7a4c08}
+  a.ent{color:var(--link);font-weight:700;text-decoration:none;border-bottom:2px solid rgba(127,182,238,.45)}
+  .frame{border:1px solid var(--edge);border-radius:4px;background:rgba(34,42,59,.94);box-shadow:0 1px 0 var(--edge-hi) inset,0 6px 16px rgba(0,0,0,.35);overflow:hidden;display:flex;flex-direction:column;min-width:0}
+  .frame>.hbar{display:flex;align-items:center;gap:10px;padding:0 12px;height:34px;flex:none;background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));border-bottom:1px solid var(--edge);box-shadow:0 1px 0 rgba(255,255,255,.18) inset;font-family:var(--display);font-size:18px;letter-spacing:.08em;color:#fff;text-shadow:0 1px 0 rgba(0,0,0,.4);white-space:nowrap}
+  .frame>.hbar .r{margin-left:auto;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.08em;opacity:.95;display:flex;align-items:center;gap:8px}
+  .frame>.hbar.gold{background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:#1a1508;text-shadow:none}
+  .frame>.hbar.bad{background:linear-gradient(180deg,#ef5a50,#b62e26)}
+  .frame>.hbar.slate{background:linear-gradient(180deg,#4a5670,#333d52)}
+  .frame .in{padding:8px;display:flex;flex-direction:column;gap:6px;flex:1}
+  .row{display:flex;align-items:center;gap:8px}
+  .lab12{font-size:12px;letter-spacing:.12em;font-weight:700;color:var(--muted)}
+  .line{font-size:13px;color:var(--text-2)}.line b{color:var(--text)}
+  .k{font-size:12px;letter-spacing:.12em;font-weight:700;color:var(--muted)}
+  .tierbar{display:flex;align-items:center;gap:12px;height:30px;padding:0 4px;font-family:var(--display);font-size:20px;letter-spacing:.12em;color:var(--gold)}
+  .tierbar .sub{font-family:var(--mono);font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--muted)}
+  .tierbar::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--gold),rgba(240,194,51,0))}
+
+  /* monitor + shell */
+  .monitor{width:100%;background:linear-gradient(#3a3f4a 0%,#262a33 4%,#1b1e25 100%);border-radius:14px;padding:9px 9px 0;box-shadow:0 1px 0 rgba(255,255,255,.12) inset,0 40px 90px -30px rgba(0,0,0,.95),0 0 0 1px #0c0e13}
+  .screen{position:relative;background:var(--ground);border-radius:5px;overflow:hidden;box-shadow:0 0 0 1px #05060a}
+  .screen::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(108deg,rgba(255,255,255,.05) 0%,rgba(255,255,255,0) 30%)}
+  .chin{height:30px;display:flex;align-items:center;justify-content:center;position:relative}.chin .wordmark{font-family:var(--display);font-size:13px;letter-spacing:.3em;color:#565c69}.chin .pwr{position:absolute;right:14px;width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px 1px rgba(240,194,51,.75)}
+  .rig{display:flex;flex-direction:column;align-items:center}.stand-neck{width:118px;height:44px;background:linear-gradient(#262a33,#1a1d24);box-shadow:0 0 0 1px #0c0e13}.stand-foot{width:320px;height:12px;border-radius:0 0 8px 8px;background:linear-gradient(#2a2e38,#171a21);box-shadow:0 18px 30px -14px rgba(0,0,0,.9),0 0 0 1px #0c0e13}
+  .backdrop{position:absolute;inset:0;overflow:hidden;z-index:0}
+  .backdrop .pool{position:absolute;inset:-12%;background:radial-gradient(48% 60% at 62% 22%,rgba(63,134,204,.28),rgba(0,0,0,0) 70%),radial-gradient(40% 50% at 16% 80%,rgba(240,194,51,.14),rgba(0,0,0,0) 72%)}
+  .backdrop .shaft{position:absolute;top:-22%;height:145%;width:190px;background:linear-gradient(180deg,rgba(240,194,51,.09),rgba(240,194,51,0) 78%);filter:blur(20px);transform:skewX(-9deg);animation:drift 58s linear infinite}
+  .backdrop .bag{position:absolute;width:30px;border-radius:15px;background:linear-gradient(#3a4356,#1c2130);transform-origin:50% -70px;animation:swing 6.5s ease-in-out infinite;opacity:.6}
+  .backdrop .mote{position:absolute;width:3px;height:3px;border-radius:50%;background:rgba(240,194,51,.45);animation:rise 26s linear infinite}
+  @keyframes drift{from{transform:translateX(-14%) skewX(-9deg)}to{transform:translateX(118%) skewX(-9deg)}}@keyframes swing{0%,100%{transform:rotate(-3.4deg)}50%{transform:rotate(3.4deg)}}@keyframes rise{0%{transform:translateY(0);opacity:0}12%{opacity:.9}88%{opacity:.5}100%{transform:translateY(-340px);opacity:0}}
+  .shell{position:relative;z-index:1;display:grid;grid-template-columns:196px 1fr;grid-template-rows:64px 1fr 44px;min-height:900px}
+
+  .header{grid-column:1/3;display:grid;grid-template-columns:auto auto 1fr auto;align-items:center;height:64px;background:linear-gradient(180deg,rgba(52,64,90,.96),rgba(38,46,66,.96));border-bottom:1px solid var(--edge);box-shadow:0 1px 0 rgba(255,255,255,.14) inset,0 4px 12px rgba(0,0,0,.35)}
+  .header .crest{display:flex;align-items:center;gap:11px;padding:0 16px;height:100%;border-right:1px solid var(--edge);background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));width:196px}
+  .header .crest .mark{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 40% 35%,#fff,#cfd8e6 70%);color:var(--gym-deep);font-family:var(--display);font-size:18px;border:2px solid rgba(0,0,0,.35);flex:none}
+  .header .crest .name{font-family:var(--display);font-size:20px;letter-spacing:.05em;line-height:1;color:#fff;text-shadow:0 1px 0 rgba(0,0,0,.4)}.header .crest .sub{font-size:10.5px;letter-spacing:.12em;color:rgba(255,255,255,.85);font-weight:700;margin-top:3px}
+  .header .title{display:flex;align-items:center;gap:14px;padding:0 18px;border-right:1px solid var(--edge);height:100%}
+  .header .title h2{font-family:var(--display);font-size:32px;letter-spacing:.05em;margin:0;line-height:1}.header .title .lede{font-size:13px;color:var(--text-2);font-weight:600}
+  .header .chips{display:flex;align-items:stretch;height:100%}
+  .hchip{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:0 16px;border-right:1px solid var(--edge)}.hchip .k{font-size:11px;letter-spacing:.14em;color:var(--muted);font-weight:700}.hchip .v{font-family:var(--display);font-size:22px;line-height:1;font-variant-numeric:tabular-nums}.hchip.warn .v{color:#ff8a82}.hchip.accent .v{color:var(--gold)}
+  .header .right{display:flex;align-items:stretch;height:100%}
+  .bell{position:relative;width:60px;display:grid;place-items:center;border-left:1px solid var(--edge);border-right:1px solid var(--edge);background:rgba(0,0,0,.15)}.bell svg{width:22px;height:22px;fill:var(--gold)}.bell .badge{position:absolute;top:9px;right:8px}
+  .datecont{display:flex;align-items:stretch}.datecont .date{padding:0 16px;display:flex;flex-direction:column;justify-content:center;text-align:right;background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));color:#fff}.datecont .date .w{font-size:11px;letter-spacing:.16em;font-weight:700;opacity:.9}.datecont .date .d{font-family:var(--display);font-size:22px;line-height:1;margin-top:2px}
+  .datecont .continue{display:flex;flex-direction:column;justify-content:center;padding:0 22px;background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:#1a1508;border:none;cursor:pointer;font-family:var(--mono);text-align:left;box-shadow:0 1px 0 rgba(255,255,255,.45) inset}.datecont .continue .t{font-family:var(--display);font-size:26px;letter-spacing:.06em;line-height:1}.datecont .continue .s{font-size:11px;letter-spacing:.12em;font-weight:700;margin-top:2px}
+
+  /* the rail: always there, collapsible */
+  .rail{background:rgba(28,34,48,.94);border-right:1px solid var(--edge);display:flex;flex-direction:column}
+  .rail .collapse{height:34px;display:flex;align-items:center;gap:8px;padding:0 12px;background:linear-gradient(180deg,#3d4a66,#2c3549);border-bottom:1px solid var(--edge);font-family:var(--display);font-size:16px;letter-spacing:.1em;color:var(--text-2);cursor:pointer}
+  .rail .collapse .ch{margin-left:auto;font-size:18px;color:var(--gold)}
+  .rail a{display:flex;align-items:center;gap:11px;height:44px;padding:0 12px 0 10px;color:var(--text-2);text-decoration:none;font-size:13px;font-weight:700;letter-spacing:.06em;border-bottom:1px solid rgba(0,0,0,.35);border-left:4px solid transparent}
+  .rail a .ic{width:22px;text-align:center;font-family:var(--display);font-size:20px;color:var(--muted)}
+  .rail a .n{margin-left:auto}
+  .rail a.on{background:linear-gradient(90deg,var(--gym-tint),rgba(0,0,0,0));color:#fff;border-left-color:var(--gym-hi)}.rail a.on .ic{color:var(--gold)}
+  .rail .sub{display:flex;align-items:center;gap:8px;height:36px;padding:0 12px 0 26px;font-size:12px;font-weight:700;letter-spacing:.08em;color:#fff;background:rgba(0,0,0,.25);border-bottom:1px solid rgba(0,0,0,.35)}
+  .rail .sub .tick{width:4px;height:18px;border-radius:2px;background:var(--gold)}
+  .rail .counterwrap{margin-top:auto;padding:22px 0 30px;display:grid;place-items:center}
+  .counter{position:relative;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 40% 35%,#3c4864,#1f2636 75%);border:2px solid var(--gym-hi);box-shadow:0 0 14px rgba(63,134,204,.5),0 1px 0 rgba(255,255,255,.2) inset;font-family:var(--display);font-size:30px;line-height:1}
+  .counter .lab{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:10px;letter-spacing:.14em;color:var(--muted);white-space:nowrap;font-weight:700}
+
+  /* main */
+  .main{display:flex;flex-direction:column;gap:8px;padding:8px;min-width:0}
+  .idcard{display:grid;grid-template-columns:118px 1fr auto;gap:14px;align-items:center;padding:10px 12px;background:linear-gradient(180deg,rgba(52,64,90,.96),rgba(38,46,66,.96));border:1px solid var(--edge);border-radius:4px;box-shadow:0 1px 0 var(--edge-hi) inset,0 6px 16px rgba(0,0,0,.35)}
+  .idcard .por{width:118px;height:118px;border-radius:50%;background:radial-gradient(circle at 40% 32%,#6a7996,#2b3447 72%);border:4px solid var(--gym-hi);box-shadow:0 0 22px rgba(63,134,204,.55),0 4px 10px rgba(0,0,0,.5);display:grid;place-items:center;font-family:var(--display);font-size:40px;color:var(--text-2);position:relative}
+  .idcard .por .st{position:absolute;right:2px;bottom:6px;width:22px;height:22px;border-radius:50%;border:3px solid var(--ground)}
+  .idcard .who{display:flex;flex-direction:column;gap:6px;min-width:0}
+  .idcard h3{font-family:var(--display);font-size:44px;letter-spacing:.03em;line-height:.95;margin:0;color:#fff}
+  .idcard .facts{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--text-2);font-weight:600}.idcard .facts b{color:#fff}
+  .idcard .tags{display:flex;gap:6px;flex-wrap:wrap}
+  .idcard .side{display:grid;grid-template-columns:repeat(3,auto);gap:6px}
+  .idcard .side .stat{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:84px;padding:6px 8px;background:rgba(0,0,0,.22);border:1px solid var(--edge);border-radius:3px}
+  .idcard .side .stat .v{font-family:var(--display);font-size:28px;line-height:1;color:var(--gold)}.idcard .side .stat .k{font-size:10.5px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .attr{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+  .dialwrap{display:flex;align-items:center;gap:10px}
+  .body{position:relative;height:250px}
+  .body svg{position:absolute;inset:0;width:100%;height:100%}
+  .body .node{position:absolute;display:flex;flex-direction:column;align-items:center;gap:2px}
+  .body .node .lab{font-size:10.5px;letter-spacing:.1em;color:var(--text);font-weight:700;background:rgba(0,0,0,.35);padding:1px 5px;border-radius:2px;white-space:nowrap}
+  .milestones{display:flex;flex-direction:column;gap:4px}
+  .ms{display:grid;grid-template-columns:28px 1fr auto;align-items:center;height:32px;border:1px solid var(--edge);border-radius:3px;background:linear-gradient(180deg,#3a4560,#2b3449);font-size:12.5px;font-weight:600}
+  .ms .box{height:100%;display:grid;place-items:center;border-right:1px solid var(--edge);font-weight:700}
+  .ms.done .box{background:linear-gradient(180deg,#5fd27a,#2f9a48);color:#062a10}.ms.next .box{background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:#1a1508}.ms.todo .box{background:rgba(0,0,0,.25);color:var(--muted)}
+  .ms .t{padding:0 10px;color:var(--text)}.ms .w{padding:0 10px;color:var(--muted);font-size:11px;letter-spacing:.1em}
+  table.log{border-collapse:separate;border-spacing:0;width:100%}
+  table.log th{height:28px;background:linear-gradient(180deg,#3d4a66,#2c3549);color:var(--text-2);font-family:var(--display);font-size:14px;letter-spacing:.1em;font-weight:400;text-align:left;padding:0 8px;border-bottom:1px solid var(--edge)}
+  table.log td{height:40px;padding:0 8px;font-size:12.5px;border-bottom:1px solid var(--edge);background:rgba(44,53,74,.9);white-space:nowrap}
+  table.log tr:nth-child(even) td{background:rgba(52,63,88,.9)}
+  table.log td.res{font-family:var(--display);font-size:20px;width:36px;text-align:center}
+  .W{color:#8ff0a2}.L{color:#ff9b94}
+  .medal{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 50% 38%,#4a2a1a,#1f2636 72%);border:3px solid var(--amber);box-shadow:0 0 16px rgba(240,160,32,.6);font-family:var(--display);font-size:24px;color:var(--amber);flex:none}
+  .medal .k{font-size:8.5px;letter-spacing:.12em;color:var(--text-2);font-family:var(--mono);font-weight:700}
+  .quote{margin:0;padding:8px 10px;font-size:12.5px;line-height:1.5;color:var(--text);background:rgba(0,0,0,.2);border-left:3px solid var(--gym-hi);border-radius:2px}
+  .quote .who{display:block;margin-top:4px;font-size:11px;letter-spacing:.12em;font-weight:700;color:var(--link)}
+
+  /* ---- the headline: the name IS the header ---- */
+  .header .headline{display:flex;align-items:center;gap:14px;padding:0 18px;height:100%;border-right:1px solid var(--edge);min-width:0}
+  .header .headline .glyph{width:44px;height:44px;flex:none;filter:drop-shadow(0 2px 3px rgba(0,0,0,.5))}
+  .header .headline h2{font-family:var(--display);font-size:38px;letter-spacing:.04em;margin:0;line-height:1;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.45);white-space:nowrap}
+  .header .idline{display:flex;align-items:center;gap:8px;margin-left:6px}
+  .header .idline .disc{height:30px;padding:0 12px;display:flex;align-items:center;background:linear-gradient(180deg,#ef5a50,#b62e26);color:#fff;font-family:var(--display);font-size:18px;letter-spacing:.1em;border:1px solid #5a120e;border-radius:3px;box-shadow:0 1px 0 rgba(255,255,255,.25) inset}
+  .header .idline .div{height:30px;padding:0 12px;display:flex;align-items:center;background:linear-gradient(180deg,var(--gold-hi),var(--gold-lo));color:#1a1508;font-family:var(--display);font-size:18px;letter-spacing:.1em;border:1px solid #7a5c0c;border-radius:3px;box-shadow:0 1px 0 rgba(255,255,255,.4) inset}
+  .header .idline .flag{font-size:24px;line-height:1}
+
+  /* ---- accomplishments shelf ---- */
+  .idcard{grid-template-columns:118px 1fr;grid-template-rows:auto auto;row-gap:10px}
+  .idcard .por{grid-row:1/3}
+  .shelf{display:flex;align-items:stretch;gap:6px;min-width:0}
+  .acc{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:8px 6px 6px;background:rgba(0,0,0,.22);border:1px solid var(--edge);border-radius:3px;box-shadow:0 1px 0 var(--edge-hi) inset;min-width:0}
+  .acc.wide{flex:1.8}
+  .acc .cap{font-size:11px;letter-spacing:.12em;font-weight:700;color:var(--text-2);text-align:center;white-space:nowrap}
+  .rankmedal{position:relative;width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 40% 35%,#fbe58a,#c99a1a 70%);border:3px solid #7a5c0c;box-shadow:0 0 18px rgba(240,194,51,.55),0 3px 6px rgba(0,0,0,.5);font-family:var(--display);font-size:30px;line-height:1;color:#1a1508}
+  .rankmedal .k{position:absolute;bottom:6px;font-size:8px;letter-spacing:.16em;font-weight:700;color:#5a4108}
+  .bigfig{font-family:var(--display);font-size:42px;line-height:1;color:#fff;letter-spacing:.02em;font-variant-numeric:tabular-nums}
+  .bigfig .sep{color:var(--muted);font-size:30px;margin:0 3px}
+  .dial{width:72px;height:72px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.5))}
+  .dial.small{width:64px;height:64px}
+  .dial .sweep{animation:sweep 1.1s cubic-bezier(.16,1,.3,1) both}
+  @keyframes sweep{from{stroke-dashoffset:239}}
+  .belts{display:flex;gap:8px;align-items:center}
+  .belt{width:132px;height:48px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.6));overflow:visible}
+  .belt.empty{opacity:.7;filter:none}
+  .belt .shine{animation:shine 4.5s ease-in-out infinite}
+  @keyframes shine{0%,60%{transform:translateX(0) skewX(-20deg)}100%{transform:translateX(170px) skewX(-20deg)}}
+  .trophies{display:flex;align-items:center;gap:4px}
+  .trophy{width:40px;height:44px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.6))}
+  .trophies .count{font-family:var(--display);font-size:22px;color:var(--gold);margin-right:8px}
+  .stars.big svg{width:24px;height:24px}
+  .idcard .tags{grid-column:2;display:flex;gap:6px;flex-wrap:wrap}
+
+  /* ---- motion: intro stagger, bars fill, heat pulses ---- */
+  .idcard,.frame,.tierbar{animation:intro .5s cubic-bezier(.16,1,.3,1) both}
+  .main>*:nth-child(2){animation-delay:.05s}.main>*:nth-child(3){animation-delay:.1s}
+  .grid3>*:nth-child(1){animation-delay:.14s}.grid3>*:nth-child(2){animation-delay:.2s}.grid3>*:nth-child(3){animation-delay:.26s}
+  .grid4>*:nth-child(1){animation-delay:.3s}.grid4>*:nth-child(2){animation-delay:.36s}.grid4>*:nth-child(3){animation-delay:.42s}.grid4>*:nth-child(4){animation-delay:.48s}
+  @keyframes intro{from{opacity:0;transform:translateX(-28px)}to{opacity:1;transform:none}}
+  .gb .fill{animation:fill 1s cubic-bezier(.16,1,.3,1) both;animation-delay:.35s}
+  @keyframes fill{from{width:0}}
+  .medal{animation:heat 2.2s ease-in-out infinite}
+  @keyframes heat{0%,100%{box-shadow:0 0 16px rgba(240,160,32,.6)}50%{box-shadow:0 0 28px rgba(240,160,32,1)}}
+
+  /* bottom bar: breadcrumb + back/forward */
+  .bottom{grid-column:1/3;display:flex;align-items:center;gap:0;height:44px;background:linear-gradient(180deg,rgba(52,64,90,.96),rgba(38,46,66,.96));border-top:1px solid var(--edge);box-shadow:0 1px 0 rgba(255,255,255,.14) inset}
+  .bottom .nav{display:flex;height:100%}.bottom .nav button{width:46px;height:100%;background:rgba(0,0,0,.2);border:none;border-right:1px solid var(--edge);color:var(--text);font-family:var(--display);font-size:22px;cursor:pointer}
+  .bottom .crumb{display:flex;align-items:center;gap:10px;padding:0 16px;font-size:12px;letter-spacing:.12em;font-weight:700;color:var(--muted)}.bottom .crumb b{color:#fff}.bottom .crumb span{color:var(--gold)}
+  .bottom .acts{margin-left:auto;display:flex;gap:6px;padding:0 10px}
+
+  .notes{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:6px}
+  .note{display:grid;grid-template-columns:150px 1fr;align-items:center;min-height:44px;border:1px solid var(--edge);border-radius:3px;background:rgba(34,42,59,.94)}
+  .note b{height:100%;display:flex;align-items:center;padding:0 10px;background:linear-gradient(180deg,var(--gym-hi),var(--gym-lo));font-family:var(--display);font-size:15px;letter-spacing:.08em;font-weight:400;color:#fff;border-right:1px solid var(--edge)}
+  .note span{padding:6px 10px;font-size:12.5px;color:var(--text-2)}
+  footer{color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:14px}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important}}
+  @media (max-width:1200px){.shell{grid-template-columns:1fr}.rail{display:none}.header{grid-template-columns:1fr}.header .chips,.header .right{display:none}.grid3,.grid4{grid-template-columns:1fr 1fr}.bottom{grid-column:1}}
+</style>
+
+<div class="wrap">
+  <header class="masthead">
+    <div class="eyebrow">FightCamp · fighter profile · preview before code · 4 September 2026</div>
+    <h1>Kian Sterling</h1>
+    <p>One screen, in the shell. The rail is always there and can hide; the breadcrumb says how you got here. Hierarchy is the one you approved: what you must decide now, what wins fights, the long game. Every system built so far has a place on this page, and every number on it already exists in the save.</p>
+  </header>
+
+  <div class="rig">
+    <div class="monitor">
+      <div class="screen">
+        <div class="backdrop" aria-hidden="true"><div class="pool"></div><div class="shaft" style="left:24%"></div><div class="bag" style="left:14%;top:16%;height:120px"></div><div class="mote" style="left:30%;top:80%"></div><div class="mote" style="left:72%;top:88%;animation-delay:-12s"></div></div>
+        <div class="shell">
+
+          <div class="header">
+            <div class="crest"><div class="mark">NI</div><div><div class="name">Nicosia Ironworks</div><div class="sub">CYPRUS · TIER 2</div></div></div>
+            <div class="headline">
+              <svg class="glyph" viewBox="0 0 48 48" aria-label="Boxing"><path d="M14 8h14a9 9 0 0 1 9 9v7a11 11 0 0 1-11 11H16a8 8 0 0 1-8-8V14a6 6 0 0 1 6-6z" fill="#e5433a" stroke="#0e1320" stroke-width="2"/><path d="M8 20h6v15a4 4 0 0 1-4 4H8z" fill="#b62e26" stroke="#0e1320" stroke-width="2"/><path d="M16 30h9" stroke="#0e1320" stroke-width="2" stroke-linecap="round"/></svg>
+              <h2>Kian Sterling</h2>
+              <div class="idline"><span class="disc">BOXER</span><span class="div">BANTAMWEIGHT</span><span class="flag">🇨🇾</span></div>
+            </div>
+            <div class="chips"></div>
+            <div class="right">
+              <div class="bell"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22a2.2 2.2 0 0 0 2.2-2.2H9.8A2.2 2.2 0 0 0 12 22zm7-5.4v-5.2c0-3.3-1.8-6-4.8-6.7v-.7a2.2 2.2 0 1 0-4.4 0v.7C6.8 5.4 5 8.1 5 11.4v5.2l-1.8 1.8v.9h17.6v-.9L19 16.6z"/></svg><span class="badge">6</span></div>
+              <div class="datecont"><div class="date"><div class="w">WEEK 11 · WED</div><div class="d">18 MAR 2026</div></div><button type="button" class="continue"><span class="t">CONTINUE →</span><span class="s">2 MUST ANSWER FIRST</span></button></div>
+            </div>
+          </div>
+
+          <nav class="rail">
+            <div class="collapse">MENU <span class="ch">‹</span></div>
+            <a href="#"><span class="ic">◆</span>OFFICE</a>
+            <a href="#"><span class="ic">■</span>THE DAY<span class="n badge">6</span></a>
+            <a href="#" class="on"><span class="ic">▲</span>FIGHTERS</a>
+            <div class="sub"><span class="tick"></span>KIAN STERLING</div>
+            <a href="#"><span class="ic">▤</span>GYM</a>
+            <a href="#"><span class="ic">✦</span>TRAINING</a>
+            <a href="#"><span class="ic">▦</span>SCHEDULE</a>
+            <a href="#"><span class="ic">◈</span>EVENTS<span class="n badge">1</span></a>
+            <a href="#"><span class="ic">☰</span>RANKINGS</a>
+            <a href="#"><span class="ic">$</span>FINANCES</a>
+            <a href="#"><span class="ic">✎</span>CONTRACTS</a>
+            <div class="counterwrap"><div class="counter">3<span class="lab">DAYS TO FIGHT</span></div></div>
+          </nav>
+
+          <main class="main">
+
+            <div class="idcard">
+              <div class="por">KS<span class="st dot g"></span></div>
+
+              <div class="shelf">
+                <!-- rank -->
+                <div class="acc">
+                  <div class="rankmedal">#3<span class="k">WORLD</span></div>
+                  <span class="cap">BANTAMWEIGHT</span>
+                </div>
+                <!-- record -->
+                <div class="acc">
+                  <div class="bigfig">14<span class="sep">–</span>2<span class="sep">–</span>0</div>
+                  <span class="cap">9 KO · WON 2 STRAIGHT</span>
+                </div>
+                <!-- overall dial -->
+                <div class="acc">
+                  <svg class="dial" viewBox="0 0 96 96" aria-label="Overall B plus">
+                    <defs><linearGradient id="dg" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#e5433a"/><stop offset=".55" stop-color="#f0a020"/><stop offset="1" stop-color="#f0c233"/></linearGradient></defs>
+                    <circle cx="48" cy="48" r="38" fill="none" stroke="#1a2030" stroke-width="10"/>
+                    <circle class="sweep" cx="48" cy="48" r="38" fill="none" stroke="url(#dg)" stroke-width="10" stroke-linecap="round" stroke-dasharray="239" stroke-dashoffset="62" transform="rotate(-90 48 48)"/>
+                    <text x="48" y="58" text-anchor="middle" fill="#f0c233" font-family="Bebas Neue, sans-serif" font-size="34">B+</text>
+                  </svg>
+                  <span class="cap">OVERALL</span>
+                </div>
+                <!-- belts -->
+                <div class="acc wide">
+                  <div class="belts">
+                    <svg class="belt" viewBox="0 0 120 44" aria-label="Regional title"><rect x="2" y="14" width="116" height="16" rx="6" fill="#3b2a12" stroke="#0e1320" stroke-width="2"/><rect x="2" y="17" width="116" height="4" fill="#5a4118"/><ellipse cx="60" cy="22" rx="24" ry="17" fill="url(#gp)" stroke="#7a5c0c" stroke-width="2"/><ellipse cx="60" cy="22" rx="14" ry="9" fill="none" stroke="#7a5c0c" stroke-width="1.5"/><circle cx="26" cy="22" r="6" fill="url(#gp)" stroke="#7a5c0c" stroke-width="1.5"/><circle cx="94" cy="22" r="6" fill="url(#gp)" stroke="#7a5c0c" stroke-width="1.5"/><defs><linearGradient id="gp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbe58a"/><stop offset=".5" stop-color="#f0c233"/><stop offset="1" stop-color="#b8880f"/></linearGradient></defs><rect class="shine" x="-30" y="10" width="20" height="26" fill="rgba(255,255,255,.55)" transform="skewX(-20)"/></svg>
+                    <svg class="belt empty" viewBox="0 0 120 44" aria-label="World title, not yet won"><rect x="2" y="14" width="116" height="16" rx="6" fill="none" stroke="#3c475e" stroke-width="2" stroke-dasharray="4 3"/><ellipse cx="60" cy="22" rx="24" ry="17" fill="none" stroke="#3c475e" stroke-width="2" stroke-dasharray="4 3"/></svg>
+                  </div>
+                  <span class="cap">REGIONAL CHAMPION · WORLD TITLE NEXT</span>
+                </div>
+                <!-- trophies -->
+                <div class="acc">
+                  <div class="trophies">
+                    <svg class="trophy" viewBox="0 0 40 44" aria-label="Performance of the Night"><path d="M10 4h20v12a10 10 0 0 1-20 0z" fill="url(#gp)" stroke="#7a5c0c" stroke-width="1.5"/><path d="M8 6H3v5a7 7 0 0 0 7 6M32 6h5v5a7 7 0 0 1-7 6" fill="none" stroke="#b8880f" stroke-width="2"/><rect x="17" y="26" width="6" height="7" fill="#b8880f"/><rect x="11" y="33" width="18" height="6" rx="1" fill="#3b2a12" stroke="#0e1320" stroke-width="1.5"/></svg>
+                    <span class="count">×2</span>
+                    <svg class="trophy" viewBox="0 0 40 44" aria-label="Fight of the Night"><circle cx="20" cy="26" r="12" fill="url(#gp)" stroke="#7a5c0c" stroke-width="1.5"/><path d="M13 4l7 12 7-12" fill="#e5433a" stroke="#0e1320" stroke-width="1.5"/><path d="M20 19l2.2 4.6 5 .6-3.7 3.4 1 5-4.5-2.5-4.5 2.5 1-5-3.7-3.4 5-.6z" fill="#7a5c0c"/></svg>
+                    <span class="count">×1</span>
+                  </div>
+                  <span class="cap">NIGHT AWARDS</span>
+                </div>
+                <!-- fame gauge -->
+                <div class="acc">
+                  <svg class="dial small" viewBox="0 0 96 96" aria-label="Fame 132"><circle cx="48" cy="48" r="38" fill="none" stroke="#1a2030" stroke-width="10"/><circle class="sweep" cx="48" cy="48" r="38" fill="none" stroke="#3f86cc" stroke-width="10" stroke-linecap="round" stroke-dasharray="239" stroke-dashoffset="96" transform="rotate(-90 48 48)"/><text x="48" y="58" text-anchor="middle" fill="#f3f5fa" font-family="Bebas Neue, sans-serif" font-size="30">132</text></svg>
+                  <span class="cap">FAME · RISING</span>
+                </div>
+                <!-- standing -->
+                <div class="acc">
+                  <span class="stars big"><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.6 7.2.8-5.3 4.9 1.4 7.1L12 17.9 5.7 21.4l1.4-7.1L1.8 9.4 9 8.6z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.6 7.2.8-5.3 4.9 1.4 7.1L12 17.9 5.7 21.4l1.4-7.1L1.8 9.4 9 8.6z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.6 7.2.8-5.3 4.9 1.4 7.1L12 17.9 5.7 21.4l1.4-7.1L1.8 9.4 9 8.6z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7.2.8-5.3 4.9 1.4 7.1L12 17.9 5.7 21.4l1.4-7.1L1.8 9.4 9 8.6z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7.2.8-5.3 4.9 1.4 7.1L12 17.9 5.7 21.4l1.4-7.1L1.8 9.4 9 8.6z"/></svg></span>
+                  <span class="cap"><a class="ent" href="#">EASTERN RING</a> · STANDING</span>
+                </div>
+              </div>
+
+              <div class="tags">
+                <span class="chip gold">TITLE SHOT GUARANTEED · 9 WKS</span>
+                <span class="chip amber">GRUDGE MATCH ON THE BOARD</span>
+                <span class="chip gym">IN CAMP · WEEK 4 OF 6</span>
+                <span class="chip">FEATHER → BANTAM · SETTLING 1 WK</span>
+                <span class="chip">AMBITIOUS</span>
+                <span class="chip">AGE 26</span>
+              </div>
+            </div>
+
+            <div class="row" style="justify-content:space-between">
+              <div class="seg"><button type="button" class="on">ATHLETE LAB</button><button type="button">DEVELOPMENT</button><button type="button">SKILLS &amp; MOVES</button><button type="button">FIGHT RECORD</button><button type="button">FIGHT CAMP</button></div>
+              <div class="row"><button type="button" class="btn">COMPARE</button><button type="button" class="btn">TALE OF THE TAPE</button><button type="button" class="btn gym">TRAINING PLAN</button></div>
+            </div>
+
+            <!-- TIER 1 -->
+            <div class="tierbar">DECIDE NOW <span class="sub">THINGS ON THIS FIGHTER THAT NEED AN ANSWER</span></div>
+            <div class="grid3">
+              <div class="frame">
+                <div class="hbar bad">HE IS ASKING <span class="r">DEADLINE IF PROMISED · 2 WKS</span></div>
+                <div class="in">
+                  <p class="quote">"I'm ranked third and I've won two straight. I want the champion next, not another tune-up."<span class="who">TITLE SHOT · RAISED MONDAY</span></p>
+                  <div class="row"><button type="button" class="btn gold" style="flex:1">PROMISE</button><button type="button" class="btn" style="flex:1">DEFER</button><button type="button" class="btn" style="flex:1">DECLINE</button></div>
+                  <div class="line">Kept by booking <a class="ent" href="#">Ilya Brandt</a>, the champion. Broken: morale −10, grudge +10.</div>
+                </div>
+              </div>
+              <div class="frame">
+                <div class="hbar gold">NEXT FIGHT · SATURDAY <span class="r">GRUDGE MATCH · HEATED</span></div>
+                <div class="in">
+                  <div class="row" style="gap:10px"><div class="medal">42<span class="k">HEAT</span></div><div><div style="font-family:var(--display);font-size:22px;line-height:1">vs <a class="ent" href="#">Dmitri Vasa</a> · #4</div><div class="line"><a class="ent" href="#">Nicosia Fight Night</a> · Featured card · purse <b>$9,680</b> (heat ×1.21)</div></div></div>
+                  <div class="attr" style="margin-top:2px"><div class="pair"><span class="lab q">HYPE</span><span class="val g3">58</span></div><div class="pair"><span class="lab q">PLAN</span><span class="val txt">PRESSURE</span></div></div>
+                  <div class="line">2 press questions waiting · answered ones earned <b>+18 hype</b> so far.</div>
+                </div>
+              </div>
+              <div class="frame">
+                <div class="hbar">CAMP &amp; WEIGHT <span class="r">WEIGH-IN FRIDAY</span></div>
+                <div class="in">
+                  <div class="row" style="gap:10px"><span class="k" style="width:64px">WEIGHT</span><div class="gb" style="flex:1"><span class="track"><i class="fill cool" style="width:70%"></i></span><span class="read">55.1<i>/53.5</i></span></div></div>
+                  <div class="line">2.9% to cut · <b>on track</b> · standard cut, no cost on the night.</div>
+                  <div class="attr"><div class="pair"><span class="lab q">TRACK</span><span class="val txt">STRIKING SHARK</span></div><div class="pair"><span class="lab q">PROTOCOL</span><span class="val txt">HARD SPARRING</span></div><div class="pair"><span class="lab q">INJURY RISK</span><span class="val g4">6%</span></div><div class="pair"><span class="lab q">FILM</span><span class="val g5">3/3</span></div></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- TIER 2 -->
+            <div class="tierbar">WHAT WINS <span class="sub">THE FIGHTER TONIGHT</span></div>
+            <div class="grid4">
+              <div class="frame">
+                <div class="hbar">ATTRIBUTES <span class="r">B+ OVERALL</span></div>
+                <div class="in">
+                  <div class="attr">
+                    <div class="pair"><span class="lab">POWER</span><span class="val g4">78</span></div>
+                    <div class="pair"><span class="lab">TECHNIQUE</span><span class="val g5">86<span class="t">▲2</span></span></div>
+                    <div class="pair"><span class="lab">SPEED</span><span class="val g4">74</span></div>
+                    <div class="pair"><span class="lab">DEFENSE</span><span class="val g3">61</span></div>
+                    <div class="pair"><span class="lab">CONDITION</span><span class="val g3">66<span class="t">▼3</span></span></div>
+                    <div class="pair"><span class="lab">FIGHT IQ</span><span class="val g4">72</span></div>
+                  </div>
+                </div>
+              </div>
+              <div class="frame">
+                <div class="hbar">BODY <span class="r">MIN 77 · RIGHT LEG</span></div>
+                <div class="body">
+                  <svg viewBox="0 0 300 250" aria-label="Six-region body condition">
+                    <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5fd27a"/><stop offset="1" stop-color="#2f9a48"/></linearGradient><linearGradient id="a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6b22e"/><stop offset="1" stop-color="#c77c12"/></linearGradient></defs>
+                    <g stroke="#9fb3d1" stroke-width="1.4" fill="none"><path d="M150 28 L92 28"/><path d="M150 96 L206 78"/><path d="M96 100 L62 110"/><path d="M204 100 L238 110"/><path d="M132 206 L74 206"/><path d="M168 206 L226 206"/></g>
+                    <g stroke="#0e1320" stroke-width="1.6" stroke-linejoin="round">
+                      <path d="M128 164 L148 166 L146 246 L124 246 Z" fill="url(#g)"/><path d="M152 166 L172 164 L176 246 L154 246 Z" fill="url(#a)"/>
+                      <path d="M118 54 Q150 46 182 54 L186 82 L178 84 L180 132 Q180 148 172 156 L170 166 L130 166 L128 156 Q120 148 120 132 L122 84 L114 82 Z" fill="url(#g)"/>
+                      <path d="M118 56 L98 66 L80 108 L94 114 L108 88 L116 80 Z" fill="url(#g)"/><path d="M80 108 L94 114 L104 98 L118 94 L116 82 L100 88 Z" fill="url(#g)"/><circle cx="116" cy="94" r="13" fill="url(#g)"/>
+                      <path d="M182 56 L202 66 L220 108 L206 114 L192 88 L184 80 Z" fill="url(#g)"/><path d="M220 108 L206 114 L196 98 L182 94 L184 82 L200 88 Z" fill="url(#g)"/><circle cx="184" cy="94" r="13" fill="url(#g)"/>
+                      <path d="M141 40 L159 40 L160 54 L140 54 Z" fill="url(#g)"/><path d="M150 10 C161 10 167 19 167 30 C167 40 161 46 150 46 C139 46 133 40 133 30 C133 19 139 10 150 10 Z" fill="url(#g)"/>
+                    </g>
+                  </svg>
+                  <div class="node" style="left:6px;top:14px"><span class="vc g5">92</span><span class="lab">HEAD</span></div>
+                  <div class="node" style="right:8px;top:62px"><span class="vc g5">90</span><span class="lab">TORSO</span></div>
+                  <div class="node" style="left:2px;top:96px"><span class="vc g5">95</span><span class="lab">L ARM</span></div>
+                  <div class="node" style="right:2px;top:96px"><span class="vc g5">94</span><span class="lab">R ARM</span></div>
+                  <div class="node" style="left:8px;top:190px"><span class="vc g5">88</span><span class="lab">L LEG</span></div>
+                  <div class="node" style="right:8px;top:190px"><span class="vc g4">77</span><span class="lab">R LEG</span></div>
+                </div>
+                <div class="in" style="flex:none;padding-top:0"><div class="line">Anatomical art replaces this figure (licensed). Fatigue <b>31</b> · no medical hold.</div></div>
+              </div>
+              <div class="frame">
+                <div class="hbar">STYLE &amp; PLAN <span class="r">NATURAL: SWARMER</span></div>
+                <div class="in">
+                  <div class="attr">
+                    <div class="pair"><span class="lab q">THE JAB &amp; DISTANCE</span><span class="val txt">7-3</span></div>
+                    <div class="pair"><span class="lab q">GAME-PLAN CHAINS</span><span class="val">2</span></div>
+                    <div class="pair"><span class="lab q">TIGHTNESS</span><span class="val g4">78<span class="t">▲4</span></span></div>
+                    <div class="pair"><span class="lab q">MOVES</span><span class="val">18</span></div>
+                  </div>
+                  <div class="line">Signature chain: <b>Jab · Cross · Lead Hook</b>. In training: <b>Shovel Hook</b> 62%.</div>
+                  <div class="line">Corner coach <a class="ent" href="#">Marco Reyes</a> · rapport <b>72 STRONG</b> · listens 71%.</div>
+                </div>
+              </div>
+              <div class="frame">
+                <div class="hbar">FORM &amp; READINESS <span class="r">CLEARED</span></div>
+                <div class="in">
+                  <div class="row"><span class="dot g"></span><span class="k" style="width:64px">FORM</span><span class="line">Won 2 straight · <b>sharp</b></span></div>
+                  <div class="row"><span class="k" style="width:78px">STAMINA</span><div class="gb" style="flex:1"><span class="track"><i class="fill" style="width:88%"></i></span><span class="read">88<i>/100</i></span></div></div>
+                  <div class="row"><span class="k" style="width:78px">FATIGUE</span><div class="gb" style="flex:1"><span class="track"><i class="fill cool" style="width:31%"></i></span><span class="read">31<i>/100</i></span></div></div>
+                  <div class="row"><span class="k" style="width:78px">MORALE</span><div class="gb" style="flex:1"><span class="track"><i class="fill life" style="width:74%"></i></span><span class="read">74<i>/100</i></span></div></div>
+                  <div class="attr"><div class="pair"><span class="lab q">MEDICAL</span><span class="val txt" style="color:#8ff0a2">CLEAR</span></div><div class="pair"><span class="lab q">STATUS</span><span class="val txt">AVAILABLE</span></div></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- TIER 3 -->
+            <div class="tierbar">THE LONG GAME <span class="sub">CAREER, RELATIONSHIPS, MONEY</span></div>
+            <div class="grid4">
+              <div class="frame">
+                <div class="hbar">AMBITION <span class="r">WIN A WORLD TITLE</span></div>
+                <div class="in">
+                  <div class="milestones">
+                    <div class="ms done"><span class="box">✓</span><span class="t">Break into the top ten</span><span class="w">WK 3</span></div>
+                    <div class="ms done"><span class="box">✓</span><span class="t">Reach the top five</span><span class="w">WK 8</span></div>
+                    <div class="ms next"><span class="box">›</span><span class="t">Fight for the belt</span><span class="w">GUARANTEED</span></div>
+                    <div class="ms todo"><span class="box">·</span><span class="t">Win the world title</span><span class="w"></span></div>
+                  </div>
+                </div>
+              </div>
+              <div class="frame">
+                <div class="hbar">RELATIONSHIPS <span class="r">LOYALTY 61 · STRONG</span></div>
+                <div class="in">
+                  <div class="attr">
+                    <div class="pair"><span class="lab">LOYALTY</span><span class="val g3">61</span></div>
+                    <div class="pair"><span class="lab">RAPPORT</span><span class="val g4">72</span></div>
+                    <div class="pair"><span class="lab">GRUDGE</span><span class="val g5">0</span></div>
+                    <div class="pair"><span class="lab">TENURE</span><span class="val txt">1Y 8M</span></div>
+                  </div>
+                  <div class="line">Pay is <b>82% of market</b> · a raise ask is likely. Promises kept <b>2</b>, broken <b>0</b>.</div>
+                </div>
+              </div>
+              <div class="frame">
+                <div class="hbar">CONTRACT <span class="r">31 WEEKS LEFT</span></div>
+                <div class="in">
+                  <div class="attr">
+                    <div class="pair"><span class="lab q">SALARY</span><span class="val txt">$1,150/WK</span></div>
+                    <div class="pair"><span class="lab q">MARKET</span><span class="val txt">$1,400/WK</span></div>
+                    <div class="pair"><span class="lab q">PROMOTION</span><span class="val txt">EXCLUSIVE</span></div>
+                    <div class="pair"><span class="lab q">STANDING</span><span class="val"><span class="stars"><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.6 7.2.8-5.3 4.9 1.4 7.1L12 17.9 5.7 21.4l1.4-7.1L1.8 9.4 9 8.6z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.6 7.2.8-5.3 4.9 1.4 7.1L12 17.9 5.7 21.4l1.4-7.1L1.8 9.4 9 8.6z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.6 7.2.8-5.3 4.9 1.4 7.1L12 17.9 5.7 21.4l1.4-7.1L1.8 9.4 9 8.6z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7.2.8-5.3 4.9 1.4 7.1L12 17.9 5.7 21.4l1.4-7.1L1.8 9.4 9 8.6z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7.2.8-5.3 4.9 1.4 7.1L12 17.9 5.7 21.4l1.4-7.1L1.8 9.4 9 8.6z"/></svg></span></span></div>
+                  </div>
+                  <div class="line">Clauses on the last deal: <b>gate 2 pts · title shot</b>. Declining a promotion slate costs standing.</div>
+                  <div class="row"><button type="button" class="btn sm" style="flex:1">RENEGOTIATE</button><button type="button" class="btn sm" style="flex:1">RELEASE</button></div>
+                </div>
+              </div>
+              <div class="frame">
+                <div class="hbar">MEDIA &amp; AWARDS <span class="r">2 QUESTIONS WAITING</span></div>
+                <div class="in">
+                  <p class="quote">"Vasa talks. I don't. Saturday he finds out why."<span class="who">LAST ANSWER · +12 HYPE · HEAT +10</span></p>
+                  <div class="attr"><div class="pair"><span class="lab q">PERFORMANCE</span><span class="val g5">2</span></div><div class="pair"><span class="lab q">FIGHT OF NIGHT</span><span class="val g4">1</span></div></div>
+                  <div class="line">Latest: Performance of the Night at <a class="ent" href="#">Larnaca Showdown</a> · $2,900.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="frame">
+              <div class="hbar">LAST FIVE <span class="r"><a class="ent" style="color:#fff;border-color:rgba(255,255,255,.5)" href="#">FULL RECORD ›</a></span></div>
+              <table class="log">
+                <thead><tr><th></th><th>OPPONENT</th><th>EVENT</th><th>TIER</th><th>METHOD</th><th>RD</th><th>HYPE</th><th>PURSE</th><th>NOTE</th></tr></thead>
+                <tbody>
+                  <tr><td class="res W">W</td><td><a class="ent" href="#">Teo Marsh</a></td><td><a class="ent" href="#">Larnaca Showdown</a></td><td>REGIONAL</td><td>KO</td><td>3</td><td>44</td><td>$6,100</td><td><span class="chip gold" style="height:24px;font-size:11px">PERFORMANCE OF THE NIGHT</span></td></tr>
+                  <tr><td class="res W">W</td><td><a class="ent" href="#">Ilya Brandt</a></td><td><a class="ent" href="#">Eastern Ring 14</a></td><td>PROMOTION</td><td>UD</td><td>10</td><td>51</td><td>$8,400</td><td>Title shot clause earned</td></tr>
+                  <tr><td class="res L">L</td><td><a class="ent" href="#">Dmitri Vasa</a></td><td><a class="ent" href="#">Eastern Ring 12</a></td><td>PROMOTION</td><td>SD</td><td>10</td><td>39</td><td>$7,200</td><td>Feud started · rematch ask</td></tr>
+                  <tr><td class="res W">W</td><td><a class="ent" href="#">Sam Achebe</a></td><td><a class="ent" href="#">Nicosia Fight Night</a></td><td>FEATURED</td><td>TKO</td><td>2</td><td>30</td><td>$4,900</td><td>Move learned in the fight</td></tr>
+                  <tr><td class="res W">W</td><td><a class="ent" href="#">Rafael Cunha</a></td><td><a class="ent" href="#">Paphos Open Card</a></td><td>LOCAL</td><td>UD</td><td>6</td><td>18</td><td>$2,300</td><td>Step-up promise kept</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </main>
+
+          <div class="bottom">
+            <div class="nav"><button type="button" aria-label="Back">‹</button><button type="button" aria-label="Forward">›</button></div>
+            <div class="crumb">OFFICE <span>›</span> FIGHTERS <span>›</span> <b>KIAN STERLING</b> <span>›</span> ATHLETE LAB</div>
+            <div class="acts"><button type="button" class="btn sm">OPEN IN RANKINGS</button><button type="button" class="btn sm">SCHEDULE</button><button type="button" class="btn sm gold">SEND TO FIGHT CAMP</button></div>
+          </div>
+        </div>
+      </div>
+      <div class="chin"><span class="wordmark">FIGHTCAMP</span><span class="pwr"></span></div>
+    </div>
+    <div class="stand-neck"></div><div class="stand-foot"></div>
+  </div>
+
+  <section>
+    <div class="eyebrow" style="margin-bottom:8px">Where each system lives on this page</div>
+    <div class="notes">
+      <div class="note"><b>REQUESTS</b><span>The ask, its trigger, the deadline and the four answers. Kept or broken by real bookings.</span></div>
+      <div class="note"><b>RIVALRIES</b><span>Heat medallion, band, the grudge-match purse multiplier, the feud's history in the log.</span></div>
+      <div class="note"><b>PRESS &amp; HYPE</b><span>Bout hype, questions waiting, the last answer and what it earned.</span></div>
+      <div class="note"><b>FIGHT CAMP</b><span>Track, protocol, injury risk, film depth, the weigh-in day and the cut.</span></div>
+      <div class="note"><b>WEIGHT</b><span>Walking weight against the limit, the cut needed, the division move and its settling window.</span></div>
+      <div class="note"><b>FIGHT PLANS</b><span>Natural style, the chosen archetype, the signature battle record, the corner coach and the listen rate.</span></div>
+      <div class="note"><b>COMBOS</b><span>Tightness, the signature chain, game-plan chains, moves learned and in training.</span></div>
+      <div class="note"><b>RAPPORT &amp; LOYALTY</b><span>Loyalty band, rapport, grudge, tenure, pay versus market, promises kept and broken, poach risk.</span></div>
+      <div class="note"><b>AMBITIONS</b><span>The arc and its milestones, with the next one lit.</span></div>
+      <div class="note"><b>PROMOTION</b><span>Exclusive signing, the organization as a link, standing in stars.</span></div>
+      <div class="note"><b>CLAUSES &amp; AWARDS</b><span>The guaranteed title shot, the gate points, Performance and Fight of the Night.</span></div>
+      <div class="note"><b>BODY</b><span>Six regions the engine simulates and feeds back, fatigue, the medical gate.</span></div>
+      <div class="note"><b>NOT SHOWN</b><span>Contender Series and belt ranks do not apply to a boxer; they appear on fighters where they do.</span></div>
+    </div>
+  </section>
+
+  <footer>FightCamp · fighter profile preview · the rail is always present and collapsible · every name is a link · nothing here is final until you say so.</footer>
+</div>

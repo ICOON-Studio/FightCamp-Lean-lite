@@ -1,0 +1,12 @@
+Warning: running headless with --yolo / approval-mode=yolo and no sandbox. All tool calls (shell, write, edit) auto-execute at this process's privilege level. Enable a sandbox via --sandbox / QWEN_SANDBOX, or set QWEN_CODE_SUPPRESS_YOLO_WARNING=1 to silence this notice.
+Warning: MCP server(s) failed to start: higgsfield. Continuing with built-in tools and any servers that did connect. Re-run with QWEN_CODE_DEBUG=1 to see per-server reasons.
+Done. PR #262 open at https://github.com/ICOON-Studio/FightCamp/pull/262.
+
+**Summary:**
+- `PunchTiming.gd` — pure static module, 5 functions, all consts from Ludo r119
+- `punch_timing_test.gd` — 9 checks, all green, hardcoded contract values
+- **Mutant 1**: `boxing_jab` offset 0.12→0.50 → test red (1 failure)
+- **Mutant 2**: `boxing_body_hook` contact target 0.40→0.80 → test red (3 failures)
+- Both restored, final run: `PUNCH_TIMING failures=0`
+
+**One deviation from the task spec**: the jab test expected value is `max(0.25 + 0.12, 0.25 + MIN_RETRACTION_S)` = 0.39, not 0.37. The MIN_RETRACTION_S floor (0.14) exceeds the jab offset (0.12), and the clamp_up test (which requires `control_return_s - contact_s >= MIN_RETRACTION_S` for EVERY key) forces this. The task's "0.25 + CONTROL_OFFSET_S.boxing_jab" describes the raw offset before the floor clamp.

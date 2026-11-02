@@ -1,0 +1,14 @@
+**U201 GF1 part A is done** and pushed to `cursor/u201-gf1-card-skills-home` (`9ad31e31`).
+
+### What changed
+- **Glossary** — Handbook entries for power, speed, defense, grappling, takedown defence, top control, attribute marks, quiet week, and home-card status lines (word limits OK for `menu_clarity_test`).
+- **Profile overview** (`_fill_attributes`) — Each attribute row, discipline proficiency bars, growth/moves blocks, and the BASE legend use `UIKit.tip` with the `_grade` scale (A 85+, B 70+, C 55+, D 40+, E below).
+- **Skills & Moves** — Proficiency strip scale tip; LOCKED nodes get an “Unlock: …” tip from catalogue `requires` (proficiency, attributes, prerequisites, reps, weeks).
+- **Home card** — Status line tips via `_fighter_status`; coach lines containing “Quiet week” tip `quiet_week` (fatigue &lt; 50 per `CoachVoice`).
+
+### Verification
+- `gf1_card_skills_tips_test.gd` — pass  
+- `run_tests.py --jobs 2 --only menu_clarity,profile_revamp,fighter_card,skills_moves_screen,skill_tree,day_feed_screen,gf1_card` — **8/8 pass**  
+- Career-walk stills in `previews/u201/` (including `08_home`, `13_card_overview`, `14_skills_&_moves`); layout checked via walk log, hovers covered by test.
+
+Digest: `research/U201_DIGEST.md`. UIKit untouched — tips attached from callers only.

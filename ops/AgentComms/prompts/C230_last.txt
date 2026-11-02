@@ -1,0 +1,7 @@
+**C230 is committed and pushed, but its acceptance gates are not green.** The branch is `codex/c230-identity-in-fight`, at `f710bb8`, and the worktree is clean.
+
+The changes wire personality intent bias, rivalry attack/stamina/hurt effects, the `identity_in_fight` switch, and a personality caption into the live fight. The direct C230 test passed 6/6 assertions: Fearless pressed 28.4% vs Reserved 27.9%; heat raised output from 1,407 to 1,537 actions and lowered finish stamina from 83.0 to 80.4.
+
+The 120-bout-per-arm census missed the specified bands: KO/TKO was 17/120 OFF and 18/120 ON; thrown rate was 41.4 and 41.0 per man-round; connect rate was 25.4% and 26.9%. I left the bands unchanged. The tiered runner ended `SUITE total=6 fails=6`; it reported missing imported assets for four tests and rc=1 for `fight_realtime_test.gd`. The final parse gate also failed on unresolved existing global classes in `FightWorldLiveScreen.gd`. No stills were generated or reviewed because this checkout could not start a reliable live capture.
+
+The results and remaining gates are recorded in [C230_DIGEST.md](/D:/FightCamp/wt/C230/research/C230_DIGEST.md) and [HANDOFF.md](/D:/FightCamp/wt/C230/HANDOFF.md). The commits are `d95fe46`, `8ec406c`, and `f710bb8`.

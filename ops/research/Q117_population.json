@@ -1,0 +1,466 @@
+{
+  "count": 252,
+  "seed": 117,
+  "talent_depth": 50,
+  "generation": "WorldPopulation._generate_athlete replica",
+  "attributes": {
+    "power": {
+      "min": 23,
+      "max": 72,
+      "p10": 32.0,
+      "p50": 46.0,
+      "p90": 58.0,
+      "mean": 45.7
+    },
+    "technique": {
+      "min": 24,
+      "max": 75,
+      "p10": 34.0,
+      "p50": 47.0,
+      "p90": 60.9,
+      "mean": 47.1
+    },
+    "speed": {
+      "min": 24,
+      "max": 72,
+      "p10": 33.1,
+      "p50": 47.0,
+      "p90": 60.0,
+      "mean": 47.0
+    },
+    "defense": {
+      "min": 20,
+      "max": 70,
+      "p10": 32.1,
+      "p50": 45.0,
+      "p90": 57.0,
+      "mean": 44.7
+    },
+    "conditioning": {
+      "min": 23,
+      "max": 69,
+      "p10": 32.0,
+      "p50": 46.5,
+      "p90": 60.0,
+      "mean": 46.1
+    },
+    "fight_iq": {
+      "min": 21,
+      "max": 69,
+      "p10": 33.0,
+      "p50": 47.0,
+      "p90": 58.9,
+      "mean": 46.0
+    },
+    "grapple": {
+      "min": 28,
+      "max": 65,
+      "p10": 34.0,
+      "p50": 47.0,
+      "p90": 58.0,
+      "mean": 46.3
+    }
+  },
+  "no_weakness_count": 1,
+  "no_weakness_fraction": 0.004,
+  "ceiling_count": 0,
+  "ceiling_fraction": 0.0,
+  "discipline_spread": {
+    "sanda": 18,
+    "karate": 20,
+    "sambo": 21,
+    "judo": 18,
+    "wrestling": 11,
+    "brazilian_jiu_jitsu": 17,
+    "capoeira": 15,
+    "pencak_silat": 17,
+    "boxing": 18,
+    "kickboxing": 17,
+    "muay_thai": 19,
+    "arnis": 21,
+    "taekwondo": 12,
+    "savate": 13,
+    "mma": 15
+  },
+  "stat_keys": [
+    "power",
+    "technique",
+    "speed",
+    "defense",
+    "conditioning",
+    "fight_iq",
+    "grapple"
+  ],
+  "stat_definitions": {
+    "power": {
+      "category": "PHYSICAL",
+      "direct": true
+    },
+    "technique": {
+      "category": "TECHNICAL",
+      "direct": true
+    },
+    "speed": {
+      "category": "PHYSICAL",
+      "direct": true
+    },
+    "defense": {
+      "category": "TECHNICAL",
+      "direct": true
+    },
+    "conditioning": {
+      "category": "PHYSICAL",
+      "direct": true
+    },
+    "fight_iq": {
+      "category": "MENTAL",
+      "direct": false
+    },
+    "grapple": {
+      "category": "GRAPPLING",
+      "direct": true
+    }
+  },
+  "by_tier": {
+    "C-tier (talent=30)": {
+      "count": 250,
+      "seed": 117,
+      "talent_depth": 30,
+      "generation": "WorldPopulation._generate_athlete replica",
+      "attributes": {
+        "power": {
+          "min": 20,
+          "max": 54,
+          "p10": 25.0,
+          "p50": 35.0,
+          "p90": 46.0,
+          "mean": 35.0
+        },
+        "technique": {
+          "min": 20,
+          "max": 57,
+          "p10": 27.0,
+          "p50": 35.0,
+          "p90": 48.0,
+          "mean": 36.3
+        },
+        "speed": {
+          "min": 20,
+          "max": 56,
+          "p10": 25.9,
+          "p50": 36.0,
+          "p90": 47.0,
+          "mean": 36.2
+        },
+        "defense": {
+          "min": 20,
+          "max": 54,
+          "p10": 25.0,
+          "p50": 33.0,
+          "p90": 44.0,
+          "mean": 33.9
+        },
+        "conditioning": {
+          "min": 20,
+          "max": 52,
+          "p10": 26.0,
+          "p50": 35.0,
+          "p90": 46.0,
+          "mean": 35.3
+        },
+        "fight_iq": {
+          "min": 20,
+          "max": 53,
+          "p10": 25.0,
+          "p50": 35.0,
+          "p90": 46.0,
+          "mean": 35.2
+        },
+        "grapple": {
+          "min": 24,
+          "max": 51,
+          "p10": 28.0,
+          "p50": 35.0,
+          "p90": 45.0,
+          "mean": 35.5
+        }
+      },
+      "no_weakness_count": 0,
+      "no_weakness_fraction": 0.0,
+      "ceiling_count": 0,
+      "ceiling_fraction": 0.0,
+      "discipline_spread": {
+        "sanda": 18,
+        "karate": 20,
+        "sambo": 21,
+        "judo": 18,
+        "wrestling": 11,
+        "brazilian_jiu_jitsu": 17,
+        "capoeira": 15,
+        "pencak_silat": 17,
+        "boxing": 18,
+        "kickboxing": 16,
+        "muay_thai": 19,
+        "arnis": 20,
+        "taekwondo": 12,
+        "savate": 13,
+        "mma": 15
+      }
+    },
+    "B-tier (talent=60)": {
+      "count": 250,
+      "seed": 117,
+      "talent_depth": 60,
+      "generation": "WorldPopulation._generate_athlete replica",
+      "attributes": {
+        "power": {
+          "min": 27,
+          "max": 64,
+          "p10": 34.0,
+          "p50": 44.0,
+          "p90": 56.0,
+          "mean": 44.6
+        },
+        "technique": {
+          "min": 29,
+          "max": 67,
+          "p10": 36.0,
+          "p50": 45.0,
+          "p90": 58.0,
+          "mean": 45.9
+        },
+        "speed": {
+          "min": 28,
+          "max": 66,
+          "p10": 35.0,
+          "p50": 46.0,
+          "p90": 57.0,
+          "mean": 45.9
+        },
+        "defense": {
+          "min": 27,
+          "max": 64,
+          "p10": 34.0,
+          "p50": 43.0,
+          "p90": 54.0,
+          "mean": 43.6
+        },
+        "conditioning": {
+          "min": 27,
+          "max": 62,
+          "p10": 34.9,
+          "p50": 45.0,
+          "p90": 56.0,
+          "mean": 45.0
+        },
+        "fight_iq": {
+          "min": 27,
+          "max": 63,
+          "p10": 35.0,
+          "p50": 44.5,
+          "p90": 56.0,
+          "mean": 44.9
+        },
+        "grapple": {
+          "min": 33,
+          "max": 61,
+          "p10": 37.0,
+          "p50": 44.0,
+          "p90": 55.0,
+          "mean": 45.1
+        }
+      },
+      "no_weakness_count": 0,
+      "no_weakness_fraction": 0.0,
+      "ceiling_count": 0,
+      "ceiling_fraction": 0.0,
+      "discipline_spread": {
+        "sanda": 18,
+        "karate": 20,
+        "sambo": 21,
+        "judo": 18,
+        "wrestling": 11,
+        "brazilian_jiu_jitsu": 17,
+        "capoeira": 15,
+        "pencak_silat": 17,
+        "boxing": 18,
+        "kickboxing": 16,
+        "muay_thai": 19,
+        "arnis": 20,
+        "taekwondo": 12,
+        "savate": 13,
+        "mma": 15
+      }
+    },
+    "A-tier (talent=74)": {
+      "count": 250,
+      "seed": 117,
+      "talent_depth": 74,
+      "generation": "WorldPopulation._generate_athlete replica",
+      "attributes": {
+        "power": {
+          "min": 31,
+          "max": 68,
+          "p10": 38.0,
+          "p50": 48.0,
+          "p90": 60.0,
+          "mean": 48.6
+        },
+        "technique": {
+          "min": 33,
+          "max": 71,
+          "p10": 40.0,
+          "p50": 49.0,
+          "p90": 62.0,
+          "mean": 49.9
+        },
+        "speed": {
+          "min": 32,
+          "max": 70,
+          "p10": 39.0,
+          "p50": 50.0,
+          "p90": 61.0,
+          "mean": 49.9
+        },
+        "defense": {
+          "min": 31,
+          "max": 68,
+          "p10": 38.0,
+          "p50": 47.0,
+          "p90": 58.0,
+          "mean": 47.6
+        },
+        "conditioning": {
+          "min": 31,
+          "max": 66,
+          "p10": 38.9,
+          "p50": 49.0,
+          "p90": 60.0,
+          "mean": 49.0
+        },
+        "fight_iq": {
+          "min": 31,
+          "max": 67,
+          "p10": 39.0,
+          "p50": 48.5,
+          "p90": 60.0,
+          "mean": 48.9
+        },
+        "grapple": {
+          "min": 37,
+          "max": 65,
+          "p10": 41.0,
+          "p50": 48.0,
+          "p90": 59.0,
+          "mean": 49.1
+        }
+      },
+      "no_weakness_count": 1,
+      "no_weakness_fraction": 0.004,
+      "ceiling_count": 0,
+      "ceiling_fraction": 0.0,
+      "discipline_spread": {
+        "sanda": 18,
+        "karate": 20,
+        "sambo": 21,
+        "judo": 18,
+        "wrestling": 11,
+        "brazilian_jiu_jitsu": 17,
+        "capoeira": 15,
+        "pencak_silat": 17,
+        "boxing": 18,
+        "kickboxing": 16,
+        "muay_thai": 19,
+        "arnis": 20,
+        "taekwondo": 12,
+        "savate": 13,
+        "mma": 15
+      }
+    },
+    "S-tier (talent=90)": {
+      "count": 250,
+      "seed": 117,
+      "talent_depth": 90,
+      "generation": "WorldPopulation._generate_athlete replica",
+      "attributes": {
+        "power": {
+          "min": 37,
+          "max": 74,
+          "p10": 44.0,
+          "p50": 54.0,
+          "p90": 66.0,
+          "mean": 54.6
+        },
+        "technique": {
+          "min": 39,
+          "max": 77,
+          "p10": 46.0,
+          "p50": 55.0,
+          "p90": 68.0,
+          "mean": 55.9
+        },
+        "speed": {
+          "min": 38,
+          "max": 76,
+          "p10": 45.0,
+          "p50": 56.0,
+          "p90": 67.0,
+          "mean": 55.9
+        },
+        "defense": {
+          "min": 37,
+          "max": 74,
+          "p10": 44.0,
+          "p50": 53.0,
+          "p90": 64.0,
+          "mean": 53.6
+        },
+        "conditioning": {
+          "min": 37,
+          "max": 72,
+          "p10": 44.9,
+          "p50": 55.0,
+          "p90": 66.0,
+          "mean": 55.0
+        },
+        "fight_iq": {
+          "min": 37,
+          "max": 73,
+          "p10": 45.0,
+          "p50": 54.5,
+          "p90": 66.0,
+          "mean": 54.9
+        },
+        "grapple": {
+          "min": 43,
+          "max": 71,
+          "p10": 47.0,
+          "p50": 54.0,
+          "p90": 65.0,
+          "mean": 55.1
+        }
+      },
+      "no_weakness_count": 9,
+      "no_weakness_fraction": 0.036,
+      "ceiling_count": 0,
+      "ceiling_fraction": 0.0,
+      "discipline_spread": {
+        "sanda": 18,
+        "karate": 20,
+        "sambo": 21,
+        "judo": 18,
+        "wrestling": 11,
+        "brazilian_jiu_jitsu": 17,
+        "capoeira": 15,
+        "pencak_silat": 17,
+        "boxing": 18,
+        "kickboxing": 16,
+        "muay_thai": 19,
+        "arnis": 20,
+        "taekwondo": 12,
+        "savate": 13,
+        "mma": 15
+      }
+    }
+  }
+}

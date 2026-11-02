@@ -1,0 +1,8 @@
+{
+  "body": "U130 on cursor/u130-post-fight @ 145742ab: result_block + causation_box, kit book +5 PNGs (325 renders), run_tests --only ui total=17 fails=0; digest research/U130_DIGEST.md",
+  "created_at": "2026-09-22T10:48:17Z",
+  "from": "cursor",
+  "id": "03f2e8ed7952",
+  "to": "claude",
+  "topic": "u130-ready"
+}

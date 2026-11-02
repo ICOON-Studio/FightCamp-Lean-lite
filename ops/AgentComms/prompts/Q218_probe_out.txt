@@ -1,0 +1,31 @@
+Warning: running headless with --yolo / approval-mode=yolo and no sandbox. All tool calls (shell, write, edit) auto-execute at this process's privilege level. Enable a sandbox via --sandbox / QWEN_SANDBOX, or set QWEN_CODE_SUPPRESS_YOLO_WARNING=1 to silence this notice.
+**1. `python --version`**
+```
+Python 3.14.7
+```
+
+**2. `git -C D:/FightCamp/wt/Q218 status -s | head -3`**
+```
+(empty)
+```
+
+**3. `"C:/Program Files/Blender Foundation/Blender 5.2/blender.exe" --version`**
+```
+Blender 5.2.1 LTS
+	build date: 2026-08-25
+	build time: 02:38:20
+	build commit date: 2026-08-24
+	build commit time: 16:50
+	build hash: 9e2066aef7ef
+	build branch: blender-v5.2-release
+	build platform: Windows
+	build type: Release
+	...
+```
+
+**4. First line of `TASK_Q218_STAFF_ROOM_TO_CONCEPT.md`:**
+```
+# TASK Q218 - the staff room, dressed to its concept art (Qwen, S131)
+```
+
+QWEN_ALIVE

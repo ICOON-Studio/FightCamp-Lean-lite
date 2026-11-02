@@ -1,0 +1,75 @@
+{
+ "_note": "THE EXPLICIT, ORDERED AGENT QUEUE. Driven by Tools/next_task.py. This is NOT 'every TASK_*.md that exists' - agent_comms.py tasks lists those and on 2026-09-21 it led with six stale ids (C134-C139). Only genuinely determined work goes here. An item is queued -> running -> done; blocked_on holds an item until another finishes. still_valid_if is the precondition the launching session MUST read - U116's task named a prime suspect that U116 itself proved innocent, and a queued task can go stale the same way.",
+ "_how": "python Tools/next_task.py <agent>            # what is next, launches nothing\npython Tools/next_task.py <agent> --launch   # launch it\npython Tools/next_task.py --all             # the whole board\npython Tools/next_task.py <agent> --done <ID>",
+ "updated": "2026-09-21",
+ "agents": {
+  "cursor": [
+   {
+    "id": "U120",
+    "title": "weight_cut_test: _class_limit_for returns two different limits for one athlete",
+    "status": "queued",
+    "still_valid_if": "weight_cut_test.gd is still red. Evidence from 2026-09-21: the test prints 'Flyweight, limit 83.9' - a flyweight limit is ~57 kg - and the weigh-in then reports 'Missed weight by 27.2 kg', which implies it compared against roughly 65.8 rather than the 83.9 the same call returned twenty lines earlier. If the test is green, this is stale.",
+    "_task_not_written": "write TASK_U120.md. WHAT EXPOSED IT, so nobody hunts the wrong thing: adding grapple_offense/grapple_defence/top_control to WorldPopulation.STAT_KEYS means _generate_athlete consumes TWO EXTRA rng draws per athlete, which shifts the whole seeded world - unavoidable when adding generated stats, and it is not the bug. The bug is that this test hand-assigns athlete['booked_fight'] to the first event 3-5 weeks out, bypassing weight-class matching entirely, and _class_limit_for(athlete) then disagrees with itself between line ~117 and the weigh-in. Find which of the two is right. Do NOT fix it by tweaking the fixture until it passes - if booking can put a flyweight in an 83.9 kg bout, that is the finding and it touches the standing rule that booking matches weight classes."
+   },
+   {
+    "id": "U117",
+    "title": "the 2->3 spine split, done properly",
+    "status": "done",
+    "still_valid_if": "the authored clinch's arms still arrive wrong - check tools/s31_contact_probe.gd -- mma_dirty_boxing shows att_lhand_to_vic_neck well above 30%"
+   },
+   {
+    "id": "U118",
+    "title": "wire the grapple_offense / grapple_defence split into every engine read",
+    "status": "done",
+    "blocked_on": "U117",
+    "still_valid_if": "the operator's 2026-09-21 ruling stands - the grounded 8-stat list with grapple split offense/defence. Q119_THE_STAT_FLOOR.md names the 9 grapple ids and which read grapple on BOTH sides (6 of 9); those are the call sites."
+   },
+   {
+    "id": "U119",
+    "title": "GrappleResolve._stat's silent 50 - the engine cannot tell 'no stat' from 'average'",
+    "status": "queued",
+    "still_valid_if": "`GrappleResolve._stat` still ends `return 50.0` for a missing key. Confirmed 2026-09-21: a fighter with NO grapple stats resolves IDENTICALLY to one explicitly set to 50, and C146 now PINS that (DOCUMENTED_MISSING_STAT_DEFAULT) so the behaviour is recorded rather than endorsed. It predates U118 - the old line was get(key, 50).",
+    "_task_not_written": "write TASK_U119.md. The fallback is shared by EVERY stat read in the module, so this is not a one-line change: it needs a decision about refusing vs a loud default, and every caller checked. C146's pinned assertion must be updated in the same series, not deleted."
+   }
+  ],
+  "qwen": [
+   {
+    "id": "Q121",
+    "title": "what cage size does to the fight - a sweep from 5.5 m to 9.75 m",
+    "status": "done",
+    "still_valid_if": "the DEFAULT is still the 6 m gym cage - ArenaSurface.for_discipline('mma') -> mma_cage_gym_6m and FightRealtime.DEFAULT_HALF_WIDTH == 3.0. (The mma_cage_ufc_30ft and mma_cage_ufc_25ft PRESETS were added 2026-09-21 and the task file already accounts for them; adding a preset is not the same as switching the default.) If the DEFAULT has moved, the sweep's baseline row is wrong - fix the baseline, the question still stands."
+   },
+   {
+    "id": "Q122",
+    "title": "the takedown-against-the-fence question Q121 could not answer, and why the clinch never fires",
+    "status": "queued",
+    "still_valid_if": "Q121's integration verification still stands: td_succ was retracted (landed 47 from 25 attempts - takedown_attempt and takedown are NOT a nested pair, q121_cage_sweep.gd:247/256), the fence split had a sample of 0-2 events, and clinch entries were 0 across all 448 bouts. If a later session has already fixed the event pairing, re-scope to the clinch half only.",
+    "_task_not_written": "write TASK_Q122.md. It must: (1) find the REAL attempt/outcome event pairing in the engine and assert landed <= attempts as a gate invariant - Q121_check.py passed while reporting 214% because it recomputed from the same broken counters; (2) get a usable sample of fence takedowns, which likely means a fixture that actually reaches the fence rather than more bouts; (3) explain why a grapple-82 grappler never once entered a clinch in 448 MMA bouts - that is an engine finding and it is bigger than the cage question."
+   }
+  ],
+  "codex": [
+   {
+    "id": "C146",
+    "title": "BLIND contract test for the grapple offense/defence split",
+    "status": "done",
+    "env": {
+     "CODEX_MODEL": "gpt-5.6-luna",
+     "CODEX_EFFORT": "medium"
+    },
+    "still_valid_if": "U118 is being written or has landed. This is the blind half and must NOT read Cursor's branch - the split that paid on C142, C143 and C144.",
+    "_task_not_written": "write TASK_C146.md from the contract only"
+   },
+   {
+    "id": "C147",
+    "title": "BLIND contract test for top_control's engine read",
+    "status": "queued",
+    "env": {
+     "CODEX_MODEL": "gpt-5.6-luna",
+     "CODEX_EFFORT": "medium"
+    },
+    "still_valid_if": "top_control is in GameState.STAT_KEYS and FightSimulation._top_control_norm reads it. This is the ONE piece of S33 that has no blind half - Claude wrote both the stat and its read in the same commit (5ca7a7a2), which is exactly the arrangement the blind split exists to avoid.",
+    "_task_not_written": "write TASK_C147.md from the contract only. top_control is read when the athlete IS the top man and resists the bottom man's escapes and stand-ups - `_resolve_escape_attempt` via `_top_control_norm`. Assert: raising top_control lowers the opponent's escape rate; raising grapple_offense alone does NOT; it is generated on every athlete including the 100 featured real ones and the starter three. TELL IT THE ARITY TRAP: Callable.callv with the wrong argument count returns an EMPTY DICTIONARY, not null, so `if result != null` is satisfied by {} and the test measures nothing - this cost C146 three separate vacuous assertions."
+   }
+  ]
+ }
+}

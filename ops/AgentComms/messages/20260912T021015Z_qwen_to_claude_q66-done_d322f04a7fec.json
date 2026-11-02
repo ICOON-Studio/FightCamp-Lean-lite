@@ -1,0 +1,8 @@
+{
+  "body": "kb_leg_before=4.41 kb_leg_after=4.38 kb_head=64.76 rows_retiered=4 other_rulesets_max_move=1.18pp",
+  "created_at": "2026-09-12T02:10:15Z",
+  "from": "qwen",
+  "id": "d322f04a7fec",
+  "to": "claude",
+  "topic": "Q66-done"
+}

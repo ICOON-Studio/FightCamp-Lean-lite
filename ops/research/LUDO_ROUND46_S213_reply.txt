@@ -1,0 +1,375 @@
+FIGHTCAMP — SKILL LEARNING & FIGHT-TRANSFER SYSTEM ARCHITECTURE (ROUND 46)
+SECTION A: AUDIT & SYSTEM REVIEW
+1. What Works
+Tree Structure: The 54-node technique tree with explicit prerequisite branching (stance_guard $\rightarrow$ catch $\rightarrow$ block_elbow $\rightarrow$ long_guard) mirrors classical combat sport pedagogy.
+Derived Fight IQ: Calculating fight_iq from fight volume, discipline depth, and repertoire width prevents power-levelling it on a treadmill.
+Motor-Sequence Consolidation: Sleep-based micro-breakthroughs reflect actual motor-skill learning mechanics.
+Physical Wear & Region Model: The six-region model (head_neck, torso_core, left_arm, right_arm, left_leg, right_leg) provides the necessary anatomical constraints for deep training management.
+2. What Is Broken or Fails Deep-Sim Standards
+CURRENT (DISCONNECTED SILOS):
+[Stats +0.2]       --> Only feeds baseline modifiers (+0.1 scaling)
+[Technique Reps]   --> Binary gate (Locked -> Learned); no fight execution depth
+[Drill Pips]       --> +1% bonus sink; disconnected from fight logic
+[Combo Tightness]  --> Decays in isolation; not checked by live engine
+[Move-Card Mins]   --> Redundant 5th system; phantom progress
+
+PROPOSED (UNIFIED EXECUTION PIPELINE):
+[Weekly Training Directive] 
+       │
+       ▼
+[Unified Technique Pipeline (Stages 0-4)] ───► Feeds ───► [Direct Live Fight Engine Ingestion]
+       ▲                                                               │
+       │                                                               ▼
+[Fight Feedback Loop & Film Study] ◄──────── Written By ◄─── [Post-Bout Event Stream]
+
+The Five-Silo Disconnection:
+The current architecture tracks Stats, Technique Unlock Progress, Station Drill Pips, Combo Tightness, and Move-Card Minutes as separate registries that never talk to each other.
+In the live fight engine, discipline_proficiency and combo_tightness are ignored. As a result, 60% of player inputs are completely discarded at the ring ropes.
+The "Binary Cliff" Flaw:
+A technique is either Locked or Learned. Once learned, a move behaves identically in its first live round as it does after five hundred rounds.
+Real combat sports do not work this way. Unconscious competence requires progressing from controlled rehearsal to chaotic, unscripted combat.
+The Tenth-of-a-Point Fallacy:
+Presenting DEFENCE 54.0 -> 54.4 provides zero visceral feedback to the player. In Football Manager, a change in defensive positioning manifests as a fullback visibly tracking an inside run; in Motorsport Manager, a setup change alters high-speed turn entry speed.
+Showing fractional stat growth without visible tactical consequences on the canvas breaks the core gameplay loop.
+Tiers 1–2 Auto-Granted to All Fighters:
+Granting all Tier 1 and Tier 2 moves by default strips the game of its early-career identity. An amateur with four bouts shouldn't slip-counter like a world champion just because the move was unlocked out of the box.
+SECTION B: THE UNIFIED LEARNING PIPELINE
+
+The five redundant tracking systems are collapsed into one authoritative model:
+
++---------------------------------------------------------------------------------------------------------------------+
+| OLD SYSTEM              | DISPOSITION               | NEW UNIFIED ENGINE ROLE                                       |
++---------------------------------------------------------------------------------------------------------------------+
+| 1. Stats (0-100)        | SURVIVES                  | The physical execution ceiling & requirement gating.          |
+| 2. Technique Unlock     | EXPANDED INTO STAGES      | Tracks technique progression from Theory to Signature status. |
+| 3. Drill Pips           | CUT (Merged into Stages)  | Station mastery converted directly to technique XP.           |
+| 4. Combo Tightness      | DERIVED (Not an ID)       | Calculated as the average mastery of linked techniques.       |
+| 5. Move-Card Minutes    | CUT (Redundant)           | Completely excised from codebase.                             |
++---------------------------------------------------------------------------------------------------------------------+
+
+The Closed Cause-and-Effect Loop
+[1. PREPARATION] Player identifies opponent's habit: throws heavy rear cross on entry.
+                 Player assigns weekly directive: drill boxing_slip and boxing_slip_counter.
+       │
+       ▼
+[2. ABSORPTION]  Fighter logs 800 reps; advances boxing_slip_counter from Stage 1 to Stage 2.
+                 technique (+0.4) and speed (+0.3) increase; head_neck wear rises by 4.2%.
+       │
+       ▼
+[3. LIVE BOUT]   Opponent commits to boxing_cross.
+                 Engine checks slip-counter trigger: Stage 2 enables active baiting.
+                 Fighter executes slip-counter inside a 140ms window, scoring a flash knockdown.
+       │
+       ▼
+[4. DEBRIEF]     Post-fight readout highlights: "boxing_slip_counter: 7 thrown, 5 landed, 1 KD."
+                 Move logs 7 pressure reps, advancing toward Stage 3 (Sparring-Hardened).
+       │
+       ▼
+[5. ADJUSTMENT]  Player reviews film: fighter lost composure in the 6th due to fatigue.
+                 Next week's directive shifts from technique drills to conditioning.
+
+SECTION C: TECHNIQUE MASTERY STAGES
+
+Every technique within THE REAL BOXING TECHNIQUE TREE uses a single schema:
+$$\text{TechniqueRecord} = {\text{id: StringName}, \ \text{stage: int (0..4)}, \ \text{reps: int}, \ \text{live_pressure_reps: int}}$$
+
++---------------------------------------------------------------------------------------------------------------------+
+| STAGE          | DESIGNATION            | DOMAIN REQUISITES                | IN-FIGHT TACTICAL PROFILE              |
++---------------------------------------------------------------------------------------------------------------------+
+| Stage 0        | Unlearned              | Prerequisites unfulfilled        | Cannot be selected by engine.          |
+| Stage 1        | Theoretical            | Mitts / Heavy Bag / Mirror       | Low frequency; fails under fatigue.    |
+| Stage 2        | Drilled                | Partner Drills / Slip Line       | Reliable when fresh; struggles vs pressure. |
+| Stage 3        | Sparring-Hardened      | Situational & Open Sparring      | High reliability; tight counter windows. |
+| Stage 4        | Signature Engine       | 40+ Fight Landings / Elite Coach | Peak biomechanics; low stamina drain.   |
++---------------------------------------------------------------------------------------------------------------------+
+
+STAGE 1: THEORETICAL (Pads/Mitts)
+   │  Reps: 0 -> 1,200 | Controlled conditions | Low fatigue resistance
+   ▼
+STAGE 2: DRILLED (Partner / Bags)
+   │  Reps: 1,200 -> 3,600 | Pattern memorized | Execution degrades under pressure
+   ▼
+STAGE 3: SPARRING-HARDENED (Live Sparring)
+   │  Live Sparring Rounds: 25+ | Instinctive execution | Resistant to stamina loss
+   ▼
+STAGE 4: SIGNATURE (Fight Proven)
+      Bout Landings: 40+ under pressure | Maximum biomechanical efficiency
+
+Combat Engine Execution Multipliers
++---------------------------------------------------------------------------------------------------------------------+
+| ENGINE PARAMETER             | STAGE 1 (THEORY)  | STAGE 2 (DRILLED) | STAGE 3 (SPARRED) | STAGE 4 (SIGNATURE) | STATS  |
++---------------------------------------------------------------------------------------------------------------------+
+| Base Decision Weight         | 0.20 - 0.35       | 0.50 - 0.70       | 1.00 - 1.25       | 1.40 - 1.75         | IQ,COM |
+| Biomechanical Speed Scaler   | 0.82 - 0.88       | 0.92 - 0.96       | 1.00 - 1.04       | 1.08 - 1.14         | SPE,TEC|
+| Impact Trajectory Accuracy   | 0.40 - 0.55       | 0.65 - 0.75       | 0.82 - 0.88       | 0.92 - 0.97         | TEC    |
+| Baseline Stamina Cost        | 1.45 - 1.60       | 1.15 - 1.25       | 0.95 - 1.00       | 0.78 - 0.84         | CON    |
+| Fatigue Retention Threshold  | 0.30 - 0.45       | 0.55 - 0.68       | 0.80 - 0.88       | 0.92 - 0.96         | CON,COM|
+| Counter Window Capture       | 60ms - 90ms       | 110ms - 130ms     | 160ms - 190ms     | 210ms - 250ms       | DEF,SPE|
+| Kinetic Damage Ceiling       | 0.70 - 0.80       | 0.88 - 0.95       | 1.00 - 1.05       | 1.15 - 1.25         | POW,TEC|
++---------------------------------------------------------------------------------------------------------------------+
+
+
+Note: Values represent DESIGN tuning ranges; execution formulas are modified by simulation attributes.
+
+Concrete Mechanics Across Key Archetypes
+1. Straight Punches & Combinations
+
+Example: boxing_one_two moving from Stage 1 to Stage 4.
+
+Stage 1: The fighter pauses briefly between the jab and cross ($220\text{ms}$ reset). If the opponent slips the jab, the cross is often canceled.
+Stage 4: The rear foot drives forward the instant the jab lands or touches guard. The reset window drops to $75\text{ms}$. Stamina cost decreases by 20%, and the punch combination reliably tracks moving targets without breaking form.
+2. Defensive Slipping & Counters
+
+Example: boxing_slip and boxing_slip_counter.
+
+Stage 1: The fighter only attempts slips when stamina is above 80%. When tired, they fall back on a basic arm block, taking chip damage and guard wear. Counter window is narrow ($75\text{ms}$).
+Stage 4: The fighter reads the opponent's shoulder dip automatically. Slips are executed smoothly even below 30% stamina. The counter window opens to $230\text{ms}$, allowing the fighter to plant and drive through with boxing_cross before the opponent can recover their guard.
+3. Footwork & Ring Control
+
+Example: boxing_pivot_footwork and boxing_cutoff_ring.
+
+Stage 1: The fighter resets directly backward into straight lines, backing themselves toward the ropes when pressured.
+Stage 4: When cornered, the fighter steps off the centerline at an angle, sliding along the ropes while keeping the opponent trapped in the center.
+SECTION D: POST-FIGHT FEEDBACK & FILM STUDY
+[LIVE FIGHT ENGINE: 12 ROUNDS]
+  ├── Logs every punch event to Circular Buffer:
+  │     {technique_id, timestamp, stamina_pct, landed: bool, counter: bool, damage}
+  └── Assesses ring telemetry against tactical targets.
+        │
+        ▼
+[POST-FIGHT LOG EVALUATION PIPELINE]
+  ├── Step 1: Append Successful In-Fight Landings to Technique Progression
+  ├── Step 2: Identify Structural Holes in Defense & Composure
+  └── Step 3: Populate Pre-Bout Tactical Debrief UI
+        │
+        ▼
+[MONDAY FILM STUDY: 4 HRS COGNITIVE REHABILITATION]
+  ├── Coach & Fighter review target rounds
+  ├── Yields Film Study Edge (+15% counter read rate vs matching styles)
+  └── Converts bout data into +1.2 to +2.5 derived fight_iq
+
+The Post-Fight Tactical Event Log
+
+The fight engine exports a continuous event stream for every bout:
+
+{
+  "bout_id": "BOUT_20261012_W10",
+  "rounds_completed": 8,
+  "result": "L_TKO_R8",
+  "technique_telemetry": [
+    {
+      "id": "boxing_jab",
+      "attempted": 84, "landed": 46, "counters_absorbed": 12,
+      "stamina_consumed": 42.4, "pressure_landings": 18
+    },
+    {
+      "id": "boxing_slip_counter",
+      "attempted": 14, "landed": 3, "counters_absorbed": 0,
+      "stamina_consumed": 18.2, "pressure_landings": 3
+    }
+  ],
+  "tactical_vulnerabilities_exposed": [
+    {
+      "hole_id": "REAR_OVERHAND_BLINDSPOT",
+      "trigger_move": "boxing_overhand",
+      "damage_absorbed": 68.4,
+      "reason": "Failed to roll lead shoulder while recovering from missed cross."
+    }
+  ]
+}
+
+Turning Defeats into Progression Assets
+Unlocking High-Yield Drills from Defeat:
+When a fighter is stopped by a specific tactic (e.g., absorbing 6 clean boxing_overhand strikes), the post-fight debrief reveals an actionable vulnerability: "STRUCTURAL DEFICIENCY DETECTED: Opponent exploited lazy return on boxing_cross."
+This unlocks an accelerated learning focus for the next 21 days: +40% XP toward boxing_shoulder_roll or boxing_slip when working with the head coach.
+Film Study Mechanics:
+Dedicating half a day on Monday to film review awards no physical conditioning, but grants two key benefits:
+It preserves physical condition while reducing wear on recovering body parts.
+It converts fight data into +1.2 to +2.5 derived fight_iq, reinforcing defensive reads against that opponent's archetype in future matchups.
+SECTION E: THE CORE MANAGEMENT HOOKS ("ONE MORE WEEK")
+                     [FIGHT CONTRACT SIGNED: 8 WEEKS OUT]
+                                       │
+     ┌─────────────────────────────────┴─────────────────────────────────┐
+     ▼                                                                   ▼
+[WEEKS 8-5: FOUNDATION & VOLUME]                       [WEEKS 4-2: INTENSITY & HARD SPARRING]
+ - High volume heavy bag / strength                     - Situational drills vs tailored partners
+ - technique, conditioning focus                        - Advance core skills to Stage 3
+ - Fatigue 65-80%; body wear accumulates               - High injury risk; requires medical supervision
+     │                                                                   │
+     └─────────────────────────────────┬─────────────────────────────────┘
+                                       │
+                                       ▼
+                       [WEEK 1: TAPER & NEURO-RECOVERY]
+                        - Volume reduced by 60%
+                        - Pad work, light footwork, film study
+                        - Dissipates fatigue while preserving sharp edges
+                                       │
+                                       ▼
+                         [FIGHT NIGHT: PEAK READINESS]
+                          - Fatigue < 10%
+                          - Target techniques operating at peak efficiency
+
+1. Scouting & Camp Preparation
+Eight weeks out from a bout, the player scouts the opponent's tendencies (e.g., Julian "The Viper" Cruz: 72% right-hand output, vulnerable to inside body hooks).
+The player builds a focused camp plan:
+Hire a specific sparring partner who throws heavy looping rights.
+Focus pad drills on boxing_slip_counter and boxing_body_hook.
+Every training decision is aimed directly at countering the opponent's stylistic habits on fight night.
+2. Plateaus and Coaching Synergies
+The Biological Ceiling: When a fighter's attribute reaches within 5 points of its ceiling, progression slows down: $$\text{Effective Gain} = \text{BaseGain} \times \left(\frac{\text{Potential} - \text{Current}}{5}\right)^2$$
+Breaking Plateaus with Staff Specialisation:
+Breaking through an attribute plateau requires targeted coaching expertise:
+An elite trainer ($>!75$ rating) with a matching tactical philosophy adds a Breakthrough Multiplier (1.5x–2.2x) to plateaued skills.
+Sparring against styles outside the fighter's comfort zone helps unlock advanced nodes like boxing_drawing and boxing_counter_combination.
+3. The Fatigue vs. Readiness Trade-Off
+Pushing a fighter to train through heavy fatigue ($>!75$) yields diminishing returns:
+Skill progression drops by $60%$.
+Soft-tissue wear rates double.
+If a fighter enters fight night with residual fatigue, their in-ring speed and stamina drain rates suffer severe penalties.
+Players must carefully manage the trade-off: train hard enough to sharpen skills, but taper in time to enter the ring completely fresh.
+SECTION F: REALISM GUARDRAILS & BALANCE ENVELOPE
++---------------------------------------------------------------------------------------------------------------------+
+| SIMULATION ATTRIBUTE / SYSTEM  | REAL WORLD BASELINE (REAL)       | ENGINE TUNING SPEC (DESIGN)   | AUDIT STATUS    |
++---------------------------------------------------------------------------------------------------------------------+
+| Untrained Stat Acceleration    | Rapid early adaptation           | +1.2 - +1.8 pts/month         | Rebalanced      |
+| Veteran Stat Retention (28-33) | Maintenance focus; minor gains   | +0.1 - +0.3 pts/month         | Rebalanced      |
+| Age-Related Decline (34+)      | Speed drops first; IQ endures    | -0.4 to -0.8/mo (speed, cond) | Rebalanced      |
+| Detraining Onset Window        | 18-24 days inactive              | Decay starts at Day 21        | Rebalanced      |
+| Max Taper Volume Drop          | 50% - 70% volume reduction       | Target: 60% volume cut        | Balanced        |
+| Hard Sparring Soft-Tissue Wear | High cumulative microtrauma      | +0.4% - +0.8% joint wear/rd   | Balanced        |
++---------------------------------------------------------------------------------------------------------------------+
+
+1. Skill Acquisition Curves: The Logarithmic Reality
+
+Skill acquisition is governed by a logarithmic progression curve:
+$$\text{Progress} = K \cdot \ln(1 + \beta \cdot \text{Reps})$$
+
+Stage 1 (Theoretical): Takes 1 to 2 weeks of dedicated padwork (300–600 reps). Fast initial progress.
+Stage 2 (Drilled): Takes 3 to 6 weeks of partner drills and heavy bag work (1,500–2,500 reps).
+Stage 3 (Sparring-Hardened): Requires 20–35 live sparring rounds over 2 to 3 months. Moves only stick after surviving real ring pressure.
+Stage 4 (Signature Engine): Takes 1 to 2 full years of active professional competition, demanding 40+ clean landings under pressure.
+2. Physical Detraining & Skill Rust
+If an athlete halts training entirely (due to injury or neglect), skills and conditioning degrade steadily:
+Weeks 1–3: Physical sharpness and attributes hold steady.
+Weeks 4+: conditioning decays at $-0.6$ points per week.
+Technique Rust: Skills do not drop entire stages, but inactive Stage 3/4 moves temporarily fall back to Stage 2 execution speed until the fighter logs 3 tune-up rounds on the pads.
+3. Age-Related Athletic Decline
+Ages 18–23: Fast recovery and rapid physical gains; lower baseline composure and fight_iq.
+Ages 24–29: Prime athletic window: balanced power, speed, and recovery.
+Ages 30–34: Pure physical attributes (speed, conditioning) slowly decline by $-0.4$ points per year, while mental mastery (fight_iq, technique) reaches its peak.
+Ages 35+: Physical decay accelerates ($-1.2$ to $-2.0$ points per year for speed). To remain competitive, veteran fighters must lean heavily on efficient Stage 4 counters, defensive positioning, and energy conservation.
+SECTION G: USER INTERFACE SPECIFICATION (1920×1080)
+0,0                                                                                                            1920,0
++-------------------------------------------------------------------------------------------------------------------+
+| 1. FIGHTER TOP MASTHEAD: rect(16, 16, 1888, 72)                                                                   |
+| LEO "THE LION" VANCE | PRO RECORD: 14-1 (9 KO) | AGE: 24 | STYLE: Counter-Puncher | FATIGUE: 18% [LOW]             |
+| CAMP: 3 WEEKS TO BOUT vs J. CRUZ | READINESS: 88% [OPTIMAL PEAK PROFILE]                                          |
++-------------------------------------------------------------------------------------------------------------------+
+| 2. TECHNIQUE EXECUTION ARSENAL (LEFT) | 3. LIVE DRILL & FOCUS ASSIGNMENT     | 4. BIOMETRIC STATUS (RIGHT)        |
+| rect(16, 96, 720, 968)                | rect(744, 96, 680, 968)              | rect(1432, 96, 472, 968)           |
+|                                       |                                      |                                    |
+| [T1] boxing_jab           [STAGE 4]   | ACTIVE CAMP DIRECTIVE:               | HEAD / NECK:   96% [CLEAN]         |
+|      Mastery: Signature Engine        | "Countering the Looping Right Hand"  | TORSO / CORE:  92% [STABLE]        |
+|      Speed: 104% | Accuracy: 94%      |                                      | LEFT ARM:      89% [MILD WEAR]     |
+|      Counters Landed: 112             | PRIMARY ASSIGNMENT:                  | RIGHT ARM:     94% [CLEAN]         |
+| ───────────────────────────────────── | Station: Slip Line / Mitts           | LEFT LEG:      98% [PRISTINE]      |
+| [T2] boxing_slip_counter  [STAGE 2]   | Focus: boxing_slip_counter           | RIGHT LEG:     97% [PRISTINE]      |
+|      Mastery: Drilled -> Stage 3      | Coach: Marcus Sterling (Rapport 84)  | ────────────────────────────────── |
+|      Progress: [██████░░] 74%         | Partner: D. Washington (Orthodox)    | ATTRIBUTE OVERVIEW                 |
+|      Need: 6 more live spar rounds    | Intensity: [HIGH SPARRING]           | POWER:       64.2  SPEED:     71.4  |
+| ───────────────────────────────────── | ──────────────────────────────────── | TECHNIQUE:   68.0  DEFENCE:   66.2  |
+| [T3] boxing_pull_counter  [LOCKED]    | RECENT REPS & ADAPTATION             | CONDITIONING:74.5  FIGHT IQ:  58.9  |
+|      Prereq: boxing_pull (Stage 3)    | Today: 320 reps completed            | ────────────────────────────────── |
+|      Def: 36/36 | Fight IQ: 34/36     | Quality Rating: 94%                  | READOUT RATINGS                    |
+|      Coach Teaching Req: 62+          | Breakthrough: Motor Consolidation    | STAMINA: 76  FOOTWORK: 68  CHIN: 72|
++-------------------------------------------------------------------------------------------------------------------+
+
+Visualising Cause-and-Effect During the Bout
+1. The Broadcast In-Fight HUD
+When a fighter lands an assigned drill technique, a clean, subtle notification appears under their nameplate for 2.5 seconds:
+[★ COUNTER: boxing_slip_counter (Stage 3) | 148ms reaction window | Impact: 84% ]
+
+If a move fails due to low mastery under fatigue, an amber warning tag appears:
+[⚠ MISSED READ: boxing_slip (Stage 1) | Failed under high fatigue (Stamina < 30%) ]
+
+2. The Post-Fight Tactical Debrief Screen
+
+The results screen breaks down performance data clearly and concisely:
+
++-------------------------------------------------------------------------------------------------------------------+
+| TACTICAL AUDIT: LEO VANCE vs JULIAN CRUZ (WIN BY TKO - ROUND 7)                                                   |
++-------------------------------------------------------------------------------------------------------------------+
+| CAMP FOCUS ITEM         | PLANNED TARGET     | EXECUTED IN BOUT    | COMBAT OUTCOME & TRANSFER                    |
+| boxing_slip_counter     | Drill to Stage 3   | 9 Thrown, 6 Landed  | Scored knockdown in Round 4. +12 Live XP.    |
+| boxing_body_hook        | Punish low guard   | 18 Landed / 22 Att. | Weakened opponent stamina by 26% by Round 5. |
+| boxing_cutoff_ring      | Control ring space | 82% Center Control  | Kept opponent pinned against ropes.          |
++-------------------------------------------------------------------------------------------------------------------+
+| MEDICAL OVERVIEW: Left shoulder wear increased by 4.2%. Recommend 5 days of light non-contact recovery.           |
++-------------------------------------------------------------------------------------------------------------------+
+
+SECTION EIGHT: IMPLEMENTATION & BUILD ORDER
++---------------------------------------------------------------------------------------------------------------------+
+| MILESTONE     | SCOPE OF ENGINE CHANGES               | FIGHT RUNTIME INGESTION        | VALIDATION CRITERIA        |
++---------------------------------------------------------------------------------------------------------------------+
+| SLICE 01      | Collapse 5 tracking silos into single | Read technique mastery stage   | Seeded test: Stage 1 vs    |
+| Core Engine   | TechniqueRecord schema. Add Stages 1-4| (0-4) directly to control      | Stage 4 slip; Stage 4 lands|
+| Integration   | to the certified boxing moves.        | decision weights & speed.      | +45% to +65% more counters.|
+|               |                                       |                                |                            |
+| SLICE 02      | Wire live fight events to post-fight  | Log landings, misses, and      | 20-round spar logs real    |
+| Fight Logging | telemetry buffer. Populate combat     | counters into telemetry struct | usage data back to the     |
+| & Feedback    | feedback directly into the profile.   | after every round.             | fighter's mastery record.  |
+|               |                                       |                                |                            |
+| SLICE 03      | Add fatigue penalties, physical wear, | Scale counter windows and hit  | Tired fighters rely on base|
+| Fatigue &     | and stamina scaling to technique      | accuracy based on real-time    | guards; Stage 4 moves hold |
+| Realism       | execution quality.                    | fatigue levels.                | form under deep exhaustion.|
+|               |                                       |                                |                            |
+| SLICE 04      | Ship updated UI: camp directives,     | Full management loop active    | Complete an 8-week camp,   |
+| Management    | film study reviews, and post-fight    | from weekly planning through   | execute target strategy,   |
+| Camp Loop     | tactical debrief screens.             | to fight night debrief.        | and verify result metrics. |
++---------------------------------------------------------------------------------------------------------------------+
+
+Slice 1 Automated Test Verification Script
+
+To verify the system before moving to Slice 2, run this automated test in the Godot testing suite:
+
+# test_technique_mastery_pipeline.gd
+func test_slip_counter_mastery_impact():
+    var sim = FightSimulationEngine.new()
+    var fighter_stage_1 = generate_test_boxer(BOXER_ARCHETYPE_OUTSIDE)
+    var fighter_stage_4 = generate_test_boxer(BOXER_ARCHETYPE_OUTSIDE)
+    var opponent = generate_test_boxer(BOXER_ARCHETYPE_PRESSURE)
+    
+    fighter_stage_1.set_technique_stage(&"boxing_slip_counter", 1)
+    fighter_stage_4.set_technique_stage(&"boxing_slip_counter", 4)
+    
+    var stage_1_counters_landed: int = 0
+    var stage_4_counters_landed: int = 0
+    
+    # Run 200 seeded rounds of simulated combat
+    for round_idx in range(200):
+        stage_1_counters_landed += sim.run_isolated_round(fighter_stage_1, opponent).get_landed(&"boxing_slip_counter")
+        stage_4_counters_landed += sim.run_isolated_round(fighter_stage_4, opponent).get_landed(&"boxing_slip_counter")
+    
+    print("STAGE 1 COUNTERS LANDED: ", stage_1_counters_landed)
+    print("STAGE 4 COUNTERS LANDED: ", stage_4_counters_landed)
+    
+    # Verification criteria: Stage 4 must land between 45% and 65% more counter strikes
+    var improvement_ratio = float(stage_4_counters_landed) / float(stage_1_counters_landed)
+    assert(improvement_ratio >= 1.45 and improvement_ratio <= 1.85, 
+        "FATAL: Technique stage mastery is not properly scaling fight engine outcomes!")
+
+SUMMARY OF THE DESIGN TRANSFORMATION
+BEFORE:
+- 5 disconnected tracking systems running in parallel.
+- Stats change invisibly by +0.1 without clear in-ring impact.
+- Default Tier 1/2 techniques perform identically from day one to retirement.
+- Post-fight review provides no meaningful training insights.
+
+AFTER:
+- 1 unified technique mastery pipeline (Stages 1 through 4).
+- High-mastery techniques unlock faster reactions, tighter execution, and lower stamina costs.
+- Fighters struggle with new moves early on, mastering them through real sparring and ring experience.
+- Post-fight telemetry highlights structural flaws, feeding directly into the next week's training camp.
+
+
+This design turns skill training into an authentic, deeply readable management loop. Every hour spent drilling on the pads directly shapes the action inside the ring, delivering the long-term planning, clear consequences, and strategic depth expected of a premier sports management simulation.

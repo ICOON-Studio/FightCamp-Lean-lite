@@ -1,0 +1,6606 @@
+{
+ "schema_version": 1,
+ "purpose": "Expansion WIP for the 100-athlete featured roster (batches accumulate here; nothing loads this file).",
+ "snapshot_date": "2026-09-02",
+ "batches_done": [
+  "mma_18",
+  "boxing_11",
+  "wrestling_8",
+  "judo_8",
+  "bjj_9",
+  "kickboxing_7",
+  "muay_thai_7",
+  "karate_taekwondo_10",
+  "sambo_other_7"
+ ],
+ "athletes": [
+  {
+   "id": "real_alex_pereira",
+   "name": "Alex Pereira",
+   "birth_date": "1987-07-07",
+   "age": 39,
+   "country": "Brazil",
+   "city": "Sao Paulo",
+   "sex": "male",
+   "height_cm": 193.0,
+   "reach_cm": 200.7,
+   "weight_class": "Light Heavyweight",
+   "competition_weight_kg": 93.0,
+   "primary_discipline": "mma",
+   "specialties": {
+    "mma": 93,
+    "kickboxing": 98,
+    "boxing": 82
+   },
+   "stats": {
+    "power": 98,
+    "technique": 92,
+    "speed": 87,
+    "defense": 84,
+    "conditioning": 86,
+    "fight_iq": 90
+   },
+   "potential": 96,
+   "record": {
+    "wins": 13,
+    "losses": 4,
+    "draws": 0
+   },
+   "record_display": "13-4-0",
+   "record_scope": "Professional MMA, as of 2026-09",
+   "fight_history": [
+    {
+     "week": "2025-10-04",
+     "result": "win",
+     "opponent_name": "Magomed Ankalaev",
+     "method": "KO (strikes) R1",
+     "event": "UFC 320",
+     "discipline": "mma"
+    },
+    {
+     "week": "2025-03-08",
+     "result": "loss",
+     "opponent_name": "Magomed Ankalaev",
+     "method": "Unanimous decision",
+     "event": "UFC 313",
+     "discipline": "mma"
+    },
+    {
+     "week": "2024-10-05",
+     "result": "win",
+     "opponent_name": "Khalil Rountree Jr.",
+     "method": "TKO R4",
+     "event": "UFC 307",
+     "discipline": "mma"
+    }
+   ],
+   "achievements": [
+    "Two-time UFC Light Heavyweight Champion",
+    "Former UFC Middleweight Champion",
+    "Former two-division GLORY Kickboxing champion"
+   ],
+   "ranking_points": 930,
+   "fame": 935,
+   "fatigue": 12,
+   "morale": 84,
+   "ambition": "Legacy",
+   "personality": "Stoic",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 16000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "UFC athlete profile",
+     "url": "https://www.ufc.com/athlete/alex-pereira",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Alex_Pereira",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_ilia_topuria",
+   "name": "Ilia Topuria",
+   "birth_date": "1997-01-21",
+   "age": 29,
+   "country": "Spain",
+   "city": "Alicante",
+   "sex": "male",
+   "height_cm": 170.2,
+   "reach_cm": 175.3,
+   "weight_class": "Lightweight",
+   "competition_weight_kg": 70.3,
+   "primary_discipline": "mma",
+   "specialties": {
+    "mma": 96,
+    "boxing": 93,
+    "brazilian_jiu_jitsu": 90
+   },
+   "stats": {
+    "power": 94,
+    "technique": 95,
+    "speed": 90,
+    "defense": 91,
+    "conditioning": 90,
+    "fight_iq": 94
+   },
+   "potential": 98,
+   "record": {
+    "wins": 17,
+    "losses": 1,
+    "draws": 0
+   },
+   "record_display": "17-1-0",
+   "record_scope": "Professional MMA, as of 2026-09",
+   "fight_history": [
+    {
+     "week": "2026-06-14",
+     "result": "loss",
+     "opponent_name": "Justin Gaethje",
+     "method": "TKO (corner stoppage) R4",
+     "event": "UFC Freedom 250",
+     "discipline": "mma"
+    },
+    {
+     "week": "2025-06-28",
+     "result": "win",
+     "opponent_name": "Charles Oliveira",
+     "method": "KO R1",
+     "event": "UFC 317",
+     "discipline": "mma"
+    },
+    {
+     "week": "2024-10-26",
+     "result": "win",
+     "opponent_name": "Max Holloway",
+     "method": "KO R3",
+     "event": "UFC 308",
+     "discipline": "mma"
+    }
+   ],
+   "achievements": [
+    "First undefeated two-division UFC champion (featherweight and lightweight)",
+    "Former UFC Featherweight and Lightweight Champion"
+   ],
+   "ranking_points": 940,
+   "fame": 930,
+   "fatigue": 12,
+   "morale": 78,
+   "ambition": "Redemption",
+   "personality": "Confident",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 17000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/mixed.png",
+   "sources": [
+    {
+     "label": "UFC athlete profile",
+     "url": "https://www.ufc.com/athlete/ilia-topuria",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Ilia_Topuria",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_jon_jones",
+   "name": "Jon Jones",
+   "birth_date": "1987-07-19",
+   "age": 39,
+   "country": "United States of America",
+   "city": "Rochester",
+   "sex": "male",
+   "height_cm": 193.0,
+   "reach_cm": 214.6,
+   "weight_class": "Heavyweight",
+   "competition_weight_kg": 112.5,
+   "primary_discipline": "mma",
+   "specialties": {
+    "mma": 99,
+    "wrestling": 95,
+    "muay_thai": 90
+   },
+   "stats": {
+    "power": 92,
+    "technique": 97,
+    "speed": 88,
+    "defense": 96,
+    "conditioning": 90,
+    "fight_iq": 99
+   },
+   "potential": 99,
+   "record": {
+    "wins": 28,
+    "losses": 1,
+    "draws": 0
+   },
+   "record_display": "28-1-0 (1 NC)",
+   "record_scope": "Professional MMA at retirement, 2026-04",
+   "fight_history": [
+    {
+     "week": "2024-11-16",
+     "result": "win",
+     "opponent_name": "Stipe Miocic",
+     "method": "TKO R3",
+     "event": "UFC 309",
+     "discipline": "mma"
+    },
+    {
+     "week": "2023-03-04",
+     "result": "win",
+     "opponent_name": "Ciryl Gane",
+     "method": "Submission (guillotine) R1",
+     "event": "UFC 285",
+     "discipline": "mma"
+    },
+    {
+     "week": "2020-02-08",
+     "result": "win",
+     "opponent_name": "Dominick Reyes",
+     "method": "Unanimous decision",
+     "event": "UFC 247",
+     "discipline": "mma"
+    }
+   ],
+   "achievements": [
+    "Former UFC Heavyweight Champion",
+    "Longest-reigning UFC Light Heavyweight Champion",
+    "16 UFC championship-fight wins, most all time",
+    "Retired 2026"
+   ],
+   "ranking_points": 900,
+   "fame": 960,
+   "fatigue": 12,
+   "morale": 70,
+   "ambition": "Legacy",
+   "personality": "Mercurial",
+   "status": "retired",
+   "contract_weeks": 52,
+   "salary_expectation": 20000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/mixed.png",
+   "sources": [
+    {
+     "label": "ESPN retirement report",
+     "url": "https://www.espn.com/mma/story/_/id/45558671/jon-jones-retires-competition-ufc-ceo-dana-white-says",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Jon_Jones",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_tom_aspinall",
+   "name": "Tom Aspinall",
+   "birth_date": "1993-04-11",
+   "age": 33,
+   "country": "England",
+   "city": "Salford",
+   "sex": "male",
+   "height_cm": 196.0,
+   "reach_cm": 198.1,
+   "weight_class": "Heavyweight",
+   "competition_weight_kg": 112.7,
+   "primary_discipline": "mma",
+   "specialties": {
+    "mma": 94,
+    "brazilian_jiu_jitsu": 90,
+    "boxing": 88
+   },
+   "stats": {
+    "power": 95,
+    "technique": 90,
+    "speed": 92,
+    "defense": 85,
+    "conditioning": 87,
+    "fight_iq": 91
+   },
+   "potential": 97,
+   "record": {
+    "wins": 15,
+    "losses": 3,
+    "draws": 0
+   },
+   "record_display": "15-3-0 (1 NC)",
+   "record_scope": "Professional MMA, as of 2026-09",
+   "fight_history": [
+    {
+     "week": "2025-10-25",
+     "result": "draw",
+     "opponent_name": "Ciryl Gane",
+     "method": "No contest (eye pokes) R1",
+     "event": "UFC 321",
+     "discipline": "mma"
+    },
+    {
+     "week": "2024-07-27",
+     "result": "win",
+     "opponent_name": "Curtis Blaydes",
+     "method": "KO R1",
+     "event": "UFC 304",
+     "discipline": "mma"
+    },
+    {
+     "week": "2023-11-11",
+     "result": "win",
+     "opponent_name": "Sergei Pavlovich",
+     "method": "KO R1",
+     "event": "UFC 295",
+     "discipline": "mma"
+    }
+   ],
+   "achievements": [
+    "Reigning UFC Heavyweight Champion",
+    "Fastest average finish time among UFC heavyweight champions"
+   ],
+   "ranking_points": 950,
+   "fame": 910,
+   "fatigue": 12,
+   "morale": 88,
+   "ambition": "Dominance",
+   "personality": "Grounded",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 17500,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/mixed.png",
+   "sources": [
+    {
+     "label": "UFC athlete profile",
+     "url": "https://www.ufc.com/athlete/tom-aspinall",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Tom_Aspinall",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_merab_dvalishvili",
+   "name": "Merab Dvalishvili",
+   "birth_date": "1991-01-10",
+   "age": 35,
+   "country": "Georgia",
+   "city": "Tbilisi",
+   "sex": "male",
+   "height_cm": 168.0,
+   "reach_cm": 172.7,
+   "weight_class": "Bantamweight",
+   "competition_weight_kg": 61.2,
+   "primary_discipline": "mma",
+   "specialties": {
+    "mma": 94,
+    "wrestling": 96,
+    "judo": 82
+   },
+   "stats": {
+    "power": 78,
+    "technique": 90,
+    "speed": 88,
+    "defense": 90,
+    "conditioning": 99,
+    "fight_iq": 92
+   },
+   "potential": 95,
+   "record": {
+    "wins": 21,
+    "losses": 5,
+    "draws": 0
+   },
+   "record_display": "21-5-0",
+   "record_scope": "Professional MMA, as of 2026-09",
+   "fight_history": [
+    {
+     "week": "2025-12-06",
+     "result": "loss",
+     "opponent_name": "Petr Yan",
+     "method": "Unanimous decision",
+     "event": "UFC 323",
+     "discipline": "mma"
+    },
+    {
+     "week": "2025-06-07",
+     "result": "win",
+     "opponent_name": "Sean O'Malley",
+     "method": "Submission R3",
+     "event": "UFC 316",
+     "discipline": "mma"
+    },
+    {
+     "week": "2025-01-18",
+     "result": "win",
+     "opponent_name": "Umar Nurmagomedov",
+     "method": "Unanimous decision",
+     "event": "UFC 311",
+     "discipline": "mma"
+    }
+   ],
+   "achievements": [
+    "Former UFC Bantamweight Champion",
+    "Record-setting takedown volume in UFC title fights"
+   ],
+   "ranking_points": 905,
+   "fame": 880,
+   "fatigue": 12,
+   "morale": 82,
+   "ambition": "Redemption",
+   "personality": "Relentless",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 14000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/grappler.png",
+   "sources": [
+    {
+     "label": "UFC athlete profile",
+     "url": "https://www.ufc.com/athlete/merab-dvalishvili",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Merab_Dvalishvili",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_sean_omalley",
+   "name": "Sean O'Malley",
+   "birth_date": "1994-10-24",
+   "age": 31,
+   "country": "United States of America",
+   "city": "Helena",
+   "sex": "male",
+   "height_cm": 180.3,
+   "reach_cm": 182.9,
+   "weight_class": "Bantamweight",
+   "competition_weight_kg": 61.2,
+   "primary_discipline": "mma",
+   "specialties": {
+    "mma": 92,
+    "boxing": 90,
+    "taekwondo": 78
+   },
+   "stats": {
+    "power": 90,
+    "technique": 92,
+    "speed": 94,
+    "defense": 84,
+    "conditioning": 85,
+    "fight_iq": 88
+   },
+   "potential": 94,
+   "record": {
+    "wins": 20,
+    "losses": 3,
+    "draws": 0
+   },
+   "record_display": "20-3-0 (1 NC)",
+   "record_scope": "Professional MMA, as of 2026-09",
+   "fight_history": [
+    {
+     "week": "2026-06-14",
+     "result": "win",
+     "opponent_name": "Aiemann Zahabi",
+     "method": "KO R2",
+     "event": "UFC Freedom 250",
+     "discipline": "mma"
+    },
+    {
+     "week": "2026-01-24",
+     "result": "win",
+     "opponent_name": "Song Yadong",
+     "method": "Unanimous decision",
+     "event": "UFC 324",
+     "discipline": "mma"
+    },
+    {
+     "week": "2025-06-07",
+     "result": "loss",
+     "opponent_name": "Merab Dvalishvili",
+     "method": "Submission R3",
+     "event": "UFC 316",
+     "discipline": "mma"
+    }
+   ],
+   "achievements": [
+    "Former UFC Bantamweight Champion"
+   ],
+   "ranking_points": 880,
+   "fame": 905,
+   "fatigue": 12,
+   "morale": 86,
+   "ambition": "Redemption",
+   "personality": "Showman",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 15000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "UFC athlete profile",
+     "url": "https://www.ufc.com/athlete/sean-omalley",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Sean_O'Malley_(fighter)",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_dricus_du_plessis",
+   "name": "Dricus du Plessis",
+   "birth_date": "1994-01-14",
+   "age": 32,
+   "country": "South Africa",
+   "city": "Pretoria",
+   "sex": "male",
+   "height_cm": 183.0,
+   "reach_cm": 193.0,
+   "weight_class": "Middleweight",
+   "competition_weight_kg": 83.9,
+   "primary_discipline": "mma",
+   "specialties": {
+    "mma": 93,
+    "kickboxing": 87,
+    "wrestling": 85
+   },
+   "stats": {
+    "power": 90,
+    "technique": 86,
+    "speed": 85,
+    "defense": 84,
+    "conditioning": 93,
+    "fight_iq": 90
+   },
+   "potential": 94,
+   "record": {
+    "wins": 23,
+    "losses": 3,
+    "draws": 0
+   },
+   "record_display": "23-3-0",
+   "record_scope": "Professional MMA, as of 2026-09",
+   "fight_history": [
+    {
+     "week": "2026-07-18",
+     "result": "win",
+     "opponent_name": "Kamaru Usman",
+     "method": "Unanimous decision",
+     "event": "UFC Fight Night Oklahoma City",
+     "discipline": "mma"
+    },
+    {
+     "week": "2025-08-16",
+     "result": "loss",
+     "opponent_name": "Khamzat Chimaev",
+     "method": "Unanimous decision",
+     "event": "UFC 319",
+     "discipline": "mma"
+    },
+    {
+     "week": "2025-02-09",
+     "result": "win",
+     "opponent_name": "Sean Strickland",
+     "method": "Unanimous decision",
+     "event": "UFC 312",
+     "discipline": "mma"
+    }
+   ],
+   "achievements": [
+    "Former UFC Middleweight Champion",
+    "First South African UFC champion"
+   ],
+   "ranking_points": 900,
+   "fame": 890,
+   "fatigue": 12,
+   "morale": 85,
+   "ambition": "Legacy",
+   "personality": "Unorthodox",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 14500,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/mixed.png",
+   "sources": [
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Dricus_du_Plessis",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "Fight record aggregate",
+     "url": "https://combat-edge.com/fighter/dricus-du-plessis-1714/",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_khamzat_chimaev",
+   "name": "Khamzat Chimaev",
+   "birth_date": "1994-05-01",
+   "age": 32,
+   "country": "United Arab Emirates",
+   "city": "Abu Dhabi",
+   "sex": "male",
+   "height_cm": 188.0,
+   "reach_cm": 190.5,
+   "weight_class": "Middleweight",
+   "competition_weight_kg": 83.9,
+   "primary_discipline": "mma",
+   "specialties": {
+    "mma": 95,
+    "wrestling": 96,
+    "boxing": 84
+   },
+   "stats": {
+    "power": 90,
+    "technique": 91,
+    "speed": 89,
+    "defense": 88,
+    "conditioning": 84,
+    "fight_iq": 90
+   },
+   "potential": 96,
+   "record": {
+    "wins": 15,
+    "losses": 1,
+    "draws": 0
+   },
+   "record_display": "15-1-0",
+   "record_scope": "Professional MMA, as of 2026-09",
+   "fight_history": [
+    {
+     "week": "2026-05-09",
+     "result": "loss",
+     "opponent_name": "Sean Strickland",
+     "method": "Split decision",
+     "event": "UFC 328",
+     "discipline": "mma"
+    },
+    {
+     "week": "2025-08-16",
+     "result": "win",
+     "opponent_name": "Dricus du Plessis",
+     "method": "Unanimous decision",
+     "event": "UFC 319",
+     "discipline": "mma"
+    },
+    {
+     "week": "2024-10-26",
+     "result": "win",
+     "opponent_name": "Robert Whittaker",
+     "method": "Submission (face crank) R1",
+     "event": "UFC 308",
+     "discipline": "mma"
+    }
+   ],
+   "achievements": [
+    "Former UFC Middleweight Champion",
+    "Undefeated until his 2026 title loss"
+   ],
+   "ranking_points": 910,
+   "fame": 900,
+   "fatigue": 12,
+   "morale": 76,
+   "ambition": "Redemption",
+   "personality": "Ferocious",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 15500,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/grappler.png",
+   "sources": [
+    {
+     "label": "UFC athlete profile",
+     "url": "https://www.ufc.com/athlete/khamzat-chimaev",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Khamzat_Chimaev",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_alexandre_pantoja",
+   "name": "Alexandre Pantoja",
+   "birth_date": "1989-12-16",
+   "age": 36,
+   "country": "Brazil",
+   "city": "Arraial do Cabo",
+   "sex": "male",
+   "height_cm": 165.1,
+   "reach_cm": 170.2,
+   "weight_class": "Flyweight",
+   "competition_weight_kg": 56.7,
+   "primary_discipline": "mma",
+   "specialties": {
+    "mma": 93,
+    "brazilian_jiu_jitsu": 94,
+    "boxing": 82
+   },
+   "stats": {
+    "power": 80,
+    "technique": 93,
+    "speed": 90,
+    "defense": 87,
+    "conditioning": 92,
+    "fight_iq": 93
+   },
+   "potential": 93,
+   "record": {
+    "wins": 30,
+    "losses": 6,
+    "draws": 0
+   },
+   "record_display": "30-6-0",
+   "record_scope": "Professional MMA, as of 2026-09",
+   "fight_history": [
+    {
+     "week": "2025-12-06",
+     "result": "loss",
+     "opponent_name": "Joshua Van",
+     "method": "TKO (arm injury) R1",
+     "event": "UFC 323",
+     "discipline": "mma"
+    },
+    {
+     "week": "2025-06-28",
+     "result": "win",
+     "opponent_name": "Kai Kara-France",
+     "method": "Submission (rear-naked choke)",
+     "event": "UFC 317",
+     "discipline": "mma"
+    },
+    {
+     "week": "2024-12-07",
+     "result": "win",
+     "opponent_name": "Kai Asakura",
+     "method": "Submission (rear-naked choke) R2",
+     "event": "UFC 310",
+     "discipline": "mma"
+    }
+   ],
+   "achievements": [
+    "Former UFC Flyweight Champion, four title defenses",
+    "Most wins, submissions and finishes in UFC flyweight history"
+   ],
+   "ranking_points": 885,
+   "fame": 850,
+   "fatigue": 12,
+   "morale": 82,
+   "ambition": "Redemption",
+   "personality": "Fearless",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 13000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/grappler.png",
+   "sources": [
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Alexandre_Pantoja",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "Sherdog profile",
+     "url": "https://www.sherdog.com/fighter/Alexandre-Pantoja-25023",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_charles_oliveira",
+   "name": "Charles Oliveira",
+   "birth_date": "1989-10-17",
+   "age": 36,
+   "country": "Brazil",
+   "city": "Guaruja",
+   "sex": "male",
+   "height_cm": 178.0,
+   "reach_cm": 188.0,
+   "weight_class": "Lightweight",
+   "competition_weight_kg": 70.3,
+   "primary_discipline": "mma",
+   "specialties": {
+    "mma": 93,
+    "brazilian_jiu_jitsu": 97,
+    "muay_thai": 88
+   },
+   "stats": {
+    "power": 86,
+    "technique": 94,
+    "speed": 86,
+    "defense": 82,
+    "conditioning": 90,
+    "fight_iq": 92
+   },
+   "potential": 93,
+   "record": {
+    "wins": 37,
+    "losses": 11,
+    "draws": 0
+   },
+   "record_display": "37-11-0 (1 NC)",
+   "record_scope": "Professional MMA, as of 2026-09",
+   "fight_history": [
+    {
+     "week": "2026-03-07",
+     "result": "win",
+     "opponent_name": "Max Holloway",
+     "method": "Unanimous decision",
+     "event": "UFC 326",
+     "discipline": "mma"
+    },
+    {
+     "week": "2025-06-28",
+     "result": "loss",
+     "opponent_name": "Ilia Topuria",
+     "method": "KO R1",
+     "event": "UFC 317",
+     "discipline": "mma"
+    },
+    {
+     "week": "2024-11-16",
+     "result": "win",
+     "opponent_name": "Michael Chandler",
+     "method": "Unanimous decision",
+     "event": "UFC 309",
+     "discipline": "mma"
+    }
+   ],
+   "achievements": [
+    "Former UFC Lightweight Champion",
+    "Reigning UFC BMF titleholder",
+    "Most submission wins in UFC history"
+   ],
+   "ranking_points": 895,
+   "fame": 895,
+   "fatigue": 12,
+   "morale": 87,
+   "ambition": "Legacy",
+   "personality": "Resilient",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 14500,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/grappler.png",
+   "sources": [
+    {
+     "label": "UFC athlete profile",
+     "url": "https://www.ufc.com/athlete/charles-oliveira",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "UFC Stats",
+     "url": "http://ufcstats.com/fighter-details/07225ba28ae309b6",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_max_holloway",
+   "name": "Max Holloway",
+   "birth_date": "1991-12-04",
+   "age": 34,
+   "country": "United States of America",
+   "city": "Waianae",
+   "sex": "male",
+   "height_cm": 180.3,
+   "reach_cm": 175.3,
+   "weight_class": "Lightweight",
+   "competition_weight_kg": 70.3,
+   "primary_discipline": "mma",
+   "specialties": {
+    "mma": 93,
+    "boxing": 94,
+    "kickboxing": 88
+   },
+   "stats": {
+    "power": 84,
+    "technique": 95,
+    "speed": 92,
+    "defense": 86,
+    "conditioning": 96,
+    "fight_iq": 93
+   },
+   "potential": 93,
+   "record": {
+    "wins": 27,
+    "losses": 9,
+    "draws": 0
+   },
+   "record_display": "27-9-0",
+   "record_scope": "Professional MMA, as of 2026-09",
+   "fight_history": [
+    {
+     "week": "2026-07-11",
+     "result": "win",
+     "opponent_name": "Conor McGregor",
+     "method": "TKO (injury) R1",
+     "event": "UFC 329",
+     "discipline": "mma"
+    },
+    {
+     "week": "2026-03-07",
+     "result": "loss",
+     "opponent_name": "Charles Oliveira",
+     "method": "Unanimous decision",
+     "event": "UFC 326",
+     "discipline": "mma"
+    },
+    {
+     "week": "2024-10-26",
+     "result": "loss",
+     "opponent_name": "Ilia Topuria",
+     "method": "KO R3",
+     "event": "UFC 308",
+     "discipline": "mma"
+    }
+   ],
+   "achievements": [
+    "Former UFC Featherweight Champion",
+    "Former UFC BMF titleholder",
+    "Most significant strikes landed in UFC history"
+   ],
+   "ranking_points": 870,
+   "fame": 900,
+   "fatigue": 12,
+   "morale": 84,
+   "ambition": "Legacy",
+   "personality": "Joyful",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 14000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "UFC athlete profile",
+     "url": "https://www.ufc.com/athlete/max-holloway",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Max_Holloway",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_justin_gaethje",
+   "name": "Justin Gaethje",
+   "birth_date": "1988-11-14",
+   "age": 37,
+   "country": "United States of America",
+   "city": "Safford",
+   "sex": "male",
+   "height_cm": 180.3,
+   "reach_cm": 177.8,
+   "weight_class": "Lightweight",
+   "competition_weight_kg": 70.3,
+   "primary_discipline": "mma",
+   "specialties": {
+    "mma": 94,
+    "wrestling": 90,
+    "boxing": 88
+   },
+   "stats": {
+    "power": 95,
+    "technique": 88,
+    "speed": 88,
+    "defense": 78,
+    "conditioning": 92,
+    "fight_iq": 87
+   },
+   "potential": 95,
+   "record": {
+    "wins": 28,
+    "losses": 5,
+    "draws": 0
+   },
+   "record_display": "28-5-0",
+   "record_scope": "Professional MMA, as of 2026-09",
+   "fight_history": [
+    {
+     "week": "2026-06-14",
+     "result": "win",
+     "opponent_name": "Ilia Topuria",
+     "method": "TKO (corner stoppage) R4",
+     "event": "UFC Freedom 250",
+     "discipline": "mma"
+    },
+    {
+     "week": "2026-01-24",
+     "result": "win",
+     "opponent_name": "Paddy Pimblett",
+     "method": "Unanimous decision",
+     "event": "UFC 324",
+     "discipline": "mma"
+    },
+    {
+     "week": "2025-03-08",
+     "result": "win",
+     "opponent_name": "Rafael Fiziev",
+     "method": "Unanimous decision",
+     "event": "UFC 313",
+     "discipline": "mma"
+    }
+   ],
+   "achievements": [
+    "Reigning UFC Lightweight Champion",
+    "Two-time BMF titleholder"
+   ],
+   "ranking_points": 955,
+   "fame": 925,
+   "fatigue": 12,
+   "morale": 90,
+   "ambition": "Dominance",
+   "personality": "Violent artist",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 17000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "UFC athlete profile",
+     "url": "https://www.ufc.com/athlete/justin-gaethje",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "Al Jazeera title report",
+     "url": "https://www.aljazeera.com/sports/2026/1/25/gaethje-batters-pimblett-to-win-interim-lightweight-title-at-ufc-324",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_leon_edwards",
+   "name": "Leon Edwards",
+   "birth_date": "1991-08-25",
+   "age": 35,
+   "country": "England",
+   "city": "Birmingham",
+   "sex": "male",
+   "height_cm": 183.0,
+   "reach_cm": 188.0,
+   "weight_class": "Welterweight",
+   "competition_weight_kg": 77.1,
+   "primary_discipline": "mma",
+   "specialties": {
+    "mma": 92,
+    "kickboxing": 90,
+    "brazilian_jiu_jitsu": 84
+   },
+   "stats": {
+    "power": 85,
+    "technique": 92,
+    "speed": 88,
+    "defense": 90,
+    "conditioning": 86,
+    "fight_iq": 90
+   },
+   "potential": 92,
+   "record": {
+    "wins": 22,
+    "losses": 6,
+    "draws": 0
+   },
+   "record_display": "22-6-0 (1 NC)",
+   "record_scope": "Professional MMA, as of 2026-09",
+   "fight_history": [
+    {
+     "week": "2025-11-15",
+     "result": "loss",
+     "opponent_name": "Carlos Prates",
+     "method": "KO",
+     "event": "UFC 322",
+     "discipline": "mma"
+    },
+    {
+     "week": "2025-03-22",
+     "result": "loss",
+     "opponent_name": "Sean Brady",
+     "method": "Submission R4",
+     "event": "UFC Fight Night London",
+     "discipline": "mma"
+    },
+    {
+     "week": "2024-07-27",
+     "result": "loss",
+     "opponent_name": "Belal Muhammad",
+     "method": "Unanimous decision",
+     "event": "UFC 304",
+     "discipline": "mma"
+    }
+   ],
+   "achievements": [
+    "Former UFC Welterweight Champion",
+    "Head-kick KO of Kamaru Usman at UFC 278"
+   ],
+   "ranking_points": 830,
+   "fame": 855,
+   "fatigue": 12,
+   "morale": 68,
+   "ambition": "Redemption",
+   "personality": "Composed",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 12500,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Leon_Edwards",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "UFC Stats",
+     "url": "http://ufcstats.com/fighter-details/f1fac969a1d70b08",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_arman_tsarukyan",
+   "name": "Arman Tsarukyan",
+   "birth_date": "1996-10-11",
+   "age": 29,
+   "country": "Armenia",
+   "city": "Yerevan",
+   "sex": "male",
+   "height_cm": 170.2,
+   "reach_cm": 184.2,
+   "weight_class": "Lightweight",
+   "competition_weight_kg": 70.3,
+   "primary_discipline": "mma",
+   "specialties": {
+    "mma": 94,
+    "wrestling": 93,
+    "muay_thai": 85
+   },
+   "stats": {
+    "power": 87,
+    "technique": 92,
+    "speed": 90,
+    "defense": 89,
+    "conditioning": 93,
+    "fight_iq": 91
+   },
+   "potential": 96,
+   "record": {
+    "wins": 23,
+    "losses": 3,
+    "draws": 0
+   },
+   "record_display": "23-3-0",
+   "record_scope": "Professional MMA, as of 2026-09",
+   "fight_history": [
+    {
+     "week": "2024-04-13",
+     "result": "win",
+     "opponent_name": "Charles Oliveira",
+     "method": "Unanimous decision",
+     "event": "UFC 300",
+     "discipline": "mma"
+    },
+    {
+     "week": "2023-12-02",
+     "result": "win",
+     "opponent_name": "Beneil Dariush",
+     "method": "KO R1",
+     "event": "UFC Fight Night Austin",
+     "discipline": "mma"
+    },
+    {
+     "week": "2019-04-20",
+     "result": "loss",
+     "opponent_name": "Islam Makhachev",
+     "method": "Unanimous decision",
+     "event": "UFC Fight Night St. Petersburg",
+     "discipline": "mma"
+    }
+   ],
+   "achievements": [
+    "UFC lightweight #2 contender at snapshot"
+   ],
+   "ranking_points": 890,
+   "fame": 840,
+   "fatigue": 12,
+   "morale": 88,
+   "ambition": "Championship",
+   "personality": "Calculating",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 13500,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/grappler.png",
+   "sources": [
+    {
+     "label": "UFC athlete profile",
+     "url": "https://www.ufc.com/athlete/arman-tsarukyan",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "Sherdog profile",
+     "url": "https://www.sherdog.com/fighter/Arman-Tsarukyan-213913",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_valentina_shevchenko",
+   "name": "Valentina Shevchenko",
+   "birth_date": "1988-03-07",
+   "age": 38,
+   "country": "Kyrgyzstan",
+   "city": "Bishkek",
+   "sex": "female",
+   "height_cm": 165.1,
+   "reach_cm": 170.2,
+   "weight_class": "Flyweight",
+   "competition_weight_kg": 56.7,
+   "primary_discipline": "mma",
+   "specialties": {
+    "mma": 95,
+    "muay_thai": 96,
+    "boxing": 88
+   },
+   "stats": {
+    "power": 84,
+    "technique": 97,
+    "speed": 90,
+    "defense": 95,
+    "conditioning": 92,
+    "fight_iq": 97
+   },
+   "potential": 95,
+   "record": {
+    "wins": 26,
+    "losses": 4,
+    "draws": 1
+   },
+   "record_display": "26-4-1",
+   "record_scope": "Professional MMA, as of 2026-09",
+   "fight_history": [
+    {
+     "week": "2025-11-15",
+     "result": "win",
+     "opponent_name": "Zhang Weili",
+     "method": "Unanimous decision",
+     "event": "UFC 322",
+     "discipline": "mma"
+    },
+    {
+     "week": "2025-05-10",
+     "result": "win",
+     "opponent_name": "Manon Fiorot",
+     "method": "Unanimous decision",
+     "event": "UFC 315",
+     "discipline": "mma"
+    },
+    {
+     "week": "2024-09-14",
+     "result": "win",
+     "opponent_name": "Alexa Grasso",
+     "method": "Unanimous decision",
+     "event": "UFC 306",
+     "discipline": "mma"
+    }
+   ],
+   "achievements": [
+    "Reigning UFC Women's Flyweight Champion",
+    "Record 11 women's flyweight title-fight wins",
+    "Multiple-time Muay Thai world champion"
+   ],
+   "ranking_points": 945,
+   "fame": 915,
+   "fatigue": 12,
+   "morale": 89,
+   "ambition": "Legacy",
+   "personality": "Precise",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 16000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "UFC athlete profile",
+     "url": "https://www.ufc.com/athlete/valentina-shevchenko",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "ESPN profile",
+     "url": "https://www.espn.com/mma/fighter/_/id/2554705/valentina-shevchenko",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_amanda_nunes",
+   "name": "Amanda Nunes",
+   "birth_date": "1988-05-30",
+   "age": 38,
+   "country": "Brazil",
+   "city": "Salvador",
+   "sex": "female",
+   "height_cm": 173.0,
+   "reach_cm": 175.3,
+   "weight_class": "Bantamweight",
+   "competition_weight_kg": 61.2,
+   "primary_discipline": "mma",
+   "specialties": {
+    "mma": 95,
+    "boxing": 92,
+    "brazilian_jiu_jitsu": 90
+   },
+   "stats": {
+    "power": 95,
+    "technique": 91,
+    "speed": 87,
+    "defense": 85,
+    "conditioning": 86,
+    "fight_iq": 93
+   },
+   "potential": 95,
+   "record": {
+    "wins": 23,
+    "losses": 6,
+    "draws": 0
+   },
+   "record_display": "23-6-0",
+   "record_scope": "Professional MMA, as of 2026-09",
+   "fight_history": [
+    {
+     "week": "2026-01-24",
+     "result": "loss",
+     "opponent_name": "Kayla Harrison",
+     "method": "Unanimous decision",
+     "event": "UFC 324",
+     "discipline": "mma"
+    },
+    {
+     "week": "2023-06-10",
+     "result": "win",
+     "opponent_name": "Irene Aldana",
+     "method": "Unanimous decision",
+     "event": "UFC 289",
+     "discipline": "mma"
+    },
+    {
+     "week": "2022-07-30",
+     "result": "win",
+     "opponent_name": "Julianna Pena",
+     "method": "Unanimous decision",
+     "event": "UFC 277",
+     "discipline": "mma"
+    }
+   ],
+   "achievements": [
+    "First two-division women's UFC champion (bantamweight and featherweight)",
+    "Returned from retirement in 2026"
+   ],
+   "ranking_points": 880,
+   "fame": 940,
+   "fatigue": 12,
+   "morale": 74,
+   "ambition": "Legacy",
+   "personality": "Lioness",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 15000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/mixed.png",
+   "sources": [
+    {
+     "label": "ESPN profile",
+     "url": "https://www.espn.com/mma/fighter/_/id/2516131/amanda-nunes",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "Tapology profile",
+     "url": "https://www.tapology.com/fightcenter/fighters/amanda-nunes-lioness-of-the-ring",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_alexa_grasso",
+   "name": "Alexa Grasso",
+   "birth_date": "1993-08-09",
+   "age": 33,
+   "country": "Mexico",
+   "city": "Guadalajara",
+   "sex": "female",
+   "height_cm": 165.1,
+   "reach_cm": 167.6,
+   "weight_class": "Flyweight",
+   "competition_weight_kg": 56.7,
+   "primary_discipline": "mma",
+   "specialties": {
+    "mma": 91,
+    "boxing": 92,
+    "brazilian_jiu_jitsu": 84
+   },
+   "stats": {
+    "power": 82,
+    "technique": 91,
+    "speed": 90,
+    "defense": 85,
+    "conditioning": 88,
+    "fight_iq": 89
+   },
+   "potential": 92,
+   "record": {
+    "wins": 17,
+    "losses": 5,
+    "draws": 1
+   },
+   "record_display": "17-5-1",
+   "record_scope": "Professional MMA, as of 2026-09",
+   "fight_history": [
+    {
+     "week": "2026-03-28",
+     "result": "win",
+     "opponent_name": "Maycee Barber",
+     "method": "KO R1",
+     "event": "UFC Fight Night Adesanya vs Pyfer",
+     "discipline": "mma"
+    },
+    {
+     "week": "2024-09-14",
+     "result": "loss",
+     "opponent_name": "Valentina Shevchenko",
+     "method": "Unanimous decision",
+     "event": "UFC 306",
+     "discipline": "mma"
+    },
+    {
+     "week": "2023-09-16",
+     "result": "draw",
+     "opponent_name": "Valentina Shevchenko",
+     "method": "Split draw",
+     "event": "Noche UFC",
+     "discipline": "mma"
+    }
+   ],
+   "achievements": [
+    "Former UFC Women's Flyweight Champion",
+    "First Mexican women's UFC champion"
+   ],
+   "ranking_points": 855,
+   "fame": 840,
+   "fatigue": 12,
+   "morale": 83,
+   "ambition": "Championship",
+   "personality": "Warm",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 12000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "UFC athlete profile",
+     "url": "https://www.ufc.com/athlete/alexa-grasso",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Alexa_Grasso",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_kayla_harrison",
+   "name": "Kayla Harrison",
+   "birth_date": "1990-07-02",
+   "age": 36,
+   "country": "United States of America",
+   "city": "Middletown",
+   "sex": "female",
+   "height_cm": 173.0,
+   "reach_cm": 175.3,
+   "weight_class": "Bantamweight",
+   "competition_weight_kg": 61.2,
+   "primary_discipline": "mma",
+   "specialties": {
+    "mma": 94,
+    "judo": 98,
+    "wrestling": 88
+   },
+   "stats": {
+    "power": 92,
+    "technique": 93,
+    "speed": 86,
+    "defense": 90,
+    "conditioning": 91,
+    "fight_iq": 92
+   },
+   "potential": 95,
+   "record": {
+    "wins": 19,
+    "losses": 1,
+    "draws": 0
+   },
+   "record_display": "19-1-0",
+   "record_scope": "Professional MMA, as of 2026-09",
+   "fight_history": [
+    {
+     "week": "2026-01-24",
+     "result": "win",
+     "opponent_name": "Amanda Nunes",
+     "method": "Unanimous decision",
+     "event": "UFC 324",
+     "discipline": "mma"
+    },
+    {
+     "week": "2025-06-07",
+     "result": "win",
+     "opponent_name": "Julianna Pena",
+     "method": "Submission (kimura) R2",
+     "event": "UFC 316",
+     "discipline": "mma"
+    },
+    {
+     "week": "2024-04-13",
+     "result": "win",
+     "opponent_name": "Holly Holm",
+     "method": "Unanimous decision",
+     "event": "UFC 300",
+     "discipline": "mma"
+    }
+   ],
+   "achievements": [
+    "Reigning UFC Women's Bantamweight Champion",
+    "Two-time Olympic judo gold medalist (2012, 2016)",
+    "Two-time PFL season champion"
+   ],
+   "ranking_points": 935,
+   "fame": 905,
+   "fatigue": 12,
+   "morale": 90,
+   "ambition": "Dominance",
+   "personality": "Driven",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 15500,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/grappler.png",
+   "sources": [
+    {
+     "label": "UFC athlete profile",
+     "url": "https://www.ufc.com/athlete/kayla-harrison",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Kayla_Harrison",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_terence_crawford",
+   "name": "Terence Crawford",
+   "birth_date": "1987-09-28",
+   "age": 38,
+   "country": "United States of America",
+   "city": "Omaha",
+   "sex": "male",
+   "height_cm": 173.0,
+   "reach_cm": 188.0,
+   "weight_class": "Super Middleweight",
+   "competition_weight_kg": 76.2,
+   "primary_discipline": "boxing",
+   "specialties": {
+    "boxing": 99
+   },
+   "stats": {
+    "power": 93,
+    "technique": 99,
+    "speed": 95,
+    "defense": 98,
+    "conditioning": 94,
+    "fight_iq": 99
+   },
+   "potential": 99,
+   "record": {
+    "wins": 42,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "42-0-0 (31 KO)",
+   "record_scope": "Professional boxing at retirement, 2025-12",
+   "fight_history": [
+    {
+     "week": "2025-09-13",
+     "result": "win",
+     "opponent_name": "Canelo Alvarez",
+     "method": "Unanimous decision",
+     "event": "Undisputed Super Middleweight Championship",
+     "discipline": "boxing"
+    },
+    {
+     "week": "2024-08-03",
+     "result": "win",
+     "opponent_name": "Israil Madrimov",
+     "method": "Unanimous decision",
+     "event": "WBA Junior Middleweight Championship",
+     "discipline": "boxing"
+    },
+    {
+     "week": "2023-07-29",
+     "result": "win",
+     "opponent_name": "Errol Spence Jr.",
+     "method": "TKO R9",
+     "event": "Undisputed Welterweight Championship",
+     "discipline": "boxing"
+    }
+   ],
+   "achievements": [
+    "Undisputed champion in three divisions (junior welterweight, welterweight, super middleweight)",
+    "Five-division world champion",
+    "Retired undefeated 2025"
+   ],
+   "ranking_points": 920,
+   "fame": 950,
+   "fatigue": 12,
+   "morale": 90,
+   "ambition": "Legacy",
+   "personality": "Ice-cold",
+   "status": "retired",
+   "contract_weeks": 52,
+   "salary_expectation": 21000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Terence_Crawford",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "The Ring rankings",
+     "url": "https://www.ringmagazine.com/fighters/rankings",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_tyson_fury",
+   "name": "Tyson Fury",
+   "birth_date": "1988-08-12",
+   "age": 38,
+   "country": "England",
+   "city": "Morecambe",
+   "sex": "male",
+   "height_cm": 206.0,
+   "reach_cm": 216.0,
+   "weight_class": "Heavyweight",
+   "competition_weight_kg": 118.0,
+   "primary_discipline": "boxing",
+   "specialties": {
+    "boxing": 96
+   },
+   "stats": {
+    "power": 90,
+    "technique": 96,
+    "speed": 88,
+    "defense": 95,
+    "conditioning": 92,
+    "fight_iq": 96
+   },
+   "potential": 97,
+   "record": {
+    "wins": 36,
+    "losses": 2,
+    "draws": 1
+   },
+   "record_display": "36-2-1 (25 KO)",
+   "record_scope": "Professional boxing, as of 2026-09",
+   "fight_history": [
+    {
+     "week": "2026-04-11",
+     "result": "win",
+     "opponent_name": "Arslanbek Makhmudov",
+     "method": "Unanimous decision",
+     "event": "Heavyweight Comeback, Tottenham Hotspur Stadium",
+     "discipline": "boxing"
+    },
+    {
+     "week": "2024-12-21",
+     "result": "loss",
+     "opponent_name": "Oleksandr Usyk",
+     "method": "Unanimous decision",
+     "event": "Heavyweight Championship Rematch",
+     "discipline": "boxing"
+    },
+    {
+     "week": "2024-05-18",
+     "result": "loss",
+     "opponent_name": "Oleksandr Usyk",
+     "method": "Split decision",
+     "event": "Undisputed Heavyweight Championship",
+     "discipline": "boxing"
+    }
+   ],
+   "achievements": [
+    "Two-time lineal heavyweight champion",
+    "Former WBC and unified heavyweight champion",
+    "Returned from retirement in 2026; Joshua showdown in the making"
+   ],
+   "ranking_points": 900,
+   "fame": 965,
+   "fatigue": 12,
+   "morale": 85,
+   "ambition": "Redemption",
+   "personality": "Showman",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 21000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "Wikipedia, Fury vs Makhmudov",
+     "url": "https://en.wikipedia.org/wiki/Tyson_Fury_vs._Arslanbek_Makhmudov",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "Sky Sports 2026 schedule and results",
+     "url": "https://www.skysports.com/boxing/news/12183/13491463/boxing-2026-fight-schedule-and-latest-results-tyson-fury-oleksandr-usyk-katie-taylor-and-more",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_anthony_joshua",
+   "name": "Anthony Joshua",
+   "birth_date": "1989-10-15",
+   "age": 36,
+   "country": "England",
+   "city": "Watford",
+   "sex": "male",
+   "height_cm": 198.0,
+   "reach_cm": 208.0,
+   "weight_class": "Heavyweight",
+   "competition_weight_kg": 113.4,
+   "primary_discipline": "boxing",
+   "specialties": {
+    "boxing": 94
+   },
+   "stats": {
+    "power": 95,
+    "technique": 90,
+    "speed": 87,
+    "defense": 84,
+    "conditioning": 88,
+    "fight_iq": 87
+   },
+   "potential": 95,
+   "record": {
+    "wins": 30,
+    "losses": 4,
+    "draws": 0
+   },
+   "record_display": "30-4-0 (27 KO)",
+   "record_scope": "Professional boxing, as of 2026-09",
+   "fight_history": [
+    {
+     "week": "2026-07-26",
+     "result": "win",
+     "opponent_name": "Kristian Prenga",
+     "method": "KO R2",
+     "event": "Heavyweight bout, Riyadh",
+     "discipline": "boxing"
+    },
+    {
+     "week": "2025-12-19",
+     "result": "win",
+     "opponent_name": "Jake Paul",
+     "method": "KO R6",
+     "event": "Heavyweight bout, Kaseya Center Miami",
+     "discipline": "boxing"
+    },
+    {
+     "week": "2024-09-21",
+     "result": "loss",
+     "opponent_name": "Daniel Dubois",
+     "method": "KO R5",
+     "event": "IBF Heavyweight Championship, Wembley",
+     "discipline": "boxing"
+    }
+   ],
+   "achievements": [
+    "Two-time unified world heavyweight champion",
+    "2012 Olympic super-heavyweight gold medalist"
+   ],
+   "ranking_points": 885,
+   "fame": 940,
+   "fatigue": 12,
+   "morale": 82,
+   "ambition": "Redemption",
+   "personality": "Gracious",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 19000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "Al Jazeera, Joshua vs Prenga",
+     "url": "https://www.aljazeera.com/sports/2026/7/26/joshua-comes-back-twice-to-knock-out-prenga-and-set-up-fury-showdown",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "CNN, Joshua vs Paul",
+     "url": "https://www.cnn.com/2025/12/20/sport/boxing-jake-paul-anthony-joshua",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_gervonta_davis",
+   "name": "Gervonta Davis",
+   "birth_date": "1994-11-07",
+   "age": 31,
+   "country": "United States of America",
+   "city": "Baltimore",
+   "sex": "male",
+   "height_cm": 166.0,
+   "reach_cm": 171.0,
+   "weight_class": "Lightweight",
+   "competition_weight_kg": 61.2,
+   "primary_discipline": "boxing",
+   "specialties": {
+    "boxing": 95
+   },
+   "stats": {
+    "power": 98,
+    "technique": 93,
+    "speed": 95,
+    "defense": 90,
+    "conditioning": 88,
+    "fight_iq": 91
+   },
+   "potential": 96,
+   "record": {
+    "wins": 30,
+    "losses": 0,
+    "draws": 1
+   },
+   "record_display": "30-0-1 (28 KO)",
+   "record_scope": "Professional boxing, as of 2026-09",
+   "fight_history": [
+    {
+     "week": "2025-03-01",
+     "result": "draw",
+     "opponent_name": "Lamont Roach Jr.",
+     "method": "Majority draw",
+     "event": "WBA Lightweight Championship",
+     "discipline": "boxing"
+    },
+    {
+     "week": "2024-06-15",
+     "result": "win",
+     "opponent_name": "Frank Martin",
+     "method": "KO R8",
+     "event": "WBA Lightweight Championship",
+     "discipline": "boxing"
+    },
+    {
+     "week": "2023-04-22",
+     "result": "win",
+     "opponent_name": "Ryan Garcia",
+     "method": "KO (body shot) R7",
+     "event": "Catchweight Showdown",
+     "discipline": "boxing"
+    }
+   ],
+   "achievements": [
+    "WBA lightweight champion",
+    "World titles in three weight divisions",
+    "One of boxing's highest knockout ratios at championship level"
+   ],
+   "ranking_points": 890,
+   "fame": 920,
+   "fatigue": 12,
+   "morale": 68,
+   "ambition": "Championship",
+   "personality": "Volatile",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 17000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "ESPN profile",
+     "url": "https://www.espn.com/boxing/story/_/id/38782247/gervonta-davis-biography-boxing-record-fights-more",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "MartialBot record page",
+     "url": "https://www.martialbot.com/boxing/boxers/gervonta-davis-c299354e674849ac4d30970127caf092",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_shakur_stevenson",
+   "name": "Shakur Stevenson",
+   "birth_date": "1997-06-28",
+   "age": 29,
+   "country": "United States of America",
+   "city": "Newark",
+   "sex": "male",
+   "height_cm": 173.0,
+   "reach_cm": 174.0,
+   "weight_class": "Super Lightweight",
+   "competition_weight_kg": 63.5,
+   "primary_discipline": "boxing",
+   "specialties": {
+    "boxing": 97
+   },
+   "stats": {
+    "power": 78,
+    "technique": 98,
+    "speed": 94,
+    "defense": 99,
+    "conditioning": 92,
+    "fight_iq": 97
+   },
+   "potential": 98,
+   "record": {
+    "wins": 25,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "25-0-0 (11 KO)",
+   "record_scope": "Professional boxing, as of 2026-09",
+   "fight_history": [
+    {
+     "week": "2026-01-31",
+     "result": "win",
+     "opponent_name": "Teofimo Lopez",
+     "method": "Unanimous decision",
+     "event": "WBO Junior Welterweight Championship, Madison Square Garden",
+     "discipline": "boxing"
+    },
+    {
+     "week": "2025-07-12",
+     "result": "win",
+     "opponent_name": "William Zepeda",
+     "method": "Unanimous decision",
+     "event": "WBC Lightweight Championship",
+     "discipline": "boxing"
+    },
+    {
+     "week": "2025-02-22",
+     "result": "win",
+     "opponent_name": "Josh Padley",
+     "method": "TKO R9",
+     "event": "WBC Lightweight Championship, Riyadh",
+     "discipline": "boxing"
+    }
+   ],
+   "achievements": [
+    "Four-division world champion",
+    "2016 Olympic bantamweight silver medalist",
+    "Elite defensive southpaw"
+   ],
+   "ranking_points": 915,
+   "fame": 890,
+   "fatigue": 12,
+   "morale": 90,
+   "ambition": "Dominance",
+   "personality": "Slick",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 16000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "Wikipedia, Lopez vs Stevenson",
+     "url": "https://en.wikipedia.org/wiki/Teofimo_Lopez_vs._Shakur_Stevenson",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "MartialBot record page",
+     "url": "https://www.martialbot.com/boxing/boxers/shakur-stevenson-5246dbb7c7df50a9cb5e549641730442",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_david_benavidez",
+   "name": "David Benavidez",
+   "birth_date": "1996-12-17",
+   "age": 29,
+   "country": "United States of America",
+   "city": "Phoenix",
+   "sex": "male",
+   "height_cm": 188.0,
+   "reach_cm": 189.0,
+   "weight_class": "Light Heavyweight",
+   "competition_weight_kg": 79.4,
+   "primary_discipline": "boxing",
+   "specialties": {
+    "boxing": 95
+   },
+   "stats": {
+    "power": 94,
+    "technique": 92,
+    "speed": 90,
+    "defense": 86,
+    "conditioning": 96,
+    "fight_iq": 90
+   },
+   "potential": 97,
+   "record": {
+    "wins": 32,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "32-0-0 (26 KO)",
+   "record_scope": "Professional boxing, as of 2026-09",
+   "fight_history": [
+    {
+     "week": "2026-05-02",
+     "result": "win",
+     "opponent_name": "Gilberto Ramirez",
+     "method": "KO R6",
+     "event": "WBC Light Heavyweight Championship, Las Vegas",
+     "discipline": "boxing"
+    },
+    {
+     "week": "2025-02-01",
+     "result": "win",
+     "opponent_name": "David Morrell",
+     "method": "Unanimous decision",
+     "event": "WBC Interim Light Heavyweight Championship",
+     "discipline": "boxing"
+    },
+    {
+     "week": "2024-06-15",
+     "result": "win",
+     "opponent_name": "Oleksandr Gvozdyk",
+     "method": "Unanimous decision",
+     "event": "WBC Interim Light Heavyweight Championship",
+     "discipline": "boxing"
+    }
+   ],
+   "achievements": [
+    "WBC light heavyweight champion",
+    "Three-division world champion",
+    "Youngest super-middleweight world champion in WBC history"
+   ],
+   "ranking_points": 925,
+   "fame": 900,
+   "fatigue": 12,
+   "morale": 88,
+   "ambition": "Dominance",
+   "personality": "Pressure-fighter",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 16500,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "ESPN profile",
+     "url": "https://www.espn.com/boxing/story/_/id/45805461/david-benavidez-next-fight-boxing-record-more",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "MartialBot record page",
+     "url": "https://www.martialbot.com/boxing/boxers/david-benavidez-8a527ae2dd94e032c70062e4e776707f",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_dmitry_bivol",
+   "name": "Dmitry Bivol",
+   "birth_date": "1990-12-18",
+   "age": 35,
+   "country": "Russia",
+   "city": "Saint Petersburg",
+   "sex": "male",
+   "height_cm": 183.0,
+   "reach_cm": 183.0,
+   "weight_class": "Light Heavyweight",
+   "competition_weight_kg": 79.4,
+   "primary_discipline": "boxing",
+   "specialties": {
+    "boxing": 96
+   },
+   "stats": {
+    "power": 85,
+    "technique": 97,
+    "speed": 92,
+    "defense": 96,
+    "conditioning": 94,
+    "fight_iq": 96
+   },
+   "potential": 97,
+   "record": {
+    "wins": 25,
+    "losses": 1,
+    "draws": 0
+   },
+   "record_display": "25-1-0 (12 KO)",
+   "record_scope": "Professional boxing, as of 2026-09",
+   "fight_history": [
+    {
+     "week": "2026-05-30",
+     "result": "win",
+     "opponent_name": "Michael Eifert",
+     "method": "Unanimous decision",
+     "event": "Unified Light Heavyweight Championship, Yekaterinburg",
+     "discipline": "boxing"
+    },
+    {
+     "week": "2025-02-22",
+     "result": "win",
+     "opponent_name": "Artur Beterbiev",
+     "method": "Majority decision",
+     "event": "Undisputed Light Heavyweight Championship, Riyadh",
+     "discipline": "boxing"
+    },
+    {
+     "week": "2024-10-12",
+     "result": "loss",
+     "opponent_name": "Artur Beterbiev",
+     "method": "Majority decision",
+     "event": "Undisputed Light Heavyweight Championship, Riyadh",
+     "discipline": "boxing"
+    }
+   ],
+   "achievements": [
+    "Undisputed light heavyweight champion (2025)",
+    "Beat Canelo Alvarez in 2022",
+    "WBA light heavyweight champion 2017-2024"
+   ],
+   "ranking_points": 930,
+   "fame": 900,
+   "fatigue": 12,
+   "morale": 87,
+   "ambition": "Legacy",
+   "personality": "Methodical",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 17000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "Yahoo Sports, Bivol vs Eifert",
+     "url": "https://sports.yahoo.com/boxing/live/dmitry-bivol-vs-michael-eifert-live-results-round-by-round-updates-ring-walks-start-time-for-unified-title-fight-050000460.html",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Dmitry_Bivol",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_artur_beterbiev",
+   "name": "Artur Beterbiev",
+   "birth_date": "1985-01-21",
+   "age": 41,
+   "country": "Russia",
+   "city": "Montreal",
+   "sex": "male",
+   "height_cm": 182.0,
+   "reach_cm": 185.0,
+   "weight_class": "Light Heavyweight",
+   "competition_weight_kg": 79.4,
+   "primary_discipline": "boxing",
+   "specialties": {
+    "boxing": 95
+   },
+   "stats": {
+    "power": 97,
+    "technique": 92,
+    "speed": 84,
+    "defense": 88,
+    "conditioning": 93,
+    "fight_iq": 92
+   },
+   "potential": 95,
+   "record": {
+    "wins": 21,
+    "losses": 1,
+    "draws": 0
+   },
+   "record_display": "21-1-0 (20 KO)",
+   "record_scope": "Professional boxing, as of 2026-09",
+   "fight_history": [
+    {
+     "week": "2025-02-22",
+     "result": "loss",
+     "opponent_name": "Dmitry Bivol",
+     "method": "Majority decision",
+     "event": "Undisputed Light Heavyweight Championship, Riyadh",
+     "discipline": "boxing"
+    },
+    {
+     "week": "2024-10-12",
+     "result": "win",
+     "opponent_name": "Dmitry Bivol",
+     "method": "Majority decision",
+     "event": "Undisputed Light Heavyweight Championship, Riyadh",
+     "discipline": "boxing"
+    },
+    {
+     "week": "2024-01-13",
+     "result": "win",
+     "opponent_name": "Callum Smith",
+     "method": "TKO R7",
+     "event": "Unified Light Heavyweight Championship",
+     "discipline": "boxing"
+    }
+   ],
+   "achievements": [
+    "First undisputed light heavyweight champion of the four-belt era",
+    "Held a 100% knockout ratio through his first 20 wins"
+   ],
+   "ranking_points": 880,
+   "fame": 870,
+   "fatigue": 12,
+   "morale": 78,
+   "ambition": "Redemption",
+   "personality": "Spartan",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 15000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "ESPN profile",
+     "url": "https://www.espn.com/boxing/story/_/id/39146414/artur-beterbiev-biography-boxing-record-fights-more",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "Wikipedia, Beterbiev vs Bivol II",
+     "url": "https://en.wikipedia.org/wiki/Artur_Beterbiev_vs._Dmitry_Bivol_II",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_junto_nakatani",
+   "name": "Junto Nakatani",
+   "birth_date": "1998-01-02",
+   "age": 28,
+   "country": "Japan",
+   "city": "Inabe",
+   "sex": "male",
+   "height_cm": 173.0,
+   "reach_cm": 172.0,
+   "weight_class": "Super Bantamweight",
+   "competition_weight_kg": 55.3,
+   "primary_discipline": "boxing",
+   "specialties": {
+    "boxing": 96
+   },
+   "stats": {
+    "power": 93,
+    "technique": 95,
+    "speed": 93,
+    "defense": 90,
+    "conditioning": 92,
+    "fight_iq": 93
+   },
+   "potential": 97,
+   "record": {
+    "wins": 32,
+    "losses": 1,
+    "draws": 0
+   },
+   "record_display": "32-1-0 (24 KO)",
+   "record_scope": "Professional boxing, as of 2026-09",
+   "fight_history": [
+    {
+     "week": "2026-05-02",
+     "result": "loss",
+     "opponent_name": "Naoya Inoue",
+     "method": "Unanimous decision",
+     "event": "Undisputed Junior Featherweight Championship, Tokyo Dome",
+     "discipline": "boxing"
+    },
+    {
+     "week": "2025-12-27",
+     "result": "win",
+     "opponent_name": "Sebastian Hernandez",
+     "method": "Unanimous decision",
+     "event": "Super Bantamweight debut",
+     "discipline": "boxing"
+    },
+    {
+     "week": "2025-02-24",
+     "result": "win",
+     "opponent_name": "David Cuellar Contreras",
+     "method": "KO R3",
+     "event": "WBC Bantamweight Championship",
+     "discipline": "boxing"
+    }
+   ],
+   "achievements": [
+    "Three-division world champion (flyweight, super flyweight, bantamweight)",
+    "Challenged for the undisputed super bantamweight title in 2026"
+   ],
+   "ranking_points": 905,
+   "fame": 860,
+   "fatigue": 12,
+   "morale": 84,
+   "ambition": "Redemption",
+   "personality": "Quiet storm",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 15000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "Al Jazeera, Inoue vs Nakatani",
+     "url": "https://www.aljazeera.com/sports/2026/5/3/japans-inoue-beats-nakatani-to-retain-undisputed-super-bantamweight-title",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "MartialBot record page",
+     "url": "https://www.martialbot.com/boxing/boxers/junto-nakatani-30e251afa025e036c9860b1cec8ad917",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_katie_taylor",
+   "name": "Katie Taylor",
+   "birth_date": "1986-07-02",
+   "age": 40,
+   "country": "Ireland",
+   "city": "Bray",
+   "sex": "female",
+   "height_cm": 165.0,
+   "reach_cm": 168.0,
+   "weight_class": "Super Lightweight",
+   "competition_weight_kg": 63.5,
+   "primary_discipline": "boxing",
+   "specialties": {
+    "boxing": 97
+   },
+   "stats": {
+    "power": 80,
+    "technique": 96,
+    "speed": 93,
+    "defense": 92,
+    "conditioning": 92,
+    "fight_iq": 96
+   },
+   "potential": 97,
+   "record": {
+    "wins": 25,
+    "losses": 1,
+    "draws": 0
+   },
+   "record_display": "25-1-0 (6 KO)",
+   "record_scope": "Professional boxing, as of 2026-09",
+   "fight_history": [
+    {
+     "week": "2025-07-11",
+     "result": "win",
+     "opponent_name": "Amanda Serrano",
+     "method": "Majority decision",
+     "event": "Undisputed Super Lightweight Championship, Madison Square Garden",
+     "discipline": "boxing"
+    },
+    {
+     "week": "2024-11-15",
+     "result": "win",
+     "opponent_name": "Amanda Serrano",
+     "method": "Unanimous decision",
+     "event": "Undisputed Super Lightweight Championship, Arlington",
+     "discipline": "boxing"
+    },
+    {
+     "week": "2023-11-25",
+     "result": "win",
+     "opponent_name": "Chantelle Cameron",
+     "method": "Majority decision",
+     "event": "Undisputed Super Lightweight Championship, Dublin",
+     "discipline": "boxing"
+    }
+   ],
+   "achievements": [
+    "Undisputed champion at lightweight and super lightweight",
+    "2012 Olympic lightweight gold medalist",
+    "Won all three fights of the Serrano trilogy"
+   ],
+   "ranking_points": 935,
+   "fame": 930,
+   "fatigue": 12,
+   "morale": 89,
+   "ambition": "Legacy",
+   "personality": "Humble icon",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 16000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "Big Fight Weekend career review",
+     "url": "https://bigfightweekend.com/2026/06/03/katie-taylor-fight-record-career/",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "Wikipedia, Taylor vs Serrano",
+     "url": "https://en.wikipedia.org/wiki/Katie_Taylor_vs._Amanda_Serrano",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_amanda_serrano",
+   "name": "Amanda Serrano",
+   "birth_date": "1988-10-09",
+   "age": 37,
+   "country": "Puerto Rico",
+   "city": "Brooklyn",
+   "sex": "female",
+   "height_cm": 165.0,
+   "reach_cm": 166.0,
+   "weight_class": "Featherweight",
+   "competition_weight_kg": 57.2,
+   "primary_discipline": "boxing",
+   "specialties": {
+    "boxing": 96
+   },
+   "stats": {
+    "power": 90,
+    "technique": 94,
+    "speed": 90,
+    "defense": 88,
+    "conditioning": 95,
+    "fight_iq": 93
+   },
+   "potential": 96,
+   "record": {
+    "wins": 50,
+    "losses": 4,
+    "draws": 1
+   },
+   "record_display": "50-4-1 (32 KO)",
+   "record_scope": "Professional boxing, as of 2026-09",
+   "fight_history": [
+    {
+     "week": "2026-08-21",
+     "result": "win",
+     "opponent_name": "Lucrecia Manzur",
+     "method": "Majority decision",
+     "event": "Unified Featherweight Championship",
+     "discipline": "boxing"
+    },
+    {
+     "week": "2026-05-30",
+     "result": "win",
+     "opponent_name": "Cheyenne Hanson",
+     "method": "TKO R2",
+     "event": "Unified Featherweight Championship",
+     "discipline": "boxing"
+    },
+    {
+     "week": "2025-07-11",
+     "result": "loss",
+     "opponent_name": "Katie Taylor",
+     "method": "Majority decision",
+     "event": "Undisputed Super Lightweight Championship, Madison Square Garden",
+     "discipline": "boxing"
+    }
+   ],
+   "achievements": [
+    "First Puerto Rican boxer to win world titles in seven divisions",
+    "Unified featherweight champion (WBO, WBA, IBO)"
+   ],
+   "ranking_points": 920,
+   "fame": 920,
+   "fatigue": 12,
+   "morale": 86,
+   "ambition": "Legacy",
+   "personality": "Warrior",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 16000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Amanda_Serrano",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "Champinon record table",
+     "url": "https://champinon.info/boxing/amanda-serrano/",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_jordan_burroughs",
+   "name": "Jordan Burroughs",
+   "birth_date": "1988-07-08",
+   "age": 38,
+   "country": "United States of America",
+   "city": "Lincoln",
+   "sex": "male",
+   "height_cm": 170.0,
+   "reach_cm": 0,
+   "weight_class": "79 kg",
+   "competition_weight_kg": 79.0,
+   "primary_discipline": "wrestling",
+   "specialties": {
+    "wrestling": 97
+   },
+   "stats": {
+    "power": 90,
+    "technique": 96,
+    "speed": 94,
+    "defense": 92,
+    "conditioning": 93,
+    "fight_iq": 97
+   },
+   "potential": 95,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "7 WORLD-LEVEL GOLDS",
+   "record_scope": "Career Olympic/world golds; no 2025-26 UWW season bouts at snapshot after a year away",
+   "fight_history": [],
+   "achievements": [
+    "Olympic freestyle champion (2012)",
+    "Six-time senior world champion",
+    "Most world-level golds in US men's freestyle history",
+    "Announced in mid-2025 he is continuing, not retiring"
+   ],
+   "ranking_points": 870,
+   "fame": 900,
+   "fatigue": 10,
+   "morale": 84,
+   "ambition": "One Last Ride",
+   "personality": "Charismatic",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 14000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/grappler.png",
+   "sources": [
+    {
+     "label": "NBC Sports on his competitive future",
+     "url": "https://www.nbcsports.com/olympics/news/jordan-burroughs-wrestling-2025",
+     "facts": "titles, results, career stage, profile"
+    },
+    {
+     "label": "Corn Nation, June 2025: Burroughs not retiring",
+     "url": "https://www.cornnation.com/2025/6/13/24448369/husker-wrestling-burroughs-not-retiring-hardy-and-cronin-to-wrestle-for-true-third-at-final-x",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_david_taylor",
+   "name": "David Taylor",
+   "birth_date": "1990-12-05",
+   "age": 35,
+   "country": "United States of America",
+   "city": "Stillwater",
+   "sex": "male",
+   "height_cm": 178.0,
+   "reach_cm": 0,
+   "weight_class": "86 kg",
+   "competition_weight_kg": 86.0,
+   "primary_discipline": "wrestling",
+   "specialties": {
+    "wrestling": 97
+   },
+   "stats": {
+    "power": 91,
+    "technique": 98,
+    "speed": 93,
+    "defense": 94,
+    "conditioning": 94,
+    "fight_iq": 98
+   },
+   "potential": 95,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "COACH - RETIRED 2024",
+   "record_scope": "Competitive record closed 2024; head coach at Oklahoma State since May 2024",
+   "fight_history": [],
+   "achievements": [
+    "Olympic 86 kg freestyle champion (Tokyo 2020)",
+    "Two-time senior world champion",
+    "2025 NCAA Division I Coach of the Year in his first season"
+   ],
+   "ranking_points": 840,
+   "fame": 890,
+   "fatigue": 10,
+   "morale": 80,
+   "ambition": "Legacy",
+   "personality": "Magician",
+   "status": "retired",
+   "contract_weeks": 52,
+   "salary_expectation": 13500,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/grappler.png",
+   "sources": [
+    {
+     "label": "Oklahoma State head-coach page",
+     "url": "https://okstate.com/sports/wrestling/roster/coaches/david-taylor/3681",
+     "facts": "titles, results, career stage, profile"
+    },
+    {
+     "label": "USA Wrestling coaching announcement",
+     "url": "https://www.themat.com/news/2024/may/07/olympic-champion-david-taylor-named-head-coach-at-oklahoma-state",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_gable_steveson",
+   "name": "Gable Steveson",
+   "birth_date": "2000-05-31",
+   "age": 26,
+   "country": "United States of America",
+   "city": "Apple Valley",
+   "sex": "male",
+   "height_cm": 185.0,
+   "reach_cm": 0,
+   "weight_class": "125 kg",
+   "competition_weight_kg": 125.0,
+   "primary_discipline": "wrestling",
+   "specialties": {
+    "wrestling": 96,
+    "mma": 60
+   },
+   "stats": {
+    "power": 96,
+    "technique": 94,
+    "speed": 95,
+    "defense": 92,
+    "conditioning": 91,
+    "fight_iq": 92
+   },
+   "potential": 97,
+   "record": {
+    "wins": 0,
+    "losses": 1,
+    "draws": 0
+   },
+   "record_display": "RAF DEBUT 2026",
+   "record_scope": "Real American Freestyle heavyweight from May 2026; 2025 NCAA finalist before that",
+   "fight_history": [
+    {
+     "week": "2025-03-22",
+     "result": "loss",
+     "opponent_name": "Wyatt Hendrickson",
+     "method": "Points",
+     "event": "2025 NCAA Championship final, 285 lb",
+     "discipline": "wrestling"
+    }
+   ],
+   "achievements": [
+    "Olympic super-heavyweight freestyle champion (Tokyo 2020)",
+    "Two-time NCAA heavyweight champion",
+    "Signed multi-match Real American Freestyle deal and a UFC heavyweight contract in 2026"
+   ],
+   "ranking_points": 885,
+   "fame": 905,
+   "fatigue": 10,
+   "morale": 86,
+   "ambition": "Crossover",
+   "personality": "Showman",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 15000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/grappler.png",
+   "sources": [
+    {
+     "label": "Bloody Elbow on the RAF/UFC deal",
+     "url": "https://bloodyelbow.com/2026/03/25/gable-steveson-returns-to-wrestling-with-multi-fight-deal-expected-to-face-big-name-in-may-debut/",
+     "facts": "titles, results, career stage, profile"
+    },
+    {
+     "label": "NCAA 2025 285 lb final",
+     "url": "https://www.ncaa.com/video/wrestling-men/2025-03-24/gable-steveson-vs-wyatt-hendrickson-2025-ncaa-wrestling-championship-285-pounds",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_abdulrashid_sadulaev",
+   "name": "Abdulrashid Sadulaev",
+   "birth_date": "1996-05-09",
+   "age": 30,
+   "country": "Russia",
+   "city": "Makhachkala",
+   "sex": "male",
+   "height_cm": 178.0,
+   "reach_cm": 0,
+   "weight_class": "97 kg",
+   "competition_weight_kg": 97.0,
+   "primary_discipline": "wrestling",
+   "specialties": {
+    "wrestling": 99
+   },
+   "stats": {
+    "power": 96,
+    "technique": 99,
+    "speed": 94,
+    "defense": 96,
+    "conditioning": 96,
+    "fight_iq": 98
+   },
+   "potential": 99,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "6x WORLD / 2x OLYMPIC",
+   "record_scope": "Career senior titles; 2026 European champion at 97 kg, visa bans still blocking Schengen-hosted events",
+   "fight_history": [
+    {
+     "week": "2026-04",
+     "result": "win",
+     "opponent_name": "Batyrbek Tsakulov",
+     "method": "Technical superiority 14-3",
+     "event": "2026 European Championships final, 97 kg",
+     "discipline": "wrestling"
+    }
+   ],
+   "achievements": [
+    "Two-time Olympic freestyle champion",
+    "Six-time senior world champion",
+    "Six-time European champion (2026)"
+   ],
+   "ranking_points": 955,
+   "fame": 925,
+   "fatigue": 10,
+   "morale": 88,
+   "ambition": "Seventh World Title",
+   "personality": "Tank",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 15500,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/grappler.png",
+   "sources": [
+    {
+     "label": "United World Wrestling, 2026 European gold",
+     "url": "https://uww.org/article/six-time-world-champ-sadulaev-now-six-time-european-champ",
+     "facts": "titles, results, career stage, profile"
+    },
+    {
+     "label": "UWW athlete profile",
+     "url": "https://uww.org/athletes/sadulaev-abdulrashid",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_hassan_yazdani",
+   "name": "Hassan Yazdani",
+   "birth_date": "1994-12-27",
+   "age": 31,
+   "country": "Iran",
+   "city": "Juybar",
+   "sex": "male",
+   "height_cm": 191.0,
+   "reach_cm": 0,
+   "weight_class": "97 kg",
+   "competition_weight_kg": 97.0,
+   "primary_discipline": "wrestling",
+   "specialties": {
+    "wrestling": 98
+   },
+   "stats": {
+    "power": 94,
+    "technique": 97,
+    "speed": 93,
+    "defense": 92,
+    "conditioning": 95,
+    "fight_iq": 96
+   },
+   "potential": 97,
+   "record": {
+    "wins": 3,
+    "losses": 1,
+    "draws": 0
+   },
+   "record_display": "3-1 (2026 SEASON)",
+   "record_scope": "UWW 2026 senior season; returned at 97 kg in February after Paris shoulder surgery",
+   "fight_history": [
+    {
+     "week": "2026-02-05",
+     "result": "loss",
+     "opponent_name": "Stephen Buchanan",
+     "method": "Technical superiority 13-3",
+     "event": "2026 Zagreb Open final, 97 kg",
+     "discipline": "wrestling"
+    },
+    {
+     "week": "2026-02-05",
+     "result": "win",
+     "opponent_name": "Andro Margishvili",
+     "method": "Points 14-4",
+     "event": "2026 Zagreb Open, 97 kg",
+     "discipline": "wrestling"
+    }
+   ],
+   "achievements": [
+    "Olympic 74 kg freestyle champion (2016)",
+    "Three-time senior world champion",
+    "Two-time Olympic silver medalist at 86 kg",
+    "Moved up to 97 kg for his 2026 comeback"
+   ],
+   "ranking_points": 905,
+   "fame": 910,
+   "fatigue": 10,
+   "morale": 86,
+   "ambition": "Redemption",
+   "personality": "The Greatest",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 15000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/grappler.png",
+   "sources": [
+    {
+     "label": "USA Wrestling, Zagreb Open final report",
+     "url": "https://www.themat.com/news/2026/february/05/buchanan-notches-finals-win-over-olympic-champion-u-s-adds-six-men-s-freestyle-medals-to-zagreb-open-haul",
+     "facts": "titles, results, career stage, profile"
+    },
+    {
+     "label": "UWW, Buchanan spoils Yazdani's return",
+     "url": "https://uww.org/article/buchanan-spoils-yazdanis-return-zagreb-open",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_mijain_lopez",
+   "name": "Mijain Lopez",
+   "birth_date": "1982-08-20",
+   "age": 44,
+   "country": "Cuba",
+   "city": "Havana",
+   "sex": "male",
+   "height_cm": 198.0,
+   "reach_cm": 0,
+   "weight_class": "130 kg",
+   "competition_weight_kg": 130.0,
+   "primary_discipline": "wrestling",
+   "specialties": {
+    "wrestling": 96
+   },
+   "stats": {
+    "power": 99,
+    "technique": 96,
+    "speed": 78,
+    "defense": 97,
+    "conditioning": 85,
+    "fight_iq": 97
+   },
+   "potential": 96,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "5 STRAIGHT OLYMPIC GOLDS",
+   "record_scope": "Career Greco-Roman 130 kg; left his shoes on the mat after Paris 2024",
+   "fight_history": [],
+   "achievements": [
+    "Only athlete with five consecutive individual Olympic golds in the same event (2008-2024)",
+    "Five-time Greco-Roman world champion",
+    "Retired on the mat at Paris 2024"
+   ],
+   "ranking_points": 900,
+   "fame": 940,
+   "fatigue": 10,
+   "morale": 75,
+   "ambition": "Legacy",
+   "personality": "Monumental",
+   "status": "retired",
+   "contract_weeks": 52,
+   "salary_expectation": 14000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/grappler.png",
+   "sources": [
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Mija%C3%ADn_L%C3%B3pez",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_helen_maroulis",
+   "name": "Helen Maroulis",
+   "birth_date": "1991-09-19",
+   "age": 34,
+   "country": "United States of America",
+   "city": "Rockville",
+   "sex": "female",
+   "height_cm": 163.0,
+   "reach_cm": 0,
+   "weight_class": "57 kg",
+   "competition_weight_kg": 57.0,
+   "primary_discipline": "wrestling",
+   "specialties": {
+    "wrestling": 98
+   },
+   "stats": {
+    "power": 88,
+    "technique": 98,
+    "speed": 94,
+    "defense": 95,
+    "conditioning": 94,
+    "fight_iq": 97
+   },
+   "potential": 97,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "WORLD CHAMPION 2025",
+   "record_scope": "UWW senior 57 kg; fourth world title won September 2025, 2026 Final X bid accepted",
+   "fight_history": [],
+   "achievements": [
+    "First American woman to win Olympic wrestling gold (Rio 2016)",
+    "Four-time senior world champion (2025)",
+    "2025 USA Wrestling Women's Wrestler of the Year",
+    "Returned in May 2025 after nearly retiring post-Paris"
+   ],
+   "ranking_points": 930,
+   "fame": 895,
+   "fatigue": 10,
+   "morale": 88,
+   "ambition": "Keep Going",
+   "personality": "Soulful",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 14500,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/grappler.png",
+   "sources": [
+    {
+     "label": "USA Wrestling, 2025 Wrestler of the Year",
+     "url": "https://www.themat.com/news/2026/june/24/helen-maroulis-named-2025-usa-wrestling-women-s-wrestler-of-the-year",
+     "facts": "titles, results, career stage, profile"
+    },
+    {
+     "label": "UWW athlete profile",
+     "url": "https://uww.org/athletes/maroulis-helen-louise",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_tamyra_mensah_stock",
+   "name": "Tamyra Mensah-Stock",
+   "birth_date": "1992-10-11",
+   "age": 33,
+   "country": "United States of America",
+   "city": "Katy",
+   "sex": "female",
+   "height_cm": 168.0,
+   "reach_cm": 0,
+   "weight_class": "68 kg",
+   "competition_weight_kg": 68.0,
+   "primary_discipline": "wrestling",
+   "specialties": {
+    "wrestling": 95
+   },
+   "stats": {
+    "power": 95,
+    "technique": 94,
+    "speed": 93,
+    "defense": 91,
+    "conditioning": 94,
+    "fight_iq": 93
+   },
+   "potential": 94,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "OLYMPIC GOLD 2020",
+   "record_scope": "Olympic freestyle career closed; performing in WWE as Tyra Mae Steele since 2024",
+   "fight_history": [],
+   "achievements": [
+    "First Black woman to win Olympic freestyle wrestling gold (Tokyo 2020)",
+    "Two-time senior world champion",
+    "Signed with WWE and won the inaugural season of LFG"
+   ],
+   "ranking_points": 830,
+   "fame": 880,
+   "fatigue": 10,
+   "morale": 78,
+   "ambition": "New Stage",
+   "personality": "Joyful",
+   "status": "retired",
+   "contract_weeks": 52,
+   "salary_expectation": 12500,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/grappler.png",
+   "sources": [
+    {
+     "label": "WWE signing announcement",
+     "url": "https://www.wwe.com/article/olympic-gold-medalist-tamyra-mensah-stock-signs-with-wwe",
+     "facts": "titles, results, career stage, profile"
+    },
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Tamyra_Mensah-Stock",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_hifumi_abe",
+   "name": "Hifumi Abe",
+   "birth_date": "1997-08-09",
+   "age": 29,
+   "country": "Japan",
+   "city": "Kobe",
+   "sex": "male",
+   "height_cm": 168.0,
+   "reach_cm": 0,
+   "weight_class": "-66 kg",
+   "competition_weight_kg": 66.0,
+   "primary_discipline": "judo",
+   "specialties": {
+    "judo": 98
+   },
+   "stats": {
+    "power": 93,
+    "technique": 99,
+    "speed": 96,
+    "defense": 95,
+    "conditioning": 95,
+    "fight_iq": 97
+   },
+   "potential": 98,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "2x OLYMPIC CHAMPION",
+   "record_scope": "IJF senior career; 2025 world bronze at -66 kg after a shock semifinal-run defeat",
+   "fight_history": [
+    {
+     "week": "2025-06-14",
+     "result": "loss",
+     "opponent_name": "Behruz Dzhebov",
+     "method": "Ippon (uchi-mata-sukashi)",
+     "event": "2025 World Championships, -66 kg",
+     "discipline": "judo"
+    }
+   ],
+   "achievements": [
+    "Two-time Olympic -66 kg champion (Tokyo 2020, Paris 2024)",
+    "Four-time senior world champion",
+    "2025 world bronze medalist"
+   ],
+   "ranking_points": 945,
+   "fame": 930,
+   "fatigue": 9,
+   "morale": 90,
+   "ambition": "Three-peat 2028",
+   "personality": "Explosive",
+   "status": "active",
+   "contract_weeks": 48,
+   "salary_expectation": 15500,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/grappler.png",
+   "sources": [
+    {
+     "label": "Inside the Games, Budapest day 2",
+     "url": "https://www.insidethegames.biz/articles/1153814/judo-world-championships-uta-hifumi-abe",
+     "facts": "titles, results, career stage, profile"
+    },
+    {
+     "label": "JudoInside profile",
+     "url": "https://judoinside.com/judoka/85604/Hifumi_Abe",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_uta_abe",
+   "name": "Uta Abe",
+   "birth_date": "2000-07-14",
+   "age": 26,
+   "country": "Japan",
+   "city": "Kobe",
+   "sex": "female",
+   "height_cm": 158.0,
+   "reach_cm": 0,
+   "weight_class": "-52 kg",
+   "competition_weight_kg": 52.0,
+   "primary_discipline": "judo",
+   "specialties": {
+    "judo": 98
+   },
+   "stats": {
+    "power": 90,
+    "technique": 99,
+    "speed": 97,
+    "defense": 95,
+    "conditioning": 95,
+    "fight_iq": 97
+   },
+   "potential": 98,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "5x WORLD CHAMPION",
+   "record_scope": "IJF senior career; fifth world title won June 2025 in Budapest",
+   "fight_history": [
+    {
+     "week": "2025-06-14",
+     "result": "win",
+     "opponent_name": "Distria Krasniqi",
+     "method": "Ippon (seoi-otoshi)",
+     "event": "2025 World Championships final, -52 kg",
+     "discipline": "judo"
+    },
+    {
+     "week": "2024-07-28",
+     "result": "loss",
+     "opponent_name": "Diyora Keldiyorova",
+     "method": "Ippon",
+     "event": "Paris 2024 Olympics, second round",
+     "discipline": "judo"
+    }
+   ],
+   "achievements": [
+    "Olympic -52 kg champion (Tokyo 2020)",
+    "Five-time senior world champion (2025)",
+    "Returned to the top after the Paris 2024 upset"
+   ],
+   "ranking_points": 940,
+   "fame": 925,
+   "fatigue": 9,
+   "morale": 88,
+   "ambition": "Olympic Redemption",
+   "personality": "Ferocious",
+   "status": "active",
+   "contract_weeks": 48,
+   "salary_expectation": 15000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/grappler.png",
+   "sources": [
+    {
+     "label": "Olympics.com, Abe Uta returns to glory",
+     "url": "https://www.olympics.com/en/news/2025-world-judo-championships-winner-abe-uta-takeoka-takeshi-japan",
+     "facts": "titles, results, career stage, profile"
+    },
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Uta_Abe",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_lukas_krpalek",
+   "name": "Lukas Krpalek",
+   "birth_date": "1990-11-15",
+   "age": 35,
+   "country": "Czech Republic",
+   "city": "Prague",
+   "sex": "male",
+   "height_cm": 198.0,
+   "reach_cm": 0,
+   "weight_class": "+100 kg",
+   "competition_weight_kg": 108.0,
+   "primary_discipline": "judo",
+   "specialties": {
+    "judo": 98
+   },
+   "stats": {
+    "power": 95,
+    "technique": 96,
+    "speed": 84,
+    "defense": 94,
+    "conditioning": 93,
+    "fight_iq": 96
+   },
+   "potential": 95,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "2x OLYMPIC CHAMPION",
+   "record_scope": "IJF senior career; 2026 European silver medalist at snapshot, chairs the EJU Athletes' Commission",
+   "fight_history": [],
+   "achievements": [
+    "Olympic champion in two weight classes (-100 kg Rio 2016, +100 kg Tokyo 2020)",
+    "Two-time senior world champion",
+    "2026 European Championships silver medalist"
+   ],
+   "ranking_points": 890,
+   "fame": 900,
+   "fatigue": 9,
+   "morale": 82,
+   "ambition": "One More Podium",
+   "personality": "Intelligent Beast",
+   "status": "active",
+   "contract_weeks": 48,
+   "salary_expectation": 13500,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/grappler.png",
+   "sources": [
+    {
+     "label": "JudoInside profile",
+     "url": "https://judoinside.com/judoka/41555/Lukas_Krpalek",
+     "facts": "titles, results, career stage, profile"
+    },
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Luk%C3%A1%C5%A1_Krp%C3%A1lek",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_lasha_bekauri",
+   "name": "Lasha Bekauri",
+   "birth_date": "2000-06-10",
+   "age": 26,
+   "country": "Georgia",
+   "city": "Tbilisi",
+   "sex": "male",
+   "height_cm": 175.0,
+   "reach_cm": 0,
+   "weight_class": "-90 kg",
+   "competition_weight_kg": 90.0,
+   "primary_discipline": "judo",
+   "specialties": {
+    "judo": 98
+   },
+   "stats": {
+    "power": 94,
+    "technique": 96,
+    "speed": 93,
+    "defense": 93,
+    "conditioning": 94,
+    "fight_iq": 94
+   },
+   "potential": 97,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "2x OLYMPIC CHAMPION",
+   "record_scope": "IJF senior career; part of Georgia's first mixed-team world title, June 2025",
+   "fight_history": [],
+   "achievements": [
+    "Two-time Olympic -90 kg champion (Tokyo 2020, Paris 2024)",
+    "2025 world mixed-team champion with Georgia"
+   ],
+   "ranking_points": 920,
+   "fame": 890,
+   "fatigue": 9,
+   "morale": 87,
+   "ambition": "Third Gold 2028",
+   "personality": "Fearless",
+   "status": "active",
+   "contract_weeks": 48,
+   "salary_expectation": 14000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/grappler.png",
+   "sources": [
+    {
+     "label": "Olympics.com, Georgia's historic mixed-team title",
+     "url": "https://www.olympics.com/en/news/2025-world-judo-championships-georgia-make-history-mixed-team-title",
+     "facts": "titles, results, career stage, profile"
+    },
+    {
+     "label": "IJF report",
+     "url": "https://www.ijf.org/news/show/georgia-it-s-georgia-world-mixed-team-champions",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_tato_grigalashvili",
+   "name": "Tato Grigalashvili",
+   "birth_date": "1999-11-16",
+   "age": 26,
+   "country": "Georgia",
+   "city": "Tbilisi",
+   "sex": "male",
+   "height_cm": 180.0,
+   "reach_cm": 0,
+   "weight_class": "-81 kg",
+   "competition_weight_kg": 81.0,
+   "primary_discipline": "judo",
+   "specialties": {
+    "judo": 98
+   },
+   "stats": {
+    "power": 93,
+    "technique": 97,
+    "speed": 94,
+    "defense": 92,
+    "conditioning": 95,
+    "fight_iq": 94
+   },
+   "potential": 97,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "3x WORLD CHAMPION",
+   "record_scope": "IJF senior career; 2025 world silver at -81 kg and mixed-team world gold with Georgia",
+   "fight_history": [],
+   "achievements": [
+    "Three-time senior world champion at -81 kg",
+    "2025 world silver medalist",
+    "2025 world mixed-team champion with Georgia"
+   ],
+   "ranking_points": 915,
+   "fame": 880,
+   "fatigue": 9,
+   "morale": 88,
+   "ambition": "World Title Reclaim",
+   "personality": "Swashbuckling",
+   "status": "active",
+   "contract_weeks": 48,
+   "salary_expectation": 13500,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/grappler.png",
+   "sources": [
+    {
+     "label": "Wikipedia, 2025 Worlds -81 kg",
+     "url": "https://en.wikipedia.org/wiki/2025_World_Judo_Championships_%E2%80%93_Men%27s_81_kg",
+     "facts": "titles, results, career stage, profile"
+    },
+    {
+     "label": "JudoInside profile",
+     "url": "https://www.judoinside.com/judoka/103978/Tato_Grigalashvili/judo-news",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_christa_deguchi",
+   "name": "Christa Deguchi",
+   "birth_date": "1995-10-29",
+   "age": 30,
+   "country": "Canada",
+   "city": "Nagano",
+   "sex": "female",
+   "height_cm": 158.0,
+   "reach_cm": 0,
+   "weight_class": "-57 kg",
+   "competition_weight_kg": 57.0,
+   "primary_discipline": "judo",
+   "specialties": {
+    "judo": 98
+   },
+   "stats": {
+    "power": 88,
+    "technique": 98,
+    "speed": 94,
+    "defense": 94,
+    "conditioning": 93,
+    "fight_iq": 96
+   },
+   "potential": 96,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "OLYMPIC CHAMPION 2024",
+   "record_scope": "IJF senior career; sat out the 2025 World Championships",
+   "fight_history": [],
+   "achievements": [
+    "Olympic -57 kg champion (Paris 2024), first Canadian to win Olympic judo gold",
+    "World champion in 2019 and 2023"
+   ],
+   "ranking_points": 900,
+   "fame": 895,
+   "fatigue": 9,
+   "morale": 84,
+   "ambition": "Title Defence",
+   "personality": "Precise",
+   "status": "active",
+   "contract_weeks": 48,
+   "salary_expectation": 14000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/grappler.png",
+   "sources": [
+    {
+     "label": "Judo Canada profile",
+     "url": "https://judo.ca/en/christa-deguchi/",
+     "facts": "titles, results, career stage, profile"
+    },
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Christa_Deguchi",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_distria_krasniqi",
+   "name": "Distria Krasniqi",
+   "birth_date": "1995-12-10",
+   "age": 30,
+   "country": "Kosovo",
+   "city": "Peja",
+   "sex": "female",
+   "height_cm": 160.0,
+   "reach_cm": 0,
+   "weight_class": "-52 kg",
+   "competition_weight_kg": 52.0,
+   "primary_discipline": "judo",
+   "specialties": {
+    "judo": 98
+   },
+   "stats": {
+    "power": 89,
+    "technique": 96,
+    "speed": 93,
+    "defense": 93,
+    "conditioning": 94,
+    "fight_iq": 95
+   },
+   "potential": 95,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "OLYMPIC CHAMPION 2020",
+   "record_scope": "IJF senior career; 2025 world silver at -52 kg, Paris 2024 silver before that",
+   "fight_history": [
+    {
+     "week": "2025-06-14",
+     "result": "loss",
+     "opponent_name": "Uta Abe",
+     "method": "Ippon (seoi-otoshi)",
+     "event": "2025 World Championships final, -52 kg",
+     "discipline": "judo"
+    }
+   ],
+   "achievements": [
+    "Olympic -48 kg champion (Tokyo 2020)",
+    "Olympic -52 kg silver medalist (Paris 2024)",
+    "2025 world silver medalist"
+   ],
+   "ranking_points": 895,
+   "fame": 870,
+   "fatigue": 9,
+   "morale": 86,
+   "ambition": "Golden Again",
+   "personality": "Gritty",
+   "status": "active",
+   "contract_weeks": 48,
+   "salary_expectation": 13000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/grappler.png",
+   "sources": [
+    {
+     "label": "Wikipedia, 2025 Worlds -52 kg",
+     "url": "https://en.wikipedia.org/wiki/2025_World_Judo_Championships_%E2%80%93_Women%27s_52_kg",
+     "facts": "titles, results, career stage, profile"
+    },
+    {
+     "label": "Olympics.com, catching up with Olympic champions",
+     "url": "https://www.olympics.com/en/news/catching-up-judo-olympic-champions-2025-world-championships",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_barbara_matic",
+   "name": "Barbara Matic",
+   "birth_date": "1994-11-03",
+   "age": 31,
+   "country": "Croatia",
+   "city": "Split",
+   "sex": "female",
+   "height_cm": 175.0,
+   "reach_cm": 0,
+   "weight_class": "-70 kg",
+   "competition_weight_kg": 70.0,
+   "primary_discipline": "judo",
+   "specialties": {
+    "judo": 98
+   },
+   "stats": {
+    "power": 92,
+    "technique": 96,
+    "speed": 90,
+    "defense": 93,
+    "conditioning": 93,
+    "fight_iq": 95
+   },
+   "potential": 95,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "OLYMPIC CHAMPION 2024",
+   "record_scope": "IJF senior career; active competitor at snapshot",
+   "fight_history": [],
+   "achievements": [
+    "Olympic -70 kg champion (Paris 2024), Croatia's first judo Olympic gold",
+    "Two-time senior world champion (2021, 2022)",
+    "2024 European champion"
+   ],
+   "ranking_points": 905,
+   "fame": 885,
+   "fatigue": 9,
+   "morale": 85,
+   "ambition": "World Title Return",
+   "personality": "Steady",
+   "status": "active",
+   "contract_weeks": 48,
+   "salary_expectation": 13500,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/grappler.png",
+   "sources": [
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Barbara_Mati%C4%87",
+     "facts": "titles, results, career stage, profile"
+    },
+    {
+     "label": "Olympics.com, catching up with Olympic champions",
+     "url": "https://www.olympics.com/en/news/catching-up-judo-olympic-champions-2025-world-championships",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_gordon_ryan",
+   "name": "Gordon Ryan",
+   "birth_date": "1995-07-08",
+   "age": 31,
+   "country": "United States of America",
+   "city": "Austin",
+   "sex": "male",
+   "height_cm": 188.0,
+   "reach_cm": 0,
+   "weight_class": "Heavyweight",
+   "competition_weight_kg": 104.0,
+   "primary_discipline": "brazilian_jiu_jitsu",
+   "specialties": {
+    "brazilian_jiu_jitsu": 99,
+    "wrestling": 82
+   },
+   "stats": {
+    "power": 93,
+    "technique": 99,
+    "speed": 88,
+    "defense": 97,
+    "conditioning": 88,
+    "fight_iq": 99
+   },
+   "potential": 97,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "ADCC SUPERFIGHT CHAMP",
+   "record_scope": "No-gi grappling career; stepped away from active competition in 2025 (WNO title vacated, removed from rankings)",
+   "fight_history": [
+    {
+     "week": "2022-09",
+     "result": "win",
+     "opponent_name": "Andre Galvao",
+     "method": "Submission (rear naked choke)",
+     "event": "ADCC 2022 superfight",
+     "discipline": "brazilian_jiu_jitsu"
+    }
+   ],
+   "achievements": [
+    "Widely regarded the greatest no-gi grappler of all time",
+    "ADCC champion 2017 and double champion 2019 (weight and absolute)",
+    "Submitted Andre Galvao in the 2022 ADCC superfight",
+    "Long-running stomach illness shaped his late career"
+   ],
+   "ranking_points": 890,
+   "fame": 920,
+   "fatigue": 10,
+   "morale": 70,
+   "ambition": "Legacy",
+   "personality": "Provocateur",
+   "status": "retired",
+   "contract_weeks": 52,
+   "salary_expectation": 15000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/grappler.png",
+   "sources": [
+    {
+     "label": "MMA Mania on the vacated WNO title",
+     "url": "https://www.mmamania.com/2025/5/21/24434344/retired-gordon-ryan-no-longer-champ-pena-vs-griffith-vacant-title-wno-28-bjj-news",
+     "facts": "titles, results, career stage, profile"
+    },
+    {
+     "label": "BJJ Heroes profile",
+     "url": "https://www.bjjheroes.com/bjj-fighters/gordon-ryan",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_mikey_musumeci",
+   "name": "Mikey Musumeci",
+   "birth_date": "1996-07-07",
+   "age": 30,
+   "country": "United States of America",
+   "city": "Las Vegas",
+   "sex": "male",
+   "height_cm": 170.0,
+   "reach_cm": 0,
+   "weight_class": "Bantamweight",
+   "competition_weight_kg": 61.2,
+   "primary_discipline": "brazilian_jiu_jitsu",
+   "specialties": {
+    "brazilian_jiu_jitsu": 99
+   },
+   "stats": {
+    "power": 74,
+    "technique": 99,
+    "speed": 92,
+    "defense": 96,
+    "conditioning": 92,
+    "fight_iq": 98
+   },
+   "potential": 97,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "UFC BJJ CHAMPION",
+   "record_scope": "UFC BJJ bantamweight title reign; four-time IBJJF gi world champion before that",
+   "fight_history": [
+    {
+     "week": "2025-10",
+     "result": "win",
+     "opponent_name": "Keven Carrasco",
+     "method": "Submission (Mikey Lock)",
+     "event": "UFC BJJ, bantamweight title defense",
+     "discipline": "brazilian_jiu_jitsu"
+    },
+    {
+     "week": "2025-06",
+     "result": "win",
+     "opponent_name": "Rerisson Gabriel",
+     "method": "Submission (heel hook)",
+     "event": "UFC BJJ 1, inaugural bantamweight title",
+     "discipline": "brazilian_jiu_jitsu"
+    }
+   ],
+   "achievements": [
+    "Inaugural UFC BJJ bantamweight champion",
+    "Four-time IBJJF world champion in the gi",
+    "First American man to win multiple IBJJF black-belt world titles"
+   ],
+   "ranking_points": 930,
+   "fame": 870,
+   "fatigue": 10,
+   "morale": 88,
+   "ambition": "Dynasty",
+   "personality": "Professor",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 13500,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/grappler.png",
+   "sources": [
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Mikey_Musumeci",
+     "facts": "titles, results, career stage, profile"
+    },
+    {
+     "label": "UFC BJJ 5 fight card",
+     "url": "https://www.ufc.com/news/ufc-bjj-5-musumeci-vs-montague-fight-card",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_kade_ruotolo",
+   "name": "Kade Ruotolo",
+   "birth_date": "2003-01-22",
+   "age": 23,
+   "country": "United States of America",
+   "city": "San Diego",
+   "sex": "male",
+   "height_cm": 180.0,
+   "reach_cm": 0,
+   "weight_class": "Lightweight",
+   "competition_weight_kg": 77.0,
+   "primary_discipline": "brazilian_jiu_jitsu",
+   "specialties": {
+    "brazilian_jiu_jitsu": 98,
+    "mma": 86
+   },
+   "stats": {
+    "power": 87,
+    "technique": 97,
+    "speed": 95,
+    "defense": 92,
+    "conditioning": 96,
+    "fight_iq": 94
+   },
+   "potential": 99,
+   "record": {
+    "wins": 4,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "4-0 MMA / GRAPPLING CHAMP",
+   "record_scope": "ONE MMA record; ONE lightweight submission-grappling title reign tracked separately",
+   "fight_history": [
+    {
+     "week": "2026-05-15",
+     "result": "win",
+     "opponent_name": "Hiroyuki Tetsuka",
+     "method": "TKO (strikes) R2",
+     "event": "ONE: The Inner Circle",
+     "discipline": "mma"
+    },
+    {
+     "week": "2024-07",
+     "result": "win",
+     "opponent_name": "Blake Cooper",
+     "method": "Submission R1",
+     "event": "ONE 167 (MMA debut)",
+     "discipline": "mma"
+    }
+   ],
+   "achievements": [
+    "ONE lightweight submission grappling world champion",
+    "Youngest-ever ADCC world champion (77 kg, 2022, aged 19)",
+    "Unbeaten 4-0 start in MMA with his first knockout in 2026"
+   ],
+   "ranking_points": 925,
+   "fame": 860,
+   "fatigue": 10,
+   "morale": 92,
+   "ambition": "Two-Sport Gold",
+   "personality": "Livewire",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 14000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/grappler.png",
+   "sources": [
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Kade_Ruotolo",
+     "facts": "titles, results, career stage, profile"
+    },
+    {
+     "label": "BJJ Problems on the 4-0 MMA run",
+     "url": "https://bjjproblems.com/blogs/bjj-problems/kade-ruotolo-first-career-ko-4-0-mma-one-championship",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_tye_ruotolo",
+   "name": "Tye Ruotolo",
+   "birth_date": "2003-01-22",
+   "age": 23,
+   "country": "United States of America",
+   "city": "San Diego",
+   "sex": "male",
+   "height_cm": 180.0,
+   "reach_cm": 0,
+   "weight_class": "Welterweight",
+   "competition_weight_kg": 83.9,
+   "primary_discipline": "brazilian_jiu_jitsu",
+   "specialties": {
+    "brazilian_jiu_jitsu": 98,
+    "mma": 84
+   },
+   "stats": {
+    "power": 88,
+    "technique": 97,
+    "speed": 94,
+    "defense": 92,
+    "conditioning": 96,
+    "fight_iq": 94
+   },
+   "potential": 99,
+   "record": {
+    "wins": 2,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "2-0 MMA / GRAPPLING CHAMP",
+   "record_scope": "ONE MMA record; ONE welterweight submission-grappling title reign tracked separately",
+   "fight_history": [],
+   "achievements": [
+    "Inaugural ONE welterweight submission grappling world champion (2023)",
+    "Submitted both undefeated opponents in his first two MMA bouts (2025)",
+    "Hunting ONE MMA gold alongside twin brother Kade in 2026"
+   ],
+   "ranking_points": 920,
+   "fame": 855,
+   "fatigue": 10,
+   "morale": 92,
+   "ambition": "Two-Sport Gold",
+   "personality": "Flowing",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 14000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/grappler.png",
+   "sources": [
+    {
+     "label": "ONE Championship 2025 year in review",
+     "url": "https://www.onefc.com/features/2025-year-in-review-from-grappling-dominance-to-mma-stardom-tye-ruotolo-conquers-it-all/",
+     "facts": "titles, results, career stage, profile"
+    },
+    {
+     "label": "ONE athlete page",
+     "url": "https://www.onefc.com/athletes/tye-ruotolo/",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_nicholas_meregali",
+   "name": "Nicholas Meregali",
+   "birth_date": "1994-05-27",
+   "age": 32,
+   "country": "Brazil",
+   "city": "Porto Alegre",
+   "sex": "male",
+   "height_cm": 191.0,
+   "reach_cm": 0,
+   "weight_class": "Heavyweight",
+   "competition_weight_kg": 94.0,
+   "primary_discipline": "brazilian_jiu_jitsu",
+   "specialties": {
+    "brazilian_jiu_jitsu": 98
+   },
+   "stats": {
+    "power": 92,
+    "technique": 98,
+    "speed": 86,
+    "defense": 93,
+    "conditioning": 90,
+    "fight_iq": 95
+   },
+   "potential": 96,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "3x IBJJF WORLD CHAMP",
+   "record_scope": "Gi and no-gi career; upset by injury-marred D'arce at ADCC 2024",
+   "fight_history": [
+    {
+     "week": "2024-08",
+     "result": "loss",
+     "opponent_name": "Michael Pixley",
+     "method": "Submission (D'arce choke, injury)",
+     "event": "ADCC 2024 World Championship",
+     "discipline": "brazilian_jiu_jitsu"
+    }
+   ],
+   "achievements": [
+    "Three-time IBJJF black-belt world champion in the gi",
+    "Two-time ADCC world medallist",
+    "New Wave Jiu-Jitsu's gi standard-bearer"
+   ],
+   "ranking_points": 900,
+   "fame": 820,
+   "fatigue": 10,
+   "morale": 84,
+   "ambition": "Redemption",
+   "personality": "Artful",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 12500,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/grappler.png",
+   "sources": [
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Nicholas_Meregali",
+     "facts": "titles, results, career stage, profile"
+    },
+    {
+     "label": "BJJ Heroes profile",
+     "url": "https://www.bjjheroes.com/bjj-fighters/nicholas-meregali",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_felipe_pena",
+   "name": "Felipe Pena",
+   "birth_date": "1991-10-19",
+   "age": 34,
+   "country": "Brazil",
+   "city": "Belo Horizonte",
+   "sex": "male",
+   "height_cm": 185.0,
+   "reach_cm": 0,
+   "weight_class": "Heavyweight",
+   "competition_weight_kg": 100.0,
+   "primary_discipline": "brazilian_jiu_jitsu",
+   "specialties": {
+    "brazilian_jiu_jitsu": 98
+   },
+   "stats": {
+    "power": 91,
+    "technique": 97,
+    "speed": 87,
+    "defense": 94,
+    "conditioning": 92,
+    "fight_iq": 96
+   },
+   "potential": 95,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "2x ADCC CHAMPION",
+   "record_scope": "No-gi and gi career; reigning ADCC +99 kg champion at snapshot",
+   "fight_history": [
+    {
+     "week": "2024-08",
+     "result": "win",
+     "opponent_name": "Luke Griffith",
+     "method": "Submission",
+     "event": "ADCC 2024 World Championship final, +99 kg",
+     "discipline": "brazilian_jiu_jitsu"
+    }
+   ],
+   "achievements": [
+    "Two-time ADCC world champion (+99 kg, 2024)",
+    "IBJJF black-belt world champion in the gi",
+    "One of the few men with wins over Gordon Ryan"
+   ],
+   "ranking_points": 895,
+   "fame": 830,
+   "fatigue": 10,
+   "morale": 85,
+   "ambition": "Heavyweight King",
+   "personality": "Relentless",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 12500,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/grappler.png",
+   "sources": [
+    {
+     "label": "FloGrappling, ADCC 2024 finals results",
+     "url": "https://www.flograppling.com/articles/12785567-2024-adcc-world-championship-finals-results",
+     "facts": "titles, results, career stage, profile"
+    },
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Felipe_Pena",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_ffion_davies",
+   "name": "Ffion Davies",
+   "birth_date": "1995-01-18",
+   "age": 31,
+   "country": "Wales",
+   "city": "Swansea",
+   "sex": "female",
+   "height_cm": 163.0,
+   "reach_cm": 0,
+   "weight_class": "Lightweight",
+   "competition_weight_kg": 60.0,
+   "primary_discipline": "brazilian_jiu_jitsu",
+   "specialties": {
+    "brazilian_jiu_jitsu": 98,
+    "judo": 74
+   },
+   "stats": {
+    "power": 82,
+    "technique": 98,
+    "speed": 93,
+    "defense": 94,
+    "conditioning": 94,
+    "fight_iq": 96
+   },
+   "potential": 96,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "ADCC + IBJJF CHAMPION",
+   "record_scope": "No-gi and gi career; first European woman to win ADCC gold",
+   "fight_history": [],
+   "achievements": [
+    "ADCC world champion (-60 kg, 2022), first European woman to win ADCC gold",
+    "IBJJF black-belt world champion",
+    "Headline draw of the women's CJI era"
+   ],
+   "ranking_points": 890,
+   "fame": 820,
+   "fatigue": 10,
+   "morale": 88,
+   "ambition": "Grand Slam",
+   "personality": "Sharp-tongued",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 12000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/grappler.png",
+   "sources": [
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Ffion_Davies",
+     "facts": "titles, results, career stage, profile"
+    },
+    {
+     "label": "BJJ Heroes profile",
+     "url": "https://www.bjjheroes.com/bjj-fighters/ffion-davies",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_beatriz_mesquita",
+   "name": "Beatriz Mesquita",
+   "birth_date": "1991-10-13",
+   "age": 34,
+   "country": "Brazil",
+   "city": "Rio de Janeiro",
+   "sex": "female",
+   "height_cm": 169.0,
+   "reach_cm": 0,
+   "weight_class": "Lightweight",
+   "competition_weight_kg": 64.0,
+   "primary_discipline": "brazilian_jiu_jitsu",
+   "specialties": {
+    "brazilian_jiu_jitsu": 99,
+    "judo": 78
+   },
+   "stats": {
+    "power": 86,
+    "technique": 99,
+    "speed": 92,
+    "defense": 95,
+    "conditioning": 93,
+    "fight_iq": 98
+   },
+   "potential": 96,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "10x IBJJF WORLD CHAMP",
+   "record_scope": "Gi and no-gi career; came out of brief retirement and won 2025 world gold",
+   "fight_history": [],
+   "achievements": [
+    "Ten-time IBJJF black-belt world champion",
+    "ADCC world champion (2022)",
+    "Returned from retirement to win the 2025 IBJJF Worlds"
+   ],
+   "ranking_points": 905,
+   "fame": 840,
+   "fatigue": 10,
+   "morale": 82,
+   "ambition": "Legacy",
+   "personality": "Queenly",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 12500,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/grappler.png",
+   "sources": [
+    {
+     "label": "Jitsmagazine, 2025 IBJJF Worlds results",
+     "url": "https://jitsmagazine.com/ibjjf-world-championship-2025-full-results-and-highlights/",
+     "facts": "titles, results, career stage, profile"
+    },
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Beatriz_Mesquita",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_gabrieli_pessanha",
+   "name": "Gabrieli Pessanha",
+   "birth_date": "2000-08-08",
+   "age": 26,
+   "country": "Brazil",
+   "city": "Rio de Janeiro",
+   "sex": "female",
+   "height_cm": 180.0,
+   "reach_cm": 0,
+   "weight_class": "Super Heavyweight",
+   "competition_weight_kg": 95.0,
+   "primary_discipline": "brazilian_jiu_jitsu",
+   "specialties": {
+    "brazilian_jiu_jitsu": 99
+   },
+   "stats": {
+    "power": 95,
+    "technique": 97,
+    "speed": 84,
+    "defense": 94,
+    "conditioning": 92,
+    "fight_iq": 95
+   },
+   "potential": 98,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "10x IBJJF WORLD CHAMP",
+   "record_scope": "Gi career; fifth straight super-heavy + absolute double and the 2025 Grand Slam (Euros, Pans, Brasileiros, Worlds)",
+   "fight_history": [],
+   "achievements": [
+    "Ten-time IBJJF black-belt world champion by age 25",
+    "Five consecutive super-heavyweight and absolute world doubles (2021-2025)",
+    "2025 IBJJF Grand Slam winner"
+   ],
+   "ranking_points": 915,
+   "fame": 825,
+   "fatigue": 10,
+   "morale": 90,
+   "ambition": "Dynasty",
+   "personality": "Unstoppable",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 12000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/grappler.png",
+   "sources": [
+    {
+     "label": "MMA Mania, 2025 IBJJF Worlds",
+     "url": "https://www.mmamania.com/2025/6/2/24441413/mia-funegra-youngest-bjj-world-champ-2025-ibjjf-worlds-diego-pato-tainan-dalpra",
+     "facts": "titles, results, career stage, profile"
+    },
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Gabi_Pessanha",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_chingiz_allazov",
+   "name": "Chingiz Allazov",
+   "birth_date": "1993-06-10",
+   "age": 33,
+   "country": "Azerbaijan",
+   "city": "Baku",
+   "sex": "male",
+   "height_cm": 178.0,
+   "reach_cm": 0,
+   "weight_class": "Featherweight",
+   "competition_weight_kg": 70.3,
+   "primary_discipline": "kickboxing",
+   "specialties": {
+    "kickboxing": 98,
+    "boxing": 90
+   },
+   "stats": {
+    "power": 94,
+    "technique": 96,
+    "speed": 95,
+    "defense": 92,
+    "conditioning": 91,
+    "fight_iq": 94
+   },
+   "potential": 96,
+   "record": {
+    "wins": 61,
+    "losses": 5,
+    "draws": 0
+   },
+   "record_display": "61-5-0 (37 KO)",
+   "record_scope": "Professional kickboxing per fight-record aggregators; counts vary by tracker",
+   "fight_history": [
+    {
+     "week": "2023-01-14",
+     "result": "win",
+     "opponent_name": "Superbon",
+     "method": "KO (three knockdowns) R2",
+     "event": "ONE Fight Night 6, featherweight kickboxing title",
+     "discipline": "kickboxing"
+    }
+   ],
+   "achievements": [
+    "Former ONE featherweight kickboxing world champion (2023-25)",
+    "Knocked out Superbon to take the belt",
+    "Stripped in January 2025 after 17 months of contract-standoff inactivity"
+   ],
+   "ranking_points": 900,
+   "fame": 880,
+   "fatigue": 12,
+   "morale": 74,
+   "ambition": "Free Agency",
+   "personality": "Ice-veined",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 15000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "Combat Press on the stripped title",
+     "url": "https://combatpress.com/2025/01/chingiz-allazov-stripped-superbon-undisputed-one-featherweight-kickboxing-champion/",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Chingiz_Allazov",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_superbon",
+   "name": "Superbon Banchamek",
+   "birth_date": "1990-08-16",
+   "age": 36,
+   "country": "Thailand",
+   "city": "Buriram",
+   "sex": "male",
+   "height_cm": 179.0,
+   "reach_cm": 0,
+   "weight_class": "Featherweight",
+   "competition_weight_kg": 70.3,
+   "primary_discipline": "kickboxing",
+   "specialties": {
+    "kickboxing": 98,
+    "muay_thai": 97
+   },
+   "stats": {
+    "power": 92,
+    "technique": 98,
+    "speed": 94,
+    "defense": 93,
+    "conditioning": 94,
+    "fight_iq": 96
+   },
+   "potential": 96,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "ONE FW KICKBOXING CHAMP",
+   "record_scope": "ONE title history; elevated to undisputed champion January 2025 after interim reign",
+   "fight_history": [
+    {
+     "week": "2024-04",
+     "result": "win",
+     "opponent_name": "Marat Grigorian",
+     "method": "Unanimous decision",
+     "event": "ONE, interim featherweight kickboxing title",
+     "discipline": "kickboxing"
+    },
+    {
+     "week": "2023-01-14",
+     "result": "loss",
+     "opponent_name": "Chingiz Allazov",
+     "method": "KO R2",
+     "event": "ONE Fight Night 6, featherweight kickboxing title",
+     "discipline": "kickboxing"
+    }
+   ],
+   "achievements": [
+    "Reigning ONE featherweight kickboxing world champion",
+    "Iconic head-kick knockout of Giorgio Petrosyan (2021)",
+    "Alternates between elite kickboxing and muay thai"
+   ],
+   "ranking_points": 940,
+   "fame": 910,
+   "fatigue": 12,
+   "morale": 86,
+   "ambition": "Unify the Era",
+   "personality": "Technician",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 16000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "Bangkok Post on the title elevation",
+     "url": "https://www.bangkokpost.com/sports/2934030/one-championship-chingiz-allazov-stripped-of-title-superbon-elevated-to-featherweight-kickboxing-champion",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Superbon_Singha_Mawynn",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_antonio_plazibat",
+   "name": "Antonio Plazibat",
+   "birth_date": "1993-12-12",
+   "age": 32,
+   "country": "Croatia",
+   "city": "Split",
+   "sex": "male",
+   "height_cm": 192.0,
+   "reach_cm": 0,
+   "weight_class": "Heavyweight",
+   "competition_weight_kg": 110.0,
+   "primary_discipline": "kickboxing",
+   "specialties": {
+    "kickboxing": 95,
+    "boxing": 88
+   },
+   "stats": {
+    "power": 96,
+    "technique": 90,
+    "speed": 88,
+    "defense": 85,
+    "conditioning": 87,
+    "fight_iq": 88
+   },
+   "potential": 94,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "GLORY HW CONTENDER",
+   "record_scope": "Glory heavyweight ladder; returned from a long layoff with a June 2026 knockout",
+   "fight_history": [
+    {
+     "week": "2026-06",
+     "result": "win",
+     "opponent_name": "Anis Bouzid",
+     "method": "KO R4",
+     "event": "Glory, heavyweight comeback bout",
+     "discipline": "kickboxing"
+    }
+   ],
+   "achievements": [
+    "Glory heavyweight title challenger and Grand Prix finalist",
+    "Feared one-punch knockout power",
+    "Ranked Glory heavyweight top ten at snapshot"
+   ],
+   "ranking_points": 880,
+   "fame": 860,
+   "fatigue": 12,
+   "morale": 80,
+   "ambition": "Title Shot",
+   "personality": "Menacing",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 14500,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "Combat Press kickboxing rankings, July 2026",
+     "url": "https://combatpress.com/2026/07/combat-press-kickboxing-rankings-july-2026/",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Antonio_Plazibat",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_levi_rigters",
+   "name": "Levi Rigters",
+   "birth_date": "1995-07-12",
+   "age": 31,
+   "country": "Netherlands",
+   "city": "Amsterdam",
+   "sex": "male",
+   "height_cm": 195.0,
+   "reach_cm": 0,
+   "weight_class": "Heavyweight",
+   "competition_weight_kg": 108.0,
+   "primary_discipline": "kickboxing",
+   "specialties": {
+    "kickboxing": 95,
+    "boxing": 87
+   },
+   "stats": {
+    "power": 92,
+    "technique": 92,
+    "speed": 90,
+    "defense": 88,
+    "conditioning": 91,
+    "fight_iq": 90
+   },
+   "potential": 95,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "GLORY GP FINALIST",
+   "record_scope": "Glory heavyweight ladder; lost the 2024 Grand Prix final to Rico Verhoeven",
+   "fight_history": [
+    {
+     "week": "2024-03",
+     "result": "loss",
+     "opponent_name": "Rico Verhoeven",
+     "method": "TKO R2",
+     "event": "Glory Heavyweight Grand Prix final",
+     "discipline": "kickboxing"
+    }
+   ],
+   "achievements": [
+    "Glory Heavyweight Grand Prix 2024 finalist",
+    "Leading Dutch heavyweight of the post-Verhoeven generation",
+    "Last Heavyweight Standing tournament contender"
+   ],
+   "ranking_points": 885,
+   "fame": 850,
+   "fatigue": 12,
+   "morale": 84,
+   "ambition": "Dethrone Rico",
+   "personality": "Composed",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 14000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "Glory, Grand Prix result",
+     "url": "https://glorykickboxing.com/news/rico-verhoeven-wins-the-glory-heavyweight-grand-prix",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Levi_Rigters",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_bahram_rajabzadeh",
+   "name": "Bahram Rajabzadeh",
+   "birth_date": "1991-08-03",
+   "age": 35,
+   "country": "Azerbaijan",
+   "city": "Baku",
+   "sex": "male",
+   "height_cm": 186.0,
+   "reach_cm": 0,
+   "weight_class": "Light Heavyweight",
+   "competition_weight_kg": 95.0,
+   "primary_discipline": "kickboxing",
+   "specialties": {
+    "kickboxing": 96,
+    "muay_thai": 88
+   },
+   "stats": {
+    "power": 97,
+    "technique": 91,
+    "speed": 92,
+    "defense": 84,
+    "conditioning": 89,
+    "fight_iq": 88
+   },
+   "potential": 94,
+   "record": {
+    "wins": 72,
+    "losses": 6,
+    "draws": 0
+   },
+   "record_display": "72-6-0",
+   "record_scope": "Professional kickboxing per TrillerTV fighter record",
+   "fight_history": [
+    {
+     "week": "2024-06-08",
+     "result": "loss",
+     "opponent_name": "Donegi Abena",
+     "method": "TKO (three knockdowns) R1",
+     "event": "Glory Light Heavyweight Grand Prix final",
+     "discipline": "kickboxing"
+    }
+   ],
+   "achievements": [
+    "One of Glory's most prolific knockout artists",
+    "Glory light heavyweight title challenger (vs Donovan Wisse, booked at snapshot)",
+    "2025 Fight of the Year war with Tarik Khbabez"
+   ],
+   "ranking_points": 890,
+   "fame": 855,
+   "fatigue": 12,
+   "morale": 82,
+   "ambition": "Gold At Last",
+   "personality": "Golden Wolf",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 14000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "Glory, Rajabzadeh vs Wisse title booking",
+     "url": "https://glorykickboxing.com/news/bahram-rajabzadeh-vs-donovan-wisse-for-the-glory-light-heavyweight-title",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "TrillerTV fighter record",
+     "url": "https://www.trillertv.com/fighter/bahram-rajabzadeh/33218/",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_donegi_abena",
+   "name": "Donegi Abena",
+   "birth_date": "1998-02-23",
+   "age": 28,
+   "country": "Suriname",
+   "city": "Amsterdam",
+   "sex": "male",
+   "height_cm": 190.0,
+   "reach_cm": 0,
+   "weight_class": "Light Heavyweight",
+   "competition_weight_kg": 95.0,
+   "primary_discipline": "kickboxing",
+   "specialties": {
+    "kickboxing": 95,
+    "mma": 70
+   },
+   "stats": {
+    "power": 93,
+    "technique": 92,
+    "speed": 91,
+    "defense": 88,
+    "conditioning": 92,
+    "fight_iq": 91
+   },
+   "potential": 96,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "2024 GLORY GP WINNER",
+   "record_scope": "Glory light heavyweight ladder; former champion, Grand Prix winner June 2024",
+   "fight_history": [
+    {
+     "week": "2024-06-08",
+     "result": "win",
+     "opponent_name": "Bahram Rajabzadeh",
+     "method": "TKO (three knockdowns) R1",
+     "event": "Glory Light Heavyweight Grand Prix final",
+     "discipline": "kickboxing"
+    },
+    {
+     "week": "2024-03-09",
+     "result": "loss",
+     "opponent_name": "Tarik Khbabez",
+     "method": "Split decision",
+     "event": "Glory, light heavyweight title",
+     "discipline": "kickboxing"
+    }
+   ],
+   "achievements": [
+    "Former Glory light heavyweight champion",
+    "2024 Glory Light Heavyweight Grand Prix winner with three straight stoppages"
+   ],
+   "ranking_points": 895,
+   "fame": 845,
+   "fatigue": 12,
+   "morale": 86,
+   "ambition": "Reclaim the Belt",
+   "personality": "Surging",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 13500,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "Glory, Light Heavyweight Grand Prix results",
+     "url": "https://glorykickboxing.com/news/light-heavyweight-grand-prix-results",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Donegi_Abena",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_tiffany_van_soest",
+   "name": "Tiffany van Soest",
+   "birth_date": "1989-03-20",
+   "age": 37,
+   "country": "United States of America",
+   "city": "San Diego",
+   "sex": "female",
+   "height_cm": 160.0,
+   "reach_cm": 0,
+   "weight_class": "Super Bantamweight",
+   "competition_weight_kg": 55.0,
+   "primary_discipline": "kickboxing",
+   "specialties": {
+    "kickboxing": 96,
+    "muay_thai": 94,
+    "karate": 80
+   },
+   "stats": {
+    "power": 85,
+    "technique": 96,
+    "speed": 93,
+    "defense": 92,
+    "conditioning": 91,
+    "fight_iq": 95
+   },
+   "potential": 93,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "2x GLORY CHAMPION",
+   "record_scope": "Glory career closed; retired from professional competition in September 2023",
+   "fight_history": [],
+   "achievements": [
+    "Two-time Glory super bantamweight champion with five title defenses",
+    "Long-running women's pound-for-pound entrant",
+    "Lost only to Anissa Meksen and Denise Kielholtz in Glory"
+   ],
+   "ranking_points": 840,
+   "fame": 860,
+   "fatigue": 12,
+   "morale": 72,
+   "ambition": "Legacy",
+   "personality": "Timebomb",
+   "status": "retired",
+   "contract_weeks": 52,
+   "salary_expectation": 11500,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Tiffany_van_Soest",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "Glory fighter page",
+     "url": "https://glorykickboxing.com/fighters/tiffany-van-soest",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_superlek",
+   "name": "Superlek Kiatmoo9",
+   "birth_date": "1995-11-06",
+   "age": 30,
+   "country": "Thailand",
+   "city": "Buriram",
+   "sex": "male",
+   "height_cm": 172.0,
+   "reach_cm": 0,
+   "weight_class": "Bantamweight",
+   "competition_weight_kg": 65.8,
+   "primary_discipline": "muay_thai",
+   "specialties": {
+    "muay_thai": 99,
+    "kickboxing": 98
+   },
+   "stats": {
+    "power": 92,
+    "technique": 99,
+    "speed": 96,
+    "defense": 94,
+    "conditioning": 95,
+    "fight_iq": 97
+   },
+   "potential": 98,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "2-DIVISION ONE CHAMP",
+   "record_scope": "ONE title history; flyweight kickboxing and bantamweight muay thai belts held simultaneously",
+   "fight_history": [
+    {
+     "week": "2024-09-06",
+     "result": "win",
+     "opponent_name": "Jonathan Haggerty",
+     "method": "KO R1",
+     "event": "ONE 168 Denver, bantamweight muay thai title",
+     "discipline": "muay_thai"
+    },
+    {
+     "week": "2024-01",
+     "result": "win",
+     "opponent_name": "Takeru Segawa",
+     "method": "Unanimous decision",
+     "event": "ONE 165 Tokyo, flyweight kickboxing title defense",
+     "discipline": "kickboxing"
+    }
+   ],
+   "achievements": [
+    "ONE flyweight kickboxing and bantamweight muay thai world champion",
+    "'The Kicking Machine'",
+    "Beat Rodtang and Takeru in consecutive superfights"
+   ],
+   "ranking_points": 950,
+   "fame": 925,
+   "fatigue": 12,
+   "morale": 90,
+   "ambition": "Era Definition",
+   "personality": "Machine-calm",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 16000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "ONE athlete profile",
+     "url": "https://www.onefc.com/athletes/superlek/",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Superlek_Kiatmuu9",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_tawanchai",
+   "name": "Tawanchai PK Saenchai",
+   "birth_date": "1999-04-07",
+   "age": 27,
+   "country": "Thailand",
+   "city": "Bangkok",
+   "sex": "male",
+   "height_cm": 180.0,
+   "reach_cm": 0,
+   "weight_class": "Featherweight",
+   "competition_weight_kg": 70.3,
+   "primary_discipline": "muay_thai",
+   "specialties": {
+    "muay_thai": 99,
+    "kickboxing": 94
+   },
+   "stats": {
+    "power": 93,
+    "technique": 99,
+    "speed": 95,
+    "defense": 95,
+    "conditioning": 93,
+    "fight_iq": 96
+   },
+   "potential": 98,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "ONE FW MT CHAMP 2022-25",
+   "record_scope": "ONE title history; relinquished the belt after a December 2025 broken leg, comeback planned",
+   "fight_history": [
+    {
+     "week": "2025-01",
+     "result": "win",
+     "opponent_name": "Superbon",
+     "method": "Unanimous decision",
+     "event": "ONE 170 Bangkok, featherweight muay thai title defense",
+     "discipline": "muay_thai"
+    }
+   ],
+   "achievements": [
+    "ONE featherweight muay thai world champion 2022-2025",
+    "Beat Superbon in both title meetings",
+    "Vacated injured in 2025 to keep the division moving; hunting the belt back"
+   ],
+   "ranking_points": 930,
+   "fame": 915,
+   "fatigue": 12,
+   "morale": 82,
+   "ambition": "Reclaim the Throne",
+   "personality": "Elegant",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 15500,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "ONE athlete profile",
+     "url": "https://www.onefc.com/athletes/tawanchai/",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Tawanchai_P.K._Saenchaimuaythaigym",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_jonathan_haggerty",
+   "name": "Jonathan Haggerty",
+   "birth_date": "1997-02-18",
+   "age": 29,
+   "country": "England",
+   "city": "London",
+   "sex": "male",
+   "height_cm": 175.0,
+   "reach_cm": 0,
+   "weight_class": "Bantamweight",
+   "competition_weight_kg": 65.8,
+   "primary_discipline": "muay_thai",
+   "specialties": {
+    "muay_thai": 97,
+    "kickboxing": 96
+   },
+   "stats": {
+    "power": 91,
+    "technique": 96,
+    "speed": 94,
+    "defense": 90,
+    "conditioning": 93,
+    "fight_iq": 94
+   },
+   "potential": 96,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "ONE BW KICKBOXING CHAMP",
+   "record_scope": "ONE title history; reigning bantamweight kickboxing champion, former two-sport bantamweight king",
+   "fight_history": [
+    {
+     "week": "2026-04-29",
+     "result": "win",
+     "opponent_name": "Yuki Yoza",
+     "method": "Decision",
+     "event": "ONE Samurai 1 Tokyo, bantamweight kickboxing title",
+     "discipline": "kickboxing"
+    },
+    {
+     "week": "2024-09-06",
+     "result": "loss",
+     "opponent_name": "Superlek Kiatmoo9",
+     "method": "KO R1",
+     "event": "ONE 168 Denver, bantamweight muay thai title",
+     "discipline": "muay_thai"
+    },
+    {
+     "week": "2023-04-22",
+     "result": "win",
+     "opponent_name": "Nong-O Hama",
+     "method": "TKO R1",
+     "event": "ONE Fight Night 9, bantamweight muay thai title",
+     "discipline": "muay_thai"
+    }
+   ],
+   "achievements": [
+    "Reigning ONE bantamweight kickboxing world champion",
+    "Former ONE bantamweight muay thai world champion",
+    "First-round upset of the great Nong-O in 2023"
+   ],
+   "ranking_points": 920,
+   "fame": 900,
+   "fatigue": 12,
+   "morale": 88,
+   "ambition": "Two-Sport Again",
+   "personality": "The General",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 15000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "ONE athlete profile",
+     "url": "https://www.onefc.com/athletes/jonathan-haggerty/",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Jonathan_Haggerty",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_nong_o",
+   "name": "Nong-O Hama",
+   "birth_date": "1986-11-10",
+   "age": 39,
+   "country": "Thailand",
+   "city": "Sakon Nakhon",
+   "sex": "male",
+   "height_cm": 170.0,
+   "reach_cm": 0,
+   "weight_class": "Flyweight",
+   "competition_weight_kg": 61.2,
+   "primary_discipline": "muay_thai",
+   "specialties": {
+    "muay_thai": 98
+   },
+   "stats": {
+    "power": 90,
+    "technique": 98,
+    "speed": 88,
+    "defense": 95,
+    "conditioning": 90,
+    "fight_iq": 98
+   },
+   "potential": 93,
+   "record": {
+    "wins": 11,
+    "losses": 3,
+    "draws": 0
+   },
+   "record_display": "11-3 (ONE TRACKED)",
+   "record_scope": "ONE tracked bouts; 260+ stadium fights across a legendary Lumpinee career before that",
+   "fight_history": [
+    {
+     "week": "2023-04-22",
+     "result": "loss",
+     "opponent_name": "Jonathan Haggerty",
+     "method": "TKO R1",
+     "event": "ONE Fight Night 9, bantamweight muay thai title",
+     "discipline": "muay_thai"
+    }
+   ],
+   "achievements": [
+    "Longtime ONE bantamweight muay thai world champion",
+    "Multiple-time Lumpinee Stadium champion and Fighter of the Year",
+    "Still fighting world-level muay thai at flyweight past age 39"
+   ],
+   "ranking_points": 880,
+   "fame": 890,
+   "fatigue": 12,
+   "morale": 78,
+   "ambition": "One More Reign",
+   "personality": "Master",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 13500,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "TrillerTV fighter record",
+     "url": "https://www.trillertv.com/fighter/nong-o-hama/37104/",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Nong-O_Hama",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_seksan",
+   "name": "Seksan Or Kwanmuang",
+   "birth_date": "1989-01-20",
+   "age": 37,
+   "country": "Thailand",
+   "city": "Bangkok",
+   "sex": "male",
+   "height_cm": 165.0,
+   "reach_cm": 0,
+   "weight_class": "Flyweight",
+   "competition_weight_kg": 61.2,
+   "primary_discipline": "muay_thai",
+   "specialties": {
+    "muay_thai": 96
+   },
+   "stats": {
+    "power": 90,
+    "technique": 93,
+    "speed": 88,
+    "defense": 84,
+    "conditioning": 90,
+    "fight_iq": 92
+   },
+   "potential": 90,
+   "record": {
+    "wins": 10,
+    "losses": 5,
+    "draws": 0
+   },
+   "record_display": "10-5 (ONE TRACKED)",
+   "record_scope": "ONE tracked bouts; a 300+ fight all-action stadium career before that, on a late-career skid at snapshot",
+   "fight_history": [
+    {
+     "week": "2026-03",
+     "result": "loss",
+     "opponent_name": "Pakorn PK Saenchai",
+     "method": "TKO R1",
+     "event": "ONE Friday Fights 147",
+     "discipline": "muay_thai"
+    },
+    {
+     "week": "2025-01",
+     "result": "win",
+     "opponent_name": "Soe Lin Oo",
+     "method": "Decision",
+     "event": "ONE 170 Bangkok",
+     "discipline": "muay_thai"
+    }
+   ],
+   "achievements": [
+    "'The Man Who Yields To No One' - all-action fan favourite",
+    "300+ professional fights across Thailand's stadium circuit",
+    "ONE Friday Fights headline staple"
+   ],
+   "ranking_points": 830,
+   "fame": 880,
+   "fatigue": 12,
+   "morale": 66,
+   "ambition": "Go Out Swinging",
+   "personality": "Warrior-heart",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 12000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "ONE athlete profile",
+     "url": "https://www.onefc.com/athletes/seksan-or-kwanmuang/",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "Muay Thai Records fighter page",
+     "url": "https://muaythairecords.com/fighters/seksan-or-kwanmuang",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_phetjeeja",
+   "name": "Phetjeeja Lukjaoporongtom",
+   "birth_date": "2001-12-31",
+   "age": 24,
+   "country": "Thailand",
+   "city": "Bangkok",
+   "sex": "female",
+   "height_cm": 165.0,
+   "reach_cm": 0,
+   "weight_class": "Atomweight",
+   "competition_weight_kg": 52.2,
+   "primary_discipline": "muay_thai",
+   "specialties": {
+    "muay_thai": 97,
+    "kickboxing": 98,
+    "boxing": 88
+   },
+   "stats": {
+    "power": 93,
+    "technique": 96,
+    "speed": 94,
+    "defense": 90,
+    "conditioning": 93,
+    "fight_iq": 93
+   },
+   "potential": 98,
+   "record": {
+    "wins": 8,
+    "losses": 1,
+    "draws": 0
+   },
+   "record_display": "8-1 (ONE TRACKED)",
+   "record_scope": "ONE tracked bouts; roughly 200 fights growing up, 130+ of them against boys",
+   "fight_history": [
+    {
+     "week": "2026-06-19",
+     "result": "loss",
+     "opponent_name": "Allycia Hellen Rodrigues",
+     "method": "Split decision",
+     "event": "ONE Fight Night 41, atomweight muay thai title",
+     "discipline": "muay_thai"
+    },
+    {
+     "week": "2025-12-05",
+     "result": "win",
+     "opponent_name": "Martyna Dominczak",
+     "method": "TKO R1",
+     "event": "ONE Fight Night 38",
+     "discipline": "muay_thai"
+    }
+   ],
+   "achievements": [
+    "Reigning ONE women's atomweight kickboxing world champion",
+    "'The Queen' - 130+ fights against male boxers coming up",
+    "Fell one split decision short of two-sport glory in June 2026"
+   ],
+   "ranking_points": 925,
+   "fame": 890,
+   "fatigue": 12,
+   "morale": 90,
+   "ambition": "Two-Sport Queen",
+   "personality": "Ice-cold aggression",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 13500,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "ONE, Rodrigues vs Phetjeeja title fight",
+     "url": "https://www.onefc.com/news/ill-make-the-belt-mine-phetjeeja-aims-to-dethrone-allycia-hellen-rodrigues-for-historic-two-sport-glory-at-one-fight-night-41/",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "Siam Fight Mag interview",
+     "url": "https://www.siamfightmag.com/en/interview-with-the-phenomenal-phetjeeja-or-meekhun-one-championship-world-champion-130-fights-against-male-boxers/",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_allycia_rodrigues",
+   "name": "Allycia Hellen Rodrigues",
+   "birth_date": "1998-05-18",
+   "age": 28,
+   "country": "Brazil",
+   "city": "Bangkok",
+   "sex": "female",
+   "height_cm": 168.0,
+   "reach_cm": 0,
+   "weight_class": "Atomweight",
+   "competition_weight_kg": 52.2,
+   "primary_discipline": "muay_thai",
+   "specialties": {
+    "muay_thai": 97,
+    "boxing": 86
+   },
+   "stats": {
+    "power": 90,
+    "technique": 95,
+    "speed": 92,
+    "defense": 92,
+    "conditioning": 94,
+    "fight_iq": 95
+   },
+   "potential": 97,
+   "record": {
+    "wins": 35,
+    "losses": 7,
+    "draws": 0
+   },
+   "record_display": "35-7-0",
+   "record_scope": "Professional muay thai career; based in Thailand, ONE atomweight champion with four title defenses",
+   "fight_history": [
+    {
+     "week": "2026-06-19",
+     "result": "win",
+     "opponent_name": "Phetjeeja Lukjaoporongtom",
+     "method": "Split decision",
+     "event": "ONE Fight Night 41, atomweight muay thai title defense",
+     "discipline": "muay_thai"
+    }
+   ],
+   "achievements": [
+    "Reigning ONE women's atomweight muay thai world champion",
+    "Longest-reigning female striking world champion in ONE",
+    "Perfect knockout-powered 2025 capped by beating Phetjeeja in 2026"
+   ],
+   "ranking_points": 935,
+   "fame": 895,
+   "fatigue": 12,
+   "morale": 88,
+   "ambition": "Dynasty",
+   "personality": "Fazendeira",
+   "status": "active",
+   "contract_weeks": 52,
+   "salary_expectation": 14000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "ONE year in review 2025",
+     "url": "https://www.onefc.com/features/year-in-review-allycia-hellen-rodrigues-perfect-2025-sets-stage-for-blockbuster-2026/",
+     "facts": "record, results, titles, profile"
+    },
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Allycia_Rodrigues",
+     "facts": "record, results, titles, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_steven_da_costa",
+   "name": "Steven Da Costa",
+   "birth_date": "1997-01-23",
+   "age": 29,
+   "country": "France",
+   "city": "Mont-Saint-Martin",
+   "sex": "male",
+   "height_cm": 168.0,
+   "reach_cm": 0,
+   "weight_class": "-67 kg",
+   "competition_weight_kg": 67.0,
+   "primary_discipline": "karate",
+   "specialties": {
+    "karate": 98
+   },
+   "stats": {
+    "power": 88,
+    "technique": 97,
+    "speed": 96,
+    "defense": 93,
+    "conditioning": 93,
+    "fight_iq": 96
+   },
+   "potential": 97,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "3x WORLD CHAMPION",
+   "record_scope": "WKF kumite career; entered for the 2026 European Championships at snapshot",
+   "fight_history": [],
+   "achievements": [
+    "Olympic -67 kg kumite champion (Tokyo 2020)",
+    "Three-time world champion (2018, 2021, 2023)",
+    "France's flagship kumite fighter"
+   ],
+   "ranking_points": 920,
+   "fame": 890,
+   "fatigue": 8,
+   "morale": 88,
+   "ambition": "Keep the Crown",
+   "personality": "Flashy",
+   "status": "active",
+   "contract_weeks": 44,
+   "salary_expectation": 12500,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Steven_Da_Costa",
+     "facts": "titles, results, career stage, profile"
+    },
+    {
+     "label": "Equipe France profile",
+     "url": "https://www.equipe-france.fr/karate/steven-da-costa",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_ryo_kiyuna",
+   "name": "Ryo Kiyuna",
+   "birth_date": "1990-07-12",
+   "age": 36,
+   "country": "Japan",
+   "city": "Okinawa City",
+   "sex": "male",
+   "height_cm": 170.0,
+   "reach_cm": 0,
+   "weight_class": "Kata (Open)",
+   "competition_weight_kg": 85.0,
+   "primary_discipline": "karate",
+   "specialties": {
+    "karate": 98
+   },
+   "stats": {
+    "power": 88,
+    "technique": 99,
+    "speed": 92,
+    "defense": 95,
+    "conditioning": 92,
+    "fight_iq": 97
+   },
+   "potential": 95,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "4x WORLD KATA CHAMP",
+   "record_scope": "WKF kata career closed; retired from competition in February 2023",
+   "fight_history": [],
+   "achievements": [
+    "Olympic kata champion (Tokyo 2020) on home-nation soil",
+    "Most male kata world titles in WKF history (four straight)",
+    "Okinawan standard-bearer of traditional kata"
+   ],
+   "ranking_points": 880,
+   "fame": 900,
+   "fatigue": 8,
+   "morale": 76,
+   "ambition": "Legacy",
+   "personality": "Ceremonial",
+   "status": "retired",
+   "contract_weeks": 44,
+   "salary_expectation": 10000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "WKF on his record kata haul",
+     "url": "https://www.wkf.net/news-center-new/ryo-kiyuna-makes-history/1758",
+     "facts": "titles, results, career stage, profile"
+    },
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Ryo_Kiyuna",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_rafael_aghayev",
+   "name": "Rafael Aghayev",
+   "birth_date": "1985-03-04",
+   "age": 41,
+   "country": "Azerbaijan",
+   "city": "Sumqayit",
+   "sex": "male",
+   "height_cm": 170.0,
+   "reach_cm": 0,
+   "weight_class": "-75 kg",
+   "competition_weight_kg": 75.0,
+   "primary_discipline": "karate",
+   "specialties": {
+    "karate": 98
+   },
+   "stats": {
+    "power": 90,
+    "technique": 97,
+    "speed": 90,
+    "defense": 94,
+    "conditioning": 88,
+    "fight_iq": 98
+   },
+   "potential": 93,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "5x WORLD CHAMPION",
+   "record_scope": "WKF kumite career; sparse recent competition at snapshot, no retirement announced",
+   "fight_history": [],
+   "achievements": [
+    "Five-time world kumite champion",
+    "Eleven-time European champion",
+    "Olympic -75 kg silver medalist (Tokyo 2020) at age 36"
+   ],
+   "ranking_points": 885,
+   "fame": 895,
+   "fatigue": 8,
+   "morale": 72,
+   "ambition": "Legacy",
+   "personality": "Streetwise",
+   "status": "active",
+   "contract_weeks": 44,
+   "salary_expectation": 11000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Rafael_Aghayev",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_sandra_sanchez",
+   "name": "Sandra Sanchez",
+   "birth_date": "1981-09-16",
+   "age": 44,
+   "country": "Spain",
+   "city": "Talavera de la Reina",
+   "sex": "female",
+   "height_cm": 160.0,
+   "reach_cm": 0,
+   "weight_class": "Kata (Open)",
+   "competition_weight_kg": 60.0,
+   "primary_discipline": "karate",
+   "specialties": {
+    "karate": 98
+   },
+   "stats": {
+    "power": 82,
+    "technique": 99,
+    "speed": 90,
+    "defense": 94,
+    "conditioning": 90,
+    "fight_iq": 97
+   },
+   "potential": 93,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "OLYMPIC KATA CHAMPION",
+   "record_scope": "WKF kata career closed; retired in 2022 after a farewell tour",
+   "fight_history": [],
+   "achievements": [
+    "Olympic kata champion (Tokyo 2020)",
+    "World kata champion (2018)",
+    "Guinness record for most WKF Premier League medals"
+   ],
+   "ranking_points": 860,
+   "fame": 890,
+   "fatigue": 8,
+   "morale": 70,
+   "ambition": "Legacy",
+   "personality": "Radiant",
+   "status": "retired",
+   "contract_weeks": 44,
+   "salary_expectation": 9500,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Sandra_S%C3%A1nchez",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_ivet_goranova",
+   "name": "Ivet Goranova",
+   "birth_date": "2000-03-06",
+   "age": 26,
+   "country": "Bulgaria",
+   "city": "Pleven",
+   "sex": "female",
+   "height_cm": 166.0,
+   "reach_cm": 0,
+   "weight_class": "-55 kg",
+   "competition_weight_kg": 55.0,
+   "primary_discipline": "karate",
+   "specialties": {
+    "karate": 98
+   },
+   "stats": {
+    "power": 86,
+    "technique": 94,
+    "speed": 95,
+    "defense": 91,
+    "conditioning": 93,
+    "fight_iq": 92
+   },
+   "potential": 95,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "OLYMPIC CHAMPION 2020",
+   "record_scope": "WKF kumite career; round-of-16 exit at the 2025 World Championships in Cairo",
+   "fight_history": [
+    {
+     "week": "2025-11",
+     "result": "loss",
+     "opponent_name": "Hana Furumoto-Deshaies",
+     "method": "Points",
+     "event": "2025 World Championships, -55 kg round of 16",
+     "discipline": "karate"
+    }
+   ],
+   "achievements": [
+    "Olympic -55 kg kumite champion (Tokyo 2020)",
+    "Bulgaria's first Olympic karate gold medalist"
+   ],
+   "ranking_points": 890,
+   "fame": 860,
+   "fatigue": 8,
+   "morale": 84,
+   "ambition": "World Gold",
+   "personality": "Quiet fire",
+   "status": "active",
+   "contract_weeks": 44,
+   "salary_expectation": 11500,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "Inside the Games, Cairo 2025",
+     "url": "https://www.insidethegames.biz/articles/1155949/cairo-2025-olympic-champion-falls-as",
+     "facts": "titles, results, career stage, profile"
+    },
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Ivet_Goranova",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_vito_dellaquila",
+   "name": "Vito Dell'Aquila",
+   "birth_date": "2000-11-03",
+   "age": 25,
+   "country": "Italy",
+   "city": "Mesagne",
+   "sex": "male",
+   "height_cm": 174.0,
+   "reach_cm": 0,
+   "weight_class": "-58 kg",
+   "competition_weight_kg": 58.0,
+   "primary_discipline": "taekwondo",
+   "specialties": {
+    "taekwondo": 98
+   },
+   "stats": {
+    "power": 86,
+    "technique": 96,
+    "speed": 97,
+    "defense": 92,
+    "conditioning": 93,
+    "fight_iq": 94
+   },
+   "potential": 96,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "OLYMPIC CHAMPION 2020",
+   "record_scope": "World Taekwondo career; active on the 2025-26 circuit",
+   "fight_history": [],
+   "achievements": [
+    "Olympic -58 kg champion (Tokyo 2020)",
+    "World champion (2023)",
+    "Italy's youngest taekwondo Olympic gold medalist"
+   ],
+   "ranking_points": 905,
+   "fame": 880,
+   "fatigue": 8,
+   "morale": 87,
+   "ambition": "Second Gold",
+   "personality": "Sprightly",
+   "status": "active",
+   "contract_weeks": 44,
+   "salary_expectation": 12000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Vito_Dell%27Aquila",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_ulugbek_rashitov",
+   "name": "Ulugbek Rashitov",
+   "birth_date": "2002-03-23",
+   "age": 24,
+   "country": "Uzbekistan",
+   "city": "Tashkent",
+   "sex": "male",
+   "height_cm": 183.0,
+   "reach_cm": 0,
+   "weight_class": "-68 kg",
+   "competition_weight_kg": 68.0,
+   "primary_discipline": "taekwondo",
+   "specialties": {
+    "taekwondo": 98
+   },
+   "stats": {
+    "power": 90,
+    "technique": 96,
+    "speed": 96,
+    "defense": 93,
+    "conditioning": 94,
+    "fight_iq": 95
+   },
+   "potential": 98,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "2x OLYMPIC CHAMPION",
+   "record_scope": "World Taekwondo career; back-to-back Olympic titles at snapshot",
+   "fight_history": [],
+   "achievements": [
+    "Two-time Olympic -68 kg champion (Tokyo 2020, Paris 2024)",
+    "Uzbekistan's first taekwondo Olympic gold medalist"
+   ],
+   "ranking_points": 940,
+   "fame": 890,
+   "fatigue": 8,
+   "morale": 90,
+   "ambition": "Three-peat 2028",
+   "personality": "Unshakeable",
+   "status": "active",
+   "contract_weeks": 44,
+   "salary_expectation": 12500,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Ulugbek_Rashitov",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_simone_alessio",
+   "name": "Simone Alessio",
+   "birth_date": "2000-04-14",
+   "age": 26,
+   "country": "Italy",
+   "city": "Rome",
+   "sex": "male",
+   "height_cm": 192.0,
+   "reach_cm": 0,
+   "weight_class": "+80 kg",
+   "competition_weight_kg": 87.0,
+   "primary_discipline": "taekwondo",
+   "specialties": {
+    "taekwondo": 98
+   },
+   "stats": {
+    "power": 93,
+    "technique": 95,
+    "speed": 92,
+    "defense": 91,
+    "conditioning": 93,
+    "fight_iq": 94
+   },
+   "potential": 96,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "2x WORLD CHAMPION",
+   "record_scope": "World Taekwondo career; 2025 world silver after moving up to +80 kg",
+   "fight_history": [],
+   "achievements": [
+    "Two-time world champion (2019, 2023)",
+    "Olympic -80 kg bronze medalist (Paris 2024)",
+    "2025 world +80 kg silver medalist in Wuxi"
+   ],
+   "ranking_points": 915,
+   "fame": 875,
+   "fatigue": 8,
+   "morale": 88,
+   "ambition": "Heavyweight Gold",
+   "personality": "Towering",
+   "status": "active",
+   "contract_weeks": 44,
+   "salary_expectation": 12000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "Olympics.com, Wuxi 2025 results",
+     "url": "https://www.olympics.com/en/news/2025-wuxi-world-taekwondo-championships-schedule-results-list",
+     "facts": "titles, results, career stage, profile"
+    },
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Simone_Alessio",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_jade_jones",
+   "name": "Jade Jones",
+   "birth_date": "1993-03-21",
+   "age": 33,
+   "country": "Wales",
+   "city": "Flint",
+   "sex": "female",
+   "height_cm": 167.0,
+   "reach_cm": 0,
+   "weight_class": "-57 kg",
+   "competition_weight_kg": 57.0,
+   "primary_discipline": "taekwondo",
+   "specialties": {
+    "taekwondo": 98
+   },
+   "stats": {
+    "power": 87,
+    "technique": 96,
+    "speed": 94,
+    "defense": 93,
+    "conditioning": 92,
+    "fight_iq": 96
+   },
+   "potential": 93,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "2x OLYMPIC CHAMPION",
+   "record_scope": "World Taekwondo career closed; retired March 2025 and switched to professional boxing",
+   "fight_history": [],
+   "achievements": [
+    "Two-time Olympic -57 kg champion (London 2012, Rio 2016)",
+    "Three-time European champion",
+    "Retired in 2025 to begin a professional boxing career"
+   ],
+   "ranking_points": 870,
+   "fame": 910,
+   "fatigue": 8,
+   "morale": 74,
+   "ambition": "New Chapter",
+   "personality": "Headhunter",
+   "status": "retired",
+   "contract_weeks": 44,
+   "salary_expectation": 11000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "Nation Cymru on her retirement",
+     "url": "https://nation.cymru/sport/double-olympic-champion-jade-jones-retires-from-taekwondo-to-take-up-boxing/",
+     "facts": "titles, results, career stage, profile"
+    },
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Jade_Jones_(taekwondo)",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_anastasija_zolotic",
+   "name": "Anastasija Zolotic",
+   "birth_date": "2002-11-23",
+   "age": 23,
+   "country": "United States of America",
+   "city": "Largo",
+   "sex": "female",
+   "height_cm": 170.0,
+   "reach_cm": 0,
+   "weight_class": "-57 kg",
+   "competition_weight_kg": 57.0,
+   "primary_discipline": "taekwondo",
+   "specialties": {
+    "taekwondo": 98
+   },
+   "stats": {
+    "power": 87,
+    "technique": 94,
+    "speed": 94,
+    "defense": 90,
+    "conditioning": 92,
+    "fight_iq": 92
+   },
+   "potential": 96,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "OLYMPIC CHAMPION 2020",
+   "record_scope": "World Taekwondo career; rebuilding on the ranking ladder at snapshot (144th, August 2026)",
+   "fight_history": [],
+   "achievements": [
+    "First American woman to win Olympic taekwondo gold (Tokyo 2020)",
+    "Working back up the world rankings after setbacks"
+   ],
+   "ranking_points": 850,
+   "fame": 840,
+   "fatigue": 8,
+   "morale": 80,
+   "ambition": "Comeback",
+   "personality": "Fearless",
+   "status": "active",
+   "contract_weeks": 44,
+   "salary_expectation": 11000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "Team USA profile",
+     "url": "https://www.teamusa.com/profiles/anastasija-zolotic-1113778",
+     "facts": "titles, results, career stage, profile"
+    },
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Anastasija_Zolotic",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_artem_osipenko",
+   "name": "Artem Osipenko",
+   "birth_date": "1988-05-27",
+   "age": 38,
+   "country": "Russia",
+   "city": "Bryansk",
+   "sex": "male",
+   "height_cm": 190.0,
+   "reach_cm": 0,
+   "weight_class": "+98 kg",
+   "competition_weight_kg": 110.0,
+   "primary_discipline": "sambo",
+   "specialties": {
+    "sambo": 99,
+    "judo": 82
+   },
+   "stats": {
+    "power": 96,
+    "technique": 97,
+    "speed": 84,
+    "defense": 95,
+    "conditioning": 90,
+    "fight_iq": 96
+   },
+   "potential": 95,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "10x WORLD CHAMPION",
+   "record_scope": "FIAS sport sambo career; +98 kg bronze at the 2025 Worlds in Bishkek",
+   "fight_history": [],
+   "achievements": [
+    "Ten-time world sambo champion in the heavyweight class",
+    "Bryansk's martial arts palace bears his name",
+    "Still on the world podium at 38"
+   ],
+   "ranking_points": 915,
+   "fame": 850,
+   "fatigue": 10,
+   "morale": 82,
+   "ambition": "One More Gold",
+   "personality": "Bear-strong",
+   "status": "active",
+   "contract_weeks": 48,
+   "salary_expectation": 12500,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/grappler.png",
+   "sources": [
+    {
+     "label": "FIAS profile interview",
+     "url": "https://sambo.sport/en/news/pravila-zhizni-artem-osipenko/",
+     "facts": "titles, results, career stage, profile"
+    },
+    {
+     "label": "FIAS 2025 Worlds day one results",
+     "url": "https://sambo.sport/en/news/rezultaty-1-go-dnya-chempionata-mira-po-sambo-2025/",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_vladyslav_rudniev",
+   "name": "Vladyslav Rudniev",
+   "birth_date": "1996-06-25",
+   "age": 30,
+   "country": "Ukraine",
+   "city": "Kyiv",
+   "sex": "male",
+   "height_cm": 178.0,
+   "reach_cm": 0,
+   "weight_class": "79 kg",
+   "competition_weight_kg": 79.0,
+   "primary_discipline": "sambo",
+   "specialties": {
+    "sambo": 98,
+    "mma": 80
+   },
+   "stats": {
+    "power": 91,
+    "technique": 96,
+    "speed": 92,
+    "defense": 92,
+    "conditioning": 94,
+    "fight_iq": 94
+   },
+   "potential": 96,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "6x WORLD CHAMPION",
+   "record_scope": "FIAS combat sambo career; sixth world title won November 2025 in Bishkek, turning professional after his Chengdu World Games gold",
+   "fight_history": [],
+   "achievements": [
+    "Six-time world combat sambo champion",
+    "Two-time World Games gold medalist",
+    "Announced his move to professional MMA after Chengdu 2025"
+   ],
+   "ranking_points": 920,
+   "fame": 855,
+   "fatigue": 10,
+   "morale": 88,
+   "ambition": "Pro Crossover",
+   "personality": "Flag-bearer",
+   "status": "active",
+   "contract_weeks": 48,
+   "salary_expectation": 12500,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/grappler.png",
+   "sources": [
+    {
+     "label": "Ukraine Top News on the sixth world title",
+     "url": "https://glavnoe.in.ua/en/news-en/vladyslav-rudniev-becomes-six-time-world-champion-in-combat-sambo",
+     "facts": "titles, results, career stage, profile"
+    },
+    {
+     "label": "FIAS interview after Chengdu",
+     "url": "https://sambo.sport/en/news/vladislav-rudnev-pobedoy-v-chendu-ya-zavershayu-svoyu-lyubitelskuyu-kareru/",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_fedor_emelianenko",
+   "name": "Fedor Emelianenko",
+   "birth_date": "1976-09-28",
+   "age": 49,
+   "country": "Russia",
+   "city": "Stary Oskol",
+   "sex": "male",
+   "height_cm": 183.0,
+   "reach_cm": 0,
+   "weight_class": "Heavyweight",
+   "competition_weight_kg": 106.0,
+   "primary_discipline": "sambo",
+   "specialties": {
+    "sambo": 99,
+    "mma": 96,
+    "judo": 88
+   },
+   "stats": {
+    "power": 93,
+    "technique": 96,
+    "speed": 82,
+    "defense": 90,
+    "conditioning": 84,
+    "fight_iq": 98
+   },
+   "potential": 93,
+   "record": {
+    "wins": 40,
+    "losses": 7,
+    "draws": 0
+   },
+   "record_display": "40-7 (1 NC) MMA",
+   "record_scope": "Professional MMA at retirement 2023; four world combat sambo titles tracked separately",
+   "fight_history": [],
+   "achievements": [
+    "Four-time world combat sambo champion",
+    "'The Last Emperor' - defining heavyweight of MMA's PRIDE era",
+    "Retired after his 2023 Bellator farewell"
+   ],
+   "ranking_points": 890,
+   "fame": 960,
+   "fatigue": 10,
+   "morale": 70,
+   "ambition": "Legacy",
+   "personality": "Stone-faced",
+   "status": "retired",
+   "contract_weeks": 48,
+   "salary_expectation": 14000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/grappler.png",
+   "sources": [
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Fedor_Emelianenko",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_marina_mokhnatkina",
+   "name": "Marina Mokhnatkina",
+   "birth_date": "1988-05-12",
+   "age": 38,
+   "country": "Russia",
+   "city": "Moscow",
+   "sex": "female",
+   "height_cm": 168.0,
+   "reach_cm": 0,
+   "weight_class": "68 kg",
+   "competition_weight_kg": 68.0,
+   "primary_discipline": "sambo",
+   "specialties": {
+    "sambo": 98,
+    "mma": 84
+   },
+   "stats": {
+    "power": 88,
+    "technique": 96,
+    "speed": 88,
+    "defense": 92,
+    "conditioning": 90,
+    "fight_iq": 95
+   },
+   "potential": 93,
+   "record": {
+    "wins": 11,
+    "losses": 4,
+    "draws": 0
+   },
+   "record_display": "11-4 (MMA)",
+   "record_scope": "Professional MMA record; six world sambo titles before the crossover",
+   "fight_history": [],
+   "achievements": [
+    "Six-time world sambo champion",
+    "FIAS Hall of Fame inductee",
+    "Crossed over to Bellator and PFL MMA"
+   ],
+   "ranking_points": 880,
+   "fame": 840,
+   "fatigue": 10,
+   "morale": 78,
+   "ambition": "Trailblazer",
+   "personality": "Iron-willed",
+   "status": "active",
+   "contract_weeks": 48,
+   "salary_expectation": 12000,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/grappler.png",
+   "sources": [
+    {
+     "label": "FIAS Hall of Fame page",
+     "url": "https://sambo.sport/en/fias/halloffame/marina-yurevna-spivak-mokhnatkina-baranova-kormiltseva/",
+     "facts": "titles, results, career stage, profile"
+    },
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Marina_Mokhnatkina",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_anissa_meksen",
+   "name": "Anissa Meksen",
+   "birth_date": "1988-04-29",
+   "age": 38,
+   "country": "France",
+   "city": "Nancy",
+   "sex": "female",
+   "height_cm": 168.0,
+   "reach_cm": 0,
+   "weight_class": "Strawweight",
+   "competition_weight_kg": 56.7,
+   "primary_discipline": "savate",
+   "specialties": {
+    "savate": 99,
+    "kickboxing": 97,
+    "muay_thai": 95,
+    "boxing": 90
+   },
+   "stats": {
+    "power": 90,
+    "technique": 98,
+    "speed": 96,
+    "defense": 93,
+    "conditioning": 92,
+    "fight_iq": 96
+   },
+   "potential": 95,
+   "record": {
+    "wins": 104,
+    "losses": 7,
+    "draws": 0
+   },
+   "record_display": "104-7-0",
+   "record_scope": "Professional kickboxing and muay thai; savate world titles tracked separately",
+   "fight_history": [
+    {
+     "week": "2024-12-20",
+     "result": "win",
+     "opponent_name": "Kana Morimoto",
+     "method": "Unanimous decision",
+     "event": "ONE Friday Fights 92",
+     "discipline": "kickboxing"
+    },
+    {
+     "week": "2024-11-09",
+     "result": "loss",
+     "opponent_name": "Jackie Buntan",
+     "method": "Unanimous decision",
+     "event": "ONE 169, inaugural strawweight kickboxing title",
+     "discipline": "kickboxing"
+    }
+   ],
+   "achievements": [
+    "Multiple-time savate world and European champion",
+    "104-win striking record across savate, kickboxing, muay thai and boxing",
+    "Challenged for ONE's inaugural strawweight kickboxing crown"
+   ],
+   "ranking_points": 910,
+   "fame": 880,
+   "fatigue": 10,
+   "morale": 82,
+   "ambition": "Last Belt",
+   "personality": "C18 Flash",
+   "status": "active",
+   "contract_weeks": 48,
+   "salary_expectation": 13500,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Anissa_Meksen",
+     "facts": "titles, results, career stage, profile"
+    },
+    {
+     "label": "Fight Record profile",
+     "url": "https://fightrecord.co.uk/fighters/anissa-meksen/",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_muslim_salikhov",
+   "name": "Muslim Salikhov",
+   "birth_date": "1984-05-05",
+   "age": 42,
+   "country": "Russia",
+   "city": "Makhachkala",
+   "sex": "male",
+   "height_cm": 180.0,
+   "reach_cm": 0,
+   "weight_class": "Welterweight",
+   "competition_weight_kg": 77.1,
+   "primary_discipline": "sanda",
+   "specialties": {
+    "sanda": 99,
+    "kickboxing": 92,
+    "mma": 88
+   },
+   "stats": {
+    "power": 94,
+    "technique": 96,
+    "speed": 88,
+    "defense": 90,
+    "conditioning": 86,
+    "fight_iq": 95
+   },
+   "potential": 92,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "SANDA KING / UFC VET",
+   "record_scope": "Wushu sanda pedigree with a long UFC welterweight run; veteran stage at snapshot",
+   "fight_history": [],
+   "achievements": [
+    "Multiple-time world sanda champion - 'The King of Kung Fu'",
+    "First sanda-first stylist to carve out a long UFC run",
+    "Famed spinning-wheel-kick knockouts"
+   ],
+   "ranking_points": 870,
+   "fame": 870,
+   "fatigue": 10,
+   "morale": 74,
+   "ambition": "Legacy",
+   "personality": "Old-lion",
+   "status": "active",
+   "contract_weeks": 48,
+   "salary_expectation": 12500,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Muslim_Salikhov",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  },
+  {
+   "id": "real_hanifan_yudani_kusumah",
+   "name": "Hanifan Yudani Kusumah",
+   "birth_date": "1997-10-25",
+   "age": 28,
+   "country": "Indonesia",
+   "city": "Bandung",
+   "sex": "male",
+   "height_cm": 170.0,
+   "reach_cm": 0,
+   "weight_class": "Class C (55-60 kg)",
+   "competition_weight_kg": 60.0,
+   "primary_discipline": "pencak_silat",
+   "specialties": {
+    "pencak_silat": 98,
+    "karate": 72
+   },
+   "stats": {
+    "power": 87,
+    "technique": 96,
+    "speed": 93,
+    "defense": 92,
+    "conditioning": 92,
+    "fight_iq": 93
+   },
+   "potential": 94,
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+   },
+   "record_display": "WORLD CHAMPION 2016",
+   "record_scope": "IPSF tanding career; recent international status unverified at snapshot",
+   "fight_history": [],
+   "achievements": [
+    "Pencak silat world champion (Denpasar 2016)",
+    "2018 Asian Games tanding gold medalist",
+    "His flag-draped unity hug became a national icon in Indonesia"
+   ],
+   "ranking_points": 875,
+   "fame": 860,
+   "fatigue": 10,
+   "morale": 80,
+   "ambition": "World Gold Again",
+   "personality": "Unifier",
+   "status": "active",
+   "contract_weeks": 48,
+   "salary_expectation": 11500,
+   "portrait_path": "",
+   "photo": {
+    "fallback_reason": "No licence-cleared reusable portrait established in this pass; deterministic gender-aware generated avatar in use."
+   },
+   "fallback_portrait_path": "res://assets/images/athletes/fallback/striker.png",
+   "sources": [
+    {
+     "label": "Wikipedia",
+     "url": "https://en.wikipedia.org/wiki/Hanifan_Yudani_Kusumah",
+     "facts": "titles, results, career stage, profile"
+    }
+   ]
+  }
+ ]
+}

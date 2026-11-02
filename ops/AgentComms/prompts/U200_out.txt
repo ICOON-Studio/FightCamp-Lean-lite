@@ -1,0 +1,17 @@
+Pushed `cursor/u200-locker` to origin. Summary:
+
+**What I did:** Compared each render against `locker_target_concept.jpg` across 6 passes, editing only `Godot/scripts/LockerRoom3D.gd`:
+
+1. **Weigh-in pair** at the scale — a fighter + coach (clipboard) as set dressing, plus a big glowing LED-style kg readout built directly onto the scale's face (was just a floating tag before).
+2. **Hand-wrap pair** on a re-slatted wooden bench — seated fighter + cornerman (reused the "zero the standing-lift" fix from Office3D's seated owner, since they floated above the seat on the first try).
+3. **Two glove racks** (hand-built rail/pole + glove primitives, red/black/gold), a **laundry bin**, loose **kit bags**, a free-standing **towel stand** by the shower, a plain-typography **WEIGHT CLASSES poster** over the wash mirror, and a small door-side poster.
+4. **Lighting**: 3 brighter cool-white practicals (lockers/bench/wash) for the concept's fluorescent-bright room.
+5. **Camera**: widened FOV 50→58 and pulled back — the original framing cropped the shower/glove-rack corner entirely off-screen.
+
+**Fixed mid-pass by reading each render:** the weight poster was hidden behind the door's open-swing arc; the scale readout was hidden behind the weigher's head; a second glove stand kept visually crossing behind people from this camera's diagonal angle and needed repositioning twice.
+
+**Sources:** every new prop is hand-built GDScript primitives (`_box`/`_cyl`/`_sphere`, same style as the room's existing scale/board) — no new asset files, no Blender, no downloads. Existing Kenney CC0 `shower`/`cardboardBoxClosed` kits were only relocated.
+
+**Gates:** parse clean every pass, `locker_room_test` 0 failures, no SCRIPT ERROR in any render log.
+
+**Still unlike the concept** (from [`U200_DIGEST.md`](research/U200_DIGEST.md)): single locker row vs. the concept's two; the mirror reads as a plain pale panel rather than clearly reflective; the coach's clipboard is small enough to nearly disappear at render distance; the towel stand is partly behind the shower from this angle.

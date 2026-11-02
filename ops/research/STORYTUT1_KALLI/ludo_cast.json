@@ -1,0 +1,257 @@
+{
+  "prospects": [
+    {
+      "id": "mara_solano",
+      "name": "Mara Solano",
+      "nickname": "Wire",
+      "age": 21,
+      "weight_class": "welter",
+      "weight_lb": 147,
+      "height_cm": 170,
+      "reach_cm": 173,
+      "stance": "orthodox",
+      "style": "boxer_puncher",
+      "stats": {
+        "power": 52,
+        "speed": 60,
+        "defense": 44,
+        "conditioning": 64,
+        "fight_iq": 58,
+        "technique": 56,
+        "chin": 66
+      },
+      "head_movement": 18,
+      "potential": 80,
+      "traits": [
+        "Late Honest Left",
+        "Quiet Engine",
+        "Slow Starter"
+      ],
+      "trait_notes": {
+        "Late Honest Left": "+15%% counter damage on the left hook after a slipped jab",
+        "Quiet Engine": "",
+        "Slow Starter": "-10%% punch volume in Round 1"
+      },
+      "move_cards": [
+        "1-2",
+        "Lead Hook",
+        "Slip"
+      ],
+      "locked_chain": {
+        "trigger": "Opponent Lead Jab",
+        "evasion": "Slip Outside",
+        "counter": "Right Cross"
+      }
+    },
+    {
+      "id": "tess_okafor",
+      "name": "Tess Okafor",
+      "nickname": "Metronome",
+      "age": 19,
+      "weight_class": "welter",
+      "weight_lb": 147,
+      "height_cm": 176,
+      "reach_cm": 183,
+      "stance": "orthodox",
+      "style": "out_boxer",
+      "stats": {
+        "power": 38,
+        "speed": 74,
+        "defense": 66,
+        "conditioning": 70,
+        "fight_iq": 60,
+        "technique": 62,
+        "chin": 44
+      },
+      "potential": 79,
+      "traits": [
+        "Track Legs",
+        "Point Scorer",
+        "Fragile Confidence"
+      ],
+      "trait_notes": {
+        "Track Legs": "+25%% move budget",
+        "Point Scorer": "",
+        "Fragile Confidence": ""
+      },
+      "move_cards": [
+        "Double Jab",
+        "Slip",
+        "1-2"
+      ]
+    },
+    {
+      "id": "lina_varga",
+      "name": "Lina Varga",
+      "nickname": "Hammer",
+      "age": 20,
+      "weight_class": "welter",
+      "weight_lb": 147,
+      "height_cm": 166,
+      "reach_cm": 165,
+      "stance": "southpaw",
+      "style": "slugger",
+      "stats": {
+        "power": 80,
+        "speed": 56,
+        "defense": 30,
+        "conditioning": 44,
+        "fight_iq": 40,
+        "technique": 46,
+        "chin": 38
+      },
+      "potential": 74,
+      "traits": [
+        "Touch of Sleep",
+        "Early Gasser",
+        "Glass Jaw"
+      ],
+      "trait_notes": {
+        "Touch of Sleep": "+20%% crit",
+        "Early Gasser": "-2 stamina/sec in R3",
+        "Glass Jaw": ""
+      },
+      "move_cards": [
+        "Rear Hook",
+        "Body Hook",
+        "Lead Hook"
+      ]
+    }
+  ],
+  "opponents": {
+    "fight_1": {
+      "id": "elena_perez",
+      "name": "Elena Perez",
+      "nickname": "The Hook",
+      "age": 20,
+      "weight_class": "welter",
+      "weight_lb": 147,
+      "height_cm": 165,
+      "reach_cm": 166,
+      "stance": "orthodox",
+      "style": "swarmer",
+      "stats": {
+        "power": 54,
+        "speed": 58,
+        "defense": 32,
+        "conditioning": 48,
+        "fight_iq": 35,
+        "technique": 36,
+        "chin": 40
+      },
+      "traits": [
+        "Telegraph Hooks",
+        "Poor Recovery"
+      ],
+      "trait_notes": {
+        "Telegraph Hooks": "+15%% parry window",
+        "Poor Recovery": ""
+      },
+      "tells": [
+        {
+          "kind": "tell",
+          "name": "Lunging Left",
+          "effect": "Drops right hand when throwing lead hook; +15%% straight right counter window"
+        },
+        {
+          "kind": "exit",
+          "name": "Linear Escape",
+          "effect": "Backs up in straight lines when tagged; +15%% cutting off ring tracking"
+        },
+        {
+          "kind": "exit",
+          "name": "Third-Round Wall",
+          "effect": "Conditioning plummets past 01:30 of Round 3; punch volume drops by -35%%"
+        }
+      ]
+    },
+    "fight_2": {
+      "id": "nadia_kerr",
+      "name": "Nadia Kerr",
+      "nickname": "Brick",
+      "age": 23,
+      "weight_class": "welter",
+      "weight_lb": 146,
+      "height_cm": 168,
+      "reach_cm": 169,
+      "stance": "orthodox",
+      "style": "slugger",
+      "stats": {
+        "power": 72,
+        "speed": 44,
+        "defense": 41,
+        "conditioning": 58,
+        "fight_iq": 42,
+        "technique": 40,
+        "chin": 74
+      },
+      "traits": [
+        "Dirty Fighter",
+        "Clubbing Thud",
+        "Swell Seeker"
+      ],
+      "trait_notes": {
+        "Dirty Fighter": "Head clash on clinch break",
+        "Clubbing Thud": "",
+        "Swell Seeker": "+20%% swelling on eye-region hits"
+      },
+      "tells": [
+        {
+          "kind": "tell",
+          "name": "Dipping Overhand",
+          "effect": "Ducks low before throwing overhand right; +20%% uppercut counter window"
+        },
+        {
+          "kind": "tell",
+          "name": "Collar Tie Blind",
+          "effect": "Leaves liver exposed in half-clinch; +20%% body hook damage"
+        },
+        {
+          "kind": "exit",
+          "name": "Left Hook Exit Trap",
+          "effect": "Circles strictly to the left after throwing right hand; vulnerable to step-around counters"
+        }
+      ]
+    }
+  },
+  "card_names": {
+    "regional_card_hale_yard": "Jace Vellin"
+  },
+  "sparring_partner": {
+    "id": "bea_marsh",
+    "name": "Bea Marsh",
+    "nickname": "The Wall",
+    "age": 36,
+    "weight_class": "welter",
+    "weight_lb": 150,
+    "height_cm": 169,
+    "reach_cm": 171,
+    "stance": "orthodox",
+    "stats": {
+      "power": 46,
+      "speed": 42,
+      "defense": 68,
+      "conditioning": 52,
+      "fight_iq": 74,
+      "technique": 62,
+      "chin": 70
+    },
+    "wage_per_week": 50,
+    "never_booked": true,
+    "traits": [
+      "Gatekeeper Composure",
+      "Spill the Plan"
+    ],
+    "trait_notes": {
+      "Gatekeeper Composure": "",
+      "Spill the Plan": "If unpaid for 2 weeks, leaks camp tells"
+    },
+    "mimic": {
+      "slugger": 0.85,
+      "swarmer": 0.7,
+      "boxer_puncher": 0.6,
+      "counter_puncher": 0.4,
+      "out_boxer": 0.25
+    }
+  }
+}

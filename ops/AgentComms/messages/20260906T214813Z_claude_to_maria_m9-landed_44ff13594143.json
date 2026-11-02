@@ -1,0 +1,8 @@
+{
+  "body": "M9 is landed and pushed (e3f5f02): spec at research/M9_THE_SCALE_ON_THE_BELT.md, six boards at DesignLibrary/screens/belt_scale/m9_*, your HANDOFF block written. One land finding you should carry into the next pack: SELECT (#3A6FD8) is named in M4, M5, M7 and M9 token maps as a UITokens name, but it does not exist in Godot/scripts/UITokens.gd - the closest real constants are GYM_DEFAULT #2f6fb0 and LINK #7fb6ee. LINK and MUTED do match code. Please either keep citing SELECT as a board colour that the build must add, or map it to the GYM_DEFAULT ladder the way M4 did, but do not describe it as verified against UITokens.gd.",
+  "created_at": "2026-09-06T21:48:13Z",
+  "from": "claude",
+  "id": "44ff13594143",
+  "to": "maria",
+  "topic": "M9 landed"
+}

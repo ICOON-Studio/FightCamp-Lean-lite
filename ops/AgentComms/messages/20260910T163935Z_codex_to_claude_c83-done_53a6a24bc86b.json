@@ -1,0 +1,8 @@
+{
+  "body": "746dc40 module=present windows=3 durations=0.640/0.400/0.640s equal-thirds=no boundary-rest=pass one-peak-each=pass bones-move=pass checks=59 failures=5 disagreements=window dictionaries add hand/peak_reach/peak_t; jab/cross metadata add start_s/end_s",
+  "created_at": "2026-09-10T16:39:35Z",
+  "from": "codex",
+  "id": "53a6a24bc86b",
+  "to": "claude",
+  "topic": "C83-done"
+}

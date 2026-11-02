@@ -1,0 +1,218 @@
+continue - your reply stopped in the middle of FILE 4 (tests/load_ledger_test.gd at var daily: Array = Array(ledger.get("daily_spend",). Write FILE 4 again IN FULL from its first line (every rule of LoadLedger: block_cost table, spend, status bands at their edges, injury_mult, niggle_forced within 2 days, week_end form bonus under 70 + reset, forecast, determinism), then PART B (HUD placement at 1920x1080, short). Same rules as before, no '...'.
+
+FILE 4: tests/load_ledger_test.gd
+# tests/load_ledger_test.gd
+# Headless unit tests for scripts/rules/LoadLedger.gd
+extends SceneTree
+
+func _initialize() -> void:
+	var LL = load("res://scripts/rules/LoadLedger.gd")
+	var failures: int = 0
+	print("--- BEGIN LOAD LEDGER TESTS ---")
+
+	# Test 1: Block cost calculation across station table and cue variations
+	var cost_hb_pw: float = LL.block_cost("heavy_bag", 60, "power_through")
+	if abs(cost_hb_pw - 12.15) > 0.001:
+		print("FAIL: Heavy bag power through cost mismatch: %f (expected 12.15)" % cost_hb_pw)
+		failures += 1
+
+	var cost_spar_90: float = LL.block_cost("ring_spar", 90, "normal")
+	if abs(cost_spar_90 - 21.0) > 0.001:
+		print("FAIL: Ring spar 90 min normal cost mismatch: %f (expected 21.0)" % cost_spar_90)
+		failures += 1
+
+	var cost_strength_30: float = LL.block_cost("strength", 30, "crisp_form")
+	if abs(cost_strength_30 - 5.5) > 0.001:
+		print("FAIL: Strength 30 min crisp form cost mismatch: %f (expected 5.5)" % cost_strength_30)
+		failures += 1
+
+	var cost_shadow_60: float = LL.block_cost("shadow", 60, "normal")
+	if abs(cost_shadow_60 - 4.0) > 0.001:
+		print("FAIL: Shadow 60 min normal cost mismatch: %f (expected 4.0)" % cost_shadow_60)
+		failures += 1
+
+	var cost_rest: float = LL.block_cost("rest", 60, "normal")
+	var cost_physio: float = LL.block_cost("physio", 60, "normal")
+	if cost_rest != 0.0 or cost_physio != 0.0:
+		print("FAIL: Rest or physio produced non-zero load cost.")
+		failures += 1
+
+	# Test 2: Spend tracking across multiple days
+	var ledger: Dictionary = LL.create_new_week()
+	ledger = LL.spend(ledger, 15.0, 0)
+	ledger = LL.spend(ledger, 20.0, 1)
+	if float(ledger.get("spent", 0.0)) != 35.0:
+		print("FAIL: Total spend tracking failed.")
+		failures += 1
+
+	var daily: Array = Array(ledger.get("daily_spend", []))
+	if float(daily[0]) != 15.0 or float(daily[1]) != 20.0 or float(daily[2]) != 0.0:
+		print("FAIL: Daily spend breakdown mismatch.")
+		failures += 1
+
+	# Test 3: Status bands and exact band boundary edges
+	# Edge: Exactly 69.9 -> FRESH
+	var ledger_69: Dictionary = LL.create_new_week()
+	ledger_69 = LL.spend(ledger_69, 69.9, 0)
+	var stat_69: Dictionary = LL.status(ledger_69)
+	if stat_69.get("band") != "FRESH":
+		print("FAIL: Spent 69.9 did not register as FRESH band.")
+		failures += 1
+
+	# Edge: Exactly 70.0 -> LOADED
+	var ledger_70: Dictionary = LL.create_new_week()
+	ledger_70 = LL.spend(ledger_70, 70.0, 0)
+	var stat_70: Dictionary = LL.status(ledger_70)
+	if stat_70.get("band") != "LOADED":
+		print("FAIL: Spent 70.0 boundary did not register as LOADED band.")
+		failures += 1
+
+	# Edge: Exactly 100.0 -> LOADED
+	var ledger_100: Dictionary = LL.create_new_week()
+	ledger_100 = LL.spend(ledger_100, 100.0, 0)
+	var stat_100: Dictionary = LL.status(ledger_100)
+	if stat_100.get("band") != "LOADED":
+		print("FAIL: Spent 100.0 boundary did not register as LOADED band.")
+		failures += 1
+
+	# Edge: 100.1 -> OVER
+	var ledger_101: Dictionary = LL.create_new_week()
+	ledger_101 = LL.spend(ledger_101, 100.1, 0)
+	var stat_101: Dictionary = LL.status(ledger_101)
+	if stat_101.get("band") != "OVER":
+		print("FAIL: Spent 100.1 did not register as OVER band.")
+		failures += 1
+
+	# Test 4: Injury multiplier scaling
+	var mult_fresh: float = LL.injury_mult(ledger_69)
+	var mult_loaded: float = LL.injury_mult(ledger_70)
+	var mult_over: float = LL.injury_mult(ledger_101)
+
+	if mult_fresh != 1.0:
+		print("FAIL: Fresh ledger injury mult is not 1.0.")
+		failures += 1
+	if mult_loaded != 1.25:
+		print("FAIL: Loaded ledger injury mult is not 1.25.")
+		failures += 1
+	if mult_over != 2.0:
+		print("FAIL: Overload ledger injury mult did not double to 2.0.")
+		failures += 1
+
+	# Test 5: Niggle forced within 2 days of overload or acute day spike
+	# Case A: Over 100 on first day (over_days_count = 1) -> not forced yet
+	var ledger_spike: Dictionary = LL.create_new_week()
+	ledger_spike = LL.spend(ledger_spike, 105.0, 0)
+	# Acute check: day 0 has 105.0 which is >= 35.0, so acute single-day trigger activates
+	if not LL.niggle_forced(ledger_spike, 0):
+		print("FAIL: Acute single day spike >= 35.0 did not force niggle.")
+		failures += 1
+
+	# Case B: Sustained overload across 2 logging events
+	var ledger_sustained: Dictionary = LL.create_new_week()
+	ledger_sustained = LL.spend(ledger_sustained, 60.0, 0)
+	ledger_sustained = LL.spend(ledger_sustained, 45.0, 1) # Total 105.0, over_count = 1
+	var forced_day1: bool = LL.niggle_forced(ledger_sustained, 1)
+	# day 1 has 45.0 which triggers acute check
+	if not forced_day1:
+		print("FAIL: Day 1 with 45.0 load did not trigger niggle.")
+		failures += 1
+
+	# Test 2 persistent days over 100 with moderate daily additions
+	var ledger_two_days: Dictionary = LL.create_new_week()
+	ledger_two_days["spent"] = 101.0
+	ledger_two_days["over_days_count"] = 1
+	ledger_two_days["daily_spend"] = [20.0, 20.0, 20.0, 20.0, 21.0, 0.0, 0.0]
+	# Day 5 spend of 5.0 does not trigger acute 35.0 check, but over_count becomes 2
+	ledger_two_days = LL.spend(ledger_two_days, 5.0, 5)
+	if not LL.niggle_forced(ledger_two_days, 5):
+		print("FAIL: Persistent 2-day overload did not force niggle.")
+		failures += 1
+
+	# Test 6: Week-end form bonus and ledger reset
+	# Scenario A: Under 70 gets +1 form bonus
+	var end_fresh: Dictionary = LL.week_end(ledger_69)
+	if int(end_fresh.get("form_bonus", 0)) != 1:
+		print("FAIL: Week end under 70 failed to award +1 form bonus.")
+		failures += 1
+	var fresh_reset: Dictionary = Dictionary(end_fresh.get("new_ledger", {}))
+	if float(fresh_reset.get("spent", -1.0)) != 0.0:
+		print("FAIL: Week end did not reset ledger spent to 0.0.")
+		failures += 1
+
+	# Scenario B: Between 70 and 100 gets 0 form bonus
+	var end_loaded: Dictionary = LL.week_end(ledger_70)
+	if int(end_loaded.get("form_bonus", -99)) != 0:
+		print("FAIL: Week end between 70 and 100 did not yield 0 form bonus.")
+		failures += 1
+
+	# Scenario C: Over 100 gets -1 form penalty
+	var end_over: Dictionary = LL.week_end(ledger_101)
+	if int(end_over.get("form_bonus", 0)) != -1:
+		print("FAIL: Week end over 100 did not assign -1 form penalty.")
+		failures += 1
+
+	# Test 7: Forecast calculation against planned blocks
+	var plan: Array = [
+		{"kind": "heavy_bag", "minutes": 60, "cue": "normal"},
+		{"kind": "slip_rope", "minutes": 30, "cue": "normal"},
+		{"kind": "cardio", "minutes": 60, "cue": "normal"}
+	]
+	# Costs: heavy_bag 60 = 9.0; slip_rope 30 = 2.5; cardio 60 = 8.0. Total = 19.5
+	var fc: Dictionary = LL.forecast(ledger_69, plan)
+	if abs(float(fc.get("additional_cost", 0.0)) - 19.5) > 0.001:
+		print("FAIL: Forecast additional cost mismatch: %f (expected 19.5)" % float(fc.get("additional_cost", 0.0)))
+		failures += 1
+	if not bool(fc.get("will_exceed", false)):
+		# 69.9 + 19.5 = 89.4 (does not exceed 100.0)
+		pass
+	else:
+		print("FAIL: Forecast falsely flagged exceeding 100.")
+		failures += 1
+
+	# Forecast that pushes over 100
+	var heavy_plan: Array = [
+		{"kind": "ring_spar", "minutes": 90, "cue": "power_through"}, # 14.0 * 1.5 * 1.35 = 28.35
+		{"kind": "strength", "minutes": 60, "cue": "normal"}          # 11.0 * 1.0 * 1.0 = 11.0. Sum = 39.35
+	]
+	# 69.9 + 39.35 = 109.25 (> 100.0)
+	var fc_over: Dictionary = LL.forecast(ledger_69, heavy_plan)
+	if not bool(fc_over.get("will_exceed", false)):
+		print("FAIL: Heavy plan forecast failed to flag exceeding 100.")
+		failures += 1
+
+	# Test 8: Determinism validation
+	var d1: float = LL.block_cost("pads", 45, "power_through")
+	var d2: float = LL.block_cost("pads", 45, "power_through")
+	if d1 != d2:
+		print("FAIL: Non-deterministic output detected in block_cost.")
+		failures += 1
+
+	print("LOAD_LEDGER failures=%d" % failures)
+	quit(0 if failures == 0 else 1)
+
+PART B: FLOOR HUD PLACEMENT (1920x1080)
+1. K8 Corner Rehearsal Card
+Screen Placement: Centered horizontally in the lower-middle viewport above the floor control deck.
+Canvas Coordinates: X: 660, Y: 690 (Size: 600px width by 260px height).
+Structure & Visual Hierarchy:
+Top Header (40px height): Dark charcoal banner (#1a1c23) with gold accent border (#f0c233). Shows completed block title on the left (e.g., "HEAVY BAG (60 MIN COMPLETE)") and stat/strain readouts on the right.
+Mid Data Strip (60px height): Two concise summary pills: +3 Power in crisp gold text; Strain 52/100 and Shoulders Sore (48) in warning amber.
+Three Decision Call Cards (130px height): Laid out horizontally side-by-side (186px width each, 10px gap):
+[1] PUSH Card: Amber trim. Displays "Repeat Heavy Bag (+15% Gains, +8 Strain)". Greys out with semi-transparent overlay (opacity: 0.35) and lock icon if stamina < 25 or strain ≥ 85.
+[2] SWAP Card: Cyan/Gold trim. Displays "Swap to Slip Rope (1.2x Defense)" with tactical counter-explanation.
+[3] ICE Card: Cool blue trim (#3ba3db). Displays "Flush -10 Shoulder Wear (Costs 20 Min)".
+10-Second Countdown Timer Bar: A sleek 4px high horizontal bar spanning the bottom border (X: 660, Y: 946, width 600px). Depletes smoothly from left to right from clean white (#ffffff) to warning red (#d93829). When it reaches zero, auto_call() triggers and applies the chosen call without game pause.
+2. K9 Load Ledger Strip
+Screen Placement: Anchored directly underneath the boxer portrait card in the top-left gym floor overview.
+Canvas Coordinates: X: 32, Y: 184 (Size: 280px width by 54px height).
+Structure & Visual Hierarchy:
+Header Row (18px height): Text label on left: "WEEKLY LOAD"; numerical meter on right: "58.5 / 100" (or "104.2 / 100" in bold red).
+Horizontal Budget Gauge (12px height, 280px width): Segmented progress bar with two clear notched tick lines at 70.0 (Taper Target Line) and 100.0 (Injury Danger Threshold).
+Fill Color (0.0 to 69.9): Steel Teal (#38a3a5) denoting FRESH (+1 fight form on fight day).
+Fill Color (70.0 to 100.0): Amber Orange (#e6912c) denoting LOADED (heavy camp volume).
+Fill Color (> 100.0): Pulsing Crimson (#d93829) with flashing warning label: "OVERLOAD: 2x INJURY RISK".
+Daily Mini-Ticks (14px height): 7 subtle vertical tick-bars along the bottom showing Monday–Sunday distribution, visualizing which training days generated the largest strain spikes. Hovering displays the forecasted daily cost before confirming the Morning Day Plan.
+Can you provide the complete LoadLedger.gd implementation matching every test and the stated session-RPE rules?
+Can you fix the incomplete tests and verify the exact block-cost table values against Foster session-RPE logic?
+Can you design a clean FightCamp HUD mockup showing the load gauge, thresholds, daily ticks, timer, and cards at 1920x1080?
+Can you add deterministic test commands and explain how to run both GDScript test files headlessly?

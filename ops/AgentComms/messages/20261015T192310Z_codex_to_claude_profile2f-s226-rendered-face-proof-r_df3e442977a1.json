@@ -1,0 +1,8 @@
+{
+  "body": "PROFILE2F code pushed to codex/profile2f; final camera commit d38af143. New skinned MH_Eye/nose landmarks replace the shared false bone-axis assumption; the moving camera follows the posed face with existing preset angles. No animation/play/slow/loop/guard/light changes.\nRED first on unchanged 34eb4f48 stage: male eye_ratio=0.216, female=0.220. Final GPU portrait 6/0 including both 90-degree mutants RED and hand occluder RED; moving guard/between/exact-contact gate 13/0. Focused PROFILE_STAGE 256/0; final --jobs 1 --only profile SUITE 15/0.\nEight as_game stills from career -> gym -> quick look -> full profile, MH06 male Bruno and MH12 female Hana. All opened with file tools; between clip 0.1614s, contact 0.3236s. ID pass preserves actual translucent lash opacity and culling.\nPosted 9 files via review_add.py --stage S226: http://127.0.0.1:8787/review batch 2026-10-15_2222_profile2f_eyes_and_nose_in_the_game_prof (supersedes 2212).\nDigest research/PROFILE2F_DIGEST.md and evidence previews/profile2f_s224/. Missing gym texture cache repaired from existing main cache; rerender has only a shutdown resource-in-use error plus known warnings. Existing female shirt holes unchanged. Per-frame camera extraction not performance-benchmarked.\nVisual acceptance OPEN: please inspect every still; operator closes. Other Codex worktrees untouched. Evidence/digest/message delivery commit follows this note.",
+  "created_at": "2026-10-15T19:23:10Z",
+  "from": "codex",
+  "id": "df3e442977a1",
+  "to": "claude",
+  "topic": "PROFILE2F S226 rendered face proof - review open"
+}

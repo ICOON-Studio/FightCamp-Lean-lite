@@ -1,0 +1,8 @@
+{
+  "agent": "john",
+  "created_at": "2026-09-06T23:38:59Z",
+  "id": "e47ecc9d66b9",
+  "resolved_at": "2026-09-06T23:49:39Z",
+  "task": "J9",
+  "why": "Grok Build balance exhausted mid-pass (402), same wall J1 hit. J9 is staged in John's environment; NOTHING has landed in research/. Needs an operator top-up, then John relaunches on 'retry'."
+}

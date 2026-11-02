@@ -1,0 +1,139 @@
+{
+ "boxing_kick_failure": {
+  "population": "10 boxing videos with usable two-man time (same pool U110 used)",
+  "n": 413,
+  "classification": {
+   "in_place_foot_lift": 172,
+   "short_step": 135,
+   "other": 106
+  },
+  "classification_note": "in_place_foot_lift = away_s < 0.10 s and hips_out_T < 0.02 T (ankle rises, hips stay; footwork noise). short_step = away_s < 0.15 s. Detector fires on rolling-median ankle lifts during boxing footwork.",
+  "summary": {
+   "n": 413,
+   "away_s_p50": 0.0667,
+   "away_s_p90": 0.2006,
+   "extension_s_p50": 0.0334,
+   "hips_out_T_p50": 0.0109,
+   "lead_ankle_out_T_p50": 0.0187,
+   "rise_T_p50": 0.204,
+   "short_away_share": 0.5327,
+   "matched_punch_share": 0.0557
+  },
+  "videos": [
+   {
+    "video_id": "-vPZqptk8jo",
+    "discipline": "boxing",
+    "usable_seconds": 114.87999153137207,
+    "kick_n": 71
+   },
+   {
+    "video_id": "FCM7m6TJWUQ",
+    "discipline": "boxing",
+    "usable_seconds": 45.53999710083008,
+    "kick_n": 4
+   },
+   {
+    "video_id": "HL261oRyURE",
+    "discipline": "boxing",
+    "usable_seconds": 103.49999618530273,
+    "kick_n": 8
+   },
+   {
+    "video_id": "vOFmsN3JROs",
+    "discipline": "boxing",
+    "usable_seconds": 4.771430969238281,
+    "kick_n": 3
+   },
+   {
+    "video_id": "yg_N42n_Jdk",
+    "discipline": "boxing",
+    "usable_seconds": 22.789432525634766,
+    "kick_n": 16
+   },
+   {
+    "video_id": "xaXXD-w45b0",
+    "discipline": "boxing",
+    "usable_seconds": 15.614555358886719,
+    "kick_n": 65
+   },
+   {
+    "video_id": "wzUWvsviqTM",
+    "discipline": "boxing",
+    "usable_seconds": 151.81776428222656,
+    "kick_n": 226
+   },
+   {
+    "video_id": "kuABaA2PY0U",
+    "discipline": "boxing",
+    "usable_seconds": 41.20782470703125,
+    "kick_n": 11
+   },
+   {
+    "video_id": "XIja1S9SXI4",
+    "discipline": "boxing",
+    "usable_seconds": 118.01789927482605,
+    "kick_n": 9
+   }
+  ]
+ },
+ "kick_commitment_populations": {
+  "mma": {
+   "video_id": "_mkFV2H2oCk_r1",
+   "label": "UFC MMA broadcast round 1",
+   "discipline": "mma",
+   "usable_seconds": 125.692,
+   "summary": {
+    "n": 72,
+    "away_s_p50": 0.1668,
+    "away_s_p90": 0.3303,
+    "extension_s_p50": 0.0667,
+    "hips_out_T_p50": 0.0397,
+    "lead_ankle_out_T_p50": 0.0446,
+    "rise_T_p50": 0.191,
+    "short_away_share": 0.1667,
+    "matched_punch_share": 0.0278
+   }
+  },
+  "muay_thai": {
+   "video_id": "_Fc7QLzbQlQ",
+   "label": "Muay Thai gym sparring (ELITE Muay Thai Sparring, Siam Boxing)",
+   "discipline": "muay_thai",
+   "usable_seconds": 14.64,
+   "summary": {
+    "n": 42,
+    "away_s_p50": 0.1,
+    "away_s_p90": 0.24,
+    "extension_s_p50": 0.02,
+    "hips_out_T_p50": 0.0024,
+    "lead_ankle_out_T_p50": 0.0039,
+    "rise_T_p50": 0.225,
+    "short_away_share": 0.5,
+    "matched_punch_share": 0.0
+   }
+  }
+ },
+ "kick_commitment_pooled": {
+  "n": 114,
+  "away_s_p50": 0.1335,
+  "away_s_p90": 0.3003,
+  "extension_s_p50": 0.0534,
+  "hips_out_T_p50": 0.0271,
+  "lead_ankle_out_T_p50": 0.0326,
+  "rise_T_p50": 0.1964,
+  "short_away_share": 0.2895,
+  "matched_punch_share": 0.0175,
+  "population": "UFC MMA round 1 + Muay Thai gym sparring; boxing excluded",
+  "videos": [
+   {
+    "video_id": "_mkFV2H2oCk_r1",
+    "discipline": "mma",
+    "n": 72
+   },
+   {
+    "video_id": "_Fc7QLzbQlQ",
+    "discipline": "muay_thai",
+    "n": 42
+   }
+  ]
+ }
+}

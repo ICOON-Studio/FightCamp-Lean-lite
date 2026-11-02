@@ -1,0 +1,203 @@
+{
+  "catalogue_commit": "a495368",
+  "nodes": [
+    {
+      "id": "judo_kesagatame",
+      "seats": ["ground_top"],
+      "rule_b_says": ["ground_top"],
+      "reason": "Pin (osaekomi-waza, scarf hold). Applied from on top. Rule A restored from catalogue; agree."
+    },
+    {
+      "id": "judo_kuzurekesagatame",
+      "seats": ["ground_top"],
+      "rule_b_says": ["ground_top"],
+      "reason": "Pin (osaekomi-waza, broken scarf hold). Applied from on top. Rule B derived; agree."
+    },
+    {
+      "id": "judo_ushirokesagatame",
+      "seats": ["ground_top"],
+      "rule_b_says": ["ground_top"],
+      "reason": "Pin (osaekomi-waza, rear scarf hold). Applied from on top. Rule B derived; agree."
+    },
+    {
+      "id": "judo_katagatame",
+      "seats": ["ground_top"],
+      "rule_b_says": ["ground_top"],
+      "reason": "Pin (osaekomi-waza, shoulder hold). Applied from on top. Rule B derived; agree."
+    },
+    {
+      "id": "judo_kamishihogatame",
+      "seats": ["ground_top"],
+      "rule_b_says": ["ground_top"],
+      "reason": "Pin (osaekomi-waza, upper four-quarter hold). Applied from on top. Rule B derived; agree."
+    },
+    {
+      "id": "judo_kuzurekamishihogatame",
+      "seats": ["ground_top"],
+      "rule_b_says": ["ground_top"],
+      "reason": "Pin (osaekomi-waza, broken upper four-quarter hold). Applied from on top. Rule B derived; agree."
+    },
+    {
+      "id": "judo_yokoshihogatame",
+      "seats": ["ground_top"],
+      "rule_b_says": ["ground_top"],
+      "reason": "Pin (osaekomi-waza, side four-quarter hold). Applied from on top. Rule B derived; agree."
+    },
+    {
+      "id": "judo_tateshihogatame",
+      "seats": ["ground_top"],
+      "rule_b_says": ["ground_top"],
+      "reason": "Pin (osaekomi-waza, vertical four-quarter hold). Applied from on top. Rule B derived; agree."
+    },
+    {
+      "id": "judo_ukigatame",
+      "seats": ["ground_top"],
+      "rule_b_says": ["ground_top"],
+      "reason": "Pin (osaekomi-waza, floating hold). Applied from on top. Rule B derived; agree."
+    },
+    {
+      "id": "judo_uragatame",
+      "seats": ["ground_top"],
+      "rule_b_says": ["ground_top"],
+      "reason": "Pin (osaekomi-waza, rear hold). Applied from on top. Rule B derived; agree."
+    },
+    {
+      "id": "judo_osaekomi_chain",
+      "seats": ["ground_top"],
+      "rule_b_says": ["ground_top"],
+      "reason": "Pin chain (osaekomi-waza sequence). Applied from on top. Rule A restored from catalogue; agree."
+    },
+    {
+      "id": "judo_jujigatame",
+      "seats": ["ground_top", "ground_bottom"],
+      "rule_b_says": ["ground_top"],
+      "reason": "Arm lock (cross armlock). Can be applied from above (mount/side control) or from underneath (guard). Rule A restored as ground_top from catalogue, but the technique is commonly finished from guard. Override to both seats."
+    },
+    {
+      "id": "judo_sankaku",
+      "seats": ["ground_top", "ground_bottom"],
+      "rule_b_says": ["ground_top"],
+      "reason": "Triangle choke/armlock. Typically applied from guard (bottom) in judo, but can also be applied from top (rolling triangle, side control). Rule A restored as ground_top from catalogue. Override to both seats."
+    },
+    {
+      "id": "judo_hadakajime",
+      "seats": ["ground_top"],
+      "rule_b_says": ["ground_top", "ground_bottom"],
+      "reason": "Rear naked choke. Applied from behind, which in a two-seat model is the top seat. Rule B says both, but the technique is applied from behind/above. Override to ground_top."
+    },
+    {
+      "id": "judo_okurierijime",
+      "seats": ["ground_top"],
+      "rule_b_says": ["ground_top", "ground_bottom"],
+      "reason": "Sliding collar choke. Applied from behind/above, which in a two-seat model is the top seat. Rule B says both, but the technique is applied from behind. Override to ground_top."
+    },
+    {
+      "id": "judo_katahajime",
+      "seats": ["ground_top"],
+      "rule_b_says": ["ground_top", "ground_bottom"],
+      "reason": "Single wing choke. Applied from behind/above, which in a two-seat model is the top seat. Rule B says both, but the technique is applied from behind. Override to ground_top."
+    },
+    {
+      "id": "judo_namijujijime",
+      "seats": ["ground_top", "ground_bottom"],
+      "rule_b_says": ["ground_top", "ground_bottom"],
+      "reason": "Regular cross choke. Can be applied from various positions including guard and side control. Rule B derived; agree."
+    },
+    {
+      "id": "judo_gyakujujijime",
+      "seats": ["ground_top", "ground_bottom"],
+      "rule_b_says": ["ground_top", "ground_bottom"],
+      "reason": "Reverse cross choke. Can be applied from various positions. Rule B derived; agree."
+    },
+    {
+      "id": "judo_katajujijime",
+      "seats": ["ground_top", "ground_bottom"],
+      "rule_b_says": ["ground_top", "ground_bottom"],
+      "reason": "Cross choke variation. Can be applied from various positions. Rule B derived; agree."
+    },
+    {
+      "id": "judo_katatejime",
+      "seats": ["ground_top", "ground_bottom"],
+      "rule_b_says": ["ground_top", "ground_bottom"],
+      "reason": "One-hand choke. Typically from top/behind but can be finished from bottom. Rule B derived; agree."
+    },
+    {
+      "id": "judo_ryotejime",
+      "seats": ["ground_top", "ground_bottom"],
+      "rule_b_says": ["ground_top", "ground_bottom"],
+      "reason": "Two-hand choke. Typically from top/behind but can be finished from bottom. Rule B derived; agree."
+    },
+    {
+      "id": "judo_sodegurumajime",
+      "seats": ["ground_top", "ground_bottom"],
+      "rule_b_says": ["ground_top", "ground_bottom"],
+      "reason": "Sleeve wheel choke. Can be applied from various positions. Rule B derived; agree."
+    },
+    {
+      "id": "judo_tsukkomijime",
+      "seats": ["ground_top", "ground_bottom"],
+      "rule_b_says": ["ground_top", "ground_bottom"],
+      "reason": "Thrusting choke. Can be applied from various positions. Rule B derived; agree."
+    },
+    {
+      "id": "judo_dojime",
+      "seats": ["ground_top", "ground_bottom"],
+      "rule_b_says": ["ground_top", "ground_bottom"],
+      "reason": "Body scissors (leg choke). Can be applied from various positions. Rule B derived; agree."
+    },
+    {
+      "id": "judo_udegarami",
+      "seats": ["ground_top", "ground_bottom"],
+      "rule_b_says": ["ground_top", "ground_bottom"],
+      "reason": "Arm entanglement. Can be applied from above or from underneath. Rule B derived; agree."
+    },
+    {
+      "id": "judo_udehishigiudegatame",
+      "seats": ["ground_top", "ground_bottom"],
+      "rule_b_says": ["ground_top", "ground_bottom"],
+      "reason": "Armlock using arm. Can be applied from above or from underneath. Rule B derived; agree."
+    },
+    {
+      "id": "judo_udehishigihizagatame",
+      "seats": ["ground_top", "ground_bottom"],
+      "rule_b_says": ["ground_top", "ground_bottom"],
+      "reason": "Knee armlock. Typically from top/side but can be finished from bottom. Rule B derived; agree."
+    },
+    {
+      "id": "judo_udehishigiwakigatame",
+      "seats": ["ground_top", "ground_bottom"],
+      "rule_b_says": ["ground_top", "ground_bottom"],
+      "reason": "Armpit armlock. Can be applied from above or from underneath. Rule B derived; agree."
+    },
+    {
+      "id": "judo_udehishigiharagatame",
+      "seats": ["ground_top", "ground_bottom"],
+      "rule_b_says": ["ground_top", "ground_bottom"],
+      "reason": "Body armlock. Typically from top but can be finished from bottom. Rule B derived; agree."
+    },
+    {
+      "id": "judo_udehishigiashigatame",
+      "seats": ["ground_top", "ground_bottom"],
+      "rule_b_says": ["ground_top", "ground_bottom"],
+      "reason": "Leg armlock. Can be applied from various positions. Rule B derived; agree."
+    },
+    {
+      "id": "judo_udehishigitegatame",
+      "seats": ["ground_top", "ground_bottom"],
+      "rule_b_says": ["ground_top", "ground_bottom"],
+      "reason": "Hand armlock. Typically from top but can be finished from bottom. Rule B derived; agree."
+    },
+    {
+      "id": "judo_udehishigisankakugatame",
+      "seats": ["ground_top", "ground_bottom"],
+      "rule_b_says": ["ground_top", "ground_bottom"],
+      "reason": "Triangle armlock. Can be applied from above or from underneath. Rule B derived; agree."
+    },
+    {
+      "id": "judo_ashigarami",
+      "seats": ["ground_top", "ground_bottom"],
+      "rule_b_says": ["ground_top", "ground_bottom"],
+      "reason": "Leg entanglement. Can be applied from various positions. Rule B derived; agree."
+    }
+  ]
+}

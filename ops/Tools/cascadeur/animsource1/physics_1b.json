@@ -1,0 +1,77 @@
+{
+  "guard_pose": {
+    "solver_log": [
+      "2026-10-12 05:11:02,842 AutoPhysics status: Iterations: 1, Termination: CONVERGENCE, Time: 0.000 sec.",
+      "2026-10-12 05:11:02,934 Trajectory smoothness solved",
+      "2026-10-12 05:11:03,278 Separation of motion solved",
+      "2026-10-12 05:11:03,374 AutoPhysics status: Iterations: 16, Termination: CONVERGENCE, Time: 0.008 sec.",
+      "2026-10-12 05:11:03,462 Physics corrector solved",
+      "2026-10-12 05:11:03,505 Compensation motion solved",
+      "2026-10-12 05:11:03,513 Rotation smoothness solved",
+      "2026-10-12 05:11:03,835 Secondary motion solved",
+      "2026-10-12 05:11:03,835 Restore unbound solved",
+      "2026-10-12 05:11:03,838 Fix collisions solved",
+      "2026-10-12 05:11:03,838 Autophysics core finished"
+    ]
+  },
+  "jab": {
+    "solver_log": [
+      "2026-10-12 05:28:34,668 AutoPhysics status: Iterations: 16, Termination: CONVERGENCE, Time: 0.001 sec.",
+      "2026-10-12 05:28:34,756 Trajectory smoothness solved",
+      "2026-10-12 05:28:35,146 Separation of motion solved",
+      "2026-10-12 05:28:35,301 AutoPhysics status: Iterations: 207, Termination: CONVERGENCE, Time: 0.070 sec.",
+      "2026-10-12 05:28:35,398 Physics corrector solved",
+      "2026-10-12 05:28:35,448 Compensation motion solved",
+      "2026-10-12 05:28:35,456 Rotation smoothness solved",
+      "2026-10-12 05:28:35,771 Secondary motion solved",
+      "2026-10-12 05:28:35,772 Restore unbound solved",
+      "2026-10-12 05:28:35,774 Fix collisions solved",
+      "2026-10-12 05:28:35,774 Autophysics core finished"
+    ]
+  },
+  "cross": {
+    "solver_log": [
+      "2026-10-12 05:30:42,569 AutoPhysics status: Iterations: 14, Termination: CONVERGENCE, Time: 0.001 sec.",
+      "2026-10-12 05:30:42,658 Trajectory smoothness solved",
+      "2026-10-12 05:30:43,037 Separation of motion solved",
+      "2026-10-12 05:30:43,490 AutoPhysics status: Iterations: 1063, Termination: CONVERGENCE, Time: 0.365 sec.",
+      "2026-10-12 05:30:43,585 Physics corrector solved",
+      "2026-10-12 05:30:43,635 Compensation motion solved",
+      "2026-10-12 05:30:43,643 Rotation smoothness solved",
+      "2026-10-12 05:30:43,970 Secondary motion solved",
+      "2026-10-12 05:30:43,970 Restore unbound solved",
+      "2026-10-12 05:30:43,973 Fix collisions solved",
+      "2026-10-12 05:30:43,973 Autophysics core finished"
+    ]
+  },
+  "lead_hook": {
+    "solver_log": [
+      "2026-10-12 05:32:50,823 AutoPhysics status: Iterations: 8, Termination: CONVERGENCE, Time: 0.001 sec.",
+      "2026-10-12 05:32:50,916 Trajectory smoothness solved",
+      "2026-10-12 05:32:51,284 Separation of motion solved",
+      "2026-10-12 05:32:51,642 AutoPhysics status: Iterations: 801, Termination: CONVERGENCE, Time: 0.270 sec.",
+      "2026-10-12 05:32:51,736 Physics corrector solved",
+      "2026-10-12 05:32:51,785 Compensation motion solved",
+      "2026-10-12 05:32:51,793 Rotation smoothness solved",
+      "2026-10-12 05:32:52,137 Secondary motion solved",
+      "2026-10-12 05:32:52,137 Restore unbound solved",
+      "2026-10-12 05:32:52,140 Fix collisions solved",
+      "2026-10-12 05:32:52,140 Autophysics core finished"
+    ]
+  },
+  "inside_uppercut": {
+    "solver_log": [
+      "2026-10-12 05:35:13,371 AutoPhysics status: Iterations: 20, Termination: CONVERGENCE, Time: 0.001 sec.",
+      "2026-10-12 05:35:13,458 Trajectory smoothness solved",
+      "2026-10-12 05:35:13,873 Separation of motion solved",
+      "2026-10-12 05:35:14,125 AutoPhysics status: Iterations: 414, Termination: CONVERGENCE, Time: 0.142 sec.",
+      "2026-10-12 05:35:14,242 Physics corrector solved",
+      "2026-10-12 05:35:14,305 Compensation motion solved",
+      "2026-10-12 05:35:14,314 Rotation smoothness solved",
+      "2026-10-12 05:35:14,652 Secondary motion solved",
+      "2026-10-12 05:35:14,652 Restore unbound solved",
+      "2026-10-12 05:35:14,655 Fix collisions solved",
+      "2026-10-12 05:35:14,655 Autophysics core finished"
+    ]
+  }
+}

@@ -1,0 +1,4 @@
+You are working in the git worktree D:/FightCamp/wt/U201 (branch cursor/u203-hand-pops) of the FightCamp Godot 4.7.2 game.
+Your task is fully specified in research/TASK_U203_CHOP3_HAND_POPS.md - read it first, then do it start to finish.
+Measure first (the three probes on master), fix the pass that disagrees behind a room switch, re-measure with off=<switch>, run the tests (--jobs 2, wait on the runner's exit).
+git add by explicit path, commit, git push -u origin cursor/u203-hand-pops. Do not stop at 'written'.

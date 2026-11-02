@@ -1,0 +1,8 @@
+{
+  "agent": "john",
+  "created_at": "2026-09-18T14:06:38Z",
+  "id": "c779e0a4536a",
+  "resolved_at": "2026-09-20T12:39:14Z",
+  "task": "J22",
+  "why": "Needs the Grok Bot desktop app (Tools/grokbots/grokbots.py), which a cloud container cannot reach, and it spends bot credits the operator controls - the shared bot account was at 75% of its weekly usage on 2026-09-14. Needs a PC session plus the operator's say-so on credits."
+}

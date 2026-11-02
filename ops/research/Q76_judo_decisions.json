@@ -1,0 +1,81 @@
+{
+  "mechanism": {
+    "decides_at_time": [
+      "position_points_round (control, pass, sweep — each 1.0 per landing)",
+      "submission_attempts_round (1.0 per attempt)",
+      "throw_points_round (1.0 per throw that reaches the minimum band)"
+    ],
+    "level_points": "Sum of per-round raw points across all scorecards; the side with more total points wins. No tiebreak beyond initiative_side (karate senshu, not enabled for judo). A level bout with equal summed points has no winner — winner_side stays empty and method is DECISION.",
+    "golden_score": false,
+    "shido": false,
+    "judo_board": "JudoBoard.gd exists as a standalone RefCounted with full IJF SOR logic (waza-ari, yuko, shido, hansoku-make, golden score, decide-at-time). FightSimulation.gd never references or imports it — the board is unused by the simulation pipeline."
+  },
+  "anchors": [
+    {
+      "metric": "ippon",
+      "file": "research/J26_IJF_MATTE_AND_ENDINGS.md",
+      "line": 58,
+      "quote": "Ippon (any)\t46.2% (18: 46.3 · 19: 49.2 · 21: 42.4)"
+    },
+    {
+      "metric": "waza_ari_at_time",
+      "file": "research/J26_IJF_MATTE_AND_ENDINGS.md",
+      "line": 59,
+      "quote": "Single waza-ari at time\t22.6%"
+    },
+    {
+      "metric": "waza_ari_awasete_ippon",
+      "file": "research/J26_IJF_MATTE_AND_ENDINGS.md",
+      "line": 60,
+      "quote": "Waza-ari-awasete-ippon\t17.7%"
+    },
+    {
+      "metric": "shido",
+      "file": "research/J26_IJF_MATTE_AND_ENDINGS.md",
+      "line": 61,
+      "quote": "3rd shido\t13.5%"
+    },
+    {
+      "metric": "golden_score",
+      "file": "research/J26_IJF_MATTE_AND_ENDINGS.md",
+      "line": 62,
+      "quote": "Golden score (any method)\t~21%"
+    }
+  ],
+  "options": [
+    {
+      "id": "a",
+      "rule": "Decision counts only real judo scores: throw_points (waza-ari) and osaekomi scores. Positions and submission attempts weighted 0 in the decision tally. A level bout at time is a draw (no golden score, no shido).",
+      "touches": ["round_points", "combat_rulesets.json"],
+      "predict": {
+        "ippon": "same",
+        "waza_ari_at_time": "up",
+        "golden_score": "same",
+        "shido": "same"
+      }
+    },
+    {
+      "id": "b",
+      "rule": "Option a plus golden score: when real judo scores are level at time, the contest enters golden score (JudoBoard.decide). First score in golden score — yuko, waza-ari or ippon — wins. Shido still absent.",
+      "touches": ["round_points", "_finish_fight", "JudoBoard.gd", "combat_rulesets.json"],
+      "predict": {
+        "ippon": "same",
+        "waza_ari_at_time": "down",
+        "golden_score": "up",
+        "shido": "same"
+      }
+    },
+    {
+      "id": "c",
+      "rule": "Option b plus shido for passivity: repeated matte (unproductive ground) awards a shido to the less active fighter. Third shido is hansoku-make (opponent wins). Uses JudoBoard.apply for shido tracking and JudoBoard.decide for time expiry.",
+      "touches": ["round_points", "_finish_fight", "_close_round", "_judo_ground_referee", "JudoBoard.gd", "combat_rulesets.json"],
+      "predict": {
+        "ippon": "same",
+        "waza_ari_at_time": "down",
+        "golden_score": "down",
+        "shido": "up"
+      }
+    }
+  ],
+  "recommend": "b"
+}

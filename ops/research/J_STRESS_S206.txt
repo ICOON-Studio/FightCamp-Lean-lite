@@ -1,0 +1,10 @@
+TASK J_STRESS_S206 (John, deep research) - FightCamp S206
+The CEO approved adding a Darkest-Dungeon-style STRESS + AFFLICTIONS layer to FightCamp (PC boxing-gym management sim, FM depth):
+stress builds from hard sparring, weight cuts, losses, injuries, money worries; past a threshold a fighter can flip into a lasting
+state that changes training and fight behaviour. Before our designer specifies it, ground it in the real world. Research in depth,
+every claim sourced: (1) what sports science says about overtraining syndrome, non-functional overreaching, burnout and mental
+fatigue in combat-sport athletes - markers, how long they last, how coaches detect and fix them; (2) real behaviours of stressed
+fighters reported by coaches (gym politics, sparring avoidance, pulling out of fights, over-aggression, weight-cut breakdowns);
+(3) how other management games model morale/stress/mental states (Football Manager, Darkest Dungeon, RimWorld, Motorsport Manager,
+Punch Club, WWE 2K GM) - what players liked and hated; (4) a list of 8-12 boxing-true states (name, cause, effect, cure, duration)
+we could use, each tied to a source. Longest complete answer you can.

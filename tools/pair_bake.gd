@@ -1,7 +1,7 @@
 extends SceneTree
 ## S317 PAIR BAKE (operator on update 15's clinch: "Clinch looks wrong", Q-S294-25; his C143 mark: "calculate the grip
-## without wearing the glove"). Our clinch was built from a block pose and IK. The old repo owns a two-person clinch
-## authored in Cascadeur (Game Godot/assets/anim/audition/cascadeur/Cascy_CageClinch_Att/_Vic.glb, 4 s, both bodies in
+## without wearing the glove"). Our clinch was built from a block pose and IK. The old repo had a two-person clinch
+## authored in Cascadeur (copied S366 to tools/bake_src/Cascy_CageClinch_Att/_Vic.glb - raw files, .gdignore; 4 s, both bodies in
 ## one scene: heads past each other's shoulder, arms tied). This retargets both halves onto two of our MetaHuman boxers and
 ## saves them in the lean baked format (tracks by bone name, the Hips position as a delta from this body's rest - here
 ## WITH its X/Z, so the pair keeps its spacing), then renders the pair at a few times for the visual gate.
@@ -11,7 +11,7 @@ extends SceneTree
 ##       --audio-driver Dummy --script res://tools/pair_bake.gd -- <out_dir for stills>
 
 const MH := preload("res://scripts/fight3d/MHRig.gd")
-const SRC := "E:/FightCamp/Game/Godot/assets/anim/audition/cascadeur/Cascy_CageClinch_%s.glb"
+const SRC := "res://tools/bake_src/Cascy_CageClinch_%s.glb"
 const BODIES := {"Att": "res://assets/models/metahuman/mh_boxer_11.glb", "Vic": "res://assets/models/metahuman/mh_boxer_10.glb"}
 const OUT := {"Att": "res://assets/anim/baked/clinch_att.res", "Vic": "res://assets/anim/baked/clinch_vic.res"}
 const MAP := {"pelvis": "Hips", "stomach": "Spine", "chest": "Chest", "neck": "Neck", "head": "Head",

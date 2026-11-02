@@ -1,0 +1,339 @@
+{
+  "bjj": {
+    "result": {
+      "decision_type": "decision",
+      "method": "DECISION",
+      "round": 1,
+      "rounds_completed": 1,
+      "scorecards": [
+        {
+          "cards": [
+            {
+              "a": 3,
+              "b": 4,
+              "judge": "judge_1"
+            }
+          ],
+          "consensus": {
+            "a": 3,
+            "b": 4
+          },
+          "round": 1
+        }
+      ],
+      "t_s": 600.0,
+      "totals": {
+        "judge_1": {
+          "a": 3,
+          "b": 4
+        }
+      },
+      "winner_side": "b"
+    },
+    "actions": 144,
+    "unnamed_head_actions_with_wear": 59,
+    "unnamed_head_wear_total": 83.85621880863775,
+    "head_example": {
+      "actor": "a",
+      "actor_off_line_deg": 5.91220491537387,
+      "band": "GROUND",
+      "contact": "clean",
+      "defence": "",
+      "defence_timing": "",
+      "distance": 0.569361984729767,
+      "drew_movement": false,
+      "facing_delta_deg": 174.021144277472,
+      "flash_knockdown": false,
+      "force": 0.539425915691368,
+      "hand": "",
+      "knockdown": false,
+      "limb": "",
+      "place": "CENTRE",
+      "position": "ground",
+      "region": "head_neck",
+      "role": "",
+      "round": 1,
+      "shock": 0.0290980318519471,
+      "shocked": false,
+      "significant": false,
+      "span": 0.1,
+      "stance_matchup": "closed",
+      "t_s": 22.2,
+      "target": "b",
+      "target_off_line_deg": 0.0666532681294289,
+      "technique": "",
+      "technique_class": "",
+      "technique_name": "",
+      "tick": 444,
+      "trauma_kind": "",
+      "trauma_pips": 0,
+      "trauma_site": "",
+      "type": "action",
+      "wear": {
+        "head_neck": 1.6182777470741
+      }
+    },
+    "grapple_events": 78,
+    "grapple_shown": 71,
+    "action_windows_with_grapple": 4,
+    "grapple_events_in_action_windows": 4,
+    "priority_example": {
+      "actor_range_m": 1.2969792,
+      "actor_side": "b",
+      "animation_family": "strike",
+      "beat": 1441,
+      "candidates": 1,
+      "clip_missing": false,
+      "clip_role": "",
+      "contact": "clean",
+      "distance": 0.629517316818237,
+      "dropped": 0,
+      "fallback_receiver": "",
+      "fallback_thrower": "",
+      "flash_knockdown": false,
+      "force": 0.531292859267662,
+      "grapple": [
+        {
+          "actor_side": "b",
+          "animation_family": "level_change",
+          "clip_missing": false,
+          "clip_role": "grapple_throw",
+          "danger": false,
+          "finished": false,
+          "from_position": "over_under",
+          "grade": 0,
+          "has_clip": true,
+          "hold_seconds": 0.0,
+          "is_reversal": false,
+          "is_sweep": false,
+          "kind": "seat",
+          "landed": true,
+          "outcome": "landed",
+          "payload": {
+            "actor": "b",
+            "from_seat": "over_under",
+            "from_stance": "clinch",
+            "gate_ticks": 20,
+            "kind": "seat",
+            "round": 1,
+            "t_s": 72.0,
+            "target": "a",
+            "tick": 1440,
+            "to_seat": "guard",
+            "to_stance": "ground",
+            "top": "b",
+            "type": "grapple",
+            "via": "throw"
+          },
+          "position": "guard",
+          "range_band": "ground",
+          "role": "takedown",
+          "round": 1,
+          "significant": false,
+          "t_s": 72.0,
+          "target_body_region": "",
+          "target_region": "",
+          "target_side": "a",
+          "technique": "grapple_throw",
+          "technique_name": "THROW",
+          "tick": 1440,
+          "top_side": "b",
+          "type": "grapple",
+          "via": "throw"
+        }
+      ],
+      "hand": "",
+      "has_clip": false,
+      "knockdown": false,
+      "landed": true,
+      "outcome": "landed",
+      "position": "clinch",
+      "range_band": "CLINCH",
+      "range_m": 1.2398496,
+      "range_source": "preferred",
+      "role": "",
+      "round": 1,
+      "shock": 0.0,
+      "shocked": false,
+      "significant": false,
+      "span": 0.05,
+      "stance_matchup": "closed",
+      "t_s": 72.0,
+      "target_body_region": "left_leg",
+      "target_range_m": 1.2398496,
+      "target_region": "left_leg",
+      "target_side": "a",
+      "technique": "",
+      "technique_class": "",
+      "technique_name": "LEG KICK",
+      "tick": 1440,
+      "tick_from": 1440,
+      "tick_to": 1441,
+      "trauma_kind": "",
+      "trauma_pips": 0,
+      "trauma_site": "",
+      "type": "action",
+      "wear": {
+        "left_leg": 1.27510286224239
+      }
+    }
+  },
+  "mma": {
+    "result": {
+      "decision_type": "unanimous",
+      "method": "DECISION",
+      "round": 1,
+      "rounds_completed": 1,
+      "scorecards": [
+        {
+          "cards": [
+            {
+              "a": 10,
+              "b": 8,
+              "judge": "judge_1"
+            },
+            {
+              "a": 10,
+              "b": 8,
+              "judge": "judge_2"
+            },
+            {
+              "a": 10,
+              "b": 8,
+              "judge": "judge_3"
+            }
+          ],
+          "consensus": {
+            "a": 10,
+            "b": 8
+          },
+          "round": 1
+        }
+      ],
+      "t_s": 300.0,
+      "totals": {
+        "judge_1": {
+          "a": 10,
+          "b": 8
+        },
+        "judge_2": {
+          "a": 10,
+          "b": 8
+        },
+        "judge_3": {
+          "a": 10,
+          "b": 8
+        }
+      },
+      "winner_side": "a"
+    },
+    "actions": 71,
+    "unnamed_head_actions_with_wear": 0,
+    "unnamed_head_wear_total": 0,
+    "head_example": null,
+    "grapple_events": 27,
+    "grapple_shown": 22,
+    "action_windows_with_grapple": 3,
+    "grapple_events_in_action_windows": 3,
+    "priority_example": {
+      "actor_range_m": 1.230768,
+      "actor_side": "a",
+      "animation_family": "strike",
+      "beat": 311,
+      "candidates": 1,
+      "clip_missing": false,
+      "clip_role": "cross",
+      "contact": "clean",
+      "distance": 0.690651893615723,
+      "dropped": 0,
+      "fallback_receiver": "",
+      "fallback_thrower": "",
+      "flash_knockdown": false,
+      "force": 0.912113763000372,
+      "grapple": [
+        {
+          "actor_side": "a",
+          "animation_family": "level_change",
+          "clip_missing": false,
+          "clip_role": "grapple_takedown",
+          "danger": false,
+          "finished": false,
+          "from_position": "none",
+          "grade": 0,
+          "has_clip": true,
+          "hold_seconds": 0.0,
+          "is_reversal": false,
+          "is_sweep": false,
+          "kind": "seat",
+          "landed": true,
+          "outcome": "landed",
+          "payload": {
+            "actor": "a",
+            "from_seat": "none",
+            "from_stance": "standing",
+            "gate_ticks": 20,
+            "kind": "seat",
+            "round": 1,
+            "t_s": 15.5,
+            "target": "b",
+            "tick": 310,
+            "to_seat": "guard",
+            "to_stance": "ground",
+            "top": "a",
+            "type": "grapple",
+            "via": "takedown"
+          },
+          "position": "guard",
+          "range_band": "ground",
+          "role": "takedown",
+          "round": 1,
+          "significant": false,
+          "t_s": 15.5,
+          "target_body_region": "",
+          "target_region": "",
+          "target_side": "b",
+          "technique": "grapple_takedown",
+          "technique_name": "TAKEDOWN",
+          "tick": 310,
+          "top_side": "a",
+          "type": "grapple",
+          "via": "takedown"
+        }
+      ],
+      "hand": "rear",
+      "has_clip": true,
+      "knockdown": false,
+      "landed": true,
+      "outcome": "landed",
+      "position": "distance",
+      "range_band": "POCKET",
+      "range_m": 1.230768,
+      "range_source": "preferred",
+      "role": "damage",
+      "round": 1,
+      "shock": 0.0831951516654698,
+      "shocked": true,
+      "significant": true,
+      "span": 0.05,
+      "stance_matchup": "closed",
+      "t_s": 15.5,
+      "target_body_region": "head_neck",
+      "target_range_m": 1.369368,
+      "target_region": "head_neck",
+      "target_side": "b",
+      "technique": "muay_thai_mat_trong",
+      "technique_class": "punch",
+      "technique_name": "Mat Trong (Cross)",
+      "tick": 310,
+      "tick_from": 310,
+      "tick_to": 311,
+      "trauma_kind": "",
+      "trauma_pips": 0,
+      "trauma_site": "",
+      "type": "action",
+      "wear": {
+        "head_neck": 2.73634128900112
+      }
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "status": "UNFINISHED - numerical measurements do not certify contact",
+  "frames": 166,
+  "fps": 30,
+  "max_pair_clock_drift_s": 0.0,
+  "phases": [
+    {
+      "phase": 0,
+      "frames": 51,
+      "start_s": 0.0,
+      "end_s": 1.66666666666667,
+      "largest_landmark_step": {
+        "distance_m": 0.0008659964198252918,
+        "actor": 0,
+        "bone": "RightHand",
+        "time_s": 0.366666666666667,
+        "frame": 11
+      },
+      "hip_net_displacement_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "phase": 1,
+      "frames": 55,
+      "start_s": 1.7,
+      "end_s": 3.5,
+      "largest_landmark_step": {
+        "distance_m": 0.5005114893153985,
+        "actor": 0,
+        "bone": "LeftHand",
+        "time_s": 2.76666666666667,
+        "frame": 83
+      },
+      "hip_net_displacement_m": [
+        0.5918492334836414,
+        0.5861272131265101
+      ]
+    },
+    {
+      "phase": 2,
+      "frames": 60,
+      "start_s": 3.53333333333333,
+      "end_s": 5.49999999999999,
+      "largest_landmark_step": {
+        "distance_m": 0.036437149718546225,
+        "actor": 0,
+        "bone": "Head",
+        "time_s": 3.66666666666666,
+        "frame": 110
+      },
+      "hip_net_displacement_m": [
+        0.1316985491611703,
+        0.1282043299465429
+      ],
+      "settled_hip_net_displacement_m": [
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "recording_sha256": "8e71fa9509c9594dd818541be2315527e408e1c4dee67c9cc0143ba4012ed9c2"
+}

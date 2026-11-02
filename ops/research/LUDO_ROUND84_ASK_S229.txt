@@ -1,0 +1,10 @@
+LUDO ROUND 84 (FightCamp, S229) - GYM FLOOR PLAYABLE, audit round 2. TEXT AND CODE ONLY - do NOT generate any image. Longest complete answer you can, full code, no placeholders; if you run out, end with CONTINUE.
+
+THE OPERATOR (verbatim): "we need to have the gymfloor playable soon".
+
+LANDED TODAY from your rounds 79-83 (all in the game, switch ON): the 13 floor ring rows act (talk, coach focus/hours/contract/send, station queue/what-it-trains/upgrade, office upgrades panel, walk-in greet/trial/later/send-away); queue next walks him there after a 20-min block, with gold dots + "NEXT: HEAVY BAG" on the floor; station levels 1-3 raise gains; "+1.4 POWER" floats over him every 15 day-minutes (gold when coached); EXHAUSTED warning under 25 stamina; "COACH WITH HIM"; station pick pads tagged BEST/GOOD/REST with reasons; end-of-day wrap drawer; the day-goal + week-goal plate fills live (stamina at the bell; a move card usable by Friday).
+
+ASK:
+A. Play the floor again in your head for 10 minutes with all of that in. List the next 6 moments where a new player is still bored, lost or feels nothing - most important first - each with the smallest fix and its number. Do not repeat anything already landed.
+B. Complete GDScript (Godot 4.7) for the top 3. Rules: pure rules = extends RefCounted, static funcs, zero preloads, plain dicts; UI = extends Control built in code, setup(game_state: Node), round-70 tokens (void #0d0c0b, panels #1a1816/#22201d/#282521, gold #f0c233, cream #f6f0e0). Name the hook for each from: run_floor_action(kind, id, action_id), send_to(place_id), coach_to(place_id), show_floor_toast(text), _float_text(text, color), apply_floor_effect(effect), advance_minutes(n) / the day tick, the day end (visit_ended(lived)), begin_station_pick().
+C. A SceneTree test for each (func _initialize, prints "<NAME> failures=N", quit(0/1)); state the control arm that stays unchanged.

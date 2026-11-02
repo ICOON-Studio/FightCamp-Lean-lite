@@ -1,0 +1,20 @@
+**U204 is done** on `cursor/u204-menu-room-fx` (pushed `8e0e4901`).
+
+### What shipped
+- **`UiFx.gd`** — 180 ms fade/slide on hosted screen mounts, button hover/press scale, count-up with brief glow, reward `pop`; **`set_effects(false)`** + headless keeps tests stable (same pattern as fight intro / setpiece transitions).
+- **`RoomFx.gd`** — warm **CPUParticles3D** dust + soft emissive **light shaft** per window AABB.
+- **Hooks:** `SceneRouter` → `pre_hosted_panel_push`; `CareerRoot._mount` → `fade_slide_in`; `UIKit.button` / `stat_row` / `money_display`; **`RoomFx.apply`** on all seven room builds (floor, office, lobby, locker, mat, staff, physio).
+- **`ui_fx_test.gd`**, smoke disables effects, **`CaptureU204Effects.gd`**, stills under `previews/u204/`, **`U204_DIGEST.md`**.
+
+### Evidence
+- Parse: **15 files, 0 fails**
+- **`ui_fx_test`:** 7 checks, 0 failures  
+- Focused suite: **`SUITE total=8 fails=0`**
+- Capture: **12 PNGs** (3 screens × before/after, 3 rooms × before/after). Room pairs differ in size (fx nodes); screen pairs are identical end-frames (transition finishes before capture — room fx is the visible before/after delta).
+
+### Branch
+`origin/cursor/u204-menu-room-fx` — ready for merge/PR.
+
+**Follow-up (in digest):** wire `UIKit.money_display` into `ShellChrome` when cash delta is known; fight-set-piece bursts were out of scope for this task.The long **`run_tests.py --only ui_fx,screen,room,...`** job (shell task 956961) never printed a summary because output was piped through `Select-Object -Last 25` and the run was **stopped after ~13 minutes** (likely blocked on the heavy `training_floor` / broad `--only` match).
+
+That gap was already covered: a **narrower** run finished cleanly — **`SUITE total=8 fails=0`** (`ui_fx`, `office_room`, `locker_room`, `lobby`, `mat_room`, `staff`, `physio`, `training_floor`). U204 work is on **`cursor/u204-menu-room-fx`** at **`8e0e4901`**.

@@ -1,0 +1,3440 @@
+{
+  "hz": 20,
+  "population": {
+    "boxing": {
+      "fighters": "out-boxer (boxing) vs pressure puncher (boxing)",
+      "reach": "186/172"
+    },
+    "catalogue": "res://assets/data/technique_catalog.json",
+    "kickboxing": {
+      "fighters": "outside kicker (kickboxing) vs dutch pressure (kickboxing)",
+      "reach": "188/174"
+    },
+    "mma": {
+      "fighters": "wrestle-grappler (mma) vs striker (mma)",
+      "reach": "180/190"
+    },
+    "muay_thai": {
+      "fighters": "muay khao (knees) (muay_thai) vs muay femur (technician) (muay_thai)",
+      "reach": "176/186"
+    },
+    "witness": {
+      "fighters": "Grappler vs Fish",
+      "ruleset": "muay_thai"
+    }
+  },
+  "rulesets": {
+    "boxing": {
+      "bouts": [
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995000,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995001,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995002,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995003,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995004,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "KO",
+          "round_ticks": 609,
+          "seed": 995005,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 609
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995006,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995007,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995008,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995009,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995010,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995011,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995012,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995013,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995014,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995015,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "KO",
+          "round_ticks": 3477,
+          "seed": 995016,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 3477
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995017,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995018,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995019,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995020,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "KO",
+          "round_ticks": 4463,
+          "seed": 995021,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 4463
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995022,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995023,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995024,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "KO",
+          "round_ticks": 10775,
+          "seed": 995025,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10775
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "KO",
+          "round_ticks": 2853,
+          "seed": 995026,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 2853
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995027,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995028,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995029,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995030,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995031,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995032,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995033,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995034,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995035,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995036,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995037,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995038,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995039,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995040,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995041,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995042,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995043,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995044,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995045,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995046,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995047,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995048,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995049,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995050,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995051,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995052,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995053,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995054,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995055,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995056,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995057,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995058,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995059,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        }
+      ],
+      "methods": {
+        "DECISION": 55,
+        "KO": 5
+      },
+      "round_seconds": 180.0,
+      "rounds": 3
+    },
+    "kickboxing": {
+      "bouts": [
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995000,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995001,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995002,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "KO",
+          "round_ticks": 3601,
+          "seed": 995003,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 3601
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995004,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "KO",
+          "round_ticks": 655,
+          "seed": 995005,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 655
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995006,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995007,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995008,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995009,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995010,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995011,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995012,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995013,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995014,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995015,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995016,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995017,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "KO",
+          "round_ticks": 6189,
+          "seed": 995018,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 6189
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995019,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995020,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995021,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995022,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995023,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995024,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995025,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995026,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995027,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995028,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995029,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995030,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995031,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995032,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995033,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995034,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995035,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995036,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995037,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "KO",
+          "round_ticks": 2482,
+          "seed": 995038,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 2482
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995039,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995040,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995041,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995042,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995043,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995044,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995045,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995046,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995047,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995048,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995049,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995050,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995051,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995052,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995053,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995054,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995055,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995056,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995057,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995058,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995059,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        }
+      ],
+      "methods": {
+        "DECISION": 56,
+        "KO": 4
+      },
+      "round_seconds": 180.0,
+      "rounds": 3
+    },
+    "mma": {
+      "bouts": [
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 1930,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995000,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 1930,
+            "standing": 16070
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 1
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 560,
+          "method": "SUBMISSION",
+          "round_ticks": 1081,
+          "seed": 995001,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 560,
+            "standing": 521
+          },
+          "submission_finishes": 1,
+          "submissions_opened": 1
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 2160,
+          "method": "SUBMISSION",
+          "round_ticks": 14881,
+          "seed": 995002,
+          "stance_ticks": {
+            "clinch": 150,
+            "ground": 2160,
+            "standing": 12571
+          },
+          "submission_finishes": 1,
+          "submissions_opened": 3
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 1065,
+          "method": "KO",
+          "round_ticks": 1356,
+          "seed": 995003,
+          "stance_ticks": {
+            "clinch": 140,
+            "ground": 1065,
+            "standing": 151
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995004,
+          "stance_ticks": {
+            "clinch": 800,
+            "ground": 0,
+            "standing": 17200
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 10,
+          "method": "KO",
+          "round_ticks": 661,
+          "seed": 995005,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 10,
+            "standing": 651
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 2,
+          "longest_spell_ticks": 1890,
+          "method": "SUBMISSION",
+          "round_ticks": 8981,
+          "seed": 995006,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 1950,
+            "standing": 7031
+          },
+          "submission_finishes": 1,
+          "submissions_opened": 2
+        },
+        {
+          "ground_spells": 2,
+          "longest_spell_ticks": 4100,
+          "method": "SUBMISSION",
+          "round_ticks": 16541,
+          "seed": 995007,
+          "stance_ticks": {
+            "clinch": 330,
+            "ground": 4220,
+            "standing": 11991
+          },
+          "submission_finishes": 1,
+          "submissions_opened": 5
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 50,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995008,
+          "stance_ticks": {
+            "clinch": 240,
+            "ground": 50,
+            "standing": 17710
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 22,
+          "method": "KO",
+          "round_ticks": 4923,
+          "seed": 995009,
+          "stance_ticks": {
+            "clinch": 370,
+            "ground": 22,
+            "standing": 4531
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 2,
+          "longest_spell_ticks": 670,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995010,
+          "stance_ticks": {
+            "clinch": 490,
+            "ground": 700,
+            "standing": 16810
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 1
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995011,
+          "stance_ticks": {
+            "clinch": 770,
+            "ground": 0,
+            "standing": 17230
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995012,
+          "stance_ticks": {
+            "clinch": 1140,
+            "ground": 0,
+            "standing": 16860
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 60,
+          "method": "KO",
+          "round_ticks": 7471,
+          "seed": 995013,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 60,
+            "standing": 7411
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 100,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995014,
+          "stance_ticks": {
+            "clinch": 320,
+            "ground": 100,
+            "standing": 17580
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995015,
+          "stance_ticks": {
+            "clinch": 60,
+            "ground": 0,
+            "standing": 17940
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995016,
+          "stance_ticks": {
+            "clinch": 380,
+            "ground": 0,
+            "standing": 17620
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 2,
+          "longest_spell_ticks": 1290,
+          "method": "SUBMISSION",
+          "round_ticks": 5461,
+          "seed": 995017,
+          "stance_ticks": {
+            "clinch": 60,
+            "ground": 1860,
+            "standing": 3541
+          },
+          "submission_finishes": 1,
+          "submissions_opened": 1
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 1180,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995018,
+          "stance_ticks": {
+            "clinch": 200,
+            "ground": 1180,
+            "standing": 16620
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 1
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995019,
+          "stance_ticks": {
+            "clinch": 610,
+            "ground": 0,
+            "standing": 17390
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "KO",
+          "round_ticks": 15221,
+          "seed": 995020,
+          "stance_ticks": {
+            "clinch": 10,
+            "ground": 0,
+            "standing": 15211
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995021,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 18000
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995022,
+          "stance_ticks": {
+            "clinch": 640,
+            "ground": 0,
+            "standing": 17360
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995023,
+          "stance_ticks": {
+            "clinch": 270,
+            "ground": 0,
+            "standing": 17730
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 1580,
+          "method": "SUBMISSION",
+          "round_ticks": 1721,
+          "seed": 995024,
+          "stance_ticks": {
+            "clinch": 110,
+            "ground": 1580,
+            "standing": 31
+          },
+          "submission_finishes": 1,
+          "submissions_opened": 1
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 3140,
+          "method": "SUBMISSION",
+          "round_ticks": 5481,
+          "seed": 995025,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 3140,
+            "standing": 2341
+          },
+          "submission_finishes": 1,
+          "submissions_opened": 4
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 1900,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995026,
+          "stance_ticks": {
+            "clinch": 100,
+            "ground": 1900,
+            "standing": 16000
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 2
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 1100,
+          "method": "SUBMISSION",
+          "round_ticks": 14201,
+          "seed": 995027,
+          "stance_ticks": {
+            "clinch": 360,
+            "ground": 1100,
+            "standing": 12741
+          },
+          "submission_finishes": 1,
+          "submissions_opened": 2
+        },
+        {
+          "ground_spells": 3,
+          "longest_spell_ticks": 820,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995028,
+          "stance_ticks": {
+            "clinch": 90,
+            "ground": 1009,
+            "standing": 16901
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 960,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995029,
+          "stance_ticks": {
+            "clinch": 430,
+            "ground": 960,
+            "standing": 16610
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995030,
+          "stance_ticks": {
+            "clinch": 320,
+            "ground": 0,
+            "standing": 17680
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 660,
+          "method": "SUBMISSION",
+          "round_ticks": 901,
+          "seed": 995031,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 660,
+            "standing": 241
+          },
+          "submission_finishes": 1,
+          "submissions_opened": 1
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995032,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 18000
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995033,
+          "stance_ticks": {
+            "clinch": 190,
+            "ground": 0,
+            "standing": 17810
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "KO",
+          "round_ticks": 17857,
+          "seed": 995034,
+          "stance_ticks": {
+            "clinch": 540,
+            "ground": 0,
+            "standing": 17317
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995035,
+          "stance_ticks": {
+            "clinch": 30,
+            "ground": 0,
+            "standing": 17970
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 2,
+          "longest_spell_ticks": 1580,
+          "method": "SUBMISSION",
+          "round_ticks": 11061,
+          "seed": 995036,
+          "stance_ticks": {
+            "clinch": 60,
+            "ground": 3010,
+            "standing": 7991
+          },
+          "submission_finishes": 1,
+          "submissions_opened": 3
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 1039,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995037,
+          "stance_ticks": {
+            "clinch": 830,
+            "ground": 1039,
+            "standing": 16131
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "KO",
+          "round_ticks": 2414,
+          "seed": 995038,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 2414
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 70,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995039,
+          "stance_ticks": {
+            "clinch": 40,
+            "ground": 70,
+            "standing": 17890
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 700,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995040,
+          "stance_ticks": {
+            "clinch": 40,
+            "ground": 700,
+            "standing": 17260
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 1
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995041,
+          "stance_ticks": {
+            "clinch": 140,
+            "ground": 0,
+            "standing": 17860
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 790,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995042,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 790,
+            "standing": 17210
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 3,
+          "longest_spell_ticks": 1790,
+          "method": "SUBMISSION",
+          "round_ticks": 14901,
+          "seed": 995043,
+          "stance_ticks": {
+            "clinch": 640,
+            "ground": 3959,
+            "standing": 10302
+          },
+          "submission_finishes": 1,
+          "submissions_opened": 2
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 1230,
+          "method": "SUBMISSION",
+          "round_ticks": 7961,
+          "seed": 995044,
+          "stance_ticks": {
+            "clinch": 210,
+            "ground": 1230,
+            "standing": 6521
+          },
+          "submission_finishes": 1,
+          "submissions_opened": 1
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995045,
+          "stance_ticks": {
+            "clinch": 40,
+            "ground": 0,
+            "standing": 17960
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995046,
+          "stance_ticks": {
+            "clinch": 190,
+            "ground": 0,
+            "standing": 17810
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 2,
+          "longest_spell_ticks": 520,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995047,
+          "stance_ticks": {
+            "clinch": 560,
+            "ground": 800,
+            "standing": 16640
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995048,
+          "stance_ticks": {
+            "clinch": 240,
+            "ground": 0,
+            "standing": 17760
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 719,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995049,
+          "stance_ticks": {
+            "clinch": 270,
+            "ground": 719,
+            "standing": 17011
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 1
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 239,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995050,
+          "stance_ticks": {
+            "clinch": 680,
+            "ground": 239,
+            "standing": 17081
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 3,
+          "longest_spell_ticks": 1138,
+          "method": "KO",
+          "round_ticks": 9209,
+          "seed": 995051,
+          "stance_ticks": {
+            "clinch": 540,
+            "ground": 1418,
+            "standing": 7251
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 2
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 2620,
+          "method": "SUBMISSION",
+          "round_ticks": 14701,
+          "seed": 995052,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 2620,
+            "standing": 12081
+          },
+          "submission_finishes": 1,
+          "submissions_opened": 2
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 1410,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995053,
+          "stance_ticks": {
+            "clinch": 60,
+            "ground": 1410,
+            "standing": 16530
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 1
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 30,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995054,
+          "stance_ticks": {
+            "clinch": 520,
+            "ground": 30,
+            "standing": 17450
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 580,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995055,
+          "stance_ticks": {
+            "clinch": 410,
+            "ground": 580,
+            "standing": 17010
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 49,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995056,
+          "stance_ticks": {
+            "clinch": 220,
+            "ground": 49,
+            "standing": 17731
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995057,
+          "stance_ticks": {
+            "clinch": 210,
+            "ground": 0,
+            "standing": 17790
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 160,
+          "method": "DECISION",
+          "round_ticks": 18000,
+          "seed": 995058,
+          "stance_ticks": {
+            "clinch": 410,
+            "ground": 160,
+            "standing": 17430
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 750,
+          "method": "SUBMISSION",
+          "round_ticks": 3821,
+          "seed": 995059,
+          "stance_ticks": {
+            "clinch": 110,
+            "ground": 750,
+            "standing": 2961
+          },
+          "submission_finishes": 1,
+          "submissions_opened": 1
+        }
+      ],
+      "methods": {
+        "DECISION": 38,
+        "KO": 8,
+        "SUBMISSION": 14
+      },
+      "round_seconds": 300.0,
+      "rounds": 3
+    },
+    "muay_thai": {
+      "bouts": [
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995000,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995001,
+          "stance_ticks": {
+            "clinch": 779,
+            "ground": 0,
+            "standing": 10021
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995002,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 419,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995003,
+          "stance_ticks": {
+            "clinch": 590,
+            "ground": 419,
+            "standing": 9791
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995004,
+          "stance_ticks": {
+            "clinch": 250,
+            "ground": 0,
+            "standing": 10550
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 80,
+          "method": "KO",
+          "round_ticks": 731,
+          "seed": 995005,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 80,
+            "standing": 651
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995006,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995007,
+          "stance_ticks": {
+            "clinch": 80,
+            "ground": 0,
+            "standing": 10720
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995008,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 820,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995009,
+          "stance_ticks": {
+            "clinch": 210,
+            "ground": 820,
+            "standing": 9770
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995010,
+          "stance_ticks": {
+            "clinch": 780,
+            "ground": 0,
+            "standing": 10020
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995011,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995012,
+          "stance_ticks": {
+            "clinch": 370,
+            "ground": 0,
+            "standing": 10430
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 210,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995013,
+          "stance_ticks": {
+            "clinch": 860,
+            "ground": 210,
+            "standing": 9730
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995014,
+          "stance_ticks": {
+            "clinch": 70,
+            "ground": 0,
+            "standing": 10730
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "KO",
+          "round_ticks": 6047,
+          "seed": 995015,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 6047
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "KO",
+          "round_ticks": 1042,
+          "seed": 995016,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 1042
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995017,
+          "stance_ticks": {
+            "clinch": 149,
+            "ground": 0,
+            "standing": 10651
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995018,
+          "stance_ticks": {
+            "clinch": 1089,
+            "ground": 0,
+            "standing": 9711
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995019,
+          "stance_ticks": {
+            "clinch": 390,
+            "ground": 0,
+            "standing": 10410
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995020,
+          "stance_ticks": {
+            "clinch": 60,
+            "ground": 0,
+            "standing": 10740
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995021,
+          "stance_ticks": {
+            "clinch": 20,
+            "ground": 0,
+            "standing": 10780
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995022,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995023,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 300,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995024,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 300,
+            "standing": 10500
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995025,
+          "stance_ticks": {
+            "clinch": 59,
+            "ground": 0,
+            "standing": 10741
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995026,
+          "stance_ticks": {
+            "clinch": 170,
+            "ground": 0,
+            "standing": 10630
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995027,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 140,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995028,
+          "stance_ticks": {
+            "clinch": 60,
+            "ground": 140,
+            "standing": 10600
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995029,
+          "stance_ticks": {
+            "clinch": 160,
+            "ground": 0,
+            "standing": 10640
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995030,
+          "stance_ticks": {
+            "clinch": 69,
+            "ground": 0,
+            "standing": 10731
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 2,
+          "longest_spell_ticks": 1159,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995031,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 1419,
+            "standing": 9381
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 1
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 180,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995032,
+          "stance_ticks": {
+            "clinch": 90,
+            "ground": 180,
+            "standing": 10530
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 150,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995033,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 150,
+            "standing": 10650
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995034,
+          "stance_ticks": {
+            "clinch": 380,
+            "ground": 0,
+            "standing": 10420
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995035,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995036,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995037,
+          "stance_ticks": {
+            "clinch": 70,
+            "ground": 0,
+            "standing": 10730
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995038,
+          "stance_ticks": {
+            "clinch": 140,
+            "ground": 0,
+            "standing": 10660
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995039,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995040,
+          "stance_ticks": {
+            "clinch": 340,
+            "ground": 0,
+            "standing": 10460
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995041,
+          "stance_ticks": {
+            "clinch": 160,
+            "ground": 0,
+            "standing": 10640
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 750,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995042,
+          "stance_ticks": {
+            "clinch": 370,
+            "ground": 750,
+            "standing": 9680
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 1280,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995043,
+          "stance_ticks": {
+            "clinch": 230,
+            "ground": 1280,
+            "standing": 9290
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 1
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 469,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995044,
+          "stance_ticks": {
+            "clinch": 10,
+            "ground": 469,
+            "standing": 10321
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 1860,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995045,
+          "stance_ticks": {
+            "clinch": 20,
+            "ground": 1860,
+            "standing": 8920
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 2
+        },
+        {
+          "ground_spells": 2,
+          "longest_spell_ticks": 179,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995046,
+          "stance_ticks": {
+            "clinch": 80,
+            "ground": 269,
+            "standing": 10451
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995047,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 0,
+            "standing": 10800
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995048,
+          "stance_ticks": {
+            "clinch": 470,
+            "ground": 0,
+            "standing": 10330
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 2,
+          "longest_spell_ticks": 1750,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995049,
+          "stance_ticks": {
+            "clinch": 890,
+            "ground": 1900,
+            "standing": 8010
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 2
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 140,
+          "method": "KO",
+          "round_ticks": 8361,
+          "seed": 995050,
+          "stance_ticks": {
+            "clinch": 270,
+            "ground": 140,
+            "standing": 7951
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 2,
+          "longest_spell_ticks": 900,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995051,
+          "stance_ticks": {
+            "clinch": 270,
+            "ground": 1219,
+            "standing": 9311
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 1
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 910,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995052,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 910,
+            "standing": 9890
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995053,
+          "stance_ticks": {
+            "clinch": 60,
+            "ground": 0,
+            "standing": 10740
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 910,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995054,
+          "stance_ticks": {
+            "clinch": 0,
+            "ground": 910,
+            "standing": 9890
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 2,
+          "longest_spell_ticks": 490,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995055,
+          "stance_ticks": {
+            "clinch": 1410,
+            "ground": 890,
+            "standing": 8500
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 1
+        },
+        {
+          "ground_spells": 1,
+          "longest_spell_ticks": 1000,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995056,
+          "stance_ticks": {
+            "clinch": 260,
+            "ground": 1000,
+            "standing": 9540
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995057,
+          "stance_ticks": {
+            "clinch": 210,
+            "ground": 0,
+            "standing": 10590
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 2,
+          "longest_spell_ticks": 350,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995058,
+          "stance_ticks": {
+            "clinch": 100,
+            "ground": 669,
+            "standing": 10031
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        },
+        {
+          "ground_spells": 0,
+          "longest_spell_ticks": 0,
+          "method": "DECISION",
+          "round_ticks": 10800,
+          "seed": 995059,
+          "stance_ticks": {
+            "clinch": 50,
+            "ground": 0,
+            "standing": 10750
+          },
+          "submission_finishes": 0,
+          "submissions_opened": 0
+        }
+      ],
+      "methods": {
+        "DECISION": 56,
+        "KO": 4
+      },
+      "round_seconds": 180.0,
+      "rounds": 3
+    }
+  },
+  "witness": {
+    "ground_spells": 1,
+    "method": "SUBMISSION",
+    "round_ticks": 6421,
+    "seed": 93248,
+    "stance_ticks": {
+      "clinch": 590,
+      "ground": 720,
+      "standing": 5111
+    }
+  }
+}

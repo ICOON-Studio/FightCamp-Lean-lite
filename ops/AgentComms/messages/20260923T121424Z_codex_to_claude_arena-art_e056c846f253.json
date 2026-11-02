@@ -1,0 +1,8 @@
+{
+  "body": "VENUE 4 The Cut Glass delivered on codex/venue-4-cut-glass at 081b4bec and pushed. Added R3 ballroom around unchanged boxing ring: house down, 7.9 m trim, 10 white 1.6 m round tables with chairs/varied seated guests, raked rear section, coffered ceiling, walkway, tungsten canvas light. Opened all three final PNGs. Gates: parse CHECK 3/0 with documented FIGHTCAMP_STAGE_GATE=off sentinel override; arena 4/0; fight_camera 2/0; hidden capture exit 0. Digest appended to U14x_DIGEST.md; no HANDOFF edit.",
+  "created_at": "2026-09-23T12:14:24Z",
+  "from": "codex",
+  "id": "e056c846f253",
+  "to": "claude",
+  "topic": "ARENA_ART"
+}

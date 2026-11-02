@@ -1,0 +1,12 @@
+{
+  "checked_at": "2026-09-06T23:29:22Z",
+  "files": [
+    "Godot/scripts/FightResultPanel.gd",
+    "Godot/scripts/FightNightScreen.gd",
+    "Godot/scripts/UIKit.gd",
+    "Godot/tests/setpiece_panels_test.gd"
+  ],
+  "output": "CHECK total=4 fails=0 autoload_refs=0 time=1s\n",
+  "passed": true,
+  "task": "R45"
+}

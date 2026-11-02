@@ -1,0 +1,362 @@
+{
+  "_task": "Q78 - judo and sambo escapes and defences that do not exist",
+  "_note": "Draft nodes for S1f. Every source is labelled SOURCED: or INFERENCE:. No defense_answers key answers submission today, so the sambo leg-lock escape is an escape node, not a defense node.",
+  "judo": [
+    {
+      "id": "judo_esc_kesa_nuke",
+      "name": "Kesa-gatame Escape (Scarf Hold Break)",
+      "kind": "move",
+      "tier": 1,
+      "branch": "escapes",
+      "requires": {
+        "discipline": 12,
+        "attributes": {
+          "technique": 35,
+          "defense": 30
+        },
+        "prerequisites": ["judo_ukemi"],
+        "reps": 90
+      },
+      "match": {
+        "role": "escape",
+        "phases": ["ground_bottom"],
+        "effects": {
+          "escape": 8,
+          "control_escape": 6
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "INFERENCE: Kodokan newaza curriculum teaches bridging and turning toward uke's head to escape kesa-gatame; Q72_judo_seats.json line 8 confirms judo_kesagatame as ground_top pin.",
+      "grade": "5th kyu",
+      "grade_rank": 15
+    },
+    {
+      "id": "judo_esc_yoko_nuke",
+      "name": "Yoko-shiho-gatame Escape (Side Control Break)",
+      "kind": "move",
+      "tier": 1,
+      "branch": "escapes",
+      "requires": {
+        "discipline": 12,
+        "attributes": {
+          "technique": 35,
+          "defense": 30
+        },
+        "prerequisites": ["judo_ukemi"],
+        "reps": 90
+      },
+      "match": {
+        "role": "escape",
+        "phases": ["ground_bottom"],
+        "effects": {
+          "escape": 7,
+          "guard_recovery": 6
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "INFERENCE: frame-and-shrimp escape from side four-quarter hold; Q72_judo_seats.json line 44 confirms judo_yokoshihogatame as ground_top pin.",
+      "grade": "5th kyu",
+      "grade_rank": 16
+    },
+    {
+      "id": "judo_esc_kami_nuke",
+      "name": "Kami-shiho-gatame Escape (North-South Break)",
+      "kind": "move",
+      "tier": 2,
+      "branch": "escapes",
+      "requires": {
+        "discipline": 25,
+        "attributes": {
+          "technique": 42,
+          "defense": 38
+        },
+        "prerequisites": ["judo_esc_yoko_nuke"],
+        "reps": 150
+      },
+      "match": {
+        "role": "escape",
+        "phases": ["ground_bottom"],
+        "effects": {
+          "escape": 7,
+          "scramble": 5
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "INFERENCE: bridge-and-roll escape from north-south; harder than side control because uke's weight is centred on the torso. Q72_judo_seats.json line 32 confirms judo_kamishihogatame as ground_top pin.",
+      "grade": "4th kyu",
+      "grade_rank": 22
+    },
+    {
+      "id": "judo_esc_tate_nuke",
+      "name": "Tate-shiho-gatame Escape (Mount Break)",
+      "kind": "move",
+      "tier": 2,
+      "branch": "escapes",
+      "requires": {
+        "discipline": 25,
+        "attributes": {
+          "technique": 42,
+          "defense": 38
+        },
+        "prerequisites": ["judo_esc_yoko_nuke"],
+        "reps": 150
+      },
+      "match": {
+        "role": "escape",
+        "phases": ["ground_bottom"],
+        "effects": {
+          "escape": 8,
+          "scramble": 4
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "INFERENCE: upa bridge escape from mount (vertical four-quarter hold); Q72_judo_seats.json line 50 confirms judo_tateshihogatame as ground_top pin.",
+      "grade": "4th kyu",
+      "grade_rank": 23
+    },
+    {
+      "id": "judo_taisabaki_defense",
+      "name": "Taisabaki (Body Evasion from Throws)",
+      "kind": "skill",
+      "tier": 2,
+      "branch": "defense",
+      "requires": {
+        "discipline": 30,
+        "attributes": {
+          "defense": 40,
+          "speed": 35
+        },
+        "prerequisites": ["judo_ukemi", "judo_kumikata"],
+        "reps": 150
+      },
+      "match": {
+        "role": "defense",
+        "phases": ["standing"],
+        "effects": {
+          "takedown_defense": 9,
+          "evasion": 5
+        },
+        "range_band": ["MID", "POCKET"],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "INFERENCE: taisabaki (body management) is the foundational judo movement for avoiding throws by moving off the line of attack; not currently catalogued as a standalone defense node. takedown_defense answers incoming takedown; evasion answers incoming strike per defense_answers.",
+      "grade": "4th kyu",
+      "grade_rank": 20
+    },
+    {
+      "id": "judo_kumi_defense",
+      "name": "Kumi-kata Defense (Grip Fighting)",
+      "kind": "skill",
+      "tier": 2,
+      "branch": "defense",
+      "requires": {
+        "discipline": 30,
+        "attributes": {
+          "defense": 38,
+          "technique": 35
+        },
+        "prerequisites": ["judo_kumikata"],
+        "reps": 150
+      },
+      "match": {
+        "role": "defense",
+        "phases": ["standing", "clinch"],
+        "effects": {
+          "takedown_defense": 7,
+          "scramble": 4
+        },
+        "range_band": ["POCKET"],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "INFERENCE: grip fighting defense prevents opponent from establishing the kumi-kata needed to set up throws; builds on judo_kumikata. takedown_defense answers incoming takedown; scramble answers takedown and control per defense_answers.",
+      "grade": "4th kyu",
+      "grade_rank": 21
+    }
+  ],
+  "sambo": [
+    {
+      "id": "sambo_esc_bridge",
+      "name": "Bridge Escape from Pin",
+      "kind": "move",
+      "tier": 1,
+      "branch": "escapes",
+      "requires": {
+        "discipline": 10,
+        "attributes": {
+          "technique": 30,
+          "power": 32
+        },
+        "prerequisites": ["sambo_stance"],
+        "reps": 80
+      },
+      "match": {
+        "role": "escape",
+        "phases": ["ground_bottom"],
+        "effects": {
+          "escape": 7,
+          "scramble": 4
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "INFERENCE: basic wrestling-influenced bridge escape from a sambo pin; sambo_fias_sport ruleset lists hold_downs as legal (competition_rulesets_v2.json, sambo_fias_sport.legal_techniques).",
+      "grade": "student",
+      "grade_rank": 1
+    },
+    {
+      "id": "sambo_esc_frame_roll",
+      "name": "Frame and Roll from Pin",
+      "kind": "move",
+      "tier": 1,
+      "branch": "escapes",
+      "requires": {
+        "discipline": 10,
+        "attributes": {
+          "technique": 32,
+          "power": 30
+        },
+        "prerequisites": ["sambo_stance"],
+        "reps": 80
+      },
+      "match": {
+        "role": "escape",
+        "phases": ["ground_bottom"],
+        "effects": {
+          "escape": 7,
+          "control_escape": 5
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "INFERENCE: frame against the pinning opponent's near-side arm or shoulder, then roll to recover position; sambo's ground game draws from both judo newaza and wrestling.",
+      "grade": "student",
+      "grade_rank": 2
+    },
+    {
+      "id": "sambo_esc_leglock",
+      "name": "Leg Lock Entry Escape",
+      "kind": "move",
+      "tier": 2,
+      "branch": "escapes",
+      "requires": {
+        "discipline": 25,
+        "attributes": {
+          "technique": 40,
+          "defense": 38
+        },
+        "prerequisites": ["sambo_esc_bridge"],
+        "reps": 150
+      },
+      "match": {
+        "role": "escape",
+        "phases": ["ground_bottom"],
+        "effects": {
+          "escape": 8,
+          "scramble": 5
+        },
+        "range_delta": 0
+      },
+      "flags": {
+        "note": "Modeled as escape, not defense: no defense_answers key answers submission today. See report SUBMISSION section."
+      },
+      "source": "INFERENCE: escape from straight ankle lock or kneebar entry; sambo_fias_sport ruleset lists painful_holds_joint_locks as legal (competition_rulesets_v2.json, sambo_fias_sport.legal_techniques). Handled as escape node because no defense_answers key answers the submission class.",
+      "grade": "student",
+      "grade_rank": 3
+    },
+    {
+      "id": "sambo_esc_shrimp",
+      "name": "Hip Escape (Shrimp) from Pin",
+      "kind": "move",
+      "tier": 1,
+      "branch": "escapes",
+      "requires": {
+        "discipline": 10,
+        "attributes": {
+          "technique": 30,
+          "defense": 28
+        },
+        "prerequisites": ["sambo_stance"],
+        "reps": 80
+      },
+      "match": {
+        "role": "escape",
+        "phases": ["ground_bottom"],
+        "effects": {
+          "escape": 6,
+          "guard_recovery": 5
+        },
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "INFERENCE: hip escape common to all grappling arts; sambo's ground curriculum includes it as a fundamental movement. Follows the bjj_shrimp_escape pattern (escape + guard_recovery).",
+      "grade": "student",
+      "grade_rank": 4
+    },
+    {
+      "id": "sambo_throw_defense",
+      "name": "Throw Defense (Anti-Throw Base)",
+      "kind": "skill",
+      "tier": 2,
+      "branch": "defense",
+      "requires": {
+        "discipline": 25,
+        "attributes": {
+          "defense": 40,
+          "conditioning": 35
+        },
+        "prerequisites": ["sambo_stance"],
+        "reps": 120
+      },
+      "match": {
+        "role": "defense",
+        "phases": ["standing"],
+        "effects": {
+          "takedown_defense": 8,
+          "throw_damage_reduction": 5
+        },
+        "range_band": ["MID", "POCKET"],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "INFERENCE: sambo's throw defense draws from judo and wrestling; dropping the hips and maintaining a low centre of gravity. takedown_defense and throw_damage_reduction both answer incoming takedown per defense_answers.",
+      "grade": "candidate",
+      "grade_rank": 5
+    },
+    {
+      "id": "sambo_grip_break_defense",
+      "name": "Grip Break Defense",
+      "kind": "skill",
+      "tier": 2,
+      "branch": "defense",
+      "requires": {
+        "discipline": 25,
+        "attributes": {
+          "defense": 38,
+          "technique": 35
+        },
+        "prerequisites": ["sambo_stance"],
+        "reps": 120
+      },
+      "match": {
+        "role": "defense",
+        "phases": ["standing", "clinch"],
+        "effects": {
+          "takedown_defense": 6,
+          "scramble": 4
+        },
+        "range_band": ["POCKET"],
+        "range_delta": 0
+      },
+      "flags": {},
+      "source": "INFERENCE: breaking the opponent's grip to prevent throw setups; sambo's jacket grappling demands grip fighting analogous to judo kumi-kata. takedown_defense answers takedown; scramble answers takedown and control per defense_answers.",
+      "grade": "candidate",
+      "grade_rank": 6
+    }
+  ]
+}

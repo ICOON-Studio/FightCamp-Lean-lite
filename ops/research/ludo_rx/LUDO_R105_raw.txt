@@ -1,0 +1,400 @@
+FIGHTCAMP — ROUND 105 SPECIFICATION
+
+Target Engine: Godot 4.7.2 (DirectX 12 / Forward+ rendering)
+
+Perspective: Broadcast-style fixed angle overview, Anvil Street Boxing Club floor (1920×1080 canvas)
+
+Scope: Pure Boxing only (punches, head movement, footwork, mitts). All audio, kickboxing, and equipment degradation are explicitly disabled.
+
+PART A — THE COACH'S PAD WORK AS A PAIRED CLIP
+A1. Pipeline & Tool Decision: Cascadeur Paired Track Import
+Selected Pipeline: Cascadeur 2026 (using your local license expiring Oct 27, 2026) alongside your existing Mixamo punch anim as the contact baseline.
+Why Mixamo/Web Rigging fails here: Mixamo single clips have no target offset tracking or mitt resistance mechanics. Web automated rigs lack contact physics and solve limbs independently, causing floating or intersecting fists.
+Why Cascadeur succeeds: Cascadeur's physical constraint system solves two rigs simultaneously in one project file, guaranteeing hand-to-mitt impact lines, center-of-mass balancing, and reciprocal recoil on the exact contact frames.
+Step-by-Step Production Protocol (2.5-hour turnaround)
+Scene Setup: Open Cascadeur. Import both MetaHuman skeleton rigs into the same scene. Place the Coach at world origin $(0, 0, 0)$ facing forward along $+Z$. Place Fighter at $(0, 0, 1.15)$ facing $-Z$ (1.15 meters apart, orthodox stance).
+Contact Keyframing: Create key poses at frames 0, 24, 42, 66, 96, 126, 156, and 210 based on the timing table in A2. Align the Coach's mitt plane flush to the fighter's fist surface at each impact point.
+Physics & Recoil Baking:
+Pin Coach hand transforms at impact frame $T$.
+On frame $T+2$, apply a 35 mm displacement back along the punch line into the Coach's shoulder and thoracic spine (catch resistance).
+Enable Cascadeur's AutoPosing and Spatial Trajectory Smooth on the Coach's arms to produce smooth transitions between pad targets.
+Dual Export: Export two separate .glb animations with identical length (240 frames @ 30 fps, looping):
+anim_pads_fighter_orthodox_loop.glb
+anim_pads_coach_orthodox_loop.glb
+Both animations share identical global transform origins $(0,0,0)$, with root motion baked into bone translations so neither actor drifts over multiple loops.
+A2. Pad Round Choreography & Timing Table (240 Frames / 8.0 Seconds @ 30 FPS)
+
+Combination: 1 - 2 - Slip Right - 2 - Left Hook to Body - Step Out / Reset (A classic fundamental rhythm test).
+
+| Frame Range | Fighter Action | Coach Mitt Position & Height | Contact Frame | Coach Catch Recoil & Footwork |
+| :--- | :--- | :--- | :--- | :--- |
+| 000–018 | Stance idle bounce, rhythmic weigh-shift. | Guard position: Mitts held collarbone height, palms inward at $45^\circ$. | — | Subtle micro-bounce, weight balanced $50/50$ on balls of feet. |
+| 019–026 | Left Jab (1): Quick snap jab to head. | Right mitt pushed forward to fighter's eye level ($1.62,\text{m}$), angled $10^\circ$ down. | 024 | Frame 24–26: Right mitt pushes forward $20,\text{mm}$ to meet jab, absorbs back $35,\text{mm}$, right elbow compresses to rib. |
+| 027–036 | Return jab to chin guard; transition. | Right mitt resets; Left mitt rotates out to face fighter's right fist. | — | Shifts weight to rear foot ($60/40$). |
+| 037–044 | Straight Right (2): Hips turn, full right extension. | Left mitt framed at nose height ($1.60,\text{m}$), tight inward angle. | 042 | Frame 42–45: Left mitt catches punch firmly; Coach left shoulder tilts back $4^\circ$; head turns slightly right. |
+| 045–060 | Slip Right: Drops right shoulder, rolls head off line. | Coach flashes right mitt jab over fighter's left ear as a cue/threat ($1.55,\text{m}$). | — | Coach takes a half-step forward with left foot ($0.12,\text{m}$) to pressure distance. |
+| 061–068 | Counter Straight Right (2) coming out of slip. | Left mitt snaps back into position at cheek height ($1.58,\text{m}$). | 066 | Frame 66–69: Hard pop catch; Coach torso rotates $6^\circ$ rearward; solid base absorption through feet. |
+| 070–090 | Wind up left side, drops level. | Right mitt drops down to Coach's left floating rib height ($1.15,\text{m}$), palm down/out. | — | Coach widens base stance, flexes knees to brace for liver impact. |
+| 091–098 | Left Hook to Body (3B): Tight horizontal arc. | Right mitt turned down at $45^\circ$ angle, tucked firm to side ribs. | 096 | Frame 96–100: Strong catch; Coach bends side trunk slightly; right forearm absorbs hit against body cushion. |
+| 099–120 | Fighter ducks under Coach reset cue, circles right. | Both mitts raise back to chest level, open face. | — | Coach pivots right foot $45^\circ$, tracking the fighter's circle. |
+| 121–150 | 1 - 2 Burst: Rapid touch jab then hard cross. | Alternating flat targets: Right mitt at frame 134, Left mitt at frame 144. | 134, 144 | Double pop recoil: crisp tap forward on 133, firm lock and shoulder compression on 144. |
+| 151–200 | Small step back, quick breath, guard stays tight. | Mitts down to chest level; coach taps fighter's gloves lightly. | 172 | Coach rhythmically taps mitt against fighter's lead glove (instructional cue). |
+| 201–240 | Reset to orthodox stance loop start. | Mitts return to collarbone rest position. | — | Step-drag reset back to $(0,0,0)$ relative alignment. Ready to loop. |
+
+A3. Engine Sync & Spatial Rigging (Godot 4.7.2)
+
+To avoid bone drift, phase misalignment, and asynchronous frame ticks, both rigs must be coordinated by a single controller script.
+
+PadsStation (Node3D) [World Position: e.g. Vector3(-2.4, 0.0, 3.2)]
+├── SharedOrigin (Marker3D) [Position: 0, 0, 0]
+│   ├── FighterMount (Marker3D) [Position: (0, 0, 0.575), Rotation: 180° Y]
+│   │   └── FighterBody (CharacterBody3D -> AnimationPlayer)
+│   └── CoachMount (Marker3D) [Position: (0, 0, -0.575), Rotation: 0° Y]
+│       └── CoachBody (CharacterBody3D -> AnimationPlayer)
+└── PadWorkoutController (Node)
+
+Distance: Exactly $1.15,\text{m}$ between bone root points (root or pelvis_projection).
+Facing: Fighter faces forward along local $-Z$ ($180^\circ$ Y-rotation relative to station); Coach faces local $+Z$ ($0^\circ$).
+Sync Strategy: Single unified clock. A dedicated node advances playback on both AnimationPlayer nodes using exact frame indices rather than system delta times.
+# PadWorkoutController.gd
+class_name PadWorkoutController
+extends Node
+
+@export var fighter_anim: AnimationPlayer
+@export var coach_anim: AnimationPlayer
+@export var sync_track_name: String = "pads_routine_orthodox"
+
+func _ready() -> void:
+    assert(fighter_anim != null and coach_anim != null, "Animators must be assigned.")
+    align_and_lock_actors()
+
+func start_routine(speed_multiplier: float = 1.0) -> void:
+    fighter_anim.play(sync_track_name)
+    coach_anim.play(sync_track_name)
+    fighter_anim.speed_scale = speed_multiplier
+    coach_anim.speed_scale = speed_multiplier
+    # Hard lock seek position
+    fighter_anim.seek(0.0, true)
+    coach_anim.seek(0.0, true)
+
+func set_speed(speed_multiplier: float) -> void:
+    fighter_anim.speed_scale = speed_multiplier
+    coach_anim.speed_scale = speed_multiplier
+
+func snap_sync_check() -> void:
+    var diff := absf(fighter_anim.current_animation_position - coach_anim.current_animation_position)
+    if diff > 0.016: # Out of sync by more than half a frame @ 30fps
+        coach_anim.seek(fighter_anim.current_animation_position, true)
+
+func align_and_lock_actors() -> void:
+    var mount_f: Node3D = get_node("../SharedOrigin/FighterMount")
+    var mount_c: Node3D = get_node("../SharedOrigin/CoachMount")
+    mount_f.position = Vector3(0.0, 0.0, 0.575)
+    mount_f.rotation_degrees = Vector3(0.0, 180.0, 0.0)
+    mount_c.position = Vector3(0.0, 0.0, -0.575)
+    mount_c.rotation_degrees = Vector3(0.0, 0.0, 0.0)
+
+A4. Stat-Driven Progression on the Pads
+
+Progress is visualized through three parameters: Animation Speed, Strike Snap (Blend Curve), and Impact Precision (IK target variance).
+
+Stat Threshold: Technique + Hand Speed (Average 0-100)
+
+
+| Stat Band (Avg Tech/Speed) | Speed Multiplier | Snap / Transition Interpolation | Missed Hit / Glancing Rate | Visible In-Engine Result |
+| :---: | :---: | :---: | :---: | :--- |
+| 00 – 39 (Novice) | 0.85× (Loop = 9.4s) | Linear (EaseInOut 0.0), sloppy return transitions (3.5 frames). | 15% random offset off mitt center ($45,\text{mm}$ error). | Slow, lethargic cadence; fighter pushes punches like weights; coach visibly reaches to grab missed punches. |
+| 40 – 69 (Club Fighter) | 1.00× (Loop = 8.0s) | Snappy return (EaseIn 0.15). Clean retraction. | 5% offset ($15,\text{mm}$ error). | Solid domestic timing; hits land flush in the sweet spot; standard rhythmic cadence. |
+| 70 – 89 (Contender) | 1.15× (Loop = 6.9s) | Sharp cubic snap (EaseOut 0.35). Fist returns to chin instantly. | 0% offset (dead center). | Pop and whip; coach's body recoils back immediately on contact; no wasted forward linger. |
+| 90 – 100 (Elite) | 1.30× (Loop = 6.1s) | Hyper-snappy (EaseOut 0.55). Contact is explosive, immediate reset. | 0% offset; tight $10,\text{mm}$ penetration into mitt. | Explosive rhythm; Coach rocks back noticeably on frame 42 and 96; lightning double jab-cross transition. |
+
+PART B — SLICE 4 ON THE FLOOR: FIND A FIGHT -> BOOK -> FILM TELL -> FIGHT
++----------------------------------------------------------------------------------------------------------------------+
+| 1920x1080 FLOOR HUD LAYOUT                                                                                           |
+|                                                                                                                      |
+| [BOXER PROFILE & STATS]       [GOAL CARD - TOP CENTER]                              [FIND A FIGHT BUTTON]            |
+| Top-Left: (32, 24)            Pos: (660, 24) Size: (600, 96)                        Pos: (1664, 24) Size: (224, 48)  |
+|                                                                                                                      |
+| [WEEKLY METERS]                                                                                                      |
+| Gains / Attrition                                                                                                    |
+| Pos: (32, 128)                                                                                                       |
+|                                                                                                                      |
+|                                                                                                                      |
+|                                          3D GYM FLOOR VIEWPORT                                                       |
+|                                                                                                                      |
+|                                                                                                                      |
+|                                                                                                                      |
+|                                                                                      [FIGHT COUNTDOWN BANNER]        |
+|                                                                                      (When Booked)                   |
+|                                                                                      Pos: (1520, 96) Size: (368, 64) |
+|                                                                                                                      |
+| [CUE / WORKOUT CONTROL STRIP]                                                                                        |
+| Pos: (360, 980) Size: (1200, 76)                                                                                     |
++----------------------------------------------------------------------------------------------------------------------+
+
+B1. "FIND A FIGHT" Entry & Main Modal Spec
+HUD Trigger Button:
+Position: Top-right corner: x: 1664, y: 24.
+Dimensions: w: 224, h: 48.
+Color: Neutral dark slate (#181E24), 1px border (#334155). Gold text accent (#F59E0B).
+Label: [FIND A FIGHT] (Bold 14px uppercase sans-serif with subtle boxing glove icon).
+Booking Panel Modal:
+Position: Centered on screen: x: 360, y: 140.
+Dimensions: w: 1200, h: 800.
+Background Style: Opaque dark panel #0F172A with an 85% alpha backdrop shield across the full screen (#000000 @ 0.75). Border: 2px solid #334155. Corner radius: 0px (utilitarian brutalist design).
+Header: AVAILABLE BOUTS — SANCTIONED OPPONENTS (Font: 20px bold #F8FAFC). Close button top-right [X].
+B2. Opponent List Structure & Selection Logic
+List Format: 4 rows visible simultaneously (Vertical scroll if expanded).
+Row Dimensions: w: 1152, h: 140. Margin between rows: 12px.
+Row Visual Breakdown:
+Left Column (w: 260): Name (18px bold #FFFFFF), Age & Origin (#94A3B8), Record Badge (14-2-1, 9 KOs in gold #F59E0B).
+Style & Physicals (w: 220): Orthodox / Southpaw tag; Height/Reach; Archetype tag (SLUGGER, OUT-BOXER, PRESSURE FIGHTER).
+One-Line Scout Read (w: 320): “Leaves chin high after throwing 2; fades heavily in round 4.” (Italic 13px #CBD5E1).
+Purse & Date (w: 180): $4,500 Purse (#22C55E); Fight Date: Day 14 (Fri) (#E2E8F0).
+Goal Affinity Tag (w: 140): If opponent style matches active goal (e.g. goal requires 70% stamina vs pressure fighter), display green badge: [FITS GOAL: +30 TRUST]. If not matching: neutral grey [STANDARD BOUT].
+Sort Order Default: Match Date (Earliest to Latest), then Purse Value.
+Booking Confirmation Flow:
+Click row $\to$ Row lights up with yellow border (#EAB308, 2px).
+Right side reveals primary action button: [ACCEPT CONTRACT] (Green #16A34A, w: 160, h: 44).
+Clicking [ACCEPT CONTRACT] opens a small centered prompt:
+“Sign contract vs MARCUS VANCE for Day 14? This locks training targets.”
+Options: [CONFIRM] / [CANCEL].
+B3. Instant Floor Changes on Booking
+
+The instant [CONFIRM] is clicked, the following updates fire in a single frame:
+
+Goal Card Target Updates: Top-center card appends: TARGET: MARCUS VANCE (DAY 14). The progress timeline changes from general days to a specific fight week deadline.
+Film Corner Activates: The TV mounted above the locker/bench station turns on (unlit CRT grey #1E293B shifts to active glowing blue emission #38BDF8 with scanlines). The booked opponent’s wireframe portrait and name appear on screen.
+Gameplan Station Accent: The specific training station matched to beating Vance’s style (e.g., Heavy Bag for body punching or Pads for counter-right timing) receives an ambient floor spotlight (Color(1.0, 0.85, 0.3, 0.25)).
+Fight Countdown Widget:
+Location: Top-right, below top bar: x: 1520, y: 96, w: 368, h: 64.
+Visual: Dark grey pill container with red border accent (#DC2626).
+Text: BOUT LOCKED — 6 DAYS TO WEIGH-IN.
+B4. Film Study Integration
+Trigger: Click directly on the Film Station in the 3D world OR click a new prompt on the cue bar: [STUDY FIGHT FILM (30 MIN)].
+Cost: 30 game minutes deducted from the active training day. Morale cost: 0. Stamina cost: 0.
+The Revealed Tell: A stylized film panel pops up for 4 seconds, displaying a looping 3-second black/white clip of Vance overhanding:
+Read Text: “HABIT REVEALED: Dropping lead left hand before throwing overhand right.”
+Mechanical Game Effect: Gameplan Readiness increases by $+20%$.
+Station Response: The Pads Station floor projection turns bright yellow-gold:
+PREP BONUS: +25% COUNTER-RIGHT GAINS.
+B5. Transition to Fight Night & Post-Fight Return
+[TRAINING DAY 14: 18:00 END OF DAY] 
+           │
+           ▼
+[ACTION BUTTON IN CUE STRIP: "GO TO FIGHT VENUE"] (Bright Red #DC2626, w: 260, h: 56)
+           │
+           ▼
+[FADE TO BLACK (0.6s)]
+           │
+           ▼
+[BROADCAST SLATE / TALE OF THE TAPE (4.0s)]
+  - Fighter vs Opponent side-by-side
+  - Final Prep Rating: "Gameplan Readiness: 85%"
+           │
+           ▼
+[3D RING SCENE - BELL RINGS] (Automated / Player Tactics Engine)
+           │
+           ▼
+[FIGHT OUTCOME BANNER (3.0s)]: "VICTORY BY UD / DECISION"
+           │
+           ▼
+[FADE TO BLACK (0.6s)]
+           │
+           ▼
+[RETURN TO GYM FLOOR - MORNING 08:00 (NEXT DAY)]
+  - Fighter stands on floor with visible bruising (if low defense)
+  - Goal settlement modal pops up immediately
+
+Return State:
+Wallet balance updates with purse winnings.
+Goal Card updates to status MET or MISSED.
+The Film TV turns off (standby black).
+Find A Fight button unlocks again for the next cycle.
+PART C — THE GOAL OUTCOME MOMENT
+
+A single status line is insufficient to create emotional tension. The end of a training goal cycle represents either payoff or professional crisis.
+
++-------------------------------------------------------------------------------+
+| GOAL EVALUATION MODAL (1920x1080 Center: x:560, y:280, w:800, h:520)          |
+|                                                                               |
+| [STATUS BANNER: "GOAL MET: SHARPEN UP"] -> Green Bar (#16A34A)                |
+|                                                                               |
+| "Danny hit 85 Hand Speed before Friday deadline."                             |
+|                                                                               |
+| Trust: +25  [===========>     ] 75/100                                        |
+| Morale: +10 [========>        ] 60/100                                        |
+|                                                                               |
+| ----------------------------------------------------------------------------- |
+| SELECT NEXT CAMP PHASE:                                                       |
+|                                                                               |
+| +------------------------------------+  +-----------------------------------+ |
+| | [CARD A: POWER SURGE]              |  | [CARD B: TANK CONDITIONING]       | |
+| | Focus: Heavy Bag & Sparring        |  | Focus: Skipping & Roadwork        | |
+| | Target: Punch Power >= 75 (7 Days) |  | Target: Stamina >= 85 (7 Days)    | |
+| | Reward: +30 Trust, +15 Morale      |  | Reward: +20 Trust, +20 Morale     | |
+| | [SELECT THIS GOAL]                 |  | [SELECT THIS GOAL]                | |
+| +------------------------------------+  +-----------------------------------+ |
++-------------------------------------------------------------------------------+
+
+Goal Outcome Specifications
+Condition 1: Goal MET
+Banner: Solid Green header (#16A34A, h: 56px), text: GOAL COMPLETED: [GOAL TITLE] in bold white.
+Fighter Reaction: Fighter on 3D floor plays a 3-second celebration animation (cheer_fist_pump).
+Summary Text:
+“Target achieved within deadline. Danny trusts the camp methodology.”
+Displays stat changes cleanly with rolling green counters: TRUST: +25 (Now 75) / MORALE: +10 (Now 60).
+Actionable Next Step: Presents two distinct Next Goal Cards (e.g., Power Phase vs Stamina Grind). Player selects one to set the targets for the upcoming camp cycle.
+Condition 2: Goal MISSED (With Walk-Out Threat System)
+Banner: Hazard Striped Red/Dark header (#991B1B), text: GOAL MISSED: TARGET NOT REACHED.
+Consequences Displayed:
+TRUST: -25 (Now 20/100) | MORALE: -20 (Now 15/100).
+Walk-Out Warning Condition (Triggered if Trust drops below 30):
+Display a prominent yellow cautionary warning box:
+
+CRITICAL WARNING — FIGHTER DISSATISFACTION
+
+"Danny’s trust is below 30. He is questioning your coaching competence. Missing the next deadline or cutting recovery will cause him to fire you and leave Anvil Street Gym."
+
+Resolution Action: Only one emergency redemption goal is offered:
+[DAMAGE CONTROL: REPAIR CAMP TRUST (3 DAYS REST & TECHNIQUE WORK)].
+PART D — THE FEELING OF PROGRESSION
+
+To convey improvement without audio or camera angle changes, we rely on kinematic body language and UI telegraphing visible from high broadcast distances.
+
+Ranked Progression Signals (High to Low Value-Per-Engineering-Hour)
+Rank 1: Crisp Animation Snap (BlendCurve Tweaks)  [Highest ROI]
+Rank 2: Station Target Ring Compaction
+Rank 3: Posture Shift Between Workout Blocks
+Rank 4: High-Contrast World Floating Numbers
+Rank 5: Weekly Silhouette Ghost Overlay           [Lowest ROI]
+
+Detailed Mechanics for Each Progression Indicator
+1. Dynamic Snap & Recoil Snappiness (Value Score: 10/10 — Est: 1.5 Hours)
+What changes: Blend times between punches decrease as stats rise. At 40 Technique, transitioning from Jab out to Jab chin-return takes 0.16 seconds with a soft linear curve. At 80 Technique, return time is shortened to 0.06 seconds with an aggressive cubic ease-out.
+Concrete Values:
+Punch return speed scale: lerp(1.0, 1.85, technique / 100.0).
+Pad Recoil blend time: 0.18s (Novice) down to 0.05s (Elite).
+Broadcast Readability: At wide camera angles, soft punch returns make fighters look amateur and "floaty". Snappy returns look athletic, snappy, and powerful.
+2. Station Target Floor Projection Ring (Value Score: 9/10 — Est: 2 Hours)
+What changes: A subtle procedural projector ring under the fighter's feet at their current station.
+Concrete Values:
+Novice (Stat < 50): Ring radius is $1.4,\text{m}$, color is diffuse yellow (#FBBF24 @ 30% alpha), jittering slightly.
+Mastered (Stat > 80): Ring tightens down to an exact $0.75,\text{m}$ diameter, stable bright teal (#2DD4BF @ 80% alpha) with crisp, locked edges.
+Broadcast Readability: Instantly communicates tighter footwork discipline and balance control at wide camera distances.
+3. Idle Fatigue & Posture System (Value Score: 8/10 — Est: 2.5 Hours)
+What changes: The fighter's idle posture between rounds and exercise sets directly reflects their Conditioning stat.
+Concrete Values:
+Low Stamina/Conditioning (<50): Upper torso pitch tilted forward $12^\circ$, hands resting on hips, head hangs down during breaks.
+High Conditioning (>75): Upright stance (torso pitch $0^\circ$), active arm bouncing, elbows tucked tight to ribs, chin tucked.
+Broadcast Readability: Distinct silhouettes that stand out against the light wooden gym floor.
+4. Minimalist World-Space Gain Floaters (Value Score: 7/10 — Est: 1 Hour)
+What changes: Small, stylized text popups when a fighter completes a high-quality rep.
+Concrete Values: Text rises $0.8,\text{m}$ along $+Y$ and fades out over 1.2 seconds:
+Regular rep: +0.2 SPD (Subtle off-white #CBD5E1, 12px font).
+Milestones / Personal Bests: ★ MILESTONE: 80 SPEED (Bold Gold #F59E0B, 16px font, rises with slight scale pop).
+Broadcast Readability: Contrasts cleanly against the darker station mats and red brick walls.
+5. Weekly Ghost Overlay Comparison (Value Score: 6/10 — Est: 4 Hours)
+What changes: Pressing a small UI comparison button overlays a translucent wireframe ghost of the fighter's Week 1 self performing the same drill side-by-side.
+Concrete Values:
+Ghost body: 35% alpha monochrome white wireframe shader (#FFFFFF).
+Live body: Full color MetaHuman.
+Shows the current fighter completing punch combinations before the ghost even finishes the second strike.
+Broadcast Readability: Clearly highlights technical progress and speed differences without needing custom cinematic angles.
+PART E — ARCHITECTURAL IMPLEMENTATION (GDSCRIPT)
+Core Systems Controller: Bout & Progression Architecture
+# FightCampProgressionController.gd
+class_name FightCampProgressionController
+extends Node
+
+signal goal_settled(outcome_status: String, trust_delta: int, morale_delta: int)
+signal bout_booked(opponent_name: String, days_until_fight: int)
+signal film_tell_revealed(tell_text: String, bonus_station: String)
+
+enum GoalState { ON_TRACK, AT_RISK, OFF_TRACK, MET, MISSED }
+
+@export var current_trust: int = 50
+@export var current_morale: int = 50
+@export var active_goal_state: GoalState = GoalState.ON_TRACK
+
+# Booked Opponent Cache
+var booked_opponent_id: String = ""
+var days_until_fight: int = -1
+var active_tell_unlocked: bool = false
+
+# Progression Constants
+const TRUST_GAIN_MET: int = 25
+const MORALE_GAIN_MET: int = 10
+const TRUST_PENALTY_MISSED: int = -25
+const MORALE_PENALTY_MISSED: int = -20
+const WALKOUT_THRESHOLD: int = 30
+
+func book_bout(athlete_node: Node, offer_id: String, opponent_data: Dictionary) -> void:
+    booked_opponent_id = offer_id
+    days_until_fight = opponent_data.get("days_out", 14)
+    
+    # Broadcast floor changes
+    bout_booked.emit(opponent_data.get("name", "Unknown Opponent"), days_until_fight)
+    _activate_floor_elements_for_fight(opponent_data)
+
+func execute_film_study() -> Dictionary:
+    if booked_opponent_id == "":
+        return {"success": false, "reason": "No opponent booked"}
+    
+    active_tell_unlocked = true
+    var tell_data := {
+        "tell_text": "HABIT: Drops left hand before overhand right.",
+        "target_station": "PADS",
+        "stat_boost_type": "COUNTER_RIGHT",
+        "multiplier": 1.25
+    }
+    
+    film_tell_revealed.emit(tell_data["tell_text"], tell_data["target_station"])
+    return {"success": true, "data": tell_data}
+
+func evaluate_day_end_goal(fighter_stat: float, target_stat: float, is_deadline_day: bool) -> void:
+    if not is_deadline_day:
+        # Mid-camp tracking
+        if fighter_stat >= target_stat * 0.9:
+            active_goal_state = GoalState.ON_TRACK
+        elif fighter_stat >= target_stat * 0.7:
+            active_goal_state = GoalState.AT_RISK
+        else:
+            active_goal_state = GoalState.OFF_TRACK
+        return
+
+    # Final Deadline Settlement
+    if fighter_stat >= target_stat:
+        active_goal_state = GoalState.MET
+        current_trust = clampi(current_trust + TRUST_GAIN_MET, 0, 100)
+        current_morale = clampi(current_morale + MORALE_GAIN_MET, 0, 100)
+        goal_settled.emit("MET", TRUST_GAIN_MET, MORALE_GAIN_MET)
+    else:
+        active_goal_state = GoalState.MISSED
+        current_trust = clampi(current_trust + TRUST_PENALTY_MISSED, 0, 100)
+        current_morale = clampi(current_morale + MORALE_PENALTY_MISSED, 0, 100)
+        goal_settled.emit("MISSED", TRUST_PENALTY_MISSED, MORALE_PENALTY_MISSED)
+        
+        if current_trust < WALKOUT_THRESHOLD:
+            _trigger_walkout_warning()
+
+func calculate_animation_snap(speed_stat: float, tech_stat: float) -> Dictionary:
+    var avg_stat: float = clampf((speed_stat + tech_stat) * 0.5, 0.0, 100.0)
+    var speed_scale: float = lerpf(0.85, 1.30, avg_stat / 100.0)
+    var blend_time: float = lerpf(0.18, 0.05, avg_stat / 100.0)
+    var miss_offset_mm: float = lerpf(45.0, 0.0, avg_stat / 100.0)
+    
+    return {
+        "speed_scale": speed_scale,
+        "blend_time": blend_time,
+        "miss_offset_mm": miss_offset_mm
+    }
+
+func _activate_floor_elements_for_fight(data: Dictionary) -> void:
+    # 1. Update Gameplan Readiness light hooks
+    var tv_mesh: Node3D = Engine.get_main_loop().root.find_child("FilmTVNode", true, false)
+    if is_instance_valid(tv_mesh) and tv_mesh.has_method("set_screen_active"):
+        tv_mesh.set_screen_active(true, data.get("name", "Target"))
+
+func _trigger_walkout_warning() -> void:
+    push_warning("Fighter trust below safe threshold. Walkout risk active.")

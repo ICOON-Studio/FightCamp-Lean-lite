@@ -1,0 +1,20 @@
+**Done.** Branch `cursor/u208-tott-previews` is pushed (`f1a08bc6`).
+
+### Deliverables (`previews/u208/`)
+| Variant | Video | Still |
+|--------|--------|--------|
+| 1 — DWCS broadcast | `variant_1_dwcs_broadcast.mp4` | `.png` |
+| 2 — Face-off | `variant_2_faceoff.mp4` | `.png` |
+| 3 — FightCamp surpass | `variant_3_fightcamp_surpass.mp4` | `.png` |
+
+Also: `u208_contact_sheet.png` (three stills side by side). All are **1920×1080, 30 fps, 10 s, silent**. Fighters: **ath_0003** vs **ath_0417** on `mpfb_male_pilot.glb`, boxing guard idle, camera push.
+
+### FighterPortrait fix
+White mannequins came from a **shared** skin `ShaderMaterial` on every body mesh (SubViewport only shaded one) and missing **trunks paint** before `apply`. `build_studio` now matches the ring path: trunks → apply → **duplicate** skin material per body mesh.
+
+### Gates
+- Parse: clean on touched `.gd`
+- Tests: `portrait,tale_of,fight_night` → **4/4 pass**
+- Stills opened; MP4s verified at 10.00 s via ffmpeg
+
+Full notes and broadcast URLs: `research/U208_DIGEST.md`. Re-render: `Tools\godot_hidden.ps1` + `python Tools/u208_tott_encode.py`. Pick a variant number for the in-game follow-up.

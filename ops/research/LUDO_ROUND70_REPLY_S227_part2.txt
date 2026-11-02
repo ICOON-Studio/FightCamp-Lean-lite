@@ -1,0 +1,526 @@
+
+:= Color("#36322b")
+const COLOR_SURF_BEVEL       := Color("#48433a")
+const COLOR_SURF_INSET       := Color("#161513")
+
+Championship Gold & Stamped Brass Family
+
+const COLOR_GOLD_BRIGHT      := Color("#f0c233")
+const COLOR_GOLD_MUTED       := Color("#c8931b")
+const COLOR_BRASS_ANTIQUE    := Color("#d4af37")
+const COLOR_BRASS_DARK       := Color("#8c6f2d")
+const COLOR_BRASS_FAINT      := Color("#5e4a1e")
+
+Accents, Telemetry & Status Signals
+
+const COLOR_OXBLOOD_DARK     := Color("#7a1e22")
+const COLOR_OXBLOOD_BRIGHT   := Color("#c62f2a")
+const COLOR_AMBER_WARN       := Color("#e08a1e")
+const COLOR_EMERALD_VAL      := Color("#2f855a")
+const COLOR_EMERALD_BRIGHT   := Color("#38a169")
+const COLOR_STEEL_INFO       := Color("#4a758c")
+const COLOR_STEEL_MUTED      := Color("#2e424d")
+
+Bond Paper Cream & Text Hierarchy
+
+const COLOR_TEXT_HERO        := Color("#f5ede0")
+const COLOR_TEXT_BODY        := Color("#d8cebe")
+const COLOR_TEXT_MUTED       := Color("#8c8476")
+const COLOR_TEXT_FAINT       := Color("#544e45")
+const COLOR_TEXT_INVERSE     := Color("#0d0c0b")
+
+Interactive Feedback Modifiers
+
+const COLOR_STATE_HOVER_TINT := Color(1.0, 1.0, 1.0, 0.08)
+const COLOR_STATE_PRESS_SHADE:= Color(0.0, 0.0, 0.0, 0.20)
+const COLOR_STATE_FOCUS_RING := Color("#f0c233")
+const COLOR_STATE_DISABLED   := Color("#3a362f")
+
+Legacy Compatibility Aliases (maps older round code into Bible tokens)
+
+const COLOR_CHARCOAL_DARK    := COLOR_BG_VOID
+const COLOR_CHARCOAL_MID     := COLOR_SURF_BASE
+const COLOR_STEEL_BORDER     := COLOR_SURF_BORDER
+const COLOR_CREAM_PAPER      := COLOR_TEXT_HERO
+const COLOR_TRACK_DARK       := COLOR_BG_RECESS
+
+==============================================================================
+2. TYPOGRAPHY SIZES, TRACKING & LINE METRICS (AT 1080p NATIVE)
+==============================================================================
+
+const FONT_SIZE_HERO_NUM     := 44
+const FONT_SIZE_DISPLAY      := 32
+const FONT_SIZE_TITLE        := 24
+const FONT_SIZE_SUBTITLE     := 18
+const FONT_SIZE_HEADING      := 16
+const FONT_SIZE_SUBHEAD      := 13
+const FONT_SIZE_BODY         := 13
+const FONT_SIZE_CAPTION      := 11
+const FONT_SIZE_MICRO        := 9
+const FONT_SIZE_STAT_NUM     := 22
+
+const LETTER_SPACING_TIGHT   := 0
+const LETTER_SPACING_NORMAL  := 1
+const LETTER_SPACING_WIDE    := 2
+const LETTER_SPACING_HEADER  := 3
+
+const FONT_FAMILY_DISPLAY    := "res://assets/fonts/LeagueGothic-Regular.otf"
+const FONT_FAMILY_HEADING    := "res://assets/fonts/Oswald-SemiBold.ttf"
+const FONT_FAMILY_BODY       := "res://assets/fonts/BarlowSemiCondensed-Regular.ttf"
+const FONT_FAMILY_BODY_BOLD  := "res://assets/fonts/BarlowSemiCondensed-Bold.ttf"
+
+==============================================================================
+3. SPACING GRID, CORNERS & ELEVATION OFFSETS
+==============================================================================
+
+const SP_2                   := 2
+const SP_4                   := 4
+const SP_8                   := 8
+const SP_12                  := 12
+const SP_16                  := 16
+const SP_20                  := 20
+const SP_24                  := 24
+const SP_32                  := 32
+const SP_40                  := 40
+const SP_48                  := 48
+
+const RADIUS_NONE            := 0
+const RADIUS_PILL            := 2
+const RADIUS_CARD            := 3
+const RADIUS_PANEL           := 4
+const RADIUS_MODAL           := 4
+
+==============================================================================
+4. MOTION & CHOREOGRAPHY DURATIONS (SECONDS)
+==============================================================================
+
+const DURATION_HOVER         := 0.08
+const DURATION_SNAP          := 0.12
+const DURATION_TAB_SLIDE     := 0.16
+const DURATION_MODAL_ENTER   := 0.18
+const DURATION_MODAL_EXIT    := 0.12
+const DURATION_DRAWER_SLIDE  := 0.22
+const DURATION_METER_FILL    := 0.28
+const DURATION_COUNT_UP      := 0.34
+const DURATION_TOAST_LIFESPAN:= 4.20
+
+==============================================================================
+5. ICON AND STROKE SYSTEM
+==============================================================================
+
+const ICON_STROKE_WIDTH      := 1.75
+const ICON_SIZE_SM           := 14
+const ICON_SIZE_MD           := 18
+const ICON_SIZE_LG           := 24
+const ICON_SIZE_HERO         := 36
+
+==============================================================================
+6. MASTER THEME RESOURCE FACTORY & TYPE VARIATIONS
+==============================================================================
+
+static func build_master_theme() -> Theme:
+var th := Theme.new()
+
+# --- Panel Type Variations ---
+th.set_type_variation("PanelBase", "Panel")
+th.set_stylebox("panel", "PanelBase", create_panel_style(COLOR_SURF_BASE, COLOR_SURF_BORDER, 1, RADIUS_PANEL))
+
+th.set_type_variation("PanelElevated", "Panel")
+th.set_stylebox("panel", "PanelElevated", create_panel_style(COLOR_SURF_ELEV, COLOR_BRASS_DARK, 1, RADIUS_PANEL))
+
+th.set_type_variation("PanelCard", "Panel")
+th.set_stylebox("panel", "PanelCard", create_panel_style(COLOR_SURF_CARD, COLOR_SURF_BORDER, 1, RADIUS_CARD))
+
+th.set_type_variation("PanelRecessed", "Panel")
+th.set_stylebox("panel", "PanelRecessed", create_panel_style(COLOR_BG_RECESS, COLOR_SURF_BORDER, 1, RADIUS_CARD))
+
+th.set_type_variation("PanelModal", "Panel")
+th.set_stylebox("panel", "PanelModal", create_panel_style(COLOR_SURF_ELEV, COLOR_BRASS_ANTIQUE, 2, RADIUS_MODAL))
+
+th.set_type_variation("PanelOxbloodAlert", "Panel")
+th.set_stylebox("panel", "PanelOxbloodAlert", create_panel_style(COLOR_OXBLOOD_DARK, COLOR_OXBLOOD_BRIGHT, 1, RADIUS_CARD))
+
+# --- Button Type Variations ---
+# ButtonPrimary (Championship Gold Machined Plate)
+th.set_type_variation("ButtonPrimary", "Button")
+th.set_stylebox("normal", "ButtonPrimary", create_panel_style(COLOR_GOLD_BRIGHT, COLOR_BRASS_DARK, 1, RADIUS_PILL))
+th.set_stylebox("hover", "ButtonPrimary", create_panel_style(Color("#ffd647"), COLOR_GOLD_BRIGHT, 1, RADIUS_PILL))
+th.set_stylebox("pressed", "ButtonPrimary", create_panel_style(COLOR_GOLD_MUTED, COLOR_TEXT_INVERSE, 1, RADIUS_PILL))
+th.set_stylebox("disabled", "ButtonPrimary", create_panel_style(COLOR_SURF_BASE, COLOR_SURF_BORDER, 1, RADIUS_PILL))
+th.set_color("font_color", "ButtonPrimary", COLOR_TEXT_INVERSE)
+th.set_color("font_hover_color", "ButtonPrimary", COLOR_TEXT_INVERSE)
+th.set_color("font_pressed_color", "ButtonPrimary", COLOR_TEXT_INVERSE)
+th.set_color("font_disabled_color", "ButtonPrimary", COLOR_TEXT_FAINT)
+
+# ButtonSecondary (Dark Steel Bevel with Brass Border)
+th.set_type_variation("ButtonSecondary", "Button")
+th.set_stylebox("normal", "ButtonSecondary", create_panel_style(COLOR_SURF_ELEV, COLOR_BRASS_DARK, 1, RADIUS_PILL))
+th.set_stylebox("hover", "ButtonSecondary", create_panel_style(COLOR_SURF_CARD, COLOR_BRASS_ANTIQUE, 1, RADIUS_PILL))
+th.set_stylebox("pressed", "ButtonSecondary", create_panel_style(COLOR_SURF_BASE, COLOR_BRASS_DARK, 1, RADIUS_PILL))
+th.set_stylebox("disabled", "ButtonSecondary", create_panel_style(COLOR_SURF_BASE, COLOR_SURF_BORDER, 1, RADIUS_PILL))
+th.set_color("font_color", "ButtonSecondary", COLOR_TEXT_HERO)
+th.set_color("font_hover_color", "ButtonSecondary", COLOR_GOLD_BRIGHT)
+th.set_color("font_disabled_color", "ButtonSecondary", COLOR_TEXT_FAINT)
+
+# ButtonGhost (Clear Frame Utility)
+th.set_type_variation("ButtonGhost", "Button")
+th.set_stylebox("normal", "ButtonGhost", create_panel_style(Color.TRANSPARENT, COLOR_SURF_BORDER, 1, RADIUS_PILL))
+th.set_stylebox("hover", "ButtonGhost", create_panel_style(Color(1.0, 1.0, 1.0, 0.05), COLOR_BRASS_DARK, 1, RADIUS_PILL))
+th.set_stylebox("pressed", "ButtonGhost", create_panel_style(Color(0.0, 0.0, 0.0, 0.2), COLOR_SURF_BORDER, 1, RADIUS_PILL))
+th.set_color("font_color", "ButtonGhost", COLOR_TEXT_BODY)
+th.set_color("font_hover_color", "ButtonGhost", COLOR_TEXT_HERO)
+
+# ButtonDanger (Oxblood Red Decisive Action)
+th.set_type_variation("ButtonDanger", "Button")
+th.set_stylebox("normal", "ButtonDanger", create_panel_style(COLOR_OXBLOOD_DARK, COLOR_OXBLOOD_BRIGHT, 1, RADIUS_PILL))
+th.set_stylebox("hover", "ButtonDanger", create_panel_style(COLOR_OXBLOOD_BRIGHT, Color("#ff4a50"), 1, RADIUS_PILL))
+th.set_stylebox("pressed", "ButtonDanger", create_panel_style(Color("#501417"), COLOR_OXBLOOD_DARK, 1, RADIUS_PILL))
+th.set_color("font_color", "ButtonDanger", COLOR_TEXT_HERO)
+
+# ButtonTab (Segmented Tab Bar Item)
+th.set_type_variation("ButtonTab", "Button")
+th.set_stylebox("normal", "ButtonTab", create_panel_style(Color.TRANSPARENT, Color.TRANSPARENT, 0, 0))
+th.set_stylebox("hover", "ButtonTab", create_panel_style(Color(1.0, 1.0, 1.0, 0.03), Color.TRANSPARENT, 0, 0))
+th.set_stylebox("pressed", "ButtonTab", create_panel_style(COLOR_SURF_ELEV, Color.TRANSPARENT, 0, 0))
+th.set_color("font_color", "ButtonTab", COLOR_TEXT_MUTED)
+th.set_color("font_hover_color", "ButtonTab", COLOR_TEXT_HERO)
+
+# --- Label Type Variations ---
+th.set_type_variation("LabelHeroNum", "Label")
+th.set_color("font_color", "LabelHeroNum", COLOR_GOLD_BRIGHT)
+th.set_font_size("font_size", "LabelHeroNum", FONT_SIZE_HERO_NUM)
+
+th.set_type_variation("LabelDisplayTitle", "Label")
+th.set_color("font_color", "LabelDisplayTitle", COLOR_TEXT_HERO)
+th.set_font_size("font_size", "LabelDisplayTitle", FONT_SIZE_DISPLAY)
+
+th.set_type_variation("LabelSectionHeading", "Label")
+th.set_color("font_color", "LabelSectionHeading", COLOR_BRASS_ANTIQUE)
+th.set_font_size("font_size", "LabelSectionHeading", FONT_SIZE_HEADING)
+
+th.set_type_variation("LabelBody", "Label")
+th.set_color("font_color", "LabelBody", COLOR_TEXT_BODY)
+th.set_font_size("font_size", "LabelBody", FONT_SIZE_BODY)
+
+th.set_type_variation("LabelMutedCaption", "Label")
+th.set_color("font_color", "LabelMutedCaption", COLOR_TEXT_MUTED)
+th.set_font_size("font_size", "LabelMutedCaption", FONT_SIZE_CAPTION)
+
+th.set_type_variation("LabelAlertWarning", "Label")
+th.set_color("font_color", "LabelAlertWarning", COLOR_AMBER_WARN)
+th.set_font_size("font_size", "LabelAlertWarning", FONT_SIZE_BODY)
+
+th.set_type_variation("LabelAlertDanger", "Label")
+th.set_color("font_color", "LabelAlertDanger", COLOR_OXBLOOD_BRIGHT)
+th.set_font_size("font_size", "LabelAlertDanger", FONT_SIZE_BODY)
+
+# --- ProgressBar Variations ---
+th.set_type_variation("ProgressBarTelemetry", "ProgressBar")
+th.set_stylebox("background", "ProgressBarTelemetry", create_panel_style(COLOR_BG_RECESS, COLOR_SURF_BORDER, 1, RADIUS_PILL))
+th.set_stylebox("fill", "ProgressBarTelemetry", create_panel_style(COLOR_GOLD_BRIGHT, Color.TRANSPARENT, 0, RADIUS_PILL))
+
+return th
+
+==============================================================================
+7. UIKIT COMPONENT FACTORY API (CALLABLE FUNCTIONS)
+==============================================================================
+Creates a solid, bevelled StyleBoxFlat with consistent border, radius, and anti-aliasing
+
+static func create_panel_style(
+fill_col: Color,
+border_col: Color = Color.TRANSPARENT,
+border_w: int = 0,
+corner_rad: int = RADIUS_NONE
+) -> StyleBoxFlat:
+var sb := StyleBoxFlat.new()
+sb.bg_color = fill_col
+sb.border_color = border_col
+sb.set_border_width_all(border_w)
+sb.set_corner_radius_all(corner_rad)
+sb.anti_aliasing = true
+sb.anti_aliasing_size = 1.0
+return sb
+
+Creates an authentic chamfered industrial button matching Gleason specifications
+
+static func create_chamfer_button(label_text: String, is_primary: bool = false, custom_h: int = 36) -> Button:
+var btn := Button.new()
+btn.text = label_text.to_upper()
+btn.custom_minimum_size = Vector2(0, custom_h)
+btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+
+if is_primary:
+	btn.theme_type_variation = "ButtonPrimary"
+	btn.add_theme_font_size_override("font_size", FONT_SIZE_SUBTITLE)
+else:
+	btn.theme_type_variation = "ButtonSecondary"
+	btn.add_theme_font_size_override("font_size", FONT_SIZE_SUBHEAD)
+
+# Micro physical hover tween
+btn.mouse_entered.connect(func():
+	if not btn.disabled and btn.is_inside_tree():
+		var tw := btn.create_tween()
+		tw.tween_property(btn, "scale", Vector2(1.015, 1.015), DURATION_HOVER).set_trans(Tween.TRANS_SINE)
+)
+btn.mouse_exited.connect(func():
+	if btn.is_inside_tree():
+		var tw := btn.create_tween()
+		tw.tween_property(btn, "scale", Vector2.ONE, DURATION_HOVER).set_trans(Tween.TRANS_SINE)
+)
+btn.button_down.connect(func():
+	btn.position.y += 1.0
+)
+btn.button_up.connect(func():
+	btn.position.y -= 1.0
+)
+return btn
+
+Creates a physical, multi-segmented meter (pips) for core boxer attributes
+
+static func create_segmented_gauge(pip_count: int = 10, current_val: int = 50, bar_h: int = 12) -> HBoxContainer:
+var container := HBoxContainer.new()
+container.custom_minimum_size = Vector2(0, bar_h)
+container.add_theme_constant_override("separation", SP_2)
+
+var active_pips := int(round(float(clampi(current_val, 0, 100)) / (100.0 / float(pip_count))))
+
+for i in range(pip_count):
+	var pip := ColorRect.new()
+	pip.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	pip.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	if i < active_pips:
+		if current_val >= 90:
+			pip.color = COLOR_GOLD_BRIGHT
+		elif current_val >= 75:
+			pip.color = COLOR_BRASS_ANTIQUE
+		elif current_val <= 35:
+			pip.color = COLOR_OXBLOOD_BRIGHT
+		else:
+			pip.color = COLOR_GOLD_MUTED
+	else:
+		pip.color = COLOR_BG_RECESS
+	container.add_child(pip)
+
+return container
+
+Creates a fluid continuous telemetry progress bar with sunken casing
+
+static func create_fluid_bar(val: float = 0.0, max_v: float = 1.0, fill_col: Color = COLOR_GOLD_BRIGHT, bar_h: int = 8) -> ProgressBar:
+var pb := ProgressBar.new()
+pb.custom_minimum_size = Vector2(0, bar_h)
+pb.max_value = max_v
+pb.value = val
+pb.show_percentage = false
+pb.add_theme_stylebox_override("background", create_panel_style(COLOR_BG_RECESS, COLOR_SURF_BORDER, 1, RADIUS_PILL))
+pb.add_theme_stylebox_override("fill", create_panel_style(fill_col, Color.TRANSPARENT, 0, RADIUS_PILL))
+return pb
+
+Creates a standardized toggle filter chip with badge counter
+
+static func create_filter_chip(title: String, count: int = 0) -> Button:
+var chip := Button.new()
+chip.text = "%s [%d]" % [title.to_upper(), count]
+chip.custom_minimum_size = Vector2(0, 28)
+chip.toggle_mode = true
+chip.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+chip.add_theme_font_size_override("font_size", FONT_SIZE_CAPTION)
+chip.add_theme_stylebox_override("normal", create_panel_style(COLOR_SURF_BASE, COLOR_SURF_BORDER, 1, RADIUS_CARD))
+chip.add_theme_stylebox_override("pressed", create_panel_style(COLOR_SURF_CARD, COLOR_GOLD_BRIGHT, 1, RADIUS_CARD))
+chip.add_theme_stylebox_override("hover", create_panel_style(COLOR_SURF_ELEV, COLOR_BRASS_DARK, 1, RADIUS_CARD))
+chip.add_theme_color_override("font_color", COLOR_TEXT_MUTED)
+chip.add_theme_color_override("font_pressed_color", COLOR_GOLD_BRIGHT)
+return chip
+
+Creates a rich stat tooltip with metric value and positive/negative delta indicator
+
+static func create_rich_stat_tooltip(attr_name: String, base_val: int, delta_percent: float, explanation: String) -> Panel:
+var tip := Panel.new()
+tip.custom_minimum_size = Vector2(240, 110)
+tip.add_theme_stylebox_override("panel", create_panel_style(COLOR_BG_VOID, COLOR_BRASS_DARK, 1, RADIUS_CARD))
+
+var v := VBoxContainer.new()
+v.set_anchors_preset(Control.PRESET_FULL_RECT)
+v.offset_left = SP_8
+v.offset_top = SP_8
+v.offset_right = -SP_8
+v.offset_bottom = -SP_8
+v.add_theme_constant_override("separation", SP_4)
+tip.add_child(v)
+
+var h := HBoxContainer.new()
+var name_lbl := Label.new()
+name_lbl.text = attr_name.to_upper()
+name_lbl.add_theme_font_size_override("font_size", FONT_SIZE_SUBHEAD)
+name_lbl.add_theme_color_override("font_color", COLOR_BRASS_ANTIQUE)
+h.add_child(name_lbl)
+
+var spacer := Control.new()
+spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+h.add_child(spacer)
+
+var val_lbl := Label.new()
+val_lbl.text = str(base_val)
+val_lbl.add_theme_font_size_override("font_size", FONT_SIZE_HEADING)
+val_lbl.add_theme_color_override("font_color", COLOR_TEXT_HERO)
+h.add_child(val_lbl)
+
+var delta_lbl := Label.new()
+if delta_percent >= 0:
+	delta_lbl.text = " (+%.1f%% ▲)" % delta_percent
+	delta_lbl.add_theme_color_override("font_color", COLOR_EMERALD_VAL)
+else:
+	delta_lbl.text = " (%.1f%% ▼)" % delta_percent
+	delta_lbl.add_theme_color_override("font_color", COLOR_OXBLOOD_BRIGHT)
+delta_lbl.add_theme_font_size_override("font_size", FONT_SIZE_CAPTION)
+h.add_child(delta_lbl)
+v.add_child(h)
+
+var div := ColorRect.new()
+div.custom_minimum_size = Vector2(0, 1)
+div.color = COLOR_SURF_BORDER
+v.add_child(div)
+
+var exp_lbl := Label.new()
+exp_lbl.text = explanation
+exp_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+exp_lbl.add_theme_font_size_override("font_size", FONT_SIZE_MICRO)
+exp_lbl.add_theme_color_override("font_color", COLOR_TEXT_BODY)
+v.add_child(exp_lbl)
+
+return tip
+
+Creates a standardized modal wrapper with dark scrim and header docket
+
+static func create_modal_scrim(parent: Control, modal_size: Vector2, title_text: String) -> Dictionary:
+var scrim := ColorRect.new()
+scrim.set_anchors_preset(Control.PRESET_FULL_RECT)
+scrim.color = Color(0.05, 0.04, 0.04, 0.75)
+scrim.mouse_filter = Control.MOUSE_FILTER_STOP
+parent.add_child(scrim)
+
+var modal := Panel.new()
+modal.custom_minimum_size = modal_size
+modal.size = modal_size
+modal.position = (scrim.size - modal_size) * 0.5
+modal.add_theme_stylebox_override("panel", create_panel_style(COLOR_SURF_ELEV, COLOR_BRASS_ANTIQUE, 2, RADIUS_MODAL))
+scrim.add_child(modal)
+
+# Header Docket
+var head := HBoxContainer.new()
+head.position = Vector2(SP_16, SP_12)
+head.size = Vector2(modal_size.x - (SP_16 * 2), 32)
+modal.add_child(head)
+
+var title_lbl := Label.new()
+title_lbl.text = title_text.to_upper()
+title_lbl.add_theme_font_size_override("font_size", FONT_SIZE_HEADING)
+title_lbl.add_theme_color_override("font_color", COLOR_TEXT_HERO)
+title_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+head.add_child(title_lbl)
+
+var close_btn := Button.new()
+close_btn.text = "✕"
+close_btn.custom_minimum_size = Vector2(28, 28)
+close_btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+close_btn.add_theme_stylebox_override("normal", create_panel_style(COLOR_SURF_BASE, COLOR_SURF_BORDER, 1, RADIUS_PILL))
+close_btn.add_theme_color_override("font_color", COLOR_TEXT_MUTED)
+head.add_child(close_btn)
+
+# Animate in
+modal.scale = Vector2(0.96, 0.96)
+modal.modulate.a = 0.0
+var tw := modal.create_tween().set_parallel(true)
+tw.tween_property(modal, "scale", Vector2.ONE, DURATION_MODAL_ENTER).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+tw.tween_property(modal, "modulate:a", 1.0, DURATION_MODAL_ENTER)
+
+close_btn.pressed.connect(func():
+	var out_tw := modal.create_tween().set_parallel(true)
+	out_tw.tween_property(modal, "scale", Vector2(0.96, 0.96), DURATION_MODAL_EXIT).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	out_tw.tween_property(scrim, "modulate:a", 0.0, DURATION_MODAL_EXIT)
+	out_tw.chain().tween_callback(func(): scrim.queue_free())
+)
+
+var body := Control.new()
+body.position = Vector2(SP_16, 52)
+body.size = Vector2(modal_size.x - (SP_16 * 2), modal_size.y - 120)
+modal.add_child(body)
+
+var footer := HBoxContainer.new()
+footer.position = Vector2(SP_16, modal_size.y - 56)
+footer.size = Vector2(modal_size.x - (SP_16 * 2), 40)
+footer.alignment = BoxContainer.ALIGNMENT_END
+footer.add_theme_constant_override("separation", SP_12)
+modal.add_child(footer)
+
+return {
+	"scrim": scrim,
+	"modal": modal,
+	"body": body,
+	"footer": footer,
+	"close_button": close_btn
+}
+
+
+---
+
+# PART D: THE TARGET MIGRATION ORDER
+
+To maximize visible consistency in the shortest development time, the migration across existing screens is executed in **five focused sprints**, ordered by player exposure:
+
+
+
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                   SCREEN MIGRATION SEQUENCE                                      │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                                  │
+│   STAGE 1: TOP HUD BAR & LEFT RAIL ──────► STAGE 2: SCREEN C (TRAINING PLANNER)                  │
+│   (Persistent on every screen)              (Resolves the 650px void & operator blocker)         │
+│                 │                                              │                                 │
+│                 ▼                                              ▼                                 │
+│   STAGE 3: SCREENS D & E (FIGHTER PROFILE) ► STAGE 4: SCREEN F (QUICK-LOOK CARD ON GYM FLOOR)    │
+│   (Replaces cyan bars & neon Matrix buttons) (Anchors 3D floor UI to 1970s dossier style)        │
+│                 │                                                                                │
+│                 ▼                                                                                │
+│   STAGE 5: SCREEN A (GLOBE & MARKET CARD)                                                        │
+│   (Unifies world contract dossier typography and button geometry)                                │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+---
+
+### STAGE 1: GLOBAL HUD TOP BAR & LEFT NAVIGATION RAIL
+* **Target Components:** `TopBarHUD.gd`, `LeftNavRail.gd`.
+* **Action:**
+  1. Replace the floating yellow date pill (`#f5b82e`) and bankroll chip with the structured `SURF_BASE` (`#1a1816`) transom bar spanning $X: 64$ to $1920$ at $H: 60\text{ px}$.
+  2. Implement machined brass speed controls (`❚❚`, `▶`, `▶▶`) with a $1.5\text{ px}$ `BRASS_DARK` border and active Championship Gold indicator pip.
+  3. Set Left Nav Rail background to `COLOR_BG_VOID` (`#0d0c0b`) with a continuous $1\text{ px}$ vertical separator in `SURF_BORDER` (`#36322b`).
+* **Acceptance Gate 1.1:**
+  * The top HUD bar sits flush against the left rail with zero background color mismatch; clicking 1x/2x speed controls shifts the active pip in exactly $80\text{ ms}$ with no layout displacement.
+
+---
+
+### STAGE 2: SCREEN C — THE WEEKLY TRAINING PLANNER
+* **Target Components:** `TrainingHubPanel.gd`, `TrainingWeekRow.gd`, `TrainingDayCell.gd`, `TrainingSessionDrawer.gd`.
+* **Action:**
+  1. Eliminate the empty $650\text{ px}$ void when 1 fighter is registered by mounting the Gym Capacity & Station Allocation board below Row 1.
+  2. Swap out the flat, desaturated grey pill buttons for the 6 tactile focus blocks (`REST`, `REC`, `BAGS`, `RING`, `STR`, `CARDIO`) styled with `COLOR_SURF_CARD` and distinct category borders.
+  3. Replace the naked `READY 100%` and `COND 100%` strings with `create_fluid_bar()` using `COLOR_GOLD_BRIGHT` and `COLOR_EMERALD_VAL`.
+  4. Replace the clashing yellow `"GUIDE"` button with `create_chamfer_button("WATCH THE FLOOR", true)` integrated into the header bar.
+* **Acceptance Gate 2.1:**
+  * When opening the Training Planner with 1 fighter registered, no unlit canvas void $> 120\text{ px}$ exists; dragging a focus cartridge onto a day triggers an audible snap and updates weekly load distribution instantly.
+
+---
+
+### STAGE 3: SCREENS D & E — FIGHTER PROFILE (OVERVIEW, CAREER & CONTRACT)
+* **Target Components:** `ProfileOverview.gd`, `ProfileCareerContract.gd`, `AttributeTile.gd`.
+* **Action:**
+  1. Purge all neon arcade green (`#00ff66`), cyan telemetry lines, and electric purple buttons (`"RENEGOTIATE CONTRACT"`).
+  2. Rebuild the 9 attribute meters into 10-pip tactile segmented gauges using `create_segmented_gauge()` in Championship Gold and Antique Brass.
+  3. Replace the vector block-man injury diagram with the authentic monochrome anatomical wireframe on a dark leatherette card.
+  4. Unify the contract renewal actions using `create_chamfer_button()`: Primary action (`"OFFER EXTENSION"`) in
+
+Can you finish the missing UIKit constants, especially typography, spacing, sizing, borders, meters, motion, and 3D overlay tokens?
+Can you provide the complete Godot Theme resource structure with named type variations and example `.
+Can you define every UIKit helper function with Godot 4 GDScript signatures and implementation examples?
+Can you generate a unified visual mockup showing screens A–F after applying the Gleason’s Gym design system?

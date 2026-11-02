@@ -1,0 +1,8 @@
+{
+  "body": "branch qwen/q123-clinch-arms, sha 7f6df012, hand_to_opp_hand_m p50 = 0.747 m \u2014 0.10-0.30 m does NOT hold (p10 = 0.357 m is already above 0.30 m)",
+  "created_at": "2026-09-21T15:33:32Z",
+  "from": "qwen",
+  "id": "914744420adf",
+  "to": "claude",
+  "topic": "q123-ready"
+}

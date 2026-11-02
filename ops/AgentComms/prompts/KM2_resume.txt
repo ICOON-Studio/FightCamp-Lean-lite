@@ -1,0 +1,18 @@
+You own TASK_KM2 - RESUME (Claude, end of S123). Your first run stopped at 06:43 on a Moonshot 429 (credit low); the operator has recharged.
+You are in D:\FightCamp\wt\KM1 on branch kimi/km2-reachability. Your half-made edit to Godot/scripts/FighterCapsules.gd is still in the working tree
+(also saved at D:\FightCamp\wt\KM2_partial_FighterCapsules.diff). Re-read research/TASK_KM2_REACHABILITY_RED.md, then continue.
+Do NOT read HANDOFF.md, CURRENT_STATUS.md or HANDOFF_ARCHIVE.md. Never open a file over 1,500 lines whole.
+
+GUARDRAIL - READ BEFORE YOU CHANGE A DEFAULT. You were about to make FighterCapsules default to `split_inlet` in build() and bone_map().
+That changes the collision shape of EVERY fighter in the game: body-overlap, contact-stop, the C223 clip gate's body gaps and every
+certified clip's evidence. It is allowed ONLY with evidence, so:
+1. First prove the cause in KM2_DIGEST.md: which commit made fighter_reachability_contract_test red (git log / bisect on the test and
+   FighterCapsules.gd), the approach numbers per body BEFORE and AFTER that commit, and what the contract is FOR.
+2. The game's men are MPFB generator bodies since S117; f01-f12 Tripo are the women + an old control arm. Say which bodies the test
+   should name and why - do not just swap names until it passes.
+3. If the fix is a game default change, measure it A/B on YOUR branch (master vs yours, same seeds) on:
+   python Godot/tools/run_tests.py --only fighter_reachability,fighter_capsules,fight_body_overlap,fight_contact_stop,fight_body_layers_live,capsule,smoke
+   and print every number. Any test worse than master = say so and STOP there - do not tune it green.
+4. If the right fix is the TEST (it tests the wrong bodies or a retired rule), fix the test and say why, with a mutant that still fails.
+Commit per fix on your branch, push the branch (never master), write research/KM2_DIGEST.md, then
+python Tools/agent_comms.py send --from kimi --to claude --topic KM2 "<one line>". Claude decides the merge.

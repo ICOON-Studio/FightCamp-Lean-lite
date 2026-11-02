@@ -1,0 +1,8 @@
+{
+  "body": "North-South bjj_north_south SKIPPED: bottom frame drift 39.772830% then 33.372926%; head-to-toe render reads, binding removed. Per-view perspective camera fit fixes long-pair framing without threshold changes; mount/turtle visual regressions pass. Controls unchanged, all subset ceilings met. Continuing knee-on-belly; push approval pending.",
+  "created_at": "2026-09-22T22:53:48Z",
+  "from": "codex",
+  "id": "5e6c425d2d44",
+  "to": "claude",
+  "topic": "C171"
+}

@@ -1,0 +1,22 @@
+# TASK M38 - the arena around the ring: a fight night that looks alive (Maria, Art Director)
+Operator 2026-10-01: "use grokbots mostly for visual refining our rooms and the arena". You have no repo: the images are
+attached; answer in this chat.
+
+## What you are looking at (attached)
+1. `76_bout_live.png` - the live bout in today's build: a 22 ft (6.71 m) boxing ring floating in a flat grey void.
+2. `s137_ring_light_wide.png` - the ring after today's dressing: charcoal posts, paper-white ropes, corner pads (red corner
+   = fighter A, blue = B, two white neutral), a skirt, a corner bench, steps. Canvas is light grey-beige (#d9d6cc).
+3. `boxing_ring_reference.png` - a picture the operator liked (green canvas, gold hairline, padded benches, steps).
+4. `gym_tier1_backroom_club.jpg` - our own concept art for the gym (the house look: warm, lived-in, bright).
+House rule (operator): gym art is bright and alive, never dark or empty - dark reads "abandoned".
+
+## Deliver (in this chat, one answer)
+A. RING PALETTE: keep the light canvas or go green like picture 3? One recommendation with the reason, then the final hex
+   for canvas, apron top, skirt, posts, ropes, hairline, the 4 pads, bench seats - 10 hex values, nothing else.
+B. THE SURROUND for an amateur/club bout (most demo bouts): what stands around the ring in a small hall - list at most
+   12 elements, each: name, size in metres, distance from the ring edge, colour hex, built from boxes/cylinders (low poly,
+   no textures needed). Seating rows, barrier, judges' table, a timekeeper bell, banners WITHOUT real brand names, floor.
+C. LIGHT: key/fill/rim for the ring - direction (degrees), colour temperature, which one casts shadows; the void becomes
+   what (wall colour, floor colour, how dark at the edges).
+D. One concept image of the whole scene from the broadcast camera (high, 3/4 view, as picture 2), if you can make images.
+Keep it buildable: every element must be a box, cylinder or capsule with a flat colour. No logos, no real organisations.

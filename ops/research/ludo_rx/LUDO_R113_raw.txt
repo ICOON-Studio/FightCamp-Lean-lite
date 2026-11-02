@@ -1,0 +1,183 @@
+
+Part 1: Deep Management Training-Floor HUD Specification
+
+The redesign replaces mobile-style floating badges and oversized aesthetic cards with a dense, number-led management interface modeled after Football Manager, Motorsport Manager, and Out of the Park Baseball.
+
+Layout dimensions are based on a 1920×1080 reference canvas using Godot 4.7 Control nodes, with a warm dark palette (PANEL #2a2019, LINE #6b5638, TEXT #f6eddc, MUTED #b5a68c, GOLD #f0c233, GO #4fc46a, BAD #e5433a).
+
+1. The Fighter Side Panel (Left Dock)
+Screen Positioning: Anchored to Left Edge (x: 16px, y: 52px). Extends to x: 396px (Width: 380 px, Height: 976 px).
+Container Structure: PanelContainer with VBoxContainer internal layout, separated into five dense modules.
++-----------------------------------------------------------------------+ [380px]
+| DANNY REYES                 [ 23 yo | 14-1-0 (11 KO) | SUPER WELTER ] | Header (56px)
+| Style: Counter-Puncher      Stance: Orthodox        Reach: 72.0"      |
++-----------------------------------------------------------------------+
+| CURRENT ASSIGNMENT: MORNING BLOCK (08:48)                             | Station (74px)
+| Heavy Bag 1   [Coach Barone +25%]            Time Left: 22m / 60m     |
+| [====================================................]  36%           |
++-----------------------------------------------------------------------+
+| CONDITION & FATIGUE                                                   | Status (64px)
+| STAMINA   82 / 100  [-1.4/min]   [============================....]   |
+| STRAIN    24 / 100  [+0.6/min]   [========........................]   |
+| STATUS: FRESH (Recovery Eff: 100% | Injury Risk: 1.2% Nominal)        |
++-----------------------------------------------------------------------+
+| CORE ATTRIBUTES                              CURRENT   TODAY   CEILING| Stats (290px)
+| [PHYSICAL]                                                            |
+|   Power                                           74   +0.4        85 |
+|   Speed                                           81   +0.2        88 |
+|   Conditioning                                    68   +0.7        75 |
++-----------------------------------------------------------------------+
+| [TECHNICAL]                                                           |
+|   Technique                                       64   +0.5        80 |
+|   Defense                                         72   +0.1        78 |
+|   Footwork                                        79   +0.3        84 |
++-----------------------------------------------------------------------+
+| [MENTAL & DURABILITY]                                                 |
+|   Chin                                            76    0.0        76 |
+|   Ring IQ                                         70   +0.6        86 |
++-----------------------------------------------------------------------+
+| TRAITS: [Iron Will] [Touch of Sleep] [Cut-Prone (L1)]                 | Traits (52px)
++-----------------------------------------------------------------------+
+
+Detailed Element Specifications
+Header Block (Height: 56 px):
+Top line: Fighter Name in Inter Bold 16 px (#f6eddc), right-aligned record chip in Inter Bold 11 px (#f0c233) within a subtle inset panel (#1e1712).
+Sub line: Age (23), Weight Class (Super Welter), Style (counter_puncher), Stance (Orthodox), Reach (72.0") rendered at 11 px regular (#b5a68c).
+Current Station & Coach Block (Height: 74 px):
+Active Station: "Heavy Bag 1" in 13 px Bold (#f6eddc).
+Coach Presence: Chip displaying "[Coach Barone: +25% GAINS]" in #4fc46a if present, or "[UNCOACHED: BASE RATE]" in #b5a68c if the coach is elsewhere.
+Session Progress: Thin 4 px horizontal bar (#6b5638 background, #f0c233 fill) showing elapsed time ("38m elapsed | 22m remaining").
+Condition & Fatigue Block (Height: 64 px):
+Stamina: Label, numeric value (82 / 100), live delta tag ([-1.4/m]), and a 6 px segmented progress bar (#4fc46a fill).
+Strain: Label, numeric value (24 / 100), live accumulation rate ([+0.6/m]), and a 6 px segmented progress bar (#e5433a fill).
+Day State Indicator: Monospace state chip: "TODAY: FRESH" (#4fc46a), "WORKED" (#f0c233), or "EXHAUSTED" (#e5433a).
+Attributes Table (Height: 290 px):
+8 Core Attributes grouped into Physical, Technical, and Mental & Durability.
+4-Column Tabular Grid:
+Attribute Name (12 px Regular, #f6eddc, width: 140 px).
+Current Value (12 px Bold, #f6eddc, width: 45 px, right-aligned).
+Today’s Training Delta (11 px Mono, +0.4 in #4fc46a, 0.0 in #b5a68c, width: 60 px, right-aligned).
+Potential/Ceiling (11 px Regular, #b5a68c, width: 45 px, right-aligned; represents hard ceiling). Behind the current number, a thin 2 px horizontal rule extends to the ceiling value to display visual progress toward career peak.
+How the Player Reads "How Good Is He":
+At a glance: The Overall Class Bracket (e.g., Regional Prospect vs. World Ranked) is derived from the mean of his active ratings, and the color of the Current numbers shifts: < 50 (Grey #8c8273), 50-69 (White #f6eddc), 70-84 (Gold #f0c233), 85+ (Cyan/Elite #5eead4).
+In detail: The player reads the delta column to evaluate training efficiency per minute, checks current vs ceiling to spot plateaus, and hovers over any attribute to inspect modifiers.
+2. The Top Bar
+Screen Positioning: Anchored along the top screen edge (x: 0, y: 0, Width: 1920 px, Height: 40 px).
+Styling: Single-piece horizontal bar. Background rgba(0.165, 0.125, 0.098, 0.98), bottom border 1.5px LINE (#6b5638).
++---------------------------------------------------------------------------------------------------------------------------------------------+
+| [FIGHTCAMP] | WEEK 3, WEDNESDAY - 08:48 | [ |> ] [ >> ] [ >>> ] [ || ] | $14,250 (+$420/wk) | [OFFICE PC (2)] | [PLANNER (P)] | [BUILD (B)] |
++---------------------------------------------------------------------------------------------------------------------------------------------+
+
++-----------------------------------+--------------------+------------------------+-----------------------------------------------------------+
+| ELEMENT                           | POSITION (X, Y)    | SIZE (W x H)           | SPECIFICATION & CONTENT                                   |
++-----------------------------------+--------------------+------------------------+-----------------------------------------------------------+
+| Gym Monogram                      | 16px, 0px          | 120 x 40 px            | "ANVIL ST. GYM" | Inter Bold 12px, Color #b5a68c          |
+| In-Game Clock & Day               | 144px, 0px         | 240 x 40 px            | "WK 3, WED - 08:48" (Morning Block) | 13px Mono #f6eddc    |
+| Sim Speed Group                   | 390px, 6px         | 136 x 28 px            | 4-button segmented toggle: Pause, 1x, 2x, 5x. Gold active |
+| Gym Balance / Cashflow            | 540px, 0px         | 180 x 40 px            | "$14,250" (#f6eddc) " +$420/wk" (#4fc46a) | 12px Mono     |
+| [OFFICE PC] Button                | 1410px, 5px        | 160 x 30 px            | Replaces floating pin. Flat button with notification pill |
+| [PLAN] Schedule Button            | 1580px, 5px        | 150 x 30 px            | Opens full calendar drawer. Inter Bold 12px, Hotkey 'P'   |
+| [BUILD] Fitout Button             | 1740px, 5px        | 160 x 30 px            | Toggles placement mode. Inter Bold 12px, Hotkey 'B'       |
++-----------------------------------+--------------------+------------------------+-----------------------------------------------------------+
+
+Detailed Spec for the Office PC Top-Bar Button
+Width: 160 px, Height: 30 px.
+Background: #2a2019, border 1 px #6b5638.
+Left side: 14×14 px monitor icon + text "OFFICE PC".
+Right side notification badge: Pill shape, 22 px wide × 18 px tall, background BAD (#e5433a), font size 10 px bold, white text: "2".
+Hover state: Border highlights to GOLD (#f0c233). Clicking triggers the exact same event as clicking the physical desk in the 3D room.
+3. Goal Cards (Camp & Day Targets)
+
+Positioned at Top Center-Right (x: 740px, y: 48px, Width: 340 px), stacked vertically to preserve central 3D visibility of the ring.
+
++-------------------------------------------------------------------+ [340px]
+| CAMP BOUT GOAL: vs Tommy Perez (in 14 Days)      [ AT RISK ]      | Header (24px)
+| Target Weight:   72.4 kg / 69.8 kg req.  [========....] -0.2/day  | Row (20px)
+| Conditioning:    68 / 75 target          [============]  90%      | Row (20px)
+| Primary Weapon:  Pads Chain 2 (Mastery)  [======......] 140/600m  | Row (20px)
++-------------------------------------------------------------------+
+| TODAY'S FOCUS: AEROBIC FLUSH & WEIGHT CUT                         | Day Card (48px)
+| 2 of 3 sessions completed | Est. Day Strain: 48/60 (Controlled)   |
++-------------------------------------------------------------------+
+
+Header (24 px): Bout opponent name, days remaining (14d), and a status pill:
+[ ON TRACK ]: Fill #142a1a, border 1px #4fc46a, text #4fc46a (10 px Bold).
+[ AT RISK ]: Fill #331412, border 1px #e5433a, text #e5433a (10 px Bold).
+Metric Rows (Height: 20 px each):
+Metric Name (11 px Regular, #b5a68c, width: 100 px).
+Numerical Progress (11 px Mono, #f6eddc, e.g., "72.4 / 69.8 kg").
+Mini Progress Bar (Height: 4 px, background #1e1712, fill #f0c233).
+Velocity Indicator (10 px Mono, e.g., "-0.2 kg/d" or "+1.4%/d").
+4. Typography, Colors, Spacing & Sizing Standards
++-----------------------+-----------------------+-----------+---------------+-----------------------------------------------+
+| UI ELEMENT            | FONT / WEIGHT         | SIZE      | COLOR         | SPACING & MARGINS                             |
++-----------------------+-----------------------+-----------+---------------+-----------------------------------------------+
+| Panel Headers         | Inter Bold            | 14-16 px  | #f6eddc       | Padding: 8px 12px; Border-Bottom: 1px #6b5638|
+| Section Subheads      | Inter SemiBold (Caps) | 10 px     | #b5a68c       | Margin-Top: 8px, Letter-Spacing: +1.5px       |
+| Table Data (Labels)   | Inter Regular         | 12 px     | #f6eddc       | Row Height: 22 px, Vertical Align: Center     |
+| Table Data (Numbers)  | Inter Mono / Medium   | 12 px     | #f6eddc       | Right-Aligned, Tabular Figures enabled        |
+| Positive Stat Gains   | Inter Mono Bold       | 11 px     | #4fc46a       | Explicit '+' prefix                           |
+| Neutral / Warning     | Inter Mono Bold       | 11 px     | #f0c233       | Used for warnings, cautions, thresholds       |
+| Critical / Fatigue    | Inter Mono Bold       | 11 px     | #e5433a       | Used for high strain, missed weight           |
+| Tooltip Body          | Inter Regular         | 11 px     | #f6eddc       | Line Height: 15 px, Internal Padding: 10 px   |
++-----------------------+-----------------------+-----------+---------------+-----------------------------------------------+
+
+Global Panel Borders: Solid 1 px #6b5638.
+Corner Radii: Zero or maximum 2 px throughout (engineered, tool-like management aesthetic; no pill-shaped rounded cards).
+Data Row Striping: Alternating data rows use background rgba(255, 255, 255, 0.02).
+5. Attribute Hover Tooltip Breakdown
+
+Hovering over any attribute row (e.g., Power: 74) opens an anchored inspection tooltip at mouse_pos + Vector2(16, 0).
+
++-------------------------------------------------------------------+ [260px]
+| ATTRIBUTE BREAKDOWN: POWER                                       |
++-------------------------------------------------------------------+
+| Natural Base Rating                                         68.0  |
+| Heavy Bag Tier 2 Upgrade                                    +3.5  |
+| Coach Sal Barone (Power Specialization)                     +4.2  |
+| Trait: Heavy Hands                                          +2.5  |
++-------------------------------------------------------------------+
+| Subtotal Effective Attribute                                78.2  |
+| Accumulated Session Fatigue (-5.4%)                         -4.2  |
++-------------------------------------------------------------------+
+| CURRENT ACTIVE POWER IN RING                                74.0  |
+| Hard Career Potential Ceiling                               85.0  |
++-------------------------------------------------------------------+
+
+Width: 260 px.
+Background: rgba(0.12, 0.09, 0.07, 0.98), border 1 px #f0c233.
+Mathematical Transparency: Gives the exact arithmetic breakdown behind the value, ensuring outcomes can be analyzed and planned rather than guessed.
+Part 2: Coach Walk Timing Architecture & Design Verdict
+The Simulation Dilemma
+Walking speed: $1.5\text{ m/s}$ (human pacing).
+Cross-gym transit distance: $32\text{ m}$ (from southwest corner office/locker room to northeast heavy bag strip).
+Real-world transit time: $32 / 1.5 = 21.33\text{ seconds}$.
+Game clock scaling: $0.2\text{ real seconds} = 1.0\text{ game minute}$ ($1\text{ real second} = 5\text{ game minutes}$).
+Result: $21.33\text{ seconds} \times 5 = \mathbf{106.6\text{ game minutes}}$ spent walking uncoached. In a standard 60-minute training session, the entire block would conclude before the coach even reaches the station.
+Analysis of the Options
+Option A: Keep it (~100 uncoached game minutes).
+Flaw: A coach takes almost 2 hours to walk 30 meters. This causes severe dissonance: either sessions must be unrealistically long (4+ hours), or moving the coach across the gym wastes entire training blocks. It punishes the player for spatial scale rather than strategic planning.
+Option B: Count the bonus instantly upon dispatch.
+Flaw: Causes immediate disconnect with the 3D game world. If the coach provides active pad instruction while physically stuck walking past the reception desk, the 3D simulation becomes an irrelevant visual layer disconnected from the game mechanics.
+Option C: Time dilation during transit (match fighter walk rules).
+Flaw: If the clock slows down every time the coach relocates, and the player re-assigns the coach frequently between fighters, the simulation pace drops drastically, making the gym floor crawl.
+The Verdict: Two-Tier Transit Speed with "Drill Prep" Buffer
+
+Implement a Three-Part System standard in sim titles like Two Point Campus and Motorsport Manager:
+
+Active Brisk Transit Speed ($2.8\text{ m/s}$ Coach Locomotion):
+When commanded to a station across the floor, the head coach moves with urgency ($2.8\text{ m/s}$ purposeful stride / jog).
+A $32\text{ m}$ diagonal cross-gym walk takes $11.4\text{ real seconds}$.
+Game-Clock Time Dilation Factor ($0.5\times$ during Coach Relocation):
+While the coach is actively in transit, gym time dilation temporarily shifts from $0.2\text{ s/min}$ to $0.4\text{ s/min}$.
+Under this rate, $11.4\text{ real seconds}$ converts to: $$\frac{11.4\text{ s}}{0.4\text{ s/min}} = \mathbf{28.5\text{ game minutes}}$$
+The "Independent Drill Warmup" Rule (Mechanic Rationale):
+In real boxing gyms, when a coach says "Get on Heavy Bag 1, I'll be right over," the fighter does not stand idle or train improperly; they wrap up, grease up, stretch, and work preliminary warm-up combinations.
+Rule: A fighter assigned to a station receives 90% standard gains during their first 25–30 minutes of a block while warming up independently. The coach's arrival introduces the +25% to +40% mastery bonus for the remainder of the session.
+Result: The player experiences realistic spatial consequences (station positioning matters, and pairing adjacent stations is optimal), but a cross-gym walk consumes only about 25 game minutes—leaving the majority of a 60-to-90-minute block for high-gain coached training. Spatial gym planning remains meaningful without grinding the simulation to a halt.
+Sources:
+FightCamp
+Can you redesign the HUD as a dense PC management-sim interface with actual fighter ratings, tables, and drill statistics?
+Can you show a 1920×1080 mockup keeping the 3D gym visible while replacing portrait cards, gauges, and mobile-style panels?
+Should coached bonuses begin when the coach is dispatched, or only when he reaches the fighter’s station?
+Can you propose exact timing and gain formulas for warm-up, coach travel, uncoached training, and coached training blocks?

@@ -1,0 +1,14 @@
+You are working in the git worktree D:/FightCamp/wt/U199 (branch cursor/u199-lobby) of the FightCamp Godot 4.7.2 game.
+Your task is fully specified in research/TASK_U199_LOBBY_TO_CONCEPT.md - read it first, then do it.
+
+Key points (the task file wins if anything differs):
+- Target image: previews/lobby_target/lobby_target_concept.jpg. OPEN it and LOOK at it. After every render
+  pass, open your render (previews/u199/pass<N>.png) and compare it with the concept before the next pass.
+- Edit only the owned files listed in the task. No downloads, no purchases, no images from the web.
+- Parse gate before every render: python Godot/tools/check_scripts.py Godot/scripts/Lobby3D.gd
+- Render (windowed Godot moved off-screen - never --headless):
+  powershell -NoProfile -ExecutionPolicy Bypass -File Tools\godot_hidden.ps1 --path Godot --script tools/s107_render_lobby.gd
+- At the end: python Godot/tools/run_tests.py --only front_door ; write research/U199_DIGEST.md ;
+  git add the changed/new files explicitly (never `git add .`), commit, and git push -u origin cursor/u199-lobby.
+- Work in several passes (walls -> desk and bench with people -> small lived-in details -> lighting). Stop when the
+  acceptance list in the task file is met or after 6 passes, and report what is still unlike the concept.

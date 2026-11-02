@@ -1,0 +1,15 @@
+{
+  "checked_at": "2026-09-12T01:55:55Z",
+  "files": [
+    "Godot/scripts/FightCameraRig.gd",
+    "Godot/tests/fight_camera_rig_test.gd",
+    "Godot/scripts/FightStagePlayer.gd",
+    "Godot/scripts/FightClipBinding.gd",
+    "Godot/scripts/FightBeatAdapter.gd",
+    "Godot/scripts/FightWorldLiveScreen.gd",
+    "Godot/scripts/GameState.gd"
+  ],
+  "output": "CHECK total=7 fails=0 autoload_refs=1 autoload_warnings=0 time=1s\n",
+  "passed": true,
+  "task": "U58"
+}

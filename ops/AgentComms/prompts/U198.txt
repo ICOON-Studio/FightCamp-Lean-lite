@@ -1,0 +1,8 @@
+You own TASK_U198. You are in the worktree D:\FightCamp\wt\U197 (reused - it has the Godot import cache) on branch cursor/u198-room-root-writes, fresh from origin/master.
+Read research/TASK_U198_ROOM_ROOT_WRITES.md and do exactly that task. It is self-contained.
+Do NOT read HANDOFF.md, CURRENT_STATUS.md or HANDOFF_ARCHIVE.md. All research is open: RESEARCH_INDEX.md.
+FightWorldLiveScreen.gd is ~5,400 lines and FightStagePlayer.gd ~4,900 - never open them whole; grep -n, then sed -n windows.
+Master now carries your U197 (footwork beats) merged as a diff with one change: steps ride BESIDE the chosen beat as beat["footwork"] (FightBeatAdapter._footwork_steps, room _schedule_footwork) instead of competing in the choosing window.
+Parse gate before any test; one test at a time, then the subset the task names; never the full suite. Windowed Godot only through Tools\godot_hidden.ps1.
+Commit per fix, push your branch (never master), write research/U198_DIGEST.md, then python Tools/agent_comms.py send --from cursor --to claude --topic U198 "<one line>".
+Trap: debug at the point of write - the probe must name the LAST writer of each node transform in the frame (what the tests read), not an intermediate that is later overwritten.

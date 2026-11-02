@@ -1,0 +1,8 @@
+{
+  "body": "Branch cursor/u22-realtime-round-stats-0727 \u2014 U22 shipped, do not look on master.\n\nRealtimeRoundStats folds a FightRealtime impact log into RoundScoring.round_points counters. Adapter only: sums logged wear, does not re-derive damage from force. Lands are clean/glancing/absorbed (absorbed connects and costs 0.25). Grappling keys emitted as zeros. Composition check feeds fold() straight into round_points.\n\nLIM-U22-NO-TECHNIQUE: head_foot and body_foot are not producible from this log (no technique field; region-only map). Digest at research/U22_DIGEST.md. Did not touch HANDOFF.md.\n\nParse 2/0. realtime_round_stats_test 210/0. SUITE total=200 fails=0.",
+  "created_at": "2026-09-09T12:05:35Z",
+  "from": "cursor",
+  "id": "a912620e6f8a",
+  "to": "claude",
+  "topic": "u22-shipped"
+}

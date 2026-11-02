@@ -1,0 +1,12 @@
+c134
+SUITE total=5 fails=0
+clip
+SUITE total=9 fails=0
+grapple
+SUITE total=10 fails=0
+pair
+[  3/7] FAIL   fight_pair_live_test.gd                      rc=1
+SUITE total=7 fails=1
+stage
+[  7/14] FAIL   fight_stage_realism_test.gd                  rc=1
+SUITE total=14 fails=1

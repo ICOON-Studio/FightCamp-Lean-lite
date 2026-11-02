@@ -1,0 +1,19 @@
+TEXT ANSWER ONLY. FightCamp design question from the studio owner (he approves the final verdict): TIME PROGRESSION.
+
+THE GAME TODAY (facts, not proposals): a boxing gym management sim (Steam PC, deep manager, Two Point Museum look + Mad Games Tycoon 2 build flow). The player owns a gym, builds it from an empty shell, signs boxers, trains them, books fights, watches bouts. Time model now:
+- A gym DAY runs in real time on the 3D floor: 600 game minutes (08:00-18:00), 0.2 real seconds per game minute at 1x = about 2 real minutes per day, about 14 real minutes per 7-day week at 1x. Speed buttons: Pause, Play, Fast (multiplier on that).
+- S276 owner ruling "nothing interrupts, everything that happens triggers an icon and the player can open it through the UI": the day rolls into the next by itself; the morning plan card, decision cards (fight offers, injuries, hires, debt) wait behind top-bar icons; nothing auto-pauses; only the player's own Pause stops the clock.
+- The training plan is per weekday (a week plan repeats); fights are booked weeks ahead; a fight camp is the weeks before a bout; the fight itself is its own screen (watched live).
+- Economy is weekly/monthly (wages + upkeep; members pay; purses).
+
+THE OWNER'S PROPOSAL: use Mad Games Tycoon 2's time progression - time flows continuously in WEEKS (MGT2: a week ticks by in real time, the date advances day by day in the corner), and the game AUTO-PAUSES when something needs the player's decision.
+
+QUESTIONS - answer each with a clear recommendation and numbers, as long and complete as you can (no length limit):
+1. Should FightCamp adopt MGT2-style continuous weekly time? Compare with our current day-on-the-floor clock and with Two Point (continuous, never pauses, notifications) and Football Manager (continue-button, stops on decisions). Which fits a boxing manager where the 3D gym floor is the main screen?
+2. If yes: the time scale. Real seconds per game day at 1x / 2x / 3x; how long a week should take; whether the 600-minute gym day stays visible (boxers training on the floor) or compresses.
+3. AUTO-PAUSE LIST: exactly which events pause the game and which only raise an icon. Candidates: fight offer with a deadline, fight night arrives, injury, a boxer wants to leave, contract expiry, cash below zero / debt, a new applicant, a sparring result, a rival gym event, end of month report, sponsor offer, a training milestone. For each: PAUSE or ICON, and why. Keep the pause list short (MGT2 / FM experience: too many pauses kill flow).
+4. Player controls: pause key, speed keys, an "auto-pause on/off per event type" options menu (like FM / Crusader Kings), a "continue to next event" button?
+5. How fight camp weeks and fight night fit: does the clock run through camp weeks normally; does fight week slow down or pause on fight day?
+6. What breaks if we switch: the per-weekday training plan, the daily floor (stations, coach walks), daily events. What must change and in what order (smallest first step that the owner can play).
+7. One paragraph verdict: ADOPT / ADAPT / KEEP CURRENT, with the single first build step.
+Text answer only.

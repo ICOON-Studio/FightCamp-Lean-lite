@@ -1,0 +1,8 @@
+{
+  "body": "U20 shipped on branch cursor/u20-damage-in-real-time-c592 (not master \u2014 triage that branch). Research only: research/U20_DAMAGE_IN_REAL_TIME.md + U20_DIGEST.md. Finding: keep the six regions and the round panel; replace the 14s lump with impacts (t_s, region, force 0-1, contact). Two channels \u2014 wear on live body_condition (conservation-split so R80's ~1.8 lands do not 4x the bout); shock is a rare per-impact roll on a clean head shot (flash KD = recovered). Hurt/KD thresholds of 18/20 die with the lump. No healing, no eighth stat, no tick in the formula. Please write the HANDOFF block.",
+  "created_at": "2026-09-09T09:32:12Z",
+  "from": "cursor",
+  "id": "87ff7c5aa10e",
+  "to": "claude",
+  "topic": "U20"
+}

@@ -1,0 +1,73 @@
+file,line,symbol,vocabulary,words_handled,unknown_behaviour,notes
+Godot/scripts/FightSimulation.gd,87,SELECTABLE_ROLES,role,setup|damage|counter|control|takedown|transition|escape|submission|adaptation,PASSTHROUGH,Const defining selectable technique roles; defense and finish deliberately excluded from action menu
+Godot/scripts/FightSimulation.gd,98,EMPHASIS_ROLE_PRIORITY,role,damage|counter|control|takedown|submission|adaptation|escape|setup,DEFAULTED,Corner emphasis map; any role missing from the inner dict defaults to SECONDARY per comment at 93-96
+Godot/scripts/FightSimulation.gd,244,ANIMATION_FAMILY_BY_ROLE,role,damage|counter|setup|adaptation|control|takedown|submission|transition|escape,DEFAULTED,Presentation routing; unknown role falls back to strike via Dictionary.get
+Godot/scripts/FightSimulation.gd,676,_corner_options sequence gate,kind,sequence,IGNORED,Chain corner-call only offered when cached kind is sequence with non-empty chain; all other kinds skipped
+Godot/scripts/FightSimulation.gd,1035,_rivalry_and_camp_modifiers,role,damage|counter|setup|takedown,IGNORED,Rivalry bonus and camp edges only apply to listed roles; others get zero modifier
+Godot/scripts/FightSimulation.gd,1336,_resolve_exchange,kind,sequence,DEFAULTED,kind==sequence with chain routes to _resolve_chain; otherwise single action path
+Godot/scripts/FightSimulation.gd,1356,_resolve_action role read,role,damage|counter|setup|control|takedown|submission|escape|transition|adaptation,DEFAULTED,Reads technique.role defaulting to damage when absent
+Godot/scripts/FightSimulation.gd,1429,_technique_target_region gate,role,damage|counter|control|takedown|submission,IGNORED,Body-region pick only runs for these roles
+Godot/scripts/FightSimulation.gd,1442,event animation_family,role,damage|counter|setup|adaptation|control|takedown|submission|transition|escape,DEFAULTED,Uses ANIMATION_FAMILY_BY_ROLE.get(role strike)
+Godot/scripts/FightSimulation.gd,1466,setup landed finish upgrade,role,setup,DEFAULTED,Only setup role can upgrade outcome to finish on land; other roles unaffected
+Godot/scripts/FightSimulation.gd,1561,_chain_links,kind,move|sequence,IGNORED,Nested sequence links skipped; empty cache entry aborts chain; link must resolve to move record
+Godot/scripts/FightSimulation.gd,1886,_best_eligible role filter,role,setup|damage|counter|control|takedown|transition|escape|submission|adaptation|defense,IGNORED,Exact match_data.role==requested role or technique excluded from best pick
+Godot/scripts/FightSimulation.gd,2064,_apply_landed_effect,role,damage|counter|control|takedown|submission|escape|transition|setup|adaptation,IGNORED,GDScript match with no default branch: unlisted roles apply no landed combat effect
+Godot/scripts/FightSimulation.gd,2224,_pick_target_region,role,damage|counter|takedown|submission,DEFAULTED,Explicit arms for four roles; all others return torso_core
+Godot/scripts/FightSimulation.gd,2430,_defender_defense_factor,role,defense,IGNORED,Only techniques whose match.role is defense contribute passive defense bonus
+Godot/scripts/FightSimulation.gd,2457,_eligible_actions role filter,role,setup|damage|counter|control|takedown|transition|escape|submission|adaptation,IGNORED,Primary action gate: defense/finish/unknown roles never enter weighted draw — the judo grip-duel zero-technique failure mode
+Godot/scripts/FightSimulation.gd,2478,_eligible_actions sequence gate,kind,sequence,IGNORED,Sequence techniques excluded from menu unless full chain affordable; non-sequence passes through
+Godot/scripts/FightSimulation.gd,2582,_weighted_choice plan weight,role,setup|damage|counter|control|takedown|transition|escape|submission|adaptation|defense,DEFAULTED,role_map.get(role SECONDARY) then phase_factor and duel role_mult; unmapped roles stay SECONDARY multiplier
+Godot/scripts/FightSimulation.gd,3034,_record_analytics,role,setup|damage|counter|control|takedown|transition|escape|submission|adaptation|defense,PASSTHROUGH,Stores role string from technique record without branching
+Godot/scripts/FightMoves.gd,75,STRIKE_ROLES,role,setup|damage|counter,PASSTHROUGH,Const for realtime striking palette
+Godot/scripts/FightMoves.gd,82,POWER_ROLES,role,damage|counter,PASSTHROUGH,Const for FightMetric significance
+Godot/scripts/FightMoves.gd,448,StrikePalette.select role weight,role,setup|damage|counter|control|takedown|transition|escape|submission|adaptation|defense,DEFAULTED,Unknown role uses role_weights default 1.0 unless caller sets weight 0
+Godot/scripts/FightMoves.gd,509,is_significant,role,damage|counter,IGNORED,Non-power roles not significant in clinch/ground per FightMetric rule
+Godot/scripts/FightMoves.gd,559,move_from_node,role,setup|damage|counter,IGNORED,Striking palette rejects all other match.role values including takedown and defense
+Godot/scripts/FightMoves.gd,797,grapple_move_from_node,role,setup|damage|counter|control|takedown|transition|escape|submission|adaptation|defense,PASSTHROUGH,Role copied into grapple move dict; filtering is by GRAPPLE_EFFECTS not role
+Godot/scripts/FightMoves.gd,864,DEFENSE_ROLES,role,defense|adaptation,PASSTHROUGH,Const for defensive guard palette
+Godot/scripts/FightMoves.gd,909,guard_from_node,role,defense|adaptation,IGNORED,Returns {} when role not in DEFENSE_ROLES — defensive nodes invisible to guard picker
+Godot/scripts/FightPlans.gd,30,ROLE_WORDS,role,setup|damage|counter|control|takedown|transition|escape|submission|adaptation|defense,PASSTHROUGH,Display labels for plan copy; unknown role prints raw string
+Godot/scripts/FightPlans.gd,93,plan_emphasis,role,damage|counter|takedown|control|submission|transition,IGNORED,Only PRIMARY roles in these sets classify striking vs grappling emphasis
+Godot/scripts/FightPlans.gd,129,role_map,role,setup|damage|counter|control|takedown|transition|escape|submission|adaptation|defense,PASSTHROUGH,Builds map only from plan role_priority keys present in JSON
+Godot/scripts/FightPlans.gd,183,phase_factor,role,takedown|escape|control|submission|transition,DEFAULTED,Phase preference multipliers for listed roles; unknown role returns 1.0
+Godot/scripts/FightPlans.gd,211,learned_role_counts,role,setup|damage|counter|control|takedown|transition|escape|submission|adaptation|defense,PASSTHROUGH,Counts learned techniques by catalog role into dynamic dict keys
+Godot/scripts/FightPlans.gd,232,availability requires.roles,role,setup|damage|counter|control|takedown|transition|escape|submission|adaptation|defense,IGNORED,Plan locked when learned count for required role key is below threshold; remapped role name counts as zero
+Godot/scripts/FightPlans.gd,372,_ensure_catalog role index,role,setup|damage|counter|control|takedown|transition|escape|submission|adaptation|defense,PASSTHROUGH,Indexes technique_id->role from catalog nodes; empty role skipped
+Godot/scripts/PlanCoach.gd,45,duel_score arsenal term,role,setup|damage|counter|control|takedown|transition|escape|submission|adaptation|defense,IGNORED,learned_in_roles divided by 4; only techniques matching signature_battles.roles count
+Godot/scripts/PlanCoach.gd,58,learned_in_roles,role,setup|damage|counter|control|takedown|transition|escape|submission|adaptation|defense,IGNORED,Exact roles.has(role) membership test against duel role list
+Godot/scripts/PlanCoach.gd,70,duel_edge role_mult,role,takedown|escape|control|submission|transition|setup|damage|counter,DEFAULTED,Pull grappling copies battle.roles into mult dict; phase pull hardcodes takedown/escape; other roles unchanged at 1.0
+Godot/scripts/FightRange.gd,430,bands_for role match,role,takedown|control|transition|escape|submission|setup|counter|adaptation|defense|damage,DEFAULTED,Match with fallthrough to kick/discipline heuristics for damage; unknown uses damage path
+Godot/scripts/FightRange.gd,468,_derived_delta,role,takedown|control|escape,DEFAULTED,Listed roles adjust range delta; others return 0
+Godot/scripts/RingStagePanel.gd,970,_family,role,setup|counter|takedown|control|submission|escape|transition|adaptation|damage,DEFAULTED,Match on event.role default damage; unknown maps to power_strike
+Godot/scripts/RingStagePanel.gd,1092,_record_strip_event chain kind,kind,sequence|move,IGNORED,Pushes sequence glyph header when last strip entry is not same sequence id+kind
+Godot/scripts/TechniqueGlyphs.gd,219,family_for kind branch,kind,sequence,DEFAULTED,kind==sequence returns chain family before role fallback
+Godot/scripts/TechniqueGlyphs.gd,227,ROLE_FAMILY fallback,role,damage|defense|takedown|submission|control|setup|counter|escape|transition|adaptation,DEFAULTED,Unknown role maps to generic glyph family
+Godot/scripts/TechniqueGlyph.gd,74,draw sequence frame,kind,move|sequence,DEFAULTED,kind defaults to move; sequence adds gold frame and link pips
+Godot/scripts/TechniqueGlyph.gd,101,_draw_shape,role,setup|damage|counter|takedown|control|submission|transition|escape|adaptation,DEFAULTED,Match per role shape; default branch draws generic pentagon
+Godot/scripts/GameState.gd,10265,_fight_playback_moment role,role,takedown|submission,DEFAULTED,Only takedown/submission roles change playback kind; others stay plain
+Godot/scripts/GameState.gd,10322,_known_sequences kind filter,kind,sequence,IGNORED,Combo training/UI lists only kind==sequence; skill and move nodes excluded
+Godot/scripts/FightPlanExplainer.gd,63,explain_corner selectable_roles,role,setup|damage|counter|control|takedown|transition|escape|submission|adaptation,IGNORED,Same SELECTABLE_ROLES filter as simulation; defense invisible in corner preview
+Godot/scripts/FightPlanExplainer.gd,310,_move_display_contract role default,role,setup|damage|counter|control|takedown|transition|escape|submission|adaptation|defense,DEFAULTED,Bug-shaped default: missing role string becomes literal skill not a role word
+Godot/scripts/ContenderSeries.gd,95,_judge_goals technique_usage,role,damage|counter|takedown|submission,IGNORED,Strike/takedown/submission tallies ignore setup control transition escape adaptation defense
+Godot/scripts/FightBeatAdapter.gd,685,_impact_beat role,role,setup|damage|counter|control|takedown|transition|escape|submission|adaptation|defense,PASSTHROUGH,Reads impact.role onto beat without branching
+Godot/scripts/FightBeatAdapter.gd,834,_grapple_beat GRAPPLE_ROLES,role,takedown|transition|escape|control|submission,DEFAULTED,Maps grapple technique id to catalog role; unknown id yields empty role string
+Godot/scripts/CompetitionData.gd,377,_validate_sequence_first_link_range,kind,sequence,IGNORED,Validator no-op unless kind is sequence
+Godot/scripts/AthleteDevelopment.gd,184,technique_tree_row kind,kind,move|skill|sequence,PASSTHROUGH,Displays catalog kind on development tree without filtering
+Godot/scripts/SkillsMovesPanel.gd,368,technique chip kind,kind,move|skill|sequence,DEFAULTED,UI chip defaults missing kind to move
+Godot/scripts/TechniqueTrainingCoordinator.gd,389,training payload kind,kind,move|skill|sequence,DEFAULTED,Serializes kind defaulting to move
+Godot/tests/technique_catalogue_contract_test.gd,9,VALID_ROLES,role,damage|setup|defense|control|finish,PASSTHROUGH,Contract test vocabulary — five roles only; live catalog uses ten
+Godot/tests/technique_catalogue_contract_test.gd,15,VALID_KINDS,kind,move|skill,PASSTHROUGH,Contract test rejects sequence and combination kinds in catalog nodes
+Godot/tests/technique_catalog_test.gd,25,match_roles whitelist,role,setup|damage|counter|defense|control|takedown|transition|escape|submission|adaptation,CRASH,Test fails node when match.role not in catalog match_roles list
+Godot/tests/combo_chains_test.gd,39,catalog sequence scan,kind,sequence,IGNORED,Test iterates only kind==sequence nodes
+Godot/tests/combo_chains_test.gd,48,chain link kind+role,kind,move,CRASH,Test requires each chain link kind==move and role in SELECTABLE list
+Godot/tests/technique_glyphs_test.gd,46,family_for role fallback,role,takedown,DEFAULTED,Asserts unknown-name node falls back to match.role family
+Godot/tests/fight_guard_contract_test.gd,99,guard catalog damage filter,role,damage,IGNORED,Test fixture selects nodes with role damage only
+Godot/tests/fight_simulation_test.gd,479,landed setup detection,role,setup,PASSTHROUGH,Test assertion on event role string
+Godot/tests/fight_plans_test.gd,250,learned role match helper,role,setup|damage|counter|control|takedown|transition|escape|submission|adaptation|defense,IGNORED,Test helper counts cache techniques matching role string
+Godot/tests/signature_battle_test.gd,297,duel role match helper,role,setup|damage|counter|control|takedown|transition|escape|submission|adaptation|defense,IGNORED,Same pattern as PlanCoach learned_in_roles for test assertions
+Godot/assets/data/technique_catalog.json,33,match_roles,role,setup|damage|counter|defense|control|takedown|transition|escape|submission|adaptation,PASSTHROUGH,Authoritative ten-role vocabulary on master; finish not listed
+Godot/assets/data/technique_catalog.json,0,nodes[].match.role,role,setup|damage|counter|defense|control|takedown|transition|escape|submission|adaptation,PASSTHROUGH,272 nodes each declare match.role; no finish role present on master
+Godot/assets/data/technique_catalog.json,0,nodes[].kind,kind,move|skill|sequence,PASSTHROUGH,178 move 55 skill 39 sequence on master; zero combination kind nodes
+Godot/assets/data/fight_plans.json,0,plans[].role_priority,role,setup|damage|counter|control|takedown|transition|escape|submission|adaptation|defense,PASSTHROUGH,Every archetype declares PRIMARY/SECONDARY/OPPORTUNISTIC/AVOID per role key used in that plan
+Godot/assets/data/fight_plans.json,0,plans[].requires.roles,role,setup|damage|counter|control|takedown|transition|escape|submission|adaptation|defense,IGNORED,Minimum learned-count gates; e.g. judo plans still require setup and takedown keys
+Godot/assets/data/fight_plans.json,1131,signature_battles.*.roles,role,setup|counter|damage|control|takedown|transition|submission|escape,PASSTHROUGH,Eleven ruleset duels name 2-role subsets; judo the_grip uses setup|takedown

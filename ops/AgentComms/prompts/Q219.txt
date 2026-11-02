@@ -1,0 +1,20 @@
+You are working in the git worktree D:/FightCamp/wt/Q219 (branch qwen/q219-gf1-offers-camp) of the FightCamp Godot 4.7.2 game.
+Your task is fully specified in research/TASK_Q219_GF1_OFFERS_CAMP.md - read it first, then do it start to finish.
+
+Key points (the task file wins if anything differs):
+- Goal: every fight offer shows the opponent's record + a difficulty word with a hover naming the grade's REAL inputs;
+  every camp focus card lists what it builds per week (from assets/data/fight_camp.json) and hovering a card fills the
+  projection box before anything is picked. Use the EXISTING tooltip system (UIKit.tip / TipLayer).
+- Edit ONLY the owned files and ONLY the named functions. GameState.gd (17,654 lines) and UIKit.gd (8308) are huge and
+  shared - read sed -n windows, never whole. Cursor is editing the fighter card / skills / home screens right now
+  (U201): do not touch ProfileRevampPanel.gd, SkillsMovesPanel.gd, DayFeedPanel.gd or Glossary.gd.
+- Say only what the code computes: the amateur grade uses the record gap and nothing else - no win %, no style edge.
+- First, probe your tools once: python --version, git --version, and read one file - report if any fails.
+- The .godot import cache is already in the worktree. Parse gate before any test:
+  python Godot/tools/check_scripts.py Godot/scripts/ScheduleHubPanel.gd Godot/scripts/AmateurMatchmaking.gd Godot/scripts/UIKit.gd Godot/scripts/GameState.gd Godot/scripts/FightCampPanel.gd
+- One test: "%LOCALAPPDATA%\Programs\Godot\Godot_v4.7.2-stable_win64_console.exe" --headless --path Godot --script tests/gf1_offers_camp_tips_test.gd
+- At the end: python Godot/tools/run_tests.py --jobs 2 --only schedule_hub_panel,amateur_board,amateur_matchmaking,booking_board_api,fight_camp,camp_board_api,gf1_offers
+  (wait on the runner's exit), then the career-walk stills (command in the task file) and look at 47 and 60.
+- git add the changed/new files explicitly by path (never `git add .`, never Godot/.godot), commit, and
+  git push -u origin qwen/q219-gf1-offers-camp.
+Do not stop at "written": run the tests yourself and finish with the push.

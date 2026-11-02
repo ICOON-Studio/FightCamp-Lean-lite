@@ -1,0 +1,181 @@
+ROUND 48 — 115 MIXAMO CLIPS COMBAT ENGINE INTEGRATION SPECIFICATION
+
+Engine Pipeline: Godot 4.7.2 GDScript | Skeletal Target: MetaHuman (Cascadeur Punch Pipeline Native)
+
+Standard: Deep PC Sports Management Simulation (Simulation-driven, authoritative telemetry, zero arcade exaggeration).
+
+1. COMPLETE 115-CLIP INGESTION & DISPOSITION AUDIT
+
+The table below audits all 115 imported animation assets. Per project rules:
+
+Punches present in the Mixamo pack are DROPPED to protect the native Cascadeur punch assets.
+Martial arts, cinematic backflips, and stylized comedy assets (e.g., "Sporty Granny", "Big Vegas") are DROPPED.
+Valid hit reactions, knockdowns, get-ups, dynamic blocks, idles, and post-bout states are assigned strictly to simulation triggers.
++----+---------------------------------------------------------------+--------+-------------+--------+-------+--------+---------+--------------------------------------------------------------------------+
+| #  | CLIP FILE NAME                                                | DISP.  | ROLE        | TARGET | SIDE  | POWER  | FALL    | IN-FIGHT PLAYBACK TRIGGER / CONTEXT                                      |
++----+---------------------------------------------------------------+--------+-------------+--------+-------+--------+---------+--------------------------------------------------------------------------+
+| 1  | Big_Hit_To_Head__Receiving_A_Big_Hit_From_A_Left_Punch        | KEEP   | react_head  | head   | left  | big    | none    | Flush lead hook/check hook impact; head snaps violently to right.        |
+| 2  | Big_Hit_To_Head__Receiving_A_Big_Hit_From_A_Right_Punch       | KEEP   | react_head  | head   | right | big    | none    | Flush rear cross/overhand right impact; head snaps violently to left.    |
+| 3  | Big_Hit_To_Head__Receiving_A_Big_Hit_From_A_Straight_Punch    | KEEP   | react_head  | head   | front | big    | none    | Stiff straight right down the pipe; head snaps straight back.            |
+| 4  | Big_Kidney_Hit__Receiving_A_Big_Hit_In_The_Kidneys            | DROP   | other       | body   | back  | big    | none    | Illegal kidney strike reaction; non-standard Queensberry mechanics.      |
+| 5  | Big_Rib_Hit__Receiving_A_Big_Hit_In_The_Ribs                  | KEEP   | react_body  | body   | right | big    | none    | Crushing rear hook to body/floating ribs; violent torso lateral flexion. |
+| 6  | Big_Side_Hit__Receiving_A_Big_Hit_In_The_Side                 | KEEP   | react_body  | body   | left  | big    | none    | Hard lead shovel/body hook impact to lead flank.                         |
+| 7  | Block__Blocking_The_Chest_Area_With_Both_Arms                 | KEEP   | block       | body   | front | medium | none    | High-guard absorption against straight punch aimed at solar plexus.      |
+| 8  | Blocking__Blocking_Inward                                     | KEEP   | block       | head   | right | light  | none    | Active parry/catch against opponent's incoming straight punch.           |
+| 9  | Blocking__Blocking_Outward                                    | KEEP   | block       | head   | left  | medium | none    | Forearm deflection pushing wide against incoming looping hook.           |
+| 10 | Body_Block__Blocking_Body_With_Arms                           | KEEP   | block       | body   | front | big    | none    | Dropping elbows into tight rib cage shell against body combinations.     |
+| 11 | Bouncing_Boxing_Idle                                          | KEEP   | idle        | none   | none  | none   | none    | Fresh fighter default idle (Rounds 1–4, Stamina > 65%, Footwork rating). |
+| 12 | Bouncing_Fight_Idle_With_Guard_Up                             | KEEP   | idle        | none   | none  | none   | none    | High-guard pressure stance (in-pocket infighting, distance < 1.2m).      |
+| 13 | Boxing_Back_Hand_Uppercut                                     | DROP   | punch       | head   | right | big    | none    | Native Cascadeur punch pipeline handles attacks; bypass Mixamo strike.   |
+| 14 | Boxing_Body_Jab_Cross_Medium                                  | DROP   | punch       | body   | front | medium | none    | Native Cascadeur punch pipeline handles attacks; bypass Mixamo strike.   |
+| 15 | Boxing_Dodge_Advance (1)                                      | KEEP   | walk        | none   | front | none   | none    | Forward slip-step entry closing distance against outside boxer.          |
+| 16 | Boxing_Dodge_Advance (2)                                      | KEEP   | walk        | none   | front | none   | none    | Bob-and-weave forward penetration under jab into middle distance.        |
+| 17 | Boxing_Dodge_Advance                                          | KEEP   | walk        | none   | front | none   | none    | Aggressive angled forward penetration step (closing to pocket).           |
+| 18 | Boxing_Dodge_Retreat                                          | KEEP   | walk        | none   | back  | none   | none    | Pendulum rear hop resetting range outside opponent jab reach.            |
+| 19 | Boxing_Idle                                                   | KEEP   | idle        | none   | none  | none   | none    | Mid-fight neutral stance (Rounds 5–8, Stamina 40%–65%).                   |
+| 20 | Boxing_Lead_Hand_Uppercut                                     | DROP   | punch       | head   | left  | medium | none    | Native Cascadeur punch pipeline handles attacks; bypass Mixamo strike.   |
+| 21 | Boxing_Left_Side_Step_Walk                                    | KEEP   | walk        | none   | left  | none   | none    | Lateral lateral pivot step to the lead side (circling off the ropes).   |
+| 22 | Boxing_Side_Step_Walk                                         | KEEP   | walk        | none   | right | none   | none    | Lateral lateral pivot step to the rear side (escaping pressure).         |
+| 23 | Center Block                                                   | KEEP   | block       | head   | front | medium | none    | High guard ear-muffs block absorbing straight punches on the gloves.     |
+| 24 | Defeat_From_A_Boxing_Loss                                     | KEEP   | loss        | none   | none  | none   | none    | Post-fight decision loss reaction (slumped shoulders, shaking head).     |
+| 25 | Defeat_Idle__Aj_Defeat_Idle                                    | KEEP   | loss        | none   | none  | none   | none    | Standing quietly dejected while opponent's hand is raised.                |
+| 26 | Defeat_Idle__Big_Vegas_Defeat_Idle                             | DROP   | loss        | none   | none  | none   | none    | Comic/theatrical character asset; breaks realistic broadcast tone.       |
+| 27 | Defeat_Idle__Sporty_Granny_Defeat_Idle                         | DROP   | loss        | none   | none  | none   | none    | Comic asset; breaks realistic broadcast tone.                            |
+| 28 | Defeated__Showing_Frustration_After_A_Loss                     | KEEP   | loss        | none   | none  | none   | none    | Unanimous decision loss: fighter slams ropes or kicks canvas in anger.    |
+| 29 | Falling_Down__Knocked_Over_And_Falling_To_The_Ground           | KEEP   | knockdown   | head   | front | big    | back    | Flash knockdown from stiff counter cross; legs fold, drops to back.       |
+| 30 | Falling_Flat_Impact__Falling_Flat_On_Face                      | KEEP   | knockdown   | head   | right | big    | front   | Devastating overhand/liver shot KO: collapses face-first onto canvas.     |
+| 31 | Fight_Idle__Male_Fight_Idle_Empty_Stance                       | DROP   | other       | none   | none  | none   | none    | Open kung-fu hand positioning; violates Queensberry boxing guard.        |
+| 32 | Fight_Idle__Male_Fight_Idle_Thai_Chi_To_Open_Stance            | DROP   | other       | none   | none  | none   | none    | Martial arts routine; completely incompatible with pro boxing.           |
+| 33 | Getting_Hit_Backwards__Getting_Hit_And_Flipping_Backwards      | DROP   | other       | head   | front | big    | back    | Cinematic stunt backflip; breaks realistic physics.                      |
+| 34 | Getting_Hit__Getting_Hit_From_Back                             | DROP   | other       | body   | back  | big    | none    | Illegal strike from rear; impossible under standard Queensberry rules.    |
+| 35 | Getting_Rocked_By_A_Big_Uppercut                               | KEEP   | react_head  | head   | front | big    | none    | Flush inside uppercut; head flies back, eyes roll, fighter wobbles.       |
+| 36 | Getting_Up__Getting_Up_From_Back                               | KEEP   | getup       | none   | none  | none   | back    | Get-up sequence from back: turns to hip, pushes off knee, up at count 8.  |
+| 37 | Getting_Up__Getting_Up_From_Being_Knocked_Down_On_The_Ground   | KEEP   | getup       | none   | none  | none   | front   | Staggered, difficult recovery from stomach; barely beats the 9 count.     |
+| 38 | Getting_Up__Getting_Up_From_Stomach                            | KEEP   | getup       | none   | none  | none   | front   | Standard recovery from face-down knockdown: pushes to knees, stands up.   |
+| 39 | Getting_Up__Standing_From_A_Lying_Prone                        | KEEP   | getup       | none   | none  | none   | front   | Smooth recovery from belly; used for quick flash knockdowns.              |
+| 40 | Head_Hit__Receiving_A_Big_Hit_To_The_Head_From_A_Left_Punch    | KEEP   | react_head  | head   | left  | big    | none    | Crushing lead hook to jaw; violent torque with heavy recovery stumble.   |
+| 41 | Head_Hit__Receiving_A_Big_Hit_To_The_Head_From_A_Right_Punch   | KEEP   | react_head  | head   | right | big    | none    | Full-force rear overhand; head snaps, fighter is rocked onto back foot.   |
+| 42 | Head_Hit__Receiving_A_Light_Hit_To_The_Head_From_A_Left_Punch  | KEEP   | react_head  | head   | left  | light  | none    | Standard range-finding jab landed clean; minor head snap, stays planted.  |
+| 43 | Head_Hit__Receiving_A_Light_Hit_To_The_Head_From_A_Right_Punch | KEEP   | react_head  | head   | right | light  | none    | Glancing rear cross or short jab; minor head shake without stance break.  |
+| 44 | Head_Hit__Receiving_A_Medium_Hit_To_The_Head_From_A_Left_Punch | KEEP   | react_head  | head   | left  | medium | none    | Solid lead hook landed; head snaps with brief upper-body guard split.     |
+| 45 | Head_Hit__Receiving_A_Medium_Hit_To_The_Head_From_A_Right_Punch| KEEP   | react_head  | head   | right | medium | none    | Clean straight right landed; trunk rotates slightly, minor balance reset. |
+| 46 | Hit_Reaction__Hit_Reaction                                     | KEEP   | react_head  | head   | front | medium | none    | General straight head impact reaction; absorbs shot, blinks, resets.      |
+| 47 | Hit_Reaction__Receive_Punch_To_The_Body                        | KEEP   | react_body  | body   | front | medium | none    | Mid-range body impact; torso tightens, brief backward step.               |
+| 48 | Hit_Reaction_s215_0                                            | KEEP   | react_head  | head   | left  | light  | none    | Micro-impact jab reaction (upper body layer only; feet stay planted).     |
+| 49 | Hit_Reaction_s215_1                                            | KEEP   | react_head  | head   | right | light  | none    | Micro-impact right touch (upper body layer only; footwork continues).    |
+| 50 | Hit_Reaction_s215_2                                            | KEEP   | react_head  | head   | front | light  | none    | Micro-impact straight jab check; quick blink/nod recovery.                |
+| 51 | Hit_Reaction_s215_3                                            | KEEP   | react_body  | body   | front | light  | none    | Grazing straight punch to chest/body; momentary breath reset.             |
+| 52 | Hit_Reaction_s215_4                                            | KEEP   | react_body  | body   | left  | light  | none    | Light lead hook to hip/body; minor flinch without stopping combination.   |
+| 53 | Hit_To_Body__Receiving_A_Body_Hit_By_A_Right_Uppercut          | KEEP   | react_body  | body   | right | big    | none    | Rear uppercut to the body/solar plexus; fighter hunches, legs dip.        |
+| 54 | Hit_To_Body__Receiving_A_Hit_By_An_Uppercut_To_The_Body        | KEEP   | react_body  | body   | left  | big    | none    | Lead shovel uppercut into floating ribs; sudden painful spasm.            |
+| 55 | Hit_To_Body__Receiving_A_Hit_To_The_Body_By_A_Straight         | KEEP   | react_body  | body   | front | medium | none    | Straight cross driven into sternum; fighter steps back, breath knocked out|
+| 56 | Injured_Stumble_Idle__Injured_Stumbling_Idle                   | KEEP   | hurt_idle   | none   | none  | none   | none    | Rocked/groggy state: low stamina (<20%), low chin (<25%), jelly legs.    |
+| 57 | Inward_Block__Inward_Block                                     | KEEP   | block       | head   | right | light  | none    | Quick wrist-turn parry deflecting incoming jab off centerline.            |
+| 58 | Kidney_Hit__Receiving_A_Hit_In_The_Kidneys                     | DROP   | other       | body   | back  | medium | none    | Illegal strike reaction; non-standard Queensberry mechanics.              |
+| 59 | Knocked_Down__Knocked_Down_To_Stomach                          | KEEP   | knockdown   | body   | left  | big    | front   | Delayed liver-shot collapse: drops to knees first, then onto stomach.     |
+| 60 | Knocked_Out__Knocked_Out_Falling_To_Back                       | KEEP   | knockdown   | head   | front | big    | back    | Clean one-punch knockout: goes stiff, collapses backward, arms splayed.   |
+| 61 | Knocked_Out__Knocked_Out_Falling_To_Stomach                    | KEEP   | knockdown   | head   | right | big    | front   | Devastating temple shot KO: legs fold instantly, drops forward lifeless.  |
+| 62 | Left Block                                                     | KEEP   | block       | head   | left  | medium | none    | Raising lead arm/shoulder to catch incoming right hook on deltoid/glove.  |
+| 63 | Light_Hit_To_Head__Receiving_A_Light_Hit_From_A_Left_Punch     | KEEP   | react_head  | head   | left  | light  | none    | Flicked jab check; minimal displacement, immediate return to guard.       |
+| 64 | Light_Hit_To_Head__Receiving_A_Light_Hit_From_A_Right_Punch    | KEEP   | react_head  | head   | right | light  | none    | Flicked rear hand check; eyes stay forward, posture maintained.           |
+| 65 | Light_Hit_To_Head__Receiving_A_Light_Hit_From_A_Straight_Punch | KEEP   | react_head  | head   | front | light  | none    | Light straight jab lands clean; chin jerks slightly back.                 |
+| 66 | Long_Body_Jab                                                  | DROP   | punch       | body   | front | light  | none    | Native Cascadeur punch pipeline handles attacks; bypass Mixamo strike.   |
+| 67 | Long_Hook_Punch_To_The_Body                                    | DROP   | punch       | body   | left  | medium | none    | Native Cascadeur punch pipeline handles attacks; bypass Mixamo strike.   |
+| 68 | Male_Boxing_Idle                                               | KEEP   | idle        | none   | none  | none   | none    | Late-fight tired idle (Rounds 9–12, Stamina < 40%, lower guard posture).  |
+| 69 | Medium_Hit_To_Head__Receiving_A_Medium_Hit_From_A_Left_Punch   | KEEP   | react_head  | head   | left  | medium | none    | Solid lead hook; chin rotates 30 degrees, quick balance recovery step.    |
+| 70 | Medium_Hit_To_Head__Receiving_A_Medium_Hit_From_A_Right_Punch  | KEEP   | react_head  | head   | right | medium | none    | Solid cross to cheek; chin twists left, shoulders recoil.                 |
+| 71 | Medium_Hit_To_Head__Receiving_A_Medium_Hit_From_A_Straight_Punch|KEEP  | react_head  | head   | front | medium | none    | Clean straight 1-2 impact; head snaps cleanly, feet stutter.              |
+| 72 | Mid_Body_Jab                                                   | DROP   | punch       | body   | front | medium | none    | Native Cascadeur punch pipeline handles attacks; bypass Mixamo strike.   |
+| 73 | Mid_Hook_Punch_To_The_Body                                     | DROP   | punch       | body   | left  | medium | none    | Native Cascadeur punch pipeline handles attacks; bypass Mixamo strike.   |
+| 74 | Offensive Idle                                                 | KEEP   | idle        | none   | none  | none   | none    | Aggressive forward-leaning stance used when opponent is rocked/cornered.  |
+| 75 | Outward_Block__Blocking_With_Arm                               | KEEP   | block       | head   | left  | medium | none    | Forearm shell block deflecting incoming looping rear hook.                |
+| 76 | Reaction__Male_Reaction_Hit_On_The_Left_Side                   | KEEP   | react_head  | head   | left  | medium | none    | Angled lead hook impact; head twists, torso shifts weight to right foot.  |
+| 77 | Reaction__Male_Reaction_Hit_On_The_Right_Side                  | KEEP   | react_head  | head   | right | medium | none    | Angled cross impact; head twists, torso shifts weight to left foot.       |
+| 78 | Receive_Punch_To_The_Face__Receive_Stomach_Uppercut            | KEEP   | react_body  | body   | front | big    | none    | Crunching uppercut to diaphragm; head drops, fighter folds forward.       |
+| 79 | Receive_Stomach_Uppercut__Receive_Stomach_Uppercut             | KEEP   | react_body  | body   | front | big    | none    | Uppercut directly into solar plexus; sharp exhalation, knees buckle.      |
+| 80 | Receive_Uppercut_To_The_Face__Receive_An_Uppercut_Punch_To_The_Face|KEEP| react_head | head   | front | big    | none    | Uppercut lifts the chin straight up; eyes face ceiling, legs go wobbly.   |
+| 81 | Receiving An Uppercut                                          | KEEP   | react_head  | head   | front | medium | none    | Clean lead uppercut impact; chin pops up, immediate guard reset.          |
+| 82 | Receiving_A_Big_Hit_In_The_Stomach                             | KEEP   | react_body  | body   | front | big    | none    | Devastating straight punch to the body; backward stumble, arms drop.      |
+| 83 | Receiving_A_Big_Hit_To_The_Head_From_A_Straight_Punch          | KEEP   | react_head  | head   | front | big    | none    | Power straight right lands flush; violent snap back, fighter stumbles.    |
+| 84 | Receiving_A_Body_Hit_By_A_Straight_Punch                       | KEEP   | react_body  | body   | front | medium | none    | Clean body cross; fighter exhales sharply, backs up half a step.          |
+| 85 | Receiving_A_Hit_In_The_Stomach                                 | KEEP   | react_body  | body   | front | medium | none    | Solid jab/cross into the gut; brief wince, stays balanced.                |
+| 86 | Receiving_A_Hit_To_The_Body_By_A_Uppercut                      | KEEP   | react_body  | body   | right | medium | none    | Inside shovel hook under ribs; torso twists, hands drop slightly.         |
+| 87 | Receiving_A_Hit_To_The_Liver                                   | KEEP   | react_body  | body   | left  | big    | none    | Clean liver hook impact: immediate body cramp, right elbow clamps down.   |
+| 88 | Receiving_An_Uppercut__Getting_Hit_By_An_Uppercut              | KEEP   | react_head  | head   | front | medium | none    | Flush chin-lift uppercut; head snaps upward, guard widens momentarily.    |
+| 89 | Right_Hook__Right_Hook_Punch_From_Idle                         | DROP   | punch       | head   | right | big    | none    | Native Cascadeur punch pipeline handles attacks; bypass Mixamo strike.   |
+| 90 | Short_Body_Jab                                                 | DROP   | punch       | body   | front | light  | none    | Native Cascadeur punch pipeline handles attacks; bypass Mixamo strike.   |
+| 91 | Short_Hook_Punch_To_The_Body                                   | DROP   | punch       | body   | left  | medium | none    | Native Cascadeur punch pipeline handles attacks; bypass Mixamo strike.   |
+| 92 | Shoulder_Hit_And_Fall__Hit_In_The_Shoulder_And_Falls_To_The_Ground|KEEP | knockdown   | body   | right | big    | side    | Off-balance knockdown: heavy overhand lands on shoulder, fighter slips.   |
+| 93 | Side_Hit__Receiving_A_Hit_In_The_Side                          | KEEP   | react_body  | body   | right | medium | none    | Body hook lands on flank; fighter absorbs impact, holds position.         |
+| 94 | Stand_Up__Standing_Up_From_Back                                | KEEP   | getup       | none   | none  | none   | back    | Determined get-up from back; rolls over, uses ropes for support.          |
+| 95 | Standing_Block_Idle__Blocking_With_Both_Arms_Out               | KEEP   | block       | head   | front | big    | none    | Sustained turtle guard against heavy combination flurries.                |
+| 96 | Standing_Block_React_Large__Block_Reaction                     | KEEP   | block_react | head   | front | big    | none    | Heavy punch rattles the guard; gloves driven back into fighter's forehead.|
+| 97 | Standing_React_Large_From_Back__Large_Hit_Reaction_From_The_Back|DROP   | other       | body   | back  | big    | none    | Illegal strike reaction from rear; non-standard Queensberry mechanics.    |
+| 98 | Standing_React_Large_From_Front__Large_Hit_Reaction_From_The_Front|KEEP | react_head  | head   | front | big    | none    | Heavy straight counter impact; backward stumble, arms flare wide.         |
+| 99 | Standing_React_Large_From_Left__Large_Hit_Reaction_From_The_Left|KEEP   | react_head  | head   | left  | big    | none    | Heavy left hook to temple; fighter stumbles toward the right ropes.       |
+| 100| Standing_React_Large_From_Right__Large_Hit_Reaction_From_The_Right|KEEP | react_head  | head   | right | big    | none    | Heavy right hand impact; fighter stumbles toward the left ropes.          |
+| 101| Standing_React_Small_From_Back__Small_Hit_Reaction_From_The_Back|DROP   | other       | body   | back  | light  | none    | Illegal strike reaction from rear; non-standard Queensberry mechanics.    |
+| 102| Standing_React_Small_From_Front__Small_Hit_Reaction_From_The_Front|KEEP| react_head  | head   | front | light  | none    | Light jab to forehead; quick head snap without interrupting footwork.     |
+| 103| Standing_React_Small_From_Left__Small_Hit_Reaction_From_The_Left|KEEP  | react_head  | head   | left  | light  | none    | Light lead hook check; quick head twist, immediate recovery.              |
+| 104| Standing_React_Small_From_Right__Small_Hit_Reaction_From_The_Right|KEEP | react_head  | head   | right | light  | none    | Light glancing right hand; minor torso recoil, stays balanced.            |
+| 105| Standing_Up__Standing_Up_And_Looking_Around                    | KEEP   | getup       | none   | none  | none   | front   | Dazed, unsteady get-up; rises on unsteady legs, looking around groggily.  |
+| 106| Standing_Up__Standing_Up_From_Lying_On_Stomach                 | KEEP   | getup       | none   | none  | none   | front   | Standard recovery from face-down knockdown; pushes up, beats the count.   |
+| 107| Stunned__Male_Knocked_Down_From_A_Punch                        | KEEP   | knockdown   | head   | front | big    | back    | Heavy knockdown: lands on back, head bounces off canvas, stunned gaze.    |
+| 108| Taking_Punch__Getting_Hit_In_The_Face_From_Various_Angles      | DROP   | other       | head   | multi | medium | none    | Multi-hit composite clip; breaks deterministic hit registration.          |
+| 109| Turn_To_Knocked_Unconscious__Turn_To_Getting_Knocked_Unconscious|KEEP   | knockdown   | head   | left  | big    | side    | Devastating hook KO: spins 90 degrees, collapses unconscious to canvas.   |
+| 110| Victory_From_A_Boxing_Win                                      | KEEP   | win         | none   | none  | none   | none    | Standard post-fight win: steps forward, raises both arms in celebration.  |
+| 111| Victory_Idle__Aj_Victory_Idle                                   | KEEP   | win         | none   | none  | none   | none    | Confident victory pose while referee holds wrist awaiting decision.       |
+| 112| Victory_Idle__Big_Vegas_Victory_Idle                           | DROP   | win         | none   | none  | none   | none    | Comic/theatrical character asset; breaks realistic broadcast tone.       |
+| 113| Victory_Idle__Sporty_Granny_Vicotry_Idle                       | DROP   | win         | none   | none  | none   | none    | Comic asset; breaks realistic broadcast tone.                            |
+| 114| Victory__Celebrating_After_A_Win                               | KEEP   | win         | none   | none  | none   | none    | Explosive KO celebration: jumps onto ropes or pumps fists in triumph.     |
+| 115| Victory__Celebrating_After_A_Win_While_Seated                  | KEEP   | corner      | none   | none  | none   | none    | Corner celebration: sitting on stool after corner stoppage/TKO between rds|
++----+---------------------------------------------------------------+--------+-------------+--------+-------+--------+---------+--------------------------------------------------------------------------+
+
+Ingestion Summary
+Total Clips Ingested: 115
+DROPPED (Strikes replaced by Cascadeur native assets): 11 clips (#13, #14, #20, #66, #67, #72, #73, #89, #90, #91)
+DROPPED (Martial Arts / Comic / Non-Queensberry Assets): 13 clips (#4, #26, #27, #31, #32, #33, #34, #58, #97, #101, #108, #112, #113)
+KEPT FOR BOXING DEMO: 91 clips (categorized below).
+2. HIT POWER BANDS & VISUAL CADENCE
+
+To maintain a realistic broadcast feel—rather than looking like an arcade game where every jab snaps the head back—landed punches are mapped into three distinct power bands based on effective landed force:
+
+$$\text{Landed Force} = \frac{\text{Attacker.power} \times \text{Technique.damage_multiplier} \times \text{Timing Factor}}{\text{Defender.defense} \times \text{Mitigation Factor}}$$
+
+[0.00] ========= LIGHT (0.00 - 0.44) ========= [0.45] ===== MEDIUM (0.45 - 0.79) ===== [0.80] === BIG (0.80 - 1.00) === [1.00]
+       - Upper-body bone blend only                   - Full-body recoil                             - Major displacement
+       - Footwork continues uninterrupted             - Brief guard break (120-160ms)                - Heavy stun / knockdown check
+       - 68% - 74% of clean head hits                 - 20% - 25% of clean head hits                 - 4% - 7% of clean head hits
+
+Calibration & Visual Cadence
+LIGHT POWER BAND (0.00 to 0.44):
+Cadence: Represents 68% to 74% of all landed head punches in a typical 12-round fight (REAL).
+Visual Behavior: Uses upper-body bone blending (spine and neck only). Footwork, stance width, and ring movement continue without interruption.
+MEDIUM POWER BAND (0.45 to 0.79):
+Cadence: Represents 20% to 25% of all landed head punches (REAL).
+Visual Behavior: Full-body animation takes over. The fighter takes a short recoil step, breathing is briefly interrupted, and the guard splits open for 120ms to 160ms.
+BIG POWER BAND (0.80 to 1.00):
+Cadence: Represents 4% to 7% of all landed head punches (approx. 2 to 5 occurrences per round) (REAL).
+Visual Behavior: Heavy visual impact. Feet freeze or buckle, head snaps violently, and the hit triggers an immediate knockdown roll based on remaining stamina and the defender's chin rating.
+3. PUNCH $\rightarrow$ REACTION MAPPING & LIVER MECHANICS
+
+The combat engine maps specific punch techniques directly to directional hit reactions:
+
++--------------------------+---------------------+-------------------+---------------------+-------------------------------+
+| INCOMING PUNCH TECHNIQUE | HIT REGION          | ATTACK VECTOR     | POWER BAND MAPPING  | ASSIGNED MIXAMO CLIP IDENTIFIERS |
++--------------------------+---------------------+-------------------+---------------------+-------------------------------+
+| `boxing_jab`             | `head_neck`         | Attacker Lead     | Light (85%)         | #42, #48, #63, #65, #102      |
+|                          |                     | (Target's Right)  | Medium (15%)        | #44, #46, #69                 |
++--------------------------+---------------------+-------------------+---------------------+-------------------------------+
+| `boxing_cross`           | `head_neck`         | Attacker Rear     | Medium (60%)        | #45, #70, #71                 |
+|                          |                     | (Target's Left)   | Big (40%)           | #2, #41, #83, #100            |
++--------------------------+---------------------+-------------------+---------------------+-------------------------------+
+| `boxing_lead_hook`       | `head_neck`         | Attacker Lead     | Medium (50%)        | #44, #69, #76                 |
+|                          |                     | (Target's Right)  | Big (50%)           | #1, #40, #99                  |
++--------------------------+---------------------+-------------------+---------------------+-------------------------------+
+| `boxing_rear_hook`       | `head_neck`         | Attacker Rear     | Medium (40%)        | #45, #70, #77                 |
+
+Can you audit all 115 clips without inventing names, separating usable boxing reactions, movement, corner, and result animations?
+Can you specify upper-body reaction layering and blend times for light, medium, big, knockdown, and getup events?
+Which exact idle, walk, win, and loss clips should drive between-rounds, decision, KO win, and KO loss presentation?
+What missing boxing animations should I search for next, and can you create a visual gym-fight presentation board?

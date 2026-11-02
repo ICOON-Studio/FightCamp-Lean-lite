@@ -1,0 +1,112 @@
+{
+ "_note": "S4a UFC pilot (operator 2026-09-14: '30-second pilot first'). Prompts written by Claude from watching the footage (3 fps and 10 fps zoomed strips) and from ufc_pilot_windows.py's per-beat numbers. One body per generation, so every exchange has an A prompt and a B prompt on ONE clock: shot boundaries are footage times, and each strike's shot starts 0.3-0.5 s before the footage's peak.",
+ "source": {
+  "title": "UFC 260 Free Fight Brian Ortega vs Korean Zombie",
+  "youtube_id": "_mkFV2H2oCk",
+  "file": "round 1 only (video 0:00-7:30), 720p, no sound; operator approved in chat 2026-09-14; delete after the pilot",
+  "round_1_video_s": [27.0, 327.0],
+  "camera": "UFC broadcast: cuts between a wide side-on camera, three-quarter cameras and a camera behind one fighter"
+ },
+ "fighters": {
+  "A": "Brian Ortega - dark maroon shorts, black gloves; the left man at each window's first frame; ORTHODOX in e1, SOUTHPAW from e2 on",
+  "B": "Chan Sung Jung (the Korean Zombie) - red shorts, blue gloves; orthodox throughout"
+ },
+ "method": {
+  "job": "Higgsfield Blender add-on 'kimodo' job (ARDY), 20 fps, one body",
+  "model_version": "ardy-core-h8",
+  "why_h8": "features/motion.py: ardy-core commits 2.0 s chunks and a shot shorter than that does not land; h8 commits 0.4 s chunks. Every beat here is under 2.5 s.",
+  "preroll": {"prompt": "A fighter stands in an orthodox fighting stance with his hands up.", "seconds": 1.0, "why": "the model starts from a neutral standing pose; the first 20 frames are cut after generation"},
+  "seeds": [11, 23, 37],
+  "mirror": "A southpaw is generated as an orthodox man with the same prompt (lead hand = 'left') and mirrored left-right after generation; prompts therefore always say left jab for the lead hand and right cross for the rear hand",
+  "no_clinch": "Round 1 has no clinch on the cage inside a shot the tracker could follow (34 segments, 126.8 s with both men tracked); the pilot's five exchanges are the varied ones that exist."
+ },
+ "exchanges": [
+  {
+   "id": "e1", "t0": 76.4, "t1": 82.4, "kind": "a reset with feints around one right hand",
+   "footage": "Wide camera behind Korean Zombie. KZ darts forward low (76.9, +0.44 T, hips down 0.24 T); Ortega throws a straight right (77.44, rear hand) as KZ leans away; then 4 s of measuring - Ortega bouncing and feinting a half step in (79.9, +0.30 T) and out (80.4, -0.28 T), KZ pawing his left hand and inching forward, stepping in at 81.9 (+0.23 T) as Ortega steps back.",
+   "A": {"mirror": false, "stance": "orthodox", "shots": [
+    {"t0": 76.4, "t1": 76.9, "prompt": "The fighter leans back slightly in his stance."},
+    {"t0": 76.9, "t1": 77.9, "prompt": "The fighter throws a hard straight right hand to head height and brings it back to his chin."},
+    {"t0": 77.9, "t1": 79.4, "prompt": "The fighter bounces lightly on the balls of his feet with his hands up."},
+    {"t0": 79.4, "t1": 80.4, "prompt": "The fighter feints with a quick half step forward and immediately steps back out."},
+    {"t0": 80.4, "t1": 81.9, "prompt": "The fighter bounces in his stance and twitches his left hand forward as a feint."},
+    {"t0": 81.9, "t1": 82.4, "prompt": "The fighter takes a short step back."}]},
+   "B": {"mirror": false, "stance": "orthodox", "shots": [
+    {"t0": 76.4, "t1": 77.4, "prompt": "The fighter dips his head and shoulders and darts half a step forward."},
+    {"t0": 77.4, "t1": 77.9, "prompt": "The fighter leans back away from a punch with his hands up."},
+    {"t0": 77.9, "t1": 79.9, "prompt": "The fighter moves lightly in his stance and paws his left hand forward to measure the distance."},
+    {"t0": 79.9, "t1": 81.4, "prompt": "The fighter shuffles half a step forward and half a step back with his hands ready."},
+    {"t0": 81.4, "t1": 82.4, "prompt": "The fighter steps forward with his front foot to pressure."}]}
+  },
+  {
+   "id": "e2", "t0": 86.5, "t1": 90.8, "kind": "a jab exchange",
+   "footage": "Three-quarter camera behind Ortega. Both bounce in (87.0-87.5, Ortega +0.30/+0.21 T); KZ jabs (88.02) and Ortega pulls back (-0.16 T); both step in again and jab together (KZ 89.42, Ortega 89.46); Ortega jabs again (90.12) and steps forward (+0.18 T).",
+   "A": {"mirror": true, "stance": "southpaw", "shots": [
+    {"t0": 86.5, "t1": 87.5, "prompt": "The fighter bounces forward with two small steps and his hands up."},
+    {"t0": 87.5, "t1": 88.5, "prompt": "The fighter pulls his head back from a jab and takes a small step back."},
+    {"t0": 88.5, "t1": 89.0, "prompt": "The fighter settles into his stance."},
+    {"t0": 89.0, "t1": 89.8, "prompt": "The fighter throws a quick left jab to head height."},
+    {"t0": 89.8, "t1": 90.8, "prompt": "The fighter throws another quick left jab to head height and steps forward behind it."}]},
+   "B": {"mirror": false, "stance": "orthodox", "shots": [
+    {"t0": 86.5, "t1": 87.5, "prompt": "The fighter steps forward in his stance with his hands up."},
+    {"t0": 87.5, "t1": 88.5, "prompt": "The fighter throws a sharp left jab to head height and brings it back."},
+    {"t0": 88.5, "t1": 89.0, "prompt": "The fighter takes a small step back."},
+    {"t0": 89.0, "t1": 89.8, "prompt": "The fighter throws a left jab to head height while tilting his head to the side."},
+    {"t0": 89.8, "t1": 90.8, "prompt": "The fighter blocks with his right glove up by his face and takes a small step forward."}]}
+  },
+  {
+   "id": "e3", "t0": 118.5, "t1": 124.5, "kind": "a kick answered by pressure",
+   "footage": "Three-quarter camera behind Ortega. Two seconds of in-and-out measuring; KZ steps in with a jab (120.82, +0.43 T) and Ortega counters with his lead jab (121.29); KZ throws a hard right roundhouse to Ortega's lead thigh (121.45); KZ backs off for 1.5 s (-0.20 T a beat) while Ortega walks him down (+0.25/+0.32 T) with a flick (122.19) and two jabs (123.32, 124.19).",
+   "A": {"mirror": true, "stance": "southpaw", "shots": [
+    {"t0": 118.5, "t1": 120.5, "prompt": "The fighter moves in his stance with small steps forward and back and his hands up, measuring the distance."},
+    {"t0": 120.5, "t1": 121.0, "prompt": "The fighter leans back away from a jab."},
+    {"t0": 121.0, "t1": 121.5, "prompt": "The fighter throws a quick left jab to head height."},
+    {"t0": 121.5, "t1": 122.0, "prompt": "The fighter takes a kick on his front thigh and shifts his weight onto his back leg."},
+    {"t0": 122.0, "t1": 123.0, "prompt": "The fighter walks forward with his hands up and flicks his left hand out."},
+    {"t0": 123.0, "t1": 124.5, "prompt": "The fighter steps in with a left jab to head height and then throws another left jab."}]},
+   "B": {"mirror": false, "stance": "orthodox", "shots": [
+    {"t0": 118.5, "t1": 120.5, "prompt": "The fighter bounces in his stance and moves in and out of range with small steps."},
+    {"t0": 120.5, "t1": 121.0, "prompt": "The fighter steps in with a left jab to head height."},
+    {"t0": 121.0, "t1": 121.8, "prompt": "The fighter throws a hard right roundhouse kick to the front thigh."},
+    {"t0": 121.8, "t1": 123.5, "prompt": "The fighter backs away with small steps and his hands up."},
+    {"t0": 123.5, "t1": 124.5, "prompt": "The fighter raises his right glove to block and holds his ground."}]}
+  },
+  {
+   "id": "e4", "t0": 125.0, "t1": 131.0, "kind": "repositioning into a jab exchange",
+   "footage": "New camera cut, behind Ortega. KZ circles with light hopping steps, hands low (125.5-126.0, +0.31/+0.19 T) while Ortega backs off and turns to face him (-0.30/-0.23 T); two seconds of both measuring; Ortega steps in with a jab (128.23, +0.33 T); KZ answers with a long lunging jab (129.03) and pulls back (-0.47 T); jabs cross (Ortega 129.90, KZ 129.93); KZ jabs again (130.76).",
+   "A": {"mirror": true, "stance": "southpaw", "shots": [
+    {"t0": 125.0, "t1": 126.0, "prompt": "The fighter steps back and pivots on his feet to keep facing his opponent."},
+    {"t0": 126.0, "t1": 128.0, "prompt": "The fighter stays in his stance, bouncing lightly and making small adjustments with his feet."},
+    {"t0": 128.0, "t1": 128.8, "prompt": "The fighter steps in with a quick left jab to head height."},
+    {"t0": 128.8, "t1": 129.5, "prompt": "The fighter leans back from a jab and steps back."},
+    {"t0": 129.5, "t1": 130.3, "prompt": "The fighter throws a quick left jab to head height."},
+    {"t0": 130.3, "t1": 131.0, "prompt": "The fighter steps forward with his hands up."}]},
+   "B": {"mirror": false, "stance": "orthodox", "shots": [
+    {"t0": 125.0, "t1": 126.0, "prompt": "The fighter circles around his opponent with light hopping steps and his hands low."},
+    {"t0": 126.0, "t1": 128.0, "prompt": "The fighter settles into his stance and creeps forward slowly with his hands up."},
+    {"t0": 128.0, "t1": 128.8, "prompt": "The fighter parries a jab with his right glove."},
+    {"t0": 128.8, "t1": 129.5, "prompt": "The fighter lunges forward with a long left jab to head height and pulls back."},
+    {"t0": 129.5, "t1": 130.3, "prompt": "The fighter throws a left jab while tilting his head to the side."},
+    {"t0": 130.3, "t1": 131.0, "prompt": "The fighter throws another left jab to head height."}]}
+  },
+  {
+   "id": "e5", "t0": 236.3, "t1": 242.3, "kind": "a combination with a slip",
+   "footage": "Wide camera in front of Ortega's left. KZ lands a low kick (236.57) and backs off while Ortega walks forward (+0.40/+0.34 T); Ortega jabs twice (238.04, 238.81); measuring while KZ creeps in low (+0.16/+0.22 T); Ortega flicks a jab (240.17); KZ steps in low under Ortega's long left cross (240.9-241.1, KZ +0.62 T with hips 0.28 T down) and both separate. Camera cut at 241.15.",
+   "A": {"mirror": true, "stance": "southpaw", "shots": [
+    {"t0": 236.3, "t1": 237.8, "prompt": "The fighter takes a low kick on his front leg and then walks forward two steps with his hands up."},
+    {"t0": 237.8, "t1": 238.4, "prompt": "The fighter throws a quick left jab to head height."},
+    {"t0": 238.4, "t1": 239.1, "prompt": "The fighter throws another quick left jab to head height."},
+    {"t0": 239.1, "t1": 240.0, "prompt": "The fighter holds his stance and bounces lightly."},
+    {"t0": 240.0, "t1": 240.5, "prompt": "The fighter flicks a short left jab."},
+    {"t0": 240.5, "t1": 241.3, "prompt": "The fighter lunges forward over his front foot with a long right cross to head height."},
+    {"t0": 241.3, "t1": 242.3, "prompt": "The fighter steps back into his stance."}]},
+   "B": {"mirror": false, "stance": "orthodox", "shots": [
+    {"t0": 236.3, "t1": 236.8, "prompt": "The fighter throws a right low kick to the front leg."},
+    {"t0": 236.8, "t1": 238.3, "prompt": "The fighter backs up with small steps and settles into his stance."},
+    {"t0": 238.3, "t1": 239.1, "prompt": "The fighter raises his right glove to block a jab."},
+    {"t0": 239.1, "t1": 240.6, "prompt": "The fighter creeps forward with his hips low and paws with his left hand."},
+    {"t0": 240.6, "t1": 241.3, "prompt": "The fighter ducks low under a punch by bending his knees and steps in."},
+    {"t0": 241.3, "t1": 242.3, "prompt": "The fighter comes back up into his stance and steps back."}]}
+  }
+ ]
+}

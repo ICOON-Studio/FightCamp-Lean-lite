@@ -1,0 +1,3436 @@
+[
+  {
+    "id": "muay_thai_stance",
+    "name": "Muay Thai Stance",
+    "kind": "skill",
+    "tier": 1,
+    "branch": "eight_limbs",
+    "requires": {
+      "discipline": 5,
+      "attributes": {
+        "defense": 22,
+        "conditioning": 24
+      },
+      "prerequisites": [],
+      "reps": 40
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "guard": 7,
+        "check_readiness": 6
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    },
+    "grade": "base",
+    "grade_rank": 1
+  },
+  {
+    "id": "muay_thai_teep",
+    "name": "Teep (Push Kick)",
+    "kind": "move",
+    "tier": 1,
+    "branch": "kicks_knees",
+    "requires": {
+      "discipline": 14,
+      "attributes": {
+        "technique": 27,
+        "speed": 25
+      },
+      "prerequisites": [
+        "muay_thai_stance"
+      ],
+      "reps": 90
+    },
+    "match": {
+      "role": "setup",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "range_control": 9,
+        "balance_break": 5
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": -1
+    },
+    "grade": "base",
+    "grade_rank": 2
+  },
+  {
+    "id": "muay_thai_round_kick",
+    "name": "Round Kick",
+    "kind": "move",
+    "tier": 1,
+    "branch": "kicks_knees",
+    "requires": {
+      "discipline": 20,
+      "attributes": {
+        "power": 32,
+        "technique": 30,
+        "conditioning": 28
+      },
+      "prerequisites": [
+        "muay_thai_stance"
+      ],
+      "reps": 120
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 9,
+        "body_damage": 7
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    },
+    "grade": "base",
+    "grade_rank": 3
+  },
+  {
+    "id": "muay_thai_straight_knee",
+    "name": "Straight Knee",
+    "kind": "move",
+    "tier": 2,
+    "branch": "kicks_knees",
+    "requires": {
+      "discipline": 34,
+      "attributes": {
+        "power": 40,
+        "technique": 40,
+        "conditioning": 38
+      },
+      "prerequisites": [
+        "muay_thai_teep"
+      ],
+      "reps": 190
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing",
+        "clinch"
+      ],
+      "effects": {
+        "body_damage": 10,
+        "damage": 7
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    },
+    "grade": "base",
+    "grade_rank": 9
+  },
+  {
+    "id": "muay_thai_horizontal_elbow",
+    "name": "Horizontal Elbow",
+    "kind": "move",
+    "tier": 2,
+    "branch": "elbows",
+    "requires": {
+      "discipline": 40,
+      "attributes": {
+        "technique": 46,
+        "speed": 42,
+        "fight_iq": 38
+      },
+      "prerequisites": [
+        "muay_thai_stance"
+      ],
+      "reps": 230
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "cut_threat": 10,
+        "damage": 9
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    },
+    "grade": "base",
+    "grade_rank": 10
+  },
+  {
+    "id": "muay_thai_plum",
+    "name": "Double-Collar Clinch",
+    "kind": "skill",
+    "tier": 2,
+    "branch": "clinch",
+    "requires": {
+      "discipline": 46,
+      "attributes": {
+        "power": 42,
+        "technique": 48,
+        "conditioning": 45,
+        "fight_iq": 42
+      },
+      "prerequisites": [
+        "muay_thai_straight_knee"
+      ],
+      "reps": 280
+    },
+    "match": {
+      "role": "control",
+      "phases": [
+        "clinch"
+      ],
+      "effects": {
+        "clinch_control": 12,
+        "setup": 9
+      },
+      "range_band": [
+        "CLINCH"
+      ],
+      "range_delta": 0
+    },
+    "grade": "base",
+    "grade_rank": 11
+  },
+  {
+    "id": "muay_thai_clinch_knees",
+    "name": "Clinch Knee Series",
+    "kind": "sequence",
+    "tier": 3,
+    "branch": "combinations",
+    "requires": {
+      "discipline": 60,
+      "attributes": {
+        "power": 58,
+        "conditioning": 62,
+        "technique": 60
+      },
+      "prerequisites": [
+        "muay_thai_plum",
+        "muay_thai_straight_knee"
+      ],
+      "reps": 400
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "clinch"
+      ],
+      "effects": {
+        "body_damage": 13,
+        "stamina_drain": -10
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    },
+    "grade": "mae_mai",
+    "grade_rank": 12
+  },
+  {
+    "id": "muay_thai_up_elbow",
+    "name": "Upward Elbow",
+    "kind": "move",
+    "tier": 3,
+    "branch": "elbows",
+    "requires": {
+      "discipline": 66,
+      "attributes": {
+        "speed": 64,
+        "technique": 66,
+        "fight_iq": 58
+      },
+      "prerequisites": [
+        "muay_thai_horizontal_elbow",
+        "muay_thai_plum"
+      ],
+      "reps": 460
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing",
+        "clinch"
+      ],
+      "effects": {
+        "cut_threat": 13,
+        "damage": 11
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    },
+    "grade": "mae_mai",
+    "grade_rank": 1
+  },
+  {
+    "id": "muay_thai_clinch_dump",
+    "name": "Clinch Turn and Dump",
+    "kind": "move",
+    "tier": 3,
+    "branch": "clinch",
+    "requires": {
+      "discipline": 72,
+      "attributes": {
+        "technique": 70,
+        "power": 62,
+        "fight_iq": 68
+      },
+      "prerequisites": [
+        "muay_thai_plum"
+      ],
+      "reps": 520
+    },
+    "match": {
+      "role": "control",
+      "phases": [
+        "clinch"
+      ],
+      "effects": {
+        "balance_break": 14,
+        "control_score": 9
+      },
+      "range_band": [
+        "CLINCH"
+      ],
+      "range_delta": 0
+    },
+    "grade": "mae_mai",
+    "grade_rank": 2
+  },
+  {
+    "id": "muay_thai_eight_limb_chain",
+    "name": "Teep-Round Kick-Clinch Knee-Elbow Chain",
+    "kind": "sequence",
+    "tier": 4,
+    "branch": "combinations",
+    "requires": {
+      "discipline": 86,
+      "attributes": {
+        "technique": 82,
+        "conditioning": 78,
+        "fight_iq": 78,
+        "speed": 72
+      },
+      "prerequisites": [
+        "muay_thai_teep",
+        "muay_thai_round_kick",
+        "muay_thai_straight_knee",
+        "muay_thai_horizontal_elbow",
+        "muay_thai_clinch_knees",
+        "muay_thai_up_elbow",
+        "muay_thai_clinch_dump"
+      ],
+      "reps": 800
+    },
+    "match": {
+      "role": "setup",
+      "phases": [
+        "standing",
+        "clinch"
+      ],
+      "effects": {
+        "phase_transition": 15,
+        "damage": 13,
+        "finish_chance": 8
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 2
+    },
+    "grade": "luk_mai",
+    "grade_rank": 13
+  },
+  {
+    "id": "muay_thai_switch_kick_body",
+    "name": "Switch Body Kick",
+    "kind": "move",
+    "tier": 2,
+    "branch": "kicks_knees",
+    "requires": {
+      "discipline": 36,
+      "attributes": {
+        "power": 42,
+        "technique": 36
+      },
+      "prerequisites": [
+        "muay_thai_round_kick"
+      ],
+      "reps": 150
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "body_damage": 9,
+        "damage": 5
+      },
+      "range_band": [
+        "MID"
+      ],
+      "range_delta": 0
+    },
+    "grade": "base",
+    "grade_rank": 12
+  },
+  {
+    "id": "muay_thai_teep_defense",
+    "name": "Long Guard & Teep",
+    "kind": "skill",
+    "tier": 2,
+    "branch": "defense_ringcraft",
+    "requires": {
+      "discipline": 32,
+      "attributes": {
+        "defense": 40,
+        "fight_iq": 34
+      },
+      "prerequisites": [
+        "muay_thai_teep"
+      ],
+      "reps": 150
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "range_control": 8,
+        "guard": 6
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": -1
+    },
+    "grade": "base",
+    "grade_rank": 13
+  },
+  {
+    "id": "muay_thai_catch_sweep",
+    "name": "Catch & Sweep",
+    "kind": "move",
+    "tier": 3,
+    "branch": "clinch",
+    "requires": {
+      "discipline": 56,
+      "attributes": {
+        "technique": 54,
+        "fight_iq": 52
+      },
+      "prerequisites": [
+        "muay_thai_plum"
+      ],
+      "reps": 230
+    },
+    "match": {
+      "role": "control",
+      "phases": [
+        "clinch"
+      ],
+      "effects": {
+        "sweep": 8,
+        "balance_break": 6
+      },
+      "range_band": [
+        "CLINCH"
+      ],
+      "range_delta": 0
+    },
+    "grade": "mae_mai",
+    "grade_rank": 3
+  },
+  {
+    "id": "muay_thai_diagonal_elbow",
+    "name": "Diagonal Slashing Elbow",
+    "kind": "move",
+    "tier": 3,
+    "branch": "elbows",
+    "requires": {
+      "discipline": 58,
+      "attributes": {
+        "power": 54,
+        "technique": 54
+      },
+      "prerequisites": [
+        "muay_thai_horizontal_elbow"
+      ],
+      "reps": 230
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "head_damage": 10,
+        "cut_threat": 7
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    },
+    "grade": "mae_mai",
+    "grade_rank": 4
+  },
+  {
+    "id": "muay_thai_spinning_elbow",
+    "name": "Spinning Back Elbow",
+    "kind": "move",
+    "tier": 4,
+    "branch": "elbows",
+    "requires": {
+      "discipline": 80,
+      "attributes": {
+        "technique": 70,
+        "power": 66,
+        "speed": 60
+      },
+      "prerequisites": [
+        "muay_thai_diagonal_elbow"
+      ],
+      "reps": 340
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "head_damage": 12,
+        "surprise": 8
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    },
+    "grade": "luk_mai",
+    "grade_rank": 1
+  },
+  {
+    "id": "muay_thai_knee_curfew",
+    "name": "Clinch Knee Curfew",
+    "kind": "move",
+    "tier": 3,
+    "branch": "clinch",
+    "requires": {
+      "discipline": 60,
+      "attributes": {
+        "conditioning": 58,
+        "power": 52
+      },
+      "prerequisites": [
+        "muay_thai_clinch_knees"
+      ],
+      "reps": 230
+    },
+    "match": {
+      "role": "control",
+      "phases": [
+        "clinch"
+      ],
+      "effects": {
+        "clinch_damage": 9,
+        "stamina_drain": -6
+      },
+      "range_band": [
+        "CLINCH"
+      ],
+      "range_delta": 0
+    },
+    "grade": "mae_mai",
+    "grade_rank": 5
+  },
+  {
+    "id": "muay_thai_dumps_offbalance",
+    "name": "Off-Balance Dump",
+    "kind": "move",
+    "tier": 3,
+    "branch": "clinch",
+    "requires": {
+      "discipline": 58,
+      "attributes": {
+        "technique": 52,
+        "fight_iq": 52
+      },
+      "prerequisites": [
+        "muay_thai_clinch_dump"
+      ],
+      "reps": 230
+    },
+    "match": {
+      "role": "control",
+      "phases": [
+        "clinch"
+      ],
+      "effects": {
+        "balance_break": 8,
+        "score_or_damage": 6
+      },
+      "range_band": [
+        "CLINCH"
+      ],
+      "range_delta": 0
+    },
+    "grade": "mae_mai",
+    "grade_rank": 6
+  },
+  {
+    "id": "muay_thai_ringcraft_walk",
+    "name": "Ring Generalship",
+    "kind": "skill",
+    "tier": 3,
+    "branch": "defense_ringcraft",
+    "requires": {
+      "discipline": 60,
+      "attributes": {
+        "fight_iq": 60,
+        "conditioning": 50
+      },
+      "prerequisites": [
+        "muay_thai_teep_defense"
+      ],
+      "reps": 230
+    },
+    "match": {
+      "role": "control",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "boundary_control": 9,
+        "tempo": 6
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    },
+    "grade": "mae_mai",
+    "grade_rank": 7
+  },
+  {
+    "id": "muay_thai_low_kick",
+    "name": "Low Kick",
+    "kind": "move",
+    "tier": 1,
+    "branch": "kicking",
+    "requires": {
+      "discipline": 12,
+      "attributes": {
+        "power": 28,
+        "technique": 25
+      },
+      "prerequisites": [
+        "muay_thai_stance"
+      ],
+      "reps": 80
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "leg_damage": 8,
+        "off_balance_threat": 5
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    },
+    "grade": "base",
+    "grade_rank": 4
+  },
+  {
+    "id": "muay_thai_mat_yaep",
+    "name": "Mat Yaep (Jab)",
+    "kind": "move",
+    "tier": 1,
+    "branch": "punching",
+    "requires": {
+      "discipline": 8,
+      "attributes": {
+        "speed": 24,
+        "technique": 22
+      },
+      "prerequisites": [
+        "muay_thai_stance"
+      ],
+      "reps": 60
+    },
+    "match": {
+      "role": "setup",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "damage": 5,
+        "accuracy": 7
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    },
+    "grade": "base",
+    "grade_rank": 5
+  },
+  {
+    "id": "muay_thai_mat_trong",
+    "name": "Mat Trong (Cross)",
+    "kind": "move",
+    "tier": 1,
+    "branch": "punching",
+    "requires": {
+      "discipline": 10,
+      "attributes": {
+        "power": 26,
+        "technique": 24
+      },
+      "prerequisites": [
+        "muay_thai_mat_yaep"
+      ],
+      "reps": 70
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "damage": 7,
+        "head_damage": 5
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    },
+    "grade": "base",
+    "grade_rank": 6
+  },
+  {
+    "id": "muay_thai_shin_check",
+    "name": "Shin Check",
+    "kind": "skill",
+    "tier": 1,
+    "branch": "defense",
+    "requires": {
+      "discipline": 8,
+      "attributes": {
+        "defense": 24,
+        "conditioning": 22
+      },
+      "prerequisites": [
+        "muay_thai_stance"
+      ],
+      "reps": 50
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "guard": 7,
+        "block": 6
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    },
+    "grade": "base",
+    "grade_rank": 7
+  },
+  {
+    "id": "muay_thai_head_block",
+    "name": "Head Block",
+    "kind": "skill",
+    "tier": 1,
+    "branch": "defense",
+    "requires": {
+      "discipline": 7,
+      "attributes": {
+        "defense": 22,
+        "conditioning": 24
+      },
+      "prerequisites": [
+        "muay_thai_stance"
+      ],
+      "reps": 45
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "guard": 8,
+        "block": 5
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    },
+    "grade": "base",
+    "grade_rank": 8
+  },
+  {
+    "id": "muay_thai_mat_wiang_san",
+    "name": "Mat Wiang San (Hook)",
+    "kind": "move",
+    "tier": 2,
+    "branch": "punching",
+    "requires": {
+      "discipline": 32,
+      "attributes": {
+        "power": 38,
+        "technique": 36
+      },
+      "prerequisites": [
+        "muay_thai_mat_trong"
+      ],
+      "reps": 160
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "head_damage": 8,
+        "damage": 6
+      },
+      "range_band": [
+        "POCKET"
+      ],
+      "range_delta": 0
+    },
+    "grade": "base",
+    "grade_rank": 14
+  },
+  {
+    "id": "muay_thai_mat_wiang_yao",
+    "name": "Mat Wiang Yao (Overhand)",
+    "kind": "move",
+    "tier": 2,
+    "branch": "punching",
+    "requires": {
+      "discipline": 34,
+      "attributes": {
+        "power": 42,
+        "technique": 36
+      },
+      "prerequisites": [
+        "muay_thai_mat_wiang_san"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "damage": 8,
+        "knockdown_power": 6
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    },
+    "grade": "base",
+    "grade_rank": 15
+  },
+  {
+    "id": "muay_thai_mat_soei",
+    "name": "Mat Soei (Uppercut)",
+    "kind": "move",
+    "tier": 2,
+    "branch": "punching",
+    "requires": {
+      "discipline": 30,
+      "attributes": {
+        "power": 36,
+        "technique": 38
+      },
+      "prerequisites": [
+        "muay_thai_mat_trong"
+      ],
+      "reps": 170
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "head_damage": 7,
+        "damage": 6
+      },
+      "range_band": [
+        "POCKET"
+      ],
+      "range_delta": 0
+    },
+    "grade": "base",
+    "grade_rank": 16
+  },
+  {
+    "id": "muay_thai_sok_phung",
+    "name": "Sok Phung (Forward Thrust Elbow)",
+    "kind": "move",
+    "tier": 2,
+    "branch": "elbows",
+    "requires": {
+      "discipline": 38,
+      "attributes": {
+        "technique": 40,
+        "speed": 38
+      },
+      "prerequisites": [
+        "muay_thai_horizontal_elbow"
+      ],
+      "reps": 200
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "damage": 8,
+        "cut_threat": 7
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    },
+    "grade": "base",
+    "grade_rank": 17
+  },
+  {
+    "id": "muay_thai_te_chiang",
+    "name": "Te Chiang (Diagonal Kick)",
+    "kind": "move",
+    "tier": 2,
+    "branch": "kicking",
+    "requires": {
+      "discipline": 32,
+      "attributes": {
+        "power": 38,
+        "technique": 36
+      },
+      "prerequisites": [
+        "muay_thai_round_kick"
+      ],
+      "reps": 160
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 8,
+        "damage": 5
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    },
+    "grade": "base",
+    "grade_rank": 18
+  },
+  {
+    "id": "muay_thai_te_kot",
+    "name": "Te Kot (Down Roundhouse)",
+    "kind": "move",
+    "tier": 2,
+    "branch": "kicking",
+    "requires": {
+      "discipline": 30,
+      "attributes": {
+        "power": 36,
+        "technique": 34
+      },
+      "prerequisites": [
+        "muay_thai_round_kick"
+      ],
+      "reps": 150
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "leg_damage": 8,
+        "off_balance_threat": 6
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    },
+    "grade": "base",
+    "grade_rank": 19
+  },
+  {
+    "id": "muay_thai_te_khao",
+    "name": "Te Khao (Axe Heel Kick)",
+    "kind": "move",
+    "tier": 2,
+    "branch": "kicking",
+    "requires": {
+      "discipline": 36,
+      "attributes": {
+        "power": 40,
+        "technique": 38,
+        "speed": 34
+      },
+      "prerequisites": [
+        "muay_thai_round_kick"
+      ],
+      "reps": 190
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "head_damage": 7,
+        "kick_damage": 6
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    },
+    "grade": "base",
+    "grade_rank": 20
+  },
+  {
+    "id": "muay_thai_body_kick",
+    "name": "Body Kick",
+    "kind": "move",
+    "tier": 2,
+    "branch": "kicking",
+    "requires": {
+      "discipline": 34,
+      "attributes": {
+        "power": 40,
+        "technique": 36
+      },
+      "prerequisites": [
+        "muay_thai_round_kick"
+      ],
+      "reps": 170
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "body_damage": 9,
+        "kick_damage": 6
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    },
+    "grade": "base",
+    "grade_rank": 21
+  },
+  {
+    "id": "muay_thai_khao_chiang",
+    "name": "Khao Chiang (Diagonal Knee)",
+    "kind": "move",
+    "tier": 2,
+    "branch": "knees",
+    "requires": {
+      "discipline": 36,
+      "attributes": {
+        "power": 40,
+        "technique": 38
+      },
+      "prerequisites": [
+        "muay_thai_straight_knee"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing",
+        "clinch"
+      ],
+      "effects": {
+        "body_damage": 8,
+        "damage": 5
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    },
+    "grade": "base",
+    "grade_rank": 22
+  },
+  {
+    "id": "muay_thai_khao_khong",
+    "name": "Khao Khong (Curving Knee)",
+    "kind": "move",
+    "tier": 2,
+    "branch": "knees",
+    "requires": {
+      "discipline": 34,
+      "attributes": {
+        "power": 38,
+        "technique": 40
+      },
+      "prerequisites": [
+        "muay_thai_straight_knee"
+      ],
+      "reps": 170
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing",
+        "clinch"
+      ],
+      "effects": {
+        "body_damage": 8,
+        "damage": 5
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    },
+    "grade": "base",
+    "grade_rank": 23
+  },
+  {
+    "id": "muay_thai_khao_tat",
+    "name": "Khao Tat (Horizontal Knee)",
+    "kind": "move",
+    "tier": 2,
+    "branch": "knees",
+    "requires": {
+      "discipline": 32,
+      "attributes": {
+        "power": 36,
+        "technique": 38
+      },
+      "prerequisites": [
+        "muay_thai_straight_knee"
+      ],
+      "reps": 160
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing",
+        "clinch"
+      ],
+      "effects": {
+        "body_damage": 7,
+        "damage": 5
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    },
+    "grade": "base",
+    "grade_rank": 24
+  },
+  {
+    "id": "muay_thai_khao_ti",
+    "name": "Khao Ti (Knee Slap)",
+    "kind": "move",
+    "tier": 2,
+    "branch": "knees",
+    "requires": {
+      "discipline": 30,
+      "attributes": {
+        "power": 34,
+        "technique": 36
+      },
+      "prerequisites": [
+        "muay_thai_straight_knee"
+      ],
+      "reps": 150
+    },
+    "match": {
+      "role": "setup",
+      "phases": [
+        "standing",
+        "clinch"
+      ],
+      "effects": {
+        "damage": 5,
+        "balance_break": 6
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    },
+    "grade": "base",
+    "grade_rank": 25
+  },
+  {
+    "id": "muay_thai_thip_khang",
+    "name": "Thip Khang (Sideways Foot-Thrust)",
+    "kind": "move",
+    "tier": 2,
+    "branch": "teeps",
+    "requires": {
+      "discipline": 30,
+      "attributes": {
+        "technique": 36,
+        "speed": 34
+      },
+      "prerequisites": [
+        "muay_thai_teep"
+      ],
+      "reps": 150
+    },
+    "match": {
+      "role": "setup",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "range_control": 8,
+        "balance_break": 5
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": -1
+    },
+    "grade": "base",
+    "grade_rank": 26
+  },
+  {
+    "id": "muay_thai_thip_top",
+    "name": "Thip Top (Slapping Foot-Thrust)",
+    "kind": "move",
+    "tier": 2,
+    "branch": "teeps",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "speed": 34,
+        "technique": 32
+      },
+      "prerequisites": [
+        "muay_thai_teep"
+      ],
+      "reps": 140
+    },
+    "match": {
+      "role": "setup",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "range_control": 7,
+        "damage": 5
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": -1
+    },
+    "grade": "base",
+    "grade_rank": 27
+  },
+  {
+    "id": "muay_thai_chapko_khaeng",
+    "name": "Chap Ko Khaeng (Arm Clinch)",
+    "kind": "skill",
+    "tier": 2,
+    "branch": "clinch",
+    "requires": {
+      "discipline": 38,
+      "attributes": {
+        "power": 40,
+        "technique": 42
+      },
+      "prerequisites": [
+        "muay_thai_plum"
+      ],
+      "reps": 190
+    },
+    "match": {
+      "role": "control",
+      "phases": [
+        "clinch"
+      ],
+      "effects": {
+        "clinch_control": 8,
+        "damage": 5
+      },
+      "range_band": [
+        "CLINCH"
+      ],
+      "range_delta": 0
+    },
+    "grade": "base",
+    "grade_rank": 28
+  },
+  {
+    "id": "muay_thai_chapko_khang",
+    "name": "Chap Ko Khang (Side Clinch)",
+    "kind": "skill",
+    "tier": 2,
+    "branch": "clinch",
+    "requires": {
+      "discipline": 36,
+      "attributes": {
+        "technique": 40,
+        "fight_iq": 38
+      },
+      "prerequisites": [
+        "muay_thai_plum"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "control",
+      "phases": [
+        "clinch"
+      ],
+      "effects": {
+        "clinch_control": 7,
+        "balance_break": 6
+      },
+      "range_band": [
+        "CLINCH"
+      ],
+      "range_delta": 0
+    },
+    "grade": "base",
+    "grade_rank": 29
+  },
+  {
+    "id": "muay_thai_catch_kick",
+    "name": "Catch Kick",
+    "kind": "skill",
+    "tier": 2,
+    "branch": "defense",
+    "requires": {
+      "discipline": 34,
+      "attributes": {
+        "defense": 40,
+        "technique": 38
+      },
+      "prerequisites": [
+        "muay_thai_shin_check"
+      ],
+      "reps": 170
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "guard": 7,
+        "sweep": 5
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    },
+    "grade": "base",
+    "grade_rank": 30
+  },
+  {
+    "id": "muay_thai_slip",
+    "name": "Slip",
+    "kind": "skill",
+    "tier": 2,
+    "branch": "defense",
+    "requires": {
+      "discipline": 30,
+      "attributes": {
+        "speed": 38,
+        "defense": 36
+      },
+      "prerequisites": [
+        "muay_thai_stance"
+      ],
+      "reps": 150
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "evasion": 8,
+        "angle_exit": 5
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    },
+    "grade": "base",
+    "grade_rank": 31
+  },
+  {
+    "id": "muay_thai_pull_back",
+    "name": "Pull Back",
+    "kind": "skill",
+    "tier": 2,
+    "branch": "defense",
+    "requires": {
+      "discipline": 28,
+      "attributes": {
+        "speed": 36,
+        "defense": 34
+      },
+      "prerequisites": [
+        "muay_thai_stance"
+      ],
+      "reps": 140
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "evasion": 7,
+        "range_control": 5
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": -1
+    },
+    "grade": "base",
+    "grade_rank": 32
+  },
+  {
+    "id": "muay_thai_cross_arm_block",
+    "name": "Cross-Arm Block",
+    "kind": "skill",
+    "tier": 2,
+    "branch": "defense",
+    "requires": {
+      "discipline": 36,
+      "attributes": {
+        "defense": 42,
+        "conditioning": 38
+      },
+      "prerequisites": [
+        "muay_thai_head_block"
+      ],
+      "reps": 180
+    },
+    "match": {
+      "role": "defense",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "guard": 9,
+        "body_damage": 4
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    },
+    "grade": "base",
+    "grade_rank": 33
+  },
+  {
+    "id": "muay_thai_switch_kick",
+    "name": "Switch Kick",
+    "kind": "move",
+    "tier": 2,
+    "branch": "kicking",
+    "requires": {
+      "discipline": 34,
+      "attributes": {
+        "speed": 38,
+        "technique": 36
+      },
+      "prerequisites": [
+        "muay_thai_round_kick"
+      ],
+      "reps": 160
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 8,
+        "combo_continuity": 5
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    },
+    "grade": "base",
+    "grade_rank": 34
+  },
+  {
+    "id": "muay_thai_mat_wiang_klap",
+    "name": "Mat Wiang Klap (Spinning Backfist)",
+    "kind": "move",
+    "tier": 3,
+    "branch": "punching",
+    "requires": {
+      "discipline": 56,
+      "attributes": {
+        "speed": 56,
+        "technique": 54
+      },
+      "prerequisites": [
+        "muay_thai_mat_wiang_san"
+      ],
+      "reps": 260
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "head_damage": 10,
+        "surprise": 7
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    },
+    "grade": "mae_mai",
+    "grade_rank": 8
+  },
+  {
+    "id": "muay_thai_kradot_chok",
+    "name": "Kradot Chok (Superman Punch)",
+    "kind": "move",
+    "tier": 3,
+    "branch": "punching",
+    "requires": {
+      "discipline": 58,
+      "attributes": {
+        "power": 56,
+        "technique": 54,
+        "speed": 50
+      },
+      "prerequisites": [
+        "muay_thai_mat_trong",
+        "muay_thai_straight_knee"
+      ],
+      "reps": 280
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "damage": 10,
+        "knockdown_power": 8
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    },
+    "grade": "mae_mai",
+    "grade_rank": 9
+  },
+  {
+    "id": "muay_thai_jab_cross_hook",
+    "name": "Jab-Cross-Hook",
+    "kind": "sequence",
+    "tier": 3,
+    "branch": "combinations",
+    "requires": {
+      "discipline": 54,
+      "attributes": {
+        "speed": 52,
+        "technique": 54,
+        "power": 48
+      },
+      "prerequisites": [
+        "muay_thai_mat_yaep",
+        "muay_thai_mat_trong",
+        "muay_thai_mat_wiang_san"
+      ],
+      "reps": 250
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "combo_continuity": 8,
+        "damage": 9
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    },
+    "grade": "mae_mai",
+    "grade_rank": 15
+  },
+  {
+    "id": "muay_thai_jab_cross_body_kick",
+    "name": "Jab-Cross-Body Kick",
+    "kind": "sequence",
+    "tier": 3,
+    "branch": "combinations",
+    "requires": {
+      "discipline": 56,
+      "attributes": {
+        "speed": 52,
+        "technique": 54,
+        "power": 50
+      },
+      "prerequisites": [
+        "muay_thai_mat_yaep",
+        "muay_thai_mat_trong",
+        "muay_thai_body_kick"
+      ],
+      "reps": 270
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "combo_continuity": 7,
+        "body_damage": 9
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    },
+    "grade": "mae_mai",
+    "grade_rank": 22
+  },
+  {
+    "id": "muay_thai_slip_counter_punch",
+    "name": "Slip Counter (Punch)",
+    "kind": "move",
+    "tier": 3,
+    "branch": "punching",
+    "requires": {
+      "discipline": 52,
+      "attributes": {
+        "speed": 54,
+        "fight_iq": 50
+      },
+      "prerequisites": [
+        "muay_thai_slip"
+      ],
+      "reps": 240
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "counter_strike": 8,
+        "damage": 7
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    },
+    "grade": "mae_mai",
+    "grade_rank": 10
+  },
+  {
+    "id": "muay_thai_sok_wiang_klap",
+    "name": "Sok Wiang Klap (Reverse Horizontal Elbow)",
+    "kind": "move",
+    "tier": 3,
+    "branch": "elbows",
+    "requires": {
+      "discipline": 54,
+      "attributes": {
+        "technique": 56,
+        "speed": 52
+      },
+      "prerequisites": [
+        "muay_thai_horizontal_elbow"
+      ],
+      "reps": 250
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "cut_threat": 9,
+        "damage": 7
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    },
+    "grade": "mae_mai",
+    "grade_rank": 11
+  },
+  {
+    "id": "muay_thai_te_klap_lang",
+    "name": "Te Klap Lang (Reverse Roundhouse)",
+    "kind": "move",
+    "tier": 3,
+    "branch": "kicking",
+    "requires": {
+      "discipline": 56,
+      "attributes": {
+        "power": 54,
+        "technique": 56,
+        "speed": 50
+      },
+      "prerequisites": [
+        "muay_thai_te_chiang"
+      ],
+      "reps": 270
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 10,
+        "surprise": 7
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    },
+    "grade": "mae_mai",
+    "grade_rank": 12
+  },
+  {
+    "id": "muay_thai_te_khrueng_khaeng",
+    "name": "Te Khrueng Khaeng (Half-Shin Half-Knee)",
+    "kind": "move",
+    "tier": 3,
+    "branch": "kicking",
+    "requires": {
+      "discipline": 58,
+      "attributes": {
+        "power": 56,
+        "technique": 54
+      },
+      "prerequisites": [
+        "muay_thai_te_chiang",
+        "muay_thai_straight_knee"
+      ],
+      "reps": 280
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 8,
+        "body_damage": 7
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    },
+    "grade": "mae_mai",
+    "grade_rank": 13
+  },
+  {
+    "id": "muay_thai_kradot_te",
+    "name": "Kradot Te (Jump Kick)",
+    "kind": "move",
+    "tier": 3,
+    "branch": "kicking",
+    "requires": {
+      "discipline": 60,
+      "attributes": {
+        "power": 58,
+        "speed": 54,
+        "conditioning": 52
+      },
+      "prerequisites": [
+        "muay_thai_round_kick"
+      ],
+      "reps": 300
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 11,
+        "knockdown_power": 7
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    },
+    "grade": "mae_mai",
+    "grade_rank": 14
+  },
+  {
+    "id": "muay_thai_khayoep_te",
+    "name": "Khayoep Te (Step-Up Kick)",
+    "kind": "move",
+    "tier": 3,
+    "branch": "kicking",
+    "requires": {
+      "discipline": 52,
+      "attributes": {
+        "technique": 54,
+        "speed": 50
+      },
+      "prerequisites": [
+        "muay_thai_te_chiang"
+      ],
+      "reps": 240
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 8,
+        "accuracy": 7
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    },
+    "grade": "mae_mai",
+    "grade_rank": 15
+  },
+  {
+    "id": "muay_thai_fake_teep_kick",
+    "name": "Fake Teep to Kick",
+    "kind": "move",
+    "tier": 3,
+    "branch": "kicking",
+    "requires": {
+      "discipline": 54,
+      "attributes": {
+        "technique": 54,
+        "fight_iq": 52
+      },
+      "prerequisites": [
+        "muay_thai_teep",
+        "muay_thai_round_kick"
+      ],
+      "reps": 250
+    },
+    "match": {
+      "role": "setup",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "combo_continuity": 7,
+        "kick_damage": 8
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    },
+    "grade": "mae_mai",
+    "grade_rank": 16
+  },
+  {
+    "id": "muay_thai_khao_yao",
+    "name": "Khao Yao (Knee Bomb)",
+    "kind": "move",
+    "tier": 3,
+    "branch": "knees",
+    "requires": {
+      "discipline": 58,
+      "attributes": {
+        "power": 58,
+        "conditioning": 54
+      },
+      "prerequisites": [
+        "muay_thai_khao_chiang"
+      ],
+      "reps": 280
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing",
+        "clinch"
+      ],
+      "effects": {
+        "body_damage": 11,
+        "knockdown_power": 7
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    },
+    "grade": "mae_mai",
+    "grade_rank": 17
+  },
+  {
+    "id": "muay_thai_khao_yiap",
+    "name": "Khao Yiap (Step-Up Knee)",
+    "kind": "move",
+    "tier": 3,
+    "branch": "knees",
+    "requires": {
+      "discipline": 54,
+      "attributes": {
+        "power": 52,
+        "technique": 54
+      },
+      "prerequisites": [
+        "muay_thai_khao_chiang"
+      ],
+      "reps": 250
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing",
+        "clinch"
+      ],
+      "effects": {
+        "body_damage": 9,
+        "damage": 6
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    },
+    "grade": "mae_mai",
+    "grade_rank": 18
+  },
+  {
+    "id": "muay_thai_khao_thon",
+    "name": "Khao Thon (Thrusting Knee)",
+    "kind": "move",
+    "tier": 3,
+    "branch": "knees",
+    "requires": {
+      "discipline": 56,
+      "attributes": {
+        "power": 56,
+        "technique": 52
+      },
+      "prerequisites": [
+        "muay_thai_khao_khong"
+      ],
+      "reps": 260
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing",
+        "clinch"
+      ],
+      "effects": {
+        "body_damage": 10,
+        "damage": 6
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    },
+    "grade": "mae_mai",
+    "grade_rank": 19
+  },
+  {
+    "id": "muay_thai_fake_jab_knee",
+    "name": "Fake Jab to Knee",
+    "kind": "move",
+    "tier": 3,
+    "branch": "knees",
+    "requires": {
+      "discipline": 52,
+      "attributes": {
+        "technique": 52,
+        "fight_iq": 50
+      },
+      "prerequisites": [
+        "muay_thai_mat_yaep",
+        "muay_thai_straight_knee"
+      ],
+      "reps": 240
+    },
+    "match": {
+      "role": "setup",
+      "phases": [
+        "standing",
+        "clinch"
+      ],
+      "effects": {
+        "combo_continuity": 7,
+        "body_damage": 8
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    },
+    "grade": "mae_mai",
+    "grade_rank": 20
+  },
+  {
+    "id": "muay_thai_thip_klap_lang",
+    "name": "Thip Klap Lang (Reverse Foot-Thrust)",
+    "kind": "move",
+    "tier": 3,
+    "branch": "teeps",
+    "requires": {
+      "discipline": 54,
+      "attributes": {
+        "technique": 54,
+        "speed": 52
+      },
+      "prerequisites": [
+        "muay_thai_thip_khang"
+      ],
+      "reps": 250
+    },
+    "match": {
+      "role": "setup",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "range_control": 8,
+        "surprise": 6
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": -1
+    },
+    "grade": "mae_mai",
+    "grade_rank": 21
+  },
+  {
+    "id": "muay_thai_kradot_thip",
+    "name": "Kradot Thip (Jumping Foot-Thrust)",
+    "kind": "move",
+    "tier": 3,
+    "branch": "teeps",
+    "requires": {
+      "discipline": 58,
+      "attributes": {
+        "power": 54,
+        "speed": 56,
+        "conditioning": 50
+      },
+      "prerequisites": [
+        "muay_thai_thip_khang"
+      ],
+      "reps": 280
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "range_control": 7,
+        "knockdown_power": 8
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    },
+    "grade": "mae_mai",
+    "grade_rank": 22
+  },
+  {
+    "id": "muay_thai_counter_teep",
+    "name": "Counter Teep",
+    "kind": "move",
+    "tier": 3,
+    "branch": "teeps",
+    "requires": {
+      "discipline": 52,
+      "attributes": {
+        "speed": 52,
+        "fight_iq": 54
+      },
+      "prerequisites": [
+        "muay_thai_teep",
+        "muay_thai_slip"
+      ],
+      "reps": 240
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "counter_strike": 8,
+        "range_control": 7
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": -1
+    },
+    "grade": "mae_mai",
+    "grade_rank": 23
+  },
+  {
+    "id": "muay_thai_chapko_lang",
+    "name": "Chap Ko Lang (Low Clinch)",
+    "kind": "skill",
+    "tier": 3,
+    "branch": "clinch",
+    "requires": {
+      "discipline": 56,
+      "attributes": {
+        "power": 54,
+        "technique": 56
+      },
+      "prerequisites": [
+        "muay_thai_chapko_khaeng"
+      ],
+      "reps": 260
+    },
+    "match": {
+      "role": "control",
+      "phases": [
+        "clinch"
+      ],
+      "effects": {
+        "clinch_control": 9,
+        "takedown": 6
+      },
+      "range_band": [
+        "CLINCH"
+      ],
+      "range_delta": 0
+    },
+    "grade": "mae_mai",
+    "grade_rank": 24
+  },
+  {
+    "id": "muay_thai_saphan_kha",
+    "name": "Saphan Kha (Swan-Neck)",
+    "kind": "skill",
+    "tier": 3,
+    "branch": "clinch",
+    "requires": {
+      "discipline": 58,
+      "attributes": {
+        "technique": 56,
+        "fight_iq": 54
+      },
+      "prerequisites": [
+        "muay_thai_plum"
+      ],
+      "reps": 270
+    },
+    "match": {
+      "role": "control",
+      "phases": [
+        "clinch"
+      ],
+      "effects": {
+        "clinch_control": 8,
+        "cut_threat": 6
+      },
+      "range_band": [
+        "CLINCH"
+      ],
+      "range_delta": 0
+    },
+    "grade": "mae_mai",
+    "grade_rank": 25
+  },
+  {
+    "id": "muay_thai_chapko_head_sweep",
+    "name": "Chap Ko Head Sweep",
+    "kind": "move",
+    "tier": 3,
+    "branch": "clinch",
+    "requires": {
+      "discipline": 58,
+      "attributes": {
+        "technique": 56,
+        "fight_iq": 54
+      },
+      "prerequisites": [
+        "muay_thai_plum",
+        "muay_thai_catch_sweep"
+      ],
+      "reps": 270
+    },
+    "match": {
+      "role": "control",
+      "phases": [
+        "clinch"
+      ],
+      "effects": {
+        "sweep": 8,
+        "balance_break": 7
+      },
+      "range_band": [
+        "CLINCH"
+      ],
+      "range_delta": 0
+    },
+    "grade": "mae_mai",
+    "grade_rank": 26
+  },
+  {
+    "id": "muay_thai_catch_strike",
+    "name": "Catch and Strike",
+    "kind": "move",
+    "tier": 3,
+    "branch": "defense",
+    "requires": {
+      "discipline": 56,
+      "attributes": {
+        "defense": 52,
+        "speed": 54,
+        "fight_iq": 50
+      },
+      "prerequisites": [
+        "muay_thai_catch_kick",
+        "muay_thai_mat_trong"
+      ],
+      "reps": 260
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "counter_strike": 8,
+        "sweep": 6
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    },
+    "grade": "mae_mai",
+    "grade_rank": 27
+  },
+  {
+    "id": "muay_thai_double_kick",
+    "name": "Double Kick",
+    "kind": "move",
+    "tier": 3,
+    "branch": "kicking",
+    "requires": {
+      "discipline": 56,
+      "attributes": {
+        "power": 54,
+        "conditioning": 52,
+        "technique": 52
+      },
+      "prerequisites": [
+        "muay_thai_switch_kick"
+      ],
+      "reps": 270
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 10,
+        "combo_continuity": 7
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    },
+    "grade": "mae_mai",
+    "grade_rank": 28
+  },
+  {
+    "id": "muay_thai_check_counter_kick",
+    "name": "Check-Counter Kick",
+    "kind": "move",
+    "tier": 3,
+    "branch": "kicking",
+    "requires": {
+      "discipline": 58,
+      "attributes": {
+        "defense": 52,
+        "power": 54,
+        "technique": 52
+      },
+      "prerequisites": [
+        "muay_thai_shin_check",
+        "muay_thai_round_kick"
+      ],
+      "reps": 280
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "counter_strike": 8,
+        "kick_damage": 9
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    },
+    "grade": "mae_mai",
+    "grade_rank": 29
+  },
+  {
+    "id": "muay_thai_kick_knee_combo",
+    "name": "Kick-Knee Combo",
+    "kind": "sequence",
+    "tier": 3,
+    "branch": "combinations",
+    "requires": {
+      "discipline": 56,
+      "attributes": {
+        "power": 54,
+        "technique": 56,
+        "conditioning": 50
+      },
+      "prerequisites": [
+        "muay_thai_round_kick",
+        "muay_thai_straight_knee"
+      ],
+      "reps": 260
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing",
+        "clinch"
+      ],
+      "effects": {
+        "combo_continuity": 8,
+        "body_damage": 9
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    },
+    "grade": "mae_mai",
+    "grade_rank": 10
+  },
+  {
+    "id": "muay_thai_khao_counter",
+    "name": "Knee Counter",
+    "kind": "move",
+    "tier": 3,
+    "branch": "knees",
+    "requires": {
+      "discipline": 54,
+      "attributes": {
+        "speed": 54,
+        "fight_iq": 52
+      },
+      "prerequisites": [
+        "muay_thai_straight_knee",
+        "muay_thai_slip"
+      ],
+      "reps": 250
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "counter_strike": 8,
+        "body_damage": 7
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    },
+    "grade": "mae_mai",
+    "grade_rank": 30
+  },
+  {
+    "id": "muay_thai_pull_counter",
+    "name": "Pull Counter",
+    "kind": "move",
+    "tier": 3,
+    "branch": "defense",
+    "requires": {
+      "discipline": 54,
+      "attributes": {
+        "speed": 54,
+        "fight_iq": 52
+      },
+      "prerequisites": [
+        "muay_thai_pull_back",
+        "muay_thai_round_kick"
+      ],
+      "reps": 250
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "counter_strike": 8,
+        "kick_damage": 7
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    },
+    "grade": "mae_mai",
+    "grade_rank": 31
+  },
+  {
+    "id": "muay_thai_sok_long_guard_counter",
+    "name": "Long Guard Elbow Counter",
+    "kind": "move",
+    "tier": 3,
+    "branch": "elbows",
+    "requires": {
+      "discipline": 56,
+      "attributes": {
+        "technique": 54,
+        "fight_iq": 54
+      },
+      "prerequisites": [
+        "muay_thai_teep_defense",
+        "muay_thai_horizontal_elbow"
+      ],
+      "reps": 260
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "counter_strike": 8,
+        "cut_threat": 7
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    },
+    "grade": "mae_mai",
+    "grade_rank": 32
+  },
+  {
+    "id": "muay_thai_sok_klap_khu",
+    "name": "Sok Klap Khu (Double Elbow Chop)",
+    "kind": "move",
+    "tier": 4,
+    "branch": "elbows",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "power": 72,
+        "technique": 70,
+        "speed": 66
+      },
+      "prerequisites": [
+        "muay_thai_spinning_elbow"
+      ],
+      "reps": 400
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "head_damage": 13,
+        "cut_threat": 10,
+        "knockdown_power": 8
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    },
+    "grade": "luk_mai",
+    "grade_rank": 2
+  },
+  {
+    "id": "muay_thai_kradot_sok",
+    "name": "Kradot Sok (Jumping Elbow)",
+    "kind": "move",
+    "tier": 4,
+    "branch": "elbows",
+    "requires": {
+      "discipline": 80,
+      "attributes": {
+        "power": 70,
+        "technique": 68,
+        "speed": 66
+      },
+      "prerequisites": [
+        "muay_thai_spinning_elbow"
+      ],
+      "reps": 420
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "head_damage": 14,
+        "knockdown_power": 9,
+        "surprise": 7
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    },
+    "grade": "luk_mai",
+    "grade_rank": 3
+  },
+  {
+    "id": "muay_thai_counter_sok_klap",
+    "name": "Counter Spinning Elbow",
+    "kind": "move",
+    "tier": 4,
+    "branch": "elbows",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "speed": 70,
+        "fight_iq": 68,
+        "technique": 66
+      },
+      "prerequisites": [
+        "muay_thai_spinning_elbow",
+        "muay_thai_slip"
+      ],
+      "reps": 400
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "counter_strike": 10,
+        "head_damage": 12,
+        "cut_threat": 8
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    },
+    "grade": "luk_mai",
+    "grade_rank": 4
+  },
+  {
+    "id": "muay_thai_sok_clinch_combo",
+    "name": "Clinch Elbow Combo",
+    "kind": "sequence",
+    "tier": 4,
+    "branch": "combinations",
+    "requires": {
+      "discipline": 82,
+      "attributes": {
+        "technique": 72,
+        "power": 70,
+        "conditioning": 68
+      },
+      "prerequisites": [
+        "muay_thai_plum",
+        "muay_thai_horizontal_elbow"
+      ],
+      "reps": 450
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "clinch",
+        "standing"
+      ],
+      "effects": {
+        "clinch_offense": 10,
+        "cut_threat": 9
+      },
+      "range_band": [
+        "CLINCH",
+        "POCKET"
+      ],
+      "range_delta": 0
+    },
+    "grade": "luk_mai",
+    "grade_rank": 12
+  },
+  {
+    "id": "muay_thai_jorakhe_faad_hang",
+    "name": "Jorakhe Faad Hang (Crocodile Sweeps Tail)",
+    "kind": "move",
+    "tier": 4,
+    "branch": "kicking",
+    "requires": {
+      "discipline": 82,
+      "attributes": {
+        "power": 74,
+        "technique": 72,
+        "speed": 68
+      },
+      "prerequisites": [
+        "muay_thai_te_klap_lang"
+      ],
+      "reps": 460
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 14,
+        "knockdown_power": 10,
+        "surprise": 8
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    },
+    "grade": "luk_mai",
+    "grade_rank": 5
+  },
+  {
+    "id": "muay_thai_spinning_back_kick",
+    "name": "Spinning Back Kick",
+    "kind": "move",
+    "tier": 4,
+    "branch": "kicking",
+    "requires": {
+      "discipline": 80,
+      "attributes": {
+        "power": 72,
+        "technique": 70,
+        "speed": 66
+      },
+      "prerequisites": [
+        "muay_thai_te_klap_lang"
+      ],
+      "reps": 440
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "kick_damage": 13,
+        "knockdown_power": 9,
+        "surprise": 8
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    },
+    "grade": "luk_mai",
+    "grade_rank": 6
+  },
+  {
+    "id": "muay_thai_khao_loi",
+    "name": "Khao Loi (Flying Knee)",
+    "kind": "move",
+    "tier": 4,
+    "branch": "knees",
+    "requires": {
+      "discipline": 80,
+      "attributes": {
+        "power": 74,
+        "speed": 70,
+        "conditioning": 68
+      },
+      "prerequisites": [
+        "muay_thai_khao_yao"
+      ],
+      "reps": 420
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "knockdown_power": 12,
+        "damage": 10,
+        "surprise": 8
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 1
+    },
+    "grade": "luk_mai",
+    "grade_rank": 7
+  },
+  {
+    "id": "muay_thai_khao_dot",
+    "name": "Khao Dot (Jumping Knee)",
+    "kind": "move",
+    "tier": 4,
+    "branch": "knees",
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "power": 72,
+        "speed": 68,
+        "conditioning": 66
+      },
+      "prerequisites": [
+        "muay_thai_khao_yao"
+      ],
+      "reps": 400
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "knockdown_power": 11,
+        "damage": 9
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 1
+    },
+    "grade": "luk_mai",
+    "grade_rank": 8
+  },
+  {
+    "id": "muay_thai_superman_knee",
+    "name": "Superman Knee",
+    "kind": "move",
+    "tier": 4,
+    "branch": "knees",
+    "requires": {
+      "discipline": 82,
+      "attributes": {
+        "power": 74,
+        "speed": 70,
+        "technique": 68
+      },
+      "prerequisites": [
+        "muay_thai_kradot_chok",
+        "muay_thai_straight_knee"
+      ],
+      "reps": 460
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "knockdown_power": 12,
+        "damage": 10,
+        "surprise": 8
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    },
+    "grade": "luk_mai",
+    "grade_rank": 9
+  },
+  {
+    "id": "muay_thai_khao_clinch_entry",
+    "name": "Knee Clinch Entry",
+    "kind": "move",
+    "tier": 4,
+    "branch": "knees",
+    "requires": {
+      "discipline": 84,
+      "attributes": {
+        "power": 72,
+        "technique": 74,
+        "conditioning": 70
+      },
+      "prerequisites": [
+        "muay_thai_khao_yao",
+        "muay_thai_plum"
+      ],
+      "reps": 480
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing",
+        "clinch"
+      ],
+      "effects": {
+        "clinch_offense": 10,
+        "body_damage": 11
+      },
+      "range_band": [
+        "MID",
+        "CLINCH"
+      ],
+      "range_delta": 1
+    },
+    "grade": "luk_mai",
+    "grade_rank": 10
+  },
+  {
+    "id": "muay_thai_teep_knee_chain",
+    "name": "Teep-Knee Chain",
+    "kind": "sequence",
+    "tier": 4,
+    "branch": "combinations",
+    "requires": {
+      "discipline": 82,
+      "attributes": {
+        "technique": 74,
+        "speed": 70,
+        "conditioning": 68
+      },
+      "prerequisites": [
+        "muay_thai_teep",
+        "muay_thai_straight_knee"
+      ],
+      "reps": 450
+    },
+    "match": {
+      "role": "setup",
+      "phases": [
+        "standing",
+        "clinch"
+      ],
+      "effects": {
+        "combo_continuity": 10,
+        "phase_transition": 9
+      },
+      "range_band": [
+        "LONG",
+        "CLINCH"
+      ],
+      "range_delta": 2
+    },
+    "grade": "luk_mai",
+    "grade_rank": 10
+  },
+  {
+    "id": "muay_thai_superman_knee_punch",
+    "name": "Superman Knee-Punch",
+    "kind": "sequence",
+    "tier": 4,
+    "branch": "combinations",
+    "requires": {
+      "discipline": 84,
+      "attributes": {
+        "power": 76,
+        "speed": 72,
+        "technique": 70
+      },
+      "prerequisites": [
+        "muay_thai_kradot_chok",
+        "muay_thai_straight_knee"
+      ],
+      "reps": 480
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "combo_continuity": 9,
+        "knockdown_power": 11
+      },
+      "range_band": [
+        "LONG",
+        "POCKET"
+      ],
+      "range_delta": 1
+    },
+    "grade": "luk_mai",
+    "grade_rank": 10
+  },
+  {
+    "id": "muay_thai_jab_cross_sok_klap",
+    "name": "Jab-Cross-Spinning Elbow",
+    "kind": "sequence",
+    "tier": 4,
+    "branch": "combinations",
+    "requires": {
+      "discipline": 82,
+      "attributes": {
+        "speed": 72,
+        "technique": 74,
+        "power": 68
+      },
+      "prerequisites": [
+        "muay_thai_mat_yaep",
+        "muay_thai_mat_trong",
+        "muay_thai_spinning_elbow"
+      ],
+      "reps": 460
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "combo_continuity": 9,
+        "cut_threat": 10
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    },
+    "grade": "luk_mai",
+    "grade_rank": 7
+  },
+  {
+    "id": "muay_thai_chapko_sweep_throw",
+    "name": "Chap Ko Sweep Throw",
+    "kind": "move",
+    "tier": 4,
+    "branch": "clinch",
+    "requires": {
+      "discipline": 84,
+      "attributes": {
+        "technique": 76,
+        "power": 72,
+        "fight_iq": 70
+      },
+      "prerequisites": [
+        "muay_thai_clinch_dump",
+        "muay_thai_chapko_head_sweep"
+      ],
+      "reps": 500
+    },
+    "match": {
+      "role": "control",
+      "phases": [
+        "clinch"
+      ],
+      "effects": {
+        "takedown": 12,
+        "balance_break": 10,
+        "knockdown_power": 8
+      },
+      "range_band": [
+        "CLINCH"
+      ],
+      "range_delta": 0
+    },
+    "grade": "luk_mai",
+    "grade_rank": 11
+  },
+  {
+    "id": "muay_thai_full_spectacle",
+    "name": "Full Spectacle",
+    "kind": "move",
+    "tier": 4,
+    "branch": "eight_limbs",
+    "requires": {
+      "discipline": 88,
+      "attributes": {
+        "technique": 82,
+        "power": 78,
+        "conditioning": 76,
+        "fight_iq": 78,
+        "speed": 74
+      },
+      "prerequisites": [
+        "muay_thai_eight_limb_chain",
+        "muay_thai_khao_loi"
+      ],
+      "reps": 700
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing",
+        "clinch"
+      ],
+      "effects": {
+        "phase_transition": 14,
+        "damage": 12,
+        "combo_continuity": 10
+      },
+      "range_band": [
+        "LONG",
+        "MID",
+        "CLINCH"
+      ],
+      "range_delta": 2
+    },
+    "grade": "luk_mai",
+    "grade_rank": 12
+  },
+  {
+    "id": "muay_thai_thip_mat_te_combo",
+    "name": "Thip - Mat Trong - Te Tat (Classic Chain)",
+    "kind": "sequence",
+    "tier": 3,
+    "branch": "combinations",
+    "grade": "mae_mai",
+    "grade_rank": 7,
+    "requires": {
+      "discipline": 55,
+      "attributes": {
+        "technique": 52,
+        "speed": 48,
+        "conditioning": 46
+      },
+      "prerequisites": [
+        "muay_thai_teep",
+        "muay_thai_mat_trong",
+        "muay_thai_round_kick"
+      ],
+      "reps": 280
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "damage": 12,
+        "combo_continuity": 7
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "muay_thai_low_cross_hook",
+    "name": "Low Kick - Cross - Hook",
+    "kind": "sequence",
+    "tier": 2,
+    "branch": "combinations",
+    "grade": "base",
+    "grade_rank": 15,
+    "requires": {
+      "discipline": 38,
+      "attributes": {
+        "power": 40,
+        "technique": 38,
+        "speed": 36
+      },
+      "prerequisites": [
+        "muay_thai_low_kick",
+        "muay_thai_mat_trong",
+        "muay_thai_mat_wiang_san"
+      ],
+      "reps": 190
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "damage": 10,
+        "leg_damage": 6
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "muay_thai_switch_cross",
+    "name": "Switch Kick - Cross",
+    "kind": "sequence",
+    "tier": 2,
+    "branch": "combinations",
+    "grade": "base",
+    "grade_rank": 13,
+    "requires": {
+      "discipline": 36,
+      "attributes": {
+        "power": 38,
+        "speed": 36,
+        "technique": 34
+      },
+      "prerequisites": [
+        "muay_thai_switch_kick_body",
+        "muay_thai_mat_trong"
+      ],
+      "reps": 170
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "damage": 9,
+        "body_damage": 6
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "muay_thai_thip_clinch_knee",
+    "name": "Thip - Clinch Entry - Khao Trong",
+    "kind": "sequence",
+    "tier": 3,
+    "branch": "combinations",
+    "grade": "mae_mai",
+    "grade_rank": 12,
+    "requires": {
+      "discipline": 58,
+      "attributes": {
+        "technique": 56,
+        "power": 50,
+        "conditioning": 52
+      },
+      "prerequisites": [
+        "muay_thai_teep",
+        "muay_thai_plum",
+        "muay_thai_straight_knee"
+      ],
+      "reps": 300
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing",
+        "clinch"
+      ],
+      "effects": {
+        "damage": 11,
+        "clinch_control": 8
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 1
+    }
+  },
+  {
+    "id": "muay_thai_cross_body_low",
+    "name": "Cross - Body Kick - Low Kick",
+    "kind": "sequence",
+    "tier": 3,
+    "branch": "combinations",
+    "grade": "mae_mai",
+    "grade_rank": 22,
+    "requires": {
+      "discipline": 52,
+      "attributes": {
+        "power": 50,
+        "technique": 48,
+        "conditioning": 50
+      },
+      "prerequisites": [
+        "muay_thai_mat_trong",
+        "muay_thai_body_kick",
+        "muay_thai_low_kick"
+      ],
+      "reps": 260
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "damage": 11,
+        "leg_damage": 7,
+        "body_damage": 6
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "muay_thai_jab_teep_switch",
+    "name": "Mat Yaep - Thip - Switch Kick",
+    "kind": "sequence",
+    "tier": 2,
+    "branch": "combinations",
+    "grade": "base",
+    "grade_rank": 13,
+    "requires": {
+      "discipline": 40,
+      "attributes": {
+        "speed": 40,
+        "technique": 38,
+        "conditioning": 36
+      },
+      "prerequisites": [
+        "muay_thai_mat_yaep",
+        "muay_thai_teep",
+        "muay_thai_switch_kick_body"
+      ],
+      "reps": 200
+    },
+    "match": {
+      "role": "setup",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "range_control": 9,
+        "damage": 6
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": -1
+    }
+  },
+  {
+    "id": "muay_thai_slip_sok_klap",
+    "name": "Slip - Sok Klap (Slip-Spinning Elbow)",
+    "kind": "sequence",
+    "tier": 4,
+    "branch": "combinations",
+    "grade": "luk_mai",
+    "grade_rank": 32,
+    "requires": {
+      "discipline": 78,
+      "attributes": {
+        "speed": 72,
+        "technique": 74,
+        "fight_iq": 68
+      },
+      "prerequisites": [
+        "muay_thai_slip",
+        "muay_thai_spinning_elbow"
+      ],
+      "reps": 380
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "damage": 13,
+        "cut_threat": 9,
+        "surprise": 7
+      },
+      "range_band": [
+        "MID",
+        "POCKET"
+      ],
+      "range_delta": 0
+    }
+  },
+  {
+    "id": "muay_thai_check_kick_counter",
+    "name": "Shin Check - Te Tat (Check-Counter Kick)",
+    "kind": "sequence",
+    "tier": 3,
+    "branch": "combinations",
+    "grade": "mae_mai",
+    "grade_rank": 8,
+    "requires": {
+      "discipline": 50,
+      "attributes": {
+        "defense": 48,
+        "technique": 46,
+        "speed": 44
+      },
+      "prerequisites": [
+        "muay_thai_shin_check",
+        "muay_thai_round_kick"
+      ],
+      "reps": 240
+    },
+    "match": {
+      "role": "damage",
+      "phases": [
+        "standing"
+      ],
+      "effects": {
+        "damage": 9,
+        "guard": 6,
+        "kick_damage": 7
+      },
+      "range_band": [
+        "LONG",
+        "MID"
+      ],
+      "range_delta": 0
+    }
+  }
+]

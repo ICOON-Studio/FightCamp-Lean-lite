@@ -1,0 +1,2943 @@
+{
+  "bouts": 120,
+  "control_units": {
+    "back": 16,
+    "half": 450,
+    "mount": 5372,
+    "over_under": 1427,
+    "side": 3964
+  },
+  "exits": {
+    "round_or_bout_end": 67,
+    "stall": 6,
+    "stand_up": 71
+  },
+  "gate_ticks": 60,
+  "hz": 20,
+  "mean_spell_ticks": 1193.50649350649,
+  "methods": {
+    "DECISION": 45,
+    "KO": 22,
+    "SUBMISSION": 42,
+    "TKO": 11
+  },
+  "population": {
+    "a": {
+      "competition_weight_kg": 77.0,
+      "height_cm": 178.0,
+      "id": "a",
+      "name": "wrestle-grappler (mma)",
+      "plan": "balanced",
+      "reach_cm": 180.0,
+      "sex": "male",
+      "stance": "orthodox",
+      "stats": {
+        "aggression": 66,
+        "chin": 66,
+        "conditioning": 76,
+        "defense": 58,
+        "fight_iq": 66,
+        "grapple": 82,
+        "power": 64,
+        "speed": 62,
+        "technique": 60
+      },
+      "technique_progress": {
+        "bjj_americana": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_ankle_pick": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_arm_drag": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_arm_triangle": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_armbar": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_back_control": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_back_escape": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_bridge_escape": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_butterfly_guard": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_butterfly_sweep": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_cross_collar": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_dela_riva": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_ezekiel": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_flower_sweep": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_frame_escape": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_front_headlock": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_guard": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_guard_pass": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_guard_pull": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_guard_retention": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_guillotine": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_half_guard": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_hip_bump_sweep": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_kimura": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_knee_cut_pass": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_knee_on_belly": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_leg_drag_pass": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_mount": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_north_south": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_omoplata": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_open_guard": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_over_under_pass": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_posture_break": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_rnc": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_scissor_sweep": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_shrimp_escape": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_side_control": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_stack_pass": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_straight_ankle": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_triangle": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_tripod_sweep": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_turtle": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_x_guard": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_block_elbow": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_bob_weave": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_breathing_rhythm": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_catch": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_catch_counter": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_circle_lead": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_circle_rear": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_clinch_tieup": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_cross": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_cross_body": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_distance_read": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_double_jab": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_feint": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_jab": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_jab_body": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_lead_hook": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_lead_uppercut": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_one_two": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_one_two_hook": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_parry": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_pivot_footwork": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_pull": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_rear_hook": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_rear_uppercut": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_roll": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_slip": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_slip_counter": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_stance_guard": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_step_in_out": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_deashi": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_gyakujujijime": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_hadakajime": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_haraigoshi": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_hizaguruma": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_jujigatame": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_kamishihogatame": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_katagatame": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_katahajime": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_katajujijime": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_kesagatame": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_koshiguruma": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_kosotogari": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_kouchigari": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_kumikata": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_kuzurekamishihogatame": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_kuzurekesagatame": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_namijujijime": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_ogoshi": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_okuriashiharai": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_okurierijime": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_osotogari": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_ouchigari": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_renraku_deashi_osoto": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_renraku_kouchi_seoi": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_renraku_osoto_ouchi": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_renraku_ouchi_osoto": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_renraku_seoi_kouchi": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_sasaetsurikomiashi": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_seoinage_twohand": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_taiotoshi": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_tateshihogatame": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_tsurikomigoshi": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_uchimata": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_udegarami": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_udehishigihizagatame": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_udehishigiudegatame": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_ukemi": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_ukigatame": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_ukigoshi": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_uragatame": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_ushirokesagatame": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_yokoshihogatame": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "kickboxing_guard": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "kickboxing_jab_cross_lowkick": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "kickboxing_jab_lowkick": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "kickboxing_kick_check": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "kickboxing_switch_step_read": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "kickboxing_teep_stop": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "mma_dirty_boxing": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "mma_guard_gnp": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "mma_jab_levelchange": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "mma_sprawl_fronthead": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "mma_stance_switch": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "mma_underhook_cage": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "mma_wall_walk": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_catch_kick": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_chapko_khaeng": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_chapko_khang": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_cross_arm_block": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_head_block": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_horizontal_elbow": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_jab_teep_switch": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_khao_chiang": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_khao_khong": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_khao_tat": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_khao_ti": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_low_cross_hook": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_mat_soei": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_mat_trong": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_mat_wiang_san": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_mat_wiang_yao": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_mat_yaep": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_plum": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_pull_back": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_round_kick": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_shin_check": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_slip": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_sok_phung": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_stance": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_straight_knee": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_switch_cross": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_switch_kick_body": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_teep": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_teep_defense": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_thip_khang": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_thip_top": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "sambo_arm_drag_bodylock": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "sambo_front_trip": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "sambo_hip_throw": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "sambo_holddown": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "sambo_jab_bodylock": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "sambo_kneebar": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "sambo_outside_trip": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "sambo_scarf_holddown": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "sambo_stance": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "sambo_straight_ankle": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "wrestling_double_leg": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "wrestling_duck_under": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "wrestling_high_crotch": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "wrestling_level_change": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "wrestling_single_leg": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "wrestling_snapdown": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "wrestling_sprawl": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "wrestling_stance": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "wrestling_whizzer_defense": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        }
+      },
+      "weight_kg": 77.0
+    },
+    "b": {
+      "competition_weight_kg": 77.0,
+      "height_cm": 178.0,
+      "id": "b",
+      "name": "striker (mma)",
+      "plan": "balanced",
+      "reach_cm": 190.0,
+      "sex": "male",
+      "stance": "orthodox",
+      "stats": {
+        "aggression": 58,
+        "chin": 60,
+        "conditioning": 62,
+        "defense": 64,
+        "fight_iq": 62,
+        "grapple": 34,
+        "power": 70,
+        "speed": 68,
+        "technique": 72
+      },
+      "technique_progress": {
+        "bjj_back_control": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_back_escape": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_bridge_escape": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_butterfly_guard": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_butterfly_sweep": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_dela_riva": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_flower_sweep": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_frame_escape": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_front_headlock": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_guard": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_guard_pass": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_guard_retention": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_half_guard": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_hip_bump_sweep": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_knee_cut_pass": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_knee_on_belly": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_leg_drag_pass": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_mount": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_north_south": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_open_guard": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_over_under_pass": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_posture_break": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_scissor_sweep": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_shrimp_escape": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_side_control": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_stack_pass": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_straight_ankle": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_tripod_sweep": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_turtle": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "bjj_x_guard": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_block_elbow": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_bob_weave": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_breathing_rhythm": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_catch": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_catch_counter": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_circle_lead": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_circle_rear": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_clinch_tieup": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_cross": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_cross_body": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_distance_read": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_double_jab": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_feint": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_jab": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_jab_body": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_lead_hook": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_lead_uppercut": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_one_two": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_one_two_hook": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_parry": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_pivot_footwork": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_pull": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_rear_hook": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_rear_uppercut": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_roll": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_slip": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_slip_counter": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_stance_guard": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "boxing_step_in_out": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_deashi": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_gyakujujijime": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_hadakajime": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_haraigoshi": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_hizaguruma": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_jujigatame": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_kamishihogatame": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_katagatame": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_katahajime": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_katajujijime": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_kesagatame": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_koshiguruma": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_kosotogari": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_kouchigari": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_kumikata": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_kuzurekamishihogatame": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_kuzurekesagatame": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_namijujijime": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_ogoshi": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_okuriashiharai": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_okurierijime": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_osotogari": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_ouchigari": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_renraku_deashi_osoto": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_renraku_kouchi_seoi": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_renraku_osoto_ouchi": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_renraku_ouchi_osoto": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_renraku_seoi_kouchi": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_sasaetsurikomiashi": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_seoinage_twohand": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_taiotoshi": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_tateshihogatame": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_tsurikomigoshi": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_uchimata": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_udegarami": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_udehishigihizagatame": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_udehishigiudegatame": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_ukemi": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_ukigatame": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_ukigoshi": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_uragatame": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_ushirokesagatame": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "judo_yokoshihogatame": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "kickboxing_axe_kick": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "kickboxing_body_kick": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "kickboxing_front_kick": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "kickboxing_guard": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "kickboxing_high_kick": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "kickboxing_hook_kick": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "kickboxing_jab_cross_lowkick": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "kickboxing_jab_lowkick": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "kickboxing_kick_check": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "kickboxing_low_kick": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "kickboxing_roundhouse": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "kickboxing_side_kick": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "kickboxing_switch_kick": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "kickboxing_switch_step_read": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "kickboxing_teep": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "kickboxing_teep_stop": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "mma_dirty_boxing": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "mma_guard_gnp": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "mma_jab_levelchange": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "mma_sprawl_fronthead": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "mma_stance_switch": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "mma_underhook_cage": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "mma_wall_walk": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_body_kick": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_catch_kick": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_chapko_khaeng": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_chapko_khang": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_cross_arm_block": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_head_block": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_horizontal_elbow": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_jab_teep_switch": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_khao_chiang": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_khao_khong": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_khao_tat": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_khao_ti": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_low_cross_hook": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_low_kick": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_mat_soei": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_mat_trong": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_mat_wiang_san": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_mat_wiang_yao": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_mat_yaep": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_plum": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_pull_back": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_round_kick": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_shin_check": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_slip": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_sok_phung": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_stance": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_straight_knee": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_switch_cross": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_switch_kick": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_switch_kick_body": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_te_chiang": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_te_khao": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_te_kot": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_teep": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_teep_defense": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_thip_khang": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "muay_thai_thip_top": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "sambo_arm_drag_bodylock": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "sambo_front_trip": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "sambo_hip_throw": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "sambo_holddown": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "sambo_jab_bodylock": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "sambo_kneebar": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "sambo_outside_trip": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "sambo_scarf_holddown": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "sambo_stance": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "sambo_straight_ankle": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "wrestling_duck_under": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "wrestling_level_change": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "wrestling_snapdown": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "wrestling_sprawl": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "wrestling_stance": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        },
+        "wrestling_whizzer_defense": {
+          "last_trained_week": 0,
+          "learned": true,
+          "learned_week": 0,
+          "live_rounds_completed": 6,
+          "reps_completed": 220,
+          "weeks_trained": 14
+        }
+      },
+      "weight_kg": 77.0
+    },
+    "catalogue": "res://assets/data/technique_catalog.json",
+    "ruleset": "mma"
+  },
+  "rounds": 3,
+  "seat_ticks": {
+    "back": 160,
+    "guard": 38320,
+    "half": 9038,
+    "mount": 53070,
+    "side": 39570
+  },
+  "seed_base": 561000,
+  "side_entries": 199,
+  "side_exit": {
+    "escape": 54,
+    "mount": 133,
+    "round_or_bout_end": 8,
+    "stall(off the floor)": 4
+  },
+  "side_mean_held_ticks": 299.633507853403,
+  "side_reached_gate": 149,
+  "spells": 144
+}

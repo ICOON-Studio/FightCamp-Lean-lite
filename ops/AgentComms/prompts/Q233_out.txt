@@ -1,0 +1,22 @@
+Warning: running headless with --yolo / approval-mode=yolo and no sandbox. All tool calls (shell, write, edit) auto-execute at this process's privilege level. Enable a sandbox via --sandbox / QWEN_SANDBOX, or set QWEN_CODE_SUPPRESS_YOLO_WARNING=1 to silence this notice.
+Warning: MCP server(s) failed to start: higgsfield. Continuing with built-in tools and any servers that did connect. Re-run with QWEN_CODE_DEBUG=1 to see per-server reasons.
+**Q233 — Boxing Clinch Engine: COMPLETE**
+
+Commit `33cb7220` pushed to `qwen/q233-boxing-clinch`.
+
+**What was built** (S139_CLINCH_DESIGN.md s1-s5):
+
+| Area | What | Constants |
+|---|---|---|
+| Initiation | Need-based: fatigue + damage + out-worked × personality × plan × lead protection | `CLINCH_HOLD_ENGAGE_BASE` 0.0005, factors 0.015/0.020/0.003 |
+| Distance threshold | Gap ≤ `CLINCH_GAP_M` 0.45m sustained ≥ `CLINCH_DWELL_TICKS` 15 → proximity bonus 2.5× | GRAPPLE_RANGE gate (1.1m) |
+| Inside work | Holder recovers stamina, leaned-on pays; free man throws body shots at `CLINCH_INSIDE_WORK_P` 0.05 | Recovery 0.15, lean cost 0.08 |
+| Referee break | Drawn uniform [2, 8] s; free break at `CLINCH_FREE_BREAK_P` 0.025; bell break | Log: `hold_break` {by: referee\|free\|bell} |
+| Penalties | Soft→hard→deduction ladder (J14); hit on break → hard warning | Warn at 4 holds/15s, deduct after hard repeat |
+| Switch | `boxing_clinch` in DEMO_SWITCHES (game ON, tests OFF); OFF byte-identical | Own stream `SEED_CLINCH` 217000007 |
+
+**Files**: `FightRealtime.gd` (+529 lines), `q233_boxing_clinch_test.gd` (251 lines, 9/9), `q212_booked_census.gd` (+8 lines `no_q233` arm), `Q233_DIGEST.md`
+
+**Not done** (follow-up): Corner order wiring into CornerAdvice.gd, DQ implementation, census band measurement.
+
+Focused test suite (`run_tests.py --only fight_realtime,boxing_output,fight_strike_whole,judge,round_scoring`) still running in background.

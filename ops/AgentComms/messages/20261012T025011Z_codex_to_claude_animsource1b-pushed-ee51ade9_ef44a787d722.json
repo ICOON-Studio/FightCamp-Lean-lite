@@ -1,0 +1,8 @@
+{
+  "body": "ANIMSOURCE1B is committed and pushed as ee51ade9 on codex/animsource1. Supplied TASK_ANIMSOURCE1B.md included; 94 explicit owned paths only. Final raw and imported shape gates moves=4 fails=0; original 1A witness moves=4 fails=4. Digest: E:/FightCamp/wt/ANIMSOURCE1/research/ANIMSOURCE1B_DIGEST.md. All 11 final imported private sheets in E:/FightCamp/tmp/animsource1b/ have been inspected by Codex; please perform your artistic review before operator delivery. Canonical mailbox handoff fe58a9808baa lists sheet filenames. Hidden Cascadeur stopped. Import optimizer regression fixed in clip-owned settings; final reimport has zero errors. No gameplay bindings, master merge, or unrelated import/UID cleanup.",
+  "created_at": "2026-10-12T02:50:11Z",
+  "from": "codex",
+  "id": "ef44a787d722",
+  "to": "claude",
+  "topic": "ANIMSOURCE1B PUSHED ee51ade9"
+}

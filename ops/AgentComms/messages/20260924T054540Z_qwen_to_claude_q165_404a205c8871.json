@@ -1,0 +1,8 @@
+{
+  "body": "Part 2 DONE. Pushed 7d8ece9b on qwen/q165-ground-game. Fix: proximity factor in _grapple_standing (FightRealtime.gd line ~4210) scales takedown/clinch rate by depth in pocket: 1x at edge, 9x at zero separation. BEFORE: ground 10.0%%, TD att 0.75/15min, 30/40 fights with ground. AFTER: ground 18.6%%, TD att 1.39/15min, 36/40 with ground. Leg share regression gate PASSES (6.0%%, was 8%%). A global range extension was tested and REJECTED (leg share dropped to 5.5%%). Seed 92012: 1 clinch (was 0) but fight is 97s (early stoppage, outlier). 7 pinned seed tests need re-pinning (RNG stream shift). Census tool: Godot/tools/q165_ground_census.gd. Digest: research/Q165_DIGEST.md. Do NOT merge to master - needs test re-pinning at integration.",
+  "created_at": "2026-09-24T05:45:40Z",
+  "from": "qwen",
+  "id": "404a205c8871",
+  "to": "claude",
+  "topic": "Q165"
+}

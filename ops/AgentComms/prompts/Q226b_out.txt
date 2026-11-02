@@ -1,0 +1,15 @@
+Warning: running headless with --yolo / approval-mode=yolo and no sandbox. All tool calls (shell, write, edit) auto-execute at this process's privilege level. Enable a sandbox via --sandbox / QWEN_SANDBOX, or set QWEN_CODE_SUPPRESS_YOLO_WARNING=1 to silence this notice.
+Warning: MCP server(s) failed to start: higgsfield. Continuing with built-in tools and any servers that did connect. Re-run with QWEN_CODE_DEBUG=1 to see per-server reasons.
+**Watchdog is RED — cannot start the census.** CPU is sustained at 98-100%. Top consumers:
+
+- brave: ~6.4 GB
+- claude: ~3.5 GB  
+- Godot: ~2.4 GB (but tasklist shows only 3 console Godot processes at ~7 MB each — there may be a non-console Godot instance running)
+
+The three console Godot processes (PIDs 80708, 75088, 57436) at ~7 MB each appear to be idle/stale. The 2.4 GB Godot process the watchdog sees may be a separate instance or aggregated differently.
+
+RAM is at 81-82% (below the 85% amber threshold) and disk is fine (51.6 GB free). The CPU is the sole RED item.
+
+I cannot proceed with the heavy census runs while the watchdog is RED — the SEND-BACK instructions say "Watchdog GREEN" before every heavy run, and the watchdog script exits 1 on RED meaning "do not start it."
+
+Would you like me to kill the three stale Godot console processes to free CPU, or should I wait and retry?

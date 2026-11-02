@@ -1,0 +1,307 @@
+
+FIGHTCAMP (S227) — ROUND 68: UICARDS1 (THE FIGHTER PROFILE & QUICK-LOOK ARCHITECTURE)
+
+Document Reference: FC-SPEC-S227-UICARDS1-MASTER
+
+Author: Lead UI/UX Architect & Principal Technical Systems Designer
+
+Scope: Complete structural specification for Item 1 (QuickLookCard, ProfileTabHost, ProfileOverview, ProfileTechniques, ProfilePerformanceCamp, ProfileMedicalBio, ProfileCareerContract).
+
+Target Engine: Godot 4.7.2 Forward+, pure GDScript controls built in code (no .tscn dependency), authored at native $1920 \times 1080$, dynamically scalable down to Steam Deck ($1280 \times 800$) and $1280 \times 720$.
+
+PART A: THE 6-SCREEN FORENSIC AUDIT (EVERY DEFECT CATALOGED)
+
+The CEO’s assessment—"the game cards and the player profile is such a mess"—is clinically accurate. The current build displays a catastrophic collision between developer-debug scaffolding, misaligned screen-space projections, unanchored typography, and barren black deserts.
+
+Below is the exhaustive, itemized audit of every flaw visible across the 6 captured screens.
+
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                   MACRO DEFECT HEATMAP (SCREENS 1-6)                             │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                                  │
+│   [SCREEN 1: QUICK-LOOK]       [SCREEN 2: OVERVIEW]             [SCREEN 3: TECHNIQUES]           │
+│   - Obscures gym context       - Decapitated 3D bust            - 3-column collision nightmare   │
+│   - Tiny 8pt unreadable stats  - MS Paint block-man diagram     - Purple placeholder boxer shorts│
+│   - Unpinned world-space drift - 65% horizontal empty void      - Unstyled spreadsheet list      │
+│             │                                │                                │                  │
+│             ▼                                ▼                                ▼                  │
+│       ───[ THE SYSTEMIC ROT: RAW UNALIGNED CODE WIDGETS FLOATING IN BLACK HOLES ]───             │
+│             ▲                                ▲                                ▲                  │
+│             │                                │                                │                  │
+│   [SCREEN 4: CAMP/PERF]        [SCREEN 5: MEDICAL/BIO]          [SCREEN 6: CAREER/CONTRACT]      │
+│   - 70% dead black space       - Giant low-poly traffic light   - 3 naked vertical columns       │
+│   - Unformatted ASCII tables   - 3D head clips out of nowhere   - Neon green placeholder CTA     │
+│   - Abandoned bottom half      - Raw string parsing dumps       - Zero career bout history tape  │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+SCREEN 1: THE QUICK-LOOK CARD (GYM FLOOR POPUP)
+Unanchored World-to-Screen Projection Drift: The card floats arbitrarily over the center ring with no dynamic tether, needle, or leader-line connecting it to the 3D boxer clicked on the gym floor. If the camera pans, the card slips or obscures the active training zone.
+Microscopic, Unweighted Typography: Stats inside the card (POW, SPD, END, REC) are rendered in an undifferentiated $\approx 8\text{ pt}$ monospaced grey font. At $1080\text{ p}$, it is completely unreadable without leaning into the monitor.
+Absence of Tactical Context: The card displays naked numbers (47, 64, 72) but completely fails to answer the four core questions a manager asks when clicking a boxer on the gym floor:
+What is he doing right now? (No active drill label).
+Who is training him? (Assigned coach is absent).
+What is his immediate stamina/fatigue status? (No active energy/recovery bar).
+When is his next bout? (No bout countdown chip).
+Sterile Neon Border Style: The card uses a generic, thin cyan-to-green gradient border (#00ffaa) completely alien to Maria’s 1970s brass, leather, and charcoal aesthetic. It looks like a cyberpunk telemetry widget dropped into a Brooklyn boxing gym.
+Missing Primary CTA Anchor: The button at the bottom of the card ("VIEW FULL PROFILE") is a tiny, flat, low-contrast button with no chamfers, no icon, and no clear hover affordance.
+SCREEN 2: PROFILE TAB 1 — OVERVIEW
+The Decapitated 3D Boxer Bust: On the left flank, a 3D boxer bust is rendered inside a harsh, unclipped rectangular sub-viewport box with no pedestal, framing ring, lighting rim, or grounding shadow. The boxer is angled awkwardly at $45^\circ$, staring blankly into the side margin rather than engaging the player.
+The "Traffic-Light Block-Man" Anatomical Abomination: Below the 3D head sits a crude, 8-bit-style vector diagram composed of colored solid rectangles (yellow head, orange torso/arms, teal legs). It looks like an MS Paint placeholder from an early 1990s prototype. It completely destroys the gritty realism of FightCamp.
+The 9 Attribute Tiles Lack Material Architecture: The nine attributes are slapped onto the screen in a loose $3 \times 3$ grid with vast empty gutters.
+The stat bars are rendered as tiny, disconnected horizontal micro-ticks.
+There are no attribute categories (Physical vs. Technical vs. Mental).
+The numbers (47, 64, 72) float without visual anchoring or grade badges (no S, A, B classifications).
+The "NEXT BOUT" Card is an Abandoned Island: The right-hand card for the next bout contains two tiny lines of unstyled text ("VS. NIKOLAY SHEVCHENKO") floating above a bright orange, untextured flat rectangle.
+The "LAST 3 WEEKS" Raw String Dump: Directly below the bout card, three weeks of training history are dumped as raw terminal text ("Training Load: 68%", "Sparring: 14 rounds", "Fatigue: +12%"). No sparklines, no progression icons, no performance deltas.
+Massive Dead Bottom-Half Void: From $Y \approx 620\text{ px}$ to $1080\text{ px}$, the entire center and bottom of the screen is an empty, pitch-black void. More than $55%$ of the available canvas is totally unused.
+SCREEN 3: PROFILE TAB 2 — TECHNIQUES
+Three-Column Visual Collision: The screen is fractured into three chaotic, uncoordinated columns: a dense spreadsheet list on the left, an isolated 3D boxer standing in the center, and a second unstyled table on the right. The player's eye has nowhere to rest.
+The Purple Placeholder Shorts on the 3D Boxer: The full-body 3D boxer in the center is wearing untextured, bright magenta/purple placeholder trunks. There is no lighting rim separating him from the pitch-black floor.
+Flat Floor Pedestal: The circular stage below the boxer is a flat 1-pixel cyan vector circle that clips into his heels. It has no physical bevel, no cast shadow, and no metallic finish.
+Spreadsheet List Styling (Left & Right): The techniques are rendered inside standard Godot Tree or ItemList nodes with raw blue/orange text highlights ("JAB", "HOOK TO THE BODY").
+No mastery star ratings.
+No prerequisite lines connecting combos (e.g., Jab $\rightarrow$ Cross $\rightarrow$ Left Hook).
+The "LOCKED / IN THE DEMO" badges are bright red and orange flat stickers with zero typographic margin.
+Bottom Playback Controls Look Like Media Player Debug: The "LOOP" and "SLOW-MO" buttons are raw grey UI buttons floating nakedly in the dark void below the fighter's feet.
+SCREEN 4: PROFILE TAB 3 — PERFORMANCE & CAMP
+The 75% Black Desert: This is the most barren screen in the entire build. Outside of a small cluster of table headers at the top, over $75%$ of the $1920 \times 1080$ display is pure black empty void.
+ASCII Grid Table Slapped Across Top: Seven columns (DATE, OPPONENT, ROUNDS, LOAD, FATIGUE, SHARPNESS, NOTES) are rendered using raw monospace labels. The row spacing is cramped ($18\text{ px}$), making it look like a MySQL database dump rather than a fighter’s tactical training journal.
+Isolated Action Buttons: An orphaned button ("CONFIRM CAMP PLAN") sits in the bottom-right corner, completely detached from the data above it. A player has no idea what clicking this button will commit.
+Missing Camp Architecture: We have rich camp systems in FightCamp (sparring partner allocations, weight cutting regimes, conditioning phases). None of them are visually represented here—no timeline scrubbers, no phase markers, no conditioning curves.
+SCREEN 5: PROFILE TAB 4 — MEDICAL & BIO (INJURED BOXER)
+The Giant Low-Poly Traffic-Light Figure Returns (Full Screen): A giant, scaled-up version of the crude orange/teal rectangular block-man dominates the entire left third of the screen. It is flat, unshaded, and completely unaligned with any biological anatomy.
+The Clipped 3D Chest/Head Floating at the Bottom: Bizarrely, a 3D chest/head model is wedged into the bottom center of the screen, floating with no torso, no neck grounding, and its face cropped off on the right. It appears to be an unanchored SubViewport debugging artifact left in the build.
+Raw String Data Dump for Injuries: Under "CLINICAL DIAGNOSIS", injuries are listed as raw text strings ("Micro-fracture right metacarpal - 14 days remaining").
+Misaligned Segmented Recovery Bars: The recovery progress bars are bright cyan and green modern flat bars with zero beveling, stretching unpredictably across the right panel.
+Bio Section is Completely Missing: Despite the tab being titled "MEDICAL & BIO", there is no biography: no hometown, no amateur pedigree, no reach measurement, no reach-to-height ratio, and no personality trait tags.
+SCREEN 6: PROFILE TAB 5 — CAREER & CONTRACT
+Three Naked Monolithic Columns: The screen is divided into three arbitrary vertical rectangular blocks with thick, flat border outlines.
+Naked Record Display: The boxer's professional record is rendered as tiny raw text: "8 - 0 - 0 (6 KO)" inside a vast, empty $400 \times 300\text{ px}$ box on the left. No trophy icons, no title belt display case, no streak indicators.
+Raw Code Terminal in Center Column: The center contract block literally displays raw code parsing:
+CURRENT CONTRACT DETAILS (REMAINING: 2 BOUTS)
+PURSE SPLIT: 70 / 30
+SIGNING BONUS: $12,500
+EXPIRY: 14 WEEKS REMAINING
+
+This looks like a JSON printout.
+Neon Green Placeholder CTA Button: At the bottom of the center column sit two garish, neon-green buttons ("EXTEND CONTRACT", "OFFER NEW TERMS"). The neon green (#00ff66) violently clashes with the entire brass/charcoal visual identity of the game.
+Empty Right Column: The right column, presumably intended for bout history or promotional contract clauses, is completely blank.
+PART B: THE TARGET ARCHITECTURE (LAYOUT GRIDS, BLOCKS, TYPOGRAPHY & STATES)
+
+Every screen is authored within our rigid Gleason Gym Brass & Charcoal System.
+
+Global Canvas: $1920 \times 1080$ native.
+Master Palette:
+Gold Accent / Active: #f0c233
+Antique Brass / Linework: #d4af37 / #b8933b
+Deep Oxblood / Urgent / Injury: #7a1e22 / #c62f2a
+Aged Newsprint Paper / Typography: #f3e6c8
+Deep Oiled Charcoal Base: #1a1814
+Dark Steel Framing: #24221e / #2b2f36
+Recessed Track Dark: #100f0e
+1. THE PERSISTENT PROFILE HEADER STRIP (HEIGHT: 120 PX)
+
+Every profile tab (Screens 2–6) shares this identical, anchored master header strip. It never moves, flickers, or unmounts during tab transitions.
+
+┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ MASTER PROFILE HEADER STRIP (X: 40, Y: 24, W: 1840, H: 96)                                                             │
+├────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ [BACK] │ [FLAG] BRUNO MOREAU                 │ AGE: 24  │ WT: HEAVYWEIGHT (218 LBS) │ MORALE: 88% [FOCUSED]           │
+│  <--   │ "THE LYON HAMMER"  ★ 8-0-0 (6 KO)   │ REACH: 78" │ STANCE: ORTHODOX        │ COMPOSURE: 74% [ICE COLD]      │
+├────────┴─────────────────────────────────────┴──────────┴───────────────────────────┴────────────────────────────────┤
+│ [ TABS: OVERVIEW | TECHNIQUES (54) | PERFORMANCE & CAMP | MEDICAL & BIO [!] | CAREER & CONTRACT ]                   │
+└────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+Position: $X: 40\text{ px}, Y: 24\text{ px}, W: 1840\text{ px}, H: 96\text{ px}$.
+Background: Dark Steel Plate (#22201e), $2\text{ px}$ Chamfered Brass Lower Lip (#d4af37 at $40%$).
+Elements:
+Back Button ($X: 12, Y: 12, W: 48, H: 48$): Stamped brass icon button (<--), tooltip: "Return to Gym Floor (ESC)".
+Fighter Flag ($X: 72, Y: 16, W: 42, H: 28$): National flag with $1.5\text{ px}$ brass frame.
+Name & Nickname ($X: 126, Y: 12$):
+Name: "BRUNO MOREAU", League Gothic / DIN 1451 Bold, $32\text{ pt}$, Cream (#f3e6c8).
+Nickname & Record: "THE LYON HAMMER" • 8-0-0 (6 KOs), Oswald Medium, $14\text{ pt}$, Gold (#f0c233).
+Vitals Matrix ($X: 620, Y: 14, W: 640, H: 44$): 4 clean data chips separated by $1\text{ px}$ vertical brass lines:
+AGE: 24 | DIVISION: HEAVYWEIGHT (218.4 LBS) | REACH: 78.5" | STANCE: ORTHODOX.
+Fonts: Labels in Oswald Regular $10\text{ pt}$ (#8c877d), Values in Oswald Bold $13\text{ pt}$ (#f3e6c8).
+Mental / Psychological Status ($X: 1320, Y: 14, W: 480, H: 44$):
+Morale Gauge: Micro-bar ($90\text{ px} \times 8\text{ px}$), Fill: Gold (#f0c233), Label: "MORALE: 88% (HIGH)".
+Composure Gauge: Micro-bar ($90\text{ px} \times 8\text{ px}$), Fill: Steel Blue (#4a7a96), Label: "COMPOSURE: 74% (COLD)".
+The Master Tab Navigation Bar ($X: 40, Y: 84, W: 1840, H: 36$):
+Five equal-weighted tab buttons: OVERVIEW, TECHNIQUES (54), PERFORMANCE & CAMP, MEDICAL & BIO, CAREER & CONTRACT.
+Active Tab: Full brass plate fill (#d4af37), text in Deep Charcoal (#1a1814), Bold $13\text{ pt}$, $2\text{ px}$ bottom gold underline (#f0c233).
+Inactive Tabs: Dark Charcoal (#1a1814), text in Cream (#a8a296), hover background: #2a2722.
+Alert Badge on Medical Tab: If boxer has an untreated injury, show an Oxblood red pill badge: [!] 1 INJURY.
+2. SCREEN 1: THE REDESIGNED QUICK-LOOK CARD (GYM FLOOR POPUP)
+
+The quick-look card is NOT a full screen. It is an anchored tactical inspect card that appears floating over the gym floor when clicking any boxer, tethered to their 3D position.
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ QUICK-LOOK TACTICAL DOSSIER (Width: 380 px, Height: 440 px)                  │
+├──────────────────────────────────────────────────────────────────────────────┤
+│ [FLAG] BRUNO MOREAU                     HEAVYWEIGHT • 8-0-0 (6 KO)           │
+│ CURRENT DRILL: HEAVY BAG (POWER)        COACH: TERRY "THE ANVIL" McGEE       │
+├──────────────────────────────────────────────────────────────────────────────┤
+│ STAMINA / ENERGY                       82% [████████████████████░░░]         │
+│ SESSION FATIGUE                        14% [███░░░░░░░░░░░░░░░░░░░░]         │
+├──────────────────────────────────────────────────────────────────────────────┤
+│ ATTRIBUTE TRIAD:                                                             │
+│   POWER: 78 [GRADE A]    SPEED: 64 [GRADE B]    CHIN: 72 [GRADE B+]          │
+├──────────────────────────────────────────────────────────────────────────────┤
+│ NEXT SCHEDULED BOUT:                                                         │
+│   vs. NIKOLAY SHEVCHENKO (11-1-0)                                            │
+│   IN 18 DAYS • YORK HALL, LONDON (10 ROUNDS)                                 │
+├──────────────────────────────────────────────────────────────────────────────┤
+│ [ OPEN FULL FIGHTER PROFILE ]                  [ CHANGE ACTIVE DRILL ]       │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+Dimensions: Width: $380\text{ px}$, Height: $440\text{ px}$.
+World-Space Grounding: An animated antique brass needle ($2\text{ px}$ wide, #d4af37) extends from the bottom of the card directly to a circular brass targeting reticle placed on the gym floor at the boxer's feet.
+Layout Structure:
+Header ($H: 64\text{ px}$): Flag ($32 \times 20$), Fighter Name ($20\text{ pt}$ League Gothic), Division & Record ($11\text{ pt}$ Ochre).
+Current Assignment Strip ($H: 48\text{ px}$): Shows active drill with an animated icon (e.g., spinning heavy bag icon) and the assigned coach's name in Cream.
+Vital Bars ($H: 68\text{ px}$):
+Stamina Bar: Height $10\text{ px}$, Fill: Gold (#f0c233).
+Fatigue Bar: Height $10\text{ px}$, Fill: Oxblood (#c62f2a).
+Attribute Triad ($H: 52\text{ px}$): Three vertical column chips displaying the boxer's primary identity stats (e.g., POWER 78, SPEED 64, CHIN 72) with grade badges.
+Upcoming Bout Banner ($H: 74\text{ px}$): Dark leatherette inset box showing opponent, date, and venue. If unbooked: "NO BOUT SCHEDULED — IDLE IN CAMP".
+Primary CTA ($H: 44\text{ px}$): Full-width Chamfered Gold Button: "OPEN FULL PROFILE (SPACE)".
+3. SCREEN 2: PROFILE TAB 1 — OVERVIEW (TARGET LAYOUT)
+
+The overview tab must give the manager the complete macro-picture of the fighter without forcing them to hunt through submenus.
+
+┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ OVERVIEW TAB LAYOUT (1840 × 900 px)                                                                                    │
+├───────────────────────────────────────────┬────────────────────────────────────────────┬───────────────────────────────┤
+│ COLUMN 1: THE 3D STAGE & ANATOMY          │ COLUMN 2: THE 9 ATTRIBUTE TILES           │ COLUMN 3: SCHEDULE & HISTORY  │
+│ Width: 460 px (X: 40)                     │ Width: 780 px (X: 520)                     │ Width: 560 px (X: 1320)       │
+│                                           │                                            │                               │
+│ ┌───────────────────────────────────────┐ │ ┌────────────────────────────────────────┐ │ ┌───────────────────────────┐ │
+│ │ 3D BOXER FULL PEDESTAL STAGE          │ │ │ PHYSICAL PILLAR (3 TILES)              │ │ │ NEXT SCHEDULED BOUT CARD  │ │
+│ │ Height: 520 px                        │ │ │ - POWER: 78      - SPEED: 64           │ │ │ Height: 260 px            │ │
+│ │ Interactive 3D model, breathing idle, │ │ │ - STAMINA: 82                          │ │ │ Countdown, Tale of Tape,  │ │
+│ │ brass ring plinth, contact shadow.    │ │ ├────────────────────────────────────────┤ │ │ Purse Split, Venue.       │ │
+│ │                                       │ │ │ TECHNICAL PILLAR (3 TILES)             │ │ ├───────────────────────────┤ │
+│ ├───────────────────────────────────────┤ │ │ - ACCURACY: 71   - DEFENCE: 68         │ │ │ RECENT CAMP LOG (3 WKS)   │ │
+│ │ REPLACED ANATOMICAL DAMAGE MAP        │ │ │ - FOOTWORK: 59                         │ │ │ Height: 280 px            │ │
+│ │ Height: 340 px                        │ │ ├────────────────────────────────────────┤ │ │ Interactive sparkline     │ │
+│ │ High-contrast brass silhouette with   │ │ │ MENTAL / GRIT PILLAR (3 TILES)         │ │ │ graphs of load/fatigue.   │ │
+│ │ medical pinpoint callouts.            │ │ │ - CHIN: 72       - HEART: 84           │ │ ├───────────────────────────┤ │
+│ │ (NO MORE MS PAINT BLOCK-MAN!)         │ │ │ - RING IQ: 66                          │ │ │ QUICK ACTION CONTROLS     │ │
+│ └───────────────────────────────────────┘ │ └────────────────────────────────────────┘ │ │ Height: 300 px            │ │
+└───────────────────────────────────────────┴────────────────────────────────────────────┴───────────────────────────────┘
+
+Detailed Tile Specification: The 9 Attributes (Column 2)
+
+Each attribute tile is an engineered brass-and-steel module ($244\text{ px}$ wide $\times 110\text{ px}$ tall):
+
+Background: Dark Steel Plate (#22201e), $1\text{ px}$ border in #36332e.
+Top Header: Attribute Name in Oswald Bold $13\text{ pt}$ (#f3e6c8) + Category Icon (Lucide zap, shield, brain).
+Score Readout:
+Numeric: League Gothic Bold $36\text{ pt}$, Championship Gold (#f0c233).
+Grade Badge: Stamped metal badge on right edge ("A", "B+", "S").
+Segmented Bar:
+10 distinct physical rectangular segments (each representing 10 points).
+Empty segment: #141312.
+Filled segment: Gradient Gold (#f0c233 $\rightarrow$ #c8931b).
+If stat is actively buffed by camp: The 8th/9th segments pulse with a soft gold glow.
+The Anatomical Silhouette (Column 1 Lower)
+The childish orange/teal block-man is permanently eliminated.
+Replaced by a sleek, monochromatic Medical Wireframe Silhouette of a boxer in guard stance:
+Base Line: Hairline Dark Brass (#5c4a22).
+Damaged Zones: When an injury exists (e.g. Right Metacarpal), that specific limb pulses in Oxblood Red (#c62f2a) with a crisp callout line extending to a text badge on the side: "R. HAND: MICRO-FRACTURE (78%)".
+4. SCREEN 3: PROFILE TAB 2 — TECHNIQUES (TARGET LAYOUT)
+
+The techniques screen transforms from an ugly spreadsheet into an interactive 3D Dojo and Combo Tree.
+
+┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ TECHNIQUES TAB LAYOUT (1840 × 900 px)                                                                                  │
+├──────────────────────────────────────────┬────────────────────────────────────────────┬────────────────────────────────┤
+│ COLUMN 1: DISCIPLINE & ARSENAL TREE      │ COLUMN 2: 3D ANIMATION PREVIEW DOJO        │ COLUMN 3: SELECTED MOVE DATA   │
+│ Width: 520 px (X: 40)                    │ Width: 760 px (X: 580)                     │ Width: 500 px (X: 1360)        │
+│                                          │                                            │                                │
+│ [SEARCH MOVE] [FILTER: ALL/PUNCH/DEF]    │ [3D BOXER FULL STAGE]                      │ "OVERHAND RIGHT" [TIER 3]      │
+│ ┌──────────────────────────────────────┐ │ Height: 680 px                             │ Damage: 88 • Stamina Cost: 42  │
+│ │ CATEGORY 1: BASIC PUNCHES (6/6)      │ │ - Plays selected technique animation in    │ Speed: 14 frames • Bleed: High │
+│ │ - Jab                     ★★★★★ MAX  │ │   loop with motion-blur and ghost trail.   ├────────────────────────────────┤
+│ │ - Straight Right          ★★★★☆ LV.4 │ │ - Custom authentic gym trunks (no purple!).│ PREREQUISITES & TREE:          │
+│ │ - Left Hook to Head       ★★★☆☆ LV.3 │ │ - Clean wood floor stage with shadow.      │ Straight Right (Lv.3) -> REQ   │
+│ │                                      │ ├────────────────────────────────────────────┤ Coach: Heavy Hands Special     │
+│ │ CATEGORY 2: HOOKS & BODY SHOTS (4/8) │ │ PLAYBACK TRANSPORT CONTROLS (H: 80 px)     ├────────────────────────────────┤
+│ │ - Shovel Hook             ★★☆☆☆ LV.2 │ │ [REPLAY] [PLAY/PAUSE] [0.5X SLOW] [SCRUB] │ TRAINING ASSIGNMENT:           │
+│ │ - Liver Shot              ★☆☆☆☆ LV.1 │ │ Displays exact frame counts and impact pt. │ [ ASSIGN DRILL TO NEXT CAMP ]  │
+│ └──────────────────────────────────────┘ │                                            │ Cost: 400 Stamina / 12 Hours   │
+└──────────────────────────────────────────┴────────────────────────────────────────────┴────────────────────────────────┘
+
+The 3D Dojo Stage:
+Boxer renders in correct, custom gym trunks (Matte Black with Gold Gleason stripe, #1a1814 and #f0c233).
+The floor is a brushed-brass circular turn-table plinth with soft directional shadows.
+Technique Mastery System:
+Every technique shows a 5-star mastery rating instead of a raw debug number.
+Locked techniques show an iron padlock icon with explicit unlock conditions: "Requires Coach: Lv. 2 Striking".
+5. SCREEN 4: PROFILE TAB 3 — PERFORMANCE & CAMP (TARGET LAYOUT)
+
+Replaces the 75% black desert with a complete physical camp management console.
+
+┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ PERFORMANCE & CAMP TAB LAYOUT (1840 × 900 px)                                                                          │
+├───────────────────────────────────────────────────────────────────────┬────────────────────────────────────────────────┤
+│ SECTION 1: 8-WEEK CAMP PROGRESSION CURVE (X: 40, Y: 130, W: 1840, H: 280)                                              │
+│ Interactive multi-line graph showing: Conditioning Peak Curve (Gold), Fatigue Load (Oxblood), Weight Cut Track (White) │
+├───────────────────────────────────────────────────────────────────────┴────────────────────────────────────────────────┤
+│ SECTION 2: THE 3-COLUMN CAMP EXECUTION CONSOLE (Y: 430, H: 580 px)                                                     │
+├────────────────────────────────────┬───────────────────────────────────┬───────────────────────────────────────────────┤
+│ COL A: ACTIVE SPARRING PARTNERS    │ COL B: DRILL & FOCUS SCHEDULE     │ COL C: WEEKLY TRAINING LOG ARCHIVE            │
+│ Width: 580 px                      │ Width: 640 px                     │ Width: 580 px                                 │
+│ - 3 Hired sparring partners with   │ - Mon through Sat micro-blocks:   │ - Full scrollable history of completed weeks: │
+│   style matching tags.             │   Pad work, Heavy bag, Roadwork.  │   Load %, Sparring rounds, Attribute gains.   │
+│ - Cost per week & injury risk.     │ - Fatigue accumulation meter.     │ - Color-coded performance grades (A, B, C).   │
+└────────────────────────────────────┴───────────────────────────────────┴───────────────────────────────────────────────┘
+
+6. SCREEN 5: PROFILE TAB 4 — MEDICAL & BIO (TARGET LAYOUT)
+
+Combines biological scouting profile with sports medicine rehabilitation tracking.
+
+┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ MEDICAL & BIOGRAPHY TAB LAYOUT (1840 × 900 px)                                                                         │
+├──────────────────────────────────────────┬─────────────────────────────────────────────────────────────────────────────┤
+│ COLUMN 1: BIOGRAPHY & PHYSICAL PROFILE   │ COLUMN 2: CLINICAL MEDICAL WARD & REHABILITATION                           │
+│ Width: 540 px (X: 40)                    │ Width: 1260 px (X: 620)                                                     │
+│                                          │                                                                             │
+│ ┌──────────────────────────────────────┐ │ ┌─────────────────────────────────────────────────────────────────────────┐ │
+│ │ FIGHTER DOSSIER & MEASUREMENTS       │ │ │ ACTIVE MEDICAL STATUS: [ ! TEMPORARILY UNFIT FOR SANCTIONED BOUTS ]     │ │
+│ │ - Full Name: Bruno Arthur Moreau     │ │ └─────────────────────────────────────────────────────────────────────────┘ │
+│ │ - Hometown: Lyon, France             │ │ ┌─────────────────────────────────────────────────────────────────────────┐ │
+│ │ - Age / DOB: 24 (March 14, 1952)     │ │ │ ACTIVE INJURIES REQUIRING TREATMENT (LIST)                              │ │
+│ │ - Height: 6'3" (191 cm)              │ │ │                                                                         │ │
+│ │ - Reach: 78.5" (Apex Ratio: +2.5")   │ │ │ 1. RIGHT METACARPAL MICRO-FRACTURE (ACUTE)                              │ │
+│ │ - Ape Index: 1.03                    │ │ │    - Days Remaining: 14 Days • Severity: Moderate                       │ │
+│ │ - Amateur Pedigree: 42-4 (28 KO)     │ │ │    - Rehabilitation Bar: 65% [███████████████░░░░░░░░]                 │ │
+│ │   (French National Golden Gloves)    │ │ │    - Assigned Doctor: Dr. Aris Thorne (Sports Orthopedic)               │ │
+│ ├──────────────────────────────────────┤ │ │    - Action Options: [ INJECT CORTISONE ]  [ REST & PHYSIO ]            │ │
+│ │ PSYCHOLOGICAL PERSONALITY TRAITS     │ │ ├─────────────────────────────────────────────────────────────────────────┤ │
+│ │ [STOIC] [AMBITIOUS] [DISCIPLINED]    │ │ │ HISTORICAL INJURY LEDGER & LONG-TERM SCAR TISSUE                        │ │
+│ │ Trait effects on camp & pressure.    │ │ │ - Left Eyebrow Scar Tissue: 18% (Vulnerable to cuts in later rounds)    │ │
+│ └──────────────────────────────────────┘ │ └─────────────────────────────────────────────────────────────────────────┘ │
+└──────────────────────────────────────────┴─────────────────────────────────────────────────────────────────────────────┘
+
+7. SCREEN 6: PROFILE TAB 5 — CAREER & CONTRACT (TARGET LAYOUT)
+
+The high-stakes business desk. Replaces the empty raw terminal with a luxury contract parchment and bout tape.
+
+┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ CAREER & CONTRACT TAB LAYOUT (1840 × 900 px)                                                                           │
+├──────────────────────────────────────────┬─────────────────────────────────────────────────────────────────────────────┤
+│ COLUMN 1: THE TROPHY ROOM & TITLES       │ COLUMN 2: PROMOTIONAL CONTRACT DESK & BOUT TAPE                            │
+│ Width: 540 px (X: 40)                    │ Width: 1260 px (X: 620)                                                     │
+│                                          │                                                                             │
+│ ┌──────────────────────────────────────┐ │ ┌─────────────────────────────────────────────────────────────────────────┐ │
+│ │ TITLE BELT CASES & HONORS            │ │ │ CURRENT PROMOTIONAL BINDING (LEATHER DOCKET)                            │ │
+│ │ - European Heavyweight Champion      │ │ │ - Base Purse per Bout: $45,000 (Guaranteed)                             │ │
+│ │   (Held: 14 Months, 2 Defences)      │ │ │ - Win Bonus: $25,000 • KO Incentive: $10,000                             │ │
+│ │ - 1974 Fight of the Year Trophy      │ │ │ - Contract Length: 4 Bouts Remaining (Expires Dec
+
+Can you turn this specification into a complete Godot 4 scene hierarchy and file structure for every profile tab?
+Can you provide the full GDScript implementation for the tab host, quick-look card, responsive layout, and all requested states?
+Can you create a polished visual mockup showing the six fighter-profile screens together at 1920×1080?
+Can you define the exact data schema and sample fighter records needed to populate every profile block without empty states?

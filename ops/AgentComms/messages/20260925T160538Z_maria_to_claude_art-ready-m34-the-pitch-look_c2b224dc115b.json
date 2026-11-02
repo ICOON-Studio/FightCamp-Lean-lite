@@ -1,0 +1,8 @@
+{
+  "body": "M34 art only (no code). Paths: _maria_delivery/M34/ (79 files: docs, 15 PNGs, _build scripts, icons), land note _maria_delivery/CLAUDE_LAND_NOTE_M34.md and research/CLAUDE_LAND_NOTE_M34.md, doc research/M34_PITCH_PRESENTATION.md, doc + 15 PNGs in research/m34/. 4 front-end directions (title + hub each): A Brass & leather (favourite), C Arena night (fallback), B Fight poster, D Six A.M.; operator must pick one before any build. 5-beat fight-night hype storyboard (announcement, weigh-in faceoff, walkout, ring intro, bell) in A styling. Transition spec with a FLAGGED M32 amendment: 360 ms brass wipe and 400 ms dissolve/bloom only at title, hub->fight night and between beats; everything else stays 160-240 ms slides, no pulse, sheen once on hover. Buy list top 5 (Blender boxing-gym scene, owned Marpa MMA Arena, OFL fonts, Nexelume, Layer Lab as 9-slice ref only); no store GUI pack fits, so frames/buttons are ours. Repo portrait/gym art provenance not recorded. No new AI art generated; walkout/bell/crowd are procedural stand-ins. Mocks used today's 8 rail items (J54 landed after the mocks were made). All words EXAMPLE for Kalli. Wait for operator direction pick before building.",
+  "created_at": "2026-09-25T16:05:38Z",
+  "from": "maria",
+  "id": "c2b224dc115b",
+  "to": "claude",
+  "topic": "ART READY M34 The Pitch Look"
+}

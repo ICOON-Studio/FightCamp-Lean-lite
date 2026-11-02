@@ -1,0 +1,8 @@
+{
+  "body": "Confirmed root: both tests hard-pick world.organizations[0]. In this seed that is cyprus_mmaf; their first negotiated settlement actually pays, so C39 correctly turns the fighter pro, and their later amateur org| challenge must be refused. The honest regression fix is to make those contract/press fixtures choose an EntityPathway.signs_fighters organization. TASK_C39 ownership excludes both files, so I will not edit them. Please patch/assign those two fixture selections; C39, entity_pathways and tournaments are green.",
+  "created_at": "2026-09-07T18:25:43Z",
+  "from": "codex",
+  "id": "2f4c9691070c",
+  "to": "claude",
+  "topic": "C39 stale fixture fix needed"
+}

@@ -1,0 +1,521 @@
+{
+	"candidates": [
+		{
+			"f01": {
+				"end_ratio": 0.0118845061662322,
+				"ends_in_guard": true,
+				"home_s": 0.616666666666667,
+				"peak_m": 0.417920023202896,
+				"peak_s": 0.233333333333333,
+				"retract_ms": 383.333333333333
+			},
+			"file": "H2H_JabInPlace.FBX",
+			"hand": "left",
+			"length_s": 0.833333333333333,
+			"source": {
+				"end_ratio": 0.0105280450400176,
+				"ends_in_guard": true,
+				"home_s": 0.65,
+				"peak_m": 0.498262345790863,
+				"peak_s": 0.266666666666667,
+				"retract_ms": 383.333333333333
+			}
+		},
+		{
+			"f01": {
+				"end_ratio": 0.00883686901639724,
+				"ends_in_guard": true,
+				"home_s": 0.566666666666667,
+				"peak_m": 0.560312390327454,
+				"peak_s": 0.3,
+				"retract_ms": 266.666666666667
+			},
+			"file": "H2H_StraightPunchInPlace.FBX",
+			"hand": "right",
+			"length_s": 0.833333333333333,
+			"source": {
+				"end_ratio": 0.00816843918921828,
+				"ends_in_guard": true,
+				"home_s": 0.6,
+				"peak_m": 0.719843029975891,
+				"peak_s": 0.3,
+				"retract_ms": 300.0
+			}
+		},
+		{
+			"f01": {
+				"end_ratio": 0.019048461730156,
+				"ends_in_guard": true,
+				"home_s": 0.933333333333333,
+				"peak_m": 0.254787921905518,
+				"peak_s": 0.366666666666667,
+				"retract_ms": 566.666666666667
+			},
+			"file": "H2H_HookPunch_InPlace.FBX",
+			"hand": "left",
+			"length_s": 1.0,
+			"source": {
+				"end_ratio": 0.0167206511323169,
+				"ends_in_guard": true,
+				"home_s": 0.95,
+				"peak_m": 0.306398987770081,
+				"peak_s": 0.266666666666667,
+				"retract_ms": 683.333333333333
+			}
+		},
+		{
+			"f01": {
+				"end_ratio": 0.0153521450525021,
+				"ends_in_guard": true,
+				"home_s": 0.666666666666667,
+				"peak_m": 0.316087573766708,
+				"peak_s": 0.433333333333333,
+				"retract_ms": 233.333333333333
+			},
+			"file": "H2H_LeadingUppercut_InPlace.FBX",
+			"hand": "right",
+			"length_s": 1.0,
+			"source": {
+				"end_ratio": 0.0141354519148058,
+				"ends_in_guard": true,
+				"home_s": 0.75,
+				"peak_m": 0.423860013484955,
+				"peak_s": 0.5,
+				"retract_ms": 250.0
+			}
+		},
+		{
+			"f01": {
+				"end_ratio": 0.00959192091053967,
+				"ends_in_guard": true,
+				"home_s": 0.816666666666667,
+				"peak_m": 0.520220816135406,
+				"peak_s": 0.533333333333333,
+				"retract_ms": 283.333333333333
+			},
+			"file": "H2H_Haymaker_InPlace.FBX",
+			"hand": "right",
+			"length_s": 1.0,
+			"source": {
+				"end_ratio": 0.00891152878483792,
+				"ends_in_guard": true,
+				"home_s": 0.75,
+				"peak_m": 0.672172725200653,
+				"peak_s": 0.566666666666667,
+				"retract_ms": 183.333333333333
+			}
+		},
+		{
+			"f01": {
+				"end_ratio": 0.0137864422426734,
+				"ends_in_guard": true,
+				"home_s": 0.9,
+				"peak_m": 0.352014690637589,
+				"peak_s": 0.2,
+				"retract_ms": 700.0
+			},
+			"file": "H2H_SnappingBackfist_InPlace.FBX",
+			"hand": "left",
+			"length_s": 1.0,
+			"source": {
+				"end_ratio": 0.0110075197588905,
+				"ends_in_guard": true,
+				"home_s": 0.9,
+				"peak_m": 0.465412169694901,
+				"peak_s": 0.2,
+				"retract_ms": 700.0
+			}
+		}
+	],
+	"clips": [
+		{
+			"end_s": 0.64,
+			"f01": {
+				"end_ratio": 0.527454549388342,
+				"ends_in_guard": false,
+				"home_s": null,
+				"peak_m": 0.483484536409378,
+				"peak_s": 0.508717948717949,
+				"retract_ms": null
+			},
+			"file": "combo_jab_cross_hook.glb",
+			"hand": "right",
+			"mirror": false,
+			"role": "jab",
+			"source": {
+				"end_ratio": 0.475981447772666,
+				"ends_in_guard": false,
+				"home_s": null,
+				"peak_m": 0.512358486652374,
+				"peak_s": 0.525128205128205,
+				"retract_ms": null
+			},
+			"start_s": 0.0
+		},
+		{
+			"end_s": 0.64,
+			"f01": {
+				"end_ratio": 0.890114514818451,
+				"ends_in_guard": false,
+				"home_s": null,
+				"peak_m": 0.205079808831215,
+				"peak_s": 0.541538461538462,
+				"retract_ms": null
+			},
+			"file": "combo_jab_cross_hook.glb",
+			"hand": "left",
+			"mirror": true,
+			"role": "jab_lead",
+			"source": {
+				"end_ratio": 0.665929001343184,
+				"ends_in_guard": false,
+				"home_s": null,
+				"peak_m": 0.245219826698303,
+				"peak_s": 0.525128205128205,
+				"retract_ms": null
+			},
+			"start_s": 0.0
+		},
+		{
+			"end_s": 1.04,
+			"f01": {
+				"end_ratio": 0.444055830251732,
+				"ends_in_guard": false,
+				"home_s": null,
+				"peak_m": 0.560372948646545,
+				"peak_s": 0.2,
+				"retract_ms": null
+			},
+			"file": "combo_jab_cross_hook.glb",
+			"hand": "right",
+			"mirror": false,
+			"role": "cross",
+			"source": {
+				"end_ratio": 0.389146065439177,
+				"ends_in_guard": false,
+				"home_s": null,
+				"peak_m": 0.632256209850311,
+				"peak_s": 0.2,
+				"retract_ms": null
+			},
+			"start_s": 0.64
+		},
+		{
+			"end_s": 1.04,
+			"f01": {
+				"end_ratio": 0.380286603298799,
+				"ends_in_guard": false,
+				"home_s": null,
+				"peak_m": 0.398079991340637,
+				"peak_s": 0.25,
+				"retract_ms": null
+			},
+			"file": "combo_jab_cross_hook.glb",
+			"hand": "left",
+			"mirror": true,
+			"role": "cross_lead",
+			"source": {
+				"end_ratio": 0.289548130235372,
+				"ends_in_guard": false,
+				"home_s": null,
+				"peak_m": 0.45168873667717,
+				"peak_s": 0.25,
+				"retract_ms": null
+			},
+			"start_s": 0.64
+		},
+		{
+			"end_s": 1.68,
+			"f01": {
+				"end_ratio": 0.305399577336854,
+				"ends_in_guard": false,
+				"home_s": 0.525128205128205,
+				"peak_m": 0.307920724153519,
+				"peak_s": 0.361025641025641,
+				"retract_ms": 164.102564102564
+			},
+			"file": "combo_jab_cross_hook.glb",
+			"hand": "left",
+			"mirror": true,
+			"role": "hook_lead",
+			"source": {
+				"end_ratio": 0.276034002533157,
+				"ends_in_guard": false,
+				"home_s": 0.492307692307692,
+				"peak_m": 0.296663522720337,
+				"peak_s": 0.361025641025641,
+				"retract_ms": 131.282051282051
+			},
+			"start_s": 1.04
+		},
+		{
+			"end_s": 1.68,
+			"f01": {
+				"end_ratio": 0.522534554247885,
+				"ends_in_guard": false,
+				"home_s": 0.393846153846154,
+				"peak_m": 0.450084805488586,
+				"peak_s": 0.22974358974359,
+				"retract_ms": 164.102564102564
+			},
+			"file": "combo_jab_cross_hook.glb",
+			"hand": "right",
+			"mirror": false,
+			"role": "hook_rear",
+			"source": {
+				"end_ratio": 0.489107026446856,
+				"ends_in_guard": false,
+				"home_s": 0.393846153846154,
+				"peak_m": 0.477140635251999,
+				"peak_s": 0.22974358974359,
+				"retract_ms": 164.102564102564
+			},
+			"start_s": 1.04
+		},
+		{
+			"end_s": 0.833,
+			"f01": {
+				"end_ratio": 0.011979677051512,
+				"ends_in_guard": true,
+				"home_s": 0.61642,
+				"peak_m": 0.417653888463974,
+				"peak_s": 0.23324,
+				"retract_ms": 383.18
+			},
+			"file": "H2H_JabInPlace.FBX",
+			"hand": "left",
+			"mirror": false,
+			"role": "boxing_double_jab",
+			"source": {
+				"end_ratio": 0.0106016570791564,
+				"ends_in_guard": true,
+				"home_s": 0.64974,
+				"peak_m": 0.4982590675354,
+				"peak_s": 0.26656,
+				"retract_ms": 383.18
+			},
+			"start_s": 0.0
+		},
+		{
+			"end_s": 1.0,
+			"f01": {
+				"end_ratio": 0.00959192091053967,
+				"ends_in_guard": true,
+				"home_s": 0.816666666666667,
+				"peak_m": 0.520220816135406,
+				"peak_s": 0.533333333333333,
+				"retract_ms": 283.333333333333
+			},
+			"file": "H2H_Haymaker_InPlace.FBX",
+			"hand": "right",
+			"mirror": false,
+			"role": "boxing_overhand",
+			"source": {
+				"end_ratio": 0.00891152878483792,
+				"ends_in_guard": true,
+				"home_s": 0.75,
+				"peak_m": 0.672172725200653,
+				"peak_s": 0.566666666666667,
+				"retract_ms": 183.333333333333
+			},
+			"start_s": 0.0
+		},
+		{
+			"end_s": 0.7,
+			"f01": {
+				"end_ratio": 0.00781400858219279,
+				"ends_in_guard": true,
+				"home_s": 0.55,
+				"peak_m": 0.638339459896088,
+				"peak_s": 0.2,
+				"retract_ms": 350.0
+			},
+			"file": "H2H_RoundhouseKick_InPlace.FBX",
+			"hand": "right",
+			"mirror": false,
+			"role": "muay_thai_round_kick",
+			"source": {
+				"end_ratio": 0.00757317618428838,
+				"ends_in_guard": true,
+				"home_s": 0.583333333333333,
+				"peak_m": 0.790514171123505,
+				"peak_s": 0.2,
+				"retract_ms": 383.333333333333
+			},
+			"start_s": 0.0
+		},
+		{
+			"end_s": 0.7,
+			"f01": {
+				"end_ratio": 0.00781400858219279,
+				"ends_in_guard": true,
+				"home_s": 0.55,
+				"peak_m": 0.638339459896088,
+				"peak_s": 0.2,
+				"retract_ms": 350.0
+			},
+			"file": "H2H_RoundhouseKick_InPlace.FBX",
+			"hand": "right",
+			"mirror": false,
+			"role": "muay_thai_switch_kick_body",
+			"source": {
+				"end_ratio": 0.00757317618428838,
+				"ends_in_guard": true,
+				"home_s": 0.583333333333333,
+				"peak_m": 0.790514171123505,
+				"peak_s": 0.2,
+				"retract_ms": 383.333333333333
+			},
+			"start_s": 0.0
+		},
+		{
+			"end_s": 0.9,
+			"f01": {
+				"end_ratio": 0.00885684798988963,
+				"ends_in_guard": true,
+				"home_s": 0.666666666666667,
+				"peak_m": 0.562986850738525,
+				"peak_s": 0.433333333333333,
+				"retract_ms": 233.333333333333
+			},
+			"file": "H2H_KneeStrike_Forward.FBX",
+			"hand": "right",
+			"mirror": false,
+			"role": "muay_thai_straight_knee",
+			"source": {
+				"end_ratio": 0.00843928490817927,
+				"ends_in_guard": true,
+				"home_s": 0.666666666666667,
+				"peak_m": 0.709177315235138,
+				"peak_s": 0.433333333333333,
+				"retract_ms": 233.333333333333
+			},
+			"start_s": 0.0
+		},
+		{
+			"end_s": 0.7,
+			"f01": {
+				"end_ratio": 0.00781400858219279,
+				"ends_in_guard": true,
+				"home_s": 0.55,
+				"peak_m": 0.638339459896088,
+				"peak_s": 0.2,
+				"retract_ms": 350.0
+			},
+			"file": "H2H_RoundhouseKick_InPlace.FBX",
+			"hand": "right",
+			"mirror": false,
+			"role": "kickboxing_roundhouse",
+			"source": {
+				"end_ratio": 0.00757317618428838,
+				"ends_in_guard": true,
+				"home_s": 0.583333333333333,
+				"peak_m": 0.790514171123505,
+				"peak_s": 0.2,
+				"retract_ms": 383.333333333333
+			},
+			"start_s": 0.0
+		},
+		{
+			"end_s": 0.7,
+			"f01": {
+				"end_ratio": 0.00781400858219279,
+				"ends_in_guard": true,
+				"home_s": 0.55,
+				"peak_m": 0.638339459896088,
+				"peak_s": 0.2,
+				"retract_ms": 350.0
+			},
+			"file": "H2H_RoundhouseKick_InPlace.FBX",
+			"hand": "right",
+			"mirror": false,
+			"role": "kickboxing_body_kick",
+			"source": {
+				"end_ratio": 0.00757317618428838,
+				"ends_in_guard": true,
+				"home_s": 0.583333333333333,
+				"peak_m": 0.790514171123505,
+				"peak_s": 0.2,
+				"retract_ms": 383.333333333333
+			},
+			"start_s": 0.0
+		},
+		{
+			"end_s": 1.0,
+			"f01": {
+				"end_ratio": 0.0087288409784874,
+				"ends_in_guard": true,
+				"home_s": 0.766666666666667,
+				"peak_m": 0.571597933769226,
+				"peak_s": 0.433333333333333,
+				"retract_ms": 333.333333333333
+			},
+			"file": "H2H_RightCutKick_InPlace.FBX",
+			"hand": "right",
+			"mirror": false,
+			"role": "kickboxing_low_kick",
+			"source": {
+				"end_ratio": 0.00851549456191149,
+				"ends_in_guard": true,
+				"home_s": 0.766666666666667,
+				"peak_m": 0.703357338905334,
+				"peak_s": 0.433333333333333,
+				"retract_ms": 333.333333333333
+			},
+			"start_s": 0.0
+		},
+		{
+			"end_s": 0.64,
+			"f01": {
+				"end_ratio": 0.527454549388342,
+				"ends_in_guard": false,
+				"home_s": null,
+				"peak_m": 0.483484536409378,
+				"peak_s": 0.508717948717949,
+				"retract_ms": null
+			},
+			"file": "combo_jab_cross_hook.glb",
+			"hand": "right",
+			"mirror": false,
+			"role": "kickboxing_jab_lowkick",
+			"source": {
+				"end_ratio": 0.475981447772666,
+				"ends_in_guard": false,
+				"home_s": null,
+				"peak_m": 0.512358486652374,
+				"peak_s": 0.525128205128205,
+				"retract_ms": null
+			},
+			"start_s": 0.0
+		},
+		{
+			"end_s": 1.04,
+			"f01": {
+				"end_ratio": 0.445523596596776,
+				"ends_in_guard": false,
+				"home_s": null,
+				"peak_m": 0.558526813983917,
+				"peak_s": 0.825396825396825,
+				"retract_ms": null
+			},
+			"file": "combo_jab_cross_hook.glb",
+			"hand": "right",
+			"mirror": false,
+			"role": "kickboxing_jab_cross_lowkick",
+			"source": {
+				"end_ratio": 0.389947613264882,
+				"ends_in_guard": false,
+				"home_s": null,
+				"peak_m": 0.630956590175629,
+				"peak_s": 0.841904761904762,
+				"retract_ms": null
+			},
+			"start_s": 0.0
+		}
+	],
+	"population": {
+		"fps": 60,
+		"guard": "wrist in chest frame, mean over idle",
+		"home_fraction": 0.25
+	}
+}

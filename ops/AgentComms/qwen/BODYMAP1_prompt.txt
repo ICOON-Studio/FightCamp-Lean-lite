@@ -1,0 +1,1 @@
+You work in E:\FightCamp\wt\LEAN_BODYMAP1 (a git worktree of the Lean game repo, branch qwen/bodymap1). Read TASK_BODYMAP1.md in that folder and do exactly what it says: create scripts/rules/BodyMap.gd and tests/body_map_test.gd, run the two headless tests it names, commit on qwen/bodymap1. Do not touch any other file. Do not open any window. Do not push.

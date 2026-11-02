@@ -1,0 +1,1 @@
+﻿You work in E:\FightCamp\wt\LEAN_HABITBEATS1 (a git worktree of the Lean game repo, branch qwen/habitbeats1). Read TASK_HABITBEATS1.md in that folder and do exactly what it says: create scripts/rules/HabitBeats.gd and tests/habit_beats_test.gd, run the three headless tests it names, commit on qwen/habitbeats1. Do not touch any other file. Do not open any window. Do not push.

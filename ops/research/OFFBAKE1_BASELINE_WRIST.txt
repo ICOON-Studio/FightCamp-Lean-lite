@@ -1,0 +1,70 @@
+R75-RC=1
+2026-10-15 20:30:57 AMBER C_free=28GB E_free=60.6GB RAM=83% COMMIT_free=16.9GB CPU=30% TEMP=83C(LHM)[peak 84] top: brave=5375MB firefox=4371MB claude=3314MB ChatGPT=2908MB
+  AMBER Temperature 83 C.
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WRIST_STAGE {"Left":19.2744762339796,"Right":27.3769605991837,"body":"source","file":"res://assets/anim/metahuman/mh_guard_pose.glb","role":"guard_pose","stage":"native_guard_start","time":0.0}
+WRIST_GATE native guard native_guard_start Left value=19.274476 limit=10.000000 FAIL
+WRIST_GATE native guard native_guard_start Right value=27.376961 limit=10.000000 FAIL
+WRIST_STAGE {"Left":19.2744762339796,"Right":27.3769605991837,"body":"source","file":"res://assets/anim/metahuman/mh_guard_pose.glb","role":"guard_pose","stage":"native_guard_end","time":0.666666666666667}
+WRIST_GATE native guard native_guard_end Left value=19.274476 limit=10.000000 FAIL
+WRIST_GATE native guard native_guard_end Right value=27.376961 limit=10.000000 FAIL
+WRIST_STAGE {"Left":19.2744762339796,"Right":27.3769605991837,"body":"source","file":"res://assets/anim/metahuman/mh_guard_pose.glb","role":"guard_pose","stage":"native_guard_hold","time":0.6}
+WRIST_GATE native guard native_guard_hold Left value=19.274476 limit=10.000000 FAIL
+WRIST_GATE native guard native_guard_hold Right value=27.376961 limit=10.000000 FAIL
+WRIST_STAGE {"Left":19.2744762339796,"Right":27.3769605991837,"body":"source","file":"res://assets/anim/metahuman/mh_jab.glb","role":"jab","stage":"native_guard_start","time":0.0}
+WRIST_STAGE {"Left":19.2744762339796,"Right":27.3769605991837,"body":"source","file":"res://assets/anim/metahuman/mh_jab.glb","role":"jab","stage":"native_guard_end","time":0.666666666666667}
+WRIST_STAGE {"Left":17.3057715359191,"Right":23.7908449075494,"body":"source","file":"res://assets/anim/metahuman/mh_jab.glb","role":"jab","stage":"native_contact","time":0.266666666666667}
+WRIST_STAGE {"Left":19.2744762339796,"Right":27.3769605991837,"body":"source","file":"res://assets/anim/metahuman/mh_cross.glb","role":"cross","stage":"native_guard_start","time":0.0}
+WRIST_STAGE {"Left":19.2744762339796,"Right":27.3769605991837,"body":"source","file":"res://assets/anim/metahuman/mh_cross.glb","role":"cross","stage":"native_guard_end","time":0.666666666666667}
+WRIST_STAGE {"Left":20.6310149823939,"Right":18.1867259199727,"body":"source","file":"res://assets/anim/metahuman/mh_cross.glb","role":"cross","stage":"native_contact","time":0.266666666666667}
+WRIST_STAGE {"Left":19.2744762339796,"Right":27.3769605991837,"body":"source","file":"res://assets/anim/metahuman/mh_lead_hook.glb","role":"lead_hook","stage":"native_guard_start","time":0.0}
+WRIST_STAGE {"Left":19.2744762339796,"Right":27.3769605991837,"body":"source","file":"res://assets/anim/metahuman/mh_lead_hook.glb","role":"lead_hook","stage":"native_guard_end","time":0.666666666666667}
+WRIST_STAGE {"Left":37.9788468232219,"Right":18.277352284975,"body":"source","file":"res://assets/anim/metahuman/mh_lead_hook.glb","role":"lead_hook","stage":"native_contact","time":0.266666666666667}
+WRIST_STAGE {"Left":19.2744762339796,"Right":27.3769605991837,"body":"source","file":"res://assets/anim/metahuman/mh_inside_uppercut.glb","role":"inside_uppercut","stage":"native_guard_start","time":0.0}
+WRIST_STAGE {"Left":19.2744762339796,"Right":27.3769605991837,"body":"source","file":"res://assets/anim/metahuman/mh_inside_uppercut.glb","role":"inside_uppercut","stage":"native_guard_end","time":0.666666666666667}
+WRIST_STAGE {"Left":14.1097612449564,"Right":26.2310665923199,"body":"source","file":"res://assets/anim/metahuman/mh_inside_uppercut.glb","role":"inside_uppercut","stage":"native_contact","time":0.266666666666667}
+WRIST_STAGE {"Left":19.0594789543805,"Right":19.3185907182814,"body":"source","file":"res://assets/anim/c223/c237/active_guard.glb","role":"idle","stage":"source_raw_clock","time":0.6}
+WRIST_STAGE {"Left":19.0594789543805,"Right":19.3185907182814,"body":"source","file":"res://assets/anim/c223/c237/active_guard.glb","role":"idle","stage":"source_matching_game_clock","time":0.6}
+WRIST_GATE source guard Left value=19.059479 limit=10.000000 FAIL
+WRIST_GATE source guard Right value=19.318591 limit=10.000000 FAIL
+WRIST_STAGE {"Left":17.3279184243028,"Right":19.7359101539273,"body":"02","role":"idle","stage":"retarget","time":0.6}
+WRIST_GATE shipped guard MH02 Left value=17.327918 limit=10.000000 FAIL
+WRIST_GATE shipped guard MH02 Right value=19.735910 limit=10.000000 FAIL
+WRIST_STAGE {"Left":17.3279184243028,"Right":19.7359101539273,"body":"02","role":"idle","stage":"production_pose_layer","time":0.6}
+WRIST_GATE MH02 idle Left value=17.327918 limit=22.059479 OK
+WRIST_GATE MH02 idle Right value=19.735910 limit=22.318591 OK
+WRIST_STAGE {"Left":18.1965801753978,"Right":16.8221770672092,"body":"05","role":"idle","stage":"retarget","time":0.6}
+WRIST_GATE shipped guard MH05 Left value=18.196580 limit=10.000000 FAIL
+WRIST_GATE shipped guard MH05 Right value=16.822177 limit=10.000000 FAIL
+WRIST_STAGE {"Left":18.1965801753978,"Right":16.8221770672092,"body":"05","role":"idle","stage":"production_pose_layer","time":0.6}
+WRIST_GATE MH05 idle Left value=18.196580 limit=22.059479 OK
+WRIST_GATE MH05 idle Right value=16.822177 limit=22.318591 OK
+WRIST_STAGE {"Left":17.5258624290917,"Right":21.1601480298475,"body":"08","role":"idle","stage":"retarget","time":0.6}
+WRIST_GATE shipped guard MH08 Left value=17.525862 limit=10.000000 FAIL
+WRIST_GATE shipped guard MH08 Right value=21.160148 limit=10.000000 FAIL
+WRIST_STAGE {"Left":17.5258624290917,"Right":21.1601480298475,"body":"08","role":"idle","stage":"production_pose_layer","time":0.6}
+WRIST_GATE MH08 idle Left value=17.525862 limit=22.059479 OK
+WRIST_GATE MH08 idle Right value=21.160148 limit=22.318591 OK
+WRIST_STAGE {"Left":16.9706773325964,"Right":19.8171347635371,"body":"09","role":"idle","stage":"retarget","time":0.6}
+WRIST_GATE shipped guard MH09 Left value=16.970677 limit=10.000000 FAIL
+WRIST_GATE shipped guard MH09 Right value=19.817135 limit=10.000000 FAIL
+WRIST_STAGE {"Left":16.9706773325964,"Right":19.8171347635371,"body":"09","role":"idle","stage":"production_pose_layer","time":0.6}
+WRIST_GATE MH09 idle Left value=16.970677 limit=22.059479 OK
+WRIST_GATE MH09 idle Right value=19.817135 limit=22.318591 OK
+WRIST_STAGE {"Left":23.391263473178,"Right":39.120649546773,"body":"source","file":"res://assets/anim/c223/mixamo_pipeline_a/Boxing_Lead_Hand_Uppercut.glb","role":"boxing_lead_uppercut","stage":"source_raw_clock","time":0.6}
+WRIST_STAGE {"Left":15.063456289897,"Right":37.4346583312904,"body":"source","file":"res://assets/anim/c223/mixamo_pipeline_a/Boxing_Lead_Hand_Uppercut.glb","role":"boxing_lead_uppercut","stage":"source_matching_game_clock","time":0.784633325}
+WRIST_STAGE {"Left":14.8022459503736,"Right":40.186644000726,"body":"02","role":"boxing_lead_uppercut","stage":"retarget","time":0.6}
+WRIST_STAGE {"Left":14.8022135069751,"Right":40.186644000726,"body":"02","role":"boxing_lead_uppercut","stage":"production_pose_layer","time":0.6}
+WRIST_GATE MH02 boxing_lead_uppercut Right value=40.186644 limit=40.434658 OK
+WRIST_STAGE {"Left":13.2386184276454,"Right":35.5262727413375,"body":"05","role":"boxing_lead_uppercut","stage":"retarget","time":0.6}
+WRIST_STAGE {"Left":13.2386329417974,"Right":35.5262385903917,"body":"05","role":"boxing_lead_uppercut","stage":"production_pose_layer","time":0.6}
+WRIST_GATE MH05 boxing_lead_uppercut Right value=35.526273 limit=40.434658 OK
+WRIST_STAGE {"Left":15.483589763481,"Right":41.7267184698751,"body":"08","role":"boxing_lead_uppercut","stage":"retarget","time":0.6}
+WRIST_STAGE {"Left":15.483642697447,"Right":41.7266604132672,"body":"08","role":"boxing_lead_uppercut","stage":"production_pose_layer","time":0.6}
+WRIST_GATE MH08 boxing_lead_uppercut Right value=41.726718 limit=40.434658 FAIL
+WRIST_STAGE {"Left":14.7374308702448,"Right":40.7362010213453,"body":"09","role":"boxing_lead_uppercut","stage":"retarget","time":0.6}
+WRIST_STAGE {"Left":14.7373813513733,"Right":40.7361634553048,"body":"09","role":"boxing_lead_uppercut","stage":"production_pose_layer","time":0.6}
+WRIST_GATE MH09 boxing_lead_uppercut Right value=40.736201 limit=40.434658 FAIL
+GUARD_WRIST_LINE failures=18
+

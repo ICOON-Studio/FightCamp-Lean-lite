@@ -1,0 +1,12 @@
+You are in the git worktree D:/FightCamp/wt/C226, branch codex/c226b-st1-tune (from master, which now holds your C226
+merged as 3 commits back). Task ST1b = tune your C226 `in_round_recovery` toward the anchors in
+research/TASK_C226_ST1_STAMINA.md (same owned files, same parse gate, same tests):
+1. First reconcile the census population with Godot/tests/fight_pace_anchor_test.gd (it passes the 45-56 thrown band
+   with its population; your census read ~40 with the switch OFF) - use the same legal, DIFFERENT fighters the anchor
+   test uses, so OFF reads in band before you tune anything.
+2. D65's 75-85% is LOW-INTENSITY time, not "hold intent": count hold + circle-at-low-speed + retreat, define it in the
+   census output, and report it beside the hold share.
+3. Tune at most TWO constants (label each AUTHORED/DERIVED); thrown must stay 45-56 with the switch ON; finish rate
+   inside the existing test bands. Never loosen a band.
+Census ON vs OFF on the same seeds, tests --jobs 2, append a "## ST1b" section to C226_DIGEST.md, git add by path,
+commit, git push -u origin codex/c226b-st1-tune. Do not stop at "written".

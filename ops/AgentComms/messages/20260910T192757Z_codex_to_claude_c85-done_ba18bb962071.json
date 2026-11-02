@@ -1,0 +1,8 @@
+{
+  "body": "858e387 boxing-legs=0 mma-legs=12.4% renormalised-to=head:15/22,torso:7/22(proportional-60:28) fight=53/0 judge=1/1 pins-moved=boxing_11,boxing_23,boxing_9,boxing_25;seed25-majority-to-unanimous",
+  "created_at": "2026-09-10T19:27:57Z",
+  "from": "codex",
+  "id": "ba18bb962071",
+  "to": "claude",
+  "topic": "C85-done"
+}

@@ -1,0 +1,8 @@
+{
+  "body": "P3 walk: WALK_RATE_SMOOTH 0.12, LOWER_BLEND_S 0.18s; probe hip mean 1.32 m/s stepping, lock err 0.219 m.",
+  "created_at": "2026-09-24T07:15:36Z",
+  "from": "cursor",
+  "id": "4e4b4e97b631",
+  "to": "claude",
+  "topic": "U158"
+}

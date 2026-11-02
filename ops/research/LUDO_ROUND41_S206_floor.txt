@@ -1,0 +1,197 @@
+
+
+FIGHTCAMP — GYM FLOOR ARCHITECTURAL REVIEW & PLAN CORRECTION (ROUND 41)
+
+Coordinate System (Engine-Locked):
+
+$x \in [0.0, 30.0]\text{ m}$ from West (viewer’s left) to East (viewer’s right).
+$z \in [0.0, 18.0]\text{ m}$ from Back Wall (top of still, north behind ring) to Front / Room Wall (bottom of still, south along interior doors).
+$y \in [0.0, 4.2]\text{ m}$ Vertical clearance (floor to steel rafter joists).
+A) VERDICT: 7.2 / 10
+Why It Scores a 7.2:
+
+The revised floor plan is structurally sound and avoids the obvious amateur errors of previous passes (no floating punch bags, no crates, no first-aid cabinets scattered across workout zones). A knowledgeable boxing coach or historian looking at your zones will immediately recognize the influence of authentic working-class gyms: the ring positioned as an elevated centerpiece against the back wall, a clear distinction between the striking floor and ancillary conditioning, and bag lines kept along perimeter walls.
+
+Why It Loses 2.8 Points:
+
+The "Spreadsheet Zoning" Aesthetic (The Simulation/Tycoon Critique):
+
+While the northern half ($z \in [0, 10.4]$) feels like a boxing gym, the southern strip ($z \in [11.6, 16.4]$) resembles a clean modular spreadsheet from Two Point Hospital. In a real boxing gym (such as Kronk, Gleason's, or Mayweather Boxing Club), flooring materials do not transition across four razor-straight, unbuffered stripes: Rubber -> Mats -> Turf -> Rubber.
+Turf tracks running directly parallel to an Olympic lifting platform create an immersion break. Real gyms either run a dedicated sled lane against an exterior wall or skip artificial turf altogether in a Tier 1 hall, opting instead for heavy scuffed timber or uniform heavy-duty rubber matting.
+
+The "Ghost Hall" Problem (Dead Space vs. Active Space):
+
+In your still, the East Boxing Floor ($x \in [22.1, 30.0], z \in [3.5, 10.4]$) appears sparse and underutilized. Two solitary double-end balls placed in the middle of a massive open floor look like misplaced poles rather than an active training station. In real gyms, double-end balls are suspended between floor plates and ceiling beams, positioned adjacent to mirror walls or tucked just behind heavy bags where coaches can monitor timing drills.
+
+Management Sim Feedback Loop:
+
+For an FM-class game, a player evaluates floor space through three metrics: throughput (how many fighters can train simultaneously without bottlenecking), coach sightlines (how efficiently a trainer can observe multiple stations), and wear/flow (identifying high-traffic wear zones). Your current layout isolates stations into rigid boxes, which hinders realistic athlete pathing and natural grouping.
+B) RULE-BY-RULE AUDIT (OUR 10 RULES)
+Rule 1: Bags Hang from Beams/Rails along Walls (~1.2 m off wall, 2–3 m on-center)
+Status: CORRECT — STRICT COMPLIANCE.
+Real-Gym Assessment: Mounting bags via brackets off perimeter walls or hanging them from reinforced steel I-beams running parallel to the masonry (as seen at Gleason’s and Wild Card) is the industry standard. A spacing of $1.9\text{ m}$ to $2.2\text{ m}$ on-center allows for lateral movement, footwork circling, and bag oscillation without fighters colliding. Setting the bags $1.2\text{ m}$ off the wall ensures fighters can slip behind them without striking the brickwork.
+Rule 2: 8–12 Heavy Bags, 1–3 Speed Bags, 1–2 Double-End Balls
+Status: ACCEPTED (8 Heavy, 2 Speed, 3 Double-End).
+Real-Gym Assessment: A 13-station bag capacity matches the training volume of an active Tier 1 boxing club supporting 6 to 12 fighters per session. The balance of 8 heavy bags (power/conditioning), 2 speed bags (hand-eye speed/rhythm), and 3 double-end bags (timing/evasion) accurately represents a traditional training cycle.
+Rule 3: Ring at the Back, $\ge 1\text{ m}$ off Wall, 1.2 m Clear Perimeter
+Status: PASSES WITH ONE CORRECTION.
+Real-Gym Assessment: Placing the ring against the back wall ($z \in [1.0, 8.8]$) preserves precious floor space. However, placing the ring apron only $1.0\text{ m}$ from the back brick wall ($z=0.0$) creates a real-world safety hazard. When a fighter rebounds off the ropes or a coach circles the apron, that corridor becomes dangerously cramped.
+Adjustment: Increase the back clearance to $1.2\text{ m}$ (shift the ring forward to $z=1.2$) so the buffer is uniform on all four sides.
+Rule 4: Open Wood Floor for Shadow Boxing, Pads, Slip Rope & Mirrors
+Status: EXCELLENT — CORE BOXING IDENTITY.
+Real-Gym Assessment: The West floor ($x \in [0.0, 11.6], z \in [3.5, 10.4]$) is the most authentic zone in your plan. Hardwood is preferred over rubber for boxing footwork because it allows fighters to pivot on the balls of their feet without excessive friction, reducing torque on knees and ankles. The pairing of a wide mirror with open floor space reflects proper boxing gym design.
+Rule 5: Unobstructed Walk Lanes (Bag Lane, 1.2 m Cross Aisle, Front Aisle)
+Status: STRUCTURALLY SOUND.
+Real-Gym Assessment: The $1.2\text{ m}$ cross aisle connecting directly to the East fire exit at $(30.0, 11.0)$ complies with commercial fire codes (NFPA / UK Building Regulations Part B). The continuous $1.6\text{ m}$ front aisle ($z \in [16.4, 18.0]$) provides smooth, unhindered pathfinding across all administrative and service doors.
+Rule 6: Cardio Secondary in One Corner (3 Machines)
+Status: AUTHENTIC.
+Real-Gym Assessment: Boxing clubs do not waste valuable floor space on endless rows of treadmills. Roadwork is done outside; indoor cardio is used primarily for weight cuts or bad-weather warmups. A compact corner cluster of an air bike, a rower, and a treadmill is realistic and practical.
+Rule 7: ONE Strength Corner on Rubber, Beside (Not Across) Traffic
+Status: CORRECT POSITIONING, MATERIAL NEEDS UNIFICATION.
+Real-Gym Assessment: Placing strength equipment at the South-East corner ($x \in [18.0, 30.0], z \in [11.6, 16.4]$) keeps heavy iron plates, chalk, and dropped barbells safely away from the fast footwork of the central boxing floor.
+Rule 8: Recovery/Stretch Quiet and Separate by Physio Door
+Status: ACCURATE.
+Real-Gym Assessment: Locating stretching mats at $x \in [6.8, 10.6], z \in [11.6, 16.4]$ immediately outside the physio room door ($x=7.2$) creates a logical sports-medicine recovery loop.
+Rule 9: Lockers, Office, Reception, First Aid OFF the Floor
+Status: MANDATORY RULE OBSERVED.
+Real-Gym Assessment: Treating administrative, medical, and sanitary facilities as external rooms accessed via doors keeps the gym floor focused strictly on training.
+Rule 10: No Filler Elements
+Status: REFINEMENT REQUIRED.
+Real-Gym Assessment: Avoiding filler is crucial, but removing items without replacing them with functional boxing equipment creates an overly sterile environment. A working gym has essential, practical equipment: weight scales, water coolers, jump rope racks, and round timers.
+C) THE PAINT-OVER CHOICES & EXACT PLAN REVISIONS
++-----------------------------------------------------------------------------------------------------------------------------+
+| FREESTANDING BAG RIGS VS. PERIMETER BEAMS: THE REAL-WORLD TRADEOFF                                                          |
++-----------------------------------------------------------------------------------------------------------------------------+
+| 1. PERIMETER BEAMS (Wild Card / Whitby / Your Plan):                                                                        |
+|    - Mounts directly to structural brick walls via heavy brackets.                                                          |
+|    - Leaves the entire central floor completely open for sparring, mitts, and footwork drills.                             |
+|    - Best fit for clubs prioritizing large classes and open movement space.                                                 |
+|                                                                                                                             |
+| 2. CENTRAL FREESTANDING RIGS (TITLE Boxing / Gleason's Centre-Rigs / Paint-Over):                                           |
+|    - Heavy-gauge structural steel frame bolted directly into floor anchors.                                                 |
+|    - Condenses bag stations into high-density training blocks, but breaks open floor sightlines.                           |
+|                                                                                                                             |
+| VERDICT FOR FIGHTCAMP:                                                                                                      |
+| KEEP YOUR PERIMETER WALL BEAMS. They preserve the open hardwood floor and maintain clear sightlines for management cameras. |
++-----------------------------------------------------------------------------------------------------------------------------+
+
+1. Analysis of the Paint-Over Changes:
+Freestanding Overhead Bag Frames: The paint-over introduced central, free-standing steel multi-bag frames. While common in modern franchise gyms (like TITLE Boxing Club) to pack 20+ bags into a commercial space, traditional boxing gyms avoid them because central upright posts obstruct shadowboxing and mitt work. Verdict: Stick with your perimeter wall-beam design.
+Unified Timber Flooring Across the Hall: The paint-over replaced the artificial turf and striped mats with uniform, scuffed timber. Verdict: Adopt this change for the northern and central training areas ($z \in [0.0, 11.6]$), but retain heavy-duty black rubber matting across the southern strength and cardio zones ($z \in [11.6, 16.4]$) to protect the floor from dropped weights.
+Removal of the Turf Strip: Artificial turf with agility ladders is common in modern fitness centers, but out of place in a classic boxing club, where fighters do footwork drills directly on the ring canvas or wood floor. Verdict: Remove the turf strip and replace it with open wooden skipping and footwork space.
+2. Numbered List of Exact Coordinate Changes:
+========================================================================================================
+                          REVISED FIGHTCAMP T1 GYM FLOOR COORDINATE MANIFEST
+========================================================================================================
+All coordinates: [x0, z0, x1, z1] in metres. Origin (0,0) = Northwest corner (Back-West).
+========================================================================================================
+
+
+Shift Sparring Ring South by 0.2 m:
+
+Old Bounds: $[13.0, 1.0, 20.8, 8.8]$
+New Bounds: $[13.0, 1.2, 20.8, 9.0]$
+Reason: Ensures a uniform $1.2\text{ m}$ safety perimeter against the back wall ($z=0.0$), satisfying professional sanctioning standards.
+
+Reallocate East Boxing Floor (Add Heavy Bags 7 & 8):
+
+Old Position: Two isolated heavy bags on beam S along the east wall at $(28.85, 5.0)$ and $(28.85, 8.0)$.
+New Position: Move both heavy bags to the Northeast wall line on Beam E at $[23.5, 1.2]$ and $[26.5, 1.2]$.
+Reason: Groups heavy bag training along the northern wall, freeing up the eastern floor for technical drills.
+
+Reposition the Double-End Bags:
+
+Old Position: Floating awkwardly at $(10.4, 8.8)$, $(24.2, 5.2)$, and $(24.2, 8.4)$.
+New Coordinates:
+Double-End Bag 1: $(11.2, 4.2)$ (Anchored near the West technical floor edge).
+Double-End Bag 2: $(28.8, 4.5)$ (Tucked along the East wall).
+Double-End Bag 3: $(28.8, 7.5)$ (Tucked along the East wall).
+Reason: Moves tension cables out of primary walkways and sets them safely along wall margins.
+
+Remove Artificial Turf Strip; Extend Hardwood Boxing Floor:
+
+Old Turf Bounds: $[10.8, 11.6, 17.8, 16.4]$
+New Surface: Hardwood flooring $[10.8, 11.6, 17.8, 16.4]$ designated as the Open Footwork & Skipping Zone.
+Item Added: Place Agility Ladder flat within $[11.5, 12.2, 13.0, 15.8]$.
+Reason: Maintains an authentic gym look while keeping the footwork training station intact.
+
+Reorganize the Strength Corner ($x \in [18.0, 30.0], z \in [11.6, 16.4]$):
+
+Surface: Uniform industrial vulcanized black rubber.
+Power Rack: Shift to $[18.4, 12.0, 20.6, 14.2]$.
+Olympic Lifting Platform: Position at $[21.0, 12.0, 23.6, 14.6]$.
+Flat Bench: Set at $[24.2, 12.6, 25.8, 14.0]$.
+Dumbbell Rack: Anchor flush against the East wall at $[29.2, 12.0, 29.8, 15.8]$.
+Compact Weights (Plate Trees): Position at $[26.2, 12.0, 27.6, 13.2]$.
+Reason: Moves heavy lifting stations safely away from foot traffic while keeping plate loading accessible.
+
+Consolidate Cardio Cluster ($x \in [0.0, 6.6], z \in [11.6, 16.4]$):
+
+Surface: Industrial vulcanized black rubber.
+Treadmill: Orient facing into the gym at $[0.6, 12.0, 1.8, 14.2]$.
+Air Bike: Position at $[2.4, 12.0, 3.4, 13.6]$.
+Rower: Position at $[4.0, 12.0, 5.2, 14.4]$.
+Reason: Clears a clean $1.4\text{ m}$ walkway buffer in front of the machines for foot traffic exiting the locker rooms.
+
+Reconfigure Stretch & Mobility Zone ($x \in [6.8, 10.6], z \in [11.6, 16.4]$):
+
+Stretch Mats: Set two high-density foam mats side by side at $[7.2, 12.2, 10.2, 15.2]$.
+Reason: Leaves a clear path directly outside the physio room door ($x=7.2, z=16.4$).
+D) WALL DRESSING MANIFEST (FOUR WALLS)
+
+To make the gym feel grounded and lived-in, the walls should display the authentic signage, safety gear, and fight memorabilia typical of an active boxing club:
+
++----------------------------------------------------------------------------------------------------+
+| GYM PERIMETER ELEVATIONS & WALL DRESSING                                                           |
++----------------------------------------------------------------------------------------------------+
+
+1. North Wall (Back Wall Behind the Ring, $z = 0.0$, $x \in [0.0, 30.0]$)
+$x \in [2.9, 10.6]$, $y = 3.5\text{ m}$: Exposed steel I-beam with 5 heavy gusseted wall brackets supporting Heavy Bags 1–4.
+$x \in [13.2, 20.6]$, $y \in [2.2, 3.2]\text{ m}$: Large hand-painted club sign on distressed brickwork: "ANVIL STREET AMATEUR BOXING CLUB".
+$x = 12.2, y = 2.4\text{ m}$: Digital interval round timer clock (bright amber/green LED display: 02:47 | ROUND 04).
+$x \in [22.0, 29.0]$, $y \in [1.8, 2.8]\text{ m}$: Historic fight bills and classic boxing posters (e.g., iconic domestic title bouts, regional golden gloves tournaments).
+2. West Wall ($x = 0.0$, $z \in [0.0, 18.0]$)
+$z \in [0.3, 2.7]$, $y = 1.8\text{ m}$: Two wall-mounted timber speed bag platforms with chrome swivel brackets.
+$z \in [3.7, 4.9]$, $y = 1.6\text{ m}$: Heavy-duty wooden glove peg rails holding 8 pairs of lace-up sparring gloves and training mitts.
+$z \in [5.6, 10.2]$, $y \in [0.4, 2.6]\text{ m}$: Large continuous full-height shadowboxing mirror with safety backing, framed in clean matte black steel.
+$z = 11.2, y = 2.0\text{ m}$: Wall-mounted analog sweep-second gym clock.
+3. East Wall ($x = 30.0$, $z \in [0.0, 18.0]$)
+$z = 11.0$, $y \in [0.0, 2.2]\text{ m}$: Industrial emergency fire exit door with crash bar, illuminated overhead emergency exit sign, and clear threshold markings.
+$z \in [1.5, 9.5]$, $y \in [1.6, 2.6]\text{ m}$: Framed club records, newspaper clippings, regional champion photos, and hand-wrap drying hooks.
+$z \in [12.0, 15.8]$, $y = 2.0\text{ m}$: Steel dumbbell rack backing plate with printed dumbbell weight labels (5 kg to 40 kg).
+4. South Wall (Room & Entrance Wall, $z = 18.0$, $x \in [0.0, 30.0]$)
+$x = 1.8\text{ m}$: Sturdy wooden door labeled LOCKER ROOM & SHOWERS.
+$x = 7.2\text{ m}$: Frosted glass interior door labeled PHYSIOTHERAPY & MEDICAL.
+$x = 11.3\text{ m}$: Main reinforced double entrance doors labeled STREET ENTRANCE / RECEPTION.
+$x = 14.1\text{ m}$: Interior door with upper window pane labeled HEAD COACH & MANAGEMENT OFFICE.
+$x = 25.0\text{ m}$: Heavy-duty sheet-metal door labeled EQUIPMENT STORE & UTILITY.
+$x \in [16.0, 23.0]$, $y = 1.8\text{ m}$: Cork bulletin board pinned with tournament schedules, regional ranking sheets, sparring rules, and licensing notices.
+E) RESOLVING REMAINING DEAD SPACE
+
+Examining your still shows two noticeable dead zones that make the space look unfinished:
+
++----------------------------------------------------------------------------------------------------+
+| DEAD SPACE TRIAGE (WHERE THE FLOOR LOSES BELIEVABILITY)                                             |
++----------------------------------------------------------------------------------------------------+
+| 1. THE EAST TECHNICAL FLOOR [x: 22.1 to 30.0, z: 3.5 to 10.4]                                       |
+|    - Current: A wide patch of empty wood with two isolated double-end bags.                        |
+|    - Real Gym Fix: Anchor this area as the TECHNICAL COACHING & MITT STATION.                      |
+|                                                                                                    |
+| 2. THE RINGSIDE CORRIDOR [x: 10.0 to 12.8, z: 1.2 to 8.8]                                          |
+|    - Current: An empty 2.8m concrete gap between the ring stairs and the bag line.                  |
+|    - Real Gym Fix: Turn this into the CORNER COACH OBSERVATION POST & HYDRATION BENCH.             |
++----------------------------------------------------------------------------------------------------+
+
+1. The East Technical Floor ($x \in [22.1, 30.0], z \in [3.5, 10.4]$)
+The Problem: In the still, this area appears deserted, creating an uneven visual balance compared to the busy west side of the gym.
+The Solution (Technical Pad & Slip Rope Station):
+Slip Rope / Maize Bag Line: Rig an adjustable nylon slip rope spanning from the ring corner post at $(20.8, 5.0)$ across to the East wall mount at $(29.8, 5.0)$. This creates an authentic station for head-movement and bob-and-weave drills.
+Floor Chalk Drill Grid: Add painted line markers at $[24.0, 6.0, 27.5, 9.5]$ for footwork pivot drills.
+Trainer Pad Caddy: Add a rolling wire equipment basket for focus mitts, Thai pads, and body shields along the wall at $[29.2, 9.2, 29.8, 10.2]$.
+2. The Ringside Western Gap ($x \in [10.0, 12.8], z \in [1.2, 8.8]$)
+The Problem: The open space between the western bag line and the ring stairs looks deserted.
+The Solution (Corner Corner-Team Hub):
+Hydration & Corner Hub: Add a trainer's wooden equipment table at $[10.4, 2.0, 11.6, 3.2]$ holding water bottles, spray bottles, corner towels, and an enamel ice bucket.
+Weigh-In Station: Place a classic mechanical balance-beam physician's scale against the brick wall at $[11.5, 0.4, 12.4, 1.0]$. A balance-beam scale is a signature fixture in any serious boxing club, grounding the space immediately in the realities of fight preparation.
+Can you rewrite the review using only verified game facts, without inventing equipment, dimensions, or objects outside our catalogue?
+Can you provide the exact 10-rule assessment and coordinate rectangles for every catalogue item, including clearances and excluded walk lanes?

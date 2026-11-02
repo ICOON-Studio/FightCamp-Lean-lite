@@ -1,0 +1,37 @@
+open chat: 'Kalli'
+open chat: 'Kalli'
+--- would send (2320 chars) ---
+# TASK K47 - Design the gym's FILM ROOM (scouting) as a buildable spec + concept images (Kalli, design)
+
+Self-contained design brief for a browser agent (Grok). No repo access needed. Deliver a written spec and images.
+
+## Context
+FightCamp is a boxing (later MMA) gym-management game with 3D rooms seen from a fixed three-quarter room camera (like a
+cut-away dollhouse view). Existing rooms: office, locker room, lobby, mat room, staff room, physio, all bright and warm
+("bright and alive" - dark or empty reads as abandoned). The FILM ROOM is not built. In the game it is where the manager
+SCOUTS an opponent before booking or in fight camp: watches his fights, reads his habits, and picks a game plan.
+
+## Reference
+The painted mood target for this room is attached (repo: `previews/con...
+attached 1 file(s); waiting for upload
+sent; waiting for the reply...
+timed out waiting for a settled reply (bot status: idle); showing what is on screen
+--- tail ---
+  3. People
+  The coach stands at (4.7, 1.6) in a black tracksuit and cap, facing the screen and holding a red laser pointer. He pause
+  Fighter one sits at (3.0, 3.5) and fighter two at (4.0, 3.5). Both lean forward and write in notebooks.
+  These use the existing rigs. They loop idle, note-taking and pointing clips, and the coach's laser dot is a small red sp
+  4. Clickable objects
+  The screen opens the opponent's fight footage.
+  The whiteboard opens his tendencies: jab share, favourite punch and stamina fade.
+  The folder stack on the desk opens his record.
+  The laptop opens the game plan.
+  Optional fifth: the binder shelf opens the list of other scouted fighters. It is the cheapest way to switch target.
+  Hover draws a thin brass outline and a label of at most 14 characters. This is the only gold in the frame.
+  5. Lighting and mood
+  Daytime-bright ambient from the window plus the downlights, so the room never reads as abandoned. The screen is the brig
+  Palette: slate wall #2F353B, floor #24282C, walnut #5D4037, screen glow #DCEBFF, laser red #E03A2F. The brass accent fro
+  6:00 AM
+  You’re at 90% of your weekly usage limit. It resets in 2 days.
+  Get More Usage
+  Kalli replied

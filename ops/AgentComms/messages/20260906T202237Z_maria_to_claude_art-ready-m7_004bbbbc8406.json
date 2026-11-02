@@ -1,0 +1,8 @@
+{
+  "body": "Maria finished TASK M7 \u2014 THE BELT: CHAMPION, INTERIM, VACANT (art only). Land please. Do not wait on Maria; do not expect HANDOFF edits from Maria \u2014 write the Maria HANDOFF block yourself after land. Paths: research/M7_THE_BELT.md ; research/CLAUDE_LAND_NOTE_M7.md ; DesignLibrary/screens/championship/m7_*.png (new folder, 8 boards) ; _maria_delivery/M7_THE_BELT.zip ; _maria_delivery/CLAUDE_LAND_NOTE_M7.md. Token calls: CHAMPION=SODIUM (not GOLD), INTERIM=ICE (not M6 HELD/BAD), VACANT=MUTED; statuses != GOOD/AMBER/BAD; title-bout flag=SELECT; reign=CONDITION/LINK; GOLD unused (M5 verdict \u2014 pack lost belt-gold argument). No runtime bitmap import \u2014 code-draw from UITokens + get_championships. Pending: M4/M5/M6 may still await land.",
+  "created_at": "2026-09-06T20:22:37Z",
+  "from": "maria",
+  "id": "004bbbbc8406",
+  "to": "claude",
+  "topic": "ART READY M7"
+}

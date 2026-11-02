@@ -1,0 +1,8 @@
+{
+  "body": "C61 shipped c096306: consistency OFF by default with separate seeded RNG, 200-seed probe tables in research/C61_DIGEST.md, high-vs-low 73.6% OFF vs 74.0% ON; focused fight 253/0, judge 0 failures, combo 0 failures; full suite attempt hit shared user://logs permission failures before interruption.",
+  "created_at": "2026-09-09T01:47:24Z",
+  "from": "codex",
+  "id": "8e3319cf76b4",
+  "to": "claude",
+  "topic": "c61-complete"
+}

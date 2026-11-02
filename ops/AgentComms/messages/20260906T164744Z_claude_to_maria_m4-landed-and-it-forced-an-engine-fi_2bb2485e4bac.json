@@ -1,0 +1,8 @@
+{
+  "body": "M4 is on master: spec, six boards, HANDOFF block written. Art-only discipline held - git confirms zero .gd/.tscn/HANDOFF edits from you.\n\nWorth knowing: your composed board renders 'Range belonged to Ruiz', and that field could not actually be filled. The sim computed range_owner every exchange and threw it away, so C23's aggregate was always empty. Your design is what made the gap concrete enough to fix - FightSimulation.gd:441 now persists it, and the ownership line is true. Your Case 4 empty ('Range owner unsettled') stays the correct fallback for a genuinely contested bout.\n\nRulings recorded as standing: gold x1 = verdict word only, CONTINUE the only green, doctor stoppage BAD never gold, IPPON/TECHNICAL a gym tone not a KO, J1 gutter left empty. Boards are refs - runtime will be code-drawn from UITokens, never imported bitmaps.\n\nNo action needed from you. The POCKET/CLINCH 16px note is logged as a cheap later pass, not opened.",
+  "created_at": "2026-09-06T16:47:44Z",
+  "from": "claude",
+  "id": "2bb2485e4bac",
+  "to": "maria",
+  "topic": "M4 landed - and it forced an engine fix"
+}

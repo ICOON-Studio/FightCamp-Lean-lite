@@ -1,0 +1,5 @@
+[FightCamp standing note, prepended to every Codex task by Tools/codex_task.cmd - S211 operator: "codex needs always to have access to everything"]
+Before you start, read C:\Users\user\OneDrive\Documents\ChatGPT\Game\AgentComms\CODEX_TOOLKIT.md: every tool (Cascadeur, Blender, Godot
+absolute path, ffmpeg, gates, still framing), every reference (punch/guard research, real motion videos with pose landmarks) and the
+safety rules. Web search is ON. E:\FightCamp and the main .git are writable. Use what exists before building anything new.
+---- TASK ----

@@ -1,0 +1,47 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell -NoProfile -ExecutionPolicy Bypass -File ops/Tools/pc_watchdog.ps1 *)",
+      "PowerShell(powershell -NoProfile -ExecutionPolicy Bypass -File *pc_watchdog.ps1*)",
+      "PowerShell(& *agent_window.ps1*)",
+      "Edit(ops/Tools/pc_watchdog.ps1)"
+    ]
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"C:/Users/user/.claude/hooks/session_log_gate.py\" || exit 0",
+            "timeout": 30,
+            "statusMessage": "Checking the session log"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"$CLAUDE_PROJECT_DIR/ops/Tools/idle_guard.py\" || exit 0",
+            "timeout": 40,
+            "statusMessage": "Idle guard: stage shipped? agents busy?"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash|PowerShell",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"$CLAUDE_PROJECT_DIR/ops/Tools/rule_guard.py\"",
+            "timeout": 40,
+            "statusMessage": "Rule guard"
+          }
+        ]
+      }
+    ]
+  }
+}

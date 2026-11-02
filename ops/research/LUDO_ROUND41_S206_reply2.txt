@@ -1,0 +1,293 @@
+﻿2.3 Column 3: Weight, Weight Cut Plan & Fatigue Engine (rect(1308, 120, 596, 944))
+Container: Background #121826, Border 1px solid #1E293B.
+Section Header: rect(1324, 136, 564, 24), Inter 12px Bold, #94A3B8, "WEIGHT CUT MANAGEMENT & CONDITION MONITOR".
+Weight vs. Division Cliff Sub-Panel
+Sub-Container: rect(1324, 168, 564, 240), Background #0B0F17, Border 1px solid #1E293B.
+Current Weight vs. Division Limit Meter:
+Element Rect: rect(1340, 184, 532, 28).
+Font & Size: JetBrains Mono 14px Bold.
+Colour: Primary #F8FAFC, Division Accent #D69E2E.
+Data Field: weight vs. division_limit (from fighter record & division configuration).
+Decision Served: Informs manager whether athlete requires caloric restriction, water depletion protocol, or whether they are at risk of missing weight and forfeiting 20–30% of their purse.
+Populated Value (Leo Vance): WEIGHT NOW: 69.4 kg | LIMIT: 66.7 kg (+2.7 kg / +4.04%)
+Empty State (New Signing / Off-Camp): WEIGHT NOW: 66.5 kg | LIMIT: 66.7 kg (-0.2 kg / ON WEIGHT)
+Walk-Around Weight & Natural Frame Metric:
+Element Rect: rect(1340, 220, 532, 20).
+Font & Size: Inter 11px Regular.
+Colour: #94A3B8.
+Data Field: walk_around_weight, frame (e.g., Lean, Athletic, Stocky).
+Decision Served: Determines long-term viability in division; large disparity between walk-around and division limit causes structural chin degradation.
+Populated Value (Leo Vance): Natural Walk-Around: 71.2 kg | Frame: Lean-Athletic | Weight Cut Difficulty: MODERATE
+Empty State: Natural Walk-Around: 67.0 kg | Frame: Balanced | Weight Cut Difficulty: OPTIMAL
+Weight Cut Status Message Banner:
+Element Rect: rect(1340, 248, 532, 44).
+Font & Size: Inter 11px SemiBold.
+Colour: Background #1E293B, Border 1px solid #F59E0B, Text #FBBF24.
+Data Field: Derived cut status (cut_phase, water_cut_deficit_kg).
+Decision Served: Signals whether to scale down training intensity to prevent dehydration-induced training injuries.
+Populated Value (Leo Vance): PHASE 2 DEHYDRATION: 1.8 kg water depletion scheduled across 48h prior to weigh-in. Target on track.
+Empty State: STATUS: NO ACTIVE WEIGHT CUT. Athlete is operating within baseline physiological homeostasis.
+Diet & Nutrition Protocol Dropdown Button:
+Element Rect: rect(1340, 300, 532, 32).
+Font & Size: Inter 11px Bold.
+Colour: Background #1E293B, Border 1px solid #334155, Text #F8FAFC.
+Data Field: nutrition_protocol (Standard Deficit, High Protein Water-Load, Aggressive Sweat).
+Decision Served: Manager balances daily recovery point penalties against rapid weight descent.
+Populated Value (Leo Vance): DIET PLAN: HIGH-PROTEIN WATER MANIPULATION [-0.4 kg/wk]
+Empty State: DIET PLAN: MAINTENANCE EUCALORIC [0.0 kg/wk]
+Fatigue & Physiological Condition Metrics
+Sub-Container: rect(1324, 424, 564, 250), Background #0B0F17, Border 1px solid #1E293B.
+Acute Fatigue Bar ($S_{\text{acute}}$):
+Element Rect: rect(1340, 444, 532, 44).
+Font & Size: JetBrains Mono 11px Bold.
+Colour: Label #94A3B8, Bar Fill #EF4444 (if $>60$) or #22C55E (if $<30$), Track #1E293B.
+Data Field: fatigue_acute (0–100 scale).
+Decision Served: High acute fatigue degrades reaction time during sparring; dictates if daily schedule must swap to active recovery.
+Populated Value (Leo Vance): ACUTE FATIGUE: 42 / 100 [ELEVATED - SPARRING PENALTY -8%] (Bar filled 42%)
+Empty State: ACUTE FATIGUE: 0 / 100 [FULLY RESTED - NO IMPAIRMENT] (Bar filled 0%)
+Cardio-Systemic Conditioning Bar:
+Element Rect: rect(1340, 498, 532, 44).
+Font & Size: JetBrains Mono 11px Bold.
+Colour: Label #94A3B8, Bar Fill #6366F1, Track #1E293B.
+Data Field: conditioning (Sim Attribute, 0–100).
+Decision Served: Informs late-round punch output probability in the sim engine.
+Populated Value (Leo Vance): CARDIO CONDITIONING: 47 / 100 [AEROBIC THRESHOLD: ROUND 7] (Bar filled 47%)
+Empty State: CARDIO CONDITIONING: 50 / 100 [BASELINE AMATEUR THRESHOLD] (Bar filled 50%)
+Rest & Recovery Daily Accrual Rate:
+Element Rect: rect(1340, 552, 532, 40).
+Font & Size: Inter 11px Regular.
+Colour: #94A3B8, Value #22C55E.
+Data Field: daily_recovery_rate (Calculated from gym clinic facilities + physio staff).
+Decision Served: Evaluates whether sleep and rest cycles can offset the assigned training workload.
+Populated Value (Leo Vance): Net Recovery Vector: +14.2 pts/day | Sleep Efficiency: 91%
+Empty State: Net Recovery Vector: +22.0 pts/day | Sleep Efficiency: 100%
+WOULD ADD Field: sleep_hygiene_score (Tracks lifestyle interference for unproven fighters).
+Medical Clearance & Sanctioning Checklist
+Sub-Container: rect(1324, 690, 564, 350), Background #0B0F17, Border 1px solid #1E293B.
+State Athletic Commission Clearance Strip:
+Element Rect: rect(1340, 706, 532, 36).
+Font & Size: Inter 11px Bold.
+Colour: Background #065F46, Border 1px solid #059669, Text #34D399.
+Data Field: sanctioning_clearance (Boolean status).
+Decision Served: Prevents or allows bout contract execution; blocked if brain MRI or blood tests are overdue.
+Populated Value (Leo Vance): COMMISSION MEDICAL CLEARANCE: ACTIVE (VALID 14 WKS)
+Empty State: COMMISSION MEDICAL CLEARANCE: UNREGISTERED - SUBMIT AMATEUR BLOODS
+Neurological Safety Protocol (Brain Trauma Ledger):
+Element Rect: rect(1340, 752, 532, 110).
+Font & Size: JetBrains Mono 10px Regular.
+Colour: Text #F8FAFC, Alert Accent #EF4444.
+Data Field: concussion_count, mandatory_suspension_days_remaining.
+Decision Served: Dictates mandatory no-contact training windows following knockouts or hard sparring stoppages.
+Populated Value (Leo Vance):
+Cumulative Concussions (Career): 0
+Sub-concussive Event Index: 38 (Moderate Load)
+Mandatory Contact Suspension: 0 Days (Cleared)
+Empty State:
+Cumulative Concussions (Career): 0
+Sub-concussive Event Index: 0 (Zero Load)
+Mandatory Contact Suspension: 0 Days (Cleared)
+Action Button — Assign Clinic Session:
+Element Rect: rect(1340, 874, 532, 36).
+Font & Size: Inter 11px Bold.
+Colour: Background #22C55E, Text #0B0F17.
+Decision Served: Transits manager to gym facility roster to book cryo-chamber or sports physiotherapist.
+SECTION 3 — TAB 3: TRAINING PLAN
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+| TAB 3: TRAINING PLAN LAYOUT (1920x1080)                                                                                                            |
++--------------------------------------------------------------------+-------------------------------------------------------------------------------+
+| COLUMN 1: 7-DAY SCHEDULE MATRIX (1140 px)                          | COLUMN 2: LOAD, COACHING & ADAPTATIONS (740 px)                               |
+| rect(16, 120, 1140, 944)                                           | rect(1172, 120, 732, 944)                                                     |
+|                                                                    |                                                                               |
+| - Header: Active Schedule Preset & Status                          | - Active Technique Adaptations (Nodes gaining mastery)                        |
+| - 7 Daily Column Blocks (Mon -> Sun, w=156 px each)                | - Coach Allocation & Efficiency Modifiers                                     |
+|   * Day Title & Fight Day Indicator                                | - Weekly Volume Summary (Minutes / Station)                                   |
+|   * Morning Session Slot: Station, Minutes, Intensity, Coach       | - Overreach Risk Calculator Bar                                               |
+|   * Afternoon Session Slot: Station, Minutes, Intensity, Coach     | - Global Actions: [CHANGE PLAN], [AUTO-BALANCE REST]                          |
+|   * Daily Fatigue Delta Indicator                                  |                                                                               |
++--------------------------------------------------------------------+-------------------------------------------------------------------------------+
+
+3.1 Column 1: The 7-Day Microcycle Schedule Matrix (rect(16, 120, 1140, 944))
+Container: Background #121826, Border 1px solid #1E293B.
+Schedule Header & Mode Selector:
+Element Rect: rect(32, 136, 1108, 32).
+Font & Size: Inter 12px Bold.
+Colour: #F8FAFC.
+Data Field: active_training_preset (Technical Development, Sparring Block, Taper, Weight Cut).
+Decision Served: One-click microcycle template swap without manual day-by-day station configuration.
+Populated Value (Leo Vance): PRESET: FIGHT CAMP TEMPLATE B (MODERATE SPARRING + TECHNICAL DOUBLE JAB)
+Empty State: PRESET: BASELINE OFF-CAMP STABILIZATION (RESTORE HOMEIOSTASIS)
+The 7 Day Columns (w=152px, h=720px, stride=158px)
+
+Starting at $x=32$, $y=180$. Stations are drawn from the valid roster: heavy bag, pads, ring sparring, treadmill, bike, weights, rest.
+
+Day 1: MONDAY (rect(32, 180, 152, 720))
+Background #0B0F17, Border 1px solid #1E293B.
+Header: rect(32, 180, 152, 28), Inter 11px Bold, #F8FAFC, "MON".
+Morning Block (rect(36, 212, 144, 230)):
+Station: rect(42, 218, 132, 20), JetBrains Mono 11px Bold, #D69E2E, "HEAVY BAG 2"
+Focus: rect(42, 240, 132, 16), Inter 10px SemiBold, #94A3B8, "Double Jab Drill"
+Volume: rect(42, 258, 132, 16), JetBrains Mono 10px, #F8FAFC, "90 Min | High Int."
+Coach: rect(42, 276, 132, 16), Inter 10px, #38BDF8, "Marcus Vance"
+Afternoon Block (rect(36, 450, 144, 230)):
+Station: rect(42, 456, 132, 20), JetBrains Mono 11px Bold, #6366F1, "WEIGHTS"
+Focus: rect(42, 478, 132, 16), Inter 10px SemiBold, #94A3B8, "Lower Body Power"
+Volume: rect(42, 496, 132, 16), JetBrains Mono 10px, #F8FAFC, "60 Min | Mod Int."
+Coach: rect(42, 514, 132, 16), Inter 10px, #38BDF8, "Sarah Lin"
+Daily Strain Footer: rect(36, 686, 144, 40), JetBrains Mono 10px, #EF4444, "+11.4 Fatigue"
+Empty State: Both blocks display: Station: REST | 0 Min | Fatigue: -12.0 pts.
+Day 2: TUESDAY (rect(190, 180, 152, 720))
+Morning: PADS | Focus: Slip-Counter Angles | 75 Min | High Int. | Coach: Marcus Vance.
+Afternoon: TREADMILL | Focus: Zone 2 Aerobic Base | 45 Min | Low Int. | Coach: Self-Guided.
+Daily Strain: +8.2 Fatigue.
+Day 3: WEDNESDAY (rect(348, 180, 152, 720))
+Morning: RING SPARRING | Focus: Open Tactical (Controlled) | 60 Min | Max Int. | Coach: Marcus Vance.
+Afternoon: BIKE | Focus: Lactate Flush | 30 Min | Active Rest | Coach: Self-Guided.
+Daily Strain: +16.5 Fatigue.
+Day 4: THURSDAY (rect(506, 180, 152, 720))
+Morning: HEAVY BAG 1 | Focus: Lead Hook Mechanics | 60 Min | Mod Int. | Coach: Marcus Vance.
+Afternoon: REST | Focus: Physio & Mobility | 0 Min | Coach: None.
+Daily Strain: -4.1 Fatigue.
+Day 5: FRIDAY (rect(664, 180, 152, 720))
+Morning: PADS | Focus: One-Two Extension | 60 Min | High Int. | Coach: Marcus Vance.
+Afternoon: WEIGHTS | Focus: Explosive Rotational Plyo | 45 Min | High Int. | Coach: Sarah Lin.
+Daily Strain: +9.8 Fatigue.
+Day 6: SATURDAY (rect(822, 180, 152, 720))
+Morning: RING SPARRING | Focus: Hard Sparring (Rounds 1-4) | 45 Min | Max Int. | Coach: Marcus Vance.
+Special Label: rect(826, 184, 144, 18), Background #7F1D1D, Text: Inter 9px Bold, #FCA5A5, "HARD CONTACT".
+Afternoon: REST | Focus: Sauna & Rehydration | 0 Min.
+Daily Strain: +14.0 Fatigue.
+Day 7: SUNDAY (rect(980, 180, 152, 720))
+
+Morning: REST | 0 Min.
+
+Afternoon: REST | 0 Min.
+
+Daily Strain Footer: rect(984, 686, 144, 40), JetBrains Mono 10px, #22C55E, "-22.0 Net Recovery".
+
+Fight Day Override Marker (When active): If Sunday is Fight Day, Column 7 transforms to:
+
+Border: 2px solid #D69E2E.
+Header Badge: rect(984, 184, 144, 20), Background #D69E2E, Text: Inter 10px Bold, #0B0F17, "BOUT SANCTION DAY".
+All stations replaced with: WEIGH-IN (08:00) | CALL TO ARENA (19:30).
+
+Decision Served: Precise daily load planning prevents athlete from entering fight night with unresolved acute fatigue.
+
+3.2 Column 2: Load, Coaching Staff & Mastery Yields (rect(1172, 120, 732, 944))
+Container: Background #121826, Border 1px solid #1E293B.
+Active Technique Adaptations This Week
+Element Rect: rect(1188, 136, 700, 260).
+Font & Size: Inter 12px Bold Header; rows JetBrains Mono 11px.
+Colour: Header #94A3B8, Rows #F8FAFC.
+Data Field: techniques_training_active (cross-referenced with assigned hours).
+Decision Served: Monitors rate of mastery acquisition per station.
+Populated Value (Leo Vance):
+1. boxing_double_jab (Double Jab): Assigned 6.0 h/wk at Heavy Bag 2. Projected Gain: +2.8% mastery/wk.
+2. boxing_lead_hook (Lead Hook): Assigned 3.0 h/wk at Pads. Projected Gain: +1.4% mastery/wk.
+3. boxing_slip_counter (Slip-Cross Counter): Assigned Sparring Rounds. Projected Gain: +1.1% mastery/wk.
+Empty State: NO TECHNIQUES CURRENTLY ASSIGNED TO STATIONS. Allocate moves via Techniques tab.
+Coaching Staff Allocations & Modifiers
+Element Rect: rect(1188, 410, 700, 190).
+Font & Size: JetBrains Mono 11px Regular.
+Colour: Text #F8FAFC, Coach Name Accent #38BDF8.
+Data Field: Assigned coaches and their attribute buffs:
+Head Coach: Marcus Vance | Skill: Technique +14%, Fatigue Mitigation +8% | Weekly Hours: 14.5 h.
+S&C Coach: Sarah Lin | Skill: Conditioning +18%, Injury Risk -12% | Weekly Hours: 3.5 h.
+Empty State: NO COACHES ASSIGNED. Training running unguided at baseline (0% bonus yield).
+Weekly Workload Summary & Overreach Calculator
+Element Rect: rect(1188, 620, 700, 220), Background #0B0F17, Border 1px solid #1E293B.
+Total Training Volume: 465 Minutes (7.75 Hours) across 6 active sessions.
+Station Minute Breakdown:
+Heavy Bag: 150 Min | Pads: 135 Min | Ring Sparring: 105 Min | Weights: 105 Min | Treadmill: 45 Min | Bike: 30 Min.
+Overreach Vulnerability Meter:
+Element Rect: rect(1204, 760, 668, 24).
+Font & Size: Inter 10px Bold.
+Colour: Track #1E293B, Fill #F59E0B (Amber), Label #F8FAFC.
+Populated Value (Leo Vance): OVERREACH COEFFICIENT: 1.18 [SUSTAINABLE SHORT-TERM - MONITOR FRIDAY]
+Empty State: OVERREACH COEFFICIENT: 0.00 [RESTING / OFF-CAMP]
+Bottom Action Control Bar
+Element Rect: rect(1188, 860, 700, 80).
+Action Buttons:
+[CHANGE PLAN] Button: rect(1188, 874, 340, 44), Background #D69E2E, Text: Inter 12px Bold, #0B0F17. Opens Station Reallocation modal.
+[AUTO-BALANCE REST] Button: rect(1548, 874, 340, 44), Background #1E293B, Border 1px solid #334155, Text: Inter 12px Bold, #F8FAFC. Shifts Friday/Saturday sessions to Rest if acute fatigue exceeds 60.
+SECTION 4 — TAB 4: FIGHT RECORD
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+| TAB 4: FIGHT RECORD LAYOUT (1920x1080)                                                                                                             |
++--------------------------------------------------------------------+-------------------------------------------------------------------------------+
+| COLUMN 1: RECORD SUMMARY & CAREER SPLITS (480 px)                  | COLUMN 2: COMPLETE BOUT LOG & SCORECARDS (1400 px)                            |
+| rect(16, 120, 480, 944)                                            | rect(512, 120, 1392, 944)                                                     |
+|                                                                    |                                                                               |
+| - Career Totals: W-L-D, Win %                                      | - Dense Bout Table (FM Style Rows, h=48px)                                    |
+| - Stoppage Split: KO / TKO vs Decision                             | - Columns: Date, Opponent, Event, Title, Res, Method, Rnd, Time, Purse, Card   |
+| - Win Streak & Longest Streak Counter                              | - Detail Flyout for Selected Bout:                                            |
+| - Ranking Points Ledger                                            |   * Official Judges' Scorecards (10-Point Must)                               |
+| - Regional Division Ladder Standing                                |   * Punch Landed / Thrown Statistics                                          |
+|                                                                    |   * Grudge / Rivalry Narrative Tag                                            |
++--------------------------------------------------------------------+-------------------------------------------------------------------------------+
+
+4.1 Column 1: Record Summary & Performance Splits (rect(16, 120, 480, 944))
+Container: Background #121826, Border 1px solid #1E293B.
+Header: rect(32, 136, 448, 24), Inter 12px Bold, #94A3B8, "CAREER RECORD & RANKING METRICS".
+Master Record Plaque:
+Element Rect: rect(32, 170, 448, 100), Background #0B0F17, Border 1px solid #1E293B.
+Font & Size: JetBrains Mono 28px Bold.
+Colour: Wins #22C55E, Losses #EF4444, Draws #94A3B8.
+Data Field: record_wins, record_losses, record_draws, record_kos.
+Populated Value (Leo Vance): 9 - 2 - 0 (Subtext: 6 WINS BY KO/TKO (66.7%))
+Empty State: 0 - 0 - 0 (Subtext: 0 WINS BY KO/TKO (0.0%) - AMATEUR PROSPECT)
+Method of Victory Breakdown:
+Element Rect: rect(32, 286, 448, 140).
+Font & Size: Inter 11px Regular / Bold values.
+Data Fields:
+KO / TKO Wins: 6 (66.7%)
+Unanimous Decision (UD): 2 (22.2%)
+Split / Majority Decision: 1 (11.1%)
+Losses by Stoppage: 1 (TKO, cut stoppage)
+Losses by Decision: 1 (UD)
+Empty State: All categories display 0 (0.0%).
+Streaks & Ranking Trajectory:
+Element Rect: rect(32, 442, 448, 150), Background #0B0F17, Border 1px solid #1E293B.
+Current Streak: rect(48, 458, 416, 20), JetBrains Mono 12px Bold, #22C55E, "CURRENT STREAK: 3 WINS (2 KOs)".
+Peak Ranking Points: rect(48, 486, 416, 20), JetBrains Mono 11px, #F8FAFC, "RATING POINTS: 1,482 pts (#4 Regional Contender)".
+Division Belt Status: rect(48, 514, 416, 20), Inter 11px SemiBold, #D69E2E, "ELIGIBLE FOR: Western Regional Welterweight Title".
+Empty State:
+Current Streak: 0 BOUTS
+Rating Points: 1,000 pts (Unranked Amateur)
+Division Status: Not eligible for professional sanctioned title cards
+4.2 Column 2: Complete Bout Log & Scorecard Inspector (rect(512, 120, 1392, 944))
+Container: Background #121826, Border 1px solid #1E293B.
+Header & Table Filters: rect(528, 136, 1360, 32).
+Title: Inter 12px Bold, #94A3B8, "OFFICIAL BOUT LOG".
+Filter Chips: [ALL (11)], [PROFESSIONAL (11)], [AMATEUR (0)].
+Bout History Table Header: rect(528, 176, 1360, 28), Background #0B0F17.
+Columns:
+DATE (Wk/Yr): $w=110\text{ px}$
+OPPONENT: $w=220\text{ px}$
+EVENT: $w=200\text{ px}$
+TITLE: $w=140\text{ px}$
+RES: $w=70\text{ px}$
+METHOD: $w=110\text{ px}$
+RND: $w=60\text{ px}$
+TIME: $w=70\text{ px}$
+PURSE: $w=100\text{ px}$
+SCORECARDS / NOTES: $w=280\text{ px}$
+Bout Rows (Sample Rows for Leo Vance, $h=46\text{ px}$ each)
+Row 1 (Bout 11 - Most Recent): rect(528, 208, 1360, 46)
+Wk 38 / 2026 | Dmitry Kozlov (12-1-0) | Apex Fight Night 14 | - | [WIN] (Green) | TKO (Punches) | R4 | 2:14 | $4,200 | "Check hook counter dropped opponent."
+Row 2 (Bout 10): rect(528, 256, 1360, 46)
+Wk 24 / 2026 | Marcus Thorne (8-3-1) | Regional Warriors 8 | - | [WIN] (Green) | UD (10-9, 10-9) | R6 | 3:00 | $3,100 | "Judges: 59-55, 58-56, 59-55."
+Row 3 (Bout 9): rect(528, 304, 1360, 46)
+Wk 10 / 2026 | Tariq King (11-0-0) | Gold Coast Bouts 3 | W-Reg Belt | [LOSS] (Red) | TKO (Cut Stop) | R5 | 1:08 | $5,000 | "Severe supraorbital cut. [RIVALRY]"
+Empty State (New Prospect / Niko Park):
+rect(528, 208, 1360, 200), Background #0B0F17, Border 1px dashed #1E293B.
+Text (Centered): rect(528, 280, 1360, 30), Inter 13px Medium, #64748B, "NO SANCTIONED BOUTS ON OFFICIAL RECORD".
+Subtext: rect(528, 310, 1360, 20), Inter 11px Regular, #475569, "Fighter has not competed under professional or amateur unified boxing rules. Book bout via Matchmaker."
+Selected Bout Detail Flyout (Judges' Scorecards & Punch Stats)
+Element Rect: rect(528, 730, 1360, 218), Background #0B0F17, Border 1px solid #1E293B.
+Title: rect(544, 742, 600, 20), Inter 11px Bold, #D69E2E, "BOUT 10 SCORECARD AUDIT vs. MARCUS THORNE".
+Judges' Scorecard Table (10-Point Must System):
+Judge A (H. Miller): R1: 10-9 | R2: 10-9 | R3: 9-10 | R4: 10-9 | R5: 10-9 | R6: 10-9 -> 59-55
+Judge B (D. Lewis): R1: 10-9 | R2: 9-10 | R3: 9-10 | R4: 10-9 | R5: 10-9 | R6: 10-9 -> 58-56
+Judge C (R. Vance): R1: 10-9 | R2: 10-9 | R3: 9-10 | R4: 10-9 | R5: 10-9 | R6: 10-9 -> 59-55
+Punch Metrics:
+Jabs Landed: 44 / 112 (39%) | Power Punches Landed: 31 / 68 (45%) | Total: 75 / 180 (41%).
+Decision Served: Evaluates whether boxer is winning rounds cleanly or relying on judge favoritism, driving gameplan adjustments for
