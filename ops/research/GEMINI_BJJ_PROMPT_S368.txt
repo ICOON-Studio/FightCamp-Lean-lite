@@ -1,0 +1,18 @@
+You are judging footage from our gym management game's no-gi Brazilian jiu-jitsu view. Two grapplers (red shorts and
+blue shorts) play a chain of grappling techniques one after another, walked through the game's move graph. The player
+WATCHES this (it is not played with a controller); it is meant to be how an athlete's belt matches and drills look in the
+game. Each technique's name is printed top right under "NOW PLAYING"; read it there and judge each technique against
+that name. The list below it (positions, moves in, moves out) is the move browser.
+
+Judge, with timestamps:
+1. Per technique: does it read as the named technique to a BJJ black belt (grips, base, hips, frames, the finish
+   position)? Name each one you see and say READS / UNCLEAR / WRONG with one line why.
+2. Bodies: interpenetration (a limb or torso through the other body), floating above or sinking into the mat, joints
+   bent wrong, hands not where the grip is.
+3. The joins between techniques: snaps, pops, teleports, sudden resets of position, a pause that breaks the flow.
+4. Speed and weight: real no-gi pace? Does weight transfer and pressure show (top player heavy, bottom player framing)?
+5. The screen: is the technique easy to follow from this camera; is the name panel legible and useful?
+
+Then: an overall score 1-10 for "good enough to ship as the BJJ match view of a management game as it is", the three
+biggest problems in order of how much a viewer notices them, and the one change that would raise the score most.
+Be specific; do not guess - if the camera hides something, say so.
