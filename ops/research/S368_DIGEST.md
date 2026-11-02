@@ -14,8 +14,8 @@ agy/refbreak1 9c05850, claude/jabfix1 (pilot, not for merge), ziva/wip-s368 (loc
   Godot<->Blender clip round trip, 0.056 deg), tools/clip_feet_probe.gd (bare clip), tools/orbit_feet_probe.gd (as the
   preview shows it), ops/Tools/gemini_miro.py (Argon's Miro seat), ops/Tools/gemini_blender.py (Argon writes bpy).
 
-## Waiting for the operator's eye (NOT merged)
-- CAMVIEW1 (claude/camview1): operator "many times it is behind the fighter and cant see". Every lens within 40 deg of
+## Camera MERGED, referee waiting
+- CAMVIEW1 MERGED into main 51bc60b on the operator's "Yes, merge camera" (claude/camview1): operator "many times it is behind the fighter and cant see". Every lens within 40 deg of
   side-on, closer/wider at the ropes, other side when no room, a crane over the top rope in deep corners; shoulder shots ->
   three-quarter. cam_view_probe 90 s: behind a boxer 36.9 % -> 2.8 %, chest hidden 6.1 % -> 0 %; head hidden 5.2 -> 5.1 %
   (clinch heads side by side), longest 1.53 -> 2.60 s (t 43.7, a clinch) - still FAIL on those two lines. Argon camera
@@ -43,3 +43,8 @@ outside its OWNS - brief the step_out delay as part of it). 3. Footing: find wha
 render feet from a FIXED side camera, list per clip orbit_feet_probe travel (the hard right hook moves 0.27 m); Argon+Blender
 only where the preview's feet really move. 4. BJJMATCH1 build. 5. Auto-dispatch session's results (seat_dispatch.py, the
 Lean-layout gate) - collect from its own branch/files.
+
+## After ship: camera merged (operator "Yes, merge camera")
+Main 51bc60b. Export: full suite 116/116 PASS, Builds/FightCamp.exe rebuilt. The first export attempt failed on
+grey_reason_test (exit 9: a SCRIPT ERROR line in its output under JOBS=2 although the test printed PASS); alone 4/4 clean,
+the rerun suite clean - a parallel-run flake to watch (two tests sharing a user:// file is the guess, unproven).

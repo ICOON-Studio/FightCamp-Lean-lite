@@ -60,7 +60,7 @@ PREVIEWS = ROOT / "previews" / "dispatch"
 LOCAL = Path(os.environ.get("LOCALAPPDATA", r"C:\Users\user\AppData\Local"))
 GODOT = LOCAL / "Programs" / "Godot" / "Godot_v4.7.2-stable_win64.exe"
 AGY = LOCAL / "agy" / "bin" / "agy.exe"
-AGY_MODEL = "gemini-3.8-flash-high"
+AGY_MODEL = "gemini-4-argon-high"   # S369 operator: "antigravity should have argon now" (agy models lists it; test call OK)
 ## seat -> live_runs agent name, the words a roadmap `who` uses, its model, its run cap (minutes)
 SEATS = {"qwen": {"agent": "qwen", "who": ("qwen",), "model": "qwen3-coder", "minutes": 90},
          "cursor": {"agent": "cursor", "who": ("cursor",), "model": "composer-2.5", "minutes": 90},

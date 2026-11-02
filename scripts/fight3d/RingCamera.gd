@@ -21,15 +21,29 @@ const NEAR_FADE := Vector2(0.9, 1.5)
 ## reference cuts every 5.8 s on average - 15 shots in 86 s - between ringside lenses at chest height that keep
 ## orbiting, the pair filling ~70 % of the frame; ours sat 3.6 m out at 1.45 m on one slowly drifting angle, ~45 %).
 ## Each shot: dist (m from the pair's middle), h (lens height), look_h, fov, yaw (deg off the side-on line), orbit
-## (deg/s while it holds); "shoulder" = behind one boxer's shoulder onto the other. HOLD_S = how long a shot holds.
+## (deg/s while it holds). HOLD_S = how long a shot holds.
+## S368 (operator: "the camera in the fight needs fixing many times it is behind the fighter and cant see"; on main
+## tools/cam_view_probe.gd measured the lens within 45 deg of straight behind a boxer 36.9 % of a round): the two
+## "shoulder" shots (1.75 m behind one boxer, 35 deg off her back) are now "three_q" - close, chest high, 32 deg off
+## side-on, one boxer's face and the other's shoulder - and every lens keeps within SIDE_ARC_DEG of side-on (below).
 const SHOTS := [
 	{"name": "side", "dist": 3.0, "h": 1.3, "look_h": 1.0, "fov": 36.0, "yaw": 0.0, "orbit": 6.0},
-	{"name": "low_diag", "dist": 2.7, "h": 1.0, "look_h": 1.1, "fov": 40.0, "yaw": 38.0, "orbit": -9.0},
-	{"name": "shoulder", "dist": 1.75, "h": 1.78, "look_h": 1.25, "fov": 40.0, "yaw": 0.0, "orbit": 0.0},
+	{"name": "low_diag", "dist": 2.7, "h": 1.0, "look_h": 1.1, "fov": 40.0, "yaw": 34.0, "orbit": -8.0},
+	{"name": "three_q", "dist": 2.2, "h": 1.45, "look_h": 1.15, "fov": 38.0, "yaw": 32.0, "orbit": -2.0},
 	{"name": "side_wide", "dist": 3.7, "h": 1.55, "look_h": 1.0, "fov": 34.0, "yaw": -30.0, "orbit": 8.0},
-	{"name": "low_diag", "dist": 2.7, "h": 1.0, "look_h": 1.1, "fov": 40.0, "yaw": -40.0, "orbit": 10.0},
-	{"name": "shoulder", "dist": 1.75, "h": 1.78, "look_h": 1.25, "fov": 40.0, "yaw": 0.0, "orbit": 0.0},
+	{"name": "low_diag", "dist": 2.7, "h": 1.0, "look_h": 1.1, "fov": 40.0, "yaw": -34.0, "orbit": 8.0},
+	{"name": "three_q", "dist": 2.2, "h": 1.45, "look_h": 1.15, "fov": 38.0, "yaw": -32.0, "orbit": 2.0},
 ]
+## S368: a lens never turns further than this off side-on to the pair (shot yaw + orbit + the turn that keeps it inside the
+## ropes). Near the ropes it comes closer and widens instead (spot_inside's room search), and when even MIN_DIST_M does not
+## fit on this side it cuts to the other side of the pair - it never swings round behind a boxer.
+const SIDE_ARC_DEG := 40.0
+## S368: deep in a corner neither side has a side-on spot inside the ropes even at MIN_DIST_M (the pair half a metre off two
+## ropes): the lens rises over the top rope (RingSet's ropes at 0.45 / 0.85 / 1.25 m) like a TV crane, side-on, at most
+## HIGH_DIST_M out, instead of swinging round behind a boxer.
+const OVER_ROPES_H := 2.3
+const HIGH_DIST_M := 2.6
+const TOP_ROPE_H := 1.25
 const HOLD_S := Vector2(4.0, 7.5)
 ## S347 (operator: "this transparent rope on all your stills start to become annoying, why you do not change angle?"):
 ## the lens stands INSIDE the ropes, IN_M in from them, so no rope is ever between it and the pair - the ropes are only
@@ -49,20 +63,17 @@ const MOTION_BLUR := "res://addons/godot-motion-blur/guertin/guertin_motion_blur
 const BLUR := 1.0
 const JUMP_M := 0.4
 ## S348 (S348 round-1 still: "Step back" walked her into the over-the-shoulder lens, her back hid the other woman's face):
-## the shoulder lens stands further to the side, and a boxer this close to the lens (flat) cuts to the next shot.
-const SHOULDER_SIDE_M := 1.25
+## a boxer this close to the lens (flat) cuts to the next shot.
 const TOO_CLOSE_M := 1.3
-## S348 (round-2 still: the referee stepping in to part a clinch filled a quarter of the frame; the shoulder lens in a clinch
-## saw only her back): the referee closer than this cuts the shot, and no shoulder shot while their hips are this close.
+## S348 (round-2 still: the referee stepping in to part a clinch filled a quarter of the frame): the referee closer than
+## this cuts the shot.
 const REF_CLOSE_M := 2.0
-const CLINCH_GAP_M := 0.75
 var avoid := Vector3.INF      # the referee (FightStage sets it every frame); INF = nobody to keep off
 
 var close := false            # the big-shot close-up holds until broadcast() runs again
 var _shot := -1
 var _shot_t := 0.0            # seconds the current shot has held
 var _shot_hold := 0.0
-var _over := 0                # the shoulder shot's boxer (alternates)
 var _rng := RandomNumberGenerator.new()
 var _blur: CompositorEffect = null
 var _side := Vector3.LEFT     # the side of the pair the camera is on (it never jumps across the ring)
@@ -114,38 +125,34 @@ func broadcast(a: Vector3, b: Vector3, snap: bool = false, delta: float = 0.0) -
 		_shot = (_shot + 1) % SHOTS.size()
 		_shot_t = 0.0
 		_shot_hold = _rng.randf_range(HOLD_S.x, HOLD_S.y)
-		if str(SHOTS[_shot]["name"]) == "shoulder":
-			_over = 1 - _over
 	var sh: Dictionary = SHOTS[_shot]
 	var mid := (a + b) * 0.5
 	var side := _side_of(a, b)
 	if cut and avoid != Vector3.INF and side.dot(Vector3(avoid.x - mid.x, 0.0, avoid.z - mid.z)) > 0.0:
 		side = -side   # S348: a new shot opens on the side away from the referee (never a cut straight back into him)
-	_side = side
 	_lens(false)
-	var want_pos: Vector3
-	var want_look: Vector3
-	fov = float(sh["fov"])
-	var over_spot := Vector3.INF
-	if str(sh["name"]) == "shoulder" and Vector2(a.x - b.x, a.z - b.z).length() >= CLINCH_GAP_M:
-		# Behind one boxer's shoulder, a little to the camera's side, onto the other's face (not with her back to the
-		# ropes: that spot is outside them - the side shot instead).
-		var near: Vector3 = a if _over == 0 else b
-		var far: Vector3 = b if _over == 0 else a
-		var axis := (far - near).normalized()
-		var at := near - axis * float(sh["dist"]) + side * SHOULDER_SIDE_M
-		if inside(at):
-			over_spot = at
-			want_pos = at + Vector3(0, float(sh["h"]), 0)
-			want_look = far + Vector3(0, float(sh["look_h"]), 0)
-	if over_spot == Vector3.INF:
-		var lens_sh: Dictionary = sh if str(sh["name"]) != "shoulder" else SHOTS[0]
-		var yaw := deg_to_rad(float(lens_sh["yaw"]) + float(lens_sh["orbit"]) * _shot_t)
-		var sp := spot_inside(mid, Basis(Vector3.UP, yaw) * side, float(lens_sh["dist"]), 0.0 if cut else _turn)
-		_turn = float(sp[2])
-		want_pos = (sp[0] as Vector3) + Vector3(0, float(lens_sh["h"]), 0)
-		want_look = mid + Vector3(0, float(lens_sh["look_h"]), 0)
-		fov = maxf(float(lens_sh["fov"]), rad_to_deg(2.0 * atan(HALF_H_M / maxf(float(sp[1]), 0.5))))
+	# S368: the orbit stops at the arc's edge (5 deg in, so the ropes' turn still has room) instead of carrying the lens
+	# round behind a boxer.
+	var arc := SIDE_ARC_DEG - 5.0
+	var yaw_deg := clampf(float(sh["yaw"]) + float(sh["orbit"]) * _shot_t, -arc, arc)
+	var limit := Vector2(-SIDE_ARC_DEG - yaw_deg, SIDE_ARC_DEG - yaw_deg)
+	var sp := spot_inside(mid, Basis(Vector3.UP, deg_to_rad(yaw_deg)) * side, float(sh["dist"]), 0.0 if cut else _turn, limit)
+	var lens_h := float(sh["h"])
+	if not bool(sp[3]):
+		# No room on this side even at MIN_DIST_M: a cut to the other side of the pair, never a swing round behind her.
+		var other := spot_inside(mid, Basis(Vector3.UP, deg_to_rad(yaw_deg)) * -side, float(sh["dist"]), 0.0, limit)
+		if bool(other[3]):
+			side = -side
+			sp = other
+			cut = true
+		else:
+			sp = high_spot(mid, Basis(Vector3.UP, deg_to_rad(yaw_deg)) * side, float(sh["dist"]))
+			lens_h = OVER_ROPES_H
+	_side = side
+	_turn = float(sp[2])
+	var want_pos := (sp[0] as Vector3) + Vector3(0, lens_h, 0)
+	var want_look := mid + Vector3(0, float(sh["look_h"]), 0)
+	fov = maxf(float(sh["fov"]), rad_to_deg(2.0 * atan(HALF_H_M / maxf(float(sp[1]), 0.5))))
 	(attributes as CameraAttributesPractical).dof_blur_far_distance = want_pos.distance_to(want_look) + 1.6
 	if cut:
 		_place_lens(want_pos, want_look)
@@ -165,7 +172,13 @@ func close_up(a: Vector3, b: Vector3, head_y: float, hit: int) -> void:
 	(attributes as CameraAttributesPractical).dof_blur_far_distance = 2.5 + 1.2
 	var hitter := axis if hit == 1 else -axis
 	var flat := Vector3(mid.x, 0.0, mid.z) - hitter * 0.15
-	var sp := spot_inside(flat, side, 2.5)
+	var arc := Vector2(-SIDE_ARC_DEG, SIDE_ARC_DEG)
+	var sp := spot_inside(flat, side, 2.5, 0.0, arc)
+	if not bool(sp[3]):
+		var other := spot_inside(flat, -side, 2.5, 0.0, arc)
+		if bool(other[3]):
+			_side = -side
+			sp = other
 	fov = maxf(32.0, rad_to_deg(2.0 * atan(0.7 / maxf(float(sp[1]), 0.5))))
 	_place_lens((sp[0] as Vector3) + Vector3(0, mid.y + 0.08, 0), mid)
 
@@ -178,27 +191,43 @@ static func inside(p: Vector3) -> bool:
 
 ## The lens spot for a shot at `dist` from `mid` along `dir` (flat): the smallest turn that stands it inside the ropes;
 ## else the turn with the most room, as far out as it fits; else (no room even at MIN_DIST_M) the line to the ring's
-## middle. Returns [spot (flat), distance].
-static func spot_inside(mid: Vector3, dir: Vector3, dist: float, keep_turn: float = 0.0) -> Array:
+## middle. S368: `limit` (deg, min..max) bounds the turns tried - the broadcast keeps every lens near side-on - and its two
+## edges are tried too. Returns [spot (flat), distance, turn, fits]; fits = false only for that last fallback.
+static func spot_inside(mid: Vector3, dir: Vector3, dist: float, keep_turn: float = 0.0,
+		limit := Vector2(-999.0, 999.0)) -> Array:
 	var c := Vector3(mid.x, 0.0, mid.z)
 	var best_room := -1.0
 	var best_dir := dir
+	var best_t := keep_turn
 	# S347 (operator: the fight must look smooth): the turn the lens already holds is tried first, so near the ropes it never
 	# flips between two turns that both fit.
-	for t in [keep_turn] + TURNS:
+	var turns: Array = [keep_turn] + TURNS
+	if limit.x > -180.0:
+		turns += [limit.x, limit.y]
+	for t in turns:
+		if float(t) < limit.x or float(t) > limit.y:
+			continue
 		var d: Vector3 = Basis(Vector3.UP, deg_to_rad(float(t))) * dir
 		if inside(c + d * dist):
-			return [c + d * dist, dist, float(t)]
+			return [c + d * dist, dist, float(t), true]
 		var room := dist - 0.1
 		while room > MIN_DIST_M and not inside(c + d * room):
 			room -= 0.1
 		if room > best_room and inside(c + d * room):
 			best_room = room
 			best_dir = d
+			best_t = float(t)
 	if best_room < 0.0:
-		best_room = MIN_DIST_M
 		best_dir = -c.normalized() if c.length() > 0.1 else dir
-	return [c + best_dir * best_room, best_room, keep_turn]
+		return [c + best_dir * MIN_DIST_M, MIN_DIST_M, keep_turn, false]
+	return [c + best_dir * best_room, best_room, best_t, true]
+
+
+## S368 the corner's crane spot (flat; the lens stands at OVER_ROPES_H): side-on along `dir`, at most HIGH_DIST_M out.
+## Same shape as spot_inside's answer: [spot, distance, turn 0, fits false].
+static func high_spot(mid: Vector3, dir: Vector3, dist: float) -> Array:
+	var far := minf(dist, HIGH_DIST_M)
+	return [Vector3(mid.x, 0.0, mid.z) + dir * far, far, 0.0, false]
 
 
 func _side_of(a: Vector3, b: Vector3) -> Vector3:
