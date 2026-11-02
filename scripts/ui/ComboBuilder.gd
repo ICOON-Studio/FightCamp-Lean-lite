@@ -10,6 +10,7 @@ const UI := preload("res://scripts/ui/UI.gd")
 const Icons := preload("res://scripts/ui/Icons.gd")
 const CF := preload("res://scripts/rules/ComboFlow.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
+const ComboOdds := preload("res://scripts/rules/ComboOdds.gd")
 const MovePlayer := preload("res://scripts/fight3d/MovePlayer.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
 const SCRIPT_PATH := "res://scripts/ui/ComboBuilder.gd"
@@ -219,6 +220,9 @@ func _refresh(play: bool) -> void:
 			lv.add_child(UI.label("- " + str(n), UI.SMALL, UI.FG, "body", true))
 	lessons.add_child(lv)
 	_rows.add_child(lessons)
+	var ring := _ring(f, book_id(chain))
+	if ring != null:
+		_rows.add_child(ring)
 	var btns := UI.hbox(8)
 	btns.add_child(UI.button("Play it", "BtnSolid", _play))
 	btns.add_child(UI.button("Clear", "Btn", _clear))
@@ -292,3 +296,29 @@ func _save() -> void:
 func _drill(id: String) -> void:
 	main.act("combo", "%s|%s" % [f["id"], id])
 	main.toast("%s drills the %s on the pads this week." % [f["first"], id])
+
+
+## S355 the combo lab's hit rates (ComboOdds): how often this book combination lands whole in each of the opponent's games,
+## against the next opponent (the main game marked) or an even one - the fight model's own dice.
+static func _ring(fr: Dictionary, bid: String) -> Control:
+	var bout: Dictionary = fr.get("bout", {})
+	var opp: Dictionary = bout.get("opp", {}) if not bout.is_empty() and not bool(bout.get("done", false)) else {}
+	var t := ComboOdds.table(bid, fr, opp)
+	if t.is_empty():
+		return null
+	var box := UI.vbox(2)
+	box.name = "Ring"
+	box.add_child(UI.caps("IN THE RING - HOW OFTEN IT LANDS WHOLE vs %s" % (str(opp["first"]).to_upper() if not opp.is_empty() else "AN EVEN OPPONENT")))
+	var g := GridContainer.new()
+	g.columns = 3
+	g.add_theme_constant_override("h_separation", 20)
+	for r in t["rows"]:
+		var main := str(r["sit"]) == str(t["main"])
+		g.add_child(UI.label(str(r["label"]) + ("  (main game)" if main else ""), UI.SMALL, UI.GOLD if main else UI.FG, "bold" if main else "body"))
+		g.add_child(UI.mono("%d%%" % int(round(float(r["odds"]) * 100.0)), UI.BODY,
+			{"best": UI.GREEN, "ok": UI.GREEN, "wrong": UI.RED}.get(str(r["fit"]), UI.FG)))
+		g.add_child(UI.muted({"best": "its best game", "ok": "fits", "wrong": "walks into trouble", "none": "no help"}.get(str(r["fit"]), ""), UI.SMALL))
+	box.add_child(g)
+	box.add_child(UI.muted("An exchange with no combination: %d%%.%s" % [int(round(float(t["base"]) * 100.0)),
+		"" if bool(t["drilled"]) else " Not drilled yet: worth 80% until 30 on the pads."], UI.SMALL, true))
+	return box

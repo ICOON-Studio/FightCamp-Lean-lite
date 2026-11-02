@@ -14,6 +14,7 @@ const TheRead := preload("res://scripts/rules/TheRead.gd")
 const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 const ClinchRest := preload("res://scripts/rules/ClinchRest.gd")
 const RoundStyle := preload("res://scripts/rules/RoundStyle.gd")
+const PerkFight := preload("res://scripts/rules/PerkFight.gd")
 const HABITS_PATH := "res://assets/data/fight_habits.json"
 
 
@@ -62,7 +63,7 @@ static func open(c: Career, f: Dictionary, m: Dictionary, n: int, plan: String, 
 	m["live"] = {"pace": str(was.get("pace", "steady")), "aim": str(was.get("aim", "")), "n": n, "plan": plan, "ex": [], "shouts": 0, "mode": mode, "her_hurt": bool(jobs.get("hurt", false)), "opp_hurt": false,
 		"talk": talk, "talk_kind": str(jobs.get("talk", "")), "setup": setup,
 		"cost": 0.0, "e": e, "base": base, "fix": fix, "last": n >= int(f["bout"].get("rounds", BoutRules.ROUNDS)),
-		"body": f["bout"]["body"]}
+		"body": f["bout"]["body"], "body_cost_b": PerkFight.body_cost(f)}
 	m["live"]["start"] = state(m["live"], 0)
 
 
@@ -100,7 +101,7 @@ static func her_energy(lv: Dictionary, i: int) -> float:
 
 static func opp_energy(lv: Dictionary, i: int) -> float:
 	var e: Dictionary = lv["e"]
-	return lerpf(float(e.get("b", 100.0)), float(e.get("b_end", 100.0)), float(i) / Exchanges.EXCHANGES) 		- float((lv.get("body", {}) as Dictionary).get("b", 0)) * Exchanges.BODY_COST
+	return lerpf(float(e.get("b", 100.0)), float(e.get("b_end", 100.0)), float(i) / Exchanges.EXCHANGES) 		- float((lv.get("body", {}) as Dictionary).get("b", 0)) * float(lv.get("body_cost_b", Exchanges.BODY_COST))
 
 
 ## What the corner sees before the next exchange: {sit, clue, offers, coach, mark, grades {call: word}, at (seconds into
@@ -196,13 +197,23 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	# S309: a habit the situation punishes costs her, unless the corner fixed it (as far as she took it in).
 	var fix := str(lv.get("fix", ""))
 	var habit := HabitFix.punished(f.get("habits", []), sit, n, i, bool(lv.get("last", false)))
-	var d := float(lv["base"]) + Exchanges.call_edge(call, sit, vals, heard, finds) + HabitFix.cost(habit, fix, Exchanges.uptake(coach, 0))
+	# S355 the perks (PerkFight): each one fired this exchange goes on rec["perks"].
+	var perks: Array = []
+	var ce := Exchanges.call_edge(call, sit, vals, heard, finds)
+	if PerkFight.call_edge(f, ce) != ce:
+		perks.append("ring_general")
+	if PerkFight.jab_edge(f, sit) > 0.0:
+		perks.append("stiff_jab")
+	var d := float(lv["base"]) + PerkFight.call_edge(f, ce) + PerkFight.jab_edge(f, sit) + HabitFix.cost(habit, fix, Exchanges.uptake(coach, 0))
 	# S310 the corner's talk works every exchange of the round; the set-up once, when it is fired.
 	d += float((lv.get("talk", {}) as Dictionary).get("edge", 0.0))
 	var su: Dictionary = lv.get("setup", {})
 	var fits := fire and CornerJobs.fits(str(su.get("gap", "")), sit)
 	if fire:
-		d += CornerJobs.setup_edge(fits, float(su["mastery"]), her_energy(lv, i))
+		var se := CornerJobs.setup_edge(fits, float(su["mastery"]), her_energy(lv, i))
+		if PerkFight.setup_edge(f, se) != se:
+			perks.append("hand_speed")
+		d += PerkFight.setup_edge(f, se)
 	d += PaceAim.edge(pace, aim, opp_hurt, {}) - push_gassed(pace, her_energy(lv, i))
 	var st := read_state(f)
 	var game := str(lv["mode"])
@@ -223,8 +234,11 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	var arrow := str(pick["move"])
 	# S342 real plans (Q-S294-67): a hurt opponent who still hits back, a waiter in the round's last exchange.
 	var psit := PlanFight.refine(sit, RoundStyle.opponent_habits(opp), i, Exchanges.EXCHANGES)
-	var plan_edge := PlanFight.edge(pick, psit, PlanFight.rate(arrow, f.get("combos", {})),
-		PlanFight.card_mean(at, psit, f.get("moves", {}), f.get("combos", {})))
+	var card_mean := PlanFight.card_mean(at, psit, f.get("moves", {}), f.get("combos", {}))
+	var plan_rate := PlanFight.rate(arrow, f.get("combos", {}))
+	var plan_edge := PlanFight.edge(pick, psit, plan_rate * PerkFight.combo_rate(f, arrow), card_mean)
+	if plan_edge > PlanFight.edge(pick, psit, plan_rate, card_mean):
+		perks.append("hand_speed")
 	d += plan_edge
 	# S340 the clinch's price (operator "a small stamina refill but risk of getting hit"): its own dice, so an exchange
 	# without a tie-up plays exactly as before.
@@ -238,6 +252,14 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	var s := Exchanges.settle(d, rng.randf(), rng.randf())
 	# S323 Push throws more (and so lands more), Save less.
 	s["landed"][0] = maxi(0, int(round(float(s["landed"][0]) * PaceAim.output(pace))))
+	# S355 Counter sense: she makes an attacker miss and a free counter comes back (its own dice).
+	if PerkFight.has(f, "counter_sense") and PerkFight.counters(f, sit, bool(s["won"]), _rng(c, f, n, i + 73).randf()):
+		perks.append("counter_sense")
+		s["landed"][0] = int(s["landed"][0]) + 1
+		s["margin"] = float(s["margin"]) + PerkFight.COUNTER_MARGIN
+		var kdmg: Dictionary = m.get("damage", {"a": 0.0, "b": 0.0})
+		kdmg["b"] = float(kdmg.get("b", 0.0)) + PerkFight.COUNTER_DAMAGE
+		m["damage"] = kdmg
 	var names := [str(f["first"]), str(opp["first"])]
 	# S310 body shots: hers to the body more on "Go to the body", the opponent's more if body punching is her threat.
 	var share_b := Exchanges.BODY_THREAT_SHARE if str(opp.get("threat", "")).to_lower().contains("body") else Exchanges.BODY_SHARE
@@ -280,6 +302,8 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	rec["plan_edge"] = plan_edge
 	rec["clinch"] = cl
 	rec["clinch_line"] = ClinchRest.line(cl, names)
+	rec["perks"] = perks
+	rec["perk_line"] = "%s makes %s miss and counters - Counter sense." % names if perks.has("counter_sense") else ""
 	lv["at"] = PlanFight.where_next(arrow, bool(s["won"]), sit)
 	exs.append(rec)
 	if call != "":

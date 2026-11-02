@@ -46,7 +46,8 @@ func fire(v: Node, b: Dictionary) -> void:
 			stage.step(who, 1 if move == "step_in" else -1)
 			stepped[who] = move == "step_in"
 		"clinch":
-			stage.clinch.start(who, float(b.get("dur", 3.0)))
+			# S354 CLINCH2: the beat's own digs/digger (ClinchBeats) ride along; a beat without them ties up as before.
+			stage.clinch.start(who, float(b.get("dur", 3.0)), int(b.get("digs", 0)), (0 if str(b.get("digger", "a")) == "a" else 1) if b.has("digger") else -1)
 		"slip":
 			stage.play(who, "slip")
 		"tired":

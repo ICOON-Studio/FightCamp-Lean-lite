@@ -3,18 +3,18 @@ extends RefCounted
 ## training builds the attributes - the payoff a week of mornings works toward. A perk opens for good once its need is met
 ## (f["perks"] keeps the day). Pure static.
 ##   status(f) -> [{id, name, effect, need, have, open, near}]   newly_open(f, day) -> [names] (records them)
-## The fight effects are the next step (each needs its hook in the fight model and a playtest); the road shows and opens now.
+## S355 the fight effects: PerkFight (each perk's hook in the fight model, tests/perk_fight_test.gd).
 
 ## need: {stat: value} or {"move:<name>": mastery}.
 const PERKS := [
-	{"id": "iron_chin", "name": "Iron chin", "effect": "The first knockdown each fight is a stagger instead", "need": {"chin": 70}},
-	{"id": "stiff_jab", "name": "Stiff jab", "effect": "Jabs stop a rush 20% more often", "need": {"technique": 65}},
-	{"id": "second_wind", "name": "Second wind", "effect": "+10% stamina back at the start of round 3", "need": {"conditioning": 70}},
-	{"id": "ring_general", "name": "Ring general", "effect": "Corner calls work 25% better", "need": {"fight_iq": 65}},
-	{"id": "counter_sense", "name": "Counter sense", "effect": "A slip gives a free counter 30% of the time", "need": {"defense": 65, "move:Check hook": 30}},
-	{"id": "body_snatcher", "name": "Body snatcher", "effect": "Body shots drain 15% more stamina", "need": {"move:Body hook": 30}},
-	{"id": "finisher", "name": "Finisher", "effect": "A stoppage is 1.5x as likely on a hurt opponent", "need": {"power": 70}},
-	{"id": "hand_speed", "name": "Fast hands", "effect": "Combinations land whole 10% more often", "need": {"speed": 70}},
+	{"id": "iron_chin", "name": "Iron chin", "effect": "The first count each fight is only a stagger: she stays up", "need": {"chin": 70}},
+	{"id": "stiff_jab", "name": "Stiff jab", "effect": "Pressers walk onto the jab: an edge every time the opponent presses", "need": {"technique": 65}},
+	{"id": "second_wind", "name": "Second wind", "effect": "+10 energy back at the bell for round 3", "need": {"conditioning": 70}},
+	{"id": "ring_general", "name": "Ring general", "effect": "Corner calls that fit work 25% better", "need": {"fight_iq": 65}},
+	{"id": "counter_sense", "name": "Counter sense", "effect": "Make an attacker miss: a free counter 3 times in 10", "need": {"defense": 65, "move:Check hook": 30}},
+	{"id": "body_snatcher", "name": "Body snatcher", "effect": "Body shots drain 15% more energy", "need": {"move:Body hook": 30}},
+	{"id": "finisher", "name": "Finisher", "effect": "Once the opponent takes a count, the referee stops it 1.5x as often", "need": {"power": 70}},
+	{"id": "hand_speed", "name": "Fast hands", "effect": "Combinations land whole more often: +25% edge", "need": {"speed": 70}},
 ]
 const NEAR := 5.0
 const SHORT := {"power": "power", "speed": "speed", "technique": "tech", "defense": "def", "conditioning": "cond",

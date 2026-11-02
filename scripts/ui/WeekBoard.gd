@@ -11,6 +11,7 @@ const UI := preload("res://scripts/ui/UI.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
 const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
+const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
 const MoveMastery := preload("res://scripts/rules/MoveMastery.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
 
@@ -53,8 +54,10 @@ func _build(main: Node, c: Career, f: Dictionary) -> void:
 	var v := UI.vbox(12)
 	add_child(v)
 	var goal := goal_of(c, f)
-	var days := WeekPlan.days_of(f)
-	var evs := WeekPlan.evenings_of(f)
+	# S355 the week's twist card (WeekTwist): the week shown and projected is the one the card leaves.
+	var tw := WeekTwist.card(str(f.get("twist", "")))
+	var days := WeekTwist.days(tw, WeekPlan.days_of(f))
+	var evs := WeekTwist.evenings(tw, WeekPlan.evenings_of(f))
 	var ctx := Sim.week_ctx(c, f)
 	var wk := WeekPlan.week(days, ctx, evs)
 	var head := UI.hbox(16)
@@ -66,6 +69,12 @@ func _build(main: Node, c: Career, f: Dictionary) -> void:
 	sub.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	head.add_child(sub)
 	v.add_child(head)
+	if not tw.is_empty():
+		var hits := WeekTwist.touches(tw, WeekPlan.days_of(f), WeekPlan.evenings_of(f))
+		var card := UI.label("THIS WEEK'S TWIST - %s: %s%s" % [str(tw["name"]).to_upper(), tw["line"], "" if hits or str(tw["id"]) == "quiet" else " (not in this week's plan)"],
+			UI.BODY, UI.AMBER if hits else UI.MUTED, "bold", true)
+		card.name = "Twist"
+		v.add_child(card)
 	v.add_child(_goal_card(main, f, goal, days, ctx, evs))
 	v.add_child(UI.caps("2   THE WEEK - MORNINGS BUILD THE BODY (PICK A SESSION AND HOW HARD), EVENINGS SHARPEN THE MOVES"))
 	var grid := GridContainer.new()

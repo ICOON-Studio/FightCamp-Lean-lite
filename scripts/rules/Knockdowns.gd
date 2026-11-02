@@ -51,7 +51,9 @@ static func round_counts(margin: String, loser: String, sides: Dictionary, damag
 	var ko := false
 	var waved := false
 	if counts > 0:
-		var stop_p: float = minf(0.9, REF_STOP * (1.0 + float(damage_out[loser]) / DAMAGE_SCALE) * (1.4 - heart / 100.0))
+		# S355 Finisher (PerkFight): the winner's perk raises the referee's odds on a counted boxer (sides[loser].stop_mult).
+		var stop_p: float = minf(0.9, REF_STOP * (1.0 + float(damage_out[loser]) / DAMAGE_SCALE) * (1.4 - heart / 100.0)
+			* float(loser_side.get("stop_mult", 1.0)))
 		if rng.randf() < stop_p:
 			ko = float(damage_out[loser]) >= KO_DAMAGE and rng.randf() < (1.0 - heart / 100.0) * KO_ODDS
 			waved = not ko
@@ -68,7 +70,8 @@ static func round_counts(margin: String, loser: String, sides: Dictionary, damag
 		how = "KO"
 		stopped = true
 
-	return {"loser": loser, "counts": counts, "up_at": up_at_arr, "stopped": stopped, "how": how, "damage": damage_out}
+	return {"loser": loser, "counts": counts, "up_at": up_at_arr, "stopped": stopped, "how": how, "damage": damage_out,
+		"waved": waved, "ko": ko}
 
 
 static func simulate_bout(sides: Dictionary, rounds: int, seed_value: int) -> Dictionary:

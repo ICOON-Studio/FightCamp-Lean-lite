@@ -29,6 +29,7 @@ const BodyReport := preload("res://scripts/rules/BodyReport.gd")
 const BodyTrack := preload("res://scripts/rules/BodyTrack.gd")
 const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 const PlanBoard := preload("res://scripts/rules/PlanBoard.gd")
+const PerkFight := preload("res://scripts/rules/PerkFight.gd")
 const NOTES_PATH := "res://assets/data/fight_habits.json"
 
 static var _notes_bank: Dictionary = {}
@@ -171,13 +172,21 @@ static func _counts(c: Career, f: Dictionary, m: Dictionary, r: Dictionary) -> v
 	var st: Dictionary = f["stats"]
 	var sides := {
 		"a": {"power": float(st["power"]), "chin": float(st["chin"]), "heart": float((f.get("personality", {}) as Dictionary).get("heart", 55.0))},
-		"b": {"power": rating, "chin": rating - (8.0 if str(opp.get("weak", "")).to_lower().contains("chin") else 0.0), "heart": 55.0},
+		"b": {"power": rating, "chin": rating - (8.0 if str(opp.get("weak", "")).to_lower().contains("chin") else 0.0), "heart": 55.0,
+			"stop_mult": PerkFight.stop_mult(f)},
 	}
 	var so_far: Dictionary = m.get("counts", {"a": 0, "b": 0})
 	var rng := RandomNumberGenerator.new()
 	rng.seed = c.day * 53 + int(r["n"]) * 11 + c.fighters.find(f) * 2003
 	var loser := "b" if bool(r["won"]) else "a"
 	var k := Knockdowns.round_counts(RoundScript.margin(r), loser, sides, m.get("damage", {"a": 0.0, "b": 0.0}), so_far, rng)
+	# S355 Iron chin: her first count of the bout is a stagger - she stays up.
+	var stagger := loser == "a" and int(k["counts"]) > 0 and PerkFight.has(f, "iron_chin") and not bool(f["bout"].get("iron_chin_used", false))
+	if stagger:
+		k = PerkFight.iron_chin(k, int(so_far["a"]))
+		f["bout"]["iron_chin_used"] = true
+		r["stagger"] = true
+		(r["lines"] as Array).append("%s is rocked but stays on the feet - Iron chin." % str(f["first"]))
 	m["damage"] = k["damage"]
 	so_far[loser] = int(so_far[loser]) + int(k["counts"])
 	m["counts"] = so_far
@@ -206,6 +215,11 @@ static func _lines(c: Career, f: Dictionary, r: Dictionary) -> void:
 	(r["lines"] as Array).append("Exchanges %d-%d; punches landed %d-%d." % [int(r["won_n"]), Exchanges.EXCHANGES - int(r["won_n"]), int(ln[0]), int(ln[1])])
 	if int(r["calls"]) > 0:
 		(r["lines"] as Array).append("Your shouts that worked: %d of %d." % [int(r["worked"]), int(r["calls"])])
+	if n == PerkFight.SECOND_WIND_ROUND and PerkFight.has(f, "second_wind"):
+		(r["lines"] as Array).append("Second wind: %s comes out for round %d with fresh legs." % [f["first"], n])
+	var perks := PerkFight.round_line(r.get("exchanges", []), str(f["first"]))
+	if perks != "":
+		(r["lines"] as Array).append(perks)
 
 
 ## S302 combos + energy (operator: "combos should also be associated with energy (stamina) in the fight"). Both tanks run
@@ -222,7 +236,7 @@ static func _energy(f: Dictionary, n: int, corner: String) -> Dictionary:
 	var mine: Dictionary = f.get("combos", {})
 	var cond_a := float(f["stats"].get("conditioning", 55.0))
 	var cond_b := RoundStyle.stat(op, "conditioning")
-	var a0 := float(fb["energy"]["a"])
+	var a0 := PerkFight.second_wind(f, n, float(fb["energy"]["a"]))   # S355 Second wind: energy back at the round-3 bell
 	var b0 := float(fb["energy"]["b"])
 	# S303 (John J-COMBOENERGY1): the rest refills half the fast debt; the slow part stays spent all fight.
 	var ra := Combos.after_round(a0, float(fb["energy"].get("qa", 0.0)), Combos.round_spend(mine, corner, cond_a), cond_a)

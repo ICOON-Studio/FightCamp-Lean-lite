@@ -114,6 +114,8 @@ func _live(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 		v.add_child(UI.label(str(last["clinch_line"]), 18, UI.AMBER if bool((last.get("clinch", {}) as Dictionary).get("hit", false)) else UI.MUTED, "body", true))
 	if str(last.get("habit_line", "")) != "":
 		v.add_child(UI.label(str(last["habit_line"]), 18, UI.AMBER, "body", true))
+	if str(last.get("perk_line", "")) != "":   # S355 a perk at work (PerkFight)
+		v.add_child(UI.label(str(last["perk_line"]), 18, UI.GREEN, "body", true))
 	v.add_child(UI.caps("WHAT YOU SEE"))
 	v.add_child(UI.label(str(pv["clue"]), 24, UI.AMBER, "bold", true))
 	if not (pv.get("read", {}) as Dictionary).is_empty():   # S333 THE READ

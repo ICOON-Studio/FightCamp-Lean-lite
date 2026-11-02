@@ -21,6 +21,8 @@ const TrainingLoad := preload("res://scripts/rules/TrainingLoad.gd")
 const TrainingPlan := preload("res://scripts/rules/TrainingPlan.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
 const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
+const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
+const WeekActual := preload("res://scripts/rules/WeekActual.gd")
 const PerkRoad := preload("res://scripts/rules/PerkRoad.gd")
 
 ## Without a coach training runs at 60%: the coach factor 0.5 + r x 0.7 equals 0.6 at this rating.
@@ -68,7 +70,8 @@ static func week_ctx(career: Career, f: Dictionary) -> Dictionary:
 
 ## {stat: points a day} averaged over her week; a camp multiplies its focus by the protocol.
 static func daily_gain(career: Career, f: Dictionary) -> Dictionary:
-	var w := WeekPlan.week(WeekPlan.days_of(f), week_ctx(career, f), WeekPlan.evenings_of(f))
+	var tw := WeekTwist.card(str(f.get("twist", "")))
+	var w := WeekPlan.week(WeekTwist.days(tw, WeekPlan.days_of(f)), week_ctx(career, f), WeekTwist.evenings(tw, WeekPlan.evenings_of(f)))
 	var out: Dictionary = {}
 	for key in f["stats"].keys():
 		out[key] = float((w["gains"] as Dictionary).get(key, 0.0)) / 7.0 * BoutRules.camp_gain_mult(f.get("camp", {}), str(key))
@@ -80,8 +83,22 @@ static func step_day(career: Career) -> void:
 		var mult := Injuries.gain_mult(career, f)   # S325 an injured fighter trains at the rest week's share
 		var dow := posmod(career.day, 7)   # day 0 is a Monday (Clock)
 		var resting := Injuries.out(career, f)
-		var m: Array = ["rest", "normal"] if resting else (WeekPlan.days_of(f)[dow] as Array)
-		var r := WeekPlan.full_day(str(m[0]), str(m[1]), "rest" if resting else str(WeekPlan.evenings_of(f)[dow]),
+		# S355 CORE3 step 2: the week's twist card changes the week she runs; Monday keeps what the plan says it will do
+		# (WeekActual), and a day that runs other than planned goes on the log the week review reads.
+		var tw := WeekTwist.card(str(f.get("twist", "")))
+		var days := WeekTwist.days(tw, WeekPlan.days_of(f))
+		var evs := WeekTwist.evenings(tw, WeekPlan.evenings_of(f))
+		if dow == 0:
+			f["week_planned"] = WeekActual.snapshot(WeekPlan.week(days, week_ctx(career, f), evs), WeekPlan.days_of(f), float(f["weight"]), career.day)
+			f["week_log"] = []
+			f["week_peak"] = float(f.get("week_fatigue", 20.0))
+		var planned_days: Array = (f.get("week_planned", {}) as Dictionary).get("days", [])
+		if resting and str((days[dow] as Array)[0]) != "rest":
+			(f.get_or_add("week_log", []) as Array).append(WeekActual.log_entry(dow, days[dow], ["rest", "normal"], "injured"))
+		elif not resting and planned_days.size() == 7 and planned_days[dow] != WeekPlan.days_of(f)[dow]:
+			(f.get_or_add("week_log", []) as Array).append(WeekActual.log_entry(dow, planned_days[dow], days[dow], "changed"))
+		var m: Array = ["rest", "normal"] if resting else (days[dow] as Array)
+		var r := WeekPlan.full_day(str(m[0]), str(m[1]), "rest" if resting else str(evs[dow]),
 			week_ctx(career, f), float(f.get("week_fatigue", 20.0)))
 		for k in [["stat", "gain"], ["stat2", "gain2"]]:
 			var st := str(r.get(k[0], ""))
@@ -91,6 +108,7 @@ static func step_day(career: Career) -> void:
 		var hi := maxf(float(f["weight"]), float(f["limit"]) + 1.6)
 		f["weight"] = clampf(float(f["weight"]) + float(r["kg"]), lo, hi)
 		f["week_fatigue"] = float(r["fatigue"])
+		f["week_peak"] = maxf(float(f.get("week_peak", 0.0)), float(r["fatigue"]))
 	career.day += 1
 	Injuries.day_tick(career)
 	Bouts.day_events(career)
@@ -248,10 +266,25 @@ static func end_week(career: Career) -> void:
 		for key in Data.STATS:
 			rows.append({"st": key, "before": float(start.get(key, f["stats"][key])), "after": float(f["stats"][key])})
 		var drill := drill_week(career, f)
+		var plan := {}
+		var planned: Dictionary = f.get("week_planned", {})
+		var tw := WeekTwist.card(str(f.get("twist", "")))
+		if not planned.is_empty():
+			var rws := WeekActual.rows(planned, start, f["stats"], float(f["weight"]), float(f.get("week_peak", 0.0)))
+			plan = {"rows": rws, "twist": str(tw.get("name", "")),
+				"reason": WeekActual.reason(f.get("week_log", []), tw, str((f.get("camp", {}) as Dictionary).get("focus", ""))),
+				"change": WeekActual.suggest(rws, WeekPlan.days_of(f), week_ctx(career, f), float(f["weight"]) > float(f["limit"]) + 0.05)}
+		f.erase("week_planned")
+		# The next week's twist card (never the same one twice running).
+		var bt: Dictionary = f.get("bout", {})
+		var fight_week := not bt.is_empty() and not bool(bt.get("done", false)) and int(bt.get("day", 0)) - career.day <= 7
+		var nt := WeekTwist.draw(week + 1 + career.fighters.find(f) * 31, str(f.get("twist", "")), fight_week)
+		f["twist"] = str(nt["id"])
+		# (No news line: the Training tab shows the card all week and the review names it - a weekly line flooded Mail.)
 		var rank_before := int(f.get("rank_at_review", f.get("rank", 0)))
 		reports.append({"id": f["id"], "name": f["name"], "rows": rows, "moves": drill["rows"], "new_weapon": drill["new_weapon"],
 			"rank_before": rank_before, "rank_after": int(f.get("rank", 0)), "div": Data.DIVISIONS[f["div"]]["short"],
-			"coach": coach_line(career, f)})
+			"coach": coach_line(career, f), "plan": plan})
 		f["rank_at_review"] = int(f.get("rank", 0))
 		if not career.coach.is_empty():
 			Bouts.coach_note(career, f, "sparring")
