@@ -54,7 +54,7 @@
    "agent": "antigravity",
    "id": "CAMCLINCH1",
    "title": "TASK CAMCLINCH1 - ANTIGRAVITY - the fight camera's clinch angle (both heads seen while they hold)",
-   "status": "landed",
+   "status": "collected",
    "started": "2026-11-02T22:28",
    "eta": "2026-11-02T23:23",
    "branch": "agy/camclinch1",
@@ -128,7 +128,8 @@
      "err": ""
     },
     "board": "POSTED 2 file(s) -> http://127.0.0.1:8787/review  (E:\\FightCamp\\review\\2026-11-02_2310_camclinch1_before_after_argon_2_10_4_10_)"
-   }
+   },
+   "reconciled": "2026-11-03 00:40 board_reconcile: branch agy/camclinch1 commits are on master"
   }
  },
  "codex_budget": {

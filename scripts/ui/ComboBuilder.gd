@@ -13,8 +13,7 @@ const Combos := preload("res://scripts/rules/Combos.gd")
 const ComboOdds := preload("res://scripts/rules/ComboOdds.gd")
 const MovePlayer := preload("res://scripts/fight3d/MovePlayer.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
-const Tips := preload("res://scripts/ui/Tips.gd")
-const ROUND_GAS := Combos.ROUND_COST   # what a whole round of fighting costs (Combos units)
+const ComboStrip := preload("res://scripts/ui/ComboStrip.gd")
 const SCRIPT_PATH := "res://scripts/ui/ComboBuilder.gd"
 
 ## The moves she can chain: ComboFlow id, name, the clip her body plays, the move she must master (Data.MOVES; "" = none),
@@ -198,26 +197,14 @@ func _refresh(play: bool) -> void:
 		if player != null:
 			player.stop()
 		return
-	for i in chain.size():
-		_rows.add_child(_row(i, str(chain[i])))
+	# S370 the card strip (operator: "stitch moves ... display the combo strength/stamina cost"): her move cards, each join
+	# judged, the totals under them (ComboStrip; the S359 gas words live on its GAS tile).
 	var r := CF.rate(chain)
-	var word := str(r["word"])
-	var col: Color = {"flows": UI.GREEN, "workable": UI.AMBER}.get(word, UI.RED)
-	var verdict := UI.hbox(12)
-	verdict.name = "Verdict"
-	verdict.add_child(UI.label(word.to_upper(), UI.BODY + 8, col, "display"))
-	verdict.add_child(UI.mono("%d / 100" % int(r["score"]), UI.BODY, col))
-	verdict.add_child(UI.spacer())
-	# S359 (operator still: "tank 0.67" under a see-through hover): the cost in words on the board, the sums on its card.
-	var gas := CF.energy(chain)
-	var share := 100.0 * gas / ROUND_GAS
-	var tank := UI.muted("costs %d%% of a round's gas" % maxi(1, int(round(share))))
-	tank.name = "Tank"
-	Tips.card(tank, func(): return {"title": "Gas tank", "rows": [["This chain", "%.2f" % gas, "", ""],
-		["A whole round", "%.0f" % ROUND_GAS, "", ""], ["Share", "%.0f%%" % share, "", "watch" if share >= 8.0 else ""]],
-		"means": "each time she throws it, it takes %.0f%% of what a whole round of fighting takes out of her. Long chains tire her sooner." % share})
-	verdict.add_child(tank)
-	_rows.add_child(verdict)
+	var by_id := {}
+	for e in PALETTE:
+		by_id[e["id"]] = e
+	_rows.add_child(ComboStrip.strip(f, chain, r, by_id, _remove))
+	_rows.add_child(ComboStrip.totals(f, chain, r, book_id(chain)))
 	var lessons := PanelContainer.new()
 	lessons.name = "Lessons"
 	lessons.add_theme_stylebox_override("panel", UI.box(Color("#fff7d6"), UI.YELLOW_EDGE, 8, 1, 12, 8))
@@ -253,30 +240,6 @@ func _refresh(play: bool) -> void:
 	_rows.add_child(btns)
 	if play:
 		_play()
-
-
-func _row(i: int, id: String) -> Control:
-	var e := entry(id)
-	var h := UI.hbox(10)
-	h.name = "Step_%d" % (i + 1)
-	var num := PanelContainer.new()
-	num.add_theme_stylebox_override("panel", UI.box(UI.GOLD, Color(0, 0, 0, 0), 15, 0, 0, 0))
-	num.custom_minimum_size = Vector2(30, 30)
-	var nl := UI.label(str(i + 1), UI.SMALL, Color.WHITE, "bold")
-	nl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	nl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	num.add_child(nl)
-	h.add_child(num)
-	h.add_child(Icons.icon(str(e.get("icon", "info")), 20, UI.FG, str(e.get("name", id))))
-	var name_l := UI.label(str(e.get("name", id)), UI.BODY, UI.FG, "bold")
-	name_l.custom_minimum_size = Vector2(120, 0)
-	h.add_child(name_l)
-	h.add_child(UI.muted(str(e.get("cue", "")), UI.SMALL, true))
-	var why := locked_why(f, id)
-	if why != "":
-		h.add_child(Icons.tip(UI.chip("pad time first", "amber"), why))
-	h.add_child(Icons.button("x", "Take it out", _remove.bind(i), UI.MUTED, 18))
-	return h
 
 
 func _play() -> void:

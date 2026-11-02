@@ -63,12 +63,17 @@ static func rate(chain: Array) -> Dictionary:
 	var prev_load := ""
 	var after_defence := false
 	var punch_seen := 0
+	# S370 (the combo card strip judges every join): what each move added to the score, and the coach's words for it.
+	var steps: Array = []
 	for i in chain.size():
 		var id := str(chain[i])
 		var m: Dictionary = MOVES.get(id, {})
+		var before := score
+		var said := notes.size()
 		if m.is_empty():
 			notes.append("Unknown move \"%s\" — cannot judge the chain." % id)
 			score -= 20.0
+			steps.append({"delta": score - before, "notes": notes.slice(said)})
 			continue
 		var kind := str(m["kind"])
 		if kind == "punch":
@@ -100,6 +105,7 @@ static func rate(chain: Array) -> Dictionary:
 		prev_id = id
 		prev_kind = kind
 		prev_load = str(m.get("loads", ""))
+		steps.append({"delta": score - before, "notes": notes.slice(said)})
 	# S349 rule 6 (operator S348, his "Build a smart combination" sheet: "move your head after punching"): a chain that
 	# ends on a slip, roll or step after its punches scores; one that ends on a punch says so (no penalty: the book's
 	# combinations are taught as punches and the corner adds the exit).
@@ -116,7 +122,9 @@ static func rate(chain: Array) -> Dictionary:
 		notes.append("Too many punches in one go — accuracy drops and she leaves holes.")
 	if notes.is_empty():
 		notes.append("Straight work — nothing major to flag.")
-	return _pack(score, notes)
+	var out := _pack(score, notes)
+	out["steps"] = steps
+	return out
 
 
 static func energy(chain: Array) -> float:

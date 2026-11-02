@@ -12,7 +12,9 @@ const BLUE := Color(0.5, 0.65, 1.0)
 static func build(rows: Array, names: Array) -> Control:
 	var panel := PanelContainer.new()
 	panel.name = "TaleOfTape"
-	panel.add_theme_stylebox_override("panel", UI.box(Color(0.05, 0.04, 0.04, 0.88), UI.LINE, 8, 1, 22, 16))
+	# S370 (operator: "tale of the tape got clipped quite a lot why?"): at 0.88 the ring's ropes and the near corner post
+	# showed through the rows; the card is solid now.
+	panel.add_theme_stylebox_override("panel", UI.box(Color(0.05, 0.04, 0.04, 0.97), UI.LINE, 8, 1, 22, 16))
 	panel.anchor_left = 0.5
 	panel.anchor_right = 0.5
 	panel.anchor_top = 0.5

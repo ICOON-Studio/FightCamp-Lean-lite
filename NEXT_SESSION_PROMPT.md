@@ -1,3 +1,22 @@
+# S371 - next session (written S370, 2026-11-03)
+
+Start in E:\FightCamp\Lean: `git pull && python ops/Tools/agent_comms.py start`. Digest: ops/research/S370_DIGEST.md.
+Research: ops/research/S370_MENUS_RESEARCH.md (Miro menu rules, praised games per loop, our gaps). Operator focus S370:
+the player experience IN THE MENUS - training and planning first (memory feedback-menus-are-the-game-s370); animation
+work goes to seats. ORDER = roadmap `next_action`:
+(1) collect the seats: Arena FLOWBOUT1 PR (branch arena/ca105630-fightcamp-lean: plan_record_test into run_tests.sh,
+then wire the Record tab + Playbook plan-line win rates), agy KNEETRACK1 (tools/knee_probe.gd -- layer=1, windowed film),
+Qwen NOREF1 (tools/push_off_probe.gd + film), Ziva BODYREACT1 (her chat on 7012; then send TASK_WEIGHIN3D1);
+(2) Q-S294-92 training goals as tests (canvas https://claude.ai/artifact/HLaiSxhMXEPERsM3naACY7) + John's J_TESTS1
+numbers (gbot thread John) -> build GOALTESTS1; (3) the plan in the ring + the corner's plan so far + the plan board reads
+the file with a ROUND row (S369 proposal 2-3); (4) re-render the guide (python tools/hidden_desktop.py run ... --script
+res://tools/guide_tour.gd -- <dir>; python tools/guide_gif.py <dir> <log> ops/previews/S370_guide) and resend;
+(5) one belt match before claude/bjjmatch1 merges (S369).
+TRAPS: a headless pose probe must `await process_frame` after loading clips or every seek reads the rest pose; the tape
+room is a layer over the game (not a modal) - take it off by node; in 3D the fight's buttons live in the fight view's
+overlay (root.find_child), and the intro runs ~20 s before the first bell.
+
+--- S370 notes (written S369) ---
 # S370 - next session (written S369, 2026-11-03)
 
 Start in E:\FightCamp\Lean: `git pull && python ops/Tools/agent_comms.py start`. Digest: ops/research/S369_DIGEST.md.

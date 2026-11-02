@@ -101,6 +101,16 @@ func _initialize() -> void:
 		"a second pick replaces the first, the starter's any-time step back stays")
 	_check(bool(PlanBoard.validate(plan, StrikeMap.MOVES, PlanBoard.arrow_limit(58.0), FightFlow.WHEN_WORDS)["ok"]), "the plan stays legal for a sessional coach")
 	_check(TapeClips.answer(plan, "range") == "", "no arrow yet for 'if she boxes at range'")
+	# 5b. S370 the tape's answer always goes in: at the coach's limit it replaces her oldest any-time line, never refused.
+	var limit := plan.size()
+	var room := TapeClips.pick_room(plan, "range", "1-2", limit)
+	_check((room["plan"] as Array).size() == limit and TapeClips.answer(room["plan"], "range") == "1-2" and str(room["out"]) == "1-2",
+		"full plan: the range answer goes in and her oldest any-time line leaves (%s out)" % str(room["out"]))
+	var again := TapeClips.pick_room(room["plan"], "press", "step_back", limit)
+	_check(TapeClips.answer(again["plan"], "press") == "step_back" and str(again["out"]) == "slip 2-3" and (again["plan"] as Array).size() == limit,
+		"a second answer for the same situation replaces that line only (%s out)" % str(again["out"]))
+	var roomy := TapeClips.pick_room(PlanFight.starter(), "press", "step_back", 6)
+	_check(str(roomy["out"]) == "" and (roomy["plan"] as Array).size() == 5, "with room nothing leaves")
 
 	# 6. Watching a film opens what it shows in her file (and only once).
 	var m2: Dictionary = (Data.OPPONENTS[0] as Dictionary).duplicate(true)

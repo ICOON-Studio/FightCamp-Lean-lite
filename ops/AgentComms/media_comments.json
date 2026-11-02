@@ -1619,6 +1619,23 @@
       "text": "MARKUP for Q-S294-78: 1 marks -> Feedback/2026-11-02-12/README.md",
       "at": "2026-11-02T02:55:28Z",
       "seen_by_claude": true
+    },
+    {
+      "path": "_sent/2026-11-02_2310_camclinch1_before_after_argon_2_10_4_10_/after.mp4",
+      "text": "better",
+      "at": "2026-11-02T21:26:06Z",
+      "seen_by_claude": true,
+      "at_s": 50.7,
+      "id": "C216",
+      "addressed": "cited by 69ddbbd 2026-11-03"
+    },
+    {
+      "path": "_sent/2026-11-02_2026_gemini_4_argon_judges_30_s_of_a_live_rou/fight_round_clip_60-90s.mp4",
+      "text": "camera is terrible always behind shoulder of one fighter the other fighter barely seen",
+      "at": "2026-11-02T21:26:53Z",
+      "seen_by_claude": true,
+      "at_s": 30.0,
+      "id": "C217"
     }
   ]
 }

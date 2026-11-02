@@ -22,6 +22,7 @@ const TrainingLoad := preload("res://scripts/rules/TrainingLoad.gd")
 const TrainingPlan := preload("res://scripts/rules/TrainingPlan.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
 const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
+const WeekCause := preload("res://scripts/rules/WeekCause.gd")
 const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
 const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
 const WeekActual := preload("res://scripts/rules/WeekActual.gd")
@@ -158,6 +159,7 @@ static func step_day(career: Career) -> void:
 			if not (f.get("camp", {}) as Dictionary).is_empty() and not ob.is_empty() and not bool(ob.get("done", false)):
 				WeekOpp.record(ob, days, str(f.get("phase", "base")))
 			f["week_log"] = []
+			f["week_src"] = {}   # S370 WeekCause: which sessions moved which stat this week
 			f["week_peak"] = float(f.get("week_fatigue", 20.0))
 		var planned_days: Array = (f.get("week_planned", {}) as Dictionary).get("days", [])
 		if resting and str((days[dow] as Array)[0]) != "rest":
@@ -167,10 +169,13 @@ static func step_day(career: Career) -> void:
 		var m: Array = ["rest", "normal"] if resting else (days[dow] as Array)
 		var r := WeekPlan.full_day(str(m[0]), str(m[1]), "rest" if resting else str(evs[dow]),
 			week_ctx(career, f), float(f.get("week_fatigue", 20.0)))
-		for k in [["stat", "gain"], ["stat2", "gain2"]]:
+		var by: Array = [str(WeekPlan.session(str(m[0]))["name"]), str((WeekPlan.EVENINGS.get(str(r["evening"]), {}) as Dictionary).get("name", ""))]
+		for k in [["stat", "gain", 0], ["stat2", "gain2", 1]]:
 			var st := str(r.get(k[0], ""))
 			if st != "" and (f["stats"] as Dictionary).has(st):
-				f["stats"][st] = minf(STAT_CAP, float(f["stats"][st]) + float(r[k[1]]) * BoutRules.camp_gain_mult(f.get("camp", {}), st) * mult)
+				var was := float(f["stats"][st])
+				f["stats"][st] = minf(STAT_CAP, was + float(r[k[1]]) * BoutRules.camp_gain_mult(f.get("camp", {}), st) * mult)
+				WeekCause.add(f.get_or_add("week_src", {}), st, str(by[k[2]]), float(f["stats"][st]) - was)
 		var lo := minf(float(f["weight"]), float(f["limit"]) - 1.5)
 		var hi := maxf(float(f["weight"]), float(f["limit"]) + 1.6)
 		f["weight"] = clampf(float(f["weight"]) + float(r["kg"]), lo, hi)
@@ -353,7 +358,8 @@ static func end_week(career: Career) -> void:
 		var rows: Array = []
 		var start: Dictionary = f.get("week_start", {})
 		for key in Data.STATS:
-			rows.append({"st": key, "before": float(start.get(key, f["stats"][key])), "after": float(f["stats"][key])})
+			rows.append({"st": key, "before": float(start.get(key, f["stats"][key])), "after": float(f["stats"][key]),
+				"why": WeekCause.words(f.get("week_src", {}), key)})
 		var drill := drill_week(career, f)
 		var plan := {}
 		var planned: Dictionary = f.get("week_planned", {})

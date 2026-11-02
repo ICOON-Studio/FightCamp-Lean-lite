@@ -1,3 +1,19 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 67 (2026-11-03): COMBOS AS CARDS, GAINS WITH THEIR CAUSE, THE TAPE REACHES THE PLAN
+=====================================================================================================================
+
+ 1. PLAYBOOK > Combos: her moves are CARDS. Pick moves on the left (or a book combination) and they stitch left to right.
+    Each card: her level with the move (RAW / USABLE / SHARP ...), when it lands, the gas it costs, the damage it does;
+    a move she has not learned is faded with "pad time first". Between two cards the join is judged in the coach's
+    words with its points ("+12 Throws off the loaded hand", red when it breaks the flow). Under the strip:
+    STRENGTH (the combination's score, 70+ flows), GAS (share of a round), LANDS IN (seconds), DAMAGE (head / ribs) and
+    VS her next opponent (book combinations: how often it lands whole). Hover any tile for the numbers behind it.
+ 2. The week review (every Sunday): a stat that crossed a point says +1 in gold; the rest say how far to the next point
+    ("76% to 59"), and under each bar the sessions that moved it ("from Heavy bag x3, Strength circuit x1").
+ 3. The tape room: the counter you pick ALWAYS goes into her plan. Each button says which plan line it replaces before
+    you click ("Replaces One-two"); the toast after it says it again. No more "drop an arrow first".
+ 4. Fight night: the tale of the tape card is solid - the ropes and the corner post no longer run through it.
+ 5. The camera in a clinch turns to the corner of the pair and lifts, so both faces show (CAMCLINCH1, your "better").
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 66 (2026-11-02): WHAT ANA DRILLS, WHAT EACH OPEN IS DECIDED ON
 =================================================================================================
 

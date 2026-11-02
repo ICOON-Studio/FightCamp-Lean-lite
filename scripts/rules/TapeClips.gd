@@ -328,6 +328,24 @@ static func pick(plan: Array, when: String, move_id: String) -> Array:
 	return out
 
 
+## S370 (S369 playtest: "the tape cannot reach the plan" - a full plan refused the answer, a dead click): the tape's
+## answer always goes in. It replaces her arrow for that situation; with none and the coach's limit reached, it replaces
+## her oldest any-time line (no "when"), else her oldest line. -> {"plan", "out": the move id that left, "" = none}.
+static func pick_room(plan: Array, when: String, move_id: String, limit: int) -> Dictionary:
+	var before := answer(plan, when)
+	var out := pick(plan, when, move_id)
+	var gone := before if before != "" and before != move_id else ""
+	if out.size() > maxi(1, limit):
+		var drop := 0
+		for i in out.size() - 1:   # never the answer just added (the last arrow)
+			if str((out[i] as Dictionary).get("when", "")) == "":
+				drop = i
+				break
+		gone = str(out[drop]["move"])
+		out.remove_at(drop)
+	return {"plan": out, "out": gone}
+
+
 ## The arrow her plan holds for a film's situation ("" = none yet).
 static func answer(plan: Array, when: String) -> String:
 	var card := str(PlanFight.GAME_CARD.get(when, "long"))

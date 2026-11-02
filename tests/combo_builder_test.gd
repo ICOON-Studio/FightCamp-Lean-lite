@@ -49,9 +49,9 @@ func _initialize() -> void:
 
 func _text(n: Node) -> String:
 	var out := ""
-	for c in n.get_children():
-		if c is Label:
-			out += (c as Label).text + " "
+	# S370: the verdict is the card strip's totals - its words sit inside tiles, so read every label under it.
+	for c in n.find_children("*", "Label", true, false):
+		out += (c as Label).text + " "
 	return out
 
 

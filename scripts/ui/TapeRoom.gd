@@ -426,6 +426,10 @@ func _draw_answer() -> void:
 		# A tell her file holds (spotted, found by tape study, or free) lets the tape suggest the answer.
 		# One short line under the move: the suggestion, then what it does - or, not drilled yet, what she must learn first.
 		var small := ("Suggested by the tape. " if known and str(k["fit"]) == "best" else "") + (str(k["why"]) if grey == "" else grey)
+		# S370 the answer always goes in: say which line of her plan it replaces before the click.
+		var out := str(TapeClips.pick_room(_plan(), when, id, PlanBoard.arrow_limit(_coach()))["out"]) if id != now else ""
+		if out != "" and grey == "":
+			small += " Replaces %s." % str(StrikeMap.move(out).get("name", out))
 		var b := UI.button2(str(k["name"]), small,
 			"ChoiceOn" if id == now else "Choice", _pick.bind(id), Vector2(0, 70), UI.FG, UI.GOLD if small.begins_with("Suggested") else UI.MUTED)
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -442,7 +446,8 @@ func _draw_answer() -> void:
 func _pick(move_id: String) -> void:
 	var c: Dictionary = clips[idx]
 	var when := str(c["when"])
-	var plan := TapeClips.pick(_plan(), when, move_id)
+	var room := TapeClips.pick_room(_plan(), when, move_id, PlanBoard.arrow_limit(_coach()))
+	var plan: Array = room["plan"]
 	var v := PlanBoard.validate(plan, StrikeMap.MOVES, PlanBoard.arrow_limit(_coach()), FightFlow.WHEN_WORDS)
 	if not v["ok"]:
 		if main != null:
@@ -450,7 +455,9 @@ func _pick(move_id: String) -> void:
 		return
 	f["arrows"] = plan
 	if main != null:
-		main.toast("In %s's plan: if %s - %s." % [f.get("first", "your fighter"), FightFlow.WHEN_WORDS.get(when, when), StrikeMap.move(move_id).get("name", move_id)])
+		var out := str(room["out"])
+		main.toast("In %s's plan: if %s - %s.%s" % [f.get("first", "your fighter"), FightFlow.WHEN_WORDS.get(when, when),
+			StrikeMap.move(move_id).get("name", move_id), (" It replaces %s." % str(StrikeMap.move(out).get("name", out))) if out != "" else ""])
 	_draw_tabs()
 	_draw_answer()
 

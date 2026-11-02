@@ -68,12 +68,25 @@ func build(main: Node, m: Dictionary) -> void:
 			var tick := TrainingPreview.crossed_point(before, after)
 			if tick:
 				crossed += 1
-			var row := UI.stat_row(Data.LABEL[x["st"]], after, tick, UI.GOLD if tick else UI.FG, UI.gain_text(after - before))
+			# S370 (S367 critic: "decimal gains make a week feel like nothing happened"): a crossed point says +1, the rest
+			# says how far to the next point, and the sessions that moved it are named under the bar (WeekCause).
+			var moved_up := after - before >= 0.005
+			var suffix := " +%d" % (int(floorf(after)) - int(floorf(before))) if tick else \
+				(" %d%% to %d" % [int(TrainingPreview.progress_to_next(after) * 100.0), int(floorf(after)) + 1] if moved_up else "")
+			var row := UI.stat_row(Data.LABEL[x["st"]], after, tick, UI.GOLD if tick else UI.FG, suffix)
 			row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 			var bar: Control = row.get_meta("bar")
 			bar.frac = 0.0 if tick else TrainingPreview.progress_to_next(before)
 			_grow.append([bar, TrainingPreview.progress_to_next(after), t])
-			t = _land(stats, row, t, step)
+			var cell := UI.vbox(0)
+			cell.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			cell.add_child(row)
+			var why := str(x.get("why", ""))
+			if why != "" and moved_up:
+				var wl := UI.label(why, UI.TINY, UI.GOLD if tick else UI.MUTED, "body")
+				wl.name = "Why_%s" % str(x["st"])
+				cell.add_child(wl)
+			t = _land(stats, cell, t, step)
 		v.add_child(stats)
 		var notes: Array = []
 		var moved: Array = []

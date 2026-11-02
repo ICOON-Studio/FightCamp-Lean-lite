@@ -6,13 +6,13 @@
   "id": "S369",
   "owner": "claude",
   "updated": "2026-11-03",
-  "summary": "S369: management pages as face cards MERGED 114a309 (exe 117/117); BJJ belt match + Ana's strength/cardio trained on the mat + fight HUD numbers on claude/bjjmatch1 (118/118, not merged - operator plays one belt match first); agy = Gemini 4 Argon; a planning playtest (two boxers + BJJ): the tape cannot reach the plan, the plan is invisible in the ring. Operator: remove the referee (push-off), tired legs red + weaker shots, body-shot reactions, the flow per bout. Digest research/S369_DIGEST.md.",
-  "next_action": "S370, in order: (1) the operator picks the first fight change in the S369 box (remove the referee - boxers push each other off slowly / tired legs red on the holo + weaker tired shots); build it, then the other, then body-shot hit reactions and the flow saved per bout on the fighter page + plan-line win rates in the Playbook; (2) scouting -> plan per research/S369_PLAYTEST_TWO_FIGHTERS.md (tape answer replaces its line, plan board reads the file + a ROUND row, 'PLAN: DOUBLE JAB landed 4/5' in the ring + corner); (3) readable corner summary, rename 'exchanges won'; (4) collect PR #20 CAMCLINCH1 windowed (cam_view_probe), retire agy/refbreak1 (superseded); merge claude/bjjmatch1 after the operator plays one belt match (jump=grapple match=1). Digest research/S369_DIGEST.md.",
-  "next_acceptance": "Each built fight change shown live in the exe with a still/film and its tests green: no referee in the ring - a clinch ends with both boxers pushing off back to range; a tired boxer's legs amber/red on the holo and her shots land lighter (a probe measures it); body shots draw a hit reaction; each bout's THE PLAN, LIT UP saved on the fighter page.",
+  "summary": "S370: the player experience in the menus (operator). Playthrough guide GIF (tools/guide_tour.gd + guide_gif.py), PLAYBOOK > Combos as a card strip with real numbers, week review names the sessions behind each gain, the tape answer always reaches the plan, tale-of-tape card solid; PR #20 clinch camera merged. Seats: agy KNEETRACK1, Qwen NOREF1, Ziva BODYREACT1, Arena FLOWBOUT1 (full repo), John J_TESTS1. Digest research/S370_DIGEST.md.",
+  "next_action": "S371, in order: (1) collect the seats - Arena FLOWBOUT1 PR (add plan_record_test to run_tests.sh, wire the Record tab + Playbook plan-line win rates), agy KNEETRACK1 (knee_probe -- layer=1 + film), Qwen NOREF1 (push_off_probe + film), Ziva BODYREACT1 (then send TASK_WEIGHIN3D1); (2) on Q-S294-92 yes + John J_TESTS1 numbers build GOALTESTS1 (a goal is a test on a date, the projection the week moves, Sunday check-in, test day, grade roads); (3) the plan in the ring + the corner plan so far + the plan board reads the file with a ROUND row; (4) re-render the guide and resend; (5) belt match before claude/bjjmatch1 merges.",
+  "next_acceptance": "Each seat collected by its own probe line (PASS) and a film the operator can watch; GOALTESTS1 only after his yes.",
   "last_working_commit": "b980127",
   "verified_playable": "Main exe (114a309): a quick-start career played 10 weeks live in the exe - two boxers (walk-in + a scouting trial), camps, tape room, Playbook plans, two live fights won with calls and corners, Ana's open gold; the new face-card pages work live.",
   "incomplete_blocked": "claude/bjjmatch1 unmerged (waits for the operator's belt-match playtest); PR #20 CAMCLINCH1 uncollected (needs cam_view_probe run windowed); agy/refbreak1 superseded (remove the referee); the Miro production map was not moved in S369.",
-  "awaiting_operator": "Which fight change first (remove the referee / tired legs + power); one belt match played (FightCamp.exe -- jump=grapple match=1) before claude/bjjmatch1 merges; OK on the scouting -> plan proposal (S369 playtest report).",
+  "awaiting_operator": "Q-S294-92 training goals as tests (canvas https://claude.ai/artifact/HLaiSxhMXEPERsM3naACY7); one belt match (FightCamp.exe -- jump=grapple match=1) before claude/bjjmatch1 merges.",
   "branch_note": "claude/bjjmatch1 e115893 (belt match, Ana body, HUD numbers; 118/118) not merged"
  },
  "next": "Build the operator's fight changes (remove the referee: push-off; tired legs red + weaker shots; body-shot reactions; the flow per bout); then scouting -> plan (tape answer into the plan, the board reads the file + rounds, the plan visible in the ring).",
@@ -1509,6 +1509,11 @@
    "id": "S369",
    "date": "2026-11-03",
    "summary": "S369: UI face cards merged; BJJ belt match + Ana's body + HUD numbers on claude/bjjmatch1; agy on Argon; planning playtest; operator: remove the referee, tired legs, body reactions, flow per bout. Digest research/S369_DIGEST.md."
+  },
+  {
+   "id": "S370",
+   "date": "2026-11-03",
+   "summary": "S370: menus for the player - guide GIF, combo card strip, gains with causes, tape -> plan; PR #20 merged; seats on knees (agy), no-referee (Qwen), body shots (Ziva), plan records (Arena, full repo now). Digest research/S370_DIGEST.md."
   }
  ],
  "blocked_on_operator": [],
@@ -4556,46 +4561,48 @@
   },
   "working_now": [
    {
-    "title": "TASK RIVALPAST1 - QWEN - a unit test for RivalPast, the rivals' bout-by-bout records (Lean)",
-    "who": "qwen",
-    "started": "2026-11-02T21:24",
-    "run": "RIVALPAST1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK CAMCLINCH1 - ANTIGRAVITY - the fight camera's clinch angle (both heads seen while they hold)",
-    "who": "antigravity",
-    "started": "2026-11-02T22:28",
-    "run": "CAMCLINCH1",
-    "state": "LANDED - Claude collects"
-   }
-  ],
-  "next": [
-   {
     "id": "KNEETRACK1",
     "who": "antigravity",
-    "title": "Knees point over the toes in every clip (operator S370 \"the knee joints do not feel right\") - Gemini 4, TASK_KNEETRACK1",
-    "after": ""
+    "title": "Knees point over the toes in every clip (seat_dispatch, Gemini 4 Argon)"
    },
    {
     "id": "NOREF1",
     "who": "qwen",
-    "title": "Remove the referee: a clinch ends with both boxers pushing each other off slowly (operator S369) - Qwen, TASK_NOREF1"
+    "title": "No referee: both boxers push each other off slowly (seat_dispatch)"
+   },
+   {
+    "id": "BODYREACT1",
+    "who": "ziva",
+    "title": "Body shots visibly hurt (Ziva, measured first)"
+   },
+   {
+    "id": "FLOWBOUT1",
+    "who": "arena",
+    "title": "Every bout keeps its plan results (Arena, full repo)"
+   },
+   {
+    "id": "J_TESTS1",
+    "who": "john",
+    "title": "Real boxing tests and values by level (John)"
+   }
+  ],
+  "next": [
+   {
+    "id": "GOALTESTS1",
+    "who": "claude+john",
+    "title": "Training goals you can feel: a goal is a test on a date, grades for non-competitors (Q-S294-92, John J_TESTS1 numbers first)",
+    "after": "Q-S294-92"
+   },
+   {
+    "id": "WEIGHIN3D1",
+    "who": "ziva+ludo",
+    "title": "Weigh-in cutscene: step on the scale, the number, the pose, a face-off for pro bouts (operator S370) - Ziva after BODYREACT1, TASK_WEIGHIN3D1",
+    "after": "BODYREACT1"
    },
    {
     "id": "TIREDLEGS1",
     "who": "claude",
     "title": "Tired fighter: the legs go amber/red on the holo and tired shots land lighter (operator S369)"
-   },
-   {
-    "id": "BODYREACT1",
-    "who": "ziva",
-    "title": "Body shots get a hit reaction from the other fighter (operator S310, again S369) - Ziva, TASK_BODYREACT1"
-   },
-   {
-    "id": "FLOWBOUT1",
-    "who": "claude",
-    "title": "THE PLAN, LIT UP saved per bout on the fighter page + plan-line win rates in the Playbook (operator S369)"
    },
    {
     "id": "SCOUTPLAN1",
@@ -4849,6 +4856,11 @@
    }
   },
   "done_recently": [
+   {
+    "id": "S370UI",
+    "who": "claude",
+    "title": "S370: guide GIF, combo card strip, gains with causes, tape answer reaches the plan, solid tale of the tape; PR #20 clinch camera merged"
+   },
    {
     "id": "UIPOLISH1",
     "who": "claude",
