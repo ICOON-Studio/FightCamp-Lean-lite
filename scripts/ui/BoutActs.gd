@@ -63,6 +63,7 @@ static func act(main: Node, name: String, arg: String) -> bool:
 			# S356 the week's twist card answered: "fid|a" (until Monday runs; WeekTwist.pick).
 			var parts := arg.split("|")
 			WeekTwist.pick(who(main, parts[0]), parts[1])
+			who(main, parts[0])["board_taught"] = true   # S359 the whiteboard's first-open dim is over (WeekBoard.teaching)
 			if not (main.modal as Dictionary).is_empty():
 				main.open_modal(main.modal)
 			else:

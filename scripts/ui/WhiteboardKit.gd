@@ -6,6 +6,7 @@ extends RefCounted
 ##   board_style() -> the board in its frame   ink(text, size, kind, colour) -> Label   magnet(text, roman, dark, tip) -> PanelContainer
 ##   pick_magnet(text, roman, dark, tip, items, on_pick) -> MenuButton   circled(top, under) -> Control   sticky() -> PanelContainer
 ##   tape_chip(text) -> PanelContainer   Fatigue (bar)   roman(intensity)   risk_colour(v)
+##   level(intensity) -> LIGHT|NORMAL|HARD   fatigue_word(v, red) -> [word, tip, colour]   phase_strip(cells, here) -> Control
 
 const UI := preload("res://scripts/ui/UI.gd")
 
@@ -36,6 +37,55 @@ static func ink(text: String, size: int, kind: String = "hand", colour: Color = 
 
 static func roman(intensity: String) -> String:
 	return {"light": "I", "normal": "II", "hard": "III"}.get(intensity, "II")
+
+
+## S359 (Kalli SQ25: "Roman numerals mean nothing to a boxing coach") the intensity as the word on the magnet.
+static func level(intensity: String) -> String:
+	return {"light": "LIGHT", "normal": "NORMAL", "hard": "HARD"}.get(intensity, "NORMAL")
+
+
+## S359 (Kalli SQ25: "a red bar with a number shows a problem, not a consequence") a day's fatigue as a word, its cost on
+## the hover: [word, tooltip, colour]. red = the second Hard morning in a row (WeekPlan.week). The costs are the ones the
+## maths runs: a morning started at 80+ trains at 60 % (WeekPlan.TIRED_GAIN); a camp peaking at 80+ fails its fatigue line.
+static func fatigue_word(v: float, red: bool) -> Array:
+	var n := int(round(v))
+	if v >= RED_AT:
+		return ["OVERCOOKED", "Overcooked (fatigue %d): the next morning trains at 60%% - gains cut by 40%% - and a camp that peaks over 80 fails its fatigue line." % n, RED]
+	if red:
+		return ["RED DAY", "Red day (fatigue %d): the second Hard morning in a row - the coach wants it Light or off." % n, RED]
+	if v >= 50.0:
+		return ["WORKED", "Worked (fatigue %d): normal camp tiredness. Over 80 the next morning trains at 60%%." % n, risk_colour(v)]
+	return ["FRESH", "Fresh (fatigue %d): room for a Hard morning." % n, UI.GREEN]
+
+
+## S359 (Kalli SQ25: "show the phase as a strip of small cells ... 'you are here' ... the fight date circled at the end")
+## cells = the camp's weeks by phase name; here = the index of this week; a red FIGHT cell closes it.
+static func phase_strip(cells: Array, here: int) -> Control:
+	var g := GridContainer.new()
+	g.name = "PhaseStrip"
+	g.columns = cells.size() + 1
+	g.add_theme_constant_override("h_separation", 4)
+	g.add_theme_constant_override("v_separation", 0)
+	g.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	for i in cells.size() + 1:
+		var fight := i == cells.size()
+		var cur := i == here
+		var bg := INK if cur else Color(0, 0, 0, 0)
+		var edge := RED if fight else (INK if i >= here else Color(PENCIL, 0.5))
+		var p := PanelContainer.new()
+		p.name = "Cell_%d" % i
+		p.add_theme_stylebox_override("panel", UI.box(bg, edge, 3, 2, 8, 2))
+		var t := UI.label("FIGHT" if fight else str(cells[i]), UI.SMALL - 2, Color.WHITE if cur else (RED if fight else
+			(INK if i > here else PENCIL)), "caps")
+		t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		p.add_child(t)
+		p.custom_minimum_size = Vector2(62, 0)
+		g.add_child(p)
+	for i in cells.size() + 1:
+		var u := ink("you are here" if i == here else "", UI.SMALL - 2, "handbold", RED)
+		u.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		g.add_child(u)
+	return g
 
 
 static func risk_colour(v: float) -> Color:

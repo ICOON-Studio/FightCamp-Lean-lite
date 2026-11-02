@@ -29,6 +29,17 @@ const SHORT := {"power": "power", "speed": "speed", "technique": "tech", "defens
 ## The training load ratio (this week's hours / her usual, TrainingLoad): 1.5 doubles the injury risk.
 const LOAD_NEAR := 1.3
 const LOAD_OVER := 1.5
+## S359 (Kalli SQ25 "the change happens on the left while the lines move on the right"): a goal line that moved since the
+## last draw pulses for this long with its delta.
+const PULSE_S := 2.0
+
+## fid -> {line id: where it landed} at the last draw (the pulse compares against it).
+static var _seen := {}
+
+var _c: Career
+var _f: Dictionary
+var _lines: Array = []
+var _delta := {}   # line id -> Label (the pulse's delta; FIX IT / WAIT preview on hover)
 
 
 static func make(main: Node, c: Career, f: Dictionary) -> PanelContainer:
@@ -59,7 +70,8 @@ static func goal_of(c: Career, f: Dictionary) -> Dictionary:
 	return {"limit": float(f["limit"]), "stat": stat, "target": target, "weeks": weeks, "bout": bout}
 
 
-func _build(main: Node, c: Career, f: Dictionary) -> void:
+## The week as drawn: the twist applied, every day's numbers, the camp's goal lines.
+static func plan_of(c: Career, f: Dictionary) -> Dictionary:
 	var goal := goal_of(c, f)
 	var tw := WeekTwist.active(f)
 	var base := WeekPlan.days_of(f)
@@ -68,6 +80,24 @@ func _build(main: Node, c: Career, f: Dictionary) -> void:
 	var ctx := Sim.week_ctx(c, f)
 	var wk := WeekPlan.week(days, ctx, evs)
 	var lines := WeekPlan.goal_lines(goal, days, ctx, int(goal["weeks"]), evs, WeekPlan.ahead(f, c.day, int(goal["weeks"])))
+	return {"goal": goal, "base": base, "days": days, "evs": evs, "ctx": ctx, "wk": wk, "lines": lines}
+
+
+## S359 (Kalli SQ25 "the grid stays visible but dimmed ... brightens once the twist is answered"): until she has answered a
+## twist once, an open twist question is the only thing lit.
+static func teaching(f: Dictionary) -> bool:
+	return WeekTwist.card(str(f.get("twist", ""))).has("a") and not bool(f.get("twist_locked", false)) \
+		and str(f.get("twist_pick", "")) == "" and not bool(f.get("board_taught", false))
+
+
+func _build(main: Node, c: Career, f: Dictionary) -> void:
+	_c = c
+	_f = f
+	var pl := plan_of(c, f)
+	var goal: Dictionary = pl["goal"]
+	var days: Array = pl["days"]
+	var wk: Dictionary = pl["wk"]
+	_lines = pl["lines"]
 	var v := UI.vbox(16)
 	add_child(v)
 	v.add_child(_head(c, f, goal))
@@ -76,10 +106,15 @@ func _build(main: Node, c: Career, f: Dictionary) -> void:
 	# The coach's line and the dials sit under the days (the mockup), so THIS CAMP's height never pushes CONTINUE down.
 	var left := UI.vbox(18)
 	left.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	left.add_child(_week(main, f, days, base, evs, wk))
-	left.add_child(_foot(main, c, f, days, wk, lines, str(ctx.get("diet", "hold"))))
+	var grid := _week(main, f, days, pl["base"], pl["evs"], wk)
+	left.add_child(grid)
+	var foot := _foot(main, c, f, days, wk, _lines, str((pl["ctx"] as Dictionary).get("diet", "hold")))
+	left.add_child(foot)
+	if teaching(f):
+		grid.modulate = Color(1, 1, 1, 0.35)
+		foot.modulate = Color(1, 1, 1, 0.35)
 	mid.add_child(left)
-	mid.add_child(_camp(main, f, goal, lines))
+	mid.add_child(_camp(main, f, goal, _lines))
 
 
 ## Her name, the camp's week and phase; the fight date circled.
@@ -92,15 +127,20 @@ func _head(c: Career, f: Dictionary, goal: Dictionary) -> Control:
 	var camp: Dictionary = f.get("camp", {})
 	var weeks := int(goal["weeks"])
 	var when := "no bout booked: the next %d weeks" % WEEKS_NO_BOUT
+	var total := 0
 	if not bout.is_empty() and not bool(bout.get("done", false)):
+		total = weeks
 		if not camp.is_empty():
-			var total := maxi(weeks, int(ceil((int(bout["day"]) - int(camp.get("start", c.day))) / 7.0)))
+			total = maxi(weeks, int(ceil((int(bout["day"]) - int(camp.get("start", c.day))) / 7.0)))
 			when = "camp week %d of %d" % [clampi(total - weeks + 1, 1, total), total]
 		else:
 			when = "%d weeks to fight night - no camp set yet" % weeks
 	sub.add_child(WB.ink(when, 24, "hand", WB.INK))
-	var ph: Dictionary = WeekPhase.PHASES.get(str(f.get("phase", "base")), WeekPhase.PHASES["base"])
-	sub.add_child(WB.tape_chip(str(ph["name"]).to_upper()))
+	if total > 0:
+		sub.add_child(WB.phase_strip(phase_cells(total), total - weeks))
+	else:
+		var ph: Dictionary = WeekPhase.PHASES.get(str(f.get("phase", "base")), WeekPhase.PHASES["base"])
+		sub.add_child(WB.tape_chip(str(ph["name"]).to_upper()))
 	left.add_child(sub)
 	h.add_child(left)
 	h.add_child(UI.spacer())
@@ -115,14 +155,24 @@ func _head(c: Career, f: Dictionary, goal: Dictionary) -> Control:
 	return h
 
 
+## The camp's weeks by phase, counted back from fight night as WeekPhase.phase does (BUILD ... PEAK, TAPER).
+static func phase_cells(total: int) -> Array:
+	var out: Array = []
+	for k in total:
+		var to_go := total - k
+		out.append("TAPER" if to_go <= 1 else ("PEAK" if to_go == 2 else "BUILD"))
+	return out
+
+
 ## The seven days: a magnet for the morning (every card on a click), the evening's, the day's fatigue.
 func _week(main: Node, f: Dictionary, days: Array, base: Array, evs: Array, wk: Dictionary) -> Control:
 	var box := UI.vbox(8)
 	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var ph: Dictionary = WeekPhase.PHASES.get(str(f.get("phase", "base")), WeekPhase.PHASES["base"])
 	var changed: Dictionary = WeekPhase.edits(f).get("days", {})
-	var said := "%s  Click a morning's magnet to change the day; pick the coach's card again to undo it%s." % [ph["line"],
-		"" if changed.is_empty() else " (%d changed)" % changed.size()]
+	# S359 one undo route (Kalli SQ25): 'undo' on a changed day, "Coach's week" for all of them.
+	var said := "%s  Click a morning's magnet to change the day%s." % [ph["line"],
+		"" if changed.is_empty() else " (%d changed: 'undo' on the day, or Coach's week below for all)" % changed.size()]
 	var phase_line := WB.ink(said, UI.SMALL + 1, "hand", WB.PENCIL, true)
 	phase_line.name = "Phase"
 	box.add_child(phase_line)
@@ -131,6 +181,7 @@ func _week(main: Node, f: Dictionary, days: Array, base: Array, evs: Array, wk: 
 	box.add_child(row)
 	var cards := WeekPhase.cards()
 	var items: Array = cards.map(func(d): return [WeekPhase.card(d), d])
+	var coach := WeekPlan.coach_of(f)
 	for i in 7:
 		if i > 0:
 			var rule := ColorRect.new()
@@ -138,12 +189,12 @@ func _week(main: Node, f: Dictionary, days: Array, base: Array, evs: Array, wk: 
 			rule.custom_minimum_size = Vector2(2, 0)
 			row.add_child(rule)
 		row.add_child(_day(main, str(f["id"]), i, days[i], base[i], evs[i], wk["days"][i], (wk["red"] as Array).has(i),
-			changed.has(str(i)), items, str(WeekTwist.active(f).get("name", ""))))
+			changed.has(str(i)), items, str(WeekTwist.active(f).get("name", "")), coach[i]))
 	return box
 
 
 func _day(main: Node, fid: String, i: int, m: Array, planned: Array, evening: String, r: Dictionary, red: bool, mine: bool,
-		items: Array, twist := "") -> Control:
+		items: Array, twist := "", coach_card: Array = []) -> Control:
 	var pad := MarginContainer.new()
 	pad.name = "Day_%d" % i
 	for side in ["left", "right"]:
@@ -154,8 +205,23 @@ func _day(main: Node, fid: String, i: int, m: Array, planned: Array, evening: St
 	pad.add_child(v)
 	var head := UI.hbox(6)
 	head.add_child(WB.ink(DAYS[i], 26, "marker"))
-	if mine:
-		head.add_child(WB.ink("yours", UI.SMALL, "handbold", UI.GOLD))
+	if mine and coach_card.size() == 2:
+		# S359 (Kalli SQ25 "a small undo arrow on each changed magnet"): back to the coach's card for this day.
+		var undo := Button.new()
+		undo.name = "Undo_%d" % i
+		undo.text = "undo"
+		undo.flat = true
+		undo.focus_mode = Control.FOCUS_NONE
+		undo.add_theme_font_override("font", UI.font("handbold"))
+		undo.add_theme_font_size_override("font_size", UI.SMALL)
+		undo.add_theme_color_override("font_color", UI.GOLD)
+		undo.add_theme_color_override("font_hover_color", WB.RED)
+		for k in ["normal", "hover", "pressed", "focus"]:
+			undo.add_theme_stylebox_override(k, StyleBoxEmpty.new())
+		undo.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		undo.tooltip_text = "Your change. Back to the coach's card: %s" % WeekPhase.card(coach_card)
+		undo.pressed.connect(func(): main.act("wday", "%s|%d|%s|%s" % [fid, i, coach_card[0], coach_card[1]]))
+		head.add_child(undo)
 	if m != planned:
 		head.add_child(WB.ink("twist", UI.SMALL, "handbold", UI.AMBER))
 	v.add_child(head)
@@ -163,12 +229,12 @@ func _day(main: Node, fid: String, i: int, m: Array, planned: Array, evening: St
 	var rest := str(m[0]) == "rest"
 	var name := "off" if rest else str(WeekPhase.NAMES.get(str(m[0]), str(m[0])))
 	var tip := "%s\n%s\nfatigue %d by the night%s" % [WeekPhase.card(m), _numbers(r), int(round(float(r["fatigue"]))),
-		"\nYour change - pick the coach's card again to undo it" if mine else ""]
+		"\nYour change - 'undo' above puts the coach's card back" if mine else ""]
 	# S357 (S356 stills): a day the twist changed names the card it replaced.
 	if m != planned:
 		tip += "\nTwist (%s): replaces %s" % [twist, WeekPhase.card(planned)]
 	var cur := items.map(func(it): return it[1]).find([str(m[0]), "normal" if rest else str(m[1])])
-	var mag := WB.pick_magnet(name, "" if rest else WB.roman(str(m[1])), str(m[1]) == "hard", tip, items, cur,
+	var mag := WB.pick_magnet(name, "" if rest else WB.level(str(m[1])), str(m[1]) == "hard", tip, items, cur,
 		func(d): main.act("wday", "%s|%d|%s|%s" % [fid, i, d[0], d[1]]))
 	mag.name = "Session_%d" % i
 	v.add_child(mag)
@@ -176,14 +242,19 @@ func _day(main: Node, fid: String, i: int, m: Array, planned: Array, evening: St
 		v.add_child(WB.ink("~ off", UI.SMALL + 2, "hand", WB.PENCIL))
 	else:
 		var spar := evening == "sparring"
-		v.add_child(WB.magnet("spar" if spar else "pads", "III" if spar else "II", spar,
+		v.add_child(WB.magnet("spar" if spar else "pads", "HARD" if spar else "NORMAL", spar,
 			str((WeekPlan.EVENINGS.get(evening, WeekPlan.EVENINGS["rest"]) as Dictionary)["name"])))
 	var fat := float(r["fatigue"])
 	var bar := WB.Fatigue.new()
 	bar.value = fat
 	v.add_child(bar)
-	v.add_child(WB.ink("%d%s" % [int(round(fat)), "!" if fat >= WB.RED_AT or red else ""], UI.SMALL + 2, "handbold",
-		WB.RED if red else WB.risk_colour(fat)))
+	# S359 the fatigue as a word; the number and its cost are on the hover (Kalli SQ25).
+	var fw := WB.fatigue_word(fat, red)
+	var word := WB.ink(str(fw[0]), UI.SMALL + 2, "handbold", fw[2])
+	word.name = "Fatigue_%d" % i
+	word.tooltip_text = str(fw[1])
+	word.mouse_filter = Control.MOUSE_FILTER_PASS
+	v.add_child(word)
 	return pad
 
 
@@ -213,9 +284,17 @@ func _camp(main: Node, f: Dictionary, goal: Dictionary, lines: Array) -> Control
 	box.custom_minimum_size = Vector2(CAMP_W, 0)
 	box.add_child(WB.ink("THIS CAMP", 34, "marker"))
 	var fid := str(f["id"])
+	var before: Dictionary = _seen.get(fid, {})
+	var now := {}
 	for ln in lines:
 		var id := str(ln["id"])
+		now[id] = float(ln["end"])
+		var hold := PanelContainer.new()
+		hold.name = "Line_" + id
+		hold.add_theme_stylebox_override("panel", UI.box(Color(UI.GOLD, 0.35), Color(0, 0, 0, 0), 4, 0, 6, 2))
+		hold.self_modulate = Color(1, 1, 1, 0)
 		var row := UI.hbox(10)
+		hold.add_child(row)
 		var title := "WEIGHT" if id == "weight" else ("FATIGUE PEAK" if id == "fatigue" else str(Data.LABEL.get(id, ln["label"])).to_upper())
 		row.add_child(WB.ink(title, 22, "marker"))
 		var ok := bool(ln["ok"])
@@ -228,8 +307,15 @@ func _camp(main: Node, f: Dictionary, goal: Dictionary, lines: Array) -> Control
 		else:
 			row.add_child(WB.ink("%.1f > %.1f" % [float(ln["now"]), float(ln["end"])], 22, "handbold"))
 			row.add_child(WB.ink("ON TARGET" if ok else "%.1f SHORT" % float(ln["short"]), 18, "marker", UI.GREEN if ok else UI.AMBER))
-		box.add_child(row)
+		var d := WB.ink("", 18, "handbold", WB.INK)
+		d.name = "Delta_" + id
+		row.add_child(d)
+		_delta[id] = d
+		box.add_child(hold)
 		box.add_child(_line_under(main, fid, f, id, ln, int(goal["weeks"])))
+		if before.has(id) and absf(float(before[id]) - float(ln["end"])) >= 0.05:
+			_pulse(hold, d, id, float(before[id]), float(ln["end"]))
+	_seen[fid] = now
 	var load := Injuries.ratio(f)
 	var lr := UI.hbox(10)
 	lr.add_child(WB.ink("INJURY RISK", 22, "marker"))
@@ -241,7 +327,63 @@ func _camp(main: Node, f: Dictionary, goal: Dictionary, lines: Array) -> Control
 	var sticky := _twist(main, f)
 	if sticky != null:
 		box.add_child(sticky)
+		if teaching(f):
+			box.move_child(sticky, 0)   # S359 first open: the twist is the one thing to read, so it heads the column
 	return box
+
+
+## Lower is better for the weight and the fatigue peak, higher for the camp's stat.
+static func _better(id: String, was: float, to: float) -> bool:
+	return to < was if id == "weight" or id == "fatigue" else to > was
+
+
+static func _fmt(id: String, v: float) -> String:
+	return "%d" % int(round(v)) if id == "fatigue" else "%.1f" % v
+
+
+## A goal line that moved: its band flashes twice and the delta shows by fight night, both gone after PULSE_S.
+func _pulse(hold: PanelContainer, d: Label, id: String, was: float, to: float) -> void:
+	d.text = "%s %s" % ["+" if to > was else "-", _fmt(id, absf(to - was))]
+	d.add_theme_color_override("font_color", UI.GREEN if _better(id, was, to) else WB.RED)
+	d.tooltip_text = "By fight night %s -> %s" % [_fmt(id, was), _fmt(id, to)]
+	d.mouse_filter = Control.MOUSE_FILTER_PASS
+	hold.ready.connect(func():
+		var tw := hold.create_tween()
+		for k in 2:
+			tw.tween_property(hold, "self_modulate:a", 1.0, PULSE_S / 8.0)
+			tw.tween_property(hold, "self_modulate:a", 0.0, PULSE_S / 8.0)
+		tw.tween_interval(PULSE_S / 2.0)
+		tw.tween_property(d, "modulate:a", 0.0, 0.3)
+		tw.tween_callback(func():
+			d.text = ""
+			d.modulate.a = 1.0))
+
+
+## S359 (Kalli SQ25 "hovering FIX IT or WAIT previews the goal lines before the player commits"): each line where the
+## camp would land with that answer.
+func _preview(a: String) -> void:
+	var g := _f.duplicate(true)
+	g["twist_pick"] = a
+	var lines: Array = plan_of(_c, g)["lines"]
+	for ln in lines:
+		var id := str(ln["id"])
+		var d: Label = _delta.get(id)
+		if d == null:
+			continue
+		var was := 0.0
+		for o in _lines:
+			if str(o["id"]) == id:
+				was = float(o["end"])
+		var to := float(ln["end"])
+		d.modulate.a = 1.0
+		var same := absf(to - was) < 0.05
+		d.text = "same" if same else "-> %s" % _fmt(id, to)
+		d.add_theme_color_override("font_color", WB.PENCIL if same else (UI.GREEN if _better(id, was, to) else WB.RED))
+
+
+func _preview_off() -> void:
+	for d in _delta.values():
+		(d as Label).text = ""
 
 
 func _line_under(main: Node, fid: String, f: Dictionary, id: String, ln: Dictionary, weeks: int) -> Control:
@@ -273,6 +415,11 @@ func _twist(main: Node, f: Dictionary) -> Control:
 	note.name = "Twist"
 	var v := UI.vbox(6)
 	note.add_child(v)
+	if teaching(f):
+		var first := WB.ink("START HERE. COACH: \"This is my week. Change a day only if you disagree.\"", UI.SMALL + 2,
+			"handbold", WB.RED, true)
+		first.name = "StartHere"
+		v.add_child(first)
 	v.add_child(WB.ink("TWIST: %s" % str(t["name"]).to_upper(), 24, "marker", WB.RED))
 	v.add_child(WB.ink(str(t["line"]), UI.SMALL + 2, "hand", WB.INK, true))
 	if not t.has("a"):
@@ -284,10 +431,17 @@ func _twist(main: Node, f: Dictionary) -> Control:
 		var opt: Dictionary = t[a]
 		var col := UI.vbox(2)
 		col.custom_minimum_size = Vector2((CAMP_W - 60) / 2.0, 0)
-		var words := str(opt["label"]).to_upper() + ("  (coach)" if str(f.get("twist_pick", "")) == "" and a == shown else "")
-		var b := UI.button(words, "PillOn" if a == shown else "Pill", main.act.bind("twistpick", "%s|%s" % [f["id"], a]))
+		# S359 (Kalli SQ25 "'(coach)' reads as 'the coach will do this'"): the default is named COACH'S PICK.
+		var pick := WB.ink("COACH'S PICK" if str(f.get("twist_pick", "")) == "" and a == shown else " ", UI.SMALL - 2,
+			"caps", WB.PENCIL)
+		pick.name = "CoachPick_" + a
+		col.add_child(pick)
+		var b := UI.button(str(opt["label"]).to_upper(), "PillOn" if a == shown else "Pill", main.act.bind("twistpick", "%s|%s" % [f["id"], a]))
 		b.name = "TwistPick_" + a
 		b.disabled = locked
+		if not locked:
+			b.mouse_entered.connect(_preview.bind(a))
+			b.mouse_exited.connect(_preview_off)
 		col.add_child(b)
 		var w := WB.ink(str(opt["line"]), UI.SMALL, "hand", WB.INK if a == shown else WB.PENCIL, true)
 		w.custom_minimum_size = Vector2((CAMP_W - 60) / 2.0, 0)
@@ -296,6 +450,11 @@ func _twist(main: Node, f: Dictionary) -> Control:
 	v.add_child(row)
 	if locked:
 		v.add_child(WB.ink("answered - the week is running", UI.SMALL, "hand", WB.PENCIL))
+	else:
+		var rule := WB.ink("No answer by Monday = the coach's pick. Hover an answer to see where the camp lands.", UI.SMALL,
+			"hand", WB.PENCIL, true)
+		rule.name = "TwistRule"
+		v.add_child(rule)
 	return note
 
 
