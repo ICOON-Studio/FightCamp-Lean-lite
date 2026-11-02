@@ -10,6 +10,7 @@ const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
 const TrainingPlan := preload("res://scripts/rules/TrainingPlan.gd")
+const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
 
 
 ## The fighter an action means: by id, else the open moment's, else the first.
@@ -48,6 +49,23 @@ static func act(main: Node, name: String, arg: String) -> bool:
 			var plan := TrainingPlan.step(Sim.plan_of(c, f), parts[1], int(parts[2]))
 			f["week_plan"] = plan
 			f["focus"] = TrainingPlan.main_stat(plan)
+			main.render()
+		"wday":
+			# S354 CORE3: one morning of the week - "fid|dow|session|intensity" (the Training tab's week row).
+			var parts := arg.split("|")
+			var f := who(main, parts[0])
+			var days: Array = WeekPlan.days_of(f).duplicate(true)
+			days[clampi(int(parts[1]), 0, 6)] = [parts[2], parts[3] if parts.size() > 3 else "normal"]
+			f["week_days"] = days
+			main.render()
+		"spar":
+			var parts := arg.split("|")
+			who(main, parts[0])["spar_nights"] = clampi(int(parts[1]), 0, 2)
+			main.render()
+		"weekreset":
+			var f := who(main, arg)
+			f.erase("week_days")
+			f["spar_nights"] = 1
 			main.render()
 		"bodyfocus":
 			var parts := arg.split("|")

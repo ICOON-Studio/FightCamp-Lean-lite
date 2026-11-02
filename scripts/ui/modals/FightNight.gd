@@ -284,7 +284,7 @@ func _result(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 	var stop := str(m.get("stopped", ""))
 	var by := "ON POINTS" if stop == "" else ("BY KNOCKOUT" if stop == "KO" else "BY STOPPAGE")
 	var colour: Color = (Broadcast.HERS if win else Broadcast.THEIRS) if outcome != "draw" else UI.GOLD
-	v.add_child(UI.caps("THE RESULT" + (": HER PRO DEBUT" if bool(m.get("pro", false)) else "")))
+	v.add_child(UI.caps("THE RESULT" + (": PRO DEBUT" if bool(m.get("pro", false)) else "")))
 	# S323 (Q-S294-40): the verdict as the ring announcer reads it - both fighters in their corners, the winner's name and
 	# the three cards in very large type between them.
 	var hero := UI.hbox(28)
@@ -322,7 +322,7 @@ func _result(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 	if m.has("tickets"):
 		# S329 update 31: the debut pays from her tickets.
 		take.append(["%d SOLD" % int(m["tickets"]["sold"]), "DEBUT TICKETS", UI.GOLD])
-		take.append([UI.signed(int(m.get("gym_cut", 0))), "THE GYM'S SHARE OF HER HALF", UI.GREEN if int(m.get("gym_cut", 0)) > 0 else UI.MUTED])
+		take.append([UI.signed(int(m.get("gym_cut", 0))), "THE GYM'S SHARE OF THE FIGHTER'S HALF", UI.GREEN if int(m.get("gym_cut", 0)) > 0 else UI.MUTED])
 	elif bool(m.get("pro", false)):
 		take.append([UI.signed(int(m.get("gym_cut", 0))), "THE GYM'S PURSE SHARE", UI.GREEN])
 	else:

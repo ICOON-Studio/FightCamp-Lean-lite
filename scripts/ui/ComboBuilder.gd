@@ -138,7 +138,7 @@ func _palette() -> Control:
 			grid.add_child(b)
 		v.add_child(grid)
 	v.add_child(UI.sep())
-	v.add_child(UI.caps("START FROM HER BOOK"))
+	v.add_child(UI.caps("START FROM THE BOOK"))
 	var flow := HFlowContainer.new()
 	flow.add_theme_constant_override("h_separation", 6)
 	flow.add_theme_constant_override("v_separation", 6)
@@ -155,7 +155,7 @@ func _palette() -> Control:
 	v.add_child(flow)
 	var own: Array = f.get("book", [])
 	if not own.is_empty():
-		v.add_child(UI.caps("HER OWN"))
+		v.add_child(UI.caps("YOUR OWN"))
 		for o in own:
 			var b := UI.button("%s  (%d)" % [o["name"], int(o["score"])], "Btn", _load.bind((o["chain"] as Array).duplicate()))
 			b.tooltip_text = "Load it back into the builder"

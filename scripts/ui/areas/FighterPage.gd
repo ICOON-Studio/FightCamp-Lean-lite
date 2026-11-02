@@ -13,7 +13,7 @@ const Injuries := preload("res://scripts/state/Injuries.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
 const NextStep := preload("res://scripts/rules/NextStep.gd")
 const AttrBoard := preload("res://scripts/ui/AttrBoard.gd")
-const TrainingBoard := preload("res://scripts/ui/TrainingBoard.gd")
+const WeekBoard := preload("res://scripts/ui/WeekBoard.gd")
 const OppFileCard := preload("res://scripts/ui/OppFileCard.gd")
 
 ## S354 C204 (operator on the training board: "this should be like a sub tab in the players profile , to see an an overview
@@ -68,7 +68,8 @@ func build(main: Node, f: Dictionary) -> void:
 			UI.add_rows(card, [UI.kv("Weight", "%.1f kg" % f["weight"], UI.FG, "mono"), UI.kv("Class limit", "%.1f kg" % f["limit"], UI.FG, "mono"),
 				UI.kv("Plan", "cutting" if str(f["diet"]) == "cut" else "holding"), _injury_row(main.career, f)])
 		3:
-			add_child(TrainingBoard.make(main, c, f))
+			# S354 CORE3: the week planner (WeekBoard) replaces the session-blocks board - the week now drives the sim.
+			add_child(WeekBoard.make(main, c, f))
 		4:
 			var title := "RECORD: %d-%d AMATEUR" % [f["w"], f["l"]]
 			if bool(f.get("pro", false)):
@@ -125,7 +126,7 @@ func build(main: Node, f: Dictionary) -> void:
 
 ## S302 combos: her combination book - learned ones as bars (gold = she throws it in fights), locked ones say what they need.
 func _combos(f: Dictionary, moves: Dictionary) -> void:
-	var card := _card("COMBOS: LEARNED ON THE PADS, GOLD = SHE THROWS IT IN FIGHTS")
+	var card := _card("COMBOS: LEARNED ON THE PADS, GOLD = THROWN IN FIGHTS")
 	var combos: Dictionary = f.get("combos", {})
 	var drilling := str(f.get("combo_learning", ""))
 	for row in Combos.BOOK:

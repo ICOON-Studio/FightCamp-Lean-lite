@@ -41,7 +41,7 @@ func build(main: Node) -> void:
 
 
 func _training(main: Node, c: Career) -> void:
-	var card := UI.card("TRAINING - EACH FIGHTER'S WEEK IS ON HER PAGE")
+	var card := UI.card("TRAINING - EACH FIGHTER'S WEEK IS ON THE FIGHTER'S PAGE")
 	add_child(card[0])
 	for f in c.fighters:
 		var row := UI.hbox(14)

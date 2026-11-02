@@ -24,7 +24,7 @@ static func build(opp: Dictionary, film_bought := false, history: Array = []) ->
 	var found := OppFile.found(opp).size()
 	var all := found + OppFile.hidden(opp).size()
 	var head := UI.hbox(10)
-	head.add_child(UI.caps("HER FILE"))
+	head.add_child(UI.caps("THE OPPONENT'S FILE"))
 	var tip := "%d of %d found." % [found, all]
 	if hint(opp) != "":
 		tip += "\n" + hint(opp)
@@ -69,7 +69,7 @@ static func _tell_row(opp: Dictionary, t: Dictionary, film_bought: bool) -> HBox
 ## HER RECORD 4-2 and one chip a bout, newest left; a bout against our gym is blue. "+n" for older bouts.
 static func _record(opp: Dictionary, past: Array) -> HBoxContainer:
 	var row := UI.hbox(4)
-	var cap := UI.caps("HER RECORD %d-%d" % [int(opp.get("w", 0)), int(opp.get("l", 0))])
+	var cap := UI.caps("RECORD %d-%d" % [int(opp.get("w", 0)), int(opp.get("l", 0))])
 	cap.custom_minimum_size.x = 156
 	row.add_child(cap)
 	for b in past:

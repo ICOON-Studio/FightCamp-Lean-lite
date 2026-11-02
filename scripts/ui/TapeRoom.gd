@@ -170,7 +170,7 @@ func _flow_column() -> Control:
 	var v := UI.vbox(8)
 	p.add_child(v)
 	var head := UI.hbox(8)
-	head.add_child(UI.caps("HER FLOW"))
+	head.add_child(UI.caps("THE FLOW"))
 	head.add_child(UI.muted("builds as you watch", UI.TINY))
 	v.add_child(head)
 	var scroll := ScrollContainer.new()
@@ -244,7 +244,7 @@ func spot() -> void:
 	Engine.time_scale = 0.0
 	UI.clear(_answer)
 	var head := UI.hbox(8)
-	head.add_child(UI.caps("WHAT DID SHE DO?"))
+	head.add_child(UI.caps("WHAT HAPPENED THERE?"))
 	head.add_child(UI.muted("at %d:%02d" % [int(t) / 60, int(t) % 60], UI.SMALL))
 	_answer.add_child(head)
 	var row := UI.hbox(10)

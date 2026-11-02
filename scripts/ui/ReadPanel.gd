@@ -52,7 +52,7 @@ static func build(read: Dictionary, read_call: String, names: Array, pick: Calla
 		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	var sub := "%s - COUNTER: %s" % [("READ IT" if ready else "STILL READING"), str(read["counter"]).to_upper()]
 	if bool(read.get("dropped", false)):
-		sub = "SHE HAS DROPPED IT"
+		sub = "THE GUARD HAS DROPPED"
 	mid.add_child(UI.label(sub, UI.TINY + 1, READY if ready else UI.MUTED, "caps"))
 	h.add_child(mid)
 	for k in [["wait", "WAIT FOR IT", "hold the punch back"], ["take", "TAKE IT NOW", "throw it on %d%%" % roundi(float(read["read"]) * 100.0)]]:

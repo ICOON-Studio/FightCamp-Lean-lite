@@ -125,7 +125,7 @@ func build(card: Dictionary, names: Array) -> void:
 		_fix_step = n
 		n += 1
 	_draw_fixes()
-	v.add_child(_step(n, "PICK THE PLAN - IT SENDS HER OUT"))
+	v.add_child(_step(n, "PICK THE PLAN - IT STARTS THE ROUND"))
 	# S350 "corner card has too much text": one line a call, four across (when / grade / numbers on the hover).
 	_calls = CallButtons.corner_grid(card.get("grades", {}), str(card["call"]), names, func(k: String): chose.emit(k), evidence,
 		4, true)

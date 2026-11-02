@@ -37,7 +37,7 @@ func build(main: Node, m: Dictionary) -> void:
 	var coach := "%s" % c.coach.get("name", "The coach")
 	right.add_child(UI.caps("%s SAYS" % coach.to_upper()))
 	right.add_child(UI.label("\"%s\"" % read["verdict"], UI.BODY, UI.GOLD if bool(read["good"]) else UI.FG, "italic", true))
-	right.add_child(UI.caps("PICK HER THREE WEEK CARDS"))
+	right.add_child(UI.caps("PICK THREE WEEK CARDS"))
 	var cards := GridContainer.new()
 	cards.columns = 2
 	cards.add_theme_constant_override("h_separation", 8)

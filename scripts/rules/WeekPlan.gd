@@ -7,6 +7,7 @@ extends RefCounted
 ##   week(days, ctx) -> {days, gains, kg, weight_end, fatigue_end, peak, peak_day, red, stats_end}
 ##   project(days, ctx, weeks) -> the same week repeated: {weight, stats, peak, weeks}
 ##   goal_lines(goal, days, ctx, weeks) -> [{id, label, now, week, end, target, ok, short}]
+##   evenings_for(spar_nights) -> [7 evening ids]   full_day(id, intensity, evening, ctx, fatigue)   hours(days, evenings)
 ## ctx = {stats, pot, coach (rating), weight, diet: hold|cut, fatigue (carried in)}; days = [[id, intensity] x 7].
 ## Real-world numbers:
 ## - Energy: kcal = MET x kg x hours (Compendium of Physical Activities 2024, checked by John S354): running 10 km/h 9.3,
@@ -15,8 +16,9 @@ extends RefCounted
 ## - The diet: HOLD eats for daily life + a 300 kcal training allowance; CUT eats 500 kcal less (a 500 kcal deficit is the
 ##   usual ~0.5 kg a week; a safe cut is 0.5-1 % of body weight a week - Reale et al. 2017, combat sports weight making).
 ## - Load = session RPE x minutes (Foster 2001; valid in boxers, Uchida 2014). Fatigue keeps 87 % a night: the Banister
-##   model's ~7-day fatigue constant (John S354; the S354 first cut kept 75 %). 80+ = overreached (an ESTIMATE, playtest it):
-##   one greedy week climbs toward it, a second one gets there; the coach's week settles in the 50s.
+##   model's ~7-day fatigue constant (John S354; the S354 first cut kept 75 %). 80+ = overreached (an ESTIMATE, playtest it).
+##   With the evenings (44 load points a fatigue point): the coach's week settles at ~68 over a camp; six Hard mornings
+##   climb to ~67 in a week and overreach in the second (~83).
 ## - Gain: a session is a fifth of a focused week (TrainingPreview's rule, so the planner and the sim read one number);
 ##   light / normal / hard x 0.6 / 1.0 / 1.3 (TrainingLoad's settings). A morning started at 80+ fatigue trains at 0.6.
 
@@ -41,17 +43,71 @@ const INTENSITY := {
 	"normal": {"gain": 1.0, "burn": 1.0, "load": 1.0, "label": "Normal"},
 	"hard": {"gain": 1.3, "burn": 1.35, "load": 1.5, "label": "Hard"},
 }
+## S354 step 1 evenings (Kalli: sparring is a weekly on/off, not a nightly pick; John: 1-2 sparring days a week, 3-8 rounds):
+## pads and drills every evening but Sunday, sparring on Thursday (and Tuesday at two). The diet covers the evening work, so
+## evenings move fatigue and skills, not weight. Boxing sparring MET 7.8 (Compendium), ~30 min = 4-6 rounds with rests.
+const EVENINGS := {
+	"pads": {"name": "Pads and drills", "stat": "", "met": 6.0, "min": 45.0, "rpe": 5.0},
+	"sparring": {"name": "Sparring vs a partner", "stat": "fight_iq", "met": 7.8, "min": 30.0, "rpe": 7.0},
+	"rest": {"name": "Rest", "stat": "", "met": 0.0, "min": 0.0, "rpe": 0.0},
+}
+const SPAR_DAYS := [[], [3], [1, 3]]
 const SESSION_SHARE := 0.2
 const KCAL_PER_KG := 7700.0
 const ALLOWANCE := 300.0
 const CUT_DEFICIT := 500.0
 const FATIGUE_KEEP := 0.87
-const LOAD_PER_FATIGUE := 26.0
+const LOAD_PER_FATIGUE := 44.0
 const OVERREACHED := 80.0
 const TIRED_GAIN := 0.6
 ## The coach's week: a camp's opening week that lands NEAR the goal and leaves the player dials to turn.
 const COACH_WEEK := [["roadwork", "normal"], ["heavy_bag", "normal"], ["intervals", "normal"], ["speed_bag", "light"],
 	["roadwork", "normal"], ["strength", "normal"], ["rest", "normal"]]
+
+
+## A fighter's saved week (f["week_days"], 7 x [session, intensity]), else the coach's week; her evenings from her
+## sparring nights (f["spar_nights"], default 1).
+static func days_of(f: Dictionary) -> Array:
+	var d: Variant = f.get("week_days")
+	return (d as Array) if d is Array and (d as Array).size() == 7 else COACH_WEEK.duplicate(true)
+
+
+static func evenings_of(f: Dictionary) -> Array:
+	return evenings_for(int(f.get("spar_nights", 1)))
+
+
+static func evenings_for(spar_nights: int) -> Array:
+	var out: Array = ["pads", "pads", "pads", "pads", "pads", "pads", "rest"]
+	for d in SPAR_DAYS[clampi(spar_nights, 0, SPAR_DAYS.size() - 1)]:
+		out[d] = "sparring"
+	return out
+
+
+## A whole day: the morning (day()) and then the evening on top - its load the same night, sparring's ring IQ gain.
+static func full_day(id: String, intensity: String, evening: String, ctx: Dictionary, fatigue: float) -> Dictionary:
+	var r := day(id, intensity, ctx, fatigue)
+	var e: Dictionary = EVENINGS.get(evening, EVENINGS["rest"])
+	r["evening"] = evening
+	r["stat2"] = str(e["stat"])
+	r["gain2"] = 0.0
+	var stats: Dictionary = ctx.get("stats", {})
+	if r["stat2"] != "" and stats.has(r["stat2"]):
+		var share := SESSION_SHARE * (TIRED_GAIN if fatigue >= OVERREACHED else 1.0)
+		r["gain2"] = float(TrainingPreview.preview_gain(stats, int(ctx.get("pot", 70)), {"training_modifiers": [r["stat2"]]},
+			float(ctx.get("coach", 50.0)), 1.0, share).get(r["stat2"], 0.0))
+	r["fatigue"] = clampf(float(r["fatigue"]) + float(e["rpe"]) * float(e["min"]) / LOAD_PER_FATIGUE, 0.0, 100.0)
+	return r
+
+
+## The week's training hours for the injury model (TrainingLoad's chronic / ratio): mornings at their intensity's load,
+## evenings at face value. The coach's week is ~8 h - amateur boxers train 8-15 h (TrainingLoad, research S323).
+static func hours(days: Array, evenings: Array) -> float:
+	var mins := 0.0
+	for d in days:
+		mins += float(session(str(d[0]))["min"]) * float((INTENSITY.get(str(d[1]), INTENSITY["normal"]) as Dictionary)["load"])
+	for e in evenings:
+		mins += float((EVENINGS.get(str(e), EVENINGS["rest"]) as Dictionary)["min"])
+	return mins / 60.0
 
 
 static func session(id: String) -> Dictionary:
@@ -77,7 +133,7 @@ static func day(id: String, intensity: String, ctx: Dictionary, fatigue: float) 
 	return {"id": id, "intensity": intensity, "stat": stat, "gain": gain, "kcal": kcal, "kg": kg, "load": load, "fatigue": after}
 
 
-static func week(days: Array, ctx: Dictionary) -> Dictionary:
+static func week(days: Array, ctx: Dictionary, evenings: Array = []) -> Dictionary:
 	var stats: Dictionary = (ctx.get("stats", {}) as Dictionary).duplicate()
 	var weight := float(ctx.get("weight", 60.0))
 	var fat := float(ctx.get("fatigue", 20.0))
@@ -91,10 +147,12 @@ static func week(days: Array, ctx: Dictionary) -> Dictionary:
 		var c := ctx.duplicate()
 		c["stats"] = stats
 		c["weight"] = weight
-		var r := day(str(d[0]), str(d[1]), c, fat)
-		if r["stat"] != "":
-			stats[r["stat"]] = float(stats[r["stat"]]) + float(r["gain"])
-			gains[r["stat"]] = float(gains.get(r["stat"], 0.0)) + float(r["gain"])
+		var r := day(str(d[0]), str(d[1]), c, fat) if evenings.is_empty() else full_day(str(d[0]), str(d[1]), str(evenings[i]), c, fat)
+		for k in [["stat", "gain"], ["stat2", "gain2"]]:
+			var st := str(r.get(k[0], ""))
+			if st != "" and stats.has(st):
+				stats[st] = float(stats[st]) + float(r[k[1]])
+				gains[st] = float(gains.get(st, 0.0)) + float(r[k[1]])
 		weight += float(r["kg"])
 		fat = float(r["fatigue"])
 		if fat > peak:
@@ -109,11 +167,11 @@ static func week(days: Array, ctx: Dictionary) -> Dictionary:
 
 
 ## The same week repeated `weeks` times (the camp to fight night): stats, weight and fatigue carried week to week.
-static func project(days: Array, ctx: Dictionary, weeks: int) -> Dictionary:
+static func project(days: Array, ctx: Dictionary, weeks: int, evenings: Array = []) -> Dictionary:
 	var c := ctx.duplicate()
 	var peak := 0.0
 	for _w in maxi(0, weeks):
-		var w := week(days, c)
+		var w := week(days, c, evenings)
 		c["stats"] = w["stats_end"]
 		c["weight"] = w["weight_end"]
 		c["fatigue"] = w["fatigue_end"]
@@ -122,14 +180,14 @@ static func project(days: Array, ctx: Dictionary, weeks: int) -> Dictionary:
 
 
 ## goal = {limit (kg at the weigh-in), stat, target}; weeks = weeks to fight night (this week included).
-static func goal_lines(goal: Dictionary, days: Array, ctx: Dictionary, weeks: int) -> Array:
-	var w := week(days, ctx)
-	var p := project(days, ctx, weeks)
+static func goal_lines(goal: Dictionary, days: Array, ctx: Dictionary, weeks: int, evenings: Array = []) -> Array:
+	var w := week(days, ctx, evenings)
+	var p := project(days, ctx, weeks, evenings)
 	var out: Array = []
 	if goal.has("limit"):
 		var lim := float(goal["limit"])
 		out.append({"id": "weight", "label": "Weight", "now": float(ctx.get("weight", 60.0)), "week": float(w["weight_end"]),
-			"end": float(p["weight"]), "target": lim, "ok": float(p["weight"]) <= lim, "short": maxf(0.0, float(p["weight"]) - lim)})
+			"end": float(p["weight"]), "target": lim, "ok": float(p["weight"]) <= lim + 0.05, "short": maxf(0.0, float(p["weight"]) - lim)})
 	var stat := str(goal.get("stat", ""))
 	if stat != "":
 		var now := float((ctx.get("stats", {}) as Dictionary).get(stat, 0.0))

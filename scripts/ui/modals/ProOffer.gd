@@ -24,7 +24,7 @@ func build(main: Node, m: Dictionary) -> void:
 	v.add_child(UI.display("TURN %s PRO?" % str(f["first"]).to_upper(), 48))
 	v.add_child(UI.muted("%s, amateur %d-%d, number %d in the %s rankings." % [f["name"], f["w"], f["l"], int(f.get("rank", 0)),
 		str(f["wc"]).to_lower()] if int(f.get("rank", 0)) > 0 else "%s, amateur %d-%d." % [f["name"], f["w"], f["l"]], UI.BODY, true))
-	var debut := UI.card("THE DEBUT: %d ROUNDS IN %d WEEKS, %d TICKETS AT %s FOR HER TO SELL" % [Roster.PRO_ROUNDS, Roster.PRO_DEBUT_WEEKS,
+	var debut := UI.card("THE DEBUT: %d ROUNDS IN %d WEEKS, %d TICKETS AT %s TO SELL" % [Roster.PRO_ROUNDS, Roster.PRO_DEBUT_WEEKS,
 		ProDebut.TICKETS, UI.money(ProDebut.TICKET_PRICE)])
 	debut[0].name = "Debut"
 	v.add_child(debut[0])

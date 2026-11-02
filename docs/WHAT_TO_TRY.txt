@@ -1,3 +1,22 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 56 (2026-11-02): THE WEEK RUNS THE GAME (CORE LOOP STEP 1)
+=============================================================================================
+
+ 1. FIGHTERS > a fighter > TRAINING is the week planner now. Top: THE GOAL - weight at the weigh-in, the main stat and
+    fatigue, each showing where this week and the whole camp (or the next 4 weeks) land. Each line says what moves it,
+    with the dial on the line: Hold / Cut on the weight line, the mornings that build the stat, rest for fatigue.
+ 2. THE WEEK: pick each morning's session (roadwork, intervals, heavy bag, strength, speed bag, slip rope, shadow, neck,
+    rest) and Light / Normal / Hard. Each day shows what it builds, the kg it burns and a fatigue bar (green under 70,
+    amber to 80, red past it = overreached: that morning trains at 60 %). Two Hard mornings in a row outline the second in
+    red. Change a day and the goal lines move at once.
+ 3. EVENINGS: pads and drills every night but Sunday; choose 0, 1 or 2 sparring nights a week (real rounds vs a partner:
+    builds ring IQ, adds fatigue). The move on the pads and the combo are picked here too. "Coach's week" resets it all.
+ 4. IT IS REAL: CONTINUE now trains exactly that week - the gains, the weight (the diet plus how hard the mornings are)
+    and the injury risk (the week's hours against the usual) come from it. Numbers checked by John against real sports
+    science (energy cost per session, a 500 kcal cut = about 0.45 kg a week, fatigue fading over about a week).
+ 5. Next on the core loop: planned vs actual at the end of each week, week templates with one twist a week, the combo
+    lab's hit rates, and the fight plan you test in 20 bouts. Tell us what does not fit and it changes.
+
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 55 (2026-11-02): THE CORNER CARD IN NUMBERS, CUTS ON THE FACE, TRAINING ON THE PAGE
 ==========================================================================================================================
 

@@ -27,7 +27,7 @@ func build(main: Node, m: Dictionary) -> void:
 	grid.add_child(stats)
 	var right := UI.vbox(10)
 	right.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	right.add_child(UI.caps("PICK HER THREE WEEK CARDS"))
+	right.add_child(UI.caps("PICK THREE WEEK CARDS"))
 	var cards := GridContainer.new()
 	cards.columns = 2
 	cards.add_theme_constant_override("h_separation", 8)

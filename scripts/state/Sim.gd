@@ -20,6 +20,7 @@ const Injuries := preload("res://scripts/state/Injuries.gd")
 const TrainingLoad := preload("res://scripts/rules/TrainingLoad.gd")
 const TrainingPlan := preload("res://scripts/rules/TrainingPlan.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
+const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
 
 ## Without a coach training runs at 60%: the coach factor 0.5 + r x 0.7 equals 0.6 at this rating.
 const NO_COACH_RATING := 100.0 / 7.0
@@ -55,26 +56,40 @@ static func plan_of(career: Career, f: Dictionary) -> Dictionary:
 	return TrainingPlan.plan_of(f.get("week_plan"), focus, partner)
 
 
-## {stat: points a day} for her plan this week; a camp multiplies its focus by the protocol.
+## S354 CORE3 step 1 (operator: "when picking up the morning exercises it has to sum up gains/loses towards a goal"): the
+## day is her week's morning + evening (WeekPlan) - the stat gains, the weight (her diet + the morning's burn) and her
+## fatigue. What she eats: CUT while over the limit (in camp or on the cut diet), else HOLD.
+static func week_ctx(career: Career, f: Dictionary) -> Dictionary:
+	var cutting := (str(f["diet"]) == "cut" or not (f["camp"] as Dictionary).is_empty()) and float(f["weight"]) > float(f["limit"]) - 0.15
+	return {"stats": f["stats"], "pot": int(f["pot"]), "coach": coach_rating(career), "weight": float(f["weight"]),
+		"diet": "cut" if cutting else "hold", "fatigue": float(f.get("week_fatigue", 20.0))}
+
+
+## {stat: points a day} averaged over her week; a camp multiplies its focus by the protocol.
 static func daily_gain(career: Career, f: Dictionary) -> Dictionary:
-	var week: Dictionary = TrainingPreview.fractions_gain(f["stats"], int(f["pot"]),
-		TrainingPlan.fractions(plan_of(career, f)), coach_rating(career))
+	var w := WeekPlan.week(WeekPlan.days_of(f), week_ctx(career, f), WeekPlan.evenings_of(f))
 	var out: Dictionary = {}
-	for key in week.keys():
-		out[key] = float(week[key]) / 7.0 * BoutRules.camp_gain_mult(f.get("camp", {}), str(key)) * TrainingLoad.gain(Injuries.setting(f))
+	for key in f["stats"].keys():
+		out[key] = float((w["gains"] as Dictionary).get(key, 0.0)) / 7.0 * BoutRules.camp_gain_mult(f.get("camp", {}), str(key))
 	return out
 
 
 static func step_day(career: Career) -> void:
 	for f in career.fighters:
-		var gain := daily_gain(career, f)
 		var mult := Injuries.gain_mult(career, f)   # S325 an injured fighter trains at the rest week's share
-		for key in Data.STATS:
-			f["stats"][key] = minf(STAT_CAP, float(f["stats"][key]) + float(gain.get(key, 0.0)) * mult)
-		if str(f["diet"]) == "cut" or not (f["camp"] as Dictionary).is_empty():
-			f["weight"] = maxf(float(f["limit"]) - 0.15, float(f["weight"]) - 0.11)
-		else:
-			f["weight"] = minf(float(f["limit"]) + 1.6, float(f["weight"]) + 0.01)
+		var dow := posmod(career.day, 7)   # day 0 is a Monday (Clock)
+		var resting := Injuries.out(career, f)
+		var m: Array = ["rest", "normal"] if resting else (WeekPlan.days_of(f)[dow] as Array)
+		var r := WeekPlan.full_day(str(m[0]), str(m[1]), "rest" if resting else str(WeekPlan.evenings_of(f)[dow]),
+			week_ctx(career, f), float(f.get("week_fatigue", 20.0)))
+		for k in [["stat", "gain"], ["stat2", "gain2"]]:
+			var st := str(r.get(k[0], ""))
+			if st != "" and (f["stats"] as Dictionary).has(st):
+				f["stats"][st] = minf(STAT_CAP, float(f["stats"][st]) + float(r[k[1]]) * BoutRules.camp_gain_mult(f.get("camp", {}), st) * mult)
+		var lo := minf(float(f["weight"]), float(f["limit"]) - 1.5)
+		var hi := maxf(float(f["weight"]), float(f["limit"]) + 1.6)
+		f["weight"] = clampf(float(f["weight"]) + float(r["kg"]), lo, hi)
+		f["week_fatigue"] = float(r["fatigue"])
 	career.day += 1
 	Injuries.day_tick(career)
 	Bouts.day_events(career)

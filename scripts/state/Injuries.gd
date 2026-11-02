@@ -15,6 +15,7 @@ extends RefCounted
 const InjuryRoll := preload("res://scripts/rules/InjuryRoll.gd")
 const TrainingLoad := preload("res://scripts/rules/TrainingLoad.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
+const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
 
 ## The fight model's head damage is one number for the whole bout; InjuryRoll reads the WORST of the body's places. A bout
 ## between equals carries ~22 damage (each loses ~1.5 rounds: 8-18 a lost round, 2 a won one); x2.2 puts its worst place
@@ -118,9 +119,15 @@ static func setting(f: Dictionary) -> String:
 	return TrainingLoad.default_for(not (f.get("camp", {}) as Dictionary).is_empty())
 
 
-## Her load this week against her usual (TrainingLoad.ratio): 1.0 = her usual.
+## Her load this week against her usual (TrainingLoad.ratio): 1.0 = her usual. S354: the hours come from her week
+## (WeekPlan.hours: mornings at their intensity, evenings) instead of the old Light/Normal/Hard setting.
 static func ratio(f: Dictionary) -> float:
-	return TrainingLoad.ratio(setting(f), chronic(f))
+	var usual := chronic(f)
+	return 1.0 if usual <= 0.0 else week_hours(f) / usual
+
+
+static func week_hours(f: Dictionary) -> float:
+	return WeekPlan.hours(WeekPlan.days_of(f), WeekPlan.evenings_of(f))
 
 
 ## Her usual weekly hours; an old save's 4-week history is read once as its average.
@@ -162,9 +169,9 @@ static func end_week(c: Career) -> void:
 		if out(c, f):
 			f["chronic"] = TrainingLoad.next_chronic(usual, TrainingLoad.hours("rest"))
 			continue
-		var s := setting(f)
-		var roll := InjuryRoll.training_roll(_seed(c, f, 3), TrainingLoad.hours(s), TrainingLoad.ratio(s, usual))
-		f["chronic"] = TrainingLoad.next_chronic(usual, TrainingLoad.hours(s))
+		var h := week_hours(f)
+		var roll := InjuryRoll.training_roll(_seed(c, f, 3), h, h / usual if usual > 0.0 else 1.0)
+		f["chronic"] = TrainingLoad.next_chronic(usual, h)
 		if bool(roll["injured"]):
 			_hurt(c, f, roll, "in training")
 

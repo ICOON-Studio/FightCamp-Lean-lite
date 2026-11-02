@@ -44,12 +44,20 @@ func _initialize() -> void:
 	_check(float(hold["peak"]) < WP.OVERREACHED and (hold["red"] as Array).is_empty(), "coach's week peaks at %.0f, no red day" % float(hold["peak"]))
 	var greedy := [["intervals", "hard"], ["roadwork", "hard"], ["heavy_bag", "hard"], ["intervals", "hard"],
 		["roadwork", "hard"], ["strength", "hard"], ["rest", "normal"]]
-	var g := WP.week(greedy, _ctx())
-	var g2 := WP.project(greedy, _ctx(), 2)
+	var ev := WP.evenings_for(1)
+	var g := WP.week(greedy, _ctx(), ev)
+	var g2 := WP.project(greedy, _ctx(), 2, ev)
 	_check(float(g["peak"]) < WP.OVERREACHED and float(g2["peak"]) >= WP.OVERREACHED and (g["red"] as Array).size() == 5,
 		"six hard mornings: week 1 peaks %.0f, week 2 overreaches (%.0f); five red days" % [float(g["peak"]), float(g2["peak"])])
-	var c4 := WP.project(WP.COACH_WEEK, _ctx(), 4)
-	_check(float(c4["peak"]) < 70.0, "the coach's week over a 4-week camp settles under 70 (%.0f)" % float(c4["peak"]))
+	var c4 := WP.project(WP.COACH_WEEK, _ctx(), 4, ev)
+	_check(float(c4["peak"]) < 72.0, "the coach's week + evenings over a 4-week camp stays under 72 (%.0f)" % float(c4["peak"]))
+	_check(ev == ["pads", "pads", "pads", "sparring", "pads", "pads", "rest"] and WP.evenings_for(2)[1] == "sparring"
+		and not WP.evenings_for(0).has("sparring"), "sparring nights: 1 = Thursday, 2 = Tuesday + Thursday, 0 = none")
+	var spar := WP.full_day("rest", "normal", "sparring", _ctx(), 20.0)
+	_check(float(spar["gain2"]) > 0.0 and str(spar["stat2"]) == "fight_iq" and float(spar["kg"]) > 0.0,
+		"a sparring evening builds ring IQ, adds fatigue and moves no weight (%.3f, %.1f)" % [float(spar["gain2"]), float(spar["fatigue"])])
+	var h := WP.hours(WP.COACH_WEEK, ev)
+	_check(h > 7.0 and h < 10.0, "the coach's week is %.1f h - inside 8-15 h of real amateur training, near the bottom" % h)
 	# The goal: the camp lands where the dials say, and turning two mornings to hard moves the lines.
 	var goal := {"limit": 59.4, "stat": "conditioning", "target": 61.0}
 	var lines := WP.goal_lines(goal, WP.COACH_WEEK, _ctx("cut"), 4)

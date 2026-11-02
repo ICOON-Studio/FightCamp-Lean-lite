@@ -116,7 +116,7 @@ func _top_bar() -> Control:
 		h.add_child(_plan_toggle)
 		h.add_child(UI.button("Start again", "BtnQuiet", func(): route.clear(); plan.clear(); go("outside")))
 		return bar
-	var title := ("HER MOVES" if not start_plan else "HER PLAN") if embedded else "THE PLAN: %s" % str(fighter["name"]).to_upper()
+	var title := ("MOVES" if not start_plan else "THE PLAN") if embedded else "THE PLAN: %s" % str(fighter["name"]).to_upper()
 	h.add_child(UI.label(title, 22, UI.FG, "bold"))
 	var punches := PackedStringArray()
 	for mv in Data.MOVES:
