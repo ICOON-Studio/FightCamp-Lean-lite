@@ -76,17 +76,18 @@ static func offers_settled(f: Dictionary) -> bool:
 
 static func camp_due(c: Career, f: Dictionary) -> bool:
 	var b: Dictionary = f["bout"]
-	return not b.is_empty() and (f["camp"] as Dictionary).is_empty() and int(b["day"]) - c.day >= BoutRules.CAMP_MIN_DAYS
+	# S359 (grey_reason_test under load: a bout dict with keys but no day crashed here): booked = it has its day.
+	return b.has("day") and (f["camp"] as Dictionary).is_empty() and int(b["day"]) - c.day >= BoutRules.CAMP_MIN_DAYS
 
 
 static func weigh_in_today(c: Career, f: Dictionary) -> bool:
 	var b: Dictionary = f["bout"]
-	return not b.is_empty() and c.day == int(b["day"]) - 1 and not bool(b["weighed"])
+	return b.has("day") and c.day == int(b["day"]) - 1 and not bool(b.get("weighed", false))
 
 
 static func fight_day(c: Career, f: Dictionary) -> bool:
 	var b: Dictionary = f["bout"]
-	return not b.is_empty() and c.day == int(b["day"]) and bool(b["weighed"]) and not bool(b["done"])
+	return b.has("day") and c.day == int(b["day"]) and bool(b.get("weighed", false)) and not bool(b.get("done", false))
 
 
 ## The fighter whose fight night is today, or {}.

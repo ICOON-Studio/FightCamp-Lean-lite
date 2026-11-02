@@ -61,6 +61,7 @@ var _test_btn: Button
 func _ready() -> void:
 	theme = UI.theme()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	clip_contents = true   # S359: nothing of the map draws over the page beside it
 	var bg := ColorRect.new()
 	bg.color = UI.BG
 	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -123,8 +124,16 @@ func _top_bar() -> Control:
 	var punches := PackedStringArray()
 	for mv in Data.MOVES:
 		punches.append("%s %d" % [mv, int(float(mastery.get(mv, 0.0)))])
-	h.add_child(UI.muted("  punches: " + ", ".join(punches) + "  "))
-	h.add_child(UI.spacer())
+	# S359 (operator still: the side panel and its scrollbar drawn over the Playbook's player column): this line set the
+	# bar's minimum width, wider than the page gives the map. It shortens now (the whole line on its hover).
+	var pl := UI.muted("  punches: " + ", ".join(punches) + "  ")
+	pl.clip_text = true
+	pl.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	pl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	pl.custom_minimum_size = Vector2(60, 0)
+	pl.tooltip_text = "Pad mastery of each punch: " + ", ".join(punches)
+	pl.mouse_filter = Control.MOUSE_FILTER_PASS
+	h.add_child(pl)
 	h.add_child(UI.button("Real fight plans", "Btn", func(): templates = not templates; go(current)))
 	h.add_child(UI.button("See the flow", "Btn", show_flow))
 	h.add_child(UI.button("Clear", "BtnQuiet", func(): plan.clear(); go(current)))
@@ -166,7 +175,12 @@ func show_flow() -> void:
 		"sub": "%d arrows, read top to bottom" % plan.size(), "place_name": _place_name,
 		"move_name": func(id: String) -> String: return str(Map.move(id).get("name", id)),
 		"try": _try_combos})
-	add_child(v)
+	# S359 (operator still: the Playbook's player box covered the flow's buttons): over the whole screen, not inside the
+	# map (the map clips now, and the player column sits beside it).
+	if main != null:
+		main.add_child(v)
+	else:
+		add_child(v)
 
 
 ## S349 C201: the flow's Try combos opens the Playbook's Combos tab (a full-screen plan board closes first).

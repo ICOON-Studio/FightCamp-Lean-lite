@@ -73,14 +73,18 @@ func _initialize() -> void:
 			(bx["skel"] as Skeleton3D).add_child(tap)   # last in the stack: what the viewer sees
 			bx["tap"] = tap
 		process_frame.connect(_log_joins.bind(view))
-	await _until(func(): return not bool(view.playing), 90.0)
+	# S359: the intro (S307) plays before round 1 with playing false - wait for the round to start, or the film ends at once.
+	await _until(func(): return bool(view.playing), 120.0)
+	await _until(func(): return not bool(view.playing), 220.0)
 	await _wait(45)
 	pass   # S308: rounds are always full (3:00)
 	main.act("fightstep", "corner:body")
-	await _until(func(): return not bool(view.playing), 120.0)
+	await _until(func(): return bool(view.playing), 120.0)
+	await _until(func(): return not bool(view.playing), 220.0)
 	await _wait(45)
 	main.act("fightstep", "corner:long")
-	await _until(func(): return not bool(view.playing), 120.0)
+	await _until(func(): return bool(view.playing), 120.0)
+	await _until(func(): return not bool(view.playing), 220.0)
 	await _wait(60)
 	if _joins != null:
 		_joins.close()

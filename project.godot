@@ -17,11 +17,12 @@ window/size/viewport_height=1080
 window/size/mode=2
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+mouse_cursor/tooltip_position_offset=Vector2(16, 26)
 
 [gui]
 
 common/snap_controls_to_pixels=true
-timers/tooltip_delay_sec=0.25
+timers/tooltip_delay_sec=0.3
 
 [rendering]
 

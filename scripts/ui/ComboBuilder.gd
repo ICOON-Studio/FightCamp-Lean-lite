@@ -13,6 +13,8 @@ const Combos := preload("res://scripts/rules/Combos.gd")
 const ComboOdds := preload("res://scripts/rules/ComboOdds.gd")
 const MovePlayer := preload("res://scripts/fight3d/MovePlayer.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
+const Tips := preload("res://scripts/ui/Tips.gd")
+const ROUND_GAS := Combos.ROUND_COST   # what a whole round of fighting costs (Combos units)
 const SCRIPT_PATH := "res://scripts/ui/ComboBuilder.gd"
 
 ## The moves she can chain: ComboFlow id, name, the clip her body plays, the move she must master (Data.MOVES; "" = none),
@@ -206,7 +208,15 @@ func _refresh(play: bool) -> void:
 	verdict.add_child(UI.label(word.to_upper(), UI.BODY + 8, col, "display"))
 	verdict.add_child(UI.mono("%d / 100" % int(r["score"]), UI.BODY, col))
 	verdict.add_child(UI.spacer())
-	verdict.add_child(Icons.tip(UI.muted("tank %.2f" % CF.energy(chain)), "What the chain costs from the gas tank (Combos units; a round costs 18)"))
+	# S359 (operator still: "tank 0.67" under a see-through hover): the cost in words on the board, the sums on its card.
+	var gas := CF.energy(chain)
+	var share := 100.0 * gas / ROUND_GAS
+	var tank := UI.muted("costs %d%% of a round's gas" % maxi(1, int(round(share))))
+	tank.name = "Tank"
+	Tips.card(tank, func(): return {"title": "Gas tank", "rows": [["This chain", "%.2f" % gas, "", ""],
+		["A whole round", "%.0f" % ROUND_GAS, "", ""], ["Share", "%.0f%%" % share, "", "watch" if share >= 8.0 else ""]],
+		"means": "each time she throws it, it takes %.0f%% of what a whole round of fighting takes out of her. Long chains tire her sooner." % share})
+	verdict.add_child(tank)
 	_rows.add_child(verdict)
 	var lessons := PanelContainer.new()
 	lessons.name = "Lessons"

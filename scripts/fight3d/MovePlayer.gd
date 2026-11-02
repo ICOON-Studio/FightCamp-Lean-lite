@@ -10,12 +10,34 @@ extends Control
 const FightStage := preload("res://scripts/fight3d/FightStage.gd")
 const MoveClips := preload("res://scripts/fight3d/MoveClips.gd")
 const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
+const Footwork := preload("res://scripts/fight3d/Footwork.gd")
 const SM := preload("res://scripts/rules/StrikeMap.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 
 const BODY_PATH := "res://assets/models/metahuman/mh_boxer_11.glb"
 const GHOST_ALPHA := 0.30
 const GUARD_HOLD_S := 0.8
+## S359 a combination's next punch starts this long after the last one's contact (under combo_skip's 0.30 s window).
+const CHAIN_AFTER_S := 0.05
+## A defence after a punch starts this long after its contact (the glove on its way back). A slip or roll hands over at
+## its deepest point, MEASURED per clip by tools/defence_peak_probe.gd (S359: the head furthest from its start against
+## the hips, 1x seconds); a clip not measured uses the median share 0.37 of its length.
+const PUNCH_TO_DEF_S := 0.15
+const DEF_PEAK_S := {"slip": 0.27, "pull": 0.13, "pro_left_weave": 0.40, "pro_right_weave": 0.53, "pro_back_weave": 0.40,
+	"pro_quick_weave": 0.50, "pro_left_dodge": 0.93, "pro_right_dodge": 0.70, "mc_dodge_left": 0.93, "mc_dodge_right": 0.70}
+const DEF_SHARE := 0.37
+## S359 the steps as the fight takes them (Footwork): clip -> [seconds at 1x, play scale]; a strafe is the fight's pivot
+## (its seconds come from the gap). Step in = the entry lunge, step back = the exit step.
+const TRAVEL := {"advance": [0.32, Footwork.LUNGE_SCALE], "retreat": [0.38, Footwork.EXIT_SCALE],
+	"strafe_left": [0.0, Footwork.PIVOT_SCALE], "strafe_right": [0.0, Footwork.PIVOT_SCALE]}
+var _clip_len := -1.0   # a step's length (no clip plays under it); -1 = the clip's own
+
+
+func _has_travel() -> bool:
+	for c in _clips:
+		if TRAVEL.has(str(c)):
+			return true
+	return false
 const HER_COLOR := Color(0.78, 0.08, 0.08)
 const GHOST_COLOR := Color(0.6, 0.8, 1.0)
 const DEFAULT_RANGE_M := 0.6
@@ -275,7 +297,12 @@ func _process(delta: float) -> void:
 		var clip := str(_clips[_clip_idx])
 		var who := 1 if _is_forced else 0
 		var ap: AnimationPlayer = _stage.boxers[who]["ap"]
-		if not ap.has_animation(clip) or _clip_start_t >= ap.get_animation(clip).length:
+		# S359 (operator: "i think it plays only 1 animation"; move_player_probe: a 1-2-3 played jab, guard, cross, guard,
+		# hook): a punch followed by a punch hands over just after its contact, as the fight's combos do (BeatFire,
+		# BeatClips.combo_skip), instead of waiting out its whole recovery in guard.
+		var chain := _clip_idx + 1 < _clips.size() and _clip_len < 0.0 and _clip_start_t >= _handover(clip, str(_clips[_clip_idx + 1]), ap)
+		var length := _clip_len if _clip_len >= 0.0 else (ap.get_animation(clip).length if ap.has_animation(clip) else 0.0)
+		if chain or _clip_start_t >= length:
 			_clip_idx += 1
 			if _clip_idx < _clips.size():
 				_play_next_clip()
@@ -296,6 +323,8 @@ func _process(delta: float) -> void:
 			emit_signal("looped")
 			_clip_idx = 0
 			_looping = false
+			if _has_travel():
+				_place_boxers()   # S359 a move that steps starts again from where it began
 			_play_next_clip()
 
 func _measure_gap() -> float:
@@ -318,20 +347,77 @@ func _play_next_clip() -> void:
 		_clip_idx += 1
 		_play_next_clip()
 		return
+	_clip_len = -1.0
+	# S359 (operator: "the pivot animation completely breaks ... something like a backkick", "step in animation also look so
+	# weird"): advance / retreat / strafe are the old game's WALKING strides, which the fight stopped playing in S320 (glide
+	# steps: her guard plays on, the body moves, FootPlant takes the steps). The player now steps as the fight does.
+	if TRAVEL.has(clip):
+		var secs := float(TRAVEL[clip][0])
+		var sc := float(TRAVEL[clip][1])
+		if clip.begins_with("strafe_"):   # the fight's pivot: a fast circle step at the held gap, the line turns PIVOT_DEG
+			secs = deg_to_rad(Footwork.PIVOT_DEG) * _gap_m / (float(Footwork.STRIDE[clip][0]) * sc)
+		_stage._walk(who, clip, secs / speed, sc * speed)
+		_clip_len = secs
+		_started_idx = maxi(_started_idx, _clip_idx + 1)
+		_clip_start_t = 0.0
+		if who == 0:
+			_stage.guard(1)
+		return
 	# Play the clip using stage.play() like BeatFire
 	var contact_s := BeatClips.contact(clip, 8.0/30.0)
-	_stage.play(who, clip, speed, 0.0)
+	# S359 a follow-up punch starts into its wind-up so it lands COMBO_LAND_S after the last (BeatClips.combo_skip, 1x time).
+	var skip := 0.0
+	if _is_punch_clip(clip) and _clip_idx > 0 and _is_punch_clip(str(_clips[_clip_idx - 1])):
+		skip = BeatClips.combo_skip(contact_s, 1.0, -CHAIN_AFTER_S, 0.0, _same_hand(str(_clips[_clip_idx - 1]), clip))
+	_stage.play(who, clip, speed, skip)
 	_started_idx = maxi(_started_idx, _clip_idx + 1)   # the clips started at least once (a loop does not reset it)
-	_clip_start_t = 0.0
+	_clip_start_t = skip
 	# For punches, land them using stage.land() like BeatFire._punch
 	if _is_punch_clip(clip) and not _is_forced:
 		var is_body := clip.contains("body")
-		_stage.land(who, clip, is_body, 0.0, contact_s / speed)
+		_stage.land(who, clip, is_body, 0.0, (contact_s - skip) / speed)
 		# Schedule ghost reaction at contact
-		_schedule_ghost_react(contact_s / speed, clip)
-	else:
-		# Ghost stays in guard for non-punch clips
+		_schedule_ghost_react((contact_s - skip) / speed, clip)
+	elif who == 0:
+		# Ghost stays in guard for her non-punch clips. S359: a forced move is the ghost's own clip (backed_up, break,
+		# spins_out) - guarding her here cancelled it, so those moves played nothing.
 		_stage.guard(1)
+
+## S359 (operator: "slip and roll are good, still need a lot of smoothing and better timing blending ... it's fun to do a
+## roll+slip+uppercut"): where in `clip` (1x seconds) the next move of a chain takes over. Punch -> punch: just after
+## contact (the fight's combo rhythm). Punch -> defence: as the glove comes back. Defence -> anything: at the slip's or
+## roll's deepest point, where a counter is thrown from (the head is off the line, the legs loaded). Else the clip's end.
+func _handover(clip: String, next: String, ap: AnimationPlayer) -> float:
+	var length := ap.get_animation(clip).length if ap.has_animation(clip) else 0.0
+	if _is_punch_clip(clip):
+		var contact := BeatClips.contact(clip, 8.0 / 30.0)
+		if _is_punch_clip(next):
+			return contact + CHAIN_AFTER_S
+		if _is_defence_clip(next):
+			return minf(length, contact + PUNCH_TO_DEF_S)
+	elif _is_defence_clip(clip) and (_is_punch_clip(next) or _is_defence_clip(next)):
+		return minf(length, float(DEF_PEAK_S.get(clip, length * DEF_SHARE)) + CHAIN_AFTER_S)
+	return length
+
+
+static func _is_defence_clip(clip: String) -> bool:
+	return clip.contains("slip") or clip.contains("weave") or clip.contains("dodge") or clip.contains("pull") or clip.contains("roll")
+
+
+## The punch a clip throws, as BeatClips.REACT names them.
+static func _punch_kind(clip: String) -> String:
+	if clip.contains("body"):
+		return "body_hook"
+	if clip.contains("uppercut"):
+		return "rear_uppercut" if clip.contains("right") else "lead_uppercut"
+	if clip.contains("hook"):
+		return "rear_hook" if clip.contains("right") else "lead_hook"
+	return "cross" if clip.contains("cross") else "jab"
+
+
+static func _same_hand(a: String, b: String) -> bool:
+	return (a.contains("left") or a.contains("jab")) == (b.contains("left") or b.contains("jab"))
+
 
 func _is_punch_clip(clip: String) -> bool:
 	return clip.contains("jab") or clip.contains("cross") or clip.contains("hook") or clip.contains("uppercut") or clip.contains("body_shot") or clip.contains("body_hook")
@@ -345,7 +431,8 @@ func _measure_reach() -> float:
 
 ## S343: the ghost's light hit reaction lands when her glove does (clip_contact.json via BeatClips.contact).
 func _schedule_ghost_react(contact_s: float, clip: String) -> void:
-	var react := BeatClips.react("jab" if not clip.contains("body") else "body_hook", false, _stage.has_move, 0.0, false)
+	# S359: she reacts to the punch that hit her (every head punch played the jab's reaction).
+	var react := BeatClips.react(_punch_kind(clip), false, _stage.has_move, randf(), false)
 	if react == "" or not _stage.has_move(react) or not is_inside_tree():
 		return
 	var id := _clip_idx

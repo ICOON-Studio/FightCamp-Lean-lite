@@ -48,9 +48,9 @@ func _initialize() -> void:
 	var words := 0
 	for i in 7:
 		var l := b.find_child("Fatigue_%d" % i, true, false) as Label
-		if l != null and WORDS.has(l.text) and l.tooltip_text.contains("fatigue"):
+		if l != null and WORDS.has(l.text) and not l.get_signal_connection_list("mouse_entered").is_empty():   # S359 its card (Tips)
 			words += 1
-	_check(words == 7, "seven days read their fatigue as a word with the number on the hover (%d)" % words)
+	_check(words == 7, "seven days read their tiredness as a word with its card on hover (%d)" % words)
 	var roman := 0
 	for i in 7:
 		for t in _texts(b.find_child("Session_%d" % i, true, false)):

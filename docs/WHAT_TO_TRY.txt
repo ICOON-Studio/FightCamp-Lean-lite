@@ -12,6 +12,16 @@ FIGHTCAMP - WEEK 6 BUILD, UPDATE 61 (2026-11-02): THE WHITEBOARD READS AT A GLAN
  6. Change a morning: the goal lines that moved flash for 2 seconds with how much (+0.2, -0.1). A changed day has a small
     'undo'; "Coach's week" undoes them all.
  Try it: ops board "Test: a camp on the whiteboard".
+ 7. YOUR NOTES FROM TODAY, FIXED:
+    - Fight intro: each boxer raises the glove on her own side (a southpaw's arm crossed over her head).
+    - The referee is unseen until he steps in to break a clinch, then fades out again.
+    - Hover boxes: solid cards beside what you hover (never over it). Hold still 0.7 s and the magnet on top locks
+      it so you can move onto it; Shift pins it, Esc closes it.
+    - Training rows say MORNING / EVENING / TIRED BY NIGHT; tiredness reads FRESH / OK / TIRED / OVERCOOKED.
+    - Playbook: nothing drawn over the map; a smaller player; combos flow punch to punch; slip and roll counters
+      start from the deepest point of the slip; step in / step out / pivot are short boxing steps (no more back-kick);
+      ESCAPES is filled: off the ropes, out of the clinch, out of range - click one and it plays.
+    - Combos: "costs N% of a round's gas" instead of "tank 0.67".
 
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 60 (2026-11-02): THE SHORT-NOTICE SWAP, A TEST BUTTON FOR THE CAMP
 ===============================================================================================

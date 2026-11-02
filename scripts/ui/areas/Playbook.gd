@@ -13,8 +13,11 @@ const MovePlayer := preload("res://scripts/fight3d/MovePlayer.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
 const SM := preload("res://scripts/rules/StrikeMap.gd")
 const ComboBuilder := preload("res://scripts/ui/ComboBuilder.gd")
+const MoveBook := preload("res://scripts/ui/MoveBook.gd")
 
-const PLAYER := Vector2(560, 600)
+## S359 (operator still: the player covered the plan panel - "remove the player or make it smaller?"): 400 x 440 beside
+## the map (was 560 x 600), so the map and its side panel get the width; the Combos tab keeps its own bigger player.
+const PLAYER := Vector2(400, 440)
 const MAP_H := 760.0
 const SLOW := 0.35
 ## The opponent the player's ghost wears: a fixed sparring partner (the page is about her moves, not a bout).
@@ -47,7 +50,7 @@ func build(main: Node) -> void:
 		2:
 			add_child(ComboBuilder.make(main, f))   # S349 build step 3: her moves to try, the chain, its verdict, her body plays it
 		3:
-			AreaHead.placeholder(self, "ESCAPES", "Next: off the ropes, out of the corner, tie-ups - each one plays, and Drill this puts it in the training week.")
+			add_child(_escapes(f))
 
 
 ## Her name chips: the page is one fighter's whiteboard.
@@ -75,6 +78,43 @@ func _board(main: Node, f: Dictionary, plans: bool) -> Control:
 	sb.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	sb.move_picked.connect(_play)
 	h.add_child(sb)
+	h.add_child(_player_col(f, "Click a move on the map and it plays here."))
+	return h
+
+
+## S359 ESCAPES (operator: "escapes has nothing, is that intentional?"): the ways out a boxer drills - off the ropes, out of
+## the clinch, out of range - as a move book; each one plays on her body.
+const ESCAPES := [
+	["OFF THE ROPES", "Her back is on the ropes: turn out, counter out, or tie up.", ["pivot_out", "slip 2-3@own_ropes", "tie_up@own_ropes"]],
+	["OUT OF THE CLINCH", "Tied up: make the space yourself, or wait for the referee.", ["push_off", "break"]],
+	["OUT OF RANGE", "Under fire up close: roll under and out, or step back to where she can box.", ["roll_out", "step_back", "step_out"]],
+]
+const ESCAPE_WORDS := {
+	"pivot_out": "Turn on the lead foot and step off the ropes to the side; she is out, the opponent faces the ropes.",
+	"slip 2-3@own_ropes": "Slip the punch, cross and hook back as she comes out: the ropes push her into the counter.",
+	"tie_up@own_ropes": "Wrap the arms and smother the punches until the referee breaks it.",
+	"push_off": "A step back out of the tie-up: she makes the space before the referee does.",
+	"break": "The referee steps in and parts them; both back to long range.",
+	"roll_out": "Roll under the hook and come up outside it, already moving away.",
+	"step_back": "One step back from mid range to long range: out of hook reach.",
+	"step_out": "Step out from long range to outside: rest out of reach.",
+}
+
+
+func _escapes(f: Dictionary) -> Control:
+	var h := UI.hbox(16)
+	h.custom_minimum_size = Vector2(0, MAP_H)
+	var scroll := ScrollContainer.new()
+	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	scroll.add_child(MoveBook.make(ESCAPES, ESCAPE_WORDS, f.get("moves", {}), _play))
+	h.add_child(scroll)
+	h.add_child(_player_col(f, "Click an escape and it plays here."))
+	return h
+
+
+## The move player (her body, the partner a ghost), the move's name, Replay, Slow motion.
+func _player_col(f: Dictionary, prompt: String) -> Control:
 	var col := UI.vbox(8)
 	col.custom_minimum_size = Vector2(PLAYER.x, 0)
 	var card := PanelContainer.new()
@@ -85,7 +125,7 @@ func _board(main: Node, f: Dictionary, plans: bool) -> Control:
 	player.custom_minimum_size = PLAYER
 	card.add_child(player)
 	col.add_child(card)
-	_name = UI.label("Click a move on the map and it plays here.", UI.BODY, UI.FG, "bold", true)
+	_name = UI.label(prompt, UI.BODY, UI.FG, "bold", true)
 	col.add_child(_name)
 	var btns := UI.hbox(8)
 	btns.add_child(UI.button("Replay", "Btn", func(): _play(_move)))
@@ -93,8 +133,7 @@ func _board(main: Node, f: Dictionary, plans: bool) -> Control:
 	btns.add_child(_slow)
 	col.add_child(btns)
 	col.add_child(UI.muted("Your fighter's body, the partner a ghost. Lit moves work in a fight; grey ones need pad time first.", UI.SMALL, true))
-	h.add_child(col)
-	return h
+	return col
 
 
 func _play(id: String) -> void:
