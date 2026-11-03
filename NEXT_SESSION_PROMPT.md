@@ -15,7 +15,7 @@ gbot thread John) -> SkillAwards.BLEEP_SEXES + TestDay men's anchors; (4) GOALTE
 (3D pad round + PASSED stamp), the passed grade upgrades its move cards, Day 1 vs today (GOALIDEAS_SUMMARY_S371.md);
 (5) FLOWBOUT1 wiring: Record tab + Playbook plan-line win rates (PlanRecord.rates/verdict); (6) women's limits 61.2/66 ->
 60/65 (J_MEN1: not in any current rulebook) with Lucy's cut checked.
-MIRO (S371): production map P0-P9 updated; the seats' ideas frame https://miro.com/app/board/uXjVEV03QWA=/?moveToWidget=3458764689220929557 has a YOUR NOTES lane - read his notes there at start. The DONE columns are full: archiving old DONE cards = deleting them, ask him first. Stale cards left in place: P1 NOW three Goose cards, P2 NOW 'Agent run in flight', P3 NOW Cursor pictures + NEXT 'Waits on your answer'.
+MIRO (S371): production map P0-P9 updated; the seats' ideas frame https://miro.com/app/board/uXjVEV03QWA=/?moveToWidget=3458764689220929557 has a YOUR NOTES lane - read his notes there at start. Old DONE cards MOVED (operator 'Yes, archive them'; nothing deleted) into the 'DONE archive (S371)' frame https://miro.com/app/board/uXjVEV03QWA=/?moveToWidget=3458764689221523342 (text in ops/research/MIRO_DONE_ARCHIVE_S371.md); each DONE column keeps 5. Stale cards left in place: P1 NOW three Goose cards, P2 NOW 'Agent run in flight', P3 NOW Cursor pictures + NEXT 'Waits on your answer'.
 TRAPS: export.sh runs the suite at JOBS=4 - beside agents run `JOBS=2 sh tools/export.sh`; a stopped background shell
 leaves xargs + Godot test children running (kill them by command line). Argon reads only its worktree (file tools
 only): anything it must read goes on main (ops/research is fine - Godot ignores ops/). The judge_film.gd movie records
