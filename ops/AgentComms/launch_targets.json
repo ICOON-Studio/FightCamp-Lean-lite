@@ -141,6 +141,20 @@
    ],
    "gui": false
   },
+ {
+  "id": "fightcamp_test_men_fight",
+  "label": "Test: two men in the ring (update 69)",
+  "why": "A quick-start career with Danny Osei signed through scouting; he takes his first men's bout (on the cut) and the jump opens fight night - Danny (Isaiah's body) against a men's lightweight, both male MetaHumans, bare-chested in trunks. Its own save slot.",
+  "candidates": [
+   "%WINDIR%/System32/schtasks.exe"
+  ],
+  "args": [
+   "/run",
+   "/tn",
+   "FightCamp Play test men fight"
+  ],
+  "gui": false
+ },
   {
    "id": "claude",
    "label": "Claude desktop app",

@@ -42,7 +42,6 @@ const PALETTE: Array[Dictionary] = [
 ]
 const MAX_MOVES := 8
 const PLAYER_SIZE := Vector2(520, 560)
-const PARTNER := {"name": "Maria Ortega"}
 
 static var chain: Array = []   # the chain being built, kept while the page re-renders
 
@@ -102,7 +101,7 @@ func build(m: Node, fighter: Dictionary) -> void:
 	card.add_theme_stylebox_override("panel", UI.box(UI.PANEL, UI.LINE, 12, 1, 6, 6))
 	player = MovePlayer.new()
 	player.name = "MovePlayer"
-	var pair: Array = Faces.pair(f, PARTNER)
+	var pair: Array = Faces.pair(f, Faces.partner(f))
 	player.bodies = [Faces.glb(pair[0]), Faces.glb(pair[1])]
 	player.custom_minimum_size = PLAYER_SIZE
 	card.add_child(player)

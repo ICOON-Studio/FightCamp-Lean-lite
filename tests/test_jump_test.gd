@@ -41,6 +41,18 @@ func _initialize() -> void:
 			main.queue_free()
 			await process_frame
 			continue
+		if jump == "men_fight":
+			# S372: Danny's first men's bout plays to fight night - two men's bodies in the ring.
+			var dm: Dictionary = {}
+			for g in main.career.fighters:
+				if str(g["id"]) == "danny":
+					dm = g
+			var bout: Dictionary = dm.get("bout", {})
+			_check(ok and str(main.modal.get("type", "")) == "fight" and not bout.is_empty()
+				and str((bout.get("opp", {}) as Dictionary).get("div", "")).begins_with("m"), "men_fight: Danny's men's bout is at fight night")
+			main.queue_free()
+			await process_frame
+			continue
 		if jump == "belt":
 			# S362 update 64: Ana's belt road (the no-gi Record tab).
 			_check(ok and str(main.route.get("fighter", "")) == "ana" and main.find_child("BeltRoad", true, false) != null, "belt: Ana's belt road is open")

@@ -1,6 +1,9 @@
-FIGHTCAMP - WEEK 6 BUILD, UPDATE 69 (2026-11-03): MEN TAKE THE SUNDAY TESTS, DAY 1 ON THE RECORDS WALL, BODY SHOTS LAND
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 69 (2026-11-03): MEN IN MEN'S BODIES, MEN TAKE THE SUNDAY TESTS, DAY 1 ON THE RECORDS WALL, BODY SHOTS LAND
 =====================================================================================================================
 
+ 0. Men in men's bodies: board Test button "two men in the ring" - Danny Osei takes his first men's bout and fight night
+    opens with two male MetaHumans, bare-chested in trunks (Danny wears Isaiah; Josh Harper wears Victor; the region's men
+    draw from five male bodies). Their photos are on HOME and the fighter cards. In the Playbook a man spars with a man.
  1. Men take the Sunday tests: sign Danny Osei or Josh Harper (board Test button "men's boxing + the records wall").
     His Training tab now shows his bleep level on the MEN'S norms (an untrained man about level 9, club 12-13, elite
     13-15 - John's research) and his records wall: bleep test and punches in 10 s. No force test for men yet (the only

@@ -23,7 +23,6 @@ const PLAYER := Vector2(400, 440)
 const MAP_H := 760.0
 const SLOW := 0.35
 ## The opponent the player's ghost wears: a fixed sparring partner (the page is about her moves, not a bout).
-const PARTNER := {"name": "Maria Ortega"}
 
 static var pick := ""      # the fighter on the page (her id), kept while the page re-renders
 
@@ -124,7 +123,7 @@ func _player_col(f: Dictionary, prompt: String) -> Control:
 	card.add_theme_stylebox_override("panel", UI.box(UI.PANEL, UI.LINE, 12, 1, 6, 6))
 	player = MovePlayer.new()
 	player.name = "MovePlayer"
-	player.bodies = [Faces.glb(Faces.pair(f, PARTNER)[0]), Faces.glb(Faces.pair(f, PARTNER)[1])]
+	player.bodies = [Faces.glb(Faces.pair(f, Faces.partner(f))[0]), Faces.glb(Faces.pair(f, Faces.partner(f))[1])]
 	player.custom_minimum_size = PLAYER
 	card.add_child(player)
 	col.add_child(card)

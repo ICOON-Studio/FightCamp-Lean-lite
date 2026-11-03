@@ -71,7 +71,7 @@ AGY_MODEL = "gemini-4-argon-high"   # S369 operator: "antigravity should have ar
 ## seat -> live_runs agent name, the words a roadmap `who` uses, its model, its run cap (minutes)
 SEATS = {"qwen": {"agent": "qwen", "who": ("qwen",), "model": "qwen3-coder", "minutes": 90},
          "cursor": {"agent": "cursor", "who": ("cursor",), "model": "composer-2.5", "minutes": 90},
-         "agy": {"agent": "antigravity", "who": ("antigravity", "agy"), "model": AGY_MODEL, "minutes": 35}}
+         "agy": {"agent": "antigravity", "who": ("antigravity", "agy"), "model": AGY_MODEL, "minutes": 65}}
 SEAT_PROCS = {"qwen": "qwen-code", "cursor": "cursor-agent", "agy": "agy.exe"}
 PC_AGENTS = ("qwen", "cursor", "antigravity", "agy", "codex", "cline", "ziva")
 MAX_PC_AGENTS = 2         # S218 (the PC hung with 3 agents + Godot tests): 2 PC agents at once
@@ -523,6 +523,11 @@ def short_title(task: str, title: str) -> str:
 
 def films(task: str, wt: Path, contract: dict, which: str) -> dict:
     mp4 = PREVIEWS / task / f"{which}.mp4"
+    md = mp4.with_suffix(".gemini_argon.md")
+    if which == "before" and mp4.is_file() and md.is_file():  # a re-run (S372: agy self-updated mid-launch) keeps its judged BASE film
+        score, line = read_verdict(md.read_text(encoding="utf-8", errors="replace"))
+        log(f"JUDGE {task} before: reused Argon {score}/10 {line[:100]}")
+        return {"film": mp4.as_posix(), "verdict_file": md.as_posix(), "score": score, "line": line, "rc": 0, "err": ""}
     why = film(wt, contract, mp4)
     if why:
         log(f"FILM {task} {which}: {why}")
@@ -567,7 +572,11 @@ def pr_body(task: str, info: dict, checks: list, committed: list, stray: list, b
 
 
 def _agy(wt: Path, prompt: str, out: Path, env: dict) -> subprocess.Popen:
-    cmd = [AGY, "-p", prompt, "--model", AGY_MODEL, "--mode", "accept-edits", "--sandbox", "--print-timeout", "1800s"]
+    for _ in range(20):  # S372: agy replaces its own exe when it updates - FIGHT9R2 found no file for that moment and crashed
+        if Path(AGY).is_file():
+            break
+        time.sleep(30)
+    cmd =[AGY, "-p", prompt, "--model", AGY_MODEL, "--mode", "accept-edits", "--sandbox", "--print-timeout", "3600s"]   # S372: R2 timed out at 30 min mid-turn
     fh = open(out, "a", encoding="utf-8")
     return subprocess.Popen([str(c) for c in cmd], cwd=str(wt), stdout=fh, stderr=subprocess.STDOUT, stdin=subprocess.DEVNULL,
                             creationflags=NO_WINDOW, env=env)

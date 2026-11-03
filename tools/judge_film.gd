@@ -13,14 +13,17 @@ var main: Node
 
 func _initialize() -> void:
 	var secs := 60.0
+	var jump := "fight"   # S372 fightjump=men_fight films Danny's bout (not jump=: Main runs that one itself)
 	for a in OS.get_cmdline_user_args():
 		if str(a).begins_with("secs="):
 			secs = float(str(a).trim_prefix("secs="))
+		if str(a).begins_with("fightjump="):
+			jump = str(a).trim_prefix("fightjump=")
 	root.size = Vector2i(1280, 720)
 	main = load("res://scenes/Main.tscn").instantiate()
 	root.add_child(main)
 	await _wait(4)
-	print("JUDGE_FILM reached fight night: ", TestJump.run(main, "fight"))
+	print("JUDGE_FILM reached fight night: ", TestJump.run(main, jump))
 	await _wait(4)
 	main.act("fightstep", "start")
 	var view: Node = main._fight_layer.get_child(0)

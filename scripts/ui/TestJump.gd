@@ -30,7 +30,7 @@ const Roster := preload("res://scripts/state/Roster.gd")
 const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
 
 const SAVE_PATH := "user://test_jump_save.json"
-const JUMPS := ["fight", "fight_nofilm", "corner", "round3", "injury", "nationals", "pro", "taperoom", "camp", "belt", "men"]
+const JUMPS := ["fight", "fight_nofilm", "corner", "round3", "injury", "nationals", "pro", "taperoom", "camp", "belt", "men", "men_fight"]
 ## What two weeks of pad time on the 1-2 and the 1-2-3 leave her with (Combos.LEARN_AT is 30).
 const DRILLED := {"1-2": 62.0, "1-2-3": 48.0}
 
@@ -91,7 +91,7 @@ static func run(main: Node, jump: String) -> bool:
 		return main.find_child("GrapplerPage", true, false) != null
 	if jump == "nationals":
 		return _to_nationals(main, c, f)
-	if jump == "men":
+	if jump == "men" or jump == "men_fight":
 		Roster.prospect(c, "danny")["state"] = "invited"
 		var m := Roster.sign_prospect(c, "danny", ["signature"])
 		for i in 40:
@@ -99,8 +99,15 @@ static func run(main: Node, jump: String) -> bool:
 				break
 			_tidy(main, c)
 			main.run_to_stop()
-		main.act("go", "fights:0")
-		return str(m.get("sex", "")) == "m" and not (m["offers"] as Array).is_empty()
+		if jump == "men":
+			main.act("go", "fights:0")
+			return str(m.get("sex", "")) == "m" and not (m["offers"] as Array).is_empty()
+		# S372 jump=men_fight: Danny takes his first even offer and boxes it - two men in the ring (the male MetaHumans).
+		# He walks in at 61.6 kg for the 60 kg class and his first offer is ~17 days out: on the diet-only cut he reached
+		# 60.32 kg and missed (S372 finding, logged for the weight-limits task). The jump starts him 1.0 kg over, on the Cut.
+		f = m
+		f["weight"] = minf(float(f["weight"]), float(f["limit"]) + 1.0)
+		main.act("diet", "%s|cut" % f["id"])
 	if jump == "pro":
 		f["w"] = 9
 		f["l"] = 1
