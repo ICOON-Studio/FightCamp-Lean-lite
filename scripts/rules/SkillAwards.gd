@@ -54,9 +54,10 @@ static func passed(f: Dictionary) -> Array:
 
 ## S373 GOALTESTS1 phase 2 (the five seats, GOALIDEAS_SUMMARY_S371 #4: "a passed grade changes how she fights the same
 ## week"): a move a passed grade assessed is a graded move - its combo card wears the grade's colour and it costs less
-## gas, on the card (ComboStrip) and in the bout (Combos.round_spend). ECONOMY is Claude's ESTIMATE for Kalli's review
-## (clean technique wastes less): 8 % off for the grade that passed the move, 15 % once Gold has passed it SHARP.
-const ECONOMY := {"standard": 0.92, "bronze": 0.92, "silver": 0.92, "gold": 0.85}
+## gas, on the card (ComboStrip) and in the bout (Combos.round_spend). S375 Kalli K_GRADED1 (clean technique wastes less):
+## 8 % off for the grade that passed the move, the SAME for every grade (the punch mix already makes Standard's jab + cross
+## the big saving), and 4 % more once Gold has passed it SHARP - 12 %; a fully graded boxer saves ~6.5 of ~72 a round.
+const ECONOMY := {"standard": 0.92, "bronze": 0.92, "silver": 0.92, "gold": 0.88}
 const GRADE_COLOR := {"standard": Color("#23935d"), "bronze": Color("#b0763b"), "silver": Color("#8d97a3"), "gold": Color("#c9a227")}
 ## ComboFlow's move ids -> the mastery names the grades assess.
 const MOVE_OF := {"jab": "Jab", "cross": "Cross", "lead_hook": "Lead hook", "body_hook": "Body hook", "rear_uppercut": "Uppercut"}

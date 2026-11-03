@@ -16,25 +16,22 @@ FONT = "C:/Windows/Fonts/segoeui.ttf"
 BOLD = "C:/Windows/Fonts/segoeuib.ttf"
 SECONDS = 4.0
 
-# Titles the tour could not name itself (her page's tabs, scripts/ui/areas/FighterPage.gd TABS).
+# Titles the tour could not name itself, keyed by the tour's own title (S375: steps renumber whenever the tour changes).
 TITLES = {
-    "step_09.png": ("Her page - Attributes and moves", "Every number against its ceiling, and how well she throws each punch."),
-    "step_10.png": ("Her page - Body", "Weight, the limit for her class, diet and any injury."),
-    "step_11.png": ("Her page - Training", "THE WEEK: each day's session on the whiteboard, the goal lines it moves, the fatigue it costs."),
-    "step_24.png": ("Weight made", "On the scale: under the limit, fight night is tomorrow."),
-    "step_29.png": ("The scorecards", "Skip bout plays the rest in words: three judges, what decided it, the money and members it brought."),
+    "The fighter page - tab 2": ("His page - Attributes and moves", "Every number against its ceiling, and how well he throws each punch."),
+    "The fighter page - tab 3": ("His page - Body", "Weight, the limit for his class, diet and any injury."),
+    "The fighter page - tab 4": ("His page - Training", "THE WEEK: each day's session on the whiteboard, the goal lines it moves, the fatigue it costs."),
+    "On the scale": ("Weight made", "On the scale: under the limit, fight night is tomorrow."),
+    "The scorecards": ("The scorecards", "Skip bout plays the rest in words: three judges, what decided it, the money and members it brought."),
 }
-# What is still unclear on each screen (S370 playthrough + S367 critic + S369 playtest). Empty = reads fine.
+# What is still unclear on each screen (S370 playthrough + S367 critic + S369 playtest), keyed by tour title. Empty = reads fine.
 UNCLEAR = {
-    "step_07.png": "Two places for one job: this list, and the real week on her page (Training tab).",
-    "step_11.png": "You can feel a session move a goal line - but the goal itself is a row of text, not a test she can pass.",
-    "step_12.png": "FIXED S370: whole points and 'N% to next', the sessions behind each gain named. Still a lot of empty page.",
-    "step_14.png": "The opponent's file is thin until the camp's tape - you say yes before you can learn.",
-    "step_18.png": "FIXED S370: the answer always goes into her plan and says which line it replaces.",
-    "step_20.png": "The plan is rated against her style only, with no rounds; it never shows in the ring.",
-    "step_21.png": "FIXED S370: move cards stitched into a strip - each join judged, strength, gas, speed, damage, odds.",
-    "step_28.png": "The plan you made is not on screen; the calls do not say which line they serve.",
-    "step_30.png": "What decided it is here, but THE PLAN, LIT UP waits behind a button.",
+    "FIGHTS > the offers": "The opponent's file is thin until the camp's tape - you say yes before you can learn.",
+    "The tape room": "FIXED S370: the answer always goes into the plan and says which line it replaces.",
+    "PLAYBOOK > Game plan": "The plan is rated against the opponent's style only, with no rounds (SCOUTPLAN1 next).",
+    "PLAYBOOK > Combos": "FIXED S370: move cards stitched into a strip - each join judged; S373 graded punches cost less gas.",
+    "The live round": "The plan you made is a one-line caption; the calls do not say which line they serve.",
+    "The result": "What decided it is here, but THE PLAN, LIT UP waits behind a button.",
 }
 
 
@@ -58,7 +55,7 @@ def main(tour_dir: Path, log: Path, out: Path) -> None:
         m = re.match(r"TOUR (step_\d+\.png) \| (.*?) \| (.*?) \| screen=", line)
         if m:
             name, title, what = m.groups()
-            title, what = TITLES.get(name, (title, what))
+            title, what = TITLES.get(title, (title, what))
             steps.append((name, title, what))
     out.mkdir(parents=True, exist_ok=True)
     frames = out / "frames"
@@ -76,7 +73,7 @@ def main(tour_dir: Path, log: Path, out: Path) -> None:
         for ln in wrap(d, what, f_mid, W - 56)[:2]:
             d.text((28, y), ln, font=f_mid, fill=(205, 200, 190))
             y += 32
-        note = UNCLEAR.get(name, "")
+        note = UNCLEAR.get(title, "")
         if note:
             for ln in wrap(d, "STILL UNCLEAR: " + note, f_mid, W - 56)[:2]:
                 d.text((28, y + 4), ln, font=f_mid, fill=(240, 176, 64))

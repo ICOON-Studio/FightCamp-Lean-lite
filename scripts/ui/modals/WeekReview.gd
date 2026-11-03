@@ -10,6 +10,7 @@ const TrainingPreview := preload("res://scripts/rules/TrainingPreview.gd")
 const TwistCard := preload("res://scripts/ui/TwistCard.gd")
 const ReviewReveal := preload("res://scripts/rules/ReviewReveal.gd")
 const NoGi := preload("res://scripts/rules/NoGi.gd")
+const PassedStamp := preload("res://scripts/ui/PassedStamp.gd")
 const BeltRoad := preload("res://scripts/rules/BeltRoad.gd")
 const Grapplers := preload("res://scripts/state/Grapplers.gd")
 const GrapplerPage := preload("res://scripts/ui/areas/GrapplerPage.gd")
@@ -125,6 +126,10 @@ func build(main: Node, m: Dictionary) -> void:
 			var line := UI.label("   ".join(notes), UI.SMALL, UI.GOLD if gold else UI.MUTED, "body", true)
 			line.name = "Notes_" + str(fr["id"])
 			t = _land(v, line, t, step)
+		if passed_now:
+			var pf := c.fighter_by_id(str(fr["id"]))
+			if not pf.is_empty():
+				t = _land(v, PassedStamp.make(pf, str(fr["award"])), t, step)
 		if str(fr.get("peak", "")) != "" and head["kind"] != "peak":
 			var pk := UI.label(str(fr["peak"]), UI.BODY, UI.GOLD if str(fr["peak"]).begins_with("Peak") else UI.MUTED, "bold", true)
 			pk.name = "Peak_" + str(fr["id"])

@@ -573,7 +573,8 @@ def films(task: str, wt: Path, contract: dict, which: str) -> dict:
             log(f"JUDGE {task} before: {prev}'s after-film is this commit {head[:8]} - reused Argon {a.get('score')}/10, no film or judge spend")
             return {"film": mp4.as_posix(), "verdict_file": md.as_posix(), "score": a.get("score", "?"), "line": a.get("line", ""),
                     "rc": 0, "err": "", "head": head, "reused": prev}
-    why = film(wt, contract, mp4)
+    # S374: a BASE film made but never scored (the Gemini cap stopped FIGHT9R3's judge) is judged as it is, not filmed again.
+    why = "" if (which == "before" and mp4.is_file() and mp4.stat().st_size > 100_000) else film(wt, contract, mp4)
     if why:
         log(f"FILM {task} {which}: {why}")
         return {"film": "", "why": why}

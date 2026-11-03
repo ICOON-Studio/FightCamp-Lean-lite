@@ -21,8 +21,10 @@ DONE BEFORE S374 STARTED (operator "Yes, fix it", 169e5fc4): Danny's first offer
 an offer for a boxer over his class where Sim.weigh_forecast reaches the limit (up to 4 weeks later). Suite 128/0.
 
 Start in E:\FightCamp\Lean: `git pull && python ops/Tools/agent_comms.py start`. Digest: ops/research/S373_DIGEST.md.
-FIRST: board Q-S294-94 - the Gemini project hit its MONTHLY SPEND CAP (HTTP 429): no Argon verdict for FIGHT9 or BJJ9
-until the operator raises it at ai.studio/spend. If raised: `python ops/Tools/seat_dispatch.py rejudge FIGHT9R2`.
+GEMINI CAP RAISED (operator "Yes, set EUR 50"; Claude set it at ai.studio/spend; brake budget 48 Google-counted). FIGHT9R3
+relaunched 08:12 - its before film (agy/fight9r2 today) judged 2/10, agy working; BJJ9 round 8's film judged by Claude
+with Ziva's recipe: 3 -> 4/10 (ops/previews/BJJ9/bjj_r8.gemini_argon.md; KEEP) - tell Ziva to read it and go on. COLLECT: Qwen
+PASSEDSTAMP1 = PR #26 (checks 5/5; add passed_stamp_test to run_tests.sh at the merge).
 LOOPS: FIGHT9R2 (PR #25, agy/fight9r2) probe 15/18 after Claude's a6fadb9b - the operator's C218 moving legs fixed, no
 referee; 3 FAIL = clinch breaks pass through. R3 queued on BASE agy/fight9r2 (the push-off). seat_dispatch now holds the
 loop on an unjudged film and --check-only parses the brief's scripts (agy broke its own probe). BJJ9: Ziva round 7

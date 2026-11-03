@@ -72,8 +72,8 @@ func _graded() -> void:
 	_check(Combos.round_spend(combos, "", 60.0, econ) < Combos.round_spend(combos, "", 60.0), "her round spend is lower with the grade")
 	_check(is_equal_approx(SkillAwards.bout_economy({"awards": []}, RoundStyle.SHARE), 1.0), "no grade, no change")
 	f["awards"] = ["preliminary", "standard", "bronze", "silver", "gold"].map(func(a): return {"id": a, "d": 0})
-	_check(SkillAwards.grade_of(f, "Jab") == "gold" and is_equal_approx(SkillAwards.economy(f, "Jab"), 0.85)
-		and SkillAwards.grade_of(f, "Uppercut") == "silver", "Gold re-grades the jab (15 % less); the uppercut stays Silver")
+	_check(SkillAwards.grade_of(f, "Jab") == "gold" and is_equal_approx(SkillAwards.economy(f, "Jab"), 0.88)
+		and SkillAwards.grade_of(f, "Uppercut") == "silver", "Gold re-grades the jab (12 % less); the uppercut stays Silver")
 	var entries := {}
 	for e in ComboBuilder.PALETTE:
 		entries[str(e["id"])] = e
