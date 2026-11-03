@@ -38,6 +38,10 @@ func _initialize() -> void:
 		"with a bout Platinum passes and the road is done")
 	_check(is_equal_approx(SkillAwards.bleep(40.0), 6.6) and is_equal_approx(SkillAwards.bleep(85.0), 9.0), "the bleep anchors: 40 -> 6.6, 85 -> 9.0")
 	_check(SkillAwards.bleep(55.0) > SkillAwards.bleep(50.0) and SkillAwards.bleep(0.0) >= 4.0 and SkillAwards.bleep(100.0) <= 12.0, "rises with conditioning, held inside 4-12")
+	_check(is_equal_approx(SkillAwards.bleep(40.0, "m"), 9.0) and is_equal_approx(SkillAwards.bleep(60.0, "m"), 12.5)
+		and is_equal_approx(SkillAwards.bleep(85.0, "m"), 14.0) and SkillAwards.bleep(100.0, "m") <= 16.0, "men's bleep anchors (J_TESTS3): 40 -> 9.0, 60 -> 12.5, 85 -> 14.0")
+	_check(SkillAwards.bleep_known("m") and SkillAwards.bleep_words(9.2, "m").begins_with("above") and SkillAwards.bleep_words(14.0, "m") == "national-team level",
+		"his level in words against the men's norms")
 	_check(SkillAwards.bleep_words(9.2) == "national-team level" and SkillAwards.bleep_words(6.0).begins_with("below"), "the level in words")
 	print("SKILL_AWARDS failures=%d" % failures)
 	quit(1 if failures > 0 else 0)

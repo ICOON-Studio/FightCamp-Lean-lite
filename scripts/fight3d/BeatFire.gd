@@ -90,40 +90,60 @@ func _punch(v: Node, b: Dictionary, who: int, other: int, move: String) -> void:
 		# the glove covers only the last stretch of its measured path (clip_travel.json) - a short hook, not a wide one.
 		skip = ShortPunch.merge(skip, ShortPunch.skip(BeatClips.travel_path(clip), contact, ShortPunch.want(move, float(ctx["roll"])), sp))
 	last_hand[who] = hand
-	# S321: a punch refused (she is locked in a hit reaction) never shows, so its hit must not either (punch_id -1).
-	var punch_id: int = int(stage.boxers[who]["play_id"]) if stage.play(who, clip, sp, skip) else -1
-	if short and skip > 0.0 and stage.boxers[who].get("js") != null:
-		# Started mid-swing, the clip's glove is up to a metre from the guard's: a slower join (S319 smooth_probe: the
-		# strike join's 0.06 s half-life added ~50 kinks/min up close) eases the glove onto the swing.
-		(stage.boxers[who]["js"] as Node).join(SHORT_JOIN.x, SHORT_JOIN.y)
-	last_contact[who] = t + (contact - skip) / sp
+	# S371 BODYREACT1 (the S370 probe measured it: 14 of 42 landed body shots were cut off before they ever arrived - no
+	# hit, no reaction, no fold (PunchRange.cut_off: a new beat replaced the armed punch before its contact; the probe's
+	# fliers caught her flip pro_body_shot -> pro_left_hook_v2 on the very contact frame). A body hook flies 0.40 s,
+	# while the same boxer's next beat can arrive 0.35 s after hers: the follow-up beats her own landing. A punch that
+	# would replace HER OWN still-flying punch now waits for it to land. `base` is the view time it really starts;
+	# every timer runs off it, so the contact stays on her glove.
 	var at := (contact - skip) / sp
-	v.body.land(b, at)
-	var tree: SceneTree = v.get_tree()
-	if land == "lands":
-		# S302: the glove is carried onto her face past the guard, and the contact holds, snaps and nudges.
-		stage.land(who, clip, move == "body_hook" or clip.contains("kidney"), at, contact)
-		var hit := BeatClips.react(move, bool(b.get("knockback", false)), stage.has_move, rng.randf(), bool(b.get("big", false)))
-		tree.create_timer(at).timeout.connect(stage.hit.bind(other, hit, BeatClips.speed(hit, ""), who, move, bool(b.get("big", false)), punch_id))
-		if bool(b.get("big", false)):
-			# The round's big shot: cut close as it is thrown and run it at half speed through the contact.
-			stage.close_up(other)
-			Engine.time_scale = 0.5 * v.pace()
-			v._close_left = at + 0.7
-	elif str(b.get("def", "")) != "":
-		# Her defence (RoundStyle): a block meets the glove at contact; a slip, weave or step back starts early.
-		var d := str(b["def"])
-		var when := at * (0.8 if d == "block" else 0.35)
-		# S305: the side comes from the hand that throws it (her left arrives on the other's right).
-		var lead := move in ["jab", "lead_hook", "lead_uppercut"]
-		var from_left: bool = stage.hand_of(who, hand if hand != "" else ("LeftHand" if lead else "RightHand")) == "LeftHand"
-		if d == "block" and move == "body_hook":
-			# S305: a body shot is blocked with the elbow - gloves stay up, the elbow drops onto the ribs (HitSnap.brace).
-			var snap: Node = stage.boxers[other].get("snap")
-			if snap != null:
-				tree.create_timer(at).timeout.connect(snap.brace.bind(not from_left))
-		else:
-			var dclip := BeatClips.defence(d, move, from_left, bool(stage.boxers[other].get("south", false)), stage.has_move)
-			tree.create_timer(when).timeout.connect(stage.play.bind(other, dclip, BeatClips.speed(dclip, "")))
-	elif land == "misses" and not b.has("def"):
-		tree.create_timer(at * 0.35).timeout.connect(stage.play.bind(other, "slip" if randf() < 0.6 else "pull"))
+	var base := maxf(t, float(last_contact[who]) + 0.03)
+	# S371 BODYREACT1: she does not punch out of a fresh fold either - with the own-punch wait in, a new beat could still
+	# fire beside her own body-shot reaction and cut the hold short: the probe read 0.17 s, then 0.27 s against the
+	# 0.35 bar before this wait, 0.47 s after it. Only a FOLD waits (gain 1.0 brace / a head reaction: no wait - head
+	# shots are untouched).
+	var hitsnap: Node = stage.boxers[who].get("snap")
+	var bt := float(hitsnap.get("_bt")) if hitsnap != null else -1.0
+	if bt >= 0.0 and bt < 0.51 and float(hitsnap.get("_gain")) > 1.5:
+		base = maxf(base, t + (0.51 - bt))
+	last_contact[who] = base + at
+	var go := func() -> void:
+		# S321: a punch refused (she is locked in a hit reaction) never shows, so its hit must not either (punch_id -1).
+		var punch_id: int = int(stage.boxers[who]["play_id"]) if stage.play(who, clip, sp, skip) else -1
+		if short and skip > 0.0 and stage.boxers[who].get("js") != null:
+			# Started mid-swing, the clip's glove is up to a metre from the guard's: a slower join (S319 smooth_probe:
+			# the strike join's 0.06 s half-life added ~50 kinks/min up close) eases the glove onto the swing.
+			(stage.boxers[who]["js"] as Node).join(SHORT_JOIN.x, SHORT_JOIN.y)
+		v.body.land(b, at)
+		var tree: SceneTree = v.get_tree()
+		if land == "lands":
+			# S302: the glove is carried onto her face past the guard, and the contact holds, snaps and nudges.
+			stage.land(who, clip, move == "body_hook" or clip.contains("kidney"), at, contact)
+			var hit := BeatClips.react(move, bool(b.get("knockback", false)), stage.has_move, rng.randf(), bool(b.get("big", false)))
+			tree.create_timer(at).timeout.connect(stage.hit.bind(other, hit, BeatClips.speed(hit, ""), who, move, bool(b.get("big", false)), punch_id))
+			if bool(b.get("big", false)):
+				# The round's big shot: cut close as it is thrown and run it at half speed through the contact.
+				stage.close_up(other)
+				Engine.time_scale = 0.5 * v.pace()
+				v._close_left = at + 0.7
+		elif str(b.get("def", "")) != "":
+			# Her defence (RoundStyle): a block meets the glove at contact; a slip, weave or step back starts early.
+			var d := str(b["def"])
+			var when := at * (0.8 if d == "block" else 0.35)
+			# S305: the side comes from the hand that throws it (her left arrives on the other's right).
+			var lead := move in ["jab", "lead_hook", "lead_uppercut"]
+			var from_left: bool = stage.hand_of(who, hand if hand != "" else ("LeftHand" if lead else "RightHand")) == "LeftHand"
+			if d == "block" and move == "body_hook":
+				# S305: a body shot is blocked with the elbow - gloves stay up, the elbow drops onto the ribs (HitSnap.brace).
+				var snap: Node = stage.boxers[other].get("snap")
+				if snap != null:
+					tree.create_timer(at).timeout.connect(snap.brace.bind(not from_left))
+			else:
+				var dclip := BeatClips.defence(d, move, from_left, bool(stage.boxers[other].get("south", false)), stage.has_move)
+				tree.create_timer(when).timeout.connect(stage.play.bind(other, dclip, BeatClips.speed(dclip, "")))
+		elif land == "misses" and not b.has("def"):
+			tree.create_timer(at * 0.35).timeout.connect(stage.play.bind(other, "slip" if randf() < 0.6 else "pull"))
+	if base <= t + 0.0001:
+		go.call()
+	else:
+		v.get_tree().create_timer(base - t).timeout.connect(go)

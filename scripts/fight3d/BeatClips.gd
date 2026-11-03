@@ -56,8 +56,12 @@ const REACT := {
 	"rear_hook": ["pro_hit_by_hook_v3_short", "pro_hit_by_hook_v1_short", "pro_hit_by_hook_v5", "mc_hit_hook", "react_head"],
 	# S305 operator: "body shots do not seem to have any impact" - the _short gut shots barely move her (tools/fight3d_bodyshot.gd
 	# sheets); v3 folds her at the waist, knees give, hands drop to the stomach, then back to guard. S310: + the kidney shot's.
-	"body_hook": ["pro_hit_by_gutshot_v3", "pro_hit_by_gutshot_v2_short", "pro_hit_by_kidneyshot_v1", "pro_hit_by_gutshot_v2",
-		"react_body"],
+	# S371 BODYREACT1: the kidney take is OUT of the rotation. Measured on the game's own bodies (S370 scratch probe,
+	# clip alone / with the landed fold): kidney 4.7/12.7 deg of trunk against gutshot_v3's 16.0/28.4, v2_short's 24.5/27.8
+	# - its own arch fights the fold, and in the fight probe 6 of its 8 takes read 10.3-16.3 deg (bar 18). The punch clip
+	# pro_kidney_shot (the round's big body shot) stays; only its reaction take is retired. react_body stays as the old
+	# library's fallback (never picked while the pro_ takes exist).
+	"body_hook": ["pro_hit_by_gutshot_v3", "pro_hit_by_gutshot_v2_short", "pro_hit_by_gutshot_v2", "react_body"],
 	"hurt": ["pro_hit_by_hook_v1", "pro_hit_by_cross_v1", "pro_hit_by_combo_v1_short", "pro_hit_by_combo_v2_short",
 		"pro_hit_by_hook_v7_short", "mc_hit_combo", "react_hurt"],
 }

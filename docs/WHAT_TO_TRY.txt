@@ -1,3 +1,18 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 69 (2026-11-03): MEN TAKE THE SUNDAY TESTS, DAY 1 ON THE RECORDS WALL, BODY SHOTS LAND
+=====================================================================================================================
+
+ 1. Men take the Sunday tests: sign Danny Osei or Josh Harper (board Test button "men's boxing + the records wall").
+    His Training tab now shows his bleep level on the MEN'S norms (an untrained man about level 9, club 12-13, elite
+    13-15 - John's research) and his records wall: bleep test and punches in 10 s. No force test for men yet (the only
+    men's numbers come from a different machine than the women's - John is looking for one study with both).
+ 2. Day 1 vs today: on the records wall a green "day 7: 750 N" sits beside a best that has moved past the first
+    Sunday's mark, so you see how far each test has come since she walked in.
+ 3. Body shots land: in the 3D fight every body shot that shows now makes the other woman fold (Ziva's fix; the probe
+    went from 33 of 42 reacting to 40 of 40).
+ 4. The fight loop: Argon's round 1 (no referee - the boxers push off; faster punches; the camera keeps one side) did
+    not start the game; Claude fixed it and round 2 now works on your note about the legs ("when legs move its akward").
+    That fight work is on a branch, not in this build yet - it merges when Argon's judge reaches 9/10.
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 68 (2026-11-03): MEN'S BOXING, THE RECORDS WALL, NO SHE/HER
 =====================================================================================================
 

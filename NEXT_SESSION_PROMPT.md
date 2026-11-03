@@ -1,3 +1,19 @@
+# S373 - next session (written S372, 2026-11-03)
+
+Start in E:\FightCamp\Lean: `git pull && python ops/Tools/agent_comms.py start`. Digest: ops/research/S372_DIGEST.md.
+LOOPS: FIGHT9 round 2 (agy/fight9r2, LEAN_FIGHT9R2) builds on round 1 compile-fixed (agy/fight9r1 7a9313b7, PR #24). Its
+BEFORE film = round 1's first real Argon score; round 1 probe 13/15 (ring-entry head 1.496 m, clinch break 2 through=3).
+The operator's C218 ("when legs move its akward") is round 2's top item. seat_dispatch now boots Main.tscn after a seat
+delivers (compile_errors), gives agy one repair pass, and never films a branch that does not compile - check
+seat_dispatch.log for COMPILE lines. BJJ9: Ziva round 4 (BJJ9_ROUNDS.md). Before collecting FIGHT9, merge main into the
+kept branch (BODYREACT1 changed BeatClips/BeatFire on main).
+SENT: John J_TESTS4 (men:women rear-hand force on one device -> TestDay.POWER_MEN_AT, empty today = no men's force test);
+Kalli K_CALIB1 (the Sunday test curves). Collect both (gbot thread --to John / --to Kalli).
+ORDER: roadmap now.next_action. Male MetaHumans still wait for the operator's yes.
+TRAP: Argon (agy) cannot run Godot - it wrote PackedStringArray.any() and broke indentation; the gate catches it now.
+
+--- S372 notes (written S371) ---
+
 # S372 - next session (written S371, 2026-11-03)
 
 Start in E:\FightCamp\Lean: `git pull && python ops/Tools/agent_comms.py start`. Digest: ops/research/S371_DIGEST.md.

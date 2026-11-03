@@ -392,7 +392,8 @@ static func end_week(career: Career) -> void:
 			career.add_news("%s passed the %s award: a medal and a certificate on the gym wall." % [f["first"], award["name"]], false)
 		reports.append({"id": f["id"], "name": f["name"], "rows": rows, "moves": drill["rows"], "new_weapon": drill["new_weapon"],
 			"award": str(award.get("name", "")), "award_p": SkillAwards.progress(f), "bests": TestDay.record(f, career.day),
-			"bleep": [SkillAwards.bleep(float(start.get("conditioning", f["stats"]["conditioning"]))), SkillAwards.bleep(float(f["stats"]["conditioning"]))]
+			"bleep": [SkillAwards.bleep(float(start.get("conditioning", f["stats"]["conditioning"])), Data.sex_of(f)),
+				SkillAwards.bleep(float(f["stats"]["conditioning"]), Data.sex_of(f))]
 				if SkillAwards.bleep_known(Data.sex_of(f)) else [],
 			"rank_before": rank_before, "rank_after": int(f.get("rank", 0)), "div": Data.DIVISIONS[f["div"]]["short"],
 			"coach": coach_line(career, f), "plan": plan, "peak": str(f.get("peak_line", "")), "injury": Injuries.new_this_week(career, f)})

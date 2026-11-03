@@ -27,7 +27,10 @@ const BRACE_SIDE_DEG := 6.0
 ## S310 (operator: "body shots still have no reaction"): a LANDED body shot folds her - the same trunk curl and elbow drop
 ## as the brace, bigger (FOLD_GAIN), held FOLD_HOLD_S and let go slowly (FOLD_TAU_S): winded, not flicked. The 30 fps film
 ## of the gut-shot clip alone (tools/fight3d_bodyshot.gd) showed the fold for ~0.3 s at fight speed.
-const FOLD_GAIN := 2.6
+const FOLD_GAIN := 3.0   # S371 BODYREACT1: at 2.6 (S310) the landed fold added only ~8-12 deg of trunk on top of the
+## take's own arch (the S370 scratch probe: kidney 4.7 -> 12.7 deg, gutshot_v3 16.0 -> 28.4) - one weak take from the
+## 18 deg bar. At 3.0 the green run's worst of 40 shown body shots is 22.7 deg. Body shots only (the brace's gain stays
+## 1.0; a head shot never calls fold).
 const FOLD_HOLD_S := 0.45   # S311: real ~0.45 s folded over a body shot (R1 1:31.83); was 0.3
 const FOLD_TAU_S := 0.24
 const FOLD_LIFE_S := 1.3

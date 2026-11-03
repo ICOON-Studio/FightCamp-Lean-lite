@@ -50,6 +50,7 @@ func _wall() -> void:
 	_check(beat.size() == 1 and str(beat[0]["id"]) == "speed" and float(beat[0]["new"]) > float(beat[0]["old"]), "faster hands beat the speed best only (%d)" % beat.size())
 	var row: Dictionary = TestDay.wall(f).filter(func(r): return str(r["id"]) == "speed")[0]
 	_check(float(row["prev"]) == float(beat[0]["old"]) and int(row["d"]) == 21, "the wall keeps the beaten number to chalk through")
+	_check(float(row["first"]) == float(beat[0]["old"]) and int(row["first_d"]) == 7, "S372 Day 1 vs today: the first Sunday's mark stays (day 7)")
 	f["stats"]["speed"] = float(f["stats"]["speed"]) - 10.0
 	_check(TestDay.record(f, 28).is_empty() and float(TestDay.wall(f)[1]["best"]) == float(beat[0]["new"]), "a slower week never lowers the best")
 
@@ -57,4 +58,12 @@ func _wall() -> void:
 func _men() -> void:
 	var raw: Dictionary = Data.PROSPECTS.filter(func(p): return str(p["id"]) == "danny")[0]
 	var d := Data.fighter_state(raw.duplicate(true), 0)
-	_check(not TestDay.known("m") and TestDay.record(d, 7).is_empty() and TestDay.wall(d).is_empty(), "a man takes no test until the men's norms land")
+	_check(TestDay.known("m") and str(d.get("sex", "")) == "m", "S372 J_TESTS3: a man takes the Sunday tests")
+	d["stats"]["conditioning"] = 40.0
+	d["stats"]["speed"] = 85.0
+	var m := TestDay.measure(d)
+	_check(is_equal_approx(float(m["engine"]), 9.0) and float(m["speed"]) == 57.0 and float(m["power"]) < 0.0,
+		"men's norms: an untrained man's bleep 9.0, elite hands 57 in 10 s, no force test (%s)" % str(m))
+	TestDay.record(d, 7)
+	var ids: Array = TestDay.wall(d).map(func(r): return str(r["id"]))
+	_check(ids == ["engine", "speed"], "his wall: the bleep test and hand speed, no force row (%s)" % str(ids))

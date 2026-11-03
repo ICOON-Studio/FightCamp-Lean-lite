@@ -38,8 +38,14 @@ const BLEEP_NATIONAL := 9.0
 ## boxer (conditioning 50-60) reads 7.1-7.7.
 const BLEEP_ADULT_AT := 40.0
 const BLEEP_NATIONAL_AT := 85.0
-## S371 MALE1: the anchors above are women's. Men's come with John's J_TESTS3; until then a man's engine shows no level.
-const BLEEP_SEXES := ["f"]
+## S372 men (John J_TESTS3, research/J_TESTS3_ANSWER.md): an average untrained man 21-30 reaches about level 9 (MEASURED
+## norm table, Bizley 2010 via BrianMac); club boxers about 12-13 and national/elite about 13-15 (DERIVED from shuttle
+## distance and VO2max - no men's national team was measured on the bleep test). Read at TestDay's calibration points:
+## 40 a beginner, 60 a club boxer, 85 elite.
+const BLEEP_MEN_ADULT := 9.0
+const BLEEP_MEN_NATIONAL := 14.0
+const BLEEP_MEN_AT := [[40.0, BLEEP_MEN_ADULT], [60.0, 12.5], [85.0, BLEEP_MEN_NATIONAL]]
+const BLEEP_SEXES := ["f", "m"]
 
 
 static func passed(f: Dictionary) -> Array:
@@ -93,8 +99,15 @@ static func assess(f: Dictionary, day: int) -> Dictionary:
 	return p["award"]
 
 
-## Her bleep-test level from her conditioning (women's norms, linear between the two anchors, 4.0-12.0 at the ends).
-static func bleep(conditioning: float) -> float:
+## The bleep-test level from conditioning: women linear between their two anchors (4.0-12.0 at the ends), men through
+## their three (4.0-16.0).
+static func bleep(conditioning: float, sex: String = "f") -> float:
+	if sex == "m":
+		var i := 1
+		while i < BLEEP_MEN_AT.size() - 1 and conditioning > float(BLEEP_MEN_AT[i][0]):
+			i += 1
+		var u := (conditioning - float(BLEEP_MEN_AT[i - 1][0])) / (float(BLEEP_MEN_AT[i][0]) - float(BLEEP_MEN_AT[i - 1][0]))
+		return snappedf(clampf(lerpf(float(BLEEP_MEN_AT[i - 1][1]), float(BLEEP_MEN_AT[i][1]), u), 4.0, 16.0), 0.1)
 	var t := (conditioning - BLEEP_ADULT_AT) / (BLEEP_NATIONAL_AT - BLEEP_ADULT_AT)
 	return snappedf(clampf(lerpf(BLEEP_ADULT, BLEEP_NATIONAL, t), 4.0, 12.0), 0.1)
 
@@ -104,12 +117,18 @@ static func bleep_known(sex: String) -> bool:
 	return BLEEP_SEXES.has(sex)
 
 
+## The average untrained adult's level and the national team's, for that sex.
+static func bleep_norms(sex: String = "f") -> Vector2:
+	return Vector2(BLEEP_MEN_ADULT, BLEEP_MEN_NATIONAL) if sex == "m" else Vector2(BLEEP_ADULT, BLEEP_NATIONAL)
+
+
 ## Where a level sits against the norms, in words.
-static func bleep_words(level: float) -> String:
-	if level >= BLEEP_NATIONAL:
+static func bleep_words(level: float, sex: String = "f") -> String:
+	var n := bleep_norms(sex)
+	if level >= n.y:
 		return "national-team level"
-	if level >= (BLEEP_ADULT + BLEEP_NATIONAL) * 0.5:
+	if level >= (n.x + n.y) * 0.5:
 		return "well above an average adult"
-	if level >= BLEEP_ADULT:
-		return "above an average adult (%.1f)" % BLEEP_ADULT
-	return "below an average adult (%.1f)" % BLEEP_ADULT
+	if level >= n.x:
+		return "above an average adult (%.1f)" % n.x
+	return "below an average adult (%.1f)" % n.x

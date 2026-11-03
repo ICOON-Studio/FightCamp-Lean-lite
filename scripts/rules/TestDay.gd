@@ -6,8 +6,8 @@ extends RefCounted
 ## dice roll (Ludo's trap): a test reads the stat, so the same week gives the same number.
 ##   ENGINE = the bleep test (SkillAwards.bleep); SPEED = punches in 10 s; POWER = the rear hand's peak force in newtons.
 ## Women's values (John J_TESTS2): elite women 52 punches in 10 s (MEASURED); beginners 35-42, intermediate 45-50
-## (ESTIMATE); rear-hand force beginner ~490 N, club ~770 N, elite ~990 N (ESTIMATE, one study's ratios). Men's come with
-## J_TESTS3 - until then a man takes no test (known()).
+## (ESTIMATE); rear-hand force beginner ~490 N, club ~770 N, elite ~990 N (ESTIMATE, one study's ratios). Men's (S372,
+## J_TESTS3): the bleep test and punches in 10 s; no force test yet (POWER_MEN_AT).
 ##   known(sex)  measure(f) -> {engine, speed, power}  record(f, day) -> [beaten rows]  wall(f) -> [rows]
 
 const SkillAwards := preload("res://scripts/rules/SkillAwards.gd")
@@ -16,6 +16,13 @@ const SkillAwards := preload("res://scripts/rules/SkillAwards.gd")
 ## [stat, value] pairs: 40 = a beginner, 60 = a club boxer, 85 = elite.
 const SPEED_AT := [[40.0, 38.5], [60.0, 47.5], [85.0, 52.0]]
 const POWER_AT := [[40.0, 490.0], [60.0, 770.0], [85.0, 990.0]]
+## S372 men (John J_TESTS3 Q4): elite men 163 punches in 30 s on the bag, 28.6 in the first 5 s - about 57 in 10 s
+## (ESTIMATE); no novice or club count exists, so those two are the women's scaled by the elite ratio 57/52 (ESTIMATE).
+const SPEED_MEN_AT := [[40.0, 42.0], [60.0, 52.0], [85.0, 57.0]]
+## Men's force (Smith 2000: rear hand 2,381 N novice to 4,800 N elite) was read on another device than the women's numbers
+## above, so mixed in a man would read five times her force. Empty = a man takes no force test until a same-study
+## men-to-women ratio lands (John J_TESTS4).
+const POWER_MEN_AT := []
 const TESTS: Array[Dictionary] = [
 	{"id": "engine", "name": "Bleep test", "unit": "level", "fmt": "%.1f"},
 	{"id": "speed", "name": "Punches in 10 s", "unit": "punches", "fmt": "%.0f"},
@@ -41,12 +48,14 @@ static func _curve(x: float, at: Array) -> float:
 	return float(at[n][1]) + (x - float(at[n][0])) * s / 3.0
 
 
-## Today's three numbers from her stats.
+## Today's three numbers from the stats, on that sex's norms (-1 = a test with no norms for that sex).
 static func measure(f: Dictionary) -> Dictionary:
 	var st: Dictionary = f.get("stats", {})
-	return {"engine": SkillAwards.bleep(float(st.get("conditioning", 50.0))),
-		"speed": roundf(_curve(float(st.get("speed", 50.0)), SPEED_AT)),
-		"power": snappedf(_curve(float(st.get("power", 50.0)), POWER_AT), 5.0)}
+	var sex := str(f.get("sex", "f"))
+	var power_at: Array = POWER_MEN_AT if sex == "m" else POWER_AT
+	return {"engine": SkillAwards.bleep(float(st.get("conditioning", 50.0)), sex),
+		"speed": roundf(_curve(float(st.get("speed", 50.0)), SPEED_MEN_AT if sex == "m" else SPEED_AT)),
+		"power": snappedf(_curve(float(st.get("power", 50.0)), power_at), 5.0) if not power_at.is_empty() else -1.0}
 
 
 ## The Sunday check-in: measure, keep each new best (the old one stays as "prev" for the chalk line) and return the tests
@@ -60,22 +69,28 @@ static func record(f: Dictionary, day: int) -> Array:
 	for t in TESTS:
 		var id := str(t["id"])
 		var v := float(now[id])
+		if v < 0.0:
+			continue
 		if not bests.has(id):
-			bests[id] = {"v": v, "d": day, "prev": -1.0}
+			bests[id] = {"v": v, "d": day, "prev": -1.0, "first": v, "first_d": day}
 		elif v > float(bests[id]["v"]):
-			beaten.append(t.merged({"old": float(bests[id]["v"]), "new": v}))
-			bests[id] = {"v": v, "d": day, "prev": float(bests[id]["v"])}
+			var old: Dictionary = bests[id]
+			beaten.append(t.merged({"old": float(old["v"]), "new": v}))
+			bests[id] = {"v": v, "d": day, "prev": float(old["v"]), "first": float(old.get("first", old["v"])),
+				"first_d": int(old.get("first_d", old["d"]))}
 	return beaten
 
 
-## The records wall: one row per test, [{id, name, unit, fmt, best, prev, d}] (prev -1 = never beaten yet).
+## The records wall: one row per test, [{id, name, unit, fmt, best, prev, d, first, first_d}] (prev -1 = never beaten yet;
+## first = the Day 1 mark, S372 GOALTESTS1 phase 2 "Day 1 vs today").
 static func wall(f: Dictionary) -> Array:
 	var bests: Dictionary = f.get("bests", {})
 	var rows: Array = []
 	for t in TESTS:
 		var b: Dictionary = bests.get(str(t["id"]), {})
 		if not b.is_empty():
-			rows.append(t.merged({"best": float(b["v"]), "prev": float(b.get("prev", -1.0)), "d": int(b["d"])}))
+			rows.append(t.merged({"best": float(b["v"]), "prev": float(b.get("prev", -1.0)), "d": int(b["d"]),
+				"first": float(b.get("first", b["v"])), "first_d": int(b.get("first_d", b["d"]))}))
 	return rows
 
 
