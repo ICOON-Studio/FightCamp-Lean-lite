@@ -66,6 +66,8 @@ func build(main: Node, f: Dictionary) -> void:
 					"  " + MoveMastery.tier(mm).to_lower())
 				var bar: Control = row.get_meta("bar")
 				bar.frac = mm / 100.0
+				bar.marks = [BoutRules.WEAPON_MASTERY / 100.0]   # S375 the tick where a move becomes a weapon
+				bar.custom_minimum_size.y = UI.METER_H + 2.0
 				mv_card.add_child(row)
 			_combos(f, moves)
 			mv_card.add_child(UI.muted("Gold bar = a weapon. Pad time goes to the move being learned; the week cards keep theirs sharp (%s). Weapons on the night: %d (+%.1f)." % [
@@ -200,9 +202,7 @@ func _overview(main: Node, c: Career, f: Dictionary, g: Dictionary) -> void:
 	else:
 		goal.add_child(UI.label(g["title"], UI.BODY, UI.FG, "bold"))
 		goal.add_child(UI.muted("%s, %d days left" % [g["row"], g["left"]], UI.SMALL, true))
-		var bar: Control = UI.Bar.new()
-		bar.frac = float(g["share"])
-		goal.add_child(bar)
+		goal.add_child(UI.meter(float(g["share"])))   # S375 short meter, not a card-wide line
 		var chip := UI.chip(g["status"], g["cls"])
 		chip.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 		goal.add_child(chip)

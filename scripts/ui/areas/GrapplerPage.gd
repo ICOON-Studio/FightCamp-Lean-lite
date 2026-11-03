@@ -232,11 +232,7 @@ func _progress(title: String, value: String, frac: float) -> Control:
 	h.add_child(t)
 	h.add_child(UI.label(value, UI.SMALL, UI.FG, "bold"))
 	v.add_child(h)
-	var bar: Control = Bar.new()
-	bar.frac = clampf(frac, 0.0, 1.0)
-	bar.fill = UI.GOLD
-	bar.custom_minimum_size = Vector2(0, 10)
-	v.add_child(bar)
+	v.add_child(UI.meter(clampf(frac, 0.0, 1.0), UI.GOLD, [], 260.0))   # S375 short meter, not a card-wide line
 	return v
 
 

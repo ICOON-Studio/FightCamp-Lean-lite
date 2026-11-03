@@ -1,0 +1,56 @@
+{
+ "_doc": "Tasks for the CLI seats, drained by ops/Tools/seat_dispatch.py (30-min reconcile).",
+ "items": [
+  {
+   "task": "KNEETRACK1",
+   "seat": "agy",
+   "status": "launched",
+   "queued": "2026-11-03T00:26",
+   "launched": "2026-11-03T01:11"
+  },
+  {
+   "task": "NOREF1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-03T00:27",
+   "launched": "2026-11-03T01:36"
+  },
+  {
+   "task": "FIGHT9R1",
+   "seat": "agy",
+   "status": "queued",
+   "queued": "2026-11-03T01:55"
+  },
+  {
+   "task": "FIGHT9R2",
+   "seat": "agy",
+   "status": "launched",
+   "queued": "2026-11-03T03:09",
+   "loop": "FIGHT9",
+   "launched": "2026-11-03T03:41"
+  },
+  {
+   "task": "FIGHT9R3",
+   "seat": "agy",
+   "status": "failed",
+   "queued": "2026-11-03T05:13",
+   "loop": "FIGHT9",
+   "launched": "2026-11-03T05:41",
+   "note": "S375: agy 429 individual quota (resets ~11-10); moved to cursor as FIGHT9R4"
+  },
+  {
+   "task": "PASSEDSTAMP1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-03T05:29",
+   "launched": "2026-11-03T06:10"
+  },
+  {
+   "task": "FIGHT9R4",
+   "seat": "cursor",
+   "status": "queued",
+   "queued": "2026-11-03T10:11",
+   "loop": "FIGHT9"
+  }
+ ]
+}

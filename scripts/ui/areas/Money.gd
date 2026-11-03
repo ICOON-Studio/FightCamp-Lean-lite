@@ -95,10 +95,10 @@ func _split_card(title: String, lines: Array, scale: float, col: Color, sign: St
 		var name := UI.label(str(l[0]), UI.BODY)
 		name.custom_minimum_size = Vector2(210, 0)
 		h.add_child(name)
-		var bar := Bar.new()
-		bar.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		var bar := Bar.new()   # S375 a chart bar at a fixed full length (260), so amounts still compare by length
+		bar.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 		bar.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-		bar.custom_minimum_size = Vector2(80, 14)
+		bar.custom_minimum_size = Vector2(260, 12)
 		bar.fill = col
 		var frac := float(l[1]) / scale
 		bar.ready.connect(func(): bar.create_tween().tween_property(bar, "frac", frac, 0.5).from(0.0))

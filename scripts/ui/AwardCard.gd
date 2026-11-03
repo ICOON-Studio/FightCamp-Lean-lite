@@ -109,7 +109,8 @@ static func _next(pr: Dictionary) -> VBoxContainer:
 	t.add_child(UI.muted("tests " + str(a["tests"]), UI.SMALL, true))
 	v.add_child(t)
 	v.add_child(_bar("Coached sessions", float(pr["sessions"]) / float(pr["need"]), "%d / %d" % [pr["sessions"], pr["need"]],
-		int(pr["sessions"]) >= int(pr["need"]), "Pads-and-drills and sparring evenings with the coach count - set them on the week below."))
+		int(pr["sessions"]) >= int(pr["need"]), "Pads-and-drills and sparring evenings with the coach count - set them on the week below.",
+		int(pr["need"])))
 	for m in pr["moves"]:
 		v.add_child(_bar(str(m["name"]), clampf(float(m["now"]) / float(m["need"]), 0.0, 1.0), "%d / %d" % [int(m["now"]), int(m["need"])],
 			bool(m["ok"]), "The %s on the pads: the coach marks it clean at %d. Pad time goes to the move being learned." % [str(m["name"]).to_lower(), int(m["need"])]))
@@ -122,10 +123,13 @@ static func _next(pr: Dictionary) -> VBoxContainer:
 	return v
 
 
-static func _bar(name: String, frac: float, value: String, ok: bool, tip: String) -> HBoxContainer:
+## S375 `pips` > 0: one pip per counted thing (8 coached sessions = 8 pips), not the meter's usual ten.
+static func _bar(name: String, frac: float, value: String, ok: bool, tip: String, pips := 0) -> HBoxContainer:
 	var row := UI.stat_row(name, 0.0, ok, UI.GREEN if ok else UI.FG, "")
 	var bar: Control = row.get_meta("bar")
 	bar.frac = frac
+	if pips > 0 and pips <= 24:
+		bar.segments = pips
 	(row.get_child(row.get_child_count() - 1) as Control).get_child(0).set("text", value)
 	row.tooltip_text = tip
 	row.mouse_filter = Control.MOUSE_FILTER_PASS

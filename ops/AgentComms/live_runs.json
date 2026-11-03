@@ -489,7 +489,7 @@
    "agent": "antigravity",
    "id": "FIGHT9R3",
    "title": "TASK FIGHT9R3 - ANTIGRAVITY (Gemini 4 Argon) - the live fight to 9/10 on Argon's own judging, round by round",
-   "status": "running",
+   "status": "failed",
    "started": "2026-11-03T05:41",
    "eta": "2026-11-03T07:06",
    "branch": "agy/fight9r3",
@@ -510,8 +510,8 @@
     "runner_pid": 52700,
     "seat_pid": 52448
    },
-   "note": "S374: relaunched after the Gemini cap went to EUR 50 (agy exe was unreadable at 05:47); before film judged as filmed",
-   "finished": "2026-11-03T05:57"
+   "note": "S368 seat_dispatch: agy exit 3, no commit on agy/fight9r3 (stray: -); output E:\\FightCamp\\wt\\FIGHT9R3_dispatch_out.txt",
+   "finished": "2026-11-03T08:34"
   },
   "PASSEDSTAMP1": {
    "agent": "qwen",
@@ -584,6 +584,12 @@
    "started": "2026-11-03T08:40",
    "status": "running",
    "note": "S375 gbot: graded gas re-ruling on the sim table (Gold = ~10 conditioning points) - collect: gbot thread 'Kalli'"
+  },
+  "K_COMBOPLAN1": {
+   "agent": "kalli",
+   "started": "2026-11-03T11:00",
+   "status": "running",
+   "note": "S375 gbot: signature worth (SIG_EDGE/FLOW_EDGE/USE_SHARE) - collect: gbot thread 'Kalli'"
   }
  },
  "codex_budget": {

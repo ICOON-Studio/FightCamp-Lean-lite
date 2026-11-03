@@ -417,16 +417,31 @@ static func note(text: String) -> PanelContainer:
 
 
 ## Label | bar to the next whole point | whole number. Returns the row; the bar is row.get_meta("bar").
+## S375 (operator: "these long line meters do not look good at all in your menus"): the menus' meter - a short row of
+## METER_SEGMENTS pips at a fixed METER_W, never stretched across a card; `marks` = threshold fractions (ticks under it).
+const METER_W := 200.0
+const METER_H := 10.0
+const METER_SEGMENTS := 10
+
+
+static func meter(frac: float, colour: Color = GREEN, marks: Array = [], w: float = METER_W) -> Control:
+	var bar: Control = Bar.new()
+	bar.segments = METER_SEGMENTS
+	bar.marks = marks
+	bar.custom_minimum_size = Vector2(w, METER_H + (2.0 if not marks.is_empty() else 0.0))
+	bar.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	bar.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	bar.fill = colour
+	bar.frac = frac
+	return bar
+
+
 static func stat_row(name: String, value: float, gold: bool = false, number_color: Color = FG, suffix: String = "") -> HBoxContainer:
 	var h := hbox(12)
 	var l := label(name, BODY)
 	l.custom_minimum_size = Vector2(150, 0)
 	h.add_child(l)
-	var bar: Control = Bar.new()
-	bar.frac = value - floorf(value)
-	bar.fill = GOLD if gold else GREEN
-	bar.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	bar.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	var bar := meter(value - floorf(value), GOLD if gold else GREEN)
 	h.add_child(bar)
 	var n := hbox(4)
 	n.custom_minimum_size = Vector2(96, 0)

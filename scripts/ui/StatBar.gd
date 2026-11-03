@@ -19,8 +19,8 @@ var grow := 0.0:
 
 
 func _init() -> void:
-	custom_minimum_size = Vector2(120, 18)
-	size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	custom_minimum_size = Vector2(240, 18)   # S375 a fixed length: never a card-wide line
+	size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 

@@ -294,11 +294,7 @@ func _drill_row(gr: Dictionary, at: float) -> HBoxContainer:
 	var l := UI.label("Drilled: " + NoGi.move_name(str(gr["move"])), UI.BODY)
 	l.custom_minimum_size = Vector2(300, 0)
 	h.add_child(l)
-	var bar: Control = Bar.new()
-	bar.fill = UI.GOLD if owned else UI.GREEN
-	bar.frac = clampf(float(gr["before"]) / BeltRoad.OWNED_AT, 0.0, 1.0)
-	bar.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	bar.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	var bar := UI.meter(clampf(float(gr["before"]) / BeltRoad.OWNED_AT, 0.0, 1.0), UI.GOLD if owned else UI.GREEN)   # S375 short meter
 	h.add_child(bar)
 	_grow.append([bar, clampf(float(gr["after"]) / BeltRoad.OWNED_AT, 0.0, 1.0), at])
 	var n := UI.label("%d / %d  %s" % [int(floorf(float(gr["after"]))), int(BeltRoad.OWNED_AT), UI.gain_text(float(gr["after"]) - float(gr["before"]))],

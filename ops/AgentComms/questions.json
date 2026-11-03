@@ -4947,6 +4947,21 @@
    "note": "Operator in chat (S374): \"Yes, set EUR 50\". Claude set the cap to EUR 50 at ai.studio/spend; brake budget 48.",
    "answered_at": "2026-11-03T06:14:57.163875+00:00",
    "seen_by_claude": true
+  },
+  {
+   "id": "Q-S294-95",
+   "asked": "2026-11-03T08:11:52.934840+00:00",
+   "session": "S294",
+   "text": "Antigravity (agy, Argon) hit its individual quota - resets in ~6.5 days (about 10 Nov). The fight loop moved to Cursor meanwhile (FIGHT9R4). Upgrade the Antigravity plan to get Argon back sooner?",
+   "options": [
+    "Upgrade it",
+    "Wait for the reset, Cursor carries on"
+   ],
+   "attach": [],
+   "answer": "Operator S375: \"we already upgraded antigravity wtf\" - the plan IS upgraded; the 429 is the Argon allowance spent until ~11-10 (Flash/Claude on agy still work). Question withdrawn by Claude.",
+   "note": null,
+   "answered_at": "2026-11-03T10:30",
+   "seen_by_claude": true
   }
  ]
 }

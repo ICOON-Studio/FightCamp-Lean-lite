@@ -77,9 +77,12 @@ static func _row(main: Node, f: Dictionary, e: Dictionary, drilling: String) -> 
 		main.act("go", "playbook:2")))
 	box.add_child(top)
 	box.add_child(_flow(e["chain"]))
-	var bar := UI.stat_row("Pad mastery - signature at %d" % int(ComboWords.SIGNATURE_AT), m, m >= Combos.LEARN_AT, UI.FG,
-		"  " + ("signature" if m >= ComboWords.SIGNATURE_AT else ("usable" if m >= Combos.LEARN_AT else "learning")))
-	(bar.get_meta("bar") as Control).set("frac", m / 100.0)
+	var bar := UI.hbox(10)
+	bar.add_child(UI.label("Pads", UI.SMALL, UI.MUTED))
+	bar.add_child(UI.meter(m / 100.0, UI.GOLD if m >= ComboWords.SIGNATURE_AT else UI.GREEN,
+		[Combos.LEARN_AT / 100.0, ComboWords.SIGNATURE_AT / 100.0]))
+	bar.add_child(UI.mono("%d" % int(m), UI.SMALL, UI.FG))
+	bar.add_child(UI.muted("usable at %d, signature at %d" % [int(Combos.LEARN_AT), int(ComboWords.SIGNATURE_AT)], UI.TINY))
 	box.add_child(bar)
 	var facts := UI.hbox(10)
 	facts.add_child(UI.label("Lands whole %d%%" % roundi(100.0 * OwnCombos.lands_whole(f, e)) if OwnCombos.usable(f, e) else "Not in fights yet",
