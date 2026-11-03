@@ -36,7 +36,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python \"$CLAUDE_PROJECT_DIR/ops/Tools/rule_guard.py\"",
+            "command": "python -c \"import os,runpy,sys;d=os.environ.get('CLAUDE_PROJECT_DIR') or os.environ.get('CURSOR_PROJECT_DIR') or os.getcwd();p=os.path.join(d,'ops','Tools','rule_guard.py');os.path.isfile(p) and runpy.run_path(p,run_name='__main__')\"",
             "timeout": 40,
             "statusMessage": "Rule guard"
           }

@@ -1,6 +1,6 @@
 # TASK LOCOWALK1 - CURSOR - real walking clips for our boxers (back off in guard, walk in guard, walk relaxed)
 
-Status: OPEN (S377, Claude). Operator S377, watching the knockdown count's walk to the neutral corner: "the walking on the
+Status: CANCELLED (S378: ran with a dead shell - hook bug fa59bedc; procedural legs, no compile; PR #31 closed) -> TASK_LOCOWALK2.md. Opened S377, Claude. Operator S377, watching the knockdown count's walk to the neutral corner: "the walking on the
 clip is so bad", "their legs dont really move they slide across ... who can fix these clips? is it rigging issue or what?
 why you fail to fix simple clip animations?".
 

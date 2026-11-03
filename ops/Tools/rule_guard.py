@@ -106,7 +106,7 @@ def nightly_rule(cmd: str) -> str:
 
 def main() -> int:
     try:
-        data = json.load(sys.stdin)
+        data = json.loads(sys.stdin.read().lstrip("﻿"))  # S378: a PowerShell pipe adds a BOM
     except Exception:
         return 0
     cmd = str((data.get("tool_input") or {}).get("command") or "")

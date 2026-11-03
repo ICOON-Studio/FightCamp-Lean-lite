@@ -34,6 +34,12 @@ REM find. The shim holds an empty .claude\settings.json and a JUNCTION to the
 REM real %USERPROFILE%\.cursor, so Cursor's auth, config and chat history are
 REM all still its own - only the Claude settings are hidden.
 REM
+REM S378 (2026-11-03): cursor-agent 2026.11 ALSO runs the WORKSPACE's
+REM .claude\settings.json hooks, without CLAUDE_PROJECT_DIR set - the repo's
+REM rule_guard hook then exited 2 on every shell call (LOCOWALK1 ran blind).
+REM The repo hook now finds rule_guard.py itself (fa59bedc); keep every repo
+REM hook command free of $CLAUDE_PROJECT_DIR or failing open.
+REM
 REM THE USER'S OWN `rtk hook claude` IS LEFT COMPLETELY ALONE. It works
 REM correctly in Claude Code and it saves tokens on every Bash call; this
 REM wrapper hides it from Cursor rather than removing it from Claude.
