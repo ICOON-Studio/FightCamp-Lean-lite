@@ -364,7 +364,8 @@ def commit_owned(wt: Path, contract: dict, task: str, seat: str) -> tuple[list[s
     files, stray = [], []
     for line in git("status", "--porcelain", "--untracked-files=all", cwd=wt).splitlines():
         path = line[3:].split(" -> ")[-1].strip().strip('"')
-        if not path or path.startswith(".godot/") or path in ("override.cfg", f"ops/research/TASK_{task}.md") or path.endswith(".uid"):
+        if (not path or path.startswith(".godot/") or path in ("override.cfg", f"ops/research/TASK_{task}.md")
+                or path.endswith((".uid", ".import"))):
             continue
         (files if owned(path, owns) else stray).append(path)
     if files:
@@ -394,9 +395,33 @@ def run_gd(wt: Path, script: str, args: str = "", pass_line: str = "") -> dict:
             "why": "script error" if err else ("timeout" if p.returncode == 124 else ""), "last": tail[0][:200]}
 
 
-def run_checks(wt: Path, contract: dict) -> list[dict]:
-    """RED_TEST then every REGRESSION item, headless on the branch; the watchdog gates each."""
+_PARSE_RE = re.compile(r"(?:SCRIPT ERROR|ERROR): Parse Error: (.*)\n\s*at: GDScript::reload \((res://[^)]+)\)")
+
+
+def compile_errors(wt: Path) -> list[str]:
+    """S372: FIGHT9R1 wrote PackedStringArray.any() (no such method) - nothing compiled, the after-film sat 6.5 min on the
+    gym screen and Argon scored a frozen menu 1/10. Import, then boot the main scene headless for 30 frames (Main.tscn
+    preloads the fight view) and return each parse error as 'res://file.gd:line: message' (the cascades left out)."""
     sh([GODOT, "--headless", "--audio-driver", "Dummy", "--path", wt, "--import"], cwd=wt, timeout=900)
+    p = sh([GODOT, "--headless", "--audio-driver", "Dummy", "--path", wt, "--quit-after", "30"], cwd=wt, timeout=300)
+    errs: list[str] = []
+    for m in _PARSE_RE.finditer((p.stdout or "") + (p.stderr or "")):
+        e = f"{m.group(2)}: {m.group(1).strip()}"
+        if e not in errs:
+            errs.append(e)
+    return errs
+
+
+def repair_prompt(task: str, errs: list[str]) -> str:
+    return (f"Your edits for TASK {task} (ops/research/TASK_{task}.md in this folder) do not compile, so the game cannot start. "
+            "Godot 4.7 printed these parse errors:\n" + "\n".join("- " + e for e in errs[:12]) + "\n"
+            "Fix ONLY these errors, inside the brief's OWNS files, keeping what each line was meant to do. Use only GDScript 4 "
+            "methods that exist on that exact type (Array has any()/all(); PackedStringArray does not - loop instead). "
+            "Do not start new work.")
+
+
+def run_checks(wt: Path, contract: dict) -> list[dict]:
+    """RED_TEST then every REGRESSION item, headless on the branch (imported by compile_errors); the watchdog gates each."""
     owns = [o["path"] for o in contract["owns"]]
     red = contract["red_test"]
     jobs = [("RED_TEST", red["test"], red.get("args", ""), red.get("pass_line", ""))]
@@ -541,6 +566,13 @@ def pr_body(task: str, info: dict, checks: list, committed: list, stray: list, b
     return "\n".join(lines)
 
 
+def _agy(wt: Path, prompt: str, out: Path, env: dict) -> subprocess.Popen:
+    cmd = [AGY, "-p", prompt, "--model", AGY_MODEL, "--mode", "accept-edits", "--sandbox", "--print-timeout", "1800s"]
+    fh = open(out, "a", encoding="utf-8")
+    return subprocess.Popen([str(c) for c in cmd], cwd=str(wt), stdout=fh, stderr=subprocess.STDOUT, stdin=subprocess.DEVNULL,
+                            creationflags=NO_WINDOW, env=env)
+
+
 def run(task: str) -> int:
     info = load(RUNS, {}).get("runs", {}).get(task)
     if not info:
@@ -557,11 +589,7 @@ def run(task: str) -> int:
         env.pop("AGENT_WINDOW", None)
         if seat == "agy":
             log(f"SEAT {task}: agy = {AGY} (exists {Path(AGY).is_file()}), cwd {wt} (exists {wt.is_dir()})")
-            cmd = [AGY, "-p", prompt.read_text(encoding="utf-8").strip(), "--model", AGY_MODEL, "--mode", "accept-edits", "--sandbox",
-                   "--print-timeout", "1800s"]
-            fh = open(out, "a", encoding="utf-8")
-            proc = subprocess.Popen([str(c) for c in cmd], cwd=str(wt), stdout=fh, stderr=subprocess.STDOUT, stdin=subprocess.DEVNULL,
-                                    creationflags=NO_WINDOW, env=env)
+            proc = _agy(wt, prompt.read_text(encoding="utf-8").strip(), out, env)
         else:
             wrapper = ROOT / "Tools" / ("qwen_task.cmd" if seat == "qwen" else "cursor_task.cmd")
             proc = subprocess.Popen(["cmd", "/c", str(wrapper), str(prompt), str(wt), str(out)], cwd=str(GAME),
@@ -583,9 +611,27 @@ def run(task: str) -> int:
                        f"(stray: {', '.join(stray) or '-'}); output {out}")
             log(f"FAILED {task}: nothing delivered (exit {rc})")
             return 1
+        broken = compile_errors(wt)
+        if broken and seat == "agy":  # agy cannot run Godot: one repair pass on the printed errors beats a lost round
+            log(f"COMPILE {task}: {len(broken)} parse error(s), agy repair pass - {broken[0][:160]}")
+            fix = _agy(wt, repair_prompt(task, broken), out, env)
+            try:
+                fix.wait(timeout=15 * 60)
+            except subprocess.TimeoutExpired:
+                sh(["taskkill", "/PID", fix.pid, "/T", "/F"])
+            more, stray2 = commit_owned(wt, contract, task, seat)
+            committed += [f for f in more if f not in committed]
+            stray += [f for f in stray2 if f not in stray]
+            broken = compile_errors(wt)
+        if broken:
+            log(f"COMPILE {task}: still {len(broken)} parse error(s) - no after-film: {broken[0][:160]}")
         checks = run_checks(wt, contract)
         push = sh(["git", "push", "-q", "-u", "origin", branch], cwd=wt, timeout=600)
-        after = films(task, wt, contract, "after") if needs_film(contract) else {}
+        if broken:
+            checks.insert(0, {"kind": "COMPILE", "script": "Main.tscn boot", "ok": False, "why": "parse error", "last": broken[0][:200]})
+            after = {"film": "", "why": "does not compile: " + "; ".join(broken[:3]), "compile": broken} if needs_film(contract) else {}
+        else:
+            after = films(task, wt, contract, "after") if needs_film(contract) else {}
         board = post_board(task, before, after, branch) if (before.get("film") or after.get("film")) else ""
         title = f"{task}: {short_title(task, info.get('title', ''))[:100]} ({info['agent']}, unattended)"
         body = pr_body(task, info, checks, committed, stray, before, after, out_tail)
@@ -643,7 +689,14 @@ def loop_next(task: str, contract: dict, before: dict, after: dict, branch: str,
     base = branch if kept else (contract.get("base") or "main")
     src = brief_contract.brief_path(task).read_text(encoding="utf-8", errors="replace")
     md = Path(after.get("verdict_file") or "")
-    verdict = md.read_text(encoding="utf-8", errors="replace").strip() if md.is_file() else "(no verdict file: " + str(after.get("err", "?")) + ")"
+    if after.get("compile"):
+        verdict = ("Not filmed: your round did not compile (even after one repair pass), so the game could not start. "
+                   "Godot printed:\n" + "\n".join("- " + e for e in after["compile"][:12]) + "\nYou cannot run Godot - use only "
+                   "methods that exist on that exact type in Godot 4 (Array has any()/all(); PackedStringArray does not).")
+    elif md.is_file():
+        verdict = md.read_text(encoding="utf-8", errors="replace").strip()
+    else:
+        verdict = "(no verdict file: " + str(after.get("err") or after.get("why") or "?") + ")"
     head = (f"## Last verdict (round {n}: Argon {b:g} -> {a:g}/10 on {branch}; "
             + ("KEPT - this round's code is your BASE" if kept else "DROPPED - worse or a check failed; you start from the round before")
             + ")\n\n" + verdict + "\n\n")
