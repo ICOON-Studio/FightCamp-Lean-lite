@@ -4,6 +4,8 @@ Status: OPEN (S371, Claude; S372 rewritten after round 1 failed to compile). Ope
 gemini to reach to 9/10", "let argon do all the fixes until its 9/10". Main scored 3/10 (verdict below).
 
 ## OPERATOR S376 - READ FIRST, it overrules every earlier timing choice
+From R5 the judged film is DANNY'S MEN'S BOUT (FILM: fightjump=men_fight) - the bout he watched; the first R5 score is
+the new baseline (the earlier rounds filmed Lucy's).
 He watched the men's bout on main: "their leg animation are broken completely their punch speed feels very fast along
 with their body movement and it is very unatural". Claude measured it (tools/men_fight_film.gd; men and women alike):
 - LEGS: knees locked dead straight (> 170 deg) 14-22 % of a round. Cause: FootPlant planted a foot by distance only,
@@ -15,6 +17,14 @@ with their body movement and it is very unatural". Claude measured it (tools/men
   0.534, uppercut 0.489, body 0.450), COMBO_LAND_S 0.35 / COMBO_SAME_HAND_S 0.45, OTHER_SPEED <= 1.1, RECOVER_MAX and
   REACT_FAST_MAX <= 1.5 (main S376: at 2.5x the whole body snapped back with the hand). Never speed a whole clip up to fix
   timing - only the arm moves that fast in a real punch.
+- ARGON ON MAIN AFTER THE FIX (S376, Danny's men's bout, judge_film fightjump=men_fight; full text in the board post
+  2026-11-03_1215): 3/10 before -> 3/10 after. Gone: the vibrating / skating / straight-locked legs. LEFT, worst first:
+  (1) the footwork reads as WALKING - the step clips are walk cycles: a narrow base, legs scissor/cross when he backs up
+  (00:46-00:50), the rear foot slides up behind the lead heel on a step-in body shot (00:30); a boxer's shuffle keeps the
+  stance width and never crosses the feet. (2) feet skate while the body glides on idle bounce (00:31-00:33). (3) the idle
+  bounce is a fast high-frequency bob; a duck drops and pops up "like a jack-in-the-box" (00:44) - slower, weighted.
+  (4) a mid-round 180-degree camera cut swaps the boxers' sides while the HUD corners stay put (01:13). (5) ring entry:
+  a leg twists backwards through the ropes (00:02-00:06). Fix these with the bars below, never by speeding clips up.
 - BARS (add to tools/fight9_probe.gd, over 40 s of round 1, each boxer): knee > 170 deg in <= 2 % of frames; foot jumps
   (> 3 m/s in the body's frame) <= 4; frames with AnimationPlayer playing speed > 1.6x <= 2 %. tools/men_fight_film.gd
   writes the per-frame legs.csv these read (Claude's numbers: ops/research/S376_DIGEST.md when written).
@@ -25,7 +35,7 @@ with their body movement and it is very unatural". Claude measured it (tools/men
 - The dispatcher then commits your files, runs the checks headless, films the same fight (tools/judge_film.gd, the walk-in
   and 90 s of round 1 at real speed) and Gemini 4 Argon judges it. If the score is at least the last one and every check is
   green, your branch becomes the next round's BASE; otherwise the next round starts from the round before and reads why.
-  The next round's brief is this one with the new verdict. It stops at 9/10 (or 12 rounds); a Claude session merges.
+  The next round's brief is this one with the new verdict. It stops only at 9/10 (operator S376: "tell it to work on it until it is 9/10"); a Claude session merges.
 - You cannot run anything (file tools only). So read the code that plays the fight before you change it: the fight view
   is scripts/fight3d/ (FightView, FightStage, MovePlayer, BeatFire, BeatClips, HitImpact, HitSnap, Footwork, FootPlant,
   PunchRange, RingPlace, CornerCrew, the camera files), the clip timing data assets/data/clip_contact.json,
@@ -94,6 +104,6 @@ OWNS: scripts/fight3d/, scripts/rules/MoveWords.gd, assets/data/clip_contact.jso
 RED_TEST: tools/fight9_probe.gd -> FIGHT9 failures=0
 REGRESSION: fight_flow_test, golden_path_test, ring_lens_test, clinch_rest_test, beat_clips_test
 VISUAL: yes
-FILM: --resolution 1280x720 --script res://tools/judge_film.gd -- secs=90
+FILM: --resolution 1280x720 --script res://tools/judge_film.gd -- secs=90 fightjump=men_fight
 BASE: agy/fight9r2
 LOOP: FIGHT9 9

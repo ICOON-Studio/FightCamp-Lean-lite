@@ -715,7 +715,7 @@ def run(task: str) -> int:
 
 # ---------------------------------------------------------------- judged loops (S371)
 
-LOOP_MAX_ROUNDS = 12
+LOOP_MAX_ROUNDS = 99   # S376 operator: "tell it to work on it until it is 9/10" (was 12); the money brakes are agy credits + gemini_meter
 _ROUND_RE = re.compile(r"^(.*?)R(\d+)$")
 _VERDICT_RE = re.compile(r"^## Last verdict\b.*?(?=^## )", re.M | re.S)
 
