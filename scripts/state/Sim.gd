@@ -17,6 +17,7 @@ const Region := preload("res://scripts/state/Region.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
 const ComboWords := preload("res://scripts/rules/ComboWords.gd")
+const OwnCombos := preload("res://scripts/rules/OwnCombos.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
 const TrainingLoad := preload("res://scripts/rules/TrainingLoad.gd")
 const TrainingPlan := preload("res://scripts/rules/TrainingPlan.gd")
@@ -321,13 +322,30 @@ static func drill_combos(career: Career, f: Dictionary, skill: float) -> String:
 		f["combos"] = {}
 	var combos: Dictionary = f["combos"]
 	var drilling := str(f.get("combo_learning", ""))
+	var pads := TrainingPlan.pads_factor(plan_of(career, f)) * float(WeekTwist.active(f).get("combo_mult", 1.0))
+	# S375 COMBOPLAN1 his own combination from the planner: the pad time goes to it until it is his signature.
+	if drilling.begins_with("own:"):
+		var oe := OwnCombos.entry(f, drilling)
+		if not oe.is_empty() and OwnCombos.missing(f, oe) == "":
+			for id in combos.keys():
+				combos[id] = Combos.fade(float(combos[id]), false)
+			var ob := OwnCombos.mastery(f, drilling)
+			var oa := OwnCombos.drill_week(f, drilling, COMBO_MINUTES * pads, skill, STATION_TIER) if pads > 0.0 else ob
+			if ob < Combos.LEARN_AT and oa >= Combos.LEARN_AT:
+				career.add_news("%s can throw the %s in a fight now (%s)." % [f["first"], oe["name"], Combos.describe("combination", oa)])
+			elif ob < ComboWords.SIGNATURE_AT and oa >= ComboWords.SIGNATURE_AT:
+				career.add_news("Signature: %s owns the %s - it lands whole more often, and fresh it runs one punch longer." % [f["first"], oe["name"]])
+				f["combo_learning"] = Combos.next_to_learn(moves, combos)
+			_fade_own(f, drilling)
+			return ""
+		drilling = ""
 	if drilling == "" or not Combos.unlocked(moves).has(drilling):
 		drilling = Combos.next_to_learn(moves, combos)
 	var ids: Array = combos.keys()
 	if drilling != "" and not ids.has(drilling):
 		ids.append(drilling)
 	var new_combo := ""
-	var pads := TrainingPlan.pads_factor(plan_of(career, f)) * float(WeekTwist.active(f).get("combo_mult", 1.0))
+	_fade_own(f, "")
 	for id in ids:
 		var before := float(combos.get(id, 0.0))
 		var after := Combos.fade(before, false)
@@ -344,6 +362,14 @@ static func drill_combos(career: Career, f: Dictionary, skill: float) -> String:
 			career.add_news("Coach: \"%s\"" % ComboWords.line(id, "coach_signature", str(f["first"]), career.day))
 	f["combo_learning"] = Combos.next_to_learn(moves, combos) if new_combo == drilling else drilling
 	return new_combo
+
+
+## His own combinations fade slowly like the book's, except the one on the pads this week.
+static func _fade_own(f: Dictionary, drilled: String) -> void:
+	var own: Dictionary = f.get("own_combos", {})
+	for id in own.keys():
+		if str(id) != drilled:
+			own[id] = Combos.fade(float(own[id]), false)
 
 
 static func end_week(career: Career) -> void:

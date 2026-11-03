@@ -139,10 +139,19 @@ static func edge(combos: Dictionary, energy: float) -> float:
 	return total * energy_scale(energy)
 
 
-static func pick(combos: Dictionary, max_len: int, roll: float) -> Dictionary:
+## S375 COMBOPLAN1 `own` = his own combinations as ring rows (OwnCombos.rows_for_ring): a signature ("sig") may run one punch
+## past max_len - the only 4-punch run he throws whole.
+static func pick(combos: Dictionary, max_len: int, roll: float, own: Array = []) -> Dictionary:
 	var eligible: Array = []
 	var weights: Array = []
 	var total := 0.0
+	for b in own:
+		var m := float(combos.get(str(b["id"]), 0.0))
+		if m < LEARN_AT or int(b["beats"].size()) > max_len + (1 if bool(b.get("sig", false)) else 0):
+			continue
+		eligible.append(b)
+		weights.append(m)
+		total += m
 	for b in BOOK:
 		var bid := str(b["id"])
 		var m := float(combos.get(bid, 0.0))

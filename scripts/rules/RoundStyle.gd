@@ -39,8 +39,10 @@ static func footwork(p: Dictionary) -> float:
 
 ## Our fighter's profile from her career dict (moves, stats, and footwork once the fighter profile stores it).
 static func of_fighter(f: Dictionary) -> Dictionary:
+	# S375 COMBOPLAN1 his own combinations too (OwnCombos; a runtime load - OwnCombos preloads this script).
+	var own: GDScript = load("res://scripts/rules/OwnCombos.gd")
 	var p := {"moves": (f.get("moves", {}) as Dictionary).duplicate(), "stats": (f.get("stats", {}) as Dictionary).duplicate(),
-		"combos": (f.get("combos", {}) as Dictionary).duplicate()}
+		"combos": own.all_mastery(f), "own_rows": own.rows_for_ring(f)}
 	if f.has("footwork"):
 		p["footwork"] = float(f["footwork"])
 	return p

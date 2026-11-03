@@ -14,6 +14,7 @@ const ComboOdds := preload("res://scripts/rules/ComboOdds.gd")
 const MovePlayer := preload("res://scripts/fight3d/MovePlayer.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
 const ComboStrip := preload("res://scripts/ui/ComboStrip.gd")
+const OwnCombos := preload("res://scripts/rules/OwnCombos.gd")
 const SCRIPT_PATH := "res://scripts/ui/ComboBuilder.gd"
 
 ## The moves she can chain: ComboFlow id, name, the clip her body plays, the move she must master (Data.MOVES; "" = none),
@@ -261,7 +262,9 @@ func _save() -> void:
 			names.append(str(entry(str(id)).get("name", id)).to_lower())
 		nm = ", ".join(names)
 	(f["book"] as Array).append({"name": nm, "chain": chain.duplicate(), "score": int(r["score"])})
-	main.toast("Saved to %s's book: %s (%s, %d)." % [f["first"], nm, r["word"], int(r["score"])])
+	# S375 COMBOPLAN1: a saved chain is a combination of the fighter's own - the planner on the Training tab drills it.
+	OwnCombos.ensure_ids(f)
+	main.toast("Saved to %s's book: %s (%s, %d). Drill it from Fighters > Training, the combo planner." % [f["first"], nm, r["word"], int(r["score"])])
 	main.render()
 
 

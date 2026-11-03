@@ -2,6 +2,7 @@ extends VBoxContainer
 ## One fighter's page: Overview, Attributes and moves, Body, Record, Camp, Contract and goals.
 
 const AwardCard := preload("res://scripts/ui/AwardCard.gd")
+const ComboPlanner := preload("res://scripts/ui/ComboPlanner.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
@@ -78,6 +79,7 @@ func build(main: Node, f: Dictionary) -> void:
 			# S354 CORE3: the week planner (WeekBoard) replaces the session-blocks board - the week now drives the sim.
 			# S370 GOALTESTS1: her road (the skills awards) and her engine (the bleep test) sit above the week that moves them.
 			add_child(AwardCard.make(c, f))
+			add_child(ComboPlanner.make(main, f))   # S375 COMBOPLAN1: his own combinations, drilled on the week's pads
 			add_child(WeekBoard.make(main, c, f))
 		4:
 			var title := "RECORD: %d-%d AMATEUR" % [f["w"], f["l"]]

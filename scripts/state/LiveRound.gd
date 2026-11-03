@@ -14,6 +14,7 @@ const TheRead := preload("res://scripts/rules/TheRead.gd")
 const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 const ClinchRest := preload("res://scripts/rules/ClinchRest.gd")
 const RoundStyle := preload("res://scripts/rules/RoundStyle.gd")
+const PlanFile := preload("res://scripts/rules/PlanFile.gd")
 const PerkFight := preload("res://scripts/rules/PerkFight.gd")
 const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
 const WeekOpp := preload("res://scripts/rules/WeekOpp.gd")
@@ -66,7 +67,11 @@ static func open(c: Career, f: Dictionary, m: Dictionary, n: int, plan: String, 
 		setup = {"combo": str(sj["combo"]), "gap": str(sj["gap"]), "mastery": float(f["combos"][str(sj["combo"])]), "used": ""}
 	# S323 Pace and Aim (the body is the track: the driver mode) carry from round to round until changed.
 	var was: Dictionary = m.get("live", {})
-	m["live"] = {"pace": str(was.get("pace", "steady")), "aim": str(was.get("aim", "")), "n": n, "plan": plan, "ex": [], "shouts": 0, "mode": mode, "her_hurt": bool(jobs.get("hurt", false)), "opp_hurt": false,
+	# S375 SCOUTPLAN1 the plan's ROUND row opens the round on its pace ("" = the default below).
+	var pace0 := PlanFile.pace_for(f, n)
+	if n == 1:
+		f["bout"]["plan_tally"] = {}
+	m["live"] = {"pace": pace0 if pace0 != "" else str(was.get("pace", "steady")), "aim": str(was.get("aim", "")), "n": n, "plan": plan, "ex": [], "shouts": 0, "mode": mode, "her_hurt": bool(jobs.get("hurt", false)), "opp_hurt": false,
 		"talk": talk, "talk_kind": str(jobs.get("talk", "")), "setup": setup,
 		"cost": 0.0, "e": e, "base": base, "fix": fix, "last": n >= int(f["bout"].get("rounds", BoutRules.ROUNDS)),
 		"body": f["bout"]["body"], "body_cost_b": PerkFight.body_cost(f)}
@@ -222,7 +227,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 		if PerkFight.setup_edge(f, se) != se:
 			perks.append("hand_speed")
 		d += PerkFight.setup_edge(f, se)
-	d += PaceAim.edge(pace, aim, opp_hurt, {}) - push_gassed(pace, her_energy(lv, i))
+	d += PaceAim.edge(pace, aim, opp_hurt, {}) - push_gassed(pace, her_energy(lv, i)) + PlanFile.cold_edge(opp, pace, n, i)
 	var st := read_state(f)
 	var game := str(lv["mode"])
 	# A habit of hers the opponent is punishing right now (and the corner has not fixed) takes the counter away: she is
@@ -310,6 +315,13 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	rec["planned"] = bool(pick["planned"])
 	rec["arrow_fit"] = PlanFight.fit(arrow, psit)
 	rec["plan_edge"] = plan_edge
+	# S375 SCOUTPLAN1 the plan seen in the ring: each planned arrow's running tally over the bout ([won, thrown]).
+	if bool(pick["planned"]):
+		var tally: Dictionary = f["bout"].get("plan_tally", {})
+		var tl: Array = tally.get(arrow, [0, 0])
+		tally[arrow] = [int(tl[0]) + (1 if bool(s["won"]) else 0), int(tl[1]) + 1]
+		f["bout"]["plan_tally"] = tally
+		rec["plan_tally"] = tally[arrow]
 	rec["clinch"] = cl
 	rec["clinch_line"] = ClinchRest.line(cl, names)
 	rec["perks"] = perks

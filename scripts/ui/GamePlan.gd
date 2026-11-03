@@ -25,6 +25,8 @@ const PlanPanel := preload("res://scripts/ui/PlanPanel.gd")
 const FlowView := preload("res://scripts/ui/FlowView.gd")
 const StrikeBrowser := preload("res://scripts/ui/StrikeBrowser.gd")
 const PlanRecord := preload("res://scripts/rules/PlanRecord.gd")
+const PlanFile := preload("res://scripts/rules/PlanFile.gd")
+const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 
 const PLACE_W := 250.0
 const OPT := Vector2(262, 64)
@@ -104,6 +106,9 @@ func _build() -> void:
 		_bouts[str(r["move"])] = r
 	add_child(_head())
 	add_child(_meter())
+	if not _bout().is_empty() and vs == "":
+		add_child(_file())
+	add_child(_rounds())
 	add_child(UI.caps("WHERE THE FIGHT GOES"))
 	for p in PlanLines.PLACES:
 		add_child(_line(str(p), ""))
@@ -147,6 +152,78 @@ func _head() -> Control:
 			_refresh()))
 	v.add_child(row)
 	return v
+
+
+## S375 SCOUTPLAN1 the plan against the opponent's file: every tell the tape has opened, the line of the plan that fires
+## on it in the ring and how it scores (PlanFile), with the better answer one click away as a "When ..." line.
+func _file() -> Control:
+	var box := UI.vbox(6)
+	box.name = "PlanFile"
+	var opp: Dictionary = _bout()["opp"]
+	box.add_child(UI.caps("WHAT THE TAPE FOUND ON %s - AND YOUR ANSWER" % str(opp.get("first", "")).to_upper()))
+	for r in PlanFile.rows(opp, arrows, f.get("moves", {}), f.get("combos", {})):
+		var rr: Dictionary = r
+		var row := UI.hbox(10)
+		row.name = "File_" + str(rr["id"]).replace(":", "_")
+		var tag := UI.caps(str(rr["what"]))
+		tag.custom_minimum_size = Vector2(110, 0)
+		row.add_child(tag)
+		var words := UI.vbox(0)
+		words.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		var when_txt := ""
+		if int(rr["round"]) > 0:
+			when_txt = "  (round %d)" % int(rr["round"])
+		elif float(rr["share"]) > 0.0:
+			when_txt = "  (%d%% of the exchanges)" % roundi(100.0 * float(rr["share"]))
+		words.add_child(UI.label(str(rr["value"]) + when_txt, UI.SMALL, UI.FG if bool(rr["known"]) else UI.MUTED, "semi", true))
+		words.add_child(UI.muted(str(rr["say"]), UI.TINY, true))
+		row.add_child(words)
+		var fit := str(rr["fit"])
+		if bool(rr["known"]) and str(rr["sit"]) != "":
+			if str(rr["move"]) == "":
+				row.add_child(UI.chip("No line", "amber"))
+			elif fit != "none":
+				row.add_child(UI.chip(str(PlanLines.FIT_WORDS[fit]), {"best": "green", "ok": "", "wrong": "red"}[fit]))
+			var better := str(rr["best"]) != "" and str(rr["best"]) != str(rr["move"]) and float(rr["best_edge"]) > float(rr["edge"]) + 0.5
+			if better:
+				var b := UI.button("Answer: %s" % str(rr["best_name"]), "Btn", func():
+					_pick(str(rr["place"]), str(rr["sit"]), str(rr["best"]), false))
+				b.name = "Answer_" + str(rr["id"]).replace(":", "_")
+				row.add_child(b)
+		elif not bool(rr["known"]):
+			row.add_child(Icons.icon("lock", 14, UI.MUTED, "Tape study in camp opens it: the tape room or a camp with film."))
+		box.add_child(row)
+	return box
+
+
+## S375 SCOUTPLAN1 the ROUND row: the pace each round opens on (push / steady / save; none picked = steady),
+## with what the file says about the rounds.
+func _rounds() -> Control:
+	var box := UI.vbox(4)
+	box.name = "PlanRounds"
+	var row := UI.hbox(8)
+	row.add_child(UI.caps("ROUNDS"))
+	var n_rounds := int(_bout().get("rounds", BoutRules.ROUNDS)) if not _bout().is_empty() else BoutRules.ROUNDS
+	for n in range(1, n_rounds + 1):
+		var nn: int = n
+		row.add_child(UI.label("R%d" % nn, UI.SMALL, UI.FG, "bold"))
+		var now := PlanFile.pace_for(f, nn)
+		for pace in PlanFile.PACES:
+			var pp := str(pace)
+			var b := UI.button(pp.capitalize(), "PillOn" if pp == now else "Pill", func():
+				f["round_pace"] = PlanFile.set_pace(f.get("round_pace", []), nn, "" if pp == now else pp)
+				_refresh())
+			b.name = "Pace_%d_%s" % [nn, pp]
+			row.add_child(b)
+	box.add_child(row)
+	var hints := PlanFile.round_hints(_bout()["opp"]) if not _bout().is_empty() else {}
+	for k in hints:
+		var h: Array = hints[k]
+		var done := PlanFile.pace_for(f, int(k)) == str(h[0])
+		box.add_child(UI.label(("Done: " if done else "") + str(h[1]), UI.TINY, UI.GREEN if done else UI.GOLD, "body", true))
+	if hints.is_empty():
+		box.add_child(UI.muted("Push throws more and spends 1.35x gas; save breathes back. The tape tells you when to push.", UI.TINY, true))
+	return box
 
 
 ## The lines the coach holds (filled, empty, locked behind a better coach) and the plan's edge bar.

@@ -82,6 +82,9 @@ static func build(x: Dictionary, k: int, r: Dictionary, ctx: Dictionary) -> Arra
 	if bool(x.get("planned", false)):
 		out.append({"t": at + 1.6, "who": "a", "move": "say", "result": "none",
 			"caption": "Plan: %s" % str(StrikeMap.move(str(x["arrow"])).get("name", x["arrow"]))})
+		# S375 SCOUTPLAN1: the same line at the exchange's end - won or lost, and its tally over the bout so far.
+		if plan_tally_caption(x) != "":
+			out.append({"t": at + Exchanges.EX_SECONDS - 2.5, "who": "a", "move": "say", "result": "none", "caption": plan_tally_caption(x)})
 	# S309: a habit punished (or the corner's fix holding) gets its own caption before the verdict.
 	if str(x.get("habit_line", "")) != "":
 		out.append({"t": at + Exchanges.EX_SECONDS - 6.0, "who": "a", "move": "say", "result": "none", "caption": str(x["habit_line"])})
@@ -96,6 +99,15 @@ static func build(x: Dictionary, k: int, r: Dictionary, ctx: Dictionary) -> Arra
 ## throwing the counter - landed, a big shot with the close-up and "READ IT!"; missed, she guessed early and is open.
 const READ_LEAD := {"press": "step_in", "range": "jab", "counter": "cross", "loadup": "cross"}
 const READ_MOVE := {"Lead hook": "lead_hook", "Cross": "cross", "Check hook": "lead_hook"}
+
+
+## S375 SCOUTPLAN1 "PLAN: DOUBLE JAB - won it  (4/5 won)": a planned exchange's end, with the arrow's tally over the bout.
+static func plan_tally_caption(x: Dictionary) -> String:
+	var tl: Array = x.get("plan_tally", [])
+	if not bool(x.get("planned", false)) or tl.size() != 2:
+		return ""
+	return "PLAN: %s - %s  (%d/%d won)" % [str(StrikeMap.move(str(x["arrow"])).get("name", x["arrow"])).to_upper(),
+		"won it" if bool(x.get("won", false)) else "lost it", int(tl[0]), int(tl[1])]
 
 
 static func _read(out: Array, rd: Dictionary, at: float, names: Array) -> void:

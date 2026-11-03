@@ -107,7 +107,7 @@ static func build(round: Dictionary, a_style: String, b_style: String, seconds: 
 		var combo: Dictionary = {}
 		var cut := false
 		if size >= 2 and lp.has("combos"):
-			combo = Combos.pick(lp["combos"], size, rng.randf())
+			combo = Combos.pick(lp["combos"], size, rng.randf(), lp.get("own_rows", []))
 			size = (combo["beats"] as Array).size() if not combo.is_empty() else mini(size, 2)
 			# S303: tired, she starts it and leaves the last punch (Combos.cut_chance; Kalli's ring_tired line captions it).
 			if not combo.is_empty() and Combos.cut_chance(e_now) > 0.0 and rng.randf() < Combos.cut_chance(e_now):

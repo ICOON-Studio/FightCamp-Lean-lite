@@ -1,0 +1,101 @@
+extends SceneTree
+## S375 COMBOPLAN1: his own combinations (OwnCombos) - planned on the Training tab, drilled on the week's pads (Sim), a
+## signature at ComboWords.SIGNATURE_AT that lands whole more often and runs one punch past his hand speed in the ring
+## (Combos.pick), longer chains slower to own and dearer in gas, whole_by_round from his own tank. The planner card builds.
+
+const Data := preload("res://scripts/state/Data.gd")
+const Sim := preload("res://scripts/state/Sim.gd")
+const OwnCombos := preload("res://scripts/rules/OwnCombos.gd")
+const Combos := preload("res://scripts/rules/Combos.gd")
+const ComboWords := preload("res://scripts/rules/ComboWords.gd")
+const RoundStyle := preload("res://scripts/rules/RoundStyle.gd")
+const ComboPlanner := preload("res://scripts/ui/ComboPlanner.gd")
+
+var failures := 0
+
+
+func _initialize() -> void:
+	var c := Career.quick_start()
+	c.fighters.append(Data.fighter_state(Data.lucy(), c.day))
+	var f: Dictionary = c.fighter()
+	for mv in ["Jab", "Cross", "Lead hook", "Body hook"]:
+		f["moves"][mv] = 70.0
+	f["stats"]["technique"] = 80.0
+	f["stats"]["fight_iq"] = 80.0
+	f["stats"]["speed"] = 60.0   # RoundStyle.FAST: hand-speed cap 2
+	f["book"] = [{"name": "jab, jab, step in, lead hook", "chain": ["jab", "jab", "step_in", "lead_hook"], "score": 70},
+		{"name": "jab, cross", "chain": ["jab", "cross"], "score": 62}]
+	OwnCombos.ensure_ids(f)
+	var long_e: Dictionary = f["book"][0]
+	var short_e: Dictionary = f["book"][1]
+	_check(str(long_e["id"]) == "own:1" and str(short_e["id"]) == "own:2", "ids: own:1, own:2")
+	_check(OwnCombos.row(long_e)["beats"] == ["jab", "jab", "lead_hook"] and OwnCombos.row(long_e)["moves"] == ["Jab", "Jab", "Lead hook"],
+		"the ring row throws its punches; the step is the coach's cue")
+	_check(OwnCombos.missing(f, long_e) == "" and not OwnCombos.usable(f, long_e), "every punch a weapon, not drilled yet: not usable")
+
+	# a. Longer chains take longer to own (minutes split over every move).
+	f["own_combos"] = {"own:1": 20.0, "own:2": 20.0}
+	var a := OwnCombos.drill_week(f, "own:1", 40.0, 60.0, 1) - 20.0
+	var b := OwnCombos.drill_week(f, "own:2", 40.0, 60.0, 1) - 20.0
+	_check(a > 0.0 and b > a, "the same pad time: jab-cross %.1f > the 4-move chain %.1f" % [b, a])
+	_check(OwnCombos.gas(f, long_e) > OwnCombos.gas(f, short_e), "the long chain costs more gas a throw (%.2f > %.2f)" % [OwnCombos.gas(f, long_e), OwnCombos.gas(f, short_e)])
+
+	# b. The week's pads go to the planned combination; it never passes its weakest punch.
+	f["own_combos"] = {"own:1": 20.0, "own:2": 40.0}
+	f["combos"] = {"1-2": 50.0}
+	f["combo_learning"] = "own:1"
+	Sim.drill_combos(c, f, 60.0)
+	_check(OwnCombos.mastery(f, "own:1") > 20.0, "Sim drills own:1 (%.1f)" % OwnCombos.mastery(f, "own:1"))
+	_check(OwnCombos.mastery(f, "own:2") < 40.0 and float(f["combos"]["1-2"]) < 50.0, "the rest fade")
+	f["own_combos"]["own:1"] = 99.0
+	f["moves"]["Lead hook"] = 50.0
+	OwnCombos.drill_week(f, "own:1", 40.0, 60.0, 1)
+	_check(OwnCombos.mastery(f, "own:1") <= 99.0 and OwnCombos.cap(f, long_e) <= 50.0, "capped by the weakest punch (cap %.0f)" % OwnCombos.cap(f, long_e))
+	f["moves"]["Lead hook"] = 70.0
+
+	# c. Signature: drilling, not length, makes it; it lands whole more often.
+	f["own_combos"] = {"own:1": 50.0, "own:2": 50.0}
+	var usable_odds := OwnCombos.lands_whole(f, long_e)
+	f["own_combos"]["own:1"] = ComboWords.SIGNATURE_AT
+	_check(OwnCombos.signature(f, long_e) and not OwnCombos.signature(f, short_e), "signature at %d on the pads" % int(ComboWords.SIGNATURE_AT))
+	_check(OwnCombos.lands_whole(f, long_e) > usable_odds, "a signature lands whole more often (%.2f > %.2f)" % [OwnCombos.lands_whole(f, long_e), usable_odds])
+
+	_check(OwnCombos.ring_edge(f, 100.0) > 0.0 and OwnCombos.ring_edge(f, 100.0) > OwnCombos.ring_edge(f, 35.0),
+		"the bout pays the signature: %.2f a round fresh, less tired" % OwnCombos.ring_edge(f, 100.0))
+	var none := {"book": [], "moves": f["moves"], "stats": f["stats"]}
+	_check(OwnCombos.ring_edge(none, 100.0) == 0.0, "no own combination: no edge")
+
+	# d. In the ring: hand-speed cap 2 - the 3-punch signature still runs (one past), the same chain unsigned does not.
+	var cap := RoundStyle.combo_cap(RoundStyle.of_fighter(f))
+	var rows := OwnCombos.rows_for_ring(f)
+	var sig_row: Dictionary = rows.filter(func(r): return str(r["id"]) == "own:1")[0]
+	_check(cap == 2 and bool(sig_row["sig"]), "hand-speed cap 2, own:1 a signature row")
+	var picked := Combos.pick({"own:1": 90.0}, cap, 0.5, rows)
+	_check(str(picked.get("id", "")) == "own:1", "Combos.pick throws the 3-punch signature at cap 2")
+	var plain := sig_row.duplicate()
+	plain["sig"] = false
+	_check(Combos.pick({"own:1": 90.0}, cap, 0.5, [plain]).is_empty(), "unsigned, it is too long for cap 2")
+	var wr := OwnCombos.whole_by_round(f, long_e)
+	_check(bool(wr[0]), "the signature is thrown whole in round 1 (%s)" % str(wr))
+	f["own_combos"]["own:1"] = 50.0
+	_check(not bool(OwnCombos.whole_by_round(f, long_e)[0]), "unsigned, never whole at cap 2 (%s)" % str(OwnCombos.whole_by_round(f, long_e)))
+
+	# e. The fight profile and the bout's combo dict carry it.
+	var prof := RoundStyle.of_fighter(f)
+	_check((prof["combos"] as Dictionary).has("own:1") and (prof["own_rows"] as Array).size() == 2, "the fight profile has his own combinations")
+
+	# f. The planner card builds with a row per combination and a drill button.
+	var card := ComboPlanner.make(null, f)
+	_check(card.find_child("Own_own_1", true, false) != null and card.find_child("Drill_own_2", true, false) != null
+		and card.find_child("BuildCombo", true, false) != null, "the planner card: a row each, Drill and Build buttons")
+	card.free()
+	print("COMBO_PLAN failures=%d" % failures)
+	quit(1 if failures > 0 else 0)
+
+
+func _check(cond: bool, label: String) -> void:
+	if cond:
+		print("PASS " + label)
+	else:
+		failures += 1
+		print("FAIL " + label)

@@ -21,6 +21,7 @@ const CoachNotes := preload("res://scripts/rules/CoachNotes.gd")
 const RoundStyle := preload("res://scripts/rules/RoundStyle.gd")
 const SkillAwards := preload("res://scripts/rules/SkillAwards.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
+const OwnCombos := preload("res://scripts/rules/OwnCombos.gd")
 const LiveRound := preload("res://scripts/state/LiveRound.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const CornerJobs := preload("res://scripts/rules/CornerJobs.gd")
@@ -273,7 +274,7 @@ static func _energy(f: Dictionary, n: int, corner: String) -> Dictionary:
 		# S327 she fights hurt (the player's call, Injuries.fight_hurt): less in her tank from the first bell.
 		fb["energy"] = {"a": Combos.TANK - float(fb.get("hurt", 0.0)), "b": Combos.TANK, "qa": 0.0, "qb": 0.0}
 	var op := RoundStyle.from_opponent(fb["opp"])
-	var mine: Dictionary = f.get("combos", {})
+	var mine: Dictionary = OwnCombos.all_mastery(f)   # S375 COMBOPLAN1: his own drilled combinations count too
 	var cond_a := float(f["stats"].get("conditioning", 55.0))
 	var cond_b := RoundStyle.stat(op, "conditioning")
 	var a0 := PerkFight.second_wind(f, n, float(fb["energy"]["a"]))   # S355 Second wind: energy back at the round-3 bell
@@ -287,7 +288,7 @@ static func _energy(f: Dictionary, n: int, corner: String) -> Dictionary:
 	var b1 := float(rb["bell"])
 	fb["energy"] = {"a": ra["next"], "b": rb["next"], "qa": ra["debt"], "qb": rb["debt"]}
 	return {"a": a0, "b": b0, "a_end": a1, "b_end": b1,
-		"bonus": Combos.edge(mine, a0) - Combos.tired_penalty(a1) + Combos.tired_penalty(b1)}
+		"bonus": Combos.edge(mine, a0) + OwnCombos.ring_edge(f, a0) - Combos.tired_penalty(a1) + Combos.tired_penalty(b1)}
 
 
 static func _finish(c: Career, f: Dictionary, m: Dictionary) -> void:
