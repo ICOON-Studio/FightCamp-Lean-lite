@@ -1,4 +1,5 @@
 # TASK J-PRODEBUT1 - JOHN - what a UK professional boxing debut really costs the boxer and her gym (research only)
+Kind: research
 
 For: FightCamp (a boxing gym management game; women's boxing, England). Output: a sourced table, no code.
 

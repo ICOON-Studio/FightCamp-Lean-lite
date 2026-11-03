@@ -1,4 +1,5 @@
 # TASK K-FIGHTWORDS1 - KALLI - fight night told in words (lean restart, week 2)
+Kind: research
 
 Model: Kalli (Grok bot, game design). Discipline: boxing (demo). Content only: no code, no repo.
 

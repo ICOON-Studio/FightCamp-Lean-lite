@@ -1,4 +1,5 @@
 # TASK_WORDSCONTRACT1 - blind contract test: the ring's words never disagree with the punches it plays (Arena)
+Status: DONE (Lean PR #7, S305)
 
 Model: Arena (arena.ai Agent Mode), repo ICOON-Studio/FightCamp-Lean-lite (code-only mirror of FightCamp-Lean main),
 branch main. Discipline: boxing (demo).

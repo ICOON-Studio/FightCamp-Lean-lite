@@ -1,4 +1,5 @@
 # TASK J_TESTS1 - JOHN - the tests a boxing coach uses to measure a boxer who trains, and real values by level
+Kind: research
 
 Status: OPEN (S370, Claude). Seat: John (real-world research). Discipline: boxing (amateur club, UK/England Boxing).
 

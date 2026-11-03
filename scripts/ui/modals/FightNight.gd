@@ -98,7 +98,10 @@ func _live(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 		la += int(x["landed"][0])
 		lb += int(x["landed"][1])
 	var names: Array = pv["names"]
-	v.add_child(UI.display("EXCHANGES WON %d-%d" % [won, exs.size() - won], 40, UI.GREEN if won * 2 > exs.size() else (UI.RED if won * 2 < exs.size() else UI.FG)))
+	# S373 (operator S369 "what is exchanges won ?"): the headline says what an exchange is and why it counts.
+	v.add_child(UI.display("EXCHANGES WON %d OF %d" % [won, exs.size()], 40, UI.GREEN if won * 2 > exs.size() else (UI.RED if won * 2 < exs.size() else UI.FG)))
+	v.add_child(UI.muted("A round is %d exchanges of %d seconds; the boxer who wins more of them takes the round." % [
+		Exchanges.EXCHANGES, int(Exchanges.EX_SECONDS)], UI.SMALL))
 	# S310: both boxers' energy, body shots taken and hurt, as the 3D fight display shows them.
 	var st := LiveRound.state(lv, exs.size())
 	v.add_child(UI.muted("Punches landed: %s %d, %s %d." % [names[0], la, names[1], lb], UI.SMALL))
@@ -177,7 +180,7 @@ func _round(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 		var centre := UI.vbox(18)
 		centre.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		centre.alignment = BoxContainer.ALIGNMENT_CENTER
-		centre.add_child(Broadcast.compubox([["Exchanges won", tot["won"][0], tot["won"][1]],
+		centre.add_child(Broadcast.compubox([["Exchanges won (%d s each)" % int(Exchanges.EX_SECONDS), tot["won"][0], tot["won"][1]],
 			["Punches landed", tot["landed"][0], tot["landed"][1]], ["To the body", tot["body"][0], tot["body"][1]]]))
 		if not en.is_empty():
 			centre.add_child(Broadcast.tank(float(en.get("a_end", 100.0)), float(en.get("b_end", 100.0))))

@@ -1,4 +1,5 @@
 # TASK K-PROLINE1 - KALLI - turning pro, and the scouting trial (lean restart, week 4)
+Kind: research
 
 Model: Kalli (Grok bot, game design). Discipline: boxing (demo). Design + content: no code, no repo.
 

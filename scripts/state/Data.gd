@@ -46,7 +46,7 @@ static func coach(id: String) -> Dictionary:
 ## The walk-in waiting at reception on day one. Decided: an amateur on the $250 club stipend.
 static func lucy() -> Dictionary:
 	return {
-		"id": "lucy", "name": "Lucy Jackson", "first": "Lucy", "sex": "f", "age": 21, "wc": "Lightweight", "limit": 61.2, "weight": 62.6,
+		"id": "lucy", "name": "Lucy Jackson", "first": "Lucy", "sex": "f", "age": 21, "wc": "Lightweight", "limit": 60.0, "weight": 61.4,
 		"stance": "orthodox", "style": "Out-boxer", "w": 3, "l": 1, "pot": 84, "cards": [], "focus": "conditioning", "div": "wlw",
 		"diet": "hold", "fatigue": 8, "weekly_salary": 250, "booked_fight": false, "history": [],
 		"stats": {"power": 58.4, "speed": 63.2, "technique": 60.1, "defense": 57.3, "conditioning": 61.6, "fight_iq": 59.0,
@@ -119,12 +119,14 @@ const COACH_IDS: Array[String] = ["reid", "hale"]
 ## S371 MALE1 (operator S370: every playthrough = a male boxer + Ana): the men's four are England Boxing senior men's
 ## classes in force from 1 Jan 2025 (John J_MEN1: 55, 57.5*, 60, 62.5*, 65, 70, 75 ...; * = England Boxing only); the
 ## opponents are Kalli's K_MEN1 (fictional names, real club names).
+## S373 the women's four follow the same 2025 classes (John J_MEN1: 61.2 kg is in no rulebook, 66 kg was dropped on
+## 1 Jan 2025): 57, 60, 65, 75 - valid under England Boxing and World Boxing. Lucy and Samira walk 1.4 kg over as before.
 const DIVISIONS := {
-	"wlw": {"name": "Lightweight, women's amateur", "short": "lightweight", "limit": 61.2, "sex": "f",
+	"wlw": {"name": "Lightweight, women's amateur", "short": "lightweight", "limit": 60.0, "sex": "f",
 		"opponents": ["Maria Ortega", "Priya Nair", "Erin Doyle"], "mismatch": "Dana Whitfield"},
 	"wfw": {"name": "Featherweight, women's amateur", "short": "featherweight", "limit": 57.0, "sex": "f",
 		"opponents": ["Holly Marsh", "Grace Adeyemi", "Nina Kowalski"], "mismatch": "Bethany Cole"},
-	"www": {"name": "Welterweight, women's amateur", "short": "welterweight", "limit": 66.0, "sex": "f",
+	"www": {"name": "Welterweight, women's amateur", "short": "welterweight", "limit": 65.0, "sex": "f",
 		"opponents": ["Jade Okoro", "Laura Finch", "Rosa Delgado"], "mismatch": "Kerry Walsh"},
 	"wmw": {"name": "Middleweight, women's amateur", "short": "middleweight", "limit": 75.0, "sex": "f",
 		"opponents": ["Amy Croft", "Siobhan Byrne", "Leah Morgan"], "mismatch": "Victoria Hale"},
@@ -195,7 +197,7 @@ const PROSPECTS: Array[Dictionary] = [
 	{"id": "kira", "name": "Kira Mensah", "first": "Kira", "sex": "f", "age": 18, "wc": "Featherweight", "div": "wfw", "weight": 58.3,
 		"stance": "orthodox", "style": "Out-boxer", "w": 1, "l": 0, "pot": 86, "note": "fast hands, thin chin",
 		"stats": {"power": 54.0, "speed": 66.5, "technique": 59.0, "defense": 57.5, "conditioning": 58.0, "fight_iq": 57.0, "chin": 52.0}},
-	{"id": "samira", "name": "Samira Khan", "first": "Samira", "sex": "f", "age": 18, "wc": "Welterweight", "div": "www", "weight": 67.4,
+	{"id": "samira", "name": "Samira Khan", "first": "Samira", "sex": "f", "age": 18, "wc": "Welterweight", "div": "www", "weight": 66.4,
 		"stance": "orthodox", "style": "Slugger", "w": 2, "l": 1, "pot": 82, "note": "raw power, no defence",
 		"stats": {"power": 66.0, "speed": 57.0, "technique": 54.5, "defense": 50.5, "conditioning": 60.0, "fight_iq": 54.0, "chin": 63.0}},
 	{"id": "tess", "name": "Tess Reilly", "first": "Tess", "sex": "f", "age": 23, "wc": "Middleweight", "div": "wmw", "weight": 76.1,

@@ -24,6 +24,7 @@ const PlanTest := preload("res://scripts/state/PlanTest.gd")
 const PlanPanel := preload("res://scripts/ui/PlanPanel.gd")
 const FlowView := preload("res://scripts/ui/FlowView.gd")
 const StrikeBrowser := preload("res://scripts/ui/StrikeBrowser.gd")
+const PlanRecord := preload("res://scripts/rules/PlanRecord.gd")
 
 const PLACE_W := 250.0
 const OPT := Vector2(262, 64)
@@ -45,6 +46,7 @@ var f: Dictionary
 var on_play: Callable
 var arrows: Array
 var _fill: ColorRect
+var _bouts := {}   # S373 FLOWBOUT1: move id -> its PlanRecord.rates row over the fighter's real bouts
 var _fill_to := 0.0
 var _band: Label
 var _pulse := false
@@ -97,6 +99,9 @@ func _limit() -> int:
 
 func _build() -> void:
 	UI.clear(self)
+	_bouts = {}
+	for r in PlanRecord.rates(main.career.results if main != null and main.get("career") != null else [], str(f.get("id", ""))):
+		_bouts[str(r["move"])] = r
 	add_child(_head())
 	add_child(_meter())
 	add_child(UI.caps("WHERE THE FIGHT GOES"))
@@ -221,6 +226,7 @@ func _line(place: String, when: String) -> Control:
 		var o := _opt(opts, mid)
 		top.add_child(UI.label(str(SM.move(mid).get("name", mid)), UI.BODY, UI.GOLD, "bold"))
 		_rating(top, o)
+		_in_bouts(top, mid)
 	else:
 		top.add_child(UI.muted("no line - improvises here", UI.SMALL))
 	top.add_child(UI.spacer())
@@ -242,6 +248,19 @@ func _line(place: String, when: String) -> Control:
 				open = ""
 				_refresh()))
 	return card
+
+
+## S373 FLOWBOUT1: the line's move across the fighter's real bouts (PlanRecord: exchanges it was thrown in, won), and
+## the Playbook's word on it - "works" / "fails" / "even", or "too early" under PlanRecord.MIN_USED throws.
+func _in_bouts(row: Control, mid: String) -> void:
+	var r: Dictionary = _bouts.get(mid, {})
+	if r.is_empty() or int(r["used"]) <= 0:
+		return
+	var word := PlanRecord.verdict(r)
+	var chip := UI.chip("In bouts: %d of %d won, %s" % [int(r["won"]), int(r["used"]), word],
+		{"works": "green", "fails": "red", "even": "", "too early": ""}.get(word, ""))
+	chip.name = "InBouts_" + mid.replace("@", "_").replace(" ", "_")
+	row.add_child(chip)
 
 
 ## The answer's fit chip and its edge, said the way the bout counts it.

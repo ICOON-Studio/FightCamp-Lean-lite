@@ -1,4 +1,5 @@
 # TASK_SMOOTH2 - the fight's own layers add 377 kinks a minute on top of the clips: cut them (Goose, FightCamp-Lean)
+Status: SUPERSEDED (by SMOOTH3, S351)
 
 Model: Goose (cloud), repo ICOON-Studio/FightCamp-Lean branch main. Discipline: boxing (demo).
 Why now: operator S316 on the fight vs the raw mocap takes: "the animations look so much better here, but in the fight are

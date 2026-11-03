@@ -1,4 +1,5 @@
 ﻿# ROUND 3 (S343, Claude rendered round 2 (646db61) on a real GPU - read this first; it overrides the text below)
+Status: DONE (S350 r4 d6971db)
 
 Round 2's probe printed `PAD CONTACT 3/3`, but the VISUAL GATE FAILED on its own stills, committed as the red on main:
 docs/playtest/padwork_red/S343_r2_first_contact.png and S343_r2_last_contact.png.

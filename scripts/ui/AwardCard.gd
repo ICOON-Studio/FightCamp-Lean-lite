@@ -45,12 +45,19 @@ static func _wall(f: Dictionary) -> HBoxContainer:
 	h.name = "RecordsWall"
 	h.add_child(UI.caps("RECORDS WALL"))
 	var rows := TestDay.wall(f)
+	var sex := Data.sex_of(f)
 	if rows.is_empty():
 		h.add_child(UI.muted("the first Sunday check-in writes the numbers up", UI.SMALL))
 	for r in rows:
 		var cell := UI.hbox(6)
 		cell.add_child(UI.muted(str(r["name"]), UI.SMALL))
 		cell.add_child(UI.label(TestDay.text(r), UI.BODY, UI.GOLD if float(r["prev"]) >= 0.0 else UI.FG, "bold"))
+		# S373 Kalli K_CALIB1 Q3: the norm word for her own sex beside every number.
+		var word := TestDay.norm(str(r["id"]), float(r["best"]), sex)
+		if word != "":
+			var w := UI.label(word, UI.SMALL, UI.GREEN if word == "ELITE" else (UI.GOLD if word == "CLUB" else UI.MUTED), "bold")
+			w.name = "Norm_" + str(r["id"])
+			cell.add_child(w)
 		if float(r["prev"]) >= 0.0:
 			var was := RichTextLabel.new()
 			was.bbcode_enabled = true
@@ -62,10 +69,10 @@ static func _wall(f: Dictionary) -> HBoxContainer:
 		if float(r["best"]) > float(r["first"]) and float(r["first"]) != float(r["prev"]):  # not the chalked number twice
 			cell.add_child(UI.label("day %d: %s" % [int(r["first_d"]), TestDay.text(r, "first")], UI.SMALL, UI.GREEN))
 		h.add_child(cell)
-	Tips.card(h, func(): return {"title": "Records wall", "rows": rows.map(func(r): return [str(r["name"]), TestDay.text(r),
+	Tips.card(h, func(): return {"title": "Records wall", "rows": rows.map(func(r): return [str(r["name"]), TestDay.text(r) + " " + TestDay.norm(str(r["id"]), float(r["best"]), sex).to_lower(),
 		("beat " + (str(r["fmt"]) % float(r["prev"]))) if float(r["prev"]) >= 0.0 else "first mark",
 		"day %d: %s" % [int(r["first_d"]), TestDay.text(r, "first")]]),
-		"means": "Every Sunday the coach times three tests: the bleep test (engine), punches in 10 seconds (speed) and the rear hand's force on the bag sensor (power). A new best goes up in chalk and the old one is crossed out. Train the stat and the number moves - no luck in it."})
+		"means": "Every Sunday the coach times three tests: the bleep test (engine), punches in 10 seconds, the average of three tries (speed) and the rear hand's force on the bag sensor (power). The word beside each number is where it sits for a %s: beginner, club or elite. A new best goes up in chalk and the old one is crossed out. Train the stat and the number moves - no luck in it." % ("man" if sex == "m" else "woman")})
 	return h
 
 

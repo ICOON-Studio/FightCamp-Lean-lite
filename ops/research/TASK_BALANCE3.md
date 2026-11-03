@@ -1,4 +1,5 @@
 # TASK_BALANCE3 - what-if sweep: round randomness and a gentler tiredness curve (Goose, FightCamp-Lean)
+Status: DONE (S304, #6 aca8780)
 
 Model: Goose (qwen3.7-plus via QWEN_API_KEY), cloud, repo ICOON-Studio/FightCamp-Lean branch main.
 Discipline: boxing (demo).

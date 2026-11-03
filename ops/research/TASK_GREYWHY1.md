@@ -1,4 +1,5 @@
 # TASK_GREYWHY1 - every greyed button says why (and when it opens) (Cursor)
+Status: DONE (merged S337 6010b3e2)
 
 Model: Cursor (composer default). Discipline: BOXING = demo work (operator Q-S294-59 "Yes, those two first": the NEXT STEP card
 and "a reason on every greyed button (why you can't yet + when)"). Repo: **E:\FightCamp\Lean** (worktree

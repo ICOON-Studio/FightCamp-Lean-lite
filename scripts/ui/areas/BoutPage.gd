@@ -8,6 +8,7 @@ const Bouts := preload("res://scripts/state/Bouts.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const AmateurBooking := preload("res://scripts/rules/AmateurBooking.gd")
 const OppFileCard := preload("res://scripts/ui/OppFileCard.gd")
+const Sim := preload("res://scripts/state/Sim.gd")
 
 
 func build(main: Node, offer_id: String) -> void:
@@ -39,10 +40,13 @@ func build(main: Node, offer_id: String) -> void:
 	report[1].add_child(OppFileCard.build(opp, false, OppFileCard.OppFile.history(c.results, str(opp["name"]))))
 	grid.add_child(report[0])
 	var weeks := int((int(o["day"]) - c.day) / 7.0)
+	# S373 the weigh-in forecast: her weight now and on the scale after a camp cut from tomorrow (Sim.weigh_forecast).
+	var wf := Sim.weigh_forecast(c, f, int(o["day"]))
 	var terms := UI.card("TERMS")
 	UI.add_rows(terms[1], [
 		UI.kv("Date", "%s, 3 x 3 min" % Clock.fmt(int(o["day"]))),
 		UI.kv("Weight", "%.1f kg" % f["limit"], UI.FG, "mono"),
+		UI.kv("On the scale", "%.1f now, %.1f on the day" % [float(wf["now"]), float(wf["day"])], UI.GREEN if bool(wf["ok"]) else UI.RED, "mono"),
 		UI.kv("Purse", "none, amateur"),
 		UI.kv("Club ticket cut", UI.money(BoutRules.TICKET_CUT), UI.GREEN, "mono"),
 		UI.kv("Time for a camp", "yes, %d weeks" % weeks if weeks >= 1 else "no"),
@@ -74,4 +78,11 @@ func build(main: Node, offer_id: String) -> void:
 		foot.add_child(why)
 	elif not open:
 		foot.add_child(UI.muted("Answered.", UI.SMALL))
+	elif not bool(wf["ok"]):
+		var heavy := UI.label("%s would come in %.1f kg over even cutting from tomorrow. Missing weight calls the bout off and the club pays %s for the empty slot." % [
+			f["first"], float(wf["over"]), UI.money(BoutRules.MISSED_WEIGHT_COST)], UI.SMALL, UI.RED, "body", true)
+		heavy.name = "WeightWarn"
+		heavy.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		heavy.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		foot.add_child(heavy)
 	add_child(foot)

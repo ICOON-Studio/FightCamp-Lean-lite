@@ -1,4 +1,5 @@
 # TASK_BALANCE1 - balancing harness for the Lean bout (Goose, FightCamp-Lean)
+Status: DONE (S304, Lean #2 be1ed2b)
 
 Model: Goose (qwen3.7-plus via QWEN_API_KEY), cloud, repo ICOON-Studio/FightCamp-Lean branch main.
 Discipline: boxing (demo).

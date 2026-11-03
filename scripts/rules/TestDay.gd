@@ -7,8 +7,11 @@ extends RefCounted
 ##   ENGINE = the bleep test (SkillAwards.bleep); SPEED = punches in 10 s; POWER = the rear hand's peak force in newtons.
 ## Women's values (John J_TESTS2): elite women 52 punches in 10 s (MEASURED); beginners 35-42, intermediate 45-50
 ## (ESTIMATE); rear-hand force beginner ~490 N, club ~770 N, elite ~990 N (ESTIMATE, one study's ratios). Men's (S372,
-## J_TESTS3): the bleep test and punches in 10 s; no force test yet (POWER_MEN_AT).
-##   known(sex)  measure(f) -> {engine, speed, power}  record(f, day) -> [beaten rows]  wall(f) -> [rows]
+## J_TESTS3): the bleep test and punches in 10 s; force from S373 J_TESTS4 (POWER_MEN_AT).
+## S373 Kalli K_CALIB1 Q1 (a 12-week camp should chalk about 5 bests per test, not 2 or 10): punches read as the average
+## of 3 tries to 0.1, force rounds to 25 N - display only, the anchors stay John's. Q3: every number carries its norm word
+## for that sex (BEGINNER / CLUB / ELITE), so Ana's 9.0 never reads as "a beginner man".
+##   known(sex)  measure(f) -> {engine, speed, power}  record(f, day) -> [beaten rows]  wall(f) -> [rows]  norm(id, v, sex)
 
 const SkillAwards := preload("res://scripts/rules/SkillAwards.gd")
 
@@ -19,13 +22,16 @@ const POWER_AT := [[40.0, 490.0], [60.0, 770.0], [85.0, 990.0]]
 ## S372 men (John J_TESTS3 Q4): elite men 163 punches in 30 s on the bag, 28.6 in the first 5 s - about 57 in 10 s
 ## (ESTIMATE); no novice or club count exists, so those two are the women's scaled by the elite ratio 57/52 (ESTIMATE).
 const SPEED_MEN_AT := [[40.0, 42.0], [60.0, 52.0], [85.0, 57.0]]
-## Men's force (Smith 2000: rear hand 2,381 N novice to 4,800 N elite) was read on another device than the women's numbers
-## above, so mixed in a man would read five times her force. Empty = a man takes no force test until a same-study
-## men-to-women ratio lands (John J_TESTS4).
-const POWER_MEN_AT := []
+## S373 men's force (John J_TESTS4, research/J_TESTS4_ANSWER.md): Smith 2000's 2,381-4,800 N came off another device, so
+## the men's anchors are the women's times the same-device men:women rear-hand ratio - novice 1.7 (ESTIMATE, between the
+## untrained arm-power gap and the trained one), club 1.4 (Busko 2016 club boxers 1.36, MEASURED ratio), elite 1.35
+## (Loturco 2016 national team 1.34-1.39) -> 830 / 1,080 / 1,340 N (DERIVED).
+const POWER_MEN_AT := [[40.0, 830.0], [60.0, 1080.0], [85.0, 1340.0]]
+const SPEED_STEP := 0.1
+const POWER_STEP := 25.0
 const TESTS: Array[Dictionary] = [
 	{"id": "engine", "name": "Bleep test", "unit": "level", "fmt": "%.1f"},
-	{"id": "speed", "name": "Punches in 10 s", "unit": "punches", "fmt": "%.0f"},
+	{"id": "speed", "name": "Punches in 10 s (avg of 3)", "unit": "punches", "fmt": "%.1f"},
 	{"id": "power", "name": "Rear-hand force", "unit": "N", "fmt": "%.0f"},
 ]
 
@@ -54,8 +60,22 @@ static func measure(f: Dictionary) -> Dictionary:
 	var sex := str(f.get("sex", "f"))
 	var power_at: Array = POWER_MEN_AT if sex == "m" else POWER_AT
 	return {"engine": SkillAwards.bleep(float(st.get("conditioning", 50.0)), sex),
-		"speed": roundf(_curve(float(st.get("speed", 50.0)), SPEED_MEN_AT if sex == "m" else SPEED_AT)),
-		"power": snappedf(_curve(float(st.get("power", 50.0)), power_at), 5.0) if not power_at.is_empty() else -1.0}
+		"speed": snappedf(_curve(float(st.get("speed", 50.0)), SPEED_MEN_AT if sex == "m" else SPEED_AT), SPEED_STEP),
+		"power": snappedf(_curve(float(st.get("power", 50.0)), power_at), POWER_STEP) if not power_at.is_empty() else -1.0}
+
+
+## The norm word for a test value on that sex's anchors: ELITE from the elite mark, CLUB from halfway between the
+## beginner and club marks (S373 still: Danny's 12.2 read BEGINNER though an untrained man reaches 9.0), else BEGINNER.
+static func norm(id: String, v: float, sex: String) -> String:
+	var at: Array = {"engine": SkillAwards.bleep_at(sex), "speed": SPEED_MEN_AT if sex == "m" else SPEED_AT,
+		"power": POWER_MEN_AT if sex == "m" else POWER_AT}.get(id, [])
+	if at.size() < 3:
+		return ""
+	var step: float = {"engine": 0.1, "speed": SPEED_STEP, "power": POWER_STEP}[id]  # the anchor as the wall shows it
+	if v >= snappedf(float(at[2][1]), step) - 0.001:
+		return "ELITE"
+	var club_from := (float(at[0][1]) + float(at[1][1])) / 2.0
+	return "CLUB" if v >= snappedf(club_from, step) - 0.001 else "BEGINNER"
 
 
 ## The Sunday check-in: measure, keep each new best (the old one stays as "prev" for the chalk line) and return the tests

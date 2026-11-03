@@ -1,4 +1,5 @@
 # TASK_BALANCE2 - is round 3 harder? Round-by-round win share through the game's real round (Goose, FightCamp-Lean)
+Status: DONE (S304)
 
 Model: Goose (qwen3.7-plus via QWEN_API_KEY), cloud, repo ICOON-Studio/FightCamp-Lean branch main.
 Discipline: boxing (demo).

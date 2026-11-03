@@ -1,4 +1,5 @@
 # TASK J-INSIDE3 - JOHN - how often each way out of the inside happens (counts, not technique)
+Kind: research
 
 Discipline: boxing (demo). Research only (no code).
 

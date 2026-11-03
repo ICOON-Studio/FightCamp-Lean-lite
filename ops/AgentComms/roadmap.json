@@ -3,16 +3,16 @@
  "updated": "2026-11-03",
  "author": "claude S294",
  "now": {
-  "id": "S372",
+  "id": "S373",
   "owner": "claude",
   "updated": "2026-11-03",
-  "summary": "S372: FIGHT9 round 1 never compiled (3 parse errors, filmed a frozen menu 1/10) - fixed on PR #24, round 2 builds on it with the operator's C218 legs note first; seat_dispatch compile gate + agy repair pass; Ziva BODYREACT1 collected (40/40 body shots react); men's test norms (J_TESTS3); records wall Day 1 vs today. Male MetaHuman boxers in (five restored from the old repo, bare-chested - operator: no tops; jump=men_fight; male body-map holo).",
-  "next_action": "S373, in order: (1) the judged loops - FIGHT9 on Antigravity/Argon (round 2 running on BASE agy/fight9r1 = round 1 compile-fixed; seat_dispatch now gates compile errors) and BJJ9 on Ziva (round 4): read each LOOP line, sharpen a stalled brief, collect at 9/10 (merge main into the kept FIGHT9 branch first - BODYREACT1 touched BeatClips/BeatFire); (2) guide_tour with Danny + Ana (men's bodies + male holo are in); Danny missed weight on his first offer - check offer lead vs cut rate; (3) collect John J_TESTS4 (men's force ratio -> TestDay.POWER_MEN_AT) and Kalli K_CALIB1 (curve review); (4) FLOWBOUT1 into Record + Playbook; (5) GOALTESTS1 phase 2: test-day moment + the passed grade upgrades its move cards; (6) women's limits 60/65.",
-  "next_acceptance": "Each seat collected by its own probe line (PASS) and a film the operator can watch; GOALTESTS1 only after his yes.",
+  "summary": "S373: Gemini's monthly spend cap (HTTP 429) blinds both judged loops - board Q-S294-94; FIGHT9R2 probe 15/18 after Claude's probe fix (moving legs fixed, no referee), kept as R3 BASE; seat_dispatch holds a loop on an unjudged film and parses the brief's scripts. Built: the offer's weigh-in forecast (Danny 61.6 -> 60.5 red), men's force + norm words + calmer test steps (J_TESTS4, K_CALIB1), women's 2025 classes, graded moves cost less gas, FLOWBOUT1 on screen, tired legs red, exchanges-won label. Qwen PASSEDSTAMP1 queued.",
+  "next_action": "S374, in order: (1) Q-S294-94 on the board - the Gemini monthly spend cap stops every Argon verdict (FIGHT9 + BJJ9); if raised: `python ops/Tools/seat_dispatch.py rejudge FIGHT9R2` (and R3's films), else judge rounds by their probes; (2) the loops: FIGHT9R3 (agy, BASE agy/fight9r2 - probe 15/18, the C218 moving legs fixed; this round = the clinch push-off, 3 FAIL) and Ziva BJJ9 round 8 - read seat_dispatch.log LOOP/COMPILE lines, collect at 9/10 (merge main into the kept FIGHT9 branch first); (3) collect Qwen PASSEDSTAMP1 (add passed_stamp_test to run_tests.sh), John J_WEIGHT1 (real amateur cut rates -> WeekPlan CUT_DEFICIT/TAPER_KG if they differ) and Kalli K_GRADED1 (SkillAwards.ECONOMY); (4) guide_tour with Danny + Ana (not run in S373); (5) SCOUTPLAN1 - scouting drives the plan.",
+  "next_acceptance": "FIGHT9 / BJJ9 rounds scored by Argon once the cap is raised (else by their probes); PASSEDSTAMP1 collected by passed_stamp_test PASS; J_WEIGHT1 / K_GRADED1 numbers applied or recorded as matching.",
   "last_working_commit": "967f8bae",
   "verified_playable": "Main exe (114a309): a quick-start career played 10 weeks live in the exe - two boxers (walk-in + a scouting trial), camps, tape room, Playbook plans, two live fights won with calls and corners, Ana's open gold; the new face-card pages work live.",
   "incomplete_blocked": "claude/bjjmatch1 unmerged (waits for the operator's belt-match playtest); PR #20 CAMCLINCH1 uncollected (needs cam_view_probe run windowed); agy/refbreak1 superseded (remove the referee); the Miro production map was not moved in S369.",
-  "awaiting_operator": "One belt match (FightCamp.exe -- jump=grapple match=1) before claude/bjjmatch1 merges; play the skills award road (Training tab).",
+  "awaiting_operator": "Q-S294-94: raise the Gemini monthly spend cap (ai.studio/spend) or judge by probes only. One belt match (FightCamp.exe -- jump=grapple match=1) before claude/bjjmatch1 merges; play the skills award road (Training tab).",
   "branch_note": "claude/bjjmatch1 e115893 (belt match, Ana body, HUD numbers; 118/118) not merged"
  },
  "next": "Build the operator's fight changes (remove the referee: push-off; tired legs red + weaker shots; body-shot reactions; the flow per bout); then scouting -> plan (tape answer into the plan, the board reads the file + rounds, the plan visible in the ring).",
@@ -1526,7 +1526,13 @@
    "summary": "S372: FIGHT9 round 1 never compiled (3 parse errors, filmed a frozen menu 1/10) - fixed on PR #24, round 2 builds on it with the operator's C218 legs note first; seat_dispatch compile gate + agy repair pass; Ziva BODYREACT1 collected (40/40 body shots react); men's test norms (J_TESTS3); records wall Day 1 vs today. Male MetaHuman boxers in (five restored from the old repo, bare-chested - operator: no tops; jump=men_fight; male body-map holo). Digest research/S372_DIGEST.md."
   }
  ],
- "blocked_on_operator": [],
+ "blocked_on_operator": [
+  {
+   "id": "Q-S294-94",
+   "blocks": "FIGHT9 + BJJ9 Argon verdicts",
+   "question": "The Gemini project hit its monthly spend cap (HTTP 429): raise it at ai.studio/spend, or judge the loops by their probes only?"
+  }
+ ],
  "sale_list": {
   "_note": "The Unity Asset Store sale shortlist Claude has recommended (R142, its Sidekick addendum, and the packages the operator asked about on 2026-09-13). The ops board renders it with links. Prices are LIST EUR read from each store record on 2026-09-13 - nothing was discounted yet. Claude never buys; the operator does. Every pack is the standard Unity EULA: usable in Godot, and never fed to any AI or generator tool.",
   "opens": "2026-09-14",
@@ -4430,7 +4436,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-03 00:18 board_sync",
+  "updated": "2026-11-03 S373",
   "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4573,56 +4579,51 @@
    {
     "id": "FIGHT9",
     "who": "antigravity",
-    "title": "The live fight to 9/10 on Gemini 4 Argon's judging - Argon fixes, the dispatcher films and judges each round (main 2/10)"
+    "title": "The live fight to 9/10 on Argon's judging - R2 probe 15/18 (moving legs fixed, no referee; clinch breaks pass through), not judged: Gemini spend cap (Q-S294-94); R3 queued on agy/fight9r2 = the push-off"
    },
    {
     "id": "BJJ9",
     "who": "ziva",
-    "title": "The BJJ belt match to 9/10 on Argon's judging - Ziva runs the loop after BODYREACT1 (2/10 now)"
+    "title": "The BJJ belt match to 9/10 - Ziva at round 7 (f1e25860, last scored round 5 = 4/10); judging blocked by the Gemini spend cap"
    },
    {
-    "id": "NOREF1",
+    "id": "PASSEDSTAMP1",
     "who": "qwen",
-    "title": "No referee: both boxers push off (PushOff.gd)"
+    "title": "Test-day moment: a PASSED stamp card in the week review when a skills grade passes (queued, seat_dispatch)"
    },
    {
-    "id": "BODYREACT1",
-    "who": "ziva",
-    "title": "Body shots react (body_react_probe: 14 of 42 landed body shots show nothing)"
+    "id": "J_WEIGHT1",
+    "who": "john",
+    "title": "Real amateur cut rates (gradual + fight week) and a measured club-women bleep figure (gbot)"
    },
    {
-    "id": "MALE1",
-    "who": "claude+john+kalli",
-    "title": "Men's boxing: four men's divisions + 16 men (K_MEN1), Danny and Josh in scouting, sex on every fighter"
-   },
-   {
-    "id": "NOPRONOUN1",
-    "who": "claude",
-    "title": "No she/her in game text again (the S354 rule; 224 lines had crept back) + a guard test"
+    "id": "K_GRADED1",
+    "who": "kalli",
+    "title": "How much gas a passed grade should save in the ring (gbot)"
    }
   ],
   "next": [
    {
     "id": "GOALTESTS1",
     "who": "claude+john",
-    "title": "Training goals you can feel: phase 1 DONE (skills award road + bleep engine, 1e89b6a); next the test-day moment, records wall, Power/Speed tests (John J_TESTS2)",
+    "title": "Training goals you can feel: phase 2 - records wall + men's force + norm words + calmer steps DONE, a passed grade upgrades its move cards DONE (S373); next the PASSED stamp (Qwen) and the 3D pad-round moment (agents)",
     "after": ""
+   },
+   {
+    "id": "WEIGHTCUT1",
+    "who": "claude+john",
+    "title": "Cut rates benchmarked (John J_WEIGHT1) - the offer's weigh-in forecast is in (S373); change the model only if the real numbers differ"
    },
    {
     "id": "MALE1B",
     "who": "claude",
-    "title": "Male MetaHuman boxers (4-6, Unreal on a GREEN PC with Chrome closed) + the guide tour with a man and Ana"
+    "title": "Guide tour with Danny + Ana (five male MetaHumans + male holo are in since S372)"
    },
    {
     "id": "WEIGHIN3D1",
     "who": "ziva+ludo",
     "title": "Weigh-in cutscene: step on the scale, the number, the pose, a face-off for pro bouts (operator S370) - Ziva after BODYREACT1, TASK_WEIGHIN3D1",
     "after": "BODYREACT1"
-   },
-   {
-    "id": "TIREDLEGS1",
-    "who": "claude",
-    "title": "Tired fighter: the legs go amber/red on the holo and tired shots land lighter (operator S369)"
    },
    {
     "id": "SCOUTPLAN1",
@@ -4877,6 +4878,56 @@
   },
   "done_recently": [
    {
+    "id": "TIREDLEGS1",
+    "who": "claude",
+    "title": "S373: an empty tank turns the legs red on the holo + HUD, shortens steps, lightens shots (operator S369)"
+   },
+   {
+    "id": "FLOWBOUT1B",
+    "who": "claude",
+    "title": "S373: the plan record on screen - Record tab tally + Game plan 'In bouts: 8 of 12 won, works'"
+   },
+   {
+    "id": "WEIGHFORECAST1",
+    "who": "claude",
+    "title": "S373: every offer shows the weigh-in forecast (Danny 61.6 -> 60.5 red at 17 days)"
+   },
+   {
+    "id": "CLASSES2025",
+    "who": "claude+john",
+    "title": "S373: women's classes 57/60/65/75 kg; old saves keep the same cut"
+   },
+   {
+    "id": "GRADED1",
+    "who": "claude",
+    "title": "S373: a passed grade's moves wear its colour and cost less gas, card and bout"
+   },
+   {
+    "id": "TESTCAL1",
+    "who": "claude+john+kalli",
+    "title": "S373: men's force anchors (J_TESTS4) + Kalli's calibration (K_CALIB1)"
+   },
+   {
+    "id": "NOREF1",
+    "who": "qwen",
+    "title": "Done: No referee: both boxers push off (PushOff.gd)"
+   },
+   {
+    "id": "BODYREACT1",
+    "who": "ziva",
+    "title": "Done: Body shots react (body_react_probe: 14 of 42 landed body shots show nothing)"
+   },
+   {
+    "id": "MALE1",
+    "who": "claude+john+kalli",
+    "title": "Done: Men's boxing: four men's divisions + 16 men (K_MEN1), Danny and Josh in scouting, sex on every fighter"
+   },
+   {
+    "id": "NOPRONOUN1",
+    "who": "claude",
+    "title": "Done: No she/her in game text again (the S354 rule; 224 lines had crept back) + a guard test"
+   },
+   {
     "id": "FLOWBOUT1",
     "who": "arena",
     "title": "Every bout keeps its plan's results (PlanRecord, PR #21 collected)"
@@ -4895,56 +4946,6 @@
     "id": "UIPOLISH1",
     "who": "claude",
     "title": "Management pages as face cards: Training, Fight camps, Offers standing + next-offer date, Money bars"
-   },
-   {
-    "id": "BJJMATCH1",
-    "who": "claude",
-    "title": "The BJJ belt match on the 3D pair: your calls on settles, odds + miss cost, real no-gi points (branch, playtest first)"
-   },
-   {
-    "id": "BJJBODY1",
-    "who": "claude",
-    "title": "Ana's strength and cardio: trained by the mat classes, used in the belt match"
-   },
-   {
-    "id": "HUDNUM1",
-    "who": "claude",
-    "title": "Numbers on the fight HUD rings"
-   },
-   {
-    "id": "PLAYTEST2",
-    "who": "claude",
-    "title": "Planning playtest: two boxers + BJJ, scouting -> plan -> fight, findings + proposal"
-   },
-   {
-    "id": "PLAYTEST",
-    "who": "claude",
-    "title": "A critic's playtest of the first hour: 6.5/10, what works and what holds it back"
-   },
-   {
-    "id": "GEMJUDGE",
-    "who": "claude",
-    "title": "Gemini watches the fight film and the clips and names the motion faults"
-   },
-   {
-    "id": "GEMMETER",
-    "who": "claude",
-    "title": "The board shows what Gemini costs this month"
-   },
-   {
-    "id": "ONEREPO",
-    "who": "claude",
-    "title": "One repo: the ops board, agent tools and research now live inside the game repo (ops/)"
-   },
-   {
-    "id": "DISKGATE",
-    "who": "claude",
-    "title": "The PC watchdog stops heavy work when E: is nearly full or stalling"
-   },
-   {
-    "id": "ANIMPREV",
-    "who": "claude",
-    "title": "Every boxer clip in the game has a turning preview on the Animations page"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -5069,6 +5070,6 @@
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "967f8bae",
- "next_action": "S373, in order: (1) the judged loops - FIGHT9 on Antigravity/Argon (round 2 running on BASE agy/fight9r1 = round 1 compile-fixed; seat_dispatch now gates compile errors) and BJJ9 on Ziva (round 4): read each LOOP line, sharpen a stalled brief, collect at 9/10 (merge main into the kept FIGHT9 branch first - BODYREACT1 touched BeatClips/BeatFire); (2) guide_tour with Danny + Ana (men's bodies + male holo are in); Danny missed weight on his first offer - check offer lead vs cut rate; (3) collect John J_TESTS4 (men's force ratio -> TestDay.POWER_MEN_AT) and Kalli K_CALIB1 (curve review); (4) FLOWBOUT1 into Record + Playbook; (5) GOALTESTS1 phase 2: test-day moment + the passed grade upgrades its move cards; (6) women's limits 60/65.",
+ "next_action": "S374, in order: (1) Q-S294-94 on the board - the Gemini monthly spend cap stops every Argon verdict (FIGHT9 + BJJ9); if raised: `python ops/Tools/seat_dispatch.py rejudge FIGHT9R2` (and R3's films), else judge rounds by their probes; (2) the loops: FIGHT9R3 (agy, BASE agy/fight9r2 - probe 15/18, the C218 moving legs fixed; this round = the clinch push-off, 3 FAIL) and Ziva BJJ9 round 8 - read seat_dispatch.log LOOP/COMPILE lines, collect at 9/10 (merge main into the kept FIGHT9 branch first); (3) collect Qwen PASSEDSTAMP1 (add passed_stamp_test to run_tests.sh), John J_WEIGHT1 (real amateur cut rates -> WeekPlan CUT_DEFICIT/TAPER_KG if they differ) and Kalli K_GRADED1 (SkillAwards.ECONOMY); (4) guide_tour with Danny + Ana (not run in S373); (5) SCOUTPLAN1 - scouting drives the plan.",
  "next_acceptance": "Each built fight change shown live in the exe with a still/film and its tests green: no referee in the ring - a clinch ends with both boxers pushing off back to range; a tired boxer's legs amber/red on the holo and her shots land lighter (a probe measures it); body shots draw a hit reaction; each bout's THE PLAN, LIT UP saved on the fighter page."
 }

@@ -1,4 +1,6 @@
 # TASK J_TESTS4 - John (research) - men's vs women's punch force on the SAME device (S372)
+Kind: research
+Status: DONE
 
 Thanks for J_TESTS3 - the men's bleep and punch counts are in the game now (ops/research/J_TESTS3_ANSWER.md).
 

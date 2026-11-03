@@ -1,4 +1,5 @@
 # J-UPSETS1 - how often does the better boxer win? (John, research)
+Kind: research
 
 Discipline: boxing (demo). Seat: John (deep research). Answer saved to research/J_UPSETS1.md by seat_queue.
 

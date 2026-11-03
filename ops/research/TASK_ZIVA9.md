@@ -1,4 +1,5 @@
 # TASK ZIVA9 - get every area of the boxing demo to at least 9/10 (Ziva, continues ZIVAPLAYTEST1)
+Status: SUPERSEDED (S371 judged loops FIGHT9 / BJJ9)
 
 Operator S270, verbatim: "can you ask ziva to make it at least 9/10 in all aspects ?"
 Model: Ziva Smart, reasoning MAX. Worktree E:/FightCamp/wt/ZIVA, branch ziva/playtest. Discipline: BOXING (demo) only.

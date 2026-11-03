@@ -1,4 +1,5 @@
 # TASK J-KDRATES1 - JOHN - knockdowns and stoppages in WOMEN'S AMATEUR boxing (real numbers, with sources)
+Kind: research
 
 Model: John (Grok bot, research). Discipline: boxing (demo). Research only: no code.
 

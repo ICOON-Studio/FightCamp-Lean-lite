@@ -22,7 +22,7 @@ func _initialize() -> void:
 	# S312: the opponent's weight is a number inside the class limit, never the words "made weight".
 	var kg := TaleOfTape.opp_kg(opp, float(f["limit"]))
 	_check(str(by["WEIGHT"][2]) == "%.1f kg" % kg and kg <= float(f["limit"]) and kg >= float(f["limit"]) - 1.5, "the opponent weighs in a little under the limit")
-	_check(is_equal_approx(TaleOfTape.opp_kg(opp, 61.2), kg) and TaleOfTape.opp_kg({"weight": 60.4}, 61.2) == 60.4, "the same number every time; her own weight wins")
+	_check(is_equal_approx(TaleOfTape.opp_kg(opp, float(f["limit"])), kg) and TaleOfTape.opp_kg({"weight": 59.4}, float(f["limit"])) == 59.4, "the same number every time; her own weight wins")
 	f["height"] = 172.0
 	_check(str(TaleOfTape.rows(f, opp, "", 169.0)[1][1]) == "172 cm", "a measured height wins over the drawn body")
 	print("TALEOFTAPE failures=%d" % failures)

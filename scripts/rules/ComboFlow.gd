@@ -127,9 +127,12 @@ static func rate(chain: Array) -> Dictionary:
 	return out
 
 
-static func energy(chain: Array) -> float:
+## econ = {move id: gas factor} (S373 SkillAwards.economy_ids: a passed grade's moves cost less); the punches' share is
+## scaled by their mean factor.
+static func energy(chain: Array, econ: Dictionary = {}) -> float:
 	var punches := 0
 	var non_punches := 0
+	var factor := 0.0
 	for raw in chain:
 		var m: Dictionary = MOVES.get(str(raw), {})
 		if m.is_empty():
@@ -137,11 +140,12 @@ static func energy(chain: Array) -> float:
 		match str(m["kind"]):
 			"punch":
 				punches += 1
+				factor += float(econ.get(str(raw), 1.0))
 			"defence", "step":
 				non_punches += 1
 	var total := 0.0
 	if punches > 0:
-		total += PUNCH_COST * (1.0 + FAST_PUNCH * float(maxi(0, punches - 1))) * POWER_MIX
+		total += PUNCH_COST * (1.0 + FAST_PUNCH * float(maxi(0, punches - 1))) * POWER_MIX * factor / float(punches)
 	total += float(non_punches) * PUNCH_COST * 0.5 * POWER_MIX
 	return total
 

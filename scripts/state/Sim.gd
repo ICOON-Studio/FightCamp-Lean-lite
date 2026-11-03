@@ -129,6 +129,36 @@ static func week_ctx(career: Career, f: Dictionary) -> Dictionary:
 		"twist_kg": float(WeekTwist.active(f).get("kg_day", 0.0)), "twist_fat": float(WeekTwist.active(f).get("fat_day", 0.0))}
 
 
+## S373 (Danny 61.6 kg missed 60.0 on his first offer, ~17 days out, with no warning on the offer): her weight on the
+## weigh-in morning if she takes a bout on `bout_day` and cuts in camp from tomorrow - a dry run of the same days the real
+## ones step (the coach's phase weeks, the cut while over, the fight-week drop). {now, day, limit, ok, over, days}.
+static func weigh_forecast(career: Career, f: Dictionary, bout_day: int) -> Dictionary:
+	var g := f.duplicate(true)
+	g["bout"] = {"day": bout_day, "done": false}
+	if (g.get("camp", {}) as Dictionary).is_empty():
+		g["camp"] = {"focus": focus_of(career, f)}   # a camp cuts while she is over the limit (week_ctx)
+	var lim := float(f["limit"])
+	var n := maxi(0, bout_day - 1 - career.day)   # the weigh-in is the day before the bout
+	WeekPhase.sync(g, career.day)   # as Bouts.accept does; after that the phase moves on Mondays (step_day)
+	for i in n:
+		var d := career.day + i
+		var dow := posmod(d, 7)
+		if dow == 0:
+			WeekPhase.sync(g, d)
+			g.erase("twist")   # next week's card is not drawn yet
+		var tw := WeekTwist.active(g)
+		var days := WeekTwist.days(tw, WeekPlan.days_of(g))
+		var r := WeekPlan.full_day(str((days[dow] as Array)[0]), str((days[dow] as Array)[1]),
+			str(WeekTwist.evenings(tw, WeekPlan.evenings_of(g))[dow]), week_ctx(career, g), float(g.get("week_fatigue", 20.0)))
+		var lo := minf(float(g["weight"]), lim - 1.5)
+		var hi := maxf(float(g["weight"]), lim + 1.6)
+		g["weight"] = clampf(float(g["weight"]) + float(r["kg"]), lo, hi)
+		g["week_fatigue"] = float(r["fatigue"])
+	var day_kg := float(g["weight"])
+	return {"now": float(f["weight"]), "day": day_kg, "limit": lim, "ok": BoutRules.made_weight(day_kg, lim),
+		"over": maxf(0.0, day_kg - lim), "days": n}
+
+
 ## {stat: points a day} averaged over her week; a camp multiplies its focus by the protocol.
 static func daily_gain(career: Career, f: Dictionary) -> Dictionary:
 	var tw := WeekTwist.active(f)

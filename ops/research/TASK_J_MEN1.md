@@ -1,4 +1,5 @@
 # TASK J_MEN1 - JOHN - men's amateur boxing classes (England Boxing seniors)
+Kind: research
 
 Status: OPEN (S370, Claude). The operator wants a male boxer in the gym (until now the game is women's boxing only).
 1. England Boxing SENIOR MEN's weight classes in force for the 2025-26 season (limits in kg), and the bout format (rounds x

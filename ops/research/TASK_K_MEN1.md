@@ -1,4 +1,5 @@
 # TASK K_MEN1 - KALLI - the men's opponents for FightCamp's divisions
+Kind: research
 
 Status: OPEN (S370, Claude). The game adds men's boxing (operator S370). Write the men's opponents for FOUR men's
 amateur divisions (use featherweight 57, lightweight 60, welterweight 67, middleweight 75 until John's J_MEN1 confirms

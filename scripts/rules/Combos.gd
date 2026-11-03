@@ -218,7 +218,8 @@ static func uses(combos: Dictionary, corner: String) -> int:
 	return int(minf(u, 8.0))
 
 
-static func round_spend(combos: Dictionary, corner: String, conditioning: float) -> float:
+## econ (S373): the punches' gas factor - SkillAwards' graded moves cost less (BoutNight passes the mean over her book).
+static func round_spend(combos: Dictionary, corner: String, conditioning: float, econ: float = 1.0) -> float:
 	var u := uses(combos, corner)
 	var total_len := 0
 	var usable_count := 0
@@ -233,7 +234,7 @@ static func round_spend(combos: Dictionary, corner: String, conditioning: float)
 	# The corner's call sets the work rate: "calm" throws less, "body" digs more (ESTIMATE).
 	var punches := PUNCHES * (0.8 if corner == "calm" else (1.15 if corner == "body" else 1.0))
 	var in_combos := minf(punches, float(u * avg_len))
-	var punch_part := (float(u) * combo_cost(avg_len) + (punches - in_combos) * PUNCH_COST) * POWER_MIX
+	var punch_part := (float(u) * combo_cost(avg_len) + (punches - in_combos) * PUNCH_COST) * POWER_MIX * econ
 	return (ROUND_COST + punch_part) * spend_factor(conditioning)
 
 

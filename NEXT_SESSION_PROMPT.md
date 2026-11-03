@@ -1,3 +1,19 @@
+# S374 - next session (written S373, 2026-11-03)
+
+Start in E:\FightCamp\Lean: `git pull && python ops/Tools/agent_comms.py start`. Digest: ops/research/S373_DIGEST.md.
+FIRST: board Q-S294-94 - the Gemini project hit its MONTHLY SPEND CAP (HTTP 429): no Argon verdict for FIGHT9 or BJJ9
+until the operator raises it at ai.studio/spend. If raised: `python ops/Tools/seat_dispatch.py rejudge FIGHT9R2`.
+LOOPS: FIGHT9R2 (PR #25, agy/fight9r2) probe 15/18 after Claude's a6fadb9b - the operator's C218 moving legs fixed, no
+referee; 3 FAIL = clinch breaks pass through. R3 queued on BASE agy/fight9r2 (the push-off). seat_dispatch now holds the
+loop on an unjudged film and --check-only parses the brief's scripts (agy broke its own probe). BJJ9: Ziva round 7
+(f1e25860). Before collecting FIGHT9, merge main into the kept branch (BodyBurn tank lines + BODYREACT1 are on main).
+QUEUED: Qwen PASSEDSTAMP1 (the PASSED stamp in the week review - add passed_stamp_test to run_tests.sh at the merge).
+SENT: John J_WEIGHT1 (real amateur cut rates; club-women bleep), Kalli K_GRADED1 (graded-move gas saving %) - gbot threads.
+BUILT S373: offer weigh-in forecast (Sim.weigh_forecast), men's force + norm words + calmer steps, women's 2025 classes,
+graded combo cards (SkillAwards.ECONOMY), FLOWBOUT1 on screen, tired legs red, exchanges-won label. Not done: guide_tour.
+
+--- S373 notes (written S372) ---
+
 # S373 - next session (written S372, 2026-11-03)
 
 Start in E:\FightCamp\Lean: `git pull && python ops/Tools/agent_comms.py start`. Digest: ops/research/S372_DIGEST.md.

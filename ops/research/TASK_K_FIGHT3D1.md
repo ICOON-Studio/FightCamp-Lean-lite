@@ -1,4 +1,5 @@
 # TASK K-FIGHT3D1 - KALLI - the minimum watchable fight night in 3D (lean restart, week 5)
+Kind: research
 
 Model: Kalli (Grok bot, game design). Discipline: boxing (demo). Design only: no code, no repo.
 

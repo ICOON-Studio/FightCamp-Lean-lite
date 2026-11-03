@@ -1,4 +1,5 @@
 ﻿# ROUND 2 AGAIN (S343 - read this first): your round 2 run timed out after 100 minutes and pushed nothing
+Status: DONE (collected S355)
 
 Your tools/clinch_check.gd waited inside a WHOLE BOUT under xvfb (software rendering, ~5 fps) for 3 clinch holds that
 never came inside the runner's limit, then you debugged it until the job was killed. Do not play a bout. Build a

@@ -1,4 +1,5 @@
 # TASK J-INSIDE1 - JOHN - inside range in amateur boxing: how often, how long, what they do there
+Kind: research
 
 Discipline: boxing (demo). Research only (no code).
 

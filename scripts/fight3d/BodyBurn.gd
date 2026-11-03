@@ -31,6 +31,11 @@ var _t0 := 0.0
 const TANK_FROM := 60.0
 const TANK_ALL := 15.0
 const TANK_GUARD := 0.7
+## S373 (operator S369: "when fighter is tired legs should become red on the holo and this should affect the power that
+## the shots have"): the emptying tank reaches the legs and the punches too, beside the parts' own load - over the same
+## TANK_FROM..TANK_ALL the legs' Burn climbs to 100 (the holo's legs and the HUD's legs ring go amber, then red), her
+## steps shorten with it, and her shots lose up to TANK_POWER of the arms' full fade (BodyLoad.POWER_MIN; ESTIMATE).
+const TANK_POWER := 0.6
 
 
 static func attach(v: Control) -> Node:
@@ -79,18 +84,22 @@ func _fx(side: String) -> Dictionary:
 	if off:
 		return _with_burn(side, {"lead": 0.0, "rear": 0.0, "legs": 1.0, "power_lead": 1.0, "power_rear": 1.0, "sag": 0.0})
 	var empty := _empty(side)
+	var tank_power := lerpf(1.0, BodyLoad.POWER_MIN, TANK_POWER * empty)
 	return _with_burn(side, {"lead": maxf(BodyLoad.part_effect(load, side, "lead_shoulder"), TANK_GUARD * empty) * BodyLoad.GUARD_DROP_MAX,
 		"rear": maxf(BodyLoad.part_effect(load, side, "rear_shoulder"), TANK_GUARD * empty) * BodyLoad.GUARD_DROP_MAX,
 		"sag": _sag(side),
-		"legs": BodyLoad.step_scale(load, side),
-		"power_lead": lerpf(1.0, BodyLoad.POWER_MIN, BodyLoad.part_effect(load, side, "lead_arm")),
-		"power_rear": lerpf(1.0, BodyLoad.POWER_MIN, BodyLoad.part_effect(load, side, "rear_arm"))})
+		"legs": minf(BodyLoad.step_scale(load, side), lerpf(1.0, BodyLoad.STEP_MIN, empty)),
+		"power_lead": minf(lerpf(1.0, BodyLoad.POWER_MIN, BodyLoad.part_effect(load, side, "lead_arm")), tank_power),
+		"power_rear": minf(lerpf(1.0, BodyLoad.POWER_MIN, BodyLoad.part_effect(load, side, "rear_arm")), tank_power)})
 
 
 ## S323 the body view: each part's Burn rides along with the effects (eased across the exchange the same way), "b_<part>".
 func _with_burn(side: String, fx: Dictionary) -> Dictionary:
 	for part in BodyLoad.PARTS:
 		fx["b_" + part] = BodyLoad.burn(load, side, part)
+	var empty := 0.0 if off else _empty(side)
+	if empty > 0.0:   # S373 her tired legs: red on the holo as the tank empties
+		fx["b_legs"] = maxf(float(fx["b_legs"]), lerpf(BodyLoad.EFFECT_FROM, 100.0, empty))
 	return fx
 
 

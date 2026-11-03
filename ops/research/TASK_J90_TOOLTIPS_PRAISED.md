@@ -1,4 +1,5 @@
 # J90 - Tooltips that players praise: what makes them great, and the build spec for FightCamp
+Kind: research
 
 Seat: John (deep research). Discipline: boxing demo (the whole game's UI). Model: your default. Output: one markdown answer, as long as it needs.
 

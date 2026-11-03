@@ -1,4 +1,5 @@
 # TASK K-HABITS1 - KALLI - fighter habits, mood lines and the coach's notes (lean restart, fight model words)
+Kind: research
 
 Model: Kalli (Grok bot, game design + content). Discipline: boxing (demo). Words and numbers only: no code, no repo.
 

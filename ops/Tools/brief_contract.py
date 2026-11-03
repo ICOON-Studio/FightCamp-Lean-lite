@@ -330,8 +330,8 @@ def briefs_needing_contract(skipped: list | None = None) -> list[str]:
         text = (RESEARCH / n).read_text(encoding="utf-8", errors="replace")
         if re.search(r"^Status:\s*(CANCELLED|DONE|SUPERSEDED)", text, re.M):
             continue
-        if re.search(r"^Kind:\s*research\b", text, re.M):  # S259: review/research briefs carry no code, nothing to merge
-            continue
+        if re.search(r"^Kind:\s*(research|content)\b", text, re.M):  # S259: review/research briefs carry no code, nothing to merge
+            continue  # S373: a words (content) brief neither - same exemption as the visual-gate check (S358)
         if n in moved and archived(parse(text)):  # S368: old-repo work, archived with ICOON-Studio/FightCamp
             if skipped is not None:
                 skipped.append(n)

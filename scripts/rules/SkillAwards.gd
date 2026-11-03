@@ -34,10 +34,10 @@ const AWARDS: Array[Dictionary] = [
 ## Bleep test, women: the level an average untrained adult (21-30) reaches and the national team's (J_TESTS1 Q2).
 const BLEEP_ADULT := 6.6
 const BLEEP_NATIONAL := 9.0
-## CALIBRATION (Claude S370, for Kalli's review): the conditioning that reads as each of those two levels. A walk-in club
-## boxer (conditioning 50-60) reads 7.1-7.7.
-const BLEEP_ADULT_AT := 40.0
-const BLEEP_NATIONAL_AT := 85.0
+## CALIBRATION (Claude S370; S373 Kalli K_CALIB1 Q2 "the women's gap is too small, add a club anchor"): the conditioning
+## that reads as each level - 40 a beginner, 60 a club boxer (8.0, Kalli's ESTIMATE: the men's shape, 70 % of the way from
+## untrained to elite, rounded down), 85 elite. A walk-in club boxer (conditioning 50-60) reads 7.3-8.0.
+const BLEEP_WOMEN_AT := [[40.0, BLEEP_ADULT], [60.0, 8.0], [85.0, BLEEP_NATIONAL]]
 ## S372 men (John J_TESTS3, research/J_TESTS3_ANSWER.md): an average untrained man 21-30 reaches about level 9 (MEASURED
 ## norm table, Bizley 2010 via BrianMac); club boxers about 12-13 and national/elite about 13-15 (DERIVED from shuttle
 ## distance and VO2max - no men's national team was measured on the bleep test). Read at TestDay's calibration points:
@@ -50,6 +50,52 @@ const BLEEP_SEXES := ["f", "m"]
 
 static func passed(f: Dictionary) -> Array:
 	return (f.get("awards", []) as Array).map(func(a): return str(a["id"]))
+
+
+## S373 GOALTESTS1 phase 2 (the five seats, GOALIDEAS_SUMMARY_S371 #4: "a passed grade changes how she fights the same
+## week"): a move a passed grade assessed is a graded move - its combo card wears the grade's colour and it costs less
+## gas, on the card (ComboStrip) and in the bout (Combos.round_spend). ECONOMY is Claude's ESTIMATE for Kalli's review
+## (clean technique wastes less): 8 % off for the grade that passed the move, 15 % once Gold has passed it SHARP.
+const ECONOMY := {"standard": 0.92, "bronze": 0.92, "silver": 0.92, "gold": 0.85}
+const GRADE_COLOR := {"standard": Color("#23935d"), "bronze": Color("#b0763b"), "silver": Color("#8d97a3"), "gold": Color("#c9a227")}
+## ComboFlow's move ids -> the mastery names the grades assess.
+const MOVE_OF := {"jab": "Jab", "cross": "Cross", "lead_hook": "Lead hook", "body_hook": "Body hook", "rear_uppercut": "Uppercut"}
+
+
+## The highest passed grade that assessed this move (a mastery name, "Jab"), or "".
+static func grade_of(f: Dictionary, move: String) -> String:
+	var done := passed(f)
+	var best := ""
+	for a in AWARDS:
+		if done.has(str(a["id"])) and (a["moves"] as Dictionary).has(move):
+			best = str(a["id"])
+	return best
+
+
+## The gas factor on that move: 1.0 ungraded, else its grade's ECONOMY.
+static func economy(f: Dictionary, move: String) -> float:
+	return float(ECONOMY.get(grade_of(f, move), 1.0))
+
+
+## The bout's punch gas factor: each move's economy weighted by its share of a round's punches (`share` =
+## RoundStyle.SHARE, {mastery name: share}); 1.0 with no graded move.
+static func bout_economy(f: Dictionary, share: Dictionary) -> float:
+	var w := 0.0
+	var e := 0.0
+	for mv in share:
+		w += float(share[mv])
+		e += float(share[mv]) * economy(f, str(mv))
+	return e / w if w > 0.0 else 1.0
+
+
+## {ComboFlow move id: gas factor} for the graded moves (ComboFlow.energy's econ).
+static func economy_ids(f: Dictionary) -> Dictionary:
+	var out := {}
+	for id in MOVE_OF:
+		var e := economy(f, str(MOVE_OF[id]))
+		if e < 1.0:
+			out[id] = e
+	return out
 
 
 ## The grade she works toward next; {} once Platinum is passed.
@@ -102,14 +148,17 @@ static func assess(f: Dictionary, day: int) -> Dictionary:
 ## The bleep-test level from conditioning: women linear between their two anchors (4.0-12.0 at the ends), men through
 ## their three (4.0-16.0).
 static func bleep(conditioning: float, sex: String = "f") -> float:
-	if sex == "m":
-		var i := 1
-		while i < BLEEP_MEN_AT.size() - 1 and conditioning > float(BLEEP_MEN_AT[i][0]):
-			i += 1
-		var u := (conditioning - float(BLEEP_MEN_AT[i - 1][0])) / (float(BLEEP_MEN_AT[i][0]) - float(BLEEP_MEN_AT[i - 1][0]))
-		return snappedf(clampf(lerpf(float(BLEEP_MEN_AT[i - 1][1]), float(BLEEP_MEN_AT[i][1]), u), 4.0, 16.0), 0.1)
-	var t := (conditioning - BLEEP_ADULT_AT) / (BLEEP_NATIONAL_AT - BLEEP_ADULT_AT)
-	return snappedf(clampf(lerpf(BLEEP_ADULT, BLEEP_NATIONAL, t), 4.0, 12.0), 0.1)
+	var at := bleep_at(sex)
+	var i := 1
+	while i < at.size() - 1 and conditioning > float(at[i][0]):
+		i += 1
+	var u := (conditioning - float(at[i - 1][0])) / (float(at[i][0]) - float(at[i - 1][0]))
+	return snappedf(clampf(lerpf(float(at[i - 1][1]), float(at[i][1]), u), 4.0, 16.0 if sex == "m" else 12.0), 0.1)
+
+
+## The [conditioning, level] anchors for that sex (40 beginner, 60 club, 85 elite).
+static func bleep_at(sex: String = "f") -> Array:
+	return BLEEP_MEN_AT if sex == "m" else BLEEP_WOMEN_AT
 
 
 ## True when the bleep norms exist for that sex ("f" / "m").

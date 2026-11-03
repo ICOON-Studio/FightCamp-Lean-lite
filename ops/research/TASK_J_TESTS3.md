@@ -1,4 +1,5 @@
 # TASK J_TESTS3 - JOHN - men's bleep test and test values by level (FightCamp adds male boxers)
+Kind: research
 
 Status: OPEN (S371, Claude). The game now has male boxers (TASK_MALE1, England Boxing senior men's classes from your
 J_MEN1). The skills-award road reads the boxer's engine as a 20 m multistage shuttle (bleep) level. For women we use your

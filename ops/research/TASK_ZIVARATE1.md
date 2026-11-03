@@ -1,4 +1,6 @@
 # TASK ZIVARATE1 - rate the new fight animations and the 3D fight realism (Ziva, after ZIVA9)
+Kind: research
+Status: DONE (74a036ab)
 
 Operator S272, verbatim: "and have ziva rate the new animations and 3d fight realism".
 Model: Ziva Smart, reasoning MAX. Worktree E:/FightCamp/wt/ZIVA, branch ziva/playtest. Discipline: BOXING (demo) only.

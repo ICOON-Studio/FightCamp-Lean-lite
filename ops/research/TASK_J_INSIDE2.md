@@ -1,4 +1,5 @@
 # TASK J-INSIDE2 - JOHN - inside fighting technique from coaching sources (second pass)
+Kind: research
 
 Discipline: boxing (demo). Research only (no code).
 

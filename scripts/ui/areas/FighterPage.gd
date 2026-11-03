@@ -89,8 +89,14 @@ func build(main: Node, f: Dictionary) -> void:
 				card.add_child(UI.muted("Bouts for your gym show here.", UI.BODY))
 			var rows: Array = []
 			for r in mine:
+				# S373 FLOWBOUT1: what the plan did that night (PlanRecord.summary, kept on the result by BoutNight).
+				var pr: Dictionary = r.get("plan_rec", {})
+				var plan_txt := ""
+				if not pr.is_empty():
+					plan_txt = "Plan: %d of %d planned exchanges won, %d improvised." % [int(pr["worked"]), int(pr["used"]), int(pr["improvised"])]
 				rows.append(UI.row("%s vs %s, %s" % ["Won" if bool(r["win"]) else "Lost", r["opp"], r["cards"]],
-					"%s. %s" % [Clock.fmt(int(r["d"])), r["why"]], UI.GREEN if bool(r["win"]) else UI.RED))
+					" ".join(["%s." % Clock.fmt(int(r["d"])), str(r["why"]).trim_suffix(".") + ("." if str(r["why"]) != "" else ""), plan_txt]).strip_edges(),
+					UI.GREEN if bool(r["win"]) else UI.RED))
 			UI.add_rows(card, rows)
 		5:
 			var card := _card("CAMP")

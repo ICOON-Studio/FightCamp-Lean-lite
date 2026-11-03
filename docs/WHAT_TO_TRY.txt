@@ -1,3 +1,29 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 70 (2026-11-03): WILL HE MAKE WEIGHT?, MEN'S FORCE TEST, A PASSED GRADE FIGHTS BETTER, TIRED LEGS GO RED
+=====================================================================================================================
+
+ 0. Will he make weight? Every bout offer's TERMS now show "On the scale: 61.6 now, 60.5 on the day" - where the
+    weigh-in lands if the camp starts tomorrow. Green = makes it, red = misses it, with a red line under the buttons
+    ("Danny would come in 0.5 kg over even cutting from tomorrow..."). Try it on Danny Osei (board Test button "men's
+    boxing + the records wall"): he walks at 61.6 kg for the 60 kg class - a short-notice offer reads red.
+ 1. Men's force test: Danny's records wall now has the rear-hand force row (a club man about 1,080 N - about 1.4x a
+    club woman on the same bag sensor, John's two studies). Every number on the wall carries its word for that boxer's
+    sex - BEGINNER / CLUB / ELITE - so Ana's elite 9.0 bleep never reads like a beginner man's 9.0.
+ 2. Calmer records: punches in 10 s show to 0.1 (the average of 3 tries) and force in 25 N steps, so a hard camp
+    chalks a new best every couple of weeks instead of every week (Kalli's numbers). A club woman's bleep test now reads
+    8.0 (was 7.7).
+ 3. A passed grade fights better: once a skills grade is passed (Standard = jab + cross ...), PLAYBOOK > Combos shows those
+    punches with a green/bronze/silver/gold border and a "Standard grade" chip, and they cost less gas - on the card
+    and in the bout (Standard alone takes about 5 % off a round's punch gas).
+ 4. The plan in the record: FIGHTERS > her page > Record says what the plan did each night ("Plan: 9 of 14 planned
+    exchanges won, 4 improvised"); PLAYBOOK > Game plan shows each line's move in real bouts ("In bouts: 8 of 12 won,
+    works").
+ 5. Tired legs: as a boxer's tank empties (below 60 energy) the legs on the body map and the HUD's legs ring go amber,
+    then red; the steps shorten and the punches land lighter.
+ 6. "Exchanges won" explains itself on the round screen: "A round is 6 exchanges of 30 seconds; the boxer who wins more
+    of them takes the round."
+ 7. Women's weight classes are the 2025 ones: 57 / 60 / 65 / 75 kg (lightweight was 61.2, welterweight 66). A saved
+    career moves over by itself and every boxer keeps the same cut.
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 69 (2026-11-03): MEN IN MEN'S BODIES, MEN TAKE THE SUNDAY TESTS, DAY 1 ON THE RECORDS WALL, BODY SHOTS LAND
 =====================================================================================================================
 

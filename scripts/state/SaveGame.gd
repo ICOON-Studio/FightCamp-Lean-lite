@@ -53,6 +53,7 @@ static func from_dict(d: Dictionary) -> Career:
 			var others: Array = Data.DIVISION_RIVALS.filter(func(o): return str(o["div"]) == str(nr["div"])).map(func(o): return [o["name"], o["club"]])
 			nr["bouts"] = RivalPast.seed(nr, others, c.seed, c.day)
 			c.rivals.append(nr)
+	_classes_2025(c)
 	var ids := {}
 	for p in c.prospects:
 		ids[str(p.get("id", ""))] = true
@@ -60,6 +61,28 @@ static func from_dict(d: Dictionary) -> Career:
 		if not ids.has(str(p["id"])):
 			c.prospects.append((p as Dictionary).merged({"state": "scout", "trial_day": -1}, false).duplicate(true))
 	return c
+
+
+## S373 a save from before the women's 2025 classes (lightweight 61.2 -> 60, welterweight 66 -> 65): a fighter's limit
+## follows her division and her weight moves by the same step, so the cut she faces is the one she had; a prospect still
+## at the old data weight takes the new one. Runs once: a fighter on her division's limit, or a moved prospect, is left.
+const OLD_PROSPECT_KG := {"samira": 67.4}
+
+
+static func _classes_2025(c: Career) -> void:
+	for f in c.fighters:
+		var div: Dictionary = Data.DIVISIONS.get(str(f.get("div", "")), {})
+		if div.is_empty() or not f.has("limit") or is_equal_approx(float(f["limit"]), float(div["limit"])):
+			continue
+		var step := float(div["limit"]) - float(f["limit"])
+		f["limit"] = float(div["limit"])
+		f["weight"] = float(f.get("weight", f["limit"])) + step
+	for p in c.prospects:
+		var id := str(p.get("id", ""))
+		if OLD_PROSPECT_KG.has(id) and is_equal_approx(float(p.get("weight", 0.0)), float(OLD_PROSPECT_KG[id])):
+			for d in Data.PROSPECTS:
+				if str(d["id"]) == id:
+					p["weight"] = float(d["weight"])
 
 
 static func save(c: Career, path: String = PATH) -> bool:

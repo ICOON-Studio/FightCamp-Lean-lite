@@ -1,4 +1,6 @@
 # TASK K_CALIB1 - Kalli (design review) - the Sunday test calibration, women and men (S372)
+Kind: research
+Status: DONE
 
 The game reads three Sunday tests off a fighter's stats (0-100) and puts personal bests on a records wall (chalk line
 through a beaten number). The stat -> number curves are piecewise linear through anchors at 40 (beginner), 60 (club

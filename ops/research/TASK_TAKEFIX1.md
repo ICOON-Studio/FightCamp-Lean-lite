@@ -1,4 +1,5 @@
 # TASK_TAKEFIX1 - six punch takes kick a foot up or fling the rear glove back: clean them so they play again (Goose, FightCamp-Lean)
+Status: DONE (collected S342 e351fd2)
 
 Model: Goose (cloud), repo ICOON-Studio/FightCamp-Lean branch main. Discipline: boxing (demo).
 Why: S300's film saw stepping (_ft) takes kick the back leg up and wide-miss (_miss) takes fling the rear arm back

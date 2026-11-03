@@ -1,4 +1,5 @@
 # TASK GYMDECOR1 - free 3D assets to decorate a boxing gym, room by room (research)
+Kind: research
 
 Model: John (deep research). Discipline: BOXING gym (demo).
 Operator S276: "find assets for decals and things you can decorate a gym also ? jus tlike how those 2 games build their rooms"

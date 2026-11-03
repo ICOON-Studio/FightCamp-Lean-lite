@@ -19,6 +19,7 @@ const Knockdowns := preload("res://scripts/rules/Knockdowns.gd")
 const RoundScript := preload("res://scripts/rules/RoundScript.gd")
 const CoachNotes := preload("res://scripts/rules/CoachNotes.gd")
 const RoundStyle := preload("res://scripts/rules/RoundStyle.gd")
+const SkillAwards := preload("res://scripts/rules/SkillAwards.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
 const LiveRound := preload("res://scripts/state/LiveRound.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
@@ -278,7 +279,9 @@ static func _energy(f: Dictionary, n: int, corner: String) -> Dictionary:
 	var a0 := PerkFight.second_wind(f, n, float(fb["energy"]["a"]))   # S355 Second wind: energy back at the round-3 bell
 	var b0 := float(fb["energy"]["b"])
 	# S303 (John J-COMBOENERGY1): the rest refills half the fast debt; the slow part stays spent all fight.
-	var ra := Combos.after_round(a0, float(fb["energy"].get("qa", 0.0)), Combos.round_spend(mine, corner, cond_a), cond_a)
+	# S373 GOALTESTS1 phase 2: a passed grade's moves cost less gas (SkillAwards.ECONOMY over the round's punch mix).
+	var econ := SkillAwards.bout_economy(f, RoundStyle.SHARE)
+	var ra := Combos.after_round(a0, float(fb["energy"].get("qa", 0.0)), Combos.round_spend(mine, corner, cond_a, econ), cond_a)
 	var rb := Combos.after_round(b0, float(fb["energy"].get("qb", 0.0)), Combos.round_spend(op["combos"], "", cond_b), cond_b)
 	var a1 := float(ra["bell"])
 	var b1 := float(rb["bell"])

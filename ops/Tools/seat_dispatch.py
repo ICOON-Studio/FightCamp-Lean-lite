@@ -398,18 +398,41 @@ def run_gd(wt: Path, script: str, args: str = "", pass_line: str = "") -> dict:
 _PARSE_RE = re.compile(r"(?:SCRIPT ERROR|ERROR): Parse Error: (.*)\n\s*at: GDScript::reload \((res://[^)]+)\)")
 
 
-def compile_errors(wt: Path) -> list[str]:
+def compile_errors(wt: Path, contract: dict | None = None) -> list[str]:
     """S372: FIGHT9R1 wrote PackedStringArray.any() (no such method) - nothing compiled, the after-film sat 6.5 min on the
     gym screen and Argon scored a frozen menu 1/10. Import, then boot the main scene headless for 30 frames (Main.tscn
-    preloads the fight view) and return each parse error as 'res://file.gd:line: message' (the cascades left out)."""
+    preloads the fight view) and return each parse error as 'res://file.gd:line: message' (the cascades left out).
+    S373: FIGHT9R2 broke its own RED_TEST probe (BeatClips.speed with one argument) - Main.tscn never loads a tools/ or
+    tests/ script, so the contract's .gd scripts (RED_TEST, REGRESSION, OWNS under tools/ tests/) are parsed too
+    (--check-only), and agy's one repair pass sees those errors as well."""
     sh([GODOT, "--headless", "--audio-driver", "Dummy", "--path", wt, "--import"], cwd=wt, timeout=900)
-    p = sh([GODOT, "--headless", "--audio-driver", "Dummy", "--path", wt, "--quit-after", "30"], cwd=wt, timeout=300)
+    outs = [sh([GODOT, "--headless", "--audio-driver", "Dummy", "--path", wt, "--quit-after", "30"], cwd=wt, timeout=300)]
+    for script in _contract_scripts(wt, contract or {}):
+        outs.append(sh([GODOT, "--headless", "--audio-driver", "Dummy", "--path", wt, "--check-only", "--script", "res://" + script],
+                       cwd=wt, timeout=180))
     errs: list[str] = []
-    for m in _PARSE_RE.finditer((p.stdout or "") + (p.stderr or "")):
-        e = f"{m.group(2)}: {m.group(1).strip()}"
-        if e not in errs:
-            errs.append(e)
+    for p in outs:
+        for m in _PARSE_RE.finditer((p.stdout or "") + (p.stderr or "")):
+            e = f"{m.group(2)}: {m.group(1).strip()}"
+            if e not in errs:
+                errs.append(e)
     return errs
+
+
+def _contract_scripts(wt: Path, contract: dict) -> list[str]:
+    """The contract's runnable .gd scripts that exist in the worktree: RED_TEST, REGRESSION, and OWNS under tools/ or tests/."""
+    want = [str((contract.get("red_test") or {}).get("test") or "")]
+    for r in contract.get("regression") or []:
+        want.append(str(r.get("test") or r.get("path") or "") if isinstance(r, dict) else str(r))
+    want += [str(o.get("path", "")) for o in contract.get("owns") or [] if str(o.get("path", "")).startswith(("tools/", "tests/"))]
+    out: list[str] = []
+    for w in want:
+        w = w.strip().split()[0] if w.strip() else ""
+        if w and "/" not in w and not w.endswith(".gd"):
+            w = f"tests/{w}.gd"   # REGRESSION names a test bare ("fight_flow_test")
+        if w.endswith(".gd") and (wt / w).is_file() and w not in out:
+            out.append(w)
+    return out
 
 
 def repair_prompt(task: str, errs: list[str]) -> str:
@@ -620,7 +643,7 @@ def run(task: str) -> int:
                        f"(stray: {', '.join(stray) or '-'}); output {out}")
             log(f"FAILED {task}: nothing delivered (exit {rc})")
             return 1
-        broken = compile_errors(wt)
+        broken = compile_errors(wt, contract)
         if broken and seat == "agy":  # agy cannot run Godot: one repair pass on the printed errors beats a lost round
             log(f"COMPILE {task}: {len(broken)} parse error(s), agy repair pass - {broken[0][:160]}")
             fix = _agy(wt, repair_prompt(task, broken), out, env)
@@ -631,7 +654,7 @@ def run(task: str) -> int:
             more, stray2 = commit_owned(wt, contract, task, seat)
             committed += [f for f in more if f not in committed]
             stray += [f for f in stray2 if f not in stray]
-            broken = compile_errors(wt)
+            broken = compile_errors(wt, contract)
         if broken:
             log(f"COMPILE {task}: still {len(broken)} parse error(s) - no after-film: {broken[0][:160]}")
         checks = run_checks(wt, contract)
@@ -690,6 +713,11 @@ def loop_next(task: str, contract: dict, before: dict, after: dict, branch: str,
     m = _ROUND_RE.match(task)
     n = int(m.group(2)) if m else 1
     a, b, goal = _score(after), _score(before), float(target or 9)
+    if after.get("film") and not after.get("compile") and str(after.get("score", "?")) == "?":
+        # S373: the judge failed (FIGHT9R2: Gemini's monthly spend cap, HTTP 429) - a film nobody scored is not a dropped
+        # round; the loop holds until `seat_dispatch.py rejudge <task>` scores it.
+        why = str(after.get("err") or "no verdict")[:140]
+        return f"LOOP {stem}: round {n} NOT JUDGED ({why}) - loop holds; when the judge works: python Tools/seat_dispatch.py rejudge {task}"
     if a >= goal:
         return f"LOOP {stem}: round {n} scored {a:g}/10 - target {goal:g} reached, loop stops (a session collects {branch})"
     if n >= LOOP_MAX_ROUNDS:
@@ -817,6 +845,25 @@ def main(argv: list[str]) -> int:
         print(json.dumps(res, indent=1))
         print(post_board(task, res["before"], res["after"], branch))
         return 0
+    if args[:1] == ["rejudge"] and len(args) > 1:
+        # S373: score a round's kept after-film again (the judge failed) and step its loop from the stored run.
+        task = args[1]
+        info = load(RUNS, {}).get("runs", {}).get(task, {})
+        contract, _why = brief_contract.check_brief(task)
+        mp4 = PREVIEWS / task / "after.mp4"
+        if not info or not mp4.is_file():
+            print(f"rejudge: no run or no {mp4}")
+            return 2
+        title = brief_contract.brief_path(task).read_text(encoding="utf-8", errors="replace").splitlines()[0].lstrip("# ")
+        after = judge(mp4, f"{task} after", f"Video = the agent's branch, after the change for {title}. Judge above all what this change is about.")
+        log(f"JUDGE {task} after (rejudge): Argon {after['score']}/10 {after['line'][:120]}")
+        films_ = dict(info.get("films") or {})
+        films_["after"] = after
+        update_run(task, films=films_)
+        green = all(c.get("ok") for c in info.get("checks") or [])
+        if contract.get("loop") and after["score"] != "?":
+            print(log(loop_next(task, contract, films_.get("before") or {}, after, str(info.get("branch", "")), "--green" in args or green)))
+        return 0 if after["score"] != "?" else 1
     if args[:1] == ["queue"]:
         task, seat = opt("--task").removeprefix("TASK_"), opt("--seat")
         if seat not in SEATS or not task:

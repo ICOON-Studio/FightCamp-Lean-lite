@@ -8,9 +8,9 @@ Updated 2026-11-03 by claude S294.
 
 ## Now
 
-**S369 — ?** *(claude)*
+**S373 — ?** *(claude)*
 
-S371: Argon judged the fight (2/10) and the BJJ match (2/10); both now loop to 9/10 (Argon fixes the fight round by round, Ziva the mat); men's boxing (4 men's divisions, 16 men, Danny and Josh in scouting); the records wall; no she/her again; PR #21 + #22 collected, #23 closed.
+S373: Gemini's monthly spend cap (HTTP 429) blinds both judged loops - board Q-S294-94; FIGHT9R2 probe 15/18 after Claude's probe fix (moving legs fixed, no referee), kept as R3 BASE; seat_dispatch holds a loop on an unjudged film and parses the brief's scripts. Built: the offer's weigh-in forecast (Danny 61.6 -> 60.5 red), men's force + norm words + calmer test steps (J_TESTS4, K_CALIB1), women's 2025 classes, graded moves cost less gas, FLOWBOUT1 on screen, tired legs red, exchanges-won label. Qwen PASSEDSTAMP1 queued.
 
 ## Next
 
@@ -273,3 +273,12 @@ Cursor once got a 50-line brief cut off at line 3 and said so.
 |  |  | **S369**  |  |  | *none yet* | S369: UI face cards merged; BJJ belt match + Ana's body + HUD numbers on claude/bjjmatch1; agy on Argon; planning playtest; operator: remove the referee, tired legs, body reactions, flow per bout. Digest research/S369_DIGEST.md. |
 |  |  | **S370**  |  |  | *none yet* | S370: menus for the player - guide GIF, combo card strip, gains with causes, tape -> plan; PR #20 merged; seats on knees (agy), no-referee (Qwen), body shots (Ziva), plan records (Arena, full repo now). Digest research/S370_DIGEST.md. |
 |  |  | **S371**  |  |  | *none yet* | S371: judged loops to 9/10 (FIGHT9 Argon, BJJ9 Ziva; both 2/10 now); MALE1 men's divisions + scouting men; records wall (TestDay); no she/her (guard test); PR #21 FLOWBOUT1 + #22 KNEETRACK1 collected, #23 NOREF1 closed. Digest research/S371_DIGEST.md. |
+|  |  | **S372**  |  |  | *none yet* | S372: FIGHT9 round 1 never compiled (3 parse errors, filmed a frozen menu 1/10) - fixed on PR #24, round 2 builds on it with the operator's C218 legs note first; seat_dispatch compile gate + agy repair pass; Ziva BODYREACT1 collected (40/40 body shots react); men's test norms (J_TESTS3); records wall Day 1 vs today. Male MetaHuman boxers in (five restored from the old repo, bare-chested - operator: no tops; jump=men_fight; male body-map holo). Digest research/S372_DIGEST.md. |
+
+## Waiting on the operator
+
+Each of these blocks a session. Nothing below can start without a ruling.
+
+| | blocks | question |
+|---|---|---|
+| **Q-S294-94** | FIGHT9 + BJJ9 Argon verdicts | The Gemini project hit its monthly spend cap (HTTP 429): raise it at ai.studio/spend, or judge the loops by their probes only? |

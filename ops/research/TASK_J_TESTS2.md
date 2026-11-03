@@ -1,4 +1,5 @@
 # TASK J_TESTS2 - JOHN - fill the gaps in J_TESTS1 (women's values by level)
+Kind: research
 
 Status: OPEN (S370, Claude). Follow-up to research/J_TESTS1_JOHN.md (your answer, thank you). The operator said yes to
 training goals as tests; the game's boxers are mostly WOMEN, so these gaps block two of the four tests:

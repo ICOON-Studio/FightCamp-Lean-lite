@@ -1,4 +1,5 @@
 # TASK GYMCLIPS2 (John, research) - a source for two gym workout clips: stationary bike and agility ladder
+Kind: research
 
 Model: John (deep research). Discipline: BOXING gym floor (demo). Research only, no code.
 

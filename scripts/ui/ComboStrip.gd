@@ -17,6 +17,7 @@ const ComboOdds := preload("res://scripts/rules/ComboOdds.gd")
 const MoveMastery := preload("res://scripts/rules/MoveMastery.gd")
 const BodyMap := preload("res://scripts/rules/BodyMap.gd")
 const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
+const SkillAwards := preload("res://scripts/rules/SkillAwards.gd")
 
 const CARD_SIZE := Vector2(136, 176)
 const KIND_COLOR := {"punch": Color("#2f6fdb"), "defence": Color("#4f8a2c"), "step": Color("#8a5a2a")}
@@ -50,7 +51,10 @@ static func _card(f: Dictionary, i: int, id: String, e: Dictionary, chain: Array
 	var p := PanelContainer.new()
 	p.name = "Step_%d" % (i + 1)
 	p.custom_minimum_size = CARD_SIZE
-	p.add_theme_stylebox_override("panel", UI.box(KIND_TINT.get(kind, UI.PANEL), KIND_COLOR.get(kind, UI.LINE), 12, 3, 10, 8))
+	# S373 GOALTESTS1 phase 2: a move a passed grade assessed wears the grade's colour (SkillAwards.grade_of).
+	var grade := SkillAwards.grade_of(f, str(e.get("needs", ""))) if str(e.get("needs", "")) != "" else ""
+	p.add_theme_stylebox_override("panel", UI.box(KIND_TINT.get(kind, UI.PANEL),
+		SkillAwards.GRADE_COLOR.get(grade, KIND_COLOR.get(kind, UI.LINE)), 12, 4 if grade != "" else 3, 10, 8))
 	var v := UI.vbox(3)
 	p.add_child(v)
 	var top := UI.hbox(4)
@@ -79,8 +83,15 @@ static func _card(f: Dictionary, i: int, id: String, e: Dictionary, chain: Array
 		v.add_child(UI.muted("any boxer", UI.TINY))
 	if BeatClips.IMPACT_S.has(id):
 		v.add_child(UI.label("lands %.2f s" % float(BeatClips.IMPACT_S[id]), UI.TINY))
-	var gas := 100.0 * (CF.energy(chain.slice(0, i + 1)) - CF.energy(chain.slice(0, i))) / Combos.ROUND_COST
+	var econ := SkillAwards.economy_ids(f)
+	var gas := 100.0 * (CF.energy(chain.slice(0, i + 1), econ) - CF.energy(chain.slice(0, i), econ)) / Combos.ROUND_COST
 	v.add_child(UI.label("gas +%.1f%%" % gas, UI.TINY, UI.AMBER if gas >= 2.0 else UI.FG))
+	if grade != "":
+		var g := Icons.tip(UI.chip("%s grade" % grade.capitalize(), "gold"),
+			"Passed at %s: clean technique, %d%% less gas on this punch - on this card and in the ring." % [
+			grade.capitalize(), roundi(100.0 * (1.0 - float(SkillAwards.ECONOMY[grade])))])
+		g.name = "Graded"
+		v.add_child(g)
 	var dmg := _damage([id])
 	if dmg["head"] + dmg["ribs"] > 0.0:
 		v.add_child(UI.label("hurts %s %.1f" % ["ribs" if dmg["ribs"] > 0.0 else "head", dmg["ribs"] + dmg["head"]], UI.TINY))
@@ -125,7 +136,7 @@ static func totals(f: Dictionary, chain: Array, rated: Dictionary, bid: String) 
 	g.add_child(_tile("STRENGTH", "%d" % int(rated["score"]), word.to_upper() + " (70+ flows)", col,
 		{"title": "Combination strength", "rows": [["Score", "%d / 100" % int(rated["score"]), "", ""], ["Flows at", "70", "", ""],
 		["Workable at", "45", "", ""]], "means": "how well each punch sets up the next: the loaded hand on time, level changes, moving the head after. Each join on the strip shows its share."}))
-	var gas := CF.energy(chain)
+	var gas := CF.energy(chain, SkillAwards.economy_ids(f))
 	var share := 100.0 * gas / Combos.ROUND_COST
 	var tank := _tile("GAS", "%d%%" % maxi(1, int(round(share))), "of a round, each time", UI.AMBER if share >= 8.0 else UI.FG,
 		{"title": "Gas tank", "rows": [["This chain", "%.2f" % gas, "", ""], ["A whole round", "%.0f" % Combos.ROUND_COST, "", ""],

@@ -1,4 +1,5 @@
 # TASK KNOCKDOWN1 - QWEN - standing counts, knockdowns and stoppages as a pure rule module (Lean, fight model step 2)
+Status: DONE (S300 5a2f1670)
 
 Model: Qwen (qwen3-coder, --yolo). Discipline: boxing (demo). Repo: E:\FightCamp\Lean (NOT the old Game repo).
 Workspace: your own worktree E:\FightCamp\wt\LEAN_KNOCKDOWN1 (branch qwen/knockdown1). Commit there; do not push.

@@ -1,4 +1,5 @@
 # TASK K-WORLDNEWS1 - KALLI - the boxing world's news lines (lean restart, week 3)
+Kind: research
 
 Model: Kalli (Grok bot, game design). Discipline: boxing (demo). Content only: no code, no repo.
 

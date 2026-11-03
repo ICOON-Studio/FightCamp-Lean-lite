@@ -1,4 +1,5 @@
 # TASK_TIEUPS1 - the Tie-ups tab in the ground-move browser (Cursor)
+Status: DONE (S338 Tie-ups tab)
 
 Model: Cursor (composer default). Discipline: MMA / wrestling PROTOTYPE outside the boxing demo, operator-approved order
 (Q-S294-62 "Yes, in that order": standing chains -> plan board -> wrestler numbers). Repo: **E:\FightCamp\Lean** (worktree
