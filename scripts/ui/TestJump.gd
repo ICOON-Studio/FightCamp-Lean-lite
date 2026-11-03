@@ -103,11 +103,9 @@ static func run(main: Node, jump: String) -> bool:
 			main.act("go", "fights:0")
 			return str(m.get("sex", "")) == "m" and not (m["offers"] as Array).is_empty()
 		# S372 jump=men_fight: Danny takes his first even offer and boxes it - two men in the ring (the male MetaHumans).
-		# He walks in at 61.6 kg for the 60 kg class and his first offer is ~17 days out: on the diet-only cut he reached
-		# 60.32 kg and missed (S372 finding, logged for the weight-limits task). The jump starts him 1.0 kg over, on the Cut.
+		# He walks in at 61.6 kg for the 60 kg class; S374 Bouts.makeable_day dates his offer where his camp cut makes the
+		# scale, so he boxes as a player would leave him (S372 had to start him 1 kg over: he missed by 0.32 kg).
 		f = m
-		f["weight"] = minf(float(f["weight"]), float(f["limit"]) + 1.0)
-		main.act("diet", "%s|cut" % f["id"])
 	if jump == "pro":
 		f["w"] = 9
 		f["l"] = 1

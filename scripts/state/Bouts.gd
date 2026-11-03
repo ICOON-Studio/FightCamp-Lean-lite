@@ -38,6 +38,8 @@ const AFTER_EXPIRY := 4
 const AFTER_DECLINE := 5
 const AFTER_MISSED_WEIGHT := 6
 const AFTER_FIGHT := 10
+## S374 (operator "Yes, fix it"): a boxer over his class gets a bout he can make, up to this many weeks later (makeable_day).
+const WEIGHT_WEEKS_MAX := 4
 ## S357 the short-notice swap only 2+ weeks out (the Miro draft: a late swap inside fight week is a withdrawal, not a camp).
 const SWAP_MIN_DAYS := 14
 ## The goals she can pick in the office after a bout.
@@ -118,6 +120,7 @@ static func day_events(c: Career) -> void:
 			var opp: Dictionary = c.rival(str(names[int(f["opp_index"]) % names.size()])).duplicate(true)
 			var id := "%s:o%d" % [f["id"], c.day]
 			var on := AmateurBooking.fight_day(c.day, AmateurBooking.lead_weeks(id))
+			on = makeable_day(c, f, on)
 			var own := AmateurBooking.bouts_of(int(f["w"]), int(f["l"]))
 			f["offers"] = [
 				_offer(id, opp, on, c.day + OFFER_ANSWER_DAYS, own),
@@ -131,6 +134,21 @@ static func day_events(c: Career) -> void:
 				if not bool(o["mismatch"]):
 					c.add_news("The offer from %s for %s expired." % [o["opp"]["club"], f["first"]])
 					f["next_offer_day"] = c.day + AFTER_EXPIRY
+
+
+## S374 (operator "Yes, fix it" - Danny walks 61.6 kg for the men's 60 and his first offer, 17 days out, left him at 60.32
+## on the camp cut: missed weight, bout off): the club dates a bout for a boxer over his class where his camp cut makes the
+## scale (Sim.weigh_forecast, S373), a week at a time, up to WEIGHT_WEEKS_MAX weeks later. At the limit: the usual 2-4 weeks.
+## The forecast must reach the class limit itself, keeping the scale's WEIGH_TOLERANCE spare for a week that runs heavy
+## (the first try landed him at 60.01 for 60.0 - made, by 0.04).
+static func makeable_day(c: Career, f: Dictionary, on: int) -> int:
+	if float(f["weight"]) <= float(f["limit"]):
+		return on
+	var sim: GDScript = load("res://scripts/state/Sim.gd")   # Sim preloads Bouts: a runtime load keeps the preload one way
+	for k in WEIGHT_WEEKS_MAX + 1:
+		if float(sim.weigh_forecast(c, f, on + 7 * k)["day"]) <= float(f["limit"]):
+			return on + 7 * k
+	return on + 7 * WEIGHT_WEEKS_MAX
 
 
 static func _offer(id: String, opp: Dictionary, on: int, expires: int, own_bouts: int) -> Dictionary:

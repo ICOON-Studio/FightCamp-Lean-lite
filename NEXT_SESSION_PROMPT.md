@@ -1,5 +1,8 @@
 # S374 - next session (written S373, 2026-11-03)
 
+DONE BEFORE S374 STARTED (operator "Yes, fix it", 169e5fc4): Danny's first offer used to miss weight; Bouts.makeable_day now dates
+an offer for a boxer over his class where Sim.weigh_forecast reaches the limit (up to 4 weeks later). Suite 128/0.
+
 Start in E:\FightCamp\Lean: `git pull && python ops/Tools/agent_comms.py start`. Digest: ops/research/S373_DIGEST.md.
 FIRST: board Q-S294-94 - the Gemini project hit its MONTHLY SPEND CAP (HTTP 429): no Argon verdict for FIGHT9 or BJJ9
 until the operator raises it at ai.studio/spend. If raised: `python ops/Tools/seat_dispatch.py rejudge FIGHT9R2`.
