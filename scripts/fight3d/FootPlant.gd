@@ -13,12 +13,19 @@ extends SkeletonModifier3D
 
 const LEGS := [["LeftUpperLeg", "LeftLowerLeg", "LeftFoot"], ["RightUpperLeg", "RightLowerLeg", "RightFoot"]]
 const STEP_M := 0.10        # how far the animation may carry a planted foot before it steps
-const SWING_S := 0.15       # a boxer's shuffle step
+const SWING_S := 0.2        # a boxer's shuffle step (S376: 0.15 read as a twitch)
 const LIFT_M := 0.05
 const LEAD_S := 0.10        # a step lands this far ahead of the body's motion (seconds of its speed)
 const LEAD_MAX_M := 0.12
 const SNAP_M := 0.3         # an animated foot that jumps this far in one frame was set, not stepped (stills): plant it there
 const URGENT := 2.5         # a foot left this many STEP_M behind steps even while the other is stepping
+## S376 (operator, on the men's bout: "their leg animation are broken completely"; tools/men_fight_film.gd measured knees
+## locked dead straight (> 170 deg) 15-18 % of a round with planted feet, 0-2 % with `nofeet`): a plant only ever checked
+## how far the animation carried the foot, never whether the leg still reached it - the hips moved on, the IK pulled the
+## leg straight and the foot snapped across. Now a foot whose plant sits past STEP_REACH of the leg's length from the hip
+## steps at once, and no target is ever set past CAP_REACH (knee ~165 deg) unless the clip itself straightens the leg.
+const STEP_REACH := 0.98    # ~157 deg at the knee
+const CAP_REACH := 0.99     # ~165 deg at the knee
 const FREE := ["knockout", "win", "countdown", "fall"]
 const EASE_S := 0.2
 ## Front-back feet spread x this. tools/range_probe.gd round 1 (feet as shown): control 0.24 NA (p90 0.40); x1.23 read
@@ -92,7 +99,14 @@ func _process_modification() -> void:
 		if jump > SNAP_M:
 			_plant[i] = anim
 			_swing[i] = {}
-		var target: Vector3 = _target(i, anim, vel, delta)
+		var gp := skel.get_bone_global_pose(ids[0]).origin
+		var hip: Vector3 = xf * gp
+		var leg := (xf.basis * (skel.get_bone_global_pose(ids[1]).origin - gp)).length() \
+			+ (xf.basis * (skel.get_bone_global_pose(ids[2]).origin - skel.get_bone_global_pose(ids[1]).origin)).length()
+		var target: Vector3 = _target(i, anim, vel, delta, hip, leg)
+		var cap := maxf(CAP_REACH * leg, ((raw[i] as Vector3) - hip).length())   # the clip's own foot, before the stance stretch
+		if (target - hip).length() > cap:
+			target = hip + (target - hip).normalized() * cap
 		if _weight < 1.0:
 			target = anim.lerp(target, _weight)
 		last_target[i] = target
@@ -115,12 +129,14 @@ func _spread(raw: Array) -> Vector3:
 
 
 ## Where foot i stands this frame (world): its plant, or the arc of its step onto the animated spot.
-func _target(i: int, anim: Vector3, vel: Vector3, delta: float) -> Vector3:
+func _target(i: int, anim: Vector3, vel: Vector3, delta: float, hip: Vector3, leg: float) -> Vector3:
 	var s: Dictionary = _swing[i]
 	if s.is_empty():
 		var other: Dictionary = _swing[1 - i]
 		var off := _flat(anim - (_plant[i] as Vector3))
-		if off > STEP_M and (other.is_empty() or off > STEP_M * URGENT):
+		var p0: Vector3 = _plant[i]
+		var stretched := Vector3(p0.x, maxf(anim.y, float(_ground[i])), p0.z).distance_to(hip) > STEP_REACH * leg
+		if (off > STEP_M and (other.is_empty() or off > STEP_M * URGENT)) or (stretched and off > 0.02):
 			s = {"from": _plant[i], "t": 0.0}
 			_swing[i] = s
 		else:

@@ -24,10 +24,12 @@ func _initialize() -> void:
 	f["stats"]["fight_iq"] = 80.0
 	f["stats"]["speed"] = 60.0   # RoundStyle.FAST: hand-speed cap 2
 	f["book"] = [{"name": "jab, jab, step in, lead hook", "chain": ["jab", "jab", "step_in", "lead_hook"], "score": 70},
-		{"name": "jab, cross", "chain": ["jab", "cross"], "score": 62}]
+		{"name": "jab, cross", "chain": ["jab", "cross"], "score": 62},
+		{"name": "jab, cross, lead hook, cross", "chain": ["jab", "cross", "lead_hook", "cross"], "score": 72}]
 	OwnCombos.ensure_ids(f)
 	var long_e: Dictionary = f["book"][0]
 	var short_e: Dictionary = f["book"][1]
+	var four_e: Dictionary = f["book"][2]
 	_check(str(long_e["id"]) == "own:1" and str(short_e["id"]) == "own:2", "ids: own:1, own:2")
 	_check(OwnCombos.row(long_e)["beats"] == ["jab", "jab", "lead_hook"] and OwnCombos.row(long_e)["moves"] == ["Jab", "Jab", "Lead hook"],
 		"the ring row throws its punches; the step is the coach's cue")
@@ -54,14 +56,25 @@ func _initialize() -> void:
 	f["moves"]["Lead hook"] = 70.0
 
 	# c. Signature: drilling, not length, makes it; it lands whole more often.
-	f["own_combos"] = {"own:1": 50.0, "own:2": 50.0}
+	f["own_combos"] = {"own:1": 50.0, "own:2": 50.0, "own:3": 50.0}
 	var usable_odds := OwnCombos.lands_whole(f, long_e)
 	f["own_combos"]["own:1"] = ComboWords.SIGNATURE_AT
+	f["own_combos"]["own:3"] = ComboWords.SIGNATURE_AT
 	_check(OwnCombos.signature(f, long_e) and not OwnCombos.signature(f, short_e), "signature at %d on the pads" % int(ComboWords.SIGNATURE_AT))
 	_check(OwnCombos.lands_whole(f, long_e) > usable_odds, "a signature lands whole more often (%.2f > %.2f)" % [OwnCombos.lands_whole(f, long_e), usable_odds])
 
+	# S376 Kalli K_COMBOPLAN1: worth capped, long-signature gamble, use_share, ring_edge tired < fresh.
+	_check(OwnCombos.worth(f, long_e) <= OwnCombos.COMBO_CAP, "worth never above COMBO_CAP (%.1f <= %.1f)" % [OwnCombos.worth(f, long_e), OwnCombos.COMBO_CAP])
+	var odds3 := OwnCombos.lands_whole(f, long_e)
+	var odds4 := OwnCombos.lands_whole(f, four_e)
+	_check(absf(odds3 - 0.64) < 0.01, "3-punch signature lands whole 0.64 +- 0.01 (%.3f)" % odds3)
+	_check(OwnCombos.long_signature(f, four_e) and absf(odds4 - 0.58) < 0.01, "4-punch signature lands whole 0.58 +- 0.01 (%.3f)" % odds4)
+	_check(is_equal_approx(OwnCombos.use_share(100.0), 0.33), "use_share(100) == 0.33")
+	_check(is_equal_approx(OwnCombos.use_share(35.0), 0.25), "use_share(35) == 0.25 (tired)")
+	_check(is_equal_approx(OwnCombos.use_share(100.0, true), 0.40), "use_share(100, true) == 0.40 (named)")
 	_check(OwnCombos.ring_edge(f, 100.0) > 0.0 and OwnCombos.ring_edge(f, 100.0) > OwnCombos.ring_edge(f, 35.0),
 		"the bout pays the signature: %.2f a round fresh, less tired" % OwnCombos.ring_edge(f, 100.0))
+	f["own_combos"]["own:3"] = 0.0
 	var none := {"book": [], "moves": f["moves"], "stats": f["stats"]}
 	_check(OwnCombos.ring_edge(none, 100.0) == 0.0, "no own combination: no edge")
 

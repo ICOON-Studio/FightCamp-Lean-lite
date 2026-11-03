@@ -12,10 +12,14 @@ extends RefCounted
 ##   (ComboFlow.energy); whole_by_round says in which rounds his tank still throws it whole.
 ## - lands_whole: how often it lands whole in an even exchange - ComboOdds' own dice (win_odds) on the worth of a drilled
 ##   combination (PlanFight.EDGE "ok" x its pad rate), a flowing chain (ComboFlow) worth more, a signature more again.
-##   ESTIMATE weights FLOW_EDGE / SIG_EDGE for Kalli's review.
+##   A long signature (4+ punches) is the GAMBLE: +LONG_EXTRA when it lands, but lands whole at LONG_ODDS_WORTH (0.58)
+##   vs a short signature's 0.64 (Kalli K_COMBOPLAN1, S376).
+## - worth is capped at COMBO_CAP (10); use_share: NAMED_SHARE (0.40) when the plan names it, TIRED_SHARE (0.25) under
+##   TIRED_AT (40), else USE_SHARE (0.33) - never above 0.40. ring_edge replaces Combos.energy_scale with use_share.
 ##   ensure_ids(f)  entries(f) -> [{id, name, chain, score}]  row(entry) -> {id, moves, beats, counter, sig}
-##   mastery(f, id)  usable(f, e)  signature(f, e)  drill_week(f, id, minutes, skill, tier)  rows_for_ring(f)
-##   all_mastery(f) -> book + own {id: mastery}   lands_whole(f, e)   gas(f, e)   whole_by_round(f, e) -> [bool x3]
+##   mastery(f, id)  usable(f, e)  signature(f, e)  long_signature(f, e)  drill_week(f, id, minutes, skill, tier)
+##   rows_for_ring(f)  all_mastery(f) -> book + own {id: mastery}   lands_whole(f, e)   use_share(energy, named)
+##   ring_edge(f, energy, named)   gas(f, e)   whole_by_round(f, e) -> [bool x3]
 ## Pure static.
 
 const Combos := preload("res://scripts/rules/Combos.gd")
@@ -37,6 +41,16 @@ const SIG_EDGE := 5.0
 ## The share of a round's exchanges his best own combination decides (ESTIMATE, ~2 of 6): the round edge the bout adds is
 ## that share of the flow + signature worth, so the lab's "lands whole" and the ring agree on average.
 const USE_SHARE := 0.33
+## S376 Kalli K_COMBOPLAN1: the worth a combination's part is capped at, and the long-signature gamble numbers.
+const COMBO_CAP := 10.0
+const LONG_AT := 4
+const LONG_EXTRA := 1.0
+const LONG_ODDS_WORTH := 5.5
+## Tired / named shares (Kalli K_COMBOPLAN1, S376): drops to TIRED_SHARE under TIRED_AT, rises to NAMED_SHARE when the
+## fight plan names the combination, never above NAMED_SHARE.
+const TIRED_SHARE := 0.25
+const TIRED_AT := 40.0
+const NAMED_SHARE := 0.40
 const ROUNDS := 3
 
 
@@ -137,7 +151,7 @@ static func all_mastery(f: Dictionary) -> Dictionary:
 
 
 ## Its worth in an even exchange (power points): a drilled combination works (PlanFight.EDGE ok) at its pad rate, more when
-## it flows, more again as a signature.
+## it flows, more again as a signature. Capped at COMBO_CAP (Kalli K_COMBOPLAN1, S376).
 static func worth(f: Dictionary, e: Dictionary) -> float:
 	var m := mastery(f, str(e["id"]))
 	var rate := 1.0 if m >= Combos.LEARN_AT else PlanBoard.UNDRILLED
@@ -146,22 +160,42 @@ static func worth(f: Dictionary, e: Dictionary) -> float:
 		w += FLOW_EDGE
 	if signature(f, e):
 		w += SIG_EDGE
-	return w
+	return minf(w, COMBO_CAP)
 
 
-## The power points his best own combination adds to a round (BoutNight._energy's bonus): its flow + signature worth x
-## USE_SHARE, shrinking as he tires (Combos.energy_scale) - 0 with none usable.
-static func ring_edge(f: Dictionary, energy: float) -> float:
+## The power points his best own combination adds to a round (BoutNight._energy's bonus): per usable combination the edge
+## is (worth - EDGE ok); for a long signature (4+ punches) the gamble adds LONG_EXTRA but lands at LONG_ODDS_WORTH odds
+## divided by win_odds(COMBO_CAP). Best of them x use_share(energy, named). Replaces Combos.energy_scale (Kalli S376).
+static func ring_edge(f: Dictionary, energy: float, named: bool = false) -> float:
 	var best := 0.0
 	for e in entries(f):
-		if usable(f, e):
-			best = maxf(best, worth(f, e) - float(PlanFight.EDGE["ok"]))
-	return best * USE_SHARE * Combos.energy_scale(energy)
+		if not usable(f, e):
+			continue
+		var edge := worth(f, e) - float(PlanFight.EDGE["ok"])
+		if long_signature(f, e):
+			edge = (worth(f, e) - float(PlanFight.EDGE["ok"]) + LONG_EXTRA) * lands_whole(f, e) / ComboOdds.win_odds(COMBO_CAP)
+		best = maxf(best, edge)
+	return best * use_share(energy, named)
 
-
-## How often it lands whole in an even exchange (ComboOdds' dice on its worth).
+## How often it lands whole in an even exchange (ComboOdds' dice on its worth). A long signature lands at LONG_ODDS_WORTH
+## (the gamble: it counts +1 when it lands whole, but 4-punch chains land less often than 2-3 punch ones, Kalli S376).
 static func lands_whole(f: Dictionary, e: Dictionary) -> float:
+	if long_signature(f, e):
+		return ComboOdds.win_odds(LONG_ODDS_WORTH)
 	return ComboOdds.win_odds(worth(f, e))
+
+## A long signature: a signature chain of LONG_AT (4) punches or more - the only way a 4-punch run is thrown whole.
+static func long_signature(f: Dictionary, e: Dictionary) -> bool:
+	return signature(f, e) and punches(e.get("chain", [])).size() >= LONG_AT
+
+## The share of a round's exchanges his best combination decides: NAMED_SHARE when the plan names it, TIRED_SHARE when
+## energy is under TIRED_AT, else USE_SHARE. Never above NAMED_SHARE (Kalli K_COMBOPLAN1, S376).
+static func use_share(energy: float, named: bool = false) -> float:
+	if named:
+		return NAMED_SHARE
+	if energy < TIRED_AT:
+		return TIRED_SHARE
+	return USE_SHARE
 
 
 ## Gas a throw (ComboFlow.energy, his graded punches cheaper).

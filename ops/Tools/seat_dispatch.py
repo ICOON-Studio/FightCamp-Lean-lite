@@ -767,6 +767,9 @@ def loop_next(task: str, contract: dict, before: dict, after: dict, branch: str,
     new_id = f"{stem}R{n + 1}"
     brief_contract.brief_path(new_id).write_text(nxt, encoding="utf-8")
     seat = next(s for s, c in SEATS.items() if c["agent"] == load(RUNS, {}).get("runs", {}).get(task, {}).get("agent"))
+    # S376 (operator: "use argon!"): AgentComms/loop_seats.json {stem: seat} moves a loop's next round to another seat
+    # (FIGHT9 went to Cursor while agy's Argon allowance was spent; back on agy once Argon answers again).
+    seat = str(load(COMMS / "loop_seats.json", {}).get(stem, seat))
     items = load(QUEUE, {"_doc": "Tasks for the CLI seats, drained by ops/Tools/seat_dispatch.py (30-min reconcile).", "items": []})
     items["items"].append({"task": new_id, "seat": seat, "status": "queued", "queued": _now(), "loop": stem})
     save(QUEUE, items)

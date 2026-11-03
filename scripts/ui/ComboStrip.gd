@@ -32,12 +32,23 @@ static func strip(f: Dictionary, chain: Array, rated: Dictionary, entries: Dicti
 	flow.add_theme_constant_override("h_separation", 4)
 	flow.add_theme_constant_override("v_separation", 12)
 	var steps: Array = rated.get("steps", [])
+	var first_graded := true
 	for i in chain.size():
 		var st: Dictionary = steps[i] if i < steps.size() else {}
 		if i > 0:
 			flow.add_child(_join(st))
 		var c := _card(f, i, str(chain[i]), entries.get(str(chain[i]), {}), chain, st, on_remove)
 		flow.add_child(c)
+		if first_graded:
+			var graded_chip := c.find_child("Graded", true, false)
+			if graded_chip != null:
+				first_graded = false
+				var extra := SkillAwards.extra_combos_r3(f)
+				if extra > 0:
+					var lab := UI.label("+%d combos by round 3" % extra, UI.TINY, UI.GOLD, "bold")
+					lab.name = "GradedCombos"
+					graded_chip.tooltip_text += " About %d more three-punch combinations left in round 3 than ungraded." % extra
+					graded_chip.get_parent().add_child(lab)
 		if i == chain.size() - 1:
 			c.modulate = Color(1, 1, 1, 0)
 			c.create_tween().tween_property(c, "modulate", Color.WHITE, 0.25)

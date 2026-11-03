@@ -3,6 +3,22 @@
 Status: OPEN (S371, Claude; S372 rewritten after round 1 failed to compile). Operator S371: "gemini4 review the fight with the fixes and rate it again", "and then tell
 gemini to reach to 9/10", "let argon do all the fixes until its 9/10". Main scored 3/10 (verdict below).
 
+## OPERATOR S376 - READ FIRST, it overrules every earlier timing choice
+He watched the men's bout on main: "their leg animation are broken completely their punch speed feels very fast along
+with their body movement and it is very unatural". Claude measured it (tools/men_fight_film.gd; men and women alike):
+- LEGS: knees locked dead straight (> 170 deg) 14-22 % of a round. Cause: FootPlant planted a foot by distance only,
+  the hips moved on and the IK pulled the leg straight, then the foot snapped across. FIXED ON MAIN 54684f35 (STEP_REACH /
+  CAP_REACH: a foot steps before its leg runs out of reach; no IK target past ~165 deg) -> 0-1 %. Your BASE must merge
+  main (FootPlant: keep BOTH - this branch's toe axis + KneeTrack.align AND main's reach rule).
+- PACE: the R2 base made the fight FASTER - IMPACT_S jab 0.19 (main 0.365), OTHER_SPEED 1.45, COMBO_LAND_S 0.28. That is
+  the opposite of what he asks. Put main's values back: IMPACT_S = the Undisputed medians (jab 0.365, cross 0.501, hook
+  0.534, uppercut 0.489, body 0.450), COMBO_LAND_S 0.35 / COMBO_SAME_HAND_S 0.45, OTHER_SPEED <= 1.1, RECOVER_MAX and
+  REACT_FAST_MAX <= 1.5 (main S376: at 2.5x the whole body snapped back with the hand). Never speed a whole clip up to fix
+  timing - only the arm moves that fast in a real punch.
+- BARS (add to tools/fight9_probe.gd, over 40 s of round 1, each boxer): knee > 170 deg in <= 2 % of frames; foot jumps
+  (> 3 m/s in the body's frame) <= 4; frames with AnimationPlayer playing speed > 1.6x <= 2 %. tools/men_fight_film.gd
+  writes the per-frame legs.csv these read (Claude's numbers: ops/research/S376_DIGEST.md when written).
+
 ## How the loop works
 - You are one ROUND. You fix the costliest defects in the "Last verdict" below that are yours (see "Not yours"), one or
   two per round - a real fix, not a tweak of a number to fool a camera.

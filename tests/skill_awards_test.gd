@@ -80,7 +80,18 @@ func _graded() -> void:
 	var strip := ComboStrip.strip(f, ["jab", "rear_uppercut", "slip"], ComboFlow.rate(["jab", "rear_uppercut", "slip"]), entries, func(_i): pass)
 	var chips := strip.find_children("Graded", "", true, false)
 	_check(chips.size() == 2, "the strip: the jab and the uppercut wear their grade, the slip none (%d)" % chips.size())
+	var graded_combos := strip.find_children("GradedCombos", "", true, false)
+	_check(graded_combos.size() == 1, "the strip of a graded boxer has exactly one GradedCombos label (%d)" % graded_combos.size())
 	strip.free()
+
+	# S376 Kalli K_GRADED2: extra_combos_r3 - the graded punches' saving shown as "about N more combos in round 3".
+	var ungraded := {"moves": {"Jab": 45.0, "Cross": 40.0}, "awards": [], "w": 0, "l": 0}
+	_check(SkillAwards.extra_combos_r3(ungraded) == 0, "extra_combos_r3 of an ungraded boxer == 0")
+	var gold_f := {"moves": {"Jab": 45.0, "Cross": 40.0, "Lead hook": 35.0, "Body hook": 31.0, "Uppercut": 31.0, "Check hook": 31.0},
+		"awards": ["preliminary", "standard", "bronze", "silver", "gold"].map(func(a): return {"id": a, "d": 0}),
+		"stats": {"conditioning": 50.0}, "w": 0, "l": 0}
+	var extra := SkillAwards.extra_combos_r3(gold_f)
+	_check(extra >= 2 and extra <= 6, "extra_combos_r3 of a Gold boxer at conditioning 50 between 2 and 6 (%d)" % extra)
 
 
 func _check(cond: bool, label: String) -> void:

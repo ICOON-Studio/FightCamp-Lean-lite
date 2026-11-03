@@ -17,6 +17,9 @@ const SHARP := 60.0     # MoveMastery.tier SHARP
 ## The coached evenings that count as award sessions (WeekPlan.EVENINGS): pads and drills, sparring.
 const COACHED := ["pads", "sparring"]
 
+const Combos := preload("res://scripts/rules/Combos.gd")
+const RoundStyle := preload("res://scripts/rules/RoundStyle.gd")
+
 ## The six grades (J_TESTS1 Q4: what each tests), and what the game asks for each assessment.
 const AWARDS: Array[Dictionary] = [
 	{"id": "preliminary", "name": "Preliminary", "tests": "the basics: stance, guard, moving, no contact", "moves": {}},
@@ -97,6 +100,36 @@ static func economy_ids(f: Dictionary) -> Dictionary:
 		if e < 1.0:
 			out[id] = e
 	return out
+
+
+## S376 Kalli K_GRADED2: the graded punches' gas saving shown as "about N more combos in round 3" (the round-3 bell
+## energy difference between graded and ungraded, divided by CHAIN3_GAS - the gas of a 3-punch chain, 0.9). 0 for ungraded.
+const CHAIN3_GAS := 0.9
+
+static func extra_combos_r3(f: Dictionary) -> int:
+	var econ := bout_economy(f, RoundStyle.SHARE)
+	if econ >= 1.0:
+		return 0
+	var cond := float((f.get("stats", {}) as Dictionary).get("conditioning", 55.0))
+	var combos: Dictionary = f.get("combos", {})
+	var spend_g := Combos.round_spend(combos, "", cond, econ)
+	var spend_p := Combos.round_spend(combos, "", cond, 1.0)
+	var eg := Combos.TANK
+	var ep := Combos.TANK
+	var dg := 0.0
+	var dp := 0.0
+	var bg := 0.0
+	var bp := 0.0
+	for r in 3:
+		var ag := Combos.after_round(eg, dg, spend_g, cond)
+		var ap := Combos.after_round(ep, dp, spend_p, cond)
+		bg = float(ag["bell"])
+		bp = float(ap["bell"])
+		eg = float(ag["next"])
+		ep = float(ap["next"])
+		dg = float(ag["debt"])
+		dp = float(ap["debt"])
+	return roundi(maxf(0.0, bg - bp) / CHAIN3_GAS)
 
 
 ## The grade she works toward next; {} once Platinum is passed.

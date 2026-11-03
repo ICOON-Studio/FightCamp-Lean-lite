@@ -111,7 +111,10 @@ const OUT := ["pro_knockout_v1", "pro_knockout_v2", "pro_knockout_v3", "pro_knoc
 const IMPACT_S := {"jab": 0.365, "cross": 0.501, "lead_hook": 0.534, "rear_hook": 0.534, "lead_uppercut": 0.489,
 	"rear_uppercut": 0.489, "body_hook": 0.450}
 ## Everything else from the Pro library (hit reactions, blocks, dodges) plays this much faster than authored.
-const OTHER_SPEED := 1.25
+## S376 (operator on the men's bout: "their punch speed feels very fast along with their body movement and it is very
+## unatural"): 1.25 -> 1.1, and the recovery / reaction speed-ups capped at 1.5x (were 2.5x). Those speed up the WHOLE clip:
+## at 2.5x the torso and legs snapped back with the hand, which no body does - only the arm retracts that fast.
+const OTHER_SPEED := 1.1
 ## The guard every Pro clip starts and ends in: playing it between moves makes the joins seamless.
 const GUARD := ["pro_idle", "idle"]
 
@@ -124,7 +127,7 @@ const GUARD := ["pro_idle", "idle"]
 const RECOVERY_PATH := "res://assets/data/clip_recovery.json"
 const RECOVER_JAB_S := 0.26
 const RECOVER_S := 0.17
-const RECOVER_MAX := 2.5
+const RECOVER_MAX := 1.5   # S376 (was 2.5): the whole body played at the hand's retraction speed
 
 static var _contact: Dictionary = {}
 static var _recovery: Dictionary = {}
@@ -145,7 +148,7 @@ static func recovery(clip: String) -> Vector2:
 ## the head and body move in the first quarter-second; research G147: reactions on the blow, <=150 ms in), then recovers at
 ## the clip's own pace. The clip's peak comes from clip_recovery.json "peak_s" (1x).
 const REACT_PEAK_S := 0.22
-const REACT_FAST_MAX := 2.5
+const REACT_FAST_MAX := 1.5   # S376 (was 2.5)
 
 
 ## Seconds into `clip` (1x) of its furthest point from the guard; -1 when not measured.
