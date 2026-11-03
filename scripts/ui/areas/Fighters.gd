@@ -15,6 +15,8 @@ const MoveMastery := preload("res://scripts/rules/MoveMastery.gd")
 const FIGHTER_PAGE_SCRIPT := preload("res://scripts/ui/areas/FighterPage.gd")
 const FIGHTER_PAGE := preload("res://scenes/areas/FighterPage.tscn")
 const GrapplerPage := preload("res://scripts/ui/areas/GrapplerPage.gd")
+const NoGi := preload("res://scripts/rules/NoGi.gd")
+const Playbook := preload("res://scripts/ui/areas/Playbook.gd")
 
 
 func build(main: Node) -> void:
@@ -164,29 +166,54 @@ func _camps(main: Node, c: Career) -> void:
 
 
 func _scouting(main: Node, c: Career) -> void:
+	# S376 (operator's S375 playtest: "scouting rows text-only and the scouted ranges vanish after invite"): a face card per
+	# prospect, two to a row; the scouted range of each stat stays on the card through trial and signing (a pip meter to
+	# the top of the range, the bottom marked).
 	var card := UI.card("PROSPECTS NEAR %s" % c.city.to_upper())
 	add_child(card[0])
-	var rows: Array = []
+	var grid := FighterCard.grid("Prospects")
 	for p in c.prospects:
-		var right: Array = []
-		var sub := "%d, %s, %s, amateur %d-%d: %s" % [p["age"], str(p["wc"]).to_lower(), str(p["style"]).to_lower(), p["w"], p["l"], p["note"]]
+		var pc := PanelContainer.new()
+		pc.theme_type_variation = "Card"
+		pc.name = "Prospect_" + str(p["id"])
+		pc.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		var h := UI.hbox(18)
+		pc.add_child(h)
+		h.add_child(FighterCard.face(p))
+		var v := UI.vbox(6)
+		v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		h.add_child(v)
+		var top := UI.hbox(12)
+		var nm := UI.label(str(p["name"]), UI.BODY + 5, UI.FG, "bold")
+		top.add_child(nm)
+		top.add_child(UI.display("%d-%d AM" % [int(p["w"]), int(p["l"])], 26, UI.GOLD))
+		top.add_child(UI.spacer())
 		match str(p["state"]):
-			"scout":
-				var ranges: Array = []
-				for k in ["power", "speed", "technique", "defense"]:
-					ranges.append("%s %s" % [str(Data.LABEL[k]).to_lower(), Roster.scouted_range(p, k)])
-				sub += ". Scouted: " + ", ".join(ranges)
-				var b := UI.button("Invite to a trial", "Btn", main.act.bind("invite", p["id"]))
-				b.name = "Invite_" + str(p["id"])
-				right.append(b)
 			"invited":
-				right.append(UI.chip("trial %s" % Clock.fmt(int(p["trial_day"])), "gold"))
+				top.add_child(UI.chip("trial %s" % Clock.fmt(int(p["trial_day"])), "gold"))
 			"signed":
-				right.append(UI.chip("signed", "green"))
+				top.add_child(UI.chip("signed", "green"))
 			"passed":
-				right.append(UI.chip("passed", ""))
-		rows.append(UI.row(p["name"], sub, Color(0, 0, 0, 0), right))
-	UI.add_rows(card[1], rows)
+				top.add_child(UI.chip("passed", ""))
+		v.add_child(top)
+		v.add_child(UI.muted("%d, %s, %s: %s" % [p["age"], str(p["wc"]).to_lower(), str(p["style"]).to_lower(), p["note"]], UI.SMALL, true))
+		v.add_child(UI.caps("SCOUTED"))
+		for k in ["power", "speed", "technique", "defense"]:
+			var r := UI.hbox(10)
+			var lab := UI.label(str(Data.LABEL[k]), UI.SMALL, UI.FG)
+			lab.custom_minimum_size = Vector2(110, 0)
+			r.add_child(lab)
+			var mid := float(p["stats"][k])
+			r.add_child(UI.meter((mid + Data.SCOUT_SPREAD) / 100.0, UI.GOLD, [(mid - Data.SCOUT_SPREAD) / 100.0], 150.0))
+			r.add_child(UI.mono(Roster.scouted_range(p, k), UI.SMALL, UI.FG))
+			v.add_child(r)
+		if str(p["state"]) == "scout":
+			var b := UI.button("Invite to a trial", "Btn", main.act.bind("invite", p["id"]))
+			b.name = "Invite_" + str(p["id"])
+			b.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+			v.add_child(b)
+		grid.add_child(pc)
+	card[1].add_child(grid)
 	card[1].add_child(UI.muted("A trial is free: the fighter comes in on the Monday. Signing costs the %s club stipend a week." % UI.money(250), UI.SMALL, true))
 
 
@@ -194,13 +221,25 @@ func _scouting(main: Node, c: Career) -> void:
 func _mat(main: Node, c: Career, parent: Container) -> void:
 	if c.grapplers.is_empty():
 		return
+	# S376 (operator's S375 playtest: "Ana a text row on Roster"): a no-gi athlete gets the boxers' face card - her belt,
+	# opens record, classes this belt, the move her classes drill, and her mat in the Playbook.
 	parent.add_child(UI.caps("ON THE MAT - NO-GI"))
+	var grid := FighterCard.grid("MatCards")
 	for g in c.grapplers:
-		var row := UI.hbox(14)
-		row.name = "Grappler_" + str(g["id"])
-		row.add_child(UI.button(str(g["name"]), "BtnQuiet", main.act.bind("fighter", str(g["id"]))))
-		var sub := UI.muted("%s belt, %d stripe%s - %d-%d in opens - %d classes this belt" % [str(g["belt"]).capitalize(), int(g["stripes"]),
-			"" if int(g["stripes"]) == 1 else "s", int(g["w"]), int(g["l"]), int(g.get("mat_classes", 0))], UI.BODY)
-		sub.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-		row.add_child(sub)
-		parent.add_child(row)
+		var fc := FighterCard.build(main, g, "Grappler")
+		var v: VBoxContainer = fc[1]
+		var stripes := int(g["stripes"])
+		v.add_child(UI.label("%s belt, %d stripe%s" % [str(g["belt"]).capitalize(), stripes, "" if stripes == 1 else "s"], UI.BODY, UI.FG, "bold"))
+		v.add_child(UI.label("%d classes this belt" % int(g.get("mat_classes", 0)), UI.BODY))
+		var drill := NoGi.drilling(g, c.day)
+		if drill != "":
+			v.add_child(UI.label("Drilling: %s" % NoGi.move_name(drill).to_lower(), UI.SMALL, UI.GREEN, "bold"))
+		var id := str(g["id"])
+		var mat := UI.button("%s's mat: Playbook" % str(g["first"]), "Btn", func():
+			Playbook.pick = id
+			main.act("go", "playbook:0"))
+		mat.name = "Mat_" + id
+		mat.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+		v.add_child(mat)
+		grid.add_child(fc[0])
+	parent.add_child(grid)

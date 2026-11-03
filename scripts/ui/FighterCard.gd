@@ -8,6 +8,7 @@ const HomeBoard := preload("res://scripts/ui/HomeBoard.gd")
 const Bar := preload("res://scripts/ui/Bar.gd")
 
 const FACE := Vector2(132, 166)
+const HEAD_CROP := Rect2(0.36, 0.04, 0.6, 0.48)   # of a face shot: the head, the glove (from 0.53 down) left out
 
 
 ## [the card, the column beside her face to fill]. `tag` names the card (tag_<id>) so tools and tests can find it.
@@ -35,6 +36,8 @@ static func build(main: Node, f: Dictionary, tag: String) -> Array:
 
 
 static func record(f: Dictionary) -> String:
+	if str(f.get("sport", "")) == "bjj":
+		return "%d-%d OPENS" % [int(f.get("w", 0)), int(f.get("l", 0))]   # S376: a no-gi athlete's record is her opens
 	if bool(f.get("pro", false)):
 		return "%d-%d PRO" % [int(f.get("pro_w", 0)), int(f.get("pro_l", 0))]
 	return "%d-%d AM" % [int(f["w"]), int(f["l"])]
@@ -49,6 +52,13 @@ static func face(f: Dictionary) -> Control:
 	r.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	r.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 	r.texture = HomeBoard.portrait(f)
+	# S376: the face shots are ring photos with a raised glove - a no-gi athlete shows her head only (above the glove).
+	if str(f.get("sport", "")) == "bjj" and r.texture != null and not r.texture is AtlasTexture:
+		var a := AtlasTexture.new()
+		a.atlas = r.texture
+		var s := r.texture.get_size()
+		a.region = Rect2(HEAD_CROP.position * s, HEAD_CROP.size * s)
+		r.texture = a
 	r.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return r
 

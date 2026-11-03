@@ -155,13 +155,24 @@ func _palette() -> Control:
 			b.modulate = Color(1, 1, 1, 0.6)
 		flow.add_child(b)
 	v.add_child(flow)
-	var own: Array = f.get("book", [])
+	# S376 (operator's S375 playtest: "the own-combo builder has no 'Drill it' button"): each of the fighter's own
+	# combinations loads back into the builder AND goes on the pads from here, like the planner's Drill this week.
+	var own: Array = OwnCombos.entries(f)
 	if not own.is_empty():
 		v.add_child(UI.caps("YOUR OWN"))
+		var drilling := str(f.get("combo_learning", ""))
 		for o in own:
+			var row := UI.hbox(6)
 			var b := UI.button("%s  (%d)" % [o["name"], int(o["score"])], "Btn", _load.bind((o["chain"] as Array).duplicate()))
 			b.tooltip_text = "Load it back into the builder"
-			v.add_child(b)
+			row.add_child(b)
+			var oid := str(o["id"])
+			var need := OwnCombos.missing(f, o)
+			var d := UI.button("Drilling" if drilling == oid else "Drill it", "Btn", _drill_own.bind(oid, str(o["name"])),
+				drilling == oid or need != "", "Every punch in it must be a weapon first (%d on the pads)." % int(Combos.LEARN_AT) if need != "" else "")
+			d.name = "DrillOwn_" + oid.replace(":", "_")
+			row.add_child(d)
+			v.add_child(row)
 	return p
 
 
@@ -264,8 +275,13 @@ func _save() -> void:
 	(f["book"] as Array).append({"name": nm, "chain": chain.duplicate(), "score": int(r["score"])})
 	# S375 COMBOPLAN1: a saved chain is a combination of the fighter's own - the planner on the Training tab drills it.
 	OwnCombos.ensure_ids(f)
-	main.toast("Saved to %s's book: %s (%s, %d). Drill it from Fighters > Training, the combo planner." % [f["first"], nm, r["word"], int(r["score"])])
+	main.toast("Saved to %s's book: %s (%s, %d). Drill it from YOUR OWN, here or on the Training tab." % [f["first"], nm, r["word"], int(r["score"])])
 	main.render()
+
+
+func _drill_own(id: String, nm: String) -> void:
+	main.act("combo", "%s|%s" % [f["id"], id])
+	main.toast("%s drills the %s on the pads this week." % [f["first"], nm])
 
 
 func _drill(id: String) -> void:

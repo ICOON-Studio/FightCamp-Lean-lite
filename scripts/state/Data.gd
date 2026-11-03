@@ -193,23 +193,32 @@ const DIVISION_RIVALS: Array[Dictionary] = [
 ## S334 (operator Q-S294-55 "make some younger too 16-18 yo"): Kira and Samira are 18, with their own young faces
 ## (Faces.CAST); under 19 they cannot enter the Elite Nationals yet (SeasonPath.AGE_MIN) - a girl to bring up.
 const SCOUT_SPREAD := 5
+## S376 (operator's S375 playtest: "Danny's personality text identical to Lucy's" - both had rolled heart highest and temper
+## hottest, so both read "Big heart / Short fuse"): the named prospects carry written personalities, each a different pair
+## of Recruit.traits (Kira Listens / Folds when hurt, Samira Loyal / Wanders off the plan, Tess Big heart / Stubborn,
+## Danny Confident / Stubborn, Josh Disciplined / Fragile; Lucy keeps her rolled Big heart / Short fuse).
 const PROSPECTS: Array[Dictionary] = [
 	{"id": "kira", "name": "Kira Mensah", "first": "Kira", "sex": "f", "age": 18, "wc": "Featherweight", "div": "wfw", "weight": 58.3,
 		"stance": "orthodox", "style": "Out-boxer", "w": 1, "l": 0, "pot": 86, "note": "fast hands, thin chin",
-		"stats": {"power": 54.0, "speed": 66.5, "technique": 59.0, "defense": 57.5, "conditioning": 58.0, "fight_iq": 57.0, "chin": 52.0}},
+		"stats": {"power": 54.0, "speed": 66.5, "technique": 59.0, "defense": 57.5, "conditioning": 58.0, "fight_iq": 57.0, "chin": 52.0},
+		"personality": {"heart": 36.0, "discipline": 64.0, "confidence": 58.0, "coachability": 84.0, "loyalty": 60.0, "temper": 30.0}},
 	{"id": "samira", "name": "Samira Khan", "first": "Samira", "sex": "f", "age": 18, "wc": "Welterweight", "div": "www", "weight": 66.4,
 		"stance": "orthodox", "style": "Slugger", "w": 2, "l": 1, "pot": 82, "note": "raw power, no defence",
-		"stats": {"power": 66.0, "speed": 57.0, "technique": 54.5, "defense": 50.5, "conditioning": 60.0, "fight_iq": 54.0, "chin": 63.0}},
+		"stats": {"power": 66.0, "speed": 57.0, "technique": 54.5, "defense": 50.5, "conditioning": 60.0, "fight_iq": 54.0, "chin": 63.0},
+		"personality": {"heart": 70.0, "discipline": 34.0, "confidence": 66.0, "coachability": 52.0, "loyalty": 82.0, "temper": 60.0}},
 	{"id": "tess", "name": "Tess Reilly", "first": "Tess", "sex": "f", "age": 23, "wc": "Middleweight", "div": "wmw", "weight": 76.1,
 		"stance": "southpaw", "style": "Pressure fighter", "w": 6, "l": 4, "pot": 76, "note": "tough, slow feet",
-		"stats": {"power": 62.0, "speed": 55.0, "technique": 58.5, "defense": 58.0, "conditioning": 64.0, "fight_iq": 59.5, "chin": 67.0}},
+		"stats": {"power": 62.0, "speed": 55.0, "technique": 58.5, "defense": 58.0, "conditioning": 64.0, "fight_iq": 59.5, "chin": 67.0},
+		"personality": {"heart": 84.0, "discipline": 62.0, "confidence": 70.0, "coachability": 36.0, "loyalty": 66.0, "temper": 40.0}},
 	# S371 MALE1: the first two men scouting can bring in (a lightweight and a welterweight, England Boxing men's classes).
 	{"id": "danny", "name": "Danny Osei", "first": "Danny", "sex": "m", "age": 20, "wc": "Lightweight", "div": "mlw", "weight": 61.6,
 		"stance": "orthodox", "style": "Boxer-puncher", "w": 2, "l": 1, "pot": 85, "note": "sharp jab, light legs",
-		"stats": {"power": 59.0, "speed": 62.0, "technique": 61.0, "defense": 56.5, "conditioning": 57.0, "fight_iq": 58.0, "chin": 62.0}},
+		"stats": {"power": 59.0, "speed": 62.0, "technique": 61.0, "defense": 56.5, "conditioning": 57.0, "fight_iq": 58.0, "chin": 62.0},
+		"personality": {"heart": 64.0, "discipline": 60.0, "confidence": 82.0, "coachability": 34.0, "loyalty": 58.0, "temper": 45.0}},
 	{"id": "josh", "name": "Josh Harper", "first": "Josh", "sex": "m", "age": 23, "wc": "Welterweight", "div": "mww", "weight": 71.4,
 		"stance": "southpaw", "style": "Pressure fighter", "w": 4, "l": 2, "pot": 79, "note": "big engine, wide hooks",
-		"stats": {"power": 63.0, "speed": 56.0, "technique": 55.5, "defense": 55.0, "conditioning": 65.0, "fight_iq": 56.0, "chin": 64.0}},
+		"stats": {"power": 63.0, "speed": 56.0, "technique": 55.5, "defense": 55.0, "conditioning": 65.0, "fight_iq": 56.0, "chin": 64.0},
+		"personality": {"heart": 66.0, "discipline": 80.0, "confidence": 38.0, "coachability": 64.0, "loyalty": 70.0, "temper": 35.0}},
 ]
 
 ## Move mastery: the punches the gym teaches, which week card drills which, and where a fighter starts.
