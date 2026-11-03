@@ -75,6 +75,19 @@
    "queued": "2026-11-03T13:54",
    "loop": "FIGHT9",
    "launched": "2026-11-03T13:59"
+  },
+  {
+   "task": "FIGHT9R7",
+   "seat": "agy",
+   "status": "queued",
+   "queued": "2026-11-03T16:03",
+   "loop": "FIGHT9"
+  },
+  {
+   "task": "LOCOWALK1",
+   "seat": "cursor",
+   "status": "queued",
+   "queued": "2026-11-03T16:31"
   }
  ]
 }

@@ -5,10 +5,11 @@ extends Node
 ## rule itself and the count is a broadcast graphic:
 ## - the fall plays and its slow-motion replay (KnockdownReplay); the round clock HOLDS from the count beat on (FightView.t
 ##   does not run, so the round's exchanges are not eaten by the count);
-## - the standing boxer backs off to the neutral corner farthest from the downed one (round the body) in his guard, eyes on
-##   him, the fight's own glide (his guard loop while FootPlant takes the steps) at PACE_MS - S377 operator on the corner
-##   crew's casual walk (af_walk) played on a boxer: "the walking on the clip is so bad"; the fight's mocap step loops
-##   (Footwork.STRIDE) were filmed too and squat bow-legged at this pace - and he waits there, facing him;
+## - the standing boxer backs off to the neutral corner farthest from the downed one (round the body) on the fight's mocap
+##   back-step loop at its own speed, the body moved by StepRoot: only as far as his planted foot pushes it, turned so the
+##   loop's travel points at the corner (he faces the downed boxer). S377 operator, on the corner crew's casual walk
+##   (af_walk): "the walking on the clip is so bad"; on the guard glide that replaced it: "their legs dont really move they
+##   slide across" - and he waits there, facing him;
 ## - the count runs big under the banner, one number a second of the fight's own time (2x counts twice as fast; the replay
 ##   pauses it with the rest of the ring);
 ## - no stoppage: the downed boxer gets up by the sim's `up_at` (Knockdowns: 2-9; his countdown clip plays from its rise),
@@ -22,6 +23,7 @@ const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
 const FightHud := preload("res://scripts/fight3d/FightHud.gd")
 const RingCamera := preload("res://scripts/fight3d/RingCamera.gd")
 const UI := preload("res://scripts/ui/TV.gd")
+const StepRoot := preload("res://scripts/fight3d/StepRoot.gd")
 
 const DOWN_S := 1.0          # the count starts this long after the fall (and after the replay, when one plays)
 const TICK_S := 1.0          # one number a second
@@ -32,7 +34,8 @@ const RISE_COUNT := 3        # his rise starts this many numbers before up_at (t
 const STAND_HEAD_M := 1.3    # up again: the head this high at scale 1 (a standing guard's head ~1.56 m, flat ~0.2 m)
 const NEUTRAL_IN_M := 0.6    # the neutral corner mark: this far in from the posts on both axes (Referee._neutral)
 const BOX_S := 0.9
-const PACE_MS := 0.9         # his ground speed backing to the corner (the fight's own walk: Footwork 0.55 x ~1.75 m/s)
+const WALK_CLIP := "retreat" # the fight's back-step loop (FightClips.BAKED loc_retreat)
+const WALK_SPEED := 0.6      # a calm back-step to the corner (1x is the fight's explosive retreat); StepRoot keeps the feet
 const FACE_S := 0.12         # he turns to keep the downed boxer in front of him
 const CLEAR_M := 0.8         # his path keeps this far from the lying body (hips to head), round its nearer end
 const ROPE_IN_M := 2.45      # a detour waypoint stays this far in from the centre on both axes
@@ -51,6 +54,12 @@ const HUD_SPREAD := 1.35     # the body-map panels cover each side of the frame:
 const BACK_GAP_M := 2.2      # after BOX! the count's lens holds until they are this close again (or BACK_S)
 const BACK_S := 3.0
 const ASPECT := 16.0 / 9.0
+## While the standing boxer walks, the lens holds on the downed one (the broadcast's count shot; S377: the library has no
+## walk that reads right on our boxers - af_walk limps, the step loops squat - so the walk is not the picture until LOCOWALK1
+## brings real clips); it cuts to the wide count shot once he is in his corner.
+const DOWN_LENS_DIST_M := 1.3   # S377: high over him (the overhead count shot) - only the canvas round him is in
+const DOWN_LENS_H := 3.0
+const DOWN_HALF_M := 1.0         # the count close-up: his head and body (hips to head), the walker out of it
 const RISE_FROM := {"pro_knockout_countdown_v1": 23.0, "pro_knockout_countdown_v2": 24.0, "pro_knockout_countdown_v3": 26.0,
 	"mc_knockout_count": 23.0}
 const RISE_TO := {"pro_knockout_countdown_v1": 26.55, "pro_knockout_countdown_v2": 29.05, "pro_knockout_countdown_v3": 31.467,
@@ -74,8 +83,10 @@ var _label: Label
 var _pop := 1.0
 var _flash := 0.0
 var _lens := {}        # the count shot: {pos, look, fov}
+var _down_lens := {}   # the shot on the downed boxer while the other walks
 var _path: Array = []  # the walker's waypoints to the neutral corner
 var _body := Vector3.ZERO
+var _clip_t := 0.0     # where his walk loop was last frame (StepRoot moves him by the clip's travel since then)
 
 
 static func attach(v: Control) -> Node:
@@ -111,6 +122,7 @@ func start(down: int, stop_how: String, up_at: int, fall_in: float) -> void:
 	_rising = false
 	_standing = false
 	_lens = {}
+	_down_lens = {}
 	phase = "fall"
 	_drop_next(float(view.t))
 	_show("", UI.GOLD)
@@ -222,6 +234,7 @@ func _begin_count() -> void:
 	_path = _route(from, mark)
 	_body = body
 	_lens = _count_lens(body, mark)
+	_down_lens = _on_body_lens(body, mark, from)
 	phase = "count"
 	_tick = TICK_S
 
@@ -358,25 +371,56 @@ func _head_ground(bx: Dictionary) -> Vector3:
 	return Vector3(head.x, 0.0, head.z)
 
 
-## Backing to the corner: facing the downed boxer, along the path at PACE_MS, on whichever step loop goes that way (a back
-## step mostly, a side step when the corner is off to his side); at the mark, his guard.
+## Backing to the corner: the back-step loop plays and the body goes where its planted foot pushes it (StepRoot), turned
+## so the loop's own travel points at the waypoint; at the mark, his guard, turning to face the downed boxer.
 func _walk(delta: float) -> void:
 	var st: Node3D = view.stage
 	var who := 1 - _down
 	var walker: Dictionary = st.boxers[who]
 	var n: Node3D = walker["node"]
-	var face := atan2(_body.x - n.position.x, _body.z - n.position.z)
-	n.rotation.y = lerp_angle(n.rotation.y, face, 1.0 - exp(-delta / FACE_S))
+	var ap: AnimationPlayer = walker["ap"]
+	var skel: Skeleton3D = walker["skel"]
 	if _path.is_empty():
+		var face := atan2(_body.x - n.position.x, _body.z - n.position.z)
+		n.rotation.y = lerp_angle(n.rotation.y, face, 1.0 - exp(-delta / FACE_S))
 		return
+	if str(ap.current_animation) != WALK_CLIP:
+		st.act(who, WALK_CLIP, WALK_SPEED)
+		_clip_t = ap.current_animation_position
+		return
+	var t1 := ap.current_animation_position
+	var step := skel.global_transform.basis * StepRoot.moved(ap, skel, WALK_CLIP, _clip_t, t1)
+	_clip_t = t1
+	step.y = 0.0
 	var to: Vector3 = _path[0]
 	var d := Vector3(to.x - n.position.x, 0.0, to.z - n.position.z)
-	var stride := PACE_MS * delta
-	if d.length() <= stride:
+	var head := skel.global_transform.basis * StepRoot.heading(ap, skel, WALK_CLIP)
+	head.y = 0.0
+	if head.length() > 0.01 and d.length() > 0.05:
+		# He turns on his planted foot (round the body's centre the turn swung that foot across the canvas).
+		var foot := _planted(walker)
+		var turn := head.signed_angle_to(d, Vector3.UP) * (1.0 - exp(-delta / FACE_S))
+		n.rotation.y += turn
+		var off := Vector3(foot.x - n.position.x, 0.0, foot.z - n.position.z)
+		n.position += off - off.rotated(Vector3.UP, turn)
+	if d.length() <= step.length() + 0.02:
 		n.position = Vector3(to.x, 0.0, to.z)
 		_path.pop_front()
+		if _path.is_empty():
+			st.guard(who)
 		return
-	n.position += d.normalized() * stride
+	n.position += step
+
+
+## The lower ankle on the canvas (world).
+func _planted(bx: Dictionary) -> Vector3:
+	var skel: Skeleton3D = bx["skel"]
+	var low := Vector3.INF
+	for bone in StepRoot.FEET:
+		var at := skel.global_transform * skel.get_bone_global_pose(skel.find_bone(bone)).origin
+		if not low.is_finite() or at.y < low.y:
+			low = at
+	return low
 
 
 func _head_y(bx: Dictionary) -> float:
@@ -403,7 +447,9 @@ func _frame(delta: float) -> void:
 		bx["pos"] = Vector3(at.x, 0.0, at.z)
 	if st.camera == null:
 		return
-	if not _lens.is_empty() and phase in ["count", "end", "over", "back"]:
+	if not _down_lens.is_empty() and phase == "count" and not _path.is_empty():
+		st.camera.film(_down_lens["pos"], _down_lens["look"], float(_down_lens["fov"]), 0.0)
+	elif not _lens.is_empty() and phase in ["count", "end", "over", "back"]:
 		st.camera.film(_lens["pos"], _lens["look"], float(_lens["fov"]), 0.0)
 	elif not st.camera.close:
 		st.broadcast(false, delta)
@@ -427,6 +473,24 @@ func _count_lens(body: Vector3, mark: Vector3) -> Dictionary:
 	var half_w := (maxf(span * LOOK_AT, span * (1.0 - LOOK_AT)) + EDGE_M) * HUD_SPREAD
 	var vfov := rad_to_deg(2.0 * atan(half_w / dist / ASPECT))
 	return {"pos": pos, "look": look, "fov": clampf(vfov, 34.0, 70.0)}
+
+
+## The downed boxer side-on to the walker's way out (body -> corner), from the side away from the walker (the other side when
+## that one has no room inside the ropes), framed tight on the body: he walks off in the background within a second.
+func _on_body_lens(body: Vector3, mark: Vector3, walker: Vector3) -> Dictionary:
+	var line := Vector3(mark.x - body.x, 0.0, mark.z - body.z)
+	var side := Vector3.UP.cross(line.normalized()) if line.length() > 0.05 else Vector3.BACK
+	if side.dot(Vector3(walker.x - body.x, 0.0, walker.z - body.z)) > 0.0:
+		side = -side   # the lens on the far side from him: he walks off in the background, not across the foreground
+	var arc := Vector2(-RingCamera.SIDE_ARC_DEG, RingCamera.SIDE_ARC_DEG)
+	var sp: Array = RingCamera.spot_inside(body, side, DOWN_LENS_DIST_M, 0.0, arc)
+	if not bool(sp[3]):
+		var other: Array = RingCamera.spot_inside(body, -side, DOWN_LENS_DIST_M, 0.0, arc)
+		if bool(other[3]):
+			sp = other
+	var pos: Vector3 = (sp[0] as Vector3) + Vector3.UP * DOWN_LENS_H
+	var look := body + Vector3.UP * 0.1
+	return {"pos": pos, "look": look, "fov": clampf(rad_to_deg(2.0 * atan(DOWN_HALF_M / pos.distance_to(look))), 30.0, 60.0)}
 
 
 ## Where the downed body lies: halfway between his hips and his head on the canvas.

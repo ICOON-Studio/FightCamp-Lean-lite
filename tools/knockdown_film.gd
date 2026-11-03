@@ -104,6 +104,11 @@ func _initialize() -> void:
 	var bell_g := -1.0
 	var head_max_down := 0.0    # KO: the highest the head got after the fall
 	var won_clip := ""
+	var slides: Array = []      # S377 STEPROOT1: the walker's planted (lower) ankle, m/s over the canvas while he walks
+	var walked := 0.0           # how far his body went on the walk
+	var walk_s := 0.0
+	var foot_prev: Array = []
+	var body_prev := Vector3.INF
 	var box_left := "-"         # the count graphic 4 s after BOX! (S377 review: BOX! never cleared)
 	var cam_frames := 0         # S377: frames from the count on where the lens is checked
 	var cam_out := 0            # ... where a head or a foot of either boxer is out of the picture (operator: no feet-only frames)
@@ -140,9 +145,21 @@ func _initialize() -> void:
 			head_up = _head(down)
 		if stop_how == "KO" and fall_g >= 0.0 and g >= fall_g + 2.0:
 			head_max_down = maxf(head_max_down, _head(down))
+		var walking: bool = str(kd.phase) == "count" and not (kd.get("_path") as Array).is_empty() and not paused
+		var feet := [_ankle(up, "LeftFoot"), _ankle(up, "RightFoot")]
+		var dt := root.get_process_delta_time()
+		if walking and foot_prev.size() == 2 and body_prev.is_finite() and dt > 0.0:
+			var low := 0 if (feet[0] as Vector3).y <= (feet[1] as Vector3).y else 1
+			if absf((feet[low] as Vector3).y - (foot_prev[low] as Vector3).y) < 0.01:
+				var fd: Vector3 = (feet[low] as Vector3) - (foot_prev[low] as Vector3)
+				slides.append(Vector2(fd.x, fd.z).length() / dt)
+			walked += Vector2(wp.x - body_prev.x, wp.z - body_prev.z).length()
+			walk_s += dt
+		foot_prev = feet
+		body_prev = wp
 		if str(kd.phase) in ["count", "end", "over", "back"] and not replay.active():   # the count's own lens (the fight's: baseline)
 			cam_frames += 1
-			if not _framed(view.stage.camera, view.stage.boxers):
+			if not (view.stage.camera.is_position_in_frustum(_ankle(down, "Head")) if walking else _framed(view.stage.camera, view.stage.boxers)):   # walking: the count close-up on his head
 				cam_out += 1
 				if cam_out % 4 == 1:
 					print("KNOCKDOWN out of frame: phase '%s' count %s g %.2f (BOX! at %.2f) out %s" % [str(kd.phase), str(kd.shown), g, box_g, _outs(view.stage.camera, view.stage.boxers)])
@@ -169,6 +186,16 @@ func _initialize() -> void:
 	_check(int(replay.count) == 1 and rep_end > rep_start and rep_start > 0.0, "one slow-motion replay plays (%.1f s long)" % (rep_end - rep_start))
 	_check(t_drift < 0.05, "the round clock holds through the count (drift %.3f s)" % t_drift)
 	_check(gap_at_5 >= CLEAR_M and at_corner <= NEAR_CORNER_M, "the standing boxer waits in a neutral corner (%.2f m off it, %.2f m from the body)" % [at_corner, gap_at_5])
+	slides.sort()
+	var slide_mean := 0.0
+	for v in slides:
+		slide_mean += float(v)
+	slide_mean /= maxf(1.0, float(slides.size()))
+	var slide_p90: float = slides[int(slides.size() * 0.9)] if not slides.is_empty() else 99.0
+	print("KNOCKDOWN walk: %.2f m in %.2f s (%.2f m/s), planted ankle slides mean %.3f m/s, p90 %.3f m/s, max %.3f over %d frames"
+		% [walked, walk_s, walked / maxf(walk_s, 0.01), slide_mean, slide_p90, slides[-1] if not slides.is_empty() else 0.0, slides.size()])
+	_check(walked >= 2.0 and slide_mean <= 0.10 and slide_p90 <= 0.20,
+		"he steps to the corner, the planted foot holds (walk %.2f m, slide mean %.3f / p90 %.3f m/s)" % [walked, slide_mean, slide_p90])
 	_check(min_clear >= 0.45, "the standing boxer never steps over the downed one (closest to his body %.2f m)" % min_clear)
 	var scale := (down["node"] as Node3D).scale.y
 	if stop_how == "KO":
@@ -186,7 +213,7 @@ func _initialize() -> void:
 		_check(bell_g >= 0.0 and str(view._banner.text).begins_with("STOPPED") or not bool(view.playing),
 			"the bout ends at once: the bell banner '%s' %.1f s after the count beat" % [str(view._banner.text), bell_g])
 		_check(won_clip.contains("win"), "the winner celebrates in his corner (%s)" % won_clip)
-	_check(cam_frames > 0 and cam_out <= int(cam_frames * 0.02), "both boxers whole in the count's picture (%d of %d frames out)" % [cam_out, cam_frames])
+	_check(cam_frames > 0 and cam_out <= int(cam_frames * 0.02), "in the count's picture: the downed boxer's head while the other walks, then both whole (%d of %d frames out)" % [cam_out, cam_frames])
 	_check(not paused and not replay.active(), "the ring is live again after the replay")
 	print("KNOCKDOWN failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
@@ -239,6 +266,11 @@ func _skip_check(view: Node, down: Dictionary, contact_in: float, stop_how: Stri
 		_check(head_max < 0.6 * (down["node"] as Node3D).scale.y, "the knocked-out boxer stays down under the result (%.2f m)" % head_max)
 	print("KNOCKDOWN failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
+
+
+func _ankle(bx: Dictionary, bone: String) -> Vector3:
+	var skel: Skeleton3D = bx["skel"]
+	return skel.global_transform * skel.get_bone_global_pose(skel.find_bone(bone)).origin
 
 
 func _head(bx: Dictionary) -> float:
