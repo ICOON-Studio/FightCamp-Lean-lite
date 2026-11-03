@@ -18,9 +18,9 @@ func build(main: Node, m: Dictionary) -> void:
 	v.add_child(UI.mono("%.1f kg" % f["weight"], 56, UI.GREEN if made else UI.RED))
 	var line := "Limit %.1f kg. " % f["limit"]
 	if made:
-		line += "She is on the mark."
+		line += "On the mark."
 	else:
-		line += "She is %.1f kg over. %s" % [float(f["weight"]) - float(f["limit"]),
+		line += "%.1f kg over. %s" % [float(f["weight"]) - float(f["limit"]),
 			"" if not (f["camp"] as Dictionary).is_empty() else "No camp, no cut."]
 	v.add_child(UI.label(line, UI.BODY, UI.FG, "body", true))
 	var foot := UI.hbox(10)

@@ -3,12 +3,12 @@
   {
    "id": "drops_right_after_jab",
    "name": "Drops the right after the jab",
-   "trigger": "After she throws a jab at range",
+   "trigger": "After a jab at range",
    "beat": "jab",
    "effect": "Opens the chin for a lead hook over the top. Helps the opponent.",
    "punish": "A counter-puncher times the jab and lands a lead hook over it.",
    "notes": [
-    "Drops the right after she jabs. Every time.",
+    "Drops the right after the jab. Every time.",
     "The right hand goes walkabout on the jab.",
     "Jab's good. Where's the right hand after it?"
    ]
@@ -22,20 +22,20 @@
    "punish": "A pressure fighter rushes in round 1 and banks the round.",
    "notes": [
     "Takes a round to wake up. Can't afford that.",
-    "First minute she's still in the changing room.",
+    "First minute, still in the changing room.",
     "Starts cold. Warm up harder."
    ]
   },
   {
    "id": "digs_body_when_hurt",
    "name": "Digs to the body when hurt",
-   "trigger": "Right after she takes a clean head shot",
+   "trigger": "Right after taking a clean head shot",
    "beat": "body hook",
    "effect": "Buys time and slows the opponent. Helps.",
-   "punish": "An opponent who knows it steps out and lands the uppercut as she dips.",
+   "punish": "An opponent who knows it steps out and lands the uppercut on the dip.",
    "notes": [
     "Hurt, goes downstairs. Smart.",
-    "When she's rocked she rips the body. Good instinct.",
+    "When rocked, rips the body. Good instinct.",
     "Takes one upstairs, gives one back to the ribs."
    ]
   },
@@ -47,7 +47,7 @@
    "effect": "Throws nothing for 2 to 3 seconds. Helps the opponent.",
    "punish": "A volume puncher pins it there and empties both hands.",
    "notes": [
-    "Back on the ropes and she stops punching.",
+    "Back on the ropes and the punches stop.",
     "Ropes are a cage. Freezes there.",
     "Off the ropes, or it's target practice."
    ]
@@ -58,30 +58,30 @@
    "trigger": "Opponent steps in twice in a row",
    "beat": "step out",
    "effect": "Resets the range but weakens the guard for a beat. Mixed.",
-   "punish": "A film-studied opponent lands the cross as she switches feet.",
+   "punish": "A film-studied opponent lands the cross on the switch.",
    "notes": [
     "Under pressure, flips southpaw. Messy.",
-    "Switches feet when she's pushed. Not on purpose.",
+    "Switches feet when pushed. Not on purpose.",
     "The stance changes when rattled."
    ]
   },
   {
    "id": "talks_when_ahead",
    "name": "Talks when ahead",
-   "trigger": "She has won the previous round",
+   "trigger": "After winning the previous round",
    "beat": "taunt",
    "effect": "Rattles a low-temper opponent but wastes a beat. Mixed.",
-   "punish": "A calm opponent lands a jab while she's talking.",
+   "punish": "A calm opponent lands a jab mid-sentence.",
    "notes": [
     "Wins a round and starts chatting. Stop it.",
-    "She talks when she's in front. Judges hate it.",
-    "Mouth gets busy when she's ahead."
+    "Talks when in front. Judges hate it.",
+    "Mouth gets busy when ahead."
    ]
   },
   {
    "id": "loads_up_when_hurt",
    "name": "Loads up when hurt",
-   "trigger": "Right after she takes a clean head shot",
+   "trigger": "Right after taking a clean head shot",
    "beat": "lead hook",
    "effect": "Big swing, often misses, leaves an opening. Usually helps the opponent.",
    "punish": "A counter-puncher slips the wild hook and counters clean.",
@@ -94,7 +94,7 @@
   {
    "id": "covers_up_when_hurt",
    "name": "Covers up when hurt",
-   "trigger": "Right after she takes a clean head shot",
+   "trigger": "Right after taking a clean head shot",
    "beat": "cover up",
    "effect": "Saves the chin but gives away the exchange. Mixed.",
    "punish": "A volume puncher keeps throwing and steals the round on output.",
@@ -107,7 +107,7 @@
   {
    "id": "wide_hook_tell",
    "name": "Wide hook tell",
-   "trigger": "When she throws the lead hook",
+   "trigger": "When throwing the lead hook",
    "beat": "lead hook",
    "effect": "The hook is slow and seen. Helps the opponent.",
    "punish": "An opponent who saw the film steps in with a straight cross first.",
@@ -126,17 +126,17 @@
    "punish": "A pressure fighter walks it straight into the corner.",
    "notes": [
     "Backs up straight. Move off at an angle.",
-    "She retreats in a straight line to the ropes.",
+    "Retreats in a straight line to the ropes.",
     "No angles going backwards. Learn to pivot."
    ]
   },
   {
    "id": "admires_her_work",
    "name": "Admires the work",
-   "trigger": "Right after she lands a clean cross",
+   "trigger": "Right after landing a clean cross",
    "beat": "step out",
    "effect": "Stops punching for a beat. Helps the opponent.",
-   "punish": "A counter-puncher fires back while she's looking.",
+   "punish": "A counter-puncher fires back during the look.",
    "notes": [
     "Lands a good one and stops to look at it.",
     "Admires the shots. Keep punching.",
@@ -162,11 +162,11 @@
    "trigger": "When the opponent is just out of range",
    "beat": "jab",
    "effect": "Reaches with the jab and loses balance. Helps the opponent.",
-   "punish": "An out-boxer steps back and counters as she falls in.",
+   "punish": "An out-boxer steps back and counters the fall-in.",
    "notes": [
     "Reaches with the jab. Step in, don't lunge.",
     "Falls in behind the jab. Feet first.",
-    "She dives at range. Balance goes with it."
+    "Dives in at range. Balance goes with it."
    ]
   },
   {
@@ -188,10 +188,10 @@
    "trigger": "When conditioning drops below half in a round",
    "beat": "clinch",
    "effect": "Buys a breather but loses the exchange. Mixed.",
-   "punish": "An opponent who knows it works the body as she comes in to hold.",
+   "punish": "An opponent who knows it works the body on the way in to the hold.",
    "notes": [
     "Tired, grabs. The ref will warn.",
-    "Holds when she's blowing. Fair, but get fitter.",
+    "Holds when blowing. Fair, but get fitter.",
     "Clinches to rest. Judges notice."
    ]
   },
@@ -205,13 +205,13 @@
    "notes": [
     "One feint and a jump. Sit still.",
     "Bites on every feint. Smart opponents will feast.",
-    "She reacts to everything. Read before you move."
+    "Reacts to everything. Read before you move."
    ]
   },
   {
    "id": "low_lead_hand",
    "name": "Low lead hand",
-   "trigger": "When she is at range and not punching",
+   "trigger": "At range and not punching",
    "beat": "jab",
    "effect": "Faster jab but open to the right hand. Mixed.",
    "punish": "An opponent who saw the film throws the cross over the low left.",
@@ -224,20 +224,20 @@
   {
    "id": "one_and_done",
    "name": "One and done",
-   "trigger": "After she lands a single punch",
+   "trigger": "After landing a single punch",
    "beat": "step out",
    "effect": "Lands one clean shot then stops. Safe, but wins little.",
    "punish": "A volume puncher out-throws and takes the round on output.",
    "notes": [
     "Lands one and leaves. Throw two, throw three.",
     "Single shots. Judges want combinations.",
-    "She never puts punches together."
+    "Never puts punches together."
    ]
   },
   {
    "id": "chases_stoppage",
    "name": "Chases the stoppage",
-   "trigger": "After she lands a clean blow that hurts the opponent",
+   "trigger": "After a clean blow that hurts the opponent",
    "beat": "step in",
    "effect": "Swarms recklessly and walks onto counters. Mixed.",
    "punish": "A counter-puncher waits for the rush and lands clean.",
@@ -257,26 +257,26 @@
    "notes": [
     "Waits for the perfect shot. It never comes.",
     "Too patient. Judges score what you throw.",
-    "She's thinking when she should be punching."
+    "Thinking when it is time to punch."
    ]
   }
  ],
  "trait_notes": {
   "heart": {
    "high": "Gets hit and comes back harder. Real fighter.",
-   "low": "First good shot and she's looking for the exit."
+   "low": "First good shot and the eyes look for the exit."
   },
   "temper": {
    "high": "Gets hit and gets angry. Then gets sloppy.",
    "low": "Nothing rattles. Ice in there."
   },
   "confidence": {
-   "high": "Walks in like she owns the ring.",
-   "low": "Doubts herself. Needs wins to believe it."
+   "high": "Walks in like the owner of the ring.",
+   "low": "Self-doubt. Needs wins to believe it."
   },
   "discipline": {
    "high": "Does every round, every rep. Never late.",
-   "low": "Skips roadwork when she thinks I'm not looking."
+   "low": "Skips roadwork when I'm not looking."
   },
   "coachability": {
    "high": "Say it once, done next round.",
@@ -344,7 +344,7 @@
   },
   {
    "when": "opponent habit punished and film study done",
-   "line": "{name} saw that on the film. She was waiting."
+   "line": "{name} saw that on the film and was waiting."
   },
   {
    "when": "wins round after corner call and fight_iq 70+",
@@ -356,7 +356,7 @@
   },
   {
    "when": "freezes_on_ropes fires",
-   "line": "{name} freezes on the ropes, as she does in sparring."
+   "line": "{name} freezes on the ropes, same as in sparring."
   },
   {
    "when": "fades_late fires",

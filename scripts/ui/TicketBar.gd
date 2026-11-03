@@ -35,7 +35,7 @@ func _draw() -> void:
 	var left := "%d pay the promoter's night" % break_even
 	var lw := font.get_string_size(left, HORIZONTAL_ALIGNMENT_LEFT, -1, UI.TINY).x
 	draw_string(font, Vector2(x - lw - 8, 16), left, HORIZONTAL_ALIGNMENT_LEFT, -1, UI.TINY, UI.MUTED)
-	draw_string(font, Vector2(x + 8, 16), "half of these are hers", HORIZONTAL_ALIGNMENT_LEFT, -1, UI.TINY, UI.GREEN)
+	draw_string(font, Vector2(x + 8, 16), "half go to the boxer", HORIZONTAL_ALIGNMENT_LEFT, -1, UI.TINY, UI.GREEN)
 	var sold := cols.size()
 	var tag := "%d sold" % sold
 	var tw := font.get_string_size(tag, HORIZONTAL_ALIGNMENT_LEFT, -1, UI.TINY).x

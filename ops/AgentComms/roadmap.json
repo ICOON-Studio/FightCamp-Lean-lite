@@ -4561,43 +4561,47 @@
   },
   "working_now": [
    {
-    "id": "KNEETRACK1",
+    "id": "FIGHT9",
     "who": "antigravity",
-    "title": "Knees point over the toes in every clip (seat_dispatch, Gemini 4 Argon)"
+    "title": "The live fight to 9/10 on Gemini 4 Argon's judging - Argon fixes, the dispatcher films and judges each round (main 2/10)"
+   },
+   {
+    "id": "BJJ9",
+    "who": "ziva",
+    "title": "The BJJ belt match to 9/10 on Argon's judging - Ziva runs the loop after BODYREACT1 (2/10 now)"
    },
    {
     "id": "NOREF1",
     "who": "qwen",
-    "title": "No referee: both boxers push each other off slowly (seat_dispatch)"
+    "title": "No referee: both boxers push off (PushOff.gd)"
    },
    {
     "id": "BODYREACT1",
     "who": "ziva",
-    "title": "Body shots visibly hurt (Ziva, measured first)"
+    "title": "Body shots react (body_react_probe: 14 of 42 landed body shots show nothing)"
    },
-   {
-    "id": "FLOWBOUT1",
-    "who": "arena",
-    "title": "Every bout keeps its plan results (Arena, full repo)"
-   },
-   {
-    "id": "J_TESTS1",
-    "who": "john",
-    "title": "Real boxing tests and values by level (John)"
-   }
-  ],
-  "next": [
    {
     "id": "MALE1",
     "who": "claude+john+kalli",
-    "title": "Men's boxing: a male boxer signed, trained, booked and fought (operator S370: playthroughs = a male boxer + the female BJJ athlete) - TASK_MALE1; John J_MEN1 classes, Kalli K_MEN1 opponents, male MetaHumans in Unreal, male holo from the owned S353 pack",
-    "after": ""
+    "title": "Men's boxing: four men's divisions + 16 men (K_MEN1), Danny and Josh in scouting, sex on every fighter"
    },
+   {
+    "id": "NOPRONOUN1",
+    "who": "claude",
+    "title": "No she/her in game text again (the S354 rule; 224 lines had crept back) + a guard test"
+   }
+  ],
+  "next": [
    {
     "id": "GOALTESTS1",
     "who": "claude+john",
     "title": "Training goals you can feel: phase 1 DONE (skills award road + bleep engine, 1e89b6a); next the test-day moment, records wall, Power/Speed tests (John J_TESTS2)",
     "after": ""
+   },
+   {
+    "id": "MALE1B",
+    "who": "claude",
+    "title": "Male MetaHuman boxers (4-6, Unreal on a GREEN PC with Chrome closed) + the guide tour with a man and Ana"
    },
    {
     "id": "WEIGHIN3D1",
@@ -4618,22 +4622,22 @@
    {
     "id": "FIGHTSPEED",
     "who": "claude",
-    "title": "Fight clips at their real captured speed, played whole (45 s film to compare)"
+    "title": "Fight clips at their real captured speed, played whole (45 s film to compare) - now inside Argon's FIGHT9 loop"
    },
    {
     "id": "BJJMATCH1",
     "who": "claude",
-    "title": "BJJ belt match: the move graph plays, you call the next move at settled positions (operator go-ahead S368; Miro frame + Argon 6/10)"
+    "title": "BJJ belt match: the move graph plays, you call the next move at settled positions (operator go-ahead S368; Miro frame + Argon 6/10) - Ziva's BJJ9 loop builds on its branch"
    },
    {
     "id": "CLINCHMERGE",
     "who": "claude",
-    "title": "Clinches merge the two bodies (Gemini 0:18, 0:24) - fix, Gemini judges before/after"
+    "title": "Clinches merge the two bodies (Gemini 0:18, 0:24) - fix, Gemini judges before/after - now inside Argon's FIGHT9 loop"
    },
    {
     "id": "PHANTOMHIT",
     "who": "claude",
-    "title": "Hits react without contact / contact without reaction (Gemini 0:08, 0:24)"
+    "title": "Hits react without contact / contact without reaction (Gemini 0:08, 0:24) - now inside Argon's FIGHT9 loop"
    }
   ],
   "waiting_seat": [
@@ -4862,6 +4866,16 @@
    }
   },
   "done_recently": [
+   {
+    "id": "FLOWBOUT1",
+    "who": "arena",
+    "title": "Every bout keeps its plan's results (PlanRecord, PR #21 collected)"
+   },
+   {
+    "id": "KNEETRACK1",
+    "who": "antigravity",
+    "title": "Knees over the toes: knee_probe 57 -> 6 failing clips (PR #22 collected)"
+   },
    {
     "id": "S370UI",
     "who": "claude",

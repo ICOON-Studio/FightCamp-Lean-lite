@@ -201,7 +201,7 @@ func _drill_pick(main: Node, f: Dictionary, day: int) -> Control:
 	var fid := str(f["id"])
 	for p in NoGi.DRILLS:
 		var m := NoGi.drilling_for(f, p, day)
-		var text: String = {"coach": "Coach's pick", "open": "For the next open", "fav": "Her favourite"}[p]
+		var text: String = {"coach": "Coach's pick", "open": "For the next open", "fav": "Favourite"}[p]
 		var b := UI.button(text, "BtnSolid" if p == plan else "Btn", main.act.bind("gdrill", "%s|%s" % [fid, p]), false,
 			NoGi.move_name(m) if m != "" else "Nothing left to drill")
 		b.name = "Drill_" + p
@@ -248,7 +248,7 @@ func _call(main: Node, c: Career, f: Dictionary, nxt: String, r: Dictionary) -> 
 	var fid := str(f["id"])
 	var due := NoGi.stripes_due(f, c.day)
 	if nxt == "":
-		v.add_child(UI.label("%s is a black belt. The road is hers to teach now." % f["first"], UI.BODY, UI.FG, "body", true))
+		v.add_child(UI.label("%s is a black belt. Time to teach the road now." % f["first"], UI.BODY, UI.FG, "body", true))
 	else:
 		var given := int(f["stripes"])
 		var head := "Ready for a %s stripe: %s's %s are solid." % [ORDINAL[mini(given + 1, 4)], f["first"], best_words(f)] if due > 0 \
@@ -269,7 +269,7 @@ func _call(main: Node, c: Career, f: Dictionary, nxt: String, r: Dictionary) -> 
 		pro.name = "Promote"
 		btns.add_child(pro)
 		v.add_child(btns)
-		v.add_child(UI.muted("Promote early and %s starts %s owing a quarter of its mat time, and meets %s belts before she is one." % [
+		v.add_child(UI.muted("Promote early and %s starts %s owing a quarter of its mat time, and meets %s belts before earning one." % [
 			f["first"], nxt, nxt], UI.TINY, true))
 	v.add_child(UI.caps("NEXT OPENS (NO-GI, %s BELT ADULT, %s)" % [str(f["belt"]).to_upper(), str(f["wc"]).get_slice(" ", 0).to_upper()]))
 	var entered: Array = f.get("entered", [])
@@ -285,7 +285,7 @@ func _call(main: Node, c: Career, f: Dictionary, nxt: String, r: Dictionary) -> 
 		var lean := (" - decided on %s" % str(lg[0]).to_lower()) if not lg.is_empty() else ""
 		var word := NoGi.chance_word(NoGi.win_chance(f, c.day, o))
 		var wl := UI.label(word, UI.SMALL, UI.GREEN if word == "FAVOURITE" else (UI.RED if word == "LONG SHOT" else UI.FG), "bold")
-		wl.tooltip_text = "%s's chance in her first match (the coach's read)" % f["first"]
+		wl.tooltip_text = "%s's chance in the first match (the coach's read)" % f["first"]
 		wl.mouse_filter = Control.MOUSE_FILTER_STOP
 		var row := UI.row(str(o["name"]), "%s - %d entrants - $%d%s" % [Clock.fmt(d), NoGi.BRACKET, int(o["fee"]), lean],
 			Color(0, 0, 0, 0), [wl, right])
@@ -346,7 +346,7 @@ func _classes(main: Node, c: Career, f: Dictionary) -> Control:
 	v.add_child(UI.caps("THE BEGINNERS' CLASS"))
 	var fid := str(f["id"])
 	var why := BjjSide.can_teach(f)
-	var cost := "Saves %s a week; she trains %d classes a week instead of %d." % [UI.money(BjjSide.teach_saves()),
+	var cost := "Saves %s a week; %d classes a week on the mat instead of %d." % [UI.money(BjjSide.teach_saves()),
 		NoGi.CLASSES_PER_WEEK - NoGi.TEACH_CLASSES, NoGi.CLASSES_PER_WEEK]
 	v.add_child(UI.label(("%s teaches it. " % f["first"] if teaches else "The hired coach teaches it. ") + cost, UI.SMALL, UI.FG, "body", true))
 	var btns := UI.hbox(10)
@@ -376,7 +376,7 @@ func _record(f: Dictionary) -> Control:
 		rows.append(UI.row("%s - %s, %s" % ["Won" if won else "Lost", o["opp"], o["how"]], "%s, %s" % [Clock.fmt(int(o["d"])), o["open"]],
 			Color(0, 0, 0, 0), [UI.label("W" if won else "L", UI.BODY, UI.GREEN if won else UI.RED, "bold")]))
 	if rows.is_empty():
-		card[1].add_child(UI.muted("Her opens show here.", UI.BODY))
+		card[1].add_child(UI.muted("The opens show here.", UI.BODY))
 	UI.add_rows(card[1], rows)
 	card[1].add_child(UI.caps("BELTS AND STRIPES SO FAR"))
 	for b in f.get("belt_log", []):

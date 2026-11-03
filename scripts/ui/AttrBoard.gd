@@ -27,16 +27,16 @@ const WHY := {
 	"power": "How hard the punches land: hurting the opponent, knockdowns, the corner's \"Go for the finish\".",
 	"speed": "Hand speed: who lands first and how long combinations run.",
 	"technique": "Clean punches, and how fast a move comes on the pads.",
-	"defense": "Slips and blocks: how much of the other woman's work gets through.",
+	"defense": "Slips and blocks: how much of the opponent's work gets through.",
 	"footwork": "Jab and move: turning the opponent and keeping the range. Grows with speed and defence.",
 	"conditioning": "When the tank runs low: energy over the rounds and between them.",
-	"chin": "How much she takes before she is hurt or down.",
-	"fight_iq": "Ring IQ: reading the other woman's game and making the corner's calls work.",
+	"chin": "How much it takes to hurt or drop the fighter.",
+	"fight_iq": "Ring IQ: reading the opponent's game and making the corner's calls work.",
 	"heart": "Getting up from a knockdown, holding on when hurt, going for the finish.",
 	"discipline": "Sticking to the plan and the corner's \"Breathe, pick your shots\".",
 	"confidence": "Lifts after a good round, sinks after a bad one.",
 	"coachability": "How quickly a fix from the corner takes hold.",
-	"temper": "High: she trades when she is hit (a gambler). Low: she stays patient.",
+	"temper": "High: trades when hit (a gambler). Low: stays patient.",
 }
 ## Tile bands (amateur women's lightweights sit 55-65): the value is under the limit -> that band.
 const BANDS := [[45.0, "weak"], [55.0, "fair"], [65.0, "solid"], [75.0, "strong"], [1000.0, "elite"]]
@@ -162,7 +162,7 @@ static func _glance(g: Dictionary) -> PanelContainer:
 	v.add_child(UI.label("Best: " + pair.call(g["best"]), UI.BODY, UI.FG, "hand", true))
 	v.add_child(UI.label("Work on: " + pair.call(g["work"]), UI.BODY, UI.FG, "hand", true))
 	if bool(g["hot"]):
-		v.add_child(UI.label("Hot temper (%d): she trades when she is hit." % int(g["temper"]), UI.BODY, UI.RED, "hand", true))
+		v.add_child(UI.label("Hot temper (%d): trades when hit." % int(g["temper"]), UI.BODY, UI.RED, "hand", true))
 	if float(g["pot"]) > 0.0:
 		v.add_child(UI.label("Fight average %d of a potential %d: room for %d more." % [int(g["fight_avg"]), int(g["pot"]),
 			maxi(0, int(g["pot"]) - int(g["fight_avg"]))], UI.BODY, UI.FG, "hand", true))

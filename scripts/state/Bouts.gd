@@ -273,7 +273,7 @@ static func weigh(c: Career, f: Dictionary) -> bool:
 		f["bout"] = {}
 		f["camp"] = {}
 		f["booked_fight"] = false
-		Champs.withdraw(c, f, "she missed weight")
+		Champs.withdraw(c, f, "missed weight")
 		return made
 	if not made:
 		c.add_news("%s missed weight. The bout is off." % f["name"])

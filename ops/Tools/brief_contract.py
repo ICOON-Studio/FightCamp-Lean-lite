@@ -15,6 +15,8 @@ several paths with commas; a (parenthesised note) anywhere is ignored):
     REGRESSION: fight_link_test, golden_path_test, clinch_check      # tests/*_test.gd substrings, tools/<probe> names, run_tests.sh
     VISUAL: no                                                       # yes / a film path = body/animation/look: never auto-merged
     FILM: --resolution 1280x720 --script res://tools/ref_break_probe.gd   # optional: how seat_dispatch films before/after
+    BASE: agy/fight9r1                                               # optional (S371): start from this branch, not origin/main
+    LOOP: FIGHT9 9                                                   # optional (S371): queue round n+1 until Argon gives 9/10
 
     python ops/Tools/brief_contract.py check [TASK_ID|path ...]   # validate (no args: every brief the `start` flag covers)
     python ops/Tools/brief_contract.py show <TASK_ID>             # the parsed contract as JSON
@@ -56,9 +58,9 @@ PROTECTED = ("ops/", ".github/", ".claude/", "addons/", "tools/run_tests.sh", "t
 OLD_GAME = "Godot/"
 
 _BLOCK_RE = re.compile(r"^##\s*Contract\b[^\n]*\n(.*?)(?=^##\s|\Z)", re.M | re.S | re.I)
-KEYS = ("OWNS", "RED_TEST", "REGRESSION", "VISUAL", "FILM")
+KEYS = ("OWNS", "RED_TEST", "REGRESSION", "VISUAL", "FILM", "BASE", "LOOP")
 ## S368: Lean briefs write `REGRESSION (Lean tests; ...): a, b` - a note between the key and its colon.
-_KEY_RE = re.compile(r"^\s*[-*]?\s*`?(OWNS|RED_TEST|REGRESSION|VISUAL|FILM)`?\s*(?:\([^)\n]*\))?\s*:\s*(.*?)\s*$")
+_KEY_RE = re.compile(r"^\s*[-*]?\s*`?(OWNS|RED_TEST|REGRESSION|VISUAL|FILM|BASE|LOOP)`?\s*(?:\([^)\n]*\))?\s*:\s*(.*?)\s*$")
 _WINDOW_RE = re.compile(r"^(.+?):(\d+)-(\d+)$")
 _RESPATH_RE = re.compile(r"res://([A-Za-z0-9_./ -]+?\.[A-Za-z0-9]+)")
 _FILM_RE = re.compile(r"[A-Za-z0-9_./\\:-]+\.mp4\b")
@@ -147,6 +149,7 @@ def parse(text: str) -> dict | None:
     owns: dict[str, list[list[int]]] = {}
     prose: list[str] = []
     red, regression, visual, films, film, seen = None, [], None, [], "", set()
+    base, loop = "", ""
     for key, value in _values(m.group(1)):
         seen.add(key)
         if key == "OWNS":
@@ -172,8 +175,12 @@ def parse(text: str) -> dict | None:
             films += _films(value)
         elif key == "FILM":
             film = value.strip().strip("`")
+        elif key == "BASE":   # S371: the branch the round starts from (a judged loop chains its rounds; default origin/main)
+            base = _drop_notes(value).strip("` ")
+        elif key == "LOOP":   # S371: `<STEM> <target>` - seat_dispatch queues round n+1 until Argon scores the target
+            loop = _drop_notes(value).strip("` ")
     return {"owns": [{"path": p, "windows": w} for p, w in owns.items()], "red_test": red, "regression": regression,
-            "visual": visual, "films": films, "film": film, "owns_prose": prose, "keys": sorted(seen)}
+            "visual": visual, "films": films, "film": film, "owns_prose": prose, "keys": sorted(seen), "base": base, "loop": loop}
 
 
 @functools.lru_cache(maxsize=1)

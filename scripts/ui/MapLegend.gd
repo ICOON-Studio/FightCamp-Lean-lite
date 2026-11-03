@@ -23,13 +23,13 @@ static func build(plan_mode: bool) -> PanelContainer:
 	_key(grid, _line(UI.GOLD, 3.0), "Moves from the card you picked")
 	_key(grid, _line(Color(UI.GREEN, 0.55), 3.0), "The plan, only in its WHEN (tired...)")
 	_key(grid, _line(Color(UI.MUTED, 0.35), 1.5), "Every other move (grey: done TO your fighter)")
-	_key(grid, _loop(), "She stays on the card (a feint, a combo)")
+	_key(grid, _loop(), "Stays on the card (a feint, a combo)")
 	_key(grid, UI.label("3 out 2 in", UI.TINY, UI.MUTED), "Moves that leave / arrive at a card")
 	if plan_mode:
 		v.add_child(UI.sep())
 		var h := UI.hbox(14)
 		h.add_child(UI.label("Build it:  1  pick a card    2  pick WHEN    3  take a move out", UI.SMALL, UI.FG, "semi"))
-		h.add_child(UI.muted("She follows your arrows from wherever she is; where she has none, she improvises.", UI.TINY))
+		h.add_child(UI.muted("The boxer follows your arrows from any card; with none, the boxer improvises.", UI.TINY))
 		v.add_child(h)
 	return p
 

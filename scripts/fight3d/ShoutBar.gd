@@ -110,7 +110,7 @@ func _set_aim(a: String) -> void:
 ## How many more of your shouts she takes in fully this round.
 static func shout_note(shouts: int, her: String) -> String:
 	if shouts >= 2:
-		return "%s has heard 2 shouts this round: she takes in only half of the next" % her
+		return "%s has heard 2 shouts this round: only half of the next goes in" % her
 	return "%s takes in %d more shout%s this round" % [her, 2 - shouts, "" if shouts == 1 else "s"]
 
 

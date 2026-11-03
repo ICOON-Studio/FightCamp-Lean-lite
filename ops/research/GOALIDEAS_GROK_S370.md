@@ -1,0 +1,13 @@
+# Goal ideas - Grok (Kalli bot) answer to ASK_GOALIDEAS_S370 (S371 collected, inline text)
+
+My two strongest picks are 1 (the before-and-after film) and 3 (the coach's bet). Both make the player watch the change happen, and watching it beats reading a number.
+
+1. **The before-and-after film (strongest).** On test day, play her first-week pad round next to today's in the 3D view: same pads, same combo, faster hands, a tighter guard. Borrows from real coaches filming fighters at intake, and from Football Manager's "then vs now" attribute history.
+2. **Personal bests on a wall.** A small board at the gym holds her best bleep level, fastest 3-punch time on the pads and heaviest bag round. When one is beaten, a chalk line goes through the old number. Borrows from CrossFit's PR bell and whiteboard.
+3. **The coach's bet (strongest).** At the start of a block the coach names a date and a target ("level 8 by 14 Dec"). The player can push it harder for a bigger unlock or play it safe. A pass makes the coach right, and a miss gives a one-line reason. Borrows from Darkest Dungeon's risk-for-reward choices and from real periodised training blocks.
+4. **Small felt changes in the week.** Gains show up in daily life, not only on the bar. For example: "Took the stairs at Holloway without stopping," or "The heavy bag swings now when she hits it." Two or three of these between tests. Borrows from Persona's social stat level-up lines and from real training diaries.
+5. **Sparring checkpoints with no record.** Every few weeks she spars the same club partner. The fight is watched but not scored, so she can win without competing, and the player sees the gap close against a fixed yardstick. Borrows from boxing clubs' technical sparring and from Punch-Out's repeat opponents.
+6. **Unlocks you can use the same week.** A passed grade adds a real move card or a new drill to the whiteboard at once, so the reward plays straight away. Borrows from skill trees in Monster Hunter, where a new weapon move is the reward.
+7. **The plateau.** Progress stalls for a week or two around the halfway mark, with the coach's line "she's hit a wall." A change of plan (rest, a new drill) breaks through with a jump. Borrows from real training plateaus and the deload week.
+
+**Avoid:** daily stat bars that creep up by 0.1. They turn the game into watching paint and push the player to click through without looking. Show progress only at moments (the Sunday check-in, the felt lines, test day), never as a constant trickle. The same goes for grinding the same session over and over to inch a bar; the whiteboard default should always be good enough.

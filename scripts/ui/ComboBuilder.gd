@@ -150,7 +150,7 @@ func _palette() -> Control:
 		var b := UI.button(id, "Btn", _load.bind((row["beats"] as Array).duplicate()))
 		b.name = "Book_" + id.replace(" ", "_")
 		var can := open.has(id)
-		b.tooltip_text = ", ".join(row["moves"]) + (": she can throw it in a fight" if can else ": try it here; every punch needs 30 on the pads before she can use it")
+		b.tooltip_text = ", ".join(row["moves"]) + (": ready to throw in a fight" if can else ": try it here; every punch needs 30 on the pads before it works in a fight")
 		if not can:
 			b.modulate = Color(1, 1, 1, 0.6)
 		flow.add_child(b)

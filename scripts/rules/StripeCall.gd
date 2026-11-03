@@ -28,9 +28,9 @@ const LOW_AT := 50
 
 const TIPS := {
 	"now": "Stripe now: morale +%d, loyalty +%d." % [NOW_MORALE, NOW_LOYAL],
-	"hold": "No stripe yet: she drills %d%% harder until it comes, morale -%d, loyalty -%d. Under %d loyalty she looks at other clubs." % [
+	"hold": "No stripe yet: drills %d%% harder until it comes, morale -%d, loyalty -%d. Under %d loyalty other clubs start to call." % [
 		int(round((NoGi.HUNGRY - 1.0) * 100)), HOLD_MORALE, HOLD_LOYAL, ASKS_UNDER],
-	"early": "Stripe before it is due: morale +%d. From the %dnd early stripe the BJJ members see it (-%d) and her next open is a tougher bracket." % [
+	"early": "Stripe before it is due: morale +%d. From the %dnd early stripe the BJJ members see it (-%d) and the next open is a tougher bracket." % [
 		EARLY_MORALE, EARLY_FROM, EARLY_MEMBERS],
 }
 
@@ -54,21 +54,21 @@ static func options(f: Dictionary, today: int) -> Dictionary:
 		return out
 	out["early"] = "A stripe is due: give it or hold it."
 	if int(f.get("held", 0)) == given + 1:
-		out["hold"] = "Already held back - she knows it."
+		out["hold"] = "Already held back - and it was noticed."
 	var morale := int(f.get("morale", NoGi.MORALE_START))
 	var loyal := int(f.get("loyalty", NoGi.MORALE_START))
 	if loyal < ASKS_UNDER:
 		out["pick"] = "now"
-		out["why"] = "Give it now: %s's loyalty is thin." % f.get("first", "she")
+		out["why"] = "Give it now: %s's loyalty is thin." % f.get("first", "the fighter")
 	elif morale < LOW_AT:
 		out["pick"] = "now"
-		out["why"] = "Give it now: %s needs a lift." % f.get("first", "she")
+		out["why"] = "Give it now: %s needs a lift." % f.get("first", "the fighter")
 	elif morale >= HUNGRY_AT and out["hold"] == "":
 		out["pick"] = "hold"
-		out["why"] = "%s's hungry: holding it back would fire her up." % f.get("first", "She")
+		out["why"] = "%s's hungry: holding it back would light a fire." % f.get("first", "The fighter")
 	else:
 		out["pick"] = "now"
-		out["why"] = "She has earned it: give it now."
+		out["why"] = "%s has earned it: give it now." % f.get("first", "The fighter")
 	return out
 
 
@@ -78,7 +78,7 @@ static func apply(f: Dictionary, choice: String, today: int) -> Dictionary:
 	var opt := options(f, today)
 	if not opt.has(choice) or str(opt[choice]) != "":
 		return {"ok": false, "why": str(opt.get(choice, "No such call.")), "line": "", "news": "", "members": 0}
-	var first := str(f.get("first", "She"))
+	var first := str(f.get("first", "The fighter"))
 	var n := int(f.get("stripes", 0)) + 1
 	var log: Array = f.get_or_add("belt_log", [])
 	var out := {"ok": true, "why": "", "line": "", "news": "", "members": 0}
@@ -105,7 +105,7 @@ static func apply(f: Dictionary, choice: String, today: int) -> Dictionary:
 			if int(f["early"]) >= EARLY_FROM:
 				f["tough_next"] = true
 				out["members"] = -EARLY_MEMBERS
-				out["news"] = "Members talk: %s's stripes come easy at this gym (%d members left, her next open is tougher)." % [first, EARLY_MEMBERS]
+				out["news"] = "Members talk: %s's stripes come easy at this gym (%d members left, the next open is tougher)." % [first, EARLY_MEMBERS]
 	return out
 
 

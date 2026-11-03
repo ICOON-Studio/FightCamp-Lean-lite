@@ -31,7 +31,7 @@ const SHAPES := {
 	"press": {"when": "press", "tell": 2, "seconds": 9.0, "beats": [
 		[0.6, "b", "step_in", "", "", "Walks in", "Chin down, straight in", ""],
 		[1.3, "b", "jab", "misses", "block", "", "", ""],
-		[1.7, "b", "cross", "lands", "", "Jab, cross", "Two straight shots as she arrives", "on arrival"],
+		[1.7, "b", "cross", "lands", "", "Jab, cross", "Two straight shots on the way in", "on arrival"],
 		[2.6, "a", "step_out", "", "", "", "", ""],
 		[3.3, "b", "step_in", "", "", "Follows", "Every step back, a step in", "the other backs off"],
 		[3.8, "b", "lead_hook", "lands", "", "", "", ""],
@@ -49,7 +49,7 @@ const SHAPES := {
 		[3.0, "b", "lead_hook", "lands", "", "Body, then head", "The hand comes down, the hook goes up", "the guard drops"],
 		[4.4, "a", "step_out", "", "", "", "", ""],
 		[5.0, "b", "step_in", "", "", "", "", ""],
-		[5.5, "b", "body_hook", "lands", "", "Back to the body", "Every time she gets close", "she follows"],
+		[5.5, "b", "body_hook", "lands", "", "Back to the body", "Every time it gets close", "follows in"],
 		[6.6, "a", "cross", "misses", "block", "", "", ""]]},
 	"press_flurry": {"when": "press", "tell": 1, "seconds": 8.5, "beats": [
 		[0.6, "b", "step_in", "", "", "Steps in", "Straight into range", ""],
@@ -60,7 +60,7 @@ const SHAPES := {
 		[3.2, "a", "jab", "lands", "", "", "", ""],
 		[3.7, "b", "jab", "lands", "", "", "", ""],
 		[4.0, "b", "cross", "misses", "block", "", "", ""],
-		[4.3, "b", "body_hook", "lands", "", "Flurries again", "Hit or not, she keeps throwing", "straight back"],
+		[4.3, "b", "body_hook", "lands", "", "Flurries again", "Hit or not, the punches keep coming", "straight back"],
 		[5.6, "a", "step_out", "", "", "", "", ""],
 		[6.2, "b", "step_in", "", "", "", "", ""],
 		[6.6, "b", "jab", "misses", "block", "", "", ""],
@@ -86,21 +86,21 @@ const SHAPES := {
 		[5.4, "a", "jab", "misses", "slip", "", "", ""],
 		[6.0, "b", "cross", "lands", "", "", "", ""]]},
 	"counter": {"when": "counter", "tell": 1, "seconds": 8.0, "beats": [
-		[0.8, "a", "jab", "misses", "slip", "Waits", "Hands up: she lets the other woman lead", ""],
+		[0.8, "a", "jab", "misses", "slip", "Waits", "Hands up: lets the other boxer lead", ""],
 		[1.2, "b", "cross", "lands", "", "Counter over the jab", "Slips it, the right hand comes back over it", "the jab comes"],
 		[2.6, "a", "jab", "misses", "block", "", "", ""],
 		[3.0, "a", "cross", "misses", "slip", "", "", ""],
 		[3.4, "b", "lead_hook", "lands", "", "Counter hook", "Slips the cross, hooks back", "the cross comes"],
 		[5.0, "a", "step_in", "", "", "", "", ""],
 		[5.6, "a", "jab", "misses", "block", "", "", ""],
-		[6.0, "b", "cross", "lands", "", "Never leads", "Every punch she throws is an answer", "she leads again"]]},
+		[6.0, "b", "cross", "lands", "", "Never leads", "Every punch thrown is an answer", "the other leads again"]]},
 	"loadup": {"when": "loadup", "tell": 1, "seconds": 8.0, "beats": [
 		[0.8, "b", "step_in", "", "", "Sets the feet", "Plants, the right hand back", ""],
-		[1.4, "b", "cross", "misses", "slip", "Loads the right", "One big shot - you see it coming", "she plants"],
+		[1.4, "b", "cross", "misses", "slip", "Loads the right", "One big shot - you see it coming", "feet planted"],
 		[2.6, "a", "jab", "lands", "", "", "", ""],
 		[3.6, "b", "lead_hook", "misses", "weave", "Wide hook", "Swings for the head", "after the miss"],
 		[4.4, "a", "cross", "lands", "", "", "", ""],
-		[5.4, "b", "cross", "lands", "", "Lands the big one", "She waits, then throws hard", "she sets again"]]},
+		[5.4, "b", "cross", "lands", "", "Lands the big one", "Waits, then throws hard", "sets again"]]},
 	"tiring": {"when": "tiring", "tell": 1, "seconds": 8.0, "beats": [
 		[0.8, "b", "jab", "misses", "block", "Late in the round", "The jab is slower now", ""],
 		[1.6, "b", "tired", "", "", "Hands drop", "Mouth open, gloves at the chest", "slowing"],
@@ -111,15 +111,15 @@ const SHAPES := {
 		[5.2, "a", "lead_hook", "lands", "", "", "", ""],
 		[5.6, "a", "cross", "lands", "", "Stands and takes it", "No punches back", "again"]]},
 	"hurt_body": {"when": "hurt", "tell": 1, "seconds": 7.5, "beats": [
-		[0.8, "a", "cross", "lands", "", "She is hit", "A clean right hand lands", ""],
-		[1.4, "b", "body_hook", "lands", "", "Digs to the body", "Hurt, she comes back downstairs", "straight away"],
+		[0.8, "a", "cross", "lands", "", "Takes a clean one", "A clean right hand lands", ""],
+		[1.4, "b", "body_hook", "lands", "", "Digs to the body", "Hurt, comes back downstairs", "straight away"],
 		[2.0, "b", "body_hook", "misses", "block", "", "", ""],
 		[3.2, "a", "jab", "lands", "", "", "", ""],
 		[3.6, "a", "cross", "lands", "", "", "", ""],
-		[4.2, "b", "body_hook", "lands", "", "Body again", "Every time she is hurt", "hit again"]]},
+		[4.2, "b", "body_hook", "lands", "", "Body again", "Hurt again, body again", "hit again"]]},
 	"hurt_wild": {"when": "hurt", "tell": 1, "seconds": 7.5, "beats": [
-		[0.8, "a", "cross", "lands", "", "She is hit", "A clean right hand lands", ""],
-		[1.4, "b", "lead_hook", "misses", "weave", "Swings wild", "Hurt, she loads up a wide hook", "straight away"],
+		[0.8, "a", "cross", "lands", "", "Takes a clean one", "A clean right hand lands", ""],
+		[1.4, "b", "lead_hook", "misses", "weave", "Swings wild", "Hurt, loads up a wide hook", "straight away"],
 		[2.2, "b", "cross", "misses", "slip", "", "", ""],
 		[3.0, "a", "jab", "lands", "", "", "", ""],
 		[3.4, "a", "cross", "lands", "", "", "", ""],
@@ -134,7 +134,7 @@ const SHAPES := {
 	"lunges": {"when": "press", "tell": 0, "seconds": 8.0, "beats": [
 		[0.8, "b", "step_in", "", "", "Lunges in with the jab", "The whole body follows the jab, feet square", ""],
 		[0.9, "b", "jab", "misses", "slip", "", "", ""],
-		[1.3, "a", "cross", "lands", "", "Countered", "The right hand comes back over it", "as she lands"],
+		[1.3, "a", "cross", "lands", "", "Countered", "The right hand comes back over it", "on landing"],
 		[2.8, "a", "step_out", "", "", "", "", ""],
 		[3.6, "b", "step_in", "", "", "", "", ""],
 		[3.7, "b", "jab", "misses", "slip", "Lunges again", "Same lunge, same line", "straight line"],
@@ -145,7 +145,7 @@ const SHAPES := {
 		[1.3, "b", "lead_hook", "lands", "", "Three-punch combination", "Jab, cross, hook - all land", ""],
 		[2.2, "b", "say", "", "", "Stands and admires", "Hands low, feet still, looking", "after it"],
 		[2.6, "a", "cross", "lands", "", "", "", ""],
-		[3.0, "a", "lead_hook", "lands", "", "Hit while she looks", "Two clean shots back", "she waits"],
+		[3.0, "a", "lead_hook", "lands", "", "Hit while looking", "Two clean shots back", "standing still"],
 		[4.6, "b", "jab", "lands", "", "", "", ""],
 		[4.9, "b", "cross", "lands", "", "", "", ""],
 		[5.6, "b", "say", "", "", "", "", ""],
@@ -153,18 +153,18 @@ const SHAPES := {
 	"slow_start": {"when": "range", "tell": 0, "seconds": 8.0, "beats": [
 		[0.6, "b", "step_out", "", "", "Round 1: feeling it out", "Out of range, barely throws", ""],
 		[1.6, "a", "jab", "lands", "", "", "", ""],
-		[2.2, "a", "cross", "lands", "", "Gives the round away", "The other woman scores first", "free shots"],
+		[2.2, "a", "cross", "lands", "", "Gives the round away", "The other boxer scores first", "free shots"],
 		[3.2, "b", "jab", "misses", "block", "", "", ""],
 		[4.2, "a", "jab", "lands", "", "", "", ""],
 		[4.6, "a", "cross", "misses", "block", "", "", ""],
 		[5.4, "b", "step_out", "", "", "Still waiting", "One jab in ten seconds", "on the end"]]},
 	"backs_up": {"when": "range", "tell": 1, "seconds": 8.0, "beats": [
-		[0.6, "a", "step_in", "", "", "Pressed", "The other woman walks forward", ""],
-		[1.0, "b", "step_out", "", "", "Backs straight up", "No angle - straight back", "she is pressed"],
+		[0.6, "a", "step_in", "", "", "Pressed", "The other boxer walks forward", ""],
+		[1.0, "b", "step_out", "", "", "Backs straight up", "No angle - straight back", "under pressure"],
 		[1.8, "a", "step_in", "", "", "", "", ""],
 		[2.2, "b", "step_out", "", "", "", "", ""],
 		[2.8, "a", "jab", "lands", "", "", "", ""],
-		[3.2, "a", "body_hook", "lands", "", "On the ropes", "Out of room, she covers", "two steps back"],
+		[3.2, "a", "body_hook", "lands", "", "On the ropes", "Out of room, covers up", "two steps back"],
 		[4.0, "b", "jab", "misses", "block", "", "", ""],
 		[4.6, "a", "cross", "lands", "", "", "", ""]]},
 }
@@ -174,7 +174,7 @@ const SHAPES := {
 const TELL_POSES := {"drops_right": ["jab", "hand_drop"], "lunges": ["jab", "lunge"], "tiring": ["tired", "tired_guard"],
 	"admires": ["say", "hands_low"]}
 ## Her weapon words -> the film that shows it (first match).
-const WEAPON_SHAPES := [["over the jab", "counter"], ["counter", "counter"], ["long jab", "range"], ["jab she lives", "range"],
+const WEAPON_SHAPES := [["over the jab", "counter"], ["counter", "counter"], ["long jab", "range"], ["jab to live", "range"],
 	["body", "press_body"], ["hooks", "press_body"], ["overhand", "loadup"], ["heavy right", "loadup"], ["straight", "range_straight"],
 	["down the middle", "range_straight"], ["never stops", "press_flurry"], ["flurries", "press_flurry"]]
 ## Her game (OppFile.main_game) -> its film.
@@ -189,20 +189,20 @@ const WEAK_SHAPES := [["fades", "tiring"], ["legs late", "tiring"], ["slow to st
 ## What each move does, in the coach's words (the counters say what a move does, never whether it answers her).
 const WHY := {"step_in": "Step in behind the jab and take the centre", "1-1-2": "Double jab to close, then the cross",
 	"feint": "Feint and draw the lead", "1-1": "Double jab: touch and stay long", "1-2": "The one-two down the middle",
-	"2-3": "Cross, then the hook as she comes", "1-2-3": "One-two-hook, all in", "1-2-3-2": "Four punches, all in",
+	"2-3": "Cross, then the hook on the way in", "1-2-3": "One-two-hook, all in", "1-2-3-2": "Four punches, all in",
 	"1-2-3b": "One-two, then a hook to the ribs", "step_out": "Step out of range and wait", "cut_off": "Cut off the ring, walk to the ropes",
 	"1-6-3": "Jab, uppercut, hook in close", "3b-3": "Dig the body, then the head", "slip 2-3": "Slip the punch, cross and hook back",
 	"step_back": "One step back: the punches fall short", "tie_up": "Tie the arms up and lean in", "roll_out": "Roll under and out to the side",
 	"push_off": "Shove off and reset", "pivot_out": "Pivot off the ropes into open ring", "herd": "Herd into the corner"}
 const KIND_WORDS := {"style": "Game", "weapon": "Best weapon", "habit": "Habit", "weakness": "Weakness"}
 ## S343 SPOT (operator: "wanna try also your idea ?"): what each film shows, in the words the player picks from after SPOT.
-const SPOT_WORDS := {"press": "She keeps walking forward", "press_body": "She goes to the body as she arrives",
+const SPOT_WORDS := {"press": "Keeps walking forward", "press_body": "Goes to the body on arrival",
 	"press_flurry": "Throws in flurries", "range": "Keeps you at the end of the jab",
 	"range_straight": "A straight right behind the jab", "counter": "Waits, then counters over the jab",
 	"loadup": "Loads up one big right", "tiring": "Hands drop when tired", "hurt_body": "Hurt, digs to the body",
 	"hurt_wild": "Hurt, swings wild", "drops_right": "The right hand drops after the jab",
 	"lunges": "Lunges in behind the jab", "admires": "Stands still after a combination",
-	"slow_start": "She barely throws early", "backs_up": "She backs straight up"}
+	"slow_start": "Barely throws early", "backs_up": "Backs straight up"}
 ## The moment to SPOT a tell: from just before its node to this long after it, by her rating - a top rival hides it
 ## better (the moment is shorter).
 const SPOT_LEAD_S := 0.3

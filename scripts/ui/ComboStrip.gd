@@ -67,8 +67,8 @@ static func _card(f: Dictionary, i: int, id: String, e: Dictionary, chain: Array
 		var lv := float((f.get("moves", {}) as Dictionary).get(needs, 0.0))
 		var t := MoveMastery.tier(lv)
 		var lab := UI.label("%s %d" % [t, int(lv)], UI.TINY, TIER_COLOR.get(t, UI.FG), "bold")
-		lab.tooltip_text = "Her mastery of the %s: %d. %s" % [needs.to_lower(), int(lv),
-			"A weapon in a fight from %d." % int(Combos.LEARN_AT) if lv < Combos.LEARN_AT else "She can throw it in a fight."]
+		lab.tooltip_text = "Mastery of the %s: %d. %s" % [needs.to_lower(), int(lv),
+			"A weapon in a fight from %d." % int(Combos.LEARN_AT) if lv < Combos.LEARN_AT else "Ready to throw in a fight."]
 		v.add_child(lab)
 		if lv < Combos.LEARN_AT:
 			# Not a weapon yet: the card stays in the strip to try, faded, with the way to learn it.
@@ -130,18 +130,18 @@ static func totals(f: Dictionary, chain: Array, rated: Dictionary, bid: String) 
 	var tank := _tile("GAS", "%d%%" % maxi(1, int(round(share))), "of a round, each time", UI.AMBER if share >= 8.0 else UI.FG,
 		{"title": "Gas tank", "rows": [["This chain", "%.2f" % gas, "", ""], ["A whole round", "%.0f" % Combos.ROUND_COST, "", ""],
 		["Share", "%.0f%%" % share, "", "watch" if share >= 8.0 else ""]],
-		"means": "each time she throws it, it takes %.0f%% of what a whole round of fighting takes out of her. Long chains tire her sooner." % share})
+		"means": "each throw takes %.0f%% of what a whole round of fighting costs. Long chains tire sooner." % share})
 	tank.name = "Tank"
 	g.add_child(tank)
 	var t := 0.0
 	for id in chain:
 		t += float(BeatClips.IMPACT_S.get(str(id), 0.0))
 	g.add_child(_tile("LANDS IN", "%.1f s" % t, "first to last punch", UI.FG,
-		{"title": "Speed", "rows": [], "means": "the time her punches take to land, one after another (shipped boxing games' median punch timing). The longer it runs, the longer she is there to be hit."}))
+		{"title": "Speed", "rows": [], "means": "the time the punches take to land, one after another (shipped boxing games' median punch timing). The longer it runs, the longer the boxer stands there to be hit."}))
 	var dmg := _damage(chain)
 	g.add_child(_tile("DAMAGE", "%.1f" % (dmg["head"] + dmg["ribs"]), "head %.1f - ribs %.1f" % [dmg["head"], dmg["ribs"]], UI.FG,
 		{"title": "Damage if it all lands", "rows": [["Head", "%.1f" % dmg["head"], "", ""], ["Ribs", "%.1f" % dmg["ribs"], "", ""]],
-		"means": "what the punches take off the opponent's body map when every one lands (a big shot doubles it). Ribs drain her gas too."}))
+		"means": "what the punches take off the opponent's body map when every one lands (a big shot doubles it). Ribs drain the gas too."}))
 	g.add_child(_odds_tile(f, bid))
 	return g
 
@@ -153,12 +153,12 @@ static func _odds_tile(f: Dictionary, bid: String) -> Control:
 	var tbl: Dictionary = ComboOdds.table(bid, f, opp) if bid != "" else {}
 	if tbl.is_empty():
 		return _tile("VS " + who, "-", "book combinations only", UI.MUTED,
-			{"title": "In the ring", "rows": [], "means": "the ring odds exist for the combinations in her book; start from one on the left to see how often it lands whole."})
+			{"title": "In the ring", "rows": [], "means": "the ring odds exist for the combinations in the book; start from one on the left to see how often it lands whole."})
 	var best := 0.0
 	for r in tbl["rows"]:
 		if str(r["sit"]) == str(tbl["main"]):
 			best = float(r["odds"])
-	return _tile("VS " + who, "%d%%" % int(round(best * 100.0)), "lands whole in her main game", UI.GREEN if best > float(tbl["base"]) else UI.FG,
+	return _tile("VS " + who, "%d%%" % int(round(best * 100.0)), "lands whole in the opponent's main game", UI.GREEN if best > float(tbl["base"]) else UI.FG,
 		{"title": "In the ring", "rows": [["This combination", "%d%%" % int(round(best * 100.0)), "", ""],
 		["No combination", "%d%%" % int(round(float(tbl["base"]) * 100.0)), "", ""]],
 		"means": "how often it lands whole in the opponent's main game, the fight's own dice. The table below has every game."})

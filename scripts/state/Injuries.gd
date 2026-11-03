@@ -219,7 +219,7 @@ static func _hurt(c: Career, f: Dictionary, roll: Dictionary, where: String) -> 
 			pull_out(c, f)
 		else:
 			f["injury"]["choice"] = "pending"
-			c.add_news("%s's bout with %s is on %s, before she is fit: you decide." % [f["first"], b["opp"]["name"], Clock.fmt(int(b["day"]))])
+			c.add_news("%s's bout with %s is on %s, before the injury heals: you decide." % [f["first"], b["opp"]["name"], Clock.fmt(int(b["day"]))])
 	f["next_offer_day"] = maxi(int(f["next_offer_day"]), c.day + days)
 
 

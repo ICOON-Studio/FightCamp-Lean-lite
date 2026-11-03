@@ -64,7 +64,7 @@ func _offers(main: Node, c: Career) -> void:
 		var f: Dictionary = fo[0]
 		var o: Dictionary = fo[1]
 		var unsafe := bool(o["mismatch"])
-		var sub := ("Not safe: she has %d bouts, %s has %d" % [int(o["own_bouts"]), str(o["opp"]["name"]).split(" ")[1],
+		var sub := ("Not safe: %s has %d bouts, %s has %d" % [str(f["first"]), int(o["own_bouts"]), str(o["opp"]["name"]).split(" ")[1],
 			int(o["their_bouts"])]) if unsafe else "Legal, even match"
 		var b := UI.button("Open", "Btn", main.act.bind("openBout", o["id"]))
 		b.name = "Open_" + str(o["id"])
@@ -80,7 +80,7 @@ func _next_offer(c: Career, f: Dictionary) -> String:
 	if not fb.is_empty():
 		return "Booked: %s vs %s, %s." % [f["first"], fb["opp"]["name"], Clock.fmt(int(fb["day"]))]
 	if Champs.active(f):
-		return "%s: no other offers while she is in the championships." % f["first"]
+		return "%s: no other offers during the championships." % f["first"]
 	if bool(f.get("pro", false)):
 		return "%s: pro bouts are not offered here." % f["first"]
 	var days := int(f.get("next_offer_day", c.day)) - c.day

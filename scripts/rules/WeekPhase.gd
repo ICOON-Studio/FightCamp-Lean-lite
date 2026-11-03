@@ -11,7 +11,7 @@ extends RefCounted
 ## Pure static; f keys: phase, week_edits {phase, days {"0".."6": [id, intensity]}, spar}.
 
 const PHASES := {
-	"base": {"name": "Base week", "line": "No bout booked: the coach keeps her ticking over.", "spar": 1},
+	"base": {"name": "Base week", "line": "No bout booked: the coach keeps things ticking over.", "spar": 1},
 	"build": {"name": "Build week", "line": "Volume up; the camp's stat gets a Hard morning.", "spar": 1},
 	"peak": {"name": "Peak week", "line": "The hardest week of the camp; sparring twice.", "spar": 2},
 	"taper": {"name": "Fight week taper", "line": "Volume down by half, no sparring: fresh legs on the night.", "spar": 0, "pads": 3},

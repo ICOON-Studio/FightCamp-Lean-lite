@@ -208,7 +208,7 @@ func _validate_problem_shown() -> bool:
 		var t := str(l.text)
 		if t.contains(" arrows  ·  covers "):
 			continue
-		if t == "THE PLAN" or t.begins_with("if she "):
+		if t == "THE PLAN" or t.begins_with("if the opponent "):
 			continue
 		if t.contains(" -> ") and not t.contains("Two "):
 			continue

@@ -54,7 +54,8 @@ static func build(c: Career, f: Dictionary, w: float = 380.0) -> Control:
 	names.add_child(_side(str(opp["name"]), "%d-%d  %s" % [int(opp.get("w", 0)), int(opp.get("l", 0)), str(opp.get("style", ""))], k))
 	v.add_child(names)
 	var div: Dictionary = Data.DIVISIONS.get(f.get("div", ""), {})
-	v.add_child(_text("3 X 3 MIN  -  WOMEN'S %s" % str(div.get("short", "%.0f KG" % float(f.get("limit", 0.0)))).to_upper(), 17 * k, INK, true))
+	var sex := "MEN'S" if str(div.get("sex", "f")) == "m" else "WOMEN'S"
+	v.add_child(_text("3 X 3 MIN  -  %s %s" % [sex, str(div.get("short", "%.0f KG" % float(f.get("limit", 0.0)))).to_upper()], 17 * k, INK, true))
 	var gap := Control.new()
 	gap.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	v.add_child(gap)

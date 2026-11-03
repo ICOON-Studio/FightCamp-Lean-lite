@@ -1,5 +1,9 @@
 # S371 - next session (written S370, 2026-11-03)
 
+SEATS AT HANDOVER: KNEETRACK1 DONE -> PR #22 (checks 5/5 PASS; Argon 2->2/10 but it judged a turntable as a broadcast and
+said the standing clips keep the knees over the toes) - collect with knee_probe -- layer=1 + your own look at the orbit film;
+NOREF1 launched on Qwen by the scheduled 01:39 cycle (BEFORE Argon 2/10).
+
 FIRST: Q-S294-92 board comment (Claude overwrote it at 01:12, restored): "ask for other ideas use dola,ludo,ziva,gemini4,
 grok" -> ops/research/ASK_GOALIDEAS_S370.md sent to Grok (gbot Kalli thread), Dola (cici.py read --out), Gemini 4
 (answer in ops/research/GOALIDEAS_GEMINI4_S370.md). LUDO: the message went into the WRONG chat ("Multi-Hub Space

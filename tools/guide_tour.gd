@@ -36,10 +36,10 @@ func _tour() -> void:
 	main.career.seed = 1
 	await _shot("HOME - what needs you", "The day, your cash and the big button: NEEDS YOU while a decision waits, CONTINUE runs the days.")
 	main.act("go_btn")
-	await _shot("A boxer walks in", "The interview: read her, then pick three training cards she wants from the gym.")
+	await _shot("A boxer walks in", "The interview: read the boxer, then pick three training cards from the gym.")
 	for card in ["Jab and move", "Pad rounds", "Hill sprints"]:
 		main.act("pickcard", card)
-	await _shot("Three cards picked", "Sign her: she joins on the club stipend with her first goal.")
+	await _shot("Three cards picked", "Sign: the boxer joins on the club stipend with a first goal.")
 	_press(_modal_button("Sign"))
 	main.act("go", "fighters:0")
 	await _shot("FIGHTERS > Roster", "Every boxer on one card: form, weight, goal and next bout.")
@@ -47,17 +47,17 @@ func _tour() -> void:
 	main.act("hire", "reid")
 	await _shot("GYM > Staff - hire a coach", "Luke Reid, sessional: $1,000 to sign, $450 a week. A coach runs the training days.")
 	main.act("go", "fighters:1")
-	await _shot("FIGHTERS > Training - the week", "Her week on the whiteboard: what each day trains and how hard.")
+	await _shot("FIGHTERS > Training - the week", "The week on the whiteboard: what each day trains and how hard.")
 	main.act("fighter", "lucy")
-	await _shot("Her page", "Her numbers, her body and her goal. Every name in the game opens this page.")
+	await _shot("The fighter page", "Numbers, body and goal. Every name in the game opens this page.")
 	for i in range(1, 4):
 		main.act("ftab", str(i))
-		await _shot("Her page - tab %d" % (i + 1), "")
+		await _shot("The fighter page - tab %d" % (i + 1), "")
 	main.act("go", "home:0")
 	main.run_to_stop()
 	if main.career.review_pending:
 		main.act("review")
-		await _shot("The week review", "Every Sunday: what she gained, what it cost and what comes next.")
+		await _shot("The week review", "Every Sunday: what was gained, what it cost and what comes next.")
 		main.act("close")
 	main.run_to_stop()
 	await _shot("An offer arrives", "Offers block time: the button now reads NEEDS YOU.")
@@ -73,7 +73,7 @@ func _tour() -> void:
 	var kids := main.get_child_count()
 	main.act("taperoom", str(main.career.fighter()["id"]))
 	await create_timer(3.0).timeout
-	await _shot("The tape room", "Watch the opponent's fights: each session finds one more thing about her.")
+	await _shot("The tape room", "Watch the opponent's fights: each session finds one more thing.")
 	# The tape room is a layer over the whole game (RosterActs "taperoom"), not a modal: take it off again.
 	while main.get_child_count() > kids:
 		var room := main.get_child(main.get_child_count() - 1)
@@ -82,8 +82,8 @@ func _tour() -> void:
 	for i in 4:
 		main.act("go", "playbook:%d" % i)
 		await _shot(["PLAYBOOK > Moves", "PLAYBOOK > Game plan", "PLAYBOOK > Combos", "PLAYBOOK > Escapes"][i],
-			["Her move book: what she can throw and how well.", "The plan for this fight, written as lines: at range X, do Y.",
-			"Build combos and test them on a partner.", "How she gets out of trouble: ropes, corners, clinch."][i])
+			["The move book: what the boxer can throw and how well.", "The plan for this fight, written as lines: at range X, do Y.",
+			"Build combos and test them on a partner.", "How to get out of trouble: ropes, corners, clinch."][i])
 	main.act("go", "home:0")
 	var c: Career = main.career
 	for i in 12:
@@ -117,10 +117,10 @@ func _tour() -> void:
 	await _shot("The scorecards", "")
 	_press(_any("Scorecards"))
 	await create_timer(1.5).timeout
-	await _shot("The result", "Who won, on what, and what decided it; her body report says what to train next.")
+	await _shot("The result", "Who won, on what, and what decided it; the body report says what to train next.")
 	_press(_any("BackHome"))
 	main.act("goaltalk")
-	await _shot("The office - her next goal", "Talk it through and set the next goal: the loop starts again.")
+	await _shot("The office - the next goal", "Talk it through and set the next goal: the loop starts again.")
 
 
 func _shot(title: String, what: String) -> void:

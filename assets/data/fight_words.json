@@ -37,7 +37,7 @@
    ],
    "their": [
     "{opp} throws thirty punches in the first minute and {her} gets buried under them.",
-    "{her} covers up and {opp} keeps throwing; the judges see the busier woman.",
+    "{her} covers up and {opp} keeps throwing; the judges see the busier boxer.",
     "{opp} never stops; {her} waits for a gap that doesn't come.",
     "{opp}'s hands are a blur from the bell and {her} is pushed onto the back foot."
    ]
@@ -228,7 +228,7 @@
     "long": [
      "{her} stays long, but {opp}'s jab is longer and sharper.",
      "{her} jabs and moves, and {opp} times the move with the {threat}.",
-     "At range {opp} is just a bit quicker; she wins the jab battle."
+     "At range {opp} is just a bit quicker and wins the jab battle."
     ],
     "body": [
      "{her} goes to the body and {opp} lands the {threat} on the way out.",
@@ -297,7 +297,7 @@
   "corner": [
    "The corner call played into {opp}'s hands.",
    "{her} followed the instruction, and {opp} was waiting for it.",
-   "The wrong call between rounds gave {opp} the fight she wanted."
+   "The wrong call between rounds gave {opp} the fight {opp} wanted."
   ],
   "no_camp": [
    "No camp, and it showed: {her} faded while {opp} kept going.",

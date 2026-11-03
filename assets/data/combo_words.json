@@ -53,7 +53,7 @@
    ],
    "coach_signature": [
     "Double jab, right hand. {name} could do it asleep.",
-    "She owns that rhythm now. Jab, jab, bang."
+    "Owns that rhythm now. Jab, jab, bang."
    ],
    "ring_lands": [
     "Two jabs and the right hand from {name}. Lovely.",
@@ -115,8 +115,8 @@
     "Don't stand there after. Move off."
    ],
    "coach_signature": [
-    "Four-punch combo and she's still balanced.",
-    "She throws all four and walks out clean."
+    "Four-punch combo and still balanced.",
+    "Throws all four and walks out clean."
    ],
    "ring_lands": [
     "Four punches from {name}. The judges love that.",
@@ -157,7 +157,7 @@
     "Hook under the elbow. Find the gap."
    ],
    "coach_signature": [
-    "She goes up, up, down better than anyone here.",
+    "Goes up, up, down better than anyone here.",
     "That body hook at the end is {name}'s trademark."
    ],
    "ring_lands": [
@@ -178,8 +178,8 @@
     "Hook comes off the uppercut. Rock and roll."
    ],
    "coach_signature": [
-    "Jab, uppercut, hook. She does it on the inside now.",
-    "Nobody expects the uppercut. She lands it every round."
+    "Jab, uppercut, hook. Works it on the inside now.",
+    "Nobody expects the uppercut. It lands every round."
    ],
    "ring_lands": [
     "{name} splits the guard with the uppercut, then hooks.",
@@ -196,10 +196,10 @@
    "coach_learning": [
     "Slip outside the jab, right hand straight back.",
     "Slip small. Just enough to make it miss.",
-    "Counter fast. Before she resets."
+    "Counter fast. Before the reset."
    ],
    "coach_signature": [
-    "She slips and counters like it's nothing.",
+    "Slips and counters like it's nothing.",
     "Jab at {name} and eat the counter."
    ],
    "ring_lands": [
@@ -214,7 +214,7 @@
  "energy_lines": {
   "fresh": [
    "{name} is sharp. Plenty left in the tank.",
-   "Fresh legs. She can throw everything tonight."
+   "Fresh legs. Throw everything tonight."
   ],
   "tiring": [
    "{name} is breathing hard. Shorter combinations now.",

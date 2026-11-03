@@ -323,8 +323,9 @@ def spawn_hidden(args: list, out_path: Path, cwd: Path) -> int:
 def launch(r: dict) -> str:
     task, seat = r["task"], r["seat"]
     wt, branch = WT / f"LEAN_{task}", f"{seat}/{task.lower()}"
-    git("fetch", "-q", "origin", "main", timeout=300)
-    p = sh(["git", "worktree", "add", "-b", branch, wt, "origin/main"], timeout=600)
+    base = (brief_contract.parse(brief_contract.brief_path(task).read_text(encoding="utf-8", errors="replace")) or {}).get("base") or "main"
+    git("fetch", "-q", "origin", "main", *([base] if base != "main" else []), timeout=300)
+    p = sh(["git", "worktree", "add", "-b", branch, wt, f"origin/{base}"], timeout=600)
     if p.returncode != 0:
         return log(f"LAUNCH FAIL {task}: worktree add: {(p.stderr or p.stdout).strip()[:300]}")
     seed = sh(["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", ROOT / "Tools" / "seed_godot_cache.ps1",
@@ -575,7 +576,7 @@ def run(task: str) -> int:
             rc = 124
         log(f"SEAT {task}: exit {rc}")
         committed, stray = commit_owned(wt, contract, task, seat)
-        ahead = int((git("rev-list", "--count", "origin/main..HEAD", cwd=wt).strip() or "0"))
+        ahead = int((git("rev-list", "--count", f"origin/{contract.get('base') or 'main'}..HEAD", cwd=wt).strip() or "0"))
         out_tail = out.read_text(encoding="utf-8", errors="replace")[-4000:] if out.is_file() else ""
         if not ahead:
             update_run(task, status="failed", finished=_now(), note=f"S368 seat_dispatch: {seat} exit {rc}, no commit on {branch} "
@@ -601,11 +602,61 @@ def run(task: str) -> int:
                    checks=[{k: c.get(k) for k in ("kind", "script", "ok", "last")} for c in checks],
                    films={"before": before, "after": after, "board": board})
         log(f"DONE {task}: {note}")
+        if contract.get("loop"):
+            log(loop_next(task, contract, before, after, branch, passed == len(checks)))
         return 0
     except Exception as exc:  # the runner never dies silent: the board shows why
         update_run(task, status="failed", finished=_now(), note=f"S368 seat_dispatch runner crashed: {exc!r}"[:400])
         log(f"CRASH {task}: {exc!r}")
         raise
+
+
+# ---------------------------------------------------------------- judged loops (S371)
+
+LOOP_MAX_ROUNDS = 12
+_ROUND_RE = re.compile(r"^(.*?)R(\d+)$")
+_VERDICT_RE = re.compile(r"^## Last verdict\b.*?(?=^## )", re.M | re.S)
+
+
+def _score(d: dict) -> float:
+    try:
+        return float(d.get("score", ""))
+    except (TypeError, ValueError):
+        return -1.0
+
+
+def loop_next(task: str, contract: dict, before: dict, after: dict, branch: str, green: bool) -> str:
+    """Operator S371 "let argon do all the fixes until its 9/10": a LOOP brief (`LOOP: <STEM> <target>`, task <STEM>R<n>)
+    queues round n+1 on the same seat until Argon's after-film score reaches the target. A round that scored at least the
+    one before it with every check green becomes the next BASE; a worse or red round is dropped (the next round starts from
+    this round's BASE again and reads why). The next brief = this one with its BASE line, round number and '## Last
+    verdict' section replaced. Merging stays with a session (S249)."""
+    stem, _, target = contract["loop"].partition(" ")
+    m = _ROUND_RE.match(task)
+    n = int(m.group(2)) if m else 1
+    a, b, goal = _score(after), _score(before), float(target or 9)
+    if a >= goal:
+        return f"LOOP {stem}: round {n} scored {a:g}/10 - target {goal:g} reached, loop stops (a session collects {branch})"
+    if n >= LOOP_MAX_ROUNDS:
+        return f"LOOP {stem}: round {n} scored {a:g}/10 - {LOOP_MAX_ROUNDS} rounds spent, loop stops for a session to look"
+    kept = green and a >= 0 and a >= b
+    base = branch if kept else (contract.get("base") or "main")
+    src = brief_contract.brief_path(task).read_text(encoding="utf-8", errors="replace")
+    md = Path(after.get("verdict_file") or "")
+    verdict = md.read_text(encoding="utf-8", errors="replace").strip() if md.is_file() else "(no verdict file: " + str(after.get("err", "?")) + ")"
+    head = (f"## Last verdict (round {n}: Argon {b:g} -> {a:g}/10 on {branch}; "
+            + ("KEPT - this round's code is your BASE" if kept else "DROPPED - worse or a check failed; you start from the round before")
+            + ")\n\n" + verdict + "\n\n")
+    nxt = _VERDICT_RE.sub(lambda _m: head, src) if _VERDICT_RE.search(src) else src.replace("## Contract", head + "## Contract", 1)
+    nxt = re.sub(r"^(\s*BASE\s*:).*$", lambda mm: f"{mm.group(1)} {base}", nxt, count=1, flags=re.M)
+    nxt = re.sub(rf"\b{re.escape(task)}\b", f"{stem}R{n + 1}", nxt)
+    new_id = f"{stem}R{n + 1}"
+    brief_contract.brief_path(new_id).write_text(nxt, encoding="utf-8")
+    seat = next(s for s, c in SEATS.items() if c["agent"] == load(RUNS, {}).get("runs", {}).get(task, {}).get("agent"))
+    items = load(QUEUE, {"_doc": "Tasks for the CLI seats, drained by ops/Tools/seat_dispatch.py (30-min reconcile).", "items": []})
+    items["items"].append({"task": new_id, "seat": seat, "status": "queued", "queued": _now(), "loop": stem})
+    save(QUEUE, items)
+    return f"LOOP {stem}: round {n} {b:g} -> {a:g}/10 ({'kept' if kept else 'dropped'}); QUEUED {new_id} for {seat} on BASE {base}"
 
 
 # ---------------------------------------------------------------- entry points

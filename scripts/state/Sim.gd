@@ -24,6 +24,7 @@ const Champs := preload("res://scripts/state/Champs.gd")
 const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
 const WeekCause := preload("res://scripts/rules/WeekCause.gd")
 const SkillAwards := preload("res://scripts/rules/SkillAwards.gd")
+const TestDay := preload("res://scripts/rules/TestDay.gd")
 const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
 const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
 const WeekActual := preload("res://scripts/rules/WeekActual.gd")
@@ -390,8 +391,9 @@ static func end_week(career: Career) -> void:
 			# News, not mail: the week review shows it in gold (golden_path: mail counts mail, not every result).
 			career.add_news("%s passed the %s award: a medal and a certificate on the gym wall." % [f["first"], award["name"]], false)
 		reports.append({"id": f["id"], "name": f["name"], "rows": rows, "moves": drill["rows"], "new_weapon": drill["new_weapon"],
-			"award": str(award.get("name", "")), "award_p": SkillAwards.progress(f),
-			"bleep": [SkillAwards.bleep(float(start.get("conditioning", f["stats"]["conditioning"]))), SkillAwards.bleep(float(f["stats"]["conditioning"]))],
+			"award": str(award.get("name", "")), "award_p": SkillAwards.progress(f), "bests": TestDay.record(f, career.day),
+			"bleep": [SkillAwards.bleep(float(start.get("conditioning", f["stats"]["conditioning"]))), SkillAwards.bleep(float(f["stats"]["conditioning"]))]
+				if SkillAwards.bleep_known(Data.sex_of(f)) else [],
 			"rank_before": rank_before, "rank_after": int(f.get("rank", 0)), "div": Data.DIVISIONS[f["div"]]["short"],
 			"coach": coach_line(career, f), "plan": plan, "peak": str(f.get("peak_line", "")), "injury": Injuries.new_this_week(career, f)})
 		f.erase("peak_line")

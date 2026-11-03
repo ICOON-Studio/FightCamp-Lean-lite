@@ -8,6 +8,8 @@ extends RefCounted
 const UI := preload("res://scripts/ui/UI.gd")
 const Tips := preload("res://scripts/ui/Tips.gd")
 const SkillAwards := preload("res://scripts/rules/SkillAwards.gd")
+const TestDay := preload("res://scripts/rules/TestDay.gd")
+const Data := preload("res://scripts/state/Data.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
 const Clock := preload("res://scripts/state/Clock.gd")
 
@@ -21,7 +23,7 @@ static func make(c: Career, f: Dictionary) -> PanelContainer:
 	var v := UI.vbox(8)
 	p.add_child(v)
 	var head := UI.hbox(10)
-	head.add_child(UI.caps("HER ROAD: THE SKILLS AWARDS"))
+	head.add_child(UI.caps("THE ROAD: THE SKILLS AWARDS"))
 	head.add_child(UI.muted("each grade: 8 coached sessions, then the coach's assessment - a medal and a certificate", UI.SMALL))
 	v.add_child(head)
 	v.add_child(_ladder(f))
@@ -31,8 +33,37 @@ static func make(c: Career, f: Dictionary) -> PanelContainer:
 	else:
 		v.add_child(_next(pr))
 	v.add_child(UI.sep())
-	v.add_child(_engine(c, f))
+	if SkillAwards.bleep_known(Data.sex_of(f)):
+		v.add_child(_engine(c, f))
+		v.add_child(_wall(f))
 	return p
+
+
+## S371 the records wall: her best on each Sunday test, the beaten number beside it (Grok/Gemini: chalk through the old one).
+static func _wall(f: Dictionary) -> HBoxContainer:
+	var h := UI.hbox(18)
+	h.name = "RecordsWall"
+	h.add_child(UI.caps("RECORDS WALL"))
+	var rows := TestDay.wall(f)
+	if rows.is_empty():
+		h.add_child(UI.muted("the first Sunday check-in writes the numbers up", UI.SMALL))
+	for r in rows:
+		var cell := UI.hbox(6)
+		cell.add_child(UI.muted(str(r["name"]), UI.SMALL))
+		cell.add_child(UI.label(TestDay.text(r), UI.BODY, UI.GOLD if float(r["prev"]) >= 0.0 else UI.FG, "bold"))
+		if float(r["prev"]) >= 0.0:
+			var was := RichTextLabel.new()
+			was.bbcode_enabled = true
+			was.fit_content = true
+			was.autowrap_mode = TextServer.AUTOWRAP_OFF
+			was.text = "[s]%s[/s]" % (str(r["fmt"]) % float(r["prev"]))
+			was.add_theme_color_override("default_color", UI.MUTED)
+			cell.add_child(was)
+		h.add_child(cell)
+	Tips.card(h, func(): return {"title": "Records wall", "rows": rows.map(func(r): return [str(r["name"]), TestDay.text(r),
+		("beat " + (str(r["fmt"]) % float(r["prev"]))) if float(r["prev"]) >= 0.0 else "first mark", ""]),
+		"means": "Every Sunday the coach times three tests: the bleep test (engine), punches in 10 seconds (speed) and the rear hand's force on the bag sensor (power). A new best goes up in chalk and the old one is crossed out. Train the stat and the number moves - no luck in it."})
+	return h
 
 
 ## The six grades left to right: passed (gold, with the day), next (blue), still to come (grey).
@@ -71,12 +102,12 @@ static func _next(pr: Dictionary) -> VBoxContainer:
 		int(pr["sessions"]) >= int(pr["need"]), "Pads-and-drills and sparring evenings with the coach count - set them on the week below."))
 	for m in pr["moves"]:
 		v.add_child(_bar(str(m["name"]), clampf(float(m["now"]) / float(m["need"]), 0.0, 1.0), "%d / %d" % [int(m["now"]), int(m["need"])],
-			bool(m["ok"]), "Her %s on the pads: the coach marks it clean at %d. Pad time goes to the move being learned." % [str(m["name"]).to_lower(), int(m["need"])]))
+			bool(m["ok"]), "The %s on the pads: the coach marks it clean at %d. Pad time goes to the move being learned." % [str(m["name"]).to_lower(), int(m["need"])]))
 	if bool(pr["bout"]):
 		v.add_child(_bar("A skills bout in the ring", 1.0 if bool(pr["bout_ok"]) else 0.0, "done" if bool(pr["bout_ok"]) else "not yet",
 			bool(pr["bout_ok"]), "One bout in the ring - FIGHTS > Offers."))
 	var ready := bool(pr["ready"])
-	v.add_child(UI.label("READY - the coach assesses her on Sunday." if ready else "The coach assesses her the first Sunday every bar is full.",
+	v.add_child(UI.label("READY - the coach assesses on Sunday." if ready else "The coach assesses the first Sunday every bar is full.",
 		UI.SMALL, UI.GREEN if ready else UI.MUTED, "bold" if ready else "body"))
 	return v
 
@@ -106,6 +137,6 @@ static func _engine(c: Career, f: Dictionary) -> HBoxContainer:
 	h.add_child(UI.spacer())
 	h.add_child(UI.label("in 4 weeks on this plan: %.1f" % then, UI.SMALL, UI.GREEN if then > now else UI.MUTED, "bold"))
 	Tips.card(h, func(): return {"title": "Bleep test", "rows": [["Average adult woman (21-30)", "%.1f" % SkillAwards.BLEEP_ADULT, "", ""],
-		["A national team", "%.1f" % SkillAwards.BLEEP_NATIONAL, "", ""], ["Her level now", "%.1f" % now, "", ""], ["In 4 weeks", "%.1f" % then, "", ""]],
-		"means": "20 m shuttles to a beep that speeds up; the level she reaches. It follows her conditioning: change the week's roadwork and intervals and watch the 4-week number move."})
+		["A national team", "%.1f" % SkillAwards.BLEEP_NATIONAL, "", ""], ["Level now", "%.1f" % now, "", ""], ["In 4 weeks", "%.1f" % then, "", ""]],
+		"means": "20 m shuttles to a beep that speeds up; the level reached. It follows conditioning: change the week's roadwork and intervals and watch the 4-week number move."})
 	return h

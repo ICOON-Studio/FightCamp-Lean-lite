@@ -88,7 +88,7 @@ func _ranking_table(c: Career, div: String) -> void:
 		elif int(f.get("rank", 0)) > 0:
 			notes.append("%s is number %d." % [f["name"], int(f["rank"])])
 		else:
-			notes.append("%s enters at %d wins (she has %d)." % [f["first"], Region.RANK_MIN_WINS, f["w"]])
+			notes.append("%s enters at %d wins (%d so far)." % [f["first"], Region.RANK_MIN_WINS, f["w"]])
 	notes.append("Rivals fight at club shows every other Saturday.")
 	card[1].add_child(UI.muted(" ".join(notes), UI.SMALL, true))
 

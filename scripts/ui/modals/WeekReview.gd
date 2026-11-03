@@ -115,8 +115,14 @@ func build(main: Node, m: Dictionary) -> void:
 		var bl: Array = fr.get("bleep", [])
 		if bl.size() == 2:
 			notes.append("Bleep test %.1f -> %.1f." % [float(bl[0]), float(bl[1])])
+		# S371 GOALTESTS1 phase 2: a personal best beaten goes on the records wall (TestDay.record ran on Sunday).
+		var bests: Array = fr.get("bests", [])
+		for b in bests:
+			notes.append("NEW BEST %s: %s (was %s)." % [str(b["name"]).to_lower(), (str(b["fmt"]) % float(b["new"])) + " " + str(b["unit"]),
+				str(b["fmt"]) % float(b["old"])])
 		if not notes.is_empty():
-			var line := UI.label("   ".join(notes), UI.SMALL, UI.GOLD if str(fr.get("new_weapon", "")) != "" or ra != rb or passed_now else UI.MUTED, "body", true)
+			var gold := str(fr.get("new_weapon", "")) != "" or ra != rb or passed_now or not bests.is_empty()
+			var line := UI.label("   ".join(notes), UI.SMALL, UI.GOLD if gold else UI.MUTED, "body", true)
 			line.name = "Notes_" + str(fr["id"])
 			t = _land(v, line, t, step)
 		if str(fr.get("peak", "")) != "" and head["kind"] != "peak":

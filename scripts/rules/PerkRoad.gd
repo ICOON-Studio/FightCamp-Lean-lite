@@ -7,7 +7,7 @@ extends RefCounted
 
 ## need: {stat: value} or {"move:<name>": mastery}.
 const PERKS := [
-	{"id": "iron_chin", "name": "Iron chin", "effect": "The first count each fight is only a stagger: she stays up", "need": {"chin": 70}},
+	{"id": "iron_chin", "name": "Iron chin", "effect": "The first count each fight is only a stagger: still standing", "need": {"chin": 70}},
 	{"id": "stiff_jab", "name": "Stiff jab", "effect": "Pressers walk onto the jab: an edge every time the opponent presses", "need": {"technique": 65}},
 	{"id": "second_wind", "name": "Second wind", "effect": "+10 energy back at the bell for round 3", "need": {"conditioning": 70}},
 	{"id": "ring_general", "name": "Ring general", "effect": "Corner calls that fit work 25% better", "need": {"fight_iq": 65}},

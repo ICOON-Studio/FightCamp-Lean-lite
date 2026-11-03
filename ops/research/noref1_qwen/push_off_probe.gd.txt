@@ -1,0 +1,250 @@
+extends SceneTree
+## S370 NOREF1 probe: the push-off measured on the bones. The clinch_check.gd harness (a real FightStage, the game's
+## cast, three scripted clinch holds and their breaks in ~15 s) with the push-off's five bars:
+##   ref     = 0: no referee node in the stage, stage.referee is null
+##   hands:  in part a (0-0.3 s) each boxer has a glove within 0.06 m of the other's torso (the push touches)
+##   through: no glove/forearm deeper than 0.04 m into the other's torso or head (capsules)
+##   slow:   the hip-to-hip gap goes from the tie's gap to within 0.05 m of range in 0.7-1.6 s (never a snap)
+##   glide:  each planted foot slides < 0.03 m (FootPlant holds it)
+##   <godot.exe> --headless --audio-driver Dummy --path . --fixed-fps 30 --script res://tools/push_off_probe.gd
+## Prints PUSHOFF lines, one per break, then PUSHOFF_SUMMARY with PASS/FAIL. Fewer than 3 breaks = VOID (exit 1).
+
+const Stage := preload("res://scripts/fight3d/FightStage.gd")
+const BeatFire := preload("res://scripts/fight3d/BeatFire.gd")
+const FightCast := preload("res://scripts/fight3d/FightCast.gd")
+const RangeBreath := preload("res://scripts/fight3d/RangeBreath.gd")
+const PoseTap := preload("res://tools/pose_tap.gd")
+const Faces := preload("res://scripts/rules/Faces.gd")
+const ClinchCheck := preload("res://tools/clinch_check.gd")
+const PushOff := preload("res://scripts/fight3d/PushOff.gd")
+
+const THROUGH_M := 0.04
+const TOUCH_M := 0.06
+const GAP_TOL := 0.05
+const SLOW_LO := 0.7
+const SLOW_HI := 1.6
+const GLIDE_M := 0.03
+const BREAKS_MIN := 3
+const RUN_S := 16.0
+const TORSO_R := 0.15
+const HEAD_R := 0.11
+const HEAD_UP_M := 0.08
+const FOREARM_R := 0.045
+const HAND_R := 0.05
+const GLOVE_FWD_M := 0.08
+const BONES := ["Head", "UpperChest", "Hips", "LeftHand", "RightHand", "LeftLowerArm", "RightLowerArm",
+	"LeftUpperArm", "RightUpperArm", "LeftFoot", "RightFoot"]
+
+var stage: Node3D
+var _view: Node
+var _beat: RefCounted
+var _taps: Array = []
+var _t := 0.0
+var _next := 0
+var _breaks: Array = []
+var _engaged := false
+var _push_active := false
+var _push_t := 0.0
+var _tie_gap := 0.0
+var _range_gap := 1.0
+var _push_start_t := 0.0
+var _hands_hit: Array = [false, false]
+var _through_frames := 0
+var _foot_start: Array = []
+var _foot_worst: Array = [0.0, 0.0]
+var _gap_at_push_end := -1.0
+
+
+class View:
+	extends Node
+	var stage: Node3D
+	var _amb_rng := RandomNumberGenerator.new()
+	var _stop := ""
+	var _profiles := {"a": {}, "b": {}}
+	var _close_left := 0.0
+	var t := 0.0
+	var body := NoBody.new()
+
+	class NoBody:
+		extends RefCounted
+		func land(_b: Dictionary, _at: float) -> void:
+			pass
+
+	func pace() -> float:
+		return Engine.time_scale
+
+
+func _initialize() -> void:
+	root.size = Vector2i(1280, 720)
+	stage = Stage.new()
+	root.add_child(stage)
+	var pair := Faces.pair({"name": "Lucy"}, {"name": "Maria", "stance": "orthodox"})
+	stage.setup({"glb": Faces.glb(pair[0]), "corner": "red", "scale": 1.0, "stance": "orthodox"},
+		{"glb": Faces.glb(pair[1]), "corner": "blue", "scale": 1.0, "stance": "orthodox"})
+	FightCast.crew(stage, false)
+	_view = View.new()
+	_view.stage = stage
+	_view._amb_rng.seed = 20261102
+	root.add_child(_view)
+	_beat = BeatFire.new()
+	for i in 2:
+		var skel: Skeleton3D = stage.boxers[i]["skel"]
+		var tap: SkeletonModifier3D = PoseTap.new()
+		tap.setup(skel, BONES)
+		skel.add_child(tap)
+		_taps.append(tap)
+	var ref_node: Variant = stage.get("referee")
+	var ref_by_name: Node = stage.find_child("Referee", true, false)
+	print("PUSHOFF start: ref_null=%s ref_name_null=%s gap=%.2f" % [str(ref_node == null), str(ref_by_name == null),
+		float(stage.gap_m)])
+	print("PUSHOFF bounds: through > %.2f m, touch <= %.2f m, slow %.1f-%.1f s, glide < %.2f m" % [
+		THROUGH_M, TOUCH_M, SLOW_LO, SLOW_HI, GLIDE_M])
+
+
+func _process(delta: float) -> bool:
+	_t += delta
+	_view.t = _t
+	while _next < ClinchCheck.BEATS.size() and _t >= float(ClinchCheck.BEATS[_next]["t"]):
+		_beat.fire(_view, ClinchCheck.BEATS[_next])
+		_next += 1
+	stage.aim(RangeBreath.phase(ClinchCheck.BEATS, _next, _t))
+	_watch(delta)
+	if _t >= RUN_S:
+		_report()
+		return true
+	return false
+
+
+func _watch(delta: float) -> void:
+	var is_engaged := bool(stage.clinch.engaged)
+	if is_engaged and not _engaged:
+		_engaged = true
+		_push_active = false
+		_tie_gap = (stage.boxers[0]["pos"] as Vector3).distance_to(stage.boxers[1]["pos"])
+	if not is_engaged and _engaged:
+		_engaged = false
+	if not is_engaged and PushOff._on and not _push_active:
+		_push_active = true
+		_push_t = 0.0
+		_push_start_t = _t
+		_range_gap = float(stage.gap_m)
+		_hands_hit = [false, false]
+		_through_frames = 0
+		_foot_start = []
+		_foot_worst = [0.0, 0.0]
+		_gap_at_push_end = -1.0
+		for i in 2:
+			_foot_start.append(_foot_pos(i))
+	if _push_active:
+		_push_t += delta
+		_measure_push(delta)
+	if _push_active and not PushOff._on:
+		_finish_break()
+
+
+func _measure_push(_delta: float) -> void:
+	var hands_ok := [false, false]
+	for i in 2:
+		var other := 1 - i
+		for side in ["Left", "Right"]:
+			var gv := _glove(i, side)
+			var torso := _seg(other, "Hips", "UpperChest")
+			var cp := Geometry3D.get_closest_points_between_segments(gv, gv, torso[0], torso[1])
+			var gap := cp[0].distance_to(cp[1]) - HAND_R - TORSO_R
+			if gap <= TOUCH_M:
+				hands_ok[i] = true
+	if _push_t <= 0.3:
+		for i in 2:
+			if hands_ok[i]:
+				_hands_hit[i] = true
+	for i in 2:
+		var other := 1 - i
+		for vol_name in ["torso", "head"]:
+			var vol := _vol(other, vol_name)
+			for limb in _limbs(i):
+				var cp := Geometry3D.get_closest_points_between_segments(limb[1], limb[2], vol[0], vol[1])
+				var pen := float(limb[3]) + float(vol[2]) - cp[0].distance_to(cp[1])
+				if pen > THROUGH_M:
+					_through_frames += 1
+	for i in 2:
+		var fp := _foot_pos(i)
+		var slide := Vector2(fp.x - (_foot_start[i] as Vector3).x, fp.z - (_foot_start[i] as Vector3).z).length()
+		_foot_worst[i] = maxf(_foot_worst[i], slide)
+	# S370: capture the gap at the end of the PUSH phase (before other systems override it)
+	if _push_t >= 0.9 and _gap_at_push_end < 0.0:
+		_gap_at_push_end = (stage.boxers[0]["pos"] as Vector3).distance_to(stage.boxers[1]["pos"])
+
+
+func _finish_break() -> void:
+	_push_active = false
+	var gap_now := _gap_at_push_end if _gap_at_push_end >= 0.0 else (stage.boxers[0]["pos"] as Vector3).distance_to(stage.boxers[1]["pos"])
+	var dur := _push_t
+	var gap_ok := gap_now <= _range_gap + GAP_TOL
+	var slow_ok := dur >= SLOW_LO and dur <= SLOW_HI and gap_ok
+	var b := {"n": _breaks.size() + 1, "hands_red": _hands_hit[0], "hands_blue": _hands_hit[1],
+		"through": _through_frames, "dur": dur, "slow": slow_ok, "glide_red": _foot_worst[0],
+		"glide_blue": _foot_worst[1], "gap_end": gap_now, "gap_ok": gap_ok}
+	_breaks.append(b)
+
+
+func _report() -> void:
+	if _breaks.size() < BREAKS_MIN:
+		print("PUSHOFF_SUMMARY VOID: %d breaks measured (need %d)" % [_breaks.size(), BREAKS_MIN])
+		quit(1)
+		return
+	var all_pass := true
+	for b in _breaks:
+		var hands := bool(b["hands_red"]) and bool(b["hands_blue"])
+		var through := int(b["through"]) == 0
+		var slow := bool(b["slow"])
+		var glide := float(b["glide_red"]) < GLIDE_M and float(b["glide_blue"]) < GLIDE_M
+		var ok := hands and through and slow and glide
+		if not ok:
+			all_pass = false
+		print("PUSHOFF break=%d hands_red=%s hands_blue=%s through=%d dur=%.2f slow=%s glide_red=%.3f glide_blue=%.3f gap_end=%.2f %s" % [
+			int(b["n"]), str(bool(b["hands_red"])), str(bool(b["hands_blue"])), int(b["through"]),
+			float(b["dur"]), str(bool(b["slow"])), float(b["glide_red"]), float(b["glide_blue"]),
+			float(b["gap_end"]), "PASS" if ok else "FAIL"])
+	print("PUSHOFF_SUMMARY breaks=%d %s" % [_breaks.size(), "PASS" if all_pass else "FAIL"])
+	quit(0 if all_pass else 1)
+
+
+func _bone(i: int, bone: String) -> Vector3:
+	var shown: Dictionary = (_taps[i] as SkeletonModifier3D).shown
+	if shown.has(bone):
+		return (stage.boxers[i]["skel"] as Skeleton3D).global_transform * (shown[bone] as Vector3)
+	return (stage.boxers[i]["node"] as Node3D).global_position
+
+
+func _glove(i: int, side: String) -> Vector3:
+	var hand := _bone(i, side + "Hand")
+	var arm := hand - _bone(i, side + "LowerArm")
+	return hand + (arm.normalized() if arm.length() > 1e-5 else Vector3.UP) * GLOVE_FWD_M
+
+
+func _seg(i: int, a: String, b: String) -> Array:
+	return [_bone(i, a), _bone(i, b)]
+
+
+func _vol(i: int, name: String) -> Array:
+	if name == "head":
+		var h := _bone(i, "Head") + Vector3.UP * HEAD_UP_M
+		return [h, h, HEAD_R]
+	return [_bone(i, "Hips"), _bone(i, "UpperChest"), TORSO_R]
+
+
+func _limbs(i: int) -> Array:
+	var out: Array = []
+	for side in ["Left", "Right"]:
+		var lo := _bone(i, side + "LowerArm")
+		var hand := _bone(i, side + "Hand")
+		var fwd := (hand - lo).normalized() * GLOVE_FWD_M if hand.distance_to(lo) > 0.01 else Vector3.ZERO
+		out.append(["forearm", lo, hand, FOREARM_R])
+		out.append(["hand", hand + fwd, hand + fwd, HAND_R])
+	return out
+
+
+func _foot_pos(i: int) -> Vector3:
+	var lf := _bone(i, "LeftFoot")
+	var rf := _bone(i, "RightFoot")
+	return (lf + rf) * 0.5

@@ -62,7 +62,7 @@ static func act(main: Node, name: String, arg: String) -> bool:
 		"declinepro":
 			Roster.decline_pro(c)
 			main.close_modal()
-			main.toast("She stays amateur for now.")
+			main.toast("Staying amateur for now.")
 		_:
 			return false
 	return true

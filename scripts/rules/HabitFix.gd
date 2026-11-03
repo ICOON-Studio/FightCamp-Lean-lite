@@ -77,7 +77,7 @@ static func offers(habits: Array, seen: Array) -> Array:
 static func line(name: String, names: Array, held: bool) -> String:
 	var what := name.substr(0, 1).to_lower() + name.substr(1)
 	if held:
-		return "The fix held: %s caught herself (%s)." % [str(names[0]), what]
+		return "The fix held: %s caught it in time (%s)." % [str(names[0]), what]
 	return "%s made %s pay for a habit: %s." % [str(names[1]), str(names[0]), what]
 
 

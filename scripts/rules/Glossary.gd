@@ -6,14 +6,14 @@
 
 const TERMS := {
 	# WhiteboardKit.fatigue_word / AMBER_AT 70 / RED_AT 80
-	"fatigue": {"name": "Fatigue", "def": "How tired she is by night, 0 to 100.",
+	"fatigue": {"name": "Fatigue", "def": "How tired the fighter is by night, 0 to 100.",
 		"why": "Over 80 the next morning trains at 60% and a camp that peaks over 80 fails its line."},
 	# Injuries.ratio, WeekCamp LOAD_OVER
-	"load": {"name": "Training load", "def": "This week's training hours against her usual week.",
-		"why": "Over 1.5 doubles her injury risk."},
+	"load": {"name": "Training load", "def": "This week's training hours against a usual week.",
+		"why": "Over 1.5 doubles the injury risk."},
 	# BoutRules.WEAPON_MASTERY 30, BeltRoad.OWNED_AT 30
 	"weapon": {"name": "Weapon", "def": "A move at mastery 30 or more.",
-		"why": "She throws her weapons on the night; each one adds to her edge."},
+		"why": "Weapons get thrown on the night; each one adds to the edge."},
 	# WeekPhase
 	"phase": {"name": "Camp phase", "def": "BASE, BUILD, PEAK or TAPER, counted back from fight night.",
 		"why": "The phase writes the coach's week: volume in BUILD, the hardest week at PEAK, light in TAPER."},
@@ -30,7 +30,7 @@ const TERMS := {
 	"reputation": {"name": "Reputation", "def": "What the town thinks of the gym.",
 		"why": "It sets how many members the gym can carry; wins raise it, losses cost it."},
 	# FighterProfile.trust (S361)
-	"trust": {"name": "Trust", "def": "Her mood, read as trust in her corner.",
+	"trust": {"name": "Trust", "def": "The fighter's mood, read as trust in the corner.",
 		"why": "A Flat or Low fighter takes in less of the corner's calls between rounds."},
 	# GameMoney.BILL_EVERY_DAYS
 	"bill": {"name": "Month-end bill", "def": "Wages and upkeep, paid every four weeks.",

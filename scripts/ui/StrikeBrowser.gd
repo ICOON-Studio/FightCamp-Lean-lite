@@ -145,8 +145,8 @@ func _top_bar() -> Control:
 		if not bout.is_empty() and not bool(bout.get("done", false)):
 			_test_btn = UI.button(_test_words(), "Btn", _test_it)
 			h.add_child(Icons.tip(_test_btn, "20 quick bouts against %s with this plan, in today's form.
-The wins show as a range; tape study on her narrows it. %d tests a camp." % [
-				str(bout["opp"].get("first", "her")), PlanTest.TESTS_A_CAMP]))
+The wins show as a range; tape study narrows it. %d tests a camp." % [
+				str(bout["opp"].get("first", "the opponent")), PlanTest.TESTS_A_CAMP]))
 		h.add_child(UI.button("Save plan", "BtnSolid", _save))
 	return bar
 
@@ -268,7 +268,7 @@ func _when_picker() -> Control:
 		var words := "Any time" if key == "" else str(FightFlow.WHEN_WORDS[key])
 		flow.add_child(UI.button(words, "PillOn" if key == when else "Pill", func(): when = key; go(current)))
 	# S344 (operator C174 on the WHEN pills: "make it clear to the player what it does"): what the pick does, said live.
-	var said := "Your next move: she throws it any time here." if when == "" else \
+	var said := "Your next move: thrown any time here." if when == "" else \
 		"Your next move: thrown only when %s - the answer to that." % str(FightFlow.WHEN_WORDS.get(when, when))
 	var line := UI.label(said, UI.SMALL, UI.GOLD, "semi", true)
 	line.name = "WhenSays"
@@ -311,7 +311,7 @@ func go(card_id: String) -> void:
 		_side.add_child(PlanPanel.build(Map.MOVES, plan, _arrow_limit(), _drilled(), _place_name, _remove_arrow, FightFlow.WHEN_WORDS))
 		var tested: Dictionary = (fighter.get("bout", {}) as Dictionary).get("plan_test", {})
 		if not tested.is_empty():
-			_side.add_child(PlanPanel.test_block(tested, str(fighter["bout"]["opp"].get("first", "her"))))
+			_side.add_child(PlanPanel.test_block(tested, str(fighter["bout"]["opp"].get("first", "the opponent"))))
 		_side.add_child(UI.sep())
 	_moves("MOVES OUT", Map.outs(card_id), true)
 	_moves("MOVES IN", Map.ins(card_id), false)

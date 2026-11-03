@@ -292,7 +292,7 @@ func _spot_state() -> void:
 	var known := TapeClips.known(opp, clips[idx])
 	_spot_btn.disabled = known or spot_used or not playing
 	_spot_btn.tooltip_text = "The file holds this already" if known else ("One call a viewing: Replay to look again" if spot_used
-		else "Press when she shows it")
+		else "Press when it shows")
 
 
 ## Runs the film to its end at once (tests; a player uses Replay and watches).
@@ -362,8 +362,8 @@ func _fill_node(card: PanelContainer, n: Dictionary) -> void:
 	if tell and not hidden:
 		top.add_child(UI.chip("THE TELL", "gold"))
 	words.add_child(top)
-	words.add_child(UI.muted("Something she does here - SPOT it" if hidden else str(n["line"]), UI.SMALL, true))
-	var who := "the other woman" if str(n["who"]) == "a" else str(opp.get("first", "she"))
+	words.add_child(UI.muted("Something happens here - SPOT it" if hidden else str(n["line"]), UI.SMALL, true))
+	var who := "the other boxer" if str(n["who"]) == "a" else str(opp.get("first", "the opponent"))
 	words.add_child(UI.label("%d:%02d  %s" % [int(n["t"]) / 60, int(n["t"]) % 60, who], UI.TINY, UI.MUTED, "mono"))
 
 
@@ -416,7 +416,7 @@ func _draw_answer() -> void:
 	var known := TapeClips.known(opp, c)
 	if not watched.has(idx):
 		_answer.add_child(UI.muted(("Watch to the end, then pick what %s does about it." if known else
-			"Press SPOT the moment she shows it. At the end, pick what %s does about it.") % str(f.get("first", "your boxer")), UI.BODY, true))
+			"Press SPOT the moment it shows. At the end, pick what %s does about it.") % str(f.get("first", "your boxer")), UI.BODY, true))
 		return
 	var now := TapeClips.answer(_plan(), when)
 	var row := UI.hbox(10)

@@ -66,7 +66,7 @@ func _book_head(groups: Array, mastery: Dictionary) -> Control:
 	var h := UI.hbox(14)
 	h.name = "BookHead"
 	h.add_child(UI.label("%d of %d moves ready" % [ready, total], 22, UI.FG, "bold"))
-	h.add_child(Icons.pips(ready, total, "Ready: she can throw it with its pad time behind it."))
+	h.add_child(Icons.pips(ready, total, "Ready: thrown with its pad time behind it."))
 	var next := Combos.next_to_learn(mastery, _combos)
 	if next != "":
 		var nm := ""

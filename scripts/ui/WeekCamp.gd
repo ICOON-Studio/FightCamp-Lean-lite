@@ -93,7 +93,7 @@ func _build(main: Node, f: Dictionary, goal: Dictionary, lines: Array) -> void:
 	lr.add_child(WB.ink("OVER %.1f" % LOAD_OVER if load >= LOAD_OVER else ("NEAR %.1f" % LOAD_OVER if load >= LOAD_NEAR else "LOW"),
 		18, "marker", WB.RED if load >= LOAD_OVER else (UI.AMBER if load >= LOAD_NEAR else UI.GREEN)))
 	add_child(lr)
-	add_child(WB.ink("this week's hours against her usual - over 1.5 doubles the injury risk", UI.SMALL, "hand", WB.PENCIL, true))
+	add_child(WB.ink("this week's hours against the usual - over 1.5 doubles the injury risk", UI.SMALL, "hand", WB.PENCIL, true))
 	var sticky := _twist(main, f)
 	if sticky != null:
 		add_child(sticky)

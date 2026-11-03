@@ -172,7 +172,7 @@ static func outcome(goal: Dictionary, met: bool) -> Dictionary:
 	return {
 		"trust_delta": FAILURE_TRUST_DELTA,
 		"morale_delta": FAILURE_MORALE_DELTA,
-		"line": "%s missed: trust %d, morale %d - walk-out warning, she may walk out to a rival gym." % [
+		"line": "%s missed: trust %d, morale %d - walk-out warning: a rival gym may be next." % [
 			title, FAILURE_TRUST_DELTA, FAILURE_MORALE_DELTA],
 	}
 

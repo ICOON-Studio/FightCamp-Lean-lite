@@ -32,7 +32,7 @@ static func line(opp: Dictionary, days: Array, phase: String) -> Dictionary:
 	var n := 0
 	for d in days:
 		n += int(str((d as Array)[0]) == session)
-	return {"id": "opp", "label": "vs %s" % str(opp.get("first", opp.get("name", "her"))), "now": float(n), "week": float(n),
+	return {"id": "opp", "label": "vs %s" % str(opp.get("first", opp.get("name", "the opponent"))), "now": float(n), "week": float(n),
 		"end": float(n), "target": float(need), "ok": n >= need, "short": float(maxi(0, need - n)), "session": session, "game": game}
 
 

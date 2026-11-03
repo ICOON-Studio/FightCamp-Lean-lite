@@ -20,7 +20,7 @@ func _initialize() -> void:
 	var ids: Array = OppFile.tells(maria).map(func(t): return str(t["id"]))
 	_check(ids == ["look", "style", "weapon", "habit:fades_late", "habit:digs_body_when_hurt", "weakness"], "Maria's file: %s" % str(ids))
 	_check(OppFile.known(maria, "look") and OppFile.known(maria, "style") and not OppFile.known(maria, "weapon"), "free at booking: record and style; her weapon is hidden")
-	_check(OppFile.main_game(maria) == "press" and str(OppFile.tells(maria)[1]["counter"]) == "Plan an arrow for 'If she presses'", "her game: she presses -> plan a branch for it")
+	_check(OppFile.main_game(maria) == "press" and str(OppFile.tells(maria)[1]["counter"]) == "Plan an arrow for 'If the opponent presses'", "her game: she presses -> plan a branch for it")
 	_check(OppFile.film_depth(maria) == 1, "nothing found: film depth 1")
 	var order: Array = []
 	for i in 5:

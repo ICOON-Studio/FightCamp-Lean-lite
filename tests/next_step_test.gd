@@ -67,7 +67,7 @@ func _test2() -> void:
 	_check(ok, "test 2: lit=1 need contains 'Needs 5 bouts (has 3)' and 'entries close in 50 days' (got lit=%d need='%s')" % [r["lit"], r["need"]])
 
 
-## 3. {bouts 6, reg_days 100, age 22} -> lit 2, need contains "Enter her"; with nationals "entered" -> "She is in the draw".
+## 3. {bouts 6, reg_days 100, age 22} -> lit 2, need contains "Enter her"; with nationals "entered" -> "In the draw".
 func _test3() -> void:
 	var f1 := {"bouts": 6, "reg_days": 100, "age": 22}
 	var r1: Dictionary = NS.road(f1, 20)
@@ -78,9 +78,9 @@ func _test3() -> void:
 		ok = false
 	var f2 := {"bouts": 6, "reg_days": 100, "age": 22, "nationals": "entered"}
 	var r2: Dictionary = NS.road(f2, 20)
-	if r2["need"] != "She is in the draw":
+	if r2["need"] != "In the draw":
 		ok = false
-	_check(ok, "test 3: lit=2 need='Enter her...' and nationals='entered' -> 'She is in the draw' (got lit=%d need='%s', r2 need='%s')" % [r1["lit"], r1["need"], r2["need"]])
+	_check(ok, "test 3: lit=2 need='Enter her...' and nationals='entered' -> 'In the draw' (got lit=%d need='%s', r2 need='%s')" % [r1["lit"], r1["need"], r2["need"]])
 
 
 ## 4. {bouts 8, w 6, rank 2, reg_days 120, age 22, nationals "Lost in the regional final"} -> lit 3, need "1 more win".
@@ -107,7 +107,7 @@ func _test5() -> void:
 	_check(ok, "test 5: lit=3 rank=0 need='1 more wins and a top-3 ranking, or 3 more wins' (got lit=%d need='%s')" % [r["lit"], r["need"]])
 
 
-## 6. pro_declines 2 -> "Only a No. 1 ranking brings another offer"; 3 -> "No more offers - she stays amateur".
+## 6. pro_declines 2 -> "Only a No. 1 ranking brings another offer"; 3 -> "No more offers - stays amateur".
 func _test6() -> void:
 	var f1 := {"bouts": 8, "w": 6, "rank": 2, "reg_days": 120, "age": 22, "nationals": "Lost in the regional final", "pro_declines": 2}
 	var r1: Dictionary = NS.road(f1, 20)
@@ -116,7 +116,7 @@ func _test6() -> void:
 	var ok := true
 	if r1["need"] != "Only a No. 1 ranking brings another offer":
 		ok = false
-	if r2["need"] != "No more offers - she stays amateur":
+	if r2["need"] != "No more offers - stays amateur":
 		ok = false
 	_check(ok, "test 6: pro_declines 2 -> 'Only a No. 1 ranking...' 3 -> 'No more offers...' (got r1='%s', r2='%s')" % [r1["need"], r2["need"]])
 

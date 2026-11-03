@@ -123,7 +123,7 @@ func build(main: Node, f: Dictionary) -> void:
 				card.add_child(UI.muted("No bout booked.", UI.BODY))
 		6:
 			var card := _card("CONTRACT")
-			UI.add_rows(card, [UI.kv("Terms", "Club stipend, $250 a week"), UI.kv("Until", "she turns pro")])
+			UI.add_rows(card, [UI.kv("Terms", "Club stipend, $250 a week"), UI.kv("Until", "turning pro")])
 			card.add_child(UI.caps("GOALS SO FAR"))
 			var done: Array = f.get("history", [])
 			if done.is_empty():

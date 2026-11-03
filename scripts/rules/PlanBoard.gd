@@ -64,7 +64,7 @@ static func validate(plan: Array, map: Array, limit: int, words := {}) -> Dictio
 			elif words.has(reaction):
 				problems.append("Two arrows from %s when %s - pick one" % [from, str(words[reaction])])
 			else:
-				problems.append("Two answers when she %s at %s" % [reaction.replace(" her ", " the "), from])   # S356 no his/her on screen
+				problems.append("Two answers when the opponent %s at %s" % [reaction.replace(" her ", " the "), from])   # S356 no his/her on screen
 
 	return {"ok": problems.is_empty(), "problems": problems}
 

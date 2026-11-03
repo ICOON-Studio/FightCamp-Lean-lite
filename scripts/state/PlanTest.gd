@@ -33,7 +33,7 @@ static func left(f: Dictionary) -> int:
 static func run(c: Career, f: Dictionary, arrows: Array) -> Dictionary:
 	var bout: Dictionary = f.get("bout", {})
 	if bout.is_empty() or bool(bout.get("done", false)):
-		return {"ok": false, "why": "Book a bout first: the test fights her next opponent."}
+		return {"ok": false, "why": "Book a bout first: the test fights the next opponent."}
 	if left(f) == 0:
 		return {"ok": false, "why": "No tests left this camp (%d a camp)." % TESTS_A_CAMP}
 	var opp: Dictionary = bout["opp"]

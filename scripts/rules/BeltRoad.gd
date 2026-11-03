@@ -119,7 +119,7 @@ static func promote(f: Dictionary, mastery: Dictionary, today: int) -> Dictionar
 	var belt := str(f.get("belt", "white"))
 	var nxt := next_belt(belt)
 	if nxt == "":
-		return {"ok": false, "why": "She is a black belt."}
+		return {"ok": false, "why": "Already a black belt."}
 	var r := readiness(f, mastery, today)
 	if not r["age_ok"]:
 		return {"ok": false, "why": "Too young for %s: the IBJJF minimum is %d." % [nxt, MIN_AGE[nxt]]}

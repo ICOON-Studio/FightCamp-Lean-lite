@@ -43,22 +43,22 @@ const WEAPON_ANSWERS := [
 const WEAKNESS_ANSWERS := [
 	["fades", "Make it a busy start; let your hands go on the fade", "let_go", "tiring"],
 	["legs late", "Make it a busy start; let your hands go on the fade", "let_go", "tiring"],
-	["slow to start", "Start fast and bank round 1 before she warms up", "let_go", ""],
-	["gives away round 1", "Start fast and bank round 1 before she warms up", "let_go", ""],
+	["slow to start", "Start fast and bank round 1 before the opponent warms up", "let_go", ""],
+	["gives away round 1", "Start fast and bank round 1 before the opponent warms up", "let_go", ""],
 	["chin", "The chin is there: the straight right over the jab", "", ""],
 	["drops the right", "The chin is there after the hook: counter with the left", "", ""],
-	["walks in straight", "Angles: pivot off as she comes, she cannot follow", "long", "press"],
-	["straight lines", "Angles: pivot off as she comes, she cannot follow", "long", "press"],
-	["backs straight", "Cut the ring off: she backs onto the ropes", "finish", "range"],
-	["backed up", "Cut the ring off: she backs onto the ropes", "finish", "range"],
-	["stands still after", "Counter when she stops: slip and come back", "", ""],
+	["walks in straight", "Angles: pivot off the rush; the opponent cannot follow", "long", "press"],
+	["straight lines", "Angles: pivot off the rush; the opponent cannot follow", "long", "press"],
+	["backs straight", "Cut the ring off: the opponent backs onto the ropes", "finish", "range"],
+	["backed up", "Cut the ring off: the opponent backs onto the ropes", "finish", "range"],
+	["stands still after", "Counter on the stop: slip and come back", "", ""],
 	["none", "Nothing yet: the fight will show it", "", ""],
 ]
 ## What the coach writes for a habit (the ring plays it; THE READ finds it in the fight).
 const HABIT_WORDS := {"fades_late": "Hands drop late in a round", "slow_starter": "Takes a round to get going",
 	"drops_right_after_jab": "Drops the right after the jab", "lunges_with_jab": "Lunges in behind the jab",
-	"admires_her_work": "Stands and admires after a combination", "digs_body_when_hurt": "Goes to the body when she is hurt",
-	"loads_up_when_hurt": "Loads up wild when she is hurt"}
+	"admires_her_work": "Stands and admires after a combination", "digs_body_when_hurt": "Goes to the body when hurt",
+	"loads_up_when_hurt": "Loads up wild when hurt"}
 
 
 ## Every tell in her file, free ones first, then the hidden ones in the order tape study opens them.
@@ -70,13 +70,13 @@ static func tells(opp: Dictionary) -> Array:
 	var game := main_game(opp)
 	out.append({"id": "style", "what": "Game", "how": "booking", "call": "", "when": game,
 		"value": "%s: %s" % [str(opp.get("style", "?")), str(GAME_WORDS.get(game, "own way"))],
-		"counter": "Plan an arrow for 'If %s'" % str(FightFlow.WHEN_WORDS.get(game, "she presses")) if game != "" else ""})
+		"counter": "Plan an arrow for 'If %s'" % str(FightFlow.WHEN_WORDS.get(game, "the opponent presses")) if game != "" else ""})
 	var w := _answer(str(opp.get("threat", "")), WEAPON_ANSWERS)
 	out.append({"id": "weapon", "what": "Best weapon", "how": "tape", "value": str(opp.get("threat", "?")),
 		"counter": w[0], "call": w[1], "when": w[2]})
 	for h in RoundStyle.opponent_habits(opp):
 		out.append({"id": "habit:" + str(h), "what": "Habit", "how": "tape", "value": str(HABIT_WORDS.get(h, h)),
-			"counter": "THE READ: the corner shouts the counter when she does it", "call": "", "when": ""})
+			"counter": "THE READ: the corner shouts the counter when it comes", "call": "", "when": ""})
 	var k := _answer(str(opp.get("weak", "")), WEAKNESS_ANSWERS)
 	out.append({"id": "weakness", "what": "Weakness", "how": "tape", "value": str(opp.get("weak", "?")),
 		"counter": k[0], "call": k[1], "when": k[2]})

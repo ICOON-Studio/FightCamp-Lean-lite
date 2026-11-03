@@ -85,5 +85,5 @@ static func join(side: Dictionary, n: int) -> int:
 ## "" when she may take the beginners' class, else why not.
 static func can_teach(f: Dictionary) -> String:
 	if BeltRoad.rank(str(f.get("belt", "white"))) < BeltRoad.rank(TEACH_FROM):
-		return "%s can teach the beginners from %s belt." % [str(f.get("first", "She")), TEACH_FROM]
+		return "%s can teach the beginners from %s belt." % [str(f.get("first", "The fighter")), TEACH_FROM]
 	return ""

@@ -62,7 +62,7 @@ func _training(main: Node, c: Career) -> void:
 		v.add_child(line)
 		var learn := str(f.get("learning", ""))
 		if learn == "":
-			v.add_child(UI.muted("Learning: the coach picks her next move this week.", UI.SMALL))
+			v.add_child(UI.muted("Learning: the coach picks the next move this week.", UI.SMALL))
 		else:
 			# The bar runs to her next tier (MoveMastery: RAW < 30 = a weapon, USABLE < 60, SHARP < 85), whole points.
 			# Once every move is a weapon, pad time sharpens her weakest (Sim) - the head says so.
@@ -140,7 +140,7 @@ func _camps(main: Node, c: Career) -> void:
 			v.add_child(UI.label("%s focus, %s protocol" % [Data.LABEL[camp["focus"]], str(BoutRules.PROTOCOLS[int(camp["protocol"])]["name"]).to_lower()],
 				UI.BODY, UI.GREEN, "bold"))
 			v.add_child(UI.label("vs %s, %s" % [fb["opp"]["name"], Clock.fmt(int(fb["day"]))], UI.BODY))
-			v.add_child(FighterCard.meter("FILM", "%d of 3" % int(fb["film"]), float(fb["film"]) / 3.0, "depth on her opponent", UI.GOLD))
+			v.add_child(FighterCard.meter("FILM", "%d of 3" % int(fb["film"]), float(fb["film"]) / 3.0, "depth on the opponent", UI.GOLD))
 			var over := float(f["weight"]) - float(f["limit"])
 			v.add_child(UI.label("%.1f of %.1f kg" % [f["weight"], f["limit"]], UI.SMALL, UI.GREEN if over <= 0.0 else UI.AMBER, "bold"))
 		elif not fb.is_empty():
@@ -154,7 +154,7 @@ func _camps(main: Node, c: Career) -> void:
 			v.add_child(set_camp)
 		else:
 			v.add_child(UI.label("No bout booked", UI.BODY, UI.FG, "bold"))
-			v.add_child(UI.muted("A camp opens once she has a fight on the calendar.", UI.SMALL, true))
+			v.add_child(UI.muted("A camp opens once a fight is on the calendar.", UI.SMALL, true))
 			var find := UI.button("See offers", "Btn", main.act.bind("go", "fights:0"))
 			find.name = "SeeOffers_" + str(f["id"])
 			find.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN

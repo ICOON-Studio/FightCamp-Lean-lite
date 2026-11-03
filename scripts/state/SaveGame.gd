@@ -7,6 +7,7 @@ extends RefCounted
 const Data := preload("res://scripts/state/Data.gd")
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 const NoGi := preload("res://scripts/rules/NoGi.gd")
+const RivalPast := preload("res://scripts/rules/RivalPast.gd")
 
 const PATH := "user://career.save"
 const VERSION := 2
@@ -45,6 +46,19 @@ static func from_dict(d: Dictionary) -> Career:
 	for r in Data.RIVALS:
 		if not names.has(str(r["name"])):
 			c.rivals.append((r as Dictionary).merged({"div": "wlw"}))
+	# S371 MALE1: a save from before the men's divisions gets the men, each with an invented past, and the male prospects.
+	for r in Data.DIVISION_RIVALS:
+		if not names.has(str(r["name"])):
+			var nr := (r as Dictionary).duplicate(true)
+			var others: Array = Data.DIVISION_RIVALS.filter(func(o): return str(o["div"]) == str(nr["div"])).map(func(o): return [o["name"], o["club"]])
+			nr["bouts"] = RivalPast.seed(nr, others, c.seed, c.day)
+			c.rivals.append(nr)
+	var ids := {}
+	for p in c.prospects:
+		ids[str(p.get("id", ""))] = true
+	for p in Data.PROSPECTS:
+		if not ids.has(str(p["id"])):
+			c.prospects.append((p as Dictionary).merged({"state": "scout", "trial_day": -1}, false).duplicate(true))
 	return c
 
 

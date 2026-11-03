@@ -38,6 +38,8 @@ const BLEEP_NATIONAL := 9.0
 ## boxer (conditioning 50-60) reads 7.1-7.7.
 const BLEEP_ADULT_AT := 40.0
 const BLEEP_NATIONAL_AT := 85.0
+## S371 MALE1: the anchors above are women's. Men's come with John's J_TESTS3; until then a man's engine shows no level.
+const BLEEP_SEXES := ["f"]
 
 
 static func passed(f: Dictionary) -> Array:
@@ -95,6 +97,11 @@ static func assess(f: Dictionary, day: int) -> Dictionary:
 static func bleep(conditioning: float) -> float:
 	var t := (conditioning - BLEEP_ADULT_AT) / (BLEEP_NATIONAL_AT - BLEEP_ADULT_AT)
 	return snappedf(clampf(lerpf(BLEEP_ADULT, BLEEP_NATIONAL, t), 4.0, 12.0), 0.1)
+
+
+## True when the bleep norms exist for that sex ("f" / "m").
+static func bleep_known(sex: String) -> bool:
+	return BLEEP_SEXES.has(sex)
 
 
 ## Where a level sits against the norms, in words.

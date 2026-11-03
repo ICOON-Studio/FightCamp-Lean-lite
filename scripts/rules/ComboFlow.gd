@@ -119,7 +119,7 @@ static func rate(chain: Array) -> Dictionary:
 		score += float(BONUS_COMBO_LENGTH)
 		notes.append("Combination length sits in the sweet spot (2–4 punches).")
 	if punch_count > 4:
-		notes.append("Too many punches in one go — accuracy drops and she leaves holes.")
+		notes.append("Too many punches in one go — accuracy drops and holes open up.")
 	if notes.is_empty():
 		notes.append("Straight work — nothing major to flag.")
 	var out := _pack(score, notes)
@@ -178,7 +178,7 @@ static func _score_link(prev: Dictionary, prev_id: String, prev_kind: String, pr
 		return delta
 	if punch_index > 4:
 		delta -= float(PENALTY_PUNCH_OVER_FOUR)
-		notes.append("Punch %d in the chain — past the four she can keep sharp." % punch_index)
+		notes.append("Punch %d in the chain — past the four that stay sharp." % punch_index)
 	var hand := str(m["hand"])
 	if prev_kind == "punch":
 		var prev_hand := str(prev["hand"])
@@ -191,7 +191,7 @@ static func _score_link(prev: Dictionary, prev_id: String, prev_kind: String, pr
 				notes.append("Body hook up to the head hook — classic inside change.")
 			else:
 				delta -= float(PENALTY_SAME_POWER)
-				notes.append("Same power hand twice — she has to reload.")
+				notes.append("Same power hand twice — the hand has to reload.")
 		if prev_id == "cross" and (id == "rear_hook" or id == "rear_uppercut"):
 			delta -= float(PENALTY_REAR_AFTER_CROSS)
 			notes.append("Rear shot right after the cross — the weight is not loaded for it.")

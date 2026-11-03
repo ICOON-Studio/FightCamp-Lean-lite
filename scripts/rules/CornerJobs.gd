@@ -23,8 +23,8 @@ const SETUP_EDGE := 14.0
 const SETUP_MISS := -9.0
 const SETUP_DAMAGE := 30.0
 ## Gaps the corner can wait for: the opponent's two main games (her style) and her tiring.
-const GAP_WORDS := {"press": "when she presses", "range": "when she boxes at range", "counter": "when she waits to counter",
-	"loadup": "when she loads up", "tiring": "when she tires"}
+const GAP_WORDS := {"press": "when {opp} presses", "range": "when {opp} boxes at range", "counter": "when {opp} waits to counter",
+	"loadup": "when {opp} loads up", "tiring": "when {opp} tires"}
 
 const TALKS := {
 	"calm": {"label": "Calm down", "line": "Breathe. Your fight, your pace."},

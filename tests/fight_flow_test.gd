@@ -29,7 +29,7 @@ func _initialize() -> void:
 	# S341: pivoting off the ropes into Mid range must not push Mid below the ropes.
 	var br := _depths(FightFlow.build([{"move": "1-2-3-2", "when": "tiring"}, {"move": "step_back"}, {"move": "pivot_out"}], StrikeMap.MOVES, "long"))
 	_check(int(br["mid"]) == 1 and int(br["own_ropes"]) > int(br["mid"]), "Long > Mid on top, the ropes below (mid %d, ropes %d)" % [int(br["mid"]), int(br["own_ropes"])])
-	_check(FightFlow.label({"when": "press"}, "Step back") == "if she presses: Step back", "a branch reads 'if she presses: Step back'")
+	_check(FightFlow.label({"when": "press"}, "Step back") == "if the opponent presses: Step back", "a branch reads 'if the opponent presses: Step back'")
 	_check(FightFlow.label({"when": ""}, "Jab, jab") == "Jab, jab", "a plain arrow reads its move")
 	for id in depth:
 		_check(not (FightFlow.IDEAS.get(id, []) as Array).is_empty(), "the coach wrote key ideas on %s" % id)
@@ -37,7 +37,7 @@ func _initialize() -> void:
 	var wplan := [{"move": "collar_tie:leans in on the tie"}, {"move": "front_headlock:digs for a leg"}]
 	var wflow := FightFlow.build(wplan, TieUpPanel.plan_map(), "collar_tie")
 	_check((wflow["edges"] as Array).size() == 2, "wrestling: two answers")
-	_check(FightFlow.label(wflow["edges"][0], "Snapdown") == "if she leans in on the tie: Snapdown", "wrestling: the reaction is the branch")
+	_check(FightFlow.label(wflow["edges"][0], "Snapdown") == "if the opponent leans in on the tie: Snapdown", "wrestling: the reaction is the branch")
 	var wd := {}
 	for n in wflow["nodes"]:
 		wd[str(n["id"])] = int(n["depth"])

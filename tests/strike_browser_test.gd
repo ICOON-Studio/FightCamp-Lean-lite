@@ -42,8 +42,8 @@ func _initialize() -> void:
 	s._take(Map.move("1-2-3-2"), true)
 	_check(s.plan == [{"move": "1-2"}, {"move": "1-2-3-2", "when": "tiring"}], "if she tires: a branch beside it, replaced by the next tiring move (%s)" % str(s.plan))
 	s.go("long")
-	var rows: Array = s._side.find_children("*", "Label", true, false).filter(func(l): return str((l as Label).tooltip_text).begins_with("If she tires: "))   # S342 the row's tooltip
-	_check(rows.size() == 1, "the plan list reads 'If she tires: One-two-hook-cross ...'")
+	var rows: Array = s._side.find_children("*", "Label", true, false).filter(func(l): return str((l as Label).tooltip_text).begins_with("If the opponent tires: "))   # S342 the row's tooltip
+	_check(rows.size() == 1, "the plan list reads 'If the opponent tires: One-two-hook-cross ...'")
 	# S341 the real fight plans: listed, the one for her opponent's game first; Load merges it into her plan.
 	s.fighter["bout"] = {"opp": {"first": "Maria", "style": "Pressure fighter"}}
 	s.templates = true

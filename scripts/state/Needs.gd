@@ -43,7 +43,7 @@ static func needs(career: Career) -> Array:
 			"act": "interview", "arg": "", "label": "Meet the walk-in"})
 	for p in career.prospects:
 		if str(p["state"]) == "invited" and int(p["trial_day"]) <= career.day:
-			n.append({"red": true, "t": "Trial today: %s" % p["name"], "s": "%s, %s; she is at the gym" % [str(p["wc"]).to_lower(), p["note"]],
+			n.append({"red": true, "t": "Trial today: %s" % p["name"], "s": "%s, %s; at the gym now" % [str(p["wc"]).to_lower(), p["note"]],
 				"act": "trial", "arg": p["id"], "label": "Watch the trial"})
 	if not career.pro_offer.is_empty():
 		var pf := career.fighter_by_id(str(career.pro_offer["fid"]))

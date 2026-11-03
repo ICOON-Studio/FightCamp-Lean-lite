@@ -42,7 +42,7 @@ static func _arrow_row(map: Array, plan: Array, index: int, drilled: Array, plac
 	path.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	h.add_child(path)
 	if PlanBoard.rate(move_id, drilled) < 1.0:
-		h.add_child(Icons.icon("info", 16, UI.AMBER, "Untrained: she lands it 80% as well until she drills it on the pads."))
+		h.add_child(Icons.icon("info", 16, UI.AMBER, "Untrained: lands 80% as well until drilled on the pads."))
 	var idx := index
 	h.add_child(Icons.button("x", "Remove this arrow", func(): on_remove.call(idx), UI.MUTED, 16))
 	return h
@@ -55,7 +55,7 @@ static func test_block(r: Dictionary, opp_first: String) -> VBoxContainer:
 	box.add_child(UI.caps("TEST IT  ·  %d LEFT THIS CAMP" % int(r.get("left", 0))))
 	var rounds: Array = r.get("rounds", [0, 0])
 	box.add_child(UI.label("Wins %d-%d of %d against %s" % [int(r["lo"]), int(r["hi"]), int(r["sims"]), opp_first], UI.BODY, UI.FG, "bold", true))
-	box.add_child(UI.label("Rounds won: %d of %d. The range narrows as tape study finds her out." % [int(rounds[0]), int(rounds[1])],
+	box.add_child(UI.label("Rounds won: %d of %d. The range narrows as tape study reads the opponent." % [int(rounds[0]), int(rounds[1])],
 		UI.SMALL, UI.MUTED, "body", true))
 	for line in r.get("breaks", []):
 		box.add_child(UI.label(str(line), UI.SMALL, UI.AMBER, "semi", true))

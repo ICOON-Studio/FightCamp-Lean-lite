@@ -12,7 +12,7 @@ const CARDS: Array = [
 	{"id": "clinch", "name": "Clinch", "what": "Tied up until the referee breaks it", "range_m": [0.0, 0.45]},
 	{"id": "own_ropes", "name": "On the ropes", "what": "Back on the ropes or in a corner: trapped", "range_m": []},
 	{"id": "opp_ropes", "name": "Opponent on the ropes", "what": "The opponent's back is on the ropes", "range_m": []},
-	{"id": "corner", "name": "Corner trap", "what": "She has the opponent trapped in a corner", "range_m": []},
+	{"id": "corner", "name": "Corner trap", "what": "The opponent is trapped in a corner", "range_m": []},
 ]
 
 const MOVES: Array = [
@@ -45,7 +45,7 @@ const MOVES: Array = [
 	{"id": "herd", "name": "Herd into the corner", "kind": "step", "combo": "", "from": "opp_ropes", "to": "corner"},
 	{"id": "3b-3@corner", "name": "Body hook, head hook", "kind": "combo", "combo": "3b-3", "from": "corner", "to": "corner"},
 	{"id": "1-6-3@corner", "name": "Jab, uppercut, hook", "kind": "combo", "combo": "1-6-3", "from": "corner", "to": "corner"},
-	{"id": "spins_out", "name": "She spins out", "kind": "forced", "combo": "", "from": "corner", "to": "mid"},
+	{"id": "spins_out", "name": "Spins out", "kind": "forced", "combo": "", "from": "corner", "to": "mid"},
 ]
 
 

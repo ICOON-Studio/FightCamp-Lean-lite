@@ -1,0 +1,135 @@
+diff --git a/scripts/fight3d/BeatFire.gd b/scripts/fight3d/BeatFire.gd
+index 015f43bc..15d7ddda 100644
+--- a/scripts/fight3d/BeatFire.gd
++++ b/scripts/fight3d/BeatFire.gd
+@@ -40,10 +40,11 @@ func fire(v: Node, b: Dictionary) -> void:
+ 		"say", "inside":
+ 			pass   # S314: an inside spell only moves the range (RangeBreath)
+ 		"step_in", "step_out":
+-			# S311: one boxer lunges into the pocket or steps out of range; the other holds (RangeBreath).
++			# S370: no referee - they push each other off
+ 			if b.has("ref"):
+-				stage.clinch.release()   # S313: the referee's break - he parts them, both step out
+-			stage.step(who, 1 if move == "step_in" else -1)
++				stage.clinch.release()   # the push-off: both boxers put gloves on the chest and shove off
++			else:
++				stage.step(who, 1 if move == "step_in" else -1)
+ 			stepped[who] = move == "step_in"
+ 		"clinch":
+ 			# S354 CLINCH2: the beat's own digs/digger (ClinchBeats) ride along; a beat without them ties up as before.
+diff --git a/scripts/fight3d/Clinch.gd b/scripts/fight3d/Clinch.gd
+index a4029a81..77bf141e 100644
+--- a/scripts/fight3d/Clinch.gd
++++ b/scripts/fight3d/Clinch.gd
+@@ -4,8 +4,9 @@ extends Node
+ ## Reallusion checked S311), so it is built from our own pieces: RangeBreath's "clinch" phase walks the holder in to
+ ## CLINCH_M; here both stand in the block pose held mid-loop, each body shifted to its own left so the heads pass each
+ ## other's shoulder, the holder's arms over the other's upper back and the other's hands on the holder's flanks
+-## (CornerIK, attached to every boxer by CornerCrew), each looking past the other's shoulder. The referee walks in;
+-## at break_t FightView's "ref" step_out beats call release(), the referee pushes them apart and both step out.
++## (CornerIK, attached to every boxer by CornerCrew), each looking past the other's shoulder.
++## S370 NOREF1: no referee - release() starts a push-off (PushOff.gd): both boxers put gloves on the other's chest and
++## shove off, one slow step back to range.
+ ##   setup(stage)  start(holder, dur, digs, digger)  release()  offset(i, to) -> Vector3  floor_m(base) -> float  engaged
+ ## S354 (CLINCH2, operator S340 "someone also needs to perfect the clinch"): the hold is a real tie-up, not a freeze - an
+ ## A-frame (the trunk leans from the pelvis: chests in, hips back), a jostle (the pair turns about its middle and drifts,
+@@ -91,6 +92,8 @@ const DIG_BACK_S := 0.28
+ const DIG_GAP_S := 0.55
+ const DIG_FIRST_S := 0.9
+ 
++const PushOff := preload("res://scripts/fight3d/PushOff.gd")
++
+ var stage: Node
+ var holder := -1
+ var engaged := false
+@@ -156,14 +159,8 @@ func release() -> void:
+ 	_digger = -1
+ 	_hold = 0.0
+ 	_clip_t = 0.0
+-	for i in 2:
+-		var ik: Node = stage.boxers[i].get("ik")
+-		if ik != null:
+-			ik.reach("Left", null)
+-			ik.reach("Right", null)
+-			ik.look(null)
+-			ik.upright(0.0)
+-		stage.guard(i)
++	# S370 NOREF1: the push-off replaces the immediate let-go - gloves on the chest, one slow step back
++	PushOff.begin(stage)
+ 	var ref: Node = stage.get("referee")
+ 	if ref != null:
+ 		ref.part()
+@@ -200,6 +197,19 @@ func offset(_i: int, to: Vector3) -> Vector3:
+ func _process(delta: float) -> void:
+ 	_w = move_toward(_w, 1.0 if engaged else 0.0, delta / (EASE_S if engaged else RELEASE_S))
+ 	_tie = move_toward(_tie, 1.0 if holder >= 0 else 0.0, delta / EASE_S)
++	var push_running := PushOff.step(stage, delta)   # S370: the push-off runs after release()
++	if push_running and PushOff._t >= PushOff.HANDS_END and PushOff._t < PushOff.PUSH_END:
++		# S370: during the push phase, override the gap directly (other systems ease back to range)
++		var u := clampf((PushOff._t - PushOff.HANDS_END) / (PushOff.PUSH_END - PushOff.HANDS_END), 0.0, 1.0)
++		var s := u * u * (3.0 - 2.0 * u)
++		var gap := lerpf(PushOff._tie_gap, PushOff._range_gap, s)
++		var a: Vector3 = stage.boxers[0]["pos"]
++		var b: Vector3 = stage.boxers[1]["pos"]
++		var d := b - a
++		var dir := d.normalized() if d.length() > 0.01 else Vector3.BACK
++		var mid := (a + b) * 0.5
++		stage.boxers[0]["pos"] = mid - dir * gap * 0.5
++		stage.boxers[1]["pos"] = mid + dir * gap * 0.5
+ 	if holder < 0:
+ 		return
+ 	_clock += delta
+diff --git a/scripts/fight3d/FightCast.gd b/scripts/fight3d/FightCast.gd
+index 2a37d67d..4602d26f 100644
+--- a/scripts/fight3d/FightCast.gd
++++ b/scripts/fight3d/FightCast.gd
+@@ -43,7 +43,7 @@ static func crew(stage: Node3D, pro: bool) -> Node3D:
+ 	var c := CornerCrew.new()
+ 	stage.add_child(c)
+ 	c.build(stage, pro)
+-	Referee.build(stage)   # S313: the third man in the ring (parts the clinches)
++	# S370 NOREF1: no referee in the ring - the boxers push each other off
+ 	return c
+ 
+ 
+diff --git a/scripts/fight3d/TapeFilm.gd b/scripts/fight3d/TapeFilm.gd
+index 8eb6d5e5..585d196a 100644
+--- a/scripts/fight3d/TapeFilm.gd
++++ b/scripts/fight3d/TapeFilm.gd
+@@ -78,7 +78,7 @@ func _ready() -> void:
+ 	var her_scale := clampf((cm if cm > 0.0 else Faces.cm(p[1])) / Faces.cm(p[1]), 0.88, 1.12)
+ 	stage.setup({"glb": Faces.glb(p[0]), "corner": "red", "scale": 1.0, "stance": "orthodox"},
+ 		{"glb": Faces.glb(p[1]), "corner": "blue", "scale": her_scale, "stance": str(_opp.get("stance", "orthodox"))})
+-	Referee.build(stage)
++	# S370 NOREF1: no referee in the ring - the boxers push each other off
+ 
+ 
+ ## Back to the first frame of a film: both in guard at range, the broadcast camera on them.
+diff --git a/scripts/rules/MoveWords.gd b/scripts/rules/MoveWords.gd
+index e49ce33f..80f42df2 100644
+--- a/scripts/rules/MoveWords.gd
++++ b/scripts/rules/MoveWords.gd
+@@ -11,7 +11,7 @@ const PLACES := [
+ 	["long", "AT LONG RANGE", "The end of the jab: straight punches, then in or out."],
+ 	["mid", "AT MID RANGE", "Hook and uppercut range: hit and get out before the reply."],
+ 	["inside", "INSIDE", "Heads close: short punches, or tie up and smother."],
+-	["clinch", "IN THE CLINCH", "Tied up: make the space, or wait for the referee."],
++	["clinch", "IN THE CLINCH", "Tied up: make the space or push off."],
+ 	["own_ropes", "ON THE ROPES", "Back on the ropes: do not stay there."],
+ 	["opp_ropes", "OPPONENT ON THE ROPES", "The opponent is trapped: cut off the exits and work."],
+ 	["corner", "OPPONENT IN THE CORNER", "No way out but through: short shots up the middle."],
+@@ -34,11 +34,11 @@ const WORDS := {
+ 	"slip 2-3": "Slip the punch outside, cross and check hook as the opponent comes in.",
+ 	"step_back": "One step back to long range: out of hook reach.",
+ 	"backed_up": "Walked onto the ropes: what pressure does to a fighter who stays.",
+-	"tie_up": "Wrap the arms and smother the punches until the referee breaks it.",
++	"tie_up": "Wrap the arms and smother the punches until you both push off.",
+ 	"roll_out": "Roll under the hook and come up outside it, already moving away.",
+ 	"3b-3@inside": "Short body hook, short head hook, heads together.",
+-	"break": "The referee steps in and parts them; both back to long range.",
+-	"push_off": "A step back out of the tie-up: make the space before the referee does.",
++	"break": "Both push off, one slow step back to long range.",
++	"push_off": "Push off first: make the space on your terms.",
+ 	"pivot_out": "Turn on the lead foot and step off the ropes to the side.",
+ 	"tie_up@own_ropes": "Tie up on the ropes: no more punches until the break.",
+ 	"slip 2-3@own_ropes": "Slip, cross and hook back out: the ropes push the counter in.",

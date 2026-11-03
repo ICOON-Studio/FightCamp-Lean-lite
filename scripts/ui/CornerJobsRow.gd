@@ -113,7 +113,7 @@ static func build(mn: Dictionary, sel: Dictionary, names: Array, on_change: Call
 			s_row.add_child(_m("for", UI.SMALL))
 			for g in mn["gaps"]:
 				var gon := str(su.get("gap", "")) == str(g)
-				var gb := UI.button(str(CornerJobs.GAP_WORDS.get(g, g)).replace("she", names[1]), "ChoiceOn" if gon else "Choice", func():
+				var gb := UI.button(str(CornerJobs.GAP_WORDS.get(g, g)).replace("{opp}", names[1]), "ChoiceOn" if gon else "Choice", func():
 					su["gap"] = str(g)
 					on_change.call())
 				gb.name = "Gap_" + str(g)

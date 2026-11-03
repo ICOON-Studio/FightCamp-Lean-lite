@@ -46,7 +46,7 @@ static func coach(id: String) -> Dictionary:
 ## The walk-in waiting at reception on day one. Decided: an amateur on the $250 club stipend.
 static func lucy() -> Dictionary:
 	return {
-		"id": "lucy", "name": "Lucy Jackson", "first": "Lucy", "age": 21, "wc": "Lightweight", "limit": 61.2, "weight": 62.6,
+		"id": "lucy", "name": "Lucy Jackson", "first": "Lucy", "sex": "f", "age": 21, "wc": "Lightweight", "limit": 61.2, "weight": 62.6,
 		"stance": "orthodox", "style": "Out-boxer", "w": 3, "l": 1, "pot": 84, "cards": [], "focus": "conditioning", "div": "wlw",
 		"diet": "hold", "fatigue": 8, "weekly_salary": 250, "booked_fight": false, "history": [],
 		"stats": {"power": 58.4, "speed": 63.2, "technique": 60.1, "defense": 57.3, "conditioning": 61.6, "fight_iq": 59.0,
@@ -114,18 +114,42 @@ const REPAIR_REPUTATION := 2
 
 const COACH_IDS: Array[String] = ["reid", "hale"]
 
-## Week 4: the divisions the gym's fighters box in (women only in this build: every line of text says "she").
+## Week 4: the divisions the gym's fighters box in. A fighter books only in the divisions of her or his own sex ("sex").
 ## opponents = offered in turn (even matches); mismatch = the open fighter the novice rule keeps away.
+## S371 MALE1 (operator S370: every playthrough = a male boxer + Ana): the men's four are England Boxing senior men's
+## classes in force from 1 Jan 2025 (John J_MEN1: 55, 57.5*, 60, 62.5*, 65, 70, 75 ...; * = England Boxing only); the
+## opponents are Kalli's K_MEN1 (fictional names, real club names).
 const DIVISIONS := {
-	"wlw": {"name": "Lightweight, women's amateur", "short": "lightweight", "limit": 61.2,
+	"wlw": {"name": "Lightweight, women's amateur", "short": "lightweight", "limit": 61.2, "sex": "f",
 		"opponents": ["Maria Ortega", "Priya Nair", "Erin Doyle"], "mismatch": "Dana Whitfield"},
-	"wfw": {"name": "Featherweight, women's amateur", "short": "featherweight", "limit": 57.0,
+	"wfw": {"name": "Featherweight, women's amateur", "short": "featherweight", "limit": 57.0, "sex": "f",
 		"opponents": ["Holly Marsh", "Grace Adeyemi", "Nina Kowalski"], "mismatch": "Bethany Cole"},
-	"www": {"name": "Welterweight, women's amateur", "short": "welterweight", "limit": 66.0,
+	"www": {"name": "Welterweight, women's amateur", "short": "welterweight", "limit": 66.0, "sex": "f",
 		"opponents": ["Jade Okoro", "Laura Finch", "Rosa Delgado"], "mismatch": "Kerry Walsh"},
-	"wmw": {"name": "Middleweight, women's amateur", "short": "middleweight", "limit": 75.0,
+	"wmw": {"name": "Middleweight, women's amateur", "short": "middleweight", "limit": 75.0, "sex": "f",
 		"opponents": ["Amy Croft", "Siobhan Byrne", "Leah Morgan"], "mismatch": "Victoria Hale"},
+	"mfw": {"name": "Featherweight, men's amateur", "short": "featherweight", "limit": 57.5, "sex": "m",
+		"opponents": ["Callum Stokes", "Tariq Hussain", "Owen Pritchard"], "mismatch": "Kofi Boateng"},
+	"mlw": {"name": "Lightweight, men's amateur", "short": "lightweight", "limit": 60.0, "sex": "m",
+		"opponents": ["Liam Doherty", "Dean Clarke", "Arjun Patel"], "mismatch": "Mateusz Kowalczyk"},
+	"mww": {"name": "Welterweight, men's amateur", "short": "welterweight", "limit": 70.0, "sex": "m",
+		"opponents": ["Ryan McBride", "Jordan Ashby", "Samir Haddad"], "mismatch": "Darnell Okafor"},
+	"mmw": {"name": "Middleweight, men's amateur", "short": "middleweight", "limit": 75.0, "sex": "m",
+		"opponents": ["Ben Hollis", "Ewan Fraser", "Nathan Bell"], "mismatch": "Adebayo Sule"},
 }
+
+
+## "f" or "m": the fighter's own field, else the division's (a save from before S371 holds women only).
+static func sex_of(f: Dictionary) -> String:
+	var s := str(f.get("sex", ""))
+	if s == "f" or s == "m":
+		return s
+	return str((DIVISIONS.get(str(f.get("div", "wlw")), {}) as Dictionary).get("sex", "f"))
+
+
+## The division ids of one sex, in table order.
+static func divisions_for(sex: String) -> Array:
+	return DIVISIONS.keys().filter(func(d): return str(DIVISIONS[d]["sex"]) == sex)
 
 ## The other divisions' amateurs (fictional fighters, real club names).
 const DIVISION_RIVALS: Array[Dictionary] = [
@@ -144,6 +168,23 @@ const DIVISION_RIVALS: Array[Dictionary] = [
 	{"div": "wmw", "name": "Leah Morgan", "first": "Leah", "club": "Fitzroy Lodge ABC", "age": 26, "stance": "southpaw", "style": "Counter-puncher", "w": 7, "l": 3, "rating": 65.0, "threat": "Counter left hook", "weak": "Leaves the chin open"},
 	{"div": "wmw", "name": "Victoria Hale", "first": "Victoria", "club": "Repton Boxing Club", "age": 28, "stance": "orthodox", "style": "Boxer-puncher", "w": 16, "l": 2, "rating": 72.5, "threat": "Everything", "weak": "None you can use yet"},
 	{"div": "wmw", "name": "Chantelle Reid", "first": "Chantelle", "club": "All Stars ABC", "age": 24, "stance": "orthodox", "style": "Volume puncher", "w": 3, "l": 4, "rating": 59.0, "threat": "Never stops throwing", "weak": "Walks in straight"},
+	# S371 the men (Kalli K_MEN1; three names changed so none shares a name with the cast: Reid, Mensah, Kowalski, Marcus).
+	{"div": "mfw", "name": "Callum Stokes", "first": "Callum", "club": "Repton ABC", "age": 19, "stance": "orthodox", "style": "Out-boxer", "w": 7, "l": 3, "rating": 55.0, "threat": "A long jab that keeps you at the end of it", "weak": "Backs straight back in a line"},
+	{"div": "mfw", "name": "Tariq Hussain", "first": "Tariq", "club": "Birtley ABC", "age": 22, "stance": "southpaw", "style": "Counter-puncher", "w": 9, "l": 4, "rating": 58.0, "threat": "A straight left over every right-hand lead", "weak": "Slow to start; loses rounds on work rate"},
+	{"div": "mfw", "name": "Owen Pritchard", "first": "Owen", "club": "Lynn AC", "age": 24, "stance": "orthodox", "style": "Volume puncher", "w": 11, "l": 6, "rating": 60.0, "threat": "Never stops throwing", "weak": "Stands still after combinations"},
+	{"div": "mfw", "name": "Kofi Boateng", "first": "Kofi", "club": "West Ham ABC", "age": 26, "stance": "orthodox", "style": "Pressure fighter", "w": 24, "l": 3, "rating": 69.0, "threat": "Walks you down and breaks the body", "weak": "Drops the right on the left hook"},
+	{"div": "mlw", "name": "Liam Doherty", "first": "Liam", "club": "Rotunda ABC", "age": 20, "stance": "orthodox", "style": "Slugger", "w": 6, "l": 4, "rating": 54.0, "threat": "One right hand can end it", "weak": "Slow to start and loads up"},
+	{"div": "mlw", "name": "Dean Clarke", "first": "Dean", "club": "Everton Red Triangle ABC", "age": 21, "stance": "orthodox", "style": "Counter-puncher", "w": 8, "l": 5, "rating": 57.0, "threat": "Times the jab and counters over it", "weak": "Slow to start; rarely leads"},
+	{"div": "mlw", "name": "Arjun Patel", "first": "Arjun", "club": "Finchley ABC", "age": 23, "stance": "southpaw", "style": "Out-boxer", "w": 10, "l": 3, "rating": 59.0, "threat": "Moves well and scores clean from range", "weak": "Fades after round 2"},
+	{"div": "mlw", "name": "Mateusz Kowalczyk", "first": "Mateusz", "club": "Fisher ABC", "age": 27, "stance": "orthodox", "style": "Volume puncher", "w": 26, "l": 5, "rating": 70.0, "threat": "Five-punch combinations", "weak": "Chin up after the last punch"},
+	{"div": "mww", "name": "Ryan McBride", "first": "Ryan", "club": "Birtley ABC", "age": 19, "stance": "orthodox", "style": "Out-boxer", "w": 5, "l": 2, "rating": 53.0, "threat": "Fast feet and long arms", "weak": "Walks in straight once behind"},
+	{"div": "mww", "name": "Jordan Ashby", "first": "Jordan", "club": "Collyhurst and Moston Lads Club", "age": 22, "stance": "orthodox", "style": "Pressure fighter", "w": 9, "l": 4, "rating": 58.0, "threat": "Crowds you onto the ropes and works the body", "weak": "Walks in straight"},
+	{"div": "mww", "name": "Samir Haddad", "first": "Samir", "club": "Dale Youth ABC", "age": 25, "stance": "southpaw", "style": "Counter-puncher", "w": 12, "l": 5, "rating": 61.0, "threat": "A sharp left counter whenever you reach", "weak": "Stands still after the counter"},
+	{"div": "mww", "name": "Darnell Okafor", "first": "Darnell", "club": "Repton ABC", "age": 28, "stance": "orthodox", "style": "Slugger", "w": 28, "l": 4, "rating": 69.0, "threat": "Stops people", "weak": "Fades after round 2 at pace"},
+	{"div": "mmw", "name": "Ben Hollis", "first": "Ben", "club": "Lynn AC", "age": 24, "stance": "orthodox", "style": "Slugger", "w": 7, "l": 5, "rating": 55.0, "threat": "Heavy hooks from both hands", "weak": "Flat-footed, moves in straight lines"},
+	{"div": "mmw", "name": "Ewan Fraser", "first": "Ewan", "club": "Rotunda ABC", "age": 21, "stance": "southpaw", "style": "Volume puncher", "w": 9, "l": 3, "rating": 58.0, "threat": "A busy right jab that wins rounds", "weak": "Leaves the chin open"},
+	{"div": "mmw", "name": "Nathan Bell", "first": "Nathan", "club": "West Ham ABC", "age": 26, "stance": "orthodox", "style": "Counter-puncher", "w": 13, "l": 6, "rating": 62.0, "threat": "Patient and accurate", "weak": "Gives away round 1"},
+	{"div": "mmw", "name": "Adebayo Sule", "first": "Adebayo", "club": "Fisher ABC", "age": 29, "stance": "orthodox", "style": "Pressure fighter", "w": 30, "l": 6, "rating": 70.0, "threat": "Strong, relentless, never takes a step back", "weak": "Drops the right on the wide swing"},
 ]
 
 ## The prospects scouting can bring in for a trial. Before a trial only a range is known (stat +/- SCOUT_SPREAD).
@@ -151,15 +192,22 @@ const DIVISION_RIVALS: Array[Dictionary] = [
 ## (Faces.CAST); under 19 they cannot enter the Elite Nationals yet (SeasonPath.AGE_MIN) - a girl to bring up.
 const SCOUT_SPREAD := 5
 const PROSPECTS: Array[Dictionary] = [
-	{"id": "kira", "name": "Kira Mensah", "first": "Kira", "age": 18, "wc": "Featherweight", "div": "wfw", "weight": 58.3,
+	{"id": "kira", "name": "Kira Mensah", "first": "Kira", "sex": "f", "age": 18, "wc": "Featherweight", "div": "wfw", "weight": 58.3,
 		"stance": "orthodox", "style": "Out-boxer", "w": 1, "l": 0, "pot": 86, "note": "fast hands, thin chin",
 		"stats": {"power": 54.0, "speed": 66.5, "technique": 59.0, "defense": 57.5, "conditioning": 58.0, "fight_iq": 57.0, "chin": 52.0}},
-	{"id": "samira", "name": "Samira Khan", "first": "Samira", "age": 18, "wc": "Welterweight", "div": "www", "weight": 67.4,
+	{"id": "samira", "name": "Samira Khan", "first": "Samira", "sex": "f", "age": 18, "wc": "Welterweight", "div": "www", "weight": 67.4,
 		"stance": "orthodox", "style": "Slugger", "w": 2, "l": 1, "pot": 82, "note": "raw power, no defence",
 		"stats": {"power": 66.0, "speed": 57.0, "technique": 54.5, "defense": 50.5, "conditioning": 60.0, "fight_iq": 54.0, "chin": 63.0}},
-	{"id": "tess", "name": "Tess Reilly", "first": "Tess", "age": 23, "wc": "Middleweight", "div": "wmw", "weight": 76.1,
+	{"id": "tess", "name": "Tess Reilly", "first": "Tess", "sex": "f", "age": 23, "wc": "Middleweight", "div": "wmw", "weight": 76.1,
 		"stance": "southpaw", "style": "Pressure fighter", "w": 6, "l": 4, "pot": 76, "note": "tough, slow feet",
 		"stats": {"power": 62.0, "speed": 55.0, "technique": 58.5, "defense": 58.0, "conditioning": 64.0, "fight_iq": 59.5, "chin": 67.0}},
+	# S371 MALE1: the first two men scouting can bring in (a lightweight and a welterweight, England Boxing men's classes).
+	{"id": "danny", "name": "Danny Osei", "first": "Danny", "sex": "m", "age": 20, "wc": "Lightweight", "div": "mlw", "weight": 61.6,
+		"stance": "orthodox", "style": "Boxer-puncher", "w": 2, "l": 1, "pot": 85, "note": "sharp jab, light legs",
+		"stats": {"power": 59.0, "speed": 62.0, "technique": 61.0, "defense": 56.5, "conditioning": 57.0, "fight_iq": 58.0, "chin": 62.0}},
+	{"id": "josh", "name": "Josh Harper", "first": "Josh", "sex": "m", "age": 23, "wc": "Welterweight", "div": "mww", "weight": 71.4,
+		"stance": "southpaw", "style": "Pressure fighter", "w": 4, "l": 2, "pot": 79, "note": "big engine, wide hooks",
+		"stats": {"power": 63.0, "speed": 56.0, "technique": 55.5, "defense": 55.0, "conditioning": 65.0, "fight_iq": 56.0, "chin": 64.0}},
 ]
 
 ## Move mastery: the punches the gym teaches, which week card drills which, and where a fighter starts.
@@ -177,7 +225,7 @@ static func fighter_state(f: Dictionary, day: int) -> Dictionary:
 	var div := str(f.get("div", "wlw"))
 	# Fight model step 1: footwork, style dials, personality, habits and morale (old saves get theirs here too).
 	return FighterProfile.ensure(f.merged({
-		"div": div, "limit": float(DIVISIONS[div]["limit"]), "offers": [], "bout": {}, "camp": {}, "goal_talk": false,
+		"div": div, "sex": sex_of(f), "limit": float(DIVISIONS[div]["limit"]), "offers": [], "bout": {}, "camp": {}, "goal_talk": false,
 		"next_offer_day": day + 8, "opp_index": 0, "rank": 0, "week_start": (f["stats"] as Dictionary).duplicate(),
 		"moves": moves, "learning": "Uppercut", "booked_fight": false, "history": [], "goal": {}, "cards": f.get("cards", []),
 		"focus": f.get("focus", "conditioning"), "diet": "hold", "fatigue": 8, "weekly_salary": 250, "pro": false,

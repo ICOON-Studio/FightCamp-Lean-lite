@@ -1,0 +1,89 @@
+extends RefCounted
+## S370 NOREF1: the push-off after a clinch. No referee in the ring - both boxers put gloves on the other's chest and
+## shove off, taking one slow step back to range. Three phases over PUSH_S:
+##   HANDS  (0 - 0.3 s): gloves on the other's chest/shoulders, heads come up
+##   PUSH   (0.3 - 0.9 s): Clinch._process eases the gap; one slow step each
+##   GUARD  (0.9 - 1.2 s): hands off, guard up
+##   begin(stage)  step(stage, delta) -> bool (true while it runs)
+
+const PUSH_S := 1.2
+const HANDS_END := 0.3
+const PUSH_END := 0.9
+const PUSH_HEADS_UP := 12.0
+
+static var _on := false
+static var _t := 0.0
+static var _tie_gap := 0.0
+static var _range_gap := 1.0
+static var _stepped := false
+static var _guard_done := false
+
+
+static func begin(stage: Node3D) -> void:
+	_on = true
+	_t = 0.0
+	_stepped = false
+	_guard_done = false
+	_tie_gap = (stage.boxers[0]["pos"] as Vector3).distance_to(stage.boxers[1]["pos"])
+	_range_gap = float(stage.gap_m)
+	# S370: keep the clinch's arm positions (already on the other's body); just bring the heads up
+	for i in 2:
+		var ik: Node = stage.boxers[i].get("ik")
+		if ik == null:
+			continue
+		ik.look(null)
+		ik.upright(PUSH_HEADS_UP)
+
+
+static func step(stage: Node3D, delta: float) -> bool:
+	if not _on:
+		return false
+	_t += delta
+	if _t >= PUSH_S:
+		_finish(stage)
+		return false
+	if _t < HANDS_END:
+		return true
+	if _t < PUSH_END:
+		return true
+	if not _guard_done:
+		_guard_done = true
+		for i in 2:
+			var ik: Node = stage.boxers[i].get("ik")
+			if ik != null:
+				ik.reach("Left", null)
+				ik.reach("Right", null)
+				ik.upright(0.0)
+			stage.guard(i)
+	return true
+
+
+static func _finish(stage: Node3D) -> void:
+	_on = false
+	for i in 2:
+		var ik: Node = stage.boxers[i].get("ik")
+		if ik != null:
+			ik.reach("Left", null)
+			ik.reach("Right", null)
+			ik.look(null)
+			ik.upright(0.0)
+		stage.guard(i)
+
+
+static func _chest(stage: Node3D, i: int, side: String) -> Vector3:
+	var skel: Skeleton3D = stage.boxers[i]["skel"]
+	# S370: target just outside the other's shoulder so the glove touches the torso without the forearm passing through
+	var bone_name := side + "UpperArm"
+	var id := skel.find_bone(bone_name)
+	if id < 0:
+		return (stage.boxers[i]["node"] as Node3D).global_position + Vector3.UP * 1.2
+	var shoulder := skel.global_transform * skel.get_bone_global_pose(id).origin
+	# Push the target a little further out from the shoulder (away from the torso center)
+	var fwd := _fwd(stage, i)
+	var left := Vector3.UP.cross(fwd).normalized()
+	var out_dir := 1.0 if side == "Left" else -1.0
+	return shoulder + left * out_dir * 0.08 + fwd * 0.05
+
+
+static func _fwd(stage: Node3D, i: int) -> Vector3:
+	return (stage.boxers[i]["node"] as Node3D).global_transform.basis.z.normalized()

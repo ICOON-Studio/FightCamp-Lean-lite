@@ -89,13 +89,13 @@ static func _need_for(lit: int, f: Dictionary, day: int, elig: Dictionary) -> St
 		2:
 			var n: int = SeasonPath.entry_close(day) - day
 			if nationals == "entered":
-				return "She is in the draw"
+				return "In the draw"
 			if injured:
-				return "Injured - she cannot enter"
+				return "Injured - cannot enter"
 			return "Enter before entries close in %d days" % n
 		3:
 			if pro_declines >= 3:
-				return "No more offers - she stays amateur"
+				return "No more offers - stays amateur"
 			if pro_declines >= 2:
 				return "Only a No. 1 ranking brings another offer"
 			var need: int = Roster.PRO_WINS + pro_declines * Roster.PRO_RETURN_WINS

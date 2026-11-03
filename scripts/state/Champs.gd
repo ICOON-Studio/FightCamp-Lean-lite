@@ -138,7 +138,7 @@ static func book_next(c: Career, f: Dictionary) -> void:
 			advance(c, f, true)
 			continue
 		if day < c.day:
-			withdraw(c, f, "she could not box on the day")
+			withdraw(c, f, "unfit to box on the day")
 			return
 		var inj: Dictionary = f.get("injury", {})
 		var hurt_past := Injuries.out(c, f) and int(inj["until_day"]) > day
@@ -151,7 +151,7 @@ static func book_next(c: Career, f: Dictionary) -> void:
 		c.add_news("%s: %s vs %s, %s." % [stage_name(stage), f["name"], opp, Clock.fmt(day)])
 		if hurt_past:
 			f["injury"]["choice"] = "pending"
-			c.add_news("%s's %s is on %s, before she is fit: you decide." % [f["first"], stage_name(stage).to_lower(), Clock.fmt(day)])
+			c.add_news("%s's %s is on %s, before the injury heals: you decide." % [f["first"], stage_name(stage).to_lower(), Clock.fmt(day)])
 		return
 
 
@@ -166,7 +166,7 @@ static func advance(c: Career, f: Dictionary, won: bool, words: String = "") -> 
 		return
 	if winners.size() <= 1:
 		if str(ch["level"]) == "regional":
-			c.add_news("%s is the London regional champion. She goes to the nationals." % f["name"])
+			c.add_news("%s is the London regional champion. Next stop: the nationals." % f["name"])
 			_national_draw(c, f)
 		else:
 			_finish(c, f, 5, true)
@@ -277,7 +277,7 @@ static func path(c: Career, f: Dictionary) -> Array:
 	var stage := int(ch["stage"])
 	var last := 1 if str(ch["level"]) == "regional" else 5
 	for s in range(stage, last + 1):
-		var t := "if she keeps winning"
+		var t := "with more wins"
 		if s == stage:
 			var opp := opponent(f)
 			t = "a bye" if opp == ChampDraw.BYE else "vs %s" % opp

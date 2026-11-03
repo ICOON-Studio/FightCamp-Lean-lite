@@ -78,7 +78,7 @@ static func _place_name(id: String) -> String:
 static func _answer_row(browser, row: Dictionary) -> void:
 	var clips: Array = WC.clip_for(row, browser.graph.transitions)
 	var pts: int = int(row["points"])
-	var sub := "if she %s -> %s" % [WC.say(str(row["reaction"])), row["finish"]]
+	var sub := "if the opponent %s -> %s" % [WC.say(str(row["reaction"])), row["finish"]]
 	if pts > 0:
 		sub += " (+%d)" % pts
 	var move_id := str(row["tie"]) + ":" + str(row["reaction"])

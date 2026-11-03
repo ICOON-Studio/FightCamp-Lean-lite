@@ -31,7 +31,7 @@ const STYLES: Array[Array] = [
 	["Counter-puncher", "Right hand counter over the jab", "Slow to start"],
 	["Volume puncher", "Never stops throwing", "Leaves the chin open"],
 	["Boxer-puncher", "Straight right", "Stands still after combinations"],
-	["Out-boxer", "A long jab she lives behind", "Struggles when she is backed up"],
+	["Out-boxer", "A long jab to live behind", "Struggles when backed up"],
 	["Pressure fighter", "Left hook to the body", "Fades after round 2"],
 ]
 

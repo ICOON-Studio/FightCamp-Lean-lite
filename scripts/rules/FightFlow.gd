@@ -22,7 +22,7 @@ const IDEAS := {
 	"opp_ropes": ["Cut off the exits, feet square", "Body, head - keep the pressure"],
 	"corner": ["Short shots up the middle", "Watch for the spin out"],
 	"collar_tie": ["Elbow on the collarbone, own the head", "Snap down on the lean"],
-	"underhook": ["Hips in, head tight to hers", "Lift the elbow, go behind"],
+	"underhook": ["Hips in, heads tight together", "Lift the elbow, go behind"],
 	"wrist_control": ["Two hands on one wrist", "Pull it across, take the angle"],
 	"two_on_one": ["Both hands on one arm, hips close", "Drag the arm past you"],
 	"russian_tie": ["The arm to your chest", "Feet outside"],
@@ -30,8 +30,8 @@ const IDEAS := {
 	"finish": ["Hips and hands: get behind, score"],
 }
 ## Boxing's `when`: the opponent's game (Exchanges' situations) in the coach's words.
-const WHEN_WORDS := {"press": "she presses", "range": "she boxes at range", "counter": "she waits to counter",
-	"loadup": "she loads up", "tiring": "she tires", "hurt": "she is hurt", "she_tired": "you are tired",
+const WHEN_WORDS := {"press": "the opponent presses", "range": "the opponent boxes at range", "counter": "the opponent waits to counter",
+	"loadup": "the opponent loads up", "tiring": "the opponent tires", "hurt": "the opponent is hurt", "she_tired": "you are tired",
 	"she_hurt": "you are hurt"}
 ## An arrow worked when at least this share of its tries won the exchange.
 const WORKED_SHARE := 0.5
@@ -117,7 +117,7 @@ static func label(edge: Dictionary, move_name: String) -> String:
 	if w == "":
 		return move_name
 	# S356 a tie-up reaction id reads neutral on screen (WrestleChains.say: "drops her head" -> "drops the head").
-	return "if %s: %s" % [str(WHEN_WORDS.get(w, "she " + w.replace(" her ", " the "))), move_name]
+	return "if %s: %s" % [str(WHEN_WORDS.get(w, "the opponent " + w.replace(" her ", " the "))), move_name]
 
 
 ## The bout's arrows summed over its rounds (each round's PlanFight.tally "moves").

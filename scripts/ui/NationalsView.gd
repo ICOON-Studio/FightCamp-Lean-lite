@@ -54,7 +54,7 @@ static func _road_card(page: Control, main: Node, c: Career, f: Dictionary) -> v
 			b.name = "Enter_" + str(f["id"])
 			b.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 			card[1].add_child(b)
-			card[1].add_child(UI.muted("Each round is a normal bout: camp, weigh-in, your corner. No other offers while she is in it; no ticket cut for the club.", UI.SMALL, true))
+			card[1].add_child(UI.muted("Each round is a normal bout: camp, weigh-in, your corner. No other offers while in it; no ticket cut for the club.", UI.SMALL, true))
 		else:
 			card[1].add_child(UI.muted(why + ".", UI.BODY, true))
 	var titles: Array = f.get("titles", [])

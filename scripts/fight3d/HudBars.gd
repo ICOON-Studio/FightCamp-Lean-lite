@@ -27,10 +27,10 @@ const ICON := {"head": "user", "body": "shirt", "legs": "footprints", "stamina":
 const WORDS := {
 	"head": "Head: the worst of head, eyes and nose. The grey never comes back this fight (cuts, swelling).",
 	"body": "Body: the ribs. Every body shot also greys the end of the stamina bar.",
-	"legs": "Legs: tired legs take shorter, slower steps - she cannot cut the ring off.",
+	"legs": "Legs: tired legs take shorter, slower steps - no cutting the ring off.",
 	"stamina": "Stamina: the tank. The minute's rest gives some back; the grey end is gone for the fight.",
 	"guard": "Guard: how high the hands stay. It sinks as the shoulders tire.",
-	"heart": "Heart: how far she is from quitting. Standing counts and hurt moments wear it down.",
+	"heart": "Heart: how far from quitting. Standing counts and hurt moments wear it down.",
 }
 const UNKNOWN := {
 	"guard": "Guard: not scouted. Find one of the opponent's habits on tape (the tape room or tape study in camp).",

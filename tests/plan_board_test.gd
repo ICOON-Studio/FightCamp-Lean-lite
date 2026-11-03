@@ -220,8 +220,8 @@ func _test_7_when_branches() -> void:
 	_check(PlanBoard.pick(plan, map, "long") == "1-1", "no situation given: the any-time arrow")
 	_check(PlanBoard.pick([{"move": "1-2-3-2", "when": "tiring"}], map, "long", "", "press") == "", "only a tiring arrow: nothing when she presses")
 	var twice := plan + [{"move": "1-2", "when": "tiring"}]
-	var v := PlanBoard.validate(twice, map, 6, {"tiring": "she tires"})
-	_check(not v["ok"] and str(v["problems"][0]) == "Two arrows from long when she tires - pick one", "two tiring arrows from long: %s" % str(v["problems"]))
+	var v := PlanBoard.validate(twice, map, 6, {"tiring": "the opponent tires"})
+	_check(not v["ok"] and str(v["problems"][0]) == "Two arrows from long when the opponent tires - pick one", "two tiring arrows from long: %s" % str(v["problems"]))
 	var ch := PlanBoard.change_one(plan, 1, "1-2-3")
 	_check(str(ch[1]["move"]) == "1-2-3" and str(ch[1]["when"]) == "tiring", "a changed arrow keeps the situation it answers")
 	_check(PlanBoard.chains(plan, map, "long", 3) == ["1-1"], "the any-time walk ignores branches")

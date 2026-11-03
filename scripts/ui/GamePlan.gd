@@ -256,7 +256,7 @@ func _rating(row: Control, o: Dictionary) -> void:
 		row.add_child(UI.chip(str(PlanLines.FIT_WORDS[fit]), {"best": "green", "ok": "", "wrong": "red"}[fit]))
 	row.add_child(UI.label("%+.0f" % float(o["edge"]), UI.SMALL, UI.GREEN if float(o["edge"]) > 0.5 else (UI.RED if float(o["edge"]) < -0.5 else UI.MUTED), "bold"))
 	if float(o["rate"]) < 1.0:
-		row.add_child(Icons.icon("info", 16, UI.AMBER, "Untrained: she lands it 80% as well until it is drilled on the pads."))
+		row.add_child(Icons.icon("info", 16, UI.AMBER, "Untrained: lands 80% as well until it is drilled on the pads."))
 
 
 func _option(place: String, when: String, o: Dictionary, picked: bool) -> Control:

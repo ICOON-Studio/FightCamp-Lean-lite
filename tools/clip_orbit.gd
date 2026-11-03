@@ -4,11 +4,13 @@ extends SceneTree
 ## kit, the clip as FightClips loads it - alone on a grey grid floor (the grid shows foot slide), a camera circling once
 ## (operator S270: "a drone camera rotates around them", "i dont need the ring"). Frames -> <out>/<id>/f0000.jpg; the
 ## board's renderer (Game/Tools/lean_anim_render.py) encodes each to an mp4. What the fight adds on top (the joins, the arm
-## bent to the target, glove push, head snap) is NOT in these: this is the clip itself.
+## bent to the target, glove push, head snap) is NOT in these: this is the clip itself, with KneeTrack.align(skel, 1.0) on
+## every frame after the clip so the board's previews show the knees as the fight plays them (S370 TASK_KNEETRACK1).
 ##   python tools/hidden_desktop.py run --timeout=3600 <godot.exe> --path . --windowed --resolution 960x540 \
 ##       --script res://tools/clip_orbit.gd -- out=<dir> ids=<a,b,...> [glb=mh_boxer_10]
 
 const Stage := preload("res://scripts/fight3d/FightStage.gd")
+const KneeTrack := preload("res://scripts/fight3d/KneeTrack.gd")
 const FPS := 30
 const MIN_S := 4.0
 const TAIL_S := 0.4
@@ -82,6 +84,7 @@ func _initialize() -> void:
 			var t := float(f) / FPS
 			var in_cycle := fmod(t, cycle)
 			Stage.IdleMatch.freeze(bx, name, minf(in_cycle, length))
+			KneeTrack.align(skel, 1.0)
 			var c: Vector3 = (skel.global_transform * skel.get_bone_global_pose(hips)).origin
 			c.y = 1.0
 			var ang := face + PI * 0.5 + TAU * float(f) / float(frames)

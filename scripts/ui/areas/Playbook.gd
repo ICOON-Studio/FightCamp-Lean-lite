@@ -87,15 +87,15 @@ func _plan(main: Node, f: Dictionary) -> Control:
 ## S359 ESCAPES (operator: "escapes has nothing, is that intentional?"): the ways out a boxer drills - off the ropes, out of
 ## the clinch, out of range - as a move book; each one plays on her body.
 const ESCAPES := [
-	["OFF THE ROPES", "Her back is on the ropes: turn out, counter out, or tie up.", ["pivot_out", "slip 2-3@own_ropes", "tie_up@own_ropes"]],
+	["OFF THE ROPES", "Back on the ropes: turn out, counter out, or tie up.", ["pivot_out", "slip 2-3@own_ropes", "tie_up@own_ropes"]],
 	["OUT OF THE CLINCH", "Tied up: make the space yourself, or wait for the referee.", ["push_off", "break"]],
-	["OUT OF RANGE", "Under fire up close: roll under and out, or step back to where she can box.", ["roll_out", "step_back", "step_out"]],
+	["OUT OF RANGE", "Under fire up close: roll under and out, or step back to boxing range.", ["roll_out", "step_back", "step_out"]],
 ]
 const ESCAPE_WORDS := {
-	"pivot_out": "Turn on the lead foot and step off the ropes to the side; she is out, the opponent faces the ropes.",
-	"slip 2-3@own_ropes": "Slip the punch, cross and hook back as she comes out: the ropes push her into the counter.",
+	"pivot_out": "Turn on the lead foot and step off the ropes to the side; out of there, the opponent faces the ropes.",
+	"slip 2-3@own_ropes": "Slip the punch, cross and hook back coming off the ropes: the ropes spring the counter.",
 	"tie_up@own_ropes": "Wrap the arms and smother the punches until the referee breaks it.",
-	"push_off": "A step back out of the tie-up: she makes the space before the referee does.",
+	"push_off": "A step back out of the tie-up: make the space before the referee does.",
 	"break": "The referee steps in and parts them; both back to long range.",
 	"roll_out": "Roll under the hook and come up outside it, already moving away.",
 	"step_back": "One step back from mid range to long range: out of hook reach.",

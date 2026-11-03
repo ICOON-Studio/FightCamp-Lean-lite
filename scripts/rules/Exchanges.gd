@@ -66,7 +66,7 @@ const CALLS := {
 		"tell": "Hands up and move your head: make the big shots miss."},
 	"let_go": {"label": "Let your hands go", "shout": "Let your hands go!", "needs": ["conditioning", "speed"], "cost": 3.0,
 		"when": "Use when {opp} tires", "expect": "{her}'s busiest 30 seconds; it costs energy",
-		"tell": "Let your hands go: she can't keep up with you."},
+		"tell": "Let your hands go: {opp} can't keep up with you."},
 	"calm": {"label": "Breathe, pick your shots", "shout": "Breathe! Pick your shots!", "needs": ["discipline"], "cost": -3.0,
 		"when": "Use when {her} is tired", "expect": "{her} gets energy back; gives a little now",
 		"tell": "Breathe and pick your shots: get your legs back."},

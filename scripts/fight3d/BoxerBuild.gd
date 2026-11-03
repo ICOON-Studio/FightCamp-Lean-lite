@@ -1,10 +1,10 @@
 extends RefCounted
 ## One boxer on the 3D ring (split from Fightstage.gd S307, 500-line rule): the MetaHuman body scaled to her height, her
 ## corner's kit and gloves, the clip library (mirrored for a southpaw) and the modifier stack in its order - join smoother,
-## tired sag, guard tuck, punch reach, head snap, elbows clear, planted feet. S316 control arms (tools/smooth_probe.gd): `noguard`,
-## `noreach`, `nosnap`, `noglove`, `nojoin`, `nofeet`.
+## tired sag, guard tuck, punch reach, head snap, elbows clear, knee track, planted feet. S316 control arms (tools/smooth_probe.gd): `noguard`,
+## `noreach`, `nosnap`, `noglove`, `nojoin`, `noknee`, `nofeet`.
 ## Reads the kit colours off the stage (its TRUNKS / VESTS / CORNERS / CLOTH_ROUGHNESS).
-##   build(stage, spec, index) -> {node, skel, ap, gloves, js, reach, snap, feet, south, front, pos, vel, move_left}
+##   build(stage, spec, index) -> {node, skel, ap, gloves, js, reach, snap, knee, feet, south, front, pos, vel, move_left}
 
 const MH := preload("res://scripts/fight3d/MHRig.gd")
 const FightClips := preload("res://scripts/fight3d/FightClips.gd")
@@ -19,6 +19,7 @@ const GloveClear := preload("res://scripts/fight3d/GloveClear.gd")
 const GuardTuck := preload("res://scripts/fight3d/GuardTuck.gd")
 const MirrorClip := preload("res://scripts/fight3d/MirrorClip.gd")
 const GuardLife := preload("res://scripts/fight3d/GuardLife.gd")
+const KneeTrack := preload("res://scripts/fight3d/KneeTrack.gd")
 const FootPlant := preload("res://scripts/fight3d/FootPlant.gd")
 const TiredSag := preload("res://scripts/fight3d/TiredSag.gd")
 
@@ -113,11 +114,13 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 		else:
 			gc.free()
 			gc = null
+	# S370: knees point over the toes before FootPlant solves its IK (FootPlant keeps the knee's bend plane).
+	var kt := KneeTrack.attach(skel, ap) if not OS.get_cmdline_user_args().has("noknee") else null
 	# S306: her planted feet stay where they stand; a foot steps when her body has moved off it.
 	# S314 `nostagger` = the clip's own stance spread (the control arm of gap 7).
-	var fp := FootPlant.attach(skel, ap, null, null if OS.get_cmdline_user_args().has("nostagger") else body) if not OS.get_cmdline_user_args().has("nofeet") else null
+	var fp := FootPlant.attach(skel, ap, kt, null if OS.get_cmdline_user_args().has("nostagger") else body) if not OS.get_cmdline_user_args().has("nofeet") else null
 	ap.animation_finished.connect(stage._on_finished.bind(index))
-	return {"node": body, "skel": skel, "ap": ap, "gloves": gl, "js": js, "reach": pr, "snap": hs, "gclear": gc, "tuck": gt, "sag": ts, "feet": fp, "south": south, "front": gl.front_m(),
+	return {"node": body, "skel": skel, "ap": ap, "gloves": gl, "js": js, "reach": pr, "snap": hs, "gclear": gc, "tuck": gt, "sag": ts, "knee": kt, "feet": fp, "south": south, "front": gl.front_m(),
 		"pos": Vector3.ZERO, "vel": Vector3.ZERO, "move_left": 0.0,
 		"aim_m": 0.0, "aim_dir": 0.0, "hold_m": 0.0}
 

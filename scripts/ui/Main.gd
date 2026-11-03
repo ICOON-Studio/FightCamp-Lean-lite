@@ -360,7 +360,7 @@ func act(name: String, arg: String = "") -> void:
 			toast("%s signed. Goal on the card: %s." % [f["first"], str(f["goal"]["title"]).to_lower()])
 		"decline":
 			close_modal()
-			toast("She will wait at reception while you think.")
+			toast("The boxer waits at reception while you think.")
 		"hire":
 			var c := Sim.hire(career, arg)
 			render()

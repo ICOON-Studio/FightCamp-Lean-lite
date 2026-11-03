@@ -271,5 +271,5 @@ static func decline_pro(c: Career) -> void:
 	var f := c.fighter_by_id(str(c.pro_offer["fid"]))
 	f["pro_declines"] = int(f.get("pro_declines", 0)) + 1
 	c.add_news("%s stays amateur for now. %s" % [f["first"],
-		"The door is closed until she is number 1." if int(f["pro_declines"]) >= 3 else "The promoters will be back after more wins."])
+		"The door is closed short of a number 1 ranking." if int(f["pro_declines"]) >= 3 else "The promoters will be back after more wins."])
 	c.pro_offer = {}

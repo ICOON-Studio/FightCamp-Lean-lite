@@ -5,12 +5,12 @@
   "A trial at {gym} today: {name}, recommended by a coach from across the river.",
   "{name} wrapped both hands without help, which the coach noticed straight away.",
   "{name} arrived early for the trial and was skipping before anyone else got in.",
-  "{name} is in for a trial. She says she's had a few bouts and wants a proper gym."
+  "{name} is in for a trial: a few bouts behind, wants a proper gym."
  ],
  "trial_good": [
   "Good trial. {name}'s {best} is the real thing. I'd sign {name} today.",
   "{name} took everything we threw. The {best} stands out. Worth a place.",
-  "She listens and she learns fast. {name}'s {best} is already better than most here.",
+  "Listens and learns fast. {name}'s {best} is already better than most here.",
   "Three hard rounds and {name} didn't fade. That {best} will win fights.",
   "I've seen a lot of trials. {name}'s {best} is the best I've seen this year.",
   "{name} is ready to work. The {best} gives us something to build on."
