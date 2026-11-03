@@ -1,3 +1,31 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 74 (2026-11-03): THE PLAN'S GO-TO COMBINATION, THE KNOCKDOWN COUNT
+=====================================================================================================================
+
+ 0. The plan's GO-TO COMBINATION: PLAYBOOK > Game plan has a new row under ROUNDS. Pick one of the boxer's OWN drilled
+    combinations (built in PLAYBOOK > Combos, drilled on the pads) and the plan names it: in the bout it decides 40% of the
+    combination exchanges instead of 33%, and the ring throws it more often. The catch: it only pays while the tank still
+    throws it whole - the row says which rounds ("R1 whole - R2 whole - R3 too tired"). A long signature wins the fresh
+    rounds and fades late; a short one holds all fight. Click it again to clear it.
+ 1. Try it with the board Test button "the plan's go-to combination (update 74)": Lucy is booked with two combinations
+    already drilled (jab-cross-lead hook, a signature, and a jab-cross); the game opens on the GO-TO row. Name one, then
+    CONTINUE to fight night and watch which combination she throws.
+ 2. The knockdown count: after a knockdown the round clock stops, the standing boxer goes to the far neutral corner, the
+    count runs 1-8 in big numbers (10 = KO). Up in time -> BOX!; the referee's stop -> STOPPED; a KO ends the bout at once.
+ 3. Still being fixed: the walk to the neutral corner (real walking clips are being made from Ludo's captured walks), and
+    the fight's knees and feet (Argon's FIGHT9 loop, round 7 running).
+
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 73 (2026-11-03): KNOCKDOWNS YOU SEE, A REPLAY, BOXERS ON (NOT IN) THE CANVAS
+=====================================================================================================================
+
+ 0. A knockdown drops him on the shot: the fall starts the moment the punch lands (it used to start before the glove
+    arrived and fight the hit reaction) and he is down within about a second.
+ 1. Then the slow-motion REPLAY: the ring freezes and the shot plays again at a third of the speed from a low ringside
+    lens on the other side, under a REPLAY banner; then the count goes on. (Knockdowns come in a round's last exchange.)
+ 2. On the canvas: a downed boxer lies ON the mat - the arms no longer sink through it (only the gloves showed before);
+    the body rests on the canvas instead of half under it.
+ 3. Still being fixed by Argon (the FIGHT9 loop, round 6 running): knees that tremble, knees that bend sideways on the
+    canvas, bare toes showing through the boot soles, feet that jump between moves.
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 70 (2026-11-03): WILL HE MAKE WEIGHT?, MEN'S FORCE TEST, A PASSED GRADE FIGHTS BETTER, TIRED LEGS GO RED
 =====================================================================================================================
 

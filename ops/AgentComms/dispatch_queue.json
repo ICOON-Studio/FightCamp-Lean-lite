@@ -79,9 +79,10 @@
   {
    "task": "FIGHT9R7",
    "seat": "agy",
-   "status": "queued",
+   "status": "launched",
    "queued": "2026-11-03T16:03",
-   "loop": "FIGHT9"
+   "loop": "FIGHT9",
+   "launched": "2026-11-03T17:36"
   },
   {
    "task": "LOCOWALK1",
@@ -90,6 +91,12 @@
    "queued": "2026-11-03T16:31",
    "launched": "2026-11-03T16:53",
    "note": "S377: launched by hand (--task --act), runner pid 41164"
+  },
+  {
+   "task": "LOCOWALK2",
+   "seat": "cursor",
+   "status": "queued",
+   "queued": "2026-11-03T17:36"
   }
  ]
 }

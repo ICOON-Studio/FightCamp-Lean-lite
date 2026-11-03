@@ -6,7 +6,7 @@
    "agent": "cursor",
    "id": "LOCOWALK1",
    "title": "TASK LOCOWALK1 - CURSOR - real walking clips for our boxers (back off in guard, walk in guard, walk relaxed)",
-   "status": "running",
+   "status": "done",
    "started": "2026-11-03T16:53",
    "eta": "2026-11-03T18:43",
    "branch": "cursor/locowalk1",
@@ -27,7 +27,61 @@
     "runner_pid": 41164,
     "seat_pid": 41468
    },
-   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
+   "note": "S378: CANCELLED - the seat shell was dead (repo hook without CLAUDE_PROJECT_DIR, fixed fa59bedc); procedural legs, no compile; PR #31 closed -> LOCOWALK2. S368 seat_dispatch: cursor exit 0; 1 commit(s); checks 1/5 PASS; PR #31; films Argon 4 -> -/10",
+   "finished": "2026-11-03T17:15",
+   "pr": 31,
+   "checks": [
+    {
+     "kind": "COMPILE",
+     "script": "Main.tscn boot",
+     "ok": false,
+     "last": "res://scripts/fight3d/FightClips.gd:153: Cannot infer the type of \"path\" variable because the value doesn't have a set type."
+    },
+    {
+     "kind": "RED_TEST",
+     "script": "tools/knockdown_film.gd",
+     "ok": false,
+     "last": "timeout"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/beat_clips_test.gd",
+     "ok": true,
+     "last": "BEATCLIPS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": false,
+     "last": "       [10] _initialize (res://tests/golden_path_test.gd:32)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/move_clips_test.gd",
+     "ok": false,
+     "last": "       [1] _initialize (res://tests/move_clips_test.gd:14)"
+    }
+   ],
+   "films": {
+    "before": {
+     "film": "E:/FightCamp/Lean/ops/previews/dispatch/LOCOWALK1/before.mp4",
+     "verdict_file": "E:/FightCamp/Lean/ops/previews/dispatch/LOCOWALK1/before.gemini_argon.md",
+     "score": "4",
+     "line": "The bout is undermined by severe foot-skating during all walking transitions, rope-clipping during ring entries, and a knockdown sequence where the standing fighter refuses to relax or promptly leave the downed opponent's space. **Score: 4/",
+     "rc": 0,
+     "err": "",
+     "head": "7988a595ce66f1364b8aaa61943b3d801db1f2f9"
+    },
+    "after": {
+     "film": "",
+     "why": "does not compile: res://scripts/fight3d/FightClips.gd:153: Cannot infer the type of \"path\" variable because the value doesn't have a set type.; res://scripts/fight3d/FightClips.gd:201: Cannot infer the type of \"ht\" variable because the value doesn't have a set type.",
+     "compile": [
+      "res://scripts/fight3d/FightClips.gd:153: Cannot infer the type of \"path\" variable because the value doesn't have a set type.",
+      "res://scripts/fight3d/FightClips.gd:201: Cannot infer the type of \"ht\" variable because the value doesn't have a set type."
+     ]
+    },
+    "board": "POSTED 1 file(s) -> http://127.0.0.1:8787/review  (E:\\FightCamp\\review\\2026-11-03_1715_locowalk1_before_after_argon_4_10_10_you)"
+   }
   },
   "BJJ9R10": {
    "agent": "ziva",
@@ -39,6 +93,33 @@
    "wt": "E:/FightCamp/wt/ZIVA_LEAN",
    "brief": "research/TASK_BJJ9.md",
    "note": "S377: chat thread 'BJJ9 Round 10' on 127.0.0.1:7012; hit the 32k reply cap once - Continue clicked"
+  },
+  "FIGHT9R7": {
+   "agent": "antigravity",
+   "id": "FIGHT9R7",
+   "title": "TASK FIGHT9R7 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
+   "status": "running",
+   "started": "2026-11-03T17:36",
+   "eta": "2026-11-03T19:01",
+   "branch": "agy/fight9r7",
+   "worktree": "E:/FightCamp/wt/LEAN_FIGHT9R7",
+   "wt": "E:/FightCamp/wt/LEAN_FIGHT9R7",
+   "brief": "ops/research/TASK_FIGHT9R7.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/FIGHT9R7_dispatch_out.txt",
+   "match": "seat_dispatch.py run fight9r7",
+   "model": "gemini-4-argon-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/FIGHT9R7_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/FIGHT9R7_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/FIGHT9R7_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 38504,
+    "seat_pid": 43816
+   },
+   "note": "S368 seat_dispatch: launched unattended (dispatch_queue.json); merging stays off"
   }
  },
  "codex_budget": {

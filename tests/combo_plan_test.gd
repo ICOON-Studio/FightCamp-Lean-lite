@@ -97,6 +97,47 @@ func _initialize() -> void:
 	var prof := RoundStyle.of_fighter(f)
 	_check((prof["combos"] as Dictionary).has("own:1") and (prof["own_rows"] as Array).size() == 2, "the fight profile has his own combinations")
 
+	# g. S378 PLANCOMBO1 the plan's go-to: NAMED_SHARE while he throws it whole, picked more often in the ring.
+	for bad in ["", "own:9", "own:3"]:
+		f["plan_combo"] = bad
+		_check(OwnCombos.named(f).is_empty(), "no go-to from %s (unset, gone, or not drilled)" % ("'%s'" % bad))
+	f["own_combos"] = {"own:1": 0.0, "own:2": ComboWords.SIGNATURE_AT, "own:3": 0.0}
+	f["plan_combo"] = ""
+	var plain_edge := OwnCombos.ring_edge(f, 100.0)
+	f["plan_combo"] = "own:2"
+	var go_edge := OwnCombos.ring_edge(f, 100.0)
+	_check(str(OwnCombos.named(f).get("id", "")) == "own:2" and plain_edge > 0.0
+		and absf(go_edge / plain_edge - OwnCombos.NAMED_SHARE / OwnCombos.USE_SHARE) < 0.001,
+		"named jab-cross signature pays %.2f vs %.2f a round (0.40 / 0.33)" % [go_edge, plain_edge])
+	_check(is_equal_approx(OwnCombos.ring_edge(f, 35.0), OwnCombos.ring_edge(f, 100.0)),
+		"named and whole, the share holds when tired (%.2f)" % OwnCombos.ring_edge(f, 35.0))
+	f["own_combos"] = {"own:1": ComboWords.SIGNATURE_AT, "own:2": 0.0, "own:3": 0.0}
+	f["plan_combo"] = "own:1"
+	var fresh := OwnCombos.ring_edge(f, 100.0, 100.0)
+	var gassed := OwnCombos.ring_edge(f, 100.0, 20.0)
+	_check(OwnCombos.whole_at(f, long_e, 100.0) and not OwnCombos.whole_at(f, long_e, 20.0) and fresh > gassed
+		and absf(fresh / gassed - OwnCombos.NAMED_SHARE / OwnCombos.USE_SHARE) < 0.001,
+		"the 3-punch go-to pays while whole (%.2f), not once he is too tired to finish it (%.2f)" % [fresh, gassed])
+	f["own_combos"] = {"own:1": 50.0, "own:2": 0.0, "own:3": 0.0}
+	var unsigned := OwnCombos.ring_edge(f, 100.0)
+	f["plan_combo"] = ""
+	_check(is_equal_approx(unsigned, OwnCombos.ring_edge(f, 100.0)), "a go-to never thrown whole (unsigned 3 at cap 2) pays no named share")
+	f["own_combos"] = {"own:1": 60.0, "own:2": 60.0, "own:3": 0.0}
+	f["moves"]["Lead hook"] = 70.0
+	f["plan_combo"] = "own:2"
+	var go_rows := OwnCombos.rows_for_ring(f)
+	var go_row: Dictionary = go_rows.filter(func(r): return str(r["id"]) == "own:2")[0]
+	var other_row: Dictionary = go_rows.filter(func(r): return str(r["id"]) == "own:1")[0]
+	_check(is_equal_approx(float(go_row["weight"]), OwnCombos.NAMED_SHARE / OwnCombos.USE_SHARE) and is_equal_approx(float(other_row["weight"]), 1.0),
+		"the go-to's ring row weighs %.2f, the others 1.0" % float(go_row["weight"]))
+	var go_n := 0
+	for i in 100:
+		if str(Combos.pick({"own:1": 60.0, "own:2": 60.0}, 3, (float(i) + 0.5) / 100.0, go_rows).get("id", "")) == "own:2":
+			go_n += 1
+	_check(go_n >= 53 and go_n <= 57, "equal pad time: the go-to is thrown in %d of 100 picks (1.21 : 1)" % go_n)
+	f["plan_combo"] = ""
+	f["own_combos"] = {"own:1": 50.0, "own:2": 50.0, "own:3": 0.0}
+
 	# f. The planner card builds with a row per combination and a drill button.
 	var card := ComboPlanner.make(null, f)
 	_check(card.find_child("Own_own_1", true, false) != null and card.find_child("Drill_own_2", true, false) != null

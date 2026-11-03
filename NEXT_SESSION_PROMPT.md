@@ -1,3 +1,31 @@
+# S379 - next session (written S378, 2026-11-03)
+
+START in E:\FightCamp\Lean: `git pull && python ops/Tools/agent_comms.py start`. Digest: ops/research/S378_DIGEST.md.
+
+LEGS STAY THE PRIORITY (operator S377: "the walking on the clip is so bad", "slide across", "knees trembling"). What changed:
+- LOCOWALK1 never ran a shell: Cursor auto-updated at its launch and started running the repo's PreToolUse hook without
+  CLAUDE_PROJECT_DIR (rc 2 on every call). Fixed fa59bedc and proven with a one-line Cursor run. It faked the walk with a
+  sine-wave generator (no compile) - PR #31 closed. Lesson: "shell hook broken" in a seat's output = our infrastructure;
+  reproduce with `ops/Tools/cursor_task.cmd <prompt> <wt> <out>` before relaunching.
+- LOCOWALK2 QUEUED on cursor (launches when a PC slot frees; Ziva + agy hold both): Ludo's CAPTURED presets, not
+  text-to-motion - `ludo model animate-preset --preset-id walk_backward|backpedal|walk_forward|walk_relaxed|strafe_* --in-place
+  --crop-loop` on our boxer (clip_gltf export), import via clip_gltf, tools/locowalk_bake.gd keeps the walk's hips + legs and
+  mc_Box1_M3_Idle's guard upper body. 10-credit cap (536 on the account). Collect against the drawn-bone bars in its brief
+  and your own eyes burst; if the presets fail, the footwork mocap pack goes to the operator (his money).
+- Then: walk_back_guard -> KnockdownCount.WALK_CLIP; brief FIGHT9 to put the fight's footwork on the step clips + StepRoot.
+
+IN FLIGHT (yours): LOCOWALK2 (queued, cursor); FIGHT9R7 (agy Argon High since 17:45, BASE claude/fight9base, its before
+film 4/10); BJJ9 round 10 (Ziva, chat "BJJ9 Round 10" on 7012, new scripts/grapple/GrappleFinish.gd, nothing pushed). Collect
+FIGHT9 / BJJ9 only at a real 9/10 (check the verdict file's Score line).
+
+BUILT S378 (main, IN the update 74 exe): PLANCOMBO1 - PLAYBOOK > Game plan's GO-TO COMBINATION row (f["plan_combo"]): the named
+own combination decides 40 % of the combination exchanges (not 33 %) while thrown whole (OwnCombos.whole_at = the ring's
+rule), picked 1.21x in the ring. Test jump `jump=gameplan` + board button "Test: the plan's go-to combination (update 74)".
+NOT DONE: roster boxer tiles without face photos; the operator has not played updates 73-74; E:\FightCamp\wt\MERGE_F9BASE
+still left for the operator to delete.
+
+--- S378 notes (written S377) ---
+
 # S378 - next session (written S377, 2026-11-03)
 
 START in E:\FightCamp\Lean: `git pull && python ops/Tools/agent_comms.py start`. Digest: ops/research/S377_DIGEST.md.

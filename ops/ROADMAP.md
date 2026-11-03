@@ -8,13 +8,13 @@ Updated 2026-11-03 by claude S294.
 
 ## Now
 
-**S376 — ?** *(claude)*
+**S378 — ?** *(claude)*
 
-S376: the operator watched the men's bout ('legs broken completely', 'punch speed very fast', 'very unatural') - measured on both sexes: FootPlant locked knees 14-22 % -> 0-1 % (reach rule), whole-clip speed-ups capped 1.5x; Argon 3 -> 3/10 on main. Knockdowns drop on the shot + a slow-motion replay; a downed boxer lies ON the canvas (FloorClear; 'hands are below canvas'). Built: BJJCOACH1 (coach steps on Ana's mat), the S375 playtest fixes (Ana card, Scouting face cards, Drill it, personalities), Kalli's numbers (Qwen PR #27), BJJMENU1 on ziva/bjj9 (belt-match calls with chance/points/gas/risk). FIGHT9: R5's '9/10' was a parse bug (real 3.5) - fixed; R6 on agy Argon (operator bought 2,500 credits) from claude/fight9base, 'fix all the clips' to 9/10.
+S378: seat shells fixed fa59bedc - Cursor's 11-03 update ran the repo's PreToolUse hook without CLAUDE_PROJECT_DIR, every shell call exited 2, so LOCOWALK1 ran blind and wrote a sine-wave leg generator (no compile; PR #31 closed). LOCOWALK2 queued on cursor: Ludo's CAPTURED walk presets (walk_backward / backpedal / walk_forward / walk_relaxed) retargeted onto our boxer via clip_gltf, guard arms merged offline, no clip built in code. PLANCOMBO1 d55bb3ca: the Game plan names a GO-TO combination - one of his own drilled combinations decides 40% of the combination exchanges (not 33%) while still thrown whole, picked 1.21x as often in the ring; review workflow 0 defects. Update 74 exported (jump=gameplan, board Test button). FIGHT9R7 running on agy (base 4/10); BJJ9 r10 running on Ziva.
 
 ## Next
 
-Collect FIGHT9 (Argon, all clips) at a real 9/10; collect BJJ9 with the belt-match move menu; then the operator's update-73 notes.
+Collect LOCOWALK1 (real walk + step clips, Ludo) against the drawn-bone bars; then FIGHT9 R7 and BJJ9 at a real 9/10.
 
 ## Where the game actually is
 
@@ -275,11 +275,4 @@ Cursor once got a 50-line brief cut off at line 3 and said so.
 |  |  | **S371**  |  |  | *none yet* | S371: judged loops to 9/10 (FIGHT9 Argon, BJJ9 Ziva; both 2/10 now); MALE1 men's divisions + scouting men; records wall (TestDay); no she/her (guard test); PR #21 FLOWBOUT1 + #22 KNEETRACK1 collected, #23 NOREF1 closed. Digest research/S371_DIGEST.md. |
 |  |  | **S372**  |  |  | *none yet* | S372: FIGHT9 round 1 never compiled (3 parse errors, filmed a frozen menu 1/10) - fixed on PR #24, round 2 builds on it with the operator's C218 legs note first; seat_dispatch compile gate + agy repair pass; Ziva BODYREACT1 collected (40/40 body shots react); men's test norms (J_TESTS3); records wall Day 1 vs today. Male MetaHuman boxers in (five restored from the old repo, bare-chested - operator: no tops; jump=men_fight; male body-map holo). Digest research/S372_DIGEST.md. |
 |  |  | **S376**  |  |  | *none yet* | S376: the operator watched the men's bout ('legs broken completely', 'punch speed very fast', 'very unatural') - measured on both sexes: FootPlant locked knees 14-22 % -> 0-1 % (reach rule), whole-clip speed-ups capped 1.5x; Argon 3 -> 3/10 on main. Knockdowns drop on the shot + a slow-motion replay; a downed boxer lies ON the canvas (FloorClear; 'hands are below canvas'). Built: BJJCOACH1 (coach steps on Ana's mat), the S375 playtest fixes (Ana card, Scouting face cards, Drill it, personalities), Kalli's numbers (Qwen PR #27), BJJMENU1 on ziva/bjj9 (belt-match calls with chance/points/gas/risk). FIGHT9: R5's '9/10' was a parse bug (real 3.5) - fixed; R6 on agy Argon (operator bought 2,500 credits) from claude/fight9base, 'fix all the clips' to 9/10. Digest: ops/research/S376_DIGEST.md. |
-
-## Waiting on the operator
-
-Each of these blocks a session. Nothing below can start without a ruling.
-
-| | blocks | question |
-|---|---|---|
-| **Q-S294-94** | FIGHT9 + BJJ9 Argon verdicts | The Gemini project hit its monthly spend cap (HTTP 429): raise it at ai.studio/spend, or judge the loops by their probes only? |
+|  |  | **S377**  |  |  | *none yet* | S377: Argon's prompt fixed (it judged a 'women's bout with a referee' - docked the absent ref every round; men bare-chested, no ref by design): R6 base 3/10, main with the count 4/10. KNOCKCOUNT1: after a knockdown the clock holds, the winner goes to the far neutral corner, count 1-8 (KO 10), he rises at the sim's up_at -> BOX!, RSC -> STOPPED, KO -> the bout ends at once; review found + fixed 5 defects. Operator on the walks ('so bad', 'slide across', 'knees trembling'): StepRoot moves a body by the clip's planted foot; the library has no good walk (af_walk limps, loc_* squat 0.17 m - the clips) -> LOCOWALK1 on cursor via Ludo (operator: 'Try Ludo first'); knee tremble measured on DRAWN bones = FootPlant's procedural steps (foot mid-step 43 %, knee pumps 35 deg per step). Actions storage 100 % -> artifacts 2 days, 237 deleted. Digest: ops/research/S377_DIGEST.md. |

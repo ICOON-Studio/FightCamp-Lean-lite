@@ -19,7 +19,11 @@ extends RefCounted
 ##   ensure_ids(f)  entries(f) -> [{id, name, chain, score}]  row(entry) -> {id, moves, beats, counter, sig}
 ##   mastery(f, id)  usable(f, e)  signature(f, e)  long_signature(f, e)  drill_week(f, id, minutes, skill, tier)
 ##   rows_for_ring(f)  all_mastery(f) -> book + own {id: mastery}   lands_whole(f, e)   use_share(energy, named)
-##   ring_edge(f, energy, named)   gas(f, e)   whole_by_round(f, e) -> [bool x3]
+##   ring_edge(f, energy, whole_energy)   gas(f, e)   whole_by_round(f, e) -> [bool x3]   whole_at(f, e, energy)
+## - S378 PLANCOMBO1 the plan NAMES one (f["plan_combo"], PLAYBOOK > Game plan's GO-TO COMBINATION): named(f) is that entry
+##   while usable; it decides NAMED_SHARE of his combination exchanges while his tank still throws it whole (whole_at), and
+##   the ring picks it NAMED_SHARE / USE_SHARE as often (its row's "weight", Combos.pick). A long go-to wins the fresh rounds
+##   and stops paying once he is too tired to finish it - the choice is the trade.
 ## Pure static.
 
 const Combos := preload("res://scripts/rules/Combos.gd")
@@ -82,10 +86,17 @@ static func punches(chain: Array) -> Array:
 
 
 ## The combination as the ring knows a book row: its punches as beats and moves; a slip or roll first makes it a counter.
-static func row(e: Dictionary, sig := false) -> Dictionary:
+static func row(e: Dictionary, sig := false, go_to := false) -> Dictionary:
 	var p := punches(e.get("chain", []))
 	return {"id": str(e["id"]), "moves": p.map(func(x): return PUNCH_OF[str(x)]), "beats": p,
-		"counter": not (e.get("chain", []) as Array).is_empty() and DEFENCES.has(str(e["chain"][0])), "sig": sig}
+		"counter": not (e.get("chain", []) as Array).is_empty() and DEFENCES.has(str(e["chain"][0])), "sig": sig,
+		"weight": NAMED_SHARE / USE_SHARE if go_to else 1.0}
+
+
+## S378 PLANCOMBO1 the plan's go-to combination: the entry f["plan_combo"] names while he can use it, else {}.
+static func named(f: Dictionary) -> Dictionary:
+	var e := entry(f, str(f.get("plan_combo", "")))
+	return e if not e.is_empty() and usable(f, e) else {}
 
 
 static func mastery(f: Dictionary, id: String) -> float:
@@ -135,9 +146,10 @@ static func drill_week(f: Dictionary, id: String, minutes: float, skill: float, 
 ## His own usable combinations as ring rows (Combos.pick's own pool).
 static func rows_for_ring(f: Dictionary) -> Array:
 	var out: Array = []
+	var go_to := str(named(f).get("id", ""))
 	for e in entries(f):
 		if usable(f, e):
-			out.append(row(e, signature(f, e)))
+			out.append(row(e, signature(f, e), str(e["id"]) == go_to))
 	return out
 
 
@@ -165,17 +177,27 @@ static func worth(f: Dictionary, e: Dictionary) -> float:
 
 ## The power points his best own combination adds to a round (BoutNight._energy's bonus): per usable combination the edge
 ## is (worth - EDGE ok); for a long signature (4+ punches) the gamble adds LONG_EXTRA but lands at LONG_ODDS_WORTH odds
-## divided by win_odds(COMBO_CAP). Best of them x use_share(energy, named). Replaces Combos.energy_scale (Kalli S376).
-static func ring_edge(f: Dictionary, energy: float, named: bool = false) -> float:
+## divided by win_odds(COMBO_CAP). Best of them x use_share - NAMED for the plan's go-to while whole_at(whole_energy)
+## (BoutNight: the round's mid energy, as whole_by_round reads it; < 0 = `energy`). Replaces Combos.energy_scale (Kalli S376).
+static func ring_edge(f: Dictionary, energy: float, whole_energy := -1.0) -> float:
 	var best := 0.0
+	var go_to := str(named(f).get("id", ""))
 	for e in entries(f):
 		if not usable(f, e):
 			continue
 		var edge := worth(f, e) - float(PlanFight.EDGE["ok"])
 		if long_signature(f, e):
 			edge = (worth(f, e) - float(PlanFight.EDGE["ok"]) + LONG_EXTRA) * lands_whole(f, e) / ComboOdds.win_odds(COMBO_CAP)
-		best = maxf(best, edge)
-	return best * use_share(energy, named)
+		var go := str(e["id"]) == go_to and whole_at(f, e, whole_energy if whole_energy >= 0.0 else energy)
+		best = maxf(best, edge * use_share(energy, go))
+	return best
+
+
+## Whether his tank still throws it whole at this energy, by the ring's own rule (Combos.pick): his hand-speed cap shortened
+## as he tires, plus one for a signature.
+static func whole_at(f: Dictionary, e: Dictionary, energy: float) -> bool:
+	var run := Combos.max_len(energy, RoundStyle.combo_cap(RoundStyle.of_fighter(f))) + (1 if signature(f, e) else 0)
+	return run >= punches(e.get("chain", [])).size()
 
 ## How often it lands whole in an even exchange (ComboOdds' dice on its worth). A long signature lands at LONG_ODDS_WORTH
 ## (the gamble: it counts +1 when it lands whole, but 4-punch chains land less often than 2-3 punch ones, Kalli S376).
@@ -206,8 +228,6 @@ static func gas(f: Dictionary, e: Dictionary) -> float:
 ## Rounds 1..3 his tank still throws it whole mid-round: his hand-speed cap (+1 for a signature) at the mid-round energy of
 ## a bout at his conditioning (Combos' own round spend and rest).
 static func whole_by_round(f: Dictionary, e: Dictionary) -> Array:
-	var n := punches(e.get("chain", [])).size()
-	var cap_len := RoundStyle.combo_cap(RoundStyle.of_fighter(f)) + (1 if signature(f, e) else 0)
 	var cond := float((f.get("stats", {}) as Dictionary).get("conditioning", 55.0))
 	var mine := all_mastery(f)
 	var energy := Combos.TANK
@@ -215,8 +235,7 @@ static func whole_by_round(f: Dictionary, e: Dictionary) -> Array:
 	var out: Array = []
 	for r in ROUNDS:
 		var a := Combos.after_round(energy, debt, Combos.round_spend(mine, "", cond), cond)
-		var mid := (energy + float(a["bell"])) / 2.0
-		out.append(Combos.max_len(mid, cap_len) >= n)
+		out.append(whole_at(f, e, (energy + float(a["bell"])) / 2.0))
 		energy = float(a["next"])
 		debt = float(a["debt"])
 	return out

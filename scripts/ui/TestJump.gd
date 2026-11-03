@@ -19,6 +19,9 @@ extends RefCounted
 ##   FightCamp.exe -- jump=men            S371 update 68: quick start, then Danny Osei (a man, the men's lightweights) signed
 ##                                        through scouting, played on until his first men's offers arrive; opens on FIGHTS >
 ##                                        Offers (Lucy's records wall is on her Training tab)
+##   FightCamp.exe -- jump=gameplan      S378 update 74 (PLANCOMBO1): Lucy booked, two of her own combinations drilled (a
+##                                        3-punch signature, a jab-cross); opens on PLAYBOOK > Game plan's GO-TO row - name
+##                                        one, then Continue on to fight night
 ##   FightCamp.exe -- jump=pro            S329 update 31: quick start, Lucy put at the line (9-1 amateur) - the promoter's
 ##                                        offer opens: her debut tickets, what the gym pays now; sign and play to the debut
 ## The same button presses tools/fight3d_play.gd makes. It plays on its own save slot, never his career save.
@@ -28,11 +31,16 @@ const Injuries := preload("res://scripts/state/Injuries.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
 const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
+const OwnCombos := preload("res://scripts/rules/OwnCombos.gd")
+const ComboWords := preload("res://scripts/rules/ComboWords.gd")
 
 const SAVE_PATH := "user://test_jump_save.json"
-const JUMPS := ["fight", "fight_nofilm", "corner", "round3", "injury", "nationals", "pro", "taperoom", "camp", "belt", "men", "men_fight"]
+const JUMPS := ["fight", "fight_nofilm", "corner", "round3", "injury", "nationals", "pro", "taperoom", "camp", "belt", "men", "men_fight", "gameplan"]
 ## What two weeks of pad time on the 1-2 and the 1-2-3 leave her with (Combos.LEARN_AT is 30).
 const DRILLED := {"1-2": 62.0, "1-2-3": 48.0}
+## S378 jump=gameplan: her own combinations (PLAYBOOK > Combos rows) and their pad time - the first a signature.
+const OWN_BOOK := [{"name": "jab, cross, lead hook", "chain": ["jab", "cross", "lead_hook"], "score": 72},
+	{"name": "jab, cross", "chain": ["jab", "cross"], "score": 62}]
 
 
 ## S323 jump=round3: from fight night, start the bout and skip rounds 1 and 2 (the corner takes "lead"); round 3 then
@@ -146,6 +154,17 @@ static func run(main: Node, jump: String) -> bool:
 		main.act("fighter", str(f["id"]))
 		main.act("ftab", "3")
 		return not (f["camp"] as Dictionary).is_empty() and WeekTwist.card(str(f["twist"])).has("a")
+	if jump == "gameplan":
+		for mv in ["Jab", "Cross", "Lead hook"]:
+			f["moves"][mv] = maxf(float(f["moves"].get(mv, 0.0)), 70.0)
+		f["book"] = OWN_BOOK.duplicate(true)
+		OwnCombos.ensure_ids(f)
+		f["own_combos"] = {"own:1": ComboWords.SIGNATURE_AT, "own:2": 55.0}
+		_tidy(main, c)
+		if not main.modal.is_empty():
+			main.act("close")
+		main.act("go", "playbook:1")
+		return OwnCombos.rows_for_ring(f).size() == 2
 	if jump == "taperoom":
 		# S343: her camp with film study opens the tape room on her opponent (Q-S294-68).
 		main.act("fighter", str(f["id"]))

@@ -276,6 +276,7 @@ static func _energy(f: Dictionary, n: int, corner: String) -> Dictionary:
 		fb["energy"] = {"a": Combos.TANK - float(fb.get("hurt", 0.0)), "b": Combos.TANK, "qa": 0.0, "qb": 0.0}
 	var op := RoundStyle.from_opponent(fb["opp"])
 	var mine: Dictionary = OwnCombos.all_mastery(f)   # S375 COMBOPLAN1: his own drilled combinations count too
+	# S378 PLANCOMBO1: the plan's go-to pays NAMED_SHARE while he still throws it whole mid-round (ring_edge's whole_energy).
 	var cond_a := float(f["stats"].get("conditioning", 55.0))
 	var cond_b := RoundStyle.stat(op, "conditioning")
 	var a0 := PerkFight.second_wind(f, n, float(fb["energy"]["a"]))   # S355 Second wind: energy back at the round-3 bell
@@ -289,7 +290,7 @@ static func _energy(f: Dictionary, n: int, corner: String) -> Dictionary:
 	var b1 := float(rb["bell"])
 	fb["energy"] = {"a": ra["next"], "b": rb["next"], "qa": ra["debt"], "qb": rb["debt"]}
 	return {"a": a0, "b": b0, "a_end": a1, "b_end": b1,
-		"bonus": Combos.edge(mine, a0) + OwnCombos.ring_edge(f, a0) - Combos.tired_penalty(a1) + Combos.tired_penalty(b1)}
+		"bonus": Combos.edge(mine, a0) + OwnCombos.ring_edge(f, a0, (a0 + a1) / 2.0) - Combos.tired_penalty(a1) + Combos.tired_penalty(b1)}
 
 
 static func _finish(c: Career, f: Dictionary, m: Dictionary) -> void:

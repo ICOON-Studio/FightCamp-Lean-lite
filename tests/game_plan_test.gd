@@ -112,6 +112,27 @@ func _initialize() -> void:
 	gp._pick("mid", "loadup", "slip 2-3", false)
 	await _frames(2)
 	_check(PlanLines.find(f["arrows"], "mid", "loadup") >= 0, "test 6: the situation's answer is saved with its when")
+
+	# S378 PLANCOMBO1: the GO-TO row names one of his own drilled combinations; a second click clears it.
+	_check(gp.find_child("PlanGoTo", true, false) != null and gp.find_child("GoTo_own_1", true, false) == null,
+		"test 7: the go-to row shows, no pill before a combination is drilled")
+	for mv in ["Jab", "Cross"]:
+		f["moves"][mv] = maxf(float(f["moves"].get(mv, 0.0)), 60.0)
+	f["book"] = [{"name": "jab, cross", "chain": ["jab", "cross"], "score": 62}]
+	f["own_combos"] = {"own:1": 60.0}
+	gp._refresh()
+	await _frames(3)
+	var pill: Button = gp.find_child("GoTo_own_1", true, false)
+	_check(pill != null, "test 7: a drilled combination is a go-to pill")
+	if pill != null:
+		pill.pressed.emit()
+		await _frames(3)
+		_check(str(f.get("plan_combo", "")) == "own:1", "test 7: the pick names it on the plan (plan_combo own:1)")
+		var said: Label = gp.find_child("GoToRounds", true, false)
+		_check(said != null and said.text.contains("40%") and said.text.contains("R1"), "test 7: the card says its share and the rounds it holds whole")
+		(gp.find_child("GoTo_own_1", true, false) as Button).pressed.emit()
+		await _frames(3)
+		_check(str(f.get("plan_combo", "")) == "", "test 7: a second click clears it")
 	_end()
 
 

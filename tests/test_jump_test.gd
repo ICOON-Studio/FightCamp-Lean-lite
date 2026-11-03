@@ -98,6 +98,15 @@ func _initialize() -> void:
 			main.queue_free()
 			await process_frame
 			continue
+		if jump == "gameplan":
+			# S378 update 74 (PLANCOMBO1): two own combinations drilled, the Game plan's GO-TO row on screen.
+			for k in 4:
+				await process_frame
+			_check(ok and main.find_child("GoTo_own_1", true, false) != null and main.find_child("GoTo_own_2", true, false) != null
+				and main.save_path == TestJump.SAVE_PATH, "gameplan: the GO-TO row offers both of her drilled combinations")
+			main.queue_free()
+			await process_frame
+			continue
 		if jump == "taperoom":
 			# S343 (Q-S294-68): in her camp with film study, the tape room opens on her opponent's films.
 			var room: Node = main.get_node_or_null("TapeRoom")

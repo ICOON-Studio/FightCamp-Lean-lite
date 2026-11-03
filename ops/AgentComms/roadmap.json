@@ -3,16 +3,16 @@
  "updated": "2026-11-03",
  "author": "claude S294",
  "now": {
-  "id": "S377",
+  "id": "S378",
   "owner": "claude",
   "updated": "2026-11-03",
-  "summary": "S377: Argon's prompt fixed (it judged a 'women's bout with a referee' - docked the absent ref every round; men bare-chested, no ref by design): R6 base 3/10, main with the count 4/10. KNOCKCOUNT1: after a knockdown the clock holds, the winner goes to the far neutral corner, count 1-8 (KO 10), he rises at the sim's up_at -> BOX!, RSC -> STOPPED, KO -> the bout ends at once; review found + fixed 5 defects. Operator on the walks ('so bad', 'slide across', 'knees trembling'): StepRoot moves a body by the clip's planted foot; the library has no good walk (af_walk limps, loc_* squat 0.17 m - the clips) -> LOCOWALK1 on cursor via Ludo (operator: 'Try Ludo first'); knee tremble measured on DRAWN bones = FootPlant's procedural steps (foot mid-step 43 %, knee pumps 35 deg per step). Actions storage 100 % -> artifacts 2 days, 237 deleted.",
-  "next_action": "S378, in order: (1) COLLECT LOCOWALK1 (cursor/locowalk1) when it lands: open its eyes burst yourself + tools/knockdown_film.gd drawn bars (walk slide p90 <= 0.05 m/s, knee jerk p95 <= 4.5, hips <= 0.08 m low); if Ludo's clips fail the bars, put the mocap-pack purchase to the operator (his money). (2) With good clips: walk_back_guard -> KnockdownCount.WALK_CLIP (drop the overhead hide), then brief FIGHT9 to move the fight's footwork onto the step clips + StepRoot with FootPlant as ground contact only (the knee tremble). (3) FIGHT9 R7 (agy, from claude/fight9base = R5 + main 3264b79e): check each score against its verdict file; collect only at a real 9/10. (4) BJJ9 (Ziva round 10, armbar finish): collect at 9/10. (5) Kalli's named-combo share needs a plan option for own combinations (PlanLines/PlanFight) before use_share(named).",
-  "last_working_commit": "c8a3a434",
-  "verified_playable": "Knockdown count on main: tools/knockdown_film.gd default / stop=KO / stop=RSC / stop=KO skip all PASS except the known-red walk-slide line (drawn bones), filmed ops/previews/S377/knockdown_count.mp4 and checked with eyes bursts; 21 related tests green. Not in an exe export yet.",
-  "incomplete_blocked": "Walk + step clips (LOCOWALK1 running on cursor); the knee tremble (FootPlant's procedural steps) waits on those clips + StepRoot in Footwork; Kalli's named-combo share needs a plan option for own combinations; FIGHT9 (3/10) and BJJ9 (4/10) below 9/10.",
+  "summary": "S378: seat shells fixed fa59bedc - Cursor's 11-03 update ran the repo's PreToolUse hook without CLAUDE_PROJECT_DIR, every shell call exited 2, so LOCOWALK1 ran blind and wrote a sine-wave leg generator (no compile; PR #31 closed). LOCOWALK2 queued on cursor: Ludo's CAPTURED walk presets (walk_backward / backpedal / walk_forward / walk_relaxed) retargeted onto our boxer via clip_gltf, guard arms merged offline, no clip built in code. PLANCOMBO1 d55bb3ca: the Game plan names a GO-TO combination - one of his own drilled combinations decides 40% of the combination exchanges (not 33%) while still thrown whole, picked 1.21x as often in the ring; review workflow 0 defects. Update 74 exported (jump=gameplan, board Test button). FIGHT9R7 running on agy (base 4/10); BJJ9 r10 running on Ziva.",
+  "next_action": "S379, in order: (1) COLLECT LOCOWALK2 (cursor/locowalk2) when it lands - it launches when a PC slot frees (Ziva BJJ9 + agy FIGHT9R7 hold both): open its eyes burst yourself + tools/knockdown_film.gd drawn bars (walk slide p90 <= 0.05 m/s, walk knee jerk p95 <= 4.5 and flips <= 1.5/s, hips <= 0.08 m low, StepRoot travel 0.5-1.5 m a loop); no clip built in code. If Ludo's presets fail the bars, put the mocap-pack purchase to the operator (his money). (2) With good clips: walk_back_guard -> KnockdownCount.WALK_CLIP, then brief FIGHT9 to move the fight's footwork onto the step clips + StepRoot with FootPlant as ground contact only (the knee tremble). (3) FIGHT9 R7 (agy): check each score against its verdict file; collect only at a real 9/10. (4) BJJ9 (Ziva round 10, armbar finish): collect at 9/10. (5) Roster boxer tiles need face photos.",
+  "last_working_commit": "a0dee7ef",
+  "verified_playable": "Update 74 exe (Builds/, 2026-11-03): FightCamp.exe -- jump=gameplan runs headless with 0 errors and opens the Game plan's GO-TO row (TESTJUMP true); the row filmed in the editor build ops/previews/S378/plan_combo_goto.png; combo_plan / game_plan / test_jump + 9 related tests green. Knockdown count (S377) is in this build too.",
+  "incomplete_blocked": "Walk + step clips (LOCOWALK2 queued on cursor); the knee tremble waits on those clips + StepRoot in Footwork; FIGHT9 (4/10 base) and BJJ9 below 9/10; roster boxer tiles without faces.",
   "next_acceptance": "LOCOWALK1's clips pass the drawn-bone bars in tools/knockdown_film.gd (walk slide p90 <= 0.05 m/s, knee jerk p95 <= 4.5 deg/frame^2, hips <= 0.08 m below rest) and an eyes burst shows real steps; the corner walk then plays in the wide shot without the overhead hide.",
-  "awaiting_operator": "Nothing blocks the next step. Optional: play update 73; delete E:\\FightCamp\\wt\\MERGE_F9BASE; a footwork mocap-pack purchase only if Ludo's clips fail the bars."
+  "awaiting_operator": "Nothing blocks the next step. Optional: play update 74 (board Test: the plan's go-to combination); delete E:\\FightCamp\\wt\\MERGE_F9BASE; a footwork mocap-pack purchase only if Ludo's presets fail the bars."
  },
  "next": "Collect LOCOWALK1 (real walk + step clips, Ludo) against the drawn-bone bars; then FIGHT9 R7 and BJJ9 at a real 9/10.",
  "assessment": {
@@ -2031,13 +2031,13 @@
   "_rule": "Operator 2026-09-27 (S114): 'on the session end list me the queued tasks and what everything does and on the new session state those tasks at the start so i can verify integrity'. The LAST message of a session lists this queue (id, owner, state, what it does) above the git block; the FIRST message of the next session repeats it from `start` before any work. Update the queue whenever a task is assigned, lands, merges or changes state.",
   "tasks": [
    {
-    "id": "LOCOWALK1",
+    "id": "LOCOWALK2",
     "owner": "cursor",
     "milestone": "B",
     "discipline": "boxing",
     "title": "Real walk + step clips for our boxers (Ludo): walk back / walk in guard / walk relaxed; step in/out/left/right in guard",
     "what": "Operator S377: 'the walking on the clip is so bad', 'slide across', 'knees trembling'; 'Try Ludo first'. StepRoot plays them without sliding; then the fight's footwork moves onto them (knee tremble).",
-    "state": "[S377: RUNNING on cursor (wt LEAN_LOCOWALK1); bars on drawn bones in tools/knockdown_film.gd; brief ops/research/TASK_LOCOWALK1.md]",
+    "state": "[S378: LOCOWALK1 ran with a dead shell (hook bug, fixed fa59bedc) and was cancelled; LOCOWALK2 QUEUED on cursor - Ludo's captured presets via animate-preset + clip_gltf, guard arms merged offline; brief ops/research/TASK_LOCOWALK2.md] [S377: RUNNING on cursor (wt LEAN_LOCOWALK1); bars on drawn bones in tools/knockdown_film.gd; brief ops/research/TASK_LOCOWALK1.md]",
     "advances": "the fight's legs read as real boxing - walks and steps with planted feet, no slide, no knee tremble"
    },
    {
@@ -4449,7 +4449,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-03 17:06 board_sync",
+  "updated": "2026-11-03 17:40 board_sync",
   "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4590,10 +4590,11 @@
   },
   "working_now": [
    {
-    "title": "TASK LOCOWALK1 - CURSOR - real walking clips for our boxers (back off in guard, walk in guard, walk relaxed)",
+    "title": "TASK LOCOWALK2 - CURSOR - real walking clips from Ludo's captured presets (round 2 of LOCOWALK1)",
     "who": "cursor",
-    "started": "2026-11-03T16:53",
-    "run": "LOCOWALK1"
+    "started": "",
+    "run": "LOCOWALK2",
+    "state": "QUEUED - launches when a PC slot frees"
    },
    {
     "title": "BJJ9 round 10: the belt match to 9/10 on Argon (armbar finish pose first) - Ziva self-runs the loop",
@@ -4602,16 +4603,17 @@
     "run": "BJJ9R10"
    },
    {
-    "id": "FIGHT9",
+    "title": "TASK FIGHT9R7 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
     "who": "antigravity",
-    "title": "The live fight and every clip to 9/10 on Argon's judging - R7 queued on agy from claude/fight9base (R5 + main incl. the knockdown count); R6 3 -> 3/10 dropped"
+    "started": "2026-11-03T17:36",
+    "run": "FIGHT9R7"
    }
   ],
   "next": [
    {
-    "id": "PLAY73",
+    "id": "PLAY74",
     "who": "operator",
-    "title": "Play update 73: Danny's bout (legs, pace, a knockdown + replay), Ana's card + mat steps, Scouting cards",
+    "title": "Play update 74: the plan's go-to combination (board Test button), the knockdown count; update 73's knockdown + replay",
     "after": ""
    },
    {
@@ -4889,6 +4891,16 @@
   },
   "done_recently": [
    {
+    "id": "PLANCOMBO1",
+    "who": "claude",
+    "title": "S378: the Game plan names a GO-TO combination - 40% of the combination exchanges while thrown whole, picked more in the ring"
+   },
+   {
+    "id": "SEATHOOK1",
+    "who": "claude",
+    "title": "S378: seat shells work again - the repo hook no longer needs CLAUDE_PROJECT_DIR (Cursor's 11-03 update)"
+   },
+   {
     "id": "KNOCKCOUNT1",
     "who": "claude",
     "title": "S377: a knockdown is counted - neutral corner, the clock holds, 1-8 / 10, he gets up (BOX!) or the bout ends (STOPPED / KO)"
@@ -5055,7 +5067,7 @@
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
- "last_working_commit": "c8a3a434",
- "next_action": "S378, in order: (1) COLLECT LOCOWALK1 (cursor/locowalk1) when it lands: open its eyes burst yourself + tools/knockdown_film.gd drawn bars (walk slide p90 <= 0.05 m/s, knee jerk p95 <= 4.5, hips <= 0.08 m low); if Ludo's clips fail the bars, put the mocap-pack purchase to the operator (his money). (2) With good clips: walk_back_guard -> KnockdownCount.WALK_CLIP (drop the overhead hide), then brief FIGHT9 to move the fight's footwork onto the step clips + StepRoot with FootPlant as ground contact only (the knee tremble). (3) FIGHT9 R7 (agy, from claude/fight9base = R5 + main 3264b79e): check each score against its verdict file; collect only at a real 9/10. (4) BJJ9 (Ziva round 10, armbar finish): collect at 9/10. (5) Kalli's named-combo share needs a plan option for own combinations (PlanLines/PlanFight) before use_share(named).",
+ "last_working_commit": "a0dee7ef",
+ "next_action": "S379, in order: (1) COLLECT LOCOWALK2 (cursor/locowalk2) when it lands - it launches when a PC slot frees (Ziva BJJ9 + agy FIGHT9R7 hold both): open its eyes burst yourself + tools/knockdown_film.gd drawn bars (walk slide p90 <= 0.05 m/s, walk knee jerk p95 <= 4.5 and flips <= 1.5/s, hips <= 0.08 m low, StepRoot travel 0.5-1.5 m a loop); no clip built in code. If Ludo's presets fail the bars, put the mocap-pack purchase to the operator (his money). (2) With good clips: walk_back_guard -> KnockdownCount.WALK_CLIP, then brief FIGHT9 to move the fight's footwork onto the step clips + StepRoot with FootPlant as ground contact only (the knee tremble). (3) FIGHT9 R7 (agy): check each score against its verdict file; collect only at a real 9/10. (4) BJJ9 (Ziva round 10, armbar finish): collect at 9/10. (5) Roster boxer tiles need face photos.",
  "next_acceptance": "Each built fight change shown live in the exe with a still/film and its tests green: no referee in the ring - a clinch ends with both boxers pushing off back to range; a tired boxer's legs amber/red on the holo and her shots land lighter (a probe measures it); body shots draw a hit reaction; each bout's THE PLAN, LIT UP saved on the fighter page."
 }

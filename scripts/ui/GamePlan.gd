@@ -27,6 +27,7 @@ const StrikeBrowser := preload("res://scripts/ui/StrikeBrowser.gd")
 const PlanRecord := preload("res://scripts/rules/PlanRecord.gd")
 const PlanFile := preload("res://scripts/rules/PlanFile.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
+const OwnCombos := preload("res://scripts/rules/OwnCombos.gd")
 
 const PLACE_W := 250.0
 const OPT := Vector2(262, 64)
@@ -109,6 +110,7 @@ func _build() -> void:
 	if not _bout().is_empty() and vs == "":
 		add_child(_file())
 	add_child(_rounds())
+	add_child(_go_to())
 	add_child(UI.caps("WHERE THE FIGHT GOES"))
 	for p in PlanLines.PLACES:
 		add_child(_line(str(p), ""))
@@ -223,6 +225,47 @@ func _rounds() -> Control:
 		box.add_child(UI.label(("Done: " if done else "") + str(h[1]), UI.TINY, UI.GREEN if done else UI.GOLD, "body", true))
 	if hints.is_empty():
 		box.add_child(UI.muted("Push throws more and spends 1.35x gas; save breathes back. The tape tells you when to push.", UI.TINY, true))
+	return box
+
+
+## S378 PLANCOMBO1 the GO-TO row: one of his own drilled combinations named on the card (f["plan_combo"]). In the bout it
+## decides OwnCombos.NAMED_SHARE of his combination exchanges instead of USE_SHARE while he still throws it whole, and the
+## ring throws it more often; the rounds it holds whole are the trade. A second click clears it.
+func _go_to() -> Control:
+	var box := UI.vbox(4)
+	box.name = "PlanGoTo"
+	var row := UI.hbox(8)
+	row.add_child(UI.caps("GO-TO COMBINATION"))
+	var named := OwnCombos.named(f)
+	var go_id := str(named.get("id", ""))
+	var any := false
+	for e in OwnCombos.entries(f):
+		if not OwnCombos.usable(f, e):
+			continue
+		any = true
+		var id := str(e["id"])
+		var words := str(e["name"]).capitalize() + ("  (signature)" if OwnCombos.signature(f, e) else "")
+		var b := UI.button(words, "PillOn" if id == go_id else "Pill", func():
+			f["plan_combo"] = "" if id == go_id else id
+			_refresh())
+		b.name = "GoTo_" + id.replace(":", "_")
+		row.add_child(b)
+	box.add_child(row)
+	if not any:
+		box.add_child(UI.muted("None drilled yet: build one on the fighter page (Training) and put it on the pads.", UI.TINY, true))
+		return box
+	var share := "%d%% of the combination exchanges instead of %d%%" % [roundi(100.0 * OwnCombos.NAMED_SHARE), roundi(100.0 * OwnCombos.USE_SHARE)]
+	if named.is_empty():
+		box.add_child(UI.muted("Name one: it decides %s while thrown whole." % share, UI.TINY, true))
+		return box
+	var rounds: Array = []
+	var whole := OwnCombos.whole_by_round(f, named)
+	for i in whole.size():
+		rounds.append("R%d %s" % [i + 1, "whole" if bool(whole[i]) else "too tired"])
+	var col: Color = UI.GREEN if bool(whole[0]) else UI.RED
+	var said := UI.label("Decides %s while thrown whole:  %s" % [share, "  ·  ".join(rounds)], UI.TINY, col, "body", true)
+	said.name = "GoToRounds"
+	box.add_child(said)
 	return box
 
 
