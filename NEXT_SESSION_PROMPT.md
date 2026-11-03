@@ -1,3 +1,38 @@
+# S377 - next session (written S376, 2026-11-03)
+
+START in E:\FightCamp\Lean: `git pull && python ops/Tools/agent_comms.py start`. Digest: ops/research/S376_DIGEST.md.
+
+ARGON IS FIXING ALL THE CLIPS (operator S376: "let argon fix all the clips", "tell argon i expect to raise the quality to
+9/10 results"). FIGHT9 loop: R6 on agy Gemini 4 Argon High (the operator bought 2,500 Antigravity credits; he has Google AI
+Pro - NEVER suggest a bigger plan) from claude/fight9base (= cursor/fight9r5 + main). No round cap (LOOP_MAX 99), stops at a
+real 9/10. Judged film: Danny's men's bout with a knockdown at 70 s (judge_film fightjump=men_fight knockdown=70).
+Brief (TASK_FIGHT9R6.md, inherited by every round): knees tremble, knees bend sideways + feet turn on the canvas, bare toes
+through the boot soles, foot jumps 18 > 4 between clips; keep floor_clear_probe + knockdown_film green.
+
+CHECK EVERY SCORE AGAINST ITS VERDICT FILE before believing it (ops/previews/dispatch/FIGHT9R<n>/after.gemini_argon.md,
+the **Score** line). S376: the parser read Argon's "nowhere near a 9/10" as 9/10 and stopped the loop at a real 3.5 - fixed
+(read_verdict = the Score line); `python ops/Tools/seat_dispatch.py reloop <task>` re-reads stored verdicts, no spend.
+Collect FIGHT9 only at a real 9/10 with fight9_probe, knockdown_film, floor_clear_probe green; merge main into it first
+(agy has file tools only - merge main into a BASE yourself before an agy round).
+
+BJJ9 (Ziva) holds the belt match on ziva/bjj9 = cf5891cf, now with Claude's BJJMENU1 (each call a card: chance, points,
+gas, risk, what a miss costs). Not on main until BJJ9 is collected. Ziva's MCP was ECONNREFUSED all S376 - restart Ziva or
+move the BJJ9 loop to agy.
+
+BUILT S376 (all on main, exe exported, update 73 in Builds/WHAT_TO_TRY.txt; the operator has NOT played it yet):
+- legs: FootPlant STEP_REACH/CAP_REACH - knees locked straight 14-22 % -> 0-1 % (men and women, tools/men_fight_film.gd)
+- pace: recover/react speed-ups 2.5x -> 1.5x, OTHER_SPEED 1.1, SWING_S 0.2 (operator: "punch speed very fast")
+- KNOCKDOWN1: fall on the shot + slow-motion replay (KnockdownReplay + PoseRecorder); FloorClear keeps a downed boxer ON
+  the canvas (operator: "hands are below canvas wtf")
+- BJJCOACH1: coach's steps under Ana's mat; leg locks play leg locks
+- S375 playtest fixes: Ana card, Scouting face cards keep ranges, Drill it on own combos, written personalities
+- KALLINUMS1 (Qwen PR #27) collected
+OPEN for the operator to judge: update 73 in the exe (Danny's legs + a knockdown + Ana's card/steps).
+NOT DONE: Kalli's "plan line names the combination" share 0.40 (PlanBoard lines carry no combo id); the Roster's boxer tiles
+have no face photo while Ana's card does.
+
+--- S376 notes (written S375) ---
+
 # S374 - next session (written S373, 2026-11-03)
 
 CLINCHES (operator, end of the late S372 run): "clinch happen only when a fighter is desperate to break opponents combo

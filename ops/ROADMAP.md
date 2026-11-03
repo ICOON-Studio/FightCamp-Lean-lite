@@ -8,13 +8,13 @@ Updated 2026-11-03 by claude S294.
 
 ## Now
 
-**S373 — ?** *(claude)*
+**S376 — ?** *(claude)*
 
-S373: Gemini's monthly spend cap (HTTP 429) blinds both judged loops - board Q-S294-94; FIGHT9R2 probe 15/18 after Claude's probe fix (moving legs fixed, no referee), kept as R3 BASE; seat_dispatch holds a loop on an unjudged film and parses the brief's scripts. Built: the offer's weigh-in forecast (Danny 61.6 -> 60.5 red), men's force + norm words + calmer test steps (J_TESTS4, K_CALIB1), women's 2025 classes, graded moves cost less gas, FLOWBOUT1 on screen, tired legs red, exchanges-won label. Qwen PASSEDSTAMP1 queued.
+S376: the operator watched the men's bout ('legs broken completely', 'punch speed very fast', 'very unatural') - measured on both sexes: FootPlant locked knees 14-22 % -> 0-1 % (reach rule), whole-clip speed-ups capped 1.5x; Argon 3 -> 3/10 on main. Knockdowns drop on the shot + a slow-motion replay; a downed boxer lies ON the canvas (FloorClear; 'hands are below canvas'). Built: BJJCOACH1 (coach steps on Ana's mat), the S375 playtest fixes (Ana card, Scouting face cards, Drill it, personalities), Kalli's numbers (Qwen PR #27), BJJMENU1 on ziva/bjj9 (belt-match calls with chance/points/gas/risk). FIGHT9: R5's '9/10' was a parse bug (real 3.5) - fixed; R6 on agy Argon (operator bought 2,500 credits) from claude/fight9base, 'fix all the clips' to 9/10.
 
 ## Next
 
-Build the operator's fight changes (remove the referee: push-off; tired legs red + weaker shots; body-shot reactions; the flow per bout); then scouting -> plan (tape answer into the plan, the board reads the file + rounds, the plan visible in the ring).
+Collect FIGHT9 (Argon, all clips) at a real 9/10; collect BJJ9 with the belt-match move menu; then the operator's update-73 notes.
 
 ## Where the game actually is
 
@@ -274,6 +274,7 @@ Cursor once got a 50-line brief cut off at line 3 and said so.
 |  |  | **S370**  |  |  | *none yet* | S370: menus for the player - guide GIF, combo card strip, gains with causes, tape -> plan; PR #20 merged; seats on knees (agy), no-referee (Qwen), body shots (Ziva), plan records (Arena, full repo now). Digest research/S370_DIGEST.md. |
 |  |  | **S371**  |  |  | *none yet* | S371: judged loops to 9/10 (FIGHT9 Argon, BJJ9 Ziva; both 2/10 now); MALE1 men's divisions + scouting men; records wall (TestDay); no she/her (guard test); PR #21 FLOWBOUT1 + #22 KNEETRACK1 collected, #23 NOREF1 closed. Digest research/S371_DIGEST.md. |
 |  |  | **S372**  |  |  | *none yet* | S372: FIGHT9 round 1 never compiled (3 parse errors, filmed a frozen menu 1/10) - fixed on PR #24, round 2 builds on it with the operator's C218 legs note first; seat_dispatch compile gate + agy repair pass; Ziva BODYREACT1 collected (40/40 body shots react); men's test norms (J_TESTS3); records wall Day 1 vs today. Male MetaHuman boxers in (five restored from the old repo, bare-chested - operator: no tops; jump=men_fight; male body-map holo). Digest research/S372_DIGEST.md. |
+|  |  | **S376**  |  |  | *none yet* | S376: the operator watched the men's bout ('legs broken completely', 'punch speed very fast', 'very unatural') - measured on both sexes: FootPlant locked knees 14-22 % -> 0-1 % (reach rule), whole-clip speed-ups capped 1.5x; Argon 3 -> 3/10 on main. Knockdowns drop on the shot + a slow-motion replay; a downed boxer lies ON the canvas (FloorClear; 'hands are below canvas'). Built: BJJCOACH1 (coach steps on Ana's mat), the S375 playtest fixes (Ana card, Scouting face cards, Drill it, personalities), Kalli's numbers (Qwen PR #27), BJJMENU1 on ziva/bjj9 (belt-match calls with chance/points/gas/risk). FIGHT9: R5's '9/10' was a parse bug (real 3.5) - fixed; R6 on agy Argon (operator bought 2,500 credits) from claude/fight9base, 'fix all the clips' to 9/10. Digest: ops/research/S376_DIGEST.md. |
 
 ## Waiting on the operator
 

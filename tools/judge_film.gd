@@ -4,7 +4,8 @@ extends SceneTree
 ## Run under Godot's movie writer on the never-shown desktop, then make an mp4 for the board (ffmpeg):
 ##   python tools/hidden_desktop.py run --timeout=600 <godot.exe> --path . --windowed --resolution 1280x720 \
 ##       --audio-driver Dummy --fixed-fps 30 --write-movie <out>.avi --script res://tools/judge_film.gd -- [secs=60]
-## Prints JUDGE_FILM done t=<round seconds> (fails loudly if the round never started).
+## Prints JUDGE_FILM done t=<round seconds> (fails loudly if the round never started). S376 knockdown=<s>: a knockdown at that
+## round time (shot, fall, replay, on the canvas) so the judge sees the knockdown clips too.
 
 const TestJump := preload("res://scripts/ui/TestJump.gd")
 
@@ -32,6 +33,21 @@ func _initialize() -> void:
 		print("JUDGE_FILM FAIL the round never started")
 		quit(1)
 		return
+	var kd := -1.0
+	for a in OS.get_cmdline_user_args():
+		if str(a).begins_with("knockdown="):
+			kd = float(str(a).trim_prefix("knockdown="))
+	if kd > 0.0 and kd < secs:
+		# S376 knockdown=<s>: at that round time the next beats are a big landing cross and the count - the knockdown the round
+		# script puts in its last exchange - and the round's later beats are dropped, as after a real count. The judge then
+		# sees the shot, the fall, the slow-motion replay and the boxer on the canvas (KnockdownReplay, FloorClear).
+		await _until(func(): return float(view.t) >= kd, kd * 2.0 + 30.0)
+		var t0 := float(view.t)
+		view.next = (view.beats as Array).size()
+		view._fire({"t": t0, "who": "a", "move": "cross", "result": "lands", "big": true, "knockback": true, "caption": "", "def": ""})
+		await _until(func(): return float(view.t) >= t0 + 0.35, 10.0)
+		view._fire({"t": t0 + 0.35, "who": "b", "move": "count", "result": "none", "big": false, "knockback": false, "caption": "", "def": ""})
+		print("JUDGE_FILM knockdown at t=%.1f" % t0)
 	await _until(func(): return not bool(view.playing) or float(view.t) > secs, secs * 2.0 + 30.0)
 	print("JUDGE_FILM done t=%.1f" % float(view.t))
 	quit(0)

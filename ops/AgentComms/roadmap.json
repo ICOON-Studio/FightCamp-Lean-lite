@@ -3,19 +3,13 @@
  "updated": "2026-11-03",
  "author": "claude S294",
  "now": {
-  "id": "S373",
+  "id": "S376",
   "owner": "claude",
   "updated": "2026-11-03",
-  "summary": "S373: Gemini's monthly spend cap (HTTP 429) blinds both judged loops - board Q-S294-94; FIGHT9R2 probe 15/18 after Claude's probe fix (moving legs fixed, no referee), kept as R3 BASE; seat_dispatch holds a loop on an unjudged film and parses the brief's scripts. Built: the offer's weigh-in forecast (Danny 61.6 -> 60.5 red), men's force + norm words + calmer test steps (J_TESTS4, K_CALIB1), women's 2025 classes, graded moves cost less gas, FLOWBOUT1 on screen, tired legs red, exchanges-won label. Qwen PASSEDSTAMP1 queued. S374 (169e5fc4): an offer for a boxer over his class is dated where he makes weight (Bouts.makeable_day; Danny 32 days out, 59.79 kg) - the cut model untouched, J_WEIGHT1 may tune it. Late S372 for the operator: Gemini spend brake (gemini_meter.check, 8ae47866) + one film per loop round; PR #24 has main merged (body_react_probe hold 0.20 s < 0.35 - Argon's faster combos; FIGHT9R3 brief says so).",
-  "next_action": "S376, in order: (1) BJJCOACH1 - Ana's mat coach steps (operator S375 'Yes, build it', from BJJ DOJO on the itch scan, ops/research/S375_ITCH_MMA_SCAN.md + Miro frame 3458764689246359057): a numbered step list beside MatPlayer in Playbook._mat_book; write 4-6 coach steps per filmed syllabus move (BjjFilm.FILM ids) in a new rules file; split the GrappleMap sequence's keyframes evenly across the steps (GrapplePlayer._key_t / length_s / seek(t)); highlight the step playing, click a step = seek to its keyframe and hold, Pause and 0.5x/1x (GrapplePlayer._process advances by delta: add a speed var); test + still. (2) Then the other DO NEXT cards: BJJ move menu with chance/risk/stamina/points on the belt match calls; a clear knockdown collapse + slow-motion replay. (3) Loops: FIGHT9R4 on Cursor (agy Argon allowance spent until ~11-10, plan IS upgraded), Ziva BJJ9 round 9; collect at 9/10. (4) Kalli K_GRADED2 + K_COMBOPLAN1 numbers. (5) Playtest findings S375 still open: Ana a text row on Roster; scouting rows text-only and the scouted ranges vanish after invite; Danny's portrait on Fight camps is Lucy's photo (FighterCard.face -> HomeBoard.portrait ignores sex); Danny's personality text identical to Lucy's; the own-combo builder has no 'Drill it' button.",
-  "next_acceptance": "FIGHT9 / BJJ9 rounds scored by Argon once the cap is raised (else by their probes); PASSEDSTAMP1 collected by passed_stamp_test PASS; J_WEIGHT1 / K_GRADED1 numbers applied or recorded as matching.",
-  "last_working_commit": "169e5fc4",
-  "verified_playable": "Main exe (114a309): a quick-start career played 10 weeks live in the exe - two boxers (walk-in + a scouting trial), camps, tape room, Playbook plans, two live fights won with calls and corners, Ana's open gold; the new face-card pages work live.",
-  "incomplete_blocked": "claude/bjjmatch1 unmerged (waits for the operator's belt-match playtest); PR #20 CAMCLINCH1 uncollected (needs cam_view_probe run windowed); agy/refbreak1 superseded (remove the referee); the Miro production map was not moved in S369.",
-  "awaiting_operator": "Q-S294-94: raise the Gemini monthly spend cap (ai.studio/spend) or judge by probes only. One belt match (FightCamp.exe -- jump=grapple match=1) before claude/bjjmatch1 merges; play the skills award road (Training tab).",
-  "branch_note": "claude/bjjmatch1 e115893 (belt match, Ana body, HUD numbers; 118/118) not merged"
+  "summary": "S376: the operator watched the men's bout ('legs broken completely', 'punch speed very fast', 'very unatural') - measured on both sexes: FootPlant locked knees 14-22 % -> 0-1 % (reach rule), whole-clip speed-ups capped 1.5x; Argon 3 -> 3/10 on main. Knockdowns drop on the shot + a slow-motion replay; a downed boxer lies ON the canvas (FloorClear; 'hands are below canvas'). Built: BJJCOACH1 (coach steps on Ana's mat), the S375 playtest fixes (Ana card, Scouting face cards, Drill it, personalities), Kalli's numbers (Qwen PR #27), BJJMENU1 on ziva/bjj9 (belt-match calls with chance/points/gas/risk). FIGHT9: R5's '9/10' was a parse bug (real 3.5) - fixed; R6 on agy Argon (operator bought 2,500 credits) from claude/fight9base, 'fix all the clips' to 9/10.",
+  "next_action": "S377, in order: (1) COLLECT FIGHT9 rounds as they land - check each Argon score against its verdict file (ops/previews/dispatch/FIGHT9R<n>/after.gemini_argon.md, the Score line), merge main into the kept branch before collecting; collect only at a real 9/10 with fight9_probe + knockdown_film + floor_clear_probe green. (2) Ziva BJJ9: the belt match (ziva/bjj9 = cf5891cf, BJJMENU1 on it) - restart Ziva (MCP was ECONNREFUSED) or move the loop to agy; collect at 9/10 so the belt match + move menu reach the exe. (3) The operator plays update 73 (knockdown + replay, legs, S375 fixes) - read his notes first. (4) Kalli: K_COMBOPLAN1's 'plan line names the combination' share (0.40) is not wired - PlanBoard lines would need a combo id. (5) Roster boxer tiles have no face photo while Ana's card does - decide on faces for the boxers."
  },
- "next": "Build the operator's fight changes (remove the referee: push-off; tired legs red + weaker shots; body-shot reactions; the flow per bout); then scouting -> plan (tape answer into the plan, the board reads the file + rounds, the plan visible in the ring).",
+ "next": "Collect FIGHT9 (Argon, all clips) at a real 9/10; collect BJJ9 with the belt-match move menu; then the operator's update-73 notes.",
  "assessment": {
   "source": "Codex deep audit + Cursor televised-MMA gap assessment, both 2026-09-12",
   "bars": [
@@ -1524,6 +1518,11 @@
    "id": "S372",
    "date": "2026-11-03",
    "summary": "S372: FIGHT9 round 1 never compiled (3 parse errors, filmed a frozen menu 1/10) - fixed on PR #24, round 2 builds on it with the operator's C218 legs note first; seat_dispatch compile gate + agy repair pass; Ziva BODYREACT1 collected (40/40 body shots react); men's test norms (J_TESTS3); records wall Day 1 vs today. Male MetaHuman boxers in (five restored from the old repo, bare-chested - operator: no tops; jump=men_fight; male body-map holo). Digest research/S372_DIGEST.md."
+  },
+  {
+   "id": "S376",
+   "date": "2026-11-03",
+   "summary": "S376: the operator watched the men's bout ('legs broken completely', 'punch speed very fast', 'very unatural') - measured on both sexes: FootPlant locked knees 14-22 % -> 0-1 % (reach rule), whole-clip speed-ups capped 1.5x; Argon 3 -> 3/10 on main. Knockdowns drop on the shot + a slow-motion replay; a downed boxer lies ON the canvas (FloorClear; 'hands are below canvas'). Built: BJJCOACH1 (coach steps on Ana's mat), the S375 playtest fixes (Ana card, Scouting face cards, Drill it, personalities), Kalli's numbers (Qwen PR #27), BJJMENU1 on ziva/bjj9 (belt-match calls with chance/points/gas/risk). FIGHT9: R5's '9/10' was a parse bug (real 3.5) - fixed; R6 on agy Argon (operator bought 2,500 credits) from claude/fight9base, 'fix all the clips' to 9/10. Digest: ops/research/S376_DIGEST.md."
   }
  ],
  "blocked_on_operator": [
@@ -4436,7 +4435,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-03 S373",
+  "updated": "2026-11-03 S376",
   "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4579,30 +4578,21 @@
    {
     "id": "FIGHT9",
     "who": "antigravity",
-    "title": "The live fight to 9/10 on Argon's judging - R2 probe 15/18 (moving legs fixed, no referee; clinch breaks pass through), not judged: Gemini spend cap (Q-S294-94); R3 queued on agy/fight9r2 = the push-off"
+    "title": "The live fight AND every clip to 9/10 on Argon's judging (operator S376: 'let argon fix all the clips') - R6 on agy Argon High from claude/fight9base (R5 + main); film = Danny's bout with a knockdown at 70 s; knees tremble/sideways, toes through boots, foot jumps 18 > 4"
    },
    {
     "id": "BJJ9",
     "who": "ziva",
-    "title": "The BJJ belt match to 9/10 - Ziva at round 7 (f1e25860, last scored round 5 = 4/10); judging blocked by the Gemini spend cap"
-   },
-   {
-    "id": "PASSEDSTAMP1",
-    "who": "qwen",
-    "title": "Test-day moment: a PASSED stamp card in the week review when a skills grade passes (queued, seat_dispatch)"
-   },
-   {
-    "id": "J_WEIGHT1",
-    "who": "john",
-    "title": "Real amateur cut rates (gradual + fight week) and a measured club-women bleep figure (gbot)"
-   },
-   {
-    "id": "K_GRADED1",
-    "who": "kalli",
-    "title": "How much gas a passed grade should save in the ring (gbot)"
+    "title": "The BJJ belt match to 9/10 - ziva/bjj9 round 9 + Claude's BJJMENU1 (cf5891cf); Ziva MCP was down this session"
    }
   ],
   "next": [
+   {
+    "id": "PLAY73",
+    "who": "operator",
+    "title": "Play update 73: Danny's bout (legs, pace, a knockdown + replay), Ana's card + mat steps, Scouting cards",
+    "after": ""
+   },
    {
     "id": "GOALTESTS1",
     "who": "claude+john",
@@ -4878,6 +4868,36 @@
   },
   "done_recently": [
    {
+    "id": "KNOCKDOWN1",
+    "who": "claude",
+    "title": "S376: a knockdown drops him on the shot (down in ~0.9 s) and replays the shot in slow motion; a downed boxer lies ON the canvas (FloorClear)"
+   },
+   {
+    "id": "LEGFIX1",
+    "who": "claude",
+    "title": "S376: knees no longer lock straight (14-22 % -> 0-1 %, FootPlant reach); whole-clip speed-ups capped 1.5x (operator: 'very fast ... unatural')"
+   },
+   {
+    "id": "PLAYTEST375",
+    "who": "claude",
+    "title": "S376: Ana a face card on the Roster, Scouting face cards keep their ranges, Drill it on own combos, no two personalities alike"
+   },
+   {
+    "id": "BJJCOACH1",
+    "who": "claude",
+    "title": "S376: the coach's steps under Ana's mat - lit as the move plays, click a step to play it and hold, 0.5x; leg locks play leg locks"
+   },
+   {
+    "id": "KALLINUMS1",
+    "who": "qwen",
+    "title": "S376: Kalli's numbers - combo worth cap 10, the 4-punch signature gamble, tired/named shares, '+N combos by round 3'"
+   },
+   {
+    "id": "BJJMENU1",
+    "who": "claude",
+    "title": "S376 (on ziva/bjj9): the belt match calls as a move menu - chance, points, gas, risk, what a miss costs"
+   },
+   {
     "id": "TIREDLEGS1",
     "who": "claude",
     "title": "S373: an empty tank turns the legs red on the holo + HUD, shortens steps, lightens shots (operator S369)"
@@ -4916,36 +4936,6 @@
     "id": "BODYREACT1",
     "who": "ziva",
     "title": "Done: Body shots react (body_react_probe: 14 of 42 landed body shots show nothing)"
-   },
-   {
-    "id": "MALE1",
-    "who": "claude+john+kalli",
-    "title": "Done: Men's boxing: four men's divisions + 16 men (K_MEN1), Danny and Josh in scouting, sex on every fighter"
-   },
-   {
-    "id": "NOPRONOUN1",
-    "who": "claude",
-    "title": "Done: No she/her in game text again (the S354 rule; 224 lines had crept back) + a guard test"
-   },
-   {
-    "id": "FLOWBOUT1",
-    "who": "arena",
-    "title": "Every bout keeps its plan's results (PlanRecord, PR #21 collected)"
-   },
-   {
-    "id": "KNEETRACK1",
-    "who": "antigravity",
-    "title": "Knees over the toes: knee_probe 57 -> 6 failing clips (PR #22 collected)"
-   },
-   {
-    "id": "S370UI",
-    "who": "claude",
-    "title": "S370: guide GIF, combo card strip, gains with causes, tape answer reaches the plan, solid tale of the tape; PR #20 clinch camera merged"
-   },
-   {
-    "id": "UIPOLISH1",
-    "who": "claude",
-    "title": "Management pages as face cards: Training, Fight camps, Offers standing + next-offer date, Money bars"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -5069,7 +5059,7 @@
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
- "last_working_commit": "169e5fc4",
- "next_action": "S376, in order: (1) BJJCOACH1 - Ana's mat coach steps (operator S375 'Yes, build it', from BJJ DOJO on the itch scan, ops/research/S375_ITCH_MMA_SCAN.md + Miro frame 3458764689246359057): a numbered step list beside MatPlayer in Playbook._mat_book; write 4-6 coach steps per filmed syllabus move (BjjFilm.FILM ids) in a new rules file; split the GrappleMap sequence's keyframes evenly across the steps (GrapplePlayer._key_t / length_s / seek(t)); highlight the step playing, click a step = seek to its keyframe and hold, Pause and 0.5x/1x (GrapplePlayer._process advances by delta: add a speed var); test + still. (2) Then the other DO NEXT cards: BJJ move menu with chance/risk/stamina/points on the belt match calls; a clear knockdown collapse + slow-motion replay. (3) Loops: FIGHT9R4 on Cursor (agy Argon allowance spent until ~11-10, plan IS upgraded), Ziva BJJ9 round 9; collect at 9/10. (4) Kalli K_GRADED2 + K_COMBOPLAN1 numbers. (5) Playtest findings S375 still open: Ana a text row on Roster; scouting rows text-only and the scouted ranges vanish after invite; Danny's portrait on Fight camps is Lucy's photo (FighterCard.face -> HomeBoard.portrait ignores sex); Danny's personality text identical to Lucy's; the own-combo builder has no 'Drill it' button.",
+ "last_working_commit": "30390f93",
+ "next_action": "S377, in order: (1) COLLECT FIGHT9 rounds as they land - check each Argon score against its verdict file (ops/previews/dispatch/FIGHT9R<n>/after.gemini_argon.md, the Score line), merge main into the kept branch before collecting; collect only at a real 9/10 with fight9_probe + knockdown_film + floor_clear_probe green. (2) Ziva BJJ9: the belt match (ziva/bjj9 = cf5891cf, BJJMENU1 on it) - restart Ziva (MCP was ECONNREFUSED) or move the loop to agy; collect at 9/10 so the belt match + move menu reach the exe. (3) The operator plays update 73 (knockdown + replay, legs, S375 fixes) - read his notes first. (4) Kalli: K_COMBOPLAN1's 'plan line names the combination' share (0.40) is not wired - PlanBoard lines would need a combo id. (5) Roster boxer tiles have no face photo while Ana's card does - decide on faces for the boxers.",
  "next_acceptance": "Each built fight change shown live in the exe with a still/film and its tests green: no referee in the ring - a clinch ends with both boxers pushing off back to range; a tired boxer's legs amber/red on the holo and her shots land lighter (a probe measures it); body shots draw a hit reaction; each bout's THE PLAN, LIT UP saved on the fighter page."
 }

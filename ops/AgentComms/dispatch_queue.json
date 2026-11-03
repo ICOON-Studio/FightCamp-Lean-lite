@@ -56,8 +56,25 @@
   {
    "task": "KALLINUMS1",
    "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-03T11:19"
+   "status": "launched",
+   "queued": "2026-11-03T11:19",
+   "launched": "2026-11-03T11:21"
+  },
+  {
+   "task": "FIGHT9R5",
+   "seat": "cursor",
+   "status": "launched",
+   "queued": "2026-11-03T12:35",
+   "loop": "FIGHT9",
+   "launched": "2026-11-03T12:41"
+  },
+  {
+   "task": "FIGHT9R6",
+   "seat": "agy",
+   "status": "launched",
+   "queued": "2026-11-03T13:54",
+   "loop": "FIGHT9",
+   "launched": "2026-11-03T13:59"
   }
  ]
 }

@@ -23,6 +23,7 @@ const FightCast := preload("res://scripts/fight3d/FightCast.gd")
 const FightHud := preload("res://scripts/fight3d/FightHud.gd")
 const RangeBreath := preload("res://scripts/fight3d/RangeBreath.gd")
 const BeatFire := preload("res://scripts/fight3d/BeatFire.gd")
+const KnockdownReplay := preload("res://scripts/fight3d/KnockdownReplay.gd")
 
 ## The player's choice lasts the session.
 static var fast := false
@@ -69,6 +70,7 @@ var bodies := ["", ""]   # S320 each boxer's glb (BodyLive / the corner card dra
 var body: Node   # S318 BodyLive: the bout's body map + the scorebug figures (FightHud.build)
 var burn: Node   # S322 BodyBurn: per-part Burn, shown as guard height, steps, punch snap
 var bars: Node   # S345 HudBars: six bars a boxer + the round edge (FightHud.build)
+var replay: Node   # S376 KnockdownReplay: the slow-motion replay of a knockdown shot
 
 
 ## Called on every modal draw. True while a round is playing (the modal stays hidden then).
@@ -154,6 +156,11 @@ func setup(m_main: Node, m: Dictionary) -> void:
 	stage.setup({"glb": picks[0], "corner": "red", "scale": sc[0], "stance": str(f.get("stance", "orthodox"))},
 		{"glb": picks[1], "corner": "blue", "scale": sc[1], "stance": str(opp.get("stance", "orthodox"))})
 	crew = FightCast.crew(stage, bool(m.get("pro", false)) or total > 3)
+	# S376 KNOCKDOWN1: every knockdown's shot replays in slow motion once the fall has played (KnockdownReplay).
+	replay = KnockdownReplay.new()
+	replay.name = "KnockdownReplay"
+	add_child(replay)
+	replay.setup(self)
 	_build_hud()
 
 
@@ -334,10 +341,19 @@ func _ambient(dt: float) -> void:
 	var gap := 99.0
 	if next < beats.size():
 		gap = float(beats[next]["t"]) - t
-	if _quiet > 1.1 and gap > 1.2 and not stage.feet.phase() in ["clinch", "inside", "pivot"]:
+	if _quiet > 1.1 and gap > 1.2 and not stage.feet.phase() in ["clinch", "inside", "pivot"] and not _floored():
 		_quiet = 0.0
 		if _amb_rng.randf() < 0.65:
 			stage.circle(-1 if _amb_rng.randf() < 0.5 else 1, _amb_rng.randf_range(0.3, 0.55))
+
+
+## S376 KNOCKDOWN1: a boxer on the canvas (a knockdown / knockout clip) - the between-beats circling waits for the count.
+func _floored() -> bool:
+	for bx in stage.boxers:
+		var clip := str((bx["ap"] as AnimationPlayer).current_animation)
+		if clip.contains("knockout") or clip.contains("countdown"):
+			return true
+	return false
 
 
 func _say(text: String) -> void:

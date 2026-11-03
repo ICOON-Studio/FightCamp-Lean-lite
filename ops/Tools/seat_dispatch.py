@@ -531,11 +531,18 @@ def judge(mp4: Path, what: str, intent: str) -> dict:
 
 
 def read_verdict(text: str) -> tuple[str, str]:
-    """(score, verdict line) from a gemini_judge verdict file: the first N/10 on the first scored line after the Verdict heading."""
+    """(score, verdict line) from a gemini_judge verdict file. S376: the verdict's own sentence can name a target ("nowhere
+    near a 9/10 broadcast standard" read as 9/10 and stopped FIGHT9 at a real 3.5) - the score is the LAST N/10 on the line
+    that says "score" after the Verdict heading, else the last N/10 in that section."""
     tail = text[text.lower().rfind("verdict"):] if "verdict" in text.lower() else text
-    scored = next((l.strip(" *#->") for l in tail.splitlines() if SCORE_RE.search(l)), "")
-    line = scored or next((l.strip(" *#->") for l in tail.splitlines()[1:] if l.strip()), "")
-    return (SCORE_RE.search(scored).group(1) if scored else "?"), line[:240]  # the first score on the verdict's line
+    lines = tail.splitlines()
+    scored = next((l.strip(" *#->") for l in lines if "score" in l.lower() and SCORE_RE.search(l)), "")
+    if not scored:
+        hits = [l.strip(" *#->") for l in lines if SCORE_RE.search(l)]
+        scored = hits[-1] if hits else ""
+    line = next((l.strip(" *#->") for l in lines[1:] if l.strip() and "score" not in l.lower()), scored)
+    found = SCORE_RE.findall(scored)
+    return (found[-1] if found else "?"), line[:240]
 
 
 def short_title(task: str, title: str) -> str:
@@ -871,6 +878,23 @@ def main(argv: list[str]) -> int:
             sh(["git", "worktree", "remove", "--force", tmp], timeout=600)
         print(json.dumps(res, indent=1))
         print(post_board(task, res["before"], res["after"], branch))
+        return 0
+    if args[:1] == ["reloop"] and len(args) > 1:
+        # S376: re-read a round's stored before/after verdicts (a parse fix, no judge spend) and step its loop again.
+        task = args[1]
+        info = load(RUNS, {}).get("runs", {}).get(task, {})
+        contract, _why = brief_contract.check_brief(task)
+        films_ = dict(info.get("films") or {})
+        for which in ("before", "after"):
+            md = PREVIEWS / task / f"{which}.gemini_argon.md"
+            if md.is_file() and which in films_:
+                score, line = read_verdict(md.read_text(encoding="utf-8", errors="replace"))
+                films_[which] = dict(films_[which], score=score, line=line)
+        update_run(task, films=films_)
+        log(f"RELOOP {task}: before {films_.get('before', {}).get('score')}/10, after {films_.get('after', {}).get('score')}/10")
+        green = all(c.get("ok") for c in info.get("checks") or [])
+        if contract.get("loop") and films_.get("after", {}).get("score", "?") != "?":
+            print(log(loop_next(task, contract, films_.get("before") or {}, films_["after"], str(info.get("branch", "")), green)))
         return 0
     if args[:1] == ["rejudge"] and len(args) > 1:
         # S373: score a round's kept after-film again (the judge failed) and step its loop from the stored run.

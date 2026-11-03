@@ -16,6 +16,10 @@ const SHORT_JOIN := Vector2(0.09, 0.35)
 var stepped := [false, false]   # her next punch steps in (a Pro _ft take)
 var tired := [false, false]     # she has tired this round: her punches are the _hurt takes
 var last_contact := [-9.0, -9.0]  # view time her last punch lands (S302 combos)
+const FALL_AFTER_S := 0.12   # S376: a knockdown's fall starts this long after the shot lands
+## S376: the knockdown clips stand ~0.4 s before they drop (head 1.56 m -> the canvas by ~1.3 s, tools S376 measure):
+## they start this far in, so the head is down ~0.9 s after the punch (the scan's MMA Career Simulator: 0.8 s).
+const FALL_FROM_S := 0.4
 var last_hand := ["", ""]
 
 
@@ -55,9 +59,17 @@ func fire(v: Node, b: Dictionary) -> void:
 			tired[who] = true
 		"count":
 			# The sim's standing count (Knockdowns); a KO stays down and the winner celebrates.
-			stage.play(who, BeatClips.pick(BeatClips.OUT if v._stop == "KO" else BeatClips.DOWN, stage.has_move, rng.randf()))
+			# S376 KNOCKDOWN1 (the itch scan: "punch at 1.8 s, fully down by 2.6 s"): the count beat comes COMBO_GAP_S after
+			# the big shot's beat, before its glove even lands, so the fall used to start ahead of the punch and fight its
+			# hit reaction. The fall now starts FALL_AFTER_S after the shot's contact, and the shot replays in slow motion.
+			var shot := float(last_contact[other])
+			var wait := maxf(0.0, shot - float(v.t)) + FALL_AFTER_S
+			var fall := BeatClips.pick(BeatClips.OUT if v._stop == "KO" else BeatClips.DOWN, stage.has_move, rng.randf())
+			v.get_tree().create_timer(wait).timeout.connect(func(): stage.play(who, fall, 1.0, FALL_FROM_S))
+			if v.get("replay") != null and shot > -1.0:
+				v.replay.knockdown(who, shot)
 			if v._stop != "":
-				v.get_tree().create_timer(1.2).timeout.connect(stage.play.bind(other, BeatClips.pick(BeatClips.WIN, stage.has_move, rng.randf())))
+				v.get_tree().create_timer(wait + 1.2).timeout.connect(stage.play.bind(other, BeatClips.pick(BeatClips.WIN, stage.has_move, rng.randf())))
 		_:
 			_punch(v, b, who, other, move)
 

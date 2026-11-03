@@ -3,6 +3,27 @@
 Status: OPEN (S371, Claude; S372 rewritten after round 1 failed to compile). Operator S371: "gemini4 review the fight with the fixes and rate it again", "and then tell
 gemini to reach to 9/10", "let argon do all the fixes until its 9/10". Main scored 3/10 (verdict below).
 
+## OPERATOR S376 - ARGON FIXES ALL THE CLIPS, TO 9/10
+His words, to you: "let argon fix all the clips", "tell argon i expect to raise the quality to 9/10 results", "tell argon
+to work on the animation until the quality reach 9/10". The loop no longer stops at a round count - only at 9/10.
+Every clip the fight plays is yours, not only the live round's look. What he saw himself, worst first:
+1. KNEES TREMBLE ("knees also tremble on the clips i see on the board") - a knee that shivers frame to frame while the
+   stance holds. Bar: over 40 s of the men's round, each knee's angle frame-to-frame second difference (jerk) p95 under
+   a bar you measure on the nofeet/noknee control arms (tools/men_fight_film.gd writes the per-frame legs.csv) - the
+   tremble is a modifier fight (FootPlant / KneeTrack / the join smoother), so bisect with the control args first.
+2. KNEES BEND THE WRONG WAY ("knees bent unaturally, i told you before something is wrong") - on the canvas after a
+   knockdown the knees kink sideways and the feet turn so the soles face the camera (pro_knockout_countdown_v1 at
+   5.6 s, Danny mh_boxer_02 - tools/fight3d_clip_sheet.gd prefix=pro_knockout glb=mh_boxer_02). A knee is a hinge: it
+   bends only forward of the thigh, the foot follows the knee. Bar: in every clip of BeatClips' pools, the knee's bend
+   axis stays within 25 deg of the hip's side axis.
+3. BARE TOES SHOW THROUGH THE BOOT SOLES (the same still: the sole is open, the foot inside shows) - FighterKit's boots.
+4. Hands under the canvas on the floor - FIXED ON MAIN (scripts/fight3d/FloorClear.gd + tools/floor_clear_probe.gd,
+   lowest glove 0.085 m, pelvis on the canvas): merge main, keep floor_clear_probe green.
+5. The knockdown: main now drops him on the shot (BeatFire FALL_AFTER_S / FALL_FROM_S, head 0.74 m down 0.8 s after
+   the punch) and replays the shot in slow motion (KnockdownReplay + PoseRecorder) - keep tools/knockdown_film.gd green.
+The judged film from R5 is Danny's men's bout WITH a knockdown at 70 s (FILM below: knockdown=70), so Argon sees the
+fall, the replay and the boxer on the canvas.
+
 ## OPERATOR S376 - READ FIRST, it overrules every earlier timing choice
 From R5 the judged film is DANNY'S MEN'S BOUT (FILM: fightjump=men_fight) - the bout he watched; the first R5 score is
 the new baseline (the earlier rounds filmed Lucy's).
@@ -102,8 +123,8 @@ argument count against the function you call.
 ## Contract
 OWNS: scripts/fight3d/, scripts/rules/MoveWords.gd, assets/data/clip_contact.json, assets/data/clip_recovery.json, assets/data/clip_travel.json, tools/fight9_probe.gd
 RED_TEST: tools/fight9_probe.gd -> FIGHT9 failures=0
-REGRESSION: fight_flow_test, golden_path_test, ring_lens_test, clinch_rest_test, beat_clips_test
+REGRESSION: fight_flow_test, golden_path_test, ring_lens_test, clinch_rest_test, beat_clips_test, playtest_s375_test
 VISUAL: yes
-FILM: --resolution 1280x720 --script res://tools/judge_film.gd -- secs=90 fightjump=men_fight
+FILM: --resolution 1280x720 --script res://tools/judge_film.gd -- secs=90 fightjump=men_fight knockdown=70
 BASE: agy/fight9r2
 LOOP: FIGHT9 9

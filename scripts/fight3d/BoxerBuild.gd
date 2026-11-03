@@ -21,6 +21,7 @@ const MirrorClip := preload("res://scripts/fight3d/MirrorClip.gd")
 const GuardLife := preload("res://scripts/fight3d/GuardLife.gd")
 const KneeTrack := preload("res://scripts/fight3d/KneeTrack.gd")
 const FootPlant := preload("res://scripts/fight3d/FootPlant.gd")
+const FloorClear := preload("res://scripts/fight3d/FloorClear.gd")
 const TiredSag := preload("res://scripts/fight3d/TiredSag.gd")
 
 
@@ -119,8 +120,10 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 	# S306: her planted feet stay where they stand; a foot steps when her body has moved off it.
 	# S314 `nostagger` = the clip's own stance spread (the control arm of gap 7).
 	var fp := FootPlant.attach(skel, ap, kt, null if OS.get_cmdline_user_args().has("nostagger") else body) if not OS.get_cmdline_user_args().has("nofeet") else null
+	# S376 (operator: "hands are below canvas wtf"): a boxer on the canvas lies ON it - body lifted, arms swung up out of it.
+	var fc := FloorClear.attach(skel) if not OS.get_cmdline_user_args().has("nofloor") else null
 	ap.animation_finished.connect(stage._on_finished.bind(index))
-	return {"node": body, "skel": skel, "ap": ap, "gloves": gl, "js": js, "reach": pr, "snap": hs, "gclear": gc, "tuck": gt, "sag": ts, "knee": kt, "feet": fp, "south": south, "front": gl.front_m(),
+	return {"node": body, "skel": skel, "ap": ap, "gloves": gl, "js": js, "reach": pr, "snap": hs, "gclear": gc, "tuck": gt, "sag": ts, "knee": kt, "feet": fp, "floor": fc, "south": south, "front": gl.front_m(),
 		"pos": Vector3.ZERO, "vel": Vector3.ZERO, "move_left": 0.0,
 		"aim_m": 0.0, "aim_dir": 0.0, "hold_m": 0.0}
 
