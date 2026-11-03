@@ -1,3 +1,18 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 68 (2026-11-03): MEN'S BOXING, THE RECORDS WALL, NO SHE/HER
+=====================================================================================================
+
+ 1. Men's boxing: FIGHTERS > Scouting now has two men - Danny Osei (lightweight, 60 kg) and Josh Harper (welterweight,
+    70 kg). Invite one to a trial and sign him: he boxes in the MEN'S divisions (England Boxing men's classes 57.5 / 60
+    / 70 / 75 kg), his offers and the mismatch are men, WORLD > Rankings shows his division's men, the fight poster says
+    MEN'S. NOT YET: the 3D fight still dresses him in a woman's body - the male MetaHuman boxers are not built yet.
+    His bleep test is hidden until John's men's norms arrive.
+ 2. The records wall (Training tab, under the award road): every Sunday the coach times three tests - the bleep test,
+    punches in 10 seconds, the rear hand's force - and a new best goes up in blue with the old number crossed out.
+    The week review says "NEW BEST punches in 10 s: 49 punches (was 48)". No luck in it: train the stat, the number moves.
+ 3. No she/her anywhere in the game's text again (names, "the opponent", or no pronoun), so a man's screens read right.
+ 4. Behind the scenes: Gemini 4 Argon now fixes the fight itself, round by round, until it scores the fight 9/10
+    (it gave today's fight 2/10); Ziva does the same for the BJJ belt match (2/10). The knees now point over the toes.
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 67 (2026-11-03): COMBOS AS CARDS, GAINS WITH THEIR CAUSE, THE TAPE REACHES THE PLAN
 =====================================================================================================================
 

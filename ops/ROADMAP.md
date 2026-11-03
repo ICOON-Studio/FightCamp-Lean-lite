@@ -10,7 +10,7 @@ Updated 2026-11-03 by claude S294.
 
 **S369 — ?** *(claude)*
 
-S370: the player experience in the menus (operator). Playthrough guide GIF (tools/guide_tour.gd + guide_gif.py), PLAYBOOK > Combos as a card strip with real numbers, week review names the sessions behind each gain, the tape answer always reaches the plan, tale-of-tape card solid; PR #20 clinch camera merged. Seats: agy KNEETRACK1, Qwen NOREF1, Ziva BODYREACT1, Arena FLOWBOUT1 (full repo), John J_TESTS1. Digest research/S370_DIGEST.md.
+S371: Argon judged the fight (2/10) and the BJJ match (2/10); both now loop to 9/10 (Argon fixes the fight round by round, Ziva the mat); men's boxing (4 men's divisions, 16 men, Danny and Josh in scouting); the records wall; no she/her again; PR #21 + #22 collected, #23 closed.
 
 ## Next
 
@@ -272,3 +272,4 @@ Cursor once got a 50-line brief cut off at line 3 and said so.
 |  |  | **S367**  |  |  | *none yet* | S367: playtest + critic review 6.5/10; Gemini judges video (Flash pilot, Argon on a live round 2/10, claims checked on frames); Gemini spend meter on the board; fight defects queued. Digest research/S367_DIGEST.md. |
 |  |  | **S369**  |  |  | *none yet* | S369: UI face cards merged; BJJ belt match + Ana's body + HUD numbers on claude/bjjmatch1; agy on Argon; planning playtest; operator: remove the referee, tired legs, body reactions, flow per bout. Digest research/S369_DIGEST.md. |
 |  |  | **S370**  |  |  | *none yet* | S370: menus for the player - guide GIF, combo card strip, gains with causes, tape -> plan; PR #20 merged; seats on knees (agy), no-referee (Qwen), body shots (Ziva), plan records (Arena, full repo now). Digest research/S370_DIGEST.md. |
+|  |  | **S371**  |  |  | *none yet* | S371: judged loops to 9/10 (FIGHT9 Argon, BJJ9 Ziva; both 2/10 now); MALE1 men's divisions + scouting men; records wall (TestDay); no she/her (guard test); PR #21 FLOWBOUT1 + #22 KNEETRACK1 collected, #23 NOREF1 closed. Digest research/S371_DIGEST.md. |

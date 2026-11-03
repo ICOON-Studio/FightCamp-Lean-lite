@@ -16,6 +16,9 @@ extends RefCounted
 ##                                        (the short-notice swap when the bout is 2+ weeks out); opens on her Training tab -
 ##                                        the coach's whiteboard
 ##   FightCamp.exe -- jump=belt           S362 update 64: quick start, Ana Ribeiro's belt road (the no-gi Record tab)
+##   FightCamp.exe -- jump=men            S371 update 68: quick start, then Danny Osei (a man, the men's lightweights) signed
+##                                        through scouting, played on until his first men's offers arrive; opens on FIGHTS >
+##                                        Offers (Lucy's records wall is on her Training tab)
 ##   FightCamp.exe -- jump=pro            S329 update 31: quick start, Lucy put at the line (9-1 amateur) - the promoter's
 ##                                        offer opens: her debut tickets, what the gym pays now; sign and play to the debut
 ## The same button presses tools/fight3d_play.gd makes. It plays on its own save slot, never his career save.
@@ -27,7 +30,7 @@ const Roster := preload("res://scripts/state/Roster.gd")
 const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
 
 const SAVE_PATH := "user://test_jump_save.json"
-const JUMPS := ["fight", "fight_nofilm", "corner", "round3", "injury", "nationals", "pro", "taperoom", "camp", "belt"]
+const JUMPS := ["fight", "fight_nofilm", "corner", "round3", "injury", "nationals", "pro", "taperoom", "camp", "belt", "men"]
 ## What two weeks of pad time on the 1-2 and the 1-2-3 leave her with (Combos.LEARN_AT is 30).
 const DRILLED := {"1-2": 62.0, "1-2-3": 48.0}
 
@@ -88,6 +91,16 @@ static func run(main: Node, jump: String) -> bool:
 		return main.find_child("GrapplerPage", true, false) != null
 	if jump == "nationals":
 		return _to_nationals(main, c, f)
+	if jump == "men":
+		Roster.prospect(c, "danny")["state"] = "invited"
+		var m := Roster.sign_prospect(c, "danny", ["signature"])
+		for i in 40:
+			if not (m["offers"] as Array).is_empty():
+				break
+			_tidy(main, c)
+			main.run_to_stop()
+		main.act("go", "fights:0")
+		return str(m.get("sex", "")) == "m" and not (m["offers"] as Array).is_empty()
 	if jump == "pro":
 		f["w"] = 9
 		f["l"] = 1

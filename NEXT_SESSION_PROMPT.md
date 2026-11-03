@@ -1,4 +1,27 @@
-# S371 - next session (written S370, 2026-11-03)
+# S372 - next session (written S371, 2026-11-03)
+
+Start in E:\FightCamp\Lean: `git pull && python ops/Tools/agent_comms.py start`. Digest: ops/research/S371_DIGEST.md.
+TWO JUDGED LOOPS ARE RUNNING (operator: "let argon do all the fixes until its 9/10", "fix bjj until its 9/10"):
+- FIGHT9 on Antigravity/Argon via seat_dispatch: each round's brief is ops/research/TASK_FIGHT9R<n>.md, written by
+  loop_next with Argon's newest verdict; read seat_dispatch.log "LOOP FIGHT9" lines and live_runs.json. Main = 2/10.
+  A round that stalls (same score twice, or a crash) -> read its verdict + output and sharpen the next brief by hand.
+  At 9/10 (or 12 rounds): collect the last KEPT branch by diff + the probes + a film you watch yourself, then merge.
+- BJJ9 on Ziva (her chat on 127.0.0.1:7012, queued after BODYREACT1): she logs rounds in ops/research/BJJ9_ROUNDS.md,
+  branch ziva/bjj9 from claude/bjjmatch1. Belt match = 2/10. Collect BODYREACT1 first (body_react_probe + film).
+ORDER: (1) the loops (above) + collect BODYREACT1; (2) male MetaHuman boxers - the operator was asked (build in Unreal
+with Chrome closed on a GREEN PC, ops/Tools/metahuman, cfg sex "M"); then Faces picks bodies by sex and guide_tour signs
+Danny/Josh + follows Ana (memory feedback-playthrough-two-fighters-s370); (3) John J_TESTS3 (men's bleep/force/speed,
+gbot thread John) -> SkillAwards.BLEEP_SEXES + TestDay men's anchors; (4) GOALTESTS1 phase 2 next: the test-day moment
+(3D pad round + PASSED stamp), the passed grade upgrades its move cards, Day 1 vs today (GOALIDEAS_SUMMARY_S371.md);
+(5) FLOWBOUT1 wiring: Record tab + Playbook plan-line win rates (PlanRecord.rates/verdict); (6) women's limits 61.2/66 ->
+60/65 (J_MEN1: not in any current rulebook) with Lucy's cut checked.
+MIRO (S371): production map P0-P9 updated; the seats' ideas frame https://miro.com/app/board/uXjVEV03QWA=/?moveToWidget=3458764689220929557 has a YOUR NOTES lane - read his notes there at start. The DONE columns are full: archiving old DONE cards = deleting them, ask him first. Stale cards left in place: P1 NOW three Goose cards, P2 NOW 'Agent run in flight', P3 NOW Cursor pictures + NEXT 'Waits on your answer'.
+TRAPS: export.sh runs the suite at JOBS=4 - beside agents run `JOBS=2 sh tools/export.sh`; a stopped background shell
+leaves xargs + Godot test children running (kill them by command line). Argon reads only its worktree (file tools
+only): anything it must read goes on main (ops/research is fine - Godot ignores ops/). The judge_film.gd movie records
+at 1920x1080 whatever --resolution says.
+
+--- S371 notes (written S370) ---
 
 SEATS AT HANDOVER: KNEETRACK1 DONE -> PR #22 (checks 5/5 PASS; Argon 2->2/10 but it judged a turntable as a broadcast and
 said the standing clips keep the knees over the toes) - collect with knee_probe -- layer=1 + your own look at the orbit film;

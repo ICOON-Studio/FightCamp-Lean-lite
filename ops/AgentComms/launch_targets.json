@@ -128,6 +128,20 @@
    "gui": false
   },
   {
+   "id": "fightcamp_test_men",
+   "label": "Test: men's boxing + the records wall (update 68)",
+   "why": "A quick-start career with Danny Osei, a man, signed through scouting into the men's lightweights; it plays on until his first men's offers arrive and opens on FIGHTS > Offers (the even match and the mismatch are men). Lucy's Training tab shows the records wall after the first Sunday. The 3D fight still shows a woman's body for him. Its own save slot.",
+   "candidates": [
+    "%WINDIR%/System32/schtasks.exe"
+   ],
+   "args": [
+    "/run",
+    "/tn",
+    "FightCamp Play test men"
+   ],
+   "gui": false
+  },
+  {
    "id": "claude",
    "label": "Claude desktop app",
    "why": "The app crashed and the operator is on the phone. Start it here, then type /remote-control in its prompt box to drive this PC from the phone - the CLI route does not exist on this machine (HANDOFF 2026-09-13: `claude` is not on PATH, and it is absent from .local/bin, Programs and npm). LAUNCHED BY AppUserModelID, not by path: Claude is an MSIX package under C:/Program Files/WindowsApps, which is ACL-locked and carries a version that changes on every update. On 2026-09-21 the path search resolved ready=true against a STALE STAGED COPY in WindowsApps.tmp - version 1.8555.1.0 while the installed package was 2.2553.1.0 - so the button would have started an app a year out of date. The candidates below are kept as a fallback for a future non-packaged build.",

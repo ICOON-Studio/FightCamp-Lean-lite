@@ -6,8 +6,8 @@
   "id": "S369",
   "owner": "claude",
   "updated": "2026-11-03",
-  "summary": "S370: the player experience in the menus (operator). Playthrough guide GIF (tools/guide_tour.gd + guide_gif.py), PLAYBOOK > Combos as a card strip with real numbers, week review names the sessions behind each gain, the tape answer always reaches the plan, tale-of-tape card solid; PR #20 clinch camera merged. Seats: agy KNEETRACK1, Qwen NOREF1, Ziva BODYREACT1, Arena FLOWBOUT1 (full repo), John J_TESTS1. Digest research/S370_DIGEST.md.",
-  "next_action": "S371, in order: (1) MALE1 men's boxing (operator: every playthrough = a male boxer + Ana on the mat): collect John J_MEN1 + Kalli K_MEN1, f[\"sex\"] + men's divisions + pronoun helper + walk-in/scouting men, build 4-6 male MetaHumans in Unreal on a GREEN PC, guide_tour with both fighters; (2) collect the seats - Arena FLOWBOUT1 PR, agy KNEETRACK1 (rerun from the shell 01:19), Qwen NOREF1, Ziva BODYREACT1 (then WEIGHIN3D1); (3) GOALTESTS1 phase 2 (test day, records wall, Power/Speed on J_TESTS2); (4) the plan in the ring; (5) belt match before claude/bjjmatch1 merges.",
+  "summary": "S371: Argon judged the fight (2/10) and the BJJ match (2/10); both now loop to 9/10 (Argon fixes the fight round by round, Ziva the mat); men's boxing (4 men's divisions, 16 men, Danny and Josh in scouting); the records wall; no she/her again; PR #21 + #22 collected, #23 closed.",
+  "next_action": "S372, in order: (1) the judged loops - FIGHT9 on Antigravity/Argon (seat_dispatch LOOP rounds, main 2/10) and BJJ9 on Ziva (after BODYREACT1, belt match 2/10): read each round, sharpen a stalled brief, collect at 9/10; collect Ziva BODYREACT1; (2) male MetaHuman boxers (operator asked; Unreal with Chrome closed) then guide_tour with a man + Ana; (3) John J_TESTS3 men's norms -> TestDay/SkillAwards; (4) GOALTESTS1 phase 2: test-day moment, grade upgrades its cards, Day 1 vs today; (5) FLOWBOUT1 into Record + Playbook; (6) women's limits 60/65.",
   "next_acceptance": "Each seat collected by its own probe line (PASS) and a film the operator can watch; GOALTESTS1 only after his yes.",
   "last_working_commit": "b980127",
   "verified_playable": "Main exe (114a309): a quick-start career played 10 weeks live in the exe - two boxers (walk-in + a scouting trial), camps, tape room, Playbook plans, two live fights won with calls and corners, Ana's open gold; the new face-card pages work live.",
@@ -1514,6 +1514,11 @@
    "id": "S370",
    "date": "2026-11-03",
    "summary": "S370: menus for the player - guide GIF, combo card strip, gains with causes, tape -> plan; PR #20 merged; seats on knees (agy), no-referee (Qwen), body shots (Ziva), plan records (Arena, full repo now). Digest research/S370_DIGEST.md."
+  },
+  {
+   "id": "S371",
+   "date": "2026-11-03",
+   "summary": "S371: judged loops to 9/10 (FIGHT9 Argon, BJJ9 Ziva; both 2/10 now); MALE1 men's divisions + scouting men; records wall (TestDay); no she/her (guard test); PR #21 FLOWBOUT1 + #22 KNEETRACK1 collected, #23 NOREF1 closed. Digest research/S371_DIGEST.md."
   }
  ],
  "blocked_on_operator": [],

@@ -3,6 +3,7 @@ extends SceneTree
 ## buttons - with film study (the coach's pick shows) and without - on their own save slot, never his career save.
 
 const Champs := preload("res://scripts/state/Champs.gd")
+const Data := preload("res://scripts/state/Data.gd")
 const TestJump := preload("res://scripts/ui/TestJump.gd")
 const SaveGame := preload("res://scripts/state/SaveGame.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
@@ -25,6 +26,18 @@ func _initialize() -> void:
 			_check(ok and not (f["bout"] as Dictionary).is_empty() and str((f.get("injury", {}) as Dictionary).get("type", "")) == "hand"
 				and (main.modal.get("buttons", []) as Array).size() == 2, "injury: the hand injury asks pull out or fight hurt")
 			_check(str(main.route.get("fighter", "")) == str(f["id"]) and main.save_path == TestJump.SAVE_PATH, "injury: her fighter page, its own save slot")
+			main.queue_free()
+			await process_frame
+			continue
+		if jump == "men":
+			# S371 update 68: Danny Osei signed through scouting, his first men's offers on FIGHTS > Offers.
+			var dn: Dictionary = {}
+			for g in main.career.fighters:
+				if str(g["id"]) == "danny":
+					dn = g
+			var names: Array = (dn.get("offers", []) as Array).map(func(o): return str(o["opp"]["name"]))
+			_check(ok and str(main.route.get("area", "")) == "fights" and str(dn.get("div", "")) == "mlw"
+				and names.has(str(Data.DIVISIONS["mlw"]["mismatch"])), "men: Danny's men's offers on FIGHTS > Offers (%s)" % ", ".join(names))
 			main.queue_free()
 			await process_frame
 			continue
