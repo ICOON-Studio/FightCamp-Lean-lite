@@ -1,3 +1,37 @@
+# S378 - next session (written S377, 2026-11-03)
+
+START in E:\FightCamp\Lean: `git pull && python ops/Tools/agent_comms.py start`. Digest: ops/research/S377_DIGEST.md.
+
+THE OPERATOR'S LEGS COMPLAINTS ARE THE PRIORITY (S377, watching the knockdown film): "the walking on the clip is so bad",
+"their legs dont really move they slide across", "the knees seem to be trembling", "why you fail to fix simple clip
+animations?", "do you use your eyes skill when judging clips?". What is true now:
+- NOT the rig. Sliding = clips played in place + code moving the body: StepRoot (scripts/fight3d/StepRoot.gd) now moves a body
+  by the clip's planted foot (the knockdown corner walk uses it).
+- The library has NO good walk: af_walk limps, the loc_* step loops squat (hips 0.17 m low, knees in) - the clips themselves
+  (filmed with `-- nofeet noknee`). LOCOWALK1 is RUNNING on cursor (Ludo CLI 0.2.2, cap 6 credits; operator: "Try Ludo
+  first") making walk_back_guard / walk_guard / walk_relaxed + step_in/out/left/right_guard. If its clips fail the bars,
+  ask the operator about buying a boxing footwork mocap pack (his money) - board question with the failing numbers attached.
+- Knee tremble = FootPlant's procedural steps (drawn bones: foot mid-step 43 % of fight frames, each step pumps the knee 35 deg;
+  `nofeet` jerk 1.6-3.2 vs 11-15 deg/frame^2). Two tunings tried and reverted. Real fix: the step clips + StepRoot in Footwork,
+  FootPlant as ground contact only (FIGHT9's files - brief it with the numbers, or build it when the clips exist).
+- PROBE TRAP: get_bone_global_pose outside the modifier pass = the CLIP's pose. Measure DRAWN bones (skeleton_updated cache,
+  tools/knockdown_film.gd _watch). knockdown_film's walk-slide line is RED until LOCOWALK1 lands - every other line PASS.
+- JUDGE LEGS WITH EYES + NUMBERS before sending anything: `eyes index <mp4>`, `eyes burst <id> <t> --count 16 --span 3` on every
+  moving leg, plus the drawn slide / knee-jerk lines. A still sheet never shows a slide.
+
+IN FLIGHT (yours): LOCOWALK1 (cursor, wt LEAN_LOCOWALK1); BJJ9 round 10 (Ziva, chat "BJJ9 Round 10" on 7012, armbar finish,
+ziva/bjj9 @ cf5891cf - click Continue if it stopped at its 32k reply cap); FIGHT9R7 QUEUED on agy from claude/fight9base
+(= R5 + main 3264b79e; Argon 3/10 last). Argon's prompt was fixed this session (men, no referee by design) - main with the
+knockdown count judged 4/10. Collect FIGHT9 / BJJ9 only at a real 9/10 (check the verdict file's Score line).
+
+BUILT S377 (main, not in an exe yet): KNOCKCOUNT1 (neutral corner, the clock holds, count 1-8 / 10, rise at the sim's up_at,
+BOX! / STOPPED / KO ends the bout at once, overhead count shot), STEPROOT1, the drawn-bone probe, CI artifacts 2 days.
+LEFT FOR THE OPERATOR: delete E:\FightCamp\wt\MERGE_F9BASE (temp merge checkout; the safety check refused Claude's rm).
+NOT DONE: Kalli's named-combo share (needs a plan option for own combinations); Roster boxer tiles without face photos;
+update 73 still unplayed by the operator.
+
+--- S377 notes (written S376) ---
+
 # S377 - next session (written S376, 2026-11-03)
 
 START in E:\FightCamp\Lean: `git pull && python ops/Tools/agent_comms.py start`. Digest: ops/research/S376_DIGEST.md.

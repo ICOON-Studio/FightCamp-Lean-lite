@@ -375,6 +375,13 @@
       "name": "GYMBUILD - the gym as a Mad Games / Two Point game",
       "why": "Operator S276/S277: 'the starting gym should be an emptu building , no room no nothing, player draws the limmits of each room'; 'this is not how MGT2 builds its rooms'; 'members and income come only from what is built'. LIVE on master: empty shell on its lot (3013afbd), ring bought, rooms drawn EMPTY + key item placed, money from what is built (42710b57), rent grows (3791ce96). NEXT: sidebar palette + item-by-item placement (C), rooms that work, Ludo's first hour after Q-S273-7, decor raises gym score (D). Plan: research/GYMBUILD_PLAN_S276.md; digest S277_DIGEST.md.",
       "s278": "S278: build = draw the room/zone, then put suitable single items (operator: 'you do not put the zones'); BUILD window in the top bar on every screen (ui/BuildWindow.gd); training floors drawn as zones; zone packages removed from the shell shop. Next: sparring pit + taped ring."
+    },
+    "LOCOWALK1": {
+      "status": "ACTIVE",
+      "owner": "cursor",
+      "decided": "2026-11-03 S377 operator ('Try Ludo first')",
+      "name": "LOCOWALK1 - real walk + step clips for our boxers from Ludo",
+      "why": "Operator S377 on the knockdown walk: 'so bad', 'their legs dont really move they slide across', 'knees trembling'. The library has no good walk (af_walk limps, loc_* squat 0.17 m - the clips, nofeet/noknee filmed); the guard glide slides; FootPlant's procedural steps make the knee tremble. Route: Ludo text-to-animation via cursor (cap 6 credits), played with StepRoot; a bought boxing footwork mocap pack only if Ludo's clips fail the drawn-bone bars (hips <= 0.08 m low, slide p90 <= 0.05 m/s, knee jerk p95 <= 4.5)."
     }
   },
   "_s208": "S208: the OFF-switch census these routes were 'carried_by' is DONE (SWITCHALL1, 174f3a23): every shipped switch ON in the game through Godot/scripts/GameSwitches.gd (bench1 + debug overlays stay OFF). Strike-motion routes are now carried by ANIMSOURCE1 (Cascadeur authoring on the MetaHuman skeleton; 1A motion rejected on the sheets, 1B running with shape gates)."

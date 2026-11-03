@@ -364,6 +364,945 @@
    "repo": "FightCamp-Lean",
    "note": "S360: Ziva Smart, Max. Chat 'Task Setup for Ziva Footwork 1' at 127.0.0.1:7012. Red first: tools/join_probe.gd BEFORE on origin/main; gate worst joint jump -40%, travel within 10%, feet < 0.12 m. S362 COLLECTED as Lean f6fb32c (diff c37006f..54c5aec applied); Claude re-ran join_probe: BEFORE worst 95.0 mean 29.6 -> AFTER 45.1/13.7; 5 tests + move_player_probe green. The 0.12 m foot gate was mis-written (standing ankle height 0.155).",
    "finished": "2026-11-02T16:50"
+  },
+  {
+   "agent": "qwen",
+   "id": "RIVALPAST1",
+   "title": "TASK RIVALPAST1 - QWEN - a unit test for RivalPast, the rivals' bout-by-bout records (Lean)",
+   "status": "collected",
+   "started": "2026-11-02T21:24",
+   "eta": "2026-11-02T23:14",
+   "branch": "qwen/rivalpast1",
+   "worktree": "E:/FightCamp/wt/LEAN_RIVALPAST1",
+   "wt": "E:/FightCamp/wt/LEAN_RIVALPAST1",
+   "brief": "ops/research/TASK_RIVALPAST1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/RIVALPAST1_dispatch_out.txt",
+   "match": "seat_dispatch.py run rivalpast1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/RIVALPAST1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/RIVALPAST1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/RIVALPAST1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 44240,
+    "seat_pid": 33976
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/2 PASS; PR #19",
+   "finished": "2026-11-02T21:29",
+   "pr": 19,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/rival_past_test.gd",
+     "ok": true,
+     "last": "RIVAL_PAST failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/opp_file_test.gd",
+     "ok": true,
+     "last": "OPP_FILE failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "collected": "S372: PR #19 merged S368 (closed run)",
+   "archived": "2026-11-03 17:06 board_sync"
+  },
+  {
+   "agent": "antigravity",
+   "id": "CAMCLINCH1",
+   "title": "TASK CAMCLINCH1 - ANTIGRAVITY - the fight camera's clinch angle (both heads seen while they hold)",
+   "status": "collected",
+   "started": "2026-11-02T22:28",
+   "eta": "2026-11-02T23:23",
+   "branch": "agy/camclinch1",
+   "worktree": "E:/FightCamp/wt/LEAN_CAMCLINCH1",
+   "wt": "E:/FightCamp/wt/LEAN_CAMCLINCH1",
+   "brief": "ops/research/TASK_CAMCLINCH1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/CAMCLINCH1_dispatch_out.txt",
+   "match": "seat_dispatch.py run camclinch1",
+   "model": "gemini-4-argon-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/CAMCLINCH1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/CAMCLINCH1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/CAMCLINCH1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 41136,
+    "seat_pid": 47868
+   },
+   "note": "S368 seat_dispatch: agy exit 0; 1 commit(s); checks 4/5 PASS; PR #20; films Argon 2 -> 4/10",
+   "finished": "2026-11-02T23:10",
+   "pr": 20,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/cam_view_probe.gd",
+     "ok": false,
+     "last": "timeout"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/ring_lens_test.gd",
+     "ok": true,
+     "last": "ring_lens_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_flow_test.gd",
+     "ok": true,
+     "last": "PASS fight_flow_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/clinch_rest_test.gd",
+     "ok": true,
+     "last": "PASS clinch_rest_test"
+    }
+   ],
+   "films": {
+    "before": {
+     "film": "E:/FightCamp/Lean/ops/previews/dispatch/CAMCLINCH1/before.mp4",
+     "verdict_file": "E:/FightCamp/Lean/ops/previews/dispatch/CAMCLINCH1/before.gemini_argon.md",
+     "score": "2",
+     "line": "Verdict:** This 6-second clip only shows slow, clipping ring-entrance animations and cuts off before the fight starts, so the clinch camera (`CAMCLINCH1`) and boxing gameplay cannot be judged—**2/10**. (Please provide footage of the actual ",
+     "rc": 0,
+     "err": ""
+    },
+    "after": {
+     "film": "E:/FightCamp/Lean/ops/previews/dispatch/CAMCLINCH1/after.mp4",
+     "verdict_file": "E:/FightCamp/Lean/ops/previews/dispatch/CAMCLINCH1/after.gemini_argon.md",
+     "score": "4",
+     "line": "Watchable as a sports broadcast:** **4 / 10",
+     "rc": 0,
+     "err": ""
+    },
+    "board": "POSTED 2 file(s) -> http://127.0.0.1:8787/review  (E:\\FightCamp\\review\\2026-11-02_2310_camclinch1_before_after_argon_2_10_4_10_)"
+   },
+   "reconciled": "2026-11-03 00:40 board_reconcile: branch agy/camclinch1 commits are on master",
+   "archived": "2026-11-03 17:06 board_sync"
+  },
+  {
+   "agent": "antigravity",
+   "id": "KNEETRACK1",
+   "title": "TASK KNEETRACK1 - ANTIGRAVITY - the knees point over the toes (every clip, the board's previews and the fight)",
+   "status": "collected",
+   "started": "2026-11-03T01:11",
+   "eta": "2026-11-03T02:06",
+   "branch": "agy/kneetrack1",
+   "worktree": "E:/FightCamp/wt/LEAN_KNEETRACK1",
+   "wt": "E:/FightCamp/wt/LEAN_KNEETRACK1",
+   "brief": "ops/research/TASK_KNEETRACK1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/KNEETRACK1_dispatch_out.txt",
+   "match": "seat_dispatch.py run kneetrack1",
+   "model": "gemini-4-argon-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/KNEETRACK1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/KNEETRACK1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/KNEETRACK1_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 12132,
+    "seat_pid": 47992
+   },
+   "note": "S368 seat_dispatch: agy exit 0; 1 commit(s); checks 5/5 PASS; PR #22; films Argon 2 -> 2/10",
+   "finished": "2026-11-03T01:42",
+   "pr": 22,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/knee_probe.gd",
+     "ok": true,
+     "last": "KNEE_FAILS [\"af_drink\", \"af_sit_enter\", \"af_sit_exit\", \"pro_left_uppercut_hurt_ft\", \"pro_left_uppercut_special\", \"pro_right_hook_special\"]"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/beat_clips_test.gd",
+     "ok": true,
+     "last": "BEATCLIPS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/move_clips_test.gd",
+     "ok": true,
+     "last": "PASS move_clips_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_flow_test.gd",
+     "ok": true,
+     "last": "PASS fight_flow_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    }
+   ],
+   "films": {
+    "before": {
+     "film": "E:/FightCamp/Lean/ops/previews/dispatch/KNEETRACK1/before.mp4",
+     "verdict_file": "E:/FightCamp/Lean/ops/previews/dispatch/KNEETRACK1/before.gemini_argon.md",
+     "score": "2",
+     "line": "Crucial diagnostic footage that clearly exposes the broken knee pole vectors (knees caving inward instead of tracking over toes) during crouches and leans, though it is an animation test rather than a broadcast match. **Score: 2/10** (as a ",
+     "rc": 0,
+     "err": ""
+    },
+    "after": {
+     "film": "E:/FightCamp/Lean/ops/previews/dispatch/KNEETRACK1/after.mp4",
+     "verdict_file": "E:/FightCamp/Lean/ops/previews/dispatch/KNEETRACK1/after.gemini_argon.md",
+     "score": "2",
+     "line": "This is an isolated animation turntable, not a match broadcast, and while basic standing clips keep the knees over the toes, the crouches, slips, and sky-reaching uppercuts still suffer from knock-kneed twisting, wide squats, and robotic sl",
+     "rc": 0,
+     "err": ""
+    },
+    "board": "POSTED 2 file(s) -> http://127.0.0.1:8787/review  (E:\\FightCamp\\review\\2026-11-03_0142_kneetrack1_before_after_argon_2_10_2_10_)"
+   },
+   "reconciled": "2026-11-03 02:10 board_reconcile: branch agy/kneetrack1 commits are on master",
+   "archived": "2026-11-03 17:06 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "NOREF1",
+   "title": "TASK NOREF1 - QWEN - no referee in the ring: a clinch ends with both boxers pushing each other off slowly",
+   "status": "closed",
+   "started": "2026-11-03T01:36",
+   "eta": "2026-11-03T03:26",
+   "branch": "qwen/noref1",
+   "worktree": "E:/FightCamp/wt/LEAN_NOREF1",
+   "wt": "E:/FightCamp/wt/LEAN_NOREF1",
+   "brief": "ops/research/TASK_NOREF1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/NOREF1_dispatch_out.txt",
+   "match": "seat_dispatch.py run noref1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/NOREF1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/NOREF1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/NOREF1_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 7968,
+    "seat_pid": 43980
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 5/6 PASS; PR #23; films Argon 2 -> 2/10",
+   "finished": "2026-11-03T02:06",
+   "pr": 23,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/push_off_probe.gd",
+     "ok": false,
+     "last": "       [5] _initialize (res://tools/push_off_probe.gd:84)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/clinch_rest_test.gd",
+     "ok": true,
+     "last": "PASS clinch_rest_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/clinch_beats_test.gd",
+     "ok": true,
+     "last": "CLINCH_BEATS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_flow_test.gd",
+     "ok": true,
+     "last": "PASS fight_flow_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/inside_exits_test.gd",
+     "ok": true,
+     "last": "INSIDE_EXITS failures=0"
+    }
+   ],
+   "films": {
+    "before": {
+     "film": "E:/FightCamp/Lean/ops/previews/dispatch/NOREF1/before.mp4",
+     "verdict_file": "E:/FightCamp/Lean/ops/previews/dispatch/NOREF1/before.gemini_argon.md",
+     "score": "2",
+     "line": "An unwatchable, repetitive loop of frozen hugs and a bizarre lunging referee animation with zero punches thrown. **Score: 2/10",
+     "rc": 0,
+     "err": ""
+    },
+    "after": {
+     "film": "E:/FightCamp/Lean/ops/previews/dispatch/NOREF1/after.mp4",
+     "verdict_file": "E:/FightCamp/Lean/ops/previews/dispatch/NOREF1/after.gemini_argon.md",
+     "score": "2",
+     "line": "Removing the referee leaves the boxers stuck in a loop of completely frozen clinches followed by robotic, slow-motion, clipping push-offs with zero boxing action. **Score: 2/10**.",
+     "rc": 0,
+     "err": ""
+    },
+    "board": "POSTED 2 file(s) -> http://127.0.0.1:8787/review  (E:\\FightCamp\\review\\2026-11-03_0206_noref1_before_after_argon_2_10_2_10_your)"
+   },
+   "collected": "S372: PR #23 closed S371 - the referee moved into Argon FIGHT9 loop (round 1 PushOff)",
+   "archived": "2026-11-03 17:06 board_sync"
+  },
+  {
+   "agent": "antigravity",
+   "id": "FIGHT9R1",
+   "title": "TASK FIGHT9R1 - ANTIGRAVITY (Gemini 4 Argon) - the live fight to 9/10 on Argon's own judging, round by round",
+   "status": "closed",
+   "started": "2026-11-03T02:08",
+   "eta": "2026-11-03T03:03",
+   "branch": "agy/fight9r1",
+   "worktree": "E:/FightCamp/wt/LEAN_FIGHT9R1",
+   "wt": "E:/FightCamp/wt/LEAN_FIGHT9R1",
+   "brief": "ops/research/TASK_FIGHT9R1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/FIGHT9R1_dispatch_out.txt",
+   "match": "seat_dispatch.py run fight9r1",
+   "model": "gemini-4-argon-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/FIGHT9R1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/FIGHT9R1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/FIGHT9R1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": false,
+    "runner_pid": 44640,
+    "seat_pid": 49004
+   },
+   "note": "S377: superseded - the loop's line continues on claude/fight9base (R5 + main), PR #24 closed",
+   "finished": "2026-11-03T03:09",
+   "pr": 24,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/fight9_probe.gd",
+     "ok": false,
+     "last": "   at: load (modules/gdscript/gdscript_resource_format.cpp:46)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_flow_test.gd",
+     "ok": true,
+     "last": "PASS fight_flow_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": false,
+     "last": "       [1] _initialize (res://tests/golden_path_test.gd:32)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/ring_lens_test.gd",
+     "ok": true,
+     "last": "ring_lens_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/clinch_rest_test.gd",
+     "ok": true,
+     "last": "PASS clinch_rest_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/beat_clips_test.gd",
+     "ok": true,
+     "last": "BEATCLIPS failures=0"
+    }
+   ],
+   "films": {
+    "before": {
+     "film": "E:/FightCamp/Lean/ops/previews/dispatch/FIGHT9R1/before.mp4",
+     "verdict_file": "E:/FightCamp/Lean/ops/previews/dispatch/FIGHT9R1/before.gemini_argon.md",
+     "score": "3",
+     "line": "Score: 3/10",
+     "rc": 0,
+     "err": ""
+    },
+    "after": {
+     "film": "E:/FightCamp/Lean/ops/previews/dispatch/FIGHT9R1/after.mp4",
+     "verdict_file": "E:/FightCamp/Lean/ops/previews/dispatch/FIGHT9R1/after.gemini_argon.md",
+     "score": "1",
+     "line": "The recording is a 6.5-minute freeze-frame of the pre-fight management UI with zero boxing footage. **Score: 1/10** (unwatchable as a sports broadcast because the broadcast never starts).",
+     "rc": 0,
+     "err": ""
+    },
+    "board": "POSTED 2 file(s) -> http://127.0.0.1:8787/review  (E:\\FightCamp\\review\\2026-11-03_0309_fight9r1_before_after_argon_3_10_1_10_yo)"
+   },
+   "collected": "S372: compile-fixed 7a9313b7 (PR #24) = BASE of FIGHT9R2; collect with the FIGHT9 loop final kept branch (merge main first: BODYREACT1 touched BeatClips/BeatFire)",
+   "archived": "2026-11-03 17:06 board_sync"
+  },
+  {
+   "agent": "antigravity",
+   "id": "FIGHT9R2",
+   "title": "TASK FIGHT9R2 - ANTIGRAVITY (Gemini 4 Argon) - the live fight to 9/10 on Argon's own judging, round by round",
+   "status": "closed",
+   "started": "2026-11-03T03:41",
+   "eta": "2026-11-03T04:36",
+   "branch": "agy/fight9r2",
+   "worktree": "E:/FightCamp/wt/LEAN_FIGHT9R2",
+   "wt": "E:/FightCamp/wt/LEAN_FIGHT9R2",
+   "brief": "ops/research/TASK_FIGHT9R2.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/FIGHT9R2_dispatch_out.txt",
+   "match": "seat_dispatch.py run fight9r2",
+   "model": "gemini-4-argon-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/FIGHT9R2_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/FIGHT9R2_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/FIGHT9R2_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 44632,
+    "seat_pid": 32372
+   },
+   "note": "S377: superseded - in claude/fight9base, PR #25 closed",
+   "finished": "2026-11-03T05:13",
+   "pr": 25,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/fight9_probe.gd",
+     "ok": false,
+     "last": "   at: load (modules/gdscript/gdscript_resource_format.cpp:46)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_flow_test.gd",
+     "ok": true,
+     "last": "PASS fight_flow_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/ring_lens_test.gd",
+     "ok": true,
+     "last": "ring_lens_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/clinch_rest_test.gd",
+     "ok": true,
+     "last": "PASS clinch_rest_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/beat_clips_test.gd",
+     "ok": true,
+     "last": "BEATCLIPS failures=0"
+    }
+   ],
+   "films": {
+    "before": {
+     "film": "E:/FightCamp/Lean/ops/previews/dispatch/FIGHT9R2/before.mp4",
+     "verdict_file": "E:/FightCamp/Lean/ops/previews/dispatch/FIGHT9R2/before.gemini_argon.md",
+     "score": "3",
+     "line": "Robotic, low-activity rock-'em-sock-'em animation plagued by constant limb clipping, foot skating, and a completely missing referee. **Score: 3/10.",
+     "rc": 0,
+     "err": ""
+    },
+    "after": {
+     "film": "E:/FightCamp/Lean/ops/previews/dispatch/FIGHT9R2/after.mp4",
+     "verdict_file": "",
+     "score": "?",
+     "line": "",
+     "rc": 1,
+     "err": "GEMINI upload start failed: HTTP 429: Your project has exceeded its monthly spending cap. Please go to AI Studio at https://ai.studio/spend to manage your project spend cap. Learn more at https://ai.google.dev/gemini-api/docs/billing#project-spend-caps. \n"
+    },
+    "board": "POSTED 2 file(s) -> http://127.0.0.1:8787/review  (E:\\FightCamp\\review\\2026-11-03_0513_fight9r2_before_after_argon_3_10_10_your)"
+   },
+   "archived": "2026-11-03 17:06 board_sync"
+  },
+  {
+   "agent": "john",
+   "started": "2026-11-03T05:29",
+   "status": "collected",
+   "note": "S373 gbot: amateur cut rates (gradual + fight week), a coach's call on 2-3 % over at 2.5 weeks, a measured club-women bleep figure - collect: gbot thread 'John Research' | S375 COLLECTED -> research/J_WEIGHT1.md; cut model kept",
+   "archived": "2026-11-03 17:06 board_sync",
+   "id": "J_WEIGHT1"
+  },
+  {
+   "agent": "kalli",
+   "started": "2026-11-03T05:29",
+   "status": "collected",
+   "note": "S373 gbot: the graded-move gas saving per grade (SkillAwards.ECONOMY is Claude's ESTIMATE 8 % / Gold 15 %) - collect: gbot thread 'Kalli' | S375 COLLECTED: 8 % a grade, Gold 12 % (7dc5f435); her fitness check fails -> K_GRADED2",
+   "archived": "2026-11-03 17:06 board_sync",
+   "id": "K_GRADED1"
+  },
+  {
+   "agent": "antigravity",
+   "id": "FIGHT9R3",
+   "title": "TASK FIGHT9R3 - ANTIGRAVITY (Gemini 4 Argon) - the live fight to 9/10 on Argon's own judging, round by round",
+   "status": "closed",
+   "started": "2026-11-03T05:41",
+   "eta": "2026-11-03T07:06",
+   "branch": "agy/fight9r3",
+   "worktree": "E:/FightCamp/wt/LEAN_FIGHT9R3",
+   "wt": "E:/FightCamp/wt/LEAN_FIGHT9R3",
+   "brief": "ops/research/TASK_FIGHT9R3.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/FIGHT9R3_dispatch_out.txt",
+   "match": "seat_dispatch.py run fight9r3",
+   "model": "gemini-4-argon-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/FIGHT9R3_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/FIGHT9R3_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/FIGHT9R3_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 52700,
+    "seat_pid": 52448
+   },
+   "note": "S375: agy quota, moved to cursor as R4",
+   "finished": "2026-11-03T08:34",
+   "archived": "2026-11-03 17:06 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "PASSEDSTAMP1",
+   "title": "TASK PASSEDSTAMP1 - QWEN - the test-day moment: a PASSED stamp card in the week review when a skills grade passes (Lean)",
+   "status": "collected",
+   "started": "2026-11-03T06:10",
+   "eta": "2026-11-03T08:00",
+   "branch": "qwen/passedstamp1",
+   "worktree": "E:/FightCamp/wt/LEAN_PASSEDSTAMP1",
+   "wt": "E:/FightCamp/wt/LEAN_PASSEDSTAMP1",
+   "brief": "ops/research/TASK_PASSEDSTAMP1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/PASSEDSTAMP1_dispatch_out.txt",
+   "match": "seat_dispatch.py run passedstamp1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/PASSEDSTAMP1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/PASSEDSTAMP1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/PASSEDSTAMP1_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 47452,
+    "seat_pid": 23372
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 5/5 PASS; PR #26",
+   "finished": "2026-11-03T06:17",
+   "pr": 26,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/passed_stamp_test.gd",
+     "ok": true,
+     "last": "PASSED_STAMP failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/review_reveal_test.gd",
+     "ok": true,
+     "last": "REVIEW_REVEAL PASS"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/skill_awards_test.gd",
+     "ok": true,
+     "last": "SKILL_AWARDS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/no_pronoun_test.gd",
+     "ok": true,
+     "last": "NO_PRONOUN failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "archived": "2026-11-03 17:06 board_sync"
+  },
+  {
+   "agent": "kalli",
+   "started": "2026-11-03T08:40",
+   "status": "collected",
+   "note": "S376: answers built as KALLINUMS1 (TASK_KALLINUMS1.md)",
+   "archived": "2026-11-03 17:06 board_sync",
+   "id": "K_GRADED2"
+  },
+  {
+   "agent": "kalli",
+   "started": "2026-11-03T11:00",
+   "status": "collected",
+   "note": "S376: answers built as KALLINUMS1; the named-combo share waits on a plan option (S377 digest)",
+   "archived": "2026-11-03 17:06 board_sync",
+   "id": "K_COMBOPLAN1"
+  },
+  {
+   "agent": "cursor",
+   "id": "FIGHT9R4",
+   "title": "TASK FIGHT9R4 - CURSOR (composer, Antigravity out of quota until ~11-10) - the live fight to 9/10 on Argon's own judging, round by round",
+   "status": "closed",
+   "started": "2026-11-03T10:41",
+   "eta": "2026-11-03T12:31",
+   "branch": "cursor/fight9r4",
+   "worktree": "E:/FightCamp/wt/LEAN_FIGHT9R4",
+   "wt": "E:/FightCamp/wt/LEAN_FIGHT9R4",
+   "brief": "ops/research/TASK_FIGHT9R4.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/FIGHT9R4_dispatch_out.txt",
+   "match": "seat_dispatch.py run fight9r4",
+   "model": "composer-2.5",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/FIGHT9R4_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/FIGHT9R4_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/FIGHT9R4_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 39968,
+    "seat_pid": 52952
+   },
+   "note": "S377: round 4 dropped by the loop, PR #28 closed",
+   "finished": "2026-11-03T12:35",
+   "pr": 28,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/fight9_probe.gd",
+     "ok": true,
+     "last": "FIGHT9 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_flow_test.gd",
+     "ok": true,
+     "last": "PASS fight_flow_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/ring_lens_test.gd",
+     "ok": true,
+     "last": "ring_lens_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/clinch_rest_test.gd",
+     "ok": true,
+     "last": "PASS clinch_rest_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/beat_clips_test.gd",
+     "ok": true,
+     "last": "BEATCLIPS failures=0"
+    }
+   ],
+   "films": {
+    "before": {
+     "film": "E:/FightCamp/Lean/ops/previews/dispatch/FIGHT9R4/before.mp4",
+     "verdict_file": "E:/FightCamp/Lean/ops/previews/dispatch/FIGHT9R4/before.gemini_argon.md",
+     "score": "4",
+     "line": "Score:** **4 / 10** for \"watchable as a sports broadcast\".",
+     "rc": 0,
+     "err": "",
+     "head": "a6fadb9b039a38916e69a56ecc0048f8fc260cb5"
+    },
+    "after": {
+     "film": "E:/FightCamp/Lean/ops/previews/dispatch/FIGHT9R4/after.mp4",
+     "verdict_file": "E:/FightCamp/Lean/ops/previews/dispatch/FIGHT9R4/after.gemini_argon.md",
+     "score": "2.5",
+     "line": "Score:** **2.5 / 10** for \"watchable as a sports broadcast\" (far from the 9/10 target).",
+     "rc": 0,
+     "err": "",
+     "head": "2ab9819aa7e2dfc073b45cf74218966b2d531c99"
+    },
+    "board": "POSTED 2 file(s) -> http://127.0.0.1:8787/review  (E:\\FightCamp\\review\\2026-11-03_1235_fight9r4_before_after_argon_4_10_2_5_10_)"
+   },
+   "archived": "2026-11-03 17:06 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "KALLINUMS1",
+   "title": "TASK KALLINUMS1 - QWEN - Kalli's numbers for own combinations + the graded card's \"more combos in round 3\" (Lean)",
+   "status": "collected",
+   "started": "2026-11-03T11:21",
+   "eta": "2026-11-03T13:11",
+   "branch": "qwen/kallinums1",
+   "worktree": "E:/FightCamp/wt/LEAN_KALLINUMS1",
+   "wt": "E:/FightCamp/wt/LEAN_KALLINUMS1",
+   "brief": "ops/research/TASK_KALLINUMS1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/KALLINUMS1_dispatch_out.txt",
+   "match": "seat_dispatch.py run kallinums1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/KALLINUMS1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/KALLINUMS1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/KALLINUMS1_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 35732,
+    "seat_pid": 7000
+   },
+   "note": "S376: PR #27 collected (Kalli's numbers on main)",
+   "finished": "2026-11-03T11:41",
+   "pr": 27,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/combo_plan_test.gd",
+     "ok": true,
+     "last": "COMBO_PLAN failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/skill_awards_test.gd",
+     "ok": true,
+     "last": "SKILL_AWARDS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/no_pronoun_test.gd",
+     "ok": false,
+     "last": "NO_PRONOUN failures=1"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "archived": "2026-11-03 17:06 board_sync"
+  },
+  {
+   "agent": "cursor",
+   "id": "FIGHT9R5",
+   "title": "TASK FIGHT9R5 - CURSOR (composer, Antigravity out of quota until ~11-10) - the live fight to 9/10 on Argon's own judging, round by round",
+   "status": "closed",
+   "started": "2026-11-03T12:41",
+   "eta": "2026-11-03T14:31",
+   "branch": "cursor/fight9r5",
+   "worktree": "E:/FightCamp/wt/LEAN_FIGHT9R5",
+   "wt": "E:/FightCamp/wt/LEAN_FIGHT9R5",
+   "brief": "ops/research/TASK_FIGHT9R5.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/FIGHT9R5_dispatch_out.txt",
+   "match": "seat_dispatch.py run fight9r5",
+   "model": "composer-2.5",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/FIGHT9R5_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/FIGHT9R5_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/FIGHT9R5_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 54536,
+    "seat_pid": 45208
+   },
+   "note": "S377: superseded - claude/fight9base = R5 + main 3264b79e, PR #29 closed",
+   "finished": "2026-11-03T13:11",
+   "pr": 29,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/fight9_probe.gd",
+     "ok": true,
+     "last": "FIGHT9 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_flow_test.gd",
+     "ok": true,
+     "last": "PASS fight_flow_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/ring_lens_test.gd",
+     "ok": true,
+     "last": "ring_lens_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/clinch_rest_test.gd",
+     "ok": true,
+     "last": "PASS clinch_rest_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/beat_clips_test.gd",
+     "ok": true,
+     "last": "BEATCLIPS failures=0"
+    }
+   ],
+   "films": {
+    "before": {
+     "film": "E:/FightCamp/Lean/ops/previews/dispatch/FIGHT9R5/before.mp4",
+     "verdict_file": "E:/FightCamp/Lean/ops/previews/dispatch/FIGHT9R5/before.gemini_argon.md",
+     "score": "3.5",
+     "line": "Score:** **3.5 / 10** for \"watchable as a sports broadcast\".",
+     "rc": 0,
+     "err": "",
+     "head": "a6fadb9b039a38916e69a56ecc0048f8fc260cb5"
+    },
+    "after": {
+     "film": "E:/FightCamp/Lean/ops/previews/dispatch/FIGHT9R5/after.mp4",
+     "verdict_file": "E:/FightCamp/Lean/ops/previews/dispatch/FIGHT9R5/after.gemini_argon.md",
+     "score": "3.5",
+     "line": "Score:** **3.5 / 10",
+     "rc": 0,
+     "err": "",
+     "head": "eec623915bf5d07aa16d7087dfc368a5d1e7e287"
+    },
+    "board": "POSTED 2 file(s) -> http://127.0.0.1:8787/review  (E:\\FightCamp\\review\\2026-11-03_1311_fight9r5_before_after_argon_3_5_10_9_10_)"
+   },
+   "archived": "2026-11-03 17:06 board_sync"
+  },
+  {
+   "agent": "antigravity",
+   "id": "FIGHT9R6",
+   "title": "TASK FIGHT9R6 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
+   "status": "closed",
+   "started": "2026-11-03T13:59",
+   "eta": "2026-11-03T15:24",
+   "branch": "agy/fight9r6",
+   "worktree": "E:/FightCamp/wt/LEAN_FIGHT9R6",
+   "wt": "E:/FightCamp/wt/LEAN_FIGHT9R6",
+   "brief": "ops/research/TASK_FIGHT9R6.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/FIGHT9R6_dispatch_out.txt",
+   "match": "seat_dispatch.py run fight9r6",
+   "model": "gemini-4-argon-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/FIGHT9R6_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/FIGHT9R6_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/FIGHT9R6_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 42676,
+    "seat_pid": 55960
+   },
+   "note": "S377: round 6 3 -> 3/10 dropped by the loop, PR #30 closed; R7 queued on agy",
+   "finished": "2026-11-03T16:03",
+   "pr": 30,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/fight9_probe.gd",
+     "ok": false,
+     "last": "FIGHT9 failures=1"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_flow_test.gd",
+     "ok": true,
+     "last": "PASS fight_flow_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/ring_lens_test.gd",
+     "ok": true,
+     "last": "ring_lens_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/clinch_rest_test.gd",
+     "ok": true,
+     "last": "PASS clinch_rest_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/beat_clips_test.gd",
+     "ok": true,
+     "last": "BEATCLIPS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/playtest_s375_test.gd",
+     "ok": true,
+     "last": "PLAYTEST_S375 failures=0"
+    }
+   ],
+   "films": {
+    "before": {
+     "film": "E:/FightCamp/Lean/ops/previews/dispatch/FIGHT9R6/before.mp4",
+     "verdict_file": "E:/FightCamp/Lean/ops/previews/dispatch/FIGHT9R6/before.gemini_argon.md",
+     "score": "3.5",
+     "line": "Score:** **3.5 / 10** for \"watchable as a sports broadcast.\"",
+     "rc": 0,
+     "err": "",
+     "head": "2961c7b8594de887101f7ee5bb141ba82fac944e"
+    },
+    "after": {
+     "film": "E:/FightCamp/Lean/ops/previews/dispatch/FIGHT9R6/after.mp4",
+     "verdict_file": "E:/FightCamp/Lean/ops/previews/dispatch/FIGHT9R6/after.gemini_argon.md",
+     "score": "3",
+     "line": "The core punching and slipping animations have moments of promise, but severe clipping, robotic idle stretches, and a completely broken knockdown state (where the winner dances on the loser's body while the clock runs) ruin the illusion of ",
+     "rc": 0,
+     "err": "",
+     "head": "c33d3475a731a485b9f12439a39f3fab32e4429b"
+    },
+    "board": "POSTED 2 file(s) -> http://127.0.0.1:8787/review  (E:\\FightCamp\\review\\2026-11-03_1603_fight9r6_before_after_argon_3_5_10_3_10_)"
+   },
+   "archived": "2026-11-03 17:06 board_sync"
   }
  ]
 }

@@ -86,8 +86,10 @@
   {
    "task": "LOCOWALK1",
    "seat": "cursor",
-   "status": "queued",
-   "queued": "2026-11-03T16:31"
+   "status": "launched",
+   "queued": "2026-11-03T16:31",
+   "launched": "2026-11-03T16:53",
+   "note": "S377: launched by hand (--task --act), runner pid 41164"
   }
  ]
 }

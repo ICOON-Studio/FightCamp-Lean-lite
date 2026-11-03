@@ -3,13 +3,18 @@
  "updated": "2026-11-03",
  "author": "claude S294",
  "now": {
-  "id": "S376",
+  "id": "S377",
   "owner": "claude",
   "updated": "2026-11-03",
-  "summary": "S376: the operator watched the men's bout ('legs broken completely', 'punch speed very fast', 'very unatural') - measured on both sexes: FootPlant locked knees 14-22 % -> 0-1 % (reach rule), whole-clip speed-ups capped 1.5x; Argon 3 -> 3/10 on main. Knockdowns drop on the shot + a slow-motion replay; a downed boxer lies ON the canvas (FloorClear; 'hands are below canvas'). Built: BJJCOACH1 (coach steps on Ana's mat), the S375 playtest fixes (Ana card, Scouting face cards, Drill it, personalities), Kalli's numbers (Qwen PR #27), BJJMENU1 on ziva/bjj9 (belt-match calls with chance/points/gas/risk). FIGHT9: R5's '9/10' was a parse bug (real 3.5) - fixed; R6 on agy Argon (operator bought 2,500 credits) from claude/fight9base, 'fix all the clips' to 9/10.",
-  "next_action": "S377, in order: (1) COLLECT FIGHT9 rounds as they land - check each Argon score against its verdict file (ops/previews/dispatch/FIGHT9R<n>/after.gemini_argon.md, the Score line), merge main into the kept branch before collecting; collect only at a real 9/10 with fight9_probe + knockdown_film + floor_clear_probe green. (2) Ziva BJJ9: the belt match (ziva/bjj9 = cf5891cf, BJJMENU1 on it) - restart Ziva (MCP was ECONNREFUSED) or move the loop to agy; collect at 9/10 so the belt match + move menu reach the exe. (3) The operator plays update 73 (knockdown + replay, legs, S375 fixes) - read his notes first. (4) Kalli: K_COMBOPLAN1's 'plan line names the combination' share (0.40) is not wired - PlanBoard lines would need a combo id. (5) Roster boxer tiles have no face photo while Ana's card does - decide on faces for the boxers."
+  "summary": "S377: Argon's prompt fixed (it judged a 'women's bout with a referee' - docked the absent ref every round; men bare-chested, no ref by design): R6 base 3/10, main with the count 4/10. KNOCKCOUNT1: after a knockdown the clock holds, the winner goes to the far neutral corner, count 1-8 (KO 10), he rises at the sim's up_at -> BOX!, RSC -> STOPPED, KO -> the bout ends at once; review found + fixed 5 defects. Operator on the walks ('so bad', 'slide across', 'knees trembling'): StepRoot moves a body by the clip's planted foot; the library has no good walk (af_walk limps, loc_* squat 0.17 m - the clips) -> LOCOWALK1 on cursor via Ludo (operator: 'Try Ludo first'); knee tremble measured on DRAWN bones = FootPlant's procedural steps (foot mid-step 43 %, knee pumps 35 deg per step). Actions storage 100 % -> artifacts 2 days, 237 deleted.",
+  "next_action": "S378, in order: (1) COLLECT LOCOWALK1 (cursor/locowalk1) when it lands: open its eyes burst yourself + tools/knockdown_film.gd drawn bars (walk slide p90 <= 0.05 m/s, knee jerk p95 <= 4.5, hips <= 0.08 m low); if Ludo's clips fail the bars, put the mocap-pack purchase to the operator (his money). (2) With good clips: walk_back_guard -> KnockdownCount.WALK_CLIP (drop the overhead hide), then brief FIGHT9 to move the fight's footwork onto the step clips + StepRoot with FootPlant as ground contact only (the knee tremble). (3) FIGHT9 R7 (agy, from claude/fight9base = R5 + main 3264b79e): check each score against its verdict file; collect only at a real 9/10. (4) BJJ9 (Ziva round 10, armbar finish): collect at 9/10. (5) Kalli's named-combo share needs a plan option for own combinations (PlanLines/PlanFight) before use_share(named).",
+  "last_working_commit": "c8a3a434",
+  "verified_playable": "Knockdown count on main: tools/knockdown_film.gd default / stop=KO / stop=RSC / stop=KO skip all PASS except the known-red walk-slide line (drawn bones), filmed ops/previews/S377/knockdown_count.mp4 and checked with eyes bursts; 21 related tests green. Not in an exe export yet.",
+  "incomplete_blocked": "Walk + step clips (LOCOWALK1 running on cursor); the knee tremble (FootPlant's procedural steps) waits on those clips + StepRoot in Footwork; Kalli's named-combo share needs a plan option for own combinations; FIGHT9 (3/10) and BJJ9 (4/10) below 9/10.",
+  "next_acceptance": "LOCOWALK1's clips pass the drawn-bone bars in tools/knockdown_film.gd (walk slide p90 <= 0.05 m/s, knee jerk p95 <= 4.5 deg/frame^2, hips <= 0.08 m below rest) and an eyes burst shows real steps; the corner walk then plays in the wide shot without the overhead hide.",
+  "awaiting_operator": "Nothing blocks the next step. Optional: play update 73; delete E:\\FightCamp\\wt\\MERGE_F9BASE; a footwork mocap-pack purchase only if Ludo's clips fail the bars."
  },
- "next": "Collect FIGHT9 (Argon, all clips) at a real 9/10; collect BJJ9 with the belt-match move menu; then the operator's update-73 notes.",
+ "next": "Collect LOCOWALK1 (real walk + step clips, Ludo) against the drawn-bone bars; then FIGHT9 R7 and BJJ9 at a real 9/10.",
  "assessment": {
   "source": "Codex deep audit + Cursor televised-MMA gap assessment, both 2026-09-12",
   "bars": [
@@ -1523,15 +1528,14 @@
    "id": "S376",
    "date": "2026-11-03",
    "summary": "S376: the operator watched the men's bout ('legs broken completely', 'punch speed very fast', 'very unatural') - measured on both sexes: FootPlant locked knees 14-22 % -> 0-1 % (reach rule), whole-clip speed-ups capped 1.5x; Argon 3 -> 3/10 on main. Knockdowns drop on the shot + a slow-motion replay; a downed boxer lies ON the canvas (FloorClear; 'hands are below canvas'). Built: BJJCOACH1 (coach steps on Ana's mat), the S375 playtest fixes (Ana card, Scouting face cards, Drill it, personalities), Kalli's numbers (Qwen PR #27), BJJMENU1 on ziva/bjj9 (belt-match calls with chance/points/gas/risk). FIGHT9: R5's '9/10' was a parse bug (real 3.5) - fixed; R6 on agy Argon (operator bought 2,500 credits) from claude/fight9base, 'fix all the clips' to 9/10. Digest: ops/research/S376_DIGEST.md."
-  }
- ],
- "blocked_on_operator": [
+  },
   {
-   "id": "Q-S294-94",
-   "blocks": "FIGHT9 + BJJ9 Argon verdicts",
-   "question": "The Gemini project hit its monthly spend cap (HTTP 429): raise it at ai.studio/spend, or judge the loops by their probes only?"
+   "id": "S377",
+   "date": "2026-11-03",
+   "summary": "S377: Argon's prompt fixed (it judged a 'women's bout with a referee' - docked the absent ref every round; men bare-chested, no ref by design): R6 base 3/10, main with the count 4/10. KNOCKCOUNT1: after a knockdown the clock holds, the winner goes to the far neutral corner, count 1-8 (KO 10), he rises at the sim's up_at -> BOX!, RSC -> STOPPED, KO -> the bout ends at once; review found + fixed 5 defects. Operator on the walks ('so bad', 'slide across', 'knees trembling'): StepRoot moves a body by the clip's planted foot; the library has no good walk (af_walk limps, loc_* squat 0.17 m - the clips) -> LOCOWALK1 on cursor via Ludo (operator: 'Try Ludo first'); knee tremble measured on DRAWN bones = FootPlant's procedural steps (foot mid-step 43 %, knee pumps 35 deg per step). Actions storage 100 % -> artifacts 2 days, 237 deleted. Digest: ops/research/S377_DIGEST.md."
   }
  ],
+ "blocked_on_operator": [],
  "sale_list": {
   "_note": "The Unity Asset Store sale shortlist Claude has recommended (R142, its Sidekick addendum, and the packages the operator asked about on 2026-09-13). The ops board renders it with links. Prices are LIST EUR read from each store record on 2026-09-13 - nothing was discounted yet. Claude never buys; the operator does. Every pack is the standard Unity EULA: usable in Godot, and never fed to any AI or generator tool.",
   "opens": "2026-09-14",
@@ -2026,6 +2030,16 @@
  "queue": {
   "_rule": "Operator 2026-09-27 (S114): 'on the session end list me the queued tasks and what everything does and on the new session state those tasks at the start so i can verify integrity'. The LAST message of a session lists this queue (id, owner, state, what it does) above the git block; the FIRST message of the next session repeats it from `start` before any work. Update the queue whenever a task is assigned, lands, merges or changes state.",
   "tasks": [
+   {
+    "id": "LOCOWALK1",
+    "owner": "cursor",
+    "milestone": "B",
+    "discipline": "boxing",
+    "title": "Real walk + step clips for our boxers (Ludo): walk back / walk in guard / walk relaxed; step in/out/left/right in guard",
+    "what": "Operator S377: 'the walking on the clip is so bad', 'slide across', 'knees trembling'; 'Try Ludo first'. StepRoot plays them without sliding; then the fight's footwork moves onto them (knee tremble).",
+    "state": "[S377: RUNNING on cursor (wt LEAN_LOCOWALK1); bars on drawn bones in tools/knockdown_film.gd; brief ops/research/TASK_LOCOWALK1.md]",
+    "advances": "the fight's legs read as real boxing - walks and steps with planted feet, no slide, no knee tremble"
+   },
    {
     "id": "ROKOKO1",
     "owner": "claude+ziva",
@@ -4435,7 +4449,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-03 S376",
+  "updated": "2026-11-03 17:06 board_sync",
   "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4576,14 +4590,21 @@
   },
   "working_now": [
    {
-    "id": "FIGHT9",
-    "who": "antigravity",
-    "title": "The live fight AND every clip to 9/10 on Argon's judging (operator S376: 'let argon fix all the clips') - R6 on agy Argon High from claude/fight9base (R5 + main); film = Danny's bout with a knockdown at 70 s; knees tremble/sideways, toes through boots, foot jumps 18 > 4"
+    "title": "TASK LOCOWALK1 - CURSOR - real walking clips for our boxers (back off in guard, walk in guard, walk relaxed)",
+    "who": "cursor",
+    "started": "2026-11-03T16:53",
+    "run": "LOCOWALK1"
    },
    {
-    "id": "BJJ9",
+    "title": "BJJ9 round 10: the belt match to 9/10 on Argon (armbar finish pose first) - Ziva self-runs the loop",
     "who": "ziva",
-    "title": "The BJJ belt match to 9/10 - ziva/bjj9 round 9 + Claude's BJJMENU1 (cf5891cf); Ziva MCP was down this session"
+    "started": "2026-11-03T14:20",
+    "run": "BJJ9R10"
+   },
+   {
+    "id": "FIGHT9",
+    "who": "antigravity",
+    "title": "The live fight and every clip to 9/10 on Argon's judging - R7 queued on agy from claude/fight9base (R5 + main incl. the knockdown count); R6 3 -> 3/10 dropped"
    }
   ],
   "next": [
@@ -4868,74 +4889,49 @@
   },
   "done_recently": [
    {
-    "id": "KNOCKDOWN1",
+    "id": "KNOCKCOUNT1",
     "who": "claude",
-    "title": "S376: a knockdown drops him on the shot (down in ~0.9 s) and replays the shot in slow motion; a downed boxer lies ON the canvas (FloorClear)"
+    "title": "S377: a knockdown is counted - neutral corner, the clock holds, 1-8 / 10, he gets up (BOX!) or the bout ends (STOPPED / KO)"
    },
    {
-    "id": "LEGFIX1",
+    "id": "STEPROOT1",
     "who": "claude",
-    "title": "S376: knees no longer lock straight (14-22 % -> 0-1 %, FootPlant reach); whole-clip speed-ups capped 1.5x (operator: 'very fast ... unatural')"
+    "title": "S377: a body moves only as far as the clip's planted foot pushes it (StepRoot); the corner walk no longer glides"
    },
    {
-    "id": "PLAYTEST375",
+    "id": "JUDGEPROMPT1",
     "who": "claude",
-    "title": "S376: Ana a face card on the Roster, Scouting face cards keep their ranges, Drill it on own combos, no two personalities alike"
+    "title": "S377: Argon judges the bout we film (men bare-chested, no referee by design) - it docked the absent referee every round"
    },
    {
-    "id": "BJJCOACH1",
-    "who": "claude",
-    "title": "S376: the coach's steps under Ana's mat - lit as the move plays, click a step to play it and hold, 0.5x; leg locks play leg locks"
-   },
-   {
-    "id": "KALLINUMS1",
+    "title": "TASK KALLINUMS1 - QWEN - Kalli's numbers for own combinations + the graded card's \"more combos in round 3\" (Lean)",
     "who": "qwen",
-    "title": "S376: Kalli's numbers - combo worth cap 10, the 4-punch signature gamble, tired/named shares, '+N combos by round 3'"
+    "when": "2026-11-03"
    },
    {
-    "id": "BJJMENU1",
-    "who": "claude",
-    "title": "S376 (on ziva/bjj9): the belt match calls as a move menu - chance, points, gas, risk, what a miss costs"
+    "title": "K_COMBOPLAN1",
+    "who": "kalli",
+    "when": "2026-11-03"
    },
    {
-    "id": "TIREDLEGS1",
-    "who": "claude",
-    "title": "S373: an empty tank turns the legs red on the holo + HUD, shortens steps, lightens shots (operator S369)"
+    "title": "K_GRADED2",
+    "who": "kalli",
+    "when": "2026-11-03"
    },
    {
-    "id": "FLOWBOUT1B",
-    "who": "claude",
-    "title": "S373: the plan record on screen - Record tab tally + Game plan 'In bouts: 8 of 12 won, works'"
-   },
-   {
-    "id": "WEIGHFORECAST1",
-    "who": "claude",
-    "title": "S373: every offer shows the weigh-in forecast (Danny 61.6 -> 60.5 red at 17 days)"
-   },
-   {
-    "id": "CLASSES2025",
-    "who": "claude+john",
-    "title": "S373: women's classes 57/60/65/75 kg; old saves keep the same cut"
-   },
-   {
-    "id": "GRADED1",
-    "who": "claude",
-    "title": "S373: a passed grade's moves wear its colour and cost less gas, card and bout"
-   },
-   {
-    "id": "TESTCAL1",
-    "who": "claude+john+kalli",
-    "title": "S373: men's force anchors (J_TESTS4) + Kalli's calibration (K_CALIB1)"
-   },
-   {
-    "id": "NOREF1",
+    "title": "TASK PASSEDSTAMP1 - QWEN - the test-day moment: a PASSED stamp card in the week review when a skills grade passes (Lean)",
     "who": "qwen",
-    "title": "Done: No referee: both boxers push off (PushOff.gd)"
+    "when": "2026-11-03"
    },
    {
-    "id": "BODYREACT1",
-    "who": "ziva",
-    "title": "Done: Body shots react (body_react_probe: 14 of 42 landed body shots show nothing)"
+    "title": "K_GRADED1",
+    "who": "kalli",
+    "when": "2026-11-03"
+   },
+   {
+    "title": "J_WEIGHT1",
+    "who": "john",
+    "when": "2026-11-03"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -5059,7 +5055,7 @@
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
- "last_working_commit": "30390f93",
- "next_action": "S377, in order: (1) COLLECT FIGHT9 rounds as they land - check each Argon score against its verdict file (ops/previews/dispatch/FIGHT9R<n>/after.gemini_argon.md, the Score line), merge main into the kept branch before collecting; collect only at a real 9/10 with fight9_probe + knockdown_film + floor_clear_probe green. (2) Ziva BJJ9: the belt match (ziva/bjj9 = cf5891cf, BJJMENU1 on it) - restart Ziva (MCP was ECONNREFUSED) or move the loop to agy; collect at 9/10 so the belt match + move menu reach the exe. (3) The operator plays update 73 (knockdown + replay, legs, S375 fixes) - read his notes first. (4) Kalli: K_COMBOPLAN1's 'plan line names the combination' share (0.40) is not wired - PlanBoard lines would need a combo id. (5) Roster boxer tiles have no face photo while Ana's card does - decide on faces for the boxers.",
+ "last_working_commit": "c8a3a434",
+ "next_action": "S378, in order: (1) COLLECT LOCOWALK1 (cursor/locowalk1) when it lands: open its eyes burst yourself + tools/knockdown_film.gd drawn bars (walk slide p90 <= 0.05 m/s, knee jerk p95 <= 4.5, hips <= 0.08 m low); if Ludo's clips fail the bars, put the mocap-pack purchase to the operator (his money). (2) With good clips: walk_back_guard -> KnockdownCount.WALK_CLIP (drop the overhead hide), then brief FIGHT9 to move the fight's footwork onto the step clips + StepRoot with FootPlant as ground contact only (the knee tremble). (3) FIGHT9 R7 (agy, from claude/fight9base = R5 + main 3264b79e): check each score against its verdict file; collect only at a real 9/10. (4) BJJ9 (Ziva round 10, armbar finish): collect at 9/10. (5) Kalli's named-combo share needs a plan option for own combinations (PlanLines/PlanFight) before use_share(named).",
  "next_acceptance": "Each built fight change shown live in the exe with a still/film and its tests green: no referee in the ring - a clinch ends with both boxers pushing off back to range; a tired boxer's legs amber/red on the holo and her shots land lighter (a probe measures it); body shots draw a hit reaction; each bout's THE PLAN, LIT UP saved on the fighter page."
 }

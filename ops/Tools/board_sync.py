@@ -42,13 +42,16 @@ def sync(runs_reg: dict, archive: dict, plan: dict, stamp: str) -> list[str]:
     """Mutates the three dicts; returns one line per change."""
     changes: list[str] = []
     runs: dict = runs_reg.setdefault("runs", {})
-    arch: dict = archive.setdefault("runs", {})
+    arch = archive.setdefault("runs", {})   # S377: since S366 the archive file keeps a LIST of runs (each with its id)
     for run_id in list(runs):
         info = runs[run_id]
         if isinstance(info, dict) and str(info.get("status", "")).lower() in FINISHED:
-            key = run_id if run_id not in arch else "%s_%s" % (run_id, stamp.replace(" ", "_").replace(":", ""))
             info.setdefault("archived", stamp + " board_sync")
-            arch[key] = runs.pop(run_id)
+            if isinstance(arch, list):
+                arch.append(dict(runs.pop(run_id), id=run_id))
+            else:
+                key = run_id if run_id not in arch else "%s_%s" % (run_id, stamp.replace(" ", "_").replace(":", ""))
+                arch[key] = runs.pop(run_id)
             changes.append("archived %s (%s)" % (run_id, info.get("status")))
             done = {"title": str(info.get("title", run_id)), "who": str(info.get("agent", "")), "when": stamp[:10]}
             rows = [r for r in plan.get("done_recently", []) if not (isinstance(r, dict) and r.get("title") == done["title"])]

@@ -21,6 +21,11 @@ const CLEAR_M := 2.0
 var main: Node
 var failures := 0
 var g := 0.0   # game seconds since the count beat (the ring's own clock: scaled, stopped by the replay's pause)
+## S377: bones AS DRAWN. Outside the modifier pass get_bone_global_pose returns the clip's pose (Godot restores it after the
+## skin update - tools/tell_probe.gd S347), so FootPlant / KneeTrack never showed in this probe; skeleton_updated fires
+## after every modifier: the leg bones are cached there, per skeleton.
+const DRAWN := ["Head", "Hips", "LeftUpperLeg", "LeftLowerLeg", "LeftFoot", "RightUpperLeg", "RightLowerLeg", "RightFoot"]
+var _drawn := {}
 
 
 func _initialize() -> void:
@@ -66,6 +71,8 @@ func _initialize() -> void:
 		r["up_at"] = [6]
 		view._stop = stop_how
 	var kd: Node = view.kd
+	for bx in view.stage.boxers:
+		_watch(bx["skel"])
 	var down: Dictionary = view.stage.boxers[1]
 	var up: Dictionary = view.stage.boxers[0]
 	var head_y0 := _head(down)
@@ -109,6 +116,7 @@ func _initialize() -> void:
 	var walk_s := 0.0
 	var foot_prev: Array = []
 	var body_prev := Vector3.INF
+	var knees := {}             # S377 operator "the knees seem to be trembling": per standing boxer + knee, the angle each frame
 	var box_left := "-"         # the count graphic 4 s after BOX! (S377 review: BOX! never cleared)
 	var cam_frames := 0         # S377: frames from the count on where the lens is checked
 	var cam_out := 0            # ... where a head or a foot of either boxer is out of the picture (operator: no feet-only frames)
@@ -157,6 +165,21 @@ func _initialize() -> void:
 			walk_s += dt
 		foot_prev = feet
 		body_prev = wp
+		if str(kd.phase) in ["count", "back"] and not paused and OS.get_cmdline_user_args().has("kneelog"):
+			var fp0: Node = up.get("feet")
+			var sw: Array = fp0.get("_swing") if fp0 != null else [{}, {}]
+			print("KNEELOG %.3f %s %.4f %.2f %.2f %d %d" % [g, str(kd.phase), _ankle(up, "Hips").y, _knee(up, "Left"), _knee(up, "Right"),
+				0 if (sw[0] as Dictionary).is_empty() else 1, 0 if (sw[1] as Dictionary).is_empty() else 1])
+		if str(kd.phase) in ["count", "back"] and not paused:
+			for i in 2:
+				var bx: Dictionary = view.stage.boxers[i]
+				if _head(bx) < 1.3 * (bx["node"] as Node3D).scale.y:
+					continue   # on the canvas or getting up
+				for leg in ["Left", "Right"]:
+					var k := "%s %s %s" % [str(kd.phase), "walker" if i == 0 else "downed", leg]
+					if not knees.has(k):
+						knees[k] = []
+					(knees[k] as Array).append(_knee(bx, leg))
 		if str(kd.phase) in ["count", "end", "over", "back"] and not replay.active():   # the count's own lens (the fight's: baseline)
 			cam_frames += 1
 			if not (view.stage.camera.is_position_in_frustum(_ankle(down, "Head")) if walking else _framed(view.stage.camera, view.stage.boxers)):   # walking: the count close-up on his head
@@ -192,6 +215,36 @@ func _initialize() -> void:
 		slide_mean += float(v)
 	slide_mean /= maxf(1.0, float(slides.size()))
 	var slide_p90: float = slides[int(slides.size() * 0.9)] if not slides.is_empty() else 99.0
+	var jerks: Array = []
+	var flips := 0
+	var knee_frames := 0
+	for k in knees:
+		var a: Array = knees[k]
+		knee_frames += a.size()
+		for j in range(2, a.size()):
+			jerks.append(absf(float(a[j]) - 2.0 * float(a[j - 1]) + float(a[j - 2])))
+			var d1 := float(a[j]) - float(a[j - 1])
+			var d0 := float(a[j - 1]) - float(a[j - 2])
+			if d1 * d0 < 0.0 and absf(d1) > 0.5 and absf(d0) > 0.5:
+				flips += 1
+	jerks.sort()
+	var jerk_p95: float = jerks[int(jerks.size() * 0.95)] if not jerks.is_empty() else 0.0
+	for k in knees:
+		var a: Array = knees[k]
+		var js: Array = []
+		var fl := 0
+		for j in range(2, a.size()):
+			js.append(absf(float(a[j]) - 2.0 * float(a[j - 1]) + float(a[j - 2])))
+			var e1 := float(a[j]) - float(a[j - 1])
+			var e0 := float(a[j - 1]) - float(a[j - 2])
+			if e1 * e0 < 0.0 and absf(e1) > 0.5 and absf(e0) > 0.5:
+				fl += 1
+		js.sort()
+		if js.size() > 5:
+			print("KNOCKDOWN knee %s: %d frames, jerk p95 %.2f, flips %.1f/s, angle %.0f-%.0f deg" % [k, a.size(), js[int(js.size() * 0.95)],
+				fl * 30.0 / a.size(), a.min(), a.max()])
+	print("KNOCKDOWN knees (standing, count + after BOX!): jerk p95 %.2f deg/frame^2, max %.2f, flips %.1f per knee-second over %d knee-frames"
+		% [jerk_p95, jerks[-1] if not jerks.is_empty() else 0.0, flips * 30.0 / maxf(1.0, float(knee_frames)), knee_frames])
 	print("KNOCKDOWN walk: %.2f m in %.2f s (%.2f m/s), planted ankle slides mean %.3f m/s, p90 %.3f m/s, max %.3f over %d frames"
 		% [walked, walk_s, walked / maxf(walk_s, 0.01), slide_mean, slide_p90, slides[-1] if not slides.is_empty() else 0.0, slides.size()])
 	_check(walked >= 2.0 and slide_mean <= 0.10 and slide_p90 <= 0.20,
@@ -268,14 +321,35 @@ func _skip_check(view: Node, down: Dictionary, contact_in: float, stop_how: Stri
 	quit(1 if failures > 0 else 0)
 
 
+## The knee's bend: 180 = a straight leg (drawn bones, after every modifier).
+func _knee(bx: Dictionary, leg: String) -> float:
+	var hip := _ankle(bx, leg + "UpperLeg")
+	var knee := _ankle(bx, leg + "LowerLeg")
+	var foot := _ankle(bx, leg + "Foot")
+	return rad_to_deg((hip - knee).angle_to(foot - knee))
+
+
 func _ankle(bx: Dictionary, bone: String) -> Vector3:
 	var skel: Skeleton3D = bx["skel"]
+	var shown: Dictionary = _drawn.get(skel.get_instance_id(), {})
+	if shown.has(bone):
+		return shown[bone]
 	return skel.global_transform * skel.get_bone_global_pose(skel.find_bone(bone)).origin
 
 
+func _watch(skel: Skeleton3D) -> void:
+	var id := skel.get_instance_id()
+	skel.skeleton_updated.connect(func() -> void:
+		var d := {}
+		for n in DRAWN:
+			var bi := skel.find_bone(n)
+			if bi >= 0:
+				d[n] = skel.global_transform * skel.get_bone_global_pose(bi).origin
+		_drawn[id] = d)
+
+
 func _head(bx: Dictionary) -> float:
-	var skel: Skeleton3D = bx["skel"]
-	return (skel.global_transform * skel.get_bone_global_pose(skel.find_bone("Head"))).origin.y
+	return _ankle(bx, "Head").y
 
 
 func _check(cond: bool, label: String) -> void:

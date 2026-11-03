@@ -22,8 +22,13 @@ Make three clips that do:
 3. `walk_relaxed` - walking with hands down, a boxer between rounds / the ring walk (to replace af_walk in FightIntro /
    CornerMinute later - do not wire it there in this task).
 
+4. The fight's footwork set the same way: `step_in_guard`, `step_out_guard`, `step_left_guard`, `step_right_guard` (one
+   short boxing step each, ~0.25-0.35 m, upright, stance kept) - today FootPlant fakes these steps procedurally and that is
+   the knee tremble (S377 measured: a foot mid-step 43 % of the time, each step pumps the knee 35 deg in 0.2 s). Do not
+   wire these into Footwork (FIGHT9's); deliver them baked with their StepRoot travel numbers.
+
 ## Route
-- Ludo CLI (`ludo agent-help`): `ludo model animate --model <rigged boxer glb> --prompt "..." --mode rot_only` (0.2 credits a
+- Ludo CLI = `E:/FightCamp/tools/npm/ludo.cmd` (logged in, Pro, ~536 credits on 2026-11-03; operator S377: "Try Ludo first"). `ludo agent-help`: `ludo model animate --model <rigged boxer glb> --prompt "..." --mode rot_only` (0.2 credits a
   call, 4 candidates each). Cap the spend: LUDO_MAX_CREDITS=6. Auth is the operator's (`ludo account` must answer; if it
   does not, stop and write that in your output - never ask for a key).
 - The rig and the import route into `assets/anim/baked/<name>.res`: read ops/research/LUDO_ANIMATION_BRIEF_S196.md,
@@ -38,6 +43,8 @@ Make three clips that do:
 - Knees: over the loop each knee's bend axis stays within 25 deg of its hip's side axis (no caving in, FIGHT9 bar).
 - In the ring: set KnockdownCount.WALK_CLIP to `walk_back_guard`, run tools/knockdown_film.gd (all four modes: default,
   stop=KO, stop=RSC, stop=KO skip) - every PASS line kept, the walk's slide p90 <= 0.05 m/s.
+- Drawn bones only: tools/knockdown_film.gd caches bones on skeleton_updated (S377) - its knee line ("KNOCKDOWN knee ...")
+  must read jerk p95 <= 4.5 deg/frame^2 and flips <= 1.5/s for the walker during the walk, and its walk line slide p90 <= 0.05.
 - Eyes: film the default knockdown_film and run `eyes index` + `eyes burst <id> <walk second> --count 16 --span 3`; put
   the burst sheet path in your output. A crouch, a cross-step or a frozen leg pose while the body moves = not done.
 
@@ -46,7 +53,7 @@ The fight's own footwork (Footwork / RingPlace / FootPlant) and every other figh
 touch only what the Contract lists.
 
 ## Contract
-OWNS: assets/anim/baked/walk_back_guard.res, assets/anim/baked/walk_guard.res, assets/anim/baked/walk_relaxed.res, scripts/fight3d/FightClips.gd, scripts/fight3d/KnockdownCount.gd, tools/knockdown_film.gd, ops/research/LOCOWALK1_NOTES.md
+OWNS: assets/anim/baked/walk_back_guard.res, assets/anim/baked/walk_guard.res, assets/anim/baked/walk_relaxed.res, assets/anim/baked/step_in_guard.res, assets/anim/baked/step_out_guard.res, assets/anim/baked/step_left_guard.res, assets/anim/baked/step_right_guard.res, scripts/fight3d/FightClips.gd, scripts/fight3d/KnockdownCount.gd, tools/knockdown_film.gd
 RED_TEST: tools/knockdown_film.gd -> KNOCKDOWN failures=0
 REGRESSION: beat_clips_test, golden_path_test, move_clips_test
 VISUAL: yes
