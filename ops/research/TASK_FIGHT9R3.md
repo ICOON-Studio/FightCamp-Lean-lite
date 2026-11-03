@@ -32,6 +32,20 @@ gemini to reach to 9/10", "let argon do all the fixes until its 9/10". Main scor
   S373 work on main - leave BodyBurn.gd alone this round.
 - Knees: your own KNEETRACK1 (scripts/fight3d/KneeTrack.gd) - build on it if it is in your base, do not fight it.
 
+## Clinches are rare now (operator, S374) - do not bring them back
+"to lower clinches ... clinch happen only when a fighter is desperate to break opponents combo but get risk of getting hit,
+that should be pretty rare and i dont care about the real stats". scripts/rules/ClinchBeats.gd (not yours) now places a
+clinch only right after a combination lands on the holder, ~0.16 a round, often with the attacker's entry shot landing
+0.30 s before the tie-up (beat key "entry": true). Your push-off still has to be right for the few that happen.
+
+## Body folds must hold (S374, from merging main into agy/fight9r1) - read before touching punch timing
+Main now has Ziva's BODYREACT1 (tools/body_react_probe.gd -- show3d: every shown body shot folds >= 18 deg within 0.15 s
+and HOLDS >= 0.35 s; main reads 25.9 deg / 0.43 s). Merged with your round 1 it read react 39/39, curl 22 deg OK, but held
+0.20 s - your faster combos (BeatClips.COMBO_LAND_S 0.28 / COMBO_SAME_HAND_S 0.36, main 0.35 / 0.45) land the follow-up
+inside the fold. Keep the quicker hands, but a follow-up aimed at a boxer still folded (HitSnap _bt < 0.51, _gain > 1.5 -
+BeatFire._folded) waits for the fold, the way BODYREACT1 already makes her own next punch wait. Body-shot reaction code
+itself stays Ziva's. When your branch is collected, body_react_probe must PASS.
+
 ## Operator's own note first (S372, comment C218 on the KNEETRACK1 after-film at 24 s) - TOP PRIORITY
 "when legs move its akward something is wrong, when doesnt move looks ok". Claude looked at the frames (19-24 s): standing
 still the legs are fine; the moment she steps, the knees cave inward toward each other, the feet turn out away from the

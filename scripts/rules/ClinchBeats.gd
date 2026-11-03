@@ -1,82 +1,141 @@
 extends RefCounted
-## Real amateur clinch counts (Davis et al. 2015, elite 3x3 min; 2023 women's WC 4.06 +- 2.27 s).
-## Inserts clinch beats into one exchange (in place, kept sorted) and returns the new beats.
-## ctx = {"n": round 1..12, "sit": Exchanges.MODES key, "energy": {"a": 0..100, "b": 0..100},
-##        "habits": {"a": [ids], "b": [ids]}}
+## S374 operator: "to lower clinches and make them have a bit sense should clinch happen only when a fighter is desperate
+## to break opponents combo but get risk of getting hit, that should be pretty rare and i dont care about the real stats".
+## A clinch is an ANSWER: a combination landing on her (COMBO_MIN punches inside COMBO_GAP_S, COMBO_LANDED_MIN of them
+## landing) - the one under fire may grab to stop it (GRAB_P, more when hurt or tired, or with the clinches_when_tired
+## habit while tired), and closing in to grab costs her: ENTRY_HIT_P of the time the attacker's next shot lands first.
+## No combination, no clinch; at most one an exchange. The corner's "tie" call (ClinchRest) still forces hers, entry risk
+## included. (Before S374: 2.5 -> 4.8 a round at random, Davis et al. 2015 - the operator set the real stats aside.)
+## ctx = {"n": round, "sit": Exchanges.MODES key, "energy": {"a", "b"}, "habits": {"a": [ids], "b": [ids]}, "tie": {}}
 
-const PER_ROUND := [2.5, 3.2, 4.8]
-const DUR_MEAN_S := 4.1
-const DUR_SD_S := 2.3
-const DUR_MIN_S := 1.5
-const DUR_MAX_S := 8.0
+const COMBO_MIN := 3
+const COMBO_LANDED_MIN := 2
+const COMBO_GAP_S := 0.9
+const GRAB_P := 0.12
+const GRAB_P_MAX := 0.45
+const ENTRY_HIT_P := 0.55
+const ENTRY_LEAD_S := 0.30             # the entry shot lands this long before the tie-up
+const ENTRY_SHOTS := ["lead_hook", "rear_uppercut", "body_hook"]
+const DUR_MEAN_S := 2.6
+const DUR_SD_S := 0.9
+const DUR_MIN_S := 1.2
+const DUR_MAX_S := 4.5
 const BREAK_S := 0.8
-const FIT_MIN_S := 2.5                  # a gap that would cut a clinch under 2.5 s is skipped
+const FIT_MIN_S := 1.2                 # the player's tie needs at least this much free time
 const PUNCHES := ["jab", "cross", "lead_hook", "body_hook", "rear_uppercut"]
-const SIT_MULT := {"press": 1.2, "range": 0.5, "counter": 1.0, "loadup": 1.1,
-	"tiring": 1.5, "hurt": 2.0, "she_tired": 1.5, "she_hurt": 2.0}
+## How desperate the one under fire is: her own hurt / tiring (sit is from her corner's side: "hurt" = the opponent).
+const DESPERATE := {"hurt": 2.5, "tiring": 1.6}
 
 
 static func apply(beats: Array, ctx: Dictionary, rng: RandomNumberGenerator) -> Array:
-	var rn: int = clampi(int(ctx.get("n", 1)), 1, PER_ROUND.size())
 	var sit: String = str(ctx.get("sit", "press"))
-	var mult: float = float(SIT_MULT.get(sit, 1.0))
-	var base: float = float(PER_ROUND[rn - 1]) / 6.0 * mult
-	var count: int = mini(_pick_count(base, rng), 2)
-	# S340 she tied up this exchange (ClinchRest record): at least one clinch, hers, carrying the opponent's digs in it.
-	var tie: Dictionary = ctx.get("tie", {})
-	if not tie.is_empty():
-		count = maxi(count, 1)
-	if count <= 0:
-		return []
 	var energy: Dictionary = ctx.get("energy", {"a": 100.0, "b": 100.0})
 	var habits: Dictionary = ctx.get("habits", {"a": [], "b": []})
+	var tie: Dictionary = ctx.get("tie", {})
 	var new_beats: Array = []
-	var pt: Array = _punch_times(beats)
-	var taken: Array = []
-	for i in count:
-		var forced := i == 0 and not tie.is_empty()
-		var who: String = "a" if forced else _who_clinches(beats, sit, energy, habits, rng)
-		var desired_dur: float = clampf(_normal(DUR_MEAN_S, DUR_SD_S, rng), DUR_MIN_S, DUR_MAX_S)
-		var gap: Dictionary = _pick_gap(pt, taken, desired_dur, rng)
-		if gap.is_empty():
-			continue
-		if float(gap["max_dur"]) < minf(desired_dur, FIT_MIN_S):
-			continue
-		var dur: float = minf(desired_dur, float(gap["max_dur"]))
-		var t_min: float = maxf(0.5, float(gap["start"]) + 0.01)
-		var t_max: float = minf(29.5 - dur, float(gap["end"]) - dur - BREAK_S - 0.01)
-		if t_min > t_max:
-			continue
-		# A boxer who was just hit grabs at once; otherwise anywhere in the gap.
-		var t: float = t_min if gap["land"] else rng.randf_range(t_min, t_max)
-		var break_t: float = t + dur
-		# The placed window blocks the next clinch like a punch would (no overlapping clinches).
-		pt.append({"t": t, "result": "none"})
-		pt.append({"t": break_t + BREAK_S, "result": "none"})
-		pt.sort_custom(_sort_t)
-		taken.append([t, break_t + BREAK_S])
-		var cb := {"t": t, "who": who, "move": "clinch", "result": "none", "caption": "", "dur": dur, "break_t": break_t}
-		if forced and int(tie.get("shots", 0)) > 0:
-			cb["digs"] = int(tie["shots"])   # Clinch.gd (CLINCH2) plays the opponent's free hand digging
-			cb["digger"] = "b"
-		new_beats.append(cb)
-		new_beats.append({"t": break_t, "who": "a", "move": "step_out", "result": "none", "caption": "", "ref": true})
-		new_beats.append({"t": break_t, "who": "b", "move": "step_out", "result": "none", "caption": "", "ref": true})
+	if not tie.is_empty():
+		# S340 she tied up this exchange (ClinchRest record): her clinch, carrying the opponent's digs in it.
+		var cb := _forced(beats, rng)
+		if not cb.is_empty():
+			if int(tie.get("shots", 0)) > 0:
+				cb["digs"] = int(tie["shots"])   # Clinch.gd (CLINCH2) plays the opponent's free hand digging
+				cb["digger"] = "b"
+			_place(new_beats, cb, "b", rng)
+	else:
+		for c in _combos(beats):
+			var holder: String = str(c["victim"])
+			if rng.randf() >= _grab_p(holder, sit, energy, habits):
+				continue
+			var cb := _after_combo(beats, c, rng)
+			if cb.is_empty():
+				continue
+			cb["who"] = holder
+			_place(new_beats, cb, str(c["attacker"]), rng)
+			break   # rare: at most one an exchange
 	beats.append_array(new_beats)
 	beats.sort_custom(_sort_t)
 	return new_beats
 
 
+## The chance the one under fire grabs: GRAB_P, x DESPERATE when she is the hurt / tiring one, x1.6 for the
+## clinches_when_tired habit under 50 energy; at most GRAB_P_MAX.
+static func _grab_p(holder: String, sit: String, energy: Dictionary, habits: Dictionary) -> float:
+	var mine := sit if holder == "b" else str({"she_hurt": "hurt", "she_tired": "tiring"}.get(sit, ""))
+	var p := GRAB_P * float(DESPERATE.get(mine, 1.0))
+	if "clinches_when_tired" in (habits.get(holder, []) as Array) and float(energy.get(holder, 100.0)) < 50.0:
+		p *= 1.6
+	return minf(p, GRAB_P_MAX)
+
+
+## Combinations that land: runs of one boxer's punches, each within COMBO_GAP_S of the last, COMBO_MIN long with
+## COMBO_LANDED_MIN landing. [{attacker, victim, end_t, next_t}] (next_t = the next punch by anyone after it).
+static func _combos(beats: Array) -> Array:
+	var pt: Array = []
+	for b in beats:
+		if str(b["move"]) in PUNCHES:
+			pt.append(b)
+	pt.sort_custom(_sort_t)
+	var out: Array = []
+	var i := 0
+	while i < pt.size():
+		var j := i
+		while j + 1 < pt.size() and str(pt[j + 1]["who"]) == str(pt[i]["who"]) and float(pt[j + 1]["t"]) - float(pt[j]["t"]) <= COMBO_GAP_S:
+			j += 1
+		var landed := 0
+		for k in range(i, j + 1):
+			landed += 1 if str(pt[k]["result"]) == "lands" else 0
+		if j - i + 1 >= COMBO_MIN and landed >= COMBO_LANDED_MIN:
+			var who := str(pt[i]["who"])
+			out.append({"attacker": who, "victim": "b" if who == "a" else "a", "end_t": float(pt[j]["t"]),
+				"next_t": float(pt[j + 1]["t"]) if j + 1 < pt.size() else 30.0})
+		i = j + 1
+	return out
+
+
+## Her grab right after the combination, if it fits before the next punch; the entry shot's time rides along.
+static func _after_combo(beats: Array, c: Dictionary, rng: RandomNumberGenerator) -> Dictionary:
+	var entry := rng.randf() < ENTRY_HIT_P
+	var t := float(c["end_t"]) + 0.15 + (ENTRY_LEAD_S if entry else 0.0)
+	var room := minf(float(c["next_t"]), 29.5) - t - BREAK_S - 0.02
+	if room < DUR_MIN_S or t < 0.5:
+		return {}
+	var dur := minf(clampf(_normal(DUR_MEAN_S, DUR_SD_S, rng), DUR_MIN_S, DUR_MAX_S), room)
+	var cb := {"t": t, "move": "clinch", "result": "none", "caption": "", "dur": dur, "break_t": t + dur}
+	if entry:
+		cb["entry_t"] = float(c["end_t"]) + 0.15
+	return cb
+
+
+## The player's tie: the first free gap long enough (the old placement), with the same entry risk.
+static func _forced(beats: Array, rng: RandomNumberGenerator) -> Dictionary:
+	var pt: Array = _punch_times(beats)
+	var gap: Dictionary = _pick_gap(pt, [], DUR_MEAN_S, rng)
+	if gap.is_empty() or float(gap["max_dur"]) < FIT_MIN_S:
+		return {}
+	var entry := rng.randf() < ENTRY_HIT_P
+	var t: float = maxf(0.5, float(gap["start"]) + 0.01) + (ENTRY_LEAD_S if entry else 0.0)
+	var dur: float = minf(clampf(_normal(DUR_MEAN_S, DUR_SD_S, rng), DUR_MIN_S, DUR_MAX_S), float(gap["end"]) - t - BREAK_S - 0.02)
+	if dur < DUR_MIN_S or t + dur > 29.5:
+		return {}
+	var cb := {"t": t, "who": "a", "move": "clinch", "result": "none", "caption": "", "dur": dur, "break_t": t + dur}
+	if entry:
+		cb["entry_t"] = t - ENTRY_LEAD_S
+	return cb
+
+
+## The clinch, its entry shot (the attacker's punch landing on her as she closes) and the two step-outs at the break.
+static func _place(new_beats: Array, cb: Dictionary, attacker: String, rng: RandomNumberGenerator) -> void:
+	if cb.has("entry_t"):
+		new_beats.append({"t": float(cb["entry_t"]), "who": attacker, "move": ENTRY_SHOTS[rng.randi() % ENTRY_SHOTS.size()],
+			"result": "lands", "caption": "", "entry": true})
+		cb.erase("entry_t")
+	new_beats.append(cb)
+	new_beats.append({"t": float(cb["break_t"]), "who": "a", "move": "step_out", "result": "none", "caption": "", "ref": true})
+	new_beats.append({"t": float(cb["break_t"]), "who": "b", "move": "step_out", "result": "none", "caption": "", "ref": true})
+
+
 static func _sort_t(a: Dictionary, b: Dictionary) -> bool:
 	return float(a["t"]) < float(b["t"])
-
-
-static func _pick_count(base: float, rng: RandomNumberGenerator) -> int:
-	if base <= 0.0:
-		return 0
-	var f: int = int(floorf(base))
-	var frac: float = base - float(f)
-	return f + (1 if rng.randf() < frac else 0)
 
 
 static func _normal(mean: float, sd: float, rng: RandomNumberGenerator) -> float:
@@ -93,39 +152,6 @@ static func _punch_times(beats: Array) -> Array:
 			out.append({"t": float(b["t"]), "result": str(b["result"])})
 	out.sort_custom(_sort_t)
 	return out
-
-
-static func _who_clinches(beats: Array, sit: String, energy: Dictionary, habits: Dictionary, rng: RandomNumberGenerator) -> String:
-	if sit == "hurt" or sit == "tiring":
-		return "b"
-	if sit == "she_hurt" or sit == "she_tired":
-		return "a"
-	var wa: float = 1.0
-	var wb: float = 1.0
-	var last: Dictionary = _last_landed(beats)
-	if not last.is_empty():
-		var receiver: String = "a" if str(last["who"]) == "b" else "b"
-		if receiver == "a":
-			wa += 1.0
-		else:
-			wb += 1.0
-	var ha: Array = habits.get("a", [])
-	var hb: Array = habits.get("b", [])
-	if "clinches_when_tired" in ha and float(energy.get("a", 100.0)) < 50.0:
-		wa += 1.0
-	if "clinches_when_tired" in hb and float(energy.get("b", 100.0)) < 50.0:
-		wb += 1.0
-	return "a" if rng.randf() < wa / (wa + wb) else "b"
-
-
-static func _last_landed(beats: Array) -> Dictionary:
-	var best: Dictionary = {}
-	for b in beats:
-		var m: String = str(b["move"])
-		if m in PUNCHES and str(b["result"]) == "lands":
-			if best.is_empty() or float(b["t"]) > float(best["t"]):
-				best = b
-	return best
 
 
 static func _pick_gap(punches: Array, taken: Array, desired_dur: float, rng: RandomNumberGenerator) -> Dictionary:

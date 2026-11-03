@@ -1,5 +1,18 @@
 # S374 - next session (written S373, 2026-11-03)
 
+CLINCHES (operator, end of the late S372 run): "clinch happen only when a fighter is desperate to break opponents combo
+but get risk of getting hit, that should be pretty rare and i dont care about the real stats" - ClinchBeats rewritten: a
+clinch answers a landed combination (3+ in 0.9 s, 2+ landing), GRAB_P 0.12 (x2.5 hurt), one an exchange at most, 55% eat
+an entry shot first; ~0.16 a round (was 2.5-4.8). clinch_beats_test 11/0. TASK_FIGHT9R3 told.
+
+PR #24 (agy/fight9r1, FIGHT9 round 1): main merged in (S374, the operator asked). One conflict, BeatFire.gd: main's
+BODYREACT1 waits + round 1's refused punch shows nothing, no big-shot slow-mo, de-duplicated defence; a boxer still
+folded over a body shot does not defend (BeatFire._folded) and body reactions keep main's pace (BeatClips.body_react).
+fight9_probe 13/15 (unchanged: ring-entry head 1.495, clinch break 2), beat_clips/fight_flow/golden_path/clinch_rest/
+ring_lens PASS; body_react_probe curl OK but HELD 0.20 s < 0.35 - Argon's faster combos (COMBO_LAND_S 0.28) land the
+follow-up inside the fold. TASK_FIGHT9R3.md now says so (rounds inherit it); a FIGHT9 branch is collected only with
+body_react_probe PASS. The kept branch to collect is agy/fight9r2 (PR #25) or later, not #24 - merge main into it too.
+
 GEMINI (8ae47866): every paid call goes through gemini_meter.check (budget 14 Google-counted, cap 400k tokens a call) and a
 loop round reuses an already-judged commit's film as its before. When the operator raises the cap at ai.studio/spend:
 `python ops/Tools/gemini_meter.py budget <cap - 1>` then rejudge.

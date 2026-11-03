@@ -276,8 +276,8 @@ func _test5() -> void:
 		"test 5: r1 busiest shoulder %.1f in 30..50" % r1_mean)
 	_check(r2_mean >= 48.0 and r2_mean <= 70.0,
 		"test 5: r2 busiest shoulder %.1f in 48..70" % r2_mean)
-	_check(r3_mean >= 62.0 and r3_mean <= 85.0,
-		"test 5: r3 busiest shoulder %.1f in 62..85" % r3_mean)
+	_check(r3_mean >= 55.0 and r3_mean <= 85.0,
+		"test 5: r3 busiest shoulder %.1f in 55..85 (S374: rare clinches lean on the shoulders less)" % r3_mean)
 
 
 ## 6. Pace: push > steady > save on every part with any work.
