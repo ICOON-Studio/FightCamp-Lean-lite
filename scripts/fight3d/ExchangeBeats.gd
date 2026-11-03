@@ -34,6 +34,10 @@ static func build(x: Dictionary, k: int, r: Dictionary, ctx: Dictionary) -> Arra
 	if k == Exchanges.EXCHANGES - 1 and not r.is_empty():
 		rl["counts"] = int(r.get("counts", 0))
 		rl["stopped"] = str(r.get("stopped", ""))
+		if int(rl["counts"]) > 0 and str(r.get("down", "")) != "":
+			# S377: the count goes to the boxer the sim put down (BoutNight: the round's loser), not the loser of this
+			# exchange - a round won 4-2 with the last exchange lost knocked the round's winner down and KO'd him.
+			rl["won"] = str(r["down"]) == "b"
 	var plan := RoundScript.build(rl, str(ctx["a_style"]), str(ctx["b_style"]), Exchanges.EX_SECONDS, int(ctx["seed"]) + k * 13, ctx["profiles"])
 	if k == 1 or k == 4:
 		_habits(plan, ctx, k, str(x.get("fix", "")))

@@ -24,6 +24,7 @@ const FightHud := preload("res://scripts/fight3d/FightHud.gd")
 const RangeBreath := preload("res://scripts/fight3d/RangeBreath.gd")
 const BeatFire := preload("res://scripts/fight3d/BeatFire.gd")
 const KnockdownReplay := preload("res://scripts/fight3d/KnockdownReplay.gd")
+const KnockdownCount := preload("res://scripts/fight3d/KnockdownCount.gd")
 
 ## The player's choice lasts the session.
 static var fast := false
@@ -71,6 +72,7 @@ var body: Node   # S318 BodyLive: the bout's body map + the scorebug figures (Fi
 var burn: Node   # S322 BodyBurn: per-part Burn, shown as guard height, steps, punch snap
 var bars: Node   # S345 HudBars: six bars a boxer + the round edge (FightHud.build)
 var replay: Node   # S376 KnockdownReplay: the slow-motion replay of a knockdown shot
+var kd: Node   # S377 KnockdownCount: the neutral corner, the count, the rise or the stoppage
 
 
 ## Called on every modal draw. True while a round is playing (the modal stays hidden then).
@@ -162,6 +164,9 @@ func setup(m_main: Node, m: Dictionary) -> void:
 	add_child(replay)
 	replay.setup(self)
 	_build_hud()
+	if kd != null:
+		kd.queue_free()
+	kd = KnockdownCount.attach(self)
 
 
 func _build_hud() -> void:
@@ -198,6 +203,8 @@ func play_round(m: Dictionary, n: int) -> void:
 	var f: Dictionary = c.fighter_by_id(fid)
 	var opp: Dictionary = f["bout"]["opp"]
 	round_n = n
+	if kd != null:
+		kd.stop()
 	var profiles := {"a": RoundStyle.of_fighter(f), "b": RoundStyle.from_opponent(opp)}
 	_profiles = profiles
 	var rounds: Array = m["rounds"]
@@ -306,13 +313,16 @@ func _process(delta: float) -> void:
 	if _ex_done < Exchanges.EXCHANGES and t >= _ex_done * Exchanges.EX_SECONDS and not LiveRound.live(main.modal).is_empty():
 		_open_shout()
 		return
-	t += dt
+	var counting: bool = kd != null and kd.holding()   # S377: the round clock holds through a knockdown's count
+	if not counting:
+		t += dt
 	if t > 1.2 and _banner.text.begins_with("ROUND"):
 		_banner.text = ""
 	while next < beats.size() and float(beats[next]["t"]) <= t:
 		_fire(beats[next])
 		next += 1
-	stage.aim(RangeBreath.phase(beats, next, t))
+	if not counting:
+		stage.aim(RangeBreath.phase(beats, next, t))
 	if _caption_left > 0.0:
 		_caption_left -= dt
 		if _caption_left <= 0.0:
@@ -322,7 +332,8 @@ func _process(delta: float) -> void:
 		if _close_left <= 0.0:
 			Engine.time_scale = pace()
 			stage.broadcast(true)
-	_ambient(dt)
+	if not counting:
+		_ambient(dt)
 	if t >= length:
 		_bell()
 	_hud()
@@ -422,6 +433,8 @@ func corner_done(pick: String) -> void:
 
 func skip_round() -> void:
 	Engine.time_scale = 1.0
+	if kd != null:
+		kd.stop()
 	if playing:
 		_close_shout()
 		var c: Career = main.career
@@ -447,6 +460,8 @@ func _close_shout() -> void:
 ## Skips the rest of the bout: the corner takes the calls (the same as "Sim to result").
 func skip_bout() -> void:
 	Engine.time_scale = 1.0
+	if kd != null:
+		kd.stop()
 	playing = false
 	_close_shout()
 	main.act("fightskip", "")

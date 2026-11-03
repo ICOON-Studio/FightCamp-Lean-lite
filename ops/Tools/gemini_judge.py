@@ -29,12 +29,15 @@ import gemini_meter  # noqa: E402
 API = "https://generativelanguage.googleapis.com"
 MODELS = {"argon": "gemini-4-argon", "flash": "gemini-3.8-flash"}
 
-FIGHT_PROMPT = """You are judging footage from our boxing management game: a live round of women's amateur boxing,
-two lightweights (red top vs blue top) and a referee, filmed by the game's broadcast camera. On-screen overlays (body
-maps, rings, the clock, the shout bar) are UI - ignore them except where they hide the action.
+FIGHT_PROMPT = """You are judging footage from our boxing management game: a live round of amateur boxing, red corner vs
+blue corner, filmed by the game's broadcast camera. Men box bare-chested in trunks, women in a singlet. There is NO
+referee in the ring BY DESIGN (the designer's ruling): the boxers break their own clinches with a push-off, and a
+knockdown is counted by the on-screen graphic - judge how well that works, never the missing referee itself. On-screen
+overlays (body maps, rings, the clock, the count, the shout bar) are UI - ignore them except where they hide the action.
 Judge it as a boxing fan AND an animation director would. Give timestamps (mm:ss) for every claim.
 1) Does it look like real boxing? Footwork and range, punch selection and variety, defence (blocks, slips, distance),
-   clinches, the referee's movement, how hits land and what they do to the receiver.
+   clinches and how they break, how hits land and what they do to the receiver, and after a knockdown what the
+   standing boxer, the downed boxer and the clock do.
 2) Animation defects: snapping or popping between moves, foot sliding or skating, feet floating or sinking, gloves or
    arms passing through heads or bodies, punches that react without contact (or contact without a reaction), the same
    move repeated robotically, frozen or puppet-like stretches, wrong speed (too fast/slow for real boxers).

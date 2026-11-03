@@ -232,6 +232,7 @@ static func _counts(c: Career, f: Dictionary, m: Dictionary, r: Dictionary) -> v
 	so_far[loser] = int(so_far[loser]) + int(k["counts"])
 	m["counts"] = so_far
 	r["counts"] = int(k["counts"])
+	r["up_at"] = (k["up_at"] as Array).duplicate()   # S377 KNOCKCOUNT1: the ring's count gets him up on the sim's number
 	r["down"] = loser if int(k["counts"]) > 0 else ""
 	r["stopped"] = str(k["how"])
 	if int(k["counts"]) == 0:

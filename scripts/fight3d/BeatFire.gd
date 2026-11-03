@@ -58,20 +58,38 @@ func fire(v: Node, b: Dictionary) -> void:
 			stage.play(who, BeatClips.pick(BeatClips.TIRED, stage.has_move, rng.randf()))
 			tired[who] = true
 		"count":
-			# The sim's standing count (Knockdowns); a KO stays down and the winner celebrates.
-			# S376 KNOCKDOWN1 (the itch scan: "punch at 1.8 s, fully down by 2.6 s"): the count beat comes COMBO_GAP_S after
-			# the big shot's beat, before its glove even lands, so the fall used to start ahead of the punch and fight its
-			# hit reaction. The fall now starts FALL_AFTER_S after the shot's contact, and the shot replays in slow motion.
-			var shot := float(last_contact[other])
-			var wait := maxf(0.0, shot - float(v.t)) + FALL_AFTER_S
-			var fall := BeatClips.pick(BeatClips.OUT if v._stop == "KO" else BeatClips.DOWN, stage.has_move, rng.randf())
-			v.get_tree().create_timer(wait).timeout.connect(func(): stage.play(who, fall, 1.0, FALL_FROM_S))
-			if v.get("replay") != null and shot > -1.0:
-				v.replay.knockdown(who, shot)
-			if v._stop != "":
-				v.get_tree().create_timer(wait + 1.2).timeout.connect(stage.play.bind(other, BeatClips.pick(BeatClips.WIN, stage.has_move, rng.randf())))
+			# S377: a frame later - the round script puts the count on the big shot's own t, and the sort that orders the
+			# two is not stable; read before the shot fired, last_contact was the punch before it.
+			_count.call_deferred(v, who, other)
 		_:
 			_punch(v, b, who, other, move)
+
+
+## The sim's standing count (Knockdowns). S376 KNOCKDOWN1 (the itch scan: "punch at 1.8 s, fully down by 2.6 s"): the fall
+## starts FALL_AFTER_S after the shot's contact, and the shot replays in slow motion. S377 KNOCKCOUNT1: the count itself
+## (neutral corner, the number, the rise or the stoppage, the winner's celebration) is KnockdownCount's.
+func _count(v: Node, who: int, other: int) -> void:
+	var stage: Node3D = v.stage
+	var shot := float(last_contact[other])
+	var wait := maxf(0.0, shot - float(v.t)) + FALL_AFTER_S
+	var fall := BeatClips.pick(BeatClips.OUT if v._stop == "KO" else BeatClips.DOWN, stage.has_move, v._amb_rng.randf())
+	# A skipped round (KnockdownCount.stop) cancels a fall still to come - he would drop in the corner minute; a KO falls.
+	v.get_tree().create_timer(wait, false).timeout.connect(func():
+		if v.get("kd") == null or str(v.kd.phase) != "":
+			stage.play(who, fall, 1.0, FALL_FROM_S))
+	if v.get("replay") != null and shot > -1.0:
+		v.replay.knockdown(who, shot)
+	if v.get("kd") != null:
+		v.kd.start(who, str(v._stop), _up_at(v), wait)
+
+
+## When the downed boxer gets up (Knockdowns' up_at for the round's last count; 0 = KnockdownCount's default).
+static func _up_at(v: Node) -> int:
+	var rounds: Array = (v.main.modal as Dictionary).get("rounds", []) if v.main != null else []
+	if rounds.size() < int(v.round_n):
+		return 0
+	var ups: Array = (rounds[int(v.round_n) - 1] as Dictionary).get("up_at", [])
+	return int(ups[-1]) if not ups.is_empty() else 0
 
 
 func _punch(v: Node, b: Dictionary, who: int, other: int, move: String) -> void:

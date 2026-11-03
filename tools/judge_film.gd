@@ -39,11 +39,14 @@ func _initialize() -> void:
 			kd = float(str(a).trim_prefix("knockdown="))
 	if kd > 0.0 and kd < secs:
 		# S376 knockdown=<s>: at that round time the next beats are a big landing cross and the count - the knockdown the round
-		# script puts in its last exchange - and the round's later beats are dropped, as after a real count. The judge then
-		# sees the shot, the fall, the slow-motion replay and the boxer on the canvas (KnockdownReplay, FloorClear).
+		# script puts in its last exchange. The judge sees the shot, the fall, the slow-motion replay, the boxer on the canvas
+		# (KnockdownReplay, FloorClear) and S377 the count (KnockdownCount: neutral corner, the number, he gets up, BOX!); the
+		# round clock holds through the count, and the round's later beats play on after it.
 		await _until(func(): return float(view.t) >= kd, kd * 2.0 + 30.0)
 		var t0 := float(view.t)
-		view.next = (view.beats as Array).size()
+		var bs: Array = view.beats
+		while int(view.next) < bs.size() and float(bs[int(view.next)]["t"]) < t0 + 0.35:
+			view.next = int(view.next) + 1   # nothing else fires between the shot and its count
 		view._fire({"t": t0, "who": "a", "move": "cross", "result": "lands", "big": true, "knockback": true, "caption": "", "def": ""})
 		await _until(func(): return float(view.t) >= t0 + 0.35, 10.0)
 		view._fire({"t": t0 + 0.35, "who": "b", "move": "count", "result": "none", "big": false, "knockback": false, "caption": "", "def": ""})
