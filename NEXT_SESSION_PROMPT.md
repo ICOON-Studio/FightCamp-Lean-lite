@@ -1,5 +1,9 @@
 # S374 - next session (written S373, 2026-11-03)
 
+GEMINI (8ae47866): every paid call goes through gemini_meter.check (budget 14 Google-counted, cap 400k tokens a call) and a
+loop round reuses an already-judged commit's film as its before. When the operator raises the cap at ai.studio/spend:
+`python ops/Tools/gemini_meter.py budget <cap - 1>` then rejudge.
+
 DONE BEFORE S374 STARTED (operator "Yes, fix it", 169e5fc4): Danny's first offer used to miss weight; Bouts.makeable_day now dates
 an offer for a boxer over his class where Sim.weigh_forecast reaches the limit (up to 4 weeks later). Suite 128/0.
 

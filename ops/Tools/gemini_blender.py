@@ -75,6 +75,9 @@ def main(argv: list[str]) -> int:
                            task=args.task, previous=prev)
     key = api_key()
     t0 = time.time()
+    import gemini_judge   # S372 spend brake: the clip's length at 24 fps before the upload
+    gemini_meter.check(args.model, gemini_meter.video_tokens(gemini_judge.clip_seconds(Path(args.video)), 24) + len(prompt) // 3,
+                       f"blender fix: {args.clip}")
     f = upload(Path(args.video), key)
     body = {"contents": [{"role": "user", "parts": [
         {"fileData": {"mimeType": "video/mp4", "fileUri": f["uri"]}, "videoMetadata": {"fps": 24}}, {"text": prompt}]}],

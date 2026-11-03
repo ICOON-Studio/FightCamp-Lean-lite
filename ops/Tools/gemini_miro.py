@@ -49,6 +49,7 @@ def ask_argon(svg: str, images: list[Path], ask: str, model: str, key: str) -> t
         parts.append({"inlineData": {"mimeType": MIME[p.suffix.lower()], "data": base64.b64encode(p.read_bytes()).decode()}})
     body = {"contents": [{"role": "user", "parts": parts}],
             "generationConfig": {"responseMimeType": "application/json"}}
+    gemini_meter.check(model, len(svg) // 3 + 1500 * len(images) + 3000, "miro frame")   # S372 spend brake
     r = requests.post(f"{API}/v1beta/models/{MODELS[model]}:generateContent", json=body, timeout=600,
                       headers={"x-goog-api-key": key})
     if not r.ok:

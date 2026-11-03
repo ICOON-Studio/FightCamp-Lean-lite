@@ -544,13 +544,35 @@ def short_title(task: str, title: str) -> str:
     return re.sub(r"\s*\((?:Lean|Antigravity|Qwen|Cursor)\)\s*$", "", t, flags=re.I).strip()
 
 
+def _judged_at(head: str, task: str) -> tuple[str, dict]:
+    """S372 (Gemini cap hit in one night: every loop round filmed and judged its BASE again, though the round before had
+    just judged that same commit as its after-film): the newest other run whose judged after-film is this commit."""
+    best: tuple[str, dict] = ("", {})
+    for tid, info in load(RUNS, {}).get("runs", {}).items():
+        a = ((info or {}).get("films") or {}).get("after") or {}
+        if tid != task and a.get("head") == head and Path(a.get("verdict_file") or "-").is_file() and Path(a.get("film") or "-").is_file():
+            if str(info.get("finished", "")) >= str((best[1] or {}).get("_at", "")):
+                best = (tid, dict(a, _at=str(info.get("finished", ""))))
+    return best
+
+
 def films(task: str, wt: Path, contract: dict, which: str) -> dict:
     mp4 = PREVIEWS / task / f"{which}.mp4"
     md = mp4.with_suffix(".gemini_argon.md")
+    head = git("rev-parse", "HEAD", cwd=wt).strip()
     if which == "before" and mp4.is_file() and md.is_file():  # a re-run (S372: agy self-updated mid-launch) keeps its judged BASE film
         score, line = read_verdict(md.read_text(encoding="utf-8", errors="replace"))
         log(f"JUDGE {task} before: reused Argon {score}/10 {line[:100]}")
-        return {"film": mp4.as_posix(), "verdict_file": md.as_posix(), "score": score, "line": line, "rc": 0, "err": ""}
+        return {"film": mp4.as_posix(), "verdict_file": md.as_posix(), "score": score, "line": line, "rc": 0, "err": "", "head": head}
+    if which == "before":
+        prev, a = _judged_at(head, task)
+        if prev:   # the same commit was judged as the last round's after-film: one film per round, not two
+            mp4.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(a["film"], mp4)
+            shutil.copyfile(a["verdict_file"], md)
+            log(f"JUDGE {task} before: {prev}'s after-film is this commit {head[:8]} - reused Argon {a.get('score')}/10, no film or judge spend")
+            return {"film": mp4.as_posix(), "verdict_file": md.as_posix(), "score": a.get("score", "?"), "line": a.get("line", ""),
+                    "rc": 0, "err": "", "head": head, "reused": prev}
     why = film(wt, contract, mp4)
     if why:
         log(f"FILM {task} {which}: {why}")
@@ -558,6 +580,7 @@ def films(task: str, wt: Path, contract: dict, which: str) -> dict:
     title = brief_contract.brief_path(task).read_text(encoding="utf-8", errors="replace").splitlines()[0].lstrip("# ")
     label = "main, before the change" if which == "before" else "the agent's branch, after the change"
     j = judge(mp4, f"{task} {which}", f"Video = {label} for {title}. Judge above all what this change is about.")
+    j["head"] = head
     log(f"JUDGE {task} {which}: Argon {j['score']}/10 {j['line'][:120]}")
     return j
 

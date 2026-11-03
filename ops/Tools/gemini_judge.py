@@ -103,6 +103,16 @@ def upload(path: Path, key: str) -> dict:
     raise SystemExit("GEMINI file still processing after 3 minutes")
 
 
+def clip_seconds(path: Path) -> float:
+    import subprocess
+    p = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(path)],
+                       capture_output=True, text=True)
+    try:
+        return float(p.stdout.strip())
+    except ValueError:
+        return 600.0   # unknown length: assume long, so the per-call cap asks for --allow-long
+
+
 def judge(path: Path, model: str, fps: int, prompt: str, key: str) -> tuple[str, dict]:
     f = upload(path, key)
     body = {"contents": [{"role": "user", "parts": [
@@ -134,6 +144,7 @@ def main(argv: list[str]) -> int:
     ap.add_argument("--intent", default="")
     ap.add_argument("--prompt-file")
     ap.add_argument("--what", default="")
+    ap.add_argument("--allow-long", action="store_true", help="a film past gemini_meter.MAX_CALL_TOKENS (S372 brake)")
     args = ap.parse_args(argv)
     clip = Path(args.clip)
     if not clip.is_file():
@@ -144,6 +155,9 @@ def main(argv: list[str]) -> int:
         prompt = FIGHT_PROMPT + (f"\nContext: {args.intent}" if args.intent else "")
     else:
         prompt = CLIP_PROMPT.format(intent=f"Intended move: {args.intent}" if args.intent else "")
+    # S372 spend brake: the clip's length x fps -> tokens; no upload when the month's budget or the per-call cap says no.
+    gemini_meter.check(args.model, gemini_meter.video_tokens(clip_seconds(clip), args.fps), args.what or clip.name,
+                       allow_long=args.allow_long)
     key = api_key()
     t0 = time.time()
     text, usage = judge(clip, args.model, args.fps, prompt, key)
