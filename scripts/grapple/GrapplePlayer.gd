@@ -21,6 +21,9 @@ var _centre := Vector3.ZERO
 var _key_t := PackedFloat32Array([0.0])
 ## S336 GROUND2A: push the two bodies out of each other (off = the data as it is, the control arm)
 var contact := true   # when each keyframe is reached (GrappleTiming)
+## S376 BJJCOACH1: the coach's steps play at half speed and hold on a step (Playbook mat).
+var speed := 1.0
+var paused := false
 
 
 func play(sequence: Dictionary, poses: Array, pair_scale: float, place: Transform3D) -> void:
@@ -55,6 +58,11 @@ func length_s() -> float:
 	return _key_t[_key_t.size() - 1]
 
 
+## When each keyframe is reached (GrappleTiming.key_times of the sequence playing).
+func key_times() -> PackedFloat32Array:
+	return _key_t
+
+
 func t() -> float:
 	return _t
 
@@ -69,8 +77,9 @@ func seek(time_s: float) -> void:
 
 
 func _process(delta: float) -> void:
-	if seq.is_empty():
+	if seq.is_empty() or paused:
 		return
+	delta *= speed
 	_t = minf(_t + delta, length_s()) if length_s() > 0.0 else _t + delta
 	_apply()
 

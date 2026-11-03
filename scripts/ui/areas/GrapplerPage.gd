@@ -13,6 +13,7 @@ const NoGi := preload("res://scripts/rules/NoGi.gd")
 const Grapplers := preload("res://scripts/state/Grapplers.gd")
 const StripeCall := preload("res://scripts/rules/StripeCall.gd")
 const BjjSide := preload("res://scripts/rules/BjjSide.gd")
+const Playbook := preload("res://scripts/ui/areas/Playbook.gd")
 
 const BELT_COLOR := {"white": Color("#f4f5f6"), "blue": Color("#2f5fd0"), "purple": Color("#7b3fc4"),
 	"brown": Color("#7a4a25"), "black": Color("#151515")}
@@ -43,7 +44,7 @@ static func act(main: Node, name: String, arg: String) -> bool:
 		"gdrill":   # "id|coach" / "id|open" / "id|fav" (S364, what the classes drill)
 			var kv := arg.split("|")
 			var gf := c.grappler_by_id(kv[0])
-			if not gf.is_empty() and NoGi.DRILLS.has(kv[1]):
+			if not gf.is_empty() and (NoGi.DRILLS.has(kv[1]) or kv[1].begins_with("move:")):   # S375 "move:<id>" = the player's pick
 				gf["drill"] = kv[1]
 		"gteach":   # "id|1" / "id|0" (S365, the beginners' class)
 			var kv := arg.split("|")
@@ -206,6 +207,12 @@ func _drill_pick(main: Node, f: Dictionary, day: int) -> Control:
 			NoGi.move_name(m) if m != "" else "Nothing left to drill")
 		b.name = "Drill_" + p
 		btns.add_child(b)
+	# S375 the player's own pick from PLAYBOOK > her mat (Drill it), or the way there.
+	if plan.begins_with("move:"):
+		btns.add_child(UI.button("Your pick: %s" % NoGi.move_name(plan.trim_prefix("move:")), "BtnSolid", func(): pass))
+	btns.add_child(UI.button("Pick a move on the mat", "Btn", func():
+		Playbook.pick = fid
+		main.act("go", "playbook:0")))
 	box.add_child(btns)
 	var m := NoGi.drilling(f, day)
 	var why := ""

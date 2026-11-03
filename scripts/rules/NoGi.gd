@@ -97,6 +97,11 @@ static func drilling(f: Dictionary, day: int = 0) -> String:
 static func drilling_for(f: Dictionary, plan: String, day: int = 0) -> String:
 	var bjj: Dictionary = f.get("bjj", {})
 	var best := ""
+	# S375 the player's own pick (PLAYBOOK > her mat, Drill it): that move until it is a signature.
+	if plan.begins_with("move:"):
+		var mv := plan.trim_prefix("move:")
+		if BeltRoad.moves_for(str(f.get("belt", "white"))).has(mv) and float(bjj.get(mv, 0.0)) < SIGNATURE:
+			return mv
 	match plan:
 		"open":
 			var g: Array = lean_group(f, opens_after(day + 1, 1)[0])

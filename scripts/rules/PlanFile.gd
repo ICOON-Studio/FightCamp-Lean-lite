@@ -44,6 +44,7 @@ static func rows(opp: Dictionary, arrows: Array, mastery: Dictionary, combos: Di
 			"round": 0, "share": 0.0, "place": "", "when": "", "move": "", "name": "", "fit": "none", "edge": 0.0,
 			"best": "", "best_name": "", "best_edge": 0.0, "say": str(t.get("counter", ""))}
 		if not bool(r["known"]):
+			r["value"] = "?"   # S375 playtest: a locked tell never shows its answer before the tape finds it
 			r["say"] = "Not found yet: watch the tape."
 			out.append(r)
 			continue

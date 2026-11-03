@@ -28,6 +28,7 @@ func _initialize() -> void:
 	_check(bool(rows["style"]["known"]) and str(rows["style"]["sit"]) == "counter" and is_equal_approx(float(rows["style"]["share"]), 0.55),
 		"the game is free: counter, 55%% of her exchanges (got %s %s)" % [rows["style"]["sit"], rows["style"]["share"]])
 	_check(not bool(rows["weapon"]["known"]) and not bool(rows["weakness"]["known"]), "weapon and weakness locked before the tape")
+	_check(str(rows["weapon"]["value"]) == "?" and str(rows["weakness"]["value"]) == "?", "a locked tell never shows its answer")
 	_check(PlanFile.round_hints(opp).is_empty(), "no round hint before the tape finds the weakness")
 
 	# b. The tape opens both: the weapon is her counter game at long range, the starter's 1-2 there only works.

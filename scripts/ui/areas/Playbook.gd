@@ -16,6 +16,11 @@ const ComboBuilder := preload("res://scripts/ui/ComboBuilder.gd")
 const MoveBook := preload("res://scripts/ui/MoveBook.gd")
 const MoveWords := preload("res://scripts/rules/MoveWords.gd")
 const GamePlan := preload("res://scripts/ui/GamePlan.gd")
+const MatPlayer := preload("res://scripts/ui/MatPlayer.gd")
+const BjjFilm := preload("res://scripts/rules/BjjFilm.gd")
+const NoGi := preload("res://scripts/rules/NoGi.gd")
+const BeltRoad := preload("res://scripts/rules/BeltRoad.gd")
+const CoachSteps := preload("res://scripts/ui/CoachSteps.gd")
 
 ## S359 (operator still: the player covered the plan panel - "remove the player or make it smaller?"): 400 x 440 beside
 ## the map (was 560 x 600), so the map and its side panel get the width; the Combos tab keeps its own bigger player.
@@ -30,6 +35,7 @@ var player: Control
 var _move := ""
 var _name: Label
 var _slow: Button
+var _steps: Control   # S376 the coach's steps under Ana's mat (CoachSteps)
 
 
 func build(main: Node) -> void:
@@ -40,11 +46,16 @@ func build(main: Node) -> void:
 		AreaHead.placeholder(self, "NO FIGHTERS YET", "Sign a fighter: moves, plans and escapes live here.")
 		return
 	var f: Dictionary = c.fighters[0]
-	for x in c.fighters:
+	for x in c.fighters + c.grapplers:
 		if str(x["id"]) == pick:
 			f = x
 	pick = str(f["id"])
 	add_child(_picker(main, c, f))
+	# S375 (operator: "i expect to see the bjj moves not a female fighter doing box", "train her on bjj"): a no-gi athlete's
+	# whiteboard is her syllabus on the mat - each move played on two bodies from GrappleMap, Drill it sends it to her classes.
+	if str(f.get("sport", "")) == "bjj":
+		add_child(_mat_book(main, c, f))
+		return
 	match int(main.route["tab"]):
 		0:
 			add_child(_book(f, MoveWords.groups(), MoveWords.WORDS, "Click a move and it plays here."))   # S360 Q-S294-91
@@ -60,7 +71,7 @@ func build(main: Node) -> void:
 func _picker(main: Node, c: Career, f: Dictionary) -> Control:
 	var row := UI.hbox(8)
 	row.add_child(UI.muted("Fighter", UI.SMALL))
-	for x in c.fighters:
+	for x in c.fighters + c.grapplers:
 		var on := str(x["id"]) == str(f["id"])
 		var id := str(x["id"])
 		row.add_child(UI.button(str(x["name"]), "TabOn" if on else "Tab", func():
@@ -81,6 +92,93 @@ func _plan(main: Node, f: Dictionary) -> Control:
 	h.add_child(scroll)
 	h.add_child(_player_col(f, "Hover an answer and it plays here."))
 	return h
+
+
+## S375 her syllabus as a move book beside the mat: each move's pad level toward owned (a weapon at the tick) and a
+## signature, the one her classes drill, Watch (GrappleMap on two bodies, BjjFilm) and Drill it (NoGi "move:<id>").
+func _mat_book(main: Node, c: Career, f: Dictionary) -> Control:
+	var h := UI.hbox(16)
+	h.custom_minimum_size = Vector2(0, MAP_H)
+	var scroll := ScrollContainer.new()
+	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var v := UI.vbox(10)
+	v.name = "MatBook"
+	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	scroll.add_child(v)
+	var belt := str(f.get("belt", "white"))
+	v.add_child(UI.caps("%s'S SYLLABUS - %s BELT: %s" % [str(f["first"]).to_upper(), belt.to_upper(),
+		str((BeltRoad.SYLLABUS.get(belt, {}) as Dictionary).get("title", "")).to_upper()]))
+	var drilling := NoGi.drilling(f, c.day)
+	v.add_child(UI.muted("Watch a move and it plays on the mat, the coach's steps under it. Drill it and %s's classes work on it (+%.1f a week) until it is a signature (%d)." % [
+		str(f["first"]), NoGi.DRILL_GAIN, int(NoGi.SIGNATURE)], UI.SMALL, true))
+	var bjj: Dictionary = f.get("bjj", {})
+	for g in NoGi.groups_of(f):
+		v.add_child(UI.caps(str(g[0])))
+		for id in g[1]:
+			v.add_child(_mat_row(main, f, str(id), float(bjj.get(str(id), 0.0)), str(id) == drilling))
+	h.add_child(scroll)
+	var col := UI.vbox(8)
+	col.custom_minimum_size = Vector2(PLAYER.x, 0)
+	var card := PanelContainer.new()
+	card.add_theme_stylebox_override("panel", UI.box(UI.PANEL, UI.LINE, 12, 1, 6, 6))
+	var mat := MatPlayer.new()
+	mat.name = "MatPlayer"
+	var stems := Faces.pair(f, Faces.partner(f))
+	mat.bodies = [Faces.glb(stems[0]), Faces.glb(stems[1])]
+	mat.custom_minimum_size = PLAYER
+	card.add_child(mat)
+	col.add_child(card)
+	player = mat
+	_name = UI.label("Watch a move and it plays here (GrappleMap).", UI.BODY, UI.FG, "bold", true)
+	col.add_child(_name)
+	# S376 BJJCOACH1: the coach's steps under the mat, lit as the film plays them; click one to play it and hold.
+	_steps = CoachSteps.new()
+	_steps.setup(mat)
+	col.add_child(_steps)
+	col.add_child(UI.muted("%s in red, the partner in blue. The moves are GrappleMap's (eel.is/GrappleMap), played at a coached pace." % f["first"], UI.SMALL, true))
+	h.add_child(col)
+	if drilling != "":
+		mat.ready.connect(func(): _watch(drilling), CONNECT_ONE_SHOT)
+	return h
+
+
+func _mat_row(main: Node, f: Dictionary, id: String, lvl: float, drilled: bool) -> Control:
+	var row := UI.hbox(10)
+	row.name = "Mat_" + id
+	var nm := UI.label(NoGi.move_name(id), UI.BODY, UI.FG, "semi")
+	nm.custom_minimum_size = Vector2(230, 0)
+	row.add_child(nm)
+	row.add_child(UI.meter(clampf(lvl / NoGi.SIGNATURE, 0.0, 1.0), UI.GOLD if lvl >= NoGi.SIGNATURE else UI.GREEN,
+		[BeltRoad.OWNED_AT / NoGi.SIGNATURE], 160.0))
+	row.add_child(UI.mono("%d" % int(lvl), UI.SMALL, UI.FG))
+	row.add_child(UI.chip("signature" if lvl >= NoGi.SIGNATURE else ("owned" if lvl >= BeltRoad.OWNED_AT else "learning"),
+		"gold" if lvl >= NoGi.SIGNATURE else ("green" if lvl >= BeltRoad.OWNED_AT else "")))
+	if drilled:
+		row.add_child(UI.chip("drilling this week", "green"))
+	row.add_child(UI.spacer())
+	var filmed := BjjFilm.film(id).size() > 0
+	# S376: an unfilmed move still has the coach's steps to read (BjjSteps).
+	var w := UI.button("Watch" if filmed else "Steps", "Btn", func(): _watch(id))
+	w.tooltip_text = "" if filmed else "GrappleMap has no film of this move yet: the coach's steps only."
+	w.name = "Watch_" + id
+	row.add_child(w)
+	var d := UI.button("Drilling" if drilled else "Drill it", "Btn", func():
+		main.act("gdrill", "%s|move:%s" % [f["id"], id])
+		main.toast("%s's classes drill the %s." % [f["first"], NoGi.move_name(id).to_lower()]), drilled)
+	d.name = "Drill_" + id
+	row.add_child(d)
+	return row
+
+
+func _watch(id: String) -> void:
+	if player == null or not player.has_method("play_move"):
+		return
+	var ok: bool = player.play_move(id)
+	if _name != null:
+		_name.text = NoGi.move_name(id) if ok else "%s: GrappleMap has no film of it yet." % NoGi.move_name(id)
+	if is_instance_valid(_steps):
+		_steps.show_move(id, ok)
 
 
 ## S359 ESCAPES (operator: "escapes has nothing, is that intentional?"): the ways out a boxer drills - off the ropes, out of
