@@ -39,15 +39,16 @@
 - FIGHT9R2 crashed once at 03:56 (agy replaced its own exe mid-launch); seat_dispatch now waits for the exe and reuses a
   judged BEFORE film; relaunched 03:58; at 04:28 agy hit its 30-min print timeout mid-turn with nothing written -> turn raised to 60 min
   (2e2de1e5), relaunched 04:30. Round 1 (compile-fixed) scored Argon 3/10 = main.
-- Still: the body-map holo is the female ecorche for everyone - a male holo (male half of the licensed pack,
-  E:/FightCamp/licensed/ecorche_aaaxis) needs its own render, landmarks and mask.
+- Male body map (operator "Yes, build it", 967f8bae): the licensed pack's male ecorche rendered + baked like hers
+  (holo_render_blender.py / bake_holo_figure.py with `m`; he faces -Y) -> assets/ui/body/holo_m; BodyHolo.holo_for(stem)
+  shows it for Faces.MEN_CM bodies. Still: ops/previews/S372/men_fight_bare_male_holo.png.
 
 ## HANDOFF
 - Working commit: 2e2de1e5 (main, pushed); exe rebuilt (suite 124 PASS, 0 FAIL). Evidence: the probe/test lines above, PR #24 body, seat_dispatch.log.
 - In flight: agy/fight9r2 (LEAN_FIGHT9R2, runner pid 24012) - before-film of round 1 recording at 03:50; then agy 35 min,
   compile gate, checks, after-film, Argon, loop_next queues R3. Ziva BJJ9 at round 4 (ziva/bjj9, BJJ9_ROUNDS.md).
 - Remaining: FIGHT9 to 9/10 (merge main into the kept branch before collecting - BODYREACT1 touched BeatClips/BeatFire);
-  BJJ9 to 9/10; the male holo for men's body maps; GOALTESTS1 phase 2 test-day
+  BJJ9 to 9/10; Danny's first-offer weight cut; GOALTESTS1 phase 2 test-day
   moment + grade upgrades move cards; FLOWBOUT1 Record tab + Playbook win rates; women's limits 60/65; J_TESTS4 + K_CALIB1.
 - Exact next action: read the LOOP FIGHT9 lines in seat_dispatch.log (R2 before = round 1's first real score), collect
   John J_TESTS4 / Kalli K_CALIB1 (gbot threads), then FLOWBOUT1 wiring.

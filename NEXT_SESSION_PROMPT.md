@@ -9,8 +9,8 @@ seat_dispatch.log for COMPILE lines. BJJ9: Ziva round 4 (BJJ9_ROUNDS.md). Before
 kept branch (BODYREACT1 changed BeatClips/BeatFire on main).
 SENT: John J_TESTS4 (men:women rear-hand force on one device -> TestDay.POWER_MEN_AT, empty today = no men's force test);
 Kalli K_CALIB1 (the Sunday test curves). Collect both (gbot thread --to John / --to Kalli).
-ORDER: roadmap now.next_action. MEN: five male MetaHumans are in (Faces.MEN_CM; jump=men_fight); the body-map holo is
-still female for men - next. Danny missed weight on his first offer (diet-only cut too slow for 1.6 kg in 17 days).
+ORDER: roadmap now.next_action. MEN: five male MetaHumans are in (Faces.MEN_CM; jump=men_fight); the male body-map holo
+is in (holo_m). Men are bare-chested (operator: "male boxers donot wear tops"). Danny missed weight on his first offer (diet-only cut too slow for 1.6 kg in 17 days).
 TRAP: Argon (agy) cannot run Godot - it wrote PackedStringArray.any() and broke indentation; the gate catches it now.
 
 --- S372 notes (written S371) ---

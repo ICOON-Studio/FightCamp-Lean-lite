@@ -2,10 +2,11 @@ extends SceneTree
 ## S372 (operator "Yes, build them"): men box in men's bodies. Five male MetaHumans (Faces.MEN_CM, built S152/MH4,
 ## bare-chested - operator S372 "male boxers donot wear tops") - Danny Osei and Josh Harper cast by name, the region's
 ## men by name from the men's pool, the women untouched; the Playbook's partner is a man for a man. Each body loads with
-## the women's skeleton and its trunks, and no top.
+## the women's skeleton and its trunks, and no top; a man's body map is the male holo.
 
 const Faces := preload("res://scripts/rules/Faces.gd")
 const Data := preload("res://scripts/state/Data.gd")
+const BodyHolo := preload("res://scripts/ui/BodyHolo.gd")
 
 var failures := 0
 
@@ -13,6 +14,7 @@ var failures := 0
 func _initialize() -> void:
 	_cast()
 	_pairs()
+	_holo()
 	await _bodies()
 	print("MALE_BODIES failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
@@ -50,6 +52,15 @@ func _pairs() -> void:
 	_check(Faces.sex(Faces.partner({"sex": "m"})) == "m" and Faces.MEN_CM.has(Faces.pair({"name": "X", "sex": "m"}, Faces.partner({"sex": "m"}))[1]),
 		"a man spars with a man in the Playbook")
 	_check(str(Faces.partner(Data.lucy())["name"]) == "Maria Ortega", "a woman still spars with Maria")
+
+
+## S372: a man's body map is the male ecorche holo (assets/ui/body/holo_m), a woman's stays the female one.
+func _holo() -> void:
+	var his := BodyHolo.portrait("mh_boxer_02")
+	var hers := BodyHolo.portrait("mh_boxer_11")
+	_check(str((his["tex"] as Texture2D).resource_path).contains("holo_m") and (his["anchors"] as Dictionary).has("track")
+		and his["mask"] != null, "Danny's body map is the male holo, with its places and mask")
+	_check(str((hers["tex"] as Texture2D).resource_path).contains("holo_f"), "Lucy's body map stays the female holo")
 
 
 func _bodies() -> void:

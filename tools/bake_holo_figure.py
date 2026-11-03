@@ -33,6 +33,21 @@ CLAV, SHOULDER, ELBOW, HAND = (420, 270), (318, 305), (228, 560), (65, 755)
 HIP, KNEE = (395, 735), (380, 1120)
 HIPS_C, CHEST_C = (450, 700), (450, 400)
 
+# S372 (male boxers): `python tools/bake_holo_figure.py <holo_m.png> m` bakes the pack's male ecorche (rendered with
+# `holo_render_blender.py -- <out> m`, ortho 2.0404 m) to assets/ui/body/holo_m. His landmarks, same 25 px grid rule.
+SEX = sys.argv[2] if len(sys.argv) > 2 else "f"
+if SEX == "m":
+    OUT = "assets/ui/body/holo_m"
+    PPM = 1500 / 2.0404
+    HEAD = (450, 117, 60, 90)
+    EYE_R, EYE_L = (425, 116), (475, 116)
+    NOSE = (450, 147, 10, 14)
+    RIBS_R, RIBS_L = (380, 470), (520, 470)
+    RIB_RX, RIB_RY = 0.055 * PPM, 0.075 * PPM
+    CLAV, SHOULDER, ELBOW, HAND = (420, 272), (268, 318), (168, 520), (70, 765)
+    HIP, KNEE = (378, 760), (365, 1090)
+    HIPS_C, CHEST_C = (450, 700), (450, 385)
+
 
 def lerp(a, b, t):
     return (a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t)

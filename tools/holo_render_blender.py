@@ -1,6 +1,9 @@
 import bpy, mathutils, math, sys
 # S353: the female ecorche (material 1) rendered front-on as the body figure's holo. Run: blender -b ecorche.blend --python this
-OUT = sys.argv[sys.argv.index("--") + 1] if "--" in sys.argv else "E:/FightCamp/gen/s353_holo/holo_f.png"
+ARGS = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
+OUT = ARGS[0] if ARGS else "E:/FightCamp/gen/s353_holo/holo_f.png"
+# S372 (male boxers): `-- <out.png> m` renders the pack's male ecorche (material 0) for the men's body map.
+SEX = ARGS[1] if len(ARGS) > 1 else "f"
 ob = bpy.data.objects[0]
 bpy.context.view_layer.objects.active = ob
 ob.select_set(True)
@@ -8,7 +11,8 @@ bpy.ops.object.mode_set(mode='EDIT')
 bpy.ops.mesh.separate(type='MATERIAL')
 bpy.ops.object.mode_set(mode='OBJECT')
 parts = sorted([o for o in bpy.data.objects if o.type == 'MESH'], key=lambda o: o.name)
-fem = parts[1]
+print("HOLO_PARTS", [(o.name, len(o.data.vertices), tuple(round(d, 3) for d in o.dimensions)) for o in parts])
+fem = parts[0] if SEX == "m" else parts[1]
 for o in parts:
     o.hide_render = (o != fem)
 for o in list(bpy.data.objects):
@@ -43,6 +47,8 @@ ao = N.new("ShaderNodeAmbientOcclusion"); ao.inputs["Distance"].default_value = 
 geo = N.new("ShaderNodeNewGeometry")
 key = N.new("ShaderNodeVectorMath"); key.operation = 'DOT_PRODUCT'
 key.inputs[1].default_value = (-0.35, 0.75, 0.55)   # world: toward the camera (+Y), up and from her right
+if SEX == "m":
+    key.inputs[1].default_value = (0.35, -0.75, 0.55)   # his camera is at -Y: the same key, mirrored
 keyc = N.new("ShaderNodeMath"); keyc.operation = 'MAXIMUM'; keyc.inputs[1].default_value = 0.0
 keyw = N.new("ShaderNodeMath"); keyw.operation = 'MULTIPLY_ADD'; keyw.inputs[1].default_value = 0.45; keyw.inputs[2].default_value = 0.45
 facing = N.new("ShaderNodeMath"); facing.operation = 'ADD'
@@ -86,8 +92,13 @@ lo = mathutils.Vector([min(v[k] for v in pts) for k in range(3)]); hi = mathutil
 ctr = (hi + lo) / 2
 cd = bpy.data.cameras.new("cam"); cd.type = 'ORTHO'; cd.ortho_scale = (hi.z - lo.z) * 1.04
 cam = bpy.data.objects.new("cam", cd); sc.collection.objects.link(cam); sc.camera = cam
-cam.location = (ctr.x, 6.0, ctr.z)
-cam.rotation_euler = (math.pi / 2, 0, math.pi)
+# The pack's male faces -Y (S372: from +Y the first render showed his back), so his camera stands on the other side.
+if SEX == "m":
+    cam.location = (ctr.x, -6.0, ctr.z)
+    cam.rotation_euler = (math.pi / 2, 0, 0)
+else:
+    cam.location = (ctr.x, 6.0, ctr.z)
+    cam.rotation_euler = (math.pi / 2, 0, math.pi)
 sc.render.filepath = OUT
 bpy.ops.render.render(write_still=True)
 # Where the picture's pixels sit in metres, for the places/track baked beside it.

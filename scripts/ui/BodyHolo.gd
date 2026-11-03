@@ -5,7 +5,11 @@ extends RefCounted
 ## lights each part and hurt place on the muscles. Her face rides along for the HEAD close-up (BodyCallouts), so it stays her.
 
 const HOLO := "res://assets/ui/body/holo_f"
+## S372 (male boxers): the same pack's male ecorche, rendered and baked the same way (holo_render_blender.py / bake_holo_figure.py
+## with `m`), for the men's bodies (Faces.MEN_CM).
+const HOLO_M := "res://assets/ui/body/holo_m"
 const FACES := "res://assets/ui/face"
+const Faces := preload("res://scripts/rules/Faces.gd")
 const PLATE := Color(0.035, 0.06, 0.09, 0.92)
 const PLATE_EDGE := Color(0.25, 0.75, 1.0, 0.35)
 
@@ -14,12 +18,18 @@ static func has() -> bool:
 	return ResourceLoader.exists(HOLO + ".png") and FileAccess.file_exists(HOLO + ".json")
 
 
+## The holo for this body: the male figure for a man's body (when baked), else the female one.
+static func holo_for(stem: String) -> String:
+	return HOLO_M if Faces.MEN_CM.has(stem) and ResourceLoader.exists(HOLO_M + ".png") else HOLO
+
+
 ## {"tex", "anchors", "mask", "holo": true, "face"} for the boxer with this model stem.
 static func portrait(stem: String) -> Dictionary:
-	var a = JSON.parse_string(FileAccess.get_file_as_string(HOLO + ".json"))
+	var holo := holo_for(stem)
+	var a = JSON.parse_string(FileAccess.get_file_as_string(holo + ".json"))
 	var face := FACES.path_join(stem + ".jpg")
-	return {"tex": load(HOLO + ".png"), "anchors": a if a is Dictionary else {}, "holo": true,
-		"mask": load(HOLO + "_mask.png") if ResourceLoader.exists(HOLO + "_mask.png") else null,
+	return {"tex": load(holo + ".png"), "anchors": a if a is Dictionary else {}, "holo": true,
+		"mask": load(holo + "_mask.png") if ResourceLoader.exists(holo + "_mask.png") else null,
 		"face": load(face) if ResourceLoader.exists(face) else null}
 
 
