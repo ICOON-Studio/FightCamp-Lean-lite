@@ -25,6 +25,9 @@ const SPOTS := [
 	{"name": "LIVER", "places": ["right_ribs"], "at": "right_ribs", "crop": 1.7},
 	{"name": "RIBS", "places": ["left_ribs"], "at": "left_ribs", "crop": 1.7},
 ]
+## S381 (operator on the LIVER card: "add liver picture on the circle ?"): an ORGAN's close-up shows the organ itself, drawn
+## in the holo's look (tools/bake_organ_pics.py, our own outline), not a crop of the muscles. The card's whole circle is it.
+const ORGAN_PICS := {"LIVER": preload("res://assets/ui/body/organ_liver.png")}
 const R := 30.0          # a close-up's radius, px
 const PAD := 6.0         # from the panel's outer edge
 const GAP_Y := 86.0      # the close-ups' spacing down the strip
@@ -109,7 +112,7 @@ static func attach(f: Control, portrait: Dictionary, side_out: float, tip_fn: Ca
 		b.pic.mouse_filter = MOUSE_FILTER_IGNORE
 		b.pic.show_behind_parent = true
 		b.pic.set_anchors_and_offsets_preset(PRESET_FULL_RECT)
-		b.pic.material = mat
+		b.pic.material = mat if pic_of(c._bubbles.size()) == null else null   # an organ picture keeps its colours
 		b.pic.draw.connect(c._draw_pic.bind(b))
 		b.add_child(b.pic)
 		c.add_child(b)
@@ -123,6 +126,13 @@ static func spot_of(place: String) -> int:
 		if place in SPOTS[k]["places"]:
 			return k
 	return -1
+
+
+## Close-up k's organ picture (ORGAN_PICS), null when it shows her own picture (her face, the holo's muscles).
+static func pic_of(k: int) -> Texture2D:
+	if k < 0 or k >= SPOTS.size():
+		return null
+	return ORGAN_PICS.get(str(SPOTS[k]["name"])) as Texture2D
 
 
 ## A punch landed on `place`: its close-up pops out and holds HOLD_S (a new hit restarts the hold and swells it once).
@@ -247,17 +257,21 @@ func _colour(s: Dictionary) -> Color:
 	return col.lerp(Color.WHITE, fl)
 
 
-## Her own picture cut round the card's place (drawn on its Pic, behind the ring).
+## Her own picture cut round the card's place, or the organ's picture (drawn on its Pic, behind the ring).
 func _draw_pic(b: Bubble) -> void:
 	var s: Dictionary = b.spot
-	var a: Array = anchors.get(str(s["at"]), [])
-	if a.size() < 4:
-		return
 	var c := Vector2(R, R)
-	var t := tex
-	var cuv := Vector3(float(a[0]), float(a[1]), float(a[2]) * float(s["crop"]))
-	var asp := tex.get_size().x / tex.get_size().y
-	if str(s["at"]) == "head" and face != null:
+	var t := pic_of(SPOTS.find(s))
+	var cuv := Vector3(0.5, 0.5, 0.5)   # S381 an organ picture fills the circle
+	var asp := 1.0
+	if t == null:
+		var a: Array = anchors.get(str(s["at"]), [])
+		if a.size() < 4:
+			return
+		t = tex
+		cuv = Vector3(float(a[0]), float(a[1]), float(a[2]) * float(s["crop"]))
+		asp = tex.get_size().x / tex.get_size().y
+	if t == tex and str(s["at"]) == "head" and face != null:
 		t = face
 		asp = face.get_size().x / face.get_size().y
 		var lay := FaceMarks.layout(face_uv, asp)

@@ -14,6 +14,10 @@ extends SceneTree
 ##    tooltip there (the card is the tooltip); off a place the figure keeps the punch-stats tooltip; leaving fades it out.
 ## 6. Input + room: the callouts layer ignores the mouse, a hidden card is not visible (takes no mouse); a shown card and its
 ##    line sit inside the boxer's panel (the 3D ring under the HUD gets nothing, the boxers are never covered).
+## 7. Organ pictures (S381, operator: "add liver picture on the circle ?"): the LIVER card shows the liver picture (its own
+##    colours, no kit shader), HEAD keeps her face and RIBS the holo; every organ picture names a card; the picture is the holo
+##    look (dark plate corners, cyan organ) with the big lobe on the viewer's left; the card's dot sits on the boxer's right
+##    side (the viewer's left), under the chest, on both bodies.
 
 const BodyLive := preload("res://scripts/fight3d/BodyLive.gd")
 const BodyCallouts := preload("res://scripts/ui/BodyCallouts.gd")
@@ -59,6 +63,7 @@ func _initialize() -> void:
 	await _test4()
 	await _test5()
 	_test6()
+	_test7()
 	print("CALLOUT_POP failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
 
@@ -180,6 +185,53 @@ func _test6() -> void:
 		if (b as Control).visible or (b.get_node("Pic") as Control).mouse_filter != Control.MOUSE_FILTER_IGNORE:
 			hidden_ok = false
 	_check("6 hidden cards are not visible (no mouse), their pictures ignore it", hidden_ok, "")
+
+
+## 7. Organ pictures.
+func _test7() -> void:
+	var lv := BodyCallouts.pic_of(LIVER)
+	_check("7 the LIVER card shows the liver picture", lv != null and lv.resource_path.ends_with("organ_liver.png"),
+		lv.resource_path if lv != null else "none")
+	_check("7 HEAD keeps her face, RIBS the holo", BodyCallouts.pic_of(0) == null and BodyCallouts.pic_of(2) == null, "")
+	var names := []
+	for s in BodyCallouts.SPOTS:
+		names.append(str(s["name"]))
+	var stray := []
+	for n in BodyCallouts.ORGAN_PICS:
+		if not names.has(n):
+			stray.append(n)
+	_check("7 every organ picture names a card", stray.is_empty(), str(stray))
+	var co: Control = _co(1)
+	_check("7 the liver picture keeps its colours, the head card keeps the kit shader",
+		(co._bubbles[LIVER].get_node("Pic") as Control).material == null and (co._bubbles[0].get_node("Pic") as Control).material != null, "")
+	var img := Image.load_from_file(ProjectSettings.globalize_path("res://assets/ui/body/organ_liver.png"))
+	var ok := img != null and img.get_width() == img.get_height()
+	var left := 0
+	var right := 0
+	var dark_corners := ok
+	if ok:
+		var w := img.get_width()
+		for p in [Vector2i(2, 2), Vector2i(w - 3, 2), Vector2i(2, w - 3), Vector2i(w - 3, w - 3)]:
+			var cc := img.get_pixelv(p)
+			dark_corners = dark_corners and cc.get_luminance() < 0.12
+		for y in w:
+			for x in w:
+				var c := img.get_pixel(x, y)
+				if c.b > 0.45 and c.b > c.r + 0.15:
+					if x < w / 2:
+						left += 1
+					else:
+						right += 1
+	_check("7 the picture is the holo look: a cyan organ on the dark plate", ok and dark_corners and left + right > 1500,
+		"organ px %d" % (left + right))
+	_check("7 the liver's big lobe is on the viewer's left (her right side)", left > right * 1.3, "left %d right %d" % [left, right])
+	for side in 2:
+		var fig: Control = bl.figures[side]
+		var head: Vector2 = fig.centre_of("head")
+		var dot: Vector2 = fig.centre_of("right_ribs")
+		var sh := float(fig.call("_geom_px", "head")["ry"])
+		_check("7 side %d: the liver dot is on the boxer's right (the viewer's left), under the chest" % side,
+			dot.x < head.x - sh * 0.4 and dot.y > head.y + sh * 3.0, "head %s dot %s" % [head, dot])
 
 
 func _inside_panel(co: Control, k: int) -> bool:
