@@ -26,6 +26,13 @@ const HEAD_TOUCH_M := 0.19
 ## Each boxer leans out of this share of the overlap; over half, since the first boxer of the frame reads the other's
 ## head a frame late (peer.shown_head) and the arc's chord falls a little short of the push.
 const HEAD_SHARE := 0.7
+## S382 MOVETIP1 round 3: the touch this body keeps (the hover card's studio keeps the heads further apart: MoveStudio).
+var head_touch_m := HEAD_TOUCH_M
+## S382 MOVETIP1 round 3: the head's centre rides with the head (HEAD_UP_M up the skull as it stands in the bind pose,
+## turned with the head bone) instead of straight up from the bone - a folded head's centre is out in front of the bone,
+## ~0.05 m nearer the other's than the straight-up guess (tools/movetip_heads_probe.gd). The studio turns it on.
+var ride := false
+var _up_rest := Vector3.UP   # the bind pose's up, in the head bone's own frame
 
 var other: Skeleton3D
 ## The other boxer's GloveClear: its head centre AS SHOWN (after her snap, sway and hit fold), in world space. Read from
@@ -55,7 +62,15 @@ func setup(skel: Skeleton3D) -> bool:
 	_spine = skel.find_bone("Spine")
 	_chest = skel.find_bone("Chest")
 	heads = _spine >= 0 and _chest >= 0 and not OS.get_cmdline_user_args().has("noheads")
+	if _head >= 0:
+		_up_rest = skel.get_bone_global_rest(_head).basis.orthonormalized().inverse() * Vector3.UP
 	return _head >= 0
+
+
+## Her head's centre in skeleton space (k: the skeleton's world scale).
+func _centre(skel: Skeleton3D, k: float) -> Vector3:
+	var g := skel.get_bone_global_pose(_head)
+	return g.origin + (g.basis.orthonormalized() * _up_rest if ride else Vector3.UP) * HEAD_UP_M / k
 
 
 func _process_modification() -> void:
@@ -77,7 +92,7 @@ func _process_modification() -> void:
 		_clear_head(skel, hc, k)
 	if reach != null:
 		reach.settle()   # S331: her lean (and HitSnap's) carried the landing glove off the face; it lands again
-	shown_head = skel.global_transform * (skel.get_bone_global_pose(_head).origin + Vector3.UP * HEAD_UP_M / k)
+	shown_head = skel.global_transform * _centre(skel, k)
 	for side in _arms:
 		if reach != null and str(reach.get("_hand")).begins_with(side) and float(reach.get("last_weight")) > 0.0:
 			continue
@@ -104,18 +119,18 @@ func _process_modification() -> void:
 ## Her trunk leans back from the other head by HEAD_SHARE of the overlap (both boxers do it, so the pair clears it), half on
 ## the spine, half on the chest, in the horizontal plane only. `-- noheads` = the control arm.
 func _clear_head(skel: Skeleton3D, hc: Vector3, k: float) -> void:
-	var c := skel.get_bone_global_pose(_head).origin + Vector3.UP * HEAD_UP_M / k
+	var c := _centre(skel, k)
 	var away := c - hc
 	away.y = 0.0
 	var d := (c - hc).length() * k
-	if d >= HEAD_TOUCH_M or away.length() < 1e-5:
+	if d >= head_touch_m or away.length() < 1e-5:
 		return
 	var dir := away.normalized()
 	# Horizontal only: the gap that makes the 3D distance the touch, given the heads' height difference (a gut shot's fold
 	# drops one head well below the other).
 	var v := absf((c - hc).y) * k
 	var h := away.length() * k
-	var push := (sqrt(maxf(HEAD_TOUCH_M * HEAD_TOUCH_M - v * v, 0.0)) - h) * HEAD_SHARE / k
+	var push := (sqrt(maxf(head_touch_m * head_touch_m - v * v, 0.0)) - h) * HEAD_SHARE / k
 	if push <= 0.0:
 		return
 	for b in [_spine, _chest]:

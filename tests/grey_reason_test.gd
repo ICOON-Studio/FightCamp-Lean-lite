@@ -13,6 +13,13 @@ var disabled_total := 0
 
 
 func _initialize() -> void:
+	# S382 (the suite's flake, exit 9 with PASS printed): the career's seed is randi(), so in some runs Lucy is hurt in
+	# training in week 1 (Injuries: next_offer_day moves past the injury) and her first offers come after day 8 - the route
+	# then opened and accepted "lucy:m8" / "lucy:o8", offers that did not exist, and threw SCRIPT ERRORs all the way down
+	# (BoutActs 'opp' on {}). The route now takes the ids of the offers she actually has. `-- seed=<n>` replays one career.
+	for a in OS.get_cmdline_user_args():
+		if str(a).begins_with("seed="):
+			seed(int(str(a).trim_prefix("seed=")))
 	root.size = Vector2i(W, H)
 	main = load("res://scenes/Main.tscn").instantiate()
 	root.add_child(main)
@@ -47,13 +54,21 @@ func _initialize() -> void:
 	await _check_moment("09_fighter")
 	var c: Career = main.career
 	_run_until(func(): return not (c.fighter()["offers"] as Array).is_empty())
+	var offer := ""
+	var mismatch := ""
+	for o in c.fighter()["offers"]:
+		if bool(o["mismatch"]):
+			mismatch = str(o["id"])
+		else:
+			offer = str(o["id"])
+	print("offers %s / %s on day %d (injury %s)" % [offer, mismatch, c.day, str(c.fighter().get("injury", {}))])
 	main.act("go", "fights:0")
 	await _check_moment("10_offers")
-	main.act("openBout", "lucy:m8")
+	main.act("openBout", mismatch)
 	await _check_moment("11_bout_unsafe")
-	main.act("openBout", "lucy:o8")
+	main.act("openBout", offer)
 	await _check_moment("12_bout")
-	main.act("accept", "lucy:o8")
+	main.act("accept", offer)
 	await _check_moment("13_home_booked")
 	main.act("camp", "lucy")
 	await _check_moment("14_camp")

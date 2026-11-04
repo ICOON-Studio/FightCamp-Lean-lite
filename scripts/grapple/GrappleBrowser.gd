@@ -135,6 +135,7 @@ func _viewport() -> Control:
 	box.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	var vp := SubViewport.new()
 	vp.msaa_3d = Viewport.MSAA_4X
+	vp.own_world_3d = true   # S382: its bodies stay out of the root World3D (and out of every other mat's)
 	box.add_child(vp)
 	var world := Node3D.new()
 	vp.add_child(world)

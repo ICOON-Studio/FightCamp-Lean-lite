@@ -7,6 +7,8 @@ const DB := preload("res://scripts/grapple/GrappleMapDB.gd")
 const BjjFilm := preload("res://scripts/rules/BjjFilm.gd")
 const NoGi := preload("res://scripts/rules/NoGi.gd")
 const BeltRoad := preload("res://scripts/rules/BeltRoad.gd")
+const MatPlayer := preload("res://scripts/ui/MatPlayer.gd")
+const Faces := preload("res://scripts/rules/Faces.gd")
 
 var failures := 0
 
@@ -37,6 +39,24 @@ func _initialize() -> void:
 	ana["bjj"]["kimura"] = NoGi.SIGNATURE
 	_check(NoGi.drilling_for(ana, "move:kimura") == NoGi.drilling_for(ana, "coach"), "a signature hands back to the coach's pick")
 	_check(NoGi.drilling_for(ana, "move:berimbolo") == NoGi.drilling_for(ana, "coach"), "a move outside her belt is refused")
+
+	# S382 MOVETIP1 round 2: a mat owns its World3D - two mats (the Playbook's and the hover card's) never share bodies.
+	var stems := Faces.pair(ana, Faces.partner(ana))
+	var mats: Array = []
+	for i in 2:
+		var m := MatPlayer.new()
+		m.bodies = [Faces.glb(stems[0]), Faces.glb(stems[1])]
+		m.custom_minimum_size = Vector2(320, 240)
+		root.add_child(m)
+		mats.append(m)
+	for i in 3:
+		await process_frame
+	var worlds: Array = mats.map(func(m): return (m.find_children("*", "SubViewport", true, false)[0] as SubViewport).find_world_3d())
+	_check(worlds[0] != root.find_world_3d() and worlds[1] != root.find_world_3d() and worlds[0] != worlds[1],
+		"each mat draws its own World3D (not the root's, not the other mat's)")
+	var per: Array = worlds.map(func(w): return root.find_children("*", "Skeleton3D", true, false).filter(
+		func(s): return (s as Node3D).get_world_3d() == w).size())
+	_check(per == [2, 2], "two bodies in each mat's world (%s)" % str(per))
 	print("BJJ_MAT failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
 

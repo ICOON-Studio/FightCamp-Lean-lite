@@ -18,6 +18,7 @@ const MoveMastery := preload("res://scripts/rules/MoveMastery.gd")
 const BodyMap := preload("res://scripts/rules/BodyMap.gd")
 const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
 const SkillAwards := preload("res://scripts/rules/SkillAwards.gd")
+const MoveTip := preload("res://scripts/ui/MoveTip.gd")
 
 const CARD_SIZE := Vector2(136, 176)
 const KIND_COLOR := {"punch": Color("#2f6fdb"), "defence": Color("#4f8a2c"), "step": Color("#8a5a2a")}
@@ -108,6 +109,7 @@ static func _card(f: Dictionary, i: int, id: String, e: Dictionary, chain: Array
 		v.add_child(UI.label("hurts %s %.1f" % ["ribs" if dmg["ribs"] > 0.0 else "head", dmg["ribs"] + dmg["head"]], UI.TINY))
 	if i == 0 and float(st.get("delta", 0.0)) < 0.0:
 		v.add_child(Icons.tip(UI.chip("slow opener", "red"), " ".join(st.get("notes", []))))
+	MoveTip.attach(p, id, f)   # S382 MOVETIP1: hover a card in the strip and the hover card plays that move
 	return p
 
 

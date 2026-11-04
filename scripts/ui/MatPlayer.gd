@@ -5,6 +5,9 @@ extends SubViewportContainer
 ##   var m := MatPlayer.new(); m.bodies = [her_glb, partner_glb]; add it; m.play_move(syllabus_id) -> false when unfilmed
 ## S376 BJJCOACH1 (CoachSteps beside it): play_step(t0, t1) plays one coach step and holds where it ends; set_paused,
 ## set_speed (0.5x / 1x); time() / key_times() say where the film is. The orbit keeps turning on a hold.
+## S382 MOVETIP1 round 2 (skeptic: the hover card's second mat put its pair into the ROOT World3D beside the Playbook's -
+## four bodies in both clips, still there after the card hid): the viewport owns its World3D, as MovePlayer's always did.
+## `studio` (the hover card): an off-white floor, the camera ~35 deg above, soft shadows.
 
 const DB := preload("res://scripts/grapple/GrappleMapDB.gd")
 const Pose := preload("res://scripts/grapple/GrapplePose.gd")
@@ -18,11 +21,14 @@ const TOPS := [Color("#ff6a5c"), Color("#5b93ff")]
 const TRUNKS := [Color("#e2483d"), Color("#2f6fdb")]
 const ORBIT_DEG_S := 9.0
 const HOLD_S := 0.8   # the pause on the landing before the move plays again
+const MAT_BG := Color("#f1eee8")
+const MAT_FLOOR := Color("#ebe7df")
 const HOLD_IN_S := 0.01   # a held step stops this far inside its end, so it stays the step on screen
 
 static var _db: Array = []
 
 var bodies: Array = []
+var studio := false
 var player: Node
 var cam: Camera3D
 var _seq := -1
@@ -42,6 +48,7 @@ func _ready() -> void:
 	stretch = true
 	var vp := SubViewport.new()
 	vp.msaa_3d = Viewport.MSAA_4X
+	vp.own_world_3d = true   # its bodies live in its own world, never in the root's (S382)
 	add_child(vp)
 	var world := Node3D.new()
 	vp.add_child(world)
@@ -119,8 +126,9 @@ func _process(delta: float) -> void:
 			hi = hi.max(v)
 	_look = _look.lerp((lo + hi) * 0.5, minf(1.0, delta * 3.0))
 	var r := maxf((hi - lo).length() * 0.5, 0.9)
-	var dist := r / tan(deg_to_rad(cam.fov * 0.5)) * 0.85   # S375 closer than the browser: a small panel
-	cam.position = _look + Basis(Vector3.UP, deg_to_rad(_yaw)) * Vector3(0, 0.42, 0.9).normalized() * dist
+	var dist := r / tan(deg_to_rad(cam.fov * 0.5)) * (0.72 if studio else 0.85)   # S375 closer than the browser: a small panel
+	var up := Vector3(0, 0.70, 1.0) if studio else Vector3(0, 0.42, 0.9)   # studio: ~35 deg above
+	cam.position = _look + Basis(Vector3.UP, deg_to_rad(_yaw)) * up.normalized() * dist
 	cam.look_at(_look, Vector3.UP)
 
 
@@ -154,7 +162,7 @@ func _room(world: Node3D) -> void:
 	var env := WorldEnvironment.new()
 	var e := Environment.new()
 	e.background_mode = Environment.BG_COLOR
-	e.background_color = Color("#dfe7ec")
+	e.background_color = MAT_BG if studio else Color("#dfe7ec")
 	e.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	e.ambient_light_color = Color(0.9, 0.9, 0.92)
 	e.ambient_light_energy = 0.6
@@ -165,13 +173,17 @@ func _room(world: Node3D) -> void:
 	sun.rotation_degrees = Vector3(-55, 35, 0)
 	sun.light_energy = 1.3
 	sun.shadow_enabled = true
+	if studio:
+		sun.rotation_degrees = Vector3(-70, 35, 0)   # high: short, soft shadows under the bodies
+		sun.shadow_blur = 2.5
+		sun.light_energy = 1.1
 	world.add_child(sun)
 	var mat := MeshInstance3D.new()
 	var plane := PlaneMesh.new()
-	plane.size = Vector2(10, 10)
+	plane.size = Vector2(40, 40) if studio else Vector2(10, 10)
 	mat.mesh = plane
 	var m := StandardMaterial3D.new()
-	m.albedo_color = Color("#9da3a8")
+	m.albedo_color = MAT_FLOOR if studio else Color("#9da3a8")
 	m.roughness = 0.9
 	mat.material_override = m
 	world.add_child(mat)

@@ -130,6 +130,7 @@ func _viewport() -> Control:
 	box.add_child(holder)
 	var vp := SubViewport.new()
 	vp.msaa_3d = Viewport.MSAA_4X
+	vp.own_world_3d = true   # S382: its bodies stay out of the root World3D (and out of every other mat's)
 	holder.add_child(vp)
 	_world = Node3D.new()
 	vp.add_child(_world)

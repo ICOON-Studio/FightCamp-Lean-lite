@@ -5,7 +5,8 @@ extends VBoxContainer
 ## S360 (operator Q-S294-91: "visually and progressively rewarding"): with her combination pad time (`combos`) each card
 ## shows how far the move has come - a tier (RAW / USABLE / SHARP / SIGNATURE, MoveMastery) and a bar - each group how
 ## many of its moves are ready, and the book what to drill next.
-##   MoveBook.make(groups, words, mastery, on_pick, combos = {}, progress = false) -> MoveBook   groups = [[title, line, [move ids]]]
+##   MoveBook.make(groups, words, mastery, on_pick, combos = {}, progress = false, fighter = {}) -> MoveBook
+##       groups = [[title, line, [move ids]]]; with `fighter` each card opens the hover card (MoveTip, S382)
 ##   signal picked(id)
 
 const UI := preload("res://scripts/ui/UI.gd")
@@ -13,6 +14,7 @@ const SM := preload("res://scripts/rules/StrikeMap.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
 const MoveMastery := preload("res://scripts/rules/MoveMastery.gd")
 const Icons := preload("res://scripts/ui/Icons.gd")
+const MoveTip := preload("res://scripts/ui/MoveTip.gd")
 
 signal picked(id: String)
 
@@ -23,12 +25,15 @@ const TIER_COLOR := {"UNLEARNED": UI.MUTED, "RAW": UI.AMBER, "USABLE": UI.GREEN,
 var _cards := {}   # id -> Button
 var _combos := {}
 var _progress_on := false
+var _fighter := {}   # S382 MOVETIP1: with her, each card opens the hover card (MoveTip)
 
 
-static func make(groups: Array, words: Dictionary, mastery: Dictionary, on_pick: Callable, combos := {}, progress := false) -> Control:
+static func make(groups: Array, words: Dictionary, mastery: Dictionary, on_pick: Callable, combos := {}, progress := false,
+		fighter := {}) -> Control:
 	var b := new()
 	b.name = "MoveBook"
 	b._combos = combos
+	b._fighter = fighter
 	b._progress_on = progress
 	b.add_theme_constant_override("separation", 18)
 	b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -120,6 +125,8 @@ func _group(title: String, line: String, ids: Array, words: Dictionary, mastery:
 		card.name = "Move_" + str(id).replace(" ", "_").replace("@", "_at_")
 		card.tooltip_text = ""
 		_wrap(card)
+		if not _fighter.is_empty():
+			MoveTip.attach(card, str(id), _fighter)
 		if _progress_on:
 			_mark(card, _progress(m, mastery))
 		_cards[str(id)] = card

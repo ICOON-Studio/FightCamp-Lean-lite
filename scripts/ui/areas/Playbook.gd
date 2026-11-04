@@ -21,6 +21,7 @@ const BjjFilm := preload("res://scripts/rules/BjjFilm.gd")
 const NoGi := preload("res://scripts/rules/NoGi.gd")
 const BeltRoad := preload("res://scripts/rules/BeltRoad.gd")
 const CoachSteps := preload("res://scripts/ui/CoachSteps.gd")
+const MoveTip := preload("res://scripts/ui/MoveTip.gd")
 
 ## S359 (operator still: the player covered the plan panel - "remove the player or make it smaller?"): 400 x 440 beside
 ## the map (was 560 x 600), so the map and its side panel get the width; the Combos tab keeps its own bigger player.
@@ -148,6 +149,7 @@ func _mat_row(main: Node, f: Dictionary, id: String, lvl: float, drilled: bool) 
 	row.name = "Mat_" + id
 	var nm := UI.label(NoGi.move_name(id), UI.BODY, UI.FG, "semi")
 	nm.custom_minimum_size = Vector2(230, 0)
+	MoveTip.attach(nm, id, f)   # S382 MOVETIP1: hover the move's name - the hover card plays it on the mat
 	row.add_child(nm)
 	row.add_child(UI.meter(clampf(lvl / NoGi.SIGNATURE, 0.0, 1.0), UI.GOLD if lvl >= NoGi.SIGNATURE else UI.GREEN,
 		[BeltRoad.OWNED_AT / NoGi.SIGNATURE], 160.0))
@@ -207,7 +209,7 @@ func _book(f: Dictionary, groups: Array, words: Dictionary, prompt: String) -> C
 	var scroll := ScrollContainer.new()
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	scroll.add_child(MoveBook.make(groups, words, f.get("moves", {}), _play, f.get("combos", {}), true))
+	scroll.add_child(MoveBook.make(groups, words, f.get("moves", {}), _play, f.get("combos", {}), true, f))   # S382 hover cards
 	h.add_child(scroll)
 	h.add_child(_player_col(f, prompt))
 	return h

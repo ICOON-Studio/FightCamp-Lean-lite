@@ -18,6 +18,7 @@ const AttrBoard := preload("res://scripts/ui/AttrBoard.gd")
 const WeekBoard := preload("res://scripts/ui/WeekBoard.gd")
 const PerkRoad := preload("res://scripts/rules/PerkRoad.gd")
 const OppFileCard := preload("res://scripts/ui/OppFileCard.gd")
+const MoveTip := preload("res://scripts/ui/MoveTip.gd")
 const FilmEdge := preload("res://scripts/rules/FilmEdge.gd")
 
 ## S354 C204 (operator on the training board: "this should be like a sub tab in the players profile , to see an an overview
@@ -69,6 +70,7 @@ func build(main: Node, f: Dictionary) -> void:
 				bar.frac = mm / 100.0
 				bar.marks = [BoutRules.WEAPON_MASTERY / 100.0]   # S375 the tick where a move becomes a weapon
 				bar.custom_minimum_size.y = UI.METER_H + 2.0
+				MoveTip.attach(row, mv, f)   # S382 MOVETIP1: hover a move bar and the hover card plays it on her body
 				mv_card.add_child(row)
 			_combos(f, moves)
 			mv_card.add_child(UI.muted("Gold bar = a weapon. Pad time goes to the move being learned; the week cards keep theirs sharp (%s). Weapons on the night: %d (+%.1f)." % [
@@ -160,6 +162,7 @@ func _combos(f: Dictionary, moves: Dictionary) -> void:
 		var r := UI.stat_row(id + ("  (drilling)" if id == drilling else ""), mm, mm >= Combos.LEARN_AT, UI.FG, "  " + MoveMastery.tier(mm).to_lower())
 		var bar: Control = r.get_meta("bar")
 		bar.frac = mm / 100.0
+		MoveTip.attach(r, id, f)
 		card.add_child(r)
 	card.add_child(UI.muted("Each combination in a fight costs energy, longer ones more; conditioning decides how fast the tank empties.", UI.SMALL, true))
 

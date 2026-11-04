@@ -15,6 +15,7 @@ const MovePlayer := preload("res://scripts/fight3d/MovePlayer.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
 const ComboStrip := preload("res://scripts/ui/ComboStrip.gd")
 const OwnCombos := preload("res://scripts/rules/OwnCombos.gd")
+const MoveTip := preload("res://scripts/ui/MoveTip.gd")
 const SCRIPT_PATH := "res://scripts/ui/ComboBuilder.gd"
 
 ## The moves she can chain: ComboFlow id, name, the clip her body plays, the move she must master (Data.MOVES; "" = none),
@@ -137,6 +138,7 @@ func _palette() -> Control:
 			b.tooltip_text = why if why != "" else "Coach: %s" % e["cue"]
 			if why != "":
 				b.modulate = Color(1, 1, 1, 0.6)
+			MoveTip.attach(b, str(id), f)   # S382 MOVETIP1: the hover card plays it (its tier says what the tooltip said)
 			grid.add_child(b)
 		v.add_child(grid)
 	v.add_child(UI.sep())
@@ -153,6 +155,7 @@ func _palette() -> Control:
 		b.tooltip_text = ", ".join(row["moves"]) + (": ready to throw in a fight" if can else ": try it here; every punch needs 30 on the pads before it works in a fight")
 		if not can:
 			b.modulate = Color(1, 1, 1, 0.6)
+		MoveTip.attach(b, id, f)
 		flow.add_child(b)
 	v.add_child(flow)
 	# S376 (operator's S375 playtest: "the own-combo builder has no 'Drill it' button"): each of the fighter's own

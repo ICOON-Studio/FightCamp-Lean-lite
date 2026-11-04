@@ -14,6 +14,7 @@ const Footwork := preload("res://scripts/fight3d/Footwork.gd")
 const IdleMatch := preload("res://scripts/fight3d/IdleMatch.gd")
 const SM := preload("res://scripts/rules/StrikeMap.gd")
 const UI := preload("res://scripts/ui/UI.gd")
+const MoveStudio := preload("res://scripts/fight3d/MoveStudio.gd")
 
 const BODY_PATH := "res://assets/models/metahuman/mh_boxer_11.glb"
 const GHOST_ALPHA := 0.30
@@ -68,6 +69,9 @@ const DEFAULT_RANGE_M := 0.6
 const ROPE_RANGE_M := 0.9
 const MIN_GAP_M := 0.45
 const FRAME_MARGIN := 0.04
+const STUDIO_BG := Color("#e9ecee")
+const STUDIO_FLOOR := Color("#d6dadd")
+const STUDIO_GHOST := Color(0.30, 0.50, 0.82, 0.42)   # the pale ghost vanishes on a light backdrop
 
 signal looped
 
@@ -75,6 +79,11 @@ signal looped
 ## the play speed (Slow motion = 0.35): clips, contacts, the hold and the ghost's reaction all run on it.
 var bodies := [BODY_PATH, BODY_PATH]
 var speed := 1.0
+## S382 MOVETIP1 the hover card's studio look (MoveTip): a plain light floor and backdrop, the camera turned `yaw_deg`
+## toward her front (side-front). Set before the player enters the tree; the Playbook's own player keeps the dark room.
+var studio := false
+var yaw_deg := 0.0
+var _jabs := 0   # S382 the studio partner slips and blocks the jab in turn (MoveStudio)
 
 var _vp: SubViewport
 var _world: Node3D
@@ -124,8 +133,9 @@ func _build_stage() -> void:
 	_stage.setup(spec_a, spec_b)
 	# Hide the ring (ropes, posts, crowd) but keep the floor
 	_hide_ring()
-	# Apply ghost material to boxer 1
-	_apply_ghost_material(_stage.boxers[1]["node"])
+	# Apply ghost material to boxer 1 (S382 the studio's partner is solid and reacts: MoveStudio)
+	if not studio:
+		_apply_ghost_material(_stage.boxers[1]["node"])
 	# Compute gap
 	_gap_m = _stage.gap_m
 	_jab_gap_m = _stage.gap_m
@@ -150,11 +160,12 @@ func _place_boxers() -> void:
 	_stage.boxers[1]["pos"] = Vector3(0, 0, half_gap)
 	_stage.boxers[1]["node"].position = Vector3(0, 0, half_gap)
 	_stage.boxers[1]["node"].rotation_degrees = Vector3(0, 180, 0)
+	MoveStudio.settle(_stage)   # S382 a glide still under way (the studio partner giving ground) ends with the move
 	_update_camera()
 
 func _apply_ghost_material(body: Node3D) -> void:
 	var ghost_mat := StandardMaterial3D.new()
-	ghost_mat.albedo_color = Color(GHOST_COLOR.r, GHOST_COLOR.g, GHOST_COLOR.b, GHOST_ALPHA)
+	ghost_mat.albedo_color = STUDIO_GHOST if studio else Color(GHOST_COLOR.r, GHOST_COLOR.g, GHOST_COLOR.b, GHOST_ALPHA)
 	ghost_mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	ghost_mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	ghost_mat.depth_draw_mode = BaseMaterial3D.DEPTH_DRAW_OPAQUE_ONLY
@@ -166,10 +177,17 @@ func _apply_ghost_material(body: Node3D) -> void:
 
 func _build_room() -> void:
 	# Environment
+	if studio:   # the ring's own night-arena environment (RingSet) would win over the studio's light backdrop
+		for we in _stage.find_children("*", "WorldEnvironment", true, false):
+			we.get_parent().remove_child(we)   # out of the world now, before the studio's own registers
+			we.queue_free()
+		_cam = MoveStudio.room(_world, _stage)
+		_update_camera()
+		return
 	var env := WorldEnvironment.new()
 	var e := Environment.new()
 	e.background_mode = Environment.BG_COLOR
-	e.background_color = UI.BG.darkened(0.3)
+	e.background_color = STUDIO_BG if studio else UI.BG.darkened(0.3)
 	e.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	e.ambient_light_color = Color(0.7, 0.75, 0.8)
 	e.ambient_light_energy = 0.5
@@ -185,12 +203,12 @@ func _build_room() -> void:
 	# Floor disc
 	var floor_mi := MeshInstance3D.new()
 	var cyl := CylinderMesh.new()
-	cyl.top_radius = 1.5
-	cyl.bottom_radius = 1.5
+	cyl.top_radius = 6.0 if studio else 1.5
+	cyl.bottom_radius = cyl.top_radius
 	cyl.height = 0.02
 	floor_mi.mesh = cyl
 	var floor_mat := StandardMaterial3D.new()
-	floor_mat.albedo_color = Color(0.15, 0.18, 0.22)
+	floor_mat.albedo_color = STUDIO_FLOOR if studio else Color(0.15, 0.18, 0.22)
 	floor_mat.roughness = 0.9
 	floor_mi.material_override = floor_mat
 	floor_mi.position = Vector3(0, -0.01, 0)
@@ -206,9 +224,13 @@ func _update_camera() -> void:
 	if _cam == null:   # S345: _build_stage places the boxers before _build_room makes the camera
 		return
 	var mid_z: float = (_stage.boxers[0]["node"].position.z + _stage.boxers[1]["node"].position.z) * 0.5
+	if studio:
+		MoveStudio.aim(_cam, mid_z, _gap_m, yaw_deg)
+		return
 	# S345: both women head to feet (fov 35 shows 2.1 m of height at 3.4 m; at 2.5 m it cut them at the shins).
 	var dist := maxf(_gap_m * 1.8, 3.4)
-	_cam.position = Vector3(dist, 1.0, mid_z)
+	var yaw := deg_to_rad(yaw_deg)
+	_cam.position = Vector3(dist * cos(yaw), 1.0, mid_z + dist * sin(yaw))
 	_cam.look_at(Vector3(0, 0.92, mid_z), Vector3.UP)
 
 func show_move(move_id: String) -> void:
@@ -421,7 +443,11 @@ func _play_next_clip() -> void:
 	_started_idx = maxi(_started_idx, _clip_idx + 1)   # the clips started at least once (a loop does not reset it)
 	_clip_start_t = skip
 	# For punches, land them using stage.land() like BeatFire._punch
-	if _is_punch_clip(clip) and not _is_forced:
+	if _is_punch_clip(clip) and not _is_forced and studio and MoveStudio.defends(_punch_kind(clip)):
+		_jabs += 1   # S382 the studio's partner slips or blocks it: no glove carried onto his face
+		var at := _clip_idx
+		MoveStudio.defend(self, _stage, _jabs, (contact_s - skip) / speed, speed, func(): return _playing and _clip_idx == at)
+	elif _is_punch_clip(clip) and not _is_forced:
 		var is_body := clip.contains("body")
 		_stage.land(who, clip, is_body, 0.0, (contact_s - skip) / speed)
 		# Schedule ghost reaction at contact
@@ -551,6 +577,9 @@ func _schedule_ghost_react(contact_s: float, clip: String) -> void:
 	if react == "" or not _stage.has_move(react) or not is_inside_tree():
 		return
 	var id := _clip_idx
+	if studio:   # S382 he takes it: the punch's own take and the head snap / the body fold
+		MoveStudio.take(self, _stage, _punch_kind(clip), contact_s, speed, _jabs, func(): return _playing and _clip_idx == id)
+		return
 	get_tree().create_timer(contact_s).timeout.connect(func():
 		if _playing and _clip_idx == id:
 			_stage.play(1, react, speed, 0.0))
