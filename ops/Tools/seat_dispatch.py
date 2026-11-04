@@ -237,6 +237,8 @@ def fresh_why(task: str, seat: str) -> str:
     for reg, where in ((runs, "live_runs"), (arch, "archive")):
         for k, v in (reg.items() if isinstance(reg, dict) else []):
             if isinstance(v, dict) and str(v.get("id") or k).upper() == task.upper():
+                if v.get("status") == "retry":   # S383: a session cleared a round that delivered nothing (`retry <task>`)
+                    continue
                 return f"already ran ({where}: {v.get('agent')} {v.get('status')})"
     if (WT / f"LEAN_{task}").exists():
         return f"worktree {WT / f'LEAN_{task}'} exists"
@@ -866,7 +868,9 @@ def run(task: str) -> int:
                 text += ("\n\nEYES FIRST: before you change any code, open EVERY image in " + (wt / "_eyes").as_posix()
                          + " with your file read tool - 16-frame contact sheets of the film the judge scored, one per worst "
                          "moment it named (file name = the film time). Write what you see in each (bodies inside bodies, "
-                         "trembling, pops, limbs in the air) at the top of your output, then fix what you saw.")
+                         "trembling, pops, limbs in the air) at the top of your output, then fix what you saw.\n"
+                         # S383: BJJ9R14 stalled - its read tool cannot list a folder and it guessed 30 names. Name every file.
+                         "The sheets, open each by this exact path:\n" + "\n".join(f"- {p}" for p in sheets))
             proc = _agy(wt, text, out, env)
         else:
             wrapper = ROOT / "Tools" / ("qwen_task.cmd" if seat == "qwen" else "cursor_task.cmd")
@@ -1174,6 +1178,17 @@ def main(argv: list[str]) -> int:
         if contract.get("loop") and after["score"] != "?":
             print(log(loop_next(task, contract, films_.get("before") or {}, after, str(info.get("branch", "")), "--green" in args or green)))
         return 0 if after["score"] != "?" else 1
+    if args[:1] == ["retry"] and len(args) > 1:
+        # S383: a failed round that delivered nothing (BJJ9R14: the seat could not find its eyes sheets) runs again under
+        # the same id - the next reconcile (or `--task <id> --seat <seat> --act`) launches it in a fresh worktree.
+        task = args[1]
+        info = load(RUNS, {}).get("runs", {}).get(task)
+        if not info or info.get("status") != "failed":
+            print(f"retry: {task} is not a failed run ({(info or {}).get('status')})")
+            return 2
+        update_run(task, status="retry", note=f"S383 retry requested after: {str(info.get('note', ''))[:300]}")
+        print(log(f"RETRY {task}: cleared for a fresh launch"))
+        return 0
     if args[:1] == ["queue"]:
         task, seat = opt("--task").removeprefix("TASK_"), opt("--seat")
         if seat not in SEATS or not task:
