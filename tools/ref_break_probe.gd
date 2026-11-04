@@ -49,6 +49,9 @@ var _breaks: Array = []   # {n, t0, t1, frames, through, worst, part, into, at, 
 
 func _initialize() -> void:
 	root.size = Vector2i(1280, 720)
+	## S379 (operator: "the holo head pointer is cut"): the hidden desktop gives a 1920x1009 window, the expanded picture
+	## was 2055 wide and the 1920 movie cut ~65 px off each side - keep the picture 16:9 for films.
+	root.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_KEEP
 	stage = Stage.new()
 	root.add_child(stage)
 	var pair := Faces.pair({"name": "Lucy"}, {"name": "Maria", "stance": "orthodox"})

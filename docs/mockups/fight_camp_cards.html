@@ -1,0 +1,106 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Fight Camp cards (mockup S379)</title>
+<style>
+@font-face{font-family:Marker;src:url(../../assets/fonts/PermanentMarker-Regular.ttf)}
+@font-face{font-family:Kalam;src:url(../../assets/fonts/Kalam-Regular.ttf)}
+@font-face{font-family:KalamB;src:url(../../assets/fonts/Kalam-Bold.ttf)}
+@font-face{font-family:Barlow;src:url(../../assets/fonts/Barlow-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:600;src:url(../../assets/fonts/Barlow-SemiBold.ttf)}
+@font-face{font-family:Barlow;font-weight:700;src:url(../../assets/fonts/Barlow-Bold.ttf)}
+:root{--ink:#1d2330;--muted:#6b7280;--line:#d8dce3;--blue:#2563eb;--blueSoft:#e8efff;--green:#1f9d55;--amber:#d97706;--red:#dc2626;--paper:#fbfaf7}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;background:#9aa0a8;font-family:Barlow,sans-serif;color:var(--ink);position:relative;overflow:hidden}
+.board{position:absolute;inset:0;background:#e9eaec;filter:brightness(.62)}
+.top{position:absolute;left:0;right:0;top:0;height:76px;background:#f4f4f5;border-bottom:1px solid #ddd}
+.gymname{position:absolute;left:144px;top:20px;font-family:Marker;font-size:30px;color:#2346a8}
+.side{position:absolute;left:10px;top:90px;width:180px}
+.side div{background:#f4f4f5;border-radius:8px;margin-bottom:8px;padding:14px;font-weight:600}
+.sheet{position:absolute;left:230px;top:96px;width:1180px;height:780px;background:#f7f7f6;border:10px solid #e2e2e2}
+.modal{position:absolute;left:150px;top:70px;width:1620px;height:900px;background:#fff;border:2px solid #cfd8ea;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.35);padding:30px 40px}
+.kicker{font-weight:700;letter-spacing:.2em;font-size:15px;color:#3b4250}
+h1{font-family:Marker;font-size:46px;font-weight:400;margin:4px 0 0}
+.sub{color:#4b5563;font-size:19px}
+.grid{display:grid;grid-template-columns:330px 1fr;gap:34px;margin-top:16px}
+.who{border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--paper)}
+.who img{width:100%;height:200px;object-fit:cover;object-position:50% 20%;border-radius:8px;display:block}
+.who .name{font-family:Marker;font-size:30px;margin:10px 0 0}
+.who .cls{font-family:Kalam;font-size:21px;color:#374151;margin-bottom:8px}
+.stat{display:flex;align-items:center;justify-content:space-between;padding:4px 8px;border-radius:6px;font-size:18px}
+.stat b{font-weight:700;font-size:19px}
+.stat.on{background:var(--blueSoft);outline:2px solid var(--blue)}
+.stat .fc{color:var(--green);font-weight:700}
+.meter{margin-top:12px;font-size:16px;color:#374151}
+.bar{height:10px;border-radius:5px;background:#e5e7eb;margin-top:4px;overflow:hidden}
+.bar i{display:block;height:100%}
+.weight{font-family:Kalam;font-size:19px;color:var(--amber);margin-top:10px}
+.lbl{font-weight:700;letter-spacing:.18em;font-size:14px;color:#3b4250;margin:2px 0 10px}
+.cards{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.card{border:2px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;position:relative}
+.card img{width:100%;height:178px;object-fit:cover;display:block}
+.card .t{font-family:Marker;font-size:23px;padding:10px 12px 2px}
+.card .b{padding:0 12px;font-size:17px;color:var(--green);font-weight:700}
+.card .n{padding:4px 12px 2px;font-size:16px;color:#374151}
+.card .w{padding:2px 12px 12px;font-family:Kalam;font-size:16px;color:var(--muted)}
+.card.sel{border-color:var(--blue);box-shadow:0 0 0 3px var(--blueSoft)}
+.card.sel::after{content:"\2713";position:absolute;top:10px;right:10px;width:34px;height:34px;border-radius:50%;background:var(--blue);color:#fff;font-weight:700;font-size:20px;display:flex;align-items:center;justify-content:center}
+.row{display:grid;grid-template-columns:repeat(3,1fr) 1.25fr;gap:14px;margin-top:22px}
+.opt{border:2px solid var(--line);border-radius:10px;padding:12px 14px}
+.opt h3{font-size:20px}
+.opt p{font-size:15px;color:#4b5563;margin-top:2px}
+.opt .risk{font-size:14px;margin-top:6px}
+.opt.sel{border-color:var(--blue);background:var(--blueSoft)}
+.foot{display:flex;align-items:center;justify-content:space-between;margin-top:26px;border-top:1px solid var(--line);padding-top:18px}
+.sum{font-family:KalamB;font-size:27px}
+.sum span{color:var(--muted);font-family:Kalam;font-size:21px}
+.btns{display:flex;gap:12px}
+.btn{border:1px solid #c7ccd4;border-radius:8px;padding:12px 18px;font-weight:600;font-size:18px;background:#fff}
+.btn.go{background:var(--blue);border-color:var(--blue);color:#fff}
+.tag{position:absolute;right:24px;top:8px;font-family:Kalam;color:#1d2330;font-size:18px;opacity:.85}
+</style></head><body>
+<div class="board"><div class="top"></div><div class="gymname">Anvil Street Gym</div>
+<div class="side"><div>Home</div><div>Fighters</div><div>Playbook</div><div>Fights</div><div>Gym</div><div>Money</div><div>World</div></div>
+<div class="sheet"></div></div>
+
+<div class="modal">
+  <div class="kicker">AISHA RAHMAN VS MARIA ORTEGA, SAT 7 FEB</div>
+  <h1>FIGHT CAMP</h1>
+  <div class="sub">25 days to fight night. Pick what the camp builds - it also cuts her to 61.2 kg (she is 62.7 kg now).</div>
+  <div class="grid">
+    <div class="who">
+      <img src="../../assets/ui/face/mh_boxer_10.jpg" alt="">
+      <div class="name">Aisha 3-1</div>
+      <div class="cls">Lightweight - steady</div>
+      <div class="stat on"><span>Conditioning</span><span><b>58</b> <span class="fc">&rarr; 61.4</span></span></div>
+      <div class="stat"><span>Power</span><b>54</b></div>
+      <div class="stat"><span>Technique</span><b>61</b></div>
+      <div class="stat"><span>Defence</span><b>57</b></div>
+      <div class="stat"><span>Hand speed</span><b>63</b></div>
+      <div class="stat"><span>Chin</span><b>66</b></div>
+      <div class="meter">Fatigue now: fresh (12%) - Standard camp ends near 55%
+        <div class="bar"><i style="width:55%;background:linear-gradient(90deg,#22c55e 0 22%,#f59e0b 22% 100%)"></i></div></div>
+      <div class="weight">62.7 kg / limit 61.2 - 1.5 over</div>
+    </div>
+    <div>
+      <div class="lbl">WHAT THE CAMP BUILDS</div>
+      <div class="cards">
+        <div class="card sel"><img src="../../assets/ui/training/mh_boxer_10_roadwork.png" alt=""><div class="t">Conditioning</div><div class="b">Conditioning ++</div><div class="n">58 &rarr; 61.4 by fight night</div><div class="w">roadwork, hills, extra rounds - she lasts round 3</div></div>
+        <div class="card"><img src="../../assets/ui/training/mh_boxer_10_heavy_bag.png" alt=""><div class="t">Power</div><div class="b">Power ++</div><div class="n">54 &rarr; 56.7 by fight night</div><div class="w">heavy bag, sit-down shots - hurts on the body</div></div>
+        <div class="card"><img src="../../assets/ui/training/mh_boxer_10_pads.png" alt=""><div class="t">Technique</div><div class="b">Technique ++</div><div class="n">61 &rarr; 64.3 by fight night</div><div class="w">pads with the coach - cleaner combinations</div></div>
+        <div class="card"><img src="../../assets/ui/training/mh_boxer_10_slip_rope.png" alt=""><div class="t">Defence</div><div class="b">Defence ++</div><div class="n">57 &rarr; 60.1 by fight night</div><div class="w">slip rope, sparring - takes less clean</div></div>
+        <div class="card"><img src="../../assets/ui/training/mh_boxer_10_speed_bag.png" alt=""><div class="t">Hand speed</div><div class="b">Hand speed ++</div><div class="n">63 &rarr; 64.9 by fight night</div><div class="w">speed bag, shadow - near her ceiling</div></div>
+      </div>
+      <div class="row">
+        <div class="opt"><h3>Light</h3><p>free - smaller gains</p><div class="risk">fatigue low - edge on the night +0.5</div></div>
+        <div class="opt sel"><h3>Standard</h3><p>$300 - solid gains</p><div class="risk">fatigue medium - edge +1.2</div></div>
+        <div class="opt"><h3>Hard</h3><p>$700 - biggest gains</p><div class="risk" style="color:#dc2626">fatigue high, can overreach - edge +2.0</div></div>
+        <div class="opt sel"><h3>Film study on Maria Ortega: yes, $150</h3><p>her past bouts in the tape room - answer her in the plan</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <div class="sum">Conditioning camp, Standard - 25 days - $450 <span>(camp $300 + film $150)</span></div>
+    <div class="btns"><div class="btn">Later</div><div class="btn go">Start the camp, $450</div></div>
+  </div>
+</div>
+<div class="tag">mockup S379 - example numbers from the camp rules (a focus x1.1 / 1.2 / 1.35 on one stat)</div>
+</body></html>

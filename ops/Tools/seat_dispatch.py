@@ -522,8 +522,10 @@ def film(wt: Path, contract: dict, mp4: Path) -> str:
 
 def judge(mp4: Path, what: str, intent: str) -> dict:
     """Gemini 4 Argon on one film (gemini_judge.py writes <film>.gemini_argon.md beside it and logs the spend)."""
+    # S379: a BJJ loop is judged on the BJJ prompt (trembling and bodies inside bodies first), never the boxing one
+    kind = "bjj" if what.upper().startswith("BJJ") else "fight"
     p = sh([sys.executable, ROOT / "Tools" / "gemini_judge.py", mp4, "--model", "argon", "--fps", "24", "--what", what,
-            "--intent", intent], timeout=900)
+            "--intent", intent, "--kind", kind], timeout=900)
     md = mp4.with_suffix(".gemini_argon.md")
     score, line = read_verdict(md.read_text(encoding="utf-8", errors="replace") if md.is_file() else "")
     return {"film": mp4.as_posix(), "verdict_file": md.as_posix() if md.is_file() else "", "score": score, "line": line,

@@ -46,6 +46,26 @@ Judge it as a boxing fan AND an animation director would. Give timestamps (mm:ss
 5) Verdict: one line, and a score 1-10 for "watchable as a sports broadcast".
 Be specific; do not guess - if the camera hides something, say so."""
 
+## S379 (operator on Ziva's BJJ round 10, scored 5/10 by the fight prompt's eyes: "that clip is so terrible, limbs are trembling",
+## and a still of one body inside the other): BJJ films get their own prompt - trembling and bodies inside bodies first.
+BJJ_PROMPT = """You are judging footage from our no-gi Brazilian jiu-jitsu match: two women grappling on a mat (white-belt
+match), their moves played from recorded grappling data on our 3D bodies. The side panel, score, gas bars and banner are UI -
+ignore them except where they hide the action. Judge it as a BJJ black belt AND a strict animation director would, and look
+frame by frame - trembling and interpenetration are easy to miss at speed. Give timestamps (mm:ss) for every claim.
+1) TREMBLING / JITTER: any limb, hand, foot, head or torso that shakes, vibrates or twitches back and forth instead of
+   moving smoothly - while moving AND while holding a position. Name the body part and the time.
+2) BODIES INSIDE BODIES: any limb, head or torso of one woman passing into the other's body or her own, or into the mat.
+   Say how deep it looks (surface touch / half a limb / fully inside).
+3) Popping and freezing: snaps between poses, a body jumping in a single frame, frozen puppet stretches, limbs flung into
+   the air with no reason.
+4) Is it real BJJ? Are positions, transitions and the finish recognisable as the named technique (for an armbar: the arm
+   straight between her legs, legs over chest and face, hips under the elbow; a tap)? Gravity and weight: does the top
+   woman's weight sit on the bottom one?
+5) The 5 worst moments and the 3 best, each with a timestamp and one line.
+6) Verdict: one line, and a score 1-10 for "would a BJJ fan watch this without wincing". Any visible trembling or a body
+   fully inside the other caps the score at 4.
+Be specific; do not guess - if the camera hides something, say so."""
+
 CLIP_PROMPT = """You are a strict animation supervisor for a boxing game. The video is ONE motion-capture clip on our boxer,
 shown on a turntable (the camera circles once; the boxer stays in place). Judge the MOTION only.
 {intent}
@@ -143,7 +163,7 @@ def main(argv: list[str]) -> int:
     ap.add_argument("clip")
     ap.add_argument("--model", choices=sorted(MODELS), default="argon")
     ap.add_argument("--fps", type=int, default=24)
-    ap.add_argument("--kind", choices=["fight", "clip"], default="fight")
+    ap.add_argument("--kind", choices=["fight", "clip", "bjj"], default="fight")
     ap.add_argument("--intent", default="")
     ap.add_argument("--prompt-file")
     ap.add_argument("--what", default="")
@@ -154,6 +174,8 @@ def main(argv: list[str]) -> int:
         raise SystemExit(f"no such clip: {clip}")
     if args.prompt_file:
         prompt = Path(args.prompt_file).read_text(encoding="utf-8")
+    elif args.kind == "bjj":
+        prompt = BJJ_PROMPT + (f"\nContext: {args.intent}" if args.intent else "")
     elif args.kind == "fight":
         prompt = FIGHT_PROMPT + (f"\nContext: {args.intent}" if args.intent else "")
     else:

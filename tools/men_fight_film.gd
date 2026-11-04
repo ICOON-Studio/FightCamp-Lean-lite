@@ -24,6 +24,9 @@ func _initialize() -> void:
 	var women := args.has("women")
 	DirAccess.make_dir_recursive_absolute(out_dir)
 	root.size = Vector2i(1280, 720)
+	## S379 (operator: "the holo head pointer is cut"): the hidden desktop gives a 1920x1009 window, the expanded picture
+	## was 2055 wide and the 1920 movie cut ~65 px off each side - keep the picture 16:9 for films.
+	root.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_KEEP
 	main = load("res://scenes/Main.tscn").instantiate()
 	root.add_child(main)
 	for i in 4:

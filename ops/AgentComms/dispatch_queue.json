@@ -108,6 +108,12 @@
    "loop": "FIGHT9",
    "launched": "2026-11-03T20:41",
    "note": "S379: runner crashed - agy.exe missing for 10 min at launch (21:01), agy never ran; superseded by FIGHT9R9 on BASE claude/fight9base = round 7 kept"
+  },
+  {
+   "task": "BJJ9R11",
+   "seat": "agy",
+   "status": "queued",
+   "queued": "2026-11-04T03:41"
   }
  ]
 }
