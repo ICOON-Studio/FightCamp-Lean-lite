@@ -1,5 +1,6 @@
 extends RefCounted
-## Balance harness: measures win share across training, camp, film and opponent.
+## Balance harness: measures win share across training, camp, film and opponent. S381 C229 stage 4: the film argument is
+## the found tells her plan answers (BoutRules.film_edge: 0 = no film edge, 3 = the most it pays).
 ## Pure static functions, no class_name. Loads BoutRules with preload. Never edits BoutRules.
 
 const B := preload("res://scripts/rules/BoutRules.gd")
@@ -9,7 +10,7 @@ const Combos := preload("res://scripts/rules/Combos.gd")
 
 
 ## Play a full bout. Returns {verdict, rounds_won, rounds: Array}.
-static func bout(stats: Dictionary, camp: Dictionary, film_depth: int, opp: Dictionary,
+static func bout(stats: Dictionary, camp: Dictionary, answered: int, opp: Dictionary,
 		rng: RandomNumberGenerator, corner_mode: String = "auto",
 		weapons_bonus: float = 0.0) -> Dictionary:
 	var rounds_won: int = 0
@@ -24,7 +25,7 @@ static func bout(stats: Dictionary, camp: Dictionary, film_depth: int, opp: Dict
 				corner = corner_mode
 		var roll_a: float = rng.randf()
 		var roll_b: float = rng.randf()
-		var result: Dictionary = B.play_round(n, stats, camp, film_depth, corner, opp, roll_a, roll_b, weapons_bonus)
+		var result: Dictionary = B.play_round(n, stats, camp, answered, corner, opp, roll_a, roll_b, weapons_bonus)
 		rounds_arr.append(result)
 		if bool(result["won"]):
 			rounds_won += 1
@@ -34,27 +35,27 @@ static func bout(stats: Dictionary, camp: Dictionary, film_depth: int, opp: Dict
 
 
 ## Win share over n bouts with one seeded RNG.
-static func win_share(stats: Dictionary, camp: Dictionary, film_depth: int, opp: Dictionary,
+static func win_share(stats: Dictionary, camp: Dictionary, answered: int, opp: Dictionary,
 		n: int, seed: int, corner_mode: String = "auto") -> float:
 	var rng := RandomNumberGenerator.new()
 	rng.seed = seed
 	var wins: int = 0
 	for _i in n:
-		var result: Dictionary = bout(stats, camp, film_depth, opp, rng, corner_mode)
+		var result: Dictionary = bout(stats, camp, answered, opp, rng, corner_mode)
 		if str(result["verdict"]) == "win":
 			wins += 1
 	return float(wins) / float(n)
 
 
 ## Expected per-round margin: fight_power - opp.rating for the round-2 corner.
-static func edge(stats: Dictionary, camp: Dictionary, film_depth: int, opp: Dictionary,
+static func edge(stats: Dictionary, camp: Dictionary, answered: int, opp: Dictionary,
 		corner_mode: String = "auto") -> float:
 	var corner: String = ""
 	if corner_mode == "auto":
 		corner = B.auto_corner(stats)
 	else:
 		corner = corner_mode
-	return B.fight_power(stats, camp, film_depth, corner) - float(opp.get("rating", 60.0))
+	return B.fight_power(stats, camp, answered, corner) - float(opp.get("rating", 60.0))
 
 
 ## Build a fighter profile with uneven stats.
@@ -77,12 +78,12 @@ static func make_camp(protocol: int, focus: String = "conditioning") -> Dictiona
 	return {"protocol": protocol, "focus": focus}
 
 
-## The grid: 4 averages x 4 protocols x 2 film depths x 3 opponent ratings = 96 rows.
+## The grid: 4 averages x 4 protocols x 2 film answers (none / the most) x 3 opponent ratings = 96 rows.
 static func grid(seed: int, n: int = 400) -> Array:
 	var rows: Array = []
 	var avgs: Array = [55, 60, 65, 70]
 	var protocols: Array = [0, 1, 2, 3]
-	var films: Array = [1, 3]
+	var films: Array = [0, 3]
 	var opp_ratings: Array = [58, 62, 66]
 	var row_seed: int = seed
 	for avg in avgs:
@@ -94,7 +95,7 @@ static func grid(seed: int, n: int = 400) -> Array:
 					var opp: Dictionary = {"rating": float(opp_r)}
 					var e: float = edge(stats, camp, film, opp)
 					var ws: float = win_share(stats, camp, film, opp, n, row_seed)
-					rows.append({"avg": avg, "protocol": proto, "film_depth": film,
+					rows.append({"avg": avg, "protocol": proto, "answered": film,
 							"opp_rating": opp_r, "edge": e, "win_share": ws})
 					row_seed += 1
 	return rows
@@ -113,7 +114,7 @@ static func make_fighter(avg: int, conditioning: float, combos: Dictionary, opp_
 		"combos": combos.duplicate(),
 		"moves": moves,
 		"camp": {"protocol": 2, "focus": "conditioning"},
-		"bout": {"opp": Data.OPPONENTS[opp_index].duplicate(true), "film": 1},
+		"bout": {"opp": Data.OPPONENTS[opp_index].duplicate(true), "film": 1, "answered": 0},
 	}
 
 
@@ -148,7 +149,7 @@ static func live_bout(f: Dictionary, corners: Array, rng: RandomNumberGenerator,
 		var scaled_a: float = 0.5 + (roll_a - 0.5) * (spread / B.ROUND_SPREAD)
 		var scaled_b: float = 0.5 + (roll_b - 0.5) * (spread / B.ROUND_SPREAD)
 		var camp: Dictionary = f.get("camp", {})
-		var film: int = int(f["bout"].get("film", 1))
+		var film: int = int(f["bout"].get("answered", 0))
 		var opp: Dictionary = f["bout"]["opp"]
 		var result: Dictionary = B.play_round(n, f["stats"], camp, film, corner, opp, scaled_a, scaled_b, w_bonus)
 		result["a"] = float(e["a"])
@@ -216,7 +217,7 @@ static func sweep(seed: int, n: int = 400) -> Array:
 					var f: Dictionary = make_fighter(avg, float(cond), {}, 0)
 					var opp: Dictionary = Data.OPPONENTS[0]
 					var camp: Dictionary = f.get("camp", {})
-					var film: int = int(f["bout"].get("film", 1))
+					var film: int = int(f["bout"].get("answered", 0))
 					var e: float = B.fight_power(f["stats"], camp, film, "body") - float(opp.get("rating", 60.0))
 					var rs: Dictionary = round_shares(f, corners, n, row_seed, sp, tm)
 					rows.append({"spread": sp, "tired": tm, "cond": cond, "avg": avg,

@@ -247,7 +247,7 @@ static func turn_pro(c: Career) -> Dictionary:
 	for x in f["offers"]:
 		x["answered"] = true
 	var opp_name: String = PRO_OPP_NAMES[posmod(c.day, PRO_OPP_NAMES.size())]
-	var night := BoutRules.fight_power(f["stats"], {}, 1, "")
+	var night := BoutRules.fight_power(f["stats"], {}, 0, "")
 	var opp := {"name": opp_name, "first": opp_name.split(" ")[0], "club": "%s stable" % o["promoter"], "age": 24,
 		"stance": "orthodox", "style": "Boxer-puncher", "w": 0, "l": 0, "rating": snappedf(night - PRO_OPP_GAP, 0.1),
 		"threat": "Heavy right hand", "weak": "Fades after round 3", "div": f["div"], "pro": true}

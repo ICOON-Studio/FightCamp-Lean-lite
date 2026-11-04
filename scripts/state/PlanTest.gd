@@ -6,19 +6,29 @@ extends RefCounted
 ## The wins show as a range, not a number: SPREAD_UNSEEN either side with nothing found on tape, SPREAD_SEEN with her whole
 ## file open (OppFile.found), and the true count sits somewhere inside it (a fixed offset per bout), so the test reads the
 ## plan without giving the fight away. Every test of a camp rolls the same dice, so a change in the range is the plan's.
-##   run(c, f, arrows) -> {ok, why | wins, sims, lo, hi, rounds [won, fought], breaks: [lines], left}   left(f) -> tests left this camp
-## State: f["bout"]["plan_tests"] (tests used), f["bout"]["plan_test"] (the last result, shown on the board).
+## S382 G3 (gym idea 4): the tests ARE the camp's sparring nights (SparNights) - a test takes the next one still to come,
+## no flat 3 a camp; fight week has none. Who she spars sets the range: club mates +-SPREAD_UNSEEN, the outside partner who
+## matches the opponent (camp.partner, BoutRules.partner_matches) +-SPREAD_PARTNER; film still narrows it to +-SPREAD_SEEN.
+##   run(c, f, arrows) -> {ok, why | wins, sims, lo, hi, rounds [won, fought], breaks: [lines], left, night}
+##   left(f, today) -> tests left this camp   next_night(f, today) -> day of the next free spar night (-1 none)
+##   button(f, today) -> "Test it - Thu spar night (2 left)"
+## State: f["bout"]["plan_test_nights"] (the spar nights used), plan_tests (count), plan_test (the last result, on the board).
 
 const BoutNight := preload("res://scripts/state/BoutNight.gd")
 const OppFile := preload("res://scripts/rules/OppFile.gd")
 const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
 const CampForecast := preload("res://scripts/state/CampForecast.gd")
+const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
+const SparNights := preload("res://scripts/rules/SparNights.gd")
+const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 
 const SIMS := 20
-const TESTS_A_CAMP := 3
+## The range's half-width: sparring club mates, sparring the partner who matches her, her file open on tape.
 const SPREAD_UNSEEN := 4
+const SPREAD_PARTNER := 2
 const SPREAD_SEEN := 1
+const NONE_LEFT := "No sparring night left before fight night."
 ## The dice: bout k of a test fights on day DICE_DAY + k * 7 of a scratch career, far from any real fight night's dice.
 const DICE_DAY := 50000
 ## A round counts as where the plan breaks when she loses it this share of the bouts that reach it.
@@ -27,16 +37,37 @@ const BREAK_SHARE := 0.4
 const WEAK_ARROW_USES := 6
 
 
-static func left(f: Dictionary) -> int:
-	return maxi(0, TESTS_A_CAMP - int((f.get("bout", {}) as Dictionary).get("plan_tests", 0)))
+## The spar nights still free for a test, from today to fight night (this week as the sim runs it, f["phase"] + her edits).
+static func nights_free(f: Dictionary, today: int) -> Array:
+	var bout: Dictionary = f.get("bout", {})
+	var e: Dictionary = WeekPhase.edits(f)
+	var all := SparNights.nights(bout, today, str(f.get("phase", "")), int(e.get("spar", -1)))
+	return SparNights.unused(all, bout.get("plan_test_nights", []))
+
+
+static func left(f: Dictionary, today: int) -> int:
+	return nights_free(f, today).size()
+
+
+static func next_night(f: Dictionary, today: int) -> int:
+	var n := nights_free(f, today)
+	return -1 if n.is_empty() else int(n[0])
+
+
+static func button(f: Dictionary, today: int) -> String:
+	var n := next_night(f, today)
+	if n < 0:
+		return "Test it - no spar night left"
+	return "Test it - %s spar night (%d left)" % [Clock.DAYS[posmod(n, 7)], left(f, today)]
 
 
 static func run(c: Career, f: Dictionary, arrows: Array) -> Dictionary:
 	var bout: Dictionary = f.get("bout", {})
 	if bout.is_empty() or bool(bout.get("done", false)):
 		return {"ok": false, "why": "Book a bout first: the test fights the next opponent."}
-	if left(f) == 0:
-		return {"ok": false, "why": "No tests left this camp (%d a camp)." % TESTS_A_CAMP}
+	var night := next_night(f, c.day)
+	if night < 0:
+		return {"ok": false, "why": "No sparring night left before fight night: a test is a spar night."}
 	var opp: Dictionary = bout["opp"]
 	var wins := 0
 	var lost := {}       # round n -> [lost, reached, her energy at the bell summed over the lost ones]
@@ -45,7 +76,8 @@ static func run(c: Career, f: Dictionary, arrows: Array) -> Dictionary:
 	var rounds := [0, 0] # rounds won, rounds fought
 	# S380: a test mid-camp fights with fight night's heavy legs (the forecast after the taper), not today's fatigue
 	var camp: Dictionary = f.get("camp", {})
-	var night_stale := 0.0 if camp.is_empty() else float(CampForecast.run(c, f, str(camp.get("focus", "")), int(camp.get("protocol", 0)))["stale"])
+	var night_stale := 0.0 if camp.is_empty() else float(CampForecast.run(c, f, str(camp.get("focus", "")), int(camp.get("protocol", 0)),
+		bool(camp.get("film", false)))["stale"])
 	for k in SIMS:
 		var sc := Career.new()
 		sc.day = DICE_DAY + k * 7
@@ -75,23 +107,29 @@ static func run(c: Career, f: Dictionary, arrows: Array) -> Dictionary:
 			for id in per:
 				var t: Array = moves.get(id, [0, 0])
 				moves[id] = [int(t[0]) + int(per[id][0]), int(t[1]) + int(per[id][1])]
-	var spread := _spread(opp)
+	var spread := _spread(opp, f.get("camp", {}))
 	var rng := RandomNumberGenerator.new()
 	rng.seed = hash(str(opp.get("name", ""))) + c.seed + int(bout.get("day", 0))
 	var lo := clampi(wins - rng.randi_range(0, 2 * spread), 0, maxi(0, SIMS - 2 * spread))
 	var res := {"ok": true, "wins": wins, "sims": SIMS, "lo": lo, "hi": mini(SIMS, lo + 2 * spread), "rounds": rounds,
 		"breaks": _breaks(str(f["first"]), lost, stopped, moves)}
 	bout["plan_tests"] = int(bout.get("plan_tests", 0)) + 1
-	res["left"] = left(f)
+	var used: Array = bout.get("plan_test_nights", [])
+	used.append(night)
+	bout["plan_test_nights"] = used
+	res["night"] = night
+	res["left"] = left(f, c.day)
 	bout["plan_test"] = res
 	return res
 
 
-## The range's half-width: wide on a stranger, narrow once tape study has opened her file.
-static func _spread(opp: Dictionary) -> int:
+## The range's half-width: wide sparring club mates, half that sparring the partner who matches her, narrow once tape
+## study has opened her file.
+static func _spread(opp: Dictionary, camp: Dictionary = {}) -> int:
+	var base := SPREAD_PARTNER if bool(camp.get("partner", false)) and BoutRules.partner_matches(opp) else SPREAD_UNSEEN
 	var all := OppFile.tells(opp).filter(func(t): return str(t["how"]) != "booking").size()
 	var share := 1.0 if all == 0 else float(OppFile.found(opp).size()) / float(all)
-	return roundi(lerpf(SPREAD_UNSEEN, SPREAD_SEEN, share))
+	return roundi(lerpf(base, SPREAD_SEEN, share))
 
 
 static func _breaks(first: String, lost: Dictionary, stopped: int, moves: Dictionary) -> Array:

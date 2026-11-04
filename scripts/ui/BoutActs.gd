@@ -13,6 +13,7 @@ const TrainingPlan := preload("res://scripts/rules/TrainingPlan.gd")
 const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
 const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
 const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
+const OppFile := preload("res://scripts/rules/OppFile.gd")
 
 
 ## The fighter an action means: by id, else the open moment's, else the first.
@@ -108,15 +109,20 @@ static func act(main: Node, name: String, arg: String) -> bool:
 			main.toast("Declined. Another offer will come.")
 		"camp":
 			var f := who(main, arg)
-			main.open_modal({"type": "camp", "fid": f["id"], "focus": Sim.focus_of(c, f), "protocol": 2, "film": true})
-		"cfocus", "cproto", "cfilm":
-			var k := {"cfocus": "focus", "cproto": "protocol", "cfilm": "film"}[name] as String
-			main.modal[k] = arg if k == "focus" else (int(arg) if k == "protocol" else not bool(main.modal["film"]))
+			# S381 C229 stage 4: film on when there is tape of her (a debutant has none: no film, no pad night spent).
+			main.open_modal({"type": "camp", "fid": f["id"], "focus": Sim.focus_of(c, f), "protocol": 2,
+				"film": OppFile.has_tape(f["bout"]["opp"]), "partner": false})
+		"cfocus", "cproto", "cfilm", "cpartner":
+			if name == "cfilm" and not OppFile.has_tape(who(main, "")["bout"]["opp"]):
+				return true
+			var k := {"cfocus": "focus", "cproto": "protocol", "cfilm": "film", "cpartner": "partner"}[name] as String
+			main.modal[k] = arg if k == "focus" else (int(arg) if k == "protocol" else not bool(main.modal.get(k, false)))
 			main.redraw_modal()
 		"startcamp":
 			var m: Dictionary = main.modal
 			var f := who(main, "")
-			var paid := Bouts.start_camp(c, f, str(m["focus"]), int(m["protocol"]), bool(m["film"]))
+			var paid := Bouts.start_camp(c, f, str(m["focus"]), int(m["protocol"]), bool(m["film"]),
+				bool(m.get("partner", false)))
 			var focus_word := str(Data.LABEL[m["focus"]]).to_lower()
 			main.close_modal()
 			main.toast("%s's camp started: %s focus.%s" % [f["first"], focus_word, (" %s paid." % UI.money(paid)) if paid > 0 else ""])

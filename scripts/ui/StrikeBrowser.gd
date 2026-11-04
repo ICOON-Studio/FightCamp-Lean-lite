@@ -143,16 +143,22 @@ func _top_bar() -> Control:
 		# S356 CORE3 step 4: the plan on the board fights 20 quick bouts against her booked opponent (PlanTest).
 		var bout: Dictionary = fighter.get("bout", {})
 		if not bout.is_empty() and not bool(bout.get("done", false)):
-			_test_btn = UI.button(_test_words(), "Btn", _test_it)
-			h.add_child(Icons.tip(_test_btn, "20 quick bouts against %s with this plan, in today's form.
-The wins show as a range; tape study narrows it. %d tests a camp." % [
-				str(bout["opp"].get("first", "the opponent")), PlanTest.TESTS_A_CAMP]))
+			# S382 G3: a test is one of the camp's sparring nights (PlanTest.button); greyed when none are left
+			_test_btn = UI.button(_test_words(), "Btn", _test_it, PlanTest.left(fighter, _today()) == 0,
+				PlanTest.NONE_LEFT)
+			_test_btn.name = "TestIt"
+			h.add_child(_test_btn if _test_btn.disabled else Icons.tip(_test_btn,
+				"20 quick bouts against %s with this plan, on a sparring night." % str(bout["opp"].get("first", "the opponent"))))
 		h.add_child(UI.button("Save plan", "BtnSolid", _save))
 	return bar
 
 
 func _test_words() -> String:
-	return "Test it (%d left)" % PlanTest.left(fighter)
+	return PlanTest.button(fighter, _today())
+
+
+func _today() -> int:
+	return int((main.career as Career).day) if main != null and main.get("career") != null else 0
 
 
 func _test_it() -> void:
@@ -165,6 +171,9 @@ func _test_it() -> void:
 		main.toast(str(r["why"]))
 		return
 	_test_btn.text = _test_words()
+	if PlanTest.left(fighter, _today()) == 0:
+		_test_btn.disabled = true
+		_test_btn.tooltip_text = PlanTest.NONE_LEFT
 	_set_plan_mode(true)
 
 

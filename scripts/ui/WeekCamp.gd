@@ -2,8 +2,13 @@ extends VBoxContainer
 ## THIS CAMP, the whiteboard's right column (split from WeekBoard.gd S362, which sat 10 lines under the 500 cap): each camp goal
 ## line where the camp lands (a line that moved since the last draw pulses with its delta), the injury load, and the week's
 ## twist on a sticky note - hovering an answer previews where the lines would land.
+## S382 G4 (gym idea 1): with a bout booked, the fight-night gauge row (GaugeRow: LEGS, SCALE, RISK - one CampForecast.run of
+## her camp) heads the column and replaces the weight line, the fatigue-peak line and the injury-risk row; the diet pills
+## stay under it. A twist answer under the cursor ghosts its forecast on the dials. Without a bout the lines stay.
+## S382 G5: so does a morning card under the cursor (ghost_day, from WeekDay's magnet picker and its 'undo').
 ##   WeekCamp.make(main, f, goal, lines, teach, replan) -> VBoxContainer "Goal"
 ##   replan: Callable(f_copy) -> the goal lines for that fighter state (WeekBoard.plan_of(c, f_copy)["lines"])
+##   ghost_day(dow, card) - card [] = off
 
 const UI := preload("res://scripts/ui/UI.gd")
 const WB := preload("res://scripts/ui/WhiteboardKit.gd")
@@ -16,6 +21,8 @@ const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
 const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
 const WeekOpp := preload("res://scripts/rules/WeekOpp.gd")
 const OppFile := preload("res://scripts/rules/OppFile.gd")
+const CampForecast := preload("res://scripts/state/CampForecast.gd")
+const GaugeRow := preload("res://scripts/ui/GaugeRow.gd")
 
 const CAMP_W := 470.0
 ## The training load ratio (this week's hours / her usual, TrainingLoad): 1.5 doubles the injury risk.
@@ -27,12 +34,17 @@ const PULSE_S := 2.0
 
 ## fid -> {line id: where it landed} at the last draw (the pulse compares against it).
 static var _seen := {}
+## fid -> the gauge row's numbers at the last draw (GaugeRow.values).
+static var _seen_g := {}
 
 var _f: Dictionary
 var _lines: Array = []
 var _delta := {}   # line id -> Label (the pulse's delta; FIX IT / WAIT preview on hover)
 var _teach := false
 var _replan: Callable
+var _c: Career
+var _goal: Dictionary
+var _gauge: HBoxContainer = null   # GaugeRow while a bout is booked
 
 
 static func make(main: Node, f: Dictionary, goal: Dictionary, lines: Array, teach: bool, replan: Callable) -> VBoxContainer:
@@ -44,6 +56,8 @@ static func make(main: Node, f: Dictionary, goal: Dictionary, lines: Array, teac
 	p._lines = lines
 	p._teach = teach
 	p._replan = replan
+	p._c = main.career
+	p._goal = goal
 	p._build(main, f, goal, lines)
 	return p
 
@@ -52,10 +66,20 @@ static func make(main: Node, f: Dictionary, goal: Dictionary, lines: Array, teac
 func _build(main: Node, f: Dictionary, goal: Dictionary, lines: Array) -> void:
 	add_child(WB.ink("THIS CAMP", 34, "marker"))
 	var fid := str(f["id"])
+	var live := live_bout(goal)
+	if live:
+		_gauge = GaugeRow.make(GaugeRow.read(forecast(_c, f, goal), f, _c.day), _seen_g.get(fid, {}), CAMP_W)
+		add_child(_gauge)
+		_seen_g[fid] = _gauge.values()
+		for gid in _gauge.deltas:
+			_delta["g_" + gid] = _gauge.deltas[gid]
+		add_child(_diet(main, fid, f, "diet to the weigh-in:"))
 	var before: Dictionary = _seen.get(fid, {})
 	var now := {}
 	for ln in lines:
 		var id := str(ln["id"])
+		if live and (id == "weight" or id == "fatigue"):
+			continue   # S382 G4: SCALE and LEGS
 		now[id] = float(ln["end"])
 		var hold := PanelContainer.new()
 		hold.name = "Line_" + id
@@ -87,6 +111,30 @@ func _build(main: Node, f: Dictionary, goal: Dictionary, lines: Array) -> void:
 		if before.has(id) and absf(float(before[id]) - float(ln["end"])) >= 0.05:
 			_pulse(hold, d, id, float(before[id]), float(ln["end"]))
 	_seen[fid] = now
+	if not live:
+		_injury_row(f, lines)
+	var sticky := _twist(main, f)
+	if sticky != null:
+		add_child(sticky)
+		if _teach:
+			move_child(sticky, 0)   # S359 first open: the twist is the one thing to read, so it heads the column
+
+
+## S382 G4: a bout booked and not fought - the gauge row has a fight night to read.
+static func live_bout(goal: Dictionary) -> bool:
+	var bout: Dictionary = goal.get("bout", {})
+	return not bout.is_empty() and not bool(bout.get("done", false))
+
+
+## Her camp's forecast to fight night (the camp modal's own dry run: its focus, protocol and film; before a camp is set,
+## the week's focus and no protocol).
+static func forecast(c: Career, f: Dictionary, goal: Dictionary) -> Dictionary:
+	var cp: Dictionary = f.get("camp", {})
+	return CampForecast.run(c, f, str(cp.get("focus", goal["stat"])), int(cp.get("protocol", 0)), bool(cp.get("film", false)))
+
+
+## The injury load row, without a bout (the gauge row's RISK has it with one).
+func _injury_row(f: Dictionary, lines: Array) -> void:
 	var load := Injuries.ratio(f)
 	# S380: the week-end roll also reads the week's peak fatigue (InjuryRoll.fatigue_mult: x2 at 76, x3 from 80)
 	var wpeak := float(f.get("week_peak", 0.0))
@@ -104,11 +152,6 @@ func _build(main: Node, f: Dictionary, goal: Dictionary, lines: Array) -> void:
 	add_child(lr)
 	add_child(WB.ink("this week's hours against the usual, and its fatigue peak - over 1.5, or a week over 76, doubles the injury risk",
 		UI.SMALL, "hand", WB.PENCIL, true))
-	var sticky := _twist(main, f)
-	if sticky != null:
-		add_child(sticky)
-		if _teach:
-			move_child(sticky, 0)   # S359 first open: the twist is the one thing to read, so it heads the column
 
 
 ## Lower is better for the weight and the fatigue peak, higher for the camp's stat.
@@ -143,6 +186,27 @@ func _pulse(hold: PanelContainer, d: Label, id: String, was: float, to: float) -
 func _preview(a: String) -> void:
 	var g := _f.duplicate(true)
 	g["twist_pick"] = a
+	_preview_g(g)
+
+
+## S382 G5 (gym idea 2, hover ghosts): a morning card under the cursor on the whiteboard (its picker's item, or 'undo' = the
+## coach's card) - the dry run with that day changed ghosts on the gauge row and the lines; [] or the day's own card = off.
+func ghost_day(dow: int, card: Array) -> void:
+	if card.size() != 2:
+		_preview_off()
+		return
+	var g := _f.duplicate(true)
+	WeekPhase.edit(g, clampi(dow, 0, 6), card, WeekPlan.coach_of(g))
+	if WeekPlan.days_of(g) == WeekPlan.days_of(_f):
+		_preview_off()
+		return
+	_preview_g(g)
+
+
+## The goal lines and the gauge row where the camp lands for the fighter state g.
+func _preview_g(g: Dictionary) -> void:
+	if _gauge != null:
+		_gauge.preview(GaugeRow.read(forecast(_c, g, _goal), g, _c.day))
 	var lines: Array = _replan.call(g)
 	for ln in lines:
 		var id := str(ln["id"])
@@ -163,16 +227,14 @@ func _preview(a: String) -> void:
 func _preview_off() -> void:
 	for d in _delta.values():
 		(d as Label).text = ""
+	if _gauge != null:
+		_gauge.preview_off()
 
 
 func _line_under(main: Node, fid: String, f: Dictionary, id: String, ln: Dictionary, weeks: int) -> Control:
 	var h := UI.hbox(8)
 	if id == "weight":
-		h.add_child(WB.ink("limit %.1f at the weigh-in; diet:" % float(ln["target"]), UI.SMALL, "hand", WB.PENCIL))
-		for d in [["hold", "Hold"], ["cut", "Cut 500 kcal"]]:
-			var b := UI.button(str(d[1]), "PillOn" if str(f["diet"]) == str(d[0]) else "Pill", main.act.bind("diet", "%s|%s" % [fid, d[0]]))
-			b.name = "Diet_" + str(d[0])
-			h.add_child(b)
+		return _diet(main, fid, f, "limit %.1f at the weigh-in; diet:" % float(ln["target"]))
 	elif id == "fatigue":
 		h.add_child(WB.ink("this week %d; rest days and Light mornings bring it down" % int(round(float(ln["week"]))), UI.SMALL, "hand", WB.PENCIL, true))
 	elif id == "opp":
@@ -187,6 +249,18 @@ func _line_under(main: Node, fid: String, f: Dictionary, id: String, ln: Diction
 				builders.append(str(WeekPhase.NAMES.get(str(s), s)))
 		h.add_child(WB.ink("goal %.1f in %d weeks; built by %s mornings" % [float(ln["target"]), weeks, " / ".join(builders)],
 			UI.SMALL, "hand", WB.PENCIL, true))
+	return h
+
+
+## The diet pills (Hold / Cut 500 kcal) after a few words.
+static func _diet(main: Node, fid: String, f: Dictionary, words: String) -> HBoxContainer:
+	var h := UI.hbox(8)
+	h.name = "Diet"
+	h.add_child(WB.ink(words, UI.SMALL, "hand", WB.PENCIL))
+	for d in [["hold", "Hold"], ["cut", "Cut 500 kcal"]]:
+		var b := UI.button(str(d[1]), "PillOn" if str(f["diet"]) == str(d[0]) else "Pill", main.act.bind("diet", "%s|%s" % [fid, d[0]]))
+		b.name = "Diet_" + str(d[0])
+		h.add_child(b)
 	return h
 
 

@@ -45,8 +45,8 @@ func _test_1_determinism() -> void:
 	var stats: Dictionary = H.make_stats(60, 0)
 	var camp: Dictionary = H.make_camp(2)
 	var opp: Dictionary = {"rating": 62.0}
-	var ws1: float = H.win_share(stats, camp, 1, opp, 400, 42)
-	var ws2: float = H.win_share(stats, camp, 1, opp, 400, 42)
+	var ws1: float = H.win_share(stats, camp, 0, opp, 400, 42)
+	var ws2: float = H.win_share(stats, camp, 0, opp, 400, 42)
 	_check(ws1 == ws2, "determinism: same seed -> same win_share (%.3f == %.3f)" % [ws1, ws2])
 
 
@@ -55,15 +55,15 @@ func _test_2_stats() -> void:
 	var opp: Dictionary = {"rating": 62.0}
 	var camp: Dictionary = H.make_camp(2)
 	# Power-leaning profiles (variant 0)
-	var ws55_p: float = H.win_share(H.make_stats(55, 0), camp, 1, opp, 400, 100)
-	var ws60_p: float = H.win_share(H.make_stats(60, 0), camp, 1, opp, 400, 101)
-	var ws70_p: float = H.win_share(H.make_stats(70, 0), camp, 1, opp, 400, 102)
+	var ws55_p: float = H.win_share(H.make_stats(55, 0), camp, 0, opp, 400, 100)
+	var ws60_p: float = H.win_share(H.make_stats(60, 0), camp, 0, opp, 400, 101)
+	var ws70_p: float = H.win_share(H.make_stats(70, 0), camp, 0, opp, 400, 102)
 	_check(ws70_p > ws60_p, "stats(power): avg 70 > avg 60 (%.3f > %.3f)" % [ws70_p, ws60_p])
 	_check(ws60_p > ws55_p, "stats(power): avg 60 > avg 55 (%.3f > %.3f)" % [ws60_p, ws55_p])
 	# Defense-leaning profiles (variant 1)
-	var ws55_d: float = H.win_share(H.make_stats(55, 1), camp, 1, opp, 400, 200)
-	var ws60_d: float = H.win_share(H.make_stats(60, 1), camp, 1, opp, 400, 201)
-	var ws70_d: float = H.win_share(H.make_stats(70, 1), camp, 1, opp, 400, 202)
+	var ws55_d: float = H.win_share(H.make_stats(55, 1), camp, 0, opp, 400, 200)
+	var ws60_d: float = H.win_share(H.make_stats(60, 1), camp, 0, opp, 400, 201)
+	var ws70_d: float = H.win_share(H.make_stats(70, 1), camp, 0, opp, 400, 202)
 	_check(ws70_d > ws60_d, "stats(defense): avg 70 > avg 60 (%.3f > %.3f)" % [ws70_d, ws60_d])
 	_check(ws60_d > ws55_d, "stats(defense): avg 60 > avg 55 (%.3f > %.3f)" % [ws60_d, ws55_d])
 
@@ -72,21 +72,23 @@ func _test_2_stats() -> void:
 func _test_3_camp() -> void:
 	var stats: Dictionary = H.make_stats(62, 0)
 	var opp: Dictionary = {"rating": 62.0}
-	var ws_none: float = H.win_share(stats, H.make_camp(0), 1, opp, 400, 300)
-	var ws_std: float = H.win_share(stats, H.make_camp(2), 1, opp, 400, 301)
-	var ws_hard: float = H.win_share(stats, H.make_camp(3), 1, opp, 400, 302)
+	# S381 C229 stage 4: Hard - Standard is 0.4 now (was 0.8) - one seed for all three (common random numbers), so the
+	# order is the rule's and not the dice's.
+	var ws_none: float = H.win_share(stats, H.make_camp(0), 0, opp, 400, 300)
+	var ws_std: float = H.win_share(stats, H.make_camp(2), 0, opp, 400, 300)
+	var ws_hard: float = H.win_share(stats, H.make_camp(3), 0, opp, 400, 300)
 	_check(ws_hard > ws_std, "camp: Hard > Standard (%.3f > %.3f)" % [ws_hard, ws_std])
 	_check(ws_std > ws_none, "camp: Standard > None (%.3f > %.3f)" % [ws_std, ws_none])
 
 
-## 4. Film: depth 3 > depth 1.
+## 4. Film (S381 C229 stage 4: earned by answered tells): three answered > none.
 func _test_4_film() -> void:
 	var stats: Dictionary = H.make_stats(62, 0)
 	var camp: Dictionary = H.make_camp(2)
 	var opp: Dictionary = {"rating": 62.0}
-	var ws1: float = H.win_share(stats, camp, 1, opp, 400, 400)
+	var ws1: float = H.win_share(stats, camp, 0, opp, 400, 400)
 	var ws3: float = H.win_share(stats, camp, 3, opp, 400, 401)
-	_check(ws3 > ws1, "film: depth 3 > depth 1 (%.3f > %.3f)" % [ws3, ws1])
+	_check(ws3 > ws1, "film: three answered tells > none (%.3f > %.3f)" % [ws3, ws1])
 
 
 ## 5. Bounds from the round model.
@@ -95,9 +97,9 @@ func _test_5_bounds() -> void:
 	var stats_close: Dictionary = H.make_stats(60, 0)
 	var camp_close: Dictionary = H.make_camp(2)
 	var opp_close: Dictionary = {"rating": 62.0}
-	var e_close: float = H.edge(stats_close, camp_close, 1, opp_close)
+	var e_close: float = H.edge(stats_close, camp_close, 0, opp_close)
 	_check(absf(e_close) < 0.5, "bounds: edge close to 0 (%.2f)" % e_close)
-	var ws_close: float = H.win_share(stats_close, camp_close, 1, opp_close, 400, 500)
+	var ws_close: float = H.win_share(stats_close, camp_close, 0, opp_close, 400, 500)
 	_check(ws_close >= 0.40 and ws_close <= 0.60,
 			"bounds: |edge| < 0.5 -> win_share in 0.40..0.60 (%.3f)" % ws_close)
 
@@ -105,9 +107,9 @@ func _test_5_bounds() -> void:
 	var stats_high: Dictionary = H.make_stats(65, 0)
 	var camp_high: Dictionary = H.make_camp(2)
 	var opp_high: Dictionary = {"rating": 62.0}
-	var e_high: float = H.edge(stats_high, camp_high, 1, opp_high)
+	var e_high: float = H.edge(stats_high, camp_high, 0, opp_high)
 	_check(e_high >= 4.0, "bounds: edge >= 4 (%.2f)" % e_high)
-	var ws_high: float = H.win_share(stats_high, camp_high, 1, opp_high, 400, 501)
+	var ws_high: float = H.win_share(stats_high, camp_high, 0, opp_high, 400, 501)
 	# S305 J-UPSETS1: with ROUND_SPREAD 27, a +4 edge gives ~65-80% win share (was >= 0.95 at spread 6).
 	_check(ws_high >= 0.65, "bounds: edge >= 4 -> win_share >= 0.65 (%.3f, S305: was >= 0.95 at spread 6)" % ws_high)
 
@@ -115,9 +117,9 @@ func _test_5_bounds() -> void:
 	var stats_low: Dictionary = H.make_stats(55, 0)
 	var camp_low: Dictionary = H.make_camp(0)
 	var opp_low: Dictionary = {"rating": 62.0}
-	var e_low: float = H.edge(stats_low, camp_low, 1, opp_low)
+	var e_low: float = H.edge(stats_low, camp_low, 0, opp_low)
 	_check(e_low <= -4.0, "bounds: edge <= -4 (%.2f)" % e_low)
-	var ws_low: float = H.win_share(stats_low, camp_low, 1, opp_low, 400, 502)
+	var ws_low: float = H.win_share(stats_low, camp_low, 0, opp_low, 400, 502)
 	# S305 J-UPSETS1: with ROUND_SPREAD 27, a -4 edge gives ~15-35% win share (was <= 0.05 at spread 6).
 	_check(ws_low <= 0.35, "bounds: edge <= -4 -> win_share <= 0.35 (%.3f, S305: was <= 0.05 at spread 6)" % ws_low)
 
@@ -131,7 +133,7 @@ func _test_6_no_draws() -> void:
 	rng.seed = 42
 	var draws: int = 0
 	for _i in 400:
-		var result: Dictionary = H.bout(stats, camp, 1, opp, rng)
+		var result: Dictionary = H.bout(stats, camp, 0, opp, rng)
 		if str(result["verdict"]) == "draw":
 			draws += 1
 	_check(draws == 0, "no draws in 400 bouts (3-round bout always has a winner)")

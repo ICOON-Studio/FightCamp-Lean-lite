@@ -1,8 +1,8 @@
 extends PanelContainer
 ## The fighter's Training tab as the coach's whiteboard (S356, operator Q-S294-84 "Yes, build it", the Miro "Whiteboard
-## planner" mockup; the mechanics of S354-S356 underneath). Top: her name, the camp week and its phase, the fight date
-## circled in red. Middle: the seven days - a magnet for the morning (click it for every card: "Hard intervals"), one for the
-## evening, the fatigue bar (colour only near or over the line); THIS CAMP beside it - weight, the camp's stat, the fatigue
+## planner" mockup; the mechanics of S354-S356 underneath). Top: her name, the weeks strip to fight night (S381 G2,
+## WeekStrip), the fight date circled in red. Middle: the seven days - a magnet for the morning (click it for every card:
+## "Hard intervals"), one for the evening, the fatigue bar (colour only near or over the line); THIS CAMP beside it - weight, the camp's stat, the fatigue
 ## peak and the injury load, each with where the camp lands - and the week's twist on a sticky note. Bottom: the coach's
 ## one line (WeekCoach), the evening dials, CONTINUE. The numbers behind a magnet are on its hover. THIS CAMP is WeekCamp.gd.
 ## WeekPlan does the maths; BoutActs wday / spar / weekreset / diet / learn / combo / twistpick take the clicks.
@@ -22,12 +22,14 @@ const MoveMastery := preload("res://scripts/rules/MoveMastery.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
 const WeekOpp := preload("res://scripts/rules/WeekOpp.gd")
 const WeekCamp := preload("res://scripts/ui/WeekCamp.gd")
+const WeekStrip := preload("res://scripts/ui/WeekStrip.gd")
 
 const WEEKS_NO_BOUT := 4
 
 static var more_open := false   # S360 the More row opened by hand (camp week 1)
 
 var _lines: Array = []
+var _camp: Node = null   # THIS CAMP (WeekCamp): a morning under the cursor ghosts there (S382 G5)
 
 
 static func make(main: Node, c: Career, f: Dictionary) -> PanelContainer:
@@ -91,7 +93,7 @@ func _build(main: Node, c: Career, f: Dictionary) -> void:
 	_lines = pl["lines"]
 	var v := UI.vbox(16)
 	add_child(v)
-	v.add_child(_head(c, f, goal))
+	v.add_child(_head(c, f, goal, pl["evs"]))
 	var mid := UI.hbox(26)
 	v.add_child(mid)
 	# The coach's line and the dials sit under the days (the mockup), so THIS CAMP's height never pushes CONTINUE down.
@@ -105,31 +107,26 @@ func _build(main: Node, c: Career, f: Dictionary) -> void:
 		grid.modulate = Color(1, 1, 1, 0.35)
 		foot.modulate = Color(1, 1, 1, 0.35)
 	mid.add_child(left)
-	mid.add_child(WeekCamp.make(main, f, goal, _lines, teaching(f), func(g: Dictionary) -> Array: return plan_of(c, g)["lines"]))
+	_camp = WeekCamp.make(main, f, goal, _lines, teaching(f), func(g: Dictionary) -> Array: return plan_of(c, g)["lines"])
+	mid.add_child(_camp)
 
 
-## Her name, the camp's week and phase; the fight date circled.
-func _head(c: Career, f: Dictionary, goal: Dictionary) -> Control:
+## Her name, the weeks strip to fight night (WeekStrip; this week's pips = the evenings drawn); her opponent circled.
+func _head(c: Career, f: Dictionary, goal: Dictionary, evs: Array) -> Control:
 	var h := UI.hbox(24)
 	var left := UI.vbox(2)
 	left.add_child(WB.ink("%s'S CAMP" % str(f["first"]).to_upper(), 42, "marker"))   # her full name heads the page already
 	var sub := UI.hbox(12)
 	var bout: Dictionary = goal["bout"]
 	var camp: Dictionary = f.get("camp", {})
-	var weeks := int(goal["weeks"])
-	var when := "no bout booked: the next %d weeks" % WEEKS_NO_BOUT
-	var total := 0
 	if not bout.is_empty() and not bool(bout.get("done", false)):
-		total = weeks
-		if not camp.is_empty():
-			total = maxi(weeks, int(ceil((int(bout["day"]) - int(camp.get("start", c.day))) / 7.0)))
-			when = "camp week %d of %d" % [clampi(total - weeks + 1, 1, total), total]
-		else:
-			when = "%d weeks to fight night - no camp set yet" % weeks
-	sub.add_child(WB.ink(when, 24, "hand", WB.INK))
-	if total > 0:
-		sub.add_child(WB.phase_strip(phase_cells(total), total - weeks))
+		# S381 G2: the weeks strip to fight night (WeekStrip) replaced "camp week 2 of 4" and the phase cells.
+		sub.add_child(WeekStrip.make(f, bout.get("opp", {}), int(bout["day"]), c.day, int(camp.get("start", c.day)),
+			str(camp.get("focus", f.get("focus", ""))), bool(camp.get("film", false)), evs.count("sparring")))
+		if camp.is_empty():
+			sub.add_child(WB.ink("no camp set yet", 24, "hand", WB.INK))
 	else:
+		sub.add_child(WB.ink("no bout booked: the next %d weeks" % WEEKS_NO_BOUT, 24, "hand", WB.INK))
 		var ph: Dictionary = WeekPhase.PHASES.get(str(f.get("phase", "base")), WeekPhase.PHASES["base"])
 		sub.add_child(WB.tape_chip(str(ph["name"]).to_upper()))
 	left.add_child(sub)
@@ -139,7 +136,8 @@ func _head(c: Career, f: Dictionary, goal: Dictionary) -> Control:
 		var opp: Dictionary = bout["opp"]
 		var parts := str(opp.get("name", "")).split(" ")
 		var who := "%s. %s" % [parts[0].left(1), parts[-1]] if parts.size() > 1 else str(opp.get("name", ""))
-		var date := WB.circled(Clock.fmt(int(bout["day"])).to_upper(), "vs %s, %.1f kg" % [who, float(f["limit"])])
+		# S382 proof stills: the strip's poster ends on the date, so the circle names who and the limit (no second date)
+		var date := WB.circled("VS " + who.to_upper(), "%.1f kg limit" % float(f["limit"]))
 		date.name = "FightDate"
 		h.add_child(date)
 	h.add_child(UI.spacer())
@@ -155,15 +153,6 @@ static func camp_week(c: Career, f: Dictionary) -> int:
 	var weeks := maxi(1, int(ceil((int(bout["day"]) - c.day) / 7.0)))
 	var total := maxi(weeks, int(ceil((int(bout["day"]) - int(camp.get("start", c.day))) / 7.0)))
 	return clampi(total - weeks + 1, 1, total)
-
-
-## The camp's weeks by phase, counted back from fight night as WeekPhase.phase does (BUILD ... PEAK, TAPER).
-static func phase_cells(total: int) -> Array:
-	var out: Array = []
-	for k in total:
-		var to_go := total - k
-		out.append("TAPER" if to_go <= 1 else ("PEAK" if to_go == 2 else "BUILD"))
-	return out
 
 
 ## The seven days: a magnet for the morning (every card on a click), the evening's, the day's fatigue.
@@ -191,8 +180,14 @@ func _week(main: Node, f: Dictionary, days: Array, base: Array, evs: Array, wk: 
 			rule.custom_minimum_size = Vector2(2, 0)
 			row.add_child(rule)
 		row.add_child(WeekDay.make(main, str(f["id"]), i, days[i], base[i], evs[i], wk["days"][i], (wk["red"] as Array).has(i),
-			changed.has(str(i)), items, str(WeekTwist.active(f).get("name", "")), coach[i]))
+			changed.has(str(i)), items, str(WeekTwist.active(f).get("name", "")), coach[i], _ghost_day))
 	return box
+
+
+## S382 G5: a morning card under the cursor (WeekDay) ghosts on THIS CAMP; [] = off.
+func _ghost_day(dow: int, card: Array) -> void:
+	if _camp != null:
+		_camp.call("ghost_day", dow, card)
 
 
 ## The coach's one line, the evening dials, CONTINUE.

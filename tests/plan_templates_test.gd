@@ -5,6 +5,7 @@ extends SceneTree
 ## Population: Lucy Jackson (out-boxer) against Maria Ortega (pressure fighter, Data.OPPONENTS[0]) and Priya Nair
 ## (counter-puncher, [1]) - two different opponents; 40 bouts each on 40 different days, every plan on the same 40.
 
+const OppFile := preload("res://scripts/rules/OppFile.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
 const PlanBoard := preload("res://scripts/rules/PlanBoard.gd")
@@ -74,6 +75,8 @@ func _share(arrows: Array, opp: Dictionary) -> Array:
 		f["combos"] = {"1-1": 50.0, "1-2": 50.0, "1-1-2": 50.0, "2-3": 40.0}
 		f["arrows"] = arrows.duplicate(true)
 		f["bout"] = {"opp": opp.duplicate(true), "day": c.day, "weighed": true, "made": true, "done": false, "film": 3}
+		# S381 C229 stage 4: film 3 = her whole file on tape; its power now comes from the tells this plan answers.
+		OppFile.open_all(f["bout"]["opp"])
 		var m := {"fid": f["id"], "step": "tape", "total": 3}
 		Bouts.fight_step(c, f, m, "sim")
 		for r in m["rounds"]:

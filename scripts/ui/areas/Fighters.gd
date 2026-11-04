@@ -17,6 +17,7 @@ const FIGHTER_PAGE := preload("res://scenes/areas/FighterPage.tscn")
 const GrapplerPage := preload("res://scripts/ui/areas/GrapplerPage.gd")
 const NoGi := preload("res://scripts/rules/NoGi.gd")
 const Playbook := preload("res://scripts/ui/areas/Playbook.gd")
+const FilmEdge := preload("res://scripts/rules/FilmEdge.gd")
 
 
 func build(main: Node) -> void:
@@ -142,7 +143,9 @@ func _camps(main: Node, c: Career) -> void:
 			v.add_child(UI.label("%s focus, %s protocol" % [Data.LABEL[camp["focus"]], str(BoutRules.PROTOCOLS[int(camp["protocol"])]["name"]).to_lower()],
 				UI.BODY, UI.GREEN, "bold"))
 			v.add_child(UI.label("vs %s, %s" % [fb["opp"]["name"], Clock.fmt(int(fb["day"]))], UI.BODY))
-			v.add_child(FighterCard.meter("FILM", "%d of 3" % int(fb["film"]), float(fb["film"]) / 3.0, "depth on the opponent", UI.GOLD))
+			var fs := FilmEdge.summary(f)   # S381 C229 stage 4: the found tells her plan answers
+			v.add_child(FighterCard.meter("FILM", "%d of %d" % [int(fs["n"]), int(fs["of"])], float(fs["n"]) / maxf(1.0, float(fs["of"])),
+				"tells answered in the plan", UI.GOLD))
 			var over := float(f["weight"]) - float(f["limit"])
 			v.add_child(UI.label("%.1f of %.1f kg" % [f["weight"], f["limit"]], UI.SMALL, UI.GREEN if over <= 0.0 else UI.AMBER, "bold"))
 		elif not fb.is_empty():

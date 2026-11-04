@@ -240,15 +240,17 @@ static func withdraw_bout(c: Career, f: Dictionary) -> void:
 	WeekPhase.sync(f, c.day)
 
 
-## Pays and starts her camp. Returns the cost.
-static func start_camp(c: Career, f: Dictionary, focus: String, protocol: int, film: bool) -> int:
+## Pays and starts her camp. Returns the cost. S381 C229 stage 2: the club's nights and film are free; the only cash is
+## the outside sparring partner (BoutRules.partner_fee).
+static func start_camp(c: Career, f: Dictionary, focus: String, protocol: int, film: bool, partner: bool = false) -> int:
 	if (f["bout"] as Dictionary).is_empty() or not (f["camp"] as Dictionary).is_empty():
 		return 0
-	var cost := BoutRules.camp_cost(protocol, film)
+	var cost := BoutRules.camp_cost(protocol, partner)
 	if cost > 0:
-		c.pay(-cost, "Fight camp for %s: %s%s" % [f["first"], str(BoutRules.PROTOCOLS[protocol]["name"]).to_lower(), " + film study" if film else ""])
+		c.pay(-cost, "Sparring partner for %s: %s, %d visits" % [f["first"],
+			BoutRules.partner_word((f["bout"] as Dictionary).get("opp", {})), BoutRules.PARTNER_VISITS])
 	# S356 the camp's goal is fixed today (PeakCamp: all three lines met on the night = her peak, +1 every stat).
-	f["camp"] = {"focus": focus, "protocol": protocol, "film": film, "start": c.day,
+	f["camp"] = {"focus": focus, "protocol": protocol, "film": film, "partner": partner, "start": c.day,
 		"goal": PeakCamp.goal(f["stats"], focus, f.get("goal", {})), "peak": float(f.get("week_fatigue", 20.0))}
 	# S380: a mirror of the protocol only - the sim reads camp.protocol (BoutRules.camp_evening: the evenings' drill + load)
 	f["load_setting"] = BoutRules.camp_level(protocol)
@@ -265,6 +267,8 @@ static func tape_days(c: Career, f: Dictionary) -> void:
 	if camp.is_empty() or b.is_empty() or not bool(camp.get("film", false)):
 		return
 	var opp: Dictionary = b["opp"]
+	if not OppFile.has_tape(opp):   # S381 C229 stage 4: a debutant has no video to study
+		return
 	if not opp.has("habits"):
 		opp["habits"] = RoundStyle.opponent_habits(opp)
 	while int(camp.get("tapes", 0)) < OppFile.sessions_due(int(camp.get("tape_start", camp["start"])), c.day):

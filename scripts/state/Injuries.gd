@@ -119,13 +119,16 @@ static func gain_mult(c: Career, f: Dictionary) -> float:
 	return TrainingLoad.gain("rest") if out(c, f) else 1.0
 
 
-## This week's training setting for her: the player's pick on the Training page (S326 update 29), else Normal (Hard in
-## camp). An injured fighter rests whatever the pick.
+## This week's training setting for her: the player's pick on the Training page (S326 update 29), else Normal; in camp
+## (S381 C229) the hardest that stays safe against her usual (TrainingLoad.camp_default: Normal from a usual 10 h, Hard
+## once her usual is 11.6 h+). An injured fighter rests whatever the pick.
 static func setting(f: Dictionary) -> String:
 	var s := str(f.get("load_setting", ""))
 	if TrainingLoad.SETTINGS.has(s):
 		return s
-	return TrainingLoad.default_for(not (f.get("camp", {}) as Dictionary).is_empty())
+	if (f.get("camp", {}) as Dictionary).is_empty():
+		return TrainingLoad.default_for(false)
+	return TrainingLoad.camp_default(chronic(f))
 
 
 ## Her load this week against her usual (TrainingLoad.ratio): 1.0 = her usual. S354: the hours come from her week

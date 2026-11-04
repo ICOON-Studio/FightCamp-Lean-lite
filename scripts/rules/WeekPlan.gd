@@ -7,7 +7,7 @@ extends RefCounted
 ##   week(days, ctx) -> {days, gains, kg, weight_end, fatigue_end, peak, peak_day, red, stats_end}
 ##   project(days, ctx, weeks) -> the same week repeated: {weight, stats, peak, weeks}
 ##   goal_lines(goal, days, ctx, weeks) -> [{id, label, now, week, end, target, ok, short}]
-##   evenings_for(spar_nights) -> [7 evening ids]   full_day(id, intensity, evening, ctx, fatigue)   hours(days, evenings)
+##   evenings_for(spar_nights, pad_nights, film, film_from) -> [7 evening ids]   full_day(id, intensity, evening, ctx, fatigue)   hours(days, evenings)
 ## ctx = {stats, pot, coach (rating), weight, diet: hold|cut, fatigue (carried in)}; days = [[id, intensity] x 7].
 ## Real-world numbers:
 ## - Energy: kcal = MET x kg x hours (Compendium of Physical Activities 2024, checked by John S354): running 10 km/h 9.3,
@@ -51,8 +51,11 @@ const EVENINGS := {
 	"pads": {"name": "Pads and drills", "stat": "", "met": 6.0, "min": 45.0, "rpe": 5.0},
 	"sparring": {"name": "Sparring vs a partner", "stat": "fight_iq", "met": 7.8, "min": 30.0, "rpe": 7.0},
 	"rest": {"name": "Rest", "stat": "", "met": 0.0, "min": 0.0, "rpe": 0.0},
+	"film": {"name": "Film: the opponent's video with the coach", "stat": "", "met": 0.0, "min": 0.0, "rpe": 0.0},
 }
 const SPAR_DAYS := [[], [3], [1, 3]]
+## S381 C229 stage 2: the pad night film takes in a Build week - the first of these still on the pads.
+const FILM_DAYS := [1, 2, 4, 0, 5, 3]
 const SESSION_SHARE := 0.2
 const KCAL_PER_KG := 7700.0
 ## S356 fight week on a cut: the low-residue, low-glycogen diet of the last days drops the gut and glycogen water - ~0.5-1 %
@@ -93,22 +96,32 @@ static func ahead(f: Dictionary, day: int, weeks: int) -> Array:
 	var camp: Dictionary = f.get("camp", {})
 	for k in range(1, maxi(1, weeks)):
 		var p := WeekPhase.phase(f.get("bout", {}), monday + 7 * k)
-		out.append([WeekPhase.week(p, str(camp.get("focus", f.get("focus", "")))), evenings_for(WeekPhase.spar(p), WeekPhase.pads(p)), p])
+		out.append([WeekPhase.week(p, str(camp.get("focus", f.get("focus", "")))),
+			evenings_for(WeekPhase.spar(p), WeekPhase.pads(p), WeekPhase.film_night(p, camp, monday + 7 * k)), p])
 	return out
 
 
 static func evenings_of(f: Dictionary) -> Array:
 	var p := str(f.get("phase", "base"))
-	return evenings_for(int(WeekPhase.edits(f).get("spar", WeekPhase.spar(p))), WeekPhase.pads(p))
+	var camp: Dictionary = f.get("camp", {})
+	# S382: the camp's one film night falls in its first week, on the first pad night from the day it was set
+	return evenings_for(int(WeekPhase.edits(f).get("spar", WeekPhase.spar(p))), WeekPhase.pads(p),
+		WeekPhase.film_night(p, camp, int(f.get("phase_day", -1))), posmod(int(camp.get("start", 0)), 7))
 
 
 ## pad_nights below 6 rests Tuesday, Thursday, Saturday first (S356 the taper: Monday, Wednesday, Friday on the pads).
-static func evenings_for(spar_nights: int, pad_nights := 6) -> Array:
+## film: one pad night left goes to film (FILM_DAYS order), none before weekday film_from (the camp's first day).
+static func evenings_for(spar_nights: int, pad_nights := 6, film := false, film_from := 0) -> Array:
 	var out: Array = ["pads", "pads", "pads", "pads", "pads", "pads", "rest"]
 	for d in [1, 3, 5].slice(0, clampi(6 - pad_nights, 0, 3)):
 		out[d] = "rest"
 	for d in SPAR_DAYS[clampi(spar_nights, 0, SPAR_DAYS.size() - 1)]:
 		out[d] = "sparring"
+	if film:
+		for d in FILM_DAYS:
+			if int(d) >= film_from and str(out[d]) == "pads":
+				out[d] = "film"
+				break
 	return out
 
 

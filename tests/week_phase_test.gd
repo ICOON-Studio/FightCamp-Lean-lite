@@ -31,6 +31,28 @@ func _initialize() -> void:
 	var h_peak := WP.hours(peak, WP.evenings_for(PH.spar("peak")))
 	var h_taper := WP.hours(taper, WP.evenings_for(PH.spar("taper"), PH.pads("taper")))
 	_check(h_taper <= 0.6 * h_peak and h_taper >= 0.25 * h_peak, "taper volume %.1f h vs peak %.1f h (down 40-75 %%)" % [h_taper, h_peak])
+	# S381 C229 stage 2: film takes one Build-week pad night (Tuesday), never a sparring night, and nothing outside Build.
+	var film_camp := {"focus": "technique", "protocol": 2, "film": true}
+	_check(PH.film_night("build", film_camp) and not PH.film_night("peak", film_camp) and not PH.film_night("taper", film_camp)
+		and not PH.film_night("build", {"focus": "technique", "protocol": 2, "film": false}), "film takes a night in Build weeks only")
+	var ev_film := WP.evenings_for(PH.spar("build"), PH.pads("build"), true)
+	var ev_plain := WP.evenings_for(PH.spar("build"), PH.pads("build"))
+	_check(ev_film.count("film") == 1 and ev_film.count("pads") == ev_plain.count("pads") - 1 and ev_film[1] == "film"
+		and ev_film.count("sparring") == ev_plain.count("sparring"), "a Build week with film: pads %d -> %d, Tuesday is film %s" % [
+		ev_plain.count("pads"), ev_film.count("pads"), str(ev_film)])
+	_check(WP.evenings_for(2, 6, true)[1] == "sparring" and WP.evenings_for(2, 6, true)[2] == "film", "two sparring nights: film moves to Wednesday")
+	_check(WP.hours(build, ev_film) < WP.hours(build, ev_plain), "the film night is off the pads: fewer hours (%.1f vs %.1f)" % [
+		WP.hours(build, ev_film), WP.hours(build, ev_plain)])
+	# S382 review: ONE film night a camp (C229 "pads 6 -> 5 that week"), in the week it opens, never before its first day.
+	var opened := {"focus": "technique", "protocol": 2, "film": true, "start": 2}   # set on a Wednesday of week 0
+	_check(PH.film_night("build", opened, 0) and PH.film_night("build", opened, 6) and not PH.film_night("build", opened, 7)
+		and not PH.film_night("build", opened, 14), "film takes a night in the camp's first week only")
+	_check(WP.evenings_for(1, 6, true, 2)[2] == "film" and WP.evenings_for(1, 6, true, 2)[1] == "pads", "set on a Wednesday: Wednesday is film, not the Tuesday gone")
+	var fc := {"phase": "build", "phase_day": 7, "camp": opened, "bout": {"day": 28}}
+	_check(WP.evenings_of(fc).count("film") == 0, "the camp's second Build week keeps all its pad nights")
+	fc["phase_day"] = 3
+	_check(WP.evenings_of(fc).count("film") == 1, "its first week has the one film night")
+	_check(WP.ahead(fc, 3, 4).filter(func(w): return (w[1] as Array).has("film")).is_empty(), "no week to come has a film night")
 	# 3. The coach's camp, no picks: build, build, peak, taper.
 	var c := _ctx()
 	var top := 0.0

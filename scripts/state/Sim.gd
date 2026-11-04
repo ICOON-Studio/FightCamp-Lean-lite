@@ -181,7 +181,7 @@ static func step_day(career: Career) -> void:
 		# S355 CORE3 step 2: the week's twist card changes the week she runs; Monday keeps what the plan says it will do
 		# (WeekActual), and a day that runs other than planned goes on the log the week review reads.
 		# S356 the camp's phase writes the week on Monday (WeekPhase; a new phase drops last week's exceptions).
-		if dow == 0 or not f.has("phase"):
+		if dow == 0 or not f.has("phase") or not f.has("phase_day"):   # S382 phase_day: a save from before it
 			WeekPhase.sync(f, career.day)
 		if dow == 0:
 			twist_monday(career, f)

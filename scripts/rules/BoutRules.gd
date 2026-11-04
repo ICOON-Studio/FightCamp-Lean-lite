@@ -8,12 +8,16 @@ extends RefCounted
 ## S380 (S379: Hard vs Standard moved the camp stat 60.12 vs 59.98 and changed no fatigue - the multiplier only touched
 ## ~1 point of focus mornings): the protocol also sets the camp's EVENINGS. drill = the pads night's share of a session
 ## on the camp's stat (a morning is WeekPlan.SESSION_SHARE 0.2); load = how hard those evenings go (fatigue, hours and so
-## injury risk); level = the TrainingLoad setting it mirrors into f["load_setting"].
+## injury risk); level = the TrainingLoad setting it mirrors into f["load_setting"]. S381 C229 nights = club nights a week
+## the card states (design value, a label only - an amateur with a day job: 3 / 4 / 5). S381 C229 stage 2: cost 0 / 0 / 0 -
+## the club's own nights cost coach evenings and risk, not cash (a club coach does not bill his own boxer). S381 C229
+## stage 4: the flat edges halved (0.5 / 1.2 / 2.0 -> 0.25 / 0.6 / 1.0; NO_CAMP_EDGE stays -1.5) - the value moved into the
+## matchup (film answers, the southpaw mate, the stat thresholds the focus card crosses); tools/camp_film_balance.gd.
 const PROTOCOLS := [
-	{"name": "None", "cost": 0, "focus": 1.0, "edge": 0.0, "drill": 0.0, "load": 1.0, "level": "normal", "blurb": ""},
-	{"name": "Light", "cost": 0, "focus": 1.1, "edge": 0.5, "drill": 0.0, "load": 0.75, "level": "light", "blurb": "free, the lightest load"},
-	{"name": "Standard", "cost": 300, "focus": 1.2, "edge": 1.2, "drill": 0.05, "load": 1.0, "level": "normal", "blurb": "$300, solid gains"},
-	{"name": "Hard", "cost": 700, "focus": 1.35, "edge": 2.0, "drill": 0.09, "load": 1.2, "level": "hard", "blurb": "$700, biggest gains, heavy legs"},
+	{"name": "None", "cost": 0, "focus": 1.0, "edge": 0.0, "drill": 0.0, "load": 1.0, "level": "normal", "nights": 0, "blurb": ""},
+	{"name": "Light", "cost": 0, "focus": 1.1, "edge": 0.25, "drill": 0.0, "load": 0.75, "level": "light", "nights": 3, "blurb": "3 nights, spar 1 a week"},
+	{"name": "Standard", "cost": 0, "focus": 1.2, "edge": 0.6, "drill": 0.05, "load": 1.0, "level": "normal", "nights": 4, "blurb": "4 nights, spar 2 a week"},
+	{"name": "Hard", "cost": 0, "focus": 1.35, "edge": 1.0, "drill": 0.09, "load": 1.2, "level": "hard", "nights": 5, "blurb": "5 nights a week"},
 ]
 ## S380 fight night: camp fatigue still carried into the ring empties the tank at the first bell (Halperin, Hughes &
 ## Chapman 2016: punch impact -4 to -7 % when camp fatigue had not cleared). Under FRESH_FATIGUE reads FRESH
@@ -22,10 +26,24 @@ const FRESH_FATIGUE := 50.0
 const STALE_PER_POINT := 2.0
 const STALE_MAX := 20.0
 const CAMP_FOCUSES: Array[String] = ["conditioning", "power", "technique", "defense", "speed"]
-const FILM_COST := 150
+## S381 C229 stage 2: film is a phone video of her at a club show - free; it takes one Build-week pad night (WeekPhase.film_night).
+## The only camp cash is the outside sparring partner from another club: travel and a favour, $40 a visit, 4 visits (design
+## values: the Peak week's 2 sparring nights plus one in each Build week).
+const PARTNER_FEE := 40
+const PARTNER_VISITS := 4
+## S381 C229 stage 3: an orthodox boxer who never sparred a southpaw in camp is lost for the first round against one (design
+## value, power points, round 1 only): "never faced a southpaw". The southpaw mate (or a WeekTwist lefty week) takes it
+## away; there is no plus edge for having one. The mirror never bites: a southpaw spars orthodox club mates every night.
+const NEVER_FACED := 0.6
+## The film depth (OppFile.film_depth: 1 nothing found, 3 her whole file) still drives what the corner reads in the ring
+## (THE READ, the coach's pick); it no longer adds power.
 const FILM_DEPTH_WITH_STUDY := 3
 const FILM_DEPTH_DEFAULT := 1
-const FILM_EDGE_PER_DEPTH := 0.6
+## S381 C229 stage 4: film is earned - tape is only worth what the coach turns into a plan. Each found tell a Playbook plan
+## line or a drilled combination answers (FilmEdge.answered, PlanLines.answers) is worth FILM_PER_ANSWER on the night, up
+## to FILM_EDGE_MAX (design values; the old flat film edge was the same +1.2 for anyone).
+const FILM_PER_ANSWER := 0.4
+const FILM_EDGE_MAX := 1.2
 const NO_CAMP_EDGE := -1.5
 ## A camp is worth setting with at least a week to go.
 const CAMP_MIN_DAYS := 7
@@ -47,6 +65,15 @@ const CORNER_WEAK := 0.3
 const CORNER_BODY_POWER := 60.0
 const CORNER_LONG_TECHNIQUE := 61.0
 const CORNER_CALM := 0.6
+## S381 G1 (gym idea 5, the threshold bar on each camp card): the stat number that changes the night, one per stat that has
+## one - the body call goes strong past CORNER_BODY_POWER, "Jab and move" past CORNER_LONG_TECHNIQUE, no round-3 fade from
+## FADE_CONDITIONING. above = strictly past it (fight_power's >), else at it or past (play_round's fade is < it). word = the
+## card's caption. Defence and hand speed have no line. fight_power and play_round read clears_night_line, so they never drift.
+const NIGHT_LINES := {
+	"power": {"at": CORNER_BODY_POWER, "word": "body call", "above": true},
+	"technique": {"at": CORNER_LONG_TECHNIQUE, "word": "jab and move", "above": true},
+	"conditioning": {"at": FADE_CONDITIONING, "word": "no round-3 fade", "above": false},
+}
 
 const WEIGH_TOLERANCE := 0.05
 const MISSED_WEIGHT_COST := 300
@@ -70,8 +97,38 @@ const WEAPON_EDGE := 0.3
 const WEAPON_EDGE_CAP := 0.9
 
 
-static func camp_cost(protocol: int, film: bool) -> int:
-	return int(PROTOCOLS[clampi(protocol, 0, 3)]["cost"]) + (FILM_COST if film else 0)
+## The camp's cash: the protocol (the club's own nights, $0) + the outside sparring partner's visits when one is booked.
+static func camp_cost(protocol: int, partner: bool) -> int:
+	return int(PROTOCOLS[clampi(protocol, 0, 3)]["cost"]) + (partner_fee() if partner else 0)
+
+
+static func partner_fee() -> int:
+	return PARTNER_FEE * PARTNER_VISITS
+
+
+## Who the outside partner copies: "southpaw mate" for a southpaw, "pressure mate" for a pressure fighter, else "sparring mate".
+static func partner_word(opp: Dictionary) -> String:
+	if str(opp.get("stance", "")).to_lower() == "southpaw":
+		return "southpaw mate"
+	return "pressure mate" if str(opp.get("style", "")).to_lower().begins_with("pressure") else "sparring mate"
+
+
+## True when the outside partner copies the opponent's free stance or style (the card's "MATCHES <HER>").
+static func partner_matches(opp: Dictionary) -> bool:
+	return partner_word(opp) != "sparring mate"
+
+
+## S381 C229 stage 3: an orthodox boxer facing a southpaw with no southpaw in her camp (no partner, no lefty week).
+## stance = hers ("" reads orthodox, the club default); a southpaw herself is never caught out (her club mates are orthodox).
+static func never_faced(stance: String, opp: Dictionary, camp: Dictionary, lefty: bool = false) -> bool:
+	if stance.to_lower() == "southpaw" or str(opp.get("stance", "")).to_lower() != "southpaw":
+		return false
+	return not (bool(camp.get("partner", false)) or lefty)
+
+
+## The stance's cost in round n: -NEVER_FACED in round 1 when she never faced a southpaw, else 0.
+static func stance_edge(n: int, stance: String, opp: Dictionary, camp: Dictionary, lefty: bool = false) -> float:
+	return -NEVER_FACED if n == 1 and never_faced(stance, opp, camp, lefty) else 0.0
 
 
 ## The daily-gain multiplier the camp puts on one stat (1.0 off the focus or without a camp).
@@ -106,34 +163,61 @@ static func made_weight(weight: float, limit: float) -> bool:
 	return weight <= limit + WEIGH_TOLERANCE
 
 
-## Her strength on the night: the six fighting stats (chin aside), the camp, the film depth and the corner call.
-static func fight_power(stats: Dictionary, camp: Dictionary, film_depth: int, corner: String) -> float:
+## Power points the film is worth: FILM_PER_ANSWER a found tell her plan answers, at most FILM_EDGE_MAX.
+static func film_edge(answered: int) -> float:
+	return clampf(float(answered) * FILM_PER_ANSWER, 0.0, FILM_EDGE_MAX)
+
+
+## Her strength on the night: the six fighting stats (chin aside), the camp, the film (answered = found tells her plan or
+## drilled combos answer, FilmEdge.answered) and the corner call.
+static func fight_power(stats: Dictionary, camp: Dictionary, answered: int, corner: String) -> float:
 	var p := 0.0
 	for k in ["power", "speed", "technique", "defense", "conditioning", "fight_iq"]:
 		p += float(stats.get(k, 55.0))
 	p /= 6.0
 	p += float(PROTOCOLS[clampi(int(camp.get("protocol", 0)), 0, 3)]["edge"]) if not camp.is_empty() else NO_CAMP_EDGE
-	p += float(film_depth - 1) * FILM_EDGE_PER_DEPTH
+	p += film_edge(answered)
 	match corner:
 		"body":
-			p += CORNER_STRONG if float(stats.get("power", 0.0)) > CORNER_BODY_POWER else CORNER_WEAK
+			p += CORNER_STRONG if clears_night_line("power", float(stats.get("power", 0.0))) else CORNER_WEAK
 		"long":
-			p += CORNER_STRONG if float(stats.get("technique", 0.0)) > CORNER_LONG_TECHNIQUE else CORNER_WEAK
+			p += CORNER_STRONG if clears_night_line("technique", float(stats.get("technique", 0.0))) else CORNER_WEAK
 		"calm":
 			p += CORNER_CALM
 	return p
 
 
 ## One round. roll_a / roll_b are in [0, 1). Returns {n, won, mine, theirs, corner}.
-static func play_round(n: int, stats: Dictionary, camp: Dictionary, film_depth: int, corner: String, opp: Dictionary,
+static func play_round(n: int, stats: Dictionary, camp: Dictionary, answered: int, corner: String, opp: Dictionary,
 		roll_a: float, roll_b: float, weapons_bonus: float = 0.0) -> Dictionary:
-	var mine := fight_power(stats, camp, film_depth, corner) + weapons_bonus + (roll_a - 0.5) * ROUND_SPREAD
-	if n >= ROUNDS and float(stats.get("conditioning", 0.0)) < FADE_CONDITIONING:
+	var mine := fight_power(stats, camp, answered, corner) + weapons_bonus + (roll_a - 0.5) * ROUND_SPREAD
+	if n >= ROUNDS and not clears_night_line("conditioning", float(stats.get("conditioning", 0.0))):
 		mine -= OWN_FADE
 	var theirs := float(opp.get("rating", 60.0)) + (roll_b - 0.5) * ROUND_SPREAD
 	if n >= ROUNDS and str(opp.get("weak", "")).begins_with("Fades"):
 		theirs -= OPP_FADE
 	return {"n": n, "won": mine >= theirs, "mine": mine, "theirs": theirs, "corner": corner}
+
+
+## S381 G1 the stat's night line ({at, word, above}, NIGHT_LINES) or {} when the stat has none.
+static func night_line(stat: String) -> Dictionary:
+	return NIGHT_LINES.get(stat, {})
+
+
+## True when `value` is over the stat's night line (false for a stat with no line).
+static func clears_night_line(stat: String, value: float) -> bool:
+	var l := night_line(stat)
+	if l.is_empty():
+		return false
+	return value > float(l["at"]) if bool(l["above"]) else value >= float(l["at"])
+
+
+## The card's caption: "past 60: body call", "at 64: no round-3 fade" ("" for a stat with no line).
+static func night_line_words(stat: String) -> String:
+	var l := night_line(stat)
+	if l.is_empty():
+		return ""
+	return "%s %d: %s" % ["past" if bool(l["above"]) else "at", int(l["at"]), str(l["word"])]
 
 
 ## The call the corner makes when the player sims to the result: her better tool.
@@ -172,10 +256,11 @@ static func verdict(cards: Array) -> String:
 
 
 ## Up to three one-line reasons. rounds: the played rounds; camp_focus_label e.g. "Conditioning"; threat in lower case.
-static func why(rounds: Array, has_camp: bool, protocol: int, camp_focus_label: String, film_depth: int, threat: String,
+## answered: the found tells her plan answered (S381 C229 stage 4: the film counts only when the plan used it).
+static func why(rounds: Array, has_camp: bool, protocol: int, camp_focus_label: String, answered: int, threat: String,
 		first: String) -> Array:
 	var out: Array = []
-	if film_depth >= FILM_DEPTH_WITH_STUDY:
+	if answered >= 1:
 		out.append("The film study: %s knew the %s was coming." % [first, threat])
 	if has_camp and protocol >= 2:
 		out.append("The camp: %s held up when it mattered." % camp_focus_label.to_lower())

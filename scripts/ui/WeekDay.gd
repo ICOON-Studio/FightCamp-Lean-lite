@@ -2,7 +2,9 @@ extends RefCounted
 ## S359 one day of the coach's whiteboard (split out of WeekBoard, past the 500-line rule): the day's name and 'undo',
 ## the MORNING magnet (every card on a click, its index card on hover - Tips), the EVENING magnet, TIRED BY NIGHT (bar
 ## and word, its card on hover).
-##   WeekDay.make(main, fid, i, m, planned, evening, r, red, mine, items, twist, coach_card) -> Control   WeekDay.kind(m)
+## S382 G5 (gym idea 2, hover ghosts): a card under the cursor in the morning's picker, or 'undo' (the coach's card), calls
+## ghost(dow, card) - THIS CAMP ghosts that week's dry run on its gauge row; ghost(dow, []) when the cursor leaves.
+##   WeekDay.make(main, fid, i, m, planned, evening, r, red, mine, items, twist, coach_card, ghost) -> Control   WeekDay.kind(m)
 
 const UI := preload("res://scripts/ui/UI.gd")
 const WB := preload("res://scripts/ui/WhiteboardKit.gd")
@@ -17,7 +19,7 @@ const SHORT := {"power": "power", "speed": "speed", "technique": "tech", "defens
 	"fight_iq": "ring IQ", "chin": "chin"}
 
 static func make(main: Node, fid: String, i: int, m: Array, planned: Array, evening: String, r: Dictionary, red: bool, mine: bool,
-		items: Array, twist := "", coach_card: Array = []) -> Control:
+		items: Array, twist := "", coach_card: Array = [], ghost := Callable()) -> Control:
 	var pad := MarginContainer.new()
 	pad.name = "Day_%d" % i
 	for side in ["left", "right"]:
@@ -44,6 +46,9 @@ static func make(main: Node, fid: String, i: int, m: Array, planned: Array, even
 		undo.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		undo.tooltip_text = "Your change. Back to the coach's card: %s" % WeekPhase.card(coach_card)
 		undo.pressed.connect(func(): main.act("wday", "%s|%d|%s|%s" % [fid, i, coach_card[0], coach_card[1]]))
+		if ghost.is_valid():
+			undo.mouse_entered.connect(func(): ghost.call(i, coach_card))
+			undo.mouse_exited.connect(func(): ghost.call(i, []))
 		head.add_child(undo)
 	if m != planned:
 		head.add_child(WB.ink("twist", UI.SMALL, "handbold", UI.AMBER))
@@ -64,6 +69,10 @@ static func make(main: Node, fid: String, i: int, m: Array, planned: Array, even
 	var mag := WB.pick_magnet(name, "" if rest else WB.level(str(m[1])), str(m[1]) == "hard", tip, items, cur,
 		func(d): main.act("wday", "%s|%d|%s|%s" % [fid, i, d[0], d[1]]))
 	mag.name = "Session_%d" % i
+	if ghost.is_valid():
+		hover_items(mag, func(k: int):
+			if ghost.is_valid():   # a pick may have redrawn the board before the list closes
+				ghost.call(i, (items[k][1] as Array) if k >= 0 else []))
 	# S359 (operator on the old hover: "unreadable"; J90): an index card beside the magnet, the numbers with their meaning.
 	Tips.card(mag, func(): return _magnet_card(m, planned, r, red, mine, twist))
 	v.add_child(mag)
@@ -74,7 +83,7 @@ static func make(main: Node, fid: String, i: int, m: Array, planned: Array, even
 	v.add_child(pm)
 	# S360 (Q-S294-90 "Both", Kalli: "cut the evening magnet ... show the evening on the day as text only"): the camp's phase
 	# and the weekly Sparring nights set the evenings, so the day only says what it is.
-	var ev := WB.ink("~ off" if evening == "rest" else ("sparring" if evening == "sparring" else "pads"), UI.SMALL + 2,
+	var ev := WB.ink("~ off" if evening == "rest" else (evening if evening in ["sparring", "film"] else "pads"), UI.SMALL + 2,
 		"handbold" if evening == "sparring" else "hand", WB.INK if evening == "sparring" else WB.PENCIL)
 	ev.name = "Evening_%d" % i
 	ev.tooltip_text = str((WeekPlan.EVENINGS.get(evening, WeekPlan.EVENINGS["rest"]) as Dictionary)["name"])
@@ -99,6 +108,37 @@ static func make(main: Node, fid: String, i: int, m: Array, planned: Array, even
 		"means": str(fw[1]).get_slice(": ", 1) if str(fw[1]).contains(": ") else str(fw[1]), "keys": ["fatigue"]})
 	v.add_child(word)
 	return pad
+
+
+## S382 G5: the picker's item under the cursor -> on_item(index), -1 when the cursor is off the list or the list closes.
+## PopupMenu only signals keyboard moves (id_focused), so while it is open each frame reads its focused item - the item
+## under the mouse (a click opens it with none; the keyboard's item counts too).
+static func hover_items(mag: MenuButton, on_item: Callable) -> void:
+	var pop := mag.get_popup()
+	var last := [-1]
+	var tree: Array = [null]
+	var tick := func() -> void:
+		if not is_instance_valid(pop):
+			return
+		var k := maxi(-1, pop.get_focused_item())
+		if k != int(last[0]):
+			last[0] = k
+			on_item.call(k)
+	var stop := func() -> void:   # also when a pick redraws the board under the open list
+		var t: SceneTree = tree[0]
+		if t != null and t.process_frame.is_connected(tick):
+			t.process_frame.disconnect(tick)
+	pop.about_to_popup.connect(func() -> void:
+		last[0] = -1
+		tree[0] = mag.get_tree()
+		if not (tree[0] as SceneTree).process_frame.is_connected(tick):
+			(tree[0] as SceneTree).process_frame.connect(tick))
+	pop.popup_hide.connect(func() -> void:
+		stop.call()
+		if int(last[0]) >= 0:
+			last[0] = -1
+			on_item.call(-1))
+	mag.tree_exiting.connect(stop)
 
 
 ## The morning magnet's card: the session, what it builds, where she ends the day, and what that means.

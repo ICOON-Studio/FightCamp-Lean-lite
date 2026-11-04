@@ -2,7 +2,8 @@ extends SceneTree
 ## S356 CORE3 step 4, the fight plan's Test it (PlanTest):
 ##   1. nothing booked = no test; a test books nothing (record, cash, results, her saved plan unchanged),
 ##   2. the range holds the true count, wide on a stranger (tape found nothing) and narrow with her file open,
-##   3. the same plan on the same camp rolls the same dice (a change in the range is the plan's), 3 tests a camp,
+##   3. the same plan on the same camp rolls the same dice (a change in the range is the plan's); S382 G3: the tests are
+##      the camp's sparring nights (3 weeks out on a Wednesday: Thu, Thu, Peak Tue + Thu = 4), the fifth is refused,
 ##   4. control arm: a plan that answers a presser wins more of the 20 than one that walks into her,
 ##   5. it says where the plan breaks.
 ## Population: Lucy Jackson (Data.lucy, out-boxer) vs Maria Ortega (Data.OPPONENTS[0], pressure fighter, southpaw).
@@ -44,7 +45,10 @@ func _initialize() -> void:
 	var g := PlanTest.run(c, f, GOOD)
 	_check(int(g["wins"]) >= 0 and int(g["hi"]) - int(g["lo"]) == 2 * PlanTest.SPREAD_SEEN and int(g["lo"]) <= int(g["wins"])
 		and int(g["wins"]) <= int(g["hi"]), "her file open: the range narrows to %d-%d" % [g["lo"], g["hi"]])
-	_check(int(g["left"]) == 0 and not bool(PlanTest.run(c, f, GOOD)["ok"]), "three tests a camp, the fourth is refused")
+	_check(int(g["left"]) == 1 and int(g["night"]) == 43, "the third test took the Peak Tuesday; one spar night left")
+	var last := PlanTest.run(c, f, GOOD)
+	_check(int(last["left"]) == 0 and not bool(PlanTest.run(c, f, GOOD)["ok"]) and PlanTest.left(f, c.day) == 0
+		and PlanTest.button(f, c.day) == "Test it - no spar night left", "four spar nights, four tests; the fifth is refused")
 	# The same dice: a fresh camp tests the same plan to the same count.
 	var c2 := _career()
 	var f2: Dictionary = c2.fighter()

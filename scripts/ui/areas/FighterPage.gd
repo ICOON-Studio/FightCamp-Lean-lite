@@ -18,6 +18,7 @@ const AttrBoard := preload("res://scripts/ui/AttrBoard.gd")
 const WeekBoard := preload("res://scripts/ui/WeekBoard.gd")
 const PerkRoad := preload("res://scripts/rules/PerkRoad.gd")
 const OppFileCard := preload("res://scripts/ui/OppFileCard.gd")
+const FilmEdge := preload("res://scripts/rules/FilmEdge.gd")
 
 ## S354 C204 (operator on the training board: "this should be like a sub tab in the players profile , to see an an overview
 ## of the training"): the week board (WeekBoard; S356 TrainingBoard deleted) is the page's Training tab.
@@ -107,8 +108,9 @@ func build(main: Node, f: Dictionary) -> void:
 			var camp: Dictionary = f["camp"]
 			var fb: Dictionary = f["bout"]
 			if not camp.is_empty():
-				card.add_child(UI.label("%s focus, %s protocol, film depth %d of 3" % [Data.LABEL[camp["focus"]],
-					str(BoutRules.PROTOCOLS[int(camp["protocol"])]["name"]).to_lower(), int(fb["film"])], UI.BODY, UI.FG, "body", true))
+				var fs := FilmEdge.summary(f)   # S381 C229 stage 4: the film counts the tells her plan answers
+				card.add_child(UI.label("%s focus, %s protocol, film %d/%d answered" % [Data.LABEL[camp["focus"]],
+					str(BoutRules.PROTOCOLS[int(camp["protocol"])]["name"]).to_lower(), int(fs["n"]), int(fs["of"])], UI.BODY, UI.FG, "body", true))
 				# S341 her file (OppFile): what tape study has found so far, and its answers; the rest is hidden.
 				var opp: Dictionary = fb.get("opp", {})
 				card.add_child(UI.caps("SCOUTING %s" % str(opp.get("name", "the opponent")).to_upper()))

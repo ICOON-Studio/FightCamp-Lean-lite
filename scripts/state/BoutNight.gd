@@ -309,7 +309,7 @@ static func _finish(c: Career, f: Dictionary, m: Dictionary) -> void:
 	var outcome := outcome_of(f, m)
 	var win := outcome == "win"
 	var focus_label := str(Data.LABEL.get(camp.get("focus", ""), ""))
-	var why := BoutRules.why(rounds, not camp.is_empty(), int(camp.get("protocol", 0)), focus_label, int(f["bout"]["film"]),
+	var why := BoutRules.why(rounds, not camp.is_empty(), int(camp.get("protocol", 0)), focus_label, int(f["bout"].get("answered", 0)),
 		str(opp["threat"]).to_lower(), str(f["first"]))
 	# S356 the peak bonus was for this fight only; its line leads the reasons and goes in the week review.
 	PeakCamp.unboost(f["stats"], f["bout"].get("peak_add", {}))
@@ -317,6 +317,9 @@ static func _finish(c: Career, f: Dictionary, m: Dictionary) -> void:
 	if float(f["bout"].get("stale", 0.0)) > 0.0:
 		why.push_front("Heavy legs: %s carried the camp's fatigue into the ring (-%d energy at the first bell)." % [f["first"],
 			int(round(float(f["bout"]["stale"])))])
+	if not rounds.is_empty() and not bool(rounds[0]["won"]) and BoutRules.never_faced(str(f.get("stance", "orthodox")), opp,
+			camp, bool(f["bout"].get("lefty", false))):
+		why.push_front("Round 1: %s had never faced a southpaw." % f["first"])
 	if peak != "":
 		why.push_front(peak)
 		f["peak_line"] = peak

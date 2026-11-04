@@ -149,11 +149,11 @@ func _test7() -> void:
 ## 8. default_for.
 func _test8() -> void:
 	var ok := true
-	if TL.default_for(true) != "hard":
+	if TL.default_for(true) != "normal":   # S381 C229: a camp opens at Normal, not Hard
 		ok = false
 	if TL.default_for(false) != "normal":
 		ok = false
-	_check(ok, "test 8: default_for camp=true->hard camp=false->normal")
+	_check(ok, "test 8: default_for camp=true->normal camp=false->normal")
 	# S327 camp_default: from a normal month Hard is a spike, so Normal; once her usual is 11.6 h+ Hard is safe.
 	_check(TL.camp_default(10.0) == "normal" and TL.camp_default(11.6) == "hard" and TL.camp_default(5.0) == "normal",
 		"test 8b: camp_default 10 h -> normal, 11.6 h -> hard, 5 h -> normal")

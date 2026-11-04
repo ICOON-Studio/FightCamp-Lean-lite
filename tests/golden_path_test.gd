@@ -174,7 +174,7 @@ func _week_two(c: Career) -> void:
 	main.act("camp")
 	_check(main.modal.get("type", "") == "camp", "SET CAMP opens the camp")
 	_press(_modal_button("StartCamp"), "Start the camp is live")
-	_check(not c.fighter()["camp"].is_empty() and c.cash == cash_before - 450, "standard camp + film: $450 paid")
+	_check(not c.fighter()["camp"].is_empty() and c.cash == cash_before, "standard camp + film: the club's own nights, nothing paid (S381 C229)")
 	# S341 scouting in stages: the camp's first tape session opens her best weapon; the rest come a session at a time.
 	var opp_file: Dictionary = c.fighter()["bout"]["opp"]
 	_check(OppFile.found(opp_file) == ["weapon"] and int(c.fighter()["bout"]["film"]) == 2,

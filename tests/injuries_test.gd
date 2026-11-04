@@ -136,7 +136,24 @@ func _initialize() -> void:
 	var lf: Dictionary = l.fighter()
 	_check(Injuries.setting(lf) == "normal", "a normal week out of camp")
 	lf["camp"] = {"focus": "power", "protocol": 3}
+	# S381 C229: a camp with no pick steps up from her usual (TrainingLoad.camp_default), never straight to Hard.
+	_check(Injuries.setting(lf) == "normal", "a camp with no pick opens at Normal from a usual 10 h")
+	var had_chronic: bool = lf.has("chronic")
+	var was_chronic = lf.get("chronic")
+	lf["chronic"] = 12.0
+	_check(Injuries.setting(lf) == "hard", "a camp with no pick trains Hard once the usual is 12 h")
+	if had_chronic:
+		lf["chronic"] = was_chronic
+	else:
+		lf.erase("chronic")
+	var had_ls: bool = lf.has("load_setting")
+	var was_ls = lf.get("load_setting")
+	lf["load_setting"] = "hard"
 	_check(Injuries.setting(lf) == "hard", "a hard camp trains hard")
+	if had_ls:
+		lf["load_setting"] = was_ls
+	else:
+		lf.erase("load_setting")
 	lf["camp"] = {}
 	for d in 7:
 		Sim.step_day(l)

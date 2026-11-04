@@ -4,14 +4,15 @@ extends RefCounted
 ## ring plays (RoundStyle.opponent_habits) and her weakness are hidden until found. Tape study in camp opens one a session,
 ## every TAPE_EVERY camp days, best weapon first and the weakness last (a coach looks for what hurts first, what he can use
 ## after). Each tell names its counter: a plan branch (`when`, PlanFight's situations), a corner call (BoutRules.CORNER key)
-## or a camp drill. The film depth the fight reads (BoutRules.FILM_EDGE_PER_DEPTH) follows the share found, so a full camp
-## still ends at depth 3 and the balance is unchanged; a short camp or no tape leaves her a stranger on the night.
+## or a camp drill. The film depth (what the corner reads in the ring) follows the share found; a short camp or no tape
+## leaves her a stranger on the night. S381 C229 stage 4: the power the film adds is earned - FilmEdge counts the found
+## tells her plan answers (BoutRules.film_edge); an opponent with no bouts on her record has no tape (has_tape).
 ## S341 (operator: "the records should always keep all information available for the other opponents (history)"): what is
 ## found is written to the career's record of her (remember), so a rematch starts with it; a bout against her opens her
 ## whole file (open_all: three rounds show everything); history() lists every bout our gym has had with her.
 ##   tells(opp) -> [{id, what, value, counter, call, when, how}]   known(opp, id)   hidden(opp)   found(opp)
 ##   tape(opp) -> id found ("" when the file is open)   sessions_due(start, day)   film_depth(opp)   main_game(opp)
-##   remember(record, opp)   open_all(opp)   history(results, name) -> results with her, newest first
+##   remember(record, opp)   open_all(opp)   history(results, name) -> results with her, newest first   has_tape(opp)
 ## Pure static; preloads the style table (Exchanges), the habit words (RoundStyle) and the WHEN words (FightFlow). State: opp["file_found"] (tell ids).
 
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
@@ -159,6 +160,11 @@ static func history(results: Array, name: String) -> Array:
 ## Tape sessions a camp that began on `start` has had by `day`: one on its first day, then one every TAPE_EVERY days.
 static func sessions_due(start: int, day: int) -> int:
 	return 0 if day < start else 1 + int((day - start) / TAPE_EVERY)
+
+
+## S381 C229 stage 4: a video of her exists - she has bouts on her record (a debutant has none) and no "no_tape" flag.
+static func has_tape(opp: Dictionary) -> bool:
+	return int(opp.get("w", 0)) + int(opp.get("l", 0)) > 0 and not bool(opp.get("no_tape", false))
 
 
 ## The film depth the fight reads: 1 with nothing found, 3 with the whole file open.

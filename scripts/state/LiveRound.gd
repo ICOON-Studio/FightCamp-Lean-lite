@@ -19,6 +19,7 @@ const PerkFight := preload("res://scripts/rules/PerkFight.gd")
 const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
 const WeekOpp := preload("res://scripts/rules/WeekOpp.gd")
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
+const FilmEdge := preload("res://scripts/rules/FilmEdge.gd")
 const HABITS_PATH := "res://assets/data/fight_habits.json"
 
 
@@ -42,7 +43,10 @@ static func _rng(c: Career, f: Dictionary, n: int, i: int) -> RandomNumberGenera
 static func open(c: Career, f: Dictionary, m: Dictionary, n: int, plan: String, e: Dictionary, fix: String = "",
 		jobs: Dictionary = {}) -> void:
 	var opp: Dictionary = f["bout"]["opp"]
-	var base := BoutRules.fight_power(f["stats"], f["camp"], int(f["bout"]["film"]), "") \
+	# S381 C229 stage 4: the film is worth the found tells her plan answers, counted at the first bell for the whole bout.
+	if n == 1 or not f["bout"].has("answered"):
+		f["bout"]["answered"] = FilmEdge.answered(f)
+	var base := BoutRules.fight_power(f["stats"], f["camp"], int(f["bout"]["answered"]), "") \
 		+ BoutRules.weapons_edge(BoutRules.weapons(f.get("moves", {}))) + float(e.get("bonus", 0.0)) - float(opp.get("rating", 60.0))
 	if n >= BoutRules.ROUNDS and float(f["stats"].get("conditioning", 0.0)) < BoutRules.FADE_CONDITIONING:
 		base -= BoutRules.OWN_FADE
@@ -51,6 +55,8 @@ static func open(c: Career, f: Dictionary, m: Dictionary, n: int, plan: String, 
 	# S356 a week with the southpaw partner (WeekTwist "Take him"): an edge on a southpaw.
 	if bool(f["bout"].get("lefty", false)) and str(opp.get("stance", "")).to_lower() == "southpaw":
 		base += WeekTwist.LEFTY_EDGE
+	# S381 C229 stage 3: round 1 against a southpaw she never faced in camp.
+	base += BoutRules.stance_edge(n, str(f.get("stance", "orthodox")), opp, f["camp"], bool(f["bout"].get("lefty", false)))
 	var rng := _rng(c, f, n, 0)
 	var mode := Exchanges.next_mode(str(opp.get("style", "")), str(opp.get("weak", "")), n, 0, "", float(e.get("b", 100.0)), false, rng)
 	# S310: body shots taken all fight ({a: by her, b: by the opponent}), kept on the bout so they carry round to round.

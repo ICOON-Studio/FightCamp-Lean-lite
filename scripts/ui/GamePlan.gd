@@ -462,9 +462,9 @@ func _actions() -> Control:
 	h.add_child(UI.spacer())
 	h.add_child(UI.muted("Saved: runs from the next bout", UI.TINY))
 	if not _bout().is_empty():
-		h.add_child(Icons.tip(UI.button("Test it (%d left)" % PlanTest.left(f), "BtnSolid", _test, PlanTest.left(f) == 0,
-			"No tests left this camp."), "20 quick bouts against %s with this plan, in today's form. %d tests a camp." % [
-			_bout()["opp"].get("first", ""), PlanTest.TESTS_A_CAMP]))
+		var day := int((main.career as Career).day)   # S382 G3: a test is a spar night (PlanTest.button); none = greyed
+		var tb := UI.button(PlanTest.button(f, day), "BtnSolid", _test, PlanTest.left(f, day) == 0, PlanTest.NONE_LEFT)
+		h.add_child(tb if tb.disabled else Icons.tip(tb, "20 quick bouts against %s with this plan." % _bout()["opp"].get("first", "")))
 	return h
 
 

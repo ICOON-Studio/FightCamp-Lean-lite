@@ -52,7 +52,8 @@ static func _arrow_row(map: Array, plan: Array, index: int, drilled: Array, plac
 static func test_block(r: Dictionary, opp_first: String) -> VBoxContainer:
 	var box := UI.vbox(4)
 	box.name = "PlanTest"
-	box.add_child(UI.caps("TEST IT  ·  %d LEFT THIS CAMP" % int(r.get("left", 0))))
+	var night := ("%s SPAR NIGHT  ·  " % Clock.DAYS[posmod(int(r["night"]), 7)].to_upper()) if r.has("night") else ""
+	box.add_child(UI.caps("TEST IT  ·  %s%d LEFT THIS CAMP" % [night, int(r.get("left", 0))]))
 	var rounds: Array = r.get("rounds", [0, 0])
 	box.add_child(UI.label("Wins %d-%d of %d against %s" % [int(r["lo"]), int(r["hi"]), int(r["sims"]), opp_first], UI.BODY, UI.FG, "bold", true))
 	box.add_child(UI.label("Rounds won: %d of %d. The range narrows as tape study reads the opponent." % [int(rounds[0]), int(rounds[1])],

@@ -19,7 +19,7 @@ func _initialize() -> void:
 	for spread in [6.0, 14.0, 20.0, 27.0]:
 		for avg in range(46, 86, 3):
 			var f: Dictionary = H.make_fighter(avg, 80.0, {}, 1)
-			var e: float = B.fight_power(f["stats"], f["camp"], 1, "body") - float(opp.get("rating", 60.0))
+			var e: float = B.fight_power(f["stats"], f["camp"], 0, "body") - float(opp.get("rating", 60.0))
 			var s: Dictionary = H.round_shares(f, ["", "body", "body"], N, seed, spread)
 			seed += 1
 			print("TGT %5.0f  %3d  %+5.1f  %.2f" % [spread, avg, e, s["bout"]])

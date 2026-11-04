@@ -12,7 +12,7 @@ extends RefCounted
 ## - S380 the protocol's evenings (BoutRules.camp_evening through Sim.week_ctx: pads drill the camp's stat, their load
 ##   scales fatigue and hours), the injury chance of the week-end training rolls before the bout (Injuries.end_week:
 ##   InjuryRoll.training_chance on the week's hours, ratio to her usual and peak fatigue) and the heavy legs on the night.
-##   run(c, f, focus, protocol) -> {stats, kg (weigh-in morning), limit, weigh_ok, fatigue_now, fatigue_end, peak, days,
+##   run(c, f, focus, protocol, film) -> {stats, kg (weigh-in morning), limit, weigh_ok, fatigue_now, fatigue_end, peak, days,
 ##     injury (0..1 over the camp), stale (energy lost at the first bell)}
 ##   all(c, f, protocol) -> {focus: run(...)} for every BoutRules.CAMP_FOCUSES entry
 
@@ -26,9 +26,12 @@ const TrainingLoad := preload("res://scripts/rules/TrainingLoad.gd")
 const InjuryRoll := preload("res://scripts/rules/InjuryRoll.gd")
 
 
-static func run(c: Career, f: Dictionary, focus: String, protocol: int) -> Dictionary:
+static func run(c: Career, f: Dictionary, focus: String, protocol: int, film := false) -> Dictionary:
 	var g := f.duplicate(true)
-	g["camp"] = {"focus": focus, "protocol": protocol}
+	# S381 film takes a pad night of the camp's first week when that is a Build week (WeekPhase.film_night): her camp's own
+	# start, else the camp opens today
+	g["camp"] = {"focus": focus, "protocol": protocol, "film": film,
+		"start": int((f.get("camp", {}) as Dictionary).get("start", c.day))}
 	var bout: Dictionary = g.get("bout", {})
 	var n := maxi(0, int(bout.get("day", c.day)) - c.day)   # fight night is stepped to, never trained on
 	var inj: Dictionary = g.get("injury", {})
@@ -79,9 +82,9 @@ static func run(c: Career, f: Dictionary, focus: String, protocol: int) -> Dicti
 		"fatigue_end": fe, "peak": peak, "days": n, "injury": 1.0 - safe, "stale": BoutRules.stale_energy(fe, g["camp"])}
 
 
-static func all(c: Career, f: Dictionary, protocol: int) -> Dictionary:
+static func all(c: Career, f: Dictionary, protocol: int, film := false) -> Dictionary:
 	var out := {}
 	for key in BoutRules.CAMP_FOCUSES:
-		out[key] = run(c, f, key, protocol)
+		out[key] = run(c, f, key, protocol, film)
 	return out
 

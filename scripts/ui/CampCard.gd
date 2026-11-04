@@ -1,7 +1,8 @@
 extends RefCounted
 ## S379 CAMPCARDS (operator on docs/mockups/fight_camp_cards.png: "looks ok, build it in the game"): the FIGHT CAMP modal's
 ## pieces - one camp card per focus (the training-station picture on this fighter's body, the title, "<Stat> ++", now ->
-## fight night, a plain line on what the camp does; the chosen card outlined with a check mark, a click picks it), one
+## fight night, S381 G1 the threshold bar (NightBar: now -> fight night, a gold tick at the number that changes the night,
+## gold once the forecast crosses it) with its one caption; the chosen card outlined with a check mark, a click picks it), one
 ## option box for the protocol row and film study, and the count-up every changing number uses (operator: animated meters).
 ##   card(main, f, key, chosen, now, end, from, pop) -> Button "Focus_<key>"     picture(f, key) -> Texture2D
 ##   option(name, title, line, risk, risk_col, on, press, h) -> Button       count(l, from, to, fmt)   pulse(c)
@@ -9,7 +10,8 @@ extends RefCounted
 const UI := preload("res://scripts/ui/UI.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
-const TrainingPreview := preload("res://scripts/rules/TrainingPreview.gd")
+const BoutRules := preload("res://scripts/rules/BoutRules.gd")
+const NightBar := preload("res://scripts/ui/NightBar.gd")
 
 const CARD_H := 340.0
 const PIC_H := 178.0
@@ -21,16 +23,6 @@ const TWEEN_S := 0.45
 ## The station picture for each camp focus (assets/ui/training/<body>_<station>.png, tools/bake_session_pics.gd).
 const STATION := {"conditioning": "roadwork", "power": "heavy_bag", "technique": "pads", "defense": "slip_rope",
 	"speed": "speed_bag"}
-## What the camp does, in two halves: the work and what it buys on the night (the second half reads "near the ceiling"
-## once headroom is small - TrainingPreview.headroom).
-const WHAT := {
-	"conditioning": ["intervals, roadwork, extra rounds", "lasts into round 3"],
-	"power": ["heavy bag, sit-down shots", "hurts on the body"],
-	"technique": ["shadow and pads", "cleaner combinations"],
-	"defense": ["slip rope, head movement", "takes fewer clean shots"],
-	"speed": ["speed bag, fast hands", "lands first"],
-}
-const NEAR_CAP := 0.4
 const PICS := "res://assets/ui/training/"
 const FALLBACK := "mh_boxer_10"
 
@@ -64,9 +56,15 @@ static func card(main: Node, f: Dictionary, key: String, chosen: bool, now: floa
 	fc.name = "Forecast"
 	count(fc, from, end, func(x: float) -> String: return "%.1f -> %.1f by fight night" % [now, x])
 	w.add_child(fc)
-	var what: Array = WHAT[key]
-	var pay := "near the ceiling" if TrainingPreview.headroom(int(f["pot"]), now) <= NEAR_CAP else str(what[1])
-	w.add_child(UI.label("%s - %s" % [what[0], pay], 16, UI.MUTED, "hand", true))
+	_gap(w, 4)
+	var bar := NightBar.make(key, now, end, from)   # S381 G1: replaces the line on what the camp does
+	w.add_child(bar)
+	var words_at := BoutRules.night_line_words(key)
+	if words_at != "":
+		var cap := UI.label(words_at, 15, UI.GOLD if BoutRules.clears_night_line(key, end) else UI.MUTED, "bold")
+		cap.name = "NightLine"
+		w.add_child(cap)
+		b.tooltip_text += " - " + words_at
 	if chosen:
 		b.add_child(_check(pop))
 	return b
@@ -184,3 +182,10 @@ static func _check(pop: bool) -> Control:
 		c.scale = Vector2(0.4, 0.4)
 		c.create_tween().tween_property(c, "scale", Vector2.ONE, 0.3).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT), CONNECT_ONE_SHOT)
 	return c
+
+
+static func _gap(box: Container, h: int) -> void:
+	var g := Control.new()
+	g.custom_minimum_size = Vector2(0, h)
+	g.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	box.add_child(g)

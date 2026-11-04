@@ -12,6 +12,7 @@ const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const PerkFight := preload("res://scripts/rules/PerkFight.gd")
+const FilmEdge := preload("res://scripts/rules/FilmEdge.gd")
 
 ## The opponent's games a combination is thrown into (her own trouble - she_tired / she_hurt - is not a plan's).
 const GAMES := ["press", "range", "counter", "loadup", "tiring"]
@@ -35,8 +36,7 @@ static func move_of(combo_id: String) -> String:
 static func gap(f: Dictionary, opp: Dictionary) -> float:
 	if opp.is_empty():
 		return 0.0
-	var film := int((f.get("bout", {}) as Dictionary).get("film", BoutRules.FILM_DEPTH_DEFAULT))
-	return BoutRules.fight_power(f["stats"], f.get("camp", {}), film, "") \
+	return BoutRules.fight_power(f["stats"], f.get("camp", {}), FilmEdge.answered(f), "") \
 		+ BoutRules.weapons_edge(BoutRules.weapons(f.get("moves", {}))) - float(opp.get("rating", 60.0))
 
 

@@ -1,6 +1,6 @@
 extends SceneTree
 ## S359 Kalli SQ25's whiteboard clarity fixes on the real board (jump=camp: Lucy in camp, a twist with two answers dealt):
-## fatigue as words, LIGHT / NORMAL / HARD on the magnets, the camp's phase strip with 'you are here', COACH'S PICK and the
+## fatigue as words, LIGHT / NORMAL / HARD on the magnets, the weeks strip (S381 G2), COACH'S PICK and the
 ## Monday rule, the grid dimmed until the twist is answered once, 'undo' on a changed day, a moved goal line shows its delta,
 ## and hovering an answer previews the lines.
 ## Population: the jump=camp career (TestJump "camp") - one amateur in camp, her bout booked.
@@ -22,8 +22,6 @@ func _initialize() -> void:
 		and str(WB.fatigue_word(65.0, true)[0]) == "RED DAY" and str(WB.fatigue_word(85.0, true)[0]) == "OVERCOOKED", "fatigue bands")
 	_check(str(WB.fatigue_word(85.0, false)[1]).contains("60%") and str(WB.fatigue_word(85.0, false)[1]).contains("85"),
 		"overcooked names its cost and the number on the hover")
-	_check(WeekBoard.phase_cells(5) == ["BUILD", "BUILD", "BUILD", "PEAK", "TAPER"], "a 5-week camp's strip")
-	_check(WeekBoard.phase_cells(1) == ["TAPER"], "a fight-week camp is one TAPER cell")
 
 	root.size = Vector2i(1920, 1080)
 	main = load("res://scenes/Main.tscn").instantiate()
@@ -43,8 +41,19 @@ func _initialize() -> void:
 	if b == null:
 		_done()
 		return
-	_check(b.find_child("PhaseStrip", true, false) != null, "the phase strip is drawn")
-	_check(_texts(b.find_child("PhaseStrip", true, false)).has("you are here"), "the strip says 'you are here'")
+	# S381 G2: the weeks strip (WeekStrip, week_strip_test) replaced the phase cells and "camp week 2 of 4".
+	_check(b.find_child("WeekStrip", true, false) != null, "the weeks strip is drawn")
+	_check(not " ".join(_texts(b)).contains("camp week"), "no 'camp week N of M' text")
+	# S382 G4: the gauge row heads THIS CAMP; the weight line, the fatigue-peak line and the injury row it replaced are gone,
+	# the diet pills stay.
+	var goal_col := b.find_child("Goal", true, false)
+	var gauges := goal_col.find_child("Gauges", true, false) if goal_col != null else null
+	var col_words := " ".join(_texts(goal_col))
+	_check(gauges != null and gauges.get_child_count() == 3, "the gauge row in THIS CAMP")
+	_check(goal_col != null and goal_col.find_child("Line_weight", true, false) == null and goal_col.find_child("Line_fatigue", true, false) == null
+		and not col_words.contains("FATIGUE PEAK") and not col_words.contains("INJURY RISK") and not col_words.contains("doubles the injury risk"),
+		"no weight / fatigue-peak / injury text beside the dials")
+	_check(goal_col != null and goal_col.find_child("Diet_cut", true, false) != null, "the diet pills stay")
 	var words := 0
 	for i in 7:
 		var l := b.find_child("Fatigue_%d" % i, true, false) as Label

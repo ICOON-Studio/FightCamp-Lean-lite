@@ -6,7 +6,7 @@ extends RefCounted
 ## days a week): BASE no bout booked; BUILD 3+ weeks out (the camp's stat Hard once); PEAK two weeks out (the hardest week,
 ## sparring twice); TAPER fight week (light, three rest days, no sparring).
 ##   phase(bout, day) -> id   sync(f, day) (f["phase"]; edits from another phase are dropped)   week(phase, focus) -> 7 days
-##   spar(phase) / pads(phase) -> sparring / pad nights   card(day) -> "Hard intervals"   cards() -> [[id, intensity] x every card]
+##   spar(phase) / pads(phase) -> sparring / pad nights   film_night(phase, camp, day) -> the camp's one film night is this week   card(day) -> "Hard intervals"   cards() -> [[id, intensity] x every card]
 ##   edit(f, dow, day_pick) / edit_spar(f, n) / edits(f) -> {days: {dow: [id, int]}, spar}   clear(f)
 ## Pure static; f keys: phase, week_edits {phase, days {"0".."6": [id, intensity]}, spar}.
 
@@ -46,6 +46,7 @@ static func phase(bout: Dictionary, day: int) -> String:
 static func sync(f: Dictionary, day: int) -> String:
 	var p := phase(f.get("bout", {}), day)
 	f["phase"] = p
+	f["phase_day"] = day   # S382: the week the phase is for (film_night: the camp's first week only)
 	f.erase("week_days")   # the S354 whole-week save: the phase writes the week now
 	var e: Dictionary = f.get("week_edits", {})
 	if not e.is_empty() and str(e.get("phase", "")) != p:
@@ -67,6 +68,18 @@ static func spar(p: String) -> int:
 ## Pad nights in the phase (6 = every night but Sunday; the taper keeps 3).
 static func pads(p: String) -> int:
 	return int((PHASES.get(p, PHASES["base"]) as Dictionary).get("pads", 6))
+
+
+## S381 C229 stage 2: film costs no cash but ONE pad night of the camp (the design: "pads 6 -> 5 that week"): the week the
+## camp opens in, when it is a Build week (a camp set in Peak or fight week has no Build night to give). day = a day of the
+## week asked about (f["phase_day"], the day WeekPhase.sync last ran); -1 = the camp's own first week.
+static func film_night(p: String, camp: Dictionary, day := -1) -> bool:
+	if p != "build" or not bool(camp.get("film", false)):
+		return false
+	if day < 0:
+		return true
+	var start := int(camp.get("start", day))
+	return day - posmod(day, 7) == start - posmod(start, 7)
 
 
 static func card(d: Array) -> String:

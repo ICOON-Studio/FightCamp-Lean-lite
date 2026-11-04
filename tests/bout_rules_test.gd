@@ -15,6 +15,7 @@ func _initialize() -> void:
 	_test_power()
 	_test_rounds()
 	_test_cards_and_why()
+	_test_southpaw()
 	print("BOUT_RULES checks=%d failures=%d" % [checks, failures])
 	quit(1 if failures > 0 else 0)
 
@@ -27,9 +28,14 @@ func _check(condition: bool, label: String) -> void:
 
 
 func _test_camp() -> void:
-	_check(BoutRules.camp_cost(1, false) == 0, "a light camp without film is free")
-	_check(BoutRules.camp_cost(2, true) == 450, "standard + film = $300 + $150")
-	_check(BoutRules.camp_cost(3, false) == 700, "a hard camp is $700")
+	# S381 C229 stage 2: the club's own nights are free; the outside sparring partner is the only cash ($40 x 4 visits).
+	_check(BoutRules.camp_cost(1, false) == 0 and BoutRules.camp_cost(2, false) == 0 and BoutRules.camp_cost(3, false) == 0,
+		"Light / Standard / Hard cost the club nothing")
+	_check(BoutRules.partner_fee() == 160 and BoutRules.camp_cost(2, true) == 160 and BoutRules.camp_cost(3, true) == 160,
+		"the outside partner: $40 a visit x 4 = $160, the only camp cash")
+	_check(BoutRules.partner_word({"stance": "southpaw", "style": "Pressure fighter"}) == "southpaw mate"
+		and BoutRules.partner_word({"stance": "orthodox", "style": "Pressure fighter"}) == "pressure mate"
+		and BoutRules.partner_word({"stance": "orthodox", "style": "Out-boxer"}) == "sparring mate", "the partner copies her stance, then her style")
 	var camp := {"focus": "conditioning", "protocol": 3}
 	_check(is_equal_approx(BoutRules.camp_gain_mult(camp, "conditioning"), 1.35), "a hard camp trains its focus x1.35")
 	_check(is_equal_approx(BoutRules.camp_gain_mult(camp, "power"), 1.0), "off the focus the camp adds nothing")
@@ -48,6 +54,34 @@ func _test_camp() -> void:
 	_check(BoutRules.camp_level(3) == "hard" and BoutRules.camp_level(1) == "light" and BoutRules.camp_level(2) == "normal", "camp levels")
 
 
+## S381 C229 stage 3: an orthodox boxer facing a southpaw with no southpaw in her camp loses 0.6 in round 1 only; the
+## southpaw mate (or a lefty week) takes it away and adds nothing; a southpaw herself is never caught out.
+func _test_southpaw() -> void:
+	var sp := {"stance": "southpaw", "style": "Pressure fighter"}
+	var orth := {"stance": "orthodox", "style": "Pressure fighter"}
+	var none := {"protocol": 2, "partner": false}
+	var mate := {"protocol": 2, "partner": true}
+	_check(BoutRules.never_faced("orthodox", sp, none) and BoutRules.never_faced("", sp, {}), "orthodox vs a southpaw, no mate: never faced one")
+	_check(is_equal_approx(BoutRules.stance_edge(1, "orthodox", sp, none), -0.6), "round 1 costs 0.6")
+	_check(BoutRules.stance_edge(2, "orthodox", sp, none) == 0.0 and BoutRules.stance_edge(3, "orthodox", sp, none) == 0.0,
+		"rounds 2 and 3 cost nothing")
+	_check(BoutRules.stance_edge(1, "orthodox", sp, mate) == 0.0 and not BoutRules.never_faced("orthodox", sp, mate),
+		"the southpaw mate takes it away")
+	_check(BoutRules.stance_edge(1, "orthodox", sp, none, true) == 0.0, "a lefty week takes it away too")
+	_check(BoutRules.stance_edge(1, "orthodox", orth, none) == 0.0, "an orthodox opponent costs nothing")
+	_check(BoutRules.stance_edge(1, "southpaw", orth, none) == 0.0 and BoutRules.stance_edge(1, "southpaw", sp, none) == 0.0,
+		"the mirror: a southpaw spars orthodox club mates every night - never caught out")
+	var plus := false
+	for n in [1, 2, 3]:
+		for st in ["orthodox", "southpaw"]:
+			for o in [sp, orth]:
+				for cp in [none, mate, {}]:
+					plus = plus or BoutRules.stance_edge(n, st, o, cp) > 0.0
+	_check(not plus, "no plus edge anywhere")
+	_check(BoutRules.partner_matches(sp) and BoutRules.partner_matches(orth)
+		and not BoutRules.partner_matches({"stance": "orthodox", "style": "Out-boxer"}), "the mate matches her stance or style")
+
+
 func _test_weigh() -> void:
 	_check(BoutRules.made_weight(61.2, 61.2), "on the limit makes weight")
 	_check(BoutRules.made_weight(61.25, 61.2), "within 0.05 kg makes weight")
@@ -56,15 +90,22 @@ func _test_weigh() -> void:
 
 func _test_power() -> void:
 	var s: Dictionary = Data.lucy()["stats"]
-	var bare := BoutRules.fight_power(s, {}, 1, "")
+	var bare := BoutRules.fight_power(s, {}, 0, "")
 	var camped := BoutRules.fight_power(s, {"focus": "conditioning", "protocol": 2}, 3, "")
-	_check(camped - bare > 3.0, "a standard camp + full film is worth over 3 points on the night (%.2f)" % (camped - bare))
-	_check(BoutRules.fight_power(s, {}, 1, "calm") > bare, "a corner call always helps a little")
+	# S381 C229 stage 4: Standard 0.6 (was 1.2) + three answered tells 1.2 + no NO_CAMP_EDGE -1.5 = 3.3 (was 3.9).
+	_check(is_equal_approx(camped - bare, 3.3), "a standard camp + three answered tells is worth 3.3 points on the night (%.2f)" % (camped - bare))
+	_check(is_equal_approx(BoutRules.fight_power(s, {}, 1, "") - bare, BoutRules.FILM_PER_ANSWER), "one answered tell: +0.4")
+	_check(is_equal_approx(BoutRules.film_edge(0), 0.0) and is_equal_approx(BoutRules.film_edge(2), 0.8)
+		and is_equal_approx(BoutRules.film_edge(5), BoutRules.FILM_EDGE_MAX), "film: 0.4 a tell answered, at most 1.2")
+	var edges: Array = BoutRules.PROTOCOLS.map(func(p): return float(p["edge"]))
+	_check(edges == [0.0, 0.25, 0.6, 1.0] and is_equal_approx(BoutRules.NO_CAMP_EDGE, -1.5),
+		"the flat camp edges halved: Light 0.25 / Standard 0.6 / Hard 1.0, no camp still -1.5 (%s)" % str(edges))
+	_check(BoutRules.fight_power(s, {}, 0, "calm") > bare, "a corner call always helps a little")
 	# Lucy: technique 60.1 (not above 61) and power 58.4 (not above 60): both calls are the weak kind for her today.
-	_check(is_equal_approx(BoutRules.fight_power(s, {}, 1, "long") - bare, BoutRules.CORNER_WEAK), "long with 60 technique is the small edge")
+	_check(is_equal_approx(BoutRules.fight_power(s, {}, 0, "long") - bare, BoutRules.CORNER_WEAK), "long with 60 technique is the small edge")
 	var sharp := s.duplicate()
 	sharp["technique"] = 63.0
-	_check(is_equal_approx(BoutRules.fight_power(sharp, {}, 1, "long") - BoutRules.fight_power(sharp, {}, 1, ""), BoutRules.CORNER_STRONG),
+	_check(is_equal_approx(BoutRules.fight_power(sharp, {}, 0, "long") - BoutRules.fight_power(sharp, {}, 0, ""), BoutRules.CORNER_STRONG),
 		"long with 63 technique is the full edge")
 	_check(BoutRules.auto_corner(sharp) == "long" and BoutRules.auto_corner(s) == "long", "sim picks her better tool")
 
@@ -102,5 +143,5 @@ func _test_cards_and_why() -> void:
 	_check(why.size() == 3, "three reasons")
 	_check(str(why[0]).contains("film study") and str(why[1]).contains("conditioning") and str(why[2]).contains("round 2"),
 		"film, camp, then the corner call that won a round: %s" % str(why))
-	var bare := BoutRules.why([{"n": 1, "won": false, "corner": ""}], false, 0, "", 1, "x", "Lucy")
+	var bare := BoutRules.why([{"n": 1, "won": false, "corner": ""}], false, 0, "", 0, "x", "Lucy")
 	_check(bare.size() == 1 and str(bare[0]).begins_with("No camp"), "no camp says so")

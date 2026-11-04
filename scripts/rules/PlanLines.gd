@@ -8,6 +8,7 @@ extends RefCounted
 ##   lines(arrows) -> [{place, when, move, i}]   options(place, sit, mastery, combos) -> [{id, name, to, fit, why, rate, edge}]
 ##   set_line / clear_line -> a new arrows Array   strength(arrows, game, mastery, combos) -> {edge, beats, works, walks, untrained}
 ##   skill_for(n) -> the coach rating that holds n lines
+##   tell_sit(tell) -> the situation that answers a tell   answers(arrows, tell, game, mastery, combos) -> bool
 ## Pure static; preloads the move map, the plan board and the plan fight table.
 
 const SM := preload("res://scripts/rules/StrikeMap.gd")
@@ -21,6 +22,14 @@ const PLACE_WORDS := {"outside": "From outside", "long": "At long range", "mid":
 ## The fit as the coach says it (no his/her on screen, S354).
 const FIT_WORDS := {"best": "Beats it", "ok": "Works", "none": "", "wrong": "Walks into it"}
 const FIT_ORDER := {"best": 0, "ok": 1, "none": 2, "wrong": 3}
+## S381 C229 stage 4 (film is earned): the situation a found tell (OppFile.tells) is answered in. A tell names its plan
+## situation (`when`); else its corner call's situation (Exchanges.CALLS "Use when ..."); a habit the ring plays goes by
+## what it opens: hands that drop late or a slow start ask for long combinations (tiring), a dropped right or a lunging jab
+## for straight shots / stepping off, a fighter who still hits back hurt for the hurt answers. "" = nothing to answer.
+const CALL_SITS := {"long": "press", "body": "range", "lead": "counter", "hands": "loadup", "let_go": "tiring",
+	"finish": "hurt", "tie": "she_hurt", "calm": "she_tired"}
+const HABIT_SITS := {"fades_late": "tiring", "slow_starter": "tiring", "admires_her_work": "tiring",
+	"drops_right_after_jab": "range", "lunges_with_jab": "press", "digs_body_when_hurt": "hurt", "loads_up_when_hurt": "hurt"}
 
 
 ## Every arrow as a line, in ring order (any-time first on a place, then its situations).
@@ -128,3 +137,32 @@ static func skill_for(n: int) -> int:
 	if n <= PlanBoard.NEW_COACH:
 		return 0
 	return 12 * n - 24
+
+
+## The situation that answers a found tell ({id, call, when}, OppFile.tells): its when, its habit's, its call's, or "".
+static func tell_sit(tell: Dictionary) -> String:
+	var when := str(tell.get("when", ""))
+	if when != "":
+		return when
+	var id := str(tell.get("id", ""))
+	if id.begins_with("habit:"):
+		return str(HABIT_SITS.get(id.trim_prefix("habit:"), ""))
+	return str(CALL_SITS.get(str(tell.get("call", "")), ""))
+
+
+## Whether her plan answers a tell: a line for its situation (its own WHEN, or an any-time line when the situation is her
+## main `game`) with a move that beats it or works and that she can throw - or a drilled book combination that beats it.
+static func answers(arrows: Array, tell: Dictionary, game: String, mastery: Dictionary, combos: Dictionary) -> bool:
+	var sit := tell_sit(tell)
+	if sit == "":
+		return false
+	for l in lines(arrows):
+		if sit_for(str(l["when"]), game) != sit or not PlanFight.can_do(SM.move(str(l["move"])), mastery):
+			continue
+		if ["best", "ok"].has(PlanFight.fit(str(l["move"]), sit)):
+			return true
+	for m in SM.MOVES:
+		if str(m.get("kind", "")) == "combo" and PlanFight.rate(str(m["id"]), combos) >= 1.0 \
+				and PlanFight.fit(str(m["id"]), sit) == "best":
+			return true
+	return false

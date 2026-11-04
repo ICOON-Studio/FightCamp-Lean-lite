@@ -21,6 +21,7 @@ const FightFlow := preload("res://scripts/rules/FightFlow.gd")
 const FlowView := preload("res://scripts/ui/FlowView.gd")
 const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
 const ShoutBar := preload("res://scripts/fight3d/ShoutBar.gd")
+const FilmEdge := preload("res://scripts/rules/FilmEdge.gd")
 
 
 func build(main: Node, m: Dictionary) -> void:
@@ -57,7 +58,7 @@ func _tape(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 		camp = "%s, %s" % [Data.LABEL[fc["focus"]], str(BoutRules.PROTOCOLS[int(fc["protocol"])]["name"]).to_lower()]
 	v.add_child(Tape.make(f["name"], "red corner", [
 		["Record", "%d-%d" % [f["w"], f["l"]]], ["Weight", "%.1f kg" % f["weight"]], ["Camp", camp],
-		["Film on the opponent", "depth %d of 3" % int(f["bout"]["film"])],
+		["Film on the opponent", "%d/%d tells answered" % [int(FilmEdge.summary(f)["n"]), int(FilmEdge.summary(f)["of"])]],
 	], opp["name"], "blue corner, %s" % opp["club"], [
 		["Record", "%d-%d" % [opp["w"], opp["l"]]], ["Style", opp["style"]],
 		# S341 her file: what tape study found, else unknown until the fight shows it.

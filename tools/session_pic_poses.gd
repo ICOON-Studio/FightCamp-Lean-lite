@@ -19,9 +19,12 @@ const SPEC := {
 	"speed_bag": {"clip": "pro_left_jab", "hand": "LeftHand", "az": -72.0, "elev": 8.0, "size": 1.05},
 	"roadwork": {"clip": "advance", "hand": "LeftFoot", "az": -90.0, "elev": 6.0, "size": 1.05},
 	"neck": {"clip": "pro_idle", "hand": "LeftHand", "az": -52.0, "elev": 6.0, "size": 1.05},
+	# S381 C229 stage 3: the camp's southpaw mate - the shadow jab (guard -> jab), mirrored after the render
+	# (tools/bake_partner_pics.gd), the way the 3D draws a southpaw (MirrorClip): right foot and right hand lead.
+	"southpaw": {"clip": "pro_left_jab", "hand": "LeftHand", "az": -70.0, "elev": 8.0, "size": 1.05},
 }
 ## The sessions the brief gives a start and a finish: guard -> reach, upright -> under the rope, stride -> stride.
-const DUAL := ["shadow", "heavy_bag", "pads", "speed_bag", "slip_rope", "roadwork"]
+const DUAL := ["shadow", "heavy_bag", "pads", "speed_bag", "slip_rope", "roadwork", "southpaw"]
 ## The clips that are a stand-in for a session the library has no take of.
 const STAND_IN := {"roadwork": "jog: loc_advance", "neck": "chin tuck: mc_Box1_M3_Idle's most tucked frame"}
 
@@ -47,7 +50,7 @@ static func finish(id: String, bx: Dictionary) -> Dictionary:
 	var hand := str(s["hand"])
 	var t := 0.0
 	match id:
-		"shadow", "heavy_bag", "pads":
+		"shadow", "heavy_bag", "pads", "southpaw":
 			t = contact_s(clip)
 			if t < 0.0:
 				t = _max_reach(bx, clip, hand)
@@ -69,7 +72,7 @@ static func start_pose(id: String, bx: Dictionary, finish_pose: Dictionary) -> D
 	var clip := str(finish_pose["clip"])
 	var hand := str(finish_pose["hand"])
 	match id:
-		"shadow", "heavy_bag", "pads", "speed_bag":
+		"shadow", "heavy_bag", "pads", "speed_bag", "southpaw":
 			# The clip opens in the guard: that is the "from" of guard -> reach.
 			return {"clip": clip, "t": 0.0, "hand": hand}
 		"slip_rope":

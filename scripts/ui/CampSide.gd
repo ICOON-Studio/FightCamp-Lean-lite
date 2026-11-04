@@ -1,18 +1,17 @@
 extends RefCounted
 ## S379 CAMPCARDS: the FIGHT CAMP modal's left column - the fighter: face, first name and record, weight class and mood, the
-## six stats with the camp's stat outlined and its fight-night forecast, fatigue now and where the camp peaks (the
-## overreach line at WeekPlan.OVERREACHED), the weight against the limit and the weigh-in forecast. Numbers count on from
-## what the last draw showed (`before`, Camp.gd).
-##   make(f, focus, fc, before) -> PanelContainer "CampSide"   (fc = CampForecast.run for the chosen focus)
+## six stats with the camp's stat outlined and its fight-night forecast; S382 G4 the fight-night gauge row under them
+## (GaugeRow: LEGS, SCALE, RISK - it replaced the fatigue sentence and its meter and the agreed-weight line). Numbers count
+## on from what the last draw showed (`before`, Camp.gd; the dials' own numbers under before["gauges"]).
+##   make(f, focus, fc, before, day) -> PanelContainer "CampSide"   (fc = CampForecast.run for the chosen focus)
 
 const UI := preload("res://scripts/ui/UI.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const HomeBoard := preload("res://scripts/ui/HomeBoard.gd")
 const FighterCard := preload("res://scripts/ui/FighterCard.gd")
 const FighterTile := preload("res://scripts/ui/FighterTile.gd")
-const WB := preload("res://scripts/ui/WhiteboardKit.gd")
 const CampCard := preload("res://scripts/ui/CampCard.gd")
-const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
+const GaugeRow := preload("res://scripts/ui/GaugeRow.gd")
 
 const W := 330.0
 const FACE := Vector2(298, 300)   # S380 bigger: the promo shot (tools/bake_promo.gd) head to folded arms
@@ -22,7 +21,7 @@ const PAPER := Color("#fbfaf7")
 const INK2 := Color("#374151")
 
 
-static func make(f: Dictionary, focus: String, fc: Dictionary, before: Dictionary) -> PanelContainer:
+static func make(f: Dictionary, focus: String, fc: Dictionary, before: Dictionary, day: int) -> PanelContainer:
 	var p := PanelContainer.new()
 	p.name = "CampSide"
 	p.custom_minimum_size = Vector2(W, 0)
@@ -43,8 +42,10 @@ static func make(f: Dictionary, focus: String, fc: Dictionary, before: Dictionar
 		var now := float(f["stats"].get(k, 0.0))
 		var end := float((fc["stats"] as Dictionary).get(k, now))
 		v.add_child(_stat(k, now, end if k == focus else -1.0, float(shown.get(k, now))))
-	v.add_child(_fatigue(fc, before))
-	v.add_child(_weight(f, fc, before))
+	var gap2 := Control.new()
+	gap2.custom_minimum_size = Vector2(0, 8)
+	v.add_child(gap2)
+	v.add_child(GaugeRow.make(GaugeRow.read(fc, f, day), before.get("gauges", {}), W - 32.0))
 	return p
 
 
@@ -88,56 +89,3 @@ static func _stat(k: String, now: float, end: float, from: float) -> PanelContai
 	else:
 		h.add_child(UI.label(str(int(floorf(now))), 19, UI.FG, "bold"))
 	return row
-
-
-## Fatigue now and the camp's peak on a pip meter with the overreach line marked; the band word pulses when it changes.
-static func _fatigue(fc: Dictionary, before: Dictionary) -> VBoxContainer:
-	var box := UI.vbox(4)
-	box.name = "Fatigue"
-	var now := float(fc["fatigue_now"])
-	var peak := float(fc["peak"])
-	var wn: Array = WB.fatigue_word(now, false)
-	var wp: Array = WB.fatigue_word(peak, false)
-	var t := UI.label("", 16, INK2, "body", true)
-	t.name = "FatigueLine"
-	CampCard.count(t, float(before.get("peak", now)), peak, func(x: float) -> String:
-		var st := float(fc.get("stale", 0.0))   # S380 heavy legs (BoutRules.stale_energy)
-		return "Fatigue now: %s (%d) - this camp peaks near %d, fight night %d%s" % [str(wn[0]).to_lower(), int(round(now)),
-			int(round(x)), int(round(float(fc["fatigue_end"]))), (" - heavy legs: -%d energy at the first bell" % int(round(st))) if st > 0.0 else ""])
-	box.add_child(t)
-	var line := UI.hbox(10)
-	var bar := UI.meter(peak / 100.0, wp[2], [WeekPlan.OVERREACHED / 100.0], 200.0)
-	bar.name = "FatigueBar"
-	var from := float(before.get("peak", now)) / 100.0
-	bar.frac = from
-	bar.ready.connect(func() -> void:
-		bar.create_tween().tween_property(bar, "frac", peak / 100.0, CampCard.TWEEN_S).set_ease(Tween.EASE_OUT), CONNECT_ONE_SHOT)
-	line.add_child(bar)
-	var word := UI.label(str(wp[0]), 14, wp[2], "caps")
-	word.name = "PeakWord"
-	word.tooltip_text = str(wp[1])
-	word.mouse_filter = Control.MOUSE_FILTER_PASS
-	line.add_child(word)
-	box.add_child(line)
-	if before.has("band") and str(before["band"]) != str(wp[0]):
-		CampCard.pulse(word)
-	return box
-
-
-## The scale today against the limit, and the weigh-in morning's forecast for this camp (the cut runs while over).
-static func _weight(f: Dictionary, fc: Dictionary, before: Dictionary) -> VBoxContainer:
-	var box := UI.vbox(0)
-	box.name = "Weight"
-	var w := float(f["weight"])
-	var lim := float(fc["limit"])
-	var over := w - lim
-	box.add_child(UI.label("%.1f kg / limit %.1f - %s" % [w, lim, "%.1f over" % over if over > 0.05 else "on weight"], 19,
-		UI.AMBER if over > 0.05 else UI.GREEN, "hand", true))
-	var kg := float(fc["kg"])
-	var ok := bool(fc["weigh_ok"])
-	var l := UI.label("", 17, UI.GREEN if ok else UI.RED, "hand", true)
-	l.name = "WeighIn"
-	CampCard.count(l, float(before.get("kg", w)), kg, func(x: float) -> String:
-		return "weigh-in forecast %.1f kg - %s" % [x, "makes it" if ok else "%.1f over" % (kg - lim)])
-	box.add_child(l)
-	return box

@@ -16,7 +16,8 @@ const SETTINGS := {
 }
 const ORDER := ["rest", "light", "normal", "hard"]
 const DEFAULT := "normal"
-const CAMP_DEFAULT := "hard"
+## S381 C229: a camp opens at Normal, not Hard - from a usual 10 h Hard is a 1.5x spike (camp_default steps up from there).
+const CAMP_DEFAULT := "normal"
 const CHRONIC_DAYS := 42.0
 ## The weekly EWMA weight: 1 - e^(-7/42) = 0.1535 of the gap between this week and her usual.
 const CHRONIC_DECAY := 0.15351827510938593

@@ -185,8 +185,10 @@ func _night() -> void:
 			f["bout"]["lefty"] = lefty
 			BoutNight.fight_step(c, f, m, "start")
 			base.append(float(LiveRound.live(m)["base"]))
-	_check(is_equal_approx(base[2] - base[0], WT.LEFTY_EDGE) and is_equal_approx(base[3], base[1]),
-		"the lefty week: +%.1f on the night vs southpaw Maria, nothing vs orthodox Priya" % (base[2] - base[0]))
+	# S381 C229 stage 3: round 1 without a southpaw in camp also costs BoutRules.NEVER_FACED; the lefty week clears it.
+	_check(is_equal_approx(base[2] - base[0], WT.LEFTY_EDGE + BoutRules.NEVER_FACED) and is_equal_approx(base[3], base[1]),
+		"the lefty week: +%.1f in round 1 vs southpaw Maria (its edge + 'never faced a southpaw' gone), nothing vs orthodox Priya"
+		% (base[2] - base[0]))
 
 
 func _career() -> Career:
