@@ -31,8 +31,32 @@ corner-start films, FIGHT9R10 (held) and PR #32; S380 did everything below.
   The board Test button "men" shows both (accept Danny's offer -> SET CAMP).
 - PRs #33 (LOCOWALK2) and #34 (FIGHT9R9, real 4/10) closed with reasons; LOCOWALK4 queued on cursor.
 
+## Later in S380
+- PROMO1 pass 2 (39e79277): portraits WITHOUT gloves (operator: "make them pose without gloves on") - bare hands,
+  arms folded, all 19; the head close-up's marks follow promo_face.json.
+- Gemini judge blind (HTTP 402, prepay dry at Google ~$33 while our brake sat at $48): operator "Judge by Claude's eyes".
+  Tools/claude_judge.py (b8fb5eab) = automatic fallback in seat_dispatch.judge: eyes sheets (3 s every 10 s + three
+  tight 0.5 s sheets for trembling) -> standalone `claude -p` (opus, Read only, outside the repo) on gemini_judge's own
+  prompt -> the same verdict file. BJJ9R12 before: 2/10 then 3/10 (merged bodies at 0:09-0:12, confirmed by eye).
+  After a top-up: set gemini_budget.json budget_usd to the amount LOADED (not 48).
+- Ropes (operator: "i thought you fixed the ropes, why old problems appear again?", then "its quite clear my picture is
+  from when the fighter enters the ring"): the S347 inside-the-ropes rule never reached two shot lists. Corner minute
+  (2f7edd99): low_out 0.69 m / part 0.54 m / side2 0.31 m OUTSIDE -> inside + CornerShots.inside() guard. Ring entry
+  (6880aaf7): wide / wide_out 7.2 m and tape 8.4 m out, seeing the entering boxer THROUGH the ropes 100 % of frames ->
+  high over the neutral corner inside the ropes (as S379's fight9base intro). tools/corner_film.gd now checks every
+  intro + corner shot each frame (lens past the rope line, sight line to head/hips through the ropes): 22 shots, 0 %.
+  I first blamed the corner minute - the operator corrected me. Any new camera module gets that bar the day it lands.
+- Update 75 re-exported 08:56 (138/138): camp protocol, men's pictures, gloveless promo portraits, corner + entry ropes.
+- C: drive (operator "why is c full"): iCloud photo folders are cloud-only (0 GB); real use = apps + leftovers; the
+  operator cleaned 14 -> 88 GB free himself (Claude may not delete files). His `OneDrive/Documents/ChatGPT/Game` (old
+  pre-Lean FightCamp copy) was HALF deleted by an interrupted command (140,731 -> 68,697 files, .git + Builds gone);
+  PDFit.tools and his other projects are intact. OneDrive was not running: the cloud copy may still be whole - he
+  should check onedrive.live.com before starting OneDrive. D: (GTA) is not connected.
+- In flight at hand-over: BJJ9R12 PR #36 (rejudge by Claude's eyes running), LOCOWALK4 PR #35 (3/3 checks, collect
+  with eyes on the clips), PR #32 (S379's).
+
 ## Blocked / open
-- Gemini API prepay DEPLETED (HTTP 402 at upload): every Argon verdict fails; agy (own plan) still works. Board
-  Q-S294-96. After a top-up: `python Tools/seat_dispatch.py rejudge BJJ9R12`.
-- BJJ9R12 running on agy (round resumed 07:21) - collect it (diff + parse + test, eyes on its film).
-- HANDOFF: next = collect BJJ9R12; S379's TV camera -> corner films -> FIGHT9R10; LOCOWALK4 when the PC is GREEN.
+- Gemini API prepay DEPLETED (HTTP 402): Claude's eyes judge instead (automatic). After a top-up, ask how much was loaded
+  and set AgentComms/gemini_budget.json budget_usd to it.
+- HANDOFF: next = read BJJ9R12's verdict + collect PR #36; collect LOCOWALK4 PR #35 (eyes on every clip); S379's TV camera
+  -> rope bar -> fight9base -> FIGHT9R10; the operator's verdict on update 75.
