@@ -39,6 +39,16 @@ func _initialize() -> void:
 		"a move bar's name finds the jab, her tier with it (%s) and its gas (%.1f%%)" % [jab["tier"], float(jab["gas"])])
 	var check := MoveTip.info("Check hook", f)
 	_check((check["clips"] as Array).is_empty(), "the check hook has no clip of its own: the ink card, never a wrong clip")
+	# S383: a PENDING card ships no PNG (kimura); the tip falls back to the move's glyph, at both sizes. A shipped ink card
+	# (rear naked choke) is the 256 px card.
+	var kim := MoveTip.info("kimura", f)
+	var kt: Texture2D = MoveTip._pic(kim)
+	var kb: Texture2D = MoveTip._pic(kim, true)
+	_check(not FileAccess.file_exists("res://assets/ui/moves/kimura.png") and kt != null and kt.get_width() == 48
+		and kb != null and kb.get_width() == 96, "pending kimura: no PNG, its glyph instead (%s / %s px)"
+		% [kt.get_width() if kt else -1, kb.get_width() if kb else -1])
+	var rnc: Texture2D = MoveTip._pic(MoveTip.info("rear_naked_choke", f), true)
+	_check(rnc != null and rnc.get_width() == 256, "the rear naked choke shows its ink card (%s px)" % [rnc.get_width() if rnc else -1])
 
 	# Hover a Moves-tab card.
 	Playbook.pick = str(f["id"])

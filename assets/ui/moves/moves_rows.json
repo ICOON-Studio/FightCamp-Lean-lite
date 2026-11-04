@@ -1,0 +1,1073 @@
+{
+	"1-1": {
+		"arrow_px": 63.1,
+		"az": -74.0,
+		"clip": "pro_left_jab",
+		"ghost": "pro_left_jab@0.467",
+		"ghosts": 1.0,
+		"glove_gap": 0.026,
+		"hand": "LeftHand",
+		"her_feet_y": 0.139,
+		"kind": "punch",
+		"margin": [
+			10.0,
+			18.0,
+			10.0,
+			18.0
+		],
+		"partner": "pro_hit_by_jab_v1@0.080",
+		"pelvis_gap": 0.98,
+		"ropes": "",
+		"spar_feet_y": 0.11,
+		"spar_scale": 0.92,
+		"t": 0.467
+	},
+	"1-1-2": {
+		"arrow_px": 57.1,
+		"az": -80.0,
+		"clip": "pro_right_cross",
+		"ghost": "pro_left_jab@0.467",
+		"ghosts": 2.0,
+		"glove_gap": 0.026,
+		"hand": "RightHand",
+		"her_feet_y": 0.132,
+		"kind": "punch",
+		"margin": [
+			10.0,
+			32.0,
+			10.0,
+			33.0
+		],
+		"partner": "pro_hit_by_cross_v1@0.080",
+		"pelvis_gap": 1.025,
+		"ropes": "",
+		"spar_feet_y": 0.111,
+		"spar_scale": 0.92,
+		"t": 0.283
+	},
+	"1-2": {
+		"arrow_px": 64.9,
+		"az": -80.0,
+		"clip": "pro_right_cross",
+		"ghost": "pro_left_jab@0.467",
+		"ghosts": 1.0,
+		"glove_gap": 0.026,
+		"hand": "RightHand",
+		"her_feet_y": 0.132,
+		"kind": "punch",
+		"margin": [
+			10.0,
+			20.0,
+			10.0,
+			21.0
+		],
+		"partner": "pro_hit_by_cross_v1@0.080",
+		"pelvis_gap": 1.025,
+		"ropes": "",
+		"spar_feet_y": 0.111,
+		"spar_scale": 0.92,
+		"t": 0.283
+	},
+	"1-2-3": {
+		"arrow_px": 104.1,
+		"az": -122.0,
+		"clip": "pro_left_hook",
+		"ghost": "pro_right_cross@0.283",
+		"ghosts": 2.0,
+		"glove_gap": 0.042,
+		"hand": "LeftHand",
+		"her_feet_y": 0.155,
+		"kind": "punch",
+		"margin": [
+			19.0,
+			11.0,
+			20.0,
+			11.0
+		],
+		"partner": "pro_hit_by_hook_v1@0.080",
+		"pelvis_gap": 0.947,
+		"ropes": "",
+		"spar_feet_y": 0.109,
+		"spar_scale": 0.92,
+		"t": 0.6
+	},
+	"1-2-3-2": {
+		"arrow_px": 50.7,
+		"az": -80.0,
+		"clip": "pro_right_cross",
+		"ghost": "pro_left_hook@0.600",
+		"ghosts": 3.0,
+		"glove_gap": 0.026,
+		"hand": "RightHand",
+		"her_feet_y": 0.132,
+		"kind": "punch",
+		"margin": [
+			11.0,
+			43.0,
+			10.0,
+			43.0
+		],
+		"partner": "pro_hit_by_cross_v1@0.080",
+		"pelvis_gap": 1.025,
+		"ropes": "",
+		"spar_feet_y": 0.111,
+		"spar_scale": 0.92,
+		"t": 0.283
+	},
+	"1-2-3b": {
+		"arm_reach": true,
+		"arrow_px": 121.0,
+		"az": -96.0,
+		"clip": "body_hook",
+		"ghost": "pro_right_cross@0.283",
+		"ghosts": 2.0,
+		"glove_gap": 0.013,
+		"hand": "LeftHand",
+		"her_feet_y": 0.116,
+		"kind": "punch",
+		"margin": [
+			9.0,
+			15.0,
+			10.0,
+			14.0
+		],
+		"partner": "pro_hit_by_gutshot_v1@0.080",
+		"pelvis_gap": 0.837,
+		"ropes": "",
+		"spar_feet_y": 0.119,
+		"spar_scale": 1.0,
+		"t": 0.867
+	},
+	"1-2@opp_ropes": {
+		"arrow_px": 53.9,
+		"arrow_tip_m": 0.026,
+		"az": -112.0,
+		"clip": "pro_right_cross",
+		"ghost": "pro_left_jab@0.467",
+		"ghost_glove_gaps": [
+			-0.002
+		],
+		"ghosts": 1,
+		"glove_gap": 0.026,
+		"hand": "RightHand",
+		"her_feet_y": 0.132,
+		"kind": "punch",
+		"margin": [
+			40,
+			11,
+			40,
+			10
+		],
+		"partner": "pro_hit_by_cross_v1@0.080",
+		"pelvis_gap": 1.025,
+		"r4": true,
+		"rope_z": 1.146,
+		"ropes": "opp",
+		"spar_feet_y": 0.111,
+		"spar_scale": 0.92,
+		"t": 0.283
+	},
+	"1-6-3": {
+		"arrow_px": 99.1,
+		"arrow_tip_m": 0.042,
+		"az": -90.0,
+		"clip": "pro_left_hook",
+		"ghost": "pro_right_uppercut@0.833",
+		"ghost_glove_gaps": [
+			-0.003,
+			-0.036
+		],
+		"ghosts": 2,
+		"glove_gap": 0.042,
+		"hand": "LeftHand",
+		"her_feet_y": 0.155,
+		"kind": "punch",
+		"margin": [
+			34,
+			10,
+			33,
+			9
+		],
+		"partner": "pro_hit_by_hook_v1@0.080",
+		"pelvis_gap": 0.947,
+		"r4": true,
+		"ropes": "",
+		"spar_feet_y": 0.109,
+		"spar_scale": 0.92,
+		"t": 0.6,
+		"uppercut_arrow_tip_m": 0.0
+	},
+	"1-6-3@corner": {
+		"arrow_px": 101.1,
+		"arrow_tip_m": 0.042,
+		"az": -105.0,
+		"clip": "pro_left_hook",
+		"ghost": "pro_right_uppercut@0.833",
+		"ghost_glove_gaps": [
+			-0.003,
+			-0.036
+		],
+		"ghosts": 2,
+		"glove_gap": 0.042,
+		"hand": "LeftHand",
+		"her_feet_y": 0.155,
+		"kind": "punch",
+		"margin": [
+			41,
+			9,
+			41,
+			10
+		],
+		"partner": "pro_hit_by_hook_v1@0.080",
+		"pelvis_gap": 0.947,
+		"r4": true,
+		"rope_z": 1.029,
+		"ropes": "corner",
+		"spar_feet_y": 0.109,
+		"spar_scale": 0.92,
+		"t": 0.6,
+		"uppercut_arrow_tip_m": 0.0
+	},
+	"2-3": {
+		"arrow_px": 107.7,
+		"az": -122.0,
+		"clip": "pro_left_hook",
+		"ghost": "pro_right_cross@0.283",
+		"ghosts": 1.0,
+		"glove_gap": 0.042,
+		"hand": "LeftHand",
+		"her_feet_y": 0.155,
+		"kind": "punch",
+		"margin": [
+			28.0,
+			11.0,
+			28.0,
+			10.0
+		],
+		"partner": "pro_hit_by_hook_v1@0.080",
+		"pelvis_gap": 0.947,
+		"ropes": "",
+		"spar_feet_y": 0.109,
+		"spar_scale": 0.92,
+		"t": 0.6
+	},
+	"3b-3": {
+		"kind": "punch",
+		"pending": true
+	},
+	"3b-3@corner": {
+		"kind": "punch",
+		"pending": true
+	},
+	"3b-3@inside": {
+		"kind": "punch",
+		"pending": true
+	},
+	"3b-3@opp_ropes": {
+		"kind": "punch",
+		"pending": true
+	},
+	"americana": {
+		"kind": "bjj",
+		"pending": true
+	},
+	"anaconda": {
+		"kind": "bjj",
+		"pending": true
+	},
+	"arm_drag_back": {
+		"ana_was": "bottom",
+		"arrow": "LeftHand",
+		"arrow_px": 60.7,
+		"az": 270.0,
+		"bleeds": true,
+		"bodies": [
+			"mh_boxer_17",
+			"mh_boxer_13"
+		],
+		"crop_m": 1.26,
+		"elev": 18.0,
+		"film": "arm drag",
+		"key": 2.0,
+		"key_t": 1.029,
+		"keys": 4.0,
+		"kind": "bjj",
+		"lowest_joint_y": 0.024,
+		"r2": true,
+		"score": 1.77
+	},
+	"armbar_guard": {
+		"kind": "bjj",
+		"pending": true
+	},
+	"back_triangle": {
+		"kind": "bjj",
+		"pending": true
+	},
+	"backed_up": {
+		"arrow_px": 102.3,
+		"az": -45.0,
+		"clip": "retreat",
+		"ghost": "retreat@0.000",
+		"ghosts": 1.0,
+		"her_feet_y": 0.117,
+		"kind": "step",
+		"margin": [
+			9.0,
+			29.0,
+			9.0,
+			29.0
+		],
+		"partner": "pro_idle@0.000",
+		"pelvis_gap": 1.488,
+		"ropes": "own",
+		"spar_feet_y": 0.12,
+		"t": 0.633
+	},
+	"berimbolo": {
+		"kind": "bjj",
+		"pending": true
+	},
+	"body_hook": {
+		"arm_reach": true,
+		"arrow_px": 130.3,
+		"az": -96.0,
+		"clip": "body_hook",
+		"ghost": "body_hook@0.000",
+		"ghosts": 1.0,
+		"glove_gap": 0.013,
+		"hand": "LeftHand",
+		"her_feet_y": 0.116,
+		"kind": "punch",
+		"margin": [
+			11.0,
+			9.0,
+			11.0,
+			9.0
+		],
+		"partner": "pro_hit_by_gutshot_v1@0.080",
+		"pelvis_gap": 0.837,
+		"ropes": "",
+		"spar_feet_y": 0.119,
+		"spar_scale": 1.0,
+		"t": 0.867
+	},
+	"body_lock_pass": {
+		"kind": "bjj",
+		"pending": true
+	},
+	"break": {
+		"apart_m": 1.52,
+		"arrow_px": 41.9,
+		"az": -74.0,
+		"clip": "clinch_att",
+		"elev": 6.0,
+		"idea": "break",
+		"kind": "idea",
+		"margin": [
+			9.0,
+			54.0,
+			9.0,
+			54.0
+		],
+		"partner": "clinch_vic"
+	},
+	"bullfighter_pass": {
+		"arrow": "LeftHand",
+		"arrow_px": 40.7,
+		"az": 240.0,
+		"bodies": [
+			"mh_boxer_17",
+			"mh_boxer_13"
+		],
+		"film": "unidentified pass",
+		"key_t": 4.695,
+		"keys": 7.0,
+		"kind": "bjj",
+		"lowest_joint_y": 0.018,
+		"margin": [
+			10.0,
+			49.0,
+			10.0,
+			49.0
+		]
+	},
+	"butterfly_sweep": {
+		"kind": "bjj",
+		"pending": true
+	},
+	"calf_slicer": {
+		"kind": "bjj",
+		"pending": true
+	},
+	"clock_choke": {
+		"kind": "bjj",
+		"pending": true
+	},
+	"counter_pass": {
+		"kind": "bjj",
+		"pending": true
+	},
+	"cross": {
+		"arrow_px": 71.8,
+		"az": -80.0,
+		"clip": "pro_right_cross",
+		"ghost": "pro_right_cross@0.000",
+		"ghosts": 1.0,
+		"glove_gap": 0.026,
+		"hand": "RightHand",
+		"her_feet_y": 0.132,
+		"kind": "punch",
+		"margin": [
+			18.0,
+			10.0,
+			18.0,
+			10.0
+		],
+		"partner": "pro_hit_by_cross_v1@0.080",
+		"pelvis_gap": 1.025,
+		"ropes": "",
+		"spar_feet_y": 0.111,
+		"spar_scale": 0.92,
+		"t": 0.283
+	},
+	"crucifix": {
+		"kind": "bjj",
+		"pending": true
+	},
+	"cut_off": {
+		"kind": "idea",
+		"pending": true
+	},
+	"darce": {
+		"kind": "bjj",
+		"pending": true
+	},
+	"de_la_riva": {
+		"ana_was": "bottom",
+		"arrow": "RightAnkle",
+		"arrow_px": 50.4,
+		"az": 330.0,
+		"bleeds": false,
+		"bodies": [
+			"mh_boxer_17",
+			"mh_boxer_13"
+		],
+		"crop_m": 1.64,
+		"elev": 18.0,
+		"film": "dlr sweep",
+		"key": 3.0,
+		"key_t": 1.208,
+		"keys": 10.0,
+		"kind": "bjj",
+		"lowest_joint_y": 0.033,
+		"r2": true,
+		"score": 1.79
+	},
+	"deep_half": {
+		"kind": "bjj",
+		"pending": true
+	},
+	"double_leg": {
+		"ana_was": "bottom",
+		"arrow": "Head",
+		"arrow_px": 71.3,
+		"az": 0.0,
+		"bleeds": true,
+		"bodies": [
+			"mh_boxer_17",
+			"mh_boxer_13"
+		],
+		"crop_m": 1.8,
+		"elev": 10.0,
+		"film": "wrist control to double no clue why the section name has \"leg trip\" in it. wonder if that's a bug in the book",
+		"key": 2.0,
+		"key_t": 1.597,
+		"keys": 5.0,
+		"kind": "bjj",
+		"lowest_joint_y": 0.024,
+		"r2": true,
+		"score": 1.85
+	},
+	"feint": {
+		"arrow": "LeftHand",
+		"arrow_px": 39.5,
+		"az": -74.0,
+		"clip": "pro_left_jab",
+		"elev": 6.0,
+		"idea": "feint",
+		"kind": "idea",
+		"margin": [
+			9.0,
+			30.0,
+			9.0,
+			29.0
+		],
+		"partner": "pro_idle_to_block",
+		"t": 0.367
+	},
+	"frame_recover_guard": {
+		"kind": "bjj",
+		"pending": true
+	},
+	"guillotine": {
+		"kind": "bjj",
+		"pending": true
+	},
+	"herd": {
+		"arrow_px": 60.7,
+		"arrow_tip_m": 0.0,
+		"az": -110.0,
+		"clip": "advance",
+		"elev": 14.0,
+		"gap_m": 1.4,
+		"idea": "herd",
+		"kind": "idea",
+		"lucy_back_to_rope_m": 0.328,
+		"margin": [
+			10.0,
+			30.0,
+			10.0,
+			30.0
+		],
+		"partner": "retreat",
+		"r4": true
+	},
+	"hip_bump_sweep": {
+		"arrow": "RightHand",
+		"arrow_px": 58.3,
+		"az": 330.0,
+		"bodies": [
+			"mh_boxer_17",
+			"mh_boxer_13"
+		],
+		"film": "hip bump",
+		"key_t": 2.643,
+		"keys": 4.0,
+		"kind": "bjj",
+		"lowest_joint_y": 0.018,
+		"margin": [
+			14.0,
+			11.0,
+			14.0,
+			10.0
+		]
+	},
+	"inside_heel_hook": {
+		"kind": "bjj",
+		"pending": true
+	},
+	"jab": {
+		"arrow_px": 68.3,
+		"az": -74.0,
+		"clip": "pro_left_jab",
+		"ghost": "pro_left_jab@0.000",
+		"ghosts": 1.0,
+		"glove_gap": 0.026,
+		"hand": "LeftHand",
+		"her_feet_y": 0.139,
+		"kind": "punch",
+		"margin": [
+			18.0,
+			10.0,
+			17.0,
+			10.0
+		],
+		"partner": "pro_hit_by_jab_v1@0.080",
+		"pelvis_gap": 0.98,
+		"ropes": "",
+		"spar_feet_y": 0.11,
+		"spar_scale": 0.92,
+		"t": 0.467
+	},
+	"k_guard": {
+		"kind": "bjj",
+		"pending": true
+	},
+	"kimura": {
+		"kind": "bjj",
+		"pending": true
+	},
+	"knee_cut_pass": {
+		"arrow": "Head",
+		"arrow_px": 46.6,
+		"az": 330.0,
+		"bodies": [
+			"mh_boxer_17",
+			"mh_boxer_13"
+		],
+		"film": "start knee slice pass Eddie calls it \"M2\" it seems",
+		"key_t": 0.877,
+		"keys": 3.0,
+		"kind": "bjj",
+		"lowest_joint_y": 0.024,
+		"margin": [
+			30.0,
+			12.0,
+			29.0,
+			10.0
+		]
+	},
+	"kneebar": {
+		"kind": "bjj",
+		"pending": true
+	},
+	"lead_hook": {
+		"arrow_px": 107.1,
+		"az": -122.0,
+		"clip": "pro_left_hook",
+		"ghost": "pro_left_hook@0.000",
+		"ghosts": 1.0,
+		"glove_gap": 0.042,
+		"hand": "LeftHand",
+		"her_feet_y": 0.155,
+		"kind": "punch",
+		"margin": [
+			45.0,
+			10.0,
+			46.0,
+			10.0
+		],
+		"partner": "pro_hit_by_hook_v1@0.080",
+		"pelvis_gap": 0.947,
+		"ropes": "",
+		"spar_feet_y": 0.109,
+		"spar_scale": 0.92,
+		"t": 0.6
+	},
+	"lead_uppercut": {
+		"arrow_px": 147.0,
+		"az": -70.0,
+		"clip": "pro_left_uppercut",
+		"ghost": "pro_left_uppercut@0.000",
+		"ghosts": 1.0,
+		"glove_gap": 0.14,
+		"hand": "LeftHand",
+		"her_feet_y": 0.174,
+		"kind": "punch",
+		"margin": [
+			47.0,
+			9.0,
+			46.0,
+			11.0
+		],
+		"partner": "pro_hit_by_uppercut_v1@0.080",
+		"pelvis_gap": 0.552,
+		"ropes": "",
+		"spar_feet_y": 0.121,
+		"spar_scale": 1.06,
+		"t": 0.733
+	},
+	"leg_drag": {
+		"ana_was": "top",
+		"arrow": "partner RightKnee",
+		"arrow_px": 78.1,
+		"az": 210.0,
+		"bleeds": true,
+		"bodies": [
+			"mh_boxer_17",
+			"mh_boxer_13"
+		],
+		"crop_m": 1.24,
+		"elev": 18.0,
+		"film": "top pummels to leg drag",
+		"key": 2.0,
+		"key_t": 0.986,
+		"keys": 6.0,
+		"kind": "bjj",
+		"lowest_joint_y": 0.027,
+		"r2": true,
+		"score": 1.63
+	},
+	"mounted_triangle": {
+		"kind": "bjj",
+		"pending": true
+	},
+	"north_south_choke": {
+		"arrow": "RightKnee",
+		"arrow_px": 63.3,
+		"az": 270.0,
+		"bodies": [
+			"mh_boxer_17",
+			"mh_boxer_13"
+		],
+		"film": "to north/south todo: more sources",
+		"key_t": 4.291,
+		"keys": 5.0,
+		"kind": "bjj",
+		"lowest_joint_y": 0.024,
+		"margin": [
+			10.0,
+			27.0,
+			11.0,
+			27.0
+		]
+	},
+	"outside_heel_hook": {
+		"kind": "bjj",
+		"pending": true
+	},
+	"over_under_pass": {
+		"kind": "bjj",
+		"pending": true
+	},
+	"pivot_out": {
+		"kind": "idea",
+		"pending": true
+	},
+	"posture_closed_guard": {
+		"ana_was": "top",
+		"arrow": "Head",
+		"arrow_px": 65.6,
+		"az": 210.0,
+		"bleeds": false,
+		"bodies": [
+			"mh_boxer_17",
+			"mh_boxer_13"
+		],
+		"crop_m": 1.42,
+		"elev": 10.0,
+		"film": "posture up",
+		"key": 3.0,
+		"key_t": 2.448,
+		"keys": 4.0,
+		"kind": "bjj",
+		"lowest_joint_y": 0.024,
+		"r2": true,
+		"score": 1.5
+	},
+	"push_off": {
+		"kind": "idea",
+		"pending": true
+	},
+	"rear_hook": {
+		"arrow_px": 78.7,
+		"az": -60.0,
+		"clip": "pro_right_hook",
+		"ghost": "pro_right_hook@0.000",
+		"ghosts": 1.0,
+		"glove_gap": 0.003,
+		"hand": "RightHand",
+		"her_feet_y": 0.143,
+		"kind": "punch",
+		"margin": [
+			20.0,
+			10.0,
+			18.0,
+			10.0
+		],
+		"partner": "pro_hit_by_hook_v2@0.080",
+		"pelvis_gap": 0.818,
+		"ropes": "",
+		"spar_feet_y": 0.111,
+		"spar_scale": 0.92,
+		"t": 0.8
+	},
+	"rear_naked_choke": {
+		"ana_was": "top",
+		"arrow": "RightHand",
+		"arrow_px": 64.9,
+		"az": 270.0,
+		"bleeds": true,
+		"bodies": [
+			"mh_boxer_17",
+			"mh_boxer_13"
+		],
+		"crop_m": 1.2,
+		"elev": 18.0,
+		"film": "rear naked choke",
+		"key": 2.0,
+		"key_t": 1.032,
+		"keys": 5.0,
+		"kind": "bjj",
+		"lowest_joint_y": 0.018,
+		"r2": true,
+		"score": 1.51
+	},
+	"rear_uppercut": {
+		"arrow_px": 123.5,
+		"az": -96.0,
+		"clip": "pro_right_uppercut",
+		"glove_gap": 0.048,
+		"hand": "RightHand",
+		"her_feet_y": 0.119,
+		"kind": "punch",
+		"margin": [
+			59.0,
+			9.0,
+			59.0,
+			10.0
+		],
+		"partner": "pro_hit_by_uppercut_v1@0.080",
+		"pelvis_gap": 0.569,
+		"ropes": "",
+		"spar_feet_y": 0.115,
+		"spar_scale": 1.0,
+		"t": 0.833
+	},
+	"roll": {
+		"kind": "idea",
+		"pending": true
+	},
+	"roll_out": {
+		"kind": "idea",
+		"pending": true
+	},
+	"saddle_entry": {
+		"kind": "bjj",
+		"pending": true
+	},
+	"scissor_sweep": {
+		"kind": "bjj",
+		"pending": true
+	},
+	"seatbelt_escape": {
+		"kind": "bjj",
+		"pending": true
+	},
+	"shrimp_bridge": {
+		"ana_was": "bottom",
+		"arrow": "Core",
+		"arrow_px": 61.4,
+		"az": 210.0,
+		"bleeds": true,
+		"bodies": [
+			"mh_boxer_17",
+			"mh_boxer_13"
+		],
+		"crop_m": 1.47,
+		"elev": 18.0,
+		"film": "shrimp escape",
+		"key": 3.0,
+		"key_t": 1.922,
+		"keys": 4.0,
+		"kind": "bjj",
+		"lowest_joint_y": 0.024,
+		"r2": true,
+		"score": 1.46
+	},
+	"single_leg_x": {
+		"arrow": "LeftHand",
+		"arrow_px": 77.2,
+		"az": 300.0,
+		"bodies": [
+			"mh_boxer_17",
+			"mh_boxer_13"
+		],
+		"film": "blast to slx",
+		"key_t": 3.404,
+		"keys": 5.0,
+		"kind": "bjj",
+		"lowest_joint_y": 0.018,
+		"margin": [
+			10.0,
+			21.0,
+			11.0,
+			20.0
+		]
+	},
+	"slip": {
+		"kind": "idea",
+		"pending": true
+	},
+	"slip 2-3": {
+		"arrow_px": 70.9,
+		"az": -80.0,
+		"clip": "pro_right_cross",
+		"ghost": "slip@0.233",
+		"ghosts": 1.0,
+		"glove_gap": 0.026,
+		"hand": "RightHand",
+		"her_feet_y": 0.132,
+		"kind": "punch",
+		"margin": [
+			18.0,
+			10.0,
+			19.0,
+			10.0
+		],
+		"partner": "pro_hit_by_cross_v1@0.080",
+		"pelvis_gap": 1.025,
+		"ropes": "",
+		"spar_feet_y": 0.111,
+		"spar_scale": 0.92,
+		"t": 0.283
+	},
+	"slip 2-3@own_ropes": {
+		"arrow_px": 68.1,
+		"arrow_tip_m": 0.026,
+		"az": -50.0,
+		"clip": "pro_right_cross",
+		"ghost": "slip@0.233",
+		"ghosts": 1,
+		"glove_gap": 0.026,
+		"hand": "RightHand",
+		"her_feet_y": 0.132,
+		"kind": "punch",
+		"margin": [
+			10,
+			13,
+			9,
+			14
+		],
+		"partner": "pro_hit_by_cross_v1@0.080",
+		"pelvis_gap": 1.025,
+		"r4": true,
+		"rope_z": -0.359,
+		"ropes": "own",
+		"spar_feet_y": 0.111,
+		"spar_scale": 0.92,
+		"t": 0.283
+	},
+	"spins_out": {
+		"arrow_px": 147.2,
+		"arrow_tip_m": 0.023,
+		"az": 150.0,
+		"clip": "pro_idle",
+		"elev": 24.0,
+		"idea": "spins_out",
+		"kind": "idea",
+		"lucy_back_to_rope_m": 0.0,
+		"margin": [
+			24.0,
+			10.0,
+			23.0,
+			10.0
+		],
+		"r4": true,
+		"spin_deg": -72.0,
+		"spin_r_m": 1.05
+	},
+	"step_back": {
+		"arrow_px": 91.3,
+		"az": -74.0,
+		"back_m": 0.64,
+		"clip": "retreat",
+		"elev": 6.0,
+		"idea": "step_back",
+		"kind": "idea",
+		"margin": [
+			10.0,
+			44.0,
+			10.0,
+			43.0
+		],
+		"partner": "pro_left_hook",
+		"t": 0.633
+	},
+	"step_in": {
+		"arrow_px": 117.3,
+		"az": -86.0,
+		"clip": "advance",
+		"ghost": "advance@0.000",
+		"ghosts": 1.0,
+		"her_feet_y": 0.085,
+		"kind": "step",
+		"margin": [
+			10.0,
+			34.0,
+			10.0,
+			33.0
+		],
+		"partner": "pro_idle@0.000",
+		"pelvis_gap": 0.965,
+		"ropes": "",
+		"spar_feet_y": 0.12,
+		"t": 0.633
+	},
+	"step_out": {
+		"kind": "idea",
+		"pending": true
+	},
+	"straight_ankle_lock": {
+		"kind": "bjj",
+		"pending": true
+	},
+	"tie_up": {
+		"arrow_px": 0.0,
+		"az": -70.0,
+		"clip": "clinch_att",
+		"her_feet_y": 0.059,
+		"kind": "clinch",
+		"margin": [
+			44.0,
+			10.0,
+			44.0,
+			11.0
+		],
+		"partner": "clinch_vic@1.520",
+		"pelvis_gap": 0.676,
+		"ropes": "",
+		"spar_feet_y": 0.055,
+		"t": 1.52
+	},
+	"tie_up@own_ropes": {
+		"arrow_px": 0.0,
+		"az": -45.0,
+		"clip": "clinch_att",
+		"her_feet_y": 0.059,
+		"kind": "clinch",
+		"margin": [
+			50,
+			11,
+			49,
+			11
+		],
+		"partner": "clinch_vic@1.520",
+		"pelvis_gap": 0.676,
+		"r4": true,
+		"rope_z": -0.028,
+		"ropes": "own",
+		"spar_feet_y": 0.055,
+		"t": 1.52
+	},
+	"toe_hold": {
+		"arrow": "RightAnkle",
+		"arrow_px": 96.8,
+		"az": 0.0,
+		"bodies": [
+			"mh_boxer_17",
+			"mh_boxer_13"
+		],
+		"film": "uncountered",
+		"key_t": 4.118,
+		"keys": 5.0,
+		"kind": "bjj",
+		"lowest_joint_y": 0.024,
+		"margin": [
+			10.0,
+			31.0,
+			9.0,
+			30.0
+		]
+	},
+	"triangle": {
+		"kind": "bjj",
+		"pending": true
+	},
+	"waiter_sweep": {
+		"kind": "bjj",
+		"pending": true
+	},
+	"wrestle_up": {
+		"ana_was": "bottom",
+		"arrow": "Core",
+		"arrow_px": 67.8,
+		"az": 150.0,
+		"bleeds": true,
+		"bodies": [
+			"mh_boxer_17",
+			"mh_boxer_13"
+		],
+		"crop_m": 1.34,
+		"elev": 18.0,
+		"film": "stand up escape",
+		"key": 4.0,
+		"key_t": 3.73,
+		"keys": 6.0,
+		"kind": "bjj",
+		"lowest_joint_y": 0.024,
+		"r2": true,
+		"score": 1.63
+	}
+}
