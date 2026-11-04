@@ -133,6 +133,12 @@
    "loop": "BJJ9",
    "launched": "2026-11-04T06:38",
    "note": "S380: launched by hand (--task --act) on the merged base"
+  },
+  {
+   "task": "LOCOWALK4",
+   "seat": "cursor",
+   "status": "queued",
+   "queued": "2026-11-04T06:44"
   }
  ]
 }

@@ -77,6 +77,10 @@ func _initialize() -> void:
 	_vp.add_child(_props)
 	_hull_shader = load(SPS.HULL_SHADER) as Shader
 	await process_frame
+	# S380: a `stems=` run keeps the other bodies' rows (it wrote only its own and dropped 14 bodies from the file).
+	var old: Variant = JSON.parse_string(FileAccess.get_file_as_string(OUT.path_join("session_pics.json")))
+	if old is Dictionary:
+		_json = old
 	for stem in _stems():
 		await _bake_stem(stem)
 	var jf := FileAccess.open(OUT.path_join("session_pics.json"), FileAccess.WRITE)

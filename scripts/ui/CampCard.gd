@@ -72,7 +72,7 @@ static func card(main: Node, f: Dictionary, key: String, chosen: bool, now: floa
 	return b
 
 
-## Her own body's picture for the focus; another boxer's when hers is missing (the men have none baked yet).
+## The fighter's own body's picture for the focus; another boxer's when it is missing (S380: the five men are baked too).
 static func picture(f: Dictionary, key: String) -> Texture2D:
 	var station := str(STATION.get(key, "heavy_bag"))
 	var stems: Array = [Faces.stem(f), FALLBACK]
