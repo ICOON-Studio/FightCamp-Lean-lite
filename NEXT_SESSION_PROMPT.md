@@ -19,6 +19,17 @@ PC: E: at 4.6% free (pagefile.sys 32 GB on E:) -> watchdog RED; operator asked t
 Starfield open = RAM 90%+. Renders wait for non-RED; headless tests may run when the ONLY RED reason is E: space.
 agy: Argon credits ran out (429 "credits balance too low"); seat_dispatch now falls back to claude-opus-5-5-high (be417e39).
 
+STATE AT THE PC RESTART (S381, ~14:30): pushed - camp2 5723346a (stages S1-S4 + G1 done; G2 weeks strip was running;
+G3-G5, review, suite, stills NOT done -> resume from G2), footwork1 8baae2b0 (round 3 hips fix, verified + sent to the
+operator), boxmap1 2a114efb (round 5 FILMED, tests green - NOT yet eyes-checked by Claude or the reviewer: do it before
+sending), holo-off-live 8137028a (callouts moved; film + suite may be unfinished), movepics1 656cfe44 (round 2 re-bake
+was running, nothing pushed), theatre-ground 490cead5 (round 2 per-body grounding NOT started: sweep at 9.5-10.6 s still
+floats). Killed by the restart, redo: owned-mocap bake (inventory done - E:/FightCamp/tmp/s381/ownedmocap/), Playbook
+spec v2 (+ training wiring + real-plan acceptance test -> ops/research/PLAYBOOK_SPEC_S381.md), training screen audit +
+design in TWO MODES (between fights = learn moves; camp = drill the plan for one opponent from owned moves) ->
+ops/research/TRAINING_SCREEN_S381.md. Workflow scripts to reuse: C:/Users/user/.claude/projects/E--FightCamp-Game/
+1c09b9c6-ab9a-421c-ac86-75f0bf905941/workflows/scripts/ (s381-*.js).
+
 DO IN ORDER:
 1. claude/camp2 - the approved camp build (C229 + 5 Undisputed-gym ideas, "Yes, build both"): stages S1-S3 committed,
    S4 (film earned by answered tells + halved flat edges, BalanceHarness) was running at hand-over, then G1 threshold bar,

@@ -493,6 +493,88 @@
    },
    "note": "S368 seat_dispatch: agy exit 3, no commit on agy/fight9r10 (stray: -); output E:\\FightCamp\\wt\\FIGHT9R10_dispatch_out.txt",
    "finished": "2026-11-04T09:25"
+  },
+  "BJJ9R13": {
+   "agent": "antigravity",
+   "id": "BJJ9R13",
+   "title": "TASK BJJ9R13 - ANTIGRAVITY (Gemini 4 Argon High) - the BJJ belt match without trembling or bodies inside bodies, to 9/10",
+   "status": "landed",
+   "started": "2026-11-04T10:11",
+   "eta": "2026-11-04T11:36",
+   "branch": "agy/bjj9r13",
+   "worktree": "E:/FightCamp/wt/LEAN_BJJ9R13",
+   "wt": "E:/FightCamp/wt/LEAN_BJJ9R13",
+   "brief": "ops/research/TASK_BJJ9R13.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/BJJ9R13_dispatch_out.txt",
+   "match": "seat_dispatch.py run bjj9r13",
+   "model": "gemini-4-argon-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/BJJ9R13_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/BJJ9R13_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/BJJ9R13_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 436,
+    "seat_pid": 24904
+   },
+   "note": "S368 seat_dispatch: agy exit 3; 1 commit(s); checks 2/5 PASS; PR #37; films Argon 3 -> 4/10",
+   "finished": "2026-11-04T11:09",
+   "pr": 37,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/bjj_tremble_probe.gd",
+     "ok": false,
+     "last": "TREMBLE_JSON {\"end\":\"submission (omoplata) 1:57 [2, 0]\",\"frames\":11757,\"joints\":{\"ANA_ankleL\":[323.8,18088.8,0.07],\"ANA_ankleR\":[362.5,18910.1,0.06],\"ANA_elbowL\":[347.9,26758.8,0.08],\"ANA_elbowR\":[343"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/grapple_pose_test.gd",
+     "ok": true,
+     "last": "       [1] _initialize (res://tests/grapple_pose_test.gd:76)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/grapple_contact_test.gd",
+     "ok": false,
+     "last": "FAIL 1"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/grapple_timing_test.gd",
+     "ok": false,
+     "last": "FAIL 1"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    }
+   ],
+   "films": {
+    "before": {
+     "film": "E:/FightCamp/Lean/ops/previews/dispatch/BJJ9R13/before.mp4",
+     "verdict_file": "E:/FightCamp/Lean/ops/previews/dispatch/BJJ9R13/before.gemini_argon.md",
+     "score": "3",
+     "line": "Some positions and holds read as BJJ, but two moments where one body is nearly fully inside the other (0:41, 1:32), a flickering overlap in the mount (1:26.5) and no recognisable finish keep this well short of watchable. The cap of 4 applie",
+     "rc": 1,
+     "err": "",
+     "head": "405c0989d8feede99eeb0f54eecb264137bdc22b"
+    },
+    "after": {
+     "film": "E:/FightCamp/Lean/ops/previews/dispatch/BJJ9R13/after.mp4",
+     "verdict_file": "E:/FightCamp/Lean/ops/previews/dispatch/BJJ9R13/after.gemini_argon.md",
+     "score": "4",
+     "line": "Holds are now steady and I saw no trembling. But half-deep overlaps of hips and heads are in nearly every guard scene, the takedown is a cartwheel, and the \"Lock\" and \"Stand Up\" don't match their names. It is still far from 9/10.",
+     "rc": 1,
+     "err": "",
+     "head": "7e4f25044d4146cb27deb5496bdb0596ea8db47f"
+    },
+    "board": "POSTED 2 file(s) -> http://127.0.0.1:8787/review  (E:\\FightCamp\\review\\2026-11-04_1109_bjj9r13_before_after_argon_3_10_4_10_you)"
+   }
   }
  },
  "codex_budget": {
