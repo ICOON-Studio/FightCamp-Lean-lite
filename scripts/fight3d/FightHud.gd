@@ -36,7 +36,7 @@ static func build(view: Control) -> void:
 	bv.add_child(view._clock)
 	view.bars = HudBars.attach(view)   # S345 the six bars a boxer + the round edge
 	bv.add_child(view.bars.edge)
-	view.body = BodyLive.attach(view)   # S318 the body map figures, under the bars
+	view.body = BodyLive.attach(view)   # S318 the body map (S381 HOLOOFF: its holo panels stay hidden in a live round)
 	view.burn = BodyBurn.attach(view)   # S322 per-part Burn: guard, steps, punch snap
 	view._buttons = UI.hbox(8)
 	view._buttons.alignment = BoxContainer.ALIGNMENT_CENTER

@@ -7,6 +7,8 @@ const BM := preload("res://scripts/rules/BodyMap.gd")
 const BodyTrack := preload("res://scripts/rules/BodyTrack.gd")
 const BodyTip := preload("res://scripts/ui/BodyTip.gd")
 const BodyHolo := preload("res://scripts/ui/BodyHolo.gd")
+const RoundHits := preload("res://scripts/ui/RoundHits.gd")
+var round_hits := {}   # S382 {spot: punches landed this round} - only the corner card sets it (RoundHits.lay_on)
 
 const DESIGN_W := 90.0
 const DESIGN_H := 150.0
@@ -175,8 +177,9 @@ func spot_colour(group: Array) -> Color:
 	var col: Color = BAND_COLOURS[b]
 	col.a = float(SPOT_ALPHA[b])
 	var hit := Color(BAND_COLOURS["critical"], float(SPOT_ALPHA["critical"]))
+	var rt := RoundHits.tint(int(round_hits.get(group[0], 0)))   # S382 the corner card: hit this round while still fine
 	if col.a <= 0.0:
-		col = Color(hit, hit.a * fl)
+		col = Color(hit, hit.a * fl) if rt.a <= 0.0 else rt.lerp(hit, fl)
 	elif fl > 0.0:
 		col = col.lerp(hit, fl)
 	return col
@@ -379,9 +382,7 @@ func _rect(tl: Vector2, w: float, h: float, r: float, col: Color) -> void:
 
 
 func _flash_colour(base: Color, alpha: float) -> Color:
-	if alpha <= 0.0:
-		return base
-	return base.lerp(Color.WHITE, alpha)
+	return base if alpha <= 0.0 else base.lerp(Color.WHITE, alpha)
 
 
 ## Set place -> 0..100 (missing places = 100).
@@ -464,21 +465,13 @@ func centre_of(place: String) -> Vector2:
 	return _geom_px(place)["c"]
 
 
+const GEOM := {"head": [Vector2(45, 22), 14.0], "left_eye": [Vector2(53, 20), 3.5], "right_eye": [Vector2(37, 20), 3.5],
+	"nose": [Vector2(45, 27), 2.5], "left_ribs": [Vector2(56, 67), 11.0], "right_ribs": [Vector2(34, 67), 11.0]}
+
+
 func _place_geom(place: String) -> Dictionary:
-	match place:
-		"head":
-			return {"centre": Vector2(45, 22), "radius": 14.0}
-		"left_eye":
-			return {"centre": Vector2(53, 20), "radius": 3.5}
-		"right_eye":
-			return {"centre": Vector2(37, 20), "radius": 3.5}
-		"nose":
-			return {"centre": Vector2(45, 27), "radius": 2.5}
-		"left_ribs":
-			return {"centre": Vector2(56, 67), "radius": 11.0}
-		"right_ribs":
-			return {"centre": Vector2(34, 67), "radius": 11.0}
-	return {"centre": Vector2.ZERO, "radius": 0.0}
+	var g: Array = GEOM.get(place, [Vector2.ZERO, 0.0])
+	return {"centre": g[0], "radius": g[1]}
 
 
 func _process(delta: float) -> void:
@@ -490,10 +483,7 @@ func _process(delta: float) -> void:
 	for p in BM.PLACES:
 		var fa: float = _flash.get(p, 0.0)
 		if fa > 0.0:
-			fa -= delta / FLASH_S
-			if fa < 0.0:
-				fa = 0.0
-			_flash[p] = fa
+			_flash[p] = maxf(0.0, fa - delta / FLASH_S)
 			any = true
 	if any:
 		_paint_skin()

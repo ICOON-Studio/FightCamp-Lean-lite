@@ -81,6 +81,8 @@ static func corner(view: Node) -> bool:
 	if bl != null:
 		card["body_map"] = bl.map
 		card["body_glb"] = str(view.bodies[0])   # S320 her own body on the card (C146)
+		card["body_taken"] = bl.taken[0]   # S381 HOLOOFF: what each place took - the card's HEAD / LIVER / RIBS close-ups
+		card["body_round_hits"] = bl.round_hits(0, int(view.round_n))   # S382 where she was hit this round (the holo's tint)
 		card["stats"]["map"] = bl.map
 		# S323 playtest: the pit stop shows the tyres - her body track on the card.
 		if view.get("burn") != null:

@@ -19,6 +19,10 @@ var _menu := {}
 var _jobs_box: VBoxContainer = null
 const BodyMap := preload("res://scripts/rules/BodyMap.gd")
 const BodyFigure := preload("res://scripts/ui/BodyFigure.gd")
+const BodyTip := preload("res://scripts/ui/BodyTip.gd")
+const BodyCallouts := preload("res://scripts/ui/BodyCallouts.gd")
+const BodyLive := preload("res://scripts/fight3d/BodyLive.gd")
+const RoundHits := preload("res://scripts/ui/RoundHits.gd")
 var _track := {}             # S323 her body track (BodyBurn.track) - the pit stop shows which part burns
 var _map := {}               # S318 the bout's BodyMap (BodyLive.map, shared: the corner's jobs land on it)
 var cutman := ""
@@ -76,6 +80,8 @@ func build(card: Dictionary, names: Array) -> void:
 	_card.add_child(hb)
 	_map = card.get("body_map", {})
 	_track = card.get("body_track", {})
+	_taken = card.get("body_taken", {})
+	_round_hits = card.get("body_round_hits", {})
 	if not _map.is_empty():
 		_pin(_card, Vector4(CARD_LEFT_BODY, BAR, 1, BAR), Vector4(0, 12, -24, 12))
 		hb.add_child(_body_column(str(names[0]), str(card.get("body_glb", ""))))
@@ -205,18 +211,23 @@ func _fix(id: String) -> void:
 
 ## S318 her figure on the card and the cutman's one job (S316 plan: "one pair of hands per job"): enswell an eye that is
 ## hurt or worse, close a cut that is open, or nothing. The cutman's own pick (the worst place) is lit to start.
-func _body_column(her: String, glb: String = "") -> VBoxContainer:
+func _body_column(_her: String, glb: String = "") -> VBoxContainer:
 	var col := UI.vbox(4)
 	col.custom_minimum_size = Vector2(200, 0)
 	var fig: Control = BodyFigure.new()
 	fig.custom_minimum_size = Vector2(190, 268)   # S324 C149 bigger (was 160 x 226)
-	fig.set_portrait(BodyFigure.portrait_for(glb, "red"))   # S320 C146: her own body, not a drawn figure
+	var still: Dictionary = BodyFigure.portrait_for(glb, "red")
+	fig.set_portrait(still)   # S320 C146: her own body, not a drawn figure
 	fig.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	col.add_child(fig)
 	var vals := {}
 	for p in BodyMap.PLACES:
 		vals[p] = BodyMap.value(_map, "a", p)
 	fig.set_values(vals)
+	# S382: where she was hit THIS round, tinted even while 'fine' (a round-1 card is otherwise a clean figure), and one
+	# word per hot spot - under the close-ups (added after it), which cover it on the mouse.
+	round_words = RoundHits.lay_on(fig, _round_hits)
+	_callouts(fig, still)
 	if not _track.is_empty():
 		fig.set_track(_track)
 	var opts := _cutman_jobs(vals)
@@ -227,8 +238,28 @@ func _body_column(her: String, glb: String = "") -> VBoxContainer:
 		col.add_child(_cut_box)
 		_draw_cutman(opts)
 	else:
-		col.add_child(UI.muted("%s is clean: the cutman waits." % her, UI.TINY))
+		# S382: not "clean" - she may have taken a dozen shots (the holo shows them); nothing for the cutman to work on.
+		col.add_child(UI.muted("No cut, no swollen eye: the cutman waits.", UI.TINY))
 	return col
+
+
+## S381 HOLOOFF: the live holo panels are off in a round, so the S379 close-ups (HEAD / LIVER with the liver picture /
+## RIBS) live on this holo: the mouse on her head, liver or ribs shows that card with its condition line (the card is the
+## place's tooltip); elsewhere on her body the place's tooltip as before.
+var callouts: Control = null
+var round_words: Control = null   # S382 RoundHits: the words beside this round's hot spots
+var _taken := {}
+var _round_hits := {}
+
+
+func _callouts(fig: Control, still: Dictionary) -> void:
+	BodyTip.attach(fig)
+	fig.tip_fn = func(p: String) -> String: return "" if BodyCallouts.spot_of(p) >= 0 else BodyLive.place_tip(_map, "a", _taken, p)
+	callouts = BodyCallouts.attach(fig, still, -1.0, func(p: String) -> String: return BodyLive.place_tip(_map, "a", _taken, p))
+	if callouts == null:
+		return
+	callouts.set("line_fn", func(s: Dictionary) -> String: return BodyLive.spot_line(_map, "a", _taken, s))
+	callouts.set("marks", _map.get("a", {}))
 
 
 ## [[job, label], ...] worst first, "Nothing" last.

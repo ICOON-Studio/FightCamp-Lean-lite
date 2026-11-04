@@ -144,21 +144,17 @@ func _process(delta: float) -> void:
 	_paint_view(stage, delta)
 
 
-## S323 body view (plan step 3): the side panels' figures show each part's Burn on her own body, a few times a second.
+## S323 body view (plan step 3): each part's Burn on her own body, a few times a second. S382: the live side panels are
+## gone (S381 HOLOOFF), so the track goes to the corner card and the round / result pages only.
 var _paint_t := 0.0
 const PAINT_S := 0.25
 
 
-func _paint_view(stage: Node, delta: float) -> void:
+func _paint_view(_stage: Node, delta: float) -> void:
 	_paint_t -= delta
-	var live: Node = view.get("body")
-	if _paint_t > 0.0 or live == null:
+	if _paint_t > 0.0 or view.get("body") == null:
 		return
 	_paint_t = PAINT_S
-	var figs: Array = live.get("figures")
-	for i in mini(2, figs.size()):
-		if figs[i].has_method("set_track"):
-			figs[i].set_track(track(i))
 	# S323 playtest: the corner card and the round/result pages draw the same track (the modal is shared, as BodyLive's map).
 	if view.get("main") != null:
 		view.main.modal["body_track"] = {"a": track(0), "b": track(1)}
