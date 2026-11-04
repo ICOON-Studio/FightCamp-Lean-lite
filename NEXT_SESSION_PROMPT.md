@@ -27,6 +27,17 @@ OPERATOR DECISIONS S382:
 DO IN ORDER:
 1. Collect claude/training1 (round 2: evenings follow the strip = REST is rest in the sim + balance numbers; PLANTRAY1
    camp tray 'THE PLAN vs Maria' + UNDRILLED x0.8; click-through film; skeptic). Look at r2_*.png + eyes the film, merge.
+1b. S382 LATE (training round 2 landed at ~00:00): claude/training1 be429dd9, main ec292868 merged in, suite 155/155;
+   EVENINGS (strip = truth; pads 75 min/night, Standard drill 0.115, Hard 0.14, Hard load 1.0 - camp peaks < 80) +
+   PLANTRAY1 camp tray done; stills E:/FightCamp/tmp/s382/training/r2_*.png; click-through clickthrough.mp4 (click-card
+   then night works, 70/30 split, gold flip = projection 31.7). SKEPTIC REFUTED, 2 items - fix then merge:
+   (a) REAL BUG: on the Monday board of camp week 2+, f.phase_day is still week 1 (WeekPhase.sync only runs in
+   Sim.step_day on dow 0 / bout accept), so WeekPhase.film_night is true -> strip draws Tue FILM + Wed REST; Monday's
+   step syncs, film turns off, PadWeek lays Mon+Wed pads -> Wed trains + tires while the board said REST and the
+   planned film never runs. Fix: the board/strip call WeekPhase.sync (or compute the phase for 'this week') before
+   drawing; add an evenings_test case drawn BEFORE Monday's sync. (b) drag-and-drop never started a drag on the
+   hidden desktop (posted messages, unfocused window) - prove it on the real desktop or a focused window.
+   Spec TRAINING_SCREEN_S381 5.4 needs Hard load 1.0.
 2. claude/defflow1 09a25dcc (DONE building, NOT merged; suite 151/151 with main merged): A1 sim is solid (who lands
    unchanged over 200 seeds, 0 rule breaks in 2000 picks, def 85 picks a good answer 94.5%, 5+ kinds in 42/50 exchanges,
    win shares move <= 0.01), A2 3D + B FLOW built. SKEPTIC REFUTED the video (final_ropes.mp4, final_career_r1.mp4):
