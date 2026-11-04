@@ -120,10 +120,10 @@
   {
    "task": "FIGHT9R10",
    "seat": "agy",
-   "status": "held",
+   "status": "queued",
    "queued": "2026-11-04T05:59",
    "loop": "FIGHT9",
-   "note": "S379: held until the TV-camera fix lands on claude/fight9base (operator C222 dizzy camera)"
+   "note": "S379: released after the TV camera + corner-start films landed on claude/fight9base"
   },
   {
    "task": "BJJ9R12",
@@ -137,8 +137,9 @@
   {
    "task": "LOCOWALK4",
    "seat": "cursor",
-   "status": "queued",
-   "queued": "2026-11-04T06:44"
+   "status": "launched",
+   "queued": "2026-11-04T06:44",
+   "launched": "2026-11-04T07:41"
   }
  ]
 }

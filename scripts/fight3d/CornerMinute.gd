@@ -108,7 +108,7 @@ func _camera() -> void:
 	if _frame.is_empty():
 		return
 	var u := clampf((t - _shot_t0) / _shot_len, 0.0, 1.0)
-	var f: Dictionary = CornerShots.frame(name, _shot_ctx()) if bool(_frame.get("track", false)) else _frame
+	var f: Dictionary = CornerShots.inside(CornerShots.frame(name, _shot_ctx())) if bool(_frame.get("track", false)) else _frame
 	if f.is_empty():
 		return
 	var p: Vector3 = (f["pos"] as Vector3) + (_frame["drift"] as Vector3) * u
@@ -129,7 +129,7 @@ func _cut(k: int, name: String) -> void:
 			next_t = float(_shots[j][0])
 			break
 	_shot_len = maxf(0.5, next_t - t)
-	_frame = {} if name == "broadcast" else CornerShots.frame(name, _shot_ctx())
+	_frame = {} if name == "broadcast" else CornerShots.inside(CornerShots.frame(name, _shot_ctx()))   # S380: lens inside the ropes
 	if name == "broadcast":
 		stage.camera.broadcast(CornerShots.pos(ctx_actor("her")), CornerShots.pos(ctx_actor("opp")), true)
 

@@ -26,10 +26,11 @@ static func frame(shot: String, ctx: Dictionary) -> Dictionary:
 			return {"pos": seat + d * 3.7 + l * 0.9 + Vector3.UP * 1.6, "look": seat + Vector3.UP * 0.85, "fov": 34.0, "focus": 3.2,
 				"drift": -d * 0.9}
 		"low_out":
-			# Medium from outside the ropes, low, the ropes in the foreground: she sits.
+			# Medium, low, from the ring in front of her left: she sits. S380 (operator on a still of the corner through the
+			# ropes: "i thought you fixed the ropes, why old problems appear again?"): this shot stood 0.8 m OUTSIDE the
+			# ropes ("the ropes in the foreground", S307) - the S347 rule is every lens inside them, the ropes only behind.
 			var seat: Vector3 = red["seat"]
-			# Between the middle and top ropes (0.85 / 1.25 m), level with her face, so no rope crosses it.
-			var p := seat + l * 2.3 + d * 0.7 + Vector3.UP * 1.0
+			var p := seat + d * 1.9 + l * 1.0 + Vector3.UP * 1.0
 			var look := seat + Vector3.UP * 0.82
 			return {"pos": p, "look": look, "fov": 30.0, "focus": p.distance_to(look), "drift": d * 0.18}
 		"water":
@@ -55,8 +56,8 @@ static func frame(shot: String, ctx: Dictionary) -> Dictionary:
 			var cf := bone(coach, "Head")
 			var mid := (face + cf) * 0.5
 			# S309: the coach's head is higher now (his look lifts his back): the lens sits just under the line of their
-			# eyes, so the top rope stays out of the frame.
-			var p := mid + l * 1.7 + Vector3.UP * 0.02
+			# eyes. S380: from her front-left inside the ring (l * 1.7 alone stood 0.9 m outside the ropes).
+			var p := mid + d * 1.5 + l * 1.25 + Vector3.UP * 0.12
 			return {"pos": p, "look": mid, "fov": 32.0, "focus": p.distance_to(mid), "drift": d * 0.12}
 		"corner_wide":
 			# The whole corner from the ring's middle: her on the stool, the coach in front, the second on the apron.
@@ -98,6 +99,43 @@ static func frame_at(pos: Vector3, look: Vector3, fov: float, x: float) -> Vecto
 		return look
 	var half_w := tan(deg_to_rad(fov) * 0.5) * 16.0 / 9.0
 	return look + right.normalized() * d.length() * half_w * (1.0 - 2.0 * x)
+
+
+## S380 every corner lens inside the ropes (S347's rule; RingCamera.IN_M): a shot whose lens - at its start or at the end
+## of its drift - is past HALF_M on either axis moves toward its look point until it is inside, and its fov widens by the
+## distance it lost so the framing holds; a drift that would leave the ring is cut short. Returns the framing.
+const HALF_M := 2.75 - 0.25   # FightStage.RING_M * 0.5, less a rope's reach
+
+
+static func inside(fr: Dictionary) -> Dictionary:
+	if fr.is_empty() or not fr.has("pos"):
+		return fr
+	var p: Vector3 = fr["pos"]
+	var look: Vector3 = fr["look"]
+	if not _in(p):
+		var d0 := p.distance_to(look)
+		var q := p
+		for i in 40:   # walk toward the look point
+			q = p.lerp(look, float(i + 1) / 40.0 * 0.9)
+			if _in(q):
+				break
+		if d0 > 0.01 and float(fr.get("fov", 0.0)) > 0.0:
+			fr["fov"] = minf(70.0, rad_to_deg(2.0 * atan(tan(deg_to_rad(float(fr["fov"])) * 0.5) * d0 / maxf(0.2, q.distance_to(look)))))
+		if float(fr.get("focus", 0.0)) > 0.0:
+			fr["focus"] = q.distance_to(look)
+		fr["pos"] = q
+		p = q
+	var dr: Vector3 = fr.get("drift", Vector3.ZERO)
+	for i in 10:
+		if _in(p + dr):
+			break
+		dr *= 0.6
+	fr["drift"] = dr if _in(p + dr) else Vector3.ZERO
+	return fr
+
+
+static func _in(p: Vector3) -> bool:
+	return absf(p.x) <= HALF_M and absf(p.z) <= HALF_M
 
 
 ## A bone's world position on an actor ({skel}). The head as shown when the actor's CornerIK has turned it (S309: a look

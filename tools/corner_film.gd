@@ -173,9 +173,13 @@ func _watch(view: Node, cm: Node) -> void:
 	var fixed := false
 	var seat_ok := false
 	var bottle_best := 9.0
+	var outside := {}   # S380: shot -> the lens's worst reach past the rope line (m); every lens stays inside (S347)
 	while is_instance_valid(cm):
 		var tm := float(cm.t)
 		_check_frame(view, cm)
+		var lens: Vector3 = view.stage.camera.global_position
+		var sn := str(cm._shots[cm._shot_i][1])
+		outside[sn] = maxf(float(outside.get(sn, -9.0)), maxf(absf(lens.x), absf(lens.z)) - 2.75)   # FightStage.RING_M * 0.5
 		if tm > 6.9 and tm < 6.95:
 			var co: Dictionary = cm.crew.actors["coach"]
 			var target: Vector3 = cm._mouth(view.stage.boxers[0]) + CornerShots.fwd(view.stage.boxers[0]) * 0.15 + Vector3.DOWN * 0.03
@@ -201,6 +205,9 @@ func _watch(view: Node, cm: Node) -> void:
 			print("wrote ", path, " shot=", cm._shots[cm._shot_i][1])
 			k += 1
 		await process_frame
+	for sn in outside:
+		print("CORNER lens %s: %.2f m %s the rope line" % [sn, absf(float(outside[sn])), "OUTSIDE" if float(outside[sn]) > 0.0 else "inside"])
+		_check(float(outside[sn]) <= 0.0, "the %s lens stays inside the ropes (S347)" % sn)
 	print("CORNER bottle tip to her mouth (closest) %.3f m" % bottle_best)
 	_check(bottle_best < 0.06, "the bottle reaches her mouth (< 6 cm)")
 	_check(seat_ok, "her hips sit on the stool")

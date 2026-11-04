@@ -1,5 +1,7 @@
 # TASK FIGHT9R10 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round
 
+**S379 (Claude): the base (claude/fight9base f2e0366b, main merged in) now has the TV camera and the corner-start films - keep both green:** `tools/cam_motion_probe.gd -- show3d fromcorners fightjump=men_fight secs=90 knockdown=70` PASS (turn <= 10 deg/s, no zoom while moving, never behind a boxer, no shot under 2 s, no lens outside the ropes), `tools/cam_view_probe.gd -- show3d fromcorners fightjump=men_fight` PASS, `tools/corner_start_probe.gd -- show3d` failures=0 (films open with both men in their corners and walk to the centre; FightIntro.from_corners).
+
 Status: OPEN (S371, Claude; S372 rewritten after round 1 failed to compile). Operator S371: "gemini4 review the fight with the fixes and rate it again", "and then tell
 gemini to reach to 9/10", "let argon do all the fixes until its 9/10". Main scored 3/10 (verdict below).
 
