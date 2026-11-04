@@ -18,8 +18,9 @@
   {
    "task": "FIGHT9R1",
    "seat": "agy",
-   "status": "queued",
-   "queued": "2026-11-03T01:55"
+   "status": "superseded",
+   "queued": "2026-11-03T01:55",
+   "note": "S379: stale queue row (rounds 2-7 ran since)"
   },
   {
    "task": "FIGHT9R2",
@@ -95,8 +96,18 @@
   {
    "task": "LOCOWALK2",
    "seat": "cursor",
-   "status": "queued",
-   "queued": "2026-11-03T17:36"
+   "status": "launched",
+   "queued": "2026-11-03T17:36",
+   "launched": "2026-11-03T18:41"
+  },
+  {
+   "task": "FIGHT9R8",
+   "seat": "agy",
+   "status": "failed",
+   "queued": "2026-11-03T18:36",
+   "loop": "FIGHT9",
+   "launched": "2026-11-03T20:41",
+   "note": "S379: runner crashed - agy.exe missing for 10 min at launch (21:01), agy never ran; superseded by FIGHT9R9 on BASE claude/fight9base = round 7 kept"
   }
  ]
 }
