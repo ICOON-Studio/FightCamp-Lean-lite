@@ -120,10 +120,11 @@
   {
    "task": "FIGHT9R10",
    "seat": "agy",
-   "status": "queued",
+   "status": "launched",
    "queued": "2026-11-04T05:59",
    "loop": "FIGHT9",
-   "note": "S379: released after the TV camera + corner-start films landed on claude/fight9base"
+   "note": "S379: released after the TV camera + corner-start films landed on claude/fight9base",
+   "launched": "2026-11-04T08:41"
   },
   {
    "task": "BJJ9R12",
@@ -140,6 +141,13 @@
    "status": "launched",
    "queued": "2026-11-04T06:44",
    "launched": "2026-11-04T07:41"
+  },
+  {
+   "task": "BJJ9R13",
+   "seat": "agy",
+   "status": "queued",
+   "queued": "2026-11-04T09:40",
+   "loop": "BJJ9"
   }
  ]
 }

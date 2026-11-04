@@ -8,7 +8,7 @@
     "updated": "2026-11-04",
     "summary": "S380: agy launches from the scheduled reconcile (MSIX path); Light/Standard/Hard camps differ (CAMPPROTO1); men's training pictures; every boxer has a gloveless fight-card promo portrait (PROMO1); every corner-minute and ring-entry lens is inside the ropes, checked per frame (2f7edd99, 6880aaf7); Claude's eyes judge the loops while the Gemini prepay is out (claude_judge.py); update 75 exported 08:56.",
     "last_working_commit": "6880aaf7",
-    "next_action": "S381, in order: (1) read the BJJ9R12 rejudge verdict (ops/previews/dispatch/BJJ9R12/after.gemini_argon.md, judged by Claude's eyes), collect PR #36 (diff + parse + test, eyes on the film) or let the loop step to BJJ9R13; (2) collect LOCOWALK4 PR #35 - eyes on every walk/step clip (burst + crops), the drawn-bone bars; (3) S379's TV camera (claude/fight9base): its films must pass the corner_film-style rope bar before merging; FIGHT9R10 when it lands; (4) ask the operator how much he loaded on the Gemini prepay and set gemini_budget.json budget_usd to it; (5) the operator's take on update 75 (camp protocol, promo portraits, ropes).",
+    "next_action": "S381, in order: (1) BJJ9R12 was judged 3/10 by Claude's eyes and dropped (PR #36 closed; the parser had read 9/10 from 'let alone 9/10' - fixed); BJJ9R13 is QUEUED on agy (claude/bjj9base) - watch it launch from the reconcile and its Claude-eyes verdict; (2) collect LOCOWALK4 PR #35 - eyes on every walk/step clip (burst + crops), the drawn-bone bars; (3) S379's TV camera (claude/fight9base): its films must pass the corner_film-style rope bar before merging; FIGHT9R10 when it lands; (4) ask the operator how much he loaded on the Gemini prepay and set gemini_budget.json budget_usd to it; (5) the operator's take on update 75 (camp protocol, promo portraits, ropes).",
     "verified_playable": "Builds/FightCamp.pck 2026-11-04 08:56 = update 75 from main 6880aaf7: 138/138 headless tests; corner_film: 10 intro + 12 corner shots inside the ropes, 0 % sight through them; stills of the camp modal, the 19 gloveless portraits, the corner and entry shots opened by Claude.",
     "incomplete_blocked": "Gemini prepay empty (Claude's eyes judge instead); BJJ9R12 PR #36 + LOCOWALK4 PR #35 to collect; S379's TV camera unmerged; ~820 untracked generated files fail the handover gate (pre-existing).",
     "next_acceptance": "BJJ9R12: BJJTREMBLE failures=0 and the operator's eye on the belt match film; the operator approves the promo portraits and the camp protocol in update 75.",
@@ -4449,7 +4449,7 @@
   },
   "plan": {
     "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-    "updated": "2026-11-04 08:41 board_sync",
+    "updated": "2026-11-04 09:40 board_sync",
     "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
     "titles": {
       "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4623,12 +4623,6 @@
         "started": "2026-11-04T07:41",
         "run": "LOCOWALK4",
         "state": "LANDED - Claude collects"
-      },
-      {
-        "title": "TASK FIGHT9R10 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
-        "who": "antigravity",
-        "started": "2026-11-04T08:41",
-        "run": "FIGHT9R10"
       }
     ],
     "next": [

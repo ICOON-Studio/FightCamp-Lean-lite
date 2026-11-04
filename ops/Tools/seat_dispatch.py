@@ -666,6 +666,14 @@ def read_verdict(text: str) -> tuple[str, str]:
     that says "score" after the Verdict heading, else the last N/10 in that section."""
     tail = text[text.lower().rfind("verdict"):] if "verdict" in text.lower() else text
     lines = tail.splitlines()
+    # S380: a line that IS the score ("Score: 3/10", "**Score:** **4 / 10**") wins over any sentence that merely mentions
+    # one - BJJ9R12's verdict "...let alone 9/10. The rule caps the score at 4" read 9/10 and stopped the loop at a real 3
+    label = re.compile(r"^[\s*#>-]*score[\s*:]*\**\s*(\d+(?:\.\d+)?)\s*/\s*10\b", re.I)
+    for l in reversed(lines):
+        mm = label.match(l)
+        if mm:
+            line = next((x.strip(" *#->") for x in lines[1:] if x.strip() and "score" not in x.lower()), l.strip())
+            return mm.group(1), line[:240]
     scored = next((l.strip(" *#->") for l in lines if "score" in l.lower() and SCORE_RE.search(l)), "")
     if not scored:
         hits = [l.strip(" *#->") for l in lines if SCORE_RE.search(l)]

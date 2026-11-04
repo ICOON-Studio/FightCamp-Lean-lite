@@ -58,5 +58,6 @@ corner-start films, FIGHT9R10 (held) and PR #32; S380 did everything below.
 ## Blocked / open
 - Gemini API prepay DEPLETED (HTTP 402): Claude's eyes judge instead (automatic). After a top-up, ask how much was loaded
   and set AgentComms/gemini_budget.json budget_usd to it.
-- HANDOFF: next = read BJJ9R12's verdict + collect PR #36; collect LOCOWALK4 PR #35 (eyes on every clip); S379's TV camera
+- BJJ9R12: Claude's eyes 3/10, dropped (PR #36 closed); the parser had read 9/10 from 'let alone 9/10' (fixed: a 'Score: N/10' line wins). BJJ9R13 queued.
+- HANDOFF: next = BJJ9R13's launch + verdict; collect LOCOWALK4 PR #35 (eyes on every clip); S379's TV camera
   -> rope bar -> fight9base -> FIGHT9R10; the operator's verdict on update 75.
