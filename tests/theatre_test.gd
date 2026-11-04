@@ -52,11 +52,14 @@ func _initialize() -> void:
 			worst_err = maxf(worst_err, float(e))
 		_check((reel["joins"] as Array).size() == (c["steps"] as Array).size() - 1 and errs.all(func(e): return e < 0.10),
 			"%s: %d joins laid on the last keyframe, align err %s m" % [c["id"], errs.size(), ", ".join(errs.map(func(e): return "%.3f" % e))])
+		var traded := _traded(reel["frames"])
+		_check(traded == 0, "%s: no keyframe trades the women's places mid-move (%d)" % [c["id"], traded])
 		_director(c, reel, player)
 	# Control arm: a move laid on an unrelated position reads far (the join bar can fail).
 	var unrelated: Array = DB.find(db, "full guard kimura")["frames"]
 	var far := float(Graph.align(unrelated[0], (db[1235]["frames"] as Array)[0])["err"])
 	_check(far > 0.10, "control: 'to 50/50' laid on full guard kimura reads %.3f m (> 0.10)" % far)
+	_check(_traded(db[1235]["frames"]) == 1, "control: 'to 50/50' as recorded trades the places once (S379: the bodies flew through each other)")
 	player.free()
 	_check(TestJump.scene_for(PackedStringArray(["jump=theatre"])) == SCENE and ResourceLoader.exists(SCENE),
 		"jump=theatre opens %s" % SCENE)
@@ -130,8 +133,66 @@ func _scene_smoke() -> void:
 	th.call("set_speed", 0.25)
 	await process_frame
 	_check(bool(th.get("orbit")) and is_equal_approx(float(th.get("speed")), 0.25), "scene: free orbit and 0.25x")
+	await _drawn(th)
 	th.queue_free()
 	await process_frame
+
+
+## Gaps in `frames` where the next keyframe is the last one with the women swapped / mirrored (GrappleGraph.steady's test).
+func _traded(frames: Array) -> int:
+	var n := 0
+	for k in range(1, frames.size()):
+		var raw := Graph.gap(frames[k - 1], frames[k])
+		if raw > Graph.RELABEL_GAP_M:
+			var how := Graph.align(frames[k - 1], frames[k])
+			if (bool(how["swap"]) or bool(how["mirror"])) and float(how["err"]) < raw * Graph.RELABEL_LEFT:
+				n += 1
+	return n
+
+
+## S379 BJJ9R11 (operator on the 50/50 film at 0:14: "not sure what is this ??" - red's head jumped 0.2 m in one frame, the
+## data 5 cm): the 50/50 chain played at 30 fps, the women AS DRAWN (bones read on skeleton_updated, after GrapplePose): no
+## trunk or head bone steps over 5 cm in one frame and none of Spine / Chest / upper arms / hands turns over 45 deg.
+func _drawn(th: Control) -> void:
+	var bones := ["Spine", "Chest", "Neck", "Head", "LeftUpperArm", "RightUpperArm", "LeftHand", "RightHand"]
+	var cache: Array = [{}, {}]
+	var poses: Array = th.get("poses")
+	var hooks: Array = []
+	for w in 2:
+		var skel := (poses[w] as Node).get_parent() as Skeleton3D
+		var hook := func() -> void:
+			var d := {}
+			for b in bones:
+				d[b] = skel.global_transform * skel.get_bone_global_pose(skel.find_bone(b))
+			cache[w] = d
+		skel.skeleton_updated.connect(hook)
+		hooks.append([skel, hook])
+	th.call("load_chain", "fifty_fifty")
+	th.call("set_playing", false)
+	var n := int(float(th.get("total")) * 30.0)
+	var step := 0.0
+	var turn := 0.0
+	var at := ""
+	var prev: Array = [{}, {}]
+	for f in n:
+		th.call("seek", f / 30.0)
+		await process_frame
+		for w in 2:
+			var cur: Dictionary = cache[w]
+			if not (prev[w] as Dictionary).is_empty() and not cur.is_empty():
+				for b in bones:
+					var a: Transform3D = prev[w][b]
+					var c: Transform3D = cur[b]
+					if b in ["Spine", "Chest", "Neck", "Head"] and a.origin.distance_to(c.origin) > step:
+						step = a.origin.distance_to(c.origin)
+						at = "%s %s %.2f s" % [["red", "blue"][w], b, f / 30.0]
+					if b != "Neck" and b != "Head":
+						turn = maxf(turn, rad_to_deg(a.basis.get_rotation_quaternion().angle_to(c.basis.get_rotation_quaternion())))
+			prev[w] = cur
+	for h in hooks:
+		(h[0] as Skeleton3D).skeleton_updated.disconnect(h[1])
+	_check(n > 300 and step <= 0.05 and turn <= 45.0,
+		"fifty_fifty as drawn: worst trunk/head one-frame step %.3f m (%s), worst Spine/Chest/arm/hand turn %.1f deg a frame" % [step, at, turn])
 
 
 func _check(ok: bool, what: String) -> void:

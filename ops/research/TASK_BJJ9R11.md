@@ -48,6 +48,12 @@ below is a guide; his eye and Argon's frames decide.
 S379 theatre (main 2d1cd429, film ops: tmp/s379/theatre/fifty_fifty.mp4): at 'To 50/50' red's pelvis sinks 0.23 m into
 blue's at 14.7 s and red's HEAD jumps 0.2 m in one frame while the data moves 5 cm - our pose code spins her torso the wrong
 way there (GrapplePose aim+roll), not the data. Start with that frame.
+FIXED ON MAIN (S379, 'BJJ9R11 theatre 50/50' commit): two causes. (1) GrapplePose slerped Spine/Chest the short way between
+the hips and shoulder frames; the turn passed 180 deg and they spun ~120 deg in one frame (head 0.2 m) - the drawn pose now
+keeps its last trunk turn / limb rolls (no roll flips: arms, hands and feet too). (2) GrappleMap's 'to 50/50' last keyframe
+is the position relabelled (men swapped + mirrored), so the women flew through each other to trade places - the piggyback;
+GrappleGraph.steady() lays such keyframes back (8 in the DB). Merge main's scripts/grapple/GrapplePose.gd, GrappleGraph.gd and
+GrapplePlayer.gd before touching the pose; tools/theatre_pop_probe.gd measures the drawn one-frame steps per chain.
 
 ## Your job, in this order
 1. Take the idle layer out of moves (the per-keyframe hump in GrapplePlayer.joints_at). At most a slow breath on a HELD

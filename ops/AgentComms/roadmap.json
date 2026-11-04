@@ -3,16 +3,16 @@
  "updated": "2026-11-03",
  "author": "claude S294",
  "now": {
-  "id": "S378",
+  "id": "S379",
   "owner": "claude",
-  "updated": "2026-11-03",
-  "summary": "S378: seat shells fixed fa59bedc - Cursor's 11-03 update ran the repo's PreToolUse hook without CLAUDE_PROJECT_DIR, every shell call exited 2, so LOCOWALK1 ran blind and wrote a sine-wave leg generator (no compile; PR #31 closed). LOCOWALK2 queued on cursor: Ludo's CAPTURED walk presets (walk_backward / backpedal / walk_forward / walk_relaxed) retargeted onto our boxer via clip_gltf, guard arms merged offline, no clip built in code. PLANCOMBO1 d55bb3ca: the Game plan names a GO-TO combination - one of his own drilled combinations decides 40% of the combination exchanges (not 33%) while still thrown whole, picked 1.21x as often in the ring; review workflow 0 defects. Update 74 exported (jump=gameplan, board Test button). FIGHT9R7 running on agy (base 4/10); BJJ9 r10 running on Ziva.",
-  "next_action": "S379, in order: (1) COLLECT LOCOWALK2 (cursor/locowalk2) when it lands - it launches when a PC slot frees (Ziva BJJ9 + agy FIGHT9R7 hold both): open its eyes burst yourself + tools/knockdown_film.gd drawn bars (walk slide p90 <= 0.05 m/s, walk knee jerk p95 <= 4.5 and flips <= 1.5/s, hips <= 0.08 m low, StepRoot travel 0.5-1.5 m a loop); no clip built in code. If Ludo's presets fail the bars, put the mocap-pack purchase to the operator (his money). (2) With good clips: walk_back_guard -> KnockdownCount.WALK_CLIP, then brief FIGHT9 to move the fight's footwork onto the step clips + StepRoot with FootPlant as ground contact only (the knee tremble). (3) FIGHT9 R7 (agy): check each score against its verdict file; collect only at a real 9/10. (4) BJJ9 (Ziva round 10, armbar finish): collect at 9/10. (5) Roster boxer tiles need face photos.",
-  "last_working_commit": "a0dee7ef",
-  "verified_playable": "Update 74 exe (Builds/, 2026-11-03): FightCamp.exe -- jump=gameplan runs headless with 0 errors and opens the Game plan's GO-TO row (TESTJUMP true); the row filmed in the editor build ops/previews/S378/plan_combo_goto.png; combo_plan / game_plan / test_jump + 9 related tests green. Knockdown count (S377) is in this build too.",
-  "incomplete_blocked": "Walk + step clips (LOCOWALK2 queued on cursor); the knee tremble waits on those clips + StepRoot in Footwork; FIGHT9 (4/10 base) and BJJ9 below 9/10; roster boxer tiles without faces.",
-  "next_acceptance": "LOCOWALK1's clips pass the drawn-bone bars in tools/knockdown_film.gd (walk slide p90 <= 0.05 m/s, knee jerk p95 <= 4.5 deg/frame^2, hips <= 0.08 m below rest) and an eyes burst shows real steps; the corner walk then plays in the wide shot without the overhead hide.",
-  "awaiting_operator": "Nothing blocks the next step. Optional: play update 74 (board Test: the plan's go-to combination); delete E:\\FightCamp\\wt\\MERGE_F9BASE; a footwork mocap-pack purchase only if Ludo's presets fail the bars."
+  "updated": "2026-11-04",
+  "summary": "S379: Fight Camp picture cards, hit-pop body callouts and the Grappling theatre are in the game; the 50/50 piggyback is fixed (pose continuity + GrappleMap swapped keyframes); BJJ moved Ziva -> Argon on claude/bjj9base (GrappleMap played straight); FIGHT9 R7 (6/10, knees fixed) is the base, R9 was a real 4/10 (judge parser fixed); films keep 16:9; board has Grappling, verified-only Boxer and PC live pages; Actions cut ~7,100 -> ~2,000 min/week; 21 worktrees retired. DECISION for S380: fix the scheduled agy launch first, then TV camera -> corner-start films -> release FIGHT9R10, then BJJ9R12 on the pose fix.",
+  "last_working_commit": "ae0f4c01",
+  "next_action": "S380, in order: (1) fix seat_dispatch so agy launches from the scheduled reconcile (agy.exe 'exists False' for 10 min -> crash; FIGHT9R8, BJJ9R11) - find agy at call time, requeue on FileNotFoundError; (2) read the tv-broadcast-camera workflow result (claude/tvcam), open tmp/s379/tvcam/knockdown_tv.mp4 with eyes, merge into claude/fight9base; then make judge_film/knockdown_film start with each boxer in his corner (no ring walk-in), walk to centre, fight; then release FIGHT9R10 (dispatch_queue held -> queued); (3) merge main d5173e6e into claude/bjj9base and launch BJJ9R12 on agy; (4) camp protocol matters (fatigue + gain), men's station pictures; (5) queue LOCOWALK4, export update 75.",
+  "verified_playable": "main ae0f4c01: camp_cards_test, callout_pop_test, theatre_test, golden_path_test, fight_flow_test, no_pronoun_test all PASS headless; stills of the camp modal and callouts and the theatre's 50/50 film opened by Claude. Last exe = update 74 (S378); the S379 features are not in an exe yet.",
+  "incomplete_blocked": "TV camera (running), corner-start films, FIGHT9R10 (held), BJJ9R12 (agy scheduled-launch bug), camp protocol barely matters, men's camp pictures, theatre fifty_fifty card, walk clips (LOCOWALK4), update 75.",
+  "next_acceptance": "tools camera probe: no frame with FOV change while rotating/moving, angular speed <= 10 deg/s, never behind a boxer, and the operator's eye on the knockdown film; films open with both boxers in their corners; BJJ9R12 launches from the scheduled reconcile without a crash.",
+  "awaiting_operator": "Nothing blocks. Optional: the NVMe disk (1-2 TB; free M.2 slot on the MSI PRO B650-S WIFI); restart Windows to shrink the 32 GB page file; decide on the 4 self-hosted runner folders on E: (4.5 GB, unused by this repo)."
  },
  "next": "Collect LOCOWALK1 (real walk + step clips, Ludo) against the drawn-bone bars; then FIGHT9 R7 and BJJ9 at a real 9/10.",
  "assessment": {
@@ -4449,7 +4449,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-03 17:40 board_sync",
+  "updated": "2026-11-04 05:40 board_sync",
   "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4590,23 +4590,19 @@
   },
   "working_now": [
    {
-    "title": "TASK LOCOWALK2 - CURSOR - real walking clips from Ludo's captured presets (round 2 of LOCOWALK1)",
-    "who": "cursor",
-    "started": "",
-    "run": "LOCOWALK2",
-    "state": "QUEUED - launches when a PC slot frees"
+    "id": "TVCAM1",
+    "who": "claude",
+    "title": "Fight camera like TV: no zoom while turning, fixed-angle replays, never behind a boxer (workflow on claude/tvcam)"
    },
    {
-    "title": "BJJ9 round 10: the belt match to 9/10 on Argon (armbar finish pose first) - Ziva self-runs the loop",
-    "who": "ziva",
-    "started": "2026-11-03T14:20",
-    "run": "BJJ9R10"
-   },
-   {
-    "title": "TASK FIGHT9R7 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
+    "id": "FIGHT9R10",
     "who": "antigravity",
-    "started": "2026-11-03T17:36",
-    "run": "FIGHT9R7"
+    "title": "FIGHT9 round 10 on Argon from round 7 (6/10) - HELD until the TV camera lands"
+   },
+   {
+    "id": "BJJ9R12",
+    "who": "antigravity",
+    "title": "BJJ belt match on Argon: GrappleMap straight + the 50/50 pose fix (relaunch after BJJ9R11 crashed at launch)"
    }
   ],
   "next": [
@@ -4890,6 +4886,11 @@
    }
   },
   "done_recently": [
+   {
+    "title": "TASK LOCOWALK1 - CURSOR - real walking clips for our boxers (back off in guard, walk in guard, walk relaxed)",
+    "who": "cursor",
+    "when": "2026-11-03"
+   },
    {
     "id": "PLANCOMBO1",
     "who": "claude",

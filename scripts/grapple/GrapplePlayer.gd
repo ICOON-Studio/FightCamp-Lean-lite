@@ -9,6 +9,7 @@ extends Node
 const DB := preload("res://scripts/grapple/GrappleMapDB.gd")
 const Timing := preload("res://scripts/grapple/GrappleTiming.gd")
 const GrappleContact := preload("res://scripts/grapple/GrappleContact.gd")
+const Graph := preload("res://scripts/grapple/GrappleGraph.gd")
 const DATA_LEG_M := 0.86
 const BREATH_M := 0.012
 
@@ -26,8 +27,10 @@ var speed := 1.0
 var paused := false
 
 
+## A recording's relabelled keyframe (the men swapped / mirrored mid-move) is laid back first: GrappleGraph.steady.
 func play(sequence: Dictionary, poses: Array, pair_scale: float, place: Transform3D) -> void:
-	seq = sequence
+	seq = sequence.duplicate()
+	seq["frames"] = Graph.steady(sequence["frames"])
 	_key_t = Timing.key_times(seq["frames"])
 	men = poses
 	scale = pair_scale

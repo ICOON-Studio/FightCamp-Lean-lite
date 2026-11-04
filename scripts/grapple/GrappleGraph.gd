@@ -7,6 +7,12 @@ extends RefCounted
 
 const DB := preload("res://scripts/grapple/GrappleMapDB.gd")
 const GRAPH := "res://assets/grapplemap/graph.json"
+## steady(): a keyframe gap this big (mean joint move, m) that a relabel cuts under RELABEL_LEFT of itself, and under
+## RELABEL_FIT of what the pair turned and shifted alone leaves (the swap / mirror is what fits, not a real big move), is
+## a relabel.
+const RELABEL_GAP_M := 0.3
+const RELABEL_LEFT := 0.5
+const RELABEL_FIT := 0.65
 ## The families shown as the browser's tabs, each a tag set (GrappleMap's own tags).
 const FAMILIES := [["Standing", "standing"], ["Guard", "full_guard"], ["Half guard", "half_guard"], ["Side control", "side_control"],
 	["Mount", "mount"], ["Back", "back"], ["Turtle", "turtle"], ["Takedowns", "double_leg_takedown"], ["Submissions", "kimura"]]
@@ -154,20 +160,58 @@ static func _yaw_fit(a: Array, b: Array) -> Dictionary:
 	return best
 
 
-## Every keyframe of a sequence relabelled and moved by an align() result (and reversed for a backwards move).
+## Every keyframe of a sequence relabelled and moved by an align() result (and reversed for a backwards move), steady().
 static func placed(frames: Array, how: Dictionary, reverse: bool = false) -> Array:
 	var src := frames.duplicate()
 	if reverse:
 		src.reverse()
 	var out: Array = []
-	var xf: Transform3D = how["xform"]
 	for f in src:
-		var men := relabel(f, bool(how["swap"]), bool(how["mirror"]))
-		var placed_men: Array = []
-		for m in men:
-			var p := PackedVector3Array()
-			for v in (m as PackedVector3Array):
-				p.append(xf * v)
-			placed_men.append(p)
-		out.append(placed_men)
+		out.append(lay(f, how))
+	return steady(out)
+
+
+## One keyframe relabelled and moved by an align() result.
+static func lay(frame: Array, how: Dictionary) -> Array:
+	var xf: Transform3D = how["xform"]
+	var out: Array = []
+	for m in relabel(frame, bool(how["swap"]), bool(how["mirror"])):
+		var p := PackedVector3Array()
+		for v in (m as PackedVector3Array):
+			p.append(xf * v)
+		out.append(p)
 	return out
+
+
+## S379 BJJ9R11 (operator on the theatre's 'To 50/50' at 0:14: "not sure what is this ??" - a piggyback, two heads
+## stacked): a few recordings land a keyframe on its position the other way round, the men swapped and mirrored (a
+## symmetric position such as 50/50 is stored one way). 'to 50/50' k7 -> k8 moves the joints 0.79 m on average, 0.10 m
+## once relabelled, so played straight the two bodies flew through each other to trade places in one gap. Such a keyframe
+## (RELABEL_GAP_M / RELABEL_LEFT / RELABEL_FIT) and every one after it are laid back on the keyframe before (align): the
+## gap moves only what really moved. 8 gaps of GrappleMap's 6,237, all swapped + mirrored, left 12-39% of themselves.
+static func steady(frames: Array) -> Array:
+	var out: Array = []
+	var hows: Array = []
+	for f in frames:
+		var cur: Array = f
+		for how in hows:
+			cur = lay(cur, how)
+		if not out.is_empty():
+			var raw := gap(out.back(), cur)
+			if raw > RELABEL_GAP_M:
+				var how := align(out.back(), cur)
+				var turned := float(_yaw_fit(cur, out.back())["err"])
+				if (bool(how["swap"]) or bool(how["mirror"])) and float(how["err"]) < raw * RELABEL_LEFT 						and float(how["err"]) < turned * RELABEL_FIT:
+					hows.append(how)
+					cur = lay(cur, how)
+		out.append(cur)
+	return out
+
+
+## Mean distance between two keyframes' joints (both men), metres.
+static func gap(a: Array, b: Array) -> float:
+	var sum := 0.0
+	for m in 2:
+		for j in DB.JOINTS.size():
+			sum += (a[m] as PackedVector3Array)[j].distance_to((b[m] as PackedVector3Array)[j])
+	return sum / (2.0 * DB.JOINTS.size())

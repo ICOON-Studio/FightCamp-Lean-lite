@@ -60,13 +60,27 @@ PREVIEWS = ROOT / "previews" / "dispatch"
 LOCAL = Path(os.environ.get("LOCALAPPDATA", r"C:\Users\user\AppData\Local"))
 GODOT = LOCAL / "Programs" / "Godot" / "Godot_v4.7.2-stable_win64.exe"
 AGY = LOCAL / "agy" / "bin" / "agy.exe"
-## S370: the first scheduled agy launch (KNEETRACK1, from the 30-min reconcile) died in CreateProcess with WinError 2 while
-## the same launch from a session shell worked - take the first agy.exe that exists, and the runner logs the one it used.
-for _c in (AGY, Path(os.environ.get("USERPROFILE", "C:/Users/user")) / "AppData" / "Local" / "agy" / "bin" / "agy.exe",
-           Path(shutil.which("agy") or "")):
-    if str(_c) not in ("", ".") and _c.is_file():
-        AGY = _c
-        break
+
+
+def find_agy() -> Path | None:
+    """S370/S380: every scheduled agy launch (KNEETRACK1, FIGHT9R2/R3/R8, BJJ9R11) died in CreateProcess with WinError 2
+    while the same launch from a session shell worked. agy was installed from inside the Claude desktop app (an MSIX
+    package), so AppData/Local/agy is a folder only processes INSIDE that package see; its real home is
+    Packages/Claude_*/LocalCache/Local/agy. The scheduled reconcile runs outside the package. Looked up at call time,
+    because agy also replaces its own exe when it updates (S372)."""
+    home = Path(os.environ.get("USERPROFILE", "C:/Users/user")) / "AppData" / "Local"
+    cands = [LOCAL / "agy" / "bin" / "agy.exe", home / "agy" / "bin" / "agy.exe"]
+    for base in {LOCAL, home}:
+        cands += sorted((base / "Packages").glob("Claude_*/LocalCache/Local/agy/bin/agy.exe"))
+    cands.append(Path(shutil.which("agy") or ""))
+    return next((c for c in cands if str(c) not in ("", ".") and c.is_file()), None)
+
+
+class AgyMissing(FileNotFoundError):
+    """agy.exe not found anywhere for the whole wait - the run is requeued, not failed (S380)."""
+
+
+AGY = find_agy() or AGY
 AGY_MODEL = "gemini-4-argon-high"   # S369 operator: "antigravity should have argon now" (agy models lists it; test call OK)
 ## seat -> live_runs agent name, the words a roadmap `who` uses, its model, its run cap (minutes)
 SEATS = {"qwen": {"agent": "qwen", "who": ("qwen",), "model": "qwen3-coder", "minutes": 90},
@@ -734,11 +748,15 @@ def pr_body(task: str, info: dict, checks: list, committed: list, stray: list, b
 
 
 def _agy(wt: Path, prompt: str, out: Path, env: dict) -> subprocess.Popen:
+    exe = None
     for _ in range(20):  # S372: agy replaces its own exe when it updates - FIGHT9R2 found no file for that moment and crashed
-        if Path(AGY).is_file():
+        exe = find_agy()
+        if exe:
             break
         time.sleep(30)
-    cmd =[AGY, "-p", prompt, "--model", AGY_MODEL, "--mode", "accept-edits", "--sandbox", "--print-timeout", "3600s"]   # S372: R2 timed out at 30 min mid-turn
+    if not exe:
+        raise AgyMissing(2, "agy.exe not found (AppData/Local/agy, Packages/Claude_*/LocalCache, PATH)")
+    cmd = [exe, "-p", prompt, "--model", AGY_MODEL, "--mode", "accept-edits", "--sandbox", "--print-timeout", "3600s"]   # S372: R2 timed out at 30 min mid-turn
     fh = open(out, "a", encoding="utf-8")
     return subprocess.Popen([str(c) for c in cmd], cwd=str(wt), stdout=fh, stderr=subprocess.STDOUT, stdin=subprocess.DEVNULL,
                             creationflags=NO_WINDOW, env=env)
@@ -798,7 +816,7 @@ def run(task: str) -> int:
         env = dict(os.environ, GODOT_EXE=str(GODOT))
         env.pop("AGENT_WINDOW", None)
         if seat == "agy":
-            log(f"SEAT {task}: agy = {AGY} (exists {Path(AGY).is_file()}), cwd {wt} (exists {wt.is_dir()})")
+            log(f"SEAT {task}: agy = {find_agy()}, cwd {wt} (exists {wt.is_dir()})")
             text = prompt.read_text(encoding="utf-8").strip()
             sheets = eyes_sheets(str((before or {}).get("film") or ""), str((before or {}).get("verdict_file") or ""), wt)
             if sheets:   # S379: the seat's eyes - it opens these images before touching code
@@ -869,6 +887,10 @@ def run(task: str) -> int:
         if contract.get("loop"):
             log(loop_next(task, contract, before, after, branch, passed == len(checks)))
         return 0
+    except AgyMissing as exc:  # S380: the seat never started - the next reconcile resumes this run in its worktree
+        update_run(task, status="requeue", note=f"S380 seat_dispatch: agy.exe missing at launch, requeued: {exc!r}"[:400])
+        log(f"REQUEUE {task}: {exc!r}")
+        return 3
     except Exception as exc:  # the runner never dies silent: the board shows why
         update_run(task, status="failed", finished=_now(), note=f"S368 seat_dispatch runner crashed: {exc!r}"[:400])
         log(f"CRASH {task}: {exc!r}")
@@ -940,7 +962,30 @@ def loop_next(task: str, contract: dict, before: dict, after: dict, branch: str,
 
 # ---------------------------------------------------------------- entry points
 
+def resume_requeued(act: bool) -> list[str]:
+    """S380: a run whose agy.exe was missing (status `requeue`) restarts its runner in the same worktree once agy is found
+    and no agy is running - the judged BASE film is kept (films() re-run rule), nothing is re-seeded."""
+    lines = []
+    for task, v in (load(RUNS, {}).get("runs", {}) or {}).items():
+        if not (isinstance(v, dict) and v.get("status") == "requeue" and Path(str(v.get("worktree", ""))).is_dir()):
+            continue
+        if not find_agy() or any("agy.exe" in cmd for _, cmd in processes()):
+            lines.append(f"REQUEUE {task}: waiting ({'agy busy' if find_agy() else 'agy.exe still missing'})")
+            continue
+        if act:
+            runner_log = Path(v.get("dispatch", {}).get("runner_log") or WT / f"{task}_dispatch_runner.log")
+            pid = spawn_hidden([sys.executable, Path(__file__).resolve(), "run", task], runner_log, GAME)
+            update_run(task, status="running", dispatch=dict(v.get("dispatch", {}), runner_pid=pid))
+            lines.append(log(f"RESUMED {task}: runner pid {pid} (agy = {find_agy()})"))
+        else:
+            lines.append(f"REQUEUE {task}: dry run: --act restarts its runner")
+    return lines
+
+
 def dispatch(act: bool = False, only: dict | None = None) -> list[str]:
+    resumed = resume_requeued(act) if only is None else []
+    if any("waiting" not in ln for ln in resumed):
+        return resumed   # one agy at a time: a resumed run owns this cycle
     rows = [only] if only else queue_rows()
     if not rows:
         return ["SEAT_DISPATCH queue empty (no plan.next / waiting_seat / dispatch_queue row names qwen, cursor or antigravity)"]

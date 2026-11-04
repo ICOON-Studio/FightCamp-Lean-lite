@@ -112,16 +112,27 @@
   {
    "task": "BJJ9R11",
    "seat": "agy",
-   "status": "launched",
+   "status": "superseded",
    "queued": "2026-11-04T03:41",
-   "launched": "2026-11-04T05:01"
+   "launched": "2026-11-04T05:01",
+   "note": "S380: R11 never ran (agy.exe missing from the scheduled reconcile, fixed 3bf18542); redone as BJJ9R12 on bjj9base 405c0989 (main merged)"
   },
   {
    "task": "FIGHT9R10",
    "seat": "agy",
-   "status": "queued",
+   "status": "held",
    "queued": "2026-11-04T05:59",
-   "loop": "FIGHT9"
+   "loop": "FIGHT9",
+   "note": "S379: held until the TV-camera fix lands on claude/fight9base (operator C222 dizzy camera)"
+  },
+  {
+   "task": "BJJ9R12",
+   "seat": "agy",
+   "status": "launched",
+   "queued": "2026-11-04T06:38",
+   "loop": "BJJ9",
+   "launched": "2026-11-04T06:38",
+   "note": "S380: launched by hand (--task --act) on the merged base"
   }
  ]
 }

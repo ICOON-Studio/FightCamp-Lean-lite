@@ -1,3 +1,29 @@
+# S380 - next session (written S379, 2026-11-04)
+
+START in E:\FightCamp\Lean: `git pull && python ops/Tools/agent_comms.py start`. Digest: ops/research/S379_DIGEST.md.
+
+OPERATOR RULES FROM S379 (memory has them): open every clip with eyes before sending/collecting (yours and other seats');
+pressing contact (leg under an armpit) is normal, only pass-through is a defect; picture cards over text menus; BJJ is
+Argon's (not Ziva's); cameras never zoom while turning, TV broadcast angles, <= 10 deg/s; film clips start with each boxer
+in his corner, walk to centre, fight.
+
+DO IN ORDER:
+1. Fix seat_dispatch agy launch from the scheduled reconcile: agy.exe "exists False" for 10 min then crash (FIGHT9R8,
+   BJJ9R11) while session-shell launches work. Find agy at call time (shutil.which / the shim) and requeue on
+   FileNotFoundError instead of failing.
+2. TV camera: the workflow tv-broadcast-camera (branch claude/tvcam) was running at hand-over - read its verdict, open
+   E:/FightCamp/tmp/s379/tvcam/knockdown_tv.mp4 with eyes, then fight9base. Then films start in the corners (judge_film /
+   knockdown_film skip the ring walk-in). Then release FIGHT9R10 (dispatch_queue status held -> queued).
+3. Merge main's pose fix (d5173e6e) into claude/bjj9base, relaunch BJJ as BJJ9R12 on agy (copy TASK_BJJ9R11 -> R12).
+4. Camp protocol: Hard barely changes the stat and load_setting is never read by the sim - make the protocol matter
+   (fatigue + gain); men's station pictures; regenerate the theatre's fifty_fifty.png card.
+5. Queue LOCOWALK4 on cursor (BASE claude/locowalk3 pushed); export update 75 (camp cards, callouts, theatre).
+
+IN FLIGHT: tv-broadcast-camera workflow (this session's background; result lands in claude/tvcam). FIGHT9R10 HELD.
+NOT DONE: corner-start films; BJJ9R12; update 75; men's camp pictures.
+
+--- S379 notes (written S378) ---
+
 # S379 - next session (written S378, 2026-11-03)
 
 START in E:\FightCamp\Lean: `git pull && python ops/Tools/agent_comms.py start`. Digest: ops/research/S378_DIGEST.md.
