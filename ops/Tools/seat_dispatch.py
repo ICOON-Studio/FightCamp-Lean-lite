@@ -638,6 +638,45 @@ def _agy(wt: Path, prompt: str, out: Path, env: dict) -> subprocess.Popen:
                             creationflags=NO_WINDOW, env=env)
 
 
+def eyes_sheets(mp4: str, verdict_md: str, wt: Path, cap: int = 6) -> list[str]:
+    """S379 (operator: "make argon have a skill like your eyes ... for all agents if possible"): agy may not run programs in
+    headless mode, but it SEES images. Before the seat starts, the dispatcher runs `eyes` on the film the judge scored - one
+    16-frame burst per worst-moment timestamp the verdict names (plus the opening) - into <worktree>/_eyes/, and the prompt
+    tells the seat to open them. Never committed (the dispatcher commits OWNS files only). Returns the sheet paths."""
+    out_dir = wt / "_eyes"
+    if not mp4 or not Path(mp4).is_file():
+        return []
+    try:
+        idx = json.loads(sh(["eyes", "index", mp4, "--json"], timeout=600).stdout or "{}")
+    except (ValueError, OSError):
+        return []
+    ref = str(idx.get("id") or idx.get("ref") or "")
+    if not ref:
+        return []
+    text = Path(verdict_md).read_text(encoding="utf-8", errors="replace") if verdict_md and Path(verdict_md).is_file() else ""
+    worst = text[text.lower().find("worst"):] if "worst" in text.lower() else text
+    times: list[int] = []
+    for mm, ss in re.findall(r"\b(\d{1,2}):(\d{2})\b", worst):
+        t = int(mm) * 60 + int(ss)
+        if all(abs(t - u) > 2 for u in times):
+            times.append(t)
+    times = ([2] + times)[:cap]
+    out_dir.mkdir(parents=True, exist_ok=True)
+    paths: list[str] = []
+    for i, t in enumerate(times):
+        try:
+            b = json.loads(sh(["eyes", "burst", ref, str(t), "--count", "16", "--span", "3", "--width", "1600", "--json"],
+                              timeout=300).stdout or "{}")
+        except (ValueError, OSError):
+            continue
+        src = Path(str(b.get("sheet") or b.get("path") or ""))
+        if src.is_file():
+            dst = out_dir / f"{i:02d}_at_{t // 60}m{t % 60:02d}s.jpg"
+            shutil.copyfile(src, dst)
+            paths.append(dst.as_posix())
+    return paths
+
+
 def run(task: str) -> int:
     info = load(RUNS, {}).get("runs", {}).get(task)
     if not info:
@@ -654,7 +693,15 @@ def run(task: str) -> int:
         env.pop("AGENT_WINDOW", None)
         if seat == "agy":
             log(f"SEAT {task}: agy = {AGY} (exists {Path(AGY).is_file()}), cwd {wt} (exists {wt.is_dir()})")
-            proc = _agy(wt, prompt.read_text(encoding="utf-8").strip(), out, env)
+            text = prompt.read_text(encoding="utf-8").strip()
+            sheets = eyes_sheets(str((before or {}).get("film") or ""), str((before or {}).get("verdict_file") or ""), wt)
+            if sheets:   # S379: the seat's eyes - it opens these images before touching code
+                log(f"EYES {task}: {len(sheets)} sheet(s) in {wt / '_eyes'}")
+                text += ("\n\nEYES FIRST: before you change any code, open EVERY image in " + (wt / "_eyes").as_posix()
+                         + " with your file read tool - 16-frame contact sheets of the film the judge scored, one per worst "
+                         "moment it named (file name = the film time). Write what you see in each (bodies inside bodies, "
+                         "trembling, pops, limbs in the air) at the top of your output, then fix what you saw.")
+            proc = _agy(wt, text, out, env)
         else:
             wrapper = ROOT / "Tools" / ("qwen_task.cmd" if seat == "qwen" else "cursor_task.cmd")
             proc = subprocess.Popen(["cmd", "/c", str(wrapper), str(prompt), str(wt), str(out)], cwd=str(GAME),

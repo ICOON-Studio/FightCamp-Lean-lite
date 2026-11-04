@@ -22,6 +22,30 @@ One layer off at a time on the r10 bout:
   but the drawn skeleton never reaches them (drawn elbows sit 0.213 m off their joints p95, knees 0.149 m).
 - `noblend` makes it WORSE (holds 496 -> 3,284) - keep the blend. carry / feints / floors / impact / grip / IK: little change.
 
+## S379 LATER - CLAUDE ALREADY DID ITEMS 1-3 ON YOUR BASE (967a79bd): the match plays GrappleMap STRAIGHT
+Operator C221: "why on grapplemap the clips played fine, why you dont use them straight in the game" (and he linked
+https://eel.is/GrappleMap - its own player, the look to match). GrapplePlayer.on(): idle / push-out / carry / impact / route /
+built finish are OFF by default (`-- with<layer>` turns one on for a measurement); blend, floors, feints stay. Same bout:
+joint jerk p95 elbows ~2,100 -> 119-269 m/s^3, flips 3.75 -> 0.2-0.3 a second. Do NOT turn those layers back on.
+WHAT IS LEFT (your round): GrappleMap's player draws tube figures built ON the recorded joints, so nothing is ever refitted;
+we drive MetaHuman skeletons with other bone lengths and thicker flesh:
+- one-frame POPS where two transitions join (worst 0.48 m, KIM wristR at 43.8 s; the max jerk is still 13,000-26,000) -
+  align the next transition's first frame to the last one drawn (it is the same GrappleMap position: match by joints).
+- DRAWN BONES OFF THEIR JOINTS (elbows ~0.21 m, knees ~0.15 m p95): retarget by bone DIRECTION from the data with our own
+  bone lengths, root at the hips, then IK only the hands and feet that grip/post - so the drawn body follows the data.
+- THICK BODIES OVERLAP (thighs 0.20 m into the other trunk; it is in the data's geometry at our size): per-pair scale or a
+  small sideways offset of the whole partner per position, solved once per position (never per frame).
+GRAPPLEMAP'S OWN PLAYER (public domain) is on your BASE in ops/research/grapplemap_player/ (playback, interpolation,
+joint radii, the tube drawer) - read it to see why it plays smooth. You cannot browse the web; everything is in the worktree.
+Items 1-3 below are done - keep them done; do 4-6 and the three above.
+
+OPERATOR S379 on the grappling board page: "most grappling animation look good except the 'to 50/50'" - his still shows the
+two women fused into one body at the 50/50 entry. Fix that transition first among the overlaps.
+And on the straight-play film (claude/bjj9base, 0:40.1, one leg under the other's armpit) he said: "it is normal looking" -
+real grappling contact is SUPPOSED to press limbs into armpits, hips and chests. Do not push the bodies apart where the
+data has them in contact; fix only what reads as one body passing THROUGH the other (his "to 50/50"). The overlap bar
+below is a guide; his eye and Argon's frames decide.
+
 ## Your job, in this order
 1. Take the idle layer out of moves (the per-keyframe hump in GrapplePlayer.joints_at). At most a slow breath on a HELD
    position (chest, under 1 cm, ~0.25 Hz), never on limbs while a move plays.

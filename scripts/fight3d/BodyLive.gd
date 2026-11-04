@@ -13,6 +13,7 @@ const UI := preload("res://scripts/ui/TV.gd")  # S333: fight graphics keep the d
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const BodyTip := preload("res://scripts/ui/BodyTip.gd")
 const BodyCallouts := preload("res://scripts/ui/BodyCallouts.gd")
+const CalloutLine := preload("res://scripts/ui/CalloutLine.gd")
 
 ## S320 (operator C145: "each of these needs to be on each fighters side"): each boxer's figure stands at her own edge
 ## of the screen - hers (red) on the left under the scorebug, the opponent's (blue) on the right - drawn on her own body
@@ -34,6 +35,7 @@ var stats := [{"thrown": 0, "landed": 0, "jab_t": 0, "jab_l": 0, "pow_t": 0, "po
 var _stat_labels: Array = []
 ## S348 (C199): what each place took, per boxer ({place: BodyTip.log_hit entry}); her tooltip on a place reads it.
 var taken := [{}, {}]
+var _catching := false   # SKIP ROUND lands the rest at once: no close-up pops for those
 
 
 static func attach(v: Control) -> Node:
@@ -68,10 +70,13 @@ func _build() -> void:
 		if still.get("holo", false) or not BodyTurn.attach(fig, glb, CORNER[side]):
 			fig.set_portrait(still)
 		col.add_child(fig)
-		fig.tip_fn = _place_tip.bind(side)
+		fig.tip_fn = _fig_tip.bind(fig, side)
 		BodyTip.attach(fig)
 		# S348 the operator's anatomy-chart pictures: close-ups of her head, liver and ribs in the strip at the screen edge.
+		# S379 hidden until a punch lands there (or the mouse is on that place); the line under it is _spot_line.
 		var co := BodyCallouts.attach(fig, still, -1.0 if side == 0 else 1.0, _place_tip.bind(side))
+		if co != null:
+			co.set("line_fn", _spot_line.bind(side))
 		if co != null and map.has(CORNER_WHO[side]):
 			co.set("marks", map[CORNER_WHO[side]])   # S354 C202: her cuts and swelling on the face close-up
 		_stat_labels.append(fig)
@@ -135,6 +140,9 @@ func _apply(b: Dictionary) -> void:
 	var co: Node = fig.get_node_or_null("BodyCallouts")
 	if co != null:
 		co.set("marks", map[def])
+		for p in BodyMap.PLACES:   # S379 the struck place's close-up pops out (a jab's nose and head are the one HEAD card)
+			if float(vals[p]) < float(before[p]) and not _catching:
+				co.call("struck", p)
 
 
 ## Her tooltip on `place`: what landed there this bout, how hurt it is, a cut (C199).
@@ -144,6 +152,27 @@ func _place_tip(place: String, side: int) -> String:
 	return BodyTip.text(place, BodyMap.value(map, who, place), (taken[side] as Dictionary).get(place, {}),
 		BodyMap.value(map, who, "head"), bool((m.get("cuts", {}) as Dictionary).get(place, false)),
 		bool((m.get("closed", {}) as Dictionary).get(place, false)))
+
+
+## S379 the figure's own tooltip on a place: none where a close-up covers it (that card, popped in the strip, is the
+## tooltip - BodyCallouts reads the hover); off a place, her punch stats and the key (extra_tip).
+func _fig_tip(place: String, fig: Control, side: int) -> String:
+	if fig.get_node_or_null("BodyCallouts") != null and BodyCallouts.spot_of(place) >= 0:
+		return ""
+	return _place_tip(place, side)
+
+
+## S379 the line under a close-up: its worst place's value, what landed on its place, an open cut on her face.
+func _spot_line(s: Dictionary, side: int) -> String:
+	var who := "a" if side == 0 else "b"
+	var m: Dictionary = map[who]
+	var worst := 100.0
+	var cut := false
+	for p in s["places"]:
+		worst = minf(worst, BodyMap.value(map, who, str(p)))
+		cut = cut or (bool((m.get("cuts", {}) as Dictionary).get(p, false))
+			and not bool((m.get("closed", {}) as Dictionary).get(p, false)))
+	return CalloutLine.line(str(s["name"]), worst, (taken[side] as Dictionary).get(str(s["at"]), {}), str(s["at"]) != "head", cut)
 
 
 ## The two stat blocks: landed/thrown and accuracy, jabs, power punches, to the body.
@@ -159,6 +188,7 @@ func _paint_stats() -> void:
 ## SKIP ROUND: the round is settled (Bouts "round_out"); its unwatched exchanges are built into the view's beats and
 ## every punch not yet played lands on the map now, so a skipped round still leaves its marks.
 func catch_up() -> void:
+	_catching = true
 	for k in range(int(view._ex_done), Exchanges.EXCHANGES):
 		view._queue(view.main.modal, k)
 	var rest: Array = (view.beats as Array).slice(int(view.next))
@@ -171,6 +201,7 @@ func catch_up() -> void:
 			_apply(b)
 	_paint_stats()
 	view.next = (view.beats as Array).size()
+	_catching = false
 
 
 ## The round's bell: the corner's one-round fixes run out (BodyMap.end_round).

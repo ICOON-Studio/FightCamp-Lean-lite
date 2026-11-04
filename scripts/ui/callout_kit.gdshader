@@ -13,5 +13,6 @@ void fragment() {
 	float blue_kit = smoothstep(0.06, 0.18, c.b - max(c.r, c.g));
 	float kit = max(red_kit, blue_kit) * step(0.2, UV.y) * (1.0 - holo);
 	// (COLOR here already holds the texture: multiplying by it again painted the kit back, S348 still)
-	COLOR = vec4(mix(c.rgb * 0.92, clay_col.rgb * clamp(0.35 + 1.6 * lum, 0.3, 1.15), kit), c.a);
+	// S379 COLOR.a = the texture alpha times the card's modulate, so the close-up fades with its pop tween.
+	COLOR = vec4(mix(c.rgb * 0.92, clay_col.rgb * clamp(0.35 + 1.6 * lum, 0.3, 1.15), kit), COLOR.a);
 }

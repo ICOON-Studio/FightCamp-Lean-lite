@@ -1,52 +1,151 @@
 extends PanelContainer
-## SET CAMP: pick what the camp builds (focus), how hard (protocol) and film study on the opponent. The camp also cuts
-## her to the limit.
+## SET CAMP. S379 CAMPCARDS (operator on docs/mockups/fight_camp_cards.png: "looks ok, build it in the game"): the fighter
+## on the left (CampSide: face, record, the six stats with the camp's stat and its fight-night forecast, fatigue, weight);
+## five camp cards on the right, one per BoutRules.CAMP_FOCUSES (CampCard: the station picture, "<Stat> ++", now -> fight
+## night); the protocol row (cost, the training load it sets, the edge on the night) and film study under them; one summary
+## line and Later / Start in the footer. The picks go through BoutActs as before (cfocus / cproto / cfilm / startcamp,
+## Bouts.start_camp writes the camp); the forecasts are CampForecast's dry run of the real training days. A pick redraws
+## the modal and every number that changed counts on from what was shown (operator: animated meters).
 
 const UI := preload("res://scripts/ui/UI.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
+const CampForecast := preload("res://scripts/state/CampForecast.gd")
+const CampCard := preload("res://scripts/ui/CampCard.gd")
+const CampSide := preload("res://scripts/ui/CampSide.gd")
+const WB := preload("res://scripts/ui/WhiteboardKit.gd")
+
+const W := 1620.0
+const OPTION_H := 112.0
+const KICKER := Color("#3b4250")
+
+## The modal dict the last draw showed and its numbers: a pick redraws with the same dict, a new SET CAMP opens a new one.
+static var _last_m: Dictionary = {}
+static var _shown: Dictionary = {}
 
 
 func build(main: Node, m: Dictionary) -> void:
 	theme_type_variation = "Modal"
-	custom_minimum_size = Vector2(980, 0)
+	custom_minimum_size = Vector2(W, 0)
 	var c: Career = main.career
 	var f: Dictionary = c.fighter_by_id(str(m["fid"]))
 	var opp: Dictionary = f["bout"]["opp"]
-	var v := UI.vbox(10)
+	var focus := str(m["focus"])
+	var proto := int(m["protocol"])
+	var film := bool(m["film"])
+	var fc := CampForecast.all(c, f, proto)
+	var mine: Dictionary = fc[focus] if fc.has(focus) else CampForecast.run(c, f, focus, proto)
+	var before: Dictionary = _shown if is_same(m, _last_m) else {}
+	_last_m = m
+	var v := UI.vbox(0)
 	add_child(v)
-	v.add_child(UI.caps("%s VS %s, %s" % [str(f["name"]).to_upper(), str(opp["name"]).to_upper(), Clock.fmt(int(f["bout"]["day"])).to_upper()]))
-	v.add_child(UI.display("FIGHT CAMP", 48))
-	v.add_child(UI.muted("Pick what the camp builds. It also cuts weight to %.1f kg (%.1f kg now)." % [f["limit"], f["weight"]], UI.BODY, true))
-	v.add_child(UI.caps("FOCUS"))
-	var focus_row := UI.hbox(8)
+	v.add_child(UI.label("%s VS %s, %s" % [str(f["name"]).to_upper(), str(opp["name"]).to_upper(), Clock.fmt(int(f["bout"]["day"])).to_upper()],
+		15, KICKER, "caps"))
+	v.add_child(UI.display("FIGHT CAMP", 46))
+	v.add_child(UI.label("%d days to fight night. Pick what the camp builds - it also cuts %s to %.1f kg (%.1f kg now)." % [
+		int(mine["days"]), f["first"], f["limit"], f["weight"]], 19, CampCard.SUB, "body", true))
+	_gap(v, 16)
+	var grid := UI.hbox(34)
+	v.add_child(grid)
+	grid.add_child(CampSide.make(f, focus, mine, before))
+	var right := UI.vbox(0)
+	right.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	grid.add_child(right)
+	right.add_child(UI.label("WHAT THE CAMP BUILDS", 14, KICKER, "caps"))
+	_gap(right, 10)
+	var cards := UI.hbox(16)
+	cards.name = "Cards"
+	right.add_child(cards)
+	var ends := {}
+	var was: Dictionary = before.get("cards", {})
 	for key in BoutRules.CAMP_FOCUSES:
-		var b := UI.button(Data.LABEL[key], "ChoiceOn" if str(m["focus"]) == key else "Choice", main.act.bind("cfocus", key))
-		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		b.name = "Focus_" + key
-		focus_row.add_child(b)
-	v.add_child(focus_row)
-	v.add_child(UI.caps("PROTOCOL"))
-	var proto_row := UI.hbox(8)
+		var now := float(f["stats"].get(key, 0.0))
+		var end := float((fc[key]["stats"] as Dictionary).get(key, now))
+		ends[key] = end
+		cards.add_child(CampCard.card(main, f, key, key == focus, now, end, float(was.get(key, now)),
+			str(before.get("focus", "")) != focus))
+	_gap(right, 22)
+	right.add_child(_options(main, f, opp, proto, film))
+	_gap(v, 26)
+	var rule := ColorRect.new()   # 2 px: a 1-px line can vanish when the window scales the frame down
+	rule.color = UI.LINE
+	rule.custom_minimum_size = Vector2(0, 2)
+	rule.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	v.add_child(rule)
+	_gap(v, 18)
+	var cost := BoutRules.camp_cost(proto, film)
+	v.add_child(_footer(main, f, focus, proto, film, int(mine["days"]), float(before.get("cost", cost))))
+	_shown = {"cards": ends, "peak": float(mine["peak"]), "kg": float(mine["kg"]), "cost": cost, "focus": focus,
+		"band": str(WB.fatigue_word(float(mine["peak"]), false)[0])}
+
+
+## Light / Standard / Hard (cost, the training load the camp sets, the edge on the night) and the film study switch.
+func _options(main: Node, f: Dictionary, opp: Dictionary, proto: int, film: bool) -> HBoxContainer:
+	var row := UI.hbox(14)
+	row.name = "Protocols"
 	for i in [1, 2, 3]:
 		var p: Dictionary = BoutRules.PROTOCOLS[i]
-		var on: bool = int(m["protocol"]) == int(i)
-		var b := UI.button2(p["name"], p["blurb"], "ChoiceOn" if on else "Choice", main.act.bind("cproto", str(i)),
-			Vector2(0, 64), UI.FG, UI.MUTED)
-		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		b.name = "Protocol_%d" % i
-		proto_row.add_child(b)
-	v.add_child(proto_row)
-	var film := UI.button2("Film study on %s: %s" % [opp["name"], "yes, %s" % UI.money(BoutRules.FILM_COST) if bool(m["film"]) else "no"],
-		"the opponent's past bouts on film: watch them in the tape room, answer them in the plan (click to switch)",
-		"ChoiceOn" if bool(m["film"]) else "Choice", main.act.bind("cfilm", ""), Vector2(0, 64), UI.FG, UI.MUTED)
-	film.name = "Film"
-	v.add_child(film)
-	var cost := BoutRules.camp_cost(int(m["protocol"]), bool(m["film"]))
-	var foot := UI.hbox(10)
+		var parts := str(p["blurb"]).split(", ")
+		var ld := CampForecast.load_of(f, i)
+		var load := "load %s" % ld["label"] + ((" (%.1fx the usual)" % float(ld["ratio"])) if str(ld["band"]) != "safe" else "")
+		var risk_col: Color = UI.RED if str(ld["band"]) == "spike" else (UI.AMBER if str(ld["band"]) == "high" else CampCard.SUB)
+		var b := CampCard.option("Protocol_%d" % i, str(p["name"]), " - ".join(parts.slice(0, 2)),
+			"%s - edge on the night +%.1f" % [load, float(p["edge"])], risk_col, proto == i, main.act.bind("cproto", str(i)), OPTION_H)
+		row.add_child(b)
+	var fb := CampCard.option("Film", "Film study on %s: %s" % [opp["name"], "yes, %s" % UI.money(BoutRules.FILM_COST) if film else "no"],
+		"the opponent's past bouts in the tape room - answer them in the plan (click to switch)", "", CampCard.SUB, film,
+		main.act.bind("cfilm", ""), OPTION_H)
+	fb.size_flags_stretch_ratio = 1.25
+	row.add_child(fb)
+	return row
+
+
+## "Conditioning camp, Standard - 25 days - $450 (camp $300 + film $150)" and Later / Start the camp, $<cost>.
+func _footer(main: Node, f: Dictionary, focus: String, proto: int, film: bool, days: int, cost_was: float) -> HBoxContainer:
+	var foot := UI.hbox(12)
+	foot.name = "Footer"
+	var camp_cost := int(BoutRules.PROTOCOLS[proto]["cost"])
+	var cost := BoutRules.camp_cost(proto, film)
+	var head := "%s camp, %s - %d days - " % [Data.LABEL[focus], BoutRules.PROTOCOLS[proto]["name"], days]
+	var sum := UI.label("", 27, UI.FG, "handbold")
+	sum.name = "Summary"
+	CampCard.count(sum, cost_was, cost, func(x: float) -> String: return head + _money(x))
+	foot.add_child(sum)
+	var why := "camp %s" % (UI.money(camp_cost) if camp_cost > 0 else "free")
+	why += (" + film %s" % UI.money(BoutRules.FILM_COST)) if film else ", no film study"
+	var parts := UI.label("(%s)" % why, 21, UI.MUTED, "hand")
+	parts.name = "SummaryParts"
+	parts.size_flags_vertical = Control.SIZE_SHRINK_END
+	foot.add_child(parts)
+	if not is_equal_approx(cost_was, float(cost)):
+		CampCard.pulse(sum)
 	foot.add_child(UI.spacer())
-	foot.add_child(UI.button("Later", "BtnQuiet", main.act.bind("close", "")))
-	var start := UI.button("Start the camp" + (", " + UI.money(cost) if cost > 0 else ""), "BtnSolid", main.act.bind("startcamp", ""))
+	var later := UI.button("Later", "BtnQuiet", main.act.bind("close", ""))
+	later.name = "Later"
+	foot.add_child(_big(later))
+	var start := UI.button("", "BtnSolid", main.act.bind("startcamp", ""))
 	start.name = "StartCamp"
-	foot.add_child(start)
-	v.add_child(foot)
+	start.tooltip_text = "%s's camp starts today: %s" % [f["first"], why]
+	CampCard.count(start, cost_was, cost, func(x: float) -> String:
+		return "Start the camp" + (", " + UI.money(int(round(x))) if int(round(x)) > 0 else ""))
+	foot.add_child(_big(start))
+	return foot
+
+
+static func _money(x: float) -> String:
+	var n := int(round(x))
+	return UI.money(n) if n > 0 else "free"
+
+
+static func _big(b: Button) -> Button:
+	b.add_theme_font_size_override("font_size", 18)
+	b.custom_minimum_size = Vector2(0, 48)
+	b.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	return b
+
+
+static func _gap(box: Container, h: int) -> void:
+	var g := Control.new()
+	g.custom_minimum_size = Vector2(0, h)
+	g.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	box.add_child(g)

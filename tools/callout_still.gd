@@ -21,6 +21,7 @@ func _initialize() -> void:
 	bg.size = Vector2(900, 520)
 	root.add_child(bg)
 	var figs := []
+	var cos := []
 	for side in 2:
 		var glb := Faces.glb(["mh_boxer_11", "mh_boxer_13"][side])
 		var corner: String = ["red", "blue"][side]
@@ -38,9 +39,15 @@ func _initialize() -> void:
 		# S354 C202: a cut over her left eye and a swollen right eye (red); a cut nose and a shut left eye (blue).
 		co.marks = {"cuts": {"nose": true}, "closed": {"left_eye": true}} if side == 1 else {"cuts": {"left_eye": true}, "closed": {}}
 		figs.append(fig)
+		cos.append(co)
 	for i in 20:
 		await process_frame
 	figs[1].hit("right_ribs", "body hook")
+	for co in cos:   # S379 the close-ups hide until a hit: pop all three for the art check (tools/callout_pop_still.gd plays them)
+		for p in ["head", "right_ribs", "left_ribs"]:
+			co.struck(p)
+	for i in 12:
+		await process_frame
 	await process_frame
 	await process_frame
 	await RenderingServer.frame_post_draw
