@@ -649,6 +649,12 @@ def judge(mp4: Path, what: str, intent: str) -> dict:
     p = sh([sys.executable, ROOT / "Tools" / "gemini_judge.py", mp4, "--model", "argon", "--fps", "24", "--what", what,
             "--intent", intent, "--kind", kind], timeout=900)
     md = mp4.with_suffix(".gemini_argon.md")
+    if p.returncode != 0 or not md.is_file():
+        # S380 operator (Gemini API prepay out, HTTP 402): "Judge by Claude's eyes" - contact sheets + Claude headless, the
+        # same prompt and verdict file (Tools/claude_judge.py); a Gemini failure no longer stops the loop
+        cj = sh([sys.executable, ROOT / "Tools" / "claude_judge.py", mp4, "--kind", "bjj" if kind == "bjj" else "fight",
+                 "--what", what, "--intent", intent], timeout=2400)
+        log(f"JUDGE {what}: Gemini failed (rc {p.returncode}), Claude's eyes: {(cj.stdout or cj.stderr).strip()[-160:]}")
     score, line = read_verdict(md.read_text(encoding="utf-8", errors="replace") if md.is_file() else "")
     return {"film": mp4.as_posix(), "verdict_file": md.as_posix() if md.is_file() else "", "score": score, "line": line,
             "rc": p.returncode, "err": "" if md.is_file() else (p.stdout + p.stderr)[-300:]}

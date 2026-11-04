@@ -3,7 +3,7 @@ extends SceneTree
 ## THE FIGHTER UNIQUE D INDETIFIABLE, make it abig bigger maybe and make the fighters pose like ufc fighters pose"): each
 ## boxer's profile picture is a fight-card promo shot - a dark studio, a key light and two coloured rim lights, the
 ## body square to the lens from the waist up, the face open above the gloves and the eyes into the camera (a
-## LookAtModifier3D turns the head and neck to the lens). Same body, kit and gloves as the fight (FighterKit / Gloves).
+## head is pitched up to the lens). Same body and kit as the fight (FighterKit); S380 second pass: no gloves.
 ##   python tools/hidden_desktop.py run --timeout=900 <godot.exe> --path . --windowed --resolution 720x900 \
 ##       --audio-driver Dummy --script res://tools/bake_promo.gd [-- stems=mh_boxer_01,mh_boxer_10] [poses=clip@s,...]
 ## Writes assets/ui/face/<stem>.jpg (W x H, the file HomeBoard.portrait shows); with poses= several, test shots go to
@@ -11,7 +11,6 @@ extends SceneTree
 
 const MH := preload("res://scripts/fight3d/MHRig.gd")
 const Kit := preload("res://scripts/fight3d/FighterKit.gd")
-const Gloves := preload("res://scripts/fight3d/Gloves.gd")
 const FightClips := preload("res://scripts/fight3d/FightClips.gd")
 const Stage := preload("res://scripts/fight3d/FightStage.gd")
 
@@ -24,7 +23,7 @@ const BELT_M := 0.12         # the frame's bottom: just over the hips (the belt 
 const TOP_M := 0.30          # the frame's top: over the head bone (the crown + a little air)
 const LENS_H := 0.10         # the lens a little over the frame's middle: a touch down on the chest, level with the eyes
 const CHIN_DEG := -24.0      # pitch added to the clip about the lens axis (minus = chin up)
-const POSE := ["af_idle_foldarms", 1.0]   # arms folded, gloves on: the fight-poster stance; the guard hid the face
+const POSE := ["af_idle_foldarms", 1.0]   # arms folded, bare hands: the fight-poster stance; the guard hid the face
 const BG := Color(0.035, 0.04, 0.05)
 const RIM_A := Color(0.95, 0.25, 0.2)    # warm rim, the fighter's left
 const RIM_B := Color(0.25, 0.55, 1.0)    # cool rim, the fighter's right
@@ -65,10 +64,7 @@ func _initialize() -> void:
 		Kit.colour_vest(body, Stage.VESTS["red"], Stage.CLOTH_ROUGHNESS)   # as BoxerBuild dresses the red corner
 		Kit.cloth_normals(body)
 		Kit.dress(body, glb, "boxing")
-		var gloves := Gloves.new()
-		gloves.name = "Gloves"
-		body.add_child(gloves)
-		gloves.mount(body, Stage.CORNERS["red"][0], Stage.CORNERS["red"][1])
+		# S380 operator: "make them pose without gloves on" - bare hands, arms folded (no Gloves node)
 		root.add_child(body)
 		await process_frame
 		var skel := body.find_children("*", "Skeleton3D", true, false)[0] as Skeleton3D
