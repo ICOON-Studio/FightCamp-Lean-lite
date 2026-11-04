@@ -111,8 +111,9 @@ func _decide(policy: String, c: Career) -> void:
 		if Injuries.pending(f):
 			main.act("fighthurt" if habits["unsafe_bouts"] else "pullout", str(f["id"]))
 		# S326 update 29 the weekly load: careless with hard_weeks trains Hard every week; the sensible player trains Normal
-		# (camp included) and rests the week after a bout.
-		var want := "hard" if habits["hard_weeks"] else "normal"
+		# (camp included) and rests the week after a bout. S380: NO-OP since S354/S380 - the sim reads the week's sessions
+		# (WeekPlan) and the camp's protocol, never load_setting; hard_weeks needs the planner's Hard mornings to mean anything.
+		var want :="hard" if habits["hard_weeks"] else "normal"
 		if policy == "sensible":
 			var mine: Array = c.results.filter(func(r): return str(r.get("fid", "")) == str(f["id"]))
 			var since := c.day - int(mine[0]["d"]) if not mine.is_empty() else 99

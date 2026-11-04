@@ -30,6 +30,9 @@ func _check(cond: bool, label: String) -> void:
 
 
 func _danny(c: Career) -> Dictionary:
+	# S380: quick_start seeds randi(); ~1 run in 40 a training injury rested him mid-cut (60.12 kg vs 59.79 forecast - the
+	# forecast has no injuries). A fixed seed keeps the test about the forecast.
+	c.seed = 1
 	var p := Roster.prospect(c, "danny")
 	p["state"] = "invited"
 	var f := Roster.sign_prospect(c, "danny", ["signature"])

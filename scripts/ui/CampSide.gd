@@ -15,8 +15,8 @@ const CampCard := preload("res://scripts/ui/CampCard.gd")
 const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
 
 const W := 330.0
-const FACE := Vector2(298, 200)
-const FACE_Y := 0.2   # where the crop sits down the face shot (the head, not the glove)
+const FACE := Vector2(298, 300)   # S380 bigger: the promo shot (tools/bake_promo.gd) head to folded arms
+const FACE_Y := 0.0   # where the crop sits down the face shot: from its top (the head, the arms below)
 const STATS := ["conditioning", "power", "technique", "defense", "speed", "chin"]
 const PAPER := Color("#fbfaf7")
 const INK2 := Color("#374151")
@@ -101,8 +101,9 @@ static func _fatigue(fc: Dictionary, before: Dictionary) -> VBoxContainer:
 	var t := UI.label("", 16, INK2, "body", true)
 	t.name = "FatigueLine"
 	CampCard.count(t, float(before.get("peak", now)), peak, func(x: float) -> String:
-		return "Fatigue now: %s (%d) - this camp peaks near %d, fight night %d" % [str(wn[0]).to_lower(), int(round(now)),
-			int(round(x)), int(round(float(fc["fatigue_end"])))])
+		var st := float(fc.get("stale", 0.0))   # S380 heavy legs (BoutRules.stale_energy)
+		return "Fatigue now: %s (%d) - this camp peaks near %d, fight night %d%s" % [str(wn[0]).to_lower(), int(round(now)),
+			int(round(x)), int(round(float(fc["fatigue_end"]))), (" - heavy legs: -%d energy at the first bell" % int(round(st))) if st > 0.0 else ""])
 	box.add_child(t)
 	var line := UI.hbox(10)
 	var bar := UI.meter(peak / 100.0, wp[2], [WeekPlan.OVERREACHED / 100.0], 200.0)

@@ -13,6 +13,7 @@ const BoutNight := preload("res://scripts/state/BoutNight.gd")
 const OppFile := preload("res://scripts/rules/OppFile.gd")
 const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
+const CampForecast := preload("res://scripts/state/CampForecast.gd")
 
 const SIMS := 20
 const TESTS_A_CAMP := 3
@@ -42,6 +43,9 @@ static func run(c: Career, f: Dictionary, arrows: Array) -> Dictionary:
 	var stopped := 0
 	var moves := {}      # arrow id -> [worked, used]
 	var rounds := [0, 0] # rounds won, rounds fought
+	# S380: a test mid-camp fights with fight night's heavy legs (the forecast after the taper), not today's fatigue
+	var camp: Dictionary = f.get("camp", {})
+	var night_stale := 0.0 if camp.is_empty() else float(CampForecast.run(c, f, str(camp.get("focus", "")), int(camp.get("protocol", 0)))["stale"])
 	for k in SIMS:
 		var sc := Career.new()
 		sc.day = DICE_DAY + k * 7
@@ -50,6 +54,7 @@ static func run(c: Career, f: Dictionary, arrows: Array) -> Dictionary:
 		var sf: Dictionary = f.duplicate(true)
 		sf["arrows"] = arrows.duplicate(true)
 		sf["bout"]["film"] = OppFile.film_depth(sf["bout"]["opp"])
+		sf["bout"]["stale"] = night_stale
 		sc.fighters = [sf]
 		var m := BoutNight.fight_modal(sf)
 		BoutNight.play_out(sc, sf, m)

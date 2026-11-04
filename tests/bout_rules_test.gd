@@ -34,6 +34,18 @@ func _test_camp() -> void:
 	_check(is_equal_approx(BoutRules.camp_gain_mult(camp, "conditioning"), 1.35), "a hard camp trains its focus x1.35")
 	_check(is_equal_approx(BoutRules.camp_gain_mult(camp, "power"), 1.0), "off the focus the camp adds nothing")
 	_check(is_equal_approx(BoutRules.camp_gain_mult({}, "conditioning"), 1.0), "no camp, no multiplier")
+	# S380 the protocol's evenings and heavy legs
+	var ev0 := BoutRules.camp_evening({})
+	var ev3 := BoutRules.camp_evening({"focus": "power", "protocol": 3})
+	var ev1 := BoutRules.camp_evening({"focus": "power", "protocol": 1})
+	_check(float(ev0["drill"]) == 0.0 and float(ev0["load"]) == 1.0, "no camp: plain evenings")
+	_check(str(ev3["stat"]) == "power" and is_equal_approx(float(ev3["drill"]), 0.09) and is_equal_approx(float(ev3["load"]), 1.2),
+		"a Hard camp's pads drill its stat at 0.09, evenings x1.2")
+	_check(float(ev1["drill"]) == 0.0 and is_equal_approx(float(ev1["load"]), 0.75), "a Light camp keeps plain pads, evenings x0.75")
+	_check(BoutRules.stale_energy(50.0) == 0.0 and is_equal_approx(BoutRules.stale_energy(54.0), 8.0) and BoutRules.stale_energy(75.0) == 20.0,
+		"heavy legs: 0 at 50 fatigue, 8 at 54, capped 20")
+	_check(BoutRules.stale_energy(70.0, {}) == 0.0 and BoutRules.stale_energy(70.0, {"protocol": 0}) == 0.0, "no camp, no heavy legs")
+	_check(BoutRules.camp_level(3) == "hard" and BoutRules.camp_level(1) == "light" and BoutRules.camp_level(2) == "normal", "camp levels")
 
 
 func _test_weigh() -> void:

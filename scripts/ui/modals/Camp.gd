@@ -65,7 +65,7 @@ func build(main: Node, m: Dictionary) -> void:
 		cards.add_child(CampCard.card(main, f, key, key == focus, now, end, float(was.get(key, now)),
 			str(before.get("focus", "")) != focus))
 	_gap(right, 22)
-	right.add_child(_options(main, f, opp, proto, film))
+	right.add_child(_options(main, c, f, opp, focus, proto, film, mine))
 	_gap(v, 26)
 	var rule := ColorRect.new()   # 2 px: a 1-px line can vanish when the window scales the frame down
 	rule.color = UI.LINE
@@ -79,18 +79,22 @@ func build(main: Node, m: Dictionary) -> void:
 		"band": str(WB.fatigue_word(float(mine["peak"]), false)[0])}
 
 
-## Light / Standard / Hard (cost, the training load the camp sets, the edge on the night) and the film study switch.
-func _options(main: Node, f: Dictionary, opp: Dictionary, proto: int, film: bool) -> HBoxContainer:
+## Light / Standard / Hard (cost, S380 her fatigue on fight night - fresh or heavy legs - and the camp's injury risk from
+## its own forecast, the edge on the night) and the film study switch.
+func _options(main: Node, c: Career, f: Dictionary, opp: Dictionary, focus: String, proto: int, film: bool, mine: Dictionary) -> HBoxContainer:
 	var row := UI.hbox(14)
 	row.name = "Protocols"
 	for i in [1, 2, 3]:
 		var p: Dictionary = BoutRules.PROTOCOLS[i]
 		var parts := str(p["blurb"]).split(", ")
-		var ld := CampForecast.load_of(f, i)
-		var load := "load %s" % ld["label"] + ((" (%.1fx the usual)" % float(ld["ratio"])) if str(ld["band"]) != "safe" else "")
-		var risk_col: Color = UI.RED if str(ld["band"]) == "spike" else (UI.AMBER if str(ld["band"]) == "high" else CampCard.SUB)
+		var fi: Dictionary = mine if i == proto else CampForecast.run(c, f, focus, i)
+		var st := float(fi["stale"])
+		var night := "fight night %d, %s" % [int(round(float(fi["fatigue_end"]))), "fresh" if st <= 0.0 else "heavy legs -%d energy" % int(round(st))]
+		var inj := float(fi["injury"])
+		var risk_col: Color = UI.RED if inj >= 0.08 else (UI.AMBER if st > 0.0 or inj >= 0.05 else CampCard.SUB)
 		var b := CampCard.option("Protocol_%d" % i, str(p["name"]), " - ".join(parts.slice(0, 2)),
-			"%s - edge on the night +%.1f" % [load, float(p["edge"])], risk_col, proto == i, main.act.bind("cproto", str(i)), OPTION_H)
+			"%s - injury %d%% - edge +%.1f" % [night, int(round(inj * 100.0)), float(p["edge"])], risk_col, proto == i,
+			main.act.bind("cproto", str(i)), OPTION_H)
 		row.add_child(b)
 	var fb := CampCard.option("Film", "Film study on %s: %s" % [opp["name"], "yes, %s" % UI.money(BoutRules.FILM_COST) if film else "no"],
 		"the opponent's past bouts in the tape room - answer them in the plan (click to switch)", "", CampCard.SUB, film,

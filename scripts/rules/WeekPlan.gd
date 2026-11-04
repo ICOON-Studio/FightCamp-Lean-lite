@@ -120,22 +120,30 @@ static func full_day(id: String, intensity: String, evening: String, ctx: Dictio
 	r["stat2"] = str(e["stat"])
 	r["gain2"] = 0.0
 	var stats: Dictionary = ctx.get("stats", {})
+	var tired := TIRED_GAIN if fatigue >= OVERREACHED else 1.0
+	var share := SESSION_SHARE * tired
+	# S380: in a camp the pads drill the camp's stat at the protocol's share (BoutRules.camp_evening; Light keeps plain pads)
+	var drill := float(ctx.get("eve_drill", 0.0))
+	if evening == "pads" and drill > 0.0 and stats.has(str(ctx.get("camp_stat", ""))):
+		r["stat2"] = str(ctx["camp_stat"])
+		share = drill * tired
 	if r["stat2"] != "" and stats.has(r["stat2"]):
-		var share := SESSION_SHARE * (TIRED_GAIN if fatigue >= OVERREACHED else 1.0)
 		r["gain2"] = float(TrainingPreview.preview_gain(stats, int(ctx.get("pot", 70)), {"training_modifiers": [r["stat2"]]},
 			float(ctx.get("coach", 50.0)), 1.0, share).get(r["stat2"], 0.0))
-	r["fatigue"] = clampf(float(r["fatigue"]) + float(e["rpe"]) * float(e["min"]) / LOAD_PER_FATIGUE, 0.0, 100.0)
+	r["fatigue"] = clampf(float(r["fatigue"]) + float(e["rpe"]) * float(e["min"]) * float(ctx.get("eve_load", 1.0)) / LOAD_PER_FATIGUE,
+		0.0, 100.0)
 	return r
 
 
 ## The week's training hours for the injury model (TrainingLoad's chronic / ratio): mornings at their intensity's load,
-## evenings at face value. The coach's week is ~8 h - amateur boxers train 8-15 h (TrainingLoad, research S323).
-static func hours(days: Array, evenings: Array) -> float:
+## evenings at face value (x eve_load in a camp, S380). The coach's week is ~8 h - amateur boxers train 8-15 h
+## (TrainingLoad, research S323).
+static func hours(days: Array, evenings: Array, eve_load: float = 1.0) -> float:
 	var mins := 0.0
 	for d in days:
 		mins += float(session(str(d[0]))["min"]) * float((INTENSITY.get(str(d[1]), INTENSITY["normal"]) as Dictionary)["load"])
 	for e in evenings:
-		mins += float((EVENINGS.get(str(e), EVENINGS["rest"]) as Dictionary)["min"])
+		mins += float((EVENINGS.get(str(e), EVENINGS["rest"]) as Dictionary)["min"]) * eve_load
 	return mins / 60.0
 
 
@@ -183,8 +191,10 @@ static func week(days: Array, ctx: Dictionary, evenings: Array = []) -> Dictiona
 		for k in [["stat", "gain"], ["stat2", "gain2"]]:
 			var st := str(r.get(k[0], ""))
 			if st != "" and stats.has(st):
-				stats[st] = float(stats[st]) + float(r[k[1]])
-				gains[st] = float(gains.get(st, 0.0)) + float(r[k[1]])
+				# S380: the camp's protocol multiplier on its stat, as Sim.step_day adds it (the board under-read the camp)
+				var g := float(r[k[1]]) * (float(ctx.get("camp_mult", 1.0)) if st == str(ctx.get("camp_stat", "")) else 1.0)
+				stats[st] = float(stats[st]) + g
+				gains[st] = float(gains.get(st, 0.0)) + g
 		weight += float(r["kg"])
 		fat = float(r["fatigue"])
 		if fat > peak:

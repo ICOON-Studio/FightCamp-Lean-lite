@@ -5,12 +5,22 @@ extends RefCounted
 ## game-design values, not sport-science measurements. Stat keys: power speed technique defense conditioning fight_iq chin.
 
 ## Protocols by index (0 = no camp). cost in $, focus = multiplier on the camp focus's daily gain, edge = fight-night edge.
+## S380 (S379: Hard vs Standard moved the camp stat 60.12 vs 59.98 and changed no fatigue - the multiplier only touched
+## ~1 point of focus mornings): the protocol also sets the camp's EVENINGS. drill = the pads night's share of a session
+## on the camp's stat (a morning is WeekPlan.SESSION_SHARE 0.2); load = how hard those evenings go (fatigue, hours and so
+## injury risk); level = the TrainingLoad setting it mirrors into f["load_setting"].
 const PROTOCOLS := [
-	{"name": "None", "cost": 0, "focus": 1.0, "edge": 0.0, "blurb": ""},
-	{"name": "Light", "cost": 0, "focus": 1.1, "edge": 0.5, "blurb": "free, smaller gains"},
-	{"name": "Standard", "cost": 300, "focus": 1.2, "edge": 1.2, "blurb": "$300, solid gains"},
-	{"name": "Hard", "cost": 700, "focus": 1.35, "edge": 2.0, "blurb": "$700, biggest gains, more risk"},
+	{"name": "None", "cost": 0, "focus": 1.0, "edge": 0.0, "drill": 0.0, "load": 1.0, "level": "normal", "blurb": ""},
+	{"name": "Light", "cost": 0, "focus": 1.1, "edge": 0.5, "drill": 0.0, "load": 0.75, "level": "light", "blurb": "free, the lightest load"},
+	{"name": "Standard", "cost": 300, "focus": 1.2, "edge": 1.2, "drill": 0.05, "load": 1.0, "level": "normal", "blurb": "$300, solid gains"},
+	{"name": "Hard", "cost": 700, "focus": 1.35, "edge": 2.0, "drill": 0.09, "load": 1.2, "level": "hard", "blurb": "$700, biggest gains, heavy legs"},
 ]
+## S380 fight night: camp fatigue still carried into the ring empties the tank at the first bell (Halperin, Hughes &
+## Chapman 2016: punch impact -4 to -7 % when camp fatigue had not cleared). Under FRESH_FATIGUE reads FRESH
+## (WhiteboardKit.fatigue_word); STALE_PER_POINT energy a point over it, at most STALE_MAX (= Injuries.HURT_ENERGY serious).
+const FRESH_FATIGUE := 50.0
+const STALE_PER_POINT := 2.0
+const STALE_MAX := 20.0
 const CAMP_FOCUSES: Array[String] = ["conditioning", "power", "technique", "defense", "speed"]
 const FILM_COST := 150
 const FILM_DEPTH_WITH_STUDY := 3
@@ -69,6 +79,27 @@ static func camp_gain_mult(camp: Dictionary, stat: String) -> float:
 	if camp.is_empty() or str(camp.get("focus", "")) != stat:
 		return 1.0
 	return float(PROTOCOLS[clampi(int(camp.get("protocol", 0)), 0, 3)]["focus"])
+
+
+## S380 the camp's evenings: {stat (the camp focus the pads drill), drill (the pads share), load (evening fatigue x)}.
+static func camp_evening(camp: Dictionary) -> Dictionary:
+	if camp.is_empty():
+		return {"stat": "", "drill": 0.0, "load": 1.0}
+	var p: Dictionary = PROTOCOLS[clampi(int(camp.get("protocol", 0)), 0, 3)]
+	return {"stat": str(camp.get("focus", "")), "drill": float(p["drill"]), "load": float(p["load"])}
+
+
+## The TrainingLoad setting a protocol stands for (Bouts.start_camp mirrors it into f["load_setting"]).
+static func camp_level(protocol: int) -> String:
+	return str(PROTOCOLS[clampi(protocol, 0, 3)]["level"])
+
+
+## Energy lost at the first bell to the fatigue she carries in (0 when fresh). Only after a camp (protocol >= 1): a
+## normal week settles near 60, and a fight without a camp is not taxed for the club's usual training.
+static func stale_energy(fatigue: float, camp: Dictionary = {"protocol": 1}) -> float:
+	if int(camp.get("protocol", 0)) < 1:
+		return 0.0
+	return clampf((fatigue - FRESH_FATIGUE) * STALE_PER_POINT, 0.0, STALE_MAX)
 
 
 static func made_weight(weight: float, limit: float) -> bool:

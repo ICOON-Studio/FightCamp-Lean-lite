@@ -125,9 +125,12 @@ static func plan_of(career: Career, f: Dictionary) -> Dictionary:
 ## fatigue. What she eats: CUT while over the limit (in camp or on the cut diet), else HOLD.
 static func week_ctx(career: Career, f: Dictionary) -> Dictionary:
 	var cutting := (str(f["diet"]) == "cut" or not (f["camp"] as Dictionary).is_empty()) and float(f["weight"]) > float(f["limit"]) - 0.15
+	var ev := BoutRules.camp_evening(f.get("camp", {}))   # S380: the protocol sets the camp's evenings
 	return {"stats": f["stats"], "pot": int(f["pot"]), "coach": coach_rating(career), "weight": float(f["weight"]),
 		"diet": "cut" if cutting else "hold", "fatigue": float(f.get("week_fatigue", 20.0)), "phase": str(f.get("phase", "base")),
-		"twist_kg": float(WeekTwist.active(f).get("kg_day", 0.0)), "twist_fat": float(WeekTwist.active(f).get("fat_day", 0.0))}
+		"twist_kg": float(WeekTwist.active(f).get("kg_day", 0.0)), "twist_fat": float(WeekTwist.active(f).get("fat_day", 0.0)),
+		"camp_stat": str(ev["stat"]), "eve_drill": float(ev["drill"]), "eve_load": float(ev["load"]),
+		"camp_mult": BoutRules.camp_gain_mult(f.get("camp", {}), str(ev["stat"]))}
 
 
 ## S373 (Danny 61.6 kg missed 60.0 on his first offer, ~17 days out, with no warning on the offer): her weight on the

@@ -111,6 +111,10 @@ func _test6() -> void:
 	if not _near(IR.load_mult(2.2), 3.0):
 		ok = false
 	_check(ok, "test 6: load_mult 1.0/1.0/2.0/3.0/3.0")
+	# S380 the week's peak fatigue raises the training risk: x1 to 72, x2 at 76, x3 from 80
+	_check(_near(IR.training_chance(10.0, 1.0), 0.013) and _near(IR.training_chance(10.0, 1.0, 72.0), 0.013)
+		and _near(IR.training_chance(10.0, 1.0, 76.0), 0.026) and _near(IR.training_chance(10.0, 1.0, 80.0), 0.039)
+		and _near(IR.training_chance(10.0, 1.0, 95.0), 0.039), "test 6b: fatigue_mult 1/1/2/3/3 on the training chance")
 
 
 ## 7. training_chance.

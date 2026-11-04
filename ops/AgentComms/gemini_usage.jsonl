@@ -12,3 +12,44 @@
 {"at": "2026-11-02T21:30:53", "model": "argon", "in": 30662, "out": 1268, "usd": 0.074, "free": false, "what": "S368 REFBREAK after r3 (agy/refbreak1 9c05850)"}
 {"at": "2026-11-02T22:30:16", "model": "argon", "in": 12156, "out": 1128, "usd": 0.0356, "free": false, "what": "CAMCLINCH1 before"}
 {"at": "2026-11-02T23:10:55", "model": "argon", "in": 256250, "out": 2197, "usd": 0.5345, "free": false, "what": "CAMCLINCH1 after"}
+{"at": "2026-11-03T01:13:37", "model": "argon", "in": 44809, "out": 1395, "usd": 0.1036, "free": false, "what": "KNEETRACK1 before"}
+{"at": "2026-11-03T01:19:34", "model": "argon", "in": 44809, "out": 1428, "usd": 0.1039, "free": false, "what": "KNEETRACK1 before"}
+{"at": "2026-11-03T01:39:07", "model": "argon", "in": 30021, "out": 1523, "usd": 0.0753, "free": false, "what": "NOREF1 before"}
+{"at": "2026-11-03T01:42:08", "model": "argon", "in": 44813, "out": 1654, "usd": 0.1062, "free": false, "what": "KNEETRACK1 after"}
+{"at": "2026-11-03T01:54:08", "model": "argon", "in": 256350, "out": 3055, "usd": 0.5433, "free": false, "what": "S371 fight on main"}
+{"at": "2026-11-03T01:56:39", "model": "argon", "in": 118355, "out": 2074, "usd": 0.2575, "free": false, "what": "S371 BJJ belt match (claude/bjjmatch1)"}
+{"at": "2026-11-03T02:06:54", "model": "argon", "in": 30025, "out": 1311, "usd": 0.0732, "free": false, "what": "NOREF1 after"}
+{"at": "2026-11-03T02:20:39", "model": "argon", "in": 256257, "out": 1606, "usd": 0.5286, "free": false, "what": "FIGHT9R1 before"}
+{"at": "2026-11-03T03:09:41", "model": "argon", "in": 737511, "out": 364, "usd": 1.4787, "free": false, "what": "FIGHT9R1 after"}
+{"at": "2026-11-03T03:14:51", "model": "argon", "in": 118355, "out": 2257, "usd": 0.2593, "free": false, "what": "BJJ9 round 1"}
+{"at": "2026-11-03T03:24:31", "model": "argon", "in": 118355, "out": 1624, "usd": 0.253, "free": false, "what": "BJJ9 round 2"}
+{"at": "2026-11-03T03:32:43", "model": "argon", "in": 97180, "out": 1949, "usd": 0.2139, "free": false, "what": "BJJ9 round 3"}
+{"at": "2026-11-03T03:39:25", "model": "argon", "in": 83166, "out": 2244, "usd": 0.1888, "free": false, "what": "BJJ9 round 4"}
+{"at": "2026-11-03T03:56:09", "model": "argon", "in": 217834, "out": 1801, "usd": 0.4537, "free": false, "what": "FIGHT9R2 before"}
+{"at": "2026-11-03T04:09:23", "model": "argon", "in": 234407, "out": 2072, "usd": 0.4895, "free": false, "what": "fight: bjj_r5.mp4 at 24 fps"}
+{"at": "2026-11-03T04:45:19", "model": "argon", "in": 234407, "out": 2169, "usd": 0.4905, "free": false, "what": "fight: bjj_r6.mp4 at 24 fps"}
+{"at": "2026-11-03T05:06:07", "model": "argon", "in": 568109, "out": 2393, "usd": 1.1601, "free": false, "what": "fight: bjj_r7.mp4 at 24 fps"}
+{"at": "2026-11-03T08:13:58", "model": "argon", "in": 217834, "out": 1904, "usd": 0.4547, "free": false, "what": "FIGHT9R3 before"}
+{"at": "2026-11-03T08:16:14", "model": "argon", "in": 292577, "out": 2219, "usd": 0.6073, "free": false, "what": "BJJ9 round 8"}
+{"at": "2026-11-03T08:44:57", "model": "argon", "in": 112337, "out": 2143, "usd": 0.2461, "free": false, "what": "fight: bjj_r9.mp4 at 24 fps"}
+{"at": "2026-11-03T10:50:46", "model": "argon", "in": 217842, "out": 2419, "usd": 0.4599, "free": false, "what": "FIGHT9R4 before"}
+{"at": "2026-11-03T12:13:28", "model": "argon", "in": 180867, "out": 1561, "usd": 0.3773, "free": false, "what": "S376 men's bout BEFORE leg/pace fix"}
+{"at": "2026-11-03T12:14:51", "model": "argon", "in": 180867, "out": 2224, "usd": 0.384, "free": false, "what": "S376 men's bout AFTER leg/pace fix"}
+{"at": "2026-11-03T12:35:19", "model": "argon", "in": 217846, "out": 1842, "usd": 0.4541, "free": false, "what": "FIGHT9R4 after"}
+{"at": "2026-11-03T12:50:10", "model": "argon", "in": 217842, "out": 1656, "usd": 0.4522, "free": false, "what": "FIGHT9R5 before"}
+{"at": "2026-11-03T13:11:25", "model": "argon", "in": 217846, "out": 1962, "usd": 0.4553, "free": false, "what": "FIGHT9R5 after"}
+{"at": "2026-11-03T14:08:26", "model": "argon", "in": 229477, "out": 2233, "usd": 0.4813, "free": false, "what": "FIGHT9R6 before"}
+{"at": "2026-11-03T14:13:18", "model": "argon", "in": 229523, "out": 1606, "usd": 0.4751, "free": false, "what": "FIGHT9R6 before (S377 rejudge, corrected prompt)"}
+{"at": "2026-11-03T16:03:27", "model": "argon", "in": 229561, "out": 1525, "usd": 0.4744, "free": false, "what": "FIGHT9R6 after"}
+{"at": "2026-11-03T16:58:29", "model": "argon", "in": 104329, "out": 2036, "usd": 0.229, "free": false, "what": "LOCOWALK1 before"}
+{"at": "2026-11-03T17:45:36", "model": "argon", "in": 249500, "out": 1697, "usd": 0.516, "free": false, "what": "FIGHT9R7 before"}
+{"at": "2026-11-03T18:36:54", "model": "argon", "in": 249504, "out": 1391, "usd": 0.5129, "free": false, "what": "FIGHT9R7 after"}
+{"at": "2026-11-03T18:45:57", "model": "argon", "in": 104334, "out": 1703, "usd": 0.2257, "free": false, "what": "LOCOWALK2 before"}
+{"at": "2026-11-03T18:48:10", "model": "argon", "in": 119667, "out": 2055, "usd": 0.2599, "free": false, "what": "BJJ9 round 10"}
+{"at": "2026-11-03T20:24:22", "model": "argon", "in": 104338, "out": 1732, "usd": 0.226, "free": false, "what": "LOCOWALK2 after"}
+{"at": "2026-11-03T20:51:23", "model": "argon", "in": 249500, "out": 2295, "usd": 0.522, "free": false, "what": "FIGHT9R8 before"}
+{"at": "2026-11-04T03:09:58", "model": "argon", "in": 249500, "out": 1740, "usd": 0.5164, "free": false, "what": "FIGHT9R9 before"}
+{"at": "2026-11-04T03:26:54", "model": "argon", "in": 123055, "out": 2283, "usd": 0.2689, "free": false, "what": "BJJ9 round 11"}
+{"at": "2026-11-04T03:42:17", "model": "argon", "in": 119667, "out": 2135, "usd": 0.2607, "free": false, "what": "BJJ9 round 12"}
+{"at": "2026-11-04T04:32:49", "model": "argon", "in": 249504, "out": 1977, "usd": 0.5188, "free": false, "what": "FIGHT9R9 after"}
+{"at": "2026-11-04T05:16:43", "model": "argon", "in": 214399, "out": 2179, "usd": 0.4506, "free": false, "what": "BJJ9R11 before"}

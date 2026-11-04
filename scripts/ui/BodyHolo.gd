@@ -30,7 +30,13 @@ static func portrait(stem: String) -> Dictionary:
 	var face := FACES.path_join(stem + ".jpg")
 	return {"tex": load(holo + ".png"), "anchors": a if a is Dictionary else {}, "holo": true,
 		"mask": load(holo + "_mask.png") if ResourceLoader.exists(holo + "_mask.png") else null,
-		"face": load(face) if ResourceLoader.exists(face) else null}
+		"face": load(face) if ResourceLoader.exists(face) else null, "face_uv": _face_uv(stem)}
+
+
+## S380 the promo shot's eyes and nose (tools/bake_promo.gd writes assets/ui/face/promo_face.json).
+static func _face_uv(stem: String) -> Dictionary:
+	var all = JSON.parse_string(FileAccess.get_file_as_string(FACES.path_join("promo_face.json")))
+	return (all.get(stem, {}) as Dictionary) if all is Dictionary else {}
 
 
 ## The dark scanner plate behind the holo, so it reads the same on the white training board and the dark fight panel.

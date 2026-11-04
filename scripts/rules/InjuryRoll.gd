@@ -101,15 +101,26 @@ static func load_mult(ratio: float) -> float:
 	return 1.0 + (ratio - SAFE_RATIO) / (SPIKE_RATIO - SAFE_RATIO) * (SPIKE_MULT - 1.0)
 
 
-static func training_chance(hours: float, ratio: float) -> float:
-	var chance: float = TRAIN_BASE_10H * hours / 10.0 * load_mult(ratio)
+## S380 a week that ran hot gets hurt more: x1 up to FATIGUE_RISK_FROM, x2 at 76, x3 (SPIKE_MULT) from WeekPlan.OVERREACHED
+## 80 (Aubry et al. 2014: overreached athletes 70 % infections vs 10-20 %; Meeusen et al. 2013). `peak` = the week's peak
+## fatigue (Sim: f["week_peak"]); a Standard camp peaks at ~71 and stays x1.
+const FATIGUE_RISK_FROM := 72.0
+const FATIGUE_RISK_SPAN := 4.0
+
+
+static func fatigue_mult(peak: float) -> float:
+	return 1.0 + clampf((peak - FATIGUE_RISK_FROM) / FATIGUE_RISK_SPAN, 0.0, SPIKE_MULT - 1.0)
+
+
+static func training_chance(hours: float, ratio: float, peak: float = 0.0) -> float:
+	var chance: float = TRAIN_BASE_10H * hours / 10.0 * load_mult(ratio) * fatigue_mult(peak)
 	return clampf(chance, 0.0, 0.3)
 
 
-static func training_roll(seed: int, hours: float, ratio: float) -> Dictionary:
+static func training_roll(seed: int, hours: float, ratio: float, peak: float = 0.0) -> Dictionary:
 	var rng := RandomNumberGenerator.new()
 	rng.seed = seed
-	var chance: float = training_chance(hours, ratio)
+	var chance: float = training_chance(hours, ratio, peak)
 	if rng.randf() >= chance:
 		return {"injured": false, "type": "none", "days_out": 0}
 	var total: int = 0

@@ -1635,7 +1635,51 @@
       "at": "2026-11-02T21:26:53Z",
       "seen_by_claude": true,
       "at_s": 30.0,
-      "id": "C217"
+      "id": "C217",
+      "addressed": "cited by 1b1f3af 2026-11-03"
+    },
+    {
+      "path": "_sent/2026-11-03_0142_kneetrack1_before_after_argon_2_10_2_10_/after.mp4",
+      "text": "when legs move its akward something is wrong, when doesnt move looks ok",
+      "at": "2026-11-03T00:13:50Z",
+      "seen_by_claude": true,
+      "at_s": 24.0,
+      "id": "C218",
+      "addressed": "cited by e1c57f11 2026-11-03"
+    },
+    {
+      "path": "_sent/2026-11-04_0332_fight_camp_screen_mockup_camp_cards/fight_camp_cards.png",
+      "text": "nice",
+      "at": "2026-11-04T01:40:25Z",
+      "seen_by_claude": true,
+      "id": "C219",
+      "addressed": "camp cards being built (claude/campcards) 2026-11-04"
+    },
+    {
+      "path": "_sent/2026-11-04_0308_bjj9_round_10_ziva_5_10_the_arm_lock_fin/bjj_r10_armbar.mp4",
+      "text": "limbs trembling , blues bodys breaks up doesnt even look as a human",
+      "at": "2026-11-04T01:41:41Z",
+      "seen_by_claude": true,
+      "at_s": 11.4,
+      "id": "C220",
+      "addressed": "cited by 967a79bd 2026-11-04"
+    },
+    {
+      "path": "_sent/2026-11-04_0308_bjj9_round_10_ziva_5_10_the_arm_lock_fin/bjj_r10_armbar_sheet.png",
+      "text": "terrible , blues body doesnt make sense, why on grapplemap the clips played fine , why you dont use them straight in the gme",
+      "at": "2026-11-04T01:42:50Z",
+      "seen_by_claude": true,
+      "id": "C221",
+      "addressed": "cited by 967a79bd 2026-11-04"
+    },
+    {
+      "path": "_sent/2026-11-04_0432_fight9r9_before_after_argon_4_5_10_9_10_/after.mp4",
+      "text": "t5he camera movement makes me dizzy , watch what angles are used in televised events and try to do the same,why you keep zooming in and out and rotate all at the same time, it is like you try to make the player throw up",
+      "at": "2026-11-04T03:56:26Z",
+      "seen_by_claude": true,
+      "at_s": 100.5,
+      "id": "C222",
+      "addressed": "TV camera fix in progress S379; parser fix 2026-11-04"
     }
   ]
 }

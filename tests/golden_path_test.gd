@@ -363,9 +363,9 @@ func _week_three(c: Career) -> void:
 	main.act("fightstep", "sim")
 	_check(main.modal.get("step", "") == "result", "Sim to result plays all three rounds")
 	var en: Array = (main.modal["rounds"] as Array).map(func(r): return r.get("energy", {}))
-	_check(en.size() >= 2 and float(en[0].get("a", 0.0)) == 100.0 and float(en[-1].get("a", 100.0)) < 100.0
+	_check(en.size() >= 2 and absf(float(en[0].get("a", 0.0)) - (100.0 - float(c.fighter()["bout"].get("stale", 0.0)))) < 0.001 and float(en[-1].get("a", 100.0)) < 100.0
 		and float(en[-1].get("a_end", 100.0)) < float(en[-1].get("a", 0.0)),
-		"S302 energy: she starts full, each round spends, the break gives some back (%s)" % JSON.stringify(en.map(func(e): return [snappedf(float(e.get("a", 0)), 0.1), snappedf(float(e.get("a_end", 0)), 0.1)])))
+		"S302 energy: she starts full (S380: less the camp's heavy legs), each round spends, the break gives some back (%s)" % JSON.stringify(en.map(func(e): return [snappedf(float(e.get("a", 0)), 0.1), snappedf(float(e.get("a_end", 0)), 0.1)])))
 	print("  bout 2: %s vs Priya Nair, %s" % ["WIN" if bool(main.modal.get("win", false)) else "LOSS", ", ".join(main.modal.get("cards", []))])
 	main.act("afterfight")
 	_check(c.results.size() == 2 and int(c.fighter()["w"]) + int(c.fighter()["l"]) == 6, "two bouts on her record: %d-%d" % [c.fighter()["w"], c.fighter()["l"]])

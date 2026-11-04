@@ -43,6 +43,7 @@ var tex: Texture2D
 var face: Texture2D   # S353 her headshot (BodyHolo): the HEAD close-up shows HER over the holo's ecorche head
 const FACE_UV := Vector3(0.53, 0.37, 0.24)   # centre u, v and radius (of the width) of her face in the headshot
 var anchors := {}
+var face_uv := {}   # S380 her promo shot's eyes and nose (BodyHolo.portrait "face_uv"): the close-up and its marks follow them
 var marks := {}   # S354 C202 her side of the body map ({"cuts", "closed"}): cuts and swelling drawn on her face close-up
 var outer := -1.0
 var tip := Callable()
@@ -79,6 +80,7 @@ static func attach(f: Control, portrait: Dictionary, side_out: float, tip_fn: Ca
 	c.fig = f
 	c.tex = portrait["tex"]
 	c.face = portrait.get("face") as Texture2D
+	c.face_uv = portrait.get("face_uv", {})
 	c.anchors = portrait.get("anchors", {})
 	c.outer = side_out
 	c.tip = tip_fn
@@ -257,8 +259,9 @@ func _draw_pic(b: Bubble) -> void:
 	var asp := tex.get_size().x / tex.get_size().y
 	if str(s["at"]) == "head" and face != null:
 		t = face
-		cuv = FACE_UV
 		asp = face.get_size().x / face.get_size().y
+		var lay := FaceMarks.layout(face_uv, asp)
+		cuv = lay["cuv"] if not lay.is_empty() else FACE_UV
 	var pts := PackedVector2Array()
 	var uvs := PackedVector2Array()
 	for i in 32:
@@ -277,7 +280,8 @@ func _draw_card(b: Bubble) -> void:
 	if band != "fine":
 		b.draw_circle(c, R, Color(col, 0.22))   # a hurt place's close-up takes its colour
 	if str(s["at"]) == "head" and face != null:
-		FaceMarks.paint(b, c, R, fig._values, marks)
+		var lay := FaceMarks.layout(face_uv, face.get_size().x / face.get_size().y)
+		FaceMarks.paint(b, c, R, fig._values, marks, lay["at"] if not lay.is_empty() else FaceMarks.AT)
 	b.draw_arc(c, R + 1.0, 0.0, TAU, 48, Color(0, 0, 0, 0.6), RING_W + 3.0, true)
 	b.draw_arc(c, R, 0.0, TAU, 48, col, RING_W, true)
 	var t := str(b.line)

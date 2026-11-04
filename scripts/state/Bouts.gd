@@ -250,9 +250,8 @@ static func start_camp(c: Career, f: Dictionary, focus: String, protocol: int, f
 	# S356 the camp's goal is fixed today (PeakCamp: all three lines met on the night = her peak, +1 every stat).
 	f["camp"] = {"focus": focus, "protocol": protocol, "film": film, "start": c.day,
 		"goal": PeakCamp.goal(f["stats"], focus, f.get("goal", {})), "peak": float(f.get("week_fatigue", 20.0))}
-	# S327: the camp steps her load up only as far as stays safe against her usual (was straight to Hard - a 1.5x spike);
-	# the Hard camp is the player's "more risk" pick and trains Hard.
-	f["load_setting"] = "hard" if protocol == 3 else TrainingLoad.camp_default(Injuries.chronic(f))
+	# S380: a mirror of the protocol only - the sim reads camp.protocol (BoutRules.camp_evening: the evenings' drill + load)
+	f["load_setting"] = BoutRules.camp_level(protocol)
 	if film:
 		tape_days(c, f)
 	return cost

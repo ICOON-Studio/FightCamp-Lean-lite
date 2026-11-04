@@ -37,7 +37,7 @@ const CHOICES := [
 		"a": {"label": "Rest it", "line": "The first Hard morning becomes a rest day.", "rest_hard": true},
 		"b": {"label": "Push through", "line": "The full week - and twice the injury risk.", "risk": 2}},
 	{"id": "scale_stuck", "name": "The scale will not move", "line": "The weight has stalled for three days.", "needs": "cut", "default": "a",
-		"a": {"label": "Cut harder", "line": "0.3 kg more off this week; the week ends more tired.", "kg_day": -0.04, "fat_day": 2.0},
+		"a": {"label": "Cut harder", "line": "0.3 kg more off this week; the week ends more tired - and a hot week hurts more.", "kg_day": -0.04, "fat_day": 2.0},
 		"b": {"label": "Trust the process", "line": "Fresh legs; the weight stalls (0.2 kg over the plan).", "kg_day": 0.03}},
 	{"id": "night_off", "name": "A night off, please", "line": "A friend's wedding falls on Saturday.", "default": "a",
 		"a": {"label": "Say yes", "line": "Saturday off, morning and evening; morale up.", "rest_day": 5, "morale": "let_go"},

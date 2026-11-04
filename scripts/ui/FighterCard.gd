@@ -8,7 +8,7 @@ const HomeBoard := preload("res://scripts/ui/HomeBoard.gd")
 const Bar := preload("res://scripts/ui/Bar.gd")
 
 const FACE := Vector2(132, 166)
-const HEAD_CROP := Rect2(0.36, 0.04, 0.6, 0.48)   # of a face shot: the head, the glove (from 0.53 down) left out
+const HEAD_CROP := Rect2(0.22, 0.03, 0.56, 0.5)   # of a promo shot (S380): head and shoulders, the gloved arms (from ~0.58 down) left out
 
 
 ## [the card, the column beside her face to fill]. `tag` names the card (tag_<id>) so tools and tests can find it.
@@ -52,7 +52,7 @@ static func face(f: Dictionary) -> Control:
 	r.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	r.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 	r.texture = HomeBoard.portrait(f)
-	# S376: the face shots are ring photos with a raised glove - a no-gi athlete shows her head only (above the glove).
+	# S376/S380: the face shots wear boxing gloves - a no-gi athlete shows head and shoulders only (above the gloves).
 	if str(f.get("sport", "")) == "bjj" and r.texture != null and not r.texture is AtlasTexture:
 		var a := AtlasTexture.new()
 		a.atlas = r.texture

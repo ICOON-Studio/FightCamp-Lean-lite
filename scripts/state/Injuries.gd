@@ -136,7 +136,7 @@ static func ratio(f: Dictionary) -> float:
 
 
 static func week_hours(f: Dictionary) -> float:
-	return WeekPlan.hours(WeekPlan.days_of(f), WeekPlan.evenings_of(f))
+	return WeekPlan.hours(WeekPlan.days_of(f), WeekPlan.evenings_of(f), float(BoutRules.camp_evening(f.get("camp", {}))["load"]))
 
 
 ## Her usual weekly hours; an old save's 4-week history is read once as its average.
@@ -179,11 +179,11 @@ static func end_week(c: Career) -> void:
 			f["chronic"] = TrainingLoad.next_chronic(usual, TrainingLoad.hours("rest"))
 			continue
 		var h := week_hours(f)
-		var roll := InjuryRoll.training_roll(_seed(c, f, 3), h, h / usual if usual > 0.0 else 1.0)
+		var roll := InjuryRoll.training_roll(_seed(c, f, 3), h, h / usual if usual > 0.0 else 1.0, float(f.get("week_peak", 0.0)))
 		# S356 a twist answered "push through" (WeekTwist risk 2): a second roll, twice the risk.
 		for k in range(1, int(WeekTwist.active(f).get("risk", 1))):
 			if not bool(roll["injured"]):
-				roll = InjuryRoll.training_roll(_seed(c, f, 3 + k * 101), h, h / usual if usual > 0.0 else 1.0)
+				roll = InjuryRoll.training_roll(_seed(c, f, 3 + k * 101), h, h / usual if usual > 0.0 else 1.0, float(f.get("week_peak", 0.0)))
 		f["chronic"] = TrainingLoad.next_chronic(usual, h)
 		if bool(roll["injured"]):
 			_hurt(c, f, roll, "in training")

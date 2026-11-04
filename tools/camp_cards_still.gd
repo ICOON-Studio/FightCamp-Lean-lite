@@ -46,7 +46,7 @@ func _initialize() -> void:
 	if not bool(main.modal.get("film", false)):
 		main.act("cfilm", "")
 	await _shot("b_power_hard_film")
-	# (c) a man's camp (jump=men: Danny's first even offer) - the station pictures fall back to a baked body.
+	# (c) a man's camp (jump=men: Danny's first even offer) - his own station pictures (S380: the men are baked).
 	main.act("close")
 	TestJump.run(main, "men")
 	var d: Dictionary = (main.career as Career).fighter_by_id("danny")

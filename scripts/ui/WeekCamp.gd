@@ -10,6 +10,7 @@ const WB := preload("res://scripts/ui/WhiteboardKit.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
+const InjuryRoll := preload("res://scripts/rules/InjuryRoll.gd")
 const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
 const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
 const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
@@ -87,13 +88,22 @@ func _build(main: Node, f: Dictionary, goal: Dictionary, lines: Array) -> void:
 			_pulse(hold, d, id, float(before[id]), float(ln["end"]))
 	_seen[fid] = now
 	var load := Injuries.ratio(f)
+	# S380: the week-end roll also reads the week's peak fatigue (InjuryRoll.fatigue_mult: x2 at 76, x3 from 80)
+	var wpeak := float(f.get("week_peak", 0.0))
+	for ln in lines:
+		if str(ln["id"]) == "fatigue":
+			wpeak = maxf(wpeak, float(ln.get("week", 0.0)))
+	var hot := InjuryRoll.fatigue_mult(wpeak)
 	var lr := UI.hbox(10)
 	lr.add_child(WB.ink("INJURY RISK", 22, "marker"))
-	lr.add_child(WB.ink("load %.1f" % load, 22, "handbold"))
-	lr.add_child(WB.ink("OVER %.1f" % LOAD_OVER if load >= LOAD_OVER else ("NEAR %.1f" % LOAD_OVER if load >= LOAD_NEAR else "LOW"),
-		18, "marker", WB.RED if load >= LOAD_OVER else (UI.AMBER if load >= LOAD_NEAR else UI.GREEN)))
+	lr.add_child(WB.ink("load %.1f" % load + (", hot week x%.1f" % hot if hot > 1.0 else ""), 22, "handbold"))
+	var over := load >= LOAD_OVER or hot >= 2.0
+	var near := load >= LOAD_NEAR or hot > 1.0
+	lr.add_child(WB.ink(("OVER %.1f" % LOAD_OVER if load >= LOAD_OVER else "HOT") if over else (("NEAR %.1f" % LOAD_OVER if load >= LOAD_NEAR else "WARM") if near else "LOW"),
+		18, "marker", WB.RED if over else (UI.AMBER if near else UI.GREEN)))
 	add_child(lr)
-	add_child(WB.ink("this week's hours against the usual - over 1.5 doubles the injury risk", UI.SMALL, "hand", WB.PENCIL, true))
+	add_child(WB.ink("this week's hours against the usual, and its fatigue peak - over 1.5, or a week over 76, doubles the injury risk",
+		UI.SMALL, "hand", WB.PENCIL, true))
 	var sticky := _twist(main, f)
 	if sticky != null:
 		add_child(sticky)

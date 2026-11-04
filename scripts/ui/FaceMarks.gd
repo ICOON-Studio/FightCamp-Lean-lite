@@ -18,28 +18,50 @@ const BLOOD := Color(0.72, 0.04, 0.04)
 const SWELL := Color(0.45, 0.12, 0.30)
 
 
-static func marks(vals: Dictionary, side: Dictionary) -> Array:
+## S380 the promo portraits (tools/bake_promo.gd: front view, a different place per body) carry their own eyes and nose
+## (assets/ui/face/promo_face.json, uv 0..1): the close-up's centre and radius (Vector3 u, v, radius of the width, as
+## BodyCallouts.FACE_UV) and AT in its radii. EYE_R = where the eyes sit across it (0.36 radii each side of the middle).
+const EYE_R := 0.36
+
+
+static func layout(uv: Dictionary, asp: float) -> Dictionary:
+	var el: Array = uv.get("eye_l", [])
+	var er: Array = uv.get("eye_r", [])
+	var no: Array = uv.get("nose", [])
+	if el.size() < 2 or er.size() < 2 or no.size() < 2:
+		return {}
+	var eyes := (Vector2(float(el[0]), float(el[1])) + Vector2(float(er[0]), float(er[1]))) * 0.5
+	var nose := Vector2(float(no[0]), float(no[1]))
+	var ctr := eyes.lerp(nose, 0.6)
+	var ru := absf(float(el[0]) - float(er[0])) * 0.5 / EYE_R
+	var rv := ru * asp
+	var to := func(p: Vector2) -> Vector2: return Vector2((p.x - ctr.x) / ru, (p.y - ctr.y) / rv)
+	return {"cuv": Vector3(ctr.x, ctr.y, ru), "at": {"right_eye": to.call(Vector2(float(er[0]), float(er[1]))),
+		"left_eye": to.call(Vector2(float(el[0]), float(el[1]))), "nose": to.call(nose)}}
+
+
+static func marks(vals: Dictionary, side: Dictionary, at: Dictionary = AT) -> Array:
 	var out: Array = []
 	var cuts: Dictionary = side.get("cuts", {})
 	var closed: Dictionary = side.get("closed", {})
 	for place in ["right_eye", "left_eye"]:
 		var v := float(vals.get(place, 100.0))
 		if bool(closed.get(place, false)):
-			out.append({"kind": "shut", "place": place, "at": AT[place], "k": 1.0})
+			out.append({"kind": "shut", "place": place, "at": at[place], "k": 1.0})
 		elif v <= BodyMap.HURT:
-			out.append({"kind": "swell", "place": place, "at": AT[place], "k": clampf((BodyMap.HURT - v) / BodyMap.HURT + 0.35, 0.35, 1.0)})
+			out.append({"kind": "swell", "place": place, "at": at[place], "k": clampf((BodyMap.HURT - v) / BodyMap.HURT + 0.35, 0.35, 1.0)})
 		if bool(cuts.get(place, false)):
-			out.append({"kind": "cut", "place": place, "at": AT[place] + BROW, "k": 1.0})
+			out.append({"kind": "cut", "place": place, "at": at[place] + BROW, "k": 1.0})
 	var nv := float(vals.get("nose", 100.0))
 	if nv <= BodyMap.HURT:
-		out.append({"kind": "nose", "place": "nose", "at": AT["nose"], "k": clampf((BodyMap.HURT - nv) / BodyMap.HURT + 0.35, 0.35, 1.0)})
+		out.append({"kind": "nose", "place": "nose", "at": at["nose"], "k": clampf((BodyMap.HURT - nv) / BodyMap.HURT + 0.35, 0.35, 1.0)})
 	if bool(cuts.get("nose", false)):
-		out.append({"kind": "cut", "place": "nose", "at": AT["nose"] + Vector2(-0.06, -0.16), "k": 1.0})
+		out.append({"kind": "cut", "place": "nose", "at": at["nose"] + Vector2(-0.06, -0.16), "k": 1.0})
 	return out
 
 
-static func paint(cv: CanvasItem, c: Vector2, r: float, vals: Dictionary, side: Dictionary) -> void:
-	for m in marks(vals, side):
+static func paint(cv: CanvasItem, c: Vector2, r: float, vals: Dictionary, side: Dictionary, at: Dictionary = AT) -> void:
+	for m in marks(vals, side, at):
 		var p: Vector2 = c + (m["at"] as Vector2) * r
 		var k := float(m["k"])
 		match str(m["kind"]):

@@ -1,7 +1,7 @@
 # TASK BJJ9R12 - ANTIGRAVITY (Gemini 4 Argon High) - the BJJ belt match without trembling or bodies inside bodies, to 9/10
 
-Status: OPEN (S380, Claude). ROUND 12 = round 11 again on the merged BASE: BJJ9R11 never ran (agy.exe was not found from
-the scheduled reconcile - fixed in seat_dispatch 3bf18542). Your BASE claude/bjj9base (405c0989) now HAS main merged in:
+Status: OPEN (S380, Claude). ROUND 12 = round 11 again on the merged BASE: BJJ9R11 never ran (agy.exe was not found at
+launch). Your BASE claude/bjj9base (405c0989) now HAS main merged in:
 the 50/50 pose fix (GrapplePose keeps its last trunk turn / limb rolls; GrappleGraph.steady() lays relabelled keyframes
 back - the piggyback is gone), the Grappling theatre (scenes/dev/GrappleTheatre.tscn, tools/theatre_pop_probe.gd) and
 tools/bjj_tremble_probe.gd `mode=theatre chain=<id>`. So the "FIXED ON MAIN ... merge main's ..." paragraph below is

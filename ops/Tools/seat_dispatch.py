@@ -377,7 +377,12 @@ def prompt_text(seat: str, task: str, wt: Path, branch: str) -> str:
     if seat == "agy":
         return (f"Read the brief {brief.as_posix()} in full and do exactly what it says, in this worktree ({wt.as_posix()}). "
                 "Use ONLY your file read and write tools - run NO shell commands, no grep. Edit only the files its '## Contract' "
-                "OWNS line lists. Do not commit: the dispatcher commits your files, runs the tests and films on your branch.")
+                "OWNS line lists. Do not commit: the dispatcher commits your files, runs the tests and films on your branch. "
+                # S380: BJJ9R12 read E:/FightCamp/ops/seat_dispatch.py (named in its brief); headless agy soft-denies any read
+                # outside its allow-list and the whole run ends with nothing delivered
+                f"Read files ONLY inside {wt.as_posix()} (and the images in its _eyes folder): a read anywhere else is denied "
+                "and ends your run with nothing delivered. Tooling the brief names (seat_dispatch, judges, the board) is not "
+                "yours to read.")
     name = {"qwen": "Qwen", "cursor": "Cursor"}[seat]
     return "\n".join([
         f"You are {name} working in the Godot 4.7.2 repo at {wt} (a git worktree of E:\\FightCamp\\Lean, branch {branch}, cut from origin/main).",

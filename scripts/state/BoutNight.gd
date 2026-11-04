@@ -97,6 +97,9 @@ static func _peak(f: Dictionary) -> void:
 		return
 	var rows := PeakCamp.lines(f.get("camp", {}), f)
 	b["peak_rows"] = rows
+	# S380 heavy legs: the camp's fatigue still in her on the night (fight night is not trained: Friday's number)
+	if not b.has("stale"):   # PlanTest's scratch bouts carry the forecast's fight-night number instead of today's
+		b["stale"] = BoutRules.stale_energy(float(f.get("week_fatigue", 20.0)), f.get("camp", {}))
 	if PeakCamp.met(rows):
 		b["peak_add"] = PeakCamp.boost(f["stats"], PeakCamp.CAP)
 
@@ -273,7 +276,8 @@ static func _energy(f: Dictionary, n: int, corner: String) -> Dictionary:
 	var fb: Dictionary = f["bout"]
 	if n == 1 or not fb.has("energy"):
 		# S327 she fights hurt (the player's call, Injuries.fight_hurt): less in her tank from the first bell.
-		fb["energy"] = {"a": Combos.TANK - float(fb.get("hurt", 0.0)), "b": Combos.TANK, "qa": 0.0, "qb": 0.0}
+		# S380 and heavy legs from a camp that left her tired (BoutRules.stale_energy, set in _peak).
+		fb["energy"] = {"a": Combos.TANK - float(fb.get("hurt", 0.0)) - float(fb.get("stale", 0.0)), "b": Combos.TANK, "qa": 0.0, "qb": 0.0}
 	var op := RoundStyle.from_opponent(fb["opp"])
 	var mine: Dictionary = OwnCombos.all_mastery(f)   # S375 COMBOPLAN1: his own drilled combinations count too
 	# S378 PLANCOMBO1: the plan's go-to pays NAMED_SHARE while he still throws it whole mid-round (ring_edge's whole_energy).
@@ -310,6 +314,9 @@ static func _finish(c: Career, f: Dictionary, m: Dictionary) -> void:
 	# S356 the peak bonus was for this fight only; its line leads the reasons and goes in the week review.
 	PeakCamp.unboost(f["stats"], f["bout"].get("peak_add", {}))
 	var peak := PeakCamp.line(str(f["first"]), f["bout"].get("peak_rows", []))
+	if float(f["bout"].get("stale", 0.0)) > 0.0:
+		why.push_front("Heavy legs: %s carried the camp's fatigue into the ring (-%d energy at the first bell)." % [f["first"],
+			int(round(float(f["bout"]["stale"])))])
 	if peak != "":
 		why.push_front(peak)
 		f["peak_line"] = peak

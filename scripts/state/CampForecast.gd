@@ -9,9 +9,12 @@ extends RefCounted
 ##   fatigue) - times BoutRules.camp_gain_mult (the protocol's x1.1 / 1.2 / 1.35 on the camp's stat); an injured day rests
 ##   at TrainingLoad's rest share (Injuries.gain_mult);
 ## - the weight: the cut while over the limit (Sim.week_ctx), clamped as the real day clamps it; the fatigue: the camp's peak.
-##   run(c, f, focus, protocol) -> {stats, kg (weigh-in morning), limit, weigh_ok, fatigue_now, fatigue_end, peak, days}
+## - S380 the protocol's evenings (BoutRules.camp_evening through Sim.week_ctx: pads drill the camp's stat, their load
+##   scales fatigue and hours), the injury chance of the week-end training rolls before the bout (Injuries.end_week:
+##   InjuryRoll.training_chance on the week's hours, ratio to her usual and peak fatigue) and the heavy legs on the night.
+##   run(c, f, focus, protocol) -> {stats, kg (weigh-in morning), limit, weigh_ok, fatigue_now, fatigue_end, peak, days,
+##     injury (0..1 over the camp), stale (energy lost at the first bell)}
 ##   all(c, f, protocol) -> {focus: run(...)} for every BoutRules.CAMP_FOCUSES entry
-##   load_of(f, protocol) -> {setting, label, ratio, band}: the training load Bouts.start_camp writes (TrainingLoad)
 
 const Sim := preload("res://scripts/state/Sim.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
@@ -20,6 +23,7 @@ const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
 const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
 const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
 const TrainingLoad := preload("res://scripts/rules/TrainingLoad.gd")
+const InjuryRoll := preload("res://scripts/rules/InjuryRoll.gd")
 
 
 static func run(c: Career, f: Dictionary, focus: String, protocol: int) -> Dictionary:
@@ -33,6 +37,8 @@ static func run(c: Career, f: Dictionary, focus: String, protocol: int) -> Dicti
 	var fat0 := float(g.get("week_fatigue", 20.0))
 	var peak := fat0
 	var kg := float(g["weight"])
+	var wpeak := float(g.get("week_peak", fat0))
+	var safe := 1.0   # the chance no week-end training roll before the bout hurts her
 	for i in n:
 		var d := c.day + i
 		var dow := posmod(d, 7)   # day 0 is a Monday (Clock)
@@ -40,6 +46,7 @@ static func run(c: Career, f: Dictionary, focus: String, protocol: int) -> Dicti
 			WeekPhase.sync(g, d)
 		if dow == 0:
 			g.erase("twist")
+			wpeak = float(g.get("week_fatigue", 20.0))
 		var tw := WeekTwist.active(g)
 		var days := WeekTwist.days(tw, WeekPlan.days_of(g))
 		var evs := WeekTwist.evenings(tw, WeekPlan.evenings_of(g))
@@ -57,10 +64,19 @@ static func run(c: Career, f: Dictionary, focus: String, protocol: int) -> Dicti
 		g["weight"] = clampf(float(g["weight"]) + float(r["kg"]), lo, hi)
 		g["week_fatigue"] = float(r["fatigue"])
 		peak = maxf(peak, float(r["fatigue"]))
+		wpeak = maxf(wpeak, float(r["fatigue"]))
 		if i + 1 == n - 1:   # the weigh-in is the morning before the bout
 			kg = float(g["weight"])
+		if posmod(d + 1, 7) == 0:   # Injuries.end_week, as the next Monday starts
+			var usual := Injuries.chronic(g)
+			var h := TrainingLoad.hours("rest") if d + 1 < until else Injuries.week_hours(g)
+			if d + 1 >= until:
+				# a twist answered "push through" (risk 2) rolls twice, as Injuries.end_week does (this week's card only)
+				safe *= pow(1.0 - InjuryRoll.training_chance(h, h / usual if usual > 0.0 else 1.0, wpeak), int(WeekTwist.active(g).get("risk", 1)))
+			g["chronic"] = TrainingLoad.next_chronic(usual, h)
+	var fe := float(g.get("week_fatigue", fat0))
 	return {"stats": g["stats"], "kg": kg, "limit": lim, "weigh_ok": BoutRules.made_weight(kg, lim), "fatigue_now": fat0,
-		"fatigue_end": float(g.get("week_fatigue", fat0)), "peak": peak, "days": n}
+		"fatigue_end": fe, "peak": peak, "days": n, "injury": 1.0 - safe, "stale": BoutRules.stale_energy(fe, g["camp"])}
 
 
 static func all(c: Career, f: Dictionary, protocol: int) -> Dictionary:
@@ -69,11 +85,3 @@ static func all(c: Career, f: Dictionary, protocol: int) -> Dictionary:
 		out[key] = run(c, f, key, protocol)
 	return out
 
-
-## The training load the camp sets on her (Bouts.start_camp: Hard for the Hard protocol, else the hardest that stays safe
-## against her usual) and its ratio to her usual (TrainingLoad.ratio / band).
-static func load_of(f: Dictionary, protocol: int) -> Dictionary:
-	var usual := Injuries.chronic(f)
-	var s := "hard" if protocol == 3 else TrainingLoad.camp_default(usual)
-	var r := TrainingLoad.ratio(s, usual)
-	return {"setting": s, "label": str(TrainingLoad.SETTINGS[s]["label"]), "ratio": r, "band": TrainingLoad.band(r)}
