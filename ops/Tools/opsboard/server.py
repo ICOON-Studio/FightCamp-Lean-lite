@@ -73,6 +73,9 @@ PAGE = _REPO_PAGE if _REPO_PAGE.is_file() else (HERE / "index.html")
 ## ready or not ... watch the animations from the opsboard"). Status comes from Tools/anim_catalogue.py; previews are
 ## served read-only from previews and nowhere else.
 ANIM_PAGE = ROOT / "Tools" / "opsboard" / "animations.html"
+## S379 the Grappling animations page (operator: "make a new one for the grappling animations"): the GrappleMap moves the
+## no-gi belt match plays, each filmed pure (Tools/lean_grapple_catalogue.py, previews/lean_grapple).
+GRAPPLE_PAGE = ROOT / "Tools" / "opsboard" / "grappling.html"
 ## S157: the main page is the plain roadmap (operator: "tidy up the opsboard ... i want to know clearly a detailed
 ## roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running").
 ## It reads roadmap.json `plan` + live_runs.json; the old detailed board stays at /old.
@@ -631,6 +634,19 @@ def anim_catalogue() -> dict[str, Any]:
     try:
         import importlib
         import lean_anim_catalogue as catalogue  # type: ignore  # S365: what the Lean game's fight plays (was the old repo's)
+        importlib.reload(catalogue)
+        return catalogue.build()
+    finally:
+        sys.path.pop(0)
+
+
+def grapple_catalogue() -> dict[str, Any]:
+    sys.path.insert(0, str(ROOT / "Tools"))
+    try:
+        import importlib
+        import lean_anim_catalogue  # type: ignore  # the shared verdicts / progress rule
+        import lean_grapple_catalogue as catalogue  # type: ignore
+        importlib.reload(lean_anim_catalogue)
         importlib.reload(catalogue)
         return catalogue.build()
     finally:
@@ -2185,6 +2201,12 @@ class Handler(BaseHTTPRequestHandler):
                 return
             self._send(200, ANIM_PAGE.read_bytes(), "text/html; charset=utf-8")
             return
+        if path in ("/grappling", "/grappling.html"):
+            if not GRAPPLE_PAGE.is_file():
+                self._send(500, b"grappling.html missing\n", "text/plain; charset=utf-8")
+                return
+            self._send(200, GRAPPLE_PAGE.read_bytes(), "text/html; charset=utf-8")
+            return
         if path in ("/review", "/review.html"):
             ## S192 operator: "i want to be able to see those [stills and videos] on the opsboard to make comments".
             page = ROOT / "Tools" / "opsboard" / "review.html"
@@ -2238,6 +2260,12 @@ class Handler(BaseHTTPRequestHandler):
         if path == "/api/agents":
             try:
                 self._json(200, agents_live())
+            except Exception as exc:
+                self._json(500, {"error": str(exc), "trace": traceback.format_exc()})
+            return
+        if path == "/api/grappling":
+            try:
+                self._json(200, grapple_catalogue())
             except Exception as exc:
                 self._json(500, {"error": str(exc), "trace": traceback.format_exc()})
             return

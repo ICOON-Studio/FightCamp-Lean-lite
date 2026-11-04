@@ -1,0 +1,382 @@
+{
+ "_doc": "S379 (operator: \"on the boxing show me only what is supposed to be 100% correct\"): every recorded check of a single clip or GrappleMap move, read by the ops board's Boxer animations and Grappling animations pages (ops/Tools/lean_anim_catalogue.py, lean_grapple_catalogue.py). A row with pass:true makes the clip VERIFIED and it shows on the page's default view. Only two checks may set pass:true: the operator's OK on that clip's own video, or the Argon clip judge at 9/10 or better on every score with no defect (the FIGHT9 bar, operator S371: 'until its 9/10'). Everything else (probes, a fix OK'd on stills, a lower score) is recorded with pass:false and counts as IN PROGRESS. Keys: boxing = the clip id on the Boxer page (pro_...), grapple = the GrappleMap sequence index (the Grappling page's tile id). Add a row: {check, result, pass, note, source, when}; a frame check adds frames:true and clean:true/false - the Grappling page calls a tile clean only from such a row, never from numbers alone.",
+ "bar": "your OK on the clip's own video, or the Argon clip judge at 9/10+ with no defect",
+ "boxing": {
+  "pro_right_hook_hard": [
+   {
+    "check": "Gemini 3.8 Flash clip judge, pilot S367 (24 fps, orbit preview)",
+    "result": "CUT",
+    "pass": false,
+    "note": "both hands drop to the hip before the punch (0.45-0.65 s), looping and telegraphed; rear foot drags. Frames confirmed it.",
+    "source": "ops/research/GEMINI_JUDGE_PILOT_S367.md",
+    "when": "2026-11-02"
+   }
+  ],
+  "pro_left_jab_c": [
+   {
+    "check": "Gemini 3.8 Flash clip judge, pilot S367",
+    "result": "FIX",
+    "pass": false,
+    "note": "the jab clip holds a second straight punch (reads as a 1-2); right elbow snaps to lockout.",
+    "source": "ops/research/GEMINI_JUDGE_PILOT_S367.md",
+    "when": "2026-11-02"
+   },
+   {
+    "check": "Argon (Gemini 4) clip judge S368, after the jab fix",
+    "result": "feet 3/10, smoothness 6/10, jab 7/10",
+    "pass": false,
+    "note": "both feet skate back half a grid square on every jab; a pop at the loop reset.",
+    "source": "ops/previews/S368/jab/jab_c_after.gemini_argon.md",
+    "when": "2026-11-02"
+   }
+  ],
+  "pro_hit_by_hook_v7_short": [
+   {
+    "check": "Gemini 3.8 Flash clip judge, pilot S367",
+    "result": "SHIP - as a bob and weave (misread)",
+    "pass": false,
+    "note": "it was not told this is a hit reaction: the knockback reads as a duck, so the SHIP is not a pass for the knockback.",
+    "source": "ops/research/GEMINI_JUDGE_PILOT_S367.md",
+    "when": "2026-11-02"
+   }
+  ],
+  "pro_left_hook_ft": [
+   {
+    "check": "tools/take_check.gd foot-lift / glove-fling probe (S342)",
+    "result": "TAKE CLEAN",
+    "pass": false,
+    "note": "partial: only the kicked-up foot and the flung rear glove, measured against the plain take - not a check of the whole clip.",
+    "source": "ops/research/S342_DIGEST.md (TAKE CLEAN 24)",
+    "when": "2026-11-01"
+   }
+  ],
+  "pro_left_hook_hard_ft": [
+   {
+    "check": "tools/take_check.gd foot-lift / glove-fling probe (S342)",
+    "result": "TAKE CLEAN",
+    "pass": false,
+    "note": "partial: only the kicked-up foot and the flung rear glove, measured against the plain take - not a check of the whole clip.",
+    "source": "ops/research/S342_DIGEST.md (TAKE CLEAN 24)",
+    "when": "2026-11-01"
+   }
+  ],
+  "pro_left_hook_hurt_ft": [
+   {
+    "check": "tools/take_check.gd foot-lift / glove-fling probe (S342)",
+    "result": "TAKE CLEAN",
+    "pass": false,
+    "note": "partial: only the kicked-up foot and the flung rear glove, measured against the plain take - not a check of the whole clip.",
+    "source": "ops/research/S342_DIGEST.md (TAKE CLEAN 24)",
+    "when": "2026-11-01"
+   },
+   {
+    "check": "Your OK, Q-S294-66 (TAKEFIX1 before/after stills)",
+    "result": "Yes, put them back",
+    "pass": false,
+    "note": "an OK on the foot-kick / glove-fling fix, judged on stills - the clip back in the fight, not a check that the whole clip is correct.",
+    "source": "ops/AgentComms/questions.json Q-S294-66",
+    "when": "2026-11-01"
+   }
+  ],
+  "pro_left_hook_miss": [
+   {
+    "check": "tools/take_check.gd foot-lift / glove-fling probe (S342)",
+    "result": "TAKE CLEAN",
+    "pass": false,
+    "note": "partial: only the kicked-up foot and the flung rear glove, measured against the plain take - not a check of the whole clip.",
+    "source": "ops/research/S342_DIGEST.md (TAKE CLEAN 24)",
+    "when": "2026-11-01"
+   },
+   {
+    "check": "Your OK, Q-S294-66 (TAKEFIX1 before/after stills)",
+    "result": "Yes, put them back",
+    "pass": false,
+    "note": "an OK on the foot-kick / glove-fling fix, judged on stills - the clip back in the fight, not a check that the whole clip is correct.",
+    "source": "ops/AgentComms/questions.json Q-S294-66",
+    "when": "2026-11-01"
+   }
+  ],
+  "pro_left_jab_ft": [
+   {
+    "check": "tools/take_check.gd foot-lift / glove-fling probe (S342)",
+    "result": "TAKE CLEAN",
+    "pass": false,
+    "note": "partial: only the kicked-up foot and the flung rear glove, measured against the plain take - not a check of the whole clip.",
+    "source": "ops/research/S342_DIGEST.md (TAKE CLEAN 24)",
+    "when": "2026-11-01"
+   }
+  ],
+  "pro_left_jab_hard_ft": [
+   {
+    "check": "tools/take_check.gd foot-lift / glove-fling probe (S342)",
+    "result": "TAKE CLEAN",
+    "pass": false,
+    "note": "partial: only the kicked-up foot and the flung rear glove, measured against the plain take - not a check of the whole clip.",
+    "source": "ops/research/S342_DIGEST.md (TAKE CLEAN 24)",
+    "when": "2026-11-01"
+   }
+  ],
+  "pro_left_jab_hurt_ft": [
+   {
+    "check": "tools/take_check.gd foot-lift / glove-fling probe (S342)",
+    "result": "TAKE CLEAN",
+    "pass": false,
+    "note": "partial: only the kicked-up foot and the flung rear glove, measured against the plain take - not a check of the whole clip.",
+    "source": "ops/research/S342_DIGEST.md (TAKE CLEAN 24)",
+    "when": "2026-11-01"
+   }
+  ],
+  "pro_left_jab_miss": [
+   {
+    "check": "tools/take_check.gd foot-lift / glove-fling probe (S342)",
+    "result": "TAKE CLEAN",
+    "pass": false,
+    "note": "partial: only the kicked-up foot and the flung rear glove, measured against the plain take - not a check of the whole clip.",
+    "source": "ops/research/S342_DIGEST.md (TAKE CLEAN 24)",
+    "when": "2026-11-01"
+   }
+  ],
+  "pro_left_uppercut_ft": [
+   {
+    "check": "tools/take_check.gd foot-lift / glove-fling probe (S342)",
+    "result": "TAKE CLEAN",
+    "pass": false,
+    "note": "partial: only the kicked-up foot and the flung rear glove, measured against the plain take - not a check of the whole clip.",
+    "source": "ops/research/S342_DIGEST.md (TAKE CLEAN 24)",
+    "when": "2026-11-01"
+   }
+  ],
+  "pro_left_uppercut_hard_ft": [
+   {
+    "check": "tools/take_check.gd foot-lift / glove-fling probe (S342)",
+    "result": "TAKE CLEAN",
+    "pass": false,
+    "note": "partial: only the kicked-up foot and the flung rear glove, measured against the plain take - not a check of the whole clip.",
+    "source": "ops/research/S342_DIGEST.md (TAKE CLEAN 24)",
+    "when": "2026-11-01"
+   }
+  ],
+  "pro_left_uppercut_hurt_ft": [
+   {
+    "check": "tools/take_check.gd foot-lift / glove-fling probe (S342)",
+    "result": "TAKE CLEAN",
+    "pass": false,
+    "note": "partial: only the kicked-up foot and the flung rear glove, measured against the plain take - not a check of the whole clip.",
+    "source": "ops/research/S342_DIGEST.md (TAKE CLEAN 24)",
+    "when": "2026-11-01"
+   }
+  ],
+  "pro_left_uppercut_miss": [
+   {
+    "check": "tools/take_check.gd foot-lift / glove-fling probe (S342)",
+    "result": "TAKE CLEAN",
+    "pass": false,
+    "note": "partial: only the kicked-up foot and the flung rear glove, measured against the plain take - not a check of the whole clip.",
+    "source": "ops/research/S342_DIGEST.md (TAKE CLEAN 24)",
+    "when": "2026-11-01"
+   }
+  ],
+  "pro_right_cross_ft": [
+   {
+    "check": "tools/take_check.gd foot-lift / glove-fling probe (S342)",
+    "result": "TAKE CLEAN",
+    "pass": false,
+    "note": "partial: only the kicked-up foot and the flung rear glove, measured against the plain take - not a check of the whole clip.",
+    "source": "ops/research/S342_DIGEST.md (TAKE CLEAN 24)",
+    "when": "2026-11-01"
+   }
+  ],
+  "pro_right_cross_hard_ft": [
+   {
+    "check": "tools/take_check.gd foot-lift / glove-fling probe (S342)",
+    "result": "TAKE CLEAN",
+    "pass": false,
+    "note": "partial: only the kicked-up foot and the flung rear glove, measured against the plain take - not a check of the whole clip.",
+    "source": "ops/research/S342_DIGEST.md (TAKE CLEAN 24)",
+    "when": "2026-11-01"
+   }
+  ],
+  "pro_right_cross_hurt_ft": [
+   {
+    "check": "tools/take_check.gd foot-lift / glove-fling probe (S342)",
+    "result": "TAKE CLEAN",
+    "pass": false,
+    "note": "partial: only the kicked-up foot and the flung rear glove, measured against the plain take - not a check of the whole clip.",
+    "source": "ops/research/S342_DIGEST.md (TAKE CLEAN 24)",
+    "when": "2026-11-01"
+   }
+  ],
+  "pro_right_cross_miss": [
+   {
+    "check": "tools/take_check.gd foot-lift / glove-fling probe (S342)",
+    "result": "TAKE CLEAN",
+    "pass": false,
+    "note": "partial: only the kicked-up foot and the flung rear glove, measured against the plain take - not a check of the whole clip.",
+    "source": "ops/research/S342_DIGEST.md (TAKE CLEAN 24)",
+    "when": "2026-11-01"
+   },
+   {
+    "check": "Your OK, Q-S294-66 (TAKEFIX1 before/after stills)",
+    "result": "Yes, put them back",
+    "pass": false,
+    "note": "an OK on the foot-kick / glove-fling fix, judged on stills - the clip back in the fight, not a check that the whole clip is correct.",
+    "source": "ops/AgentComms/questions.json Q-S294-66",
+    "when": "2026-11-01"
+   }
+  ],
+  "pro_right_hook_ft": [
+   {
+    "check": "tools/take_check.gd foot-lift / glove-fling probe (S342)",
+    "result": "TAKE CLEAN",
+    "pass": false,
+    "note": "partial: only the kicked-up foot and the flung rear glove, measured against the plain take - not a check of the whole clip.",
+    "source": "ops/research/S342_DIGEST.md (TAKE CLEAN 24)",
+    "when": "2026-11-01"
+   }
+  ],
+  "pro_right_hook_hard_ft": [
+   {
+    "check": "tools/take_check.gd foot-lift / glove-fling probe (S342)",
+    "result": "TAKE CLEAN",
+    "pass": false,
+    "note": "partial: only the kicked-up foot and the flung rear glove, measured against the plain take - not a check of the whole clip.",
+    "source": "ops/research/S342_DIGEST.md (TAKE CLEAN 24)",
+    "when": "2026-11-01"
+   },
+   {
+    "check": "Your OK, Q-S294-66 (TAKEFIX1 before/after stills)",
+    "result": "Yes, put them back",
+    "pass": false,
+    "note": "an OK on the foot-kick / glove-fling fix, judged on stills - the clip back in the fight, not a check that the whole clip is correct.",
+    "source": "ops/AgentComms/questions.json Q-S294-66",
+    "when": "2026-11-01"
+   }
+  ],
+  "pro_right_hook_hurt_ft": [
+   {
+    "check": "tools/take_check.gd foot-lift / glove-fling probe (S342)",
+    "result": "TAKE CLEAN",
+    "pass": false,
+    "note": "partial: only the kicked-up foot and the flung rear glove, measured against the plain take - not a check of the whole clip.",
+    "source": "ops/research/S342_DIGEST.md (TAKE CLEAN 24)",
+    "when": "2026-11-01"
+   }
+  ],
+  "pro_right_hook_miss": [
+   {
+    "check": "tools/take_check.gd foot-lift / glove-fling probe (S342)",
+    "result": "TAKE CLEAN",
+    "pass": false,
+    "note": "partial: only the kicked-up foot and the flung rear glove, measured against the plain take - not a check of the whole clip.",
+    "source": "ops/research/S342_DIGEST.md (TAKE CLEAN 24)",
+    "when": "2026-11-01"
+   },
+   {
+    "check": "Your OK, Q-S294-66 (TAKEFIX1 before/after stills)",
+    "result": "Yes, put them back",
+    "pass": false,
+    "note": "an OK on the foot-kick / glove-fling fix, judged on stills - the clip back in the fight, not a check that the whole clip is correct.",
+    "source": "ops/AgentComms/questions.json Q-S294-66",
+    "when": "2026-11-01"
+   }
+  ],
+  "pro_right_uppercut_ft": [
+   {
+    "check": "tools/take_check.gd foot-lift / glove-fling probe (S342)",
+    "result": "TAKE CLEAN",
+    "pass": false,
+    "note": "partial: only the kicked-up foot and the flung rear glove, measured against the plain take - not a check of the whole clip.",
+    "source": "ops/research/S342_DIGEST.md (TAKE CLEAN 24)",
+    "when": "2026-11-01"
+   }
+  ],
+  "pro_right_uppercut_hard_ft": [
+   {
+    "check": "tools/take_check.gd foot-lift / glove-fling probe (S342)",
+    "result": "TAKE CLEAN",
+    "pass": false,
+    "note": "partial: only the kicked-up foot and the flung rear glove, measured against the plain take - not a check of the whole clip.",
+    "source": "ops/research/S342_DIGEST.md (TAKE CLEAN 24)",
+    "when": "2026-11-01"
+   }
+  ],
+  "pro_right_uppercut_hurt_ft": [
+   {
+    "check": "tools/take_check.gd foot-lift / glove-fling probe (S342)",
+    "result": "TAKE CLEAN",
+    "pass": false,
+    "note": "partial: only the kicked-up foot and the flung rear glove, measured against the plain take - not a check of the whole clip.",
+    "source": "ops/research/S342_DIGEST.md (TAKE CLEAN 24)",
+    "when": "2026-11-01"
+   },
+   {
+    "check": "Your OK, Q-S294-66 (TAKEFIX1 before/after stills)",
+    "result": "Yes, put them back",
+    "pass": false,
+    "note": "an OK on the foot-kick / glove-fling fix, judged on stills - the clip back in the fight, not a check that the whole clip is correct.",
+    "source": "ops/AgentComms/questions.json Q-S294-66",
+    "when": "2026-11-01"
+   }
+  ],
+  "pro_right_uppercut_miss": [
+   {
+    "check": "tools/take_check.gd foot-lift / glove-fling probe (S342)",
+    "result": "TAKE CLEAN",
+    "pass": false,
+    "note": "partial: only the kicked-up foot and the flung rear glove, measured against the plain take - not a check of the whole clip.",
+    "source": "ops/research/S342_DIGEST.md (TAKE CLEAN 24)",
+    "when": "2026-11-01"
+   }
+  ]
+ },
+ "grapple": {
+  "1235": [
+   {
+    "check": "Claude's frame check (eyes burst, 16 frames over the move + crops), pure preview",
+    "result": "bodies inside bodies + a pop, no trembling",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "smooth, no trembling; Blue's thigh passes through Red's hips at 1.4 s; at 3.6 s Blue's head and shoulders jump from behind Red to in front of her in one frame (the 19 cm head pop the probe measured).",
+    "source": "ops/previews/lean_grapple/1235.mp4",
+    "when": "2026-11-04"
+   }
+  ],
+  "619": [
+   {
+    "check": "Claude's frame check (eyes burst, 16 frames over the move + crops), pure preview",
+    "result": "bodies inside bodies, no trembling",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "smooth roll, no trembling or pops; mid-roll Red's legs and hips come out through Blue's pelvis (1.4 s), and at the end Red lies almost wholly inside Blue with their heads merged (2.9 s).",
+    "source": "ops/previews/lean_grapple/619.mp4",
+    "when": "2026-11-04"
+   }
+  ],
+  "693": [
+   {
+    "check": "Claude's frame check (eyes burst, 16 frames over the move + crops), pure preview",
+    "result": "bodies inside bodies, no trembling",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "smooth, no trembling or pops; Red kneels with her hips sunk into Blue's torso (2.5 s) and Red's head goes through Blue's raised thigh (3.4 s).",
+    "source": "ops/previews/lean_grapple/693.mp4",
+    "when": "2026-11-04"
+   }
+  ],
+  "1470": [
+   {
+    "check": "Claude's frame check (eyes burst, 16 frames over the move + crops), pure preview",
+    "result": "bodies inside bodies, no trembling",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "the takedown reads (tie-up, leg weave, both fall, Red on top), smooth, no trembling; on landing Red's hips and thigh sink into Blue's torso (4.4 s). 14 s at the data's pace, shown 2.3x faster.",
+    "source": "ops/previews/lean_grapple/1470.mp4",
+    "when": "2026-11-04"
+   }
+  ]
+ }
+}

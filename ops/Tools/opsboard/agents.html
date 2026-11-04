@@ -45,7 +45,7 @@ pre{background:#100e0c;border:1px solid var(--line);border-radius:6px;padding:8p
 </style>
 </head>
 <body>
-<nav class="fcnav"><b>FIGHTCAMP</b><a href="/" data-p="/">Roadmap</a><a href="/agents" data-p="/agents">Agents live</a><a href="/animations" data-p="/animations">Boxer animations</a><a href="/old" data-p="/old">Old detailed board</a><a href="http://127.0.0.1:4101/" title="Model router live: every Claude session (desktop via the model-router mod)">Model router</a></nav>
+<nav class="fcnav"><b>FIGHTCAMP</b><a href="/" data-p="/">Roadmap</a><a href="/agents" data-p="/agents">Agents live</a><a href="/animations" data-p="/animations">Boxer animations</a><a href="/grappling" data-p="/grappling">Grappling animations</a><a href="/old" data-p="/old">Old detailed board</a><a href="http://127.0.0.1:4101/" title="Model router live: every Claude session (desktop via the model-router mod)">Model router</a></nav>
 <script>
 // S222 (operator: timers on tasks): the leading date+time of a started string, a live ticking duration.
 function when(s){ if(!s) return null; const m=String(s).match(/(\d{4}-\d{2}-\d{2})[ T](\d{1,2}:\d{2})/); const t=m? new Date(m[1]+"T"+m[2].padStart(5,"0")) : new Date(s); return isNaN(t)? null : t; }

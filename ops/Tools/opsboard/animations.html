@@ -53,6 +53,23 @@
   #zoom.on { display: flex; }
   #zoom video, #zoom img { max-width: 100%; max-height: 100%; }
   .err { color: var(--bad); }
+  /* S379 progress strip + verified-only view (operator: "on the boxing show me only what is supposed to be 100% correct") */
+  .strip { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; background: var(--bg2); border: 1px solid var(--line);
+           border-radius: var(--radius); padding: 12px 14px; margin: 4px 0 10px; }
+  .strip .n { font-size: 1.5rem; font-weight: 700; margin-right: 6px; }
+  .strip .k { color: var(--muted); font-size: 0.85rem; }
+  .strip .v .n { color: var(--good); } .strip .p .n { color: var(--amber); } .strip .s .n { color: var(--muted); }
+  .bar { flex: 1 1 260px; height: 10px; border-radius: 999px; background: var(--bg3); overflow: hidden; display: flex; }
+  .bar i { display: block; height: 100%; }
+  .shown { font-size: 0.95rem; margin: 6px 0; }
+  .shown a { color: var(--link); margin-left: 8px; }
+  .nonebox { border: 1px solid var(--amber); background: rgba(210,153,34,.10); border-radius: var(--radius); padding: 12px 14px;
+             margin: 10px 0; font-size: 0.95rem; }
+  .pchip { font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+  .pv { background: rgba(63,185,80,.18); color: var(--good); } .pp { background: rgba(210,153,34,.18); color: var(--amber); }
+  .ps { background: rgba(139,148,158,.18); color: var(--muted); }
+  .checks { margin: 0; padding-left: 16px; font-size: 0.8rem; color: var(--muted); }
+  .checks b { color: var(--text); }
 </style>
 <style>
 .fcnav{position:sticky;top:0;z-index:50;display:flex;gap:4px;align-items:center;background:#0e0c0b;border-bottom:1px solid #3a332d;padding:8px 16px}
@@ -63,7 +80,7 @@
 </style>
 </head>
 <body>
-<nav class="fcnav"><b>FIGHTCAMP</b><a href="/" data-p="/">Roadmap</a><a href="/agents" data-p="/agents">Agents live</a><a href="/animations" data-p="/animations">Boxer animations</a><a href="/old" data-p="/old">Old detailed board</a><a href="http://127.0.0.1:4101/" title="Model router live: every Claude session (desktop via the model-router mod)">Model router</a></nav>
+<nav class="fcnav"><b>FIGHTCAMP</b><a href="/" data-p="/">Roadmap</a><a href="/agents" data-p="/agents">Agents live</a><a href="/animations" data-p="/animations">Boxer animations</a><a href="/grappling" data-p="/grappling">Grappling animations</a><a href="/old" data-p="/old">Old detailed board</a><a href="http://127.0.0.1:4101/" title="Model router live: every Claude session (desktop via the model-router mod)">Model router</a></nav>
 <script>document.querySelectorAll('.fcnav a').forEach(a=>{if(a.dataset.p===location.pathname.replace(/\.html$/,'')||(a.dataset.p==='/'&&location.pathname==='/index.html'))a.classList.add('cur')})</script>
 
 <header>
@@ -73,6 +90,9 @@
   <a href="/">&larr; Ops board</a>
 </header>
 <main>
+  <div class="strip" id="strip"></div>
+  <div class="shown" id="shown"></div>
+  <div id="none"></div>
   <div class="rule" id="rule"></div>
   <div id="groups">Loading&hellip;</div>
 </main>
@@ -84,6 +104,9 @@ const LABEL = {"CERTIFIED": "Ready (certified)", "IN GAME": "In game, not gated"
 // S365: the page now lists the Lean game's own clips (Tools/lean_anim_catalogue.py): IN GAME = a fight beat can pick it.
 LABEL["IN GAME"] = "In the fight";
 let data = null, filter = "ALL";
+// S379: the default view is only the VERIFIED clips (a recorded pass, AgentComms/clip_verdicts.json); ?all=1 shows every clip.
+const showAll = new URLSearchParams(location.search).get("all") === "1";
+const PCLS = {"verified": "pv", "in progress": "pp", "not started": "ps"};
 function cls(s) { return s.replace(/ /g, "_"); }
 function esc(t) { return String(t ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c])); }
 function media(r) {
@@ -96,12 +119,24 @@ function evidence(ev) {
   const fails = Object.entries(ev.failures || {}).map(([k, v]) => `${k} ×${v}`).join(", ") || "none";
   return `<div class="line">Latest gate: <b>${ev.rigs_clean}/${ev.rigs}</b> fighters clean${ev.probe ? ' <span class="probe">(probe, not the game setup)</span>' : ''} · ${esc(ev.candidate)} · ${esc(fails)} <span class="id">${esc(ev.report)}</span></div>`;
 }
+function checks(list) {
+  if (!list || !list.length) return "";
+  return `<ul class="checks">${list.map(c => `<li><b>${esc(c.result)}</b> - ${esc(c.check)}${c.note ? ": " + esc(c.note) : ""}</li>`).join("")}</ul>`;
+}
+function strip(p, total) {
+  const pct = k => total ? (100 * (p[k] || 0) / total).toFixed(1) : 0;
+  document.getElementById("strip").innerHTML =
+    `<span class="v"><span class="n">${p["verified"] || 0}</span><span class="k">verified</span></span>
+     <span class="p"><span class="n">${p["in progress"] || 0}</span><span class="k">in progress (a partial check recorded)</span></span>
+     <span class="s"><span class="n">${p["not started"] || 0}</span><span class="k">not started (no check yet)</span></span>
+     <span class="bar" title="verified / in progress / not started"><i style="width:${pct("verified")}%;background:var(--good)"></i><i style="width:${pct("in progress")}%;background:var(--amber)"></i><i style="width:${pct("not started")}%;background:var(--line)"></i></span>`;
+}
 function render() {
   const g = document.getElementById("groups");
   g.innerHTML = "";
   for (const group of data.groups) {
     if (group.hidden) continue;  // S270: old clips off the page (operator)
-    const rows = group.rows.filter(r => filter === "ALL" || r.status === filter);
+    const rows = group.rows.filter(r => (showAll || r.progress === "verified") && (filter === "ALL" || r.status === filter));
     if (!rows.length) continue;
     const sec = document.createElement("section");
     const hint = "";
@@ -113,6 +148,8 @@ function render() {
       c.innerHTML = `<div class="media">${media(r)}</div><div class="body">
         <div class="top"><span class="name">${esc(r.label)}</span><span class="badge ${cls(r.status)}">${esc(LABEL[r.status] || r.status)}</span></div>
         <div class="id">${esc(r.id)}${r.source ? " · " + esc(r.source) : ""}</div>
+        <div><span class="pchip ${PCLS[r.progress] || "ps"}">${esc(r.progress)}</span></div>
+        ${checks(r.checks)}
         ${r.why ? `<div class="line">${esc(r.why)}</div>` : ""}
         ${evidence(r.evidence)}
         ${r.note ? `<div class="note">${esc(r.note)}</div>` : ""}
@@ -141,9 +178,16 @@ fetch("/api/animations").then(r => r.json()).then(d => {
   if (d.error) throw new Error(d.error);
   data = d;
   try { filter = localStorage.getItem("animFilter") || "ALL"; } catch (e) {}
+  if (!showAll) filter = "ALL";
   const total = Object.values(d.counts).reduce((a, b) => a + b, 0);
   document.getElementById("counts").textContent = `${total} clips · ${d.counts["IN GAME"] || 0} in the fight`;
   document.getElementById("rule").textContent = d.rule + ".";
+  strip(d.progress || {}, d.total || total);
+  document.getElementById("shown").innerHTML = showAll
+    ? `Showing every clip (${total}), verified or not. <a href="/animations">Show only the verified clips</a>`
+    : `${esc(d.shown_rule)} <a href="/animations?all=1">Show all ${total} clips</a>`;
+  if (!showAll && d.none_verified) document.getElementById("none").innerHTML = `<div class="nonebox">${esc(d.none_verified)}</div>`;
+  if (!showAll) document.getElementById("filters").style.display = "none";
   filters(); render();
 }).catch(e => { document.getElementById("groups").innerHTML = `<p class="err">Could not load: ${esc(e.message)}</p>`; });
 </script>

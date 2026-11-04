@@ -13,6 +13,9 @@ DERIVED, NEVER COPIED: every list is read from Lean's own scripts at request tim
   - Lean/scripts/fight3d/FightClips.gd  PAIR (clinch) and ENTRY (ring entry); the baked clips on disk.
 IN GAME = a beat can pick it. LOADED = in the body's library, but nothing in the fight picks it.
 Previews: Game/previews/lean_anim/<id>.mp4 (Lean/tools/clip_orbit.gd + Tools/lean_anim_render.py).
+VERIFIED (S379, operator: "on the boxing show me only what is supposed to be 100% correct"): a clip with a pass:true row in
+AgentComms/clip_verdicts.json (your OK on its own video, or the Argon clip judge at 9/10+ with no defect). A clip with only
+pass:false rows (a probe, a fix OK'd on stills, a lower score) is IN PROGRESS; one with no recorded check is NOT STARTED.
 
     python Tools/lean_anim_catalogue.py          # the table
     python Tools/lean_anim_catalogue.py --json   # what the ops board serves at /api/animations
@@ -31,6 +34,7 @@ FIGHT3D = LEAN / "scripts" / "fight3d"
 BAKED = LEAN / "assets" / "anim" / "baked"
 PREVIEW_ROOT = ROOT / "previews"
 PREVIEWS = PREVIEW_ROOT / "lean_anim"
+VERDICTS = ROOT / "AgentComms" / "clip_verdicts.json"
 PRO_PREFIX = "mc_Box1_M3_"
 ## punch() context takes, in the order the beat asks for them (big / step / miss / tired).
 PUNCH_SUFFIXES = ["_special", "_hard", "_hard_ft", "_ft", "_miss", "_hurt", "_hurt_ft"]
@@ -76,12 +80,28 @@ def _preview(cid: str) -> dict:
     return {"video": mp4.relative_to(PREVIEW_ROOT).as_posix()} if mp4.is_file() else {}
 
 
+def verdicts(section: str) -> tuple[dict, str]:
+    """{clip id: [recorded checks]} of one section of clip_verdicts.json, and the bar a pass must meet."""
+    try:
+        data = json.loads(VERDICTS.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}, ""
+    return {str(k): list(v) for k, v in (data.get(section) or {}).items()}, str(data.get("bar", ""))
+
+
+def progress_of(checks: list) -> str:
+    if any(c.get("pass") is True for c in checks):
+        return "verified"
+    return "in progress" if checks else "not started"
+
+
 def build() -> dict:
     beat = (FIGHT3D / "BeatClips.gd").read_text(encoding="utf-8")
     life = (FIGHT3D / "GuardLife.gd").read_text(encoding="utf-8")
     foot = (FIGHT3D / "Footwork.gd").read_text(encoding="utf-8")
     clips = (FIGHT3D / "FightClips.gd").read_text(encoding="utf-8")
     lib = _library()
+    checks, bar = verdicts("boxing")
     have = lambda n: n in lib  # noqa: E731
     used: dict[str, str] = {}   # clip -> what plays it
 
@@ -142,6 +162,8 @@ def build() -> dict:
         if cid in entry:
             r["source"] = "Mixamo, retargeted"
         r.update(_preview(cid))
+        r["checks"] = checks.get(cid, [])
+        r["progress"] = progress_of(r["checks"])
         return r
 
     groups = [
@@ -156,12 +178,22 @@ def build() -> dict:
     groups.append(("In the library, never picked", [c for c in lib if c not in shown]))
     out = []
     counts: dict[str, int] = {}
+    prog = {"verified": 0, "in progress": 0, "not started": 0}
     for title, ids in groups:
         rows = [row(c) for c in ids]
         for r in rows:
             counts[r["status"]] = counts.get(r["status"], 0) + 1
+            prog[r["progress"]] += 1
         out.append({"group": title, "rows": rows})
-    return {"groups": out, "counts": counts, "game": "lean",
+    total = sum(prog.values())
+    in_fight = counts.get("IN GAME", 0)
+    shown = "Shown: clips that passed %s; %d of %d clips (%d of the %d play in the fight)." % (
+        bar or "a recorded 100%% check", prog["verified"], total, in_fight, total)
+    none = ("No boxing clip has passed a 100%% check yet. Recorded so far: %d clips with a partial check (a probe, a fix you "
+            "OK'd on stills, or an Argon/Gemini score below 9/10) - see them under 'show all'." % prog["in progress"]
+            if prog["verified"] == 0 else "")
+    return {"groups": out, "counts": counts, "game": "lean", "progress": prog, "total": total, "shown_rule": shown,
+            "none_verified": none, "bar": bar,
             "rule": "IN GAME = a beat of the Lean fight can pick it (BeatClips.gd, GuardLife.gd, Footwork.gd, FightClips.gd, read now). "
                     "Each preview is the clip alone on the game's boxer body; the live fight also blends the joins and bends the arm to the target"}
 
@@ -178,8 +210,9 @@ def main(argv: list[str]) -> int:
         for g in data["groups"]:
             print(f"== {g['group']} ({len(g['rows'])})")
             for r in g["rows"]:
-                print(f"  {r['status']:8} {r['id']:36} {r['why']}{'  [video]' if r.get('video') else ''}")
-        print(data["counts"])
+                print(f"  {r['status']:8} {r['progress']:11} {r['id']:36} {r['why']}{'  [video]' if r.get('video') else ''}")
+        print(data["counts"], data["progress"])
+        print(data["shown_rule"])
     return 0
 
 
