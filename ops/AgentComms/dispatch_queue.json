@@ -145,9 +145,16 @@
   {
    "task": "BJJ9R13",
    "seat": "agy",
-   "status": "queued",
+   "status": "launched",
    "queued": "2026-11-04T09:40",
-   "loop": "BJJ9"
+   "loop": "BJJ9",
+   "launched": "2026-11-04T10:11"
+  },
+  {
+   "task": "FIGHT9R10",
+   "seat": "agy",
+   "status": "queued",
+   "queued": "2026-11-04T10:11"
   }
  ]
 }

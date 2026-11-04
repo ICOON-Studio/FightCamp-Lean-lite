@@ -766,6 +766,26 @@ def pr_body(task: str, info: dict, checks: list, committed: list, stray: list, b
     return "\n".join(lines)
 
 
+## S381: FIGHT9R10 died after 33 min on "Your AI credits balance is too low" (429) - the Argon allowance was spent while the
+## Claude models in agy still answered. Each launch probes the models in this order and runs on the first that says OK.
+AGY_FALLBACK = (AGY_MODEL, "claude-opus-5-5-high", "claude-sonnet-5-5-high", "gemini-3.8-flash-high")
+
+
+def agy_model(exe) -> str:
+    for model in AGY_FALLBACK:
+        try:
+            r = subprocess.run([str(exe), "-p", "Reply with the single word OK.", "--model", model, "--print-timeout", "80s"],
+                               capture_output=True, text=True, timeout=100, creationflags=NO_WINDOW, stdin=subprocess.DEVNULL)
+        except (OSError, subprocess.TimeoutExpired):
+            continue
+        said = (r.stdout or "") + (r.stderr or "")
+        if "OK" in said and "AGY_ERROR" not in said and "credits" not in said:
+            if model != AGY_MODEL:
+                log(f"AGY {AGY_MODEL} unavailable (credits/quota) - running on {model}")
+            return model
+    return AGY_MODEL
+
+
 def _agy(wt: Path, prompt: str, out: Path, env: dict) -> subprocess.Popen:
     exe = None
     for _ in range(20):  # S372: agy replaces its own exe when it updates - FIGHT9R2 found no file for that moment and crashed
@@ -775,7 +795,10 @@ def _agy(wt: Path, prompt: str, out: Path, env: dict) -> subprocess.Popen:
         time.sleep(30)
     if not exe:
         raise AgyMissing(2, "agy.exe not found (AppData/Local/agy, Packages/Claude_*/LocalCache, PATH)")
-    cmd = [exe, "-p", prompt, "--model", AGY_MODEL, "--mode", "accept-edits", "--sandbox", "--print-timeout", "3600s"]   # S372: R2 timed out at 30 min mid-turn
+    model = agy_model(exe)
+    with open(out, "a", encoding="utf-8") as fh:
+        fh.write(f"AGY_MODEL {model}\n")
+    cmd = [exe, "-p", prompt, "--model", model, "--mode", "accept-edits", "--sandbox", "--print-timeout", "3600s"]   # S372: R2 timed out at 30 min mid-turn
     fh = open(out, "a", encoding="utf-8")
     return subprocess.Popen([str(c) for c in cmd], cwd=str(wt), stdout=fh, stderr=subprocess.STDOUT, stdin=subprocess.DEVNULL,
                             creationflags=NO_WINDOW, env=env)
