@@ -9,7 +9,9 @@ A git worktree under E:\\FightCamp\\wt is RETIRED only when ALL hold:
   - no live_runs.json run with status running/waiting points at it (its worktree path or its branch);
   - `git status --porcelain --untracked-files=no` is empty (no dirty tracked file);
   - HEAD has no commit missing from origin (`git rev-list HEAD --not --remotes=origin` empty - pushed to its branch or on master);
-  - nothing in it was written for 24 h (1 h when HEAD is already on origin's default branch - merged work, S358).
+  - nothing in it was written for 24 h (1 h when HEAD is already on origin's default branch - merged work, S358; 2 h when its
+    seat run has finished - landed/failed/dead/done/collected/closed/merged/rejected in live_runs or its archive - S380: a
+    finished seat round's PR is open and its films are made, and every loop round is a new ~1 GB worktree on a 91%-full E:).
 S358: the Lean repo's worktrees (E:\\FightCamp\\Lean, its agents' LEAN_* folders under the same wt root) are assessed too - E: sat
 at 8.5 GB with 19 Lean worktrees this script never saw. ZIVA_LEAN is protected like ZIVA.
 Before removal its untracked non-ignored files (`git ls-files --others --exclude-standard`, minus *_baseline/ copies and .godot/)
@@ -42,9 +44,11 @@ GATE_TMP = Path(os.environ.get("FIGHTCAMP_GATE_TMP", "E:/FightCamp/tmp"))
 LOG = ROOT / "AgentComms" / "retire.log"
 STATE = ROOT / "AgentComms" / "retire_state.json"
 RUNS = ROOT / "AgentComms" / "live_runs.json"
+RUNS_ARCHIVE = ROOT / "AgentComms" / "live_runs_archive.json"
+FINISHED = {"landed", "failed", "dead", "done", "collected", "closed", "merged", "rejected"}  # S380 ("stopped" may resume: not here)
 REPOS = [ROOT, Path(os.environ.get("FIGHTCAMP_LEAN_ROOT", "E:/FightCamp/Lean"))]
 PROTECTED = {"ziva", "ziva_lean"}  # operator S237/S248: the Ziva playtest worktrees stay
-IDLE_H, MERGED_IDLE_H, GATE_IDLE_H = 24, 1, 6
+IDLE_H, MERGED_IDLE_H, FINISHED_IDLE_H, GATE_IDLE_H = 24, 1, 2, 6
 SKIP_WALK = {".git", ".godot", ".import", "node_modules"}
 _NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0)
 
@@ -78,7 +82,8 @@ def worktrees() -> list[dict]:
     for repo, line in lines:
         if line.startswith("worktree "):
             cur = {"path": Path(line[9:].strip()), "repo": repo}
-            rows.append(cur)
+            if all(_norm(r["path"]) != _norm(cur["path"]) for r in rows):  # S380: ops/ and Lean list the same repo once
+                rows.append(cur)
         elif line.startswith("branch refs/heads/"):
             cur["branch"] = line[18:].strip()
         elif line.startswith("HEAD "):
@@ -104,6 +109,20 @@ def running_runs() -> list[dict]:
     except (OSError, ValueError):
         return [{"_unreadable": True}]
     return [r for r in runs.values() if isinstance(r, dict) and str(r.get("status", "")).lower() in ("running", "waiting")]
+
+
+def finished_runs() -> list[dict]:
+    """S380: every live_runs / archive run whose status is finished (FINISHED) - its worktree may retire after 2 h idle."""
+    out = []
+    for path in (RUNS, RUNS_ARCHIVE):
+        try:
+            data = json.loads(path.read_text(encoding="utf-8-sig"))
+        except (OSError, ValueError):
+            continue
+        runs = data.get("runs", data) if isinstance(data, dict) else data
+        vals = runs.values() if isinstance(runs, dict) else runs
+        out += [r for r in vals if isinstance(r, dict) and str(r.get("status", "")).lower() in FINISHED]
+    return out
 
 
 def newest_write_h(path: Path, extra: list[Path], budget: int = 30000) -> float:
@@ -185,7 +204,7 @@ def salvage(wt: Path, name: str, apply: bool) -> list[str]:
     return keep
 
 
-def assess(wt: dict, procs: list[str], runs: list[dict]) -> dict:
+def assess(wt: dict, procs: list[str], runs: list[dict], done: list[dict] | None = None) -> dict:
     path, name = wt["path"], wt["path"].name
     row = {"name": name, "path": str(path), "branch": wt.get("branch", ""), "verdict": "retire", "why": ""}
     if any(_norm(path) == _norm(r) for r in REPOS) or not _norm(path).startswith(_norm(WT_ROOT) + "/"):
@@ -222,11 +241,14 @@ def assess(wt: dict, procs: list[str], runs: list[dict]) -> dict:
     idle = newest_write_h(path, [gitdir / "index", gitdir / "logs" / "HEAD", gitdir / "HEAD"])
     row["idle_h"] = round(idle, 1)
     merged = git("merge-base", "--is-ancestor", "HEAD", "refs/remotes/origin/HEAD", cwd=path).returncode == 0
-    limit = MERGED_IDLE_H if merged else IDLE_H
+    fin = next((r for r in (done or []) if _norm(str(r.get("worktree") or r.get("wt") or "-")) == key
+                or (row["branch"] and r.get("branch") == row["branch"])), None)
+    limit = MERGED_IDLE_H if merged else (FINISHED_IDLE_H if fin else IDLE_H)
+    tag = ", merged" if merged else (", run %s" % fin.get("status") if fin else "")
     if idle < limit:
-        row.update(verdict="recent", why="written %.1f h ago (< %d h%s)" % (idle, limit, ", merged" if merged else ""))
+        row.update(verdict="recent", why="written %.1f h ago (< %d h%s)" % (idle, limit, tag))
         return row
-    row["why"] = "clean, pushed%s, idle %.0f h" % (", merged" if merged else "", idle)
+    row["why"] = "clean, pushed%s, idle %.0f h" % (tag, idle)
     return row
 
 
@@ -257,8 +279,8 @@ def e_free_gb() -> float:
 
 
 def run(apply: bool) -> dict:
-    procs, runs = process_paths(), running_runs()
-    rows = [assess(w, procs, runs) for w in worktrees()]
+    procs, runs, done = process_paths(), running_runs(), finished_runs()
+    rows = [assess(w, procs, runs, done) for w in worktrees()]
     gates = gate_clones(procs)
     pruned = False
     for r in rows:

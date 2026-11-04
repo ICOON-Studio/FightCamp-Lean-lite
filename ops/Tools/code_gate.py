@@ -105,7 +105,7 @@ def decide(f: dict) -> list[str]:
                 why.append(f"owns: {p} lines {outside[0][0]}-{outside[0][1]} outside its windows {owns[p]}")
     if not f["guard_ok"]:
         why.append("guard: ci_arena guard failed (a test was deleted or lost > 25% of its lines)")
-    bad = [f"{n}={s}" for n, s in f["checks"] if s != "SUCCESS"]
+    bad = [f"{n}={s}" for n, s in f["checks"] if s not in ("SUCCESS", "SKIPPED", "NEUTRAL")]  # S380: an `if:`-skipped job passes
     if not f["checks"]:
         why.append("ci: no ci.yml check ran on the PR")
     elif bad:

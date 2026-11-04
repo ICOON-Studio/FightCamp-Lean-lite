@@ -199,6 +199,7 @@
     if (!force && document.visibilityState === "hidden") return;
     let d = null;
     try { const r = await fetch("/api/pc_metrics", { cache: "no-store" }); d = await r.json(); } catch (e) { d = { ok: false, why: "board not answering (" + e + ")" }; }
+    if (d && d.latest) { window.pcmLatest = d; window.dispatchEvent(new Event("pcm")); }   // S379: /pc's disk card (pc_detail.js) reads it
     try { draw(box, d); } catch (e) { box.innerHTML = `<div class="meta pcm-r">PC live: draw failed (${esc(e)})</div>`; }
   }
   load(true); setInterval(load, 2000);

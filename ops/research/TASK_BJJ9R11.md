@@ -45,6 +45,9 @@ And on the straight-play film (claude/bjj9base, 0:40.1, one leg under the other'
 real grappling contact is SUPPOSED to press limbs into armpits, hips and chests. Do not push the bodies apart where the
 data has them in contact; fix only what reads as one body passing THROUGH the other (his "to 50/50"). The overlap bar
 below is a guide; his eye and Argon's frames decide.
+S379 theatre (main 2d1cd429, film ops: tmp/s379/theatre/fifty_fifty.mp4): at 'To 50/50' red's pelvis sinks 0.23 m into
+blue's at 14.7 s and red's HEAD jumps 0.2 m in one frame while the data moves 5 cm - our pose code spins her torso the wrong
+way there (GrapplePose aim+roll), not the data. Start with that frame.
 
 ## Your job, in this order
 1. Take the idle layer out of moves (the per-keyframe hump in GrapplePlayer.joints_at). At most a slow breath on a HELD

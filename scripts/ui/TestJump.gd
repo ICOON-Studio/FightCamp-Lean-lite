@@ -25,6 +25,11 @@ extends RefCounted
 ##   FightCamp.exe -- jump=pro            S329 update 31: quick start, Lucy put at the line (9-1 amateur) - the promoter's
 ##                                        offer opens: her debut tickets, what the gym pays now; sign and play to the debut
 ## The same button presses tools/fight3d_play.gd makes. It plays on its own save slot, never his career save.
+## Scene jumps (SCENE_JUMPS, no career - prototypes outside the boxing game open on their own scene):
+##   FightCamp.exe -- jump=grapple        S335 the GrappleMap ground-move browser
+##   FightCamp.exe -- jump=strikemap      S337 the boxing move map (StrikeMap's position cards)
+##   FightCamp.exe -- jump=theatre        S379 the Grappling theatre: GrappleMap chains played straight, documentary
+##                                        camera + free orbit; `chain=<id>` opens one (TheatreChains ids, e.g. fifty_fifty)
 
 const Bouts := preload("res://scripts/state/Bouts.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
@@ -35,6 +40,8 @@ const OwnCombos := preload("res://scripts/rules/OwnCombos.gd")
 const ComboWords := preload("res://scripts/rules/ComboWords.gd")
 
 const SAVE_PATH := "user://test_jump_save.json"
+const SCENE_JUMPS := {"grapple": "res://scenes/dev/GrappleBrowser.tscn", "strikemap": "res://scenes/dev/StrikeBrowser.tscn",
+	"theatre": "res://scenes/dev/GrappleTheatre.tscn"}
 const JUMPS := ["fight", "fight_nofilm", "corner", "round3", "injury", "nationals", "pro", "taperoom", "camp", "belt", "men", "men_fight", "gameplan"]
 ## What two weeks of pad time on the 1-2 and the 1-2-3 leave her with (Combos.LEARN_AT is 30).
 const DRILLED := {"1-2": 62.0, "1-2-3": 48.0}
@@ -70,6 +77,14 @@ static func to_round3(main: Node) -> void:
 			cm._pick("lead")
 			cm.finish()
 	print("TESTJUMP round3 reached: round ", view.round_n)
+
+
+## The scene a scene jump opens ("" = none).
+static func scene_for(args: PackedStringArray) -> String:
+	for a in args:
+		if a.begins_with("jump=") and SCENE_JUMPS.has(a.trim_prefix("jump=")):
+			return str(SCENE_JUMPS[a.trim_prefix("jump=")])
+	return ""
 
 
 ## The jump the command line asks for ("" = none).

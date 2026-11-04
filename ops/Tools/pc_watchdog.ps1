@@ -204,6 +204,56 @@ function Write-Health($r, $problems) {
     $state
 }
 
+# S379 (operator: "you have way more info on metrics for the pc live"): the board's /pc page shows THIS verdict at its top - the
+# pill and every reason line exactly as -Once prints it, plus when the colour last changed - from AgentComms\pc_verdict.json.
+# -Once only: the 60 s loop averages CPU over 3 min, so its colour would fight -Once's. The heat governor runs -Once every ~15 s,
+# which keeps the file fresh; the PC Metrics sampler embeds it in pc_detail.json (it never runs the watchdog itself).
+function Write-Verdict($r, $problems, $state, $printed) {
+    $f = Join-Path $root 'AgentComms\pc_verdict.json'
+    $now = [DateTimeOffset]::Now; $t = $now.ToUnixTimeSeconds()
+    $since = $t; $prev = ''; $changes = @()
+    if (Test-Path -LiteralPath $f) {
+        try {
+            $old = [IO.File]::ReadAllText($f) | ConvertFrom-Json
+            $changes = @($old.changes | Where-Object { $_ })
+            if ($old.state -eq $state) { $since = [long]$old.since_t; $prev = [string]$old.prev }
+            else {
+                $prev = [string]$old.state
+                $changes = @(@([pscustomobject]@{ t = $t; at = $now.ToString('yyyy-MM-dd HH:mm:ss'); from = $prev; to = $state }) + $changes | Select-Object -First 8)
+            }
+        } catch {}
+    } else {
+        # First file: date the colour from the loop's minute history (the newest run of lines in this state).
+        try {
+            $h = @(Get-Content -LiteralPath $historyFile -Tail 1500 -ErrorAction Stop)
+            for ($i = $h.Count - 1; $i -ge 0; $i--) {
+                if ($h[$i] -notmatch '^(\d{4}-\d\d-\d\d \d\d:\d\d:\d\d) (GREEN|AMBER|RED) ') { continue }
+                if ($Matches[2] -ne $state) { $prev = $Matches[2]; break }
+                $since = ([DateTimeOffset][datetime]::ParseExact($Matches[1], 'yyyy-MM-dd HH:mm:ss', [Globalization.CultureInfo]::InvariantCulture)).ToUnixTimeSeconds()
+            }
+        } catch {}
+    }
+    $o = [ordered]@{
+        state = $state; at = $now.ToString('yyyy-MM-dd HH:mm:ss'); t = $t; since_t = $since
+        since = [DateTimeOffset]::FromUnixTimeSeconds($since).ToLocalTime().ToString('yyyy-MM-dd HH:mm:ss'); prev = $prev
+        line = ($printed -split "`n")[0]
+        reasons = @($problems | ForEach-Object { $(if ($_.Red) { 'RED   ' } else { 'AMBER ' }) + $_.Text })
+        changes = @($changes)
+        reading = [ordered]@{ temp_c = $r.TempC; temp_peak = $r.TempPeak; temp_src = $r.TempSrc; cpu_pct = $r.CpuPct; ram_pct = $r.RamPct
+            commit_free_gb = $r.CommitFreeGB; c_free_gb = $r.CFreeGB; e_free_gb = $r.EFreeGB; e_free_pct = $r.EFreePct
+            e_write_ms = $r.EWriteMs; e_idle_pct = $r.EIdle; packers = @($r.Packers) }
+        limits = [ordered]@{ temp_warn_c = $TEMP_WARN_C; temp_crit_c = $TEMP_CRIT_C; temp_hold_s = $TEMP_HOLD_S; temp_hard_c = $TEMP_HARD_C
+            cpu_warn = $CPU_WARN_PCT; cpu_crit = $CPU_CRIT_PCT; ram_warn = $RAM_WARN_PCT; ram_crit = $RAM_CRIT_PCT
+            commit_warn_gb = $COMMIT_WARN_GB; commit_crit_gb = $COMMIT_CRIT_GB; c_warn_gb = $C_FREE_WARN_GB; c_crit_gb = $C_FREE_CRIT_GB
+            e_warn_pct = $E_FREE_WARN_PCT; e_crit_pct = $E_FREE_CRIT_PCT; e_write_warn_ms = $E_WRITE_WARN_MS; e_write_crit_ms = $E_WRITE_CRIT_MS }
+    }
+    $tmp = "$f.$PID.tmp"
+    try {
+        [IO.File]::WriteAllText($tmp, ($o | ConvertTo-Json -Depth 4 -Compress), (New-Object System.Text.UTF8Encoding($false)))
+        if ([IO.File]::Exists($f)) { [IO.File]::Replace($tmp, $f, [NullString]::Value) } else { [IO.File]::Move($tmp, $f) }
+    } catch { try { Remove-Item -LiteralPath $tmp -ErrorAction Stop } catch {} }
+}
+
 if ($Once) {
     # S143 SANDBOX FALLBACK (operator 2026-10-02: "YOU DO THAT"). Inside Codex's workspace-write sandbox
     # Get-CimInstance is ACCESS DENIED and the reading came back C_free=0GB -> RED, so every sandboxed agent
@@ -233,7 +283,9 @@ if ($Once) {
     $a = Get-Reading; Start-Sleep -Seconds 2; $TEMP_SAMPLES = 0; $b = Get-Reading   # b: one quick sample, a already held the window
     $b.CpuPct = [math]::Round(($a.CpuPct + $b.CpuPct) / 2, 0)
     if ($a.TempC -ne $null -and $b.TempC -ne $null) { $b.TempC = [math]::Min($a.TempC, $b.TempC); $b.TempPeak = [math]::Max($a.TempPeak, $b.TempPeak) }
-    $out = Write-Health $b (Get-Problems $b)
+    $problems = @(Get-Problems $b)
+    $out = Write-Health $b $problems
+    Write-Verdict $b $problems $out[1] $out[0]
     $out[0]
     if ($out[1] -eq 'RED') { exit 1 } else { exit 0 }
 }

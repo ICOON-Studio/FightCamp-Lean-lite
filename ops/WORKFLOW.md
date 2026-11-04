@@ -26,12 +26,16 @@ Where this page and older text disagree, this page wins. Order (S218, operator P
   2-min trail at the top of the board and on /pc (/api/pc_metrics), from `ops/Tools/pc_metrics.ps1` - scheduled task
   "FightCamp PC Metrics", one hidden Get-Counter loop (~1% of one core), git-ignored `ops/AgentComms/pc_metrics.json`. Colours = the
   watchdog's lines; the watchdog stays the gate. Edited the sampler? Stop its powershell PID (Stop-ScheduledTask leaves it), then Start-ScheduledTask.
+  /pc ALSO (S379, operator: "you have way more info on metrics for the pc live"): the watchdog's pill + reason lines on top (every
+  `pc_watchdog.ps1 -Once` writes `pc_verdict.json`; the governor runs one every ~15-40 s), then what is using the PC (top 8 by CPU /
+  memory, each process named), agents + jobs, memory + page file, disks + the biggest E:\FightCamp folders (hourly), 10 min of heat -
+  the same sampler's `pc_detail.json` every 6 s (/api/pc_detail; native half `pc_metrics_native.cs`), ~0.2% of one core on top.
 - Before ANY heavy job (Godot test/suite, render, agent launch, big download, model install):
   `powershell -NoProfile -ExecutionPolicy Bypass -File ops\Tools\pc_watchdog.ps1 -Once` - exit 1 (RED) means do not start;
   tell the operator what is RED and what to close. Never scan a whole drive.
 - Drives: C: NVMe (Windows - keep free, nothing new), E: SATA SSD (hot data + agent worktrees under `E:\FightCamp\wt`,
   operator S138; S249 "auto-retire worktrees and gate clones from now on": the 30-min reconcile runs ops/Tools/worktree_retire.py - clean,
-  pushed, 24 h idle worktrees go (untracked files to E:\FightCamp\wt_salvage), dirty/unpushed ones are HELD and printed by `start`,
+  pushed, 24 h idle worktrees go (2 h once their seat run is landed/failed/done, S380; 1 h when merged) (untracked files to E:\FightCamp\wt_salvage), dirty/unpushed ones are HELD and printed by `start`,
   ZIVA never; branch-gate clones older than 6 h go; log ops/AgentComms/retire.log), D: HDD FAILING (WD15EARS, 758 read errors, 11 controller resets in 2 weeks = the PC freezes): OFFLINE since S190
   (operator: "remove the drive so windows cannot see it" - Set-Disk 1 -IsOffline; back with Set-Disk 1 -IsOffline $false) until replaced; backup of its irreplaceable folders in `E:\FightCamp_backup_D`. Nothing new on D:.
 - Shell agents (Codex/Cursor/Qwen/Grok CLI): as many as the PC takes (operator 2026-09-30: "they can run if the pc can
@@ -92,6 +96,13 @@ o_popups.ps1` (started by
 ## 7. Commits and git
 - REPO = `ICOON-Studio/FightCamp` (moved from Guru-Meditation S178, operator: "do it move it to the icoon studio org"; own 2,000
   Actions minutes; secrets, variables, runners, PRs moved with it; old URLs redirect). Arena/OpenHands pick ICOON-Studio/FightCamp.
+  (OLD repo. Since S366 the one repo is `ICOON-Studio/FightCamp-Lean`.)
+- ACTIONS MINUTES (S380, operator: "careful to not run out of actions on github"): every ICOON repo shares the enterprise's
+  50,000 included Linux minutes a month, then a $50 budget, then EVERY org job stops. Lean's jobs: ci (pushes touching only
+  ops/, docs/ or .md skip it; import cached), fight-stills = ONE probes job (stills only with `-f stills=true` - renders belong
+  on the PC's GPU; a runner has none), Goose (fight-stills only when its branch changes fight paths). Never add a schedule or
+  widen a matrix; a fight-stills experiment = `-f only=<job>`, one at a time, after a local parse check; push once per finished
+  task, not per commit (each main push cancels the last ci run, which still bills).
 - Stage explicit paths (`git add -- <files>`); check `git status -s` first (another agent's work may be staged). Never
   `audio_exports/`. Never a bare `git stash` / `reset --hard` / `checkout .` / `clean` in this shared checkout.
 - Commit messages end with the Co-Authored-By line the harness gives. Push `master` on every completed task.
@@ -242,8 +253,10 @@ o_popups.ps1` (started by
   "prompt|workspace|out"` (Qwen `qwen_task.cmd` = qwen3-coder --yolo; Cursor `cursor_task.cmd`; Codex `codex_task.cmd`).
   At every launch and landing update `ops/AgentComms/live_runs.json` (title in plain words, started, ETA, status) - the
   operator watches who works on what at 127.0.0.1:8787/agents (S144). At most 3 shell agents at once (operator S144, PC heat). PC agents: 3 when the watchdog is GREEN/AMBER (operator S226 Q-S225-5 "I'll keep fewer browsers open"; was 2 since S218).
-  One worktree per agent on E:, SEEDED before launch with `ops\Tools\seed_godot_cache.ps1 -Worktree <wt>` (copies the 4.4 GB import
-  cache; operator S206 "do the cache fix" - an agent's full editor import drove the PC to 87 C). Agents run tests `--jobs 1` when
+  One worktree per agent on E:, SEEDED before launch with `ops\Tools\seed_godot_cache.ps1 -Worktree <wt>` (operator S206 "do the
+  cache fix" - an agent's full editor import drove the PC to 87 C; S380: it HARDLINKS main's 0.5 GB .godot\imported - 0 bytes
+  written, Godot's tmp-then-rename saves never touch main's files - and copies the small rest; `-Copy` = the old full copy).
+  seat_dispatch worktrees are SPARSE (S380): no ops/research (but the brief and the files it names), docs/playtest, ops/previews. Agents run tests `--jobs 1` when
   the watchdog is not GREEN. Read the transcript, never the rc. Drive each to a pushed commit you verified.
 - A blind contract test is written from the contract, never from the implementation; prove it with mutants.
 - Shell-less agents (Grok bots, Dola, John, Kalli, Maria) get pure modules with zero preloads or research; never a repo
@@ -251,6 +264,12 @@ o_popups.ps1` (started by
 - CLOUD FIRST (operator 2026-10-03: "use arena.ai nonstop", "use john for research task if you need"): headless work (code,
   tests, C223 gates, probes) -> ARENA, re-tasked the moment its PR lands; research -> DOLA/JOHN (`python ops/Tools/gbot.py`, never bare
   gbot) after `prior_research.py`. The PC keeps window/GPU work and merging. Never Agent `isolation: "remote"` (S156: it fell back to C:).
+- CLOUD ROUTE (S380, operator: "optimize workflow also for cloud agents until then" + "careful to not run out of actions on
+  github"): seat_dispatch files a qwen row whose brief is a PURE rule module + tests (OWNS only scripts/rules/ + tests/, no
+  VISUAL/film/loop) as a `goose` issue "<ID> - <title>" instead of a PC worktree - Goose is the only cloud seat a script can
+  start today. Caps: GOOSE_PER_DAY 3, GOOSE_IN_FLIGHT 2 (each run ~25-55 Actions min + one ci); past them the PC route as
+  before; GOOSE_PER_DAY = 0 turns it off. Arena (browser), Claude cloud sessions (the app reports no readable checkout) and
+  Cursor Cloud Agents (an API key + usage money) need the operator first.
 - CLOUD SEATS (S157): Arena, OpenHands, OpenCode (`/oc`), Goose (label `goose`, long tasks) - how-to in AGENT_TOOLS.md. WATCHABLE
   (operator: "always open cloud agents on your sidebar"): one browser-pane tab per running cloud agent + `branch`/`gh_run`/`issue` in live_runs.json.
 - ARENA (operator ruling 2026-10-03): works on the code-only mirror ICOON-Studio/FightCamp-lite (S264, clone failures; `ops/Tools/lite_mirror.py push` before a launch, its PRs relay to arena/* PRs here every 30 min); its own `arena/<chat-id>-<repo>` branch and PR; Claude reviews and merges - NEVER Arena's "Merge

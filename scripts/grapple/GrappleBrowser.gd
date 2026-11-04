@@ -286,6 +286,8 @@ func _top_bar() -> Control:
 		var tag := str(f[1])
 		h.add_child(UI.button(str(f[0]), "Tab", func(): _family(tag)))
 	h.add_child(UI.button("Tie-ups", "Tab", func(): _open_ties()))
+	# S379 the Grappling theatre: whole chains of moves played straight, filmed like a documentary.
+	h.add_child(UI.button("Theatre", "Btn", func(): get_tree().change_scene_to_file("res://scenes/dev/GrappleTheatre.tscn")))
 	_plan_toggle = UI.button("Build plan", "Btn", func(): _set_plan_mode(not plan_mode))
 	_plan_toggle.visible = false
 	h.add_child(_plan_toggle)

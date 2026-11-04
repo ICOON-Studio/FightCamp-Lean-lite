@@ -77,6 +77,17 @@ PC_AGENTS = ("qwen", "cursor", "antigravity", "agy", "codex", "cline", "ziva")
 MAX_PC_AGENTS = 2         # S218 (the PC hung with 3 agents + Godot tests): 2 PC agents at once
 LAUNCHES_PER_CYCLE = 1    # one new agent per 30-min cycle - each launch seeds a cache and starts Godot imports
 E_FREE_MIN_GB = 20
+## S380 (operator: "optimize workflow also for cloud agents until then" - E: is 91% full - and "careful to not run out of actions
+## on github"): a qwen row whose brief is a PURE rule module + tests (OWNS only scripts/rules/ and tests/, no VISUAL/film/loop)
+## goes to Goose (GitHub Actions + the Qwen token plan; the only cloud seat a script can start today) instead of a PC worktree.
+## Each Goose run costs ~25-55 Actions minutes (cap 110) + one ci run, so: at most GOOSE_PER_DAY a day, GOOSE_IN_FLIGHT at once;
+## past either cap the row waits for the PC seat as before. GOOSE_PER_DAY = 0 switches the route off.
+GOOSE_PER_DAY, GOOSE_IN_FLIGHT = 3, 2
+CLOUD_OWNS = ("scripts/rules/", "tests/")
+GOOSE_FOOTER = ("\n\n---\nDispatched by ops/Tools/seat_dispatch.py (S380): this is the brief ops/research/TASK_{task}.md in full. Its "
+                "'## Contract' is binding - touch only the OWNS files, turn RED_TEST green, keep every REGRESSION test green. Windows "
+                "Godot paths in the brief are the PC's: use $GODOT_EXE. End with one RESULT: line per test you ran "
+                "(RESULT: tests/<x>_test.gd -> <exact pass line>).\n")
 TEST_TIMEOUT_S, FILM_TIMEOUT_S = 600, 900
 NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0)
 IDLE, NEW_GROUP, BREAKAWAY = 0x40, 0x200, 0x01000000
@@ -257,14 +268,49 @@ def pc_agents(procs: list) -> list[str]:
     return out
 
 
+def cloud_why(task: str) -> str:
+    """'' = a pure rule module + tests brief Goose can take in the cloud (S380), else why it stays on the PC."""
+    contract, why = brief_contract.check_brief(task)
+    if why or not contract:
+        return "no valid contract"
+    if contract.get("visual") or contract.get("films") or contract.get("film") or contract.get("loop"):
+        return "VISUAL/film/loop - needs the PC's GPU"
+    paths = [o["path"] for o in contract.get("owns") or []]
+    if not paths or any(not p.startswith(CLOUD_OWNS) for p in paths):
+        return "owns files outside scripts/rules/ and tests/"
+    return ""
+
+
+def goose_room() -> str:
+    """'' when another Goose run fits today's caps (S380, Actions minutes), else why not."""
+    if GOOSE_PER_DAY <= 0:
+        return "Goose route off (GOOSE_PER_DAY = 0)"
+    today = datetime.now().strftime("%Y-%m-%d")
+    runs = [r for r in (load(RUNS, {}).get("runs") or {}).values() if isinstance(r, dict)]
+    arch = load(ARCHIVE, {}).get("runs", {})
+    allr = runs + [r for r in (arch.values() if isinstance(arch, dict) else arch) if isinstance(r, dict)]
+    flying = sum(1 for r in runs if r.get("agent") == "goose" and str(r.get("status")) in ("running", "waiting"))
+    started = sum(1 for r in allr if r.get("agent") == "goose" and str(r.get("started", "")).startswith(today))
+    if flying >= GOOSE_IN_FLIGHT:
+        return f"{flying} Goose runs in flight (max {GOOSE_IN_FLIGHT})"
+    if started >= GOOSE_PER_DAY:
+        return f"{started} Goose runs started today (max {GOOSE_PER_DAY}, Actions minutes)"
+    return ""
+
+
 def decide(rows: list[dict], procs: list, red: bool, red_line: str, e_free_gb: float) -> list[dict]:
-    """Every queued row with its verdict: LAUNCH (the first LAUNCHES_PER_CYCLE that pass) or why it waits."""
+    """Every queued row with its verdict: CLOUD (a pure qwen task to Goose, S380; one a cycle), LAUNCH (the first
+    LAUNCHES_PER_CYCLE that pass the PC gates) or why it waits."""
     agents = pc_agents(procs)
     render = render_running(procs)
-    launches, used = 0, set()
+    launches, used, cloud = 0, set(), 0
     out = []
     for r in rows:
         why = brief_why(r["task"]) or fresh_why(r["task"], r["seat"])
+        if not why and r["seat"] == "qwen" and not cloud and not goose_room() and not cloud_why(r["task"]):
+            cloud += 1
+            out.append(dict(r, verdict="CLOUD", why="pure rule module + tests: Goose in the cloud (S380)"))
+            continue
         if not why and r["seat"] in used:
             why = "seat already gets a task this cycle"
         if not why:
@@ -288,6 +334,30 @@ def decide(rows: list[dict], procs: list, red: bool, red_line: str, e_free_gb: f
 
 # ---------------------------------------------------------------- launch
 
+## S380 (E: 91% full; a DRAM-less SATA SSD stalls on thousands of small writes): a seat worktree is a SPARSE checkout without
+## ops/research (4,973 files), docs/playtest (87 MB of stills) and ops/previews - 75% of the tracked files, ~265 MB a launch,
+## and no seat reads them (the runner reads briefs and live_runs from the MAIN checkout). The brief and every ops/research
+## path it names stay in (so do OWNS files under a skipped folder - git add refuses a path outside the sparse set); anything
+## else is read-only at E:/FightCamp/Lean/ops/research (the prompt says so).
+SPARSE_SKIP = ("/ops/research/", "/docs/playtest/", "/ops/previews/")
+
+
+def sparse_patterns(task: str, brief: str) -> list[str]:
+    named = {m.rstrip(".,;:)]}`'\"") for m in re.findall(r"(?:ops/research|docs/playtest|ops/previews)/[\w./-]+", brief)}
+    named.add(f"ops/research/TASK_{task}.md")
+    return ["/*", *(f"!{p}" for p in SPARSE_SKIP), *sorted("/" + n for n in named if "/" + n not in SPARSE_SKIP)]
+
+
+def add_worktree(wt: Path, ref: str, patterns: list[str], branch: str = "") -> subprocess.CompletedProcess:
+    """git worktree add (new branch, or detached) -> sparse-checkout set -> read-tree: only `patterns` are ever written."""
+    p = sh(["git", "worktree", "add", "--no-checkout", *(["-b", branch] if branch else ["--detach"]), wt, ref], timeout=600)
+    for step in (["sparse-checkout", "set", "--no-cone", *patterns], ["read-tree", "-mu", "HEAD"]):
+        if p.returncode != 0:
+            return p
+        p = sh(["git", *step], cwd=wt, timeout=600)
+    return p
+
+
 def prompt_text(seat: str, task: str, wt: Path, branch: str) -> str:
     brief = wt / "ops" / "research" / f"TASK_{task}.md"
     if seat == "agy":
@@ -298,6 +368,7 @@ def prompt_text(seat: str, task: str, wt: Path, branch: str) -> str:
     return "\n".join([
         f"You are {name} working in the Godot 4.7.2 repo at {wt} (a git worktree of E:\\FightCamp\\Lean, branch {branch}, cut from origin/main).",
         f"Read the brief ops/research/TASK_{task}.md in that folder in full and do exactly what it says. Its '## Contract' block is binding:",
+        "(ops/research holds only your brief and the files it names here; read any other ops/research file at E:/FightCamp/Lean/ops/research, read-only.)",
         "touch only the files OWNS lists, turn RED_TEST green, keep every REGRESSION test green, no file over 500 lines.",
         f"Run Godot only headless: \"{GODOT}\" --headless --audio-driver Dummy --path . --script res://<test>.gd (never the _console.exe).",
         "Nothing may open on the screen: do not open images, videos or apps.",
@@ -320,12 +391,37 @@ def spawn_hidden(args: list, out_path: Path, cwd: Path) -> int:
     raise OSError("could not start " + " ".join(map(str, args[:3])))
 
 
+def launch_goose(r: dict) -> str:
+    """S380: file the brief as a `goose`-labelled issue - goose.yml works it on goose/issue-<n> and opens the PR; board_reconcile
+    follows the run through `issue` like any issue-launched seat. A failed gh call leaves no run behind (the next cycle retries)."""
+    task = r["task"]
+    text = brief_contract.brief_path(task).read_text(encoding="utf-8", errors="replace")
+    title = short_title(task, re.sub(r"^#\s*", "", text.splitlines()[0]).strip())[:110]
+    body = WT / f"{task}_goose_issue.md"
+    body.write_text(text.rstrip() + GOOSE_FOOTER.format(task=task), encoding="utf-8")
+    update_run(task, agent="goose", id=task, title=title, status="running", started=_now(), where="cloud", repo="FightCamp-Lean",
+               brief=f"ops/research/TASK_{task}.md", model="Goose + Qwen token plan (GitHub Actions)",
+               eta=(datetime.now() + timedelta(minutes=60)).strftime("%Y-%m-%dT%H:%M"),
+               note=f"S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree ({r.get('source', '')})")
+    p = sh(["gh", "issue", "create", "-R", REPO, "--title", f"{task} - {title}", "--body-file", body, "--label", "goose"], timeout=120)
+    m = re.search(r"/issues/(\d+)", p.stdout or "")
+    if p.returncode != 0 or not m:
+        reg = load(RUNS, {"runs": {}})
+        reg.get("runs", {}).pop(task, None)
+        save(RUNS, reg)
+        return log(f"CLOUD FAIL {task}: gh issue create: {(p.stderr or p.stdout).strip()[:300]}")
+    n = m.group(1)
+    update_run(task, issue=n, branch=f"goose/issue-{n}", gh_issue=(p.stdout or "").strip().splitlines()[-1])
+    return log(f"CLOUD {task} -> Goose, issue #{n} (branch goose/issue-{n}; goose.yml opens the PR)")
+
+
 def launch(r: dict) -> str:
     task, seat = r["task"], r["seat"]
     wt, branch = WT / f"LEAN_{task}", f"{seat}/{task.lower()}"
     base = (brief_contract.parse(brief_contract.brief_path(task).read_text(encoding="utf-8", errors="replace")) or {}).get("base") or "main"
     git("fetch", "-q", "origin", "main", *([base] if base != "main" else []), timeout=300)
-    p = sh(["git", "worktree", "add", "-b", branch, wt, f"origin/{base}"], timeout=600)
+    brief_text = brief_contract.brief_path(task).read_text(encoding="utf-8", errors="replace")
+    p = add_worktree(wt, f"origin/{base}", sparse_patterns(task, brief_text), branch=branch)
     if p.returncode != 0:
         return log(f"LAUNCH FAIL {task}: worktree add: {(p.stderr or p.stdout).strip()[:300]}")
     seed = sh(["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", ROOT / "Tools" / "seed_godot_cache.ps1",
@@ -334,6 +430,7 @@ def launch(r: dict) -> str:
     brief_src, brief_dst = brief_contract.brief_path(task), wt / "ops" / "research" / f"TASK_{task}.md"
     copied = not brief_dst.is_file() or brief_dst.read_bytes() != brief_src.read_bytes()
     if copied:
+        brief_dst.parent.mkdir(parents=True, exist_ok=True)  # S380: a brief not yet on origin finds no ops/research folder
         shutil.copyfile(brief_src, brief_dst)  # untracked/modified there - never committed (only OWNS files are)
     prompt, out = WT / f"{task}_dispatch_prompt.txt", WT / f"{task}_dispatch_out.txt"
     prompt.write_text(prompt_text(seat, task, wt, branch), encoding="utf-8")
@@ -369,7 +466,7 @@ def commit_owned(wt: Path, contract: dict, task: str, seat: str) -> tuple[list[s
             continue
         (files if owned(path, owns) else stray).append(path)
     if files:
-        git("add", "--", *files, cwd=wt)
+        git("add", "--sparse", "--", *files, cwd=wt)  # S380: sparse worktrees (an OWNS file outside the sparse set still adds)
         msg = (f"{task}: {seat} delivered {', '.join(files)[:200]} (unattended)\n\nDispatched-by: ops/Tools/seat_dispatch.py\n"
                f"Seat: {SEATS[seat]['agent']} {SEATS[seat]['model']}\n")
         subprocess.run(["git", "commit", "-q", "-F", "-", "--", *files], cwd=str(wt), input=msg, text=True, encoding="utf-8",
@@ -508,16 +605,22 @@ def film(wt: Path, contract: dict, mp4: Path) -> str:
     mp4.parent.mkdir(parents=True, exist_ok=True)
     avi = mp4.with_suffix(".avi")
     extra = [] if "--resolution" in args else ["--resolution", "1280x720"]
-    p = sh([sys.executable, GAME / "tools" / "hidden_desktop.py", "run", f"--timeout={FILM_TIMEOUT_S}", f"--log={mp4.with_suffix('.log')}",
-            GODOT, "--path", wt, "--windowed", *extra, "--audio-driver", "Dummy", "--fixed-fps", "30", "--write-movie", avi, *args],
-           cwd=wt, timeout=FILM_TIMEOUT_S + 120)
-    if not avi.is_file():
-        return f"no film written (rc {p.returncode}; log {mp4.with_suffix('.log')})"
-    c = sh(["ffmpeg", "-y", "-loglevel", "error", "-i", avi, "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", "23", "-an", mp4], timeout=900)
-    if c.returncode != 0 or not mp4.is_file():
-        return "ffmpeg failed: " + (c.stderr or "")[-200:]
-    avi.unlink(missing_ok=True)
-    return ""
+    # S380: the raw AVI (hundreds of MB on a 91%-full E:) never outlives this call - gone once the mp4 exists, and on any failure.
+    try:
+        p = sh([sys.executable, GAME / "tools" / "hidden_desktop.py", "run", f"--timeout={FILM_TIMEOUT_S}", f"--log={mp4.with_suffix('.log')}",
+                GODOT, "--path", wt, "--windowed", *extra, "--audio-driver", "Dummy", "--fixed-fps", "30", "--write-movie", avi, *args],
+               cwd=wt, timeout=FILM_TIMEOUT_S + 120)
+        if not avi.is_file():
+            return f"no film written (rc {p.returncode}; log {mp4.with_suffix('.log')})"
+        c = sh(["ffmpeg", "-y", "-loglevel", "error", "-i", avi, "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", "23", "-an", mp4], timeout=900)
+        if c.returncode != 0 or not mp4.is_file():
+            return "ffmpeg failed: " + (c.stderr or "")[-200:]
+        return ""
+    finally:
+        try:
+            avi.unlink(missing_ok=True)
+        except OSError:
+            pass
 
 
 def judge(mp4: Path, what: str, intent: str) -> dict:
@@ -543,8 +646,11 @@ def read_verdict(text: str) -> tuple[str, str]:
         hits = [l.strip(" *#->") for l in lines if SCORE_RE.search(l)]
         scored = hits[-1] if hits else ""
     line = next((l.strip(" *#->") for l in lines[1:] if l.strip() and "score" not in l.lower()), scored)
-    found = SCORE_RE.findall(scored)
-    return (found[-1] if found else "?"), line[:240]
+    # S379: the FIRST N/10 after the word "score" is the score - FIGHT9R9's line was "**Score:** **4 / 10** ... (nowhere near
+    # a 9/10 while ...)" and taking the last match stopped the loop at a false 9/10 (S376 had the same trap the other way round)
+    at = scored.lower().find("score")
+    found = SCORE_RE.findall(scored[at:] if at >= 0 else scored) or SCORE_RE.findall(scored)
+    return (found[0] if found else "?"), line[:240]
 
 
 def short_title(task: str, title: str) -> str:
@@ -844,9 +950,12 @@ def dispatch(act: bool = False, only: dict | None = None) -> list[str]:
     lines = [f"SEAT_DISPATCH watchdog {'RED' if red else 'ok'}: {red_line}"]
     for d in decide(rows, procs, red, red_line, e_free):
         lines.append(f"{d['verdict']:6s} {d['seat']:6s} {d['task'] or d['row']:16s} ({d['source']}) {d['why'] or 'all gates pass'}")
+        if d["verdict"] == "CLOUD":
+            lines.append("  -> " + (launch_goose(d) if act else f"dry run: --act files TASK_{d['task']} as a goose issue (cloud, S380)"))
         if d["verdict"] == "LAUNCH":
             lines.append("  -> " + (launch(d) if act else f"dry run: --act creates {WT / ('LEAN_' + d['task'])} on "
                                                          f"{d['seat']}/{d['task'].lower()} and starts the runner"))
+        if d["verdict"] in ("LAUNCH", "CLOUD"):
             if act and only is None:
                 items = load(QUEUE, {"items": []})
                 for it in items.get("items", []):
@@ -876,12 +985,17 @@ def selftest() -> int:
         ("literal pass line", _literal("GYM_BILLS failures=0") and not _literal("OURS <= 250/min")),
         ("title: brief prefix dropped", short_title("RIVALPAST1", "TASK RIVALPAST1 - QWEN - a test for X (Lean)") == "a test for X"),
         ("title: agy brief", short_title("REFBREAK1", "# TASK_REFBREAK1 - the referee parts it (Antigravity)") == "the referee parts it"),
+        ("sparse: skips research/playtest/previews, keeps the brief + named files",
+         sparse_patterns("T1", "see ops/research/S376_DIGEST.md, ops/research/noref1_qwen/. OWNS: docs/playtest/T1/a.png") ==
+         ["/*", "!/ops/research/", "!/docs/playtest/", "!/ops/previews/", "/docs/playtest/T1/a.png", "/ops/research/S376_DIGEST.md",
+          "/ops/research/TASK_T1.md", "/ops/research/noref1_qwen/"]),
         ("verdict: score after the Verdict heading",
          read_verdict(chr(10).join(["x 3/10 noise", "### 5) Verdict", "Stiff but readable. 4/10"])) == ("4", "Stiff but readable. 4/10")),
     ]
     rows = [{"row": "A", "seat": "qwen", "task": "T1", "source": "t"}, {"row": "B", "seat": "agy", "task": "", "source": "t"}]
     g = globals()
-    saved = {k: g[k] for k in ("brief_why", "fresh_why", "seat_busy", "pc_agents")}
+    saved = {k: g[k] for k in ("brief_why", "fresh_why", "seat_busy", "pc_agents", "cloud_why", "goose_room")}
+    g.update(cloud_why=lambda t: "selftest: PC route", goose_room=lambda: "selftest: PC route")  # the PC-gate cases test the PC route
     g.update(brief_why=lambda t: "" if t else "no brief", fresh_why=lambda t, s: "", seat_busy=lambda s, p: "", pc_agents=lambda p: [])
     d = decide(rows, [], True, "RED 90C", 100.0)
     cases.append(("decide: RED holds every launch", all(x["verdict"] == "WAIT" for x in d)))
@@ -889,6 +1003,15 @@ def selftest() -> int:
     cases.append(("decide: AMBER + a render holds a launch", "render" in decide(rows[:1], film_proc, False, "t AMBER x", 100.0)[0]["why"]))
     cases.append(("decide: GREEN + a render may launch", "render" not in decide(rows[:1], film_proc, False, "t GREEN x", 100.0)[0]["why"]))
     cases.append(("decide: a row without a brief waits", "no brief" in d[1]["why"]))
+    g.update(cloud_why=lambda t: "", goose_room=lambda: "")
+    dc = decide([dict(rows[0]), dict(rows[0], row="Q2", task="T2")], [], True, "RED 90C", 100.0)
+    cases.append(("decide: a pure qwen task goes to Goose even on RED, one a cycle",
+                  dc[0]["verdict"] == "CLOUD" and dc[1]["verdict"] == "WAIT"))
+    g["goose_room"] = lambda: "3 Goose runs started today"
+    cases.append(("decide: Goose caps full -> the PC route", decide(rows[:1], [], False, "t GREEN x", 100.0)[0]["verdict"] == "LAUNCH"))
+    g.update(goose_room=lambda: "", cloud_why=lambda t: "owns files outside scripts/rules/ and tests/")
+    cases.append(("decide: a UI task stays on the PC", decide(rows[:1], [], False, "t GREEN x", 100.0)[0]["verdict"] == "LAUNCH"))
+    g.update(cloud_why=lambda t: "selftest: PC route", goose_room=lambda: "selftest: PC route")
     two = [dict(rows[0]), dict(rows[0], row="C", seat="cursor")]
     g["pc_agents"] = lambda p: ["agy pid 1"]
     d2 = decide(two, [], False, "t AMBER x", 100.0)
@@ -920,7 +1043,7 @@ def main(argv: list[str]) -> int:
         res = {}
         for which, ref in (("before", "origin/main"), ("after", f"origin/{branch}")):
             git("fetch", "-q", "origin", "main", *([branch] if branch else []), timeout=300)
-            sh(["git", "worktree", "add", "--detach", tmp, ref], timeout=600)
+            add_worktree(tmp, ref, sparse_patterns(task, ""))
             sh(["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", ROOT / "Tools" / "seed_godot_cache.ps1", "-Worktree", tmp],
                timeout=1800)
             res[which] = films(task, tmp, contract, which)

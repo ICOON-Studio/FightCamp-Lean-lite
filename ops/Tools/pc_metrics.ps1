@@ -7,6 +7,8 @@
 # CPU/GPU temperatures, .NET DriveInfo the free space. The latest sample + the last $Keep (2 min) are written to
 # AgentComms\pc_metrics.json (git-ignored machine state); the board serves it at /api/pc_metrics and draws it on / and /pc.
 # Colours on the board are the watchdog's own thresholds (pc_watchdog.ps1) - this script only measures.
+# S379 detail (operator: "you have way more info on metrics for the pc live"): every 3rd sample (6 s) it also writes
+# AgentComms\pc_detail.json for the /pc page's lower half - see Write-Detail. Native half: pc_metrics_native.cs (Add-Type, once).
 #
 #   powershell -NoProfile -ExecutionPolicy Bypass -File ops\Tools\pc_metrics.ps1             # the sampler (logon task)
 #   powershell -NoProfile -ExecutionPolicy Bypass -File ops\Tools\pc_metrics.ps1 -Register   # (re)create the task + start it
@@ -159,6 +161,9 @@ function Write-Sample($set) {
     $memUsed = if ($ramTotalGB -ne $null -and $avail -ne $null) { $ramTotalGB - $avail / 1024 } else { $null }
     $memPct = if ($memUsed -ne $null) { 100 * $memUsed / $ramTotalGB } else { $null }
     $lhm = Read-Lhm
+    $temps.Add($(if ($lhm.cpu_c -ne $null) { [double]$lhm.cpu_c } else { [double]::NaN })); $tempsS.Add((N $lhm.cpu_c 1))
+    while ($temps.Count -gt $TempKeep) { $temps.RemoveAt(0); $tempsS.RemoveAt(0) }
+    $script:lastS = @{ commit = $commit; limit = $limit; ram = $ramTotalGB; used = $memUsed; cpu_c = $lhm.cpu_c }
 
     # Disks: instance "0 e:" = disk 0 holding E:; free space from every letter on it.
     $dj = New-Object System.Collections.Generic.List[string]
@@ -195,11 +200,147 @@ function Write-Sample($set) {
         ',"keep":' + $Keep + ',"pid":' + $PID + ',"static":' + $static + ',"latest":' + $sample + ',"history":[' + ($hist -join ',') + ']}'
     try {
         [IO.File]::WriteAllText($tmpFile, $json, $utf8)
-        if ([IO.File]::Exists($outFile)) { [IO.File]::Replace($tmpFile, $outFile, $null) } else { [IO.File]::Move($tmpFile, $outFile) }
+        if ([IO.File]::Exists($outFile)) { [IO.File]::Replace($tmpFile, $outFile, [NullString]::Value) } else { [IO.File]::Move($tmpFile, $outFile) }
     } catch {
         # The board had the file open at that instant: overwrite in place; the next sample comes in 2 s anyway.
         try { [IO.File]::Copy($tmpFile, $outFile, $true) } catch { LogErr "write: $($_.Exception.Message)" }
     }
+}
+
+# --- S379 detail: the /pc page's lower half (operator: "you have way more info on metrics for the pc live") -----------------------
+# Every $DetailEvery samples (6 s) AgentComms\pc_detail.json gets:
+#   verdict  AgentComms\pc_verdict.json as `pc_watchdog.ps1 -Once` last wrote it (the heat governor runs -Once every ~15 s) - the
+#            pill, every reason line as printed, when the colour changed. This sampler never runs the watchdog itself.
+#   procs    what is using the PC: pc_metrics_native.cs (one NtQuerySystemInformation call; each process named for a human).
+#   runs     live_runs.json's running rows (re-read only when the file changes) and how long each has run.
+#   mem      the page file(s) from Win32_PageFileUsage - every 5 min, or a minute after the commit limit moves (= the page file
+#            grew or shrank) - and every size change seen; commit and its limit come from the counters above.
+#   heat     10 min of CPU temperature (the 2 s samples), its peak, the heat governor's held jobs and its last log line.
+#   folders  the largest folders under E:\FightCamp: one background-priority scan at most once an hour (~1 s, 120k files, S379),
+#            cached in AgentComms\pc_folders.json so a restart does not rescan. Never on a page load.
+#   cost     this sampler's own CPU over the last minute (% of one core), shown on the page.
+$DetailEvery = 3; $TempKeep = [int](600 / $Every); $FolderRoot = 'E:\FightCamp'; $FolderEveryS = 3600
+$temps = New-Object System.Collections.Generic.List[double]; $tempsS = New-Object System.Collections.Generic.List[string]
+$nSample = 0; $lastS = @{}
+$detailFile = Join-Path $root 'AgentComms\pc_detail.json'; $detailTmp = $detailFile + '.tmp'
+$verdictFile = Join-Path $root 'AgentComms\pc_verdict.json'
+$healthFile = Join-Path $root 'AgentComms\pc_health.txt'
+$runsFile = Join-Path $root 'AgentComms\live_runs.json'
+$foldersFile = Join-Path $root 'AgentComms\pc_folders.json'
+$govLog = Join-Path $root 'AgentComms\heat_governor.log'
+$govPaused = Join-Path ([IO.Path]::GetTempPath()) 'fightcamp_heat_paused.txt'
+$native = $false
+try { Add-Type -Path (Join-Path $PSScriptRoot 'pc_metrics_native.cs') -ErrorAction Stop; $native = $true } catch { Log "native helper failed: $($_.Exception.Message)" }
+if ($native) { $null = [FcPc.Procs]::Json() }   # the first read only sets each process's CPU baseline
+$runsStamp = [datetime]::MinValue; $runRows = @()
+$pfAuto = $null; try { $pfAuto = [bool](Get-CimInstance Win32_ComputerSystem).AutomaticManagedPagefile } catch {}
+$pfAt = [datetime]::MinValue; $pfLimit = $null; $pfSize = $null; $pfJson = '[]'; $pfEvents = New-Object System.Collections.Generic.List[string]
+$govStamp = [datetime]::MinValue; $govLine = ''
+$foldersJson = 'null'; $foldersLast = ''; $foldersNext = 0.0
+try { $c = [IO.File]::ReadAllText($foldersFile, $utf8); if ($c -match '"at":(\d+)') { $foldersJson = $c; $foldersLast = $c; $foldersNext = [double]$Matches[1] + $FolderEveryS } } catch {}
+$me = [Diagnostics.Process]::GetCurrentProcess()
+$costQ = New-Object System.Collections.Generic.Queue[object]
+
+function Read-Runs {
+    try { $st = [IO.File]::GetLastWriteTimeUtc($runsFile) } catch { return }
+    if ($st -eq $script:runsStamp) { return }
+    $script:runsStamp = $st
+    $rows = @()
+    try {
+        $j = [IO.File]::ReadAllText($runsFile, $utf8) | ConvertFrom-Json
+        foreach ($pr in $j.runs.PSObject.Properties) {
+            $r = $pr.Value
+            if ("$($r.status)" -ne 'running') { continue }
+            $started = $null
+            try { $started = [datetime]::ParseExact("$($r.started)", [string[]]@("yyyy-MM-dd'T'HH:mm", "yyyy-MM-dd'T'HH:mm:ss", 'yyyy-MM-dd HH:mm'), $inv, 'None') } catch {}
+            $wt = if ($r.worktree) { "$($r.worktree)" } elseif ($r.wt) { "$($r.wt)" } else { '' }
+            $rows += [pscustomobject]@{ id = $pr.Name; agent = "$($r.agent)"; title = "$($r.title)"; started = $started; eta = "$($r.eta)"; wt = $wt }
+        }
+    } catch { LogErr "live_runs: $($_.Exception.Message)" }
+    $script:runRows = $rows
+    if ($native) { [FcPc.Procs]::SetRuns([string[]]@($rows | ForEach-Object { $_.id }), [string[]]@($rows | ForEach-Object { $_.agent }), [string[]]@($rows | ForEach-Object { $_.wt })) }
+}
+
+function Write-Detail {
+    $now = [DateTimeOffset]::Now; $t = $now.ToUnixTimeMilliseconds() / 1000; $L = $script:lastS
+    Read-Runs
+    $procs = if ($native) { [FcPc.Procs]::Json() } else { 'null' }
+    $runs = @(foreach ($r in $script:runRows) {
+        $mins = if ($r.started) { [math]::Max(0, ($now.LocalDateTime - $r.started).TotalMinutes) } else { $null }
+        '{"id":' + (S $r.id) + ',"agent":' + (S $r.agent) + ',"title":' + (S $r.title) + ',"started":' + (S $(if ($r.started) { $r.started.ToString('HH:mm', $inv) } else { '' })) +
+            ',"mins":' + (N $mins 0) + ',"eta":' + (S $r.eta) + ',"wt":' + (S $r.wt) + '}'
+    })
+    $verdict = 'null'; $vAge = $null
+    try { $v = [IO.File]::ReadAllText($verdictFile, $utf8).Trim(); if ($v.StartsWith('{') -and $v.EndsWith('}')) { $verdict = $v; $vAge = ($now.UtcDateTime - [IO.File]::GetLastWriteTimeUtc($verdictFile)).TotalSeconds } } catch {}
+    $health = ''; $hAge = $null
+    try { $health = ([IO.File]::ReadAllText($healthFile, $utf8) -split "`r?`n")[0].Trim([char]0xFEFF, ' '); $hAge = ($now.UtcDateTime - [IO.File]::GetLastWriteTimeUtc($healthFile)).TotalSeconds } catch {}
+
+    # Page file: CIM only every 5 min, or a minute after the commit limit moved (the limit = RAM + page file, so a move = growth).
+    $limitGb = if ($L.limit -ne $null) { $L.limit / 1GB } else { $null }
+    $since = ((Get-Date) - $script:pfAt).TotalSeconds
+    if ($since -ge 300 -or ($since -ge 60 -and $limitGb -ne $null -and $script:pfLimit -ne $null -and [math]::Abs($limitGb - $script:pfLimit) -ge 0.25)) {
+        $script:pfAt = Get-Date; $script:pfLimit = $limitGb
+        try {
+            $u = @(Get-CimInstance Win32_PageFileUsage -ErrorAction Stop)
+            # Its set sizes: a file may grow from its initial to its maximum size (0 = Windows manages it).
+            $set = @{}; try { Get-CimInstance Win32_PageFileSetting -ErrorAction Stop | ForEach-Object { $set["$($_.Name)".ToLower()] = $_ } } catch {}
+            $script:pfJson = '[' + (@($u | ForEach-Object { $ps = $set["$($_.Name)".ToLower()]
+                '{"name":' + (S "$($_.Name)") + ',"alloc_mb":' + [int]$_.AllocatedBaseSize + ',"use_mb":' + [int]$_.CurrentUsage + ',"peak_mb":' + [int]$_.PeakUsage +
+                ',"init_mb":' + $(if ($ps) { [int]$ps.InitialSize } else { 0 }) + ',"max_mb":' + $(if ($ps) { [int]$ps.MaximumSize } else { 0 }) + '}' }) -join ',') + ']'
+            $size = [int](($u | Measure-Object AllocatedBaseSize -Sum).Sum)
+            if ($script:pfSize -ne $null -and $size -ne $script:pfSize) {
+                $script:pfEvents.Insert(0, '{"t":' + (N $t 0) + ',"at":' + (S $now.ToString('HH:mm', $inv)) + ',"from_mb":' + $script:pfSize + ',"to_mb":' + $size + '}')
+                while ($script:pfEvents.Count -gt 5) { $script:pfEvents.RemoveAt(5) }
+            }
+            $script:pfSize = $size
+        } catch { LogErr "pagefile: $($_.Exception.Message)" }
+    }
+    $mem = '{"ram_gb":' + (N $L.ram 1) + ',"used_gb":' + (N $L.used 2) + ',"commit_gb":' + (N $(if ($L.commit -ne $null) { $L.commit / 1GB }) 2) + ',"limit_gb":' + (N $limitGb 2) +
+        ',"auto":' + $(if ($script:pfAuto -eq $null) { 'null' } elseif ($script:pfAuto) { 'true' } else { 'false' }) + ',"files":' + $script:pfJson + ',"events":[' + ($script:pfEvents -join ',') + ']}'
+
+    # Heat: the 10-min peak and when; the governor's held jobs (its own file) and last log line (read only when it changed).
+    $pi = if ($native) { [FcPc.J]::PeakIndex($script:temps) } else { -1 }
+    $peak = if ($pi -ge 0) { $script:temps[$pi] } else { $null }
+    $peakAgo = if ($pi -ge 0) { ($script:temps.Count - 1 - $pi) * $Every } else { $null }
+    $held = 0; try { $held = @([IO.File]::ReadAllLines($govPaused) | Where-Object { $_.Trim() }).Count } catch {}
+    try {
+        $gs = [IO.File]::GetLastWriteTimeUtc($govLog)
+        if ($gs -ne $script:govStamp) {
+            $script:govStamp = $gs
+            $fs = New-Object IO.FileStream($govLog, [IO.FileMode]::Open, [IO.FileAccess]::Read, [IO.FileShare]'ReadWrite, Delete')
+            try { $n = [int][math]::Min(2048, $fs.Length); [void]$fs.Seek(-$n, [IO.SeekOrigin]::End); $b = New-Object byte[] $n; [void]$fs.Read($b, 0, $n) } finally { $fs.Dispose() }
+            $script:govLine = @(($utf8.GetString($b) -split "`r?`n") | Where-Object { $_.Trim() })[-1]
+        }
+    } catch {}
+
+    # Folder sizes: hourly, background thread; the answer is cached on disk.
+    if ($native) {
+        $fr = [FcPc.Folders]::Result
+        if ($fr -and $fr -ne $script:foldersLast) {
+            $script:foldersLast = $fr; $script:foldersJson = $fr
+            try { [IO.File]::WriteAllText($foldersFile, $fr, $utf8) } catch {}
+        }
+        if (-not [FcPc.Folders]::Running -and $t -ge $script:foldersNext -and (Test-Path -LiteralPath $FolderRoot)) {
+            $script:foldersNext = $t + $FolderEveryS; [void][FcPc.Folders]::Start($FolderRoot)
+        }
+    }
+
+    # What this sampler costs: its own CPU over the last minute, % of one core.
+    $me.Refresh(); $cpuMs = $me.TotalProcessorTime.TotalMilliseconds
+    $script:costQ.Enqueue(@($t, $cpuMs)); while ($script:costQ.Count -gt 11) { [void]$script:costQ.Dequeue() }
+    $first = $script:costQ.Peek(); $cost = if ($t -gt $first[0]) { 100 * ($cpuMs - $first[1]) / 1000 / ($t - $first[0]) } else { $null }
+
+    $json = '{"ok":true,"v":1,"at":' + (S $now.ToString('yyyy-MM-dd HH:mm:ss', $inv)) + ',"t":' + (N $t 1) + ',"every_s":' + ($Every * $DetailEvery) + ',"pid":' + $PID +
+        ',"native":' + $(if ($native) { 'true' } else { 'false' }) + ',"verdict":' + $verdict + ',"verdict_age_s":' + (N $vAge 0) +
+        ',"health":' + (S $health) + ',"health_age_s":' + (N $hAge 0) + ',"procs":' + $procs + ',"runs":[' + ($runs -join ',') + '],"mem":' + $mem +
+        ',"heat":{"every_s":' + $Every + ',"temps":[' + ($script:tempsS -join ',') + '],"now":' + (N $L.cpu_c 1) + ',"peak":' + (N $peak 1) +
+        ',"peak_ago_s":' + (N $peakAgo 0) + ',"held":' + $held + ',"gov":' + (S $script:govLine) + '}' +
+        ',"folders":' + $script:foldersJson + ',"folders_running":' + $(if ($native -and [FcPc.Folders]::Running) { 'true' } else { 'false' }) +
+        ',"cost_pct":' + (N $cost 2) + '}'
+    try {
+        [IO.File]::WriteAllText($detailTmp, $json, $utf8)
+        if ([IO.File]::Exists($detailFile)) { [IO.File]::Replace($detailTmp, $detailFile, [NullString]::Value) } else { [IO.File]::Move($detailTmp, $detailFile) }
+    } catch { try { [IO.File]::Copy($detailTmp, $detailFile, $true) } catch { LogErr "detail write: $($_.Exception.Message)" } }
 }
 
 Log "start pid=$PID every=${Every}s keep=$Keep"
@@ -209,7 +350,11 @@ while ($true) {
     # since (a new Godot, a render) are counted. Still one process; the re-expansion costs ~0.3 s once a minute.
     try {
         Get-Counter -Counter $paths -SampleInterval $Every -MaxSamples 30 -ErrorAction SilentlyContinue |
-            ForEach-Object { try { Write-Sample $_ } catch { LogErr "sample: $($_.Exception.Message)" } }
+            ForEach-Object {
+                try { Write-Sample $_ } catch { LogErr "sample: $($_.Exception.Message)" }
+                $script:nSample++
+                if ($script:nSample % $DetailEvery -eq 0) { try { Write-Detail } catch { LogErr "detail: $($_.Exception.Message)" } }
+            }
     } catch { LogErr "counter: $($_.Exception.Message)"; Start-Sleep -Seconds $Every }
     $cycle++
     $Error.Clear(); [GC]::Collect()   # vanished-instance errors pile up in $Error; keep the resident set flat

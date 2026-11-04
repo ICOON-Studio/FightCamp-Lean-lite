@@ -43,6 +43,9 @@ ALLOWED = ("scripts/rules/", "tests/", "ops/research/")
 TRAILER = "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 
 
+PASSING = ("SUCCESS", "SKIPPED", "NEUTRAL")  # check conclusions that pass (S380)
+
+
 def _run(*args: str, check: bool = True) -> str:
     ## S368: from the repo root - `git add -- scripts/x.gd` from ops/ would name ops/scripts/x.gd
     return subprocess.run(args, cwd=GAME, check=check, capture_output=True, text=True, encoding="utf-8").stdout
@@ -73,7 +76,8 @@ def eligibility(info: dict, any_state: bool = False) -> list[str]:
         why.append("no CI check ran on the PR")
     for c in checks:
         state = c.get("conclusion") or c.get("state") or ""
-        if state.upper() != "SUCCESS":
+        ## S380: a job skipped by its `if:` (fight-stills' stills, off unless asked) passes, as it does for GitHub's own checks
+        if state.upper() not in PASSING:
             why.append(f"CI check {c.get('name') or c.get('context')}: {state or c.get('status')}")
     base = _run("git", "merge-base", "origin/main", head).strip()
     if ci_arena.guard_for(base, head, prefix="GUARD ") != 0:

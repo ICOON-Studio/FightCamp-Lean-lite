@@ -86,6 +86,12 @@ ROADMAP_PAGE = ROOT / "Tools" / "opsboard" / "roadmap.html"
 PC_PAGE = ROOT / "Tools" / "opsboard" / "pc.html"
 PC_METRICS_JS = ROOT / "Tools" / "opsboard" / "pc_metrics.js"
 PC_METRICS_PATH = ROOT / "AgentComms" / "pc_metrics.json"
+## S379 (operator: "you have way more info on metrics for the pc live"): the /pc page's lower half - the watchdog's verdict, what
+## is using the PC (each process named), agents and jobs, memory + page file, the biggest folders, 10 min of heat - from the same
+## sampler's AgentComms/pc_detail.json (rewritten every 6 s by pc_metrics.ps1 Write-Detail). /api/pc_detail serves it as it is;
+## pc_detail.js draws it on /pc. Nothing here measures: a page load costs one file read.
+PC_DETAIL_JS = ROOT / "Tools" / "opsboard" / "pc_detail.js"
+PC_DETAIL_PATH = ROOT / "AgentComms" / "pc_detail.json"
 MEDIA_ROOT = (ROOT / "previews").resolve()
 MEDIA_TYPES = {".mp4": "video/mp4", ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg"}
 
@@ -873,25 +879,33 @@ def pc_cores() -> dict:
     return out
 
 
-def pc_metrics() -> dict:
-    """The sampler's file as it is, plus how old its latest sample is. A read that lands mid-replace retries."""
+def _sampler_file(path: Path, stale_s: float) -> dict:
+    """A PC Metrics sampler file as it is, plus how old it is. A read that lands mid-replace retries."""
     import time
-    if not PC_METRICS_PATH.is_file():
-        return {"ok": False, "why": "no pc_metrics.json - is the scheduled task 'FightCamp PC Metrics' running?"}
+    if not path.is_file():
+        return {"ok": False, "why": "no %s - is the scheduled task 'FightCamp PC Metrics' running?" % path.name}
     data = None
     for attempt in range(3):
         try:
-            data = json.loads(PC_METRICS_PATH.read_bytes().decode("utf-8-sig"))
+            data = json.loads(path.read_bytes().decode("utf-8-sig"))
             break
         except (OSError, ValueError):
             time.sleep(0.05)
     if not isinstance(data, dict):
-        return {"ok": False, "why": "pc_metrics.json unreadable right now"}
+        return {"ok": False, "why": "%s unreadable right now" % path.name}
     data["age_s"] = round(time.time() - float(data.get("t") or 0), 1)
-    if data["age_s"] > 15:
+    if data["age_s"] > stale_s:
         data["ok"] = False
         data["why"] = "the sampler stopped writing %.0f s ago - restart the task 'FightCamp PC Metrics'" % data["age_s"]
     return data
+
+
+def pc_metrics() -> dict:
+    return _sampler_file(PC_METRICS_PATH, 15)
+
+
+def pc_detail() -> dict:
+    return _sampler_file(PC_DETAIL_PATH, 30)
 
 
 def pc_live() -> dict:
@@ -2264,6 +2278,15 @@ class Handler(BaseHTTPRequestHandler):
             return
         if path == "/api/pc_metrics":
             body = json.dumps(pc_metrics(), ensure_ascii=False, separators=(",", ":")).encode("utf-8")
+            self._send(200, body, "application/json; charset=utf-8")
+            return
+        if path == "/pc_detail.js":
+            ok = PC_DETAIL_JS.is_file()
+            self._send(200 if ok else 404, PC_DETAIL_JS.read_bytes() if ok else b"// pc_detail.js missing",
+                       "text/javascript; charset=utf-8")
+            return
+        if path == "/api/pc_detail":
+            body = json.dumps(pc_detail(), ensure_ascii=False, separators=(",", ":")).encode("utf-8")
             self._send(200, body, "application/json; charset=utf-8")
             return
         if path in ("/agents", "/agents.html"):
