@@ -147,7 +147,7 @@ func _build_top(main: Node) -> void:
 		pill.position = Vector2(56, 9)
 	mail.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	h.add_child(mail)
-	var gear := UI.button("Gear", "Ghost", _open_gear)
+	var gear := UI.button("Menu", "Ghost", _open_gear)   # S381 operator on "Gear": "???" - it is save/load/settings, not boxing gear
 	gear.name = "Gear"
 	gear.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	h.add_child(gear)
