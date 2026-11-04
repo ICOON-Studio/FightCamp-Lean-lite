@@ -27,8 +27,17 @@ OPERATOR DECISIONS S382:
 DO IN ORDER:
 1. Collect claude/training1 (round 2: evenings follow the strip = REST is rest in the sim + balance numbers; PLANTRAY1
    camp tray 'THE PLAN vs Maria' + UNDRILLED x0.8; click-through film; skeptic). Look at r2_*.png + eyes the film, merge.
-2. Collect claude/defflow1 (A1 sim matched defences, A2 3D DefFire/DefPose timed to contact, B FLOW; prove films
-   final_*.mp4 measured like the short; skeptic). Eyes yourself on the ropes film, merge when it passes.
+2. claude/defflow1 09a25dcc (DONE building, NOT merged; suite 151/151 with main merged): A1 sim is solid (who lands
+   unchanged over 200 seeds, 0 rule breaks in 2000 picks, def 85 picks a good answer 94.5%, 5+ kinds in 42/50 exchanges,
+   win shares move <= 0.01), A2 3D + B FLOW built. SKEPTIC REFUTED the video (final_ropes.mp4, final_career_r1.mp4):
+   (a) feet travel on the ropes 0.11-0.51 m - from his own punch/hit clips playing under the defence + the probe's
+   soft hold dragging the pair (no presser walks him down); (b) bodies inside bodies at ropes 44.5-44.8, career 26.6;
+   (c) roll->block shows the glove on top of the head while he jabs (29.2); (d) a jab answered by a near-kneeling squat
+   (career 17.6-17.9) - jabs need 0-1 head width; (e) slip peaks 0.27 s early (40.76); (f) FLOW never triggered on any
+   film/seed - cue + replay unproven; (g) a habit caption on screen ('...made Lucy pay for a habit: slow starter') =
+   flavour text (pre-existing caption system - check it). Fix round DEFFLOW2: plant feet under defence windows on the
+   ropes (lock FootPlant while a defence plays), GloveClear/head gap during duck_in/smother, size the duck by punch
+   (jab -> parry/slip only), a FLOW film seed that triggers it, then eyes + skeptic; merge.
 3. movepics1 round 2 (39 rejected cards) -> merge -> the hover card + training tray get the ink art.
 4. Playbook one-page build from PLAYBOOK_SPEC_S381 (10 stages; GamePlan.gd 550 lines gets deleted).
 5. Boxmap: park unless the operator says one more round. Theatre-ground (C223 float) still unfinished.
