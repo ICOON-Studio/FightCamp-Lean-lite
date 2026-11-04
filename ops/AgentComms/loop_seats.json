@@ -1,1 +1,5 @@
-{"_doc": "S376: the seat each judged loop runs its NEXT round on (seat_dispatch.loop_next); absent = the same seat as the round before.", "FIGHT9": "agy"}
+{
+ "_doc": "S376: the seat each judged loop runs its NEXT round on (seat_dispatch.loop_next); absent = the same seat as the round before. S383: BJJ9 -> cursor while agy has only Flash (Argon/Opus/Sonnet 429).",
+ "FIGHT9": "agy",
+ "BJJ9": "cursor"
+}
