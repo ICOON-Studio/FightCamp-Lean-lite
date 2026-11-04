@@ -9,6 +9,9 @@ const Drift := preload("res://tools/orbit_drift.gd")   # S379 operator: "the cam
 ## every frame after the clip so the board's previews show the knees as the fight plays them (S370 TASK_KNEETRACK1).
 ##   python tools/hidden_desktop.py run --timeout=3600 <godot.exe> --path . --windowed --resolution 960x540 \
 ##       --script res://tools/clip_orbit.gd -- out=<dir> ids=<a,b,...> [glb=mh_boxer_10]
+## S381 res=<a.res,b.res,...>: baked clips not wired into FightClips (tools/owned_mocap_bake.gd output) are added as their
+## file stem, hips as an offset from this body's rest and their floor travel KEPT (the grid then shows any foot slide).
+## S383 t0=<s> max_s=<s>: film a window of each clip (from t0, at most max_s seconds) - a long take's best 40 s.
 
 const Stage := preload("res://scripts/fight3d/FightStage.gd")
 const KneeTrack := preload("res://scripts/fight3d/KneeTrack.gd")
@@ -42,6 +45,9 @@ var out_dir := "user://clip_orbit"
 func _initialize() -> void:
 	var ids: Array = []
 	var who := "mh_boxer_10"
+	var extra: Array = []
+	var t0 := 0.0
+	var max_s := INF
 	for a in OS.get_cmdline_user_args():
 		var s := str(a)
 		if s.begins_with("out="):
@@ -50,6 +56,12 @@ func _initialize() -> void:
 			ids = Array(s.substr(4).split(",", false))
 		elif s.begins_with("glb="):
 			who = s.substr(4)
+		elif s.begins_with("res="):
+			extra = Array(s.substr(4).split(",", false))
+		elif s.begins_with("t0="):
+			t0 = float(s.substr(3))
+		elif s.begins_with("max_s="):
+			max_s = float(s.substr(6))
 	var stage: Node3D = Stage.new()
 	root.add_child(stage)
 	await process_frame
@@ -68,6 +80,9 @@ func _initialize() -> void:
 	var cam: Camera3D = stage.camera
 	cam.set_process(false)
 	cam.fov = 45.0
+	for p in extra:
+		_add_res(ap, skel, str(p))
+		ids.append(str(p).get_file().get_basename())
 	var done := 0
 	for id in ids:
 		var name := str(id)
@@ -76,7 +91,8 @@ func _initialize() -> void:
 			continue
 		var dir := out_dir.path_join(name)
 		DirAccess.make_dir_recursive_absolute(dir)
-		var length: float = ap.get_animation(name).length
+		var start := minf(t0, ap.get_animation(name).length)
+		var length: float = minf(ap.get_animation(name).length - start, max_s)
 		var cycle := length + TAIL_S
 		var total := maxf(MIN_S, cycle)
 		var frames := int(ceil(total * FPS))
@@ -84,7 +100,7 @@ func _initialize() -> void:
 		for f in frames:
 			var t := float(f) / FPS
 			var in_cycle := fmod(t, cycle)
-			Stage.IdleMatch.freeze(bx, name, minf(in_cycle, length))
+			Stage.IdleMatch.freeze(bx, name, start + minf(in_cycle, length))
 			KneeTrack.align(skel, 1.0)
 			var c: Vector3 = (skel.global_transform * skel.get_bone_global_pose(hips)).origin
 			c.y = 1.0
@@ -93,9 +109,23 @@ func _initialize() -> void:
 			await RenderingServer.frame_post_draw
 			root.get_texture().get_image().save_jpg(dir.path_join("f%04d.jpg" % f), 0.88)
 		done += 1
-		print("ORBIT %s %.2fs %d frames" % [name, length, frames])
+		print("ORBIT %s %.2f-%.2fs %d frames" % [name, start, start + length, frames])
 	print("ORBIT DONE %d/%d" % [done, ids.size()])
 	quit(0)
+
+
+## A baked clip from a file, as FightClips._add_baked adds it but with its floor travel kept.
+static func _add_res(ap: AnimationPlayer, skel: Skeleton3D, path: String) -> void:
+	var anim := (load(path) as Animation).duplicate(true) as Animation
+	var any := ap.get_animation(ap.get_animation_list()[0])
+	var prefix := str(any.track_get_path(0)).get_slice(":", 0)
+	var rest := skel.get_bone_rest(skel.find_bone("Hips")).origin
+	for t in anim.get_track_count():
+		anim.track_set_path(t, NodePath("%s:%s" % [prefix, str(anim.track_get_path(t))]))
+		if anim.track_get_type(t) == Animation.TYPE_POSITION_3D:
+			for k in anim.track_get_key_count(t):
+				anim.track_set_key_value(t, k, rest + (anim.track_get_key_value(t, k) as Vector3))
+	ap.get_animation_library("").add_animation(path.get_file().get_basename(), anim)
 
 
 ## A studio: grey grid floor, plain backdrop, three-point light.
