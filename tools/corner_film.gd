@@ -123,6 +123,18 @@ func _initialize() -> void:
 	quit(0 if failures == 0 else 1)
 
 
+## S380: the line lens -> target crosses the rope square (|x| or |z| = 2.75) at rope height (0.3-1.35 m: bottom to top rope
+## and their sag) - the picture shows the ropes between the camera and the boxer. A lens inside the ring never does.
+func _through_ropes(lens: Vector3, tgt: Vector3) -> bool:
+	if absf(lens.x) <= 2.75 and absf(lens.z) <= 2.75:
+		return false
+	for k in 41:
+		var p := lens.lerp(tgt, float(k) / 40.0)
+		if absf(p.x) <= 2.75 and absf(p.z) <= 2.75:   # the first point inside = where the line meets the ropes
+			return p.y > 0.3 and p.y < 1.35
+	return false
+
+
 func _find(view: Node, method: String) -> Node:
 	for c in view.get_children():
 		if c.has_method(method):
@@ -136,8 +148,20 @@ func _watch_intro(fi: Node) -> void:
 	var touch := 9.0
 	var head := [[9.0, 0.0], [9.0, 0.0]]   # per boxer: lowest / highest head height during her entry
 	var crossed := [false, false]
+	var seen := {}   # S380: intro shot -> [frames, frames whose sight line to a boxer passes THROUGH the ropes, worst lens reach past them]
 	while is_instance_valid(fi):
 		var tm := float(fi.t)
+		var lens: Vector3 = fi.stage.camera.global_position
+		var sh := str(fi._shot)
+		var row: Array = seen.get(sh, [0, 0, -9.0])
+		row[0] = int(row[0]) + 1
+		row[2] = maxf(float(row[2]), maxf(absf(lens.x), absf(lens.z)) - 2.75)
+		var thru := false
+		for i in 2:
+			for tgt in [CornerShots.bone(fi.stage.boxers[i], "Head"), CornerShots.pos(fi.stage.boxers[i]) + Vector3.UP * 0.9]:
+				thru = thru or _through_ropes(lens, tgt)
+		row[1] = int(row[1]) + int(thru)
+		seen[sh] = row
 		for i in 2:
 			var t0 := 0.0 if i == 0 else float(fi.BLUE_ENTER_S)
 			if tm > t0 + 0.2 and tm < t0 + 5.4:
@@ -162,6 +186,12 @@ func _watch_intro(fi: Node) -> void:
 		print("CORNER entry boxer %d: head %.2f -> %.2f m (ducks %.2f), crossed the ropes %s" % [i, head[i][1], head[i][0],
 			head[i][1] - head[i][0], crossed[i]])
 		_check(head[i][1] - head[i][0] > 0.15 and crossed[i], "boxer %d ducks through the ropes (head drops > 15 cm, ends inside)" % i)
+	for sh in seen:
+		var r: Array = seen[sh]
+		var share := float(r[1]) / maxf(1.0, float(r[0]))
+		print("CORNER intro lens %s: %.2f m %s the rope line, sight through the ropes %d%% of %d frames" % [sh, absf(float(r[2])),
+			"OUTSIDE" if float(r[2]) > 0.0 else "inside", int(round(share * 100.0)), int(r[0])])
+		_check(share <= 0.05, "the intro's %s shot does not look through the ropes (S347)" % sh)
 	print("CORNER intro gloves at the touch, closest %.3f m" % touch)
 	_check(touch < 0.12, "the gloves touch in the intro (< 12 cm apart)")
 

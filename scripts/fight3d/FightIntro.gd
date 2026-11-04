@@ -115,13 +115,13 @@ func _framing(shot: String) -> Dictionary:
 			var look := at + Vector3.UP * 0.95
 			return {"pos": p, "look": look, "fov": 40.0, "focus": p.distance_to(look), "drift": (e["in"] as Vector3) * 0.3}
 		"wide", "wide_out":
-			# The whole ring from high at the side, a slow push in.
-			var p := side * 7.2 + Vector3.UP * 2.7
-			return {"pos": p, "look": Vector3.UP * 0.8, "fov": 42.0, "focus": 7.0, "drift": -side * 0.9}
+			# The whole ring from high over the neutral corner, a slow crane down. S380 (operator on a still of a boxer
+			# ducking in through the ropes: "its quite clear my picture is from when the fighter enters the ring"): it stood
+			# 7.2 m out and saw the entering boxer THROUGH the ropes; now inside them (the S347 rule), as claude/fight9base.
+			return _inside_wide(side, 3.4, 0.8, Vector3.DOWN * 0.3)
 		"tape":
-			# Both in their corners, square on from the side and level, so the card sits in the gap between them.
-			var p := side * 8.4 + Vector3.UP * 1.6
-			return {"pos": p, "look": Vector3.UP * 1.1, "fov": 40.0, "focus": 8.4, "drift": -side * 0.5}
+			# Both in their corners from the neutral corner inside the ropes (was 8.4 m out), so the card sits between them.
+			return _inside_wide(side, 1.6, 1.1, -side * 0.3)
 		"red", "blue":
 			# Medium on her in her corner, low, the corner team behind her.
 			var c: Dictionary = red if shot == "red" else blue
@@ -137,6 +137,27 @@ func _framing(shot: String) -> Dictionary:
 			var look := mid + Vector3.UP * 1.25
 			return {"pos": p, "look": look, "fov": 30.0, "focus": p.distance_to(look), "drift": side * -0.15}
 	return {}
+
+
+## S380 a wide from the neutral corner on `side`, INSIDE the ropes (WIDE_IN_M in from them), `h` m up, looking at the ring's
+## middle at `look_h`: the fov opens until both corner seats fit, head to foot (16:9, +12 %), at most 70 deg.
+const WIDE_IN_M := 0.4
+
+
+func _inside_wide(side: Vector3, h: float, look_h: float, drift: Vector3) -> Dictionary:
+	var half := 2.75 - WIDE_IN_M   # FightStage.RING_M * 0.5 (no preload: FightStage builds the intro)
+	var from := Vector3(clampf(side.x * 9.0, -half, half), h, clampf(side.z * 9.0, -half, half))
+	var look := Vector3.UP * look_h
+	var need := 0.0
+	for e in [from, from + drift]:
+		var inv := Basis.looking_at(look - e, Vector3.UP).inverse()
+		for c in [crew.corner("red"), crew.corner("blue")]:
+			for y in [0.0, 1.9]:
+				var q: Vector3 = inv * (Vector3((c["seat"] as Vector3).x, y, (c["seat"] as Vector3).z) - e)
+				if -q.z > 0.1:
+					need = maxf(need, maxf(absf(q.y) / -q.z, absf(q.x) / -q.z / (16.0 / 9.0)))
+	var fov := clampf(rad_to_deg(2.0 * atan(need)) * 1.12, 30.0, 70.0)
+	return {"pos": from, "look": look, "fov": fov, "focus": from.distance_to(look), "drift": drift}
 
 
 ## Where boxer i comes in: her rope side is the one of her corner's two that faces the wide camera (red: x = -half,
