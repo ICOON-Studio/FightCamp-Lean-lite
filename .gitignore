@@ -18,6 +18,7 @@ ops/Tools/opsboard/dist/
 ops/Tools/opsboard/build/
 # machine state the watchdog / 30-min reconcile rewrite (never commit: it dirtied every checkout and conflicts across branches)
 ops/AgentComms/pc_health.txt
+ops/AgentComms/pc_metrics.json
 ops/AgentComms/board_reconcile.json
 ops/AgentComms/collect_ready.json
 ops/AgentComms/last_suite.json

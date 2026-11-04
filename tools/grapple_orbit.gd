@@ -1,4 +1,5 @@
 extends SceneTree
+const Drift := preload("res://tools/orbit_drift.gd")   # S379 operator: "the camera spins too fast ... got me dizzy"
 ## S379 the board's Grappling animations page (operator: "i want to see the progress on animations on board, make a new
 ## one for the grappling animations"): each GrappleMap move the belt match plays, PURE - the recorded data on our two
 ## women and nothing laid on top: main's S335 GrapplePlayer (Catmull-Rom between the data's keyframes, GrappleTiming's
@@ -40,6 +41,7 @@ const MAX_S := 9.0
 const PLAY_MAX_S := 6.0
 ## The camera fits the move: far enough that the pair's widest reach over the move and its tallest point stay in frame.
 const RADIUS_MIN := 2.1
+const FOLLOW_S := 0.6   # S379: the camera eases after the pair's centre with this lag (a travelling move stays framed)
 const FIT_MARGIN := 1.5
 const ELEVATION_DEG := 24.0
 const V_MIN := 0.0005
@@ -138,6 +140,8 @@ func _initialize() -> void:
 		var fit := _fit(player, length)
 		var look: Vector3 = fit[0]
 		var radius: float = fit[1]
+		var core := DB.joint("Core")
+		var follow := look
 		var dir := out_dir.path_join(str(idx))
 		DirAccess.make_dir_recursive_absolute(dir)
 		var tracks: Array = []   # per woman, per TRACK bone: an Array of Vector3 over the measured frames (Arrays, not
@@ -154,10 +158,13 @@ func _initialize() -> void:
 		for f in frames:
 			var t := minf(float(f) / FPS * speed, length)
 			player.seek(t)
-			var ang := deg_to_rad(35.0) + TAU * float(f) / float(frames)
+			var ang := deg_to_rad(35.0) + Drift.angle(f, frames, FPS)
 			var flat := radius * cos(deg_to_rad(ELEVATION_DEG))
-			cam.look_at_from_position(look + Vector3(sin(ang) * flat, radius * sin(deg_to_rad(ELEVATION_DEG)), cos(ang) * flat),
-				look, Vector3.UP)
+			var js_now: Array = player.joints_at(t)
+			var c_now: Vector3 = ((js_now[0] as PackedVector3Array)[core] + (js_now[1] as PackedVector3Array)[core]) * 0.5
+			follow = Vector3(c_now.x, look.y, c_now.z) if f == 0 else follow.lerp(Vector3(c_now.x, look.y, c_now.z), 1.0 - exp(-1.0 / (FPS * FOLLOW_S)))
+			cam.look_at_from_position(follow + Vector3(sin(ang) * flat, radius * sin(deg_to_rad(ELEVATION_DEG)), cos(ang) * flat),
+				follow, Vector3.UP)
 			await RenderingServer.frame_post_draw
 			vp.get_texture().get_image().save_jpg(dir.path_join("f%04d.jpg" % f), 0.88)
 			if f < measured:
@@ -208,9 +215,12 @@ func _fit(player: Node, length: float) -> Array:
 	var reach := 0.0
 	var top := 0.0
 	for js in samples:
+		# S379: the camera follows the pair (see FOLLOW_S), so the frame only has to hold the pair's own spread at each
+		# moment, not the whole path a travelling move covers (the pair shrank into the distance on takedowns)
+		var cs: Vector3 = ((js[0] as PackedVector3Array)[core] + (js[1] as PackedVector3Array)[core]) * 0.5
 		for w in 2:
 			for p in (js[w] as PackedVector3Array):
-				reach = maxf(reach, Vector2(p.x - c.x, p.z - c.z).length())
+				reach = maxf(reach, Vector2(p.x - cs.x, p.z - cs.z).length())
 				top = maxf(top, p.y)
 	var look := Vector3(c.x, clampf(top * 0.45, 0.25, 0.9), c.z)
 	var radius := maxf(RADIUS_MIN, FIT_MARGIN * maxf(reach / tan(deg_to_rad(36.0)), (top * 0.5 + 0.15) / tan(deg_to_rad(22.5))))

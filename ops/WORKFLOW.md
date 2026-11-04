@@ -22,6 +22,10 @@ Where this page and older text disagree, this page wins. Order (S218, operator P
 ## 4. Safety (PC, processes, disk)
 - PC LIMITS (operator 2026-10-02): CPU temperature never above 84 C (raised from 80 the same day: "you can go upt to 84C"); CPU load low enough that he can use the PC. The
   watchdog goes RED at 84 C HELD 2 MIN or 88 C at once (operator S249: "RED at 84 C only when held 2 minutes, instant stop at 88 C", to let more work run), 80% CPU or commit < 4 GB (amber 74 C / 60%); live meters on the ops board top strip (/api/pc).
+- PC LIVE (S379, operator: "can i have this metrics on board"): Task Manager's CPU / memory / each disk / network / GPU tiles with a
+  2-min trail at the top of the board and on /pc (/api/pc_metrics), from `ops/Tools/pc_metrics.ps1` - scheduled task
+  "FightCamp PC Metrics", one hidden Get-Counter loop (~1% of one core), git-ignored `ops/AgentComms/pc_metrics.json`. Colours = the
+  watchdog's lines; the watchdog stays the gate. Edited the sampler? Stop its powershell PID (Stop-ScheduledTask leaves it), then Start-ScheduledTask.
 - Before ANY heavy job (Godot test/suite, render, agent launch, big download, model install):
   `powershell -NoProfile -ExecutionPolicy Bypass -File ops\Tools\pc_watchdog.ps1 -Once` - exit 1 (RED) means do not start;
   tell the operator what is RED and what to close. Never scan a whole drive.

@@ -77,10 +77,14 @@ table.waitt td{border-left:4px solid var(--wait)}
 </style>
 </head>
 <body>
-<nav class="fcnav"><b>FIGHTCAMP</b><a href="/" data-p="/">Roadmap</a><a href="/review" data-p="/review">Stills &amp; videos</a><a href="/agents" data-p="/agents">Agents live</a><a href="/animations" data-p="/animations">Boxer animations</a><a href="/grappling" data-p="/grappling">Grappling animations</a><a href="/old" data-p="/old">Old detailed board</a><a href="http://127.0.0.1:4101/" title="Model router live: every Claude session (desktop via the model-router mod)">Model router</a></nav>
+<nav class="fcnav"><b>FIGHTCAMP</b><a href="/" data-p="/">Roadmap</a><a href="/pc" data-p="/pc">PC live</a><a href="/review" data-p="/review">Stills &amp; videos</a><a href="/agents" data-p="/agents">Agents live</a><a href="/animations" data-p="/animations">Boxer animations</a><a href="/grappling" data-p="/grappling">Grappling animations</a><a href="/old" data-p="/old">Old detailed board</a><a href="http://127.0.0.1:4101/" title="Model router live: every Claude session (desktop via the model-router mod)">Model router</a></nav>
 <script>document.querySelectorAll('.fcnav a').forEach(a=>{if(a.dataset.p===location.pathname.replace(/\.html$/,'')||(a.dataset.p==='/'&&location.pathname==='/index.html'))a.classList.add('cur')})</script>
 
 <main>
+<!-- S379 operator (Task Manager screenshot): "can i have this metrics on board" - CPU, memory, each disk, network, GPU live
+     every 2 s with a 2-min trail; tiles drawn by /pc_metrics.js from /api/pc_metrics (Tools/pc_metrics.ps1). Full page: /pc -->
+<section class="pcm" id="pcMetrics" data-compact="1"><div class="meta">Reading the PC…</div></section>
+<script src="/pc_metrics.js"></script>
 <div class="top">
   <div><h1>FightCamp roadmap</h1><p class="goal" id="goal">Loading…</p></div>
   <div><div class="pc" id="pc">Reading the PC…</div><div class="pc" id="gh" style="margin-top:4px">Reading GitHub Actions…</div><div class="pc" id="gem" style="margin-top:4px">Reading Gemini…</div></div>

@@ -1,4 +1,5 @@
 extends SceneTree
+const Drift := preload("res://tools/orbit_drift.gd")   # S379 operator: "the camera spins too fast ... got me dizzy"
 ## S365 the board's Boxer animations page (operator: "can you update the boxer animations, to see what we have ingame"): each
 ## clip the fight can pick (Game/Tools/lean_anim_catalogue.py --ids) on the game's own boxer - the fight's body, gloves and
 ## kit, the clip as FightClips loads it - alone on a grey grid floor (the grid shows foot slide), a camera circling once
@@ -87,7 +88,7 @@ func _initialize() -> void:
 			KneeTrack.align(skel, 1.0)
 			var c: Vector3 = (skel.global_transform * skel.get_bone_global_pose(hips)).origin
 			c.y = 1.0
-			var ang := face + PI * 0.5 + TAU * float(f) / float(frames)
+			var ang := face + PI * 0.5 + Drift.angle(f, frames, 30.0)
 			cam.look_at_from_position(Vector3(c.x + sin(ang) * RADIUS, HEIGHT, c.z + cos(ang) * RADIUS), c, Vector3.UP)
 			await RenderingServer.frame_post_draw
 			root.get_texture().get_image().save_jpg(dir.path_join("f%04d.jpg" % f), 0.88)

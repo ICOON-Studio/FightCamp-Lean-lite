@@ -80,6 +80,12 @@ GRAPPLE_PAGE = ROOT / "Tools" / "opsboard" / "grappling.html"
 ## roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running").
 ## It reads roadmap.json `plan` + live_runs.json; the old detailed board stays at /old.
 ROADMAP_PAGE = ROOT / "Tools" / "opsboard" / "roadmap.html"
+## S379 live PC metrics (operator, with a Task Manager screenshot: "can i have this metrics on board"): Tools/pc_metrics.ps1
+## (scheduled task "FightCamp PC Metrics", one hidden Get-Counter loop) rewrites AgentComms/pc_metrics.json every 2 s with
+## the latest sample + 2 min of history. /api/pc_metrics serves it, pc_metrics.js draws the tiles on / and on /pc.
+PC_PAGE = ROOT / "Tools" / "opsboard" / "pc.html"
+PC_METRICS_JS = ROOT / "Tools" / "opsboard" / "pc_metrics.js"
+PC_METRICS_PATH = ROOT / "AgentComms" / "pc_metrics.json"
 MEDIA_ROOT = (ROOT / "previews").resolve()
 MEDIA_TYPES = {".mp4": "video/mp4", ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg"}
 
@@ -865,6 +871,27 @@ def pc_cores() -> dict:
     out["threads"] = [threads[k] for k in sorted(threads)]
     out["cores"] = [{"core": k, "w": power.get(k), "eff_mhz": eff.get(k)} for k in sorted(set(power) | set(eff))]
     return out
+
+
+def pc_metrics() -> dict:
+    """The sampler's file as it is, plus how old its latest sample is. A read that lands mid-replace retries."""
+    import time
+    if not PC_METRICS_PATH.is_file():
+        return {"ok": False, "why": "no pc_metrics.json - is the scheduled task 'FightCamp PC Metrics' running?"}
+    data = None
+    for attempt in range(3):
+        try:
+            data = json.loads(PC_METRICS_PATH.read_bytes().decode("utf-8-sig"))
+            break
+        except (OSError, ValueError):
+            time.sleep(0.05)
+    if not isinstance(data, dict):
+        return {"ok": False, "why": "pc_metrics.json unreadable right now"}
+    data["age_s"] = round(time.time() - float(data.get("t") or 0), 1)
+    if data["age_s"] > 15:
+        data["ok"] = False
+        data["why"] = "the sampler stopped writing %.0f s ago - restart the task 'FightCamp PC Metrics'" % data["age_s"]
+    return data
 
 
 def pc_live() -> dict:
@@ -2225,6 +2252,19 @@ class Handler(BaseHTTPRequestHandler):
                                      "folders": media_review.preview_folders(MEDIA_ROOT)})
             except Exception as exc:
                 self._json(500, {"error": str(exc), "trace": traceback.format_exc()})
+            return
+        if path in ("/pc", "/pc.html"):
+            ok = PC_PAGE.is_file()
+            self._send(200 if ok else 500, PC_PAGE.read_bytes() if ok else b"pc.html missing", "text/html; charset=utf-8")
+            return
+        if path == "/pc_metrics.js":
+            ok = PC_METRICS_JS.is_file()
+            self._send(200 if ok else 404, PC_METRICS_JS.read_bytes() if ok else b"// pc_metrics.js missing",
+                       "text/javascript; charset=utf-8")
+            return
+        if path == "/api/pc_metrics":
+            body = json.dumps(pc_metrics(), ensure_ascii=False, separators=(",", ":")).encode("utf-8")
+            self._send(200, body, "application/json; charset=utf-8")
             return
         if path in ("/agents", "/agents.html"):
             if not AGENTS_PAGE.is_file():
