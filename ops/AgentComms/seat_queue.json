@@ -400,6 +400,17 @@
    "answer": "research/J_BJJDUES1_JOHN.md",
    "chars": 4355,
    "seen_by_claude": true
+  },
+  {
+   "id": "SQ28",
+   "seat": "john",
+   "brief": "research/SOUND1_SEAT_JOHN.md",
+   "stem": "SOUND1_SEAT_JOHN_JOHN",
+   "status": "queued",
+   "queued_at": "2026-11-05 19:49",
+   "tries": 0,
+   "skips": 10,
+   "last_error": "2026-11-06 00:40 gbot send rc=1: ['GROKBOT FAIL sendPrompt 502  {\"error\":\"A Sand box session is not permitted on this endpoint.\"}']"
   }
  ]
 }

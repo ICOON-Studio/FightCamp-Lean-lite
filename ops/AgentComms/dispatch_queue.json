@@ -231,16 +231,33 @@
   {
    "task": "FIGHT9R15",
    "seat": "agy",
-   "status": "queued",
+   "status": "launched",
    "queued": "2026-11-05T20:25",
-   "loop": "FIGHT9"
+   "loop": "FIGHT9",
+   "launched": "2026-11-05T22:11"
   },
   {
    "task": "SOUND1R2",
    "seat": "qwen",
-   "status": "queued",
+   "status": "launched",
    "queued": "2026-11-05T21:26",
-   "note": "S386: round 1 rework - Ludo not synthetic, restore 13 round-0 rows + crowd loop"
+   "note": "S386: round 1 rework - Ludo not synthetic, restore 13 round-0 rows + crowd loop",
+   "launched": "2026-11-05T23:11"
+  },
+  {
+   "task": "BJJ9R18",
+   "seat": "cursor",
+   "status": "queued",
+   "queued": "2026-11-05T21:32",
+   "loop": "BJJ9"
+  },
+  {
+   "task": "FIGHT9R16",
+   "seat": "agy",
+   "status": "launched",
+   "queued": "2026-11-05T22:59",
+   "loop": "FIGHT9",
+   "launched": "2026-11-06T00:11"
   }
  ]
 }

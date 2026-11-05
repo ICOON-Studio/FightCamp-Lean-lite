@@ -280,6 +280,33 @@
     "after": {},
     "board": ""
    }
+  },
+  "FIGHT9R16": {
+   "agent": "antigravity",
+   "id": "FIGHT9R16",
+   "title": "TASK FIGHT9R16 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
+   "status": "running",
+   "started": "2026-11-06T00:11",
+   "eta": "2026-11-06T01:36",
+   "branch": "agy/fight9r16",
+   "worktree": "E:/FightCamp/wt/LEAN_FIGHT9R16",
+   "wt": "E:/FightCamp/wt/LEAN_FIGHT9R16",
+   "brief": "ops/research/TASK_FIGHT9R16.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/FIGHT9R16_dispatch_out.txt",
+   "match": "seat_dispatch.py run fight9r16",
+   "model": "gemini-4-argon-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/FIGHT9R16_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/FIGHT9R16_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/FIGHT9R16_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 304,
+    "seat_pid": 28264
+   },
+   "note": "S368 seat_dispatch: launched unattended (dispatch_queue.json); merging stays off"
   }
  },
  "codex_budget": {

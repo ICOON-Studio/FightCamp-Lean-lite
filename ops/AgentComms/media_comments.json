@@ -1733,7 +1733,8 @@
       "text": "check how real ifght cmap woul fit in our design",
       "at": "2026-11-04T09:10:14Z",
       "seen_by_claude": true,
-      "id": "C229"
+      "id": "C229",
+      "addressed": "cited by f83537b0 2026-11-04"
     },
     {
       "path": "_sent/2026-11-04_1132_boxing_combo_in_the_grapplemap_engine_1_/boxmap_orbit.mp4",
@@ -1754,14 +1755,31 @@
       "path": "media:_sent/2026-11-04_1124_c229_a_real_amateur_camp_in_our_fight_ca/camp_mockup.png",
       "text": "MARKUP: 1 marks -> Feedback/2026-11-04-02/README.md",
       "at": "2026-11-04T09:37:22Z",
-      "seen_by_claude": false
+      "seen_by_claude": true
     },
     {
       "id": "C233",
       "path": "media:_sent/2026-11-04_1124_c229_a_real_amateur_camp_in_our_fight_ca/camp_mockup.png",
       "text": "MARKUP: 1 marks -> Feedback/2026-11-04-03/README.md",
       "at": "2026-11-04T09:37:37Z",
-      "seen_by_claude": false
+      "seen_by_claude": true
+    },
+    {
+      "path": "_sent/2026-11-05_1945_sound_board_round_0_13_fight_sounds_unhe/sound_reel.mp4",
+      "text": "1,3,4,6,7,8,9,10 are ok , rest trash",
+      "at": "2026-11-05T19:19:01Z",
+      "seen_by_claude": true,
+      "at_s": 29.4,
+      "id": "C234",
+      "addressed": "cited by d77fea7c 2026-11-05"
+    },
+    {
+      "path": "_sent/2026-11-05_0346_bjj9r16_before_after_argon_10_10_your_vi/after.mp4",
+      "text": "pretty good i would give it 7.5",
+      "at": "2026-11-05T19:21:34Z",
+      "seen_by_claude": true,
+      "id": "C235",
+      "addressed": "cited by d77fea7c 2026-11-05"
     }
   ]
 }
